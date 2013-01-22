@@ -1,5 +1,4 @@
 define([
-	"./_base/module",
 	"./infrastructure-module",
 
 	"./general-module",

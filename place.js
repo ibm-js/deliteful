@@ -371,10 +371,6 @@ define([
 						push(ltr ? "TL" : "TR", ltr ? "BL" : "BR");
 						push(ltr ? "TR" : "TL", ltr ? "BR" : "BL");
 						break;
-					default:
-						// To assist dijit/_base/place, accept arguments of type {aroundCorner: "BL", corner: "TL"}.
-						// Not meant to be used directly.  Remove for 2.0.
-						push(pos.aroundCorner, pos.corner);
 				}
 			});
 
