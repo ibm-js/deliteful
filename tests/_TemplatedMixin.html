@@ -22,7 +22,7 @@
 			// Template with no variables (should be cached as a DOM tree)
 			declare("SimpleTemplate", [_WidgetBase, _TemplatedMixin], {
 				id: "test1",
-				_setIdAttr: null, // override _Widget to not copy id to domNode
+				_setIdAttr: null, // override _WidgetBase to not copy id to domNode
 
 				templateString: "<button type='button'><span>hello &lt; world</span></button>"
 			});
@@ -30,7 +30,7 @@
 			// Template with variables
 			declare("VariableTemplate", [_WidgetBase, _TemplatedMixin], {
 				id: "test2",
-				_setIdAttr: null, // override _Widget to not copy id to domNode
+				_setIdAttr: null, // override _WidgetBase to not copy id to domNode
 
 				num: 5,
 				bool: false,
@@ -49,7 +49,7 @@
 			// Template that starts with special node (has to be constructed inside a <tbody>)
 			declare("TableRowTemplate", [_WidgetBase, _TemplatedMixin], {
 				id: "test3",
-				_setIdAttr: null, // override _Widget to not copy id to domNode
+				_setIdAttr: null, // override _WidgetBase to not copy id to domNode
 				text: "bar",
 
 				templateString: "<tr><td>${text}</td></tr>"

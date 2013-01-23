@@ -20,7 +20,6 @@ define(["doh/main", "require"], function(doh, require){
 	doh.register("_AttachMixin", require.toUrl("./_AttachMixin.html"), 999999);
 	doh.register("_TemplatedMixin", require.toUrl("./_TemplatedMixin.html"), 999999);
 	doh.register("_WidgetsInTemplateMixin", require.toUrl("./_WidgetsInTemplateMixin.html"), 999999);
-	doh.register("_Templated-widgetsInTemplate1.x", require.toUrl("./_Templated-widgetsInTemplate1.x.html"), 999999);
 	doh.register("_Container", require.toUrl("./_Container.html"), 999999);
 	doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999);
 	doh.register("_HasDropDown", require.toUrl("./_HasDropDown.html"), 999999);
