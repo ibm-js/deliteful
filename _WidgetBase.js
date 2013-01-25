@@ -3,7 +3,6 @@ define([
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
 	"dojo/_base/config", // config.blankGif
-	"dojo/_base/connect", // connect.connect
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.byId
 	"dojo/dom-attr", // domAttr.set domAttr.remove
@@ -15,34 +14,21 @@ define([
 	"dojo/_base/kernel",
 	"dojo/_base/lang", // mixin(), isArray(), etc.
 	"dojo/on",
-	"dojo/ready",
 	"dojo/Stateful", // Stateful
-	"dojo/topic",
 	"dojo/_base/window", // win.body()
 	"./Destroyable",
 	"dojo/has!dojo-bidi?./_BidiMixin",
 	"./registry"    // registry.getUniqueId(), registry.findWidgets()
-], function(require, array, aspect, config, connect, declare,
+], function(require, array, aspect, config, declare,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
-			lang, on, ready, Stateful, topic, win, Destroyable, _BidiMixin, registry){
+			lang, on, Stateful, win, Destroyable, _BidiMixin, registry){
 
 	// module:
 	//		dijit/_WidgetBase
 
-	// Flag to make dijit load modules the app didn't explicitly request, for backwards compatibility
-	has.add("dijit-legacy-requires", !kernel.isAsync);
-
 	// Flag to enable support for textdir attribute
 	has.add("dojo-bidi", false);
 
-
-	// For back-compat, remove in 2.0.
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/_base/manager"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
 
 	// Nested hash listing attributes for each tag, all strings in lowercase.
 	// ex: {"div": {"style": true, "tabindex" true}, "form": { ...
@@ -217,50 +203,6 @@ define([
 		_started: false,
 		=====*/
 
-		// attributeMap: [protected] Object
-		//		Deprecated.	Instead of attributeMap, widget should have a _setXXXAttr attribute
-		//		for each XXX attribute to be mapped to the DOM.
-		//
-		//		attributeMap sets up a "binding" between attributes (aka properties)
-		//		of the widget and the widget's DOM.
-		//		Changes to widget attributes listed in attributeMap will be
-		//		reflected into the DOM.
-		//
-		//		For example, calling set('title', 'hello')
-		//		on a TitlePane will automatically cause the TitlePane's DOM to update
-		//		with the new title.
-		//
-		//		attributeMap is a hash where the key is an attribute of the widget,
-		//		and the value reflects a binding to a:
-		//
-		//		- DOM node attribute
-		// |		focus: {node: "focusNode", type: "attribute"}
-		//		Maps this.focus to this.focusNode.focus
-		//
-		//		- DOM node innerHTML
-		//	|		title: { node: "titleNode", type: "innerHTML" }
-		//		Maps this.title to this.titleNode.innerHTML
-		//
-		//		- DOM node innerText
-		//	|		title: { node: "titleNode", type: "innerText" }
-		//		Maps this.title to this.titleNode.innerText
-		//
-		//		- DOM node CSS class
-		// |		myClass: { node: "domNode", type: "class" }
-		//		Maps this.myClass to this.domNode.className
-		//
-		//		If the value is an array, then each element in the array matches one of the
-		//		formats of the above list.
-		//
-		//		There are also some shorthands for backwards compatibility:
-		//
-		//		- string --> { node: string, type: "attribute" }, for example:
-		//
-		//	|	"focusNode" ---> { node: "focusNode", type: "attribute" }
-		//
-		//		- "" --> { node: "domNode", type: "attribute" }
-		attributeMap: {},
-
 		// _blankGif: [protected] String
 		//		Path to a blank 1x1 image.
 		//		Used by `<img>` nodes in templates that really get their image via CSS background-image.
@@ -268,7 +210,6 @@ define([
 
 		//////////// INITIALIZATION METHODS ///////////////////////////////////////
 
-		/*=====
 		constructor: function(params, srcNodeRef){
 			// summary:
 			//		Create the widget.
@@ -282,8 +223,16 @@ define([
 			//		- use srcNodeRef.innerHTML as my contents
 			//		- if this is a behavioral widget then apply behavior to that srcNodeRef
 			//		- otherwise, replace srcNodeRef with my generated DOM tree
+
+			// extract parameters like onMouseMove that should be converted to on() calls
+			this._toConnect = {};
+			for(var name in params){
+				if(!(name in this) && /^on[A-Z]/.test(name)){
+					this._toConnect[name.substring(2).toLowerCase()] = params[name];
+					delete params[name];
+				}
+			}
 		},
-		=====*/
 
 		_introspect: function(){
 			// summary:
@@ -298,11 +247,6 @@ define([
 					attrs = ctor._setterAttrs = [], // attributes with custom setters
 					onMap = (ctor._onMap = {});
 
-				// Items in this.attributeMap are like custom setters.  For back-compat, remove for 2.0.
-				for(var name in proto.attributeMap){
-					attrs.push(name);
-				}
-
 				// Loop over widget properties, collecting properties with custom setters and filling in ctor._onMap.
 				for(name in proto){
 					if(/^on/.test(name)){
@@ -311,9 +255,7 @@ define([
 
 					if(/^_set[A-Z](.*)Attr$/.test(name)){
 						name = name.charAt(4).toLowerCase() + name.substr(5, name.length - 9);
-						if(!proto.attributeMap || !(name in proto.attributeMap)){
-							attrs.push(name);
-						}
+						attrs.push(name);
 					}
 				}
 
@@ -363,15 +305,6 @@ define([
 			// store pointer to original DOM tree
 			this.srcNodeRef = dom.byId(srcNodeRef);
 
-			// No longer used, remove for 2.0.
-			this._connects = [];
-			this._supportingWidgets = [];
-
-			// this is here for back-compat, remove in 2.0 (but check NodeList-instantiate.html test)
-			if(this.srcNodeRef && (typeof this.srcNodeRef.id == "string")){
-				this.id = this.srcNodeRef.id;
-			}
-
 			// mix in our passed parameters
 			if(params){
 				this.params = params;
@@ -400,8 +333,7 @@ define([
 			var deleteSrcNodeRef;
 
 			if(this.domNode){
-				// Copy attributes listed in attributeMap into the [newly created] DOM for the widget.
-				// Also calls custom setters for all attributes with custom setters.
+				// Call custom setters for all attributes with custom setters.
 				this._applyAttributes();
 
 				// If srcNodeRef was specified, then swap out original srcNode for this widget's DOM tree.
@@ -432,15 +364,12 @@ define([
 		_applyAttributes: function(){
 			// summary:
 			//		Step during widget creation to copy  widget attributes to the
-			//		DOM according to attributeMap and _setXXXAttr objects, and also to call
+			//		DOM according to _setXXXAttr objects, and also to call
 			//		custom _setXXXAttr() methods.
 			//
 			//		Skips over blank/false attribute values, unless they were explicitly specified
 			//		as parameters to the widget, since those are the default anyway,
 			//		and setting tabIndex="" is different than not setting tabIndex at all.
-			//
-			//		For backwards-compatibility reasons attributeMap overrides _setXXXAttr when
-			//		_setXXXAttr is a hash/string/array, but _setXXXAttr as a functions override attributeMap.
 			// tags:
 			//		private
 
@@ -519,6 +448,12 @@ define([
 			//		node dimensions or placement.
 			// tags:
 			//		protected
+
+			// perform connection from this.domNode to user specified handlers (ex: onMouseMove)
+			for(var name in this._toConnect){
+				this.on(name, this._toConnect[name]);
+			}
+			delete this._toConnect;
 		},
 
 		startup: function(){
@@ -579,7 +514,6 @@ define([
 			//		Note: This will not yet work with _TemplatedMixin widgets
 
 			this._beingDestroyed = true;
-			this.uninitialize();
 
 			function destroy(w){
 				if(w.destroyRecursive){
@@ -588,10 +522,6 @@ define([
 					w.destroy(preserveDom);
 				}
 			}
-
-			// Back-compat, remove for 2.0
-			array.forEach(this._connects, lang.hitch(this, "disconnect"));
-			array.forEach(this._supportingWidgets, destroy);
 
 			// Destroy supporting widgets, but not child widgets under this.containerNode (for 2.0, destroy child widgets
 			// here too).   if() statement is to guard against exception if destroy() called multiple times (see #15815).
@@ -653,15 +583,6 @@ define([
 			});
 		},
 
-		uninitialize: function(){
-			// summary:
-			//		Deprecated. Override destroy() instead to implement custom widget tear-down
-			//		behavior.
-			// tags:
-			//		protected
-			return false;
-		},
-
 		////////////////// GET/SET, CUSTOM SETTERS, ETC. ///////////////////
 
 		_setStyleAttr: function(/*String||Object*/ value){
@@ -669,9 +590,6 @@ define([
 			//		Sets the style attribute of the widget according to value,
 			//		which is either a hash like {height: "5px", width: "3px"}
 			//		or a plain string
-			// description:
-			//		Determines which node to set the style on based on style setting
-			//		in attributeMap.
 			// tags:
 			//		protected
 
@@ -697,7 +615,6 @@ define([
 			// summary:
 			//		Reflect a widget attribute (title, tabIndex, duration etc.) to
 			//		the widget DOM, as specified by commands parameter.
-			//		If commands isn't specified then it's looked up from attributeMap.
 			//		Note some attributes like "type"
 			//		cannot be processed this way as they are not mutable.
 			// attr:
@@ -705,8 +622,6 @@ define([
 			//		to DOMNode inside the widget, or alternately pointing to a subwidget
 			// tags:
 			//		private
-
-			commands = arguments.length >= 3 ? commands : this.attributeMap[attr];
 
 			array.forEach(lang.isArray(commands) ? commands : [commands], function(command){
 
@@ -809,17 +724,15 @@ define([
 			}else{
 				// Mapping from widget attribute to DOMNode/subwidget attribute/value/etc.
 				// Map according to:
-				//		1. attributeMap setting, if one exists (TODO: attributeMap deprecated, remove in 2.0)
-				//		2. _setFooAttr: {...} type attribute in the widget (if one exists)
-				//		3. apply to focusNode or domNode if standard attribute name, excluding funcs like onClick.
+				//		1. _setFooAttr: {...} type attribute in the widget (if one exists)
+				//		2. apply to focusNode or domNode if standard attribute name, excluding funcs like onClick.
 				// Checks if an attribute is a "standard attribute" by whether the DOMNode JS object has a similar
 				// attribute name (ex: accept-charset attribute matches jsObject.acceptCharset).
 				// Note also that Tree.focusNode() is a function not a DOMNode, so test for that.
 				var defaultNode = this.focusNode && !lang.isFunction(this.focusNode) ? "focusNode" : "domNode",
 					tag = this[defaultNode] && this[defaultNode].tagName,
 					attrsForTag = tag && (tagAttrs[tag] || (tagAttrs[tag] = getAttrs(this[defaultNode]))),
-					map = name in this.attributeMap ? this.attributeMap[name] :
-						names.s in this ? this[names.s] :
+					map = names.s in this ? this[names.s] :
 							((attrsForTag && names.l in attrsForTag && typeof value != "function") ||
 								/^aria-|^data-|^role$/.test(name)) ? defaultNode : null;
 				if(map != null){
@@ -991,81 +904,6 @@ define([
 			//		Returns the parent widget of this widget.
 
 			return registry.getEnclosingWidget(this.domNode.parentNode);
-		},
-
-		connect: function(/*Object|null*/ obj, /*String|Function*/ event, /*String|Function*/ method){
-			// summary:
-			//		Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
-			//
-			//		Connects specified obj/event to specified method of this object
-			//		and registers for disconnect() on widget destroy.
-			//
-			//		Provide widget-specific analog to dojo.connect, except with the
-			//		implicit use of this widget as the target object.
-			//		Events connected with `this.connect` are disconnected upon
-			//		destruction.
-			// returns:
-			//		A handle that can be passed to `disconnect` in order to disconnect before
-			//		the widget is destroyed.
-			// example:
-			//	|	var btn = new Button();
-			//	|	// when foo.bar() is called, call the listener we're going to
-			//	|	// provide in the scope of btn
-			//	|	btn.connect(foo, "bar", function(){
-			//	|		console.debug(this.toString());
-			//	|	});
-			// tags:
-			//		protected
-
-			return this.own(connect.connect(obj, event, this, method))[0];	// handle
-		},
-
-		disconnect: function(handle){
-			// summary:
-			//		Deprecated, will be removed in 2.0, use handle.remove() instead.
-			//
-			//		Disconnects handle created by `connect`.
-			// tags:
-			//		protected
-
-			handle.remove();
-		},
-
-		subscribe: function(t, method){
-			// summary:
-			//		Deprecated, will be removed in 2.0, use this.own(topic.subscribe()) instead.
-			//
-			//		Subscribes to the specified topic and calls the specified method
-			//		of this object and registers for unsubscribe() on widget destroy.
-			//
-			//		Provide widget-specific analog to dojo.subscribe, except with the
-			//		implicit use of this widget as the target object.
-			// t: String
-			//		The topic
-			// method: Function
-			//		The callback
-			// example:
-			//	|	var btn = new Button();
-			//	|	// when /my/topic is published, this button changes its label to
-			//	|	// be the parameter of the topic.
-			//	|	btn.subscribe("/my/topic", function(v){
-			//	|		this.set("label", v);
-			//	|	});
-			// tags:
-			//		protected
-			return this.own(topic.subscribe(t, lang.hitch(this, method)))[0];	// handle
-		},
-
-		unsubscribe: function(/*Object*/ handle){
-			// summary:
-			//		Deprecated, will be removed in 2.0, use handle.remove() instead.
-			//
-			//		Unsubscribes handle created by this.subscribe.
-			//		Also removes handle from this widget's list of subscriptions
-			// tags:
-			//		protected
-
-			handle.remove();
 		},
 
 		isLeftToRight: function(){
