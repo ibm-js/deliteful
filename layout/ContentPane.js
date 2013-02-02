@@ -1,7 +1,6 @@
 define([
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/_base/lang", // lang.mixin lang.delegate lang.hitch lang.isFunction lang.isObject
-	"../_Widget",
+	"../_WidgetBase",
 	"../_Container",
 	"./_ContentPaneResizeMixin",
 	"dojo/string", // string.substitute
@@ -9,20 +8,20 @@ define([
 	"dojo/i18n!../nls/loading",
 	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
-	"dojo/_base/Deferred", // Deferred
+	"dojo/Deferred", // Deferred
 	"dojo/dom", // dom.byId
 	"dojo/dom-attr", // domAttr.attr
 	"dojo/dom-construct", // empty()
-	"dojo/_base/xhr", // xhr.get
+	"dojo/request",
 	"dojo/i18n", // i18n.getLocalization
 	"dojo/when"
-], function(kernel, lang, _Widget, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, array, declare,
-			Deferred, dom, domAttr, domConstruct, xhr, i18n, when){
+], function(lang, _WidgetBase, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, array, declare,
+			Deferred, dom, domAttr, domConstruct, request, i18n, when){
 
 	// module:
 	//		dijit/layout/ContentPane
 
-	return declare("dijit.layout.ContentPane", [_Widget, _Container, _ContentPaneResizeMixin], {
+	return declare("dijit.layout.ContentPane", [_WidgetBase, _Container, _ContentPaneResizeMixin], {
 		// summary:
 		//		A widget containing an HTML fragment, specified inline
 		//		or by uri.  Fragment may include widgets.
@@ -58,10 +57,10 @@ define([
 		//		Changing href after creation doesn't have any effect; Use set('href', ...);
 		href: "",
 
-		// content: String|DomNode|NodeList|dijit/_Widget
+		// content: String|DomNode|NodeList|dijit/_WidgetBase
 		//		The innerHTML of the ContentPane.
 		//		Note that the initialization parameter / argument to set("content", ...)
-		//		can be a String, DomNode, Nodelist, or _Widget.
+		//		can be a String, DomNode, Nodelist, or _WidgetBase.
 		content: "",
 
 		// extractContent: Boolean
@@ -72,13 +71,6 @@ define([
 		// parseOnLoad: Boolean
 		//		Parse content and create the widgets, if any.
 		parseOnLoad: true,
-
-		// parserScope: String
-		//		Flag passed to parser.  Root for attribute names to search for.   If scopeName is dojo,
-		//		will search for data-dojo-type (or dojoType).  For backwards compatibility
-		//		reasons defaults to dojo._scopeName (which is "dojo" except when
-		//		multi-version support is used, when it will be something like dojo16, dojo20, etc.)
-		parserScope: kernel._scopeName,
 
 		// preventCache: Boolean
 		//		Prevent caching of data from href's by appending a timestamp to the href.
@@ -111,14 +103,12 @@ define([
 
 		baseClass: "dijitContentPane",
 
-		/*======
-		 // ioMethod: dojo/_base/xhr.get|dojo._base/xhr.post
+		 // ioMethod: Function
 		 //		Function that should grab the content specified via href.
-		 ioMethod: dojo.xhrGet,
-		 ======*/
+		 ioMethod: request,
 
 		// ioArgs: Object
-		//		Parameters to pass to xhrGet() request, for example:
+		//		Parameters to pass to dojo/request, for example:
 		// |	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="href: './bar', ioArgs: {timeout: 500}">
 		ioArgs: {},
 
@@ -197,7 +187,7 @@ define([
 
 		startup: function(){
 			// summary:
-			//		Call startup() on all children including non _Widget ones like dojo/dnd/Source objects
+			//		Call startup() on all children including non _WidgetBase ones like dojo/dnd/Source objects
 
 			// This starts all the widgets
 			this.inherited(arguments);
@@ -237,12 +227,6 @@ define([
 			}
 		},
 
-		setHref: function(/*String|Uri*/ href){
-			// summary:
-			//		Deprecated.   Use set('href', ...) instead.
-			kernel.deprecated("dijit.layout.ContentPane.setHref() is deprecated. Use set('href', ...) instead.", "", "2.0");
-			return this.set("href", href);
-		},
 		_setHrefAttr: function(/*String|Uri*/ href){
 			// summary:
 			//		Hook so set("href", ...) works.
@@ -274,12 +258,6 @@ define([
 			return this.onLoadDeferred;		// Deferred
 		},
 
-		setContent: function(/*String|DomNode|Nodelist*/data){
-			// summary:
-			//		Deprecated.   Use set('content', ...) instead.
-			kernel.deprecated("dijit.layout.ContentPane.setContent() is deprecated.  Use set('content', ...) instead.", "", "2.0");
-			this.set("content", data);
-		},
 		_setContentAttr: function(/*String|DomNode|Nodelist*/data){
 			// summary:
 			//		Hook to make set("content", ...) work.
@@ -393,16 +371,11 @@ define([
 			this._setContent(this.onDownloadStart(), true);
 
 			var self = this;
-			var getArgs = {
-				preventCache: (this.preventCache || this.refreshOnShow),
-				url: this.href,
-				handleAs: "text"
-			};
-			if(lang.isObject(this.ioArgs)){
-				lang.mixin(getArgs, this.ioArgs);
-			}
+			var getArgs = lang.delegate({
+				preventCache: (this.preventCache || this.refreshOnShow)
+			}, this.ioArgs);
 
-			var hand = (this._xhrDfd = (this.ioMethod || xhr.get)(getArgs)),
+			var hand = (this._xhrDfd = this.ioMethod(this.href, getArgs)),
 				returnedHtml;
 
 			hand.then(
@@ -544,7 +517,6 @@ define([
 				cleanContent: this.cleanContent,
 				extractContent: this.extractContent,
 				parseContent: !cont.domNode && this.parseOnLoad,
-				parserScope: this.parserScope,
 				startup: false,
 				dir: this.dir,
 				lang: this.lang,
