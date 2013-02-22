@@ -8,11 +8,10 @@
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/Deferred",
 			"dojo/dom-class",
 			"dojo/store/Cache",
 			"dojo/store/JsonRest",
@@ -22,10 +21,11 @@
 			"dijit/registry",
 			"dojox/mobile/ProgressIndicator",
 			"dojo/parser",
+			"dojo/when",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/EdgeToEdgeStoreList"
-		], function(Deferred, domClass, Cache, JsonRest, Memory, Observable, ready, registry, ProgressIndicator){
+		], function(domClass, Cache, JsonRest, Memory, Observable, ready, registry, ProgressIndicator, parser, when){
 			//var url = "data/fruits.json";
 			var url = "data/fake_service.php";
 			var memoryStore = new Memory({idProperty:"label"});
@@ -39,13 +39,13 @@
 			function loadMore(){
 				busy(true);
 				setTimeout(function(){ // to simulate network latency
-					Deferred.when(list.setQuery({start:start, count:count}), function(){
+					when(list.set("query", {start:start, count:count}), function(){
 						busy(false);
 					});
 					start += count;
 					return false;
 				}, 1000);
-			};
+			}
 
 			function busy(flag){
 				if(!prog1){
@@ -75,9 +75,12 @@
 			};
 
 			ready(function(){
+				when(parser.parse(), function(){
 				list = registry.byId("list");
-				list.setStore(store, {start:start, count:count});
+				list.set("store", store);
+				list.set("query", {start:start, count:count});
 				start += count;
+				});
 			});
 		});
 	</script>

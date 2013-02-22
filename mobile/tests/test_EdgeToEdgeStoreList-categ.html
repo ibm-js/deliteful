@@ -62,7 +62,7 @@
 			// switch to the selected store
 			switchTo = function(store){
 				window.store = store;
-				registry.byId("list").setStore(store);
+				registry.byId("list").set("store", store);
 			};
 		});
 	</script>
