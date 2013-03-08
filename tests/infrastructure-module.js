@@ -25,7 +25,6 @@ define(["doh/main", "require"], function(doh, require){
 	doh.register("_HasDropDown", require.toUrl("./_HasDropDown.html"), 999999);
 
 	doh.register("Declaration", require.toUrl("./test_Declaration.html"), 999999);
-	doh.register("Declaration_1.x", require.toUrl("./test_Declaration_1.x.html"), 999999);
 
 	// Miscellaneous
 	doh.register("NodeList-instantiate", require.toUrl("./NodeList-instantiate.html"), 999999);

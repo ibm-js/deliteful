@@ -44,7 +44,6 @@ define([
 		buildRendering: function(){
 			var src = this.srcNodeRef.parentNode.removeChild(this.srcNodeRef),
 				methods = query("> script[type='dojo/method']", src).orphan(),
-				connects = query("> script[type='dojo/connect']", src).orphan(), // remove for 2.0
 				aspects = query("> script[type='dojo/aspect']", src).orphan(),
 				srcType = src.nodeName;
 
@@ -55,7 +54,7 @@ define([
 			// If there's no "event" specified then it's code to run on instantiation,
 			// so it becomes a connection to "postscript" (handled below).
 			array.forEach(methods, function(s){
-				var evt = s.getAttribute("event") || s.getAttribute("data-dojo-event"), // remove "event" for 2.0
+				var evt = s.getAttribute("data-dojo-event"),
 					func = parser._functionFromScript(s, "data-dojo-");
 				if(evt){
 					propList[evt] = func;
@@ -101,14 +100,6 @@ define([
 					method = s.getAttribute("data-dojo-method") || "postscript",
 					func = parser._functionFromScript(s);
 				aspect.after(wc.prototype, method, func, true);
-			});
-
-			// Handle legacy <script type="dojo/connect" data-dojo-event="foo">.
-			// Remove for 2.0.
-			array.forEach(connects, function(s){
-				var evt = s.getAttribute("event") || s.getAttribute("data-dojo-event"),
-					func = parser._functionFromScript(s);
-				aspect.after(wc.prototype, evt, func, true);
 			});
 		}
 	});
