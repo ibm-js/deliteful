@@ -1,32 +1,5 @@
-# dijit
+This is a version Dijit 1.x with all the backwards compatibility code, and support for IE6, IE7, and quirksmode removed.
 
-**dijit** is the package that contains the widget library for Dojo Toolkit.  It requires the [core][] of the Dojo
-Toolkit and provides a framework for building additional widgets as well as a full set of rich user interface widgets
-including form, layout and data-aware items.
+It works with any loader, and if the legacy dojo.js file is loaded (instead of directly loading
+a loader), then dojo.js pulls in require.js as a sort of "default" loader.
 
-## Installing
-
-Installation instructions are available at [dojotoolkit.org/download][download].
-
-## Getting Started
-
-If you are starting out with Dojo and Dijit, the following resources are available to you:
-
-* [Tutorials][]
-* [Reference Guide][]
-* [API Documentation][]
-* [Community Forum][]
-
-## License and Copyright
-
-The Dojo Toolkit (including this package) is dual licensed under BSD 3-Clause and AFL.  For more information on the
-license please see the [License Information][].  The Dojo Toolkit is Copyright (c) 2005-2013, The Dojo Foundation.  All
-rights reserved.
-
-[core]: https://github.com/dojo/dojo
-[download]: http://dojotoolkit.org/download/
-[Tutorials]: http://dojotoolkit.org/documentation/
-[Reference Guide]: http://dojotoolkit.org/reference-guide/
-[API Documentation]: http://dojotoolkit.org/api/
-[Community Forum]: http://dojotoolkit.org/community/
-[License Information]: http://dojotoolkit.org/license
