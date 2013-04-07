@@ -23,7 +23,7 @@ define([
 
 		baseClass: "dijitMultiSelect",
 
-		templateString: "<select multiple='true' ${!nameAttrSetting} data-dojo-attach-point='containerNode,focusNode' data-dojo-attach-event='onchange: _onChange'></select>",
+		templateString: "<select multiple='true' data-dojo-attach-point='containerNode,focusNode' data-dojo-attach-event='onchange: _onChange'></select>",
 
 		addSelected: function(/*dijit/form/MultiSelect*/ select){
 			// summary:

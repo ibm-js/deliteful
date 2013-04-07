@@ -1,8 +1,7 @@
 define([
 	"dojo/_base/array", // array.filter array.forEach array.map array.some
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/aspect", // aspect.after
-	"dojo/data/util/sorter", // util.sorter.createSortFunction
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
 	"dojo/dom-class", // domClass.toggle
@@ -12,7 +11,7 @@ define([
 	"dojo/when",
 	"dojo/store/util/QueryResults",
 	"./_FormValueWidget"
-], function(array, Deferred, aspect, sorter, declare, dom, domClass, kernel, lang, query, when,
+], function(array, Deferred, aspect, declare, dom, domClass, kernel, lang, query, when,
 			QueryResults, _FormValueWidget){
 
 	// module:
@@ -67,17 +66,6 @@ define([
 		//		If ``store`` is set, labelAttr must be set too, unless store is an old-style
 		//		dojo.data store rather than a new dojo/store.
 		labelAttr: "",
-
-		// onFetch: Function
-		//		A callback to do with an onFetch - but before any items are actually
-		//		iterated over (i.e. to filter even further what you want to add)
-		onFetch: null,
-
-		// sortByLabel: Boolean
-		//		Flag to sort the options returned from a store by the label of
-		//		the store.
-		sortByLabel: true,
-
 
 		// loadChildrenOnOpen: Boolean
 		//		By default loadChildren is called when the items are fetched from the
@@ -230,73 +218,10 @@ define([
 			//
 			//		- query: new value for Select.query,
 			//		- queryOptions: new value for Select.queryOptions,
-			//		- onFetch: callback function for each item in data (Deprecated)
+
 			var oStore = this.store;
 			fetchArgs = fetchArgs || {};
-
-			if(oStore !== store){
-				// Our store has changed, so cancel any listeners on old store (remove for 2.0)
-				var h;
-				while((h = this._notifyConnections.pop())){
-					h.remove();
-				}
-
-				// For backwards-compatibility, accept dojo.data store in addition to dojo.store.store.  Remove in 2.0.
-				if(!store.get){
-					lang.mixin(store, {
-						_oldAPI: true,
-						get: function(id){
-							// summary:
-							//		Retrieves an object by it's identity. This will trigger a fetchItemByIdentity.
-							//		Like dojo.store.DataStore.get() except returns native item.
-							var deferred = new Deferred();
-							this.fetchItemByIdentity({
-								identity: id,
-								onItem: function(object){
-									deferred.resolve(object);
-								},
-								onError: function(error){
-									deferred.reject(error);
-								}
-							});
-							return deferred.promise;
-						},
-						query: function(query, options){
-							// summary:
-							//		Queries the store for objects.   Like dojo/store/DataStore.query()
-							//		except returned Deferred contains array of native items.
-							var deferred = new Deferred(function(){
-								if(fetchHandle.abort){
-									fetchHandle.abort();
-								}
-							});
-							deferred.total = new Deferred();
-							var fetchHandle = this.fetch(lang.mixin({
-								query: query,
-								onBegin: function(count){
-									deferred.total.resolve(count);
-								},
-								onComplete: function(results){
-									deferred.resolve(results);
-								},
-								onError: function(error){
-									deferred.reject(error);
-								}
-							}, options));
-							return new QueryResults(deferred);
-						}
-					});
-
-					if(store.getFeatures()["dojo.data.api.Notification"]){
-						this._notifyConnections = [
-							aspect.after(store, "onNew", lang.hitch(this, "_onNewItem"), true),
-							aspect.after(store, "onDelete", lang.hitch(this, "_onDeleteItem"), true),
-							aspect.after(store, "onSet", lang.hitch(this, "_onSetItem"), true)
-						];
-					}
-				}
-				this._set("store", store);			// Our store has changed, so update our notifications
-			}
+			this._set("store", store);
 
 			// Remove existing options (if there are any)
 			if(this.options && this.options.length){
@@ -323,28 +248,6 @@ define([
 				// Save result in this._queryRes so we can cancel the listeners we register below
 				this._queryRes = store.query(this.query, this.queryOptions);
 				when(this._queryRes, lang.hitch(this, function(items){
-
-					if(this.sortByLabel && !fetchArgs.sort && items.length){
-						if(store.getValue){
-							// Old dojo.data API to access items, remove for 2.0
-							items.sort(sorter.createSortFunction([
-								{
-									attribute: store.getLabelAttributes(items[0])[0]
-								}
-							], store));
-						}else{
-							// TODO: remove sortByLabel completely for 2.0?  It can be handled by queryOptions: {sort: ... }.
-							var labelAttr = this.labelAttr;
-							items.sort(function(a, b){
-								return a[labelAttr] > b[labelAttr] ? 1 : b[labelAttr] > a[labelAttr] ? -1 : 0;
-							});
-						}
-					}
-
-					if(fetchArgs.onFetch){
-						items = fetchArgs.onFetch.call(this, items, fetchArgs);
-					}
-
 					// TODO: Add these guys as a batch, instead of separately
 					array.forEach(items, function(i){
 						this._addOptionForItem(i);
@@ -550,9 +453,8 @@ define([
 			//		of the option item will be the identity of the item, the "label"
 			//		of the option will be the label of the item.
 
-			// remove getLabel() call for 2.0 (it's to support the old dojo.data API)
 			var store = this.store,
-				label = (this.labelAttr && this.labelAttr in item) ? item[this.labelAttr] : store.getLabel(item),
+				label = item[this.labelAttr],
 				value = (label ? store.getIdentity(item) : null);
 			return {value: value, label: label, item: item}; // __SelectOption
 		},
@@ -560,16 +462,7 @@ define([
 		_addOptionForItem: function(/*item*/ item){
 			// summary:
 			//		Creates (and adds) the option for the given item
-			var store = this.store;
-			if(store.isItemLoaded && !store.isItemLoaded(item)){
-				// We are not loaded - so let's load it and add later.
-				// Remove for 2.0 (it's the old dojo.data API)
-				store.loadItem({item: item, onItem: function(i){
-					this._addOptionForItem(i);
-				},
-					scope: this});
-				return;
-			}
+
 			var newOpt = this._getOptionObjForItem(item);
 			this.addOption(newOpt);
 		},
@@ -587,7 +480,6 @@ define([
 			//		Saves off our value, if we have an initial one set so we
 			//		can use it if we have a store as well (see startup())
 			this._oValue = (params || {}).value || null;
-			this._notifyConnections = [];	// remove for 2.0
 		},
 
 		buildRendering: function(){
@@ -657,11 +549,6 @@ define([
 		destroy: function(){
 			// summary:
 			//		Clean up our connections
-
-			var h;
-			while((h = this._notifyConnections.pop())){
-				h.remove();
-			}
 
 			// Cancel listener for store updates
 			if(this._queryRes && this._queryRes.close){
