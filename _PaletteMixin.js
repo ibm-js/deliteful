@@ -78,9 +78,7 @@ define([
 			// tags:
 			//		extension
 
-			// Remove string support for 2.0
-			var dyeClassObj = typeof this.dyeClass == "string" ? lang.getObject(this.dyeClass) : this.dyeClass;
-			return new dyeClassObj(value);
+			return new this.dyeClass(value);
 		},
 
 		_preparePalette: function(choices, titles){
