@@ -13,12 +13,8 @@ define(["doh/main", "require"], function(doh, require){
 	// _Widget
 	doh.register("_Widget-lifecycle", require.toUrl("./_Widget-lifecycle.html"), 999999);
 	doh.register("_Widget-attr", require.toUrl("./_Widget-attr.html"), 999999);
-	doh.register("_Widget-subscribe", require.toUrl("./_Widget-subscribe.html"), 999999);
 	doh.register("_Widget-placeAt", require.toUrl("./_Widget-placeAt.html"), 999999);
 	doh.register("robot._Widget-on", require.toUrl("./_Widget-on.html"), 999999);
-	doh.register("robot._Widget-deferredConnect", require.toUrl("./robot/_Widget-deferredConnect.html"), 999999);
-	doh.register("robot._Widget-ondijitclick_mouse", require.toUrl("./robot/_Widget-ondijitclick_mouse.html"), 999999);
-	doh.register("robot._Widget-ondijitclick_a11y", require.toUrl("./robot/_Widget-ondijitclick_a11y.html"), 999999);
 
 	// _Templated and other mixins
 	doh.register("_AttachMixin", require.toUrl("./_AttachMixin.html"), 999999);

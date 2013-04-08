@@ -27,7 +27,7 @@
 			require([
 				"doh", "dojo/_base/array", "dojo/_base/declare", "dojo/_base/window", "dojo/dom", "dojo/dom-geometry",
 				"dojo/html", "dojo/query", "dojo/parser",
-				"dijit/registry", "dijit/_WidgetBase", "dijit/_Widget",
+				"dijit/registry", "dijit/_WidgetBase",
 				"dijit/_AttachMixin", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
 				"dijit/form/Button", "dijit/form/CheckBox", "dijit/form/TextBox",
 				"dijit/ProgressBar", "dijit/layout/ContentPane", "dijit/layout/TabContainer", "dijit/_Container",
@@ -35,7 +35,7 @@
 				"dijit/focus",
 				"dojo/domReady!"
 			], function(doh, array, declare, win, dom, domGeom, html, query, parser,
-					registry, _WidgetBase, _Widget, _AttachMixin, _TemplatedMixin, _WidgetsInTemplateMixin,
+					registry, _WidgetBase, _AttachMixin, _TemplatedMixin, _WidgetsInTemplateMixin,
 					Button, CheckBox, TextBox, ProgressBar, ContentPane, TabContainer,
 					_Container, _Contained, _LayoutWidget, TestContextRequireWidget, focusUtil){
 
@@ -52,10 +52,6 @@
 							}
 						}
 					}
-				});
-
-				declare('Test3Widget', [_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
-					templateString: dom.byId('Test3Template').value
 				});
 
 				declare('Test4Widget', [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
@@ -316,70 +312,6 @@
 						}
 					},
 					{
-						name: "data-dojo-attach-event strange name",
-						runTest: function(t){
-							// This is for testing data-dojo-attach-event to attach to a method in the widget,
-							// rather than using _WidgetBase.on(...).   Remove for 2.0.
-							var SubWidget = declare("SubWidget", _WidgetBase, {
-								f: function(){
-									// just for attaching to
-								}
-							});
-							var MainWidget = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
-								templateString:
-									'<div>' +
-										'<div data-dojo-type="SubWidget" data-dojo-attach-point="sw" ' +
-											' data-dojo-attach-event="f: g">' +
-									'</div>',
-								g: function(){
-									this.gWasCalled = true;
-								}
-							});
-							var mw = new MainWidget();
-							doh.t(mw.sw, "attach-point exists");
-							mw.sw.f();
-							doh.t(mw.gWasCalled, "attach-event worked");
-						}
-					},
-					{
-						// Test that getDescendants ()
-						// finds direct descendants but skips widgetsInTemplates
-						// and also nested widgets (if direct==true)
-						name: "getChildren",
-						runTest: function(t){
-							var testW = registry.byId("test3Widget");
-
-/*** performance tests
-							var start = new Date();
-							for(var i=0; i<1000; i++)
-								testW.getChildren();
-							console.log("*** time for getChildren(): " + (new Date()-start));
-							var start = new Date();
-							for(var i=0; i<1000; i++)
-								testW.getDescendants();
-							console.log("*** time for getDescendants(false): " + (new Date()-start));
-***/
-							var chil = testW.getChildren();
-							doh.is(5, chil.length, "number of direct descendants");
-							doh.is(chil[0].id, "3.1");
-							doh.is(chil[1].id, "3.2");
-							doh.is(chil[2].id, "3.3");
-							doh.is(chil[3].id, "3.4");
-							doh.is(chil[4].id, "3.5");
-
-							// remove this test for 2.0
-							var desc = testW.getDescendants();
-							doh.is(7, desc.length, "number of descendants (including nested ones)");
-							doh.is(desc[0].id, "3.1");
-							doh.is(desc[1].id, "3.2");
-							doh.is(desc[2].id, "3.3");
-							doh.is(desc[3].id, "3.nested");
-							doh.is(desc[4].id, "3.nested2");
-							doh.is(desc[5].id, "3.4");
-							doh.is(desc[6].id, "3.5");
-						}
-					},
-					{
 						// Check that declarative widget with layout widgets in template is correctly created and rendered
 						name: "declarative widget with layout widgets",
 						runTest: function(t){
@@ -467,18 +399,6 @@
 							doh.is("dijit.form.Button", testW.missingButton.declaredClass, "and it's to a widget");
 							doh.t(registry.byId("missingButtonId"), "nested widget also registered by id");
 						}
-					},
-					{
-						// Test that data-dojo-attach-event bindings work with widgets in template, when
-						// binding to dijit/_Widget methods
-						name: "_Widget Deferred Connect methods",
-						runTest: function(){
-							var test6Widget = registry.byId("test6Widget");
-							doh.t(test6Widget.clickCount === 0, "click count was initially zero");
-							// Issue a 'click' event directly on the interior input of the TextBox
-							test6Widget.textbox.textbox.click();
-							doh.t(test6Widget.clickCount === 1, "click count incremented properly");
-						}
 					}
 				]);
 
@@ -559,23 +479,6 @@
 					<div data-dojo-attach-point="containerNode"></div>
 				</div>
 			</textarea>
-
-			<div data-dojo-type="Test3Widget" data-dojo-props="id: 'test3Widget'">
-				<span>hello world</span>
-				<b style="border: 1px solid blue;">this is my
-					<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.1'">first button</button>
-				</b>
-				<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.2'">another button</button>
-				<i>and some more</i>
-				<div style="border: 1px solid red;">
-					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="style: {border: '1px solid gray'}, id: '3.3'">
-						<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.nested'">a nested button</button>
-						<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.nested2'">another nested button</button>
-					</div>
-					<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.4'">yet another button</button>
-					<button data-dojo-type="dijit/form/Button" data-dojo-props="id: '3.5'">yet yet another button</button>
-				</div>
-			</div>
 
 			<!-- Test templated widget containing layout widgets in template -->
 			<textarea id="Test4Template" style="display:none;">
