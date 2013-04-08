@@ -5,23 +5,21 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.get
 	"dojo/dom-class", // domClass.add domClass.contains domClass.remove domClass.toggle
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"dojo/sniff", // has("ie")
 	"./CalendarLite",
-	"./_Widget",
+	"./_WidgetBase",
 	"./_CssStateMixin",
 	"./_TemplatedMixin",
 	"./form/DropDownButton"
-], function(array, date, local, declare, domAttr, domClass, kernel, keys, lang, on, has, CalendarLite, _Widget, _CssStateMixin, _TemplatedMixin, DropDownButton){
+], function(array, date, local, declare, domAttr, domClass, keys, lang, on, has, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:
 	//		dijit/Calendar
 
-	// _Widget for deprecated methods like setAttribute()
-	var Calendar = declare("dijit.Calendar", [CalendarLite, _Widget, _CssStateMixin], {
+	var Calendar = declare("dijit.Calendar", [CalendarLite, _WidgetBase, _CssStateMixin], {
 		// summary:
 		//		A simple GUI for choosing a date in the context of a monthly calendar.
 		//
@@ -31,7 +29,6 @@ define([
 		//		- month drop down list
 		//		- keyboard navigation
 		//		- CSS classes for hover/mousepress on date, month, and year nodes
-		//		- support of deprecated methods (will be removed in 2.0)
 
 		// Set node classes for various mouse events, see dijit._CssStateMixin for more details
 		cssStateNodes: {
@@ -39,15 +36,6 @@ define([
 			"incrementMonth": "dijitCalendarArrow",
 			"previousYearLabelNode": "dijitCalendarPreviousYear",
 			"nextYearLabelNode": "dijitCalendarNextYear"
-		},
-
-		setValue: function(/*Date*/ value){
-			// summary:
-			//		Deprecated.   Use set('value', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.Calendar:setValue() is deprecated.  Use set('value', ...) instead.", "", "2.0");
-			this.set('value', value);
 		},
 
 		_createMonthWidget: function(){
@@ -221,18 +209,7 @@ define([
 			}
 		},
 
-		onValueSelected: function(/*Date*/ /*===== date =====*/){
-			// summary:
-			//		Deprecated.   Notification that a date cell was selected.  It may be the same as the previous value.
-			// description:
-			//		Formerly used by `dijit/form/_DateTimeTextBox` (and thus `dijit/form/DateTextBox`)
-			//		to get notification when the user has clicked a date.  Now onExecute() (above) is used.
-			// tags:
-			//		protected
-		},
-
 		onChange: function(value){
-			this.onValueSelected(value);	// remove in 2.0
 		},
 
 		getClassForDate: function(/*===== dateObject, locale =====*/){
@@ -280,7 +257,7 @@ define([
 		}
 	});
 
-	Calendar._MonthDropDown = declare("dijit.Calendar._MonthDropDown", [_Widget, _TemplatedMixin], {
+	Calendar._MonthDropDown = declare("dijit.Calendar._MonthDropDown", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		The list-of-months drop down from the MonthDropDownButton
 
