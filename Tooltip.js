@@ -12,13 +12,13 @@ define([
 	"dojo/sniff", // has("ie")
 	"./_base/manager",	// manager.defaultDuration
 	"./place",
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"./BackgroundIframe",
 	"dojo/text!./templates/Tooltip.html",
 	"./main"		// sets dijit.showTooltip etc. for back-compat
 ], function(array, declare, fx, dom, domClass, domGeometry, domStyle, lang, mouse, on, has,
-			manager, place, _Widget, _TemplatedMixin, BackgroundIframe, template, dijit){
+			manager, place, _WidgetBase, _TemplatedMixin, BackgroundIframe, template, dijit){
 
 	// module:
 	//		dijit/Tooltip
@@ -32,7 +32,7 @@ define([
 	// The problem is that Tooltip's implementation supplies it's own <iframe> and interacts directly
 	// with dijit/place, rather than going through dijit/popup like TooltipDialog and other popups (ex: Menu).
 
-	var MasterTooltip = declare("dijit._MasterTooltip", [_Widget, _TemplatedMixin], {
+	var MasterTooltip = declare("dijit._MasterTooltip", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Internal widget that holds the actual tooltip markup,
 		//		which occurs once per page.
@@ -298,7 +298,7 @@ define([
 		return Tooltip._masterTT && Tooltip._masterTT.hide(aroundNode);
 	};
 
-	var Tooltip = declare("dijit.Tooltip", _Widget, {
+	var Tooltip = declare("dijit.Tooltip", _WidgetBase, {
 		// summary:
 		//		Pops up a tooltip (a help message) when you hover over a node.
 		//		Also provides static show() and hide() methods that can be used without instantiating a dijit/Tooltip.
@@ -313,10 +313,10 @@ define([
 		//		the tooltip is displayed.
 		showDelay: 400,
 
-		// connectId: String|String[]|DomNode|DomNode[]
+		// connectId: String|DOMNode
 		//		Id of domNode(s) to attach the tooltip to.
 		//		When user hovers over specified dom node(s), the tooltip will appear.
-		connectId: [],
+		connectId: "",
 
 		// position: String[]
 		//		See description of `dijit/Tooltip.defaultPosition` for details on position parameter.
@@ -331,70 +331,41 @@ define([
 		//		The application must require() an appropriate level of dojo/query to handle the selector.
 		selector: "",
 
-		// TODO: in 2.0 remove support for multiple connectIds.   selector gives the same effect.
-		// So, change connectId to a "", remove addTarget()/removeTarget(), etc.
-
-		_setConnectIdAttr: function(/*String|String[]|DomNode|DomNode[]*/ newId){
+		_setConnectIdAttr: function(/*String|DomNode*/ newId){
 			// summary:
-			//		Connect to specified node(s)
+			//		Connect to specified node
 
 			// Remove connections to old nodes (if there are any)
-			array.forEach(this._connections || [], function(nested){
-				array.forEach(nested, function(handle){ handle.remove(); });
-			}, this);
+			array.forEach(this._connections || [], function(handle){
+				handle.remove();
+			});
 
-			// Make array of id's to connect to, excluding entries for nodes that don't exist yet, see startup()
-			this._connectIds = array.filter(lang.isArrayLike(newId) ? newId : (newId ? [newId] : []),
-					function(id){ return dom.byId(id, this.ownerDocument); }, this);
+			var node = dom.byId(newId, this.ownerDocument);
+
+			// Abort if node doesn't exist yet, see startup()
+			if(!node){
+				return;
+			}
 
 			// Make connections
-			this._connections = array.map(this._connectIds, function(id){
-				var node = dom.byId(id, this.ownerDocument),
-					selector = this.selector,
-					delegatedEvent = selector ?
-						function(eventType){ return on.selector(selector, eventType); } :
-						function(eventType){ return eventType; },
-					self = this;
-				return [
-					on(node, delegatedEvent(mouse.enter), function(){
-						self._onHover(this);
-					}),
-					on(node, delegatedEvent("focusin"), function(){
-						self._onHover(this);
-					}),
-					on(node, delegatedEvent(mouse.leave), lang.hitch(self, "_onUnHover")),
-					on(node, delegatedEvent("focusout"), lang.hitch(self, "_onUnHover"))
-				];
-			}, this);
+			var selector = this.selector,
+				delegatedEvent = selector ?
+					function(eventType){ return on.selector(selector, eventType); } :
+					function(eventType){ return eventType; },
+				self = this;
+
+			this._connections = [
+				on(node, delegatedEvent(mouse.enter), function(){
+					self._onHover(this);
+				}),
+				on(node, delegatedEvent("focusin"), function(){
+					self._onHover(this);
+				}),
+				on(node, delegatedEvent(mouse.leave), lang.hitch(self, "_onUnHover")),
+				on(node, delegatedEvent("focusout"), lang.hitch(self, "_onUnHover"))
+			];
 
 			this._set("connectId", newId);
-		},
-
-		addTarget: function(/*OomNode|String*/ node){
-			// summary:
-			//		Attach tooltip to specified node if it's not already connected
-
-			// TODO: remove in 2.0 and just use set("connectId", ...) interface
-
-			var id = node.id || node;
-			if(array.indexOf(this._connectIds, id) == -1){
-				this.set("connectId", this._connectIds.concat(id));
-			}
-		},
-
-		removeTarget: function(/*DomNode|String*/ node){
-			// summary:
-			//		Detach tooltip from specified node
-
-			// TODO: remove in 2.0 and just use set("connectId", ...) interface
-
-			var id = node.id || node,	// map from DOMNode back to plain id string
-				idx = array.indexOf(this._connectIds, id);
-			if(idx >= 0){
-				// remove id (modifies original this._connectIds but that's OK in this case)
-				this._connectIds.splice(idx, 1);
-				this.set("connectId", this._connectIds);
-			}
 		},
 
 		buildRendering: function(){
@@ -403,12 +374,11 @@ define([
 		},
 
 		startup: function(){
-			this.inherited(arguments);
-
 			// If this tooltip was created in a template, or for some other reason the specified connectId[s]
 			// didn't exist during the widget's initialization, then connect now.
-			var ids = this.connectId;
-			array.forEach(lang.isArrayLike(ids) ? ids : [ids], this.addTarget, this);
+			this._setConnectIdAttr(this.connectId);
+
+			this.inherited(arguments);
 		},
 
 		getContent: function(/*DomNode*/ node){
@@ -502,8 +472,8 @@ define([
 			this.close();
 
 			// Remove connections manually since they aren't registered to be removed by _WidgetBase
-			array.forEach(this._connections || [], function(nested){
-				array.forEach(nested, function(handle){ handle.remove(); });
+			array.forEach(this._connections || [], function(handle){
+				handle.remove();
 			}, this);
 
 			this.inherited(arguments);
