@@ -1,9 +1,8 @@
 define([
 	"dojo/_base/array", // array.forEach array.indexOf
 	"dojo/_base/declare", // declare
-	"dojo/dom-construct", // domConstruct.place
-	"dojo/_base/kernel" // kernel.deprecated
-], function(array, declare, domConstruct, kernel){
+	"dojo/dom-construct" // domConstruct.place
+], function(array, declare, domConstruct){
 
 	// module:
 	//		dijit/_Container
@@ -84,20 +83,6 @@ define([
 			// summary:
 			//		Returns true if widget has child widgets, i.e. if this.containerNode contains widgets.
 			return this.getChildren().length > 0;	// Boolean
-		},
-
-		_getSiblingOfChild: function(/*dijit/_WidgetBase*/ child, /*int*/ dir){
-			// summary:
-			//		Get the next or previous widget sibling of child
-			// dir:
-			//		if 1, get the next sibling
-			//		if -1, get the previous sibling
-			// tags:
-			//		private
-			kernel.deprecated(this.declaredClass+"::_getSiblingOfChild() is deprecated. Use _KeyNavMixin::_getNext() instead.", "", "2.0");
-			var children = this.getChildren(),
-				idx = array.indexOf(children, child);	// int
-			return children[idx + dir];
 		},
 
 		getIndexOfChild: function(/*dijit/_WidgetBase*/ child){
