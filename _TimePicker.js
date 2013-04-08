@@ -6,7 +6,6 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add domClass.contains domClass.toggle
 	"dojo/dom-construct", // domConstruct.create
-	"dojo/_base/kernel", // deprecated
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.mixin
 	"dojo/sniff", // has(...)
@@ -15,7 +14,7 @@ define([
 	"dojo/on",
 	"./_WidgetBase",
 	"./form/_ListMouseMixin"
-], function(array, ddate, locale, stamp, declare, domClass, domConstruct, kernel, keys, lang, has, query, mouse, on,
+], function(array, ddate, locale, stamp, declare, domClass, domConstruct, keys, lang, has, query, mouse, on,
 			_WidgetBase, _ListMouseMixin){
 
 	// module:
@@ -93,15 +92,6 @@ define([
 			this.inherited(arguments);
 			this.containerNode = this.domNode;	// expected by _ListBase
 			this.timeMenu = this.domNode;	// for back-compat
-		},
-
-		setValue: function(/*Date*/ value){
-			// summary:
-			//		Deprecated.  Used set('value') instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit._TimePicker:setValue() is deprecated.  Use set('value', ...) instead.", "", "2.0");
-			this.set('value', value);
 		},
 
 		_setValueAttr: function(/*Date*/ date){
