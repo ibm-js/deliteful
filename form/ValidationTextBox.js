@@ -1,12 +1,11 @@
 define([
 	"dojo/_base/declare", // declare
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/i18n", // i18n.getLocalization
 	"./TextBox",
 	"../Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
 	"dojo/i18n!./nls/validate"
-], function(declare, kernel, i18n, TextBox, Tooltip, template){
+], function(declare, i18n, TextBox, Tooltip, template){
 
 	// module:
 	//		dijit/form/ValidationTextBox
@@ -70,14 +69,6 @@ define([
 		//		set('pattern', String|Function).
 		pattern: ".*",
 
-		// regExp: Deprecated [extension protected] String.  Use "pattern" instead.
-		regExp: "",
-
-		regExpGen: function(/*__Constraints*/ /*===== constraints =====*/){
-			// summary:
-			//		Deprecated.  Use set('pattern', Function) instead.
-		},
-
 		// state: [readonly] String
 		//		Shows current state (ie, validation result) of input (""=Normal, Incomplete, or Error)
 		state: "",
@@ -85,20 +76,6 @@ define([
 		// tooltipPosition: String[]
 		//		See description of `dijit/Tooltip.defaultPosition` for details on this parameter.
 		tooltipPosition: [],
-
-		_deprecateRegExp: function(attr, value){
-			if(value != ValidationTextBox.prototype[attr]){
-				kernel.deprecated("ValidationTextBox id="+this.id+", set('" + attr + "', ...) is deprecated.  Use set('pattern', ...) instead.", "", "2.0");
-				this.set('pattern', value);
-			}
-		},
-		_setRegExpGenAttr: function(/*Function*/ newFcn){
-			this._deprecateRegExp("regExpGen", newFcn);
-			this._set("regExpGen", this._computeRegexp); // backward compat with this.regExpGen(this.constraints)
-		},
-		_setRegExpAttr: function(/*String*/ value){
-			this._deprecateRegExp("regExp", value);
-		},
 
 		_setValueAttr: function(){
 			// summary:
