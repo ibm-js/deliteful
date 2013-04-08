@@ -1,10 +1,9 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/keys", // keys
-	"../focus", // focus.focus()
 	"./DropDownButton",
 	"dojo/text!./templates/ComboButton.html"
-], function(declare, keys, focus, DropDownButton, template){
+], function(declare, keys, DropDownButton, template){
 
 	// module:
 	//		dijit/form/ComboButton
@@ -53,7 +52,7 @@ define([
 			// summary:
 			//		Handler for right arrow key when focus is on left part of button
 			if(evt.keyCode == keys[this.isLeftToRight() ? "RIGHT_ARROW" : "LEFT_ARROW"]){
-				focus.focus(this._popupStateNode);
+				this._popupStateNode.focus();
 				evt.stopPropagation();
 				evt.preventDefault();
 			}
@@ -63,7 +62,7 @@ define([
 			// summary:
 			//		Handler for left arrow key when focus is on right part of button
 			if(evt.keyCode == keys[this.isLeftToRight() ? "LEFT_ARROW" : "RIGHT_ARROW"]){
-				focus.focus(this.titleNode);
+				this.titleNode.focus();
 				evt.stopPropagation();
 				evt.preventDefault();
 			}
@@ -76,7 +75,7 @@ define([
 			// position:
 			//		"start" or "end"
 			if(!this.disabled){
-				focus.focus(position == "start" ? this.titleNode : this._popupStateNode);
+				(position == "start" ? this.titleNode : this._popupStateNode).focus();
 			}
 		}
 	});

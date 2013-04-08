@@ -2,25 +2,15 @@ define([
 	"require",
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.toggle
-	"dojo/has", // has("dijit-legacy-requires")
-	"dojo/_base/kernel", // kernel.deprecated
+	"dojo/has", // has("dojo-bidi")
 	"dojo/_base/lang", // lang.trim
-	"dojo/ready",
 	"./_FormWidget",
 	"./_ButtonMixin",
-	"dojo/text!./templates/Button.html"
-], function(require, declare, domClass, has, kernel, lang, ready, _FormWidget, _ButtonMixin, template){
+	"dojo/text!./templates/Button.html"	// TODO for 2.0: convert this and DropDownButton to plain <button> node
+], function(require, declare, domClass, has, lang, _FormWidget, _ButtonMixin, template){
 
 	// module:
 	//		dijit/form/Button
-
-	// Back compat w/1.6, remove for 2.0
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/form/DropDownButton", "dijit/form/ComboButton", "dijit/form/ToggleButton"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
 
 	var Button = declare("dijit.form.Button" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormWidget, _ButtonMixin], {
 		// summary:
@@ -82,13 +72,6 @@ define([
 				domClass.toggle(this.containerNode, "dijitDisplayNone", !val);
 			}
 			this._set("showLabel", val);
-		},
-
-		setLabel: function(/*String*/ content){
-			// summary:
-			//		Deprecated.  Use set('label', ...) instead.
-			kernel.deprecated("dijit.form.Button.setLabel() is deprecated.  Use set('label', ...) instead.", "", "2.0");
-			this.set("label", content);
 		},
 
 		_setLabelAttr: function(/*String*/ content){
