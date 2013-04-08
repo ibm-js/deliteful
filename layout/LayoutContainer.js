@@ -134,10 +134,6 @@ define([
 		//		See the `dijit/layout/LayoutContainer` description for details.
 		region: '',
 
-		// layoutAlign: [const deprecated] String
-		//		Synonym for region, except using "client" instead of "center".  Deprecated; use region instead.
-		layoutAlign: '',
-
 		// layoutPriority: [const] Number
 		//		Children with a higher layoutPriority will be placed closer to the LayoutContainer center,
 		//		between children with a lower layoutPriority.

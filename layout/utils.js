@@ -29,7 +29,7 @@ define([
 		}
 	}
 
-	var utils = {
+	return {
 		// summary:
 		//		Utility functions for doing layout
 
@@ -62,7 +62,7 @@ define([
 			//		An array of Widgets or at least objects containing:
 			//
 			//		- domNode: pointer to DOM node to position
-			//		- region or layoutAlign: position to place DOM node
+			//		- region: position to place DOM node
 			//		- resize(): (optional) method to set size of node
 			//		- id: (optional) Id of widgets, referenced from resize object, below.
 			//
@@ -80,16 +80,10 @@ define([
 
 			domClass.add(container, "dijitLayoutContainer");
 
-			// Move "client" elements to the end of the array for layout.  a11y dictates that the author
-			// needs to be able to put them in the document in tab-order, but this algorithm requires that
-			// client be last.    TODO: remove for 2.0, all dijit client code already sends children as last item.
-			children = array.filter(children, function(item){ return item.region != "center" && item.layoutAlign != "client"; })
-				.concat(array.filter(children, function(item){ return item.region == "center" || item.layoutAlign == "client"; }));
-
 			// set positions/sizes
 			array.forEach(children, function(child){
 				var elm = child.domNode,
-					pos = (child.region || child.layoutAlign);
+					pos = child.region;
 				if(!pos){
 					throw new Error("No region setting for " + child.id)
 				}
@@ -138,14 +132,10 @@ define([
 					}else{
 						elmStyle.left = dim.l + dim.w + "px";
 					}
-				}else if(pos == "client" || pos == "center"){
+				}else if(pos == "center"){
 					size(child, dim);
 				}
 			});
 		}
 	};
-
-	lang.setObject("dijit.layout.utils", utils);	// remove for 2.0
-
-	return utils;
 });

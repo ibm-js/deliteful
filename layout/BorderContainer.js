@@ -11,17 +11,16 @@ define([
 	"dojo/on",
 	"dojo/touch",
 	"../_WidgetBase",
-	"../_Widget",
 	"../_TemplatedMixin",
 	"./LayoutContainer",
 	"./utils"        // layoutUtils.layoutChildren
 ], function(array, cookie, declare, domClass, domConstruct, domGeometry, domStyle, keys, lang, on, touch,
-			_WidgetBase, _Widget, _TemplatedMixin, LayoutContainer, layoutUtils){
+			_WidgetBase, _TemplatedMixin, LayoutContainer, layoutUtils){
 
 	// module:
 	//		dijit/layout/BorderContainer
 
-	var _Splitter = declare("dijit.layout._Splitter", [_Widget, _TemplatedMixin ], {
+	var _Splitter = declare("dijit.layout._Splitter", [_WidgetBase, _TemplatedMixin ], {
 		// summary:
 		//		A draggable spacer between two items in a `dijit/layout/BorderContainer`.
 		// description:
@@ -228,7 +227,7 @@ define([
 		}
 	});
 
-	var _Gutter = declare("dijit.layout._Gutter", [_Widget, _TemplatedMixin], {
+	var _Gutter = declare("dijit.layout._Gutter", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Just a spacer div to separate side pane from center pane.
 		//		Basically a trick to lookup the gutter/splitter width from the theme.
@@ -312,9 +311,6 @@ define([
 				// insert dummy div just for spacing
 				if(region != "center" && (child.splitter || this.gutters) && !child._splitterWidget){
 					var _Splitter = child.splitter ? this._splitterClass : _Gutter;
-					if(lang.isString(_Splitter)){
-						_Splitter = lang.getObject(_Splitter);	// for back-compat, remove in 2.0
-					}
 					var splitter = new _Splitter({
 						id: child.id + "_splitter",
 						container: this,
@@ -358,17 +354,6 @@ define([
 			return array.filter(this.inherited(arguments), function(widget){
 				return !widget.isSplitter;
 			});
-		},
-
-		// TODO: remove in 2.0
-		getSplitter: function(/*String*/region){
-			// summary:
-			//		Returns the widget responsible for rendering the splitter associated with region
-			// tags:
-			//		deprecated
-			return array.filter(this.getChildren(), function(child){
-				return child.region == region;
-			})[0]._splitterWidget;
 		},
 
 		resize: function(newSize, currentSize){
