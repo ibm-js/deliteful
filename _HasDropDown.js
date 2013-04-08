@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare", // declare
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/dom", // dom.isDescendant
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-class", // domClass.add domClass.contains domClass.remove
@@ -41,7 +41,6 @@ define([
 
 		// _popupStateNode: [protected] DomNode
 		//		The node to set the aria-expanded class on.
-		//		Also sets popupActive class but that will be removed in 2.0.
 		//		Can be set via a data-dojo-attach-point assignment.
 		//		If missing, then focusNode or _buttonNode (if focusNode is missing) will be used.
 		_popupStateNode: null,
@@ -387,7 +386,6 @@ define([
 					self.closeDropDown(true);
 				},
 				onClose: function(){
-					domAttr.set(self._popupStateNode, "popupActive", false);
 					domClass.remove(self._popupStateNode, "dijitHasDropDownOpen");
 					self._set("_opened", false);	// use set() because _CssStateMixin is watching
 				}
@@ -406,7 +404,6 @@ define([
 				}
 			}
 
-			domAttr.set(this._popupStateNode, "popupActive", "true");
 			domClass.add(this._popupStateNode, "dijitHasDropDownOpen");
 			this._set("_opened", true);	// use set() because _CssStateMixin is watching
 
