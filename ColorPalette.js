@@ -1,7 +1,7 @@
 define([
 	"require", // require.toUrl
 	"dojo/text!./templates/ColorPalette.html",
-	"./_Widget", // used also to load dijit/hccss for setting has("highcontrast")
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"./_PaletteMixin",
 	"./hccss", // has("highcontrast")
@@ -12,13 +12,13 @@ define([
 	"dojo/string", // string.substitute
 	"dojo/i18n!dojo/nls/colors", // translations
 	"dojo/colors"    // extend dojo.Color w/names of other colors
-], function(require, template, _Widget, _TemplatedMixin, _PaletteMixin, has, i18n, Color,
+], function(require, template, _WidgetBase, _TemplatedMixin, _PaletteMixin, has, i18n, Color,
 	declare, domConstruct, string){
 
 	// module:
 	//		dijit/ColorPalette
 
-	var ColorPalette = declare("dijit.ColorPalette", [_Widget, _TemplatedMixin, _PaletteMixin], {
+	var ColorPalette = declare("dijit.ColorPalette", [_WidgetBase, _TemplatedMixin, _PaletteMixin], {
 		// summary:
 		//		A keyboard accessible color-picking widget
 		// description:
