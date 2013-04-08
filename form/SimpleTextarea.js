@@ -30,7 +30,7 @@ define([
 		//		The number of characters per line.
 		cols: "20",
 
-		templateString: "<textarea ${!nameAttrSetting} data-dojo-attach-point='focusNode,containerNode,textbox' autocomplete='off'></textarea>",
+		templateString: "<textarea data-dojo-attach-point='focusNode,containerNode,textbox' autocomplete='off'></textarea>",
 
 		postMixInProperties: function(){
 			// Copy value from srcNodeRef, unless user specified a value explicitly (or there is no srcNodeRef)
