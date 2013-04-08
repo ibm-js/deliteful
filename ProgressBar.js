@@ -4,23 +4,18 @@ define([
 	"dojo/dom-class", // domClass.toggle
 	"dojo/_base/lang", // lang.mixin
 	"dojo/number", // number.format
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"dojo/text!./templates/ProgressBar.html"
-], function(require, declare, domClass, lang, number, _Widget, _TemplatedMixin, template){
+], function(require, declare, domClass, lang, number, _WidgetBase, _TemplatedMixin, template){
 
 	// module:
 	//		dijit/ProgressBar
 
-	return declare("dijit.ProgressBar", [_Widget, _TemplatedMixin], {
+	return declare("dijit.ProgressBar", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		A progress indication widget, showing the amount completed
 		//		(often the percentage completed) of a task.
-
-		// progress: [const] String (Percentage or Number)
-		//		Number or percentage indicating amount of task completed.
-		//		Deprecated.   Use "value" instead.
-		progress: "0",
 
 		// value: String (Percentage or Number)
 		//		Number or percentage indicating amount of task completed.
@@ -37,12 +32,6 @@ define([
 		//		Number of places to show in values; 0 by default
 		places: 0,
 
-		// indeterminate: [const] Boolean
-		//		If false: show progress value (number or percentage).
-		//		If true: show that a process is underway but that the amount completed is unknown.
-		//		Deprecated.   Use "value" instead.
-		indeterminate: false,
-
 		// label: String?
 		//		HTML label on progress bar.   Defaults to percentage for determinate progress bar and
 		//		blank for indeterminate progress bar.
@@ -58,15 +47,6 @@ define([
 		// _indeterminateHighContrastImagePath: [private] URL
 		//		URL to image to use for indeterminate progress bar when display is in high contrast mode
 		_indeterminateHighContrastImagePath: require.toUrl("./themes/a11y/indeterminate_progress.gif"),
-
-		postMixInProperties: function(){
-			this.inherited(arguments);
-
-			// Back-compat for when constructor specifies indeterminate or progress, rather than value.   Remove for 2.0.
-			if(!(this.params && "value" in this.params)){
-				this.value = this.indeterminate ? Infinity : this.progress;
-			}
-		},
 
 		buildRendering: function(){
 			this.inherited(arguments);
@@ -136,12 +116,6 @@ define([
 
 		_setLabelAttr: function(label){
 			this._set("label", label);
-			this.update();
-		},
-
-		_setIndeterminateAttr: function(indeterminate){
-			// Deprecated, use set("value", ...) instead
-			this._set("indeterminate", indeterminate);
 			this.update();
 		},
 
