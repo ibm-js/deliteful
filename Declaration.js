@@ -5,16 +5,16 @@ define([
 	"dojo/_base/lang", // lang.getObject
 	"dojo/parser", // parser._functionFromScript
 	"dojo/query", // query
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"./_WidgetsInTemplateMixin",
 	"dojo/NodeList-dom"
-], function(array, aspect, declare, lang, parser, query, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin){
+], function(array, aspect, declare, lang, parser, query, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
 
 	// module:
 	//		dijit/Declaration
 
-	return declare("dijit.Declaration", _Widget, {
+	return declare("dijit.Declaration", _WidgetBase, {
 		// summary:
 		//		The Declaration widget allows a developer to declare new widget
 		//		classes directly from a snippet of markup.
@@ -38,7 +38,7 @@ define([
 
 		// mixins: [const] String[]
 		//		List containing the prototype for this widget, and also any mixins,
-		//		ex: ["dijit._Widget", "dijit._Container"]
+		//		ex: ["dijit._WidgetBase", "dijit._Container"]
 		mixins: [],
 
 		buildRendering: function(){
@@ -70,16 +70,16 @@ define([
 			if(this.mixins.length){
 				this.mixins = array.map(this.mixins, function(name){ return lang.getObject(name); } );
 			}else{
-				this.mixins = [ _Widget, _TemplatedMixin, _WidgetsInTemplateMixin ];
+				this.mixins = [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ];
 			}
 
 			propList._skipNodeCache = true;
 			propList.templateString =
 				"<"+srcType+" class='"+src.className+"'" +
 				" data-dojo-attach-point='"+
-					(src.getAttribute("data-dojo-attach-point") || src.getAttribute("dojoAttachPoint") || '')+
+					(src.getAttribute("data-dojo-attach-point") || '')+
 				"' data-dojo-attach-event='"+
-					(src.getAttribute("data-dojo-attach-event") || src.getAttribute("dojoAttachEvent") || '')+
+					(src.getAttribute("data-dojo-attach-event") || '')+
 				"' >"+src.innerHTML.replace(/\%7B/g,"{").replace(/\%7D/g,"}")+"</"+srcType+">";
 
 			// create the new widget class
