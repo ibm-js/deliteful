@@ -42,10 +42,8 @@ define([
 			// tags:
 			//		protected extension
 
-			// "string" branch for back-compat, remove for 2.0
 			var cls = this.baseClass + "-tabs" + (this.doLayout ? "" : " dijitTabNoLayout"),
-				TabController = typeof this.controllerWidget == "string" ? lang.getObject(this.controllerWidget) :
-						this.controllerWidget;
+				TabController = this.controllerWidget;
 
 			return new TabController({
 				id: this.id + "_tablist",

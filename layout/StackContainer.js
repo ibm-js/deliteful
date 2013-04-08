@@ -7,24 +7,15 @@ define([
 	"dojo/has", // has("dijit-legacy-requires")
 	"dojo/_base/lang", // lang.extend
 	"dojo/on",
-	"dojo/ready",
 	"dojo/topic", // publish
 	"dojo/when",
 	"../registry", // registry.byId
 	"../_WidgetBase",
 	"./_LayoutWidget"
-], function(array, cookie, declare, domClass, domConstruct, has, lang, on, ready, topic, when, registry, _WidgetBase, _LayoutWidget){
+], function(array, cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, _WidgetBase, _LayoutWidget){
 
 	// module:
 	//		dijit/layout/StackContainer
-
-	// Back compat w/1.6, remove for 2.0
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/layout/StackController"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
 
 	var StackContainer = declare("dijit.layout.StackContainer", _LayoutWidget, {
 		// summary:
@@ -53,7 +44,7 @@ define([
 		baseClass: "dijitStackContainer",
 
 		/*=====
-		// selectedChildWidget: [readonly] dijit._Widget
+		// selectedChildWidget: [readonly] dijit/_WidgetBase
 		//		References the currently selected child widget, if any.
 		//		Adjust selected child with selectChild() method.
 		selectedChildWidget: null,

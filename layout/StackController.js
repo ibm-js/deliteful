@@ -9,13 +9,13 @@ define([
 	"dojo/topic",
 	"../focus", // focus.focus()
 	"../registry", // registry.byId
-	"../_Widget",
+	"../_WidgetBase",
 	"../_TemplatedMixin",
 	"../_Container",
 	"../form/ToggleButton",
 	"dojo/touch"	// for normalized click handling, see dojoClick property setting in postCreate()
 ], function(array, declare, domClass, domConstruct, keys, lang, on, topic,
-			focus, registry, _Widget, _TemplatedMixin,_Container, ToggleButton){
+		focus, registry, _WidgetBase, _TemplatedMixin, _Container, ToggleButton){
 
 	// module:
 	//		dijit/layout/StackController
@@ -46,7 +46,7 @@ define([
 	});
 
 
-	var StackController = declare("dijit.layout.StackController", [_Widget, _TemplatedMixin, _Container], {
+	var StackController = declare("dijit.layout.StackController", [_WidgetBase, _TemplatedMixin, _Container], {
 		// summary:
 		//		Set of buttons to select a page in a `dijit/layout/StackContainer`
 		// description:
@@ -166,9 +166,7 @@ define([
 			//		private
 
 			// create an instance of the button widget
-			// (remove typeof buttonWidget == string support in 2.0)
-			var Cls = lang.isString(this.buttonWidget) ? lang.getObject(this.buttonWidget) : this.buttonWidget;
-			var button = new Cls({
+			var button = new this.buttonWidget({
 				id: this.id + "_" + page.id,
 				name: this.id + "_" + page.id, // note: must match id used in pane2button()
 				label: page.title,
