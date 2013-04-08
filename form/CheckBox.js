@@ -4,26 +4,18 @@ define([
 	"dojo/dom-attr", // domAttr.set
 	"dojo/has",		// has("dijit-legacy-requires")
 	"dojo/query", // query
-	"dojo/ready",
 	"./ToggleButton",
 	"./_CheckBoxMixin",
+	"../_FocusMixin",
 	"dojo/text!./templates/CheckBox.html",
 	"dojo/NodeList-dom", // NodeList.addClass/removeClass
 	"../a11yclick"	// template uses ondijitclick
-], function(require, declare, domAttr, has, query, ready, ToggleButton, _CheckBoxMixin, template){
+], function(require, declare, domAttr, has, query, ToggleButton, _CheckBoxMixin, _FocusMixin, template){
 
 	// module:
 	//		dijit/form/CheckBox
 
-	// Back compat w/1.6, remove for 2.0
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/form/RadioButton"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
-
-	return declare("dijit.form.CheckBox", [ToggleButton, _CheckBoxMixin], {
+	return declare("dijit.form.CheckBox", [ToggleButton, _CheckBoxMixin, _FocusMixin], {
 		// summary:
 		//		Same as an HTML checkbox, but with fancy styling.
 		//
