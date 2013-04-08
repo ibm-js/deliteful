@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/lang", // lang.mixin
-	"../_Widget",
+	"../_WidgetBase",
 	"../_Container",
 	"../_Contained",
 	"../Viewport",
@@ -8,14 +8,14 @@ define([
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-geometry", // domGeometry.marginBox
 	"dojo/dom-style" // domStyle.getComputedStyle
-], function(lang, _Widget, _Container, _Contained, Viewport,
+], function(lang, _WidgetBase, _Container, _Contained, Viewport,
 	declare, domClass, domGeometry, domStyle){
 
 	// module:
 	//		dijit/layout/_LayoutWidget
 
 
-	return declare("dijit.layout._LayoutWidget", [_Widget, _Container, _Contained], {
+	return declare("dijit.layout._LayoutWidget", [_WidgetBase, _Container, _Contained], {
 		// summary:
 		//		Base class for a _Container widget which is responsible for laying out its children.
 		//		Widgets which mixin this code must define layout() to manage placement and sizing of the children.
