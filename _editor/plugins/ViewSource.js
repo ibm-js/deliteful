@@ -564,8 +564,7 @@ define([
 	});
 
 	// Register this plugin.
-	// For back-compat accept "viewsource" (all lowercase) too, remove in 2.0
-	_Plugin.registry["viewSource"] = _Plugin.registry["viewsource"] = function(args){
+	_Plugin.registry["viewSource"] = function(args){
 		return new ViewSource({
 			readOnly: ("readOnly" in args) ? args.readOnly : false,
 			stripComments: ("stripComments" in args) ? args.stripComments : true,

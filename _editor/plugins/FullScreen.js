@@ -443,8 +443,7 @@ define([
 	});
 
 	// Register this plugin.
-	// For back-compat accept "fullscreen" (all lowercase) too, remove in 2.0
-	_Plugin.registry["fullScreen"] = _Plugin.registry["fullscreen"] = function(args){
+	_Plugin.registry["fullScreen"] = function(args){
 		return new FullScreen({
 			zIndex: ("zIndex" in args) ? args.zIndex : 500
 		});

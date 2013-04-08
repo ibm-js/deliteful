@@ -65,8 +65,7 @@ define([
 	});
 
 	// Register this plugin.
-	// For back-compat accept "newpage" (all lowercase) too, remove in 2.0
-	_Plugin.registry["newPage"] = _Plugin.registry["newpage"] = function(args){
+	_Plugin.registry["newPage"] = function(args){
 		return new NewPage({
 			content: ("content" in args) ? args.content : "<br>"
 		});

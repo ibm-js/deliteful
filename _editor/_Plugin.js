@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/connect", // connect.connect
 	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.mixin, lang.hitch
 	"../Destroyable",
 	"../form/Button"
-], function(connect, declare, lang, Destroyable, Button){
+], function(declare, lang, Destroyable, Button){
 
 	// module:
 	//		dijit/_editor/_Plugin
@@ -102,18 +101,6 @@ define([
 			}
 
 			this.inherited(arguments);
-		},
-
-		connect: function(o, f, tf){
-			// summary:
-			//		Deprecated.  Use this.own() with dojo/on or dojo/aspect.instead.
-			//
-			//		Make a connect.connect() that is automatically disconnected when this plugin is destroyed.
-			//		Similar to `dijit/_Widget.connect()`.
-			// tags:
-			//		protected deprecated
-
-			this.own(connect.connect(o, f, this, tf));
 		},
 
 		updateState: function(){

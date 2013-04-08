@@ -2,14 +2,13 @@ define([
 	"dojo/_base/array", // array.forEach array.indexOf array.some
 	"dojo/_base/config", // config
 	"dojo/_base/declare", // declare
-	"dojo/_base/Deferred", // Deferred
+	"dojo/Deferred", // Deferred
 	"dojo/dom", // dom.byId
 	"dojo/dom-attr", // domAttr.set or get
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-construct", // domConstruct.create domConstruct.destroy domConstruct.place
 	"dojo/dom-geometry", // domGeometry.position
 	"dojo/dom-style", // domStyle.getComputedStyle domStyle.set
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/keys", // keys.BACKSPACE keys.TAB
 	"dojo/_base/lang", // lang.clone lang.hitch lang.isArray lang.isFunction lang.isString lang.trim
 	"dojo/on", // on()
@@ -20,7 +19,7 @@ define([
 	"dojo/_base/unload", // unload
 	"dojo/_base/url", // url
 	"dojo/window", // winUtils.get()
-	"../_Widget",
+	"../_WidgetBase",
 	"../_CssStateMixin",
 	"../selection",
 	"./range",
@@ -28,8 +27,8 @@ define([
 	"../focus",
 	"../main"    // dijit._scopeName
 ], function(array, config, declare, Deferred, dom, domAttr, domClass, domConstruct, domGeometry, domStyle,
-			kernel, keys, lang, on, query, domReady, has, topic, unload, _Url, winUtils,
-			_Widget, _CssStateMixin, selectionapi, rangeapi, htmlapi, focus, dijit){
+			keys, lang, on, query, domReady, has, topic, unload, _Url, winUtils,
+			_WidgetBase, _CssStateMixin, selectionapi, rangeapi, htmlapi, focus, dijit){
 
 	// module:
 	//		dijit/_editor/RichText
@@ -40,7 +39,7 @@ define([
 	//
 	//	<textarea id="dijit._editor.RichText.value" style="display:none;position:absolute;top:-100px;left:-100px;height:3px;width:3px;overflow:hidden;"></textarea>
 
-	var RichText = declare("dijit._editor.RichText", [_Widget, _CssStateMixin], {
+	var RichText = declare("dijit._editor.RichText", [_WidgetBase, _CssStateMixin], {
 		// summary:
 		//		dijit/_editor/RichText is the core of dijit.Editor, which provides basic
 		//		WYSIWYG editing features.
@@ -111,10 +110,6 @@ define([
 		// inheritWidth: Boolean
 		//		whether to inherit the parent's width or simply use 100%
 		inheritWidth: false,
-
-		// focusOnLoad: [deprecated] Boolean
-		//		Focus into this widget when the page is loaded
-		focusOnLoad: false,
 
 		// name: String?
 		//		Specifies the name of a (hidden) `<textarea>` node on the page that's used to save
@@ -256,14 +251,6 @@ define([
 		// events: [private] String[]
 		//		 events which should be connected to the underlying editing area
 		events: ["onKeyDown", "onKeyUp"], // onClick handled specially
-
-		// captureEvents: [deprecated] String[]
-		//		 Events which should be connected to the underlying editing
-		//		 area, events in this array will be addListener with
-		//		 capture=true.
-		// TODO: looking at the code I don't see any distinction between events and captureEvents,
-		// so get rid of this for 2.0 if not sooner
-		captureEvents: [],
 
 		_editorCommandsLocalized: false,
 		_localizeEditorCommands: function(){
@@ -748,7 +735,7 @@ define([
 				return;
 			} // this method requires init to be complete
 			if(has("ie") || has("webkit") || has("opera")){
-				var preventIEfocus = has("ie") && (this.isLoaded || !this.focusOnLoad);
+				var preventIEfocus = has("ie");
 				if(preventIEfocus){
 					this.editNode.unselectable = "on";
 				}
@@ -819,7 +806,7 @@ define([
 			this.focusNode = this.editNode; // for InlineEditBox
 
 
-			var events = this.events.concat(this.captureEvents);
+			var events = this.events;
 			var ap = this.iframe ? this.document : this.editNode;
 			this.own(
 				array.map(events, function(item){
@@ -888,11 +875,7 @@ define([
 					this.onLoadDeferred.resolve(true);
 				}
 				this.onDisplayChanged();
-				if(this.focusOnLoad){
-					// after the document loads, then set focus after updateInterval expires so that
-					// onNormalizedDisplayChanged has run to avoid input caret issues
-					domReady(lang.hitch(this, "defer", "focus", this.updateInterval));
-				}
+
 				// Save off the initial content now
 				this.value = this.getValue(true);
 			});
@@ -976,14 +959,6 @@ define([
 			//		callback
 		},
 
-		setDisabled: function(/*Boolean*/ disabled){
-			// summary:
-			//		Deprecated, use set('disabled', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated('dijit.Editor::setDisabled is deprecated', 'use dijit.Editor::attr("disabled",boolean) instead', 2.0);
-			this.set('disabled', disabled);
-		},
 		_setValueAttr: function(/*String*/ value){
 			// summary:
 			//		Registers that attr("value", foo) should call setValue(foo)
@@ -1093,45 +1068,11 @@ define([
 			}
 		},
 
-		// TODO: remove in 2.0
-		blur: function(){
-			// summary:
-			//		Remove focus from this instance.
-			// tags:
-			//		deprecated
-			if(!has("ie") && this.window.document.documentElement && this.window.document.documentElement.focus){
-				this.window.document.documentElement.focus();
-			}else if(this.ownerDocumentBody.focus){
-				this.ownerDocumentBody.focus();
-			}
-		},
-
 		focus: function(){
 			// summary:
-			//		Move focus to this editor
-			if(!this.isLoaded){
-				this.focusOnLoad = true;
-				return;
-			}
-			if(this._cursorToStart){
-				delete this._cursorToStart;
-				if(this.editNode.childNodes){
-					this.placeCursorAtStart(); // this calls focus() so return
-					return;
-				}
-			}
-			if(!has("ie")){
-				focus.focus(this.iframe);
-			}else if(this.editNode && this.editNode.focus){
-				// editNode may be hidden in display:none div, lets just punt in this case
-				//this.editNode.focus(); -> causes IE to scroll always (strict and quirks mode) to the top the Iframe
-				// if we fire the event manually and let the browser handle the focusing, the latest
-				// cursor position is focused like in FF
-				this.iframe.fireEvent('onfocus', document.createEventObject()); // createEventObject only in IE
-				//	}else{
-				// TODO: should we throw here?
-				// console.debug("Have no idea how to focus into the editor!");
-			}
+			//		Move focus to this editor   Shouldn't be called until editor has finished initializing.
+
+			this.iframe.focus();
 		},
 
 		// _lastUpdate: 0,
@@ -1430,17 +1371,6 @@ define([
 
 		// Misc.
 
-		_sCall: function(name, args){
-			// summary:
-			//		Deprecated, remove for 2.0.   New code should access this.selection directly.
-			//		Run the named method of dijit/selection over the
-			//		current editor instance's window, with the passed args.
-			// tags:
-			//		private deprecated
-
-			return this.selection[name].apply(this.selection, args);
-		},
-
 		// FIXME: this is a TON of code duplication. Why?
 
 		placeCursorAtStart: function(){
@@ -1556,7 +1486,8 @@ define([
 			// tags:
 			//		deprecated
 
-			// TODO: remove this and getValue() for 2.0, and move code to _setValueAttr()
+			// TODO: remove this and getValue() for 2.0, and move code to _setValueAttr().
+			// But it's currently being used internally.
 
 			if(!this.isLoaded){
 				// try again after the editor is finished loading
@@ -1750,24 +1681,6 @@ define([
 				str = str.replace(/'/gm, "&#39;");
 			}
 			return str; // string
-		},
-
-		getNodeHtml: function(/* DomNode */ node){
-			// summary:
-			//		Deprecated.   Use dijit/_editor/html::_getNodeHtml() instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated('dijit.Editor::getNodeHtml is deprecated', 'use dijit/_editor/html::getNodeHtml instead', 2);
-			return htmlapi.getNodeHtml(node); // String
-		},
-
-		getNodeChildrenHtml: function(/* DomNode */ dom){
-			// summary:
-			//		Deprecated.   Use dijit/_editor/html::getChildrenHtml() instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated('dijit.Editor::getNodeChildrenHtml is deprecated', 'use dijit/_editor/html::getChildrenHtml instead', 2);
-			return htmlapi.getChildrenHtml(dom);
 		},
 
 		close: function(/*Boolean?*/ save){

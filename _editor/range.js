@@ -192,8 +192,7 @@ define([
 			return [node,len];
 		},
 
-		create: function(/*Window?*/ win){	// TODO: for 2.0, replace optional window param w/mandatory window or document param
-			win = win || window;
+		create: function(/*Window*/ win){
 			if(win.getSelection){
 				return win.document.createRange();
 			}else{//IE
@@ -551,9 +550,6 @@ define([
 			}
 		});
 	} //if(!window.getSelection)
-
-	// remove for 2.0
-	lang.setObject("dijit.range", rangeapi);
 
 	return rangeapi;
 });

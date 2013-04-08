@@ -12,7 +12,6 @@ define([
 	"dojo/_base/lang", // lang.getObject lang.hitch
 	"dojo/sniff", // has("ie") has("mac") has("webkit")
 	"dojo/string", // string.substitute
-	"dojo/topic", // topic.publish()
 	"./_Container",
 	"./Toolbar",
 	"./ToolbarSeparator",
@@ -23,12 +22,11 @@ define([
 	"./_editor/html",
 	"./_editor/range",
 	"./_editor/RichText",
-	"./main", // dijit._scopeName
 	"dojo/i18n!./_editor/nls/commands"
 ], function(require, array, declare, Deferred, i18n, domAttr, domClass, domGeometry, domStyle,
-			keys, lang, has, string, topic,
+			keys, lang, has, string,
 			_Container, Toolbar, ToolbarSeparator, _LayoutWidget, ToggleButton,
-			_Plugin, EnterKeyHandling, html, rangeapi, RichText, dijit){
+			_Plugin, EnterKeyHandling, html, rangeapi, RichText, nlsCommands){
 
 	// module:
 	//		dijit/Editor
@@ -183,20 +181,12 @@ define([
 			if(!args.setEditor){
 				var o = {"args": args, "plugin": null, "editor": this};
 				if(args.name){
-					// search registry for a plugin factory matching args.name, if it's not there then
-					// fallback to 1.0 API:
-					// ask all loaded plugin modules to fill in o.plugin if they can (ie, if they implement args.name)
-					// remove fallback for 2.0.
-					if(_Plugin.registry[args.name]){
-						o.plugin = _Plugin.registry[args.name](args);
-					}else{
-						topic.publish(dijit._scopeName + ".Editor.getPlugin", o);	// publish
-					}
+					// search registry for a plugin factory matching args.name
+					o.plugin = _Plugin.registry[args.name](args);
 				}
 				if(!o.plugin){
 					try{
-						// TODO: remove lang.getObject() call in 2.0
-						var pc = args.ctor || lang.getObject(args.name) || require(args.name);
+						var pc = args.ctor || require(args.name);
 						if(pc){
 							o.plugin = new pc(args);
 						}
