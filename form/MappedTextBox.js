@@ -1,9 +1,8 @@
 define([
 	"dojo/_base/declare", // declare
-	"dojo/sniff", // has("msapp")
 	"dojo/dom-construct", // domConstruct.place
 	"./ValidationTextBox"
-], function(declare, has, domConstruct, ValidationTextBox){
+], function(declare, domConstruct, ValidationTextBox){
 
 	// module:
 	//		dijit/form/MappedTextBox
@@ -21,14 +20,6 @@ define([
 		//		locale-neutral.
 		// tags:
 		//		protected
-
-		postMixInProperties: function(){
-			this.inherited(arguments);
-
-			// We want the name attribute to go to the hidden <input>, not the displayed <input>,
-			// so override _FormWidget.postMixInProperties() setting of nameAttrSetting for IE.
-			this.nameAttrSetting = "";
-		},
 
 		// Remap name attribute to be mapped to hidden node created in buildRendering(), rather than this.focusNode
 		_setNameAttr: "valueNode",
@@ -67,12 +58,7 @@ define([
 
 			// Create a hidden <input> node with the serialized value used for submit
 			// (as opposed to the displayed value).
-			// Passing in name as markup rather than relying on _setNameAttr custom setter above
-			// to make query(input[name=...]) work on IE. (see #8660).
-			// But not doing that for Windows 8 Store apps because it causes a security exception (see #16452).
-			this.valueNode = domConstruct.place("<input type='hidden'" +
-				((this.name && !has("msapp")) ? ' name="' + this.name.replace(/"/g, "&quot;") + '"' : "") + "/>",
-				this.textbox, "after");
+			this.valueNode = domConstruct.place("<input type='hidden'/>", this.textbox, "after");
 		},
 
 		reset: function(){

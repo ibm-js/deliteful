@@ -2,16 +2,14 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-construct", // domConstruct.create
 	"dojo/dom-style", // domStyle.getComputedStyle
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"dojo/sniff", // has("ie") has("mozilla")
 	"./_FormValueWidget",
 	"./_TextBoxMixin",
-	"dojo/text!./templates/TextBox.html",
-	"../main"	// to export dijit._setSelectionRange, remove in 2.0
-], function(declare, domConstruct, domStyle, kernel, lang, on, has,
-			_FormValueWidget, _TextBoxMixin, template, dijit){
+	"dojo/text!./templates/TextBox.html"
+], function(declare, domConstruct, domStyle, lang, on, has,
+			_FormValueWidget, _TextBoxMixin, template){
 
 	// module:
 	//		dijit/form/TextBox
@@ -21,7 +19,7 @@ define([
 		//		A base class for textbox form inputs
 
 		templateString: template,
-		_singleNodeTemplate: '<input class="dijit dijitReset dijitLeft dijitInputField" data-dojo-attach-point="textbox,focusNode" autocomplete="off" type="${type}" ${!nameAttrSetting} />',
+		_singleNodeTemplate: '<input class="dijit dijitReset dijitLeft dijitInputField" data-dojo-attach-point="textbox,focusNode" autocomplete="off" type="${type}"/>',
 
 		_buttonInputDisabled: has("ie") ? "disabled" : "", // allows IE to disallow focus, but Firefox cannot be disabled for mousedown events
 
@@ -104,24 +102,6 @@ define([
 			this._updatePlaceHolder();
 		},
 
-		getDisplayedValue: function(){
-			// summary:
-			//		Deprecated.  Use get('displayedValue') instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated(this.declaredClass+"::getDisplayedValue() is deprecated. Use get('displayedValue') instead.", "", "2.0");
-			return this.get('displayedValue');
-		},
-
-		setDisplayedValue: function(/*String*/ value){
-			// summary:
-			//		Deprecated.  Use set('displayedValue', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated(this.declaredClass+"::setDisplayedValue() is deprecated. Use set('displayedValue', ...) instead.", "", "2.0");
-			this.set('displayedValue', value);
-		},
-
 		_onBlur: function(e){
 			if(this.disabled){ return; }
 			this.inherited(arguments);
@@ -150,7 +130,7 @@ define([
 		};
 
 		// Overrides definition of _setSelectionRange from _TextBoxMixin (TODO: move to _TextBoxMixin.js?)
-		dijit._setSelectionRange = _TextBoxMixin._setSelectionRange = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
+		_TextBoxMixin._setSelectionRange = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
 			if(element.createTextRange){
 				var r = element.createTextRange();
 				r.collapse(true);
