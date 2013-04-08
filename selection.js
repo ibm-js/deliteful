@@ -288,7 +288,6 @@ define([
 			// nochangefocus: Boolean
 			//		Boolean indicating if the focus should be changed.  IE only.
 			var range;
-			element = dom.byId(element);	// TODO: remove for 2.0 or sooner, spec listed above doesn't allow for string
 			if(doc.getSelection){
 				// W3C path
 				var selection = doc.getSelection();
