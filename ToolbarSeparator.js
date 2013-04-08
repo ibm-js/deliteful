@@ -1,15 +1,15 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin"
-], function(declare, dom, _Widget, _TemplatedMixin){
+], function(declare, dom, _WidgetBase, _TemplatedMixin){
 
 	// module:
 	//		dijit/ToolbarSeparator
 
 
-	return declare("dijit.ToolbarSeparator", [_Widget, _TemplatedMixin], {
+	return declare("dijit.ToolbarSeparator", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		A spacer between two `dijit.Toolbar` items
 
