@@ -8,7 +8,6 @@ define([
 	"dojo/dom-construct", // domConstruct.create domConstruct.destroy
 	"dojo/dom-style", // domStyle.getComputedStyle domStyle.set domStyle.get
 	"dojo/i18n", // i18n.getLocalization
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/keys", // keys.ENTER keys.ESCAPE
 	"dojo/_base/lang", // lang.getObject
 	"dojo/on",
@@ -16,7 +15,7 @@ define([
 	"dojo/when",
 	"./a11yclick",
 	"./focus",
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"./_WidgetsInTemplateMixin",
 	"./_Container",
@@ -25,12 +24,14 @@ define([
 	"./form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!./nls/common"
-], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, i18n, kernel, keys, lang, on, has, when, a11yclick, fm, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Button, _TextBoxMixin, TextBox, template){
+], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, i18n, keys, lang, on, has, when,
+			a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Button, _TextBoxMixin,
+			TextBox, template){
 
 	// module:
 	//		dijit/InlineEditBox
 
-	var InlineEditor = declare("dijit._InlineEditor", [_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
+	var InlineEditor = declare("dijit._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		// summary:
 		//		Internal widget used by InlineEditBox, displayed when in editing mode
 		//		to display the editor and maybe save/cancel buttons.  Calling code should
@@ -62,8 +63,7 @@ define([
 			this.inherited(arguments);
 
 			// Create edit widget in place in the template
-			// TODO: remove getObject() for 2.0
-			var Cls = typeof this.editor == "string" ? (lang.getObject(this.editor) || require(this.editor)) : this.editor;
+			var Cls = typeof this.editor == "string" ? require(this.editor) : this.editor;
 
 			// Copy the style from the source
 			// Don't copy ALL properties though, just the necessary/applicable ones.
@@ -255,7 +255,7 @@ define([
 	});
 
 
-	var InlineEditBox = declare("dijit.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), _Widget, {
+	var InlineEditBox = declare("dijit.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), _WidgetBase, {
 		// summary:
 		//		An element with in-line edit capabilities
 		//
@@ -385,15 +385,6 @@ define([
 			}
 
 			domClass.add(this.displayNode, 'dijitInlineEditBoxDisplayMode');
-		},
-
-		setDisabled: function(/*Boolean*/ disabled){
-			// summary:
-			//		Deprecated.   Use set('disabled', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.InlineEditBox.setDisabled() is deprecated.  Use set('disabled', bool) instead.", "", "2.0");
-			this.set('disabled', disabled);
 		},
 
 		_setDisabledAttr: function(/*Boolean*/ disabled){
@@ -584,15 +575,6 @@ define([
 			this._showText(focus); // set focus as needed
 		},
 
-		setValue: function(/*String*/ val){
-			// summary:
-			//		Deprecated.   Use set('value', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.InlineEditBox.setValue() is deprecated.  Use set('value', ...) instead.", "", "2.0");
-			return this.set("value", val);
-		},
-
 		_setValueAttr: function(/*String*/ val){
 			// summary:
 			//		Hook to make set("value", ...) work.
@@ -609,15 +591,6 @@ define([
 					this.onChange(val);
 				}); // defer prevents browser freeze for long-running event handlers
 			}
-		},
-
-		getValue: function(){
-			// summary:
-			//		Deprecated.   Use get('value') instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.InlineEditBox.getValue() is deprecated.  Use get('value') instead.", "", "2.0");
-			return this.get("value");
 		},
 
 		cancel: function(/*Boolean*/ focus){
