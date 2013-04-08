@@ -2,11 +2,9 @@ define([
 	"dojo/_base/array", // array.forEach array.map array.some
 	"dojo/dom-geometry", // domGeometry.position
 	"dojo/dom-style", // domStyle.getComputedStyle
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/_base/window", // win.body
-	"./Viewport", // getEffectiveBox
-	"./main"	// dijit (defining dijit.place to match API doc)
-], function(array, domGeometry, domStyle, kernel, win, Viewport, dijit){
+	"./Viewport" // getEffectiveBox
+], function(array, domGeometry, domStyle, win, Viewport){
 
 	// module:
 	//		dijit/place
@@ -312,8 +310,8 @@ define([
 
 			var x = aroundNodePos.x,
 				y = aroundNodePos.y,
-				width = "w" in aroundNodePos ? aroundNodePos.w : (aroundNodePos.w = aroundNodePos.width),
-				height = "h" in aroundNodePos ? aroundNodePos.h : (kernel.deprecated("place.around: dijit/place.__Rectangle: { x:"+x+", y:"+y+", height:"+aroundNodePos.height+", width:"+width+" } has been deprecated.  Please use { x:"+x+", y:"+y+", h:"+aroundNodePos.height+", w:"+width+" }", "", "2.0"), aroundNodePos.h = aroundNodePos.height);
+				width = aroundNodePos.w,
+				height = aroundNodePos.h;
 
 			// Convert positions arguments into choices argument for _place()
 			var choices = [];
@@ -406,5 +404,5 @@ define([
 	};
 	=====*/
 
-	return dijit.place = place;	// setting dijit.place for back-compat, remove for 2.0
+	return place;
 });
