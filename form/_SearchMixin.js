@@ -249,17 +249,12 @@ define([
 
 			lang.mixin(options, this.fetchProperties);
 
-			// Generate query
-			if(this.store._oldAPI){
-				// remove this branch for 2.0
-				q = qs;
-			}else{
-				// Query on searchAttr is a regex for benefit of dojo/store/Memory,
-				// but with a toString() method to help dojo/store/JsonRest.
-				// Search string like "Co*" converted to regex like /^Co.*$/i.
-				q = this._patternToRegExp(qs);
-				q.toString = function(){ return qs; };
-			}
+			// Generate query.
+			// Query on searchAttr is a regex for benefit of dojo/store/Memory,
+			// but with a toString() method to help dojo/store/JsonRest.
+			// Search string like "Co*" converted to regex like /^Co.*$/i.
+			q = this._patternToRegExp(qs);
+			q.toString = function(){ return qs; };
 
 			// set _lastQuery, *then* start the timeout
 			// otherwise, if the user types and the last query returns before the timeout,
