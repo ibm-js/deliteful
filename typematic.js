@@ -1,16 +1,14 @@
 define([
 	"dojo/_base/array", // array.forEach
-	"dojo/_base/connect", // connect._keyPress
 	"dojo/_base/lang", // lang.mixin, lang.hitch
 	"dojo/on",
-	"dojo/sniff", // has("ie")
-	"./main"        // setting dijit.typematic global
-], function(array, connect, lang, on, has, dijit){
+	"dojo/sniff" // has("ie")
+], function(array, lang, on, has){
 
 	// module:
 	//		dijit/typematic
 
-	var typematic = (dijit.typematic = {
+	return  {
 		// summary:
 		//		These functions are used to repetitively call a user specified callback
 		//		method when a specific key or mouse click over a specific DOM node is
@@ -104,7 +102,6 @@ define([
 			//
 			//		- keyCode: the keyCode (number) to listen for, used for non-printable keys
 			//		- charCode: the charCode (number) to listen for, used for printable keys
-			//		- charOrCode: deprecated, use keyCode or charCode
 			//		- ctrlKey: desired ctrl key state to initiate the callback sequence:
 			//			- pressed (true)
 			//			- released (false)
@@ -115,9 +112,8 @@ define([
 			//		a connection handle
 
 			// Setup keydown or keypress listener depending on whether keyCode or charCode was specified.
-			// If charOrCode is specified use deprecated connect._keypress synthetic event (remove for 2.0)
-			var type = "keyCode" in keyObject ? "keydown" : "charCode" in keyObject ? "keypress" : connect._keypress,
-				attr = "keyCode" in keyObject ? "keyCode" : "charCode" in keyObject ? "charCode" : "charOrCode";
+			var type = "keyCode" in keyObject ? "keydown" : "keypress",
+				attr = "keyCode" in keyObject ? "keyCode" : "charCode";
 
 			var handles = [
 				on(node, type, lang.hitch(this, function(evt){
@@ -205,7 +201,5 @@ define([
 				});
 			} };
 		}
-	});
-
-	return typematic;
+	};
 });
