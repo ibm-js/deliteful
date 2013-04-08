@@ -1,11 +1,10 @@
 define([
 	"dojo/_base/array", // array.every array.filter array.forEach array.indexOf array.map
 	"dojo/_base/declare", // declare
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/_base/lang", // lang.hitch lang.isArray
 	"dojo/on",
 	"dojo/window" // winUtils.scrollIntoView
-], function(array, declare, kernel, lang, on, winUtils){
+], function(array, declare, lang, on, winUtils){
 
 	// module:
 	//		dijit/form/_FormMixin
@@ -71,7 +70,7 @@ define([
 
 		validate: function(){
 			// summary:
-			//		returns if the form is valid - same as isValid - but
+			//		returns if the form is valid and
 			//		provides a few additional (ui-specific) features:
 			//
 			//		1. it will highlight any sub-widgets that are not valid
@@ -92,10 +91,6 @@ define([
 			}), function(item){ return item; });
 		},
 
-		setValues: function(val){
-			kernel.deprecated(this.declaredClass+"::setValues() is deprecated. Use set('value', val) instead.", "", "2.0");
-			return this.set('value', val);
-		},
 		_setValueAttr: function(/*Object*/ obj){
 			// summary:
 			//		Fill in form values from according to an Object (in the format returned by get('value'))
@@ -211,10 +206,6 @@ define([
 			// which I am monitoring.
 		},
 
-		getValues: function(){
-			kernel.deprecated(this.declaredClass+"::getValues() is deprecated. Use get('value') instead.", "", "2.0");
-			return this.get('value');
-		},
 		_getValueAttr: function(){
 			// summary:
 			//		Returns Object representing form values.   See description of `value` for details.
@@ -339,23 +330,6 @@ define([
 			return obj;
 		},
 
-		isValid: function(){
-			// summary:
-			//		Returns true if all of the widgets are valid.
-			//		Deprecated, will be removed in 2.0.  Use get("state") instead.
-
-			return this.state == "";
-		},
-
-		onValidStateChange: function(/*Boolean*/ /*===== isValid =====*/){
-			// summary:
-			//		Stub function to connect to if you want to do something
-			//		(like disable/enable a submit button) when the valid
-			//		state changes on the form as a whole.
-			//
-			//		Deprecated.  Will be removed in 2.0.  Use watch("state", ...) instead.
-		},
-
 		_getState: function(){
 			// summary:
 			//		Compute what this.state should be based on state of children
@@ -365,11 +339,6 @@ define([
 
 			return array.indexOf(states, "Error") >= 0 ? "Error" :
 				array.indexOf(states, "Incomplete") >= 0 ? "Incomplete" : "";
-		},
-
-		disconnectChildren: function(){
-			// summary:
-			//		Deprecated method.   Applications no longer need to call this.   Remove for 2.0.
 		},
 
 		connectChildren: function(/*Boolean*/ inStartup){

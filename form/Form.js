@@ -1,19 +1,18 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/sniff", // has("ie")
-	"../_Widget",
+	"../_WidgetBase",
 	"../_TemplatedMixin",
 	"./_FormMixin",
 	"../layout/_ContentPaneResizeMixin"
-], function(declare, domAttr, kernel, has, _Widget, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin){
+], function(declare, domAttr, has, _WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin){
 
 	// module:
 	//		dijit/form/Form
 
 
-	return declare("dijit.form.Form", [_Widget, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
+	return declare("dijit.form.Form", [_WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
 		// summary:
 		//		Widget corresponding to HTML form tag, for validation and serialization
 		//
@@ -56,28 +55,7 @@ define([
 		//		Target frame for the document to be opened in.
 		target: "",
 
-		templateString: "<form data-dojo-attach-point='containerNode' data-dojo-attach-event='onreset:_onReset,onsubmit:_onSubmit' ${!nameAttrSetting}></form>",
-
-		postMixInProperties: function(){
-			// Setup name=foo string to be referenced from the template (but only if a name has been specified)
-			// Unfortunately we can't use _setNameAttr to set the name due to IE limitations, see #8660
-			this.nameAttrSetting = this.name ? ("name='" + this.name + "'") : "";
-			this.inherited(arguments);
-		},
-
-		execute: function(/*Object*/ /*===== formContents =====*/){
-			// summary:
-			//		Deprecated: use submit()
-			// tags:
-			//		deprecated
-		},
-
-		onExecute: function(){
-			// summary:
-			//		Deprecated: use onSubmit()
-			// tags:
-			//		deprecated
-		},
+		templateString: "<form data-dojo-attach-point='containerNode' data-dojo-attach-event='onreset:_onReset,onsubmit:_onSubmit'></form>",
 
 		_setEncTypeAttr: function(/*String*/ value){
 			domAttr.set(this.domNode, "encType", value);
@@ -129,12 +107,7 @@ define([
 
 		_onSubmit: function(e){
 			var fp = this.constructor.prototype;
-			// TODO: remove this if statement beginning with 2.0
-			if(this.execute != fp.execute || this.onExecute != fp.onExecute){
-				kernel.deprecated("dijit.form.Form:execute()/onExecute() are deprecated. Use onSubmit() instead.", "", "2.0");
-				this.onExecute();
-				this.execute(this.getValues());
-			}
+
 			if(this.onSubmit(e) === false){ // only exactly false stops submit
 				e.stopPropagation();
 				e.preventDefault();
