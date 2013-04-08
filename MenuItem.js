@@ -3,22 +3,22 @@ define([
 	"dojo/dom", // dom.setSelectable
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-class", // domClass.toggle
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/sniff", // has("ie")
 	"dojo/_base/lang", // lang.hitch
-	"./_Widget",
+	"./_WidgetBase",
 	"./_TemplatedMixin",
 	"./_Contained",
 	"./_CssStateMixin",
 	"dojo/text!./templates/MenuItem.html"
-], function(declare, dom, domAttr, domClass, kernel, has, lang,
-			_Widget, _TemplatedMixin, _Contained, _CssStateMixin, template){
+], function(declare, dom, domAttr, domClass, has, lang,
+			_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin, template){
 
 	// module:
 	//		dijit/MenuItem
 
 	var MenuItem = declare("dijit.MenuItem" + (has("dojo-bidi") ? "_NoBidi" : ""),
-		[_Widget, _TemplatedMixin, _Contained, _CssStateMixin], {
+		[_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin], {
+
 		// summary:
 		//		A line item in a Menu Widget
 
@@ -135,24 +135,6 @@ define([
 			//		private
 
 			domClass.toggle(this.domNode, "dijitMenuItemSelected", selected);
-		},
-
-		setLabel: function(/*String*/ content){
-			// summary:
-			//		Deprecated.   Use set('label', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.MenuItem.setLabel() is deprecated.  Use set('label', ...) instead.", "", "2.0");
-			this.set("label", content);
-		},
-
-		setDisabled: function(/*Boolean*/ disabled){
-			// summary:
-			//		Deprecated.   Use set('disabled', bool) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.Menu.setDisabled() is deprecated.  Use set('disabled', bool) instead.", "", "2.0");
-			this.set('disabled', disabled);
 		},
 
 		_setDisabledAttr: function(/*Boolean*/ value){

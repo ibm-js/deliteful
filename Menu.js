@@ -9,24 +9,15 @@ define([
 	"dojo/keys", // keys.F10
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"dojo/sniff", // has("ie"), has("quirks")
 	"dojo/_base/window", // win.body
 	"dojo/window", // winUtils.get
 	"./popup",
-	"./DropDownMenu",
-	"dojo/ready"
-], function(require, array, declare, dom, domAttr, domGeometry, domStyle, keys, lang, on, has, win, winUtils, pm, DropDownMenu, ready){
+	"./DropDownMenu"
+], function(require, array, declare, dom, domAttr, domGeometry, domStyle, keys, lang, on,
+			win, winUtils, pm, DropDownMenu){
 
 	// module:
 	//		dijit/Menu
-
-	// Back compat w/1.6, remove for 2.0
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/MenuItem", "dijit/PopupMenuItem", "dijit/CheckedMenuItem", "dijit/MenuSeparator"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
 
 	return declare("dijit.Menu", DropDownMenu, {
 		// summary:
@@ -301,8 +292,8 @@ define([
 
 					var cs = domStyle.getComputedStyle(iframe),
 						tp = domStyle.toPixelValue,
-						left = (has("ie") && has("quirks") ? 0 : tp(iframe, cs.paddingLeft)) + (has("ie") && has("quirks") ? tp(iframe, cs.borderLeftWidth) : 0),
-						top = (has("ie") && has("quirks") ? 0 : tp(iframe, cs.paddingTop)) + (has("ie") && has("quirks") ? tp(iframe, cs.borderTopWidth) : 0);
+						left = tp(iframe, cs.paddingLeft),
+						top = tp(iframe, cs.paddingTop);
 
 					coords.x += ifc.x + left - scroll.x;
 					coords.y += ifc.y + top - scroll.y;
