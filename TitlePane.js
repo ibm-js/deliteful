@@ -7,7 +7,6 @@ define([
 	"dojo/dom-geometry", // domGeometry.setMarginBox domGeometry.getMarginBox
 	"dojo/fx", // fxUtils.wipeIn fxUtils.wipeOut
 	"dojo/has",
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/keys", // keys.DOWN_ARROW keys.ENTER
 	"./_CssStateMixin",
 	"./_TemplatedMixin",
@@ -15,7 +14,7 @@ define([
 	"dojo/text!./templates/TitlePane.html",
 	"./_base/manager",    // defaultDuration
 	"./a11yclick"	// template uses ondijitclick
-], function(array, declare, dom, domAttr, domClass, domGeometry, fxUtils, has, kernel, keys,
+], function(array, declare, dom, domAttr, domClass, domGeometry, fxUtils, has, keys,
 			_CssStateMixin, _TemplatedMixin, ContentPane, template, manager){
 
 	// module:
@@ -223,9 +222,6 @@ define([
 			this._titleBarClass = this.baseClass + "Title" + (this.toggleable ? "" : "Fixed") + (this.open ? "Open" : "Closed");
 			domClass.replace(node, this._titleBarClass, oldCls || "");
 
-			// Back compat, remove for 2.0
-			domClass.replace(node, this._titleBarClass.replace("TitlePaneTitle", ""), (oldCls || "").replace("TitlePaneTitle", ""));
-
 			this.arrowNodeInner.innerHTML = this.open ? "-" : "+";
 		},
 
@@ -249,15 +245,6 @@ define([
 			if(this.toggleable){
 				this.toggle();
 			}
-		},
-
-		setTitle: function(/*String*/ title){
-			// summary:
-			//		Deprecated.  Use set('title', ...) instead.
-			// tags:
-			//		deprecated
-			kernel.deprecated("dijit.TitlePane.setTitle() is deprecated.  Use set('title', ...) instead.", "", "2.0");
-			this.set("title", title);
 		}
 	});
 
