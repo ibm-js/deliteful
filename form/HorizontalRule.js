@@ -1,13 +1,13 @@
 define([
 	"dojo/_base/declare", // declare
-	"../_Widget",
+	"../_WidgetBase",
 	"../_TemplatedMixin"
-], function(declare, _Widget, _TemplatedMixin){
+], function(declare, _WidgetBase, _TemplatedMixin){
 
 	// module:
 	//		dijit/form/HorizontalRule
 
-	return declare("dijit.form.HorizontalRule", [_Widget, _TemplatedMixin], {
+	return declare("dijit.form.HorizontalRule", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Hash marks for `dijit/form/HorizontalSlider`
 
