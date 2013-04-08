@@ -14,8 +14,7 @@ define([
 	"dojo/topic", // publish
 	"../focus", // focus.focus()
 	"../_base/manager", // manager.defaultDuration
-	"dojo/ready",
-	"../_Widget",
+	"../_WidgetBase",
 	"../_Container",
 	"../_TemplatedMixin",
 	"../_CssStateMixin",
@@ -24,7 +23,7 @@ define([
 	"dojo/text!./templates/AccordionButton.html",
 	"../a11yclick" // AccordionButton template uses ondijitclick; not for keyboard, but for responsive touch.
 ], function(require, array, declare, fx, dom, domAttr, domClass, domConstruct, domGeometry, keys, lang, has, topic,
-			focus, manager, ready, _Widget, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
+		focus, manager, _WidgetBase, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
 
 	// module:
 	//		dijit/layout/AccordionContainer
@@ -51,7 +50,7 @@ define([
 	// During animation there are two dijtAccordionChildWrapper's shown, so we need
 	// to compensate for that.
 
-	var AccordionButton = declare("dijit.layout._AccordionButton", [_Widget, _TemplatedMixin, _CssStateMixin], {
+	var AccordionButton = declare("dijit.layout._AccordionButton", [_WidgetBase, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		The title bar to click to open up an accordion pane.
 		//		Internal widget used by AccordionContainer.
@@ -137,7 +136,7 @@ define([
 		});
 	}
 
-	var AccordionInnerContainer = declare("dijit.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [_Widget, _CssStateMixin], {
+	var AccordionInnerContainer = declare("dijit.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [_WidgetBase, _CssStateMixin], {
 		// summary:
 		//		Internal widget placed as direct child of AccordionContainer.containerNode.
 		//		When other widgets are added as children to an AccordionContainer they are wrapped in
@@ -531,14 +530,6 @@ define([
 			}
 		}
 	});
-
-	// Back compat w/1.6, remove for 2.0
-	if(has("dijit-legacy-requires")){
-		ready(0, function(){
-			var requires = ["dijit/layout/AccordionPane"];
-			require(requires);	// use indirection so modules not rolled into a build
-		});
-	}
 
 	// For monkey patching
 	AccordionContainer._InnerContainer = AccordionInnerContainer;
