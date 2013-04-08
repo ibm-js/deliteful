@@ -164,13 +164,6 @@ define([
 			// tags:
 			//		protected
 
-			if(!widget){
-				return;
-			}
-
-			if(this.focusedChild && widget !== this.focusedChild){
-				this._onChildBlur(this.focusedChild);	// used to be used by _MenuBase
-			}
 			widget.set("tabIndex", this.tabIndex);	// for IE focus outline to appear, must set tabIndex before focus
 			widget.focus(last ? "end" : "start");
 
@@ -246,7 +239,6 @@ define([
 
 				// mark that the new node is the currently selected one
 				child.set("tabIndex", this.tabIndex);
-				this.lastFocused = child;		// back-compat for Tree, remove for 2.0
 				this._set("focusedChild", child);
 			}
 		},
@@ -392,15 +384,6 @@ define([
 			// commented out code block to search again if the multichar search fails after a smaller timeout
 			//this._typingSlowly = false;
 			this.onKeyboardSearch(matchedItem, evt, searchString, numMatches);
-		},
-
-		_onChildBlur: function(/*dijit/_WidgetBase*/ /*===== widget =====*/){
-			// summary:
-			//		Called when focus leaves a child widget to go
-			//		to a sibling widget.
-			//		Used to be used by MenuBase.js (remove for 2.0)
-			// tags:
-			//		protected
 		},
 
 		_getNextFocusableChild: function(child, dir){

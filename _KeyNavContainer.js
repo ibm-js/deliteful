@@ -2,14 +2,13 @@ define([
 	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
-	"dojo/_base/kernel", // kernel.deprecated
 	"dojo/keys", // keys.END keys.HOME
 	"dojo/_base/lang", // lang.hitch
 	"./registry",
 	"./_Container",
 	"./_FocusMixin",
 	"./_KeyNavMixin"
-], function(array, declare, domAttr, kernel, keys, lang, registry, _Container, _FocusMixin, _KeyNavMixin){
+], function(array, declare, domAttr, keys, lang, registry, _Container, _FocusMixin, _KeyNavMixin){
 
 
 	// module:
@@ -20,39 +19,7 @@ define([
 		//		A _Container with keyboard navigation of its children.
 		// description:
 		//		Provides normalized keyboard and focusing code for Container widgets.
-		//		To use this mixin, call connectKeyNavHandlers() in postCreate().
 		//		Also, child widgets must implement a focus() method.
-
-		connectKeyNavHandlers: function(/*keys[]*/ prevKeyCodes, /*keys[]*/ nextKeyCodes){
-			// summary:
-			//		Deprecated.  You can call this in postCreate() to attach the keyboard handlers to the container,
-			//		but the preferred method is to override _onLeftArrow() and _onRightArrow(), or
-			//		_onUpArrow() and _onDownArrow(), to call focusPrev() and focusNext().
-			// prevKeyCodes: keys[]
-			//		Key codes for navigating to the previous child.
-			// nextKeyCodes: keys[]
-			//		Key codes for navigating to the next child.
-			// tags:
-			//		protected
-
-			// TODO: remove for 2.0, and make subclasses override _onLeftArrow, _onRightArrow etc. instead.
-
-			var keyCodes = (this._keyNavCodes = {});
-			var prev = lang.hitch(this, "focusPrev");
-			var next = lang.hitch(this, "focusNext");
-			array.forEach(prevKeyCodes, function(code){
-				keyCodes[code] = prev;
-			});
-			array.forEach(nextKeyCodes, function(code){
-				keyCodes[code] = next;
-			});
-			keyCodes[keys.HOME] = lang.hitch(this, "focusFirstChild");
-			keyCodes[keys.END] = lang.hitch(this, "focusLastChild");
-		},
-
-		startupKeyNavChildren: function(){
-			kernel.deprecated("startupKeyNavChildren() call no longer needed", "", "2.0");
-		},
 
 		startup: function(){
 			this.inherited(arguments);
