@@ -40,9 +40,6 @@
 	.standard-gradient("../");
 	overflow: hidden;
 }
-.dj_iequirks .claro .dijitSpinner .dijitArrowButton {
-	overflow: visible; /* 0 height w/o this */
-}
 
 .claro .dijitSpinner .dijitSpinnerButtonInner {
 	width: 15px;
@@ -66,16 +63,6 @@
 	margin: -1px 0 -1px 0;	/* compensate for inner border */
 }
 
-.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie6 .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie7 .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie8 .claro .dijitSpinner .dijitArrowButtonInner {
-	margin-top: 0; /* since its bottom aligned */
-}
-
-.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner {
-	width: 19px;
-}
 .claro .dijitSpinner .dijitDownArrowButton .dijitArrowButtonInner {
 	background-position:-34px;
 }
@@ -140,11 +127,3 @@
 .claro .dijitSpinnerDisabled .dijitDownArrowButton .dijitArrowButtonInner {
 	background-position:1px;
 }
-
-/** hacks for browsers **/
-
-/* for IE 7, when div is enlarged, 
- * should be no empty space between dijitInputLayoutContainer and dijitSpinner*/
-.dj_ie7 .claro .dijitSpinner {
-	overflow:visible;
-} 

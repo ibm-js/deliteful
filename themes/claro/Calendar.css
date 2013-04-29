@@ -46,9 +46,6 @@
   text-align: center;
   padding: 6px 5px 3px 5px;
 }
-.dj_ie6 .claro .dijitCalendar {
-  background-image: none;
-}
 .claro .dijitCalendar img {
   border: none;
 }
@@ -78,9 +75,6 @@
   height: 16px;
   background-image: url("images/calendarArrows.png");
   background-repeat: no-repeat;
-}
-.dj_ie6 .claro .dijitCalendarIncrementControl {
-  background-image: url("images/calendarArrows8bit.png");
 }
 .claro .dijitCalendarIncrease {
   background-position: -18px 0;
@@ -129,9 +123,6 @@
   letter-spacing: .05em;
   text-align: center;
   color: #000000;
-}
-.dj_ie6 .claro .dijitCalendarDateTemplate {
-  background-image: none;
 }
 .claro .dijitCalendarPreviousMonth,
 .claro .dijitCalendarNextMonth {
@@ -233,9 +224,6 @@
   -moz-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
-.dj_ie6 .claro .dijitCalendarActiveDate .dijitCalendarDateLabel {
-  background-image: none;
-}
 /* End Active Calendar Style */
 /* Selected Calendar Style */
 .claro .dijitCalendarSelectedDate .dijitCalendarDateLabel {
@@ -295,5 +283,4 @@
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= #ffffff , endColorstr= #abd6ff );
 }

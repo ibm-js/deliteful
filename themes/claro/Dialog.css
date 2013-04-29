@@ -80,7 +80,6 @@
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
-  _background-image: none;
   padding: 5px 7px 4px 7px;
 }
 .claro .dijitDialogTitle {
@@ -99,9 +98,6 @@
   right: 5px;
   height: 15px;
   width: 21px;
-}
-.dj_ie6 .claro .dijitDialogCloseIcon {
-  background-image: url("images/dialogCloseIcon8bit.png");
 }
 .claro .dijitDialogCloseIconHover {
   background-position: -21px;
@@ -161,9 +157,6 @@
   width: 16px;
   height: 14px;
 }
-.dj_ie6 .claro .dijitTooltipConnector {
-  background-image: url("images/tooltip8bit.png");
-}
 .claro .dijitTooltipBelow .dijitTooltipConnector {
   /* the arrow piece for tooltips below an element */
 
@@ -181,10 +174,6 @@
   background-position: -15px 0;
   width: 16px;
   height: 14px;
-}
-.dj_ie7 .claro .dijitTooltipAbove .dijitTooltipConnector,
-.dj_ie6 .claro .dijitTooltipAbove .dijitTooltipConnector {
-  bottom: -1px;
 }
 .claro .dijitTooltipABRight .dijitTooltipConnector {
   /* above or below tooltip, but the arrow appears on the right,

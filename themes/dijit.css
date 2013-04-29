@@ -31,12 +31,9 @@
 		Also, apparently works on a DIV as well as a FIELDSET.
 	*/
 	display:inline-block;			/* webkit and FF3 */
-	#zoom: 1; /* set hasLayout:true to mimic inline-block */
-	#display:inline; /* don't use .dj_ie since that increases the priority */
 	border:0;
 	padding:0;
 	vertical-align:middle;
-	#vertical-align: auto;	/* makes TextBox,Button line up w/native counterparts on IE6 */
 }
 
 table.dijitInline {
@@ -56,18 +53,11 @@ table.dijitInline {
 	position: relative;			/* to support setting width/height, see #2033 */
 }
 
-.dj_ie6 .dijitComboBox .dijitInputContainer,
 .dijitInputContainer {
 	/* for positioning of placeHolder */
-	#zoom: 1;
 	overflow: hidden;
 	float: none !important; /* needed to squeeze the INPUT in */
 	position: relative;
-}
-.dj_ie7 .dijitInputContainer {
-	float: left !important; /* needed by IE to squeeze the INPUT in */
-	clear: left;
-	display: inline-block !important; /* to fix wrong text alignment in textdir=rtl text box */
 }
 
 .dj_ie .dijitSelect input,
@@ -261,7 +251,6 @@ TABLE.dijitSelect {
 
 .dijitRight {
 	/* Right part of a 3-element border */
-	#display:inline;				/* IE7 sizes to outer size w/o this */
 	background-position:right top;
 	background-repeat:no-repeat;
 }
@@ -327,7 +316,6 @@ td.dijitButtonContents {
 	margin:0;
 	line-height:normal;
 	vertical-align: middle;
-	#vertical-align: auto;
 	text-align:center;
 	white-space: nowrap;
 }
@@ -372,7 +360,6 @@ div.dijitArrowButton {
 
 .dijitTextBox {
 	border: solid black 1px;
-	#overflow: hidden; /* #6027, #6067 */
 	width: 15em;	/* need to set default size on outer node since inner nodes say <input style="width:100%"> and <td width=100%>.  user can override */
 	vertical-align: middle;
 }
@@ -399,7 +386,6 @@ div.dijitArrowButton {
 	position: absolute;
 	top: 0;
 	left: 0;
-	#filter: ""; /* make this showup in IE6 after the rendering of the widget */
 }
 
 .dijitTimeTextBox {
@@ -417,10 +403,6 @@ div.dijitArrowButton {
 .dijitSelect input,
 .dijitTextBox input {
 	float: left; /* needed by IE to remove secret margin */
-}
-.dj_ie6 input.dijitTextBox,
-.dj_ie6 .dijitTextBox input {
-	float: none;
 }
 .dijitInputInner {
 	/* for when an <input> is embedded inside an inline-block <div> with a size and border */
@@ -446,9 +428,6 @@ div.dijitArrowButton {
 	direction: ltr !important;
 	text-align: left !important;
 	height: auto !important;
-	#text-indent: 0 !important;
-	#letter-spacing: -5em !important;
-	#text-align: right !important;
 }
 .dj_ie .dijitSelect input,
 .dj_ie .dijitTextBox input,
@@ -462,21 +441,8 @@ div.dijitArrowButton {
 .dj_ie .dijitSelect .dijitSelectLabel {
 	line-height: normal;
 }
-.dj_ie6 .dijitSelect .dijitSelectLabel,
-.dj_ie7 .dijitSelect .dijitSelectLabel,
 .dj_ie8 .dijitSelect .dijitSelectLabel,
-.dj_iequirks .dijitSelect .dijitSelectLabel,
-.dijitSelect td,
-.dj_ie6 .dijitSelect input,
-.dj_iequirks .dijitSelect input,
-.dj_ie6 .dijitSelect .dijitValidationContainer,
-.dj_ie6 .dijitTextBox input,
-.dj_ie6 input.dijitTextBox,
-.dj_iequirks .dijitTextBox input.dijitValidationInner,
-.dj_iequirks .dijitTextBox input.dijitArrowButtonInner,
-.dj_iequirks .dijitTextBox input.dijitSpinnerButtonInner,
-.dj_iequirks .dijitTextBox input.dijitInputInner,
-.dj_iequirks input.dijitTextBox {
+.dijitSelect td {
 	line-height: 100%; /* IE7 problem where the icon is vertically way too low w/o this */
 }
 .dj_a11y input.dijitValidationInner,
@@ -484,7 +450,6 @@ div.dijitArrowButton {
 	/* (in high contrast mode) revert rules from above so character displays */
 	text-indent: 0 !important;
 	width: 1em !important;
-	#text-align: left !important;
 	color: black !important;
 }
 .dijitValidationTextBoxError .dijitValidationContainer {
@@ -557,21 +522,6 @@ div.dijitArrowButton {
 	margin-right: 0.3em !important;
 	width: 1.4em !important;
 }
-.dj_ie7 .dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
-	padding-left: 0 !important; /* manually center INPUT: character is .5em and total width = 1em */
-	padding-right: 0 !important;
-	width: 1em !important;
-}
-.dj_ie6 .dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
-	margin-left: 0.1em !important;
-	margin-right: 0.1em !important;
-	width: 1em !important;
-}
-.dj_iequirks .dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
-	margin-left: 0 !important;
-	margin-right: 0 !important;
-	width: 2em !important;
-}
 .dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
 	/* note: .dijitInputLayoutContainer makes this rule override .dijitArrowButton settings
 	 * for dijit.form.Button
@@ -586,9 +536,6 @@ div.dijitArrowButton {
 	left: 0;
 	right: auto;
 }
-.dj_iequirks .dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
-	width: auto;
-}
 .dj_a11y .dijitSpinnerButtonContainer .dijitArrowButton {
 	overflow: visible !important;
 }
@@ -597,16 +544,12 @@ div.dijitArrowButton {
 	border-top-width: 1px !important;
 }
 .dijitSpinner .dijitSpinnerButtonContainer .dijitUpArrowButton {
-	#bottom: 50%;	/* otherwise (on some machines) top arrow icon too close to splitter border (IE6/7) */
 	top: 0;
 }
 .dijitSpinner .dijitArrowButtonInner {
 	margin: auto;
 	overflow-x: hidden;
 	height: 100% !important;
-}
-.dj_iequirks .dijitSpinner .dijitArrowButtonInner {
-	height: auto !important;
 }
 .dijitSpinner .dijitArrowButtonInner .dijitInputField {
 	-moz-transform: scale(0.5);
@@ -633,9 +576,6 @@ div.dijitArrowButton {
 
 .dj_a11y .dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
 	width: 100%;
-}
-.dj_iequirks .dj_a11y .dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
-	width: 1em; /* matches .dj_a11y .dijitTextBox .dijitSpinnerButtonContainer rule - 100% is the whole screen width in quirks */
 }
 .dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
 	vertical-align:top;
@@ -720,9 +660,6 @@ div.dijitArrowButton {
 	top:0;
 	width:100%;
 }
-.dj_ie6 .dijitProgressBarFull {
-	height:1.6em;
-}
 
 .dijitProgressBarTile {
 	/* inner container for finished portion */
@@ -734,7 +671,6 @@ div.dijitArrowButton {
 	right:0;
 	margin:0;
 	padding:0;
-	width: 100%;    /* needed for IE/quirks */
 	height:auto;
 	background-color:#aaa;
 	background-attachment: fixed;
@@ -745,13 +681,6 @@ div.dijitArrowButton {
 	border-width:2px;
 	border-style:solid;
 	background-color:transparent !important;
-}
-
-.dj_ie6 .dijitProgressBarTile {
-	/* width:auto works in IE6 with position:static but not position:absolute */
-	position:static;
-	/* height:auto or 100% does not work in IE6 */
-	height:1.6em;
 }
 
 .dijitProgressBarIndeterminate .dijitProgressBarTile {
@@ -907,8 +836,6 @@ body .dijitAlignClient { position: absolute; }
 	background: white;
 	opacity: 0;
 }
-.dj_ie6 .dijitSplitterCover,
-.dj_ie7 .dijitSplitterCover,
 .dj_ie8 .dijitSplitterCover {
 	filter: alpha(opacity=0);
 }
@@ -1049,12 +976,6 @@ body .dijitAlignClient { position: absolute; }
 	display: none !important;	/* !important to override above a11y rules to show text arrow */
 }
 
-.dj_ie6 .dijitTitlePaneContentOuter,
-.dj_ie6 .dijitTitlePane .dijitTitlePaneTitle {
-	/* force hasLayout to ensure borders etc, show up */
-	zoom: 1;
-}
-
 /* Color Palette
  * Sizes designed so that table cell positions match icons in underlying image,
  * which appear at 20x20 intervals.
@@ -1075,15 +996,6 @@ body .dijitAlignClient { position: absolute; }
 	overflow: hidden;
 	outline: 0;
 	border-collapse: separate;
-}
-.dj_ie6 .dijitColorPalette .dijitPaletteTable,
-.dj_ie7 .dijitColorPalette .dijitPaletteTable,
-.dj_iequirks .dijitColorPalette .dijitPaletteTable {
-	/* using padding above so that focus border isn't cutoff on moz/webkit,
-	 * but using margin on IE because padding doesn't seem to work
-	 */
-	padding: 0;
-	margin: 2px 3px 3px 3px;
 }
 
 .dijitColorPalette .dijitPaletteCell {
@@ -1367,11 +1279,7 @@ Main class hierarchy:
     z-index: 0; /* so z-index settings below have no effect outside of the TabContainer */
     overflow: visible; /* prevent off-by-one-pixel errors from hiding bottom border (opposite tab labels) */
 }
-.dj_ie6 .dijitTabContainer {
-    /* workaround IE6 problem when tall content overflows TabContainer, see editor/test_FullScreen.html */
-   overflow: hidden;
 
-}
 .dijitTabContainerNoLayout {
 	width: 100%;	/* otherwise ScrollingTabController goes to 50K pixels wide */
 }
@@ -1477,10 +1385,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 .dijitTabContainerTop-tabs .dijitTab,
 .dijitTabContainerBottom-tabs .dijitTab {
-	/* Inline-block */
-	display:inline-block;			/* webkit and FF3 */
-	#zoom: 1; /* set hasLayout:true to mimic inline-block */
-	#display:inline; /* don't use .dj_ie since that increases the priority */
+	display: inline-block;
 }
 
 .tabStripButton {
@@ -1511,12 +1416,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	/* applied to <img>/<span> node when there is no icon specified */
 	display: none;
 }
-.dj_ie6 .dijitTab .dijitNoIcon {
-	/* because min-height (on .tabLabel, above) doesn't work on IE6 */
-	display: inline;
-	height: 15px;
-	width: 1px;
-}
 
 /* images off, high-contrast mode styles */
 
@@ -1545,15 +1444,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	cursor: text;
 }
 
-.dj_a11y .dijitInlineEditBoxDisplayMode,
-.dj_ie6 .dijitInlineEditBoxDisplayMode {
-	/* except that IE6 doesn't support transparent borders, nor does high contrast mode */
-	border: none;
-}
-
-.dijitInlineEditBoxDisplayModeHover,
-.dj_a11y .dijitInlineEditBoxDisplayModeHover,
-.dj_ie6 .dijitInlineEditBoxDisplayModeHover {
+.dijitInlineEditBoxDisplayModeHover {
 	/* An InlineEditBox in view mode (click this to edit the text) */
 	background-color: #e2ebf2;
 	border: solid 1px black;
@@ -1697,15 +1588,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;
 }
-.dj_iequirks .dj_a11y .dijitSliderImageHandle {
-	font-size: 0;
-}
-.dj_ie7 .dijitSliderImageHandle {
-	overflow: hidden; /* IE7 workaround to make slider handle VISIBLE in non-a11y mode */
-}
-.dj_ie7 .dj_a11y .dijitSliderImageHandle {
-	overflow: visible; /* IE7 workaround to make slider handle VISIBLE in a11y mode */
-}
 .dj_a11y .dijitSliderFocused .dijitSliderImageHandle {
 	border:4px solid #000;
 	height:8px;
@@ -1815,11 +1697,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 .dijitSliderDecoration {
 	text-align:center;
-}
-
-.dijitSliderDecorationC,
-.dijitSliderDecorationV {
-	position: relative; /* needed for IE+quirks+RTL+vertical (rendering bug) but add everywhere for custom styling consistency but this messes up IE horizontal sliders */
 }
 
 .dijitSliderDecorationH {
@@ -2064,9 +1941,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	display:inline !important;
 	visibility:hidden;
 }
-.dj_ie6 .dijitToggleButtonIconChar, .dj_ie6 .tabStripButton .dijitButtonText {
-	font-family: "Arial Unicode MS";	/* otherwise the a11y character (checkmark, arrow, etc.) appears as a box */
-}
+
 .dj_a11y .dijitToggleButtonChecked .dijitToggleButtonIconChar {
 	display: inline !important; /* In high contrast mode, display the check symbol */
 	visibility:visible !important;
@@ -2093,14 +1968,9 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 .dj_ie .dijitSelect {
 	vertical-align: middle; /* Set this back for what we hack in dijit inline */
 }
-.dj_ie6 .dijitSelect .dijitValidationContainer,
 .dj_ie8 .dijitSelect .dijitButtonText {
 	vertical-align: top;
 }
-.dj_ie6 .dijitTextBox .dijitInputContainer,
-.dj_iequirks .dijitTextBox .dijitInputContainer,
-.dj_ie6 .dijitTextBox .dijitArrowButtonInner,
-.dj_ie6 .dijitSpinner .dijitSpinnerButtonInner,
 .dijitSelect .dijitSelectLabel {
 	vertical-align: baseline;
 }
@@ -2134,11 +2004,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 .dijitSelectMenu .dijitMenuItemIcon {
 	/* avoid blank area in left side of menu (since we have no icons) */
 	display:none;
-}
-.dj_ie6 .dijitSelectMenu .dijitMenuItemLabel,
-.dj_ie7 .dijitSelectMenu .dijitMenuItemLabel {
-	/* Set back to static due to bug in ie6/ie7 - See Bug #9651 */
-	position: static;
 }
 
 /* Fix the baseline of our label (for multi-size font elements) */
@@ -2181,7 +2046,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 }
 .dojoDndHorizontal .dojoDndItem {
     /* make contents of horizontal container be side by side, rather than vertical */
-    #display: inline;
     display: inline-block;
 }
 

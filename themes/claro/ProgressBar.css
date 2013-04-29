@@ -45,9 +45,6 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
   background-attachment: scroll;
 }
-.dj_ie6 .claro .dijitProgressBarTile {
-  background-image: none;
-}
 .claro .dijitProgressBarFull {
   border: 0px solid #759dc0;
   border-right-width: 1px;

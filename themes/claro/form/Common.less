@@ -206,10 +206,6 @@
 	background-color: @pressed-background-color;
 	.active-gradient("../");
 	padding: 1px;		// Since no border on arrow button (see rule below)
-}	
-
-.dj_iequirks .claro .dijitComboBox .dijitHasDropDownOpen {
-	padding: 1px 0;
 }
 
 .claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
@@ -225,16 +221,8 @@
 	background-color:@disabled-background-color;
 }
 
-/*========================= hacks for browsers =========================*/
-/* it seems the input[type="hidden"] has a height (16px) too... this may cause the widget's height calculate error */
-.dj_ff3 .claro .dijitInputField input[type="hidden"] {
-	display: none;
-	height: 0;
-	width: 0;
-}
-
 .dj_borderbox .claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
-	width:18px;				// quirks mode means border-box sizing, so 18px with the border (same as 16px without border)
+	width:18px;				// 18px with the border (same as 16px without border)
 }
 
 .dj_borderbox .claro .dijitComboBoxFocused .dijitHasDropDownOpen .dijitArrowButtonInner {

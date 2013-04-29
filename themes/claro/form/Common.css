@@ -168,7 +168,6 @@
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
-  _background-image: none;
 }
 /* Arrow "hover" effect:
  * The arrow button should change color whenever the mouse is in a position such that clicking it
@@ -193,11 +192,7 @@
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
-  _background-image: none;
   padding: 1px;
-}
-.dj_iequirks .claro .dijitComboBox .dijitHasDropDownOpen {
-  padding: 1px 0;
 }
 .claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
   background-position: -70px 53%;
@@ -210,13 +205,6 @@
 
   background-position: 0 50%;
   background-color: #efefef;
-}
-/*========================= hacks for browsers =========================*/
-/* it seems the input[type="hidden"] has a height (16px) too... this may cause the widget's height calculate error */
-.dj_ff3 .claro .dijitInputField input[type="hidden"] {
-  display: none;
-  height: 0;
-  width: 0;
 }
 .dj_borderbox .claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
   width: 18px;

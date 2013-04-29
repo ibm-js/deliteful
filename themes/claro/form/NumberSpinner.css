@@ -41,13 +41,7 @@
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
-  _background-image: none;
   overflow: hidden;
-}
-.dj_iequirks .claro .dijitSpinner .dijitArrowButton {
-  overflow: visible;
-  /* 0 height w/o this */
-
 }
 .claro .dijitSpinner .dijitSpinnerButtonInner {
   width: 15px;
@@ -73,17 +67,6 @@
   margin: -1px 0 -1px 0;
   /* compensate for inner border */
 
-}
-.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie6 .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie7 .claro .dijitSpinner .dijitArrowButtonInner,
-.dj_ie8 .claro .dijitSpinner .dijitArrowButtonInner {
-  margin-top: 0;
-  /* since its bottom aligned */
-
-}
-.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner {
-  width: 19px;
 }
 .claro .dijitSpinner .dijitDownArrowButton .dijitArrowButtonInner {
   background-position: -34px;
@@ -121,7 +104,6 @@
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
-  _background-image: none;
 }
 .claro .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner,
 .claro .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
@@ -147,10 +129,4 @@
 }
 .claro .dijitSpinnerDisabled .dijitDownArrowButton .dijitArrowButtonInner {
   background-position: 1px;
-}
-/** hacks for browsers **/
-/* for IE 7, when div is enlarged, 
- * should be no empty space between dijitInputLayoutContainer and dijitSpinner*/
-.dj_ie7 .claro .dijitSpinner {
-  overflow: visible;
 }
