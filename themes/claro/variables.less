@@ -339,11 +339,6 @@
 	//			- Toolbar and hovered Toolbar buttons
 	//			- TitlePane title bar, AccordionContainer title bar, Dialog title bar
 
-	// Fallback for IE
-	background-image: url("@{pathToRoot}images/standardGradient.png");
-	background-repeat: repeat-x;
-
-	// CSS gradient for other browsers
 	.alpha-white-gradient(0.7, 0%, 0, 100%);
 }
 .active-gradient (@pathToRoot: "") {
@@ -355,10 +350,5 @@
 	//			- active Toolbar buttons
 	//			- active TitlePane title bar, AccordionContainer title bar
 
-	// Fallback for IE
-	background-image: url("@{pathToRoot}images/activeGradient.png");
-	background-repeat: repeat-x;
-
-	// CSS gradient for other browsers
 	.linear-gradient(rgba(190,190,190,0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }

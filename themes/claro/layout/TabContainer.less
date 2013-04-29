@@ -131,9 +131,6 @@
 	min-width: 60px;
 	text-align: center;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabTopUnselected.png");
-	background-repeat: repeat-x;
 	.unselected-tab-gradient(top);
 
  	.box-shadow(0 -1px 1px rgba(0, 0, 0, 0.04));
@@ -144,8 +141,6 @@
 	padding-bottom: 4px;
 	padding-top: 9px;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabTopSelected.png");
 	.topBottom-selected-tab-gradient (top);
 
 	.box-shadow(0 -1px 2px rgba(0, 0, 0, 0.05));
@@ -164,10 +159,6 @@
 	min-width: 60px;
 	text-align: center;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabBottomUnselected.png");
-	background-repeat: repeat-x;
-	background-position: bottom;
 	.unselected-tab-gradient(bottom);
 
 	.box-shadow(0 1px 1px rgba(0, 0, 0, 0.04));
@@ -178,8 +169,6 @@
 	padding-bottom: 9px;
 	padding-top: 4px;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabBottomSelected.png");
 	.topBottom-selected-tab-gradient (bottom);
 
 	.box-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
@@ -193,9 +182,6 @@
 	margin-bottom: 1px;
 	padding:3px 8px 4px 4px;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabLeftUnselected.png");
-	background-repeat: repeat-y;
 	.unselected-tab-gradient(left);
 }
 
@@ -204,8 +190,6 @@
 	border-right-width: 0;
 	padding-right: 9px;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabLeftSelected.png");
 	.alpha-white-gradient (left, 0.5,0px, 1,30px);  // 1/2 inch blue gradient, remainder white
 
 	.box-shadow(-1px 0 2px rgba(0, 0, 0, .05));
@@ -219,10 +203,6 @@
 	margin-bottom: 1px;
 	padding:3px 8px 4px 4px;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabRightUnselected.png");
-	background-repeat: repeat-y;
-	background-position: right;
 	.unselected-tab-gradient(right);
 }
 .claro .dijitTabContainerRight-tabs .dijitTabChecked {
@@ -230,8 +210,6 @@
 	padding-left: 5px;
 	border-left-width: 0;
 
-	// gradient (CSS gradient, with backup image for IE6-9)
-	background-image: url("images/tabRightSelected.png");
 	.alpha-white-gradient (right, 0.5,0px, 1,30px);	// 1/2 inch blue gradient, remainder white
 
 	.box-shadow(1px 0 2px rgba(0, 0, 0, 0.07));
@@ -322,8 +300,6 @@
 	top: 0;/* to override top: 1px/-1px for normal tabs */
 	.box-shadow(none);
 
-	// CSS gradient with fallback to image for IE
-	background-image: url("images/tabNested.png") repeat-x;
 	.alpha-white-gradient (0.61,0%, 0,17%, 0,83%, 0.61,100%);
 }
 .claro .dijitTabContainerTabListNested .dijitTabHover {
