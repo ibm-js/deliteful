@@ -60,7 +60,7 @@ if(window.location.href.indexOf("?") > -1){
 }
 
 // Find the <script src="boilerplate.js"> tag, to get test directory and data-dojo-config argument
-var scripts = document.getElementsByTagName("script"), script, testDir;
+var scripts = document.getElementsByTagName("script"), script;	// testDir is global
 for(i = 0; script = scripts[i]; i++){
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
@@ -95,9 +95,19 @@ if(theme){
 	].join("\n"));
 }
 
-// Output the boilerplate text to load the loader, and to do some initial manipulation when the page finishes loading
-// For 2.0 this should be changed to require the loader (ex: requirejs) directly, rather than dojo.js.
-document.write('<script type="text/javascript" src="' + testDir + '../../dojo/dojo.js"></script>');
+// Setup configuration options for the loader
+require = {
+	baseUrl: testDir + "../../",
+	packages: [
+		{name:'dojo', location:'dojo'},
+		{name:'dijit', location:'dijit'},
+		{name:'dojox', location:'dojox'},
+		{name:'doh', location:'util/doh'}
+	]
+};
+
+// Output the boilerplate text to load the loader.
+document.write('<script type="text/javascript" src="' + testDir + '../../dojo/requirejs/require.js"></script>');
 
 // On IE9 the following inlined script will run before dojo has finished loading, leading to an error because require()
 // isn't defined yet.  Workaround it by putting the code in a separate file.
