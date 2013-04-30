@@ -5,10 +5,9 @@ define([
 	"dojo/dom-geometry",
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"dojo/sniff", // has("ie") has("opera")
 	"dojo/_base/window", // win.body
 	"../_Plugin"
-], function(declare, domClass, domConstruct, domGeometry, lang, on, has, win, _Plugin){
+], function(declare, domClass, domConstruct, domGeometry, lang, on, win, _Plugin){
 
 	// module:
 	//		dijit/_editor/plugins/AlwaysShowToolbar
@@ -72,9 +71,6 @@ define([
 			}
 
 			var height = domGeometry.getMarginSize(e.editNode).h;
-			if(has("opera")){
-				height = e.editNode.scrollHeight;
-			}
 			// console.debug('height',height);
 			// alert(this.editNode);
 
@@ -94,12 +90,6 @@ define([
 				console.debug("Can not figure out the height of the editing area!");
 				return; //prevent setting height to 0
 			}
-			if(has("ie") <= 7 && this.editor.minHeight){
-				var min = parseInt(this.editor.minHeight);
-				if(height < min){
-					height = min;
-				}
-			}
 			if(height != this._lastHeight){
 				this._lastHeight = height;
 				// this.editorObject.style.height = this._lastHeight + "px";
@@ -117,7 +107,6 @@ define([
 			// tags:
 			//		private
 
-			var isIE6 = has("ie") < 7;
 			if(!this._handleScroll){
 				return;
 			}
@@ -136,21 +125,8 @@ define([
 					var tdnbox = domGeometry.getMarginSize(tdn);
 					this.editor.iframe.style.marginTop = tdnbox.h + "px";
 
-					if(isIE6){
-						s.left = domGeometry.position(tdn).x;
-						if(tdn.previousSibling){
-							this._IEOriginalPos = ['after', tdn.previousSibling];
-						}else if(tdn.nextSibling){
-							this._IEOriginalPos = ['before', tdn.nextSibling];
-						}else{
-							this._IEOriginalPos = ['last', tdn.parentNode];
-						}
-						this.editor.ownerDocumentBody.appendChild(tdn);
-						domClass.add(tdn, 'dijitIEFixedToolbar');
-					}else{
-						s.position = "fixed";
-						s.top = "0px";
-					}
+					s.position = "fixed";
+					s.top = "0px";
 
 					domGeometry.setMarginBox(tdn, { w: tdnbox.w });
 					s.zIndex = 2000;
@@ -171,30 +147,14 @@ define([
 				s.top = "";
 				s.zIndex = "";
 				s.display = "";
-				if(isIE6){
-					s.left = "";
-					domClass.remove(tdn, 'dijitIEFixedToolbar');
-					if(this._IEOriginalPos){
-						domConstruct.place(tdn, this._IEOriginalPos[1], this._IEOriginalPos[0]);
-						this._IEOriginalPos = null;
-					}else{
-						domConstruct.place(tdn, this.editor.iframe, 'before');
-					}
-				}
 				s.width = "";
 				this._fixEnabled = false;
 			}
 		},
 
 		destroy: function(){
-			// Overrides _Plugin.destroy().   TODO: call this.inherited() rather than repeating code.
-			this._IEOriginalPos = null;
 			this._handleScroll = false;
 			this.inherited(arguments);
-
-			if(has("ie") < 7){
-				domClass.remove(this.editor.header, 'dijitIEFixedToolbar');
-			}
 		}
 	});
 

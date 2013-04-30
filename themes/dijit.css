@@ -1863,12 +1863,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 }
 
 /* Editor */
-.dijitIEFixedToolbar {
-	position:absolute;
-	/* top:0; */
-	top: expression(eval((document.documentElement||document.body).scrollTop));
-}
-
 .dijitEditor {
 	display: block;	/* prevents glitch on FF with InlineEditBox, see #8404 */
 }

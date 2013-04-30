@@ -88,18 +88,6 @@ define([
 				onChange: lang.hitch(this, "_showSource")
 			});
 
-			// IE 7 has a horrible bug with zoom, so we have to create this node
-			// to cross-check later.  Sigh.
-			if(has("ie") == 7){
-				this._ieFixNode = domConstruct.create("div", {
-					style: {
-						opacity: "0",
-						zIndex: "-1000",
-						position: "absolute",
-						top: "-1000px"
-					}
-				}, editor.ownerDocumentBody);
-			}
 			// Make sure readonly mode doesn't make the wrong cursor appear over the button.
 			this.button.set("readOnly", false);
 		},
@@ -340,14 +328,6 @@ define([
 				edb.h -= 2;
 			}
 
-			// IE has a horrible zoom bug.  So, we have to try and account for
-			// it and fix up the scaling.
-			if(this._ieFixNode){
-				var _ie7zoom = -this._ieFixNode.offsetTop / 1000;
-				edb.w = Math.floor((edb.w + 0.9) / _ie7zoom);
-				edb.h = Math.floor((edb.h + 0.9) / _ie7zoom);
-			}
-
 			domGeometry.setMarginBox(this.sourceArea, {
 				w: edb.w - (containerPadding.w + containerMargin.w),
 				h: edb.h - (containerPadding.h + containerMargin.h)
@@ -544,9 +524,6 @@ define([
 			// summary:
 			//		Over-ride to remove the node used to correct for IE's
 			//		zoom bug.
-			if(this._ieFixNode){
-				domConstruct.destroy(this._ieFixNode);
-			}
 			if(this._resizer){
 				clearTimeout(this._resizer);
 				delete this._resizer;
