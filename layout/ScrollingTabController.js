@@ -214,7 +214,7 @@ define([
 			//		Returns the current scroll of the tabs where 0 means
 			//		"scrolled all the way to the left" and some positive number, based on #
 			//		of pixels of possible scroll (ex: 1000) means "scrolled all the way to the right"
-			return (this.isLeftToRight() || has("ie") < 8 || (has("ie") && has("quirks")) || has("webkit")) ? this.scrollNode.scrollLeft :
+			return (this.isLeftToRight() || has("webkit")) ? this.scrollNode.scrollLeft :
 				domStyle.get(this.containerNode, "width") - domStyle.get(this.scrollNode, "width")
 					+ (has("ie") >= 8 ? -1 : 1) * this.scrollNode.scrollLeft;
 		},
@@ -227,7 +227,7 @@ define([
 			//		to achieve that scroll.
 			//
 			//		This method is to adjust for RTL funniness in various browsers and versions.
-			if(this.isLeftToRight() || has("ie") < 8 || (has("ie") && has("quirks")) || has("webkit")){
+			if(this.isLeftToRight() || has("webkit")){
 				return val;
 			}else{
 				var maxScroll = domStyle.get(this.containerNode, "width") - domStyle.get(this.scrollNode, "width");
