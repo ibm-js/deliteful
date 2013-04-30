@@ -1,9 +1,8 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add
-	"dojo/sniff", // has("ie") has("opera")
 	"./TextBox"
-], function(declare, domClass, has, TextBox){
+], function(declare, domClass, TextBox){
 
 	// module:
 	//		dijit/form/SimpleTextarea
@@ -41,13 +40,6 @@ define([
 			this.inherited(arguments);
 		},
 
-		buildRendering: function(){
-			this.inherited(arguments);
-			if(has("ie") && this.cols){ // attribute selectors is not supported in IE6
-				domClass.add(this.textbox, "dijitTextAreaCols");
-			}
-		},
-
 		filter: function(/*String*/ value){
 			// Override TextBox.filter to deal with newlines... specifically (IIRC) this is for IE which writes newlines
 			// as \r\n instead of just \n
@@ -68,9 +60,6 @@ define([
 					if(textarea.selectionStart){
 						var pos = textarea.selectionStart;
 						var cr = 0;
-						if(has("opera")){
-							cr = (this.textbox.value.substring(0, pos).match(/\r/g) || []).length;
-						}
 						this.textbox.value = value.substring(0, pos - overflow - cr) + value.substring(pos - cr);
 						textarea.setSelectionRange(pos - overflow, pos - overflow);
 					}else if(this.ownerDocument.selection){ //IE

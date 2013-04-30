@@ -1841,9 +1841,6 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 .dijitTextArea[cols] {
 	width:auto; /* SimpleTextArea cols */
 }
-.dj_ie .dijitTextAreaCols {
-	width:auto;
-}
 
 .dijitExpandingTextArea {
 	/* for auto exanding textarea (called Textarea currently, rename for 2.0) don't want to display the grip to resize */
