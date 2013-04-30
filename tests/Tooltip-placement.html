@@ -13,10 +13,10 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/query", "dojo/sniff", "dojo/window",
+			"dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/query", "dojo/window",
 			"dijit/Tooltip",
 			"dojo/domReady!"
-		], function(doh, dom, domGeom, domStyle, query, has, winUtils, Tooltip){
+		], function(doh, dom, domGeom, domStyle, query, winUtils, Tooltip){
 			doh.register("setup", function(){
 				Tooltip._MasterTooltip.prototype.duration = 0.05; // speed up tooltip fading
 				var view = winUtils.getBox();
@@ -115,9 +115,8 @@
 				var tooltipPos = domGeom.position(tooltip);
 
 				var view = winUtils.getBox();
-				var isIE6 = has("ie") < 7;
 				//verify the entire width is utilized.  Small tooltips will not utilize the entire width.
-				if(verifyFullWidthIsUtilized && !isIE6 && !has("opera")){
+				if(verifyFullWidthIsUtilized){
 					if(toTheLeft){
 						doh.t(tooltipContainerPos.w + 3/*space in between arrow and textbox*/ >= textboxPos.x, "The entire width was not utilized to the left");					
 					}else{
@@ -128,7 +127,7 @@
 				//If we cannot view the entire tooltip, verify they side with the most space was choosen and the entire height was utilized.
 				var canViewEntireTooltip = (tooltipContainerPos.x + tooltipContainerPos.w <= view.w+1) && 
 										   (tooltipPos.y + tooltipPos.h <= view.h+1);			
-				if(!canViewEntireTooltip && !isIE6 && !has("opera")){
+				if(!canViewEntireTooltip){
 					if(toTheLeft){
 						//verify there is more space on the left than the right
 						doh.t(textboxPos.x >= (view.w - textboxPos.x - textboxPos.w), "There is not more space on the left than the right");
