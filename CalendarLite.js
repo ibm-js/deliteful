@@ -9,7 +9,7 @@ define([
 	"dojo/dom-class", // domClass.contains
 	"dojo/_base/lang", // lang.getObject, lang.hitch
 	"dojo/on",
-	"dojo/sniff", // has("ie") has("webkit")
+	"dojo/sniff", // has("webkit")
 	"dojo/string", // string.substitute
 	"./_WidgetBase",
 	"./_TemplatedMixin",
@@ -503,11 +503,10 @@ define([
 			// summary:
 			//		Set the current month to display as a label
 			var monthNames = this.dateLocaleModule.getNames('months', 'wide', 'standAlone', this.lang, month),
-				spacer =
-					(has("ie") == 6 ? "" : "<div class='dijitSpacer'>" +
-						array.map(monthNames,function(s){
-							return "<div>" + s + "</div>";
-						}).join("") + "</div>");
+				spacer = "<div class='dijitSpacer'>" +
+					array.map(monthNames,function(s){
+						return "<div>" + s + "</div>";
+					}).join("") + "</div>";
 
 			// Set name of current month and also fill in spacer element with all the month names
 			// (invisible) so that the maximum width will affect layout.   But not on IE6 because then

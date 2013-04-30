@@ -8,13 +8,12 @@ define([
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"dojo/sniff", // has("ie")
 	"./CalendarLite",
 	"./_WidgetBase",
 	"./_CssStateMixin",
 	"./_TemplatedMixin",
 	"./form/DropDownButton"
-], function(array, date, local, declare, domAttr, domClass, keys, lang, on, has, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
+], function(array, date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:
 	//		dijit/Calendar
@@ -252,7 +251,7 @@ define([
 			// (invisible) so that the maximum width will affect layout.   But not on IE6 because then
 			// the center <TH> overlaps the right <TH> (due to a browser bug).
 			this.containerNode.innerHTML =
-				(has("ie") == 6 ? "" : "<div class='dijitSpacer'>" + this.dropDown.domNode.innerHTML + "</div>") +
+				"<div class='dijitSpacer'>" + this.dropDown.domNode.innerHTML + "</div>" +
 					"<div class='dijitCalendarMonthLabel dijitCalendarCurrentMonthLabel'>" + monthNames[month.getMonth()] + "</div>";
 		}
 	});
