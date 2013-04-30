@@ -2,10 +2,9 @@ define([
 	"dojo/_base/array",
 	"dojo/dom", // dom.byId
 	"dojo/_base/lang",
-	"dojo/sniff", // has("ie") has("opera")
 	"dojo/_base/window",
 	"dijit/focus"
-], function(array, dom, lang, has, baseWindow, focus){
+], function(array, dom, lang, baseWindow, focus){
 
 	// module:
 	//		dijit/selection
@@ -253,21 +252,7 @@ define([
 			if(doc.getSelection){
 				// W3C
 				var selection = win.getSelection();
-				if(has("opera")){
-					//Opera's selectAllChildren doesn't seem to work right
-					//against <body> nodes and possibly others ... so
-					//we use the W3C range API
-					if(selection.rangeCount){
-						range = selection.getRangeAt(0);
-					}else{
-						range = doc.createRange();
-					}
-					range.setStart(element, 0);
-					range.setEnd(element,(element.nodeType == 3) ? element.length : element.childNodes.length);
-					selection.addRange(range);
-				}else{
-					selection.selectAllChildren(element);
-				}
+				selection.selectAllChildren(element);
 			}else{
 				// IE6-8
 				range = element.ownerDocument.body.createTextRange();
@@ -293,14 +278,6 @@ define([
 				var selection = doc.getSelection();
 				range = doc.createRange();
 				if(selection.removeAllRanges){ // Mozilla
-					// FIXME: does this work on Safari?
-					if(has("opera")){
-						//Opera works if you use the current range on
-						//the selection if present.
-						if(selection.getRangeAt(0)){
-							range = selection.getRangeAt(0);
-						}
-					}
 					range.selectNode(element);
 					selection.removeAllRanges();
 					selection.addRange(range);
