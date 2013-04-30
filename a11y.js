@@ -4,9 +4,8 @@ define([
 	"dojo/dom-attr", // domAttr.attr domAttr.has
 	"dojo/dom-style", // domStyle.style
 	"dojo/_base/lang", // lang.mixin()
-	"dojo/sniff", // has("ie") has("extend-dojo")
-	"./main"	// for exporting methods to dijit namespace
-], function(array, dom, domAttr, domStyle, lang, has, dijit){
+	"dojo/sniff" // has("ie")
+], function(array, dom, domAttr, domStyle, lang, has){
 
 	// module:
 	//		dijit/a11y
@@ -184,8 +183,6 @@ define([
 			return elems.last ? elems.last : elems.highest; // DomNode
 		}
 	};
-
-	has("extend-dojo") && lang.mixin(dijit, a11y);
 
 	return a11y;
 });
