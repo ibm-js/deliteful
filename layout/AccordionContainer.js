@@ -10,7 +10,7 @@ define([
 	"dojo/dom-geometry",
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.getObject lang.hitch
-	"dojo/sniff", // has("ie") has("dijit-legacy-requires")
+	"dojo/has", // has("dojo-bidi")
 	"dojo/topic", // publish
 	"../focus", // focus.focus()
 	"../_base/manager", // manager.defaultDuration
@@ -433,11 +433,6 @@ define([
 
 		_transition: function(/*dijit/_WidgetBase?*/ newWidget, /*dijit/_WidgetBase?*/ oldWidget, /*Boolean*/ animate){
 			// Overrides StackContainer._transition() to provide sliding of title bars etc.
-
-			if(has("ie") < 8){
-				// workaround animation bugs by not animating; not worth supporting animation for IE6 & 7
-				animate = false;
-			}
 
 			if(this._animation){
 				// there's an in-progress animation.  speedily end it so we can do the newly requested one
