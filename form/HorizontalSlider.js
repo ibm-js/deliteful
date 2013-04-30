@@ -364,8 +364,6 @@ define([
 				widget: this
 			});
 			this._movable = new Moveable(this.sliderHandle, {mover: mover});
-
-			this._layoutHackIE7();
 		},
 
 		destroy: function(){
