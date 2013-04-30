@@ -11,7 +11,7 @@ define([
 	"dojo/keys", // keys.ENTER keys.ESCAPE
 	"dojo/_base/lang", // lang.getObject
 	"dojo/on",
-	"dojo/sniff", // has("ie")
+	"dojo/has", // has("dojo-bidi")
 	"dojo/when",
 	"./a11yclick",
 	"./focus",
@@ -338,9 +338,7 @@ define([
 
 		// noValueIndicator: [const] String
 		//		The text that gets displayed when there is no value (so that the user has a place to click to edit)
-		noValueIndicator: has("ie") <= 6 ? // font-family needed on IE6 but it messes up IE8
-			"<span style='font-family: wingdings; text-decoration: underline;'>&#160;&#160;&#160;&#160;&#x270d;&#160;&#160;&#160;&#160;</span>" :
-			"<span style='text-decoration: underline;'>&#160;&#160;&#160;&#160;&#x270d;&#160;&#160;&#160;&#160;</span>", // &#160; == &nbsp;
+		noValueIndicator: "<span style='text-decoration: underline;'>&#160;&#160;&#160;&#160;&#x270d;&#160;&#160;&#160;&#160;</span>", // &#160; == &nbsp;
 
 		constructor: function(/*===== params, srcNodeRef =====*/){
 			// summary:
