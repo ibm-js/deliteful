@@ -24,7 +24,6 @@
 			"dojo/store/Memory",
 			"dojo/data/ItemFileReadStore",
 			"dojox/mobile/EdgeToEdgeStoreList",
-			"dojox/mobile/EdgeToEdgeDataList",
 			"dojox/mobile/FilteredListMixin",
 			"dojox/mobile/parser",
 			"dojox/mobile",
@@ -32,7 +31,7 @@
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/SearchBox"
 		], function(declare, domConstruct, domClass, ready, registry, runner, 
-					Memory, ItemFileReadStore, EdgeToEdgeStoreList, EdgeToEdgeDataList, 
+					Memory, ItemFileReadStore, EdgeToEdgeStoreList,
 					FilteredListMixin){
 			
 			var EDGE_TO_EDGE_LIST_FILTER_BOX_CLASSNAME = "mblFilteredEdgeToEdgeListSearchBox";
@@ -108,9 +107,6 @@
 			// store for the dojox/mobile/EdgeToEdgeStoreList
 			store = new Memory({idProperty:"label", data: static_data});
 			
-			// dojo/data store for dojox/mobile/EdgeToEdgeDataList
-			dataStore = new ItemFileReadStore({data: static_data});
-			
 			ready(function(){
 				doh.register("dojox.mobile.test.doh.filteredlistmixin", [
 					function testInView1(){
@@ -180,24 +176,6 @@
 						// Check that the placeHolder set on the provided SearchBox
 						// takes precedence over the placeHolder set on the filtered list.
 						runner.assertEqual("CustomPlaceHolder", filterBox.placeHolder);
-					},
-					function testInView4(){
-						// EdgeToEdgeDataList filtered using FilteredListMixin.
-						// Use-case: markup; SearchBox and ScrollableView are provided.
-						var list = registry.byId("list4");
-						var filterBox = list.getFilterBox();
-						runner.assertNotEqual(null, filterBox);
-						// Check that the class specified by the user for the SearchBox is preserved:
-						runner.assertTrue(domClass.contains(filterBox.domNode, CUSTOM_FILTER_BOX_CLASSNAME),
-							CUSTOM_FILTER_BOX_CLASSNAME + " id=" + filterBox.id + 
-							" value=" + filterBox.domNode.className);
-						// Check that the filtering actually works
-						var n = list.getChildren().length;
-						runner.assertEqual(61, n);
-						filterBox.on("search", function(results, query, options){
-							runner.assertEqual(2, list.getChildren().length);
-						});
-						filterBox._startSearch("Co"); // Matches 2 items (Colorado and Connecticut)
 					},
 					function testInView5(){
 						// EdgeToEdgeStoreList filtered using FilteredListMixin.
@@ -280,18 +258,6 @@
 			<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list3"
 				data-dojo-mixins="dojox/mobile/FilteredListMixin"
 				data-dojo-props="filterBoxRef: 'filterBox3', placeHolder: 'Search', store: store"></ul>
-		</div>
-	</div>
-	<div id="view4" data-dojo-type="dojox/mobile/View">
-		<!-- EdgeToEdgeDataList filtered using FilteredListMixin. -->
-		<!-- Use-case: markup; SearchBox and ScrollableView are provided. -->
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeDataList</h1>
-		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox4"
-			class="myCustomClass mblFilteredEdgeToEdgeListSearchBox">
-		<div data-dojo-type="dojox/mobile/ScrollableView">
-			<ul data-dojo-type="dojox/mobile/EdgeToEdgeDataList" id="list4" 
-				data-dojo-mixins="dojox/mobile/FilteredListMixin"
-				data-dojo-props="filterBoxRef: 'filterBox4', placeHolder: 'Search', store: dataStore"></ul>
 		</div>
 	</div>
 	<div id="view5" data-dojo-type="dojox/mobile/View">

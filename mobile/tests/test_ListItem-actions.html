@@ -23,7 +23,6 @@
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
-			"dojox/mobile/RoundRectDataList",
 			"dojox/mobile/ContentPane"
 		], function(connect, win, domConstruct, ready, registry, ItemFileReadStore, ProgressIndicator, ListItem, parser){
 			var static_data = { 
@@ -155,16 +154,6 @@
 				this.transitionTo("view4");
 			}
 
-			// Update DataList
-			myAction5 = function(){
-				var list1 = registry.byId("list1");
-				if(!list1.store){
-					var store1 = new ItemFileReadStore({data: static_data});
-					list1.setStore(store1, {label: '*e'}); // items whose label ends with 'e'
-				}
-				this.transitionTo("view5");
-			}
-
 			// Partial Update using dojox.mobile.ContentPane
 			myAction6 = function(){
 				var pane1 = registry.byId("pane1");
@@ -198,9 +187,6 @@
 			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-4.png", moveTo:"#", transition:"slide", onClick:myAction4'>
 				Create View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-5.png", moveTo:"#", transition:"slide", onClick:myAction5'>
-				Data List
-			</li>
 			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-6.png", moveTo:"#", transition:"slide", onClick:myAction6'>
 				Partial Update (async)
 			</li>
@@ -217,11 +203,6 @@
 	</div>
 
 	<div id="view3" data-dojo-type="dojox.mobile.View">
-	</div>
-
-	<div id="view5" data-dojo-type="dojox.mobile.View">
-		<h1 data-dojo-type="dojox.mobile.Heading">RoundRectDataList</h1>
-		<ul id="list1" data-dojo-type="dojox.mobile.RoundRectDataList"></ul>
 	</div>
 
 	<div id="view6" data-dojo-type="dojox.mobile.ScrollableView">

@@ -2,13 +2,11 @@ define(["doh/main", "require", "dojo/sniff"], function(doh, require, has){
 	
 	// Edge To Edge List
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./EdgeToEdgeCategory_Rtl.html"),999999);
-	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./EdgeToEdgeDataList_Rtl.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./EdgeToEdgeStoreList_Rtl.html"),999999);
 	// List Item
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./ListItem_Rtl.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./ListItem2_Rtl.html"),999999);
 	// RoundRect List
-	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./RoundRectDataList_Rtl.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./RoundRectList_Rtl.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.doh.Bidi", require.toUrl("./RoundRectStoreList_Rtl.html"),999999);
 	// ComboBox
