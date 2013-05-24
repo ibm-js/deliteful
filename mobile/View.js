@@ -561,9 +561,6 @@ define([
 				toWidget.onAfterTransitionIn.apply(toWidget, this._arguments);
 				connect.publish("/dojox/mobile/afterTransitionIn", [toWidget].concat(this._arguments));
 				toWidget.movedFrom = undefined;
-				if(this.setFragIds && this._isBookmarkable(this._detail)){
-					this.setFragIds(toWidget); // setFragIds is defined in bookmarkable.js
-				}
 			}
 			if(has('mblAndroidWorkaround')){
 				// workaround for the screen flicker issue on Android 2.2/2.3

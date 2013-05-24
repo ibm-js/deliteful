@@ -323,7 +323,7 @@ define([
 			// tags:
 			//		private
 			this.label = text;
-			var s = this._cv ? this._cv(text) : text;
+			var s = text;
 			this.labelNode.innerHTML = s;
 			if(this.paneWidget){
 				this.paneWidget.set("label", text);

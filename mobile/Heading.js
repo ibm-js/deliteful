@@ -237,7 +237,7 @@ define([
 			// tags:
 			//		private
 			this._set("label", label);
-			this.labelNode.innerHTML = this.labelDivNode.innerHTML = this._cv ? this._cv(label) : label;
+			this.labelNode.innerHTML = this.labelDivNode.innerHTML = label;
 		},
 
 		_setBusyAttr: function(/*Boolean*/busy){

@@ -75,7 +75,7 @@ define([
 			this.textBoxNode = domConstruct.create("div", {className:"mblAccordionTitleTextBox"}, a);
 			this.labelNode = domConstruct.create("span", {
 				className: "mblAccordionTitleLabel",
-				innerHTML: this._cv ? this._cv(this.label) : this.label
+				innerHTML: this.label
 			}, this.textBoxNode);
 			this._isOnLine = this.inheritParams();
 

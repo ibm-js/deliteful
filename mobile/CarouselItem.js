@@ -90,14 +90,14 @@ define([
 
 		_setHeaderTextAttr: function(/*String*/text){
 			this._set("headerText", text);
-			this.headerTextNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.headerTextNode.innerHTML = text;
 		},
 
 		_setFooterTextAttr: function(/*String*/text){
 			// tags:
 			//		private
 			this._set("footerText", text);
-			this.footerTextNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.footerTextNode.innerHTML = text;
 		}
 	});
 	return has("dojo-bidi") ? declare("dojox.mobile.CarouselItem", [CarouselItem, BidiCarouselItem]) : CarouselItem;

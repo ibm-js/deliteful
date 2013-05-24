@@ -15,7 +15,7 @@ define([
 		//		Mobile _ItemBase loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 		_setLabelAttr: function(/*String*/ text){
 			this._set("label", text);
-			this.labelNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.labelNode.innerHTML = text;
 			if (!this.textDir){
 				var p = this.getParent();
 				this.textDir = p && p.get("textDir") ? p.get("textDir") : "";

@@ -33,7 +33,7 @@ define([
 			} 
 		},
 		_setTitleAttr: function(title){
-			this.titleNode.innerHTML = this._cv ? this._cv(title) : title;
+			this.titleNode.innerHTML = title;
 			this._set("title", title);
 			if(this.textDir){
 				this.titleNode.innerHTML = common.enforceTextDirWithUcc(this.titleNode.innerHTML, this.textDir);

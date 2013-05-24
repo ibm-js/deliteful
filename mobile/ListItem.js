@@ -440,7 +440,7 @@ define([
 				this.rightTextNode = domConstruct.create("div", {className:"mblListItemRightText"}, this.labelNode, "before");
 			}
 			this.rightText = text;
-			this.rightTextNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.rightTextNode.innerHTML = text;
 		},
 
 		_setRightIconAttr: function(/*String*/icon){

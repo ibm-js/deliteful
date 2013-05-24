@@ -116,8 +116,8 @@ define([
 					};
 					view.domNode.style.visibility = "hidden";
 					var heading = view._heading
-						= new Heading({back: this._cv ? this._cv(this.back) : this.back,
-										label: this._cv ? this._cv(this.label) : this.label,
+						= new Heading({back: this.back,
+										label: this.label,
 										moveTo: this.domNode.parentNode.id,
 										transition: this.transition == "zoomIn" ? "zoomOut" : this.transition});
 					view.addChild(heading);
@@ -171,7 +171,7 @@ define([
 			//		private
 			if(!this.appView){ return; }
 			this.label = text;
-			var s = this._cv ? this._cv(text) : text;
+			var s = text;
 			this.appView._heading.set("label", s);
 		}
 	});

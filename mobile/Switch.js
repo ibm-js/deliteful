@@ -274,12 +274,12 @@ define([
 
 		_setLeftLabelAttr: function(/*String*/label){
 			this.leftLabel = label;
-			this.left.firstChild.innerHTML = this._cv ? this._cv(label) : label;
+			this.left.firstChild.innerHTML = label;
 		},
 
 		_setRightLabelAttr: function(/*String*/label){
 			this.rightLabel = label;
-			this.right.firstChild.innerHTML = this._cv ? this._cv(label) : label;
+			this.right.firstChild.innerHTML = label;
 		},
 
 		reset: function(){

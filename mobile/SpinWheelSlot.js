@@ -117,7 +117,7 @@ define([
 								className: "mblSpinWheelSlotLabel",
 								name: this.items[i][0],
 								"data-mobile-val": this.items[i][1],
-								innerHTML: this._cv ? this._cv(this.items[i][1]) : this.items[i][1]
+								innerHTML: this.items[i][1]
 							}, this.panelNodes[k]);
 						}
 					}

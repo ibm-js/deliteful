@@ -66,11 +66,6 @@ define([
 		buildRendering: function(){
 			if(!this.srcNodeRef){
 				this.srcNodeRef = domConstruct.create("button", {"type": this.type});
-			}else if(this._cv){
-				var n = this.srcNodeRef.firstChild;
-				if(n && n.nodeType === 3){
-					n.nodeValue = this._cv(n.nodeValue);
-				}
 			}
 			this.inherited(arguments);
 			this.focusNode = this.domNode;
@@ -84,7 +79,7 @@ define([
 		_setLabelAttr: function(/*String*/ content){
 			// tags:
 			//		private
-			this.inherited(arguments, [this._cv ? this._cv(content) : content]);
+			this.inherited(arguments, [content]);
 		}
 	});
 

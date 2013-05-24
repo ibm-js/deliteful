@@ -452,7 +452,7 @@ define([
 		_setTitleAttr: function(/*String*/title){
 			// tags:
 			//		private
-			this.titleNode.innerHTML = this._cv ? this._cv(title) : title;
+			this.titleNode.innerHTML = title;
 			this._set("title", title);
 		}
 	});

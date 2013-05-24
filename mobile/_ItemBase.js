@@ -436,7 +436,7 @@ define([
 			// tags:
 			//		private
 			this._set("label", text);
-			this.labelNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.labelNode.innerHTML = text;
 		},
 
 		_setSelectedAttr: function(/*Boolean*/selected){

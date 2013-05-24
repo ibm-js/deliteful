@@ -11,7 +11,7 @@ define(["dojo/_base/declare", "./common"], function(declare, common){
 		//		This class should not be used directly.
 		//		Mobile Button widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 		_setLabelAttr: function(/*String*/ content){
-			this.inherited(arguments, [this._cv ? this._cv(content) : content]);
+			this.inherited(arguments, [content]);
 			this.focusNode.innerHTML = common.enforceTextDirWithUcc(this.focusNode.innerHTML, this.textDir); 
 		},
 

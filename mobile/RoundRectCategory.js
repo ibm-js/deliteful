@@ -45,7 +45,7 @@ define([
 			// tags:
 			//		private
 			this.label = label;
-			this.domNode.innerHTML = this._cv ? this._cv(label) : label;
+			this.domNode.innerHTML = label;
 		}
 	});
 

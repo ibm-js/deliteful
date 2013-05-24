@@ -15,7 +15,7 @@ define([
 		//		Mobile CarouselItem widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 		_setHeaderTextAttr: function(text){
 			this._set("headerText", text);
-			this.headerTextNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.headerTextNode.innerHTML = text;
 			var p = this.getParent() ? this.getParent().getParent() : null;
 			this.textDir = this.textDir ? this.textDir : p ? p.get("textDir") : ""; //take textDir from Carousel
 			if(this.textDir){
@@ -25,7 +25,7 @@ define([
 
 		_setFooterTextAttr: function(text){
 			this._set("footerText", text);
-			this.footerTextNode.innerHTML = this._cv ? this._cv(text) : text;
+			this.footerTextNode.innerHTML = text;
 			var p = this.getParent() ? this.getParent().getParent() : null;
 			this.textDir = this.textDir ? this.textDir : p ? p.get("textDir") : ""; //take textDir from Carousel
 			if(this.textDir){
