@@ -3,7 +3,6 @@ define([
 	"dojo/_base/array", // array.indexOf array.map
 	"dojo/_base/declare", // declare
 	"dojo/dom-construct", // domConstruct.place
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/_base/lang", // lang.delegate lang.hitch lang.isString
 	"dojo/store/Memory", // MemoryStore
 	"../../registry", // registry.getUniqueId
@@ -14,7 +13,7 @@ define([
 	"../_Plugin",
 	"../range",
 	"dojo/i18n!../nls/FontChoice"
-], function(require, array, declare, domConstruct, i18n, lang, MemoryStore,
+], function(require, array, declare, domConstruct, lang, MemoryStore,
 	registry, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, FilteringSelect, _Plugin, rangeapi, nlsFontChoice){
 
 	// module:
@@ -50,12 +49,12 @@ define([
 			//		The context require that is used to resolve modules in template.
 			contextRequire: require,
 
+			strings: nlsFontChoice,
+
 			postMixInProperties: function(){
 				// summary:
 				//		Over-ride to set specific properties.
 				this.inherited(arguments);
-
-				this.strings = i18n.getLocalization("dijit._editor", "FontChoice");
 
 				// Set some substitution variables used in the template
 				this.label = this.strings[this.command];

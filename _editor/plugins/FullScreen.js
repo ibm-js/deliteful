@@ -4,7 +4,6 @@ define([
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-geometry",
 	"dojo/dom-style",
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/keys", // keys.F11 keys.TAB
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on", // on()
@@ -16,8 +15,8 @@ define([
 	"../../form/ToggleButton",
 	"../../registry", // registry.getEnclosingWidget()
 	"dojo/i18n!../nls/commands"
-], function(aspect, declare, domClass, domGeometry, domStyle, i18n, keys, lang, on, has, win, winUtils,
-			focus, _Plugin, ToggleButton, registry){
+], function(aspect, declare, domClass, domGeometry, domStyle, keys, lang, on, has, win, winUtils,
+			focus, _Plugin, ToggleButton, registry, nlsCommands){
 
 	// module:
 	//		dijit/_editor/plugins/FullScreen
@@ -59,10 +58,9 @@ define([
 		_initButton: function(){
 			// summary:
 			//		Over-ride for creation of the resize button.
-			var strings = i18n.getLocalization("dijit._editor", "commands"),
-				editor = this.editor;
+			var editor = this.editor;
 			this.button = new ToggleButton({
-				label: strings["fullScreen"],
+				label: nlsStrings["fullScreen"],
 				ownerDocument: editor.ownerDocument,
 				dir: editor.dir,
 				lang: editor.lang,

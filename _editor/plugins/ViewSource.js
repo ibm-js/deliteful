@@ -6,7 +6,6 @@ define([
 	"dojo/dom-construct", // domConstruct.create domConstruct.place
 	"dojo/dom-geometry", // domGeometry.setMarginBox domGeometry.position
 	"dojo/dom-style", // domStyle.set
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/keys", // keys.F12
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on", // on()
@@ -18,8 +17,8 @@ define([
 	"../..", // dijit._scopeName
 	"../../registry", // registry.getEnclosingWidget()
 	"dojo/i18n!../nls/commands"
-], function(array, aspect, declare, domAttr, domConstruct, domGeometry, domStyle, i18n, keys, lang, on, has, winUtils,
-			focus, _Plugin, ToggleButton, dijit, registry){
+], function(array, aspect, declare, domAttr, domConstruct, domGeometry, domStyle, keys, lang, on, has, winUtils,
+			focus, _Plugin, ToggleButton, dijit, registry, nlsCommands){
 
 	// module:
 	//		dijit/_editor/plugins/ViewSource
@@ -75,10 +74,9 @@ define([
 		_initButton: function(){
 			// summary:
 			//		Over-ride for creation of the resize button.
-			var strings = i18n.getLocalization("dijit._editor", "commands"),
-				editor = this.editor;
+			var editor = this.editor;
 			this.button = new ToggleButton({
-				label: strings["viewSource"],
+				label: nlsCommands["viewSource"],
 				ownerDocument: editor.ownerDocument,
 				dir: editor.dir,
 				lang: editor.lang,

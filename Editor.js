@@ -3,7 +3,6 @@ define([
 	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/Deferred", // Deferred
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-class", // domClass.add
 	"dojo/dom-geometry",
@@ -23,7 +22,7 @@ define([
 	"./_editor/range",
 	"./_editor/RichText",
 	"dojo/i18n!./_editor/nls/commands"
-], function(require, array, declare, Deferred, i18n, domAttr, domClass, domGeometry, domStyle,
+], function(require, array, declare, Deferred, domAttr, domClass, domGeometry, domStyle,
 			keys, lang, has, string,
 			_Container, Toolbar, ToolbarSeparator, _LayoutWidget, ToggleButton,
 			_Plugin, EnterKeyHandling, html, rangeapi, RichText, nlsCommands){
@@ -55,6 +54,8 @@ define([
 		// extraPlugins: [const] Object[]
 		//		A list of extra plugin names which will be appended to plugins array
 		extraPlugins: null,
+
+		commands: nlsCommands,
 
 		constructor: function(/*===== params, srcNodeRef =====*/){
 			// summary:
@@ -111,8 +112,6 @@ define([
 			if(lang.isArray(this.extraPlugins)){
 				this.plugins = this.plugins.concat(this.extraPlugins);
 			}
-
-			this.commands = i18n.getLocalization("dijit._editor", "commands", this.lang);
 
 			if(has("webkit")){
 				// Disable selecting the entire editor by inadvertent double-clicks.
