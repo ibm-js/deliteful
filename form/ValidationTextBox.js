@@ -1,11 +1,10 @@
 define([
 	"dojo/_base/declare", // declare
-	"dojo/i18n", // i18n.getLocalization
 	"./TextBox",
 	"../Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
 	"dojo/i18n!./nls/validate"
-], function(declare, i18n, TextBox, Tooltip, template){
+], function(declare, TextBox, Tooltip, template, nlsValidate){
 
 	// module:
 	//		dijit/form/ValidationTextBox
@@ -30,6 +29,8 @@ define([
 		// required: Boolean
 		//		User is required to enter data into this field.
 		required: false,
+
+		messages: nlsValidate,
 
 		// promptMessage: String
 		//		If defined, display this hint string immediately on focus to the textbox, if empty.
@@ -269,7 +270,6 @@ define([
 
 		postMixInProperties: function(){
 			this.inherited(arguments);
-			this.messages = i18n.getLocalization("dijit.form", "validate", this.lang);
 			this._setConstraintsAttr(this.constraints); // this needs to happen now (and later) due to codependency on _set*Attr calls attachPoints
 		},
 
