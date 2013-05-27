@@ -4,7 +4,6 @@ define([
 	"dojo/dom-attr", // domAttr.attr
 	"dojo/dom-class", // domClass.toggle
 	"dojo/has",
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/_base/lang", // lang.hitch lang.trim
 	"./StackController",
 	"../registry",
@@ -12,7 +11,7 @@ define([
 	"../MenuItem",
 	"dojo/text!./templates/_TabButton.html",
 	"dojo/i18n!../nls/common"
-], function(declare, dom, domAttr, domClass, has, i18n, lang, StackController, registry, Menu, MenuItem, template){
+], function(declare, dom, domAttr, domClass, has, lang, StackController, registry, Menu, MenuItem, template, nlsCommon){
 
 	// module:
 	//		dijit/layout/TabController
@@ -68,9 +67,8 @@ define([
 			domClass.toggle(this.domNode, "dijitClosable", disp);
 			this.closeNode.style.display = disp ? "" : "none";
 			if(disp){
-				var _nlsResources = i18n.getLocalization("dijit", "common");
 				if(this.closeNode){
-					domAttr.set(this.closeNode, "title", _nlsResources.itemClose);
+					domAttr.set(this.closeNode, "title", nlsCommon.itemClose);
 				}
 			}
 		},
@@ -86,8 +84,7 @@ define([
 				if(disabled){
 					domAttr.remove(this.closeNode, "title");
 				}else{
-					var _nlsResources = i18n.getLocalization("dijit", "common");
-					domAttr.set(this.closeNode, "title", _nlsResources.itemClose);
+					domAttr.set(this.closeNode, "title", nlsCommon.itemClose);
 				}
 			}
 		},
@@ -160,10 +157,9 @@ define([
 			});
 			this.own(closeMenu);
 
-			var _nlsResources = i18n.getLocalization("dijit", "common"),
-				controller = this;
+			var controller = this;
 			closeMenu.addChild(new MenuItem({
-				label: _nlsResources.itemClose,
+				label: nlsCommon.itemClose,
 				ownerDocument: this.ownerDocument,
 				dir: this.dir,
 				lang: this.lang,

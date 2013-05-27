@@ -13,10 +13,9 @@ define([
 	"dojo/dom-attr", // domAttr.attr
 	"dojo/dom-construct", // empty()
 	"dojo/request",
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/when"
 ], function(lang, _WidgetBase, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, array, declare,
-			Deferred, dom, domAttr, domConstruct, request, i18n, when){
+			Deferred, dom, domAttr, domConstruct, request, when){
 
 	// module:
 	//		dijit/layout/ContentPane
@@ -166,9 +165,8 @@ define([
 
 		postMixInProperties: function(){
 			this.inherited(arguments);
-			var messages = i18n.getLocalization("dijit", "loading", this.lang);
-			this.loadingMessage = string.substitute(this.loadingMessage, messages);
-			this.errorMessage = string.substitute(this.errorMessage, messages);
+			this.loadingMessage = string.substitute(this.loadingMessage, nlsLoading);
+			this.errorMessage = string.substitute(this.errorMessage, nlsLoading);
 		},
 
 		buildRendering: function(){
