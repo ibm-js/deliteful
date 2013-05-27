@@ -5,15 +5,14 @@ define([
 	"./_TemplatedMixin",
 	"./_PaletteMixin",
 	"./hccss", // has("highcontrast")
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/_base/Color", // dojo.Color dojo.Color.named
 	"dojo/_base/declare", // declare
 	"dojo/dom-construct", // domConstruct.place
 	"dojo/string", // string.substitute
 	"dojo/i18n!dojo/nls/colors", // translations
 	"dojo/colors"    // extend dojo.Color w/names of other colors
-], function(require, template, _WidgetBase, _TemplatedMixin, _PaletteMixin, has, i18n, Color,
-	declare, domConstruct, string){
+], function(require, template, _WidgetBase, _TemplatedMixin, _PaletteMixin, has, Color,
+	declare, domConstruct, string, nlsStrings){
 
 	// module:
 	//		dijit/ColorPalette
@@ -82,9 +81,7 @@ define([
 			});
 
 			// Creates <img> nodes in each cell of the template.
-			this._preparePalette(
-				this._palettes[this.palette],
-				i18n.getLocalization("dojo", "colors", this.lang));
+			this._preparePalette(this._palettes[this.palette], nlsStrings);
 		}
 	});
 

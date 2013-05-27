@@ -7,7 +7,6 @@ define([
 	"dojo/dom-class", // domClass.add domClass.remove domClass.toggle
 	"dojo/dom-construct", // domConstruct.create domConstruct.destroy
 	"dojo/dom-style", // domStyle.getComputedStyle domStyle.set domStyle.get
-	"dojo/i18n", // i18n.getLocalization
 	"dojo/keys", // keys.ENTER keys.ESCAPE
 	"dojo/_base/lang", // lang.getObject
 	"dojo/on",
@@ -24,9 +23,9 @@ define([
 	"./form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!./nls/common"
-], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, i18n, keys, lang, on, has, when,
+], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when,
 			a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Button, _TextBoxMixin,
-			TextBox, template){
+			TextBox, template, nlsCommon){
 
 	// module:
 	//		dijit/InlineEditBox
@@ -49,15 +48,9 @@ define([
 
 		contextRequire: require,
 
-		postMixInProperties: function(){
-			this.inherited(arguments);
-			this.messages = i18n.getLocalization("dijit", "common", this.lang);
-			array.forEach(["buttonSave", "buttonCancel"], function(prop){
-				if(!this[prop]){
-					this[prop] = this.messages[prop];
-				}
-			}, this);
-		},
+		// Text strings used in code
+		buttonSave: nlsCommon.buttonSave,
+		buttonCancel: nlsCommon.buttonCancel,
 
 		buildRendering: function(){
 			this.inherited(arguments);
@@ -286,11 +279,11 @@ define([
 
 		// buttonSave: String
 		//		Save button label
-		buttonSave: "",
+		buttonSave: nlsCommon.buttonSave,
 
 		// buttonCancel: String
 		//		Cancel button label
-		buttonCancel: "",
+		buttonCancel: nlsCommon.buttonCancel,
 
 		// renderAsHtml: Boolean
 		//		Set this to true if the specified Editor's value should be interpreted as HTML
