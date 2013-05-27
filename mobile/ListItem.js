@@ -253,8 +253,7 @@ define([
 			var centerNode;
 			array.forEach(this.domNode.childNodes, function(n){
 				if(n.nodeType !== 1){ return; }
-				var layout = n.getAttribute("layout") || // TODO: Remove the non-HTML5-compliant attribute in 2.0
-					n.getAttribute("data-mobile-layout") || 
+				var layout = n.getAttribute("data-mobile-layout") ||
 					(registry.byNode(n) || {}).layout;
 				if(layout){ 
 					domClass.add(n, "mblListItemLayout" +
@@ -283,8 +282,7 @@ define([
 		_onTouchStart: function(e){
 			// tags:
 			//		private
-			if(e.target.getAttribute("preventTouch") || // TODO: Remove the non-HTML5-compliant attribute in 2.0
-				e.target.getAttribute("data-mobile-prevent-touch") ||
+			if(e.target.getAttribute("data-mobile-prevent-touch") ||
 				(registry.getEnclosingWidget(e.target) || {}).preventTouch){
 				return;
 			}
@@ -569,10 +567,5 @@ define([
 		preventTouch: false
 	};
 	
-	// Since any widget can be specified as a ListItem child, mix ChildWidgetProperties
-	// into the base widget class.  (This is a hack, but it's effective.)
-	// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-	lang.extend(WidgetBase, /*===== {} || =====*/ ListItem.ChildWidgetProperties);
-
-	return has("dojo-bidi") ? declare("dojox.mobile.ListItem", [ListItem, BidiListItem]) : ListItem;	
+	return has("dojo-bidi") ? declare("dojox.mobile.ListItem", [ListItem, BidiListItem]) : ListItem;
 });

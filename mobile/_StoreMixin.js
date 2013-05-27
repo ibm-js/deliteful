@@ -86,22 +86,11 @@ define([
 								// TODO: support move, i.e. newIndex != -1?
 							}else{
 								// item modified
-								// if onAdd is not defined, we are "bug compatible" with 1.8 and we do nothing.
-								// TODO remove test in 2.0
-								if(_this.onAdd){
-									_this.onUpdate(object, newIndex);
-								}
+								_this.onUpdate(object, newIndex);
 							}
 						}else if(newIndex != -1){
 							// item added
-							if(_this.onAdd){
-								 // new widget with onAdd method defined
-								_this.onAdd(object, newIndex);
-							}else{
-								// TODO remove in 2.0
-								// compatibility with 1.8: onAdd did not exist, add was handled by onUpdate
-								_this.onUpdate(object, newIndex);
-							}
+							_this.onAdd(object, newIndex);
 						}												
 					}, true); // we want to be notified of updates
 				}

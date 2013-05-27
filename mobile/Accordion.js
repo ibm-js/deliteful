@@ -498,10 +498,5 @@ define([
 		lazy: false
 	};
 
-	// Since any widget can be specified as an Accordion child, mix ChildWidgetProperties
-	// into the base widget class.  (This is a hack, but it's effective.)
-	// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-	lang.extend(WidgetBase, /*===== {} || =====*/ Accordion.ChildWidgetProperties);
-
 	return has("dojo-bidi") ? declare("dojox.mobile.Accordion", [Accordion, BidiAccordion]) : Accordion;
 });
