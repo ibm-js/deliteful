@@ -66,13 +66,6 @@ define([
 					widget.resize();
 				}
 			});
-			// Convert before/after to before-centered/after-centered for compatibility
-			// TODO remove this 1.7->1.8 compatibility code in 2.0
-			if(positions){
-				positions = array.map(positions, function(pos){
-					return {after: "after-centered", before: "before-centered"}[pos] || pos;
-				});
-			}
 			var best = place.around(domNode, aroundNode, positions || ["below-centered", "above-centered", "after-centered", "before-centered"], this.isLeftToRight());
 			var connectorClass = connectorClasses[best.corner + best.aroundCorner.charAt(0)] || "";
 			domClass.add(domNode, connectorClass);
