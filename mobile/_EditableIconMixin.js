@@ -7,13 +7,13 @@ define([
 	"dojo/_base/window",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/topic",
 	"dojo/touch",
 	"dijit/registry",
 	"./IconItem",
-	"./sniff",
 	"./viewRegistry",
 	"./_css3"
-], function(array, connect, declare, event, lang, win, domGeometry, domStyle, touch, registry, IconItem, has, viewRegistry, css3){
+], function(array, connect, declare, event, lang, win, domGeometry, domStyle, topic, touch, registry, IconItem, has, viewRegistry, css3){
 
 	// module:
 	//		dojox/mobile/_EditableIconMixin
@@ -58,7 +58,7 @@ define([
 				}, 15*count++);
 			}, this);
 
-			connect.publish("/dojox/mobile/startEdit", [this]); // pubsub
+			topic.publish("/dojox/mobile/startEdit", this); // pubsub
 			this.onStartEdit(); // callback
 		},
 
@@ -82,7 +82,7 @@ define([
 				this._handles = null;
 			}
 
-			connect.publish("/dojox/mobile/endEdit", [this]); // pubsub
+			topic.publish("/dojox/mobile/endEdit", this); // pubsub
 			this.onEndEdit(); // callback
 			this.isEditing = false;
 		},
@@ -235,7 +235,7 @@ define([
 				var endIndex = this.getIndexOfChild(this._blankItem);
 				this.moveChild(movingItem, endIndex);
 				this.removeChild(this._blankItem);
-				connect.publish("/dojox/mobile/moveIconItem", [this, movingItem, startIndex, endIndex]); // pubsub
+				topic.publish("/dojox/mobile/moveIconItem", this, movingItem, startIndex, endIndex); // pubsub
 				this.onMoveItem(movingItem, startIndex, endIndex); // callback
 			}
 		},
@@ -376,7 +376,7 @@ define([
 			}
 			this.removeChildWithAnimation(item);
 
-			connect.publish("/dojox/mobile/deleteIconItem", [this, item]); // pubsub
+			topic.publish("/dojox/mobile/deleteIconItem", this, item); // pubsub
 			this.onDeleteItem(item); // callback
 
 			item.destroy();

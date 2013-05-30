@@ -13,6 +13,7 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dijit/registry",
+	"dojo/topic",
 	"dijit/_Contained",
 	"dijit/_Container",
 	"dijit/_WidgetBase",
@@ -21,7 +22,7 @@ define([
 	"./transition",
 	"./viewRegistry",
 	"./_css3"
-], function(array, config, connect, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, registry, Contained, Container, WidgetBase, ViewController, common, transitDeferred, viewRegistry, css3){
+], function(array, config, connect, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, registry, topic, Contained, Container, WidgetBase, ViewController, common, transitDeferred, viewRegistry, css3){
 
 	// module:
 	//		dojox/mobile/View
@@ -127,7 +128,7 @@ define([
 				// TODO: revisit this for 2.0
 				this.defer(function(){
 					this.onStartView();
-					connect.publish("/dojox/mobile/startView", [this]);
+					topic.publish("/dojox/mobile/startView", this);
 				});
 			}
 
@@ -376,7 +377,7 @@ define([
 			}
 
 			this.onBeforeTransitionOut.apply(this, this._arguments);
-			connect.publish("/dojox/mobile/beforeTransitionOut", [this].concat(lang._toArray(this._arguments)));
+			topic.publish.apply(topic, ["/dojox/mobile/beforeTransitionOut", this].concat(lang._toArray(this._arguments)));
 			if(toWidget){
 				// perform view transition keeping the scroll position
 				if(this.keepScrollPos && !this.getParent()){
@@ -396,7 +397,7 @@ define([
 					toNode.style.top = "0px";
 				}
 				toWidget.onBeforeTransitionIn.apply(toWidget, this._arguments);
-				connect.publish("/dojox/mobile/beforeTransitionIn", [toWidget].concat(lang._toArray(this._arguments)));
+				topic.publish.apply(topic, ["/dojox/mobile/beforeTransitionIn", toWidget].concat(lang._toArray(this._arguments)));
 			}
 			toNode.style.display = "none";
 			toNode.style.visibility = "visible";
@@ -555,11 +556,11 @@ define([
 			//		A function to be called after performing a transition to
 			//		call a specified callback.
 			this.onAfterTransitionOut.apply(this, this._arguments);
-			connect.publish("/dojox/mobile/afterTransitionOut", [this].concat(this._arguments));
+			topic.publish.apply(topic, ["/dojox/mobile/afterTransitionOut", this].concat(this._arguments));
 			var toWidget = registry.byNode(this.toNode);
 			if(toWidget){
 				toWidget.onAfterTransitionIn.apply(toWidget, this._arguments);
-				connect.publish("/dojox/mobile/afterTransitionIn", [toWidget].concat(this._arguments));
+				topic.publish.apply(topic, ["/dojox/mobile/afterTransitionIn", toWidget].concat(this._arguments));
 				toWidget.movedFrom = undefined;
 			}
 			if(has('mblAndroidWorkaround')){
@@ -642,10 +643,10 @@ define([
 			if(!noEvent){
 				if(out){
 					out.onBeforeTransitionOut(out.id);
-					connect.publish("/dojox/mobile/beforeTransitionOut", [out, out.id]);
+					topic.publish("/dojox/mobile/beforeTransitionOut", out, out.id);
 				}
 				this.onBeforeTransitionIn(this.id);
-				connect.publish("/dojox/mobile/beforeTransitionIn", [this, this.id]);
+				topic.publish("/dojox/mobile/beforeTransitionIn", this, this.id);
 			}
 
 			if(doNotHideOthers){
@@ -660,10 +661,10 @@ define([
 			if(!noEvent){
 				if(out){
 					out.onAfterTransitionOut(out.id);
-					connect.publish("/dojox/mobile/afterTransitionOut", [out, out.id]);
+					topic.publish("/dojox/mobile/afterTransitionOut", out, out.id);
 				}
 				this.onAfterTransitionIn(this.id);
-				connect.publish("/dojox/mobile/afterTransitionIn", [this, this.id]);
+				topic.publish("/dojox/mobile/afterTransitionIn", this, this.id);
 			}
 		},
 

@@ -4,10 +4,11 @@ define([
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/dom-construct",
+	"dojo/topic",
 	"dijit/registry",
 	"dijit/_Contained",
 	"dijit/_WidgetBase"
-], function(connect, declare, dom, domClass, domConstruct, registry, Contained, WidgetBase){
+], function(connect, declare, dom, domClass, domConstruct, topic, registry, Contained, WidgetBase){
 
 	// module:
 	//		dojox/mobile/PageIndicator
@@ -95,9 +96,9 @@ define([
 			if(this.onClick(e) === false){ return; } // user's click action
 			if(e.target !== this.domNode){ return; }
 			if(e.layerX < this._tblNode.offsetLeft){
-				connect.publish("/dojox/mobile/prevPage", [this]);
+				topic.publish("/dojox/mobile/prevPage", this);
 			}else if(e.layerX > this._tblNode.offsetLeft + this._tblNode.offsetWidth){
-				connect.publish("/dojox/mobile/nextPage", [this]);
+				topic.publish("/dojox/mobile/nextPage", this);
 			}
 		},
 

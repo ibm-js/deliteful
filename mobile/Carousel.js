@@ -8,6 +8,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
+	"dojo/topic",
 	"dijit/registry",
 	"dijit/_Contained",
 	"dijit/_Container",
@@ -18,7 +19,7 @@ define([
 	"./SwapView",
 	"require",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Carousel"
-], function(array, connect, declare, event, lang, has, domClass, domConstruct, domStyle, registry, Contained, Container, WidgetBase, lazyLoadUtils, CarouselItem, PageIndicator, SwapView, require, BidiCarousel){
+], function(array, connect, declare, event, lang, has, domClass, domConstruct, domStyle, topic, registry, Contained, Container, WidgetBase, lazyLoadUtils, CarouselItem, PageIndicator, SwapView, require, BidiCarousel){
 
 	// module:
 	//		dojox/mobile/Carousel
@@ -391,7 +392,7 @@ define([
 			}
 			this.select(w);
 			var idx = this.getIndexByItemWidget(w);
-			connect.publish("/dojox/mobile/carouselSelect", [this, w, this.items[idx], idx]);
+			topic.publish("/dojox/mobile/carouselSelect", this, w, this.items[idx], idx);
 		},
 
 		select: function(/*Widget|Number*/itemWidget){

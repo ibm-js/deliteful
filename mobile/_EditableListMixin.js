@@ -9,11 +9,12 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/topic",
 	"dojo/touch",
 	"dojo/dom-attr",
 	"dijit/registry",
 	"./ListItem"
-], function(array, connect, declare, event, win, domClass, domGeometry, domStyle, touch, domAttr, registry, ListItem){
+], function(array, connect, declare, event, win, domClass, domGeometry, domStyle, topic, touch, domAttr, registry, ListItem){
 
 	// module:
 	//		dojox/mobile/EditableRoundRectList
@@ -77,7 +78,7 @@ define([
 			var item = registry.getEnclosingWidget(e.target);
 			for(var n = e.target; n !== item.domNode; n = n.parentNode){
 				if(n === item.deleteIconNode){
-					connect.publish("/dojox/mobile/deleteListItem", [item]);
+					topic.publish("/dojox/mobile/deleteListItem", item);
 					this.onDeleteItem(item); //callback
 					break;
 				}

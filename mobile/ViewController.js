@@ -12,10 +12,11 @@ define([
 	"dojo/on",
 	"dojo/ready",
 	"dijit/registry",
+	"dojo/topic",
 	"./ProgressIndicator",
 	"./TransitionEvent",
 	"./viewRegistry"
-], function(dojo, array, connect, declare, lang, win, Deferred, dom, domClass, domConstruct, on, ready, registry, ProgressIndicator, TransitionEvent, viewRegistry){
+], function(dojo, array, connect, declare, lang, win, Deferred, dom, domClass, domConstruct, on, ready, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
 
 	// module:
 	//		dojox/mobile/ViewController
@@ -220,7 +221,7 @@ define([
 				}
 				return;
 			}else if(detail.scene){
-				connect.publish("/dojox/mobile/app/pushScene", [detail.scene]);
+				topic.publish("/dojox/mobile/app/pushScene", detail.scene);
 				return;
 			}
 

@@ -8,7 +8,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/touch",
-	"./sniff",
+	"dojo/sniff",
 	"./_css3",
 	"./_maskUtils"
 ], function(dojo, connect, event, lang, win, domClass, domConstruct, domStyle, touch, has, css3, maskUtils){

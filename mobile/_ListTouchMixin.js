@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare",
 	"dojo/touch",
-	"./sniff",
+	"dojo/sniff",
 	"dijit/form/_ListBase"
 ], function(declare, touch, has, ListBase){
 

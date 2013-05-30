@@ -8,13 +8,14 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/topic",
 	"./View",
 	"./iconUtils",
 	"./_ItemBase",
 	"./Badge",
-	"./sniff",
+	"dojo/sniff",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/TabBarButton"
-], function(connect, declare, event, lang, dom, domClass, domConstruct, domStyle, domAttr, View, iconUtils, ItemBase, Badge, has, BidiTabBarButton){
+], function(connect, declare, event, lang, dom, domClass, domConstruct, domStyle, domAttr, topic, View, iconUtils, ItemBase, Badge, has, BidiTabBarButton){
 
 	// module:
 	//		dojox/mobile/TabBarButton
@@ -178,7 +179,7 @@ define([
 		onClose: function(e){
 			// summary:
 			//		Called when the parent is a dojox/mobile/TabBar whose closable property is true, and the user clicked the close button.
-			connect.publish("/dojox/mobile/tabClose", [this]);
+			topic.publish("/dojox/mobile/tabClose", this);
 			return this.getParent().onCloseButtonClick(this);
 		},
 

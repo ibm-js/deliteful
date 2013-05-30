@@ -8,11 +8,12 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/ready",
+	"dojo/topic",
 	"dojo/touch",
 	"dijit/registry",
-	"./sniff",
+	"dojo/sniff",
 	"./uacss" // (no direct references)
-], function(array, config, connect, lang, win, kernel, domClass, domConstruct, ready, touch, registry, has){
+], function(array, config, connect, lang, win, kernel, domClass, domConstruct, ready, topic, touch, registry, has){
 
 	// module:
 	//		dojox/mobile/common
@@ -91,7 +92,7 @@ define([
 		}
 		if(to){
 			domClass.replace(win.doc.documentElement, "dj_"+to, "dj_"+from);
-			connect.publish("/dojox/mobile/screenSize/"+to, [dim]);
+			topic.publish("/dojox/mobile/screenSize/"+to, dim);
 		}
 		this._sz = sz;
 	};
@@ -178,8 +179,8 @@ define([
 		//		top level widget or not.
 		//		If omitted, searches the entire page.
 		if(dm.disableResizeAll){ return; }
-		connect.publish("/dojox/mobile/resizeAll", [evt, root]); // back compat
-		connect.publish("/dojox/mobile/beforeResizeAll", [evt, root]);
+		topic.publish("/dojox/mobile/resizeAll", evt, root); // back compat
+		topic.publish("/dojox/mobile/beforeResizeAll", evt, root);
 		if(dm._resetMinHeight){
 			win.body().style.minHeight = dm.getScreenSize().h + "px";
 		} 
@@ -202,7 +203,7 @@ define([
 			array.forEach(array.filter(registry.toArray(), isTopLevel),
 					function(w){ w.resize(); });
 		}
-		connect.publish("/dojox/mobile/afterResizeAll", [evt, root]);
+		topic.publish("/dojox/mobile/afterResizeAll", evt, root);
 	};
 
 	dm.openWindow = function(url, target){

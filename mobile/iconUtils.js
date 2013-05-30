@@ -8,7 +8,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
-	"./sniff"
+	"dojo/sniff"
 ], function(array, config, connect, event, lang, win, domClass, domConstruct, domStyle, has){
 
 	var dm = lang.getObject("dojox.mobile", true);

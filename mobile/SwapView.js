@@ -4,13 +4,14 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom",
 	"dojo/dom-class",
+	"dojo/topic",
 	"dijit/registry",
 	"./View",
 	"./_ScrollableMixin",
-	"./sniff",
+	"dojo/sniff",
 	"./_css3",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/SwapView"
-], function(array, connect, declare, dom, domClass, registry, View, ScrollableMixin, has, css3, BidiSwapView){
+], function(array, connect, declare, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
 
 	// module:
 	//		dojox/mobile/SwapView
@@ -109,7 +110,7 @@ define([
 				this.domNode._isShowing = false; // update isShowing flag
 				view.domNode._isShowing = true;
 				this.performTransition(view.id, dir, "slide", null, function(){
-					connect.publish("/dojox/mobile/viewChanged", [view]);
+					topic.publish("/dojox/mobile/viewChanged", view);
 				});
 			}
 		},
@@ -259,7 +260,7 @@ define([
 						}
 					}
 				}, this);
-				connect.publish("/dojox/mobile/viewChanged", [this]);
+				topic.publish("/dojox/mobile/viewChanged", this);
 				// Reset the temporary padding
 				this.containerNode.style.paddingTop = "";
 			}else if(!has("css3-animations")){

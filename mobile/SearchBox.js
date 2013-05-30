@@ -8,7 +8,7 @@ define([
 	"dojo/keys",
 	"dojo/touch",
 	"dojo/on",
-	"./sniff"
+	"dojo/sniff"
 ], function(declare, lang, win, SearchMixin, TextBox, domClass, keys, touch, on, has){
 
 	return declare("dojox.mobile.SearchBox", [TextBox, SearchMixin], {

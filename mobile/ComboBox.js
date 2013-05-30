@@ -12,7 +12,7 @@ define([
 	"dijit/popup",
 	"./_ComboBoxMenu",
 	"./TextBox",
-	"./sniff"
+	"dojo/sniff"
 ], function(kernel, declare, lang, win, domGeometry, domStyle, domAttr, windowUtils, touch, AutoCompleterMixin, popup, ComboBoxMenu, TextBox, has){
 	kernel.experimental("dojox.mobile.ComboBox"); // should be using a more native search-type UI
 

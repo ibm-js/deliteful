@@ -3,7 +3,7 @@ define([
 	"dojo/dom-construct",
 	"./Pane",
 	"./iconUtils",
-	"./sniff"
+	"dojo/sniff"
 ], function(declare, domConstruct, Pane, iconUtils, has){
 
 	// module:

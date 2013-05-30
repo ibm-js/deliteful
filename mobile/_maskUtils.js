@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/window",
 	"dojo/dom-style",
-	"./sniff"
+	"dojo/sniff"
 ], function(win, domStyle, has){
 	
 	var cache = {};

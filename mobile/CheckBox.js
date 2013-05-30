@@ -3,7 +3,7 @@ define([
 	"dojo/dom-construct",
 	"dijit/form/_CheckBoxMixin",
 	"./ToggleButton",
-	"./sniff"
+	"dojo/sniff"
 ],
 	function(declare, domConstruct, CheckBoxMixin, ToggleButton, has){
 

@@ -2,7 +2,7 @@ define([
 	"dojo/_base/kernel",
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"./sniff"
+	"dojo/sniff"
 ], function(dojo, lang, win, has){
 	var html = win.doc.documentElement;
 	html.className = lang.trim(html.className + " " + [

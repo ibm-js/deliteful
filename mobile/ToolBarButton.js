@@ -6,7 +6,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
-	"./sniff",
+	"dojo/sniff",
 	"./_ItemBase",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/ToolBarButton"
 ], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, has, ItemBase, BidiToolBarButton){

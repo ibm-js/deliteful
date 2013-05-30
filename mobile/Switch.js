@@ -11,7 +11,7 @@ define([
 	"dojo/touch",
 	"dijit/_Contained",
 	"dijit/_WidgetBase",
-	"./sniff", 
+	"dojo/sniff",
 	"./_maskUtils",
 	"./common",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Switch"
