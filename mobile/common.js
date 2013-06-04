@@ -1,19 +1,19 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/config",
-	"dojo/_base/connect",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/_base/kernel",
 	"dojo/dom-class",
 	"dojo/dom-construct",
-	"dojo/ready",
+	"dojo/on",
+	"dojo/domReady",
 	"dojo/topic",
 	"dojo/touch",
 	"dijit/registry",
 	"dojo/sniff",
 	"./uacss" // (no direct references)
-], function(array, config, connect, lang, win, kernel, domClass, domConstruct, ready, topic, touch, registry, has){
+], function(array, config, lang, win, kernel, domClass, domConstruct, on, domReady, topic, touch, registry, has){
 
 	// module:
 	//		dojox/mobile/common
@@ -299,7 +299,7 @@ define([
 
 	dm._detectWindowsTheme();
 	
-	ready(function(){
+	domReady(function(){
 		dm.detectScreenSize(true);
 		domClass.add(win.body(), "mblBackground");
 		if(config["mblAndroidWorkaroundButtonStyle"] !== false && has('android')){
@@ -335,8 +335,7 @@ define([
 				// because the size information may not yet be up to date when the 
 				// event orientationchange occurs.
 				f = function(evt){
-					var _conn = connect.connect(null, "onresize", null, function(e){
-						connect.disconnect(_conn);
+					on.once(win.global, "resize", function(e){
 						_f(e);
 					});
 				}
@@ -349,7 +348,7 @@ define([
 			// iOS >= 6: Watch for resize events when entering or existing the new iOS6 
 			// full-screen mode. The heuristic to detect this is that clientWidth does not
 			// change while the clientHeight does change.
-			connect.connect(null, "onresize", null, function(e){
+			on(win.global, "resize", function(e){
 				if(ios6){
 					var newClientWidth = win.doc.documentElement.clientWidth,
 						newClientHeight = win.doc.documentElement.clientHeight;
@@ -370,8 +369,8 @@ define([
 			});
 		}
 		
-		connect.connect(null, win.global.onorientationchange !== undefined
-			? "onorientationchange" : "onresize", null, f);
+		on(win.global, win.global.onorientationchange !== undefined
+			? "orientationchange" : "resize", f);
 		win.body().style.visibility = "visible";
 	});
 

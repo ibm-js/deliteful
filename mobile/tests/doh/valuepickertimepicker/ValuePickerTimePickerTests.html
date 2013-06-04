@@ -14,9 +14,9 @@
 		    "doh/runner",
 			"dojo/date/locale",
 			"dojo/dom",
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/ValuePickerTimePicker"
@@ -32,7 +32,7 @@
 				ready(function(){
 					var picker = registry.byId("picker2");
 					// Tests
-					runner.register("dojox.mobile.test.doh.ValuePickerTimePickerTests", [
+					runner.register("dojox/mobile/test.doh.ValuePickerTimePickerTests", [
        					{
        						name: "Verify ticket #16740 is fixed",
        						timeout: 4000,
@@ -60,8 +60,8 @@
 
 </head>
 <body style="visibility:hidden;">
-	<div id="view" data-dojo-type="dojox.mobile.View">
-		<div id="picker2" data-dojo-type="dojox.mobile.ValuePickerTimePicker" data-dojo-props="is24h:false,onValueChanged:onTimeChanged"></div>
+	<div id="view" data-dojo-type="dojox/mobile/View">
+		<div id="picker2" data-dojo-type="dojox/mobile/ValuePickerTimePicker" data-dojo-props="is24h:false,onValueChanged:onTimeChanged"></div>
 		<div id="changedValue"></div>
 	</div>
 </body>

@@ -1,5 +1,5 @@
 define([
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/_base/config"
 ], function(Deferred, config){
 	/*=====

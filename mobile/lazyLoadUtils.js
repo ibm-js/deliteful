@@ -3,9 +3,10 @@ define([
 	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/window",
-	"dojo/_base/Deferred",
-	"dojo/ready"
-], function(dojo, array, config, win, Deferred, ready){
+	"dojo/Deferred",
+	"dojo/parser",
+	"dojo/domReady"
+], function(kernel, array, config, win, Deferred, parser, domReady){
 
 	// module:
 	//		dojox/mobile/lazyLoadUtils
@@ -16,11 +17,12 @@ define([
 
 		this._lazyNodes = [];
 		var _this = this;
-		if(config.parseOnLoad){
-			ready(90, function(){
+		if(false && config.parseOnLoad){
+			// TODO: was ready(90, function()). FIXIT
+			domReady(function(){
 				var lazyNodes = array.filter(win.body().getElementsByTagName("*"), // avoid use of dojo.query
 					function(n){ return n.getAttribute("lazy") === "true" || (n.getAttribute("data-dojo-props")||"").match(/lazy\s*:\s*true/); });
-				var i, j, nodes, s, n;
+				var i, j, nodes, n;
 				for(i = 0; i < lazyNodes.length; i++){
 					array.forEach(["dojoType", "data-dojo-type"], function(a){
 						nodes = array.filter(lazyNodes[i].getElementsByTagName("*"),
@@ -35,8 +37,7 @@ define([
 				}
 			});
 		}
-
-		ready(function(){
+		domReady(function(){
 			for(var i = 0; i < _this._lazyNodes.length; i++){ /* 1.8 */
 				var n = _this._lazyNodes[i];
 				array.forEach(["dojoType", "data-dojo-type"], function(a){
@@ -71,21 +72,12 @@ define([
 			}
 			if(req.length === 0){ return true; }
 
-			if(dojo.require){
-				array.forEach(req, function(c){
-					dojo["require"](c);
-				});
-				dojo.parser.parse(root);
+			req = array.map(req, function(s){ return s.replace(/\./g, "/"); });
+			require(req, function(){
+				parser.parse(root);
 				if(callback){ callback(root); }
-				return true;
-			}else{
-				req = array.map(req, function(s){ return s.replace(/\./g, "/"); });
-				require(req, function(){
-					dojo.parser.parse(root);
-					if(callback){ callback(root); }
-					d.resolve(true);
-				});
-			}
+				d.resolve(true);
+			});
 			return d;
 		}	
 	};

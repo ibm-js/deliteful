@@ -18,14 +18,14 @@
 	require([
 		"dojo/sniff",
 		"dojo/dom-construct", // dojo.place
-		"dojo/ready", // dojo.ready
+		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/Button",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(has, domConst, ready, registry, runner, Button){
 		function _createButtonDeclaratively(buttonId) {
 			return registry.byId(buttonId);
@@ -59,7 +59,7 @@
 			if(has("ie") < 9){
 				buttonWidth = -1; // negative value as convention for skipping tests
 			} 
-			runner.register("dojox.mobile.test.doh.ButtonTests", [
+			runner.register("dojox/mobile/test.doh.ButtonTests", [
 				function testInView1(){
 					var button1 = _createButtonDeclaratively("view1-button1");
 					var button2 = _createButtonProgrammatically("view1-button2");
@@ -87,15 +87,15 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<button id="view1-button1" data-dojo-type="dojox.mobile.Button">Button</button>
+		<button id="view1-button1" data-dojo-type="dojox/mobile/Button">Button</button>
 		<div id="view1-button2"></div>
 		<button id="view1-button3"></button>
 	</div>
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<button id="view2-button1" data-dojo-type="dojox.mobile.Button">Button</button>
+		<button id="view2-button1" data-dojo-type="dojox/mobile/Button">Button</button>
 		<div id="view2-button2"></div>
 		<button id="view2-button3"></button>
 	</div>

@@ -13,9 +13,9 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/store/JsonRest",
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
@@ -47,12 +47,12 @@
 	</script>
 </head>
 <body style="visibility:hidden;background-color:#6D6D6D">
-	<div id="foo" data-dojo-type="dojox.mobile.ScrollableView">
-		<div id="carousel1" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div id="foo" data-dojo-type="dojox/mobile/ScrollableView">
+		<div id="carousel1" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='height:"150px", navButton:true, store:store1, itemWidth:156, title:"Category"'></div>
-		<div id="carousel2" data-dojo-type="dojox.mobile.StoreCarousel"
+		<div id="carousel2" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='height:"110px", navButton:true, itemWidth:100'></div>
-		<div id="rect1" data-dojo-type="dojox.mobile.RoundRect" style="display:none"></div>
+		<div id="rect1" data-dojo-type="dojox/mobile/RoundRect" style="display:none"></div>
 	</div>
 </body>
 </html>

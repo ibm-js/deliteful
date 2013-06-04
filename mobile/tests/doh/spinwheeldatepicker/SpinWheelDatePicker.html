@@ -15,8 +15,8 @@
 	<script type="text/javascript">
 		var onYearSet, onMonthSet, onDaySet;
 		require([
-			"dojo/ready", "dijit/registry", "doh/runner", "dojo/_base/array",
-			"dojo/dom-class", "dojox/mobile", "dojox/mobile/compat", "dojox/mobile/parser", 
+			"dojo/domReady", "dijit/registry", "doh/runner", "dojo/_base/array",
+			"dojo/dom-class", "dojox/mobile", "dojox/mobile/compat", "dojo/parser",
 			"dojox/mobile/SpinWheelDatePicker"],
 			function(ready, registry, runner, array, domClass){
 						
@@ -119,7 +119,7 @@
 				};
 				
 				// Test case for #16502
-				runner.register("dojox.mobile.test.doh.SpinWheelTests", [
+				runner.register("dojox/mobile/test.doh.SpinWheelTests", [
 					{
 						name: "SpinWheelTest1",
 						timeout: 4000,

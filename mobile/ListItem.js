@@ -6,6 +6,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dijit/registry",
 	"dijit/_WidgetBase",
 	"./iconUtils",
@@ -13,7 +14,7 @@ define([
 	"./ProgressIndicator",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/ListItem"
-], function(array, declare, lang, domClass, domConstruct, domStyle, domAttr, registry, WidgetBase, iconUtils, ItemBase, ProgressIndicator, has,  BidiListItem){
+], function(array, declare, lang, domClass, domConstruct, domStyle, domAttr, on, registry, WidgetBase, iconUtils, ItemBase, ProgressIndicator, has,  BidiListItem){
 
 	// module:
 	//		dojox/mobile/ListItem
@@ -175,13 +176,13 @@ define([
 			if((!this._templated || this.labelNode) && this.anchorLabel){
 				this.labelNode.style.display = "inline"; // to narrow the text region
 				this.labelNode.style.cursor = "pointer";
-				this.connect(this.labelNode, "onclick", "_onClick");
+				this.own(on(this.labelNode, "click", lang.hitch(this, "_onClick")));
 				this.onTouchStart = function(e){
 					return (e.target !== this.labelNode);
 				};
 			}
 			if(opts.moveTo || opts.href || opts.url || this.clickable || (parent && parent.select)){
-				this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+				this.own(on(this.domNode, "keydown", lang.hitch("_onClick"))); // for desktop browsers
 			}else{
 				this._handleClick = false;
 			}
@@ -236,12 +237,12 @@ define([
 			var opts = this.getTransOpts();
 			if(opts.moveTo || opts.href || opts.url || this.clickable || (parent && parent.select)){
 				if(!this._keydownHandle){
-					this._keydownHandle = this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+					this._keydownHandle = this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 				}
 				this._handleClick = true;
 			}else{
 				if(this._keydownHandle){
-					this.disconnect(this._keydownHandle);
+					this._keydownHandle.remove();
 					this._keydownHandle = null;
 				}
 				this._handleClick = false;

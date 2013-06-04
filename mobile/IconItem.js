@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/sniff",
 	"dojo/_base/window",
@@ -8,6 +7,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/on",
 	"./_ItemBase",
 	"./Badge",
 	"./TransitionEvent",
@@ -16,7 +16,7 @@ define([
 	"./viewRegistry",
 	"./_css3",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/IconItem"
-], function(declare, event, lang, has, win, domClass, domConstruct, domGeometry, domStyle, ItemBase, Badge, TransitionEvent, iconUtils, lazyLoadUtils, viewRegistry, css3, BidiIconItem){
+], function(declare, lang, has, win, domClass, domConstruct, domGeometry, domStyle, on, ItemBase, Badge, TransitionEvent, iconUtils, lazyLoadUtils, viewRegistry, css3, BidiIconItem){
 
 	// module:
 	//		dojox/mobile/IconItem
@@ -129,8 +129,8 @@ define([
 				}
 				p.paneContainerWidget.addChild(w, this.getIndexInParent());
 				w.set("label", this.label);
-				this._clickCloseHandle = this.connect(w.closeIconNode, "onclick", "_closeIconClicked");
-				this._keydownCloseHandle = this.connect(w.closeIconNode, "onkeydown", "_closeIconClicked"); // for desktop browsers
+				this._clickCloseHandle = this.own(on(w.closeIconNode, "click", lang.hitch(this, "_closeIconClicked")))[0];
+				this._keydownCloseHandle = this.own(on(w.closeIconNode, "keydown", lang.hitch(this, "_closeIconClicked")))[0]; // for desktop browsers
 			}));
 
 			this.inherited(arguments);
@@ -146,8 +146,11 @@ define([
 				this.set("icon", p.defaultIcon);
 			}
 
-			this._dragstartHandle = this.connect(this.domNode, "ondragstart", event.stop);
-			this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			}))[0];
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 		},
 
 		highlight: function(/*Number?*/timeout){

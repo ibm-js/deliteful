@@ -1,13 +1,12 @@
 define([
-	"dojo/_base/connect",
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dojo/topic",
 	"./View",
 	"./iconUtils",
@@ -15,7 +14,7 @@ define([
 	"./Badge",
 	"dojo/sniff",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/TabBarButton"
-], function(connect, declare, event, lang, dom, domClass, domConstruct, domStyle, domAttr, topic, View, iconUtils, ItemBase, Badge, has, BidiTabBarButton){
+], function(declare, lang, dom, domClass, domConstruct, domStyle, domAttr, on, topic, View, iconUtils, ItemBase, Badge, has, BidiTabBarButton){
 
 	// module:
 	//		dojox/mobile/TabBarButton
@@ -152,12 +151,15 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 
-			this._dragstartHandle = this.connect(this.domNode, "ondragstart", event.stop);
-			this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			}));
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 			var parent = this.getParent();
 			if(parent && parent.closable){
-				this._clickCloseHandler = this.connect(this.iconDivNode, "onclick", "_onCloseButtonClick");
-				this._keydownCloseHandler = this.connect(this.iconDivNode, "onkeydown", "_onCloseButtonClick"); // for desktop browsers
+				this._clickCloseHandler = this.own(on(this.iconDivNode, "click", lang.hitch(this, "_onCloseButtonClick")))[0];
+				this._keydownCloseHandler = this.own(on(this.iconDivNode, "keydown", lang.hitch(this, "_onCloseButtonClick")))[0]; // for desktop browsers
 				this.iconDivNode.tabIndex = "0";
 			}
 

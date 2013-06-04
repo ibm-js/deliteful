@@ -1,11 +1,13 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom-class",
+	"dojo/aspect",
 	"./_DatePickerMixin",
 	"./SpinWheel",
 	"./SpinWheelSlot"
-], function(array, declare, domClass, DatePickerMixin, SpinWheel, SpinWheelSlot){
+], function(array, declare, lang, domClass, aspect, DatePickerMixin, SpinWheel, SpinWheelSlot){
 
 	// module:
 	//		dojox/mobile/SpinWheelDatePicker
@@ -34,9 +36,9 @@ define([
 			this.inherited(arguments);
 			domClass.add(this.domNode, "mblSpinWheelDatePicker");
 			this._conn = [
-				this.connect(this.slots[0], "onFlickAnimationEnd", "_onYearSet"),
-				this.connect(this.slots[1], "onFlickAnimationEnd", "_onMonthSet"),
-				this.connect(this.slots[2], "onFlickAnimationEnd", "_onDaySet")
+				this.own(aspect.after(this.slots[0], "onFlickAnimationEnd", lang.hitch(this, "_onYearSet")))[0],
+				this.own(aspect.after(this.slots[1], "onFlickAnimationEnd", lang.hitch(this, "_onMonthSet")))[0],
+				this.own(aspect.after(this.slots[2], "onFlickAnimationEnd", lang.hitch(this, "_onDaySet")))[0]
 			];
 		},
 

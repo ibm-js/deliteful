@@ -1,8 +1,10 @@
 define([
 	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"dojo/on",
 	"./common",
 	"dojo/dom-style"
-], function(declare,common, domStyle){
+], function(declare, lang, on, common, domStyle){
 
 	// module:
 	//		dojox/mobile/bidi/Carousel
@@ -21,10 +23,10 @@ define([
 		 	if(!this.isLeftToRight()){
 				if(this.navButton){
 					domStyle.set(this.btnContainerNode, "float", "left"); // workaround for webkit rendering problem
-					this.disconnect(this._prevHandle);
-					this.disconnect(this._nextHandle);
-					this._prevHandle = this.connect(this.prevBtnNode, "onclick", "onNextBtnClick");
-					this._nextHandle = this.connect(this.nextBtnNode, "onclick", "onPrevBtnClick");
+					this._prevHandle && this._prevHandle.remove();
+					this._nextHandle && this._nextHandle.remove();
+					this._prevHandle = this.own(on(this.prevBtnNode, "click", lang.hitch(this, "onNextBtnClick")))[0];
+					this._nextHandle = this.own(on(this.nextBtnNode, "click", lang.hitch(this, "onPrevBtnClick")))[0];
 				}
 				
 				if(this.pageIndicator){

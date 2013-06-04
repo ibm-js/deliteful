@@ -4,8 +4,8 @@ define([
 	"dojo/_base/config",
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"dojo/ready"
-], function(dojo, array, config, lang, win, ready){
+	"dojo/domReady"
+], function(dojo, array, config, lang, win, domReady){
 
 	// module:
 	//		dojox/mobile/parser
@@ -135,7 +135,7 @@ define([
 	var parser = new Parser();
 
 	if(config.parseOnLoad){
-		ready(100, function(){
+		domReady(100, function(){
 			// Now that all the modules are loaded, check if the app loaded dojo/parser too.
 			// If it did, let dojo/parser handle the parseOnLoad flag instead of me.
 			try{

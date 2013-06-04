@@ -34,9 +34,9 @@ define([
 					target = e.target;
 				}
 
-				this.on("MSGestureTap", function(e){
+				this.own(on(this.domNode, "MSGestureTap", function(e){
 					self._onClick(e, target);
-				});
+				}));
 			}
 		},
 

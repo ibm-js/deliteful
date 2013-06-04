@@ -7,6 +7,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dijit/_Contained",
 	"dijit/_Container",
 	"dijit/_WidgetBase",
@@ -15,7 +16,7 @@ define([
 	"./_css3",
 	"require",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Accordion"
-], function(array, declare, lang, has, dom, domClass, domConstruct, domAttr, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
+], function(array, declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
 
 	// module:
 	//		dojox/mobile/Accordion
@@ -84,7 +85,7 @@ define([
 		},
 
 		postCreate: function(){
-			this.connect(this.domNode, "onclick", "_onClick");
+			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
 			dom.setSelectable(this.domNode, false);
 		},
 

@@ -35,14 +35,14 @@
 		"dojo/sniff",
 		"dojo/dom-construct", // dojo.place
 		"dojo/dom-class", // dojo.hasClass
-		"dojo/ready", // dojo.ready
+		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/IconContainer",
 		"dojox/mobile/IconItem",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/parser",		// This mobile app uses declarative programming with fast mobile parser
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojox/mobile/View"		// This mobile app uses mobile view
 	], function(array, has, domConst, domClass, ready, registry, runner, IconContainer, IconItem){
 		function _createIconContainerDeclaratively(widgetId) {

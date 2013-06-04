@@ -1,15 +1,16 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-construct",
 	"dojo/dom-attr",
+	"dojo/on",
+	"dojo/topic",
 	"dijit/_Contained",
 	"dijit/_Container",
 	"dijit/_WidgetBase"
-], function(array, declare, event, lang, win, domConstruct, domAttr, Contained, Container, WidgetBase){
+], function(array, declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
 
 	// module:
 	//		dojox/mobile/RoundRectList
@@ -94,7 +95,10 @@ define([
 					declare.safeMixin(this, new module());
 				}));
 			}
-			this.connect(this.domNode, "onselectstart", event.stop);
+			this.own(on(this.domNode, "selectstart", function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			}));
 
 			if(this.syncWithViews){ // see also TabBar#postCreate
 				var f = function(view, moveTo, dir, transition, context, method){
@@ -102,8 +106,8 @@ define([
 						return w.moveTo === "#" + view.id || w.moveTo === view.id; })[0];
 					if(child){ child.set("selected", true); }
 				};
-				this.subscribe("/dojox/mobile/afterTransitionIn", f);
-				this.subscribe("/dojox/mobile/startView", f);
+				this.own(topic.subscribe("/dojox/mobile/afterTransitionIn", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dojox/mobile/startView", lang.hitch(this, f)));
 			}
 		},
 

@@ -6,13 +6,14 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/window",
 	"dijit/_WidgetBase",
 	"dojo/_base/array",
 	"dijit/registry",
 	"dojo/touch",
 	"./_css3"
-], function(declare, lang, has, win, domClass, domGeometry, domStyle, windowUtils, WidgetBase, array, registry, touch, css3){
+], function(declare, lang, has, win, domClass, domGeometry, domStyle, on, windowUtils, WidgetBase, array, registry, touch, css3){
 
 	return declare("dojox.mobile.Overlay", WidgetBase, {
 		// summary:
@@ -65,20 +66,19 @@ define([
 			var _domNode = this.domNode;
 			domClass.replace(_domNode, ["mblCoverv", "mblIn"], ["mblOverlayHidden", "mblRevealv", "mblOut", "mblReverse", "mblTransition"]);
 			this.defer(function(){
-				var handler = this.connect(_domNode, css3.name("transitionEnd"), function(){
-					this.disconnect(handler);
+				var handler = this.own(on(_domNode, css3.name("transitionEnd"), lang.hitch(this, function(){
+					handler.remove();
 					domClass.remove(_domNode, ["mblCoverv", "mblIn", "mblTransition"]);
 					this._reposition();
-				});
+				})))[0];
 				domClass.add(_domNode, "mblTransition");
 			}, 100);
 			var skipReposition = false;
 
-			this._moveHandle = this.connect(win.doc.documentElement, touch.move,
-				function(){
+			this._moveHandle = this.own(on(win.doc.documentElement, touch.move, function(){
 					skipReposition = true;
 				}
-			);
+			))[0];
 			this._repositionTimer = setInterval(lang.hitch(this, function(){
 				if(skipReposition){ // don't reposition if busy
 					skipReposition = false;
@@ -94,7 +94,7 @@ define([
 			//		Scroll the overlay down and then make it invisible
 			var _domNode = this.domNode;
 			if(this._moveHandle){
-				this.disconnect(this._moveHandle);
+				this._moveHandle.remove();
 				this._moveHandle = null;
 				clearInterval(this._repositionTimer);
 				this._repositionTimer = null;
@@ -102,10 +102,10 @@ define([
 			if(has("css3-animations")){
 				domClass.replace(_domNode, ["mblRevealv", "mblOut", "mblReverse"], ["mblCoverv", "mblIn", "mblOverlayHidden", "mblTransition"]);
 				this.defer(function(){
-					var handler = this.connect(_domNode, css3.name("transitionEnd"), function(){
-						this.disconnect(handler);
+					var handler = this.own(on(_domNode, css3.name("transitionEnd"), function(){
+						handler.remove();
 						domClass.replace(_domNode, ["mblOverlayHidden"], ["mblRevealv", "mblOut", "mblReverse", "mblTransition"]);
-					});
+					}))[0];
 					domClass.add(_domNode, "mblTransition");
 				}, 100);
 			}else{

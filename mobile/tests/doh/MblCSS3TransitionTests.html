@@ -11,11 +11,11 @@
 			require([
 				"dijit/registry",  // dijit.byId
 				"doh/runner",	//doh functions
-				"dojo/ready",
+				"dojo/domReady",
 				"dojo/dom",
 				"dojox/mobile",
 				"dojox/mobile/deviceTheme",
-				"dojox/mobile/parser"], function(registry, runner, ready, dom){
+				"dojo/parser"], function(registry, runner, ready, dom){
 		
 				ready(function(){
  					runner.register("dojox.mobile.test.doh.MBLCSS3TransitionTests", [

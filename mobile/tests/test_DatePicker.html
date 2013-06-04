@@ -7,16 +7,18 @@
 	<title>DatePicker</title>
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','DatePicker']"></script>
-	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<script type="text/javascript">
 		require([
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
-			"dojox/mobile/DatePicker"
-		], function(registry){
+			"dojox/mobile/DatePicker",
+			"dojo/domReady!"
+		], function(registry, parser){
+			parser.parse();
 			gotoToday = function(){
 				registry.byId("picker1").reset();
 			}

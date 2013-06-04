@@ -1,14 +1,15 @@
 define([
-	"dojo/_base/connect",
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/dom-construct",
+	"dojo/on",
 	"dojo/topic",
 	"dijit/registry",
 	"dijit/_Contained",
 	"dijit/_WidgetBase"
-], function(connect, declare, dom, domClass, domConstruct, topic, registry, Contained, WidgetBase){
+], function(declare, lang, dom, domClass, domConstruct, on, topic, registry, Contained, WidgetBase){
 
 	// module:
 	//		dojox/mobile/PageIndicator
@@ -36,10 +37,8 @@ define([
 			this.inherited(arguments);
 			this._tblNode = domConstruct.create("table", {className:"mblPageIndicatorContainer"}, this.domNode);
 			this._tblNode.insertRow(-1);
-			this.connect(this.domNode, "onclick", "_onClick");
-			this.subscribe("/dojox/mobile/viewChanged", function(view){
-				this.reset();
-			});
+			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
+			this.own(topic.subscribe("/dojox/mobile/viewChanged", lang.hitch(this, "reset")));
 		},
 
 		startup: function(){

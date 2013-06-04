@@ -11,11 +11,11 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
-		dojo.require("dojox.mobile.parser");
+		dojo.require("dojox/mobile/parser");
 		dojo.require("dojox.mobile");
-		dojo.require("dojox.mobile.ScrollableView");
-		dojo.require("dojox.mobile.TabBar");
-		dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+		dojo.require("dojox/mobile/ScrollableView");
+		dojo.require("dojox/mobile/TabBar");
+		dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
 
@@ -24,7 +24,7 @@
 	<script type="text/javascript" src="../TestUtil.js"></script>
 	<script language="JavaScript" type="text/javascript">
 		dojo.addOnLoad(function(){
-			doh.register("dojox.mobile.test.doh.View", [
+			doh.register("dojox/mobile/test.doh.View", [
 				{
 
 					name: "View Verification",
@@ -528,16 +528,16 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:{"iphone_theme":"segmentedControl","*":"tallTab"}, fixed:"top"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:true'>New</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"view2"'>What's Hot</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"view3"'>Genius</li>
+	<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:{"iphone_theme":"segmentedControl","*":"tallTab"}, fixed:"top"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:true'>New</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"view2"'>What's Hot</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"view3"'>Genius</li>
 		</ul>
 
-		<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-			<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" class="list1">
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+		<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+			<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" class="list1">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -553,7 +553,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -569,7 +569,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -585,7 +585,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -601,7 +601,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -620,9 +620,9 @@
 			</ul>
 		</div>
 
-		<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-			<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" id="list2">
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+		<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+			<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" id="list2">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -638,7 +638,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -654,7 +654,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -670,7 +670,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -689,94 +689,94 @@
 			</ul>
 		</div>
 
-		<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">
-			<h2 data-dojo-type="dojox.mobile.RoundRectCategory">Generic Mobile Device</h2>
-			<ul data-dojo-type="dojox.mobile.RoundRectList">
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"AcmePhone"'>
+		<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Generic Mobile Device</h2>
+			<ul data-dojo-type="dojox/mobile/RoundRectList">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 					Network											   
 				</li>												   
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"AcmePhone"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 					Line
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"1024"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"1024"'>
 					Songs
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"10"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"10"'>
 					Videos
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"96"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"96"'>
 					Photos
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"2"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"2"'>
 					Applications
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"29.3 BG"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"29.3 BG"'>
 					Capacity
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"28.0 BG"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"28.0 BG"'>
 					Available
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"3.0 (7A341)"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"3.0 (7A341)"'>
 					Version
 				</li>
 			</ul>
 		</div>
 	</div>
 
-	<div id="categ" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Categories</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" class="list1" id="categ1">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 1</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 2</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 3</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 4</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 5</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 6</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 7</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 8</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 9</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 10</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 11</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 12</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 13</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 14</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>Category 15</li>
+	<div id="categ" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Categories</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" class="list1" id="categ1">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 1</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 2</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 3</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 4</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 5</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 6</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 7</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 8</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 9</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 10</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 11</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 12</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 13</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 14</li>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>Category 15</li>
 		</ul>
 	</div>
 
-	<div id="top25" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>News</h1>
-		<h2 data-dojo-type="dojox.mobile.RoundRectCategory">Top Stories</h2>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+	<div id="top25" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>News</h1>
+		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Top Stories</h2>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>
 				Top 10 news stories of the decade
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>
 				Create client-side diagrammatic interaction in Web applications with GFX
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true'>
 				Explores advanced topics in the new Java framework for implementing and consuming REST-based Web services, Part 3
 			</li>
 		</ul>
 	</div>
 
-	<div id="search" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Search Result</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+	<div id="search" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Search Result</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 				1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>
 				Sarah Connor Hardcover<br>
 				Eligible for FREE Super Saver Shipping<br>
 				<span style="color:red">$14.50 (50%)</span> In Stock<br>
 				# (531)
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 				2. <a href="#" class="lnk">Japanese Martial Arts Dojo</a><br>
 				Martin Parker Hardcover<br>
 				<span style="color:red">$14.00 (60%)</span> In Stock<br>
 				# (173)
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 				3. <a href="#" class="lnk">Total Solar Eclipse</a><br>
 				Steven Young Hardcover<br>
 				Get it by Mar. 2 if you order in the next <span style="color:green"><b>16 hours</b></span><br>
@@ -784,12 +784,12 @@
 				<span style="color:red">$9.50 (62%)</span> In Stock<br>
 				# (1199)
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 				4. <a href="#" class="lnk">The History of Java Coffee</a><br>
 				Marco Rodriguez Hardcover<br>
 				<span style="color:blue">Not Available</span>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 				5. <a href="#" class="lnk">The Principles of Spider's Web</a><br>
 				Melissa Morgan Hardcover<br>
 				Eligible for FREE Super Saver Shipping<br>
@@ -799,8 +799,8 @@
 		</ul>
 	</div>
 
-	<div id="article" data-dojo-type="dojox.mobile.ScrollableView" style="background-color:white;height:100%">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Article</h1>
+	<div id="article" data-dojo-type="dojox/mobile/ScrollableView" style="background-color:white;height:100%">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Article</h1>
 		<div class="content">
 			<h3 class="title">Did you know?</h3>
 			<h4 class="subtitle">Features of dojox.mobile</h4>
@@ -827,12 +827,12 @@
 		</div>
 	</div>
 
-	<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='fixed:"bottom"' style="border-bottom:none;">
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", selected:true, moveTo:"group1"'>Featured</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"categ"'>Categories</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"top25"'>Top 25</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-11.png", icon2:"../../images/tab-icon-11h.png", moveTo:"search"'>Search</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-13.png", icon2:"../../images/tab-icon-13h.png", moveTo:"article"'>Updates</li>
+	<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='fixed:"bottom"' style="border-bottom:none;">
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", selected:true, moveTo:"group1"'>Featured</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"categ"'>Categories</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"top25"'>Top 25</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-11.png", icon2:"../../images/tab-icon-11h.png", moveTo:"search"'>Search</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../../images/tab-icon-13.png", icon2:"../../images/tab-icon-13h.png", moveTo:"article"'>Updates</li>
 	</ul>
 </body>
 </html>

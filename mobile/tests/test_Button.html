@@ -7,26 +7,26 @@
 	<title>Button</title>
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Button']"></script>
-	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: false"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/connect",
-			"dojo/ready",
 			"dojo/_base/array",
 			"dojo/dom",
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
-			"dojox/mobile/Button"
-		], function(connect, ready, array, dom, registry){
-			ready(function(){
-				array.forEach(["btn1", "btn2", "btn3", "btn4", "btn5"], function(btnId){
-					var btnWidget = registry.byId(btnId);
-					connect.connect(btnWidget.domNode, "click", onBtnClicked);
-				});
+			"dojox/mobile/Button",
+			"dojo/domReady!"
+		], function(array, dom, registry, parser){
+
+			parser.parse();
+			array.forEach(["btn1", "btn2", "btn3", "btn4", "btn5"], function(btnId){
+				var btnWidget = registry.byId(btnId);
+				btnWidget.on("click", onBtnClicked);
 			});
+
 			function onBtnClicked(){
 				var span = dom.byId("msgArea");
 				span.innerHTML = "&quot;" + dom.byId(this.id).innerHTML + "&quot; button was clicked.";
@@ -73,20 +73,20 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox.mobile.View">
-	    <h1 data-dojo-type="dojox.mobile.Heading">Button</h1>
-		<button data-dojo-type="dojox.mobile.Button" id="btn1">Default</button>
+	<div data-dojo-type="dojox/mobile/View">
+	    <h1 data-dojo-type="dojox/mobile/Heading">Button</h1>
+		<button data-dojo-type="dojox/mobile/Button" id="btn1">Default</button>
 		<hr>
-		<button data-dojo-type="dojox.mobile.Button" id="btn2" class="mblBlueButton">Blue</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblBlueButton">Blue</button>
 		class="mblBlueButton"
 		<hr>
-		<button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblRedButton">Red</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn3" class="mblRedButton">Red</button>
 		class="mblRedButton"
 		<hr>
-		<button data-dojo-type="dojox.mobile.Button" id="btn4" disabled>Disabled</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn4" disabled>Disabled</button>
 		disabled
 		<hr>
-		<button data-dojo-type="dojox.mobile.Button" id="btn5" class="customButton">Custom</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn5" class="customButton">Custom</button>
 		class="customButton"
 		<hr>
 		<div id="msgArea" style="margin:15px"></div>

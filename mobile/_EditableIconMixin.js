@@ -1,19 +1,18 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/topic",
 	"dojo/touch",
 	"dijit/registry",
 	"./IconItem",
 	"./viewRegistry",
 	"./_css3"
-], function(array, connect, declare, event, lang, win, domGeometry, domStyle, topic, touch, registry, IconItem, has, viewRegistry, css3){
+], function(array, declare, lang, win, domGeometry, domStyle, on, topic, touch, registry, IconItem, has, viewRegistry, css3){
 
 	// module:
 	//		dojox/mobile/_EditableIconMixin
@@ -42,8 +41,8 @@ define([
 			this.isEditing = true;
 			if(!this._handles){
 				this._handles = [
-					this.connect(this.domNode, css3.name("transitionStart"), "_onTransitionStart"),
-					this.connect(this.domNode, css3.name("transitionEnd"), "_onTransitionEnd")
+					this.own(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "_onTransitionStart"))),
+					this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "_onTransitionEnd")))
 				];
 			}
 
@@ -52,7 +51,7 @@ define([
 				this.defer(function(){
 					w.set("deleteIcon", this.deleteIconForEdit);
 					if(w.deleteIconNode){
-						w._deleteHandle = this.connect(w.deleteIconNode, "onclick", "_deleteIconClicked");
+						w._deleteHandle = this.own(on(w.deleteIconNode, "click", lang.hitch(this, "_deleteIconClicked")))[0];
 					}
 					w.highlight(0);
 				}, 15*count++);
@@ -70,7 +69,7 @@ define([
 			array.forEach(this.getChildren(), function(w){
 				w.unhighlight();
 				if(w._deleteHandle){
-					this.disconnect(w._deleteHandle);
+					w._deleteHandle.remove();
 					w._deleteHandle = null;
 				}
 				w.set("deleteIcon", "");
@@ -78,7 +77,7 @@ define([
 
 			this._movingItem = null;
 			if(this._handles){
-				array.forEach(this._handles, this.disconnect, this);
+				array.forEach(this._handles, function(h){h.remove();}, this);
 				this._handles = null;
 			}
 
@@ -99,13 +98,17 @@ define([
 		_onTransitionStart: function(e){
 			// tags:
 			//		private
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
+
 		},
 
 		_onTransitionEnd: function(e){
 			// tags:
 			//		private
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
+
 			var w = registry.getEnclosingWidget(e.target);
 			w._moving = false;
 			domStyle.set(w.domNode, css3.name("transition"), "");
@@ -132,8 +135,8 @@ define([
 
 			if(!this._conn){
 				this._conn = [
-					this.connect(this.domNode, touch.move, "_onTouchMove"),
-					this.connect(win.doc, touch.release, "_onTouchEnd")
+					this.own(on(this.domNode, touch.move, lang.hitch(this, "_onTouchMove")))[0],
+					this.own(on(win.doc, touch.release, lang.hitch(this, "_onTouchEnd")))[0]
 				];
 			}
 			this._touchStartPosX = e.touches ? e.touches[0].pageX : e.pageX;
@@ -170,7 +173,8 @@ define([
 				var pos = enclosingScrollable.getPos();
 				dx = pos.x;
 				dy = pos.y;
-				event.stop(e);
+				e.preventDefault();
+				e.stopPropagation();
 			}
 			
 			var startPos = this._startPos = domGeometry.position(movingItem.domNode, true);
@@ -201,7 +205,9 @@ define([
 					left: (this._offsetPos.x + x) + "px"
 				});
 				this._detectOverlap({x: x, y: y});
-				event.stop(e);
+				e.preventDefault();
+				e.stopPropagation();
+
 			}else{
 				var dx = Math.abs(this._touchStartPosX - x);
 				var dy = Math.abs(this._touchStartPosY - y);
@@ -216,8 +222,8 @@ define([
 			//		private
 			this._clearPressTimer();
 			if(this._conn){
-				array.forEach(this._conn, this.disconnect, this);
-				this._conn = null;				
+				array.forEach(this._conn, function(h){h.remove();}, this);
+				this._conn = null;
 			}
 
 			if(this._dragging){
@@ -372,7 +378,7 @@ define([
 			// summary:
 			//		Deletes the given item.
 			if(item._deleteHandle){
-				this.disconnect(item._deleteHandle);
+				item._deleteHandle.remove();
 			}
 			this.removeChildWithAnimation(item);
 
@@ -407,9 +413,9 @@ define([
 			//		private
 			this._set("editable", editable);
 			if(editable && !this._touchStartHandle){ // Allow users to start editing by long press on IconItems
-				this._touchStartHandle = this.connect(this.domNode, touch.press, "_onTouchStart");
+				this._touchStartHandle = this.own(on(this.domNode, touch.press, lang.hitch(this, "_onTouchStart")))[0];
 			}else if(!editable && this._touchStartHandle){
-				this.disconnect(this._touchStartHandle);
+				this._touchStartHandle.remove();
 				this._touchStartHandle = null;
 			}
 		}

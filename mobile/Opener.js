@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
@@ -49,7 +49,7 @@ define([
 			if(this.lazy){
 				this.lazy = false;
 				var _this = this;
-				return Deferred.when(lazyLoadUtils.instantiateLazyWidgets(this.domNode, this.requires), function(){
+				return lazyLoadUtils.instantiateLazyWidgets(this.domNode, this.requires).then(function(){
 					return _this.show(node, positions);
 				});
 			}

@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			require([
 				"dojo/_base/kernel",
-				"dojo/ready", // dojo.ready
+				"dojo/domReady", // dojo.ready
 				"doh/runner",	//doh functions
 				"dijit/registry",  // dijit.registry.byId
 				"dijit/robotx"
@@ -23,7 +23,7 @@
 					doh.robot.initRobot("../test_IconContainer.html?theme=Android");
 					var reg = null;
 
-					doh.register("dojox.mobile.Icon mouse tests", [
+					doh.register("dojox/mobile/Icon mouse tests", [
 						{
 							name: "Icon mouse tests",
 							timeout: 4000,

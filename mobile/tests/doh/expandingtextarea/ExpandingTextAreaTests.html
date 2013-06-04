@@ -36,14 +36,14 @@
 		"dojo/sniff",
 		"dojo/dom-construct", // dojo.place
 		"dojo/dom-class", // dojo.hasClass
-		"dojo/ready", // dojo.ready
+		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/ExpandingTextArea",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(connect, has, domConst, domClass, ready, registry, runner, ExpandingTextArea){
 		function _createExpandingTextAreaDeclaratively(widgetId) {
 			return registry.byId(widgetId);
@@ -93,7 +93,7 @@
 			if(has("ie") < 9){
 				styleHeight = -1; // negative value as convention for skipping tests
 			} 
-			runner.register("dojox.mobile.test.doh.ExpandingTextArea", [
+			runner.register("dojox/mobile/test.doh.ExpandingTextArea", [
 				{
 					name: "ExpandingTextArea Verification1",
 					timeout: 4000,
@@ -142,15 +142,15 @@
 </script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<textarea data-dojo-type="dojox.mobile.ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
+		<textarea data-dojo-type="dojox/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
 		<div id="view1-ExpandingTextArea2place"></div><br>
 		<textarea id="view1-ExpandingTextArea3" rows="3" cols="20">ExpandingTextArea</textarea><br>
 	</div>
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<textarea data-dojo-type="dojox.mobile.ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
+		<textarea data-dojo-type="dojox/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
 		<div id="view2-ExpandingTextArea2place"></div><br>
 		<textarea id="view2-ExpandingTextArea3" rows="3" cols="20">ExpandingTextArea</textarea><br>
 	</div>

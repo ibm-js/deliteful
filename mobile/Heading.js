@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -18,7 +17,7 @@ define([
 	"./View",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Heading"
-], function(array, connect, declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
+], function(array, declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
 
 	// module:
 	//		dojox/mobile/Heading

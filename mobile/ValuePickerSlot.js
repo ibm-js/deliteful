@@ -1,18 +1,18 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dojo/touch",
 	"dijit/_WidgetBase",
 	"./iconUtils",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/ValuePickerSlot"
-], function(array, declare, event, lang, win, domClass, domConstruct, domAttr, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
+], function(array, declare, lang, win, domClass, domConstruct, domAttr, on, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
 
 	// module:
 	//		dojox/mobile/ValuePickerSlot
@@ -156,13 +156,13 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 			this._handlers = [
-				this.connect(this.plusBtnNode, touch.press, "_onTouchStart"),
-				this.connect(this.minusBtnNode, touch.press, "_onTouchStart"),
-				this.connect(this.plusBtnNode, "onkeydown", "_onClick"), // for desktop browsers
-				this.connect(this.minusBtnNode, "onkeydown", "_onClick"), // for desktop browsers
-				this.connect(this.inputNode, "onchange", lang.hitch(this, function(e){
+				this.own(on(this.plusBtnNode, touch.press, lang.hitch(this, "_onTouchStart")))[0],
+				this.own(on(this.minusBtnNode, touch.press, lang.hitch(this, "_onTouchStart")))[0],
+				this.own(on(this.plusBtnNode, "keydown", lang.hitch(this, "_onClick")))[0], // for desktop browsers
+				this.own(on(this.minusBtnNode, "keydown", lang.hitch(this, "_onClick")))[0], // for desktop browsers
+				this.own(on(this.inputNode, "change", lang.hitch(this, function(e){
 					this._onChange(e);
-				}))
+				})))[0]
 			];
 			this.inherited(arguments);
 			this._set(this.plusBtnLabel);
@@ -258,8 +258,8 @@ define([
 
 		_onTouchStart: function(e){
 			this._conn = [
-				this.connect(win.body(), touch.move, "_onTouchMove"),
-				this.connect(win.body(), touch.release, "_onTouchEnd")
+				this.own(on(win.body(), touch.move, lang.hitch(this, "_onTouchMove")))[0],
+				this.own(on(win.body(), touch.release, lang.hitch(this, "_onTouchEnd")))[0]
 			];
 			this.touchStartX = e.touches ? e.touches[0].pageX : e.clientX;
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.clientY;
@@ -279,7 +279,9 @@ define([
 				}), 60);
 				this._timer = null;
 			}, 1000);
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
+
 		},
 
 		_onTouchMove: function(e){
@@ -295,7 +297,7 @@ define([
 					clearInterval(this._interval); // fail safe
 					this._interval = null;
 				}
-				array.forEach(this._conn, this.disconnect, this);
+				array.forEach(this._conn, function(h){h.remove();});
 				domClass.remove(this._btn, "mblValuePickerSlotButtonSelected");
 			}
 		},
@@ -305,7 +307,7 @@ define([
 				this._timer.remove();
 				this._timer = null;
 			}
-			array.forEach(this._conn, this.disconnect, this);
+			array.forEach(this._conn, function(h){h.remove();});
 			domClass.remove(this._btn, "mblValuePickerSlotButtonSelected");
 			if(this._interval){
 				clearInterval(this._interval);

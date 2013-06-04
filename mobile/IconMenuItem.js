@@ -73,7 +73,7 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 
-			this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 
 			this.inherited(arguments);
 			if(!this._isOnLine){

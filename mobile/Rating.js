@@ -2,9 +2,10 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-construct",
+	"dojo/on",
 	"dijit/_WidgetBase",
 	"./iconUtils"
-], function(declare, lang, domConstruct, WidgetBase, iconUtils){
+], function(declare, lang, domConstruct, on, WidgetBase, iconUtils){
 
 	// module:
 	//		dojox/mobile/Rating
@@ -43,8 +44,8 @@ define([
 			this.inherited(arguments);
 			this.domNode.style.display = "inline-block";
 			var img = this.imgNode = domConstruct.create("img");
-			this.connect(img, "onload",
-				lang.hitch(this, function(){ this.set("value", this.value); }));
+			this.own(on(img, "load",
+				lang.hitch(this, function(){ this.set("value", this.value); })));
 			iconUtils.createIcon(this.image, null, img);
 		},
 

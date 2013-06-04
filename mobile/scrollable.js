@@ -1,17 +1,17 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/connect",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/_base/window",
+	"dojo/aspect",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/touch",
 	"dojo/sniff",
 	"./_css3",
 	"./_maskUtils"
-], function(dojo, connect, event, lang, win, domClass, domConstruct, domStyle, touch, has, css3, maskUtils){
+], function(kernel, lang, win, aspect, domClass, domConstruct, domStyle, on, touch, has, css3, maskUtils){
 
 	// module:
 	//		dojox/mobile/scrollable
@@ -149,7 +149,7 @@ define([
 			this._f = (this.scrollDir == "f"); // flipping views
 
 			this._ch = []; // connect handlers
-			this._ch.push(connect.connect(this.touchNode, touch.press, this, "onTouchStart"));
+			this._ch.push(on(this.touchNode, touch.press, lang.hitch(this, "onTouchStart")));
 			if(has("css3-animations")){
 				// flag for whether to use -webkit-transform:translate3d(x,y,z) or top/left style.
 				// top/left style works fine as a workaround for input fields auto-scrolling issue,
@@ -162,11 +162,11 @@ define([
 				}
 				if(!this._useTopLeft){
 					if(this._useTransformTransition){
-						this._ch.push(connect.connect(this.domNode, css3.name("transitionEnd"), this, "onFlickAnimationEnd"));
-						this._ch.push(connect.connect(this.domNode, css3.name("transitionStart"), this, "onFlickAnimationStart"));
+						this._ch.push(this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd"))))[0];
+						this._ch.push(this.own(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart"))))[0];
 					}else{
-						this._ch.push(connect.connect(this.domNode, css3.name("animationEnd"), this, "onFlickAnimationEnd"));
-						this._ch.push(connect.connect(this.domNode, css3.name("animationStart"), this, "onFlickAnimationStart"));
+						this._ch.push(this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onFlickAnimationEnd"))))[0];
+						this._ch.push(this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onFlickAnimationStart"))))[0];
 	
 						// Creation of keyframes takes a little time. If they are created
 						// in a lazy manner, a slight delay is noticeable when you start
@@ -179,8 +179,8 @@ define([
 						domStyle.set(this.containerNode, css3.name("transform"), "translate3d(0,0,0)");
 					}
 				}else{
-					this._ch.push(connect.connect(this.domNode, css3.name("transitionEnd"), this, "onFlickAnimationEnd"));
-					this._ch.push(connect.connect(this.domNode, css3.name("transitionStart"), this, "onFlickAnimationStart"));
+					this._ch.push(this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd"))))[0];
+					this._ch.push(this.own(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart"))))[0];
 				}
 			}
 
@@ -234,7 +234,7 @@ define([
 			//		Uninitialize the module.
 			if(this._ch){
 				for(var i = 0; i < this._ch.length; i++){
-					connect.disconnect(this._ch[i]);
+					this._ch[i].remove();
 				}
 				this._ch = null;
 			}
@@ -341,7 +341,8 @@ define([
 		},
 
 		onFlickAnimationStart: function(e){
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
 		},
 
 		onFlickAnimationEnd: function(e){
@@ -371,7 +372,8 @@ define([
 					}
 				}
 				if(e.srcElement){
-					event.stop(e);
+					e.stopPropagation();
+					e.preventDefault();
 				}
 			}
 			this.stopAnimation();
@@ -406,8 +408,8 @@ define([
 			}
 			if(!this._conn){
 				this._conn = [];
-				this._conn.push(connect.connect(win.doc, touch.move, this, "onTouchMove"));
-				this._conn.push(connect.connect(win.doc, touch.release, this, "onTouchEnd"));
+				this._conn.push(on(win.doc, touch.move, lang.hitch(this, "onTouchMove")));
+				this._conn.push(on(win.doc, touch.release, lang.hitch(this, "onTouchEnd")));
 			}
 
 			this._aborted = false;
@@ -428,7 +430,7 @@ define([
 			this._locked = false;
 
 			if(!this.isFormElement(e.target)){
-				this.propagatable ? e.preventDefault() : event.stop(e);
+				this.propagatable ? e.preventDefault() : e.stopPropagation();
 			}
 		},
 
@@ -535,7 +537,7 @@ define([
 			if(e){
 				if(!this._conn){ return; } // if we get onTouchEnd without onTouchStart, ignore it.
 				for(var i = 0; i < this._conn.length; i++){
-					connect.disconnect(this._conn[i]);
+					this._conn[i].remove();
 				}
 				this._conn = null;
 
@@ -1211,25 +1213,6 @@ define([
 					}, 0);
 					domClass.add(node, "mblScrollableScrollTo"+idx);
 				}
-			}else if(dojo.fx && dojo.fx.easing && duration){
-				// If you want to support non-webkit browsers,
-				// your application needs to load necessary modules as follows:
-				//
-				// | dojo.require("dojo.fx");
-				// | dojo.require("dojo.fx.easing");
-				//
-				// This module itself does not make dependency on them.
-				// TODO: for 2.0 the dojo global is going away.   Use require("dojo/fx") and require("dojo/fx/easing") instead.
-				var s = dojo.fx.slideTo({
-					node: node,
-					duration: duration*1000,
-					left: to.x,
-					top: to.y,
-					easing: (easing == "ease-out") ? dojo.fx.easing.quadOut : dojo.fx.easing.linear
-				}).play();
-				if(idx == 2){
-					connect.connect(s, "onEnd", this, "onFlickAnimationEnd");
-				}
 			}else{
 				// directly jump to the destination without animation
 				if(idx == 2){
@@ -1322,7 +1305,7 @@ define([
 						height: "100%",
 						zIndex: 2147483647 // max of signed 32-bit integer
 					});
-					this._ch.push(connect.connect(dm._cover, touch.press, this, "onTouchEnd"));
+					this._ch.push(on(dm._cover, touch.press, lang.hitch(this, "onTouchEnd")));
 				}else{
 					dm._cover.style.display = "";
 				}

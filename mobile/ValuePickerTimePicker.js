@@ -1,11 +1,12 @@
 define([
 	"dojo/_base/declare",
 	"dojo/dom-class",
+	"dojo/_base/lang",
 	"./_TimePickerMixin",
 	"./ToolBarButton",
 	"./ValuePicker",
 	"./ValuePickerSlot"
-], function(declare, domClass, TimePickerMixin, ToolBarButton, ValuePicker, ValuePickerSlot){
+], function(declare, domClass, lang, TimePickerMixin, ToolBarButton, ValuePicker, ValuePickerSlot){
 
 	// module:
 	//		dojox/mobile/ValuePickerTimePicker
@@ -99,7 +100,7 @@ define([
 			this.ampmButton = new ToolBarButton();
 			this.addChild(this.ampmButton);
 			this._conn = [
-				this.connect(this.ampmButton, "onClick", "onBtnClick")
+				this.ampmButton.on("click", lang.hitch(this, "onBtnClick"))
 			];
 			this.set("is24h", this.is24h);
 		},

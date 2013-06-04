@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -10,11 +9,12 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dojo/keys",
+	"dojo/on",
 	"dojo/touch",
 	"dijit/_WidgetBase",
 	"dijit/form/_FormValueMixin"
 ],
-	function(array, connect, declare, lang, win, has, domClass, domConstruct, domGeometry, domStyle, keys, touch, WidgetBase, FormValueMixin){
+	function(array, declare, lang, win, has, domClass, domConstruct, domGeometry, domStyle, keys, on, touch, WidgetBase, FormValueMixin){
 
 	return declare("dojox.mobile.Slider", [WidgetBase, FormValueMixin], {
 		// summary:
@@ -122,7 +122,7 @@ define([
 		
 				function endDrag(e){
 					e.preventDefault();
-					array.forEach(actionHandles, lang.hitch(this, "disconnect"));
+					array.forEach(actionHandles, function(h){h.remove();});
 					actionHandles = [];
 					this.set('value', this.value, true);
 				}
@@ -140,11 +140,11 @@ define([
 				if(e.target == this.touchBox){
 					this.set('value', value, true);
 				}
-				array.forEach(actionHandles, connect.disconnect);
+				array.forEach(actionHandles, function(h){h.remove();});
 				var root = win.doc.documentElement;
 				var actionHandles = [
-					this.connect(root, touch.move, continueDrag),
-					this.connect(root, touch.release, endDrag)
+					this.own(on(root, touch.move, lang.hitch(this, continueDrag)))[0],
+					this.own(on(root, touch.release, lang.hitch(this, endDrag)))[0]
 				];
 			}
 
@@ -196,10 +196,10 @@ define([
 			this._reversed = !((horizontal && ((ltr && !flip) || (!ltr && flip))) || (!horizontal && flip));
 			this._attrs = horizontal ? { x:'x', w:'w', l:'l', r:'r', pageX:'pageX', clientX:'clientX', handleLeft:"left", left:this._reversed ? "right" : "left", width:"width" } : { x:'y', w:'h', l:'t', r:'b', pageX:'pageY', clientX:'clientY', handleLeft:"top", left:this._reversed ? "bottom" : "top", width:"height" };
 			this.progressBar.style[this._attrs.left] = "0px";
-			this.connect(this.touchBox, touch.press, beginDrag);
-			this.connect(this.handle, touch.press, beginDrag);
-			this.connect(this.domNode, "onkeypress", keyPress); // for desktop a11y
-			this.connect(this.domNode, "onkeyup", keyUp); // fire onChange on desktop
+			this.own(on(this.touchBox, touch.press, lang.hitch(this, beginDrag)));
+			this.own(on(this.handle, touch.press, lang.hitch(this, beginDrag)));
+			this.own(on(this.domNode, "keypress", lang.hitch(this, keyPress))); // for desktop a11y
+			this.own(on(this.domNode, "keyup", lang.hitch(this, keyUp))); // fire onChange on desktop
 			this.startup();
 			this.set('value', this.value);
 		}

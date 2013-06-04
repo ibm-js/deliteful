@@ -1,22 +1,21 @@
 define([
 	"dojo/_base/kernel",
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/on",
-	"dojo/ready",
+	"dojo/domReady",
 	"dijit/registry",
 	"dojo/topic",
 	"./ProgressIndicator",
 	"./TransitionEvent",
 	"./viewRegistry"
-], function(dojo, array, connect, declare, lang, win, Deferred, dom, domClass, domConstruct, on, ready, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
+], function(dojo, array, declare, lang, win, Deferred, dom, domClass, domConstruct, on, domReady, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
 
 	// module:
 	//		dojox/mobile/ViewController
@@ -52,7 +51,7 @@ define([
 			// tags:
 			//		private
 			this.viewMap = {};
-			ready(lang.hitch(this, function(){
+			domReady(lang.hitch(this, function(){
 				on(win.body(), "startTransition", lang.hitch(this, "onStartTransition"));
 			}));
 		},

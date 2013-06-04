@@ -1,13 +1,12 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/sniff",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/topic",
 	"dijit/registry",
 	"dijit/_Contained",
@@ -19,7 +18,7 @@ define([
 	"./SwapView",
 	"require",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Carousel"
-], function(array, connect, declare, event, lang, has, domClass, domConstruct, domStyle, topic, registry, Contained, Container, WidgetBase, lazyLoadUtils, CarouselItem, PageIndicator, SwapView, require, BidiCarousel){
+], function(array, declare, lang, has, domClass, domConstruct, domStyle, on, topic, registry, Contained, Container, WidgetBase, lazyLoadUtils, CarouselItem, PageIndicator, SwapView, require, BidiCarousel){
 
 	// module:
 	//		dojox/mobile/Carousel
@@ -121,8 +120,8 @@ define([
 					title: "Next",
 					innerHTML: "&gt;"
 				}, this.btnContainerNode);
-				this._prevHandle = this.connect(this.prevBtnNode, "onclick", "onPrevBtnClick");
-				this._nextHandle = this.connect(this.nextBtnNode, "onclick", "onNextBtnClick");
+				this._prevHandle = this.own(on(this.prevBtnNode, "click", lang.hitch(this, "onPrevBtnClick")))[0];
+				this._nextHandle = this.own(on(this.nextBtnNode, "click", lang.hitch(this, "onNextBtnClick")))[0];
 			}
 
 			if(this.pageIndicator){
@@ -138,10 +137,13 @@ define([
 			}, this.headerNode);
 
 			this.domNode.appendChild(this.containerNode);
-			this.subscribe("/dojox/mobile/viewChanged", "handleViewChanged");
-			this.connect(this.domNode, "onclick", "_onClick");
-			this.connect(this.domNode, "onkeydown", "_onClick");
-			this._dragstartHandle = this.connect(this.domNode, "ondragstart", event.stop);
+			this.own(topic.subscribe("/dojox/mobile/viewChanged", lang.hitch(this, "handleViewChanged")));
+			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick")));
+			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			}))[0];
 			this.selectedItemIndex = -1;
 			this.items = [];
 		},

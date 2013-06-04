@@ -12,14 +12,14 @@
 	<script type="text/javascript">
 		require([
 			"dojo/_base/connect",
-			"dojo/ready",
+			"dojo/domReady",
 			"dojo/_base/array",
 			"dojo/dom",
 			"dijit/registry",
 			"dojox/mobile/Heading",
 			"dojox/mobile/EdgeToEdgeList",
 			"dojox/mobile/ListItem",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/Button",
@@ -84,118 +84,118 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-	<div id="view0" data-dojo-type="dojox.mobile.ScrollableView">
-	 <h2 data-dojo-type="dojox.mobile.Heading">List widget</h2>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir LTR</h1>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
+	 <h2 data-dojo-type="dojox/mobile/Heading">List widget</h2>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
-	<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
-			<li id="01" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="02" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="03" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="04" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
+			<li id="01" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="02" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="03" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="04" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
-			<li id="first" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
+			<li id="first" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;&#1495;&#1491;&#1513;-Wi-Fi!&nbsp;		
 				&nbsp;<span>&#1495;&#1491;&#1513;-internet!</span>&nbsp;				
 				&nbsp;&#1495;&#1491;&#1513;-speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">LTR direction!</font>&nbsp;		
 			</li>
-			<li id="third" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">List textDir "ltr", list item textDir "rtl" or "auto"</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
-			<li id="first4" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='textDir:"rtl",icon:"../images/i-icon-1.png", rightText:"mac."'>
+		<h1 data-dojo-type="dojox/mobile/Heading">List textDir "ltr", list item textDir "rtl" or "auto"</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
+			<li id="first4" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='textDir:"rtl",icon:"../images/i-icon-1.png", rightText:"mac."'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction RTL!!
 			</li>
-			<li id="second4" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='textDir:"ltr", icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second4" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='textDir:"ltr", icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;&#1495;&#1491;&#1513;-Wi-Fi!&nbsp;		
 				&nbsp;<span>&#1495;&#1491;&#1513;-internet!</span>&nbsp;				
 				&nbsp;&#1495;&#1491;&#1513;-speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">AUTO direction!</font>&nbsp;				
 			</li>
 		</ul>
-		<button data-dojo-type="dojox.mobile.Button" id="btn0" >Set textDir ltr to Item rtl</button>		
+		<button data-dojo-type="dojox/mobile/Button" id="btn0" >Set textDir ltr to Item rtl</button>
 	</div>	
-	<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
-			<li id="r1" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="r2" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="r3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="r4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
+			<li id="r1" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="r2" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="r3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="r4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>			
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
-			<li id="first2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
+			<li id="first2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;&#1495;&#1491;&#1513;-Wi-Fi!&nbsp;		
 				&nbsp;<span>&#1495;&#1491;&#1513;-internet!</span>&nbsp;				
 				&nbsp;&#1495;&#1491;&#1513;-speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">Rtl direction!</font>&nbsp;				
 			</li>
-			<li id="third2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 		</ul>
 	</div>	
-	<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
-			<li id="a1" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="a2" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="a3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="a4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
+			<li id="a1" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="a2" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="a3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="a4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>		
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
-			<li id="first3" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
+			<li id="first3" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second3" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png", rightText:"&#1495;&#1491;&#1513; for mac!", moveTo:"hello."'>
+			<li id="second3" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png", rightText:"&#1495;&#1491;&#1513; for mac!", moveTo:"hello."'>
 				&nbsp;&#1495;&#1491;&#1513;-Wi-Fi!&nbsp;		
 				&nbsp;<span>&#1495;&#1491;&#1513;-internet!</span>&nbsp;				
 				&nbsp;&#1495;&#1491;&#1513;-speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">AUTO direction!</font>&nbsp;				
 			</li>
-			<li id="third3" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone (&#1495;&#1491;&#1513;)", moveTo:"hello."'>
+			<li id="third3" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone (&#1495;&#1491;&#1513;)", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 			</ul>
-			<button data-dojo-type="dojox.mobile.Button" id="btn1" >Set new text to list Item label</button>
-			<button data-dojo-type="dojox.mobile.Button" id="btn2" >Set new text to list Item right text</button>
-			<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>complicated - link, table</h1>
-			<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
+			<button data-dojo-type="dojox/mobile/Button" id="btn1" >Set new text to list Item label</button>
+			<button data-dojo-type="dojox/mobile/Button" id="btn2" >Set new text to list Item right text</button>
+			<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>complicated - link, table</h1>
+			<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true' style="font-size:10px">
 					1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>
 					Sarah Connor Hardcover<br>
 					Eligible for FREE Super Saver Shipping<br>
 					<span style="color:red">$14.50 (50%)</span> In Stock<br>
 					# (531)
 				</li>
-				<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true, textDir:"rtl"' style="font-size:10px">
+				<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='variableHeight:true, textDir:"rtl"' style="font-size:10px">
 					<table>
 						<tbody>
 							<tr>
@@ -215,74 +215,74 @@
 			</ul>
 	</div>	
 	 
-	<div dir="rtl" id="view4" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
-			<li id="rl1" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="rl2" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="rl3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="rl4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div dir="rtl" id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
+			<li id="rl1" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="rl2" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="rl3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="rl4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>			
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
-			<li id="first21" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"ltr"'>
+			<li id="first21" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second21" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second21" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;Wi-Fi!&nbsp;		
 				&nbsp;<span>Internet!</span>&nbsp;				
 				&nbsp;Speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">LTR direction!</font>&nbsp;				
 			</li>
-			<li id="third21" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third21" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 		</ul>
 	</div>
-	<div dir="rtl" id="view5" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
-			<li id="rr1" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="rr2" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="rr3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="rr4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div dir="rtl" id="view5" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
+			<li id="rr1" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="rr2" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="rr3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="rr4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>		
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
-			<li id="first22" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
+			<li id="first22" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second22" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second22" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;Wi-Fi!&nbsp;		
 				&nbsp;<span>Internet!</span>&nbsp;				
 				&nbsp;Speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">Rtl direction!</font>&nbsp;				
 			</li>
-			<li id="third22" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third22" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 		</ul>
 	</div>	
-	<div dir="rtl" id="view6" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
-			<li id="ra1" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
-			<li id="ra2" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="ra3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li id="ra4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+	<div dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
+			<li id="ra1" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello World!</li>
+			<li id="ra2" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="ra3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li id="ra4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/i-icon-2.png"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul>			
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
-			<li id="first23" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"auto"'>
+			<li id="first23" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">&#1495;&#1491;&#1513; </font>direction!!
-				<div data-dojo-type="dojox.mobile.Switch"></div>
+				<div data-dojo-type="dojox/mobile/Switch"></div>
 			</li>
-			<li id="second23" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"&#1495;&#1491;&#1513; for mac!", moveTo:"hello."'>
+			<li id="second23" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-2.png",rightText:"&#1495;&#1491;&#1513; for mac!", moveTo:"hello."'>
 				&nbsp;&#1495;&#1491;&#1513;!&nbsp;		
 				&nbsp;<span>&#1495;&#1491;&#1513;!</span>&nbsp;				
 				&nbsp;&#1495;&#1491;&#1513;!&nbsp;
 				&nbsp;<font style="font-style:italic">Auto direction!</font>&nbsp;				
 			</li>
-			<li id="third23" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third23" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/i-icon-3.png", rightText:"AcmePhone.", moveTo:"hello."'>
 				Direction &#1495;&#1491;&#1513;!
 			</li>
 			</ul>

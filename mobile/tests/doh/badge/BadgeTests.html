@@ -16,7 +16,7 @@
 		"dojo/dom",
 		"dojo/dom-class", // dojo.hasClass
 		"dojo/dom-construct", // dojo.place
-		"dojo/ready", // dojo.ready
+		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/Badge",
@@ -24,7 +24,7 @@
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(dom, domClass, domConst, ready, registry, runner, Badge){
 
 		var WIDGET_VALUE1 = "6";
@@ -95,7 +95,7 @@
 		};
 
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.CarouselTests", [
+			runner.register("dojox/mobile/test.doh.CarouselTests", [
 				{
 					name: "Carousel Verification1",
 					timeout: 4000,
@@ -131,12 +131,12 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<div data-dojo-type="dojox.mobile.Pane" style="padding:0px 30px 0px 30px;">
-			<div id="view1-Badge11" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonRedBadge" data-dojo-props='value:"6"'></div>
-			<div id="view1-Badge12" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
-			<div id="view1-Badge13" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
+		<div data-dojo-type="dojox/mobile/Pane" style="padding:0px 30px 0px 30px;">
+			<div id="view1-Badge11" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonRedBadge" data-dojo-props='value:"6"'></div>
+			<div id="view1-Badge12" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
+			<div id="view1-Badge13" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
 			<div id="view1-Badge21place"></div>
 			<div id="view1-Badge22place"></div>
 			<div id="view1-Badge23place"></div>
@@ -145,12 +145,12 @@
 			<div id="view1-Badge33"></div>
 		</div>
 	</div>	
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<div data-dojo-type="dojox.mobile.Pane" style="padding:0px 30px 0px 30px;">
-			<div id="view2-Badge11" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonRedBadge" data-dojo-props='value:"6"'></div>
-			<div id="view2-Badge12" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
-			<div id="view2-Badge13" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
+		<div data-dojo-type="dojox/mobile/Pane" style="padding:0px 30px 0px 30px;">
+			<div id="view2-Badge11" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonRedBadge" data-dojo-props='value:"6"'></div>
+			<div id="view2-Badge12" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
+			<div id="view2-Badge13" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
 			<div id="view2-Badge21place"></div>
 			<div id="view2-Badge22place"></div>
 			<div id="view2-Badge23place"></div>

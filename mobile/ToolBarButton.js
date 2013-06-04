@@ -6,10 +6,11 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dojo/sniff",
 	"./_ItemBase",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/ToolBarButton"
-], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, has, ItemBase, BidiToolBarButton){
+], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, has, ItemBase, BidiToolBarButton){
 
 	// module:
 	//		dojox/mobile/ToolBarButton
@@ -115,7 +116,7 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 
-			this.connect(this.domNode, "onkeydown", "_onClick"); // for desktop browsers
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 
 			this.inherited(arguments);
 			if(!this._isOnLine){

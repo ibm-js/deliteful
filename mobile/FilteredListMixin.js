@@ -248,14 +248,14 @@ define([
 			// use-case when the scrollable is not created by this mixin.
 			var sv = viewRegistry.getEnclosingScrollable(this.domNode);
 			if(sv){
-				this.connect(sv, "onFlickAnimationEnd", lang.hitch(this, function(){
+				this.own(aspect.after(sv, "onFlickAnimationEnd", lang.hitch(this, function(){
 					if(!this._filterBox.focusNode.value){ // if search criteria is empty
 						// store the scroll position such that we can reset the 
 						// initial scroll when the user goes back to the unfiltered
 						// list (as done by some native mobile apps). 
 						this._previousUnfilteredScrollPos = sv.getPos();
 					}
-				}));
+				})));
 			}
 			
 			if(!this.store){

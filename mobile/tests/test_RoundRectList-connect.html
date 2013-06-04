@@ -16,9 +16,9 @@
 			"dojo/_base/connect",
 			"dojo/dom-class",
 			"dojo/dom",
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat"
 		], function(connect, domClass, dom, ready, registry){
@@ -111,20 +111,20 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox.mobile.View">
-		<div data-dojo-type="dojox.mobile.Heading" data-dojo-props='label:"RoundRectList - Connect"'>
-			<span id="btn1" data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='toggle:true' style="padding: 0px 14px;float:left" onclick="edit">Edit</span>
+	<div id="view1" data-dojo-type="dojox/mobile/View">
+		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"RoundRectList - Connect"'>
+			<span id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='toggle:true' style="padding: 0px 14px;float:left" onclick="edit">Edit</span>
 		</div>
-		<h2 data-dojo-type="dojox.mobile.RoundRectCategory">Transition Effects</h2>
-		<ul id="list1" data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='editable:true'>
-			<li id="item1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 1"'></li>
-			<li id="item2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 2"'></li>
-			<li id="item3" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 3"'></li>
-			<li id="item4" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-2.png", label:"Item 4"'></li>
-			<li id="item5" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-2.png", label:"Item 5"'></li>
-			<li id="item6" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 6"'></li>
-			<li id="item7" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 7"'></li>
-			<li id="item8" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 8"'></li>
+		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Transition Effects</h2>
+		<ul id="list1" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='editable:true'>
+			<li id="item1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 1"'></li>
+			<li id="item2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 2"'></li>
+			<li id="item3" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", label:"Item 3"'></li>
+			<li id="item4" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", label:"Item 4"'></li>
+			<li id="item5" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", label:"Item 5"'></li>
+			<li id="item6" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 6"'></li>
+			<li id="item7" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 7"'></li>
+			<li id="item8" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", label:"Item 8"'></li>
 		</ul>
 			
 		<div id="msgArea1" style="margin-top:10px; margin-left:10px;"></div>

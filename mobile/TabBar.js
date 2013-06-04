@@ -2,18 +2,20 @@ define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/window",
+	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/topic",
 	"dijit/_Contained",
 	"dijit/_Container",
 	"dijit/_WidgetBase",
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/TabBar"	
-], function(array, declare, win, domClass, domConstruct, domGeometry, domStyle, domAttr, Contained, Container, WidgetBase, TabBarButton, has, BidiTabBar){
+], function(array, declare, win, lang, domClass, domConstruct, domGeometry, domStyle, domAttr, topic, Contained, Container, WidgetBase, TabBarButton, has, BidiTabBar){
 
 	// module:
 	//		dojox/mobile/TabBar
@@ -91,8 +93,8 @@ define([
 						return w.moveTo === "#" + view.id || w.moveTo === view.id; })[0];
 					if(child){ child.set("selected", true); }
 				};
-				this.subscribe("/dojox/mobile/afterTransitionIn", f);
-				this.subscribe("/dojox/mobile/startView", f);
+				this.own(topic.subscribe("/dojox/mobile/afterTransitionIn", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dojox/mobile/startView", lang.hitch(this, f)));
 			}
 		},
 

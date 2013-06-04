@@ -2,7 +2,9 @@ define([
 	"dojo/_base/kernel",
 	"dojo/_base/array",
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/_base/window",
+	"dojo/aspect",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/has", 
@@ -13,7 +15,7 @@ define([
 	"dijit/_WidgetBase",
 	"./scrollable",
 	"./common"
-], function(dojo, array, declare, win, domClass, domConstruct, has, BidiSpinWheelSlot, 
+], function(dojo, array, declare, lang, win, aspect, domClass, domConstruct, has, BidiSpinWheelSlot,
 	touch, on, Contained, WidgetBase, Scrollable){
 
 	// module:
@@ -180,7 +182,7 @@ define([
 					});
 				}));
 
-				this.on("flickAnimationEnd", function(){
+				aspect.after(this, "onFlickAnimationEnd", function(){
 						var item = self.getCenterItem();
 
 						if(self.previousCenterItem) {
@@ -203,7 +205,7 @@ define([
 				var items = this.panelNodes[1].childNodes;
 				this._itemHeight = items[0].offsetHeight;
 				this.adjust();
-				this.connect(this.domNode, "onkeydown", "_onKeyDown"); // for desktop browsers
+				this.own(on(this.domNode, "keydown", lang.hitch(this, "_onKeyDown"))); // for desktop browsers
 			}
 			if(has("windows-theme")){
 				this.previousCenterItem = this.getCenterItem();

@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/topic",
@@ -11,7 +11,7 @@ define([
 	"dojo/sniff",
 	"./_css3",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/SwapView"
-], function(array, connect, declare, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
+], function(array, declare, lang, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
 
 	// module:
 	//		dojox/mobile/SwapView
@@ -41,8 +41,8 @@ define([
 			domClass.add(this.domNode, "mblSwapView");
 			this.setSelectable(this.domNode, false);
 			this.containerNode = this.domNode;
-			this.subscribe("/dojox/mobile/nextPage", "handleNextPage");
-			this.subscribe("/dojox/mobile/prevPage", "handlePrevPage");
+			this.own(topic.subscribe("/dojox/mobile/nextPage", lang.hitch(this, "handleNextPage")));
+			this.own(topic.subscribe("/dojox/mobile/prevPage", lang.hitch(this, "handlePrevPage")));
 			this.noResize = true; // not to call resize() from scrollable#init
 		},
 

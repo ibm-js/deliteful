@@ -9,14 +9,14 @@
 <script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
 <script language="JavaScript" type="text/javascript">
 	require([
-		"dojo/ready",
+		"dojo/domReady",
 		"dijit/registry",
 		"doh/runner",
 		"dojox/mobile/IconContainer",
 		"dojox/mobile/IconItem",
 		"dojox/mobile",
 		"dojox/mobile/compat",
-		"dojox/mobile/parser"
+		"dojo/parser"
 	], function(ready, registry, runner, IconContainer, IconItem){
 		ready(function(){
 			runner.register("dojox.mobile.test.doh.IconContainerTests2", [

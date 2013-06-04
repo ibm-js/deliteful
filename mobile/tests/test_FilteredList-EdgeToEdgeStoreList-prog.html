@@ -16,7 +16,7 @@
 	<script type="text/javascript">
 		require([
 			"dojo/_base/declare",
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
 			"dojo/store/Memory",
 			"dojox/mobile/EdgeToEdgeStoreList",
@@ -27,7 +27,7 @@
 			"dojox/mobile",
 			"dojox/mobile/View",
 			"dojox/mobile/compat",
-			"dojox/mobile/parser"
+			"dojo/parser"
 		], function(declare, ready, registry, Memory, EdgeToEdgeStoreList, FilteredListMixin){
 			var static_data = { 
 				items: [ 

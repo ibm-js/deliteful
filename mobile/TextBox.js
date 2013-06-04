@@ -1,12 +1,14 @@
 define([
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom-construct",
+	"dojo/on",
 	"dijit/_WidgetBase",
 	"dijit/form/_FormValueMixin",
 	"dijit/form/_TextBoxMixin",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/TextBox"
-], function(declare, domConstruct, WidgetBase, FormValueMixin, TextBoxMixin, has, BidiTextBox){
+], function(declare, lang, domConstruct, on, WidgetBase, FormValueMixin, TextBoxMixin, has, BidiTextBox){
 
 	var TextBox = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiTextBox" : "dojox.mobile.TextBox", [WidgetBase, FormValueMixin, TextBoxMixin],{
 		// summary:
@@ -35,13 +37,13 @@ define([
 
 		postCreate: function(){
 			this.inherited(arguments);
-			this.connect(this.textbox, "onmouseup", function(){ this._mouseIsDown = false; });
-			this.connect(this.textbox, "onmousedown", function(){ this._mouseIsDown = true; });
-			this.connect(this.textbox, "onfocus", function(e){
+			this.own(on(this.textbox, "mouseup", lang.hitch(this, function(){ this._mouseIsDown = false; })));
+			this.own(on(this.textbox, "mousedown", lang.hitch(this, function(){ this._mouseIsDown = true; })));
+			this.own(on(this.textbox, "focus", lang.hitch(this, function(e){
 				this._onFocus(this._mouseIsDown ? "mouse" : e);
 				this._mouseIsDown = false;
-			});
-			this.connect(this.textbox, "onblur", "_onBlur");
+			})));
+			this.own(on(this.textbox, "blur", lang.hitch(this, "_onBlur")));
 		}
 	});
 	return has("dojo-bidi") ? declare("dojox.mobile.TextBox", [TextBox, BidiTextBox]) : TextBox;	

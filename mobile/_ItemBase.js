@@ -4,6 +4,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
+	"dojo/on",
 	"dojo/touch",
 	"dijit/registry",
 	"dijit/_Contained",
@@ -13,7 +14,7 @@ define([
 	"./iconUtils",
 	"dojo/sniff",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/_ItemBase"
-], function(array, declare, lang, win, domClass, touch, registry, Contained, Container, WidgetBase, TransitionEvent, iconUtils, has, BidiItemBase){
+], function(array, declare, lang, win, domClass, on, touch, registry, Contained, Container, WidgetBase, TransitionEvent, iconUtils, has, BidiItemBase){
 
 	// module:
 	//		dojox/mobile/_ItemBase
@@ -217,11 +218,11 @@ define([
 			//		private
 			if(this._handleClick && this._selStartMethod === "touch"){
 				if(!this._onTouchStartHandle){
-					this._onTouchStartHandle = this.connect(this.domNode, touch.press, "_onTouchStart");
+					this._onTouchStartHandle = this.own(on(this.domNode, touch.press, lang.hitch(this, "_onTouchStart")))[0];
 				}
 			}else{
 				if(this._onTouchStartHandle){
-					this.disconnect(this._onTouchStartHandle);
+					this._onTouchStartHandle.remove();
 					this._onTouchStartHandle = null;
 				}
 			}
@@ -263,7 +264,7 @@ define([
 			} // the item will be deselected after transition.
 
 			if(this._onTouchEndHandle){
-				this.disconnect(this._onTouchEndHandle);
+				this._onTouchEndHandle.remove();
 				this._onTouchEndHandle = null;
 			}
 
@@ -323,8 +324,8 @@ define([
 				// Connect to the entire window. Otherwise, fail to receive
 				// events if operation is performed outside this widget.
 				// Expose both connect handlers in case the user has interest.
-				this._onTouchMoveHandle = this.connect(win.body(), touch.move, "_onTouchMove");
-				this._onTouchEndHandle = this.connect(win.body(), touch.release, "_onTouchEnd");
+				this._onTouchMoveHandle = this.own(on(win.body(), touch.move, lang.hitch(this, "_onTouchMove")))[0];
+				this._onTouchEndHandle = this.own(on(win.body(), touch.release, lang.hitch(this, "_onTouchEnd")))[0];
 			}
 			this.touchStartX = e.touches ? e.touches[0].pageX : e.clientX;
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.clientY;
@@ -367,8 +368,8 @@ define([
 		_disconnect: function(){
 			// tags:
 			//		private
-			this.disconnect(this._onTouchMoveHandle);
-			this.disconnect(this._onTouchEndHandle);
+			this._onTouchMoveHandle && this._onTouchMoveHandle.remove();
+			this._onTouchEndHandle && this._onTouchEndHandle.remove();
 			this._onTouchMoveHandle = this._onTouchEndHandle = null;
 		},
 

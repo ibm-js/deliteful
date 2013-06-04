@@ -19,14 +19,14 @@
 		"dojo/dom-class", // dojo.hasClass
 		"dojo/dom-style",
 		"dojo/store/Memory", // dojo.store.Memory
-		"dojo/ready", // dojo.ready
+		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/ComboBox",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(connect, has, Deferred, dom, domConst, domClass, domStyle, Memory, ready, registry, runner, ComboBox){
 
 		var FRUITS = new Memory({

@@ -7,8 +7,9 @@ define([
 	"dojo/dom",
 	"dojo/dom-class",
 	"dijit/registry",	// registry.byNode
+	"dojo/topic",
 	"./scrollable"
-], function(dojo, config, declare, lang, win, dom, domClass, registry, Scrollable){
+], function(dojo, config, declare, lang, win, dom, domClass, registry, topic, Scrollable){
 	// module:
 	//		dojox/mobile/_ScrollableMixin
 
@@ -86,13 +87,13 @@ define([
 			}
 			// subscribe to afterResizeAll to scroll the focused input field into view
 			// so as not to break layout on orientation changes while keyboard is shown (#14991)
-			this._resizeHandle = this.subscribe("/dojox/mobile/afterResizeAll", function(){
+			this._resizeHandle = this.own(topic.subscribe("/dojox/mobile/afterResizeAll", lang.hitch(this, function(){
 				if(this.domNode.style.display === 'none'){ return; }
 				var elem = win.doc.activeElement;
 				if(this.isFormElement(elem) && dom.isDescendant(elem, this.containerNode)){
 					this.scrollIntoView(elem);
 				}
-			});
+			})))[0];
 			this.inherited(arguments);
 		},
 

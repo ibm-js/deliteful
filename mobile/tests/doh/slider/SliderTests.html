@@ -11,14 +11,14 @@
 require([
 	"dojo/dom-construct", // dojo.place
 	"dojo/dom-class", // dojo.hasClass
-	"dojo/ready", // dojo.ready
+	"dojo/domReady", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/Slider",
 	"dojox/mobile",				// This is a mobile app.
 	"dojox/mobile/View",		// This mobile app uses mobile view
 	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+	"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 ], function(domConst, domClass, ready, registry, runner, Slider){
 
 	var WIDGET_CLASSNAME1 = "mblSlider";
@@ -63,7 +63,7 @@ require([
 	};
 
 	ready(function(){
-		runner.register("dojox.mobile.test.doh.Slider", [
+		runner.register("dojox/mobile/test.doh.Slider", [
 			{
 				name: "Slider Verification1",
 				timeout: 4000,
@@ -105,12 +105,12 @@ require([
 </script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox.mobile.View" data-dojo-props='selected:"true"'>
+	<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:"true"'>
 		<h1>View1</h1>
 		<table>
 			<tr>
 				<td>0</td>
-				<td><input id="view1-Slider1" data-dojo-type="dojox.mobile.Slider" name="sh1" value="31.4" min="0" max="100" step="0.1" type="range" style="width:150px;"></td>
+				<td><input id="view1-Slider1" data-dojo-type="dojox/mobile/Slider" name="sh1" value="31.4" min="0" max="100" step="0.1" type="range" style="width:150px;"></td>
 				<td>100</td>
 			</tr>
 		</table>
@@ -129,12 +129,12 @@ require([
 			</tr>
 		</table>
 	</div>
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View2</h1>
 		<table>
 			<tr>
 				<td>0</td>
-				<td><input id="view2-Slider1" data-dojo-type="dojox.mobile.Slider" name="sh1" value="31.4" min="0" max="100" step="0.1" type="range" style="width:150px;"></td>
+				<td><input id="view2-Slider1" data-dojo-type="dojox/mobile/Slider" name="sh1" value="31.4" min="0" max="100" step="0.1" type="range" style="width:150px;"></td>
 				<td>100</td>
 			</tr>
 		</table>

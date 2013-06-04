@@ -14,7 +14,7 @@
 		<script language="JavaScript" type="text/javascript">
 			require([
 				"dojo/_base/kernel",
-				"dojo/ready", // dojo.ready
+				"dojo/domReady", // dojo.ready
 				"doh/runner",	//doh functions
 				"dijit/registry",  // dijit.registry.byId
 				"dijit/robotx"
@@ -24,7 +24,7 @@
 					runner.robot.initRobot("../test_transition-pubsub.html");
 					var reg = null;
 
-					runner.register("dojox.mobile.Animation mouse tests", [
+					runner.register("dojox/mobile/Animation mouse tests", [
 						{
 							name: "Animation mouse tests",
 							timeout: 50000,

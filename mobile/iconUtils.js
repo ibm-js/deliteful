@@ -1,15 +1,14 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/config",
-	"dojo/_base/connect",
-	"dojo/_base/event",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/sniff"
-], function(array, config, connect, event, lang, win, domClass, domConstruct, domStyle, has){
+], function(array, config, lang, win, domClass, domConstruct, domStyle, on, has){
 
 	var dm = lang.getObject("dojox.mobile", true);
 
@@ -176,7 +175,10 @@ define([
 					});
 					domClass.add(parent, "mblSpriteIconParent");
 				}
-				connect.connect(node, "ondragstart", event, "stop");
+				on(node, "dragstart", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+				});
 			}
 			return node;
 		};

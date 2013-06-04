@@ -1,13 +1,13 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
-	"dojo/_base/event",
+	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dojo/touch",
 	"dijit/_Contained",
 	"dijit/_WidgetBase",
@@ -15,7 +15,7 @@ define([
 	"./_maskUtils",
 	"./common",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Switch"
-], function(array, connect, declare, event, win, domClass, domConstruct, domStyle, domAttr, touch, Contained, WidgetBase, has, maskUtils, dm, BidiSwitch){
+], function(array, declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, touch, Contained, WidgetBase, has, maskUtils, dm, BidiSwitch){
 
 	// module:
 	//		dojox/mobile/Switch
@@ -118,9 +118,9 @@ define([
 		},
 
 		postCreate: function(){
-			this.connect(this.switchNode, "onclick", "_onClick");
-			this.connect(this.switchNode, "onkeydown", "_onClick"); // for desktop browsers
-			this._startHandle = this.connect(this.switchNode, touch.press, "onTouchStart");
+			this.own(on(this.switchNode, "click", lang.hitch(this, "_onClick")));
+			this.own(on(this.switchNode, "onkeydown", lang.hitch(this, "_onClick"))); // for desktop browsers
+			this._startHandle = this.own(on(this.switchNode, touch.press, lang.hitch(this, "onTouchStart")))[0];
 			this._initialValue = this.value; // for reset()
 		},
 
@@ -190,8 +190,8 @@ define([
 			this.innerStartX = this.inner.offsetLeft;
 			if(!this._conn){
 				this._conn = [
-					this.connect(this.inner, touch.move, "onTouchMove"),
-					this.connect(win.doc, touch.release, "onTouchEnd")
+					this.own(on(this.inner, touch.move, lang.hitch(this, "onTouchMove")))[0],
+					this.own(on(win.doc, touch.release,lang.hitch(this,  "onTouchEnd")))[0]
 				];
 
 				/* While moving the slider knob sometimes IE fires MSPointerCancel event. That prevents firing
@@ -200,13 +200,15 @@ define([
 				same lintener as for MSPointerUp event.
 				*/
 				if(has("windows-theme")){
-					this._conn.push(this.connect(win.doc, "MSPointerCancel", "onTouchEnd"));
+					this._conn.push(this.own(on(win.doc, "MSPointerCancel", lang.hitch(this, "onTouchEnd")))[0]);
 				}
 			}
 			this.touchStartX = e.touches ? e.touches[0].pageX : e.clientX;
 			this.left.style.display = "";
 			this.right.style.display = "";
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
+
 			this._createMaskImage();
 		},
 
@@ -234,7 +236,7 @@ define([
 		onTouchEnd: function(/*Event*/e){
 			// summary:
 			//		Internal function to handle touchEnd events.
-			array.forEach(this._conn, connect.disconnect);
+			array.forEach(this._conn, function(h){h.remove();});
 			this._conn = null;
 			if(this.innerStartX == this.inner.offsetLeft){
 				// need to send a synthetic click?

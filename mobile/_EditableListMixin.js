@@ -2,19 +2,19 @@
 
 define([
 	"dojo/_base/array",
-	"dojo/_base/connect",
 	"dojo/_base/declare",
-	"dojo/_base/event",
+	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
+	"dojo/on",
 	"dojo/topic",
 	"dojo/touch",
 	"dojo/dom-attr",
 	"dijit/registry",
 	"./ListItem"
-], function(array, connect, declare, event, win, domClass, domGeometry, domStyle, topic, touch, domAttr, registry, ListItem){
+], function(array, declare, lang, win, domClass, domGeometry, domStyle, on, topic, touch, domAttr, registry, ListItem){
 
 	// module:
 	//		dojox/mobile/EditableRoundRectList
@@ -117,8 +117,8 @@ define([
 
 			if(!this._conn){
 				this._conn = [
-					this.connect(this.domNode, touch.move, "_onTouchMove"),
-					this.connect(win.doc, touch.release, "_onTouchEnd")
+					this.own(on(this.domNode, touch.move, lang.hitch(this, "_onTouchMove")))[0],
+					this.own(on(win.doc, touch.release,  lang.hitch(this, "_onTouchEnd")))[0]
 				];
 			}
 			this._pos = [];
@@ -127,7 +127,9 @@ define([
 			}, this);
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.pageY;
 			this._startTop = domGeometry.getMarginBox(item.domNode).t;
-			event.stop(e);
+			e.preventDefault();
+			e.stopPropagation();
+
 		},
 
 		_onTouchMove: function(e){
@@ -170,7 +172,7 @@ define([
 			this.containerNode.removeChild(this._blankItem.domNode);
 			this._resetMoveItem(this._movingItem.domNode);
 
-			array.forEach(this._conn, connect.disconnect);
+			array.forEach(this._conn, function(h){h.remove();});
 			this._conn = null;
 			
 			this.onMoveItem(this._movingItem, startIndex, endIndex); //callback
@@ -202,9 +204,9 @@ define([
 			}, this);
 			if(!this._handles){
 				this._handles = [
-					this.connect(this.domNode, touch.press, "_onTouchStart"),
-					this.connect(this.domNode, "onclick", "_onClick"),
-					this.connect(this.domNode, "onkeydown", "_onClick") // for desktop browsers
+					this.own(on(this.domNode, touch.press, lang.hitch(this, "_onTouchStart")))[0],
+					this.own(on(this.domNode, "click",  lang.hitch(this, "_onClick")))[0],
+					this.own(on(this.domNode, "keydown",  lang.hitch(this, "_onClick")))[0] // for desktop browsers
 				];
 			}
 			
@@ -223,7 +225,7 @@ define([
 				}
 			});
 			if(this._handles){
-				array.forEach(this._handles, this.disconnect, this);
+				array.forEach(this._handles, function(h){h.remove();}, this);
 				this._handles = null;
 			}
 			this.isEditing = false;

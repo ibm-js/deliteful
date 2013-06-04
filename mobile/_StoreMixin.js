@@ -1,7 +1,8 @@
 define([
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
+	"dojo/when",
 	"dojo/_base/declare"
-], function(Deferred, declare){
+], function(Deferred, when, declare){
 
 	// module:
 	//		dojox/mobile/_StoreMixin
@@ -73,7 +74,7 @@ define([
 			if(this._observe_h){
 				this._observe_h.remove();
 			}
-			Deferred.when(promise, function(results){
+			when(promise, function(results){
 				if(results.items){
 					results = results.items; // looks like dojo/data style items array
 				}

@@ -17,10 +17,10 @@
 			"dojo/store/JsonRest",
 			"dojo/store/Memory",
 			"dojo/store/Observable",
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
 			"dojox/mobile/ProgressIndicator",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
@@ -83,9 +83,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox.mobile.ScrollableView" data-dojo-props='adjustDestination:adjustDestination'>
-		<h1 data-dojo-type="dojox.mobile.Heading" id="head1" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
+	<div data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props='adjustDestination:adjustDestination'>
+		<h1 data-dojo-type="dojox/mobile/Heading" id="head1" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
 	</div>
 </body>
 </html>

@@ -6,6 +6,7 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dojo/dom-attr",
+	"dojo/on",
 	"dojo/window",
 	"dojo/touch",
 	"dijit/form/_AutoCompleterMixin",
@@ -13,7 +14,7 @@ define([
 	"./_ComboBoxMenu",
 	"./TextBox",
 	"dojo/sniff"
-], function(kernel, declare, lang, win, domGeometry, domStyle, domAttr, windowUtils, touch, AutoCompleterMixin, popup, ComboBoxMenu, TextBox, has){
+], function(kernel, declare, lang, win, domGeometry, domStyle, domAttr, on, windowUtils, touch, AutoCompleterMixin, popup, ComboBoxMenu, TextBox, has){
 	kernel.experimental("dojox.mobile.ComboBox"); // should be using a more native search-type UI
 
 	return declare("dojox.mobile.ComboBox", [TextBox, AutoCompleterMixin], {
@@ -107,9 +108,9 @@ define([
 
 			this._throttleOpenClose();
 			if(this.endHandler){
-				this.disconnect(this.startHandler);
-				this.disconnect(this.endHandler);
-				this.disconnect(this.moveHandler);
+				this.startHandler && this.startHandler.remove();
+				this.endHandler.remove();
+				this.moveHandler && this.moveHandler.remove();
 				clearInterval(this.repositionTimer);
 				this.repositionTimer = this.endHandler = null;
 			}
@@ -237,7 +238,7 @@ define([
 
 				// touchstart isn't really needed since touchmove implies touchstart, but
 				// mousedown is needed since mousemove doesn't know if the left button is down or not
-				this.startHandler = this.connect(win.doc.documentElement, touch.press,
+				this.startHandler = this.own(on(win.doc.documentElement, touch.press,
 					function(e){
 						skipReposition = true;
 						active = true;
@@ -245,8 +246,8 @@ define([
 						startX = e.clientX;
 						startY = e.clientY;
 					}
-				);
-				this.moveHandler = this.connect(win.doc.documentElement, touch.move,
+				))[0];
+				this.moveHandler = this.own(on(win.doc.documentElement, touch.move,
 					function(e){
 						skipReposition = true;
 						if(e.touches){
@@ -255,15 +256,15 @@ define([
 							isGesture = true;
 						}
 					}
-				);
-				this.clickHandler = this.connect(dropDown.domNode, "onclick",
+				))[0];
+				this.clickHandler = this.own(on(dropDown.domNode, "click",
 					function(){
 						skipReposition = true;
 						active = isGesture = false; // click implies no gesture movement
 					}
-				);
-				this.endHandler = this.connect(win.doc.documentElement, "onmouseup",//touch.release,
-					function(){
+				))[0];
+				this.endHandler = this.own(on(win.doc.documentElement, "mouseup",//touch.release,
+					lang.hitch(this, function(){
 						this.defer(function(){ // allow onclick to go first
 							skipReposition = true;
 							if(!isGesture && active){ // if click without move, then close dropdown
@@ -272,7 +273,7 @@ define([
 							active = false;
 						});
 					}
-				);
+				)))[0];
 				this.repositionTimer = setInterval(lang.hitch(this, function(){
 					if(skipReposition){ // don't reposition if busy
 						skipReposition = false;
@@ -299,7 +300,7 @@ define([
 
 		postCreate: function(){
 			this.inherited(arguments);
-			this.connect(this.domNode, "onclick", "_onClick");
+			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
 			domAttr.set(this.domNode, "role", "combobox");
 		},
 

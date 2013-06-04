@@ -12,7 +12,7 @@
 
 	<script type="text/javascript">
 		require([
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/FixedSplitter",
@@ -126,44 +126,44 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="general" data-dojo-type="dojox.mobile.ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
-		<ul data-dojo-type="dojox.mobile.RoundRectList" class="list1" data-dojo-props='stateful:true'>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+	<div id="general" data-dojo-type="dojox/mobile/ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
+		<ul data-dojo-type="dojox/mobile/RoundRectList" class="list1" data-dojo-props='stateful:true'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Gold</div>
 				<div class="c2">3,400.20</div>
 				<div class="c3 c3a">+1.57%</div>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Oil</div>
 				<div class="c2">347.26</div>
 				<div class="c3 c3b">-0.82%</div>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Commodities</div>
 				<div class="c2">541.77</div>
 				<div class="c3 c3b">-0.43%</div>
 				
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Silver</div>
 				<div class="c2">12,823.94</div>
 				<div class="c3 c3a">+0.17%</div>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Soybeans</div>
 				<div class="c2">18.19</div>
 				<div class="c3 c3a">+2.77%</div>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Wheat</div>
 				<div class="c2">3,335</div>
 				<div class="c3 c3a">+1.62%</div>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Corn</div>
 				<div class="c2">29,930</div>
 				<div class="c3 c3a">+1.15%</div>
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"#"'>
 				<div class="c1">Sugar</div>
 				<div class="c2">172.15</div>
 				<div class="c3 c3a">+0.00%</div>
@@ -172,41 +172,41 @@
 	</div>
 
 	<div style="position:relative">
-		<div id="swap1" data-dojo-type="dojox.mobile.SwapView">
-			<div data-dojo-type="dojox.mobile.ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
-				<ul id="news" class="list1" data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='variableHeight:true'>
-					<li data-dojo-type="dojox.mobile.ListItem"
+		<div id="swap1" data-dojo-type="dojox/mobile/SwapView">
+			<div data-dojo-type="dojox/mobile/ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
+				<ul id="news" class="list1" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Oil prices rise as dollar weakens
 						<div class="subtitle">Daily News - 2011/05/02 15:40</div>
 					</li>
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Same Old Story For Air Service Costs
 						<div class="subtitle">Daily News - 2011/05/02 14:30</div>
 					</li>
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Local stocks mixed despite new trade data
 						<div class="subtitle">Daily News - 2011/05/02 14:10</div>
 					</li>
 
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Stocks point higher after economic data
 						<div class="subtitle">Daily News - 2011/05/02 11:00</div>
 					</li>
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Wall St seen higher after industry forecasts
 						<div class="subtitle">Daily News - 2011/05/01 16:05</div>
 					</li>
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Stocks drop on slower job creation
 						<div class="subtitle">Daily News - 2011/05/01 15:50</div>
 					</li>
-					<li data-dojo-type="dojox.mobile.ListItem"
+					<li data-dojo-type="dojox/mobile/ListItem"
 						data-dojo-props='href:"test_ScrollableView-demo.html", hrefTarget:"_blank", arrowClass:"mblDomButtonBlueCircleArrow"'>
 						Dollar initially falls after revised jobs report
 						<div class="subtitle">Daily News - 2011/05/01 13:20</div>
@@ -215,9 +215,9 @@
 			</div>
 		</div>
 
-		<div id="swap2" data-dojo-type="dojox.mobile.SwapView">
-			<div data-dojo-type="dojox.mobile.ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
-				<div data-dojo-type="dojox.mobile.RoundRect" style="position:relative;background-color:#00575F;color:white;">
+		<div id="swap2" data-dojo-type="dojox/mobile/SwapView">
+			<div data-dojo-type="dojox/mobile/ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
+				<div data-dojo-type="dojox/mobile/RoundRect" style="position:relative;background-color:#00575F;color:white;">
 				<table id="tbl1" style="width:90%">
 					<tr><td>2 Yr Bond</td><td>113.75</td><td>0.00</td><td class="g">0.00%</td></tr>
 					<tr><td>N225</td><td>10,004.20</td><td>154.46</td><td class="g">1.57%</td></tr>
@@ -237,15 +237,15 @@
 			</div>
 		</div>
 
-		<div id="swap3" data-dojo-type="dojox.mobile.SwapView">
-			<div data-dojo-type="dojox.mobile.ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
-				<div data-dojo-type="dojox.mobile.RoundRect" style="overflow:hidden;background-color:#00575F;">
+		<div id="swap3" data-dojo-type="dojox/mobile/SwapView">
+			<div data-dojo-type="dojox/mobile/ScrollablePane" data-dojo-props='height:"200px",roundCornerMask:true'>
+				<div data-dojo-type="dojox/mobile/RoundRect" style="overflow:hidden;background-color:#00575F;">
 					<img src="images/chart.png" alt="">
 				</div>
 			</div>
 		</div>
 
-		<div data-dojo-type="dojox.mobile.PageIndicator" data-dojo-props='fixed:"bottom"'></div>
+		<div data-dojo-type="dojox/mobile/PageIndicator" data-dojo-props='fixed:"bottom"'></div>
 	</div>
 </body>
 </html>

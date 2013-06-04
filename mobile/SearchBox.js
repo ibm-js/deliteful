@@ -58,8 +58,8 @@ define([
 			}
 			if(has("ios") < 5){
 				domClass.add(this.domNode, 'iphone4'); // cannot click cancel button after focus so just remove it
-				this.connect(this.textbox, "onfocus", // if value changes between start of onfocus to end, then it was a cancel
-					function(){
+				this.own(on(this.textbox, "focus", // if value changes between start of onfocus to end, then it was a cancel
+					lang.hitch(this, function(){
 						if(this.textbox.value !== ''){
 							this.defer(
 								function(){
@@ -70,20 +70,20 @@ define([
 							);
 						}
 					}
-				);
+				)));
 			}
-			this.connect(this.textbox, "onsearch",
-				function(){
+			this.own(on(this.textbox, "search",
+				lang.hitch(this, function(){
 					this._onInput({ charOrCode: keys.ENTER });
 				}
-			);
+			)));
 			
 			// Clear action for the close button (iOS specific)
 			var _this = this;
 			var touchStartX, touchStartY;
 			var handleRelease;
 			if(has("ios")){
-				this.on(touch.press, function(evt){
+				this.own(on(this.domNode, touch.press, function(evt){
 					var rect;
 					touchStartX = evt.touches ? evt.touches[0].pageX : evt.pageX;
 					touchStartY = evt.touches ? evt.touches[0].pageY : evt.pageY;
@@ -117,7 +117,7 @@ define([
 							handleRelease = null;
 						} 
 					}
-				});
+				}));
 			}
 		}
 	});

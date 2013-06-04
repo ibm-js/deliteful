@@ -1,11 +1,13 @@
 define([
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/dom-attr",
+	"dojo/on",
 	"./_DatePickerMixin",
 	"./ValuePicker",
 	"./ValuePickerSlot"
-], function(declare, domClass, domAttr, DatePickerMixin, ValuePicker, ValuePickerSlot){
+], function(declare, lang, domClass, domAttr, on, DatePickerMixin, ValuePicker, ValuePickerSlot){
 
 	// module:
 	//		dojox/mobile/ValuePickerDatePicker
@@ -92,9 +94,9 @@ define([
 			this.inherited(arguments);
 			domClass.add(this.domNode, "mblValuePickerDatePicker");
 			this._conn = [
-				this.connect(this.slots[0], "_spinToValue", "_onYearSet"),
-				this.connect(this.slots[1], "_spinToValue", "_onMonthSet"),
-				this.connect(this.slots[2], "_spinToValue", "_onDaySet")
+				this.own(on(this.slots[0], "_spinToValue", lang.hitch(this, "_onYearSet")))[0],
+				this.own(on(this.slots[1], "_spinToValue", lang.hitch(this, "_onMonthSet")))[0],
+				this.own(on(this.slots[2], "_spinToValue", lang.hitch(this, "_onDaySet")))[0]
 			];
 		},
 

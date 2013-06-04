@@ -1,15 +1,17 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/dom-construct",
+	"dojo/on",
 	"dijit/_WidgetBase",
 	"dijit/form/_ButtonMixin",
 	"dijit/form/_FormWidgetMixin",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/Button"
 	],
-	function(array, declare, domClass, domConstruct, WidgetBase, ButtonMixin, FormWidgetMixin, has, BidiButton){
+	function(array, declare, lang, domClass, domConstruct, on, WidgetBase, ButtonMixin, FormWidgetMixin, has, BidiButton){
 
 	var Button = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiButton" : "dojox.mobile.Button", [WidgetBase, FormWidgetMixin, ButtonMixin], {
 		// summary:
@@ -73,7 +75,7 @@ define([
 
 		postCreate: function(){
 			this.inherited(arguments);
-			this.connect(this.domNode, "onclick", "_onClick");
+			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
 		},
 
 		_setLabelAttr: function(/*String*/ content){

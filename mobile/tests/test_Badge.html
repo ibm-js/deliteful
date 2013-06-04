@@ -9,17 +9,19 @@
 	<link href="../themes/common/domButtons/DomButtonRedBadge.css" rel="stylesheet"/>
 	<link href="../themes/common/domButtons/DomButtonGreenBadge.css" rel="stylesheet"/>
 	<link href="../themes/common/domButtons/DomButtonBlueBadge.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<script type="text/javascript">
 		require([
 			"dojo/dom",
+			"dojo/parser",
 			"dojox/mobile/Badge",
-			"dojox/mobile/parser",
 			"dojox/mobile",
-			"dojox/mobile/compat"
-		], function(dom, Badge){
-			dojo.ready(function(){
+			"dojox/mobile/compat",
+			"dojo/domReady!"
+		], function(dom, parser, Badge){
+				parser.parse();
+
 				var b1 = new Badge();
 				b1.setValue("33");
 				dom.byId("container1").appendChild(b1.domNode);
@@ -41,7 +43,6 @@
 					}
 					btn1.setValue(c);
 				}, 500);
-			});
 		});
 	</script>
 </head>
@@ -52,7 +53,7 @@
 	<hr>
  	<div id="container1"></div>
 	<hr>
-	<div data-dojo-id="btn1" data-dojo-type="dojox.mobile.Badge" class="mblDomButtonRedBadge"></div>
+	<div data-dojo-id="btn1" data-dojo-type="dojox/mobile/Badge" class="mblDomButtonRedBadge"></div>
 
 </body>
 </html>

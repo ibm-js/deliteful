@@ -10,8 +10,8 @@
 	data-dojo-config="async: true, parseOnLoad: true"></script>
 <script language="JavaScript" type="text/javascript">
 	require([
-		"dojox/mobile/parser",
-		"dojo/ready",
+		"dojo/parser",
+		"dojo/domReady",
 		"dijit/registry",
 		"doh/runner",
 		"dojox/mobile/Heading",
@@ -125,7 +125,7 @@
 		};
 		
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.ListItem3_Programmatic", [
+			runner.register("dojox/mobile/test.doh.ListItem3_Programmatic", [
 				{
 					name: "ListItem3_Programmatic for ListItem created with clickable at false",
 					timeout: 2000,

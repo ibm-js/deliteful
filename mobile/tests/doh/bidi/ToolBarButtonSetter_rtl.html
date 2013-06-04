@@ -17,17 +17,17 @@
 		var WIDGET_LABEL1 = "XXXX";
 		require([
 			"dojo/dom-class", // dojo.hasClass
-			"dojo/ready",
+			"dojo/domReady",
 			"dijit/registry",
 			"doh/runner",	//doh functions
 			"dojox/mobile/tests/doh/TestHelper",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/TabBar"
 		], function(domClass, ready, registry, runner, TestHelper){
 			ready(function(){
-				runner.register("dojox.mobile.test.doh.ToolBarButton", [
+				runner.register("dojox/mobile/test.doh.ToolBarButton", [
 					{
 						name: "ToolBarButton setter 1",
 						timeout: 4000,
@@ -158,14 +158,14 @@
 	</script>
 </head>
 <body style="visibility:hidden;" dir="rtl">
-	<div data-dojo-type="dojox.mobile.Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn1" data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='light:false'>MMMM</button>
+	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false'>MMMM</button>
 	</div>
-	<div data-dojo-type="dojox.mobile.Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn2" data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='light:false, arrow:"left"'>MMMM</button>
+	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn2" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"left"'>MMMM</button>
 	</div>
-	<div data-dojo-type="dojox.mobile.Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn3" data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='light:false, arrow:"right"'>MMMM</button>
+	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn3" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"right"'>MMMM</button>
 	</div>
 </body>
 </html>

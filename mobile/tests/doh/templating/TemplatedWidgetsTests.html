@@ -144,12 +144,12 @@
 			TemplatedWithWidgetsHeading1, TemplatedSwitch, TemplatedView1;
 		
 		require([
-			"dojo/ready",
+			"dojo/domReady",
 			"dojo/dom",
 			"dojo/dom-class",
 			"dojo/sniff",
 			"dijit/registry",
-			"dojox/mobile/parser",
+			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojo/_base/declare",
@@ -234,7 +234,7 @@
 		);
 		
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.TemplatedWidgetsTests", [
+			runner.register("dojox/mobile/test.doh.TemplatedWidgetsTests", [
 				function testTemplatedListItem(){
 					// 1. Using markup 
 					

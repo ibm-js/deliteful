@@ -1,5 +1,6 @@
 define([
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-attr",
@@ -10,7 +11,7 @@ define([
 	"./Pane",
 	"./iconUtils",
 	"dojo/sniff"
-], function(declare, win, domClass, domAttr, domConstruct, on, touch, registry, Pane, iconUtils, has){
+], function(declare, lang, win, domClass, domAttr, domConstruct, on, touch, registry, Pane, iconUtils, has){
 	// module:
 	//		dojox/mobile/SimpleDialog
 
@@ -109,9 +110,9 @@ define([
 					className: "mblSimpleDialogCloseBtn "+this.closeButtonClass
 				}, this.domNode);
 				iconUtils.createDomButton(this.closeButtonNode);
-				this.connect(this.closeButtonNode, "onclick", "_onCloseButtonClick");
+				this.own(on(this.closeButtonNode, "click", lang.hitch(this, "_onCloseButtonClick")));
 			}
-			this.connect(this.domNode, "onkeydown", "_onKeyDown"); // for desktop browsers
+			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onKeyDown"))); // for desktop browsers
 		},
 
 		startup: function(){

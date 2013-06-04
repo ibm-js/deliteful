@@ -1,11 +1,11 @@
 define([
 	"dojo/_base/array",	// array.forEach
 	"dojo/_base/config",
-	"dojo/_base/connect",	// connect.connect
 	"dojo/_base/fx",	// fx.fadeOut, fx.fadeIn
 	"dojo/_base/lang",	// lang.extend, lang.isArray
 	"dojo/sniff",		// has("webkit"), has("ie")
 	"dojo/_base/window",	// win.doc, win.body
+	"dojo/aspect",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
@@ -13,7 +13,7 @@ define([
 	"dojo/dom-attr",
 	"dojo/fx",
 	"dojo/fx/easing",
-	"dojo/ready",
+	"dojo/domReady",
 	"dojo/uacss",
 	"dijit/registry",	// registry.byNode
 	"dojox/fx",
@@ -28,7 +28,7 @@ define([
 	"./View",
 	"./Heading",
 	"require"
-], function(array, config, connect, bfx, lang, has, win, domClass, domConstruct, domGeometry, domStyle, domAttr, fx, easing, ready, uacss, registry, xfx, flip, EdgeToEdgeList, IconContainer, ProgressIndicator, RoundRect, RoundRectList, ScrollableView, Switch, View, Heading, require){
+], function(array, config, bfx, lang, has, win, domClass, domConstruct, domGeometry, domStyle, domAttr, fx, easing, domReady, uacss, registry, xfx, flip, EdgeToEdgeList, IconContainer, ProgressIndicator, RoundRect, RoundRectList, ScrollableView, Switch, View, Heading, require){
 
 	// module:
 	//		dojox/mobile/compat
@@ -102,7 +102,7 @@ return {
 					toNode.style.left = w*dir + "px";
 					toNode.style.display = "";
 					anim = fx.combine([s1,s2]);
-					connect.connect(anim, "onEnd", this, function(){
+					aspect.after(anim, "onEnd", lang.hitch(this, function(){
 						if(!this._inProgress){ return; } // transition has been aborted
 						fromNode.style.display = "none";
 						fromNode.style.left = "0px";
@@ -113,7 +113,7 @@ return {
 							toWidget.containerNode.style.paddingTop = "";
 						}
 						this.invokeCallback();
-					});
+					}));
 					anim.play();
 				}else if(transition == "slidev" || transition == "coverv" || transition == "reavealv"){
 					var h = fromNode.offsetHeight;
@@ -134,12 +134,12 @@ return {
 					toNode.style.left = "0px";
 					toNode.style.display = "";
 					anim = fx.combine([s1,s2]);
-					connect.connect(anim, "onEnd", this, function(){
+					aspect.after(anim, "onEnd", lang.hitch(this, function(){
 						if(!this._inProgress){ return; } // transition has been aborted
 						fromNode.style.display = "none";
 						toNode.style.position = "relative";
 						this.invokeCallback();
-					});
+					}));
 					anim.play();
 				}else if(transition == "flip"){
 					anim = xfx.flip({
@@ -150,13 +150,13 @@ return {
 					});
 					toNode.style.position = "absolute";
 					toNode.style.left = "0px";
-					connect.connect(anim, "onEnd", this, function(){
+					aspect.after(anim, "onEnd", lang.hitch(this, function(){
 						if(!this._inProgress){ return; } // transition has been aborted
 						fromNode.style.display = "none";
 						toNode.style.position = "relative";
 						toNode.style.display = "";
 						this.invokeCallback();
-					});
+					}));
 					anim.play();
 				}else {
 					// other transitions - "fade", "dissolve", "swirl"
@@ -174,13 +174,13 @@ return {
 					toNode.style.left = "0px";
 					toNode.style.display = "";
 					domStyle.set(toNode, "opacity", 0);
-					connect.connect(anim, "onEnd", this, function(){
+					aspect.after(anim, "onEnd", lang.hitch(this, function(){
 						if(!this._inProgress){ return; } // transition has been aborted
 						fromNode.style.display = "none";
 						toNode.style.position = "relative";
 						domStyle.set(fromNode, "opacity", 1);
 						this.invokeCallback();
-					});
+					}));
 					anim.play();
 				}
 			},
@@ -614,7 +614,7 @@ return {
 			if(doResize !== false){ dm.resizeAll(); }
 		};
 
-		ready(function(){
+		domReady(function(){
 			if(config["mblLoadCompatCssFiles"] !== false){
 				dm.loadCompatCssFiles();
 			}

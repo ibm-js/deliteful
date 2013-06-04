@@ -1,9 +1,9 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/Deferred",
+	"dojo/Deferred",
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"dojo/_base/xhr",
+	"dojo/request/xhr",
 	"./_ExecScriptMixin",
 	"./ProgressIndicator",
 	"./lazyLoadUtils"
@@ -96,12 +96,19 @@ define([
 			}
 			this._set("href", href);
 			this._loaded = href;
+/*
 			return xhr.get({
 				url: href,
 				handleAs: "text",
 				load: lang.hitch(this, "loadHandler"),
 				error: lang.hitch(this, "errorHandler")
 			});
+*/
+			return xhr(href, {
+				handleAs: "text"
+			}).then(lang.hitch(this, "loadHandler"),
+				lang.hitch(this, "errorHandler")
+			);
 		},
 
 		_setContentAttr: function(/*String|DomNode*/data){
@@ -118,7 +125,7 @@ define([
 			}
 			if(this.parseOnLoad){
 				var _this = this;
-				return Deferred.when(lazyLoadUtils.instantiateLazyWidgets(_this.containerNode), function(){
+				return lazyLoadUtils.instantiateLazyWidgets(_this.containerNode).then(function(){
 					if(_this._p){ _this._p.stop(); }
 					return _this.onLoad();
 				});
