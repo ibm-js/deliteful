@@ -6,12 +6,13 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
+	"dojo/dom-geom",
 	"dojo/on",
 	"dojo/touch",
 	"dojo/sniff",
 	"./_css3",
 	"./_maskUtils"
-], function(kernel, lang, win, aspect, domClass, domConstruct, domStyle, on, touch, has, css3, maskUtils){
+], function(kernel, lang, win, aspect, domClass, domConstruct, domStyle, domGeom, on, touch, has, css3, maskUtils){
 
 	// module:
 	//		dojox/mobile/scrollable
@@ -296,7 +297,7 @@ define([
 			for(var n = this.domNode; n && n.tagName != "BODY"; n = n.offsetParent){
 				n = this.findDisp(n); // find the first displayed view node
 				if(!n){ break; }
-				top += n.offsetTop;
+				top += n.offsetTop + domGeom.getBorderExtents(n).h;
 			}
 
 			// adjust the height of this view
@@ -305,7 +306,7 @@ define([
 				dh = screenHeight - top - this._appFooterHeight; // default height
 			if(this.height === "inherit"){
 				if(this.domNode.offsetParent){
-					h = this.domNode.offsetParent.offsetHeight + "px";
+					h = domGeom.getContentBox(this.domNode.offsetParent).h - domGeom.getBorderExtents(this.domNode).h + "px";
 				}
 			}else if(this.height === "auto"){
 				var parent = this.domNode.offsetParent;
@@ -346,6 +347,9 @@ define([
 		},
 
 		onFlickAnimationEnd: function(e){
+			if(has("ios")){
+				this._keepInputCaretInActiveElement();
+			}
 			if(e){
 				var an = e.animationName;
 				if(an && an.indexOf("scrollableViewScroll2") === -1){
@@ -524,6 +528,24 @@ define([
 			this._time.push((new Date()).getTime() - this.startTime);
 			this._posX.push(x);
 			this._posY.push(y);
+		},
+
+		_keepInputCaretInActiveElement: function(){
+			var activeElement = win.doc.activeElement, initialValue;
+			if(activeElement && (activeElement.tagName == "INPUT" || activeElement.tagName == "TEXTAREA")){
+				initialValue = activeElement.value;
+				if(activeElement.type == "number" || activeElement.type == "week"){
+					if(initialValue){
+						activeElement.value = activeElement.value + 1;
+					}else{
+						activeElement.value = (activeElement.type == "week") ? "2013-W10" : 1;
+					}
+					activeElement.value = initialValue;
+				}else{
+					activeElement.value = activeElement.value + " ";
+					activeElement.value = initialValue;
+				}
+			}
 		},
 
 		onTouchEnd: function(/*Event*/e){
@@ -838,6 +860,9 @@ define([
 					if(this._h || this._f){
 						s.left = to.x + "px";
 					}
+				}
+				if(has("ios")){
+					this._keepInputCaretInActiveElement();
 				}
 				if(!doNotMoveScrollBar){
 					this.scrollScrollBarTo(this.calcScrollBarPos(to));
