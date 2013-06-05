@@ -67,7 +67,7 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 			this.inherited(arguments);
-			var i;
+			var i, len;
 		 	if(this.domNode.canPlayType){
 				if(this.source.length > 0){
 					for(i = 0, len = this.source.length; i < len; i++){
@@ -87,6 +87,7 @@ define([
 			has.add("mobile-embed-audio-video-support", true);	//It should move to staticHasFeatures
 		 	if(has("mobile-embed-audio-video-support")){
 				if(!this._playable){
+					var re;
 					for(i = 0, len = this.source.length, re = this._getEmbedRegExp(); i < len; i++){
 					 	if(this.source[i].type.match(re)){
 							var node = domConstruct.create("embed", {

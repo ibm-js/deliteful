@@ -204,7 +204,7 @@ define([
 			// scrolling machinery. To avoid this misbehavior:
 			if(win.global.addEventListener){ // all supported browsers but IE8
 				// (for IE8, using attachEvent is not a solution, because it only works in bubbling phase)
-				this._onScroll = function(e){
+				this._onScroll = function(){
 					if(!_this.domNode || _this.domNode.style.display === 'none'){ return; }
 					var scrollTop = _this.domNode.scrollTop;
 					var scrollLeft = _this.domNode.scrollLeft; 

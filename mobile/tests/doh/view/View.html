@@ -74,18 +74,18 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
-		dojo.require("dojox.mobile.parser");
+		dojo.require("dojox/mobile/parser");
 		dojo.require("dojox.mobile");
-		dojo.require("dojox.mobile.ScrollableView");
-		dojo.require("dojox.mobile.TabBar");
-		dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+		dojo.require("dojox/mobile/ScrollableView");
+		dojo.require("dojox/mobile/TabBar");
+		dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
 
         dojo.require("doh.runner");
 
 		dojo.addOnLoad(function(){
-			doh.register("dojox.mobile.test.doh.View", [
+			doh.register("dojox/mobile/test.doh.View", [
 				{
 					name: "test View Verification",
 					timeout: 3000,
@@ -107,13 +107,13 @@
 	</script>
 </head>
 <body>
-	<div id="group1" dojoType="dojox.mobile.View" selected="true">
+	<div id="group1" data-dojo-type="dojox/mobile/View" selected="true">
 	aaa
 
 	</div>
 
-	<div id="categ" dojoType="dojox.mobile.ScrollableView">
-		<h1 dojoType="dojox.mobile.Heading" fixed="top">Categories</h1>
+	<div id="categ" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" fixed="top">Categories</h1>
 		bbb
 	</div>
 

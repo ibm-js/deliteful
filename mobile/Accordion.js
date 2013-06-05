@@ -382,7 +382,7 @@ define([
 				pane.lazy = false;
 			}
 			var children = this.getChildren();
-			array.forEach(children, function(c, i){
+			array.forEach(children, function(c){
 				c.domNode.style[css3.name("transition")] = noAnimation ? "" : "height "+this.duration+"s linear";
 				if(c === pane){
 					c.domNode.style.display = "";

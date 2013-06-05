@@ -95,7 +95,7 @@ define([
 		buildRendering: function(){
 			this.containerNode = domConstruct.create("div", {className: "mblCarouselPages"});
 			this.inherited(arguments);
-			var i;
+			var i, len;
 			if(this.srcNodeRef){
 				// reparent
 				for(i = 0, len = this.srcNodeRef.childNodes.length; i < len; i++){
@@ -140,7 +140,7 @@ define([
 			this.own(topic.subscribe("/dojox/mobile/viewChanged", lang.hitch(this, "handleViewChanged")));
 			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
 			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick")));
-			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+			this.own(on(this.domNode, "dragstart", function(e){
 				e.preventDefault();
 				e.stopPropagation();
 			}))[0];
@@ -183,7 +183,7 @@ define([
 		resizeItems: function(){
 			// summary:
 			//		Resizes the child items of the carousel.
-			var idx = 0, i;
+			var idx = 0, i, len;
 			var h = this.domNode.offsetHeight - (this.headerNode ? this.headerNode.offsetHeight : 0);
 			var m = has("ie") ? 5 / this.numVisible-1 : 5 / this.numVisible;
 			var node, item;
@@ -431,7 +431,7 @@ define([
 				if(isHidden){
 					domStyle.set(view.domNode, {visibility:"hidden", display:""});
 				}
-				lazyLoadUtils.instantiateLazyWidgets(view.containerNode, null, function(root){
+				lazyLoadUtils.instantiateLazyWidgets(view.containerNode, null, function(){
 					if(isHidden){
 						domStyle.set(view.domNode, {visibility:"visible", display:"none"});
 					}

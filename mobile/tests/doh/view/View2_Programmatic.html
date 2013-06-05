@@ -74,18 +74,18 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
-		dojo.require("dojox.mobile.parser");
+		dojo.require("dojox/mobile/parser");
 		dojo.require("dojox.mobile");
-		dojo.require("dojox.mobile.ScrollableView");
-		dojo.require("dojox.mobile.TabBar");
-		dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+		dojo.require("dojox/mobile/ScrollableView");
+		dojo.require("dojox/mobile/TabBar");
+		dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
 
         dojo.require("doh.runner");
 		dojo.addOnLoad(function(){
 
-			doh.register("dojox.mobile.test.doh.View", [
+			doh.register("dojox/mobile/test.doh.View", [
 				{
 					name: "test View Verification",
 					timeout: 4000,
@@ -107,8 +107,8 @@
 	</script>
 </head>
 <body>
-		<div dojoType="dojox.mobile.ScrollableView" selected="true">
-			<h1 dojoType="dojox.mobile.Heading" fixed="top">View Header Bar</h1>
+		<div data-dojo-type="dojox/mobile/ScrollableView" selected="true">
+			<h1 data-dojo-type="dojox/mobile/Heading" fixed="top">View Header Bar</h1>
 			<table border="1" cellpadding="2" cellspacing="0" style="margin:4px;background-color:white;">
 <tr><td>a-icon-1-41x41.png</td><td>2010/03/23</td><td>13:03</td><td>3,886</td><td>mobile/tests/images</td></tr>
 <tr><td>a-icon-1.png</td><td>2010/03/23</td><td>13:03</td><td>550</td><td>mobile/tests/images</td></tr>
@@ -192,7 +192,7 @@
 <tr><td>view3.json</td><td>2010/10/05</td><td>21:09</td><td>1,054</td><td>mobile/tests</td></tr>
 <tr><td>widget-bg.png</td><td>2010/03/23</td><td>13:03</td><td>26,234</td><td>mobile/tests/images</td></tr>
 			</table>
-			<h1 dojoType="dojox.mobile.Heading" fixed="bottom" style="border-bottom:none;">View Footer Bar</h1>
+			<h1 data-dojo-type="dojox/mobile/Heading" fixed="bottom" style="border-bottom:none;">View Footer Bar</h1>
 		</div>
 </body>
 </html>

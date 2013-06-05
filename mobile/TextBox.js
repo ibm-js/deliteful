@@ -22,7 +22,6 @@ define([
 
 		// Map widget attributes to DOMNode attributes.
 		_setPlaceHolderAttr: function(/*String*/value){
-			value = value;
 			this._set("placeHolder", value);
 			this.textbox.setAttribute("placeholder", value);
 		},

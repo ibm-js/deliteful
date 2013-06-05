@@ -50,7 +50,7 @@
 		};
 
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.SwitchTests", [
+			runner.register("dojox/mobile/test.doh.SwitchTests", [
 				function testInView1(){
 					var switch1 = _createSwitchDeclaratively("view1-switch1");
 					var switch2 = _createSwitchProgrammatically("view1-switch2");
@@ -78,15 +78,15 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<div id="view1-switch1" data-dojo-type="dojox.mobile.Switch"></div>
+		<div id="view1-switch1" data-dojo-type="dojox/mobile/Switch"></div>
 		<div id="view1-switch2"></div>
 		<div id="view1-switch3"></div>
 	</div>	
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<div id="view2-switch1" data-dojo-type="dojox.mobile.Switch"></div>
+		<div id="view2-switch1" data-dojo-type="dojox/mobile/Switch"></div>
 		<div id="view2-switch2"></div>
 		<div id="view2-switch3"></div>
 	</div>

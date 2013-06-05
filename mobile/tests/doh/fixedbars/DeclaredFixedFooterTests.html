@@ -36,7 +36,7 @@
 					if (has("ie") && has("ie")>=10){
 						extraPadding = 8;
 					}
-					doh.register("dojox.mobile.test.doh.fixedbars.DeclaredFixedFooterTests", [
+					doh.register("dojox/mobile/test.doh.fixedbars.DeclaredFixedFooterTests", [
    						{
  							name: "ticket #17006: verify tabbar is correct on view Home1",
  							timeout: 10000,
@@ -87,37 +87,37 @@
 </head>
 <body style="visibility:hidden;">
 
-    <div id="tabBar" data-dojo-type="dojox.mobile.View">
+    <div id="tabBar" data-dojo-type="dojox/mobile/View">
     
-        <div id="groups" data-dojo-type="dojox.mobile.View">    
-            <div id="tabHome1" data-dojo-type="dojox.mobile.ScrollableView"
+        <div id="groups" data-dojo-type="dojox/mobile/View">
+            <div id="tabHome1" data-dojo-type="dojox/mobile/ScrollableView"
                 selected="true" fixedFooter="thetabbar">
-                <h1 data-dojo-type="dojox.mobile.Heading" fixed="top">Home1</h1>
-                <div data-dojo-type="dojox.mobile.EdgeToEdgeList"
+                <h1 data-dojo-type="dojox/mobile/Heading" fixed="top">Home1</h1>
+                <div data-dojo-type="dojox/mobile/EdgeToEdgeList"
                     class="edgeToEdgeList">
-                    <li id="mvToHome2" data-dojo-type="dojox.mobile.ListItem" moveTo="tabHome2">To Home2</li>
+                    <li id="mvToHome2" data-dojo-type="dojox/mobile/ListItem" moveTo="tabHome2">To Home2</li>
                 </div>
             </div>
-            <div id="tabHome2" data-dojo-type="dojox.mobile.ScrollableView" fixedFooter="thetabbar">
-                <h1 data-dojo-type="dojox.mobile.Heading" fixed="top">Home2</h1>
-                <div data-dojo-type="dojox.mobile.EdgeToEdgeList"
+            <div id="tabHome2" data-dojo-type="dojox/mobile/ScrollableView" fixedFooter="thetabbar">
+                <h1 data-dojo-type="dojox/mobile/Heading" fixed="top">Home2</h1>
+                <div data-dojo-type="dojox/mobile/EdgeToEdgeList"
                     class="edgeToEdgeList">
-                    <li data-dojo-type="dojox.mobile.ListItem" moveTo="tabHome1">To Home1</li>
+                    <li data-dojo-type="dojox/mobile/ListItem" moveTo="tabHome1">To Home1</li>
                 </div>
-                <h1 id="statusbar" data-dojo-type="dojox.mobile.Heading" fixed="bottom">status bar</h1>
+                <h1 id="statusbar" data-dojo-type="dojox/mobile/Heading" fixed="bottom">status bar</h1>
             </div>            
         </div>
         
-        <div id="tabEvents" data-dojo-type="dojox.mobile.ScrollableView">
-            <h1 data-dojo-type="dojox.mobile.Heading" fixed="top">Events</h1>
-            <div data-dojo-type="dojox.mobile.RoundRect" shadow="true">Events</div>
+        <div id="tabEvents" data-dojo-type="dojox/mobile/ScrollableView">
+            <h1 data-dojo-type="dojox/mobile/Heading" fixed="top">Events</h1>
+            <div data-dojo-type="dojox/mobile/RoundRect" shadow="true">Events</div>
         </div>
 
-        <ul id="thetabbar" data-dojo-type="dojox.mobile.TabBar" fixed="bottom"
+        <ul id="thetabbar" data-dojo-type="dojox/mobile/TabBar" fixed="bottom"
             iconBase="../../images/tab-icons.png">
-            <li data-dojo-type="dojox.mobile.TabBarButton" moveTo="groups"
+            <li data-dojo-type="dojox/mobile/TabBarButton" moveTo="groups"
                 iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Home</li>
-            <li id="mvToTabEvents" data-dojo-type="dojox.mobile.TabBarButton" moveTo="tabEvents"
+            <li id="mvToTabEvents" data-dojo-type="dojox/mobile/TabBarButton" moveTo="tabEvents"
                 iconPos1="0,29,29,29" iconPos2="29,29,29,29">Events</li>
         </ul>
     </div>

@@ -90,7 +90,7 @@ define([
 					// As the native searchbox on iOS, clear on release, not on start.
 					handleRelease = on(win.doc, touch.release,
 						function(evt){
-							var rect, dx, dy;
+							var dx, dy;
 							if(_this.get("value") != ""){
 								dx = evt.pageX - touchStartX;
 								dy = evt.pageY - touchStartY;

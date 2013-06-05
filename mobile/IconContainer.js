@@ -111,7 +111,7 @@ define([
 				}else{
 					var view = this.appView = new View({id:this.id+"_mblApplView"});
 					var _this = this;
-					view.onAfterTransitionIn = function(moveTo, dir, transition, context, method){
+					view.onAfterTransitionIn = function(){
 						_this._opening._open_1();
 					};
 					view.domNode.style.visibility = "hidden";

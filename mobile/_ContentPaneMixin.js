@@ -61,7 +61,7 @@ define([
 			this.set("content", response);
 		},
 
-		errorHandler: function(err){
+		errorHandler: function(){
 			// summary:
 			//		An error handler called when load fails.
 			if(this._p){ this._p.stop(); }

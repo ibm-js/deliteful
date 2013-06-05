@@ -8,22 +8,21 @@
 
 	<script type="text/javascript" src="../deviceTheme.js"
 		data-dojo-config="mblThemeFiles: ['base','TabBar','dojox/mobile/themes/common/domButtons.css']"></script>
-	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/domReady",
+			"dojo/domReady!",
 			"dijit/registry",
 			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/TabBar"
-		], function(ready, registry){
-			ready(function(){
-				var btn1 = registry.byId("btn1");
-				btn1.connect(btn1, "onClick", function(){
-					console.log(this.label + " button was clicked");
-				});
+		], function(ready, registry, parser){
+			parser.parse();
+			var btn1 = registry.byId("btn1");
+			btn1.on("click", function(){
+				console.log(this.label + " button was clicked");
 			});
 		});
 	</script>
@@ -190,13 +189,11 @@
 	
 	<!-- Test cases for #16771 -->
 	<!-- a) With arrow but no label (nor icon) -->
-	<h1 dojoType="dojox/mobile/Heading"
-		data-dojo-props="label: 'ToolBarButon with left arrow and no label'">
-		<span data-dojo-type="dojox/mobile/ToolBarButton"
-			data-dojo-props="arrow: 'left'"/>
+	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="label: 'ToolBarButon with left arrow and no label'">
+		<span data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props="arrow: 'left'"/>
 	</h1><br>
 		
-	<h1 dojoType="dojox/mobile/Heading"
+	<h1 data-dojo-type="dojox/mobile/Heading"
 		data-dojo-props="label: 'ToolBarButon with right arrow and no label'">
 		<span data-dojo-type="dojox/mobile/ToolBarButton"
 			data-dojo-props="arrow: 'right'"/>

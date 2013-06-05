@@ -81,10 +81,10 @@ define([
 					child.destroyRecursive();
 				});
 			}
-			array.forEach(items, function(item, index){
+			array.forEach(items, function(item){
 				this.addChild(this.createListItem(item));
 				if(item[this.childrenProperty]){
-					array.forEach(item[this.childrenProperty], function(child, index){
+					array.forEach(item[this.childrenProperty], function(child){
 						this.addChild(this.createListItem(child));
 					}, this);
 				}

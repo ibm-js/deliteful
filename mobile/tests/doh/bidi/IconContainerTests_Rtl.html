@@ -114,7 +114,7 @@
 			view1.performTransition("view2", 1, "none");
 		}
 		dojo.ready(function(){
-			doh.register("dojox.mobile.test.doh.IconContainerTests", [
+			doh.register("dojox/mobile/test.doh.IconContainerTests", [
 				function testInView1(){
 					var widget1 = _createIconContainerDeclaratively("dojox_mobile_IconContainer_0");
 					var widget2 = _createIconContainerProgrammatically("view1-IconContainer2place", "view1-IconContainer2");
@@ -160,16 +160,16 @@
 </script>
 </head>
 <body dir="rtl">
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
 		<table  style="position:relative"><tbody><tr><td style="width:310px;"><img src="../../../images/blank.png" width="310" height="1" alt=""/>
-			<ul data-dojo-type="dojox.mobile.IconContainer">
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app1", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app2", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app3", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"moveTo", icon:"../../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"href", icon:"../../images/icon-1.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"'></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"url" , icon:"../../images/icon-1.png", url:"../../view-sample.html", transition:"slide"'></li>
+			<ul data-dojo-type="dojox/mobile/IconContainer">
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"../../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href", icon:"../../images/icon-1.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"'></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url" , icon:"../../images/icon-1.png", url:"../../view-sample.html", transition:"slide"'></li>
 			</ul>
 		</td></tr></tbody></table>
 		<table style="position:relative"><tbody><tr><td style="width:310px;"><img src="../../../images/blank.png" width="310" height="1" alt=""/>
@@ -186,16 +186,16 @@
 			</ul>
 		</td></tr></tbody></table>
 	</div>
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
 		<table style="position:relative"><tbody><tr><td style="width:310px;"><img src="../../../images/blank.png" width="310" height="1" alt=""/>
-			<ul data-dojo-type="dojox.mobile.IconContainer">
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app1", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app2", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"app3", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"moveTo", icon:"../../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"href", icon:"../../images/icon-1.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"'></li>
-				<li data-dojo-type="dojox.mobile.IconItem" data-dojo-props='label:"url" , icon:"../../images/icon-1.png", url:"../../view-sample.html", transition:"slide"'></li>
+			<ul data-dojo-type="dojox/mobile/IconContainer">
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3", icon:"../../images/icon-1.png", lazy:"true"'><div class="box"></div></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"../../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href", icon:"../../images/icon-1.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"'></li>
+				<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url" , icon:"../../images/icon-1.png", url:"../../view-sample.html", transition:"slide"'></li>
 			</ul>
 		</td></tr></tbody></table>
 		<table style="position:relative"><tbody><tr><td style="width:310px;"><img src="../../../images/blank.png" width="310" height="1" alt=""/>

@@ -22,7 +22,7 @@ define(["dojo/_base/declare", "dojo/on"], function(declare, on){
 			// summary:
 			//		Dispatches this transition event. Emits a "startTransition" event on the target.
 			var opts = {bubbles:true, cancelable:true, detail: this.transitionOptions, triggerEvent: this.triggerEvent};	
-			var evt = on.emit(this.target,"startTransition", opts);
+			on.emit(this.target,"startTransition", opts);
 		}
 	});
 });

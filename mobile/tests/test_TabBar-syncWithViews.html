@@ -27,72 +27,72 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="featured" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Featured</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"categ"'>
+	<div id="featured" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Featured</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"categ"'>
 				Next View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"updates", transitionDir:-1'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"updates", transitionDir:-1'>
 				Previous View
 			</li>
 		</ul>
 	</div>
 
-	<div id="categ" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Category</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"top25"'>
+	<div id="categ" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Category</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"top25"'>
 				Next View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"featured", transitionDir:-1'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"featured", transitionDir:-1'>
 				Previous View
 			</li>
 		</ul>
 	</div>
 
-	<div id="top25" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Top 25</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"search"'>
+	<div id="top25" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Top 25</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"search"'>
 				Next View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"categ", transitionDir:-1'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"categ", transitionDir:-1'>
 				Previous View
 			</li>
 		</ul>
 	</div>
 
-	<div id="search" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Search</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"updates"'>
+	<div id="search" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Search</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"updates"'>
 				Next View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"top25", transitionDir:-1'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"top25", transitionDir:-1'>
 				Previous View
 			</li>
 		</ul>
 	</div>
 
-	<div id="updates" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>Updates</h1>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"featured"'>
+	<div id="updates" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>Updates</h1>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"featured"'>
 				Next View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"search", transitionDir:-1'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"search", transitionDir:-1'>
 				Previous View
 			</li>
 		</ul>
 	</div>
 
-	<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='fixed:"bottom", syncWithViews:true' style="border-bottom:none;">
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"images/tab-icon-16.png", icon2:"images/tab-icon-16h.png", moveTo:"featured"'>Featured</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"images/tab-icon-15.png", icon2:"images/tab-icon-15h.png", moveTo:"categ"'>Categories</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"images/tab-icon-10.png", icon2:"images/tab-icon-10h.png", moveTo:"top25"'>Top 25</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"images/tab-icon-11.png", icon2:"images/tab-icon-11h.png", moveTo:"search"'>Search</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"images/tab-icon-13.png", icon2:"images/tab-icon-13h.png", moveTo:"updates"'>Updates</li>
+	<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='fixed:"bottom", syncWithViews:true' style="border-bottom:none;">
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"images/tab-icon-16.png", icon2:"images/tab-icon-16h.png", moveTo:"featured"'>Featured</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"images/tab-icon-15.png", icon2:"images/tab-icon-15h.png", moveTo:"categ"'>Categories</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"images/tab-icon-10.png", icon2:"images/tab-icon-10h.png", moveTo:"top25"'>Top 25</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"images/tab-icon-11.png", icon2:"images/tab-icon-11h.png", moveTo:"search"'>Search</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"images/tab-icon-13.png", icon2:"images/tab-icon-13h.png", moveTo:"updates"'>Updates</li>
 	</ul>
 </body>
 </html>

@@ -43,48 +43,48 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-<!---	<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:{"iphone_theme":"segmentedControl","*":"tallTab"}, fixed:"top"'>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='selected:true, moveTo:"view1"'> LTR</li>
-		<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='moveTo:"view2"'> RTL</li>
+<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+<!---	<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:{"iphone_theme":"segmentedControl","*":"tallTab"}, fixed:"top"'>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='selected:true, moveTo:"view1"'> LTR</li>
+		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view2"'> RTL</li>
 	</ul>--->
-	<div id="view0" data-dojo-type="dojox.mobile.ScrollableView">
-	        <h2 data-dojo-type="dojox.mobile.Heading">Accordion widget</h2>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir LTR</h1>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
+	        <h2 data-dojo-type="dojox/mobile/Heading">Accordion widget</h2>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
 	
 	
-	<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 				
-		<div data-dojo-type="dojox.mobile.Accordion" id="1" data-dojo-props='textDir: "ltr",singleOpen:true, roundRect:true' style="height:200px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+		<div data-dojo-type="dojox/mobile/Accordion" id="1" data-dojo-props='textDir: "ltr",singleOpen:true, roundRect:true' style="height:200px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -93,32 +93,32 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>				
 	</div>
 	
 		
-	<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
-		<div data-dojo-type="dojox.mobile.Accordion" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+		<div data-dojo-type="dojox/mobile/Accordion" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -127,7 +127,7 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>
@@ -137,26 +137,26 @@
 		
 		
 		
-	<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
 	
-		<div data-dojo-type="dojox.mobile.Accordion" data-dojo-props='textDir: "auto",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" id="cp" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+		<div data-dojo-type="dojox/mobile/Accordion" data-dojo-props='textDir: "auto",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" id="cp" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -165,32 +165,32 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>
 	</div>	
 	 
 	 
-	<div dir="rtl" id="view4" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
-		<div data-dojo-type="dojox.mobile.Accordion" dir="rtl" data-dojo-props='textDir: "ltr",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+	<div dir="rtl" id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+		<div data-dojo-type="dojox/mobile/Accordion" dir="rtl" data-dojo-props='textDir: "ltr",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -199,32 +199,32 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>
 		
 		
 	</div>
-	<div id="view5" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
-		<div data-dojo-type="dojox.mobile.Accordion" dir="rtl" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+	<div id="view5" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+		<div data-dojo-type="dojox/mobile/Accordion" dir="rtl" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -233,32 +233,32 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>
 		
 		</div>	
 		
-	<div dir="rtl" id="view6" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
-		<div data-dojo-type="dojox.mobile.Accordion" dir="rtl" data-dojo-props='textDir: "auto",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
+	<div dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+		<div data-dojo-type="dojox/mobile/Accordion" dir="rtl" data-dojo-props='textDir: "auto",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello World!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox.mobile.RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!",icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Hello &#1506;&#1493;&#1500;&#1501;!", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>
@@ -267,7 +267,7 @@
 						<p>Dojo's powerful, lightweight core makes common tasks quicker and easier. Animate elements, manipulate the DOM, and query with easy CSS syntax, all without sacrificing performance.</p>
 					</div>
 				</div>
-				<div data-dojo-type="dojox.mobile.ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"&#1513;&#1500;&#1493;&#1501; World!"'>
 				</div>
 				</div>
 		</div>

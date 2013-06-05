@@ -74,11 +74,11 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
-		dojo.require("dojox.mobile.parser");
+		dojo.require("dojox/mobile/parser");
 		dojo.require("dojox.mobile");
-		dojo.require("dojox.mobile.ScrollableView");
-		dojo.require("dojox.mobile.TabBar");
-		dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+		dojo.require("dojox/mobile/ScrollableView");
+		dojo.require("dojox/mobile/TabBar");
+		dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
 
@@ -111,7 +111,7 @@
 			}
 
 			view.startup();
-			doh.register("dojox.mobile.test.doh.View", [
+			doh.register("dojox/mobile/test.doh.View", [
 				{
 					name: "test View Verification",
 					timeout: 4000,

@@ -123,7 +123,7 @@ define([
 			}
 			return styles;
 		}
-	}
+	};
 	
 	return css3;
 });

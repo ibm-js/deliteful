@@ -89,117 +89,117 @@
 </head>
 	
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
 
-	<div id="view0" data-dojo-type="dojox.mobile.ScrollableView">
-	        <h2 data-dojo-type="dojox.mobile.Heading">StoredCarousel widget</h2>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir LTR</h1>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
+	        <h2 data-dojo-type="dojox/mobile/Heading">StoredCarousel widget</h2>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
 	
 	
-	<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 		
 			
-		<div id="foo1" data-dojo-type="dojox.mobile.View">
-			<div id="carousel1" data-dojo-type="dojox.mobile.StoreCarousel"
+		<div id="foo1" data-dojo-type="dojox/mobile/View">
+			<div id="carousel1" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel2" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel2" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel3" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel3" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel4" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel4" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 		</div>
 		
-		<button data-dojo-type="dojox.mobile.Button" id="btn0" >Set textDir for Carousel to ltr</button>
-			<button data-dojo-type="dojox.mobile.Button" id="btn1" >Set textDir for Carousel to rtl</button>
-			<button data-dojo-type="dojox.mobile.Button" id="btn2" >Set textDir for Carousel to auto</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn0" >Set textDir for Carousel to ltr</button>
+			<button data-dojo-type="dojox/mobile/Button" id="btn1" >Set textDir for Carousel to rtl</button>
+			<button data-dojo-type="dojox/mobile/Button" id="btn2" >Set textDir for Carousel to auto</button>
 	
 	</div>
 	
 		
-	<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
-			<div id="carousel5" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+			<div id="carousel5" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel6" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel6" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel7" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel7" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel8" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel8" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 					
 		
 	</div>
 		
-	<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
-			<div id="carouse9" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+			<div id="carouse9" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel0" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel0" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel11" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel11" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel12" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel12" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 				
-		<button data-dojo-type="dojox.mobile.Button" id="btnlbl" >Set new text Button for carousel</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btnlbl" >Set new text Button for carousel</button>
 		
 	</div>	
 	 
 	 
-	<div  id="view4" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
-		<div id="foo2" data-dojo-type="dojox.mobile.View">
-			<div id="carousel13" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div  id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+		<div id="foo2" data-dojo-type="dojox/mobile/View">
+			<div id="carousel13" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel14" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel14" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel15" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel15" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel16" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel16" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "ltr", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 			
 		</div>
 		
 	</div>
 	
-	<div id="view5" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
-			<div id="carousel17" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div id="view5" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+			<div id="carousel17" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel18" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel18" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel19" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel19" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel20" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel20" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "rtl", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 			
 		
 		
 	</div>	
 	
-	<div id="view6" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
-			<div id="carousel21" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+	<div id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+			<div id="carousel21" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello world!"'></div>
-			<div id="carousel22" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel22" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel23" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel23" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"Hello &#1506;&#1493;&#1500;&#1501;!"'></div>
-			<div id="carousel24" dir="rtl" data-dojo-type="dojox.mobile.StoreCarousel"
+			<div id="carousel24" dir="rtl" data-dojo-type="dojox/mobile/StoreCarousel"
 			data-dojo-props='textDir: "auto", height:"150px", navButton:true, store:store1, numVisible:"1", title:"&#1513;&#1500;&#1493;&#1501; World!"'></div>
 			
 		

@@ -47,7 +47,7 @@
 					
 		function _createListItem1(){
 			var MyListItem1 = declare(
-				"dojox.mobile.MyListItem1",
+				"dojox/mobile/MyListItem1",
 				ListItem,	{
 				startup: function(){
 					this.set("checked", true);
@@ -69,7 +69,7 @@
 		// by the setter of "checked".
 		function _createListItem2(){
 			var MyListItem2 = declare(
-				"dojox.mobile.MyListItem2",
+				"dojox/mobile/MyListItem2",
 				ListItem,	{
 				startup: function(){
 					this.set("icon", "../images/a-icon1.png");
@@ -104,7 +104,7 @@
 		// by the setter of "checked" (because the setter is not called).).
 		function _createListItem3(){
 			var MyListItem3 = declare(
-				"dojox.mobile.MyListItem3",
+				"dojox/mobile/MyListItem3",
 				ListItem,	{
 				startup: function(){
 					// This mimics what happens in dojox/mvc due to the binding mechanism:
@@ -142,7 +142,7 @@
 		// 4. Test the icon property for an IconItem added to an IconContainer
 		function _createIconItem(){
 			var MyIconItem = declare(
-				"dojox.mobile.MyIconItem",
+				"dojox/mobile/MyIconItem",
 				IconItem,	{
 				startup: function(){
 					this.set("icon", "../images/a-icon1.png");
@@ -162,7 +162,7 @@
 		// 5. Test the icon property for an IconMenuItem added to an IconMenu
 		function _createIconMenuItem(){
 			var MyIconMenuItem = declare(
-				"dojox.mobile.MyIconMenuItem",
+				"dojox/mobile/MyIconMenuItem",
 				IconMenuItem,	{
 				startup: function(){
 					this.set("icon", "../images/a-icon1.png");
@@ -182,7 +182,7 @@
 		// 6. Test the icon1 and icon2 properties for a TabBarButton added to a TabBar
 		function _createTabBarButton(){
 			var MyTabBarButton = declare(
-				"dojox.mobile.MyTabBarButton",
+				"dojox/mobile/MyTabBarButton",
 				TabBarButton,	{
 				startup: function(){
 					this.set("icon", "../images/a-icon1.png");
@@ -208,7 +208,7 @@
 		// 7. Test the icon property for a ToolBarButton added to a parent
 		function _createToolBarButton(){
 			var MyToolBarButton = declare(
-				"dojox.mobile.MyToolBarButton",
+				"dojox/mobile/MyToolBarButton",
 				ToolBarButton,	{
 				startup: function(){
 					this.set("icon", "../images/a-icon1.png");
@@ -226,7 +226,7 @@
 		};
 		
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.ItemBase_subclasses_Programmatic", [
+			runner.register("dojox/mobile/test.doh.ItemBase_subclasses_Programmatic", [
 				{
 					name: "ItemBase_subclasses_Programmatic ListItem.checked",
 					timeout: 2000,

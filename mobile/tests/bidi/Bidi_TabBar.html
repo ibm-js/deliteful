@@ -85,106 +85,106 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-	<div id="view0" data-dojo-type="dojox.mobile.ScrollableView">
-	 <h2 data-dojo-type="dojox.mobile.Heading">TabBar widget</h2>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir LTR</h1>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
+	 <h2 data-dojo-type="dojox/mobile/Heading">TabBar widget</h2>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
-	<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
-		<ul data-dojo-type="dojox.mobile.TabBar" id="tab1" data-dojo-props='barType:"standardTab",  textDir:"ltr"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>badge.</li>
+	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/TabBar" id="tab1" data-dojo-props='barType:"standardTab",  textDir:"ltr"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>badge.</li>
 		</ul><br>
 				<hr>
-		<button data-dojo-type="dojox.mobile.Button" id="btn5" class="mblRedButton" data-dojo-props='label:"Set textDir ltr"'></button>
-		<button data-dojo-type="dojox.mobile.Button" id="btn6" class="mblRedButton" data-dojo-props='label:"Set textDir rtl"'></button>
-		<button data-dojo-type="dojox.mobile.Button" id="btn7" class="mblRedButton" data-dojo-props='label:"Set textDir auto"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn5" class="mblRedButton" data-dojo-props='label:"Set textDir ltr"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn6" class="mblRedButton" data-dojo-props='label:"Set textDir rtl"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn7" class="mblRedButton" data-dojo-props='label:"Set textDir auto"'></button>
 		
 		<hr>
-		<h1 data-dojo-type="dojox.mobile.Heading" >TabBar textDir LTR, TabBarButton textDir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+		<h1 data-dojo-type="dojox/mobile/Heading" >TabBar textDir LTR, TabBarButton textDir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul><br>
 
 	</div>	
-	<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:"standardTab", textDir:"rtl"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>			
+	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"standardTab", textDir:"rtl"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
 		</ul><br>
 			<hr>
-			<h1 data-dojo-type="dojox.mobile.Heading">Programmatically created TabBarButton</h1>
+			<h1 data-dojo-type="dojox/mobile/Heading">Programmatically created TabBarButton</h1>
 		
 	</div>	
-	<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
-		<ul data-dojo-type="dojox.mobile.TabBar" id="tabAuto" data-dojo-props='barType:"standardTab", textDir:"auto"'>
-			<li id="tbAuto" data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li id="tbAuto1" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"new!"'>Hello World!</li>			
+	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
+		<ul data-dojo-type="dojox/mobile/TabBar" id="tabAuto" data-dojo-props='barType:"standardTab", textDir:"auto"'>
+			<li id="tbAuto" data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li id="tbAuto1" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"new!"'>Hello World!</li>
 		</ul><br>
 		<hr>		
-		<button data-dojo-type="dojox.mobile.Button" id="btnLbl" >Set new text</button>		
+		<button data-dojo-type="dojox/mobile/Button" id="btnLbl" >Set new text</button>
 		
 	</div>	
 	 
-	<div dir="rtl" id="view4" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
+	<div dir="rtl" id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
 		<hr>
-		<ul data-dojo-type="dojox.mobile.TabBar" id="tab11" data-dojo-props='barType:"standardTab",  textDir:"ltr"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
+		<ul data-dojo-type="dojox/mobile/TabBar" id="tab11" data-dojo-props='barType:"standardTab",  textDir:"ltr"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
 		</ul><br>	
 		<hr>
-		<h1 data-dojo-type="dojox.mobile.Heading" >TabBarButton textDir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</li>
+		<h1 data-dojo-type="dojox/mobile/Heading" >TabBarButton textDir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</li>
 		</ul><br>
 	</div>
-	<div dir="rtl" id="view5" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDirRTR</h1>
+	<div dir="rtl" id="view5" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDirRTR</h1>
 		<hr>		
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:"standardTab", textDir:"rtl"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>			
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"standardTab", textDir:"rtl"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
 		</ul><br>
 	</div>	
-	<div dir="rtl" id="view6" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir AUTO</h1>
+	<div dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir AUTO</h1>
 		<hr>	
-		<ul data-dojo-type="dojox.mobile.TabBar"  data-dojo-props='barType:"standardTab", textDir:"auto"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >Hello World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
+		<ul data-dojo-type="dojox/mobile/TabBar"  data-dojo-props='barType:"standardTab", textDir:"auto"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >Hello World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton">Hello &#1506;&#1493;&#1500;&#1501;!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" >&#1513;&#1500;&#1493;&#1501; World!</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='icon1:"../images/tab-icon-21.png",  badge:"&#1495;&#1491;&#1513;!"'>Hello World!</li>
 		</ul><br>
 	</div>	
 </div>

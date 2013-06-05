@@ -82,40 +82,40 @@
 	
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox.mobile.View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
 
-	<div id="view0" data-dojo-type="dojox.mobile.ScrollableView">
-	        <h2 data-dojo-type="dojox.mobile.Heading">TextBox widget</h2>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir LTR</h1>	
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
+	        <h2 data-dojo-type="dojox/mobile/Heading">TextBox widget</h2>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox.mobile.Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox.mobile.EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
 	
 	
-	<div id="view1" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 		<br>
 		
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox1" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"ltr"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox2" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox1" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox2" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox3" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox4" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox3" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox4" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"ltr"'/>
 		
 		<br>
 		<br>
-		<button data-dojo-type="dojox.mobile.Button" id="btn1" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to ltr"'></button>
-		<button data-dojo-type="dojox.mobile.Button" id="btn2" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to rtl"'></button>
-		<button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to auto"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn1" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to ltr"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to rtl"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn3" class="mblRedButton" data-dojo-props='label:"Set textDir of TextBox to auto"'></button>
 			
 	
 
@@ -124,64 +124,64 @@
 	</div>
 	
 		
-	<div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
 		
 		
-		<input data-dojo-type="dojox.mobile.TextBox" data-dojo-props='textDir: "rtl" ' maxLength="9" selectOnClick="true" placeHolder="max 9 chars">
-		<input data-dojo-type="dojox.mobile.TextBox" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"rtl"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='textDir: "rtl" ' maxLength="9" selectOnClick="true" placeHolder="max 9 chars">
+		<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"rtl"'/>
 		
 		
 	</div>
 		
-	<div id="view3" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
 		
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox5" data-dojo-props='name:"ltrTextBox5", value:"Hello world!", textDir:"auto"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox6" data-dojo-props='name:"ltrTextBox6", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox5" data-dojo-props='name:"ltrTextBox5", value:"Hello world!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox6" data-dojo-props='name:"ltrTextBox6", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox7" data-dojo-props='name:"ltrTextBox7", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" id="ltrTextBox8" data-dojo-props='name:"ltrTextBox8", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox7" data-dojo-props='name:"ltrTextBox7", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" id="ltrTextBox8" data-dojo-props='name:"ltrTextBox8", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"auto"'/>
 		<br>
 		<br>
-		<button data-dojo-type="dojox.mobile.Button" id="btnLbl" >Set new text Button for Textboxes</button>
+		<button data-dojo-type="dojox/mobile/Button" id="btnLbl" >Set new text Button for Textboxes</button>
 	</div>	
 	 
 	 
-	<div dir="rtl" id="view4" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+	<div dir="rtl" id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
 		
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"ltr"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl"  data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"ltr"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl"  data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"ltr"'/>
 		
 	</div>
 	
-	<div dir="rtl" id="view5" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+	<div dir="rtl" id="view5" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
 			
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"rtl"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"rtl"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"rtl"'/>
 		
 	</div>	
 	
-	<div dir="rtl" dir="rtl" id="view6" data-dojo-type="dojox.mobile.ScrollableView">	
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+	<div dir="rtl" dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
 		
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"auto"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox1", value:"Hello world!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox2", value:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
 		<br>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
-		<input data-dojo-type="dojox.mobile.TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"auto"'/>	
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox3", value:"Hello &#1506;&#1493;&#1500;&#1501;!", textDir:"auto"'/>
+		<input data-dojo-type="dojox/mobile/TextBox" dir="rtl" data-dojo-props='name:"ltrTextBox4", value:"&#1513;&#1500;&#1493;&#1501; World!", textDir:"auto"'/>
 		
 	</div>	
 

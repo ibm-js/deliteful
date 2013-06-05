@@ -311,7 +311,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_onClick: function(/*Event*/ e){
+		_onClick: function(){
 			// tags:
 			//		private
 			

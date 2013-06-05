@@ -108,8 +108,7 @@ define([
 					}
 				}
 
-				var pw = this.domNode.offsetWidth, // pane width
-					w = node.offsetWidth,
+				var w = node.offsetWidth,
 					h = this.domNode.offsetHeight,
 					t = domStyle.get(node, "marginTop"),
 					b = domStyle.get(node, "marginBottom"),

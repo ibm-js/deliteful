@@ -9,9 +9,9 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox/mobile/parser");
 			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 		</script>
 
 		<script type="text/javascript" src="CreateListItem2_Programmatic.js"></script>
@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="ListItem2.js"></script>
 	</head>
 	<body>
-		<div id="foo" dojoType="dojox.mobile.View" selected="true">
+		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
 		</div>
 	</body>
 </html>

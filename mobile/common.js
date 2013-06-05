@@ -334,13 +334,13 @@ define([
 				// Call resize for the first resize event after orientationchange
 				// because the size information may not yet be up to date when the 
 				// event orientationchange occurs.
-				f = function(evt){
+				f = function(){
 					on.once(win.global, "resize", function(e){
 						_f(e);
 					});
-				}
+				};
 				curSize = dm.getScreenSize();
-			};
+			}
 			// Android: Watch for resize events when the virtual keyboard is shown/hidden.
 			// The heuristic to detect this is that the screen width does not change
 			// and the height changes by more than 100 pixels.

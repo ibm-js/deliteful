@@ -54,7 +54,7 @@
 	                		view.startup();
 	                		
 	                		// Test suite
-	     					runner.register("dojox.mobile.test.doh.HeadingFixedBarsTests", [
+	     					runner.register("dojox/mobile/test.doh.HeadingFixedBarsTests", [
            						{
            							name: "Verify ticket #16681 is fixed",
            							timeout: 10000,
@@ -97,20 +97,20 @@
 	        </head>
 	        <body style="visibility:hidden;">
         		<!-- App header -->
-                 	<div id="appHeader" data-dojo-type="dojox.mobile.Heading" data-dojo-props="fixed: 'top', label: 'App header'"></div>
+                 	<div id="appHeader" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top', label: 'App header'"></div>
  
         		<!-- Scrollable View -->
-	                <div id="view2" data-dojo-type="dojox.mobile.ScrollableView">
-                	<div id="view2Header" data-dojo-type="dojox.mobile.Heading" data-dojo-props="fixed: 'top', label: 'ScrollableView Header'">
-                		<div id="rightButton" data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props="arrow: 'right', moveTo: 'view3'" style="float: right;">Next</div>
+	                <div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+                	<div id="view2Header" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top', label: 'ScrollableView Header'">
+                		<div id="rightButton" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props="arrow: 'right', moveTo: 'view3'" style="float: right;">Next</div>
 					</div>
-	            	<div id="view2Footer" data-dojo-type="dojox.mobile.Heading" data-dojo-props="fixed: 'bottom'">ScrollableView Footer</div>
+	            	<div id="view2Footer" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'bottom'">ScrollableView Footer</div>
                 </div>
 
         		<!-- Programmatic Scrollable View -->
         		<div id="view3"></div>
 
         		<!-- App footer -->
-                	<div id="appFooter" data-dojo-type="dojox.mobile.Heading" data-dojo-props="fixed: 'bottom'">App Footer</div>
+                	<div id="appFooter" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'bottom'">App Footer</div>
 	        </body>
 	</html>

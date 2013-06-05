@@ -20,10 +20,10 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox/mobile/parser");
 			dojo.require("dojox.mobile");
-			dojo.require("dojox.mobile.Button");
-			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.require("dojox/mobile/Button");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 
 	        dojo.require("doh.runner");
 
@@ -36,7 +36,7 @@
 				demoWidget = new dojox.mobile.Button({"class":"redButton", style:"width:120px", label:"Custom Button"});
 				dojo.doc.body.appendChild(demoWidget.domNode);
 
-				doh.register("dojox.mobile.test.doh.Button", [
+				doh.register("dojox/mobile/test.doh.Button", [
 					function test_Button_Verification(){
 						var demoWidget = dijit.byId("dojox_mobile_Button_0");
 						doh.assertEqual('mblButton mblBlueButton', demoWidget.domNode.className);

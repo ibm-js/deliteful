@@ -43,7 +43,7 @@
 			view1.performTransition("view2", 1, "none");
 		}
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.CheckBoxTests", [
+			runner.register("dojox/mobile/test.doh.CheckBoxTests", [
 				function testInView1(){
 					var checkBox1 = _createCheckBoxDeclaratively("view1-checkBox1");
 					var checkBox2 = _createCheckBoxProgrammatically("view1-checkBox2");
@@ -71,15 +71,15 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<input id="view1-checkBox1" type="checkbox" data-dojo-type="dojox.mobile.CheckBox"></input>
+		<input id="view1-checkBox1" type="checkbox" data-dojo-type="dojox/mobile/CheckBox"></input>
 		<div id="view1-checkBox2"></div>
 		<input id="view1-checkBox3" type="checkbox"></input>
 	</div>
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<input id="view2-checkBox1" type="checkbox" data-dojo-type="dojox.mobile.CheckBox"></input>
+		<input id="view2-checkBox1" type="checkbox" data-dojo-type="dojox/mobile/CheckBox"></input>
 		<div id="view2-checkBox2"></div>
 		<input id="view2-checkBox3" type="checkbox"></input>
 	</div>

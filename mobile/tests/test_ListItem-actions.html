@@ -70,8 +70,8 @@
 				});
 				*/
 				setTimeout(function(){ // network latency simulation
-					var markup = '<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 1</h1>' +
-						'<div data-dojo-type="dojox.mobile.RoundRect" data-dojo-props=\'shadow:true\'>Thank you!</div>';
+					var markup = '<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 1</h1>' +
+						'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Thank you!</div>';
 					var container = view2.containerNode;
 					container.innerHTML = markup;
 					parser.parse(container);
@@ -104,8 +104,8 @@
 				});
 				*/
 				setTimeout(function(){ // network latency simulation
-					var markup = '<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 2</h1>' +
-						'<div data-dojo-type="dojox.mobile.RoundRect" data-dojo-props=\'shadow:true\'>Gracias!</div>';
+					var markup = '<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 2</h1>' +
+						'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Gracias!</div>';
 					var container = view3.containerNode;
 					container.innerHTML = markup;
 					parser.parse(container);
@@ -171,46 +171,46 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="home" data-dojo-type="dojox.mobile.View" data-dojo-props='selected:true'>
-		<h1 data-dojo-type="dojox.mobile.Heading">Action and Transition</h1>
-		<h2 data-dojo-type="dojox.mobile.RoundRectCategory">ListItem Actions</h2>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"#", transition:"slide", onClick:myAction1'>
+	<div id="home" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true'>
+		<h1 data-dojo-type="dojox/mobile/Heading">Action and Transition</h1>
+		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">ListItem Actions</h2>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"#", transition:"slide", onClick:myAction1'>
 				Update View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"#", transition:"slide", onClick:myAction2'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"#", transition:"slide", onClick:myAction2'>
 				Load and Move (async)
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"#", transition:"slide", onClick:myAction3'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"#", transition:"slide", onClick:myAction3'>
 				Move and Load (async)
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-4.png", moveTo:"#", transition:"slide", onClick:myAction4'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", moveTo:"#", transition:"slide", onClick:myAction4'>
 				Create View
 			</li>
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-6.png", moveTo:"#", transition:"slide", onClick:myAction6'>
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-6.png", moveTo:"#", transition:"slide", onClick:myAction6'>
 				Partial Update (async)
 			</li>
 		</ul>
 	</div>
 
-	<div id="view1" data-dojo-type="dojox.mobile.View">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Home", moveTo:"home"'>Current Status</h1>
+	<div id="view1" data-dojo-type="dojox/mobile/View">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Home", moveTo:"home"'>Current Status</h1>
 		Local Time:
-		<div id="rect1" data-dojo-type="dojox.mobile.RoundRect" data-dojo-props='shadow:true'></div>
+		<div id="rect1" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'></div>
 	</div>
 
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 	</div>
 
-	<div id="view3" data-dojo-type="dojox.mobile.View">
+	<div id="view3" data-dojo-type="dojox/mobile/View">
 	</div>
 
-	<div id="view6" data-dojo-type="dojox.mobile.ScrollableView">
-		<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='back:"Home", moveTo:"home", fixed:"top"'>Partial Update</h1>
+	<div id="view6" data-dojo-type="dojox/mobile/ScrollableView">
+		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Home", moveTo:"home", fixed:"top"'>Partial Update</h1>
 		Dynamic Content:
-		<div id="pane1" data-dojo-type="dojox.mobile.ContentPane"></div>
-		<ul data-dojo-type="dojox.mobile.RoundRectList">
-			<li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"home", transitionDir:-1'>
+		<div id="pane1" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<ul data-dojo-type="dojox/mobile/RoundRectList">
+			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"home", transitionDir:-1'>
 				Home
 			</li>
 		</ul>

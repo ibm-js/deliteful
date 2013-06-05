@@ -5,10 +5,11 @@ define([ "dojo/_base/array",
          "dojo/dom-construct",
          "dojo/dom-geometry",
          "dojo/on",
+         "dojo/aspect",
          "dijit/registry",
          "./common",
          "./viewRegistry" ],
-		function(array, lang, declare, has, domConstruct, domGeometry, on, registry, dm, viewRegistry){
+		function(array, lang, declare, has, domConstruct, domGeometry, on, aspect, registry, dm, viewRegistry){
 
 	// module:
 	//		dojox/mobile/LongListMixin
@@ -64,8 +65,8 @@ define([ "dojo/_base/array",
 
 					// listen to scrollTo and slideTo from the parent scrollable object
 
-					this.own(on(this._sv, "scrollTo", lang.hitch(this, this._loadItems)));
-					this.own(on(this._sv, "slideTo", lang.hitch(this, this._loadItems)));
+					this.own(aspect.after(this._sv, "scrollTo", lang.hitch(this, this._loadItems)));
+					this.own(aspect.after(this._sv, "slideTo", lang.hitch(this, this._loadItems)));
 
 					// The _topDiv and _bottomDiv elements are place holders for the items
 					// that are not actually in the DOM at the top and bottom of the list.
@@ -276,7 +277,7 @@ define([ "dojo/_base/array",
 			if(this._items){
 				var index = this._items.indexOf(child);
 				if(index >= 0){
-					index = dir > 0 ? index++ : index--;
+					index = dir > 0 ? index+1 : index-1;
 				}
 				return this._items[index];
 			}else{

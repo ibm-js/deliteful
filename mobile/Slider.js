@@ -81,14 +81,12 @@ define([
 			// tags:
 			//		private
 			value = Math.max(Math.min(value, this.max), this.min);
-			var fromPercent = (this.value - this.min) * 100 / (this.max - this.min);
 			this.valueNode.value = value;
 			this.inherited(arguments);
 			if(!this._started){ return; } // don't move images until all the properties are set
 			this.focusNode.setAttribute("aria-valuenow", value);
 			var toPercent = (value - this.min) * 100 / (this.max - this.min);
 			// now perform visual slide
-			var horizontal = this.orientation != "V";
 			if(priorityChange === true){
 				domClass.add(this.handle, "mblSliderTransition");
 				domClass.add(this.progressBar, "mblSliderTransition");
@@ -104,6 +102,8 @@ define([
 			this.inherited(arguments);
 
 			function beginDrag(e){
+				var actionHandles;
+
 				function getEventData(e){
 					point = isMouse ? e[this._attrs.pageX] : (e.touches ? e.touches[0][this._attrs.pageX] : e[this._attrs.clientX]);
 					pixelValue = point - startPixel;
@@ -142,7 +142,7 @@ define([
 				}
 				array.forEach(actionHandles, function(h){h.remove();});
 				var root = win.doc.documentElement;
-				var actionHandles = [
+				actionHandles = [
 					this.own(on(root, touch.move, lang.hitch(this, continueDrag)))[0],
 					this.own(on(root, touch.release, lang.hitch(this, endDrag)))[0]
 				];

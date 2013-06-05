@@ -52,7 +52,7 @@
 		};
 
 		ready(function(){
-			runner.register("dojox.mobile.test.doh.EdgeToEdgeCategoryTests", [
+			runner.register("dojox/mobile/test.doh.EdgeToEdgeCategoryTests", [
 				function testInView1(){
 					var category1 = _createEdgeToEdgeCategoryDeclaratively("view1-category1");
 					var category2 = _createEdgeToEdgeCategoryProgrammatically("view1-category2");
@@ -80,15 +80,15 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox.mobile.View" selected="true">
+	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<h2 id="view1-category1" data-dojo-type="dojox.mobile.EdgeToEdgeCategory">Edge To Edge Category</h2>		
+		<h2 id="view1-category1" data-dojo-type="dojox/mobile/EdgeToEdgeCategory">Edge To Edge Category</h2>
 		<div id="view1-category2"></div>
 		<h2 id="view1-category3"></h2>
 	</div>	
-	<div id="view2" data-dojo-type="dojox.mobile.View">
+	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<h1>View 2</h1>
-		<h2 id="view2-category1" data-dojo-type="dojox.mobile.EdgeToEdgeCategory">Edge To Edge Category</h2>		
+		<h2 id="view2-category1" data-dojo-type="dojox/mobile/EdgeToEdgeCategory">Edge To Edge Category</h2>
 		<div id="view2-category2"></div>
 		<h2 id="view2-category3"></h2>
 	</div>

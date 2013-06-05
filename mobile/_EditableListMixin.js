@@ -122,7 +122,7 @@ define([
 				];
 			}
 			this._pos = [];
-			array.forEach(this.getChildren(), function(c, index){
+			array.forEach(this.getChildren(), function(c){
 				this._pos.push(domGeometry.position(c.domNode, true).y);
 			}, this);
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.pageY;
@@ -156,7 +156,7 @@ define([
 			this._movingItem.domNode.style.top = this._startTop + (y - this.touchStartY) + "px";
 		},
 
-		_onTouchEnd: function(e){
+		_onTouchEnd: function(){
 			// tags:
 			//		private
 			var startIndex = this._startIndex;

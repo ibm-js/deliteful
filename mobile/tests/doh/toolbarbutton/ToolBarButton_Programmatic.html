@@ -12,10 +12,10 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox/mobile/parser");
 			dojo.require("dojox.mobile");
-			dojo.require("dojox.mobile.TabBar");
-			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.require("dojox/mobile/TabBar");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
@@ -174,7 +174,7 @@
 		<script type="text/javascript" src="ToolBarButton.js"></script>
 	</head>
 	<body>
-		<div id="general" dojoType="dojox.mobile.View" selected="true">
+		<div id="general" data-dojo-type="dojox/mobile/View" selected="true">
 		</div>
 
 	</body>

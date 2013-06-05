@@ -32,7 +32,7 @@ define([
 					tapGesture.target = self.domNode;
 					tapGesture.addPointer(e.pointerId);
 					target = e.target;
-				}
+				};
 
 				this.own(on(this.domNode, "MSGestureTap", function(e){
 					self._onClick(e, target);

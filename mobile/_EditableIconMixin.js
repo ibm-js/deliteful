@@ -217,7 +217,7 @@ define([
 			}
 		},
 
-		_onTouchEnd: function(e){
+		_onTouchEnd: function(){
 			// tags:
 			//		private
 			this._clearPressTimer();

@@ -120,7 +120,7 @@ define([
 		postCreate: function(){
 			this.own(on(this.switchNode, "click", lang.hitch(this, "_onClick")));
 			this.own(on(this.switchNode, "onkeydown", lang.hitch(this, "_onClick"))); // for desktop browsers
-			this._startHandle = this.own(on(this.switchNode, touch.press, lang.hitch(this, "onTouchStart")))[0];
+			this.own(on(this.switchNode, touch.press, lang.hitch(this, "onTouchStart")))[0];
 			this._initialValue = this.value; // for reset()
 		},
 
@@ -158,8 +158,7 @@ define([
 			var rDefs = rDef.split(" ");
 			var rx = parseFloat(rDefs[0]), ry = (rDefs.length == 1) ? rx : parseFloat(rDefs[1]);
 			var w = this.switchNode.offsetWidth, h = this.switchNode.offsetHeight;
-			var id = (this.shape+"Mask"+w+h+rx+ry).replace(/\./,"_");
-			
+
 			maskUtils.createRoundMask(this.switchNode, 0, 0, 0, 0, w, h, rx, ry, 1);
 		},
 		

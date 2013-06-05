@@ -36,9 +36,9 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox/mobile/parser");
 			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 
 	        dojo.require("doh.runner");
 
@@ -46,35 +46,35 @@
 		<script type="text/javascript" src="Switch.js"></script>
 	</head>
 	<body style="padding:15px;visibility:visible">
-		<div dojoType="dojox.mobile.View" selected="true">
-			<div dojoType="dojox.mobile.RoundRect" shadow="true">
+		<div data-dojo-type="dojox/mobile/View" selected="true">
+			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
 				<span class="bold">Default Shape</span><br>
-				<div class="float" dojoType="dojox.mobile.Switch" value="off"></div>
-				<div dojoType="dojox.mobile.Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
+				<div class="float" data-dojo-type="dojox/mobile/Switch" value="off"></div>
+				<div data-dojo-type="dojox/mobile/Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
 			</div>
 
-			<div dojoType="dojox.mobile.RoundRect" shadow="true">
+			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
 				<span class="bold">Round Shape 1</span><br>
-				<div class="mblSwRoundShape1 float" dojoType="dojox.mobile.Switch" value="off"></div>
-				<div class="mblSwRoundShape1 color1" dojoType="dojox.mobile.Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
+				<div class="mblSwRoundShape1 float" data-dojo-type="dojox/mobile/Switch" value="off"></div>
+				<div class="mblSwRoundShape1 color1" data-dojo-type="dojox/mobile/Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
 			</div>
 
-			<div dojoType="dojox.mobile.RoundRect" shadow="true">
+			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
 				<span class="bold">Round Shape 2</span><br>
-				<div class="mblSwRoundShape2 float" dojoType="dojox.mobile.Switch" value="off"></div>
-				<div class="mblSwRoundShape2 color2" dojoType="dojox.mobile.Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
+				<div class="mblSwRoundShape2 float" data-dojo-type="dojox/mobile/Switch" value="off"></div>
+				<div class="mblSwRoundShape2 color2" data-dojo-type="dojox/mobile/Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
 			</div>
 
-			<div dojoType="dojox.mobile.RoundRect" shadow="true">
+			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
 				<span class="bold">Arc Shape 1</span><br>
-				<div class="mblSwArcShape1 float" dojoType="dojox.mobile.Switch" value="off"></div>
-				<div class="mblSwArcShape1 color1" dojoType="dojox.mobile.Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
+				<div class="mblSwArcShape1 float" data-dojo-type="dojox/mobile/Switch" value="off"></div>
+				<div class="mblSwArcShape1 color1" data-dojo-type="dojox/mobile/Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
 			</div>
 
-			<div dojoType="dojox.mobile.RoundRect" shadow="true">
+			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
 				<span class="bold">Arc Shape 2</span><br>
-				<div class="mblSwArcShape2 float" dojoType="dojox.mobile.Switch" value="off"></div>
-				<div class="mblSwArcShape2 color2" dojoType="dojox.mobile.Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
+				<div class="mblSwArcShape2 float" data-dojo-type="dojox/mobile/Switch" value="off"></div>
+				<div class="mblSwArcShape2 color2" data-dojo-type="dojox/mobile/Switch" value="on" leftLabel="Start" rightLabel="Stop"></div>
 			</div>
 		</div>
 	</body>

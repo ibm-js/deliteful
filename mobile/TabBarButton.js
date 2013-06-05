@@ -151,15 +151,15 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 
-			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+			this.own(on(this.domNode, "dragstart", function(e){
 				e.preventDefault();
 				e.stopPropagation();
 			}));
 			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 			var parent = this.getParent();
 			if(parent && parent.closable){
-				this._clickCloseHandler = this.own(on(this.iconDivNode, "click", lang.hitch(this, "_onCloseButtonClick")))[0];
-				this._keydownCloseHandler = this.own(on(this.iconDivNode, "keydown", lang.hitch(this, "_onCloseButtonClick")))[0]; // for desktop browsers
+				this.own(on(this.iconDivNode, "click", lang.hitch(this, "_onCloseButtonClick")))[0];
+				this.own(on(this.iconDivNode, "keydown", lang.hitch(this, "_onCloseButtonClick")))[0]; // for desktop browsers
 				this.iconDivNode.tabIndex = "0";
 			}
 
@@ -239,9 +239,9 @@ define([
 			// summary:
 			//		Return the id of the destination view.
 			//		If there is no id, return an empty string.
+			var toId = "";
 			if(this.moveTo){
-				if(this.moveTo === "#"){ return ""; }
-				var toId = "";
+				if(this.moveTo === "#"){ return toId; }
 				if(typeof(this.moveTo) === "object" && this.moveTo.moveTo){
 					toId = this.moveTo.moveTo;
 				}else{
@@ -250,8 +250,8 @@ define([
 				if(toId){
 					toId = View.prototype.convertToId(toId);
 				}
-				return toId;
 			}
+			return toId;
 		},
 
 		_setIcon1Attr: function(icon){

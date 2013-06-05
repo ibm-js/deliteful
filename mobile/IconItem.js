@@ -129,8 +129,8 @@ define([
 				}
 				p.paneContainerWidget.addChild(w, this.getIndexInParent());
 				w.set("label", this.label);
-				this._clickCloseHandle = this.own(on(w.closeIconNode, "click", lang.hitch(this, "_closeIconClicked")))[0];
-				this._keydownCloseHandle = this.own(on(w.closeIconNode, "keydown", lang.hitch(this, "_closeIconClicked")))[0]; // for desktop browsers
+				this.own(on(w.closeIconNode, "click", lang.hitch(this, "_closeIconClicked")))[0];
+				this.own(on(w.closeIconNode, "keydown", lang.hitch(this, "_closeIconClicked")))[0]; // for desktop browsers
 			}));
 
 			this.inherited(arguments);
@@ -146,7 +146,7 @@ define([
 				this.set("icon", p.defaultIcon);
 			}
 
-			this._dragstartHandle = this.own(on(this.domNode, "dragstart", function(e){
+			this.own(on(this.domNode, "dragstart", function(e){
 				e.preventDefault();
 				e.stopPropagation();
 			}))[0];
@@ -172,7 +172,7 @@ define([
 			domClass.remove(this.iconDivNode, "mblVibrate");
 		},
 
-		isOpen: function(e){
+		isOpen: function(){
 			// summary:
 			//		Returns true if the icon is open.
 			return this.paneWidget.isOpen();
@@ -195,7 +195,7 @@ define([
 			//		callback
 		},
 
-		_onNewWindowOpened: function(e){
+		_onNewWindowOpened: function(){
 			// Override from _ItemBase
 			this.set("selected", false);
 		},
@@ -203,7 +203,7 @@ define([
 		_prepareForTransition: function(e, transOpts){
 			// Override from _ItemBase
 			if(transOpts){
-				this.defer(function(d){
+				this.defer(function(){
 					this.set("selected", false);
 				}, 1500);
 				return true;
@@ -225,7 +225,7 @@ define([
 			if(e){
 				if(e.type === "keydown" && e.keyCode !== 13){ return; }
 				if(this.closeIconClicked(e) === false){ return; } // user's click action
-				this.defer(function(d){ this._closeIconClicked(); });
+				this.defer(function(){ this._closeIconClicked(); });
 				return;
 			}
 			this.close();

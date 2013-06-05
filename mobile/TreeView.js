@@ -42,7 +42,6 @@ define([
 				lang.hitch(this, function(item){
 					var scope = this;
 					var list = new RoundRectList();
-					var node = {};
 					var listItemArgs = {
 						label: scope.model.rootLabel,
 						moveTo: '#',
@@ -82,7 +81,7 @@ define([
 				lang.hitch(this, function(items){
 					var scope = this;
 					var list = new RoundRectList();
-					array.forEach(items, function(item, i){
+					array.forEach(items, function(item){
 						var listItemArgs = {
 							item: item,
 							label: item[scope.model.store.label],

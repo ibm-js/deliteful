@@ -106,7 +106,7 @@ define([
 					domClass.toggle(item.domNode, this.childItemClass + "FirstRow", rowIdx === 0);
 					domClass.toggle(item.domNode, this.childItemClass + "LastRow", rowIdx + 1 === nRows);
 				}
-			};
+			}
 		},
 
 		addChild: function(widget, /*Number?*/insertIndex){

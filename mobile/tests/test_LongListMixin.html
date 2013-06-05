@@ -7,11 +7,11 @@
 	<title>Dojo Mobile Test</title>
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar']"></script>
-	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<script type="text/javascript">
 		require([
-		    "dojo/domReady",
+		    "dojo/domReady!",
 		    "dijit/registry",
 			"dojox/mobile/ListItem",
 			"dojo/parser",
@@ -21,7 +21,10 @@
 			"dojox/mobile/TabBarButton",
 			"dojox/mobile/RoundRectList",
 			"dojox/mobile/LongListMixin"
-		], function(ready, registry, ListItem){
+		], function(ready, registry, ListItem, parser){
+
+			parser.parse();
+
 			fillList = function(list){
 				for(var i = 0; i < 2000; i++){
 					list.addChild(new ListItem({
@@ -35,14 +38,12 @@
 					}));
 				}
 			};
-			ready(function(){
-				fillList(list1);
-				registry.byId("view2").on("beforeTransitionIn", function(){
-					if(list2.getChildren().length == 0){
-						fillList(list2);
-					}
-				})
-			});
+			fillList(list1);
+			registry.byId("view2").on("beforeTransitionIn", function(){
+				if(list2.getChildren().length == 0){
+					fillList(list2);
+				}
+			})
 		});
 	</script>
 
@@ -51,9 +52,9 @@
 </head>
 
 <body style="visibility:hidden;">
-		<ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='barType:"segmentedControl", fixed:"top"'>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='moveTo:"view1", selected:true'>With Mixin</li>
-			<li data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='moveTo:"view2"'>Without Mixin</li>
+		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl", fixed:"top"'>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view1", selected:true'>With Mixin</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view2"'>Without Mixin</li>
 		</ul>
 		<div data-dojo-type="dojox/mobile/ScrollableView" id="view1">
 			<div data-dojo-id="list1" data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-mixins="dojox/mobile/LongListMixin"></div>

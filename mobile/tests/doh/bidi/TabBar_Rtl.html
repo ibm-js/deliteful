@@ -23,10 +23,10 @@
 
 		<script language="JavaScript" type="text/javascript">
 			dojo.require("dojo.parser"); // Use the lightweight parser.
-			//dojo.require("dojox.mobile.parser");
+			//dojo.require("dojox/mobile/parser");
 			dojo.require("dojox.mobile");
-			dojo.require("dojox.mobile.TabBar");
-			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.require("dojox/mobile/TabBar");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
 	        dojo.require("doh.runner");
 		</script>
 		<script type="text/javascript" src="TestUtil_Rtl.js"></script>
@@ -34,35 +34,35 @@
 	</head>
 	<body dir="rtl">
 		<div class="label">Segmented Control</div>
-		<ul dojoType="dojox.mobile.TabBar" barType="segmentedControl">
-			<li dojoType="dojox.mobile.TabBarButton" moveTo="view1" selected="true">New</li>
-			<li dojoType="dojox.mobile.TabBarButton" moveTo="view2">What's Hot</li>
-			<li dojoType="dojox.mobile.TabBarButton" moveTo="view3">Genius</li>
+		<ul data-dojo-type="dojox/mobile/TabBar" barType="segmentedControl">
+			<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view1" selected="true">New</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view2">What's Hot</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view3">Genius</li>
 		</ul>
 
 		<div class="label">Tab Bar</div>
-		<ul dojoType="dojox.mobile.TabBar">
-			<li dojoType="dojox.mobile.TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
-			<li dojoType="dojox.mobile.TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
-			<li dojoType="dojox.mobile.TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
+		<ul data-dojo-type="dojox/mobile/TabBar">
+			<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
 		</ul>
 
 		<div class="label">Tab Bar (CSS Sprite)</div>
-		<ul dojoType="dojox.mobile.TabBar" iconBase="../../images/tab-icons.png">
-			<li dojoType="dojox.mobile.TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
-			<li dojoType="dojox.mobile.TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
-			<li dojoType="dojox.mobile.TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
-			<li dojoType="dojox.mobile.TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
-			<li dojoType="dojox.mobile.TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
+		<ul data-dojo-type="dojox/mobile/TabBar" iconBase="../../images/tab-icons.png">
+			<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
+			<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
 		</ul>
 
-		<div id="view1" dojoType="dojox.mobile.View" selected="true">
+		<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
 			<div class="view">View 1</div>
 		</div>
-		<div id="view2" dojoType="dojox.mobile.View">
+		<div id="view2" data-dojo-type="dojox/mobile/View">
 			<div class="view">View 2</div>
 		</div>
-		<div id="view3" dojoType="dojox.mobile.View">
+		<div id="view3" data-dojo-type="dojox/mobile/View">
 			<div class="view">View 3</div>
 		</div>
 	</body>

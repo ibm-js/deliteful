@@ -279,7 +279,7 @@ define([
 			// summary:
 			//		Sets the color of the specified item as blue.
 			array.forEach(this.panelNodes, function(panel){
-				array.forEach(panel.childNodes, function(node, i){
+				array.forEach(panel.childNodes, function(node){
 					domClass.toggle(node, color || "mblSpinWheelSlotLabelBlue", node.innerHTML === value);
 				}, this);
 			}, this);
@@ -320,7 +320,7 @@ define([
 				if(this.items){
 					var v = this.value;
 					for(var i = 0; i < this.items.length; i++){
-						if(this.items[i][1] == this.value){
+						if(this.items[i][1] == v){
 							return this.items[i][0];
 						}
 					}

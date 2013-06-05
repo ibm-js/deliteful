@@ -83,10 +83,10 @@ define([
 				this.domNode = this.containerNode = this.srcNodeRef || domConstruct.create(this.tag);
 			}
 
-			this._animEndHandle = this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")))[0];
-			this._animStartHandle = this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart")))[0];
+			this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")))[0];
+			this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart")))[0];
 			if(!config['mblCSS3Transition']){
-				this._transEndHandle = this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")))[0];
+				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")))[0];
 			}
 			if(has('mblAndroid3Workaround')){
 				// workaround for the screen flicker issue on Android 3.x/4.0
@@ -437,7 +437,7 @@ define([
 					//need to set the toNode to absolute position
 					var toPosition = domStyle.get(toNode, "position");
 					domStyle.set(toNode, "position", "absolute");
-					transit(fromNode, toNode, {transition: transition, reverse: (transitionDir===-1)?true:false}).then(lang.hitch(this,function(){
+					transit(fromNode, toNode, {transition: transition, reverse: !!(transitionDir===-1)}).then(lang.hitch(this,function(){
 						domStyle.set(toNode, "position", toPosition);
 						// Reset the temporary padding on toNode
 						toNode.style.paddingTop = "";
