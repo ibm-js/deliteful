@@ -163,11 +163,11 @@ define([
 				}
 				if(!this._useTopLeft){
 					if(this._useTransformTransition){
-						this._ch.push(this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd")))[0]);
-						this._ch.push(this.own(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart")))[0]);
+						this._ch.push(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd")));
+						this._ch.push(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart")));
 					}else{
-						this._ch.push(this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onFlickAnimationEnd"))))[0];
-						this._ch.push(this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onFlickAnimationStart")))[0]);
+						this._ch.push(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onFlickAnimationEnd")));
+						this._ch.push(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onFlickAnimationStart")));
 	
 						// Creation of keyframes takes a little time. If they are created
 						// in a lazy manner, a slight delay is noticeable when you start
@@ -180,8 +180,8 @@ define([
 						domStyle.set(this.containerNode, css3.name("transform"), "translate3d(0,0,0)");
 					}
 				}else{
-					this._ch.push(this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd")))[0]);
-					this._ch.push(this.own(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart")))[0]);
+					this._ch.push(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onFlickAnimationEnd")));
+					this._ch.push(on(this.domNode, css3.name("transitionStart"), lang.hitch(this, "onFlickAnimationStart")));
 				}
 			}
 
