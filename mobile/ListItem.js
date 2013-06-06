@@ -182,7 +182,7 @@ define([
 				};
 			}
 			if(opts.moveTo || opts.href || opts.url || this.clickable || (parent && parent.select)){
-				this.own(on(this.domNode, "keydown", lang.hitch("_onClick"))); // for desktop browsers
+				this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 			}else{
 				this._handleClick = false;
 			}
