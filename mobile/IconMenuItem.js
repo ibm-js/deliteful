@@ -4,9 +4,10 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-attr",
+	"dojo/on",
 	"./iconUtils",
 	"./_ItemBase"
-], function(declare, lang, domClass, domConstruct, domAttr, iconUtils, ItemBase){
+], function(declare, lang, domClass, domConstruct, domAttr, on, iconUtils, ItemBase){
 	// module:
 	//		dojox/mobile/IconMenuItem
 
