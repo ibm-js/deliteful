@@ -7,7 +7,7 @@
 	<title>Accordion Tests</title>
 
 	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Accordion','TabBar']"></script>
-	<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+	<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, mblAlwaysHideAddressBar: true"></script>
 	<style type="text/css">
 		@import "../../../themes/common/domButtons/DomButtonBlackRightArrow16.css";
 		@import "../../../themes/common/domButtons/DomButtonWhiteDownArrow16.css";
@@ -26,7 +26,7 @@
 		require([
 			"dojo/dom-construct", // dojo.place
 			"dojo/dom-class", // dojo.hasClass
-			"dojo/domReady", // dojo.ready
+			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
 			"dojox/mobile/Accordion",
@@ -35,7 +35,10 @@
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/View"
-		], function(domConst, domClass, ready, registry, runner, Accordion, ContentPane){
+		], function(domConst, domClass, ready, registry, runner, Accordion, ContentPane, parser){
+
+			parser.parse();
+
 			function _createAccordionDeclaratively(widgetId){
 				return registry.byId(widgetId);
 			}
@@ -66,102 +69,101 @@
 				var view1 = registry.byId("view1");
 				view1.performTransition("view2", 1, "none");
 			}
-			dojo.ready(function(){
-				doh.register("dojox/mobile/test.doh.AccordionTests", [
-					function testInView1(){
-						var widget1 = _createAccordionDeclaratively("dojox_mobile_Accordion_0");
-						var widget2 = _createAccordionProgrammatically("view1-Accordion2place", "view1-Accordion2");
-						var widget3 = _createAccordionProgrammaticallyWithSourceNodeReference("view1-Accordion3");
 
-						setTimeout(function() {
-							_assertCorrectAccordion(widget1);
-							_assertCorrectAccordion(widget2);
-							_assertCorrectAccordion(widget3);
-						}, 1000);
-					},
-					function testInView2(){
-						var widget1 = _createAccordionDeclaratively("dojox_mobile_Accordion_1");
-						var widget2 = _createAccordionProgrammatically("view2-Accordion2place", "view2-Accordion2");
-						var widget3 = _createAccordionProgrammaticallyWithSourceNodeReference("view2-Accordion3");
+			doh.register("dojox/mobile/test.doh.AccordionTests", [
+				function testInView1(){
+					var widget1 = _createAccordionDeclaratively("dojox_mobile_Accordion_0");
+					var widget2 = _createAccordionProgrammatically("view1-Accordion2place", "view1-Accordion2");
+					var widget3 = _createAccordionProgrammaticallyWithSourceNodeReference("view1-Accordion3");
 
-						_showView2();
+					setTimeout(function() {
+						_assertCorrectAccordion(widget1);
+						_assertCorrectAccordion(widget2);
+						_assertCorrectAccordion(widget3);
+					}, 1000);
+				},
+				function testInView2(){
+					var widget1 = _createAccordionDeclaratively("dojox_mobile_Accordion_1");
+					var widget2 = _createAccordionProgrammatically("view2-Accordion2place", "view2-Accordion2");
+					var widget3 = _createAccordionProgrammaticallyWithSourceNodeReference("view2-Accordion3");
 
-						setTimeout(function() {
-							_assertCorrectAccordion(widget1);
-							_assertCorrectAccordion(widget2);
-							_assertCorrectAccordion(widget3);
-						}, 1000);
-					},
-					{
-						name: "testInView3.1",
-						timeout: 3000,
-						runTest: function(){
- 							// Test case for #15064: destroy right after startup()
- 							var accordion = 
- 								new Accordion({iconBase:"../../images/icons16.png", fixedHeight: true}, 
- 									"accordion");
-							var d = new runner.Deferred();
-							var errorCounter = 0;
-							var errorMsg;
-							// Before the fix of #15064, there used to be an error thrown when destroying 
-							// right after startup(). To test it, we cannot use a simple try-catch, because
-							// this is about an error thrown by the setTimeout function which used to be set 
-							// Accordion's startup(). Hence:
-							window.onerror = function(msg, url, lineNumber){
-								errorCounter++;
-								errorMsg = "After destroy: " + msg + "\nURL: " + url + 
-									"\nLine number: " + lineNumber;
-								console.log(errorMsg);
-							};
-							accordion.startup();
-							accordion.destroyRecursive(false/*preserveDom*/);
-							// Check that no error has been thrown
-							setTimeout(d.getTestCallback(function(){
-								runner.assertEqual(0, errorCounter, errorMsg);
-							}), 2000); // smaller than the total timeout of the test case
-						
-							return d;
-						}
-					},
-					{
-						name: "testInView3.2",
-						timeout: 3000,
-						runTest: function(){
- 							// Test case for #15064: destroy right after addChild()
- 							var accordion = 
- 								new Accordion({iconBase:"../../images/icons16.png", fixedHeight: true}, 
- 									"accordion");
-							var d = new runner.Deferred();
-							var errorCounter = 0;
-							var errorMsg;
-							// Before the fix of #15064, there used to be an error thrown when destroying 
-							// right after startup(). To test it, we cannot use a simple try-catch, because
-							// this is about an error thrown by the setTimeout function which used to be set 
-							// Accordion's startup(). Hence:
-							window.onerror = function(msg, url, lineNumber){
-								errorCounter++;
-								errorMsg = "After destroy: " + msg + "\nURL: " + url + 
-									"\nLine number: " + lineNumber;
-								console.log(errorMsg);
-							};
-							accordion.startup();
-							var childWidget = 
-								ContentPane({label:"External Content 2", 
-									icon1:"mblDomButtonBlackRightArrow16", 
-									icon2:"mblDomButtonWhiteDownArrow16", href:"dojo.html"});
-							accordion.addChild(childWidget);
-							accordion.destroyRecursive(false/*preserveDom*/);
-							// Check that no error has been thrown
-							setTimeout(d.getTestCallback(function(){
-								runner.assertEqual(0, errorCounter, errorMsg);
-							}), 2000); // smaller than the total timeout of the test case
-							
-							return d;
-						}
+					_showView2();
+
+					setTimeout(function() {
+						_assertCorrectAccordion(widget1);
+						_assertCorrectAccordion(widget2);
+						_assertCorrectAccordion(widget3);
+					}, 1000);
+				},
+				{
+					name: "testInView3.1",
+					timeout: 3000,
+					runTest: function(){
+						// Test case for #15064: destroy right after startup()
+						var accordion =
+							new Accordion({iconBase:"../../images/icons16.png", fixedHeight: true},
+								"accordion");
+						var d = new runner.Deferred();
+						var errorCounter = 0;
+						var errorMsg;
+						// Before the fix of #15064, there used to be an error thrown when destroying
+						// right after startup(). To test it, we cannot use a simple try-catch, because
+						// this is about an error thrown by the setTimeout function which used to be set
+						// Accordion's startup(). Hence:
+						window.onerror = function(msg, url, lineNumber){
+							errorCounter++;
+							errorMsg = "After destroy: " + msg + "\nURL: " + url +
+								"\nLine number: " + lineNumber;
+							console.log(errorMsg);
+						};
+						accordion.startup();
+						accordion.destroyRecursive(false/*preserveDom*/);
+						// Check that no error has been thrown
+						setTimeout(d.getTestCallback(function(){
+							runner.assertEqual(0, errorCounter, errorMsg);
+						}), 2000); // smaller than the total timeout of the test case
+
+						return d;
 					}
-				]);
-				runner.run();
-			});
+				},
+				{
+					name: "testInView3.2",
+					timeout: 3000,
+					runTest: function(){
+						// Test case for #15064: destroy right after addChild()
+						var accordion =
+							new Accordion({iconBase:"../../images/icons16.png", fixedHeight: true},
+								"accordion");
+						var d = new runner.Deferred();
+						var errorCounter = 0;
+						var errorMsg;
+						// Before the fix of #15064, there used to be an error thrown when destroying
+						// right after startup(). To test it, we cannot use a simple try-catch, because
+						// this is about an error thrown by the setTimeout function which used to be set
+						// Accordion's startup(). Hence:
+						window.onerror = function(msg, url, lineNumber){
+							errorCounter++;
+							errorMsg = "After destroy: " + msg + "\nURL: " + url +
+								"\nLine number: " + lineNumber;
+							console.log(errorMsg);
+						};
+						accordion.startup();
+						var childWidget =
+							ContentPane({label:"External Content 2",
+								icon1:"mblDomButtonBlackRightArrow16",
+								icon2:"mblDomButtonWhiteDownArrow16", href:"dojo.html"});
+						accordion.addChild(childWidget);
+						accordion.destroyRecursive(false/*preserveDom*/);
+						// Check that no error has been thrown
+						setTimeout(d.getTestCallback(function(){
+							runner.assertEqual(0, errorCounter, errorMsg);
+						}), 2000); // smaller than the total timeout of the test case
+
+						return d;
+					}
+				}
+			]);
+			runner.run();
 		})
 	</script>
 

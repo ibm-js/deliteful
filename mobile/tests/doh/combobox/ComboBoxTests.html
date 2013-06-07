@@ -6,12 +6,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>Combo Box Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 <script type="text/javascript" src="../TestUtil.js"></script>
 <script language="JavaScript" type="text/javascript">
 	var timeoutInterval = 1000;
 	require([
-		"dojo/_base/connect",
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojo/sniff",
 		"dojo/Deferred",
 		"dojo/dom",
@@ -19,15 +19,16 @@
 		"dojo/dom-class", // dojo.hasClass
 		"dojo/dom-style",
 		"dojo/store/Memory", // dojo.store.Memory
-		"dojo/domReady", // dojo.ready
+		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/ComboBox",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
-	], function(connect, has, Deferred, dom, domConst, domClass, domStyle, Memory, ready, registry, runner, ComboBox){
+	], function(parser, has, Deferred, dom, domConst, domClass, domStyle, Memory, ready, registry, runner, ComboBox){
+
+		parser.parse();
 
 		var FRUITS = new Memory({
 				idProperty:"name",
@@ -112,7 +113,6 @@
 			view1.performTransition("view2", 1, "none");
 		};
 
-		ready(function(){
 			runner.register("dojox/mobile/test.doh.ComboBoxTests", [
 				{
 					name: "test view1-comboBox1",
@@ -197,7 +197,6 @@
 				}
 			]);
 			runner.run();
-		});
 	})
 </script>
 </head>

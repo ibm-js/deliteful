@@ -9,23 +9,25 @@
 <link href="../../../themes/common/domButtons/DomButtonGreenBadge.css" rel="stylesheet"/>
 <link href="../../../themes/common/domButtons/DomButtonBlueBadge.css" rel="stylesheet"/>
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 <script language="JavaScript" type="text/javascript">
 	var store1;
 	require([
 		"dojo/dom",
 		"dojo/dom-class", // dojo.hasClass
 		"dojo/dom-construct", // dojo.place
-		"dojo/domReady", // dojo.ready
+		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/Badge",
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojox/mobile/Pane",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
-	], function(dom, domClass, domConst, ready, registry, runner, Badge){
+	], function(dom, domClass, domConst, ready, registry, runner, Badge, parser){
+
+		parser.parse();
 
 		var WIDGET_VALUE1 = "6";
 		var WIDGET_VALUE2 = "48";
@@ -94,39 +96,37 @@
 			view1.performTransition("view2", 1, "none");
 		};
 
-		ready(function(){
-			runner.register("dojox/mobile/test.doh.CarouselTests", [
-				{
-					name: "Carousel Verification1",
-					timeout: 4000,
-					runTest: function(){
-						var badge1 = _createBadgeDeclaratively("view1-Badge11");
-						var badge2 = _createBadgeProgrammatically(["view1-Badge21place", "view1-Badge22place", "view1-Badge23place"], ["view1-Badge21", "view1-Badge22", "view1-Badge23"]);
-						var badge3 = _createBadgeProgrammaticallyWithSourceNodeReference(["view1-Badge31", "view1-Badge32", "view1-Badge33"]);
+		runner.register("dojox/mobile/test.doh.CarouselTests", [
+			{
+				name: "Carousel Verification1",
+				timeout: 4000,
+				runTest: function(){
+					var badge1 = _createBadgeDeclaratively("view1-Badge11");
+					var badge2 = _createBadgeProgrammatically(["view1-Badge21place", "view1-Badge22place", "view1-Badge23place"], ["view1-Badge21", "view1-Badge22", "view1-Badge23"]);
+					var badge3 = _createBadgeProgrammaticallyWithSourceNodeReference(["view1-Badge31", "view1-Badge32", "view1-Badge33"]);
 
-						_assertBadge(["view1-Badge11", "view1-Badge12", "view1-Badge13"]);
-						_assertBadge(["view1-Badge21", "view1-Badge22", "view1-Badge23"]);
-						_assertBadge(["view1-Badge31", "view1-Badge32", "view1-Badge33"]);
-					}
-				},
-				{
-					name: "Carousel Verification2",
-					timeout: 4000,
-					runTest: function(){
-						var badge1 = _createBadgeDeclaratively("view2-Badge11");
-						var badge2 = _createBadgeProgrammatically(["view2-Badge21place", "view2-Badge22place", "view2-Badge23place"], ["view2-Badge21", "view2-Badge22", "view2-Badge23"]);
-						var badge3 = _createBadgeProgrammaticallyWithSourceNodeReference(["view2-Badge31", "view2-Badge32", "view2-Badge33"]);
-						
-						_showView2();
-
-						_assertBadge(["view2-Badge11", "view2-Badge12", "view2-Badge13"]);
-						_assertBadge(["view2-Badge21", "view2-Badge22", "view2-Badge23"]);
-						_assertBadge(["view2-Badge31", "view2-Badge32", "view2-Badge33"]);
-					}
+					_assertBadge(["view1-Badge11", "view1-Badge12", "view1-Badge13"]);
+					_assertBadge(["view1-Badge21", "view1-Badge22", "view1-Badge23"]);
+					_assertBadge(["view1-Badge31", "view1-Badge32", "view1-Badge33"]);
 				}
-			]);
-			runner.run();
-		});
+			},
+			{
+				name: "Carousel Verification2",
+				timeout: 4000,
+				runTest: function(){
+					var badge1 = _createBadgeDeclaratively("view2-Badge11");
+					var badge2 = _createBadgeProgrammatically(["view2-Badge21place", "view2-Badge22place", "view2-Badge23place"], ["view2-Badge21", "view2-Badge22", "view2-Badge23"]);
+					var badge3 = _createBadgeProgrammaticallyWithSourceNodeReference(["view2-Badge31", "view2-Badge32", "view2-Badge33"]);
+
+					_showView2();
+
+					_assertBadge(["view2-Badge11", "view2-Badge12", "view2-Badge13"]);
+					_assertBadge(["view2-Badge21", "view2-Badge22", "view2-Badge23"]);
+					_assertBadge(["view2-Badge31", "view2-Badge32", "view2-Badge33"]);
+				}
+			}
+		]);
+		runner.run();
 	})
 </script>
 </head>

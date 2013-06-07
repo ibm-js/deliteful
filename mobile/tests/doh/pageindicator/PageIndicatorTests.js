@@ -7,24 +7,26 @@ var WIDGET_DOT_CLASSNAME2 = "mblPageIndicatorDotSelected";
 var WIDGET_PAGENUM = 5;
 
 require([
-	"dojo/_base/connect",
+	"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 	"dojo/sniff",
 	"dojo/dom-construct", // dojo.place
 	"dojo/dom-class", // dojo.hasClass
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/PageIndicator",
 	"dojox/mobile",				// This is a mobile app.
 	"dojox/mobile/SwapView",		// This mobile app uses mobile view
-	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
-], function(connect, has, domConst, domClass, ready, registry, runner, PageIndicator){
+	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+], function(parser, has, domConst, domClass, ready, registry, runner, PageIndicator){
+
+	parser.parse();
+
 	function fireOnClick(node){
-		if(has("ie")<9){
+		if(has("ie") < 9){
 			var e = document.createEventObject();
 			e.layerX = 0;
-			node.fireEvent( "onclick" );
+			node.fireEvent("onclick");
 		}else{
 			var e = document.createEvent('Events');
 			e.initEvent('click', true, true);
@@ -32,15 +34,16 @@ require([
 			node.dispatchEvent(e);
 		}
 	}
-	function _createPageIndicatorDeclaratively(widgetId) {
+
+	function _createPageIndicatorDeclaratively(widgetId){
 		return registry.byId(widgetId);
 	};
 	function _createPageIndicatorProgrammatically(placeHolderId, widgetId){
 		// Create SwapView
-		var r = new PageIndicator({id:widgetId, fixed:"bottom"});
+		var r = new PageIndicator({id: widgetId, fixed: "bottom"});
 		runner.assertNotEqual(null, r);
 		domConst.place(r.domNode, placeHolderId, "replace");
-		
+
 		r.startup();
 		_initAppBars();
 
@@ -85,106 +88,104 @@ require([
 		for(i = 0; i < r.cells.length; i++){
 			dot = r.cells[i].firstChild;
 			runner.assertTrue(domClass.contains(dot, WIDGET_DOT_CLASSNAME1), WIDGET_DOT_CLASSNAME1);
-			if(i+1 === col){
+			if(i + 1 === col){
 				runner.assertTrue(domClass.contains(dot, WIDGET_DOT_CLASSNAME2), WIDGET_DOT_CLASSNAME2);
 			}
 		}
 	};
-	ready(function(){
-		if(WIDGET_PROGRAMMATICALLY === 1){
-			_createPageIndicatorProgrammatically("dojox_mobile_PageIndicator_0Place", "dojox_mobile_PageIndicator_0");
-		}else if(WIDGET_PROGRAMMATICALLY === 2){
-			_createPageIndicatorProgrammaticallyWithSourceNodeReference("dojox_mobile_PageIndicator_0");
-		}
+	if(WIDGET_PROGRAMMATICALLY === 1){
+		_createPageIndicatorProgrammatically("dojox_mobile_PageIndicator_0Place", "dojox_mobile_PageIndicator_0");
+	}else if(WIDGET_PROGRAMMATICALLY === 2){
+		_createPageIndicatorProgrammaticallyWithSourceNodeReference("dojox_mobile_PageIndicator_0");
+	}
 
-		runner.register("dojox.mobile.test.doh.PageIndicator", [
-			{
-				name: "PageIndicator Verification1",
-				timeout: 4000,
-				runTest: function(){
+	runner.register("dojox.mobile.test.doh.PageIndicator", [
+		{
+			name: "PageIndicator Verification1",
+			timeout: 4000,
+			runTest: function(){
 
-					var view1 = registry.byId("dojox_mobile_SwapView_0");
-					var view2 = registry.byId("dojox_mobile_SwapView_1");
-					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+				var view1 = registry.byId("dojox_mobile_SwapView_0");
+				var view2 = registry.byId("dojox_mobile_SwapView_1");
+				var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
 
-					var d = new runner.Deferred();
-					setTimeout(d.getTestCallback(function(){
-						_assertCorrectPageIndicator(widget1, 1);
-						view1.goTo(1);
-					}), timeoutInterval);
-					return d;
-			
-				}
-			},
-			{
-				name: "PageIndicator Verification2",
-				timeout: 4000,
-				runTest: function(){
-					var view2 = registry.byId("dojox_mobile_SwapView_1");
-					var d = new runner.Deferred();
-					setTimeout(d.getTestCallback(function(){
-						var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
-						_assertCorrectPageIndicator(widget1, 2);
-						view2.goTo(1);
-					}), timeoutInterval);
-					return d;
-				}
-			},
-			{
-				name: "PageIndicator Verification3",
-				timeout: 4000,
-				runTest: function(){
-					var d = new runner.Deferred();
-					setTimeout(d.getTestCallback(function(){
-						var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
-						_assertCorrectPageIndicator(widget1, 3);
-						fireOnClick(widget1.domNode);
-					}), timeoutInterval);
-					return d;
-				}
-			},
-			{
-				name: "PageIndicator Verification4",
-				timeout: 4000,
-				runTest: function(){
-					var d = new runner.Deferred();
-					setTimeout(d.getTestCallback(function(){
-						var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
-						_assertCorrectPageIndicator(widget1, 2);
-					}), timeoutInterval);
-					return d;
-				}
-			},
-			{
-				name: "PageIndicator Verification5",
-				timeout: 3000,
-				runTest: function(){
-					// Test case for #15064: destroy right after startup()
-					var widget = new PageIndicator();
-					var d = new runner.Deferred();
-					var errorCounter = 0;
-					var errorMsg;
-					// Before the fix of #15064, there used to be an error thrown when destroying 
-					// right after startup(). To test it, we cannot use a simple try-catch, because
-					// this is about an error thrown by the setTimeout function which used to be set 
-					// PageIndicator's startup(). Hence:
-					window.onerror = function(msg, url, lineNumber){
-						errorCounter++;
-						errorMsg = "After destroy: " + msg + "\nURL: " + url + 
-							"\nLine number: " + lineNumber;
-						console.log(errorMsg);
-					};
-					widget.startup();
-					widget.destroyRecursive(false/*preserveDom*/);
-					// Check that no error has been thrown
-					setTimeout(d.getTestCallback(function(){
-						runner.assertEqual(0, errorCounter, errorMsg);
-					}), 2000); // smaller than the total timeout of the test case
-						
-					return d;
-				}
+				var d = new runner.Deferred();
+				setTimeout(d.getTestCallback(function(){
+					_assertCorrectPageIndicator(widget1, 1);
+					view1.goTo(1);
+				}), timeoutInterval);
+				return d;
+
 			}
-		]);
-		runner.run();
-	});
+		},
+		{
+			name: "PageIndicator Verification2",
+			timeout: 4000,
+			runTest: function(){
+				var view2 = registry.byId("dojox_mobile_SwapView_1");
+				var d = new runner.Deferred();
+				setTimeout(d.getTestCallback(function(){
+					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					_assertCorrectPageIndicator(widget1, 2);
+					view2.goTo(1);
+				}), timeoutInterval);
+				return d;
+			}
+		},
+		{
+			name: "PageIndicator Verification3",
+			timeout: 4000,
+			runTest: function(){
+				var d = new runner.Deferred();
+				setTimeout(d.getTestCallback(function(){
+					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					_assertCorrectPageIndicator(widget1, 3);
+					fireOnClick(widget1.domNode);
+				}), timeoutInterval);
+				return d;
+			}
+		},
+		{
+			name: "PageIndicator Verification4",
+			timeout: 4000,
+			runTest: function(){
+				var d = new runner.Deferred();
+				setTimeout(d.getTestCallback(function(){
+					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					_assertCorrectPageIndicator(widget1, 2);
+				}), timeoutInterval);
+				return d;
+			}
+		},
+		{
+			name: "PageIndicator Verification5",
+			timeout: 3000,
+			runTest: function(){
+				// Test case for #15064: destroy right after startup()
+				var widget = new PageIndicator();
+				var d = new runner.Deferred();
+				var errorCounter = 0;
+				var errorMsg;
+				// Before the fix of #15064, there used to be an error thrown when destroying
+				// right after startup(). To test it, we cannot use a simple try-catch, because
+				// this is about an error thrown by the setTimeout function which used to be set
+				// PageIndicator's startup(). Hence:
+				window.onerror = function(msg, url, lineNumber){
+					errorCounter++;
+					errorMsg = "After destroy: " + msg + "\nURL: " + url +
+						"\nLine number: " + lineNumber;
+					console.log(errorMsg);
+				};
+				widget.startup();
+				widget.destroyRecursive(false/*preserveDom*/);
+				// Check that no error has been thrown
+				setTimeout(d.getTestCallback(function(){
+					runner.assertEqual(0, errorCounter, errorMsg);
+				}), 2000); // smaller than the total timeout of the test case
+
+				return d;
+			}
+		}
+	]);
+	runner.run();
 })

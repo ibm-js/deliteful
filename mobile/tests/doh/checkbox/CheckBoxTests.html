@@ -6,19 +6,22 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>Check Box Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 <script language="JavaScript" type="text/javascript">
 	require([
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojo/dom-construct", // dojo.place
-		"dojo/domReady", // dojo.ready
+		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/CheckBox",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
-	], function(domConst, ready, registry, runner, CheckBox){
+		"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+	], function(parser, domConst, ready, registry, runner, CheckBox){
+
+		parser.parse();
+
 		function _createCheckBoxDeclaratively(checkBoxId) {
 			return registry.byId(checkBoxId);
 		}
@@ -42,7 +45,6 @@
 			var view1 = registry.byId("view1");
 			view1.performTransition("view2", 1, "none");
 		}
-		ready(function(){
 			runner.register("dojox/mobile/test.doh.CheckBoxTests", [
 				function testInView1(){
 					var checkBox1 = _createCheckBoxDeclaratively("view1-checkBox1");
@@ -66,7 +68,6 @@
 				}
 			]);
 			runner.run();
-		});
 	})
 </script>
 </head>

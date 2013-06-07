@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>ContentPane Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="parseOnLoad: true, async: true"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 <script language="JavaScript" type="text/javascript">
 	var WIDGET_CLASSNAME1 = "mblContentPane";
 	var WIDGET2_CLASSNAME1 = "mblRoundRect";
@@ -18,10 +18,10 @@
 	var WIDGET_INNERHTML5 = "Pane 5 : DOM Tree";
 
 	require([
-		"dojo/_base/connect",
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojo/dom-construct", // dojo.place, dojo.create
 		"dojo/dom-class",
-		"dojo/domReady", // dojo.ready
+		"dojo/domReady!", // dojo.ready
 		"dojo/string", // dojo.trim
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
@@ -29,9 +29,11 @@
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
 		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojox/mobile/RoundRect"
-	], function(connect, domConst, domClass, ready, string, registry, runner, ContentPane){
+	], function(parser, domConst, domClass, ready, string, registry, runner, ContentPane){
+
+		parser.parse();
+
 		function _initContentPane(widgetIds){
 			registry.byId(widgetIds[0]).set("content", "<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 3 : Thank you!</div>");
 			registry.byId(widgetIds[1]).set("href", "fragment2.html");
@@ -62,11 +64,11 @@
 			r.startup();
 		}
 		function _createContentPaneProgrammaticallyWithSourceNodeReference(widgetIds){
-			new ContentPane({content:"<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"}, widgetIds[0]);
-			new ContentPane({href:"fragment1.html"}, widgetIds[1]);
-			new ContentPane({}, widgetIds[2]);
-			new ContentPane({}, widgetIds[3]);
-			new ContentPane({}, widgetIds[4]);
+			new ContentPane({id:widgetIds[0], content:"<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"}, widgetIds[0]);
+			new ContentPane({id:widgetIds[1], href:"fragment1.html"}, widgetIds[1]);
+			new ContentPane({id:widgetIds[2]}, widgetIds[2]);
+			new ContentPane({id:widgetIds[3]}, widgetIds[3]);
+			new ContentPane({id:widgetIds[4]}, widgetIds[4]);
 
 		}
 		function _assertCorrectContentPanes(widgetIds){
@@ -99,7 +101,7 @@
 			var view1 = registry.byId("view1");
 			view1.performTransition("view2", 1, "none");
 		}
-		ready(function(){
+
 			_initContentPane(["view1-pane3","view1-pane4","view1-pane5"]);
 			_createContentPaneProgrammatically(["view1-pane6","view1-pane7","view1-pane8","view1-pane9","view1-pane10"], 
 				["view1-pane6place","view1-pane7place","view1-pane8place","view1-pane9place","view1-pane10place"]);
@@ -154,7 +156,6 @@
 			
 			runner.run();
 
-		});
 	})
 </script>
 </head>

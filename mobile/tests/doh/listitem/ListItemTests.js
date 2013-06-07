@@ -10,7 +10,7 @@ var WIDGET_DOMBUTTON_CHECKBOX_ON = "mblDomButtonCheckboxOn";
 require([
 	"dojo/_base/connect",
 	"dojo/dom-class", // dojo.hasClass
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"dojo/string", // dojo.trim
 	"doh/runner",	//doh functions

@@ -4,7 +4,7 @@ require([
 	"dojo/store/JsonRest",
 	"dojo/store/Memory",
 	"dojo/store/Observable",
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",
 	"doh/runner",	//doh functions
 	"dojox/mobile/EdgeToEdgeStoreList",

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>ExpandingTextArea Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="async: true"></script>
 <script language="JavaScript" type="text/javascript">
 	var TEXTAREA_ROWS = 3;
 	var TEXTAREA_COLS = 20;
@@ -32,19 +32,21 @@
 	var WIDGET_OFFSETHEIGHT2_IE10 = "67";
 
 	require([
-		"dojo/_base/connect",
+		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 		"dojo/sniff",
 		"dojo/dom-construct", // dojo.place
 		"dojo/dom-class", // dojo.hasClass
-		"dojo/domReady", // dojo.ready
+		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
 		"dojox/mobile/ExpandingTextArea",
 		"dojox/mobile",				// This is a mobile app.
 		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
-	], function(connect, has, domConst, domClass, ready, registry, runner, ExpandingTextArea){
+		"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+	], function(parser, has, domConst, domClass, ready, registry, runner, ExpandingTextArea){
+
+		parser.parse();
+
 		function _createExpandingTextAreaDeclaratively(widgetId) {
 			return registry.byId(widgetId);
 		}
@@ -58,7 +60,7 @@
 		}
 		function _createExpandingTextAreaProgrammaticallyWithSourceNodeReference(widgetId){
 			// Create IconContainer
-			var r = new ExpandingTextArea({}, widgetId);
+			var r = new ExpandingTextArea({id:widgetId}, widgetId);
 
 			r.startup();
 			return r;
@@ -83,7 +85,6 @@
 			var view1 = registry.byId("view1");
 			view1.performTransition("view2", 1, "none");
 		}
-		ready(function(){
 			var styleHeight =  has("ie") ? (has("ie") >= 10 ? WIDGET_HEIGHT1_IE10 : WIDGET_HEIGHT1_IE) : has("ff") ?
 				(has("ff") >= 19 ? WIDGET_HEIGHT1_FF19 : WIDGET_HEIGHT1_FF) : WIDGET_HEIGHT1;
 			var offsetHeight1 = has("ie") ? (has("ie") >= 10 ? WIDGET_OFFSETHEIGHT1_IE10 : WIDGET_OFFSETHEIGHT1_IE) : has("ff") ?
@@ -138,7 +139,6 @@
 			]);
 			runner.run();
 		});
-	})
 </script>
 </head>
 <body style="visibility:hidden;">

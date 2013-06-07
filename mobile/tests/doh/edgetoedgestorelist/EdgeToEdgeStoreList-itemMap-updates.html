@@ -15,7 +15,7 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/domReady",
+			"dojo/domReady!",
 			"doh/runner",
 			"dojo/query",
 			"dojo/_base/lang",
@@ -93,7 +93,6 @@
 			};
 			
 			// Tests
-			ready(function(){
 				runner.register("dojox/mobile/test.doh.scrollablepane.ScrollablePaneTests", [
 					{
 						name: "Verify that ticket #17093 is fixed",
@@ -130,7 +129,6 @@
 						}
 					]);
 				runner.run();
-			});
 		});
 	</script>
 </head>

@@ -32,7 +32,7 @@ require([
 	"dojo/dom-class", // dojo.hasClass
 	"dojo/dom-geometry",
 	"dojo/window", // dojo.window.getBox
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/FixedSplitter",

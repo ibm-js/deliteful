@@ -1,11 +1,10 @@
 require([
 	"dojo/parser",
-	"dojo/_base/Deferred",
 	"dojo/store/Cache",
 	"dojo/store/JsonRest",
 	"dojo/store/Memory",
 	"dojo/store/Observable",
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",
 	"doh/runner",	//doh functions
 	"dojox/mobile/EdgeToEdgeStoreList",
@@ -14,7 +13,7 @@ require([
 	/*"dojox/mobile/parser",*/
 	"dojox/mobile",
 	"dojox/mobile/compat"
-], function(parser, Deferred, Cache, JsonRest, Memory, Observable, ready, registry, runner, EdgeToEdgeStoreList, RoundRectStoreList){
+], function(parser, Cache, JsonRest, Memory, Observable, ready, registry, runner, EdgeToEdgeStoreList, RoundRectStoreList){
 
 	var CLASS_NAME;
 	var DataList;

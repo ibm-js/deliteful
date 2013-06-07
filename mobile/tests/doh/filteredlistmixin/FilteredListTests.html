@@ -11,29 +11,27 @@
 	
 	<script type="text/javascript" src="../../../deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js" 
-		data-dojo-config="async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="async: true, mblAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
+			"dojo/parser",
 			"dojo/_base/declare",
 			"dojo/dom-construct",
 			"dojo/dom-class",
-			"dojo/domReady",
+			"dojo/domReady!",
 			"dijit/registry",
 			"doh/runner",
 			"dojo/store/Memory",
-			"dojo/data/ItemFileReadStore",
 			"dojox/mobile/EdgeToEdgeStoreList",
 			"dojox/mobile/FilteredListMixin",
-			"dojo/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/SearchBox"
-		], function(declare, domConstruct, domClass, ready, registry, runner, 
-					Memory, ItemFileReadStore, EdgeToEdgeStoreList,
-					FilteredListMixin){
-			
+		], function(parser, declare, domConstruct, domClass, ready, registry, runner,
+					Memory, EdgeToEdgeStoreList, FilteredListMixin){
+
 			var EDGE_TO_EDGE_LIST_FILTER_BOX_CLASSNAME = "mblFilteredEdgeToEdgeListSearchBox";
 			var ROUND_RECT_LIST_FILTER_BOX_CLASSNAME = "mblFilteredRoundRectListSearchBox";
 			var CUSTOM_FILTER_BOX_CLASSNAME = "myCustomClass";
@@ -106,9 +104,11 @@
 			
 			// store for the dojox/mobile/EdgeToEdgeStoreList
 			store = new Memory({idProperty:"label", data: static_data});
-			
-			ready(function(){
-				doh.register("dojox/mobile/test.doh.filteredlistmixin", [
+
+			parser.parse();
+
+
+			doh.register("dojox/mobile/test.doh.filteredlistmixin", [
 					function testInView1(){
 						// EdgeToEdgeStoreList filtered using FilteredListMixin.
 						// Use-case: markup; SearchBox and ScrollableView created automatically by the mixin.
@@ -221,7 +221,6 @@
 					}
 				]);
 				runner.run();
-			});
 		})
 	</script>
 

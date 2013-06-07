@@ -2,7 +2,7 @@ require([
 	"dojo/_base/connect",
 	"dojo/dom-construct", // dojo.place
 	"dojo/dom-class", // dojo.hasClass
-	"dojo/ready", // dojo.ready
+	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/SwapView",	// This mobile app uses mobile view

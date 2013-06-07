@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
-	"dojo/_base/xhr"
+	"dojo/request/xhr"
 ], function(declare, lang, xhr){
 
 	// module:
@@ -24,14 +24,11 @@ define([
 		getData: function(){
 			// summary:
 			//		Returns a Deferred that accesses the given URL and fetches the data as text.
-			var obj = xhr.get({
-				url: this._url,
+			var obj = xhr(this._url, {
 				handleAs: "text"
-			});
-			obj.addCallback(lang.hitch(this, function(response, ioArgs){
+			}).then(lang.hitch(this, function(response, ioArgs){
 				this.text = response;
-			}));
-			obj.addErrback(function(error){
+			}),function(error){
 				console.log("Failed to load "+this._url+"\n"+(error.description||error));
 			});
 			return obj; // Deferred
