@@ -38,12 +38,12 @@ define([
 		//		  HTML fragment (may or may not include Dojo widgets).
 		//
 		// example:
-		//	|	<div data-dojo-type="dojox.mobile.FixedSplitter" orientation="H">
-		//	|		<div data-dojo-type="dojox.mobile.Pane"
+		//	|	<div data-dojo-type="dojox/mobile/FixedSplitter" orientation="H">
+		//	|		<div data-dojo-type="dojox/mobile/Pane"
 		//	|			style="width:200px;border-right:1px solid black;">
 		//	|			pane #1 (width=200px)
 		//	|		</div>
-		//	|		<div data-dojo-type="dojox.mobile.Pane">
+		//	|		<div data-dojo-type="dojox/mobile/Pane">
 		//	|			pane #2
 		//	|		</div>
 		//	|	</div>
@@ -58,14 +58,6 @@ define([
 		//		If -1, the last child pane fills the remaining space.
 		variablePane: -1,
 
-		// screenSizeAware: Boolean
-		//		If true, dynamically load a screen-size-aware module.
-		screenSizeAware: false,
-
-		// screenSizeAwareClass: String
-		//		A screen-size-aware module to load.
-		screenSizeAwareClass: "dojox/mobile/ScreenSizeAware",
-
 		/* internal properties */
 		
 		// baseClass: String
@@ -78,21 +70,9 @@ define([
 
 			var parent = this.getParent(), f;
 			if(!parent || !parent.resize){ // top level widget
-				var _this = this;
-				f = function(){
-					_this.defer(function(){
-						_this.resize();
-					});
-				};
-			}
-
-			if(this.screenSizeAware){
-				require([this.screenSizeAwareClass], function(module){
-					module.getInstance();
-					f && f();
+				this.defer(function(){
+					this.resize();
 				});
-			}else{
-				f && f();
 			}
 
 			this.inherited(arguments);
