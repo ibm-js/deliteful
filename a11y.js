@@ -2,10 +2,8 @@ define([
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/dom",			// dom.byId
 	"dojo/dom-attr", // domAttr.attr domAttr.has
-	"dojo/dom-style", // domStyle.style
-	"dojo/_base/lang", // lang.mixin()
-	"dojo/sniff" // has("ie")
-], function(array, dom, domAttr, domStyle, lang, has){
+	"dojo/dom-style" // domStyle.style
+], function(array, dom, domAttr, domStyle){
 
 	// module:
 	//		dijit/a11y
@@ -43,24 +41,11 @@ define([
 					return true;
 				case "iframe":
 					// If it's an editor <iframe> then it's tab navigable.
-					var body;
-					try{
-						// non-IE
-						var contentDocument = elem.contentDocument;
-						if("designMode" in contentDocument && contentDocument.designMode == "on"){
-							return true;
-						}
-						body = contentDocument.body;
-					}catch(e1){
-						// contentWindow.document isn't accessible within IE7/8
-						// if the iframe.src points to a foreign url and this
-						// page contains an element, that could get focus
-						try{
-							body = elem.contentWindow.document.body;
-						}catch(e2){
-							return false;
-						}
+					var contentDocument = elem.contentDocument;
+					if("designMode" in contentDocument && contentDocument.designMode == "on"){
+						return true;
 					}
+					var body = contentDocument.body;
 					return body && (body.contentEditable == 'true' ||
 						(body.firstChild && body.firstChild.contentEditable == 'true'));
 				default:
@@ -123,9 +108,8 @@ define([
 			var shown = a11y._isElementShown, effectiveTabIndex = a11y.effectiveTabIndex;
 			var walkTree = function(/*DOMNode*/ parent){
 				for(var child = parent.firstChild; child; child = child.nextSibling){
-					// Skip text elements, hidden elements, and also non-HTML elements (those in custom namespaces) in IE,
-					// since show() invokes getAttribute("type"), which crash on VML nodes in IE.
-					if(child.nodeType != 1 || (has("ie") <= 9 && child.scopeName !== "HTML") || !shown(child)){
+					// Skip text elements, hidden elements
+					if(child.nodeType != 1 || !shown(child)){
 						continue;
 					}
 
