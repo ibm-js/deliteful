@@ -1,5 +1,5 @@
 // module:
-//		dijit/tests/boilerplate
+//		dui/tests/boilerplate
 // description:
 //		A <script src="boilerplate.js"> on your test page will:
 //
@@ -14,9 +14,9 @@
 //		your css and set your classes manually:
 //
 //		<style type="text/css">
-//			@import "dijit/themes/claro/document.css";
+//			@import "dui/themes/claro/document.css";
 //		</style>
-//		<link id="themeStyles" rel="stylesheet" href="dijit/themes/claro/claro.css"/>
+//		<link id="themeStyles" rel="stylesheet" href="dui/themes/claro/claro.css"/>
 //		<script type="text/javascript" src="dojo/dojo.js"></script>
 //		...
 //		<body class="claro">
@@ -65,7 +65,7 @@ for(i = 0; script = scripts[i]; i++){
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
 	if(match){
-		// Sniff location of dijit/tests directory relative to this test file.   testDir will be an empty string if it's
+		// Sniff location of dui/tests directory relative to this test file.   testDir will be an empty string if it's
 		// the same directory, or a string including a slash, ex: "../", if the test is in a subdirectory.
 		testDir = match[1];
 
