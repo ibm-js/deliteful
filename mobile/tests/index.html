@@ -65,47 +65,74 @@
 		}
 		function init(){
 			var theme = document.getElementById("sel1").value;
+			var prio = document.getElementById("sel2").value;
 			var container = document.getElementById("container");
-			container.innerHTML = "";
 			var data = sort(categories);
-			for(var i = 0; i < data.length; i++){
-				var items = data[i];
+			var displayedItems, item, section, titleBar, icon, title, contents;
+			var i, j;
+			var url, label, anchor;
+			var numberOfTests = 0;
+			var itemPriority;
+			container.innerHTML = "";
+
+			for(i = 0; i < data.length; i++){
+				items = data[i];
 				if(items.length == 0){ continue; }
 
-				var section = document.createElement("div");
+				displayedItems = []; // reinit
+				// collect the tests to be displayed according to the test priority
+				for(j = 0; j < items.length; j++){
+					item = items[j];
+					// test without a specified priority: defaults to low
+					itemPriority = item.priority || priority.low;
+					if(prio == "All" || itemPriority == prio ||
+						(prio == "HighAndMedium" &&
+							(itemPriority == priority.high || itemPriority == priority.medium)) ||
+						(prio == "MediumAndLow" &&
+							(itemPriority == priority.medium || itemPriority == priority.low))){
+						displayedItems.push(item);
+					}
+				}
+
+				if(displayedItems.length == 0){ continue; }
+
+				numberOfTests += displayedItems.length;
+				displayedItems.label = items.label; // copy
+
+				section = document.createElement("div");
 				section.className = "section";
 				container.appendChild(section);
 
-				var titleBar = document.createElement("div");
+				titleBar = document.createElement("div");
 				titleBar.className = "titleBar";
 				titleBar.onclick = toggleSection;
 				section.appendChild(titleBar);
 
-				var icon = document.createElement("img");
+				icon = document.createElement("img");
 				icon.className = "icon";
 				setRightIcon(icon);
 				titleBar.appendChild(icon);
 
-				var title = document.createElement("label");
+				title = document.createElement("label");
 				title.className = "title";
-				title.innerHTML = items.label + " (" + items.length + ")";
+				title.innerHTML = displayedItems.label + " (" + displayedItems.length + ")";
 				titleBar.appendChild(title);
 
-				var contents = document.createElement("div");
+				contents = document.createElement("div");
 				contents.className = "contents";
 				contents.style.display = "none";
 				section.appendChild(contents);
 
-				for(var j = 0; j < items.length; j++){
-					var item = items[j];
-					var url = item.url;
-					var label = item.label || item.url;
+				for(j = 0; j < displayedItems.length; j++){
+					item = displayedItems[j];
+					url = item.url;
+					label = item.label || item.url;
 
-					var item = document.createElement("div");
+					item = document.createElement("div");
 					item.className = "item";
 					contents.appendChild(item);
 
-					var anchor = document.createElement("a");
+					anchor = document.createElement("a");
 					anchor.className = "anchor";
 					anchor.href = url + (theme ? "?theme=" + theme : "");
 					anchor.target = "_blank";
@@ -113,6 +140,8 @@
 					item.appendChild(anchor);
 				}
 			}
+
+			document.getElementById("numberOfTests").value = numberOfTests;
 		}
 
 		function toggleSection(e) {
@@ -141,9 +170,14 @@
 				a.href = a.href.replace(/(\?theme=.*)?$/, theme ? "?theme=" + theme : "");
 			}
 		}
+
+		function onPriorityChange(){
+			init();
+		}
 	</script>
 </head>
 <body onload="init()">
+	Theme:
 	<select id="sel1" onchange="onThemeChange()">
 		<option value=""></option>
 		<option value="iPhone">iPhone</option>
@@ -152,7 +186,19 @@
 		<option value="BlackBerry">BlackBerry</option>
 		<option value="WindowsPhone">WindowsPhone</option>
 		<option value="Custom">Custom</option>
-	</select><br>
+	</select>
+	Test priority:
+	<select id="sel2" onchange="onPriorityChange()">
+		<option value="All">All</option>
+		<option value="High">High</option>
+		<option value="HighAndMedium">High and medium</option>
+		<option value="Medium">Medium</option>
+		<option value="MediumAndLow">Medium and low</option>
+		<option value="Low">Low</option>
+	</select>
+	<br/>
+	Number of tests:
+	<input id="numberOfTests" readonly>
 	<div id="container"></div>
 </body>
 </html>
