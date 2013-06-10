@@ -2,15 +2,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>dijit/registry unit test</title>
-	<script type="text/javascript" src="../../dojo/dojo.js"
-		data-dojo-config="isDebug: true, async: true"></script>
+	<title>dui/registry unit test</title>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
 			"doh/runner",
 			"dojo/_base/array", "dojo/_base/declare", "dojo/dom", "dojo/parser", "dojo/_base/window",
-			"dijit/_WidgetBase", "dijit/registry",
+			"dui/_WidgetBase", "dui/registry",
 			"dojo/domReady!"
 		], function(doh, array, declare, dom, parser, win, _WidgetBase, registry){
 
@@ -36,7 +35,7 @@
 				parser.parse();
 			});
 
-			doh.register("dijit/registry", [
+			doh.register("dui/registry", [
 				function byId(){
 					doh.is(registry.byId("three").name, "your");
 					doh.f(registry.byId("nonexistant"));
@@ -77,7 +76,7 @@
 	</script>
 </head>
 <body>
-	<h1>Dijit/registry Unit Test</h1>
+	<h1>dui/registry Unit Test</h1>
 	<div id="one" data-dojo-type="foo" data-dojo-props='name:"bob", attr1:10, attr2:10'></div>
 	<div id="two" data-dojo-type="foo" data-dojo-props='name:"is", attr1:5, attr2:10'></div>
 	<div id="threeWrapper">

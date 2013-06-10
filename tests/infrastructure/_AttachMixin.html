@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>_AttachMixin Test</title>
 
-		<script src="boilerplate.js"></script>
+		<script src="../boilerplate.js"></script>
 
 		<style type="text/css">
 			/* Make our tests stand out as easily identifiable content */
@@ -23,10 +23,10 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/_base/declare", "dojo/dom", "dojo/html", "dojo/on", "dojo/parser",
-				"dijit/registry", "dijit/_WidgetBase", "dijit/_AttachMixin", "dijit/_TemplatedMixin",
-				"dijit/form/Button", "dijit/Editor", "dojo/domReady!"
+				"dui/registry", "dui/_WidgetBase", "dui/_AttachMixin", "dui/_TemplatedMixin",
+				"dojo/domReady!"
 			], function(doh, declare, dom, html, on, parser,
-				registry, _WidgetBase, _AttachMixin, _TemplatedMixin, Button, Editor) {
+				registry, _WidgetBase, _AttachMixin, _TemplatedMixin) {
 
 				doh.register("_AttachMixin", [
 					function basic() {

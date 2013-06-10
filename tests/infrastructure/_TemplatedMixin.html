@@ -2,14 +2,13 @@
 <html>
 	<head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>_Templated tests</title>
-	<script type="text/javascript" src="../../dojo/dojo.js"
-			data-dojo-config="isDebug: true"></script>
+	<title>_TemplatedMixin tests</title>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script type="text/javascript">
 		require([
 			"doh/runner",
 			"dojo/_base/array", "dojo/_base/declare", "dojo/dom", "dojo/query",
-			"dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin", "dijit/layout/LayoutContainer",
+			"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/_WidgetsInTemplateMixin", "dui/layout/LayoutContainer",
 			"dojo/domReady!"
 		], function(doh, array, declare, dom, query, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
 
@@ -186,7 +185,7 @@
 					declare("ParentThing", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 						templateString: "<div>" +
 								"<span data-dojo-type='SubThing'>a</span>" +
-								"<div data-dojo-type='dijit/layout/LayoutContainer'>" +
+								"<div data-dojo-type='dui/layout/LayoutContainer'>" +
 								"<span data-dojo-type='SubThing' data-dojo-props='region: \"center\"'>b</span>" +
 								"</div>" +
 								"</div>",

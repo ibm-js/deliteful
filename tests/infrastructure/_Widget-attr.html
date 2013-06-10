@@ -3,19 +3,14 @@
 <html>
 <head>
 	<title>widget attribute unit test (in constructor and get()/set())</title>
-	<style type="text/css">
-		@import "../themes/claro/document.css";
-		@import "css/dijitTests.css";
-	</style>
-	<script type="text/javascript" src="../../dojo/dojo.js"
-		data-dojo-config="isDebug: true, async: true"></script>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
 			"doh/runner", "dojo/_base/declare",
 			"dojo/dom", "dojo/dom-attr", "dojo/dom-class", "dojo/dom-style", "dojo/sniff",
-			"dijit/_WidgetBase",
-			"dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
+			"dui/_WidgetBase",
+			"dui/_TemplatedMixin", "dui/_WidgetsInTemplateMixin",
 			"dojo/domReady!"
 		], function(doh, declare, dom, domAttr, domClass, domStyle, has,
 					_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){

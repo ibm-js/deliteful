@@ -4,7 +4,7 @@ define([
 	"dojo/_base/array", "dojo/Deferred", "dojo/promise/all",
 	"dojo/dom-attr", "dojo/dom-class", "dojo/dom-geometry", "dojo/dom-style",
 	"dojo/_base/kernel", "dojo/_base/lang", "dojo/on", "dojo/query", "dojo/sniff",
-	"dijit/a11y"	// isTabNavigable, _isElementShown
+	"dui/a11y"	// isTabNavigable, _isElementShown
 ], function(array, Deferred, all,
 			domAttr, domClass, domGeometry, domStyle,
 			kernel, lang, on, query, has, a11y){
@@ -15,7 +15,7 @@ var curFocusNode, focusListener, focusCallback, focusCallbackDelay;
 
 var exports = {
 
-isVisible: function isVisible(/*dijit/_WidgetBase|DomNode*/ node){
+isVisible: function isVisible(/*dui/_WidgetBase|DomNode*/ node){
 	// summary:
 	//		Return true if node/widget is visible
 	var p;
@@ -25,7 +25,7 @@ isVisible: function isVisible(/*dijit/_WidgetBase|DomNode*/ node){
 		(p = domGeometry.position(node, true), p.y + p.h >= 0 && p.x + p.w >= 0 && p.h && p.w);
 },
 
-isHidden: function isHidden(/*dijit/_WidgetBase|DomNode*/ node){
+isHidden: function isHidden(/*dui/_WidgetBase|DomNode*/ node){
 	// summary:
 	//		Return true if node/widget is hidden
 	var p;
@@ -110,7 +110,7 @@ waitForLoad: function(){
 
 	var d = new Deferred();
 
-	dojo.global.require(["dojo/ready", "dijit/registry"], function(ready, registry){
+	dojo.global.require(["dojo/ready", "dui/registry"], function(ready, registry){
 		ready(function(){
 			// Deferred fires when all widgets with an onLoadDeferred have fired
 			var widgets = array.filter(registry.toArray(), function(w){ return w.onLoadDeferred; }),

@@ -1,9 +1,9 @@
 define([
 	"require",
 	"dojo/_base/declare",
-	"dijit/_WidgetBase",
-	"dijit/_TemplatedMixin",
-	"dijit/_WidgetsInTemplateMixin",
+	"dui/_WidgetBase",
+	"dui/_TemplatedMixin",
+	"dui/_WidgetsInTemplateMixin",
 	"./TestWidget"
 ], function(require, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
 

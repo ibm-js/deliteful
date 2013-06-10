@@ -5,9 +5,6 @@
 		<title>WidgetsInTemplateMixin.js</title>
 
 		<style type="text/css">
-			@import "../themes/claro/document.css";
-			@import "../themes/claro/claro.css";
-
 			/* Make our tests stand out as easily identifiable content */
 			.testcontainer {
 				border: 10px yellow;
@@ -21,18 +18,17 @@
 			}
 		</style>
 
-		<script type="text/javascript" src="../../dojo/dojo.js"
-			data-dojo-config="isDebug: true, async: true"></script>
+		<script type="text/javascript" src="../boilerplate.js"></script>
 		<script type="text/javascript">
 			require([
 				"doh", "dojo/_base/array", "dojo/_base/declare", "dojo/_base/window", "dojo/dom", "dojo/dom-geometry",
 				"dojo/html", "dojo/query", "dojo/parser",
-				"dijit/registry", "dijit/_WidgetBase",
-				"dijit/_AttachMixin", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
-				"dijit/form/Button", "dijit/form/CheckBox", "dijit/form/TextBox",
-				"dijit/ProgressBar", "dijit/layout/ContentPane", "dijit/layout/TabContainer", "dijit/_Container",
-				"dijit/_Contained", "dijit/layout/_LayoutWidget", "dijit/tests/resources/TestContextRequireWidget",
-				"dijit/focus",
+				"dui/registry", "dui/_WidgetBase",
+				"dui/_AttachMixin", "dui/_TemplatedMixin", "dui/_WidgetsInTemplateMixin",
+				"dui/form/Button", "dui/form/CheckBox", "dui/form/TextBox",
+				"dui/dijit/ProgressBar", "dui/layout/ContentPane", "dui/layout/TabContainer", "dui/_Container",
+				"dui/_Contained", "dui/layout/_LayoutWidget", "dui/tests/resources/TestContextRequireWidget",
+				"dui/focus",
 				"dojo/domReady!"
 			], function(doh, array, declare, win, dom, domGeom, html, query, parser,
 					registry, _WidgetBase, _AttachMixin, _TemplatedMixin, _WidgetsInTemplateMixin,
@@ -182,8 +178,8 @@
 
 				declare("Missing", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 					templateString: '<div>' +
-										'<div data-dojo-type="dijit/layout/ContentPane">' +
-											'<div data-dojo-type="dijit/form/Button" data-dojo-props="id: \'missingButtonId\'" ' +
+										'<div data-dojo-type="dui/layout/ContentPane">' +
+											'<div data-dojo-type="dui/form/Button" data-dojo-props="id: \'missingButtonId\'" ' +
 											'data-dojo-attach-point="missingButton">Missing...</div>' +
 										'</div>' +
 									'</div>'
@@ -238,7 +234,7 @@
 							},
 							_buttonClicked: function(e) {
 								html.set(this.heading, "Well that was boring. " +
-										"My attach point button thinks it is a " + (this.mybutton.isInstanceOf(Button) ? 'dijit/form/Button':'Gruffalo'));
+										"My attach point button thinks it is a " + (this.mybutton.isInstanceOf(Button) ? 'dui/form/Button':'Gruffalo'));
 							}
 						});
 
@@ -251,7 +247,7 @@
 						// Simulate a change
 						myawc.mybutton.onClick();
 
-						doh.is("Well that was boring. My attach point button thinks it is a dijit/form/Button", myawc.heading.innerHTML, "Post-op value");
+						doh.is("Well that was boring. My attach point button thinks it is a dui/form/Button", myawc.heading.innerHTML, "Post-op value");
 					},
 
 					function containerNode(){
@@ -408,7 +404,7 @@
 						obj: {hello: "world"},
 						templateString:
 							"<div>" +
-								"<div data-dojo-type='dijit/_WidgetBase' data-dojo-props='hostObj: this.obj'" +
+								"<div data-dojo-type='dui/_WidgetBase' data-dojo-props='hostObj: this.obj'" +
 								" data-dojo-attach-point='subWidget'></div>" +
 							"</div>"
 					});
@@ -440,7 +436,7 @@
 			<p>This test shows that a _AttachMixin dijit with _WidgetsInTemplate properly attaches widgets from the template.<br>
 			<div id="attachMeThree">
 				<h2 data-dojo-attach-point='heading'></h2>
-				<button data-dojo-type='dijit/form/Button'
+				<button data-dojo-type='dui/form/Button'
 						data-dojo-attach-point='mybutton'
 						data-dojo-attach-event='onClick: _buttonClicked'>A button</button>
 			</div>
@@ -463,10 +459,10 @@
 			<textarea id="Test1Template" style="display:none;">
 				<div>
 					<div data-dojo-attach-point="normalNode">normal node</div>
-					<button data-dojo-attach-point="buttonWidget" data-dojo-attach-event="onClick:onClick" data-dojo-type="dijit/form/Button">button #1</button>
-					<div data-dojo-attach-point="checkboxWidget" data-dojo-attach-event="onClick:onClick" data-dojo-type="dijit/form/CheckBox"></div> checkbox #1
+					<button data-dojo-attach-point="buttonWidget" data-dojo-attach-event="onClick:onClick" data-dojo-type="dui/form/Button">button #1</button>
+					<div data-dojo-attach-point="checkboxWidget" data-dojo-attach-event="onClick:onClick" data-dojo-type="dui/form/CheckBox"></div> checkbox #1
 					<div data-dojo-attach-point="progressBarWidget" data-dojo-attach-event="onChange:onClick"
-						 data-dojo-type="dijit/ProgressBar" data-dojo-props='value: 20, maximum: 200, style: "width:400px;"'></div>
+						 data-dojo-type="dui/dijit/ProgressBar" data-dojo-props='value: 20, maximum: 200, style: "width:400px;"'></div>
 				</div>
 			</textarea>
 
@@ -475,7 +471,7 @@
 
 			<textarea id="Test3Template" style="display:none;">
 				<div>
-					<div data-dojo-attach-point="checkboxWidget" data-dojo-type="dijit/form/CheckBox"></div> checkbox #3
+					<div data-dojo-attach-point="checkboxWidget" data-dojo-type="dui/form/CheckBox"></div> checkbox #3
 					<div data-dojo-attach-point="containerNode"></div>
 				</div>
 			</textarea>
@@ -483,11 +479,11 @@
 			<!-- Test templated widget containing layout widgets in template -->
 			<textarea id="Test4Template" style="display:none;">
 				<div>
-					<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="style: {height: '5em', width: '100em'}" data-dojo-attach-point="tabCont">
-						<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Tab 1'" data-dojo-attach-point="tab1">
+					<div data-dojo-type="dui/layout/TabContainer" data-dojo-props="style: {height: '5em', width: '100em'}" data-dojo-attach-point="tabCont">
+						<div data-dojo-type="dui/layout/ContentPane" data-dojo-props="title: 'Tab 1'" data-dojo-attach-point="tab1">
 							pane 1
 						</div>
-						<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Tab 2'" data-dojo-attach-point="tab2">
+						<div data-dojo-type="dui/layout/ContentPane" data-dojo-props="title: 'Tab 2'" data-dojo-attach-point="tab2">
 							pane 2
 						</div>
 					</div>
@@ -530,12 +526,12 @@
 			<div data-dojo-type="Missing" data-dojo-props="id: 'missing'"></div>
 
 			<!-- Test templated widget containing relative MIDs for data-dojo-type -->
-			<div data-dojo-type="dijit/tests/resources/TestContextRequireWidget" data-dojo-props="id: 'testContextWidget'"></div>
+			<div data-dojo-type="dui/tests/resources/TestContextRequireWidget" data-dojo-props="id: 'testContextWidget'"></div>
 
 			<!-- Test templated widget for back-compat with inherited onClick etc events when using widgets in template -->
 			<textarea id="Test6Template" style="display:none;">
 				<div>
-					<div data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="textbox" data-dojo-attach-event="onClick: handleClick"></div>
+					<div data-dojo-type="dui/form/TextBox" data-dojo-attach-point="textbox" data-dojo-attach-event="onClick: handleClick"></div>
 				</div>
 			</textarea>
 

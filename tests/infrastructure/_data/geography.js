@@ -1,5 +1,5 @@
 // Array of countries and cities, with children having references to their parents rather than vice-versa.
-// Used with dijit/tree/ObjectStoreModel.
+// Used with dui/tree/ObjectStoreModel.
 
 define([
 	{ id: "earth", name:"The earth", type:"planet", population: "6 billion"},

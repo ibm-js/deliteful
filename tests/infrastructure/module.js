@@ -1,6 +1,6 @@
 define(["doh/main", "require"], function(doh, require){
 
-	// Utility methods (previously in dijit/_base)
+	// Utility methods (previously in dui/_base)
 	doh.register("registry", require.toUrl("./registry.html"), 999999);
 	doh.register("focus", require.toUrl("./focus.html"), 999999);
 	doh.register("place", require.toUrl("./place.html"), 999999);

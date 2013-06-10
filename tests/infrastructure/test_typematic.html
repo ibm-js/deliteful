@@ -3,46 +3,40 @@
 <html>
 <head>
 	<title>Typematic Test</title>
-	<style type="text/css">
-		@import "../themes/claro/document.css";
-		@import "../themes/claro/claro.css";
-		@import "css/dijitTests.css";
-	</style>
 
-	<script type="text/javascript" src="../../dojo/dojo.js"
-			data-dojo-config="isDebug: true"></script>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script type="text/javascript">
-		dojo.require("dijit.typematic");
+		require(["dojo/dom", "dojo/keys", "dui/typematic", "dojo/domReady!"], function(dom, keys, typematic){
 
-		var lastCount = 0;
-		function typematicCallBack(count, node, evt){
-			var inputNode = dojo.byId('typematicInput');
-			if(node == inputNode){
-				key = "a";
-			}else{
-				key = "b";
+			var lastCount = 0;
+			function typematicCallBack(count, node, evt){
+				var inputNode = dom.byId('typematicInput');
+				if(node == inputNode){
+					key = "a";
+				}else{
+					key = "b";
+				}
+				if(-1 == count){
+					console.debug((lastCount + 1) + ' ' + key + ' events');
+				}else{
+					lastCount = count;
+					inputNode.value += key;
+				}
+				inputNode.focus();
 			}
-			if(-1 == count){
-				console.debug((lastCount + 1) + ' ' + key + ' events');
-			}else{
-				lastCount = count;
-				inputNode.value += key;
-			}
-			inputNode.focus();
-		}
-		dojo.ready(function(){
-			var keyNode = dojo.byId('typematicInput');
-			var mouseNode = dojo.byId('typematicButton');
-			dijit.typematic.addKeyListener(keyNode,
-					{
-						keyCode: dojo.keys.F11,
-						shiftKey: false,
-						metaKey: false,
-						ctrlKey: true // ALT is optional since its unspecified
-					},
-					this, typematicCallBack, 200, 200);
-			dijit.typematic.addMouseListener(mouseNode,
-					this, typematicCallBack, 0.9, 200);
+
+			var keyNode = dom.byId('typematicInput');
+			var mouseNode = dom.byId('typematicButton');
+			typematic.addKeyListener(keyNode,
+				{
+					keyCode: keys.F11,
+					shiftKey: false,
+					metaKey: false,
+					ctrlKey: true // ALT is optional since its unspecified
+				},
+				this, typematicCallBack, 200, 200);
+			typematic.addMouseListener(mouseNode,
+				this, typematicCallBack, 0.9, 200);
 
 			try{
 				// Focus the input so it's easier for user to start typing.

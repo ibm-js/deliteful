@@ -5,14 +5,14 @@
 
 	<title>_WidgetBase lifecycle unit test</title>
 
-	<script type="text/javascript" src="../../dojo/dojo.js" data-dojo-config="isDebug: true"></script>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/declare", "dojo/dom",
-			"dijit/registry", "dijit/_WidgetBase",
+			"dojo/aspect", "dojo/_base/declare", "dojo/dom",
+			"dui/registry", "dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, declare, dom, registry, _WidgetBase){
+		], function(doh, aspect, declare, dom, registry, _WidgetBase){
 
 			var obj = {
 				foo: function(){
@@ -29,10 +29,10 @@
 					this.set("foo", "bar");
 				},
 				postCreate: function(){
-					// Rather odd call to this.connect() For testing the connections are dropped on destroy()
-					this.connect(obj, "foo", function(){
+					// Rather odd call to this.own() for testing the connections are dropped on destroy()
+					this.own(aspect.after(obj, "foo", function(){
 						calls++;
-					});
+					}, true));
 				}
 			});
 

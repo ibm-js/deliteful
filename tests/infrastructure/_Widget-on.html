@@ -3,19 +3,12 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>_WidgetBase on() test</title>
-	<style type="text/css">
-		@import "../themes/claro/document.css";
-		@import "../themes/claro/claro.css";
-		@import "css/dijitTests.css";
-	</style>
-
-	<script type="text/javascript" src="../../dojo/dojo.js"
-		data-dojo-config="isDebug: true"></script>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script>
 		require([
 			"doh/runner",
 			"dojo/_base/declare", "dojo/has", "dojo/_base/lang", "dojo/on", "dojo/parser", "dojo/touch",
-			"dijit/registry", "dijit/_WidgetBase", "dojo/domReady!"
+			"dui/registry", "dui/_WidgetBase", "dojo/domReady!"
 		], function(doh, declare, has, lang, on, parser, touch, registry, _WidgetBase){
 
 			var mousedOver, clicked;
