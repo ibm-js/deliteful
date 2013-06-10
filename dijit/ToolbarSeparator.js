@@ -1,8 +1,8 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
-	"./_WidgetBase",
-	"./_TemplatedMixin"
+	"../_WidgetBase",
+	"../_TemplatedMixin"
 ], function(declare, dom, _WidgetBase, _TemplatedMixin){
 
 	// module:

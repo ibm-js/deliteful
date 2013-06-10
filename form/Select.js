@@ -9,10 +9,10 @@ define([
 	"dojo/sniff", // has("ie")
 	"./_FormSelectWidget",
 	"../_HasDropDown",
-	"../DropDownMenu",
-	"../MenuItem",
-	"../MenuSeparator",
-	"../Tooltip",
+	"../dijit/DropDownMenu",
+	"../dijit/MenuItem",
+	"../dijit/MenuSeparator",
+	"../dijit/Tooltip",
 	"../_KeyNavMixin",
 	"../registry", // registry.byNode
 	"dojo/text!./templates/Select.html",

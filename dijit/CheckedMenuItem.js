@@ -3,7 +3,7 @@ define([
 	"dojo/dom-class", // domClass.toggle
 	"./MenuItem",
 	"dojo/text!./templates/CheckedMenuItem.html",
-	"./hccss"
+	"dojo/hccss"
 ], function(declare, domClass, MenuItem, template){
 
 	// module:

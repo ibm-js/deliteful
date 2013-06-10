@@ -487,7 +487,7 @@
 		<button type="button" data-dojo-type="dijit/form/Button" id="bubble3">3</button>
 	</div>
 	<script>
-		require(["dojo/dom", "dojo/on", "dijit/registry"], function(dom, on, registry){
+		require(["dojo/dom", "dojo/on", "dui/registry"], function(dom, on, registry){
 			on(dom.byId("bubbleContainer"), "click", function(evt){
 				var widget = registry.getEnclosingWidget(evt.target);
 				if(widget){

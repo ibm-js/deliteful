@@ -28,7 +28,7 @@
 			"dojo/parser",
 			"dojo/query",
 			"dojo/topic",
-			"dijit/registry",
+			"dui/registry",
 			"dijit/form/Button",
 			"dijit/layout/BorderContainer",
 			"dijit/layout/ContentPane",
@@ -297,9 +297,9 @@
 
 			doh.register("destroy", function destroy(){
 				// destroyRecursive() on a StackController used to get an exception
-				var oldNumWidgets = require("dijit/registry").length;
+				var oldNumWidgets = require("dui/registry").length;
 				registry.byId("holder").destroyRecursive();
-				var newNumWidgets = require("dijit/registry").length;
+				var newNumWidgets = require("dui/registry").length;
 				doh.is(5, oldNumWidgets - newNumWidgets, newNumWidgets + "-" + oldNumWidgets + " destroyed");
 			});
 
@@ -339,7 +339,7 @@
 
 <body class="claro" role="main">
 	<script type="dojo/require">
-		registry: "dijit/registry"
+		registry: "dui/registry"
 	</script>
 
 	<h1 class="testTitle">A Tale Of Two Cities</h1>

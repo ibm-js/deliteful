@@ -13,7 +13,6 @@ define([
 	"dojo/has", // has("dojo-bidi")
 	"dojo/topic", // publish
 	"../focus", // focus.focus()
-	"../_base/manager", // manager.defaultDuration
 	"../_WidgetBase",
 	"../_Container",
 	"../_TemplatedMixin",

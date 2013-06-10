@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/keys", // keys.DOWN_ARROW keys.ENTER keys.ESCAPE keys.TAB keys.UP_ARROW
 	"dojo/_base/lang", // lang.hitch
-	"../_TimePicker",
+	"../dijit/_TimePicker",
 	"./_DateTimeTextBox"
 ], function(declare, keys, lang, _TimePicker, _DateTimeTextBox){
 

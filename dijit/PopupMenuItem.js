@@ -3,10 +3,10 @@ define([
 	"dojo/dom-style", // domStyle.set
 	"dojo/_base/lang",
 	"dojo/query", // query
-	"./popup",
-	"./registry",	// registry.byNode
+	"../popup",
+	"../registry",	// registry.byNode
 	"./MenuItem",
-	"./hccss"
+	"dojo/hccss"
 ], function(declare, domStyle, lang, query, pm, registry, MenuItem){
 
 	// module:

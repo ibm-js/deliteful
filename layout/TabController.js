@@ -7,8 +7,8 @@ define([
 	"dojo/_base/lang", // lang.hitch lang.trim
 	"./StackController",
 	"../registry",
-	"../Menu",
-	"../MenuItem",
+	"../dijit/Menu",
+	"../dijit/MenuItem",
 	"dojo/text!./templates/_TabButton.html",
 	"dojo/i18n!../nls/common"
 ], function(declare, dom, domAttr, domClass, has, lang, StackController, registry, Menu, MenuItem, template, nlsCommon){

@@ -17,23 +17,22 @@ define([
 	"dojo/on", // on(), on.selector()
 	"dojo/touch",
 	"dojo/when",
-	"./a11yclick",
-	"./focus",
-	"./registry", // registry.byNode(), registry.getEnclosingWidget()
-	"./_base/manager", // manager.defaultDuration
-	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./_Container",
-	"./_Contained",
-	"./_CssStateMixin",
-	"./_KeyNavMixin",
+	"../a11yclick",
+	"../focus",
+	"../registry", // registry.byNode(), registry.getEnclosingWidget()
+	"../_WidgetBase",
+	"../_TemplatedMixin",
+	"../_Container",
+	"../_Contained",
+	"../_CssStateMixin",
+	"../_KeyNavMixin",
 	"dojo/text!./templates/TreeNode.html",
 	"dojo/text!./templates/Tree.html",
 	"./tree/_dndSelector",
 	"dojo/query!css2"	// needed when on.selector() used with a string for the selector
 ], function(array, aspect, cookie, declare, Deferred, all,
 			dom, domClass, domGeometry, domStyle, createError, fxUtils, has, keys, lang, on, touch, when,
-			a11yclick, focus, registry, manager, _WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin, _KeyNavMixin,
+			a11yclick, focus, registry, _WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin, _KeyNavMixin,
 			treeNodeTemplate, treeTemplate, _dndSelector){
 
 	// module:
@@ -257,7 +256,7 @@ define([
 
 			var wipeIn = fxUtils.wipeIn({
 				node: this.containerNode,
-				duration: manager.defaultDuration
+				duration: 200
 			});
 
 			// Deferred that fires when expand is complete
@@ -303,7 +302,7 @@ define([
 
 			var wipeOut = fxUtils.wipeOut({
 				node: this.containerNode,
-				duration: manager.defaultDuration
+				duration: 200
 			});
 
 			// Deferred that fires when expand is complete

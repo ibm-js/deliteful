@@ -8,7 +8,7 @@ define([
 	"dojo/mouse", // mouse.isLeft
 	"dojo/on",
 	"dojo/touch",
-	"../a11yclick",
+	"../../a11yclick",
 	"./_dndContainer"
 ], function(array, declare, kernel, lang, dndCommon, dom, mouse, on, touch, a11yclick, _dndContainer){
 

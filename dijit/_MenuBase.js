@@ -8,19 +8,19 @@ define([
 	"dojo/mouse", // mouse.enter, mouse.leave
 	"dojo/on",
 	"dojo/window",
-	"./a11yclick",
-	"./registry",
-	"./_WidgetBase",
-	"./_CssStateMixin",
-	"./_KeyNavContainer",
-	"./_TemplatedMixin"
+	"../a11yclick",
+	"../registry",
+	"../_WidgetBase",
+	"../_CssStateMixin",
+	"../_KeyNavMixin",
+	"../_TemplatedMixin"
 ], function(array, declare, dom, domAttr, domClass, lang, mouse, on, winUtils, a11yclick,
-			registry, _WidgetBase, _CssStateMixin, _KeyNavContainer, _TemplatedMixin){
+			registry, _WidgetBase, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
 	//		dijit/_MenuBase
 
-	return declare("dijit._MenuBase", [_WidgetBase, _TemplatedMixin, _KeyNavContainer, _CssStateMixin], {
+	return declare("dijit._MenuBase", [_WidgetBase, _TemplatedMixin, _KeyNavMixin, _CssStateMixin], {
 		// summary:
 		//		Abstract base class for Menu and MenuBar.
 		//		Subclass should implement _onUpArrow(), _onDownArrow(), _onLeftArrow(), and _onRightArrow().

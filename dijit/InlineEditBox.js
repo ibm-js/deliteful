@@ -12,17 +12,17 @@ define([
 	"dojo/on",
 	"dojo/has", // has("dojo-bidi")
 	"dojo/when",
-	"./a11yclick",
-	"./focus",
-	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./_WidgetsInTemplateMixin",
-	"./_Container",
-	"./form/Button",
-	"./form/_TextBoxMixin",
-	"./form/TextBox",
+	"../a11yclick",
+	"../focus",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
+	"../_WidgetsInTemplateMixin",
+	"../_Container",
+	"../form/Button",
+	"../form/_TextBoxMixin",
+	"../form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
-	"dojo/i18n!./nls/common"
+	"dojo/i18n!../nls/common"
 ], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when,
 			a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Button, _TextBoxMixin,
 			TextBox, template, nlsCommon){

@@ -4,7 +4,7 @@ define([
 ], function(array, win){
 
 	// module:
-	//		dijit/registry
+	//		dui/registry
 
 	var _widgetTypeCtr = {}, hash = {};
 

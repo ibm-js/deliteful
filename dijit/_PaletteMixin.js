@@ -6,10 +6,10 @@ define([
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.getObject
 	"dojo/on",
-	"./_CssStateMixin",
-	"./a11yclick",
-	"./focus",
-	"./typematic"
+	"../_CssStateMixin",
+	"../a11yclick",
+	"../focus",
+	"../typematic"
 ], function(declare, domAttr, domClass, domConstruct, keys, lang, on, _CssStateMixin, a11yclick, focus, typematic){
 
 	// module:

@@ -4,8 +4,8 @@ define([
 	"dojo/dom-class", // domClass.toggle
 	"dojo/_base/lang", // lang.mixin
 	"dojo/number", // number.format
-	"./_WidgetBase",
-	"./_TemplatedMixin",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
 	"dojo/text!./templates/ProgressBar.html"
 ], function(require, declare, domClass, lang, number, _WidgetBase, _TemplatedMixin, template){
 

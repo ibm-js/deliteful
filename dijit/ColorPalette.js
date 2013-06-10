@@ -1,10 +1,10 @@
 define([
 	"require", // require.toUrl
 	"dojo/text!./templates/ColorPalette.html",
-	"./_WidgetBase",
-	"./_TemplatedMixin",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
 	"./_PaletteMixin",
-	"./hccss", // has("highcontrast")
+	"dojo/hccss", // has("highcontrast")
 	"dojo/_base/Color", // dojo.Color dojo.Color.named
 	"dojo/_base/declare", // declare
 	"dojo/dom-construct", // domConstruct.place

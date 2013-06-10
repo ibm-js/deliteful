@@ -15,8 +15,8 @@ define([
 	"./TabController",
 	"./utils", // marginBox2contextBox, layoutChildren
 	"../_WidgetsInTemplateMixin",
-	"../Menu",
-	"../MenuItem",
+	"../dijit/Menu",
+	"../dijit/MenuItem",
 	"../form/Button",
 	"../_HasDropDown",
 	"dojo/NodeList-dom", // NodeList.style

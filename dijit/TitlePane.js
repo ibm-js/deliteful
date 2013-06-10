@@ -8,14 +8,13 @@ define([
 	"dojo/fx", // fxUtils.wipeIn fxUtils.wipeOut
 	"dojo/has",
 	"dojo/keys", // keys.DOWN_ARROW keys.ENTER
-	"./_CssStateMixin",
-	"./_TemplatedMixin",
-	"./layout/ContentPane",
+	"../_CssStateMixin",
+	"../_TemplatedMixin",
+	"../layout/ContentPane",
 	"dojo/text!./templates/TitlePane.html",
-	"./_base/manager",    // defaultDuration
-	"./a11yclick"	// template uses ondijitclick
+	"../a11yclick"	// template uses ondijitclick
 ], function(array, declare, dom, domAttr, domClass, domGeometry, fxUtils, has, keys,
-			_CssStateMixin, _TemplatedMixin, ContentPane, template, manager){
+			_CssStateMixin, _TemplatedMixin, ContentPane, template){
 
 	// module:
 	//		dijit/TitlePane
@@ -64,7 +63,7 @@ define([
 
 		// duration: Integer
 		//		Time in milliseconds to fade in/fade out
-		duration: manager.defaultDuration,
+		duration: 200,
 
 		// baseClass: [protected] String
 		//		The root className to be placed on this widget's domNode.

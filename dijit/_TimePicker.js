@@ -12,8 +12,8 @@ define([
 	"dojo/query", // query
 	"dojo/mouse", // mouse.wheel
 	"dojo/on",
-	"./_WidgetBase",
-	"./form/_ListMouseMixin"
+	"../_WidgetBase",
+	"../form/_ListMouseMixin"
 ], function(array, ddate, locale, stamp, declare, domClass, domConstruct, keys, lang, has, query, mouse, on,
 			_WidgetBase, _ListMouseMixin){
 

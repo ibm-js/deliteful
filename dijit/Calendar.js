@@ -9,10 +9,10 @@ define([
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"./CalendarLite",
-	"./_WidgetBase",
-	"./_CssStateMixin",
-	"./_TemplatedMixin",
-	"./form/DropDownButton"
+	"../_WidgetBase",
+	"../_CssStateMixin",
+	"../_TemplatedMixin",
+	"../form/DropDownButton"
 ], function(array, date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:

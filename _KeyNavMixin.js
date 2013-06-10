@@ -5,8 +5,8 @@ define([
 	"dojo/keys", // keys.END keys.HOME, keys.LEFT_ARROW etc.
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"dijit/registry",
-	"dijit/_FocusMixin"        // to make _onBlur() work
+	"./registry",
+	"./_FocusMixin"        // to make _onBlur() work
 ], function(array, declare, domAttr, keys, lang, on, registry, _FocusMixin){
 
 	// module:

@@ -5,14 +5,13 @@ define([
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"./focus",
-	"./layout/ContentPane",
+	"../focus",
+	"../layout/ContentPane",
 	"./_DialogMixin",
-	"./form/_FormMixin",
-	"./_TemplatedMixin",
-	"dojo/text!./templates/TooltipDialog.html",
-	"./main"        // exports methods to dijit global
-], function(declare, domClass, has, keys, lang, on, focus, ContentPane, _DialogMixin, _FormMixin, _TemplatedMixin, template, dijit){
+	"../form/_FormMixin",
+	"../_TemplatedMixin",
+	"dojo/text!./templates/TooltipDialog.html"
+], function(declare, domClass, has, keys, lang, on, focus, ContentPane, _DialogMixin, _FormMixin, _TemplatedMixin, template){
 
 	// module:
 	//		dijit/TooltipDialog

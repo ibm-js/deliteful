@@ -15,20 +15,19 @@ define([
 	"dojo/has", // has("dojo-bidi")
 	"dojo/window", // winUtils.getBox, winUtils.get
 	"dojo/dnd/Moveable", // Moveable
-	"./focus",
-	"./_base/manager", // manager.defaultDuration
-	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./_CssStateMixin",
-	"./form/_FormMixin",
+	"../focus",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
+	"../_CssStateMixin",
+	"../form/_FormMixin",
 	"./_DialogMixin",
-	"./DialogUnderlay",
-	"./layout/ContentPane",
+	"../DialogUnderlay",
+	"../layout/ContentPane",
 	"dojo/text!./templates/Dialog.html",
-	"dojo/i18n!./nls/common"
+	"dojo/i18n!../nls/common"
 ], function(require, array, aspect, declare, Deferred,
 			dom, domClass, domGeometry, domStyle, fx, keys, lang, on, has, winUtils,
-			Moveable, focus, manager, _WidgetBase, _TemplatedMixin, _CssStateMixin, _FormMixin, _DialogMixin,
+			Moveable, focus, _WidgetBase, _TemplatedMixin, _CssStateMixin, _FormMixin, _DialogMixin,
 			DialogUnderlay, ContentPane, template, nlsCommon){
 
 	// module:
@@ -55,7 +54,7 @@ define([
 
 		// duration: Integer
 		//		The time in milliseconds it takes the dialog to fade in and out
-		duration: manager.defaultDuration,
+		duration: 200,
 
 		// refocus: Boolean
 		//		A Toggle to modify the default focus behavior of a Dialog, which

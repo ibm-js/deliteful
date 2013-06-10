@@ -11,11 +11,11 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
 	"dojo/string", // string.substitute
-	"./_WidgetBase",
-	"./_TemplatedMixin",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
 	"dojo/text!./templates/Calendar.html",
-	"./a11yclick",	// not used directly, but template has ondijitclick in it
-	"./hccss"    // not used directly, but sets CSS class on <body>
+	"../a11yclick",	// not used directly, but template has ondijitclick in it
+	"dojo/hccss"    // not used directly, but sets CSS class on <body>
 ], function(array, declare, cldrSupplemental, date, locale, stamp, dom, domClass, lang, on, has, string, _WidgetBase, _TemplatedMixin, template){
 
 

@@ -11,7 +11,7 @@ define([
 	"dojo/on",
 	"dojo/_base/window", // win.body
 	"dojo/window", // winUtils.get
-	"./popup",
+	"../popup",
 	"./DropDownMenu"
 ], function(require, array, declare, dom, domAttr, domGeometry, domStyle, keys, lang, on,
 			win, winUtils, pm, DropDownMenu){

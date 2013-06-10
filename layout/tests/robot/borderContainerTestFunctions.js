@@ -1,7 +1,7 @@
 define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json"], function(dojo, array, geom, json){
 
 	function dijitById(id){
-		return dojo.global.require("dijit/registry").byId(id);
+		return dojo.global.require("dui/registry").byId(id);
 	}
 
 	var exports = {

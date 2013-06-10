@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare", // declare
-	"../Calendar",
+	"../dijit/Calendar",
 	"./_DateTimeTextBox"
 ], function(declare, Calendar, _DateTimeTextBox){
 

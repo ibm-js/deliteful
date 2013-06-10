@@ -33,7 +33,7 @@ define([
 					runTest: helpers.waitForLoad
 			});
 			doh.register("setup vars", function(){
-				registry = robot.window.require("dijit/registry");
+				registry = robot.window.require("dui/registry");
 			});
 		},
 

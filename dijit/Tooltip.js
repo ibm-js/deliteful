@@ -10,15 +10,13 @@ define([
 	"dojo/mouse",
 	"dojo/on",
 	"dojo/sniff", // has("ie")
-	"./_base/manager",	// manager.defaultDuration
-	"./place",
-	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./BackgroundIframe",
-	"dojo/text!./templates/Tooltip.html",
-	"./main"		// sets dijit.showTooltip etc. for back-compat
+	"../place",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
+	"../BackgroundIframe",
+	"dojo/text!./templates/Tooltip.html"
 ], function(array, declare, fx, dom, domClass, domGeometry, domStyle, lang, mouse, on, has,
-			manager, place, _WidgetBase, _TemplatedMixin, BackgroundIframe, template, dijit){
+			place, _WidgetBase, _TemplatedMixin, BackgroundIframe, template){
 
 	// module:
 	//		dijit/Tooltip
@@ -43,7 +41,7 @@ define([
 
 		// duration: Integer
 		//		Milliseconds to fade in/fade out
-		duration: manager.defaultDuration,
+		duration: 200,
 
 		templateString: template,
 
@@ -263,41 +261,6 @@ define([
 		});
 	}
 
-	dijit.showTooltip = function(innerHTML, aroundNode, position, rtl, textDir){
-		// summary:
-		//		Static method to display tooltip w/specified contents in specified position.
-		//		See description of dijit/Tooltip.defaultPosition for details on position parameter.
-		//		If position is not specified then dijit/Tooltip.defaultPosition is used.
-		// innerHTML: String
-		//		Contents of the tooltip
-		// aroundNode: place.__Rectangle
-		//		Specifies that tooltip should be next to this node / area
-		// position: String[]?
-		//		List of positions to try to position tooltip (ex: ["right", "above"])
-		// rtl: Boolean?
-		//		Corresponds to `WidgetBase.dir` attribute, where false means "ltr" and true
-		//		means "rtl"; specifies GUI direction, not text direction.
-		// textDir: String?
-		//		Corresponds to `WidgetBase.textdir` attribute; specifies direction of text.
-
-		// After/before don't work, but for back-compat convert them to the working after-centered, before-centered.
-		// Possibly remove this in 2.0.   Alternately, get before/after to work.
-		if(position){
-			position = array.map(position, function(val){
-				return {after: "after-centered", before: "before-centered"}[val] || val;
-			});
-		}
-
-		if(!Tooltip._masterTT){ dijit._masterTT = Tooltip._masterTT = new MasterTooltip(); }
-		return Tooltip._masterTT.show(innerHTML, aroundNode, position, rtl, textDir);
-	};
-
-	dijit.hideTooltip = function(aroundNode){
-		// summary:
-		//		Static method to hide the tooltip displayed via showTooltip()
-		return Tooltip._masterTT && Tooltip._masterTT.hide(aroundNode);
-	};
-
 	var Tooltip = declare("dijit.Tooltip", _WidgetBase, {
 		// summary:
 		//		Pops up a tooltip (a help message) when you hover over a node.
@@ -481,8 +444,41 @@ define([
 	});
 
 	Tooltip._MasterTooltip = MasterTooltip;		// for monkey patching
-	Tooltip.show = dijit.showTooltip;		// export function through module return value
-	Tooltip.hide = dijit.hideTooltip;		// export function through module return value
+
+	Tooltip.show = function(innerHTML, aroundNode, position, rtl, textDir){
+		// summary:
+		//		Static method to display tooltip w/specified contents in specified position.
+		//		See description of dijit/Tooltip.defaultPosition for details on position parameter.
+		//		If position is not specified then dijit/Tooltip.defaultPosition is used.
+		// innerHTML: String
+		//		Contents of the tooltip
+		// aroundNode: place.__Rectangle
+		//		Specifies that tooltip should be next to this node / area
+		// position: String[]?
+		//		List of positions to try to position tooltip (ex: ["right", "above"])
+		// rtl: Boolean?
+		//		Corresponds to `WidgetBase.dir` attribute, where false means "ltr" and true
+		//		means "rtl"; specifies GUI direction, not text direction.
+		// textDir: String?
+		//		Corresponds to `WidgetBase.textdir` attribute; specifies direction of text.
+
+		// After/before don't work, but for back-compat convert them to the working after-centered, before-centered.
+		// Possibly remove this in 2.0.   Alternately, get before/after to work.
+		if(position){
+			position = array.map(position, function(val){
+				return {after: "after-centered", before: "before-centered"}[val] || val;
+			});
+		}
+
+		if(!Tooltip._masterTT){ dijit._masterTT = Tooltip._masterTT = new MasterTooltip(); }
+		return Tooltip._masterTT.show(innerHTML, aroundNode, position, rtl, textDir);
+	};
+
+	Tooltip.hide = function(aroundNode){
+		// summary:
+		//		Static method to hide the tooltip displayed via showTooltip()
+		return Tooltip._masterTT && Tooltip._masterTT.hide(aroundNode);
+	};
 
 	Tooltip.defaultPosition = ["after-centered", "before-centered"];
 

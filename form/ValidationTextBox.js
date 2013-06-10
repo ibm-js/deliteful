@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare", // declare
 	"./TextBox",
-	"../Tooltip",
+	"../dijit/Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
 	"dojo/i18n!./nls/validate"
 ], function(declare, TextBox, Tooltip, template, nlsValidate){

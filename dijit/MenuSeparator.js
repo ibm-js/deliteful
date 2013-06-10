@@ -1,9 +1,9 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
-	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./_Contained",
+	"../_WidgetBase",
+	"../_TemplatedMixin",
+	"../_Contained",
 	"dojo/text!./templates/MenuSeparator.html"
 ], function(declare, dom, _WidgetBase, _TemplatedMixin, _Contained, template){
 
