@@ -8,7 +8,7 @@ define([
 	// module:
 	//		dijit/typematic
 
-	return  {
+	var typematic = {
 		// summary:
 		//		These functions are used to repetitively call a user specified callback
 		//		method when a specific key or mouse click over a specific DOM node is
@@ -202,4 +202,6 @@ define([
 			} };
 		}
 	};
+
+	return typematic;
 });
