@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>ListItem</title>
+		<link href="../../../themes/iphone/iphone.css" rel="stylesheet"/>
+		<link href="../../../themes/iphone/iphone_rtl.css" rel="stylesheet"/>
+		<link href="../../../themes/common/domButtons/DomButtonColorButtons.css" rel="stylesheet"/>
+		<link href="../../../themes/common/domButtons/DomButtonCheckboxOn.css" rel="stylesheet"/>
+		<link href="../../../themes/common/domButtons/DomButtonCheckboxOff.css" rel="stylesheet"/>
+		<script type="text/javascript" src="../../../../../dojo/dojo.js" djConfig="parseOnLoad: true, has:{'dojo-bidi': true}"></script>
+
+		<script language="JavaScript" type="text/javascript">
+			dojo.require("dojo.parser"); // Use the lightweight parser.
+			//dojo.require("dojox/mobile/parser");
+			dojo.require("dojox.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+		</script>
+
+		<script type="text/javascript" src="../TestUtil.js"></script>
+		<script type="text/javascript" src="../listitem/ListItem.js"></script>
+	</head>
+	<body div="rtl">
+		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
+			<ul data-dojo-type="dojox/mobile/RoundRectList">
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" transition="slide" url="../../view1.html">External View #1 (sync)</li>
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-2.png" transition="flip" url="../../view2.html" sync="false">External View #2 (async)</li>
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-3.png" transition="fade" url="../../view3.html">External View #3 (sync)</li>
+				<li data-dojo-type="dojox/mobile/ListItem" rightText="Off">Video</li>
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" rightText="VPN">Maps</li>
+				<li data-dojo-type="dojox/mobile/ListItem">Jack Coleman</li>
+			</ul>
+			<ul data-dojo-type="dojox/mobile/RoundRectList" iconBase="../../images/i-icon-all.png">
+				<li data-dojo-type="dojox/mobile/ListItem" iconPos="0,87,29,29" moveTo="general">Sounds</li>
+				<li data-dojo-type="dojox/mobile/ListItem" iconPos="0,116,29,29" moveTo="general">Brightness</li>
+				<li data-dojo-type="dojox/mobile/ListItem" iconPos="29,0,29,29" moveTo="general">Wallpaper</li>
+			</ul>
+			<ul id="list1" data-dojo-type="dojox/mobile/EdgeToEdgeList">
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" rightIcon="mblDomButtonBluePlus">XX Widget</li>
+				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-2.png" rightIcon="mblDomButtonRedMinus">YY Widget</li>
+			</ul>
+		    <ul id="list2" data-dojo-type="dojox/mobile/EdgeToEdgeList">
+			    <li class="mblVariableHeight" data-dojo-type="dojox/mobile/ListItem" rightIcon="mblDomButtonCheckboxOff">
+					Use wireless networks
+					<div class="mblListItemSubText">
+						See location in applications (such as Maps) using wireless networks
+					</div>
+			    </li>
+			    <li class="mblVariableHeight" data-dojo-type="dojox/mobile/ListItem" rightIcon="mblDomButtonCheckboxOn">
+					Use GPS satellites
+					<div class="mblListItemSubText">
+						When locating, accurate to street level (uncheck to conserve battery)
+					</div>
+			    </li>
+			    <li data-dojo-type="dojox/mobile/ListItem">
+					Set unlock pattern
+			    </li>
+		    </ul>
+		</div>
+	</body>
+</html>
