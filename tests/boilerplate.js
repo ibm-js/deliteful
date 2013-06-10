@@ -22,7 +22,7 @@
 //		<body class="claro">
 
 var dir = "",
-	theme = "claro",
+	theme = "",
 	testMode = null;
 
 dojoConfig = {
