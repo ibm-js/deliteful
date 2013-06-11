@@ -68,7 +68,7 @@ define([
 			if(this._started){ return; }
 			domClass.add(this.domNode, this.baseClass + this.orientation);
 
-			var parent = this.getParent(), f;
+			var parent = this.getParent();
 			if(!parent || !parent.resize){ // top level widget
 				this.defer(function(){
 					this.resize();
