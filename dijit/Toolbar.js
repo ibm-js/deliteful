@@ -4,14 +4,15 @@ define([
 	"dojo/has",
 	"dojo/keys", // keys.LEFT_ARROW keys.RIGHT_ARROW
 	"../_WidgetBase",
+	"../_Container",
 	"../_KeyNavMixin",
 	"../_TemplatedMixin"
-], function(require, declare, has, keys, _WidgetBase, _KeyNavMixin, _TemplatedMixin){
+], function(require, declare, has, keys, _WidgetBase, _Container, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
 	//		dijit/Toolbar
 
-	return declare("dijit.Toolbar", [_WidgetBase, _TemplatedMixin, _KeyNavMixin], {
+	return declare("dijit.Toolbar", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin], {
 		// summary:
 		//		A Toolbar widget, used to hold things like `dijit/Editor` buttons
 
