@@ -13,10 +13,9 @@ define([
 	"dojo/on",
 	"./place",
 	"./BackgroundIframe",
-	"./Viewport",
-	"./main"    // dijit (defining dijit.popup to match API doc)
+	"./Viewport"
 ], function(array, aspect, declare, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
-			place, BackgroundIframe, Viewport, dijit){
+			place, BackgroundIframe, Viewport){
 
 	// module:
 	//		dijit/popup
@@ -414,5 +413,5 @@ define([
 		}
 	});
 
-	return (dijit.popup = new PopupManager());
+	return new PopupManager();
 });

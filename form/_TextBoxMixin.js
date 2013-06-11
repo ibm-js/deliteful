@@ -5,9 +5,8 @@ define([
 	"dojo/has",
 	"dojo/keys", // keys.ALT keys.CAPS_LOCK keys.CTRL keys.META keys.SHIFT
 	"dojo/_base/lang", // lang.mixin
-	"dojo/on", // on
-	"../main"    // for exporting dijit._setSelectionRange, dijit.selectInputText
-], function(array, declare, dom, has, keys, lang, on, dijit){
+	"dojo/on" // on
+], function(array, declare, dom, has, keys, lang, on){
 
 	// module:
 	//		dijit/form/_TextBoxMixin
@@ -470,13 +469,13 @@ define([
 		});
 	}
 
-	_TextBoxMixin._setSelectionRange = dijit._setSelectionRange = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
+	_TextBoxMixin._setSelectionRange = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
 		if(element.setSelectionRange){
 			element.setSelectionRange(start, stop);
 		}
 	};
 
-	_TextBoxMixin.selectInputText = dijit.selectInputText = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
+	_TextBoxMixin.selectInputText = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
 		// summary:
 		//		Select text in the input element argument, from start (default 0), to stop (default end).
 

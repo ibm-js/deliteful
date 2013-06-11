@@ -1,13 +1,12 @@
 define([
 	"require",			// require.toUrl
-	"./main",	// to export dijit.BackgroundIframe
 	"dojo/_base/config",
 	"dojo/dom-construct", // domConstruct.create
 	"dojo/dom-style", // domStyle.set
 	"dojo/_base/lang", // lang.extend lang.hitch
 	"dojo/on",
 	"dojo/sniff" // has("ie"), has("mozilla"), has("quirks")
-], function(require, dijit, config, domConstruct, domStyle, lang, on, has){
+], function(require, config, domConstruct, domStyle, lang, on, has){
 
 	// module:
 	//		dijit/BackgroundIFrame
@@ -57,12 +56,12 @@ define([
 	}();
 
 
-	dijit.BackgroundIframe = function(/*DomNode*/ node){
+	var BackgroundIframe = function(/*DomNode*/ node){
 		// summary:
 		//		For IE/FF z-index shenanigans. id attribute is required.
 		//
 		// description:
-		//		new dijit.BackgroundIframe(node).
+		//		new BackgroundIframe(node).
 		//
 		//		Makes a background iframe as a child of node, that fills
 		//		area (and position) of node
@@ -78,7 +77,7 @@ define([
 		}
 	};
 
-	lang.extend(dijit.BackgroundIframe, {
+	lang.extend(BackgroundIframe, {
 		resize: function(node){
 			// summary:
 			//		Resize the iframe so it's the same size as node.
@@ -104,5 +103,5 @@ define([
 		}
 	});
 
-	return dijit.BackgroundIframe;
+	return BackgroundIframe;
 });
