@@ -68,10 +68,6 @@ define([
 		//		If '#', returns immediately without transition.
 		moveTo: "",
 
-		// scene: String
-		//		The name of a scene. Used from dojox/mobile/app.
-		scene: "",
-
 		// clickable: Boolean
 		//		If true, this item becomes clickable even if a transition
 		//		destination (moveTo, etc.) is not specified.
@@ -234,7 +230,7 @@ define([
 			//		specified by the property paramsToInherit.
 			var opts = this.transitionOptions || {};
 			array.forEach(["moveTo", "href", "hrefTarget", "url", "target",
-				"urlTarget", "scene", "transition", "transitionDir"], function(p){
+				"urlTarget", "transition", "transitionDir"], function(p){
 				opts[p] = opts[p] || this[p];
 			}, this);
 			return opts; // Object
@@ -298,7 +294,7 @@ define([
 			}
 			var opts = this.getTransOpts();
 			var doTransition = 
-				!!(opts.moveTo || opts.href || opts.url || opts.target || opts.scene);
+				!!(opts.moveTo || opts.href || opts.url || opts.target);
 			if(this._prepareForTransition(e, doTransition ? opts : null) === false){ return; }
 			if(doTransition){
 				this.setTransitionPos(e);
@@ -408,7 +404,7 @@ define([
 			}
 		},
 
-		transitionTo: function(/*String|Object*/moveTo, /*String*/href, /*String*/url, /*String*/scene){
+		transitionTo: function(/*String|Object*/moveTo, /*String*/href, /*String*/url){
 			// summary:
 			//		Performs a view transition.
 			// description:
@@ -416,7 +412,7 @@ define([
 			//		transition. This method is typically called when this item
 			//		is clicked.
 			var opts = (moveTo && typeof(moveTo) === "object") ? moveTo :
-				{moveTo: moveTo, href: href, url: url, scene: scene,
+				{moveTo: moveTo, href: href, url: url,
 				 transition: this.transition, transitionDir: this.transitionDir};
 			new TransitionEvent(this.domNode, opts).dispatch();
 		},
