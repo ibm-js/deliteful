@@ -8,9 +8,9 @@
 		require([
 			"doh/runner",
 			"dojo/_base/array", "dojo/_base/declare", "dojo/dom", "dojo/query",
-			"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/_WidgetsInTemplateMixin", "dui/layout/LayoutContainer",
+			"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/layout/LayoutContainer",
 			"dojo/domReady!"
-		], function(doh, array, declare, dom, query, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
+		], function(doh, array, declare, dom, query, _WidgetBase, _TemplatedMixin){
 
 			function getOuterHTML(/*DomNode*/ node){
 				var wrapper = document.createElement("div");
@@ -20,7 +20,7 @@
 
 			// Template with no variables (should be cached as a DOM tree)
 			declare("SimpleTemplate", [_WidgetBase, _TemplatedMixin], {
-				id: "test1",
+				id: "",
 				_setIdAttr: null, // override _WidgetBase to not copy id to domNode
 
 				templateString: "<button type='button'><span>hello &lt; world</span></button>"
@@ -89,7 +89,7 @@
 
 			doh.register("_TemplatedMixin", [
 				function simple(t){
-					var widget = new SimpleTemplate();
+					var widget = new SimpleTemplate({id: "test1"});
 					var wrapper = dom.byId("simpleWrapper");
 					wrapper.appendChild(widget.domNode);
 
@@ -164,51 +164,6 @@
 						t.t(widget.focus2Called, "right focused");
 					}), 50);
 					return deferred;
-				},
-
-				function widgetsInTemplateLifecycle(t){
-
-					var result = [], expected = [1, 1, 0, 2, 2, 3];
-
-					// widgetsInTemplateLifecycle
-					declare("SubThing", _WidgetBase, {
-						postCreate: function(){
-							this.inherited(arguments);
-							result.push(1);
-						},
-						startup: function(){
-							this.inherited(arguments);
-							result.push(2);
-						}
-					});
-
-					declare("ParentThing", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
-						templateString: "<div>" +
-								"<span data-dojo-type='SubThing'>a</span>" +
-								"<div data-dojo-type='dui/layout/LayoutContainer'>" +
-								"<span data-dojo-type='SubThing' data-dojo-props='region: \"center\"'>b</span>" +
-								"</div>" +
-								"</div>",
-						postCreate: function(){
-							// children postcreate (x2) called before this postCreate
-							this.inherited(arguments);
-							result.push(0);
-						},
-						startup: function(){
-							// then children startup (x2) then our startup
-							// (we can call inherited after push(), and change the order)
-							this.inherited(arguments);
-							result.push(3);
-						}
-					});
-
-					new ParentThing().startup();
-
-					t.is(expected.length, result.length);
-					array.forEach(expected, function(r){
-						t.is(r, result.shift());
-					});
-
 				},
 
 				// Test IE problem having "length" as data-dojo-attach-point name
