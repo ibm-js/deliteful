@@ -246,7 +246,7 @@
 						if(!isArray && t[j].indexOf('/') !== -1){
 							path = t[j];
 						}else{
-							var pkg = isArray ? (t[j][0]||"").replace(/\./g, '/') : "dojox/mobile";
+							var pkg = isArray ? (t[j][0]||"").replace(/\./g, '/') : "dui/mobile";
 							var name = (isArray ? t[j][1] : t[j]).replace(/\./g, '/');
 							var f = "themes/" + theme + "/" +
 								(name === "@theme" ? theme : name) + ".css";

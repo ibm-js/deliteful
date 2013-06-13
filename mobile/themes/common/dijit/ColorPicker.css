@@ -1,7 +1,7 @@
 /*if you link this stylesheet directory, mobile/common/dijit/base.css must already be imported*/
 
 /* import base dijit styles to override below */
-@import url("../../../../../dojox/widget/ColorPicker/ColorPicker.css");
+@import url("ColorPicker-from-dojox-widget.css");
 
 .dojoxColorPicker {
 	padding: 8px;
