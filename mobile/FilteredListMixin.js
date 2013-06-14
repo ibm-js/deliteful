@@ -77,7 +77,7 @@ define([
 		// |	// Programmatic use-case:
 		// |	// SearchBox and ScrollableView created by the mixin.
 		// |	// Filtered EdgeToEdgeStoreList created programmatically.
-		// |	require(["dojo/_base/declare", "dojo/ready", "dojox/mobile", "dojox/mobile/EdgeToEdgeStoreList", 
+		// |	require(["dojo/_base/declare", "dojo/ready", "dojox/mobile/EdgeToEdgeStoreList", 
 		// |			"dojox/mobile/FilteredListMixin", ...],	function(declare, ready, registry, ...){
 		// |		ready(function(){
 		// |			var listWidget =
@@ -109,7 +109,7 @@ define([
 		// |	// Programmatic use-case:
 		// |	// SearchBox and ScrollableView provided by the user.
 		// |	// Filtered EdgeToEdgeStoreList created programmatically.
-		// |	require(["dojo/_base/declare", "dojo/ready", "dijit/registry", "dojox/mobile",
+		// |	require(["dojo/_base/declare", "dojo/ready", "dijit/registry",
 		// |			"dojox/mobile/EdgeToEdgeStoreList", "dojox/mobile/FilteredListMixin",
 		// |			"dojox/mobile/ScrollableView", ...], function(declare, ready, registry, ...){
 		// |		ready(function(){

@@ -15,14 +15,13 @@
 		require([
 			"dojo/domReady",
 			"dojo/dom-construct",
-			"dojox/mobile",
 			"dojox/mobile/Opener",
 			"dojox/mobile/ToolBarButton",
 			"dojox/mobile/Heading",
 			"dojox/mobile/compat",
 			"dojo/parser",
 			"dijit/_base/manager" // dijit.byId
-		], function(ready, domConstruct, mobile, Opener, ToolBarButton, Heading, manager){
+		], function(ready, domConstruct, Opener, ToolBarButton, Heading, manager){
 			ready(function(){
 				var opener = new Opener({onHide:getDate2, onShow:setDate2, lazy:true}, "calPicker");
 				var headingNode = domConstruct.create("div", {dojoType:"dojox/mobile/Heading", label:"Dates"}, opener.domNode);

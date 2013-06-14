@@ -10,7 +10,6 @@ require([
 	"dojox/mobile/EdgeToEdgeStoreList",
 	"dojox/mobile/RoundRectStoreList",
 	"dojox/mobile/parser",
-	"dojox/mobile",
 	"dojox/mobile/compat"
 ], function(Deferred, Cache, JsonRest, Memory, Observable, ready, registry, runner, EdgeToEdgeStoreList, RoundRectStoreList){
 

@@ -11,7 +11,6 @@ require([
 	"dojox/mobile/RoundRectStoreList",
 	"dojox/mobile/tests/doh/CustomListItem",
 	/*"dojox/mobile/parser",*/
-	"dojox/mobile",
 	"dojox/mobile/compat"
 ], function(parser, Cache, JsonRest, Memory, Observable, ready, registry, runner, EdgeToEdgeStoreList, RoundRectStoreList){
 

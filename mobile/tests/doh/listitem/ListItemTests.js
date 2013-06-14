@@ -17,7 +17,6 @@ require([
 	"dojox/mobile/ListItem",
 	"dojox/mobile/RoundRectList",
 	"dojox/mobile/EdgeToEdgeList",
-	"dojox/mobile",				// This is a mobile app.
 	"dojox/mobile/View",		// This mobile app uses mobile view
 	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
 	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser

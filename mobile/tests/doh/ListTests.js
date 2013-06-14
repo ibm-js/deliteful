@@ -7,7 +7,6 @@ require([
 	"dojox/mobile/EdgeToEdgeList",
 	"dojox/mobile/RoundRectList",
 	"dojox/mobile/ListItem",
-	"dojox/mobile",				// This is a mobile app.
 	"dojox/mobile/View",		// This mobile app uses mobile view
 	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(parser, domConst, ready, registry, runner, EdgeToEdgeList, RoundRectList, ListItem){

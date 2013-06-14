@@ -15,7 +15,6 @@ require([
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/PageIndicator",
-	"dojox/mobile",				// This is a mobile app.
 	"dojox/mobile/SwapView",		// This mobile app uses mobile view
 	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(parser, has, domConst, domClass, ready, registry, runner, PageIndicator){
