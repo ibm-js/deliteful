@@ -194,7 +194,7 @@ define([
 			evt.preventDefault();
 			if(!evt.detail){ return; }
 			var detail = evt.detail;
-			if(!detail.moveTo && !detail.href && !detail.url && !detail.scene){ return; }
+			if(!detail.moveTo && !detail.href && !detail.url){ return; }
 
 			if(detail.url && !detail.moveTo){
 				var urlTarget = detail.urlTarget;
@@ -218,9 +218,6 @@ define([
 						view.performTransition(null, detail.transitionDir, detail.transition, evt.target, function(){location.href = detail.href;});
 					}
 				}
-				return;
-			}else if(detail.scene){
-				topic.publish("/dojox/mobile/app/pushScene", detail.scene);
 				return;
 			}
 
