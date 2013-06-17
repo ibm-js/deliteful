@@ -8,7 +8,7 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
 	"dojo/window", // winUtils.scrollIntoView
-	"../a11y"    // a11y.hasDefaultTabStop
+	"./a11y"    // a11y.hasDefaultTabStop
 ], function(array, declare, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
 
 	// module:
@@ -56,6 +56,7 @@ define([
 		//		In markup, this is specified as "disabled='disabled'", or just "disabled".
 		disabled: false,
 
+		// TODO: move this somewhere else, or do we even need it?
 		// intermediateChanges: Boolean
 		//		Fires onChange for each value change or only on demand
 		intermediateChanges: false,
@@ -68,6 +69,7 @@ define([
 		// works with screen reader
 		_setIdAttr: "focusNode",
 
+		// TODO: trim or remove this function
 		_setDisabledAttr: function(/*Boolean*/ value){
 			this._set("disabled", value);
 			domAttr.set(this.focusNode, 'disabled', value);
@@ -83,7 +85,7 @@ define([
 				this._set("active", false);
 
 				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
-			var attachPointNames =
+				var attachPointNames =
 					("_setTabIndexAttr" in this) ? this._setTabIndexAttr : "focusNode";
 				array.forEach(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames], function(attachPointName){
 					var node = this[attachPointName];
@@ -102,31 +104,6 @@ define([
 		},
 
 		_onFocus: function(/*String*/ by){
-			// If user clicks on the widget, even if the mouse is released outside of it,
-			// this widget's focusNode should get focus (to mimic native browser behavior).
-			// Browsers often need help to make sure the focus via mouse actually gets to the focusNode.
-			// TODO: consider removing all of this for 2.0 or sooner, see #16622 etc.
-			if(by == "mouse" && this.isFocusable()){
-				// IE exhibits strange scrolling behavior when refocusing a node so only do it when !focused.
-				var focusHandle = this.own(on(this.focusNode, "focus", function(){
-					mouseUpHandle.remove();
-					focusHandle.remove();
-				}))[0];
-				// Set a global event to handle mouseup, so it fires properly
-				// even if the cursor leaves this.domNode before the mouse up event.
-				var mouseUpHandle = this.own(on(this.ownerDocumentBody, "mouseup, touchend", lang.hitch(this, function(evt){
-					mouseUpHandle.remove();
-					focusHandle.remove();
-					// if here, then the mousedown did not focus the focusNode as the default action
-					if(this.focused){
-						if(evt.type == "touchend"){
-							this.defer("focus"); // native focus hasn't occurred yet
-						}else{
-							this.focus(); // native focus already occurred on mousedown
-						}
-					}
-				})))[0];
-			}
 			if(this.scrollOnFocus){
 				this.defer(function(){
 					winUtils.scrollIntoView(this.domNode);
@@ -150,8 +127,8 @@ define([
 				try{
 					this.focusNode.focus();
 				}catch(e){
+					// squelch errors from hidden nodes
 				}
-				/*squelch errors from hidden nodes*/
 			}
 		},
 
@@ -184,6 +161,7 @@ define([
 		//		when the initial value is set.
 		_onChangeActive: false,
 
+		// TODO: look at reducing or removing this
 		_handleOnChange: function(/*anything*/ newValue, /*Boolean?*/ priorityChange){
 			// summary:
 			//		Called when the value of the widget is set.  Calls onChange() if appropriate

@@ -1,15 +1,19 @@
-/* dui.mobile.Button */
 .duiButton {
-	padding: 0 10px;
-	height: 29px;
+	padding: 15px 10px;
 	border-style: outset;
 	border-width: 1px;
 	.dui-button-background-image();
 	font-family: Helvetica;
-	line-height: 29px;
 	cursor: pointer;
 	.tap-highlight-color(rgba(255,255,255,0));
 	.duiButton-styles;
+
+	// These are from original dojox.mobile but they presumably break accessibility
+	// height: 29px;
+	// line-height: 29px;
+}
+.duiButtonText {
+	margin: 10px;	// space between button and icon (in unlikely case both are displayed)
 }
 .duiButtonSelected {
 	.dui-button-selected-background-image();
