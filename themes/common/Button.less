@@ -1,0 +1,42 @@
+.duiButton {
+	padding: 15px 10px;
+	border-style: outset;
+	border-width: 1px;
+	.dui-button-background-image();
+	font-family: Helvetica;
+	cursor: pointer;
+	.tap-highlight-color(rgba(255,255,255,0));
+	.duiButton-styles;
+
+	// These are from original dojox.mobile but they presumably break accessibility
+	// height: 29px;
+	// line-height: 29px;
+}
+.duiButtonText {
+	margin: 10px;	// space between button and icon (in unlikely case both are displayed)
+}
+.duiButtonSelected {
+	.dui-button-selected-background-image();
+	.duiButtonSelected-styles;
+}
+.duiButtonDisabled,
+.duiButton:disabled {
+	border-color: grey;
+	background-image: none;
+	color: grey;
+	cursor: default;
+}
+.duiBlueButton {
+	.dui-blue-button-background-image();
+	.duiButton-duiBlueButton-styles;
+}
+.duiBlueButtonSelected {
+	.dui-blue-button-selected-background-image();
+}
+.duiRedButton {
+	.dui-red-button-background-image();
+	.duiButton-duiRedButton-styles;
+}
+.duiRedButtonSelected {
+	.dui-red-button-selected-background-image();
+}

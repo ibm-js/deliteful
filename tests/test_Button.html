@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+	<title>Dojo Toolkit - Button test page</title>
+
+	<link href="../icons/commonIcons.css" rel="stylesheet"/>
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="./boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"dojo/_base/array",
+			"dojo/dom",
+			"dui/registry",
+			"dojo/parser",
+			"dui/Button",
+			"dojo/domReady!"
+		], function(array, dom, registry, parser){
+
+			parser.parse();
+
+			["btn1", "btn2", "btn3", "btn4", "btn5"].forEach(function(btnId){
+				var btnWidget = registry.byId(btnId);
+				btnWidget.on("click", function(){
+					var span = dom.byId("msgArea");
+					span.innerHTML = "&quot;" + dom.byId(this.id).innerHTML + "&quot; button was clicked.";
+					setTimeout(function(){
+						span.innerHTML = "";
+					}, 1000);
+				});
+			});
+
+			// TODO: test programmatic creation, including that value and disabled get assigned to node correctly.
+		});
+	</script>
+
+	<style>
+	html, body {
+		height: 100%;
+		overflow: hidden;
+	}
+	hr {
+		border: none;
+		margin: 0;
+	}
+	button.customButton {
+		border-color: #cc3333;
+		background-image: linear-gradient(left top, left bottom, from(#D3656D), to(#BC1320), color-stop(0.5, #C9404B), color-stop(0.5, #BC1421));
+		color: #ffffff;
+	}
+	button.customButtonSelected {
+		background-image: linear-gradient(left top, left bottom, from(#AF333C), to(#880E17), color-stop(0.5, #952B33), color-stop(0.5, #870F18));
+	}
+	</style>
+</head>
+<body>
+	<button data-dojo-type="dui/Button" id="btn1">Default</button>
+	<hr>
+	<button data-dojo-type="dui/Button" id="btn2" class="duiBlueButton">Blue</button>
+	class="duiBlueButton"
+	<hr>
+	<button data-dojo-type="dui/Button" id="btn3" class="duiRedButton">Red</button>
+	class="duiRedButton"
+	<hr>
+	<button data-dojo-type="dui/Button" id="btn4" disabled>Disabled</button>
+	disabled
+	<hr>
+	<button data-dojo-type="dui/Button" id="btn5" class="customButton">Custom</button>
+	class="customButton"
+	<hr>
+	<button data-dojo-type="dui/Button" id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
+			data-dojo-props='iconClass:"duiIconSave"'>
+		Icon Button
+	</button>
+	<div id="msgArea" style="margin:15px"></div>
+</body>
+</html>
