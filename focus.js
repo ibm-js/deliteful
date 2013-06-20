@@ -94,6 +94,8 @@ define([
 				body = targetWindow.document && targetWindow.document.body;
 
 			if(body){
+				// TODO: change this to run on capture phase rather than bubbling phase after that option is added to
+				// dojo/on (see #16596)
 				var mdh = on(targetWindow.document, 'mousedown, touchstart', function(evt){
 					_this._justMouseDowned = true;
 					setTimeout(function(){ _this._justMouseDowned = false; }, 0);
