@@ -801,7 +801,7 @@ define([
 			//		Used by widgets to signal that a synthetic event occurred, ex:
 			//	|	myWidget.emit("attrmodified-selectedChildWidget", {}).
 			//
-			//		Emits an event on this.domNode named type.toLowerCase(), based on eventObj.
+			//		Emits an event on this.domNode named type, based on eventObj.
 			//		Also calls onType() method, if present, and returns value from that method.
 			//		By default passes eventObj to callback, but will pass callbackArgs instead, if specified.
 			//		Modifies eventObj by adding missing parameters (bubbles, cancelable, widget).
@@ -823,6 +823,8 @@ define([
 			}
 			eventObj.detail.widget = this;
 
+			// Call onType() method.   TODO: remove this for 2.0?  In general we won't have such methods anymore.
+			// See on() method below, which has the same code.
 			var ret, callback = this["on" + type];
 			if(callback){
 				ret = callback.apply(this, callbackArgs ? callbackArgs : [eventObj]);
@@ -830,7 +832,7 @@ define([
 
 			// Emit event, but avoid spurious emit()'s as parent sets properties on child during startup/destroy
 			if(this._started && !this._beingDestroyed){
-				on.emit(this.domNode, type.toLowerCase(), eventObj);
+				on.emit(this.domNode, type, eventObj);
 			}
 
 			return ret;
