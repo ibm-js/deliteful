@@ -8,14 +8,27 @@
 
 		<script type="text/javascript">
 			require([
-				"doh/runner", "dojo/_base/array", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
-				"dui/focus", "dui/registry", "dui/tests/helpers",
+				"doh/runner", "dojo/_base/array", "dojo/_base/declare", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
+				"dui/focus", "dui/registry",
+				"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/_FocusMixin",
 				"dojo/domReady!",
 				"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner","dui/form/ComboButton",
-				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem", "dui/layout/ContentPane"
-			], function(doh, array, dom, on, parser, query, focus, registry, helpers){
+				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
+			], function(doh, array, declare, dom, on, parser, query, focus, registry, _WidgetBase, _TemplatedMixin, _FocusMixin){
 
-				// TODO: declare FakeEditor widget for testing
+				FakeEditor = declare([_WidgetBase, _TemplatedMixin, _FocusMixin], {
+					// dijit/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
+					templateString: "<iframe data-dojo-attach-point='containerNode' " +
+							"src='javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"'/>",
+
+					postCreate: function(){
+						focus.registerIframe(this.containerNode);
+					},
+
+					focus: function(){
+						this.containerNode.contentDocument.body.firstChild.focus();
+					}
+				});
 
 				doh.register("setup", [
 					function parse(){
@@ -25,12 +38,12 @@
 						array.forEach(["form", "fieldset1", "fieldset2", "select", "editor", "spinner"], function(id){
 							var w = registry.byId(id);
 
-							w.on("focus", function(){
+							w.onFocus = function(){
 								focusEvents[id] = true;
-							});
-							w.on("blur", function(){
+							};
+							w.onBlur = function(){
 								blurEvents[id] = true;
-							});
+							};
 
 							// new API is to watch "focused" attribute
 							w.watch("focused", function(name, oldValue, newValue){
@@ -385,13 +398,14 @@
 		<h3>dui/focus Automated Test</h3>
 
 		<label>a form ContentPane widget:</label><br>
-		<form id="form" data-dojo-type="dui/layout/ContentPane" >
+
+		<form id="form" data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
 			<label for="first">simple input: </label><input id="first"/><br>
 			<label for="second">another simple input: </label><input id="second"/><br>
 
 			<label>a fieldset ContentPane widget:</label><br>
-			<fieldset id=fieldset1 data-dojo-type="dui/layout/ContentPane">
-				<label for="select">a ComboBox widget:</label>
+			<fieldset id=fieldset1 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+			<label for="select">a ComboBox widget:</label>
 				<select id=select data-dojo-type="dui/form/ComboBox">
 					<option>this</option>
 					<option>is</option>
@@ -401,13 +415,15 @@
 				<label for="plain">a plain input:</label>
 				<input id=plain value=plain/>
 			</fieldset>
-			<div id=editor> <!--data-dojo-type="FakeEditor" -->
-				Hello world, this is an <i>editor</i>
+			<label>Editor:</label><br>
+
+			<div id=editor data-dojo-type="FakeEditor">
+			Hello world, this is an <i>editor</i>
 			</div>
 			<br>
 			<label>another fieldset ContentPane:</label><br>
-			<fieldset id=fieldset2 data-dojo-type="dui/layout/ContentPane">
-				<label for="date">a DateTextBox widget:</label>
+			<fieldset id=fieldset2 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+			<label for="date">a DateTextBox widget:</label>
 				<input id=date data-dojo-type="dui/form/DateTextBox"/><br>
 	
 				<label for="textarea">a plain textarea:</label><br>
