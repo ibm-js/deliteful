@@ -85,9 +85,9 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			var titleTextNodeId = this.id.replace(' ', '_');
-			domAttr.set(this.titleTextNode, "id", titleTextNodeId + "_title");
-			this.focusNode.setAttribute("aria-labelledby", domAttr.get(this.titleTextNode, "id"));
+			var titleTextNodeId = this.id + "_title";
+			domAttr.set(this.titleTextNode, "id", titleTextNodeId);
+			this.focusNode.setAttribute("aria-labelledby", titleTextNodeId);
 			dom.setSelectable(this.domNode, false);
 		},
 
