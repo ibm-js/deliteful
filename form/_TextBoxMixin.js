@@ -5,13 +5,14 @@ define([
 	"dojo/has",
 	"dojo/keys", // keys.ALT keys.CAPS_LOCK keys.CTRL keys.META keys.SHIFT
 	"dojo/_base/lang", // lang.mixin
-	"dojo/on" // on
-], function(array, declare, dom, has, keys, lang, on){
+	"dojo/on", // on
+	"../_FocusMixin"
+], function(array, declare, dom, has, keys, lang, on, _FocusMixin){
 
 	// module:
 	//		dijit/form/_TextBoxMixin
 
-	var _TextBoxMixin = declare("dijit.form._TextBoxMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), null, {
+	var _TextBoxMixin = declare("dijit.form._TextBoxMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), _FocusMixin, {
 		// summary:
 		//		A mixin for textbox form input widgets
 
