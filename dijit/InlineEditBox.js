@@ -18,19 +18,18 @@ define([
 	"../_TemplatedMixin",
 	"../_WidgetsInTemplateMixin",
 	"../_Container",
+	"../_FocusMixin",
 	"../form/Button",
 	"../form/_TextBoxMixin",
 	"../form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!../nls/common"
-], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when,
-			a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Button, _TextBoxMixin,
-			TextBox, template, nlsCommon){
+], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
 
 	// module:
 	//		dijit/InlineEditBox
 
-	var InlineEditor = declare("dijit._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+	var InlineEditor = declare("dijit._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _FocusMixin], {
 		// summary:
 		//		Internal widget used by InlineEditBox, displayed when in editing mode
 		//		to display the editor and maybe save/cancel buttons.  Calling code should
@@ -500,26 +499,6 @@ define([
 					this._resetValue = this.getValue();
 				});
 			}));
-		},
-
-		_onBlur: function(){
-			// summary:
-			//		Called when focus moves outside the InlineEditBox.
-			//		Performs garbage collection.
-			// tags:
-			//		private
-
-			this.inherited(arguments);
-			if(!this.editing){
-				/* causes IE focus problems, see TooltipDialog_a11y.html...
-				 this.defer(function(){
-				 if(this.wrapperWidget){
-				 this.wrapperWidget.destroy();
-				 delete this.wrapperWidget;
-				 }
-				 });
-				 */
-			}
 		},
 
 		destroy: function(){
