@@ -1,3 +1,9 @@
+.dijitCalendarRtl .dijitCalendarNextYear {
+  margin: 0 0.55em 0 0;
+}
+.dijitCalendarRtl .dijitCalendarPreviousYear {
+  margin: 0 0 0 0.55em;
+}
 .claro .dijitCalendarRtl .dijitCalendarIncrease {
   background-position: 0 0;
 }

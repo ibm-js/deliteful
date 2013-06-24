@@ -1,5 +1,43 @@
 @import "../variables";
 
+// From dijit_rtl.css
+.dijitSliderRtl .dijitSliderImageHandleV {
+	left:auto;
+}
+
+.dijitSliderRtl .dijitSliderImageHandleH {
+	left:-50%;
+}
+
+.dijitSliderRtl .dijitSliderMoveableH {
+	right:auto;
+	left:0;
+}
+
+.dijitSliderRtl .dijitRuleContainerV {
+	float:right;
+}
+
+.dj_ie .dijitSliderRtl .dijitRuleContainerV {
+	text-align:right;
+}
+
+.dj_ie .dijitSliderRtl .dijitRuleLabelV {
+	text-align:left;
+}
+
+.dj_ie .dijitSliderRtl .dijitRuleLabelH {
+	zoom:1;
+}
+
+.dijitSliderRtl .dijitSliderProgressBarH {
+	/* workarounds for IE and FF */
+	float:right;
+	right:0;
+	left:auto;
+}
+
+// Claro overrides
 .claro .dijitSliderRtl .dijitSliderProgressBarH,
 .claro .dijitSliderRtl .dijitSliderRemainingBarH,
 .claro .dijitSliderRtl .dijitSliderLeftBumper,

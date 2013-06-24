@@ -1,0 +1,7 @@
+.dijitSelectRtl .dijitButtonText {
+  float: right;
+}
+.dijitSelectRtl .dijitButtonContents {
+  border-style: none none none solid;
+  text-align: right;
+}

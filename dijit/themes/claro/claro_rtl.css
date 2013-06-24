@@ -1,7 +1,8 @@
-/* RTL files */
 @import url("../dijit_rtl.css");
+@import url("Common_rtl.css");
 @import url("form/Common_rtl.css");
 @import url("form/Button_rtl.css");
+@import url("form/Select_rtl.css");
 @import url("layout/TabContainer_rtl.css");
 @import url("form/Slider_rtl.css");
 @import url("Dialog_rtl.css");
@@ -11,7 +12,9 @@
 @import url("TitlePane_rtl.css");
 @import url("Menu_rtl.css");
 @import url("Calendar_rtl.css");
-@import url("TimePicker_rtl.css");
-@import url("Toolbar_rtl.css");
+@import url("ColorPalette_rtl.css");
 @import url("ProgressBar_rtl.css");
-
+@import url("TimePicker_rtl.css");
+@import url("Tree_rtl.css");
+@import url("Toolbar_rtl.css");
+@import url("form/NumberSpinner_rtl.css");

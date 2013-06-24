@@ -1,4 +1,7 @@
 /* TimePicker */
+.dj_ie .dijitTimePickerRtl .dijitTimePickerItem {
+  width: 100%;
+}
 .dj_ie .claro .dijitTimePickerRtl .dijitTimePickerTickHover,
 .dj_ie .claro .dijitTimePickerRtl .dijitTimePickerMarkerHover,
 .dj_ie .claro .dijitTimePickerRtl .dijitTimePickerMarkerSelected,
