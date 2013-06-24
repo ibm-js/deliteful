@@ -53,33 +53,10 @@ table.dijitInline {
 	position: relative;			/* to support setting width/height, see #2033 */
 }
 
-.dijitTeeny {
-	font-size:1px;
-	line-height:1px;
-}
-
 .dijitOffScreen { /* these class attributes should supercede any inline positioning style */
 	position: absolute !important;
 	left: -10000px !important;
 	top: -10000px !important;
-}
-
-.dijitPositionOnly {
-	/* Null out all position-related properties */
-	padding: 0 !important;
-	border: 0 !important;
-	background-color: transparent !important;
-	background-image: none !important;
-	height: auto !important;
-	width: auto !important;
-}
-
-.dijitNonPositionOnly {
-	/* Null position-related properties */
-	float: none !important;
-	position: static !important;
-	margin: 0 0 0 0 !important;
-	vertical-align: middle !important;
 }
 
 .dijitBackgroundIframe {
@@ -122,30 +99,6 @@ table.dijitInline {
 	cursor: pointer;
 }
 
-/****
-	3-element borders:  ( dijitLeft + dijitStretch + dijitRight )
-	These were added for rounded corners on dijit.form.*Button but never actually used.
- ****/
-
-.dijitLeft {
-	/* Left part of a 3-element border */
-	background-position:left top;
-	background-repeat:no-repeat;
-}
-
-.dijitStretch {
-	/* Middle (stretchy) part of a 3-element border */
-	white-space:nowrap;			/* MOW: move somewhere else */
-	background-repeat:repeat-x;
-}
-
-.dijitRight {
-	/* Right part of a 3-element border */
-	background-position:right top;
-	background-repeat:no-repeat;
-}
-
-
 /* Layout widgets. This is essential CSS to make layout work (it isn't "styling" CSS)
    make sure that the position:absolute in dijitAlign* overrides other classes */
 
@@ -166,71 +119,9 @@ table.dijitInline {
 body .dijitAlignClient { position: absolute; }
 
 
-/* SplitContainer
-
-	'V' == container that splits vertically (up/down)
-	'H' = horizontal (left/right)
-*/
-
-.dijitSplitContainer {
-	position: relative;
-	overflow: hidden;
-	display: block;
-}
-
-.dijitSplitPane {
-	position: absolute;
-}
-
-.dijitSplitContainerSizerH,
-.dijitSplitContainerSizerV {
-	position:absolute;
-	font-size: 1px;
-	background-color: ThreeDFace;
-	border: 1px solid;
-	border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-	margin: 0;
-}
-
-.dijitSplitContainerSizerH .thumb, .dijitSplitterV .dijitSplitterThumb {
-	overflow:hidden;
-	position:absolute;
-	top:49%;
-}
-
-.dijitSplitContainerSizerV .thumb, .dijitSplitterH .dijitSplitterThumb {
-	position:absolute;
-	left:49%;
-}
-
-.dijitSplitterShadow,
-.dijitSplitContainerVirtualSizerH,
-.dijitSplitContainerVirtualSizerV {
-	font-size: 1px;
-	background-color: ThreeDShadow;
-	-moz-opacity: 0.5;
-	opacity: 0.5;
-	filter: Alpha(Opacity=50);
-	margin: 0;
-}
-
-.dijitSplitContainerSizerH, .dijitSplitContainerVirtualSizerH {
-	cursor: col-resize;
-}
-
-.dijitSplitContainerSizerV, .dijitSplitContainerVirtualSizerV {
-	cursor: row-resize;
-}
-
 .dijitNoIcon {
 	/* applied to <img>/<span> node when there is no icon specified */
 	display: none;
-}
-
-
-/* Used in cases, such as FullScreen plugin, when we need to force stuff to static positioning. */
-.dijitForceStatic {
-	position: static !important;
 }
 
 /**** Disabled cursor *****/
