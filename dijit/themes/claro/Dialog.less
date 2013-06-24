@@ -31,6 +31,98 @@
 
 @import "variables";
 
+// From dijit.css
+
+/* Tooltip */
+
+.dijitTooltip {
+	position: absolute;
+	z-index: 2000;
+	display: block;
+	/* make visible but off screen */
+	left: 0;
+	top: -10000px;
+	overflow: visible;
+}
+
+.dijitTooltipContainer {
+	border: solid black 2px;
+	background: #b8b5b5;
+	color: black;
+	font-size: small;
+}
+
+.dijitTooltipFocusNode {
+	padding: 2px 2px 2px 2px;
+}
+
+.dijitTooltipConnector {
+	position: absolute;
+}
+.dj_a11y .dijitTooltipConnector {
+	display: none;	/* won't show b/c it's background-image; hide to avoid border gap */
+}
+
+.dijitTooltipData {
+	display:none;
+}
+
+/* Dialog */
+
+.dijitDialog {
+	position: absolute;
+	z-index: 999;
+	overflow: hidden;	/* override overflow: auto; from ContentPane to make dragging smoother */
+}
+
+.dijitDialogTitleBar {
+	cursor: move;
+}
+.dijitDialogFixed .dijitDialogTitleBar {
+	cursor:default;
+}
+.dijitDialogCloseIcon {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.dijitDialogPaneContent {
+	-webkit-overflow-scrolling: touch;
+}
+.dijitDialogUnderlayWrapper {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 998;
+	display: none;
+	background: transparent !important;
+}
+
+.dijitDialogUnderlay {
+	background: #eee;
+	opacity: 0.5;
+}
+
+.dj_ie .dijitDialogUnderlay {
+	filter: alpha(opacity=50);
+}
+
+/* images off, high-contrast mode styles */
+.dj_a11y .dijitDialog {
+	opacity: 1 !important;
+	background-color: white !important;
+}
+
+.dijitDialog .closeText {
+	display:none;
+	/* for the onhover border in high contrast on IE: */
+	position:absolute;
+}
+
+.dj_a11y .dijitDialog .closeText {
+	display:inline;
+}
+
+// Claro overrides
 .claro .dijitDialog {
 	border: 1px solid @popup-border-color;
 	.box-shadow(0 1px 5px rgba(0,0,0,0.25));
@@ -60,13 +152,13 @@
 	margin: 10px -8px -10px;
 }
 .claro .dijitTooltipDialog .dijitDialogPaneActionBar {
-  -webkit-border-bottom-right-radius: 4px;
-  -webkit-border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  margin: 10px -10px -8px;
+	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	margin: 10px -10px -8px;
 }
 .claro .dijitDialogPaneActionBar .dijitButton {
 	float: none;

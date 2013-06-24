@@ -2,6 +2,22 @@
 
 @import "variables";
 
+/*
+ * Popup items have a wrapper div (dijitPopup)
+ * with the real popup inside, and maybe an iframe too
+ */
+
+// From dijit.css
+.dijitPopup {
+	position: absolute;
+	background-color: transparent;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	-webkit-overflow-scrolling: touch;
+}
+
+// Claro overrides
 .claro .dijitPopup {
 	.box-shadow(0 1px 5px rgba(0,0,0,0.25));
 }
@@ -20,14 +36,54 @@
 	outline: 1px dotted @focus-outline-color;
 }
 
-/* Drag and Drop*/
+/* Drag and Drop */
+
+// From dijit.css
+.dojoDndItem {
+	padding: 2px;  /* will be replaced by border during drag over (dojoDndItemBefore, dojoDndItemAfter) */
+
+	/* Prevent magnifying-glass text selection icon to appear on mobile webkit as it causes a touchout event */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+}
+.dojoDndHorizontal .dojoDndItem {
+	/* make contents of horizontal container be side by side, rather than vertical */
+	display: inline-block;
+}
+
+.dojoDndItemBefore,
+.dojoDndItemAfter {
+	border: 0px solid #369;
+}
+.dojoDndItemBefore {
+	border-width: 2px 0 0 0;
+	padding: 0 2px 2px 2px;
+}
+.dojoDndItemAfter {
+	border-width: 0 0 2px 0;
+	padding: 2px 2px 0 2px;
+}
+.dojoDndHorizontal .dojoDndItemBefore {
+	border-width: 0 0 0 2px;
+	padding: 2px 2px 2px 0;
+}
+.dojoDndHorizontal .dojoDndItemAfter {
+	border-width: 0 2px 0 0;
+	padding: 2px 0 2px 2px;
+}
+
+.dojoDndItemOver {
+	cursor:pointer;
+}
+
+// Claro overrides
 .claro .dojoDndItem {
 	border-color: rgba(0,0,0,0);	// rgba() instead of none to prevent flash on hover fade-in
 	.transition-duration(.25s);
 	.transition-property(background-color, border-color)
 }
 .claro .dojoDndItemOver {
-    // Hovered item.  Matches dijitTreeRowHover.
+	// Hovered item.  Matches dijitTreeRowHover.
 	background-color:@hovered-background-color;
 	.standard-gradient;
 	padding: 1px;	// reduce from 2px in dijit.css
@@ -36,7 +92,7 @@
 }
 .claro .dojoDndItemAnchor,
 .claro .dojoDndItemSelected {
-    // Selected items(s).   Matches dijitTreeRowSelected.
+	// Selected items(s).   Matches dijitTreeRowSelected.
 	background-color:@selected-background-color;
 	.standard-gradient;
 	padding: 1px;	// reduce from 2px in dijit.css
@@ -46,7 +102,7 @@
 
 .claro .dojoDndItemBefore,
 .claro .dojoDndItemAfter {
-    // line to indicate that user is dropping before/after this dojoDndItem
+	// line to indicate that user is dropping before/after this dojoDndItem
 	border-color: @dnd-dropseparator-color;
 }
 

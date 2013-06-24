@@ -9,7 +9,7 @@ There are three areas of styling for the Menu:
  	iii) Navigation Menu
  	All three types of menus are affected by the .dijitMenu class in which you can set the background-color, padding and border
  	.dijitMenu affects the drop down menu in TimeTextBox, Calendar, ComboBox and FilteringSelect
-  .dijitMenuTable - for padding - also affects Select widget 	
+	.dijitMenuTable - for padding - also affects Select widget
 
  2. The menu bar
  	.dijitMenuBar - for border, margins, padding, background-color of the menu bar
@@ -29,6 +29,130 @@ There are three areas of styling for the Menu:
 	.dijitComboBoxMenu .dijitMenuItemSelected- for text color, background-color and border of a menu item in a ComboBox or FilteringSelect widget's menu
 
 */
+.dijitMenu {
+  border: 1px solid black;
+  background-color: white;
+}
+.dijitMenuTable {
+  border-collapse: collapse;
+  border-width: 0;
+  background-color: white;
+}
+/* workaround for webkit bug #8427, remove this when it is fixed upstream */
+.dj_webkit .dijitMenuTable td[colspan="2"] {
+  border-right: hidden;
+}
+.dijitMenuItem {
+  text-align: left;
+  white-space: nowrap;
+  padding: .1em .2em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/*
+No need to show a focus border since it's obvious from the shading, and there's a .dj_a11y .dijitMenuItemSelected
+rule below that handles the high contrast case when there's no shading.
+Hiding the focus border also works around webkit bug https://code.google.com/p/chromium/issues/detail?id=125779.
+*/
+.dijitMenuItem:focus {
+  outline: none;
+}
+.dijitMenuPassive .dijitMenuItemHover,
+.dijitMenuItemSelected {
+  /*
+ * dijitMenuItemHover refers to actual mouse over
+ * dijitMenuItemSelected is used after a menu has been "activated" by
+ * clicking it, tabbing into it, or being opened from a parent menu,
+ * and denotes that the menu item has focus or that focus is on a child
+ * menu
+ */
+
+  background-color: black;
+  color: white;
+}
+.dijitMenuItemIcon,
+.dijitMenuExpand {
+  background-repeat: no-repeat;
+}
+.dijitMenuItemDisabled * {
+  /* for a disabled menu item, just set it to mostly transparent */
+
+  opacity: 0.5;
+  cursor: default;
+}
+.dj_ie .dj_a11y .dijitMenuItemDisabled,
+.dj_ie .dj_a11y .dijitMenuItemDisabled *,
+.dj_ie .dijitMenuItemDisabled * {
+  color: gray;
+  filter: alpha(opacity=35);
+}
+.dijitMenuItemLabel {
+  position: relative;
+  vertical-align: middle;
+}
+.dj_a11y .dijitMenuItemSelected {
+  border: 1px dotted black !important;
+  /* for 2.0 use outline instead, to prevent jitter */
+
+}
+.dj_a11y .dijitMenuItemSelected .dijitMenuItemLabel {
+  border-width: 1px;
+  border-style: solid;
+}
+.dj_ie8 .dj_a11y .dijitMenuItemLabel {
+  position: static;
+}
+.dijitMenuExpandA11y {
+  display: none;
+}
+.dj_a11y .dijitMenuExpandA11y {
+  display: inline;
+}
+.dijitMenuSeparator td {
+  border: 0;
+  padding: 0;
+}
+/* separator can be two pixels -- set border of either one to 0 to have only one */
+.dijitMenuSeparatorTop {
+  height: 50%;
+  margin: 0;
+  margin-top: 3px;
+  font-size: 1px;
+}
+.dijitMenuSeparatorBottom {
+  height: 50%;
+  margin: 0;
+  margin-bottom: 3px;
+  font-size: 1px;
+}
+/* CheckedMenuItem and RadioMenuItem */
+.dijitMenuItemIconChar {
+  display: none;
+  /* don't display except in high contrast mode */
+
+  visibility: hidden;
+  /* for high contrast mode when menuitem is unchecked: leave space for when it is checked */
+
+}
+.dj_a11y .dijitMenuItemIconChar {
+  display: inline;
+  /* display character in high contrast mode, since icon doesn't show */
+
+}
+.dijitCheckedMenuItemChecked .dijitMenuItemIconChar,
+.dijitRadioMenuItemChecked .dijitMenuItemIconChar {
+  visibility: visible;
+  /* menuitem is checked */
+
+}
+.dj_ie .dj_a11y .dijitMenuBar .dijitMenuItem {
+  /* so bottom border of MenuBar appears on IE7 in high-contrast mode */
+
+  margin: 0;
+}
+.dijitFocused .dijitMenuItemShortcutKey {
+  text-decoration: underline;
+}
 .claro .dijitMenuBar {
   border: 1px solid #b5bcc7;
   margin: 0;

@@ -52,6 +52,272 @@
 
 @import "../variables";
 
+// From dijit.css
+
+/* Slider */
+
+.dijitSliderMoveable {
+	z-index:99;
+	position:absolute !important;
+	display:block;
+	vertical-align:middle;
+}
+
+.dijitSliderMoveableH {
+	right:0;
+}
+.dijitSliderMoveableV {
+	right:50%;
+}
+
+.dj_a11y div.dijitSliderImageHandle,
+.dijitSliderImageHandle {
+	margin:0;
+	padding:0;
+	position:relative !important;
+	border:8px solid gray;
+	width:0;
+	height:0;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.dj_a11y .dijitSliderFocused .dijitSliderImageHandle {
+	border:4px solid #000;
+	height:8px;
+	width:8px;
+}
+
+.dijitSliderImageHandleV {
+	top:-8px;
+	right: -50%;
+}
+
+.dijitSliderImageHandleH {
+	left:50%;
+	top:-5px;
+	vertical-align:top;
+}
+
+.dijitSliderBar {
+	border-style:solid;
+	border-color:black;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.dijitSliderBarContainerV {
+	position:relative;
+	height:100%;
+	z-index:1;
+}
+
+.dijitSliderBarContainerH {
+	position:relative;
+	z-index:1;
+}
+
+.dijitSliderBarH {
+	height:4px;
+	border-width:1px 0;
+}
+
+.dijitSliderBarV {
+	width:4px;
+	border-width:0 1px;
+}
+
+.dijitSliderProgressBar {
+	background-color:red;
+	z-index:1;
+}
+
+.dijitSliderProgressBarV {
+	position:static !important;
+	height:0;
+	vertical-align:top;
+	text-align:left;
+}
+
+.dijitSliderProgressBarH {
+	position:absolute !important;
+	width:0;
+	vertical-align:middle;
+	overflow:visible;
+}
+
+.dijitSliderRemainingBar {
+	overflow:hidden;
+	background-color:transparent;
+	z-index:1;
+}
+
+.dijitSliderRemainingBarV {
+	height:100%;
+	text-align:left;
+}
+
+.dijitSliderRemainingBarH {
+	width:100% !important;
+}
+
+/* the slider bumper is the space consumed by the slider handle when it hangs over an edge */
+.dijitSliderBumper {
+	overflow:hidden;
+	z-index:1;
+}
+
+.dijitSliderBumperV {
+	width:4px;
+	height:8px;
+	border-width:0 1px;
+}
+
+.dijitSliderBumperH {
+	width:8px;
+	height:4px;
+	border-width:1px 0;
+}
+
+.dijitSliderBottomBumper,
+.dijitSliderLeftBumper {
+	background-color:red;
+}
+
+.dijitSliderTopBumper,
+.dijitSliderRightBumper {
+	background-color:transparent;
+}
+
+.dijitSliderDecoration {
+	text-align:center;
+}
+
+.dijitSliderDecorationH {
+	width: 100%;
+}
+
+.dijitSliderDecorationV {
+	height: 100%;
+	white-space: nowrap;
+}
+
+.dijitSliderButton {
+	font-family:monospace;
+	margin:0;
+	padding:0;
+	display:block;
+}
+
+.dj_a11y .dijitSliderButtonInner {
+	visibility:visible !important;
+}
+
+.dijitSliderButtonContainer {
+	text-align:center;
+	height:0;	/* ??? */
+}
+.dijitSliderButtonContainer * {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.dijitSlider .dijitButtonNode {
+	padding:0;
+	display:block;
+}
+
+.dijitRuleContainer {
+	position:relative;
+	overflow:visible;
+}
+
+.dijitRuleContainerV {
+	height:100%;
+	line-height:0;
+	float:left;
+	text-align:left;
+}
+
+.dj_opera .dijitRuleContainerV {
+	line-height:2%;
+}
+
+.dj_ie .dijitRuleContainerV {
+	line-height:normal;
+}
+
+.dj_gecko .dijitRuleContainerV {
+	margin:0 0 1px 0; /* mozilla bug workaround for float:left,height:100% block elements */
+}
+
+.dijitRuleMark {
+	position:absolute;
+	border:1px solid black;
+	line-height:0;
+	height:100%;
+}
+
+.dijitRuleMarkH {
+	width:0;
+	border-top-width:0 !important;
+	border-bottom-width:0 !important;
+	border-left-width:0 !important;
+}
+
+.dijitRuleLabelContainer {
+	position:absolute;
+}
+
+.dijitRuleLabelContainerH {
+	text-align:center;
+	display:inline-block;
+}
+
+.dijitRuleLabelH {
+	position:relative;
+	left:-50%;
+}
+
+.dijitRuleLabelV {
+	/* so that long labels don't overflow to multiple rows, or overwrite slider itself */
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.dijitRuleMarkV {
+	height:0;
+	border-right-width:0 !important;
+	border-bottom-width:0 !important;
+	border-left-width:0 !important;
+	width:100%;
+	left:0;
+}
+
+.dj_ie .dijitRuleLabelContainerV {
+	margin-top:-.55em;
+}
+
+.dj_a11y .dijitSliderReadOnly,
+.dj_a11y .dijitSliderDisabled {
+	opacity:0.6;
+}
+.dj_ie .dj_a11y .dijitSliderReadOnly .dijitSliderBar,
+.dj_ie .dj_a11y .dijitSliderDisabled .dijitSliderBar {
+	filter: alpha(opacity=40);
+}
+
+/* + and - Slider buttons: override theme settings to display icons */
+.dj_a11y .dijitSlider .dijitSliderButtonContainer div {
+	font-family: monospace; /* otherwise hyphen is larger and more vertically centered */
+	font-size: 1em;
+	line-height: 1em;
+	height: auto;
+	width: auto;
+	margin: 0 4px;
+}
+
+// Claro overrides
 .claro .dijitSliderBar {
 	border-style: solid;
 	outline: 1px;

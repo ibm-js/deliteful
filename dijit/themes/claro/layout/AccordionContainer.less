@@ -30,6 +30,50 @@
 
 @import "../variables";
 
+// From dijit.css
+
+.dijitAccordionContainer {
+	border:1px solid #b7b7b7;
+	border-top:0 !important;
+}
+.dijitAccordionTitle {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.dijitAccordionTitleSelected {
+	cursor: default;
+}
+
+/* images off, high-contrast mode styles */
+.dijitAccordionTitle .arrowTextUp,
+.dijitAccordionTitle .arrowTextDown {
+	display: none;
+	font-size: 0.65em;
+	font-weight: normal !important;
+}
+
+.dj_a11y .dijitAccordionTitle .arrowTextUp,
+.dj_a11y .dijitAccordionTitleSelected .arrowTextDown {
+	display: inline;
+}
+
+.dj_a11y .dijitAccordionTitleSelected .arrowTextUp {
+	display: none;
+}
+
+.dijitAccordionChildWrapper {
+	/* this is the node whose height is adjusted */
+	overflow: hidden;
+}
+
+.dijitAccordionContainer-child {
+	/* children of AccordionContainer shouldn't have borders
+ * b/c a border is already there from the TabContainer/StackContainer/AccordionContainer itself.
+ */
+	border: none !important;
+}
+
+// Claro overrides
 .claro .dijitAccordionContainer {
 	border:none;
 }

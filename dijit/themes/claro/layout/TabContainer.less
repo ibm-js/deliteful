@@ -1,5 +1,13 @@
 /* TabContainer 
- * 
+ *
+ * Main class hierarchy:
+ *
+ * .dijitTabContainer - the whole TabContainer
+ *	.dijitTabController / .dijitTabListContainer-top - wrapper for tab buttons, scroll buttons
+ *	 .dijitTabListWrapper / .dijitTabContainerTopStrip - outer wrapper for tab buttons (normal width)
+ *		.nowrapTabStrip / .dijitTabContainerTop-tabs - inner wrapper for tab buttons (50K width)
+ *	.dijitTabPaneWrapper - wrapper for content panes, has all borders except the one between content and tabs
+ *
  * Styling TabContainer means styling the TabList and Its content container  (dijitTitlePane)
  * 
  * Tab List: (including 4 kinds of tab location)
@@ -50,12 +58,187 @@
 @import "../variables";
 
 .unselected-tab-gradient (@direction) {
-    // white line, dark line, then fade from light to dark
+	// white line, dark line, then fade from light to dark
 	.alpha-white-gradient (@direction, 1,0px, 1,1px, 0.1,2px, 0.6,7px, 0,100%);
 }
 .topBottom-selected-tab-gradient (@direction) {
 	.alpha-white-gradient (@direction, 1,0px,  1,1px, 0,2px, 1,7px);	// white line, blue line, remainder white
 }
+
+// From dijit.css
+
+/* StackContainer */
+
+.dijitStackController .dijitToggleButtonChecked * {
+	cursor: default;	/* because pressing it has no effect */
+}
+
+/* TabContainer */
+
+.dijitTabContainer {
+	z-index: 0; /* so z-index settings below have no effect outside of the TabContainer */
+	overflow: visible; /* prevent off-by-one-pixel errors from hiding bottom border (opposite tab labels) */
+}
+
+.dijitTabContainerNoLayout {
+	width: 100%;	/* otherwise ScrollingTabController goes to 50K pixels wide */
+}
+
+.dijitTabContainerBottom-tabs,
+.dijitTabContainerTop-tabs,
+.dijitTabContainerLeft-tabs,
+.dijitTabContainerRight-tabs {
+	z-index: 1;
+	overflow: visible !important;  /* so tabs can cover up border adjacent to container */
+}
+
+.dijitTabController {
+	z-index: 1;
+}
+.dijitTabContainerBottom-container,
+.dijitTabContainerTop-container,
+.dijitTabContainerLeft-container,
+.dijitTabContainerRight-container {
+	z-index:0;
+	overflow: hidden;
+	border: 1px solid black;
+}
+.nowrapTabStrip {
+	width: 50000px;
+	display: block;
+	position: relative;
+	text-align: left;  /* just in case ancestor has non-standard setting */
+	z-index: 1;
+}
+.dijitTabListWrapper {
+	overflow: hidden;
+	z-index: 1;
+}
+
+.dj_a11y .tabStripButton img {
+	/* hide the icons (or rather the empty space where they normally appear) because text will appear instead */
+	display: none;
+}
+
+.dijitTabContainerTop-tabs {
+	border-bottom: 1px solid black;
+}
+.dijitTabContainerTop-container {
+	border-top: 0;
+}
+
+.dijitTabContainerLeft-tabs {
+	border-right: 1px solid black;
+	float: left;    /* needed for IE7 RTL mode */
+}
+.dijitTabContainerLeft-container {
+	border-left: 0;
+}
+
+.dijitTabContainerBottom-tabs {
+	border-top: 1px solid black;
+}
+.dijitTabContainerBottom-container {
+	border-bottom: 0;
+}
+
+.dijitTabContainerRight-tabs {
+	border-left: 1px solid black;
+	float: left;    /* needed for IE7 RTL mode */
+}
+.dijitTabContainerRight-container {
+	border-right: 0;
+}
+
+div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
+	cursor: auto;
+}
+
+.dijitTab {
+	position:relative;
+	cursor:pointer;
+	-webkit-tap-highlight-color: transparent;
+	white-space:nowrap;
+	z-index:3;
+}
+.dijitTab * {
+	/* make tab icons and close icon line up w/text */
+	vertical-align: middle;
+}
+.dijitTabChecked {
+	cursor: default;	/* because clicking will have no effect */
+}
+
+.dijitTabContainerTop-tabs .dijitTab {
+	top: 1px;	/* to overlap border on .dijitTabContainerTop-tabs */
+}
+.dijitTabContainerBottom-tabs .dijitTab {
+	top: -1px;	/* to overlap border on .dijitTabContainerBottom-tabs */
+}
+.dijitTabContainerLeft-tabs .dijitTab {
+	left: 1px;	/* to overlap border on .dijitTabContainerLeft-tabs */
+}
+.dijitTabContainerRight-tabs .dijitTab {
+	left: -1px;	/* to overlap border on .dijitTabContainerRight-tabs */
+}
+
+
+.dijitTabContainerTop-tabs .dijitTab,
+.dijitTabContainerBottom-tabs .dijitTab {
+	display: inline-block;
+}
+
+.tabStripButton {
+	z-index: 12;
+}
+
+.dijitTabButtonDisabled .tabStripButton {
+	display: none;
+}
+
+
+.dijitTabCloseButton {
+	margin-left: 1em;
+}
+
+.dijitTabCloseText {
+	display:none;
+}
+
+.dijitTab .tabLabel {
+	/* make sure tabs w/close button and w/out close button are same height, even w/small (<15px) font.
+	 * assumes <=15px height for close button icon.
+	 */
+	min-height: 15px;
+	display: inline-block;
+}
+
+/* images off, high-contrast mode styles */
+
+.dj_a11y .dijitTabCloseButton {
+	background-image: none !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+.dj_a11y .dijitTabCloseText {
+	display: inline;
+}
+
+.dijitTabPane,
+.dijitStackContainer-child {
+	/* children of TabContainer and StackContainer shouldn't have borders
+	 * b/c a border is already there from the TabContainer/StackContainer/AccordionContainer itself.
+	 */
+	border: none !important;
+}
+
+/* Icon-only tab labels should still display the text in high-contrast mode */
+.dj_a11y .dijitTab .tabLabel {
+	display: inline !important;
+}
+
+// Claro overrides
 /*** some common features ***/
 .claro .dijitTabPaneWrapper {
 	background:@pane-background-color;
@@ -105,7 +288,7 @@
 	.transition-duration(.1s);
 }
 .claro .dijitTabChecked {
-    // selected tab
+	// selected tab
 	border-color: @border-color;			// don't use @selected-border-color because need to match border of TabContainer
 	background-color: @selected-background-color;
 	color: @selected-text-color;
@@ -123,7 +306,7 @@
 
 /*************** top tab ***************/
 .claro .dijitTabContainerTop-tabs .dijitTab {
-    /* unselected (and not hovered/pressed) tab */
+	/* unselected (and not hovered/pressed) tab */
 	top: 1px;	/* used for overlap */
 	margin-right: 1px;
 	padding:3px 6px;

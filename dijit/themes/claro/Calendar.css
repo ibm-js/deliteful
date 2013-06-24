@@ -31,6 +31,79 @@
  * 		.dijitCalendarMonthMenu .dijitCalendarMonthLabel - month label in menu item
  * 		.dijitCalendarMonthMenu .dijitCalendarMonthLabelHover - menu item hover state
  */
+.dj_a11y .dijitCalendarIncrementControl {
+  display: none;
+}
+/*
+ * Since we can't use shading in a11y mode, and since the underline indicates today's date,
+ * use a border to show the selected date.
+ * Avoid screen jitter when switching selected date by compensating for the selected node's
+ * border w/padding on other nodes.
+ */
+.dj_a11y .dijitCalendarDateLabel {
+  padding: 1px;
+  border: 0px !important;
+}
+.dj_a11y .dijitCalendarSelectedDate .dijitCalendarDateLabel {
+  border-style: solid !important;
+  border-width: 1px !important;
+  padding: 0;
+}
+.dj_a11y .dijitCalendarDateTemplate {
+  padding-bottom: 0.1em !important;
+  /* otherwise bottom border doesn't appear on IE */
+
+  border: 0px !important;
+}
+.dijitCalendarContainer {
+  width: auto;
+  /* in case user has specified a width for the TABLE nodes, see #10553 */
+
+}
+.dijitCalendarContainer th,
+.dijitCalendarContainer td {
+  padding: 0;
+  vertical-align: middle;
+}
+.dijitCalendarYearLabel {
+  white-space: nowrap;
+  /* make sure previous, current, and next year appear on same row */
+
+}
+.dijitCalendarNextYear {
+  margin: 0 0 0 0.55em;
+}
+.dijitCalendarPreviousYear {
+  margin: 0 0.55em 0 0;
+}
+.dijitCalendarIncrementControl {
+  vertical-align: middle;
+}
+.dijitCalendarIncrementControl,
+.dijitCalendarDateTemplate,
+.dijitCalendarMonthLabel,
+.dijitCalendarPreviousYear,
+.dijitCalendarNextYear {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.dijitCalendarDisabledDate {
+  color: gray;
+  text-decoration: line-through;
+  cursor: default;
+}
+.dijitSpacer {
+  /* don't display it, but make it affect the width */
+
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+}
+/* Styling for month drop down list */
+.dijitCalendarMonthMenu .dijitCalendarMonthLabel {
+  text-align: center;
+}
 .claro .dijitCalendar {
   border: solid 1px #b5bcc7;
   border-collapse: separate;

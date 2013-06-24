@@ -20,6 +20,49 @@
 
 @import "variables";
 
+// From dijit.css
+.dijitTitlePane {
+	display: block;
+	overflow: hidden;
+}
+.dijitFieldset {
+	border: 1px solid gray;
+}
+.dijitTitlePaneTitle, .dijitFieldsetTitle {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.dijitTitlePaneTitleFixedOpen, .dijitTitlePaneTitleFixedClosed,
+.dijitFieldsetTitleFixedOpen, .dijitFieldsetTitleFixedClosed {
+	/* TitlePane or Fieldset that cannot be toggled */
+	cursor: default;
+}
+.dijitTitlePaneTitle * {
+	vertical-align: middle;
+}
+.dijitTitlePane .dijitArrowNodeInner, .dijitFieldset .dijitArrowNodeInner {
+	/* normally, hide arrow text in favor of icon */
+	display: none;
+}
+.dj_a11y .dijitTitlePane .dijitArrowNodeInner, .dj_a11y .dijitFieldset .dijitArrowNodeInner {
+	/* ... except in a11y mode, then show text arrow */
+	display: inline;
+	font-family: monospace;		/* because - and + are different widths */
+}
+.dj_a11y .dijitTitlePane .dijitArrowNode, .dj_a11y .dijitFieldset .dijitArrowNode {
+	/* ... and hide icon (TODO: just point dijitIcon class on the icon, and it hides automatically) */
+	display: none;
+}
+.dijitTitlePaneTitleFixedOpen .dijitArrowNode, .dijitTitlePaneTitleFixedOpen .dijitArrowNodeInner,
+.dijitTitlePaneTitleFixedClosed .dijitArrowNode, .dijitTitlePaneTitleFixedClosed .dijitArrowNodeInner,
+.dijitFieldsetTitleFixedOpen .dijitArrowNode, .dijitFieldsetTitleFixedOpen .dijitArrowNodeInner,
+.dijitFieldsetTitleFixedClosed .dijitArrowNode, .dijitFieldsetTitleFixedClosed .dijitArrowNodeInner {
+	/* don't show the open close icon or text arrow; it makes the user think the pane is closable */
+	display: none !important;	/* !important to override above a11y rules to show text arrow */
+}
+
+
+// Claro overrides
 .claro .dijitTitlePaneTitle {
 	background-color: @unselected-background-color;
 	.standard-gradient;
@@ -29,11 +72,11 @@
 	color: @unselected-text-color;
 }
 .claro .dijitFieldset {
-  .border-radius(4px);
+	.border-radius(4px);
 }
 .claro .dijitTitlePaneTitleOpen, .claro .dijitTitlePaneTitleFixedOpen {
-  background-color: @selected-background-color;
-  color: @text-color;
+	background-color: @selected-background-color;
+	color: @text-color;
 }
 .claro .dijitTitlePaneTitleHover {
 	background-color: @hovered-background-color;
@@ -69,7 +112,7 @@
 	padding:10px;
 }
 .claro .dijitFieldsetContentInner {
-  padding: 4px;
+	padding: 4px;
 }
 .claro .dijitTitlePaneTextNode, .claro .dijitFieldsetLegendNode {
 	margin-left: 4px;

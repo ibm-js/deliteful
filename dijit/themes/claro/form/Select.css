@@ -16,6 +16,121 @@
  * 4. Various states
  * 		.dijitSelectHover|.dijitSelectFocused|.dijitSelectDisabled .* - for border, padding and background-color|image 
  */
+.dj_ie .dijitSelect input {
+  font-size: 100%;
+}
+.dijitSelect .dijitButtonText {
+  float: left;
+  vertical-align: top;
+}
+TABLE.dijitSelect {
+  padding: 0 !important;
+  /* messes up border alignment */
+
+  border-collapse: separate;
+  /* so jsfiddle works with Normalized CSS checked */
+
+}
+.dijitSelect input.dijitInputField {
+  /* override unreasonable user styling of buttons and icons */
+
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.dijitSelect {
+  border: 1px solid gray;
+}
+.dijitSelect,
+.dijitSelect * {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.dijitSelect input {
+  float: left;
+  /* needed by IE to remove secret margin */
+
+}
+.dijitSelect input {
+  /* <input> used to display arrow icon/validation icon, or in arrow character in high contrast mode.
+ * The css below is a trick to hide the character in non-high-contrast mode
+ */
+
+  text-indent: -2em !important;
+  direction: ltr !important;
+  text-align: left !important;
+  height: auto !important;
+}
+.dj_ie .dijitSelect input {
+  overflow-y: visible;
+  /* inputs need help expanding when padding is added or line-height is adjusted */
+
+  line-height: normal;
+  /* strict mode */
+
+}
+.dijitSelect .dijitSelectLabel span {
+  line-height: 100%;
+}
+.dj_ie .dijitSelect .dijitSelectLabel {
+  line-height: normal;
+}
+.dj_ie8 .dijitSelect .dijitSelectLabel,
+.dijitSelect td {
+  line-height: 100%;
+  /* IE7 problem where the icon is vertically way too low w/o this */
+
+}
+.dj_a11y .dijitSelect .dijitArrowButtonContainer {
+  /* apparently needed to override another rule about ComboBox and Spinner???  (TODO: confirm) */
+
+  border-width: 0 !important;
+}
+.dj_a11y .dijitSelect .dijitButtonText {
+  display: inline-block !important;
+}
+.dj_a11y .dijitSelect {
+  border-collapse: separate !important;
+  border-width: 1px;
+  border-style: solid;
+}
+.dj_ie .dijitSelect {
+  vertical-align: middle;
+  /* Set this back for what we hack in dijit inline */
+
+}
+.dj_ie8 .dijitSelect .dijitButtonText {
+  vertical-align: top;
+}
+.dijitSelect .dijitSelectLabel {
+  vertical-align: baseline;
+}
+.dijitSelect .dijitButtonContents {
+  padding: 0;
+  white-space: nowrap;
+  text-align: left;
+  border-style: none solid none none;
+  border-width: 1px;
+}
+.dijitSelectFixedWidth .dijitButtonContents {
+  width: 100%;
+}
+.dijitSelectMenu .dijitMenuItemIcon {
+  /* avoid blank area in left side of menu (since we have no icons) */
+
+  display: none;
+}
+/* Fix the baseline of our label (for multi-size font elements) */
+.dijitSelectLabel * {
+  vertical-align: baseline;
+}
+/* Styling for the currently-selected option (rich text can mess this up) */
+.dijitSelectSelectedOption * {
+  font-weight: bold;
+}
+/* Fix the styling of the dropdown menu to be more combobox-like */
+.dijitSelectMenu {
+  border-width: 1px;
+}
 /* normal status */
 .claro .dijitSelect .dijitArrowButtonContainer {
   border: 1px solid #ffffff;

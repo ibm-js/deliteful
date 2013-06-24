@@ -28,6 +28,73 @@
 
 @import "../variables";
 
+// From dijit.css
+
+.dj_a11y .dijitButtonContents {
+	margin: 0.15em; /* Margin needed to make focus outline visible */
+}
+
+/* Buttons */
+.dj_gecko .dj_a11y .dijitButtonDisabled .dijitButtonNode {
+	opacity: 0.5;
+}
+
+.dijitToggleButton,
+.dijitButton,
+.dijitDropDownButton,
+.dijitComboButton {
+	/* outside of button */
+	margin: 0.2em;
+	vertical-align: middle;
+}
+
+.dijitButtonContents {
+	display: block;		/* to make focus border rectangular */
+}
+td.dijitButtonContents {
+	display: table-cell;	/* but don't affect Select, ComboButton */
+}
+
+.dijitButtonNode img {
+	/* make text and images line up cleanly */
+	vertical-align:middle;
+	/*margin-bottom:.2em;*/
+}
+
+/* Icon-only buttons (often in toolbars) should still display the text in high-contrast mode */
+.dj_a11y .dijitButtonContents .dijitButtonText {
+	display: inline !important;
+}
+
+.dijitToggleButtonIconChar {
+	/* character (instead of icon) to show that ToggleButton is checked */
+	display:none !important;
+}
+.dj_a11y .dijitToggleButton .dijitToggleButtonIconChar {
+	display:inline !important;
+	visibility:hidden;
+}
+
+.dj_a11y .dijitToggleButtonChecked .dijitToggleButtonIconChar {
+	display: inline !important; /* In high contrast mode, display the check symbol */
+	visibility:visible !important;
+}
+
+
+.dijitArrowButtonChar {
+	display:none !important;
+}
+.dj_a11y .dijitArrowButtonChar {
+	display:inline !important;
+}
+
+.dj_a11y .dijitDropDownButton .dijitArrowButtonInner,
+.dj_a11y .dijitComboButton .dijitArrowButtonInner {
+	display:none !important;
+}
+
+
+// Claro overrides
 .claro .dijitButtonNode {
 	/* rules for dijit.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
 	.transition-property(background-color);

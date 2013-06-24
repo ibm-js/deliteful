@@ -1,5 +1,8 @@
 /* BorderContainer 
 
+.dijitBorderContainer is a stylized layout where panes have border and margin.
+.dijitBorderContainerNoGutter is a raw layout.
+
 Splitters and gutters separate panes within a BorderContainer. Splitters can be moved up and down (horizonal splitters) or left and right (vertical splitters), while Gutters are static. A "thumb" is the slit on a Splitter that indicates it is movable. 
 
 Styling the BorderContainer widget consists of the following: 
@@ -29,6 +32,97 @@ Splitters and gutters:
 .dijitSplitterHActive - for background-color of an active horizontal splitter
 .dijitSplitterVActive - for background-color of an active horizontal splitter
 */
+.dijitBorderContainer,
+.dijitBorderContainerNoGutter {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  /* so z-index settings below have no effect outside of the BorderContainer */
+
+}
+.dijitBorderContainerPane,
+.dijitBorderContainerNoGutterPane {
+  position: absolute !important;
+  /* !important to override position:relative in dijitTabContainer etc. */
+
+  z-index: 2;
+  /* above the splitters so that off-by-one browser errors don't cover up border of pane */
+
+}
+.dijitBorderContainer > .dijitTextArea {
+  /* On Safari, for SimpleTextArea inside a BorderContainer,
+	don't want to display the grip to resize */
+
+  resize: none;
+}
+.dijitGutter {
+  /* gutter is just a place holder for empty space between panes in BorderContainer */
+
+  position: absolute;
+  font-size: 1px;
+  /* needed by IE6 even though div is empty, otherwise goes to 15px */
+
+}
+.dijitSplitter {
+  position: absolute;
+  overflow: hidden;
+  z-index: 10;
+  /* above the panes so that splitter focus is visible on FF, see #7583*/
+
+  background-color: #fff;
+  border-color: gray;
+  border-style: solid;
+  border-width: 0;
+}
+.dj_ie .dijitSplitter {
+  z-index: 1;
+  /* behind the panes so that pane borders aren't obscured see test_Gui.html/[14392] */
+
+}
+.dijitSplitterActive {
+  z-index: 11 !important;
+}
+.dijitSplitterCover {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.dijitSplitterCoverActive {
+  z-index: 3 !important;
+}
+/* #6945: stop mouse events */
+.dj_ie .dijitSplitterCover {
+  background: white;
+  opacity: 0;
+}
+.dj_ie8 .dijitSplitterCover {
+  filter: alpha(opacity=0);
+}
+.dijitSplitterH {
+  height: 7px;
+  border-top: 1px;
+  border-bottom: 1px;
+  cursor: row-resize;
+  -webkit-tap-highlight-color: transparent;
+}
+.dijitSplitterV {
+  width: 7px;
+  border-left: 1px;
+  border-right: 1px;
+  cursor: col-resize;
+  -webkit-tap-highlight-color: transparent;
+}
+.dj_a11y .dijitSplitterH {
+  border-top: 1px solid #d3d3d3 !important;
+  border-bottom: 1px solid #d3d3d3 !important;
+}
+.dj_a11y .dijitSplitterV {
+  border-left: 1px solid #d3d3d3 !important;
+  border-right: 1px solid #d3d3d3 !important;
+}
 .claro .dijitBorderContainer {
   /* matches the width of the splitters between panes */
 

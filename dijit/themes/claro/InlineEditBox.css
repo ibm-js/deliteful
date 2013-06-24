@@ -8,6 +8,21 @@
  * 2. Hover state
  * 		.dijitInlineEditBoxDisplayModeHover - for border and background color
  */
+.dijitInlineEditBoxDisplayMode {
+  border: 1px solid transparent;
+  /* so keyline (border) on hover can appear without screen jump */
+
+  cursor: text;
+}
+.dijitInlineEditBoxDisplayModeHover {
+  /* An InlineEditBox in view mode (click this to edit the text) */
+
+  background-color: #e2ebf2;
+  border: solid 1px black;
+}
+.dijitInlineEditBoxDisplayModeDisabled {
+  cursor: default;
+}
 .claro .dijitInlineEditBoxDisplayMode {
   border: 1px solid transparent;
 }

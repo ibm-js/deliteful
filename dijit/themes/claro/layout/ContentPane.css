@@ -20,6 +20,25 @@
  * .dijitBorderContainer-dijitContentPane
  *	set background-color and padding of ContentPane nested within a BorderContainer 
  */
+.dijitContentPane {
+  display: block;
+  overflow: auto;
+  /* if we don't have this (or overflow:hidden), then Widget.resizeTo() doesn't make sense for ContentPane */
+
+  -webkit-overflow-scrolling: touch;
+}
+.dijitContentPaneSingleChild {
+  /*
+	 * if the ContentPane holds a single layout widget child which is being sized to match the content pane,
+	 * then the ContentPane should never get a scrollbar (but it does due to browser bugs, see #9449
+	 */
+
+  overflow: hidden;
+}
+.dijitContentPaneLoading .dijitIconLoading,
+.dijitContentPaneError .dijitIconError {
+  margin-right: 9px;
+}
 .claro .dijitContentPane {
   padding: 8px;
 }

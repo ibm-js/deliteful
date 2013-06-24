@@ -20,6 +20,75 @@
  *		.dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg
  *		adds border for active or selected state
  */
+.dijitColorPalette {
+  border: 1px solid #999;
+  background: #fff;
+  position: relative;
+}
+.dijitColorPalette .dijitPaletteTable {
+  /* Table that holds the palette cells, and overlays image file with color swatches.
+	 * padding/margin to align table with image.
+	 */
+
+  padding: 2px 3px 3px 3px;
+  position: relative;
+  overflow: hidden;
+  outline: 0;
+  border-collapse: separate;
+}
+.dijitColorPalette .dijitPaletteCell {
+  /* <td> in the <table> */
+
+  font-size: 1px;
+  vertical-align: middle;
+  text-align: center;
+  background: none;
+}
+.dijitColorPalette .dijitPaletteImg {
+  /* Called dijitPaletteImg for back-compat, this actually wraps the color swatch with a border and padding */
+
+  padding: 1px;
+  /* white area between gray border and color swatch */
+
+  border: 1px solid #999;
+  margin: 2px 1px;
+  cursor: default;
+  font-size: 1px;
+  /* prevent <span> from getting bigger just to hold a character */
+
+}
+.dj_gecko .dijitColorPalette .dijitPaletteImg {
+  padding-bottom: 0;
+  /* workaround rendering glitch on FF, it adds an extra pixel at the bottom */
+
+}
+.dijitColorPalette .dijitColorPaletteSwatch {
+  /* the actual part where the color is */
+
+  width: 14px;
+  height: 12px;
+}
+.dijitPaletteTable td {
+  padding: 0;
+}
+.dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg {
+  /* hovered color swatch */
+
+  border: 1px solid #000;
+}
+.dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg,
+.dijitColorPalette .dijitPaletteTable .dijitPaletteCellSelected .dijitPaletteImg {
+  border: 2px solid #000;
+  margin: 1px 0;
+  /* reduce margin to compensate for increased border */
+
+}
+.dj_a11y .dijitColorPalette .dijitPaletteTable,
+.dj_a11y .dijitColorPalette .dijitPaletteTable * {
+  /* table cells are to catch events, but the swatches are in the PaletteImg behind the table */
+
+  background-color: transparent !important;
+}
 .claro .dijitColorPalette {
   border: 1px solid #b5bcc7;
   background: #ffffff;

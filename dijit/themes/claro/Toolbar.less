@@ -20,6 +20,68 @@
 
 @import "variables";
 
+// From dijit.css
+
+.dj_a11y .dijitButtonNode {
+	border: black outset medium !important;
+
+	/* In claro, hovering a toolbar button reduces padding and adds a border.
+	 * Not needed in a11y mode since Toolbar buttons always have a border.
+	 */
+	padding: 0 !important;
+}
+
+
+.dijitToolbar .dijitComboButton {
+	/* because Toolbar only draws a border around the hovered thing */
+	border-collapse: separate;
+}
+
+.dijitToolbar .dijitToggleButton,
+.dijitToolbar .dijitButton,
+.dijitToolbar .dijitDropDownButton,
+.dijitToolbar .dijitComboButton {
+	margin: 0;
+}
+
+.dijitToolbar .dijitButtonContents {
+	/* just because it used to be this way */
+	padding: 1px 2px;
+}
+
+
+.dj_webkit .dijitToolbar .dijitDropDownButton {
+	padding-left: 0.3em;
+}
+.dj_gecko .dijitToolbar .dijitButtonNode::-moz-focus-inner {
+	padding:0;
+}
+
+.dijitToolbar .dijitComboBox .dijitArrowButtonContainer {
+	/* override default ComboBox behavior, there should be no divider when ComboBox in Toolbar */
+	border-width: 0 !important;
+}
+
+.dj_ie .dijitToolbar .dijitComboBox {
+	/* make combobox buttons align properly with other buttons in a toolbar */
+	vertical-align: middle;
+}
+
+.dijitToolbarSeparator {
+	height: 18px;
+	width: 5px;
+	padding: 0 1px;
+	margin: 0;
+}
+
+.dijitToolbar .dijitSelect {
+	margin: 0;
+}
+.dj_webkit .dijitToolbar .dijitSelect {
+	padding-left: 0.3em;
+}
+
+// Claro overrides
 .claro .dijitToolbar {
 	border-bottom: 1px solid @border-color;
 	background-color: @bar-background-color;
@@ -62,7 +124,7 @@
 .dj_ie .claro .dijitToolbar .dijitComboButton .dijitButtonNodeHover,
 .dj_ie .claro .dijitToolbar .dijitComboButton .dijitDownArrowButtonHover,
 .dj_ie .claro .dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
-    /* button should still turn blue on hover, so need to override .dj_ie rules above */
+	/* button should still turn blue on hover, so need to override .dj_ie rules above */
 	background-color: @button-hovered-background-color;
 }
 
@@ -71,7 +133,7 @@
 .dj_ie .claro .dijitToolbar .dijitDropDownButtonActive .dijitButtonNode,
 .dj_ie .claro .dijitToolbar .dijitComboButtonActive .dijitButtonNode,
 .dj_ie .claro .dijitToolbar .dijitToggleButtonActive .dijitButtonNode {
-    /* button should still turn blue on press, so need to override .dj_ie rules above */
+	/* button should still turn blue on press, so need to override .dj_ie rules above */
 	background-color: @button-pressed-background-color;
 }
 

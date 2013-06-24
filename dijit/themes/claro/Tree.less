@@ -25,11 +25,69 @@
 
 @import "variables";
 
+// From dijit.css
+.dj_a11y .dijitTreeExpando {
+	// hide icon nodes in high contrast mode; when necessary they will be replaced by character equivalents
+	display: none;
+}
+
+.dijitTree {
+	overflow: auto;	/* for scrollbars when Tree has a height setting, and to prevent wrapping around float elements, see #11491 */
+	-webkit-tap-highlight-color: transparent;
+}
+
+.dijitTreeContainer {
+	float: left;	/* for correct highlighting during horizontal scroll, see #16132 */
+}
+
+.dijitTreeIndent {
+	/* amount to indent each tree node (relative to parent node) */
+	width: 19px;
+}
+
+.dijitTreeRow, .dijitTreeContent {
+	white-space: nowrap;
+}
+
+.dj_ie .dijitTreeLabel:focus {
+	/* workaround IE9 behavior where down arrowing through TreeNodes doesn't show focus outline */
+	outline: 1px dotted black;
+}
+
+.dijitTreeRow img {
+	/* make the expando and folder icons line up with the label */
+	vertical-align: middle;
+}
+
+.dijitTreeContent {
+	cursor: default;
+}
+
+.dijitExpandoText {
+	display: none;
+}
+
+.dj_a11y .dijitExpandoText {
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: monospace;
+	border-style: solid;
+	border-width: thin;
+	cursor: pointer;
+}
+
+.dijitTreeLabel {
+	margin: 0 4px;
+}
+
+
+// Claro rules
 .claro .dijitTreeNode {
-    zoom: 1;	/* force layout on IE (TODO: may not be needed anymore) */
+	zoom: 1;	/* force layout on IE (TODO: may not be needed anymore) */
 }
 .claro .dijitTreeIsRoot {
-    background-image: none;
+	background-image: none;
 }
 
 /* Styling for basic tree node (unhovered, unselected)
@@ -90,8 +148,8 @@
 
 .claro .dijitTreeExpando {
 	background-image: url(@image-tree-expand);
-    width: 16px;
-    height: 16px;
+	width: 16px;
+	height: 16px;
 	background-position: -35px 0;		/* for dijitTreeExpandoOpened */
 }
 .claro .dijitTreeRowHover .dijitTreeExpandoOpened {

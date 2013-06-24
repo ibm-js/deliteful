@@ -21,6 +21,60 @@
 
 @import "variables";
 
+// From dijit.css
+.dijitTimePicker {
+	background-color: white;
+}
+.dijitTimePickerItem {
+	cursor:pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.dijitTimePickerItemHover {
+	background-color:gray;
+	color:white;
+}
+.dijitTimePickerItemSelected {
+	font-weight:bold;
+	color:#333;
+	background-color:#b7cdee;
+}
+.dijitTimePickerItemDisabled {
+	color:gray;
+	text-decoration:line-through;
+}
+
+.dijitTimePickerItemInner {
+	text-align:center;
+	border:0;
+	padding:2px 8px 2px 8px;
+}
+
+.dijitTimePickerTick,
+.dijitTimePickerMarker {
+	border-bottom:1px solid gray;
+}
+
+.dijitTimePicker .dijitDownArrowButton {
+	border-top: none !important;
+}
+
+.dijitTimePickerTick {
+	color:#CCC;
+}
+
+.dijitTimePickerMarker {
+	color:black;
+	background-color:#CCC;
+}
+
+.dj_a11y .dijitTimePickerItemSelected .dijitTimePickerItemInner {
+	border: solid 4px black;
+}
+.dj_a11y .dijitTimePickerItemHover .dijitTimePickerItemInner {
+	border: dashed 4px black;
+}
+
+// Claro overrides
 /* override Button.css */
 .claro .dijitTimePicker .dijitButtonNode {
 	padding: 0 0;

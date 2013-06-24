@@ -24,6 +24,78 @@
  *		.dijitProgressBarIndeterminate .dijitProgressBarTile 
  * 		sets animated gif for the progress bar in 'indeterminate' mode
  */
+.dijitProgressBar {
+  z-index: 0;
+  /* so z-index settings below have no effect outside of the ProgressBar */
+
+}
+.dijitProgressBarEmpty {
+  /* outer container and background of the bar that's not finished yet*/
+
+  position: relative;
+  overflow: hidden;
+  border: 1px solid black;
+  /* a11y: border necessary for high-contrast mode */
+
+  z-index: 0;
+  /* establish a stacking context for this progress bar */
+
+}
+.dijitProgressBarFull {
+  /* outer container for background of bar that is finished */
+
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  width: 100%;
+}
+.dijitProgressBarTile {
+  /* inner container for finished portion */
+
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  background-color: #aaa;
+  background-attachment: fixed;
+}
+.dj_a11y .dijitProgressBarTile {
+  /* a11y:  The border provides visibility in high-contrast mode */
+
+  border-width: 2px;
+  border-style: solid;
+  background-color: transparent !important;
+}
+.dijitProgressBarIndeterminate .dijitProgressBarTile {
+  /* animated gif for 'indeterminate' mode */
+
+}
+.dijitProgressBarIndeterminateHighContrastImage {
+  display: none;
+}
+.dj_a11y .dijitProgressBarIndeterminate .dijitProgressBarIndeterminateHighContrastImage {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+.dijitProgressBarLabel {
+  display: block;
+  position: static;
+  width: 100%;
+  text-align: center;
+  background-color: transparent !important;
+}
 .claro .dijitProgressBar {
   margin: 2px 0 2px 0;
 }

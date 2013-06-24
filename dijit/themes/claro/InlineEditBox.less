@@ -11,6 +11,23 @@
 
 @import "variables";
 
+// From dijit.css
+.dijitInlineEditBoxDisplayMode {
+	border: 1px solid transparent;	/* so keyline (border) on hover can appear without screen jump */
+	cursor: text;
+}
+
+.dijitInlineEditBoxDisplayModeHover {
+	/* An InlineEditBox in view mode (click this to edit the text) */
+	background-color: #e2ebf2;
+	border: solid 1px black;
+}
+
+.dijitInlineEditBoxDisplayModeDisabled {
+	cursor: default;
+}
+
+// Claro overrides
 .claro .dijitInlineEditBoxDisplayMode {
 	border: 1px solid transparent;
 }

@@ -18,6 +18,50 @@
  * 5. Disabled state
  * 		.dijitCheckBoxDisabled|.dijitCheckBoxCheckedDisabled - for background image
  */
+.dijitCheckBox,
+.dijitRadio,
+.dijitCheckBoxInput {
+  padding: 0;
+  border: 0;
+  width: 16px;
+  height: 16px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.dijitCheckBox input,
+.dijitRadio input {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.dijitCheckBoxInput {
+  /* place the actual input on top, but all-but-invisible */
+
+  opacity: 0.01;
+}
+.dj_ie .dijitCheckBoxInput {
+  filter: alpha(opacity=0);
+}
+.dj_a11y .dijitCheckBox,
+.dj_a11y .dijitRadio {
+  /* in a11y mode we display the native checkbox (not the icon), so don't restrict the size */
+
+  width: auto !important;
+  height: auto !important;
+}
+.dj_a11y .dijitCheckBoxInput {
+  opacity: 1;
+  filter: none;
+  width: auto;
+  height: auto;
+}
+.dj_a11y .dijitFocusedLabel {
+  /* for checkboxes or radio buttons in high contrast mode, use border rather than outline to indicate focus (outline does not work in FF)*/
+
+  border: 1px dotted;
+  outline: 0px !important;
+}
 .claro .dijitToggleButton .dijitCheckBoxIcon {
   background-image: url("../images/checkmarkNoBorder.png");
 }

@@ -17,6 +17,17 @@
 
 @import "variables";
 
+// From dijit.css
+.dijitEditor {
+	display: block;	/* prevents glitch on FF with InlineEditBox, see #8404 */
+}
+
+.dijitEditorDisabled,
+.dijitEditorReadOnly {
+	color: gray;
+}
+
+// Claro overrides
 .claro .dijitEditorIFrameContainer{
 	padding:3px 3px 1px 10px;
 }

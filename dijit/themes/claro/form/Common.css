@@ -1,5 +1,253 @@
 /* claro/form/Common.css */
 /*========================= common css =========================*/
+.dijitInputContainer {
+  /* for positioning of placeHolder */
+
+  overflow: hidden;
+  float: none !important;
+  /* needed to squeeze the INPUT in */
+
+  position: relative;
+}
+.dj_ie input.dijitTextBox,
+.dj_ie .dijitTextBox input {
+  font-size: 100%;
+}
+.dijitTextBox .dijitSpinnerButtonContainer,
+.dijitTextBox .dijitArrowButtonContainer,
+.dijitValidationTextBox .dijitValidationContainer {
+  float: right;
+  text-align: center;
+}
+.dijitTextBox input.dijitInputField {
+  /* override unreasonable user styling of buttons and icons */
+
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.dijitValidationTextBox .dijitValidationContainer {
+  display: none;
+}
+.dj_a11y .dijitTextBoxReadOnly .dijitInputField,
+.dj_a11y .dijitTextBoxReadOnly .dijitButtonNode {
+  border-style: outset !important;
+  border-width: medium !important;
+  border-color: #999 !important;
+  color: #999 !important;
+}
+.dj_a11y .dijitArrowButton {
+  padding: 0 !important;
+}
+/* button inner contents - labels, icons etc. */
+.dijitButtonNode * {
+  vertical-align: middle;
+}
+.dijitSelect .dijitArrowButtonInner,
+.dijitButtonNode .dijitArrowButtonInner {
+  /* the arrow icon node */
+
+  background: no-repeat center;
+  width: 12px;
+  height: 12px;
+  direction: ltr;
+  /* needed by IE/RTL */
+
+}
+.dijitButtonNode {
+  /* Node that is acting as a button -- may or may not be a BUTTON element */
+
+  border: 1px solid gray;
+  margin: 0;
+  line-height: normal;
+  vertical-align: middle;
+  text-align: center;
+  white-space: nowrap;
+}
+.dijitTextBox .dijitButtonNode {
+  border-width: 0;
+}
+.dijitButtonNode,
+.dijitButtonNode * {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.dj_ie .dijitButtonNode {
+  /* ensure hasLayout */
+
+  zoom: 1;
+}
+.dj_ie .dijitButtonNode button {
+  /*
+	disgusting hack to get rid of spurious padding around button elements
+	on IE. MSIE is truly the web's boat anchor.
+	*/
+
+  overflow: visible;
+}
+div.dijitArrowButton {
+  float: right;
+}
+/******
+	TextBox related.
+	Everything that has an <input>
+*******/
+.dijitTextBox {
+  border: solid black 1px;
+  width: 15em;
+  /* need to set default size on outer node since inner nodes say <input style="width:100%"> and <td width=100%>.  user can override */
+
+  vertical-align: middle;
+}
+.dijitTextBoxReadOnly,
+.dijitTextBoxDisabled {
+  color: gray;
+}
+.dj_safari .dijitTextBoxDisabled input {
+  color: #B0B0B0;
+  /* because Safari lightens disabled input/textarea no matter what color you specify */
+
+}
+.dj_safari textarea.dijitTextAreaDisabled {
+  color: #333;
+  /* because Safari lightens disabled input/textarea no matter what color you specify */
+
+}
+.dj_gecko .dijitTextBoxReadOnly input.dijitInputField,
+.dj_gecko .dijitTextBoxDisabled input {
+  -moz-user-input: none;
+  /* prevent focus of disabled textbox buttons */
+
+}
+.dijitPlaceHolder {
+  /* hint text that appears in a textbox until user starts typing */
+
+  color: #AAAAAA;
+  font-style: italic;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.dijitTimeTextBox {
+  width: 8em;
+}
+/* rules for webkit to deal with fuzzy blue focus border */
+.dijitTextBox input:focus {
+  outline: none;
+  /* blue fuzzy line looks wrong on combobox or something w/validation icon showing */
+
+}
+.dijitTextBoxFocused {
+  outline: 5px -webkit-focus-ring-color;
+}
+.dijitSelect input,
+.dijitTextBox input {
+  float: left;
+  /* needed by IE to remove secret margin */
+
+}
+.dijitInputInner {
+  /* for when an <input> is embedded inside an inline-block <div> with a size and border */
+
+  border: 0 !important;
+  background-color: transparent !important;
+  width: 100% !important;
+  /* IE dislikes horizontal tweaking combined with width:100% so punish everyone for consistency */
+
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.dj_a11y .dijitTextBox input {
+  margin: 0 !important;
+}
+.dijitValidationTextBoxError input.dijitValidationInner,
+.dijitSelect input,
+.dijitTextBox input.dijitArrowButtonInner {
+  /* <input> used to display arrow icon/validation icon, or in arrow character in high contrast mode.
+ * The css below is a trick to hide the character in non-high-contrast mode
+ */
+
+  text-indent: -2em !important;
+  direction: ltr !important;
+  text-align: left !important;
+  height: auto !important;
+}
+.dj_ie .dijitSelect input,
+.dj_ie .dijitTextBox input,
+.dj_ie input.dijitTextBox {
+  overflow-y: visible;
+  /* inputs need help expanding when padding is added or line-height is adjusted */
+
+  line-height: normal;
+  /* strict mode */
+
+}
+.dijitSelect .dijitSelectLabel span {
+  line-height: 100%;
+}
+.dj_ie .dijitSelect .dijitSelectLabel {
+  line-height: normal;
+}
+.dj_ie8 .dijitSelect .dijitSelectLabel,
+.dijitSelect td {
+  line-height: 100%;
+  /* IE7 problem where the icon is vertically way too low w/o this */
+
+}
+.dj_a11y input.dijitValidationInner,
+.dj_a11y input.dijitArrowButtonInner {
+  /* (in high contrast mode) revert rules from above so character displays */
+
+  text-indent: 0 !important;
+  width: 1em !important;
+  color: black !important;
+}
+.dijitValidationTextBoxError .dijitValidationContainer {
+  display: inline;
+  cursor: default;
+}
+.dijitComboBox .dijitArrowButtonContainer {
+  /* dividing line between input area and up/down button(s) for ComboBox */
+
+  border-width: 0 0 0 1px !important;
+  /* !important needed due to wayward ".theme .dijitButtonNode" rules */
+
+}
+.dijitComboBoxMenu {
+  /* Drop down menu is implemented as <ul> <li/> <li/> ... but we don't want circles before each item */
+
+  list-style-type: none;
+}
+.dijitComboBox .dijitButtonNode {
+  border-width: 0;
+}
+/* TextArea, SimpleTextArea */
+.dijitTextArea {
+  width: 100%;
+  overflow-y: auto;
+  /* w/out this IE's SimpleTextArea goes to overflow: scroll */
+
+}
+.dijitTextArea[cols] {
+  width: auto;
+  /* SimpleTextArea cols */
+
+}
+.dijitExpandingTextArea {
+  /* for auto exanding textarea (called Textarea currently, rename for 2.0) don't want to display the grip to resize */
+
+  resize: none;
+}
+.dijitNumberTextBox {
+  text-align: left;
+  direction: ltr;
+}
+.dijitNumberTextBox .dijitInputInner {
+  text-align: inherit;
+  /* input */
+
+}
 /* 'dijitTextBox' refers to 'dijit(TextBox|DateTextBox|CurrencyTextBox|...)' */
 .claro .dijitTextBox,
 .claro .dijitInputInner {
