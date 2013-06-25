@@ -22,7 +22,7 @@
 //		<body class="claro">
 
 var dir = "",
-	theme = "",
+	theme = "claro",
 	testMode = null;
 
 dojoConfig = {
@@ -85,11 +85,12 @@ for(i = 0; script = scripts[i]; i++){
 
 // Output the boilerplate text to load the theme CSS
 if(theme){
-	var themeDir = testDir + "../themes/" + theme + "/";
+	// Temporary: get theme from dijit/ or mobile/ directory.
+	// Eventually there should be a shared theme in dui/themes.
+	var themeDir = testDir + "../" + (theme == "claro" ? "dijit" : "mobile") + "/themes/" + theme + "/";
 	document.write([
 		'<style type="text/css">',
 			theme == "claro" ? '@import "' + themeDir + 'document.css";' : "",
-			'@import "' + testDir + 'css/dijitTests.css";',
 		'</style>',
 		'<link id="themeStyles" rel="stylesheet" href="' + themeDir + theme + '.css"/>'
 	].join("\n"));
