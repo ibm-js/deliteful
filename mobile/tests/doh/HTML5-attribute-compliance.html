@@ -24,9 +24,7 @@
 			"doh/runner",
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
-			"dojox/mobile/SwapView",
-			"dojox/mobile/Carousel",
-			"dojox/mobile/CarouselItem"
+			"dojox/mobile/SwapView"
 		], function(parser, dom, domClass, ready, registry, runner){
 			parser.parse();
 			runner.register("dojox/mobile/test.doh.HTML5compliance", [
@@ -142,35 +140,6 @@
 </div>
 
 <!-- 2. "lazy" / "data-mobile-lazy" attribute for Carusel's children -->
-
-<div id="view5" data-dojo-type="dojox/mobile/View">
-	<div id="carousel1" data-dojo-type="dojox/mobile/Carousel"
-		 data-dojo-props='height:"150px", navButton:true, numVisible:2, title:"Category"'>
-
-		<div id="swapview1" data-dojo-type="dojox/mobile/SwapView">
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish1.jpg", value:"dish1", headerText:"dish1"'></div>
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish2.jpg", value:"dish2", headerText:"dish2"'></div>
-		</div>
-
-		<!-- Using lazy as attribute (legacy) -->
-		<div id="swapview2" data-dojo-type="dojox/mobile/SwapView" lazy="true">
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish3.jpg", value:"dish3", headerText:"dish3"'></div>
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish4.jpg", value:"dish4", headerText:"dish4"'></div>
-		</div>
-
-		<!-- Using lazy in data-dojo-props (new in Dojo 1.9) -->
-		<div id="swapview3" data-dojo-type="dojox/mobile/SwapView" data-dojo-props="lazy:'true'">
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish5.jpg", value:"dish5", headerText:"dish5"'></div>
-			<div data-dojo-type="dojox/mobile/CarouselItem"
-				 data-dojo-props='src:"../images/dish6.jpg", value:"dish6", headerText:"dish6"'></div>
-		</div>
-	</div>
-</div>
 
 <div id="view6" data-dojo-type="dojox/mobile/View">
 	<ul data-dojo-type="dojox/mobile/RoundRectList">

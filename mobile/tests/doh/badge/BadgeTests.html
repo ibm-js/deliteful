@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>Carousel Tests</title>
+<title>Badge Tests</title>
 <link href="../../../themes/common/domButtons/DomButtonRedBadge.css" rel="stylesheet"/>
 <link href="../../../themes/common/domButtons/DomButtonGreenBadge.css" rel="stylesheet"/>
 <link href="../../../themes/common/domButtons/DomButtonBlueBadge.css" rel="stylesheet"/>
@@ -96,9 +96,9 @@
 			view1.performTransition("view2", 1, "none");
 		};
 
-		runner.register("dojox/mobile/test.doh.CarouselTests", [
+		runner.register("dojox/mobile/test.doh.BadgeTests", [
 			{
-				name: "Carousel Verification1",
+				name: "Badge Verification1",
 				timeout: 4000,
 				runTest: function(){
 					var badge1 = _createBadgeDeclaratively("view1-Badge11");
@@ -111,7 +111,7 @@
 				}
 			},
 			{
-				name: "Carousel Verification2",
+				name: "Badge Verification2",
 				timeout: 4000,
 				runTest: function(){
 					var badge1 = _createBadgeDeclaratively("view2-Badge11");

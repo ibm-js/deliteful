@@ -1,7 +1,6 @@
 dojo.provide("dojox.mobile.tests.bidi.doh.module");
 
 try{
-	doh.registerUrl("dojox.mobile.tests.bidi.doh.test_StoreCarousel-demo", dojo.moduleUrl("dojox.mobile", "tests/bidi/doh/test_StoreCarousel-demo.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.bidi.doh.test_EdgeToEdgeList", dojo.moduleUrl("dojox.mobile", "tests/bidi/doh/test_EdgeToEdgeList.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.bidi.doh.test_IconContainer", dojo.moduleUrl("dojox.mobile", "tests/bidi/doh/test_IconContainer.html"),999999);
 	doh.registerUrl("dojox.mobile.tests.bidi.doh.test_SpinWheel-custom", dojo.moduleUrl("dojox.mobile", "tests/bidi/doh/test_SpinWheel-custom.html"),999999);

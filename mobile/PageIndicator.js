@@ -20,8 +20,7 @@ define([
 		// description:
 		//		PageIndicator displays a series of gray and white dots to
 		//		indicate which page is currently being viewed. It can typically
-		//		be used with dojox/mobile/SwapView. It is also internally used
-		//		in dojox/mobile/Carousel.
+		//		be used with dojox/mobile/SwapView.
 
 		// refId: String
 		//		An ID of a DOM node to be searched. Siblings of the reference
