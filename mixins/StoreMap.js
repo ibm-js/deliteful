@@ -1,4 +1,4 @@
-define(["dojo/_base/declare", "dojo/_base/lang", "dijit/mixins/Store"],
+define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 	function(declare, lang, Store){
 
 	var getvalue = function(map, item, key, store){
