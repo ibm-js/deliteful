@@ -12,7 +12,6 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/Deferred",
 			"dojo/store/Cache",
 			"dojo/store/JsonRest",
 			"dojo/store/Memory",
@@ -21,7 +20,7 @@
 			"dojo/parser",
 			"dojox/mobile/compat",
 			"dojox/mobile/EdgeToEdgeStoreList"
-		], function(Deferred, Cache, JsonRest, Memory, Observable, registry){
+		], function(Cache, JsonRest, Memory, Observable, registry){
 			var static_data1 = [
 				{ label: "Category 1", header: true,
 				  children: [

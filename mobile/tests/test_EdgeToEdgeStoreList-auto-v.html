@@ -8,12 +8,13 @@
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 
 	<script type="text/javascript">
 		require([
 			"dojo/_base/connect",
 			"dojo/_base/window",
+			"dojo/when",
 			"dojo/store/Cache",
 			"dojo/store/JsonRest",
 			"dojo/store/Memory",
@@ -23,7 +24,7 @@
 			"dojo/parser",
 			"dojox/mobile/compat",
 			"dojox/mobile/EdgeToEdgeStoreList"
-		], function(connect, win, Cache, JsonRest, Memory, Observable, ready, registry){
+		], function(connect, win, when, Cache, JsonRest, Memory, Observable, ready, registry, parser){
 			//var url = "data/fruits.json";
 			var url = "data/fake_service.php";
 			var memoryStore = new Memory({idProperty:"label"});
@@ -41,16 +42,18 @@
 			}
 
 			ready(function(){
-				list = registry.byId("list");
-				list.set("store", store);
-				list.set("query", {start:start, count:count});
-				start += count;
-				connect.connect(win.global, "onscroll", null, function(e){
-					var h = win.global.innerHeight||win.doc.documentElement.clientHeight||win.doc.documentElement.offsetHeight;
-					if(win.body().scrollTop + h === win.body().offsetHeight){
-						loadMore();
-					}
-				})
+				when(parser.parse(), function(){
+					list = registry.byId("list");
+					list.set("store", store);
+					list.set("query", {start:start, count:count});
+					start += count;
+					connect.connect(win.global, "onscroll", null, function(e){
+						var h = win.global.innerHeight||win.doc.documentElement.clientHeight||win.doc.documentElement.offsetHeight;
+						if(win.body().scrollTop + h === win.body().offsetHeight){
+							loadMore();
+						}
+					})
+				});
 			});
 		});
 	</script>

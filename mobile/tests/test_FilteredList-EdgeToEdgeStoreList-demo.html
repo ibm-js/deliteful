@@ -33,8 +33,7 @@
 			"dojox/mobile/Switch"
 			], function(parser, compat, ready, registry, Memory){
 							
-			var filterBox;
-			var static_data = { 
+			var static_data = {
 				items: [ 
 					{label: "Alabama"},
 					{label: "Alaska"},
@@ -110,10 +109,11 @@
 
 			// Hides the Search Options dialog. Optionally, applies the new search options.
 			hideOptions = function(dlg, applyOptions){
+				var filterBox = registry.byId("list").getFilterBox();
 				registry.byId(dlg).hide();
 				if(applyOptions){
 					filterBox.ignoreCase = registry.byId("ignoreCaseSwitch").value == "on";
-					filterBox.set("incremental", registry.byId("incrementalSwitch").value == "on");
+					 filterBox.set("incremental", registry.byId("incrementalSwitch").value == "on");
 					if (registry.byId("radioStartsWith").checked){
 						filterBox.queryExpr = "${0}*";
 					}else if(registry.byId("radioContains").checked){
@@ -123,10 +123,6 @@
 					}
 				}
 			};
-			
-			ready(function(){
-				filterBox = registry.byId("list").getFilterBox();
-			});
 		});
 	</script>
 	

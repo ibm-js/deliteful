@@ -194,7 +194,7 @@ define([
 				if (this._filterBox && this._filterBox.isInstanceOf(SearchBox)){ 
 					// If the list is backed by a dojox/mobile/_StoreListMixin, it
 					// has a labelProperty which is given precedence. 
-					this._filterBox.set("searchAttr", this.labelProperty ? this.labelProperty : "label");
+					this._filterBox.set("searchAttr", this.labelAttr ? this.labelAttr : "label");
 					if(!this._filterBox.placeHolder){
 						// Give precedence to the placeHolder that may be specified on the provided SearchBox
 						this._filterBox.set("placeHolder", this.placeHolder);
@@ -209,8 +209,8 @@ define([
 				this._filterBox =
 					new SearchBox({
 						// If the list is backed by a dojox/mobile/_StoreListMixin, it
-						// has a labelProperty which is given precedence. 
-						searchAttr: this.labelProperty ? this.labelProperty : "label",
+						// has a labelAttr which is given precedence.
+						searchAttr: this.labelAttr ? this.labelAttr : "label",
 						ignoreCase: true,
 						incremental: true,
 						onSearch: lang.hitch(this, "_onFilter"),
@@ -345,7 +345,7 @@ define([
 					return item.listItem;
 				};
 					
-				aspect.before(this, "generateList", function(){
+				aspect.before(this, "initItems", function(){
 					// remove all children
 					array.forEach(this.getChildren(), function(child){
 						child.domNode.parentNode.removeChild(child.domNode);
@@ -361,10 +361,12 @@ define([
 				});
 				var listData = {items: items};
 				// store for the dojox/mobile/EdgeToEdgeStoreList
-				var store = new Memory({idProperty:"label", data: listData});
+				var store = new Memory({data: listData});
 				this.store = null;
 				this.query = {};
-				this.setStore(store, this.query, this.queryOptions);
+				this.set("store", store);
+				this.set("query", this.query);
+				this.set("queryOptions", this.queryOptions);
 				lang.hitch(this, initStoreFunction)();
 			}));
 		},
@@ -375,7 +377,7 @@ define([
 			// tags:
 			//		private
 			if(this.onFilter(results, query, options) === false){ return; } // user's filtering action
-			this.setQuery(query);
+			this.set("query", query);
 			
 			// Do not use this.getScrollableView() because this doesn't cover the
 			// use-case when the scrollable is not created by this mixin.

@@ -60,7 +60,7 @@
 					{ label: "labelq" }, { label: "labelr" }, { label: "labels" }, { label: "labelt" }, { label: "labelu" },
 					{ label: "labelv" }, { label: "labelw" }, { label: "labelx" }, { label: "labely" }, { label: "labelz" }
 				];
-				store = Observable(new Memory({idProperty:"label", data: data}));
+				store = Observable(new Memory({data: data}));
 				when(parser.parse(), function(){
 					var list = registry.byId("list");
 					var scroll = registry.byId("scroll");
@@ -72,7 +72,8 @@
 								console.log("load more items");
 								busy = true;
 								setTimeout(function(){
-									when(list.setQuery({}, {start: start, count: list.pageSize}), function(){
+									list.set("queryOptions", {start: start, count: list.pageSize});
+									on.once("query-success", function(){
 										busy = false;
 										scroll.resize();
 									});

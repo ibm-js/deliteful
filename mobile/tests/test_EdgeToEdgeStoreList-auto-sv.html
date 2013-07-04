@@ -76,10 +76,10 @@
 
 			ready(function(){
 				when(parser.parse(), function(){
-				list = registry.byId("list");
-				list.set("store", store);
-				list.set("query", {start:start, count:count});
-				start += count;
+					list = registry.byId("list");
+					list.set("store", store);
+					list.set("query", {start:start, count:count});
+					start += count;
 				});
 			});
 		});

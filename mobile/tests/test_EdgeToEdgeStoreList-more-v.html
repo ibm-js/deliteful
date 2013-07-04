@@ -8,11 +8,12 @@
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/Deferred",
+			"dojo/when",
+			"dojo/on",
 			"dojo/store/Cache",
 			"dojo/store/JsonRest",
 			"dojo/store/Memory",
@@ -23,7 +24,7 @@
 			"dojo/parser",
 			"dojox/mobile/compat",
 			"dojox/mobile/EdgeToEdgeStoreList"
-		], function(Deferred, Cache, JsonRest, Memory, Observable, ready, registry, ListItem){
+		], function(when, on, Cache, JsonRest, Memory, Observable, ready, registry, ListItem, parser){
 			//var url = "data/fruits.json";
 			var url = "data/fake_service.php";
 			var memoryStore = new Memory({idProperty:"label"});
@@ -40,7 +41,8 @@
 					label: "Loading More Items..."
 				});
 				setTimeout(function(){ // to simulate network latency
-					Deferred.when(list.setQuery({start:start, count:count}), function(){
+					list.set("query", {start:start, count:count});
+					on.once(list, "query-success", function(){
 						loadMoreItem.set({
 							busy: false,
 							label: "Load More Items..."
@@ -65,9 +67,13 @@
 			}
 
 			ready(function(){
-				list = registry.byId("list");
-				Deferred.when(list.setStore(store, {start:start, count:count}), addLoadMoreItem);
-				start += count;
+				when(parser.parse(), function(){
+					list = registry.byId("list");
+					list.set("store", store);
+					list.set("query", {start:start, count:count});
+					on.once(list, "query-success", addLoadMoreItem);
+					start += count;
+				});
 			});
 		});
 	</script>

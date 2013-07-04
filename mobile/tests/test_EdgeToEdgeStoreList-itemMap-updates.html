@@ -60,7 +60,8 @@
 			// switch to the selected store
 			switchTo = function(store){
 				window.store = store;
-				registry.byId("list").setStore(store);
+				registry.byId("list").set("labelAttr", store==store2?"label":"text");
+				registry.byId("list").set("store", store);
 			};
 			// add a new item
 			add1 = function(){
@@ -113,7 +114,7 @@
 	<div data-dojo-type="dojox/mobile/View">
 		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h1>
 		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" 
-			data-dojo-props='store: store, query: {}, itemMap: {text:"label", profile_image_url: "icon"}'>
+			data-dojo-props='store: store, query: {}, labelAttr: "text", iconAttr: "profile_image_url"'>
 		</ul>
 		<p>Select the data store:<br>
 		<input data-dojo-type="dojox/mobile/Button" type="button" value="Set1" 

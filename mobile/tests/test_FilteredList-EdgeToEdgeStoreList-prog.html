@@ -12,13 +12,15 @@
 	
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base', 'SearchBox']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, mblAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
 			"dojo/_base/declare",
 			"dojo/domReady",
 			"dijit/registry",
+			"dojo/when",
+			"dojo/parser",
 			"dojo/store/Memory",
 			"dojox/mobile/EdgeToEdgeStoreList",
 			"dojox/mobile/FilteredListMixin",
@@ -26,9 +28,8 @@
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/Heading",
 			"dojox/mobile/View",
-			"dojox/mobile/compat",
-			"dojo/parser"
-		], function(declare, ready, registry, Memory, EdgeToEdgeStoreList, FilteredListMixin){
+			"dojox/mobile/compat"
+		], function(declare, ready, registry, when, parser, Memory, EdgeToEdgeStoreList, FilteredListMixin){
 			var static_data = { 
 				items: [ 
 					{label: "Alabama"},
@@ -99,14 +100,16 @@
 			var store = new Memory({idProperty:"label", data: static_data});
 		    
 			ready(function(){
-				var view = registry.byId("scrollableView");
+				when(parser.parse(), function(){
+					var view = registry.byId("scrollableView");
 				
-				var listWidget =
-					new declare([EdgeToEdgeStoreList, FilteredListMixin])(
-						{filterBoxRef: 'filterBox', placeHolder: 'Search', store: store});
+					var listWidget =
+						new declare([EdgeToEdgeStoreList, FilteredListMixin])(
+							{filterBoxRef: 'filterBox', placeHolder: 'Search', store: store});
 				
-				listWidget.placeAt(view.containerNode);
-				listWidget.startup();
+					listWidget.placeAt(view.containerNode);
+					listWidget.startup();
+				});
 			});
 		});
 	</script>

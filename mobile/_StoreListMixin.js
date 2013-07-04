@@ -1,16 +1,16 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
-	"../mixins/Map",
+	"../mixins/StoreMap",
 	"./ListItem",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/_StoreListMixin"
-], function(array, declare, Map, ListItem, has, BidiStoreListMixin){
+], function(array, declare, StoreMap, ListItem, has, BidiStoreListMixin){
 
 	// module:
 	//		dojox/mobile/_StoreListMixin
 
-	var _StoreListMixin = declare(has("dojo-bidi") ? "dojox.mobile._NonBidiStoreListMixin" : "dojox.mobile._StoreListMixin", Map, {
+	var _StoreListMixin = declare(StoreMap, {
 		// summary:
 		//		Mixin for widgets to generate the list items corresponding to
 		//		the dojo/store data provider object.
@@ -22,12 +22,16 @@ define([
 		//		regenerated whenever the corresponding data items are modified.
 
 		// append: Boolean
-		//		If true, refresh() does not clear the existing items.
+		//		If true, when a new store/query is set the existing items are not cleared before adding the new ones.
 		append: false,
 
 		// itemRenderer: ListItem class or subclass
 		//		The class used to create list items. Default is dojox/mobile/ListItem.
 		itemRenderer: ListItem,
+
+		labelAttr: "label",
+
+		copyAllItemProps: true,
 
 		createListItem: function(/*Object*/item){
 			// summary:
@@ -46,10 +50,10 @@ define([
 			//		To be implemented by the bidi/_StoreLisMixin.js
 			return props;
 		},
+
 		initItems: function(/*Array*/items){
 			// summary:
 			//		Given the data, generates a list of items.
-			this.inherited(arguments);
 			if(!this.append){
 				array.forEach(this.getChildren(), function(child){
 					child.destroyRecursive();
@@ -57,7 +61,9 @@ define([
 			}
 			array.forEach(items, function(item){
 				this.addChild(this.createListItem(item));
+				// TODO re-introduce child management
 			}, this);
+			this.inherited(arguments);
 		},
 
 		addItem: function(index, item, items){
@@ -81,5 +87,5 @@ define([
 			this.getChildren()[index].destroyRecursive();
 		}
 	});
-	return has("dojo-bidi") ? declare("dojox.mobile._StoreListMixin", [_StoreListMixin, BidiStoreListMixin]) : _StoreListMixin;	
+	return has("dojo-bidi") ? declare([_StoreListMixin, BidiStoreListMixin]) : _StoreListMixin;
 });
