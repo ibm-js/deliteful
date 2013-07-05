@@ -39,7 +39,7 @@ define([
 		//		the necessary glue to ensure the list is filtered according to the filter criteria
 		//		entered in the SearchBox.
 		//
-		//		The filtering works for lists backed by a store (dojo/store or dojo/data), as well 
+		//		The filtering works for lists backed by a store (dojo/store), as well
 		//		as for lists not backed by a store. When filtering a list backed by a store 
 		//		containing hierarchical data (data items that are children of a parent data item), 
 		//		the store must support recursive search queries such that the filtering can match 
@@ -308,22 +308,7 @@ define([
 			//		Initializes the store.
 			// tags:
 			//		private
-			var store = this.store;
-			if(!store.get || !store.query){ // if old store (dojo/data)
-				// Detect the old dojo/data stores (since the stores don't actually extend a common
-				// base class, there is no direct way to do this check. Hence we rely on the presence 
-				// or absence of these two properties of the new stores which are required for the
-				// list widgets).
-				// TODO: to be removed when removing the support for lists backed by the old dojo/data 
-				// (EdgeToEdgeDataStore, RoundRectDataList).
-				require(["dojo/store/DataStore"], lang.hitch(this, function(DataStore){
-					// wrap the dojo/data store into a dojo/store
-					store = new DataStore({store: store});	
-					this._filterBox.store = store;				
-				}));
-			}else{
-				this._filterBox.store = store;
-			}
+			this._filterBox.store = this.store;
 		},
 	
 		_createStore: function(initStoreFunction/* Function */){
