@@ -4,8 +4,13 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 	return declare(_Invalidating, {
 
 		// summary:
-		//		Mixin for widgets for store management. The receiving class must extend
-		//		dojo/Stateful and dojo/Evented or dijit/_WidgetBase.
+		//		Mixin for widgets for store management that creates widget render items from store items after querying
+		// 		the store. The receiving class must extend dojo/Stateful and dojo/Evented or dijit/_WidgetBase.
+		// description:
+		//		Classes extending this mixin automatically create render items that are consumable by the widget
+		// 		from store items after querying the store. This happens each time the widget store, query or queryOptions
+		// 		properties are set. If that store is Observable it will be observed and render items will be automatically
+		// 		updated, added or deleted from the items property based on store notifications.
 
 		// store: dojo/store/Store
 		//		The store that contains the items to display.
@@ -19,15 +24,21 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 		//		Options to be applied when querying the store.
 		queryOptions: null,
 
+		/*****
+		// items: Array
+		//		The render items corresponding to the store items for this widget.
+		items: [],
+		*****/
+
 		constructor: function(){
 			// we want to be able to wait for potentially several of those properties to be set before
 			// actually firing the store request
-			this.addInvalidatingProperties(["store", "query", "queryOptions"]);
+			this.addInvalidatingProperties("store", "query", "queryOptions");
 		},
 
 		renderItemToItem: function(/*Object*/ renderItem, /*dojo/store/api/Store*/ store){
 			// summary:
-			//		Create a store item based from the widget internal item. By default it returns the widget internal item itself.
+			//		Create a store item based from the render item. By default it returns the render item itself.
 			// renderItem: Object
 			//		The render item.
 			// store: dojo/store/api/Store
@@ -38,7 +49,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 		itemToRenderItem: function(item, store){
 			// summary:
-			//		Returns the widget internal item for a given store item. By default it returns the store item itself.
+			//		Returns the render item for a given store item. By default it returns the store item itself.
 			// item: Object
 			//		The store item.
 			// store: dojo/store/api/Store
@@ -72,7 +83,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 						// user asked us to observe the store
 						this._observeHandler = results.observe(lang.hitch(this, this._updateItem), true);
 					}
-					// if we have a mapping function between data item and some intermediary items use it
+					// if we have a mapping function between store item and some intermediary items use it
 					results = results.map(lang.hitch(this, function(item){
 						return this.itemToRenderItem(item, store);
 					}));
@@ -97,7 +108,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 			var items = this.get("items");
 
-			// if we have a mapping function between data item and some intermediary items use it
+			// if we have a mapping function between store item and some intermediary items use it
 			var newItem = this.itemToRenderItem(object, this.get("store"));
 
 			if(previousIndex != -1){
@@ -120,7 +131,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 		removeItem: function(index, item, items){
 			// summary:
-			//		Remove a widget internal item. This can be redefined but must not be called directly.
+			//		Remove a render item. This can be redefined but must not be called directly.
 			// index: Number
 			//		The index of the removed item.
 			// item: Object
@@ -134,7 +145,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 		putItem: function(index, item, items){
 			// summary:
-			//		Modify a widget internal item. This can be redefined but must not be called directly.
+			//		Modify a render item. This can be redefined but must not be called directly.
 			// index: Number
 			//		The index of the modified item.
 			// item: Object
@@ -150,7 +161,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 		addItem: function(index, item, items){
 			// summary:
-			//		Add a widget internal item. This can be redefined but must not be called directly.
+			//		Add a render item. This can be redefined but must not be called directly.
 			// index: Number
 			//		The index of the added item.
 			// item: Object

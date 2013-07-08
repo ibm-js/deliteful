@@ -34,16 +34,17 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 				}
 			}
 		},
-		addInvalidatingProperties: function(/*String[]*/ properties){
+		addInvalidatingProperties: function(){
 			// summary:
-			//		Add properties to the watched properties to trigger invalidation. This method must be called in
-			//		the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
-			//		to watch for.
+			//		Add the properties listed as parameters to the watched properties to trigger invalidation. This method
+			// 		must be called in the constructor. It is typically used by subclasses of a _Invalidating class to
+			// 		add more properties	to watch for.
 			// properties:
 			//		The list of properties to watch for.
 			// tags:
 			//		protected
-			this._invalidatingProperties = this._invalidatingProperties?this._invalidatingProperties.concat(properties):properties;
+			this._invalidatingProperties = this._invalidatingProperties?
+				this._invalidatingProperties.concat(Array.prototype.slice.call(arguments)):Array.prototype.slice.call(arguments);
 		},
 		invalidateRendering: function(name){
 			// summary:

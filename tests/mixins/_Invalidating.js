@@ -7,8 +7,8 @@ define(["doh", "dojo/_base/declare", "../../mixins/_Invalidating", "../../_Widge
 			runTest: function(t){
 				var C = declare("MyWidget", [_WidgetBase, _Invalidating], {
 					constructor: function(){
-						this.addInvalidatingProperties(["a"]);
-						this.addInvalidatingProperties(["b"]);
+						this.addInvalidatingProperties("a");
+						this.addInvalidatingProperties("b");
 					},
 					refreshRendering: function(){
 						t.is({"b": true}, o.invalidatedProperties);
