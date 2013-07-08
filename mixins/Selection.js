@@ -20,8 +20,8 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 		
 		_setSelectionModeAttr: function(value){
 			if(value != "none" && value != "single" && value != "multiple"){
-				value = "single"; //default value
-			}			
+				throw new Error("selectionModel invalid value");
+			}
 			if(value != this.selectionMode){
 				this.selectionMode = value;
 				if(value == "none"){
