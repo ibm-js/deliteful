@@ -26,7 +26,7 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 			if(this._invalidatingProperties){
 				var props = this._invalidatingProperties;
 				for(var i = 0; i < props.length; i++){
-					this.watch(props[i], lang.hitch(this, this.invalidateRendering));
+					this.watch(props[i], lang.hitch(this, "invalidateRendering"));
 					if(mixin && props[i] in mixin){
 						// if the prop happens to have been passed in the ctor mixin we are invalidated
 						this.invalidateRendering(props[i]);
@@ -56,7 +56,7 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 			}
 			if(!this.invalidRendering){
 				this.invalidRendering = true;
-				setTimeout(lang.hitch(this, this.validateRendering), 0);
+				setTimeout(lang.hitch(this, "validateRendering"), 0);
 			}
 		},
 		validateRendering: function(){

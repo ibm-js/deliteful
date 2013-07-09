@@ -81,13 +81,13 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 					var results = store.query(this.get("query"), this.get("queryOptions"));
 					if(results.observe){
 						// user asked us to observe the store
-						this._observeHandler = results.observe(lang.hitch(this, this._updateItem), true);
+						this._observeHandler = results.observe(lang.hitch(this, "_updateItem"), true);
 					}
 					// if we have a mapping function between store item and some intermediary items use it
 					results = results.map(lang.hitch(this, function(item){
 						return this.itemToRenderItem(item, store);
 					}));
-					when(results, lang.hitch(this, this.initItems), lang.hitch(this, this._queryError));
+					when(results, lang.hitch(this, this.initItems), lang.hitch(this, "_queryError"));
 				}else{
 					this.initItems([]);
 				}
