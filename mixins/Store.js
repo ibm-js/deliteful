@@ -36,24 +36,20 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 			this.addInvalidatingProperties("store", "query", "queryOptions");
 		},
 
-		renderItemToItem: function(/*Object*/ renderItem, /*dojo/store/api/Store*/ store){
+		renderItemToItem: function(/*Object*/ renderItem){
 			// summary:
-			//		Create a store item based from the render item. By default it returns the render item itself.
+			//		Creates a store item from the render item. By default it returns the render item itself.
 			// renderItem: Object
 			//		The render item.
-			// store: dojo/store/api/Store
-			//		The store.
 			// returns: Object
 			return renderItem;
 		},
 
-		itemToRenderItem: function(item, store){
+		itemToRenderItem: function(item){
 			// summary:
 			//		Returns the render item for a given store item. By default it returns the store item itself.
 			// item: Object
 			//		The store item.
-			// store: dojo/store/api/Store
-			//		The store the item is coming from
 			// tags:
 			//		protected
 			return item;

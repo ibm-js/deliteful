@@ -72,18 +72,16 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 			}
 		},
 
-		renderItemToItem: function(/*Object*/ renderItem, /*dojo/store/api/Store*/ store){
+		renderItemToItem: function(/*Object*/ renderItem){
 			// summary:
 			//		Create a store item based from the widget internal item. By default it returns the widget internal item itself.
 			// renderItem: Object
 			//		The render item.
-			// store: dojo/store/api/Store
-			//		The store.
 			// returns: Object
-			var item;
+			var item, store = this.get("store");
 			if(this.mapAtInit){
 				item = {};
-				// sepecial id case
+				// special id case
 				item[store.idProperty] = renderItem.id;
 				for(var key in renderItem){
 					setvalue(this, item, key, store, renderItem[key]);
@@ -96,19 +94,17 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 			return lang.mixin(store.get(renderItem[store.idProperty]), item);
 		},
 
-		itemToRenderItem: function(item, store){
+		itemToRenderItem: function(item){
 			// summary:
 			//		Returns the widget internal item for a given store item. By default it returns the store item itself.
 			// item: Object
 			//		The store item.
-			// store: dojo/store/api/Store
-			//		The store the item is coming from
 			// tags:
 			//		protected
 
 			var renderItem = {};
 			var mappedKeys = this.mappedKeys?this.mappedKeys:Object.keys(item);
-			var self = this;
+			var self = this, store = this.get("store");
 
 			if(!this.mapAtInit){
 				Object.defineProperty(renderItem, "__item", {
