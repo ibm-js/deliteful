@@ -55,7 +55,13 @@
 			// switch to the selected store
 			switchTo = function(store){
 				window.store = store;
-				registry.byId("list").set("store", store);
+				var list = registry.byId("list");
+				if(list.labelAttr == "label"){
+					list.labelAttr = "text";
+				}else{
+					list.labelAttr = "label";
+				}
+				list.set("store", store);
 			};
 			// add a new item
 			add1 = function(){
@@ -77,7 +83,7 @@
 <body style="visibility:hidden;">
 	<div data-dojo-type="dojox/mobile/View">
 		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='store:store, query:{}, labelAttr: "text", iconAttr: "profile_image_url"'></ul>
+		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='store:store, query:{}, labelAttr: "text", iconAttr: "profile_image_url", moveToAttr: "moveTo"'></ul>
 		<p>show the different set:<br>
 		<input type="button" value="Set1" onclick="switchTo(store1)">
 		<input type="button" value="Set2" onclick="switchTo(store2)">

@@ -31,24 +31,25 @@ define([
 
 		labelAttr: "label",
 
-		copyAllItemProps: true,
+		headerAttr: "header",
+
+		constructor: function(){
+			// if dojo has bidi we add a special mapping function
+			if(has("dojo-bidi")){
+				var self = this;
+				this.dirFunc = function(item){
+					if(typeof item["dir"] == "undefined"){
+						return self.isLeftToRight()?"ltr":"rtl";
+					}
+					return item.dir;
+				};
+			}
+		},
 
 		createListItem: function(/*Object*/item){
 			// summary:
 			//		Creates a list item widget.
 			return new this.itemRenderer(item);
-		},
-
-		// TODO bidi code?
-		// if(has("dojo-bidi") && typeof props["dir"] == "undefined"){
-		// props["dir"] = this.isLeftToRight() ? "ltr" : "rtl";
-		// }
-
-		_setDirAttr: function(props){
-			// summary:
-			//		Set the 'dir' attribute to support Mirroring.
-			//		To be implemented by the bidi/_StoreLisMixin.js
-			return props;
 		},
 
 		initItems: function(/*Array*/items){
