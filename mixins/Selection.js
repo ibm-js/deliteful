@@ -68,9 +68,9 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			return this.selectedItems == null ? [] : this.selectedItems.concat();
 		},
 		
-		isItemSelected: function(item){
+		isSelected: function(item){
 			// summary:
-			//		Returns wether an item is selected or not.
+			//		Returns whether an item is selected or not.
 			// item: Object
 			//		The item to test the selection for.			
 			if(this.selectedItems == null || this.selectedItems.length== 0){
@@ -89,7 +89,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			//		The item to query the identity for.
 		},
 		
-		setItemSelected: function(item, value){
+		setSelected: function(item, value){
 			// summary:
 			//		Change the selection state of an item.
 			// item: Object
