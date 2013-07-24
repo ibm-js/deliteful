@@ -1,12 +1,15 @@
 //dojo.require("dojo.has");
 
 var registry;
+var lang;
 
 require([
 	"dijit/registry",  // registry.byId
+	"dojo/_base/lang",
 	"doh/runner"	//doh functions
-], function(dijit){
+], function(dijit, dojoLang){
 	registry = dijit;
+	lang = dojoLang;
 });
 
 function fireOnInput(obj){
@@ -26,7 +29,7 @@ function fireOnInput(obj){
 	}
 }
 
-function fireOnClick(obj){
+function fireOnClick(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
@@ -39,11 +42,11 @@ function fireOnClick(obj){
 	}else{
 		var e = document.createEvent('Events');
 		e.initEvent('click', true, true);
-		anchorNode.dispatchEvent(e);
+		anchorNode.dispatchEvent(lang.mixin(e, eventMixin));
 	}
 }
 
-function fireOnMouseDown(obj){
+function fireOnMouseDown(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
@@ -60,10 +63,10 @@ function fireOnMouseDown(obj){
 		}
 		var e = document.createEvent('Events');
 		e.initEvent(eventName, true, true);
-		anchorNode.dispatchEvent(e);
+		anchorNode.dispatchEvent(lang.mixin(e, eventMixin));
 	}
 }
-function fireOnMouseUp(obj){
+function fireOnMouseUp(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
@@ -80,7 +83,7 @@ function fireOnMouseUp(obj){
 		}
 		var e = document.createEvent('Events');
 		e.initEvent(eventName, true, true);
-		anchorNode.dispatchEvent(e);
+		anchorNode.dispatchEvent(lang.mixin(e, eventMixin));
 	}
 }
 

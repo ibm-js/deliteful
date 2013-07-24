@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>StarRating</title>
+
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblUserAgent:'iPhone'"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js"
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+
+	<script type="text/javascript">
+		require([
+			"dojo/parser",
+			"dojox/mobile/compat",
+			"dojox/mobile/StarRating"
+		]);
+	</script>
+	<style>
+	.group {
+		margin: 20px;
+		padding: 10px;
+		border: 1px solid gray;
+		border-radius: 6px;
+	}
+	.group2 .mblRating .mblSpriteIconParent {
+		-webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), color-stop(0.1, rgba(0,0,0,0)), to(rgba(0,0,0,0.3)));
+	}
+	.group3 {
+	}
+	.group4 {
+		background-color: black;
+	}
+	
+	.mblStarRatingStarIcon {
+		height: 14px;
+		width: 14px;
+		background-image: url('images/star-orange.png');
+	}
+	.mblStarRatingEmptyStar {
+		background-position: -14px 0px;
+	}
+	.mblStarRatingHalfStar {
+		background-position: -28px 0px;
+	}
+	
+	.mblYellowStarRatingStarIcon {
+		height: 14px;
+		width: 14px;
+		background-image: url('images/star-yellow.png');
+	}
+	.mblYellowStarRatingEmptyStar {
+		background-position: -14px 0px;
+	}
+	.mblYellowStarRatingHalfStar {
+		background-position: -28px 0px;
+	}
+	
+	.mblBlueStarRatingStarIcon {
+		height: 14px;
+		width: 14px;
+		background-image: url('images/star-blue.png');
+	}
+	.mblBlueStarRatingEmptyStar {
+		background-position: -14px 0px;
+	}
+	.mblBlueStarRatingHalfStar {
+		background-position: -28px 0px;
+	}
+
+	.mblGreenStarRatingStarIcon {
+		height: 14px;
+		width: 14px;
+		background-image: url('images/star-green.png');
+	}
+	.mblGreenStarRatingEmptyStar {
+		background-position: -14px 0px;
+	}
+	.mblGreenStarRatingHalfStar {
+		background-position: -28px 0px;
+	}
+
+	.mblCust1StarRatingStarIcon {
+		height: 20px;
+		width: 20px;
+		background-image: url('images/star-2.png');
+	}
+	.mblCust1StarRatingEmptyStar {
+		background-position: -20px 0px;
+	}
+	.mblCust1StarRatingHalfStar {
+		background-position: -40px 0px;
+	}
+
+	.mblCust2StarRatingStarIcon {
+		height: 30px;
+		width: 30px;
+		background-image: url('images/star-3.png');
+	}
+	.mblCust2StarRatingEmptyStar {
+		background-position: -30px 0px;
+	}
+	.mblCust2StarRatingHalfStar {
+		background-position: -60px 0px;
+	}
+
+	.mblCust3StarRatingStarIcon {
+		height: 40px;
+		width: 40px;
+		background-image: url('images/star-4.png');
+	}
+	.mblCust3StarRatingEmptyStar {
+		background-position: -40px 0px;
+	}
+	.mblCust3StarRatingHalfStar {
+		background-position: -80px 0px;
+	}
+
+	.mblCust4StarRatingStarIcon {
+		height: 32px;
+		width: 32px;
+		background-image: url('images/star-5.png');
+	}
+	.mblCust4StarRatingEmptyStar {
+		background-position: -32px 0px;
+	}
+	.mblCust4StarRatingHalfStar {
+		background-position: -64px 0px;
+	}
+
+	.mblCust5StarRatingStarIcon {
+		height: 32px;
+		width: 32px;
+		background-image: url('images/star-6.png');
+	}
+	.mblCust5StarRatingEmptyStar {
+		background-position: -32px 0px;
+	}
+	.mblCust5StarRatingHalfStar {
+		background-position: -64px 0px;
+	}
+	
+	</style>
+</head>
+<body style="background-color:white;">
+	<div class="group group1">
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:0'></span> 0<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:0.5'></span> 0.5<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:1'></span> 1<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:1.5'></span> 1.5<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:2'></span> 2<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='value:5'></span> 5<br>
+	</div>
+
+	<div class="group group2">
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:3,value:0'></span> 0<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:3,value:0.5'></span> 0.5<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:3,value:1'></span> 1<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:3,value:1.5'></span> 1.5<br>
+		Rating is <span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:3,value:3'></span> 3<br>
+	</div>
+
+	<div class="group group3">
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblYellowStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblGreenStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblBlueStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust1StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust2StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust3StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust4StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust5StarRating",maximum:5,value:2.5'></span><br>
+	</div>
+
+	<div class="group group4">
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblYellowStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblGreenStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblBlueStarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust1StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust2StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust3StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust4StarRating",maximum:5,value:2.5'></span><br>
+		<span data-dojo-type="dojox/mobile/StarRating" data-dojo-props='baseClass: "mblCust5StarRating",maximum:5,value:2.5'></span><br>
+	</div>
+</body>
+</html>

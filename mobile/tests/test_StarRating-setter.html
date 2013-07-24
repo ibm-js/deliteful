@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>StarRating</title>
+	<script type="text/javascript" src="../deviceTheme.js"></script>
+	<script type="text/javascript" src="../../../dojo/dojo.js"
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+
+	<script type="text/javascript">
+		var val = 0;
+		require([
+			"dojo/ready",
+			"dijit/registry",
+			"dojox/mobile/StarRating",
+			"dojo/parser",
+			"dojox/mobile/compat"
+		], function(ready, registry, StarRating){
+
+			increment = function(){
+				if(val == 7){ return; }
+				val += 0.5;
+				registry.byId("star").set("value", val);
+				document.getElementById("value").innerHTML = val;
+			};
+
+			decrement = function(){
+				if(val == 0){ return; }
+				val -= 0.5;
+				registry.byId("star").set("value", val);
+				document.getElementById("value").innerHTML = val;
+			};
+
+			ready(function(){
+				var rating = new StarRating({
+					image:"images/star-4.png",
+					maximum:7,
+					editable:true,
+					editHalfValues: true,
+					value: 3.5
+				}, "editablestar6");
+				rating.watch('value', function(name, oldValue, value){
+					document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");
+				});
+				rating.startup();
+			});
+		});
+	</script>
+	<style>
+	button {
+		width: 100px;
+	}
+	</style>
+</head>
+<body style="visibility:hidden;">
+	<div data-dojo-type="dojox/mobile/View">
+		<div>
+			<h1>Default direction</h1>
+			<span id="star" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7'></span>
+			<span id="value">0</span><br>
+			<button type="button" onclick="decrement()">&minus;</button>
+			<button type="button" onclick="increment()">+</button>
+			<p>
+			Editable: <span id="editablestar1" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true'></span>
+			<p>
+			Editable (half values increment): <span id="editablestar2" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true'></span>
+			<p>
+			No zero setting: <span id="editablestar5" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
+			<p>
+			Programmatic: <span id="editablestar6"></span><br>
+			<span id="editablestar6value"></span>
+		</div>
+	</div>	
+</body>
+</html>
