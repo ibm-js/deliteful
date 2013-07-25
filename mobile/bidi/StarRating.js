@@ -19,7 +19,6 @@ define([
 		startup: function(){
 			this.inherited(arguments);
 			if(!this.isLeftToRight()){
-				console.log('debug ' + this.domNode.id);
 				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
 				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];
 			}
