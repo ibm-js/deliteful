@@ -1,8 +1,9 @@
 define([
 	"dojo/_base/declare",
 	"dojo/has",
+	"dojo/keys",
 	"dojo/dom-construct"
-], function(declare, has, domConstruct){
+], function(declare, has, keys, domConstruct){
 
 	// module:
 	//		dojox/mobile/bidi/StarRating
@@ -14,6 +15,15 @@ define([
 		//		Implementation for RTL and LTR direction support.
 		//		This class should not be used directly.
 		//		Mobile StarRating widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
+
+		startup: function(){
+			this.inherited(arguments);
+			if(!this.isLeftToRight()){
+				console.log('debug ' + this.domNode.id);
+				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
+				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];
+			}
+		},
 
 		_inZeroSettingArea: function(/*Number*/x, /*Number*/domNodeWidth){
 			if(this.isLeftToRight()){

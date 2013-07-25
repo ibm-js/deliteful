@@ -45,9 +45,9 @@
 					console.innerHTML = 'RTL: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
 				});
 				ratingrtl.startup();
-				var updateRatingAttribute = function(attribute, event, isBoolean){
+				var updateRatingAttribute = function(attribute, event, isBoolean, isNumber){
 					console.log("start " + attribute + " update");
-					var value = isBoolean ? (event.target.value == 'true') : event.target.value;
+					var value = isBoolean ? (event.target.value == 'true') : (isNumber ? parseFloat(event.target.value) : event.target.value);
 					rating.set(attribute, value);
 					ratingrtl.set(attribute, value);
 				};
@@ -61,7 +61,7 @@
 					updateRatingAttribute('editHalfValues', event, true);
 				};
 				dom.byId('zeroAreaWidthInput').onchange = function(event){
-					updateRatingAttribute('zeroAreaWidth', event);
+					updateRatingAttribute('zeroAreaWidth', event, false, true);
 				};
 			});
 		});
@@ -109,7 +109,7 @@
 					</tr>
 					<tr>
 						<td>zeroSettingArea:</td>
-						<td><input id="zeroAreaWidthInput" type="text" value="20"></td>
+						<td><input id="zeroAreaWidthInput" type="number" value="20"></td>
 					</tr>
 				</table>
 			</div>

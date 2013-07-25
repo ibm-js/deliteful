@@ -1,15 +1,19 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
+	"dojo/_base/array",
+	"dojo/string",
 	"dojo/has",
 	"dojo/on",
 	"dojo/string",
 	"dojo/touch",
+	"dojo/keys",
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
 	"dijit/_WidgetBase",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/StarRating"
-], function(declare, lang, has, on, string, touch, domConstruct, domGeometry, WidgetBase, BidiStarRating){
+	"dojo/has!dojo-bidi?dojox/mobile/bidi/StarRating",
+	"dojo/i18n!./nls/StarRating"
+], function(declare, lang, array, string, has, on, string, touch, keys, domConstruct, domGeometry, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dojox/mobile/StarRating
@@ -68,6 +72,9 @@ define([
 
 		_touchStartHandler: null,
 		_otherEventsHandlers: [],
+		_keyDownHandler: null,
+		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
+		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
 		postMixInProperties: function(){
 			if(this.zeroAreaWidth == null){
@@ -78,6 +85,17 @@ define([
 		buildRendering: function(){
 			this.inherited(arguments);
 			this.domNode.style.display = "inline-block";
+			// init WAI-ARIA attributes
+			this.domNode.setAttribute('role', 'slider');
+			this.domNode.setAttribute('aria-label', messages['aria-label']);
+			this.domNode.setAttribute('aria-valuemin', 0);
+			this.domNode.setAttribute('aria-valuemax', this.maximum);
+			this.domNode.setAttribute('aria-valuenow', this.value);
+			this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
+			this.domNode.setAttribute('aria-disabled', !this.editable);
+			// keyboard navigation
+			this.domNode.setAttribute('tabindex', this.editable ? 0 : -1);
+			this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
 		},
 
 		_removeEventsHandlers: function(){
@@ -111,6 +129,32 @@ define([
 			this._setValueAttr(this._coordToValue(event));
 			// Remove event handlers
 			this._removeEventsHandlers();
+		},
+
+		_onKeyDown: function(/*Event*/ event){
+			if(array.some(this._incrementKeyCodes, function(code){
+				return event.keyCode === code;
+			})){
+				event.preventDefault();
+				this._incrementValue();
+			}else if(array.some(this._decrementKeyCodes, function(code){
+				return event.keyCode === code;
+			})){
+				event.preventDefault();
+				this._decrementValue();
+			}
+		},
+
+		_incrementValue: function(){
+			if(this.value < this.maximum){
+				this.set('value', this.value + (this.editHalfValues ? 0.5 : 1));
+			}
+		},
+
+		_decrementValue: function(){
+			if(this.value > (this.zeroAreaWidth ? 0 : (this.editHalfValues ? 0.5 : 1))){
+				this.set('value', this.value - (this.editHalfValues ? 0.5 : 1));
+			}
 		},
 
 		_coordToValue: function(/*Event*/event){
@@ -151,6 +195,7 @@ define([
 
 		_setMaximumAttr: function(/*Number*/value){
 			this._set("maximum", value);
+			this.domNode.setAttribute('aria-valuemax', this.maximum);
 			// set value to trigger redrawing of the widget
 			this.set("value", this.value);
 		},
@@ -166,10 +211,20 @@ define([
 				domConstruct.empty(this.domNode);
 			}
 			this._updateStars(value, createChildren);
+			this.domNode.setAttribute('aria-valuenow', this.value);
+			this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 		},
 
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
+			this.domNode.setAttribute('tabindex', this.editable ? 0 : -1);
+			if(this.editable && !this._keyDownHandler){
+				this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
+			}else if(!this.editable && this._keyDownHandler){
+				this._keyDownHandler.remove();
+				this._keyDownHandler = null;
+			}
+			this.domNode.setAttribute('aria-disabled', !this.editable);
 			if(this.editable && !this._touchStartHandler){
 				this._touchStartHandler = this.on(touch.press, lang.hitch(this, '_onTouchStart'));
 			}else if(!this.editable && this._touchStartHandler){
