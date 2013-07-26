@@ -38,7 +38,7 @@ define([
 		//		rating to 0 stars or not using the zeroAreaWidth property. In this mode, it also allows to set
 		//		half values or not using the editHalfValues property.
 		//
-		//		This widget supports right to left direction (using the HTML dir property on the widget dom node or a parent node).
+		//		This widget supports right to left direction.
 
 
 		// baseClass: String
@@ -68,6 +68,10 @@ define([
 		//		value is not supported.
 		zeroAreaWidth: null,
 
+		// tabIndex: Number
+		//		The tabindex of the widget node (set when the widget is in editable mode), for keyboard navigation order in the page. 
+		tabIndex: 0,
+
 		/* internal properties */
 
 		_touchStartHandler: null,
@@ -94,7 +98,7 @@ define([
 			this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 			this.domNode.setAttribute('aria-disabled', !this.editable);
 			// keyboard navigation
-			this.domNode.setAttribute('tabindex', this.editable ? 0 : -1);
+			this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 			this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
 		},
 
@@ -132,14 +136,10 @@ define([
 		},
 
 		_onKeyDown: function(/*Event*/ event){
-			if(array.some(this._incrementKeyCodes, function(code){
-				return event.keyCode === code;
-			})){
+			if(array.indexOf(this._incrementKeyCodes, event.keyCode) != -1){
 				event.preventDefault();
 				this._incrementValue();
-			}else if(array.some(this._decrementKeyCodes, function(code){
-				return event.keyCode === code;
-			})){
+			}else if(array.indexOf(this._decrementKeyCodes, event.keyCode) != -1){
 				event.preventDefault();
 				this._decrementValue();
 			}
@@ -217,7 +217,7 @@ define([
 
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
-			this.domNode.setAttribute('tabindex', this.editable ? 0 : -1);
+			this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 			if(this.editable && !this._keyDownHandler){
 				this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
 			}else if(!this.editable && this._keyDownHandler){
