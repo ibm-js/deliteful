@@ -122,26 +122,6 @@ define([
 		}
 	});
 
-	if(has("ie")){
-		TextBox.prototype._isTextSelected = function(){
-			var range = this.ownerDocument.selection.createRange();
-			var parent = range.parentElement();
-			return parent == this.textbox && range.text.length > 0;
-		};
-
-		// Overrides definition of _setSelectionRange from _TextBoxMixin (TODO: move to _TextBoxMixin.js?)
-		_TextBoxMixin._setSelectionRange = function(/*DomNode*/ element, /*Number?*/ start, /*Number?*/ stop){
-			if(element.createTextRange){
-				var r = element.createTextRange();
-				r.collapse(true);
-				r.moveStart("character", -99999); // move to 0
-				r.moveStart("character", start); // delta from 0 is the correct position
-				r.moveEnd("character", stop-start);
-				r.select();
-			}
-		}
-	}
-
 	if(has("dojo-bidi")){
 		TextBox = declare("dijit.form.TextBox", TextBox, {
 			_setPlaceHolderAttr: function(v){
