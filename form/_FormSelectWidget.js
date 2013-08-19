@@ -63,8 +63,7 @@ define([
 
 		// labelAttr: String?
 		//		The entries in the drop down list come from this attribute in the dojo.store items.
-		//		If ``store`` is set, labelAttr must be set too, unless store is an old-style
-		//		dojo.data store rather than a new dojo/store.
+		//		If ``store`` is set, labelAttr must be set too.
 		labelAttr: "",
 
 		// loadChildrenOnOpen: Boolean
@@ -228,9 +227,10 @@ define([
 				this.removeOption(this.options);
 			}
 
-			// Cancel listener for updates to old store
-			if(this._queryRes && this._queryRes.close){
-				this._queryRes.close();
+			// Cancel listener for updates to new (dojo.store) store
+			if(this._observeHandle && this._observeHandle.remove){
+				this._observeHandle.remove();
+				this._observeHandle = null;
 			}
 
 			// If user has specified new query and query options along with this new store, then use them.
@@ -255,7 +255,8 @@ define([
 
 					// Register listener for store updates
 					if(this._queryRes.observe){
-						this._queryRes.observe(lang.hitch(this, function(object, deletedFrom, insertedInto){
+						// observe returns yet another handle that needs its own explicit gc
+						this._observeHandle = this._queryRes.observe(lang.hitch(this, function(object, deletedFrom, insertedInto){
 							if(deletedFrom == insertedInto){
 								this._onSetItem(object);
 							}else{
@@ -532,7 +533,7 @@ define([
 			// moved from startup
 			//		Connects in our store, if we have one defined
 			var store = this.store;
-			if(store && (store.getIdentity || store.getFeatures()["dojo.data.api.Identity"])){
+			if(store && store.getIdentity){
 				// Temporarily set our store to null so that it will get set
 				// and connected appropriately
 				this.store = null;
@@ -551,8 +552,9 @@ define([
 			//		Clean up our connections
 
 			// Cancel listener for store updates
-			if(this._queryRes && this._queryRes.close){
-				this._queryRes.close();
+			if(this._observeHandle && this._observeHandle.remove){
+				this._observeHandle.remove();
+				this._observeHandle = null;
 			}
 
 			this.inherited(arguments);
