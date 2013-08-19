@@ -193,7 +193,7 @@ define([
 				
 				if (this._filterBox && this._filterBox.isInstanceOf(SearchBox)){ 
 					// If the list is backed by a dojox/mobile/_StoreListMixin, it
-					// has a labelProperty which is given precedence. 
+					// has a labelAttr which is given precedence.
 					this._filterBox.set("searchAttr", this.labelAttr ? this.labelAttr : "label");
 					if(!this._filterBox.placeHolder){
 						// Give precedence to the placeHolder that may be specified on the provided SearchBox
