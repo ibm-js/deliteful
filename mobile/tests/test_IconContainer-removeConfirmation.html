@@ -28,11 +28,11 @@
 		], function(declare, connect, dom, ready, registry){
 			showDialog = function(widget){
 				dom.byId("dlg_txt").innerHTML = "Are you sure you want to delete " + widget.label + "?";
-				registry.byId("dlg_confirm").show();					
-			}
+				registry.byId("dlg_confirm").show();
+			};
 			hideDialog = function(){
-				registry.byId("dlg_confirm").hide();		
-			}
+				registry.byId("dlg_confirm").hide();
+			};
 			ready(function(){
 				connect.connect(registry.byId("dlg_btn1"), "onClick", null, function(e){
 					hideDialog();

@@ -71,21 +71,21 @@
 		function _assertBadge(ids){
 			var widget1 = dom.byId(ids[0]);
 			runner.assertNotEqual(null, widget1, ids[0]);
-			runner.assertEqual(WIDGET_VALUE1, widget1.childNodes[0].innerHTML, widget1.id)
+			runner.assertEqual(WIDGET_VALUE1, widget1.childNodes[0].innerHTML, widget1.id);
 			runner.assertTrue(domClass.contains(widget1, WIDGET_CLASSNAME1), WIDGET_CLASSNAME1 + " id=" + widget1.id + " value=" + widget1.className);
 			runner.assertTrue(domClass.contains(widget1, WIDGET_CLASSNAME2), WIDGET_CLASSNAME2 + " id=" + widget1.id + " value=" + widget1.className);
 			runner.assertTrue(domClass.contains(widget1, WIDGET_CLASSNAME3), WIDGET_CLASSNAME3 + " id=" + widget1.id + " value=" + widget1.className);
 
 			var widget2 = dom.byId(ids[1]);
 			runner.assertNotEqual(null, widget2, ids[1]);
-			runner.assertEqual(WIDGET_VALUE2, widget2.childNodes[0].innerHTML, widget2.id)
+			runner.assertEqual(WIDGET_VALUE2, widget2.childNodes[0].innerHTML, widget2.id);
 			runner.assertTrue(domClass.contains(widget2, WIDGET_CLASSNAME1), WIDGET_CLASSNAME1 + " id=" + widget2.id + " value=" + widget2.className);
 			runner.assertTrue(domClass.contains(widget2, WIDGET_CLASSNAME2), WIDGET_CLASSNAME2 + " id=" + widget2.id + " value=" + widget2.className);
 			runner.assertTrue(domClass.contains(widget2, WIDGET_CLASSNAME4), WIDGET_CLASSNAME4 + " id=" + widget2.id + " value=" + widget2.className);
 
 			var widget3 = dom.byId(ids[2]);
 			runner.assertNotEqual(null, widget3, ids[2]);
-			runner.assertEqual(WIDGET_VALUE3, widget3.childNodes[0].innerHTML, widget3.id)
+			runner.assertEqual(WIDGET_VALUE3, widget3.childNodes[0].innerHTML, widget3.id);
 			runner.assertTrue(domClass.contains(widget3, WIDGET_CLASSNAME1), WIDGET_CLASSNAME1 + " id=" + widget3.id + " value=" + widget3.className);
 			runner.assertTrue(domClass.contains(widget3, WIDGET_CLASSNAME2), WIDGET_CLASSNAME2 + " id=" + widget3.id + " value=" + widget3.className);
 			runner.assertTrue(domClass.contains(widget3, WIDGET_CLASSNAME5), WIDGET_CLASSNAME5 + " id=" + widget3.id + " value=" + widget3.className);

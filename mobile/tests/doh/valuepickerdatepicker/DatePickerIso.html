@@ -29,14 +29,14 @@
 			], function(win, dom, ready, registry, datestamp, doh){
 				changeLocale = function(){
 					win.doc.forms[0].submit();
-				}
+				};
 				gotoToday = function(){
 					registry.byId("picker1").set("value", datestamp.toISOString(new Date(), { selector: "date" }));
-				}
+				};
 				showSelectedValue = function(){
 					var w = registry.byId("picker1");
 					document.getElementById("msg").innerHTML = w.get("value");
-				}
+				};
 				ready(function(){
 					doh.register("dojox/mobile/test.doh.DatePickerIso", [
 					function test_DatePickerIso(){

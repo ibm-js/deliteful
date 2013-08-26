@@ -124,7 +124,7 @@ require([
 			name: "LongListMixin - scroll",
 			timeout: 1000,
 			setUp: function(){
-				fillList("list1")
+				fillList("list1");
 				var view = registry.byId("view1");
 				view.scrollTo({y: -1000});
 			},
@@ -171,7 +171,7 @@ require([
 			name: "LongListMixin - variable height - scroll",
 			timeout: 1000,
 			setUp: function(){
-				fillList("list1", true)
+				fillList("list1", true);
 				var view = registry.byId("view1");
 				view.scrollTo({y: -5000});
 			},
@@ -219,7 +219,7 @@ require([
 			name: "LongListMixin + store - scroll",
 			timeout: 1000,
 			setUp: function(){
-				fillStoreList("list2")
+				fillStoreList("list2");
 				var view = registry.byId("view2");
 				view.scrollTo({y: -1000});
 			},

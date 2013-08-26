@@ -18,17 +18,17 @@ require([
 
 	function _createSwapViewProgrammatically(placeHolderId, widgetId, selected, innerHTML){
 		// Create SwapView
-		var r = new dojox.mobile.SwapView({id:widgetId, selected:selected, innerHTML:innerHTML});
+		var r = new dojox.mobile.SwapView({id: widgetId, selected: selected, innerHTML: innerHTML});
 		runner.assertNotEqual(null, r);
 		domConst.place(r.domNode, placeHolderId, "replace");
 		r.startup();
-		
+
 		return r;
 	};
 
 	function _createSwapViewProgrammaticallyWithSourceNodeReference(widgetId, selected){
 		// Create IconContainer
-		var r = new SwapView({selected:selected}, widgetId);
+		var r = new SwapView({selected: selected}, widgetId);
 
 		r.startup();
 		return r;
@@ -38,8 +38,8 @@ require([
 		runner.assertNotEqual(null, widget, "IconContainer: Did not instantiate.");
 		runner.assertTrue(domClass.contains(widget.domNode, WIDGET_CLASSNAME1), WIDGET_CLASSNAME1);
 		runner.assertTrue(domClass.contains(widget.domNode, WIDGET_CLASSNAME2), WIDGET_CLASSNAME2);
-		runner.assertEqual(display?"":"none", widget.domNode.style.display, "widget.domNode.style.display");
-		
+		runner.assertEqual(display ? "" : "none", widget.domNode.style.display, "widget.domNode.style.display");
+
 	};
 
 	ready(function(){
@@ -66,7 +66,7 @@ require([
 						widget1.goTo(-1);
 					}), timeoutInterval);
 					return d;
-			
+
 				}
 			},
 			{
@@ -86,4 +86,4 @@ require([
 		]);
 		runner.run();
 	});
-})
+});

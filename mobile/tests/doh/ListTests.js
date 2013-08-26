@@ -14,7 +14,7 @@ require([
 	parser.parse();
 
 	var ITEM_LABEL, ListObject, testName;
-	
+
 	if(IsEdgeToEdgeList){
 		ITEM_LABEL = "Edge To Edge";
 		ListObject = EdgeToEdgeList;
@@ -25,27 +25,27 @@ require([
 		testName = "dojox.mobile.test.doh.RoundRectListTests";
 	}
 
-	function _createListObjectDeclaratively(id) {
+	function _createListObjectDeclaratively(id){
 		return registry.byId(id);
 	};
-	
+
 	function _createListObjectProgrammatically(placeHolderId){
-		var widget = new ListObject({select:"single"});
+		var widget = new ListObject({select: "single"});
 		runner.assertNotEqual(null, widget);
-		var item = new ListItem({label:ITEM_LABEL + " 1", checked:true});
+		var item = new ListItem({label: ITEM_LABEL + " 1", checked: true});
 		widget.addChild(item);
-		item = new ListItem({label:ITEM_LABEL + " 2"});
+		item = new ListItem({label: ITEM_LABEL + " 2"});
 		widget.addChild(item);
 		domConst.place(widget.domNode, placeHolderId, "replace");
 		widget.startup();
 		return widget;
 	};
-	
+
 	function _createListObjectProgrammaticallyWithSourceNodeReference(id){
-		var list = new ListObject({id:id, select:"single"}, id);
-		var item = new ListItem({label:ITEM_LABEL + " 1", checked:true});
+		var list = new ListObject({id: id, select: "single"}, id);
+		var item = new ListItem({label: ITEM_LABEL + " 1", checked: true});
 		list.addChild(item);
-		item = new ListItem({label:ITEM_LABEL + " 2"});
+		item = new ListItem({label: ITEM_LABEL + " 2"});
 		list.addChild(item);
 		list.startup();
 		return list;
@@ -58,7 +58,7 @@ require([
 		runner.assertEqual(2, length, list.toString());
 		runner.assertTrue(children[0].checked, children[0].toString());
 	};
-	
+
 	function _showView2(){
 		var view1 = registry.byId("view1");
 		view1.performTransition("view2", 1, "none");
@@ -87,4 +87,4 @@ require([
 		}
 	]);
 	runner.run();
-})
+});

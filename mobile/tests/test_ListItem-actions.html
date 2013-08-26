@@ -31,7 +31,7 @@
 				var rect = registry.byId("rect1");
 				rect.containerNode.innerHTML = new Date();
 				this.transitionTo("view1");
-			}
+			};
 
 			// Load content into existing view and make transition
 			myAction2 = function(){
@@ -43,29 +43,29 @@
 				view2.destroyDescendants();
 
 				/*
-				var url = "http://..."; // or var url = listItem.url;
-				dojo.xhrGet({
-					url: url,
-					handleAs: "text",
-					load: function(response, ioArgs){
-						var container = view2.containerNode;
-						container.innerHTML = response;
-						parser.parse(container);
-						prog.stop();
-						listItem.transitionTo("view2");
-					}
-				});
-				*/
+				 var url = "http://..."; // or var url = listItem.url;
+				 dojo.xhrGet({
+				 url: url,
+				 handleAs: "text",
+				 load: function(response, ioArgs){
+				 var container = view2.containerNode;
+				 container.innerHTML = response;
+				 parser.parse(container);
+				 prog.stop();
+				 listItem.transitionTo("view2");
+				 }
+				 });
+				 */
 				setTimeout(function(){ // network latency simulation
 					var markup = '<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 1</h1>' +
-						'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Thank you!</div>';
+							'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Thank you!</div>';
 					var container = view2.containerNode;
 					container.innerHTML = markup;
 					parser.parse(container);
 					prog.stop();
 					listItem.transitionTo("view2");
 				}, 5000);
-			}
+			};
 
 			// Make transition and load content into existing view
 			myAction3 = function(){
@@ -78,27 +78,27 @@
 				listItem.transitionTo("view3");
 
 				/*
-				var url = "http://..."; // or var url = listItem.url;
-				dojo.xhrGet({
-					url: url,
-					handleAs: "text",
-					load: function(response, ioArgs){
-						var container = view3.containerNode;
-						container.innerHTML = response;
-						parser.parse(container);
-						prog.stop();
-					}
-				});
-				*/
+				 var url = "http://..."; // or var url = listItem.url;
+				 dojo.xhrGet({
+				 url: url,
+				 handleAs: "text",
+				 load: function(response, ioArgs){
+				 var container = view3.containerNode;
+				 container.innerHTML = response;
+				 parser.parse(container);
+				 prog.stop();
+				 }
+				 });
+				 */
 				setTimeout(function(){ // network latency simulation
 					var markup = '<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props=\'back:"Home", moveTo:"home"\'>Loaded View 2</h1>' +
-						'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Gracias!</div>';
+							'<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props=\'shadow:true\'>Gracias!</div>';
 					var container = view3.containerNode;
 					container.innerHTML = markup;
 					parser.parse(container);
 					prog.stop();
 				}, 5000);
-			}
+			};
 
 			// Create a new view and make transition
 			myAction4 = function(){
@@ -130,8 +130,8 @@
 					var counter = 4;
 					for(var i = 1; i <= 3; i++){
 						var item1 = new dojox.mobile.ListItem({
-							icon: "images/i-icon-"+i+".png",
-							label: "Document 000"+counter
+							icon: "images/i-icon-" + i + ".png",
+							label: "Document 000" + counter
 						});
 						item1.placeAt(list1.containerNode);
 						item1.startup();
@@ -139,7 +139,7 @@
 					}
 				}
 				this.transitionTo("view4");
-			}
+			};
 
 			// Partial Update using dojox.mobile.ContentPane
 			myAction6 = function(){

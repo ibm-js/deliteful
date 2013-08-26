@@ -25,40 +25,40 @@ require([
 
 	function _createListItemProgrammatically(parentId, widgetId){
 		// Create SwapView
-		parentWidget = registry.byId(parentId);;
+		parentWidget = registry.byId(parentId);
+		;
 		runner.assertNotEqual(null, parentWidget, "No parentWidget id=" + parentId);
 		var r;
-		r = new ListItem({id:widgetId[0], icon:"../../images/i-icon-1.png", rightText:"Off", moveTo:"bar", label:"u1space"});
+		r = new ListItem({id: widgetId[0], icon: "../../images/i-icon-1.png", rightText: "Off", moveTo: "bar", label: "u1space"});
 		parentWidget.addChild(r);
-		r = new ListItem({id:widgetId[1], label:"u2space"});
+		r = new ListItem({id: widgetId[1], label: "u2space"});
 		parentWidget.addChild(r);
-		r = new ListItem({id:widgetId[2], rightIcon:"mblDomButtonBluePlus", label:"Wi-Fi"});
+		r = new ListItem({id: widgetId[2], rightIcon: "mblDomButtonBluePlus", label: "Wi-Fi"});
 		parentWidget.addChild(r);
-		r = new ListItem({id:widgetId[3], rightIcon:"mblDomButtonCheckboxOn", label:"VPN"});
+		r = new ListItem({id: widgetId[3], rightIcon: "mblDomButtonCheckboxOn", label: "VPN"});
 		parentWidget.addChild(r);
-		r = new ListItem({id:widgetId[4], variableHeight:"true", style:"font-size:10px", label:'<div>1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>Sarah Connor Hardcover<br>Eligible for FREE Super Saver Shipping<br><font color="red">$14.50 (50%)</font> In Stock<br># (531)</div>'});
+		r = new ListItem({id: widgetId[4], variableHeight: "true", style: "font-size:10px", label: '<div>1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>Sarah Connor Hardcover<br>Eligible for FREE Super Saver Shipping<br><font color="red">$14.50 (50%)</font> In Stock<br># (531)</div>'});
 		parentWidget.addChild(r);
-		
+
 		return parentWidget;
 	};
 
 	function _createListItemProgrammaticallyWithSourceNodeReference(widgetId){
 		// Create IconContainer
 		var r;
-		r = new ListItem({icon:"../../images/i-icon-1.png", rightText:"Off", moveTo:"bar"}, widgetId[0]);
+		r = new ListItem({icon: "../../images/i-icon-1.png", rightText: "Off", moveTo: "bar"}, widgetId[0]);
 		r.startup();
 		r = new ListItem({}, widgetId[1]);
 		r.startup();
-		r = new ListItem({rightIcon:"mblDomButtonBluePlus"}, widgetId[2]);
+		r = new ListItem({rightIcon: "mblDomButtonBluePlus"}, widgetId[2]);
 		r.startup();
-		r = new ListItem({rightIcon:"mblDomButtonCheckboxOn"}, widgetId[3]);
+		r = new ListItem({rightIcon: "mblDomButtonCheckboxOn"}, widgetId[3]);
 		r.startup();
-		r = new ListItem({variableHeight:"true"}, widgetId[4]);
+		r = new ListItem({variableHeight: "true"}, widgetId[4]);
 		r.startup();
 
 		return r;
 	};
-
 
 
 	function _assertCorrectListItems(widgetId){
@@ -76,7 +76,7 @@ require([
 		if(!noIcon){
 			runner.assertTrue(widget.iconNode, "iconNode: There is no iconNode. id=" + widget.domNode.id);
 			runner.assertTrue(domClass.contains(widget.iconNode, WIDGET_ICON_CLASSNAME1), WIDGET_ICON_CLASSNAME1 + " id=" + widget.domNode.id);
-			if(dojo.isIE!=6){
+			if(dojo.isIE != 6){
 				runner.assertTrue(!!widget.iconNode.src, "iconNode: There is no src in iconNode. id=" + widget.domNode.id);
 			}
 		}
@@ -95,7 +95,7 @@ require([
 		}
 		if(boxText){
 			runner.assertTrue(widget.labelNode, "box: There is no box. id=" + widget.domNode.id);
-			var innerHTML = string.trim(widget.labelNode.innerHTML.replace(/\r\n/g,""));
+			var innerHTML = string.trim(widget.labelNode.innerHTML.replace(/\r\n/g, ""));
 			runner.assertEqual(boxText, innerHTML, "id=" + widget.domNode.id);
 		}
 	};
@@ -128,7 +128,7 @@ require([
 
 					var d = new runner.Deferred();
 					var handle2 = connect.subscribe("/dojox/mobile/afterTransitionIn", d.getTestCallback(function(view){
-						if(view.id=="view2"){
+						if(view.id == "view2"){
 							connect.unsubscribe(handle2);
 						}
 						_assertCorrectListItems(["view2-item1", "view2-item2", "view2-item3", "view2-item4", "view2-item5"]);
@@ -142,4 +142,4 @@ require([
 		]);
 		runner.run();
 	});
-})
+});

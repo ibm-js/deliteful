@@ -35,7 +35,7 @@
 					timerHide = 0;
 					dlgHide();
 				}, 10000);
-			}
+			};
 			dlgHide = function(){
 				if(timerShow){
 					clearTimeout(timerShow);
@@ -47,17 +47,17 @@
 					connect.disconnect(handler);
 				}
 				registry.byId('dlgBody').hide();
-			}
+			};
 			setCookie = function(){
-				cookie("disable-AtHS-Notification", true, {expires:1});
+				cookie("disable-AtHS-Notification", true, {expires: 1});
 				if(cookie("disable-AtHS-Notification") != undefined){
 					registry.byId('clearBtn').set("disabled", false);
 				}
-			}
+			};
 			clearCookie = function(){
-				cookie("disable-AtHS-Notification", null, {expires:-1});
+				cookie("disable-AtHS-Notification", null, {expires: -1});
 				registry.byId('clearBtn').set("disabled", true);
-			}
+			};
 			ready(function(){
 				iconUtils.createDomButton(dom.byId('dlgClose'));
 				if(cookie("disable-AtHS-Notification") == undefined){

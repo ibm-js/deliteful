@@ -168,5 +168,5 @@ require([
 		}
 	]);
 	runner.run();
-})
+});
 

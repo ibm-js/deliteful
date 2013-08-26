@@ -28,7 +28,7 @@ require([
 
 	function _createSwapViewProgrammaticallyWithSourceNodeReference(widgetId, selected){
 		// Create IconContainer
-		var r = new SwapView({id:widgetId, selected: selected}, widgetId);
+		var r = new SwapView({id: widgetId, selected: selected}, widgetId);
 
 		r.startup();
 		return r;
@@ -84,4 +84,4 @@ require([
 		}
 	]);
 	runner.run();
-})
+});

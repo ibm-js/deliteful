@@ -102,11 +102,11 @@
 
 				function test_change_Label(){
 					btn = registry.byId("tbb21");
-					btn.set("label", "New Label!")
+					btn.set("label", "New Label!");
 					runner.assertEqual("auto", btn.get("textDir"));
 					runner.assertEqual(lre, getFirstChar(btn));
 					btn = registry.byId("tbb22");
-					btn.set("label", "\u05e9\u05dc\u05d5\u05dd\u0021\u0021")
+					btn.set("label", "\u05e9\u05dc\u05d5\u05dd\u0021\u0021");
 					runner.assertEqual("auto", btn.get("textDir"));
 					runner.assertEqual(rle, getFirstChar(btn));					
 				}, 

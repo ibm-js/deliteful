@@ -24,10 +24,10 @@
 		], function(connect, dom, ready, registry){
 			startEdit = function(){
 				registry.byId("iconContainer").startEdit();
-			}
+			};
 			endEdit = function(){
 				registry.byId("iconContainer").endEdit();
-			}			
+			};
 			ready(function(){
 				connect.connect(registry.byId("iconContainer"), "onStartEdit", function(){
 					dom.byId("btn1").style.display = "none";

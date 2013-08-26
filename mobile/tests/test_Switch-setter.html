@@ -22,11 +22,11 @@
 			swOn = function(){
 				var w = registry.byId("sw");
 				w.set("value", "on");
-			}
+			};
 			swOff = function(){
 				var w = registry.byId("sw");
 				w.set("value", "off");
-			}
+			};
 			ready(function(){
 				var w = registry.byId("sw");
 				connect.connect(w, "onStateChanged", null, function(value){

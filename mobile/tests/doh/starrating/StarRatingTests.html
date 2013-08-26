@@ -59,7 +59,7 @@
 				var i, node;
 				runner.assertEqual(expectedValue, rating.value, 'the rating value is not the expected one for ' + ratingId);
 				runner.assertEqual(maximum, stars.length, "number of stars displayed on node with id star");
-				for(i=0; i < stars.length; i++){
+				for(i = 0; i < stars.length; i++){
 					node = stars[i];
 					if(i > (expectedValue - 1)){
 						if(i == (expectedValue - 0.5)){
@@ -71,23 +71,23 @@
 						runner.assertEqual("mblStarRatingStarIcon mblStarRatingFullStar", node.className, 'star ' + i + ' should be full in ' + ratingId);
 					}
 				}
-			}
+			};
 			
-			var fireMouseUpAndDownOnStar= function(ratingId, starIndex /*first index is 0*/, pixelsFromCenter/*?Number of pixels from the center of the star for the clientX coordinate of events*/){
+			var fireMouseUpAndDownOnStar = function(ratingId, starIndex /*first index is 0*/, pixelsFromCenter/*?Number of pixels from the center of the star for the clientX coordinate of events*/){
 				var starNode = query('div', ratingId)[starIndex];
 				var starBox = domGeometry.position(starNode); // position of the parent div (image bigger than that because it is a sprite)
 				var clientX = starBox.x + (starBox.w / 2) + (pixelsFromCenter ? pixelsFromCenter : 0);
 				fireOnMouseDown(starNode, {clientX: clientX});
 				fireOnMouseUp(starNode, {clientX: clientX});
-			}
+			};
 
-			var fireMouseUpAndDownOnZeroSettingArea= function(ratingId){
+			var fireMouseUpAndDownOnZeroSettingArea = function(ratingId){
 				var node = document.getElementById(ratingId);
 				var starBox = domGeometry.position(node);
 				var clientX = starBox.x;
 				fireOnMouseDown(node, {clientX: clientX});
 				fireOnMouseUp(node, {clientX: clientX});
-			}
+			};
 
 			var defaultEditableRatingTest = function(ratingId, tooltipText, halfStars, zeroSetting, expectedInitialValue){
 				var expected;
@@ -95,7 +95,7 @@
 				checkRating(ratingId, 7, expectedInitialValue);
 				// check rating change after firing down and up events on a star
 				fireMouseUpAndDownOnStar(ratingId, 2, -1);
-				expected = (halfStars ? 2.5: 3);
+				expected = (halfStars ? 2.5 : 3);
 				checkRating(ratingId, 7, expected);
 				// set zero rating
 				fireMouseUpAndDownOnZeroSettingArea(ratingId);
@@ -104,7 +104,7 @@
 				///////////////////////////////////////////
 				// TODO: CHECK USING MOVE TO SET VALUES
 				///////////////////////////////////////////
-			}
+			};
 
 			runner.register("dojox.mobile.test.doh.StarRatingTests", [
 				{
@@ -183,19 +183,19 @@
 							// Check initial rating
 							checkRating(id, 7, 3.5);
 							// Check message
-							runner.assertEqual('Rating is 3.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id)
+							runner.assertEqual('Rating is 3.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
 							// check rating change after firing down and up events on a star
 							fireMouseUpAndDownOnStar(id, 2, -1);
 							expected = 2.5;
 							checkRating(id, 7, expected);
 							// Check message
-							runner.assertEqual('Rating is 2.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id)
+							runner.assertEqual('Rating is 2.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
 							// set zero rating
 							fireMouseUpAndDownOnZeroSettingArea(id);
 							expected = 0;
 							checkRating(id, 7, expected);
 							// Check message
-							runner.assertEqual('Rating is 0 star', messageNode.innerHTML, 'message is not the one expected for ' + id)
+							runner.assertEqual('Rating is 0 star', messageNode.innerHTML, 'message is not the one expected for ' + id);
 							///////////////////////////////////////////
 							// TODO: CHECK USING MOVE TO SET VALUES
 							///////////////////////////////////////////

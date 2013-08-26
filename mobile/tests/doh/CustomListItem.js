@@ -2,4 +2,4 @@ define(["dojo/_base/declare", "dojox/mobile/ListItem"], function(declare, ListIt
 	return declare(ListItem, {
 		customProp: true
 	});
-})
+});

@@ -31,10 +31,12 @@
 							runTest: function(){
 								// The encapsulation of the query in an anonymous function ensure that the query is evaluated only 
 								// when the movement begin.	Therefore the requested element has the time to appear.							
-								var getInTime = function (/*String*/ root, /*String?*/ className){
+								var getInTime = function(/*String*/ root, /*String?*/ className){
 									className = "." + (className || "mblDomButtonGrayKnob");
-									return function(){return query(className, dom.byId(root))[0];};
-								}
+									return function(){
+										return query(className, dom.byId(root))[0];
+									};
+								};
 
 								var d = new runner.Deferred();
 								var btn = dom.byId("btn1");

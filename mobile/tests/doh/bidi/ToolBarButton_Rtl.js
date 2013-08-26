@@ -102,11 +102,11 @@ dojo.addOnLoad(function(){
 		},
 		function test_Heading_Set(){
 			demoWidget = dijit.byId("dojox_mobile_ToolBarButton_4");
-			demoWidget.set({label:"New Value"})
+			demoWidget.set({label: "New Value"});
 			doh.assertEqual('New Value', demoWidget.labelNode.innerHTML, "id= "+ demoWidget.domNode.id);
 			
 			demoWidget = dijit.byId("dojox_mobile_ToolBarButton_2");
-			demoWidget.set({icon:"mblDomButtonBlueCirclePlus"})
+			demoWidget.set({icon: "mblDomButtonBlueCirclePlus"});
 			doh.assertTrue(demoWidget.iconNode, "there is no iconNode. id= "+ demoWidget.domNode.id);
 			doh.assertTrue(demoWidget.iconNode.childNodes, "there is no iconNode.childNodes. id= "+ demoWidget.domNode.id);
 			doh.assertEqual('mblDomButtonBlueCirclePlus mblDomButton', demoWidget.iconNode.childNodes[0].className, "id= "+ demoWidget.domNode.id);

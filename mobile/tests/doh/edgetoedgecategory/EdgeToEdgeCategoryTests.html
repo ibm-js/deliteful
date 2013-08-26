@@ -43,8 +43,8 @@
 
 		function _assertCorrectEdgeToEdgeCategory(category){
 			runner.assertNotEqual(null, category);
-			runner.assertEqual(CATEGORY_LABEL, category.label, category.toString())
-			runner.assertEqual(CATEGORY_LABEL, category.domNode.innerHTML, "innerHTML id=" + category.domNode.id)
+			runner.assertEqual(CATEGORY_LABEL, category.label, category.toString());
+			runner.assertEqual(CATEGORY_LABEL, category.domNode.innerHTML, "innerHTML id=" + category.domNode.id);
 			runner.assertEqual(WIDGET_CLASSNAME1, category.domNode.className, "id=" + category.domNode.id)
 		};
 		

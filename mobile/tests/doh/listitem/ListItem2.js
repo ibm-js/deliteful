@@ -37,7 +37,7 @@ dojo.addOnLoad(function(){
 				demoWidget.set({iconBase :""});
 				doh.assertEqual("", demoWidget.get("iconBase"));
 
-				verifyListItem("dojox_mobile_ListItem_2", 'XX Widget', '', "mblDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true)
+				verifyListItem("dojox_mobile_ListItem_2", 'XX Widget', '', "mblDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true);
 				verifyListItemPos("dojox_mobile_ListItem_2", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 			}
 		}

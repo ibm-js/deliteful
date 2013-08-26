@@ -58,6 +58,7 @@ require([
 
 		return widget1;
 	}
+
 	function _createFixedSplitterProgrammaticallyWithSourceNodeReference(){
 		// Create FixedSplitter
 		var widget1 = new FixedSplitter(WIDGET_PROPS[0], WIDGET_IDS[0].id);
@@ -71,13 +72,15 @@ require([
 
 		return widget1;
 	}
+
 	function _assertCorrectFixedSplitter(widget, height, width, className){
 		_assertCorrectFixedSplitterHW(widget, height, width);
 		runner.assertTrue(domClass.contains(widget.domNode, FIXEDSPLITER_CLASSNAME), FIXEDSPLITER_CLASSNAME);
 		if(className){
-			runner.assertTrue(domClass.contains(widget.domNode, className),  "expected: " + className + " but got " + widget.domNode.className);
+			runner.assertTrue(domClass.contains(widget.domNode, className), "expected: " + className + " but got " + widget.domNode.className);
 		}
 	}
+
 	function _assertCorrectContainer(widget, height, width, className){
 		_assertCorrectFixedSplitterHW(widget, height, width);
 		runner.assertTrue(domClass.contains(widget.domNode, FIXEDSPLITERPANE_CLASSNAME1), FIXEDSPLITERPANE_CLASSNAME1);
@@ -85,11 +88,13 @@ require([
 			runner.assertTrue(domClass.contains(widget.domNode, className), className);
 		}
 	}
+
 	function _assertCorrectFixedSplitterHW(widget, height, width){
 		runner.assertNotEqual(null, widget, "FixedSplitter: Did not instantiate.");
-		runner.assertTrue( (height - 2) < widget.domNode.offsetHeight && widget.domNode.offsetHeight < (height + 2), "expected: " +height + "+-2 but got " + widget.domNode.offsetHeight + "height: id = " + widget.domNode.id);
-		runner.assertTrue( (width - 2) < widget.domNode.offsetWidth && widget.domNode.offsetWidth < (width + 2), "expected: " +width + "+-2 but got " + widget.domNode.offsetWidth + "offsetWidth: id = " + widget.domNode.id);
+		runner.assertTrue((height - 2) < widget.domNode.offsetHeight && widget.domNode.offsetHeight < (height + 2), "expected: " + height + "+-2 but got " + widget.domNode.offsetHeight + "height: id = " + widget.domNode.id);
+		runner.assertTrue((width - 2) < widget.domNode.offsetWidth && widget.domNode.offsetWidth < (width + 2), "expected: " + width + "+-2 but got " + widget.domNode.offsetWidth + "offsetWidth: id = " + widget.domNode.id);
 	}
+
 	ready(function(){
 		if(WIDGET_PROGRAMMATICALLY === 1){
 			_createFixedSplitterProgrammatically("FixedSplitterPlace");
@@ -105,7 +110,7 @@ require([
 					var d = new runner.Deferred();
 					setTimeout(d.getTestCallback(function(){
 						var box = window.getBox();
-						
+
 						var widget1 = registry.byId("dojox_mobile_FixedSplitter_0");
 						var widget2 = registry.byId("dojox_mobile_Container_0");
 						var widget3 = registry.byId("dojox_mobile_FixedSplitter_1");
@@ -129,5 +134,5 @@ require([
 		]);
 		runner.run();
 	});
-})
+});
 
