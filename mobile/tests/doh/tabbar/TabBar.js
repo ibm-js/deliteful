@@ -54,8 +54,7 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var demoWidget = dijit.byId("dojox_mobile_TabBar_0");
-
+					var demoWidget;
 
 					demoWidget = dijit.byId("dojox_mobile_TabBarButton_2");
 					demoWidget.set({label:"New Value"});

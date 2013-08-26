@@ -96,9 +96,8 @@
 
 		function _checkComboBoxOptions(comboBox, expected){
 			var options = dom.byId(comboBox.id + "_dropdown").firstChild.firstChild.children;
-			var i = 0;
 			runner.assertEqual(expected.length, options.length, "The number of options is not the expected one for " + comboBox.id);
-			for(i = 0; i < options.length; i++){
+			for(var i = 0; i < options.length; i++){
 				if(expected[i].label){
 					runner.assertEqual(expected[i].label, options[i].innerText || options[i].textContent, "label for option " + i + " of " + comboBox.id + " is not the expected one");
 				}
