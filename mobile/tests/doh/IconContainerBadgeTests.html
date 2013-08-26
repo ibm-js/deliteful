@@ -88,12 +88,6 @@
 				return r;
 			}
 
-			function _setBadges(Ids){
-				array.forEach(Ids, function(Id){
-					registry.byId(Id).set("badge", "55");
-				});
-			}
-
 			function _assertCorrectIconContainer(widget){
 				runner.assertNotEqual(null, widget, "IconContainer: Did not instantiate.");
 				runner.assertEqual(WIDGET_CLASSNAME, widget.domNode.className, "id=" + widget.domNode.id);

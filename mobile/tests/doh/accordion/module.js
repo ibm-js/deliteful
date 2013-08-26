@@ -1,4 +1,4 @@
-define(["doh/main", "require", "dojo/sniff"], function(doh, require, has){
+define(["doh/main", "require", "dojo/sniff"], function(doh, require){
 
 	doh.registerUrl("dojox.mobile.tests.doh.Accordion", require.toUrl("./AccordionTests.html"),999999);
 });

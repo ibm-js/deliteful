@@ -21,7 +21,7 @@
 			"dojox/mobile/compat",
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/StoreCarousel"
-		], function(connect, JsonRest, ready, registry){
+		], function(connect, JsonRest, ready){
 			store1 = new JsonRest({target: "data/carousel-widget.json"});
 			ready(function(){
 				connect.subscribe("/dojox/mobile/carouselSelect", function(carousel, itemWidget, item, idx){

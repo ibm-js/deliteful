@@ -50,8 +50,6 @@
 				items.label = key.label;
 				for(var j = 0; j < tests.length; j++){
 					var item = tests[j];
-					var url = item.url;
-					var label = item.label || item.url;
 					var tags = item.tags ? item.tags.split(/,/) : [];
 					for(var k = 0; k < tags.length; k++){
 						if(tags[k] === key.tag){
@@ -149,7 +147,6 @@
 			var node = e.srcElement ? e.srcElement : e.target;
 			var titleBar = (node.className == "titleBar") ? node : node.parentNode;
 			var img = titleBar.childNodes[0];
-			var label = titleBar.childNodes[1];
 			var contents = titleBar.nextSibling;
 			if (isRightIcon(img)){
 				setDownIcon(img);

@@ -34,9 +34,6 @@ require([
 		}
 	}
 
-	function _createPageIndicatorDeclaratively(widgetId){
-		return registry.byId(widgetId);
-	};
 	function _createPageIndicatorProgrammatically(placeHolderId, widgetId){
 		// Create SwapView
 		var r = new PageIndicator({id: widgetId, fixed: "bottom"});

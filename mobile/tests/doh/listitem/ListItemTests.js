@@ -23,10 +23,6 @@ require([
 ], function(connect, domClass, ready, registry, string, runner, ListItem){
 
 
-	function _createListItemDeclaratively(widgetId) {
-		return registry.byId(widgetId);
-	};
-
 	function _createListItemProgrammatically(parentId, widgetId){
 		// Create SwapView
 		parentWidget = registry.byId(parentId);;

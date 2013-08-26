@@ -23,7 +23,7 @@
 		], function(parser, ready, registry, runner, dom, domStyle){
 
 			var populateView = function(view, headerLabel, previousViewId, nextViewId){
-				var header, footer, previousButton, NextButton;
+				var header, footer, previousButton;
 				header = new dojox.mobile.Heading({id: view.domNode.id + "Header", label: headerLabel, fixed: 'top'});
 				if(previousViewId){
 					previousButton = new dojox.mobile.ToolBarButton({label: 'Previous', arrow: 'left', transitionDir: -1, moveTo: previousViewId});

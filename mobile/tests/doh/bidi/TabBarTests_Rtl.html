@@ -29,11 +29,9 @@
 			
 			var tabBarWidth = tabBar.domNode.clientWidth;
 			var tabBarButtonWidth = tabBarButton.domNode.clientWidth;
-			var tabBarButtonMarginRight = parseInt(tabBarButton.domNode.style.marginRight);
 			var actualOffsetLeft = Math.floor((tabBarWidth - tabBarButtonWidth) / 2);
 
 			var offsetLeft = tabBar.domNode.children[0].offsetLeft;
-			var clientWidth = tabBar.domNode.clientWidth;
 			runner.assertTrue( (((actualOffsetLeft *0.95) < offsetLeft) && (offsetLeft < (actualOffsetLeft *1.05))) || (offsetLeft <= 6), "expected: " +actualOffsetLeft + "+-5% but got " + offsetLeft + tabBar.toString());
 		}
 

@@ -31,7 +31,7 @@
 							timeout: 10000,
 							runTest: function(){
 								var d = new runner.Deferred();
-								var reg = kernel.global.dijit.registry;
+								var reg = registry;
 
 								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_2").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);

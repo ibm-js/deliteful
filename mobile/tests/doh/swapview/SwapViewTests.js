@@ -16,10 +16,6 @@ require([
 	var WIDGET_CLASSNAME2 = "mblSwapView";
 
 
-	function _createSwapViewDeclaratively(widgetId){
-		return registry.byId(widgetId);
-	};
-
 	function _createSwapViewProgrammatically(placeHolderId, widgetId, selected, innerHTML){
 		// Create SwapView
 		var r = new dojox.mobile.SwapView({id: widgetId, selected: selected, innerHTML: innerHTML});
@@ -46,10 +42,6 @@ require([
 
 	};
 
-	function _assertCorrectSwapViewPos(widgetId, top, left){
-	};
-
-
 	if(WIDGET_PROGRAMMATICALLY === 1){
 		_createSwapViewProgrammatically("fooPlace", "foo", true, "<h1>SwapView 1</h1>");
 		_createSwapViewProgrammatically("barPlace", "bar", false, "<h1>SwapView 2</h1>");
@@ -63,9 +55,6 @@ require([
 			name: "SwapView Verification1",
 			timeout: 4000,
 			runTest: function(){
-
-				var widget1 = registry.byId("foo");
-				var widget2 = registry.byId("bar");
 
 				var d = new runner.Deferred();
 				setTimeout(d.getTestCallback(function(){

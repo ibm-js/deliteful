@@ -30,7 +30,7 @@
 							timeout: 4000,
 							runTest: function(){
 								var d = new doh.Deferred();
-								reg = kernel.global.dijit.registry;
+								reg = registry;
 
 								doh.robot.mouseMoveAt(reg.byId("dojox_mobile_IconItem_0").iconNode, 1000);
 								doh.robot.mouseClick({left: true}, 500);

@@ -39,9 +39,6 @@ require([
 	"dojox/mobile/Container",
 	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
 ], function(connect, lang, domConst, domClass, domGeometry, window, ready, registry, runner, FixedSplitter, Container){
-	function _createFixedSplitterDeclaratively(widgetId) {
-		return registry.byId(widgetId);
-	}
 	function _createFixedSplitterProgrammatically(placeHolderId){
 		// Create FixedSplitter
 		var widget1 = new FixedSplitter(lang.mixin(WIDGET_IDS[0], WIDGET_PROPS[0], WIDGET_INNERHTML[0]));

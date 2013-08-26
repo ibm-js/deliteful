@@ -5,7 +5,7 @@ define([
 	"dojo/dom-class",
 	"dijit/registry",
 	"doh/runner"
-], function(declare, lang, has, domClass, registry, runner){
+], function(declare, lang, has, domClass, registry){
 
 	// module:
 	//		dojox/mobile/tests/doh/TestHelper

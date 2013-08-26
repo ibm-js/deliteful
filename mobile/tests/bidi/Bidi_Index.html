@@ -50,8 +50,6 @@
 				items.label = key.label;
 				for(var j = 0; j < tests.length; j++){
 					var item = tests[j];
-					var url = item.url;
-					var label = item.label || item.url;
 					var tags = item.tags ? item.tags.split(/,/) : [];
 					for(var k = 0; k < tags.length; k++){
 						if(tags[k] === key.tag){
