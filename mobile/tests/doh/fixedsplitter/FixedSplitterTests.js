@@ -42,7 +42,7 @@ require([
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/FixedSplitter",
-	"dojox/mobile/Container",
+	"dojox/mobile/Container"
 ], function(parser, lang, domConst, domClass, domGeometry, window, ready, registry, runner, FixedSplitter, Container){
 
 	parser.parse();

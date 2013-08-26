@@ -6,7 +6,7 @@ require([
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
 	"dojox/mobile/SwapView",	// This mobile app uses mobile view
-	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(parser, domConst, domClass, ready, registry, runner, SwapView){
 
 	parser.parse();
