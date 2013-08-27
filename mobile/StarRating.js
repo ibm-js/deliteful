@@ -6,7 +6,6 @@ define([
 	"dojo/has",
 	"dojo/on",
 	"dojo/touch",
-	"dojo/mouse",
 	"dojo/keys",
 	"dojo/dom-construct",
 	"dojo/dom-class",
@@ -14,7 +13,7 @@ define([
 	"dui/_WidgetBase",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating"
-], function(declare, lang, array, string, has, on, touch, mouse, keys, domConstruct, domClass, domGeometry, WidgetBase, BidiStarRating, messages){
+], function(declare, lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dui/mobile/StarRating
