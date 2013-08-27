@@ -2,14 +2,17 @@
 
 var registry;
 var lang;
+var has;
 
 require([
 	"dijit/registry",  // registry.byId
 	"dojo/_base/lang",
+	"dojo/has",
 	"doh/runner"	//doh functions
-], function(dijit, dojoLang){
+], function(dijit, dojoLang, dojoHas){
 	registry = dijit;
 	lang = dojoLang;
+	has = dojoHas;
 });
 
 function fireOnInput(obj){
@@ -20,7 +23,7 @@ function fireOnInput(obj){
 	}else{
 		anchorNode = obj;
 	}
-	if(dojo.isIE<9){
+	if(has('ie')<9){
 		anchorNode.fireEvent( "onpropertychange" );
 	}else{
 		var e = document.createEvent('Events');
@@ -37,7 +40,7 @@ function fireOnClick(obj, eventMixin){
 	}else{
 		anchorNode = obj;
 	}
-	if(dojo.isIE<9){
+	if(has('ie')<9){
 		anchorNode.fireEvent( "onclick" );
 	}else{
 		var e = document.createEvent('Events');
@@ -54,11 +57,11 @@ function fireOnMouseDown(obj, eventMixin){
 	}else{
 		anchorNode = obj;
 	}
-	if(dojo.isIE<9){
+	if(has('ie')<9){
 		anchorNode.fireEvent( "onmousedown" );
 	}else{
 		var eventName = "mousedown";
-		if (dojo.isIE >= 10){
+		if (has('ie') >= 10){
 			eventName = "MSPointerDown";
 		}
 		var e = document.createEvent('Events');
@@ -74,11 +77,11 @@ function fireOnMouseUp(obj, eventMixin){
 	}else{
 		anchorNode = obj;
 	}
-	if(dojo.isIE<9){
+	if(has('ie')<9){
 		anchorNode.fireEvent( "onmouseup" );
 	}else{
 		var eventName = "mouseup";
-		if (dojo.isIE >= 10){
+		if (has('ie') >= 10){
 			eventName = "MSPointerUp";
 		}
 		var e = document.createEvent('Events');
@@ -89,7 +92,7 @@ function fireOnMouseUp(obj, eventMixin){
 
 function fireTouchEvent(eventtype, node, x, y){
 	var e;
-	if(dojo.isIE<9){
+	if(has('ie')<9){
 		e = document.createEventObject(window.event);
 		e.button = 1;
 		e.pageX = x;
@@ -133,7 +136,7 @@ function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIco
 
 	var i=0;
 	if(hasIcon){
-		if(!dojo.isIE && regExp){
+		if(!has('ie') && regExp){
 			if(isSprite){
 				doh.assertTrue(childNodes[i].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString());
 			}else{
@@ -205,7 +208,7 @@ function verifyRect(node, rTop, rRight, rBottom, rLeft) {
 
 function verifyIconItem(id, text, display, regExp, isSprite){
 	var demoWidget = registry.byId(id);
-	if(!dojo.isIE && !dojo.isFF) {
+	if(!has('ie') && !dojo.isFF) {
 		if(isSprite){
 			doh.assertTrue(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
 		}else{
@@ -227,7 +230,7 @@ function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regE
 	doh.assertEqual('mblTabBarButtonIconArea', demoWidget.domNode.childNodes[0].className, "id=" +id);
 	doh.assertEqual('mblTabBarButtonLabel', demoWidget.domNode.childNodes[1].className, "id=" +id);
 	if(demoWidget.iconNode1){
-		if(!dojo.isIE) {
+		if(!has('ie')) {
 			if(isSprite){
 				doh.assertTrue(demoWidget.iconNode1.childNodes[0].src.search(regExp1) != -1, "search " + regExp1.toString() + " id=" +id);
 			}else{
@@ -239,7 +242,7 @@ function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regE
 		console.log("There is no iconNode1. id=" + id);
 	}
 	if(demoWidget.iconNode2){
-		if(!dojo.isIE){
+		if(!has('ie')){
 			if(isSprite){
 				doh.assertTrue(demoWidget.iconNode2.childNodes[0].src.search(regExp2) != -1, "search " + regExp2.toString() + " id=" +id);
 			}else{
