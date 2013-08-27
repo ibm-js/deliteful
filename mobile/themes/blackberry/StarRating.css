@@ -1,3 +1,6 @@
+.duiStarRating.hovered {
+  opacity: 0.5;
+}
 .duiStarRatingStarIcon {
   height: 40px;
   width: 40px;
