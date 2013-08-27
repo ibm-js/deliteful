@@ -54,9 +54,7 @@ define([
 			if(this.isLeftToRight()){
 				return this.inherited(arguments);
 			}else{
-				var i, index;
-				var parent;
-				var starClass;
+				var i, index, parent, starClass;
 				for(i = 0; i < this.maximum; i++){
 					index = (this.maximum - i - 1);
 					if(index <= value - 1){

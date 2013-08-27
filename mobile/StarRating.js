@@ -5,7 +5,6 @@ define([
 	"dojo/string",
 	"dojo/has",
 	"dojo/on",
-	"dojo/string",
 	"dojo/touch",
 	"dojo/keys",
 	"dojo/dom-construct",
@@ -13,7 +12,7 @@ define([
 	"dijit/_WidgetBase",
 	"dojo/has!dojo-bidi?dojox/mobile/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating"
-], function(declare, lang, array, string, has, on, string, touch, keys, domConstruct, domGeometry, WidgetBase, BidiStarRating, messages){
+], function(declare, lang, array, string, has, on, touch, keys, domConstruct, domGeometry, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dojox/mobile/StarRating
@@ -239,9 +238,7 @@ define([
 		},
 
 		_updateStars: function(/*Number*/value, /*Boolean*/create){
-			var i;
-			var parent;
-			var starClass;
+			var i, parent, starClass;
 			for(i = 0; i < this.maximum; i++){
 				if(i <= value - 1){
 					starClass = this.baseClass + "FullStar";
