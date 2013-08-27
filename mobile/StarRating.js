@@ -76,7 +76,9 @@ define([
 		/* internal properties */
 
 		_enterValue: null,
-		_touchEnterHandler: null,
+		_hovering: false,
+		_hoveredValue: null,
+		_startHandlers: null,
 		_otherEventsHandlers: [],
 		_keyDownHandler: null,
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
@@ -110,10 +112,8 @@ define([
 			}
 		},
 
-		_onTouchEnter: function(/*Event*/ event){
+		_onTouchStart: function(/*Event*/ event){
 			event.preventDefault();
-			domClass.add(this.domNode, 'hovered');
-			this._enterValue = this.value;
 			if(!this._otherEventsHandlers.length){
 				// handle move on the stars strip
 				this._otherEventsHandlers.push(this.on(touch.move, lang.hitch(this, '_onTouchMove')));
@@ -124,19 +124,45 @@ define([
 			}
 		},
 
+		_onTouchEnter: function(/*Event*/ event){
+			this._onTouchStart(event);
+			if(event.type !== 'dojotouchover'){
+				this._hovering = true;
+				domClass.add(this.domNode, 'hovered');
+			}
+			this._enterValue = this.value;
+		},
+
 		_onTouchMove: function(/*Event*/ event){
-			this._updateStars(this._coordToValue(event), false);
+			var newValue = this._coordToValue(event);
+			if(this._hovering){
+				if(newValue != this._hoveredValue){
+					domClass.add(this.domNode, 'hovered');
+					this._updateStars(newValue, false);
+					this._hoveredValue = newValue;
+				}
+			}else{
+				this._setValueAttr(newValue);
+			}
 		},
 
 		_onTouchRelease: function(/*Event*/ event){
 			this._setValueAttr(this._coordToValue(event));
 			this._enterValue = this.value;
+			if(!this._hovering){
+				this._removeEventsHandlers();
+			}else{
+				domClass.remove(this.domNode, 'hovered');
+			}
 		},
 
 		_onTouchLeave: function(/*Event*/ event){
-			domClass.remove(this.domNode, 'hovered');
-			this._setValueAttr(this._enterValue);
-			// Remove event handlers
+			if(this._hovering){
+				this._hovering = false;
+				this._hoveredValue = null;
+				domClass.remove(this.domNode, 'hovered');
+				this._setValueAttr(this._enterValue);
+			}
 			this._removeEventsHandlers();
 		},
 
@@ -230,11 +256,15 @@ define([
 				this._keyDownHandler = null;
 			}
 			this.domNode.setAttribute('aria-disabled', !this.editable);
-			if(this.editable && !this._touchEnterHandler){
-				this._touchEnterHandler = this.on(touch.enter, lang.hitch(this, '_onTouchEnter'));
-			}else if(!this.editable && this._touchEnterHandler){
-				this._touchEnterHandler.remove();
-				this._touchEnterHandler = null;
+			if(this.editable && !this._startHandlers){
+				this._startHandlers = [];
+				this._startHandlers.push(this.on(touch.enter, lang.hitch(this, '_onTouchEnter')));
+				this._startHandlers.push(this.on(touch.press, lang.hitch(this, '_onTouchStart')));
+			}else if(!this.editable && this._startHandlers){
+				while(this._startHandlers.length){
+					this._startHandlers.pop().remove();
+				}
+				this._startHandlers = null;
 			}
 		},
 
