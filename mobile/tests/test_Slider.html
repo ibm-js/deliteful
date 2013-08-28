@@ -11,16 +11,16 @@
 		require([
 			"doh/runner",
 			"dojo/sniff",
-			"dojo/domReady",
+			"dojo/ready",
 			"dojo/_base/window",
 			"dojo/dom",
 			"dojo/dom-style",
 			"dojo/dom-geometry",
-			"dijit/registry",
 			"dojo/parser",
+			"dijit/registry",
 			"dojox/mobile/compat",
 			"dojox/mobile/Slider"
-		], function(doh, has, ready, win, dom, domStyle, domGeometry, registry) {	
+		], function(doh, has, ready, win, dom, domStyle, domGeometry, parser, registry){
 		ready(function(){
 			var hasTouch = has("touch");
 			var msPointer = navigator.msPointerEnabled;
@@ -109,13 +109,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sh.connect(sh, 'onChange', onChange);
+						handle = sh.on("change", onChange);
 						fireTouchEvent(touchstart, sh, sh_width, sh_height >> 1, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sh, sh_width, sh_height >> 1);
-						sh.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -128,13 +128,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sh.connect(sh, 'onChange', onChange);
+						handle = sh.on("change", onChange);
 						fireTouchEvent(touchstart, sh, 0, sh_height >> 1, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sh, 0, sh_height >> 1);
-						sh.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -147,13 +147,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sh.connect(sh, 'onChange', onChange);
+						handle = sh.on("change", onChange);
 						fireTouchEvent(touchstart, sh, sh_width >> 1, sh_height >> 1, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sh, sh_width >> 1, sh_height >> 1);
-						sh.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -166,13 +166,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sv.connect(sv, 'onChange', onChange);
+						handle = sv.on("change", onChange);
 						fireTouchEvent(touchstart, sv, sv_width >> 1, 0, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sv, sv_width >> 1, 0);
-						sv.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -185,13 +185,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sv.connect(sv, 'onChange', onChange);
+						handle = sv.on("change", onChange);
 						fireTouchEvent(touchstart, sv, sv_width >> 1, sv_height, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sv, sv_width >> 1, sv_height);
-						sv.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -204,13 +204,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sv.connect(sv, 'onChange', onChange);
+						handle = sv.on("change", onChange);
 						fireTouchEvent(touchstart, sv, sv_width >> 1, sv_height >> 1, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sv, sv_width >> 1, sv_height >> 1);
-						sv.disconnect(handle);
+						handle.remove();
 					}
 				}
 			]);
@@ -226,14 +226,14 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sh.connect(sh, 'onChange', onChange);
+						handle = sh.on("change", onChange);
 						fireTouchEvent(touchstart, sh, sh_width >> 1, sh_height >> 1);
 						fireTouchEvent(touchmove, sh, sh_width, sh_height >> 1, speed);
 						fireTouchEvent(touchend, sh, sh_width, sh_height >> 1, speed*2);
 						return d;
 					},
 					tearDown: function(){
-						sh.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -246,14 +246,14 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sh.connect(sh, 'onChange', onChange);
+						handle = sh.on("change", onChange);
 						fireTouchEvent(touchstart, sh, sh_width, sh_height >> 1);
 						fireTouchEvent(touchmove, sh, 0, sh_height >> 1, speed);
 						fireTouchEvent(touchend, sh, 0, sh_height >> 1, speed*2);
 						return d;
 					},
 					tearDown: function(){
-						sh.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -266,13 +266,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sv.connect(sv, 'onChange', onChange);
+						handle = sv.on("change", onChange);
 						fireTouchEvent(touchstart, sv, sv_width >> 1, sv_height >> 1);
 						fireTouchEvent(touchmove, sv, sv_width >> 1, 0, speed);
 						return d;
 					},
 					tearDown: function(){
-						sv.disconnect(handle);
+						handle.remove();
 					}
 				},
 				{
@@ -285,13 +285,13 @@
 							})();
 						}
 						var d = new doh.Deferred();
-						handle = sv.connect(sv, 'onChange', onChange);
+						handle = sv.on("change", onChange);
 						fireTouchEvent(touchmove, sv, sv_width >> 1, sv_height, speed);
 						return d;
 					},
 					tearDown: function(){
 						fireTouchEvent(touchend, sv, sv_width >> 1, sv_height);
-						sv.disconnect(handle);
+						handle.remove();
 					}
 				}
 			]);
@@ -494,7 +494,7 @@
 		}
 	</style>
 </head>
-<body style="visibility:hidden;zoom:1.2;">
+<body style="zoom:1.2;">
 	<form>
 		<br>
 		<center>
