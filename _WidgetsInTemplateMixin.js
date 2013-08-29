@@ -7,9 +7,9 @@ define([
 ], function(array, aspect, declare, lang, parser){
 
 	// module:
-	//		dijit/_WidgetsInTemplateMixin
+	//		dui/_WidgetsInTemplateMixin
 
-	return declare("dijit._WidgetsInTemplateMixin", null, {
+	return declare("dui._WidgetsInTemplateMixin", null, {
 		// summary:
 		//		Mixin to supplement _TemplatedMixin when template contains widgets
 

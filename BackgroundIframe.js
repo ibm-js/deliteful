@@ -9,7 +9,7 @@ define([
 ], function(require, config, domConstruct, domStyle, lang, on, has){
 
 	// module:
-	//		dijit/BackgroundIFrame
+	//		dui/BackgroundIFrame
 
 	// Flag for whether to create background iframe behind popups like Menus and Dialog.
 	// A background iframe is useful to prevent problems with popups appearing behind applets/pdf files,
@@ -40,7 +40,7 @@ define([
 				}else{
 					iframe = domConstruct.create("iframe");
 					iframe.src = 'javascript:""';
-					iframe.className = "dijitBackgroundIframe";
+					iframe.className = "duiBackgroundIframe";
 					iframe.setAttribute("role", "presentation");
 					domStyle.set(iframe, "opacity", 0.1);
 				}

@@ -24,7 +24,7 @@ define([
 			lang, on, Stateful, win, Destroyable, _BidiMixin, registry){
 
 	// module:
-	//		dijit/_WidgetBase
+	//		dui/_WidgetBase
 
 	// Flag to enable support for textdir attribute
 	has.add("dojo-bidi", false);
@@ -53,7 +53,7 @@ define([
 		};
 	}
 
-	var _WidgetBase = declare("dijit._WidgetBase", [Stateful, Destroyable], {
+	var _WidgetBase = declare("dui._WidgetBase", [Stateful, Destroyable], {
 		// summary:
 		//		Future base class for all Dijit widgets.
 		// description:
@@ -148,7 +148,7 @@ define([
 		tooltip: "",
 
 		// baseClass: [protected] String
-		//		Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
+		//		Root CSS class of the widget (ex: duiTextBox), used to construct CSS classes to indicate
 		//		widget state.
 		baseClass: "",
 
@@ -281,7 +281,7 @@ define([
 			//		Kick off the life-cycle of a widget
 			// description:
 			//		Create calls a number of widget methods (postMixInProperties, buildRendering, postCreate,
-			//		etc.), some of which of you'll want to override. See http://dojotoolkit.org/reference-guide/dijit/_WidgetBase.html
+			//		etc.), some of which of you'll want to override. See http://dojotoolkit.org/reference-guide/dui/_WidgetBase.html
 			//		for a discussion of the widget creation lifecycle.
 			//
 			//		Of course, adventurous developers could override create entirely, but this should
@@ -416,7 +416,7 @@ define([
 		buildRendering: function(){
 			// summary:
 			//		Construct the UI for this widget, setting this.domNode.
-			//		Most widgets will mixin `dijit._TemplatedMixin`, which implements this method.
+			//		Most widgets will mixin `dui._TemplatedMixin`, which implements this method.
 			// tags:
 			//		protected
 
@@ -464,9 +464,9 @@ define([
 			//		and all related widgets have finished their create() cycle, up through postCreate().
 			//
 			//		Note that startup() may be called while the widget is still hidden, for example if the widget is
-			//		inside a hidden dijit/Dialog or an unselected tab of a dijit/layout/TabContainer.
+			//		inside a hidden dui/Dialog or an unselected tab of a dui/layout/TabContainer.
 			//		For widgets that need to do layout, it's best to put that layout code inside resize(), and then
-			//		extend dijit/layout/_LayoutWidget so that resize() is called when the widget is visible.
+			//		extend dui/layout/_LayoutWidget so that resize() is called when the widget is visible.
 			if(this._started){
 				return;
 			}
@@ -491,7 +491,7 @@ define([
 			// preserveDom:
 			//		If true, this method will leave the original DOM structure
 			//		alone of descendant Widgets. Note: This will NOT work with
-			//		dijit._TemplatedMixin widgets.
+			//		dui._TemplatedMixin widgets.
 
 			this._beingDestroyed = true;
 			this.destroyDescendants(preserveDom);
@@ -898,7 +898,7 @@ define([
 			//		Note that the array returned is a simple array.  Application code should not assume
 			//		existence of methods like forEach().
 
-			return this.containerNode ? registry.findWidgets(this.containerNode) : []; // dijit/_WidgetBase[]
+			return this.containerNode ? registry.findWidgets(this.containerNode) : []; // dui/_WidgetBase[]
 		},
 
 		getParent: function(){
@@ -941,8 +941,8 @@ define([
 			//		If reference is a DOMNode (or id matching a DOMNode but not a widget),
 			//		the position argument can be a numeric index or a string
 			//		"first", "last", "before", or "after", same as dojo/dom-construct::place().
-			// returns: dijit/_WidgetBase
-			//		Provides a useful return of the newly created dijit._Widget instance so you
+			// returns: dui/_WidgetBase
+			//		Provides a useful return of the newly created dui._Widget instance so you
 			//		can "chain" this function by instantiating, placing, then saving the return value
 			//		to a variable.
 			// example:
@@ -958,7 +958,7 @@ define([
 			//	|	var button = new Button({ label:"click" }).placeAt("wrapper","first");
 			// example:
 			//	|	// create a contentpane and add it to a TabContainer
-			//	|	var tc = dijit.byId("myTabs");
+			//	|	var tc = dui.byId("myTabs");
 			//	|	new ContentPane({ href:"foo.html", title:"Wow!" }).placeAt(tc)
 
 			var refWidget = !reference.tagName && registry.byId(reference);

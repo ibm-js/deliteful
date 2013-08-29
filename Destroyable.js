@@ -5,9 +5,9 @@ define([
 ], function(array, aspect, declare){
 
 	// module:
-	//		dijit/Destroyable
+	//		dui/Destroyable
 
-	return declare("dijit.Destroyable", null, {
+	return declare("dui.Destroyable", null, {
 		// summary:
 		//		Mixin to track handles and release them when instance is destroyed.
 		// description:

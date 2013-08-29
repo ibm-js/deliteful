@@ -4,14 +4,14 @@ define([
 ], function(declare, registry){
 
 	// module:
-	//		dijit/_Contained
+	//		dui/_Contained
 
-	return declare("dijit._Contained", null, {
+	return declare("dui._Contained", null, {
 		// summary:
 		//		Mixin for widgets that are children of a container widget
 		// example:
 		//	|	// make a basic custom widget that knows about its parents
-		//	|	declare("my.customClass",[dijit._WidgetBase, dijit._Contained],{});
+		//	|	declare("my.customClass",[dui._WidgetBase, dui._Contained],{});
 
 		_getSibling: function(/*String*/ which){
 			// summary:
@@ -24,7 +24,7 @@ define([
 			do{
 				node = node[which+"Sibling"];
 			}while(node && node.nodeType != 1);
-			return node && registry.byNode(node);	// dijit/_WidgetBase
+			return node && registry.byNode(node);	// dui/_WidgetBase
 		},
 
 		getPreviousSibling: function(){
@@ -32,7 +32,7 @@ define([
 			//		Returns null if this is the first child of the parent,
 			//		otherwise returns the next element sibling to the "left".
 
-			return this._getSibling("previous"); // dijit/_WidgetBase
+			return this._getSibling("previous"); // dui/_WidgetBase
 		},
 
 		getNextSibling: function(){
@@ -40,14 +40,14 @@ define([
 			//		Returns null if this is the last child of the parent,
 			//		otherwise returns the next element sibling to the "right".
 
-			return this._getSibling("next"); // dijit/_WidgetBase
+			return this._getSibling("next"); // dui/_WidgetBase
 		},
 
 		getIndexInParent: function(){
 			// summary:
 			//		Returns the index of this widget within its container parent.
 			//		It returns -1 if the parent does not exist, or if the parent
-			//		is not a dijit/_Container
+			//		is not a dui/_Container
 
 			var p = this.getParent();
 			if(!p || !p.getIndexOfChild){

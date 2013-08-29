@@ -6,7 +6,7 @@ define([
 ], function(focus, _WidgetBase, declare, lang){
 
 	// module:
-	//		dijit/_FocusMixin
+	//		dui/_FocusMixin
 
 	// We don't know where _FocusMixin will occur in the inheritance chain, but we need the _onFocus()/_onBlur() below
 	// to be last in the inheritance chain, so mixin to _WidgetBase.
@@ -54,7 +54,7 @@ define([
 		}
 	});
 
-	return declare("dijit._FocusMixin", null, {
+	return declare("dui._FocusMixin", null, {
 		// summary:
 		//		Mixin to widget to provide _onFocus() and _onBlur() methods that
 		//		fire when a widget or its descendants get/lose focus

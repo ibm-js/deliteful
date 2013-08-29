@@ -1,5 +1,5 @@
 {
-	"name": "dijit",
+	"name": "dui",
 	"version":"1.9.0dev",
 	"directories": {
 		"lib": "."

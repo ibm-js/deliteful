@@ -10,7 +10,7 @@ define([
 ], function(require, array, declare, lang, mouse, on, touch, _WidgetBase){
 
 	// module:
-	//		dijit/_AttachMixin
+	//		dui/_AttachMixin
 
 	// Map from string name like "mouseenter" to synthetic event like mouse.enter
 	var synthEvents = lang.delegate(touch, {
@@ -18,12 +18,12 @@ define([
 		"mouseleave": mouse.leave
 	});
 
-	// To be lightweight, _AttachMixin doesn't require() dijit/a11yclick.
-	// If the subclass has a template using "ondijitclick", it must load dijit/a11yclick itself.
+	// To be lightweight, _AttachMixin doesn't require() dui/a11yclick.
+	// If the subclass has a template using "ondijitclick", it must load dui/a11yclick itself.
 	// In that case, the a11yclick variable below will get set to point to that synthetic event.
 	var a11yclick;
 
-	var _AttachMixin = declare("dijit._AttachMixin", null, {
+	var _AttachMixin = declare("dui._AttachMixin", null, {
 		// summary:
 		//		Mixin for widgets to attach to dom nodes and setup events via
 		//		convenient data-dojo-attach-point and data-dojo-attach-event DOM attributes.
@@ -190,7 +190,7 @@ define([
 			//		Attaches an event handler from the specified node/widget to specified function.
 
 			// Map special type names like "mouseenter" to synthetic events.
-			// Subclasses are responsible to require() dijit/a11yclick if they want to use it.
+			// Subclasses are responsible to require() dui/a11yclick if they want to use it.
 			type = type.replace(/^on/, "").toLowerCase();
 			if(type == "dijitclick"){
 				type = a11yclick || (a11yclick = require("./a11yclick"));

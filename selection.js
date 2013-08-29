@@ -3,11 +3,11 @@ define([
 	"dojo/dom", // dom.byId
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"dijit/focus"
+	"dui/focus"
 ], function(array, dom, lang, baseWindow, focus){
 
 	// module:
-	//		dijit/selection
+	//		dui/selection
 
 	// Note that this class is using feature detection, but doesn't use has() because sometimes on IE the outer window
 	// may be running in standards mode (ie, IE9 mode) but an iframe may be in compatibility mode.   So the code path

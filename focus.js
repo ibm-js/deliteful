@@ -17,14 +17,14 @@ define([
 			a11y, registry){
 
 	// module:
-	//		dijit/focus
+	//		dui/focus
 
 	var lastFocusin;
 
 	var FocusManager = declare([Stateful, Evented], {
 		// summary:
 		//		Tracks the currently focused node, and which widgets are currently "active".
-		//		Access via require(["dijit/focus"], function(focus){ ... }).
+		//		Access via require(["dui/focus"], function(focus){ ... }).
 		//
 		//		A widget is considered active if it or a descendant widget has focus,
 		//		or if a non-focusable node of this widget or a descendant was recently clicked.
@@ -41,7 +41,7 @@ define([
 		//		Currently focused item on screen
 		curNode: null,
 
-		// activeStack: dijit/_WidgetBase[]
+		// activeStack: dui/_WidgetBase[]
 		//		List of currently active widgets (focused widget and it's ancestors)
 		activeStack: [],
 
@@ -205,7 +205,7 @@ define([
 			var newStack=[];
 			try{
 				while(node){
-					var popupParent = domAttr.get(node, "dijitPopupParent");
+					var popupParent = domAttr.get(node, "duiPopupParent");
 					if(popupParent){
 						node=registry.byId(popupParent).domNode;
 					}else if(node.tagName && node.tagName.toLowerCase() == "body"){

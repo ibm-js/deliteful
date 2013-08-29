@@ -5,9 +5,9 @@ define([
 ], function(array, declare, domConstruct){
 
 	// module:
-	//		dijit/_Container
+	//		dui/_Container
 
-	return declare("dijit._Container", null, {
+	return declare("dui._Container", null, {
 		// summary:
 		//		Mixin for widgets that contain HTML and/or a set of widget children.
 
@@ -22,7 +22,7 @@ define([
 			}
 		},
 
-		addChild: function(/*dijit/_WidgetBase*/ widget, /*int?*/ insertIndex){
+		addChild: function(/*dui/_WidgetBase*/ widget, /*int?*/ insertIndex){
 			// summary:
 			//		Makes the given widget a child of this widget.
 			// description:
@@ -85,7 +85,7 @@ define([
 			return this.getChildren().length > 0;	// Boolean
 		},
 
-		getIndexOfChild: function(/*dijit/_WidgetBase*/ child){
+		getIndexOfChild: function(/*dui/_WidgetBase*/ child){
 			// summary:
 			//		Gets the index of the child in this container or -1 if not found
 			return array.indexOf(this.getChildren(), child);	// int

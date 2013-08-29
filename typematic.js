@@ -6,7 +6,7 @@ define([
 ], function(array, lang, on, has){
 
 	// module:
-	//		dijit/typematic
+	//		dui/typematic
 
 	var typematic = {
 		// summary:

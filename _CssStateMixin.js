@@ -14,9 +14,9 @@ define([
 ], function(array, declare, dom, domClass, has, lang, on, domReady, touch, win, a11yclick, registry){
 
 	// module:
-	//		dijit/_CssStateMixin
+	//		dui/_CssStateMixin
 
-	var CssStateMixin = declare("dijit._CssStateMixin", [], {
+	var CssStateMixin = declare("dui._CssStateMixin", [], {
 		// summary:
 		//		Mixin for widgets to set CSS classes on the widget DOM nodes depending on hover/mouse press/focus
 		//		state changes, and also higher-level state changes such becoming disabled or selected.
@@ -24,10 +24,10 @@ define([
 		// description:
 		//		By mixing this class into your widget, and setting the this.baseClass attribute, it will automatically
 		//		maintain CSS classes on the widget root node (this.domNode) depending on hover,
-		//		active, focus, etc. state.   Ex: with a baseClass of dijitButton, it will apply the classes
-		//		dijitButtonHovered and dijitButtonActive, as the user moves the mouse over the widget and clicks it.
+		//		active, focus, etc. state.   Ex: with a baseClass of duiButton, it will apply the classes
+		//		duiButtonHovered and duiButtonActive, as the user moves the mouse over the widget and clicks it.
 		//
-		//		It also sets CSS like dijitButtonDisabled based on widget semantic state.
+		//		It also sets CSS like duiButtonDisabled based on widget semantic state.
 		//
 		//		By setting the cssStateNodes attribute, a widget can also track events on subnodes (like buttons
 		//		within the widget).
@@ -38,12 +38,12 @@ define([
 		 //		need CSS classes applied on mouse hover/press and focus.
 		 //
 		 //		Each entry in this optional hash is a an attach-point name (like "upArrowButton") mapped to a CSS class name
-		 //		(like "dijitUpArrowButton"). Example:
+		 //		(like "duiUpArrowButton"). Example:
 		 //	|		{
-		 //	|			"upArrowButton": "dijitUpArrowButton",
-		 //	|			"downArrowButton": "dijitDownArrowButton"
+		 //	|			"upArrowButton": "duiUpArrowButton",
+		 //	|			"downArrowButton": "duiDownArrowButton"
 		 //	|		}
-		 //		The above will set the CSS class dijitUpArrowButton to the this.upArrowButton DOMNode when it
+		 //		The above will set the CSS class duiUpArrowButton to the this.upArrowButton DOMNode when it
 		 //		is hovered, etc.
 		 cssStateNodes: {},
 		 =====*/
@@ -121,7 +121,7 @@ define([
 			//		In the case where a widget has multiple
 			//		states, it sets the class based on all possible
 			//		combinations.  For example, an invalid form widget that is being hovered
-			//		will be "dijitInput dijitInputInvalid dijitInputHover dijitInputInvalidHover".
+			//		will be "duiInput duiInputInvalid duiInputHover duiInputInvalidHover".
 			//
 			//		The widget may have one or more of the following states, determined
 			//		by this.state, this.checked, this.valid, and this.selected:
@@ -145,11 +145,11 @@ define([
 			function multiply(modifier){
 				newStateClasses = newStateClasses.concat(array.map(newStateClasses, function(c){
 					return c + modifier;
-				}), "dijit" + modifier);
+				}), "dui" + modifier);
 			}
 
 			if(!this.isLeftToRight()){
-				// For RTL mode we need to set an addition class like dijitTextBoxRtl.
+				// For RTL mode we need to set an addition class like duiTextBoxRtl.
 				multiply("Rtl");
 			}
 
@@ -279,7 +279,7 @@ define([
 			//		Should be a sub-node of the widget, not the top node (this.domNode), since the top node
 			//		is handled specially and automatically just by mixing in this class.
 			// clazz: String
-			//		CSS class name (ex: dijitSliderUpArrow)
+			//		CSS class name (ex: duiSliderUpArrow)
 
 			// Flag for listener code below to call this._cssMouseEvent() or this._subnodeCssMouseEvent()
 			// when node is hovered/active

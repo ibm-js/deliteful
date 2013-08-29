@@ -10,13 +10,13 @@ define([
 ], function(array, declare, domAttr, keys, lang, on, registry, _FocusMixin){
 
 	// module:
-	//		dijit/_KeyNavMixin
+	//		dui/_KeyNavMixin
 
-	return declare("dijit._KeyNavMixin", _FocusMixin, {
+	return declare("dui._KeyNavMixin", _FocusMixin, {
 		// summary:
 		//		A mixin to allow arrow key and letter key navigation of child or descendant widgets.
-		//		It can be used by dijit/_Container based widgets with a flat list of children,
-		//		or more complex widgets like dijit/Tree.
+		//		It can be used by dui/_Container based widgets with a flat list of children,
+		//		or more complex widgets like dui/Tree.
 		//
 		//		To use this mixin, the subclass must:
 		//
@@ -124,7 +124,7 @@ define([
 			//		Returns first child that can be focused.
 
 			// Leverage _getNextFocusableChild() to skip disabled children
-			return this._getNextFocusableChild(null, 1);	// dijit/_WidgetBase
+			return this._getNextFocusableChild(null, 1);	// dui/_WidgetBase
 		},
 
 		_getLastFocusableChild: function(){
@@ -132,7 +132,7 @@ define([
 			//		Returns last child that can be focused.
 
 			// Leverage _getNextFocusableChild() to skip disabled children
-			return this._getNextFocusableChild(null, -1);	// dijit/_WidgetBase
+			return this._getNextFocusableChild(null, -1);	// dui/_WidgetBase
 		},
 
 		focusFirstChild: function(){
@@ -153,7 +153,7 @@ define([
 			this.focusChild(this._getLastFocusableChild());
 		},
 
-		focusChild: function(/*dijit/_WidgetBase*/ widget, /*Boolean*/ last){
+		focusChild: function(/*dui/_WidgetBase*/ widget, /*Boolean*/ last){
 			// summary:
 			//		Focus specified child widget.
 			// widget:
@@ -227,7 +227,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_onChildFocus: function(/*dijit/_WidgetBase*/ child){
+		_onChildFocus: function(/*dui/_WidgetBase*/ child){
 			// summary:
 			//		Called when a child widget gets focus, either by user clicking
 			//		it, or programatically by arrow key handling code.
@@ -257,7 +257,7 @@ define([
 		//		"ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
 		multiCharSearchDuration: 1000,
 
-		onKeyboardSearch: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
+		onKeyboardSearch: function(/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.
@@ -268,7 +268,7 @@ define([
 			}
 		},
 
-		_keyboardSearchCompare: function(/*dijit/_WidgetBase*/ item, /*String*/ searchString){
+		_keyboardSearchCompare: function(/*dui/_WidgetBase*/ item, /*String*/ searchString){
 			// summary:
 			//		Compares the searchString to the widget's text label, returning:
 			//
@@ -411,11 +411,11 @@ define([
 					child = this._getNext(child, dir);
 				}
 				if(child != null && child != wrappedValue && child.isFocusable()){
-					return child;	// dijit/_WidgetBase
+					return child;	// dui/_WidgetBase
 				}
 			}while(child != wrappedValue);
 			// no focusable child found
-			return null;	// dijit/_WidgetBase
+			return null;	// dui/_WidgetBase
 		},
 
 		_getFirst: function(){
@@ -424,7 +424,7 @@ define([
 			// tags:
 			//		abstract extension
 
-			return null;	// dijit/_WidgetBase
+			return null;	// dui/_WidgetBase
 		},
 
 		_getLast: function(){
@@ -433,7 +433,7 @@ define([
 			// tags:
 			//		abstract extension
 
-			return null;	// dijit/_WidgetBase
+			return null;	// dui/_WidgetBase
 		},
 
 		_getNext: function(child, dir){
@@ -454,12 +454,12 @@ define([
 					if(child  && "getAttribute" in child){
 						var w = registry.byNode(child);
 						if(w){
-							return w; // dijit/_WidgetBase
+							return w; // dui/_WidgetBase
 						}
 					}
 				}
 			}
-			return null;	// dijit/_WidgetBase
+			return null;	// dui/_WidgetBase
 		}
 	});
 });

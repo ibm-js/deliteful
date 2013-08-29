@@ -12,9 +12,9 @@ define([
 ], function(array, aspect, declare, lang, parser, query, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
 
 	// module:
-	//		dijit/Declaration
+	//		dui/Declaration
 
-	return declare("dijit.Declaration", _WidgetBase, {
+	return declare("dui.Declaration", _WidgetBase, {
 		// summary:
 		//		The Declaration widget allows a developer to declare new widget
 		//		classes directly from a snippet of markup.
@@ -38,7 +38,7 @@ define([
 
 		// mixins: [const] String[]
 		//		List containing the prototype for this widget, and also any mixins,
-		//		ex: ["dijit._WidgetBase", "dijit._Container"]
+		//		ex: ["dui._WidgetBase", "dui._Container"]
 		mixins: [],
 
 		buildRendering: function(){
@@ -63,7 +63,7 @@ define([
 				}
 			});
 
-			// map array of strings like [ "dijit.form.Button" ] to array of mixin objects
+			// map array of strings like [ "dui.form.Button" ] to array of mixin objects
 			// (note that array.map(this.mixins, lang.getObject) doesn't work because it passes
 			// a bogus third argument to getObject(), confusing it)
 			if(this.mixins.length){

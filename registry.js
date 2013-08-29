@@ -19,8 +19,8 @@ define([
 		add: function(widget){
 			// summary:
 			//		Add a widget to the registry. If a duplicate ID is detected, a error is thrown.
-			// widget: dijit/_WidgetBase
-			//		Any dijit/_WidgetBase subclass.
+			// widget: dui/_WidgetBase
+			//		Any dui/_WidgetBase subclass.
 			if(hash[widget.id]){
 				throw new Error("Tried to register widget with id==" + widget.id + " but that id is already registered");
 			}
@@ -42,13 +42,13 @@ define([
 			// summary:
 			//		Find a widget by it's id.
 			//		If passed a widget then just returns the widget.
-			return typeof id == "string" ? hash[id] : id;	// dijit/_WidgetBase
+			return typeof id == "string" ? hash[id] : id;	// dui/_WidgetBase
 		},
 
 		byNode: function(/*DOMNode*/ node){
 			// summary:
 			//		Returns the widget corresponding to the given DOMNode
-			return hash[node.getAttribute("widgetId")]; // dijit/_WidgetBase
+			return hash[node.getAttribute("widgetId")]; // dui/_WidgetBase
 		},
 
 		toArray: function(){
@@ -63,7 +63,7 @@ define([
 			for(var id in hash){
 				ar.push(hash[id]);
 			}
-			return ar;	// dijit/_WidgetBase[]
+			return ar;	// dui/_WidgetBase[]
 		},
 
 		getUniqueId: function(/*String*/widgetType){
@@ -115,9 +115,9 @@ define([
 			//		Code to destroy all widgets and do other cleanup on page unload
 
 			// Clean up focus manager lingering references to widgets and nodes
-			dijit._curFocus = null;
-			dijit._prevFocus = null;
-			dijit._activeStack = [];
+			dui._curFocus = null;
+			dui._prevFocus = null;
+			dui._activeStack = [];
 
 			// Destroy all the widgets, top down
 			array.forEach(registry.findWidgets(win.body()), function(widget){

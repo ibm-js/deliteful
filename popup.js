@@ -18,7 +18,7 @@ define([
 			place, BackgroundIframe, Viewport){
 
 	// module:
-	//		dijit/popup
+	//		dui/popup
 
 	/*=====
 	 var __OpenArgs = {
@@ -40,7 +40,7 @@ define([
 		 //	|	{ "BL": "TL", "TL": "BL" }
 		 //		where BL means "bottom left" and "TL" means "top left", etc.
 		 //
-		 //		dijit/popup.open() tries to position the popup according to each specified position, in order,
+		 //		dui/popup.open() tries to position the popup according to each specified position, in order,
 		 //		until the popup appears fully within the viewport.
 		 //
 		 //		The default value is ["below", "above"]
@@ -84,7 +84,7 @@ define([
 		//		Used to show drop downs (ex: the select list of a ComboBox)
 		//		or popups (ex: right-click context menus).
 
-		// _stack: dijit/_WidgetBase[]
+		// _stack: dui/_WidgetBase[]
 		//		Stack of currently popped up widgets.
 		//		(someone opened _stack[0], and then it opened _stack[1], etc.)
 		_stack: [],
@@ -138,7 +138,7 @@ define([
 				// This is done early because of IE bugs where creating/moving DOM nodes causes focus
 				// to go wonky, see tests/robot/Toolbar.html to reproduce
 				wrapper = domConstruct.create("div", {
-					"class": "dijitPopup",
+					"class": "duiPopup",
 					style: { display: "none"},
 					role: "region",
 					"aria-label": widget["aria-label"] || widget.label || widget.name || widget.id
@@ -232,7 +232,7 @@ define([
 			//		opening the widget as a dropdown
 			//		|		popup.open({parent: this, popup: menuWidget, around: this.domNode, onClose: function(){...}});
 			//
-			//		Note that whatever widget called dijit/popup.open() should also listen to its own _onBlur callback
+			//		Note that whatever widget called dui/popup.open() should also listen to its own _onBlur callback
 			//		(fired from _base/focus.js) to know that focus has moved somewhere else and thus the popup should be closed.
 
 			var stack = this._stack,
@@ -260,7 +260,7 @@ define([
 
 			// Limit height to space available in viewport either above or below aroundNode (whichever side has more
 			// room), adding scrollbar if necessary. Can't add scrollbar to widget because it may be a <table> (ex:
-			// dijit/Menu), so add to wrapper, and then move popup's border to wrapper so scroll bar inside border.
+			// dui/Menu), so add to wrapper, and then move popup's border to wrapper so scroll bar inside border.
 			var maxHeight, popupSize = domGeometry.position(node);
 			if("maxHeight" in args && args.maxHeight != -1){
 				maxHeight = args.maxHeight || Infinity;	// map 0 --> infinity for back-compat of _HasDropDown.maxHeight
@@ -288,8 +288,8 @@ define([
 				style: {
 					zIndex: this._beginZIndex + stack.length
 				},
-				"class": "dijitPopup " + (widget.baseClass || widget["class"] || "").split(" ")[0] + "Popup",
-				dijitPopupParent: args.parent ? args.parent.id : ""
+				"class": "duiPopup " + (widget.baseClass || widget["class"] || "").split(" ")[0] + "Popup",
+				duiPopupParent: args.parent ? args.parent.id : ""
 			});
 
 			if(stack.length == 0 && around){

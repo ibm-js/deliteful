@@ -20,9 +20,9 @@ define([
 
 
 	// module:
-	//		dijit/_HasDropDown
+	//		dui/_HasDropDown
 
-	return declare("dijit._HasDropDown", _FocusMixin, {
+	return declare("dui._HasDropDown", _FocusMixin, {
 		// summary:
 		//		Mixin for widgets that need drop down ability.
 
@@ -33,7 +33,7 @@ define([
 		_buttonNode: null,
 
 		// _arrowWrapperNode: [protected] DomNode
-		//		Will set CSS class dijitUpArrow, dijitDownArrow, dijitRightArrow etc. on this node depending
+		//		Will set CSS class duiUpArrow, duiDownArrow, duiRightArrow etc. on this node depending
 		//		on where the drop down is set to be positioned.
 		//		Can be set via a data-dojo-attach-point assignment.
 		//		If missing, then _buttonNode will be used.
@@ -148,7 +148,7 @@ define([
 				if(!(e.pageX >= c.x && e.pageX <= c.x + c.w) || !(e.pageY >= c.y && e.pageY <= c.y + c.h)){
 					var t = e.target;
 					while(t && !overMenu){
-						if(domClass.contains(t, "dijitPopup")){
+						if(domClass.contains(t, "duiPopup")){
 							overMenu = true;
 						}else{
 							t = t.parentNode;
@@ -201,7 +201,7 @@ define([
 			this._buttonNode = this._buttonNode || this.focusNode || this.domNode;
 			this._popupStateNode = this._popupStateNode || this.focusNode || this._buttonNode;
 
-			// Add a class to the "dijitDownArrowButton" type class to _buttonNode so theme can set direction of arrow
+			// Add a class to the "duiDownArrowButton" type class to _buttonNode so theme can set direction of arrow
 			// based on where drop down will normally appear
 			var defaultPos = {
 				"after": this.isLeftToRight() ? "Right" : "Left",
@@ -211,7 +211,7 @@ define([
 				"left": "Left",
 				"right": "Right"
 			}[this.dropDownPosition[0]] || this.dropDownPosition[0] || "Down";
-			domClass.add(this._arrowWrapperNode || this._buttonNode, "dijit" + defaultPos + "ArrowButton");
+			domClass.add(this._arrowWrapperNode || this._buttonNode, "dui" + defaultPos + "ArrowButton");
 		},
 
 		postCreate: function(){
@@ -230,7 +230,7 @@ define([
 		},
 
 		destroy: function(){
-			// If dropdown is open, close it, to avoid leaving dijit/focus in a strange state.
+			// If dropdown is open, close it, to avoid leaving dui/focus in a strange state.
 			// Put focus back on me to avoid the focused node getting destroyed, which flummoxes IE.
 			if(this._opened){
 				this.closeDropDown(true);
@@ -375,7 +375,7 @@ define([
 			//		Opens the dropdown for this widget.   To be called only when this.dropDown
 			//		has been created and is ready to display (ie, it's data is loaded).
 			// returns:
-			//		return value of dijit/popup.open()
+			//		return value of dui/popup.open()
 			// tags:
 			//		protected
 
@@ -397,7 +397,7 @@ define([
 					self.closeDropDown(true);
 				},
 				onClose: function(){
-					domClass.remove(self._popupStateNode, "dijitHasDropDownOpen");
+					domClass.remove(self._popupStateNode, "duiHasDropDownOpen");
 					self._set("_opened", false);	// use set() because _CssStateMixin is watching
 				}
 			});
@@ -415,7 +415,7 @@ define([
 				}
 			}
 
-			domClass.add(this._popupStateNode, "dijitHasDropDownOpen");
+			domClass.add(this._popupStateNode, "duiHasDropDownOpen");
 			this._set("_opened", true);	// use set() because _CssStateMixin is watching
 
 			this._popupStateNode.setAttribute("aria-expanded", "true");

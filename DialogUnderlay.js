@@ -14,11 +14,11 @@ define([
 			winUtils, _WidgetBase, _TemplatedMixin, BackgroundIframe, Viewport){
 
 	// module:
-	//		dijit/DialogUnderlay
+	//		dui/DialogUnderlay
 
-	var DialogUnderlay = declare("dijit.DialogUnderlay", [_WidgetBase, _TemplatedMixin], {
+	var DialogUnderlay = declare("dui.DialogUnderlay", [_WidgetBase, _TemplatedMixin], {
 		// summary:
-		//		A component used to block input behind a `dijit/Dialog`.
+		//		A component used to block input behind a `dui/Dialog`.
 		//
 		//		Normally this class should not be instantiated directly, but rather shown and hidden via
 		//		DialogUnderlay.show() and DialogUnderlay.hide().  And usually the module is not accessed directly
@@ -27,12 +27,12 @@ define([
 		//		The underlay itself can be styled based on and id:
 		//	|	#myDialog_underlay { background-color:red; }
 		//
-		//		In the case of `dijit.Dialog`, this id is based on the id of the Dialog,
+		//		In the case of `dui.Dialog`, this id is based on the id of the Dialog,
 		//		suffixed with _underlay.
 
 		// Template has two divs; outer div is used for fade-in/fade-out, and also to hold background iframe.
 		// Inner div has opacity specified in CSS file.
-		templateString: "<div class='dijitDialogUnderlayWrapper'><div class='dijitDialogUnderlay' tabIndex='-1' data-dojo-attach-point='node'></div></div>",
+		templateString: "<div class='duiDialogUnderlayWrapper'><div class='duiDialogUnderlay' tabIndex='-1' data-dojo-attach-point='node'></div></div>",
 
 		// Parameters on creation or updatable later
 
@@ -41,7 +41,7 @@ define([
 		dialogId: "",
 
 		// class: String
-		//		This class name is used on the DialogUnderlay node, in addition to dijitDialogUnderlay
+		//		This class name is used on the DialogUnderlay node, in addition to duiDialogUnderlay
 		"class": "",
 
 		// This will get overwritten as soon as show() is call, but leave an empty array in case hide() or destroy()
@@ -54,7 +54,7 @@ define([
 		},
 
 		_setClassAttr: function(clazz){
-			this.node.className = "dijitDialogUnderlay " + clazz;
+			this.node.className = "duiDialogUnderlay " + clazz;
 			this._set("class", clazz);
 		},
 

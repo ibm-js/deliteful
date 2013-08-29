@@ -7,7 +7,7 @@ define([
 ], function(array, domGeometry, domStyle, win, Viewport){
 
 	// module:
-	//		dijit/place
+	//		dui/place
 
 
 	function _place(/*DomNode*/ node, choices, layoutNode, aroundNodeCoords){
@@ -164,7 +164,7 @@ define([
 	var place = {
 		// summary:
 		//		Code to place a DOMNode relative to another DOMNode.
-		//		Load using require(["dijit/place"], function(place){ ... }).
+		//		Load using require(["dui/place"], function(place){ ... }).
 
 		at: function(node, pos, corners, padding, layoutNode){
 			// summary:
@@ -175,7 +175,7 @@ define([
 			//		Node is assumed to be absolutely or relatively positioned.
 			// node: DOMNode
 			//		The node to position
-			// pos: dijit/place.__Position
+			// pos: dui/place.__Position
 			//		Object like {x: 10, y: 20}
 			// corners: String[]
 			//		Array of Strings representing order to try corners of the node in, like ["TR", "BL"].
@@ -185,7 +185,7 @@ define([
 			//		- "BR" - bottom right
 			//		- "TL" - top left
 			//		- "TR" - top right
-			// padding: dijit/place.__Position?
+			// padding: dui/place.__Position?
 			//		Optional param to set padding, to put some buffer around the element you want to position.
 			//		Defaults to zero.
 			// layoutNode: Function(node, aroundNodeCorner, nodeCorner)
@@ -214,7 +214,7 @@ define([
 
 		around: function(
 			/*DomNode*/		node,
-			/*DomNode|dijit/place.__Rectangle*/ anchor,
+			/*DomNode|dui/place.__Rectangle*/ anchor,
 			/*String[]*/	positions,
 			/*Boolean*/		leftToRight,
 			/*Function?*/	layoutNode){

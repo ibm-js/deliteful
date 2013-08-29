@@ -1,7 +1,7 @@
 define([], function(){
 
 	// module:
-	//		dijit/_BidiMixin
+	//		dui/_BidiMixin
 
 	// UCC - constants that will be used by bidi support.
 	var bidi_const = {

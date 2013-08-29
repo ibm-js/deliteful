@@ -7,9 +7,9 @@ define([
 ], function(declare, domConstruct, lang, string, _AttachMixin){
 
 	// module:
-	//		dijit/_TemplatedMixin
+	//		dui/_TemplatedMixin
 
-	var _TemplatedMixin = declare("dijit._TemplatedMixin", _AttachMixin, {
+	var _TemplatedMixin = declare("dui._TemplatedMixin", _AttachMixin, {
 		// summary:
 		//		Mixin for widgets that are instantiated from a template
 
