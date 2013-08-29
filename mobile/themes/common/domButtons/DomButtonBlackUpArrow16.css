@@ -1,15 +1,15 @@
 /* === BlackUpArrow16 ==*/
-.mblDomButtonBlackUpArrow16 {
+.duiDomButtonBlackUpArrow16 {
   position: relative;
   width: 16px;
   height: 16px;
 }
-.mblDomButtonBlackUpArrow16 > div {
+.duiDomButtonBlackUpArrow16 > div {
   position: absolute;
   left: 0px;
   clip: rect(0px 16px 12px 0px);
 }
-.mblDomButtonBlackUpArrow16 > div > div {
+.duiDomButtonBlackUpArrow16 > div > div {
   position: absolute;
   top: 6px;
   left: 3px;

@@ -1,16 +1,16 @@
 /* dojox.mobile.ToggleButton */
-.mblToggleButton {
+.duiToggleButton {
 	position: relative;
 	padding: 0 10px 0 25px;
 	height: 29px;
 	border-width: 1px 1px 1px 1px;
 	border-style: outset;
-	.mbl-button-background-image();
+	.dui-button-background-image();
 	font-family: Helvetica;
 	line-height: 29px;
 	cursor: pointer;
 	.tap-highlight-color(rgba(255,255,255,0));
-	.mblToggleButton-styles;
+	.duiToggleButton-styles;
 	&:disabled {
 		border-color: grey;
 		background-image: none;
@@ -18,13 +18,13 @@
 		cursor: default;
 	}
 }
-.mblToggleButtonSelected {
-	.mbl-button-selected-background-image();
-	.mblToggleButtonSelected-styles;
+.duiToggleButtonSelected {
+	.dui-button-selected-background-image();
+	.duiToggleButtonSelected-styles;
 }
-.mblToggleButtonChecked {
-	.mbl-button-checked-background-image();
-	.mblToggleButtonChecked-styles;
+.duiToggleButtonChecked {
+	.dui-button-checked-background-image();
+	.duiToggleButtonChecked-styles;
 	&:after {
 		position: absolute;
 		content: "";
@@ -36,13 +36,13 @@
 		border-style: none solid solid none;
 		.transform(rotate(45deg) skew(10deg));
 		.transform-origin(50% 50%);
-		.mblToggleButtonChecked-after-styles;
+		.duiToggleButtonChecked-after-styles;
 	}
-	&.mblToggleButtonSelected {
-		.mbl-blue-button-selected-background-image();
-		.mblToggleButtonCheckedSelected-styles;
+	&.duiToggleButtonSelected {
+		.dui-blue-button-selected-background-image();
+		.duiToggleButtonCheckedSelected-styles;
 		&:after {
-			.mblToggleButtonCheckedSelected-after-styles;
+			.duiToggleButtonCheckedSelected-after-styles;
 		}
 	}
 }

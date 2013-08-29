@@ -1,8 +1,8 @@
 /* === Gray Star ==*/
-.mblDomButtonGrayStar {
-	background-image: url(compat/mblDomButtonGrayStar.png);
+.duiDomButtonGrayStar {
+	background-image: url(compat/duiDomButtonGrayStar.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonGrayStar > div {
+.duiDomButtonGrayStar > div {
 	display: none;
 }

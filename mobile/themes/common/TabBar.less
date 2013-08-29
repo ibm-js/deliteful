@@ -1,5 +1,5 @@
 /* dojox.mobile.TabBar */
-.mblTabBar {
+.duiTabBar {
 	position: relative;
 	margin: 0px;
 	overflow: hidden;
@@ -11,17 +11,17 @@
 	color: white;
 	border-top: 1px solid @heading-border-top-color;
 	border-bottom: 1px solid @heading-border-bottom-color;
-	.mblTabBar-styles;
+	.duiTabBar-styles;
 }
 
 /* dojox.mobile.TabBarButton */
-.mblTabBarFill .mblTabBarButton {
+.duiTabBarFill .duiTabBarButton {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 }
 
-.mblTabBarButton {
+.duiTabBarButton {
 	overflow: hidden;
 	cursor: pointer;
 	.tap-highlight-color(rgba(255,255,255,0));
@@ -29,64 +29,64 @@
 	list-style-type: none;
 	float: left;
 }
-.mblTabBarButtonIconArea {
+.duiTabBarButtonIconArea {
 	margin: 0 auto;
 	width: 29px;
 }
-.mblTabBarButtonIconParent1 {
+.duiTabBarButtonIconParent1 {
 	display: block;
 }
-.mblTabBarButtonIconParent2 {
+.duiTabBarButtonIconParent2 {
 	display: none;
 }
-.mblTabBarButtonSelected .mblTabBarButtonIconParent1 {
+.duiTabBarButtonSelected .duiTabBarButtonIconParent1 {
 	display: none;
 }
-.mblTabBarButtonSelected .mblTabBarButtonIconParent2 {
+.duiTabBarButtonSelected .duiTabBarButtonIconParent2 {
 	display: block;
 }
 
 /* barType="tabBar" */
-.mblTabBarTabBar {
+.duiTabBarTabBar {
 	height: 48px;
 	border-top: 1px solid #000000;
-	.mblTabBarTabBar-styles;
+	.duiTabBarTabBar-styles;
 
-	.mblTabBarButton {
-		.mblTabBarTabBarButton-styles;
+	.duiTabBarButton {
+		.duiTabBarTabBarButton-styles;
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		padding-top: 4px;
-		.mblTabBarTabBarButtonIconArea-styles;
+		.duiTabBarTabBarButtonIconArea-styles;
 	}
-	.mblTabBarButtonLabel {
+	.duiTabBarButtonLabel {
 		font-family: "Helvetica Neue", Helvetica;
 		font-size: 11px;
-		.mblTabBarTabBarButtonLabel-styles;
+		.duiTabBarTabBarButtonLabel-styles;
 	}
-	.mblTabBarButtonSelected {
+	.duiTabBarButtonSelected {
 		border-radius: 3px;
-		.mblTabBarTabBarButtonSelected-styles;
+		.duiTabBarTabBarButtonSelected-styles;
 	}
-	.mblTabBarButtonSelected .mblTabBarButtonLabel {
-		.mblTabBarTabBarButtonLabelSelected-styles;
+	.duiTabBarButtonSelected .duiTabBarButtonLabel {
+		.duiTabBarTabBarButtonLabelSelected-styles;
 	}
 }
 /* barType="segmentedControl" */
-.mblTabBarSegmentedControl {
+.duiTabBarSegmentedControl {
 	.heading-background-image();
-	.mblTabBarSegmentedControl-styles;
+	.duiTabBarSegmentedControl-styles;
 
-	&.mblTabBarNoText {
-		.mblTabBarButton {
+	&.duiTabBarNoText {
+		.duiTabBarButton {
 			width: auto;
 			padding: 0 3px;
 		}
-		.mblTabBarButtonIconArea {
+		.duiTabBarButtonIconArea {
 			position: relative;
 		}
 	}
-	.mblTabBarButton {
+	.duiTabBarButton {
 		margin: 6px 0;
 		width: 100px;
 		height: 29px;
@@ -96,27 +96,27 @@
 		font-weight: bold;
 		text-align: center;
 		line-height: 29px;
-		.mblTabBarSegmentedControlButton-styles;
+		.duiTabBarSegmentedControlButton-styles;
 		&:first-child {
 			border-left-width: 1px;
-			border-top-left-radius: @mbl-tab-bar-segmented-control-border-radius;
-			border-bottom-left-radius: @mbl-tab-bar-segmented-control-border-radius;
+			border-top-left-radius: @dui-tab-bar-segmented-control-border-radius;
+			border-bottom-left-radius: @dui-tab-bar-segmented-control-border-radius;
 		}
 		&:last-child {
-			border-top-right-radius: @mbl-tab-bar-segmented-control-border-radius;
-			border-bottom-right-radius: @mbl-tab-bar-segmented-control-border-radius;
+			border-top-right-radius: @dui-tab-bar-segmented-control-border-radius;
+			border-bottom-right-radius: @dui-tab-bar-segmented-control-border-radius;
 		}
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		position: absolute;
 		top: 0px;
 		left: 0px;
 	}
-	.mblTabBarButtonSelected {
-		.mblTabBarSegmentedControlButtonSelected-styles;
+	.duiTabBarButtonSelected {
+		.duiTabBarSegmentedControlButtonSelected-styles;
 	}
 }
-.mblHeading .mblTabBarSegmentedControl {
+.duiHeading .duiTabBarSegmentedControl {
 	display: inline;
 	float: left;
 	height: auto;
@@ -124,11 +124,11 @@
 }
 
 /* barType="standardTab" */
-.mblTabBarStandardTab {
+.duiTabBarStandardTab {
 	.heading-background-image();
-	.mblTabBarStandardTab-styles;
+	.duiTabBarStandardTab-styles;
 
-	.mblTabBarButton {
+	.duiTabBarButton {
 		margin-top: 9px;
 		padding: 9px;
 		border: 1px solid #62676d;
@@ -137,37 +137,37 @@
 		font-family: Helvetica;
 		font-size: 14px;
 		font-weight: bold;
-		.mblTabBarStandardTabButton-styles;
+		.duiTabBarStandardTabButton-styles;
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		position: absolute;
 		top: 3px;
 		left: 0px;
-		.mblTabBarStandardTabButtonIconArea-styles;
+		.duiTabBarStandardTabButtonIconArea-styles;
 	}
-	.mblTabBarButtonLabel {
-		.mblTabBarStandardTabButtonLabel-styles;
+	.duiTabBarButtonLabel {
+		.duiTabBarStandardTabButtonLabel-styles;
 	}
-	.mblTabBarButtonSelected {
-		.mblTabBarStandardTabButtonSelected-styles;
+	.duiTabBarButtonSelected {
+		.duiTabBarStandardTabButtonSelected-styles;
 	}
-	.mblTabBarButtonSelected .mblTabBarButtonLabel {
-		.mblTabBarStandardTabButtonLabelSelected-styles;
+	.duiTabBarButtonSelected .duiTabBarButtonLabel {
+		.duiTabBarStandardTabButtonLabelSelected-styles;
 	}
-	.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+	.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
 		margin-left: 20px;
 	}
 }
 
 /* barType="slimTab" */
-.mblTabBarSlimTab {
+.duiTabBarSlimTab {
 	height: 30px;
 	padding: 0px;
 	border: 1px solid @heading-border-bottom-color;
 	background-color: #000000;
 	.background-image-linear-gradient-top-bottom-2-stops(#2d2d2d, #000000, 0.5, #141414, 0.5, #000000);
 
-	.mblTabBarButton {
+	.duiTabBarButton {
 		padding: 7px;
 		border-right: 1px solid #4e4e4e;
 		.background-image-linear-gradient-top-bottom-2-stops(#2d2d2d, #000000, 0.5, #141414, 0.5, #000000);
@@ -183,29 +183,29 @@
 		&:last-child {
 		}
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		position: absolute;
 		top: 0px;
 		left: 0px;
 	}
-	.mblTabBarButtonSelected {
+	.duiTabBarButtonSelected {
 		background-color: #404040;
 		.background-image-linear-gradient-top-bottom-2-stops(#313031, #959595, 0.5, #5a555a, 0.5, #616161);
 	}
-	.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+	.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
 		margin-left: 20px;
 	}
 }
 
 /* barType="flatTab" */
-.mblTabBarFlatTab {
+.duiTabBarFlatTab {
 	height: 30px;
 	padding: 0px;
 	border-style: none;
 	background-color: transparent;
 	background-image: none;
 
-	.mblTabBarButton {
+	.duiTabBarButton {
 		padding: 7px;
 		background-image: none;
 		font-family: Helvetica;
@@ -214,24 +214,24 @@
 		text-shadow: rgba(100, 100, 100, 0.6) 0px -1px 0px;
 		text-align: center;
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		position: absolute;
 		top: 0px;
 		left: 0px;
 	}
-	.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+	.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
 		margin-left: 20px;
 	}
 }
 
 /* barType="tallTab" */
-.mblTabBarTallTab {
+.duiTabBarTallTab {
 	height: 64px;
 	border-top: 1px solid #cdd5df;
 	border-bottom: 2px solid #949694;
-	.mblTabBarTallTab-styles;
+	.duiTabBarTallTab-styles;
 
-	.mblTabBarButton {
+	.duiTabBarButton {
 		margin-top: 3px;
 		margin-right: 2px;
 		width: 78px;
@@ -244,30 +244,30 @@
 		font-size: 13px;
 		color: white;
 		text-align: center;
-		.mblTabBarTallTabButton-styles;
+		.duiTabBarTallTabButton-styles;
 		&:first-child {
-			.mblTabBarTallTabButton-FirstChild-styles;
+			.duiTabBarTallTabButton-FirstChild-styles;
 		}
 		&:last-child {
-			.mblTabBarTallTabButton-LastChild-styles;
+			.duiTabBarTallTabButton-LastChild-styles;
 		}
 	}
-	.mblTabBarButtonIconArea {
+	.duiTabBarButtonIconArea {
 		margin-top: 8px;
-		.mblTabBarTallTabButtonIconArea-styles;
+		.duiTabBarTallTabButtonIconArea-styles;
 	}
-	.mblTabBarButtonLabel {
+	.duiTabBarButtonLabel {
 		font-family: "Helvetica Neue", Helvetica;
 		font-size: 11px;
-		.mblTabBarTallTabButtonLabel-styles;
+		.duiTabBarTallTabButtonLabel-styles;
 	}
-	.mblTabBarButtonSelected {
+	.duiTabBarButtonSelected {
 		.background-image-linear-gradient-top-bottom(#a59ea5, #848284);
-		.mblTabBarTallTabButtonSelected-styles;
+		.duiTabBarTallTabButtonSelected-styles;
 	}
-	.mblTabBarButtonSelected .mblTabBarButtonLabel {
-		.mblTabBarTallTabButtonLabelSelected-styles;
+	.duiTabBarButtonSelected .duiTabBarButtonLabel {
+		.duiTabBarTallTabButtonLabelSelected-styles;
 	}
-	.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+	.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
 	}
 }

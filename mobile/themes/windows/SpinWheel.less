@@ -1,10 +1,10 @@
 @import "variables.less";
 @import "../common/SpinWheel.less";
 
-@mbl-PickerItemHeight: 100px;
-@mbl-PickerItemWidth: 100px;
+@dui-PickerItemHeight: 100px;
+@dui-PickerItemWidth: 100px;
 
-.mblSpinWheel {
+.duiSpinWheel {
 	background-image: none !important;
 	border: none !important;
 	margin: auto 0;
@@ -13,14 +13,14 @@
 	display: -ms-flexbox;
 	color: @win-foreground-color;
 
-	& .mblSpinWheelSlot {
+	& .duiSpinWheelSlot {
 		-ms-flex-preferred-size: auto;
 		border: none;
 		-ms-user-select: none;
 		text-align: left !important;
 		overflow: hidden;
 		margin: 0px !important;
-		width: @mbl-PickerItemWidth !important;
+		width: @dui-PickerItemWidth !important;
 
 		&:empty {
 			display: none !important;
@@ -37,8 +37,8 @@
 		}
 	}
 
-	& .mblSpinWheelSlotContainer:not(.mblSelectedSlot) {
-		& .mblSpinWheelSlotLabel:not(.mblSelectedSlotItem) {
+	& .duiSpinWheelSlotContainer:not(.duiSelectedSlot) {
+		& .duiSpinWheelSlotLabel:not(.duiSelectedSlotItem) {
 		  opacity: 0;
 		  -ms-transition: opacity 0.4s ease-out;
 		  &:before {
@@ -48,7 +48,7 @@
 		}
 	}
 
-	& .mblSpinWheelSlotLabel:not(.mblSelectedSlotItem) {
+	& .duiSpinWheelSlotLabel:not(.duiSelectedSlotItem) {
 		opacity: 1;
 		-ms-transition: opacity 0.4s ease-out;
 		&:before {
@@ -57,15 +57,15 @@
 		}
 	}
 
-	& .mblSpinWheelSlotLabel {
+	& .duiSpinWheelSlotLabel {
 		border: none;
 		margin: 0px;
 		color: @win-disabled-color;
-		height: @mbl-PickerItemHeight;
+		height: @dui-PickerItemHeight;
 		line-height: 3.5;
 		font-size: @win-font-size-extra-large;
 
-		&.mblSelectedSlotItem {
+		&.duiSelectedSlotItem {
 			color: @win-foreground-color;
 			&:before {
 				background-color: @win-disabled-color;
@@ -82,7 +82,7 @@
 			left: 0px;
 		}
 
-		&.mblSpinWheelSlotLabelGray {
+		&.duiSpinWheelSlotLabelGray {
 			opacity: 0.3;
 
 			&:before{
@@ -91,18 +91,18 @@
 		}
 	}
 
-	& .mblSpinWheelBar {
+	& .duiSpinWheelBar {
 		display: none;
 	}
 
-	& .mblSpinWheelSlotTouch {
+	& .duiSpinWheelSlotTouch {
 		background-color: @win-bg-color;
 		opacity: 0.01;
 	}
 }
 
-.mblTooltip.mblOpener  {
-	& .mblSpinWheelDatePicker {
+.duiTooltip.duiOpener  {
+	& .duiSpinWheelDatePicker {
 		left: calc(~"50% - 150px");
 		position: absolute !important;
 		top: 50%;

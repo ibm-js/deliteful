@@ -1,5 +1,5 @@
 /* === Check Button (ON) ==*/
-.mblDomButtonCheckboxOn {
+.duiDomButtonCheckboxOn {
   position: relative;
   width: 30px;
   height: 30px;
@@ -12,7 +12,7 @@
   background: -webkit-gradient(linear, left top, left bottom, from(#eff3ef), to(#bdbebd));
   background: linear-gradient(to bottom, #eff3ef 0%, #bdbebd 100%);
 }
-.mblDomButtonCheckboxOn > div {
+.duiDomButtonCheckboxOn > div {
   position: absolute;
   top: 15px;
   left: 3px;
@@ -26,7 +26,7 @@
   -webkit-transform: rotate(50deg);
   transform: rotate(50deg);
 }
-.mblDomButtonCheckboxOn > div > div {
+.duiDomButtonCheckboxOn > div > div {
   position: absolute;
   top: -10px;
   left: 0px;

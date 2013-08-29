@@ -7,7 +7,7 @@
 	<title>test Opener with Calendar</title>
 
 	<link href="../../../dijit/themes/dijit.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Overlay','Tooltip','dijit.Calendar']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Overlay','Tooltip','dijit.Calendar']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -45,7 +45,7 @@
 		html, body{
 			overflow: hidden;
 		}
-		.mblTooltip.mblOpener DIV[label='Cancel'] {
+		.duiTooltip.duiOpener DIV[label='Cancel'] {
 			display: none;
 		}
 	</style>
@@ -60,9 +60,9 @@
 	</table>
 	<div id="calPicker" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getDate2, onShow:setDate2">
 		<h1 data-dojo-type="dojox/mobile/Heading" label="Dates">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('calPicker').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('calPicker').hide(false)"></span>
 		</h1>
 		<div id="cal" dojoType='dijit.CalendarLite'></div>

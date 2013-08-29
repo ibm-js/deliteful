@@ -1,5 +1,5 @@
 /* dojox.mobile.Slider */
-.mblSlider {
+.duiSlider {
   margin: 15px;
   border-style: inset;
   border-width: 1px;
@@ -12,31 +12,31 @@
   box-sizing: content-box;
   border-color: #b0b0b0;
 }
-.mblSliderH {
+.duiSliderH {
   width: 200px;
   height: 8px;
 }
-.mblSliderH .mblSliderProgressBar {
+.duiSliderH .duiSliderProgressBar {
   height: 100%;
 }
-.mblSliderH .mblSliderHandle {
+.duiSliderH .duiSliderHandle {
   top: 50%;
 }
-.mblSliderV {
+.duiSliderV {
   height: 200px;
   width: 8px;
 }
-.mblSliderV .mblSliderProgressBar {
+.duiSliderV .duiSliderProgressBar {
   width: 100%;
 }
-.mblSliderV .mblSliderHandle {
+.duiSliderV .duiSliderHandle {
   left: 50%;
 }
-.mblSliderProgressBar {
+.duiSliderProgressBar {
   border-radius: 10em;
   background-image: none;
 }
-.mblSliderHandle {
+.duiSliderHandle {
   margin: -10px 0 0 -10px;
   width: 18px;
   height: 18px;
@@ -47,11 +47,11 @@
   background-image: linear-gradient(to bottom, #9c9a9c 0%, #848284 100%);
   border-color: transparent;
 }
-.mblSliderTransition {
+.duiSliderTransition {
   -webkit-transition-duration: 400ms;
   transition-duration: 400ms;
 }
-.mblSliderTouchBox {
+.duiSliderTouchBox {
   margin: 0;
   padding: 12pt;
   left: -12pt;
@@ -62,36 +62,36 @@
   background-color: transparent;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.mblSlider {
+.duiSlider {
   border-style: none;
   border-radius: 0;
   background-image: none;
   background-color: transparent;
   border-color: #b0b0b0;
 }
-.mblSliderH {
+.duiSliderH {
   width: 200px;
   height: 3px;
   background-color: #292929;
   border-style: none;
 }
-.mblSliderV {
+.duiSliderV {
   height: 200px;
   width: 3px;
   background-color: #292929;
   border-style: none;
 }
-.mblSliderProgressBar {
+.duiSliderProgressBar {
   border: radius: 0;
   background-image: none;
   background-color: #33b5e5;
 }
-.mblSliderHandle {
+.duiSliderHandle {
   background: -webkit-gradient(radial, 9 9, 3, 9 9, 9, from(#33b5e5), color-stop(0, #33b5e5), color-stop(0.01, rgba(31, 83, 102, 0.8)), to(rgba(31, 83, 102, 0.8)));
   background-image: radial-gradient(circle closest-side at center, #ffffff 0%, #a435c5 50%, #251ae7 75%, #00a3ef 100%);
   border-color: transparent;
 }
-.mblSliderHandle:after {
+.duiSliderHandle:after {
   border-style: solid;
   background-image: none;
   border-color: transparent;

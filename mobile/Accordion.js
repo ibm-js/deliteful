@@ -62,20 +62,20 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblAccordionTitle",
+		baseClass: "duiAccordionTitle",
 
 		buildRendering: function(){
 			this.inherited(arguments);
 
 			var a = this.anchorNode = domConstruct.create("a", {
-				className: "mblAccordionTitleAnchor",
+				className: "duiAccordionTitleAnchor",
 				role: "presentation"
 			}, this.domNode);
 
 			// text box
-			this.textBoxNode = domConstruct.create("div", {className:"mblAccordionTitleTextBox"}, a);
+			this.textBoxNode = domConstruct.create("div", {className:"duiAccordionTitleTextBox"}, a);
 			this.labelNode = domConstruct.create("span", {
-				className: "mblAccordionTitleLabel",
+				className: "duiAccordionTitleLabel",
 				innerHTML: this.label
 			}, this.textBoxNode);
 			this._isOnLine = this.inheritParams();
@@ -115,12 +115,12 @@ define([
 			this._set("icon" + n, icon);
 			if(!this["iconParentNode" + n]){
 				this["iconParentNode" + n] = domConstruct.create("div",
-					{className:"mblAccordionIconParent mblAccordionIconParent" + n}, this.anchorNode, "first");
+					{className:"duiAccordionIconParent duiAccordionIconParent" + n}, this.anchorNode, "first");
 			}
 			this["iconNode" + n] = iconUtils.setIcon(icon, this["iconPos" + n],
 				this["iconNode" + n], this.alt, this["iconParentNode" + n]);
 			this["icon" + n] = icon;
-			domClass.toggle(this.domNode, "mblAccordionHasIcon", icon && icon !== "none");
+			domClass.toggle(this.domNode, "duiAccordionHasIcon", icon && icon !== "none");
 		},
 
 		_setIcon1Attr: function(icon){
@@ -173,7 +173,7 @@ define([
 		_setSelectedAttr: function(/*Boolean*/selected){
 			// tags:
 			//		private
-			domClass.toggle(this.domNode, "mblAccordionTitleSelected", selected);
+			domClass.toggle(this.domNode, "duiAccordionTitleSelected", selected);
 			this._set("selected", selected);
 		}
 	});
@@ -214,7 +214,7 @@ define([
 
 		// roundRect: Boolean
 		//		If true, the widget shows rounded corners.
-		//		Adding the "mblAccordionRoundRect" class to domNode has the same effect.
+		//		Adding the "duiAccordionRoundRect" class to domNode has the same effect.
 		roundRect: false,
 
 		/* internal properties */
@@ -222,7 +222,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblAccordion",
+		baseClass: "duiAccordion",
 
 		// _openSpace: [private] Number|String 
 		_openSpace: 1,
@@ -236,10 +236,10 @@ define([
 		startup: function(){
 			if(this._started){ return; }
 
-			if(domClass.contains(this.domNode, "mblAccordionRoundRect")){
+			if(domClass.contains(this.domNode, "duiAccordionRoundRect")){
 				this.roundRect = true;
 			}else if(this.roundRect){
-				domClass.add(this.domNode, "mblAccordionRoundRect");
+				domClass.add(this.domNode, "duiAccordionRoundRect");
 			}
 
 			if(this.fixedHeight){
@@ -288,7 +288,7 @@ define([
 				contentWidget: child
 			});
 			domConstruct.place(child._at.domNode, child.domNode, "before");
-			domClass.add(child.domNode, "mblAccordionPane");
+			domClass.add(child.domNode, "duiAccordionPane");
 			domAttr.set(child._at.textBoxNode, "aria-controls", child.domNode.id); // A11Y
 			domAttr.set(child.domNode, "role", "tabpanel"); // A11Y
 			domAttr.set(child.domNode, "aria-labelledby", child._at.id); // A11Y
@@ -364,9 +364,9 @@ define([
 			//		private
 			var children = this.getChildren();
 			array.forEach(children, function(c, i){
-				// add "mblAccordionTitleLast" to the last, closed accordion title
-				domClass.toggle(c._at.domNode, "mblAccordionTitleLast",
-					i === children.length - 1 && !domClass.contains(c._at.domNode, "mblAccordionTitleSelected"))
+				// add "duiAccordionTitleLast" to the last, closed accordion title
+				domClass.toggle(c._at.domNode, "duiAccordionTitleLast",
+					i === children.length - 1 && !domClass.contains(c._at.domNode, "duiAccordionTitleSelected"))
 			}, this);
 		},
 
@@ -437,7 +437,7 @@ define([
 					// non-fixed singleOpen mode.
 					if(!_this.fixedHeight && _this.singleOpen){
 						for(var v = _this.getParent(); v; v = v.getParent()){
-							if(domClass.contains(v.domNode, "mblView")){
+							if(domClass.contains(v.domNode, "duiView")){
 								if(v && v.resize){ v.resize(); }
 								break;
 							}

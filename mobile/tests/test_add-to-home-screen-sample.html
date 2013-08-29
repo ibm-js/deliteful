@@ -7,9 +7,9 @@
 	<title>Add to Home Screen</title>
 
 	<link href="../themes/common/domButtons/DomButtonSilverCircleRedCross.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Button','Tooltip']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Button','Tooltip']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -104,14 +104,14 @@
 <body style="visibility:hidden;">
 	<!-- sample code -->
 	<div id="dlgRef">
-		<div id="dlgBody" data-dojo-type="dojox/mobile/Tooltip" class="mblTooltipBubble">
+		<div id="dlgBody" data-dojo-type="dojox/mobile/Tooltip" class="duiTooltipBubble">
 			<table>
 				<tr>
 					<td><img alt="" src="images/tab-icon-12.png"></td>
 					<td width="99%"><b>Sample of &quot;Add to Home Screen&quot; notification</b><br><br>
 					This window will be hidden in ten seconds automatically.<br>
 					If you click the close button, the window is not displayed from next time until you click the &quot;Clear Cookie&quot; button.</td>
-					<td><div id="dlgClose" class="mblDomButtonSilverCircleRedCross" onclick="setCookie();dlgHide()"></div></td>
+					<td><div id="dlgClose" class="duiDomButtonSilverCircleRedCross" onclick="setCookie();dlgHide()"></div></td>
 				</tr>
 			</table>
 		</div>

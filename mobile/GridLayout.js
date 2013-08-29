@@ -17,11 +17,11 @@ define([
 		
 		// childItemClass: String
 		//		The name of the CSS class of grid items.
-		childItemClass: "mblGridItem",
+		childItemClass: "duiGridItem",
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblGridLayout",
+		baseClass: "duiGridLayout",
 		
 		// _tags: [private] String
 		_tags: "div",

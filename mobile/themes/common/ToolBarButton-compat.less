@@ -1,38 +1,38 @@
 /* dojox.mobile.ToolBarButton */
 .dj_gecko {
-	.mblToolBarButtonArrow {
+	.duiToolBarButtonArrow {
 		-moz-transform: scale(0.77, 1.05) rotate(45deg);
 	}
-	.mblHeading {
-		.mblToolBarButtonHasLeftArrow .mblToolBarButtonArrow {
-			.mblToolBarButtonHasLeftArrowInHeading-compat-gecko;
+	.duiHeading {
+		.duiToolBarButtonHasLeftArrow .duiToolBarButtonArrow {
+			.duiToolBarButtonHasLeftArrowInHeading-compat-gecko;
 		}
-		.mblToolBarButtonHasRightArrow .mblToolBarButtonArrow {
-			.mblToolBarButtonHasRightArrowInHeading-compat-gecko;
+		.duiToolBarButtonHasRightArrow .duiToolBarButtonArrow {
+			.duiToolBarButtonHasRightArrowInHeading-compat-gecko;
 		}
-		.mblToolBarButtonBody {
-			.mblToolBarButtonBodyInHeading-compat-gecko;
+		.duiToolBarButtonBody {
+			.duiToolBarButtonBodyInHeading-compat-gecko;
 		}
 	}
 }
 .dj_ff3 {
-	.mblToolBarButtonArrow {
+	.duiToolBarButtonArrow {
 		-moz-border-radius: 1px;
 	}
-	.mblToolBarButtonBody {
-		-moz-border-radius: @mbl-tool-bar-button-body-border-radius;
+	.duiToolBarButtonBody {
+		-moz-border-radius: @dui-tool-bar-button-body-border-radius;
 	}
-	.mblToolBarButtonHasLeftArrow .mblToolBarButtonBody {
+	.duiToolBarButtonHasLeftArrow .duiToolBarButtonBody {
 		-moz-border-radius-topleft: 0;
 		-moz-border-radius-bottomleft: 0;
 	}
-	.mblToolBarButtonHasRightArrow .mblToolBarButtonBody {
+	.duiToolBarButtonHasRightArrow .duiToolBarButtonBody {
 		-moz-border-radius-topright: 0;
 		-moz-border-radius-bottomright: 0;
 	}
 }
 .dj_ie {
-	.mblToolBarButtonLeftArrow {
+	.duiToolBarButtonLeftArrow {
 		top: 0;
 		left: -2px;
 		width: 13px;
@@ -41,11 +41,11 @@
 		border-radius: 0;
 		background-image: url(compat/arrow-button-head.png);
 	}
-	.mblToolBarButtonSelected .mblToolBarButtonLeftArrow {
+	.duiToolBarButtonSelected .duiToolBarButtonLeftArrow {
 		background-image: url(compat/arrow-button-head-sel.png);
 	}
 
-	.mblToolBarButtonRightArrow {
+	.duiToolBarButtonRightArrow {
 		top: 0;
 		right: -3px;
 		width: 13px;
@@ -54,31 +54,31 @@
 		border-radius: 0;
 		background-image: url(compat/arrow-button-right-head.png);
 	}
-	.mblToolBarButtonSelected .mblToolBarButtonRightArrow {
+	.duiToolBarButtonSelected .duiToolBarButtonRightArrow {
 		background-image: url(compat/arrow-button-right-head-sel.png);
 	}
 	
-	.mblToolBarButtonBody {
+	.duiToolBarButtonBody {
 		background-image: url(compat/arrow-button-bg.png);
 		background-position: left bottom;
 	}
-	.mblToolBarButtonBodySelected {
+	.duiToolBarButtonBodySelected {
 		background-image: url(compat/arrow-button-bg-sel.png);
 	}
-	.mblToolBarButtonBody table {
+	.duiToolBarButtonBody table {
 		margin: 0;
 	}
-	.mblToolBarButtonHasLeftArrow .mblToolBarButtonBody {
+	.duiToolBarButtonHasLeftArrow .duiToolBarButtonBody {
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 	}
-	.mblToolBarButtonHasRightArrow .mblToolBarButtonBody {
+	.duiToolBarButtonHasRightArrow .duiToolBarButtonBody {
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 	}
 }
 .dj_ie6 {
-	.mblToolBarButton .mblToolBarButtonBody {
+	.duiToolBarButton .duiToolBarButtonBody {
 	    background-position: left top;
 	}
 }

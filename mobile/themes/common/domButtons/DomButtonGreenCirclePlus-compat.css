@@ -1,9 +1,9 @@
 /* === Green Circle Plus Buttons ==*/
-.mblDomButtonGreenCirclePlus {
-	background-image: url(compat/mblDomButtonGreenCirclePlus.png);
+.duiDomButtonGreenCirclePlus {
+	background-image: url(compat/duiDomButtonGreenCirclePlus.png);
 	background-repeat: no-repeat;
 }
 
-.mblDomButtonGreenCirclePlus > div {
+.duiDomButtonGreenCirclePlus > div {
 	display: none;
 }

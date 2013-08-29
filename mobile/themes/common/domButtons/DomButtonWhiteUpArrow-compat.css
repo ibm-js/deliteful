@@ -1,8 +1,8 @@
 /* === Up Arrow Button ==*/
-.mblDomButtonWhiteUpArrow {
-	background-image: url(compat/mblDomButtonWhiteUpArrow.png);
+.duiDomButtonWhiteUpArrow {
+	background-image: url(compat/duiDomButtonWhiteUpArrow.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhiteUpArrow div {
+.duiDomButtonWhiteUpArrow div {
 	display: none;
 }

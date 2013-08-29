@@ -45,36 +45,36 @@
 	text-align: center;
 }
 
-.alertBtns .mblButton {
+.alertBtns .duiButton {
 	width: 100%;
 	margin-top: 5px;
 }
 
-.alertDialog.mblOut {
+.alertDialog.duiOut {
 	position: absolute;
 }
 
-.alertDialog.mblIn {
+.alertDialog.duiIn {
 	position: absolute;
 }
 
-.mblSlidev.mblOut {
+.duiSlidev.duiOut {
 	-webkit-animation-duration: .4s;
-	-webkit-animation-name: mblSlideOut;
+	-webkit-animation-name: duiSlideOut;
 	-webkit-animation-timing-function: linear;
 	-webkit-transform: translateY(-100%);
 }
-.mblSlidev.mblIn {
+.duiSlidev.duiIn {
 	-webkit-animation-duration: .4s;
-	-webkit-animation-name: mblSlideIn;
+	-webkit-animation-name: duiSlideIn;
 	-webkit-animation-timing-function: linear;
 	-webkit-transform: translateY(0px);
 }
-.mblSlidev.mblOut.mblReverse {
-	-webkit-animation-name: mblSlideOutReverse;
+.duiSlidev.duiOut.duiReverse {
+	-webkit-animation-name: duiSlideOutReverse;
 }
-.mblSlidev.mblIn.mblReverse {
-	-webkit-animation-name: mblSlideInReverse;
+.duiSlidev.duiIn.duiReverse {
+	-webkit-animation-name: duiSlideInReverse;
 }
 
 .dialogUnderlayWrapper {
@@ -102,7 +102,7 @@
 	background-color: black;
 	z-index: 6; /* Must be greater than the .buttons z-index */
 }
-.list .row.mblListItem {
+.list .row.duiListItem {
 	padding: 0px;
 }
 
@@ -123,7 +123,7 @@
 	z-index: 5;
 }
 
-.list .buttons .mblButton {
+.list .buttons .duiButton {
 }
 
 .list .buttons .deleteBtn {
@@ -175,12 +175,12 @@
  	border-bottom: none;
 }
 
-.mblImageView, .mblImageView canvas {
+.duiImageView, .duiImageView canvas {
 	width: 100%;
 	height: 100%;
 }
 
-.mblPillar {
+.duiPillar {
 	display: none;
 }
 
@@ -192,14 +192,14 @@ input {
 
 
 /* ImageThumbView styles */
-.mblImageThumbView {
+.duiImageThumbView {
 	position: relative;
 	-webkit-transition-property: height;
 	-webkit-transition-duration: 0.8s;
 	-webkit-transition-delay: 0;
 }
 
-.mblImageThumbView .mblThumb {
+.duiImageThumbView .duiThumb {
 	width: 100px;
 	min-height: 100px;
 	display: inline-block;
@@ -207,23 +207,23 @@ input {
 	position: absolute;
 }
 
-.mblImageThumbView.animated .mblThumb {
+.duiImageThumbView.animated .duiThumb {
 	-webkit-transition-property: -webkit-transform, opacity;
 	-webkit-transition-duration: 1.3s, 1s;
 	-webkit-transition-delay: 0, 0;
 }
 
-.mblImageThumbView .mblThumb.hidden {
+.duiImageThumbView .duiThumb.hidden {
 	z-index: 1;
 	opacity: 0;
 }
-.mblImageThumbView .mblThumbInner {
+.duiImageThumbView .duiThumbInner {
 	width: 102px;
 	height: 102px;
 	position: relative;
 }
 
-.mblImageThumbView .mblThumbOverlay {
+.duiImageThumbView .duiThumbOverlay {
 	width: 102px;
 	height: 102px;
 	background: url(images/thumb-overlay.png) center top no-repeat;
@@ -231,10 +231,10 @@ input {
 	z-index: 20;
 	overflow: hidden;
 }
-.mblImageThumbView .mblThumb.selected .mblThumbOverlay {
+.duiImageThumbView .duiThumb.selected .duiThumbOverlay {
 	background-position: center bottom;
 }
-.mblImageThumbView .mblThumbInner .mblThumbMask {
+.duiImageThumbView .duiThumbInner .duiThumbMask {
 	width: 90px;
 	height: 90px;
 	overflow: hidden;
@@ -242,14 +242,14 @@ input {
 	padding-top: 5px;
 	z-index: 10;
 }
-.mblImageThumbView .mblThumbInner .mblThumbMask img {
+.duiImageThumbView .duiThumbInner .duiThumbMask img {
 	left: 0px;
 	top: 0px;
 	width: 90px;
 	height: 90px;
 }
 
-.mblImageThumbView .mblThumbInner .mblThumbMask .mblThumbSrc {
+.duiImageThumbView .duiThumbInner .duiThumbMask .duiThumbSrc {
 	left: 6px;
 	top: 5px;
 	background-position: center center;
@@ -263,77 +263,77 @@ input {
 	z-index: 5;
 }
 
-.mblImageThumbView .mblThumbMask div {
+.duiImageThumbView .duiThumbMask div {
 	left: 0px;
 	top: 0px;
 	width: 90px;
 	height: 90px;
 	background-repeat: no-repeat;
 }
-.mblImageThumbView .mblThumb:hover,
-.mblImageThumbView .mblThumb.selected {
+.duiImageThumbView .duiThumb:hover,
+.duiImageThumbView .duiThumb.selected {
 	-webkit-transform: scale(1.2);
 	transform: scale(1.2);
 }
 
 /* Large Images */
-.mblImageThumbView.large .mblThumb {
+.duiImageThumbView.large .duiThumb {
 	width: 150px;
 	min-height: 150px;
 }
 
-.mblImageThumbView.large .mblThumbInner{
+.duiImageThumbView.large .duiThumbInner{
 	width: 152px;
 	height: 152px;
 }
 
-.mblImageThumbView.large .mblThumbOverlay {
+.duiImageThumbView.large .duiThumbOverlay {
 	background: url(images/thumb-overlay-large.png) center top no-repeat;
 	width: 152px;
 	height: 152px;
 }
-.mblImageThumbView.large .mblThumbInner .mblThumbMask,
-.mblImageThumbView.large .mblThumbInner .mblThumbMask img,
-.mblImageThumbView.large .mblThumbInner .mblThumbMask .mblThumbSrc,
-.mblImageThumbView.large .mblThumbMask div {
+.duiImageThumbView.large .duiThumbInner .duiThumbMask,
+.duiImageThumbView.large .duiThumbInner .duiThumbMask img,
+.duiImageThumbView.large .duiThumbInner .duiThumbMask .duiThumbSrc,
+.duiImageThumbView.large .duiThumbMask div {
 	width: 133px;
 	height: 133px;
 }
 
-.mblImageThumbView.large .mblThumbInner .mblThumbMask .mblThumbSrc {
+.duiImageThumbView.large .duiThumbInner .duiThumbMask .duiThumbSrc {
 	left: 9px;
 	top: 7px;
 }
 /* Small Images */
-.mblImageThumbView.small .mblThumb {
+.duiImageThumbView.small .duiThumb {
 	width: 75px;
 	min-height: 75px;
 }
 
-.mblImageThumbView.small .mblThumbInner{
+.duiImageThumbView.small .duiThumbInner{
 	width: 77px;
 	height: 77px;
 }
 
-.mblImageThumbView.small .mblThumbOverlay {
+.duiImageThumbView.small .duiThumbOverlay {
 	background: url(images/thumb-overlay-small.png) center top no-repeat;
 	width: 77px;
 	height: 77px;
 }
-.mblImageThumbView.small .mblThumbInner .mblThumbMask,
-.mblImageThumbView.small .mblThumbInner .mblThumbMask img,
-.mblImageThumbView.small .mblThumbInner .mblThumbMask .mblThumbSrc,
-.mblImageThumbView.small .mblThumbMask div {
+.duiImageThumbView.small .duiThumbInner .duiThumbMask,
+.duiImageThumbView.small .duiThumbInner .duiThumbMask img,
+.duiImageThumbView.small .duiThumbInner .duiThumbMask .duiThumbSrc,
+.duiImageThumbView.small .duiThumbMask div {
 	width: 70px;
 	height: 70px;
 }
 
-.mblImageThumbView.small .mblThumbInner .mblThumbMask .mblThumbSrc {
+.duiImageThumbView.small .duiThumbInner .duiThumbMask .duiThumbSrc {
 	left: 4px;
 	top: 3px;
 }
 
-.mblImageThumbView .mblThumbLabel {
+.duiImageThumbView .duiThumbLabel {
 	font-size: smaller;
 	overflow: hidden;
 	white-space: nowrap;
@@ -341,9 +341,9 @@ input {
 }
 
 /* Back Button */
-.mblNativeBack .mblBackButtonHead, /* 1.8 */
-.mblNativeBack .mblBackButtonBody, /* 1.8 */
-.mblNativeBack .mblBackButtonNeck { /* 1.8 */
+.duiNativeBack .duiBackButtonHead, /* 1.8 */
+.duiNativeBack .duiBackButtonBody, /* 1.8 */
+.duiNativeBack .duiBackButtonNeck { /* 1.8 */
 	display: none;
 }
 

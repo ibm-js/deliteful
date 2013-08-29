@@ -24,10 +24,10 @@ define([
 			this.inherited(arguments);
 			// dojox.mobile mirroring support
 			if(!this.isLeftToRight()){
-				domClass.add(this.left, "mblSwitchBgLeftRtl");
-				domClass.add(this.left.firstChild, "mblSwitchTextLeftRtl");
-				domClass.add(this.right, "mblSwitchBgRightRtl");
-				domClass.add(this.right.firstChild, "mblSwitchTextRightRtl");				
+				domClass.add(this.left, "duiSwitchBgLeftRtl");
+				domClass.add(this.left.firstChild, "duiSwitchTextLeftRtl");
+				domClass.add(this.right, "duiSwitchBgRightRtl");
+				domClass.add(this.right.firstChild, "duiSwitchTextRightRtl");				
 			}
 		},
 		_newState: function(newState){

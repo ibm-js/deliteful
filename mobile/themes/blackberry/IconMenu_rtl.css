@@ -1,7 +1,7 @@
-.mblIconMenuItemRtl {
+.duiIconMenuItemRtl {
   float: right;
 }
-.mblIconMenuItemFirstColumn {
+.duiIconMenuItemFirstColumn {
   border-right: none;
   border-left: 1px solid #000000;
 }

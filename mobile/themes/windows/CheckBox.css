@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.CheckBox */
-.mblCheckBox {
+.duiCheckBox {
   position: relative;
   margin: -0.5em 3px 0.3em 4px;
   width: 1em;
@@ -35,8 +35,8 @@
   transform: none;
   z-index: 1;
 }
-.mblCheckBoxChecked::after,
-.mblCheckBox:checked::after {
+.duiCheckBoxChecked::after,
+.duiCheckBox:checked::after {
   position: absolute;
   content: "";
   width: 0.3em;
@@ -51,11 +51,11 @@
   transform-origin: 50% 50%;
   border-color: black;
 }
-.mblCheckBoxChecked.mblCheckBoxSelected::after,
-.mblCheckBox:checked.mblCheckBoxSelected::after {
+.duiCheckBoxChecked.duiCheckBoxSelected::after,
+.duiCheckBox:checked.duiCheckBoxSelected::after {
   border-color: white;
 }
-.mblCheckBox + .mblCheckableInputDecorator:before {
+.duiCheckBox + .duiCheckableInputDecorator:before {
   content: '';
   width: 20px;
   height: 20px;
@@ -68,26 +68,26 @@
   margin-top: 8px;
   margin-bottom: 8px;
 }
-.mblCheckBox:not([disabled]):active + .mblCheckableInputDecorator:before,
-.mblCheckBox:not([disabled]) + .mblCheckableInputDecorator:active:before {
+.duiCheckBox:not([disabled]):active + .duiCheckableInputDecorator:before,
+.duiCheckBox:not([disabled]) + .duiCheckableInputDecorator:active:before {
   background-color: Highlight;
 }
-.mblCheckBoxChecked + .mblCheckableInputDecorator:before {
+.duiCheckBoxChecked + .duiCheckableInputDecorator:before {
   background-image: url("images/dark/check.png");
   background-position: 50% 50%;
   background-size: 32px 32px;
   background-repeat: no-repeat;
 }
-.mblCheckBox[disabled] + .mblCheckableInputDecorator:before {
+.duiCheckBox[disabled] + .duiCheckableInputDecorator:before {
   border-color: #808080;
 }
-.mblCheckBox[disabled].mblCheckBoxChecked + .mblCheckableInputDecorator:before {
+.duiCheckBox[disabled].duiCheckBoxChecked + .duiCheckableInputDecorator:before {
   background-image: url("images/check-disabled.png");
   background-position: 50% 50%;
   background-size: 32px 32px;
   background-repeat: no-repeat;
 }
-.mblCheckableInputContainer + label {
+.duiCheckableInputContainer + label {
   color: #ffffff;
   margin: 0 5px 0 5px;
   margin-top: 8px;

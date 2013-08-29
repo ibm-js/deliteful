@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<title>Bidi Mobile test - List</title>
 
-	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true,  has: { 'dojo-bidi': true }"></script>
 
@@ -32,10 +32,10 @@
 				heading = new Heading({label:"Created programmatically EdgeToEdgeList, textDir is set to ListItem"});
 				view.addChild(heading);
 				list = new EdgeToEdgeList({iconBase:"../images/i-icon-all.png", textDir:"rtl"});
-				demoWidget = new ListItem({iconPos:"0,87,29,29", textDir:"rtl", rightIcon:"mblDomButtonBluePlus", label:"\u05e9\u05dc\u05d5\u05dd item1!"});
+				demoWidget = new ListItem({iconPos:"0,87,29,29", textDir:"rtl", rightIcon:"duiDomButtonBluePlus", label:"\u05e9\u05dc\u05d5\u05dd item1!"});
 				list.addChild(demoWidget);
 
-				demoWidget = new ListItem({iconPos:"0,116,29,29", textDir:"rtl", rightIcon:"mblDomButtonRedMinus", label:"RTL textDir set to ListItem!", rightText:"\u05e9\u05dc\u05d5\u05dd item2!"});
+				demoWidget = new ListItem({iconPos:"0,116,29,29", textDir:"rtl", rightIcon:"duiDomButtonRedMinus", label:"RTL textDir set to ListItem!", rightText:"\u05e9\u05dc\u05d5\u05dd item2!"});
 				list.addChild(demoWidget);
 
 				view.addChild(list);

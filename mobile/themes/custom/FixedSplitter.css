@@ -1,19 +1,19 @@
 /* dojox.mobile.FixedSplitter */
-.mblFixedSplitter {
+.duiFixedSplitter {
   width: 100%;
   height: 100%;
 }
 /* For FixedSplitter's child panes */
-.mblFixedSplitter > * {
+.duiFixedSplitter > * {
   position: absolute;
   overflow-x: hidden;
   overflow-y: auto;
 }
-.mblFixedSplitterH > * {
+.duiFixedSplitterH > * {
   height: 100%;
   top: 0px;
 }
-.mblFixedSplitterV > * {
+.duiFixedSplitterV > * {
   width: 100%;
   left: 0px;
 }

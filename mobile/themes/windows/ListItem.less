@@ -4,37 +4,37 @@
 @import "variables.less";
 @import "../common/ListItem.less";
 
-.mblListItem {
+.duiListItem {
 	.default-vertical-margin;
 
-	& .mblListItemLabel {
+	& .duiListItemLabel {
 		&:active {
 			color: @win-accent-color;
 		}
 
 		&:first-child {
-			margin-left: @mbl-list-item-height + 10px;
+			margin-left: @dui-list-item-height + 10px;
 			overflow: visible;
 
 			&:before {
 				content: '';
-				width: @mbl-list-item-height;
-				height: @mbl-list-item-height;
+				width: @dui-list-item-height;
+				height: @dui-list-item-height;
 				background-color: @win-app-bar-color;
 				position: absolute;
-				margin-left: -@mbl-list-item-height - 10px;
+				margin-left: -@dui-list-item-height - 10px;
 		  }
 		}
 	}
 
-	& .mblListItemIcon {
-		height: @mbl-list-item-height;
-		width: @mbl-list-item-height;
+	& .duiListItemIcon {
+		height: @dui-list-item-height;
+		width: @dui-list-item-height;
 		margin: 0 10px 0 0;
 	}
 
-	& .mblListItemEmptyIcon {
-		padding-top: @mbl-list-item-height;
+	& .duiListItemEmptyIcon {
+		padding-top: @dui-list-item-height;
 		background-color: @win-app-bar-color;
 	}
 }

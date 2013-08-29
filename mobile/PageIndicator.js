@@ -30,11 +30,11 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblPageIndicator",
+		baseClass: "duiPageIndicator",
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			this._tblNode = domConstruct.create("table", {className:"mblPageIndicatorContainer"}, this.domNode);
+			this._tblNode = domConstruct.create("table", {className:"duiPageIndicatorContainer"}, this.domNode);
 			this._tblNode.insertRow(-1);
 			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
 			this.own(topic.subscribe("/dojox/mobile/viewChanged", lang.hitch(this, "reset")));
@@ -64,7 +64,7 @@ define([
 				domConstruct.empty(r);
 				for(i = 0; i < a.length; i++){
 					c = a[i];
-					dot = domConstruct.create("div", {className:"mblPageIndicatorDot"});
+					dot = domConstruct.create("div", {className:"duiPageIndicatorDot"});
 					r.insertCell(-1).appendChild(dot);
 				}
 			}
@@ -73,9 +73,9 @@ define([
 			for(i = 0; i < r.cells.length; i++){
 				dot = r.cells[i].firstChild;
 				if(a[i] === currentView.domNode){
-					domClass.add(dot, "mblPageIndicatorDotSelected");
+					domClass.add(dot, "duiPageIndicatorDotSelected");
 				}else{
-					domClass.remove(dot, "mblPageIndicatorDotSelected");
+					domClass.remove(dot, "duiPageIndicatorDotSelected");
 				}
 			}
 		},
@@ -83,7 +83,7 @@ define([
 		isView: function(node){
 			// summary:
 			//		Returns true if the given node is a view.
-			return (node && node.nodeType === 1 && domClass.contains(node, "mblView")); // Boolean
+			return (node && node.nodeType === 1 && domClass.contains(node, "duiView")); // Boolean
 		},
 
 		_onClick: function(e){

@@ -7,7 +7,7 @@
 	<title>Test Opener with DateSpinWheel</title>
 
 	<link href="../themes/common/dijit/dijit.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Overlay','Tooltip','SpinWheel']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Overlay','Tooltip','SpinWheel']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -38,10 +38,10 @@
 		html, body{
 			overflow: hidden;
 		}
-		.mblTooltip.mblOpener DIV[label='Cancel'] {
+		.duiTooltip.duiOpener DIV[label='Cancel'] {
 			display: none;
 		}
-		.windows_theme .mblToolBarButton {
+		.windows_theme .duiToolBarButton {
 			width: 100% !important;
 		}
 	</style>
@@ -57,9 +57,9 @@
 
 	<div id="datePicker" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getDate, onShow:setDate">
  		<h1 data-dojo-type="dojox/mobile/Heading" label="Date Picker">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('datePicker').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('datePicker').hide(false)"></span>
 		</h1>
 		<div id="spin1" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>

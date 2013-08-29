@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,12 +13,12 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Heading */
-.mblHeading {
+.duiHeading {
   background-image: url(compat/heading-bg.png);
 }
-.mblHeadingSpanTitle {
+.duiHeadingSpanTitle {
   white-space: normal;
 }
-.dj_gecko .mblHeading {
+.dj_gecko .duiHeading {
   background-image: none;
 }

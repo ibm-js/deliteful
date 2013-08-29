@@ -1,5 +1,5 @@
 /* dojox.mobile.RadioButton */
-.mblRadioButton {
+.duiRadioButton {
   position: relative;
   margin: -0.5em 3px 0.3em 4px;
   width: 1em;
@@ -18,13 +18,13 @@
   border-style: solid;
   border-color: #c0c0c0;
 }
-.mblRadioButtonChecked,
-.mblRadioButton:checked {
+.duiRadioButtonChecked,
+.duiRadioButton:checked {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2e2e2));
   background-image: linear-gradient(to bottom, #ffffff 0%, #e2e2e2 100%);
 }
-.mblRadioButtonChecked::after,
-.mblRadioButton:checked::after {
+.duiRadioButtonChecked::after,
+.duiRadioButton:checked::after {
   position: absolute;
   content: "";
   width: 0.3em;
@@ -39,12 +39,12 @@
   transform-origin: 50% 50%;
   border-color: #000000;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected,
-.mblRadioButton:checked.mblRadioButtonSelected {
+.duiRadioButtonChecked.duiRadioButtonSelected,
+.duiRadioButton:checked.duiRadioButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
 }
-.mblRadioButtonChecked.mblRadioButtonSelected::after,
-.mblRadioButton:checked.mblRadioButtonSelected::after {
+.duiRadioButtonChecked.duiRadioButtonSelected::after,
+.duiRadioButton:checked.duiRadioButtonSelected::after {
   border-color: #ffffff;
 }

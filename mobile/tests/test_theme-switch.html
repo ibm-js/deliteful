@@ -7,7 +7,7 @@
 	<title>Dynamic Theme Switch</title>
 
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblThemeFiles: ['base','TabBar']"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiThemeFiles: ['base','TabBar']"></script>
 
 	<script type="text/javascript">
 		require([
@@ -27,12 +27,12 @@
 		color: #0B5199;
 		text-decoration: none;
 	}
-	.mblColorPink {
+	.duiColorPink {
 		background-image: -webkit-gradient(linear, left top, left bottom, from(#ff9DE9), to(#cc62DD), color-stop(0.5, #ff6EDF), color-stop(0.5, #ff5FDC));
 		background-image: -moz-linear-gradient(top, #ff9DE9 0%, #ff6EDF 50%, #ff5FDC 50%, #cc62DD 100%);
 		background-color: pink;
 	}
-	.mblColorPink45 {
+	.duiColorPink45 {
 		background-image: -webkit-gradient(linear, left top, right bottom, from(#ff9DE9), to(#cc62DD), color-stop(0.5, #ff6EDF), color-stop(0.5, #ff5FDC));
 		background-image: -moz-linear-gradient(top left, #ff9DE9 0%, #ff6EDF 50%, #ff5FDC 50%, #cc62DD 100%);
 	}
@@ -40,7 +40,7 @@
 		overflow: visible;
 		height: auto;
 	}
-	#themeHeading .mblTabBarSlimTab {
+	#themeHeading .duiTabBarSlimTab {
   		display: inline;
   		float: left;
   		height: auto;
@@ -59,7 +59,7 @@
 			</ul>
 		</div>
 	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
-		<span data-dojo-type="dojox/mobile/ToolBarButton" arrow="left" defaultColor="mblColorBlue" selColor="mblColorPink">MMMM</span>
+		<span data-dojo-type="dojox/mobile/ToolBarButton" arrow="left" defaultColor="duiColorBlue" selColor="duiColorPink">MMMM</span>
 		<span data-dojo-type="dojox/mobile/ToolBarButton" arrow="right">MMMM</span>
 	</div>
 		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Dynamic Theme Switch</h2>

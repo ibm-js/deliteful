@@ -1,5 +1,5 @@
 /* dojox.mobile.RadioButton */
-.mblRadioButton {
+.duiRadioButton {
 	position: relative;
 	margin: -0.5em 3px 0.3em 4px;
 	width: 1em;
@@ -7,17 +7,17 @@
 	border-style: outset;
 	border-width: 1px;
 	border-radius: 0.5em;
-	.mbl-button-background-image();
+	.dui-button-background-image();
 	font: inherit;
 	cursor: pointer;
 	.appearance(none);
 	.tap-highlight-color(rgba(255,255,255,0));
 	.transform(translateY(0.45em));
-	.mblRadioButton-styles;
+	.duiRadioButton-styles;
 }
-.mblRadioButtonChecked,
-.mblRadioButton:checked {
-	.mbl-button-checked-background-image();
+.duiRadioButtonChecked,
+.duiRadioButton:checked {
+	.dui-button-checked-background-image();
 	&::after {
 		position: absolute;
 		content: "";
@@ -29,12 +29,12 @@
 		border-style: none solid solid none;
 		.transform(rotate(45deg));
 		.transform-origin(50% 50%);
-		.mblRadioButtonChecked-after-styles;
+		.duiRadioButtonChecked-after-styles;
 	}
-	&.mblRadioButtonSelected {
-		.mbl-blue-button-selected-background-image();
+	&.duiRadioButtonSelected {
+		.dui-blue-button-selected-background-image();
 		&::after {
-			.mblRadioButtonChecked-Selected-after-styles;
+			.duiRadioButtonChecked-Selected-after-styles;
 		}
 	}	
 }

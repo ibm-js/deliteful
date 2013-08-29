@@ -74,7 +74,7 @@ define([
 				}
 				params.fixedFooterHeight = node.offsetHeight;
 			}
-			this.scrollType = this.scrollType || config["mblScrollableScrollType"] || 0;
+			this.scrollType = this.scrollType || config["duiScrollableScrollType"] || 0;
 			this.init(params);
 			if(this.allowNestedScrolls){
 				for(var p = this.getParent(); p; p = p.getParent()){
@@ -122,14 +122,14 @@ define([
 				var fixed = node.getAttribute("data-mobile-fixed")
 					|| (registry.byNode(node) && registry.byNode(node).fixed);
 				if(fixed === "top"){
-					domClass.add(node, "mblFixedHeaderBar");
+					domClass.add(node, "duiFixedHeaderBar");
 					if(local){
 						node.style.top = "0px";
 						this.fixedHeader = node;
 					}
 					return fixed;
 				}else if(fixed === "bottom"){
-					domClass.add(node, "mblFixedBottomBar");
+					domClass.add(node, "duiFixedBottomBar");
 					if(local){
 						this.fixedFooter = node;
 					}else{

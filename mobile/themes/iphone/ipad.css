@@ -1,7 +1,7 @@
 /* dojox.mobile.View */
 
 /* dojox.mobile.Heading */
-.dj_tablet .mblHeading {
+.dj_tablet .duiHeading {
 	background: -webkit-gradient(linear, left top, left bottom, from(#f3f4f6), to(#a7abb8));
 	border-top: 1px solid #fefefe;
 	border-bottom: 1px solid #787e8f;
@@ -10,49 +10,49 @@
 }
 
 /* dojox.mobile.ToolBarButton */
-.dj_tablet .mblToolBarButton {
+.dj_tablet .duiToolBarButton {
 	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
 }
-.dj_tablet .mblHeading .mblToolBarButtonArrow {
+.dj_tablet .duiHeading .duiToolBarButtonArrow {
 	border-color: #60656f #60656f #5a5c5f #5a5c5f;
 }
-.dj_tablet .mblHeading .mblToolBarButtonBody {
+.dj_tablet .duiHeading .duiToolBarButtonBody {
 	border-color: #4e4f51 #60656f #565b64 #5a5c5f;
 }
 
 /*Headings and Button styles are overridden in Tooltips*/
-.dj_tablet .mblTooltip .mblHeading { 
+.dj_tablet .duiTooltip .duiHeading { 
 	color: white;
 	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
 }
 
 /* dojox.mobile.RoundRect */
-.dj_tablet .mblRoundRect {
+.dj_tablet .duiRoundRect {
 	margin: 7px 30px 30px 30px;
 }
-.dj_tablet .mblHeading + .mblRoundRect {
+.dj_tablet .duiHeading + .duiRoundRect {
 	margin-top: 30px;
 }
 
 /* dojox.mobile.EdgeToEdgeCategory */
 /* dojox.mobile.RoundRectCategory */
-.dj_tablet .mblRoundRectCategory {
+.dj_tablet .duiRoundRectCategory {
 	margin: 18px 0px 0px 41px;
 }
 
 /* dojox.mobile.RoundRectList */
-.dj_tablet .mblRoundRectList {
+.dj_tablet .duiRoundRectList {
 	margin: 7px 30px 30px 30px;
 }
-.dj_tablet .mblRoundRectList:first-child {
+.dj_tablet .duiRoundRectList:first-child {
 	margin-top: 25px;
 }
-.dj_tablet .mblHeading + .mblRoundRectList {
+.dj_tablet .duiHeading + .duiRoundRectList {
 	margin-top: 30px;
 }
 
 /* dojox.mobile.SearchBox */
-.dj_tablet .mblFilteredRoundRectListSearchBox {
+.dj_tablet .duiFilteredRoundRectListSearchBox {
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -67,23 +67,23 @@
 /* Progress Indicator */
 
 /* dojox.mobile.TabBar */
-.dj_tablet .mblTabBar {
+.dj_tablet .duiTabBar {
 	color: #70777f;
 	text-shadow: rgba(255,255,255,0.6) 0px 1px 0px;
 }
 /* barType=tabBar */
-.dj_tablet .mblTabBarTabBar {
+.dj_tablet .duiTabBarTabBar {
 	border-top: 1px solid #000000;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#2d2d2d), to(#000000), color-stop(0.5, #141414), color-stop(0.5, #000000));
 }
 /* barType=segmentedControl */
-.dj_tablet .mblTabBarSegmentedControl,
-.dj_tablet .mblTabBarStandardTab {
+.dj_tablet .duiTabBarSegmentedControl,
+.dj_tablet .duiTabBarStandardTab {
 	border-top: 1px solid #fefefe;
 	border-bottom: 1px solid #787e8f;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f3f4f6), to(#a7abb8));
 }
-.dj_tablet .mblTabBarSegmentedControl .mblTabBarButton {
+.dj_tablet .duiTabBarSegmentedControl .duiTabBarButton {
 	background-color: #889bb3;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f3f4f6), to(#a7abb8));
 	border-color: #4e4f51 #60656f #565b64 #5a5c5f;
@@ -91,42 +91,42 @@
 	text-shadow: none;
 }
 
-.dj_tablet .mblTabBarSegmentedControl .mblTabBarButtonSelected {
+.dj_tablet .duiTabBarSegmentedControl .duiTabBarButtonSelected {
 	color: white;
 	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
 	background-color: #8b919a;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#b1b5bb), to(#6a727d));
 }
-.dj_tablet .mblHeading .mblTabBarSegmentedControl {
+.dj_tablet .duiHeading .duiTabBarSegmentedControl {
  	border: none;
 }
 /* barType=standardTab */
-.dj_tablet .mblTabBarStandardTab .mblTabBarButton {
+.dj_tablet .duiTabBarStandardTab .duiTabBarButton {
 	color: #000000;
 	text-shadow: rgba(255, 255, 255, 0.6) 0px 1px 0px;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0f2), to(#959da0));
 }
-.dj_tablet .mblTabBarStandardTab .mblTabBarButtonSelected {
+.dj_tablet .duiTabBarStandardTab .duiTabBarButtonSelected {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f3f4f6), to(#f2f3f7));
 }
 /* barType=flatTab */
-.dj_tablet .mblTabBarFlatTab .mblTabBarButton {
+.dj_tablet .duiTabBarFlatTab .duiTabBarButton {
 	color: white;
 }
 
 /* Default Button Colors */
-.dj_tablet .mblColorDefault {
+.dj_tablet .duiColorDefault {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#b1b5bb), to(#6a727d));
 }
 
-.dj_tablet .mblColorDefault45 {
+.dj_tablet .duiColorDefault45 {
 	background-image: -webkit-gradient(linear, left top, right bottom, from(#b1b5bb), to(#6a727d));
 }
 
-.dj_tablet .mblColorDefaultSel {
+.dj_tablet .duiColorDefaultSel {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#7a7e85), to(#303845));
 }
 
-.dj_tablet .mblColorDefaultSel45 {
+.dj_tablet .duiColorDefaultSel45 {
 	background-image: -webkit-gradient(linear, left top, right bottom, from(#7a7e85), to(#303845));
 }

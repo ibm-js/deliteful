@@ -34,7 +34,7 @@ define([
 		buildRendering: function(){
 			this.initSlots();
 			this.inherited(arguments);
-			domClass.add(this.domNode, "mblSpinWheelDatePicker");
+			domClass.add(this.domNode, "duiSpinWheelDatePicker");
 			this._conn = [
 				this.own(aspect.after(this.slots[0], "onFlickAnimationEnd", lang.hitch(this, "_onYearSet")))[0],
 				this.own(aspect.after(this.slots[1], "onFlickAnimationEnd", lang.hitch(this, "_onMonthSet")))[0],
@@ -48,7 +48,7 @@ define([
 			//		number of days of the month.
 			array.forEach(this.slots[2].panelNodes, function(panel){
 				for(var i = 27; i < 31; i++){
-					domClass.toggle(panel.childNodes[i], "mblSpinWheelSlotLabelGray", i >= daysInMonth);
+					domClass.toggle(panel.childNodes[i], "duiSpinWheelSlotLabelGray", i >= daysInMonth);
 				}
 			});
 		}

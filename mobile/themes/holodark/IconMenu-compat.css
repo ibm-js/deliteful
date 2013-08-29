@@ -1,34 +1,34 @@
 /* dojox.mobile.IconMenu */
-.mblIconMenu {
+.duiIconMenu {
   background-color: #404040;
 }
-.mblIconMenuItemSel {
+.duiIconMenuItemSel {
   background-color: #3578b1;
 }
-.dj_gecko .mblIconMenu {
+.dj_gecko .duiIconMenu {
   background-color: rgba(64, 64, 64, 0.85);
 }
-.dj_gecko .mblIconMenuItem {
+.dj_gecko .duiIconMenuItem {
   -moz-box-sizing: border-box;
 }
-.dj_gecko .mblIconMenuItemSel {
+.dj_gecko .duiIconMenuItemSel {
   background-color: #3578b1;
 }
-.dj_ff3 .mblIconMenu {
+.dj_ff3 .duiIconMenu {
   -moz-border-radius: 6px;
 }
-.dj_ff3 .mblIconMenuItemIcon img {
+.dj_ff3 .duiIconMenuItemIcon img {
   border: 1px solid red;
 }
-.dj_ff3 .mblIconMenuItemFirstRow.mblIconMenuItemFirstColumn {
+.dj_ff3 .duiIconMenuItemFirstRow.duiIconMenuItemFirstColumn {
   -moz-border-top-left-radius: 6px;
 }
-.dj_ff3 .mblIconMenuItemFirstRow.mblIconMenuItemLastColumn {
+.dj_ff3 .duiIconMenuItemFirstRow.duiIconMenuItemLastColumn {
   -moz-border-top-right-radius: 6px;
 }
-.dj_ff3 .mblIconMenuItemLastRow.mblIconMenuItemFirstColumn {
+.dj_ff3 .duiIconMenuItemLastRow.duiIconMenuItemFirstColumn {
   -moz-border-bottom-left-radius: 6px;
 }
-.dj_ff3 .mblIconMenuItemLastRow.mblIconMenuItemLastColumn {
+.dj_ff3 .duiIconMenuItemLastRow.duiIconMenuItemLastColumn {
   -moz-border-bottom-right-radius: 6px;
 }

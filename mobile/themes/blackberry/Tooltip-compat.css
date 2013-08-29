@@ -1,31 +1,31 @@
 /* dojox.mobile.Tooltip */
-.mblTooltip {
+.duiTooltip {
   background-image: none;
 }
-.dj_ff3 .mblTooltip {
+.dj_ff3 .duiTooltip {
   -moz-border-radius: 6px;
 }
-.dj_ie9 .mblTooltip .mblHeading {
+.dj_ie9 .duiTooltip .duiHeading {
   width: auto;
 }
-.dj_ie6 .mblTooltipBefore .mblTooltipArrow,
-.dj_ie7 .mblTooltipBefore .mblTooltipArrow {
+.dj_ie6 .duiTooltipBefore .duiTooltipArrow,
+.dj_ie7 .duiTooltipBefore .duiTooltipArrow {
   right: 0;
 }
-.dj_ie6 .mblTooltipAbove .mblTooltipArrow,
-.dj_ie7 .mblTooltipAbove .mblTooltipArrow {
+.dj_ie6 .duiTooltipAbove .duiTooltipArrow,
+.dj_ie7 .duiTooltipAbove .duiTooltipArrow {
   bottom: 0;
 }
-.dj_ie6 .mblTooltipBefore .mblTooltipInnerArrow,
-.dj_ie7 .mblTooltipBefore .mblTooltipInnerArrow {
+.dj_ie6 .duiTooltipBefore .duiTooltipInnerArrow,
+.dj_ie7 .duiTooltipBefore .duiTooltipInnerArrow {
   right: -1px;
 }
-.dj_ie6 .mblTooltipAbove .mblTooltipInnerArrow,
-.dj_ie7 .mblTooltipAbove .mblTooltipInnerArrow {
+.dj_ie6 .duiTooltipAbove .duiTooltipInnerArrow,
+.dj_ie7 .duiTooltipAbove .duiTooltipInnerArrow {
   bottom: -1px;
 }
-.dj_ie6 .mblTooltip .mblHeading,
-.dj_ie7 .mblTooltip .mblHeading {
+.dj_ie6 .duiTooltip .duiHeading,
+.dj_ie7 .duiTooltip .duiHeading {
   padding: 0 9px 12px;
   border-top: 1px solid #424142;
   border-bottom: 1px solid #424142;
@@ -34,7 +34,7 @@
   overflow: visible;
   line-height: normal;
 }
-.dj_ie6 .mblTooltip .mblHeading .mblToolBarButton,
-.dj_ie7 .mblTooltip .mblHeading .mblToolBarButton {
+.dj_ie6 .duiTooltip .duiHeading .duiToolBarButton,
+.dj_ie7 .duiTooltip .duiHeading .duiToolBarButton {
   margin: auto 6px;
 }

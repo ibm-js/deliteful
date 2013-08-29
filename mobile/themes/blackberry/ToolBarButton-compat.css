@@ -1,22 +1,22 @@
 /* dojox.mobile.ToolBarButton */
-.dj_gecko .mblToolBarButtonArrow {
+.dj_gecko .duiToolBarButtonArrow {
   -moz-transform: scale(0.77, 1.05) rotate(45deg);
 }
-.dj_ff3 .mblToolBarButtonArrow {
+.dj_ff3 .duiToolBarButtonArrow {
   -moz-border-radius: 1px;
 }
-.dj_ff3 .mblToolBarButtonBody {
+.dj_ff3 .duiToolBarButtonBody {
   -moz-border-radius: 5px;
 }
-.dj_ff3 .mblToolBarButtonHasLeftArrow .mblToolBarButtonBody {
+.dj_ff3 .duiToolBarButtonHasLeftArrow .duiToolBarButtonBody {
   -moz-border-radius-topleft: 0;
   -moz-border-radius-bottomleft: 0;
 }
-.dj_ff3 .mblToolBarButtonHasRightArrow .mblToolBarButtonBody {
+.dj_ff3 .duiToolBarButtonHasRightArrow .duiToolBarButtonBody {
   -moz-border-radius-topright: 0;
   -moz-border-radius-bottomright: 0;
 }
-.dj_ie .mblToolBarButtonLeftArrow {
+.dj_ie .duiToolBarButtonLeftArrow {
   top: 0;
   left: -2px;
   width: 13px;
@@ -25,10 +25,10 @@
   border-radius: 0;
   background-image: url(compat/arrow-button-head.png);
 }
-.dj_ie .mblToolBarButtonSelected .mblToolBarButtonLeftArrow {
+.dj_ie .duiToolBarButtonSelected .duiToolBarButtonLeftArrow {
   background-image: url(compat/arrow-button-head-sel.png);
 }
-.dj_ie .mblToolBarButtonRightArrow {
+.dj_ie .duiToolBarButtonRightArrow {
   top: 0;
   right: -3px;
   width: 13px;
@@ -37,27 +37,27 @@
   border-radius: 0;
   background-image: url(compat/arrow-button-right-head.png);
 }
-.dj_ie .mblToolBarButtonSelected .mblToolBarButtonRightArrow {
+.dj_ie .duiToolBarButtonSelected .duiToolBarButtonRightArrow {
   background-image: url(compat/arrow-button-right-head-sel.png);
 }
-.dj_ie .mblToolBarButtonBody {
+.dj_ie .duiToolBarButtonBody {
   background-image: url(compat/arrow-button-bg.png);
   background-position: left bottom;
 }
-.dj_ie .mblToolBarButtonBodySelected {
+.dj_ie .duiToolBarButtonBodySelected {
   background-image: url(compat/arrow-button-bg-sel.png);
 }
-.dj_ie .mblToolBarButtonBody table {
+.dj_ie .duiToolBarButtonBody table {
   margin: 0;
 }
-.dj_ie .mblToolBarButtonHasLeftArrow .mblToolBarButtonBody {
+.dj_ie .duiToolBarButtonHasLeftArrow .duiToolBarButtonBody {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.dj_ie .mblToolBarButtonHasRightArrow .mblToolBarButtonBody {
+.dj_ie .duiToolBarButtonHasRightArrow .duiToolBarButtonBody {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.dj_ie6 .mblToolBarButton .mblToolBarButtonBody {
+.dj_ie6 .duiToolBarButton .duiToolBarButtonBody {
   background-position: left top;
 }

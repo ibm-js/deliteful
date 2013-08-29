@@ -1,6 +1,6 @@
 /* dojox.mobile.Switch */
 /* Switch - common */
-.mblSwitch {
+.duiSwitch {
   margin: 0;
   position: relative;
   display: inline-block;
@@ -10,26 +10,26 @@
   text-align: left;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.mblListItem .mblSwitch {
+.duiListItem .duiSwitch {
   position: absolute;
   right: 12px;
   top: 8px;
 }
-.mblSwitchInner {
+.duiSwitchInner {
   position: absolute;
   top: 0;
   height: 27px;
 }
-.mblSwitchAnimation .mblSwitchInner {
+.duiSwitchAnimation .duiSwitchInner {
   -webkit-transition-property: left;
   transition-property: left;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
-.mblSwitchOn .mblSwitchInner {
+.duiSwitchOn .duiSwitchInner {
   left: 0;
 }
-.mblSwitchBg {
+.duiSwitchBg {
   position: absolute;
   top: 0;
   width: 94px;
@@ -43,19 +43,19 @@
   border: 1px solid #c0c0c0;
   border-bottom-color: #9b9b9b;
 }
-.mblSwitchBgLeft {
+.duiSwitchBgLeft {
   left: 0;
   color: white;
   background-color: #3f84eb;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
 }
-.mblSwitchBgRight {
+.duiSwitchBgRight {
   color: #7f7f7f;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2e2e2));
   background-image: linear-gradient(to bottom, #ffffff 0%, #e2e2e2 100%);
 }
-.mblSwitchKnob {
+.duiSwitchKnob {
   position: absolute;
   top: 0;
   height: 27px;
@@ -67,7 +67,7 @@
   border: 1px solid #9b9b9b;
   border-bottom-color: #767676;
 }
-.mblSwitchText {
+.duiSwitchText {
   position: relative;
   top: 0;
   width: 53px;
@@ -76,155 +76,155 @@
   line-height: 28px;
   text-align: center;
 }
-.mblSwitchTextLeft {
+.duiSwitchTextLeft {
   left: 0;
 }
-.mblSwitchTextRight {
+.duiSwitchTextRight {
   left: 40px;
 }
 /* Square Shape */
-.mblSwSquareShape {
+.duiSwSquareShape {
   width: 94px;
 }
-.mblSwSquareShape.mblSwitchOff .mblSwitchInner {
+.duiSwSquareShape.duiSwitchOff .duiSwitchInner {
   left: -53px;
 }
-.mblSwSquareShape .mblSwitchBg {
+.duiSwSquareShape .duiSwitchBg {
   border-radius: 2px;
 }
-.mblSwSquareShape .mblSwitchBgRight {
+.duiSwSquareShape .duiSwitchBgRight {
   left: 53px;
 }
-.mblSwSquareShape .mblSwitchKnob {
+.duiSwSquareShape .duiSwitchKnob {
   left: 53px;
   width: 41px;
   border-radius: 2px;
 }
-.mblSwSquareShape .mblSwitchText {
+.duiSwSquareShape .duiSwitchText {
   width: 53px;
 }
-.mblSwSquareShape .mblSwitchTextRight {
+.duiSwSquareShape .duiSwitchTextRight {
   left: 40px;
 }
 /* Round Shape1 */
-.mblSwRoundShape1 {
+.duiSwRoundShape1 {
   width: 77px;
 }
-.mblSwRoundShape1.mblSwitchOff .mblSwitchInner {
+.duiSwRoundShape1.duiSwitchOff .duiSwitchInner {
   left: -50px;
 }
-.mblSwRoundShape1 .mblSwitchBg {
+.duiSwRoundShape1 .duiSwitchBg {
   width: 77px;
   border-radius: 14px;
 }
-.mblSwRoundShape1 .mblSwitchBgRight {
+.duiSwRoundShape1 .duiSwitchBgRight {
   left: 50px;
 }
-.mblSwRoundShape1 .mblSwitchKnob {
+.duiSwRoundShape1 .duiSwitchKnob {
   left: 50px;
   width: 27px;
   border-radius: 13px;
 }
-.mblSwRoundShape1 .mblSwitchText {
+.duiSwRoundShape1 .duiSwitchText {
   width: 50px;
 }
-.mblSwRoundShape1 .mblSwitchTextRight {
+.duiSwRoundShape1 .duiSwitchTextRight {
   left: 26px;
 }
 /* Round Shape2 */
-.mblSwRoundShape2 {
+.duiSwRoundShape2 {
   width: 94px;
 }
-.mblSwRoundShape2.mblSwitchOff .mblSwitchInner {
+.duiSwRoundShape2.duiSwitchOff .duiSwitchInner {
   left: -51px;
 }
-.mblSwRoundShape2 .mblSwitchBg {
+.duiSwRoundShape2 .duiSwitchBg {
   border-radius: 14px;
 }
-.mblSwRoundShape2 .mblSwitchBgRight {
+.duiSwRoundShape2 .duiSwitchBgRight {
   left: 51px;
 }
-.mblSwRoundShape2 .mblSwitchKnob {
+.duiSwRoundShape2 .duiSwitchKnob {
   left: 51px;
   width: 43px;
   border-radius: 13px;
 }
-.mblSwRoundShape2 .mblSwitchText {
+.duiSwRoundShape2 .duiSwitchText {
   width: 51px;
 }
-.mblSwRoundShape2 .mblSwitchTextRight {
+.duiSwRoundShape2 .duiSwitchTextRight {
   left: 42px;
 }
 /* Arc Shape1 */
-.mblSwArcShape1 {
+.duiSwArcShape1 {
   width: 77px;
 }
-.mblSwArcShape1.mblSwitchOff .mblSwitchInner {
+.duiSwArcShape1.duiSwitchOff .duiSwitchInner {
   left: -50px;
 }
-.mblSwArcShape1 .mblSwitchBg {
+.duiSwArcShape1 .duiSwitchBg {
   width: 77px;
   border-radius: 5px/14px;
 }
-.mblSwArcShape1 .mblSwitchBgRight {
+.duiSwArcShape1 .duiSwitchBgRight {
   left: 50px;
 }
-.mblSwArcShape1 .mblSwitchKnob {
+.duiSwArcShape1 .duiSwitchKnob {
   left: 50px;
   width: 27px;
   border-radius: 5px/13px;
 }
-.mblSwArcShape1 .mblSwitchText {
+.duiSwArcShape1 .duiSwitchText {
   width: 50px;
 }
-.mblSwArcShape1 .mblSwitchTextRight {
+.duiSwArcShape1 .duiSwitchTextRight {
   left: 26px;
 }
 /* Arc Shape2 */
-.mblSwArcShape2 {
+.duiSwArcShape2 {
   width: 94px;
 }
-.mblSwArcShape2.mblSwitchOff .mblSwitchInner {
+.duiSwArcShape2.duiSwitchOff .duiSwitchInner {
   left: -51px;
 }
-.mblSwArcShape2 .mblSwitchBg {
+.duiSwArcShape2 .duiSwitchBg {
   border-radius: 5px/14px;
 }
-.mblSwArcShape2 .mblSwitchBgRight {
+.duiSwArcShape2 .duiSwitchBgRight {
   left: 51px;
 }
-.mblSwArcShape2 .mblSwitchKnob {
+.duiSwArcShape2 .duiSwitchKnob {
   left: 51px;
   width: 43px;
   border-radius: 5px/13px;
 }
-.mblSwArcShape2 .mblSwitchText {
+.duiSwArcShape2 .duiSwitchText {
   width: 51px;
 }
-.mblSwArcShape2 .mblSwitchTextRight {
+.duiSwArcShape2 .duiSwitchTextRight {
   left: 42px;
 }
 /* Default Shape */
-.mblSwDefaultShape {
+.duiSwDefaultShape {
   width: 94px;
 }
-.mblSwDefaultShape.mblSwitchOff .mblSwitchInner {
+.duiSwDefaultShape.duiSwitchOff .duiSwitchInner {
   left: -53px;
 }
-.mblSwDefaultShape .mblSwitchBg {
+.duiSwDefaultShape .duiSwitchBg {
   border-radius: 2px;
 }
-.mblSwDefaultShape .mblSwitchBgRight {
+.duiSwDefaultShape .duiSwitchBgRight {
   left: 53px;
 }
-.mblSwDefaultShape .mblSwitchKnob {
+.duiSwDefaultShape .duiSwitchKnob {
   left: 53px;
   width: 41px;
   border-radius: 2px;
 }
-.mblSwDefaultShape .mblSwitchText {
+.duiSwDefaultShape .duiSwitchText {
   width: 53px;
 }
-.mblSwDefaultShape .mblSwitchTextRight {
+.duiSwDefaultShape .duiSwitchTextRight {
   left: 40px;
 }

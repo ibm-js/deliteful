@@ -28,7 +28,7 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "mblSpinWheelTimePicker");
+			domClass.add(this.domNode, "duiSpinWheelTimePicker");
 		}
 	});
 });

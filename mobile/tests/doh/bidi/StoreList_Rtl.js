@@ -18,11 +18,11 @@ require([
 	var testName;
 
 	if(IsEdgeToEdgeList){
-		CLASS_NAME = "mblEdgeToEdgeList";
+		CLASS_NAME = "duiEdgeToEdgeList";
 		DataList = EdgeToEdgeStoreList;
 		testName = "dojox.mobile.test.doh.EdgeToEdgeStoreList_Rtl";
 	}else{
-		CLASS_NAME = "mblRoundRectList";
+		CLASS_NAME = "duiRoundRectList";
 		DataList = RoundRectStoreList;
 		testName = "dojox.mobile.test.doh.RoundRectStoreList_Rtl";
 	}
@@ -73,22 +73,22 @@ require([
 					var d = new runner.Deferred();
 					setTimeout(d.getTestCallback(function(){
 						var demoWidget = registry.byId("dojox_mobile_ListItem_0");
-						runner.assertEqual('mblListItem mblListItemRtl', demoWidget.domNode.className);
-						runner.assertEqual('mblImageIcon mblListItemIcon', demoWidget.iconNode.className);
+						runner.assertEqual('duiListItem duiListItemRtl', demoWidget.domNode.className);
+						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertTrue(demoWidget.iconNode.src.search(/i-icon-1.png/i) != -1);
-						runner.assertEqual('mblListItemRightIcon', demoWidget.rightIconNode.className);
-						runner.assertEqual('mblListItemLabel', demoWidget.labelNode.className);
+						runner.assertEqual('duiListItemRightIcon', demoWidget.rightIconNode.className);
+						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
 						runner.assertEqual('Wi-Fi', demoWidget.labelNode.innerHTML);
-						runner.assertEqual('mblDomButtonArrow mblDomButton', demoWidget.rightIconNode.childNodes[0].className);
+						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
 						demoWidget = registry.byId("dojox_mobile_ListItem_3");
-						runner.assertEqual('mblListItem mblListItemRtl mblListItemSelected', demoWidget.domNode.className);
-						runner.assertEqual('mblImageIcon mblListItemIcon', demoWidget.iconNode.className);
+						runner.assertEqual('duiListItem duiListItemRtl duiListItemSelected', demoWidget.domNode.className);
+						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertTrue(demoWidget.iconNode.src.search(/i-icon-4.png/i) != -1);
-						runner.assertEqual('mblListItemRightIcon', demoWidget.rightIconNode.className);
-						runner.assertEqual('mblListItemLabel', demoWidget.labelNode.className);
+						runner.assertEqual('duiListItemRightIcon', demoWidget.rightIconNode.className);
+						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
 						runner.assertEqual('General', demoWidget.labelNode.innerHTML);
-						runner.assertEqual('mblDomButtonArrow mblDomButton', demoWidget.rightIconNode.childNodes[0].className);
+						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 						
 					}),500);
 					return d;
@@ -103,11 +103,11 @@ require([
 
 						switchTo(store2);
 						var demoWidget = registry.byId("dojox_mobile_ListItem_13");
-						runner.assertEqual('mblListItem mblListItemRtl', demoWidget.domNode.className);
+						runner.assertEqual('duiListItem duiListItemRtl', demoWidget.domNode.className);
 						runner.assertEqual(null, demoWidget.iconNode);
-						runner.assertEqual('mblListItemLabel', demoWidget.labelNode.className);
+						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
 						runner.assertEqual('Grape', demoWidget.labelNode.innerHTML);
-						runner.assertEqual('mblDomButtonArrow mblDomButton', demoWidget.rightIconNode.childNodes[0].className);
+						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
 
 					}),2500);
@@ -125,22 +125,22 @@ require([
 						add1();
 						add1();
 						var demoWidget = registry.byId("dojox_mobile_ListItem_19");
-						runner.assertEqual('mblListItem mblListItemRtl', demoWidget.domNode.className);
-						runner.assertEqual('mblImageIcon mblListItemIcon', demoWidget.iconNode.className);
-						runner.assertEqual('mblListItemLabel', demoWidget.labelNode.className);
+						runner.assertEqual('duiListItem duiListItemRtl', demoWidget.domNode.className);
+						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
+						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
 						runner.assertEqual('New Item 1', demoWidget.labelNode.innerHTML);
-						runner.assertEqual('mblDomButtonArrow mblDomButton', demoWidget.rightIconNode.childNodes[0].className);
+						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
 						delete1();
 						demoWidget = registry.byId("dojox_mobile_ListItem_21");
 						runner.assertTrue(!demoWidget);
 
 						demoWidget = registry.byId("dojox_mobile_ListItem_20");
-						runner.assertEqual('mblListItem mblListItemRtl', demoWidget.domNode.className);
-						runner.assertEqual('mblImageIcon mblListItemIcon', demoWidget.iconNode.className);
-						runner.assertEqual('mblListItemLabel', demoWidget.labelNode.className);
+						runner.assertEqual('duiListItem duiListItemRtl', demoWidget.domNode.className);
+						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
+						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
 						runner.assertEqual('New Item 2', demoWidget.labelNode.innerHTML);
-						runner.assertEqual('mblDomButtonArrow mblDomButton', demoWidget.rightIconNode.childNodes[0].className);
+						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 					}),1500);
 					return d;
 				}

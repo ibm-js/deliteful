@@ -7,7 +7,7 @@
 	<title>Accessibility</title>
 
 	<link href="../themes/common/domButtons.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','IconContainer','TabBar','RadioButton']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','IconContainer','TabBar','RadioButton']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -55,7 +55,7 @@
 	<div id="view2" data-dojo-type="dojox/mobile/View">
 		<div data-dojo-type="dojox/mobile/Heading">
 			<span id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" title="Edit" role="button">Edit</span>
-			<span id="btn2" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='icon:"mblDomButtonWhitePlus", alt:"Plus"' title="plus" role="button" style="float:right;" onclick="console.log('+ was clicked')"></span>
+			<span id="btn2" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='icon:"duiDomButtonWhitePlus", alt:"Plus"' title="plus" role="button" style="float:right;" onclick="console.log('+ was clicked')"></span>
 			World Clock
 		</div><br>
 
@@ -64,22 +64,22 @@
 			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Toggle" role="button" data-dojo-props='toggle:true'>Toggle</span>
 			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Information" role="button" data-dojo-props='alt:"Information", icon:"images/a-icon-12.png"'></span>
 			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Hint" role="button" data-dojo-props='alt:"Hint", icon:"images/tab-icons.png", iconPos:"29,0,29,29"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" data-dojo-props='alt:"Search", icon:"mblDomButtonWhiteSearch"' style="float:right;"></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" data-dojo-props='alt:"Search", icon:"duiDomButtonWhiteSearch"' style="float:right;"></span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading">
 			<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"' style="float:right;margin-right:6px;" role="tablist">
-				<li data-dojo-type="dojox/mobile/TabBarButton" title="Up" role="button" data-dojo-props='icon:"mblDomButtonWhiteUpArrow", selectOne:false'></li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" title="Down" role="button" data-dojo-props='icon:"mblDomButtonWhiteDownArrow", selectOne:false'></li>
+				<li data-dojo-type="dojox/mobile/TabBarButton" title="Up" role="button" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", selectOne:false'></li>
+				<li data-dojo-type="dojox/mobile/TabBarButton" title="Down" role="button" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", selectOne:false'></li>
 			</ul>
 			1 of 10
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading">
 			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" style="float:right;" data-dojo-props='icon:"mblDomButtonWhiteSearch", alt:"Search"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Up" role="button" style="float:right;" data-dojo-props='icon:"mblDomButtonWhiteUpArrow", alt:"Up"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Down" role="button" style="float:right;" data-dojo-props='icon:"mblDomButtonWhiteDownArrow", alt:"Down"'></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteSearch", alt:"Search"'></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Up" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", alt:"Up"'></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Down" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", alt:"Down"'></span>
 		</div>
 	</div>
 

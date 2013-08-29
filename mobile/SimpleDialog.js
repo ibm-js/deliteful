@@ -58,7 +58,7 @@ define([
 
 		// closeButtonClass: String
 		//		A class name of a DOM button to be used as a close button.
-		closeButtonClass: "mblDomButtonSilverCircleRedCross",
+		closeButtonClass: "duiDomButtonSilverCircleRedCross",
 
 		// tabIndex: String
 		//		Tabindex setting for the item so users can hit the tab key to
@@ -73,14 +73,14 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblSimpleDialog",
+		baseClass: "duiSimpleDialog",
 		
 		// _cover: [private] Array
 		//		Array for sharing the cover instances.
 		_cover: [],
 
 		buildRendering: function(){
-			this.containerNode = domConstruct.create("div", {className:"mblSimpleDialogContainer"});
+			this.containerNode = domConstruct.create("div", {className:"duiSimpleDialogContainer"});
 			if(this.srcNodeRef){
 				// reparent
 				for(var i = 0, len = this.srcNodeRef.childNodes.length; i < len; i++){
@@ -91,23 +91,23 @@ define([
 			domAttr.set(this.domNode, "role", "dialog");
 			
 			if(this.containerNode.getElementsByClassName){ //TODO: Do we need to support IE8 a11y?
-	            var titleNode = this.containerNode.getElementsByClassName("mblSimpleDialogTitle")[0];
+	            var titleNode = this.containerNode.getElementsByClassName("duiSimpleDialogTitle")[0];
 	            if (titleNode){
-	            	titleNode.id = titleNode.id || registry.getUniqueId("dojo_mobile_mblSimpleDialogTitle");
+	            	titleNode.id = titleNode.id || registry.getUniqueId("dojo_mobile_duiSimpleDialogTitle");
 	            	domAttr.set(this.domNode, "aria-labelledby", titleNode.id);
 	            }
-	            var textNode = this.containerNode.getElementsByClassName("mblSimpleDialogText")[0];
+	            var textNode = this.containerNode.getElementsByClassName("duiSimpleDialogText")[0];
 	            if (textNode){
-	                textNode.id = textNode.id || registry.getUniqueId("dojo_mobile_mblSimpleDialogText");
+	                textNode.id = textNode.id || registry.getUniqueId("dojo_mobile_duiSimpleDialogText");
 	                domAttr.set(this.domNode, "aria-describedby", textNode.id);
 	            }
 			}
-			domClass.add(this.domNode, "mblSimpleDialogDecoration");
+			domClass.add(this.domNode, "duiSimpleDialogDecoration");
 			this.domNode.style.display = "none";
 			this.domNode.appendChild(this.containerNode);
 			if(this.closeButton){
 				this.closeButtonNode = domConstruct.create("div", {
-					className: "mblSimpleDialogCloseBtn "+this.closeButtonClass
+					className: "duiSimpleDialogCloseBtn "+this.closeButtonClass
 				}, this.domNode);
 				iconUtils.createDomButton(this.closeButtonNode);
 				this.own(on(this.closeButtonNode, "click", lang.hitch(this, "_onCloseButtonClick")));
@@ -126,7 +126,7 @@ define([
 			//		Adds the transparent DIV cover.
 			if(!this._cover[0]){
 				this._cover[0] = domConstruct.create("div", {
-					className: "mblSimpleDialogCover"
+					className: "duiSimpleDialogCover"
 				}, win.body());
 			}else{
 				this._cover[0].style.display = "";
@@ -203,7 +203,7 @@ define([
 			this.refresh();
 			var diaglogButton;
 			if(this.domNode.getElementsByClassName){
-				diaglogButton = this.domNode.getElementsByClassName("mblSimpleDialogButton")[0];
+				diaglogButton = this.domNode.getElementsByClassName("duiSimpleDialogButton")[0];
 			}
 			var focusNode = diaglogButton || this.closeButtonNode || this.domNode; // Focus preference is: user supplied button, close button, entire dialog
 			/// on Safari iOS the focus is not taken without a timeout

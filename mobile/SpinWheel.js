@@ -18,11 +18,11 @@ define([
 		//		spinning them.
 
 		/* internal properties */	
-		baseClass: "mblSpinWheel",
+		baseClass: "duiSpinWheel",
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domConstruct.create("div", {className: "mblSpinWheelBar"}, this.domNode);
+			domConstruct.create("div", {className: "duiSpinWheelBar"}, this.domNode);
 		},
 
 		startup: function(){

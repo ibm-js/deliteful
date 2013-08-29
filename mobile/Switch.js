@@ -47,10 +47,10 @@ define([
 
 		// shape: String
 		//		The shape of the switch.
-		//		"mblSwDefaultShape", "mblSwSquareShape", "mblSwRoundShape1",
-		//		"mblSwRoundShape2", "mblSwArcShape1" or "mblSwArcShape2".
-		//		The default value is "mblSwDefaultShape".
-		shape: "mblSwDefaultShape",
+		//		"duiSwDefaultShape", "duiSwSquareShape", "duiSwRoundShape1",
+		//		"duiSwRoundShape2", "duiSwArcShape1" or "duiSwArcShape2".
+		//		The default value is "duiSwDefaultShape".
+		shape: "duiSwDefaultShape",
 
 		// tabIndex: String
 		//		Tabindex setting for this widget so users can hit the tab key to
@@ -59,7 +59,7 @@ define([
 		_setTabIndexAttr: "", // sets tabIndex to domNode
 
 		/* internal properties */
-		baseClass: "mblSwitch",
+		baseClass: "duiSwitch",
 		// role: [private] String
 		//		The accessibility role.
 		role: "", // a11y
@@ -76,18 +76,18 @@ define([
 			this.inherited(arguments);
 			if(!this.templateString){ // true if this widget is not templated
 				var c = (this.srcNodeRef && this.srcNodeRef.className) || this.className || this["class"];
-				if((c = c.match(/mblSw.*Shape\d*/))){ this.shape = c; }
+				if((c = c.match(/duiSw.*Shape\d*/))){ this.shape = c; }
 				domClass.add(this.domNode, this.shape);
 				var nameAttr = this.name ? " name=\"" + this.name + "\"" : "";
 				this.domNode.innerHTML =
-					  '<div class="mblSwitchInner">'
-					+	'<div class="mblSwitchBg mblSwitchBgLeft">'
-					+		'<div class="mblSwitchText mblSwitchTextLeft"></div>'
+					  '<div class="duiSwitchInner">'
+					+	'<div class="duiSwitchBg duiSwitchBgLeft">'
+					+		'<div class="duiSwitchText duiSwitchTextLeft"></div>'
 					+	'</div>'
-					+	'<div class="mblSwitchBg mblSwitchBgRight">'
-					+		'<div class="mblSwitchText mblSwitchTextRight"></div>'
+					+	'<div class="duiSwitchBg duiSwitchBgRight">'
+					+		'<div class="duiSwitchText duiSwitchTextRight"></div>'
 					+	'</div>'
-					+	'<div class="mblSwitchKnob"></div>'
+					+	'<div class="duiSwitchKnob"></div>'
 					+	'<input type="hidden"'+nameAttr+'></div>'
 					+ '</div>';
 				var n = this.inner = this.domNode.firstChild;
@@ -102,8 +102,8 @@ define([
 			this.switchNode = this.domNode;
 
 			if(has("windows-theme")) {
-				var rootNode = domConstruct.create("div", {className: "mblSwitchContainer"});
-				this.labelNode = domConstruct.create("label", {"class": "mblSwitchLabel", "for": this.id}, rootNode);
+				var rootNode = domConstruct.create("div", {className: "duiSwitchContainer"});
+				this.labelNode = domConstruct.create("label", {"class": "duiSwitchLabel", "for": this.id}, rootNode);
 				rootNode.appendChild(this.domNode.cloneNode(true));
 				this.domNode = rootNode;
 				this.focusNode = rootNode.childNodes[1];
@@ -130,17 +130,17 @@ define([
 			this.right.style.display = "";
 			this.inner.style.left = "";
 			if(anim){
-				domClass.add(this.switchNode, "mblSwitchAnimation");
+				domClass.add(this.switchNode, "duiSwitchAnimation");
 			}
-			domClass.remove(this.switchNode, on ? "mblSwitchOff" : "mblSwitchOn");
-			domClass.add(this.switchNode, on ? "mblSwitchOn" : "mblSwitchOff");
+			domClass.remove(this.switchNode, on ? "duiSwitchOff" : "duiSwitchOn");
+			domClass.add(this.switchNode, on ? "duiSwitchOn" : "duiSwitchOff");
 			domAttr.set(this.switchNode, "aria-checked", on ? "true" : "false"); //a11y
 
 			var _this = this;
 			_this.defer(function(){
 				_this.left.style.display = on ? "" : "none";
 				_this.right.style.display = !on ? "" : "none";
-				domClass.remove(_this.switchNode, "mblSwitchAnimation");
+				domClass.remove(_this.switchNode, "duiSwitchAnimation");
 			}, anim ? 300 : 0);
 		},
 

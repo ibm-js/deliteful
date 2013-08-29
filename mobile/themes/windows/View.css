@@ -3,7 +3,7 @@
 @import url("../common/transitions/flip.css");
 
 @import url("../common/transitions/fade.css");
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -18,7 +18,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.View */
-.mblView {
+.duiView {
   position: relative;
   top: 0px;
   left: 0px;
@@ -27,13 +27,13 @@
   padding: 0 10px 0 15px;
   width: auto;
 }
-.mblView.mblIn {
+.duiView.duiIn {
   position: absolute;
 }
-.mblFixedHeaderBar {
+.duiFixedHeaderBar {
   z-index: 1;
 }
-.mblFixedBottomBar {
+.duiFixedBottomBar {
   position: absolute !important;
   width: 100%;
   z-index: 1;

@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>ValuePicker on SimpleDialog</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','SimpleDialog','ValuePicker']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SimpleDialog','ValuePicker']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -98,11 +98,11 @@
 			use24h = function(){
 				var listItem = registry.byId("item1");
 				if(is24h){
-					listItem.set("rightIcon", "mblDomButtonCheckboxOff");
+					listItem.set("rightIcon", "duiDomButtonCheckboxOff");
 					dom.byId("use24hMsg").innerHTML = "1:00 pm";
 					registry.byId("picker2").set("is24h", false);
 				}else{
-					listItem.set("rightIcon", "mblDomButtonCheckboxOn");
+					listItem.set("rightIcon", "duiDomButtonCheckboxOn");
 					dom.byId("use24hMsg").innerHTML = "13:00";
 					registry.byId("picker2").set("is24h", true);
 				}
@@ -121,7 +121,7 @@
 	</script>
 
 	<style>
-	.mblValuePicker {
+	.duiValuePicker {
 		display: inline-block; /* to align center */
 	}
 	#dlg1, #dlg2 {
@@ -176,7 +176,7 @@
 				<div id="timeMsg" class="subtitle">22:34</div>
 			</li>
 			<li id="item1" data-dojo-type="dojox/mobile/ListItem"
-				data-dojo-props='clickable:true,noArrow:true,rightIcon:"mblDomButtonCheckboxOn",onClick:function(){use24h()}'>
+				data-dojo-props='clickable:true,noArrow:true,rightIcon:"duiDomButtonCheckboxOn",onClick:function(){use24h()}'>
 				Use 24-hour format
 				<div id="use24hMsg" class="subtitle">13:00</div>
 			</li>

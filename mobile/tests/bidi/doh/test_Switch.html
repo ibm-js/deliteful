@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Switch</title>
 
-	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true,parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
@@ -31,7 +31,7 @@
 								runner.is(String.fromCharCode(8235), registry.byId('third').right.firstChild.innerHTML.charAt(0), "text direction of right text node of third switch item has been set to 'rtl' explicitly");
 								
 								registry.byId('second').set("textDir","rtl");
-								var node = query(".mblSwitchTextRight",dom.byId('second'))[0];
+								var node = query(".duiSwitchTextRight",dom.byId('second'))[0];
 								runner.is(String.fromCharCode(8235), node.innerHTML.charAt(0), "node had direction changed after change of 'textDir'");			        
 							}
 						}
@@ -52,23 +52,23 @@
 	</script>
 	
 	<style>
-	.color1 .mblSwitchBgLeft {
+	.color1 .duiSwitchBgLeft {
 		background: -webkit-gradient(linear, left top, left bottom, from(#28B159), to(#75FBAC), color-stop(0.5, #3FEB84), color-stop(0.5, #4CEE8E));
 	}
-	.color1 .mblSwitchBgRight {
+	.color1 .duiSwitchBgRight {
 		background: -webkit-gradient(linear, left top, left bottom, from(#CECECE), to(#FDFDFD), color-stop(0.5, #EEEEEE), color-stop(0.5, #F8F8F8));
 	}
-	.color2 .mblSwitchBgLeft {
+	.color2 .duiSwitchBgLeft {
 		background: -webkit-gradient(linear, left top, left bottom, from(#FF9D00), to(#FFCE80), color-stop(0.5, #FFBB4D), color-stop(0.5, #FFC871));
 	}
-	.color2 .mblSwitchBgRight {
+	.color2 .duiSwitchBgRight {
 		background: -webkit-gradient(linear, left top, left bottom, from(#CECECE), to(#FDFDFD), color-stop(0.5, #EEEEEE), color-stop(0.5, #F8F8F8));
 	}
-	.color1 .mblSwitchKnob,
-	.color2 .mblSwitchKnob {
+	.color1 .duiSwitchKnob,
+	.color2 .duiSwitchKnob {
 		background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#FAFAFA), color-stop(0.5, #BBBBBB), color-stop(0.5, #CACACA));
 	}
-	.mblSwitch {
+	.duiSwitch {
 		margin-right: 10px;
 	}
 	.bold {
@@ -88,14 +88,14 @@
 
 		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<span class="bold">Square Shape</span><br>
-			<div class="mblSwSquareShape" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off"'></div>
-			<div  id="second" class="color2" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop.", shape:"mblSwSquareShape"'></div>
+			<div class="duiSwSquareShape" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off"'></div>
+			<div  id="second" class="color2" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwSquareShape"'></div>
 		</div>
 
 		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
 			<span class="bold">Round Shape 1</span><br>
-			<div class="mblSwRoundShape1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off" '></div>
-			<div  id="third" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on",textDir:"rtl", leftLabel:"Start.", rightLabel:"Stop.", shape:"mblSwRoundShape1"'></div>
+			<div class="duiSwRoundShape1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off" '></div>
+			<div  id="third" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on",textDir:"rtl", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwRoundShape1"'></div>
 		</div>
 	</div>
 	<br>Errors:&nbsp;<span id="errors">?</span>

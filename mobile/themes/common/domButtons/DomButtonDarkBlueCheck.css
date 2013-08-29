@@ -1,12 +1,12 @@
 /* === Check Button ==*/
-.mblDomButtonDarkBlueCheck,
-.mblDomButtonCheck {
+.duiDomButtonDarkBlueCheck,
+.duiDomButtonCheck {
   position: relative;
   width: 20px;
   height: 29px;
 }
-.mblDomButtonDarkBlueCheck > div,
-.mblDomButtonCheck > div {
+.duiDomButtonDarkBlueCheck > div,
+.duiDomButtonCheck > div {
   position: absolute;
   left: 0px;
   top: 8px;

@@ -50,7 +50,7 @@ define([
 					target.insertBefore(container.firstChild, refNode); // reparent
 				}
 				target.removeChild(container);
-				if(!view || !domClass.contains(view.domNode, "mblView")){
+				if(!view || !domClass.contains(view.domNode, "duiView")){
 					console.log("HtmlContentHandler.parse: invalid view content");
 					return null;
 				}

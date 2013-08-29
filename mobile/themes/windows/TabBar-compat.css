@@ -1,5 +1,5 @@
 @import "../common/domButtons/DomButtonWhiteCross-compat.css";
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -14,60 +14,60 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.TabBar */
-.dj_ie6 .mblTabBar .mblTabBarButton {
+.dj_ie6 .duiTabBar .duiTabBarButton {
   display: inline;
 }
 /* barType="tabBar" */
-.mblTabBarTabBar {
+.duiTabBarTabBar {
   background-image: none;
   background-color: #000000;
 }
-.dj_ff3 .mblTabBarTabBar .mblTabBarButtonSelected {
+.dj_ff3 .duiTabBarTabBar .duiTabBarButtonSelected {
   -moz-border-radius: 3px;
 }
 /* barType="segmentedControl" | "standardTab" */
-.mblTabBarSegmentedControl,
-.mblTabBarStandardTab {
+.duiTabBarSegmentedControl,
+.duiTabBarStandardTab {
   background-image: url(compat/heading-bg.png);
 }
-.mblTabBarSegmentedControl .mblTabBarButton,
-.mblTabBarStandardTab .mblTabBarButton {
+.duiTabBarSegmentedControl .duiTabBarButton,
+.duiTabBarStandardTab .duiTabBarButton {
   background-image: url(compat/tab-seg-button-bg.png);
 }
-.mblTabBarSegmentedControl .mblTabBarButtonSelected,
-.mblTabBarStandardTab .mblTabBarButtonSelected {
+.duiTabBarSegmentedControl .duiTabBarButtonSelected,
+.duiTabBarStandardTab .duiTabBarButtonSelected {
   background-image: url(compat/tab-seg-sel-button-bg.png);
 }
-.dj_ff3 .mblTabBarSegmentedControl .mblTabBarButton:first-child {
+.dj_ff3 .duiTabBarSegmentedControl .duiTabBarButton:first-child {
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-bottomleft: 5px;
 }
-.dj_ff3 .mblTabBarSegmentedControl .mblTabBarButton:last-child {
+.dj_ff3 .duiTabBarSegmentedControl .duiTabBarButton:last-child {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-bottomright: 5px;
 }
-.dj_ff3 .mblTabBarStandardTab .mblTabBarButton {
+.dj_ff3 .duiTabBarStandardTab .duiTabBarButton {
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-topright: 4px;
 }
 /* barType="slimTab" */
-.mblTabBarSlimTab {
+.duiTabBarSlimTab {
   background-image: url(compat/tab-slim-bar-bg.png);
 }
-.dj_gecko .mblTabBarSlimTab {
+.dj_gecko .duiTabBarSlimTab {
   background-image: -moz-linear-gradient(top, #2d2d2d 0%, #141414 50%, #000000 50%, #000000 100%);
 }
-.dj_gecko .mblTabBarSlimTab .mblTabBarButton {
+.dj_gecko .duiTabBarSlimTab .duiTabBarButton {
   background-image: -moz-linear-gradient(top, #2d2d2d 0%, #141414 50%, #000000 50%, #000000 100%);
 }
-.dj_gecko .mblTabBarSlimTab .mblTabBarButtonSelected {
+.dj_gecko .duiTabBarSlimTab .duiTabBarButtonSelected {
   background-image: -moz-linear-gradient(top, #313031 0%, #5a555a 50%, #616161 50%, #959595 100%);
 }
 /* barType="flatTab" */
 /* barType="tallTab" */
-.mblTabBarTallTab {
+.duiTabBarTallTab {
   background-image: url(compat/tab-tall-bar-bg.png);
 }
-.mblTabBarTallTab .mblTabBarButtonSelected {
+.duiTabBarTallTab .duiTabBarButtonSelected {
   background-color: #8c8e8c;
 }

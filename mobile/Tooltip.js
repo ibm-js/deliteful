@@ -17,14 +17,14 @@ define([
 		// summary:
 		//		A non-templated popup bubble widget
 
-		baseClass: "mblTooltip mblTooltipHidden",
+		baseClass: "duiTooltip duiTooltipHidden",
 
 		buildRendering: function(){
 			// create the helper nodes here in case the user overwrote domNode.innerHTML
 			this.inherited(arguments);
-			this.anchor = domConstruct.create("div", {"class":"mblTooltipAnchor"}, this.domNode, "first");
-			this.arrow = domConstruct.create("div", {"class":"mblTooltipArrow"}, this.anchor);
-			this.innerArrow = domConstruct.create("div", {"class":"mblTooltipInnerArrow"}, this.anchor);
+			this.anchor = domConstruct.create("div", {"class":"duiTooltipAnchor"}, this.domNode, "first");
+			this.arrow = domConstruct.create("div", {"class":"duiTooltipArrow"}, this.anchor);
+			this.innerArrow = domConstruct.create("div", {"class":"duiTooltipInnerArrow"}, this.anchor);
 			if(!this.containerNode){
 				// set containerNode so that getChildren() works
 				this.containerNode = this.domNode;
@@ -44,20 +44,20 @@ define([
 
 			var domNode = this.domNode;
 			var connectorClasses = {
-				"MRM": "mblTooltipAfter",
-				"MLM": "mblTooltipBefore",
-				"BMT": "mblTooltipBelow",
-				"TMB": "mblTooltipAbove",
-				"BLT": "mblTooltipBelow",
-				"TLB": "mblTooltipAbove",
-				"BRT": "mblTooltipBelow",
-				"TRB": "mblTooltipAbove",
-				"TLT": "mblTooltipBefore",
-				"TRT": "mblTooltipAfter",
-				"BRB": "mblTooltipAfter",
-				"BLB": "mblTooltipBefore"
+				"MRM": "duiTooltipAfter",
+				"MLM": "duiTooltipBefore",
+				"BMT": "duiTooltipBelow",
+				"TMB": "duiTooltipAbove",
+				"BLT": "duiTooltipBelow",
+				"TLB": "duiTooltipAbove",
+				"BRT": "duiTooltipBelow",
+				"TRB": "duiTooltipAbove",
+				"TLT": "duiTooltipBefore",
+				"TRT": "duiTooltipAfter",
+				"BRB": "duiTooltipAfter",
+				"BLB": "duiTooltipBefore"
 			};
-			domClass.remove(domNode, ["mblTooltipAfter","mblTooltipBefore","mblTooltipBelow","mblTooltipAbove"]);
+			domClass.remove(domNode, ["duiTooltipAfter","duiTooltipBefore","duiTooltipBelow","duiTooltipAbove"]);
 			array.forEach(registry.findWidgets(domNode), function(widget){
 				if(widget.height == "auto" && typeof widget.resize == "function"){
 					if(!widget._parentPadBorderExtentsBottom){
@@ -70,11 +70,11 @@ define([
 			var connectorClass = connectorClasses[best.corner + best.aroundCorner.charAt(0)] || "";
 			domClass.add(domNode, connectorClass);
 			var pos = domGeometry.position(aroundNode, true);
-			domStyle.set(this.anchor, (connectorClass == "mblTooltipAbove" || connectorClass == "mblTooltipBelow")
+			domStyle.set(this.anchor, (connectorClass == "duiTooltipAbove" || connectorClass == "duiTooltipBelow")
 				? { top: "", left: Math.max(0, pos.x - best.x + (pos.w >> 1) - (this.arrow.offsetWidth >> 1)) + "px" }
 				: { left: "", top: Math.max(0, pos.y - best.y + (pos.h >> 1) - (this.arrow.offsetHeight >> 1)) + "px" }
 			);
-			domClass.replace(domNode, "mblTooltipVisible", "mblTooltipHidden");
+			domClass.replace(domNode, "duiTooltipVisible", "duiTooltipHidden");
 			this.resize = lang.hitch(this, "show", aroundNode, positions); // orientation changes
 			return best;
 		},
@@ -83,7 +83,7 @@ define([
 			// summary:
 			//		Pop down the tooltip
 			this.resize = undefined;
-			domClass.replace(this.domNode, "mblTooltipHidden", "mblTooltipVisible");
+			domClass.replace(this.domNode, "duiTooltipHidden", "duiTooltipVisible");
 		},
 
 		onBlur: function(/*Event*/e){

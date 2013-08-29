@@ -1,8 +1,8 @@
 /* === Plus Button ==*/
-.mblDomButtonWhitePlus {
-	background-image: url(compat/mblDomButtonWhitePlus.png);
+.duiDomButtonWhitePlus {
+	background-image: url(compat/duiDomButtonWhitePlus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhitePlus div {
+.duiDomButtonWhitePlus div {
 	display: none;
 }

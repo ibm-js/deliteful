@@ -1,5 +1,5 @@
 /* dojox.mobile.RadioButton */
-.mblRadioButton {
+.duiRadioButton {
   position: relative;
   margin: -0.5em 3px 0.3em 4px;
   width: 1em;
@@ -22,12 +22,12 @@
   transform: translateY(0.45em);
   border-color: #5c5c5c;
 }
-.mblRadioButtonChecked,
-.mblRadioButton:checked {
+.duiRadioButtonChecked,
+.duiRadioButton:checked {
   background-color: transparent;
 }
-.mblRadioButtonChecked::after,
-.mblRadioButton:checked::after {
+.duiRadioButtonChecked::after,
+.duiRadioButton:checked::after {
   position: absolute;
   content: "";
   width: 0.3em;
@@ -42,15 +42,15 @@
   transform-origin: 50% 50%;
   border-color: #61c6eb;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected,
-.mblRadioButton:checked.mblRadioButtonSelected {
+.duiRadioButtonChecked.duiRadioButtonSelected,
+.duiRadioButton:checked.duiRadioButtonSelected {
   background-image: none;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected::after,
-.mblRadioButton:checked.mblRadioButtonSelected::after {
+.duiRadioButtonChecked.duiRadioButtonSelected::after,
+.duiRadioButton:checked.duiRadioButtonSelected::after {
   border-color: #61c6eb;
 }
-.mblRadioButton {
+.duiRadioButton {
   border-style: solid;
   border-width: 1px;
   border-radius: 999px;
@@ -59,12 +59,12 @@
   -webkit-tap-highlight-color: none;
   border-color: #5c5c5c;
 }
-.mblRadioButtonChecked,
-.mblRadioButton:checked {
+.duiRadioButtonChecked,
+.duiRadioButton:checked {
   background-image: none;
 }
-.mblRadioButtonChecked::after,
-.mblRadioButton:checked::after {
+.duiRadioButtonChecked::after,
+.duiRadioButton:checked::after {
   position: absolute;
   content: "";
   width: 0.65em;
@@ -76,12 +76,12 @@
   border-radius: 1em;
   border-color: #61c6eb;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected,
-.mblRadioButton:checked.mblRadioButtonSelected {
+.duiRadioButtonChecked.duiRadioButtonSelected,
+.duiRadioButton:checked.duiRadioButtonSelected {
   background-image: none;
   box-shadow: 0px 0px 1px 4px #1f5366 inset;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected::after,
-.mblRadioButton:checked.mblRadioButtonSelected::after {
+.duiRadioButtonChecked.duiRadioButtonSelected::after,
+.duiRadioButton:checked.duiRadioButtonSelected::after {
   border-color: #61c6eb;
 }

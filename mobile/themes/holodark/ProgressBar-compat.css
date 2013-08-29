@@ -1,15 +1,15 @@
 /* Progress Bar */
-.mblProgressBar {
+.duiProgressBar {
   background-color: #333333;
 }
-.mblProgressBarProgress {
+.duiProgressBarProgress {
   background-color: #33b5e5;
 }
-.dj_gecko .mblProgressBar {
+.dj_gecko .duiProgressBar {
   background-image: none;
   background-color: #333333;
 }
-.dj_gecko .mblProgressBarProgress {
+.dj_gecko .duiProgressBarProgress {
   -moz-transition-property: width;
   -moz-transition-duration: 0.25s;
   background-image: none;

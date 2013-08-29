@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,22 +13,22 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.RoundRectList */
-.dj_ff3 .mblRoundRectList {
+.dj_ff3 .duiRoundRectList {
   -moz-border-radius: 8px;
 }
-.dj_ff3 .mblRoundRectList .mblListItem:first-child {
+.dj_ff3 .duiRoundRectList .duiListItem:first-child {
   -moz-border-radius-topleft: 8px;
   -moz-border-radius-topright: 8px;
 }
-.dj_ff3 .mblRoundRectList .mblListItem:last-child {
+.dj_ff3 .duiRoundRectList .duiListItem:last-child {
   -moz-border-radius-bottomleft: 8px;
   -moz-border-radius-bottomright: 8px;
 }
 /* Round Corner */
-.dj_ie .mblRoundRectList {
+.dj_ie .duiRoundRectList {
   position: relative;
 }
-.dj_ie .mblRoundCorner {
+.dj_ie .duiRoundCorner {
   background-color: #ffffff;
   height: 1px;
   font-size: 1px;
@@ -37,56 +37,56 @@
   border-color: #cccccc;
   border-width: 0 1px;
 }
-.dj_ie .mblRoundRectContainer {
+.dj_ie .duiRoundRectContainer {
   padding: 3px 8px;
   background-color: #ffffff;
   border-style: solid;
   border-color: #cccccc;
   border-width: 0 1px;
 }
-.dj_ie .mblRoundRectList .mblRoundRectContainer {
+.dj_ie .duiRoundRectList .duiRoundRectContainer {
   margin: 0;
   padding: 0;
 }
-.dj_ie .mblRoundCorner0T {
+.dj_ie .duiRoundCorner0T {
   height: 0;
 }
-.dj_ie .mblRoundCorner1T {
+.dj_ie .duiRoundCorner1T {
   background-color: #cccccc;
   margin: 0 5px;
 }
-.dj_ie .mblRoundCorner2T {
+.dj_ie .duiRoundCorner2T {
   margin: 0 2px;
   border-width: 0 3px;
 }
-.dj_ie .mblRoundCorner3T {
+.dj_ie .duiRoundCorner3T {
   margin: 0 1px;
   border-width: 0 2px;
 }
-.dj_ie .mblRoundCorner4T {
+.dj_ie .duiRoundCorner4T {
   margin: 0 1px;
 }
-.dj_ie .mblRoundCorner5T {
+.dj_ie .duiRoundCorner5T {
   margin: 0 1px;
 }
-.dj_ie .mblRoundCorner0B {
+.dj_ie .duiRoundCorner0B {
   height: 0;
 }
-.dj_ie .mblRoundCorner1B {
+.dj_ie .duiRoundCorner1B {
   margin: 0 1px;
 }
-.dj_ie .mblRoundCorner2B {
+.dj_ie .duiRoundCorner2B {
   margin: 0 1px;
 }
-.dj_ie .mblRoundCorner3B {
+.dj_ie .duiRoundCorner3B {
   margin: 0 1px;
   border-width: 0 2px;
 }
-.dj_ie .mblRoundCorner4B {
+.dj_ie .duiRoundCorner4B {
   margin: 0 2px;
   border-width: 0 3px;
 }
-.dj_ie .mblRoundCorner5B {
+.dj_ie .duiRoundCorner5B {
   background-color: #cccccc;
   margin: 0 5px;
 }

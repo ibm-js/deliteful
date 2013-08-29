@@ -92,7 +92,7 @@ define([
 		minusBtnLabelRef: "",
 
 		/* internal properties */	
-		baseClass: "mblValuePickerSlot",
+		baseClass: "duiValuePickerSlot",
 
 		buildRendering: function(){
 			this.inherited(arguments);
@@ -106,31 +106,31 @@ define([
 			}
 
 			this.plusBtnNode = domConstruct.create("div", {
-				className: "mblValuePickerSlotPlusButton mblValuePickerSlotButton",
+				className: "duiValuePickerSlotPlusButton duiValuePickerSlotButton",
 				title: "+"
 			}, this.domNode);
 			
 			this.plusIconNode = domConstruct.create("div", {
-				className: "mblValuePickerSlotIcon"
+				className: "duiValuePickerSlotIcon"
 			}, this.plusBtnNode);
-			iconUtils.createIcon("mblDomButtonGrayPlus", null, this.plusIconNode);
+			iconUtils.createIcon("duiDomButtonGrayPlus", null, this.plusIconNode);
 
 			this.inputAreaNode = domConstruct.create("div", {
-				className: "mblValuePickerSlotInputArea"
+				className: "duiValuePickerSlotInputArea"
 			}, this.domNode);
 			this.inputNode = domConstruct.create("input", {
-				className: "mblValuePickerSlotInput",
+				className: "duiValuePickerSlotInput",
 				readonly: this.readOnly
 			}, this.inputAreaNode);
 			
 			this.minusBtnNode = domConstruct.create("div", {
-				className: "mblValuePickerSlotMinusButton mblValuePickerSlotButton",
+				className: "duiValuePickerSlotMinusButton duiValuePickerSlotButton",
 				title: "-"
 			}, this.domNode);
 			this.minusIconNode = domConstruct.create("div", {
-				className: "mblValuePickerSlotIcon"
+				className: "duiValuePickerSlotIcon"
 			}, this.minusBtnNode);
-			iconUtils.createIcon("mblDomButtonGrayMinus", null, this.minusIconNode);
+			iconUtils.createIcon("duiDomButtonGrayMinus", null, this.minusIconNode);
 			
 			domAttr.set(this.plusBtnNode, "role", "button"); //a11y
 			this._setPlusBtnLabelAttr(this.plusBtnLabel);
@@ -138,7 +138,7 @@ define([
 			
 			domAttr.set(this.inputNode, "role", "textbox");
 			var registry = require("dijit/registry");
-			var inputAreaNodeId =  registry.getUniqueId("dojo_mobile__mblValuePickerSlotInput");
+			var inputAreaNodeId =  registry.getUniqueId("dojo_mobile__duiValuePickerSlotInput");
 			domAttr.set(this.inputNode, "id", inputAreaNodeId);
 			domAttr.set(this.plusBtnNode, "aria-controls", inputAreaNodeId);
 			
@@ -263,7 +263,7 @@ define([
 			];
 			this.touchStartX = e.touches ? e.touches[0].pageX : e.clientX;
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.clientY;
-			domClass.add(e.currentTarget, "mblValuePickerSlotButtonSelected");
+			domClass.add(e.currentTarget, "duiValuePickerSlotButtonSelected");
 			this._btn = e.currentTarget;
 			if(this._timer){
 				this._timer.remove(); // fail safe
@@ -298,7 +298,7 @@ define([
 					this._interval = null;
 				}
 				array.forEach(this._conn, function(h){h.remove();});
-				domClass.remove(this._btn, "mblValuePickerSlotButtonSelected");
+				domClass.remove(this._btn, "duiValuePickerSlotButtonSelected");
 			}
 		},
 
@@ -308,7 +308,7 @@ define([
 				this._timer = null;
 			}
 			array.forEach(this._conn, function(h){h.remove();});
-			domClass.remove(this._btn, "mblValuePickerSlotButtonSelected");
+			domClass.remove(this._btn, "duiValuePickerSlotButtonSelected");
 			if(this._interval){
 				clearInterval(this._interval);
 				this._interval = null;

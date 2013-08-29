@@ -8,7 +8,7 @@
 	<title>EdgeToEdgeStoreList</title>
 
 	<script type="text/javascript" src="../../../deviceTheme.js" 
-		data-dojo-config="mblThemeFiles: ['base']"></script>
+		data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 	<script type="text/javascript" src="../TestUtil.js"></script>
@@ -100,7 +100,7 @@
 							var referenceValues = lang.clone(static_data1);
 							var nodeIndex = 0;
 							// Verify what is displayed
-							var nodes = query(".mblListItemLabel", "list");
+							var nodes = query(".duiListItemLabel", "list");
 							runner.assertEqual(referenceValues.length, nodes.length, 
 								"Before update, number of elements in the list is not the expected one");
 							nodes.forEach(function(node){
@@ -114,7 +114,7 @@
 							var def = new runner.Deferred();
 							setTimeout(def.getTestCallback(function(){
 								nodeIndex = 0;
-								var nodes = query(".mblListItemLabel", "list");
+								var nodes = query(".duiListItemLabel", "list");
 								runner.assertEqual(referenceValues.length, nodes.length, 
 									"After update, number of elements in the list is not the expected one");
 								nodes.forEach(function(node){

@@ -1,6 +1,6 @@
 dojo.addOnLoad(function(){
-	var CLASSNAMES1 = ["mblTabBarButton", "mblTabBarButtonSelected"];
-	var CLASSNAMES2 = ["mblTabBarButton", "mblTabBarButtonHasIcon", "mblTabBarButtonSelected"];
+	var CLASSNAMES1 = ["duiTabBarButton", "duiTabBarButtonSelected"];
+	var CLASSNAMES2 = ["duiTabBarButton", "duiTabBarButtonHasIcon", "duiTabBarButtonSelected"];
 	var geom = require("dojo/dom-geometry");
 	var checkSpreadedChildren = function(/* String */ tabBarId, /* Number */ nbOfButtons, /* Number */ tabBarPaddingPlusBorderPlusMarginWidth){
 		var tabBarPosition = geom.position(tabBarId);
@@ -25,20 +25,20 @@ dojo.addOnLoad(function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
 					var demoWidget = dijit.byId("dojox_mobile_TabBar_0");
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBar'),'mblTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBarSegmentedControl'), 'mblTabBarSegmentedControl ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBar'),'duiTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBarSegmentedControl'), 'duiTabBarSegmentedControl ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
 
 					verifyTabBarButton("dojox_mobile_TabBarButton_0", 'New', CLASSNAMES1, 'hidden', '', /tab-icon-16.png/i, /tab-icon-16h.png/);
 
 					demoWidget = dijit.byId("dojox_mobile_TabBar_1");
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBar'),'mblTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBarTabBar'), 'mblTabBarTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBar'),'duiTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBarTabBar'), 'duiTabBarTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
 
 					verifyTabBarButton("dojox_mobile_TabBarButton_3", 'New', CLASSNAMES2, 'hidden', '', /tab-icon-16.png/i, /tab-icon-16h.png/);
 
 					demoWidget = dijit.byId("dojox_mobile_TabBar_2");
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBar'),'mblTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
-					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'mblTabBarTabBar'), 'mblTabBarTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBar'),'duiTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
+					doh.assertTrue(dojo.hasClass(demoWidget.domNode, 'duiTabBarTabBar'), 'duiTabBarTabBar ' + " id=" + demoWidget.id + " value=" + demoWidget.domNode.className);
 
 					verifyTabBarButton("dojox_mobile_TabBarButton_6", 'Featured', CLASSNAMES2, 'hidden', '', /tab-icons.png/i, /tab-icons.png/i, true);
 					demoWidget = dijit.byId("dojox_mobile_TabBarButton_6");

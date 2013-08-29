@@ -1,10 +1,10 @@
 /* === Gray Knob Button ==*/
-.mblDomButtonGrayKnob {
+.duiDomButtonGrayKnob {
   position: relative;
   width: 29px;
   height: 29px;
 }
-.mblDomButtonGrayKnob > div {
+.duiDomButtonGrayKnob > div {
   /* horiz line 1 */
 
   position: absolute;
@@ -19,7 +19,7 @@
   border-style: solid;
   border-color: #9c9e9c;
 }
-.mblDomButtonGrayKnob > div > div {
+.duiDomButtonGrayKnob > div > div {
   /* horiz line 2 */
 
   position: absolute;
@@ -31,7 +31,7 @@
   border-style: solid;
   border-color: #9c9e9c;
 }
-.mblDomButtonGrayKnob > div > div > div {
+.duiDomButtonGrayKnob > div > div > div {
   /* horiz line 3 */
 
   position: absolute;

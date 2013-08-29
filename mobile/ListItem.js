@@ -130,13 +130,13 @@ define([
 		/* internal properties */	
 		// The following properties are overrides of those in _ItemBase.
 		paramsToInherit: "variableHeight,transition,deleteIcon,icon,rightIcon,rightIcon2,uncheckIcon,arrowClass,checkClass,uncheckClass,deleteIconTitle,deleteIconRole",
-		baseClass: "mblListItem",
+		baseClass: "duiListItem",
 
 		_selStartMethod: "touch",
 		_selEndMethod: "timer",
 		_delayedSelection: true,
 
-		_selClass: "mblListItemSelected",
+		_selClass: "duiListItemSelected",
 
 		buildRendering: function(){
 			this._templated = !!this.templateString; // true if this widget is templated
@@ -150,12 +150,12 @@ define([
 				domClass.add(this.domNode, this._selClass);
 			}
 			if(this.header){
-				domClass.replace(this.domNode, "mblEdgeToEdgeCategory", this.baseClass);
+				domClass.replace(this.domNode, "duiEdgeToEdgeCategory", this.baseClass);
 			}
 
 			if(!this._templated){
 				this.labelNode =
-					domConstruct.create("div", {className:"mblListItemLabel"});
+					domConstruct.create("div", {className:"duiListItemLabel"});
 				var ref = this.srcNodeRef;
 				if(ref && ref.childNodes.length === 1 && ref.firstChild.nodeType === 3){
 					// if ref has only one text node, regard it as a label
@@ -189,11 +189,11 @@ define([
 
 			this.inherited(arguments);
 			
-			if(domClass.contains(this.domNode, "mblVariableHeight")){
+			if(domClass.contains(this.domNode, "duiVariableHeight")){
 				this.variableHeight = true;
 			}
 			if(this.variableHeight){
-				domClass.add(this.domNode, "mblVariableHeight");
+				domClass.add(this.domNode, "duiVariableHeight");
 				this.defer("layoutVariableHeight");
 			}
 
@@ -257,7 +257,7 @@ define([
 				var layout = n.getAttribute("data-mobile-layout") ||
 					(registry.byNode(n) || {}).layout;
 				if(layout){ 
-					domClass.add(n, "mblListItemLayout" +
+					domClass.add(n, "duiListItemLayout" +
 						layout.charAt(0).toUpperCase() + layout.substring(1));
 					this._layoutChildren.push(n);
 					if(layout === "center"){ centerNode = n; }
@@ -300,9 +300,9 @@ define([
 			var n = this.labelNode;
 			// labelNode may not exist only when using a template 
 			if((this._templated || n) && this.anchorLabel && e.currentTarget === n){
-				domClass.add(n, "mblListItemLabelSelected");
+				domClass.add(n, "duiListItemLabelSelected");
 				this.defer(function(){
-					domClass.remove(n, "mblListItemLabelSelected");
+					domClass.remove(n, "duiListItemLabelSelected");
 				}, this._duration);
 				this.onAnchorLabelClicked(e);
 				return;
@@ -372,7 +372,7 @@ define([
 			var opts = this.getTransOpts();
 			if(opts.moveTo || opts.href || opts.url || this.clickable){
 				if(!this.noArrow && !(parent && parent.selectOne)){
-					c = this.arrowClass || "mblDomButtonArrow";
+					c = this.arrowClass || "duiDomButtonArrow";
 					domAttr.set(this.domNode, "role", "button");
 				}
 			}
@@ -411,7 +411,7 @@ define([
 				this[type + "Node"], this[type + "Title"] || this.alt, this.domNode, this._findRef(type), "before");
 			if(this[type + "Node"]){
 				var cap = type.charAt(0).toUpperCase() + type.substring(1);
-				domClass.add(this[type + "Node"], "mblListItem" + cap);
+				domClass.add(this[type + "Node"], "duiListItem" + cap);
 			}
 			var role = this[type + "Role"];
 			if(role){
@@ -436,7 +436,7 @@ define([
 			//		private
 			if(!this._templated && !this.rightTextNode){
 				// When using a template, let the template create the element.
-				this.rightTextNode = domConstruct.create("div", {className:"mblListItemRightText"}, this.labelNode, "before");
+				this.rightTextNode = domConstruct.create("div", {className:"duiListItemRightText"}, this.labelNode, "before");
 			}
 			this.rightText = text;
 			this.rightTextNode.innerHTML = text;
@@ -474,12 +474,12 @@ define([
 					child !== this && child.checked && child.set("checked", false) && domAttr.set(child.domNode, "aria-selected", "false");
 				}, this);
 			}
-			this._setRightIconAttr(this.checkClass || "mblDomButtonCheck");
+			this._setRightIconAttr(this.checkClass || "duiDomButtonCheck");
 			this._setUncheckIconAttr(this.uncheckClass);
 
-			domClass.toggle(this.domNode, "mblListItemChecked", checked);
-			domClass.toggle(this.domNode, "mblListItemUnchecked", !checked);
-			domClass.toggle(this.domNode, "mblListItemHasUncheck", !!this.uncheckIconNode);
+			domClass.toggle(this.domNode, "duiListItemChecked", checked);
+			domClass.toggle(this.domNode, "duiListItemUnchecked", !checked);
+			domClass.toggle(this.domNode, "duiListItemHasUncheck", !!this.uncheckIconNode);
 			this.rightIconNode.style.position = (this.uncheckIconNode && !checked) ? "absolute" : "";
 
 			if(parent && this.checked !== checked){
@@ -495,7 +495,7 @@ define([
 			var prog = this._prog;
 			if(busy){
 				if(!this._progNode){
-					this._progNode = domConstruct.create("div", {className:"mblListItemIcon"});
+					this._progNode = domConstruct.create("div", {className:"duiListItemIcon"});
 					prog = this._prog = new ProgressIndicator({size:25, center:false, removeOnStop:false});
 					domClass.add(prog.domNode, this.progStyle);
 					this._progNode.appendChild(prog.domNode);

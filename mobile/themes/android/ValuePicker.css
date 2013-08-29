@@ -2,37 +2,37 @@
 
 @import url("../common/domButtons/DomButtonGrayMinus.css");
 /* dojox.mobile.ValuePicker */
-.mblValuePicker {
+.duiValuePicker {
   height: 126px;
 }
 /* dojox.mobile.ValuePickerSlot */
-.mblValuePicker > .mblValuePickerSlot {
+.duiValuePicker > .duiValuePickerSlot {
   float: left;
   margin: 0 5px;
 }
-.mblValuePickerSlotButton {
+.duiValuePickerSlotButton {
   position: relative;
   height: 38px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#d6d7d6), color-stop(0.5, #d6d3d6), color-stop(0.9, #bdbebd));
   background-image: linear-gradient(to bottom, #f7f7f7 0%, #d6d3d6 50%, #bdbebd 90%, #d6d7d6 100%);
 }
-.mblValuePickerSlotPlusButton {
+.duiValuePickerSlotPlusButton {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.mblValuePickerSlotMinusButton {
+.duiValuePickerSlotMinusButton {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.mblValuePickerSlotButtonSelected {
+.duiValuePickerSlotButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#306ea1), to(#266093), color-stop(0.06, #4090d3), color-stop(0.5, #306ea1));
   background-image: linear-gradient(to bottom, #306ea1 0%, #4090d3 6%, #306ea1 50%, #266093 100%);
 }
-.mblValuePickerSlotIcon {
+.duiValuePickerSlotIcon {
   top: 5px;
   margin: 0 auto;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   position: relative;
   height: 48px;
   border-top: 1px solid #7b797b;
@@ -40,7 +40,7 @@
   background-image: -webkit-gradient(linear, left top, left bottom, from(#adaead), to(#e7e3e7), color-stop(0.1, #d6d7d6), color-stop(0.5, #f7f7f7), color-stop(0.9, #f7f3f7));
   background-image: linear-gradient(to bottom, #adaead 0%, #d6d7d6 10%, #f7f7f7 50%, #f7f3f7 90%, #e7e3e7 100%);
 }
-.mblValuePickerSlotInput {
+.duiValuePickerSlotInput {
   display: block;
   width: 90%;
   height: 90%;
@@ -52,6 +52,6 @@
   font-size: 28px;
 }
 /* dojox.mobile.ValuePickerTimePicker */
-.mblValuePickerTimePicker > .mblToolBarButton {
+.duiValuePickerTimePicker > .duiToolBarButton {
   top: 45px;
 }

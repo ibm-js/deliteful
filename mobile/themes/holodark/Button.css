@@ -1,5 +1,5 @@
 /* dojox.mobile.Button */
-.mblButton {
+.duiButton {
   padding: 0 10px;
   height: 29px;
   border-style: outset;
@@ -18,21 +18,21 @@
   height: 40px;
   color: #ffffff;
 }
-.mblButtonSelected {
+.duiButtonSelected {
   color: #ffffff;
   border-color: transparent;
   background-image: none;
   background-color: #2C94BB;
   box-shadow: 0px 0px 1px 4px #1F5366;
 }
-.mblButtonDisabled,
-.mblButton:disabled {
+.duiButtonDisabled,
+.duiButton:disabled {
   border-color: grey;
   background-image: none;
   color: grey;
   cursor: default;
 }
-.mblBlueButton {
+.duiBlueButton {
   color: #ffffff;
   background-image: none;
   background-color: #333333;
@@ -43,10 +43,10 @@
   border-radius: 2px;
   background-color: #0099CC;
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   background-image: none;
 }
-.mblRedButton {
+.duiRedButton {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fa9d58), to(#ee4115), color-stop(0.5, #ff4d25), color-stop(0.5, #ed4d15));
   background-image: linear-gradient(to bottom, #fa9d58 0%, #ff4d25 50%, #ed4d15 50%, #ee4115 100%);
   color: #ffffff;
@@ -59,11 +59,11 @@
   border-radius: 2px;
   background-color: #CC0000;
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   background-image: none;
 }
-.mblButtonDisabled,
-.mblButton:disabled {
+.duiButtonDisabled,
+.duiButton:disabled {
   color: #646464;
   background-image: none;
   background-color: #333333;
@@ -74,12 +74,12 @@
   border-radius: 2px;
   background-color: #212121;
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   border-color: transparent;
   background-image: none;
   box-shadow: 0px 0px 1px 4px #33B5E5;
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   border-color: transparent;
   background-image: none;
   box-shadow: 0px 0px 1px 4px #FF4444;

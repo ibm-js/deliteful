@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,43 +13,43 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Button */
-.mblButton {
+.duiButton {
   background-image: url(compat/button-bg.png);
   background-repeat: repeat-x;
 }
-.mblButtonSelected {
+.duiButtonSelected {
   background-image: url(compat/button-sel-bg.png);
 }
-.mblBlueButton {
+.duiBlueButton {
   background-image: url(compat/blue-button-bg.png);
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   background-image: url(compat/blue-button-sel-bg.png);
 }
-.mblRedButton {
+.duiRedButton {
   background-image: url(compat/red-button-bg.png);
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   background-image: url(compat/red-button-sel-bg.png);
 }
-.dj_gecko .mblButton {
+.dj_gecko .duiButton {
   background-image: none;
 }
-.dj_gecko .mblButtonSelected {
+.dj_gecko .duiButtonSelected {
   background-image: '';
 }
-.dj_gecko .mblBlueButton {
+.dj_gecko .duiBlueButton {
   background-image: -moz-linear-gradient(top, #7a9de9 0%, #2362dd 100%);
 }
-.dj_gecko .mblBlueButtonSelected {
+.dj_gecko .duiBlueButtonSelected {
   background-image: '';
 }
-.dj_gecko .mblRedButton {
+.dj_gecko .duiRedButton {
   background-image: none;
 }
-.dj_gecko .mblRedButtonSelected {
+.dj_gecko .duiRedButtonSelected {
   background-image: '';
 }
-.dj_ff3 .mblButton {
+.dj_ff3 .duiButton {
   -moz-border-radius: 0;
 }

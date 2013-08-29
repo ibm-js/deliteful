@@ -6,14 +6,14 @@
 	<title>Action Sheet Sample</title>
 	<style>
 		/* Tooltip styles */
-		.mblTooltip.mblOpener {
+		.duiTooltip.duiOpener {
 			padding: 2px;
 			-webkit-box-shadow: 0 0 60px #808080;
 		}
-		.mblTooltip.mblOpener #cancel {
+		.duiTooltip.duiOpener #cancel {
 			display: none;
 		}
-		.mblTooltip.mblOpener button {
+		.duiTooltip.duiOpener button {
 			margin: 4px;
 			width: 240px;
 			height: 40px;
@@ -22,12 +22,12 @@
 			line-height: 38px;
 		}
 		/* Overlay styles */
-		.mblOverlay.mblOpener {
+		.duiOverlay.duiOpener {
 			padding-top: 10px;
 			background-color: #60656f;
 			background-image: -webkit-gradient(linear, left top, left bottom, from(#a6abb4), to(#5b616c), color-stop(0.1, #7b808b), color-stop(0.1, #60656f));
 		}
-		.mblOverlay.mblOpener button {
+		.duiOverlay.duiOpener button {
 			margin: 5px;
 			width: 90%;
 			height: 44px;
@@ -37,7 +37,7 @@
 			font-size: 18px;
 			line-height: 38px;
 		}
-		.mblOverlay.mblOpener #cancel {
+		.duiOverlay.duiOpener #cancel {
 			margin: 15px 5px;
 			background-color: #293039; /* for non-webkit browser */
 			background-image: none; /* for non-webkit browser */
@@ -74,7 +74,7 @@
 </head>
 <body style="visibility:hidden;">
 	<center>
-	<button data-dojo-type="dojox/mobile/Button" class="mblBlueButton" style="margin-top:20px;width:200px;"
+	<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="margin-top:20px;width:200px;"
 			onclick="dijit.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
 	<div id="msgArea" style="margin-top:5px;"></div>
 	</center>

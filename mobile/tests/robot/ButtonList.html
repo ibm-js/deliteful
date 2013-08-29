@@ -39,9 +39,9 @@
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
-									doh.assertTrue(domClass.contains(reg.byId("item1").domNode, "mblListItemUnchecked"), "item1");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_0").domNode, "mblListItemUnchecked"), "dojox_mobile_ListItem_0");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_1").domNode, "mblListItemChecked"), "dojox_mobile_ListItem_1");
+									doh.assertTrue(domClass.contains(reg.byId("item1").domNode, "duiListItemUnchecked"), "item1");
+									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_0").domNode, "duiListItemUnchecked"), "dojox_mobile_ListItem_0");
+									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_1").domNode, "duiListItemChecked"), "dojox_mobile_ListItem_1");
 								}), 1000);
 								return d;
 							}

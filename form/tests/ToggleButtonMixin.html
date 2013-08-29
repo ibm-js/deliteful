@@ -22,7 +22,7 @@
 			font-size: 100%;
 			margin: 0;
 		}
-		.mblRedButtonChecked {
+		.duiRedButtonChecked {
 			border-style: inset;
 		}
 	</style>
@@ -50,7 +50,7 @@
 						doh.f(dijit_attributes.get('checked'), "dijit get('checked')");
 						doh.f(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass not checked");
 						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "mblRedButton"), "dijit original class");
+						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
 					}
 	 			},
 				{
@@ -63,7 +63,7 @@
 						doh.f(mobile_attributes.get('checked'), "mobile get('checked')");
 						doh.f(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass+"Checked"), "mobile baseClass not checked");
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass), "mobile baseClass");
-						doh.t(dojo.hasClass(mobile_attributes.domNode, "mblRedButton"), "mobile original class");
+						doh.t(dojo.hasClass(mobile_attributes.domNode, "duiRedButton"), "mobile original class");
 					}
 	 			}
 			]);
@@ -158,8 +158,8 @@
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", checked: true, label:"original", "class":"mblRedButton"'/></td>
-			<td class="layout"><button type="button" class="mblRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.ToggleButton" label="original"/></td>
+			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", checked: true, label:"original", "class":"duiRedButton"'/></td>
+			<td class="layout"><button type="button" class="duiRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.ToggleButton" label="original"/></td>
 		</tr>
 		<tr>
 		<tr>

@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.TextArea */
-.mblTextArea {
+.duiTextArea {
   padding: 4px 1px;
   border-width: 1px;
   border-style: inset;
@@ -32,16 +32,16 @@
   width: calc(100% - 10px);
 }
 /* dojox.mobile.ExpandingTextArea */
-.mblExpandingTextArea {
+.duiExpandingTextArea {
   margin: 2px;
 }
-.mblTextArea:active,
-.mblTextArea:focus {
+.duiTextArea:active,
+.duiTextArea:focus {
   border-color: Highlight;
   background-color: white;
   color: black;
 }
-.mblTextArea[disabled] {
+.duiTextArea[disabled] {
   border-color: #808080;
   background-color: transparent;
   color: #808080;

@@ -1,5 +1,5 @@
 /* dojox.mobile.Slider */
-.mblSlider {
+.duiSlider {
   margin: 15px;
   border-style: inset;
   border-width: 1px;
@@ -13,32 +13,32 @@
   border: 1px solid #c0c0c0;
   border-bottom-color: #9b9b9b;
 }
-.mblSliderH {
+.duiSliderH {
   width: 200px;
   height: 8px;
 }
-.mblSliderH .mblSliderProgressBar {
+.duiSliderH .duiSliderProgressBar {
   height: 100%;
 }
-.mblSliderH .mblSliderHandle {
+.duiSliderH .duiSliderHandle {
   top: 50%;
 }
-.mblSliderV {
+.duiSliderV {
   height: 200px;
   width: 8px;
 }
-.mblSliderV .mblSliderProgressBar {
+.duiSliderV .duiSliderProgressBar {
   width: 100%;
 }
-.mblSliderV .mblSliderHandle {
+.duiSliderV .duiSliderHandle {
   left: 50%;
 }
-.mblSliderProgressBar {
+.duiSliderProgressBar {
   border-radius: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
 }
-.mblSliderHandle {
+.duiSliderHandle {
   margin: -10px 0 0 -10px;
   width: 18px;
   height: 18px;
@@ -50,11 +50,11 @@
   border: 1px solid #9b9b9b;
   border-bottom-color: #767676;
 }
-.mblSliderTransition {
+.duiSliderTransition {
   -webkit-transition-duration: 400ms;
   transition-duration: 400ms;
 }
-.mblSliderTouchBox {
+.duiSliderTouchBox {
   margin: 0;
   padding: 12pt;
   left: -12pt;

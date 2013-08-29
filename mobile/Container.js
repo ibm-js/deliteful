@@ -16,6 +16,6 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblContainer"
+		baseClass: "duiContainer"
 	});
 });

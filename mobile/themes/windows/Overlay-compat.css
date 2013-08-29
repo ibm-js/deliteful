@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,16 +13,16 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Overlay */
-.mblOverlay {
+.duiOverlay {
   text-align: center;
 }
-.dj_gecko .mblOverlay {
+.dj_gecko .duiOverlay {
   text-align: -moz-center;
 }
-.dj_ie9 .mblOverlay > *,
-.dj_ie8 .mblOverlay > * {
+.dj_ie9 .duiOverlay > *,
+.dj_ie8 .duiOverlay > * {
   margin: 0 auto;
 }
-.dj_ie6 .mblOverlay {
+.dj_ie6 .duiOverlay {
   *position: absolute;
 }

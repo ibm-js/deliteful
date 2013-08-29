@@ -1,23 +1,23 @@
 /* dojox.mobile.TabBarButton Rtl */
-.mblTabBarButtonRtl {
+.duiTabBarButtonRtl {
   float: right;
 }
-.mblTabBarButtonIconAreaRtl {
+.duiTabBarButtonIconAreaRtl {
   margin: 0 auto;
   width: 29px;
 }
 /* barType="tabBar" Rtl */
-.mblTabBarTabBar .mblTabBarButtonIconAreaRtl {
+.duiTabBarTabBar .duiTabBarButtonIconAreaRtl {
   padding-top: 4px;
 }
 /* barType="segmentedControl" Rtl */
-.mblTabBarSegmentedControl.mblTabBarNoText .mblTabBarButtonIconAreaRtl {
+.duiTabBarSegmentedControl.duiTabBarNoText .duiTabBarButtonIconAreaRtl {
   position: relative;
 }
-.mblTabBarSegmentedControl .mblTabBarButtonRtl {
+.duiTabBarSegmentedControl .duiTabBarButtonRtl {
   border-width: 1px 0px 1px 1px !important;
 }
-.mblTabBarSegmentedControl .mblTabBarButtonRtl:first-child {
+.duiTabBarSegmentedControl .duiTabBarButtonRtl:first-child {
   border-right-width: 1px !important;
   border-left-width: 0px;
   border-top-right-radius: 5px;
@@ -25,65 +25,65 @@
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 0px;
 }
-.mblTabBarSegmentedControl .mblTabBarButtonRtl:last-child {
+.duiTabBarSegmentedControl .duiTabBarButtonRtl:last-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 0px;
   border-left-width: 1px !important;
 }
-.mblTabBarSegmentedControl .mblTabBarButtonIconAreaRtl {
+.duiTabBarSegmentedControl .duiTabBarButtonIconAreaRtl {
   position: absolute;
   top: 0px;
   right: 0px;
   left: auto;
 }
-.mblHeading .mblTabBarSegmentedControl.mblTabBarRtl {
+.duiHeading .duiTabBarSegmentedControl.duiTabBarRtl {
   float: right;
 }
 /* barType="standardTab" Rtl */
-.mblTabBarStandardTab .mblTabBarButtonIconAreaRtl {
+.duiTabBarStandardTab .duiTabBarButtonIconAreaRtl {
   position: absolute;
   top: 3px;
   right: 0px;
   left: auto;
 }
-.mblTabBarStandardTab .mblTabBarButtonRtl.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+.duiTabBarStandardTab .duiTabBarButtonRtl.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
   margin-right: 20px;
   margin-left: 0px;
 }
 /* barType="slimTab" Rtl */
-.mblTabBarSlimTab .mblTabBarButtonRtl {
+.duiTabBarSlimTab .duiTabBarButtonRtl {
   border-left: 1px solid #4e4e4e;
 }
-.mblTabBarSlimTab .mblTabBarButtonRtl:first-child {
+.duiTabBarSlimTab .duiTabBarButtonRtl:first-child {
   border-right: 1px solid #4e4e4e;
 }
-.mblTabBarSlimTab .mblTabBarButtonIconAreaRtl {
+.duiTabBarSlimTab .duiTabBarButtonIconAreaRtl {
   position: absolute;
   top: 0px;
   right: 0px;
   left: auto;
 }
-.mblTabBarSlimTab .mblTabBarButtonRtl.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+.duiTabBarSlimTab .duiTabBarButtonRtl.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
   margin-right: 20px;
   margin-left: 0px;
 }
 /* barType="flatTab" Rtl*/
-.mblTabBarFlatTab .mblTabBarButtonIconAreaRtl {
+.duiTabBarFlatTab .duiTabBarButtonIconAreaRtl {
   position: absolute;
   top: 0px;
   right: 0px;
   left: auto;
 }
-.mblTabBarFlatTab .mblTabBarButtonRtl.mblTabBarButtonHasIcon .mblTabBarButtonLabel {
+.duiTabBarFlatTab .duiTabBarButtonRtl.duiTabBarButtonHasIcon .duiTabBarButtonLabel {
   margin-right: 20px;
   margin-left: 0px;
 }
 /* barType="tallTab" */
-.mblTabBarTallTab .mblTabBarButtonRtl {
+.duiTabBarTallTab .duiTabBarButtonRtl {
   margin-left: 2px;
 }
-.mblTabBarTallTab .mblTabBarButtonIconAreaRtl {
+.duiTabBarTallTab .duiTabBarButtonIconAreaRtl {
   margin-top: 8px;
 }

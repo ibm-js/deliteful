@@ -1,10 +1,10 @@
 /* === Silver Circle Orange Button ==*/
-.mblDomButtonSilverCircleOrangeButton {
+.duiDomButtonSilverCircleOrangeButton {
   position: relative;
   width: 30px;
   height: 30px;
 }
-.mblDomButtonSilverCircleOrangeButton > div {
+.duiDomButtonSilverCircleOrangeButton > div {
   position: relative;
   top: 0px;
   left: 0px;
@@ -17,7 +17,7 @@
   background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c2c2c2));
   background: linear-gradient(to bottom, #efefef 0%, #c2c2c2 100%);
 }
-.mblDomButtonSilverCircleOrangeButton > div > div {
+.duiDomButtonSilverCircleOrangeButton > div > div {
   position: relative;
   top: 6px;
   left: 6px;

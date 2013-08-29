@@ -31,11 +31,11 @@ define([
 		
 		// closeIcon: String
 		//		CSS class for the close icon.
-		closeIcon: "mblDomButtonBlueMinus",
+		closeIcon: "duiDomButtonBlueMinus",
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblIconItemPane",
+		baseClass: "duiIconItemPane",
 
 		// tabIndex: String
 		//		Tab index for the close button, such that users can hit the tab
@@ -49,14 +49,14 @@ define([
 		buildRendering: function(){
 			this.inherited(arguments);
 			this.hide();
-			this.closeHeaderNode = domConstruct.create("h2", {className:"mblIconItemPaneHeading"}, this.domNode);
+			this.closeHeaderNode = domConstruct.create("h2", {className:"duiIconItemPaneHeading"}, this.domNode);
 			this.closeIconNode = domConstruct.create("div", {
-				className: "mblIconItemPaneIcon",
+				className: "duiIconItemPaneIcon",
 				role: this.closeIconRole,
 				title: this.closeIconTitle
 			}, this.closeHeaderNode);
-			this.labelNode = domConstruct.create("span", {className:"mblIconItemPaneTitle"}, this.closeHeaderNode);
-			this.containerNode = domConstruct.create("div", {className:"mblContent"}, this.domNode);
+			this.labelNode = domConstruct.create("span", {className:"duiIconItemPaneTitle"}, this.closeHeaderNode);
+			this.containerNode = domConstruct.create("div", {className:"duiContent"}, this.domNode);
 		},
 
 		show: function(){
@@ -91,7 +91,7 @@ define([
 			this.closeIconNode = iconUtils.setIcon(icon, this.iconPos, this.closeIconNode, null, this.closeHeaderNode);
 
 			if(has("windows-theme") && this.closeIconTitle !== ""){
-				this.closeButtonNode = domConstruct.create("span", {className:"mblButton mblCloseButton", innerHTML:this.closeIconTitle,
+				this.closeButtonNode = domConstruct.create("span", {className:"duiButton duiCloseButton", innerHTML:this.closeIconTitle,
 					style: {display: "none"}}, this.closeIconNode);
 			}
 		}

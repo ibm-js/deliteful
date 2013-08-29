@@ -1,4 +1,4 @@
-/* mbl.widget.Heading */
+/* dui.widget.Heading */
 @import url("iphone-compat.css");
 
 .alertDialogBody { /* 1.8 */
@@ -9,18 +9,18 @@
 	background-image: url(compat/heading-bg.png);
 }
 
-.mblImageThumbView .mblThumb {
+.duiImageThumbView .duiThumb {
 	-moz-transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
 }
 
-.mblImageThumbView .mblThumb:hover {
+.duiImageThumbView .duiThumb:hover {
 	-moz-transform: scale(1.2);
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transform: scale(1.2);
 	-o-transition: all 0.3s ease-in-out;
 }
-.mblImageThumbView .mblThumbInner .mblThumbMask .mblThumbSrc {
+.duiImageThumbView .duiThumbInner .duiThumbMask .duiThumbSrc {
   -moz-background-size: 100% 100%;
   -moz-border-radius: 5px;
   -o-background-size: 100% 100%;

@@ -1,9 +1,9 @@
-.mblPageTurningCatalog {
+.duiPageTurningCatalog {
 	position: absolute;
 	overflow: hidden;
 }
 
-.mblPageTurningPage {
+.duiPageTurningPage {
 	position: absolute;
 	overflow: hidden;
 	-webkit-transform-origin: 100% 0%;
@@ -11,7 +11,7 @@
 	-webkit-transition-duration: 0s;
 }
 
-.mblPageTurningFront {
+.duiPageTurningFront {
 	position: absolute;
 	overflow: hidden;
 	-webkit-box-shadow: 0 0 11px rgba(0, 0, 0, .7);
@@ -20,7 +20,7 @@
 	-webkit-transition-duration: 0s;
 }
 
-.mblPageTurningBack {
+.duiPageTurningBack {
 	position: absolute;
 	background: white;
 	overflow: hidden;
@@ -30,7 +30,7 @@
 	-webkit-transition-duration: 0s;
 }
 
-.mblPageTurningShadow {
+.duiPageTurningShadow {
 	position: absolute;
 	top: 0px;
 	width: 4px;

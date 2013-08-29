@@ -2,12 +2,12 @@
 
 @import url("../common/domButtons/DomButtonDarkBlueCheck-compat.css");
 /* dojox.mobile.ListItem */
-.mblListItemSelected {
+.duiListItemSelected {
   background-color: #3578b1;
 }
-.dj_gecko .mblListItemSelected {
+.dj_gecko .duiListItemSelected {
   background-image: none;
 }
-.dj_ie6 .mblListItem {
+.dj_ie6 .duiListItem {
   vertical-align: bottom;
 }

@@ -1,9 +1,9 @@
 /* === Red Circle Plus Buttons ==*/
-.mblDomButtonRedCirclePlus {
-	background-image: url(compat/mblDomButtonRedCirclePlus.png);
+.duiDomButtonRedCirclePlus {
+	background-image: url(compat/duiDomButtonRedCirclePlus.png);
 	background-repeat: no-repeat;
 }
 
-.mblDomButtonRedCirclePlus > div {
+.duiDomButtonRedCirclePlus > div {
 	display: none;
 }

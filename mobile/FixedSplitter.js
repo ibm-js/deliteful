@@ -62,7 +62,7 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblFixedSplitter",
+		baseClass: "duiFixedSplitter",
 
 		startup: function(){
 			if(this._started){ return; }

@@ -11,7 +11,7 @@
 
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
 <script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, duiAlwaysHideAddressBar: true"></script>
 
 <script type="text/javascript">
 require([
@@ -94,7 +94,7 @@ require([
 		doh.assertTrue(Math.abs(expectedListHeight - actualListHeight) < delta, "wrong list height: " + actualListHeight + " != " + expectedListHeight);
 
 		// expected number of items in list DOM: multiple of pageSize, less than maxPages*pageSize
-		var count = query(".mblListItem", list.containerNode).length;
+		var count = query(".duiListItem", list.containerNode).length;
 		doh.assertTrue(count % pageSize == 0, "not a multiple of pageSize: " + count);
 		doh.assertTrue(count < pageSize * list.maxPages, "more than maxPages: " + count);
 

@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,6 +13,6 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.TextBox */
-.dj_ff3 .mblTextBox {
+.dj_ff3 .duiTextBox {
   -moz-border-radius: 0;
 }

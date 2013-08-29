@@ -24,12 +24,12 @@ define([
 		// description:
 		//		This widget shows the rating using an image sprite that contains full stars, half stars and empty stars.
 		//		The star displayed can be fully customized by redefining the following css classes in your application:
-		//		- mblStarRatingStarIcon: defines the size of each star icon, and the css sprite to use as the background image stars;
-		//		- mblStarRatingFullStar: defines the background-position of the css sprite to display a full star icon;
-		//		- mblStarRatingHalfStar: defines the background-position of the css sprite to display a half star icon (ltr);
-		//		- mblStarRatingHalfStarRtl: defines the background-position of the css sprite to display a half star icon (rtl);
-		//		- mblStarRatingEmptyStar: defines the background-position of the css sprite to display an empty star icon.
-		//		Note that if your using a different baseClass than the default one 'mblStarRating', you should replace 'mblStarRating'
+		//		- duiStarRatingStarIcon: defines the size of each star icon, and the css sprite to use as the background image stars;
+		//		- duiStarRatingFullStar: defines the background-position of the css sprite to display a full star icon;
+		//		- duiStarRatingHalfStar: defines the background-position of the css sprite to display a half star icon (ltr);
+		//		- duiStarRatingHalfStarRtl: defines the background-position of the css sprite to display a half star icon (rtl);
+		//		- duiStarRatingEmptyStar: defines the background-position of the css sprite to display an empty star icon.
+		//		Note that if your using a different baseClass than the default one 'duiStarRating', you should replace 'duiStarRating'
 		//		in the previous css class names with your baseClass value (for example, with a baseClass of 'myClass', the css classes to use
 		//		will be myClassStarIcon, myClassFullStar, myClassHalfStar, myClassHalfStarRtl, myClassEmptyStar).
 		//
@@ -42,7 +42,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblStarRating",
+		baseClass: "duiStarRating",
 
 		// maximum: Number
 		//		The maximum rating, that is also the number of stars to show.

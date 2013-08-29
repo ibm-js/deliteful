@@ -26,24 +26,24 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblComboBoxMenu",
+		baseClass: "duiComboBoxMenu",
 		
 		// bgIframe: [private] Boolean
 		//		Flag to prevent the creation of a background iframe, when appropriate. For internal usage. 
 		bgIframe: true, // so it's not created for IE and FF
 
 		buildRendering: function(){
-			this.domNode = this.focusNode = domConstruct.create("div", { "class":"mblReset" });
+			this.domNode = this.focusNode = domConstruct.create("div", { "class":"duiReset" });
 			this.containerNode = domConstruct.create("div", { style: { position:"absolute", top:0, left:0 } }, this.domNode); // needed for scrollable
-			this.previousButton = domConstruct.create("div", { "class":"mblReset mblComboBoxMenuItem mblComboBoxMenuPreviousButton", role:"option" }, this.containerNode);
-			this.nextButton = domConstruct.create("div", { "class":"mblReset mblComboBoxMenuItem mblComboBoxMenuNextButton", role:"option" }, this.containerNode);
+			this.previousButton = domConstruct.create("div", { "class":"duiReset duiComboBoxMenuItem duiComboBoxMenuPreviousButton", role:"option" }, this.containerNode);
+			this.nextButton = domConstruct.create("div", { "class":"duiReset duiComboBoxMenuItem duiComboBoxMenuNextButton", role:"option" }, this.containerNode);
 			this.inherited(arguments);
 		},
 
 		_createMenuItem: function(){
 			// override of the method from dijit/form/_ComboBoxMenu.
 			return domConstruct.create("div", {
-				"class": "mblReset mblComboBoxMenuItem" +(this.isLeftToRight() ? "" : " mblComboBoxMenuItemRtl"),
+				"class": "duiReset duiComboBoxMenuItem" +(this.isLeftToRight() ? "" : " duiComboBoxMenuItemRtl"),
 				role: "option"
 			});
 		},
@@ -51,13 +51,13 @@ define([
 		onSelect: function(/*DomNode*/ node){
 			// summary:
 			//		Add selected CSS.
-			domClass.add(node, "mblComboBoxMenuItemSelected");
+			domClass.add(node, "duiComboBoxMenuItemSelected");
 		},
 
 		onDeselect: function(/*DomNode*/ node){
 			// summary:
 			//		Remove selected CSS.
-			domClass.remove(node, "mblComboBoxMenuItemSelected");
+			domClass.remove(node, "duiComboBoxMenuItemSelected");
 		},
 
 		onOpen: function(){

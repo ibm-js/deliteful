@@ -1,10 +1,10 @@
 /* dojox.mobile.SimpleDialog */
-.mblSimpleDialogDecoration {
+.duiSimpleDialogDecoration {
   background-color: #404040;
 }
-.dj_gecko .mblSimpleDialogDecoration {
+.dj_gecko .duiSimpleDialogDecoration {
   background-color: rgba(64, 64, 64, 0.85);
 }
-.dj_ff3 .mblSimpleDialogDecoration {
+.dj_ff3 .duiSimpleDialogDecoration {
   -moz-border-radius: 2px;
 }

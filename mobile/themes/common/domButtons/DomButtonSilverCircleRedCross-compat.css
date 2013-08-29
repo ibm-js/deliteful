@@ -1,8 +1,8 @@
 /* === Silver Circle Red Cross Button ==*/
-.mblDomButtonSilverCircleRedCross {
-	background-image: url(compat/mblDomButtonSilverCircleRedCross.png);
+.duiDomButtonSilverCircleRedCross {
+	background-image: url(compat/duiDomButtonSilverCircleRedCross.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonSilverCircleRedCross > div {
+.duiDomButtonSilverCircleRedCross > div {
 	display: none;
 }

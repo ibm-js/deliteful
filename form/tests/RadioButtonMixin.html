@@ -51,7 +51,7 @@
 						doh.t(!dijit_attributes.focusNode.checked, 'dijit HTML element unchecked');
 						doh.f(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass not checked");
 						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "mblRedButton"), "dijit original class");
+						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
 						doh.is("something else", dijit_attributes.focusNode.value, 'dijit HTML element value');
 					}
 	 			},
@@ -69,7 +69,7 @@
 						doh.t(!mobile_attributes.focusNode.checked, 'mobile HTML element unchecked');
 						doh.f(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass+"Checked"), "mobile baseClass not checked");
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass), "mobile baseClass");
-						doh.t(dojo.hasClass(mobile_attributes.domNode, "mblRedButton"), "mobile original class");
+						doh.t(dojo.hasClass(mobile_attributes.domNode, "duiRedButton"), "mobile original class");
 						doh.is("something else", mobile_attributes.focusNode.value, 'mobile HTML element value');
 					}
 	 			}
@@ -162,9 +162,9 @@
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input name="dijit_attributes" id="dijit_attributes" data-dojo-type="dijit/form/RadioButton" data-dojo-props='checked: true, "class":"mblRedButton", value:"something", name:"dijit_attributes", "aria-label":"dijit_attributes" '/></td>
+			<td class="layout"><input name="dijit_attributes" id="dijit_attributes" data-dojo-type="dijit/form/RadioButton" data-dojo-props='checked: true, "class":"duiRedButton", value:"something", name:"dijit_attributes", "aria-label":"dijit_attributes" '/></td>
 			<td class="layout"><input name="dijit_attributes" aria-label="dijit_attributes2" id="dijit_attributes2" type="radio" value="other" dojoType="dijit.form.RadioButton">
-			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes" type="radio" value="something" class="mblRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.RadioButton"/></td>
+			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes" type="radio" value="something" class="duiRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.RadioButton"/></td>
 			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes2" id="mobile_attributes2" type="radio" value="other" dojoType="dojox.mobile.RadioButton">
 		</tr>
 		<tr>

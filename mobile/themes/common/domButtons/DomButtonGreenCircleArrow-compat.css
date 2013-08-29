@@ -1,9 +1,9 @@
 /* === Green Circle Arrow Buttons ==*/
-.mblDomButtonGreenCircleArrow {
-	background-image: url(compat/mblDomButtonGreenCircleArrow.png);
+.duiDomButtonGreenCircleArrow {
+	background-image: url(compat/duiDomButtonGreenCircleArrow.png);
 	background-repeat: no-repeat;
 }
 
-.mblDomButtonGreenCircleArrow > div {
+.duiDomButtonGreenCircleArrow > div {
 	display: none;
 }

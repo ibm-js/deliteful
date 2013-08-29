@@ -1,5 +1,5 @@
 /* dojox.mobile.RoundRect */
-.mblRoundRect {
+.duiRoundRect {
   margin: 7px 9px 16px;
   padding: 8px;
   border: 1px solid #c6c7c6;
@@ -7,7 +7,7 @@
   background-color: #ffffff;
   color: black;
 }
-.mblRoundRect.mblShadow {
+.duiRoundRect.duiShadow {
   -webkit-box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.35);
   box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.35);
 }

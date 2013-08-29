@@ -1,7 +1,7 @@
 @import url("../common/domButtons/DomButtonGrayArrow-compat.css");
 
 @import url("../common/domButtons/DomButtonDarkBlueCheck-compat.css");
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -16,12 +16,12 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.ListItem */
-.mblListItemSelected {
+.duiListItemSelected {
   background-color: Highlight;
 }
-.dj_gecko .mblListItemSelected {
+.dj_gecko .duiListItemSelected {
   background-image: none;
 }
-.dj_ie6 .mblListItem {
+.dj_ie6 .duiListItem {
   vertical-align: bottom;
 }

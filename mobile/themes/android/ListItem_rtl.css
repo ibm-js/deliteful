@@ -2,28 +2,28 @@
 
 @import url("../common/domButtons/DomButtonWhiteCheck_rtl.css");
 /* dojox.mobile.ListItem Rtl*/
-.mblListItemRtl .mblListItemDeleteIcon {
+.duiListItemRtl .duiListItemDeleteIcon {
   float: right;
   margin-left: 11px;
 }
-.mblListItemRtl .mblListItemIcon {
+.duiListItemRtl .duiListItemIcon {
   float: right;
   margin-left: 11px;
   margin-right: 0px;
 }
-.mblListItemRtl .mblListItemRightIcon,
-.mblListItemRtl .mblListItemRightIcon2,
-.mblListItemRtl .mblListItemUncheckIcon {
+.duiListItemRtl .duiListItemRightIcon,
+.duiListItemRtl .duiListItemRightIcon2,
+.duiListItemRtl .duiListItemUncheckIcon {
   float: left;
 }
-.mblListItemRtl .mblListItemRightText {
+.duiListItemRtl .duiListItemRightText {
   float: left;
   margin-left: 4px;
 }
-.mblListItemRtl .mblListItemLayoutLeft {
+.duiListItemRtl .duiListItemLayoutLeft {
   float: right;
   margin-left: 11px;
 }
-.mblListItemRtl .mblListItemLayoutRight {
+.duiListItemRtl .duiListItemLayoutRight {
   float: left;
 }

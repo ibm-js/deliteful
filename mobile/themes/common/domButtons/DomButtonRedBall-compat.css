@@ -1,8 +1,8 @@
 /* === Red Ball Button ==*/
-.mblDomButtonRedBall {
-	background-image: url(compat/mblDomButtonRedBall.png);
+.duiDomButtonRedBall {
+	background-image: url(compat/duiDomButtonRedBall.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonRedBall > div {
+.duiDomButtonRedBall > div {
 	display: none;
 }

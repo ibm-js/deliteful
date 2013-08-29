@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -12,21 +12,21 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-.dj_gecko .mblColorBlue {
+.dj_gecko .duiColorBlue {
   background-image: -moz-linear-gradient(top, #7a9de9 0%, #2362dd 100%);
 }
-.dj_gecko .mblColorBlue45 {
+.dj_gecko .duiColorBlue45 {
   background-image: -moz-linear-gradient(top left, #7a9de9 0%, #2362dd 100%);
 }
-.dj_gecko .mblColorDefault {
+.dj_gecko .duiColorDefault {
   background-image: none;
 }
-.dj_gecko .mblColorDefault45 {
+.dj_gecko .duiColorDefault45 {
   background-image: -moz-linear-gradient(top left, #e2e2e2 0%, #a4a4a4 100%);
 }
-.dj_gecko .mblColorDefaultSel {
+.dj_gecko .duiColorDefaultSel {
   background-image: none;
 }
-.dj_gecko .mblColorDefaultSel45 {
+.dj_gecko .duiColorDefaultSel45 {
   background-image: -moz-linear-gradient(top left, #bbbbbb 0%, #666666 100%);
 }

@@ -1,8 +1,8 @@
 /* === Minus Button ==*/
-.mblDomButtonWhiteMinus {
-	background-image: url(compat/mblDomButtonWhiteMinus.png);
+.duiDomButtonWhiteMinus {
+	background-image: url(compat/duiDomButtonWhiteMinus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhiteMinus div {
+.duiDomButtonWhiteMinus div {
 	display: none;
 }

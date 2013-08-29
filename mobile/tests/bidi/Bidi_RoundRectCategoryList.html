@@ -6,9 +6,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Bidi Mobile test - EdgeToEdgeCategoryList</title>
 
-	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true,  has: { 'dojo-bidi': true }"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true,  has: { 'dojo-bidi': true }"></script>
 
 <script type="text/javascript">
 		require([
@@ -89,9 +89,9 @@
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 		
 		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectCategoryList</h2>
-		<button data-dojo-type="dojox/mobile/Button" id="btn1" class="mblRedButton" data-dojo-props='label:"Set first Category to textDir ltr"'></button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" data-dojo-props='label:"Set first Category to textDir rtl"'></button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn3" class="mblRedButton" data-dojo-props='label:"Set first Category to textDir auto"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn1" class="duiRedButton" data-dojo-props='label:"Set first Category to textDir ltr"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn2" class="duiRedButton" data-dojo-props='label:"Set first Category to textDir rtl"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn3" class="duiRedButton" data-dojo-props='label:"Set first Category to textDir auto"'></button>
 		<br>
 		<h2 data-dojo-type="dojox/mobile/RoundRectCategory" id="category1" data-dojo-props='textDir:"ltr"'>Hello world!</h2>
 		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList">

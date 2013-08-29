@@ -1,7 +1,7 @@
 @import "variables.less";
 @import "../common/Tooltip.less";
 
-.mblOpener {
+.duiOpener {
 	background-color: @win-dialog-color;
 	width: calc(~"100% - @{default-padding-right} - @{default-padding-left}");
 	height: calc(~'100% - 50px');
@@ -14,12 +14,12 @@
 	opacity: 1;
 	-ms-touch-action: none;
 
-	& .mblTooltipAnchor,
-	& .mblOpenerUnderlay {
+	& .duiTooltipAnchor,
+	& .duiOpenerUnderlay {
 		display: none;
 	}
 
-	& .mblHeading {
+	& .duiHeading {
 		min-height: 50px;
 		position: absolute;
 		bottom: 0px;
@@ -28,7 +28,7 @@
 		width: calc(~"100% - @{default-padding-right} - @{default-padding-left}");
 		z-index:3;
 
-		& .mblHeadingDivTitle {
+		& .duiHeadingDivTitle {
 			text-align: left;
 			position: fixed;
 			top: 0px;
@@ -36,12 +36,12 @@
 			padding-left: @default-padding-left;
 		}
 
-		& ~ .mblScrollableView {
+		& ~ .duiScrollableView {
 			height: calc(~"100% - 60px") !important;
 		}
 
-		& .mblButton,
-		& .mblToolBarButton {
+		& .duiButton,
+		& .duiToolBarButton {
 			bottom: 10px;
 			border: 2px solid @win-foreground-color;
 			position: absolute;
@@ -62,7 +62,7 @@
 
 }
 
-.mblOpener .dijitColorPalette {
+.duiOpener .dijitColorPalette {
 	width: calc(~"100% - @{default-padding-right} - @{default-padding-left}");
 	height: calc(~'100% - 50px');
 
@@ -118,27 +118,27 @@
 
 }
 
-.mblTooltip:not(.mblOpener) {
-	&.mblTooltipAbove {
-		& .mblSpinWheel {
+.duiTooltip:not(.duiOpener) {
+	&.duiTooltipAbove {
+		& .duiSpinWheel {
 			bottom: auto;
 		}
 	}
 
-	&.mblTooltipBelow {
-		& .mblSpinWheel {
+	&.duiTooltipBelow {
+		& .duiSpinWheel {
 			top: auto;
 		}
 	}
 
-	&.mblTooltipBefore {
-		& .mblSpinWheel {
+	&.duiTooltipBefore {
+		& .duiSpinWheel {
 			left: 0px;
 		}
 	}
 
-	&.mblTooltipAfter {
-		& .mblSpinWheel {
+	&.duiTooltipAfter {
+		& .duiSpinWheel {
 			left: auto;
 			right: 0px;
 		}

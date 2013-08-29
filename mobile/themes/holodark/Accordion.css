@@ -1,26 +1,26 @@
 /* dojox.mobile.Accordion */
-.mblAccordion {
+.duiAccordion {
   border-style: outset;
   border-width: 1px;
   border-style: none;
 }
-.mblAccordionRoundRect {
+.duiAccordionRoundRect {
   margin: 7px 9px 16px 9px;
   padding: 0;
   border: 1px solid #222222;
   border-radius: 8px;
 }
-.mblAccordionRoundRect .mblAccordionTitle:first-child {
+.duiAccordionRoundRect .duiAccordionTitle:first-child {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-.mblAccordionRoundRect .mblAccordionTitleLast,
-.mblAccordionRoundRect .mblAccordionPane:last-child {
+.duiAccordionRoundRect .duiAccordionTitleLast,
+.duiAccordionRoundRect .duiAccordionPane:last-child {
   border-bottom-width: 0;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.mblAccordionTitle {
+.duiAccordionTitle {
   position: relative;
   height: 30px;
   width: 100%;
@@ -38,10 +38,10 @@
   border-top-width: 1px;
   border-radius: 2px;
 }
-.mblAccordionTitle:first-child {
+.duiAccordionTitle:first-child {
   border-top: none;
 }
-.mblAccordionTitleAnchor {
+.duiAccordionTitleAnchor {
   display: block;
   height: 100%;
   text-decoration: none;
@@ -49,26 +49,26 @@
   color: #ffffff;
   cursor: pointer;
 }
-.mblAccordionIconParent {
+.duiAccordionIconParent {
   float: left;
   margin: 6px 4px 0 6px;
   line-height: normal;
 }
-.mblAccordionIconParent1 {
+.duiAccordionIconParent1 {
   display: block;
 }
-.mblAccordionIconParent2 {
+.duiAccordionIconParent2 {
   display: none;
 }
-.mblAccordionTitleSelected {
+.duiAccordionTitleSelected {
   background-color: #33b5e5;
 }
-.mblAccordionTitleSelected .mblAccordionTitleAnchor {
+.duiAccordionTitleSelected .duiAccordionTitleAnchor {
   color: #ffffff;
 }
-.mblAccordionTitleSelected .mblAccordionIconParent1 {
+.duiAccordionTitleSelected .duiAccordionIconParent1 {
   display: none;
 }
-.mblAccordionTitleSelected .mblAccordionIconParent2 {
+.duiAccordionTitleSelected .duiAccordionIconParent2 {
   display: block;
 }

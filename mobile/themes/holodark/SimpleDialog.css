@@ -1,5 +1,5 @@
 /* dojox.mobile.SimpleDialog */
-.mblSimpleDialog {
+.duiSimpleDialog {
   position: absolute;
   z-index: 100;
   margin: 0;
@@ -8,7 +8,7 @@
   padding: 5px;
   width: 262px;
 }
-.mblSimpleDialogDecoration {
+.duiSimpleDialogDecoration {
   background-color: rgba(64, 64, 64, 0.85);
   border: 2px solid #eeeeee;
   color: white;
@@ -20,12 +20,12 @@
   border-top-color: rgba(255, 255, 255, 0.6);
   border-radius: 2px;
 }
-.mblSimpleDialogContainer {
+.duiSimpleDialogContainer {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.mblSimpleDialogCover {
+.duiSimpleDialogCover {
   background-color: #000000;
   opacity: 0.5;
   position: absolute;
@@ -35,10 +35,10 @@
   height: 100%;
   z-index: 99;
 }
-.mblSimpleDialogCloseBtn {
+.duiSimpleDialogCloseBtn {
   position: absolute !important;
 }
-.mblSimpleDialogTitle {
+.duiSimpleDialogTitle {
   margin: 14px 0 7px -5px;
   padding: 0 14px 14px;
   width: 244px;
@@ -46,7 +46,7 @@
   font-size: 17px;
   text-align: left;
 }
-.mblSimpleDialogText {
+.duiSimpleDialogText {
   margin: 14px 9px;
   width: 244px;
   font-size: 17px;

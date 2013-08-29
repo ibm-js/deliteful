@@ -41,11 +41,11 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "mblScrollableView");
+			domClass.add(this.domNode, "duiScrollableView");
 			this.domNode.style.overflow = "hidden";
 			this.domNode.style.top = "0px";
 			this.containerNode = domConstruct.create("div",
-				{className:"mblScrollableViewContainer"}, this.domNode);
+				{className:"duiScrollableViewContainer"}, this.domNode);
 			this.containerNode.style.position = "absolute";
 			this.containerNode.style.top = "0px"; // view bar is relative
 			if(this.scrollDir === "v"){

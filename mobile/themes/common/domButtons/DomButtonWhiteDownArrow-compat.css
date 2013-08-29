@@ -1,8 +1,8 @@
 /* === Down Arrow Button ==*/
-.mblDomButtonWhiteDownArrow {
-	background-image: url(compat/mblDomButtonWhiteDownArrow.png);
+.duiDomButtonWhiteDownArrow {
+	background-image: url(compat/duiDomButtonWhiteDownArrow.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhiteDownArrow div {
+.duiDomButtonWhiteDownArrow div {
 	display: none;
 }

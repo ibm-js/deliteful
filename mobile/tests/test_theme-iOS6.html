@@ -36,13 +36,13 @@
 		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='back: "Back", label:"Settings"'>
 			<span data-dojo-type="dojox/mobile/ToolBarButton" style="float: right;">Edit</span>
 			<span data-dojo-type="dojox/mobile/ToolBarButton"
-			        data-dojo-props='label:"Done",defaultColor:"mblColorBlue"'
+			        data-dojo-props='label:"Done",defaultColor:"duiColorBlue"'
 			        style="float:right;"></span>
 		</div>
 		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Round Rect Category</h2>
 		<ul data-dojo-type="dojox/mobile/RoundRectList">
 			<li data-dojo-type="dojox/mobile/ListItem">Airplane Mode
-				<div data-dojo-type="dojox/mobile/Switch" class="mblItemSwitch"></div>
+				<div data-dojo-type="dojox/mobile/Switch" class="duiItemSwitch"></div>
 			</li>
 			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText: "IBM", moveTo: "view2"'>Wi-Fi</li>
 			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo: "view2"'>Bluetooth</li>
@@ -86,15 +86,15 @@
 		<button data-dojo-type="dojox/mobile/Button" onclick="show('customPicker', this.domNode)">Show Opener</button>
 		<div id="customPicker" data-dojo-type="dojox/mobile/Opener">
 		      <h1 data-dojo-type="dojox/mobile/Heading" label="Custom Picker">
-		              <div data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="mblColorBlue" style="width:45px;float:right;" onClick="hide('customPicker')"></div>
+		              <div data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="width:45px;float:right;" onClick="hide('customPicker')"></div>
 		      </h1>
 		      <div id="spin1" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
 		</div>
 
 		<div id="dlg_message" data-dojo-type="dojox/mobile/SimpleDialog">
-		  <div class="mblSimpleDialogTitle">Information</div>
-		  <div class="mblSimpleDialogText">This is a sample dialog.</div>
-		  <button data-dojo-type="dojox/mobile/Button" class="mblSimpleDialogButton"
+		  <div class="duiSimpleDialogTitle">Information</div>
+		  <div class="duiSimpleDialogText">This is a sample dialog.</div>
+		  <button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton"
 		          style="width:100px;" onclick="hide('dlg_message')">OK</button>
 		</div>		
 		<button onclick="show('dlg_message')">Show Dialog</button>

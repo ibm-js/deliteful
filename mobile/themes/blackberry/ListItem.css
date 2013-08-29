@@ -2,7 +2,7 @@
 
 @import url("../common/domButtons/DomButtonDarkBlueCheck.css");
 /* dojox.mobile.ListItem */
-.mblListItem {
+.duiListItem {
   position: relative;
   overflow: hidden;
   /* for focus frame */
@@ -16,36 +16,36 @@
   font-size: 18px;
   color: black;
 }
-.mblListItem.mblVariableHeight {
+.duiListItem.duiVariableHeight {
   padding: 11px 8px;
   height: auto;
   line-height: normal;
 }
-.mblListItemSelected {
+.duiListItemSelected {
   color: #ffffff;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
-.mblListItemSelected .mblDomButton div {
+.duiListItemSelected .duiDomButton div {
   border-color: white;
 }
-.mblListItemLabelSelected {
+.duiListItemLabelSelected {
   background-color: #0869c6;
 }
-.mblListItemChecked .mblListItemRightIcon {
+.duiListItemChecked .duiListItemRightIcon {
   visibility: visible;
 }
-.mblListItemChecked .mblListItemUncheckIcon {
+.duiListItemChecked .duiListItemUncheckIcon {
   position: absolute;
   visibility: hidden;
 }
-.mblListItemUnchecked .mblListItemRightIcon {
+.duiListItemUnchecked .duiListItemRightIcon {
   visibility: hidden;
 }
-.mblListItemUnchecked .mblListItemUncheckIcon {
+.duiListItemUnchecked .duiListItemUncheckIcon {
   visibility: visible;
 }
-.mblListItemDeleteIcon {
+.duiListItemDeleteIcon {
   position: relative;
   float: left;
   line-height: normal;
@@ -53,7 +53,7 @@
   margin-bottom: -15px;
   margin-right: 11px;
 }
-.mblListItemIcon {
+.duiListItemIcon {
   position: relative;
   float: left;
   line-height: normal;
@@ -61,16 +61,16 @@
   margin-bottom: -15px;
   margin-right: 11px;
 }
-.mblListItemRightIcon,
-.mblListItemRightIcon2,
-.mblListItemUncheckIcon {
+.duiListItemRightIcon,
+.duiListItemRightIcon2,
+.duiListItemUncheckIcon {
   position: relative;
   float: right;
   line-height: normal;
   margin-top: 15px;
   margin-bottom: -15px;
 }
-.mblListItemRightText {
+.duiListItemRightText {
   position: relative;
   float: right;
   line-height: normal;
@@ -78,36 +78,36 @@
   color: black;
   margin-top: 19px;
 }
-.mblListItemLabel {
+.duiListItemLabel {
   position: relative;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   height: 100%;
 }
-.mblVariableHeight .mblListItemLabel {
+.duiVariableHeight .duiListItemLabel {
   white-space: normal;
 }
-.mblListItemSubText {
+.duiListItemSubText {
   font-size: 14px;
   color: #7b7d48;
 }
-.mblListItemLayoutLeft {
+.duiListItemLayoutLeft {
   position: relative;
   float: left;
   margin-right: 11px;
 }
-.mblListItemLayoutCenter {
+.duiListItemLayoutCenter {
   position: absolute;
   width: 100%;
   text-align: center;
 }
-.mblListItemLayoutRight {
+.duiListItemLayoutRight {
   position: relative;
   float: right;
 }
 /* dojox.mobile._EditableListMixin */
-.mblListItemFloat {
+.duiListItemFloat {
   position: absolute;
   border: 1px solid gray;
   opacity: 0.5;

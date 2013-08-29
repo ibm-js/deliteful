@@ -126,9 +126,9 @@ function fireTouchMove(node, x, y){
 function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIcon, hasIcon2, hasVariableHeight, regExp, hasSelected, isSprite){
 	var demoWidget = registry.byId(id);
 	doh.assertNotEqual(null, demoWidget, "ListItem: Did not instantiate. id=" + id);
-	doh.assertEqual('mblListItem' + (hasVariableHeight ?" mblVariableHeight":"") + (hasSelected ?" mblListItemSelected":""), demoWidget.domNode.className, "id=" + id);
+	doh.assertEqual('duiListItem' + (hasVariableHeight ?" duiVariableHeight":"") + (hasSelected ?" duiListItemSelected":""), demoWidget.domNode.className, "id=" + id);
 	var childNodes = demoWidget.domNode.children;
-//	doh.assertEqual('mblListItemAnchor' + (hasIcon?'':' mblListItemAnchorNoIcon'), childNodes[0].className);
+//	doh.assertEqual('duiListItemAnchor' + (hasIcon?'':' duiListItemAnchorNoIcon'), childNodes[0].className);
 	
 //	doh.assertEqual('A', childNodes[0].tagName);
 	
@@ -143,32 +143,32 @@ function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIco
 				doh.assertTrue(childNodes[i].src.search(regExp) != -1, "search " + regExp.toString());
 			}
 		}
-		doh.assertTrue(dojo.hasClass(childNodes[i], 'mblListItemIcon'), 'mblListItemIcon id=' + id + " got: " + childNodes[i].className);
+		doh.assertTrue(dojo.hasClass(childNodes[i], 'duiListItemIcon'), 'duiListItemIcon id=' + id + " got: " + childNodes[i].className);
 		i++;
 	}
 
 	if(hasRightIcon){
 		if(domButtonType){
-			doh.assertEqual(domButtonType + ' mblDomButton', childNodes[i].childNodes[0].className, "id=" + id);
+			doh.assertEqual(domButtonType + ' duiDomButton', childNodes[i].childNodes[0].className, "id=" + id);
 		}
-		doh.assertTrue(dojo.hasClass(childNodes[i], 'mblListItemRightIcon'), 'mblListItemRightIcon id=' + id + " got: " + childNodes[i].className);
+		doh.assertTrue(dojo.hasClass(childNodes[i], 'duiListItemRightIcon'), 'duiListItemRightIcon id=' + id + " got: " + childNodes[i].className);
 		i++;
 	}
 
 	if(hasIcon2){
-		doh.assertTrue(dojo.hasClass(childNodes[i], 'mblListItemRightIcon2'), 'mblListItemRightIcon2 id=' + id + " got: " + childNodes[i].className);
+		doh.assertTrue(dojo.hasClass(childNodes[i], 'duiListItemRightIcon2'), 'duiListItemRightIcon2 id=' + id + " got: " + childNodes[i].className);
 		i++;
 	}
 
 	if(rightText){
 		doh.assertEqual(rightText, dojo.isFF ==3.6 ? childNodes[i].childNodes[0].innerHTML : childNodes[i].innerHTML, "id=" + id); //2 0r 3
-		doh.assertEqual('mblListItemRightText', childNodes[i++].className, "id=" + id);
+		doh.assertEqual('duiListItemRightText', childNodes[i++].className, "id=" + id);
 	}
 	if(!hasVariableHeight){
-		doh.assertEqual('mblListItemLabel', childNodes[i].className, "id=" + id);
+		doh.assertEqual('duiListItemLabel', childNodes[i].className, "id=" + id);
 		doh.assertEqual('DIV', childNodes[i].tagName, "id=" + id);
 	}else{
-		doh.assertEqual('mblListItemLabel', childNodes[i+1].className, "id=" + id);
+		doh.assertEqual('duiListItemLabel', childNodes[i+1].className, "id=" + id);
 		doh.assertEqual('DIV', childNodes[i+1].tagName, "id=" + id);
 	}
 
@@ -217,8 +217,8 @@ function verifyIconItem(id, text, display, regExp, isSprite){
 	}
 	doh.assertEqual(text, demoWidget.domNode.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
 	doh.assertEqual(display, demoWidget.paneWidget.domNode.style.display, "id=" +id);
-	doh.assertEqual('mblIconItemPaneHeading', demoWidget.paneWidget.domNode.childNodes[0].className, "id=" +id);
-	doh.assertEqual('mblDomButtonBlueMinus mblDomButton', demoWidget.paneWidget.domNode.childNodes[0].childNodes[0].childNodes[0].className, "id=" +id);
+	doh.assertEqual('duiIconItemPaneHeading', demoWidget.paneWidget.domNode.childNodes[0].className, "id=" +id);
+	doh.assertEqual('duiDomButtonBlueMinus duiDomButton', demoWidget.paneWidget.domNode.childNodes[0].childNodes[0].childNodes[0].className, "id=" +id);
 	doh.assertEqual(text, demoWidget.paneWidget.domNode.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
 }
 
@@ -227,8 +227,8 @@ function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regE
 	for(var i = 0; i < classNames.length;i++){
 		doh.assertTrue(dojo.hasClass(demoWidget.domNode, classNames[i]), classNames[i] + " id=" +id + " className:"+demoWidget.domNode.className);
 	}
-	doh.assertEqual('mblTabBarButtonIconArea', demoWidget.domNode.childNodes[0].className, "id=" +id);
-	doh.assertEqual('mblTabBarButtonLabel', demoWidget.domNode.childNodes[1].className, "id=" +id);
+	doh.assertEqual('duiTabBarButtonIconArea', demoWidget.domNode.childNodes[0].className, "id=" +id);
+	doh.assertEqual('duiTabBarButtonLabel', demoWidget.domNode.childNodes[1].className, "id=" +id);
 	if(demoWidget.iconNode1){
 		if(!has('ie')) {
 			if(isSprite){

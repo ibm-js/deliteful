@@ -10,7 +10,7 @@ define([
 		//		A non-templated button widget that can be in two states (checked or not).
 		//		Can be base class for things like tabs or checkbox or radio buttons
 
-		baseClass: "mblToggleButton",
+		baseClass: "duiToggleButton",
 
 		_setCheckedAttr: function(){
 			this.inherited(arguments);

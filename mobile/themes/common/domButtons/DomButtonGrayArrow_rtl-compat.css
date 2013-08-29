@@ -1,6 +1,6 @@
 /* === Arrow Button Rtl ==*/
-.mblListItemRtl .mblDomButtonGrayArrow, 
-.mblListItemRtl .mblDomButtonArrow {
-	background-image: url(compat/mblDomButtonGrayArrow_rtl.png);
+.duiListItemRtl .duiDomButtonGrayArrow, 
+.duiListItemRtl .duiDomButtonArrow {
+	background-image: url(compat/duiDomButtonGrayArrow_rtl.png);
 	background-repeat: no-repeat;
 }

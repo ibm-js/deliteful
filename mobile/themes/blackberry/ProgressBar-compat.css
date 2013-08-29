@@ -1,5 +1,5 @@
 /* Progress Bar */
-.dj_gecko .mblProgressBarProgress {
+.dj_gecko .duiProgressBarProgress {
   -moz-transition-property: width;
   -moz-transition-duration: 0.25s;
 }

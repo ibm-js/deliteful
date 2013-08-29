@@ -92,7 +92,7 @@ define([
 			this._setBtnLabels(p);
 			this.initSlots();
 			this.inherited(arguments);
-			domClass.add(this.domNode, "mblValuePickerDatePicker");
+			domClass.add(this.domNode, "duiValuePickerDatePicker");
 			this._conn = [
 				this.own(on(this.slots[0], "_spinToValue", lang.hitch(this, "_onYearSet")))[0],
 				this.own(on(this.slots[1], "_spinToValue", lang.hitch(this, "_onMonthSet")))[0],

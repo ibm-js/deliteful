@@ -1,219 +1,219 @@
 /* dojox.mobile.Switch */
 /* Switch - common */
-@mbl-switch-height: 27px;
+@dui-switch-height: 27px;
 //
-.mblSwitch {
+.duiSwitch {
 	margin: 0;
 	position: relative;
 	display: inline-block;
-	height: @mbl-switch-height;
-	line-height: @mbl-switch-height + 2;
+	height: @dui-switch-height;
+	line-height: @dui-switch-height + 2;
 	overflow: hidden;
 	text-align: left;
 	.tap-highlight-color(rgba(255,255,255,0));
 }
-.mblListItem .mblSwitch {
+.duiListItem .duiSwitch {
 	position: absolute;
 	right: 12px;
-	top: (@mbl-list-item-height - @mbl-switch-height) / 2;
+	top: (@dui-list-item-height - @dui-switch-height) / 2;
 }
-.mblSwitchInner {
+.duiSwitchInner {
 	position: absolute;
 	top: 0;
-	height: @mbl-switch-height;
+	height: @dui-switch-height;
 }
-.mblSwitchAnimation .mblSwitchInner {
+.duiSwitchAnimation .duiSwitchInner {
 	.transition-property(left);
 	.transition-duration(.1s);
 }
-.mblSwitchOn .mblSwitchInner {
+.duiSwitchOn .duiSwitchInner {
 	left: 0;
 }
-.mblSwitchBg {
+.duiSwitchBg {
 	position: absolute;
 	top: 0;
 	width: 94px;
-	height: @mbl-switch-height;
+	height: @dui-switch-height;
 	font-family: Helvetica;
 	font-size: 16px;
 	font-weight: bold;
-	line-height: @mbl-switch-height + 2;
+	line-height: @dui-switch-height + 2;
 	.box-sizing(border-box);
-	.mblSwitchBg-styles;
+	.duiSwitchBg-styles;
 }
-.mblSwitchBgLeft {
+.duiSwitchBgLeft {
 	left: 0;
 	color: white;
 	background-color: #3f84eb;
-	.mbl-switch-bg-left-background-image();
+	.dui-switch-bg-left-background-image();
 }
-.mblSwitchBgRight {
+.duiSwitchBgRight {
 	color: #7f7f7f;
-	.mbl-switch-bg-right-background-image();
+	.dui-switch-bg-right-background-image();
 }
-.mblSwitchKnob {
+.duiSwitchKnob {
 	position: absolute;
 	top: 0;
-	height: @mbl-switch-height;
-	.mbl-switch-knob-background-image();
+	height: @dui-switch-height;
+	.dui-switch-knob-background-image();
 	font-size: 1px;
 	.box-sizing(border-box);
-	.mblSwitchKnob-styles;
+	.duiSwitchKnob-styles;
 }
-.mblSwitchText {
+.duiSwitchText {
 	position: relative;
 	top: 0;
 	width: 53px;
-	height: @mbl-switch-height;
+	height: @dui-switch-height;
 	padding: 0;
 	line-height: 28px;
 	text-align: center;
 }
-.mblSwitchTextLeft {
+.duiSwitchTextLeft {
 	left: 0;
 }
-.mblSwitchTextRight {
+.duiSwitchTextRight {
 	left: 40px;
 }
 
 /* Square Shape */
-.mblSwSquareShape-styles () {
+.duiSwSquareShape-styles () {
 	width: 94px;
-	&.mblSwitchOff .mblSwitchInner {
+	&.duiSwitchOff .duiSwitchInner {
 		left: -53px;
 	}
-	.mblSwitchBg {
-		border-radius: @mbl-switch-square-border-radius;
+	.duiSwitchBg {
+		border-radius: @dui-switch-square-border-radius;
 	}
-	.mblSwitchBgRight {
+	.duiSwitchBgRight {
 		left: 53px;
 	}
-	.mblSwitchKnob {
+	.duiSwitchKnob {
 		left: 53px;
 		width: 41px;
-		border-radius: @mbl-switch-square-border-radius;
+		border-radius: @dui-switch-square-border-radius;
 	}
-	.mblSwitchText {
+	.duiSwitchText {
 		width: 53px;
 	}
-	.mblSwitchTextRight {
+	.duiSwitchTextRight {
 		left: 40px;
 	}
 }
-.mblSwSquareShape {
-	.mblSwSquareShape-styles;
+.duiSwSquareShape {
+	.duiSwSquareShape-styles;
 }
 
 /* Round Shape1 */
-.mblSwRoundShape1-styles () {
+.duiSwRoundShape1-styles () {
 	width: 77px;
-	&.mblSwitchOff .mblSwitchInner {
+	&.duiSwitchOff .duiSwitchInner {
 		left: -50px;
 	}
-	.mblSwitchBg {
+	.duiSwitchBg {
 		width: 77px;
 		border-radius: 14px;
 	}
-	.mblSwitchBgRight {
+	.duiSwitchBgRight {
 		left: 50px;
 	}
-	.mblSwitchKnob {
+	.duiSwitchKnob {
 		left: 50px;
 		width: 27px;
 		border-radius: 13px;
 	}
-	.mblSwitchText {
+	.duiSwitchText {
 		width: 50px;
 	}
-	.mblSwitchTextRight {
+	.duiSwitchTextRight {
 		left: 26px;
 	}
 }
-.mblSwRoundShape1 {
-	.mblSwRoundShape1-styles;
+.duiSwRoundShape1 {
+	.duiSwRoundShape1-styles;
 }
 
 /* Round Shape2 */
-.mblSwRoundShape2-styles () {
+.duiSwRoundShape2-styles () {
 	width: 94px;
-	&.mblSwitchOff .mblSwitchInner {
+	&.duiSwitchOff .duiSwitchInner {
 		left: -51px;
 	}
-	.mblSwitchBg {
+	.duiSwitchBg {
 		border-radius: 14px;
 	}
-	.mblSwitchBgRight {
+	.duiSwitchBgRight {
 		left: 51px;
 	}
-	.mblSwitchKnob {
+	.duiSwitchKnob {
 		left: 51px;
 		width: 43px;
 		border-radius: 13px;
 	}
-	.mblSwitchText {
+	.duiSwitchText {
 		width: 51px;
 	}
-	.mblSwitchTextRight {
+	.duiSwitchTextRight {
 		left: 42px;
 	}
 }
-.mblSwRoundShape2 {
-	.mblSwRoundShape2-styles;
+.duiSwRoundShape2 {
+	.duiSwRoundShape2-styles;
 }
 
 /* Arc Shape1 */
-.mblSwArcShape1-styles () {
+.duiSwArcShape1-styles () {
 	width: 77px;
-	&.mblSwitchOff .mblSwitchInner {
+	&.duiSwitchOff .duiSwitchInner {
 		left: -50px;
 	}
-	.mblSwitchBg {
+	.duiSwitchBg {
 		width: 77px;
 		border-radius: ~"5px/14px";
 	}
-	.mblSwitchBgRight {
+	.duiSwitchBgRight {
 		left: 50px;
 	}
-	.mblSwitchKnob {
+	.duiSwitchKnob {
 		left: 50px;
 		width: 27px;
 		border-radius: ~"5px/13px";
 	}
-	.mblSwitchText {
+	.duiSwitchText {
 		width: 50px;
 	}
-	.mblSwitchTextRight {
+	.duiSwitchTextRight {
 		left: 26px;
 	}
 }
-.mblSwArcShape1 {
-	.mblSwArcShape1-styles;
+.duiSwArcShape1 {
+	.duiSwArcShape1-styles;
 }
 
 /* Arc Shape2 */
-.mblSwArcShape2-styles () {
+.duiSwArcShape2-styles () {
 	width: 94px;
-	&.mblSwitchOff .mblSwitchInner {
+	&.duiSwitchOff .duiSwitchInner {
 		left: -51px;
 	}
-	.mblSwitchBg {
+	.duiSwitchBg {
 		border-radius: ~"5px/14px";
 	}
-	.mblSwitchBgRight {
+	.duiSwitchBgRight {
 		left: 51px;
 	}
-	.mblSwitchKnob {
+	.duiSwitchKnob {
 		left: 51px;
 		width: 43px;
 		border-radius: ~"5px/13px";
 	}
-	.mblSwitchText {
+	.duiSwitchText {
 		width: 51px;
 	}
-	.mblSwitchTextRight {
+	.duiSwitchTextRight {
 		left: 42px;
 	}
 }
-.mblSwArcShape2 {
-	.mblSwArcShape2-styles;
+.duiSwArcShape2 {
+	.duiSwArcShape2-styles;
 }

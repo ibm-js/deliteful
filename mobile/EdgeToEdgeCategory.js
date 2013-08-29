@@ -11,10 +11,10 @@ define([
 		//		A category header for an edge-to-edge list.
 		buildRendering: function(){
 			this.inherited(arguments);
-			this.domNode.className = "mblEdgeToEdgeCategory";
+			this.domNode.className = "duiEdgeToEdgeCategory";
 
 			if(this.type && this.type == "long"){
-				this.domNode.className += " mblEdgeToEdgeCategoryLong";
+				this.domNode.className += " duiEdgeToEdgeCategoryLong";
 			}
 		}
 	});

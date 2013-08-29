@@ -46,9 +46,9 @@
 						dijit_attributes.set('label', "label");
 						doh.is("label", dijit_attributes.get('label'), "dijit get('label')");
 						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "mblRedButton"), "dijit original class");
-						dijit_attributes.set('class', "mblBlueButton");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "mblBlueButton"), "dijit new class");
+						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
+						dijit_attributes.set('class', "duiBlueButton");
+						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiBlueButton"), "dijit new class");
 					}
 	 			},
 				{
@@ -59,9 +59,9 @@
 						mobile_attributes.set('label', "label");
 						doh.is("label", mobile_attributes.get('label'), "mobile get('label')");
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass), "mobile baseClass");
-						doh.t(dojo.hasClass(mobile_attributes.domNode, "mblRedButton"), "mobile original class");
-						mobile_attributes.set('class', "mblBlueButton");
-						doh.t(dojo.hasClass(mobile_attributes.domNode, "mblBlueButton"), "mobile new class");
+						doh.t(dojo.hasClass(mobile_attributes.domNode, "duiRedButton"), "mobile original class");
+						mobile_attributes.set('class', "duiBlueButton");
+						doh.t(dojo.hasClass(mobile_attributes.domNode, "duiBlueButton"), "mobile new class");
 					}
 	 			}
 			]);
@@ -198,8 +198,8 @@
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/Button" data-dojo-props='type:"button", label:"original", "class":"mblRedButton"'/></td>
-			<td class="layout"><button type="button" class="mblRedButton" id="mobile_attributes" dojoType="dojox.mobile.Button" label="original"/></td>
+			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/Button" data-dojo-props='type:"button", label:"original", "class":"duiRedButton"'/></td>
+			<td class="layout"><button type="button" class="duiRedButton" id="mobile_attributes" dojoType="dojox.mobile.Button" label="original"/></td>
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>

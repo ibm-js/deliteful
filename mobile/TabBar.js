@@ -74,7 +74,7 @@ define([
 		// selectOne: [private] Boolean
 		//		Specifies that only one item can be selected.
 		selectOne: true,
-		baseClass: "mblTabBar",
+		baseClass: "duiTabBar",
 		_fixedButtonWidth: 76,
 		_fixedButtonMargin: 17,
 		_largeScreenWidth: 500,
@@ -139,9 +139,9 @@ define([
 			var bm = this._fixedButtonMargin;
 			var arr = array.map(this.getChildren(), function(w){ return w.domNode; });
 
-			domClass.toggle(this.domNode, "mblTabBarNoIcons",
+			domClass.toggle(this.domNode, "duiTabBarNoIcons",
 							!array.some(this.getChildren(), function(w){ return w.iconNode1; }));
-			domClass.toggle(this.domNode, "mblTabBarNoText",
+			domClass.toggle(this.domNode, "duiTabBarNoText",
 							!array.some(this.getChildren(), function(w){ return w.label; }));
 
 			var margin = 0;
@@ -149,7 +149,7 @@ define([
 				this.containerNode.style.paddingLeft = "";
 				margin = Math.floor((w - (bw + bm * 2) * arr.length) / 2);
 				if(this.fill == "always" || (this.fill == "auto" && (w < this._largeScreenWidth || margin < 0))){
-					domClass.add(this.domNode, "mblTabBarFill");
+					domClass.add(this.domNode, "duiTabBarFill");
 					for(i = 0; i < arr.length; i++){
 						arr[i].style.width = (100/arr.length) + "%";
 						arr[i].style.margin = "0";
@@ -176,7 +176,7 @@ define([
 				}
 				var parent = this.getParent();
 				if(this.fill == "always"){
-					domClass.add(this.domNode, "mblTabBarFill");
+					domClass.add(this.domNode, "duiTabBarFill");
 					for(i = 0; i < arr.length; i++){
 						arr[i].style.width = (100/arr.length) + "%";
 						if(this._barType != "segmentedControl" && this._barType != "standardTab") {
@@ -184,7 +184,7 @@ define([
 						}
 					}
 				}else{
-					if(this.center && (!parent || !domClass.contains(parent.domNode, "mblHeading"))){
+					if(this.center && (!parent || !domClass.contains(parent.domNode, "duiHeading"))){
 						margin = w;
 						for(i = 0; i < arr.length; i++){
 							margin -= domGeometry.getMarginBox(arr[i]).w;

@@ -1,8 +1,8 @@
 /* === Silver Circle Green Plus Button ==*/
-.mblDomButtonSilverCircleGreenPlus {
-	background-image: url(compat/mblDomButtonSilverCircleGreenPlus.png);
+.duiDomButtonSilverCircleGreenPlus {
+	background-image: url(compat/duiDomButtonSilverCircleGreenPlus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonSilverCircleGreenPlus > div {
+.duiDomButtonSilverCircleGreenPlus > div {
 	display: none;
 }

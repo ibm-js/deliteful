@@ -2,42 +2,42 @@
 
 @import url("../common/domButtons/DomButtonGrayMinus.css");
 /* dojox.mobile.ValuePicker */
-.mblValuePicker {
+.duiValuePicker {
   height: 126px;
 }
 /* dojox.mobile.ValuePickerSlot */
-.mblValuePicker > .mblValuePickerSlot {
+.duiValuePicker > .duiValuePickerSlot {
   float: left;
   margin: 0 5px;
 }
-.mblValuePickerSlotButton {
+.duiValuePickerSlotButton {
   position: relative;
   height: 38px;
   background-image: none;
 }
-.mblValuePickerSlotPlusButton {
+.duiValuePickerSlotPlusButton {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
-.mblValuePickerSlotMinusButton {
+.duiValuePickerSlotMinusButton {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-.mblValuePickerSlotButtonSelected {
+.duiValuePickerSlotButtonSelected {
   background-image: none;
 }
-.mblValuePickerSlotIcon {
+.duiValuePickerSlotIcon {
   top: 5px;
   margin: 0 auto;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   position: relative;
   height: 48px;
   border-top: 1px solid #7b797b;
   border-bottom: 1px solid #c6c3c6;
   background-image: none;
 }
-.mblValuePickerSlotInput {
+.duiValuePickerSlotInput {
   display: block;
   width: 90%;
   height: 90%;
@@ -50,10 +50,10 @@
   color: #ffffff;
 }
 /* dojox.mobile.ValuePickerTimePicker */
-.mblValuePickerTimePicker > .mblToolBarButton {
+.duiValuePickerTimePicker > .duiToolBarButton {
   top: 45px;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   border-top: 2px solid #33b5e5;
   border-bottom: 2px solid #33b5e5;
   background-image: none;

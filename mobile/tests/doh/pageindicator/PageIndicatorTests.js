@@ -1,9 +1,9 @@
 var timeoutInterval = 3000;
 
-var WIDGET_CLASSNAME1 = "mblPageIndicator";
-var WIDGET_CLASSNAME2 = "mblFixedBottomBar";
-var WIDGET_DOT_CLASSNAME1 = "mblPageIndicatorDot";
-var WIDGET_DOT_CLASSNAME2 = "mblPageIndicatorDotSelected";
+var WIDGET_CLASSNAME1 = "duiPageIndicator";
+var WIDGET_CLASSNAME2 = "duiFixedBottomBar";
+var WIDGET_DOT_CLASSNAME1 = "duiPageIndicatorDot";
+var WIDGET_DOT_CLASSNAME2 = "duiPageIndicatorDotSelected";
 var WIDGET_PAGENUM = 5;
 
 require([

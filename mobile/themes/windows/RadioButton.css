@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.RadioButton */
-.mblRadioButton {
+.duiRadioButton {
   position: relative;
   margin: -0.5em 3px 0.3em 4px;
   width: 1em;
@@ -34,8 +34,8 @@
   transform: none;
   z-index: 1;
 }
-.mblRadioButtonChecked::after,
-.mblRadioButton:checked::after {
+.duiRadioButtonChecked::after,
+.duiRadioButton:checked::after {
   position: absolute;
   content: "";
   width: 0.3em;
@@ -50,11 +50,11 @@
   transform-origin: 50% 50%;
   border-color: black;
 }
-.mblRadioButtonChecked.mblRadioButtonSelected::after,
-.mblRadioButton:checked.mblRadioButtonSelected::after {
+.duiRadioButtonChecked.duiRadioButtonSelected::after,
+.duiRadioButton:checked.duiRadioButtonSelected::after {
   border-color: white;
 }
-.mblRadioButton + .mblCheckableInputDecorator:before {
+.duiRadioButton + .duiCheckableInputDecorator:before {
   content: '';
   width: 20px;
   height: 20px;
@@ -67,20 +67,20 @@
   margin-top: 8px;
   margin-bottom: 8px;
 }
-.mblRadioButton:not([disabled]):active + .mblCheckableInputDecorator:before,
-.mblRadioButton:not([disabled]) + .mblCheckableInputDecorator:active:before {
+.duiRadioButton:not([disabled]):active + .duiCheckableInputDecorator:before,
+.duiRadioButton:not([disabled]) + .duiCheckableInputDecorator:active:before {
   background-color: Highlight;
 }
-.mblRadioButtonChecked + .mblCheckableInputDecorator:before {
+.duiRadioButtonChecked + .duiCheckableInputDecorator:before {
   background-image: url("images/dark/radiobtn.png");
   background-position: 50% 50%;
   background-size: 13px 13px;
   background-repeat: no-repeat;
 }
-.mblRadioButton[disabled] + .mblCheckableInputDecorator:before {
+.duiRadioButton[disabled] + .duiCheckableInputDecorator:before {
   border-color: #808080;
 }
-.mblRadioButton[disabled].mblRadioButtonChecked + .mblCheckableInputDecorator:before {
+.duiRadioButton[disabled].duiRadioButtonChecked + .duiCheckableInputDecorator:before {
   background-image: url("images/radiobtn-disabled.png");
   background-position: 50% 50%;
   background-size: 13px 13px;

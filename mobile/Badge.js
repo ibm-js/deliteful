@@ -27,7 +27,7 @@ define([
 
 		// className: [const] String
 		//		A CSS class name of a DOM button.
-		className: "mblDomButtonRedBadge",
+		className: "duiDomButtonRedBadge",
 
 		// fontSize: [const] Number
 		//		Font size in pixel. The other style attributes are determined by the DOM
@@ -47,8 +47,8 @@ define([
 				lang.mixin(this, params);
 			}
 			this.domNode = node ? node : domConstruct.create("div");
-			domClass.add(this.domNode, "mblBadge");
-			if(this.domNode.className.indexOf("mblDomButton") === -1){
+			domClass.add(this.domNode, "duiBadge");
+			if(this.domNode.className.indexOf("duiDomButton") === -1){
 				domClass.add(this.domNode, this.className);
 			}
 			if(this.fontSize !== 16){

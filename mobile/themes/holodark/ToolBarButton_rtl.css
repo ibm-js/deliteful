@@ -1,18 +1,18 @@
 /* dojox.mobile.ToolBarButton Rtl */
-.mblHeading .mblToolBarButtonRtl {
+.duiHeading .duiToolBarButtonRtl {
   float: right;
 }
-.mblToolBarButtonTextRtl .mblToolBarButtonIcon {
+.duiToolBarButtonTextRtl .duiToolBarButtonIcon {
   padding-right: 10px;
   padding-left: 0px;
 }
-.mblToolBarButtonTextRtl .mblToolBarButtonLabel {
+.duiToolBarButtonTextRtl .duiToolBarButtonLabel {
   padding-left: 10px;
   padding-right: 0px;
 }
-.mblToolBarButtonHasRightArrow .mblToolBarButtonArrow {
+.duiToolBarButtonHasRightArrow .duiToolBarButtonArrow {
   right: -1px;
 }
-.mblToolBarButtonHasLeftArrow .mblToolBarButtonArrow {
+.duiToolBarButtonHasLeftArrow .duiToolBarButtonArrow {
   left: -2px;
 }

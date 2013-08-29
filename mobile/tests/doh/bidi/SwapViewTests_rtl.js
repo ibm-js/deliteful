@@ -12,8 +12,8 @@ require([
 
 
 	var timeoutInterval = 1000;
-	var WIDGET_CLASSNAME1 = "mblView";
-	var WIDGET_CLASSNAME2 = "mblSwapView";
+	var WIDGET_CLASSNAME1 = "duiView";
+	var WIDGET_CLASSNAME2 = "duiSwapView";
 
 
 	function _createSwapViewProgrammatically(placeHolderId, widgetId, selected, innerHTML){

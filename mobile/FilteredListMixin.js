@@ -98,7 +98,7 @@ define([
 		// |	<div data-dojo-type="dojox/mobile/View">
 		// |		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Some heading</h1>
 		// |		<input id="filterBox" data-dojo-type="dojox/mobile/SearchBox" type="search"
-		// |			class="mblFilteredEdgeToEdgeListSearchBox">		
+		// |			class="duiFilteredEdgeToEdgeListSearchBox">		
 		// |		<div data-dojo-type="dojox/mobile/ScrollableView">
 		// |			<ul data-dojo-type="dojox/mobile/EdgeToEdgeDataList" 
 		// |				data-dojo-mixins="dojox/mobile/FilteredListMixin"
@@ -125,7 +125,7 @@ define([
 		// |	<div data-dojo-type="dojox/mobile/View">
 		// |		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Some heading</h1>
 		// |		<input id="filterBox" data-dojo-type="dojox/mobile/SearchBox" type="search"
-		// |			class="mblFilteredEdgeToEdgeListSearchBox">		
+		// |			class="duiFilteredEdgeToEdgeListSearchBox">		
 		// |		<div id="scrollableView" data-dojo-type="dojox/mobile/ScrollableView">
 		// |	</div>
 

@@ -1,26 +1,26 @@
-.mblSwap {
+.duiSwap {
   -webkit-animation-duration: 0.6s;
   animation-duration: 0.6s;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
 }
-.mblSwap.mblOut {
-  -webkit-animation-name: mblSwapOut;
-  animation-name: mblSwapOut;
+.duiSwap.duiOut {
+  -webkit-animation-name: duiSwapOut;
+  animation-name: duiSwapOut;
 }
-.mblSwap.mblIn {
-  -webkit-animation-name: mblSwapIn;
-  animation-name: mblSwapIn;
+.duiSwap.duiIn {
+  -webkit-animation-name: duiSwapIn;
+  animation-name: duiSwapIn;
 }
-.mblSwap.mblOut.mblReverse {
-  -webkit-animation-name: mblSwapOutReverse;
-  animation-name: mblSwapOutReverse;
+.duiSwap.duiOut.duiReverse {
+  -webkit-animation-name: duiSwapOutReverse;
+  animation-name: duiSwapOutReverse;
 }
-.mblSwap.mblIn.mblReverse {
-  -webkit-animation-name: mblSwapInReverse;
-  animation-name: mblSwapInReverse;
+.duiSwap.duiIn.duiReverse {
+  -webkit-animation-name: duiSwapInReverse;
+  animation-name: duiSwapInReverse;
 }
-@-webkit-keyframes mblSwapOut {
+@-webkit-keyframes duiSwapOut {
   0% {
     z-index: auto;
     -webkit-transform: translate3d(0%, 0%, 0px) scale(1);
@@ -37,7 +37,7 @@
     opacity: 0;
   }
 }
-@keyframes mblSwapOut {
+@keyframes duiSwapOut {
   0% {
     z-index: auto;
     transform: translate3d(0%, 0%, 0px) scale(1);
@@ -54,7 +54,7 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes mblSwapIn {
+@-webkit-keyframes duiSwapIn {
   0% {
     z-index: -100;
     -webkit-transform: translate3d(-20%, 0%, 0px) scale(0.5);
@@ -71,7 +71,7 @@
     opacity: 1;
   }
 }
-@keyframes mblSwapIn {
+@keyframes duiSwapIn {
   0% {
     z-index: -100;
     transform: translate3d(-20%, 0%, 0px) scale(0.5);
@@ -88,7 +88,7 @@
     opacity: 1;
   }
 }
-@-webkit-keyframes mblSwapOutReverse {
+@-webkit-keyframes duiSwapOutReverse {
   0% {
     z-index: auto;
     -webkit-transform: translate3d(0%, 0%, 0px) scale(1);
@@ -105,7 +105,7 @@
     opacity: 0;
   }
 }
-@keyframes mblSwapOutReverse {
+@keyframes duiSwapOutReverse {
   0% {
     z-index: auto;
     transform: translate3d(0%, 0%, 0px) scale(1);
@@ -122,7 +122,7 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes mblSwapInReverse {
+@-webkit-keyframes duiSwapInReverse {
   0% {
     z-index: -100;
     -webkit-transform: translate3d(20%, 0%, 0px) scale(0.5);
@@ -139,7 +139,7 @@
     opacity: 1;
   }
 }
-@keyframes mblSwapInReverse {
+@keyframes duiSwapInReverse {
   0% {
     z-index: -100;
     transform: translate3d(20%, 0%, 0px) scale(0.5);

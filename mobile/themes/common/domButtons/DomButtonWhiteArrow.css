@@ -1,12 +1,12 @@
 /* === Arrow ==*/
-.mblDomButtonWhiteArrow,
-.mblDomButtonArrow {
+.duiDomButtonWhiteArrow,
+.duiDomButtonArrow {
   position: relative;
   width: 20px;
   height: 29px;
 }
-.mblDomButtonWhiteArrow > div,
-.mblDomButtonArrow > div {
+.duiDomButtonWhiteArrow > div,
+.duiDomButtonArrow > div {
   position: absolute;
   top: 10px;
   left: 6px;

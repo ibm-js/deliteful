@@ -14,7 +14,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblCheckBox",
+		baseClass: "duiCheckBox",
 
 		// _setTypeAttr: [private] Function 
 		//		Overrides the automatic assignement of type to nodes.
@@ -33,9 +33,9 @@ define([
 			}
 
 			if(has("windows-theme")){
-				var rootNode = domConstruct.create("span", {className: "mblCheckableInputContainer"});
+				var rootNode = domConstruct.create("span", {className: "duiCheckableInputContainer"});
 				rootNode.appendChild(this.domNode.cloneNode());
-				this.labelNode = domConstruct.create("span", {className: "mblCheckableInputDecorator"}, rootNode);
+				this.labelNode = domConstruct.create("span", {className: "duiCheckableInputDecorator"}, rootNode);
 				this.domNode = rootNode;
 				this.focusNode = rootNode.firstChild;
 			}

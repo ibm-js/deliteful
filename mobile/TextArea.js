@@ -13,7 +13,7 @@ define([
 		// example:
 		// |	<textarea dojoType="dojox.mobile.TextArea">...</textarea>
 
-		baseClass: "mblTextArea",
+		baseClass: "duiTextArea",
 
 		postMixInProperties: function(){
 			 // Copy value from srcNodeRef, unless user specified a value explicitly (or there is no srcNodeRef)

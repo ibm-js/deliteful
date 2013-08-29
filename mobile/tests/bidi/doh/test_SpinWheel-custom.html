@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Custom SpinWheel</title>
 
-	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','SpinWheel']"></script>
+	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SpinWheel']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true,parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
@@ -27,11 +27,11 @@
 						{
 							name: "mobile",					
 							runTest: function(){
-								query(".mblSpinWheelSlotLabel",dom.byId('first')).forEach(function(node, index, arr){						
+								query(".duiSpinWheelSlotLabel",dom.byId('first')).forEach(function(node, index, arr){						
 									runner.is(String.fromCharCode(8234), node.innerHTML.charAt(0), "label nodes have direction correspondent to 'textDir' of Speen Wheel Slot");
 								});
 								registry.byId('first').set("textDir","rtl");
-								var labelNode = query(".mblSpinWheelSlotLabel",dom.byId('first'))[0];
+								var labelNode = query(".duiSpinWheelSlotLabel",dom.byId('first'))[0];
 								runner.is(String.fromCharCode(8235), labelNode.innerHTML.charAt(0), "label node had direction changed after change of 'textDir'");
 							}
 						}]);	 			
@@ -73,8 +73,8 @@
 			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
 				data-dojo-props='labelFrom:3000, labelTo:3100'
 				style="width:70px;"></div>
-			<div id="pt" class="mblSpinWheelSlot"></div>
-			<div id="txt" class="mblSpinWheelSlot">.</div>
+			<div id="pt" class="duiSpinWheelSlot"></div>
+			<div id="txt" class="duiSpinWheelSlot">.</div>
 			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
 				data-dojo-props='labelFrom:0, labelTo:9'
 				style="width:30px;"></div>

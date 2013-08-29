@@ -17,7 +17,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblPane",
+		baseClass: "duiPane",
 
 		buildRendering: function(){
 			this.inherited(arguments);

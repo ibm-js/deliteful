@@ -71,7 +71,7 @@
 	}
 	</style>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -96,7 +96,7 @@
 							demoWidget = dijit.byId("dojox_mobile_ScrollableView_0");
 							demoWidget.set({scrollDir:"hv"});
 							doh.assertEqual('hv', demoWidget.get("scrollDir"));
-							doh.assertEqual('mblView mblScrollableView', demoWidget.domNode.className);
+							doh.assertEqual('duiView duiScrollableView', demoWidget.domNode.className);
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}));
 						return d;

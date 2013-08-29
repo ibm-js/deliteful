@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>test Tooltip</title>
 
-	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','SpinWheel','Tooltip']"></script>
+	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SpinWheel','Tooltip']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
@@ -105,8 +105,8 @@
 		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['after','before','below','above'])" value="left" size="4">
 	</div>
 
-	<div id="textTooltip1" data-dojo-type="dojox/mobile/Tooltip"  class="mblTooltipBubble">Dear friend!<br><span style="background-color:Lime">Enter any value.</span><br><center>Please!</center><div style="border:solid; text-align:center"> Thanks.</div> </div>
-	<div id="textTooltip2" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="mblTooltipBubble">Dear friend!<br><span style="background-color:Lime">Enter any value.</span><br><center>Please!</center><div style="border:solid; text-align:center"> Thanks.</div> </div>
+	<div id="textTooltip1" data-dojo-type="dojox/mobile/Tooltip"  class="duiTooltipBubble">Dear friend!<br><span style="background-color:Lime">Enter any value.</span><br><center>Please!</center><div style="border:solid; text-align:center"> Thanks.</div> </div>
+	<div id="textTooltip2" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Dear friend!<br><span style="background-color:Lime">Enter any value.</span><br><center>Please!</center><div style="border:solid; text-align:center"> Thanks.</div> </div>
 
 	<div style="position:fixed;bottom:0;">	
 	<br>Errors:&nbsp;<span id="errors">?</span>

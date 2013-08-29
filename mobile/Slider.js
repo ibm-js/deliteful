@@ -40,7 +40,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblSlider",
+		baseClass: "duiSlider",
 
 		// flip: [const] Boolean
 		//		Specifies if the slider should change its default: ascending <--> descending.
@@ -64,9 +64,9 @@ define([
 				this.focusNode = this.domNode = domConstruct.create("div", {});
 				this.valueNode = domConstruct.create("input", (this.srcNodeRef && this.srcNodeRef.name) ? { type: "hidden", name: this.srcNodeRef.name } : { type: "hidden" }, this.domNode, "last");
 				var relativeParent = domConstruct.create("div", { style: { position:"relative", height:"100%", width:"100%" } }, this.domNode, "last");
-				this.progressBar = domConstruct.create("div", { style:{ position:"absolute" }, "class":"mblSliderProgressBar" }, relativeParent, "last");
-				this.touchBox = domConstruct.create("div", { style:{ position:"absolute" }, "class":"mblSliderTouchBox" }, relativeParent, "last");
-				this.handle = domConstruct.create("div", { style:{ position:"absolute" }, "class":"mblSliderHandle" }, relativeParent, "last");
+				this.progressBar = domConstruct.create("div", { style:{ position:"absolute" }, "class":"duiSliderProgressBar" }, relativeParent, "last");
+				this.touchBox = domConstruct.create("div", { style:{ position:"absolute" }, "class":"duiSliderTouchBox" }, relativeParent, "last");
+				this.handle = domConstruct.create("div", { style:{ position:"absolute" }, "class":"duiSliderHandle" }, relativeParent, "last");
 			}
 			this.inherited(arguments);
 			// prevent browser scrolling on IE10 (evt.preventDefault() is not enough)
@@ -88,11 +88,11 @@ define([
 			var toPercent = (value - this.min) * 100 / (this.max - this.min);
 			// now perform visual slide
 			if(priorityChange === true){
-				domClass.add(this.handle, "mblSliderTransition");
-				domClass.add(this.progressBar, "mblSliderTransition");
+				domClass.add(this.handle, "duiSliderTransition");
+				domClass.add(this.progressBar, "duiSliderTransition");
 			}else{
-				domClass.remove(this.handle, "mblSliderTransition");
-				domClass.remove(this.progressBar, "mblSliderTransition");
+				domClass.remove(this.handle, "duiSliderTransition");
+				domClass.remove(this.progressBar, "duiSliderTransition");
 			}
 			domStyle.set(this.handle, this._attrs.handleLeft, (this._reversed ? (100-toPercent) : toPercent) + "%");
 			domStyle.set(this.progressBar, this._attrs.width, toPercent + "%");

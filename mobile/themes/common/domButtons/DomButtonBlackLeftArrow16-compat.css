@@ -1,8 +1,8 @@
 /* === BlackLeftArrow16 ==*/
-.mblDomButtonBlackLeftArrow16 {
-	background-image: url(compat/mblDomButtonBlackLeftArrow16.png);
+.duiDomButtonBlackLeftArrow16 {
+	background-image: url(compat/duiDomButtonBlackLeftArrow16.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBlackLeftArrow16 > div {
+.duiDomButtonBlackLeftArrow16 > div {
 	display: none;
 }

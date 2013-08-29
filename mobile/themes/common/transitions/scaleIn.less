@@ -1,21 +1,21 @@
 @import "../css3.less";
-.mblScaleIn.mblOut {
+.duiScaleIn.duiOut {
 	z-index: -100;
 	.animation-duration(.5s);
-	.animation-name(mblScaleInOut);
+	.animation-name(duiScaleInOut);
 	.animation-timing-function(ease-out);
 }
-.mblScaleIn.mblIn {
+.duiScaleIn.duiIn {
 	.animation-duration(.5s);
-	.animation-name(mblScaleInIn);
+	.animation-name(duiScaleInIn);
 	.animation-timing-function(ease-out);
 }
-.dj_android .mblScaleIn.mblIn {
-	.animation-name(mblScaleInInAndroid);
+.dj_android .duiScaleIn.duiIn {
+	.animation-name(duiScaleInInAndroid);
 }
-@-webkit-keyframes mblScaleInOut { .keyframes-transform-from-to-webkit(scale(1.0), scale(1.0)); }
-@keyframes         mblScaleInOut { .keyframes-transform-from-to       (scale(1.0), scale(1.0)); }
-@-webkit-keyframes mblScaleInIn { .keyframes-transform-opacity-from-to-webkit(scale(0.0), 0, scale(1.0), 1); }
-@keyframes         mblScaleInIn { .keyframes-transform-opacity-from-to       (scale(0.0), 0, scale(1.0), 1); }
-@-webkit-keyframes mblScaleInInAndroid { .keyframes-transform-from-to-webkit(scale(0.0), scale(1.0)); }
-@keyframes         mblScaleInInAndroid { .keyframes-transform-from-to       (scale(0.0), scale(1.0)); }
+@-webkit-keyframes duiScaleInOut { .keyframes-transform-from-to-webkit(scale(1.0), scale(1.0)); }
+@keyframes         duiScaleInOut { .keyframes-transform-from-to       (scale(1.0), scale(1.0)); }
+@-webkit-keyframes duiScaleInIn { .keyframes-transform-opacity-from-to-webkit(scale(0.0), 0, scale(1.0), 1); }
+@keyframes         duiScaleInIn { .keyframes-transform-opacity-from-to       (scale(0.0), 0, scale(1.0), 1); }
+@-webkit-keyframes duiScaleInInAndroid { .keyframes-transform-from-to-webkit(scale(0.0), scale(1.0)); }
+@keyframes         duiScaleInInAndroid { .keyframes-transform-from-to       (scale(0.0), scale(1.0)); }

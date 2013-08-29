@@ -1,7 +1,7 @@
 @import "variables.less";
 @import "../common/Slider.less";
 
-.mblSlider {
+.duiSlider {
 	> div:before {
 		content: '';
 		position: absolute;
@@ -10,43 +10,43 @@
 		background-color: @win-app-bar-color;
 	}
 
-	.mblSliderProgressBar {
+	.duiSliderProgressBar {
 		background-color: @win-accent-color;
 	}
 
-	& .mblSliderTouchBox {
+	& .duiSliderTouchBox {
 		left: 0px;
 		top: -4px;
 		padding: 4px 0px;
 	}
 }
 
-.mblSlider[disabled] {
+.duiSlider[disabled] {
 	> div:before {
 		opacity: 0.5;
 	}
 
-	.mblSliderProgressBar {
+	.duiSliderProgressBar {
 		background-color: @win-disabled-color;
 	}
 }
 
-.mblSliderV {
+.duiSliderV {
 	> div {
 		min-height: 100px;
 	};
-	.mblSlider-size(@mbl-slider-height, 100%);
+	.duiSlider-size(@dui-slider-height, 100%);
 
-	& .mblSliderHandle {
-		.mblSliderHandle-markup("V");
+	& .duiSliderHandle {
+		.duiSliderHandle-markup("V");
 	}
 }
 
-.mblSliderH {
+.duiSliderH {
 	min-width: 100px;
-	.mblSlider-size(100%, @mbl-slider-height);
+	.duiSlider-size(100%, @dui-slider-height);
 
-	& .mblSliderHandle {
-		.mblSliderHandle-markup("H");
+	& .duiSliderHandle {
+		.duiSliderHandle-markup("H");
 	}
 }

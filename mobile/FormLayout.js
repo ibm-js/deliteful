@@ -62,19 +62,19 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblFormLayout",
+		baseClass: "duiFormLayout",
 
 		buildRendering: function(){
 			this.inherited(arguments);
 			if(this.columns == "auto"){
-				domClass.add(this.domNode, "mblFormLayoutAuto");
+				domClass.add(this.domNode, "duiFormLayoutAuto");
 			}else if(this.columns == "single"){
-				domClass.add(this.domNode, "mblFormLayoutSingleCol");
+				domClass.add(this.domNode, "duiFormLayoutSingleCol");
 			}else if(this.columns == "two"){
-				domClass.add(this.domNode, "mblFormLayoutTwoCol");
+				domClass.add(this.domNode, "duiFormLayoutTwoCol");
 			}
 			if(this.rightAlign){
-				domClass.add(this.domNode, "mblFormLayoutRightAlign");
+				domClass.add(this.domNode, "duiFormLayoutRightAlign");
 			}
 		}
 	});

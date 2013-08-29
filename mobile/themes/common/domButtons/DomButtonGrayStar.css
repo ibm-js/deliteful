@@ -1,10 +1,10 @@
 /* === Gray Star ==*/
-.mblDomButtonGrayStar {
+.duiDomButtonGrayStar {
   position: relative;
   width: 29px;
   height: 29px;
 }
-.mblDomButtonGrayStar > div {
+.duiDomButtonGrayStar > div {
   position: absolute;
   width: 0px;
   height: 0px;
@@ -16,7 +16,7 @@
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
 }
-.mblDomButtonGrayStar > div > div {
+.duiDomButtonGrayStar > div > div {
   position: absolute;
   width: 24px;
   height: 0px;
@@ -26,7 +26,7 @@
   top: -10px;
   left: -12px;
 }
-.mblDomButtonGrayStar > div > div > div {
+.duiDomButtonGrayStar > div > div > div {
   position: absolute;
   width: 0px;
   height: 0px;
@@ -38,7 +38,7 @@
   -webkit-transform: rotate(72deg);
   transform: rotate(72deg);
 }
-.mblDomButtonGrayStar > div > div > div > div {
+.duiDomButtonGrayStar > div > div > div > div {
   position: absolute;
   width: 0px;
   height: 0px;

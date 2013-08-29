@@ -8,7 +8,7 @@
 <title>SpinWheelDatePicker</title>
 
 <script type="text/javascript"
-		src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','SpinWheel']"></script>
+		src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SpinWheel']"></script>
 <script type="text/javascript"
 		src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
@@ -101,7 +101,7 @@ require([
 				array.forEach(daySlot.panelNodes, function(panel){
 					for(i = 0; i < minGrayDay; i++){
 						child = panel.childNodes[i];
-						runner.assertFalse(domClass.contains(child, "mblSpinWheelSlotLabelGray"),
+						runner.assertFalse(domClass.contains(child, "duiSpinWheelSlotLabelGray"),
 								" Day " + (i + 1) + " should NOT be grayed. " +
 										"Actual child.className: " + child.className + " (" + title + ")");
 					}
@@ -109,7 +109,7 @@ require([
 				array.forEach(daySlot.panelNodes, function(panel){
 					for(i = minGrayDay; i < panel.childNodes.length; i++){
 						child = panel.childNodes[i];
-						runner.assertTrue(domClass.contains(child, "mblSpinWheelSlotLabelGray"),
+						runner.assertTrue(domClass.contains(child, "duiSpinWheelSlotLabelGray"),
 								" Day " + (i + 1) + " should be grayed. " +
 										"Actual child.className: " + child.className + " (" + title + ")");
 					}

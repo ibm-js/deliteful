@@ -1,62 +1,62 @@
 /* dojox.mobile.IconMenu */
-.mblIconMenu {
+.duiIconMenu {
 	width: 100%;
 	height: 100%;
-	border-radius: @mbl-icon-menu-border-radius;
+	border-radius: @dui-icon-menu-border-radius;
 	text-align: center;
 	.tap-highlight-color(rgba(255, 255, 255, 0));
-	.mblIconMenu-styles;
+	.duiIconMenu-styles;
 }
 
 /* dojox.mobile.IconMenuItem */
-.mblIconMenuItem {
+.duiIconMenuItem {
 	float: left;
 	list-style-type: none;
 	.box-sizing(border-box);
-	.mblIconMenuItem-styles;
+	.duiIconMenuItem-styles;
 }
-.mblIconMenuItemIcon {
+.duiIconMenuItemIcon {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 }
-.mblIconMenuItemFirstColumn {
+.duiIconMenuItemFirstColumn {
 	border-left: none;
 }
-.mblIconMenuItemLastRow {
+.duiIconMenuItemLastRow {
 	border-bottom: none;
 }
-.mblIconMenuItemFirstRow {
-	&.mblIconMenuItemFirstColumn {
-		border-top-left-radius: @mbl-icon-menu-item-border-radius;
+.duiIconMenuItemFirstRow {
+	&.duiIconMenuItemFirstColumn {
+		border-top-left-radius: @dui-icon-menu-item-border-radius;
 	}
-	&.mblIconMenuItemLastColumn {
-		border-top-right-radius: @mbl-icon-menu-item-border-radius;
-	}
-}
-.mblIconMenuItemLastRow {
-	&.mblIconMenuItemFirstColumn {
-		border-bottom-left-radius: @mbl-icon-menu-item-border-radius;
-	}
-	&.mblIconMenuItemLastColumn {
-		border-bottom-right-radius: @mbl-icon-menu-item-border-radius;
+	&.duiIconMenuItemLastColumn {
+		border-top-right-radius: @dui-icon-menu-item-border-radius;
 	}
 }
-.mblIconMenuItemAnchor {
+.duiIconMenuItemLastRow {
+	&.duiIconMenuItemFirstColumn {
+		border-bottom-left-radius: @dui-icon-menu-item-border-radius;
+	}
+	&.duiIconMenuItemLastColumn {
+		border-bottom-right-radius: @dui-icon-menu-item-border-radius;
+	}
+}
+.duiIconMenuItemAnchor {
 	display: block;
 	height: 100%;
 	font-family: Helvetica;
 	text-decoration: none;
-	.mblIconMenuItemAnchor-styles;
+	.duiIconMenuItemAnchor-styles;
   cursor: pointer;
 }
-.mblIconMenuItemTable {
+.duiIconMenuItemTable {
 	width: 100%;
 	height: 100%;
 	img {
 		border: none;
 	}
 }
-.mblIconMenuItemSel {
-	.mblIconMenuItemSel-styles;
+.duiIconMenuItemSel {
+	.duiIconMenuItemSel-styles;
 }

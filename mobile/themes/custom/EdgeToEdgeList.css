@@ -1,9 +1,9 @@
 /* dojox.mobile.EdgeToEdgeList */
-.mblEdgeToEdgeList {
+.duiEdgeToEdgeList {
   margin: 0;
   padding: 0;
   background-color: #000000;
 }
-.mblEdgeToEdgeList .mblListItem:last-child {
+.duiEdgeToEdgeList .duiListItem:last-child {
   border-bottom-color: #c0c0c0;
 }

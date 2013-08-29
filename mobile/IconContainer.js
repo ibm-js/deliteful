@@ -77,7 +77,7 @@ define([
 		tag: "ul",
 
 		/* internal properties */	
-		baseClass: "mblIconContainer",
+		baseClass: "duiIconContainer",
 		editableMixinClass: "dojox/mobile/_EditableIconMixin",
 		iconItemPaneContainerClass: "dojox/mobile/Container",
 		iconItemPaneContainerProps: null,
@@ -88,7 +88,7 @@ define([
 			this.domNode = this.containerNode = this.srcNodeRef || domConstruct.create(this.tag);
 			// _terminator is used to apply the clear:both style to terminate floating icons.
 			this._terminator = domConstruct.create(this.tag === "ul" ? "li" : "div",
-				{className:"mblIconItemTerminator"}, this.domNode);
+				{className:"duiIconItemTerminator"}, this.domNode);
 			this.inherited(arguments);
 		},
 
@@ -109,7 +109,7 @@ define([
 				if(this.transition === "below"){
 					domConstruct.place(this.paneContainerWidget.domNode, this.domNode, "after");
 				}else{
-					var view = this.appView = new View({id:this.id+"_mblApplView"});
+					var view = this.appView = new View({id:this.id+"_duiApplView"});
 					var _this = this;
 					view.onAfterTransitionIn = function(){
 						_this._opening._open_1();

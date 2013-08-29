@@ -1,8 +1,8 @@
 /* === Blue Ball Button ==*/
-.mblDomButtonBlueBall {
-	background-image: url(compat/mblDomButtonBlueBall.png);
+.duiDomButtonBlueBall {
+	background-image: url(compat/duiDomButtonBlueBall.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBlueBall > div {
+.duiDomButtonBlueBall > div {
 	display: none;
 }

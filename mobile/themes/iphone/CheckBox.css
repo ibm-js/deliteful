@@ -1,5 +1,5 @@
 /* dojox.mobile.CheckBox */
-.mblCheckBox {
+.duiCheckBox {
   position: relative;
   margin: -0.5em 3px 0.3em 4px;
   width: 1em;
@@ -17,17 +17,17 @@
   border-color: #9cacc0;
   border-radius: 5px;
 }
-.mblCheckBoxSelected {
+.duiCheckBoxSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0f0), to(#bfbfbf), color-stop(0.5, #ebebeb), color-stop(0.5, #dedede));
   background-image: linear-gradient(to bottom, #f0f0f0 0%, #ebebeb 50%, #dedede 50%, #bfbfbf 100%);
 }
-.mblCheckBoxChecked,
-.mblCheckBox:checked {
+.duiCheckBoxChecked,
+.duiCheckBox:checked {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7a9de9), to(#2362dd), color-stop(0.5, #366edf), color-stop(0.5, #215fdc));
   background-image: linear-gradient(to bottom, #7a9de9 0%, #366edf 50%, #215fdc 50%, #2362dd 100%);
 }
-.mblCheckBoxChecked::after,
-.mblCheckBox:checked::after {
+.duiCheckBoxChecked::after,
+.duiCheckBox:checked::after {
   position: absolute;
   content: "";
   width: 0.3em;
@@ -42,8 +42,8 @@
   transform-origin: 50% 50%;
   border-color: white;
 }
-.mblCheckBoxChecked.mblCheckBoxSelected,
-.mblCheckBox:checked.mblCheckBoxSelected {
+.duiCheckBoxChecked.duiCheckBoxSelected,
+.duiCheckBox:checked.duiCheckBoxSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8ea4c1), to(#4a6c9b), color-stop(0.5, #5877a2), color-stop(0.5, #476999));
   background-image: linear-gradient(to bottom, #8ea4c1 0%, #5877a2 50%, #476999 50%, #4a6c9b 100%);
 }

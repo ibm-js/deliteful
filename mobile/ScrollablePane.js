@@ -29,11 +29,11 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblScrollablePane",
+		baseClass: "duiScrollablePane",
 
 		buildRendering: function(){
 			var c = this.containerNode = domConstruct.create("div", {
-				className: "mblScrollableViewContainer",
+				className: "duiScrollableViewContainer",
 				style: {
 					width: this.scrollDir === "v" ? "100%" : ""
 				}
@@ -50,7 +50,7 @@ define([
 			if(this.roundCornerMask && (has("webkit")||has("svg"))){
 				var node = this.containerNode;
 				var mask = this.maskNode = domConstruct.create("div", {
-					className: "mblScrollablePaneMask"
+					className: "duiScrollablePaneMask"
 				});
 				mask.appendChild(node);
 				c = mask;

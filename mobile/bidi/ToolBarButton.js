@@ -12,10 +12,10 @@ define([
 			this.inherited(arguments);
 			//dojox.mobile mirroring support
 			if(!this.isLeftToRight() && this.arrow){
-				var cRemove1 = (this.arrow === "left" ? "mblToolBarButtonLeftArrow" : "mblToolBarButtonRightArrow");
-				var cRemove2 = (this.arrow === "left" ? "mblToolBarButtonHasLeftArrow" : "mblToolBarButtonHasRightArrow");
-				var cAdd1 = (this.arrow === "left" ? "mblToolBarButtonRightArrow" : "mblToolBarButtonLeftArrow");
-				var cAdd2 = (this.arrow === "left" ? "mblToolBarButtonHasRightArrow" : "mblToolBarButtonHasLeftArrow");
+				var cRemove1 = (this.arrow === "left" ? "duiToolBarButtonLeftArrow" : "duiToolBarButtonRightArrow");
+				var cRemove2 = (this.arrow === "left" ? "duiToolBarButtonHasLeftArrow" : "duiToolBarButtonHasRightArrow");
+				var cAdd1 = (this.arrow === "left" ? "duiToolBarButtonRightArrow" : "duiToolBarButtonLeftArrow");
+				var cAdd2 = (this.arrow === "left" ? "duiToolBarButtonHasRightArrow" : "duiToolBarButtonHasLeftArrow");
 				domClass.remove(this.arrowNode, cRemove1);
 				domClass.add(this.arrowNode, cAdd1);
 				domClass.remove(this.domNode, cRemove2);
@@ -28,7 +28,7 @@ define([
 			this.inherited(arguments);
 			// dojox.mobile mirroring support
 			if(!this.isLeftToRight()){
-				domClass.toggle(this.tableNode, "mblToolBarButtonTextRtl", text || this.arrow);
+				domClass.toggle(this.tableNode, "duiToolBarButtonTextRtl", text || this.arrow);
 			}
 		}
 	});

@@ -7,15 +7,15 @@ dojo.addOnLoad(function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
 					var demoWidget = dijit.byId("Category");
-					doh.assertEqual('mblEdgeToEdgeCategory', demoWidget.domNode.className);
+					doh.assertEqual('duiEdgeToEdgeCategory', demoWidget.domNode.className);
 					doh.assertEqual('Spaces', demoWidget.domNode.innerHTML);
 
 
 					demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_0");
-					doh.assertEqual('mblEdgeToEdgeList', demoWidget.domNode.className);
-					verifyListItem("item1", 'u1space', 'Off', "mblDomButtonArrow", true, true, false);
-					verifyListItem("item2", 'u2space', 'On', "mblDomButtonArrow", true, true, false);
-					verifyListItem("item3", 'Wi-Fi', 'Off', "mblDomButtonArrow", false, true, false);
+					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
+					verifyListItem("item1", 'u1space', 'Off', "duiDomButtonArrow", true, true, false);
+					verifyListItem("item2", 'u2space', 'On', "duiDomButtonArrow", true, true, false);
+					verifyListItem("item3", 'Wi-Fi', 'Off', "duiDomButtonArrow", false, true, false);
 					
 				}));
 				return d;
@@ -37,11 +37,11 @@ dojo.addOnLoad(function(){
 				var view = dijit.byId("foo");
 				dojo.connect(view, "onAfterTransitionOut", this, d.getTestCallback(function(){
 					var demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeCategory_0");
-					doh.assertEqual('mblEdgeToEdgeCategory', demoWidget.domNode.className);
+					doh.assertEqual('duiEdgeToEdgeCategory', demoWidget.domNode.className);
 					doh.assertEqual('Applications', demoWidget.domNode.innerHTML);
 
 					demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_1");
-					doh.assertEqual('mblEdgeToEdgeList', demoWidget.domNode.className);
+					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
 
 					verifyListItem("dojox_mobile_ListItem_0", 'Video', 'Off', "", false, false, false);
 					verifyListItem("dojox_mobile_ListItem_1", 'Maps', 'VPN', "", true, false, false);

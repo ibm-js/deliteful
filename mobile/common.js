@@ -101,8 +101,8 @@ define([
 	// dojox/mobile.hideAddressBarWait: Number
 	//		The time in milliseconds to wait before the fail-safe hiding address
 	//		bar runs. The value must be larger than 800.
-	dm.hideAddressBarWait = typeof(config["mblHideAddressBarWait"]) === "number" ?
-		config["mblHideAddressBarWait"] : 1500;
+	dm.hideAddressBarWait = typeof(config["duiHideAddressBarWait"]) === "number" ?
+		config["duiHideAddressBarWait"] : 1500;
 
 	dm.hide_1 = function(){
 		// summary:
@@ -274,7 +274,7 @@ define([
 		}
 	};
 
-	if(config["mblApplyPageStyles"] !== false){
+	if(config["duiApplyPageStyles"] !== false){
 		domClass.add(win.doc.documentElement, "mobile");
 	}
 	if(has('chrome')){
@@ -292,33 +292,33 @@ define([
 	}
 
 	// flag for Android transition animation flicker workaround
-	has.add('mblAndroidWorkaround', 
-			config["mblAndroidWorkaround"] !== false && has('android') < 3, undefined, true);
-	has.add('mblAndroid3Workaround', 
-			config["mblAndroid3Workaround"] !== false && has('android') >= 3, undefined, true);
+	has.add('duiAndroidWorkaround', 
+			config["duiAndroidWorkaround"] !== false && has('android') < 3, undefined, true);
+	has.add('duiAndroid3Workaround', 
+			config["duiAndroid3Workaround"] !== false && has('android') >= 3, undefined, true);
 
 	dm._detectWindowsTheme();
 	
 	domReady(function(){
 		dm.detectScreenSize(true);
-		domClass.add(win.body(), "mblBackground");
-		if(config["mblAndroidWorkaroundButtonStyle"] !== false && has('android')){
+		domClass.add(win.body(), "duiBackground");
+		if(config["duiAndroidWorkaroundButtonStyle"] !== false && has('android')){
 			// workaround for the form button disappearing issue on Android 2.2-4.0
 			domConstruct.create("style", {innerHTML:"BUTTON,INPUT[type='button'],INPUT[type='submit'],INPUT[type='reset'],INPUT[type='file']::-webkit-file-upload-button{-webkit-appearance:none;} audio::-webkit-media-controls-play-button,video::-webkit-media-controls-play-button{-webkit-appearance:media-play-button;} video::-webkit-media-controls-fullscreen-button{-webkit-appearance:media-fullscreen-button;}"}, win.doc.head, "first");
 		}
-		if(has('mblAndroidWorkaround')){
+		if(has('duiAndroidWorkaround')){
 			// add a css class to show view offscreen for android flicker workaround
-			domConstruct.create("style", {innerHTML:".mblView.mblAndroidWorkaround{position:absolute;top:-9999px !important;left:-9999px !important;}"}, win.doc.head, "last");
+			domConstruct.create("style", {innerHTML:".duiView.duiAndroidWorkaround{position:absolute;top:-9999px !important;left:-9999px !important;}"}, win.doc.head, "last");
 		}
 
 		//	You can disable hiding the address bar with the following dojoConfig.
-		//	var dojoConfig = { mblHideAddressBar: false };
+		//	var dojoConfig = { duiHideAddressBar: false };
 		var f = dm.resizeAll;
-		if(config["mblHideAddressBar"] !== false &&
+		if(config["duiHideAddressBar"] !== false &&
 			navigator.appVersion.indexOf("Mobile") != -1 ||
-			config["mblForceHideAddressBar"] === true){
+			config["duiForceHideAddressBar"] === true){
 			dm.hideAddressBar();
-			if(config["mblAlwaysHideAddressBar"] === true){
+			if(config["duiAlwaysHideAddressBar"] === true){
 				f = dm.hideAddressBar;
 			}
 		}

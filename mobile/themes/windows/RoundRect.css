@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.RoundRect */
-.mblRoundRect {
+.duiRoundRect {
   margin: 7px 9px 16px;
   padding: 8px;
   border: 1px solid #cccccc;
@@ -25,7 +25,7 @@
   margin: 0px;
   padding: 0px;
 }
-.mblRoundRect.mblShadow {
+.duiRoundRect.duiShadow {
   -webkit-box-shadow: none;
   box-shadow: none;
 }

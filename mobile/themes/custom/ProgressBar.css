@@ -1,11 +1,11 @@
 /* dojox.mobile.ProgressBar */
-.mblProgressBar {
+.duiProgressBar {
   position: relative;
   height: 13px;
   background-color: #ffffff;
   border: 1px solid #048bf4;
 }
-.mblProgressBarProgress {
+.duiProgressBarProgress {
   -webkit-transition-property: width;
   transition-property: width;
   -webkit-transition-duration: 0.25s;
@@ -15,11 +15,11 @@
   background-image: linear-gradient(to bottom, #048bf4 0%, #048bf4 50%, #48adfc 100%);
   border-right: 1px solid #048bf4;
 }
-.mblProgressBarNotStarted {
+.duiProgressBarNotStarted {
   border-left: none;
   border-right: none;
 }
-.mblProgressBarMsg {
+.duiProgressBarMsg {
   position: absolute;
   top: 0px;
   width: 100%;

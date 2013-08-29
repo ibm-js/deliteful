@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,12 +13,12 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.EdgeToEdgeList */
-.mblEdgeToEdgeList {
+.duiEdgeToEdgeList {
   margin: 0;
   padding: 0;
   background-color: transparent;
   padding: 0px;
 }
-.mblEdgeToEdgeList .mblListItem:last-child {
+.duiEdgeToEdgeList .duiListItem:last-child {
   border-bottom-color: #bfbfbf;
 }

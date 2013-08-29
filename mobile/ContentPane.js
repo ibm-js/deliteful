@@ -17,6 +17,6 @@ define([
 		//		ready. Compared with dijit/layout/ContentPane, this widget
 		//		provides only basic fuctionality, but it is much lighter.
 
-		baseClass: "mblContentPane"
+		baseClass: "duiContentPane"
 	});
 });

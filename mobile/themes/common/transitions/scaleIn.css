@@ -1,25 +1,25 @@
-.mblScaleIn.mblOut {
+.duiScaleIn.duiOut {
   z-index: -100;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  -webkit-animation-name: mblScaleInOut;
-  animation-name: mblScaleInOut;
+  -webkit-animation-name: duiScaleInOut;
+  animation-name: duiScaleInOut;
   -webkit-animation-timing-function: ease-out;
   animation-timing-function: ease-out;
 }
-.mblScaleIn.mblIn {
+.duiScaleIn.duiIn {
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  -webkit-animation-name: mblScaleInIn;
-  animation-name: mblScaleInIn;
+  -webkit-animation-name: duiScaleInIn;
+  animation-name: duiScaleInIn;
   -webkit-animation-timing-function: ease-out;
   animation-timing-function: ease-out;
 }
-.dj_android .mblScaleIn.mblIn {
-  -webkit-animation-name: mblScaleInInAndroid;
-  animation-name: mblScaleInInAndroid;
+.dj_android .duiScaleIn.duiIn {
+  -webkit-animation-name: duiScaleInInAndroid;
+  animation-name: duiScaleInInAndroid;
 }
-@-webkit-keyframes mblScaleInOut {
+@-webkit-keyframes duiScaleInOut {
   from {
     -webkit-transform: scale(1);
   }
@@ -27,7 +27,7 @@
     -webkit-transform: scale(1);
   }
 }
-@keyframes mblScaleInOut {
+@keyframes duiScaleInOut {
   from {
     transform: scale(1);
   }
@@ -35,7 +35,7 @@
     transform: scale(1);
   }
 }
-@-webkit-keyframes mblScaleInIn {
+@-webkit-keyframes duiScaleInIn {
   from {
     -webkit-transform: scale(0);
     opacity: 0;
@@ -45,7 +45,7 @@
     opacity: 1;
   }
 }
-@keyframes mblScaleInIn {
+@keyframes duiScaleInIn {
   from {
     transform: scale(0);
     opacity: 0;
@@ -55,7 +55,7 @@
     opacity: 1;
   }
 }
-@-webkit-keyframes mblScaleInInAndroid {
+@-webkit-keyframes duiScaleInInAndroid {
   from {
     -webkit-transform: scale(0);
   }
@@ -63,7 +63,7 @@
     -webkit-transform: scale(1);
   }
 }
-@keyframes mblScaleInInAndroid {
+@keyframes duiScaleInInAndroid {
   from {
     transform: scale(0);
   }

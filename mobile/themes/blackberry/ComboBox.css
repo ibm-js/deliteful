@@ -9,7 +9,7 @@
   box-shadow: none;
   border-radius: 12px;
 }
-.mblReset {
+.duiReset {
   margin: 0;
   padding: 0;
   border: 0;
@@ -17,7 +17,7 @@
   font: inherit;
   color: inherit;
 }
-.mblComboBoxMenu {
+.duiComboBoxMenu {
   position: relative;
   overflow-y: hidden !important;
   overflow: hidden;
@@ -25,7 +25,7 @@
   border-radius: 12px;
   background-color: black;
 }
-.mblComboBoxMenuItem {
+.duiComboBoxMenuItem {
   padding: .1em .2em;
   border-width: 1px 0 1px 0;
   border-style: solid;
@@ -34,13 +34,13 @@
   border-color: black;
   color: white;
 }
-.mblComboBoxMenuItemSelected {
+.duiComboBoxMenuItemSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
   color: white;
 }
-.mblComboBoxMenuPreviousButton,
-.mblComboBoxMenuNextButton {
+.duiComboBoxMenuPreviousButton,
+.duiComboBoxMenuNextButton {
   font-style: italic;
   overflow: hidden;
 }

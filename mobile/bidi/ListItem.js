@@ -31,7 +31,7 @@ define([
 		_setRightTextAttr: function(text){
 			if(!this.templateString && !this.rightTextNode){
 				// When using a template, let the template create the element.
-				this.rightTextNode = domConstruct.create("div", {className:"mblListItemRightText"}, this.labelNode, "before");
+				this.rightTextNode = domConstruct.create("div", {className:"duiListItemRightText"}, this.labelNode, "before");
 			}
 			if(this.rightTextNode){ // when using a template it may not contain a rightTextNode 
 				this.rightText = text;

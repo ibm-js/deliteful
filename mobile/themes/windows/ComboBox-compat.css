@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -16,6 +16,6 @@
 .dj_gecko .dijitPopup {
   -moz-box-shadow: none;
 }
-.dj_gecko .mblComboBoxMenuItemSelected {
+.dj_gecko .duiComboBoxMenuItemSelected {
   background-image: none;
 }

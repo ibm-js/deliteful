@@ -7,7 +7,7 @@
 	<title>domButtons</title>
 
 	<script type="text/javascript" src="../deviceTheme.js"
-		data-dojo-config="mblThemeFiles: ['base','dojox/mobile/themes/common/domButtons.css']"></script>
+		data-dojo-config="duiThemeFiles: ['base','dojox/mobile/themes/common/domButtons.css']"></script>
 
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
@@ -23,14 +23,14 @@
 			// online (=connected to the document) instantiation
 			var icon1 = new Icon({icon:"images/tab-icon-23h.png"}, document.getElementById("icon1"));
 			var icon2 = new Icon({icon:"images/tab-icons.png",iconPos:"29,116,29,29"}, document.getElementById("icon2"));
-			var icon3 = new Icon({icon:"mblDomButtonBlueCircleArrow"}, document.getElementById("icon3"));
+			var icon3 = new Icon({icon:"duiDomButtonBlueCircleArrow"}, document.getElementById("icon3"));
 
 			// offline (=disconnected to the document) instantiation
 			var icon4 = new Icon({icon:"images/tab-icon-23h.png"});
 			document.body.appendChild(icon4.domNode);
 			var icon5 = new Icon({icon:"images/tab-icons.png",iconPos:"29,116,29,29"});
 			document.body.appendChild(icon5.domNode);
-			var icon6 = new Icon({icon:"mblDomButtonBlueCircleArrow"});
+			var icon6 = new Icon({icon:"duiDomButtonBlueCircleArrow"});
 			document.body.appendChild(icon6.domNode);
 		});
 	</script>
@@ -39,7 +39,7 @@
   markup:
   <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"images/tab-icon-23h.png"'></div>
   <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"images/tab-icons.png",iconPos:"29,116,29,29"'></div>
-  <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"mblDomButtonBlueCircleArrow"'></div>
+  <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"duiDomButtonBlueCircleArrow"'></div>
   <hr>online:
   <div id="icon1"></div>
   <div id="icon2"></div>

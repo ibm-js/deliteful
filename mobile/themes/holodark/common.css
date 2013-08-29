@@ -11,42 +11,42 @@ html.mobile,
   font-size: 17px;
   color: #ffffff;
 }
-.mblBackground {
+.duiBackground {
   background-color: #000000;
 }
 /* Button Colors */
-.mblColorBlue {
+.duiColorBlue {
   color: #ffffff;
   background-color: #366edf;
   background-image: none;
 }
-.mblColorBlue45 {
+.duiColorBlue45 {
   background-image: none;
 }
 /* Default Button Colors */
-.mblColorDefault {
+.duiColorDefault {
   color: #ffffff;
   background-color: #333333;
   background-image: none;
 }
-.mblColorDefault45 {
+.duiColorDefault45 {
   background-color: #333333;
 }
-.mblColorDefaultSel {
+.duiColorDefaultSel {
   color: #ffffff;
   background-color: #33b5e5;
   background-image: none;
 }
-.mblColorDefaultSel45 {
+.duiColorDefaultSel45 {
   background-color: #33b5e5;
 }
-.mblSpriteIcon {
+.duiSpriteIcon {
   position: absolute;
 }
-.mblSpriteIconParent {
+.duiSpriteIconParent {
   position: relative;
   font-size: 1px;
 }
-.mblImageIcon {
+.duiImageIcon {
   vertical-align: top;
 }

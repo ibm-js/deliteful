@@ -11,24 +11,24 @@
 	<link href="../../themes/common/domButtons/DomButtonBlueBadge.css" rel="stylesheet"/>
 	<link href="css/test.css" rel="stylesheet"/>
 	<script type="text/javascript" src="../../deviceTheme.js"
-			data-dojo-config="mblThemeFiles:['base','IconContainer']"></script>
+			data-dojo-config="duiThemeFiles:['base','IconContainer']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 	<script language="JavaScript" type="text/javascript">
-		var ICON_ITEM_CLASSNAME1 = "mblIconItem";
-		var ICON_ITEM_CLASSNAME2 = "mblIconArea";
-		var ICON_BADGE_CLASSNAME1 = "mblBadge";
-		var ICON_BADGE_CLASSNAME2 = "mblDomButton";
-		var ICON_BADGE_CLASSNAME3 = "mblDomButtonRedBadge";
-		var ICON_BADGE_CLASSNAME4 = "mblDomButtonBlueBadge";
-		var ICON_BADGE_CLASSNAME5 = "mblDomButtonGreenBadge";
+		var ICON_ITEM_CLASSNAME1 = "duiIconItem";
+		var ICON_ITEM_CLASSNAME2 = "duiIconArea";
+		var ICON_BADGE_CLASSNAME1 = "duiBadge";
+		var ICON_BADGE_CLASSNAME2 = "duiDomButton";
+		var ICON_BADGE_CLASSNAME3 = "duiDomButtonRedBadge";
+		var ICON_BADGE_CLASSNAME4 = "duiDomButtonBlueBadge";
+		var ICON_BADGE_CLASSNAME5 = "duiDomButtonGreenBadge";
 		var ICON_BADGE_VALUE = "55";
-		var WIDGET_CLASSNAME = "mblIconContainer";
+		var WIDGET_CLASSNAME = "duiIconContainer";
 		var ICON_ITEM_SRC_REGEXP = /icon3.png/i;
 		var CHILD_ITEM_PROPS = [
 			{label: "app1", icon: "../images/icon3.png", lazy: "true", badge: "55"},
-			{label: "app2", icon: "../images/icon2.png", lazy: "true", badge: "2350", badgeClass: "mblDomButtonBlueBadge"},
-			{label: "app3", iconPos: "0,0,65,65", lazy: true, badge: "001", badgeClass: "mblDomButtonGreenBadge"}
+			{label: "app2", icon: "../images/icon2.png", lazy: "true", badge: "2350", badgeClass: "duiDomButtonBlueBadge"},
+			{label: "app3", iconPos: "0,0,65,65", lazy: true, badge: "001", badgeClass: "duiDomButtonGreenBadge"}
 		];
 
 		var CHILD_ITEM_CONTAINERS = ['<div class="box"></div>',
@@ -158,11 +158,11 @@
 			<div class="box"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/IconItem"
-			data-dojo-props='label:"app2", icon:"../images/icon2.png", lazy:true, badge:"2350", badgeClass:"mblDomButtonBlueBadge"'>
+			data-dojo-props='label:"app2", icon:"../images/icon2.png", lazy:true, badge:"2350", badgeClass:"duiDomButtonBlueBadge"'>
 			<div class="box"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/IconItem"
-			data-dojo-props='label:"app3", iconPos:"0,0,65,65", lazy:true, badge:"001", badgeClass:"mblDomButtonGreenBadge"'>
+			data-dojo-props='label:"app3", iconPos:"0,0,65,65", lazy:true, badge:"001", badgeClass:"duiDomButtonGreenBadge"'>
 			<div class="box"></div>
 		</li>
 	</ul>
@@ -190,11 +190,11 @@
 			<div class="box"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/IconItem"
-			data-dojo-props='label:"app2", icon:"../images/icon2.png", lazy:true, badge:"2350", badgeClass:"mblDomButtonBlueBadge"'>
+			data-dojo-props='label:"app2", icon:"../images/icon2.png", lazy:true, badge:"2350", badgeClass:"duiDomButtonBlueBadge"'>
 			<div class="box"></div>
 		</li>
 		<li data-dojo-type="dojox/mobile/IconItem"
-			data-dojo-props='label:"app3", iconPos:"0,0,65,65", lazy:true, badge:"001", badgeClass:"mblDomButtonGreenBadge"'>
+			data-dojo-props='label:"app3", iconPos:"0,0,65,65", lazy:true, badge:"001", badgeClass:"duiDomButtonGreenBadge"'>
 			<div class="box"></div>
 		</li>
 	</ul>

@@ -26,7 +26,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblButton",
+		baseClass: "duiButton",
 
 		// _setTypeAttr: [private] Function 
 		//		Overrides the automatic assignment of type to nodes, because it causes

@@ -44,9 +44,9 @@
 		//	|	http://your.server.com/yourapp.html?theme=iPad // forces iPad theme
 		//
 		//		To simulate a particular device from the application code, the user agent
-		//		can be forced by setting dojoConfig.mblUserAgent as follows:
+		//		can be forced by setting dojoConfig.duiUserAgent as follows:
 		//
-		//	|	<script src="dojox/mobile/deviceTheme.js" data-dojo-config="mblUserAgent: 'Holodark'"></script>
+		//	|	<script src="dojox/mobile/deviceTheme.js" data-dojo-config="duiUserAgent: 'Holodark'"></script>
 		//	|	<script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
 		//
 		//		By default, an all-in-one theme file (e.g. themes/iphone/iphone.css) is
@@ -58,7 +58,7 @@
 		//		via dojoConfig or data-dojo-config as shown in the following example:
 		//
 		//	|	<script src="dojox/mobile/deviceTheme.js"
-		//	|		data-dojo-config="mblThemeFiles:['base','Button']"></script>
+		//	|		data-dojo-config="duiThemeFiles:['base','Button']"></script>
 		//	|	<script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
 		//
 		//		In the case of this example, if iphone is detected, for example, the
@@ -92,7 +92,7 @@
 			win.doc = document;
 			win._no_dojo_dm = dm;
 		}
-		config = config || win.mblConfig || {};
+		config = config || win.duiConfig || {};
 		var scripts = win.doc.getElementsByTagName("script");
 		for(var i = 0; i < scripts.length; i++){
 			var n = scripts[i];
@@ -225,14 +225,14 @@
 			// description:
 			//		This function is automatically called when this module is
 			//		evaluated.
-			var t = config.mblThemeFiles || dm.themeFiles || ["@theme"];
+			var t = config.duiThemeFiles || dm.themeFiles || ["@theme"];
 			var i, j;
 			var m = this.themeMap;
-			var ua = userAgent || config.mblUserAgent || (location.search.match(/theme=(\w+)/) ? RegExp.$1 : navigator.userAgent);
+			var ua = userAgent || config.duiUserAgent || (location.search.match(/theme=(\w+)/) ? RegExp.$1 : navigator.userAgent);
 			for(i = 0; i < m.length; i++){
 				if(ua.match(new RegExp(m[i][0]))){
 					var theme = m[i][1];
-					if(theme == "windows" && config.mblDisableWindowsTheme){
+					if(theme == "windows" && config.duiDisableWindowsTheme){
 						continue;
 					}
 					var cls = win.doc.documentElement.className;

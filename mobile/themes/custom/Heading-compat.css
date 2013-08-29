@@ -1,10 +1,10 @@
 /* dojox.mobile.Heading */
-.mblHeading {
+.duiHeading {
   background-image: url(compat/heading-bg.png);
 }
-.mblHeadingSpanTitle {
+.duiHeadingSpanTitle {
   white-space: normal;
 }
-.dj_gecko .mblHeading {
+.dj_gecko .duiHeading {
   background-image: -moz-linear-gradient(top, #f6f6f6 0%, #dedede 100%);
 }

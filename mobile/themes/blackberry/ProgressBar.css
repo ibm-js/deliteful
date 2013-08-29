@@ -1,11 +1,11 @@
 /* dojox.mobile.ProgressBar */
-.mblProgressBar {
+.duiProgressBar {
   position: relative;
   height: 22px;
   background-color: white;
   padding: 1px;
 }
-.mblProgressBarProgress {
+.duiProgressBarProgress {
   -webkit-transition-property: width;
   transition-property: width;
   -webkit-transition-duration: 0.25s;
@@ -13,11 +13,11 @@
   background-color: #298eff;
   height: 22px;
 }
-.mblProgressBarNotStarted {
+.duiProgressBarNotStarted {
   border-left: none;
   border-right: none;
 }
-.mblProgressBarMsg {
+.duiProgressBarMsg {
   position: absolute;
   top: 0px;
   width: 100%;

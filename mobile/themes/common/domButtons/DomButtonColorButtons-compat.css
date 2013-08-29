@@ -1,48 +1,48 @@
 /* === Minus and Plus Buttons ==*/
-.mblDomButtonBlueMinus {
-	background-image: url(compat/mblDomButtonBlueMinus.png);
+.duiDomButtonBlueMinus {
+	background-image: url(compat/duiDomButtonBlueMinus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBlueMinus div {
+.duiDomButtonBlueMinus div {
 	display: none;
 }
 
-.mblDomButtonBluePlus {
-	background-image: url(compat/mblDomButtonBluePlus.png);
+.duiDomButtonBluePlus {
+	background-image: url(compat/duiDomButtonBluePlus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBluePlus div {
+.duiDomButtonBluePlus div {
 	display: none;
 }
 
-.mblDomButtonDarkBlueMinus {
-	background-image: url(compat/mblDomButtonDarkBlueMinus.png);
+.duiDomButtonDarkBlueMinus {
+	background-image: url(compat/duiDomButtonDarkBlueMinus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonDarkBlueMinus div {
+.duiDomButtonDarkBlueMinus div {
 	display: none;
 }
 
-.mblDomButtonDarkBluePlus {
-	background-image: url(compat/mblDomButtonDarkBluePlus.png);
+.duiDomButtonDarkBluePlus {
+	background-image: url(compat/duiDomButtonDarkBluePlus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonDarkBluePlus div {
+.duiDomButtonDarkBluePlus div {
 	display: none;
 }
 
-.mblDomButtonRedMinus {
-	background-image: url(compat/mblDomButtonRedMinus.png);
+.duiDomButtonRedMinus {
+	background-image: url(compat/duiDomButtonRedMinus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonRedMinus div {
+.duiDomButtonRedMinus div {
 	display: none;
 }
 
-.mblDomButtonRedPlus {
-	background-image: url(compat/mblDomButtonRedPlus.png);
+.duiDomButtonRedPlus {
+	background-image: url(compat/duiDomButtonRedPlus.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonRedPlus div {
+.duiDomButtonRedPlus div {
 	display: none;
 }

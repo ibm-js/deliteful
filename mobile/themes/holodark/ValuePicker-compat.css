@@ -1,22 +1,22 @@
 /* dojox.mobile.ValuePicker */
-.mblValuePickerSlotButton {
+.duiValuePickerSlotButton {
   background-image: url(compat/valuepicker-button-bg.png);
 }
-.mblValuePickerSlotButtonSelected {
+.duiValuePickerSlotButtonSelected {
   background-color: #33b5e5;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   background-color: #f7f7f7;
 }
-.dj_gecko .mblValuePickerSlotButton {
+.dj_gecko .duiValuePickerSlotButton {
   background-image: none;
 }
-.dj_gecko .mblValuePickerSlotButtonSelected {
+.dj_gecko .duiValuePickerSlotButtonSelected {
   background-image: none;
 }
-.dj_gecko .mblValuePickerSlotInputArea {
+.dj_gecko .duiValuePickerSlotInputArea {
   background-image: none;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   background-color: transparent;
 }

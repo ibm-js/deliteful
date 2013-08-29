@@ -26,13 +26,13 @@
 							setTimeout(d.getTestCallback(function(){
 								var demoWidget = dijit.byId("dojox_mobile_RoundRect_0");
 								if(dojo.isIE < 10){
-									doh.assertEqual('mblRoundRect', demoWidget.domNode.className);
+									doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 								}else{
-									doh.assertEqual('mblRoundRect mblShadow', demoWidget.domNode.className);
+									doh.assertEqual('duiRoundRect duiShadow', demoWidget.domNode.className);
 								}
 
 								demoWidget = dijit.byId("dojox_mobile_RoundRect_1");
-								doh.assertEqual('mblRoundRect', demoWidget.domNode.className);
+								doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 							}));
 							return d;
 						}
@@ -46,7 +46,7 @@
 
 							demoWidget.set({shadow :false});
 //							doh.assertFalse(demoWidget.get("shadow"));
-//							doh.assertEqual('mblRoundRect', demoWidget.domNode.className);
+//							doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 						}
 					}
 				]);

@@ -396,7 +396,7 @@ define([
 			var w = this;
 			while(true){
 				w = w.getParent();
-				if(!w || domClass.contains(w.domNode, "mblView")){ break; }
+				if(!w || domClass.contains(w.domNode, "duiView")){ break; }
 			}
 			if(w){
 				w.clickedPosX = e.clientX;

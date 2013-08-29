@@ -17,7 +17,7 @@ define([
 		//		This type of value picker is typically seen on Android devices.
 
 		/* internal properties */	
-		baseClass: "mblValuePicker",
+		baseClass: "duiValuePicker",
 
 		onValueChanged: function(/*dojox/mobile/ValuePickerSlot*/slot){
 			// summary:

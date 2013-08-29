@@ -28,7 +28,7 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblRoundRectCategory",
+		baseClass: "duiRoundRectCategory",
 
 		buildRendering: function(){
 			var domNode = this.domNode = this.containerNode = this.srcNodeRef || domConstruct.create(this.tag);

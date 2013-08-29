@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,42 +13,42 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Slider */
-.mblSlider {
+.duiSlider {
   background-image: url(compat/slider-h-bg.png);
   background-repeat: repeat-x;
 }
-.mblSliderProgressBar {
+.duiSliderProgressBar {
   background-image: url(compat/slider-h-bar-bg.png);
   background-repeat: repeat-x;
 }
-.mblSliderHandle {
+.duiSliderHandle {
   background-image: url(compat/slider-handle-bg.png);
 }
-.mblSliderV {
+.duiSliderV {
   background-color: #e2e2e2;
   background-image: none;
 }
-.mblSliderV .mblSliderProgressBar {
+.duiSliderV .duiSliderProgressBar {
   background-color: Highlight;
   background-image: none;
 }
-.dj_gecko .mblSlider {
+.dj_gecko .duiSlider {
   background-image: none;
   -moz-user-select: none;
   -moz-box-sizing: content-box;
 }
-.dj_gecko .mblSliderProgressBar {
+.dj_gecko .duiSliderProgressBar {
   background-image: none;
 }
-.dj_gecko .mblSliderHandle {
+.dj_gecko .duiSliderHandle {
   background-image: none;
 }
-.dj_ff3 .mblSlider {
+.dj_ff3 .duiSlider {
   -moz-border-radius: 0;
 }
-.dj_ff3 .mblSliderProgressBar {
+.dj_ff3 .duiSliderProgressBar {
   -moz-border-radius: 0;
 }
-.dj_ff3 .mblSliderHandle {
+.dj_ff3 .duiSliderHandle {
   -moz-border-radius: 0;
 }

@@ -1,23 +1,23 @@
 @import "../css3.less";
-.mblFade {
+.duiFade {
 	.transition-property(none);
 	.transition-duration(0s);
 }
-.mblFade.mblTransition {
+.duiFade.duiTransition {
 	.transition-property(opacity);
 	.transition-duration(.6s);
 }
-.mblFade.mblOut {
+.duiFade.duiOut {
 	opacity: 1;
 }
-.mblFade.mblOut.mblTransition {
+.duiFade.duiOut.duiTransition {
 	.transition-timing-function(ease-out);
 	opacity: 0;
 }
-.mblFade.mblIn {
+.duiFade.duiIn {
 	opacity: 0;
 }
-.mblFade.mblIn.mblTransition {
+.duiFade.duiIn.duiTransition {
 	.transition-timing-function(ease-in);
 	opacity: 1;
 }

@@ -1,8 +1,8 @@
 /* === Black Circle Cross Button ==*/
-.mblDomButtonBlackCircleCross {
-	background-image: url(compat/mblDomButtonBlackCircleCross.png);
+.duiDomButtonBlackCircleCross {
+	background-image: url(compat/duiDomButtonBlackCircleCross.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBlackCircleCross > div {
+.duiDomButtonBlackCircleCross > div {
 	display: none;
 }

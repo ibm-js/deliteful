@@ -8,7 +8,7 @@
 
 	<link href="../themes/common/domButtons/DomButtonRedCircleMinus.css" rel="stylesheet"/>
 	<link href="../themes/common/domButtons/DomButtonGrayKnob.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -29,7 +29,7 @@
 				delItem = item;
 				item.rightIconNode.style.display = "none";
 				if(!item.rightIcon2Node){
-					item.set("rightIcon2", "mblDomButtonMyRedButton_0");
+					item.set("rightIcon2", "duiDomButtonMyRedButton_0");
 					item.rightIcon2Node.firstChild.innerHTML = "Delete";
 				}
 				item.rightIcon2Node.style.display = "";
@@ -47,7 +47,7 @@
 
 			function onClick(e){
 				var item = registry.getEnclosingWidget(e.target);
-				if(domClass.contains(e.target, "mblDomButtonMyRedButton_0")){
+				if(domClass.contains(e.target, "duiDomButtonMyRedButton_0")){
 					setTimeout(function(){
 						item.destroy();
 					}, 0);
@@ -80,7 +80,7 @@
 
 	<style>
 	/* inline custom DOM Button */
-	.mblDomButtonMyRedButton_0 {
+	.duiDomButtonMyRedButton_0 {
 		position: relative;
 		height: 29px;
 		line-height: 29px;
@@ -95,7 +95,7 @@
 		background-color: #c9404b;
 		text-align: center;
 	}
-	.windows_theme .mblFixedHeaderBar {
+	.windows_theme .duiFixedHeaderBar {
 		background-color: black;
 	}
 	</style>

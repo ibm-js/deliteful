@@ -1,5 +1,5 @@
 /* dojox.mobile.ToggleButton */
-.mblToggleButton {
+.duiToggleButton {
   position: relative;
   padding: 0 10px 0 25px;
   height: 29px;
@@ -17,23 +17,23 @@
   font-size: 13px;
   color: #000000;
 }
-.mblToggleButton:disabled {
+.duiToggleButton:disabled {
   border-color: grey;
   background-image: none;
   color: grey;
   cursor: default;
 }
-.mblToggleButtonSelected {
+.duiToggleButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
   color: #ffffff;
 }
-.mblToggleButtonChecked {
+.duiToggleButtonChecked {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2e2e2));
   background-image: linear-gradient(to bottom, #ffffff 0%, #e2e2e2 100%);
   color: #000000;
 }
-.mblToggleButtonChecked:after {
+.duiToggleButtonChecked:after {
   position: absolute;
   content: "";
   top: 6px;
@@ -48,11 +48,11 @@
   transform-origin: 50% 50%;
   border-color: #000000;
 }
-.mblToggleButtonChecked.mblToggleButtonSelected {
+.duiToggleButtonChecked.duiToggleButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
   color: #ffffff;
 }
-.mblToggleButtonChecked.mblToggleButtonSelected:after {
+.duiToggleButtonChecked.duiToggleButtonSelected:after {
   border-color: #ffffff;
 }

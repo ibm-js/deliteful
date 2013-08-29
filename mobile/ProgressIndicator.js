@@ -49,14 +49,14 @@ define([
 		// colors: String[]
 		//		An array of indicator colors. 12 colors have to be given.
 		//		If colors are not specified, CSS styles
-		//		(mblProg0Color - mblProg11Color) are used.
+		//		(duiProg0Color - duiProg11Color) are used.
 		colors: null,
 
 		/* internal properties */
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.	
-		baseClass: "mblProgressIndicator",
+		baseClass: "duiProgressIndicator",
 
 		constructor: function(){
 			// summary:
@@ -68,12 +68,12 @@ define([
 		buildRendering: function(){
 			this.inherited(arguments);
 			if(this.center){
-				domClass.add(this.domNode, "mblProgressIndicatorCenter");
+				domClass.add(this.domNode, "duiProgressIndicatorCenter");
 			}
-			this.containerNode = domConstruct.create("div", {className:"mblProgContainer"}, this.domNode);
+			this.containerNode = domConstruct.create("div", {className:"duiProgContainer"}, this.domNode);
 			this.spinnerNode = domConstruct.create("div", null, this.containerNode);
 			for(var i = 0; i < 12; i++){
-				var div = domConstruct.create("div", {className:"mblProg mblProg"+i}, this.spinnerNode);
+				var div = domConstruct.create("div", {className:"duiProg duiProg"+i}, this.spinnerNode);
 				this._bars.push(div);
 			}
 			this.scale(this.size);
@@ -119,8 +119,8 @@ define([
 						_this._bars[i].style.backgroundColor = c[idx];
 					}else{
 						domClass.replace(_this._bars[i],
-										 "mblProg" + idx + "Color",
-										 "mblProg" + (idx === n - 1 ? 0 : idx + 1) + "Color");
+										 "duiProg" + idx + "Color",
+										 "duiProg" + (idx === n - 1 ? 0 : idx + 1) + "Color");
 					}
 				}
 			}, this.interval);

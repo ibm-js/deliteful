@@ -43,7 +43,7 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "mblSwapView");
+			domClass.add(this.domNode, "duiSwapView");
 			this.setSelectable(this.domNode, false);
 			this.containerNode = this.domNode;
 			this.own(topic.subscribe("/dojox/mobile/nextPage", lang.hitch(this, "handleNextPage")));
@@ -76,14 +76,14 @@ define([
 			var nextView = this.nextView(this.domNode);
 			if(nextView){
 				nextView.stopAnimation();
-				domClass.add(nextView.domNode, "mblIn");
+				domClass.add(nextView.domNode, "duiIn");
 				// Temporarily add padding to align with the fromNode while transition
 				nextView.containerNode.style.paddingTop = fromTop + "px";
 			}
 			var prevView = this.previousView(this.domNode);
 			if(prevView){
 				prevView.stopAnimation();
-				domClass.add(prevView.domNode, "mblIn");
+				domClass.add(prevView.domNode, "duiIn");
 				// Temporarily add padding to align with the fromNode while transition
 				prevView.containerNode.style.paddingTop = fromTop + "px";
 			}
@@ -143,7 +143,7 @@ define([
 		isSwapView: function(/*DomNode*/node){
 			// summary:
 			//		Returns true if the given node is a SwapView widget.
-			return (node && node.nodeType === 1 && domClass.contains(node, "mblSwapView"));
+			return (node && node.nodeType === 1 && domClass.contains(node, "duiSwapView"));
 		},
 
 		nextView: function(/*DomNode*/node){
@@ -198,16 +198,16 @@ define([
 			//		When this function is called from scrollable.js, there are
 			//		two visible views, one is the current view, the other is the
 			//		next view. This function returns the current view, not the
-			//		next view, which has the mblIn class.
-			if(!domClass.contains(node, "mblSwapView")){
+			//		next view, which has the duiIn class.
+			if(!domClass.contains(node, "duiSwapView")){
 				return this.inherited(arguments);
 			}
 			if(!node.parentNode){ return null; }
 			var nodes = node.parentNode.childNodes;
 			for(var i = 0; i < nodes.length; i++){
 				var n = nodes[i];
-				if(n.nodeType === 1 && domClass.contains(n, "mblSwapView")
-				    && !domClass.contains(n, "mblIn") && n.style.display !== "none"){
+				if(n.nodeType === 1 && domClass.contains(n, "duiSwapView")
+				    && !domClass.contains(n, "duiIn") && n.style.display !== "none"){
 					return n;
 				}
 			}
@@ -261,7 +261,7 @@ define([
 		onAnimationEnd: function(/*Event*/e){
 			// summary:
 			//		Overrides dojox/mobile/View.onAnimationEnd().
-			if(e && e.target && domClass.contains(e.target, "mblScrollableScrollTo2")){ return; }
+			if(e && e.target && domClass.contains(e.target, "duiScrollableScrollTo2")){ return; }
 			this.inherited(arguments);
 		},
 
@@ -271,7 +271,7 @@ define([
 			}
 			// summary:
 			//		Overrides dojox/mobile/scrollable.onFlickAnimationEnd().
-			if(e && e.target && !domClass.contains(e.target, "mblScrollableScrollTo2")){ return; }
+			if(e && e.target && !domClass.contains(e.target, "duiScrollableScrollTo2")){ return; }
 			this.inherited(arguments);
 
 			if(this.domNode._isShowing){
@@ -280,7 +280,7 @@ define([
 				// may appear unexpectedly.
 				array.forEach(this.domNode.parentNode.childNodes, function(c){
 					if(this.isSwapView(c)){
-						domClass.remove(c, "mblIn");
+						domClass.remove(c, "duiIn");
 						if(!c._isShowing){
 							c.style.display = "none";
 							c.style[css3.name("transform")] = "";

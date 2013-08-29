@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -16,37 +16,37 @@
 /**********************************************************************************************************************/
 /*** columns == 'auto' ***/
 @media all and (max-width: 500px) {
-  .mblFormLayout.mblFormLayoutAuto fieldset {
+  .duiFormLayout.duiFormLayoutAuto fieldset {
     padding-left: 0;
     padding-right: 0;
   }
   /* A gap between rows */
-  .mblFormLayout.mblFormLayoutAuto > * + * {
+  .duiFormLayout.duiFormLayoutAuto > * + * {
     margin-top: 0.6em;
   }
   /* Text widgets */
-  .mblFormLayout.mblFormLayoutAuto .mblTextArea,
-  .mblFormLayout.mblFormLayoutAuto .mblExpandingTextArea,
-  .mblFormLayout.mblFormLayoutAuto .mblTextBox,
-  .mblFormLayout.mblFormLayoutAuto .mblSearchBox {
+  .duiFormLayout.duiFormLayoutAuto .duiTextArea,
+  .duiFormLayout.duiFormLayoutAuto .duiExpandingTextArea,
+  .duiFormLayout.duiFormLayoutAuto .duiTextBox,
+  .duiFormLayout.duiFormLayoutAuto .duiSearchBox {
     width: 100%;
     box-sizing: border-box;
   }
 }
 /*** columns == 'single' ***/
-.mblFormLayout.mblFormLayoutSingleCol fieldset {
+.duiFormLayout.duiFormLayoutSingleCol fieldset {
   padding-left: 0;
   padding-right: 0;
 }
 /* A gap between rows */
-.mblFormLayout.mblFormLayoutSingleCol > * + * {
+.duiFormLayout.duiFormLayoutSingleCol > * + * {
   margin-top: 0.6em;
 }
 /* Text widgets */
-.mblFormLayout.mblFormLayoutSingleCol .mblTextArea,
-.mblFormLayout.mblFormLayoutSingleCol .mblExpandingTextArea,
-.mblFormLayout.mblFormLayoutSingleCol .mblTextBox,
-.mblFormLayout.mblFormLayoutSingleCol .mblSearchBox {
+.duiFormLayout.duiFormLayoutSingleCol .duiTextArea,
+.duiFormLayout.duiFormLayoutSingleCol .duiExpandingTextArea,
+.duiFormLayout.duiFormLayoutSingleCol .duiTextBox,
+.duiFormLayout.duiFormLayoutSingleCol .duiSearchBox {
   width: 100%;
   box-sizing: border-box;
 }
@@ -55,140 +55,140 @@
 /*** columns == 'auto' ***/
 @media all and (min-width: 500px) {
   /* Form layout selector*/
-  .mblFormLayout.mblFormLayoutAuto {
+  .duiFormLayout.duiFormLayoutAuto {
     display: table;
     width: 100%;
   }
   /* Form rows */
-  .mblFormLayout.mblFormLayoutAuto > * {
+  .duiFormLayout.duiFormLayoutAuto > * {
     display: table-row;
   }
   /* Form cells */
-  .mblFormLayout.mblFormLayoutAuto > * > * {
+  .duiFormLayout.duiFormLayoutAuto > * > * {
     display: table-cell;
     vertical-align: top;
     padding: 0.5em 0;
   }
   /* Left cells */
-  .mblFormLayout.mblFormLayoutAuto > * > *:first-child {
+  .duiFormLayout.duiFormLayoutAuto > * > *:first-child {
     width: 20%;
     padding-right: 0.5em;
   }
-  /* mblFormLayoutRightAlign optional selector definition */
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child {
+  /* duiFormLayoutRightAlign optional selector definition */
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child {
     text-align: right;
   }
   /* Force right margin of last elements of the right column, no way to select elements followed by a <br> */
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblButton:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblToggleButton:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblCheckBox:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblSwitch:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblRadioButton:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblTextArea:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblExpandingTextArea:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblTextBox:last-child,
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblSearchBox:last-child {
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiButton:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiToggleButton:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiCheckBox:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiSwitch:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiRadioButton:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiTextArea:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiExpandingTextArea:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiTextBox:last-child,
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiSearchBox:last-child {
     margin-right: 0;
   }
   /* The Slider sticks to its bounds when margin=10px */
-  .mblFormLayout.mblFormLayoutAuto.mblFormLayoutRightAlign > * > *:last-child > .mblSlider:last-child {
+  .duiFormLayout.duiFormLayoutAuto.duiFormLayoutRightAlign > * > *:last-child > .duiSlider:last-child {
     display: inline-block;
     margin-right: 10px;
     margin-top: 0px;
   }
   /* Text widgets */
-  .mblFormLayout.mblFormLayoutAuto .mblTextArea,
-  .mblFormLayout.mblFormLayoutAuto .mblExpandingTextArea,
-  .mblFormLayout.mblFormLayoutAuto .mblTextBox,
-  .mblFormLayout.mblFormLayoutAuto .mblSearchBox {
+  .duiFormLayout.duiFormLayoutAuto .duiTextArea,
+  .duiFormLayout.duiFormLayoutAuto .duiExpandingTextArea,
+  .duiFormLayout.duiFormLayoutAuto .duiTextBox,
+  .duiFormLayout.duiFormLayoutAuto .duiSearchBox {
     width: 50%;
     box-sizing: border-box;
   }
 }
 /*** columns == 'two' ***/
 /* Form layout selector*/
-.mblFormLayout.mblFormLayoutTwoCol {
+.duiFormLayout.duiFormLayoutTwoCol {
   display: table;
   width: 100%;
 }
 /* Form rows */
-.mblFormLayout.mblFormLayoutTwoCol > * {
+.duiFormLayout.duiFormLayoutTwoCol > * {
   display: table-row;
 }
 /* Form cells */
-.mblFormLayout.mblFormLayoutTwoCol > * > * {
+.duiFormLayout.duiFormLayoutTwoCol > * > * {
   display: table-cell;
   vertical-align: top;
   padding: 0.5em 0;
 }
 /* Left cells */
-.mblFormLayout.mblFormLayoutTwoCol > * > *:first-child {
+.duiFormLayout.duiFormLayoutTwoCol > * > *:first-child {
   width: 20%;
   padding-right: 0.5em;
 }
-/* mblFormLayoutRightAlign optional selector definition */
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child {
+/* duiFormLayoutRightAlign optional selector definition */
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child {
   text-align: right;
 }
 /* Force right margin of last elements of the right column, no way to select elements followed by a <br> */
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblButton:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblToggleButton:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblCheckBox:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblSwitch:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblRadioButton:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblTextArea:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblExpandingTextArea:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblTextBox:last-child,
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblSearchBox:last-child {
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiButton:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiToggleButton:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiCheckBox:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiSwitch:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiRadioButton:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiTextArea:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiExpandingTextArea:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiTextBox:last-child,
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiSearchBox:last-child {
   margin-right: 0;
 }
 /* The Slider sticks to its bounds when margin=10px */
-.mblFormLayout.mblFormLayoutTwoCol.mblFormLayoutRightAlign > * > *:last-child > .mblSlider:last-child {
+.duiFormLayout.duiFormLayoutTwoCol.duiFormLayoutRightAlign > * > *:last-child > .duiSlider:last-child {
   display: inline-block;
   margin-right: 10px;
   margin-top: 0px;
 }
 /* Text widgets */
-.mblFormLayout.mblFormLayoutTwoCol .mblTextArea,
-.mblFormLayout.mblFormLayoutTwoCol .mblExpandingTextArea,
-.mblFormLayout.mblFormLayoutTwoCol .mblTextBox,
-.mblFormLayout.mblFormLayoutTwoCol .mblSearchBox {
+.duiFormLayout.duiFormLayoutTwoCol .duiTextArea,
+.duiFormLayout.duiFormLayoutTwoCol .duiExpandingTextArea,
+.duiFormLayout.duiFormLayoutTwoCol .duiTextBox,
+.duiFormLayout.duiFormLayoutTwoCol .duiSearchBox {
   width: 50%;
   box-sizing: border-box;
 }
 /* Common Rules*/
 /**********************************************************************************************************************/
-.mblFormLayout fieldset {
+.duiFormLayout fieldset {
   border: none;
   margin: 0;
 }
 /* Bold widget labels */
-.mblFormLayout > * > *:first-child {
+.duiFormLayout > * > *:first-child {
   font-weight: bold;
 }
 /* Whatever the screen width, force left margin of first elements and elements following a <br> */
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblButton:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblToggleButton:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblCheckBox:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblSwitch:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblRadioButton:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblTextArea:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblExpandingTextArea:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblTextBox:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblSearchBox:first-child,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblButton,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblToggleButton,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblCheckBox,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblSwitch,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblRadioButton,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblTextArea,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblExpandingTextArea,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblTextBox,
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > br + .mblSearchBox {
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiButton:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiToggleButton:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiCheckBox:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiSwitch:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiRadioButton:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiTextArea:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiExpandingTextArea:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiTextBox:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiSearchBox:first-child,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiButton,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiToggleButton,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiCheckBox,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiSwitch,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiRadioButton,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiTextArea,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiExpandingTextArea,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiTextBox,
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > br + .duiSearchBox {
   margin-left: 0;
 }
 /* The Slider sticks to its bounds when margin=10px */
-.mblFormLayout:not(.mblFormLayoutRightAlign) > * > *:last-child > .mblSlider:first-child {
+.duiFormLayout:not(.duiFormLayoutRightAlign) > * > *:last-child > .duiSlider:first-child {
   display: inline-block;
   margin-left: 10px;
   margin-top: 0;

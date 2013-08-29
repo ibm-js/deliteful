@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Progress Indicator on Heading</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -23,7 +23,7 @@
 				var prog1 = new ProgressIndicator({size:30, center:false});
 				prog1.domNode.style.position = "absolute";
 				prog1.domNode.style.margin = "5px";
-				domClass.add(prog1.domNode, "mblProgWhite");
+				domClass.add(prog1.domNode, "duiProgWhite");
 				var head1 = registry.byId("head1");
 				prog1.placeAt(head1.domNode);
 				prog1.start();
@@ -36,7 +36,7 @@
 				prog2.domNode.style.position = "absolute";
 				prog2.domNode.style.margin = "5px";
 				prog2.domNode.style.right = "0px";
-				domClass.add(prog2.domNode, "mblProgWhite");
+				domClass.add(prog2.domNode, "duiProgWhite");
 				var head2 = registry.byId("head2");
 				prog2.placeAt(head2.domNode);
 				prog2.start();

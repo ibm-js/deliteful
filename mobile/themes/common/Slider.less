@@ -1,52 +1,52 @@
 /* dojox.mobile.Slider */
-.mblSlider {
+.duiSlider {
 	margin: 15px; // 1/2 handle width for hanging off the ends of the bar
 	border-style: inset;
 	border-width: 1px;
-	border-radius: @mbl-slider-bar-border-radius;
-	.mbl-switch-bg-right-background-image();
+	border-radius: @dui-slider-bar-border-radius;
+	.dui-switch-bg-right-background-image();
 	.user-select(none); // prevent selection
 	.box-sizing(content-box); // make width and height consistent with a DIV
-	.mblSlider-styles;
+	.duiSlider-styles;
 }
-.mblSliderH {
+.duiSliderH {
 	width: 200px;
 	height: 8px;
-	.mblSliderProgressBar {
+	.duiSliderProgressBar {
 		height: 100%;
 	}
-	.mblSliderHandle {
+	.duiSliderHandle {
 		top: 50%;
 	}
 }
-.mblSliderV {
+.duiSliderV {
 	height: 200px;
 	width: 8px;
-	.mblSliderProgressBar {
+	.duiSliderProgressBar {
 		width: 100%;
 	}
-	.mblSliderHandle {
+	.duiSliderHandle {
 		left: 50%;
 	}
 }
-.mblSliderProgressBar {
-	border-radius: @mbl-slider-bar-border-radius;
-	.mbl-switch-bg-left-background-image();
+.duiSliderProgressBar {
+	border-radius: @dui-slider-bar-border-radius;
+	.dui-switch-bg-left-background-image();
 }
-.mblSliderHandle {
+.duiSliderHandle {
 	margin: -10px 0 0 -10px;
 	width: 18px;
 	height: 18px;
 	border-style: outset;
 	border-width: 1px;
-	border-radius: @mbl-slider-knob-border-radius;
-	.mbl-switch-knob-background-image();
-	.mblSliderHandle-styles;
+	border-radius: @dui-slider-knob-border-radius;
+	.dui-switch-knob-background-image();
+	.duiSliderHandle-styles;
 }
-.mblSliderTransition {
+.duiSliderTransition {
 	.transition-duration(400ms);
 }
-.mblSliderTouchBox {
+.duiSliderTouchBox {
 	margin: 0;
 	padding: 12pt;
 	left: -12pt;

@@ -1,11 +1,11 @@
-var WIDGET_CLASSNAME1 = "mblListItem";
-var WIDGET_ANCHOR_CLASSNAME1 = "mblListItemAnchor";
-var WIDGET_ANCHOR_CLASSNAME2 = "mblListItemAnchorNoIcon";
-var WIDGET_ICON_CLASSNAME1 = "mblListItemIcon";
-var WIDGET_RIGHTICON_CLASSNAME1 = "mblListItemRightIcon";
-var WIDGET_DOMBUTTON_ARROW = "mblDomButtonArrow";
-var WIDGET_DOMBUTTON_BLUEPLUS = "mblDomButtonBluePlus";
-var WIDGET_DOMBUTTON_CHECKBOX_ON = "mblDomButtonCheckboxOn";
+var WIDGET_CLASSNAME1 = "duiListItem";
+var WIDGET_ANCHOR_CLASSNAME1 = "duiListItemAnchor";
+var WIDGET_ANCHOR_CLASSNAME2 = "duiListItemAnchorNoIcon";
+var WIDGET_ICON_CLASSNAME1 = "duiListItemIcon";
+var WIDGET_RIGHTICON_CLASSNAME1 = "duiListItemRightIcon";
+var WIDGET_DOMBUTTON_ARROW = "duiDomButtonArrow";
+var WIDGET_DOMBUTTON_BLUEPLUS = "duiDomButtonBluePlus";
+var WIDGET_DOMBUTTON_CHECKBOX_ON = "duiDomButtonCheckboxOn";
 
 require([
 	"dojo/_base/connect",
@@ -33,9 +33,9 @@ require([
 		parentWidget.addChild(r);
 		r = new ListItem({id: widgetId[1], label: "u2space"});
 		parentWidget.addChild(r);
-		r = new ListItem({id: widgetId[2], rightIcon: "mblDomButtonBluePlus", label: "Wi-Fi"});
+		r = new ListItem({id: widgetId[2], rightIcon: "duiDomButtonBluePlus", label: "Wi-Fi"});
 		parentWidget.addChild(r);
-		r = new ListItem({id: widgetId[3], rightIcon: "mblDomButtonCheckboxOn", label: "VPN"});
+		r = new ListItem({id: widgetId[3], rightIcon: "duiDomButtonCheckboxOn", label: "VPN"});
 		parentWidget.addChild(r);
 		r = new ListItem({id: widgetId[4], variableHeight: "true", style: "font-size:10px", label: '<div>1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>Sarah Connor Hardcover<br>Eligible for FREE Super Saver Shipping<br><font color="red">$14.50 (50%)</font> In Stock<br># (531)</div>'});
 		parentWidget.addChild(r);
@@ -50,9 +50,9 @@ require([
 		r.startup();
 		r = new ListItem({}, widgetId[1]);
 		r.startup();
-		r = new ListItem({rightIcon: "mblDomButtonBluePlus"}, widgetId[2]);
+		r = new ListItem({rightIcon: "duiDomButtonBluePlus"}, widgetId[2]);
 		r.startup();
-		r = new ListItem({rightIcon: "mblDomButtonCheckboxOn"}, widgetId[3]);
+		r = new ListItem({rightIcon: "duiDomButtonCheckboxOn"}, widgetId[3]);
 		r.startup();
 		r = new ListItem({variableHeight: "true"}, widgetId[4]);
 		r.startup();

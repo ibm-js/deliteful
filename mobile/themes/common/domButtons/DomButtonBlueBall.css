@@ -1,10 +1,10 @@
 /* === Blue Ball Button ==*/
-.mblDomButtonBlueBall {
+.duiDomButtonBlueBall {
   position: relative;
   width: 19px;
   height: 29px;
 }
-.mblDomButtonBlueBall > div {
+.duiDomButtonBlueBall > div {
   position: relative;
   top: 8px;
   left: 4px;

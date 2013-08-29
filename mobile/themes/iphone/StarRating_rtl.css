@@ -1,15 +1,15 @@
-.mblStarRatingStarIcon {
+.duiStarRatingStarIcon {
   height: 40px;
   width: 40px;
   background-image: url('../common/images/yellow-stars-40.png');
   background-repeat: no-repeat;
 }
-.mblStarRatingEmptyStar {
+.duiStarRatingEmptyStar {
   background-position: -40px 0px;
 }
-.mblStarRatingHalfStar {
+.duiStarRatingHalfStar {
   background-position: -80px 0px;
 }
-.mblStarRatingHalfStarRtl {
+.duiStarRatingHalfStarRtl {
   background-position: -120px 0px;
 }

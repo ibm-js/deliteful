@@ -2,7 +2,7 @@
 
 @import url("../common/transitions/revealv.css");
 /* dojox.mobile.Overlay */
-.mblOverlay {
+.duiOverlay {
   position: fixed;
   z-index: 2000;
   left: 0;
@@ -13,7 +13,7 @@
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#cecece));
   background-image: linear-gradient(to bottom, #fdfdfd 0%, #cecece 100%);
 }
-.mblOverlayHidden *,
-.mblOverlayHidden {
+.duiOverlayHidden *,
+.duiOverlayHidden {
   visibility: hidden !important;
 }

@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,10 +13,10 @@
   background-repeat: no-repeat;
 }
 /* Progress Bar */
-.mblProgressBarProgress {
+.duiProgressBarProgress {
   background-color: Highlight;
 }
-.dj_gecko .mblProgressBarProgress {
+.dj_gecko .duiProgressBarProgress {
   -moz-transition-property: width;
   -moz-transition-duration: 0.25s;
   background-image: none;

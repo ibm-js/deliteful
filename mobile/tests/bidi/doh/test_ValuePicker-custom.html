@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Custom ValuePicker</title>
 
-	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','ValuePicker']"></script>
+	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','ValuePicker']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true,parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
@@ -28,7 +28,7 @@
 							name: "mobile",					
 							runTest: function(){
 								var firstSlotWidget = registry.byId('first');			    
-								var node = query(".mblValuePickerSlotInput",dom.byId('first'))[0];
+								var node = query(".duiValuePickerSlotInput",dom.byId('first'))[0];
 								runner.is(String.fromCharCode(8234), node.value.charAt(0), "label node has direction correspondent to 'textDir' of Value Picker Slot");
 								firstSlotWidget.set("textDir","rtl");
 								runner.is(String.fromCharCode(8235), node.value.charAt(0), "label node had direction changed after change of 'textDir'");				

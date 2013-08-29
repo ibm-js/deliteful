@@ -1,25 +1,25 @@
-.mblSwirl.mblOut {
+.duiSwirl.duiOut {
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  -webkit-animation-name: mblSwirlOut;
-  animation-name: mblSwirlOut;
+  -webkit-animation-name: duiSwirlOut;
+  animation-name: duiSwirlOut;
   -webkit-animation-timing-function: ease-in;
   animation-timing-function: ease-in;
 }
-.mblSwirl.mblIn {
+.duiSwirl.duiIn {
   z-index: -100;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  -webkit-animation-name: mblSwirlIn;
-  animation-name: mblSwirlIn;
+  -webkit-animation-name: duiSwirlIn;
+  animation-name: duiSwirlIn;
   -webkit-animation-timing-function: ease-in;
   animation-timing-function: ease-in;
 }
-.mblSwirl.mblOut.mblReverse {
-  -webkit-animation-name: mblSwirlOutReverse;
-  animation-name: mblSwirlOutReverse;
+.duiSwirl.duiOut.duiReverse {
+  -webkit-animation-name: duiSwirlOutReverse;
+  animation-name: duiSwirlOutReverse;
 }
-@-webkit-keyframes mblSwirlOut {
+@-webkit-keyframes duiSwirlOut {
   from {
     -webkit-transform: rotate(0deg) scale(1);
   }
@@ -27,7 +27,7 @@
     -webkit-transform: rotate(-360deg) scale(0);
   }
 }
-@keyframes mblSwirlOut {
+@keyframes duiSwirlOut {
   from {
     transform: rotate(0deg) scale(1);
   }
@@ -35,7 +35,7 @@
     transform: rotate(-360deg) scale(0);
   }
 }
-@-webkit-keyframes mblSwirlOutReverse {
+@-webkit-keyframes duiSwirlOutReverse {
   from {
     -webkit-transform: rotate(0deg) scale(1);
   }
@@ -43,7 +43,7 @@
     -webkit-transform: rotate(360deg) scale(0);
   }
 }
-@keyframes mblSwirlOutReverse {
+@keyframes duiSwirlOutReverse {
   from {
     transform: rotate(0deg) scale(1);
   }
@@ -51,7 +51,7 @@
     transform: rotate(360deg) scale(0);
   }
 }
-@-webkit-keyframes mblSwirlIn {
+@-webkit-keyframes duiSwirlIn {
   from {
     -webkit-transform: scale(1);
   }
@@ -59,7 +59,7 @@
     -webkit-transform: scale(1);
   }
 }
-@keyframes mblSwirlIn {
+@keyframes duiSwirlIn {
   from {
     transform: scale(1);
   }

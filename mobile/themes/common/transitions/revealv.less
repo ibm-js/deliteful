@@ -1,29 +1,29 @@
 @import "../css3.less";
-.mblRevealv {
+.duiRevealv {
 	.transition-property(none);
 	.transition-duration(0s);
 }
-.mblRevealv.mblTransition {
+.duiRevealv.duiTransition {
 	.transition-property-transform();
 	.transition-duration(.4s);
 }
-.mblRevealv.mblOut {
+.duiRevealv.duiOut {
 	.transform(translate3d(0px,0%,0px) ) !important;
 }
-.mblRevealv.mblOut.mblTransition {
+.duiRevealv.duiOut.duiTransition {
 	.transform(translate3d(0px,-100%,0px) ) !important;
 }
-.mblRevealv.mblOut.mblReverse.mblTransition {
+.duiRevealv.duiOut.duiReverse.duiTransition {
 	.transform(translate3d(0px,100%,0px) ) !important;
 }
-.mblRevealv.mblIn {
+.duiRevealv.duiIn {
 	z-index: -100;
 	.transform(translate3d(0px,0%,-1px) ) !important;
 }
-.mblRevealv.mblIn.mblTransition {
+.duiRevealv.duiIn.duiTransition {
 	.transform(translate3d(0px,0%,0px) ) !important;
 }
-.dj_android.dj_tablet .mblRevealv.mblTransition {
+.dj_android.dj_tablet .duiRevealv.duiTransition {
 	.transition-duration(.6s);
 	.transition-timing-function(linear);
 }

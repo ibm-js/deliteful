@@ -1,44 +1,44 @@
 /* dojox.mobile.ToggleButton */
-.mblToggleButton {
+.duiToggleButton {
 	background-image: url(compat/button-bg.png);
 }
-.mblToggleButtonSelected {
+.duiToggleButtonSelected {
 	background-image: url(compat/button-sel-bg.png);
 }
-.mblToggleButtonChecked {
+.duiToggleButtonChecked {
 	background-image: url(compat/button-chk-bg.png);
-	&.mblToggleButtonSelected {
+	&.duiToggleButtonSelected {
 		background-image: url(compat/button-unsel-bg.png);
 	}
 }
 .dj_gecko {
-	.mblToggleButton {
-		background-image: @mbl-button-background-image-gecko;
+	.duiToggleButton {
+		background-image: @dui-button-background-image-gecko;
 	}
-	.mblToggleButtonSelected {
-		background-image: @mbl-button-selected-background-image-gecko;
+	.duiToggleButtonSelected {
+		background-image: @dui-button-selected-background-image-gecko;
 	}
-	.mblToggleButtonChecked {
-		background-image: @mbl-button-checked-background-image-gecko;
+	.duiToggleButtonChecked {
+		background-image: @dui-button-checked-background-image-gecko;
 		&:after {
 			-moz-transform: rotate(45deg) skew(10deg);
 			-moz-transform-origin: 50% 50%;
 		}
-		&.mblToggleButtonSelected {
-			background-image: @mbl-blue-button-selected-background-image-gecko;
+		&.duiToggleButtonSelected {
+			background-image: @dui-blue-button-selected-background-image-gecko;
 		}
 	}
 }
 .dj_ff3 {
-	.mblToggleButton {
+	.duiToggleButton {
 		-moz-border-radius: @default-button-border-radius;
 	}
-	.mblToggleButton.mblToggleButtonChecked::after {
+	.duiToggleButton.duiToggleButtonChecked::after {
 		-moz-transform: translate(-25px,-6px) rotate(45deg) skew(10deg);
 	}
 }
 .dj_ie {
-	.mblToggleButtonChecked {
+	.duiToggleButtonChecked {
 		&:after {
 			top: 9px;
 			left: 5px;

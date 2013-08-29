@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -23,7 +23,7 @@
   border-radius: 0;
   box-shadow: none;
 }
-.mblReset {
+.duiReset {
   margin: 0;
   padding: 0;
   border: 0;
@@ -31,7 +31,7 @@
   font: inherit;
   color: inherit;
 }
-.mblComboBoxMenu {
+.duiComboBoxMenu {
   position: relative;
   overflow-y: hidden !important;
   overflow: hidden;
@@ -43,7 +43,7 @@
   width: 100% !important;
   height: calc(100% - 20px) !important;
 }
-.mblComboBoxMenuItem {
+.duiComboBoxMenuItem {
   padding: .1em .2em;
   border-width: 1px 0 1px 0;
   border-style: solid;
@@ -58,15 +58,15 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.mblComboBoxMenuItemSelected {
+.duiComboBoxMenuItemSelected {
   color: Highlight;
 }
-.mblComboBoxMenuPreviousButton,
-.mblComboBoxMenuNextButton {
+.duiComboBoxMenuPreviousButton,
+.duiComboBoxMenuNextButton {
   font-style: italic;
   overflow: hidden;
 }
-.mblComboBoxMenuPopup {
+.duiComboBoxMenuPopup {
   background-color: #1f1f1f;
   color: #ffffff;
   width: 100%;
@@ -75,16 +75,16 @@
   left: 0px !important;
   -ms-touch-action: none;
 }
-.mblComboBoxMenuPopup:before {
+.duiComboBoxMenuPopup:before {
   content: 'CHOOSE AN ITEM';
   position: absolute;
   top: 20px;
   left: 15px;
   font-weight: 600;
 }
-.mblComboBoxMenu > div {
+.duiComboBoxMenu > div {
   width: 100%;
 }
-.mblComboBoxMenuItem:active {
+.duiComboBoxMenuItem:active {
   color: Highlight;
 }

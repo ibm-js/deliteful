@@ -1,8 +1,8 @@
 /* === Check Button ==*/
-.mblDomButtonDarkBlueCheck, .mblDomButtonCheck {
-	background-image: url(compat/mblDomButtonDarkBlueCheck.png);
+.duiDomButtonDarkBlueCheck, .duiDomButtonCheck {
+	background-image: url(compat/duiDomButtonDarkBlueCheck.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonDarkBlueCheck div, .mblDomButtonCheck div {
+.duiDomButtonDarkBlueCheck div, .duiDomButtonCheck div {
 	display: none;
 }

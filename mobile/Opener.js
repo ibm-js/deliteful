@@ -37,7 +37,7 @@ define([
 		buildRendering: function(){
 			this.inherited(arguments);
 			this.cover = domConstruct.create('div', {
-				onclick: lang.hitch(this, '_onBlur'), 'class': 'mblOpenerUnderlay',
+				onclick: lang.hitch(this, '_onBlur'), 'class': 'duiOpenerUnderlay',
 				style: { position: isOverlay ? 'absolute' : 'fixed', backgroundColor:'transparent', overflow:'hidden', zIndex:'-1' }
 			}, this.domNode, 'first');
 		},
@@ -99,6 +99,6 @@ define([
 			return ret;
 		}
 	});
-	cls.prototype.baseClass += " mblOpener"; // add to either mblOverlay or mblTooltip
+	cls.prototype.baseClass += " duiOpener"; // add to either duiOverlay or duiTooltip
 	return cls;
 });

@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -14,117 +14,117 @@
 }
 /* dojox.mobile.Switch */
 /* Switch - common */
-.dj_gecko .mblSwitchBg {
+.dj_gecko .duiSwitchBg {
   -moz-box-sizing: border-box;
 }
-.dj_gecko .mblSwitchKnob {
+.dj_gecko .duiSwitchKnob {
   -moz-box-sizing: border-box;
 }
-.dj_gecko .mblSwitch .mblSwitchBgLeft {
+.dj_gecko .duiSwitch .duiSwitchBgLeft {
   background-image: none;
 }
-.dj_gecko .mblSwitch .mblSwitchBgRight {
+.dj_gecko .duiSwitch .duiSwitchBgRight {
   background-image: none;
 }
-.dj_gecko .mblSwitch .mblSwitchKnob {
+.dj_gecko .duiSwitch .duiSwitchKnob {
   background-image: none;
 }
-.dj_ie .mblSwitchBg {
+.dj_ie .duiSwitchBg {
   border: none;
   background: none;
 }
-.dj_ie .mblSwitchBgLeft {
+.dj_ie .duiSwitchBgLeft {
   background-repeat: no-repeat;
 }
-.dj_ie .mblSwitchBgRight {
+.dj_ie .duiSwitchBgRight {
   background-repeat: no-repeat;
 }
-.dj_ie .mblSwitchKnob {
+.dj_ie .duiSwitchKnob {
   background: none;
   background-repeat: no-repeat;
   border: none;
 }
 /* Square Shape */
-.mblSwSquareShape .mblSwitchBg {
+.duiSwSquareShape .duiSwitchBg {
   -moz-border-radius: 2px;
 }
-.mblSwSquareShape .mblSwitchBgLeft {
+.duiSwSquareShape .duiSwitchBgLeft {
   background-image: url(compat/switch-square-l.gif);
 }
-.mblSwSquareShape .mblSwitchBgRight {
+.duiSwSquareShape .duiSwitchBgRight {
   background-image: url(compat/switch-square-r.gif);
 }
-.mblSwSquareShape .mblSwitchKnob {
+.duiSwSquareShape .duiSwitchKnob {
   -moz-border-radius: 2px;
   background-image: url(compat/switch-square-k.gif);
 }
 /* Round Shape1 */
-.mblSwRoundShape1 .mblSwitchBg {
+.duiSwRoundShape1 .duiSwitchBg {
   -moz-border-radius: 14px;
 }
-.mblSwRoundShape1 .mblSwitchBgLeft {
+.duiSwRoundShape1 .duiSwitchBgLeft {
   background-image: url(compat/switch-round1-l.gif);
 }
-.mblSwRoundShape1 .mblSwitchBgRight {
+.duiSwRoundShape1 .duiSwitchBgRight {
   background-image: url(compat/switch-round1-r.gif);
 }
-.mblSwRoundShape1 .mblSwitchKnob {
+.duiSwRoundShape1 .duiSwitchKnob {
   -moz-border-radius: 13px;
   background-image: url(compat/switch-round1-k.gif);
 }
 /* Round Shape2 */
-.mblSwRoundShape2 .mblSwitchBg {
+.duiSwRoundShape2 .duiSwitchBg {
   -moz-border-radius: 14px;
 }
-.mblSwRoundShape2 .mblSwitchBgLeft {
+.duiSwRoundShape2 .duiSwitchBgLeft {
   background-image: url(compat/switch-round2-l.gif);
 }
-.mblSwRoundShape2 .mblSwitchBgRight {
+.duiSwRoundShape2 .duiSwitchBgRight {
   background-image: url(compat/switch-round2-r.gif);
 }
-.mblSwRoundShape2 .mblSwitchKnob {
+.duiSwRoundShape2 .duiSwitchKnob {
   -moz-border-radius: 13px;
   background-image: url(compat/switch-round2-k.gif);
 }
 /* Arc Shape1 */
-.mblSwArcShape1 .mblSwitchBg {
+.duiSwArcShape1 .duiSwitchBg {
   -moz-border-radius: 5px/14px;
 }
-.mblSwArcShape1 .mblSwitchBgLeft {
+.duiSwArcShape1 .duiSwitchBgLeft {
   background-image: url(compat/switch-arc1-l.gif);
 }
-.mblSwArcShape1 .mblSwitchBgRight {
+.duiSwArcShape1 .duiSwitchBgRight {
   background-image: url(compat/switch-arc1-r.gif);
 }
-.mblSwArcShape1 .mblSwitchKnob {
+.duiSwArcShape1 .duiSwitchKnob {
   -moz-border-radius: 5px/13px;
   background-image: url(compat/switch-arc1-k.gif);
 }
 /* Switch - Arc Shape2 */
-.mblSwArcShape2 .mblSwitchBg {
+.duiSwArcShape2 .duiSwitchBg {
   -moz-border-radius: 5px/14px;
 }
-.mblSwArcShape2 .mblSwitchBgLeft {
+.duiSwArcShape2 .duiSwitchBgLeft {
   background-image: url(compat/switch-arc2-l.gif);
 }
-.mblSwArcShape2 .mblSwitchBgRight {
+.duiSwArcShape2 .duiSwitchBgRight {
   background-image: url(compat/switch-arc2-r.gif);
 }
-.mblSwArcShape2 .mblSwitchKnob {
+.duiSwArcShape2 .duiSwitchKnob {
   -moz-border-radius: 5px/13px;
   background-image: url(compat/switch-arc2-k.gif);
 }
 /* Default Shape */
-.mblSwDefaultShape .mblSwitchBg {
+.duiSwDefaultShape .duiSwitchBg {
   -moz-border-radius: 2px;
 }
-.mblSwDefaultShape .mblSwitchBgLeft {
+.duiSwDefaultShape .duiSwitchBgLeft {
   background-image: url(compat/switch-square-l.gif);
 }
-.mblSwDefaultShape .mblSwitchBgRight {
+.duiSwDefaultShape .duiSwitchBgRight {
   background-image: url(compat/switch-square-r.gif);
 }
-.mblSwDefaultShape .mblSwitchKnob {
+.duiSwDefaultShape .duiSwitchKnob {
   -moz-border-radius: 2px;
   background-image: url(compat/switch-square-k.gif);
 }

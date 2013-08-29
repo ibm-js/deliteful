@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.ToggleButton */
-.mblToggleButton {
+.duiToggleButton {
   position: relative;
   padding: 0 10px 0 25px;
   height: 29px;
@@ -37,19 +37,19 @@
   height: auto;
   line-height: normal;
 }
-.mblToggleButton:disabled {
+.duiToggleButton:disabled {
   border-color: grey;
   background-image: none;
   color: grey;
   cursor: default;
 }
-.mblToggleButtonSelected {
+.duiToggleButtonSelected {
   color: white;
 }
-.mblToggleButtonChecked {
+.duiToggleButtonChecked {
   color: #ffffff;
 }
-.mblToggleButtonChecked:after {
+.duiToggleButtonChecked:after {
   position: absolute;
   content: "";
   top: 6px;
@@ -69,13 +69,13 @@
   top: 7px;
   border-width: 3.5px;
 }
-.mblToggleButtonChecked.mblToggleButtonSelected {
+.duiToggleButtonChecked.duiToggleButtonSelected {
   color: white;
 }
-.mblToggleButtonChecked.mblToggleButtonSelected:after {
+.duiToggleButtonChecked.duiToggleButtonSelected:after {
   border-color: white;
 }
-.mblToggleButton:before {
+.duiToggleButton:before {
   content: '';
   position: absolute;
   width: 30px;
@@ -83,10 +83,10 @@
   top: 0px;
   border: 2px solid #ffffff;
 }
-.mblToggleButton:active:not([disabled]):before {
+.duiToggleButton:active:not([disabled]):before {
   background-color: Highlight;
 }
-.mblToggleButton:after {
+.duiToggleButton:after {
   position: absolute;
   content: "";
   border-color: #000000;
@@ -101,17 +101,17 @@
   -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
 }
-.mblToggleButtonChecked:before,
-.mblToggleButtonSelected[aria-pressed='true']:before {
+.duiToggleButtonChecked:before,
+.duiToggleButtonSelected[aria-pressed='true']:before {
   background-color: #ffffff;
 }
-.mblToggleButtonChecked:after,
-.mblToggleButtonSelected[aria-pressed='true']:after {
+.duiToggleButtonChecked:after,
+.duiToggleButtonSelected[aria-pressed='true']:after {
   border-color: #000000 !important;
 }
-.mblToggleButton[disabled]:before {
+.duiToggleButton[disabled]:before {
   border-color: #808080;
 }
-.mblToggleButton[disabled].mblToggleButtonChecked:before {
+.duiToggleButton[disabled].duiToggleButtonChecked:before {
   background-color: #808080;
 }

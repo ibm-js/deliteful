@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.ToolBarButton */
-.mblToolBarButton {
+.duiToolBarButton {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -29,25 +29,25 @@
   vertical-align: middle;
   font-family: "Segoe WP", "Segoe UI", "HelveticaNeue", "Helvetica-Neue", "Helvetica", "BBAlpha Sans", "sans-serif";
 }
-.mblToolBarButtonHasIcon,
-.mblToolBarButtonLightIcon {
+.duiToolBarButtonHasIcon,
+.duiToolBarButtonLightIcon {
   padding: 0;
 }
-.mblHeading .mblToolBarButton {
+.duiHeading .duiToolBarButton {
   float: left;
 }
-.mblHeading span.mblToolBarButtonLightIcon {
+.duiHeading span.duiToolBarButtonLightIcon {
   padding: 0;
 }
-.mblToolBarButtonHasLeftArrow {
+.duiToolBarButtonHasLeftArrow {
   padding-right: 0;
   padding-left: 10px;
 }
-.mblToolBarButtonHasRightArrow {
+.duiToolBarButtonHasRightArrow {
   padding-left: 0;
   padding-right: 10px;
 }
-.mblToolBarButtonArrow {
+.duiToolBarButtonArrow {
   position: absolute;
   top: 5px;
   width: 20px;
@@ -59,56 +59,56 @@
   border-right-color: #767676;
   border-bottom-color: #767676;
 }
-.mblToolBarButtonHasLeftArrow .mblToolBarButtonArrow {
+.duiToolBarButtonHasLeftArrow .duiToolBarButtonArrow {
   left: -1px;
 }
-.mblToolBarButtonHasRightArrow .mblToolBarButtonArrow {
+.duiToolBarButtonHasRightArrow .duiToolBarButtonArrow {
   right: -1px;
 }
-.mblToolBarButtonBody {
+.duiToolBarButtonBody {
   display: inline-block;
   position: relative;
   overflow: hidden;
   border-radius: 0;
   border: none;
 }
-.mblToolBarButton .mblToolBarButtonBody {
+.duiToolBarButton .duiToolBarButtonBody {
   width: 100%;
 }
-.mblToolBarButtonBody table {
+.duiToolBarButtonBody table {
   margin: 0 auto;
 }
-.mblToolBarButtonHasLeftArrow .mblToolBarButtonBody {
+.duiToolBarButtonHasLeftArrow .duiToolBarButtonBody {
   border-left-width: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.mblToolBarButtonHasRightArrow .mblToolBarButtonBody {
+.duiToolBarButtonHasRightArrow .duiToolBarButtonBody {
   border-right-width: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.mblToolBarButtonText .mblToolBarButtonIcon {
+.duiToolBarButtonText .duiToolBarButtonIcon {
   padding-left: 10px;
 }
-.mblToolBarButtonText .mblToolBarButtonLabel {
+.duiToolBarButtonText .duiToolBarButtonLabel {
   padding-right: 10px;
   height: 29px;
 }
-.mblToolBarButtonHasLeftArrow .mblToolBarButtonIcon {
+.duiToolBarButtonHasLeftArrow .duiToolBarButtonIcon {
   padding-left: 4px;
 }
-.mblToolBarButtonHasRightArrow .mblToolBarButtonLabel {
+.duiToolBarButtonHasRightArrow .duiToolBarButtonLabel {
   padding-right: 4px;
 }
-.mblToolBarButtonIcon > div {
+.duiToolBarButtonIcon > div {
   height: 29px;
 }
-.mblToolBarButton {
+.duiToolBarButton {
   border: 2px solid #ffffff;
 }
-.mblToolBarButtonHasLeftArrow,
-.mblToolBarButtonHasRightArrow {
+.duiToolBarButtonHasLeftArrow,
+.duiToolBarButtonHasRightArrow {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -122,14 +122,14 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-.mblToolBarButtonHasLeftArrow *,
-.mblToolBarButtonHasRightArrow * {
+.duiToolBarButtonHasLeftArrow *,
+.duiToolBarButtonHasRightArrow * {
   display: none;
 }
-.mblToolBarButtonHasLeftArrow:active,
-.mblToolBarButtonHasRightArrow:active {
+.duiToolBarButtonHasLeftArrow:active,
+.duiToolBarButtonHasRightArrow:active {
   background-color: Highlight;
 }
-.mblToolBarButtonHasRightArrow {
+.duiToolBarButtonHasRightArrow {
   transform: rotate(180deg);
 }

@@ -1,5 +1,5 @@
 /* dojox.mobile.TextArea */
-.mblTextArea {
+.duiTextArea {
   padding: 4px 1px;
   border-width: 1px;
   border-style: inset;
@@ -18,6 +18,6 @@
   font-size: 17px;
 }
 /* dojox.mobile.ExpandingTextArea */
-.mblExpandingTextArea {
+.duiExpandingTextArea {
   margin: 2px;
 }

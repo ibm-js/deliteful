@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Tooltip */
-.mblTooltip {
+.duiTooltip {
   position: absolute;
   z-index: 2000;
   display: block;
@@ -27,38 +27,38 @@
   background-color: #dedede;
   background-image: none;
 }
-.mblTooltipBubble {
+.duiTooltipBubble {
   overflow: visible;
   padding: 3px;
   background-color: #f6f6f6;
   background-image: none;
   color: black;
 }
-.mblTooltipBubble.mblTooltipAbove .mblTooltipInnerArrow {
+.duiTooltipBubble.duiTooltipAbove .duiTooltipInnerArrow {
   border-bottom-color: #f6f6f6;
 }
-.mblTooltipBubble.mblTooltipBelow .mblTooltipInnerArrow {
+.duiTooltipBubble.duiTooltipBelow .duiTooltipInnerArrow {
   border-top-color: #f6f6f6;
 }
-.mblTooltipBubble.mblTooltipAfter .mblTooltipInnerArrow {
+.duiTooltipBubble.duiTooltipAfter .duiTooltipInnerArrow {
   border-left-color: #f6f6f6;
 }
-.mblTooltipBubble.mblTooltipBefore .mblTooltipInnerArrow {
+.duiTooltipBubble.duiTooltipBefore .duiTooltipInnerArrow {
   border-right-color: #f6f6f6;
 }
-.mblTooltip.mblTooltipAfter {
+.duiTooltip.duiTooltipAfter {
   margin-left: -11px;
 }
-.mblTooltip.mblTooltipBefore {
+.duiTooltip.duiTooltipBefore {
   margin-left: 11px;
 }
-.mblTooltip.mblTooltipAbove {
+.duiTooltip.duiTooltipAbove {
   margin-top: 11px;
 }
-.mblTooltip.mblTooltipBelow {
+.duiTooltip.duiTooltipBelow {
   margin-top: -11px;
 }
-.mblTooltipAnchor {
+.duiTooltipAnchor {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -66,26 +66,26 @@
   line-height: 0;
   font-size: 0;
 }
-.mblTooltipBefore .mblTooltipAnchor {
+.duiTooltipBefore .duiTooltipAnchor {
   left: -1px;
 }
-.mblTooltipAfter .mblTooltipAnchor {
+.duiTooltipAfter .duiTooltipAnchor {
   right: -1px;
 }
-.mblTooltipAbove .mblTooltipAnchor {
+.duiTooltipAbove .duiTooltipAnchor {
   top: -1px;
 }
-.mblTooltipBelow .mblTooltipAnchor {
+.duiTooltipBelow .duiTooltipAnchor {
   bottom: -1px;
 }
-.mblTooltipArrow {
+.duiTooltipArrow {
   position: absolute;
   width: 0;
   height: 0;
   line-height: 0;
   border: 11px solid transparent;
 }
-.mblTooltipBefore .mblTooltipArrow {
+.duiTooltipBefore .duiTooltipArrow {
   left: auto;
   right: 1px;
   top: 0;
@@ -93,7 +93,7 @@
   border-left-width: 0;
   border-right-color: #adadad;
 }
-.mblTooltipAfter .mblTooltipArrow {
+.duiTooltipAfter .duiTooltipArrow {
   left: 1px;
   right: auto;
   top: 0;
@@ -101,7 +101,7 @@
   border-right-width: 0;
   border-left-color: #adadad;
 }
-.mblTooltipAbove .mblTooltipArrow {
+.duiTooltipAbove .duiTooltipArrow {
   top: auto;
   bottom: 1px;
   left: auto;
@@ -109,7 +109,7 @@
   border-top-width: 0;
   border-bottom-color: #adadad;
 }
-.mblTooltipBelow .mblTooltipArrow {
+.duiTooltipBelow .duiTooltipArrow {
   top: 1px;
   bottom: auto;
   left: auto;
@@ -117,53 +117,53 @@
   border-bottom-width: 0;
   border-top-color: #adadad;
 }
-.mblTooltipInnerArrow {
+.duiTooltipInnerArrow {
   position: absolute;
   width: 0;
   height: 0;
   line-height: 0;
   border: 10px solid transparent;
 }
-.mblTooltipBefore .mblTooltipInnerArrow {
+.duiTooltipBefore .duiTooltipInnerArrow {
   right: 0;
   top: 0;
   border-left-width: 0;
   border-right-color: #dedede;
 }
-.mblTooltipAfter .mblTooltipInnerArrow {
+.duiTooltipAfter .duiTooltipInnerArrow {
   left: 0;
   top: 0;
   border-right-width: 0;
   border-left-color: #dedede;
 }
-.mblTooltipAbove .mblTooltipInnerArrow {
+.duiTooltipAbove .duiTooltipInnerArrow {
   bottom: 0;
   left: 0;
   border-top-width: 0;
   border-bottom-color: #dedede;
 }
-.mblTooltipBelow .mblTooltipInnerArrow {
+.duiTooltipBelow .duiTooltipInnerArrow {
   top: 0;
   left: 0;
   border-bottom-width: 0;
   border-top-color: #dedede;
 }
-.mblTooltipHidden,
-.mblTooltipHidden * {
+.duiTooltipHidden,
+.duiTooltipHidden * {
   visibility: hidden !important;
 }
-.mblTooltipHidden {
+.duiTooltipHidden {
   top: -99999px !important;
   left: -99999px !important;
 }
-.mblTooltip .mblHeading {
+.duiTooltip .duiHeading {
   padding-bottom: 3px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   background-color: transparent;
   background-image: none;
 }
-.mblOpener {
+.duiOpener {
   background-color: #1f1f1f;
   width: calc(100% - 10px - 15px);
   height: calc(100% - 50px);
@@ -176,11 +176,11 @@
   opacity: 1;
   -ms-touch-action: none;
 }
-.mblOpener .mblTooltipAnchor,
-.mblOpener .mblOpenerUnderlay {
+.duiOpener .duiTooltipAnchor,
+.duiOpener .duiOpenerUnderlay {
   display: none;
 }
-.mblOpener .mblHeading {
+.duiOpener .duiHeading {
   min-height: 50px;
   position: absolute;
   bottom: 0px;
@@ -189,18 +189,18 @@
   width: calc(100% - 10px - 15px);
   z-index: 3;
 }
-.mblOpener .mblHeading .mblHeadingDivTitle {
+.duiOpener .duiHeading .duiHeadingDivTitle {
   text-align: left;
   position: fixed;
   top: 0px;
   width: auto;
   padding-left: 15px;
 }
-.mblOpener .mblHeading ~ .mblScrollableView {
+.duiOpener .duiHeading ~ .duiScrollableView {
   height: calc(100% - 60px) !important;
 }
-.mblOpener .mblHeading .mblButton,
-.mblOpener .mblHeading .mblToolBarButton {
+.duiOpener .duiHeading .duiButton,
+.duiOpener .duiHeading .duiToolBarButton {
   bottom: 10px;
   border: 2px solid #ffffff;
   position: absolute;
@@ -208,50 +208,50 @@
   max-width: 45%;
   padding: 0px;
 }
-.mblOpener .mblHeading .mblButton:nth-of-type(odd),
-.mblOpener .mblHeading .mblToolBarButton:nth-of-type(odd) {
+.duiOpener .duiHeading .duiButton:nth-of-type(odd),
+.duiOpener .duiHeading .duiToolBarButton:nth-of-type(odd) {
   left: 0px;
 }
-.mblOpener .mblHeading .mblButton:nth-of-type(even),
-.mblOpener .mblHeading .mblToolBarButton:nth-of-type(even) {
+.duiOpener .duiHeading .duiButton:nth-of-type(even),
+.duiOpener .duiHeading .duiToolBarButton:nth-of-type(even) {
   left: auto !important;
   right: 0px;
 }
-.mblOpener .dijitColorPalette {
+.duiOpener .dijitColorPalette {
   width: calc(100% - 10px - 15px);
   height: calc(100% - 50px);
 }
-.mblOpener .dijitColorPalette table {
+.duiOpener .dijitColorPalette table {
   width: 100%;
   height: 100%;
   padding: 0px !important;
 }
-.mblOpener .dijitColorPalette tbody {
+.duiOpener .dijitColorPalette tbody {
   width: 100%;
   height: 100%;
   position: absolute;
 }
-.mblOpener .dijitColorPalette tr {
+.duiOpener .dijitColorPalette tr {
   display: -ms-flexbox;
   -ms-flex: 1;
   -ms-flex-align: center;
 }
-.mblOpener .dijitColorPalette td {
+.duiOpener .dijitColorPalette td {
   -ms-flex: 1;
   display: inline-block;
 }
-.mblOpener .dijitColorPalette .dijitPaletteImg {
+.duiOpener .dijitColorPalette .dijitPaletteImg {
   border: none !important;
   padding: 2px !important;
 }
-.mblOpener .dijitColorPalette .dijitColorPaletteSwatch {
+.duiOpener .dijitColorPalette .dijitColorPaletteSwatch {
   border-radius: 0px!important;
   border: 2px solid transparent;
 }
-.mblOpener .dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg {
+.duiOpener .dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg {
   margin: 2px 0px !important;
 }
-.mblOpener .dijitColorPalette .dijitPaletteCellSelected .dijitColorPaletteSwatch {
+.duiOpener .dijitColorPalette .dijitPaletteCellSelected .dijitColorPaletteSwatch {
   border: 2px solid Highlight !important;
 }
 @media screen and (orientation: landscape) {
@@ -260,16 +260,16 @@
     -ms-flex-direction: column;
   }
 }
-.mblTooltip:not(.mblOpener).mblTooltipAbove .mblSpinWheel {
+.duiTooltip:not(.duiOpener).duiTooltipAbove .duiSpinWheel {
   bottom: auto;
 }
-.mblTooltip:not(.mblOpener).mblTooltipBelow .mblSpinWheel {
+.duiTooltip:not(.duiOpener).duiTooltipBelow .duiSpinWheel {
   top: auto;
 }
-.mblTooltip:not(.mblOpener).mblTooltipBefore .mblSpinWheel {
+.duiTooltip:not(.duiOpener).duiTooltipBefore .duiSpinWheel {
   left: 0px;
 }
-.mblTooltip:not(.mblOpener).mblTooltipAfter .mblSpinWheel {
+.duiTooltip:not(.duiOpener).duiTooltipAfter .duiSpinWheel {
   left: auto;
   right: 0px;
 }

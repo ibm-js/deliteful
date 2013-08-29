@@ -70,13 +70,13 @@
 .default-blue-button-background-image () { .background-image-linear-gradient-top-bottom(@blueColor02, @blueColor); }
 @default-blue-button-background-image-gecko: -moz-linear-gradient(top, @blueColor02 0%, @blueColor 100%);
 
-.mbl-color-blue-45 () { .background-image-linear-gradient-top-left-bottom-right(@blueColor, @blueColor02); }
-.mbl-color-default-45 () { .background-image-linear-gradient-top-left-bottom-right(@lightColor04, @lightColor05); }
-.mbl-color-default-sel-45 () { .background-image-linear-gradient-top-left-bottom-right(@lightColor03, @lightColor02); }
+.dui-color-blue-45 () { .background-image-linear-gradient-top-left-bottom-right(@blueColor, @blueColor02); }
+.dui-color-default-45 () { .background-image-linear-gradient-top-left-bottom-right(@lightColor04, @lightColor05); }
+.dui-color-default-sel-45 () { .background-image-linear-gradient-top-left-bottom-right(@lightColor03, @lightColor02); }
 
-@mbl-color-blue-45-gecko: -moz-linear-gradient(top left, @blueColor 0%, @blueColor02 100%);
-@mbl-color-default-45-gecko: -moz-linear-gradient(top left, @lightColor04 0%, @lightColor05 100%);
-@mbl-color-default-sel-45-gecko: -moz-linear-gradient(top left, @lightColor03 0%, @lightColor02 100%);
+@dui-color-blue-45-gecko: -moz-linear-gradient(top left, @blueColor 0%, @blueColor02 100%);
+@dui-color-default-45-gecko: -moz-linear-gradient(top left, @lightColor04 0%, @lightColor05 100%);
+@dui-color-default-sel-45-gecko: -moz-linear-gradient(top left, @lightColor03 0%, @lightColor02 100%);
 
 @default-button-color: @darkColor;
 @default-button-background-color: @lightColor05;
@@ -106,35 +106,35 @@
 	border-radius: @default-button-border-radius;
 }
 
-.mblToolBarButtonBodyInLeftArrow-styles () {
+.duiToolBarButtonBodyInLeftArrow-styles () {
   border-left-width: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.mblToolBarButtonBodyInRightArrow-styles () {
+.duiToolBarButtonBodyInRightArrow-styles () {
   border-right-width: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 // background styles of form controls
-.mbl-button-background-image () { .background-image-linear-gradient-top-bottom(@lightColor, @lightColor04); }
-.mbl-button-selected-background-image () { .default-selected-background-image(); }
-.mbl-blue-button-background-image () { .default-blue-button-background-image(); }
-.mbl-blue-button-selected-background-image () { .default-selected-background-image(); }
-.mbl-red-button-background-image () { .background-image-linear-gradient-top-bottom(@redColor02, @redColor); }
-.mbl-red-button-selected-background-image () { .default-selected-background-image(); }
-.mbl-button-checked-background-image () { .mbl-button-background-image(); }
+.dui-button-background-image () { .background-image-linear-gradient-top-bottom(@lightColor, @lightColor04); }
+.dui-button-selected-background-image () { .default-selected-background-image(); }
+.dui-blue-button-background-image () { .default-blue-button-background-image(); }
+.dui-blue-button-selected-background-image () { .default-selected-background-image(); }
+.dui-red-button-background-image () { .background-image-linear-gradient-top-bottom(@redColor02, @redColor); }
+.dui-red-button-selected-background-image () { .default-selected-background-image(); }
+.dui-button-checked-background-image () { .dui-button-background-image(); }
 
 // background styles of form controls (for gecko)
-@mbl-button-background-image-gecko: -moz-linear-gradient(top, @lightColor 0%, @lightColor04 100%);
-@mbl-button-selected-background-image-gecko: @default-selected-background-image-gecko;
-@mbl-blue-button-background-image-gecko: @default-blue-button-background-image-gecko;
-@mbl-blue-button-selected-background-image-gecko: @default-selected-background-image-gecko;
-@mbl-red-button-background-image-gecko: -moz-linear-gradient(top, @redColor02 0%, @redColor 100%);
-@mbl-red-button-selected-background-image-gecko: @default-selected-background-image-gecko;
-@mbl-button-checked-background-image-gecko: @mbl-button-background-image-gecko;
+@dui-button-background-image-gecko: -moz-linear-gradient(top, @lightColor 0%, @lightColor04 100%);
+@dui-button-selected-background-image-gecko: @default-selected-background-image-gecko;
+@dui-blue-button-background-image-gecko: @default-blue-button-background-image-gecko;
+@dui-blue-button-selected-background-image-gecko: @default-selected-background-image-gecko;
+@dui-red-button-background-image-gecko: -moz-linear-gradient(top, @redColor02 0%, @redColor 100%);
+@dui-red-button-selected-background-image-gecko: @default-selected-background-image-gecko;
+@dui-button-checked-background-image-gecko: @dui-button-background-image-gecko;
 
 // common.less
 .mobile-body-styles () {
@@ -143,32 +143,32 @@
 	color: @darkColor;
 }
 
-.mblBackground-styles () {
+.duiBackground-styles () {
 	background-color: @lightColor13;
 }
 
-.mblView-styles () {
+.duiView-styles () {
 	color: @darkColor;
 }
 
-.mblColorBlue-styles () {
+.duiColorBlue-styles () {
 	color: @default-blue-button-color;
 	background-color: @default-blue-button-background-color;
 	.default-blue-button-background-image();
 }
-.mblColorDefault-styles () {
+.duiColorDefault-styles () {
 	color: @default-button-color;
 	background-color: @default-button-background-color;
 	.default-button-background-image();
 }
-.mblColorDefaultSel-styles () {
+.duiColorDefaultSel-styles () {
 	color: @default-button-selected-color;
 	background-color: @default-button-selected-background-color;
 	.default-button-selected-background-image();
 }
 
 // Heading.less
-.mblHeading-styles () {
+.duiHeading-styles () {
 	.heading-background-image();
 	border-top: 1px solid @heading-border-top-color;
 	border-bottom: 1px solid @heading-border-bottom-color;
@@ -177,56 +177,56 @@
 }
 
 // ToolBarButton.less
-@mbl-tool-bar-button-body-border-radius: 0;
+@dui-tool-bar-button-body-border-radius: 0;
 //
-.mblToolBarButton-styles () {
+.duiToolBarButton-styles () {
 	text-shadow: none;
 }
-.mblToolBarButtonArrow-styles () {
+.duiToolBarButtonArrow-styles () {
 	border-radius: 1px;
   .transform(scale(0.7, 1.05) rotate(45deg));
 	border: 1px solid @lightColor12;
 	border-right-color: @darkColor06;
 	border-bottom-color: @darkColor06;
 }
-.mblToolBarButtonArrowInHeading-styles () {
+.duiToolBarButtonArrowInHeading-styles () {
 }
-.mblToolBarButtonHasLeftArrowInHeading-styles () {
+.duiToolBarButtonHasLeftArrowInHeading-styles () {
 }
-.mblToolBarButtonHasLeftArrowInHeading-compat-gecko () {
+.duiToolBarButtonHasLeftArrowInHeading-compat-gecko () {
 }
-.mblToolBarButtonHasRightArrowInHeading-styles () {
+.duiToolBarButtonHasRightArrowInHeading-styles () {
 }
-.mblToolBarButtonHasRightArrowInHeading-compat-gecko () {
+.duiToolBarButtonHasRightArrowInHeading-compat-gecko () {
 }
-.mblToolBarButtonArrowInLeftArrow-styles () {
+.duiToolBarButtonArrowInLeftArrow-styles () {
   left: -1px;
 }
-.mblToolBarButtonArrowInRightArrow-styles () {
+.duiToolBarButtonArrowInRightArrow-styles () {
   right: -1px;
 }
-.mblToolBarButtonBody-styles () {
+.duiToolBarButtonBody-styles () {
 	border: 1px solid @lightColor12;
 	border-bottom-color: @darkColor06;
 	text-shadow: rgba(255,255,255,0.5) 0 1px 0;
 }
-.mblToolBarButtonBodyInHeading-styles () {
+.duiToolBarButtonBodyInHeading-styles () {
 }
-.mblToolBarButtonBodyInHeading-compat-gecko () {
+.duiToolBarButtonBodyInHeading-compat-gecko () {
 }
 
 // RoundRect.less & RoundRectList.less
-@mbl-round-rect-border-color: @lightColor13;
-@mbl-round-rect-border-radius: 8px;
-@mbl-round-rect-background-color: @lightColor;
-@mbl-round-rect-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+@dui-round-rect-border-color: @lightColor13;
+@dui-round-rect-border-radius: 8px;
+@dui-round-rect-background-color: @lightColor;
+@dui-round-rect-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 //
-.mblRoundRect-styles () {
+.duiRoundRect-styles () {
 	color: @darkColor;
 }
 
 // EdgeToEdgeCategory.less
-.mblEdgeToEdgeCategory-styles () {
+.duiEdgeToEdgeCategory-styles () {
 	height: 22px;
 	background-color: @heading-background-color;
 	.heading-background-image();
@@ -237,405 +237,405 @@
 }
 
 // RoundRectCategory.less
-.mblRoundRectCategory-styles () {
+.duiRoundRectCategory-styles () {
 	color: @darkColor;
 }
 
 // EdgeToEdgeList.less
-.mblEdgeToEdgeList-styles () {
+.duiEdgeToEdgeList-styles () {
 	background-color: @darkColor;
 }
-.mblEdgeToEdgeList-LastListItem-styles () {
+.duiEdgeToEdgeList-LastListItem-styles () {
 	border-bottom-color: @lightColor13;
 }
 
 // ListItem.less
-@mbl-list-item-height: 43px;
+@dui-list-item-height: 43px;
 //
-.mblListItem-styles () {
+.duiListItem-styles () {
 	border-bottom: 1px solid @lightColor13;
 	background-color: @lightColor;
 	color: @darkColor;
 	font-weight: bold;
 }
-.mblListItemSelected-styles () {
+.duiListItemSelected-styles () {
 	color: @default-selected-color;
 	.heading-background-image();
 }
-.mblListItemLabelSelected-styles () {
+.duiListItemLabelSelected-styles () {
 	background-color: @lightColor;
 }
-.mblListItemChecked-styles () {
+.duiListItemChecked-styles () {
 	color: @darkColor05;
 }
-.mblListItemRightText-styles () {
+.duiListItemRightText-styles () {
 	color: @darkColor;
 	margin-top: 12px;
 }
-.mblListItemSubText-styles () {
+.duiListItemSubText-styles () {
 	font-size: 14px;
 	color: @darkColor02;
 }
 
 // Switch.less
-@mbl-switch-bg-left-background-color: @lightColor13;
-.mbl-switch-bg-left-background-image () { .default-button-selected-background-image(); }
-@mbl-switch-bg-right-background-color: @lightColor04;
-.mbl-switch-bg-right-background-image () { .mbl-button-background-image(); }
-.mbl-switch-knob-background-image () { .default-button-background-image(); }
+@dui-switch-bg-left-background-color: @lightColor13;
+.dui-switch-bg-left-background-image () { .default-button-selected-background-image(); }
+@dui-switch-bg-right-background-color: @lightColor04;
+.dui-switch-bg-right-background-image () { .dui-button-background-image(); }
+.dui-switch-knob-background-image () { .default-button-background-image(); }
 //
-@mbl-switch-bg-left-background-image-gecko: @default-button-selected-background-image-gecko;
-@mbl-switch-bg-right-background-image-gecko: @mbl-button-background-image-gecko;
-@mbl-switch-knob-background-image-gecko: @default-button-background-image-gecko;
-@mbl-switch-square-border-radius: 2px;
+@dui-switch-bg-left-background-image-gecko: @default-button-selected-background-image-gecko;
+@dui-switch-bg-right-background-image-gecko: @dui-button-background-image-gecko;
+@dui-switch-knob-background-image-gecko: @default-button-background-image-gecko;
+@dui-switch-square-border-radius: 2px;
 //
-.mblSwitchBg-styles () {
+.duiSwitchBg-styles () {
 	border: 1px solid @lightColor13;
 	border-bottom-color: @lightColor12;
 }
-.mblSwitchKnob-styles () {
+.duiSwitchKnob-styles () {
 	border: 1px solid @lightColor12;
 	border-bottom-color: @darkColor06;
 }
 
 // Button.less
-.mblButton-styles () {
+.duiButton-styles () {
 	.default-button-border-styles;
 	color: @darkColor;
 	font-size: 13px;
 }
-.mblButtonSelected-styles () {
+.duiButtonSelected-styles () {
 	color: @lightColor;
 }
-.mblButton-mblBlueButton-styles () {
+.duiButton-duiBlueButton-styles () {
 	color: @lightColor;
 }
-.mblButton-mblRedButton-styles () {
+.duiButton-duiRedButton-styles () {
 	color: @lightColor;
 }
 
 // CheckBox.less
-.mblCheckBox-styles () {
+.duiCheckBox-styles () {
 	.default-button-border-styles;
 }
-.mblCheckBoxChecked-after-styles () {
+.duiCheckBoxChecked-after-styles () {
 	border-color: @darkColor;
 }
-.mblCheckBoxChecked-mblCheckBoxSelected-after-styles () {
+.duiCheckBoxChecked-duiCheckBoxSelected-after-styles () {
 	border-color: @lightColor;
 }
 
 // ComboBox.less
-@mbl-combo-box-popup-box-shadow: none;
+@dui-combo-box-popup-box-shadow: none;
 //
 .dijitPopup-styles () {
 	border-radius: 0;
 }
-.mblComboBoxMenu-styles () {
+.duiComboBoxMenu-styles () {
 	border-color: @darkColor;
 	border-radius: 0;
 	background-color: @lightColor;
 	color: @darkColor;
 }
-.mblComboBoxMenuItem-styles () {
+.duiComboBoxMenuItem-styles () {
 	border-color: @lightColor;
 	color: inherit;
 }
-.mblComboBoxMenuItemSelected-styles () {
+.duiComboBoxMenuItemSelected-styles () {
 	.default-selected-background-image();
 	color: @lightColor;
 }
 
 // IconContainer.less
-.mblIconItemSub-styles () {
+.duiIconItemSub-styles () {
 	background-color: @lightColor;
 	color: @darkColor;
 }
-.mblIconArea-styles () {
+.duiIconArea-styles () {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	width: 74px;
 	color: @darkColor;
 }
-.mblIconItemDeleteIcon-styles () {
+.duiIconItemDeleteIcon-styles () {
 	top: -4px;
 	left: -2px;
 }
 
 // RadioButton.less
-.mblRadioButton-styles () {
+.duiRadioButton-styles () {
 	border-style: solid;
 	border-color: @lightColor13;
 }
-.mblRadioButtonChecked-after-styles () {
+.duiRadioButtonChecked-after-styles () {
 	border-color: @darkColor;
 }
-.mblRadioButtonChecked-Selected-after-styles () {
+.duiRadioButtonChecked-Selected-after-styles () {
 	border-color: @lightColor;
 }
 
 // Slider.less
-@mbl-slider-bar-border-radius: 0;
-@mbl-slider-knob-border-radius: 0;
+@dui-slider-bar-border-radius: 0;
+@dui-slider-knob-border-radius: 0;
 //
-.mblSlider-styles () {
+.duiSlider-styles () {
 	border: 1px solid @lightColor13;
 	border-bottom-color: @lightColor12;
 }
-.mblSliderHandle-styles () {
+.duiSliderHandle-styles () {
 	border: 1px solid @lightColor12;
 	border-bottom-color: @darkColor06;
 }
 
 // TabBar.less
-.mblTabBar-styles () {
+.duiTabBar-styles () {
 	text-shadow: none;
 }
 
 // barType="tabBar"
-.mblTabBarTabBar-styles () {
+.duiTabBarTabBar-styles () {
 	.background-image-linear-gradient-top-bottom(@darkColor02, @darkColor);
 }
-.mblTabBarTabBar-compat () {
+.duiTabBarTabBar-compat () {
 	background-color: @darkColor;
 }
-.mblTabBarTabBarButton-styles () {
+.duiTabBarTabBarButton-styles () {
 
 }
-.mblTabBarTabBarButtonIconArea-styles () {
+.duiTabBarTabBarButtonIconArea-styles () {
 }
-.mblTabBarTabBarButtonLabel-styles () {
+.duiTabBarTabBarButtonLabel-styles () {
 	color: @lightColor;
 }
-.mblTabBarTabBarButtonSelected-styles () {
+.duiTabBarTabBarButtonSelected-styles () {
 	background-color: @darkColor05;
 	.background-image-linear-gradient-top-bottom(@darkColor03, @darkColor04);
 }
-.mblTabBarTabBarButtonLabelSelected-styles () {
+.duiTabBarTabBarButtonLabelSelected-styles () {
 	color: @lightColor;
 }
 
 // barType="segmentedControl"
-@mbl-tab-bar-segmented-control-border-radius: 5px;
+@dui-tab-bar-segmented-control-border-radius: 5px;
 //
-.mblTabBarSegmentedControl-styles () {
+.duiTabBarSegmentedControl-styles () {
 }
-.mblTabBarSegmentedControlButton-styles () {
+.duiTabBarSegmentedControlButton-styles () {
 	border-style: solid;
 	border-color: @lightColor12 @lightColor12 @lightColor12 @lightColor12;
 	color: @darkColor;
-	.mbl-button-background-image();
+	.dui-button-background-image();
 	text-shadow: rgba(255,255,255,0.5) 0 1px 0;
 }
-.mblTabBarSegmentedControlButton-compat-gecko () {
+.duiTabBarSegmentedControlButton-compat-gecko () {
 }
-.mblTabBarSegmentedControlButtonSelected-styles () {
+.duiTabBarSegmentedControlButtonSelected-styles () {
 	color: @default-button-color;
 	.default-button-background-image();
 	text-shadow: rgba(255,255,255,0.5) 0 1px 0;
 }
 
 // barType="standardTab"
-.mblTabBarStandardTab-styles () {
+.duiTabBarStandardTab-styles () {
 	border-top: none;
 	border-bottom: none;
 }
-.mblTabBarStandardTabButton-styles () {
+.duiTabBarStandardTabButton-styles () {
 	color: @darkColor;
 	border-color: @lightColor12;
 	.heading-background-image();
 }
-.mblTabBarStandardTabButtonIconArea-styles () {
+.duiTabBarStandardTabButtonIconArea-styles () {
 }
-.mblTabBarStandardTabButtonLabel-styles () {
+.duiTabBarStandardTabButtonLabel-styles () {
 }
-.mblTabBarStandardTabButtonSelected-styles () {
+.duiTabBarStandardTabButtonSelected-styles () {
 	.default-button-background-image();
 }
-.mblTabBarStandardTabButtonLabelSelected-styles () {
+.duiTabBarStandardTabButtonLabelSelected-styles () {
 }
 
 // barType="tallTab"
-.mblTabBarTallTab-styles () {
+.duiTabBarTallTab-styles () {
 	.background-image-linear-gradient-top-bottom(@darkColor02, @darkColor);
 }
-.mblTabBarTallTabButton-styles () {
+.duiTabBarTallTabButton-styles () {
 }
-.mblTabBarTallTabButton-FirstChild-styles () {
+.duiTabBarTallTabButton-FirstChild-styles () {
 }
-.mblTabBarTallTabButton-LastChild-styles () {
+.duiTabBarTallTabButton-LastChild-styles () {
 }
-.mblTabBarTallTabButtonIconArea-styles () {
+.duiTabBarTallTabButtonIconArea-styles () {
 }
-.mblTabBarTallTabButtonLabel-styles () {
+.duiTabBarTallTabButtonLabel-styles () {
 }
-.mblTabBarTallTabButtonSelected-styles () {
+.duiTabBarTallTabButtonSelected-styles () {
 }
-.mblTabBarTallTabButtonLabelSelected-styles () {
+.duiTabBarTallTabButtonLabelSelected-styles () {
 }
 
 // TextArea.less
-.mblTextArea-styles () {
+.duiTextArea-styles () {
 	.default-button-border-styles;
 }
 
 // TextBox.less
-.mblTextBox-styles () {
+.duiTextBox-styles () {
 	.default-button-border-styles;
 }
 
 // ToggleButton.less
-.mblToggleButton-styles () {
+.duiToggleButton-styles () {
 	.default-button-border-styles;
 	font-size: 13px;
 	color: @darkColor;
 }
-.mblToggleButtonSelected-styles () {
+.duiToggleButtonSelected-styles () {
 	color: @lightColor;
 }
-.mblToggleButtonChecked-styles () {
+.duiToggleButtonChecked-styles () {
 	color: @darkColor;
 }
-.mblToggleButtonChecked-after-styles () {
+.duiToggleButtonChecked-after-styles () {
 	border-color: @darkColor;
 }
-.mblToggleButtonCheckedSelected-styles () {
+.duiToggleButtonCheckedSelected-styles () {
 	color: @lightColor;
 }
-.mblToggleButtonCheckedSelected-after-styles () {
+.duiToggleButtonCheckedSelected-after-styles () {
 	border-color: @lightColor;
 }
 
 // Overlay.less
-.mblOverlay-styles () {
+.duiOverlay-styles () {
 	background-color: @lightColor06;
 	background-image: none;
 }
-.mblOverlay-compat () {
+.duiOverlay-compat () {
 }
-.mblOverlay-compat-gecko () {
+.duiOverlay-compat-gecko () {
 }
 
 // Tooltip.less
-@mbl-tooltip-border-radius: 3px;
+@dui-tooltip-border-radius: 3px;
 //
-.mblTooltip-styles () {
+.duiTooltip-styles () {
 	border-color: @darkColor;
-	border-radius: @mbl-tooltip-border-radius;
+	border-radius: @dui-tooltip-border-radius;
 	background-color: @lightColor07;
 	background-image: none;
 }
-.mblTooltipBubble-styles () {
+.duiTooltipBubble-styles () {
 	background-color: @lightColor06;
 	background-image: none;
 	color: @darkColor;
 }
-.mblTooltipInnerArrow-Bubble-Above-styles () {
+.duiTooltipInnerArrow-Bubble-Above-styles () {
 	border-bottom-color: @lightColor06;
 }
-.mblTooltipInnerArrow-Bubble-Below-styles () {
+.duiTooltipInnerArrow-Bubble-Below-styles () {
 	border-top-color: @lightColor06;
 }
-.mblTooltipInnerArrow-Bubble-After-styles () {
+.duiTooltipInnerArrow-Bubble-After-styles () {
 	border-left-color: @lightColor06;
 }
-.mblTooltipInnerArrow-Bubble-Before-styles () {
+.duiTooltipInnerArrow-Bubble-Before-styles () {
 	border-right-color: @lightColor06;
 }
-.mblTooltipArrow-Before-styles () {
+.duiTooltipArrow-Before-styles () {
 	border-left-width: 0;
 	border-right-color: @lightColor12;
 }
-.mblTooltipArrow-After-styles () {
+.duiTooltipArrow-After-styles () {
 	border-right-width: 0;
 	border-left-color: @lightColor12;
 }
-.mblTooltipArrow-Above-styles () {
+.duiTooltipArrow-Above-styles () {
 	border-top-width: 0;
 	border-bottom-color: @lightColor12;
 }
-.mblTooltipArrow-Below-styles () {
+.duiTooltipArrow-Below-styles () {
 	border-bottom-width: 0;
 	border-top-color: @lightColor12;
 }
-.mblTooltipInnerArrow-Before-styles () {
+.duiTooltipInnerArrow-Before-styles () {
 	border-left-width: 0;
 	border-right-color: @lightColor07;
 }
-.mblTooltipInnerArrow-After-styles () {
+.duiTooltipInnerArrow-After-styles () {
 	border-right-width: 0;
 	border-left-color: @lightColor07;
 }
-.mblTooltipInnerArrow-Above-styles () {
+.duiTooltipInnerArrow-Above-styles () {
 	border-top-width: 0;
 	border-bottom-color: @lightColor07;
 }
-.mblTooltipInnerArrow-Below-styles () {
+.duiTooltipInnerArrow-Below-styles () {
 	border-bottom-width: 0;
 	border-top-color: @lightColor07;
 }
-.mblTooltip-Heading-styles () {
+.duiTooltip-Heading-styles () {
 	padding-bottom: 3px;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
 	background-color: transparent;
 	background-image: none;
 }
-.mblTooltip-Heading-compat () {
+.duiTooltip-Heading-compat () {
 }
-.mblTooltip-Heading-ToolbarButton-styles () {
+.duiTooltip-Heading-ToolbarButton-styles () {
 }
-.mblTooltip-Heading-ToolbarButton-compat () {
+.duiTooltip-Heading-ToolbarButton-compat () {
 }
 
 // Accordion.less
-.mblAccordion-styles () {
+.duiAccordion-styles () {
 	border-color: @lightColor12;
 }
-.mblAccordionTitle-styles () {
+.duiAccordionTitle-styles () {
 	border-top: 1px solid @lightColor12;
 	background-color: @lightColor13;
 	background-image: none;
 	font-weight: normal;
 }
-.mblAccordionTitle-compat () {
+.duiAccordionTitle-compat () {
 }
-.mblAccordionTitle-compat-gecko () {
+.duiAccordionTitle-compat-gecko () {
 }
-.mblAccordionTitleSelected-styles () {
+.duiAccordionTitleSelected-styles () {
 	border-bottom: 1px solid @lightColor13;
-	.mbl-button-checked-background-image();
+	.dui-button-checked-background-image();
 	font-weight: bold;
 }
-.mblAccordionTitleSelected-compat () {
+.duiAccordionTitleSelected-compat () {
 	background-color: @lightColor04;
 }
-.mblAccordionTitleSelected-compat-gecko () {
-	background-image: @mbl-button-checked-background-image-gecko;
+.duiAccordionTitleSelected-compat-gecko () {
+	background-image: @dui-button-checked-background-image-gecko;
 }
-.mblAccordionTitleAnchor-styles () {
+.duiAccordionTitleAnchor-styles () {
 	color: @darkColor;
 }
-.mblAccordionTitleAnchorSelected-styles () {
+.duiAccordionTitleAnchorSelected-styles () {
 }
 
 // SimpleDialog.less
-@mbl-simple-dialog-border-radius: 0;
+@dui-simple-dialog-border-radius: 0;
 //
-.mblSimpleDialog-styles () {
+.duiSimpleDialog-styles () {
 	padding: 5px;
 	width: 262px;
 }
-.mblSimpleDialogDecoration-styles () {
+.duiSimpleDialogDecoration-styles () {
 	background-color: @lightColor;
 	border: 1px solid @darkColor;
 	color: @darkColor;
 }
-.mblSimpleDialogDecoration-compat () {
+.duiSimpleDialogDecoration-compat () {
 }
-.mblSimpleDialogDecoration-compat-gecko () {
+.duiSimpleDialogDecoration-compat-gecko () {
 }
-.mblSimpleDialogTitle-styles () {
+.duiSimpleDialogTitle-styles () {
 	margin: 7px 0 7px -5px;
 	padding: 0 14px 7px;
 	width: 244px;
@@ -644,42 +644,42 @@
 	font-weight: bold;
 	text-align: left;
 }
-.mblSimpleDialogText-styles () {
+.duiSimpleDialogText-styles () {
 	margin: 14px 9px;
 	width: 244px;
 	text-align: left;
 }
 
 // IconMenu.less
-@mbl-icon-menu-border-radius: 3px;
-@mbl-icon-menu-item-border-radius: 3px;
+@dui-icon-menu-border-radius: 3px;
+@dui-icon-menu-item-border-radius: 3px;
 //
-.mblIconMenu-styles () {
+.duiIconMenu-styles () {
 	padding: 0;
 	background-color: rgba(160, 160, 160, 0.85);
 	border: 1px solid @darkColor;
 }
-.mblIconMenu-compat () {
+.duiIconMenu-compat () {
 	background-color: @lightColor12;
 }
-.mblIconMenu-compat-gecko () {
+.duiIconMenu-compat-gecko () {
 	background-color: rgba(160, 160, 160, 0.85);
 }
-.mblIconMenuItem-styles () {
+.duiIconMenuItem-styles () {
 	border-left: 1px solid rgba(192, 192, 192, 0.85);
 	border-bottom: 1px solid rgba(192, 192, 192, 0.85);
 }
-.mblIconMenuItemAnchor-styles () {
+.duiIconMenuItemAnchor-styles () {
 	font-size: 13px;
 	color: @lightColor;
 }
-.mblIconMenuItemSel-styles () {
+.duiIconMenuItemSel-styles () {
 	.default-selected-background-image();
 }
-.mblIconMenuItemSel-compat () {
+.duiIconMenuItemSel-compat () {
 	background-color: @default-selected-background-color;
 }
-.mblIconMenuItemSel-compat-gecko () {
+.duiIconMenuItemSel-compat-gecko () {
 	background-image: @default-selected-background-image-gecko;
 }
 
@@ -688,13 +688,13 @@
 	border: 1px solid @lightColor13;
 }
 .dijitCalendar-thead-styles () {
-	.mbl-button-background-image();
+	.dui-button-background-image();
 }
 .dijitCalendar-thead-compat () {
 	background-image: url(compat/calendar-month-bg.png);
 }
 .dijitCalendar-thead-compat-gecko () {
-	background-image: @mbl-button-background-image-gecko;
+	background-image: @dui-button-background-image-gecko;
 }
 .dijitCalendarMonthLabel-styles () {
 	color: @darkColor;
@@ -758,13 +758,13 @@
 }
 .dijitCalendarYearLabel-styles () {
 	padding: 0;
-	.mbl-button-background-image();
+	.dui-button-background-image();
 }
 .dijitCalendarYearLabel-compat () {
 	background-image: url(compat/calendar-year-bg.png);
 }
 .dijitCalendarYearLabel-compat-gecko () {
-	background-image: @mbl-button-background-image-gecko;
+	background-image: @dui-button-background-image-gecko;
 }
 .dijitCalendarSelectedYear-styles () {
 	color: @darkColor;
@@ -777,52 +777,52 @@
 }
 
 // SearchBox.less
-@mbl-searchbox-cancel-button-color: @lightColor;
-@mbl-searchbox-cancel-button-bg-color: @lightColor13;
-.mblSearchBox-Cancel-Button-styles () {
+@dui-searchbox-cancel-button-color: @lightColor;
+@dui-searchbox-cancel-button-bg-color: @lightColor13;
+.duiSearchBox-Cancel-Button-styles () {
 	border-radius: 1em;
 }
-@mbl-searchbox-results-decoration-color: @lightColor13;
+@dui-searchbox-results-decoration-color: @lightColor13;
 
 // ProgressBar.less
-.mblProgressBar-styles () {
+.duiProgressBar-styles () {
 	height: 13px;
 	background-color: @lightColor;
 	border: 1px solid @blueColor;
 }
-.mblProgressBarProgress-styles () {
+.duiProgressBarProgress-styles () {
 	height: 13px;
 	.background-image-linear-gradient-top-bottom-1-stop(@blueColor, @blueColor02, 0.5, @blueColor);
 	border-right: 1px solid @blueColor;
 }
-.mblProgressBarComplete-styles () {
+.duiProgressBarComplete-styles () {
 }
-.mblProgressBarNotStarted-styles () {
+.duiProgressBarNotStarted-styles () {
 }
-.mblProgressBarMsg-styles () {
+.duiProgressBarMsg-styles () {
 	top: -1px;
 }
-.mblProgressBar-compat () {
+.duiProgressBar-compat () {
 }
-.mblProgressBarProgress-compat () {
+.duiProgressBarProgress-compat () {
 	background-color: @blueColor;
 }
-.mblProgressBar-compat-gecko () {
+.duiProgressBar-compat-gecko () {
 }
-.mblProgressBarProgress-compat-gecko () {
+.duiProgressBarProgress-compat-gecko () {
 	background-image: -moz-linear-gradient(top, @blueColor 0%, @blueColor 50%, @blueColor02 100%);
 }
 
 // ValuePicker.less
-.mbl-value-picker-slot-button-background-image () { .background-image-linear-gradient-top-bottom-2-stops(@lightColor09, @lightColor10, 0.5, @lightColor10, 0.9, @lightColor08); }
-@mbl-value-picker-slot-button-background-image-gecko: -moz-linear-gradient(top, @lightColor09 0%, @lightColor10 50%, @lightColor08 90%, @lightColor10 100%);
-@mbl-value-picker-slot-button-radius: 5px;
-.mbl-value-picker-slot-input-area-background-image () { .background-image-linear-gradient-top-bottom-4-stops-no-from-to(0.1, @lightColor11, 0.2, @lightColor11, 0.5, @lightColor, 0.9, @lightColor); }
-@mbl-value-picker-slot-input-area-background-image-gecko: -moz-linear-gradient(top, @lightColor11 10%, @lightColor11 20%, @lightColor 50%, @lightColor 90%);
-.mblValuePickerSlot-style () {
+.dui-value-picker-slot-button-background-image () { .background-image-linear-gradient-top-bottom-2-stops(@lightColor09, @lightColor10, 0.5, @lightColor10, 0.9, @lightColor08); }
+@dui-value-picker-slot-button-background-image-gecko: -moz-linear-gradient(top, @lightColor09 0%, @lightColor10 50%, @lightColor08 90%, @lightColor10 100%);
+@dui-value-picker-slot-button-radius: 5px;
+.dui-value-picker-slot-input-area-background-image () { .background-image-linear-gradient-top-bottom-4-stops-no-from-to(0.1, @lightColor11, 0.2, @lightColor11, 0.5, @lightColor, 0.9, @lightColor); }
+@dui-value-picker-slot-input-area-background-image-gecko: -moz-linear-gradient(top, @lightColor11 10%, @lightColor11 20%, @lightColor 50%, @lightColor 90%);
+.duiValuePickerSlot-style () {
   margin:  0 5px;
 }
-.mblValuePickerSlot-input-style () {
+.duiValuePickerSlot-input-style () {
 	font-size: 28px;
 }
 

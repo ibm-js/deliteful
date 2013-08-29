@@ -127,14 +127,14 @@
 	</script>
 	
 	<style>
-		.mblSimpleDialogButton {
+		.duiSimpleDialogButton {
 			margin: 7px 0 0;
 			width: 262px;
 			font-size: 17px;
 			font-weight: bold;
 			opacity: 0.95;
 		}
-		.mblSimpleDialogButton2l {
+		.duiSimpleDialogButton2l {
 			float: left;
 			width: 127px;
 			margin: 7px 0 0;
@@ -142,7 +142,7 @@
 			font-weight: bold;
 			opacity: 0.95;
 		}
-		.mblSimpleDialogButton2r {
+		.duiSimpleDialogButton2r {
 			float: right;
 			width: 127px;
 			margin: 7px 0 0;
@@ -157,7 +157,7 @@
 	<div data-dojo-type="dojox/mobile/View">
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
 		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox"
-			style="width:50%; float: left; margin-top: 2px" class="mblFilteredEdgeToEdgeListSearchBox">
+			style="width:50%; float: left; margin-top: 2px" class="duiFilteredEdgeToEdgeListSearchBox">
 		<button style="float:right" onclick="showOptions('dlg_options')">Options</button>
 		<div style="clear:left" data-dojo-type="dojox/mobile/ScrollableView">
 			<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list"
@@ -167,7 +167,7 @@
 	</div>
 	
 	<div id="dlg_options" data-dojo-type="dojox/mobile/SimpleDialog">
-		<div class="mblSimpleDialogTitle">Search Options</div>
+		<div class="duiSimpleDialogTitle">Search Options</div>
 		<table style="width:100%">
 			<tr>
 				<td><span class="bold">Ignore case</span></td>
@@ -205,9 +205,9 @@
 			</tr>
 		</table>
 
-		<button data-dojo-type="dojox/mobile/Button" class="mblSimpleDialogButton2l" 
+		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2l" 
 			onclick="hideOptions('dlg_options', false)">Cancel</button>
-		<button data-dojo-type="dojox/mobile/Button" class="mblSimpleDialogButton2r mblBlueButton" 
+		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
 			onclick="hideOptions('dlg_options', true)">OK</button>
 	</div>
 </body>

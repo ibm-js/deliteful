@@ -78,22 +78,22 @@
 					if(rtl){
 						if((maximum - i) > expectedValue){
 							if((maximum - i - 0.5) == expectedValue){
-								runner.assertEqual("mblStarRatingStarIcon mblStarRatingHalfStarRtl", node.className, 'star ' + i + ' should be half empty in ' + ratingId);
+								runner.assertEqual("duiStarRatingStarIcon duiStarRatingHalfStarRtl", node.className, 'star ' + i + ' should be half empty in ' + ratingId);
 							}else{
-								runner.assertEqual("mblStarRatingStarIcon mblStarRatingEmptyStar", node.className, 'star ' + i + ' should be empty in ' + ratingId);
+								runner.assertEqual("duiStarRatingStarIcon duiStarRatingEmptyStar", node.className, 'star ' + i + ' should be empty in ' + ratingId);
 							}
 						}else{
-							runner.assertEqual("mblStarRatingStarIcon mblStarRatingFullStar", node.className, 'star ' + i + ' should be full in ' + ratingId);
+							runner.assertEqual("duiStarRatingStarIcon duiStarRatingFullStar", node.className, 'star ' + i + ' should be full in ' + ratingId);
 						}
 					}else{
 						if(i > (expectedValue - 1)){
 							if(i == (expectedValue - 0.5)){
-								runner.assertEqual("mblStarRatingStarIcon mblStarRatingHalfStar", node.className, 'star ' + i + ' should be half empty in ' + ratingId);
+								runner.assertEqual("duiStarRatingStarIcon duiStarRatingHalfStar", node.className, 'star ' + i + ' should be half empty in ' + ratingId);
 							}else{
-								runner.assertEqual("mblStarRatingStarIcon mblStarRatingEmptyStar", node.className, 'star ' + i + ' should be empty in ' + ratingId);
+								runner.assertEqual("duiStarRatingStarIcon duiStarRatingEmptyStar", node.className, 'star ' + i + ' should be empty in ' + ratingId);
 							}
 						}else{
-							runner.assertEqual("mblStarRatingStarIcon mblStarRatingFullStar", node.className, 'star ' + i + ' should be full in ' + ratingId);
+							runner.assertEqual("duiStarRatingStarIcon duiStarRatingFullStar", node.className, 'star ' + i + ' should be full in ' + ratingId);
 						}
 					}
 				}

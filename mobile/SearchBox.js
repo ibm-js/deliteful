@@ -17,7 +17,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblTextBox mblSearchBox",
+		baseClass: "duiTextBox duiSearchBox",
 
 		// type: String
 		//		Corresponds to the type attribute of the HTML `<input>` element.

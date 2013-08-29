@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,21 +13,21 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.ValuePicker */
-.mblValuePickerSlotButton {
+.duiValuePickerSlotButton {
   background-image: url(compat/valuepicker-button-bg.png);
 }
-.mblValuePickerSlotButtonSelected {
+.duiValuePickerSlotButtonSelected {
   background-color: Highlight;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   background-color: #f7f7f7;
 }
-.dj_gecko .mblValuePickerSlotButton {
+.dj_gecko .duiValuePickerSlotButton {
   background-image: none;
 }
-.dj_gecko .mblValuePickerSlotButtonSelected {
+.dj_gecko .duiValuePickerSlotButtonSelected {
   background-image: none;
 }
-.dj_gecko .mblValuePickerSlotInputArea {
+.dj_gecko .duiValuePickerSlotInputArea {
   background-image: none;
 }

@@ -93,9 +93,9 @@ define([
 			this._zero = items.slice(0, 1);
 			this._pm = items.slice(13);
 
-			domClass.add(this.domNode, "mblValuePickerTimePicker");
-			domClass.add(this.slots[0].domNode, "mblValuePickerTimePickerHourSlot");
-			domClass.add(this.slots[1].domNode, "mblValuePickerTimePickerMinuteSlot");
+			domClass.add(this.domNode, "duiValuePickerTimePicker");
+			domClass.add(this.slots[0].domNode, "duiValuePickerTimePickerHourSlot");
+			domClass.add(this.slots[1].domNode, "duiValuePickerTimePickerMinuteSlot");
 
 			this.ampmButton = new ToolBarButton();
 			this.addChild(this.ampmButton);

@@ -1,8 +1,8 @@
 /* === White Cross Button ==*/
-.mblDomButtonWhiteCross, .mblDomButtonCross {
-	background-image: url(compat/mblDomButtonWhiteCross.png);
+.duiDomButtonWhiteCross, .duiDomButtonCross {
+	background-image: url(compat/duiDomButtonWhiteCross.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhiteCross div, .mblDomButtonCross div {
+.duiDomButtonWhiteCross div, .duiDomButtonCross div {
 	display: none;
 }

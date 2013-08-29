@@ -10,48 +10,48 @@ html.mobile,
   font-family: Helvetica;
   font-size: 18px;
 }
-.mblBackground {
+.duiBackground {
   background-color: #dedfde;
 }
 /* Button Colors */
-.mblColorBlue {
+.duiColorBlue {
   color: #ffffff;
   background-color: #366edf;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7a9de9), to(#2362dd), color-stop(0.5, #366edf), color-stop(0.5, #215fdc));
   background-image: linear-gradient(to bottom, #7a9de9 0%, #366edf 50%, #215fdc 50%, #2362dd 100%);
 }
-.mblColorBlue45 {
+.duiColorBlue45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#7a9de9), to(#2362dd), color-stop(0.5, #366edf), color-stop(0.5, #215fdc));
   background-image: linear-gradient(to right bottom, #7a9de9 0%, #366edf 50%, #215fdc 50%, #2362dd 100%);
 }
 /* Default Button Colors */
-.mblColorDefault {
+.duiColorDefault {
   color: #000000;
   background-color: #ced3ce;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f7fbf7), to(#cecfd6), color-stop(0.5, #ced3ce));
   background-image: linear-gradient(to bottom, #f7fbf7 0%, #ced3ce 50%, #cecfd6 100%);
 }
-.mblColorDefault45 {
+.duiColorDefault45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#f7fbf7), to(#cecfd6), color-stop(0.5, #ced3ce));
   background-image: linear-gradient(to right bottom, #f7fbf7 0%, #ced3ce 50%, #cecfd6 100%);
 }
-.mblColorDefaultSel {
+.duiColorDefaultSel {
   color: #ffffff;
   background-color: #0869c6;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
-.mblColorDefaultSel45 {
+.duiColorDefaultSel45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to right bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
-.mblSpriteIcon {
+.duiSpriteIcon {
   position: absolute;
 }
-.mblSpriteIconParent {
+.duiSpriteIconParent {
   position: relative;
   font-size: 1px;
 }
-.mblImageIcon {
+.duiImageIcon {
   vertical-align: top;
 }

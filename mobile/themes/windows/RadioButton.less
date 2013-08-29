@@ -1,33 +1,33 @@
 @import "variables.less";
 @import "../common/RadioButton.less";
 
-.mblRadioButton + .mblCheckableInputDecorator {
+.duiRadioButton + .duiCheckableInputDecorator {
 	&:before {
-		.mblCheckRadioBorder(15px);
+		.duiCheckRadioBorder(15px);
 	}
 }
 
-.mblRadioButton:not([disabled]) {
-	&:active + .mblCheckableInputDecorator:before,
-	& + .mblCheckableInputDecorator:active:before {
+.duiRadioButton:not([disabled]) {
+	&:active + .duiCheckableInputDecorator:before,
+	& + .duiCheckableInputDecorator:active:before {
 		background-color: @win-accent-color;
 	}
 }
 
-.mblRadioButtonChecked + .mblCheckableInputDecorator {
+.duiRadioButtonChecked + .duiCheckableInputDecorator {
 	&:before {
-		.mblImage(@imgRadioBtnUrl, 13px 13px);
+		.duiImage(@imgRadioBtnUrl, 13px 13px);
 	}
 }
 
-.mblRadioButton[disabled] {
-	& + .mblCheckableInputDecorator {
+.duiRadioButton[disabled] {
+	& + .duiCheckableInputDecorator {
 		&:before {
 			border-color: @win-disabled-color;
 		}
 	}
 
-	&.mblRadioButtonChecked + .mblCheckableInputDecorator:before {
-		.mblImage("images/radiobtn-disabled.png", 13px 13px);
+	&.duiRadioButtonChecked + .duiCheckableInputDecorator:before {
+		.duiImage("images/radiobtn-disabled.png", 13px 13px);
 	}
 }

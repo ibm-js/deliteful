@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -27,46 +27,46 @@ html.mobile,
   color: #ffffff;
   padding: 8px 0 8px 0;
 }
-.mblBackground {
+.duiBackground {
   background-color: #000000;
 }
 /* Button Colors */
-.mblColorBlue {
+.duiColorBlue {
   color: #ffffff;
   background-color: #2362dd;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7a9de9), to(#2362dd));
   background-image: linear-gradient(to bottom, #7a9de9 0%, #2362dd 100%);
 }
-.mblColorBlue45 {
+.duiColorBlue45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#7a9de9), to(#2362dd));
   background-image: linear-gradient(to right bottom, #7a9de9 0%, #2362dd 100%);
 }
 /* Default Button Colors */
-.mblColorDefault {
+.duiColorDefault {
   color: #ffffff;
   background-color: transparent;
   background-image: none;
 }
-.mblColorDefault45 {
+.duiColorDefault45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#e2e2e2), to(#a4a4a4));
   background-image: linear-gradient(to right bottom, #e2e2e2 0%, #a4a4a4 100%);
 }
-.mblColorDefaultSel {
+.duiColorDefaultSel {
   color: #ffffff;
   background-color: Highlight;
 }
-.mblColorDefaultSel45 {
+.duiColorDefaultSel45 {
   background-image: -webkit-gradient(linear, left top, right bottom, from(#bbbbbb), to(#666666));
   background-image: linear-gradient(to right bottom, #bbbbbb 0%, #666666 100%);
 }
-.mblSpriteIcon {
+.duiSpriteIcon {
   position: absolute;
 }
-.mblSpriteIconParent {
+.duiSpriteIconParent {
   position: relative;
   font-size: 1px;
 }
-.mblImageIcon {
+.duiImageIcon {
   vertical-align: top;
 }
 body {

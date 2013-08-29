@@ -71,7 +71,7 @@
 	}
 	</style>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -92,11 +92,11 @@
 					timeout: 3000,
 					runTest: function (){
 						var demoWidget = dijit.byId("group1");
-						doh.assertEqual('mblView', demoWidget.domNode.className);
+						doh.assertEqual('duiView', demoWidget.domNode.className);
 						doh.assertEqual('visible', demoWidget.domNode.style.visibility);
 
 						demoWidget = dijit.byId("categ");
-						doh.assertEqual('mblView mblScrollableView', demoWidget.domNode.className);
+						doh.assertEqual('duiView duiScrollableView', demoWidget.domNode.className);
 						doh.assertEqual('none', demoWidget.domNode.style.display);
 					}
 				}

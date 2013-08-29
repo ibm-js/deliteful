@@ -30,7 +30,7 @@
 				var nodes = win.doc.getElementsByTagName("div");
 				for(var i = 0, c = 0; i < nodes.length; i++){
 					var div = nodes[i];
-					if(div.nodeType != 1 || div.className.indexOf("mblDomButton") == -1){ continue; }
+					if(div.nodeType != 1 || div.className.indexOf("duiDomButton") == -1){ continue; }
 					div.style.border = "1px solid red";
 					iconUtils.createDomButton(div);
 					setIconValue("btn"+c++, "15");
@@ -41,12 +41,12 @@
 </head>
 <body style="background-color:#C5CCD3;font-family:Helvetica;font-size:12px;">
 	<table style="border:none">
-		<tr><td><div id="btn0" class="mblDomButtonRedBadge"></div></td><td>mblDomButtonRedBadge</td></tr>
-		<tr><td><div id="btn1" class="mblDomButtonBlueBadge"></div></td><td>mblDomButtonBlueBadge</td></tr>
-		<tr><td><div id="btn2" class="mblDomButtonGreenBadge"></div></td><td>mblDomButtonGreenBadge</td></tr>
-		<tr><td><div id="btn3" class="mblDomButtonRedBadge" style="font-size:11px;color:pink;"></div></td><td>mblDomButtonRedBadge (small)</td></tr>
-		<tr><td><div id="btn4" class="mblDomButtonBlueBadge" style="font-size:11px;color:pink;"></div></td><td>mblDomButtonBlueBadge (small)</td></tr>
-		<tr><td><div id="btn5" class="mblDomButtonGreenBadge" style="font-size:11px;color:pink;"></div></td><td>mblDomButtonGreenBadge (small)</td></tr>
+		<tr><td><div id="btn0" class="duiDomButtonRedBadge"></div></td><td>duiDomButtonRedBadge</td></tr>
+		<tr><td><div id="btn1" class="duiDomButtonBlueBadge"></div></td><td>duiDomButtonBlueBadge</td></tr>
+		<tr><td><div id="btn2" class="duiDomButtonGreenBadge"></div></td><td>duiDomButtonGreenBadge</td></tr>
+		<tr><td><div id="btn3" class="duiDomButtonRedBadge" style="font-size:11px;color:pink;"></div></td><td>duiDomButtonRedBadge (small)</td></tr>
+		<tr><td><div id="btn4" class="duiDomButtonBlueBadge" style="font-size:11px;color:pink;"></div></td><td>duiDomButtonBlueBadge (small)</td></tr>
+		<tr><td><div id="btn5" class="duiDomButtonGreenBadge" style="font-size:11px;color:pink;"></div></td><td>duiDomButtonGreenBadge (small)</td></tr>
 	</table>
 </body>
 </html>

@@ -59,12 +59,12 @@
 	</script>
 	
 	<style>
-		/* Fit the margin defined by mblRoundRectList in all themes but ipad */
+		/* Fit the margin defined by duiRoundRectList in all themes but ipad */
 		.searchOptions {
 			float: right; 
 			margin-right: 9px;
 		}
-		/* Fit the margin defined by mblRoundRectList for ipad */
+		/* Fit the margin defined by duiRoundRectList for ipad */
 		.dj_ipad.dj_tablet .searchOptions {
 			float: right; 
 			margin-right: 30px;
@@ -74,14 +74,14 @@
 			color: #0B5199;
 			text-decoration: none;
 		}
-		.mblSimpleDialogButton {
+		.duiSimpleDialogButton {
 			margin: 7px 0 0;
 			width: 262px;
 			font-size: 17px;
 			font-weight: bold;
 			opacity: 0.95;
 		}
-		.mblSimpleDialogButton2l {
+		.duiSimpleDialogButton2l {
 			float: left;
 			width: 127px;
 			margin: 7px 0 0;
@@ -89,7 +89,7 @@
 			font-weight: bold;
 			opacity: 0.95;
 		}
-		.mblSimpleDialogButton2r {
+		.duiSimpleDialogButton2r {
 			float: right;
 			width: 127px;
 			margin: 7px 0 0;
@@ -103,7 +103,7 @@
 <body style="visibility:hidden;background-color:#424142;">
 	<div data-dojo-type="dojox/mobile/View">
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered RoundRectList</h1>
-		<div class="mblFilteredRoundRectListSearchBox">
+		<div class="duiFilteredRoundRectListSearchBox">
 			<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox"
 				data-dojo-props="filterBoxRef: 'filterBox'"
 				style="width: 50%; float: left">
@@ -179,7 +179,7 @@
 	</div>
 	
 	<div id="dlg_options" data-dojo-type="dojox/mobile/SimpleDialog">
-		<div class="mblSimpleDialogTitle">Search Options</div>
+		<div class="duiSimpleDialogTitle">Search Options</div>
 		<table style="width:100%">
 			<tr>
 				<td><span class="bold">Ignore case</span></td>
@@ -217,9 +217,9 @@
 			</tr>
 		</table>
 
-		<button data-dojo-type="dojox/mobile/Button" class="mblSimpleDialogButton2l" 
+		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2l" 
 			onclick="hideOptions('dlg_options', false)">Cancel</button>
-		<button data-dojo-type="dojox/mobile/Button" class="mblSimpleDialogButton2r mblBlueButton" 
+		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
 			onclick="hideOptions('dlg_options', true)">OK</button>
 	</div>
 </body>

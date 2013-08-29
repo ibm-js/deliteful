@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,18 +13,18 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Accordion */
-.mblAccordionTitleSelected {
+.duiAccordionTitleSelected {
   background-color: #e2e2e2;
 }
-.dj_ff3 .mblAccordionRoundRect {
+.dj_ff3 .duiAccordionRoundRect {
   -moz-border-radius: 8px;
 }
-.dj_ff3 .mblAccordionRoundRect .mblAccordionTitle:first-child {
+.dj_ff3 .duiAccordionRoundRect .duiAccordionTitle:first-child {
   -moz-border-radius-topleft: 8px;
   -moz-border-radius-topright: 8px;
 }
-.dj_ff3 .mblAccordionRoundRect .mblAccordionTitleLast,
-.dj_ff3 .mblAccordionRoundRect .mblAccordionPane:last-child {
+.dj_ff3 .duiAccordionRoundRect .duiAccordionTitleLast,
+.dj_ff3 .duiAccordionRoundRect .duiAccordionPane:last-child {
   -moz-border-radius-bottomleft: 8px;
   -moz-border-radius-bottomright: 8px;
 }

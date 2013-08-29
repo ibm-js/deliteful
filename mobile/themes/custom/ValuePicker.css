@@ -2,37 +2,37 @@
 
 @import url("../common/domButtons/DomButtonGrayMinus.css");
 /* dojox.mobile.ValuePicker */
-.mblValuePicker {
+.duiValuePicker {
   height: 126px;
 }
 /* dojox.mobile.ValuePickerSlot */
-.mblValuePicker > .mblValuePickerSlot {
+.duiValuePicker > .duiValuePickerSlot {
   float: left;
   margin: 0 5px;
 }
-.mblValuePickerSlotButton {
+.duiValuePickerSlotButton {
   position: relative;
   height: 38px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#d6d6d6), color-stop(0.5, #d6d6d6), color-stop(0.9, #bdbdbd));
   background-image: linear-gradient(to bottom, #f7f7f7 0%, #d6d6d6 50%, #bdbdbd 90%, #d6d6d6 100%);
 }
-.mblValuePickerSlotPlusButton {
+.duiValuePickerSlotPlusButton {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.mblValuePickerSlotMinusButton {
+.duiValuePickerSlotMinusButton {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.mblValuePickerSlotButtonSelected {
+.duiValuePickerSlotButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
 }
-.mblValuePickerSlotIcon {
+.duiValuePickerSlotIcon {
   top: 5px;
   margin: 0 auto;
 }
-.mblValuePickerSlotInputArea {
+.duiValuePickerSlotInputArea {
   position: relative;
   height: 48px;
   border-top: 1px solid #7b797b;
@@ -40,7 +40,7 @@
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.1, #fafafa), color-stop(0.2, #fafafa), color-stop(0.5, #ffffff), color-stop(0.9, #ffffff));
   background-image: linear-gradient(to bottom, #fafafa 10%, #fafafa 20%, #ffffff 50%, #ffffff 90%);
 }
-.mblValuePickerSlotInput {
+.duiValuePickerSlotInput {
   display: block;
   width: 90%;
   height: 90%;
@@ -52,6 +52,6 @@
   font-size: 28px;
 }
 /* dojox.mobile.ValuePickerTimePicker */
-.mblValuePickerTimePicker > .mblToolBarButton {
+.duiValuePickerTimePicker > .duiToolBarButton {
   top: 45px;
 }

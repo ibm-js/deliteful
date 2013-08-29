@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<title>Bidi Mobile test - Heading</title>
 
-	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
 
@@ -94,10 +94,10 @@
 	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
 		<div data-dojo-type="dojox/mobile/Heading" id="h1" data-dojo-props='textDir:"ltr", label:"Hello World!", back:"Hello World!" '>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"ltr", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!
@@ -107,22 +107,22 @@
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"ltr", back:"&#1513;&#1500;&#1493;&#1501; World!"'>&#1513;&#1500;&#1493;&#1501; World!
 		</div><br>
 		<hr>
-		<button data-dojo-type="dojox/mobile/Button" id="btn5" class="mblRedButton" data-dojo-props='label:"Set textDir ltr"'></button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn6" class="mblRedButton" data-dojo-props='label:"Set textDir rtl"'></button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn7" class="mblRedButton" data-dojo-props='label:"Set textDir auto"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn5" class="duiRedButton" data-dojo-props='label:"Set textDir ltr"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn6" class="duiRedButton" data-dojo-props='label:"Set textDir rtl"'></button>
+		<button data-dojo-type="dojox/mobile/Button" id="btn7" class="duiRedButton" data-dojo-props='label:"Set textDir auto"'></button>
 		<hr>
 		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='textDir:"ltr", label:"RTL text Dir in ToolBarButton"'>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" defaultColor="mblColorBlue" data-dojo-props='icon:"mblDomButtonWhitePlus",textDir:"rtl", label:"Hello &#1506;&#1493;&#1500;&#1501;!"' style="width:120px"></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" defaultColor="duiColorBlue" data-dojo-props='icon:"duiDomButtonWhitePlus",textDir:"rtl", label:"Hello &#1506;&#1493;&#1500;&#1501;!"' style="width:120px"></span>
 		</div><br>
 		
 	</div>	
 	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
 			<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props='textDir:"rtl", label:"Hello World!", back:"Hello World!" '>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"rtl", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!
@@ -138,10 +138,10 @@
 	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
 		<div data-dojo-type="dojox/mobile/Heading" id="hAuto" data-dojo-props='textDir:"auto", label:"Hello World!", back:"Hello World!" '>
-			<span id="tbAuto" data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span id="tbAuto" data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"auto", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!
@@ -159,10 +159,10 @@
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
 		<hr>
 		<div data-dojo-type="dojox/mobile/Heading" id="h11" data-dojo-props='textDir:"ltr", label:"Hello World!", back:"Hello World!" '>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"ltr", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!
@@ -174,17 +174,17 @@
 		
 
 		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='textDir:"ltr", label:"RTL text Dir in ToolBarButton"'>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" defaultColor="mblColorBlue" data-dojo-props='icon:"mblDomButtonWhitePlus",textDir:"rtl", label:"Hello &#1506;&#1493;&#1500;&#1501;!"' style="width:120px"></span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton" defaultColor="duiColorBlue" data-dojo-props='icon:"duiDomButtonWhitePlus",textDir:"rtl", label:"Hello &#1506;&#1493;&#1500;&#1501;!"' style="width:120px"></span>
 		</div><br>
 	</div>
 	<div dir="rtl" id="view5" data-dojo-type="dojox/mobile/ScrollableView">
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDirRTR</h1>
 		<hr>		
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props='textDir:"rtl", label:"Hello World!", back:"Hello World!" '>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"rtl", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!
@@ -198,10 +198,10 @@
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir AUTO</h1>
 		<hr>	
 		<div data-dojo-type="dojox/mobile/Heading" id="hAuto1" data-dojo-props='textDir:"auto", label:"Hello World!", back:"Hello World!" '>
-			<span id="tbAuto1" data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue"  >Hello World!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="mblColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
+			<span id="tbAuto1" data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue"  >Hello World!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >Hello &#1506;&#1493;&#1500;&#1501;!</span>
+			<span data-dojo-type="dojox/mobile/ToolBarButton"   defaultColor="duiColorBlue" >&#1513;&#1500;&#1493;&#1501; World!</span>
 		</div><br>
 
 		<div data-dojo-type="dojox/mobile/Heading"  data-dojo-props=' textDir:"auto", back:"&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!

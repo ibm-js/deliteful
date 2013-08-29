@@ -9,9 +9,9 @@
 	<link href="../themes/common/dijit/dijit.css" rel="stylesheet"/>
 	<link href="../themes/common/domButtons/DomButtonBlackRightArrow16.css" rel="stylesheet"/>
 	<link href="../themes/common/domButtons/DomButtonWhiteDownArrow16.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Accordion','TabBar','dijit.Calendar']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Accordion','TabBar','dijit.Calendar']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -34,10 +34,10 @@
 			font-family: Times New Roman, Helvetica;
 			color: black;
 		}
-		.windows_theme .mblAccordionPane {
+		.windows_theme .duiAccordionPane {
 			background-color: transparent !important;
 		}
-		.windows_theme .mblScrollableViewContainer > div {
+		.windows_theme .duiScrollableViewContainer > div {
 			color: white !important;
 		}
 	</style>
@@ -53,14 +53,14 @@
 		<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
 			<div data-dojo-type="dojox/mobile/Accordion" data-dojo-props='fixedHeight:true, roundRect:true' style="height:380px;">
 				<div data-dojo-type="dojox/mobile/ScrollableView" style="background-color:white"
-					data-dojo-props='label:"ScrollableView", height:"inherit", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", propagatable:false, appBars:false'>
+					data-dojo-props='label:"ScrollableView", height:"inherit", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16", propagatable:false, appBars:false'>
 					<div style="padding:10px;color:black;">
 						A<br>B<br>C<br>D<br>E<br>F<br>G<br>H<br>I<br>J<br>K<br>L<br>M<br>N<br>O<br>P<br>Q<br>R<br>S<br>T<br>U<br>V<br>W<br>X<br>Y<br>Z
 					</div>
 				</div>
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"External Content", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16", href:"data/fragment1.html"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"External Content", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16", href:"data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"RoundRectList", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"'>
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"RoundRectList", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"'>
 					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='iconBase:"images/tab-icon-11h.png"'>
 						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space
@@ -73,7 +73,7 @@
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Dojo", icon1:"mblDomButtonBlackRightArrow16", icon2:"mblDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Dojo", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>

@@ -49,8 +49,8 @@ define([
 		//		in a directory containing a "mobile/themes" path. For that, a matching is done using 
 		//		the default pattern	"/\/mobile\/themes\/.*\.css$/". If a custom theme is not located 
 		//		in a directory containing this path, the data-dojo-config needs to specify a custom 
-		//		pattern using the "mblLoadCompatPattern" configuration parameter, for instance:
-		// |	data-dojo-config="mblLoadCompatPattern: /\/mycustomtheme\/.*\.css$/"
+		//		pattern using the "duiLoadCompatPattern" configuration parameter, for instance:
+		// |	data-dojo-config="duiLoadCompatPattern: /\/mycustomtheme\/.*\.css$/"
 	};
 	=====*/
 	return dm;

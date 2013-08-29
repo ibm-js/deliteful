@@ -3,9 +3,9 @@
 @import "../common/domButtons/DomButtonWhiteCross.css";
 
 @media (max-width:500px) {
-  .mblTabBarTabBar {
+  .duiTabBarTabBar {
   	/* Tab separator only for width < 500 (because TabBar._largeScreenWidth == 500)*/
-  		.mblTabBarButton+.mblTabBarButton:before{
+  		.duiTabBarButton+.duiTabBarButton:before{
   			content:url('images/vseparator.png');
   			position:absolute;
   			top: 12px;
@@ -14,23 +14,23 @@
   }
 }
 /* when fill is activated, box-sizing is border-box */
-.mblTabBarTabBar {
-	&.mblTabBarFill {
-		.mblTabBarButton {
+.duiTabBarTabBar {
+	&.duiTabBarFill {
+		.duiTabBarButton {
 			height: 48px;
 		}
 	}
 }
-.mblTabBarSegmentedControl {
-	&.mblTabBarFill {
-		.mblTabBarButton {
+.duiTabBarSegmentedControl {
+	&.duiTabBarFill {
+		.duiTabBarButton {
 			height: 29px;
 		}
 	}	
 }
-.mblTabBarTallTab {
-	&.mblTabBarFill {
-		.mblTabBarButton {
+.duiTabBarTallTab {
+	&.duiTabBarFill {
+		.duiTabBarButton {
 			height: 62px;
 		}
 	}

@@ -19,7 +19,7 @@ define([
 
 		// shadow: [const] Boolean
 		//		If true, adds a shadow effect to the container element by adding
-		//		the CSS class "mblShadow" to widget's domNode. The default value
+		//		the CSS class "duiShadow" to widget's domNode. The default value
 		//		is false. Note that changing the value of the property after
 		//		the widget creation has no effect.
 		shadow: false,
@@ -28,12 +28,12 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblRoundRect",
+		baseClass: "duiRoundRect",
 
 		buildRendering: function(){
 			this.inherited(arguments);
 			if(this.shadow){
-				domClass.add(this.domNode, "mblShadow");
+				domClass.add(this.domNode, "duiShadow");
 			}
 		}
 	});

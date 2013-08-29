@@ -1,7 +1,7 @@
 @import "variables.less";
 @import "../common/ToggleButton.less";
 
-.mblToggleButton {
+.duiToggleButton {
 	&:before {
 		content: '';
 		position: absolute;
@@ -18,15 +18,15 @@
 	&:after {
 		position: absolute;
 		content: "";
-		.mblToggleButtonChecked-after-styles;
+		.duiToggleButtonChecked-after-styles;
 		border-style: none solid solid none;
 		.transform(rotate(45deg) skew(10deg));
 		.transform-origin(50% 50%);
 	}
 }
 
-.mblToggleButtonChecked,
-.mblToggleButtonSelected[aria-pressed='true'] {
+.duiToggleButtonChecked,
+.duiToggleButtonSelected[aria-pressed='true'] {
 	&:before {
 		background-color: @win-foreground-color;
 	}
@@ -36,12 +36,12 @@
 	}
 }
 
-.mblToggleButton[disabled] {
+.duiToggleButton[disabled] {
 	&:before {
 		border-color: @win-disabled-color;
 	}
 
-	&.mblToggleButtonChecked{
+	&.duiToggleButtonChecked{
 		&:before {
 			background-color: @win-disabled-color;
 		}

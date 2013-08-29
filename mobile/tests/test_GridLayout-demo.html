@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>GridLayout</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Button','EdgeToEdgeCategory','GridLayout','dojox/mobile/themes/common/domButtons.css']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Button','EdgeToEdgeCategory','GridLayout','dojox/mobile/themes/common/domButtons.css']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -203,16 +203,16 @@
 				<table style="position:relative;width:100%">
 					<tr>
 						<td><input id="num" data-dojo-type="dojox/mobile/TextBox" data-dojo-props='value:1, placeHolder:"Count", size:3' style="width:80%;height:40px;text-align:right;font-size: 18px;"></td>
-						<td><div id ="Plus" class="mblDomButtonBluePlus" onclick="plus()" style="margin:0 auto 0 auto;"></div></td>
-						<td><div id ="Minus" class="mblDomButtonBlueMinus" onclick="minus()" style="margin:0 auto 0 auto;"></div></td>
+						<td><div id ="Plus" class="duiDomButtonBluePlus" onclick="plus()" style="margin:0 auto 0 auto;"></div></td>
+						<td><div id ="Minus" class="duiDomButtonBlueMinus" onclick="minus()" style="margin:0 auto 0 auto;"></div></td>
 					</tr>
 				</table>
 			</div>
 			<div data-dojo-type="dojox/mobile/Pane">
-				<button id ="cancel"  data-dojo-type="dojox/mobile/Button" class="mblRedButton" onclick="cancel()" style="margin-top:10px;margin-left:5%;margin-right:5%;width:90%;height:40px;">Cancel</button>
+				<button id ="cancel"  data-dojo-type="dojox/mobile/Button" class="duiRedButton" onclick="cancel()" style="margin-top:10px;margin-left:5%;margin-right:5%;width:90%;height:40px;">Cancel</button>
 			</div>
 			<div data-dojo-type="dojox/mobile/Pane">
-				<button id="ok" data-dojo-type="dojox/mobile/Button" class="mblBlueButton" onclick="ok()" style="margin-top:10px;margin-left:5%;margin-right:5%;width:90%;height:40px;">OK</button>
+				<button id="ok" data-dojo-type="dojox/mobile/Button" class="duiBlueButton" onclick="ok()" style="margin-top:10px;margin-left:5%;margin-right:5%;width:90%;height:40px;">OK</button>
 			</div>
 		</div>
 	</div>

@@ -282,14 +282,14 @@ define([
 			if(!node.parentNode){ return null; }
 
 			// the given node is the first candidate
-			if(node.nodeType === 1 && domClass.contains(node, "mblSwapView") && node.style.display !== "none"){
+			if(node.nodeType === 1 && domClass.contains(node, "duiSwapView") && node.style.display !== "none"){
 				return node;
 			}
 
 			var nodes = node.parentNode.childNodes;
 			for(var i = 0; i < nodes.length; i++){
 				var n = nodes[i];
-				if(n.nodeType === 1 && domClass.contains(n, "mblView") && n.style.display !== "none"){
+				if(n.nodeType === 1 && domClass.contains(n, "duiView") && n.style.display !== "none"){
 					return n;
 				}
 			}
@@ -385,9 +385,9 @@ define([
 				var an = e.animationName;
 				if(an && an.indexOf("scrollableViewScroll2") === -1){
 					if(an.indexOf("scrollableViewScroll0") !== -1){ // scrollBarV
-						if(this._scrollBarNodeV){ domClass.remove(this._scrollBarNodeV, "mblScrollableScrollTo0"); }
+						if(this._scrollBarNodeV){ domClass.remove(this._scrollBarNodeV, "duiScrollableScrollTo0"); }
 					}else if(an.indexOf("scrollableViewScroll1") !== -1){ // scrollBarH
-						if(this._scrollBarNodeH){ domClass.remove(this._scrollBarNodeH, "mblScrollableScrollTo1"); }
+						if(this._scrollBarNodeH){ domClass.remove(this._scrollBarNodeH, "duiScrollableScrollTo1"); }
 					}else{ // fade or others
 						if(this._scrollBarNodeV){ this._scrollBarNodeV.className = ""; }
 						if(this._scrollBarNodeH){ this._scrollBarNodeH.className = ""; }
@@ -397,7 +397,7 @@ define([
 				if(this._useTransformTransition || this._useTopLeft){
 					var n = e.target;
 					if(n === this._scrollBarV || n === this._scrollBarH){
-						var cls = "mblScrollableScrollTo" + (n === this._scrollBarV ? "0" : "1");
+						var cls = "duiScrollableScrollTo" + (n === this._scrollBarV ? "0" : "1");
 						if(domClass.contains(n, cls)){
 							domClass.remove(n, cls);
 						}else{
@@ -448,7 +448,7 @@ define([
 			}
 
 			this._aborted = false;
-			if(domClass.contains(this.containerNode, "mblScrollableScrollTo2")){
+			if(domClass.contains(this.containerNode, "duiScrollableScrollTo2")){
 				this.abort();
 			}else{ // reset scrollbar class especially for reseting fade-out animation
 				if(this._scrollBarNodeV){ this._scrollBarNodeV.className = ""; }
@@ -763,7 +763,7 @@ define([
 			//		Stops the currently running animation.
 
 			this._forceRendering(this.containerNode);
-			domClass.remove(this.containerNode, "mblScrollableScrollTo2");
+			domClass.remove(this.containerNode, "duiScrollableScrollTo2");
 			if(this._scrollBarV){
 				this._scrollBarV.className = "";
 				this._forceRendering(this._scrollBarV);
@@ -1044,7 +1044,7 @@ define([
 						props.height = "5px";
 					}
 					domStyle.set(wrapper, props);
-					wrapper.className = "mblScrollBarWrapper";
+					wrapper.className = "duiScrollBarWrapper";
 					self["_scrollBarWrapper"+dir] = wrapper;
 
 					bar = domConstruct.create("div", null, wrapper);
@@ -1084,7 +1084,7 @@ define([
 				if(!dm._fadeRule){
 					var node = domConstruct.create("style", null, win.doc.getElementsByTagName("head")[0]);
 					node.textContent =
-						".mblScrollableFadeScrollBar{"+
+						".duiScrollableFadeScrollBar{"+
 						"  " + css3.name("animation-duration", true) + ": 1s;"+
 						"  " + css3.name("animation-name", true) + ": scrollableViewFadeScrollBar;}"+
 						"@" + css3.name("keyframes", true) + " scrollableViewFadeScrollBar{"+
@@ -1103,7 +1103,7 @@ define([
 				// do not use fade animation in case of using top/left on Android
 				// since it causes screen flicker during adress bar's fading out
 				if(!(self._useTopLeft && has('android'))){
-					bar.className = "mblScrollableFadeScrollBar";
+					bar.className = "duiScrollableFadeScrollBar";
 				}
 			};
 			if(this._scrollBarV){
@@ -1240,7 +1240,7 @@ define([
 									transform: t
 								}));
 							}, 0);
-							domClass.add(node, "mblScrollableScrollTo"+idx);
+							domClass.add(node, "duiScrollableScrollTo"+idx);
 						} else {
 							// transform not changed, just hide the scrollbar
 							this.hideScrollBar();
@@ -1253,7 +1253,7 @@ define([
 							animationDuration: duration + "s",
 							animationTimingFunction: easing
 						}));
-						domClass.add(node, "mblScrollableScrollTo"+idx);
+						domClass.add(node, "duiScrollableScrollTo"+idx);
 						if(idx == 2){
 							this.scrollTo(to, true, node);
 						}else{
@@ -1272,7 +1272,7 @@ define([
 							left: (to.x || 0) + "px"
 						});
 					}, 0);
-					domClass.add(node, "mblScrollableScrollTo"+idx);
+					domClass.add(node, "duiScrollableScrollTo"+idx);
 				}
 			}else{
 				// directly jump to the destination without animation
@@ -1355,7 +1355,7 @@ define([
 			if(!has('touch') && !this.noCover){
 				if(!dm._cover){
 					dm._cover = domConstruct.create("div", null, win.doc.body);
-					dm._cover.className = "mblScrollableCover";
+					dm._cover.className = "duiScrollableCover";
 					domStyle.set(dm._cover, {
 						backgroundColor: "#ffff00",
 						opacity: 0,
@@ -1397,7 +1397,7 @@ define([
 			if(!dm._rule[idx]){
 				var node = domConstruct.create("style", null, win.doc.getElementsByTagName("head")[0]);
 				node.textContent =
-					".mblScrollableScrollTo"+idx+"{" + css3.name("animation-name", true) + ": scrollableViewScroll"+idx+";}"+
+					".duiScrollableScrollTo"+idx+"{" + css3.name("animation-name", true) + ": scrollableViewScroll"+idx+";}"+
 					"@" + css3.name("keyframes", true) + " scrollableViewScroll"+idx+"{}";
 				dm._rule[idx] = node.sheet.cssRules[1];
 			}

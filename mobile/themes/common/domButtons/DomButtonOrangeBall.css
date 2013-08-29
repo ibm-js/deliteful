@@ -1,10 +1,10 @@
 /* === Orange Ball Button ==*/
-.mblDomButtonOrangeBall {
+.duiDomButtonOrangeBall {
   position: relative;
   width: 19px;
   height: 29px;
 }
-.mblDomButtonOrangeBall > div {
+.duiDomButtonOrangeBall > div {
   position: relative;
   top: 8px;
   left: 4px;

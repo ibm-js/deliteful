@@ -1,10 +1,10 @@
 /* === Minus Button ==*/
-.mblDomButtonGrayMinus {
+.duiDomButtonGrayMinus {
   position: relative;
   width: 29px;
   height: 29px;
 }
-.mblDomButtonGrayMinus > div {
+.duiDomButtonGrayMinus > div {
   /* horiz line */
 
   position: absolute;

@@ -1,43 +1,43 @@
 /* dojox.mobile.Switch Rtl */
 /* Square Shape Rtl */
-.mblSwSquareShape .mblSwitchBgLeftRtl {
+.duiSwSquareShape .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-square-r.gif);
 }
-.mblSwSquareShape .mblSwitchBgRightRtl {
+.duiSwSquareShape .duiSwitchBgRightRtl {
   background-image: url(compat/switch-square-l.gif);
 }
 /* Round Shape1 Rtl */
-.mblSwRoundShape1 .mblSwitchBgLeftRtl {
+.duiSwRoundShape1 .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-round1-r.gif);
 }
-.mblSwRoundShape1 .mblSwitchBgRightRtl {
+.duiSwRoundShape1 .duiSwitchBgRightRtl {
   background-image: url(compat/switch-round1-l.gif);
 }
 /* Round Shape2 Rtl */
-.mblSwRoundShape2 .mblSwitchBgLeftRtl {
+.duiSwRoundShape2 .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-round2-r.gif);
 }
-.mblSwRoundShape2 .mblSwitchBgRightRtl {
+.duiSwRoundShape2 .duiSwitchBgRightRtl {
   background-image: url(compat/switch-round2-l.gif);
 }
 /* Arc Shape1 Rtl */
-.mblSwArcShape1 .mblSwitchBgLeftRtl {
+.duiSwArcShape1 .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-arc1-r.gif);
 }
-.mblSwArcShape1 .mblSwitchBgRightRtl {
+.duiSwArcShape1 .duiSwitchBgRightRtl {
   background-image: url(compat/switch-arc1-l.gif);
 }
 /* Switch - Arc Shape2 Rtl */
-.mblSwArcShape2 .mblSwitchBgLeftRtl {
+.duiSwArcShape2 .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-arc2-r.gif);
 }
-.mblSwArcShape2 .mblSwitchBgRightRtl {
+.duiSwArcShape2 .duiSwitchBgRightRtl {
   background-image: url(compat/switch-arc2-l.gif);
 }
 /* Default Shape Rtl */
-.mblSwDefaultShape .mblSwitchBgLeftRtl {
+.duiSwDefaultShape .duiSwitchBgLeftRtl {
   background-image: url(compat/switch-square-r.gif);
 }
-.mblSwDefaultShape .mblSwitchBgRightRtl {
+.duiSwDefaultShape .duiSwitchBgRightRtl {
   background-image: url(compat/switch-square-l.gif);
 }

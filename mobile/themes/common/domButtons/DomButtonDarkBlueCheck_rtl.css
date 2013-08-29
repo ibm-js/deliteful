@@ -1,6 +1,6 @@
 /* === Check Button Rtl ==*/
-.mblListItemRtl .mblDomButtonDarkBlueCheck > div,
-.mblListItemRtl .mblDomButtonCheck > div {
+.duiListItemRtl .duiDomButtonDarkBlueCheck > div,
+.duiListItemRtl .duiDomButtonCheck > div {
   right: 0px;
   -webkit-transform: scaleX(-0.7) rotate(-135deg);
   transform: scaleX(-0.7) rotate(-135deg);

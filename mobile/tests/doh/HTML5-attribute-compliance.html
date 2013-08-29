@@ -81,18 +81,18 @@
 					// - "data-mobile-layout" (new in Dojo 1.9);
 
 					var child = dom.byId("listItemChild1"); // left
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutLeft"), "layout - Left");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutLeft"), "layout - Left");
 					child = dom.byId("listItemChild2"); // center
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutCenter"), "layout - Center");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutCenter"), "layout - Center");
 					child = dom.byId("listItemChild3"); // center
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutRight"), "layout - Right");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutRight"), "layout - Right");
 
 					child = dom.byId("listItemChild4"); // left
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutLeft"), "data-mobile-layout - Left");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutLeft"), "data-mobile-layout - Left");
 					child = dom.byId("listItemChild5"); // center
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutCenter"), "data-mobile-layout - Center");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutCenter"), "data-mobile-layout - Center");
 					child = dom.byId("listItemChild6"); // center
-					runner.assertTrue(domClass.contains(child, "mblListItemLayoutRight"), "data-mobile-layout - Right");
+					runner.assertTrue(domClass.contains(child, "duiListItemLayoutRight"), "data-mobile-layout - Right");
 				}
 			]);
 			runner.run();

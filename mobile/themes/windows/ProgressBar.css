@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.ProgressBar */
-.mblProgressBar {
+.duiProgressBar {
   position: relative;
   height: 3px;
   background-color: transparent;
@@ -21,7 +21,7 @@
   margin-top: 8px;
   margin-bottom: 8px;
 }
-.mblProgressBarProgress {
+.duiProgressBarProgress {
   -webkit-transition-property: width;
   transition-property: width;
   -webkit-transition-duration: 0.25s;
@@ -30,11 +30,11 @@
   border: none;
   background-color: Highlight;
 }
-.mblProgressBarNotStarted {
+.duiProgressBarNotStarted {
   border-left: none;
   border-right: none;
 }
-.mblProgressBarMsg {
+.duiProgressBarMsg {
   position: absolute;
   top: 0px;
   width: 100%;
@@ -43,7 +43,7 @@
   font-size: 12px;
   top: 3px;
 }
-.mblProgressBar:before {
+.duiProgressBar:before {
   content: '';
   position: absolute;
   height: 3px;
@@ -51,12 +51,12 @@
   background-color: Highlight;
   opacity: 0.2;
 }
-.mblProgressBar[disabled]:before {
+.duiProgressBar[disabled]:before {
   background-color: #808080;
 }
-.mblProgressBar[disabled] .mblProgressBarProgress {
+.duiProgressBar[disabled] .duiProgressBarProgress {
   background-color: #808080;
 }
-.mblProgressBar[disabled] .mblProgressBarMsg {
+.duiProgressBar[disabled] .duiProgressBarMsg {
   color: #808080;
 }

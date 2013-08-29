@@ -1,5 +1,5 @@
 /* dojox.mobile.Button */
-.mblButton {
+.duiButton {
   padding: 0 10px;
   height: 29px;
   border-style: outset;
@@ -15,33 +15,33 @@
   color: black;
   font-size: 13px;
 }
-.mblButtonSelected {
+.duiButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#306ea1), to(#266093), color-stop(0.06, #4090d3), color-stop(0.5, #306ea1));
   background-image: linear-gradient(to bottom, #306ea1 0%, #4090d3 6%, #306ea1 50%, #266093 100%);
   color: white;
 }
-.mblButtonDisabled,
-.mblButton:disabled {
+.duiButtonDisabled,
+.duiButton:disabled {
   border-color: grey;
   background-image: none;
   color: grey;
   cursor: default;
 }
-.mblBlueButton {
+.duiBlueButton {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7a9de9), to(#2362dd), color-stop(0.5, #366edf), color-stop(0.5, #215fdc));
   background-image: linear-gradient(to bottom, #7a9de9 0%, #366edf 50%, #215fdc 50%, #2362dd 100%);
   color: white;
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#306ea1), to(#266093), color-stop(0.06, #4090d3), color-stop(0.5, #306ea1));
   background-image: linear-gradient(to bottom, #306ea1 0%, #4090d3 6%, #306ea1 50%, #266093 100%);
 }
-.mblRedButton {
+.duiRedButton {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fa9d58), to(#ee4115), color-stop(0.5, #ff4d25), color-stop(0.5, #ed4d15));
   background-image: linear-gradient(to bottom, #fa9d58 0%, #ff4d25 50%, #ed4d15 50%, #ee4115 100%);
   color: white;
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#306ea1), to(#266093), color-stop(0.06, #4090d3), color-stop(0.5, #306ea1));
   background-image: linear-gradient(to bottom, #306ea1 0%, #4090d3 6%, #306ea1 50%, #266093 100%);
 }

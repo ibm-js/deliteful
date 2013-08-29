@@ -62,7 +62,7 @@ define([
 
 		// badgeClass: String
 		//		A class name of a DOM button for a badge.
-		badgeClass: "mblDomButtonRedBadge",
+		badgeClass: "duiDomButtonRedBadge",
 
 		// deletable: Boolean
 		//		If true, you can delete this IconItem by clicking on the delete
@@ -84,7 +84,7 @@ define([
 		/* internal properties */	
 		// Note these are overrides for similar properties defined in _ItemBase.
 		paramsToInherit: "transition,icon,deleteIcon,badgeClass,deleteIconTitle,deleteIconRole",
-		baseClass: "mblIconItem",
+		baseClass: "duiIconItem",
 		_selStartMethod: "touch",
 		_selEndMethod: "none",
 
@@ -106,9 +106,9 @@ define([
 				}
 			}
 
-			this.iconDivNode = domConstruct.create("div", {className:"mblIconArea"}, this.domNode);
-			this.iconParentNode = domConstruct.create("div", {className:"mblIconAreaInner"}, this.iconDivNode);
-			this.labelNode = domConstruct.create("span", {className:"mblIconAreaTitle"}, this.iconDivNode);
+			this.iconDivNode = domConstruct.create("div", {className:"duiIconArea"}, this.domNode);
+			this.iconParentNode = domConstruct.create("div", {className:"duiIconAreaInner"}, this.iconDivNode);
+			this.labelNode = domConstruct.create("span", {className:"duiIconAreaTitle"}, this.iconDivNode);
 
 			this.inherited(arguments);
 		},
@@ -156,7 +156,7 @@ define([
 		highlight: function(/*Number?*/timeout){
 			// summary:
 			//		Shakes the icon 10 seconds.
-			domClass.add(this.iconDivNode, "mblVibrate");
+			domClass.add(this.iconDivNode, "duiVibrate");
 			timeout = (timeout !== undefined) ? timeout : this.timeout;
 			if(timeout > 0){
 				var _this = this;
@@ -169,7 +169,7 @@ define([
 		unhighlight: function(){
 			// summary:
 			//		Stops shaking the icon.
-			domClass.remove(this.iconDivNode, "mblVibrate");
+			domClass.remove(this.iconDivNode, "duiVibrate");
 		},
 
 		isOpen: function(){
@@ -256,7 +256,7 @@ define([
 					}
 					parent.appView._heading.set("label", this.label);
 				}
-				this.moveTo = parent.id + "_mblApplView";
+				this.moveTo = parent.id + "_duiApplView";
 				new TransitionEvent(this.domNode, this.getTransOpts(), e).dispatch();
 			}
 		},
@@ -298,13 +298,13 @@ define([
 			if(has("css3-animations") && !noAnimation){
 				var contentNode = this.paneWidget.domNode;
 				if(this.getParent().transition == "below"){
-					domClass.add(contentNode, "mblCloseContent mblShrink");
+					domClass.add(contentNode, "duiCloseContent duiShrink");
 					var nodePos = domGeometry.position(contentNode, true);
 					var targetPos = domGeometry.position(this.domNode, true);
 					var origin = (targetPos.x + targetPos.w/2 - nodePos.x) + "px " + (targetPos.y + targetPos.h/2 - nodePos.y) + "px";
 					domStyle.set(contentNode, css3.add({}, { transformOrigin:origin }));
 				}else{
-					domClass.add(contentNode, "mblCloseContent mblShrink0");
+					domClass.add(contentNode, "duiCloseContent duiShrink0");
 				}
 			}else{
 				this.paneWidget.hide();
@@ -368,7 +368,7 @@ define([
 			this.deleteIconNode = iconUtils.setIcon(icon, this.deleteIconPos, this.deleteIconNode, 
 					this.deleteIconTitle || this.alt, this.iconDivNode);
 			if(this.deleteIconNode){
-				domClass.add(this.deleteIconNode, "mblIconItemDeleteIcon");
+				domClass.add(this.deleteIconNode, "duiIconItemDeleteIcon");
 				if(this.deleteIconRole){
 					this.deleteIconNode.setAttribute("role", this.deleteIconRole);
 				}

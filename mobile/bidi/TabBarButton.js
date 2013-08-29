@@ -21,8 +21,8 @@ define([
 			this.inherited(arguments);
 			// dojox.mobile mirroring support
 			if(this.iconDivNode && !this.isLeftToRight()){
-				domClass.remove(this.iconDivNode, "mblTabBarButtonIconArea");	
-				domClass.add(this.iconDivNode, "mblTabBarButtonIconAreaRtl");	
+				domClass.remove(this.iconDivNode, "duiTabBarButtonIconArea");	
+				domClass.add(this.iconDivNode, "duiTabBarButtonIconAreaRtl");	
 			}
 		}
 	});

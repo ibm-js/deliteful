@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<title>Mobile Slider unit tests</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Slider']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Slider']"></script>
 	<script src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad:true, isDebug: true"></script>
 	<script type="text/javascript">
@@ -471,25 +471,25 @@
 
 	<style>
 		/* test overrides */
-		.mblSlider {
+		.duiSlider {
 			zoom: 1.1; /* for testing, to make it easier to touch the handle */
 		}
-		.mblSliderV {
+		.duiSliderV {
 			width: 1px;
 			border: 0px none;
 		}
-		.mblSliderH .mblSliderProgressBar {
+		.duiSliderH .duiSliderProgressBar {
 			background:transparent url(images/progressBarAnim.gif) repeat;
 		}
-		.mblSliderV .mblSliderHandle {
+		.duiSliderV .duiSliderHandle {
 			background:transparent url(images/sliderVthumb.png) no-repeat;
 			border-width:0px;
 			border-radius:0;
 		}
-		.windows_theme .mblSliderV .mblSliderHandle {
+		.windows_theme .duiSliderV .duiSliderHandle {
 			background: white none;
 		}
-		.windows_theme .mblSliderH {
+		.windows_theme .duiSliderH {
 			zoom: 0;
 		}
 	</style>

@@ -71,7 +71,7 @@
 	}
 	</style>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -101,7 +101,7 @@
 			dojo.doc.body.appendChild(view.domNode);
 			view.startup();
 			var list = new dojox.mobile.RoundRectList();
-			demoWidget = new dojox.mobile.ListItem({className:"mblVariableHeight"});
+			demoWidget = new dojox.mobile.ListItem({className:"duiVariableHeight"});
 //			demoWidget.domNode.style = {font-size:"10px"};
 //			view.addChild(list);
 			list.placeAt(view.containerNode);
@@ -129,7 +129,7 @@
 						setTimeout(d.getTestCallback(function(){
 							demoWidget = dijit.byId("foo");
 							doh.assertEqual('f', demoWidget.get("scrollDir"));
-							doh.assertEqual('mblView mblSwapView', demoWidget.domNode.className);
+							doh.assertEqual('duiView duiSwapView', demoWidget.domNode.className);
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}));
 						return d;

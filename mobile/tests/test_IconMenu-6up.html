@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>IconMenu (6up)</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','IconMenu','SimpleDialog']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','IconMenu','SimpleDialog']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -42,17 +42,17 @@
 		height: 210px;
 	}
 
-	.windows_theme .mblButton {
+	.windows_theme .duiButton {
 		position: absolute;
 		bottom: 10px;
 		width: 45% !important;
 	}
 
-	.windows_theme .mblButton:first-of-type {
+	.windows_theme .duiButton:first-of-type {
 		right: 10px;
 	}
 
-	.windows_theme .mblView {
+	.windows_theme .duiView {
 		height: 100%;
 	}
 
@@ -72,8 +72,8 @@
 
 	<div id="view1" data-dojo-type="dojox/mobile/View">
 		<h1 data-dojo-type="dojox/mobile/Heading">6-up Icon Menu</h1>
-		<button data-dojo-type="dojox/mobile/Button" class="mblBlueButton" style="width:100px;margin:10px;" onclick="show()">Show</button>
-		<button data-dojo-type="dojox/mobile/Button" class="mblBlueButton" style="width:100px;margin:10px;" onclick="hide()">Hide</button>
+		<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:100px;margin:10px;" onclick="show()">Show</button>
+		<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:100px;margin:10px;" onclick="hide()">Hide</button>
 	</div>
 
 	<div id="view2" data-dojo-type="dojox/mobile/View" style="background-color:white;height:100%;">

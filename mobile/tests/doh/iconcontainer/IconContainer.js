@@ -7,7 +7,7 @@ dojo.addOnLoad(function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
 					var demoWidget = dijit.byId("dojox_mobile_IconContainer_0");
-					doh.assertEqual('mblIconContainer', demoWidget.domNode.className);
+					doh.assertEqual('duiIconContainer', demoWidget.domNode.className);
 					
 				}));
 				return d;

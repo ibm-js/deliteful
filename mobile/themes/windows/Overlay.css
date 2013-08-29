@@ -1,7 +1,7 @@
 @import url("../common/transitions/coverv.css");
 
 @import url("../common/transitions/revealv.css");
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -16,7 +16,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Overlay */
-.mblOverlay {
+.duiOverlay {
   position: fixed;
   z-index: 2000;
   left: 0;
@@ -31,7 +31,7 @@
   padding: 12px 10px 12px 15px;
   width: calc(100% - 15px);
 }
-.mblOverlayHidden *,
-.mblOverlayHidden {
+.duiOverlayHidden *,
+.duiOverlayHidden {
   visibility: hidden !important;
 }

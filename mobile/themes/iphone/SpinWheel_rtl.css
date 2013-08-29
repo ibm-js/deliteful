@@ -1,5 +1,5 @@
 /* dojox.mobile.SpinWheel Rtl */
-.mblSpinWheelSlotRtl,
-.mblSpinWheelRtl .mblSpinWheelSlot {
+.duiSpinWheelSlotRtl,
+.duiSpinWheelRtl .duiSpinWheelSlot {
   float: right;
 }

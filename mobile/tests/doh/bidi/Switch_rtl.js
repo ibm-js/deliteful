@@ -7,31 +7,31 @@ dojo.addOnLoad(function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
 					var demoWidget = dijit.byId("dojox_mobile_Switch_0");
-					doh.assertTrue(demoWidget.domNode.className.search(/mblSwitch/i) != -1);
-					doh.assertTrue(demoWidget.domNode.className.search(/mblSwitchOff/i) != -1);
+					doh.assertTrue(demoWidget.domNode.className.search(/duiSwitch/i) != -1);
+					doh.assertTrue(demoWidget.domNode.className.search(/duiSwitchOff/i) != -1);
 					doh.assertTrue(demoWidget.domNode.className.search(/float/i) != -1);
 
-					doh.assertEqual('mblSwitchInner', demoWidget.inner.className);
-					doh.assertEqual('mblSwitchBg mblSwitchBgLeft mblSwitchBgLeftRtl', demoWidget.inner.childNodes[0].className);
+					doh.assertEqual('duiSwitchInner', demoWidget.inner.className);
+					doh.assertEqual('duiSwitchBg duiSwitchBgLeft duiSwitchBgLeftRtl', demoWidget.inner.childNodes[0].className);
 					doh.assertEqual('none', demoWidget.inner.childNodes[0].style.display);
-					doh.assertEqual('mblSwitchText mblSwitchTextLeft mblSwitchTextLeftRtl', demoWidget.inner.childNodes[0].childNodes[0].className);
+					doh.assertEqual('duiSwitchText duiSwitchTextLeft duiSwitchTextLeftRtl', demoWidget.inner.childNodes[0].childNodes[0].className);
 					doh.assertEqual('ON', demoWidget.inner.childNodes[0].childNodes[0].innerHTML);
-					doh.assertEqual('mblSwitchBg mblSwitchBgRight mblSwitchBgRightRtl', demoWidget.inner.childNodes[1].className);
-					doh.assertEqual('mblSwitchText mblSwitchTextRight mblSwitchTextRightRtl', demoWidget.inner.childNodes[1].childNodes[0].className);
+					doh.assertEqual('duiSwitchBg duiSwitchBgRight duiSwitchBgRightRtl', demoWidget.inner.childNodes[1].className);
+					doh.assertEqual('duiSwitchText duiSwitchTextRight duiSwitchTextRightRtl', demoWidget.inner.childNodes[1].childNodes[0].className);
 					doh.assertEqual('OFF', demoWidget.inner.childNodes[1].childNodes[0].innerHTML);
-					doh.assertEqual('mblSwitchKnob', demoWidget.inner.childNodes[2].className);
+					doh.assertEqual('duiSwitchKnob', demoWidget.inner.childNodes[2].className);
 
 					demoWidget = dijit.byId("dojox_mobile_Switch_1");
-					doh.assertEqual('mblSwitch mblSwitchRtl mblSwDefaultShape mblSwitchOn', demoWidget.domNode.className);
-					doh.assertEqual('mblSwitchInner', demoWidget.inner.className);
-					doh.assertEqual('mblSwitchBg mblSwitchBgLeft mblSwitchBgLeftRtl', demoWidget.inner.childNodes[0].className);
-					doh.assertEqual('mblSwitchText mblSwitchTextLeft mblSwitchTextLeftRtl', demoWidget.inner.childNodes[0].childNodes[0].className);
+					doh.assertEqual('duiSwitch duiSwitchRtl duiSwDefaultShape duiSwitchOn', demoWidget.domNode.className);
+					doh.assertEqual('duiSwitchInner', demoWidget.inner.className);
+					doh.assertEqual('duiSwitchBg duiSwitchBgLeft duiSwitchBgLeftRtl', demoWidget.inner.childNodes[0].className);
+					doh.assertEqual('duiSwitchText duiSwitchTextLeft duiSwitchTextLeftRtl', demoWidget.inner.childNodes[0].childNodes[0].className);
 					doh.assertEqual('Start', demoWidget.inner.childNodes[0].childNodes[0].innerHTML);
-					doh.assertEqual('mblSwitchBg mblSwitchBgRight mblSwitchBgRightRtl', demoWidget.inner.childNodes[1].className);
+					doh.assertEqual('duiSwitchBg duiSwitchBgRight duiSwitchBgRightRtl', demoWidget.inner.childNodes[1].className);
 					doh.assertEqual('none', demoWidget.inner.childNodes[1].style.display);
-					doh.assertEqual('mblSwitchText mblSwitchTextRight mblSwitchTextRightRtl', demoWidget.inner.childNodes[1].childNodes[0].className);
+					doh.assertEqual('duiSwitchText duiSwitchTextRight duiSwitchTextRightRtl', demoWidget.inner.childNodes[1].childNodes[0].className);
 					doh.assertEqual('Stop', demoWidget.inner.childNodes[1].childNodes[0].innerHTML);
-					doh.assertEqual('mblSwitchKnob', demoWidget.inner.childNodes[2].className);
+					doh.assertEqual('duiSwitchKnob', demoWidget.inner.childNodes[2].className);
 					
 				}));
 				return d;

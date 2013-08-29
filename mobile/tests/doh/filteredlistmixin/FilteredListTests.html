@@ -11,7 +11,7 @@
 	
 	<script type="text/javascript" src="../../../deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -31,8 +31,8 @@
 		], function(parser, declare, domConstruct, domClass, ready, registry, runner,
 					Memory, EdgeToEdgeStoreList, FilteredListMixin){
 
-			var EDGE_TO_EDGE_LIST_FILTER_BOX_CLASSNAME = "mblFilteredEdgeToEdgeListSearchBox";
-			var ROUND_RECT_LIST_FILTER_BOX_CLASSNAME = "mblFilteredRoundRectListSearchBox";
+			var EDGE_TO_EDGE_LIST_FILTER_BOX_CLASSNAME = "duiFilteredEdgeToEdgeListSearchBox";
+			var ROUND_RECT_LIST_FILTER_BOX_CLASSNAME = "duiFilteredRoundRectListSearchBox";
 			var CUSTOM_FILTER_BOX_CLASSNAME = "myCustomClass";
 			
 			var static_data = { 
@@ -238,7 +238,7 @@
 		<!-- Use-case: markup; SearchBox and ScrollableView are provided. -->
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
 		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox2"
-			class="myCustomClass mblFilteredEdgeToEdgeListSearchBox">
+			class="myCustomClass duiFilteredEdgeToEdgeListSearchBox">
 		<div data-dojo-type="dojox/mobile/ScrollableView">
 			<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list2"
 				data-dojo-mixins="dojox/mobile/FilteredListMixin"
@@ -251,7 +251,7 @@
 		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
 		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox3"
 			data-dojo-props="filterBoxRef: 'filterBox', placeHolder: 'CustomPlaceHolder', store: store"
-			class="myCustomClass mblFilteredEdgeToEdgeListSearchBox">
+			class="myCustomClass duiFilteredEdgeToEdgeListSearchBox">
 		<div data-dojo-type="dojox/mobile/ScrollableView">
 			<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list3"
 				data-dojo-mixins="dojox/mobile/FilteredListMixin"

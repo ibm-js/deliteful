@@ -5,13 +5,13 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<title>Opener-RoundSelectList</title>
 	<style>
-		.mblTooltip.mblOpener DIV[label='Cancel'] {
+		.duiTooltip.duiOpener DIV[label='Cancel'] {
 			display: none;
 		}
-		.mblTooltip #header1 {
+		.duiTooltip #header1 {
 			width: 300px;
 		}
-		.mblOverlay#listPicker {
+		.duiOverlay#listPicker {
 			height: 200px;
 		}
 	</style>
@@ -69,9 +69,9 @@
 	<!-- override user's custom z-index --> 
 	<div id="listPicker" style="z-index:10000;" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getSelectedRingtone, onShow:setSelectedRingtone, onBlur:function(){ return true; }">
 		<h1 id="header1" data-dojo-type="dojox/mobile/Heading" label="Ringtone">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="listPicker.hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="listPicker.hide(false)"></span>
 		</h1>
 		<div data-dojo-type="dojox/mobile/ScrollableView" selected="true" height="auto">

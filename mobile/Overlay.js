@@ -22,7 +22,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblOverlay mblOverlayHidden",
+		baseClass: "duiOverlay duiOverlayHidden",
 
 		buildRendering: function(){
 			this.inherited(arguments);
@@ -64,14 +64,14 @@ define([
 				}
 			}
 			var _domNode = this.domNode;
-			domClass.replace(_domNode, ["mblCoverv", "mblIn"], ["mblOverlayHidden", "mblRevealv", "mblOut", "mblReverse", "mblTransition"]);
+			domClass.replace(_domNode, ["duiCoverv", "duiIn"], ["duiOverlayHidden", "duiRevealv", "duiOut", "duiReverse", "duiTransition"]);
 			this.defer(function(){
 				var handler = this.own(on(_domNode, css3.name("transitionEnd"), lang.hitch(this, function(){
 					handler.remove();
-					domClass.remove(_domNode, ["mblCoverv", "mblIn", "mblTransition"]);
+					domClass.remove(_domNode, ["duiCoverv", "duiIn", "duiTransition"]);
 					this._reposition();
 				})))[0];
-				domClass.add(_domNode, "mblTransition");
+				domClass.add(_domNode, "duiTransition");
 			}, 100);
 			var skipReposition = false;
 
@@ -100,16 +100,16 @@ define([
 				this._repositionTimer = null;
 			}
 			if(has("css3-animations")){
-				domClass.replace(_domNode, ["mblRevealv", "mblOut", "mblReverse"], ["mblCoverv", "mblIn", "mblOverlayHidden", "mblTransition"]);
+				domClass.replace(_domNode, ["duiRevealv", "duiOut", "duiReverse"], ["duiCoverv", "duiIn", "duiOverlayHidden", "duiTransition"]);
 				this.defer(function(){
 					var handler = this.own(on(_domNode, css3.name("transitionEnd"), function(){
 						handler.remove();
-						domClass.replace(_domNode, ["mblOverlayHidden"], ["mblRevealv", "mblOut", "mblReverse", "mblTransition"]);
+						domClass.replace(_domNode, ["duiOverlayHidden"], ["duiRevealv", "duiOut", "duiReverse", "duiTransition"]);
 					}))[0];
-					domClass.add(_domNode, "mblTransition");
+					domClass.add(_domNode, "duiTransition");
 				}, 100);
 			}else{
-				domClass.replace(_domNode, ["mblOverlayHidden"], ["mblCoverv", "mblIn", "mblRevealv", "mblOut", "mblReverse"]);
+				domClass.replace(_domNode, ["duiOverlayHidden"], ["duiCoverv", "duiIn", "duiRevealv", "duiOut", "duiReverse"]);
 			}
 		},
 

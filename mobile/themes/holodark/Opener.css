@@ -2,6 +2,6 @@
 @import url("Overlay.css");
 @import url("Tooltip.css");
 
-.mblOpenerUnderlay {
+.duiOpenerUnderlay {
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }

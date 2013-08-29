@@ -71,10 +71,10 @@ define([
 		badge: "",
 
 		/* internal properties */	
-		baseClass: "mblTabBarButton",
+		baseClass: "duiTabBarButton",
 		// closeIcon: [private] String
 		//		CSS class for the close icon.
-		closeIcon: "mblDomButtonWhiteCross",
+		closeIcon: "duiDomButtonWhiteCross",
 
 		_selStartMethod: "touch",
 		_selEndMethod: "touch",
@@ -117,7 +117,7 @@ define([
 					if(!this.icon2){
 						this.icon2 = this.closeIcon;
 					}
-					domClass.add(this.domNode, "mblTabBarButtonClosable");
+					domClass.add(this.domNode, "duiTabBarButtonClosable");
 				}
 			}
 		},
@@ -131,7 +131,7 @@ define([
 				this.srcNodeRef.innerHTML = "";
 			}
 
-			this.labelNode = this.box = domConstruct.create("div", {className:"mblTabBarButtonLabel"}, this.domNode);
+			this.labelNode = this.box = domConstruct.create("div", {className:"duiTabBarButtonLabel"}, this.domNode);
 			
 			domAttr.set(this.domNode, "role", "tab");
 			domAttr.set(this.domNode, "aria-selected", "false");
@@ -222,17 +222,17 @@ define([
 			if(!this.getParent()){ return; } // icon may be invalid because inheritParams is not called yet
 			this._set("icon" + n, icon);
 			if(!this.iconDivNode){
-				this.iconDivNode = domConstruct.create("div", {className:"mblTabBarButtonIconArea"}, this.domNode, "first");
-				// mblTabBarButtonDiv -> mblTabBarButtonIconArea
+				this.iconDivNode = domConstruct.create("div", {className:"duiTabBarButtonIconArea"}, this.domNode, "first");
+				// duiTabBarButtonDiv -> duiTabBarButtonIconArea
 			}
 			if(!this["iconParentNode" + n]){
-				this["iconParentNode" + n] = domConstruct.create("div", {className:"mblTabBarButtonIconParent mblTabBarButtonIconParent" + n}, this.iconDivNode);
-				// mblTabBarButtonIcon -> mblTabBarButtonIconParent
+				this["iconParentNode" + n] = domConstruct.create("div", {className:"duiTabBarButtonIconParent duiTabBarButtonIconParent" + n}, this.iconDivNode);
+				// duiTabBarButtonIcon -> duiTabBarButtonIconParent
 			}
 			this["iconNode" + n] = iconUtils.setIcon(icon, this["iconPos" + n],
 				this["iconNode" + n], this.alt, this["iconParentNode" + n]);
 			this["icon" + n] = icon;
-			domClass.toggle(this.domNode, "mblTabBarButtonHasIcon", icon && icon !== "none");
+			domClass.toggle(this.domNode, "duiTabBarButtonHasIcon", icon && icon !== "none");
 		},
 		
 		_getMoveToId: function(){
@@ -290,7 +290,7 @@ define([
 			// summary:
 			//		Makes this widget in the selected or unselected state.
 			this.inherited(arguments);
-			domClass.toggle(this.domNode, "mblTabBarButtonSelected", selected);
+			domClass.toggle(this.domNode, "duiTabBarButtonSelected", selected);
 			domAttr.set(this.domNode, "aria-selected", selected ? "true" : "false");
 			if(this._moveTo){
 				var tabPanelNode = dom.byId(this._moveTo);

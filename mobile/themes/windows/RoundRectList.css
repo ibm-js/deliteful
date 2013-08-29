@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,30 +13,30 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.RoundRectList */
-.mblRoundRectList {
+.duiRoundRectList {
   margin: 7px 9px 16px;
   padding: 0;
   border: 1px solid #cccccc;
   border-radius: 8px;
   background-color: #ffffff;
 }
-.mblRoundRectList .mblListItem:first-child,
-.mblRoundRectList .mblEdgeToEdgeCategory:first-child {
+.duiRoundRectList .duiListItem:first-child,
+.duiRoundRectList .duiEdgeToEdgeCategory:first-child {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-.mblRoundRectList .mblListItem:last-child,
-.mblRoundRectList .mblEdgeToEdgeCategory:last-child {
+.duiRoundRectList .duiListItem:last-child,
+.duiRoundRectList .duiEdgeToEdgeCategory:last-child {
   border-bottom-width: 0;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.mblRoundRectList {
+.duiRoundRectList {
   padding: 0;
   border: none;
   background-color: transparent;
   margin: 0px;
 }
-.mblRoundRectList .mblListItem {
+.duiRoundRectList .duiListItem {
   border-radius: 0px !important;
 }

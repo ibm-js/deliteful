@@ -17,12 +17,12 @@ define([
 		// filterBoxClass: String
 		//		The name of the CSS class added to the DOM node inside which is placed the 
 		//		dojox/mobile/SearchBox created when mixing dojox/mobile/FilteredListMixin.
-		//		The default value is "mblFilteredEdgeToEdgeListSearchBox". 
-		filterBoxClass: "mblFilteredEdgeToEdgeListSearchBox",
+		//		The default value is "duiFilteredEdgeToEdgeListSearchBox". 
+		filterBoxClass: "duiFilteredEdgeToEdgeListSearchBox",
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			this.domNode.className = "mblEdgeToEdgeList";
+			this.domNode.className = "duiEdgeToEdgeList";
 		}
 	});
 });

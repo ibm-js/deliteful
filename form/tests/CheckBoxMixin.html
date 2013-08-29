@@ -82,7 +82,7 @@
 						doh.t(!dijit_attributes.focusNode.checked, 'dijit HTML element unchecked');
 						doh.f(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass not checked");
 						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "mblRedButton"), "dijit original class");
+						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
 						doh.is("something else", dijit_attributes.focusNode.value, 'dijit HTML element value');
 					}
 	 			},
@@ -100,7 +100,7 @@
 						doh.t(!mobile_attributes.focusNode.checked, 'mobile HTML element unchecked');
 						doh.f(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass+"Checked"), "mobile baseClass not checked");
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass), "mobile baseClass");
-						doh.t(dojo.hasClass(mobile_attributes.domNode, "mblRedButton"), "mobile original class");
+						doh.t(dojo.hasClass(mobile_attributes.domNode, "duiRedButton"), "mobile original class");
 						doh.is("something else", mobile_attributes.focusNode.value, 'mobile HTML element value');
 					}
 	 			}
@@ -229,8 +229,8 @@
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input id="dijit_attributes"  aria-label="check1dijit" data-dojo-type="dijit/form/CheckBox" data-dojo-props='checked: true, "class":"mblRedButton", value:"something"'/></td>
-			<td class="layout"><input type="checkbox" aria-label="check1mobile" value="something" class="mblRedButton" checked id="mobile_attributes" dojoType="dojox/mobile/CheckBox"/></td>
+			<td class="layout"><input id="dijit_attributes"  aria-label="check1dijit" data-dojo-type="dijit/form/CheckBox" data-dojo-props='checked: true, "class":"duiRedButton", value:"something"'/></td>
+			<td class="layout"><input type="checkbox" aria-label="check1mobile" value="something" class="duiRedButton" checked id="mobile_attributes" dojoType="dojox/mobile/CheckBox"/></td>
 		</tr>
 		<tr>
 		<tr>

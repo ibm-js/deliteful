@@ -11,10 +11,10 @@
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 	<script language="JavaScript" type="text/javascript">
 		var BUTTON_LABEL = "Button";
-		var WIDGET_CLASSNAME1 = "mblToolBarButton";
-		var WIDGET_CLASSNAME2 = "mblToolBarButtonHasRightArrow";
-		var WIDGET_ICON_CLASSNAME1 = "mblDomButtonWhiteSearch";
-		var WIDGET_ICON_CLASSNAME2 = "mblDomButton";
+		var WIDGET_CLASSNAME1 = "duiToolBarButton";
+		var WIDGET_CLASSNAME2 = "duiToolBarButtonHasRightArrow";
+		var WIDGET_ICON_CLASSNAME1 = "duiDomButtonWhiteSearch";
+		var WIDGET_ICON_CLASSNAME2 = "duiDomButton";
 
 		require([
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
@@ -34,7 +34,7 @@
 			}
 
 			function _createButtonProgrammatically(placeHolderId){
-				var button = new Button({label: BUTTON_LABEL, arrow: "right", icon: "mblDomButtonWhiteSearch"});
+				var button = new Button({label: BUTTON_LABEL, arrow: "right", icon: "duiDomButtonWhiteSearch"});
 				runner.assertNotEqual(null, button, placeHolderId);
 				domConst.place(button.domNode, placeHolderId, "replace");
 				button.startup();
@@ -42,7 +42,7 @@
 			}
 
 			function _createButtonProgrammaticallyWithSourceNodeReference(buttonId){
-				var button = new Button({label: BUTTON_LABEL, arrow: "right", icon: "mblDomButtonWhiteSearch"}, buttonId);
+				var button = new Button({label: BUTTON_LABEL, arrow: "right", icon: "duiDomButtonWhiteSearch"}, buttonId);
 				button.startup();
 				return button;
 			}
@@ -92,7 +92,7 @@
 	<h1>View 1</h1>
 
 	<div id="view1-button1" data-dojo-type="dojox/mobile/ToolBarButton"
-		 data-dojo-props="arrow:'right', icon:'mblDomButtonWhiteSearch'">Button
+		 data-dojo-props="arrow:'right', icon:'duiDomButtonWhiteSearch'">Button
 	</div>
 	<div id="view1-button2"></div>
 	<div id="view1-button3"></div>
@@ -101,7 +101,7 @@
 	<h1>View 2</h1>
 
 	<div id="view2-button1" data-dojo-type="dojox/mobile/ToolBarButton"
-		 data-dojo-props="arrow:'right', icon:'mblDomButtonWhiteSearch'">Button
+		 data-dojo-props="arrow:'right', icon:'duiDomButtonWhiteSearch'">Button
 	</div>
 	<div id="view2-button2"></div>
 	<div id="view2-button3"></div>

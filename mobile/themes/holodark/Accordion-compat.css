@@ -1,8 +1,8 @@
 /* dojox.mobile.Accordion */
-.mblAccordionTitleSelected {
+.duiAccordionTitleSelected {
   background-color: #33b5e5;
 }
-.dj_gecko .mblAccordionTitle {
+.dj_gecko .duiAccordionTitle {
   background-image: none;
   background-color: #333333;
   border-style: none;
@@ -11,18 +11,18 @@
   border-top-width: 1px;
   border-radius: 2px;
 }
-.dj_gecko .mblAccordionTitleSelected {
+.dj_gecko .duiAccordionTitleSelected {
   background-color: #33b5e5;
 }
-.dj_ff3 .mblAccordionRoundRect {
+.dj_ff3 .duiAccordionRoundRect {
   -moz-border-radius: 8px;
 }
-.dj_ff3 .mblAccordionRoundRect .mblAccordionTitle:first-child {
+.dj_ff3 .duiAccordionRoundRect .duiAccordionTitle:first-child {
   -moz-border-radius-topleft: 8px;
   -moz-border-radius-topright: 8px;
 }
-.dj_ff3 .mblAccordionRoundRect .mblAccordionTitleLast,
-.dj_ff3 .mblAccordionRoundRect .mblAccordionPane:last-child {
+.dj_ff3 .duiAccordionRoundRect .duiAccordionTitleLast,
+.dj_ff3 .duiAccordionRoundRect .duiAccordionPane:last-child {
   -moz-border-radius-bottomleft: 8px;
   -moz-border-radius-bottomright: 8px;
 }

@@ -2,6 +2,6 @@
 .dj_gecko .dijitPopup {
   -moz-box-shadow: none;
 }
-.dj_gecko .mblComboBoxMenuItemSelected {
+.dj_gecko .duiComboBoxMenuItemSelected {
   background-image: -moz-linear-gradient(top, #bbbbbb 0%, #999999 100%);
 }

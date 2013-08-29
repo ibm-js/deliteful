@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.Heading */
-.mblHeading {
+.duiHeading {
   position: relative;
   margin: 0;
   width: 100%;
@@ -36,20 +36,20 @@
   font-size: 17pt;
   overflow: visible;
 }
-.mblHeading * {
+.duiHeading * {
   z-index: 2;
 }
-.mblHeadingDivTitle {
+.duiHeadingDivTitle {
   position: absolute;
   width: 100%;
   display: none;
   left: 0;
   z-index: 1;
 }
-.mblHeadingCenterTitle .mblHeadingDivTitle {
+.duiHeadingCenterTitle .duiHeadingDivTitle {
   display: block;
 }
-.mblHeadingCenterTitle .mblHeadingSpanTitle {
+.duiHeadingCenterTitle .duiHeadingSpanTitle {
   display: none;
 }
 h1,
@@ -62,27 +62,27 @@ h6 {
   font-weight: 400;
   margin: 0;
 }
-h1.mblHeading {
+h1.duiHeading {
   font-size: 19pt;
 }
-h2.mblHeading {
+h2.duiHeading {
   font-size: 17pt;
 }
-h3.mblHeading {
+h3.duiHeading {
   font-size: 15pt;
 }
-h4.mblHeading {
+h4.duiHeading {
   font-size: 11pt;
 }
-h5.mblHeading {
+h5.duiHeading {
   font-size: 10pt;
 }
-h6.mblHeading {
+h6.duiHeading {
   font-size: 9pt;
 }
-.mblHeading .mblToolBarButton ~ .mblHeadingDivTitle {
+.duiHeading .duiToolBarButton ~ .duiHeadingDivTitle {
   text-align: center;
 }
-.mblHeading .mblToolBarButton.mblToolBarButtonHasRightArrow {
+.duiHeading .duiToolBarButton.duiToolBarButtonHasRightArrow {
   float: right;
 }

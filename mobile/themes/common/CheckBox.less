@@ -1,25 +1,25 @@
 /* dojox.mobile.CheckBox */
-.mblCheckBox {
+.duiCheckBox {
 	position: relative;
 	margin: -0.5em 3px 0.3em 4px;
 	width: 1em;
 	height: 1em;
 	border-style: outset;
 	border-width: 1px;
-	.mbl-button-background-image();
+	.dui-button-background-image();
 	font: inherit;
 	cursor: pointer;
 	.appearance(none);
 	.tap-highlight-color(rgba(255,255,255,0));
 	.transform(translateY(0.45em));
-	.mblCheckBox-styles;
+	.duiCheckBox-styles;
 }
-.mblCheckBoxSelected {
-	.mbl-button-selected-background-image();
+.duiCheckBoxSelected {
+	.dui-button-selected-background-image();
 }
-.mblCheckBoxChecked,
-.mblCheckBox:checked {
-	.mbl-button-checked-background-image();
+.duiCheckBoxChecked,
+.duiCheckBox:checked {
+	.dui-button-checked-background-image();
 	&::after {
 		position: absolute;
 		content: "";
@@ -31,12 +31,12 @@
 		border-style: none solid solid none;
 		.transform(rotate(45deg));
 		.transform-origin(50% 50%);
-		.mblCheckBoxChecked-after-styles;
+		.duiCheckBoxChecked-after-styles;
 	}
-	&.mblCheckBoxSelected {
-		.mbl-blue-button-selected-background-image();
+	&.duiCheckBoxSelected {
+		.dui-blue-button-selected-background-image();
 		&::after {
-			.mblCheckBoxChecked-mblCheckBoxSelected-after-styles;
+			.duiCheckBoxChecked-duiCheckBoxSelected-after-styles;
 		}
 	}
 }

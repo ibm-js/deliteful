@@ -1,10 +1,10 @@
 /* === Plus Button ==*/
-.mblDomButtonGrayPlus {
+.duiDomButtonGrayPlus {
   position: relative;
   width: 29px;
   height: 29px;
 }
-.mblDomButtonGrayPlus > div {
+.duiDomButtonGrayPlus > div {
   /* horiz line */
 
   position: absolute;
@@ -18,7 +18,7 @@
   border-top: 1px solid #525152;
   border-radius: 2px;
 }
-.mblDomButtonGrayPlus > div > div {
+.duiDomButtonGrayPlus > div > div {
   /* vert line */
 
   position: absolute;

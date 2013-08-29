@@ -1,13 +1,13 @@
 /* dojox.mobile.Heading */
-.mblHeading {
+.duiHeading {
   background-image: url(compat/heading-bg.png);
 }
-.mblHeadingSpanTitle {
+.duiHeadingSpanTitle {
   white-space: normal;
 }
-.dj_gecko .mblHeading {
+.dj_gecko .duiHeading {
   background-image: none;
 }
-.mblHeading {
+.duiHeading {
   background-image: none;
 }

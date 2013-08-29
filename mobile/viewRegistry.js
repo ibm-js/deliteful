@@ -55,7 +55,7 @@ define([
 			//		Gets the parent view of the specified view.
 			// returns: dojox/mobile/View
 			for(var v = view.getParent(); v; v = v.getParent()){
-				if(domClass.contains(v.domNode, "mblView")){ return v; }
+				if(domClass.contains(v.domNode, "duiView")){ return v; }
 			}
 			return null;
 		},
@@ -72,7 +72,7 @@ define([
 			//		Gets the view containing the specified DOM node.
 			// returns: dojox/mobile/View
 			for(var n = node; n && n.tagName !== "BODY"; n = n.parentNode){
-				if(n.nodeType === 1 && domClass.contains(n, "mblView")){
+				if(n.nodeType === 1 && domClass.contains(n, "duiView")){
 					return registry.byNode(n);
 				}
 			}

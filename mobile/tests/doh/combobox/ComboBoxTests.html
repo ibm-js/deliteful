@@ -66,19 +66,19 @@
 				runner.assertNotEqual(null, dropDownNode, "can't find dropdown node for " + comboBox.toString());
 				runner.assertEqual("block", domStyle.get(dropDownNode, "display"), " dropdown node for " + comboBox.toString() + " should be visible after click");
 				// Verify available options
-				_checkComboBoxOptions(comboBox, [{containsClass: "mblComboBoxMenuPreviousButton", displayed: false},
+				_checkComboBoxOptions(comboBox, [{containsClass: "duiComboBoxMenuPreviousButton", displayed: false},
 		                                          {label: "Apple", displayed: true},
 		                                          {label: "Banana", displayed: true},
 		                                          {label: "Cherry", displayed: true},
-		                                          {containsClass: "mblComboBoxMenuNextButton", displayed: false}]);
+		                                          {containsClass: "duiComboBoxMenuNextButton", displayed: false}]);
 				// Type letter c in the input field
  				comboBox.domNode.value = "c";
 				fireOnInput(comboBox.domNode);
 				setTimeout(def.getTestErrback(function(){
 					// Verify available options
-					_checkComboBoxOptions(comboBox, [{containsClass: "mblComboBoxMenuPreviousButton", displayed: false},
+					_checkComboBoxOptions(comboBox, [{containsClass: "duiComboBoxMenuPreviousButton", displayed: false},
 													{label: "Cherry", displayed: true},
-													{containsClass: "mblComboBoxMenuNextButton", displayed: false}]);
+													{containsClass: "duiComboBoxMenuNextButton", displayed: false}]);
 					// click in the dropdown to select an option
 					fireOnClick(dom.byId(comboBox.id + "_popup0"));
 					setTimeout(def.getTestCallback(function(){

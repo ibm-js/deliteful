@@ -1,23 +1,23 @@
-.mblIconMenuItemRtl {
+.duiIconMenuItemRtl {
   float: right;
 }
-.mblIconMenuItemRtl.mblIconMenuItemFirstColumn {
+.duiIconMenuItemRtl.duiIconMenuItemFirstColumn {
   border-right: none;
   border-left: 1px solid rgba(96, 96, 96, 0.85);
 }
-.mblIconMenuItemRtl.mblIconMenuItemFirstRow.mblIconMenuItemFirstColumn {
+.duiIconMenuItemRtl.duiIconMenuItemFirstRow.duiIconMenuItemFirstColumn {
   border-top-right-radius: 6px;
   border-top-left-radius: 0px;
 }
-.mblIconMenuItemRtl.mblIconMenuItemFirstRow.mblIconMenuItemLastColumn {
+.duiIconMenuItemRtl.duiIconMenuItemFirstRow.duiIconMenuItemLastColumn {
   border-top-right-radius: 0px;
   border-top-left-radius: 6px;
 }
-.mblIconMenuItemRtl.mblIconMenuItemLastRow.mblIconMenuItemFirstColumn {
+.duiIconMenuItemRtl.duiIconMenuItemLastRow.duiIconMenuItemFirstColumn {
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 0px;
 }
-.mblIconMenuItemRtl.mblIconMenuItemLastRow.mblIconMenuItemLastColumn {
+.duiIconMenuItemRtl.duiIconMenuItemLastRow.duiIconMenuItemLastColumn {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 6px;
 }

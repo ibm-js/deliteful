@@ -7,7 +7,7 @@
 	<title>Test Opener with ColorPalette</title>
 
 	<link href="../themes/common/dijit/dijit.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','Overlay','Tooltip']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Overlay','Tooltip']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -38,7 +38,7 @@
 		html, body{
 			overflow: hidden;
 		}
-		.mblTooltip.mblOpener DIV[label='Cancel'] {
+		.duiTooltip.duiOpener DIV[label='Cancel'] {
 			display: none;
 		}
 	</style>
@@ -54,9 +54,9 @@
 
 	<div id="colorPicker1" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getColor1, lazy:true">
 		<h1 data-dojo-type="dojox/mobile/Heading" label="Select a Color">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('colorPicker1').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('colorPicker1').hide(false)"></span>
 		</h1>
 		<div id="colorPalette" dojoType='dijit.ColorPalette'></div>

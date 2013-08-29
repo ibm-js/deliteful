@@ -16,10 +16,10 @@ define([
 			if(!this.isLeftToRight()){
 				this.containerNode.style.left = "auto";
 				domStyle.set(this.containerNode, { position:"absolute", top:0, right:0 });
-				domClass.remove(this.previousButton, "mblComboBoxMenuItem");
-				domClass.add(this.previousButton, "mblComboBoxMenuItemRtl");
-				domClass.remove(this.nextButton, "mblComboBoxMenuItem");
-				domClass.add(this.nextButton, "mblComboBoxMenuItemRtl");
+				domClass.remove(this.previousButton, "duiComboBoxMenuItem");
+				domClass.add(this.previousButton, "duiComboBoxMenuItemRtl");
+				domClass.remove(this.nextButton, "duiComboBoxMenuItem");
+				domClass.add(this.nextButton, "duiComboBoxMenuItemRtl");
 			}
 		}
 		

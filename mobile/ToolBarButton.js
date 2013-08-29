@@ -48,18 +48,18 @@ define([
 		//		CSS class for the default color.
 		//		Note: If this button has an arrow (typically back buttons on iOS),
 		//		the class selector used for it is the value of defaultColor + "45".
-		//		For example, by default the arrow selector is "mblColorDefault45".
-		defaultColor: "mblColorDefault",
+		//		For example, by default the arrow selector is "duiColorDefault45".
+		defaultColor: "duiColorDefault",
 
 		// selColor: String
 		//		CSS class for the selected color.
 		//		Note: If this button has an arrow (typically back buttons on iOS),
 		//		the class selector used for it is the value of selColor + "45".
-		//		For example, by default the selected arrow selector is "mblColorDefaultSel45".
-		selColor: "mblColorDefaultSel",
+		//		For example, by default the selected arrow selector is "duiColorDefaultSel45".
+		selColor: "duiColorDefaultSel",
 
 		/* internal properties */
-		baseClass: "mblToolBarButton",
+		baseClass: "duiToolBarButton",
 
 		_selStartMethod: "touch",
 		_selEndMethod: "touch",
@@ -76,38 +76,38 @@ define([
 
 			if(this.light && !this.arrow && (!this.icon || !this.label)){
 				this.labelNode = this.tableNode = this.bodyNode = this.iconParentNode = this.domNode;
-				domClass.add(this.domNode, this.defaultColor + " mblToolBarButtonBody" +
-							 (this.icon ? " mblToolBarButtonLightIcon" : " mblToolBarButtonLightText"));
+				domClass.add(this.domNode, this.defaultColor + " duiToolBarButtonBody" +
+							 (this.icon ? " duiToolBarButtonLightIcon" : " duiToolBarButtonLightText"));
 				return;
 			}
 
 			this.domNode.innerHTML = "";
 			if(this.arrow === "left" || this.arrow === "right"){
 				this.arrowNode = domConstruct.create("span", {
-					className: "mblToolBarButtonArrow mblToolBarButton" +
+					className: "duiToolBarButtonArrow duiToolBarButton" +
 					(this.arrow === "left" ? "Left" : "Right") + "Arrow " +
 					(has("ie") < 10 ? "" : (this.defaultColor + " " + this.defaultColor + "45"))
 				}, this.domNode);
-				domClass.add(this.domNode, "mblToolBarButtonHas" +
+				domClass.add(this.domNode, "duiToolBarButtonHas" +
 					(this.arrow === "left" ? "Left" : "Right") + "Arrow");
 			}
-			this.bodyNode = domConstruct.create("span", {className:"mblToolBarButtonBody"}, this.domNode);
+			this.bodyNode = domConstruct.create("span", {className:"duiToolBarButtonBody"}, this.domNode);
 			this.tableNode = domConstruct.create("table", {cellPadding:"0",cellSpacing:"0",border:"0"}, this.bodyNode);
 			if(!this.label && this.arrow){
-				// The class mblToolBarButtonText is needed for arrow shape too.
+				// The class duiToolBarButtonText is needed for arrow shape too.
 				// If the button has a label, the class is set by _setLabelAttr. If no label, do it here.
-				this.tableNode.className = "mblToolBarButtonText";
+				this.tableNode.className = "duiToolBarButtonText";
 			}
 
 			var row = this.tableNode.insertRow(-1);
 			this.iconParentNode = row.insertCell(-1);
 			this.labelNode = row.insertCell(-1);
-			this.iconParentNode.className = "mblToolBarButtonIcon";
-			this.labelNode.className = "mblToolBarButtonLabel";
+			this.iconParentNode.className = "duiToolBarButtonIcon";
+			this.labelNode.className = "duiToolBarButtonLabel";
 
 			if(this.icon && this.icon !== "none" && this.label){
-				domClass.add(this.domNode, "mblToolBarButtonHasIcon");
-				domClass.add(this.bodyNode, "mblToolBarButtonLabeledIcon");
+				domClass.add(this.domNode, "duiToolBarButtonHasIcon");
+				domClass.add(this.bodyNode, "duiToolBarButtonLabeledIcon");
 			}
 
 			domClass.add(this.bodyNode, this.defaultColor);
@@ -150,7 +150,7 @@ define([
 			// summary:
 			//		Sets the button label text.
 			this.inherited(arguments);
-			domClass.toggle(this.tableNode, "mblToolBarButtonText", text || this.arrow); // also needed if only arrow
+			domClass.toggle(this.tableNode, "duiToolBarButtonText", text || this.arrow); // also needed if only arrow
 		},
 
 		_setSelectedAttr: function(/*Boolean*/selected){
@@ -171,8 +171,8 @@ define([
 					replace(this.arrowNode, this.defaultColor, this.selColor);
 				}
 			}
-			domClass.toggle(this.domNode, "mblToolBarButtonSelected", selected);
-			domClass.toggle(this.bodyNode, "mblToolBarButtonBodySelected", selected);
+			domClass.toggle(this.domNode, "duiToolBarButtonSelected", selected);
+			domClass.toggle(this.bodyNode, "duiToolBarButtonBodySelected", selected);
 		}
 	});
 	return has("dojo-bidi") ? declare("dojox.mobile.ToolBarButton", [ToolBarButton, BidiToolBarButton]) : ToolBarButton;

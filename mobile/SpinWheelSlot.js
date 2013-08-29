@@ -69,7 +69,7 @@ define([
 		_setTabIndexAttr: "", // sets tabIndex to domNode
 
 		/* internal properties */	
-		baseClass: "mblSpinWheelSlot",
+		baseClass: "duiSpinWheelSlot",
 		// maxSpeed: [private] Number
 		//		Maximum speed.
 		maxSpeed: 500,
@@ -104,19 +104,19 @@ define([
 				}
 			}
 
-			this.containerNode = domConstruct.create("div", {className:"mblSpinWheelSlotContainer"});
+			this.containerNode = domConstruct.create("div", {className:"duiSpinWheelSlotContainer"});
 			this.containerNode.style.height
 				= (win.global.innerHeight||win.doc.documentElement.clientHeight) * 2 + "px"; // must bigger than the screen
 			this.panelNodes = [];
 			for(var k = 0; k < 3; k++){
-				this.panelNodes[k] = domConstruct.create("div", {className:"mblSpinWheelSlotPanel"});
+				this.panelNodes[k] = domConstruct.create("div", {className:"duiSpinWheelSlotPanel"});
 				var len = this.items.length;
 				if(len > 0){ // if the slot is not empty
 					var n = Math.ceil(this.minItems / len);
 					for(j = 0; j < n; j++){
 						for(i = 0; i < len; i++){
 							domConstruct.create("div", {
-								className: "mblSpinWheelSlotLabel",
+								className: "duiSpinWheelSlotLabel",
 								name: this.items[i][0],
 								"data-mobile-val": this.items[i][1],
 								innerHTML: this.items[i][1]
@@ -127,7 +127,7 @@ define([
 				this.containerNode.appendChild(this.panelNodes[k]);
 			}
 			this.domNode.appendChild(this.containerNode);
-			this.touchNode = domConstruct.create("div", {className:"mblSpinWheelSlotTouch"}, this.domNode);
+			this.touchNode = domConstruct.create("div", {className:"duiSpinWheelSlotTouch"}, this.domNode);
 			this.setSelectable(this.domNode, false);
 
 			if(this.value === "" && this.items.length > 0){
@@ -148,10 +148,10 @@ define([
 						var container = slots[i].containerNode;
 
 						if(containerNode !== container){
-							domClass.remove(container, "mblSelectedSlot");
+							domClass.remove(container, "duiSelectedSlot");
 							container.selected = false;
 						}else{
-							domClass.add(containerNode, "mblSelectedSlot");
+							domClass.add(containerNode, "duiSelectedSlot");
 						}
 					}
 
@@ -167,7 +167,7 @@ define([
 						var item = self.getCenterItem();
 
 						if(item){
-							domClass.remove(item, "mblSelectedSlotItem");
+							domClass.remove(item, "duiSelectedSlotItem");
 						}
 					});
 
@@ -175,8 +175,8 @@ define([
 						releaseHandler.remove();
 						moveHandler.remove();
 						containerNode.selected ?
-							domClass.remove(containerNode, "mblSelectedSlot") :
-							domClass.add(containerNode, "mblSelectedSlot");
+							domClass.remove(containerNode, "duiSelectedSlot") :
+							domClass.add(containerNode, "duiSelectedSlot");
 
 						containerNode.selected = !containerNode.selected;
 					});
@@ -186,10 +186,10 @@ define([
 						var item = self.getCenterItem();
 
 						if(self.previousCenterItem) {
-							domClass.remove(self.previousCenterItem, "mblSelectedSlotItem");
+							domClass.remove(self.previousCenterItem, "duiSelectedSlotItem");
 						}
 
-						domClass.add(item, "mblSelectedSlotItem");
+						domClass.add(item, "duiSelectedSlotItem");
 						self.previousCenterItem = item;
 				});
 			}
@@ -210,7 +210,7 @@ define([
 			if(has("windows-theme")){
 				this.previousCenterItem = this.getCenterItem();
 				if(this.previousCenterItem){
-					domClass.add(this.previousCenterItem, "mblSelectedSlotItem");
+					domClass.add(this.previousCenterItem, "duiSelectedSlotItem");
 				}
 			}
 		},
@@ -280,7 +280,7 @@ define([
 			//		Sets the color of the specified item as blue.
 			array.forEach(this.panelNodes, function(panel){
 				array.forEach(panel.childNodes, function(node){
-					domClass.toggle(node, color || "mblSpinWheelSlotLabelBlue", node.innerHTML === value);
+					domClass.toggle(node, color || "duiSpinWheelSlotLabelBlue", node.innerHTML === value);
 				}, this);
 			}, this);
 		},
@@ -290,7 +290,7 @@ define([
 			//		Grays out the items with an index higher or equal to the specified number.
 			array.forEach(this.panelNodes, function(panel){
 				for(var i = 0; i < panel.childNodes.length; i++){
-					domClass.toggle(panel.childNodes[i], "mblSpinWheelSlotLabelGray", i >= n);
+					domClass.toggle(panel.childNodes[i], "duiSpinWheelSlotLabelGray", i >= n);
 				}
 			});
 		},

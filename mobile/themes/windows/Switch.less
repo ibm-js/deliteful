@@ -2,12 +2,12 @@
 @import "../common/Switch.less";
 
 /* Default Shape */
-.mblSwDefaultShape {
-	.mblSwSquareShape-styles;
+.duiSwDefaultShape {
+	.duiSwSquareShape-styles;
 }
 
-.mblSwitchBgLeft {
-	background-color: @mbl-switch-bg-left-background-color;
+.duiSwitchBgLeft {
+	background-color: @dui-switch-bg-left-background-color;
 	height: 14px;
 	margin: auto 4px;
 	top: 50%;
@@ -17,7 +17,7 @@
 	z-index: 1;
 }
 
-.mblSwitch {
+.duiSwitch {
 	width: 65px;
 	float: right;
 	display: block;
@@ -35,18 +35,18 @@
 		z-index: 2;
 	}
 
-	&.mblSwitchOn .mblSwitchKnob {
+	&.duiSwitchOn .duiSwitchKnob {
 	  left: 45px !important;
 	}
 
-	& .mblSwitchInner{
+	& .duiSwitchInner{
 		width: 100%;
 	}
 }
 
-.mblSwitch[disabled] {
-	& .mblSwitchKnob,
-	& .mblSwitchBgLeft {
+.duiSwitch[disabled] {
+	& .duiSwitchKnob,
+	& .duiSwitchBgLeft {
 		background-color: @win-disabled-color;
 	}
 	&:before {
@@ -54,11 +54,11 @@
 	}
 }
 
-.mblSwitchText {
+.duiSwitchText {
 	display: none !important;
 }
 
-.mblSwitchLabel {
+.duiSwitchLabel {
 	color: @win-foreground-color;
 	position: relative;
 	float: left;
@@ -66,7 +66,7 @@
 	margin: 3px 0;
 }
 
-.mblSwitchContainer {
+.duiSwitchContainer {
 	width: 100%;
 	min-height: 27px;
 	.default-vertical-margin;

@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   background-repeat: no-repeat;
 }
 /* dojox.mobile.TextBox */
-.mblTextBox {
+.duiTextBox {
   height: 22px;
   border-width: 1px;
   border-style: inset;
@@ -32,17 +32,17 @@
   width: calc(100% - 10px);
   height: 2em;
 }
-.mblTextBox:active,
-.mblTextBox:focus {
+.duiTextBox:active,
+.duiTextBox:focus {
   border-color: Highlight;
   background-color: white;
   color: black;
 }
-.mblTextBox[disabled] {
+.duiTextBox[disabled] {
   border-color: #808080;
   background-color: transparent;
   color: #808080;
 }
-.mblTextBox::-ms-clear {
+.duiTextBox::-ms-clear {
   display: none;
 }

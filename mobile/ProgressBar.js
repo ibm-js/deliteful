@@ -33,15 +33,15 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblProgressBar",
+		baseClass: "duiProgressBar",
 
 		buildRendering: function(){
 			this.inherited(arguments);
 			this.progressNode = domConstruct.create("div", {
-				className: "mblProgressBarProgress"
+				className: "duiProgressBarProgress"
 			}, this.domNode);
 			this.msgNode = domConstruct.create("div", {
-				className: "mblProgressBarMsg"
+				className: "duiProgressBarMsg"
 			}, this.domNode);
 		},
 
@@ -56,8 +56,8 @@ define([
 			var percent = Math.min(100, (value.indexOf("%") != -1 ?
 				parseFloat(value) : this.maximum ? 100 * value / this.maximum : 0));
 			this.progressNode.style.width = percent + "%";
-			domClass.toggle(this.progressNode, "mblProgressBarNotStarted", !percent);
-			domClass.toggle(this.progressNode, "mblProgressBarComplete", percent == 100);
+			domClass.toggle(this.progressNode, "duiProgressBarNotStarted", !percent);
+			domClass.toggle(this.progressNode, "duiProgressBarComplete", percent == 100);
 			this.onChange(value, this.maximum, percent);
 		},
 

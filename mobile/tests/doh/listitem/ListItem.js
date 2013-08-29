@@ -6,23 +6,23 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					verifyListItem("dojox_mobile_ListItem_0", 'External View #1 (sync)', '', "mblDomButtonArrow", true, true, false, false, /i-icon-1.png/i);
-					verifyListItem("dojox_mobile_ListItem_1", 'External View #2 (async)', '', "mblDomButtonArrow", true, true, false);
-					verifyListItem("dojox_mobile_ListItem_2", 'External View #3 (sync)', '', "mblDomButtonArrow", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_0", 'External View #1 (sync)', '', "duiDomButtonArrow", true, true, false, false, /i-icon-1.png/i);
+					verifyListItem("dojox_mobile_ListItem_1", 'External View #2 (async)', '', "duiDomButtonArrow", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_2", 'External View #3 (sync)', '', "duiDomButtonArrow", true, true, false);
 					verifyListItem("dojox_mobile_ListItem_3", 'Video', 'Off', "", false, false, false);
 					verifyListItem("dojox_mobile_ListItem_4", 'Maps', 'VPN', "", true, false, false);
 					verifyListItem("dojox_mobile_ListItem_5", 'Jack Coleman', '', "", false, false, false);
-					verifyListItem("dojox_mobile_ListItem_6", 'Sounds', '', "mblDomButtonArrow", true, true, false);
-					verifyListItem("dojox_mobile_ListItem_7", 'Brightness', '', "mblDomButtonArrow", true, true, false);
-					verifyListItem("dojox_mobile_ListItem_8", 'Wallpaper', '', "mblDomButtonArrow", true, true, false);
-					verifyListItem("dojox_mobile_ListItem_9", 'XX Widget', '', "mblDomButtonBluePlus", true, true, false);
-					verifyListItem("dojox_mobile_ListItem_10", 'YY Widget', '', "mblDomButtonRedMinus", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_6", 'Sounds', '', "duiDomButtonArrow", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_7", 'Brightness', '', "duiDomButtonArrow", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_8", 'Wallpaper', '', "duiDomButtonArrow", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_9", 'XX Widget', '', "duiDomButtonBluePlus", true, true, false);
+					verifyListItem("dojox_mobile_ListItem_10", 'YY Widget', '', "duiDomButtonRedMinus", true, true, false);
 					
 					var txt = 'See location in applications (such as Maps) using wireless networks';
-					verifyListItem("dojox_mobile_ListItem_11", txt, '', "mblDomButtonCheckboxOff", false, true, false, true);
+					verifyListItem("dojox_mobile_ListItem_11", txt, '', "duiDomButtonCheckboxOff", false, true, false, true);
 					
 					txt = 'When locating, accurate to street level (uncheck to conserve battery)';
-					verifyListItem("dojox_mobile_ListItem_12", txt, '', "mblDomButtonCheckboxOn", false, true, false, true);
+					verifyListItem("dojox_mobile_ListItem_12", txt, '', "duiDomButtonCheckboxOn", false, true, false, true);
 
 					verifyListItem("dojox_mobile_ListItem_13", 'Set unlock pattern', '', "", false, false, false);
 				}));
@@ -42,7 +42,7 @@ dojo.addOnLoad(function(){
 				doh.assertTrue(demoWidget.get("anchorLabel"), 'get("anchorLabel")');
 				doh.assertEqual("Value Changed", demoWidget.get("rightText"));
 
-				verifyListItem("dojox_mobile_ListItem_0", 'External View #1 (sync)', 'Value Changed', "mblDomButtonArrow", true, true, false, false, null, true);
+				verifyListItem("dojox_mobile_ListItem_0", 'External View #1 (sync)', 'Value Changed', "duiDomButtonArrow", true, true, false, false, null, true);
 			}
 		},
 		{
@@ -61,7 +61,7 @@ dojo.addOnLoad(function(){
 				doh.assertEqual(1600, demoWidget.get("_duration"));
 				doh.assertEqual("Value Changed", demoWidget.get("label"));
 
-				verifyListItem("dojox_mobile_ListItem_1", 'Value Changed', '', "mblDomButtonArrow", true, true, false, false, /i-icon-4.png/i);
+				verifyListItem("dojox_mobile_ListItem_1", 'Value Changed', '', "duiDomButtonArrow", true, true, false, false, /i-icon-4.png/i);
 			}
 		},
 		{
@@ -75,7 +75,7 @@ dojo.addOnLoad(function(){
 				doh.assertEqual("0,116,29,29", demoWidget.get("iconPos"));
 				doh.assertEqual("fade", demoWidget.get("transition"));
 
-				verifyListItem("dojox_mobile_ListItem_6", 'Sounds', '', "mblDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
+				verifyListItem("dojox_mobile_ListItem_6", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
 			}
 		},
 		{
@@ -97,9 +97,9 @@ dojo.addOnLoad(function(){
 			timeout: 1000,
 			runTest: function(){
 				var demoWidget = dijit.byId("dojox_mobile_ListItem_9");
-				demoWidget.set({rightIcon:"mblDomButtonRedMinus"});
-				verifyListItem("dojox_mobile_ListItem_9", 'XX Widget', '', "mblDomButtonRedMinus", true, true, false);
-//							doh.assertEqual("mblDomButtonRedMinus", demoWidget.get("icon"));
+				demoWidget.set({rightIcon:"duiDomButtonRedMinus"});
+				verifyListItem("dojox_mobile_ListItem_9", 'XX Widget', '', "duiDomButtonRedMinus", true, true, false);
+//							doh.assertEqual("duiDomButtonRedMinus", demoWidget.get("icon"));
 			}
 		},
 		{
@@ -107,11 +107,11 @@ dojo.addOnLoad(function(){
 			timeout: 1000,
 			runTest: function(){
 				var demoWidget = dijit.byId("dojox_mobile_ListItem_11");
-				demoWidget.set({rightIcon:"mblDomButtonCheckboxOn"});
+				demoWidget.set({rightIcon:"duiDomButtonCheckboxOn"});
 
 				var txt = 'See location in applications (such as Maps) using wireless networks';
-				verifyListItem("dojox_mobile_ListItem_11", txt, '', "mblDomButtonCheckboxOn", false, true, false, true);
-//							doh.assertEqual("mblDomButtonCheckboxOn", demoWidget.get("icon"));
+				verifyListItem("dojox_mobile_ListItem_11", txt, '', "duiDomButtonCheckboxOn", false, true, false, true);
+//							doh.assertEqual("duiDomButtonCheckboxOn", demoWidget.get("icon"));
 			}
 		},
 		{

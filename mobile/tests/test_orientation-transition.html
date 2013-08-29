@@ -6,9 +6,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Transition on Orientation Change</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -34,14 +34,14 @@
 					}
 					if(dim.h > dim.w && common.currentView != portrait){
 						n = landscape.domNode;
-						t = (domClass.contains(n, "mblIn") || domClass.contains(n, "mblOut")) ? 2000 : 0;
+						t = (domClass.contains(n, "duiIn") || domClass.contains(n, "duiOut")) ? 2000 : 0;
 						timer = setTimeout(function(){
 							landscape.performTransition("portrait", 1, "fade");
 							timer = null;
 						}, t);
 					}else if (dim.h <= dim.w && common.currentView != landscape){
 						n = portrait.domNode;
-						t = (domClass.contains(n, "mblIn") || domClass.contains(n, "mblOut")) ? 2000 : 0;
+						t = (domClass.contains(n, "duiIn") || domClass.contains(n, "duiOut")) ? 2000 : 0;
 						timer = setTimeout(function(){
 							portrait.performTransition("landscape", 1, "fade");
 							timer = null;

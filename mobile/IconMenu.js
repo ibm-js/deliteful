@@ -47,11 +47,11 @@ define([
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "mblIconMenu",
+		baseClass: "duiIconMenu",
 		
 		// childItemClass: String
 		//		The name of the CSS class of menu items.
-		childItemClass: "mblIconMenuItem",
+		childItemClass: "duiIconMenuItem",
 
 		// _createTerminator: [private] Boolean
 		_createTerminator: false,
@@ -77,7 +77,7 @@ define([
 		refresh: function(){
 			var p = this.getParent();
 			if(p){
-				domClass.remove(p.domNode, "mblSimpleDialogDecoration");
+				domClass.remove(p.domNode, "duiSimpleDialogDecoration");
 			}
 			var children = this.getChildren();
 			if(this.cols){

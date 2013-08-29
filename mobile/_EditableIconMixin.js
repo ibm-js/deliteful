@@ -21,7 +21,7 @@ define([
 		// summary:
 		//		A mixin for IconContainer to make it editable.
 
-		deleteIconForEdit: "mblDomButtonBlackCircleCross",
+		deleteIconForEdit: "duiDomButtonBlackCircleCross",
 		threshold: 4, // drag threshold value in pixels
 
 		destroy: function(){

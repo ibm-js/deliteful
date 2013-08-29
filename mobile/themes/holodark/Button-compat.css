@@ -1,59 +1,59 @@
 /* dojox.mobile.Button */
-.mblButton {
+.duiButton {
   background-image: url(compat/button-bg.png);
   background-repeat: repeat-x;
 }
-.mblButtonSelected {
+.duiButtonSelected {
   background-image: url(compat/button-sel-bg.png);
 }
-.mblBlueButton {
+.duiBlueButton {
   background-image: url(compat/blue-button-bg.png);
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   background-image: url(compat/blue-button-sel-bg.png);
 }
-.mblRedButton {
+.duiRedButton {
   background-image: url(compat/red-button-bg.png);
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   background-image: url(compat/red-button-sel-bg.png);
 }
-.dj_gecko .mblButton {
+.dj_gecko .duiButton {
   background-image: none;
 }
-.dj_gecko .mblButtonSelected {
+.dj_gecko .duiButtonSelected {
   background-image: none;
 }
-.dj_gecko .mblBlueButton {
+.dj_gecko .duiBlueButton {
   background-image: none;
 }
-.dj_gecko .mblBlueButtonSelected {
+.dj_gecko .duiBlueButtonSelected {
   background-image: none;
 }
-.dj_gecko .mblRedButton {
+.dj_gecko .duiRedButton {
   background-image: none;
 }
-.dj_gecko .mblRedButtonSelected {
+.dj_gecko .duiRedButtonSelected {
   background-image: none;
 }
-.dj_ff3 .mblButton {
+.dj_ff3 .duiButton {
   -moz-border-radius: 2px;
 }
-.mblButton {
+.duiButton {
   background-image: none;
 }
-.mblButtonSelected {
+.duiButtonSelected {
   background-image: none;
 }
-.mblBlueButton {
+.duiBlueButton {
   background-image: none;
 }
-.mblBlueButtonSelected {
+.duiBlueButtonSelected {
   background-image: none;
 }
-.mblRedButton {
+.duiRedButton {
   background-image: none;
 }
-.mblRedButtonSelected {
+.duiRedButtonSelected {
   background-image: none;
 }

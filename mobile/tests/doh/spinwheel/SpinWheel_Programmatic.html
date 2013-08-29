@@ -8,7 +8,7 @@
 	<title>Custom SpinWheel</title>
 
 	<script type="text/javascript" src="../../../deviceTheme.js"
-			data-dojo-config="mblThemeFiles: ['base','SpinWheel']"></script>
+			data-dojo-config="duiThemeFiles: ['base','SpinWheel']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
 
@@ -51,8 +51,8 @@
 			var slot3 = new SpinWheelSlot({labelFrom: 3000, labelTo: 3100, value: 3009, style: "width:70px;"});
 			demoWidget.addChild(slot3);
 
-			domConst.create("div", {className: "mblSpinWheelSlot", id: "pt"}, demoWidget.containerNode);
-			domConst.create("div", {className: "mblSpinWheelSlot", id: "txt", innerHTML: "."}, demoWidget.containerNode);
+			domConst.create("div", {className: "duiSpinWheelSlot", id: "pt"}, demoWidget.containerNode);
+			domConst.create("div", {className: "duiSpinWheelSlot", id: "txt", innerHTML: "."}, demoWidget.containerNode);
 
 			var slot4 = new SpinWheelSlot({labelFrom: 0, labelTo: 9, style: "width:30px;"});
 			demoWidget.addChild(slot4);

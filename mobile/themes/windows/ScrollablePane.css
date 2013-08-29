@@ -1,4 +1,4 @@
-.mblToolBarButtonHasArrow-styles {
+.duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
   border-radius: 20px;
@@ -12,22 +12,22 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.mblScrollablePane */
-.mblScrollablePane {
+/* dojox.mobile.duiScrollablePane */
+.duiScrollablePane {
   position: relative;
   overflow: hidden;
 }
-.mblScrollableViewContainer {
+.duiScrollableViewContainer {
   position: absolute;
   top: 0px;
 }
-.mblScrollablePaneMask {
+.duiScrollablePaneMask {
   position: relative;
 }
-.mblScrollableView:not(.mblView) {
+.duiScrollableView:not(.duiView) {
   padding: 0px;
 }
-.mblView.mblScrollableView .mblScrollableViewContainer {
+.duiView.duiScrollableView .duiScrollableViewContainer {
   min-width: calc(100% - 15px - 10px) !important;
   width: auto !important;
 }

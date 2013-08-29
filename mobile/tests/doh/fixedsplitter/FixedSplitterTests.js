@@ -1,9 +1,9 @@
 var timeoutInterval = 1500;
 
-var FIXEDSPLITER_CLASSNAME = "mblFixedSplitter";
-var FIXEDSPLITERPANE_CLASSNAME1 = "mblContainer";
-var FIXEDSPLITERPANE_CLASSNAME2 = "mblFixedSplitterV";
-var FIXEDSPLITERPANE_CLASSNAME3 = "mblFixedSplitterH";
+var FIXEDSPLITER_CLASSNAME = "duiFixedSplitter";
+var FIXEDSPLITERPANE_CLASSNAME1 = "duiContainer";
+var FIXEDSPLITERPANE_CLASSNAME2 = "duiFixedSplitterV";
+var FIXEDSPLITERPANE_CLASSNAME3 = "duiFixedSplitterH";
 
 var HEIGHT_RATIO1 = 0.2;
 var HEIGHT_RATIO2 = 1 - HEIGHT_RATIO1;

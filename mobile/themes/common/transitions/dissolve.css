@@ -1,20 +1,20 @@
-.mblDissolve.mblOut {
+.duiDissolve.duiOut {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-name: mblDissolveOut;
-  animation-name: mblDissolveOut;
+  -webkit-animation-name: duiDissolveOut;
+  animation-name: duiDissolveOut;
   -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);
   animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);
 }
-.mblDissolve.mblIn {
+.duiDissolve.duiIn {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-name: mblDissolveIn;
-  animation-name: mblDissolveIn;
+  -webkit-animation-name: duiDissolveIn;
+  animation-name: duiDissolveIn;
   -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);
   animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);
 }
-@-webkit-keyframes mblDissolveOut {
+@-webkit-keyframes duiDissolveOut {
   from {
     opacity: 1;
   }
@@ -22,7 +22,7 @@
     opacity: 0;
   }
 }
-@keyframes mblDissolveOut {
+@keyframes duiDissolveOut {
   from {
     opacity: 1;
   }
@@ -30,7 +30,7 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes mblDissolveIn {
+@-webkit-keyframes duiDissolveIn {
   from {
     opacity: 0;
   }
@@ -38,7 +38,7 @@
     opacity: 1;
   }
 }
-@keyframes mblDissolveIn {
+@keyframes duiDissolveIn {
   from {
     opacity: 0;
   }

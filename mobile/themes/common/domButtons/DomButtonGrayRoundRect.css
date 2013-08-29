@@ -1,11 +1,11 @@
 /* === Gray Round Rectangle Button ==*/
-.mblDomButtonGrayRoundRect {
+.duiDomButtonGrayRoundRect {
   position: relative;
   width: 29px;
   height: 29px;
   text-align: right;
 }
-.mblDomButtonGrayRoundRect > div {
+.duiDomButtonGrayRoundRect > div {
   position: absolute;
   right: 0px;
   display: inline;
@@ -18,6 +18,6 @@
   background-color: #949ba5;
   text-align: center;
 }
-.mblDomButtonGrayRoundRect > div > div {
+.duiDomButtonGrayRoundRect > div > div {
   display: none;
 }

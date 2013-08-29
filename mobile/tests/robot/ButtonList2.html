@@ -43,9 +43,9 @@
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_2").domNode, "mblListItemUnchecked"), "dojox_mobile_ListItem_2");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_3").domNode, "mblListItemChecked"), "dojox_mobile_ListItem_3");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_4").domNode, "mblListItemChecked"), "dojox_mobile_ListItem_3");
+									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_2").domNode, "duiListItemUnchecked"), "dojox_mobile_ListItem_2");
+									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_3").domNode, "duiListItemChecked"), "dojox_mobile_ListItem_3");
+									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_4").domNode, "duiListItemChecked"), "dojox_mobile_ListItem_3");
 								}), 1000);
 								return d;
 							}

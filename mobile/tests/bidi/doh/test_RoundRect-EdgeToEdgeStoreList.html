@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Store Lists</title>
 
-	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="mblThemeFiles: ['base']"></script>
+	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
@@ -64,7 +64,7 @@
 					{
 						name: "mobile",					
 						runTest: function(){		
-							query(".mblListItemLabel").forEach(function(node, index, arr){
+							query(".duiListItemLabel").forEach(function(node, index, arr){
 								if(node.innerHTML)
 									runner.is(String.fromCharCode(8235), node.innerHTML.charAt(0), "ListItem's label node should have direction correspondent to list's 'textDir'");										
 							});								

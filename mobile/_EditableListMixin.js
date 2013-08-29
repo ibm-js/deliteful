@@ -26,8 +26,8 @@ define([
 		//		EditableRoundRectList is a rounded rectangle list, which can be used to
 		//		display a group of items. Each item must be	a dojox/mobile/ListItem.
 
-		rightIconForEdit: "mblDomButtonGrayKnob",
-		deleteIconForEdit: "mblDomButtonRedCircleMinus",
+		rightIconForEdit: "duiDomButtonGrayKnob",
+		deleteIconForEdit: "duiDomButtonRedCircleMinus",
 
 		// isEditing: Boolean
 		//		A read-only flag that indicates whether the widget is in the editing mode.
@@ -49,7 +49,7 @@ define([
 				width: domGeometry.getContentBox(node).w + "px",
 				top: node.offsetTop + "px"
 			});
-			domClass.add(node, "mblListItemFloat");
+			domClass.add(node, "duiListItemFloat");
 			domAttr.set(node, "aria-grabbed", "true");
 			domAttr.set(this.domNode, "aria-dropeffect", "move");
 		},
@@ -58,7 +58,7 @@ define([
 			// tags:
 			//		private
 			this.defer(function(){ // iPhone needs setTimeout (via defer)
-				domClass.remove(node, "mblListItemFloat");
+				domClass.remove(node, "duiListItemFloat");
 				domAttr.remove(node, "aria-grabbed");
 				domAttr.remove(this.domNode, "aria-dropeffect");
 				domStyle.set(node, {
@@ -182,7 +182,7 @@ define([
 			// summary:
 			//		Starts the editing.
 			this.isEditing = true;
-			domClass.add(this.domNode, "mblEditableRoundRectList");
+			domClass.add(this.domNode, "duiEditableRoundRectList");
 			array.forEach(this.getChildren(), function(child){
 				if(!child.deleteIconNode){
 					child.set("rightIcon", this.rightIconForEdit);
@@ -216,7 +216,7 @@ define([
 		endEdit: function(){
 			// summary:
 			//		Ends the editing.
-			domClass.remove(this.domNode, "mblEditableRoundRectList");
+			domClass.remove(this.domNode, "duiEditableRoundRectList");
 			array.forEach(this.getChildren(), function(child){
 				child.rightIconNode.style.display = "none";
 				child.deleteIconNode.style.display = "none";

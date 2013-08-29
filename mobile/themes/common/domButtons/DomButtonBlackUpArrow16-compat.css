@@ -1,8 +1,8 @@
 /* === BlackUpArrow16 ==*/
-.mblDomButtonBlackUpArrow16 {
-	background-image: url(compat/mblDomButtonBlackUpArrow16.png);
+.duiDomButtonBlackUpArrow16 {
+	background-image: url(compat/duiDomButtonBlackUpArrow16.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonBlackUpArrow16 > div {
+.duiDomButtonBlackUpArrow16 > div {
 	display: none;
 }

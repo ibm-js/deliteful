@@ -87,13 +87,13 @@ define([
 
 		// progStyle: String
 		//		A css class name to add to the progress indicator.
-		progStyle: "mblProgWhite",
+		progStyle: "duiProgWhite",
 
 		/* internal properties */
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.	
-		baseClass: "mblHeading",
+		baseClass: "duiHeading",
 
 		buildRendering: function(){
 			if(!this.templateString){ // true if this widget is not templated
@@ -117,9 +117,9 @@ define([
 				if(!this.labelNode){
 					this.labelNode = domConstruct.create("span", null, this.domNode);
 				}
-				this.labelNode.className = "mblHeadingSpanTitle";
+				this.labelNode.className = "duiHeadingSpanTitle";
 				this.labelDivNode = domConstruct.create("div", {
-					className: "mblHeadingDivTitle",
+					className: "duiHeadingDivTitle",
 					innerHTML: this.labelNode.innerHTML
 				}, this.domNode);
 			}
@@ -174,7 +174,7 @@ define([
 				var rw = rightBtn ? bw - rightBtn.offsetLeft + 5 : 0; // rightBtn width
 				var lw = leftBtn ? leftBtn.offsetLeft + leftBtn.offsetWidth + 5 : 0; // leftBtn width
 				var tw = this.labelNodeLen || 0; // title width
-				domClass[bw - Math.max(rw,lw)*2 > tw ? "add" : "remove"](this.domNode, "mblHeadingCenterTitle");
+				domClass[bw - Math.max(rw,lw)*2 > tw ? "add" : "remove"](this.domNode, "duiHeadingCenterTitle");
 			}
 			array.forEach(this.getChildren(), function(child){
 				if(child.resize){ child.resize(); }

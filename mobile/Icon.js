@@ -29,7 +29,7 @@ define([
 		//
 		//		DOM Button:
 		//	|	<div data-dojo-type="dojox.mobile.Icon"
-		//	|		data-dojo-props='icon:"mblDomButtonBlueCircleArrow"'></div>
+		//	|		data-dojo-props='icon:"duiDomButtonBlueCircleArrow"'></div>
 
 		// icon: [const] String
 		//		An icon to display. The value can be either a path for an image

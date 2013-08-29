@@ -1,9 +1,9 @@
 /* === Gray Knob Button ==*/
-.mblDomButtonGrayKnob {
-	background-image: url(compat/mblDomButtonGrayKnob.png);
+.duiDomButtonGrayKnob {
+	background-image: url(compat/duiDomButtonGrayKnob.png);
 	background-repeat: no-repeat;
 }
 
-.mblDomButtonGrayKnob > div {
+.duiDomButtonGrayKnob > div {
 	display: none;
 }

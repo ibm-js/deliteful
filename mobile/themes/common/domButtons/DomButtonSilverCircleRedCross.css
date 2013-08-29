@@ -1,10 +1,10 @@
 /* === Silver Circle Red Cross Button ==*/
-.mblDomButtonSilverCircleRedCross {
+.duiDomButtonSilverCircleRedCross {
   position: relative;
   width: 30px;
   height: 30px;
 }
-.mblDomButtonSilverCircleRedCross > div {
+.duiDomButtonSilverCircleRedCross > div {
   position: relative;
   top: 0px;
   left: 0px;
@@ -17,7 +17,7 @@
   background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c2c2c2));
   background: linear-gradient(to bottom, #efefef 0%, #c2c2c2 100%);
 }
-.mblDomButtonSilverCircleRedCross > div > div {
+.duiDomButtonSilverCircleRedCross > div > div {
   position: absolute;
   top: 11px;
   left: 4px;
@@ -29,7 +29,7 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.mblDomButtonSilverCircleRedCross > div > div > div {
+.duiDomButtonSilverCircleRedCross > div > div > div {
   position: absolute;
   top: -7px;
   left: 7px;

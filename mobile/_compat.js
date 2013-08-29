@@ -66,8 +66,8 @@ return {
 	//		in a directory containing a "mobile/themes" path. For that, a matching is done using 
 	//		the default pattern	"/\/mobile\/themes\/.*\.css$/". If a custom theme is not located 
 	//		in a directory containing this path, the data-dojo-config needs to specify a custom 
-	//		pattern using the "mblLoadCompatPattern" configuration parameter, for instance:
-	//		|	data-dojo-config="mblLoadCompatPattern: /\/mycustomtheme\/.*\.css$/"
+	//		pattern using the "duiLoadCompatPattern" configuration parameter, for instance:
+	//		|	data-dojo-config="duiLoadCompatPattern: /\/mycustomtheme\/.*\.css$/"
 };
 =====*/
 
@@ -234,8 +234,8 @@ return {
 
 				var _this = this;
 				var f = function(){
-					domClass.remove(_this.domNode, on ? "mblSwitchOff" : "mblSwitchOn");
-					domClass.add(_this.domNode, on ? "mblSwitchOn" : "mblSwitchOff");
+					domClass.remove(_this.domNode, on ? "duiSwitchOff" : "duiSwitchOn");
+					domClass.add(_this.domNode, on ? "duiSwitchOn" : "duiSwitchOff");
 					_this.left.style.display = on ? "" : "none";
 					_this.right.style.display = !on ? "" : "none";
 					domAttr.set(_this.domNode, "aria-checked", on ? "true" : "false"); //a11y
@@ -288,7 +288,7 @@ return {
 					// tags:
 					//		protected
 					dm.createRoundRect(this);
-					this.domNode.className = "mblRoundRect";
+					this.domNode.className = "duiRoundRect";
 				}
 			});
 
@@ -303,9 +303,9 @@ return {
 					// tags:
 					//		protected
 					dm.createRoundRect(this, true);
-					this.domNode.className = "mblRoundRectList";
+					this.domNode.className = "duiRoundRectList";
 					if(has("ie") && has("dojo-bidi") && !this.isLeftToRight()){
-						this.domNode.className = "mblRoundRectList mblRoundRectListRtl"
+						this.domNode.className = "duiRoundRectList duiRoundRectListRtl"
 					}
 				},
 
@@ -348,7 +348,7 @@ return {
 			lang.extend(EdgeToEdgeList, {
 				buildRendering: function(){
 				this.domNode = this.containerNode = this.srcNodeRef || win.doc.createElement("ul");
-					this.domNode.className = "mblEdgeToEdgeList";
+					this.domNode.className = "duiEdgeToEdgeList";
 				}
 			});
 
@@ -377,7 +377,7 @@ return {
 					_this.domNode.style.backgroundColor = "transparent";
 					_this.domNode.style.border = "none"; // borderStyle = "none"; doesn't work on IE9
 					_this.containerNode = win.doc.createElement(isList?"ul":"div");
-					_this.containerNode.className = "mblRoundRectContainer";
+					_this.containerNode.className = "duiRoundRectContainer";
 					if(_this.srcNodeRef){
 						_this.srcNodeRef.parentNode.replaceChild(_this.domNode, _this.srcNodeRef);
 						for(i = 0, len = _this.srcNodeRef.childNodes.length; i < len; i++){
@@ -389,11 +389,11 @@ return {
 
 					for(i = 0; i <= 5; i++){
 						var top = domConstruct.create("div");
-						top.className = "mblRoundCorner mblRoundCorner"+i+"T";
+						top.className = "duiRoundCorner duiRoundCorner"+i+"T";
 						_this.domNode.insertBefore(top, _this.containerNode);
 
 						var bottom = domConstruct.create("div");
-						bottom.className = "mblRoundCorner mblRoundCorner"+i+"B";
+						bottom.className = "duiRoundCorner duiRoundCorner"+i+"B";
 						_this.domNode.appendChild(bottom);
 					}
 				}
@@ -405,7 +405,7 @@ return {
 					// On IE, margin-top of the first child does not seem to be effective,
 					// probably because padding-top is specified for containerNode
 					// to make room for a fixed header. This dummy node is a workaround for that.
-					var dummy = domConstruct.create("div", {className:"mblDummyForIE", innerHTML:"&nbsp;"}, this.containerNode, "first");
+					var dummy = domConstruct.create("div", {className:"duiDummyForIE", innerHTML:"&nbsp;"}, this.containerNode, "first");
 					domStyle.set(dummy, {
 						position: "relative",
 						marginBottom: "-2px",
@@ -463,9 +463,9 @@ return {
 				dm._createDomButton_orig = dm.createDomButton;
 				dm.createDomButton = function(/*DomNode*/refNode, /*Object?*/style, /*DomNode?*/toNode){
 					var node = dm._createDomButton_orig.apply(this, arguments);
-					if(node && node.className && node.className.indexOf("mblDomButton") !== -1){
+					if(node && node.className && node.className.indexOf("duiDomButton") !== -1){
 						var f = function(){
-							if(node.currentStyle && node.currentStyle.backgroundImage.match(/url.*(mblDomButton.*\.png)/)){
+							if(node.currentStyle && node.currentStyle.backgroundImage.match(/url.*(duiDomButton.*\.png)/)){
 								var img = RegExp.$1;
 								var src = require.toUrl("dojox/mobile/themes/common/domButtons/compat/") + img;
 								node.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + src+"',sizingMethod='crop')";
@@ -578,10 +578,10 @@ return {
 				// Load the -compat.css only for css files that belong to a theme. For that, by default
 				// we match on directories containing "mobile/themes". If a custom theme is located
 				// outside a "mobile/themes" directory, the dojoConfig needs to specify a custom 
-				// pattern using the "mblLoadCompatPattern" configuration parameter, for instance:
-				// data-dojo-config="mblLoadCompatPattern: /\/mycustom\/.*\.css$/"
+				// pattern using the "duiLoadCompatPattern" configuration parameter, for instance:
+				// data-dojo-config="duiLoadCompatPattern: /\/mycustom\/.*\.css$/"
 				// Additionally, compat css files are loaded for css in the mobile/tests directory.
-				if((href.match(config.mblLoadCompatPattern || dm.loadCompatPattern) || 
+				if((href.match(config.duiLoadCompatPattern || dm.loadCompatPattern) || 
 					location.href.indexOf("mobile/tests/") !== -1) && href.indexOf("-compat.css") === -1){
 					var compatCss = href.substring(0, href.length-4)+"-compat.css";
 					dm.loadCss(compatCss);
@@ -615,7 +615,7 @@ return {
 		};
 
 		domReady(function(){
-			if(config["mblLoadCompatCssFiles"] !== false){
+			if(config["duiLoadCompatCssFiles"] !== false){
 				dm.loadCompatCssFiles();
 			}
 			if(dm.applyPngFilter){

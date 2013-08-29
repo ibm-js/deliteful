@@ -14,7 +14,7 @@ define([
 		// summary:
 		//		A non-templated base class for textbox form inputs
 
-		baseClass: "mblTextBox",
+		baseClass: "duiTextBox",
 
 		// Override automatic assigning type --> node, it causes exception on IE8.
 		// Instead, type must be specified as this.type when the node is created, as part of the original DOM

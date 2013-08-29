@@ -1,8 +1,8 @@
 /* === Search Button ==*/
-.mblDomButtonWhiteSearch {
-	background-image: url(compat/mblDomButtonWhiteSearch.png);
+.duiDomButtonWhiteSearch {
+	background-image: url(compat/duiDomButtonWhiteSearch.png);
 	background-repeat: no-repeat;
 }
-.mblDomButtonWhiteSearch div {
+.duiDomButtonWhiteSearch div {
 	display: none;
 }

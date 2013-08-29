@@ -1,6 +1,6 @@
 /* === Arrow Rtl ==*/
-.mblListItemRtl .mblDomButtonGrayArrow > div,
-.mblListItemRtl .mblDomButtonArrow > div {
+.duiListItemRtl .duiDomButtonGrayArrow > div,
+.duiListItemRtl .duiDomButtonArrow > div {
   right: 6px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);

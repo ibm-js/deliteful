@@ -32,7 +32,7 @@
 								// The encapsulation of the query in an anonymous function ensure that the query is evaluated only 
 								// when the movement begin.	Therefore the requested element has the time to appear.							
 								var getInTime = function(/*String*/ root, /*String?*/ className){
-									className = "." + (className || "mblDomButtonGrayKnob");
+									className = "." + (className || "duiDomButtonGrayKnob");
 									return function(){
 										return query(className, dom.byId(root))[0];
 									};
@@ -58,9 +58,9 @@
 								runner.robot.mouseRelease({left: true}, 100);
 								
 								// delete
-								runner.robot.mouseMoveAt(getInTime("item7", "mblDomButtonRedCircleMinus"), 100, 200);
+								runner.robot.mouseMoveAt(getInTime("item7", "duiDomButtonRedCircleMinus"), 100, 200);
 								runner.robot.mouseClick({left: true}, 100);
-								runner.robot.mouseMoveAt(getInTime("item7", "mblDomButtonMyRedButton_0"), 100, 200);
+								runner.robot.mouseMoveAt(getInTime("item7", "duiDomButtonMyRedButton_0"), 100, 200);
 								runner.robot.mouseClick({left: true}, 100);
 								
 								

@@ -1,78 +1,78 @@
-/* mbl.widget.Heading */
-.dj_tablet .mblHeading {
+/* dui.widget.Heading */
+.dj_tablet .duiHeading {
 	background-image: url(compat/ipad-heading-bg.png);
 }
-.dj_gecko.dj_tablet .mblHeading {
+.dj_gecko.dj_tablet .duiHeading {
 	background-image: -moz-linear-gradient(top, #f3f4f6 0%, #a7abb8 100%);
 }
 
 /* dojox.mobile.ToolBarButton */
-.dj_ie.dj_tablet .mblToolBarButtonHasLeftArrow .mblToolBarButtonLeftArrow {
+.dj_ie.dj_tablet .duiToolBarButtonHasLeftArrow .duiToolBarButtonLeftArrow {
 	background-image: url(compat/ipad-arrow-button-head.png);
 }
-.dj_ie.dj_tablet .mblToolBarButtonHasRightArrow .mblToolBarButtonRightArrow {
+.dj_ie.dj_tablet .duiToolBarButtonHasRightArrow .duiToolBarButtonRightArrow {
 	background-image: url(compat/ipad-arrow-button-right-head.png);
 }
-.dj_ie.dj_tablet .mblToolBarButtonBody {
+.dj_ie.dj_tablet .duiToolBarButtonBody {
 	background-image: url(compat/ipad-arrow-button-bg.png);
 }
-.dj_ie.dj_tablet .mblToolBarButtonSelected .mblToolBarButtonLeftArrow {
+.dj_ie.dj_tablet .duiToolBarButtonSelected .duiToolBarButtonLeftArrow {
 	background-image: url(compat/ipad-arrow-button-head-sel.png);
 }
-.dj_ie.dj_tablet .mblToolBarButtonSelected .mblToolBarButtonRightArrow {
+.dj_ie.dj_tablet .duiToolBarButtonSelected .duiToolBarButtonRightArrow {
 	background-image: url(compat/ipad-arrow-button-right-head-sel.png);
 }
-.dj_ie.dj_tablet .mblToolBarButtonSelected .mblToolBarButtonBody {
+.dj_ie.dj_tablet .duiToolBarButtonSelected .duiToolBarButtonBody {
 	background-image: url(compat/ipad-arrow-button-sel-bg.png);
 }
 
 /* dojox.mobile.TabBar */
-.dj_tablet .mblTabBarSegmentedControl,
-.dj_tablet .mblTabBarStandardTab,
-.dj_tablet .mblTabBarSegmentedControl .mblTabBarButton {
+.dj_tablet .duiTabBarSegmentedControl,
+.dj_tablet .duiTabBarStandardTab,
+.dj_tablet .duiTabBarSegmentedControl .duiTabBarButton {
 	background-image: url(compat/ipad-heading-bg.png);
 }
-.dj_tablet .mblTabBarSegmentedControl .mblTabBarButtonSelected {
+.dj_tablet .duiTabBarSegmentedControl .duiTabBarButtonSelected {
 	background-image: url(compat/ipad-arrow-button-bg.png);
 }
-.dj_tablet .mblTabBarStandardTab .mblTabBarButtonSelected {
+.dj_tablet .duiTabBarStandardTab .duiTabBarButtonSelected {
 	background-color: #f3f4f6;
 	background-image: none;
 }
-.dj_gecko.dj_tablet .mblTabBarSegmentedControl,
-.dj_gecko.dj_tablet .mblTabBarStandardTab,
-.dj_gecko.dj_tablet .mblTabBarSegmentedControl .mblTabBarButton {
+.dj_gecko.dj_tablet .duiTabBarSegmentedControl,
+.dj_gecko.dj_tablet .duiTabBarStandardTab,
+.dj_gecko.dj_tablet .duiTabBarSegmentedControl .duiTabBarButton {
 	background-image: -moz-linear-gradient(top, #f3f4f6 0%, #a7abb8 100%);
 }
-.dj_gecko.dj_tablet .mblTabBarSegmentedControl .mblTabBarButtonSelected {
+.dj_gecko.dj_tablet .duiTabBarSegmentedControl .duiTabBarButtonSelected {
 	background-image: -moz-linear-gradient(top, #b1b5bb 0%, #6a727d 100%);
 }
-.dj_gecko.dj_tablet .mblTabBarStandardTab .mblTabBarButton {
+.dj_gecko.dj_tablet .duiTabBarStandardTab .duiTabBarButton {
 	background-image: -moz-linear-gradient(top, #f0f0f2 0%, #959da0 100%);
 }
-.dj_gecko.dj_tablet .mblTabBarStandardTab .mblTabBarButtonSelected {
+.dj_gecko.dj_tablet .duiTabBarStandardTab .duiTabBarButtonSelected {
 	background-image: -moz-linear-gradient(top, #f3f4f6 0%, #f2f3f7 100%);
 }
 
 
 /* Default Button Colors */
-.dj_tablet .mblColorDefault {
+.dj_tablet .duiColorDefault {
 	background-color: #8b919a;
 }
-.dj_gecko.dj_tablet .mblColorDefault {
+.dj_gecko.dj_tablet .duiColorDefault {
 	background-image: -moz-linear-gradient(top, #b1b5bb 0%, #6a727d 100%);
 }
 
-.dj_gecko.dj_tablet .mblColorDefault45 {
+.dj_gecko.dj_tablet .duiColorDefault45 {
 	background-image: -moz-linear-gradient(top left, #b1b5bb 0%, #6a727d 100%);
 }
-.dj_tablet .mblColorDefaultSel {
+.dj_tablet .duiColorDefaultSel {
 	background-color: #515761;
 }
-.dj_gecko.dj_tablet .mblColorDefaultSel {
+.dj_gecko.dj_tablet .duiColorDefaultSel {
 	background-image: -moz-linear-gradient(top, #7a7e85 0%, #303845 100%);
 }
 
-.dj_gecko.dj_tablet .mblColorDefaultSel45 {
+.dj_gecko.dj_tablet .duiColorDefaultSel45 {
 	background-image: -moz-linear-gradient(top left, #7a7e85 0%, #303845 100%);
 }

@@ -1,5 +1,5 @@
 /* dojox.mobile.ToggleButton */
-.mblToggleButton {
+.duiToggleButton {
   position: relative;
   padding: 0 10px 0 25px;
   height: 29px;
@@ -19,21 +19,21 @@
   font-size: 13px;
   color: black;
 }
-.mblToggleButton:disabled {
+.duiToggleButton:disabled {
   border-color: grey;
   background-image: none;
   color: grey;
   cursor: default;
 }
-.mblToggleButtonSelected {
+.duiToggleButtonSelected {
   background-image: none;
   color: white;
 }
-.mblToggleButtonChecked {
+.duiToggleButtonChecked {
   background-color: transparent;
   color: white;
 }
-.mblToggleButtonChecked:after {
+.duiToggleButtonChecked:after {
   position: absolute;
   content: "";
   top: 6px;
@@ -48,7 +48,7 @@
   transform-origin: 50% 50%;
   border-color: white;
 }
-.mblToggleButtonChecked.mblToggleButtonSelected {
+.duiToggleButtonChecked.duiToggleButtonSelected {
   background-image: none;
   color: white;
 }

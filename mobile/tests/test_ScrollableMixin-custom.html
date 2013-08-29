@@ -7,7 +7,7 @@
 	<title>ScrollableMixin-custom</title>
 
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -27,7 +27,7 @@
 				buildRendering: function(){
 					this.inherited(arguments);
 					this.containerNode = win.doc.createElement("DIV");
-					this.containerNode.className = "mblScrollableViewContainer";
+					this.containerNode.className = "duiScrollableViewContainer";
 					this.containerNode.style.backgroundColor = "yellow";
 					this.containerNode.style.border = "1px solid red";
 					this.containerNode.style.position = "absolute";

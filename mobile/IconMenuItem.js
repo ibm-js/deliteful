@@ -31,8 +31,8 @@ define([
 
 		/* internal properties */
 		// Note these are overrides for similar properties defined in _ItemBase.
-		baseClass: "mblIconMenuItem",
-		selColor: "mblIconMenuItemSel",
+		baseClass: "duiIconMenuItem",
+		selColor: "duiIconMenuItemSel",
 		_selStartMethod: "touch",
 		_selEndMethod: "touch",
 
@@ -53,19 +53,19 @@ define([
 			}
 
 			var a = this.anchorNode = this.containerNode = domConstruct.create("a", {
-				className: "mblIconMenuItemAnchor",
+				className: "duiIconMenuItemAnchor",
 				role: "presentation"
 			});
 			var tbl = domConstruct.create("table", {
-				className: "mblIconMenuItemTable",
+				className: "duiIconMenuItemTable",
 				role: "presentation"
 			}, a);
 			var cell = this.iconParentNode = tbl.insertRow(-1).insertCell(-1);
 			this.iconNode = domConstruct.create("div", {
-				className: "mblIconMenuItemIcon"
+				className: "duiIconMenuItemIcon"
 			}, cell);
 			this.labelNode = this.refNode = domConstruct.create("div", {
-				className: "mblIconMenuItemLabel"
+				className: "duiIconMenuItemLabel"
 			}, cell);
 			this.position = "before";
 			this.domNode.appendChild(a);

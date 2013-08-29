@@ -17,6 +17,6 @@ define([
 		// example:
 		//	|	<textarea dojoType="dojox.mobile.ExpandingTextArea">...</textarea>
 
-		baseClass: "mblTextArea mblExpandingTextArea"
+		baseClass: "duiTextArea duiExpandingTextArea"
 	});
 });

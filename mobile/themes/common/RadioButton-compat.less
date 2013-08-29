@@ -1,34 +1,34 @@
 /* dojox.mobile.RadioButton */
-.mblRadioButton {
+.duiRadioButton {
 	background-image: url(compat/button-bg.png);
 }
-.mblRadioButtonChecked,
-.mblRadioButton:checked {
+.duiRadioButtonChecked,
+.duiRadioButton:checked {
 	background-image: url(compat/button-chk-bg.png);
-	&.mblRadioButtonSelected {
+	&.duiRadioButtonSelected {
 		background-image: url(compat/blue-button-sel-bg.png);
 	}
 }
 
 .dj_gecko {
-	.mblRadioButton {
-		background-image: @mbl-button-background-image-gecko;
+	.duiRadioButton {
+		background-image: @dui-button-background-image-gecko;
 		-moz-appearance: none;
 	}
-	.mblRadioButtonChecked,
-	.mblRadioButton:checked {
-		background-image: @mbl-button-checked-background-image-gecko;
+	.duiRadioButtonChecked,
+	.duiRadioButton:checked {
+		background-image: @dui-button-checked-background-image-gecko;
 		&::after {
 			-moz-transform: rotate(45deg);
 			-moz-transform-origin: 50% 50%;
 		}
-		&.mblRadioButtonSelected {
-			background-image: @mbl-blue-button-selected-background-image-gecko;
+		&.duiRadioButtonSelected {
+			background-image: @dui-blue-button-selected-background-image-gecko;
 		}	
 	}
 }
 .dj_ff3 {
-	.mblRadioButton {
+	.duiRadioButton {
 		-moz-border-radius: 0.5em;
 	}
 }

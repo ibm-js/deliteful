@@ -2,7 +2,7 @@
 
 @import url("../common/transitions/revealv.css");
 /* dojox.mobile.Overlay */
-.mblOverlay {
+.duiOverlay {
   position: fixed;
   z-index: 2000;
   left: 0;
@@ -13,7 +13,7 @@
   background-color: #f6f6f6;
   background-image: none;
 }
-.mblOverlayHidden *,
-.mblOverlayHidden {
+.duiOverlayHidden *,
+.duiOverlayHidden {
   visibility: hidden !important;
 }

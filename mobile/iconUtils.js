@@ -34,7 +34,7 @@ define([
 					top: (iconNode.parentNode ? domStyle.get(iconNode, "top") : 0) - t + "px",
 					left: -l + "px"
 				});
-				domClass.add(iconNode, "mblSpriteIcon");
+				domClass.add(iconNode, "duiSpriteIcon");
 			}
 		};
 
@@ -48,9 +48,9 @@ define([
 			//		The kind of DOM button to create is given as a class name of
 			//		refNode. The number of DIVs to create is searched from the style
 			//		sheets in the page. However, if the class name has a suffix that
-			//		starts with an underscore, like mblDomButtonGoldStar_5, then the
+			//		starts with an underscore, like duiDomButtonGoldStar_5, then the
 			//		suffixed number is used instead. A class name for DOM button
-			//		must starts with 'mblDomButton'.
+			//		must starts with 'duiDomButton'.
 			// refNode:
 			//		A node that has a DOM button class name.
 			// style:
@@ -86,7 +86,7 @@ define([
 								for (j = 0; j < sels.length; j++){
 									var sel = sels[j];
 									var n = sel.split(/>/).length - 1;
-									if(sel.match(/(mblDomButton\w+)/)){
+									if(sel.match(/(duiDomButton\w+)/)){
 										var cls = RegExp.$1;
 										if(!dic[cls] || n > dic[cls]){
 											dic[cls] = n;
@@ -105,16 +105,16 @@ define([
 
 			var s = refNode.className;
 			var node = toNode || refNode;
-			if(s.match(/(mblDomButton\w+)/) && s.indexOf("/") === -1){
+			if(s.match(/(duiDomButton\w+)/) && s.indexOf("/") === -1){
 				var btnClass = RegExp.$1;
 				var nDiv = 4;
-				if(s.match(/(mblDomButton\w+_(\d+))/)){
+				if(s.match(/(duiDomButton\w+_(\d+))/)){
 					nDiv = RegExp.$2 - 0;
 				}else if(this._domButtons[btnClass] !== undefined){
 					nDiv = this._domButtons[btnClass];
 				}
 				var props = null;
-				if(has("bb") && config["mblBBBoxShadowWorkaround"] !== false){
+				if(has("bb") && config["duiBBBoxShadowWorkaround"] !== false){
 					// Removes box-shadow because BlackBerry incorrectly renders it.
 					props = {style:"-webkit-box-shadow:none"};
 				}
@@ -132,7 +132,7 @@ define([
 			}else{
 				return null;
 			}
-			domClass.add(node, "mblDomButton");
+			domClass.add(node, "duiDomButton");
 			!!style && domStyle.set(node, style);
 			return node;
 		};
@@ -145,12 +145,12 @@ define([
 			// icon:
 			//		Path for an image, or DOM button class name.
 			title = title || "";
-			if(icon && icon.indexOf("mblDomButton") === 0){
+			if(icon && icon.indexOf("duiDomButton") === 0){
 				// DOM button
 				if(!node){
 					node = domConstruct.create("div", null, refNode || parent, pos);
 				}else{
-					if(node.className.match(/(mblDomButton\w+)/)){
+					if(node.className.match(/(duiDomButton\w+)/)){
 						domClass.remove(node, RegExp.$1);
 					}
 				}
@@ -173,7 +173,7 @@ define([
 						width: arr[2] + "px",
 						height: arr[3] + "px"
 					});
-					domClass.add(parent, "mblSpriteIconParent");
+					domClass.add(parent, "duiSpriteIconParent");
 				}
 				on(node, "dragstart", function(e){
 					e.preventDefault();
@@ -206,13 +206,13 @@ define([
 			//		The position of the icon relative to refNode.
 			if(!parent || !icon && !iconNode){ return null; }
 			if(icon && icon !== "none"){ // create or update an icon
-				if(!this.iconWrapper && icon.indexOf("mblDomButton") !== 0 && !iconPos){ // image
+				if(!this.iconWrapper && icon.indexOf("duiDomButton") !== 0 && !iconPos){ // image
 					if(iconNode && iconNode.tagName === "DIV"){
 						domConstruct.destroy(iconNode);
 						iconNode = null;
 					}
 					iconNode = this.createIcon(icon, null, iconNode, alt, parent, refNode, pos);
-					domClass.add(iconNode, "mblImageIcon");
+					domClass.add(iconNode, "duiImageIcon");
 				}else{ // sprite or DOM button
 					if(iconNode && iconNode.tagName === "IMG"){
 						domConstruct.destroy(iconNode);
@@ -227,11 +227,11 @@ define([
 						iconNode.title = alt;
 					}
 				}
-				domClass.remove(parent, "mblNoIcon");
+				domClass.remove(parent, "duiNoIcon");
 				return iconNode;
 			}else{ // clear the icon
 				domConstruct.destroy(iconNode);
-				domClass.add(parent, "mblNoIcon");
+				domClass.add(parent, "duiNoIcon");
 				return null;
 			}
 		};

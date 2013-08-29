@@ -58,7 +58,7 @@ define([
 		tag: "div",
 
 		/* internal properties */
-		baseClass: "mblView",
+		baseClass: "duiView",
 
 		constructor: function(/*Object*/params, /*DomNode?*/node){
 			// summary:
@@ -85,10 +85,10 @@ define([
 
 			this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")))[0];
 			this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart")))[0];
-			if(!config['mblCSS3Transition']){
+			if(!config['duiCSS3Transition']){
 				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")))[0];
 			}
-			if(has('mblAndroid3Workaround')){
+			if(has('duiAndroid3Workaround')){
 				// workaround for the screen flicker issue on Android 3.x/4.0
 				// applying "-webkit-transform-style:preserve-3d" to domNode can avoid
 				// transition animation flicker
@@ -199,11 +199,11 @@ define([
 			// summary:
 			//		Clean up the domNode classes that were added while making a transition.
 			// description:
-			//		Remove all the "mbl" prefixed classes except mbl*View.
+			//		Remove all the "dui" prefixed classes except dui*View.
 			if(!node){ return; }
 			var classes = [];
 			array.forEach(lang.trim(node.className||"").split(/\s+/), function(c){
-				if(c.match(/^mbl\w*View$/) || c.indexOf("mbl") === -1){
+				if(c.match(/^dui\w*View$/) || c.indexOf("dui") === -1){
 					classes.push(c);
 				}
 			}, this);
@@ -220,7 +220,7 @@ define([
 			var nodes = this.domNode.parentNode.childNodes;
 			for(var i = 0; i < nodes.length; i++){
 				var n = nodes[i];
-				if(n.nodeType === 1 && domClass.contains(n, "mblView")){
+				if(n.nodeType === 1 && domClass.contains(n, "duiView")){
 					this._clearClasses(n);
 				}
 			}
@@ -245,7 +245,7 @@ define([
 		},
 
 		_isBookmarkable: function(detail){
-			return detail.moveTo && (config['mblForceBookmarkable'] || detail.moveTo.charAt(0) === '#') && !detail.hashchange;
+			return detail.moveTo && (config['duiForceBookmarkable'] || detail.moveTo.charAt(0) === '#') && !detail.hashchange;
 		},
 
 		performTransition: function(/*String*/moveTo, /*Number*/transitionDir, /*String*/transition,
@@ -351,7 +351,7 @@ define([
 			var toWidget = registry.byNode(toNode);
 			if(toWidget){
 				// Now that the target view became visible, it's time to run resize()
-				if(config["mblAlwaysResizeOnTransition"] || !toWidget._resized){
+				if(config["duiAlwaysResizeOnTransition"] || !toWidget._resized){
 					common.resizeAll(null, toWidget);
 					toWidget._resized = true;
 				}
@@ -365,7 +365,7 @@ define([
 
 				toWidget.movedFrom = fromNode.id;
 			}
-			if(has('mblAndroidWorkaround') && !config['mblCSS3Transition']
+			if(has('duiAndroidWorkaround') && !config['duiCSS3Transition']
 					&& detail.transition && detail.transition != "none"){
 				// workaround for the screen flicker issue on Android 2.2/2.3
 				// apply "-webkit-transform-style:preserve-3d" to both toNode and fromNode
@@ -373,7 +373,7 @@ define([
 				domStyle.set(toNode, css3.name("transformStyle"), "preserve-3d");
 				domStyle.set(fromNode, css3.name("transformStyle"), "preserve-3d");
 				// show toNode offscreen to avoid flicker when switching "display" and "visibility" styles
-				domClass.add(toNode, "mblAndroidWorkaround");
+				domClass.add(toNode, "duiAndroidWorkaround");
 			}
 
 			this.onBeforeTransitionOut.apply(this, this._arguments);
@@ -387,7 +387,7 @@ define([
 					toNode.style.top = "0px";
 					if(scrollTop > 1 || toTop !== 0){
 						fromNode.style.top = toTop - scrollTop + "px";
-						if(config["mblHideAddressBar"] !== false){
+						if(config["duiHideAddressBar"] !== false){
 							this.defer(function(){ // iPhone needs setTimeout (via defer)
 								win.global.scrollTo(0, (toTop || 1));
 							});
@@ -420,20 +420,20 @@ define([
 
 		_toCls: function(s){
 			// convert from transition name to corresponding class name
-			// ex. "slide" -> "mblSlide"
-			return "mbl"+s.charAt(0).toUpperCase() + s.substring(1);
+			// ex. "slide" -> "duiSlide"
+			return "dui"+s.charAt(0).toUpperCase() + s.substring(1);
 		},
 
 		_doTransition: function(fromNode, toNode, transition, transitionDir){
-			var rev = (transitionDir == -1) ? " mblReverse" : "";
+			var rev = (transitionDir == -1) ? " duiReverse" : "";
 			toNode.style.display = "";
 			if(!transition || transition == "none"){
 				this.domNode.style.display = "none";
 				this.invokeCallback();
-			}else if(config['mblCSS3Transition']){
+			}else if(config['duiCSS3Transition']){
 				//get dojox/css3/transit first
 				transitDeferred.then(lang.hitch(this, function(transit){
-					//follow the style of .mblView.mblIn in View.css
+					//follow the style of .duiView.duiIn in View.css
 					//need to set the toNode to absolute position
 					var toPosition = domStyle.get(toNode, "position");
 					domStyle.set(toNode, "position", "absolute");
@@ -453,26 +453,26 @@ define([
 					}
 				}
 				var s = this._toCls(transition);
-				if(has('mblAndroidWorkaround')){
+				if(has('duiAndroidWorkaround')){
 					// workaround for the screen flicker issue on Android 2.2
 					// applying transition css classes just after setting toNode.style.display = ""
 					// causes flicker, so wait for a while using setTimeout (via defer)
 					var _this = this;
 					_this.defer(function(){
-						domClass.add(fromNode, s + " mblOut" + rev);
-						domClass.add(toNode, s + " mblIn" + rev);
-						domClass.remove(toNode, "mblAndroidWorkaround"); // remove offscreen style
+						domClass.add(fromNode, s + " duiOut" + rev);
+						domClass.add(toNode, s + " duiIn" + rev);
+						domClass.remove(toNode, "duiAndroidWorkaround"); // remove offscreen style
 						_this.defer(function(){
-							domClass.add(fromNode, "mblTransition");
-							domClass.add(toNode, "mblTransition");
+							domClass.add(fromNode, "duiTransition");
+							domClass.add(toNode, "duiTransition");
 						}, 30); // 30 = 100 - 70, to make total delay equal to 100ms
 					}, 70); // 70ms is experiential value
 				}else{
-					domClass.add(fromNode, s + " mblOut" + rev);
-					domClass.add(toNode, s + " mblIn" + rev);
+					domClass.add(fromNode, s + " duiOut" + rev);
+					domClass.add(toNode, s + " duiIn" + rev);
 					this.defer(function(){
-						domClass.add(fromNode, "mblTransition");
-						domClass.add(toNode, "mblTransition");
+						domClass.add(fromNode, "duiTransition");
+						domClass.add(toNode, "duiTransition");
 					}, 100);
 				}
 				// set transform origin
@@ -518,10 +518,10 @@ define([
 				name.indexOf("In") === -1 &&
 				name.indexOf("Shrink") === -1){ return; }
 			var isOut = false;
-			if(domClass.contains(this.domNode, "mblOut")){
+			if(domClass.contains(this.domNode, "duiOut")){
 				isOut = true;
 				this.domNode.style.display = "none";
-				domClass.remove(this.domNode, [this._toCls(this._detail.transition), "mblIn", "mblOut", "mblReverse"]);
+				domClass.remove(this.domNode, [this._toCls(this._detail.transition), "duiIn", "duiOut", "duiReverse"]);
 			}else{
 				// Reset the temporary padding
 				this._removeTransitionPaddingTop();
@@ -530,7 +530,7 @@ define([
 			if(name.indexOf("Shrink") !== -1){
 				var li = e.target;
 				li.style.display = "none";
-				domClass.remove(li, "mblCloseContent");
+				domClass.remove(li, "duiCloseContent");
 
 				// If target is placed inside scrollable, need to call onTouchEnd
 				// to adjust scroll position
@@ -563,7 +563,7 @@ define([
 				topic.publish.apply(topic, ["/dojox/mobile/afterTransitionIn", toWidget].concat(this._arguments));
 				toWidget.movedFrom = undefined;
 			}
-			if(has('mblAndroidWorkaround')){
+			if(has('duiAndroidWorkaround')){
 				// workaround for the screen flicker issue on Android 2.2/2.3
 				// remove "-webkit-transform-style" style after transition finished
 				// to avoid side effects such as input field auto-scrolling issue
@@ -620,7 +620,7 @@ define([
 			var nodes = this.domNode.parentNode.childNodes;
 			for(var i = 0; i < nodes.length; i++){
 				var n = nodes[i];
-				if(n.nodeType === 1 && domClass.contains(n, "mblView") && n.style.display !== "none"){
+				if(n.nodeType === 1 && domClass.contains(n, "duiView") && n.style.display !== "none"){
 					return registry.byNode(n);
 				}
 			}
@@ -632,7 +632,7 @@ define([
 			//		Returns an array of the sibling views.
 			if(!this.domNode.parentNode){ return [this]; }
 			return array.map(array.filter(this.domNode.parentNode.childNodes,
-				function(n){ return n.nodeType === 1 && domClass.contains(n, "mblView"); }),
+				function(n){ return n.nodeType === 1 && domClass.contains(n, "duiView"); }),
 				function(n){ return registry.byNode(n); });
 		},
 
