@@ -8,7 +8,7 @@ define([
 ], function(declare, dom, lang, query, MemoryStore, registry){
 
 	// module:
-	//		dijit/form/DataList
+	//		dui/form/DataList
 
 	function toItem(/*DOMNode*/ option){
 		// summary:
@@ -20,7 +20,7 @@ define([
 		};
 	}
 
-	return declare("dijit.form.DataList", MemoryStore, {
+	return declare("dui.form.DataList", MemoryStore, {
 		// summary:
 		//		Inefficient but small data store specialized for inlined data via OPTION tags
 		//

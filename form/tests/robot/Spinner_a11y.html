@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				var spin1;
@@ -33,8 +33,8 @@
 				var focusConnect;
 				var blurConnect;
 				var tabFocusSetup = function(inSpinnerId){
-					var spinner = dijit.byId(inSpinnerId);
-					dijit.byId('integerspinner1').focus();
+					var spinner = dui.byId(inSpinnerId);
+					dui.byId('integerspinner1').focus();
 					focusCountZ = 0;
 					blurCountZ = 0;
 					focusConnect = spinner.connect(spinner.focusNode, "onfocus", countFocus);
@@ -50,7 +50,7 @@
 					//		Populates results[] with expected values after each keypress.
 					//		Also sets up listener to every keyboard event (arrow key etc) on a spinner and
 					//		records to record the actual spinner values into results[].
-					var spinner = dijit.byId(inSpinnerId);
+					var spinner = dui.byId(inSpinnerId);
 					results = populateExpected(spinner);
 					strokeIndex = 0;
 					noteConnect = spinner.connect(spinner.focusNode, "onkeypress", function(){
@@ -129,7 +129,7 @@
 				// common robot TAB-focus test function.
 				var a11yTabFocus = function(inSpinnerId){
 					var d = new doh.Deferred();
-					var spinner = dijit.byId(inSpinnerId);
+					var spinner = dui.byId(inSpinnerId);
 					focusThenRun(spinner, function(){
 						var handler = spinner.connect(spinner, '_onBlur', function(){
 							spinner.disconnect(handler);
@@ -166,7 +166,7 @@
 				// common robot keystroke test function.
 				var a11yKeystrokeTest = function(inSpinnerId){
 					var d = new doh.Deferred();
-					var spinner = dijit.byId(inSpinnerId);
+					var spinner = dui.byId(inSpinnerId);
 					var initVal = spinner.get('value');
 
 					focusThenRun(spinner, function(){
@@ -200,10 +200,10 @@
 					name: "setUp",
 					timeout: 5000,
 					setUp:function(){
-						spin1 = dijit.byId('integerspinner1');
-						spin2 = dijit.byId('integerspinner2');
-						spin3 = dijit.byId('realspinner1');
-						spin4 = dijit.byId('spinnerMinOnly');
+						spin1 = dui.byId('integerspinner1');
+						spin2 = dui.byId('integerspinner2');
+						spin3 = dui.byId('realspinner1');
+						spin4 = dui.byId('spinnerMinOnly');
 						safeClick = dojo.byId('form1');
 					},
 					runTest: function(){
@@ -226,7 +226,7 @@
 							spinner: id,
 							spinnerName: id,
 							runTest:function(){
-								this.spinner = dijit.byId(this.spinner);
+								this.spinner = dui.byId(this.spinner);
 								var queried=dojo.query("input[name="+this.spinnerName+"]");
 								doh.is(1, queried.length,"Expected 1 spinner with name "+this.spinnerName+", found "+queried.length);
 								doh.is(this.spinner.valueNode, queried[0],"Spinner's valueNode did not match the one found by dojo.query.");
@@ -331,7 +331,7 @@
 				// checking one should be sufficient.
 				doh.register("a11yAriaRole",
 					function spinnerRole(){
-						var spinner = dijit.byId("integerspinner1");
+						var spinner = dui.byId("integerspinner1");
 						doh.isNot(spinner, null, "can't find 'integerspinner1'");
 						doh.is(dojo.attr(spinner.focusNode, "role"), "spinbutton", spinner.id + ": aria role (spinbutton)");
 					}
@@ -345,13 +345,13 @@
 				doh.register("a11yMinMaxValues",
 					[
 						function minAndMax(){
-							var spinner = dijit.byId("integerspinner2");
+							var spinner = dui.byId("integerspinner2");
 							doh.isNot(spinner, null, "can't find 'integerspinner2'");
 							doh.is(spinner.focusNode.getAttribute("aria-valuemin"), spinner.constraints.min, spinner.id + ": aria-valuemin");
 							doh.is(spinner.focusNode.getAttribute("aria-valuemax"), spinner.constraints.max, spinner.id + ": aria-valuemax");
 						},
 						function minOnly(){
-							var spinner = dijit.byId("spinnerMinOnly");
+							var spinner = dui.byId("spinnerMinOnly");
 							doh.isNot(spinner, null, "can't find 'spinnerMinOnly'");
 							doh.is(spinner.focusNode.getAttribute("aria-valuemin"), spinner.constraints.min, spinner.id + ": aria-valuemin");
 							if(spinner.constraints.max){
@@ -363,7 +363,7 @@
 							}
 						},
 						function maxOnly(){
-							var spinner = dijit.byId("integertextbox3");
+							var spinner = dui.byId("integertextbox3");
 							doh.isNot(spinner, null, "can't find 'integertextbox3'");
 							doh.is(spinner.focusNode.getAttribute("aria-valuemax"), spinner.constraints.max, spinner.id + ": aria-valuemax");
 							if(spinner.constraints.min){
@@ -375,7 +375,7 @@
 							}
 						},
 						function neitherMinNorMax(){
-							var spinner = dijit.byId("integertextbox3");
+							var spinner = dui.byId("integertextbox3");
 							doh.isNot(spinner, null, "can't find 'integertextbox3'");
 							if(spinner.constraints.min){
 								doh.is(spinner.focusNode.getAttribute("aria-valuemin"), spinner.constraints.min, spinner.id + ": aria-valuemin");
@@ -406,7 +406,7 @@
 							name: id+"_value",
 							spinnerId: id,
 							runTest:function(){
-								var spinner = dijit.byId(this.spinnerId);
+								var spinner = dui.byId(this.spinnerId);
 								spinner.set('value', 100);
 								var ariaVal = spinner.focusNode.getAttribute("aria-valuenow");
 								doh.is(100, ariaVal, spinner.id + ": aria-valuenow");
@@ -422,7 +422,7 @@
 						name:spinnerIds[i]+"_nullValueNow",
 						spinnerId:spinnerIds[i],
 						runTest:function(){
-							var spinner = dijit.byId(this.spinnerId);
+							var spinner = dui.byId(this.spinnerId);
 							var initVal = spinner.get('value');
 							spinner.set('value', null);
 							var spinnerVal = spinner.get('value');
@@ -696,7 +696,7 @@
 						timeout: 5000,
 						runTest: function(){
 							var d=new doh.Deferred();
-							var spinner = dijit.byId("integertextbox3");
+							var spinner = dui.byId("integertextbox3");
 							spinner.set('value', '');
 							focusThenRun(spinner, function(){
 								var handler = spinner.connect(spinner, '_onBlur',

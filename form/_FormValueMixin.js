@@ -8,9 +8,9 @@ define([
 ], function(declare, domAttr, keys, lang, on, _FormWidgetMixin){
 
 	// module:
-	//		dijit/form/_FormValueMixin
+	//		dui/form/_FormValueMixin
 
-	return declare("dijit.form._FormValueMixin", _FormWidgetMixin, {
+	return declare("dui.form._FormValueMixin", _FormWidgetMixin, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<input>` or `<select>`
 		//		that have user changeable values.

@@ -12,8 +12,8 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.robotx");
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			// These are the values assigned to the widgets in the page's HTML
 			var originalGet = {
@@ -74,7 +74,7 @@
 						timeout: 5000,
 						runTest: function(){
 							var d = new doh.Deferred();
-							var formWidget = dijit.byId("myForm");
+							var formWidget = dui.byId("myForm");
 							submittedValues = function(formValues){
 								d.getTestCallback(function(){
 									for(var i in originalGet){ doh.is(testValues[i], formValues[i], i); }
@@ -101,7 +101,7 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is( dojo.toJson(originalGet), dojo.global.dojo.toJson(dijit.byId("myForm").get('value')), "still have original values" );
+								doh.is( dojo.toJson(originalGet), dojo.global.dojo.toJson(dui.byId("myForm").get('value')), "still have original values" );
 								submitForm("resubmit", originalSubmit);
 							}), 1000);
 
@@ -112,17 +112,17 @@
 
 				doh.register("Radio button onChange",[
 					function checkInitialValues(){
-						doh.f(dijit.byId('g1rb1').checked, "news was checked");
-						doh.t(dijit.byId('g1rb2').checked, "talk was not checked");
-						doh.f(dijit.byId('g1rb3').checked, "weather was checked");
-						doh.f(dijit.byId('g2rb1').checked, "top 40 was checked");
-						doh.f(dijit.byId('g2rb2').checked, "oldies was checked");
-						doh.f(dijit.byId('g2rb3').checked, "country was checked");
+						doh.f(dui.byId('g1rb1').checked, "news was checked");
+						doh.t(dui.byId('g1rb2').checked, "talk was not checked");
+						doh.f(dui.byId('g1rb3').checked, "weather was checked");
+						doh.f(dui.byId('g2rb1').checked, "top 40 was checked");
+						doh.f(dui.byId('g2rb2').checked, "oldies was checked");
+						doh.f(dui.byId('g2rb3').checked, "country was checked");
 						doh.f(dojo.byId('g3rb1').checked, "rock was checked");
 						doh.f(dojo.byId('g3rb2').checked, "jazz was checked");
 						doh.t(dojo.byId('g3rb3').checked, "classical was not checked");
-						doh.t(dijit.byId('g4rb1').checked, "tea was not checked");
-						doh.f(dijit.byId('g4rb2').checked, "coffee was checked");
+						doh.t(dui.byId('g4rb1').checked, "tea was not checked");
+						doh.f(dui.byId('g4rb2').checked, "coffee was checked");
 					},
 					{
 						timeout:3000,
@@ -134,9 +134,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g1rb1').checked, "news was not checked");
-								doh.f(dijit.byId('g1rb2').checked, "talk was checked");
-								doh.f(dijit.byId('g1rb3').checked, "weather was checked");
+								doh.t(dui.byId('g1rb1').checked, "news was not checked");
+								doh.f(dui.byId('g1rb2').checked, "talk was checked");
+								doh.f(dui.byId('g1rb3').checked, "weather was checked");
 							}), 1000);
 
 							return d;
@@ -152,9 +152,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g1rb1').checked, "news was not checked");
-								doh.f(dijit.byId('g1rb2').checked, "talk was checked");
-								doh.f(dijit.byId('g1rb3').checked, "weather was checked");
+								doh.t(dui.byId('g1rb1').checked, "news was not checked");
+								doh.f(dui.byId('g1rb2').checked, "talk was checked");
+								doh.f(dui.byId('g1rb3').checked, "weather was checked");
 							}), 1000);
 
 							return d;
@@ -172,9 +172,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g1rb1').checked, "news was checked");
-								doh.f(dijit.byId('g1rb2').checked, "talk was checked");
-								doh.t(dijit.byId('g1rb3').checked, "weather was not checked");
+								doh.f(dui.byId('g1rb1').checked, "news was checked");
+								doh.f(dui.byId('g1rb2').checked, "talk was checked");
+								doh.t(dui.byId('g1rb3').checked, "weather was not checked");
 							}), 1000);
 
 							return d;
@@ -190,9 +190,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g2rb3').checked, "country was not checked");
-								doh.f(dijit.byId('g2rb2').checked, "oldies was checked");
-								doh.f(dijit.byId('g2rb1').checked, "top 40 was checked");
+								doh.t(dui.byId('g2rb3').checked, "country was not checked");
+								doh.f(dui.byId('g2rb2').checked, "oldies was checked");
+								doh.f(dui.byId('g2rb1').checked, "top 40 was checked");
 							}), 1000);
 
 							return d;
@@ -208,9 +208,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g2rb3').checked, "country was checked");
-								doh.f(dijit.byId('g2rb2').checked, "oldies was checked");
-								doh.t(dijit.byId('g2rb1').checked, "top 40 was not checked");
+								doh.f(dui.byId('g2rb3').checked, "country was checked");
+								doh.f(dui.byId('g2rb2').checked, "oldies was checked");
+								doh.t(dui.byId('g2rb1').checked, "top 40 was not checked");
 							}), 1000);
 
 							return d;
@@ -226,9 +226,9 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g2rb3').checked, "country was checked");
-								doh.t(dijit.byId('g2rb2').checked, "oldies was not checked");
-								doh.f(dijit.byId('g2rb1').checked, "top 40 was checked");
+								doh.f(dui.byId('g2rb3').checked, "country was checked");
+								doh.t(dui.byId('g2rb2').checked, "oldies was not checked");
+								doh.f(dui.byId('g2rb1').checked, "top 40 was checked");
 							}), 1000);
 
 							return d;
@@ -280,12 +280,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('b1').checked, "b1 was not checked");
-								doh.f(dijit.byId('b2').checked, "b2 was checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.t(dui.byId('b1').checked, "b1 was not checked");
+								doh.f(dui.byId('b2').checked, "b2 was checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -301,12 +301,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -322,12 +322,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.t(dijit.byId('c1').checked, "c1 was not checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.t(dui.byId('c1').checked, "c1 was not checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -343,12 +343,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -364,12 +364,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.t(dijit.byId('d2').checked, "d2 was not checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.t(dui.byId('d2').checked, "d2 was not checked");
 							}), 1000);
 
 							return d;
@@ -385,12 +385,12 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.t(dijit.byId('d1').checked, "d1 was not checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.t(dui.byId('d1').checked, "d1 was not checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -406,8 +406,8 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g4rb1').checked, "tea was checked");
-								doh.t(dijit.byId('g4rb2').checked, "coffee was not checked");
+								doh.f(dui.byId('g4rb1').checked, "tea was checked");
+								doh.t(dui.byId('g4rb2').checked, "coffee was not checked");
 							}), 1000);
 
 							return d;

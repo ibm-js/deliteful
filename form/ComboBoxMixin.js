@@ -11,9 +11,9 @@ define([
 
 
 	// module:
-	//		dijit/form/ComboBoxMixin
+	//		dui/form/ComboBoxMixin
 
-	return declare("dijit.form.ComboBoxMixin", [_HasDropDown, _AutoCompleterMixin], {
+	return declare("dui.form.ComboBoxMixin", [_HasDropDown, _AutoCompleterMixin], {
 		// summary:
 		//		Provides main functionality of ComboBox widget
 
@@ -29,7 +29,7 @@ define([
 
 		templateString: template,
 
-		baseClass: "dijitTextBox dijitComboBox",
+		baseClass: "duiTextBox duiComboBox",
 
 		/*=====
 		// store: [const] dojo/store/api/Store
@@ -37,10 +37,10 @@ define([
 		store: null,
 		=====*/
 
-		// Set classes like dijitDownArrowButtonHover depending on
+		// Set classes like duiDownArrowButtonHover depending on
 		// mouse action over button node
 		cssStateNodes: {
-			"_buttonNode": "dijitDownArrowButton"
+			"_buttonNode": "duiDownArrowButton"
 		},
 
 		_setHasDownArrowAttr: function(/*Boolean*/ val){

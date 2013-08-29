@@ -23,9 +23,9 @@ define([
 			focus, typematic, Button, _FormValueWidget, _Container, template){
 
 	// module:
-	//		dijit/form/HorizontalSlider
+	//		dui/form/HorizontalSlider
 
-	var _SliderMover = declare("dijit.form._SliderMover", Mover, {
+	var _SliderMover = declare("dui.form._SliderMover", Mover, {
 		onMouseMove: function(e){
 			var widget = this.widget;
 			var abspos = widget._abspos;
@@ -46,7 +46,7 @@ define([
 		}
 	});
 
-	var HorizontalSlider = declare("dijit.form.HorizontalSlider", [_FormValueWidget, _Container], {
+	var HorizontalSlider = declare("dui.form.HorizontalSlider", [_FormValueWidget, _Container], {
 		// summary:
 		//		A form widget that allows one to select a value with a horizontally draggable handle
 
@@ -100,13 +100,13 @@ define([
 		_setIdAttr: "", // Override _FormWidget which sends id to focusNode
 		_setNameAttr: "valueNode", // Override default behavior to send to focusNode
 
-		baseClass: "dijitSlider",
+		baseClass: "duiSlider",
 
 		// Apply CSS classes to up/down arrows and handle per mouse state
 		cssStateNodes: {
-			incrementButton: "dijitSliderIncrementButton",
-			decrementButton: "dijitSliderDecrementButton",
-			focusNode: "dijitSliderThumb"
+			incrementButton: "duiSliderIncrementButton",
+			decrementButton: "duiSliderDecrementButton",
+			focusNode: "duiSliderThumb"
 		},
 
 		_mousePixelCoord: "pageX",

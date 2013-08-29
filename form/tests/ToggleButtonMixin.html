@@ -13,7 +13,7 @@
 			margin: 0;
 			padding: 2px;
 		}
-		#table, .dijit, BUTTON {
+		#table, .dui, BUTTON {
 			font-family: monospace;
 			font-size: 12pt;
 		}
@@ -33,30 +33,30 @@
 
 	<script type="text/javascript">
 		dojo.require("doh.runner");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("dijit.form.ToggleButton");
+		dojo.require("dui.dijit"); // optimize: load dui layer
+		dojo.require("dui.form.ToggleButton");
 		dojo.require("dui.mobile.ToggleButton");
 
 		dojo.ready(function(){
 
 			doh.register("attributes", [
 				{
-					name: "dijit",
+					name: "dui",
 					runTest: function(){
-						var dijit_attributes = dijit.byId('dijit_attributes');
-						doh.t(dijit_attributes.get('checked'), "dijit original get('checked')");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass checked");
-						dijit_attributes.set('checked', false);
-						doh.f(dijit_attributes.get('checked'), "dijit get('checked')");
-						doh.f(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass not checked");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
+						var dui_attributes = dui.byId('dui_attributes');
+						doh.t(dui_attributes.get('checked'), "dui original get('checked')");
+						doh.t(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass+"Checked"), "dui baseClass checked");
+						dui_attributes.set('checked', false);
+						doh.f(dui_attributes.get('checked'), "dui get('checked')");
+						doh.f(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass+"Checked"), "dui baseClass not checked");
+						doh.t(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass), "dui baseClass");
+						doh.t(dojo.hasClass(dui_attributes.domNode, "duiRedButton"), "dui original class");
 					}
 	 			},
 				{
 					name: "mobile",
 					runTest: function(){
-						var mobile_attributes = dijit.byId('mobile_attributes');
+						var mobile_attributes = dui.byId('mobile_attributes');
 						doh.t(mobile_attributes.get('checked'), "mobile original get('checked')");
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass+"Checked"), "mobile baseClass checked");
 						mobile_attributes.set('checked', false);
@@ -70,21 +70,21 @@
 
 			doh.register("events", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							dijit_events = dijit.byId('dijit_events'),
+							dui_events = dui.byId('dui_events'),
 							calledOnClick = false,
 							nop = function(){ return false; };
 
 						function onChange(v){
-							dijit_events.set('onChange', nop);
+							dui_events.set('onChange', nop);
 							d.callback(true);
 						}
-						dijit_events.set('onChange', onChange);
-						dijit_events._onClick({
+						dui_events.set('onChange', onChange);
+						dui_events._onClick({
 							preventDefault: nop,
 							stopPropagation: nop
 						});
@@ -98,7 +98,7 @@
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							mobile_events = dijit.byId('mobile_events'),
+							mobile_events = dui.byId('mobile_events'),
 							nop = function(){ return false; };
 
 						function onChange(){
@@ -120,14 +120,14 @@
 
 			doh.register("programmatic", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
-						new dijit.form.ToggleButton({id:"dijit_programmatic", type:"button", checked:true, label:"No srcNodeRef", "aria-label":"dijit_programmatic"}).placeAt("dijit_programmatic_container", "first");
-						var dijit_programmatic = dijit.byId('dijit_programmatic');
-						var pos = dojo.position(dijit_programmatic.domNode, true);
-						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dijit position');
-						doh.t(dijit_programmatic.get('checked'), 'dijit widget checked');
+						new dui.form.ToggleButton({id:"dui_programmatic", type:"button", checked:true, label:"No srcNodeRef", "aria-label":"dui_programmatic"}).placeAt("dui_programmatic_container", "first");
+						var dui_programmatic = dui.byId('dui_programmatic');
+						var pos = dojo.position(dui_programmatic.domNode, true);
+						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dui position');
+						doh.t(dui_programmatic.get('checked'), 'dui widget checked');
 					}
 	 			},
 				{
@@ -135,7 +135,7 @@
 					timeout: 2000,
 					runTest: function(){
 						new dui.mobile.ToggleButton({id:"mobile_programmatic", type:"button", checked:true, label:"No srcNodeRef", "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
-						var mobile_programmatic = dijit.byId('mobile_programmatic');
+						var mobile_programmatic = dui.byId('mobile_programmatic');
 						var pos = dojo.position(mobile_programmatic.domNode, true);
 						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'mobile position');
 						doh.t(mobile_programmatic.get('checked'), 'mobile widget checked');
@@ -148,28 +148,28 @@
 	</script>
 </head>
 <body class="claro" role="main">
-	<h1 class="testTitle">_ToggleButtonMixin (dijit and mobile) non-robot tests</h1>
+	<h1 class="testTitle">_ToggleButtonMixin (dui and mobile) non-robot tests</h1>
 
 	<table id="table">
 		<tr>
 			<th class="layout">&nbsp;</th>
-			<th class="layout">dijit</th>
+			<th class="layout">dui</th>
 			<th class="layout">mobile</th>
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", checked: true, label:"original", "class":"duiRedButton"'/></td>
+			<td class="layout"><input id="dui_attributes" data-dojo-type="dui/form/ToggleButton" data-dojo-props='type:"button", checked: true, label:"original", "class":"duiRedButton"'/></td>
 			<td class="layout"><button type="button" class="duiRedButton" checked id="mobile_attributes" dojoType="dui.mobile.ToggleButton" label="original"/></td>
 		</tr>
 		<tr>
 		<tr>
 			<td class="layout">Events</td>
-			<td class="layout"><button id="dijit_events" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
+			<td class="layout"><button id="dui_events" data-dojo-type="dui/form/ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
 			<td class="layout"><button type="button" id="mobile_events" data-dojo-type="dui.mobile.ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>
-			<td class="layout" id="dijit_programmatic_container"></td>
+			<td class="layout" id="dui_programmatic_container"></td>
 			<td class="layout" id="mobile_programmatic_container"></td>
 		</tr>
 	</table>

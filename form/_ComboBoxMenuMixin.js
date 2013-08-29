@@ -7,11 +7,11 @@ define([
 ], function(array, declare, domAttr, has, nlsComboBox){
 
 	// module:
-	//		dijit/form/_ComboBoxMenuMixin
+	//		dui/form/_ComboBoxMenuMixin
 
-	var ComboBoxMenuMixin = declare("dijit.form._ComboBoxMenuMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), null, {
+	var ComboBoxMenuMixin = declare("dui.form._ComboBoxMenuMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), null, {
 		// summary:
-		//		Focus-less menu for internal use in `dijit/form/ComboBox`
+		//		Focus-less menu for internal use in `dui/form/ComboBox`
 		// tags:
 		//		private
 
@@ -61,7 +61,7 @@ define([
 
 		onClose: function(){
 			// summary:
-			//		Callback from dijit.popup code to this widget, notifying it that it closed
+			//		Callback from dui.popup code to this widget, notifying it that it closed
 			// tags:
 			//		private
 			this._setSelectedAttr(null);
@@ -70,7 +70,7 @@ define([
 		_createOption: function(/*Object*/ item, labelFunc){
 			// summary:
 			//		Creates an option to appear on the popup menu subclassed by
-			//		`dijit/form/FilteringSelect`.
+			//		`dui/form/FilteringSelect`.
 
 			var menuitem = this._createMenuItem();
 			var labelObject = labelFunc(item);
@@ -179,7 +179,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		ComboBoxMenuMixin = declare("dijit.form._ComboBoxMenuMixin", ComboBoxMenuMixin, {
+		ComboBoxMenuMixin = declare("dui.form._ComboBoxMenuMixin", ComboBoxMenuMixin, {
 			_createOption: function(){
 				var menuitem = this.inherited(arguments);
 

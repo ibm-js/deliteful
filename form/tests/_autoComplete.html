@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>dijit.form.ComboBox Unit Test</title>
+	<title>dui.form.ComboBox Unit Test</title>
 
 	<style>
 		@import "../../themes/claro/document.css";
@@ -10,7 +10,7 @@
 		@import "../css/dijitTests.css";
 	</style>
 
-	<!-- required: the default dijit theme: -->
+	<!-- required: the default dui theme: -->
 	<link id="themeStyles" rel="stylesheet" href="../../../dijit/themes/claro/claro.css"/>
 
 	<!-- required: dojo.js -->
@@ -22,7 +22,7 @@
 
 	<script type="text/javascript">
 		var isUnitTest = false;
-		var testWidget = "dijit.form.ComboBox";
+		var testWidget = "dui.form.ComboBox";
 		var qstr = window.location.search.substr(1);
 		if(qstr.length){
 		        var qparts = qstr.split("&");
@@ -36,19 +36,19 @@
 				}
 		        }
 		}
-		var isComboBox = testWidget == "dijit.form.ComboBox";
+		var isComboBox = testWidget == "dui.form.ComboBox";
 		dojo.require("dojo.store.Memory");
 		dojo.require("dojo._base.Deferred");
 		dojo.require("dojo.data.ItemFileReadStore");
-		dojo.require("dijit.tests._data.SlowStore");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dui.tests._data.SlowStore");
+		dojo.require("dui.dijit"); // optimize: load dui layer
 		dojo.require(testWidget);
 		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
 		dojo.require("doh.runner");
 
 		function setVal2(val){
 			dojo.byId('value2').value=val;
-			var w = dijit.byId('datatest');
+			var w = dui.byId('datatest');
 			var item = w.item;
 			console.debug("Value changed to ["+val+"] in second box (#1652): datastore item label = " + (item?w.store.getLabel(item):'no item'));
 		}
@@ -69,13 +69,13 @@
 		}
 
 		// Test Custom Store
-		dojo.declare("StateSelect", isComboBox ? dijit.form.ComboBox : dijit.form.FilteringSelect , {
+		dojo.declare("StateSelect", isComboBox ? dui.form.ComboBox : dui.form.FilteringSelect , {
 			placeHolder: "Select a State",
 			searchAttr: "name",
 			label: "State:",
 			name: "state",
 			style: "width: 160px",
-			store: new dojo.data.ItemFileReadStore({ url: dojo.moduleUrl("dijit.tests._data", "states.json") }),
+			store: new dojo.data.ItemFileReadStore({ url: dojo.moduleUrl("dui.tests._data", "states.json") }),
 			value: ''
 		});
 
@@ -88,7 +88,7 @@
 				node.setAttribute('data-dojo-type', testWidget);
 			});
 			dojo.parser.parse(dojo.body());
-			store = new dojo.data.ItemFileReadStore({url: dojo.moduleUrl("dijit.tests._data", "states.json")});
+			store = new dojo.data.ItemFileReadStore({url: dojo.moduleUrl("dui.tests._data", "states.json")});
 			combo = new testClass({
 				name:"prog",
 				title: "title attribute used for label",
@@ -96,7 +96,7 @@
 				store: store,
 				searchAttr:"name"
 			}, dojo.byId("progCombo"));
-			store2 = new dojo.data.ItemFileReadStore({url: dojo.moduleUrl("dijit.tests._data", "countries.json")});
+			store2 = new dojo.data.ItemFileReadStore({url: dojo.moduleUrl("dui.tests._data", "countries.json")});
 			combo = new testClass({
 				name:"prog2",
 				autoComplete:false,
@@ -134,7 +134,7 @@
 				{
 					name: "user-specified id",
 					runTest: function(){
-						combo = dijit.byId("setvaluetest");
+						combo = dui.byId("setvaluetest");
 						var labelId = combo.domNode.getAttribute('aria-labelledby');
 						doh.is("setvaluetest_mylabel", labelId, "labelledby");
 						doh.is(labelId, dojo.byId(labelId).id, "label id");
@@ -143,7 +143,7 @@
 				{
 					name: "generated id",
 					runTest: function(){
-						combo = dijit.byId("datatest");
+						combo = dui.byId("datatest");
 						var labelId = combo.domNode.getAttribute('aria-labelledby');
 						doh.is("datatest_label", labelId, "labelledby");
 						doh.is(labelId, dojo.byId(labelId).id, "label id");
@@ -154,7 +154,7 @@
 					timeout: 2000,
 					runTest:function(){
 						var d = new doh.Deferred();
-						combo = dijit.byId("setvaluetest");
+						combo = dui.byId("setvaluetest");
 						// ComboBox and FilteringSelect have the same roles and attributes
 						doh.is("combobox", combo._popupStateNode.getAttribute("role"), "combo _popupStateNode role");
 						doh.t(combo._popupStateNode.getAttribute("aria-haspopup"), "aria-haspopup on combo");
@@ -191,7 +191,7 @@
 					combo: "placeholdertest",
 					setUp: function(){
 						dojo.byId('native').focus(); // blur combo so onfocus fires
-						combo = dijit.byId(this.combo);
+						combo = dui.byId(this.combo);
 					},
 					runTest: function(){
 						var d = new doh.Deferred();
@@ -233,7 +233,7 @@
 					combo: "placeholdertest",
 					setUp: function(){
 						dojo.byId('native').focus(); // blur combo so onfocus fires
-						combo = dijit.byId(this.combo);
+						combo = dui.byId(this.combo);
 					},
 					runTest: function(){
 						var d = new doh.Deferred();
@@ -295,7 +295,7 @@
 					name:"total",
 					runTest: function(){
 						var d = new doh.Deferred();
-						var combo = dijit.byId("slow");
+						var combo = dui.byId("slow");
 						var handler = dojo.connect(combo, "onSearch", function(results, query, options){
 							dojo.disconnect(handler);
 							d.getTestCallback(function(){
@@ -309,7 +309,7 @@
 						return d;
 					},
 					tearDown:function(){
-						dijit.byId("slow").closeDropDown();
+						dui.byId("slow").closeDropDown();
 					}
 				}
 			]);
@@ -319,7 +319,7 @@
 		dojo.ready(init);
 
 		function toggleDisabled(button, widget){
-			widget = dijit.byId(widget);
+			widget = dui.byId(widget);
 			button = dojo.byId(button);
 			widget.set('disabled',!widget.disabled);
 			button.innerHTML= widget.disabled ? "Enable" : "Disable";
@@ -374,7 +374,7 @@
 				var itemLabel;
 				if(this.item === null){
 					itemLabel = "null";
-					if(testWidget != "dijit.form.ComboBox" && this.isValid() && this.textbox.value != ''){
+					if(testWidget != "dui.form.ComboBox" && this.isValid() && this.textbox.value != ''){
 						console.error(this.id + ' has a null item, onChange value = ' + newValue + ', widget value = ' + this.value + ', displayed Value = ' + this.textbox.value);
 						this.itemError = true;
 					}
@@ -404,7 +404,7 @@
 				style:{width:"50%", fontSize:"200%", fontFamily:"Courier"},
 				autoComplete:false,
 				selectOnClick:true,
-				onBlur:function(){ dojo.byId("b1").value=dijit.byId("setvaluetest").value },
+				onBlur:function(){ dojo.byId("b1").value=dui.byId("setvaluetest").value },
 				onClick:function(){ console.log("onclick"); },
 				pageSize:30,
 				labelFunc:setValueTestLabelFunc,
@@ -476,22 +476,22 @@
 		<br><label for="v1">value:</label><input id="v1" disabled value="not fired yet!" autocomplete="off"/>
 		<br><label for="b1">blur:</label><input id="b1" disabled value="not fired yet!" autocomplete="off"/>
 		<br><label for="i1">this.item:</label><input id="i1" disabled value="no onChange yet!" autocomplete="off"/>
-		<input type="button" id="sv1_1" value="Set displayed value to Kentucky" onClick="dijit.byId('setvaluetest').set('displayedValue', 'Kentucky')"/>
-	        <input type="button" id="sv1_2" value="Set displayed value to Canada" onClick="dijit.byId('setvaluetest').set('displayedValue', 'Canada')"/>
-	        <input type="button" id="sv1_3" value="Set value to null" onClick="dijit.byId('setvaluetest').set('value', null)"/>
-	        <input type="button" id="sv1_4" value="Get value" onClick="dojo.byId('v1').value=dijit.byId('setvaluetest').get('value')"/>
+		<input type="button" id="sv1_1" value="Set displayed value to Kentucky" onClick="dui.byId('setvaluetest').set('displayedValue', 'Kentucky')"/>
+	        <input type="button" id="sv1_2" value="Set displayed value to Canada" onClick="dui.byId('setvaluetest').set('displayedValue', 'Canada')"/>
+	        <input type="button" id="sv1_3" value="Set value to null" onClick="dui.byId('setvaluetest').set('value', null)"/>
+	        <input type="button" id="sv1_4" value="Get value" onClick="dojo.byId('v1').value=dui.byId('setvaluetest').get('value')"/>
 
 		<hr>
 
 		<div data-dojo-id="stateStore" data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-props='url:"../_data/states.json"'></div>
-		<div data-dojo-id="slowStateStore" data-dojo-type="dijit/tests/_data/SlowStore" data-dojo-props='url:"../_data/states.json"'></div>
+		<div data-dojo-id="slowStateStore" data-dojo-type="dui/tests/_data/SlowStore" data-dojo-props='url:"../_data/states.json"'></div>
 
-		<div data-dojo-id="dijitStore" data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-props='url:"../_data/dijits.json"'></div>
+		<div data-dojo-id="duiStore" data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-props='url:"../_data/dijits.json"'></div>
 
 		<p>Data store, autoComplete=true:</p>
 		<label for="datatest">US State test 2 (8pt font):</label>
 		<input id="datatest" data-dojo-type="$testWidget"
-				data-dojo-props='value: (testWidget == "dijit.form.ComboBox") ? "California" : "CA",
+				data-dojo-props='value: (testWidget == "dui.form.ComboBox") ? "California" : "CA",
 				store:stateStore,
 				searchAttr:"name",
 				style:{width:"200px", fontSize:"8pt"},
@@ -503,23 +503,23 @@
 		<p>Artificially slowed-down data store, autoComplete=true:</p>
 		<label for="slow">US State test slow:</label>
 		<input id="slow" data-dojo-type="$testWidget"
-				data-dojo-props='value: (testWidget == "dijit.form.ComboBox") ? "California" : "CA",
+				data-dojo-props='value: (testWidget == "dui.form.ComboBox") ? "California" : "CA",
 				store:slowStateStore,
 				searchAttr:"name",
 				name:"stateSlow",
 				onChange:function(val){ dojo.byId("ocSlow").value = val; }
 				'/>
 		<br><label for="ocSlow">onChange:</label><input id="ocSlow" disabled value="not fired yet!" autocomplete="off"/>
-		<button id="slowDestroy" type="button" onclick="dijit.byId('slow').destroy();return false">Destroy widget to test in-flight query cancel</button>
+		<button id="slowDestroy" type="button" onclick="dui.byId('slow').destroy();return false">Destroy widget to test in-flight query cancel</button>
 		<hr>
 
 		<label for="datatestDijit">Dijit List test #1 (150% font):</label>
 		<input id="datatestDijit" data-dojo-type="$testWidget"
-				data-dojo-props='value:"dijit.Editor",
-				store:dijitStore,
+				data-dojo-props='value:"dui.Editor",
+				store:duiStore,
 				searchAttr:"className",
 				style:{width:"200px",fontSize:"150%"},
-				name:"dijitList1"
+				name:"duiList1"
 				'/>
 		<span>Hey look, this one is kind of useful.</span>
 		<hr>
@@ -527,7 +527,7 @@
 		<p>Initially disabled, url, autoComplete=false:</p>
 		<label for="combo3">US State test 3:</label>
 	 	<input id="combo3" data-dojo-type="$testWidget"
-	 			data-dojo-props='value:(testWidget == "dijit.form.ComboBox") ? "California" : "CA",
+	 			data-dojo-props='value:(testWidget == "dui.form.ComboBox") ? "California" : "CA",
 				store:stateStore,
 				searchAttr:"name",
 				style:{width:"300px"},
@@ -575,7 +575,7 @@
 		<p>No arrow, data store which searches and highlights matches anywhere in the string</p>
 		<label for="arrowless">Arrowless:</label>
 	 	<input id="arrowless" data-dojo-type="$testWidget"
-				data-dojo-props='value: (testWidget == "dijit.form.ComboBox") ? "California" : "CA",
+				data-dojo-props='value: (testWidget == "dui.form.ComboBox") ? "California" : "CA",
 				store:stateStore,
 				searchAttr:"name",
 				queryExpr:"*${0}*",
@@ -705,7 +705,7 @@
 		<p>Custom labelFunc (labels in lowercase), autoComplete=true, prompt message when field is blank:</p>
 		<label for="labelFunc">custom label function</label>
 		<input id="labelFunc" data-dojo-type="$testWidget"
-				data-dojo-props='value: (testWidget == "dijit.form.ComboBox") ? "Oregon" : "OR",
+				data-dojo-props='value: (testWidget == "dui.form.ComboBox") ? "Oregon" : "OR",
 				labelFunc:myLabelFunc,
 				store:stateStore,
 				name:"labelFunc",
@@ -715,10 +715,10 @@
 				promptMessage:"Please enter a state",
 				invalidMessage:"Invalid state name."
 		'/>
-		<input type="button" onclick="dijit.byId('labelFunc').set('readOnly',false);" value="Remove readOnly"/>
-		<input type="button" onclick="dijit.byId('labelFunc').set('readOnly',true);" value="Set readOnly"/>
-		<input type="button" onclick="dijit.byId('labelFunc').set('disabled',false);" value="Remove disabled"/>
-		<input type="button" onclick="dijit.byId('labelFunc').set('disabled',true);" value="Set disabled"/>
+		<input type="button" onclick="dui.byId('labelFunc').set('readOnly',false);" value="Remove readOnly"/>
+		<input type="button" onclick="dui.byId('labelFunc').set('readOnly',true);" value="Set readOnly"/>
+		<input type="button" onclick="dui.byId('labelFunc').set('disabled',false);" value="Remove disabled"/>
+		<input type="button" onclick="dui.byId('labelFunc').set('disabled',true);" value="Set disabled"/>
 		<hr>
 
 		<p>Rich text label</p>
@@ -791,18 +791,18 @@
 		<legend>Highlight test</legend>
 		<div style="border:0;margin:1.5em;">
 			<span style='white-space:nowrap;'>
-			<label for="ignoreCase">ignoreCase:</label><select id="ignoreCase" onchange="dijit.byId('highlight').set('ignoreCase', this.value=='true')">
+			<label for="ignoreCase">ignoreCase:</label><select id="ignoreCase" onchange="dui.byId('highlight').set('ignoreCase', this.value=='true')">
 				<option value="true" selected>true</option>
 				<option value="false">false</option>
 			</select>
 			<label for="highlightMatch">highlightMatch:</label>
-			<select id="highlightMatch" onchange="dijit.byId('highlight').set('highlightMatch', this.value)">
+			<select id="highlightMatch" onchange="dui.byId('highlight').set('highlightMatch', this.value)">
 				<option value="first" selected>first</option>
 				<option value="all">all</option>
 				<option value="none">none</option>
 			</select>
 			<label for="queryExpr">queryExpr:</label>
-			<select id="queryExpr" onchange="dijit.byId('highlight').set('queryExpr', this.value)">
+			<select id="queryExpr" onchange="dui.byId('highlight').set('queryExpr', this.value)">
 				<option value="${0}*" selected>${0}*</option>
 				<option value="*${0}*">*${0}*</option>
 				<option value="*${0}">*${0}</option>

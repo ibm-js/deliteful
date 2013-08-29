@@ -5,9 +5,9 @@ define([
 ], function(declare, ValidationTextBox, ComboBoxMixin){
 
 	// module:
-	//		dijit/form/ComboBox
+	//		dui/form/ComboBox
 
-	return declare("dijit.form.ComboBox", [ValidationTextBox, ComboBoxMixin], {
+	return declare("dui.form.ComboBox", [ValidationTextBox, ComboBoxMixin], {
 		// summary:
 		//		Auto-completing text box
 		//

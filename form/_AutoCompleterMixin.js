@@ -13,13 +13,13 @@ define([
 ], function(aspect, declare, domAttr, keys, lang, query, regexp, has, DataList, _TextBoxMixin, SearchMixin){
 
 	// module:
-	//		dijit/form/_AutoCompleterMixin
+	//		dui/form/_AutoCompleterMixin
 
-	var AutoCompleterMixin = declare("dijit.form._AutoCompleterMixin", SearchMixin, {
+	var AutoCompleterMixin = declare("dui.form._AutoCompleterMixin", SearchMixin, {
 		// summary:
-		//		A mixin that implements the base functionality for `dijit/form/ComboBox`/`dijit/form/FilteringSelect`
+		//		A mixin that implements the base functionality for `dui/form/ComboBox`/`dui/form/FilteringSelect`
 		// description:
-		//		All widgets that mix in dijit/form/_AutoCompleterMixin must extend `dijit/form/_FormValueWidget`.
+		//		All widgets that mix in dui/form/_AutoCompleterMixin must extend `dui/form/_FormValueWidget`.
 		// tags:
 		//		protected
 
@@ -437,7 +437,7 @@ define([
 		_getValueField: function(){
 			// summary:
 			//		Helper for postMixInProperties() to set this.value based on data inlined into the markup.
-			//		Returns the attribute name in the item (in dijit/form/_ComboBoxDataStore) to use as the value.
+			//		Returns the attribute name in the item (in dui/form/_ComboBoxDataStore) to use as the value.
 			return this.searchAttr;
 		},
 
@@ -516,7 +516,7 @@ define([
 			return this._escapeHtml(label.replace(
 				new RegExp((i == 0 ? "^" : "") + "(" + find + ")" + (i == (this.queryExpr.length - 4) ? "$" : ""), modifiers),
 				'\uFFFF$1\uFFFF')).replace(
-				/\uFFFF([^\uFFFF]+)\uFFFF/g, '<span class="dijitComboBoxHighlightMatch">$1</span>'
+				/\uFFFF([^\uFFFF]+)\uFFFF/g, '<span class="duiComboBoxHighlightMatch">$1</span>'
 			); // returns String, (almost) valid HTML (entities encoded)
 		},
 

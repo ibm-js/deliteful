@@ -4,16 +4,16 @@ define([
 ], function(declare, HorizontalRuleLabels){
 
 	// module:
-	//		dijit/form/VerticalRuleLabels
+	//		dui/form/VerticalRuleLabels
 
-	return declare("dijit.form.VerticalRuleLabels", HorizontalRuleLabels, {
+	return declare("dui.form.VerticalRuleLabels", HorizontalRuleLabels, {
 		// summary:
-		//		Labels for the `dijit/form/VerticalSlider`
+		//		Labels for the `dui/form/VerticalSlider`
 
-		templateString: '<div class="dijitRuleContainer dijitRuleContainerV dijitRuleLabelsContainer dijitRuleLabelsContainerV"></div>',
+		templateString: '<div class="duiRuleContainer duiRuleContainerV duiRuleLabelsContainer duiRuleLabelsContainerV"></div>',
 
-		_positionPrefix: '<div class="dijitRuleLabelContainer dijitRuleLabelContainerV" style="top:',
-		_labelPrefix: '"><span class="dijitRuleLabel dijitRuleLabelV">',
+		_positionPrefix: '<div class="duiRuleLabelContainer duiRuleLabelContainerV" style="top:',
+		_labelPrefix: '"><span class="duiRuleLabel duiRuleLabelV">',
 
 		_calcPosition: function(pos){
 			// Overrides HorizontalRuleLabel._calcPosition()

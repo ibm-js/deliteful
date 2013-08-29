@@ -30,8 +30,8 @@
 
 	<script type="text/javascript">
 		dojo.require("doh.runner");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("dijit.form.Textarea");
+		dojo.require("dui.dijit"); // optimize: load dui layer
+		dojo.require("dui.form.Textarea");
 		dojo.require("dui.mobile.ExpandingTextArea");
 
 		dojo.ready(function(){
@@ -40,34 +40,34 @@
 
 			doh.register("attributes", [
 				{
-					name: "dijit",
+					name: "dui",
 					runTest: function(){
-						var dijit_attributes = dijit.byId('dijit_attributes');
-						doh.is("", dijit_attributes.textbox.value, "dijit original value");
-						doh.is("", dijit_attributes.get('value'), "dijit original get('value')");
+						var dui_attributes = dui.byId('dui_attributes');
+						doh.is("", dui_attributes.textbox.value, "dui original value");
+						doh.is("", dui_attributes.get('value'), "dui original get('value')");
 						if(maxLengthNativeSupport){
-							doh.is("20", dijit_attributes.textbox.getAttribute("maxlength"), "dijit original maxLength");
+							doh.is("20", dui_attributes.textbox.getAttribute("maxlength"), "dui original maxLength");
 						}
-						doh.is("20", dijit_attributes.get('maxLength'), "dijit original get('maxLength')");
-						dijit_attributes.set('maxLength', "9");
-						doh.is("", dijit_attributes.textbox.value, "dijit value");
-						doh.is("", dijit_attributes.get('value'), "dijit get('value')");
+						doh.is("20", dui_attributes.get('maxLength'), "dui original get('maxLength')");
+						dui_attributes.set('maxLength', "9");
+						doh.is("", dui_attributes.textbox.value, "dui value");
+						doh.is("", dui_attributes.get('value'), "dui get('value')");
 						if(maxLengthNativeSupport){
-							doh.is("9", dijit_attributes.textbox.getAttribute("maxlength"), "dijit maxLength");
+							doh.is("9", dui_attributes.textbox.getAttribute("maxlength"), "dui maxLength");
 						}
-						doh.is("9", dijit_attributes.get('maxLength'), "dijit get('maxLength')");
+						doh.is("9", dui_attributes.get('maxLength'), "dui get('maxLength')");
 						// cols
-						doh.is("20", dijit_attributes.textbox.getAttribute("cols"), "dijit original cols");
-						doh.is("20", dijit_attributes.get('cols'), "dijit original get('cols')");
-						dijit_attributes.set('cols', "19");
-						doh.is("19", dijit_attributes.textbox.getAttribute("cols"), "dijit cols");
-						doh.is("19", dijit_attributes.get('cols'), "dijit get('cols')");
+						doh.is("20", dui_attributes.textbox.getAttribute("cols"), "dui original cols");
+						doh.is("20", dui_attributes.get('cols'), "dui original get('cols')");
+						dui_attributes.set('cols', "19");
+						doh.is("19", dui_attributes.textbox.getAttribute("cols"), "dui cols");
+						doh.is("19", dui_attributes.get('cols'), "dui get('cols')");
 					}
 	 			},
 				{
 					name: "mobile",
 					runTest: function(){
-						var mobile_attributes = dijit.byId('mobile_attributes');
+						var mobile_attributes = dui.byId('mobile_attributes');
 						doh.is("", mobile_attributes.textbox.value, "mobile original value");
 						doh.is("", mobile_attributes.get('value'), "mobile original get('value')");
 						if(maxLengthNativeSupport){
@@ -93,36 +93,36 @@
 
 			doh.register("events", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							dijit_events = dijit.byId('dijit_events'),
+							dui_events = dui.byId('dui_events'),
 							nop = function(){ return false; };
 
 						function onFocus(){
-							dijit_events.set('onFocus', nop);
-							dijit_events.set("value", "Focus");
-							dijit_events.set('onBlur', onBlur);
-							dijit.byId('mobile_events').focus();
+							dui_events.set('onFocus', nop);
+							dui_events.set("value", "Focus");
+							dui_events.set('onBlur', onBlur);
+							dui.byId('mobile_events').focus();
 						}
 						function onBlur(){
-							dijit_events.set('onChange', onChange);
-							dijit_events.set('onBlur', nop);
-							dijit_events.set("value", "Blur");
+							dui_events.set('onChange', onChange);
+							dui_events.set('onBlur', nop);
+							dui_events.set("value", "Blur");
 						}
 						function onChange(){
-							dijit_events.set('onChange', nop);
-							dijit_events.set("value", "Change");
-							dijit_events.focus();
+							dui_events.set('onChange', nop);
+							dui_events.set("value", "Change");
+							dui_events.focus();
 							d.callback(true);
 						}
-						doh.is(nop.toString(), dijit_events.get('onFocus').toString(), "get('onFocus')");
-						doh.is(nop.toString(), dijit_events.get('onBlur').toString(), "get('onBlur')");
-						doh.is(nop.toString(), dijit_events.get('onChange').toString(), "get('onChange')");
-						dijit_events.set('onFocus', onFocus);
-						setTimeout(dojo.hitch(dijit_events, "focus"), 0);
+						doh.is(nop.toString(), dui_events.get('onFocus').toString(), "get('onFocus')");
+						doh.is(nop.toString(), dui_events.get('onBlur').toString(), "get('onBlur')");
+						doh.is(nop.toString(), dui_events.get('onChange').toString(), "get('onChange')");
+						dui_events.set('onFocus', onFocus);
+						setTimeout(dojo.hitch(dui_events, "focus"), 0);
 
 						return d;
 					}
@@ -133,7 +133,7 @@
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							mobile_events = dijit.byId('mobile_events'),
+							mobile_events = dui.byId('mobile_events'),
 							focusHandle, blurhandle,
 							nop = function(){ return false; };
 
@@ -141,7 +141,7 @@
 							mobile_events.disconnect(focusHandle);
 							mobile_events.set("value", "Focus");
 							blurhandle = mobile_events.connect(mobile_events, '_onBlur', onBlur);
-							dijit.byId('dijit_events').focus();
+							dui.byId('dui_events').focus();
 						}
 						function onBlur(){
 							mobile_events.set('onChange', onChange);
@@ -166,25 +166,25 @@
 
 			doh.register("programmatic", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
-						new dijit.form.Textarea({id:"dijit_programmatic", value:"No srcNodeRef", "aria-label":"dijit_programmatic"}).placeAt("dijit_programmatic_container", "first");
-						var dijit_programmatic = dijit.byId('dijit_programmatic');
-						dijit_programmatic.resize();
-						var focushandle = dijit_programmatic.connect(dijit_programmatic, '_onFocus',
+						new dui.form.Textarea({id:"dui_programmatic", value:"No srcNodeRef", "aria-label":"dui_programmatic"}).placeAt("dui_programmatic_container", "first");
+						var dui_programmatic = dui.byId('dui_programmatic');
+						dui_programmatic.resize();
+						var focushandle = dui_programmatic.connect(dui_programmatic, '_onFocus',
 							function(){
 								d.getTestCallback(function(){
-									dijit_programmatic.disconnect(focushandle);
-									var pos = dojo.position(dijit_programmatic.domNode, true);
-									doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dijit position');
-									doh.is("No srcNodeRef", dijit_programmatic.textbox.value, 'dijit textbox value');
-									doh.is("No srcNodeRef", dijit_programmatic.get('value'), 'dijit widget value');
+									dui_programmatic.disconnect(focushandle);
+									var pos = dojo.position(dui_programmatic.domNode, true);
+									doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dui position');
+									doh.is("No srcNodeRef", dui_programmatic.textbox.value, 'dui textbox value');
+									doh.is("No srcNodeRef", dui_programmatic.get('value'), 'dui widget value');
 								})();
 							}
 						);
 						var d = new doh.Deferred();
-						setTimeout(dojo.hitch(dijit_programmatic, "focus"), 0);
+						setTimeout(dojo.hitch(dui_programmatic, "focus"), 0);
 						return d;
 					}
 	 			},
@@ -193,7 +193,7 @@
 					timeout: 2000,
 					runTest: function(){
 						new dui.mobile.ExpandingTextArea({id:"mobile_programmatic", value:"No srcNodeRef","aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
-						var mobile_programmatic = dijit.byId('mobile_programmatic');
+						var mobile_programmatic = dui.byId('mobile_programmatic');
 						mobile_programmatic.resize();
 						var focushandle = mobile_programmatic.connect(mobile_programmatic, '_onFocus',
 							function(){
@@ -215,23 +215,23 @@
 
 			doh.register("sizes", [
 				{
-					name: "dijit",
+					name: "dui",
 					runTest: function(){
-						var dijit_size = dijit.byId('dijit_size');
-						var originalH = dijit_size.domNode.offsetHeight;
-						var originalVal = dijit_size.value;
-						dijit_size.set('value', originalVal + "\n");
-						var newH = dijit_size.domNode.offsetHeight;
+						var dui_size = dui.byId('dui_size');
+						var originalH = dui_size.domNode.offsetHeight;
+						var originalVal = dui_size.value;
+						dui_size.set('value', originalVal + "\n");
+						var newH = dui_size.domNode.offsetHeight;
 						doh.t(newH > originalH, "expand: " + newH + ' ' + originalH);
-						dijit_size.set('value', originalVal);
-						newH = dijit_size.domNode.offsetHeight;
+						dui_size.set('value', originalVal);
+						newH = dui_size.domNode.offsetHeight;
 						doh.is(newH, originalH, "shrink: " + newH + ' ' + originalH);
 					}
 	 			},
 				{
 					name: "mobile",
 					runTest: function(){
-						var mobile_size = dijit.byId('mobile_size');
+						var mobile_size = dui.byId('mobile_size');
 						var originalH = mobile_size.domNode.offsetHeight;
 						var originalVal = mobile_size.value;
 						mobile_size.set('value', originalVal + "\n");
@@ -248,31 +248,31 @@
 	</script>
 </head>
 <body class="claro" role="main">
-	<h1 class="testTitle">_ExpandingTextAreaMixin (dijit and mobile) non-robot tests</h1>
+	<h1 class="testTitle">_ExpandingTextAreaMixin (dui and mobile) non-robot tests</h1>
 	<table id="table">
 		<tr>
 			<th class="layout">&nbsp;</th>
-			<th class="layout">dijit</th>
+			<th class="layout">dui</th>
 			<th class="layout">mobile</th>
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input id="dijit_attributes" aria-label="dijit_attr" data-dojo-type="dijit/form/Textarea" data-dojo-props='value:"", placeHolder:"original", maxLength:"20", cols:20'/></td>
+			<td class="layout"><input id="dui_attributes" aria-label="dui_attr" data-dojo-type="dui/form/Textarea" data-dojo-props='value:"", placeHolder:"original", maxLength:"20", cols:20'/></td>
 			<td class="layout"><textarea id="mobile_attributes" aria-label="mobilet_attr" data-dojo-type="dui.mobile.ExpandingTextArea" data-dojo-props='cols:20, placeHolder:"original", maxLength:20'></textarea></td>
 		</tr>
 		<tr>
 			<td class="layout">Events</td>
-			<td class="layout"><input id="dijit_events" aria-label="dijit_events"data-dojo-type="dijit/form/Textarea" data-dojo-props='value:"", onFocus:function(){ return false; }, onBlur:function(){ return false; }, onChange:function(){ return false; }'/></td>
+			<td class="layout"><input id="dui_events" aria-label="dui_events"data-dojo-type="dui/form/Textarea" data-dojo-props='value:"", onFocus:function(){ return false; }, onBlur:function(){ return false; }, onChange:function(){ return false; }'/></td>
 			<td class="layout"><textarea id="mobile_events" aria-label="mobile_events" data-dojo-type="dui.mobile.ExpandingTextArea" data-dojo-props='onChange:function(){ return false; }'></textarea></td>
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>
-			<td class="layout" id="dijit_programmatic_container"></td>
+			<td class="layout" id="dui_programmatic_container"></td>
 			<td class="layout" id="mobile_programmatic_container"></td>
 		</tr>
 		<tr>
 			<td class="layout">Size</td>
-			<td class="layout"><textarea id="dijit_size" aria-label="dijit_size" data-dojo-type="dijit/form/Textarea" data-dojo-props=''
+			<td class="layout"><textarea id="dui_size" aria-label="dui_size" data-dojo-type="dui/form/Textarea" data-dojo-props=''
 >line 1
 line 2
 line 3</textarea></td>

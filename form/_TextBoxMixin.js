@@ -10,9 +10,9 @@ define([
 ], function(array, declare, dom, has, keys, lang, on, _FocusMixin){
 
 	// module:
-	//		dijit/form/_TextBoxMixin
+	//		dui/form/_TextBoxMixin
 
-	var _TextBoxMixin = declare("dijit.form._TextBoxMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), _FocusMixin, {
+	var _TextBoxMixin = declare("dui.form._TextBoxMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), _FocusMixin, {
 		// summary:
 		//		A mixin for textbox form input widgets
 
@@ -49,9 +49,9 @@ define([
 			// summary:
 			//		Hook so get('value') works as we like.
 			// description:
-			//		For `dijit/form/TextBox` this basically returns the value of the `<input>`.
+			//		For `dui/form/TextBox` this basically returns the value of the `<input>`.
 			//
-			//		For `dijit/form/MappedTextBox` subclasses, which have both
+			//		For `dui/form/MappedTextBox` subclasses, which have both
 			//		a "displayed value" and a separate "submit value",
 			//		This treats the "displayed value" as the master value, computing the
 			//		submit value from it via this.parse().
@@ -122,7 +122,7 @@ define([
 			//
 			//		For some subclasses of TextBox (like ComboBox), the displayed value
 			//		is different from the serialized value that's actually
-			//		sent to the server (see `dijit/form/ValidationTextBox.serialize()`)
+			//		sent to the server (see `dui/form/ValidationTextBox.serialize()`)
 
 			// TODO: maybe we should update this.displayedValue on every keystroke so that we don't need
 			// this method
@@ -180,7 +180,7 @@ define([
 			// summary:
 			//		After the user types some characters, etc., this method is
 			//		called to check the field for validity etc.  The base method
-			//		in `dijit/form/TextBox` does nothing, but subclasses override.
+			//		in `dui/form/TextBox` does nothing, but subclasses override.
 			// tags:
 			//		protected
 		},
@@ -446,7 +446,7 @@ define([
 		},
 
 		reset: function(){
-			// Overrides `dijit/_FormWidget/reset()`.
+			// Overrides `dui/_FormWidget/reset()`.
 			// Additionally resets the displayed textbox value to ''
 			this.textbox.value = '';
 			this.inherited(arguments);
@@ -454,7 +454,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		_TextBoxMixin = declare("dijit.form._TextBoxMixin", _TextBoxMixin, {
+		_TextBoxMixin = declare("dui.form._TextBoxMixin", _TextBoxMixin, {
 			_setValueAttr: function(){
 				this.inherited(arguments);
 				this.applyTextDir(this.focusNode);

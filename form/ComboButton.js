@@ -6,18 +6,18 @@ define([
 ], function(declare, keys, DropDownButton, template){
 
 	// module:
-	//		dijit/form/ComboButton
+	//		dui/form/ComboButton
 
-	return declare("dijit.form.ComboButton", DropDownButton, {
+	return declare("dui.form.ComboButton", DropDownButton, {
 		// summary:
 		//		A combination button and drop-down button.
 		//		Users can click one side to "press" the button, or click an arrow
 		//		icon to display the drop down.
 		//
 		// example:
-		// |	<button data-dojo-type="dijit/form/ComboButton" onClick="...">
+		// |	<button data-dojo-type="dui/form/ComboButton" onClick="...">
 		// |		<span>Hello world</span>
-		// |		<div data-dojo-type="dijit/Menu">...</div>
+		// |		<div data-dojo-type="dui/Menu">...</div>
 		// |	</button>
 		//
 		// example:
@@ -36,14 +36,14 @@ define([
 		//		Text that describes the options menu (accessibility)
 		optionsTitle: "",
 
-		baseClass: "dijitComboButton",
+		baseClass: "duiComboButton",
 
-		// Set classes like dijitButtonContentsHover or dijitArrowButtonActive depending on
+		// Set classes like duiButtonContentsHover or duiArrowButtonActive depending on
 		// mouse action over specified node
 		cssStateNodes: {
-			"buttonNode": "dijitButtonNode",
-			"titleNode": "dijitButtonContents",
-			"_popupStateNode": "dijitDownArrowButton"
+			"buttonNode": "duiButtonNode",
+			"titleNode": "duiButtonContents",
+			"_popupStateNode": "duiDownArrowButton"
 		},
 
 		_focusedNode: null,

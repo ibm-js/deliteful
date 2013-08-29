@@ -6,7 +6,7 @@ define([
 ], function(currency, declare, lang, NumberTextBox){
 
 	// module:
-	//		dijit/form/CurrencyTextBox
+	//		dui/form/CurrencyTextBox
 
 	/*=====
 	var __Constraints = declare([NumberTextBox.__Constraints, currency.__FormatOptions, currency.__ParseOptions], {
@@ -16,7 +16,7 @@ define([
 		//		displaying the value when the field is not focused (currency symbol,
 		//		etc.)
 		// description:
-		//		Follows the pattern of `dijit/form/NumberTextBox.__Constraints`.
+		//		Follows the pattern of `dui/form/NumberTextBox.__Constraints`.
 		//		In general developers won't need to set this parameter
 		// example:
 		//		To ensure that the user types in the cents (for example, 1.00 instead of just 1):
@@ -24,11 +24,11 @@ define([
 	});
 	=====*/
 
-	return declare("dijit.form.CurrencyTextBox", NumberTextBox, {
+	return declare("dui.form.CurrencyTextBox", NumberTextBox, {
 		// summary:
 		//		A validating currency textbox
 		// description:
-		//		CurrencyTextBox is similar to `dijit/form/NumberTextBox` but has a few
+		//		CurrencyTextBox is similar to `dui/form/NumberTextBox` but has a few
 		//		extra features related to currency:
 		//
 		//		1. After specifying the currency type (american dollars, euros, etc.) it automatically
@@ -48,7 +48,7 @@ define([
 		constraints: {},
 		======*/
 
-		baseClass: "dijitTextBox dijitCurrencyTextBox",
+		baseClass: "duiTextBox duiCurrencyTextBox",
 
 		// Override NumberTextBox._formatter to deal with currencies, ex: converts "123.45" to "$123.45"
 		_formatter: currency.format,

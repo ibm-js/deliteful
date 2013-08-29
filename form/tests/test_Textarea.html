@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Dojo dijit.form.Textarea Widget Test</title>
+		<title>Dojo dui.form.Textarea Widget Test</title>
 
 		<style type="text/css">
 			@import "../../themes/claro/document.css";
@@ -12,7 +12,7 @@
 			br { margin-bottom: 4em; }
 		</style>
 
-		<!-- required: the default dijit theme: -->
+		<!-- required: the default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../themes/claro/claro.css"/>
 
 		<!-- required: dojo.js -->
@@ -25,7 +25,7 @@
 		<script type="text/javascript">
 			require([
 				"dojo/dom", "dojo/_base/lang", "dojo/parser",
-				"dui/registry", "dijit/form/Textarea", "dijit/layout/ContentPane", "dijit/layout/TabContainer",
+				"dui/registry", "dui/form/Textarea", "dui/layout/ContentPane", "dui/layout/TabContainer",
 				"dojo/domReady!"
 			], function(dom, lang, parser, registry, Textarea){
 				parser.parse();
@@ -69,14 +69,14 @@
 		<!--    to test form submission, you'll need to create an action handler similar to
 		        http://www.utexas.edu/teamweb/cgi-bin/generic.cgi -->
 		<form id="form1" action="" name="example" method="GET">
-			<fieldset class="dijitReset" style="width:800px;">
-			<legend>Various dijit.form.Textarea widgets</legend>
-			<label for="blank">dijit.form.Textarea, initially blank:</label>
-			<textarea id="blank" data-dojo-type="dijit/form/Textarea" data-dojo-props='style:{ fontSize:"24px" }'></textarea>
+			<fieldset class="duiReset" style="width:800px;">
+			<legend>Various dui.form.Textarea widgets</legend>
+			<label for="blank">dui.form.Textarea, initially blank:</label>
+			<textarea id="blank" data-dojo-type="dui/form/Textarea" data-dojo-props='style:{ fontSize:"24px" }'></textarea>
 			<br>
 
-			<label for="simple">dijit.form.Textarea, inline with maxLength=50:</label>
-			<textarea id="simple" data-dojo-type="dijit/form/Textarea" data-dojo-props='name:"simpleTextArea", maxLength:"50", style:{width:"33%"},
+			<label for="simple">dui.form.Textarea, inline with maxLength=50:</label>
+			<textarea id="simple" data-dojo-type="dui/form/Textarea" data-dojo-props='name:"simpleTextArea", maxLength:"50", style:{width:"33%"},
 	         		onChange:function(val){ dojo.byId("ocSimple").value = val; },
 	         		onFocus:function(){ console.log("user focus handler"); },
 	         		onBlur:function(){ console.log("user blur handler"); }
@@ -90,12 +90,12 @@
 			</textarea>
 			<br>
 
-			<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props='persist:true, tabStrip:true, style:{width:"100%", fontSize:"14px", height:"17em"}, "aria-label":"tabContainer"'>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 1", "aria-label":"contentpane"'>
-					<label for="programmatic">dijit.form.Textarea in TabContainer, programmatically created with custom styling:</label>
+			<div data-dojo-type="dui/layout/TabContainer" data-dojo-props='persist:true, tabStrip:true, style:{width:"100%", fontSize:"14px", height:"17em"}, "aria-label":"tabContainer"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 1", "aria-label":"contentpane"'>
+					<label for="programmatic">dui.form.Textarea in TabContainer, programmatically created with custom styling:</label>
 					<div id="programmaticContainer"></div>
 				</div>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
 					<input type="button" onclick="programmaticTextarea.set('value', 'new value for programmatic textarea\nmore text for testing\nmore\neven more\nvery last line');" value="change value"/>
 				</div>
 			</div>
@@ -103,10 +103,10 @@
 			<br>
 
 
-			<label for="largeTextArea">dijit.form.Textarea, initially full:</label>
+			<label for="largeTextArea">dui.form.Textarea, initially full:</label>
 <!--	&#8234; and &#8236; are inserted solely for testing purposes to mark the beginning and end of left-to-right text so that 
 	cogniscent browsers don't render garbled punctuation nor exhibit strange home/end key behavior while in right-to-left mode -->
-			<textarea id="largeTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-props='name:"largeTextArea", style:{ width:"90%" }'>
+			<textarea id="largeTextArea" data-dojo-type="dui/form/Textarea" data-dojo-props='name:"largeTextArea", style:{ width:"90%" }'>
 &#8234;This is a textarea with a LOT of content.&#8236;
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla &#8234;facilisi.&#8236;
@@ -129,7 +129,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 
 &#8234;This is the end.&#8236;</textarea>
 
-			<h2>Set properties for every dijit.form.Textarea</h2>
+			<h2>Set properties for every dui.form.Textarea</h2>
 			<input type="button" onclick="setAttr('readOnly', false);" value="Remove readOnly"/>
 			<input type="button" onclick="setAttr('readOnly', true);" value="Set readOnly"/>
 			<input type="button" onclick="setAttr('disabled', true);" value="Disable"/>

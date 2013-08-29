@@ -7,12 +7,12 @@ define([
 ], function(array, declare, lang, on, winUtils){
 
 	// module:
-	//		dijit/form/_FormMixin
+	//		dui/form/_FormMixin
 
-	return declare("dijit.form._FormMixin", null, {
+	return declare("dui.form._FormMixin", null, {
 		// summary:
 		//		Mixin for containers of form widgets (i.e. widgets that represent a single value
-		//		and can be children of a `<form>` node or `dijit/form/Form` widget)
+		//		and can be children of a `<form>` node or `dui/form/Form` widget)
 		// description:
 		//		Can extract all the form widgets
 		//		values and combine them into a single javascript object, or alternately
@@ -46,7 +46,7 @@ define([
 		//	* people[3].sex (for a list of people [{name: Bill, sex: M}, ...])
 
 
-		_getDescendantFormWidgets: function(/*dijit/_WidgetBase[]?*/ children){
+		_getDescendantFormWidgets: function(/*dui/_WidgetBase[]?*/ children){
 			// summary:
 			//		Returns all form widget descendants, searching through non-form child widgets like BorderContainer
 			var res = [];

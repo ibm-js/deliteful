@@ -2,12 +2,12 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/keys", // keys.DOWN_ARROW keys.ENTER keys.ESCAPE keys.TAB keys.UP_ARROW
 	"dojo/_base/lang", // lang.hitch
-	"../dijit/_TimePicker",
+	"../dui/_TimePicker",
 	"./_DateTimeTextBox"
 ], function(declare, keys, lang, _TimePicker, _DateTimeTextBox){
 
 	// module:
-	//		dijit/form/TimeTextBox
+	//		dui/form/TimeTextBox
 
 
 	/*=====
@@ -15,11 +15,11 @@ define([
 	});
 	=====*/
 
-	return declare("dijit.form.TimeTextBox", _DateTimeTextBox, {
+	return declare("dui.form.TimeTextBox", _DateTimeTextBox, {
 		// summary:
 		//		A validating, serializable, range-bound time text box with a drop down time picker
 
-		baseClass: "dijitTextBox dijitComboBox dijitTimeTextBox",
+		baseClass: "duiTextBox duiComboBox duiTimeTextBox",
 		popupClass: _TimePicker,
 		_selector: "time",
 
@@ -32,13 +32,13 @@ define([
 		//		The value of this widget as a JavaScript Date object.  Note that the date portion implies time zone and daylight savings rules.
 		//
 		//		Example:
-		// |	new dijit/form/TimeTextBox({value: stamp.fromISOString("T12:59:59", new Date())})
+		// |	new dui/form/TimeTextBox({value: stamp.fromISOString("T12:59:59", new Date())})
 		//
 		//		When passed to the parser in markup, must be specified according to locale-independent
 		//		`stamp.fromISOString` format.
 		//
 		//		Example:
-		// |	<input data-dojo-type='dijit/form/TimeTextBox' value='T12:34:00'>
+		// |	<input data-dojo-type='dui/form/TimeTextBox' value='T12:34:00'>
 		value: new Date(""),		// value.toString()="NaN"
 		//FIXME: in markup, you have no control over daylight savings
 

@@ -9,21 +9,21 @@ define([
 ], function(declare, domAttr, has, _WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin){
 
 	// module:
-	//		dijit/form/Form
+	//		dui/form/Form
 
 
-	return declare("dijit.form.Form", [_WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
+	return declare("dui.form.Form", [_WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
 		// summary:
 		//		Widget corresponding to HTML form tag, for validation and serialization
 		//
 		// example:
-		//	|	<form data-dojo-type="dijit/form/Form" id="myForm">
+		//	|	<form data-dojo-type="dui/form/Form" id="myForm">
 		//	|		Name: <input type="text" name="name" />
 		//	|	</form>
 		//	|	myObj = {name: "John Doe"};
-		//	|	dijit.byId('myForm').set('value', myObj);
+		//	|	dui.byId('myForm').set('value', myObj);
 		//	|
-		//	|	myObj=dijit.byId('myForm').get('value');
+		//	|	myObj=dui.byId('myForm').get('value');
 
 		// HTML <FORM> attributes
 

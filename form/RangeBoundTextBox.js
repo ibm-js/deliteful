@@ -5,10 +5,10 @@ define([
 ], function(declare, MappedTextBox, nlsValidate){
 
 	// module:
-	//		dijit/form/RangeBoundTextBox
+	//		dui/form/RangeBoundTextBox
 
 
-	var RangeBoundTextBox = declare("dijit.form.RangeBoundTextBox", MappedTextBox, {
+	var RangeBoundTextBox = declare("dui.form.RangeBoundTextBox", MappedTextBox, {
 		// summary:
 		//		Base class for textbox form widgets which defines a range of valid values.
 
@@ -21,7 +21,7 @@ define([
 		constraints: {},
 		======*/
 
-		rangeCheck: function(/*Number*/ primitive, /*dijit/form/RangeBoundTextBox.__Constraints*/ constraints){
+		rangeCheck: function(/*Number*/ primitive, /*dui/form/RangeBoundTextBox.__Constraints*/ constraints){
 			// summary:
 			//		Overridable function used to validate the range of the numeric input value.
 			// tags:
@@ -58,20 +58,20 @@ define([
 
 		_isValidSubset: function(){
 			// summary:
-			//		Overrides `dijit/form/ValidationTextBox._isValidSubset()`.
+			//		Overrides `dui/form/ValidationTextBox._isValidSubset()`.
 			//		Returns true if the input is syntactically valid, and either within
 			//		range or could be made in range by more typing.
 			return this.inherited(arguments) && !this._isDefinitelyOutOfRange();
 		},
 
 		isValid: function(/*Boolean*/ isFocused){
-			// Overrides dijit/form/ValidationTextBox.isValid() to check that the value is also in range.
+			// Overrides dui/form/ValidationTextBox.isValid() to check that the value is also in range.
 			return this.inherited(arguments) &&
 				((this._isEmpty(this.textbox.value) && !this.required) || this.isInRange(isFocused)); // Boolean
 		},
 
 		getErrorMessage: function(/*Boolean*/ isFocused){
-			// Overrides dijit/form/ValidationTextBox.getErrorMessage() to print "out of range" message if appropriate
+			// Overrides dui/form/ValidationTextBox.getErrorMessage() to print "out of range" message if appropriate
 			var v = this.get('value');
 			if(v != null /* and !undefined */ && v !== '' && (typeof v != "number" || !isNaN(v)) && !this.isInRange(isFocused)){ // don't check isInRange w/o a real value
 				return this.rangeMessage; // String

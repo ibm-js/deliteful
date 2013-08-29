@@ -7,9 +7,9 @@ define([
 ], function(declare, lang, when, MappedTextBox, ComboBoxMixin){
 
 	// module:
-	//		dijit/form/FilteringSelect
+	//		dui/form/FilteringSelect
 
-	return declare("dijit.form.FilteringSelect", [MappedTextBox, ComboBoxMixin], {
+	return declare("dui.form.FilteringSelect", [MappedTextBox, ComboBoxMixin], {
 		// summary:
 		//		An enhanced version of the HTML SELECT tag, populated dynamically
 		//
@@ -217,7 +217,7 @@ define([
 				}, function(err){
 					_this._fetchHandle = null;
 					if(!_this._cancelingQuery){	// don't treat canceled query as an error
-						console.error('dijit.form.FilteringSelect: ' + err.toString());
+						console.error('dui.form.FilteringSelect: ' + err.toString());
 					}
 				});
 			}

@@ -6,14 +6,14 @@ define([
 ], function(declare, keys, _Spinner, NumberTextBox){
 
 	// module:
-	//		dijit/form/NumberSpinner
+	//		dui/form/NumberSpinner
 
-	return declare("dijit.form.NumberSpinner", [_Spinner, NumberTextBox.Mixin], {
+	return declare("dui.form.NumberSpinner", [_Spinner, NumberTextBox.Mixin], {
 		// summary:
 		//		Extends NumberTextBox to add up/down arrows and pageup/pagedown for incremental change to the value
 		//
 		// description:
-		//		A `dijit/form/NumberTextBox` extension to provide keyboard accessible value selection
+		//		A `dui/form/NumberTextBox` extension to provide keyboard accessible value selection
 		//		as well as icons for spinning direction. When using the keyboard, the typematic rules
 		//		apply, meaning holding the key will gradually increase or decrease the value and
 		//		accelerate.
@@ -21,7 +21,7 @@ define([
 		// example:
 		//	| new NumberSpinner({ constraints:{ max:300, min:100 }}, "someInput");
 
-		baseClass: "dijitTextBox dijitSpinner dijitNumberTextBox",
+		baseClass: "duiTextBox duiSpinner duiNumberTextBox",
 
 		adjust: function(/*Object*/ val, /*Number*/ delta){
 			// summary:

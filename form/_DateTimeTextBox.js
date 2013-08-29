@@ -10,11 +10,11 @@ define([
 ], function(date, locale, stamp, declare, lang, RangeBoundTextBox, _HasDropDown, template){
 
 	// module:
-	//		dijit/form/_DateTimeTextBox
+	//		dui/form/_DateTimeTextBox
 
 	new Date("X"); // workaround for #11279, new Date("") == NaN
 
-	var _DateTimeTextBox = declare("dijit.form._DateTimeTextBox", [RangeBoundTextBox, _HasDropDown], {
+	var _DateTimeTextBox = declare("dui.form._DateTimeTextBox", [RangeBoundTextBox, _HasDropDown], {
 		// summary:
 		//		Base class for validating, serializable, range-bound date or time text box.
 
@@ -24,9 +24,9 @@ define([
 		//		Set this textbox to display a down arrow button, to open the drop down list.
 		hasDownArrow: true,
 
-		// Set classes like dijitDownArrowButtonHover depending on mouse action over button node
+		// Set classes like duiDownArrowButtonHover depending on mouse action over button node
 		cssStateNodes: {
-			"_buttonNode": "dijitDownArrowButton"
+			"_buttonNode": "duiDownArrowButton"
 		},
 
 		/*=====
@@ -34,7 +34,7 @@ define([
 		//		Despite the name, this parameter specifies both constraints on the input
 		//		(including starting/ending dates/times allowed) as well as
 		//		formatting options like whether the date is displayed in long (ex: December 25, 2005)
-		//		or short (ex: 12/25/2005) format.  See `dijit/form/_DateTimeTextBox.__Constraints` for details.
+		//		or short (ex: 12/25/2005) format.  See `dui/form/_DateTimeTextBox.__Constraints` for details.
 		constraints: {},
 		======*/
 
@@ -142,7 +142,7 @@ define([
 			// button.
 			if(!this.hasDownArrow){
 				this._buttonNode = this.domNode;
-				this.baseClass += " dijitComboBoxOpenOnClick";
+				this.baseClass += " duiComboBoxOpenOnClick";
 			}
 		},
 

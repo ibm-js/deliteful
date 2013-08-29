@@ -5,21 +5,21 @@ define([
 ], function(declare, domClass, TextBox){
 
 	// module:
-	//		dijit/form/SimpleTextarea
+	//		dui/form/SimpleTextarea
 
-	return declare("dijit.form.SimpleTextarea", TextBox, {
+	return declare("dui.form.SimpleTextarea", TextBox, {
 		// summary:
 		//		A simple textarea that degrades, and responds to
-		//		minimal LayoutContainer usage, and works with dijit/form/Form.
+		//		minimal LayoutContainer usage, and works with dui/form/Form.
 		//		Doesn't automatically size according to input, like Textarea.
 		//
 		// example:
-		//	|	<textarea data-dojo-type="dijit/form/SimpleTextarea" name="foo" value="bar" rows=30 cols=40></textarea>
+		//	|	<textarea data-dojo-type="dui/form/SimpleTextarea" name="foo" value="bar" rows=30 cols=40></textarea>
 		//
 		// example:
 		//	|	new SimpleTextarea({ rows:20, cols:30 }, "foo");
 
-		baseClass: "dijitTextBox dijitTextArea",
+		baseClass: "duiTextBox duiTextArea",
 
 		// rows: Number
 		//		The number of rows of text.

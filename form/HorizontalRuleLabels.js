@@ -8,13 +8,13 @@ define([
 ], function(declare, has, number, query, lang, HorizontalRule){
 
 	// module:
-	//		dijit/form/HorizontalRuleLabels
+	//		dui/form/HorizontalRuleLabels
 
-	var HorizontalRuleLabels = declare("dijit.form.HorizontalRuleLabels", HorizontalRule, {
+	var HorizontalRuleLabels = declare("dui.form.HorizontalRuleLabels", HorizontalRule, {
 		// summary:
-		//		Labels for `dijit/form/HorizontalSlider`
+		//		Labels for `dui/form/HorizontalSlider`
 
-		templateString: '<div class="dijitRuleContainer dijitRuleContainerH dijitRuleLabelsContainer dijitRuleLabelsContainerH"></div>',
+		templateString: '<div class="duiRuleContainer duiRuleContainerH duiRuleLabelsContainer duiRuleLabelsContainerH"></div>',
 
 		// labelStyle: String
 		//		CSS style to apply to individual text labels
@@ -41,8 +41,8 @@ define([
 		//		pattern, places, lang, et al (see dojo.number) for generated numeric labels when labels[] are not specified
 		constraints: {pattern: "#%"},
 
-		_positionPrefix: '<div class="dijitRuleLabelContainer dijitRuleLabelContainerH" style="left:',
-		_labelPrefix: '"><div class="dijitRuleLabel dijitRuleLabelH">',
+		_positionPrefix: '<div class="duiRuleLabelContainer duiRuleLabelContainerH" style="left:',
+		_labelPrefix: '"><div class="duiRuleLabel duiRuleLabelH">',
 		_suffix: '</div></div>',
 
 		_calcPosition: function(pos){
@@ -104,7 +104,7 @@ define([
 			_setTextDirAttr: function(textDir){
 				if(this.textDir != textDir){
 					this._set("textDir", textDir);
-					query(".dijitRuleLabelContainer", this.domNode).forEach(
+					query(".duiRuleLabelContainer", this.domNode).forEach(
 						lang.hitch(this, function(labelNode){
 							labelNode.style.direction = this.getTextDir(labelNode.innerText || labelNode.textContent || "");
 						})

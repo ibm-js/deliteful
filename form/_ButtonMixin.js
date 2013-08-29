@@ -6,9 +6,9 @@ define([
 ], function(declare, dom, has, registry){
 
 	// module:
-	//		dijit/form/_ButtonMixin
+	//		dui/form/_ButtonMixin
 
-	var ButtonMixin = declare("dijit.form._ButtonMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), null, {
+	var ButtonMixin = declare("dui.form._ButtonMixin" + (has("dojo-bidi") ? "_NoBidi" : ""), null, {
 		// summary:
 		//		A mixin to add a thin standard API wrapper to a normal HTML button
 		// description:
@@ -20,7 +20,7 @@ define([
 		//		- valueNode (optional): this node's value gets submitted with FORM elements
 		//		- containerNode (optional): this node gets the innerHTML assignment for label
 		// example:
-		// |	<button data-dojo-type="dijit/form/Button" onClick="...">Hello world</button>
+		// |	<button data-dojo-type="dui/form/Button" onClick="...">Hello world</button>
 		// example:
 		// |	var button1 = new Button({label: "hello world", onClick: foo});
 		// |	dojo.body().appendChild(button1.domNode);
@@ -103,7 +103,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		ButtonMixin = declare("dijit.form._ButtonMixin", ButtonMixin, {
+		ButtonMixin = declare("dui.form._ButtonMixin", ButtonMixin, {
 			_setLabelAttr: function(){
 				this.inherited(arguments);
 				var labelNode = this.containerNode || this.focusNode;

@@ -15,7 +15,7 @@ define([
 			QueryResults, _FormValueWidget){
 
 	// module:
-	//		dijit/form/_FormSelectWidget
+	//		dui/form/_FormSelectWidget
 
 	/*=====
 	var __SelectOption = {
@@ -31,7 +31,7 @@ define([
 	};
 	=====*/
 
-	var _FormSelectWidget = declare("dijit.form._FormSelectWidget", _FormValueWidget, {
+	var _FormSelectWidget = declare("dui.form._FormSelectWidget", _FormValueWidget, {
 		// summary:
 		//		Extends _FormValueWidget in order to provide "select-specific"
 		//		values - i.e., those values that are unique to `<select>` elements.
@@ -85,12 +85,12 @@ define([
 			// valueOrIdx:
 			//		If passed in as a string, that string is used to look up the option
 			//		in the array of options - based on the value property.
-			//		(See dijit/form/_FormSelectWidget.__SelectOption).
+			//		(See dui/form/_FormSelectWidget.__SelectOption).
 			//
 			//		If passed in a number, then the option with the given index (0-based)
 			//		within this select will be returned.
 			//
-			//		If passed in a dijit/form/_FormSelectWidget.__SelectOption, the same option will be
+			//		If passed in a dui/form/_FormSelectWidget.__SelectOption, the same option will be
 			//		returned if and only if it exists within this select.
 			//
 			//		If passed an array, then an array will be returned with each element
@@ -104,9 +104,9 @@ define([
 			//
 			//		- A string value is passed in which doesn't exist
 			//		- An index is passed in which is outside the bounds of the array of options
-			//		- A dijit/form/_FormSelectWidget.__SelectOption is passed in which is not a part of the select
+			//		- A dui/form/_FormSelectWidget.__SelectOption is passed in which is not a part of the select
 
-			// NOTE: the compare for passing in a dijit/form/_FormSelectWidget.__SelectOption checks
+			// NOTE: the compare for passing in a dui/form/_FormSelectWidget.__SelectOption checks
 			//		if the value property matches - NOT if the exact option exists
 			// NOTE: if passing in an array, null elements will be placed in the returned
 			//		array when a value is not found.
@@ -284,7 +284,7 @@ define([
 					this.onLoadDeferred.resolve(true);
 					this.onSetStore();
 				}), function(err){
-					console.error('dijit.form.Select: ' + err.toString());
+					console.error('dui.form.Select: ' + err.toString());
 					this.onLoadDeferred.reject(err);
 				});
 			}

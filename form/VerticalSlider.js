@@ -5,9 +5,9 @@ define([
 ], function(declare, HorizontalSlider, template){
 
 	// module:
-	//		dijit/form/VerticalSlider
+	//		dui/form/VerticalSlider
 
-	return declare("dijit.form.VerticalSlider", HorizontalSlider, {
+	return declare("dui.form.VerticalSlider", HorizontalSlider, {
 		// summary:
 		//		A form widget that allows one to select a value with a vertically draggable handle
 

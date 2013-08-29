@@ -12,18 +12,18 @@ define([
 			_FormValueWidget, _TextBoxMixin, template){
 
 	// module:
-	//		dijit/form/TextBox
+	//		dui/form/TextBox
 
-	var TextBox = declare("dijit.form.TextBox" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormValueWidget, _TextBoxMixin], {
+	var TextBox = declare("dui.form.TextBox" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormValueWidget, _TextBoxMixin], {
 		// summary:
 		//		A base class for textbox form inputs
 
 		templateString: template,
-		_singleNodeTemplate: '<input class="dijit dijitReset dijitLeft dijitInputField" data-dojo-attach-point="textbox,focusNode" autocomplete="off" type="${type}"/>',
+		_singleNodeTemplate: '<input class="dui duiReset duiLeft duiInputField" data-dojo-attach-point="textbox,focusNode" autocomplete="off" type="${type}"/>',
 
 		_buttonInputDisabled: has("ie") ? "disabled" : "", // allows IE to disallow focus, but Firefox cannot be disabled for mousedown events
 
-		baseClass: "dijitTextBox",
+		baseClass: "duiTextBox",
 
 		postMixInProperties: function(){
 			var type = this.type.toLowerCase();
@@ -64,10 +64,10 @@ define([
 			if(!this._phspan){
 				this._attachPoints.push('_phspan');
 				this._phspan = domConstruct.create('span', {
-					// dijitInputField class gives placeHolder same padding as the input field
-					// parent node already has dijitInputField class but it doesn't affect this <span>
+					// duiInputField class gives placeHolder same padding as the input field
+					// parent node already has duiInputField class but it doesn't affect this <span>
 					// since it's position: absolute.
-					className: 'dijitPlaceHolder dijitInputField'
+					className: 'duiPlaceHolder duiInputField'
 				}, this.textbox, 'after');
 				this.own(
 					on(this._phspan, "mousedown", function(evt){ evt.preventDefault(); }),
@@ -123,7 +123,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		TextBox = declare("dijit.form.TextBox", TextBox, {
+		TextBox = declare("dui.form.TextBox", TextBox, {
 			_setPlaceHolderAttr: function(v){
 				this.inherited(arguments);
 				this.applyTextDir(this._phspan);

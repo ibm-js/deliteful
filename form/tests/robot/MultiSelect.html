@@ -12,8 +12,8 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.robotx");
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			function testInverted(allOptions, selected, newSelected){
 				doh.is(allOptions.length, selected.length+newSelected.length); //newSelected + the no longer selected list size should be the same as the length of the whole list
@@ -44,7 +44,7 @@
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_MultiSelect.html');
 
-				doh.register("dijit.form.MultiSelect", [
+				doh.register("dui.form.MultiSelect", [
 					{
 						name: "tabInSelect",
 						timeout: 6000,
@@ -52,7 +52,7 @@
 							var d = new doh.Deferred();
 
 							var changed = false;
-							dijit.byId("select").set("onChange", function(e){changed = true; });
+							dui.byId("select").set("onChange", function(e){changed = true; });
 
 							dojo.global.scrollTo(0,0);
 							doh.robot.mouseMove(30,30);
@@ -75,17 +75,17 @@
 							var d = new doh.Deferred();
 
 							doh.robot.sequence(function(){ 
-								dijit.byId('select').set('value', ['16']);
+								dui.byId('select').set('value', ['16']);
 							}, 500);
 
 							doh.robot.mouseMoveAt("right", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							var selectedValue2 = "";
-							doh.robot.sequence(function(){ selectedValue2 = dijit.byId('select2').get('value');}, 1000); 
+							doh.robot.sequence(function(){ selectedValue2 = dui.byId('select2').get('value');}, 1000); 
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("16", dijit.byId('select2').value.toString());
+								doh.is("16", dui.byId('select2').value.toString());
 								doh.is("16", selectedValue2[0]);
 							}), 1000);
 							return d;
@@ -98,21 +98,21 @@
 							var d = new doh.Deferred();
 
 							doh.robot.sequence(function(){ 
-								dijit.byId('select2').set('value', ['3','7','19','47']);
+								dui.byId('select2').set('value', ['3','7','19','47']);
 							}, 500);
 
 							doh.robot.mouseMoveAt("left", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							var selectedValue = "";
-							doh.robot.sequence(function(){ selectedValue = dijit.byId('select').get('value');}, 1000); 
+							doh.robot.sequence(function(){ selectedValue = dui.byId('select').get('value');}, 1000); 
 
 							doh.robot.sequence(d.getTestCallback(function(){
 								doh.is("3", selectedValue[0]);
 								doh.is("7", selectedValue[1]);
 								doh.is("19", selectedValue[2]);
 								doh.is("47", selectedValue[3]);
-								doh.is("3 7 19 47", dijit.byId('select').value.join(' '));
+								doh.is("3 7 19 47", dui.byId('select').value.join(' '));
 							}), 1000);
 							return d;
 						}
@@ -125,7 +125,7 @@
 
 							//select a block in the first list
 							doh.robot.sequence(function(){ 
-								dijit.byId('select').set('value', ['18','14','12','10']);
+								dui.byId('select').set('value', ['18','14','12','10']);
 							}, 500);
 
 							//get the selected list
@@ -133,15 +133,15 @@
 							var selected = "";
 							var newSelected = "";
 							doh.robot.sequence(function(){ 
-								selected = dijit.byId('select').get('value'); 
-								allOptions = dijit.byId('select').domNode.options;
+								selected = dui.byId('select').get('value'); 
+								allOptions = dui.byId('select').domNode.options;
 							}, 1000); 
 
 							doh.robot.mouseMoveAt("i1", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(function(){ 
-								newSelected = dijit.byId('select').get('value'); 
+								newSelected = dui.byId('select').get('value'); 
 							}, 1000); 
 
 							doh.robot.sequence(d.getTestCallback(function(){
@@ -158,7 +158,7 @@
 
 							//select random options
 							doh.robot.sequence(function(){ 
-								dijit.byId('select').set('value', ['2','8','14','20','22','32']);
+								dui.byId('select').set('value', ['2','8','14','20','22','32']);
 							}, 500);
 
 							//get the selected list
@@ -166,15 +166,15 @@
 							var selected = "";
 							var newSelected = "";
 							doh.robot.sequence(function(){ 
-								selected = dijit.byId('select').get('value'); 
-								allOptions = dijit.byId('select').domNode.options;
+								selected = dui.byId('select').get('value'); 
+								allOptions = dui.byId('select').domNode.options;
 							}, 1000); 
 
 							doh.robot.mouseMoveAt("i1", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(function(){ 
-								newSelected = dijit.byId('select').get('value'); 
+								newSelected = dui.byId('select').get('value'); 
 							}, 1000); 
 
 							doh.robot.sequence(d.getTestCallback(function(){
@@ -192,7 +192,7 @@
 							//Select the first thing in the list and then invert it
 							//select random options
 							doh.robot.sequence(function(){ 
-								dijit.byId('select3').set('value', ['TN']);
+								dui.byId('select3').set('value', ['TN']);
 							}, 500);
 
 							//get the selected list
@@ -200,15 +200,15 @@
 							var selected = "";
 							var newSelected = "";
 							doh.robot.sequence(function(){ 
-								selected = dijit.byId('select3').get('value'); 
-								allOptions = dijit.byId('select3').domNode.options;
+								selected = dui.byId('select3').get('value'); 
+								allOptions = dui.byId('select3').domNode.options;
 							}, 1000); 
 
 							doh.robot.mouseMoveAt("i3", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(function(){ 
-								newSelected = dijit.byId('select3').get('value'); 
+								newSelected = dui.byId('select3').get('value'); 
 							}, 1000); 
 
 							doh.robot.sequence(d.getTestCallback(function(){
@@ -225,18 +225,18 @@
 
 							//Select only one thing in the list to make sure we don't start with the values that we are going to select
 							doh.robot.sequence(function(){ 
-								dijit.byId('select3').set('value', ['CA']);
+								dui.byId('select3').set('value', ['CA']);
 							}, 500);
 
 							doh.robot.mouseMoveAt("s1", 1000);
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								var selected = dijit.byId('select3').get('value');
+								var selected = dui.byId('select3').get('value');
 								doh.is(2, selected.length);
 								doh.is(selected[0], 'VA');
 								doh.is(selected[1], 'WA');
-								doh.is("VA WA", dijit.byId('select3').value.join(' '));
+								doh.is("VA WA", dui.byId('select3').value.join(' '));
 							}), 1000);
 							return d;
 						}

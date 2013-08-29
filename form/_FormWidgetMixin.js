@@ -12,17 +12,17 @@ define([
 ], function(array, declare, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
 
 	// module:
-	//		dijit/form/_FormWidgetMixin
+	//		dui/form/_FormWidgetMixin
 
-	return declare("dijit.form._FormWidgetMixin", null, {
+	return declare("dui.form._FormWidgetMixin", null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<checkbox>` or `<button>`,
-		//		which can be children of a `<form>` node or a `dijit/form/Form` widget.
+		//		which can be children of a `<form>` node or a `dui/form/Form` widget.
 		//
 		// description:
 		//		Represents a single HTML element.
 		//		All these widgets should have these attributes just like native HTML input elements.
-		//		You can set them during widget construction or afterwards, via `dijit/_WidgetBase.set()`.
+		//		You can set them during widget construction or afterwards, via `dui/_WidgetBase.set()`.
 		//
 		//		They also share some common methods.
 
@@ -137,7 +137,7 @@ define([
 
 		isFocusable: function(){
 			// summary:
-			//		Tells if this widget is focusable or not.  Used internally by dijit.
+			//		Tells if this widget is focusable or not.  Used internally by dui.
 			// tags:
 			//		protected
 			return !this.disabled && this.focusNode && (domStyle.get(this.domNode, "display") != "none");

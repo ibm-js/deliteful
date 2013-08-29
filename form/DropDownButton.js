@@ -3,7 +3,7 @@ define([
 	"dojo/_base/lang", // hitch
 	"dojo/query", // query
 	"../registry", // registry.byNode
-	"../popup", // dijit.popup2.hide
+	"../popup", // dui.popup2.hide
 	"./Button",
 	"../_Container",
 	"../_HasDropDown",
@@ -11,24 +11,24 @@ define([
 ], function(declare, lang, query, registry, popup, Button, _Container, _HasDropDown, template){
 
 	// module:
-	//		dijit/form/DropDownButton
+	//		dui/form/DropDownButton
 
-	return declare("dijit.form.DropDownButton", [Button, _Container, _HasDropDown], {
+	return declare("dui.form.DropDownButton", [Button, _Container, _HasDropDown], {
 		// summary:
 		//		A button with a drop down
 		//
 		// example:
-		// |	<button data-dojo-type="dijit/form/DropDownButton">
+		// |	<button data-dojo-type="dui/form/DropDownButton">
 		// |		Hello world
-		// |		<div data-dojo-type="dijit/Menu">...</div>
+		// |		<div data-dojo-type="dui/Menu">...</div>
 		// |	</button>
 		//
 		// example:
-		// |	var button1 = new DropDownButton({ label: "hi", dropDown: new dijit.Menu(...) });
+		// |	var button1 = new DropDownButton({ label: "hi", dropDown: new dui.Menu(...) });
 		// |	win.body().appendChild(button1);
 		//
 
-		baseClass: "dijitDropDownButton",
+		baseClass: "duiDropDownButton",
 
 		templateString: template,
 

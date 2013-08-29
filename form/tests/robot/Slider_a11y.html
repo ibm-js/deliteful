@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 	<script type="text/javascript">
-		dojo.require("dijit.robotx");
+		dojo.require("dui.robotx");
 
 		// These are all the sliders
 		var accessibleSliders = ['slider1','slider2','slider3','programaticSlider'];
@@ -73,7 +73,7 @@
 			//		Populates eaVals[] with expected slider values after each keystroke (in this test),
 			//		and sets up listener to record actual value into same eaVals[] array.
 
-			var slider = dijit.byId(inSliderId);
+			var slider = dui.byId(inSliderId);
 			eaVals = populateExpected(slider);
 			strokeIndex = 0;
 			noteChanges = dojo.global.dojo.connect(slider, "onChange", function(){
@@ -121,7 +121,7 @@
 
 		var a11yTabFocusTest = function(inSliderId){
 			var d = new doh.Deferred();
-			var slider = dijit.byId(inSliderId);
+			var slider = dui.byId(inSliderId);
 			var focusCount = 0;
 			var blurCount = 0;
 			var gotFocus = function(){
@@ -157,7 +157,7 @@
 
 		var a11yKeystrokeTest = function(inSliderId){
 			var d = new doh.Deferred();
-			var slider = dijit.byId(inSliderId);
+			var slider = dui.byId(inSliderId);
 			var initVal = slider.get('value');
 			// get focus on slider thumb before pressing keys.
 			slider.focus();
@@ -195,7 +195,7 @@
 			// This tests that Slider is structured so that dojo.query can find the hidden input.
 			doh.register("dojo.query() by name",
 				function slider1(){
-					var slider = dijit.byId("slider1"),
+					var slider = dui.byId("slider1"),
 						queried = dojo.query("input[name=horizontal1]"),
 						bar = slider.valueNode.parentNode,
 						barWidth = bar.offsetWidth;
@@ -214,7 +214,7 @@
 				slider: accessibleSliders[0],
 				timeout: 30000,
 				runTest: function(){
-					this.slider = dijit.byId(this.slider);
+					this.slider = dui.byId(this.slider);
 					this.slider.set('disabled', true);
 					var value = accessibleSliderInit_min[0];
 					return a11yBoundaryTest(this.slider, value, value);
@@ -227,7 +227,7 @@
 				slider: accessibleSliders[0],
 				timeout: 30000,
 				runTest: function(){
-					this.slider = dijit.byId(this.slider);
+					this.slider = dui.byId(this.slider);
 					this.slider.set('disabled', false);
 					return a11yBoundaryTest(this.slider, accessibleSliderInit_min[0], this.slider.minimum);
 				}
@@ -237,7 +237,7 @@
 				slider: accessibleSliders[0],
 				timeout: 30000,
 				runTest: function(){
-					this.slider = dijit.byId(this.slider);
+					this.slider = dui.byId(this.slider);
 					return a11yBoundaryTest(this.slider, accessibleSliderInit_max[0], this.slider.maximum);
 				}
 			});
@@ -299,8 +299,8 @@
 					timeout: 9000,
 					runTest: function(){
 						var d = new doh.Deferred();
-						var slider = dijit.byId("programaticSlider");
-						var target = dijit.byId("slider3");
+						var slider = dui.byId("programaticSlider");
+						var target = dui.byId("slider3");
 						target.set('value', 1);
 						var initValue = target.get('value');
 						// get focus on slider thumb before pressing keys.

@@ -13,9 +13,9 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 			dojo.require("dojo.date");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_Select.html');
@@ -29,31 +29,31 @@
 
 				doh.register("setup",
 					function setUp(){
-						s1 = dijit.byId('s1');
-						s1_menu = dijit.byId('s1_menu');
+						s1 = dui.byId('s1');
+						s1_menu = dui.byId('s1_menu');
 						doh.t(s1, "s1 select exists");
 						doh.t(s1_menu, "s1 menu exists");
 						
-						s2 = dijit.byId('s2');
-						s2_menu = dijit.byId('s2_menu');
-						s8a = dijit.byId('s8a');
-						s8a_menu = dijit.byId('s8a_menu');
-						s8b = dijit.byId('s8b');
-						s8b_menu = dijit.byId('s8b_menu');
-						s3 = dijit.byId('s3');
-						s3_menu = dijit.byId('s3_menu');
-						s13 = dijit.byId('s13');
-						s13_menu = dijit.byId('s13_menu');
-						s14 = dijit.byId('s14');
-						s14_menu = dijit.byId('s14_menu');
+						s2 = dui.byId('s2');
+						s2_menu = dui.byId('s2_menu');
+						s8a = dui.byId('s8a');
+						s8a_menu = dui.byId('s8a_menu');
+						s8b = dui.byId('s8b');
+						s8b_menu = dui.byId('s8b_menu');
+						s3 = dui.byId('s3');
+						s3_menu = dui.byId('s3_menu');
+						s13 = dui.byId('s13');
+						s13_menu = dui.byId('s13_menu');
+						s14 = dui.byId('s14');
+						s14_menu = dui.byId('s14_menu');
 
-						form = dijit.byId('form');
+						form = dui.byId('form');
 
 						// preload menus since first load can take a while
 						var doNothing = function(){};
 						s1.loadDropDown(doNothing);
-						dijit.byId('s5').loadDropDown(doNothing);
-						dijit.byId('s6').loadDropDown(doNothing);
+						dui.byId('s5').loadDropDown(doNothing);
+						dui.byId('s6').loadDropDown(doNothing);
 						s8a.loadDropDown(doNothing);
 						s8b.loadDropDown(doNothing);
 				    }
@@ -75,7 +75,7 @@
 								doh.is("listbox", s1_menu.domNode.getAttribute('role'), 'menu role');
 								doh.is(5, dojo.query("tr", s1_menu.domNode).length, "5 options in menu");
 								
-								var selectedOptions = dojo.query(".dijitSelectSelectedOption .dijitMenuItemLabel", s1_menu.domNode);
+								var selectedOptions = dojo.query(".duiSelectSelectedOption .duiMenuItemLabel", s1_menu.domNode);
 								doh.is(1, selectedOptions.length, "one selected option");
 								doh.is("Virginia", innerText(selectedOptions[0]), "Virginia highlighted");
 
@@ -103,7 +103,7 @@
 							doh.robot.sequence(d.getTestErrback(function(){
 								doh.t(isVisible(s1_menu), "drop down menu displayed after third click");
 								
-								var selectedOptions = dojo.query(".dijitSelectSelectedOption .dijitMenuItemLabel", s1_menu.domNode);
+								var selectedOptions = dojo.query(".duiSelectSelectedOption .duiMenuItemLabel", s1_menu.domNode);
 								doh.is(1, selectedOptions.length, "one selected option");
 								doh.is("Washington", innerText(selectedOptions[0]), "Washington highlighted");
 							}), 1000);
@@ -135,7 +135,7 @@
 								doh.t(isVisible(s1_menu), "drop down menu displayed after mouse down");
 								doh.is(5, dojo.query("tr", s1_menu.domNode).length, "5 options in menu");
 								
-								var selectedOptions = dojo.query(".dijitSelectSelectedOption .dijitMenuItemLabel", s1_menu.domNode);
+								var selectedOptions = dojo.query(".duiSelectSelectedOption .duiMenuItemLabel", s1_menu.domNode);
 								doh.is(1, selectedOptions.length, "one selected option");
 								doh.is("Virginia", innerText(selectedOptions[0]), "Virginia highlighted");
 
@@ -162,7 +162,7 @@
 							doh.robot.sequence(d.getTestErrback(function(){
 								doh.t(isVisible(s1_menu), "drop down menu displayed after second mouse down");
 								
-								var selectedOptions = dojo.query(".dijitSelectSelectedOption .dijitMenuItemLabel", s1_menu.domNode);
+								var selectedOptions = dojo.query(".duiSelectSelectedOption .duiMenuItemLabel", s1_menu.domNode);
 								doh.is(1, selectedOptions.length, "one selected option");
 								doh.is("Washington", innerText(selectedOptions[0]), "Washington highlighted");
 							}), 1000);
@@ -255,7 +255,7 @@
 						timeout: 10000,
 						setUp: function(){
 							dojo.byId("htmlSelect2").focus();
-							dijit.byId("s2").set("disabled", true);
+							dui.byId("s2").set("disabled", true);
 						},
 						runTest: function(){
 							var d = new doh.Deferred();
@@ -263,25 +263,25 @@
 							// tab to s1
 							doh.robot.keyPress(dojo.keys.TAB, 500, {});
 							doh.robot.sequence(d.getTestErrback(function(){
-								doh.is("s1", dojo.global.dijit.focus.curNode.id)
+								doh.is("s1", dojo.global.dui.focus.curNode.id)
 							}), 1000);
 
 							// tab to button after s1
 							doh.robot.keyPress(dojo.keys.TAB, 500, {});
 							doh.robot.sequence(d.getTestErrback(function(){
-								doh.is("s1button", dojo.global.dijit.focus.curNode.id)
+								doh.is("s1button", dojo.global.dui.focus.curNode.id)
 							}), 1000);
 
 							// tab again should skip disabled s2, and go to s3
 							doh.robot.keyPress(dojo.keys.TAB, 500, {});
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("s3", dojo.global.dijit.focus.curNode.id)
+								doh.is("s3", dojo.global.dui.focus.curNode.id)
 							}), 1000);
 
 							return d;
 						},
 						tearDown: function(){
-							dijit.byId("s2").set("disabled", false);
+							dui.byId("s2").set("disabled", false);
 						}
 					},
 					{
@@ -297,21 +297,21 @@
 							// tab to s1
 							doh.robot.keyPress(dojo.keys.TAB, 1000, {});
 							doh.robot.sequence(function(){
-								widgetFocused = dojo.global.dijit.focus.curNode.id == "s1";
+								widgetFocused = dojo.global.dui.focus.curNode.id == "s1";
 							}, 1000);
 
 							// down arrow to open drop down and focus first item
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 500, {});
 							doh.robot.sequence(function(){
 								wasVisible = isVisible(s1_menu);
-								previousSelectionFocused = dojo.query("tr", s1_menu.domNode)[2] == dojo.global.dijit.focus.curNode;
+								previousSelectionFocused = dojo.query("tr", s1_menu.domNode)[2] == dojo.global.dui.focus.curNode;
 							}, 1000);
 
 							// down arrow to next menu choice
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 500, {});
 							doh.robot.sequence(function(){
 								stillVisible = isVisible(s1_menu);
-								nextFocused = dojo.query("tr", s1_menu.domNode)[3] == dojo.global.dijit.focus.curNode;
+								nextFocused = dojo.query("tr", s1_menu.domNode)[3] == dojo.global.dui.focus.curNode;
 							}, 500);
 
 							// ENTER to select option
@@ -329,7 +329,7 @@
 							return d;
 						},
 						tearDown: function(){
-							dijit.byId("s1").set("value", "VA");
+							dui.byId("s1").set("value", "VA");
 						}
 					},
 					{
@@ -345,7 +345,7 @@
 							// tab to s1
 							doh.robot.keyPress(dojo.keys.TAB, 1000, {});
 							doh.robot.sequence(function(){
-								widgetFocused = dojo.global.dijit.focus.curNode.id == "s1";
+								widgetFocused = dojo.global.dui.focus.curNode.id == "s1";
 							}, 1000);
 
 							// down arrow to open drop down and focus first item
@@ -355,7 +355,7 @@
 							}, 1000);
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 500, {});
 							doh.robot.sequence(function(){
-								nextFocused = dojo.query("tr", s1_menu.domNode)[2] == dojo.global.dijit.focus.curNode;
+								nextFocused = dojo.query("tr", s1_menu.domNode)[2] == dojo.global.dui.focus.curNode;
 							}, 500);
 
 							// ESC to close menu
@@ -371,7 +371,7 @@
 							return d;
 						},
 						tearDown: function(){
-							dijit.byId("s1").set("value", "VA");
+							dui.byId("s1").set("value", "VA");
 						}
 					},
 					{
@@ -578,14 +578,14 @@
 							var d = new doh.Deferred();
 
 							// Open widget w/no choices
-							var s6 = dijit.byId("s6");
+							var s6 = dui.byId("s6");
 							doh.robot.mouseMoveAt(s6.domNode, 0, 1);
 							doh.robot.mouseClick({left:true}, 500);
 							doh.robot.sequence(d.getTestCallback(function(){
-								var menu = dijit.byId("s6_menu"),
+								var menu = dui.byId("s6_menu"),
 									trs = dojo.query("tr", menu.domNode);
 								doh.is(1, trs.length, "one entry in menu");
-								doh.is("", innerText(dojo.query(".dijitMenuItemLabel", trs[0])), "blank");
+								doh.is("", innerText(dojo.query(".duiMenuItemLabel", trs[0])), "blank");
 							}), 500);
 
 							return d;
@@ -601,8 +601,8 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							var s5 = dijit.byId("s5"),
-								s5_menu = dijit.byId("s5_menu"),
+							var s5 = dui.byId("s5"),
+								s5_menu = dui.byId("s5_menu"),
 								menuSize;
 
 							// originally s5 is narrow
@@ -721,14 +721,14 @@
 							// (s13 is also required, but has a value from previous tests)
 							var d = new doh.Deferred();
 
-							 var handle = dijit.focus.watch("curNode", d.getTestErrback(function(name, oval, nval){
+							 var handle = dui.focus.watch("curNode", d.getTestErrback(function(name, oval, nval){
 								if(!nval){ return; }	// ignore spurious event on IE
 								console.log("focused on", nval && (nval.id || nval.innerHTML));
 								doh.is("s13", nval.id, "focused on first required select");
 								handle.unwatch();
 								setTimeout(d.getTestCallback(function(){
 									// Tooltip should appear with error message
-									masterTT = dojo.global.dijit._masterTT;
+									masterTT = dojo.global.dui._masterTT;
 									doh.t(masterTT && isVisible(masterTT.domNode), "visible");
 									doh.is("s13", masterTT.aroundNode.id, "tooltip for s13");
 									doh.is("This value is required.", dojo.trim(innerText(masterTT.domNode)));
@@ -736,7 +736,7 @@
 							}));
 
 							// Validate the form programatically
-							dijit.byId("form").validate();
+							dui.byId("form").validate();
 
 							return d;
 						}
@@ -771,14 +771,14 @@
 							// Second validate() should focus s14 and display a tooltip
 							var d = new doh.Deferred();
 
-							var handle = dijit.focus.watch("curNode", d.getTestErrback(function(name, oval, nval){
+							var handle = dui.focus.watch("curNode", d.getTestErrback(function(name, oval, nval){
 								if(!nval){ return; }	// ignore spurious event on IE
 								if(nval.id == "submit"){ return; }	// ignore focus onto submit button
 								doh.is("s14", nval.id, "focused on second required select");
 								handle.unwatch();
 								setTimeout(d.getTestCallback(function(){
 									// Tooltip should appear with error message
-									masterTT = dojo.global.dijit._masterTT;
+									masterTT = dojo.global.dui._masterTT;
 									doh.t(masterTT && isVisible(masterTT.domNode), "visible");
 									doh.is("s14", masterTT.aroundNode.id, "tooltip for s14");
 									doh.is("This value is required.", dojo.trim(innerText(masterTT.domNode)));

@@ -1,21 +1,21 @@
 define([
 	"dojo/_base/declare", // declare
-	"../dijit/Calendar",
+	"../dui/Calendar",
 	"./_DateTimeTextBox"
 ], function(declare, Calendar, _DateTimeTextBox){
 
 	// module:
-	//		dijit/form/DateTextBox
+	//		dui/form/DateTextBox
 
-	return declare("dijit.form.DateTextBox", _DateTimeTextBox, {
+	return declare("dui.form.DateTextBox", _DateTimeTextBox, {
 		// summary:
 		//		A validating, serializable, range-bound date text box with a drop down calendar
 		// example:
 		// |	new DateTextBox({value: new Date(2009, 0, 20)})
 		// example:
-		// |	<input data-dojo-type='dijit/form/DateTextBox' value='2009-01-20'>
+		// |	<input data-dojo-type='dui/form/DateTextBox' value='2009-01-20'>
 
-		baseClass: "dijitTextBox dijitComboBox dijitDateTextBox",
+		baseClass: "duiTextBox duiComboBox duiDateTextBox",
 		popupClass: Calendar,
 		_selector: "date",
 

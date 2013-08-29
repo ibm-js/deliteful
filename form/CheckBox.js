@@ -13,9 +13,9 @@ define([
 ], function(require, declare, domAttr, has, query, ToggleButton, _CheckBoxMixin, _FocusMixin, template){
 
 	// module:
-	//		dijit/form/CheckBox
+	//		dui/form/CheckBox
 
-	return declare("dijit.form.CheckBox", [ToggleButton, _CheckBoxMixin, _FocusMixin], {
+	return declare("dui.form.CheckBox", [ToggleButton, _CheckBoxMixin, _FocusMixin], {
 		// summary:
 		//		Same as an HTML checkbox, but with fancy styling.
 		//
@@ -36,7 +36,7 @@ define([
 
 		templateString: template,
 
-		baseClass: "dijitCheckBox",
+		baseClass: "duiCheckBox",
 
 		_setValueAttr: function(/*String|Boolean*/ newValue, /*Boolean*/ priorityChange){
 			// summary:
@@ -49,7 +49,7 @@ define([
 			//		when passed a boolean, controls whether or not the CheckBox is checked.
 			//		If passed a string, changes the value attribute of the CheckBox (the one
 			//		specified as "value" when the CheckBox was constructed
-			//		(ex: `<input data-dojo-type="dijit/CheckBox" value="chicken">`).
+			//		(ex: `<input data-dojo-type="dui/CheckBox" value="chicken">`).
 			//
 			//		`widget.set('value', string)` will check the checkbox and change the value to the
 			//		specified string.
@@ -94,14 +94,14 @@ define([
 
 		_onFocus: function(){
 			if(this.id){
-				query("label[for='"+this.id+"']").addClass("dijitFocusedLabel");
+				query("label[for='"+this.id+"']").addClass("duiFocusedLabel");
 			}
 			this.inherited(arguments);
 		},
 
 		_onBlur: function(){
 			if(this.id){
-				query("label[for='"+this.id+"']").removeClass("dijitFocusedLabel");
+				query("label[for='"+this.id+"']").removeClass("duiFocusedLabel");
 			}
 			this.inherited(arguments);
 		}

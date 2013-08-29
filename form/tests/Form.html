@@ -12,7 +12,7 @@
 		TH { border:2px solid; font-weight: bold; padding:1px; }
 	</style>
 
-	<!-- required: the default dijit theme: -->
+	<!-- required: the default dui theme: -->
 	<link id="themeStyles" rel="stylesheet" href="../../../dijit/themes/claro/claro.css"/>
 
 	<!-- required: dojo.js -->
@@ -26,24 +26,24 @@
 		dojo.require("doh.runner");
 		dojo.require("dojo.date");
 		dojo.require("dojo.parser");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("dijit.focus");
-		dojo.require("dijit.form.Form");
-		dojo.require("dijit.layout.ContentPane");
-		dojo.require("dijit.form.ComboBox");
-		dojo.require("dijit.form.CheckBox");
-		dojo.require("dijit.form.RadioButton");
-		dojo.require("dijit.form.DateTextBox");
-		dojo.require("dijit.form.Button");
-		dojo.require("dijit.form.MultiSelect");
-		dojo.require("dijit.form.Select");
-		dojo.require("dijit.form.Textarea");
-		dojo.require("dijit.form.SimpleTextarea");
-		dojo.require("dijit.Editor");
+		dojo.require("dui.dijit"); // optimize: load dui layer
+		dojo.require("dui.focus");
+		dojo.require("dui.form.Form");
+		dojo.require("dui.layout.ContentPane");
+		dojo.require("dui.form.ComboBox");
+		dojo.require("dui.form.CheckBox");
+		dojo.require("dui.form.RadioButton");
+		dojo.require("dui.form.DateTextBox");
+		dojo.require("dui.form.Button");
+		dojo.require("dui.form.MultiSelect");
+		dojo.require("dui.form.Select");
+		dojo.require("dui.form.Textarea");
+		dojo.require("dui.form.SimpleTextarea");
+		dojo.require("dui.Editor");
 
 		var obj;
 		function getValues(){
-			obj = dijit.byId('myForm').get('value');
+			obj = dui.byId('myForm').get('value');
 			console.log("Object is: " + dojo.toJson(obj, true));
 		}
 
@@ -52,11 +52,11 @@
 		 		obj = {testF: 'testi'};
 			}
 			console.log("Object is: " + dojo.toJson(obj, true));
-			dijit.byId('myForm').set('value', obj);
+			dui.byId('myForm').set('value', obj);
 		}
 
 		function validate(){
-			console.log(dijit.byId('myForm').validate());
+			console.log(dui.byId('myForm').validate());
 		}
 
 		function defaultSubmitHandler(values){
@@ -117,7 +117,7 @@
 			doh.register("parse", function(){
 				dojo.parser.parse();
 
-				formWidget = dijit.byId("myForm");
+				formWidget = dui.byId("myForm");
 			});
 
 			// should be able to query for all of the inputs, including hidden ones
@@ -189,8 +189,8 @@
 							var d=new doh.Deferred();
 
 							var defer=function(){
-								if(dijit.byId('t1')._resetValue!==undefined &&
-									!dijit.byId('editor').disabled){
+								if(dui.byId('t1')._resetValue!==undefined &&
+									!dui.byId('editor').disabled){
 									doh.t(true);
 									d.callback(true);
 								}else{
@@ -314,7 +314,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("dtb1").set("value", "1981-10-12");
+					dui.byId("dtb1").set("value", "1981-10-12");
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "exactly one watch(value) call");
@@ -354,7 +354,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("cb_1").set("checked", false);
+					dui.byId("cb_1").set("checked", false);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "exactly one watch(value) call");
@@ -376,7 +376,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("cb_2").set("checked", true);
+					dui.byId("cb_2").set("checked", true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "exactly one watch(value) call");
@@ -417,7 +417,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("r_1").set("checked", true);
+					dui.byId("r_1").set("checked", true);
 
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "exactly one watch(value) call");
@@ -433,7 +433,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("dtb1").set("disabled", true);
+					dui.byId("dtb1").set("disabled", true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "one watch(value) call");
@@ -449,7 +449,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("dtb1").set("disabled", false);
+					dui.byId("dtb1").set("disabled", false);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "one watch(value) call");
@@ -469,7 +469,7 @@
 				// fill in something in required field so that form is valid
 				function makeValid(){
 					doh.f(formWidget.isValid(), "form isn't valid (due to required but empty)");
-					dijit.byId("rw").set("value", "abc");
+					dui.byId("rw").set("value", "abc");
 					doh.t(formWidget.isValid(), "form is now valid");
 				},
 
@@ -501,7 +501,7 @@
 					// Simulate the typing and validation checking since this isn't a robot test
 					dojo.byId("dtb1").focus();
 					dojo.byId("dtb1").value = "12/";
-					dijit.byId("dtb1").validate(true);
+					dui.byId("dtb1").validate(true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "one watch(state) calls");
@@ -520,7 +520,7 @@
 
 					// Simulate the typing and validation checking since this isn't a robot test
 					dojo.byId("dtb1").value = "12/31/2012";
-					dijit.byId("dtb1").validate(true);
+					dui.byId("dtb1").validate(true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "another watch(state) calls");
@@ -539,7 +539,7 @@
 
 					// Simulate the typing and validation checking since this isn't a robot test
 					dojo.byId("dtb1").value = "12/a";
-					dijit.byId("dtb1").validate(true);
+					dui.byId("dtb1").validate(true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "another watch(state) call");
@@ -556,7 +556,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("dtb1").set("disabled", true);
+					dui.byId("dtb1").set("disabled", true);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "one watch(state) call");
@@ -573,7 +573,7 @@
 					var d = new doh.Deferred();
 
 					calls = 0;
-					dijit.byId("dtb1").set("disabled", false);
+					dui.byId("dtb1").set("disabled", false);
 					
 					setTimeout(d.getTestCallback(function(){
 						doh.is(1, calls, "one watch(state) call");
@@ -595,24 +595,24 @@
 
 				// make the second and third DateTextBoxes invalid
 				dojo.byId("dtb2").value = "12/a";
-				dijit.byId("dtb2").validate(true);
+				dui.byId("dtb2").validate(true);
 				dojo.byId("dtb3").value = "12/a";
-				dijit.byId("dtb3").validate(true);
+				dui.byId("dtb3").validate(true);
 
 				// Since the required but empty ValidationTextBox has never been focused,
 				// it's not yet marked in an error state
-				doh.f(dojo.hasClass(dojo.byId("widget_rw"), "dijitValidationTextBoxError"), "required but empty not yet marked as error");
+				doh.f(dojo.hasClass(dojo.byId("widget_rw"), "duiValidationTextBoxError"), "required but empty not yet marked as error");
 
 				// validate() should focus the first DateTextBox and highlight
 				// the two invalid DateTextBoxes and the required but empty ValidationTextBox.
 				formWidget.validate();
 				
-				doh.t(dojo.hasClass(dojo.byId("widget_rw"), "dijitValidationTextBoxError"), "required but empty marked as error");
+				doh.t(dojo.hasClass(dojo.byId("widget_rw"), "duiValidationTextBoxError"), "required but empty marked as error");
 
 				// Check that focus went to invalid field.  But on IE9+ focus change is asynchronous so use a timer.
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					doh.is("dtb2", dijit.focus.curNode.id, "focused on first invalid DateTextBox");
+					doh.is("dtb2", dui.focus.curNode.id, "focused on first invalid DateTextBox");
 				}), 0);
 				return d;
 			});
@@ -622,7 +622,7 @@
 				// (also, hasAttribute() is not available on IE6/7)
 				doh.register("novalidate", function noValidate(){
 					// Making sure the parser picks up the flag and _WidgetBase copies it to this.domNode
-					doh.t(dijit.byId("noValidateForm").domNode.hasAttribute("novalidate"), "novalidate");
+					doh.t(dui.byId("noValidateForm").domNode.hasAttribute("novalidate"), "novalidate");
 				});
 			}
 
@@ -641,7 +641,7 @@
 	<!--    to test form submission, you'll need to create an action handler similar to
 			http://www.utexas.edu/teamweb/cgi-bin/generic.cgi
 		http://www.tipjar.com/cgi-bin/test -->
-	<form id="myForm" data-dojo-type="dijit/form/Form" data-dojo-props='encType:"multipart/form-data", action:"../formAction.html", method:"", target:"formSubmitIframe"'>
+	<form id="myForm" data-dojo-type="dui/form/Form" data-dojo-props='encType:"multipart/form-data", action:"../formAction.html", method:"", target:"formSubmitIframe"'>
 		<script type="dojo/method" data-dojo-event="onReset">
 			return ("_onResetReturn" in this)? this._onResetReturn : confirm('Press OK to reset widget values');
 		</script>
@@ -687,8 +687,8 @@
 					<td>DateTextBox inside contentpane</td>
 					<td><label for="dtb1">foo.bar.baz.quux</label></td>
 					<td>
-						<div data-dojo-type="dijit/layout/ContentPane">
-						<input data-dojo-type="dijit/form/DateTextBox" data-dojo-props='id:"dtb1", name:"foo.bar.baz.quux", value:"2007-12-30" '/>
+						<div data-dojo-type="dui/layout/ContentPane">
+						<input data-dojo-type="dui/form/DateTextBox" data-dojo-props='id:"dtb1", name:"foo.bar.baz.quux", value:"2007-12-30" '/>
 						</div>
 					</td>
 				</tr>
@@ -696,21 +696,21 @@
 					<td>DateTextBox 2</td>
 					<td><label for="dtb2">available.from</label></td>
 					<td>
-						<input data-dojo-type="dijit/form/DateTextBox" data-dojo-props='id:"dtb2", name:"available.from", value:"2005-01-02" '/>
+						<input data-dojo-type="dui/form/DateTextBox" data-dojo-props='id:"dtb2", name:"available.from", value:"2005-01-02" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>DateTextBox 3</td>
 					<td><label for="dtb3">available.to</label></td>
 					<td>
-						<input data-dojo-type="dijit/form/DateTextBox" data-dojo-props='id:"dtb3", name:"available.to", value:"2006-01-02" '/>
+						<input data-dojo-type="dui/form/DateTextBox" data-dojo-props='id:"dtb3", name:"available.to", value:"2006-01-02" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>ComboBox</td>
 					<td><label for="plopcombo">plop.combo</label></td>
 					<td>
-						<select data-dojo-type="dijit/form/ComboBox" id="plopcombo" data-dojo-props='name:"plop.combo" '>
+						<select data-dojo-type="dui/form/ComboBox" id="plopcombo" data-dojo-props='name:"plop.combo" '>
 							<option value="one">one</option>
 							<option value="two">two</option>
 							<option value="three">three</option>
@@ -747,10 +747,10 @@
 					<td>CheckBox widget</td>
 					<td>cb</td>
 					<td>
-						<input data-dojo-type="dijit/form/CheckBox" id="cb_1" name="cb" value="1"/> <label for="cb_1">1</label>
-						<input data-dojo-type="dijit/form/CheckBox" id="cb_2" name="cb" value="2" checked/> <label for="cb_2">2</label>
-						<input data-dojo-type="dijit/form/CheckBox" id="cb_3" name="cb" value="3" checked/> <label for="cb_3">3</label>
-						<input data-dojo-type="dijit/form/CheckBox" id="cb_4" name="cb" value="4"/> <label for="cb_4">4</label>
+						<input data-dojo-type="dui/form/CheckBox" id="cb_1" name="cb" value="1"/> <label for="cb_1">1</label>
+						<input data-dojo-type="dui/form/CheckBox" id="cb_2" name="cb" value="2" checked/> <label for="cb_2">2</label>
+						<input data-dojo-type="dui/form/CheckBox" id="cb_3" name="cb" value="3" checked/> <label for="cb_3">3</label>
+						<input data-dojo-type="dui/form/CheckBox" id="cb_4" name="cb" value="4"/> <label for="cb_4">4</label>
 					</td>
 				</tr>
 
@@ -770,18 +770,18 @@
 				<tr>
 				<td>Radio widget</td><td>r</td>
 				<td id="radio-cells">
-					<input data-dojo-type="dijit/form/RadioButton" id="r_1" name="r" value="1"/> <label for="r_1">1</label>
-					<input data-dojo-type="dijit/form/RadioButton" id="r_2" name="r" value="2" checked/> <label for="r_2">2</label>
-					<input data-dojo-type="dijit/form/RadioButton" id="r_3" name="r" value="3"/> <label for="r_3">3</label>
-					<input data-dojo-type="dijit/form/RadioButton" id="r_4" name="r" value="4"/> <label for="r_4">4</label>
-				<input type="button" onclick="dojo.query('INPUT[type=radio]','radio-cells').forEach(function(n){dijit.getEnclosingWidget(n).set('checked',false);});return true;" value="Unset all radio buttons"/>
+					<input data-dojo-type="dui/form/RadioButton" id="r_1" name="r" value="1"/> <label for="r_1">1</label>
+					<input data-dojo-type="dui/form/RadioButton" id="r_2" name="r" value="2" checked/> <label for="r_2">2</label>
+					<input data-dojo-type="dui/form/RadioButton" id="r_3" name="r" value="3"/> <label for="r_3">3</label>
+					<input data-dojo-type="dui/form/RadioButton" id="r_4" name="r" value="4"/> <label for="r_4">4</label>
+				<input type="button" onclick="dojo.query('INPUT[type=radio]','radio-cells').forEach(function(n){dui.getEnclosingWidget(n).set('checked',false);});return true;" value="Unset all radio buttons"/>
 				</td>
 				</tr>
 
 				<tr>
 					<td>Multi-select</td><td>ms1</td>
 					<td>
-						<select id="ms1" multiple data-dojo-type="dijit/form/MultiSelect"
+						<select id="ms1" multiple data-dojo-type="dui/form/MultiSelect"
 							data-dojo-props='name:"ms1", "aria-label":"ms1",
 							style:{height:"100px", width:"175px", border:"5px solid #ededed"}'>
 
@@ -798,7 +798,7 @@
 				<tr>
 					<td>Select</td><td>s1</td>
 					<td>
-						<select id="s1" data-dojo-type="dijit/form/Select"
+						<select id="s1" data-dojo-type="dui/form/Select"
 							data-dojo-props='name:"s1", style:{width:"175px"}, "aria-label":"s1"'>
 							<option value="TN">Tennessee</option>
 							<option value="VA" selected="selected">Virginia</option>
@@ -814,7 +814,7 @@
 					<td>Hidden input</td>
 					<td>h1</td>
 					<td>
-						<input id="h1" data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"h1", type:"hidden", value:"hidden", "aria-label":"h1" '/>
+						<input id="h1" data-dojo-type="dui/form/TextBox" data-dojo-props='name:"h1", type:"hidden", value:"hidden", "aria-label":"h1" '/>
 					</td>
 				</tr>
 
@@ -822,7 +822,7 @@
 					<td>Auto-sizing textarea</td>
 					<td>t1</td>
 					<td>
-						<textarea id="t1" data-dojo-type="dijit/form/Textarea" data-dojo-props='name:"t1", "aria-label":"t1" '>line 1
+						<textarea id="t1" data-dojo-type="dui/form/Textarea" data-dojo-props='name:"t1", "aria-label":"t1" '>line 1
 line 2</textarea>
 					</td>
 				</tr>
@@ -831,7 +831,7 @@ line 2</textarea>
 					<td>Fixed size textarea</td>
 					<td>st1</td>
 					<td>
-						<textarea id="st1" data-dojo-type="dijit/form/SimpleTextarea" data-dojo-props='name:"st1", rows:"5", cols:"50", "aria-label":"st1" '>
+						<textarea id="st1" data-dojo-type="dui/form/SimpleTextarea" data-dojo-props='name:"st1", rows:"5", cols:"50", "aria-label":"st1" '>
 simple line 1
 simple line 2</textarea>
 					</td>
@@ -841,7 +841,7 @@ simple line 2</textarea>
 					<td>Editor widget</td>
 					<td>richtext</td>
 					<td>
-						<textarea id="editor" name="richtext" data-dojo-type="dijit/Editor" data-dojo-props='"aria-label":"editor", plugins:["bold", "italic"]'><h1>original</h1><p>This is the default content</p></textarea>
+						<textarea id="editor" name="richtext" data-dojo-type="dui/Editor" data-dojo-props='"aria-label":"editor", plugins:["bold", "italic"]'><h1>original</h1><p>This is the default content</p></textarea>
 					</td>
 				</tr>
 
@@ -849,73 +849,73 @@ simple line 2</textarea>
 					<td>File upload</td>
 					<td>filename</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"filename", type:"file", "aria-label":"filename" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"filename", type:"file", "aria-label":"filename" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Required Widget</td>
 					<td>requiredWidget</td>
 					<td>
-						<input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props='id: "rw", name:"requiredWidget", required:true, value:"", "aria-label":"rw" '/>
+						<input data-dojo-type="dui/form/ValidationTextBox" data-dojo-props='id: "rw", name:"requiredWidget", required:true, value:"", "aria-label":"rw" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Disabled Widget</td>
 					<td>disabledWidget</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"disabledWidget", disabled:true, value:"Should not be returned", "aria-label":"disabled" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"disabledWidget", disabled:true, value:"Should not be returned", "aria-label":"disabled" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Disabled Required Widget</td>
 					<td>disabledRequiredWidget</td>
 					<td>
-						<input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props='id: "drw", name:"disabledRequiredWidget", disabled:true, required:true, value:"", "aria-label":"disabledRequired" '/>
+						<input data-dojo-type="dui/form/ValidationTextBox" data-dojo-props='id: "drw", name:"disabledRequiredWidget", disabled:true, required:true, value:"", "aria-label":"disabledRequired" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Read-only Widget</td>
 					<td>readOnlyWidget</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"readOnlyWidget", readOnly:true, value:"Should be returned", "aria-label":"readonly" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"readOnlyWidget", readOnly:true, value:"Should be returned", "aria-label":"readonly" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Duplicate named TextBox 1</td>
 					<td>duplicate</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"duplicate", value:"first", "aria-label":"duplicate" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"duplicate", value:"first", "aria-label":"duplicate" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Duplicate named TextBox 2</td>
 					<td>duplicate</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"duplicate", value:"second", "aria-label":"duplicate2" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"duplicate", value:"second", "aria-label":"duplicate2" '/>
 					</td>
 				</tr>
 				<tr>
 					<td>Duplicate named TextBox 3</td>
 					<td>duplicate</td>
 					<td>
-						<input data-dojo-type="dijit/form/TextBox" data-dojo-props='name:"duplicate", value:"third", "aria-label":"duplicate3" '/>
+						<input data-dojo-type="dui/form/TextBox" data-dojo-props='name:"duplicate", value:"third", "aria-label":"duplicate3" '/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ getValues(); }'>Get Values from form!</button>
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ setValues(); }'>Set Values to form!</button>
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ validate(); }'>Validate form!</button>
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='type:"submit", value:"Submit"'>Submit</button>
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='type:"reset"'>HTML Reset</button>
-		<button data-dojo-type="dijit/form/Button" data-dojo-props='type:"button", onClick:function(){ dijit.byId("myForm").reset() }'>reset()</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ getValues(); }'>Get Values from form!</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ setValues(); }'>Set Values to form!</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ validate(); }'>Validate form!</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='type:"submit", value:"Submit"'>Submit</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='type:"reset"'>HTML Reset</button>
+		<button data-dojo-type="dui/form/Button" data-dojo-props='type:"button", onClick:function(){ dui.byId("myForm").reset() }'>reset()</button>
 	</form>
-<button data-dojo-type="dijit/form/Button" data-dojo-props='type:"button",
-onClick:function(){ dijit.byId("myForm").submit() }'>Submit programmatically</button>
+<button data-dojo-type="dui/form/Button" data-dojo-props='type:"button",
+onClick:function(){ dui.byId("myForm").submit() }'>Submit programmatically</button>
 
 <iframe name="formSubmitIframe" src="about:blank" onload="if(this.values)submittedValues(this.values)" style="display:none;"></iframe>
 
-	<form id="noValidateForm" data-dojo-type="dijit/form/Form" novalidate></form>
+	<form id="noValidateForm" data-dojo-type="dui/form/Form" novalidate></form>
 </body>
 </html>

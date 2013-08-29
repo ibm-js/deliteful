@@ -9,13 +9,13 @@ define([
 ], function(declare, keys, lang, query, string, when, registry){
 
 	// module:
-	//		dijit/form/_SearchMixin
+	//		dui/form/_SearchMixin
 
 
-	return declare("dijit.form._SearchMixin", null, {
+	return declare("dui.form._SearchMixin", null, {
 		// summary:
 		//		A mixin that implements the base functionality to search a store based upon user-entered text such as
-		//		with `dijit/form/ComboBox` or `dijit/form/FilteringSelect`
+		//		with `dui/form/ComboBox` or `dui/form/FilteringSelect`
 		// tags:
 		//		protected
 

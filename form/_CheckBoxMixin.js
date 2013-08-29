@@ -4,9 +4,9 @@ define([
 ], function(declare, domAttr){
 
 	// module:
-	//		dijit/form/_CheckBoxMixin
+	//		dui/form/_CheckBoxMixin
 
-	return declare("dijit.form._CheckBoxMixin", null, {
+	return declare("dui.form._CheckBoxMixin", null, {
 		// summary:
 		//		Mixin to provide widget functionality corresponding to an HTML checkbox
 		//
@@ -19,7 +19,7 @@ define([
 
 		// type: [private] String
 		//		type attribute on `<input>` node.
-		//		Overrides `dijit/form/Button.type`.  Users should not change this value.
+		//		Overrides `dui/form/Button.type`.  Users should not change this value.
 		type: "checkbox",
 
 		// value: String
@@ -41,7 +41,7 @@ define([
 			domAttr.set(this.focusNode, 'readOnly', value);
 		},
 
-		// Override dijit/form/Button._setLabelAttr() since we don't even have a containerNode.
+		// Override dui/form/Button._setLabelAttr() since we don't even have a containerNode.
 		// Normally users won't try to set label, except when CheckBox or RadioButton is the child of a dojox/layout/TabContainer
 		_setLabelAttr: undefined,
 

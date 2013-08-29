@@ -9,9 +9,9 @@ define([
 ], function(kernel){
 
 	// module:
-	//		dijit/form/Slider
+	//		dui/form/Slider
 
-	kernel.deprecated("Call require() for HorizontalSlider / VerticalRule, explicitly rather than 'dijit.form.Slider' itself", "", "2.0");
+	kernel.deprecated("Call require() for HorizontalSlider / VerticalRule, explicitly rather than 'dui.form.Slider' itself", "", "2.0");
 
 	/*=====
 	 return {

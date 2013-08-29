@@ -12,8 +12,8 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.robotx");
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_CheckBox.html');
@@ -25,7 +25,7 @@
 						runTest:function(){
 							var d = new doh.Deferred();
 
-							dijit.byId("cb1").focus();
+							dui.byId("cb1").focus();
 							doh.robot.keyPress(dojo.keys.TAB, 500, {
 								shift: true
 							});
@@ -48,7 +48,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('cb1').checked, "cb1 was not checked");
+								doh.t(dui.byId('cb1').checked, "cb1 was not checked");
 								doh.is("true", dojo.byId('cb1').getAttribute("aria-checked"), "aria-checked");
 							}), 1000);
 
@@ -66,7 +66,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('cb2').checked, "cb2 was checked");
+								doh.f(dui.byId('cb2').checked, "cb2 was checked");
 								doh.is("false", dojo.byId('cb2').getAttribute("aria-checked"), "aria-checked");
 							}), 1000);
 
@@ -84,7 +84,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('cb4').checked, "cb4 was not checked");
+								doh.t(dui.byId('cb4').checked, "cb4 was not checked");
 								doh.is("true", dojo.byId('cb4').getAttribute("aria-checked"), "aria-checked");
 							}), 1000);
 
@@ -103,7 +103,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('cb6').checked, "cb6 was checked");
+								doh.f(dui.byId('cb6').checked, "cb6 was checked");
 								doh.is("false", dojo.byId('cb6').getAttribute("aria-checked"), "aria-checked");
 							}), 1000);
 
@@ -119,7 +119,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('cb6').checked, "cb6 was not checked");
+								doh.t(dui.byId('cb6').checked, "cb6 was not checked");
 								doh.is("true", dojo.byId('cb6').getAttribute("aria-checked"), "aria-checked");
 							}), 1000);
 
@@ -132,10 +132,10 @@
 					{
 						name: "reset blank value",
 						runTest: function(){
-							doh.is("", dijit.byId('g1rb3').params.value, "blank parameter");
-							doh.is("", dijit.byId('g1rb3').value, "initially blank");
-							dijit.byId('g1rb3').reset();
-							doh.is("", dijit.byId('g1rb3').value, "blank after reset");
+							doh.is("", dui.byId('g1rb3').params.value, "blank parameter");
+							doh.is("", dui.byId('g1rb3').value, "initially blank");
+							dui.byId('g1rb3').reset();
+							doh.is("", dui.byId('g1rb3').value, "blank after reset");
 						}
 					},
 					{
@@ -155,7 +155,7 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g1rb2').checked, "talk should have been checked");
+								doh.t(dui.byId('g1rb2').checked, "talk should have been checked");
 							}), 500);
 
 							return d;
@@ -167,14 +167,14 @@
 						runTest:function(){
 							var d = new doh.Deferred();
  
-							dijit.byId("g1rb2").focus();
-							dijit.byId("g1rb3").set("disabled",false);
+							dui.byId("g1rb2").focus();
+							dui.byId("g1rb3").set("disabled",false);
 							doh.robot.keyPress(dojo.keys.RIGHT_ARROW, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g1rb1').checked, "news was checked");
-								doh.f(dijit.byId('g1rb2').checked, "talk was checked");
-								doh.t(dijit.byId('g1rb3').checked, "weather was not checked");
+								doh.f(dui.byId('g1rb1').checked, "news was checked");
+								doh.f(dui.byId('g1rb2').checked, "talk was checked");
+								doh.t(dui.byId('g1rb3').checked, "weather was not checked");
 								doh.is("false", dojo.byId('g1rb1').getAttribute("aria-checked")||"false", "aria-checked 1");
 								doh.is("false", dojo.byId('g1rb2').getAttribute("aria-checked")||"false", "aria-checked 2");
 								doh.is("true", dojo.byId('g1rb3').getAttribute("aria-checked"), "aria-checked 3");
@@ -200,7 +200,7 @@
 							doh.robot.keyPress(dojo.keys.LEFT_ARROW, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g1rb2').checked, "talk should have been checked");
+								doh.t(dui.byId('g1rb2').checked, "talk should have been checked");
 							}), 500);
 
 							return d;
@@ -212,15 +212,15 @@
 						runTest:function(){
 							var d = new doh.Deferred();
  
-							dijit.byId("g2rb1").focus();
+							dui.byId("g2rb1").focus();
 							doh.robot.keyPress(dojo.keys.RIGHT_ARROW, 1000);
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 500);
 							doh.robot.keyPress(dojo.keys.SPACE, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('g2rb3').checked, "country was not checked");
-								doh.f(dijit.byId('g2rb2').checked, "oldies was checked");
-								doh.f(dijit.byId('g2rb1').checked, "top 40 was checked");
+								doh.t(dui.byId('g2rb3').checked, "country was not checked");
+								doh.f(dui.byId('g2rb2').checked, "oldies was checked");
+								doh.f(dui.byId('g2rb1').checked, "top 40 was checked");
 								doh.is("false", dojo.byId('g2rb1').getAttribute("aria-checked")||"false", "aria-checked 1");
 								doh.is("false", dojo.byId('g2rb2').getAttribute("aria-checked")||"false", "aria-checked 2");
 								doh.is("true", dojo.byId('g2rb3').getAttribute("aria-checked"), "aria-checked 3");
@@ -239,9 +239,9 @@
 							doh.robot.keyPress(dojo.keys.LEFT_ARROW, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g2rb3').checked, "country was checked");
-								doh.f(dijit.byId('g2rb2').checked, "oldies was checked");
-								doh.t(dijit.byId('g2rb1').checked, "top 40 was not checked");
+								doh.f(dui.byId('g2rb3').checked, "country was checked");
+								doh.f(dui.byId('g2rb2').checked, "oldies was checked");
+								doh.t(dui.byId('g2rb1').checked, "top 40 was not checked");
 								doh.is("true", dojo.byId('g2rb1').getAttribute("aria-checked"), "aria-checked 1");
 								doh.is("false", dojo.byId('g2rb2').getAttribute("aria-checked")||"false", "aria-checked 2");
 								doh.is("false", dojo.byId('g2rb3').getAttribute("aria-checked")||"false", "aria-checked 3");
@@ -263,12 +263,12 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.t(dijit.byId('b1').checked, "b1 was not checked");
-								doh.f(dijit.byId('b2').checked, "b2 was checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.t(dui.byId('b1').checked, "b1 was not checked");
+								doh.f(dui.byId('b2').checked, "b2 was checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -283,12 +283,12 @@
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -304,12 +304,12 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.t(dijit.byId('c1').checked, "c1 was not checked");
-								doh.f(dijit.byId('c2').checked, "c2 was checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.t(dui.byId('c1').checked, "c1 was not checked");
+								doh.f(dui.byId('c2').checked, "c2 was checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -324,12 +324,12 @@
 							doh.robot.keyPress(dojo.keys.RIGHT_ARROW, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -346,12 +346,12 @@
 							doh.robot.keyPress(dojo.keys.SPACE, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.f(dijit.byId('d1').checked, "d1 was checked");
-								doh.t(dijit.byId('d2').checked, "d2 was not checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.f(dui.byId('d1').checked, "d1 was checked");
+								doh.t(dui.byId('d2').checked, "d2 was not checked");
 							}), 1000);
 
 							return d;
@@ -366,12 +366,12 @@
 							doh.robot.keyPress(dojo.keys.UP_ARROW, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('b1').checked, "b1 was checked");
-								doh.t(dijit.byId('b2').checked, "b2 was not checked");
-								doh.f(dijit.byId('c1').checked, "c1 was checked");
-								doh.t(dijit.byId('c2').checked, "c2 was not checked");
-								doh.t(dijit.byId('d1').checked, "d1 was not checked");
-								doh.f(dijit.byId('d2').checked, "d2 was checked");
+								doh.f(dui.byId('b1').checked, "b1 was checked");
+								doh.t(dui.byId('b2').checked, "b2 was not checked");
+								doh.f(dui.byId('c1').checked, "c1 was checked");
+								doh.t(dui.byId('c2').checked, "c2 was not checked");
+								doh.t(dui.byId('d1').checked, "d1 was not checked");
+								doh.f(dui.byId('d2').checked, "d2 was checked");
 							}), 1000);
 
 							return d;
@@ -387,8 +387,8 @@
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 1000);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.f(dijit.byId('g4rb1').checked, "tea was checked");
-								doh.t(dijit.byId('g4rb2').checked, "coffee was not checked");
+								doh.f(dui.byId('g4rb1').checked, "tea was checked");
+								doh.t(dui.byId('g4rb2').checked, "coffee was not checked");
 							}), 1000);
 
 							return d;

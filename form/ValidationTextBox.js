@@ -1,13 +1,13 @@
 define([
 	"dojo/_base/declare", // declare
 	"./TextBox",
-	"../dijit/Tooltip",
+	"../dui/Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
 	"dojo/i18n!./nls/validate"
 ], function(declare, TextBox, Tooltip, template, nlsValidate){
 
 	// module:
-	//		dijit/form/ValidationTextBox
+	//		dui/form/ValidationTextBox
 
 
 	/*=====
@@ -20,7 +20,7 @@ define([
 	=====*/
 
 	var ValidationTextBox;
-	return ValidationTextBox = declare("dijit.form.ValidationTextBox", TextBox, {
+	return ValidationTextBox = declare("dui.form.ValidationTextBox", TextBox, {
 		// summary:
 		//		Base class for textbox widgets with the ability to validate content of various types and provide user feedback.
 
@@ -75,7 +75,7 @@ define([
 		state: "",
 
 		// tooltipPosition: String[]
-		//		See description of `dijit/Tooltip.defaultPosition` for details on this parameter.
+		//		See description of `dui/Tooltip.defaultPosition` for details on this parameter.
 		tooltipPosition: [],
 
 		_setValueAttr: function(){
@@ -201,7 +201,7 @@ define([
 			//		If a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree.
 
 			this.constraints = {};
-			this.baseClass += ' dijitValidationTextBox';
+			this.baseClass += ' duiValidationTextBox';
 		},
 
 		startup: function(){
@@ -290,7 +290,7 @@ define([
 		},
 
 		reset:function(){
-			// Overrides dijit/form/TextBox.reset() by also
+			// Overrides dui/form/TextBox.reset() by also
 			// hiding errors about partial matches
 			this._maskValidSubsetError = true;
 			this.inherited(arguments);

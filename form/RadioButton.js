@@ -5,12 +5,12 @@ define([
 ], function(declare, CheckBox, _RadioButtonMixin){
 
 	// module:
-	//		dijit/form/RadioButton
+	//		dui/form/RadioButton
 
-	return declare("dijit.form.RadioButton", [CheckBox, _RadioButtonMixin], {
+	return declare("dui.form.RadioButton", [CheckBox, _RadioButtonMixin], {
 		// summary:
 		//		Same as an HTML radio, but with fancy styling.
 
-		baseClass: "dijitRadio"
+		baseClass: "duiRadio"
 	});
 });

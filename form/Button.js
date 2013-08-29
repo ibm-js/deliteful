@@ -10,9 +10,9 @@ define([
 ], function(require, declare, domClass, has, lang, _FormWidget, _ButtonMixin, template){
 
 	// module:
-	//		dijit/form/Button
+	//		dui/form/Button
 
-	var Button = declare("dijit.form.Button" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormWidget, _ButtonMixin], {
+	var Button = declare("dui.form.Button" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormWidget, _ButtonMixin], {
 		// summary:
 		//		Basically the same thing as a normal HTML button, but with special styling.
 		// description:
@@ -20,7 +20,7 @@ define([
 		//		A label should always be specified (through innerHTML) or the label
 		//		attribute.  It can be hidden via showLabel=false.
 		// example:
-		// |	<button data-dojo-type="dijit/form/Button" onClick="...">Hello world</button>
+		// |	<button data-dojo-type="dui/form/Button" onClick="...">Hello world</button>
 		//
 		// example:
 		// |	var button1 = new Button({label: "hello world", onClick: foo});
@@ -38,10 +38,10 @@ define([
 
 		// iconClass: String
 		//		Class to apply to DOMNode in button to make it display an icon
-		iconClass: "dijitNoIcon",
+		iconClass: "duiNoIcon",
 		_setIconClassAttr: { node: "iconNode", type: "class" },
 
-		baseClass: "dijitButton",
+		baseClass: "duiButton",
 
 		templateString: template,
 
@@ -69,7 +69,7 @@ define([
 
 		_setShowLabelAttr: function(val){
 			if(this.containerNode){
-				domClass.toggle(this.containerNode, "dijitDisplayNone", !val);
+				domClass.toggle(this.containerNode, "duiDisplayNone", !val);
 			}
 			this._set("showLabel", val);
 		},
@@ -89,7 +89,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		Button = declare("dijit.form.Button", Button, {
+		Button = declare("dui.form.Button", Button, {
 			_setLabelAttr: function(/*String*/ content){
 				this.inherited(arguments);
 				if(this.titleNode.title){

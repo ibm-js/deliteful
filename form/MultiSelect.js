@@ -8,9 +8,9 @@ define([
 ], function(array, declare, domGeometry, has, query, _FormValueWidget){
 
 	// module:
-	//		dijit/form/MultiSelect
+	//		dui/form/MultiSelect
 
-	var MultiSelect = declare("dijit.form.MultiSelect" + (has("dojo-bidi") ? "_NoBidi" : ""), _FormValueWidget, {
+	var MultiSelect = declare("dui.form.MultiSelect" + (has("dojo-bidi") ? "_NoBidi" : ""), _FormValueWidget, {
 		// summary:
 		//		Widget version of a `<select multiple=true>` element,
 		//		for selecting multiple options.
@@ -21,18 +21,18 @@ define([
 		//		set the size via style="..." or CSS class names instead.
 		size: 7,
 
-		baseClass: "dijitMultiSelect",
+		baseClass: "duiMultiSelect",
 
 		templateString: "<select multiple='true' data-dojo-attach-point='containerNode,focusNode' data-dojo-attach-event='onchange: _onChange'></select>",
 
-		addSelected: function(/*dijit/form/MultiSelect*/ select){
+		addSelected: function(/*dui/form/MultiSelect*/ select){
 			// summary:
 			//		Move the selected nodes of a passed Select widget
 			//		instance to this Select widget.
 			//
 			// example:
 			// |	// move all the selected values from "bar" to "foo"
-			// |	dijit.byId("foo").addSelected(dijit.byId("bar"));
+			// |	dui.byId("foo").addSelected(dui.byId("bar"));
 
 			select.getSelected().forEach(function(n){
 				this.containerNode.appendChild(n);
@@ -114,8 +114,8 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		MultiSelect = declare("dijit.form.MultiSelect", MultiSelect, {
-			addSelected: function(/*dijit/form/MultiSelect*/ select){
+		MultiSelect = declare("dui.form.MultiSelect", MultiSelect, {
+			addSelected: function(/*dui/form/MultiSelect*/ select){
 				select.getSelected().forEach(function(n){
 					n.text = this.enforceTextDirWithUcc(this.restoreOriginalText(n), n.text);
 				}, this);

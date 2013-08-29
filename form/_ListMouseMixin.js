@@ -6,9 +6,9 @@ define([
 ], function(declare, on, touch, _ListBase){
 
 	// module:
-	//		dijit/form/_ListMouseMixin
+	//		dui/form/_ListMouseMixin
 
-	return declare("dijit.form._ListMouseMixin", _ListBase, {
+	return declare("dui.form._ListMouseMixin", _ListBase, {
 		// summary:
 		//		A mixin to handle mouse or touch events for a focus-less menu
 		//		Abstract methods that must be defined externally:

@@ -12,8 +12,8 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.robotx");
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_Form_onsubmit.html');
@@ -27,7 +27,7 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							textbox = dijit.byId("textbox");
+							textbox = dui.byId("textbox");
 							//reset the submit textbox
 							textbox.set('value', "", false);
 							handler = textbox.connect(textbox, 'onChange', function(){
@@ -134,7 +134,7 @@
 							doh.robot.mouseClick({left:true}, 500);
 							
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("two", dijit.byId("combo1").value);
+								doh.is("two", dui.byId("combo1").value);
 							}), 1000);
 							return d;
 						}
@@ -157,7 +157,7 @@
 							
 							
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("three", dijit.byId("combo2").value);
+								doh.is("three", dui.byId("combo2").value);
 							}), 1000);
 							return d;
 						}
@@ -178,7 +178,7 @@
 							doh.robot.mouseClick({left:true}, 500);
 							
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("one", dijit.byId("combo3").value);
+								doh.is("one", dui.byId("combo3").value);
 							}), 1000);
 							return d;
 						}
@@ -201,7 +201,7 @@
 							
 							
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("one", dijit.byId("combo4").value);
+								doh.is("one", dui.byId("combo4").value);
 							}), 1000);
 							return d;
 						}

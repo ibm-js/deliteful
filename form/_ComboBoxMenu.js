@@ -12,11 +12,11 @@ define([
 
 
 	// module:
-	//		dijit/form/_ComboBoxMenu
+	//		dui/form/_ComboBoxMenu
 
-	return declare("dijit.form._ComboBoxMenu",[_WidgetBase, _TemplatedMixin, _ListMouseMixin, _ComboBoxMenuMixin], {
+	return declare("dui.form._ComboBoxMenu",[_WidgetBase, _TemplatedMixin, _ListMouseMixin, _ComboBoxMenuMixin], {
 		// summary:
-		//		Focus-less menu for internal use in `dijit/form/ComboBox`
+		//		Focus-less menu for internal use in `dui/form/ComboBox`
 		//		Abstract methods that must be defined externally:
 		//
 		//		- onChange: item was explicitly chosen (mousedown somewhere on the menu and mouseup somewhere on the menu)
@@ -26,18 +26,18 @@ define([
 
 		// TODO for 2.0 or earlier: stop putting stuff inside this.containerNode.   Switch to using this.domNode
 		// or a different attach point.    See _TemplatedMixin::searchContainerNode.
-		templateString: "<div class='dijitReset dijitMenu' data-dojo-attach-point='containerNode' style='overflow: auto; overflow-x: hidden;' role='listbox'>"
-				+"<div class='dijitMenuItem dijitMenuPreviousButton' data-dojo-attach-point='previousButton' role='option'></div>"
-				+"<div class='dijitMenuItem dijitMenuNextButton' data-dojo-attach-point='nextButton' role='option'></div>"
+		templateString: "<div class='duiReset duiMenu' data-dojo-attach-point='containerNode' style='overflow: auto; overflow-x: hidden;' role='listbox'>"
+				+"<div class='duiMenuItem duiMenuPreviousButton' data-dojo-attach-point='previousButton' role='option'></div>"
+				+"<div class='duiMenuItem duiMenuNextButton' data-dojo-attach-point='nextButton' role='option'></div>"
 				+"</div>",
 
-		baseClass: "dijitComboBoxMenu",
+		baseClass: "duiComboBoxMenu",
 
 		postCreate: function(){
 			this.inherited(arguments);
 			if(!this.isLeftToRight()){
-				domClass.add(this.previousButton, "dijitMenuItemRtl");
-				domClass.add(this.nextButton, "dijitMenuItemRtl");
+				domClass.add(this.previousButton, "duiMenuItemRtl");
+				domClass.add(this.nextButton, "duiMenuItemRtl");
 			}
 			this.containerNode.setAttribute("role","listbox");
 		},
@@ -45,7 +45,7 @@ define([
 		_createMenuItem: function(){
 			// note: not using domConstruct.create() because need to specify document
 			var item = this.ownerDocument.createElement("div");
-			item.className = "dijitReset dijitMenuItem" +(this.isLeftToRight() ? "" : " dijitMenuItemRtl");
+			item.className = "duiReset duiMenuItem" +(this.isLeftToRight() ? "" : " duiMenuItemRtl");
 			item.setAttribute("role", "option");
 			return item;
 		},
@@ -53,25 +53,25 @@ define([
 		onHover: function(/*DomNode*/ node){
 			// summary:
 			//		Add hover CSS
-			domClass.add(node, "dijitMenuItemHover");
+			domClass.add(node, "duiMenuItemHover");
 		},
 
 		onUnhover: function(/*DomNode*/ node){
 			// summary:
 			//		Remove hover CSS
-			domClass.remove(node, "dijitMenuItemHover");
+			domClass.remove(node, "duiMenuItemHover");
 		},
 
 		onSelect: function(/*DomNode*/ node){
 			// summary:
 			//		Add selected CSS
-			domClass.add(node, "dijitMenuItemSelected");
+			domClass.add(node, "duiMenuItemSelected");
 		},
 
 		onDeselect: function(/*DomNode*/ node){
 			// summary:
 			//		Remove selected CSS
-			domClass.remove(node, "dijitMenuItemSelected");
+			domClass.remove(node, "duiMenuItemSelected");
 		},
 
 		_page: function(/*Boolean*/ up){

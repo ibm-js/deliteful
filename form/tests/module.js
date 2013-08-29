@@ -28,12 +28,12 @@ define(["doh/main", "require"], function(doh, require){
 	doh.register("form.robot.Select", require.toUrl("./robot/Select.html"), 999999);
 
 	doh.register("form.AutoCompleterMixin", require.toUrl("./AutoCompleterMixin.html"));
-	doh.register("form.ComboBox", require.toUrl("./_autoComplete.html?testWidget=dijit.form.ComboBox&mode=test"), 999999);
-	doh.register("form.robot.ComboBox_mouse", require.toUrl("./robot/_autoComplete_mouse.html?testWidget=dijit.form.ComboBox"), 999999);
-	doh.register("form.robot.ComboBox_a11y", require.toUrl("./robot/_autoComplete_a11y.html?testWidget=dijit.form.ComboBox"), 999999);
-	doh.register("form.FilteringSelect", require.toUrl("./_autoComplete.html?testWidget=dijit.form.FilteringSelect&mode=test"), 999999);
-	doh.register("form.robot.FilteringSelect_mouse", require.toUrl("./robot/_autoComplete_mouse.html?testWidget=dijit.form.FilteringSelect"), 999999);
-	doh.register("form.robot.FilteringSelect_a11y", require.toUrl("./robot/_autoComplete_a11y.html?testWidget=dijit.form.FilteringSelect"), 999999);
+	doh.register("form.ComboBox", require.toUrl("./_autoComplete.html?testWidget=dui.form.ComboBox&mode=test"), 999999);
+	doh.register("form.robot.ComboBox_mouse", require.toUrl("./robot/_autoComplete_mouse.html?testWidget=dui.form.ComboBox"), 999999);
+	doh.register("form.robot.ComboBox_a11y", require.toUrl("./robot/_autoComplete_a11y.html?testWidget=dui.form.ComboBox"), 999999);
+	doh.register("form.FilteringSelect", require.toUrl("./_autoComplete.html?testWidget=dui.form.FilteringSelect&mode=test"), 999999);
+	doh.register("form.robot.FilteringSelect_mouse", require.toUrl("./robot/_autoComplete_mouse.html?testWidget=dui.form.FilteringSelect"), 999999);
+	doh.register("form.robot.FilteringSelect_a11y", require.toUrl("./robot/_autoComplete_a11y.html?testWidget=dui.form.FilteringSelect"), 999999);
 
 	doh.register("form.MultiSelect", require.toUrl("./test_MultiSelect.html?mode=test"), 999999);
 	doh.register("form.robot.MultiSelect", require.toUrl("./robot/MultiSelect.html"), 999999);

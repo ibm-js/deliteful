@@ -9,10 +9,10 @@ define([
 	"dojo/sniff", // has("ie")
 	"./_FormSelectWidget",
 	"../_HasDropDown",
-	"../dijit/DropDownMenu",
-	"../dijit/MenuItem",
-	"../dijit/MenuSeparator",
-	"../dijit/Tooltip",
+	"../dui/DropDownMenu",
+	"../dui/MenuItem",
+	"../dui/MenuSeparator",
+	"../dui/Tooltip",
 	"../_KeyNavMixin",
 	"../registry", // registry.byNode
 	"dojo/text!./templates/Select.html",
@@ -22,9 +22,9 @@ define([
 			template, nlsValidate){
 
 	// module:
-	//		dijit/form/Select
+	//		dui/form/Select
 
-	var _SelectMenu = declare("dijit.form._SelectMenu", DropDownMenu, {
+	var _SelectMenu = declare("dui.form._SelectMenu", DropDownMenu, {
 		// summary:
 		//		An internally-used menu for dropdown that allows us a vertical scrollbar
 
@@ -71,12 +71,12 @@ define([
 		}
 	});
 
-	var Select = declare("dijit.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, _HasDropDown, _KeyNavMixin], {
+	var Select = declare("dui.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, _HasDropDown, _KeyNavMixin], {
 		// summary:
 		//		This is a "styleable" select box - it is basically a DropDownButton which
 		//		can take a `<select>` as its input.
 
-		baseClass: "dijitSelect dijitValidationTextBox",
+		baseClass: "duiSelect duiValidationTextBox",
 
 		templateString: template,
 
@@ -95,7 +95,7 @@ define([
 		message: "",
 
 		// tooltipPosition: String[]
-		//		See description of `dijit/Tooltip.defaultPosition` for details on this parameter.
+		//		See description of `dui/Tooltip.defaultPosition` for details on this parameter.
 		tooltipPosition: [],
 
 		// emptyLabel: string
@@ -179,7 +179,7 @@ define([
 			}
 		},
 
-		focusChild: function(/*dijit/_WidgetBase*/ widget){
+		focusChild: function(/*dui/_WidgetBase*/ widget){
 			// summary:
 			//		Sets the value to the given option, used during search by letter.
 			// widget:
@@ -218,7 +218,7 @@ define([
 			return node && node.getParent() == this.dropDown;
 		},
 
-		onKeyboardSearch: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
+		onKeyboardSearch: function(/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.
@@ -311,7 +311,7 @@ define([
 			// summary:
 			//		sets the display for the given value (or values)
 			var lbl = newDisplay || this.emptyLabel;
-			this.containerNode.innerHTML = '<span role="option" class="dijitReset dijitInline ' + this.baseClass.replace(/\s+|$/g, "Label ") + '">' + lbl + '</span>';
+			this.containerNode.innerHTML = '<span role="option" class="duiReset duiInline ' + this.baseClass.replace(/\s+|$/g, "Label ") + '">' + lbl + '</span>';
 		},
 
 		validate: function(/*Boolean*/ isFocused){
@@ -426,7 +426,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		Select = declare("dijit.form.Select", Select, {
+		Select = declare("dui.form.Select", Select, {
 			_setDisplay: function(/*String*/ newDisplay){
 				this.inherited(arguments);
 				this.applyTextDir(this.containerNode);

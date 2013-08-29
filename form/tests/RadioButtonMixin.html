@@ -13,7 +13,7 @@
 			margin: 0;
 			padding: 2px;
 		}
-		#table, .dijit, BUTTON {
+		#table, .dui, BUTTON {
 			font-family: monospace;
 			font-size: 12pt;
 		}
@@ -30,40 +30,40 @@
 
 	<script type="text/javascript">
 		dojo.require("doh.runner");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("dijit.form.RadioButton");
+		dojo.require("dui.dijit"); // optimize: load dui layer
+		dojo.require("dui.form.RadioButton");
 		dojo.require("dui.mobile.RadioButton");
 
 		dojo.ready(function(){
 
 			doh.register("attributes", [
 				{
-					name: "dijit",
+					name: "dui",
 					runTest: function(){
-						var dijit_attributes = dijit.byId('dijit_attributes');
-						doh.is("something", dijit_attributes.focusNode.value, 'dijit HTML element original value');
-						doh.t(dijit_attributes.get('checked'), "dijit original get('checked')");
-						doh.t(!!dijit_attributes.focusNode.checked, 'dijit HTML element originally checked');
-						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass checked");
-						dijit_attributes.set('value', "something else");
-						dijit.byId('dijit_attributes2').set('checked', true);
-						doh.f(dijit_attributes.get('checked'), "dijit get('checked')");
-						doh.t(!dijit_attributes.focusNode.checked, 'dijit HTML element unchecked');
-						doh.f(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass+"Checked"), "dijit baseClass not checked");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, dijit_attributes.baseClass), "dijit baseClass");
-						doh.t(dojo.hasClass(dijit_attributes.domNode, "duiRedButton"), "dijit original class");
-						doh.is("something else", dijit_attributes.focusNode.value, 'dijit HTML element value');
+						var dui_attributes = dui.byId('dui_attributes');
+						doh.is("something", dui_attributes.focusNode.value, 'dui HTML element original value');
+						doh.t(dui_attributes.get('checked'), "dui original get('checked')");
+						doh.t(!!dui_attributes.focusNode.checked, 'dui HTML element originally checked');
+						doh.t(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass+"Checked"), "dui baseClass checked");
+						dui_attributes.set('value', "something else");
+						dui.byId('dui_attributes2').set('checked', true);
+						doh.f(dui_attributes.get('checked'), "dui get('checked')");
+						doh.t(!dui_attributes.focusNode.checked, 'dui HTML element unchecked');
+						doh.f(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass+"Checked"), "dui baseClass not checked");
+						doh.t(dojo.hasClass(dui_attributes.domNode, dui_attributes.baseClass), "dui baseClass");
+						doh.t(dojo.hasClass(dui_attributes.domNode, "duiRedButton"), "dui original class");
+						doh.is("something else", dui_attributes.focusNode.value, 'dui HTML element value');
 					}
 	 			},
 				{
 					name: "mobile",
 					runTest: function(){
-						var mobile_attributes = dijit.byId('mobile_attributes');
+						var mobile_attributes = dui.byId('mobile_attributes');
 						doh.is("something", mobile_attributes.focusNode.value, 'mobile HTML element original value');
 						doh.t(mobile_attributes.get('checked'), "mobile original get('checked')");
 						doh.t(!!mobile_attributes.focusNode.checked, 'mobile HTML element originally checked');
 						doh.t(dojo.hasClass(mobile_attributes.domNode, mobile_attributes.baseClass+"Checked"), "mobile baseClass checked");
-						dijit.byId('mobile_attributes2').set('checked', true);
+						dui.byId('mobile_attributes2').set('checked', true);
 						mobile_attributes.set('value', "something else");
 						doh.f(mobile_attributes.get('checked'), "mobile get('checked')");
 						doh.t(!mobile_attributes.focusNode.checked, 'mobile HTML element unchecked');
@@ -77,21 +77,21 @@
 
 			doh.register("events", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							dijit_events = dijit.byId('dijit_events'),
+							dui_events = dui.byId('dui_events'),
 							calledOnClick = false,
 							nop = function(){ return false; };
 
 						function onChange(v){
-							dijit_events.set('onChange', nop);
+							dui_events.set('onChange', nop);
 							d.callback(true);
 						}
-						dijit_events.set('onChange', onChange);
-						dijit_events._onClick({ preventDefault: nop });
+						dui_events.set('onChange', onChange);
+						dui_events._onClick({ preventDefault: nop });
 
 						return d;
 					}
@@ -102,7 +102,7 @@
 					runTest: function(){
 						var
 							d = new doh.Deferred(),
-							mobile_events = dijit.byId('mobile_events'),
+							mobile_events = dui.byId('mobile_events'),
 							nop = function(){ return false; };
 
 						function onChange(){
@@ -119,15 +119,15 @@
 
 			doh.register("programmatic", [
 				{
-					name: "dijit",
+					name: "dui",
 					timeout: 2000,
 					runTest: function(){
-						new dijit.form.RadioButton({name:"dijit_programmatic", id:"dijit_programmatic", checked:true, "aria-label":"dijit_programmatic"}).placeAt("dijit_programmatic_container", "first");
-						var dijit_programmatic = dijit.byId('dijit_programmatic');
-						var pos = dojo.position(dijit_programmatic.domNode, true);
-						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dijit position');
-						doh.t(dijit_programmatic.get('checked'), 'dijit widget checked');
-						doh.t(!!dijit_programmatic.focusNode.checked, 'dijit HTML element checked');
+						new dui.form.RadioButton({name:"dui_programmatic", id:"dui_programmatic", checked:true, "aria-label":"dui_programmatic"}).placeAt("dui_programmatic_container", "first");
+						var dui_programmatic = dui.byId('dui_programmatic');
+						var pos = dojo.position(dui_programmatic.domNode, true);
+						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'dui position');
+						doh.t(dui_programmatic.get('checked'), 'dui widget checked');
+						doh.t(!!dui_programmatic.focusNode.checked, 'dui HTML element checked');
 					}
 	 			},
 				{
@@ -135,7 +135,7 @@
 					timeout: 2000,
 					runTest: function(){
 						new dui.mobile.RadioButton({name:"mobile_programmatic", id:"mobile_programmatic", checked:true, "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
-						var mobile_programmatic = dijit.byId('mobile_programmatic');
+						var mobile_programmatic = dui.byId('mobile_programmatic');
 						if(dojo.isIE < 8){ // older IE ignores setting checked after creation but before appending to the DOM
 							dojo.attr(mobile_programmatic.focusNode, "checked", mobile_programmatic.checked);
 						}
@@ -152,33 +152,33 @@
 	</script>
 </head>
 <body class="claro" role="main">
-	<h1 class="testTitle">_RadioButtonMixin (dijit and mobile) non-robot tests</h1>
+	<h1 class="testTitle">_RadioButtonMixin (dui and mobile) non-robot tests</h1>
 
 	<table id="table">
 		<tr>
 			<th class="layout">&nbsp;</th>
-			<th class="layout" colspan=2>dijit</th>
+			<th class="layout" colspan=2>dui</th>
 			<th class="layout" colspan=2>mobile</th>
 		</tr>
 		<tr>
 			<td class="layout">attributes</td>
-			<td class="layout"><input name="dijit_attributes" id="dijit_attributes" data-dojo-type="dijit/form/RadioButton" data-dojo-props='checked: true, "class":"duiRedButton", value:"something", name:"dijit_attributes", "aria-label":"dijit_attributes" '/></td>
-			<td class="layout"><input name="dijit_attributes" aria-label="dijit_attributes2" id="dijit_attributes2" type="radio" value="other" dojoType="dijit.form.RadioButton">
+			<td class="layout"><input name="dui_attributes" id="dui_attributes" data-dojo-type="dui/form/RadioButton" data-dojo-props='checked: true, "class":"duiRedButton", value:"something", name:"dui_attributes", "aria-label":"dui_attributes" '/></td>
+			<td class="layout"><input name="dui_attributes" aria-label="dui_attributes2" id="dui_attributes2" type="radio" value="other" dojoType="dui.form.RadioButton">
 			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes" type="radio" value="something" class="duiRedButton" checked id="mobile_attributes" dojoType="dui.mobile.RadioButton"/></td>
 			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes2" id="mobile_attributes2" type="radio" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>
 		<tr>
 		<tr>
 			<td class="layout">Events</td>
-			<td class="layout"><input name="dijit_events" id="dijit_events" data-dojo-type="dijit/form/RadioButton" data-dojo-props='onClick:function(){ return true; }, name:"dijit_events", "aria-label":"dijit_events"' /></td>
-			<td class="layout"><input name="dijit_events" aria-label="dijit_events2" type="radio" value="other" dojoType="dijit.form.RadioButton">
+			<td class="layout"><input name="dui_events" id="dui_events" data-dojo-type="dui/form/RadioButton" data-dojo-props='onClick:function(){ return true; }, name:"dui_events", "aria-label":"dui_events"' /></td>
+			<td class="layout"><input name="dui_events" aria-label="dui_events2" type="radio" value="other" dojoType="dui.form.RadioButton">
 			<td class="layout"><input name="mobile_events" aria-label="mobile_events" type="radio" id="mobile_events" data-dojo-type="dui.mobile.RadioButton" data-dojo-props='onClick:function(){ return true; }' /></td>
 			<td class="layout"><input name="mobile_events" aria-label="mobile_events2" type="radio" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>
-			<td class="layout" id="dijit_programmatic_container"></td>
-			<td class="layout"><input name="dijit_programmatic" type="radio" aria-label="dijit_programmatic" value="other" dojoType="dijit.form.RadioButton">
+			<td class="layout" id="dui_programmatic_container"></td>
+			<td class="layout"><input name="dui_programmatic" type="radio" aria-label="dui_programmatic" value="other" dojoType="dui.form.RadioButton">
 			<td class="layout" id="mobile_programmatic_container"></td>
 			<td class="layout"><input name="mobile_programmatic" type="radio" aria-label="mobile_programmatic" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>

@@ -4,14 +4,14 @@ define([
 ], function(declare, HorizontalRule){
 
 	// module:
-	//		dijit/form/VerticalRule
+	//		dui/form/VerticalRule
 
-	return declare("dijit.form.VerticalRule", HorizontalRule, {
+	return declare("dui.form.VerticalRule", HorizontalRule, {
 		// summary:
-		//		Hash marks for the `dijit/form/VerticalSlider`
+		//		Hash marks for the `dui/form/VerticalSlider`
 
-		templateString: '<div class="dijitRuleContainer dijitRuleContainerV"></div>',
-		_positionPrefix: '<div class="dijitRuleMark dijitRuleMarkV" style="top:',
+		templateString: '<div class="duiRuleContainer duiRuleContainerV"></div>',
+		_positionPrefix: '<div class="duiRuleMark duiRuleMarkV" style="top:',
 
 	/*=====
 		// container: String

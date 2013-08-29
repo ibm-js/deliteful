@@ -25,13 +25,13 @@
 				font-weight:bold;
 			}
 
-			.dijitDownArrowActive,
-			.dijitUpArrowActive {
+			.duiDownArrowActive,
+			.duiUpArrowActive {
 				opacity:0.5 !important; /* just to test effect of clicking the up or down arrows */
 			}
 		</style>
 
-		<!-- required: the default dijit theme: -->
+		<!-- required: the default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../../dijit/themes/claro/claro.css"/>
 
 		<!-- required: dojo.js -->
@@ -42,13 +42,13 @@
 		<script type="text/javascript" src="../_testCommon.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.form.TextBox");
-			dojo.require("dijit.form.ValidationTextBox");
-			dojo.require("dijit.form.NumberTextBox");
-			dojo.require("dijit.form.CurrencyTextBox");
-			dojo.require("dijit.form.DateTextBox");
-			dojo.require("dijit.form.TimeTextBox");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.form.TextBox");
+			dojo.require("dui.form.ValidationTextBox");
+			dojo.require("dui.form.NumberTextBox");
+			dojo.require("dui.form.CurrencyTextBox");
+			dojo.require("dui.form.DateTextBox");
+			dojo.require("dui.form.TimeTextBox");
 			dojo.require("dojo.currency");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
@@ -89,7 +89,7 @@
 					Attributes: {formatLength:'medium'}</span>
 			</div>
 			<div class="testExample">
-				<input id="q1" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q1" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1", value:"T17:45:00",
 					constraints:{formatLength:"medium"},
 					required:true,
@@ -104,7 +104,7 @@
 					Attributes: {formatLength:'short'}</span>
 			</div>
 			<div class="testExample">
-				<input id="q2" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q2" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T17:45:00",
 					constraints:{formatLength:"short"},
 					required:true,
@@ -117,7 +117,7 @@
 					Attributes: {timePattern:'h:mm:ss a'}</span>
 			</div>
 			<div class="testExample">
-				<input id="q3" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q3" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1b", value:"T17:45:00",
 					constraints:{timePattern:"h:mm:ss a"},
 					required:true,
@@ -130,7 +130,7 @@
 					Attributes: {timePattern:'HH:mm:ss'}</span>
 			</div>
 			<div class="testExample">
-				<input id="q4" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q4" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time2", value:"T17:45:00",
 					constraints:{timePattern:"HH:mm:ss"},
 					required:true,
@@ -143,7 +143,7 @@
 					Attributes: {formatLength:'medium',min:'T00:00:00',max:'T12:00:00'}</span>
 			</div>
 			<div class="testExample">
-				<input id="q6" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q6" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time6",
 					constraints:{formatLength:"medium",min:"T00:00:00",max:"T12:00:00"},
 					required:true,
@@ -157,7 +157,7 @@
 					Attributes: {formatLength:'short'} Time using local conventions without seconds, required, no invalid message tooltip</span>
 			</div>
 			<div class="testExample">
-				<input id="q20" data-dojo-type="dijit/form/TimeTextBox"
+				<input id="q20" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"q20", value:"T17:45:00",
 					title:"title: Time using local conventions",
 					constraints:{formatLength:"short"},
@@ -165,9 +165,9 @@
 					invalidMessage:"" '/>
 			</div>
 		</form>
-		<input id="ro" type="button" onclick="dijit.byId('q20').set('readOnly',true);" value="Set readOnly" tabIndex="-1"/>
-		<input id="rw" type="button" onclick="dijit.byId('q20').set('readOnly',false);" value="Clear readOnly" tabIndex="-1"/>
-		<input id="disable" type="button" onclick="dijit.byId('q20').set('disabled',true);" value="Disable" tabIndex="-1"/>
-		<input id="enable" type="button" onclick="dijit.byId('q20').set('disabled',false);" value="Enable" tabIndex="-1"/>
+		<input id="ro" type="button" onclick="dui.byId('q20').set('readOnly',true);" value="Set readOnly" tabIndex="-1"/>
+		<input id="rw" type="button" onclick="dui.byId('q20').set('readOnly',false);" value="Clear readOnly" tabIndex="-1"/>
+		<input id="disable" type="button" onclick="dui.byId('q20').set('disabled',true);" value="Disable" tabIndex="-1"/>
+		<input id="enable" type="button" onclick="dui.byId('q20').set('disabled',false);" value="Enable" tabIndex="-1"/>
 	</body>
 </html>

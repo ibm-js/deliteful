@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				var spin1;
@@ -25,9 +25,9 @@
 					name: "setUp",
 					timeout: 15000,
 					setUp:function(){
-						spin1=dijit.byId('integerspinner1');
-						spin2=dijit.byId('integerspinner2');
-						spin3=dijit.byId('realspinner1');
+						spin1=dui.byId('integerspinner1');
+						spin2=dui.byId('integerspinner2');
+						spin3=dui.byId('realspinner1');
 					},
 					runTest: function(){
 						// assert onChange not fired

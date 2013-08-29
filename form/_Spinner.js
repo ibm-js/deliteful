@@ -12,13 +12,13 @@ define([
 ], function(declare, keys, lang, has, mouse, on, typematic, RangeBoundTextBox, template, _TextBoxMixin){
 
 	// module:
-	//		dijit/form/_Spinner
+	//		dui/form/_Spinner
 
-	return declare("dijit.form._Spinner", RangeBoundTextBox, {
+	return declare("dui.form._Spinner", RangeBoundTextBox, {
 		// summary:
 		//		Mixin for validation widgets with a spinner.
 		// description:
-		//		This class basically (conceptually) extends `dijit/form/ValidationTextBox`.
+		//		This class basically (conceptually) extends `dui/form/ValidationTextBox`.
 		//		It modifies the template to have up/down arrows, and provides related handling code.
 
 		// defaultTimeout: Number
@@ -45,13 +45,13 @@ define([
 
 		templateString: template,
 
-		baseClass: "dijitTextBox dijitSpinner",
+		baseClass: "duiTextBox duiSpinner",
 
-		// Set classes like dijitUpArrowButtonHover or dijitDownArrowButtonActive depending on
+		// Set classes like duiUpArrowButtonHover or duiDownArrowButtonActive depending on
 		// mouse action over specified node
 		cssStateNodes: {
-			"upArrowNode": "dijitUpArrowButton",
-			"downArrowNode": "dijitDownArrowButton"
+			"upArrowNode": "duiUpArrowButton",
+			"downArrowNode": "duiDownArrowButton"
 		},
 
 		adjust: function(val /*=====, delta =====*/){

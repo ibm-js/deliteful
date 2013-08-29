@@ -6,10 +6,10 @@ define([
 ], function(declare, lang, number, RangeBoundTextBox){
 
 	// module:
-	//		dijit/form/NumberTextBox
+	//		dui/form/NumberTextBox
 
 
-	var NumberTextBoxMixin = declare("dijit.form.NumberTextBoxMixin", null, {
+	var NumberTextBoxMixin = declare("dui.form.NumberTextBoxMixin", null, {
 		// summary:
 		//		A mixin for all number textboxes
 		// tags:
@@ -170,7 +170,7 @@ define([
 			//		When called with the actual value it does corrections so that '' etc. are represented as NaN.
 			//		Otherwise it dispatches to the superclass's filter() method.
 			//
-			//		See `dijit/form/TextBox.filter()` for more details.
+			//		See `dui/form/TextBox.filter()` for more details.
 			return (value == null /* or undefined */ || value === '') ? NaN : this.inherited(arguments); // set('value', null||''||undefined) should fire onChange(NaN)
 		},
 
@@ -231,7 +231,7 @@ define([
 		},
 
 		isValid: function(/*Boolean*/ isFocused){
-			// Overrides dijit/form/RangeBoundTextBox.isValid() to check that the editing-mode value is valid since
+			// Overrides dui/form/RangeBoundTextBox.isValid() to check that the editing-mode value is valid since
 			// it may not be formatted according to the regExp validation rules
 			if(!this.focused || this._isEmpty(this.textbox.value)){
 				return this.inherited(arguments);
@@ -250,7 +250,7 @@ define([
 		}
 	});
 
-	var NumberTextBox = declare("dijit.form.NumberTextBox", [RangeBoundTextBox, NumberTextBoxMixin], {
+	var NumberTextBox = declare("dui.form.NumberTextBox", [RangeBoundTextBox, NumberTextBoxMixin], {
 		// summary:
 		//		A TextBox for entering numbers, with formatting and range checking
 		// description:
@@ -267,7 +267,7 @@ define([
 		//		4. Formatting and constraints regarding the number of places (digits after the decimal point)
 		//			allowed on input, and number of places displayed when blurred (see `constraints` parameter).
 
-		baseClass: "dijitTextBox dijitNumberTextBox"
+		baseClass: "duiTextBox duiNumberTextBox"
 	});
 
 	NumberTextBox.Mixin = NumberTextBoxMixin;	// for monkey patching

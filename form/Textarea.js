@@ -6,9 +6,9 @@ define([
 ], function(declare, domStyle, _ExpandingTextAreaMixin, SimpleTextarea){
 
 	// module:
-	//		dijit/form/Textarea
+	//		dui/form/Textarea
 
-	return declare("dijit.form.Textarea", [SimpleTextarea, _ExpandingTextAreaMixin], {
+	return declare("dui.form.Textarea", [SimpleTextarea, _ExpandingTextAreaMixin], {
 		// summary:
 		//		A textarea widget that adjusts it's height according to the amount of data.
 		//
@@ -22,7 +22,7 @@ define([
 
 		// TODO: for 2.0, rename this to ExpandingTextArea, and rename SimpleTextarea to TextArea
 
-		baseClass: "dijitTextBox dijitTextArea dijitExpandingTextArea",
+		baseClass: "duiTextBox duiTextArea duiExpandingTextArea",
 
 		// Override SimpleTextArea.cols to default to width:100%, for backward compatibility
 		cols: "",

@@ -5,9 +5,9 @@ define([
 ], function(declare, on, winUtils){
 
 	// module:
-	//		dijit/form/_ListBase
+	//		dui/form/_ListBase
 
-	return declare("dijit.form._ListBase", null, {
+	return declare("dui.form._ListBase", null, {
 		// summary:
 		//		Focus-less menu to handle UI events consistently.
 		//		Abstract methods that must be defined externally:

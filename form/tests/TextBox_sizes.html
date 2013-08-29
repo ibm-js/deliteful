@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>dijit.form.TextBox size tests</title>
+	<title>dui.form.TextBox size tests</title>
 
 	<style type="text/css">
 		@import "../../themes/claro/document.css";
@@ -30,17 +30,17 @@
 		@import "../../themes/nihilo/form/Common.css";
 		@import "../../themes/nihilo/form/Select.css";
 
-		.dijitTextBox,
-		.dijitSelect {
+		.duiTextBox,
+		.duiSelect {
 			box-sizing: border-box !important;
 			-moz-box-sizing: border-box !important;
 			width: 330px !important;
 		}
-		.dj_ie6 .dijitSelect,
-		.dj_ie7 .dijitSelect {
+		.dj_ie6 .duiSelect,
+		.dj_ie7 .duiSelect {
 			width: 332px !important; /* lack of box-sizing support */
 		}
-		.dj_iequirks .dijitSelect {
+		.dj_iequirks .duiSelect {
 			width: 330px !important; /* lack of box-sizing support */
 		}
 		#table > TBODY > TR > TD {
@@ -49,22 +49,22 @@
 			padding: 0;
 			margin: 0;
 		}
-		TABLE#table, #table > TBODY > TR > TD, .dijit {
+		TABLE#table, #table > TBODY > TR > TD, .dui {
 			margin: 0 !important;
 		}
-		#table .dijit {
+		#table .dui {
 			vertical-align: bottom;
 		}
-		.dj_ie9 table.dijitSelect {
+		.dj_ie9 table.duiSelect {
 			border-width: thin !important; /* needed for IE9 strict bug since 1px table border only measures 0.8px */
 		}
-		.dj_iequirks.dj_ie9 table.dijitSelect {
+		.dj_iequirks.dj_ie9 table.duiSelect {
 			border-width: 1px !important; /* needed for IE9 quirks due to strict rule above */
 		}
-		.padded .dijitInputField {
+		.padded .duiInputField {
 			padding: 10px !important;
 		}
-		.unPadded .dijitInputField {
+		.unPadded .duiInputField {
 			padding: 0 !important;
 		}
 		#table {
@@ -89,14 +89,14 @@
 
 	<script type="text/javascript">
 		dojo.require("doh.runner");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("dijit.form.TextBox");
-		dojo.require("dijit.form.NumberTextBox");
-		dojo.require("dijit.form.ComboBox");
-		dojo.require("dijit.form.FilteringSelect");
-		dojo.require("dijit.form.NumberSpinner");
-		dojo.require("dijit.form.Select");
-		dojo.require("dijit.form.Button");
+		dojo.require("dui.dijit"); // optimize: load dui layer
+		dojo.require("dui.form.TextBox");
+		dojo.require("dui.form.NumberTextBox");
+		dojo.require("dui.form.ComboBox");
+		dojo.require("dui.form.FilteringSelect");
+		dojo.require("dui.form.NumberSpinner");
+		dojo.require("dui.form.Select");
+		dojo.require("dui.form.Button");
 
 		dojo.ready(function(){
 
@@ -106,7 +106,7 @@
 			var fontSize = "12pt";
 			var fontFamily = "monospace";
 
-			dijit.byId("theme").isRealA11y = dojo.hasClass(dojo.body(), "dj_a11y");
+			dui.byId("theme").isRealA11y = dojo.hasClass(dojo.body(), "dj_a11y");
 
 			var str = window.location.href.substr(window.location.href.indexOf("?")+1).split(/#/);
 			var ary  = str[0].split(/&/);
@@ -152,17 +152,17 @@
 				}
 			}
 
-			dijit.byId('padding').set('value', padding, true);
-			dijit.byId('theme').set('value', theme, true);
-			dijit.byId('direction').set('value', direction, true);
-			dijit.byId('fontSize').set('value', fontSize, true);
-			dijit.byId('fontFamily').set('value', fontFamily, true);
+			dui.byId('padding').set('value', padding, true);
+			dui.byId('theme').set('value', theme, true);
+			dui.byId('direction').set('value', direction, true);
+			dui.byId('fontSize').set('value', fontSize, true);
+			dui.byId('fontFamily').set('value', fontFamily, true);
 
-			var	textbox = dijit.byId("textbox"),
-				validation = dijit.byId("validation"),
-				combobox = dijit.byId("combobox"),
-				select = dijit.byId("select"),
-				spinner = dijit.byId("spinner");
+			var	textbox = dui.byId("textbox"),
+				validation = dui.byId("validation"),
+				combobox = dui.byId("combobox"),
+				select = dui.byId("select"),
+				spinner = dui.byId("spinner");
 
 			var compareToTextBox = function(attr){
 				try{
@@ -256,7 +256,7 @@
 						timeout: 1000,
 						runTest: function(){
 							var	paddedBoxPos = dojo.position(widget.containerNode || widget.focusNode.parentNode),
-								inputPos = dojo.position(dojo.query('.dijitSelectLabel', widget.domNode)[0] || widget.focusNode),
+								inputPos = dojo.position(dojo.query('.duiSelectLabel', widget.domNode)[0] || widget.focusNode),
 								paddingLeft = Math.abs(inputPos.x - paddedBoxPos.x),
 								paddingRight = Math.abs(inputPos.w - paddedBoxPos.w) - paddingLeft,
 								paddingTop = Math.abs(inputPos.y - paddedBoxPos.y),
@@ -312,7 +312,7 @@
 						name: "button: " + widgetName,
 						timeout: 1000,
 						runTest: function(){
-							var buttonNode = dojo.query(".dijitArrowButton", widget.domNode)[0];
+							var buttonNode = dojo.query(".duiArrowButton", widget.domNode)[0];
 							if(!buttonNode){ return; }
 							var paddedBoxNode = (widget.containerNode || widget.focusNode).parentNode;
 							while(buttonNode.parentNode != paddedBoxNode.parentNode){
@@ -322,7 +322,7 @@
 								buttonPos = dojo.position(buttonNode),
 								offset = Math.min(Math.abs(paddedBoxPos.x + paddedBoxPos.w - buttonPos.x), Math.abs(buttonPos.x + buttonPos.w - paddedBoxPos.x));
 							// IE 6 & quirks float bug(s) causes a known 3px margin between input field & validation icon 
-							// Fix could be .dj_ie .dijitInputField { float:right; }
+							// Fix could be .dj_ie .duiInputField { float:right; }
 							// But this breaks even more the tests, dojo.position() bug?
 							if(dojo.isIE < 7 || dojo.isQuirks)
 								doh.t(offset <= 4, "button node horizontally just left or right (" + offset + ") of padded input node: input x/w = " + paddedBoxPos.x+"/"+paddedBoxPos.w + ", button x/w = " + buttonPos.x+"/"+buttonPos.w);
@@ -417,13 +417,13 @@
 						timeout: 1000,
 						runTest: function(){
 							if(widget.state != "Error"){ return; }
-							var	validationNode = dojo.query(".dijitValidationContainer", widget.domNode)[0],
+							var	validationNode = dojo.query(".duiValidationContainer", widget.domNode)[0],
 								validationPos = dojo.position(validationNode),
 								paddedBoxPos = dojo.position(widget.focusNode.parentNode),
 								offset = Math.min(Math.abs(paddedBoxPos.x + paddedBoxPos.w - validationPos.x), Math.abs(validationPos.x + validationPos.w - paddedBoxPos.x));
 
 							// IE 6 & quirks float bug(s) causes a known 3px margin between input field & validation icon 
-							// Fix could be .dj_ie .dijitInputField { float:right; }
+							// Fix could be .dj_ie .duiInputField { float:right; }
 							// But this breaks even more the tests, dojo.position() bug?
 							if(dojo.isIE < 7 || dojo.isQuirks)
 								doh.t(offset <= 4, "padded textbox horizontally just left or right (" + offset + ") of validation node: valiation node x/w = " + validationPos.x+"/"+validationPos.w + ", pad box x/w = " + paddedBoxPos.x+"/"+paddedBoxPos.w);
@@ -435,10 +435,10 @@
 						name: "button: " + widgetName,
 						timeout: 1000,
 						runTest: function(){
-							if(widget.state != "Error" || widgetName == "dijitValidationTextBox" ||
-								widgetName == "dijitNumberTextBox" || widgetName == "dijitCurrencyTextBox"){ return; }
-							var	validationNode = dojo.query(".dijitValidationContainer", widget.domNode)[0],
-								buttonNode = dojo.query(".dijitValidationContainer", widget.domNode)[0].previousSibling,
+							if(widget.state != "Error" || widgetName == "duiValidationTextBox" ||
+								widgetName == "duiNumberTextBox" || widgetName == "duiCurrencyTextBox"){ return; }
+							var	validationNode = dojo.query(".duiValidationContainer", widget.domNode)[0],
+								buttonNode = dojo.query(".duiValidationContainer", widget.domNode)[0].previousSibling,
 								validationPos = dojo.position(validationNode),
 								buttonPos = dojo.position(buttonNode),
 								offset = Math.min(Math.abs(validationPos.x + validationPos.w - buttonPos.x), Math.abs(buttonPos.x + buttonPos.w - validationPos.x));
@@ -454,7 +454,7 @@
 </head>
 <body class="claro" role="main">
 
-	<h1 class="testTitle">dijit.form.TextBox size tests</h1>
+	<h1 class="testTitle">dui.form.TextBox size tests</h1>
 
 	<table class="padded" id="table" style="font-family:monospace;font-size:12pt;" role="presentation">
 		<tr>
@@ -464,17 +464,17 @@
 		</tr>
 		<tr>
 			<td class="layout">TextBox</td>
-			<td class="layout"><input id="textbox" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", value:"text", "aria-label":"textbox"'/></td>
+			<td class="layout"><input id="textbox" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", value:"text", "aria-label":"textbox"'/></td>
 			<td style="font-size:1px;overflow:hidden;">&nbsp;</td>
 		</tr>
 		<tr>
 			<td class="layout">NumberTextBox</td>
-			<td class="layout"><input id="validation" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props='type:"text", value:54, required:true, "aria-label":"NumberTextBox"'/></td>
+			<td class="layout"><input id="validation" data-dojo-type="dui/form/NumberTextBox" data-dojo-props='type:"text", value:54, required:true, "aria-label":"NumberTextBox"'/></td>
 			<td style="font-size:1px;overflow:hidden;">&nbsp;</td>
 		</tr>
 		<tr>
 			<td class="layout">FilteringSelect</td>
-			<td class="layout"><select id="combobox" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props='required:true, "aria-label":"FilteringSelect"'>
+			<td class="layout"><select id="combobox" data-dojo-type="dui/form/FilteringSelect" data-dojo-props='required:true, "aria-label":"FilteringSelect"'>
 				<option value="KY">Kentucky</option>
 			</select></td>
 			<td style="font-size:1px;overflow:hidden;">&nbsp;</td>
@@ -483,7 +483,7 @@
 			<td class="layout">Select</td>
 			<td class="layout">
 			<!-- width:0px prevents IE from resizing the table columns inappropriately -->
-			<select id="select" data-dojo-type="dijit/form/Select" style="width:0px;" data-dojo-props='required:true, "aria-label":"Select"'>
+			<select id="select" data-dojo-type="dui/form/Select" style="width:0px;" data-dojo-props='required:true, "aria-label":"Select"'>
 				<option data-dojo-value="">Invalid</option>
 				<option data-dojo-value="noError">Some Label</option>
 			</select></td>
@@ -491,12 +491,12 @@
 		</tr>
 		<tr>
 			<td class="layout">NumberSpinner</td>
-			<td class="layout"><div id="spinner" data-dojo-type="dijit/form/NumberSpinner" data-dojo-props='type:"text", value:45, required:true, "aria-label":"numberSpinner"'></div></td>
+			<td class="layout"><div id="spinner" data-dojo-type="dui/form/NumberSpinner" data-dojo-props='type:"text", value:45, required:true, "aria-label":"numberSpinner"'></div></td>
 			<td style="font-size:1px;overflow:hidden;">&nbsp;</td>
 		</tr>
 		<tr>
 			<td class="layout">INPUT type=file</td>
-			<td class="layout"><input id="file" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"file", "aria-label":"textboxFile" '/></td>
+			<td class="layout"><input id="file" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"file", "aria-label":"textboxFile" '/></td>
 			<td style="font-size:1px;overflow:hidden;">&nbsp;</td>
 		</tr>
 		<tr>
@@ -579,14 +579,14 @@
 	</script>
 	<table style="background-color:cyan;" border="1" role="presentation">
 	<tr><td class="layout" style="text-align:right;">Font family:
-	<select id="fontFamily" data-dojo-type="dijit/form/ComboBox" data-dojo-props='style:{fontSize:"14pt"}, value:"", onChange:fontFamilyOnChange, "aria-label":"fontFamily"'>
+	<select id="fontFamily" data-dojo-type="dui/form/ComboBox" data-dojo-props='style:{fontSize:"14pt"}, value:"", onChange:fontFamilyOnChange, "aria-label":"fontFamily"'>
 		<option selected>monospace</option>
 		<option>Helvetica</option>
 		<option>Times</option>
 		<option>Verdana</option>
 	</select></td></tr>
 	<tr><td class="layout" style="text-align:right;">Font size:
-	<select id="fontSize" data-dojo-type="dijit/form/ComboBox" data-dojo-props='style:{fontSize:"14pt"}, value:"", onChange:sizeOnChange, "aria-label":"fontSize"'>
+	<select id="fontSize" data-dojo-type="dui/form/ComboBox" data-dojo-props='style:{fontSize:"14pt"}, value:"", onChange:sizeOnChange, "aria-label":"fontSize"'>
 		<option>small</option>
 		<option selected>12pt</option>
 		<option>xx-large</option>
@@ -597,18 +597,18 @@
 		<option>200%</option>
 	</select></td></tr>
 	<tr><td class="layout" style="text-align:right;">Padding:
-	<select id="padding" data-dojo-type="dijit/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"padded", onChange:paddingOnChange, "aria-label":"padding"'>
+	<select id="padding" data-dojo-type="dui/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"padded", onChange:paddingOnChange, "aria-label":"padding"'>
 		<option value="default">default</option>
 		<option value="padded">padded</option>
 		<option value="unPadded">unPadded</option>
 	</select></td></tr>
 	<tr><td class="layout" style="text-align:right;">Direction:
-	<span id="direction" data-dojo-type="dijit/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"ltr", onChange:directionOnChange, "aria-label":"direction"'>
+	<span id="direction" data-dojo-type="dui/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"ltr", onChange:directionOnChange, "aria-label":"direction"'>
 		<span data-dojo-value="ltr">left-to-right</span>
 		<span data-dojo-value="rtl">right-to-left</span>
 	</span></td></tr>
 	<tr><td class="layout" style="text-align:right;">Theme:
-	<select id="theme" data-dojo-type="dijit/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"claro", onChange:themeOnChange, "aria-label":"theme"'>
+	<select id="theme" data-dojo-type="dui/form/Select" data-dojo-props='style:{width:"0px", fontSize:"14pt"}, value:"claro", onChange:themeOnChange, "aria-label":"theme"'>
 		<option data-dojo-value="tundra">tundra</option>
 		<option data-dojo-value="soria">soria</option>
 		<option data-dojo-value="nihilo">nihilo</option>
@@ -616,6 +616,6 @@
 		<option data-dojo-value="a11y">a11y</option>
 	</select></td></tr>
 	</table>
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ doh.run(); }'>Run tests</button>
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ doh.run(); }'>Run tests</button>
 </body>
 </html>

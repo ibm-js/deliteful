@@ -12,13 +12,13 @@
 		<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.tests.helpers");	// functions to help test
+			dojo.require("dui.robotx");
+			dojo.require("dui.tests.helpers");	// functions to help test
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_SimpleTextarea.html');
 
-				doh.register("dijit.form.SimpleTextarea", [
+				doh.register("dui.form.SimpleTextarea", [
 					{
 						name: "tab",
 						timeout: 15000,
@@ -29,7 +29,7 @@
 							doh.robot.mouseMove(10,10);
 							doh.robot.mouseClick({left:true}, 500);
 							doh.robot.keyPress(dojo.keys.TAB, 1000, {});
-							doh.robot.sequence(function(){ dijit.byId('ta1').set('value', null) }, 1000); 
+							doh.robot.sequence(function(){ dui.byId('ta1').set('value', null) }, 1000); 
 							doh.robot.typeKeys("hi", 500, 500);
 							doh.robot.keyPress(dojo.keys.TAB, 1000, {});
 
@@ -46,7 +46,7 @@
 							var d = new doh.Deferred();
 
 							var changed = false;
-							dijit.byId("ta1").set("onChange", function(e){console.log(e); changed = true; });
+							dui.byId("ta1").set("onChange", function(e){console.log(e); changed = true; });
 
 							doh.robot.mouseMoveAt("ta1", 500);
 							doh.robot.mouseClick({left:true}, 500);
@@ -69,7 +69,7 @@
 							var d = new doh.Deferred();
 
 							var changed = false;
-							dijit.byId("ta1").set("maxLength", "5");
+							dui.byId("ta1").set("maxLength", "5");
 
 							doh.robot.mouseMoveAt("ta1", 500);
 							doh.robot.mouseClick({left:true}, 500);

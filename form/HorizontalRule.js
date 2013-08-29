@@ -5,13 +5,13 @@ define([
 ], function(declare, _WidgetBase, _TemplatedMixin){
 
 	// module:
-	//		dijit/form/HorizontalRule
+	//		dui/form/HorizontalRule
 
-	return declare("dijit.form.HorizontalRule", [_WidgetBase, _TemplatedMixin], {
+	return declare("dui.form.HorizontalRule", [_WidgetBase, _TemplatedMixin], {
 		// summary:
-		//		Hash marks for `dijit/form/HorizontalSlider`
+		//		Hash marks for `dui/form/HorizontalSlider`
 
-		templateString: '<div class="dijitRuleContainer dijitRuleContainerH"></div>',
+		templateString: '<div class="duiRuleContainer duiRuleContainerH"></div>',
 
 		// count: Integer
 		//		Number of hash marks to generate
@@ -26,7 +26,7 @@ define([
 		//		CSS style to apply to individual hash marks
 		ruleStyle: "",
 
-		_positionPrefix: '<div class="dijitRuleMark dijitRuleMarkH" style="left:',
+		_positionPrefix: '<div class="duiRuleMark duiRuleMarkH" style="left:',
 		_positionSuffix: '%;',
 		_suffix: '"></div>',
 

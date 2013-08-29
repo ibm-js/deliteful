@@ -8,9 +8,9 @@ define([
 ], function(array, declare, domAttr, lang, query, registry){
 
 	// module:
-	//		dijit/form/_RadioButtonMixin
+	//		dui/form/_RadioButtonMixin
 
-	return declare("dijit.form._RadioButtonMixin", null, {
+	return declare("dui.form._RadioButtonMixin", null, {
 		// summary:
 		//		Mixin to provide widget functionality for an HTML radio button
 

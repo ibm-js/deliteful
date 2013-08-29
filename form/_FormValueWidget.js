@@ -5,9 +5,9 @@ define([
 ], function(declare, _FormWidget, _FormValueMixin){
 
 	// module:
-	//		dijit/form/_FormValueWidget
+	//		dui/form/_FormValueWidget
 
-	return declare("dijit.form._FormValueWidget", [_FormWidget, _FormValueMixin], {
+	return declare("dui.form._FormValueWidget", [_FormWidget, _FormValueMixin], {
 		// summary:
 		//		Base class for widgets corresponding to native HTML elements such as `<input>` or `<select>`
 		//		that have user changeable values.
