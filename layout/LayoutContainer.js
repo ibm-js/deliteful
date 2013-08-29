@@ -10,9 +10,9 @@ define([
 ], function(array, declare, domClass, domStyle, lang, _WidgetBase, _LayoutWidget, layoutUtils){
 
 	// module:
-	//		dijit/layout/LayoutContainer
+	//		dui/layout/LayoutContainer
 
-	var LayoutContainer = declare("dijit.layout.LayoutContainer", _LayoutWidget, {
+	var LayoutContainer = declare("dui.layout.LayoutContainer", _LayoutWidget, {
 		// summary:
 		//		A LayoutContainer is a box with a specified size, such as style="width: 500px; height: 500px;",
 		//		that contains a child widget marked region="center" and optionally children widgets marked
@@ -44,7 +44,7 @@ define([
 		//		- "sidebar" where the left and right sides extend from top to bottom.
 		design: "headline",
 
-		baseClass: "dijitLayoutContainer",
+		baseClass: "duiLayoutContainer",
 
 		startup: function(){
 			if(this._started){
@@ -54,7 +54,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dijit/_WidgetBase*/ child){
+		_setupChild: function(/*dui/_WidgetBase*/ child){
 			// Override _LayoutWidget._setupChild().
 
 			this.inherited(arguments);
@@ -98,14 +98,14 @@ define([
 			layoutUtils.layoutChildren(this.domNode, this._contentBox, this._getOrderedChildren());
 		},
 
-		addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
+		addChild: function(/*dui/_WidgetBase*/ child, /*Integer?*/ insertIndex){
 			this.inherited(arguments);
 			if(this._started){
 				this.layout();
 			}
 		},
 
-		removeChild: function(/*dijit/_WidgetBase*/ child){
+		removeChild: function(/*dui/_WidgetBase*/ child){
 			this.inherited(arguments);
 			if(this._started){
 				this.layout();
@@ -131,7 +131,7 @@ define([
 
 		// region: [const] String
 		//		Values: "top", "bottom", "leading", "trailing", "left", "right", "center".
-		//		See the `dijit/layout/LayoutContainer` description for details.
+		//		See the `dui/layout/LayoutContainer` description for details.
 		region: '',
 
 		// layoutPriority: [const] Number

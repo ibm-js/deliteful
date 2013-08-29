@@ -10,10 +10,10 @@
 		require([
 			"dojo/parser",
 			"dui/registry",
-			"dijit/layout/AccordionContainer",
-			"dijit/layout/BorderContainer",
-			"dijit/layout/ContentPane",
-			"dijit/layout/TabContainer",
+			"dui/layout/AccordionContainer",
+			"dui/layout/BorderContainer",
+			"dui/layout/ContentPane",
+			"dui/layout/TabContainer",
 			"dojo/domReady!"
 		], function(parser, _registry){
 			parser.parse();
@@ -22,9 +22,9 @@
 			registry = _registry;
 
 			createAccordion = function(){
-				var html='<div data-dojo-type="dijit/layout/AccordionContainer" id="Accordion" style="height: 300px;">' +
-						'<div data-dojo-type="dijit/layout/ContentPane" title="first" id="first">first</div>' +
-						'<div data-dojo-type="dijit/layout/ContentPane" title="second" id="second">second</div>' +
+				var html='<div data-dojo-type="dui/layout/AccordionContainer" id="Accordion" style="height: 300px;">' +
+						'<div data-dojo-type="dui/layout/ContentPane" title="first" id="first">first</div>' +
+						'<div data-dojo-type="dui/layout/ContentPane" title="second" id="second">second</div>' +
 						'</div>';
 				registry.byId("accPane").set("content",html);
 			};
@@ -32,10 +32,10 @@
 	</script>
 
 	<style type="text/css">
-		.somePadding .dijitAccordionBody {
+		.somePadding .duiAccordionBody {
 			padding: 5px;
 		}
-		.extremePadding .dijitAccordionBody {
+		.extremePadding .duiAccordionBody {
 			padding: 50px;
 		}
 	</style>
@@ -47,9 +47,9 @@
 	<h2>Accordion from markup:</h2>
 
 	<input id="beforeMarkupAccordion" aria-label="before markup" value="for tabIndex testing"/>
-	<div id="markupAccordion" data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props='style:"width: 400px; height: 300px; overflow: hidden"'>
-		<div id="pane1" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true,
-			title:"A Simple Pane", iconClass:"dijitEditorIcon dijitEditorIconSave", tooltip:"tooltip for simple pane" '>
+	<div id="markupAccordion" data-dojo-type="dui/layout/AccordionContainer" data-dojo-props='style:"width: 400px; height: 300px; overflow: hidden"'>
+		<div id="pane1" data-dojo-type="dui/layout/ContentPane" data-dojo-props='selected:true,
+			title:"A Simple Pane", iconClass:"duiEditorIcon duiEditorIconSave", tooltip:"tooltip for simple pane" '>
 				<select aria-label="select a color">
 					<option>red</option>
 					<option>blue</option>
@@ -83,11 +83,11 @@
 		</div>
 
 		<!-- test lazy loading.   margin style for testing size calculations. -->
-		<div id="lazyLoadPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Lazy Load Pane", iconClass:"dijitEditorIcon dijitEditorIconCopy", href:"tab1.html",
+		<div id="lazyLoadPane" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Lazy Load Pane", iconClass:"duiEditorIcon duiEditorIconCopy", href:"tab1.html",
 			style:"margin: 5px;"'></div>
 
-		<div id="borderContainerPane" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='title:"BorderContainer Pane", iconClass:"dijitEditorIcon dijitEditorIconPaste"'>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left", style:"width:50%", splitter:true'>
+		<div id="borderContainerPane" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='title:"BorderContainer Pane", iconClass:"duiEditorIcon duiEditorIconPaste"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"left", style:"width:50%", splitter:true'>
 			1Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 			Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 			vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -102,7 +102,7 @@
 			sollicitudin sed, consequat nec, facilisis sit amet, orci. Aenean
 			ut eros sit amet ante pharetra interdum.
 			</div>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center"'>
 			2Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 			Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 			vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -119,7 +119,7 @@
 			</div>
 		</div>
 
-		<div id="embeddedLayoutPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Embedded layout widgets", iconClass:"dijitEditorIcon dijitEditorIconCut"'>
+		<div id="embeddedLayoutPane" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Embedded layout widgets", iconClass:"duiEditorIcon duiEditorIconCut"'>
 			<p>
 				The pane has some text, plus two embedded layout widgets, which should
 				appear correctly even though the pane is initially hidden.
@@ -127,8 +127,8 @@
 			<p>
 				Here's a BorderContainer:
 			</p>
-			<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='style:"height:200px; width:300px"'>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left", style:"width:100px", splitter:true'>
+			<div data-dojo-type="dui/layout/BorderContainer" data-dojo-props='style:"height:200px; width:300px"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"left", style:"width:100px", splitter:true'>
 					1Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 					Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 					vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -143,7 +143,7 @@
 					sollicitudin sed, consequat nec, facilisis sit amet, orci. Aenean
 					ut eros sit amet ante pharetra interdum.
 				</div>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center"'>
 					2Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 					Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 					vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -162,8 +162,8 @@
 			<p>
 				And a TabContainer:
 			</p>
-			<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"height:200px; width:300px"'>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 1"'>
+			<div data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"height:200px; width:300px"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 1"'>
 					1Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 					Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 					vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -178,7 +178,7 @@
 					sollicitudin sed, consequat nec, facilisis sit amet, orci. Aenean
 					ut eros sit amet ante pharetra interdum.
 				</div>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
 					2Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 					Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 					vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -206,9 +206,9 @@
 
 	<p></p>
 	<h2>Accordion with padding</h2>
-	<div data-dojo-type="dijit/layout/AccordionContainer"
+	<div data-dojo-type="dui/layout/AccordionContainer"
 		data-dojo-props='style:"width: 400px; height: 300px; overflow: hidden"'>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"somePadding", title:"Some Padding"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"somePadding", title:"Some Padding"'>
 			<p>
 				Nunc consequat nisi vitae quam. Suspendisse sed nunc. Proin
 				suscipit porta magna. Duis accumsan nunc in velit. Nam et nibh.
@@ -235,7 +235,7 @@
 				ut eros sit amet ante pharetra interdum.
 			</p>
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"No Padding"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"No Padding"'>
 			<p>
 				Nunc consequat nisi vitae quam. Suspendisse sed nunc. Proin
 				suscipit porta magna. Duis accumsan nunc in velit. Nam et nibh.
@@ -262,7 +262,7 @@
 				ut eros sit amet ante pharetra interdum.
 			</p>
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"extremePadding", title:"ContentPane w/ Extreme Padding"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"extremePadding", title:"ContentPane w/ Extreme Padding"'>
 			<p>
 				Nunc consequat nisi vitae quam. Suspendisse sed nunc. Proin
 				suscipit porta magna. Duis accumsan nunc in velit. Nam et nibh.
@@ -293,7 +293,7 @@
 	
 	<br><br>
 	<h2>Accordion container destroy</h2>
-	<div id="accPane" data-dojo-type="dijit/layout/ContentPane" >
+	<div id="accPane" data-dojo-type="dui/layout/ContentPane" >
 	</div>
 	Click the button twice - it will work correctly unless there was a problem destroying the accordion, in which case the second time
 	the Accordion will not be created and you will see an error like <b>Tried to register widget with id==first_button but that id is already registered</b><br/>

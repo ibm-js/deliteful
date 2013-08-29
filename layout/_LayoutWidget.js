@@ -12,10 +12,10 @@ define([
 	declare, domClass, domGeometry, domStyle){
 
 	// module:
-	//		dijit/layout/_LayoutWidget
+	//		dui/layout/_LayoutWidget
 
 
-	return declare("dijit.layout._LayoutWidget", [_WidgetBase, _Container, _Contained], {
+	return declare("dui.layout._LayoutWidget", [_WidgetBase, _Container, _Contained], {
 		// summary:
 		//		Base class for a _Container widget which is responsible for laying out its children.
 		//		Widgets which mixin this code must define layout() to manage placement and sizing of the children.
@@ -23,8 +23,8 @@ define([
 		// baseClass: [protected extension] String
 		//		This class name is applied to the widget's domNode
 		//		and also may be used to generate names for sub nodes,
-		//		for example dijitTabContainer-content.
-		baseClass: "dijitLayoutContainer",
+		//		for example duiTabContainer-content.
+		baseClass: "duiLayoutContainer",
 
 		// isLayoutContainer: [protected] Boolean
 		//		Indicates that this widget is going to call resize() on its
@@ -33,7 +33,7 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "dijitContainer");
+			domClass.add(this.domNode, "duiContainer");
 		},
 
 		startup: function(){
@@ -153,7 +153,7 @@ define([
 			//		protected extension
 		},
 
-		_setupChild: function(/*dijit/_WidgetBase*/child){
+		_setupChild: function(/*dui/_WidgetBase*/child){
 			// summary:
 			//		Common setup for initial children and children which are added after startup
 			// tags:
@@ -164,7 +164,7 @@ define([
 			domClass.add(child.domNode, cls);
 		},
 
-		addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
+		addChild: function(/*dui/_WidgetBase*/ child, /*Integer?*/ insertIndex){
 			// Overrides _Container.addChild() to call _setupChild()
 			this.inherited(arguments);
 			if(this._started){
@@ -172,7 +172,7 @@ define([
 			}
 		},
 
-		removeChild: function(/*dijit/_WidgetBase*/ child){
+		removeChild: function(/*dui/_WidgetBase*/ child){
 			// Overrides _Container.removeChild() to remove class added by _setupChild()
 			var cls = this.baseClass + "-child"
 					+ (child.baseClass ?

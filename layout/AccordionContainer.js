@@ -25,7 +25,7 @@ define([
 		focus, manager, _WidgetBase, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
 
 	// module:
-	//		dijit/layout/AccordionContainer
+	//		dui/layout/AccordionContainer
 
 
 	// Design notes:
@@ -35,9 +35,9 @@ define([
 	//
 	// The resulting markup will look like:
 	//
-	//	<div class=dijitAccordionContainer>
-	//		<div class=dijitAccordionInnerContainer>	(one pane)
-	//				<div class=dijitAccordionTitle>		(title bar) ... </div>
+	//	<div class=duiAccordionContainer>
+	//		<div class=duiAccordionInnerContainer>	(one pane)
+	//				<div class=duiAccordionTitle>		(title bar) ... </div>
 	//				<div class=dijtAccordionChildWrapper>   (content pane) </div>
 	//		</div>
 	//	</div>
@@ -49,7 +49,7 @@ define([
 	// During animation there are two dijtAccordionChildWrapper's shown, so we need
 	// to compensate for that.
 
-	var AccordionButton = declare("dijit.layout._AccordionButton", [_WidgetBase, _TemplatedMixin, _CssStateMixin], {
+	var AccordionButton = declare("dui.layout._AccordionButton", [_WidgetBase, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		The title bar to click to open up an accordion pane.
 		//		Internal widget used by AccordionContainer.
@@ -73,7 +73,7 @@ define([
 		iconClassAttr: "",
 		_setIconClassAttr: { node: "iconNode", type: "class" },
 
-		baseClass: "dijitAccordionTitle",
+		baseClass: "duiAccordionTitle",
 
 		getParent: function(){
 			// summary:
@@ -135,7 +135,7 @@ define([
 		});
 	}
 
-	var AccordionInnerContainer = declare("dijit.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [_WidgetBase, _CssStateMixin], {
+	var AccordionInnerContainer = declare("dui.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [_WidgetBase, _CssStateMixin], {
 		// summary:
 		//		Internal widget placed as direct child of AccordionContainer.containerNode.
 		//		When other widgets are added as children to an AccordionContainer they are wrapped in
@@ -150,21 +150,21 @@ define([
 		 =====*/
 
 		/*=====
-		 // contentWidget: dijit/_WidgetBase
+		 // contentWidget: dui/_WidgetBase
 		 //		Pointer to the real child widget
 		 contentWidget: null,
 		 =====*/
 
-		baseClass: "dijitAccordionInnerContainer",
+		baseClass: "duiAccordionInnerContainer",
 
 		// tell nested layout widget that we will take care of sizing
 		isLayoutContainer: true,
 
 		buildRendering: function(){
 			// Builds a template like:
-			//	<div class=dijitAccordionInnerContainer>
+			//	<div class=duiAccordionInnerContainer>
 			//		Button
-			//		<div class=dijitAccordionChildWrapper>
+			//		<div class=duiAccordionChildWrapper>
 			//			ContentPane
 			//		</div>
 			//	</div>
@@ -189,8 +189,8 @@ define([
 			})).placeAt(this.domNode);
 
 			// and then the actual content widget (changing it from prior-sibling to last-child),
-			// wrapped by a <div class=dijitAccordionChildWrapper>
-			this.containerNode = domConstruct.place("<div class='dijitAccordionChildWrapper' role='tabpanel' style='display:none'>", this.domNode);
+			// wrapped by a <div class=duiAccordionChildWrapper>
+			this.containerNode = domConstruct.place("<div class='duiAccordionChildWrapper' role='tabpanel' style='display:none'>", this.domNode);
 			this.containerNode.setAttribute("aria-labelledby", this.button.id);
 
 			domConstruct.place(this.contentWidget.domNode, this.containerNode);
@@ -251,7 +251,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		AccordionInnerContainer = declare("dijit.layout._AccordionInnerContainer", AccordionInnerContainer, {
+		AccordionInnerContainer = declare("dui.layout._AccordionInnerContainer", AccordionInnerContainer, {
 			postCreate: function(){
 				this.inherited(arguments);
 
@@ -266,15 +266,15 @@ define([
 		});
 	}
 
-	var AccordionContainer = declare("dijit.layout.AccordionContainer", StackContainer, {
+	var AccordionContainer = declare("dui.layout.AccordionContainer", StackContainer, {
 		// summary:
 		//		Holds a set of panes where every pane's title is visible, but only one pane's content is visible at a time,
 		//		and switching between panes is visualized by sliding the other panes up/down.
 		// example:
-		//	|	<div data-dojo-type="dijit/layout/AccordionContainer">
-		//	|		<div data-dojo-type="dijit/layout/ContentPane" title="pane 1">
+		//	|	<div data-dojo-type="dui/layout/AccordionContainer">
+		//	|		<div data-dojo-type="dui/layout/ContentPane" title="pane 1">
 		//	|		</div>
-		//	|		<div data-dojo-type="dijit/layout/ContentPane" title="pane 2">
+		//	|		<div data-dojo-type="dui/layout/ContentPane" title="pane 2">
 		//	|			<p>This is some text</p>
 		//	|		</div>
 		//	|	</div>
@@ -293,7 +293,7 @@ define([
 		 //		(my content box size minus the cumulative size of all the title bars)
 		 _verticalSpace: 0,
 		 =====*/
-		baseClass: "dijitAccordionContainer",
+		baseClass: "duiAccordionContainer",
 
 		buildRendering: function(){
 			this.inherited(arguments);
@@ -390,7 +390,7 @@ define([
 				delete child._wrapperWidget;
 			}
 
-			domClass.remove(child.domNode, "dijitHidden");
+			domClass.remove(child.domNode, "duiHidden");
 
 			this.inherited(arguments);
 		},
@@ -398,7 +398,7 @@ define([
 		getChildren: function(){
 			// Overrides _Container.getChildren() to return content panes rather than internal AccordionInnerContainer panes
 			return array.map(this.inherited(arguments), function(child){
-				return child.declaredClass == "dijit.layout._AccordionInnerContainer" ? child.contentWidget : child;
+				return child.declaredClass == "dui.layout._AccordionInnerContainer" ? child.contentWidget : child;
 			}, this);
 		},
 
@@ -430,7 +430,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_transition: function(/*dijit/_WidgetBase?*/ newWidget, /*dijit/_WidgetBase?*/ oldWidget, /*Boolean*/ animate){
+		_transition: function(/*dui/_WidgetBase?*/ newWidget, /*dui/_WidgetBase?*/ oldWidget, /*Boolean*/ animate){
 			// Overrides StackContainer._transition() to provide sliding of title bars etc.
 
 			if(this._animation){
@@ -465,7 +465,7 @@ define([
 				var newContents = newWidget._wrapperWidget.containerNode,
 					oldContents = oldWidget._wrapperWidget.containerNode;
 
-				// During the animation we will be showing two dijitAccordionChildWrapper nodes at once,
+				// During the animation we will be showing two duiAccordionChildWrapper nodes at once,
 				// which on claro takes up 4px extra space (compared to stable AccordionContainer).
 				// Have to compensate for that by immediately shrinking the pane being closed.
 				var wrapperContainerNode = newWidget._wrapperWidget.containerNode,
@@ -500,7 +500,7 @@ define([
 		},
 
 		// note: we are treating the container as controller here
-		_onKeyDown: function(/*Event*/ e, /*dijit/_WidgetBase*/ fromTitle){
+		_onKeyDown: function(/*Event*/ e, /*dui/_WidgetBase*/ fromTitle){
 			// summary:
 			//		Handle keydown events
 			// description:

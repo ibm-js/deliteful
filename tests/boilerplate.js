@@ -14,9 +14,9 @@
 //		your css and set your classes manually:
 //
 //		<style type="text/css">
-//			@import "dui/themes/claro/document.css";
+//			@import "dijit/themes/claro/document.css";
 //		</style>
-//		<link id="themeStyles" rel="stylesheet" href="dui/themes/claro/claro.css"/>
+//		<link id="themeStyles" rel="stylesheet" href="dijit/themes/claro/claro.css"/>
 //		<script type="text/javascript" src="dojo/dojo.js"></script>
 //		...
 //		<body class="claro">
@@ -85,9 +85,9 @@ for(i = 0; script = scripts[i]; i++){
 
 // Output the boilerplate text to load the theme CSS
 if(theme){
-	// Temporary: get theme from dijit/ or mobile/ directory.
+	// Temporary: get theme from dui/ or mobile/ directory.
 	// Eventually there should be a shared theme in dui/themes.
-	var themeDir = testDir + "../" + (theme == "claro" ? "dijit" : "mobile") + "/themes/" + theme + "/";
+	var themeDir = testDir + "../" + (theme == "claro" ? "dui" : "mobile") + "/themes/" + theme + "/";
 	document.write([
 		'<style type="text/css">',
 			theme == "claro" ? '@import "' + themeDir + 'document.css";' : "",
@@ -101,7 +101,7 @@ require = {
 	baseUrl: testDir + "../../",
 	packages: [
 		{name:'dojo', location:'dojo'},
-		{name:'dijit', location:'dijit'},
+		{name:'dui', location:'dui'},
 		{name:'dojox', location:'dojox'},
 		{name:'doh', location:'util/doh'}
 	]

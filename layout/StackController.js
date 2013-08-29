@@ -18,9 +18,9 @@ define([
 		focus, registry, _WidgetBase, _TemplatedMixin, _Container, ToggleButton){
 
 	// module:
-	//		dijit/layout/StackController
+	//		dui/layout/StackController
 
-	var StackButton = declare("dijit.layout._StackButton", ToggleButton, {
+	var StackButton = declare("dui.layout._StackButton", ToggleButton, {
 		// summary:
 		//		Internal widget used by StackContainer.
 		// description:
@@ -46,14 +46,14 @@ define([
 	});
 
 
-	var StackController = declare("dijit.layout.StackController", [_WidgetBase, _TemplatedMixin, _Container], {
+	var StackController = declare("dui.layout.StackController", [_WidgetBase, _TemplatedMixin, _Container], {
 		// summary:
-		//		Set of buttons to select a page in a `dijit/layout/StackContainer`
+		//		Set of buttons to select a page in a `dui/layout/StackContainer`
 		// description:
 		//		Monitors the specified StackContainer, and whenever a page is
 		//		added, deleted, or selected, updates itself accordingly.
 
-		baseClass: "dijitStackController",
+		baseClass: "duiStackController",
 
 		templateString: "<span role='tablist' data-dojo-attach-event='onkeydown'></span>",
 
@@ -67,7 +67,7 @@ define([
 
 		// buttonWidgetCloseClass: String
 		//		CSS class of [x] close icon, used by event delegation code to tell when close button was clicked
-		buttonWidgetCloseClass: "dijitStackCloseButton",
+		buttonWidgetCloseClass: "duiStackCloseButton",
 
 		pane2button: function(/*String*/ id){
 			// summary:
@@ -158,7 +158,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		onAddChild: function(/*dijit/_WidgetBase*/ page, /*Integer?*/ insertIndex){
+		onAddChild: function(/*dui/_WidgetBase*/ page, /*Integer?*/ insertIndex){
 			// summary:
 			//		Called whenever a page is added to the container.
 			//		Create button corresponding to the page.
@@ -200,7 +200,7 @@ define([
 			page._wrapper.setAttribute("aria-labelledby", labelledby);
 		},
 
-		onRemoveChild: function(/*dijit/_WidgetBase*/ page){
+		onRemoveChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Called whenever a page is removed from the container.
 			//		Remove the button corresponding to the page.
@@ -219,7 +219,7 @@ define([
 			delete page.controlButton;
 		},
 
-		onSelectChild: function(/*dijit/_WidgetBase*/ page){
+		onSelectChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Called when a page has been selected in the StackContainer, either by me or by another StackController
 			// tags:
@@ -242,7 +242,7 @@ define([
 			var container = registry.byId(this.containerId);
 		},
 
-		onButtonClick: function(/*dijit/_WidgetBase*/ page){
+		onButtonClick: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Called whenever one of my child buttons is pressed in an attempt to select a page
 			// tags:
@@ -261,7 +261,7 @@ define([
 			container.selectChild(page);
 		},
 
-		onCloseButtonClick: function(/*dijit/_WidgetBase*/ page){
+		onCloseButtonClick: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Called whenever one of my child buttons [X] is pressed in an attempt to close a page
 			// tags:
@@ -300,7 +300,7 @@ define([
 				child = children[idx];
 			}while(child.disabled && child != current);
 
-			return child; // dijit/_WidgetBase
+			return child; // dui/_WidgetBase
 		},
 
 		onkeydown: function(/*Event*/ e, /*Boolean?*/ fromContainer){

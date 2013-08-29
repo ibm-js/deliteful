@@ -1,6 +1,6 @@
 define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json"], function(dojo, array, geom, json){
 
-	function dijitById(id){
+	function duiById(id){
 		return dojo.global.require("dui/registry").byId(id);
 	}
 
@@ -9,8 +9,8 @@ define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json
 			// summary:
 			//		Test that child is fully inside of parent
 	
-			child = dijitById(child);
-			parent = dijitById(parent);
+			child = duiById(child);
+			parent = duiById(parent);
 	
 			var cp = geom.position(child.domNode, true),
 				pp = geom.position(parent.domNode, true);
@@ -26,8 +26,8 @@ define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json
 			// summary:
 			//		Test that child is fully above parent
 	
-			above = dijitById(above);
-			below = dijitById(below);
+			above = duiById(above);
+			below = duiById(below);
 	
 			var ap = geom.position(above.domNode, true),
 				bp = geom.position(below.domNode, true);
@@ -41,8 +41,8 @@ define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json
 			// summary:
 			//		Test that child is fully left of parent
 	
-			left = dijitById(left);
-			right = dijitById(right);
+			left = duiById(left);
+			right = duiById(right);
 	
 			var lp = geom.position(left.domNode, true),
 				rp = geom.position(right.domNode, true);

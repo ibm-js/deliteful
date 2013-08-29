@@ -15,7 +15,7 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx", "dojo/aspect", "dojo/dom", "dojo/dom-geometry", "dojo/keys",
-				"dijit/tests/helpers", "dijit/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
+				"dui/tests/helpers", "dui/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
 			], function(doh, robot, aspect, dom, geom, keys, helpers, bcTest){
 
 				robot.initRobot('../test_BorderContainer_complex.html');
@@ -26,7 +26,7 @@
 					function setup(){
 						// get pointers to singletons loaded on test page
 						registry = robot.window.require("dui/registry");
-						focus = robot.window.require("dijit/focus");
+						focus = robot.window.require("dui/focus");
 					}
 				]);
 

@@ -1,6 +1,6 @@
 define(["dojo/_base/declare", "dojo/data/ItemFileReadStore"], function(declare, ItemFileReadStore){
 
-	return declare("dijit.tests._data.SlowStore", ItemFileReadStore, {
+	return declare("dui.tests._data.SlowStore", ItemFileReadStore, {
 		// summary:
 		//		This wrapper decorates an ItemFileReadStore by delaying queries issued according to the
 		//		length of the query:

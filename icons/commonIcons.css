@@ -1,168 +1,168 @@
 /* Dijit widget common icons*/
 
-/*commonIcons.css is located in dijit/icons
+/*commonIcons.css is located in dui/icons
 
 commonIconsRtl.css is TBD. This needs to be reviewed to determine in Rtl is reqd. 
 
 The 16 x 16px icons in these sprites are action and object type images which can be used in the following widgets: accordionContainer, menu, tab, titlepane, tree, and all button widgets and error validation contexts. */
 
-.dijitIconSave,
-.dijitIconPrint,
-.dijitIconCut,
-.dijitIconCopy,
-.dijitIconClear,
-.dijitIconDelete,
-.dijitIconUndo,
-.dijitIconEdit,
-.dijitIconNewTask,
-.dijitIconEditTask,
-.dijitIconEditProperty,
-.dijitIconTask,
-.dijitIconFilter,
-.dijitIconConfigure,
-.dijitIconSearch,
-.dijitIconApplication,
-.dijitIconBookmark,
-.dijitIconChart,
-.dijitIconConnector,
-.dijitIconDatabase,
-.dijitIconDocuments,
-.dijitIconMail,
-.dijitLeaf,
-.dijitIconFile,
-.dijitIconFunction,
-.dijitIconKey,
-.dijitIconPackage,
-.dijitIconSample,
-.dijitIconTable,
-.dijitIconUsers,
-.dijitFolderClosed,
-.dijitIconFolderClosed,
-.dijitFolderOpened,
-.dijitIconFolderOpen,
-.dijitIconError {
+.duiIconSave,
+.duiIconPrint,
+.duiIconCut,
+.duiIconCopy,
+.duiIconClear,
+.duiIconDelete,
+.duiIconUndo,
+.duiIconEdit,
+.duiIconNewTask,
+.duiIconEditTask,
+.duiIconEditProperty,
+.duiIconTask,
+.duiIconFilter,
+.duiIconConfigure,
+.duiIconSearch,
+.duiIconApplication,
+.duiIconBookmark,
+.duiIconChart,
+.duiIconConnector,
+.duiIconDatabase,
+.duiIconDocuments,
+.duiIconMail,
+.duiLeaf,
+.duiIconFile,
+.duiIconFunction,
+.duiIconKey,
+.duiIconPackage,
+.duiIconSample,
+.duiIconTable,
+.duiIconUsers,
+.duiFolderClosed,
+.duiIconFolderClosed,
+.duiFolderOpened,
+.duiIconFolderOpen,
+.duiIconError {
 	background-image: url('images/commonIconsObjActEnabled.png'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 	width: 16px;
 	height: 16px;
 }
 
-.dj_ie6 .dijitIconSave,
-.dj_ie6 .dijitIconPrint,
-.dj_ie6 .dijitIconCut,
-.dj_ie6 .dijitIconCopy,
-.dj_ie6 .dijitIconClear,
-.dj_ie6 .dijitIconDelete,
-.dj_ie6 .dijitIconUndo,
-.dj_ie6 .dijitIconEdit,
-.dj_ie6 .dijitIconNewTask,
-.dj_ie6 .dijitIconEditTask,
-.dj_ie6 .dijitIconEditProperty,
-.dj_ie6 .dijitIconTask,
-.dj_ie6 .dijitIconFilter,
-.dj_ie6 .dijitIconConfigure,
-.dj_ie6 .dijitIconSearch,
-.dj_ie6 .dijitIconApplication,
-.dj_ie6 .dijitIconBookmark,
-.dj_ie6 .dijitIconChart,
-.dj_ie6 .dijitIconConnector,
-.dj_ie6 .dijitIconDatabase,
-.dj_ie6 .dijitIconDocuments,
-.dj_ie6 .dijitIconMail,
-.dj_ie6 .dijitLeaf,
-.dj_ie6 .dijitIconFile,
-.dj_ie6 .dijitIconFunction,
-.dj_ie6 .dijitIconKey,
-.dj_ie6 .dijitIconPackage,
-.dj_ie6 .dijitIconSample,
-.dj_ie6 .dijitIconTable,
-.dj_ie6 .dijitIconUsers,
-.dj_ie6 .dijitFolderClosed,
-.dj_ie6 .dijitIconFolderClosed,
-.dj_ie6 .dijitFolderOpened,
-.dj_ie6 .dijitIconFolderOpen,
-.dj_ie6 .dijitIconError {
+.dj_ie6 .duiIconSave,
+.dj_ie6 .duiIconPrint,
+.dj_ie6 .duiIconCut,
+.dj_ie6 .duiIconCopy,
+.dj_ie6 .duiIconClear,
+.dj_ie6 .duiIconDelete,
+.dj_ie6 .duiIconUndo,
+.dj_ie6 .duiIconEdit,
+.dj_ie6 .duiIconNewTask,
+.dj_ie6 .duiIconEditTask,
+.dj_ie6 .duiIconEditProperty,
+.dj_ie6 .duiIconTask,
+.dj_ie6 .duiIconFilter,
+.dj_ie6 .duiIconConfigure,
+.dj_ie6 .duiIconSearch,
+.dj_ie6 .duiIconApplication,
+.dj_ie6 .duiIconBookmark,
+.dj_ie6 .duiIconChart,
+.dj_ie6 .duiIconConnector,
+.dj_ie6 .duiIconDatabase,
+.dj_ie6 .duiIconDocuments,
+.dj_ie6 .duiIconMail,
+.dj_ie6 .duiLeaf,
+.dj_ie6 .duiIconFile,
+.dj_ie6 .duiIconFunction,
+.dj_ie6 .duiIconKey,
+.dj_ie6 .duiIconPackage,
+.dj_ie6 .duiIconSample,
+.dj_ie6 .duiIconTable,
+.dj_ie6 .duiIconUsers,
+.dj_ie6 .duiFolderClosed,
+.dj_ie6 .duiIconFolderClosed,
+.dj_ie6 .duiFolderOpened,
+.dj_ie6 .duiIconFolderOpen,
+.dj_ie6 .duiIconError {
 	background-image: url('images/commonIconsObjActEnabled8bit.png');
 }
 
-.dijitDisabled .dijitIconSave,
-.dijitDisabled .dijitIconPrint,
-.dijitDisabled .dijitIconCut,
-.dijitDisabled .dijitIconCopy,
-.dijitDisabled .dijitIconClear,
-.dijitDisabled .dijitIconDelete,
-.dijitDisabled .dijitIconUndo,
-.dijitDisabled .dijitIconEdit,
-.dijitDisabled .dijitIconNewTask,
-.dijitDisabled .dijitIconEditTask,
-.dijitDisabled .dijitIconEditProperty,
-.dijitDisabled .dijitIconTask,
-.dijitDisabled .dijitIconFilter,
-.dijitDisabled .dijitIconConfigure,
-.dijitDisabled .dijitIconSearch,
-.dijitDisabled .dijitIconApplication,
-.dijitDisabled .dijitIconBookmark,
-.dijitDisabled .dijitIconChart,
-.dijitDisabled .dijitIconConnector,
-.dijitDisabled .dijitIconDatabase,
-.dijitDisabled .dijitIconDocuments,
-.dijitDisabled .dijitIconMail,
-.dijitDisabled .dijitLeaf,
-.dijitDisabled .dijitIconFile,
-.dijitDisabled .dijitIconFunction,
-.dijitDisabled .dijitIconKey,
-.dijitDisabled .dijitIconPackage,
-.dijitDisabled .dijitIconSample,
-.dijitDisabled .dijitIconTable,
-.dijitDisabled .dijitIconUsers,
-.dijitDisabled .dijitFolderClosed,
-.dijitDisabled .dijitIconFolderClosed,
-.dijitDisabled .dijitFolderOpened,
-.dijitDisabled .dijitIconFolderOpen,
-.dijitDisabled .dijitIconError {
+.duiDisabled .duiIconSave,
+.duiDisabled .duiIconPrint,
+.duiDisabled .duiIconCut,
+.duiDisabled .duiIconCopy,
+.duiDisabled .duiIconClear,
+.duiDisabled .duiIconDelete,
+.duiDisabled .duiIconUndo,
+.duiDisabled .duiIconEdit,
+.duiDisabled .duiIconNewTask,
+.duiDisabled .duiIconEditTask,
+.duiDisabled .duiIconEditProperty,
+.duiDisabled .duiIconTask,
+.duiDisabled .duiIconFilter,
+.duiDisabled .duiIconConfigure,
+.duiDisabled .duiIconSearch,
+.duiDisabled .duiIconApplication,
+.duiDisabled .duiIconBookmark,
+.duiDisabled .duiIconChart,
+.duiDisabled .duiIconConnector,
+.duiDisabled .duiIconDatabase,
+.duiDisabled .duiIconDocuments,
+.duiDisabled .duiIconMail,
+.duiDisabled .duiLeaf,
+.duiDisabled .duiIconFile,
+.duiDisabled .duiIconFunction,
+.duiDisabled .duiIconKey,
+.duiDisabled .duiIconPackage,
+.duiDisabled .duiIconSample,
+.duiDisabled .duiIconTable,
+.duiDisabled .duiIconUsers,
+.duiDisabled .duiFolderClosed,
+.duiDisabled .duiIconFolderClosed,
+.duiDisabled .duiFolderOpened,
+.duiDisabled .duiIconFolderOpen,
+.duiDisabled .duiIconError {
 	background-image: url('images/commonIconsObjActDisabled.png'); /* Contains both object and action icons as a sprite image for the disabled state. These would be used by buttons and menus.   */
 }
 
 /*Action icons*/
-.dijitIconSave { background-position: 0; }
-.dijitIconPrint { background-position: -16px; }
-.dijitIconCut { background-position: -32px; }
-.dijitIconCopy { background-position: -48px; }
-.dijitIconClear { background-position: -64px; }
-.dijitIconDelete { background-position: -80px; }
-.dijitIconUndo { background-position: -96px; }
-.dijitIconEdit { background-position: -112px; }
-.dijitIconNewTask { background-position: -128px; }
-.dijitIconEditTask { background-position: -144px; }
-.dijitIconEditProperty { background-position: -160px; }
-.dijitIconTask { background-position: -176px; }
-.dijitIconFilter { background-position: -192px; }
-.dijitIconConfigure { background-position: -208px; }
-.dijitIconSearch { background-position: -224px; }
-.dijitIconError { background-position: -496px; } 
+.duiIconSave { background-position: 0; }
+.duiIconPrint { background-position: -16px; }
+.duiIconCut { background-position: -32px; }
+.duiIconCopy { background-position: -48px; }
+.duiIconClear { background-position: -64px; }
+.duiIconDelete { background-position: -80px; }
+.duiIconUndo { background-position: -96px; }
+.duiIconEdit { background-position: -112px; }
+.duiIconNewTask { background-position: -128px; }
+.duiIconEditTask { background-position: -144px; }
+.duiIconEditProperty { background-position: -160px; }
+.duiIconTask { background-position: -176px; }
+.duiIconFilter { background-position: -192px; }
+.duiIconConfigure { background-position: -208px; }
+.duiIconSearch { background-position: -224px; }
+.duiIconError { background-position: -496px; } 
 
 /*Object icons*/
-.dijitIconApplication { background-position: -240px; }
-.dijitIconBookmark { background-position: -256px; }
-.dijitIconChart { background-position: -272px; }
-.dijitIconConnector { background-position: -288px; }
-.dijitIconDatabase { background-position: -304px; }
-.dijitIconDocuments { background-position: -320px; }
-.dijitIconMail { background-position: -336px; }
-.dijitIconFile, .dijitLeaf { background-position: -352px; }
-.dijitIconFunction { background-position: -368px; }
-.dijitIconKey { background-position: -384px; }
-.dijitIconPackage{ background-position: -400px; }
-.dijitIconSample { background-position: -416px; }
-.dijitIconTable { background-position: -432px; }
-.dijitIconUsers { background-position: -448px; }
+.duiIconApplication { background-position: -240px; }
+.duiIconBookmark { background-position: -256px; }
+.duiIconChart { background-position: -272px; }
+.duiIconConnector { background-position: -288px; }
+.duiIconDatabase { background-position: -304px; }
+.duiIconDocuments { background-position: -320px; }
+.duiIconMail { background-position: -336px; }
+.duiIconFile, .duiLeaf { background-position: -352px; }
+.duiIconFunction { background-position: -368px; }
+.duiIconKey { background-position: -384px; }
+.duiIconPackage{ background-position: -400px; }
+.duiIconSample { background-position: -416px; }
+.duiIconTable { background-position: -432px; }
+.duiIconUsers { background-position: -448px; }
 
 
 /*Tree folder icons*/
-.dijitIconFolderClosed, .dijitFolderClosed { background-position: -464px; }
-.dijitIconFolderOpen, .dijitFolderOpened { background-position: -480px; }
+.duiIconFolderClosed, .duiFolderClosed { background-position: -464px; }
+.duiIconFolderOpen, .duiFolderOpened { background-position: -480px; }
 
 /*Loading animation*/
-.dijitIconLoading {
+.duiIconLoading {
 	background:url('images/loadingAnimation_rtl.gif') no-repeat;
 	height: 20px;
 	width: 20px;

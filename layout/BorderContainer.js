@@ -18,23 +18,23 @@ define([
 			_WidgetBase, _TemplatedMixin, LayoutContainer, layoutUtils){
 
 	// module:
-	//		dijit/layout/BorderContainer
+	//		dui/layout/BorderContainer
 
-	var _Splitter = declare("dijit.layout._Splitter", [_WidgetBase, _TemplatedMixin ], {
+	var _Splitter = declare("dui.layout._Splitter", [_WidgetBase, _TemplatedMixin ], {
 		// summary:
-		//		A draggable spacer between two items in a `dijit/layout/BorderContainer`.
+		//		A draggable spacer between two items in a `dui/layout/BorderContainer`.
 		// description:
-		//		This is instantiated by `dijit/layout/BorderContainer`.  Users should not
+		//		This is instantiated by `dui/layout/BorderContainer`.  Users should not
 		//		create it directly.
 		// tags:
 		//		private
 
 		/*=====
-		 // container: [const] dijit/layout/BorderContainer
+		 // container: [const] dui/layout/BorderContainer
 		 //		Pointer to the parent BorderContainer
 		 container: null,
 
-		 // child: [const] dijit/layout/_LayoutWidget
+		 // child: [const] dui/layout/_LayoutWidget
 		 //		Pointer to the pane associated with this splitter
 		 child: null,
 
@@ -49,7 +49,7 @@ define([
 		//		otherwise, the size doesn't change until you drop the splitter (by mouse-up)
 		live: true,
 
-		templateString: '<div class="dijitSplitter" data-dojo-attach-event="onkeydown:_onKeyDown,press:_startDrag,onmouseenter:_onMouse,onmouseleave:_onMouse" tabIndex="0" role="separator"><div class="dijitSplitterThumb"></div></div>',
+		templateString: '<div class="duiSplitter" data-dojo-attach-event="onkeydown:_onKeyDown,press:_startDrag,onmouseenter:_onMouse,onmouseleave:_onMouse" tabIndex="0" role="separator"><div class="duiSplitterThumb"></div></div>',
 
 		constructor: function(){
 			this._handlers = [];
@@ -66,7 +66,7 @@ define([
 		buildRendering: function(){
 			this.inherited(arguments);
 
-			domClass.add(this.domNode, "dijitSplitter" + (this.horizontal ? "H" : "V"));
+			domClass.add(this.domNode, "duiSplitter" + (this.horizontal ? "H" : "V"));
 
 			if(this.container.persist){
 				// restore old size
@@ -96,9 +96,9 @@ define([
 
 		_startDrag: function(e){
 			if(!this.cover){
-				this.cover = domConstruct.place("<div class=dijitSplitterCover></div>", this.child.domNode, "after");
+				this.cover = domConstruct.place("<div class=duiSplitterCover></div>", this.child.domNode, "after");
 			}
-			domClass.add(this.cover, "dijitSplitterCoverActive");
+			domClass.add(this.cover, "duiSplitterCoverActive");
 
 			// Safeguard in case the stop event was missed.  Shouldn't be necessary if we always get the mouse up.
 			if(this.fake){
@@ -107,12 +107,12 @@ define([
 			if(!(this._resize = this.live)){ //TODO: disable live for IE6?
 				// create fake splitter to display at old position while we drag
 				(this.fake = this.domNode.cloneNode(true)).removeAttribute("id");
-				domClass.add(this.domNode, "dijitSplitterShadow");
+				domClass.add(this.domNode, "duiSplitterShadow");
 				domConstruct.place(this.fake, this.domNode, "after");
 			}
-			domClass.add(this.domNode, "dijitSplitterActive dijitSplitter" + (this.horizontal ? "H" : "V") + "Active");
+			domClass.add(this.domNode, "duiSplitterActive duiSplitter" + (this.horizontal ? "H" : "V") + "Active");
 			if(this.fake){
-				domClass.remove(this.fake, "dijitSplitterHover dijitSplitter" + (this.horizontal ? "H" : "V") + "Hover");
+				domClass.remove(this.fake, "duiSplitterHover duiSplitter" + (this.horizontal ? "H" : "V") + "Hover");
 			}
 
 			//Performance: load data info local vars for onmousevent function closure
@@ -163,20 +163,20 @@ define([
 			// summary:
 			//		Handler for onmouseenter / onmouseleave events
 			var o = (e.type == "mouseover" || e.type == "mouseenter");
-			domClass.toggle(this.domNode, "dijitSplitterHover", o);
-			domClass.toggle(this.domNode, "dijitSplitter" + (this.horizontal ? "H" : "V") + "Hover", o);
+			domClass.toggle(this.domNode, "duiSplitterHover", o);
+			domClass.toggle(this.domNode, "duiSplitter" + (this.horizontal ? "H" : "V") + "Hover", o);
 		},
 
 		_stopDrag: function(e){
 			try{
 				if(this.cover){
-					domClass.remove(this.cover, "dijitSplitterCoverActive");
+					domClass.remove(this.cover, "duiSplitterCoverActive");
 				}
 				if(this.fake){
 					domConstruct.destroy(this.fake);
 				}
-				domClass.remove(this.domNode, "dijitSplitterActive dijitSplitter"
-					+ (this.horizontal ? "H" : "V") + "Active dijitSplitterShadow");
+				domClass.remove(this.domNode, "duiSplitterActive duiSplitter"
+					+ (this.horizontal ? "H" : "V") + "Active duiSplitterShadow");
 				this._drag(e); //TODO: redundant with onmousemove?
 				this._drag(e, true);
 			}finally{
@@ -227,17 +227,17 @@ define([
 		}
 	});
 
-	var _Gutter = declare("dijit.layout._Gutter", [_WidgetBase, _TemplatedMixin], {
+	var _Gutter = declare("dui.layout._Gutter", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Just a spacer div to separate side pane from center pane.
 		//		Basically a trick to lookup the gutter/splitter width from the theme.
 		// description:
-		//		Instantiated by `dijit/layout/BorderContainer`.  Users should not
+		//		Instantiated by `dui/layout/BorderContainer`.  Users should not
 		//		create directly.
 		// tags:
 		//		private
 
-		templateString: '<div class="dijitGutter" role="presentation"></div>',
+		templateString: '<div class="duiGutter" role="presentation"></div>',
 
 		postMixInProperties: function(){
 			this.inherited(arguments);
@@ -246,13 +246,13 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "dijitGutter" + (this.horizontal ? "H" : "V"));
+			domClass.add(this.domNode, "duiGutter" + (this.horizontal ? "H" : "V"));
 		}
 	});
 
-	var BorderContainer = declare("dijit.layout.BorderContainer", LayoutContainer, {
+	var BorderContainer = declare("dui.layout.BorderContainer", LayoutContainer, {
 		// summary:
-		//		A BorderContainer is a `dijit/LayoutContainer` that can have draggable splitters between the children,
+		//		A BorderContainer is a `dui/LayoutContainer` that can have draggable splitters between the children,
 		//		in order to adjust their sizes.
 		//
 		//		In addition, it automatically adds some space between the children even
@@ -277,7 +277,7 @@ define([
 		//		Save splitter positions in a cookie.
 		persist: false,
 
-		baseClass: "dijitBorderContainer",
+		baseClass: "duiBorderContainer",
 
 		// _splitterClass: Function||String
 		//		Optional hook to override the default Splitter widget used by BorderContainer
@@ -292,7 +292,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dijit/_WidgetBase*/ child){
+		_setupChild: function(/*dui/_WidgetBase*/ child){
 			// Override LayoutContainer._setupChild().
 
 			this.inherited(arguments);
@@ -337,7 +337,7 @@ define([
 			this._layoutChildren();
 		},
 
-		removeChild: function(/*dijit/_WidgetBase*/ child){
+		removeChild: function(/*dui/_WidgetBase*/ child){
 			// Override _LayoutWidget.removeChild().
 
 			var splitter = child._splitterWidget;

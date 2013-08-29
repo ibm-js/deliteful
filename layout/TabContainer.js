@@ -7,10 +7,10 @@ define([
 ], function(lang, declare, _TabContainerBase, TabController, ScrollingTabController){
 
 	// module:
-	//		dijit/layout/TabContainer
+	//		dui/layout/TabContainer
 
 
-	return declare("dijit.layout.TabContainer", _TabContainerBase, {
+	return declare("dui.layout.TabContainer", _TabContainerBase, {
 		// summary:
 		//		A Container with tabs to select each child (only one of which is displayed at a time).
 		// description:
@@ -42,7 +42,7 @@ define([
 			// tags:
 			//		protected extension
 
-			var cls = this.baseClass + "-tabs" + (this.doLayout ? "" : " dijitTabNoLayout"),
+			var cls = this.baseClass + "-tabs" + (this.doLayout ? "" : " duiTabNoLayout"),
 				TabController = this.controllerWidget;
 
 			return new TabController({

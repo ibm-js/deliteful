@@ -26,7 +26,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 	return declare(Store, {
 
 		// summary:
-		//		Mixin providing store binding management for widgets that extend dijit/mixins/Store. Classes extending
+		//		Mixin providing store binding management for widgets that extend dui/mixins/Store. Classes extending
 		//		this mixin can easily define how store items properties are mapped in the render items properties consumable
 		// 		by the widget. The mapping can either occur by property (property A in store item corresponds to property B
 		//		in render item) or by function (a function is specified that mapped the store item into the value of a

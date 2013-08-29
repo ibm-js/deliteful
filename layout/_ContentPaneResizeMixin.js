@@ -13,9 +13,9 @@ define([
 			registry, Viewport, layoutUtils){
 
 	// module:
-	//		dijit/layout/_ContentPaneResizeMixin
+	//		dui/layout/_ContentPaneResizeMixin
 
-	return declare("dijit.layout._ContentPaneResizeMixin", null, {
+	return declare("dui.layout._ContentPaneResizeMixin", null, {
 		// summary:
 		//		Resize() functionality of ContentPane.   If there's a single layout widget
 		//		child then it will call resize() with the same dimensions as the ContentPane.
@@ -36,7 +36,7 @@ define([
 
 		startup: function(){
 			// summary:
-			//		See `dijit/layout/_LayoutWidget.startup()` for description.
+			//		See `dui/layout/_LayoutWidget.startup()` for description.
 			//		Although ContentPane doesn't extend _LayoutWidget, it does implement
 			//		the same API.
 
@@ -97,7 +97,7 @@ define([
 
 		resize: function(changeSize, resultSize){
 			// summary:
-			//		See `dijit/layout/_LayoutWidget.resize()` for description.
+			//		See `dui/layout/_LayoutWidget.resize()` for description.
 			//		Although ContentPane doesn't extend _LayoutWidget, it does implement
 			//		the same API.
 
@@ -206,7 +206,7 @@ define([
 				return this.open;		// for TitlePane, etc.
 			}else{
 				var node = this.domNode, parent = this.domNode.parentNode;
-				return (node.style.display != 'none') && (node.style.visibility != 'hidden') && !domClass.contains(node, "dijitHidden") &&
+				return (node.style.display != 'none') && (node.style.visibility != 'hidden') && !domClass.contains(node, "duiHidden") &&
 					parent && parent.style && (parent.style.display != 'none');
 			}
 		},

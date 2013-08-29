@@ -24,10 +24,10 @@
 			"dojo/dom-construct",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/_WidgetBase",
-			"dijit/_TemplatedMixin",
-			"dijit/layout/ContentPane",
-			"dijit/Dialog",
+			"dui/_WidgetBase",
+			"dui/_TemplatedMixin",
+			"dui/layout/ContentPane",
+			"dui/Dialog",
 			"dojo/domReady!"
 		], function(doh, declare, dom, domConstruct, parser,
 					registry, _WidgetBase, _TemplatedMixin){
@@ -69,7 +69,7 @@
 						console.log("basicChecks: " + this.name);
 						dialogCtrPane.set(
 							"content",
-							'<div data-dojo-type="dijit/Dialog" id="sacrificialDlg" title="Life is short for this fellow">'
+							'<div data-dojo-type="dui/Dialog" id="sacrificialDlg" title="Life is short for this fellow">'
 							+'	<p>This dialog should be cleanly destroyed when the unit tests run</p>'
 							+'</div>'
 						);
@@ -102,7 +102,7 @@
 						// do the same thing over again - we should be error free
 						dialogCtrPane.set(
 							"content",
-							'<div data-dojo-type="dijit/Dialog" id="sacrificialDlg" title="Life is short for this fellow">'
+							'<div data-dojo-type="dui/Dialog" id="sacrificialDlg" title="Life is short for this fellow">'
 							+'	<p>This dialog should be cleanly destroyed when the unit tests run</p>'
 							+'</div>'
 						);
@@ -150,26 +150,26 @@
 	<h1 class="testTitle">Dijit layout.ContentPane tests</h1>
 		<p>pre-container paragraph</p>
 
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 			some text (top-level container)
 
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 
 				text in the inner container (1)
 
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box", href:"tab2.html"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box", href:"tab2.html"'>
 					hi
 				</div>
 
 				text in the inner container (2)
 
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 					inner-inner 2
 				</div>
 
 				text in the inner container (3)
 
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 					inner-inner 3
 				</div>
 
@@ -182,22 +182,22 @@
 
 		<p>mid-container paragraph</p>
 
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 			2nd top-level container
 		</div>
 
 		<p>post-container paragraph</p>
 
-		<div id="test" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box", href:"combotab.html" '>
+		<div id="test" data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box", href:"combotab.html" '>
 			<p style='background-color:yellow;border:1px solid red;text-align:center;'>This text should automatically be replaced by downloaded content from combotab.html</p>
 		</div>
 
 		<hr/>
 		<p>ContentPanes used by the unit tests to verify functionality
-		<div id='parsedPane' data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box" '>
+		<div id='parsedPane' data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box" '>
 			Some Content Here
 		</div>
-		<div id='dialogContainer' data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box" '>
+		<div id='dialogContainer' data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box" '>
 			<div id="parserTest" data-dojo-type="TestWidget" ></div>
 		</div>
 	</body>

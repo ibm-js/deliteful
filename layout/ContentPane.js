@@ -18,9 +18,9 @@ define([
 			Deferred, dom, domAttr, domConstruct, request, when){
 
 	// module:
-	//		dijit/layout/ContentPane
+	//		dui/layout/ContentPane
 
-	return declare("dijit.layout.ContentPane", [_WidgetBase, _Container, _ContentPaneResizeMixin], {
+	return declare("dui.layout.ContentPane", [_WidgetBase, _Container, _ContentPaneResizeMixin], {
 		// summary:
 		//		A widget containing an HTML fragment, specified inline
 		//		or by uri.  Fragment may include widgets.
@@ -56,7 +56,7 @@ define([
 		//		Changing href after creation doesn't have any effect; Use set('href', ...);
 		href: "",
 
-		// content: String|DomNode|NodeList|dijit/_WidgetBase
+		// content: String|DomNode|NodeList|dui/_WidgetBase
 		//		The innerHTML of the ContentPane.
 		//		Note that the initialization parameter / argument to set("content", ...)
 		//		can be a String, DomNode, Nodelist, or _WidgetBase.
@@ -85,11 +85,11 @@ define([
 
 		// loadingMessage: String
 		//		Message that shows while downloading
-		loadingMessage: "<span class='dijitContentPaneLoading'><span class='dijitInline dijitIconLoading'></span>${loadingState}</span>",
+		loadingMessage: "<span class='duiContentPaneLoading'><span class='duiInline duiIconLoading'></span>${loadingState}</span>",
 
 		// errorMessage: String
 		//		Message that shows if an error occurs
-		errorMessage: "<span class='dijitContentPaneError'><span class='dijitInline dijitIconError'></span>${errorState}</span>",
+		errorMessage: "<span class='duiContentPaneError'><span class='duiInline duiIconError'></span>${errorState}</span>",
 
 		// isLoaded: [readonly] Boolean
 		//		True if the ContentPane has data in it, either specified
@@ -100,7 +100,7 @@ define([
 		//		still in the process of downloading href.
 		isLoaded: false,
 
-		baseClass: "dijitContentPane",
+		baseClass: "duiContentPane",
 
 		 // ioMethod: Function
 		 //		Function that should grab the content specified via href.
@@ -108,7 +108,7 @@ define([
 
 		// ioArgs: Object
 		//		Parameters to pass to dojo/request, for example:
-		// |	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="href: './bar', ioArgs: {timeout: 500}">
+		// |	<div data-dojo-type="dui/layout/ContentPane" data-dojo-props="href: './bar', ioArgs: {timeout: 500}">
 		ioArgs: {},
 
 		// onLoadDeferred: [readonly] dojo.Deferred

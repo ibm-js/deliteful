@@ -150,13 +150,13 @@ require([
 			click(dd.domNode);
 			setTimeout(d.getTestCallback(function(){
 				doh.t(helpers.isVisible(popup), "popup visible");
-				doh.is(1, require("dijit/popup")._stack.length, "in popup manager stack");
+				doh.is(1, require("dui/popup")._stack.length, "in popup manager stack");
 			}), 10);
 			return d;
 		},
 		function destroy(){
 			dd.destroy();
-			doh.is(0, require("dijit/popup")._stack.length, "popup was closed");
+			doh.is(0, require("dui/popup")._stack.length, "popup was closed");
 		}
 	]);
 

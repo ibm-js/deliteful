@@ -15,8 +15,8 @@ define([
 	"./TabController",
 	"./utils", // marginBox2contextBox, layoutChildren
 	"../_WidgetsInTemplateMixin",
-	"../dijit/Menu",
-	"../dijit/MenuItem",
+	"../dui/Menu",
+	"../dui/MenuItem",
 	"../form/Button",
 	"../_HasDropDown",
 	"dojo/NodeList-dom", // NodeList.style
@@ -26,9 +26,9 @@ define([
 	Menu, MenuItem, Button, _HasDropDown){
 
 	// module:
-	//		dijit/layout/ScrollingTabController
+	//		dui/layout/ScrollingTabController
 
-	var ScrollingTabController = declare("dijit.layout.ScrollingTabController", [TabController, _WidgetsInTemplateMixin], {
+	var ScrollingTabController = declare("dui.layout.ScrollingTabController", [TabController, _WidgetsInTemplateMixin], {
 		// summary:
 		//		Set of tabs with left/right arrow keys and a menu to switch between tabs not
 		//		all fitting on a single row.
@@ -37,7 +37,7 @@ define([
 		// tags:
 		//		private
 
-		baseClass: "dijitTabController dijitScrollingTabController",
+		baseClass: "duiTabController duiScrollingTabController",
 
 		templateString: tabControllerTemplate,
 
@@ -72,7 +72,7 @@ define([
 			this._initButtons();
 
 			if(!this.tabStripClass){
-				this.tabStripClass = "dijitTabContainer" +
+				this.tabStripClass = "duiTabContainer" +
 					this.tabPosition.charAt(0).toUpperCase() +
 					this.tabPosition.substr(1).replace(/-.*/, "") +
 					"None";
@@ -235,7 +235,7 @@ define([
 			}
 		},
 
-		onSelectChild: function(/*dijit/_WidgetBase*/ page){
+		onSelectChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Smoothly scrolls to a tab when it is selected.
 
@@ -397,7 +397,7 @@ define([
 			//		If the direction is 1, the widget scrolls to the right, if it is -1,
 			//		it scrolls to the left.
 
-			if(node && domClass.contains(node, "dijitTabDisabled")){
+			if(node && domClass.contains(node, "duiTabDisabled")){
 				return;
 			}
 
@@ -425,12 +425,12 @@ define([
 	});
 
 
-	var ScrollingTabControllerButtonMixin = declare("dijit.layout._ScrollingTabControllerButtonMixin", null, {
-		baseClass: "dijitTab tabStripButton",
+	var ScrollingTabControllerButtonMixin = declare("dui.layout._ScrollingTabControllerButtonMixin", null, {
+		baseClass: "duiTab tabStripButton",
 
 		templateString: buttonTemplate,
 
-		// Override inherited tabIndex: 0 from dijit/form/Button, because user shouldn't be
+		// Override inherited tabIndex: 0 from dui/form/Button, because user shouldn't be
 		// able to tab to the left/right/menu buttons
 		tabIndex: "",
 
@@ -442,10 +442,10 @@ define([
 	});
 
 	// Class used in template
-	declare("dijit.layout._ScrollingTabControllerButton", [Button, ScrollingTabControllerButtonMixin]);
+	declare("dui.layout._ScrollingTabControllerButton", [Button, ScrollingTabControllerButtonMixin]);
 
 	// Class used in template
-	declare("dijit.layout._ScrollingTabControllerMenuButton", [Button, _HasDropDown, ScrollingTabControllerButtonMixin], {
+	declare("dui.layout._ScrollingTabControllerMenuButton", [Button, _HasDropDown, ScrollingTabControllerButtonMixin], {
 		// id of the TabContainer itself
 		containerId: "",
 

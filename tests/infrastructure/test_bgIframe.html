@@ -11,12 +11,12 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dui/dijit/Dialog",
-			"dui/dijit/DropDownMenu",
-			"dui/dijit/MenuItem",
+			"dui/dui/Dialog",
+			"dui/dui/DropDownMenu",
+			"dui/dui/MenuItem",
 			"dui/form/DateTextBox",
 			"dui/form/Button",
-			"dui/dijit/Tooltip",
+			"dui/dui/Tooltip",
 			"dojo/domReady!"
 		], function(parser){
 			parser.parse();
@@ -25,16 +25,16 @@
 
 </head>
 <body class="claro">
-	<span data-dojo-type="dui/dijit/Tooltip" data-dojo-props='connectId:"one_applet"'>
+	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"one_applet"'>
 		This is one tooltip.
 	</span>
-	<span data-dojo-type="dui/dijit/Tooltip" data-dojo-props='connectId:"two_applet"'>
+	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"two_applet"'>
 		This is another tooltip.  A little longer...
 	</span>
-	<span data-dojo-type="dui/dijit/Tooltip" data-dojo-props='connectId:"one_xapp"'>
+	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"one_xapp"'>
 		This is one tooltip.
 	</span>
-	<span data-dojo-type="dui/dijit/Tooltip" data-dojo-props='connectId:"two_xapp"'>
+	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"two_xapp"'>
 		This is another tooltip.  A little longer...
 	</span>
 	<button id="showDialog" data-dojo-type="dui/form/Button">
@@ -50,12 +50,12 @@
 					<input id="dateText_applet" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
 					<button id="menuButton_applet" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"noteIcon"'>
 						<span>Edit<b>!</b></span>
-						<span id="menu_applet" data-dojo-type="dui/dijit/DropDownMenu" >
-							<span id="cut_applet" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+						<span id="menu_applet" data-dojo-type="dui/dui/DropDownMenu" >
+							<span id="cut_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 								onClick:function(){ console.log("not actually cutting anything, just a test!"); }'>Cut</span>
-							<span id="copy_applet" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+							<span id="copy_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 								onClick:function(){ console.log("not actually copying anything, just a test!"); }'>Copy</span>
-							<span id="paste_applet" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+							<span id="paste_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 								onClick:function(){ console.log("not actually pasting anything, just a test!"); }'>Paste</span>
 						</span>
 					</button>
@@ -96,12 +96,12 @@
 					<input id="dateText_xapp" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
 					<button id="menuButton_xapp" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"noteIcon"'>
 						<span>Edit<b>!</b></span>
-						<span id="menu_xapp" data-dojo-type="dui/dijit/DropDownMenu" >
-							<span id="cut_xapp" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+						<span id="menu_xapp" data-dojo-type="dui/dui/DropDownMenu" >
+							<span id="cut_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 								onClick:function(){ console.log("not actually cutting anything, just a test!"); }'>Cut</span>
-							<span id="copy_xapp" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+							<span id="copy_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 								onClick:function(){ console.log("not actually copying anything, just a test!"); }'>Copy</span>
-							<span id="paste_xapp" data-dojo-type="dui/dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+							<span id="paste_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 								onClick:function(){ console.log("not actually pasting anything, just a test!"); }'>Paste</span>
 						</span>
 					</button>
@@ -130,7 +130,7 @@
 				</td>
 			</tr>
 	</table>
-	<div id="dialog" data-dojo-id="dialog" data-dojo-type="dui/dijit/Dialog">
+	<div id="dialog" data-dojo-id="dialog" data-dojo-type="dui/dui/Dialog">
 		Hello!
 	</div>
 </body>

@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>dijit/layout/BorderContainer Test</title>
+	<title>dui/layout/BorderContainer Test</title>
 
 	<script src="../boilerplate.js"></script>
 
 	<style type="text/css">
 		/* styles for this test */
-		.dijitContentPane:focus { color: cyan; font-weight: bold }
+		.duiContentPane:focus { color: cyan; font-weight: bold }
 		body { margin-left: 20px }
-		#mondrian .dijitSplitter { border: 0; background: black !important }
-		#mondrian .dijitSplitterH { height: 10px }
-		#mondrian .dijitSplitterV { width: 10px }
-		#mondrian .dijitSplitterThumb { display: none }
-		#mondrian .dijitSplitterActive { background-color: blue }
-		.dj_webkit #mondrian .dijitSplitter:focus {
+		#mondrian .duiSplitter { border: 0; background: black !important }
+		#mondrian .duiSplitterH { height: 10px }
+		#mondrian .duiSplitterV { width: 10px }
+		#mondrian .duiSplitterThumb { display: none }
+		#mondrian .duiSplitterActive { background-color: blue }
+		.dj_webkit #mondrian .duiSplitter:focus {
 			/* override orange focus border w/something easier to see (response to a11y bug report) */
 			outline: 5px blue;
 		}
 		#mondrian SPAN { display: none }
 		#mondrian:hover SPAN { display: inline }
-		#mondrian .dijitContentPane { padding: 0 }
+		#mondrian .duiContentPane { padding: 0 }
 
 	</style>
 
@@ -37,9 +37,9 @@
 			"dojo/on",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/layout/BorderContainer",
-			"dijit/layout/ContentPane",
-			"dijit/form/FilteringSelect",
+			"dui/layout/BorderContainer",
+			"dui/layout/ContentPane",
+			"dui/form/FilteringSelect",
 			"dojo/domReady!"
 		], function(array, aspect, dom, domStyle, json, on, parser, registry, BorderContainer, ContentPane, FilteringSelect){
 
@@ -109,31 +109,31 @@
 	</script>
 </head>
 <body class="claro" role="region" aria-label="main">
-	<h2 class="testTitle">dijit/layout/BorderContainer tests</h2>
+	<h2 class="testTitle">dui/layout/BorderContainer tests</h2>
 	<p>Headline layout (default), left is constrained - min:150, max:250</p>
-	<div id="border1" data-dojo-type="dijit/layout/BorderContainer"
+	<div id="border1" data-dojo-type="dui/layout/BorderContainer"
 		data-dojo-props='style:"width: 1000px; height: 300px; border: 2px solid blue;"'>
-		<div role="banner" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border1-top", region:"top", style:"background-color: #b39b86; border: 15px black solid; height: 50px;", splitter:true'>
+		<div role="banner" data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border1-top", region:"top", style:"background-color: #b39b86; border: 15px black solid; height: 50px;", splitter:true'>
 			top bar (resizable)
 		</div>
-		<div role="navigation" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border1-left", region:"left", style:"background-color: #acb386; border: 10px green solid; width: 100px;",
+		<div role="navigation" data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border1-left", region:"left", style:"background-color: #acb386; border: 10px green solid; width: 100px;",
 		splitter:true, minSize:150, maxSize:250'>
 			left (resizable b/w 150 &rarr; 250)
 		</div>
-		<div role="main" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border1-center", region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
+		<div role="main" data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border1-center", region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 			(to check we're copying children around properly).<br />
-			<select aria-label="select" data-dojo-type="dijit/form/FilteringSelect">
+			<select aria-label="select" data-dojo-type="dui/form/FilteringSelect">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
 			</select>
 			Here's some text that comes AFTER the combo box.
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border1-right", region:"right", style:"background-color: #acb386; width: 100px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border1-right", region:"right", style:"background-color: #acb386; width: 100px;"'>
 			right (fixed size)
 		</div>
-		<div role="contentinfo" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border1-bottom", region:"bottom", style:"background-color: #b39b86; height: 50px;", splitter:true'>
+		<div role="contentinfo" data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border1-bottom", region:"bottom", style:"background-color: #b39b86; height: 50px;", splitter:true'>
 			bottom bar (resizable)
 		</div>
 	</div>
@@ -142,79 +142,79 @@
 	<br />
 
 	<p>Sidebar layout, BiDi sensitive, liveSplitters: false</p>
-	<div id="border2" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='design:"sidebar", liveSplitters:false,
+	<div id="border2" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='design:"sidebar", liveSplitters:false,
 		style:"border: 20px solid black; width: 1000px; height: 300px;"'>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border2-leading", region:"leading", style:"background-color: #acb386; width: 100px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border2-leading", region:"leading", style:"background-color: #acb386; width: 100px;"'>
 			leading (fixed size)
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border2-top", region:"top", style:"background-color: #b39b86; height: 80px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border2-top", region:"top", style:"background-color: #b39b86; height: 80px;"'>
 			top bar (fixed size)
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border2-center", region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border2-center", region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 			(to check we're copying children around properly).<br />
-			<select aria-label="select" data-dojo-type="dijit/form/FilteringSelect">
+			<select aria-label="select" data-dojo-type="dui/form/FilteringSelect">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
 			</select>
 			Here's some text that comes AFTER the combo box.
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border2-bottom", region:"bottom", style:"background-color: #b39b86; height: 80px;", splitter:true'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border2-bottom", region:"bottom", style:"background-color: #b39b86; height: 80px;", splitter:true'>
 			bottom bar (resizable)
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='id:"border2-trailing", region:"trailing", style:"background-color: #acb386; width: 100px;", splitter:true'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='id:"border2-trailing", region:"trailing", style:"background-color: #acb386; width: 100px;", splitter:true'>
 			trailing (resizable)
 		</div>
 	</div>
 
 	<p>gutters=false layout</p>
 
-	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='design:"sidebar", gutters:false,
+	<div data-dojo-type="dui/layout/BorderContainer" data-dojo-props='design:"sidebar", gutters:false,
 		style:"border: 20px solid black; width: 1000px; height: 300px;"'>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"leading", style:"background-color: #acb386; width: 100px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"leading", style:"background-color: #acb386; width: 100px;"'>
 			leading
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"top", style:"background-color: #b39b86; height: 80px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"top", style:"background-color: #b39b86; height: 80px;"'>
 			top bar
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 			(to check we're copying children around properly).<br />
-			<select aria-label="select" data-dojo-type="dijit/form/FilteringSelect">
+			<select aria-label="select" data-dojo-type="dui/form/FilteringSelect">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
 			</select>
 			Here's some text that comes AFTER the combo box.
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"bottom", style:"background-color: #b39b86; height: 80px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"bottom", style:"background-color: #b39b86; height: 80px;"'>
 			bottom bar
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"trailing", style:"background-color: #acb386; width: 100px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"trailing", style:"background-color: #acb386; width: 100px;"'>
 			trailing
 		</div>
 	</div>
 
 	<p>Vertical panels only with splitters</p>
 
-	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='design:"sidebar",
+	<div data-dojo-type="dui/layout/BorderContainer" data-dojo-props='design:"sidebar",
 		style:"border: 2px solid black; width: 1000px; height: 300px; padding: 10px;"'>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"top", style:"background-color: #b39b86; height: 80px;", splitter:true'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"top", style:"background-color: #b39b86; height: 80px;", splitter:true'>
 			top bar
 		</div>
 
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #f5ffbf; padding: 10px;"'>
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 			(to check we're copying children around properly).<br />
-			<select aria-label="select" data-dojo-type="dijit/form/FilteringSelect">
+			<select aria-label="select" data-dojo-type="dui/form/FilteringSelect">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
 			</select>
 			Here's some text that comes AFTER the combo box.
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"bottom", style:"background-color: #b39b86; height: 80px;", splitter:true'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"bottom", style:"background-color: #b39b86; height: 80px;", splitter:true'>
 			bottom bar
 		</div>
 	</div>
@@ -222,42 +222,42 @@
 	<br />
 	<p>More fun with layouts</p>
 
-	<div id="mondrian" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='design:"sidebar", gutters:false, persist:true, style:"height: 300px; width: 400px;"'>
-		<div id="mondrian_top" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"top", style:"height: 100px", splitter:true'>
-			<div id="mondrian_top_bc" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 100px; width: 100%"'>
-				<div id="top_a" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"leading", style:"width: 125px", splitter:true'><span>top a</span></div>
-				<div id="top_b" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: yellow", splitter:true'><span>top b</span></div>
+	<div id="mondrian" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='design:"sidebar", gutters:false, persist:true, style:"height: 300px; width: 400px;"'>
+		<div id="mondrian_top" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"top", style:"height: 100px", splitter:true'>
+			<div id="mondrian_top_bc" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 100px; width: 100%"'>
+				<div id="top_a" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"leading", style:"width: 125px", splitter:true'><span>top a</span></div>
+				<div id="top_b" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: yellow", splitter:true'><span>top b</span></div>
 			</div>
 		</div>
-		<div id="mondrian_bottom" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"bottom", style:"height: 100px", splitter:true'>
-			<div id="mondrian_bottom_bc" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 100px; width: 100%"'>
-				<div id="bottom_c" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"top", style:"height: 40px; background-color: blue;", splitter:true'><span>bottom c</span></div>
-				<div id="bottom_d" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'><span>bottom d</span></div>
+		<div id="mondrian_bottom" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"bottom", style:"height: 100px", splitter:true'>
+			<div id="mondrian_bottom_bc" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 100px; width: 100%"'>
+				<div id="bottom_c" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"top", style:"height: 40px; background-color: blue;", splitter:true'><span>bottom c</span></div>
+				<div id="bottom_d" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center"'><span>bottom d</span></div>
 			</div>
 		</div>
-		<div id="mondrian_leading" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"leading", style:"width: 100px", splitter:true'>
-			<div id="mondrian_leading_bc" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 300px; width: 100%"'>
-				<div id="leading_e" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'><span>leading e</span></div>
-				<div id="leading_f" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"bottom", style:"height: 100px; background-color: red", splitter:true'><span>leading f</span></div>
+		<div id="mondrian_leading" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"leading", style:"width: 100px", splitter:true'>
+			<div id="mondrian_leading_bc" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='persist:true, gutters:false, style:"height: 300px; width: 100%"'>
+				<div id="leading_e" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center"'><span>leading e</span></div>
+				<div id="leading_f" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"bottom", style:"height: 100px; background-color: red", splitter:true'><span>leading f</span></div>
 			</div>
 		</div>
-		<div id="trailing_g" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", splitter:true'><span>trailing g</span></div>
-		<div id="trailing_h" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"trailing", style:"width: 100px", splitter:true'><span>trailing g</span></div>
+		<div id="trailing_g" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center", splitter:true'><span>trailing g</span></div>
+		<div id="trailing_h" data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"trailing", style:"width: 100px", splitter:true'><span>trailing g</span></div>
 	</div>
 
 	<br />
 	<p>Watching the splitter events</p>
-	<div id="watchedBC" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='persist:false, gutters:false, style:"height: 200px; width: 100%"'>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"top", splitter:true, style:"background-color: #ccffcc; height: 50px;"'>Top:</div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left", style:"background-color: #ccccff; width: 40px", splitter:true'><span>Left</span></div>
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #ffffcc"'><span>Center</span></div>
+	<div id="watchedBC" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='persist:false, gutters:false, style:"height: 200px; width: 100%"'>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"top", splitter:true, style:"background-color: #ccffcc; height: 50px;"'>Top:</div>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"left", style:"background-color: #ccccff; width: 40px", splitter:true'><span>Left</span></div>
+		<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center", style:"background-color: #ffffcc"'><span>Center</span></div>
 	</div>
 
 	<p>Splitter coords output:</p>
 	<div id="watchedOutput" style="border: 1px solid #999">nothing moving</div>
 
 	
-	<h2 class="testTitle">dijit/layout/BorderContainer programmatic test</h2>
+	<h2 class="testTitle">dui/layout/BorderContainer programmatic test</h2>
 	<div id='main'></div>
 
 	<button id="addLeft" onclick="bc.addChild(cp3);">add left pane</button>

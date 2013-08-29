@@ -16,7 +16,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom",
-				"dijit/tests/helpers", "dijit/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
+				"dui/tests/helpers", "dui/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
 			], function(doh, robot, dom, helpers, bcTest){
 	
 				robot.initRobot('../test_Gui.html');
@@ -77,12 +77,12 @@
 							
 							robot.mouseMoveAt("topTabs1_tablist_tabAccordion", 500, 1);
 							robot.mouseClick({left:true}, 500);
-							robot.mouseMoveAt("dijit_layout_ContentPane_2_button", 500, 1);
+							robot.mouseMoveAt("dui_layout_ContentPane_2_button", 500, 1);
 							robot.mouseClick({left:true}, 500);
 							
 							robot.sequence(d.getTestCallback(function(){
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_2")), "Accordion tab 2 is not visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_4").domNode), "Accordion tab 4 is not hidden");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_2")), "Accordion tab 2 is not visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_4").domNode), "Accordion tab 4 is not hidden");
 							}), 1000);
 
 							return d;
@@ -96,13 +96,13 @@
 							
 							robot.mouseMoveAt("topTabs1_tablist_textareaTab", 500, 1);
 							robot.mouseClick({left:true}, 500);
-							robot.mouseMoveAt("dijit_layout_ContentPane_6_button", 500, 1);
+							robot.mouseMoveAt("dui_layout_ContentPane_6_button", 500, 1);
 							robot.mouseClick({left:true}, 500);
 							
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(helpers.isVisible(registry.byId("tabAccordionContainer").domNode), "Accordion container is not visible");
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_6")), "Accordion tab 4 is not visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_7").domNode), "Accordion tab 3 is not hidden");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_6")), "Accordion tab 4 is not visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_7").domNode), "Accordion tab 3 is not hidden");
 								doh.t(helpers.isVisible(registry.byId("bbtab1").domNode), "Nested tab1 is not visible");
 							}), 1000);
 
@@ -255,11 +255,11 @@
 							robot.mouseRelease({left: true}, 500);
 														
 							robot.sequence(d.getTestCallback(function(){
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_9").domNode), "dijit_layout_ContentPane_9 visible");
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_9_splitter").domNode), "dijit_layout_ContentPane_9_splitter visible");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_9").domNode), "dui_layout_ContentPane_9 visible");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_9_splitter").domNode), "dui_layout_ContentPane_9_splitter visible");
 								doh.t(helpers.isVisible(registry.byId("btabAA").domNode), "btabAA visible");
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_10").domNode), "dijit_layout_ContentPane_10 visible");
-								doh.t(helpers.isVisible(registry.byId("dijit_layout_ContentPane_10_splitter").domNode), "dijit_layout_ContentPane_10_splitter visible");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_10").domNode), "dui_layout_ContentPane_10 visible");
+								doh.t(helpers.isVisible(registry.byId("dui_layout_ContentPane_10_splitter").domNode), "dui_layout_ContentPane_10_splitter visible");
 							}), 1000);
 
 							return d;
@@ -276,11 +276,11 @@
 							
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(helpers.isVisible(registry.byId("btab2").domNode), "btab2 visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_9").domNode), "dijit_layout_ContentPane_9 visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_9_splitter").domNode), "dijit_layout_ContentPane_9_splitter visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_9").domNode), "dui_layout_ContentPane_9 visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_9_splitter").domNode), "dui_layout_ContentPane_9_splitter visible");
 								doh.t(helpers.isHidden(registry.byId("btabAA").domNode), "btabAA visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_10").domNode), "dijit_layout_ContentPane_10 visible");
-								doh.t(helpers.isHidden(registry.byId("dijit_layout_ContentPane_10_splitter").domNode), "dijit_layout_ContentPane_10_splitter visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_10").domNode), "dui_layout_ContentPane_10 visible");
+								doh.t(helpers.isHidden(registry.byId("dui_layout_ContentPane_10_splitter").domNode), "dui_layout_ContentPane_10_splitter visible");
 							}), 1000);
 
 							return d;

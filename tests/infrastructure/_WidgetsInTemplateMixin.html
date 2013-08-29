@@ -26,7 +26,7 @@
 				"dui/registry", "dui/_WidgetBase",
 				"dui/_AttachMixin", "dui/_TemplatedMixin", "dui/_WidgetsInTemplateMixin",
 				"dui/form/Button", "dui/form/CheckBox", "dui/form/TextBox",
-				"dui/dijit/ProgressBar", "dui/_Container", "dui/_Contained",
+				"dui/dui/ProgressBar", "dui/_Container", "dui/_Contained",
 				"dui/layout/ContentPane", "dui/layout/_LayoutWidget", "dui/layout/LayoutContainer",
 				"dui/tests/resources/TestContextRequireWidget",
 				"dojo/domReady!"
@@ -336,7 +336,7 @@
 							var testW = registry.byId("missing");
 							doh.t(testW, "widget was created");
 							doh.t(testW.missingButton, "data-dojo-attach-point created");
-							doh.is("dijit.form.Button", testW.missingButton.declaredClass, "and it's to a widget");
+							doh.is("dui.form.Button", testW.missingButton.declaredClass, "and it's to a widget");
 							doh.t(registry.byId("missingButtonId"), "nested widget also registered by id");
 						}
 					},
@@ -389,7 +389,7 @@
 
 				// Test that "this" referenced from data-dojo-props can refer to the hosting widget
 				doh.register("data-dojo-props this", function(){
-					var host = declare([dijit._WidgetBase, dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin], {
+					var host = declare([dui._WidgetBase, dui._TemplatedMixin, dui._WidgetsInTemplateMixin], {
 						obj: {hello: "world"},
 						templateString:
 							"<div>" +
@@ -422,7 +422,7 @@
 
 		<!-- Tests for _WidgetsInTemplateMixin combined with _AttachMixin -->
 		<div class="testcontainer">
-			<p>This test shows that a _AttachMixin dijit with _WidgetsInTemplate properly attaches widgets from the template.<br>
+			<p>This test shows that a _AttachMixin dui with _WidgetsInTemplate properly attaches widgets from the template.<br>
 			<div id="attachMeThree">
 				<h2 data-dojo-attach-point='heading'></h2>
 				<button data-dojo-type='dui/form/Button'
@@ -451,7 +451,7 @@
 					<button data-dojo-attach-point="buttonWidget" data-dojo-attach-event="click:onClick" data-dojo-type="dui/form/Button">button #1</button>
 					<div data-dojo-attach-point="checkboxWidget" data-dojo-attach-event="click:onClick" data-dojo-type="dui/form/CheckBox"></div> checkbox #1
 					<div data-dojo-attach-point="progressBarWidget" data-dojo-attach-event="change:onClick"
-						 data-dojo-type="dui/dijit/ProgressBar" data-dojo-props='value: 20, maximum: 200, style: "width:400px;"'></div>
+						 data-dojo-type="dui/dui/ProgressBar" data-dojo-props='value: 20, maximum: 200, style: "width:400px;"'></div>
 				</div>
 			</textarea>
 

@@ -13,7 +13,7 @@
 			padding: 8px;
 		}
 
-		.dijitTestWidget {
+		.duiTestWidget {
 			border: 1px dashed red;
 			background-color: #C0E209;
 		}
@@ -31,14 +31,14 @@
 			"dojo/_base/NodeList",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/_WidgetBase",
-			"dijit/_TemplatedMixin",
-			"dijit/_WidgetsInTemplateMixin",
-			"dijit/_Container",
-			"dijit/Dialog",
-			"dijit/layout/_LayoutWidget",
-			"dijit/layout/ContentPane",
-			"dijit/layout/StackContainer",
+			"dui/_WidgetBase",
+			"dui/_TemplatedMixin",
+			"dui/_WidgetsInTemplateMixin",
+			"dui/_Container",
+			"dui/Dialog",
+			"dui/layout/_LayoutWidget",
+			"dui/layout/ContentPane",
+			"dui/layout/StackContainer",
 			"dojo/domReady!"
 		], function(doh, array, declare, dom, ItemFileReadStore, NodeList, parser,
 					registry, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Dialog, _LayoutWidget,
@@ -47,7 +47,7 @@
 			// create a do nothing, only for test widget
 			declare("TestWidget",
 				[_WidgetBase, _TemplatedMixin], {
-				templateString: "<span class='dijitTestWidget'></span>"
+				templateString: "<span class='duiTestWidget'></span>"
 			});
 
 			doh.register("pane1", [
@@ -170,7 +170,7 @@
 						// declare a widget whose template contains a non-templated widget
 						MyWidget = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 							templateString: '<div><div '
-								+ 'data-dojo-type="dijit/layout/StackContainer"></div></div>'
+								+ 'data-dojo-type="dui/layout/StackContainer"></div></div>'
 						});
 					},
 					runTest: function(t){
@@ -195,7 +195,7 @@
 					name: "simple",
 					setUp: function(t){
 						pane5 = new ContentPane({
-							content:"<div data-dojo-type='dijit/layout/StackContainer'></div>"
+							content:"<div data-dojo-type='dui/layout/StackContainer'></div>"
 						}).placeAt(document.body);
 						pane5.startup();
 					},
@@ -213,7 +213,7 @@
 					setUp: function(t){
 						pane5 = new ContentPane({
 							content:
-								"<div data-dojo-type='dijit/layout/StackContainer'></div>",
+								"<div data-dojo-type='dui/layout/StackContainer'></div>",
 							doLayout: false
 						}).placeAt(document.body);
 						pane5.startup();
@@ -232,7 +232,7 @@
 						pane5 = new ContentPane({
 							content:
 								"<span>hello world</span>" +
-								"<div data-dojo-type='dijit/layout/StackContainer'></div>"
+								"<div data-dojo-type='dui/layout/StackContainer'></div>"
 						}).placeAt(document.body);
 						pane5.startup();
 					},
@@ -250,8 +250,8 @@
 					setUp: function(t){
 						pane5 = new ContentPane({
 							content:
-								"<div data-dojo-type='dijit/layout/StackContainer'></div>" +
-								"<div data-dojo-type='dijit/layout/StackContainer'></div>"
+								"<div data-dojo-type='dui/layout/StackContainer'></div>" +
+								"<div data-dojo-type='dui/layout/StackContainer'></div>"
 						}).placeAt(document.body);
 						pane5.startup();
 					},
@@ -270,7 +270,7 @@
 						pane5 = new ContentPane({
 							content:
 								"<div data-dojo-type='dojo/data/ItemFileReadStore' data-dojo-id='dd'></div>" +
-								"<div data-dojo-type='dijit/layout/StackContainer' id='sc'></div>"
+								"<div data-dojo-type='dui/layout/StackContainer' id='sc'></div>"
 						}).placeAt(document.body);
 						pane5.startup();
 					},
@@ -293,7 +293,7 @@
 								"<scri" + "pt></scri" + "pt>" +
 								"<link rel='stylesheet' href='../../themes/claro/claro.css'>" +
 								"<style>body { background: red; }</style>" +
-								"<div data-dojo-type='dijit/layout/StackContainer' id='sc'></div>"
+								"<div data-dojo-type='dui/layout/StackContainer' id='sc'></div>"
 						}).placeAt(document.body);
 						pane5.startup();
 					},
@@ -334,7 +334,7 @@
 								'<div id="one" data-dojo-type="TestContained"></div>' +
 							'</span></div>' +
 							'<div id="two" data-dojo-type="TestContained"></div>' +
-							'<div id="three" data-dojo-type="dijit/_WidgetBase"></div>'
+							'<div id="three" data-dojo-type="dui/_WidgetBase"></div>'
 						);
 
 						// Since ContentPane is a container it should call startup
@@ -376,7 +376,7 @@
 								'<div id="deferredOne" data-dojo-type="TestContained"></div>' +
 							'</span></div>' +
 							'<div id="deferredTwo" data-dojo-type="TestContained"></div>' +
-							'<div id="deferredThree" data-dojo-type="dijit/_WidgetBase"></div>'
+							'<div id="deferredThree" data-dojo-type="dui/_WidgetBase"></div>'
 						);
 
 						t.f(registry.byId('deferredTwo')._resized, "not resized yet");
@@ -512,11 +512,11 @@
 	</script>
 </head>
 <body class="claro" role="main">
-	<h2>dijit/layout/ContentPane DOH test</h2>
+	<h2>dui/layout/ContentPane DOH test</h2>
 	<h3>Test designed to run on localhost (minimize impact from network latency)</h3>
 
 	<h4>This should NOT be parsed automatically</h4>
-	<div id="pane1" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='"class":"box"'>
+	<div id="pane1" data-dojo-type="dui/layout/ContentPane" data-dojo-props='"class":"box"'>
 		<div data-dojo-type='TestWidget'>If this has a different background and a red border, the page parsed when it shouldn't</div>
 	</div>
 	<br/><h3>Testing ContentPane</h3>
@@ -524,26 +524,26 @@
 		Even though the entire page isn't scanned for widgets,
 		any sub widgets of a ContentPane will be created when a ContentPane is created<br/>
 		<span id="2_zero" data-dojo-type='TestWidget'>This should have a backgroundcolor and a border</span>
-		<div id="2_one" data-dojo-type="dijit/_WidgetBase"></div>
-		<div id="2_two" data-dojo-type="dijit/_WidgetBase"></div>
-		<div id="2_three" data-dojo-type="dijit/_WidgetBase"></div>
+		<div id="2_one" data-dojo-type="dui/_WidgetBase"></div>
+		<div id="2_two" data-dojo-type="dui/_WidgetBase"></div>
+		<div id="2_three" data-dojo-type="dui/_WidgetBase"></div>
 	</div>
 	<br/><br/>
 
 	<!-- for container tests -->
-	<div id="container" data-dojo-type="dijit/layout/ContentPane">
+	<div id="container" data-dojo-type="dui/layout/ContentPane">
 		<div id="zero" data-dojo-type="TestContained"></div>
 		<div id="one" data-dojo-type="TestContained"></div>
 		<div id="two" data-dojo-type="TestContained"></div>
-		<div id="three" data-dojo-type="dijit/_WidgetBase"></div>
+		<div id="three" data-dojo-type="dui/_WidgetBase"></div>
 	</div>
-	<div id="outside" data-dojo-type="dijit/_WidgetBase"></div>
+	<div id="outside" data-dojo-type="dui/_WidgetBase"></div>
 	<div id="outsideCont" data-dojo-type="TestContained"></div>
 
 	<!-- for testing popup widgets inside of a content pane -->
 	<div id="popupTest">
-		<div id="popupPane" data-dojo-type="dijit/layout/ContentPane">
-			<div id="dialog" data-dojo-type="dijit/Dialog">
+		<div id="popupPane" data-dojo-type="dui/layout/ContentPane">
+			<div id="dialog" data-dojo-type="dui/Dialog">
 				hello world
 			</div>
 		</div>
@@ -551,7 +551,7 @@
 
 	<!-- for testing non-widgets inside of a content pane -->
 	<div id="nonWidgetTest">
-		<div id="nonWidgetPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-id="nwp">
+		<div id="nonWidgetPane" data-dojo-type="dui/layout/ContentPane" data-dojo-id="nwp">
 			<div data-dojo-type="NonWidget" data-dojo-id="nw1"></div>
 		</div>
 	</div>

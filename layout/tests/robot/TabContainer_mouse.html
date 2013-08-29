@@ -16,7 +16,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-geometry", "dojo/on", "dojo/query",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, dom, geom, on, query, helpers){
 
 				robot.initRobot('../test_TabContainer.html');
@@ -45,8 +45,8 @@
 
 							on.once(dom.byId('mainTabContainer_tablist_tab3'), "mouseover", function(){
 								setTimeout(d.getTestCallback(function(){
-									// Check that .dijitTabHover class was applied
-									var tabHover = query(".dijitTabHover #mainTabContainer_tablist_tab3");
+									// Check that .duiTabHover class was applied
+									var tabHover = query(".duiTabHover #mainTabContainer_tablist_tab3");
 									doh.is(1, tabHover.length);
 								}), 0);
 							});
@@ -120,11 +120,11 @@
 						runTest: function(t){
 							var d = new doh.Deferred();
 
-							robot.mouseMoveAt(query('.dijitTabCloseButton', registry.byId("mainTabContainer_tablist_tab3").domNode)[0], 500);
+							robot.mouseMoveAt(query('.duiTabCloseButton', registry.byId("mainTabContainer_tablist_tab3").domNode)[0], 500);
 							
 							// verify the close button is in its hover state
 							robot.sequence(d.getTestCallback(function(){
-								var closeHover = query(".dijitTabCloseButtonHover", registry.byId("mainTabContainer_tablist_tab3").domNode);
+								var closeHover = query(".duiTabCloseButtonHover", registry.byId("mainTabContainer_tablist_tab3").domNode);
 								doh.is(1, closeHover.length, "close button hover CSS");
 							}), 500);
 							
@@ -137,7 +137,7 @@
 						runTest: function(t){
 							var d = new doh.Deferred();
 							
-							robot.mouseMoveAt(query('.dijitTabCloseButton', registry.byId("mainTabContainer_tablist_tab3").domNode)[0], 500);
+							robot.mouseMoveAt(query('.duiTabCloseButton', registry.byId("mainTabContainer_tablist_tab3").domNode)[0], 500);
 							robot.mouseClick({left: true}, 500);
 							
 							var tc = registry.byId("mainTabContainer");
@@ -224,7 +224,7 @@
 							var d = new doh.Deferred();
 
 							var nChildren = tc.getChildren().length;
-							robot.mouseMoveAt(query('.dijitTabCloseButton', registry.byId("mainTabContainer_tablist_tab2").domNode)[0], 500);
+							robot.mouseMoveAt(query('.duiTabCloseButton', registry.byId("mainTabContainer_tablist_tab2").domNode)[0], 500);
 							robot.mouseClick({left: true}, 500);
 
 							robot.sequence(d.getTestCallback(function(){
@@ -281,7 +281,7 @@
 							var d = new doh.Deferred();
 
 							var nChildren = tc.getChildren().length;
-							robot.mouseMoveAt(query('.dijitTabCloseButton', registry.byId("mainTabContainer_tablist_tab2").domNode)[0], 500);
+							robot.mouseMoveAt(query('.duiTabCloseButton', registry.byId("mainTabContainer_tablist_tab2").domNode)[0], 500);
 							robot.mouseClick({left: true}, 500);
 
 							robot.sequence(d.getTestCallback(function(){
@@ -324,7 +324,7 @@
 							var d = new doh.Deferred();
 
 							var nChildren = tc.getChildren().length;
-							robot.mouseMoveAt(query('.dijitTabCloseButton', registry.byId("nomenu_tablist_nomenu_tab3").domNode)[0], 500);
+							robot.mouseMoveAt(query('.duiTabCloseButton', registry.byId("nomenu_tablist_nomenu_tab3").domNode)[0], 500);
 							robot.mouseClick({left: true}, 500);
 
 							robot.sequence(d.getTestCallback(function(){

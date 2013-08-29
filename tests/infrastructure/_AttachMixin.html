@@ -75,12 +75,12 @@
 							buildRendering: function() {
 								this.inherited(arguments);
 								this.iw = new InnerDijit({
-									attachScope: this // Cause attach points in inner dijit to attach to us
+									attachScope: this // Cause attach points in inner dui to attach to us
 								});
 								// NB don't own as we will do a destroy test later this.own(id);
 								this.iw.placeAt(this.content, 'last');
 							},
-							// This handler is attached to the field in our inner dijit
+							// This handler is attached to the field in our inner dui
 							inputKeyUp: function(e) {
 								var target = e.target;
 								html.set(this.heading, "Event: " + e.type + " value: " + target.value);
@@ -90,20 +90,20 @@
 						var od = new OuterDijit({}, dom.byId('destthree'));
 						od.startup();
 
-						// Confirm that the outer dijit has attached points both
-						//  from its own template, and the inner dijit.
+						// Confirm that the outer dui has attached points both
+						//  from its own template, and the inner dui.
 						doh.t(od.heading, "heading");
 						doh.t(od.field, "field");
 						doh.is("Initial value", od.heading.innerHTML, "Initial value");
 						
-						// Simulate a change on the field in the inner dijit
+						// Simulate a change on the field in the inner dui
 						od.field.value = 'something new';
 						on.emit(od.field, "keyup", {bubbles: true});
 						
-						// Confirm the change ran the event handler in the outer dijit
+						// Confirm the change ran the event handler in the outer dui
 						doh.is("Event: keyup value: something new", od.heading.innerHTML, "Post-op value");
 						
-						// Now destroy the inner dijit and ensure its attach points on the parent
+						// Now destroy the inner dui and ensure its attach points on the parent
 						//  were removed.
 						od.iw.destroy();
 						delete od.iw;
@@ -142,7 +142,7 @@
 		</div>
 		
 		<div class="testcontainer">
-			<p>This test shows an inner dijit being created with attachScope referencing its enclosing dijit.</p>
+			<p>This test shows an inner dui being created with attachScope referencing its enclosing dui.</p>
 			<div id="destthree"></div>
 		</div>
 

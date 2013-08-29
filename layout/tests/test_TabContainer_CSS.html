@@ -16,8 +16,8 @@
 			require([
 				"dojo/parser",
 				"dui/registry",
-				"dijit/layout/TabContainer", "dijit/layout/ContentPane",
-				"dijit/form/DropDownButton", "dijit/TooltipDialog",
+				"dui/layout/TabContainer", "dui/layout/ContentPane",
+				"dui/form/DropDownButton", "dui/TooltipDialog",
 				"dojo/domReady!"
 			], function(parser, registry, TabContainer, ContentPane){
 
@@ -43,11 +43,11 @@
 			don't extend past the edge of the TabContainer.   Also check that button for second tab
 			(unselected tab) is visible on IE6.
 		</p>
-		<div data-dojo-type="dijit/form/DropDownButton">
+		<div data-dojo-type="dui/form/DropDownButton">
 			<span>Show Tooltip Dialog with TabContainer</span>
-			<div id="tabTooltip" data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Tab Container Tooltip"'>
-				<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 300px;"'>
-					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"First tab"'>
+			<div id="tabTooltip" data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Tab Container Tooltip"'>
+				<div data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 300px;"'>
+					<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"First tab"'>
 						<p>
 							This is the first tab.
 						</p>
@@ -60,7 +60,7 @@
 						risus.
 						</p>
 					</div>
-					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Second tab"'>
+					<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Second tab"'>
 						<p>
 							This is the second tab.
 						</p>
@@ -82,7 +82,7 @@
 			Make sure the TabContainers below show the border between tab buttons and tab content.
 			Previously it didn't show on initial page load, but showed after resize.
 		</p>
-        <div id='tabContainer1' data-dojo-type='dijit/layout/TabContainer' data-dojo-props="tabPosition: 'top'"></div>
+        <div id='tabContainer1' data-dojo-type='dui/layout/TabContainer' data-dojo-props="tabPosition: 'top'"></div>
 
 		<h2>Missing border on zoom</h2>
 		<p>
@@ -90,16 +90,16 @@
 			(<i>not</i> text-size increase/decrease but zoom).
 			Problem used to occur on FF/windows and IE8.
 		</p>
-		<div id="myTC" data-dojo-type="dijit/layout/TabContainer" style="width: 400px; height: 200px;" tabPosition="left-h" tabStrip="false">
-			<div id="LittleRed1" data-dojo-type="dijit/layout/ContentPane" title="One" >
+		<div id="myTC" data-dojo-type="dui/layout/TabContainer" style="width: 400px; height: 200px;" tabPosition="left-h" tabStrip="false">
+			<div id="LittleRed1" data-dojo-type="dui/layout/ContentPane" title="One" >
 				Once upon a time there was a dear little girl who was loved by
 				every one who looked at her, but most of all by her grandmother,
 				and there was nothing that she would not have given to the child.
 			</div>
-			<div id="HanselGretel1" data-dojo-type="dijit/layout/ContentPane" title="Two" selected="true" >
+			<div id="HanselGretel1" data-dojo-type="dui/layout/ContentPane" title="Two" selected="true" >
 				Some content here.
 			</div>
-			<div id="GreenTwigs1" data-dojo-type="dijit/layout/ContentPane" title="The Three Green Twigs" >
+			<div id="GreenTwigs1" data-dojo-type="dui/layout/ContentPane" title="The Three Green Twigs" >
 				Yet more content.
 			</div>
 		</div>

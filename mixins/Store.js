@@ -5,7 +5,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 		// summary:
 		//		Mixin for widgets for store management that creates widget render items from store items after querying
-		// 		the store. The receiving class must extend dojo/Stateful and dojo/Evented or dijit/_WidgetBase.
+		// 		the store. The receiving class must extend dojo/Stateful and dojo/Evented or dui/_WidgetBase.
 		// description:
 		//		Classes extending this mixin automatically create render items that are consumable by the widget
 		// 		from store items after querying the store. This happens each time the widget store, query or queryOptions

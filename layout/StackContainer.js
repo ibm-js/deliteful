@@ -15,9 +15,9 @@ define([
 ], function(array, cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, _WidgetBase, _LayoutWidget){
 
 	// module:
-	//		dijit/layout/StackContainer
+	//		dui/layout/StackContainer
 
-	var StackContainer = declare("dijit.layout.StackContainer", _LayoutWidget, {
+	var StackContainer = declare("dui.layout.StackContainer", _LayoutWidget, {
 		// summary:
 		//		A container that has multiple children, but shows only
 		//		one child at a time
@@ -41,10 +41,10 @@ define([
 		//		Remembers the selected child across sessions
 		persist: false,
 
-		baseClass: "dijitStackContainer",
+		baseClass: "duiStackContainer",
 
 		/*=====
-		// selectedChildWidget: [readonly] dijit/_WidgetBase
+		// selectedChildWidget: [readonly] dui/_WidgetBase
 		//		References the currently selected child widget, if any.
 		//		Adjust selected child with selectChild() method.
 		selectedChildWidget: null,
@@ -52,7 +52,7 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode, "dijitLayoutContainer");
+			domClass.add(this.domNode, "duiLayoutContainer");
 		},
 
 		postCreate: function(){
@@ -114,13 +114,13 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dijit/_WidgetBase*/ child){
+		_setupChild: function(/*dui/_WidgetBase*/ child){
 			// Overrides _LayoutWidget._setupChild()
 
 			// For aria support, wrap child widget in a <div role="tabpanel">
 			var childNode = child.domNode,
 				wrapper = domConstruct.place(
-					"<div role='tabpanel' class='" + this.baseClass + "ChildWrapper dijitHidden'>",
+					"<div role='tabpanel' class='" + this.baseClass + "ChildWrapper duiHidden'>",
 					child.domNode,
 					"replace"),
 				label = child["aria-label"] || child.title || child.label;
@@ -142,7 +142,7 @@ define([
 			child.domNode.title = "";
 		},
 
-		addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
+		addChild: function(/*dui/_WidgetBase*/ child, /*Integer?*/ insertIndex){
 			// Overrides _Container.addChild() to do layout and publish events
 
 			this.inherited(arguments);
@@ -166,7 +166,7 @@ define([
 			}
 		},
 
-		removeChild: function(/*dijit/_WidgetBase*/ page){
+		removeChild: function(/*dui/_WidgetBase*/ page){
 			// Overrides _Container.removeChild() to do layout and publish events
 
 			var idx = array.indexOf(this.getChildren(), page);
@@ -209,7 +209,7 @@ define([
 			}
 		},
 
-		selectChild: function(/*dijit/_WidgetBase|String*/ page, /*Boolean*/ animate){
+		selectChild: function(/*dui/_WidgetBase|String*/ page, /*Boolean*/ animate){
 			// summary:
 			//		Show the given widget (which must be one of my children)
 			// page:
@@ -238,9 +238,9 @@ define([
 			// summary:
 			//		Hide the old widget and display the new widget.
 			//		Subclasses should override this.
-			// newWidget: dijit/_WidgetBase
+			// newWidget: dui/_WidgetBase
 			//		The newly selected widget.
-			// oldWidget: dijit/_WidgetBase
+			// oldWidget: dui/_WidgetBase
 			//		The previously selected widget.
 			// animate: Boolean
 			//		Used by AccordionContainer to turn on/off slide effect.
@@ -276,7 +276,7 @@ define([
 			var children = this.getChildren();
 			var index = array.indexOf(children, this.selectedChildWidget);
 			index += forward ? 1 : children.length - 1;
-			return children[ index % children.length ]; // dijit/_WidgetBase
+			return children[ index % children.length ]; // dui/_WidgetBase
 		},
 
 		forward: function(){
@@ -307,7 +307,7 @@ define([
 			}
 		},
 
-		_showChild: function(/*dijit/_WidgetBase*/ page){
+		_showChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Show the specified child by changing it's CSS, and call _onShow()/onShow() so
 			//		it can do any updates it needs regarding loading href's etc.
@@ -319,26 +319,26 @@ define([
 			page._set("selected", true);
 
 			if(page._wrapper){	// false if not started yet
-				domClass.replace(page._wrapper, "dijitVisible", "dijitHidden");
+				domClass.replace(page._wrapper, "duiVisible", "duiHidden");
 			}
 
 			return (page._onShow && page._onShow()) || true;
 		},
 
-		_hideChild: function(/*dijit/_WidgetBase*/ page){
+		_hideChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Hide the specified child by changing it's CSS, and call _onHide() so
 			//		it's notified.
 			page._set("selected", false);
 
 			if(page._wrapper){	// false if not started yet
-				domClass.replace(page._wrapper, "dijitHidden", "dijitVisible");
+				domClass.replace(page._wrapper, "duiHidden", "duiVisible");
 			}
 
 			page.onHide && page.onHide();
 		},
 
-		closeChild: function(/*dijit/_WidgetBase*/ page){
+		closeChild: function(/*dui/_WidgetBase*/ page){
 			// summary:
 			//		Callback when user clicks the [X] to remove a page.
 			//		If onClose() returns true then remove and destroy the child.
@@ -371,7 +371,7 @@ define([
 
 		// selected: Boolean
 		//		Specifies that this widget should be the initially displayed pane.
-		//		Note: to change the selected child use `dijit/layout/StackContainer.selectChild`
+		//		Note: to change the selected child use `dui/layout/StackContainer.selectChild`
 		selected: false,
 
 		// disabled: Boolean
@@ -385,7 +385,7 @@ define([
 
 		// iconClass: String
 		//		CSS Class specifying icon to use in label associated with this pane.
-		iconClass: "dijitNoIcon",
+		iconClass: "duiNoIcon",
 
 		// showTitle: Boolean
 		//		When true, display title of this widget as tab label etc., rather than just using

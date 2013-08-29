@@ -11,9 +11,9 @@ define([
 ], function(declare, domClass, domGeometry, domStyle, StackContainer, layoutUtils, registry, _TemplatedMixin, template){
 
 	// module:
-	//		dijit/layout/_TabContainerBase
+	//		dui/layout/_TabContainerBase
 
-	return declare("dijit.layout._TabContainerBase", [StackContainer, _TemplatedMixin], {
+	return declare("dui.layout._TabContainerBase", [StackContainer, _TemplatedMixin], {
 		// summary:
 		//		Abstract base class for TabContainer.   Must define _makeController() to instantiate
 		//		and return the widget that displays the tab labels
@@ -27,7 +27,7 @@ define([
 		//		"top", "bottom", "left-h", "right-h"
 		tabPosition: "top",
 
-		baseClass: "dijitTabContainer",
+		baseClass: "duiTabContainer",
 
 		// tabStrip: [const] Boolean
 		//		Defines whether the tablist gets an extra class for layouting, putting a border/shading
@@ -43,7 +43,7 @@ define([
 		templateString: template,
 
 		postMixInProperties: function(){
-			// set class name according to tab position, ex: dijitTabContainerTop
+			// set class name according to tab position, ex: duiTabContainerTop
 			this.baseClass += this.tabPosition.charAt(0).toUpperCase() + this.tabPosition.substr(1).replace(/-.*/, "");
 
 			this.srcNodeRef && domStyle.set(this.srcNodeRef, "visibility", "hidden");
@@ -58,25 +58,25 @@ define([
 			this.tablist = this._makeController(this.tablistNode);
 
 			if(!this.doLayout){
-				domClass.add(this.domNode, "dijitTabContainerNoLayout");
+				domClass.add(this.domNode, "duiTabContainerNoLayout");
 			}
 
 			if(this.nested){
 				/* workaround IE's lack of support for "a > b" selectors by
 				 * tagging each node in the template.
 				 */
-				domClass.add(this.domNode, "dijitTabContainerNested");
-				domClass.add(this.tablist.containerNode, "dijitTabContainerTabListNested");
-				domClass.add(this.tablistSpacer, "dijitTabContainerSpacerNested");
-				domClass.add(this.containerNode, "dijitTabPaneWrapperNested");
+				domClass.add(this.domNode, "duiTabContainerNested");
+				domClass.add(this.tablist.containerNode, "duiTabContainerTabListNested");
+				domClass.add(this.tablistSpacer, "duiTabContainerSpacerNested");
+				domClass.add(this.containerNode, "duiTabPaneWrapperNested");
 			}else{
 				domClass.add(this.domNode, "tabStrip-" + (this.tabStrip ? "enabled" : "disabled"));
 			}
 		},
 
-		_setupChild: function(/*dijit/_WidgetBase*/ tab){
+		_setupChild: function(/*dui/_WidgetBase*/ tab){
 			// Overrides StackContainer._setupChild().
-			domClass.add(tab.domNode, "dijitTabPane");
+			domClass.add(tab.domNode, "duiTabPane");
 			this.inherited(arguments);
 		},
 
@@ -146,7 +146,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		selectChild: function(/*dijit/_WidgetBase|String*/ page, /*Boolean*/ animate){
+		selectChild: function(/*dui/_WidgetBase|String*/ page, /*Boolean*/ animate){
 			// Override _StackContainer.selectChild() so the page's focus isn't left in a strange state.
 
 			if(this._focused){

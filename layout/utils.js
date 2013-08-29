@@ -7,7 +7,7 @@ define([
 ], function(array, domClass, domGeometry, domStyle, lang){
 
 	// module:
-	//		dijit/layout/utils
+	//		dui/layout/utils
 
 	function capitalize(word){
 		return word.substring(0,1).toUpperCase() + word.substring(1);
@@ -78,7 +78,7 @@ define([
 			// copy dim because we are going to modify it
 			dim = lang.mixin({}, dim);
 
-			domClass.add(container, "dijitLayoutContainer");
+			domClass.add(container, "duiLayoutContainer");
 
 			// set positions/sizes
 			array.forEach(children, function(child){
@@ -94,7 +94,7 @@ define([
 				elmStyle.top = dim.t+"px";
 				elmStyle.position = "absolute";
 
-				domClass.add(elm, "dijitAlign" + capitalize(pos));
+				domClass.add(elm, "duiAlign" + capitalize(pos));
 
 				// Size adjustments to make to this child widget
 				var sizeSetting = {};

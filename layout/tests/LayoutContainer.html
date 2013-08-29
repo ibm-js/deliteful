@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-	<title>dijit/layout/LayoutContainer Test</title>
+	<title>dui/layout/LayoutContainer Test</title>
 
 	<script src="../boilerplate.js"></script>
 
@@ -13,10 +13,10 @@
 			"dojo/json",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/layout/ContentPane",
-			"dijit/layout/LayoutContainer",
-			"dijit/tests/helpers",
-			"dijit/form/FilteringSelect",
+			"dui/layout/ContentPane",
+			"dui/layout/LayoutContainer",
+			"dui/tests/helpers",
+			"dui/form/FilteringSelect",
 			"dojo/domReady!"
 		], function(doh, array,domGeom, json, parser,
 					registry, ContentPane, LayoutContainer, helpers){
@@ -137,22 +137,22 @@
 	<p>Basic layout. Tabindex=&quot;0&quot; added to each pane to test for tab order matching source code order.  Tab order
 	should be:  left, right, top, middle/main, bottom</p>
 
-	<div id="basic" data-dojo-type="dijit/layout/LayoutContainer" data-dojo-props="design: 'sidebar'"
+	<div id="basic" data-dojo-type="dui/layout/LayoutContainer" data-dojo-props="design: 'sidebar'"
 		style="border: 2px solid black; width: 90%; height: 300px; padding: 10px;"
 	>
-		<div data-dojo-type="dijit/layout/ContentPane" id="leftcp_layout1" region="left" style="background-color: #acb386; width: 100px;" tabindex="0">
+		<div data-dojo-type="dui/layout/ContentPane" id="leftcp_layout1" region="left" style="background-color: #acb386; width: 100px;" tabindex="0">
 			left
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="rightcp_layout1" region="right" style="background-color: #acb386;"  tabindex="0">
+		<div data-dojo-type="dui/layout/ContentPane" id="rightcp_layout1" region="right" style="background-color: #acb386;"  tabindex="0">
 			right
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="topcp_layout1" region="top" style="background-color: #b39b86; "  tabindex="0">
+		<div data-dojo-type="dui/layout/ContentPane" id="topcp_layout1" region="top" style="background-color: #b39b86; "  tabindex="0">
 			top bar
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="centercp_layout1" region="center" style="background-color: #f5ffbf; padding: 10px;"  tabindex="0">
+		<div data-dojo-type="dui/layout/ContentPane" id="centercp_layout1" region="center" style="background-color: #f5ffbf; padding: 10px;"  tabindex="0">
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 			(to check we're copying children around properly).<br />
-			<select data-dojo-type="dijit/form/FilteringSelect" aria-label="select">
+			<select data-dojo-type="dui/form/FilteringSelect" aria-label="select">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
@@ -160,7 +160,7 @@
 			Here's some text that comes AFTER the combo box.
 		</div>
 
-		<div data-dojo-type="dijit/layout/ContentPane" id="bottomcp_layout1" region="bottom" style="background-color: #b39b86;"  tabindex="0">
+		<div data-dojo-type="dui/layout/ContentPane" id="bottomcp_layout1" region="bottom" style="background-color: #b39b86;"  tabindex="0">
 			bottom bar
 		</div>
 
@@ -169,39 +169,39 @@
 	<p>Advanced layout. Tabindex=&quot;0&quot; added to each pane to test for tab order matching source code order.  Tab order
 	should be:  left, top, inner left, inner middle, inner right, bottom. This is not an ideal tab order. See below to use nested
 	layout containers to achieve a tab order which matches presentation and source code order.</p>
-	<div id="advanced" data-dojo-type="dijit/layout/LayoutContainer"
+	<div id="advanced" data-dojo-type="dui/layout/LayoutContainer"
 		style="border: 2px solid black; width: 90%; height: 300px; padding: 10px;"
 	>
-		<div data-dojo-type="dijit/layout/ContentPane" id="leftcp_layout2" data-dojo-props="region:'left',layoutPriority:1"
+		<div data-dojo-type="dui/layout/ContentPane" id="leftcp_layout2" data-dojo-props="region:'left',layoutPriority:1"
 			 style="background-color: #acb386; width: 100px; margin: 5px;" tabindex="0">
 			left
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="topcp_layout2" data-dojo-props="region:'top',layoutPriority:2"
+		<div data-dojo-type="dui/layout/ContentPane" id="topcp_layout2" data-dojo-props="region:'top',layoutPriority:2"
 			 style="background-color: #b39b86;  margin: 5px;" tabindex="0">
 			top bar
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="centerLeftcp_layout2" data-dojo-props="region:'left',layoutPriority:3"
+		<div data-dojo-type="dui/layout/ContentPane" id="centerLeftcp_layout2" data-dojo-props="region:'left',layoutPriority:3"
 			 style="background-color: #eeeeee; width: 100px; margin: 5px;" tabindex="0">
 			inner left
 		</div>
 
-		<div data-dojo-type="dijit/layout/ContentPane" id="centercp_layout2" data-dojo-props="region:'center'"
+		<div data-dojo-type="dui/layout/ContentPane" id="centercp_layout2" data-dojo-props="region:'center'"
 			 style="background-color: #f5ffbf; padding: 10px; margin: 5px;" tabindex="0">
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 
 			(to check we're copying children around properly).<br />
-			<select data-dojo-type="dijit/form/FilteringSelect" aria-label="select">
+			<select data-dojo-type="dui/form/FilteringSelect" aria-label="select">
 				<option value="1">foo</option>
 				<option value="2">bar</option>
 				<option value="3">baz</option>
 			</select>
 			Here's some text that comes AFTER the combo box.
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="centerRightcp_layout2" data-dojo-props="region:'right',layoutPriority:3"
+		<div data-dojo-type="dui/layout/ContentPane" id="centerRightcp_layout2" data-dojo-props="region:'right',layoutPriority:3"
 			 style="background-color: #eeeeee; width: 100px; margin: 5px;" tabindex="0">
 			inner right
 		</div>
-		<div data-dojo-type="dijit/layout/ContentPane" id="bottomcp_layout2" data-dojo-props="region:'bottom',layoutPriority:2"
+		<div data-dojo-type="dui/layout/ContentPane" id="bottomcp_layout2" data-dojo-props="region:'bottom',layoutPriority:2"
 			 style="background-color: #b39b86; margin: 5px;" tabindex="0">
 
 			bottom bar

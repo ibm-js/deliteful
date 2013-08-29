@@ -10,9 +10,9 @@
 		require([
 			"doh/runner",
 			"dojo/_base/array", "dojo/data/ItemFileReadStore", "dojo/dom", "dojo/dom-geometry", "dojo/parser", "dojo/query",
-			"dui/registry", "dijit/layout/AccordionContainer", "dijit/layout/ContentPane", "dijit/Tree",
-			"dijit/tree/ForestStoreModel", "dijit/tests/helpers",
-			"dijit/form/Button", "dojo/domReady!"
+			"dui/registry", "dui/layout/AccordionContainer", "dui/layout/ContentPane", "dui/Tree",
+			"dui/tree/ForestStoreModel", "dui/tests/helpers",
+			"dui/form/Button", "dojo/domReady!"
 		], function(doh, array, ItemFileReadStore, dom, domGeom, parser, query,
 					registry, AccordionContainer, ContentPane, Tree, ForestStoreModel, helpers){
 
@@ -47,7 +47,7 @@
 								accordion.addChild(content);
 							});
 							accordion.startup();
-							var titles = query(".dijitAccordionText", accordion.domNode);
+							var titles = query(".duiAccordionText", accordion.domNode);
 							t.is(3, titles.length, "number of titles");
 							t.is("pane 3", titles[2].innerHTML);
 
@@ -59,14 +59,14 @@
 						name: "initially open pane",
 						runTest: function(t){
 							// Pane 2 is initially open
-							var openPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var openPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display != "none";
 							});
 							t.is(1, openPanes.length, "exactly one open pane");
 							t.is("pane 2", registry.byNode(openPanes[0]).title, "pane 2 is initially open");
 
 							// And others are closed
-							var closedPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var closedPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display == "none";
 							});
 							t.is(2, closedPanes.length, "n-1 closed panes");
@@ -78,7 +78,7 @@
 							var pane4 = new ContentPane({title: "pane 4", content: "this is pane 4"});
 							accordion.addChild(pane4);
 
-							var titles = query(".dijitAccordionText", accordion.domNode);
+							var titles = query(".duiAccordionText", accordion.domNode);
 							t.is(4, titles.length, "number of titles");
 							t.is("pane 4", titles[3].innerHTML);
 
@@ -93,7 +93,7 @@
 							pane1half = new ContentPane({id: "pane1half", title: "pane 1.5", content: "this is pane 1.5"});
 							accordion.addChild(pane1half, 1);
 
-							var titles = query(".dijitAccordionText", accordion.domNode);
+							var titles = query(".duiAccordionText", accordion.domNode);
 							t.is(5, titles.length, "number of titles");
 							t.is("pane 1.5", titles[1].innerHTML);
 
@@ -107,7 +107,7 @@
 						runTest: function(t){
 							accordion.removeChild(registry.byId('pane1half'));
 
-							var titles = query(".dijitAccordionText", accordion.domNode);
+							var titles = query(".duiAccordionText", accordion.domNode);
 							t.is(4, titles.length, "number of titles");
 							t.is("pane 2", titles[1].innerHTML);
 
@@ -123,14 +123,14 @@
 						name: "initially open pane (checking again)",
 						runTest: function(t){
 							// Pane 2 is initially open
-							var openPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var openPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display != "none";
 							});
 							t.is(1, openPanes.length, "exactly one open pane");
 							t.is("pane 2", registry.byNode(openPanes[0]).title, "pane 2 is initially open");
 
 							// And others are closed
-							var closedPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var closedPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display == "none";
 							});
 							t.is(3, closedPanes.length, "n-1 closed panes");
@@ -145,14 +145,14 @@
 							accordion.selectChild(registry.byId('pane 3'));
 
 							// Pane 3 is now open
-							var openPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var openPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display != "none";
 							});
 							t.is(1, openPanes.length, "exactly one open pane");
 							t.is("pane 3", registry.byNode(openPanes[0]).title, "pane 3 is now open");
 
 							// And others are closed
-							var closedPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+							var closedPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 								return node.parentNode.style.display == "none";
 							});
 							t.is(3, closedPanes.length, "n-1 closed panes");
@@ -171,14 +171,14 @@
 							var d = new doh.Deferred();
 							setTimeout(d.getTestCallback(function(){
 								// Pane 2 is now open
-								var openPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+								var openPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 									return node.parentNode.style.display != "none";
 								});
 								t.is(1, openPanes.length, "exactly one open pane");
 								t.is("pane 2", registry.byNode(openPanes[0]).title, "pane 3 is now open");
 
 								// And others are closed
-								var closedPanes = query(".dijitAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
+								var closedPanes = query(".duiAccordionChildWrapper > *", accordion.containerNode).filter(function(node){
 									return node.parentNode.style.display == "none";
 								});
 								t.is(3, closedPanes.length, "n-1 closed panes");
@@ -208,13 +208,13 @@
 
 				// Change title of a pane, should change corresponding button label			
 				registry.byId("b").set("title", "b changed");
-				var titles = query(".dijitAccordionText", accordion.domNode);
+				var titles = query(".duiAccordionText", accordion.domNode);
 				t.is(3, titles.length, "number of titles");
 				t.is("b changed", titles[1].innerHTML);
 
 				// Change tooltip of a pane, should change corresponding button tooltip			
 				registry.byId("c").set("tooltip", "c tooltip changed");
-				titles = query(".dijitAccordionText", accordion.domNode);
+				titles = query(".duiAccordionText", accordion.domNode);
 				t.is(3, titles.length, "number of titles");
 				t.is("c tooltip changed", titles[2].title);
 			});
@@ -388,10 +388,10 @@
 						}
 					});
 					accPane.placeAt(document.body);
-					html='<div data-dojo-type="dijit/layout/AccordionContainer" id="Accordion" style="height: 300px;">' +
-						 	'<div data-dojo-type="dijit/layout/ContentPane" title="first" id="first">' +
-								'<div data-dojo-type=dijit/form/Button id=myButton>hello world</div></div>' +
-						 	'<div data-dojo-type="dijit/layout/ContentPane" title="second" id="second">second</div>' +
+					html='<div data-dojo-type="dui/layout/AccordionContainer" id="Accordion" style="height: 300px;">' +
+						 	'<div data-dojo-type="dui/layout/ContentPane" title="first" id="first">' +
+								'<div data-dojo-type=dui/form/Button id=myButton>hello world</div></div>' +
+						 	'<div data-dojo-type="dui/layout/ContentPane" title="second" id="second">second</div>' +
 							'</div>';
 				},
 
@@ -425,7 +425,7 @@
 
 						accordion = registry.byId("markupAccordion");
 
-						var titles = query(".dijitAccordionText", accordion.domNode);
+						var titles = query(".duiAccordionText", accordion.domNode);
 						t.is(3, titles.length, "number of titles");
 						t.is("Other Lazy Load Pane", titles[2].innerHTML);
 
@@ -439,7 +439,7 @@
 						pane1half = new ContentPane({id: "otherPane1half", title: "pane 1.5", content: "this is pane 1.5"});
 						accordion.addChild(pane1half, 1);
 
-						var titles = query(".dijitAccordionText", accordion.domNode);
+						var titles = query(".duiAccordionText", accordion.domNode);
 						t.is(4, titles.length, "number of titles");
 						t.is("pane 1.5", titles[1].innerHTML);
 
@@ -461,24 +461,24 @@
 	<h2 class="testTitle">Markup Accordion</h2>
 
 	<div data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-id="continentStore" data="data"></div>
-	<div data-dojo-type="dijit/tree/ForestStoreModel" data-dojo-id="continentModel"
+	<div data-dojo-type="dui/tree/ForestStoreModel" data-dojo-id="continentModel"
 		store="continentStore" query="{type:'continent'}"
 		rootId="continentRoot" rootLabel="Continents" childrenAttrs="children">
 	</div>
 
 
-	<div id="markupAccordion" data-dojo-type="dijit/layout/AccordionContainer"
+	<div id="markupAccordion" data-dojo-type="dui/layout/AccordionContainer"
 		 data-dojo-props='style:"width: 400px; height: 300px; overflow: hidden"'>
-		<div id="pane1" data-dojo-type="dijit/Tree" model="continentModel" data-dojo-props='selected:true,
-			title:"Tree Pane", iconClass:"dijitEditorIcon dijitEditorIconSave", tooltip:"tooltip for simple pane"'>
+		<div id="pane1" data-dojo-type="dui/Tree" model="continentModel" data-dojo-props='selected:true,
+			title:"Tree Pane", iconClass:"duiEditorIcon duiEditorIconSave", tooltip:"tooltip for simple pane"'>
 		</div>
 
 		<!-- test lazy loading.   margin style for testing size calculations. -->
-		<div id="lazyLoadPane1" data-dojo-type="dijit/layout/ContentPane"
+		<div id="lazyLoadPane1" data-dojo-type="dui/layout/ContentPane"
 			 data-dojo-props='title:"Lazy Load Pane", href:"doc1.html"'></div>
 
 		<!-- test lazy loading.   margin style for testing size calculations. -->
-		<div id="lazyLoadPane2" data-dojo-type="dijit/layout/ContentPane"
+		<div id="lazyLoadPane2" data-dojo-type="dui/layout/ContentPane"
 			 data-dojo-props='title:"Other Lazy Load Pane", href:"doc1.html"'></div>
 
 	</div>

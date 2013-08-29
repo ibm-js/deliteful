@@ -43,7 +43,7 @@
 					runTest: function(t){
 						var d = new doh.Deferred();
 
-						// This will test auto-loading but only if dijit/form/TextBox isn't in the cache
+						// This will test auto-loading but only if dui/form/TextBox isn't in the cache
 						parser.parse(dom.byId("simple")).then(d.getTestCallback(function(){
 							t.is(typeof registry.byId("tb1"), "object", "objected created");
 						}));
@@ -58,7 +58,7 @@
 					runTest: function(t){
 						var d = new doh.Deferred();
 
-						// This will test auto-loading but only if dijit/form/Button isn't in the cache
+						// This will test auto-loading but only if dui/form/Button isn't in the cache
 						registry.byId("parsedPane1").set("href", "doc3.html").then(d.getTestCallback(function(){
 							t.is(typeof registry.byId("button1"), "object", "object created");
 						}));
@@ -99,14 +99,14 @@
 	<h2>ContentPane Loading Content that Requires Auto-Require</h2>
 
 	<div id="simple">
-		<div data-dojo-type="dijit/layout/ContentPane" id="parsedPane1">
-			<input type="text" aria-label="tb1" id="tb1" data-dojo-type="dijit/form/TextBox" data-dojo-props="value: 'testValue'" />
+		<div data-dojo-type="dui/layout/ContentPane" id="parsedPane1">
+			<input type="text" aria-label="tb1" id="tb1" data-dojo-type="dui/form/TextBox" data-dojo-props="value: 'testValue'" />
 		</div>
 	</div>
 
 	<div id="nested">
-		<div data-dojo-type="dijit/_WidgetBase" data-dojo-id="formWidget">
-			<div data-dojo-type="dijit/layout/ContentPane" id="innerPane">
+		<div data-dojo-type="dui/_WidgetBase" data-dojo-id="formWidget">
+			<div data-dojo-type="dui/layout/ContentPane" id="innerPane">
 				<!-- for simulating an asynchronous nested parse due to waiting for module to load -->
 				<span data-dojo-id="asyncWidget" data-dojo-type="AsyncWidget">hi</span>
 			</div>

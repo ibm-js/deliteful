@@ -5,7 +5,7 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 		// summary:
 		//		Mixin for classes (usually widgets) that watch invalidated properties and delay the rendering
 		//		after these properties modifications to the next execution frame. The receiving class must extend
-		//		dojo/Stateful and dojo/Evented or dijit/_WidgetBase.
+		//		dojo/Stateful and dojo/Evented or dui/_WidgetBase.
 		
 		// _invalidatingProperties: String[]
 		//		The list of properties to watch for to trigger invalidation. This list must be initialized in the

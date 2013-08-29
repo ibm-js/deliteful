@@ -7,16 +7,16 @@ define([
 	"dojo/_base/lang", // lang.hitch lang.trim
 	"./StackController",
 	"../registry",
-	"../dijit/Menu",
-	"../dijit/MenuItem",
+	"../dui/Menu",
+	"../dui/MenuItem",
 	"dojo/text!./templates/_TabButton.html",
 	"dojo/i18n!../nls/common"
 ], function(declare, dom, domAttr, domClass, has, lang, StackController, registry, Menu, MenuItem, template, nlsCommon){
 
 	// module:
-	//		dijit/layout/TabController
+	//		dui/layout/TabController
 
-	var TabButton = declare("dijit.layout._TabButton" + (has("dojo-bidi") ? "_NoBidi" : ""), StackController.StackButton, {
+	var TabButton = declare("dui.layout._TabButton" + (has("dojo-bidi") ? "_NoBidi" : ""), StackController.StackButton, {
 		// summary:
 		//		A tab (the thing you click to select a pane).
 		// description:
@@ -27,11 +27,11 @@ define([
 
 		// baseClass: String
 		//		The CSS class applied to the domNode.
-		baseClass: "dijitTab",
+		baseClass: "duiTab",
 
-		// Apply dijitTabCloseButtonHover when close button is hovered
+		// Apply duiTabCloseButtonHover when close button is hovered
 		cssStateNodes: {
-			closeNode: "dijitTabCloseButton"
+			closeNode: "duiTabCloseButton"
 		},
 
 		templateString: template,
@@ -64,7 +64,7 @@ define([
 			// summary:
 			//		Hide/show close button
 			this._set("closeButton", disp);
-			domClass.toggle(this.domNode, "dijitClosable", disp);
+			domClass.toggle(this.domNode, "duiClosable", disp);
 			this.closeNode.style.display = disp ? "" : "none";
 			if(disp){
 				if(this.closeNode){
@@ -104,7 +104,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		TabButton = declare("dijit.layout._TabButton", TabButton, {
+		TabButton = declare("dui.layout._TabButton", TabButton, {
 			_setLabelAttr: function(/*String*/ content){
 				this.inherited(arguments);
 				this.applyTextDir(this.iconNode, this.iconNode.alt);
@@ -112,10 +112,10 @@ define([
 		});
 	}
 
-	var TabController = declare("dijit.layout.TabController", StackController, {
+	var TabController = declare("dui.layout.TabController", StackController, {
 		// summary:
 		//		Set of tabs (the things with titles and a close button, that you click to show a tab panel).
-		//		Used internally by `dijit/layout/TabContainer`.
+		//		Used internally by `dui/layout/TabContainer`.
 		// description:
 		//		Lets the user select the currently shown pane in a TabContainer or StackContainer.
 		//		TabController also monitors the TabContainer, and whenever a pane is
@@ -123,7 +123,7 @@ define([
 		// tags:
 		//		private
 
-		baseClass: "dijitTabController",
+		baseClass: "duiTabController",
 
 		templateString: "<div role='tablist' data-dojo-attach-event='onkeydown:onkeydown'></div>",
 
@@ -138,7 +138,7 @@ define([
 
 		// buttonWidgetCloseClass: String
 		//		Class of [x] close icon, used by event delegation code to tell when close button was clicked
-		buttonWidgetCloseClass: "dijitTabCloseButton",
+		buttonWidgetCloseClass: "duiTabCloseButton",
 
 		postCreate: function(){
 			this.inherited(arguments);
@@ -152,7 +152,7 @@ define([
 				textDir: this.textDir,
 				targetNodeIds: [this.domNode],
 				selector: function(node){
-					return domClass.contains(node, "dijitClosable") && !domClass.contains(node, "dijitTabDisabled");
+					return domClass.contains(node, "duiClosable") && !domClass.contains(node, "duiTabDisabled");
 				}
 			});
 			this.own(closeMenu);

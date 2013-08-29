@@ -13,11 +13,11 @@
 				"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/_FocusMixin",
 				"dojo/domReady!",
 				"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner","dui/form/ComboButton",
-				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
+				"dui/dui/Menu", "dui/dui/MenuItem", "dui/dui/PopupMenuItem"
 			], function(doh, array, declare, dom, on, parser, query, focus, registry, _WidgetBase, _TemplatedMixin, _FocusMixin){
 
 				FakeEditor = declare([_WidgetBase, _TemplatedMixin, _FocusMixin], {
-					// dijit/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
+					// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
 					templateString: "<iframe data-dojo-attach-point='containerNode' " +
 							"src='javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"'/>",
 
@@ -110,7 +110,7 @@
 								doh.is(dom.byId("first"), focus.curNode);
 								doh.is("first", curNodeWatchLog.join(", "), "curNodeWatchLog");
 
-								// And that the dijit.form.Form widget is marked as
+								// And that the dui.form.Form widget is marked as
 								// being "in focus"
 								doh.t(focusEvents["form"], "form focused");
 								
@@ -138,7 +138,7 @@
 								doh.is(dom.byId("second"), focus.curNode);
 								doh.is("second", curNodeWatchLog.join(", "), "curNodeWatchLog");
 
-								// Since the dijit.form.Form widget didn't leave the focus chain it
+								// Since the dui.form.Form widget didn't leave the focus chain it
 								// shouldn't have any more events (since the resetEvents() call in setUp() above)
 								doh.f("form" in focusEvents, "form no new focus event");
 							}), 500);
@@ -259,7 +259,7 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							var upArrow = query(".dijitSpinner .dijitUpArrowButton")[0];
+							var upArrow = query(".duiSpinner .duiUpArrowButton")[0];
 							doh.t(upArrow, "found the up arrow");
 
 							click(upArrow);
@@ -361,7 +361,7 @@
 
 /*
 					// Commented out because
-					// in order to allow dijit.popup's getTopPopup() to work,a sub menu's popupParent
+					// in order to allow dui.popup's getTopPopup() to work,a sub menu's popupParent
 					// points to the parent Menu, bypassing the parent MenuItem... thus the
 					// MenuItem is not in the chain of active widgets
 					{
@@ -435,14 +435,14 @@
 				<label>a Combobutton widget:</label>
 				<div id=button data-dojo-type="dui/form/ComboButton" data-dojo-props='tabIndex:"0"'>
 					<span>push me</span>
-					<div id=menu data-dojo-type="dui/dijit/Menu">
-						<div id=mi1 data-dojo-type="dui/dijit/MenuItem">menu item 1</div>
-						<div id=mi2 data-dojo-type="dui/dijit/MenuItem">menu item 2</div>
-						<div id=popupMenuItem data-dojo-type="dui/dijit/PopupMenuItem">
+					<div id=menu data-dojo-type="dui/dui/Menu">
+						<div id=mi1 data-dojo-type="dui/dui/MenuItem">menu item 1</div>
+						<div id=mi2 data-dojo-type="dui/dui/MenuItem">menu item 2</div>
+						<div id=popupMenuItem data-dojo-type="dui/dui/PopupMenuItem">
 							<span>submenu</span>
-							<div id=submenu data-dojo-type="dui/dijit/Menu">
-								<div id=smi1 data-dojo-type="dui/dijit/MenuItem">submenu item 1</div>
-								<div id=smi2 data-dojo-type="dui/dijit/MenuItem">submenu item 2</div>
+							<div id=submenu data-dojo-type="dui/dui/Menu">
+								<div id=smi1 data-dojo-type="dui/dui/MenuItem">submenu item 1</div>
+								<div id=smi2 data-dojo-type="dui/dui/MenuItem">submenu item 2</div>
 							</div>
 						</div>
 					</div>
