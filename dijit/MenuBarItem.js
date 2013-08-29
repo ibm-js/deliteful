@@ -19,7 +19,7 @@ define([
 		//		Item in a MenuBar that's clickable, and doesn't spawn a submenu when pressed (or hovered)
 
 	});
-	MenuBarItem._MenuBarItemMixin = _MenuBarItemMixin;	// dojox.mobile is accessing this
+	MenuBarItem._MenuBarItemMixin = _MenuBarItemMixin;	// dui.mobile is accessing this
 
 
 	return MenuBarItem;

@@ -97,7 +97,7 @@
 				tmpNode = document.createElement('div'),
 				startTimer;
 			try{
-				dojo.require(/dojox\.mobile\.[A-Z]/.test(aclass) ? "dojox.mobile._base" : aclass);
+				dojo.require(/dui\.mobile\.[A-Z]/.test(aclass) ? "dui.mobile._base" : aclass);
 				dojo.ready(function(){
 					var i;
 					switch(theMethod){
@@ -179,9 +179,9 @@
 			<select data-dojo-type="dijit/form/ComboBox"
 					data-dojo-props='name:"dijit", id:"classNode", value:"dijit.form.Button", style:{width:"200px"}'>
 				<option>dijit.form.Button</option>
-				<option>dojox.mobile.Button</option>
+				<option>dui.mobile.Button</option>
 				<option>dijit.form.TextBox</option>
-				<option>dojox.mobile.app.TextBox</option>
+				<option>dui.mobile.app.TextBox</option>
 			</select>
 		<br><br>
 		Count: <input type="text" name="count" id="countNode" value="100" size="4" ><br><br>
