@@ -7,11 +7,11 @@ define([
 ], function(array, aspect, declare, lang, when){
 
 	// module:
-	//		dijit/tree/ObjectStoreModel
+	//		dui/tree/ObjectStoreModel
 
-	return declare("dijit.tree.ObjectStoreModel", null, {
+	return declare("dui.tree.ObjectStoreModel", null, {
 		// summary:
-		//		Implements dijit/tree/model connecting dijit/Tree to a dojo/store/api/Store that implements
+		//		Implements dui/tree/model connecting dui/Tree to a dojo/store/api/Store that implements
 		//		getChildren().
 		//
 		//		If getChildren() returns an array with an observe() method, then it will be leveraged to reflect
@@ -83,7 +83,7 @@ define([
 					lang.hitch(this, function(items){
 						//console.log("queried root: ", res);
 						if(items.length != 1){
-							throw new Error("dijit.tree.ObjectStoreModel: root query returned " + items.length +
+							throw new Error("dui.tree.ObjectStoreModel: root query returned " + items.length +
 								" items, but must return exactly one");
 						}
 						this.root = items[0];
@@ -178,7 +178,7 @@ define([
 		// =======================================================================
 		// Write interface, for DnD
 
-		newItem: function(/* dijit/tree/dndSource.__Item */ args, /*Item*/ parent, /*int?*/ insertIndex, /*Item*/ before){
+		newItem: function(/* dui/tree/dndSource.__Item */ args, /*Item*/ parent, /*int?*/ insertIndex, /*Item*/ before){
 			// summary:
 			//		Creates a new item.   See `dojo/data/api/Write` for details on args.
 			//		Used in drag & drop when item from external source dropped onto tree.

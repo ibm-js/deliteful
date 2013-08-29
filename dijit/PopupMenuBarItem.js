@@ -5,11 +5,11 @@ define([
 ], function(declare, PopupMenuItem, MenuBarItem){
 
 	// module:
-	//		dijit/PopupMenuBarItem
+	//		dui/PopupMenuBarItem
 
 	var _MenuBarItemMixin = MenuBarItem._MenuBarItemMixin;
 
-	return declare("dijit.PopupMenuBarItem", [PopupMenuItem, _MenuBarItemMixin], {
+	return declare("dui.PopupMenuBarItem", [PopupMenuItem, _MenuBarItemMixin], {
 		// summary:
 		//		Item in a MenuBar like "File" or "Edit", that spawns a submenu when pressed (or hovered)
 	});

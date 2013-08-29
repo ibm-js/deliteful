@@ -19,18 +19,18 @@ define([
 			place, _WidgetBase, _TemplatedMixin, BackgroundIframe, template){
 
 	// module:
-	//		dijit/Tooltip
+	//		dui/Tooltip
 
 
 	// TODO: Tooltip should really share more positioning code with TooltipDialog, like:
 	//		- the orient() method
 	//		- the connector positioning code in show()
-	//		- the dijitTooltip[Dialog] class
+	//		- the duiTooltip[Dialog] class
 	//
 	// The problem is that Tooltip's implementation supplies it's own <iframe> and interacts directly
-	// with dijit/place, rather than going through dijit/popup like TooltipDialog and other popups (ex: Menu).
+	// with dui/place, rather than going through dui/popup like TooltipDialog and other popups (ex: Menu).
 
-	var MasterTooltip = declare("dijit._MasterTooltip", [_WidgetBase, _TemplatedMixin], {
+	var MasterTooltip = declare("dui._MasterTooltip", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Internal widget that holds the actual tooltip markup,
 		//		which occurs once per page.
@@ -61,7 +61,7 @@ define([
 			//		(To left if there's no space on the right, or if rtl == true)
 			// innerHTML: String
 			//		Contents of the tooltip
-			// aroundNode: DomNode|dijit/place.__Rectangle
+			// aroundNode: DomNode|dui/place.__Rectangle
 			//		Specifies that tooltip should be next to this node / area
 			// position: String[]?
 			//		List of positions to try to position tooltip (ex: ["right", "above"])
@@ -116,7 +116,7 @@ define([
 		orient: function(/*DomNode*/ node, /*String*/ aroundCorner, /*String*/ tooltipCorner, /*Object*/ spaceAvailable, /*Object*/ aroundNodeCoords){
 			// summary:
 			//		Private function to set CSS for tooltip node based on which position it's in.
-			//		This is called by the dijit popup code.   It will also reduce the tooltip's
+			//		This is called by the dui popup code.   It will also reduce the tooltip's
 			//		width to whatever width is available
 			// tags:
 			//		protected
@@ -126,18 +126,18 @@ define([
 			var heightAvailable = spaceAvailable.h,
 				widthAvailable = spaceAvailable.w;
 
-			node.className = "dijitTooltip " +
+			node.className = "duiTooltip " +
 				{
-					"MR-ML": "dijitTooltipRight",
-					"ML-MR": "dijitTooltipLeft",
-					"TM-BM": "dijitTooltipAbove",
-					"BM-TM": "dijitTooltipBelow",
-					"BL-TL": "dijitTooltipBelow dijitTooltipABLeft",
-					"TL-BL": "dijitTooltipAbove dijitTooltipABLeft",
-					"BR-TR": "dijitTooltipBelow dijitTooltipABRight",
-					"TR-BR": "dijitTooltipAbove dijitTooltipABRight",
-					"BR-BL": "dijitTooltipRight",
-					"BL-BR": "dijitTooltipLeft"
+					"MR-ML": "duiTooltipRight",
+					"ML-MR": "duiTooltipLeft",
+					"TM-BM": "duiTooltipAbove",
+					"BM-TM": "duiTooltipBelow",
+					"BL-TL": "duiTooltipBelow duiTooltipABLeft",
+					"TL-BL": "duiTooltipAbove duiTooltipABLeft",
+					"BR-TR": "duiTooltipBelow duiTooltipABRight",
+					"TR-BR": "duiTooltipAbove duiTooltipABRight",
+					"BR-BL": "duiTooltipRight",
+					"BL-BR": "duiTooltipLeft"
 				}[aroundCorner + "-" + tooltipCorner];
 
 			// reset width; it may have been set by orient() on a previous tooltip show()
@@ -261,10 +261,10 @@ define([
 		});
 	}
 
-	var Tooltip = declare("dijit.Tooltip", _WidgetBase, {
+	var Tooltip = declare("dui.Tooltip", _WidgetBase, {
 		// summary:
 		//		Pops up a tooltip (a help message) when you hover over a node.
-		//		Also provides static show() and hide() methods that can be used without instantiating a dijit/Tooltip.
+		//		Also provides static show() and hide() methods that can be used without instantiating a dui/Tooltip.
 
 		// label: String
 		//		HTML to display in the tooltip.
@@ -282,7 +282,7 @@ define([
 		connectId: "",
 
 		// position: String[]
-		//		See description of `dijit/Tooltip.defaultPosition` for details on position parameter.
+		//		See description of `dui/Tooltip.defaultPosition` for details on position parameter.
 		position: [],
 
 		// selector: String?
@@ -333,7 +333,7 @@ define([
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			domClass.add(this.domNode,"dijitTooltipData");
+			domClass.add(this.domNode,"duiTooltipData");
 		},
 
 		startup: function(){
@@ -448,8 +448,8 @@ define([
 	Tooltip.show = function(innerHTML, aroundNode, position, rtl, textDir){
 		// summary:
 		//		Static method to display tooltip w/specified contents in specified position.
-		//		See description of dijit/Tooltip.defaultPosition for details on position parameter.
-		//		If position is not specified then dijit/Tooltip.defaultPosition is used.
+		//		See description of dui/Tooltip.defaultPosition for details on position parameter.
+		//		If position is not specified then dui/Tooltip.defaultPosition is used.
 		// innerHTML: String
 		//		Contents of the tooltip
 		// aroundNode: place.__Rectangle
@@ -470,7 +470,7 @@ define([
 			});
 		}
 
-		if(!Tooltip._masterTT){ dijit._masterTT = Tooltip._masterTT = new MasterTooltip(); }
+		if(!Tooltip._masterTT){ dui._masterTT = Tooltip._masterTT = new MasterTooltip(); }
 		return Tooltip._masterTT.show(innerHTML, aroundNode, position, rtl, textDir);
 	};
 
@@ -487,7 +487,7 @@ define([
 		 // defaultPosition: String[]
 		 //		This variable controls the position of tooltips, if the position is not specified to
 		 //		the Tooltip widget or *TextBox widget itself.  It's an array of strings with the values
-		 //		possible for `dijit/place.around()`.   The recommended values are:
+		 //		possible for `dui/place.around()`.   The recommended values are:
 		 //
 		 //		- before-centered: centers tooltip to the left of the anchor node/widget, or to the right
 		 //		  in the case of RTL scripts like Hebrew and Arabic

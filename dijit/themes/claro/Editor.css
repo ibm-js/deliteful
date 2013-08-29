@@ -1,64 +1,64 @@
 /* Editor 
  * 
- * Styling Editor means styling the Editor inside iframe container (dijitEditorIFrameContainer)
+ * Styling Editor means styling the Editor inside iframe container (duiEditorIFrameContainer)
  * 
  * 1. Editor iframe container (default styling): 
- * 		.dijitEditorIFrameContainer - normal state styles: background-color, border, padding
+ * 		.duiEditorIFrameContainer - normal state styles: background-color, border, padding
  *
  * 2. hovered Editor iframe container (ie, mouse hover on editor)
- * 		.dijitEditorHover .dijitEditorIFrameContainer/dijitEditorIFrame - styles when mouse hover on the container
+ * 		.duiEditorHover .duiEditorIFrameContainer/duiEditorIFrame - styles when mouse hover on the container
  * 
  * 3. focused Editor iframe container (ie, mouse focus on the editor pane)
- * 		.dijitEditorFocused .dijitEditorIFrameContainer/dijitEditorIFrame - styles when container focused
+ * 		.duiEditorFocused .duiEditorIFrameContainer/duiEditorIFrame - styles when container focused
  * 
  * 3. disabled Editor iframe container 
- * 		.dijitEditorDisabled - editor's inner iframe container disable status styles: background, border
+ * 		.duiEditorDisabled - editor's inner iframe container disable status styles: background, border
  */
-.dijitEditor {
+.duiEditor {
   display: block;
   /* prevents glitch on FF with InlineEditBox, see #8404 */
 
 }
-.dijitEditorDisabled,
-.dijitEditorReadOnly {
+.duiEditorDisabled,
+.duiEditorReadOnly {
   color: gray;
 }
-.claro .dijitEditorIFrameContainer {
+.claro .duiEditorIFrameContainer {
   padding: 3px 3px 1px 10px;
 }
-.claro .dijitEditorIFrame {
+.claro .duiEditorIFrame {
   background-color: #ffffff;
 }
-.claro .dijitEditor {
+.claro .duiEditor {
   border: 1px solid #b5bcc7;
 }
-.claro .dijitEditor .dijitEditorIFrameContainer {
+.claro .duiEditor .duiEditorIFrameContainer {
   background-color: #ffffff;
   background-repeat: repeat-x;
 }
-.claro .dijitEditorHover .dijitEditorIFrameContainer,
-.claro .dijitEditorHover .dijitEditorIFrameContainer .dijitEditorIFrame {
+.claro .duiEditorHover .duiEditorIFrameContainer,
+.claro .duiEditorHover .duiEditorIFrameContainer .duiEditorIFrame {
   background-color: #e5f2fe;
 }
-.claro .dijitEditorFocused .dijitEditorIFrameContainer,
-.claro .dijitEditorFocused .dijitEditorIFrameContainer .dijitEditorIFrame {
+.claro .duiEditorFocused .duiEditorIFrameContainer,
+.claro .duiEditorFocused .duiEditorIFrameContainer .duiEditorIFrame {
   background-color: #ffffff;
 }
-.claro .dijitEditorHover .dijitEditorIFrameContainer,
-.claro .dijitEditorFocused .dijitEditorIFrameContainer {
+.claro .duiEditorHover .duiEditorIFrameContainer,
+.claro .duiEditorFocused .duiEditorIFrameContainer {
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -o-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
 }
 /* Disabled */
-.claro .dijitEditorDisabled {
+.claro .duiEditorDisabled {
   border: 1px solid #d3d3d3;
   color: #818181;
 }
-.claro .dijitDisabled .dijitEditorIFrame,
-.claro .dijitDisabled .dijitEditorIFrameContainer,
-.claro .dijitDisabled .dijitEditorIFrameContainer .dijitEditorIFrame {
+.claro .duiDisabled .duiEditorIFrame,
+.claro .duiDisabled .duiEditorIFrameContainer,
+.claro .duiDisabled .duiEditorIFrameContainer .duiEditorIFrame {
   background-color: #efefef;
   background-image: none;
 }

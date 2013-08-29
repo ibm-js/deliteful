@@ -10,17 +10,17 @@ define([
 ], function(require, declare, has, keys, _WidgetBase, _Container, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
-	//		dijit/Toolbar
+	//		dui/Toolbar
 
-	return declare("dijit.Toolbar", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin], {
+	return declare("dui.Toolbar", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin], {
 		// summary:
-		//		A Toolbar widget, used to hold things like `dijit/Editor` buttons
+		//		A Toolbar widget, used to hold things like `dui/Editor` buttons
 
 		templateString:
-			'<div class="dijit" role="toolbar" tabIndex="${tabIndex}" data-dojo-attach-point="containerNode">' +
+			'<div class="dui" role="toolbar" tabIndex="${tabIndex}" data-dojo-attach-point="containerNode">' +
 			'</div>',
 
-		baseClass: "dijitToolbar",
+		baseClass: "duiToolbar",
 
 		_onLeftArrow: function(){
 			this.focusPrev();

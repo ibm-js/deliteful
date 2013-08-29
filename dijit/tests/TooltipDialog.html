@@ -9,7 +9,7 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner", "dojo/dom-class", "dojo/dom-geometry", "dojo/_base/window",
-			"dijit/popup", "dijit/form/DropDownButton", "dijit/TooltipDialog",
+			"dui/popup", "dui/form/DropDownButton", "dui/TooltipDialog",
 			"dojo/domReady!"
 		], function(doh, domClass, domGeometry, win, popup, DropDownButton, TooltipDialog){
 			doh.register("TooltipDialog", [
@@ -27,7 +27,7 @@
 				},
 				function openAround(){
 					button.openDropDown();
-					doh.t(domClass.contains(td.domNode, "dijitTooltipBelow"), "dijitTooltipBelow");
+					doh.t(domClass.contains(td.domNode, "duiTooltipBelow"), "duiTooltipBelow");
 					button.closeDropDown();
 				},
 				function openAt(){
@@ -40,8 +40,8 @@
 					var popupCoords = domGeometry.position(td.domNode);
 					doh.is(10, popupCoords.x, "popup x coord");
 					doh.is(15, popupCoords.y, "popup y coord");
-					doh.t(domClass.contains(td.domNode, "dijitTooltipBelow"), "dijitTooltipBelow");
-					doh.t(domClass.contains(td.domNode, "dijitTooltipABLeft"), "dijitTooltipABLeft");
+					doh.t(domClass.contains(td.domNode, "duiTooltipBelow"), "duiTooltipBelow");
+					doh.t(domClass.contains(td.domNode, "duiTooltipABLeft"), "duiTooltipABLeft");
 
 					popup.close(td);
 				}

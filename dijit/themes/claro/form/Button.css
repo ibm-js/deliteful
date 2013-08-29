@@ -3,57 +3,57 @@
  * Styling Buttons mainly includes:
  * 
  * 1. Containers
- * 		.dijitButton
- * 		.dijitDropDownButton
- * 		.dijitComboButton
- * 		.dijitButtonNode - common button/arrow wrapper shared across all three button types 
+ * 		.duiButton
+ * 		.duiDropDownButton
+ * 		.duiComboButton
+ * 		.duiButtonNode - common button/arrow wrapper shared across all three button types 
  *
  * 2. Button text
- * 		.dijitButtonText
+ * 		.duiButtonText
  * 
  * 3. Arrows - only for DropDownButton and ComboButton
  * 	     There are total four directions arrows - down, left, right, up:
- * 		.dijitArrowButtonInner - down arrow by default
- *      .dijitLeftArrowButton .dijitArrowButtonInner - left arrow
- *      .dijitRightArrowButton .dijitArrowButtonInner - right arrow
- *      .dijitUpArrowButton .dijitArrowButtonInner - up arrow
+ * 		.duiArrowButtonInner - down arrow by default
+ *      .duiLeftArrowButton .duiArrowButtonInner - left arrow
+ *      .duiRightArrowButton .duiArrowButtonInner - right arrow
+ *      .duiUpArrowButton .duiArrowButtonInner - up arrow
  * 
  * 4. States - Hover, Active, Disabled, e.g.
- * 		.dijitButtonHover .dijitButtonNode
- * 		.dijitButtonActive .dijitButtonNode
- * 		.dijitButtonDisabled .dijitButtonNode
+ * 		.duiButtonHover .duiButtonNode
+ * 		.duiButtonActive .duiButtonNode
+ * 		.duiButtonDisabled .duiButtonNode
  *      
- *      .dijitDisabled .dijitArrowButtonInner  - disabled arrow states 
+ *      .duiDisabled .duiArrowButtonInner  - disabled arrow states 
  */
-.dj_a11y .dijitButtonContents {
+.dj_a11y .duiButtonContents {
   margin: 0.15em;
   /* Margin needed to make focus outline visible */
 
 }
 /* Buttons */
-.dj_gecko .dj_a11y .dijitButtonDisabled .dijitButtonNode {
+.dj_gecko .dj_a11y .duiButtonDisabled .duiButtonNode {
   opacity: 0.5;
 }
-.dijitToggleButton,
-.dijitButton,
-.dijitDropDownButton,
-.dijitComboButton {
+.duiToggleButton,
+.duiButton,
+.duiDropDownButton,
+.duiComboButton {
   /* outside of button */
 
   margin: 0.2em;
   vertical-align: middle;
 }
-.dijitButtonContents {
+.duiButtonContents {
   display: block;
   /* to make focus border rectangular */
 
 }
-td.dijitButtonContents {
+td.duiButtonContents {
   display: table-cell;
   /* but don't affect Select, ComboButton */
 
 }
-.dijitButtonNode img {
+.duiButtonNode img {
   /* make text and images line up cleanly */
 
   vertical-align: middle;
@@ -61,36 +61,36 @@ td.dijitButtonContents {
 
 }
 /* Icon-only buttons (often in toolbars) should still display the text in high-contrast mode */
-.dj_a11y .dijitButtonContents .dijitButtonText {
+.dj_a11y .duiButtonContents .duiButtonText {
   display: inline !important;
 }
-.dijitToggleButtonIconChar {
+.duiToggleButtonIconChar {
   /* character (instead of icon) to show that ToggleButton is checked */
 
   display: none !important;
 }
-.dj_a11y .dijitToggleButton .dijitToggleButtonIconChar {
+.dj_a11y .duiToggleButton .duiToggleButtonIconChar {
   display: inline !important;
   visibility: hidden;
 }
-.dj_a11y .dijitToggleButtonChecked .dijitToggleButtonIconChar {
+.dj_a11y .duiToggleButtonChecked .duiToggleButtonIconChar {
   display: inline !important;
   /* In high contrast mode, display the check symbol */
 
   visibility: visible !important;
 }
-.dijitArrowButtonChar {
+.duiArrowButtonChar {
   display: none !important;
 }
-.dj_a11y .dijitArrowButtonChar {
+.dj_a11y .duiArrowButtonChar {
   display: inline !important;
 }
-.dj_a11y .dijitDropDownButton .dijitArrowButtonInner,
-.dj_a11y .dijitComboButton .dijitArrowButtonInner {
+.dj_a11y .duiDropDownButton .duiArrowButtonInner,
+.dj_a11y .duiComboButton .duiArrowButtonInner {
   display: none !important;
 }
-.claro .dijitButtonNode {
-  /* rules for dijit.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
+.claro .duiButtonNode {
+  /* rules for dui.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
 
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
@@ -99,11 +99,11 @@ td.dijitButtonContents {
   -moz-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.claro .dijitButton .dijitButtonNode,
-.claro .dijitDropDownButton .dijitButtonNode,
-.claro .dijitComboButton .dijitButtonNode,
-.claro .dijitToggleButton .dijitButtonNode {
-  /* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
+.claro .duiButton .duiButtonNode,
+.claro .duiDropDownButton .duiButtonNode,
+.claro .duiComboButton .duiButtonNode,
+.claro .duiToggleButton .duiButtonNode {
+  /* rules for the dui.form.*Button widgets (see also ComboButton section below) */
 
   border: 1px solid #759dc0;
   padding: 2px 4px 4px 4px;
@@ -119,14 +119,14 @@ td.dijitButtonContents {
   background-image: -o-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
   background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
 }
-.claro .dijitComboButton .dijitArrowButton {
+.claro .duiComboButton .duiArrowButton {
   border-left-width: 0;
   padding: 4px 2px 4px 2px;
   /* TODO: still needed? */
 
 }
 /*arrow styles for down/up/left/right directions*/
-.claro .dijitArrowButtonInner {
+.claro .duiArrowButtonInner {
   width: 15px;
   height: 15px;
   margin: 0 auto;
@@ -134,37 +134,37 @@ td.dijitButtonContents {
   background-repeat: no-repeat;
   background-position: -51px 53%;
 }
-.claro .dijitLeftArrowButton .dijitArrowButtonInner {
+.claro .duiLeftArrowButton .duiArrowButtonInner {
   background-position: -77px 53%;
 }
-.claro .dijitRightArrowButton .dijitArrowButtonInner {
+.claro .duiRightArrowButton .duiArrowButtonInner {
   background-position: -26px 53%;
 }
-.claro .dijitUpArrowButton .dijitArrowButtonInner {
+.claro .duiUpArrowButton .duiArrowButtonInner {
   background-position: 0 53%;
 }
-.claro .dijitDisabled .dijitArrowButtonInner {
+.claro .duiDisabled .duiArrowButtonInner {
   background-position: -151px 53%;
 }
-.claro .dijitDisabled .dijitLeftArrowButton .dijitArrowButtonInner {
+.claro .duiDisabled .duiLeftArrowButton .duiArrowButtonInner {
   background-position: -177px 53%;
 }
-.claro .dijitDisabled .dijitRightArrowButton .dijitArrowButtonInner {
+.claro .duiDisabled .duiRightArrowButton .duiArrowButtonInner {
   background-position: -126px 53%;
 }
-.claro .dijitDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+.claro .duiDisabled .duiUpArrowButton .duiArrowButtonInner {
   background-position: -100px 53%;
 }
-.claro .dijitButtonText {
+.claro .duiButtonText {
   padding: 0 0.3em;
   text-align: center;
 }
 /* hover status */
-.claro .dijitButtonHover .dijitButtonNode,
-.claro .dijitDropDownButtonHover .dijitButtonNode,
-.claro .dijitComboButton .dijitButtonNodeHover,
-.claro .dijitComboButton .dijitDownArrowButtonHover,
-.claro .dijitToggleButtonHover .dijitButtonNode {
+.claro .duiButtonHover .duiButtonNode,
+.claro .duiDropDownButtonHover .duiButtonNode,
+.claro .duiComboButton .duiButtonNodeHover,
+.claro .duiComboButton .duiDownArrowButtonHover,
+.claro .duiToggleButtonHover .duiButtonNode {
   background-color: #86bdf2;
   color: #000000;
   -webkit-transition-duration: 0.2s;
@@ -172,11 +172,11 @@ td.dijitButtonContents {
   transition-duration: 0.2s;
 }
 /* active, checked status */
-.claro .dijitButtonActive .dijitButtonNode,
-.claro .dijitDropDownButtonActive .dijitButtonNode,
-.claro .dijitComboButtonActive .dijitButtonNode,
-.claro .dijitToggleButtonActive .dijitButtonNode,
-.claro .dijitToggleButtonChecked .dijitButtonNode {
+.claro .duiButtonActive .duiButtonNode,
+.claro .duiDropDownButtonActive .duiButtonNode,
+.claro .duiComboButtonActive .duiButtonNode,
+.claro .duiToggleButtonActive .duiButtonNode,
+.claro .duiToggleButtonChecked .duiButtonNode {
   background-color: #86bdf2;
   -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
@@ -186,17 +186,17 @@ td.dijitButtonContents {
   transition-duration: 0.1s;
 }
 /* disabled status */
-.claro .dijitButtonDisabled,
-.claro .dijitDropDownButtonDisabled,
-.claro .dijitComboButtonDisabled,
-.claro .dijitToggleButtonDisabled {
+.claro .duiButtonDisabled,
+.claro .duiDropDownButtonDisabled,
+.claro .duiComboButtonDisabled,
+.claro .duiToggleButtonDisabled {
   background-image: none;
   outline: none;
 }
-.claro .dijitButtonDisabled .dijitButtonNode,
-.claro .dijitDropDownButtonDisabled .dijitButtonNode,
-.claro .dijitComboButtonDisabled .dijitButtonNode,
-.claro .dijitToggleButtonDisabled .dijitButtonNode {
+.claro .duiButtonDisabled .duiButtonNode,
+.claro .duiDropDownButtonDisabled .duiButtonNode,
+.claro .duiComboButtonDisabled .duiButtonNode,
+.claro .duiToggleButtonDisabled .duiButtonNode {
   background-color: #efefef;
   border: solid 1px #d3d3d3;
   color: #818181;
@@ -208,20 +208,20 @@ td.dijitButtonContents {
   background-image: -o-linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
   background-image: linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
 }
-.claro .dijitComboButtonDisabled .dijitArrowButton {
+.claro .duiComboButtonDisabled .duiArrowButton {
   border-left-width: 0;
 }
 /* for ComboButton */
-.claro table.dijitComboButton {
+.claro table.duiComboButton {
   border-collapse: separate;
   /* override dijit.css so that ComboBox rounded corners work */
 
 }
-.claro .dijitComboButton .dijitStretch {
+.claro .duiComboButton .duiStretch {
   -moz-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
 }
-.claro .dijitComboButton .dijitArrowButton {
+.claro .duiComboButton .duiArrowButton {
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }

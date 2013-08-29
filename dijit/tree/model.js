@@ -1,6 +1,6 @@
 define(["dojo/_base/declare"], function(declare){
 
-	return declare("dijit.tree.model", null, {
+	return declare("dui.tree.model", null, {
 		// summary:
 		//		Contract for any data provider object for the tree.
 		// description:
@@ -81,7 +81,7 @@ define(["dojo/_base/declare"], function(declare){
 		newItem: function(args, parent, insertIndex, before){
 			// summary:
 			//		Creates a new item.   See `dojo/data/api/Write` for details on args.
-			// args: dijit/tree/dndSource.__Item
+			// args: dui/tree/dndSource.__Item
 			// parent: Item
 			// insertIndex: int?
 			//		Allows to insert the new item as the n'th child of `parent`.

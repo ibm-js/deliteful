@@ -16,7 +16,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-geometry", "dojo/keys", "dojo/_base/lang", "dojo/_base/window", "dojo/window",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, dom, domGeom, keys, lang, win, winUtils, helpers){
 
 				robot.initRobot('../test_Tooltip.html');
@@ -24,7 +24,7 @@
 				doh.register("setup", function(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					Tooltip = robot.window.require("dijit/Tooltip");
+					Tooltip = robot.window.require("dui/Tooltip");
 
 					// Avoid the page being scrolled when you run the test twice (via browser's refresh button)
 					win.body().parentNode.scrollTop = 0;	// works on FF
@@ -35,7 +35,7 @@
 				// first tooltip is shown
 				var masterTT;
 
-				doh.register("dijit.Tooltip keyboard tests", [
+				doh.register("dui.Tooltip keyboard tests", [
 					{
 						name: "show on focus",
 						timeout: 4000,
@@ -123,7 +123,7 @@
 
 				]);
 
-				doh.register("dijit.Tooltip negative keyboard tests", [
+				doh.register("dui.Tooltip negative keyboard tests", [
 					// Test that quickly going over a node doesn't cause the tooltip
 					// to show up
  					{
@@ -160,7 +160,7 @@
 					}
             	]);
 
-				doh.register("dijit.Tooltip API tests", [
+				doh.register("dui.Tooltip API tests", [
 
 					// These tests are for a tooltip attached to multiple nodes,
 					// and for dynamically changing the nodes that a tooltip is attached to.

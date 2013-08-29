@@ -6,15 +6,15 @@ define([
 ], function(declare, keys, template, _MenuBase){
 
 	// module:
-	//		dijit/DropDownMenu
+	//		dui/DropDownMenu
 
-	return declare("dijit.DropDownMenu", _MenuBase, {
+	return declare("dui.DropDownMenu", _MenuBase, {
 		// summary:
 		//		A menu, without features for context menu (Meaning, drop down menu)
 
 		templateString: template,
 
-		baseClass: "dijitMenu",
+		baseClass: "duiMenu",
 
 		// Arrow key navigation
 		_onUpArrow: function(){

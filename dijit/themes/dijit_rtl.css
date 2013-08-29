@@ -1,4 +1,4 @@
-.dijitRtl .dijitOffScreen {
+.duiRtl .duiOffScreen {
 	/* align on the right side rather than the left so no horizontal scroll bar shown */
 	left: auto !important;
 	right: -10000px !important;

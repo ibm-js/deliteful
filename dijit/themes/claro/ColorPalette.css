@@ -3,29 +3,29 @@
  * Styling of the ColorPalette consists of the following:
  * 
  * 1. the whole color palette
- *		.dijitColorPalette - for outline, border, and background color of the whole color palette
+ *		.duiColorPalette - for outline, border, and background color of the whole color palette
  *		Note: outline does not work for IE
  *
  * 2. the color swatch 
- *		.dijitColorPalette .dijitPaletteImg
+ *		.duiColorPalette .duiPaletteImg
  *		transparent (but clickable) <img> node inside of each <td>, overlaying the color swatch.
  *		displays border around a color swatch
  *
  * 3. hovered swatch
- * 		.dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg
+ * 		.duiColorPalette .duiPaletteCell:hover .duiPaletteImg
  *		the hovered state of the color swatch - adds border
  * 	
  * 4. active and selected swatch
- * 		.dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg
- *		.dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg
+ * 		.duiColorPalette .duiPaletteCell:active .duiPaletteImg
+ *		.duiColorPalette .duiPaletteCellSelected .duiPaletteImg
  *		adds border for active or selected state
  */
-.dijitColorPalette {
+.duiColorPalette {
   border: 1px solid #999;
   background: #fff;
   position: relative;
 }
-.dijitColorPalette .dijitPaletteTable {
+.duiColorPalette .duiPaletteTable {
   /* Table that holds the palette cells, and overlays image file with color swatches.
 	 * padding/margin to align table with image.
 	 */
@@ -36,7 +36,7 @@
   outline: 0;
   border-collapse: separate;
 }
-.dijitColorPalette .dijitPaletteCell {
+.duiColorPalette .duiPaletteCell {
   /* <td> in the <table> */
 
   font-size: 1px;
@@ -44,8 +44,8 @@
   text-align: center;
   background: none;
 }
-.dijitColorPalette .dijitPaletteImg {
-  /* Called dijitPaletteImg for back-compat, this actually wraps the color swatch with a border and padding */
+.duiColorPalette .duiPaletteImg {
+  /* Called duiPaletteImg for back-compat, this actually wraps the color swatch with a border and padding */
 
   padding: 1px;
   /* white area between gray border and color swatch */
@@ -57,55 +57,55 @@
   /* prevent <span> from getting bigger just to hold a character */
 
 }
-.dj_gecko .dijitColorPalette .dijitPaletteImg {
+.dj_gecko .duiColorPalette .duiPaletteImg {
   padding-bottom: 0;
   /* workaround rendering glitch on FF, it adds an extra pixel at the bottom */
 
 }
-.dijitColorPalette .dijitColorPaletteSwatch {
+.duiColorPalette .duiColorPaletteSwatch {
   /* the actual part where the color is */
 
   width: 14px;
   height: 12px;
 }
-.dijitPaletteTable td {
+.duiPaletteTable td {
   padding: 0;
 }
-.dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg {
+.duiColorPalette .duiPaletteCell:hover .duiPaletteImg {
   /* hovered color swatch */
 
   border: 1px solid #000;
 }
-.dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg,
-.dijitColorPalette .dijitPaletteTable .dijitPaletteCellSelected .dijitPaletteImg {
+.duiColorPalette .duiPaletteCell:active .duiPaletteImg,
+.duiColorPalette .duiPaletteTable .duiPaletteCellSelected .duiPaletteImg {
   border: 2px solid #000;
   margin: 1px 0;
   /* reduce margin to compensate for increased border */
 
 }
-.dj_a11y .dijitColorPalette .dijitPaletteTable,
-.dj_a11y .dijitColorPalette .dijitPaletteTable * {
+.dj_a11y .duiColorPalette .duiPaletteTable,
+.dj_a11y .duiColorPalette .duiPaletteTable * {
   /* table cells are to catch events, but the swatches are in the PaletteImg behind the table */
 
   background-color: transparent !important;
 }
-.claro .dijitColorPalette {
+.claro .duiColorPalette {
   border: 1px solid #b5bcc7;
   background: #ffffff;
   -moz-border-radius: 0;
   border-radius: 0;
 }
-.claro .dijitColorPalette .dijitPaletteImg {
+.claro .duiColorPalette .duiPaletteImg {
   /* transparent (but clickable) <img> node inside of each <td>, overlaying the color swatch.
 	 * displays border around a color swatch
 	 * overrides border color in dijit.css */
 
   border: 1px solid #d3d3d3;
 }
-.claro .dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg {
+.claro .duiColorPalette .duiPaletteCell:hover .duiPaletteImg {
   border: 1px solid #000000;
 }
-.claro .dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg,
-.claro .dijitColorPalette .dijitPaletteTable .dijitPaletteCellSelected .dijitPaletteImg {
+.claro .duiColorPalette .duiPaletteCell:active .duiPaletteImg,
+.claro .duiColorPalette .duiPaletteTable .duiPaletteCellSelected .duiPaletteImg {
   border: 2px solid #000000;
 }

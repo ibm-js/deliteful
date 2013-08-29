@@ -36,7 +36,7 @@
 			data-dojo-config="isDebug: true, extraLocale: ['zh-cn','fr-fr','ja-jp','ar-eg','ru-ru','hi-in','en-us']"></script>
 		<script type="text/javascript" src="test_i18n.js"></script>
 		<script type="text/javascript">
-			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dui.form.ValidationTextBox");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.date.stamp");
 			dojo.require("dojo.date");
@@ -127,7 +127,7 @@
 				gen4DateFormat(testCases, "hi-in", "hi_IN", "1970-01-01T15:25:35",
 					"१५:२५", "", "१५:२५:३५", "", "१५:२५:३५ UTC", " ", "१५:२५:३५ UTC", " ");
 
-				genFormatTestCases("Time Format", "dijit.form.TimeTextBox", testCases);
+				genFormatTestCases("Time Format", "dui.form.TimeTextBox", testCases);
 	
 				testCases = [];
 				gen4DateFormat(testCases, "ru-ru", "ru_RU", new Date(1970, 0, 1, 15, 25, 35),
@@ -144,7 +144,7 @@
 					"3:25 \u0645", "", "3:25:35 \u0645", "", "UTC 3:25:35 \u0645", "", "UTC 3:25:35 \u0645", "");
 				gen4DateFormat(testCases, "hi-in", "hi_IN", new Date(1970, 0, 1, 15, 25, 35),
 					"१५:२५", "", "१५:२५:३५", "", "१५:२५:३५ UTC", " ", "१५:२५:३५ UTC", " ");
-				genValidateTestCases("Time Validate", "dijit.form.TimeTextBox", testCases);
+				genValidateTestCases("Time Validate", "dui.form.TimeTextBox", testCases);
 
 				doh.register("parse", function(){
 					dojo.parser.parse();

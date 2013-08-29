@@ -16,9 +16,9 @@ define([
 ], function(array, date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:
-	//		dijit/Calendar
+	//		dui/Calendar
 
-	var Calendar = declare("dijit.Calendar", [CalendarLite, _WidgetBase, _CssStateMixin], {
+	var Calendar = declare("dui.Calendar", [CalendarLite, _WidgetBase, _CssStateMixin], {
 		// summary:
 		//		A simple GUI for choosing a date in the context of a monthly calendar.
 		//
@@ -29,12 +29,12 @@ define([
 		//		- keyboard navigation
 		//		- CSS classes for hover/mousepress on date, month, and year nodes
 
-		// Set node classes for various mouse events, see dijit._CssStateMixin for more details
+		// Set node classes for various mouse events, see dui._CssStateMixin for more details
 		cssStateNodes: {
-			"decrementMonth": "dijitCalendarArrow",
-			"incrementMonth": "dijitCalendarArrow",
-			"previousYearLabelNode": "dijitCalendarPreviousYear",
-			"nextYearLabelNode": "dijitCalendarNextYear"
+			"decrementMonth": "duiCalendarArrow",
+			"incrementMonth": "duiCalendarArrow",
+			"previousYearLabelNode": "duiCalendarPreviousYear",
+			"nextYearLabelNode": "duiCalendarNextYear"
 		},
 
 		_createMonthWidget: function(){
@@ -89,15 +89,15 @@ define([
 			// event can occur on <td> or the <span> inside the td,
 			// set node to the <td>.
 			var node =
-				domClass.contains(evt.target, "dijitCalendarDateLabel") ?
+				domClass.contains(evt.target, "duiCalendarDateLabel") ?
 					evt.target.parentNode :
 					evt.target;
 
 			if(node && (
-				(node.dijitDateValue && !domClass.contains(node, "dijitCalendarDisabledDate"))
+				(node.duiDateValue && !domClass.contains(node, "duiCalendarDisabledDate"))
 					|| node == this.previousYearLabelNode || node == this.nextYearLabelNode
 				)){
-				domClass.add(node, "dijitCalendarHoveredDate");
+				domClass.add(node, "duiCalendarHoveredDate");
 				this._currentNode = node;
 			}
 		},
@@ -116,9 +116,9 @@ define([
 			if(evt.relatedTarget && evt.relatedTarget.parentNode == this._currentNode){
 				return;
 			}
-			var cls = "dijitCalendarHoveredDate";
-			if(domClass.contains(this._currentNode, "dijitCalendarActiveDate")){
-				cls += " dijitCalendarActiveDate";
+			var cls = "duiCalendarHoveredDate";
+			if(domClass.contains(this._currentNode, "duiCalendarActiveDate")){
+				cls += " duiCalendarActiveDate";
 			}
 			domClass.remove(this._currentNode, cls);
 			this._currentNode = null;
@@ -126,16 +126,16 @@ define([
 
 		_onDayMouseDown: function(/*Event*/ evt){
 			var node = evt.target.parentNode;
-			if(node && node.dijitDateValue && !domClass.contains(node, "dijitCalendarDisabledDate")){
-				domClass.add(node, "dijitCalendarActiveDate");
+			if(node && node.duiDateValue && !domClass.contains(node, "duiCalendarDisabledDate")){
+				domClass.add(node, "duiCalendarActiveDate");
 				this._currentNode = node;
 			}
 		},
 
 		_onDayMouseUp: function(/*Event*/ evt){
 			var node = evt.target.parentNode;
-			if(node && node.dijitDateValue){
-				domClass.remove(node, "dijitCalendarActiveDate");
+			if(node && node.duiDateValue){
+				domClass.remove(node, "duiCalendarActiveDate");
 			}
 		},
 
@@ -144,8 +144,8 @@ define([
 			//		Provides keyboard navigation of calendar.
 			// description:
 			//		Called from _onKeyDown() to handle keydown on a stand alone Calendar,
-			//		and also from `dijit/form/_DateTimeTextBox` to pass a keydown event
-			//		from the `dijit/form/DateTextBox` to be handled in this widget
+			//		and also from `dui/form/_DateTimeTextBox` to pass a keydown event
+			//		from the `dui/form/DateTextBox` to be handled in this widget
 			// returns:
 			//		False if the key was recognized as a navigation key,
 			//		to indicate that the event was handled by Calendar and shouldn't be propagated
@@ -226,7 +226,7 @@ define([
 		}
 	});
 
-	Calendar._MonthDropDownButton = declare("dijit.Calendar._MonthDropDownButton", DropDownButton, {
+	Calendar._MonthDropDownButton = declare("dui.Calendar._MonthDropDownButton", DropDownButton, {
 		// summary:
 		//		DropDownButton for the current month.    Displays name of current month
 		//		and a list of month names in the drop down
@@ -251,12 +251,12 @@ define([
 			// (invisible) so that the maximum width will affect layout.   But not on IE6 because then
 			// the center <TH> overlaps the right <TH> (due to a browser bug).
 			this.containerNode.innerHTML =
-				"<div class='dijitSpacer'>" + this.dropDown.domNode.innerHTML + "</div>" +
-					"<div class='dijitCalendarMonthLabel dijitCalendarCurrentMonthLabel'>" + monthNames[month.getMonth()] + "</div>";
+				"<div class='duiSpacer'>" + this.dropDown.domNode.innerHTML + "</div>" +
+					"<div class='duiCalendarMonthLabel duiCalendarCurrentMonthLabel'>" + monthNames[month.getMonth()] + "</div>";
 		}
 	});
 
-	Calendar._MonthDropDown = declare("dijit.Calendar._MonthDropDown", [_WidgetBase, _TemplatedMixin], {
+	Calendar._MonthDropDown = declare("dui.Calendar._MonthDropDown", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		The list-of-months drop down from the MonthDropDownButton
 
@@ -265,12 +265,12 @@ define([
 		//		(ex: ["January", "February", undefined, "April", ...])
 		months: [],
 
-		templateString: "<div class='dijitCalendarMonthMenu dijitMenu' " +
+		templateString: "<div class='duiCalendarMonthMenu duiMenu' " +
 			"data-dojo-attach-event='onclick:_onClick,onmouseover:_onMenuHover,onmouseout:_onMenuHover'></div>",
 
 		_setMonthsAttr: function(/*String[]*/ months){
 			this.domNode.innerHTML = array.map(months,function(month, idx){
-				return month ? "<div class='dijitCalendarMonthLabel' month='" + idx + "'>" + month + "</div>" : "";
+				return month ? "<div class='duiCalendarMonthLabel' month='" + idx + "'>" + month + "</div>" : "";
 			}).join("");
 		},
 
@@ -284,7 +284,7 @@ define([
 		},
 
 		_onMenuHover: function(evt){
-			domClass.toggle(evt.target, "dijitCalendarMonthLabelHover", evt.type == "mouseover");
+			domClass.toggle(evt.target, "duiCalendarMonthLabelHover", evt.type == "mouseover");
 		}
 	});
 

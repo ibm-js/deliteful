@@ -1,91 +1,91 @@
-/* NumberSpinner - namespace "dijitSpinner"
+/* NumberSpinner - namespace "duiSpinner"
  * 
  * Styling NumberSpinner mainly includes:
  * 
  * 1. Arrows
- * 		Outer containers: .dijitSpinnerButtonContainer|.dijitSpinnerButtonInner  - for border, padding and position
- * 		Arrows: .dijitArrowButton|.dijitUpArrowButton.|dijitDownArrowButton
- * 		Inner container: .dijitArrowButtonInner - for border, padding, width|height and background image
+ * 		Outer containers: .duiSpinnerButtonContainer|.duiSpinnerButtonInner  - for border, padding and position
+ * 		Arrows: .duiArrowButton|.duiUpArrowButton.|duiDownArrowButton
+ * 		Inner container: .duiArrowButtonInner - for border, padding, width|height and background image
  * 
  * 2. Hover state
- * 		.dijitUpArrowButtonHover|.dijitDownArrowButtonHover .*  - for background color|image
+ * 		.duiUpArrowButtonHover|.duiDownArrowButtonHover .*  - for background color|image
  * 
  * 3. Active state
- * 		.dijitUpArrowButtonActive|.dijitDownArrowButtonActive .*  - for border, padding, margin and background color|image
+ * 		.duiUpArrowButtonActive|.duiDownArrowButtonActive .*  - for border, padding, margin and background color|image
  * 
  * 4. Focused state
- * 		.dijitSpinnerFocused .* - for background color|image
+ * 		.duiSpinnerFocused .* - for background color|image
  * 
  * 5. Disabled state
- * 		.dijitSpinnerDisabled .* - for background color|image
+ * 		.duiSpinnerDisabled .* - for background color|image
  */
-.dijitSpinner div.dijitArrowButtonInner {
+.duiSpinner div.duiArrowButtonInner {
   display: block;
   /* override previous rule */
 
 }
-.dj_webkit .dijitSpinner .dijitSpinnerButtonContainer {
-  /* apparent WebKit bug where messing with the font coupled with line-height:normal X 2 (dijitReset & dijitButtonNode)
+.dj_webkit .duiSpinner .duiSpinnerButtonContainer {
+  /* apparent WebKit bug where messing with the font coupled with line-height:normal X 2 (duiReset & duiButtonNode)
 	can be different than just a single line-height:normal, visible in InlineEditBox/Spinner */
 
   line-height: inherit;
 }
-.dijitSpinner .dijitSpinnerButtonContainer {
+.duiSpinner .duiSpinnerButtonContainer {
   /* dividing line between input area and up/down button(s)  */
 
   border-width: 0 0 0 1px !important;
-  /* !important needed due to wayward ".theme .dijitButtonNode" rules */
+  /* !important needed due to wayward ".theme .duiButtonNode" rules */
 
 }
-.dijitSpinner .dijitSpinnerButtonContainer .dijitButtonNode {
+.duiSpinner .duiSpinnerButtonContainer .duiButtonNode {
   /* dividing line between input area and up/down button(s) for ComboBox and Spinner */
 
   border-width: 0;
 }
-.dj_ie .dj_a11y .dijitSpinner .dijitSpinnerButtonContainer .dijitButtonNode {
+.dj_ie .dj_a11y .duiSpinner .duiSpinnerButtonContainer .duiButtonNode {
   clear: both;
   /* IE workaround */
 
 }
-.dijitTextBox .dijitSpinnerButtonContainer {
+.duiTextBox .duiSpinnerButtonContainer {
   width: 1em;
   position: relative !important;
   overflow: hidden;
 }
-.dijitSpinner .dijitSpinnerButtonInner {
+.duiSpinner .duiSpinnerButtonInner {
   width: 1em;
   visibility: hidden !important;
   /* just a sizing element */
 
   overflow-x: hidden;
 }
-.dijitSpinnerButtonContainer .dijitButtonNode {
+.duiSpinnerButtonContainer .duiButtonNode {
   border-width: 0;
 }
-.dj_a11y .dijitSpinnerButtonContainer .dijitButtonNode {
+.dj_a11y .duiSpinnerButtonContainer .duiButtonNode {
   border-width: 0px !important;
   border-style: solid !important;
 }
-.dj_a11y .dijitTextBox .dijitSpinnerButtonContainer,
-.dj_a11y .dijitSpinner .dijitArrowButtonInner,
-.dj_a11y .dijitSpinnerButtonContainer input {
+.dj_a11y .duiTextBox .duiSpinnerButtonContainer,
+.dj_a11y .duiSpinner .duiArrowButtonInner,
+.dj_a11y .duiSpinnerButtonContainer input {
   width: 1em !important;
 }
-.dj_a11y .dijitSpinner .dijitArrowButtonInner {
+.dj_a11y .duiSpinner .duiArrowButtonInner {
   margin: 0 auto !important;
   /* should auto-center */
 
 }
-.dj_ie .dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+.dj_ie .dj_a11y .duiSpinner .duiArrowButtonInner .duiInputField {
   padding-left: 0.3em !important;
   padding-right: 0.3em !important;
   margin-left: 0.3em !important;
   margin-right: 0.3em !important;
   width: 1.4em !important;
 }
-.dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
-  /* note: .dijitInputLayoutContainer makes this rule override .dijitArrowButton settings
-	 * for dijit.form.Button
+.duiSpinner .duiSpinnerButtonContainer .duiArrowButton {
+  /* note: .duiInputLayoutContainer makes this rule override .duiArrowButton settings
+	 * for dui.form.Button
 	 */
 
   padding: 0;
@@ -98,22 +98,22 @@
   left: 0;
   right: auto;
 }
-.dj_a11y .dijitSpinnerButtonContainer .dijitArrowButton {
+.dj_a11y .duiSpinnerButtonContainer .duiArrowButton {
   overflow: visible !important;
 }
-.dijitSpinner .dijitSpinnerButtonContainer .dijitDownArrowButton {
+.duiSpinner .duiSpinnerButtonContainer .duiDownArrowButton {
   top: 50%;
   border-top-width: 1px !important;
 }
-.dijitSpinner .dijitSpinnerButtonContainer .dijitUpArrowButton {
+.duiSpinner .duiSpinnerButtonContainer .duiUpArrowButton {
   top: 0;
 }
-.dijitSpinner .dijitArrowButtonInner {
+.duiSpinner .duiArrowButtonInner {
   margin: auto;
   overflow-x: hidden;
   height: 100% !important;
 }
-.dijitSpinner .dijitArrowButtonInner .dijitInputField {
+.duiSpinner .duiArrowButtonInner .duiInputField {
   -moz-transform: scale(0.5);
   -moz-transform-origin: center top;
   -webkit-transform: scale(0.5);
@@ -129,43 +129,43 @@
   width: 100%;
   visibility: hidden;
 }
-.dj_ie .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+.dj_ie .duiSpinner .duiArrowButtonInner .duiInputField {
   zoom: 50%;
   /* emulate transform: scale(0.5) */
 
 }
-.dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButtonInner {
+.duiSpinner .duiSpinnerButtonContainer .duiArrowButtonInner {
   overflow: hidden;
 }
-.dj_a11y .dijitSpinner .dijitSpinnerButtonContainer .dijitArrowButton {
+.dj_a11y .duiSpinner .duiSpinnerButtonContainer .duiArrowButton {
   width: 100%;
 }
-.dj_a11y .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+.dj_a11y .duiSpinner .duiArrowButtonInner .duiInputField {
   vertical-align: top;
   visibility: visible;
 }
-.dj_a11y .dijitSpinnerButtonContainer {
+.dj_a11y .duiSpinnerButtonContainer {
   width: 1em;
 }
 /* images off, high-contrast mode styles */
-.dj_a11y .dijitSpinnerButtonContainer {
+.dj_a11y .duiSpinnerButtonContainer {
   opacity: 1 !important;
   background-color: white !important;
 }
-.claro .dijitSpinnerButtonContainer {
+.claro .duiSpinnerButtonContainer {
   overflow: hidden;
   position: relative;
   width: auto;
   padding: 0 2px;
 }
-.claro .dijitSpinnerButtonContainer .dijitSpinnerButtonInner {
+.claro .duiSpinnerButtonContainer .duiSpinnerButtonInner {
   border-width: 1px 0;
   /* reserve space to match the claro combobox button border with border and not padding to make IE happier */
 
   border-style: solid none;
 }
 /* button */
-.claro .dijitSpinner .dijitArrowButton {
+.claro .duiSpinner .duiArrowButton {
   width: auto;
   background-color: #efefef;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -174,11 +174,11 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   overflow: hidden;
 }
-.claro .dijitSpinner .dijitSpinnerButtonInner {
+.claro .duiSpinner .duiSpinnerButtonInner {
   width: 15px;
 }
 /* up & down button icons */
-.claro .dijitSpinner .dijitArrowButtonInner {
+.claro .duiSpinner .duiArrowButtonInner {
   border: solid 1px #ffffff;
   border-bottom-width: 0;
   /* 2 top borders = 1 top+bottom border in ComboBox */
@@ -199,43 +199,43 @@
   /* compensate for inner border */
 
 }
-.claro .dijitSpinner .dijitDownArrowButton .dijitArrowButtonInner {
+.claro .duiSpinner .duiDownArrowButton .duiArrowButtonInner {
   background-position: -34px;
 }
-.claro .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+.claro .duiSpinner .duiArrowButtonInner .duiInputField {
   padding: 0;
 }
 /** hover & focused status **/
-.claro .dijitUpArrowButtonActive,
-.claro .dijitDownArrowButtonActive {
+.claro .duiUpArrowButtonActive,
+.claro .duiDownArrowButtonActive {
   background-color: #abd6ff;
 }
-.claro .dijitSpinner .dijitUpArrowButtonHover,
-.claro .dijitSpinner .dijitDownArrowButtonHover,
-.claro .dijitSpinnerFocused .dijitArrowButton {
+.claro .duiSpinner .duiUpArrowButtonHover,
+.claro .duiSpinner .duiDownArrowButtonHover,
+.claro .duiSpinnerFocused .duiArrowButton {
   background-color: #abd6ff;
 }
-.claro .dijitSpinner .dijitUpArrowButtonHover .dijitArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButtonHover .duiArrowButtonInner {
   background-position: -174px;
 }
-.claro .dijitSpinner .dijitDownArrowButtonHover .dijitArrowButtonInner {
+.claro .duiSpinner .duiDownArrowButtonHover .duiArrowButtonInner {
   background-position: -69px;
 }
-.claro .dijitSpinnerFocused {
+.claro .duiSpinnerFocused {
   background-color: #ffffff;
   background-image: none;
 }
 /* mouse down status */
-.claro .dijitSpinner .dijitDownArrowButtonActive,
-.claro .dijitSpinner .dijitUpArrowButtonActive {
+.claro .duiSpinner .duiDownArrowButtonActive,
+.claro .duiSpinner .duiUpArrowButtonActive {
   background-color: #7dbefa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner,
-.claro .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButtonActive .duiArrowButtonInner,
+.claro .duiSpinner .duiDownArrowButtonActive .duiArrowButtonInner {
   /* hide inner border while button is depressed */
 
   border: 0;
@@ -243,19 +243,19 @@
   margin-right: 2px;
   margin-bottom: 1px;
 }
-.claro .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButtonActive .duiArrowButtonInner {
   background-position: -173px;
 }
-.claro .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+.claro .duiSpinner .duiDownArrowButtonActive .duiArrowButtonInner {
   background-position: -68px;
 }
 /* disabled */
-.claro .dijitSpinnerDisabled .dijitArrowButtonInner {
+.claro .duiSpinnerDisabled .duiArrowButtonInner {
   background-color: #efefef;
 }
-.claro .dijitSpinnerDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+.claro .duiSpinnerDisabled .duiUpArrowButton .duiArrowButtonInner {
   background-position: -104px;
 }
-.claro .dijitSpinnerDisabled .dijitDownArrowButton .dijitArrowButtonInner {
+.claro .duiSpinnerDisabled .duiDownArrowButton .duiArrowButtonInner {
   background-position: 1px;
 }

@@ -1,61 +1,61 @@
 /* BorderContainer 
 
-.dijitBorderContainer is a stylized layout where panes have border and margin.
-.dijitBorderContainerNoGutter is a raw layout.
+.duiBorderContainer is a stylized layout where panes have border and margin.
+.duiBorderContainerNoGutter is a raw layout.
 
 Splitters and gutters separate panes within a BorderContainer. Splitters can be moved up and down (horizonal splitters) or left and right (vertical splitters), while Gutters are static. A "thumb" is the slit on a Splitter that indicates it is movable. 
 
 Styling the BorderContainer widget consists of the following: 
 
-.dijitBorderContainer - for border and padding of the entire border container
+.duiBorderContainer - for border and padding of the entire border container
 
-.dijitSplitContainer-child, .dijitBorderContainer-child - for border or child panes of the border container. By default borders are put on all children of BorderContainer.  
+.duiSplitContainer-child, .duiBorderContainer-child - for border or child panes of the border container. By default borders are put on all children of BorderContainer.  
 
-.dijitBorderContainer-dijitTabContainerTop,
-.dijitBorderContainer-dijitTabContainerBottom,
-.dijitBorderContainer-dijitTabContainerLeft,
-.dijitBorderContainer-dijitTabContainerRight,
-.dijitBorderContainer-dijitAccordionContainer   -for border of the border containers within TabContainer or AccordionContainer widget
+.duiBorderContainer-duiTabContainerTop,
+.duiBorderContainer-duiTabContainerBottom,
+.duiBorderContainer-duiTabContainerLeft,
+.duiBorderContainer-duiTabContainerRight,
+.duiBorderContainer-duiAccordionContainer   -for border of the border containers within TabContainer or AccordionContainer widget
 
-.dijitBorderContainer-dijitBorderContainer - for border and padding of nested BorderContainers
+.duiBorderContainer-duiBorderContainer - for border and padding of nested BorderContainers
 
 Splitters and gutters:  
 
-.dijitSplitterH, .dijitGutterH - for height, background, and border of a horizontal splitter and gutter 
-.dijitSplitterH .dijitSplitterThumb - for color, height/width of the thumb on a horizontal splitter
-.dijitSplitterV, .dijitGutterV - - for height, background, and border of a vertical splitter and gutter 
-.dijitSplitterV .dijitSplitterThumb - for color, height/width of the thumb on a vertical splitter
-.dijitSplitterHHover - for background-color of a hovered horizontal splitter
-.dijitSplitterHHover .dijitSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
-.dijitSplitterVHover  - for background-color of a hovered vertical splitter
-.dijitSplitterVHover .dijitSplitterThumb - for background-color of a hovered thumb on a vertical splitter
-.dijitSplitterHActive - for background-color of an active horizontal splitter
-.dijitSplitterVActive - for background-color of an active horizontal splitter
+.duiSplitterH, .duiGutterH - for height, background, and border of a horizontal splitter and gutter 
+.duiSplitterH .duiSplitterThumb - for color, height/width of the thumb on a horizontal splitter
+.duiSplitterV, .duiGutterV - - for height, background, and border of a vertical splitter and gutter 
+.duiSplitterV .duiSplitterThumb - for color, height/width of the thumb on a vertical splitter
+.duiSplitterHHover - for background-color of a hovered horizontal splitter
+.duiSplitterHHover .duiSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
+.duiSplitterVHover  - for background-color of a hovered vertical splitter
+.duiSplitterVHover .duiSplitterThumb - for background-color of a hovered thumb on a vertical splitter
+.duiSplitterHActive - for background-color of an active horizontal splitter
+.duiSplitterVActive - for background-color of an active horizontal splitter
 */
-.dijitBorderContainer,
-.dijitBorderContainerNoGutter {
+.duiBorderContainer,
+.duiBorderContainerNoGutter {
   position: relative;
   overflow: hidden;
   z-index: 0;
   /* so z-index settings below have no effect outside of the BorderContainer */
 
 }
-.dijitBorderContainerPane,
-.dijitBorderContainerNoGutterPane {
+.duiBorderContainerPane,
+.duiBorderContainerNoGutterPane {
   position: absolute !important;
-  /* !important to override position:relative in dijitTabContainer etc. */
+  /* !important to override position:relative in duiTabContainer etc. */
 
   z-index: 2;
   /* above the splitters so that off-by-one browser errors don't cover up border of pane */
 
 }
-.dijitBorderContainer > .dijitTextArea {
+.duiBorderContainer > .duiTextArea {
   /* On Safari, for SimpleTextArea inside a BorderContainer,
 	don't want to display the grip to resize */
 
   resize: none;
 }
-.dijitGutter {
+.duiGutter {
   /* gutter is just a place holder for empty space between panes in BorderContainer */
 
   position: absolute;
@@ -63,7 +63,7 @@ Splitters and gutters:
   /* needed by IE6 even though div is empty, otherwise goes to 15px */
 
 }
-.dijitSplitter {
+.duiSplitter {
   position: absolute;
   overflow: hidden;
   z-index: 10;
@@ -74,15 +74,15 @@ Splitters and gutters:
   border-style: solid;
   border-width: 0;
 }
-.dj_ie .dijitSplitter {
+.dj_ie .duiSplitter {
   z-index: 1;
   /* behind the panes so that pane borders aren't obscured see test_Gui.html/[14392] */
 
 }
-.dijitSplitterActive {
+.duiSplitterActive {
   z-index: 11 !important;
 }
-.dijitSplitterCover {
+.duiSplitterCover {
   position: absolute;
   z-index: -1;
   top: 0;
@@ -90,137 +90,137 @@ Splitters and gutters:
   width: 100%;
   height: 100%;
 }
-.dijitSplitterCoverActive {
+.duiSplitterCoverActive {
   z-index: 3 !important;
 }
 /* #6945: stop mouse events */
-.dj_ie .dijitSplitterCover {
+.dj_ie .duiSplitterCover {
   background: white;
   opacity: 0;
 }
-.dj_ie8 .dijitSplitterCover {
+.dj_ie8 .duiSplitterCover {
   filter: alpha(opacity=0);
 }
-.dijitSplitterH {
+.duiSplitterH {
   height: 7px;
   border-top: 1px;
   border-bottom: 1px;
   cursor: row-resize;
   -webkit-tap-highlight-color: transparent;
 }
-.dijitSplitterV {
+.duiSplitterV {
   width: 7px;
   border-left: 1px;
   border-right: 1px;
   cursor: col-resize;
   -webkit-tap-highlight-color: transparent;
 }
-.dj_a11y .dijitSplitterH {
+.dj_a11y .duiSplitterH {
   border-top: 1px solid #d3d3d3 !important;
   border-bottom: 1px solid #d3d3d3 !important;
 }
-.dj_a11y .dijitSplitterV {
+.dj_a11y .duiSplitterV {
   border-left: 1px solid #d3d3d3 !important;
   border-right: 1px solid #d3d3d3 !important;
 }
-.claro .dijitBorderContainer {
+.claro .duiBorderContainer {
   /* matches the width of the splitters between panes */
 
   padding: 5px;
 }
-.claro .dijitSplitContainer-child,
-.claro .dijitBorderContainer-child {
+.claro .duiSplitContainer-child,
+.claro .duiBorderContainer-child {
   /* By default put borders on all children of BorderContainer,
 	 *  to give illusion of borders on the splitters themselves.
 	 */
 
   border: 1px #b5bcc7 solid;
 }
-.claro .dijitBorderContainer-dijitTabContainerTop,
-.claro .dijitBorderContainer-dijitTabContainerBottom,
-.claro .dijitBorderContainer-dijitTabContainerLeft,
-.claro .dijitBorderContainer-dijitTabContainerRight,
-.claro .dijitBorderContainer-dijitAccordionContainer {
-  /* except that TabContainer defines borders on it's sub-nodes (tablist and dijitTabPaneWrapper),
+.claro .duiBorderContainer-duiTabContainerTop,
+.claro .duiBorderContainer-duiTabContainerBottom,
+.claro .duiBorderContainer-duiTabContainerLeft,
+.claro .duiBorderContainer-duiTabContainerRight,
+.claro .duiBorderContainer-duiAccordionContainer {
+  /* except that TabContainer defines borders on it's sub-nodes (tablist and duiTabPaneWrapper),
 	 * so override rule setting border on domNode
 	 */
 
   border: none;
 }
-.claro .dijitBorderContainer-dijitBorderContainer {
+.claro .duiBorderContainer-duiBorderContainer {
   /* make nested BorderContainers look like a single big widget with lots of splitters */
 
   border: 0;
   padding: 0;
 }
 /* Splitters and gutters */
-.claro .dijitSplitterH,
-.claro .dijitGutterH {
+.claro .duiSplitterH,
+.claro .duiGutterH {
   background: none;
   border: 0;
   height: 5px;
 }
-.dj_ios .claro .dijitSplitterH,
-.dj_android .claro .dijitSplitterH {
+.dj_ios .claro .duiSplitterH,
+.dj_android .claro .duiSplitterH {
   height: 11px;
 }
-.claro .dijitSplitterH .dijitSplitterThumb {
+.claro .duiSplitterH .duiSplitterThumb {
   background: #b5bcc7 none;
   height: 1px;
   top: 2px;
   width: 19px;
 }
-.dj_ios .claro .dijitSplitterH .dijitSplitterThumb,
-.dj_android .claro .dijitSplitterH .dijitSplitterThumb {
+.dj_ios .claro .duiSplitterH .duiSplitterThumb,
+.dj_android .claro .duiSplitterH .duiSplitterThumb {
   top: 5px;
 }
-.claro .dijitSplitterV,
-.claro .dijitGutterV {
+.claro .duiSplitterV,
+.claro .duiGutterV {
   background: none;
   border: 0;
   width: 5px;
   margin: 0;
 }
-.dj_ios .claro .dijitSplitterV,
-.dj_android .claro .dijitSplitterV {
+.dj_ios .claro .duiSplitterV,
+.dj_android .claro .duiSplitterV {
   width: 11px;
 }
-.claro .dijitSplitterV .dijitSplitterThumb {
+.claro .duiSplitterV .duiSplitterThumb {
   background: #b5bcc7 none;
   height: 19px;
   left: 2px;
   width: 1px;
   margin: 0;
 }
-.dj_ios .claro .dijitSplitterV .dijitSplitterThumb,
-.dj_android .claro .dijitSplitterV .dijitSplitterThumb {
+.dj_ios .claro .duiSplitterV .duiSplitterThumb,
+.dj_android .claro .duiSplitterV .duiSplitterThumb {
   left: 5px;
 }
 /* hovered splitter */
-.claro .dijitSplitterHHover,
-.claro .dijitSplitterVHover {
+.claro .duiSplitterHHover,
+.claro .duiSplitterVHover {
   font-size: 1px;
   background-color: #cfe5fa;
 }
-.claro .dijitSplitterHHover {
+.claro .duiSplitterHHover {
   background-image: -moz-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -webkit-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -o-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
 }
-.claro .dijitSplitterVHover {
+.claro .duiSplitterVHover {
   background-image: -moz-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -webkit-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -o-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
 }
-.claro .dijitSplitterHHover .dijitSplitterThumb,
-.claro .dijitSplitterVHover .dijitSplitterThumb {
+.claro .duiSplitterHHover .duiSplitterThumb,
+.claro .duiSplitterVHover .duiSplitterThumb {
   background: #759dc0 none;
 }
 /* active splitter */
-.claro .dijitSplitterHActive,
-.claro .dijitSplitterVActive {
+.claro .duiSplitterHActive,
+.claro .duiSplitterVActive {
   font-size: 1px;
   background-color: #abd6ff;
   background-image: none;

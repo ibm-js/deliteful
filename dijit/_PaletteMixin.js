@@ -13,9 +13,9 @@ define([
 ], function(declare, domAttr, domClass, domConstruct, keys, lang, on, _CssStateMixin, a11yclick, focus, typematic){
 
 	// module:
-	//		dijit/_PaletteMixin
+	//		dui/_PaletteMixin
 
-	var PaletteMixin = declare("dijit._PaletteMixin", _CssStateMixin, {
+	var PaletteMixin = declare("dui._PaletteMixin", _CssStateMixin, {
 		// summary:
 		//		A keyboard accessible palette, for picking a color/emoticon/etc.
 		// description:
@@ -65,16 +65,16 @@ define([
 
 		// cellClass: [protected] String
 		//		CSS class applied to each cell in the palette
-		cellClass: "dijitPaletteCell",
+		cellClass: "duiPaletteCell",
 
 		// dyeClass: [protected] Constructor
 		//		Constructor for Object created for each cell of the palette.
-		//		dyeClass should implement the dijit/_PaletteMixin.__Dye interface.
+		//		dyeClass should implement the dui/_PaletteMixin.__Dye interface.
 		dyeClass: null,
 
 		_dyeFactory: function(value /*===== , row, col, title =====*/){
 			// summary:
-			//		Return instance of dijit.Dye for specified cell of palette
+			//		Return instance of dui.Dye for specified cell of palette
 			// tags:
 			//		extension
 
@@ -305,7 +305,7 @@ define([
 	});
 
 	/*=====
-	 PaletteMixin.__Dye = declare("dijit.Dye", null, {
+	 PaletteMixin.__Dye = declare("dui.Dye", null, {
 		 // summary:
 		 //		Interface for the JS Object associated with a palette cell (i.e. DOMNode)
 

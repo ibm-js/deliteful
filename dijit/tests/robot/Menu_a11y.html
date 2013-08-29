@@ -16,7 +16,7 @@
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-class", "dojo/dom-geometry",
 				"dojo/keys", "dojo/query", "dojo/sniff",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, dom, domClass, domGeom, keys, query, has, helpers){
 
 				robot.initRobot('../test_Menu.html');
@@ -24,10 +24,10 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
+					dfocus = robot.window.require("dui/focus");
 				});
 
-				doh.register("dijit.MenuBar general keyboard tests", [
+				doh.register("dui.MenuBar general keyboard tests", [
 					{
 						name: "start focus on the link, outside of menubar",
 						timeout: 5000,
@@ -146,7 +146,7 @@
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(clicked, "new was clicked");
 								doh.t(helpers.isHidden("fileMenu"), "File menu disappeared");
-								doh.f(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should no longer have selected effect, actual class is: " + dom.byId("file").className);
 							}), 1000);
 
@@ -184,7 +184,7 @@
 					}
 				]);
 
-				doh.register("dijit.MenuBar focus after execute", [
+				doh.register("dui.MenuBar focus after execute", [
 					{
 						name: "open edit menu",
 						timeout: 5000,
@@ -242,7 +242,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.is("View", helpers.innerText(dfocus.curNode));
-								doh.t(domClass.contains(dom.byId("view"), "dijitMenuItemSelected"),
+								doh.t(domClass.contains(dom.byId("view"), "duiMenuItemSelected"),
 										"View MenuBarItem should have selected class, actual class is:" + dom.byId("view").className);
 							}), 1000);
 
@@ -251,7 +251,7 @@
 					}
 				]);
 
-				doh.register("dijit.MenuBar repeat open keyboard tests", [
+				doh.register("dui.MenuBar repeat open keyboard tests", [
 					{
 						name: "start focus on the link, outside of menubar",
 						timeout: 5000,
@@ -359,7 +359,7 @@
 				]);
 
 				// Using left-arrow to back up (#10437)
-				doh.register("dijit.MenuBar left arrow tests", [
+				doh.register("dui.MenuBar left arrow tests", [
 					{
 						name: "start focus on the link, outside of menubar",
 						timeout: 5000,
@@ -464,8 +464,8 @@
 								doh.is("{Z}oom", registry.getEnclosingWidget(dfocus.curNode).label,
 										"focus on Zoom MenuItem");
 
-								doh.is(0, query("#zoomMenu .dijitMenuItemSelected").length,
-									"dijitMenuItemSelected removed from Zoom Menu")
+								doh.is(0, query("#zoomMenu .duiMenuItemSelected").length,
+									"duiMenuItemSelected removed from Zoom Menu")
 							}), 1000);
 
 							return d;
@@ -486,8 +486,8 @@
 								doh.is("C{u}t", registry.getEnclosingWidget(dfocus.curNode).label,
 										"focus on first MenuItem in Edit Menu");
 
-								doh.is(0, query("#viewMenu .dijitMenuItemSelected").length,
-									"dijitMenuItemSelected removed from View Menu")
+								doh.is(0, query("#viewMenu .duiMenuItemSelected").length,
+									"duiMenuItemSelected removed from View Menu")
 							}), 1000);
 
 							return d;
@@ -495,7 +495,7 @@
 					}
 				]);
 
-				doh.register("dijit.MenuBar nested click focus test", [
+				doh.register("dui.MenuBar nested click focus test", [
 					{
 						name: "start focus on the link, outside of menubar",
 						timeout: 5000,
@@ -607,7 +607,7 @@
 					}
 				]);
 
-				doh.register("dijit.MenuBar MenuBarItem tests", [
+				doh.register("dui.MenuBar MenuBarItem tests", [
 					{
 						name: "navigate to MenuBarItem",
 						timeout: 10000,
@@ -725,7 +725,7 @@
 								doh.t(menuCoords.y < 50, "y < 50", "actual y: " + menuCoords.y);
 								doh.t(menuCoords.x >= 0, "x >= 0", "actual x: " + menuCoords.x);
 								doh.t(menuCoords.y >= 0, "y >= 0", "actual y: " + menuCoords.y);
-								doh.t(domClass.contains("windowContextMenuFirstChoice", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("windowContextMenuFirstChoice", "duiMenuItemSelected"),
 										"first choice selected");
 
 								robot.keyPress(keys.ESCAPE, 0, {}, true); // close context menu
@@ -760,16 +760,16 @@
 							robot.keyPress(keys.ESCAPE, 250, {}); // close File menu
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(helpers.isHidden("fileMenu"), "File menu is hidden after cancel");
-								doh.t(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should have selected class, actual class is: " + dom.byId("file").className);
 							}), 1000);
 
 							robot.keyPress(keys.RIGHT_ARROW, 250, {}); // move to Edit menu
 							robot.sequence(d.getTestErrback(function(){
-								doh.f(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should not have selected class, actual class is: " + dom.byId("file").className);
 								doh.t(helpers.isHidden("editMenu"), "Edit menu is hidden after cancel and select");
-								doh.t(domClass.contains("edit", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("edit", "duiMenuItemSelected"),
 									"Edit MenuBarItem should have selected class, actual class is: " + dom.byId("edit").className);
 							}), 500);
 

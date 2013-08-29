@@ -8,11 +8,11 @@
 		<script type="text/javascript" src="../../../dojo/dojo.js"
 			data-dojo-config="isDebug: true"></script>
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.form.NumberTextBox");
-			dojo.require("dijit.form.CurrencyTextBox");
-			dojo.require("dijit.form.DateTextBox");
-			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.form.NumberTextBox");
+			dojo.require("dui.form.CurrencyTextBox");
+			dojo.require("dui.form.DateTextBox");
+			dojo.require("dui.form.ValidationTextBox");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.date.stamp");
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
@@ -65,7 +65,7 @@
 
 		<script>
 		(function(){
-			genFormatTestCases("Natural Language Casing Mapping", "dijit.form.TextBox", [
+			genFormatTestCases("Natural Language Casing Mapping", "dui.form.TextBox", [
 
 				{ attrs: {uppercase: "true"},
 				  desc: "Upper casing: Basic Latin",
@@ -117,7 +117,7 @@
 				}
 			]);
 
-			genFormatTestCases("White-space Detecting", "dijit.form.TextBox", [
+			genFormatTestCases("White-space Detecting", "dui.form.TextBox", [
 
 				{ attrs: {trim: "true"},
 				  desc: "Normal space & tab",

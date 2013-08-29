@@ -8,7 +8,7 @@ define([
 ], function(aspect, declare, domClass, lang, on, touch){
 
 	// module:
-	//		dijit/tree/_dndContainer
+	//		dui/tree/_dndContainer
 
 	/*=====
 	 var __Args = {
@@ -28,10 +28,10 @@ define([
 	 };
 	 =====*/
 
-	return declare("dijit.tree._dndContainer", null, {
+	return declare("dui.tree._dndContainer", null, {
 
 		// summary:
-		//		This is a base class for `dijit/tree/_dndSelector`, and isn't meant to be used directly.
+		//		This is a base class for `dui/tree/_dndSelector`, and isn't meant to be used directly.
 		//		It's modeled after `dojo/dnd/Container`.
 		// tags:
 		//		protected

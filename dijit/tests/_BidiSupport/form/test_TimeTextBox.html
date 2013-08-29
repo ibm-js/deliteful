@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>Bidi TimeTextBox</title>
 
-	<!-- required: the default dijit theme: -->
+	<!-- required: the default dui theme: -->
 	<link id="themeStyles" rel="stylesheet" href="../../../../dijit/themes/claro/claro.css"/>
 
 	<style>
@@ -26,7 +26,7 @@
 			"dojo/dom-class",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/form/TimeTextBox",
+			"dui/form/TimeTextBox",
 			"dojo/domReady!"
 		], function(doh, array, domClass, parser, registry, TimeTextBox){
 
@@ -41,7 +41,7 @@
 					textDir = isfirstChildLatin? "ltr" : "rtl";
 				}
 				doh.is(registry.byId(element).focusNode.dir, textDir, "focusNode textDir");
-				doh[guiDir == "rtl" ? "t" : "f"](domClass.contains(registry.byId(element).domNode, "dijitTimeTextBoxRtl"), "dijitTimeTextBoxRtl");
+				doh[guiDir == "rtl" ? "t" : "f"](domClass.contains(registry.byId(element).domNode, "duiTimeTextBoxRtl"), "duiTimeTextBoxRtl");
 			}
 
 			function testDropDownList(widgetId){
@@ -237,28 +237,28 @@
 			<th rowspan="2" ><h2><div align=center><font size="5">GUI direction</font></div></h2></th>
 			<td >  <font size=4 color=blue>LTR</font></td>
 			<td>
-				<input dir="ltr" id="q1" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="ltr" id="q1" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T10:30:00", textDir:"ltr",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="ltr" id="q2" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="ltr" id="q2" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T11:30:00", textDir:"rtl",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="ltr" id="q3" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="ltr" id="q3" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T12:30:00", textDir:"auto",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="ltr" id="q4" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="ltr" id="q4" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T12:30:00", textDir:"auto",
 					constraints:{formatLength:"short"},
 					lang:"ar",
@@ -269,28 +269,28 @@
 		<tr>
 			<td >  <font size=4 color=blue>RTL</font></td>
 			<td>
-				<input dir="rtl" id="q5" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="rtl" id="q5" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T10:30:00", textDir:"ltr",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="rtl" id="q6" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="rtl" id="q6" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T11:30:00", textDir:"rtl",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="rtl" id="q7" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="rtl" id="q7" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T12:30:00", textDir:"auto",
 					constraints:{formatLength:"short"},
 					required:true,
 					invalidMessage:"" '/>
 			</td>
 			<td>
-				<input dir="rtl" id="q8" data-dojo-type="dijit/form/TimeTextBox"
+				<input dir="rtl" id="q8" data-dojo-type="dui/form/TimeTextBox"
 					data-dojo-props='type:"text", name:"time1a", value:"T12:30:00", textDir:"auto",
 					constraints:{formatLength:"short"},
 					lang:"ar",
@@ -303,9 +303,9 @@
 	<br>
 
 	<h4 class="testSubtitle">Buttons to change BTD dynamically (for LTR-LTR cell)</h4><br>
-		<button data-dojo-type="dijit/form/Button" id="btn1" data-dojo-props='label:"Set textDir to ltr"'></button>
-		<button data-dojo-type="dijit/form/Button" id="btn2" data-dojo-props='label:"Set textDir to rtl"'></button>
-		<button data-dojo-type="dijit/form/Button" id="btn3" data-dojo-props='label:"Set textDir to auto"'></button>
+		<button data-dojo-type="dui/form/Button" id="btn1" data-dojo-props='label:"Set textDir to ltr"'></button>
+		<button data-dojo-type="dui/form/Button" id="btn2" data-dojo-props='label:"Set textDir to rtl"'></button>
+		<button data-dojo-type="dui/form/Button" id="btn3" data-dojo-props='label:"Set textDir to auto"'></button>
 	<br>
 	<br>
 	<br>

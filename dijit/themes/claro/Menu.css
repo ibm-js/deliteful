@@ -7,42 +7,42 @@ There are three areas of styling for the Menu:
  	i) Context Menu
  	ii) Drop down Menu
  	iii) Navigation Menu
- 	All three types of menus are affected by the .dijitMenu class in which you can set the background-color, padding and border
- 	.dijitMenu affects the drop down menu in TimeTextBox, Calendar, ComboBox and FilteringSelect
-	.dijitMenuTable - for padding - also affects Select widget
+ 	All three types of menus are affected by the .duiMenu class in which you can set the background-color, padding and border
+ 	.duiMenu affects the drop down menu in TimeTextBox, Calendar, ComboBox and FilteringSelect
+	.duiMenuTable - for padding - also affects Select widget
 
  2. The menu bar
- 	.dijitMenuBar - for border, margins, padding, background-color of the menu bar
- 	.dijitMenuBar .dijitMenuItem - for padding, text color of menu items in the menu bar (overrides .dijitMenuItem) 
+ 	.duiMenuBar - for border, margins, padding, background-color of the menu bar
+ 	.duiMenuBar .duiMenuItem - for padding, text color of menu items in the menu bar (overrides .duiMenuItem) 
  	
  3. Menu items - items in the menu.  
- 	.dijitMenuItem - for color
- 	.dijitMenuItemHover, .dijitMenuItemSelected - for background-color, border, text color, padding of a menu item or menubar item that has been hovered over or selected	
- 	.dijitMenuItemActive - for background-color of an active (mousedown) menu item
-	td.dijitMenuItemIconCell - for padding around a  menu item's icon
-	td.dijitMenuItemLabel - for padding around a menu item's label	
-	.dijitMenuSeparatorTop - for border, top border, of the separator
-	.dijitMenuSeparatorBottom - for bottom margin of the separator
+ 	.duiMenuItem - for color
+ 	.duiMenuItemHover, .duiMenuItemSelected - for background-color, border, text color, padding of a menu item or menubar item that has been hovered over or selected	
+ 	.duiMenuItemActive - for background-color of an active (mousedown) menu item
+	td.duiMenuItemIconCell - for padding around a  menu item's icon
+	td.duiMenuItemLabel - for padding around a menu item's label	
+	.duiMenuSeparatorTop - for border, top border, of the separator
+	.duiMenuSeparatorBottom - for bottom margin of the separator
 	
 	Styles specific to ComboBox and FilteringSelect widgets: 
-	.dijitComboBoxMenu .dijitMenuItem - for padding and border of a menu item in a ComboBox or FilteringSelect widget's menu
-	.dijitComboBoxMenu .dijitMenuItemSelected- for text color, background-color and border of a menu item in a ComboBox or FilteringSelect widget's menu
+	.duiComboBoxMenu .duiMenuItem - for padding and border of a menu item in a ComboBox or FilteringSelect widget's menu
+	.duiComboBoxMenu .duiMenuItemSelected- for text color, background-color and border of a menu item in a ComboBox or FilteringSelect widget's menu
 
 */
-.dijitMenu {
+.duiMenu {
   border: 1px solid black;
   background-color: white;
 }
-.dijitMenuTable {
+.duiMenuTable {
   border-collapse: collapse;
   border-width: 0;
   background-color: white;
 }
 /* workaround for webkit bug #8427, remove this when it is fixed upstream */
-.dj_webkit .dijitMenuTable td[colspan="2"] {
+.dj_webkit .duiMenuTable td[colspan="2"] {
   border-right: hidden;
 }
-.dijitMenuItem {
+.duiMenuItem {
   text-align: left;
   white-space: nowrap;
   padding: .1em .2em;
@@ -50,18 +50,18 @@ There are three areas of styling for the Menu:
   -webkit-tap-highlight-color: transparent;
 }
 /*
-No need to show a focus border since it's obvious from the shading, and there's a .dj_a11y .dijitMenuItemSelected
+No need to show a focus border since it's obvious from the shading, and there's a .dj_a11y .duiMenuItemSelected
 rule below that handles the high contrast case when there's no shading.
 Hiding the focus border also works around webkit bug https://code.google.com/p/chromium/issues/detail?id=125779.
 */
-.dijitMenuItem:focus {
+.duiMenuItem:focus {
   outline: none;
 }
-.dijitMenuPassive .dijitMenuItemHover,
-.dijitMenuItemSelected {
+.duiMenuPassive .duiMenuItemHover,
+.duiMenuItemSelected {
   /*
- * dijitMenuItemHover refers to actual mouse over
- * dijitMenuItemSelected is used after a menu has been "activated" by
+ * duiMenuItemHover refers to actual mouse over
+ * duiMenuItemSelected is used after a menu has been "activated" by
  * clicking it, tabbing into it, or being opened from a parent menu,
  * and denotes that the menu item has focus or that focus is on a child
  * menu
@@ -70,63 +70,63 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   background-color: black;
   color: white;
 }
-.dijitMenuItemIcon,
-.dijitMenuExpand {
+.duiMenuItemIcon,
+.duiMenuExpand {
   background-repeat: no-repeat;
 }
-.dijitMenuItemDisabled * {
+.duiMenuItemDisabled * {
   /* for a disabled menu item, just set it to mostly transparent */
 
   opacity: 0.5;
   cursor: default;
 }
-.dj_ie .dj_a11y .dijitMenuItemDisabled,
-.dj_ie .dj_a11y .dijitMenuItemDisabled *,
-.dj_ie .dijitMenuItemDisabled * {
+.dj_ie .dj_a11y .duiMenuItemDisabled,
+.dj_ie .dj_a11y .duiMenuItemDisabled *,
+.dj_ie .duiMenuItemDisabled * {
   color: gray;
   filter: alpha(opacity=35);
 }
-.dijitMenuItemLabel {
+.duiMenuItemLabel {
   position: relative;
   vertical-align: middle;
 }
-.dj_a11y .dijitMenuItemSelected {
+.dj_a11y .duiMenuItemSelected {
   border: 1px dotted black !important;
   /* for 2.0 use outline instead, to prevent jitter */
 
 }
-.dj_a11y .dijitMenuItemSelected .dijitMenuItemLabel {
+.dj_a11y .duiMenuItemSelected .duiMenuItemLabel {
   border-width: 1px;
   border-style: solid;
 }
-.dj_ie8 .dj_a11y .dijitMenuItemLabel {
+.dj_ie8 .dj_a11y .duiMenuItemLabel {
   position: static;
 }
-.dijitMenuExpandA11y {
+.duiMenuExpandA11y {
   display: none;
 }
-.dj_a11y .dijitMenuExpandA11y {
+.dj_a11y .duiMenuExpandA11y {
   display: inline;
 }
-.dijitMenuSeparator td {
+.duiMenuSeparator td {
   border: 0;
   padding: 0;
 }
 /* separator can be two pixels -- set border of either one to 0 to have only one */
-.dijitMenuSeparatorTop {
+.duiMenuSeparatorTop {
   height: 50%;
   margin: 0;
   margin-top: 3px;
   font-size: 1px;
 }
-.dijitMenuSeparatorBottom {
+.duiMenuSeparatorBottom {
   height: 50%;
   margin: 0;
   margin-bottom: 3px;
   font-size: 1px;
 }
 /* CheckedMenuItem and RadioMenuItem */
-.dijitMenuItemIconChar {
+.duiMenuItemIconChar {
   display: none;
   /* don't display except in high contrast mode */
 
@@ -134,26 +134,26 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   /* for high contrast mode when menuitem is unchecked: leave space for when it is checked */
 
 }
-.dj_a11y .dijitMenuItemIconChar {
+.dj_a11y .duiMenuItemIconChar {
   display: inline;
   /* display character in high contrast mode, since icon doesn't show */
 
 }
-.dijitCheckedMenuItemChecked .dijitMenuItemIconChar,
-.dijitRadioMenuItemChecked .dijitMenuItemIconChar {
+.duiCheckedMenuItemChecked .duiMenuItemIconChar,
+.duiRadioMenuItemChecked .duiMenuItemIconChar {
   visibility: visible;
   /* menuitem is checked */
 
 }
-.dj_ie .dj_a11y .dijitMenuBar .dijitMenuItem {
+.dj_ie .dj_a11y .duiMenuBar .duiMenuItem {
   /* so bottom border of MenuBar appears on IE7 in high-contrast mode */
 
   margin: 0;
 }
-.dijitFocused .dijitMenuItemShortcutKey {
+.duiFocused .duiMenuItemShortcutKey {
   text-decoration: underline;
 }
-.claro .dijitMenuBar {
+.claro .duiMenuBar {
   border: 1px solid #b5bcc7;
   margin: 0;
   padding: 0;
@@ -163,41 +163,41 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitMenu {
+.claro .duiMenu {
   background-color: #ffffff;
   border: 1px solid #759dc0;
 }
-.claro .dijitMenuItem {
+.claro .duiMenuItem {
   color: #000000;
 }
-.claro .dijitMenuBar .dijitMenuItem {
+.claro .duiMenuBar .duiMenuItem {
   padding: 6px 10px 7px;
   margin: -1px;
 }
-.claro .dijitMenuBar .dijitMenuItemHover,
-.claro .dijitMenuBar .dijitMenuItemSelected {
+.claro .duiMenuBar .duiMenuItemHover,
+.claro .duiMenuBar .duiMenuItemSelected {
   border: solid 1px #759dc0;
   padding: 5px 9px 6px;
 }
 /* this prevents jiggling upon hover of a menu item */
-.claro .dijitMenuTable {
+.claro .duiMenuTable {
   border-collapse: separate;
   border-spacing: 0 0;
   padding: 0;
 }
-.claro .dijitMenu .dijitMenuItem td,
-.claro .dijitComboBoxMenu .dijitMenuItem {
+.claro .duiMenu .duiMenuItem td,
+.claro .duiComboBoxMenu .duiMenuItem {
   padding: 2px;
   border-width: 1px 0 1px 0;
   border-style: solid;
   border-color: #ffffff;
 }
 /* hover over a MenuItem or MenuBarItem */
-.claro .dijitMenu .dijitMenuItemHover td,
-.claro .dijitMenu .dijitMenuItemSelected td,
-.claro .dijitMenuItemHover,
-.claro .dijitComboBoxMenu .dijitMenuItemHover,
-.claro .dijitMenuItemSelected {
+.claro .duiMenu .duiMenuItemHover td,
+.claro .duiMenu .duiMenuItemSelected td,
+.claro .duiMenuItemHover,
+.claro .duiComboBoxMenu .duiMenuItemHover,
+.claro .duiMenuItemSelected {
   border-color: #759dc0;
   background-color: #abd6ff;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -205,29 +205,29 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitMenuItemActive {
+.claro .duiMenuItemActive {
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
-.dj_ie .claro .dijitMenuActive .dijitMenuItemHover,
-.dj_ie .claro .dijitMenuActive .dijitMenuItemSelected,
-.dj_ie .claro .dijitMenuPassive .dijitMenuItemHover,
-.dj_ie .claro .dijitMenuPassive .dijitMenuItemSelected {
+.dj_ie .claro .duiMenuActive .duiMenuItemHover,
+.dj_ie .claro .duiMenuActive .duiMenuItemSelected,
+.dj_ie .claro .duiMenuPassive .duiMenuItemHover,
+.dj_ie .claro .duiMenuPassive .duiMenuItemSelected {
   padding-top: 6px;
   padding-bottom: 5px;
   margin-top: -3px;
 }
-.claro td.dijitMenuItemIconCell {
+.claro td.duiMenuItemIconCell {
   padding: 2px;
   margin: 0 0 0 4px;
 }
-.claro td.dijitMenuItemLabel {
+.claro td.duiMenuItemLabel {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.claro .dijitMenuExpand {
+.claro .duiMenuExpand {
   width: 7px;
   height: 7px;
   background-image: url("images/spriteArrows.png");
@@ -235,23 +235,23 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   margin-right: 3px;
   margin-bottom: 4px;
 }
-.claro .dijitMenuItemDisabled .dijitMenuItemIconCell {
+.claro .duiMenuItemDisabled .duiMenuItemIconCell {
   opacity: 1;
 }
-.claro .dijitMenuSeparatorTop {
+.claro .duiMenuSeparatorTop {
   height: auto;
   margin-top: 1px;
   /* prevents spacing above/below separator */
 
   border-bottom: 1px solid #b5bcc7;
 }
-.claro .dijitMenuSeparatorBottom {
+.claro .duiMenuSeparatorBottom {
   height: auto;
   margin-bottom: 1px;
 }
 /* the checked menu item */
-.claro .dijitCheckedMenuItem .dijitMenuItemIcon,
-.claro .dijitRadioMenuItem .dijitMenuItemIcon {
+.claro .duiCheckedMenuItem .duiMenuItemIcon,
+.claro .duiRadioMenuItem .duiMenuItemIcon {
   background-image: url("form/images/checkboxRadioButtonStates.png");
   background-repeat: no-repeat;
   background-position: -15px 50%;
@@ -260,38 +260,38 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
   width: 15px;
   height: 16px;
 }
-.claro .dijitCheckedMenuItemChecked .dijitCheckedMenuItemIcon {
+.claro .duiCheckedMenuItemChecked .duiCheckedMenuItemIcon {
   background-position: 0 50%;
   /* checked checkbox */
 
 }
-.claro .dijitRadioMenuItem .dijitMenuItemIcon {
+.claro .duiRadioMenuItem .duiMenuItemIcon {
   background-position: -105px 50%;
   /* unfilled circle */
 
 }
-.claro .dijitRadioMenuItemChecked .dijitMenuItemIcon {
+.claro .duiRadioMenuItemChecked .duiMenuItemIcon {
   background-position: -90px 50%;
   /* filled circle */
 
 }
 /*ComboBox Menu*/
-.claro .dijitComboBoxMenu {
+.claro .duiComboBoxMenu {
   margin-left: 0;
   background-image: none;
 }
-.claro .dijitMenu .dijitMenuItemSelected td,
-.claro .dijitComboBoxMenu .dijitMenuItemSelected {
+.claro .duiMenu .duiMenuItemSelected td,
+.claro .duiComboBoxMenu .duiMenuItemSelected {
   color: #000000;
   border-color: #759dc0;
   background-color: #abd6ff;
 }
-.claro .dijitComboBoxMenuActive .dijitMenuItemSelected {
+.claro .duiComboBoxMenuActive .duiMenuItemSelected {
   background-color: #7dbdfa;
-  /* TODO: why is this a different color than normal .dijitMenuItemSelected? */
+  /* TODO: why is this a different color than normal .duiMenuItemSelected? */
 
 }
-.claro .dijitMenuPreviousButton,
-.claro .dijitMenuNextButton {
+.claro .duiMenuPreviousButton,
+.claro .duiMenuNextButton {
   font-style: italic;
 }

@@ -17,7 +17,7 @@
 				"doh/runner", "dojo/robotx",
 				"dojo/_base/array", "dojo/date", "dojo/date/locale", "dojo/dom", "dojo/keys", "dojo/_base/lang",
 				"dojo/query", "dojo/sniff",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, array, date, datelocale, dom, keys, lang, query, has, helpers){
 
 				robot.initRobot('../test_Calendar.html');
@@ -25,7 +25,7 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
+					dfocus = robot.window.require("dui/focus");
 				});
 
 				// refs to Calendar widgets
@@ -54,15 +54,15 @@
 					function initialValue(){
 						cal5 = registry.byId("calendar5");
 
-						var selectedDate = query(".dijitCalendarSelectedDate", cal5.domNode);
+						var selectedDate = query(".duiCalendarSelectedDate", cal5.domNode);
 						doh.is(1, selectedDate.length, "date is selected");
 						doh.is("14", helpers.innerText(selectedDate[0]), "selected date");
 
-						var selectedMonth = query(".dijitCalendarCurrentMonthLabel", cal5.domNode);
+						var selectedMonth = query(".duiCalendarCurrentMonthLabel", cal5.domNode);
 						doh.is(1, selectedMonth.length, "month is selected");
 						doh.is("March", helpers.innerText(selectedMonth[0]), "selected month");
 
-						var selectedYear = query(".dijitCalendarSelectedYear", cal5.domNode);
+						var selectedYear = query(".duiCalendarSelectedYear", cal5.domNode);
 						doh.is(1, selectedYear.length, "year is selected");
 						doh.is("2008", helpers.innerText(selectedYear[0]), "selected year");
 					}
@@ -252,7 +252,7 @@
 							// Initial conditions
 							robot.sequence(d.getTestErrback(lang.hitch(this, function(){
 								// 16th is selected
-								var selected = query(".dijitCalendarSelectedDate", cal1.domNode);
+								var selected = query(".duiCalendarSelectedDate", cal1.domNode);
 								doh.is(1, selected.length, "one selected node");
 								doh.is("16", helpers.innerText(selected[0]));
 
@@ -272,7 +272,7 @@
 								doh.is(0, date.compare(new Date(2009, 8, 16), cal1.get('value')), 'value unchanged');
 								
 								// 16th is still selected
-								var selected = query(".dijitCalendarSelectedDate", cal1.domNode);
+								var selected = query(".duiCalendarSelectedDate", cal1.domNode);
 								doh.is(1, selected.length, "one selected node");
 								doh.is("16", helpers.innerText(selected[0]));
 							})), 500);
@@ -332,12 +332,12 @@
 								doh.is(0, date.compare(new Date(2008, 0, 31), cal1.get('value')), 'value unchanged (first page down)');
 
 								// month label should have changed
-								var monthLabel = query(".dijitCalendarCurrentMonthLabel", cal1.domNode);
+								var monthLabel = query(".duiCalendarCurrentMonthLabel", cal1.domNode);
 								doh.is(1, monthLabel.length, "one month label");
 								doh.is("February", helpers.innerText(monthLabel[0]));
 
 								// jan 31 from previous month still visible, should be shown as selected
-								var selected = query(".dijitCalendarSelectedDate", cal1.domNode);
+								var selected = query(".duiCalendarSelectedDate", cal1.domNode);
 								doh.is(1, selected.length, "no selected node");
 							})), 500);
 
@@ -349,7 +349,7 @@
 								doh.is(0, date.compare(new Date(2008, 0, 31), cal1.get('value')), 'value unchanged (second page down)');
 								
 								// since january no longer visible, no selected date should be visible
-								var selected = query(".dijitCalendarSelectedDate", cal1.domNode);
+								var selected = query(".duiCalendarSelectedDate", cal1.domNode);
 								doh.is(0, selected.length, "no selected node");
 							})), 500);
 

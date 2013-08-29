@@ -5,7 +5,7 @@
 		<title>Placeholder input</title>
 
 		<style type="text/css">
-			@import "../../../../dijit/themes/tundra/tundra.css";
+			@import "../../../../dui/themes/tundra/tundra.css";
 			@import "../../../../dojo/resources/dojo.css";
 		</style>
 
@@ -18,7 +18,7 @@
 			"dojo/query",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/form/TextBox",
+			"dui/form/TextBox",
 			"dojo/domReady!"
 		], function(doh, dom, query, parser, registry){
 
@@ -30,7 +30,7 @@
 					{
 						name: "Bidi",
 						runTest: function(){
-							var spanPlaceHolder = query("span.dijitPlaceHolder")[0];
+							var spanPlaceHolder = query("span.duiPlaceHolder")[0];
 							doh.is("rtl", spanPlaceHolder.dir, "placeholder span 'dir' attribute should be set to 'rtl'");
 						}
 					}
@@ -48,7 +48,7 @@
 	<body>
 		<br><br>
 		<label >TextBox with Placeholder, textDir="auto"</label>
-		<input id="inputPlaceholder" data-dojo-type="dijit/form/TextBox" placeHolder="&#1513;placeholder!" data-dojo-props='textDir:"auto"' name="placeHolder" value=""/>
+		<input id="inputPlaceholder" data-dojo-type="dui/form/TextBox" placeHolder="&#1513;placeholder!" data-dojo-props='textDir:"auto"' name="placeHolder" value=""/>
 
 		<br>Errors:&nbsp;<span id="errors">?</span>
 		<br>Failures:&nbsp;<span id="failures">?</span>

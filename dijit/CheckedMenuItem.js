@@ -7,14 +7,14 @@ define([
 ], function(declare, domClass, MenuItem, template){
 
 	// module:
-	//		dijit/CheckedMenuItem
+	//		dui/CheckedMenuItem
 
-	return declare("dijit.CheckedMenuItem", MenuItem, {
+	return declare("dui.CheckedMenuItem", MenuItem, {
 		// summary:
 		//		A checkbox-like menu item for toggling on and off
 
-		// Use both base classes so we get styles like dijitMenuItemDisabled
-		baseClass: "dijitMenuItem dijitCheckedMenuItem",
+		// Use both base classes so we get styles like duiMenuItemDisabled
+		baseClass: "duiMenuItem duiCheckedMenuItem",
 
 		templateString: template,
 
@@ -26,7 +26,7 @@ define([
 			this._set("checked", checked);	// triggers CSS update via _CssStateMixin
 		},
 
-		iconClass: "",	// override dijitNoIcon
+		iconClass: "",	// override duiNoIcon
 
 		role: "menuitemcheckbox",
 

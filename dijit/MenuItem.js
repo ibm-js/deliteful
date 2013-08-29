@@ -14,9 +14,9 @@ define([
 			_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin, template){
 
 	// module:
-	//		dijit/MenuItem
+	//		dui/MenuItem
 
-	var MenuItem = declare("dijit.MenuItem" + (has("dojo-bidi") ? "_NoBidi" : ""),
+	var MenuItem = declare("dui.MenuItem" + (has("dojo-bidi") ? "_NoBidi" : ""),
 		[_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin], {
 
 		// summary:
@@ -26,7 +26,7 @@ define([
 		// icon, label, and expand arrow (BiDi-dependent) indicating sub-menu
 		templateString: template,
 
-		baseClass: "dijitMenuItem",
+		baseClass: "duiMenuItem",
 
 		// label: String
 		//		Menu text as HTML
@@ -41,7 +41,7 @@ define([
 				var prefix = val.substr(0, ndx);
 				var suffix = val.substr(ndx + 3);
 				text = prefix + shortcutKey + suffix;
-				val = prefix + '<span class="dijitMenuItemShortcutKey">' + shortcutKey + '</span>' + suffix;
+				val = prefix + '<span class="duiMenuItemShortcutKey">' + shortcutKey + '</span>' + suffix;
 			}else{
 				text = val;
 			}
@@ -61,7 +61,7 @@ define([
 
 		// iconClass: String
 		//		Class to apply to DOMNode to make it display an icon.
-		iconClass: "dijitNoIcon",
+		iconClass: "duiNoIcon",
 		_setIconClassAttr: { node: "iconNode", type: "class" },
 
 		// accelKey: String
@@ -122,7 +122,7 @@ define([
 			// tags:
 			//		private
 
-			domClass.toggle(this.domNode, "dijitMenuItemSelected", selected);
+			domClass.toggle(this.domNode, "duiMenuItemSelected", selected);
 		},
 
 		_setDisabledAttr: function(/*Boolean*/ value){
@@ -150,7 +150,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		MenuItem = declare("dijit.MenuItem", MenuItem, {
+		MenuItem = declare("dui.MenuItem", MenuItem, {
 			_setLabelAttr: function(val){
 				this.inherited(arguments);
 				if(this.textDir === "auto"){

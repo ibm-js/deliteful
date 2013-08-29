@@ -14,12 +14,12 @@
 		require([
 			"doh/runner", "dojo/robotx",
 			"dojo/_base/array", "dojo/dom", "dojo/keys", "dojo/query", "dojo/window",
-			"dijit/tests/helpers", "dojo/domReady!"
+			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, robot, array, dom, keys, query, winUtils, helpers){
 
 			var treeIds = ["mytree", "tree2"];
 	
-			function testTreeItemRole(/*dijit._TreeNode*/ inRoot, /*dijit.Tree*/ inTree){
+			function testTreeItemRole(/*dui._TreeNode*/ inRoot, /*dui.Tree*/ inTree){
 				if(inRoot){
 					var expectedrole = inTree.showRoot || inRoot!==inTree.rootNode ? 'treeitem' : 'presentation';
 					doh.is(expectedrole, inRoot.labelNode.getAttribute("role"), inRoot.label + "[" + inTree.id + "]: aria role (" + expectedrole + ")");
@@ -43,7 +43,7 @@
 				},
 				function setVars(){
 					registry = robot.window.require("dui/registry");
-					focus = robot.window.require("dijit/focus");
+					focus = robot.window.require("dui/focus");
 					mytree = registry.byId("mytree");
 				}
 			]);
@@ -410,7 +410,7 @@
 
 						robot.sequence(d.getTestCallback(function(){
 							doh.is("mytree_before", focus.curNode.id, "focus went to input before tree");
-							query(".dijitTreeLabel", "mytree").every(function(node, idx){
+							query(".duiTreeLabel", "mytree").every(function(node, idx){
 								var ti = node.getAttribute("tabindex");
 								doh.is("-1", ti, "-1 tab index on TreeNode" + idx);
 							});
@@ -615,7 +615,7 @@
 						robot.keyPress(keys.END, 300);			// go to end
 
 						robot.sequence(d.getTestCallback(function(){
-							doh.is("Argentina", robot.window.require("dijit/focus").curNode.innerHTML, "end key went to this node");
+							doh.is("Argentina", robot.window.require("dui/focus").curNode.innerHTML, "end key went to this node");
 						}), 500);
 
 						return d;

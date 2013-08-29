@@ -10,7 +10,7 @@
 		@import "../../css/dijitTests.css";
 	</style>
 
-	<!-- required: the default dijit theme: -->
+	<!-- required: the default dui theme: -->
 	<link id="themeStyles" rel="stylesheet" href="../../../../dijit/themes/claro/claro.css"/>
 
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
@@ -23,9 +23,9 @@
 			"dojo/parser",
 			"dojo/query",
 			"dui/registry",
-			"dijit/layout/AccordionContainer",
-			"dijit/layout/BorderContainer",
-			"dijit/layout/ContentPane",
+			"dui/layout/AccordionContainer",
+			"dui/layout/BorderContainer",
+			"dui/layout/ContentPane",
 			"dojo/domReady!"
 		], function(doh, dom, parser, query, registry, ContentPane){
 
@@ -37,7 +37,7 @@
 				{
 					name: "Accordion Bidi",
 					runTest: function(){
-						query("span.dijitAccordionText").forEach(function(node, index, arr){
+						query("span.duiAccordionText").forEach(function(node, index, arr){
 							if(registry.getEnclosingWidget(node).textDir !== 'auto') {
 								doh.is(node.dir, registry.getEnclosingWidget(node).textDir, "tab button direction should coincide with widget's 'textDir'");
 							}
@@ -60,19 +60,19 @@
 
 	<h1 class="testTitle">Bidi Accordion Container Test</h1>
 
-	<div id="markupAccordion" data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props='textDir:"rtl", style:"width: 300px; height: 200px; overflow: hidden"'>
-		<div id="Pane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true,textDir:"ltr",
-			title:"Explicit LTR!", iconClass:"dijitEditorIcon dijitEditorIconSave", tooltip:"Explicit LTR!" '>
+	<div id="markupAccordion" data-dojo-type="dui/layout/AccordionContainer" data-dojo-props='textDir:"rtl", style:"width: 300px; height: 200px; overflow: hidden"'>
+		<div id="Pane" data-dojo-type="dui/layout/ContentPane" data-dojo-props='selected:true,textDir:"ltr",
+			title:"Explicit LTR!", iconClass:"duiEditorIcon duiEditorIconSave", tooltip:"Explicit LTR!" '>
 				<p>Explicit LTR text direction of content pane</p>
 		</div>
 
-		<div id="borderContainerPane" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='title:"Inherited RTL!", tooltip:"Inherited RTL!",iconClass:"dijitEditorIcon dijitEditorIconPaste"'>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left", style:"width:50%", splitter:true'>
+		<div id="borderContainerPane" data-dojo-type="dui/layout/BorderContainer" data-dojo-props='title:"Inherited RTL!", tooltip:"Inherited RTL!",iconClass:"duiEditorIcon duiEditorIconPaste"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"left", style:"width:50%", splitter:true'>
 			Inherited RTL title text direction of accordion button.
 			</div>
 		</div>
 
-		<div id="embeddedLayoutPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='textDir:"auto", title:"אExplicit AUTO!", tooltip:"אExplicit AUTO!",iconClass:"dijitEditorIcon dijitEditorIconCut"'>
+		<div id="embeddedLayoutPane" data-dojo-type="dui/layout/ContentPane" data-dojo-props='textDir:"auto", title:"אExplicit AUTO!", tooltip:"אExplicit AUTO!",iconClass:"duiEditorIcon duiEditorIconCut"'>
 			<p>Explicit 'auto' text direction of content pane</p>
 		</div>
 	</div>

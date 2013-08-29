@@ -3,73 +3,73 @@
  * Styling the Time Picker consists of the following: 
  *
  * 1. minor time values
- * 		.dijitTimePickerTick - set text color, size, background color of minor values
- * 		.dijitTimePickerTickHover - set hover style of minor time values
- * 		dijitTimePickerTickSelected - set selected style of minor time values
+ * 		.duiTimePickerTick - set text color, size, background color of minor values
+ * 		.duiTimePickerTickHover - set hover style of minor time values
+ * 		duiTimePickerTickSelected - set selected style of minor time values
  *
  * 2. major time values - 1:00, 2:00, times on the hour 
  * 		set text color, size, background color, left/right margins for "zoom" affect
- * 		.dijitTimePickerMarkerHover - to set hover style of major time values
- * 		.dijitTimePickerMarkerSelected - set selected style of major time values
+ * 		.duiTimePickerMarkerHover - to set hover style of major time values
+ * 		.duiTimePickerMarkerSelected - set selected style of major time values
  * 
  * 3. up and down arrow buttons
- * 		.dijitTimePicker .dijitButtonNode - background-color, border
- * 		.dijitTimePicker .dijitUpArrowHover, .dijitTimePicker .dijitDownArrowHover - set background-color for hover state
+ * 		.duiTimePicker .duiButtonNode - background-color, border
+ * 		.duiTimePicker .duiUpArrowHover, .duiTimePicker .duiDownArrowHover - set background-color for hover state
  *
  *	Other classes provide the fundamental structure of the TimePicker and should not be modified. 
  */
-.dijitTimePicker {
+.duiTimePicker {
   background-color: white;
 }
-.dijitTimePickerItem {
+.duiTimePickerItem {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.dijitTimePickerItemHover {
+.duiTimePickerItemHover {
   background-color: gray;
   color: white;
 }
-.dijitTimePickerItemSelected {
+.duiTimePickerItemSelected {
   font-weight: bold;
   color: #333;
   background-color: #b7cdee;
 }
-.dijitTimePickerItemDisabled {
+.duiTimePickerItemDisabled {
   color: gray;
   text-decoration: line-through;
 }
-.dijitTimePickerItemInner {
+.duiTimePickerItemInner {
   text-align: center;
   border: 0;
   padding: 2px 8px 2px 8px;
 }
-.dijitTimePickerTick,
-.dijitTimePickerMarker {
+.duiTimePickerTick,
+.duiTimePickerMarker {
   border-bottom: 1px solid gray;
 }
-.dijitTimePicker .dijitDownArrowButton {
+.duiTimePicker .duiDownArrowButton {
   border-top: none !important;
 }
-.dijitTimePickerTick {
+.duiTimePickerTick {
   color: #CCC;
 }
-.dijitTimePickerMarker {
+.duiTimePickerMarker {
   color: black;
   background-color: #CCC;
 }
-.dj_a11y .dijitTimePickerItemSelected .dijitTimePickerItemInner {
+.dj_a11y .duiTimePickerItemSelected .duiTimePickerItemInner {
   border: solid 4px black;
 }
-.dj_a11y .dijitTimePickerItemHover .dijitTimePickerItemInner {
+.dj_a11y .duiTimePickerItemHover .duiTimePickerItemInner {
   border: dashed 4px black;
 }
 /* override Button.css */
-.claro .dijitTimePicker .dijitButtonNode {
+.claro .duiTimePicker .duiButtonNode {
   padding: 0 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
-.claro .dijitTimePicker {
+.claro .duiTimePicker {
   border: 1px #b5bcc7 solid;
   border-top: none;
   border-bottom: none;
@@ -77,8 +77,8 @@
   /* TODO: useless?   Appears to be overridden by settings on individual elements */
 
 }
-.claro .dijitTimePickerItem {
-  /* dijitTimePickerItem refers to both Tick's (minor values like 2:15, 2:30, 2:45) and Marker's (major values like 2PM, 3PM) */
+.claro .duiTimePickerItem {
+  /* duiTimePickerItem refers to both Tick's (minor values like 2:15, 2:30, 2:45) and Marker's (major values like 2PM, 3PM) */
 
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -88,36 +88,36 @@
   border-bottom: solid 1px #b5bcc7;
   margin-top: -1px;
 }
-.claro .dijitTimePickerTick {
+.claro .duiTimePickerTick {
   /* minor value */
 
   color: #818181;
   background-color: #efefef;
   font-size: 0.818em;
 }
-.claro .dijitTimePickerMarker {
+.claro .duiTimePickerMarker {
   /* major value - 1:00, 2:00, times on the hour */
 
   background-color: #e5f2fe;
   font-size: 1em;
   white-space: nowrap;
 }
-.claro .dijitTimePickerTickHover,
-.claro .dijitTimePickerMarkerHover,
-.claro .dijitTimePickerMarkerSelected,
-.claro .dijitTimePickerTickSelected {
+.claro .duiTimePickerTickHover,
+.claro .duiTimePickerMarkerHover,
+.claro .duiTimePickerMarkerSelected,
+.claro .duiTimePickerTickSelected {
   background-color: #7dbdfa;
   color: #000000;
 }
-.claro .dijitTimePickerMarkerSelected,
-.claro .dijitTimePickerTickSelected {
+.claro .duiTimePickerMarkerSelected,
+.claro .duiTimePickerTickSelected {
   font-size: 1em;
 }
-.claro .dijitTimePickerTick .dijitTimePickerItemInner {
+.claro .duiTimePickerTick .duiTimePickerItemInner {
   padding: 1px;
   margin: 0;
 }
-.claro .dijitTimePicker .dijitButtonNode {
+.claro .duiTimePicker .duiButtonNode {
   border-left: none;
   border-right: none;
   border-color: #b5bcc7;
@@ -127,7 +127,7 @@
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitTimePicker .dijitArrowButtonInner {
+.claro .duiTimePicker .duiArrowButtonInner {
   height: 100%;
   /* hack claro.button.css */
 
@@ -135,17 +135,17 @@
   background-repeat: no-repeat;
   background-position: -140px 45%;
 }
-.claro .dijitTimePicker .dijitDownArrowButton .dijitArrowButtonInner {
+.claro .duiTimePicker .duiDownArrowButton .duiArrowButtonInner {
   background-position: -35px 45%;
 }
 /* hover */
-.claro .dijitTimePicker .dijitUpArrowHover,
-.claro .dijitTimePicker .dijitDownArrowHover {
+.claro .duiTimePicker .duiUpArrowHover,
+.claro .duiTimePicker .duiDownArrowHover {
   background-color: #abd6ff;
 }
-.claro .dijitTimePicker .dijitUpArrowHover .dijitArrowButtonInner {
+.claro .duiTimePicker .duiUpArrowHover .duiArrowButtonInner {
   background-position: -175px 45%;
 }
-.claro .dijitTimePicker .dijitDownArrowHover .dijitArrowButtonInner {
+.claro .duiTimePicker .duiDownArrowHover .duiArrowButtonInner {
   background-position: -70px 45%;
 }

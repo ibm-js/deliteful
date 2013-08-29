@@ -6,15 +6,15 @@ define([
 ], function(declare, keys, _MenuBase, template){
 
 	// module:
-	//		dijit/MenuBar
+	//		dui/MenuBar
 
-	return declare("dijit.MenuBar", _MenuBase, {
+	return declare("dui.MenuBar", _MenuBase, {
 		// summary:
 		//		A menu bar, listing menu choices horizontally, like the "File" menu in most desktop applications
 
 		templateString: template,
 
-		baseClass: "dijitMenuBar",
+		baseClass: "duiMenuBar",
 
 		// By default open popups for MenuBar instantly
 		popupDelay: 0,
@@ -23,7 +23,7 @@ define([
 		//		This is a MenuBar widget, not a (vertical) Menu widget.
 		_isMenuBar: true,
 
-		// parameter to dijit.popup.open() about where to put popup (relative to this.domNode)
+		// parameter to dui.popup.open() about where to put popup (relative to this.domNode)
 		_orient: ["below"],
 
 		_moveToPopup: function(/*Event*/ evt){
@@ -71,7 +71,7 @@ define([
 		_onUpArrow: function(){
 		},
 
-		onItemClick: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt){
+		onItemClick: function(/*dui/_WidgetBase*/ item, /*Event*/ evt){
 			// summary:
 			//		Handle clicks on an item.   Also called by _moveToPopup() due to a down-arrow key on the item.
 			//		Cancels a dropdown if already open and click is either mouse or space/enter.

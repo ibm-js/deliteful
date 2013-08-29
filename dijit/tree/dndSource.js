@@ -13,7 +13,7 @@ define([
 ], function(array, declare, dndCommon, domClass, domGeometry, lang, on, touch, topic, DNDManager, _dndSelector){
 
 	// module:
-	//		dijit/tree/dndSource
+	//		dui/tree/dndSource
 
 	/*=====
 	var __Item = {
@@ -26,9 +26,9 @@ define([
 	};
 	=====*/
 
-	var dndSource = declare("dijit.tree.dndSource", _dndSelector, {
+	var dndSource = declare("dui.tree.dndSource", _dndSelector, {
 		// summary:
-		//		Handles drag and drop operations (as a source or a target) for `dijit.Tree`
+		//		Handles drag and drop operations (as a source or a target) for `dui.Tree`
 
 		// isSource: Boolean
 		//		Can be used as a DnD source.
@@ -54,7 +54,7 @@ define([
 		// Flag used by Avatar.js to signal to generate text node when dragging
 		generateText: true,
 
-		constructor: function(/*dijit/Tree*/ tree, /*dijit/tree/dndSource*/ params){
+		constructor: function(/*dui/Tree*/ tree, /*dui/tree/dndSource*/ params){
 			// summary:
 			//		a constructor of the Tree DnD Source
 			// tags:
@@ -104,11 +104,11 @@ define([
 		checkAcceptance: function(/*===== source, nodes =====*/){
 			// summary:
 			//		Checks if the target can accept nodes from this source
-			// source: dijit/tree/dndSource
+			// source: dui/tree/dndSource
 			//		The source which provides items
 			// nodes: DOMNode[]
-			//		Array of DOM nodes corresponding to nodes being dropped, dijitTreeRow nodes if
-			//		source is a dijit/Tree.
+			//		Array of DOM nodes corresponding to nodes being dropped, duiTreeRow nodes if
+			//		source is a dui/Tree.
 			// tags:
 			//		extension
 			return true;	// Boolean
@@ -294,9 +294,9 @@ define([
 			//		When betweenThreshold is set, position="before" or "after" means that we
 			//		are asking if the source node can be dropped before/after the target node.
 			// target: DOMNode
-			//		The dijitTreeRoot DOM node inside of the TreeNode that we are dropping on to
-			//		Use dijit.getEnclosingWidget(target) to get the TreeNode.
-			// source: dijit/tree/dndSource
+			//		The duiTreeRoot DOM node inside of the TreeNode that we are dropping on to
+			//		Use dui.getEnclosingWidget(target) to get the TreeNode.
+			// source: dui/tree/dndSource
 			//		The (set of) nodes we are dropping
 			// position: String
 			//		"over", "before", or "after"
@@ -310,7 +310,7 @@ define([
 			// summary:
 			//		Topic event processor for /dnd/source/over, called when detected a current source.
 			// source: Object
-			//		The dijit/tree/dndSource / dojo/dnd/Source which has the mouse over it
+			//		The dui/tree/dndSource / dojo/dnd/Source which has the mouse over it
 			// tags:
 			//		private
 			if(this != source){
@@ -325,7 +325,7 @@ define([
 			// summary:
 			//		Topic event processor for /dnd/start, called to initiate the DnD operation
 			// source: Object
-			//		The dijit/tree/dndSource / dojo/dnd/Source which is providing the items
+			//		The dui/tree/dndSource / dojo/dnd/Source which is providing the items
 			// nodes: DomNode[]
 			//		The list of transferred items, dndTreeNode nodes if dragging from a Tree
 			// copy: Boolean
@@ -382,7 +382,7 @@ define([
 			//		Updates data store items according to where node was dragged from and dropped
 			//		to.   The tree will then respond to those data store updates and redraw itself.
 			// source: Object
-			//		The dijit/tree/dndSource / dojo/dnd/Source which is providing the items
+			//		The dui/tree/dndSource / dojo/dnd/Source which is providing the items
 			// nodes: DomNode[]
 			//		The list of transferred items, dndTreeNode nodes if dragging from a Tree
 			// copy: Boolean
@@ -439,7 +439,7 @@ define([
 					if(source == this){
 						// This is a node from my own tree, and we are moving it, not copying.
 						// Remove item from old parent's children attribute.
-						// TODO: dijit/tree/dndSelector should implement deleteSelectedNodes()
+						// TODO: dui/tree/dndSelector should implement deleteSelectedNodes()
 						// and this code should go there.
 
 						if(typeof insertIndex == "number"){

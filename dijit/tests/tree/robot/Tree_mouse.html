@@ -14,7 +14,7 @@
 		require([
 			"doh/runner", "dojo/robotx",
 			"dojo/aspect", "dojo/query",
-			"dijit/tests/helpers", "dojo/domReady!"
+			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, robot, aspect, query, helpers){
 
 			robot.initRobot('../test_Tree.html');
@@ -34,7 +34,7 @@
 
 					// find TreeNodes for Africa, Asia (this assumes that we haven't loaded any of mytree's
 					// grandchild TreeNodes yet)
-					var nodes = query(".dijitTreeLabel");
+					var nodes = query(".duiTreeLabel");
 					africa = registry.getEnclosingWidget(nodes[1]);
 					asia = registry.getEnclosingWidget(nodes[2]);
 				}
@@ -113,7 +113,7 @@
 					name: "mouse down france, up on italy",
 					timeout: 8000,
 					runTest: function(){
-						var labels = query(".dijitTreeLabel"),
+						var labels = query(".duiTreeLabel"),
 							europe = labels.filter(function(node){
 								return node.innerHTML == "Europe";
 							})[0],

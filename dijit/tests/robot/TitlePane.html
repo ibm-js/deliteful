@@ -16,7 +16,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/aspect", "dojo/dom", "dojo/keys", "dojo/_base/lang", "dojo/query", "dojo/window",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, aspect, dom, keys, lang, query, winUtils, helpers){
 
 				robot.initRobot('../test_TitlePane.html');
@@ -24,7 +24,7 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
+					dfocus = robot.window.require("dui/focus");
 				});
 
 				var pane1, pane2, pane3, href1, href2;

@@ -3,27 +3,27 @@
  * Styling Select mainly includes:
  * 
  * 1. Containers
- * 		.dijitSelect - for border, background-color
- * 		.dijitButtonContents - for border
+ * 		.duiSelect - for border, background-color
+ * 		.duiButtonContents - for border
  *
  * 2. Arrow
- * 		.dijitArrowButton - for border, padding and background-color|image
- * 		.dijitArrowButtonInner - for border, background-color|image, display and width|height
+ * 		.duiArrowButton - for border, padding and background-color|image
+ * 		.duiArrowButtonInner - for border, background-color|image, display and width|height
  * 
  * 3. Menu
- * 		.dijitSelectMenu .* - for border, padding
+ * 		.duiSelectMenu .* - for border, padding
  * 
  * 4. Various states
- * 		.dijitSelectHover|.dijitSelectFocused|.dijitSelectDisabled .* - for border, padding and background-color|image 
+ * 		.duiSelectHover|.duiSelectFocused|.duiSelectDisabled .* - for border, padding and background-color|image 
  */
-.dj_ie .dijitSelect input {
+.dj_ie .duiSelect input {
   font-size: 100%;
 }
-.dijitSelect .dijitButtonText {
+.duiSelect .duiButtonText {
   float: left;
   vertical-align: top;
 }
-TABLE.dijitSelect {
+TABLE.duiSelect {
   padding: 0 !important;
   /* messes up border alignment */
 
@@ -31,26 +31,26 @@ TABLE.dijitSelect {
   /* so jsfiddle works with Normalized CSS checked */
 
 }
-.dijitSelect input.dijitInputField {
+.duiSelect input.duiInputField {
   /* override unreasonable user styling of buttons and icons */
 
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-.dijitSelect {
+.duiSelect {
   border: 1px solid gray;
 }
-.dijitSelect,
-.dijitSelect * {
+.duiSelect,
+.duiSelect * {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.dijitSelect input {
+.duiSelect input {
   float: left;
   /* needed by IE to remove secret margin */
 
 }
-.dijitSelect input {
+.duiSelect input {
   /* <input> used to display arrow icon/validation icon, or in arrow character in high contrast mode.
  * The css below is a trick to hide the character in non-high-contrast mode
  */
@@ -60,7 +60,7 @@ TABLE.dijitSelect {
   text-align: left !important;
   height: auto !important;
 }
-.dj_ie .dijitSelect input {
+.dj_ie .duiSelect input {
   overflow-y: visible;
   /* inputs need help expanding when padding is added or line-height is adjusted */
 
@@ -68,74 +68,74 @@ TABLE.dijitSelect {
   /* strict mode */
 
 }
-.dijitSelect .dijitSelectLabel span {
+.duiSelect .duiSelectLabel span {
   line-height: 100%;
 }
-.dj_ie .dijitSelect .dijitSelectLabel {
+.dj_ie .duiSelect .duiSelectLabel {
   line-height: normal;
 }
-.dj_ie8 .dijitSelect .dijitSelectLabel,
-.dijitSelect td {
+.dj_ie8 .duiSelect .duiSelectLabel,
+.duiSelect td {
   line-height: 100%;
   /* IE7 problem where the icon is vertically way too low w/o this */
 
 }
-.dj_a11y .dijitSelect .dijitArrowButtonContainer {
+.dj_a11y .duiSelect .duiArrowButtonContainer {
   /* apparently needed to override another rule about ComboBox and Spinner???  (TODO: confirm) */
 
   border-width: 0 !important;
 }
-.dj_a11y .dijitSelect .dijitButtonText {
+.dj_a11y .duiSelect .duiButtonText {
   display: inline-block !important;
 }
-.dj_a11y .dijitSelect {
+.dj_a11y .duiSelect {
   border-collapse: separate !important;
   border-width: 1px;
   border-style: solid;
 }
-.dj_ie .dijitSelect {
+.dj_ie .duiSelect {
   vertical-align: middle;
-  /* Set this back for what we hack in dijit inline */
+  /* Set this back for what we hack in dui inline */
 
 }
-.dj_ie8 .dijitSelect .dijitButtonText {
+.dj_ie8 .duiSelect .duiButtonText {
   vertical-align: top;
 }
-.dijitSelect .dijitSelectLabel {
+.duiSelect .duiSelectLabel {
   vertical-align: baseline;
 }
-.dijitSelect .dijitButtonContents {
+.duiSelect .duiButtonContents {
   padding: 0;
   white-space: nowrap;
   text-align: left;
   border-style: none solid none none;
   border-width: 1px;
 }
-.dijitSelectFixedWidth .dijitButtonContents {
+.duiSelectFixedWidth .duiButtonContents {
   width: 100%;
 }
-.dijitSelectMenu .dijitMenuItemIcon {
+.duiSelectMenu .duiMenuItemIcon {
   /* avoid blank area in left side of menu (since we have no icons) */
 
   display: none;
 }
 /* Fix the baseline of our label (for multi-size font elements) */
-.dijitSelectLabel * {
+.duiSelectLabel * {
   vertical-align: baseline;
 }
 /* Styling for the currently-selected option (rich text can mess this up) */
-.dijitSelectSelectedOption * {
+.duiSelectSelectedOption * {
   font-weight: bold;
 }
 /* Fix the styling of the dropdown menu to be more combobox-like */
-.dijitSelectMenu {
+.duiSelectMenu {
   border-width: 1px;
 }
 /* normal status */
-.claro .dijitSelect .dijitArrowButtonContainer {
+.claro .duiSelect .duiArrowButtonContainer {
   border: 1px solid #ffffff;
 }
-.claro .dijitSelect .dijitArrowButton {
+.claro .duiSelect .duiArrowButton {
   padding: 0;
   background-color: #efefef;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -143,11 +143,11 @@ TABLE.dijitSelect {
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitSelect .dijitArrowButton .dijitArrowButtonInner {
+.claro .duiSelect .duiArrowButton .duiArrowButtonInner {
   height: 16px;
 }
 /* hover status */
-.claro .dijitSelectHover {
+.claro .duiSelectHover {
   background-color: #e5f2fe;
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
@@ -155,49 +155,49 @@ TABLE.dijitSelect {
   background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-repeat: repeat-x;
 }
-.claro .dijitSelectHover .dijitArrowButton {
+.claro .duiSelectHover .duiArrowButton {
   background-color: #abd6ff;
 }
-.claro .dijitSelectHover .dijitArrowButton .dijitArrowButtonInner {
+.claro .duiSelectHover .duiArrowButton .duiArrowButtonInner {
   background-position: -70px 53%;
 }
 /* focused status */
-.claro .dijitSelectFocused .dijitArrowButton {
+.claro .duiSelectFocused .duiArrowButton {
   background-color: #7dbefa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
-.claro .dijitSelectFocused .dijitArrowButton {
+.claro .duiSelectFocused .duiArrowButton {
   border: none;
   padding: 1px;
 }
-.claro .dijitSelectFocused .dijitArrowButton .dijitArrowButtonInner {
+.claro .duiSelectFocused .duiArrowButton .duiArrowButtonInner {
   background-position: -70px 53%;
 }
 /* disable status */
-.claro .dijitSelectDisabled {
+.claro .duiSelectDisabled {
   border-color: #d3d3d3;
   background-color: #efefef;
   background-image: none;
   color: #818181;
 }
-.claro .dijitSelectDisabled .dijitArrowButton .dijitArrowButtonInner {
+.claro .duiSelectDisabled .duiArrowButton .duiArrowButtonInner {
   background-position: 0 53%;
 }
 /* Dropdown menu style for select */
-.claro .dijitSelectMenu td.dijitMenuItemIconCell,
-.claro .dijitSelectMenu td.dijitMenuArrowCell {
+.claro .duiSelectMenu td.duiMenuItemIconCell,
+.claro .duiSelectMenu td.duiMenuArrowCell {
   /* so that arrow and icon cells from MenuItem are not displayed */
 
   display: none;
 }
-.claro .dijitSelectMenu td.dijitMenuItemLabel {
+.claro .duiSelectMenu td.duiMenuItemLabel {
   /* line up menu text with text in select box (in LTR and RTL modes) */
 
   padding: 2px;
 }
-.claro .dijitSelectMenu .dijitMenuSeparatorTop {
+.claro .duiSelectMenu .duiMenuSeparatorTop {
   border-bottom: 1px solid #759dc0;
 }

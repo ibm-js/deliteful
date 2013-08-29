@@ -14,7 +14,7 @@
 		</script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_SimpleTextarea.html');
@@ -37,7 +37,7 @@
 						name: "initial text direction of filled 'ltrSimpleTexarea'",
 
 						setUp: function(){
-							textarea = dijit.byId("ltrSimpleTexarea");
+							textarea = dui.byId("ltrSimpleTexarea");
 							modifier = dojo.isMac ? {meta: true} : {ctrl: true};
 						},
 
@@ -71,7 +71,7 @@
 						timeout: 4000,
 
 						setUp: function(){
-							textarea = dijit.byId("ltrSimpleTexarea");
+							textarea = dui.byId("ltrSimpleTexarea");
 						},
 
 						runTest: function(){
@@ -99,7 +99,7 @@
 						name: "initial text direction of filled 'rtlSimpleTexarea'",
 
 						setUp: function(){
-							textarea = dijit.byId("rtlSimpleTexarea");
+							textarea = dui.byId("rtlSimpleTexarea");
 						},
 
 						runTest: function(){
@@ -155,7 +155,7 @@
 						name: "initial text direction of filled 'contextualSimpleTexarea'",
 
 						setUp: function(){
-							textarea = dijit.byId("contextualSimpleTexarea");
+							textarea = dui.byId("contextualSimpleTexarea");
 						},
 
 						runTest: function(){
@@ -190,7 +190,7 @@
 						runTest: function(){
 							var d = new doh.Deferred(),
 								modifier = dojo.isMac ? {meta: true} : {ctrl: true},
-								textarea = dijit.byId("contextualSimpleTexarea");
+								textarea = dui.byId("contextualSimpleTexarea");
 
 							focusThenRun(textarea, function(){
 								doh.robot.setClipboard("\u05d0\u05e0\u05d9\u0020\u05d0\u05d5\u05de\u05e8\u05ea\u003a\u0020");
@@ -213,7 +213,7 @@
 						name: "initial text direction of filled 'programmaticAuto'",
 
 						setUp: function(){
-							textarea = dijit.byId("programmaticAuto");
+							textarea = dui.byId("programmaticAuto");
 							modifier = dojo.isMac ? {meta: true} : {ctrl: true};
 						},
 
@@ -271,7 +271,7 @@
 						name: "initial text direction of filled 'programmaticRTL'",
 
 						setUp: function(){
-							textarea = dijit.byId("programmaticRTL");
+							textarea = dui.byId("programmaticRTL");
 						},
 
 						runTest: function(){
@@ -327,7 +327,7 @@
 						name: "initial text direction of filled 'programmaticLTR'",
 
 						setUp: function(){
-							textarea = dijit.byId("programmaticLTR");
+							textarea = dui.byId("programmaticLTR");
 						},
 
 						runTest: function(){

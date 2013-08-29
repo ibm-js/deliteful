@@ -9,7 +9,7 @@
 		GENERIC PIECES
  ****/
 
-.dijitReset {
+.duiReset {
 	/* Use this style to null out padding, margin, border in your template elements
 		so that page specific styles don't break them.
 		- Use in all TABLE, TR and TD tags.
@@ -21,11 +21,11 @@
 	line-height:normal;
 	color: inherit;
 }
-.dj_a11y .dijitReset {
+.dj_a11y .duiReset {
 	-moz-appearance: none; /* remove predefined high-contrast styling in Firefox */
 }
 
-.dijitInline {
+.duiInline {
 	/*  To inline block elements.
 		Similar to InlineBox below, but this has fewer side-effects in Moz.
 		Also, apparently works on a DIV as well as a FIELDSET.
@@ -36,30 +36,30 @@
 	vertical-align:middle;
 }
 
-table.dijitInline {
+table.duiInline {
 	/* To inline tables with a given width set */
 	display:inline-table;
 	box-sizing: content-box; -moz-box-sizing: content-box;
 }
 
-.dijitHidden {
+.duiHidden {
 	/* To hide unselected panes in StackContainer etc. */
 	display: none !important;
 }
 
-.dijitVisible {
+.duiVisible {
 	/* To show selected pane in StackContainer etc. */
 	display: block !important;	/* override user's display:none setting via style setting or indirectly via class */
 	position: relative;			/* to support setting width/height, see #2033 */
 }
 
-.dijitOffScreen { /* these class attributes should supercede any inline positioning style */
+.duiOffScreen { /* these class attributes should supercede any inline positioning style */
 	position: absolute !important;
 	left: -10000px !important;
 	top: -10000px !important;
 }
 
-.dijitBackgroundIframe {
+.duiBackgroundIframe {
 	/* iframe used to prevent problems with PDF or other applets overlaying menus etc */
 	position: absolute;
 	left: 0;
@@ -72,12 +72,12 @@ table.dijitInline {
 	margin: 0;
 }
 
-.dijitDisplayNone {
+.duiDisplayNone {
 	/* hide something.  Use this as a class rather than element.style so another class can override */
 	display:none !important;
 }
 
-.dijitContainer {
+.duiContainer {
 	/* for all layout containers */
 	overflow: hidden;	/* need on IE so something can be reduced in size, and so scrollbars aren't temporarily displayed when resizing */
 }
@@ -85,55 +85,55 @@ table.dijitInline {
 /****
 		A11Y
  ****/
-.dj_a11y .dijitIcon,
-.dj_a11y div.dijitArrowButtonInner, /* is this only for Spinner?  if so, it should be deleted */
-.dj_a11y span.dijitArrowButtonInner,
-.dj_a11y img.dijitArrowButtonInner {
+.dj_a11y .duiIcon,
+.dj_a11y div.duiArrowButtonInner, /* is this only for Spinner?  if so, it should be deleted */
+.dj_a11y span.duiArrowButtonInner,
+.dj_a11y img.duiArrowButtonInner {
 	/* hide icon nodes in high contrast mode; when necessary they will be replaced by character equivalents
-	 * exception for input.dijitArrowButtonInner, because the icon and character are controlled by the same node */
+	 * exception for input.duiArrowButtonInner, because the icon and character are controlled by the same node */
 	display: none;
 }
 
-.dj_a11y .dijitA11ySideArrow {
+.dj_a11y .duiA11ySideArrow {
 	display: inline !important; /* display text instead */
 	cursor: pointer;
 }
 
 /* Layout widgets. This is essential CSS to make layout work (it isn't "styling" CSS)
-   make sure that the position:absolute in dijitAlign* overrides other classes */
+   make sure that the position:absolute in duiAlign* overrides other classes */
 
-.dijitLayoutContainer {
+.duiLayoutContainer {
 	position: relative;
 	display: block;
 	overflow: hidden;
 }
 
-.dijitAlignTop,
-.dijitAlignBottom,
-.dijitAlignLeft,
-.dijitAlignRight {
+.duiAlignTop,
+.duiAlignBottom,
+.duiAlignLeft,
+.duiAlignRight {
 	position: absolute;
 	overflow: hidden;
 }
 
-body .dijitAlignClient { position: absolute; }
+body .duiAlignClient { position: absolute; }
 
 
-.dijitNoIcon {
+.duiNoIcon {
 	/* applied to <img>/<span> node when there is no icon specified */
 	display: none;
 }
 
 /**** Disabled cursor *****/
-.dijitReadOnly *,
-.dijitDisabled *,
-.dijitReadOnly,
-.dijitDisabled {
+.duiReadOnly *,
+.duiDisabled *,
+.duiReadOnly,
+.duiDisabled {
 	/* a region the user would be able to click on, but it's disabled */
 	cursor: default;
 }
 
-.dj_gecko .dijitArrowButtonInner INPUT,
-.dj_gecko INPUT.dijitArrowButtonInner {
+.dj_gecko .duiArrowButtonInner INPUT,
+.dj_gecko INPUT.duiArrowButtonInner {
 	-moz-user-focus:ignore;
 }

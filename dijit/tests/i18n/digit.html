@@ -8,11 +8,11 @@
 		<script type="text/javascript" src="../../../dojo/dojo.js"
 			data-dojo-config="isDebug: true, extraLocale: ['ar-eg','hi-in']"></script>
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.form.NumberTextBox");
-			dojo.require("dijit.form.CurrencyTextBox");
-			dojo.require("dijit.form.DateTextBox");
-			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.form.NumberTextBox");
+			dojo.require("dui.form.CurrencyTextBox");
+			dojo.require("dui.form.DateTextBox");
+			dojo.require("dui.form.ValidationTextBox");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.date.stamp");
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
@@ -101,7 +101,7 @@
 		<script>
 		(function(){
 
-			genFormatTestCases("Number Format", "dijit.form.NumberTextBox", [
+			genFormatTestCases("Number Format", "dui.form.NumberTextBox", [
 				{ attrs: {lang: "ar-eg"},
 				  desc: "Locale: ar_EG",
 				  value: "12345.067",
@@ -142,7 +142,7 @@
 				}
 			]);
 
-			genValidateTestCases("Number Validate", "dijit.form.NumberTextBox", [
+			genValidateTestCases("Number Validate", "dui.form.NumberTextBox", [
 
 				{ attrs: {lang: "ar-eg"},
 				  desc: "Locale: ar_EG",
@@ -184,7 +184,7 @@
 				}
 			]);
 
-			genFormatTestCases("Currency Format", "dijit.form.CurrencyTextBox", [
+			genFormatTestCases("Currency Format", "dui.form.CurrencyTextBox", [
 
 				{ attrs: {Currency: "EGP", lang: "ar-eg"},
 				  desc: "Locale: <b>ar_EG</b> Currency: <b>EGP</b>",
@@ -213,7 +213,7 @@
 				}
 			]);
 
-			genValidateTestCases("Currency Validate", "dijit.form.CurrencyTextBox", [
+			genValidateTestCases("Currency Validate", "dui.form.CurrencyTextBox", [
 
 				{ attrs: {Currency: "EGP", lang: "ar-eg"},
 				  desc: "Locale: <b>ar_EG</b> Currency: <b>EGP</b>",
@@ -247,14 +247,14 @@
 				"31/7/2005", "", "31/07/2005", "", "31 &#x064A;&#x0648;&#x0644;&#x064A;&#x0648;&#x2C; 2005", "", "&#x0627;&#x0644;&#x0623;&#x062D;&#x062F;&#x2C; 31 &#x064A;&#x0648;&#x0644;&#x064A;&#x0648;&#x2C; 2005", "");
 			gen4DateFormat(testCases, "hi-in", "hi_IN", "2005-07-31",
 				"२००५-०७-३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "२००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "२००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "रविवार, २००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>");
-			genFormatTestCases("Date Format", "dijit.form.DateTextBox", testCases);
+			genFormatTestCases("Date Format", "dui.form.DateTextBox", testCases);
 
 			testCases = [];
 			gen4DateFormat(testCases, "ar-eg", "ar_EG", new Date(2005, 6, 31),
 				"31/7/2005", "", "31/07/2005", "", "31 &#x064A;&#x0648;&#x0644;&#x064A;&#x0648;&#x2C; 2005", "", "&#x0627;&#x0644;&#x0623;&#x062D;&#x062F;&#x2C; 31 &#x064A;&#x0648;&#x0644;&#x064A;&#x0648;&#x2C; 2005", "");
 			gen4DateFormat(testCases, "hi-in", "hi_IN", new Date(2005, 6, 31),
 				"२००५-०७-३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "२००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "२००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>", "रविवार, २००५ जुलाई ३१", "<a href='currency.html#cmt_3'>See #3 (currency.html).</a>");
-			genValidateTestCases("Date Validate", "dijit.form.DateTextBox", testCases);
+			genValidateTestCases("Date Validate", "dui.form.DateTextBox", testCases);
 
 		})();
 

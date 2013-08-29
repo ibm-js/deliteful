@@ -12,13 +12,13 @@
 			data-dojo-config="parseOnLoad: true, isDebug: true"></script>
 		<script type="text/javascript">
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
-			dojo.require("dijit._WidgetBase");
-			dojo.require("dijit._TemplatedMixin");
+			dojo.require("dui._WidgetBase");
+			dojo.require("dui._TemplatedMixin");
 
 			/* dummy widget for benchmarking purposes */
 			dojo.declare(
 				"SimpleButton",
-				[ dijit._WidgetBase, dijit._TemplatedMixin ],
+				[ dui._WidgetBase, dui._TemplatedMixin ],
 				{
 					label: "",
 

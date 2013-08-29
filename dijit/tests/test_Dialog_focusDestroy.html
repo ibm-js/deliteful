@@ -15,7 +15,7 @@
 
 
 	<script type="text/javascript">
-		require(["dojo/parser", "dijit/Dialog", "dijit/form/Button", "dojo/domReady!"], function(parser, Dialog, Button){
+		require(["dojo/parser", "dui/Dialog", "dui/form/Button", "dojo/domReady!"], function(parser, Dialog, Button){
 
 			createAndShow = function(){
 				var node = document.createElement("div");
@@ -54,7 +54,7 @@
 
 	<label for="testInput">testInput:</label><input id="testInput" name="foo" value="bar" />
 
-	<button id="showDialog" data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ createAndShow() }'>Show Dialog</button>
+	<button id="showDialog" data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ createAndShow() }'>Show Dialog</button>
 
 </body>
 </html>

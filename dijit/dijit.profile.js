@@ -1,19 +1,19 @@
 var profile = (function(){
-	var testResourceRe = /^dijit\/tests\//,
+	var testResourceRe = /^dui\/tests\//,
 
 		copyOnly = function(filename, mid){
 			var list = {
-				"dijit/dijit.profile":1,
-				"dijit/package.json":1,
+				"dui/dijit.profile":1,
+				"dui/package.json":1,
 				"dijit/themes/claro/compile":1
 			};
-			return (mid in list) || (/^dijit\/resources\//.test(mid) && !/\.css$/.test(filename)) || /(png|jpg|jpeg|gif|tiff)$/.test(filename);
+			return (mid in list) || (/^dui\/resources\//.test(mid) && !/\.css$/.test(filename)) || /(png|jpg|jpeg|gif|tiff)$/.test(filename);
 		};
 
 	return {
 		resourceTags:{
 			test: function(filename, mid){
-				return testResourceRe.test(mid) || mid=="dijit/robot" || mid=="dijit/robotx";
+				return testResourceRe.test(mid) || mid=="dui/robot" || mid=="dui/robotx";
 			},
 
 			copyOnly: function(filename, mid){
@@ -25,7 +25,7 @@ var profile = (function(){
 			},
 
 			miniExclude: function(filename, mid){
-				return /^dijit\/bench\//.test(mid) || /^dijit\/themes\/themeTest/.test(mid);
+				return /^dui\/bench\//.test(mid) || /^dui\/themes\/themeTest/.test(mid);
 			}
 		}
 	};

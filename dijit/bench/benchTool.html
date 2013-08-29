@@ -10,7 +10,7 @@
 	<style>
 		@import "../../dijit/themes/claro/claro.css";
 		@import "../themes/claro/document.css";
-		@import "../../dijit/tests/css/dijitTests.css";
+		@import "../../dui/tests/css/dijitTests.css";
 
 		#resultsContainer, #testControl, #submitControl {
 			margin: 20px;
@@ -43,8 +43,8 @@
 		// basic stats are located at http://dante.dojotoolkit.org/benchmarks/
 
 		dojo.require("dojo.fx");
-		dojo.require("dijit.dijit");
-		dojo.require("dijit.form.ComboBox");
+		dojo.require("dui.dijit");
+		dojo.require("dui.form.ComboBox");
 		dojo.require("dojo.parser");
 
 		// setup global variables
@@ -59,7 +59,7 @@
 			masterResults.dojoVersion = dojo.version.toString();
 			
 			dojo.parser.parse();	// instantiate the ComboBox
-			theClass = dijit.byId('classNode');
+			theClass = dui.byId('classNode');
 		});
 
 
@@ -87,7 +87,7 @@
 		function _runRealTest(){
 
 			// Remove widgets from previous run
-			dojo.forEach(dijit.findWidgets(dojo.byId("widgetsContainer")), function(widget){
+			dojo.forEach(dui.findWidgets(dojo.byId("widgetsContainer")), function(widget){
 				widget.destroyRecursive();
 			});
 
@@ -176,11 +176,11 @@
 	<div id="testControl">
 
 		Class:
-			<select data-dojo-type="dijit/form/ComboBox"
-					data-dojo-props='name:"dijit", id:"classNode", value:"dijit.form.Button", style:{width:"200px"}'>
-				<option>dijit.form.Button</option>
+			<select data-dojo-type="dui/form/ComboBox"
+					data-dojo-props='name:"dui", id:"classNode", value:"dui.form.Button", style:{width:"200px"}'>
+				<option>dui.form.Button</option>
 				<option>dui.mobile.Button</option>
-				<option>dijit.form.TextBox</option>
+				<option>dui.form.TextBox</option>
 				<option>dui.mobile.app.TextBox</option>
 			</select>
 		<br><br>

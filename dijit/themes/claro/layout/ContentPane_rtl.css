@@ -1,5 +1,5 @@
-.dijitRtl .dijitContentPaneLoading .dijitIconLoading,
-.dijitRtl .dijitContentPaneError .dijitIconError {
+.duiRtl .duiContentPaneLoading .duiIconLoading,
+.duiRtl .duiContentPaneError .duiIconError {
   margin-right: 0;
   margin-left: 9px;
 }

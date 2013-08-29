@@ -18,24 +18,24 @@ define([
 			_WidgetBase, _ListMouseMixin){
 
 	// module:
-	//		dijit/_TimePicker
+	//		dui/_TimePicker
 
 
-	var TimePicker = declare("dijit._TimePicker", [_WidgetBase, _ListMouseMixin], {
+	var TimePicker = declare("dui._TimePicker", [_WidgetBase, _ListMouseMixin], {
 		// summary:
-		//		A time picker dropdown, used by dijit/form/TimeTextBox.
+		//		A time picker dropdown, used by dui/form/TimeTextBox.
 		//		This widget is not available as a standalone widget due to lack of accessibility support.
 
 		// baseClass: [protected] String
 		//		The root className to use for the various states of this widget
-		baseClass: "dijitTimePicker",
+		baseClass: "duiTimePicker",
 
 		// clickableIncrement: String
 		//		ISO-8601 string representing the amount by which
 		//		every clickable element in the time picker increases.
 		//		Set in local time, without a time zone.
 		//		Example: `T00:15:00` creates 15 minute increments
-		//		Must divide dijit/_TimePicker.visibleIncrement evenly
+		//		Must divide dui/_TimePicker.visibleIncrement evenly
 		clickableIncrement: "T00:15:00",
 
 		// visibleIncrement: String
@@ -329,8 +329,8 @@ define([
 
 		handleKey: function(/*Event*/ e){
 			// summary:
-			//		Called from `dijit/form/_DateTimeTextBox` to pass a keypress event
-			//		from the `dijit/form/TimeTextBox` to be handled in this widget
+			//		Called from `dui/form/_DateTimeTextBox` to pass a keypress event
+			//		from the `dui/form/TimeTextBox` to be handled in this widget
 			// tags:
 			//		protected
 			if(e.keyCode == keys.DOWN_ARROW){
@@ -386,7 +386,7 @@ define([
 	/*=====
 	 TimePicker.__Constraints = declare(locale.__FormatOptions, {
 		 // clickableIncrement: String
-		 //		See `dijit/_TimePicker.clickableIncrement`
+		 //		See `dui/_TimePicker.clickableIncrement`
 		 clickableIncrement: "T00:15:00"
 	 });
 	 =====*/

@@ -10,12 +10,12 @@
 		require([
 			"dojo/parser",
 			"dojo/data/ItemFileWriteStore",
-			"dijit/Tree",
-			"dijit/tree/ForestStoreModel",
-			"dijit/ColorPalette",
-			"dijit/Menu",
-			"dijit/MenuItem",
-			"dijit/PopupMenuItem",
+			"dui/Tree",
+			"dui/tree/ForestStoreModel",
+			"dui/ColorPalette",
+			"dui/Menu",
+			"dui/MenuItem",
+			"dui/PopupMenuItem",
 			"dojo/domReady!"
 		], function(parser){
 			parser.parse();
@@ -32,7 +32,7 @@
 	<h1 class="testTitle">Dijit Tree Test</h1>
 
 	<div data-dojo-id="continentStore" data-dojo-type="dojo/data/ItemFileWriteStore" data-dojo-props='url:"../_data/countries.json"'></div>
-	<div data-dojo-id="continentModel" data-dojo-type="dijit/tree/ForestStoreModel" data-dojo-props='store:continentStore, query:{type:"continent"},
+	<div data-dojo-id="continentModel" data-dojo-type="dui/tree/ForestStoreModel" data-dojo-props='store:continentStore, query:{type:"continent"},
 		rootId:"continentRoot", rootLabel:"Continents", childrenAttrs:["children"]'></div>
 
 	<h2>Tree with hardcoded root node (not corresponding to any item in the store)</h2>
@@ -41,7 +41,7 @@
 		and clicking a leaf node will log a message to the console.
 	</p>
 	<label for="mytree_before">before:</label><input id="mytree_before"/>
-	<div id="mytree" data-dojo-type="dijit/Tree" aria-label="mytree" data-dojo-props='model:continentModel, openOnClick:true, onLoad:function(){ console.log("loaded mytree (first tree)"); }'>
+	<div id="mytree" data-dojo-type="dui/Tree" aria-label="mytree" data-dojo-props='model:continentModel, openOnClick:true, onLoad:function(){ console.log("loaded mytree (first tree)"); }'>
 		<script type="dojo/method" data-dojo-event="onClick" data-dojo-args="item">
 			console.log("Execute of node " + continentStore.getLabel(item)
 				+", population=" + continentStore.getValue(item, "population"));
@@ -54,12 +54,12 @@
 		</script>
 	</div>
 
-	<button id="mytreeDestroyButton" onclick="dijit.byId('mytree').destroyRecursive();">destroy</button>
+	<button id="mytreeDestroyButton" onclick="dui.byId('mytree').destroyRecursive();">destroy</button>
 
 	<h2>A rootless tree (no "continents" node) with context menus, and custom icons</h2>
 
 	<label for="tree2_before">before:</label><input id="tree2_before"/>
-	<div id="tree2" data-dojo-type="dijit/Tree" aria-label="tree2label" data-dojo-props='model:continentModel, showRoot:false, openOnClick:true,onLoad:function(){ console.log("loaded tree2 (second tree)"); }'>
+	<div id="tree2" data-dojo-type="dui/Tree" aria-label="tree2label" data-dojo-props='model:continentModel, showRoot:false, openOnClick:true,onLoad:function(){ console.log("loaded tree2 (second tree)"); }'>
 		<script type="dojo/method" data-dojo-event="getIconClass" data-dojo-args="item, opened">
            return (item == this.model.root || continentStore.getValue(item, "type") == "continent") ?
                    (opened ? "customFolderOpenedIcon" : "customFolderClosedIcon") :
@@ -71,11 +71,11 @@
 		</script>
 	</div>
 
-	<ul id="tree_menu" data-dojo-type="dijit/Menu"
-			data-dojo-props='style:"display: none;", targetNodeIds: ["tree2"], selector: ".dijitTreeNode"'>
-		<li data-dojo-type="dijit/MenuItem">
+	<ul id="tree_menu" data-dojo-type="dui/Menu"
+			data-dojo-props='style:"display: none;", targetNodeIds: ["tree2"], selector: ".duiTreeNode"'>
+		<li data-dojo-type="dui/MenuItem">
 			<script type="dojo/on" data-dojo-event="click">
-				// get a hold of the dijit.TreeNode that was the source of this open event
+				// get a hold of the dui.TreeNode that was the source of this open event
 				var tn = registry.byNode(this.getParent().currentTarget);
 
 				// now print the data store item that backs the tree node
@@ -85,8 +85,8 @@
 		</li>
 	</ul>
 
-	<button id="tree2ExpandAll" onclick="dijit.byId('tree2').expandAll();">expand all</button>
-	<button onclick="dijit.byId('tree2').collapseAll();">collapse all</button>
+	<button id="tree2ExpandAll" onclick="dui.byId('tree2').expandAll();">expand all</button>
+	<button onclick="dui.byId('tree2').collapseAll();">collapse all</button>
 
 	<h2>Double click, expand on load, direct style setting, tooltip test</h2>
 	<p>
@@ -94,7 +94,7 @@
 		and clicking or Double Clicking a leaf node will log a message to the console.
 	</p>
 	<label for="mytree3_before">before:</label> <input id="mytree3_before"/>
-	<div id="mytree3" aria-label="mytree 3"  data-dojo-type="dijit/Tree" data-dojo-props='store:continentStore, query:{type:"continent"},
+	<div id="mytree3" aria-label="mytree 3"  data-dojo-type="dui/Tree" data-dojo-props='store:continentStore, query:{type:"continent"},
 		label:"Continents", openOnClick:false, openOnDblClick:true,
 		autoExpand:true, onLoad:function(){ console.log("loaded mytree3 (third tree)"); }'>
 		<script type="dojo/method" data-dojo-event="getLabelStyle" data-dojo-args="item,opened">
@@ -117,7 +117,7 @@
 		</script>
 		<script type="dojo/method" data-dojo-event="getIconClass" data-dojo-args="item, opened">
 	       if(!item || continentStore.getValue(item, "type") != "continent")
-				return (!item || this.model.mayHaveChildren(item)) ? (opened ? "dijitFolderOpened" : "dijitFolderClosed") : "dijitLeaf"
+				return (!item || this.model.mayHaveChildren(item)) ? (opened ? "duiFolderOpened" : "duiFolderClosed") : "duiLeaf"
 	       	else
 	       		return "";
 		</script>
@@ -144,14 +144,14 @@
 		state.
 	</p>
 	<div id="thinTree" style="width: 170px; border: solid 1px #759dc0"
-		 data-dojo-type="dijit/Tree" aria-label="my thin tree"  data-dojo-props="model:continentModel">
+		 data-dojo-type="dui/Tree" aria-label="my thin tree"  data-dojo-props="model:continentModel">
 		<script type="dojo/aspect" data-dojo-advice="after" data-dojo-method="_adjustWidths">
 			console.log(this.id + ": adjusted widths of nodes");
 		</script>
 	</div>
-	<button onclick="dijit.byId('thinTree').expandAll();">expand all</button>
-	<button onclick="dijit.byId('thinTree').collapseAll();">collapse all</button>
-	<button onclick="dijit.byId('thinTree').set('paths', [['continentRoot','AF'],['continentRoot','NA','US']]);">
+	<button onclick="dui.byId('thinTree').expandAll();">expand all</button>
+	<button onclick="dui.byId('thinTree').collapseAll();">collapse all</button>
+	<button onclick="dui.byId('thinTree').set('paths', [['continentRoot','AF'],['continentRoot','NA','US']]);">
 		set paths to Africa, US
 	</button>
 	<button onclick="continentStore.fetchItemByIdentity({identity: 'US', onItem: function(item){ continentStore.setValue(item, 'name', 'A very very very long name for USA'); }});">

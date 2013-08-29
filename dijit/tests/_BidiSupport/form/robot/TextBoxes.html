@@ -16,7 +16,7 @@
 		</script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_TextBoxes.html');
@@ -40,7 +40,7 @@
 						name: "initial text direction of empty 'ltrTextBox'",
 
 						setUp: function(){
-							textBox = dijit.byId("ltrTextBox");
+							textBox = dui.byId("ltrTextBox");
 						},
 
 						runTest: function(){
@@ -103,7 +103,7 @@
 						name: "initial text direction of empty 'rtlTextBox'",
 
 						setUp: function(){
-							textBox = dijit.byId("rtlTextBox");
+							textBox = dui.byId("rtlTextBox");
 							textBox.domNode.scrollIntoView();
 						},
 
@@ -168,7 +168,7 @@
 						name: "initial text direction of empty 'contextualTextBox'",
 
 						setUp: function(){
-							textBox = dijit.byId("contextualTextBox");
+							textBox = dui.byId("contextualTextBox");
 							textBox.domNode.scrollIntoView();
 						},
 
@@ -249,9 +249,9 @@
 						name: "initial direction of the textBoxs",
 
 						setUp: function(){
-							textBox1 = dijit.byId("programmatic1");
-							textBox2 = dijit.byId("programmatic2");
-							textBox3 = dijit.byId("programmatic3");
+							textBox1 = dui.byId("programmatic1");
+							textBox2 = dui.byId("programmatic2");
+							textBox3 = dui.byId("programmatic3");
 						},
 
 						runTest: function(){

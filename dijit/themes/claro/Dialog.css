@@ -4,32 +4,32 @@
  * 
  * Dialog:
  * 1. Dialog (default styling): 
- * 		.dijitDialog - styles for dialog's bounding box
+ * 		.duiDialog - styles for dialog's bounding box
  *
  * 2. Dialog title 
- * 		.dijitDialogTitleBar - styles for the title container at the top of dialog
- * 		.dijitDialogTitle - the text container in dialog title
+ * 		.duiDialogTitleBar - styles for the title container at the top of dialog
+ * 		.duiDialogTitle - the text container in dialog title
  * 
  * 3. Dialog content 
- * 		.dijitDialogPaneContent - main container for content area and action bar
- * 		.dijitDialogPaneContentArea - styles for content container
+ * 		.duiDialogPaneContent - main container for content area and action bar
+ * 		.duiDialogPaneContentArea - styles for content container
  * 
  * 4. Dialog action bar 
- * 		.dijitDialogPaneActionBar - styles for action buttons lie at the bottom of dialog pane content
+ * 		.duiDialogPaneActionBar - styles for action buttons lie at the bottom of dialog pane content
  * 
  * 5. Dialog underlay 
- * 		.dijitDialogUnderlay - div under the dialog which used for separate dialog and page content
+ * 		.duiDialogUnderlay - div under the dialog which used for separate dialog and page content
  * 
  * 
  * Tooltip & TooltipDialog:
  * 1. tooltip content container: 
- * 		.dijitTooltipContainer - tooltip content container
+ * 		.duiTooltipContainer - tooltip content container
  *
  * 2. tooltip connector: 
- * 		.dijitTooltipConnector - tooltip anchor includes 4 direction(up, down, left, right)
+ * 		.duiTooltipConnector - tooltip anchor includes 4 direction(up, down, left, right)
  */
 /* Tooltip */
-.dijitTooltip {
+.duiTooltip {
   position: absolute;
   z-index: 2000;
   display: block;
@@ -39,48 +39,48 @@
   top: -10000px;
   overflow: visible;
 }
-.dijitTooltipContainer {
+.duiTooltipContainer {
   border: solid black 2px;
   background: #b8b5b5;
   color: black;
   font-size: small;
 }
-.dijitTooltipFocusNode {
+.duiTooltipFocusNode {
   padding: 2px 2px 2px 2px;
 }
-.dijitTooltipConnector {
+.duiTooltipConnector {
   position: absolute;
 }
-.dj_a11y .dijitTooltipConnector {
+.dj_a11y .duiTooltipConnector {
   display: none;
   /* won't show b/c it's background-image; hide to avoid border gap */
 
 }
-.dijitTooltipData {
+.duiTooltipData {
   display: none;
 }
 /* Dialog */
-.dijitDialog {
+.duiDialog {
   position: absolute;
   z-index: 999;
   overflow: hidden;
   /* override overflow: auto; from ContentPane to make dragging smoother */
 
 }
-.dijitDialogTitleBar {
+.duiDialogTitleBar {
   cursor: move;
 }
-.dijitDialogFixed .dijitDialogTitleBar {
+.duiDialogFixed .duiDialogTitleBar {
   cursor: default;
 }
-.dijitDialogCloseIcon {
+.duiDialogCloseIcon {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.dijitDialogPaneContent {
+.duiDialogPaneContent {
   -webkit-overflow-scrolling: touch;
 }
-.dijitDialogUnderlayWrapper {
+.duiDialogUnderlayWrapper {
   position: absolute;
   left: 0;
   top: 0;
@@ -88,47 +88,47 @@
   display: none;
   background: transparent !important;
 }
-.dijitDialogUnderlay {
+.duiDialogUnderlay {
   background: #eee;
   opacity: 0.5;
 }
-.dj_ie .dijitDialogUnderlay {
+.dj_ie .duiDialogUnderlay {
   filter: alpha(opacity=50);
 }
 /* images off, high-contrast mode styles */
-.dj_a11y .dijitDialog {
+.dj_a11y .duiDialog {
   opacity: 1 !important;
   background-color: white !important;
 }
-.dijitDialog .closeText {
+.duiDialog .closeText {
   display: none;
   /* for the onhover border in high contrast on IE: */
 
   position: absolute;
 }
-.dj_a11y .dijitDialog .closeText {
+.dj_a11y .duiDialog .closeText {
   display: inline;
 }
-.claro .dijitDialog {
+.claro .duiDialog {
   border: 1px solid #759dc0;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
-.claro .dijitDialogPaneContent {
+.claro .duiDialogPaneContent {
   background: #ffffff repeat-x top left;
   border-top: 1px solid #759dc0;
   padding: 10px 8px;
   position: relative;
 }
-.claro .dijitDialogPaneContentArea {
+.claro .duiDialogPaneContentArea {
   /* trick to get action bar (gray bar at bottom with OK/cancel buttons) to span from
 	 * left to right but still indent dialog content
 	 */
   margin: -10px -8px;
   padding: 10px 8px;
 }
-.claro .dijitDialogPaneActionBar {
+.claro .duiDialogPaneActionBar {
   /* gray bar at bottom of dialog with OK/Cancel buttons */
 
   background-color: #efefef;
@@ -137,7 +137,7 @@
   border-top: 1px solid #d3d3d3;
   margin: 10px -8px -10px;
 }
-.claro .dijitTooltipDialog .dijitDialogPaneActionBar {
+.claro .duiTooltipDialog .duiDialogPaneActionBar {
   -webkit-border-bottom-right-radius: 4px;
   -webkit-border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -146,10 +146,10 @@
   -moz-border-radius-bottomleft: 4px;
   margin: 10px -10px -8px;
 }
-.claro .dijitDialogPaneActionBar .dijitButton {
+.claro .duiDialogPaneActionBar .duiButton {
   float: none;
 }
-.claro .dijitDialogTitleBar {
+.claro .duiDialogTitleBar {
   /* outer container for the titlebar of the dialog */
 
   border: 1px solid #ffffff;
@@ -161,14 +161,14 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   padding: 5px 7px 4px 7px;
 }
-.claro .dijitDialogTitle {
+.claro .duiDialogTitle {
   /* typography and styling of the dialog title */
 
   padding: 0 1px;
   font-size: 1.091em;
   color: #000000;
 }
-.claro .dijitDialogCloseIcon {
+.claro .duiDialogCloseIcon {
   /* the default close icon for the dialog */
 
   background: url("images/dialogCloseIcon.png");
@@ -178,36 +178,36 @@
   height: 15px;
   width: 21px;
 }
-.claro .dijitDialogCloseIconHover {
+.claro .duiDialogCloseIconHover {
   background-position: -21px;
 }
-.claro .dijitDialogCloseIconActive {
+.claro .duiDialogCloseIconActive {
   background-position: -42px;
 }
 /* Tooltip and TooltipDialog */
-.claro .dijitTooltip,
-.claro .dijitTooltipDialog {
+.claro .duiTooltip,
+.claro .duiTooltipDialog {
   /* the outermost dom node, holding the connector and container */
 
   background: transparent;
   /* make the area on the sides of the arrow transparent */
 
 }
-.dijitTooltipBelow {
+.duiTooltipBelow {
   /* leave room for arrow above content */
 
   padding-top: 13px;
   padding-left: 3px;
   padding-right: 3px;
 }
-.dijitTooltipAbove {
+.duiTooltipAbove {
   /* leave room for arrow below content */
 
   padding-bottom: 13px;
   padding-left: 3px;
   padding-right: 3px;
 }
-.claro .dijitTooltipContainer {
+.claro .duiTooltipContainer {
   /* the part with the text */
 
   background-color: #ffffff;
@@ -226,7 +226,7 @@
   font-size: 1em;
   color: #000000;
 }
-.claro .dijitTooltipConnector {
+.claro .duiTooltipConnector {
   /* the arrow piece */
 
   border: 0;
@@ -236,7 +236,7 @@
   width: 16px;
   height: 14px;
 }
-.claro .dijitTooltipBelow .dijitTooltipConnector {
+.claro .duiTooltipBelow .duiTooltipConnector {
   /* the arrow piece for tooltips below an element */
 
   top: 0;
@@ -245,7 +245,7 @@
   width: 16px;
   height: 14px;
 }
-.claro .dijitTooltipAbove .dijitTooltipConnector {
+.claro .duiTooltipAbove .duiTooltipConnector {
   /* the arrow piece for tooltips above an element */
 
   bottom: 0;
@@ -254,18 +254,18 @@
   width: 16px;
   height: 14px;
 }
-.claro .dijitTooltipABRight .dijitTooltipConnector {
+.claro .duiTooltipABRight .duiTooltipConnector {
   /* above or below tooltip, but the arrow appears on the right,
 		and the right edges of target and tooltip are aligned rather than the left.
-		Override above rules for .dijitTooltipBelow, .dijitTooltipAbove */
+		Override above rules for .duiTooltipBelow, .duiTooltipAbove */
 
   left: auto;
   right: 3px;
 }
-.claro .dijitTooltipLeft {
+.claro .duiTooltipLeft {
   padding-right: 14px;
 }
-.claro .dijitTooltipLeft .dijitTooltipConnector {
+.claro .duiTooltipLeft .duiTooltipConnector {
   /* the arrow piece for tooltips to the left of an element, bottom borders aligned */
 
   right: 0;
@@ -273,10 +273,10 @@
   width: 16px;
   height: 14px;
 }
-.claro .dijitTooltipRight {
+.claro .duiTooltipRight {
   padding-left: 14px;
 }
-.claro .dijitTooltipRight .dijitTooltipConnector {
+.claro .duiTooltipRight .duiTooltipConnector {
   /* the arrow piece for tooltips to the right of an element, bottom borders aligned */
 
   left: 0;
@@ -284,6 +284,6 @@
   width: 16px;
   height: 14px;
 }
-.claro .dijitDialogUnderlay {
+.claro .duiDialogUnderlay {
   background: #ffffff;
 }

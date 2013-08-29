@@ -9,7 +9,7 @@
 		require([
 			"doh/runner",
 			"dojo/dom", "dojo/on", "dojo/parser",
-			"dijit/Fieldset",
+			"dui/Fieldset",
 			"dojo/domReady!"
 		], function(doh, dom, on, parser, Fieldset){
 
@@ -46,11 +46,11 @@
 </head>
 <body class="claro">
 	<h1 class="testTitle">Fieldset Automated (non-robot) tests</h1>
-	<fieldset id="fs1" data-dojo-id="fs1" data-dojo-type="dijit/Fieldset">
+	<fieldset id="fs1" data-dojo-id="fs1" data-dojo-type="dui/Fieldset">
 		<legend>Declarative</legend>
 		<p>Some content</p>
 	</fieldset>
-	<fieldset id="fs2" data-dojo-id="fs2" data-dojo-type="dijit/Fieldset" data-dojo-props="toggleable: false">
+	<fieldset id="fs2" data-dojo-id="fs2" data-dojo-type="dui/Fieldset" data-dojo-props="toggleable: false">
 		<legend>Not Toggleable</legend>
 		<p>Some content</p>
 	</fieldset>

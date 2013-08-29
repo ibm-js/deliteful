@@ -13,11 +13,11 @@ define([
 ], function(array, declare, kernel, lang, dndCommon, dom, mouse, on, touch, a11yclick, _dndContainer){
 
 	// module:
-	//		dijit/tree/_dndSelector
+	//		dui/tree/_dndSelector
 
-	return declare("dijit.tree._dndSelector", _dndContainer, {
+	return declare("dui.tree._dndSelector", _dndContainer, {
 		// summary:
-		//		This is a base class for `dijit/tree/dndSource`, and isn't meant to be used directly.
+		//		This is a base class for `dui/tree/dndSource`, and isn't meant to be used directly.
 		//		It's based on `dojo/dnd/Selector`.
 		// tags:
 		//		protected
@@ -85,7 +85,7 @@ define([
 			this.inherited(arguments);
 			this.selection = this.anchor = null;
 		},
-		addTreeNode: function(/*dijit/Tree._TreeNode*/ node, /*Boolean?*/isAnchor){
+		addTreeNode: function(/*dui/Tree._TreeNode*/ node, /*Boolean?*/isAnchor){
 			// summary:
 			//		add node to current selection
 			// node: Node
@@ -97,7 +97,7 @@ define([
 			if(isAnchor){ this.anchor = node; }
 			return node;
 		},
-		removeTreeNode: function(/*dijit/Tree._TreeNode*/ node){
+		removeTreeNode: function(/*dui/Tree._TreeNode*/ node){
 			// summary:
 			//		remove node and it's descendants from current selection
 			// node: Node
@@ -108,7 +108,7 @@ define([
 			this.setSelection(newSelection);
 			return node;
 		},
-		isTreeNodeSelected: function(/*dijit/Tree._TreeNode*/ node){
+		isTreeNodeSelected: function(/*dui/Tree._TreeNode*/ node){
 			// summary:
 			//		return true if node is currently selected
 			// node: Node
@@ -116,7 +116,7 @@ define([
 
 			return node.id && !!this.selection[node.id];
 		},
-		setSelection: function(/*dijit/Tree._TreeNode[]*/ newSelection){
+		setSelection: function(/*dui/Tree._TreeNode[]*/ newSelection){
 			// summary:
 			//		set the list of selected nodes to be exactly newSelection. All changes to the
 			//		selection should be passed through this function, which ensures that derived
@@ -275,7 +275,7 @@ define([
 
 				return r1.compareBoundaryPoints(r1.END_TO_END, r2);
 			}else{
-				throw Error("dijit.tree._compareNodes don't know how to compare two different nodes in this browser");
+				throw Error("dui.tree._compareNodes don't know how to compare two different nodes in this browser");
 			}
 		},
 

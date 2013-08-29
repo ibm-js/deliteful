@@ -17,29 +17,29 @@ define([
 			_CssStateMixin, _TemplatedMixin, ContentPane, template){
 
 	// module:
-	//		dijit/TitlePane
+	//		dui/TitlePane
 
-	var TitlePane = declare("dijit.TitlePane", [ContentPane, _TemplatedMixin, _CssStateMixin], {
+	var TitlePane = declare("dui.TitlePane", [ContentPane, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		A pane with a title on top, that can be expanded or collapsed.
 		//
 		// description:
 		//		An accessible container with a title Heading, and a content
 		//		section that slides open and closed. TitlePane is an extension to
-		//		`dijit/layout/ContentPane`, providing all the useful content-control aspects from it.
+		//		`dui/layout/ContentPane`, providing all the useful content-control aspects from it.
 		//
 		// example:
 		//	|	// load a TitlePane from remote file:
-		//	|	var foo = new dijit.TitlePane({ href: "foobar.html", title:"Title" });
+		//	|	var foo = new dui.TitlePane({ href: "foobar.html", title:"Title" });
 		//	|	foo.startup();
 		//
 		// example:
 		//	|	<!-- markup href example: -->
-		//	|	<div data-dojo-type="dijit/TitlePane" data-dojo-props="href: 'foobar.html', title: 'Title'"></div>
+		//	|	<div data-dojo-type="dui/TitlePane" data-dojo-props="href: 'foobar.html', title: 'Title'"></div>
 		//
 		// example:
 		//	|	<!-- markup with inline data -->
-		//	|	<div data-dojo-type="dijit/TitlePane" title="Title">
+		//	|	<div data-dojo-type="dui/TitlePane" title="Title">
 		//	|		<p>I am content</p>
 		//	|	</div>
 
@@ -67,7 +67,7 @@ define([
 
 		// baseClass: [protected] String
 		//		The root className to be placed on this widget's domNode.
-		baseClass: "dijitTitlePane",
+		baseClass: "duiTitlePane",
 
 		templateString: template,
 

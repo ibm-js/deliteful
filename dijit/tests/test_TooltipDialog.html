@@ -10,19 +10,19 @@
 		body { font-family : sans-serif; }
 		form { margin-bottom : 0; }
 		table { border: none; }
-		.claro .tooltipLink .dijitButtonNode,
-		.claro .tooltipLink .dijitButtonNode .dijitDropDownButtonHover,
-		.claro .buttonLink .dijitButtonNode,
-		.claro .buttonLink .dijitButtonHover .dijitButtonNode {
+		.claro .tooltipLink .duiButtonNode,
+		.claro .tooltipLink .duiButtonNode .duiDropDownButtonHover,
+		.claro .buttonLink .duiButtonNode,
+		.claro .buttonLink .duiButtonHover .duiButtonNode {
 			background: none !important;
 			border:none;
 		}
-		.claro .tooltipLink .dijitArrowButtonInner {
+		.claro .tooltipLink .duiArrowButtonInner {
 			display:none;
 		}
 		.claro .tooltipLink button,
-		.claro .tooltipLink button .dijitButtonText,
-		.claro .buttonLink button .dijitButtonText {
+		.claro .tooltipLink button .duiButtonText,
+		.claro .buttonLink button .duiButtonText {
 			text-decoration:underline !important;
 			color:blue;
 			display:inline;
@@ -35,26 +35,26 @@
 			"dojo/dom",
 			"dojo/date/stamp",
 			"dojo/parser",
-			"dijit/_WidgetBase",
-			"dijit/_TemplatedMixin",
-			"dijit/TooltipDialog",
-			"dijit/layout/ContentPane",
-			"dijit/form/DropDownButton",
+			"dui/_WidgetBase",
+			"dui/_TemplatedMixin",
+			"dui/TooltipDialog",
+			"dui/layout/ContentPane",
+			"dui/form/DropDownButton",
 	
-			"dijit/form/Form",
-			"dijit/form/TextBox",
-			"dijit/form/DateTextBox",
-			"dijit/form/TimeTextBox",
-			"dijit/form/FilteringSelect",
-			"dijit/form/Select",
+			"dui/form/Form",
+			"dui/form/TextBox",
+			"dui/form/DateTextBox",
+			"dui/form/TimeTextBox",
+			"dui/form/FilteringSelect",
+			"dui/form/Select",
 	
-			"dijit/layout/TabContainer",
-			"dijit/InlineEditBox",
+			"dui/layout/TabContainer",
+			"dui/InlineEditBox",
 	
-			"dijit/Menu",
-			"dijit/MenuItem",
-			"dijit/PopupMenuItem",
-			"dijit/MenuSeparator",
+			"dui/Menu",
+			"dui/MenuItem",
+			"dui/PopupMenuItem",
+			"dui/MenuSeparator",
 				
 			"dojo/domReady!"
 		], function(declare, dom, stamp, parser, _WidgetBase, _TemplatedMixin, TooltipDialog, ContentPane, DropDownButton){
@@ -71,10 +71,10 @@
 			var innerTtDialog = new TooltipDialog({
 				id: "innerTtDialog",
 				content:
-					'<div data-dojo-type="dijit/Menu" id="navMenu"><div data-dojo-type="dijit/MenuItem" iconClass="dijitEditorIcon dijitEditorIconCut" >Drama</div><div data-dojo-type="dijit/MenuItem" iconClass="dijitEditorIcon dijitEditorIconCopy" >Comedy</div><div data-dojo-type="dijit/MenuItem" iconClass="dijitEditorIcon dijitEditorIconPaste" >Romance</div><div data-dojo-type="dijit/MenuSeparator"></div><div data-dojo-type="dijit/PopupMenuItem" id="popupMenuItem"><span>Action</span><div data-dojo-type="dijit/Menu" id="submenu"><div data-dojo-type="dijit/MenuItem">Diehard</div><div data-dojo-type="dijit/MenuItem">Indiana Jones</div></div></div></div>'
-					+ '<label for="name">Name:</label><br><input data-dojo-type="dijit/form/TextBox" id="name" name="name"><br>'
-					+ '<label for="hobby">Hobby:</label><br><input data-dojo-type="dijit/form/TextBox" id="hobby" name="hobby"><br>'
-					+ '<button data-dojo-type="dijit/form/Button" type="button">Save</button>'
+					'<div data-dojo-type="dui/Menu" id="navMenu"><div data-dojo-type="dui/MenuItem" iconClass="duiEditorIcon duiEditorIconCut" >Drama</div><div data-dojo-type="dui/MenuItem" iconClass="duiEditorIcon duiEditorIconCopy" >Comedy</div><div data-dojo-type="dui/MenuItem" iconClass="duiEditorIcon duiEditorIconPaste" >Romance</div><div data-dojo-type="dui/MenuSeparator"></div><div data-dojo-type="dui/PopupMenuItem" id="popupMenuItem"><span>Action</span><div data-dojo-type="dui/Menu" id="submenu"><div data-dojo-type="dui/MenuItem">Diehard</div><div data-dojo-type="dui/MenuItem">Indiana Jones</div></div></div></div>'
+					+ '<label for="name">Name:</label><br><input data-dojo-type="dui/form/TextBox" id="name" name="name"><br>'
+					+ '<label for="hobby">Hobby:</label><br><input data-dojo-type="dui/form/TextBox" id="hobby" name="hobby"><br>'
+					+ '<button data-dojo-type="dui/form/Button" type="button">Save</button>'
 					+ '<div id="plaintext">plain text</div>'
 			 });
 
@@ -109,31 +109,31 @@
 </head>
 <body class="claro" role="main">
 
-	<h1 class="testTitle">dijit.TooltipDialog tests</h1>
-	<div id="tooltipDlgButton" data-dojo-type="dijit/form/DropDownButton">
+	<h1 class="testTitle">dui.TooltipDialog tests</h1>
+	<div id="tooltipDlgButton" data-dojo-type="dui/form/DropDownButton">
 		<span>Show Tooltip Dialog</span>
-		<div id="tooltipDlg" data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
+		<div id="tooltipDlg" data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
 			<table role="presentation">
 				<tr>
 					<td><label>InlineEditBox:</label></td>
-					<td><div id="inline" data-dojo-type=dijit/InlineEditBox data-dojo-props='editorParams:{type:"text", name:"inline"}'>inline</div></td>
+					<td><div id="inline" data-dojo-type=dui/InlineEditBox data-dojo-props='editorParams:{type:"text", name:"inline"}'>inline</div></td>
 				</tr>
 				<tr>
 					<td><label for="text">TextBox:</label></td>
-					<td><input id="text" data-dojo-type=dijit/form/TextBox data-dojo-props='name:"text" '/></td>
+					<td><input id="text" data-dojo-type=dui/form/TextBox data-dojo-props='name:"text" '/></td>
 				</tr>
 				<tr>
 					<td><label for="date2">Date:</label></td>
-					<td><input id="date2" data-dojo-type=dijit/form/DateTextBox data-dojo-props='name:"date" '/></td>
+					<td><input id="date2" data-dojo-type=dui/form/DateTextBox data-dojo-props='name:"date" '/></td>
 				</tr>
 				<tr>
 					<td><label for="time2">Time:</label></td>
-					<td><input id="time2" data-dojo-type=dijit/form/TimeTextBox data-dojo-props='name:"time" '/></td>
+					<td><input id="time2" data-dojo-type=dui/form/TimeTextBox data-dojo-props='name:"time" '/></td>
 				</tr>
 				<tr>
 					<td><label for="combo">FilteringSelect:</label></td>
 					<td>
-						<select id="combo" data-dojo-type=dijit/form/FilteringSelect data-dojo-props='name:"combo", hasDownArrow:true'>
+						<select id="combo" data-dojo-type=dui/form/FilteringSelect data-dojo-props='name:"combo", hasDownArrow:true'>
 							<option value="cheese">cheese</option>
 							<option value="pepperoni">pepperoni</option>
 							<option value="sausage">sausage</option>
@@ -143,7 +143,7 @@
 				<tr>
 					<td><label for="select">Select:</label></td>
 					<td>
-						<select id="select" data-dojo-type=dijit/form/Select data-dojo-props='name:"select" '>
+						<select id="select" data-dojo-type=dui/form/Select data-dojo-props='name:"select" '>
 							<option value="olives">olives</option>
 							<option value="peppers">peppers</option>
 							<option value="tomatoes">tomatoes</option>
@@ -152,7 +152,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align:center;">
-						<button id="submit" data-dojo-type=dijit/form/Button data-dojo-props='type:"submit", name:"submit" '>Order</button>
+						<button id="submit" data-dojo-type=dui/form/Button data-dojo-props='type:"submit", name:"submit" '>Order</button>
 					</td>
 				</tr>
 			</table>
@@ -160,11 +160,11 @@
 		</div>
 	</div> |
 
-	<div data-dojo-type="dijit/form/DropDownButton">
+	<div data-dojo-type="dui/form/DropDownButton">
 		<span>Show Tooltip Dialog with TabContainer</span>
-		<div id="tabTooltip" data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Tab Container Tooltip"'>
-			<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 300px;"'>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"First tab"'>
+		<div id="tabTooltip" data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Tab Container Tooltip"'>
+			<div data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 300px;"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"First tab"'>
 					<p>
 						This is the first tab.
 					</p>
@@ -177,7 +177,7 @@
 					risus.
 					</p>
 				</div>
-				<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Second tab"'>
+				<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Second tab"'>
 					<p>
 						This is the second tab.
 					</p>
@@ -194,16 +194,16 @@
 		</div>
 	</div> |
 
-	<div id="slowLoadButton" data-dojo-type="dijit/form/DropDownButton">
+	<div id="slowLoadButton" data-dojo-type="dui/form/DropDownButton">
 		<span>Test slowloading HREF Tooltip Dialog</span>
-		<div id="slowLoad" data-dojo-type="dijit/TooltipDialog" data-dojo-props='href:"layout/getResponse.php?delay=500&amp;messId=2",
+		<div id="slowLoad" data-dojo-type="dui/TooltipDialog" data-dojo-props='href:"layout/getResponse.php?delay=500&amp;messId=2",
 			title:"tooltip dialog with no focusable items"'></div>
 	</div> |
 
-	<div data-dojo-type="dijit/form/DropDownButton" data-dojo-props='"class":"tooltipLink"'>
+	<div data-dojo-type="dui/form/DropDownButton" data-dojo-props='"class":"tooltipLink"'>
 		<span>What is this?</span>
-		<div data-dojo-id="tooltipHelpDlg" data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Test Dialog tooltip", style:"width:350px" '>
-			<div data-dojo-type="dijit/form/Button" data-dojo-props='"class":"buttonLink", style:"float:right;font-size:x-small", title:"close", tabIndex:"0" '>[close]
+		<div data-dojo-id="tooltipHelpDlg" data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Test Dialog tooltip", style:"width:350px" '>
+			<div data-dojo-type="dui/form/Button" data-dojo-props='"class":"buttonLink", style:"float:right;font-size:x-small", title:"close", tabIndex:"0" '>[close]
 				<script type="dojo/method" data-dojo-event="onClick">
 						tooltipHelpDlg.onCancel();
 				</script>
@@ -224,33 +224,33 @@
 		<!-- programatically created nested TooltipDialog will be placed here -->
 	</span>
 
-	<div data-dojo-type="dijit/form/DropDownButton">
+	<div data-dojo-type="dui/form/DropDownButton">
 		<span>TooltipDialog w/ActionBar</span>
-		<div data-dojo-type="dijit/TooltipDialog" id="loginform" data-dojo-props="title: 'Login...'">
-			<form data-dojo-type="dijit/form/Form">
+		<div data-dojo-type="dui/TooltipDialog" id="loginform" data-dojo-props="title: 'Login...'">
+			<form data-dojo-type="dui/form/Form">
 				<table>
-					<tr><td><label for="username2">Username:</label></td><td><input type="text" id="username2" data-dojo-type="dijit/form/TextBox" /></td></tr>
-					<tr><td><label for="password2">Password:</label></td><td><input type="password" id="password2" data-dojo-type="dijit/form/TextBox" /></td></tr>
+					<tr><td><label for="username2">Username:</label></td><td><input type="text" id="username2" data-dojo-type="dui/form/TextBox" /></td></tr>
+					<tr><td><label for="password2">Password:</label></td><td><input type="password" id="password2" data-dojo-type="dui/form/TextBox" /></td></tr>
 				</table>
-				<div class="dijitDialogPaneActionBar">
-					<button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
-					<button data-dojo-type="dijit/form/Button" type="submit">Login</button>
+				<div class="duiDialogPaneActionBar">
+					<button data-dojo-type="dui/form/Button" type="reset">Reset</button>
+					<button data-dojo-type="dui/form/Button" type="submit">Login</button>
 				</div>
 			</form>
 		</div>
 	</div>
 
-	<div data-dojo-type="dijit/form/DropDownButton" data-dojo-props="dropDownPosition: ['below-centered', 'above-centered']">
+	<div data-dojo-type="dui/form/DropDownButton" data-dojo-props="dropDownPosition: ['below-centered', 'above-centered']">
 		<span>Centered TooltipDialog</span>
-		<div data-dojo-type="dijit/TooltipDialog" id="loginform3" data-dojo-props="title: 'Login...'">
-			<form data-dojo-type="dijit/form/Form">
+		<div data-dojo-type="dui/TooltipDialog" id="loginform3" data-dojo-props="title: 'Login...'">
+			<form data-dojo-type="dui/form/Form">
 				<table>
-					<tr><td><label for="username3">Username:</label></td><td><input type="text" id="username3" data-dojo-type="dijit/form/TextBox" /></td></tr>
-					<tr><td><label for="password3">Password:</label></td><td><input type="password" id="password3" data-dojo-type="dijit/form/TextBox" /></td></tr>
+					<tr><td><label for="username3">Username:</label></td><td><input type="text" id="username3" data-dojo-type="dui/form/TextBox" /></td></tr>
+					<tr><td><label for="password3">Password:</label></td><td><input type="password" id="password3" data-dojo-type="dui/form/TextBox" /></td></tr>
 				</table>
-				<div class="dijitDialogPaneActionBar">
-					<button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
-					<button data-dojo-type="dijit/form/Button" type="submit">Login</button>
+				<div class="duiDialogPaneActionBar">
+					<button data-dojo-type="dui/form/Button" type="reset">Reset</button>
+					<button data-dojo-type="dui/form/Button" type="submit">Login</button>
 				</div>
 			</form>
 		</div>
@@ -305,9 +305,9 @@
 	turpis sed odio. Curabitur in est id nibh tempus ultrices. Aliquam
 	consectetuer dapibus eros. Aliquam nisl.
 	</p>
-	<div data-dojo-type="dijit/form/DropDownButton" data-dojo-props='style:"float:right;clear:right;" '>
+	<div data-dojo-type="dui/form/DropDownButton" data-dojo-props='style:"float:right;clear:right;" '>
 		<span>dropdown at right</span>
-	<div id="dialogright" data-dojo-type="dijit/TooltipDialog" >
+	<div id="dialogright" data-dojo-type="dui/TooltipDialog" >
 			<div style="white-space:nowrap;">Aliquam vitae enim. Duis scelerisque metus auctor est venenatis</div>
 	</div>
 	</div>
@@ -333,9 +333,9 @@
 	tortor pharetra congue. Suspendisse pulvinar.
 	</p>
 
-	<div data-dojo-type="dijit/form/DropDownButton" data-dojo-props='title:"Enter Login information2"'>
+	<div data-dojo-type="dui/form/DropDownButton" data-dojo-props='title:"Enter Login information2"'>
 		<span>Show Tooltip Dialog pointing upwards, with links</span>
-		<div data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"General Information Dialog"'>
+		<div data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"General Information Dialog"'>
 			<p>Vestibulum convallis eros ac justo. Proin dolor. Etiam aliquam. Nam
 			ornare elit vel augue. Suspendisse potenti. Etiam sed mauris eu neque
 			nonummy mollis. <a href="http://www.lipsum.com/">Vestibulum</a> vel purus ac pede semper accumsan. Vivamus

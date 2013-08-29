@@ -19,14 +19,14 @@ define([
 			registry, _WidgetBase, _Container, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
-	//		dijit/_MenuBase
+	//		dui/_MenuBase
 
-	return declare("dijit._MenuBase", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin, _CssStateMixin], {
+	return declare("dui._MenuBase", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin, _CssStateMixin], {
 		// summary:
 		//		Abstract base class for Menu and MenuBar.
 		//		Subclass should implement _onUpArrow(), _onDownArrow(), _onLeftArrow(), and _onRightArrow().
 
-		// selected: dijit/MenuItem
+		// selected: dui/MenuItem
 		//		Currently selected (a.k.a. highlighted) MenuItem, or null if no MenuItem is selected.
 		//		If a submenu is open, will be set to MenuItem that displayed the submenu.   OTOH, if
 		//		this Menu is in passive mode (i.e. hasn't been clicked yet), will be null, because
@@ -53,8 +53,8 @@ define([
 		//		menu is not active (ie no dropdown) until an item is clicked.
 		activated: false,
 		_setActivatedAttr: function(val){
-			domClass.toggle(this.domNode, "dijitMenuActive", val);
-			domClass.toggle(this.domNode, "dijitMenuPassive", !val);
+			domClass.toggle(this.domNode, "duiMenuActive", val);
+			domClass.toggle(this.domNode, "duiMenuPassive", !val);
 			this._set("activated", val);
 		},
 
@@ -121,7 +121,7 @@ define([
 			}
 		},
 
-		_keyboardSearchCompare: function(/*dijit/_WidgetBase*/ item, /*String*/ searchString){
+		_keyboardSearchCompare: function(/*dui/_WidgetBase*/ item, /*String*/ searchString){
 			// summary:
 			//		Compares the searchString to the widget's text label, returning:
 			//		-1: a high priority match and stop searching
@@ -288,7 +288,7 @@ define([
 			return top;
 		},
 
-		onItemClick: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt){
+		onItemClick: function(/*dui/_WidgetBase*/ item, /*Event*/ evt){
 			// summary:
 			//		Handle clicks on an item.
 			// tags:
@@ -320,7 +320,7 @@ define([
 			}
 		},
 
-		_openItemPopup: function(/*dijit/MenuItem*/ from_item, /*Boolean*/ focus){
+		_openItemPopup: function(/*dui/MenuItem*/ from_item, /*Boolean*/ focus){
 			// summary:
 			//		Open the popup to the side of/underneath the current menu item, and optionally focus first item
 			// tags:

@@ -5,14 +5,14 @@ define([
 ], function(declare, domClass, CheckedMenuItem){
 
 	// module:
-	//		dijit/RadioButtonMenuItem
+	//		dui/RadioButtonMenuItem
 
-	return declare("dijit.RadioButtonMenuItem", CheckedMenuItem, {
+	return declare("dui.RadioButtonMenuItem", CheckedMenuItem, {
 		// summary:
 		//		A radio-button-like menu item for toggling on and off
 
-		// Use both base classes so we get styles like dijitMenuItemDisabled
-		baseClass: "dijitMenuItem dijitRadioMenuItem",
+		// Use both base classes so we get styles like duiMenuItemDisabled
+		baseClass: "duiMenuItem duiRadioMenuItem",
 
 		role: "menuitemradio",
 

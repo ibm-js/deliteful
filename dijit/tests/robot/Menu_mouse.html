@@ -15,7 +15,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-class", "dojo/dom-geometry", "dojo/keys",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, dom, domClass, domGeom, keys, helpers){
 
 				robot.initRobot('../test_Menu.html');
@@ -25,7 +25,7 @@
 					registry = robot.window.require("dui/registry");
 				});
 
-				doh.register("dijit.MenuBar mouse tests", [
+				doh.register("dui.MenuBar mouse tests", [
 
 					{
 						name: "mouse over file MenuBarItem",
@@ -34,7 +34,7 @@
 							var d = new doh.Deferred();
 
 							// Check initial conditions
-							doh.f(domClass.contains("file", "dijitMenuItemHover"), "File MenuBarItem doesn't have hover effect");
+							doh.f(domClass.contains("file", "duiMenuItemHover"), "File MenuBarItem doesn't have hover effect");
 							doh.t(helpers.isHidden("fileMenu"), "File menu is hidden");
 
 							// Move over the File MenuBarItem
@@ -42,7 +42,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								// The "File" MenuBarItem should be highlighted
-								doh.t(domClass.contains("file", "dijitMenuItemHover"),
+								doh.t(domClass.contains("file", "duiMenuItemHover"),
 									"File MenuBarItem should have hover effect, actual class is: " + dom.byId("file").className);
 
 								// However, just moving over the MenuBarItem shouldn't have opened the menu
@@ -66,16 +66,16 @@
 							robot.sequence(d.getTestCallback(function(){
 								// The "File" MenuBarItem should have the selected class in addition to the hover
 								// class
-								doh.t(domClass.contains("file", "dijitMenuItemHover"),
+								doh.t(domClass.contains("file", "duiMenuItemHover"),
 									"File MenuBarItem should have hover effect, actual class is: " + dom.byId("file").className);
-								doh.t(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should have selected class, actual class is: " + dom.byId("file").className);
 
 								// And the file menu should be visible
 								doh.t(helpers.isVisible("fileMenu"), "File menu is visible");
 
 								// But the first item in the file menu should not be selected, since we opened via mouse not keyboard (#10716)
-								doh.f(domClass.contains("new", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("new", "duiMenuItemSelected"),
 									"New MenuItem should not have selected class, actual class is: " + dom.byId("new").className);
 							}), 1000);
 
@@ -113,14 +113,14 @@
 							robot.mouseMoveAt("copy", 500, 500);
 
 							robot.sequence(d.getTestCallback(function(){
-								doh.f(domClass.contains("edit", "dijitMenuItemHover"),
+								doh.f(domClass.contains("edit", "duiMenuItemHover"),
 									"Edit MenuBarItem shouldn't have hover effect anymore, actual class is: " + dom.byId("edit").className);
-								doh.t(domClass.contains("edit", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("edit", "duiMenuItemSelected"),
 									"Edit MenuBarItem should still have selected class, actual class is: " + dom.byId("edit").className);
 
-								doh.t(domClass.contains("copy", "dijitMenuItemHover"),
+								doh.t(domClass.contains("copy", "duiMenuItemHover"),
 									"Copy Menu item should have hover effect, actual class is: " + dom.byId("copy").className);
-								doh.t(domClass.contains("copy", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("copy", "duiMenuItemSelected"),
 									"Copy Menu item should have selected effect, actual class is: " + dom.byId("copy").className);
 							}), 500);
 
@@ -139,7 +139,7 @@
 							w.onClick = d.getTestCallback(function(){
 								w.onClick = orig;
 								doh.t(helpers.isHidden("editMenu"), "edit menu disappeared");
-								doh.f(domClass.contains("edit", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("edit", "duiMenuItemSelected"),
 									"Edit MenuBarItem should no longer have selected effect, actual class is: " + dom.byId("edit").className);
 							});
 
@@ -156,7 +156,7 @@
 							var d = new doh.Deferred();
 
 							// Check initial conditions
-							doh.f(domClass.contains("file", "dijitMenuItemHover"), "File MenuBarItem doesn't have hover effect");
+							doh.f(domClass.contains("file", "duiMenuItemHover"), "File MenuBarItem doesn't have hover effect");
 							doh.t(helpers.isHidden("fileMenu"), "File menu is hidden");
 
 							// Move over the File MenuBarItem
@@ -164,14 +164,14 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								// The "File" MenuBarItem should be highlighted
-								doh.t(domClass.contains("file", "dijitMenuItemHover"),
+								doh.t(domClass.contains("file", "duiMenuItemHover"),
 									"File MenuBarItem should have hover effect, actual class is: " + dom.byId("file").className);
 
 								// However, it shouldn't be "selected", and
 								// just moving over the MenuBarItem shouldn't have opened the menu,
 								// given that after clicking above, the MenuBar should have reverted to it's
 								// "dormant" state so that it needs to be clicked again before menus show up automatically
-								doh.f(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem shouldn't have selected effect, actual class is: " + dom.byId("file").className);
 								doh.t(helpers.isHidden("fileMenu"), "File menu is hidden");
 							}), 500);
@@ -191,14 +191,14 @@
 							var d = new doh.Deferred();
 
 							// Check initial conditions
-							doh.f(domClass.contains("navMenuPopupItem1", "dijitMenuItemHover"), "navMenuPopupItem1 MenuItem doesn't have hover effect");
+							doh.f(domClass.contains("navMenuPopupItem1", "duiMenuItemHover"), "navMenuPopupItem1 MenuItem doesn't have hover effect");
 							doh.t(helpers.isHidden("navMenuSub1"), "sub menu is hidden");
 
 							robot.mouseMoveAt("navMenuPopupItem1", 500, 500);
 
 							robot.sequence(d.getTestCallback(function(){
 								// The "enabled submenu" MenuItem should be highlighted
-								doh.t(domClass.contains("navMenuPopupItem1", "dijitMenuItemHover"),
+								doh.t(domClass.contains("navMenuPopupItem1", "duiMenuItemHover"),
 									"'Enabled Submenu' MenuItem should have hover effect, actual class is: " + dom.byId("navMenuPopupItem1").className);
 
 								// However, just moving over the MenuItem shouldn't have opened the menu
@@ -218,16 +218,16 @@
 							robot.mouseClick({left: true}, 500);
 
 							robot.sequence(d.getTestCallback(function(){
-								doh.t(domClass.contains("navMenuPopupItem1", "dijitMenuItemHover"),
+								doh.t(domClass.contains("navMenuPopupItem1", "duiMenuItemHover"),
 									"'Enabled Submenu' MenuItem should have hover effect, actual class is: " + dom.byId("navMenuPopupItem1").className);
-								doh.t(domClass.contains("navMenuPopupItem1", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("navMenuPopupItem1", "duiMenuItemSelected"),
 									"'Enabled Submenu' MenuItem should have selected effect, actual class is: " + dom.byId("navMenuPopupItem1").className);
 
 								// And the sub menu should be visible
 								doh.t(helpers.isVisible("navMenuSub1"), "sub menu is visible");
 
 								// But the first item in the sub menu should be selected, since opened by mouse, see #10716
-								doh.f(domClass.contains("navMenuSub1_item1", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("navMenuSub1_item1", "duiMenuItemSelected"),
 									"first item in sub menu should have selected class, actual class is: " + dom.byId("new").className);
 							}), 1000);
 
@@ -281,7 +281,7 @@
 								doh.t(menuCoords.y > linkCoords.y, "menu (" + menuCoords.y + ") starts below top of link (" + linkCoords.y + ")");
 								doh.t(menuCoords.y < linkCoords.y + linkCoords.h, "menu (" + menuCoords.y + ") starts above bottom of link (" + linkCoords.y + "+" + linkCoords.h + ")");
 
-								doh.f(domClass.contains("windowContextMenuFirstChoice", "dijitMenuItemSelected"), "first choice not marked as selected");
+								doh.f(domClass.contains("windowContextMenuFirstChoice", "duiMenuItemSelected"), "first choice not marked as selected");
 							}), 1000);
 
 							return d;
@@ -385,11 +385,11 @@
 								doh.t(helpers.isHidden("fileMenu"), "File menu is hidden #1");
 								doh.t(helpers.isHidden("editMenu"), "Edit menu is hidden #1");
 
-								doh.f(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should not have selected class, actual class is: " + dom.byId("file").className);
-								doh.f(domClass.contains("file", "dijitMenuItemHover"),
+								doh.f(domClass.contains("file", "duiMenuItemHover"),
 									"File MenuBarItem shouldn't have hover effect anymore, actual class is: " + dom.byId("edit").className);
-								doh.t(domClass.contains("edit", "dijitMenuItemHover"),
+								doh.t(domClass.contains("edit", "duiMenuItemHover"),
 									"Edit MenuBarItem should have hover effect, actual class is: " + dom.byId("edit").className);
 							}), 1000);
 
@@ -399,7 +399,7 @@
 							robot.mouseMoveAt("edit", 1000, 500);
 
 							robot.sequence(d.getTestErrback(function(){
-								doh.t(domClass.contains("edit", "dijitMenuItemHover"),
+								doh.t(domClass.contains("edit", "duiMenuItemHover"),
 									"Edit MenuBarItem should still have hover effect, actual class is: " + dom.byId("edit").className);
 								doh.t(helpers.isHidden("editMenu"), "edit menu disappeared #1");
 							}), 1000);
@@ -463,7 +463,7 @@
 
 							robot.mouseMoveAt("view", 500, 500);
 							robot.sequence(d.getTestErrback(function(){
-								doh.t(domClass.contains("view", "dijitMenuItemHover"),
+								doh.t(domClass.contains("view", "duiMenuItemHover"),
 									"View MenuBarItem should have hover effect, actual class is: " + dom.byId("view").className);
 								doh.t(helpers.isHidden("viewMenu"), "View menu is hidden");
 							}), 500);
@@ -472,15 +472,15 @@
 							robot.keyPress(keys.TAB, 500, {});
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(helpers.isHidden("fileMenu"), "File menu is hidden");
-								doh.t(domClass.contains("file", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("file", "duiMenuItemSelected"),
 									"File MenuBarItem should have selected class, actual class is: " + dom.byId("file").className);
-								doh.f(domClass.contains("view", "dijitMenuItemHover"),
+								doh.f(domClass.contains("view", "duiMenuItemHover"),
 									"View MenuBarItem shouldn't have hover effect anymore, actual class is: " + dom.byId("view").className);
 							}), 1000);
 
 							robot.mouseMoveAt("edit", 500, 500);
 							robot.sequence(d.getTestErrback(function(){
-								doh.t(domClass.contains("edit", "dijitMenuItemHover"),
+								doh.t(domClass.contains("edit", "duiMenuItemHover"),
 									"Edit MenuBarItem should have hover effect, actual class is: " + dom.byId("edit").className);
 								doh.t(helpers.isHidden("editMenu"), "View menu is hidden");
 							}), 500);
@@ -491,9 +491,9 @@
 							robot.keyPress(keys.RIGHT_ARROW, 1000, {});
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(helpers.isHidden("viewMenu"), "View menu is hidden");
-								doh.t(domClass.contains("view", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("view", "duiMenuItemSelected"),
 									"View MenuBarItem should have selected class, actual class is: " + dom.byId("file").className);
-								doh.f(domClass.contains("edit", "dijitMenuItemHover"),
+								doh.f(domClass.contains("edit", "duiMenuItemHover"),
 									"Edit MenuBarItem shouldn't have hover effect anymore, actual class is: " + dom.byId("edit").className);
 							}), 1000);
 
@@ -536,9 +536,9 @@
 							robot.mouseMoveAt("navMenuSub1_item2", 0, 50); // QUICKLY move to the popup menu
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(helpers.isVisible("navMenuSub1"), "Enabled submenu 1 should be visible");
-								doh.t(domClass.contains("navMenuSub1_item2", "dijitMenuItemHover"),
+								doh.t(domClass.contains("navMenuSub1_item2", "duiMenuItemHover"),
 									"Submenu 1, item 2 navigation MenuItem should have hover effect, actual class is: " + dom.byId("navMenuDisabledItem").className);
-								doh.t(domClass.contains("navMenuPopupItem1", "dijitMenuItemSelected"),
+								doh.t(domClass.contains("navMenuPopupItem1", "duiMenuItemSelected"),
 									"'Enabled Submenu' MenuItem should have selected effect, actual class is: " + dom.byId("navMenuPopupItem1").className);
 								var popup = domGeom.position('navMenuSub1_popup');
 								robot._mouseMove(popup.x + (popup.w >> 1), popup.y + popup.h + 20, false, 500);
@@ -571,7 +571,7 @@
 							var d = new doh.Deferred();
 
 							// Check initial conditions
-							doh.f(domClass.contains("file", "dijitMenuItemHover"), "File MenuBarItem doesn't have hover effect");
+							doh.f(domClass.contains("file", "duiMenuItemHover"), "File MenuBarItem doesn't have hover effect");
 							doh.t(helpers.isHidden("fileMenu"), "File menu is hidden");
 
 							// Move over the File MenuBarItem
@@ -579,7 +579,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(helpers.isVisible("fileMenu"), "File menu is visible");
-								doh.f(domClass.contains("new", "dijitMenuItemSelected"),
+								doh.f(domClass.contains("new", "duiMenuItemSelected"),
 										"New MenuItem should not have selected class, actual class is: " + dom.byId("new").className);
 							}), 1000);
 

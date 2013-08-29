@@ -5,7 +5,7 @@
 define([
 	"doh/runner", "dojo/robotx",
 	"dojo/_base/array", "dojo/dnd/autoscroll", "dojo/dom", "dojo/dom-geometry", "dojo/query", "dojo/_base/window",
-	"dijit/tests/helpers"
+	"dui/tests/helpers"
 ], function(doh, robot, array, autoscroll, dom, domGeom, query, win, helpers){
 
 	var exports = {
@@ -43,7 +43,7 @@ define([
 			//		Assumes that there's only one TreeNode w/that label (i.e. it
 			//		breaks if certain items have multiple parents and appear in the
 			//		tree multiple times)
-			var nodes = query(".dijitTreeLabel", dom.byId(treeId, robot.doc));
+			var nodes = query(".duiTreeLabel", dom.byId(treeId, robot.doc));
 			for(var i=0; i<nodes.length; i++){
 				if(helpers.innerText(nodes[i]) == label){
 					return registry.getEnclosingWidget(nodes[i]);	// TreeNode

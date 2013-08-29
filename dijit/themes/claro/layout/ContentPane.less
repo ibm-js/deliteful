@@ -1,36 +1,36 @@
 /* ContentPane 
  *	
- * .dijitContentPane
+ * .duiContentPane
  * 	set padding for basic content pane
  * 	
  * Nested layouts:
  * 
- * .dijitTabContainerTop-dijitContentPane,
- * .dijitTabContainerLeft-dijitContentPane,
- * .dijitTabContainerBottom-dijitContentPane,
- * .dijitTabContainerRight-dijitContentPane
+ * .duiTabContainerTop-duiContentPane,
+ * .duiTabContainerLeft-duiContentPane,
+ * .duiTabContainerBottom-duiContentPane,
+ * .duiTabContainerRight-duiContentPane
  * 	set background-color and padding of ContentPanes nested within TabContainer (can do top, left, bottom, or right) or Accordion Container
  *
- * .dijitAccordionContainer-dijitContentPane
+ * .duiAccordionContainer-duiContentPane
  * 	set background-color and padding of ContentPane nested within Accordion
  *
- * .dijitSplitContainer-dijitContentPane, 
+ * .duiSplitContainer-duiContentPane, 
  *	set background-color and padding of ContentPane nested within a SplitContainer 
  *
- * .dijitBorderContainer-dijitContentPane
+ * .duiBorderContainer-duiContentPane
  *	set background-color and padding of ContentPane nested within a BorderContainer 
  */
 
 @import "../variables";
 
 // From dijit.css
-.dijitContentPane {
+.duiContentPane {
 	display: block;
 	overflow: auto;	/* if we don't have this (or overflow:hidden), then Widget.resizeTo() doesn't make sense for ContentPane */
 	-webkit-overflow-scrolling: touch;
 }
 
-.dijitContentPaneSingleChild {
+.duiContentPaneSingleChild {
 	/*
 	 * if the ContentPane holds a single layout widget child which is being sized to match the content pane,
 	 * then the ContentPane should never get a scrollbar (but it does due to browser bugs, see #9449
@@ -38,27 +38,27 @@
 	overflow: hidden;
 }
 
-.dijitContentPaneLoading .dijitIconLoading,
-.dijitContentPaneError .dijitIconError {
+.duiContentPaneLoading .duiIconLoading,
+.duiContentPaneError .duiIconError {
 	margin-right: 9px;
 }
 
 // Claro overrides
-.claro .dijitContentPane {
+.claro .duiContentPane {
 	padding: 8px;
 }		
 
 /* nested layouts */
-.claro .dijitTabContainerTop-dijitContentPane,
-.claro .dijitTabContainerLeft-dijitContentPane,
-.claro .dijitTabContainerBottom-dijitContentPane,
-.claro .dijitTabContainerRight-dijitContentPane,
-.claro .dijitAccordionContainer-dijitContentPane {
+.claro .duiTabContainerTop-duiContentPane,
+.claro .duiTabContainerLeft-duiContentPane,
+.claro .duiTabContainerBottom-duiContentPane,
+.claro .duiTabContainerRight-duiContentPane,
+.claro .duiAccordionContainer-duiContentPane {
 	background-color: @pane-background-color;
 	padding: 8px;		
 }
-.claro .dijitSplitContainer-dijitContentPane,
-.claro .dijitBorderContainer-dijitContentPane {
+.claro .duiSplitContainer-duiContentPane,
+.claro .duiBorderContainer-duiContentPane {
 	background-color: @pane-background-color;		
 	padding: 8px;
 }

@@ -1,73 +1,73 @@
 /* Accordion
  * 
- * Styling AccordionContainer basically means styling the accordion pane (dijitAccordionInnerContainer)
- * and the title inside of it (dijitAccordionTitle).   There are 4 basic states to style:
+ * Styling AccordionContainer basically means styling the accordion pane (duiAccordionInnerContainer)
+ * and the title inside of it (duiAccordionTitle).   There are 4 basic states to style:
  * 
  * 1. closed pane (and default styling): 
- * 		.dijitAccordionInnerContainer - container for each accordion child
- * 		.dijitAccordionTitle - title for each accordion child
+ * 		.duiAccordionInnerContainer - container for each accordion child
+ * 		.duiAccordionTitle - title for each accordion child
  *
  * 2. active closed pane (ie, mouse down on a title bar)
- * 		.dijitAccordionInnerContainerActive - for background-color, border
- * 		.dijitAccordionInnerContainerActive dijitAccordionTitle - for text color
+ * 		.duiAccordionInnerContainerActive - for background-color, border
+ * 		.duiAccordionInnerContainerActive duiAccordionTitle - for text color
  * 
  * 3. open pane (expanded child)
- *		.dijitAccordionChildWrapper - wraps around the child widget (typically ContentPane)
+ *		.duiAccordionChildWrapper - wraps around the child widget (typically ContentPane)
  *			setting a margin so that there's blue trim all the way around the child
  *
  * 		These rules need to override the closed pane active:
  *
- * 		.dijitAccordionInnerContainerSelected - for background-color, border
- * 		.dijitAccordionInnerContainerSelected .dijitAccordionTitle - for text color
+ * 		.duiAccordionInnerContainerSelected - for background-color, border
+ * 		.duiAccordionInnerContainerSelected .duiAccordionTitle - for text color
  * 
  * 4. hovered pane, open or closed
  * 		The selectors below affect hovering over both a closed pane (ie, hovering a title bar),
  * 		and hovering over an open pane.   Also, treat mouse down on an open pane as a hover:
  *
- * 		.dijitAccordionInnerContainerHover, .dijitAccordionInnerContainerSelectedActive - for background-color, border
- * 		.dijitAccordionInnerContainerHover .dijitAccordionTitle - for text color
+ * 		.duiAccordionInnerContainerHover, .duiAccordionInnerContainerSelectedActive - for background-color, border
+ * 		.duiAccordionInnerContainerHover .duiAccordionTitle - for text color
  */
-.dijitAccordionContainer {
+.duiAccordionContainer {
   border: 1px solid #b7b7b7;
   border-top: 0 !important;
 }
-.dijitAccordionTitle {
+.duiAccordionTitle {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.dijitAccordionTitleSelected {
+.duiAccordionTitleSelected {
   cursor: default;
 }
 /* images off, high-contrast mode styles */
-.dijitAccordionTitle .arrowTextUp,
-.dijitAccordionTitle .arrowTextDown {
+.duiAccordionTitle .arrowTextUp,
+.duiAccordionTitle .arrowTextDown {
   display: none;
   font-size: 0.65em;
   font-weight: normal !important;
 }
-.dj_a11y .dijitAccordionTitle .arrowTextUp,
-.dj_a11y .dijitAccordionTitleSelected .arrowTextDown {
+.dj_a11y .duiAccordionTitle .arrowTextUp,
+.dj_a11y .duiAccordionTitleSelected .arrowTextDown {
   display: inline;
 }
-.dj_a11y .dijitAccordionTitleSelected .arrowTextUp {
+.dj_a11y .duiAccordionTitleSelected .arrowTextUp {
   display: none;
 }
-.dijitAccordionChildWrapper {
+.duiAccordionChildWrapper {
   /* this is the node whose height is adjusted */
 
   overflow: hidden;
 }
-.dijitAccordionContainer-child {
+.duiAccordionContainer-child {
   /* children of AccordionContainer shouldn't have borders
  * b/c a border is already there from the TabContainer/StackContainer/AccordionContainer itself.
  */
 
   border: none !important;
 }
-.claro .dijitAccordionContainer {
+.claro .duiAccordionContainer {
   border: none;
 }
-.claro .dijitAccordionInnerContainer {
+.claro .duiAccordionInnerContainer {
   background-color: #efefef;
   /* gray, for closed pane */
 
@@ -83,9 +83,9 @@
   -moz-transition-timing-function: linear;
   transition-timing-function: linear;
 }
-.claro .dijitAccordionTitle {
+.claro .duiAccordionTitle {
   background-color: transparent;
-  /* pick up color from dijitAccordionInnerContainer */
+  /* pick up color from duiAccordionInnerContainer */
 
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -95,7 +95,7 @@
   min-height: 17px;
   color: #494949;
 }
-.claro .dijitAccordionContainer .dijitAccordionChildWrapper {
+.claro .duiAccordionContainer .duiAccordionChildWrapper {
   /* this extends the blue trim styling of the title bar to wrapping around the node.
 	 * done by setting margin
 	 */
@@ -104,31 +104,31 @@
   border: 1px solid #759dc0;
   margin: 0 2px 2px;
 }
-.claro .dijitAccordionContainer .dijitAccordionContainer-child {
+.claro .duiAccordionContainer .duiAccordionContainer-child {
   /* this is affecting the child widget itself */
 
   padding: 9px;
 }
 /* Hover state for closed pane */
-.claro .dijitAccordionInnerContainerHover {
+.claro .duiAccordionInnerContainerHover {
   border: 1px solid #759dc0;
   background-color: #abd6ff;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-.claro .dijitAccordionInnerContainerHover .dijitAccordionTitle {
+.claro .duiAccordionInnerContainerHover .duiAccordionTitle {
   color: #000000;
 }
 /* Active state for closed pane */
-.claro .dijitAccordionInnerContainerActive {
+.claro .duiAccordionInnerContainerActive {
   border: 1px solid #759dc0;
   background-color: #7dbdfa;
   -webkit-transition-duration: 0.1s;
   -moz-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
-.claro .dijitAccordionInnerContainerActive .dijitAccordionTitle {
+.claro .duiAccordionInnerContainerActive .duiAccordionTitle {
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -136,11 +136,11 @@
   color: #000000;
 }
 /* Open (a.k.a. selected) pane */
-.claro .dijitAccordionInnerContainerSelected {
+.claro .duiAccordionInnerContainerSelected {
   border-color: #759dc0;
   background-color: #cfe5fa;
 }
-.claro .dijitAccordionInnerContainerSelected .dijitAccordionTitle {
+.claro .duiAccordionInnerContainerSelected .duiAccordionTitle {
   color: #000000;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);

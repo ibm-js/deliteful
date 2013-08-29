@@ -63,7 +63,7 @@ function startTestValidate(i, t){
 
 	test_node.value = inp_node.value;
 
-	var widget = widget = dijit.getEnclosingWidget(test_node);
+	var widget = widget = dui.getEnclosingWidget(test_node);
 
 	if(widget){
 		widget.focus();

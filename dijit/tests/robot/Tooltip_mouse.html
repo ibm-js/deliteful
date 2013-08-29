@@ -16,7 +16,7 @@
 		require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-geometry", "dojo/_base/lang", "dojo/query", "dojo/window",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, dom, domGeom, lang, query, winUtils, helpers){
 				robot.initRobot('../test_Tooltip.html');
 
@@ -27,11 +27,11 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
-					Tooltip = robot.window.require("dijit/Tooltip");
+					dfocus = robot.window.require("dui/focus");
+					Tooltip = robot.window.require("dui/Tooltip");
 				});
 
-				doh.register("dijit.Tooltip mouse tests", [
+				doh.register("dui.Tooltip mouse tests", [
 					{
 						name: "show on mouse over",
 						timeout: 4000,

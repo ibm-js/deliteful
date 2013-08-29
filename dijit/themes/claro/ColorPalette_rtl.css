@@ -1,4 +1,4 @@
-.dijitColorPaletteRtl .dijitColorPaletteUnder {
+.duiColorPaletteRtl .duiColorPaletteUnder {
   /* needed in RTL mode when DropDownButton expands the ColorPalette beyond it's natural width */
 
   left: auto;

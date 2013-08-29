@@ -8,9 +8,9 @@ define([
 ], function(declare, dom, _WidgetBase, _TemplatedMixin, _Contained, template){
 
 	// module:
-	//		dijit/MenuSeparator
+	//		dui/MenuSeparator
 
-	return declare("dijit.MenuSeparator", [_WidgetBase, _TemplatedMixin, _Contained], {
+	return declare("dui.MenuSeparator", [_WidgetBase, _TemplatedMixin, _Contained], {
 		// summary:
 		//		A line between two menu items
 

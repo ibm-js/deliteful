@@ -17,9 +17,9 @@ define([
 			win, winUtils, pm, DropDownMenu){
 
 	// module:
-	//		dijit/Menu
+	//		dui/Menu
 
-	return declare("dijit.Menu", DropDownMenu, {
+	return declare("dui.Menu", DropDownMenu, {
 		// summary:
 		//		A context menu you can assign to multiple elements
 
@@ -135,9 +135,9 @@ define([
 			};
 
 			// Save info about binding in _bindings[], and make node itself record index(+1) into
-			// _bindings[] array.  Prefix w/_dijitMenu to avoid setting an attribute that may
+			// _bindings[] array.  Prefix w/_duiMenu to avoid setting an attribute that may
 			// start with a number, which fails on FF/safari.
-			domAttr.set(node, "_dijitMenu" + this.id, this._bindings.push(binding));
+			domAttr.set(node, "_duiMenu" + this.id, this._bindings.push(binding));
 
 			// Setup the connections to monitor click etc., unless we are connecting to an iframe which hasn't finished
 			// loading yet, in which case we need to wait for the onload event first, and then connect
@@ -211,8 +211,8 @@ define([
 				return;
 			}
 
-			// node["_dijitMenu" + this.id] contains index(+1) into my _bindings[] array
-			var attrName = "_dijitMenu" + this.id;
+			// node["_duiMenu" + this.id] contains index(+1) into my _bindings[] array
+			var attrName = "_duiMenu" + this.id;
 			if(node && domAttr.has(node, attrName)){
 				var bid = domAttr.get(node, attrName) - 1, b = this._bindings[bid], h;
 				while((h = b.connects.pop())){

@@ -10,9 +10,9 @@ define([
 ], function(require, declare, domClass, lang, number, _WidgetBase, _TemplatedMixin, template){
 
 	// module:
-	//		dijit/ProgressBar
+	//		dui/ProgressBar
 
-	return declare("dijit.ProgressBar", [_WidgetBase, _TemplatedMixin], {
+	return declare("dui.ProgressBar", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		A progress indication widget, showing the amount completed
 		//		(often the percentage completed) of a task.
@@ -39,7 +39,7 @@ define([
 
 		// name: String
 		//		this is the field name (for a form) if set. This needs to be set if you want to use
-		//		this widget in a dijit/form/Form widget (such as dijit/Dialog)
+		//		this widget in a dui/form/Form widget (such as dui/Dialog)
 		name: '',
 
 		templateString: template,
@@ -57,7 +57,7 @@ define([
 
 		_setDirAttr: function(val){
 			// Normally _CssStateMixin takes care of this, but we aren't extending it
-			domClass.toggle(this.domNode, "dijitProgressBarRtl", val == "rtl");
+			domClass.toggle(this.domNode, "duiProgressBarRtl", val == "rtl");
 			this.inherited(arguments);
 		},
 
@@ -100,7 +100,7 @@ define([
 
 			this.labelNode.innerHTML = this.report(percent);
 
-			domClass.toggle(this.domNode, "dijitProgressBarIndeterminate", this.indeterminate);
+			domClass.toggle(this.domNode, "duiProgressBarIndeterminate", this.indeterminate);
 			tip.style.width = (percent * 100) + "%";
 			this.onChange();
 		},

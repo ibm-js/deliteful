@@ -31,19 +31,19 @@
 			"dojo/dom",
 			"dojo/parser",	// scan page for widgets and instantiate them
 	
-			"dijit/Menu",
-			"dijit/MenuItem",
-			"dijit/PopupMenuItem",
-			"dijit/CheckedMenuItem",
-			"dijit/RadioMenuItem",
-			"dijit/MenuSeparator",
+			"dui/Menu",
+			"dui/MenuItem",
+			"dui/PopupMenuItem",
+			"dui/CheckedMenuItem",
+			"dui/RadioMenuItem",
+			"dui/MenuSeparator",
 	
-			"dijit/MenuBar",
-			"dijit/MenuBarItem",
-			"dijit/PopupMenuBarItem",
+			"dui/MenuBar",
+			"dui/MenuBarItem",
+			"dui/PopupMenuBarItem",
 	
-			"dijit/ColorPalette",
-			"dijit/form/TextBox",
+			"dui/ColorPalette",
+			"dui/form/TextBox",
 					
 			"dojo/domReady!"
 		], function(dom, parser, Menu, MenuItem, PopupMenuItem, CheckedMenuItem, RadioMenuItem, MenuSeparator){
@@ -57,7 +57,7 @@
 				pMenu.addChild(new MenuSeparator());
 				pMenu.addChild(new MenuItem({label:"Simple menu item", onClick:fClick, accelKey:"Shift+S"}));
 				pMenu.addChild(new MenuItem({label:"Another menu item", onClick:fClick, accelKey:"Ctrl+A"}));
-				pMenu.addChild(new MenuItem({label:"With an icon", iconClass:"dijitEditorIcon dijitEditorIconCut", onClick:fClick}));
+				pMenu.addChild(new MenuItem({label:"With an icon", iconClass:"duiEditorIcon duiEditorIconCut", onClick:fClick}));
 				var mItem = new MenuItem({label:"dojo.event clicking", accelKey: "Alt+D"});
 				mItem.on("click", function(){console.log("click! handler created via dojo.connect()")});
 				pMenu.addChild(mItem);
@@ -108,101 +108,101 @@
 </head>
 <body class="claro" role="main">
 
-	<div id="windowContextMenu" data-dojo-type="dijit/Menu" data-dojo-props='contextMenuForWindow:true, style:"display: none;"'>
-		<div data-dojo-type="dijit/MenuItem" id="windowContextMenuFirstChoice"
+	<div id="windowContextMenu" data-dojo-type="dui/Menu" data-dojo-props='contextMenuForWindow:true, style:"display: none;"'>
+		<div data-dojo-type="dui/MenuItem" id="windowContextMenuFirstChoice"
 			 data-dojo-props='onClick:function(){ console.log("Hello world"); }'>Context Menu</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='disabled:true, onClick:function(){ alert("this should NOT appear"); }'>Disabled Item</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='disabled:true, onClick:function(){ alert("this should NOT appear"); }'>Disabled Item</div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 			onClick:function(){ console.log("not actually cutting anything, just a test!") }, accelKey:"Ctrl+X"'>Cut</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 			onClick:function(){ console.log("not actually copying anything, just a test!") }, accelKey:"Ctrl+C"'>Copy</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 			onClick:function(){ console.log("not actually pasting anything, just a test!") }, accelKey:"Ctrl+V"'>Paste</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div id="enabledSubmenu" data-dojo-type="dijit/PopupMenuItem" >
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div id="enabledSubmenu" data-dojo-type="dui/PopupMenuItem" >
 			<span>Enabled Submenu</span>
-			<div id="submenu2" data-dojo-type="dijit/Menu" >
-				<div id="submenu2_item1" data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-				<div id="submenu2_item2" data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
-				<div id="deeperSubmenu" data-dojo-type="dijit/PopupMenuItem" >
+			<div id="submenu2" data-dojo-type="dui/Menu" >
+				<div id="submenu2_item1" data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+				<div id="submenu2_item2" data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+				<div id="deeperSubmenu" data-dojo-type="dui/PopupMenuItem" >
 					<span>Deeper Submenu</span>
-					<div id="submenu4" data-dojo-type="dijit/Menu" >
-						<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
-						<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
+					<div id="submenu4" data-dojo-type="dui/Menu" >
+						<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
+						<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div data-dojo-type="dijit/PopupMenuItem" data-dojo-props='disabled:true'>
+		<div data-dojo-type="dui/PopupMenuItem" data-dojo-props='disabled:true'>
 			<span>Disabled Submenu</span>
-			<div id="submenu3" data-dojo-type="dijit/Menu" data-dojo-props='style:"display: none;"'>
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+			<div id="submenu3" data-dojo-type="dui/Menu" data-dojo-props='style:"display: none;"'>
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
 			</div>
 		</div>
-		<div data-dojo-type="dijit/PopupMenuItem">
+		<div data-dojo-type="dui/PopupMenuItem">
 			<span>Different popup</span>
-			<div data-dojo-type="dijit/ColorPalette"></div>
+			<div data-dojo-type="dui/ColorPalette"></div>
 		</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props='checked:true, onChange:function(val){ console.log("Now set to " + val); }'>Checked</div>
-		<div data-dojo-type="dijit/CheckedMenuItem">Not Checked</div>
-		<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props='checked:true, disabled:true'>Checked Disabled</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/PopupMenuItem">
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/CheckedMenuItem" data-dojo-props='checked:true, onChange:function(val){ console.log("Now set to " + val); }'>Checked</div>
+		<div data-dojo-type="dui/CheckedMenuItem">Not Checked</div>
+		<div data-dojo-type="dui/CheckedMenuItem" data-dojo-props='checked:true, disabled:true'>Checked Disabled</div>
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/PopupMenuItem">
 			<span>Bigger Submenu</span>
-			<div id="bigsubmenu" data-dojo-type="dijit/Menu" data-dojo-props='style:"display: none;"'>
-				<div data-dojo-type="dijit/MenuItem">Item One</div>
-				<div data-dojo-type="dijit/MenuItem">Item Two</div>
-				<div data-dojo-type="dijit/MenuItem">Item Three</div>
-				<div data-dojo-type="dijit/MenuItem">Item Four</div>
-				<div data-dojo-type="dijit/MenuItem">Item Five</div>
-				<div data-dojo-type="dijit/MenuItem">Item Six</div>
-				<div data-dojo-type="dijit/MenuItem">Item Seven</div>
-				<div data-dojo-type="dijit/MenuItem">Item Eight</div>
-				<div data-dojo-type="dijit/MenuItem">Item Nine</div>
-				<div data-dojo-type="dijit/MenuItem">Item Ten</div>
+			<div id="bigsubmenu" data-dojo-type="dui/Menu" data-dojo-props='style:"display: none;"'>
+				<div data-dojo-type="dui/MenuItem">Item One</div>
+				<div data-dojo-type="dui/MenuItem">Item Two</div>
+				<div data-dojo-type="dui/MenuItem">Item Three</div>
+				<div data-dojo-type="dui/MenuItem">Item Four</div>
+				<div data-dojo-type="dui/MenuItem">Item Five</div>
+				<div data-dojo-type="dui/MenuItem">Item Six</div>
+				<div data-dojo-type="dui/MenuItem">Item Seven</div>
+				<div data-dojo-type="dui/MenuItem">Item Eight</div>
+				<div data-dojo-type="dui/MenuItem">Item Nine</div>
+				<div data-dojo-type="dui/MenuItem">Item Ten</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="leftClickContextMenu" data-dojo-type="dijit/Menu" data-dojo-props='leftClickToOpen:true, targetNodeIds:["input2"], style:"display: none;"'>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='disabled:true'>Left Click Menu</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Hello world"); }'>Enabled Item</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='disabled:true'>Disabled Item</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+	<div id="leftClickContextMenu" data-dojo-type="dui/Menu" data-dojo-props='leftClickToOpen:true, targetNodeIds:["input2"], style:"display: none;"'>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='disabled:true'>Left Click Menu</div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Hello world"); }'>Enabled Item</div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='disabled:true'>Disabled Item</div>
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 			onClick:function(){ console.log("not actually cutting anything, just a test!") }'>Cut</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 			onClick:function(){ console.log("not actually copying anything, just a test!") }'>Copy</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 			onClick:function(){ console.log("not actually pasting anything, just a test!") }'>Paste</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/PopupMenuItem">
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/PopupMenuItem">
 			<span>Enabled Submenu</span>
-			<div id="leftsubmenu2" data-dojo-type="dijit/Menu" >
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
-				<div data-dojo-type="dijit/PopupMenuItem">
+			<div id="leftsubmenu2" data-dojo-type="dui/Menu" >
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+				<div data-dojo-type="dui/PopupMenuItem">
 					<span>Deeper Submenu</span>
-					<div id="leftsubmenu4" data-dojo-type="dijit/Menu" >
-						<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
-						<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
+					<div id="leftsubmenu4" data-dojo-type="dui/Menu" >
+						<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
+						<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div data-dojo-type="dijit/PopupMenuItem" data-dojo-props='disabled:true'>
+		<div data-dojo-type="dui/PopupMenuItem" data-dojo-props='disabled:true'>
 			<span>Disabled Submenu</span>
-			<div id="leftsubmenu3" data-dojo-type="dijit/Menu" data-dojo-props='style:"display: none;"'>
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-				<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+			<div id="leftsubmenu3" data-dojo-type="dui/Menu" data-dojo-props='style:"display: none;"'>
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+				<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
 			</div>
 		</div>
-		<div data-dojo-type="dijit/PopupMenuItem">
+		<div data-dojo-type="dui/PopupMenuItem">
 			<span>Different popup</span>
-			<div data-dojo-type="dijit/ColorPalette"></div>
+			<div data-dojo-type="dui/ColorPalette"></div>
 		</div>
 	</div>
 
@@ -213,67 +213,67 @@
 				     Use textarea since Chrome 1.0 likes it better for TABing and
 				     because it has innerText property and because it doesn't mess
 				     with the URL when clicked -->
-				<textarea aria-label="random link" id="link" tabIndex="0" readOnly class="dijitReset" style="font-family:monospace;font-size:12px;width:84px;text-decoration:underline;overflow:hidden;background-color:transparent;" rows=1>random link</textarea>
+				<textarea aria-label="random link" id="link" tabIndex="0" readOnly class="duiReset" style="font-family:monospace;font-size:12px;width:84px;text-decoration:underline;overflow:hidden;background-color:transparent;" rows=1>random link</textarea>
 			</td>
 			<td id="menuBarContainer" style="width:100%;">
-				<div id="menubar" data-dojo-type="dijit/MenuBar">
-					<div id="file" data-dojo-type="dijit/PopupMenuBarItem" accessKey="F">
+				<div id="menubar" data-dojo-type="dui/MenuBar">
+					<div id="file" data-dojo-type="dui/PopupMenuBarItem" accessKey="F">
 						<span>{F}ile</span>
-						<div id="fileMenu" data-dojo-type="dijit/Menu" >
-							<div id="new" data-dojo-type="dijit/MenuItem">{N}ew</div>
-							<div id="open" data-dojo-type="dijit/MenuItem">{O}pen</div>
-							<div id="separator" data-dojo-type="dijit/MenuSeparator" ></div>
-							<div id="save" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIconSave"'>{S}ave</div>
-							<div id="saveas" data-dojo-type="dijit/MenuItem">Save {A}s...</div>
+						<div id="fileMenu" data-dojo-type="dui/Menu" >
+							<div id="new" data-dojo-type="dui/MenuItem">{N}ew</div>
+							<div id="open" data-dojo-type="dui/MenuItem">{O}pen</div>
+							<div id="separator" data-dojo-type="dui/MenuSeparator" ></div>
+							<div id="save" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIconSave"'>{S}ave</div>
+							<div id="saveas" data-dojo-type="dui/MenuItem">Save {A}s...</div>
 						</div>
 					</div>
-					<div id="edit" data-dojo-type="dijit/PopupMenuBarItem" accessKey="E">
+					<div id="edit" data-dojo-type="dui/PopupMenuBarItem" accessKey="E">
 						<span>{E}dit</span>
-						<div id="editMenu" data-dojo-type="dijit/Menu" >
-							<div id="cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+						<div id="editMenu" data-dojo-type="dui/Menu" >
+							<div id="cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 								onClick:function(){ console.log("not actually cutting anything, just a test!"); }, accelKey:"Ctrl+X"'>C{u}t</div>
-							<div id="copy" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+							<div id="copy" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 								onClick:function(){ console.log("not actually copying anything, just a test!") }, accelKey:"Ctrl+C"'>{C}opy</div>
-							<div id="paste" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+							<div id="paste" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 								onClick:function(){ console.log("not actually pasting anything, just a test!") }, accelKey:"Ctrl+V"'>{P}aste</div>
 						</div>
 					</div>
-					<div id="view" data-dojo-type="dijit/PopupMenuBarItem" accessKey="V">
+					<div id="view" data-dojo-type="dui/PopupMenuBarItem" accessKey="V">
 						<span>{V}iew</span>
-						<div id="viewMenu" data-dojo-type="dijit/Menu" >
-							<div data-dojo-type="dijit/MenuItem">Normal</div>
-							<div data-dojo-type="dijit/MenuItem">Outline</div>
-							<div data-dojo-type="dijit/PopupMenuItem">
+						<div id="viewMenu" data-dojo-type="dui/Menu" >
+							<div data-dojo-type="dui/MenuItem">Normal</div>
+							<div data-dojo-type="dui/MenuItem">Outline</div>
+							<div data-dojo-type="dui/PopupMenuItem">
 								<span>{Z}oom</span>
-								<div id="zoomMenu" data-dojo-type="dijit/Menu" >
-									<div data-dojo-type="dijit/RadioMenuItem" data-dojo-props="group:'zoom'">50%</div>
-									<div data-dojo-type="dijit/RadioMenuItem" data-dojo-props="group:'zoom'">75%</div>
-									<div data-dojo-type="dijit/RadioMenuItem" data-dojo-props="group:'zoom', checked:true">100%</div>
-									<div data-dojo-type="dijit/RadioMenuItem" data-dojo-props="group:'zoom'">150%</div>
-									<div data-dojo-type="dijit/RadioMenuItem" data-dojo-props="group:'zoom'">200%</div>
+								<div id="zoomMenu" data-dojo-type="dui/Menu" >
+									<div data-dojo-type="dui/RadioMenuItem" data-dojo-props="group:'zoom'">50%</div>
+									<div data-dojo-type="dui/RadioMenuItem" data-dojo-props="group:'zoom'">75%</div>
+									<div data-dojo-type="dui/RadioMenuItem" data-dojo-props="group:'zoom', checked:true">100%</div>
+									<div data-dojo-type="dui/RadioMenuItem" data-dojo-props="group:'zoom'">150%</div>
+									<div data-dojo-type="dui/RadioMenuItem" data-dojo-props="group:'zoom'">200%</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div id="help" data-dojo-type="dijit/PopupMenuBarItem" accessKey="H">
+					<div id="help" data-dojo-type="dui/PopupMenuBarItem" accessKey="H">
 						<span>{H}elp</span>
-						<div id="helpMenu" data-dojo-type="dijit/Menu" >
-							<div data-dojo-type="dijit/MenuItem">Help Topics</div>
-							<div data-dojo-type="dijit/MenuItem">About Dijit</div>
+						<div id="helpMenu" data-dojo-type="dui/Menu" >
+							<div data-dojo-type="dui/MenuItem">Help Topics</div>
+							<div data-dojo-type="dui/MenuItem">About Dijit</div>
 						</div>
 					</div>
-					<div data-dojo-type="dijit/PopupMenuBarItem" data-dojo-props='disabled:true'>
+					<div data-dojo-type="dui/PopupMenuBarItem" data-dojo-props='disabled:true'>
 						<span>{D}isabled</span>
-						<div data-dojo-type="dijit/Menu">
-							<div data-dojo-type="dijit/MenuItem">You should not see this</div>
+						<div data-dojo-type="dui/Menu">
+							<div data-dojo-type="dui/MenuItem">You should not see this</div>
 						</div>
 					</div>
-					<div data-dojo-type="dijit/PopupMenuBarItem" accessKey="M">
+					<div data-dojo-type="dui/PopupMenuBarItem" accessKey="M">
 						<span>E{m}pty</span>
-						<div data-dojo-type="dijit/Menu">
+						<div data-dojo-type="dui/Menu">
 						</div>
 					</div>
-					<div data-dojo-type="dijit/MenuBarItem" data-dojo-id="noPopupMenuBarItem" accessKey="Z"
+					<div data-dojo-type="dui/MenuBarItem" data-dojo-id="noPopupMenuBarItem" accessKey="Z"
 						 data-dojo-props='onClick:function(){ console.log("no submenu, just a clickable MenuItem"); }'>
 						Click me! ({Z})
 					</div>
@@ -281,48 +281,48 @@
 			</td>
 		</tr>
 		<tr>
-			<td id="navMenuContainer" class="dijitMenu" style="vertical-align:top; width:0;">
+			<td id="navMenuContainer" class="duiMenu" style="vertical-align:top; width:0;">
 
 				<h3 style="margin-bottom: 2em;">Navigation menu:</h3>
-				<div id="navMenu" data-dojo-type="dijit/Menu" aria-label="navigation">
-					<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+				<div id="navMenu" data-dojo-type="dui/Menu" aria-label="navigation">
+					<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 						onClick:function(){ console.log("drama!"); }'>Drama</div>
-					<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+					<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 						onClick:function(){ console.log("comedy!") }'>Comedy</div>
-					<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+					<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 						onClick:function(){ console.log("romance!") }'>Romance</div>
-					<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+					<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 						onClick:function(){ console.log("documentary!") }'>Documentary</div>
-					<div data-dojo-type="dijit/MenuSeparator"></div>
-					<div id="navMenuPopupItem1" data-dojo-type="dijit/PopupMenuItem" >
+					<div data-dojo-type="dui/MenuSeparator"></div>
+					<div id="navMenuPopupItem1" data-dojo-type="dui/PopupMenuItem" >
 						<span>{E}nabled Submenu</span>
-						<div id="navMenuSub1" data-dojo-type="dijit/Menu" >
-							<div id="navMenuSub1_item1" data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-							<div id="navMenuSub1_item2" data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
-							<div id="navMenuSub1_popup" data-dojo-type="dijit/PopupMenuItem" >
+						<div id="navMenuSub1" data-dojo-type="dui/Menu" >
+							<div id="navMenuSub1_item1" data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+							<div id="navMenuSub1_item2" data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+							<div id="navMenuSub1_popup" data-dojo-type="dui/PopupMenuItem" >
 								<span>Deeper Submenu</span>
-								<div id="navMenuSub2" data-dojo-type="dijit/Menu" >
-									<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
-									<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
+								<div id="navMenuSub2" data-dojo-type="dui/Menu" >
+									<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 1!") }'>Sub-sub-menu Item One</div>
+									<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Sub-submenu 2!") }'>Sub-sub-menu Item Two</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div id="navMenuDisabledItem" data-dojo-type="dijit/PopupMenuItem" data-dojo-props='disabled:true '>
+					<div id="navMenuDisabledItem" data-dojo-type="dui/PopupMenuItem" data-dojo-props='disabled:true '>
 						<span>Disabled Submenu</span>
-						<div id="navMenuSub3" data-dojo-type="dijit/Menu" data-dojo-props='style:"display: none;"'>
-							<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
-							<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
+						<div id="navMenuSub3" data-dojo-type="dui/Menu" data-dojo-props='style:"display: none;"'>
+							<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 1!") }'>Submenu Item One</div>
+							<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Submenu 2!") }'>Submenu Item Two</div>
 						</div>
 					</div>
-					<div data-dojo-type="dijit/PopupMenuItem">
+					<div data-dojo-type="dui/PopupMenuItem">
 						<span>Different popup</span>
-						<div data-dojo-type="dijit/ColorPalette"></div>
+						<div data-dojo-type="dui/ColorPalette"></div>
 					</div>
-					<div data-dojo-type="dijit/MenuSeparator"></div>
-					<div id="checked1" data-dojo-type="dijit/CheckedMenuItem" data-dojo-props='checked:true, onChange:function(val){ console.log("Now set to " + val); }'>Checked</div>
-					<div id="checked2" data-dojo-type="dijit/CheckedMenuItem" >Not Checked</div>
-					<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props='checked:true, disabled:true'>Checked Disabled</div>
+					<div data-dojo-type="dui/MenuSeparator"></div>
+					<div id="checked1" data-dojo-type="dui/CheckedMenuItem" data-dojo-props='checked:true, onChange:function(val){ console.log("Now set to " + val); }'>Checked</div>
+					<div id="checked2" data-dojo-type="dui/CheckedMenuItem" >Not Checked</div>
+					<div data-dojo-type="dui/CheckedMenuItem" data-dojo-props='checked:true, disabled:true'>Checked Disabled</div>
 				</div>
 			</td>
 
@@ -360,7 +360,7 @@
 						<option>on IE6</option>
 					</select>
 					<button id=button>push me</button><br>
-					<input data-dojo-type="dijit/form/TextBox" aria-label="focus test" id="formwidget" data-dojo-props='style:"width:25em;", value:"dijit.form._FormWidget focus test"'/>
+					<input data-dojo-type="dui/form/TextBox" aria-label="focus test" id="formwidget" data-dojo-props='style:"width:25em;", value:"dui.form._FormWidget focus test"'/>
 				</form>
 
 			    <div id="prog_menu" style="clear: both; border:1px solid blue; padding:10px; margin:20px 0;">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>dijit.Tree / dijit.tree.ObjectStoreModel automated test</title>
+	<title>dui.Tree / dui.tree.ObjectStoreModel automated test</title>
 
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
@@ -19,11 +19,11 @@
 			"dojo/store/Memory",
 			"dojo/store/Observable",
 			"dui/registry",
-			"dijit/Tree",
-			"dijit/tree/ObjectStoreModel",
-			"dijit/tree/dndSource",
-			"dijit/tests/_data/geography",
-			"dijit/tests/helpers",	// functions to help test
+			"dui/Tree",
+			"dui/tree/ObjectStoreModel",
+			"dui/tree/dndSource",
+			"dui/tests/_data/geography",
+			"dui/tests/helpers",	// functions to help test
 			"dojo/domReady!"
 		], function(doh, array, aspect, cookie, domClass, lang, on, win, Memory, Observable,
 					registry, Tree, ObjectStoreModel, dndSource, data, helpers){
@@ -103,8 +103,8 @@
 							doh.is("South America", children[5].label, "last child");
 
 							// Last child has special CSS for drawing the grid lines
-							doh.f(domClass.contains(children[3].domNode, "dijitTreeIsLast"), "middle node doesn't have dijitTreeIsLast");
-							doh.t(domClass.contains(children[5].domNode, "dijitTreeIsLast"), "last node has dijitTreeIsLast");
+							doh.f(domClass.contains(children[3].domNode, "duiTreeIsLast"), "middle node doesn't have duiTreeIsLast");
+							doh.t(domClass.contains(children[5].domNode, "duiTreeIsLast"), "last node has duiTreeIsLast");
 						}), 750);
 						return d;
 					}
@@ -132,8 +132,8 @@
 						doh.is("Italy", children[3].label, "last child");
 
 						// Last child has special CSS for drawing the grid lines
-						doh.f(domClass.contains(children[1].domNode, "dijitTreeIsLast"), "middle node doesn't have dijitTreeIsLast");
-						doh.t(domClass.contains(children[3].domNode, "dijitTreeIsLast"), "last node has dijitTreeIsLast");
+						doh.f(domClass.contains(children[1].domNode, "duiTreeIsLast"), "middle node doesn't have duiTreeIsLast");
+						doh.t(domClass.contains(children[3].domNode, "duiTreeIsLast"), "last node has duiTreeIsLast");
 					}), 750);
 					return d;
 				},
@@ -179,7 +179,7 @@
 					var children = world.getChildren();
 					doh.is(5, children.length, "five children");
 					doh.is("North America", children[4].label, "last child");
-					doh.t(domClass.contains(children[4].domNode, "dijitTreeIsLast"),
+					doh.t(domClass.contains(children[4].domNode, "duiTreeIsLast"),
 							"North america has become the last node so it gets the CSS class for that");
 				},
 
@@ -207,9 +207,9 @@
 					var children = world.getChildren();
 					doh.is(6, children.length, "six children");
 					doh.is("Pacifica", children[5].label, "last child");
-					doh.f(domClass.contains(children[4].domNode, "dijitTreeIsLast"),
+					doh.f(domClass.contains(children[4].domNode, "duiTreeIsLast"),
 						"North America no longer last child");
-					doh.t(domClass.contains(children[5].domNode, "dijitTreeIsLast"),
+					doh.t(domClass.contains(children[5].domNode, "duiTreeIsLast"),
 						"Pacifica is last child");
 				},
 

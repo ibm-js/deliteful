@@ -15,9 +15,9 @@ define([
 	declare, domConstruct, string, nlsStrings){
 
 	// module:
-	//		dijit/ColorPalette
+	//		dui/ColorPalette
 
-	var ColorPalette = declare("dijit.ColorPalette", [_WidgetBase, _TemplatedMixin, _PaletteMixin], {
+	var ColorPalette = declare("dui.ColorPalette", [_WidgetBase, _TemplatedMixin, _PaletteMixin], {
 		// summary:
 		//		A keyboard accessible color-picking widget
 		// description:
@@ -25,10 +25,10 @@ define([
 		//		Can be used standalone, or as a popup.
 		//
 		// example:
-		// |	<div data-dojo-type="dijit/ColorPalette"></div>
+		// |	<div data-dojo-type="dui/ColorPalette"></div>
 		//
 		// example:
-		// |	var picker = new dijit.ColorPalette({ },srcNode);
+		// |	var picker = new dui.ColorPalette({ },srcNode);
 		// |	picker.startup();
 
 
@@ -62,7 +62,7 @@ define([
 		//		The template of this widget.
 		templateString: template,
 
-		baseClass: "dijitColorPalette",
+		baseClass: "duiColorPalette",
 
 		_dyeFactory: function(value, row, col, title){
 			// Overrides _PaletteMixin._dyeFactory().
@@ -85,21 +85,21 @@ define([
 		}
 	});
 
-	ColorPalette._Color = declare("dijit._Color", Color, {
+	ColorPalette._Color = declare("dui._Color", Color, {
 		// summary:
 		//		Object associated with each cell in a ColorPalette palette.
-		//		Implements dijit/Dye.
+		//		Implements dui/Dye.
 
 		// Template for each cell in normal (non-high-contrast mode).  Each cell contains a wrapper
-		// node for showing the border (called dijitPaletteImg for back-compat), and dijitColorPaletteSwatch
+		// node for showing the border (called duiPaletteImg for back-compat), and duiColorPaletteSwatch
 		// for showing the color.
-		template: "<span class='dijitInline dijitPaletteImg'>" +
-			"<img src='${blankGif}' alt='${alt}' title='${title}' class='dijitColorPaletteSwatch' style='background-color: ${color}'/>" +
+		template: "<span class='duiInline duiPaletteImg'>" +
+			"<img src='${blankGif}' alt='${alt}' title='${title}' class='duiColorPaletteSwatch' style='background-color: ${color}'/>" +
 			"</span>",
 
 		// Template for each cell in high contrast mode.  Each cell contains an image with the whole palette,
 		// but scrolled and clipped to show the correct color only
-		hcTemplate: "<span class='dijitInline dijitPaletteImg' style='position: relative; overflow: hidden; height: 12px; width: 14px;'>" +
+		hcTemplate: "<span class='duiInline duiPaletteImg' style='position: relative; overflow: hidden; height: 12px; width: 14px;'>" +
 			"<img src='${image}' alt='${alt}' title='${title}' style='position: absolute; left: ${left}px; top: ${top}px; ${size}'/>" +
 			"</span>",
 
@@ -129,7 +129,7 @@ define([
 
 		getValue: function(){
 			// summary:
-			//		Note that although dijit._Color is initialized with a value like "white" getValue() always
+			//		Note that although dui._Color is initialized with a value like "white" getValue() always
 			//		returns a hex value
 			return this.toHex();
 		},

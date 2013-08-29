@@ -10,11 +10,11 @@
 			var queryClass = location.search.match(/class=([a-zA-z.]*)/);
 			var className = (queryClass ? queryClass[1] : "form.Button");
 
-			dojo.require("dijit." + className);
+			dojo.require("dui." + className);
 			dojo.require("dojo.parser");
 			logMessage = window.alert;
 
-			var constructor = dojo.getObject("dijit."+className);
+			var constructor = dojo.getObject("dui."+className);
 			function makeEm(){
 				var container = dojo.byId("buttonContainer");
 				var t0 = new Date().getTime();

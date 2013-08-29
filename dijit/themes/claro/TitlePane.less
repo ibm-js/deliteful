@@ -1,69 +1,69 @@
 /* TitlePane and Fieldset
  * 
- * Styling TitlePane means styling the TitlePane title and its content container  (dijitTitlePane)
+ * Styling TitlePane means styling the TitlePane title and its content container  (duiTitlePane)
  * 
  * TitlePane title:
  * 1. TitlePane title (default styling): 
- * 		.dijitTitlePaneTitle - TitlePane's title div style: background-color, border
+ * 		.duiTitlePaneTitle - TitlePane's title div style: background-color, border
  *
  * 2. hovered TitlePane title (ie, mouse hover on a title bar)
- * 		.dijitTitlePaneTitleHover - styles when mouse hover on the title div
+ * 		.duiTitlePaneTitleHover - styles when mouse hover on the title div
  * 
  * 3. active TitlePane title (ie, mouse down on a title bar)
- * 		.dijitTitlePaneTitleActive - styles when mouse down on the title div
+ * 		.duiTitlePaneTitleActive - styles when mouse down on the title div
  * 
  * 
  * TitlePane Content Container:
  * 1. outer/inner container: 
- * 		.dijitTitlePaneContentOuter / dijitTitlePaneContentInner - styles for the content outer div
+ * 		.duiTitlePaneContentOuter / duiTitlePaneContentInner - styles for the content outer div
  */
 
 @import "variables";
 
 // From dijit.css
-.dijitTitlePane {
+.duiTitlePane {
 	display: block;
 	overflow: hidden;
 }
-.dijitFieldset {
+.duiFieldset {
 	border: 1px solid gray;
 }
-.dijitTitlePaneTitle, .dijitFieldsetTitle {
+.duiTitlePaneTitle, .duiFieldsetTitle {
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;
 }
-.dijitTitlePaneTitleFixedOpen, .dijitTitlePaneTitleFixedClosed,
-.dijitFieldsetTitleFixedOpen, .dijitFieldsetTitleFixedClosed {
+.duiTitlePaneTitleFixedOpen, .duiTitlePaneTitleFixedClosed,
+.duiFieldsetTitleFixedOpen, .duiFieldsetTitleFixedClosed {
 	/* TitlePane or Fieldset that cannot be toggled */
 	cursor: default;
 }
-.dijitTitlePaneTitle * {
+.duiTitlePaneTitle * {
 	vertical-align: middle;
 }
-.dijitTitlePane .dijitArrowNodeInner, .dijitFieldset .dijitArrowNodeInner {
+.duiTitlePane .duiArrowNodeInner, .duiFieldset .duiArrowNodeInner {
 	/* normally, hide arrow text in favor of icon */
 	display: none;
 }
-.dj_a11y .dijitTitlePane .dijitArrowNodeInner, .dj_a11y .dijitFieldset .dijitArrowNodeInner {
+.dj_a11y .duiTitlePane .duiArrowNodeInner, .dj_a11y .duiFieldset .duiArrowNodeInner {
 	/* ... except in a11y mode, then show text arrow */
 	display: inline;
 	font-family: monospace;		/* because - and + are different widths */
 }
-.dj_a11y .dijitTitlePane .dijitArrowNode, .dj_a11y .dijitFieldset .dijitArrowNode {
-	/* ... and hide icon (TODO: just point dijitIcon class on the icon, and it hides automatically) */
+.dj_a11y .duiTitlePane .duiArrowNode, .dj_a11y .duiFieldset .duiArrowNode {
+	/* ... and hide icon (TODO: just point duiIcon class on the icon, and it hides automatically) */
 	display: none;
 }
-.dijitTitlePaneTitleFixedOpen .dijitArrowNode, .dijitTitlePaneTitleFixedOpen .dijitArrowNodeInner,
-.dijitTitlePaneTitleFixedClosed .dijitArrowNode, .dijitTitlePaneTitleFixedClosed .dijitArrowNodeInner,
-.dijitFieldsetTitleFixedOpen .dijitArrowNode, .dijitFieldsetTitleFixedOpen .dijitArrowNodeInner,
-.dijitFieldsetTitleFixedClosed .dijitArrowNode, .dijitFieldsetTitleFixedClosed .dijitArrowNodeInner {
+.duiTitlePaneTitleFixedOpen .duiArrowNode, .duiTitlePaneTitleFixedOpen .duiArrowNodeInner,
+.duiTitlePaneTitleFixedClosed .duiArrowNode, .duiTitlePaneTitleFixedClosed .duiArrowNodeInner,
+.duiFieldsetTitleFixedOpen .duiArrowNode, .duiFieldsetTitleFixedOpen .duiArrowNodeInner,
+.duiFieldsetTitleFixedClosed .duiArrowNode, .duiFieldsetTitleFixedClosed .duiArrowNodeInner {
 	/* don't show the open close icon or text arrow; it makes the user think the pane is closable */
 	display: none !important;	/* !important to override above a11y rules to show text arrow */
 }
 
 
 // Claro overrides
-.claro .dijitTitlePaneTitle {
+.claro .duiTitlePaneTitle {
 	background-color: @unselected-background-color;
 	.standard-gradient;
 	border:1px solid @border-color;
@@ -71,50 +71,50 @@
 	min-height:17px;
 	color: @unselected-text-color;
 }
-.claro .dijitFieldset {
+.claro .duiFieldset {
 	.border-radius(4px);
 }
-.claro .dijitTitlePaneTitleOpen, .claro .dijitTitlePaneTitleFixedOpen {
+.claro .duiTitlePaneTitleOpen, .claro .duiTitlePaneTitleFixedOpen {
 	background-color: @selected-background-color;
 	color: @text-color;
 }
-.claro .dijitTitlePaneTitleHover {
+.claro .duiTitlePaneTitleHover {
 	background-color: @hovered-background-color;
 	border-color: @hovered-border-color;
 }
-.claro .dijitTitlePaneTitleActive {
+.claro .duiTitlePaneTitleActive {
 	background-color: @pressed-background-color;
 	border-color: @pressed-border-color;
 	.active-gradient;
 }
-.claro .dijitTitlePaneTitleFocus {
+.claro .duiTitlePaneTitleFocus {
 	margin-top:3px;
 	padding-bottom:2px;
 }
-.claro .dijitTitlePane .dijitArrowNode, .claro .dijitFieldset .dijitArrowNode {
+.claro .duiTitlePane .duiArrowNode, .claro .duiFieldset .duiArrowNode {
 	background-image: url(@image-arrow-sprite);
 	background-repeat: no-repeat;
 	height: 8px;
 	width: 7px;
 }
-.claro .dijitTitlePaneTitleOpen .dijitArrowNode,  .claro .dijitFieldsetTitleOpen .dijitArrowNode,{
+.claro .duiTitlePaneTitleOpen .duiArrowNode,  .claro .duiFieldsetTitleOpen .duiArrowNode,{
 	background-position: 0 0;
 }
-.claro .dijitTitlePaneTitleClosed .dijitArrowNode, .claro .dijitFieldsetTitleClosed .dijitArrowNode {
+.claro .duiTitlePaneTitleClosed .duiArrowNode, .claro .duiFieldsetTitleClosed .duiArrowNode {
 	background-position: -14px 0;
 }
-.claro .dijitTitlePaneContentOuter {
+.claro .duiTitlePaneContentOuter {
 	background: @pane-background-color;
 	border:1px solid @border-color;
 	border-top:none;
 }
-.claro .dijitTitlePaneContentInner{
+.claro .duiTitlePaneContentInner{
 	padding:10px;
 }
-.claro .dijitFieldsetContentInner {
+.claro .duiFieldsetContentInner {
 	padding: 4px;
 }
-.claro .dijitTitlePaneTextNode, .claro .dijitFieldsetLegendNode {
+.claro .duiTitlePaneTextNode, .claro .duiFieldsetLegendNode {
 	margin-left: 4px;
 	margin-right: 4px;
 	vertical-align:text-top;

@@ -14,7 +14,7 @@
 		</script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_Textarea.html');
@@ -38,7 +38,7 @@
 						name: "initial text direction of empty 'blankL'",
 
 						setUp: function(){
-							textarea = dijit.byId("blankL");
+							textarea = dui.byId("blankL");
 							modifier = dojo.isMac ? {meta: true} : {ctrl: true};
 						},
 
@@ -92,7 +92,7 @@
 						name: "initial text direction of empty 'blankR'",
 
 						setUp: function(){
-							textarea = dijit.byId("blankR");
+							textarea = dui.byId("blankR");
 						},
 
 						runTest: function(){
@@ -145,7 +145,7 @@
 						name: "initial text direction of empty 'blankA'",
 
 						setUp: function(){
-							textarea = dijit.byId("blankA");
+							textarea = dui.byId("blankA");
 						},
 
 						runTest: function(){
@@ -203,9 +203,9 @@
 						name: "initial direction of the textareas",
 
 						setUp: function(){
-							textareaL = dijit.byId("programmaticLTR");
-							textareaR = dijit.byId("programmaticRTL");
-							textareaA = dijit.byId("programmaticAuto");
+							textareaL = dui.byId("programmaticLTR");
+							textareaR = dui.byId("programmaticRTL");
+							textareaA = dui.byId("programmaticAuto");
 						},
 						runTest: function(){
 							doh.is("ltr",textareaL.focusNode.dir,"Initial direction of - 'programmaticLTR'");
@@ -247,8 +247,8 @@
 						name: "initial direction of the textareas",
 
 						setUp: function(){
-							textareaL = dijit.byId("largeTextAreaLTR");
-							textareaR = dijit.byId("largeTextAreaRTL");
+							textareaL = dui.byId("largeTextAreaLTR");
+							textareaR = dui.byId("largeTextAreaRTL");
 						},
 
 						runTest: function(){

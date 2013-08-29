@@ -14,10 +14,10 @@ define([
 ], function(declare, domClass, has, keys, lang, on, focus, ContentPane, _DialogMixin, _FormMixin, _TemplatedMixin, template){
 
 	// module:
-	//		dijit/TooltipDialog
+	//		dui/TooltipDialog
 
 
-	var TooltipDialog = declare("dijit.TooltipDialog",
+	var TooltipDialog = declare("dui.TooltipDialog",
 		[ContentPane, _TemplatedMixin, _FormMixin, _DialogMixin], {
 			// summary:
 			//		Pops up a dialog that appears like a Tooltip
@@ -41,16 +41,16 @@ define([
 
 			// baseClass: [protected] String
 			//		The root className to use for the various states of this widget
-			baseClass: "dijitTooltipDialog",
+			baseClass: "duiTooltipDialog",
 
 			// _firstFocusItem: [private readonly] DomNode
 			//		The pointer to the first focusable node in the dialog.
-			//		Set by `dijit/_DialogMixin._getFocusItems()`.
+			//		Set by `dui/_DialogMixin._getFocusItems()`.
 			_firstFocusItem: null,
 
 			// _lastFocusItem: [private readonly] DomNode
 			//		The pointer to which node has focus prior to our dialog.
-			//		Set by `dijit/_DialogMixin._getFocusItems()`.
+			//		Set by `dui/_DialogMixin._getFocusItems()`.
 			_lastFocusItem: null,
 
 			templateString: template,
@@ -65,31 +65,31 @@ define([
 			orient: function(/*DomNode*/ node, /*String*/ aroundCorner, /*String*/ tooltipCorner){
 				// summary:
 				//		Configure widget to be displayed in given position relative to the button.
-				//		This is called from the dijit.popup code, and should not be called
+				//		This is called from the dui.popup code, and should not be called
 				//		directly.
 				// tags:
 				//		protected
 
-				// Note: intentionally not using dijitTooltip class since that sets position:absolute, which
-				// confuses dijit/popup trying to get the size of the tooltip.
+				// Note: intentionally not using duiTooltip class since that sets position:absolute, which
+				// confuses dui/popup trying to get the size of the tooltip.
 				var newC = {
 					// Real around node
-					"MR-ML": "dijitTooltipRight",
-					"ML-MR": "dijitTooltipLeft",
-					"TM-BM": "dijitTooltipAbove",
-					"BM-TM": "dijitTooltipBelow",
-					"BL-TL": "dijitTooltipBelow dijitTooltipABLeft",
-					"TL-BL": "dijitTooltipAbove dijitTooltipABLeft",
-					"BR-TR": "dijitTooltipBelow dijitTooltipABRight",
-					"TR-BR": "dijitTooltipAbove dijitTooltipABRight",
-					"BR-BL": "dijitTooltipRight",
-					"BL-BR": "dijitTooltipLeft",
+					"MR-ML": "duiTooltipRight",
+					"ML-MR": "duiTooltipLeft",
+					"TM-BM": "duiTooltipAbove",
+					"BM-TM": "duiTooltipBelow",
+					"BL-TL": "duiTooltipBelow duiTooltipABLeft",
+					"TL-BL": "duiTooltipAbove duiTooltipABLeft",
+					"BR-TR": "duiTooltipBelow duiTooltipABRight",
+					"TR-BR": "duiTooltipAbove duiTooltipABRight",
+					"BR-BL": "duiTooltipRight",
+					"BL-BR": "duiTooltipLeft",
 
 					// Positioning "around" a point, ex: mouse position
-					"BR-TL": "dijitTooltipBelow dijitTooltipABLeft",
-					"BL-TR": "dijitTooltipBelow dijitTooltipABRight",
-					"TL-BR": "dijitTooltipAbove dijitTooltipABRight",
-					"TR-BL": "dijitTooltipAbove dijitTooltipABLeft"
+					"BR-TL": "duiTooltipBelow duiTooltipABLeft",
+					"BL-TR": "duiTooltipBelow duiTooltipABRight",
+					"TL-BR": "duiTooltipAbove duiTooltipABRight",
+					"TR-BL": "duiTooltipAbove duiTooltipABLeft"
 				}[aroundCorner + "-" + tooltipCorner];
 
 				domClass.replace(this.domNode, newC, this._currentOrientClass || "");
@@ -110,7 +110,7 @@ define([
 			onOpen: function(/*Object*/ pos){
 				// summary:
 				//		Called when dialog is displayed.
-				//		This is called from the dijit.popup code, and should not be called directly.
+				//		This is called from the dui.popup code, and should not be called directly.
 				// tags:
 				//		protected
 
@@ -132,7 +132,7 @@ define([
 			onClose: function(){
 				// summary:
 				//		Called when dialog is hidden.
-				//		This is called from the dijit.popup code, and should not be called directly.
+				//		This is called from the dui.popup code, and should not be called directly.
 				// tags:
 				//		protected
 				this.onHide();
@@ -148,7 +148,7 @@ define([
 
 				if(evt.keyCode == keys.ESCAPE){
 					// Use defer to avoid crash on IE, see #10396.  Not sure if this is still needed or not.
-					// If this if() wasn't here, presumably dijit/popup would catch the ESCAPE key and close the popup.
+					// If this if() wasn't here, presumably dui/popup would catch the ESCAPE key and close the popup.
 					this.defer("onCancel");
 					evt.stopPropagation();
 					evt.preventDefault();

@@ -8,11 +8,11 @@
 		<script type="text/javascript" src="../../../dojo/dojo.js"
 			data-dojo-config="isDebug: true, extraLocale: ['zh-cn','fr-fr']"></script>
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.form.NumberTextBox");
-			dojo.require("dijit.form.CurrencyTextBox");
-			dojo.require("dijit.form.DateTextBox");
-			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.form.NumberTextBox");
+			dojo.require("dui.form.CurrencyTextBox");
+			dojo.require("dui.form.DateTextBox");
+			dojo.require("dui.form.ValidationTextBox");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.date.stamp");
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
@@ -69,7 +69,7 @@
 		<script>
 		(function(){
 
-			genFormatTestCases("Number Format", "dijit.form.NumberTextBox", [
+			genFormatTestCases("Number Format", "dui.form.NumberTextBox", [
 
 				{ attrs: {lang: "zh-cn"},
 				  desc: "Locale: zh_CN",
@@ -98,7 +98,7 @@
 				}
 			]);
 
-			genValidateTestCases("Number Validate", "dijit.form.NumberTextBox", [
+			genValidateTestCases("Number Validate", "dui.form.NumberTextBox", [
 
 				{ attrs: {lang: "zh-cn"},
 				  desc: "Locale: zh_CN",

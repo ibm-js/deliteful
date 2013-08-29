@@ -1,6 +1,6 @@
 /* claro/form/Common.css */
 /*========================= common css =========================*/
-.dijitInputContainer {
+.duiInputContainer {
   /* for positioning of placeHolder */
 
   overflow: hidden;
@@ -9,41 +9,41 @@
 
   position: relative;
 }
-.dj_ie input.dijitTextBox,
-.dj_ie .dijitTextBox input {
+.dj_ie input.duiTextBox,
+.dj_ie .duiTextBox input {
   font-size: 100%;
 }
-.dijitTextBox .dijitSpinnerButtonContainer,
-.dijitTextBox .dijitArrowButtonContainer,
-.dijitValidationTextBox .dijitValidationContainer {
+.duiTextBox .duiSpinnerButtonContainer,
+.duiTextBox .duiArrowButtonContainer,
+.duiValidationTextBox .duiValidationContainer {
   float: right;
   text-align: center;
 }
-.dijitTextBox input.dijitInputField {
+.duiTextBox input.duiInputField {
   /* override unreasonable user styling of buttons and icons */
 
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-.dijitValidationTextBox .dijitValidationContainer {
+.duiValidationTextBox .duiValidationContainer {
   display: none;
 }
-.dj_a11y .dijitTextBoxReadOnly .dijitInputField,
-.dj_a11y .dijitTextBoxReadOnly .dijitButtonNode {
+.dj_a11y .duiTextBoxReadOnly .duiInputField,
+.dj_a11y .duiTextBoxReadOnly .duiButtonNode {
   border-style: outset !important;
   border-width: medium !important;
   border-color: #999 !important;
   color: #999 !important;
 }
-.dj_a11y .dijitArrowButton {
+.dj_a11y .duiArrowButton {
   padding: 0 !important;
 }
 /* button inner contents - labels, icons etc. */
-.dijitButtonNode * {
+.duiButtonNode * {
   vertical-align: middle;
 }
-.dijitSelect .dijitArrowButtonInner,
-.dijitButtonNode .dijitArrowButtonInner {
+.duiSelect .duiArrowButtonInner,
+.duiButtonNode .duiArrowButtonInner {
   /* the arrow icon node */
 
   background: no-repeat center;
@@ -53,7 +53,7 @@
   /* needed by IE/RTL */
 
 }
-.dijitButtonNode {
+.duiButtonNode {
   /* Node that is acting as a button -- may or may not be a BUTTON element */
 
   border: 1px solid gray;
@@ -63,20 +63,20 @@
   text-align: center;
   white-space: nowrap;
 }
-.dijitTextBox .dijitButtonNode {
+.duiTextBox .duiButtonNode {
   border-width: 0;
 }
-.dijitButtonNode,
-.dijitButtonNode * {
+.duiButtonNode,
+.duiButtonNode * {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.dj_ie .dijitButtonNode {
+.dj_ie .duiButtonNode {
   /* ensure hasLayout */
 
   zoom: 1;
 }
-.dj_ie .dijitButtonNode button {
+.dj_ie .duiButtonNode button {
   /*
 	disgusting hack to get rid of spurious padding around button elements
 	on IE. MSIE is truly the web's boat anchor.
@@ -84,41 +84,41 @@
 
   overflow: visible;
 }
-div.dijitArrowButton {
+div.duiArrowButton {
   float: right;
 }
 /******
 	TextBox related.
 	Everything that has an <input>
 *******/
-.dijitTextBox {
+.duiTextBox {
   border: solid black 1px;
   width: 15em;
   /* need to set default size on outer node since inner nodes say <input style="width:100%"> and <td width=100%>.  user can override */
 
   vertical-align: middle;
 }
-.dijitTextBoxReadOnly,
-.dijitTextBoxDisabled {
+.duiTextBoxReadOnly,
+.duiTextBoxDisabled {
   color: gray;
 }
-.dj_safari .dijitTextBoxDisabled input {
+.dj_safari .duiTextBoxDisabled input {
   color: #B0B0B0;
   /* because Safari lightens disabled input/textarea no matter what color you specify */
 
 }
-.dj_safari textarea.dijitTextAreaDisabled {
+.dj_safari textarea.duiTextAreaDisabled {
   color: #333;
   /* because Safari lightens disabled input/textarea no matter what color you specify */
 
 }
-.dj_gecko .dijitTextBoxReadOnly input.dijitInputField,
-.dj_gecko .dijitTextBoxDisabled input {
+.dj_gecko .duiTextBoxReadOnly input.duiInputField,
+.dj_gecko .duiTextBoxDisabled input {
   -moz-user-input: none;
   /* prevent focus of disabled textbox buttons */
 
 }
-.dijitPlaceHolder {
+.duiPlaceHolder {
   /* hint text that appears in a textbox until user starts typing */
 
   color: #AAAAAA;
@@ -127,25 +127,25 @@ div.dijitArrowButton {
   top: 0;
   left: 0;
 }
-.dijitTimeTextBox {
+.duiTimeTextBox {
   width: 8em;
 }
 /* rules for webkit to deal with fuzzy blue focus border */
-.dijitTextBox input:focus {
+.duiTextBox input:focus {
   outline: none;
   /* blue fuzzy line looks wrong on combobox or something w/validation icon showing */
 
 }
-.dijitTextBoxFocused {
+.duiTextBoxFocused {
   outline: 5px -webkit-focus-ring-color;
 }
-.dijitSelect input,
-.dijitTextBox input {
+.duiSelect input,
+.duiTextBox input {
   float: left;
   /* needed by IE to remove secret margin */
 
 }
-.dijitInputInner {
+.duiInputInner {
   /* for when an <input> is embedded inside an inline-block <div> with a size and border */
 
   border: 0 !important;
@@ -158,12 +158,12 @@ div.dijitArrowButton {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
-.dj_a11y .dijitTextBox input {
+.dj_a11y .duiTextBox input {
   margin: 0 !important;
 }
-.dijitValidationTextBoxError input.dijitValidationInner,
-.dijitSelect input,
-.dijitTextBox input.dijitArrowButtonInner {
+.duiValidationTextBoxError input.duiValidationInner,
+.duiSelect input,
+.duiTextBox input.duiArrowButtonInner {
   /* <input> used to display arrow icon/validation icon, or in arrow character in high contrast mode.
  * The css below is a trick to hide the character in non-high-contrast mode
  */
@@ -173,9 +173,9 @@ div.dijitArrowButton {
   text-align: left !important;
   height: auto !important;
 }
-.dj_ie .dijitSelect input,
-.dj_ie .dijitTextBox input,
-.dj_ie input.dijitTextBox {
+.dj_ie .duiSelect input,
+.dj_ie .duiTextBox input,
+.dj_ie input.duiTextBox {
   overflow-y: visible;
   /* inputs need help expanding when padding is added or line-height is adjusted */
 
@@ -183,87 +183,87 @@ div.dijitArrowButton {
   /* strict mode */
 
 }
-.dijitSelect .dijitSelectLabel span {
+.duiSelect .duiSelectLabel span {
   line-height: 100%;
 }
-.dj_ie .dijitSelect .dijitSelectLabel {
+.dj_ie .duiSelect .duiSelectLabel {
   line-height: normal;
 }
-.dj_ie8 .dijitSelect .dijitSelectLabel,
-.dijitSelect td {
+.dj_ie8 .duiSelect .duiSelectLabel,
+.duiSelect td {
   line-height: 100%;
   /* IE7 problem where the icon is vertically way too low w/o this */
 
 }
-.dj_a11y input.dijitValidationInner,
-.dj_a11y input.dijitArrowButtonInner {
+.dj_a11y input.duiValidationInner,
+.dj_a11y input.duiArrowButtonInner {
   /* (in high contrast mode) revert rules from above so character displays */
 
   text-indent: 0 !important;
   width: 1em !important;
   color: black !important;
 }
-.dijitValidationTextBoxError .dijitValidationContainer {
+.duiValidationTextBoxError .duiValidationContainer {
   display: inline;
   cursor: default;
 }
-.dijitComboBox .dijitArrowButtonContainer {
+.duiComboBox .duiArrowButtonContainer {
   /* dividing line between input area and up/down button(s) for ComboBox */
 
   border-width: 0 0 0 1px !important;
-  /* !important needed due to wayward ".theme .dijitButtonNode" rules */
+  /* !important needed due to wayward ".theme .duiButtonNode" rules */
 
 }
-.dijitComboBoxMenu {
+.duiComboBoxMenu {
   /* Drop down menu is implemented as <ul> <li/> <li/> ... but we don't want circles before each item */
 
   list-style-type: none;
 }
-.dijitComboBox .dijitButtonNode {
+.duiComboBox .duiButtonNode {
   border-width: 0;
 }
 /* TextArea, SimpleTextArea */
-.dijitTextArea {
+.duiTextArea {
   width: 100%;
   overflow-y: auto;
   /* w/out this IE's SimpleTextArea goes to overflow: scroll */
 
 }
-.dijitTextArea[cols] {
+.duiTextArea[cols] {
   width: auto;
   /* SimpleTextArea cols */
 
 }
-.dijitExpandingTextArea {
+.duiExpandingTextArea {
   /* for auto exanding textarea (called Textarea currently, rename for 2.0) don't want to display the grip to resize */
 
   resize: none;
 }
-.dijitNumberTextBox {
+.duiNumberTextBox {
   text-align: left;
   direction: ltr;
 }
-.dijitNumberTextBox .dijitInputInner {
+.duiNumberTextBox .duiInputInner {
   text-align: inherit;
   /* input */
 
 }
-/* 'dijitTextBox' refers to 'dijit(TextBox|DateTextBox|CurrencyTextBox|...)' */
-.claro .dijitTextBox,
-.claro .dijitInputInner {
+/* 'duiTextBox' refers to 'dijit(TextBox|DateTextBox|CurrencyTextBox|...)' */
+.claro .duiTextBox,
+.claro .duiInputInner {
   color: #000000;
 }
-.claro .dijitValidationTextBoxError .dijitValidationContainer {
+.claro .duiValidationTextBoxError .duiValidationContainer {
   background-color: #d46464;
   background-image: url("../form/images/error.png");
   background-position: top center;
   border: solid #d46464 0;
   width: 9px;
 }
-.claro .dijitTextBoxError .dijitValidationContainer {
+.claro .duiTextBoxError .duiValidationContainer {
   border-left-width: 1px;
 }
-.claro .dijitValidationTextBoxError .dijitValidationIcon {
+.claro .duiValidationTextBoxError .duiValidationIcon {
   width: 0;
   background-color: transparent;
   /* so the INPUT doesn't obscure the border in rtl+a11y */
@@ -271,25 +271,25 @@ div.dijitArrowButton {
 }
 /* Padding for the input area of TextBox based widgets, and corresponding padding for the
  * down arrow button and the placeholder.   placeholder is explicitly listed  because
- * dijitPlaceHolder is absolutely positioned, so padding set on dijitInputField
+ * duiPlaceHolder is absolutely positioned, so padding set on duiInputField
  * won't affect it
  */
-.claro .dijitTextArea,
-.claro .dijitInputField .dijitPlaceHolder {
+.claro .duiTextArea,
+.claro .duiInputField .duiPlaceHolder {
   padding: 2px;
 }
-.claro .dijitSelect .dijitInputField,
-.claro .dijitTextBox .dijitInputField {
+.claro .duiSelect .duiInputField,
+.claro .duiTextBox .duiInputField {
   padding: 1px 2px;
 }
-.dj_gecko .claro .dijitTextBox .dijitInputInner,
-.dj_webkit .claro .dijitTextBox .dijitInputInner {
+.dj_gecko .claro .duiTextBox .duiInputInner,
+.dj_webkit .claro .duiTextBox .duiInputInner {
   padding: 1px;
 }
-.claro .dijitSelect,
-.claro .dijitSelect .dijitButtonContents,
-.claro .dijitTextBox,
-.claro .dijitTextBox .dijitButtonNode {
+.claro .duiSelect,
+.claro .duiSelect .duiButtonContents,
+.claro .duiTextBox,
+.claro .duiTextBox .duiButtonNode {
   /* color for (outer) border on *TextBox widgets, and border between input and buttons on ComboBox and Spinner */
 
   border-color: #b5bcc7;
@@ -300,21 +300,21 @@ div.dijitArrowButton {
   -moz-transition-duration: 0.35s;
   transition-duration: 0.35s;
 }
-.claro .dijitSelect,
-.claro .dijitTextBox {
+.claro .duiSelect,
+.claro .duiTextBox {
   background-color: #ffffff;
 }
 /* hover */
-.claro .dijitSelectHover,
-.claro .dijitSelectHover .dijitButtonContents,
-.claro .dijitTextBoxHover,
-.claro .dijitTextBoxHover .dijitButtonNode {
+.claro .duiSelectHover,
+.claro .duiSelectHover .duiButtonContents,
+.claro .duiTextBoxHover,
+.claro .duiTextBoxHover .duiButtonNode {
   border-color: #759dc0;
   -webkit-transition-duration: 0.25s;
   -moz-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
-.claro .dijitTextBoxHover {
+.claro .duiTextBoxHover {
   background-color: #e5f2fe;
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
@@ -322,93 +322,93 @@ div.dijitArrowButton {
   background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
 }
 /* error state */
-.claro .dijitSelectError,
-.claro .dijitSelectError .dijitButtonContents,
-.claro .dijitTextBoxError,
-.claro .dijitTextBoxError .dijitButtonNode {
+.claro .duiSelectError,
+.claro .duiSelectError .duiButtonContents,
+.claro .duiTextBoxError,
+.claro .duiTextBoxError .duiButtonNode {
   border-color: #d46464;
 }
 /* focused state */
-.claro .dijitSelectFocused,
-.claro .dijitSelectFocused .dijitButtonContents,
-.claro .dijitTextBoxFocused,
-.claro .dijitTextBoxFocused .dijitButtonNode {
+.claro .duiSelectFocused,
+.claro .duiSelectFocused .duiButtonContents,
+.claro .duiTextBoxFocused,
+.claro .duiTextBoxFocused .duiButtonNode {
   border-color: #759dc0;
   -webkit-transition-duration: 0.1s;
   -moz-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
-.claro .dijitTextBoxFocused {
+.claro .duiTextBoxFocused {
   background-color: #ffffff;
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -o-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
 }
-.claro .dijitTextBoxFocused .dijitInputContainer {
+.claro .duiTextBoxFocused .duiInputContainer {
   background: #ffffff;
 }
-.claro .dijitSelectErrorFocused,
-.claro .dijitSelectErrorFocused .dijitButtonContents,
-.claro .dijitTextBoxErrorFocused,
-.claro .dijitTextBoxErrorFocused .dijitButtonNode {
+.claro .duiSelectErrorFocused,
+.claro .duiSelectErrorFocused .duiButtonContents,
+.claro .duiTextBoxErrorFocused,
+.claro .duiTextBoxErrorFocused .duiButtonNode {
   border-color: #ce5050;
 }
 /* disabled state */
-.claro .dijitSelectDisabled,
-.claro .dijitSelectDisabled .dijitButtonContents,
-.claro .dijitTextBoxDisabled,
-.claro .dijitTextBoxDisabled .dijitButtonNode {
+.claro .duiSelectDisabled,
+.claro .duiSelectDisabled .duiButtonContents,
+.claro .duiTextBoxDisabled,
+.claro .duiTextBoxDisabled .duiButtonNode {
   border-color: #d3d3d3;
 }
-.claro .dijitSelectDisabled,
-.claro .dijitTextBoxDisabled,
-.claro .dijitTextBoxDisabled .dijitInputContainer {
+.claro .duiSelectDisabled,
+.claro .duiTextBoxDisabled,
+.claro .duiTextBoxDisabled .duiInputContainer {
   background-color: #efefef;
   background-image: none;
 }
-.claro .dijitSelectDisabled,
-.claro .dijitTextBoxDisabled,
-.claro .dijitTextBoxDisabled .dijitInputInner {
+.claro .duiSelectDisabled,
+.claro .duiTextBoxDisabled,
+.claro .duiTextBoxDisabled .duiInputInner {
   color: #818181;
 }
-.dj_webkit .claro .dijitDisabled input {
+.dj_webkit .claro .duiDisabled input {
   /* because WebKit lightens disabled input/textarea no matter what color you specify */
 
   color: #757575;
 }
-.dj_webkit .claro textarea.dijitTextAreaDisabled {
+.dj_webkit .claro textarea.duiTextAreaDisabled {
   /* because WebKit lightens disabled input/textarea no matter what color you specify */
 
   color: #1b1b1b;
 }
 /*========================= for special widgets =========================*/
 /* Input boxes with an arrow (for a drop down) */
-.claro .dijitSelect .dijitArrowButtonInner,
-.claro .dijitComboBox .dijitArrowButtonInner {
+.claro .duiSelect .duiArrowButtonInner,
+.claro .duiComboBox .duiArrowButtonInner {
   background-image: url("../form/images/commonFormArrows.png");
   background-position: -35px 53%;
   background-repeat: no-repeat;
   margin: 0;
   width: 16px;
 }
-.claro .dijitComboBox .dijitArrowButtonInner {
+.claro .duiComboBox .duiArrowButtonInner {
   border: 1px solid #ffffff;
 }
-.claro .dijitToolbar .dijitComboBox .dijitArrowButtonInner {
+.claro .duiToolbar .duiComboBox .duiArrowButtonInner {
   border: none;
 }
-.claro .dijitToolbar .dijitComboBox .dijitArrowButtonInner {
+.claro .duiToolbar .duiComboBox .duiArrowButtonInner {
   border: none;
 }
 /* Add 1px vertical padding to the <input> where user types and the validation icon,
    to match the 1px border on arrow button */
-.claro .dijitSelectLabel,
-.claro .dijitTextBox .dijitInputInner,
-.claro .dijitValidationTextBox .dijitValidationContainer {
+.claro .duiSelectLabel,
+.claro .duiTextBox .duiInputInner,
+.claro .duiValidationTextBox .duiValidationContainer {
   padding: 1px 0;
 }
-.claro .dijitComboBox .dijitButtonNode {
+.claro .duiComboBox .duiButtonNode {
   background-color: #efefef;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -420,17 +420,17 @@ div.dijitArrowButton {
  * will toggle the drop down.   That's either (1) anywhere over the ComboBox or (2) over the arrow
  * button, depending on the openOnClick setting for the widget.
  */
-.claro .dijitComboBoxOpenOnClickHover .dijitButtonNode,
-.claro .dijitComboBox .dijitDownArrowButtonHover,
-.claro .dijitComboBoxFocused .dijitArrowButton {
+.claro .duiComboBoxOpenOnClickHover .duiButtonNode,
+.claro .duiComboBox .duiDownArrowButtonHover,
+.claro .duiComboBoxFocused .duiArrowButton {
   background-color: #abd6ff;
 }
-.claro .dijitComboBoxOpenOnClickHover .dijitArrowButtonInner,
-.claro .dijitComboBox .dijitDownArrowButtonHover .dijitArrowButtonInner {
+.claro .duiComboBoxOpenOnClickHover .duiArrowButtonInner,
+.claro .duiComboBox .duiDownArrowButtonHover .duiArrowButtonInner {
   background-position: -70px 53%;
 }
 /* Arrow Button change when drop down is open */
-.claro .dijitComboBox .dijitHasDropDownOpen {
+.claro .duiComboBox .duiHasDropDownOpen {
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -438,21 +438,21 @@ div.dijitArrowButton {
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   padding: 1px;
 }
-.claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
+.claro .duiComboBox .duiHasDropDownOpen .duiArrowButtonInner {
   background-position: -70px 53%;
   border: 0 none;
 }
 /* disabled state */
-.claro div.dijitComboBoxDisabled .dijitArrowButtonInner {
+.claro div.duiComboBoxDisabled .duiArrowButtonInner {
   /* specific selector set to override background-position setting from Button.js
-	 * (.claro .dijitComboBoxDisabled .dijitArrowButtonInner) */
+	 * (.claro .duiComboBoxDisabled .duiArrowButtonInner) */
 
   background-position: 0 50%;
   background-color: #efefef;
 }
-.dj_borderbox .claro .dijitComboBox .dijitHasDropDownOpen .dijitArrowButtonInner {
+.dj_borderbox .claro .duiComboBox .duiHasDropDownOpen .duiArrowButtonInner {
   width: 18px;
 }
-.dj_borderbox .claro .dijitComboBoxFocused .dijitHasDropDownOpen .dijitArrowButtonInner {
+.dj_borderbox .claro .duiComboBoxFocused .duiHasDropDownOpen .duiArrowButtonInner {
   width: 16px;
 }

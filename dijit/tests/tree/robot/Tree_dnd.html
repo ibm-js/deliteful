@@ -14,7 +14,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/dom", "dojo/dom-class", "dojo/dom-geometry", "dojo/keys", "dojo/sniff", "dojo/window",
-				"dijit/tests/helpers", "./Tree_dnd", "dojo/domReady!"
+				"dui/tests/helpers", "./Tree_dnd", "dojo/domReady!"
 			], function(doh, robot, dom, domClass, domGeom, keys, has, winUtils, helpers, dndHelpers){
 
 				robot.initRobot('../test_Tree_DnD.html');
@@ -50,7 +50,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								// TODO: check drag avatar shows drop is valid (ie, avatar is green)
-								doh.t(domClass.contains(fruitsTreeNode.rowNode, "dijitTreeRowHover"), "tree node has hover class");
+								doh.t(domClass.contains(fruitsTreeNode.rowNode, "duiTreeRowHover"), "tree node has hover class");
 								doh.t(domClass.contains(fruitsTreeNode.rowNode, "dojoDndItemOver"), "tree node has DND drop class");
 							}), 500);
 

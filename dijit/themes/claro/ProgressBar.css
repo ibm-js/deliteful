@@ -3,33 +3,33 @@
  * Styling of the ProgressBar consists of the following:
  * 
  * 1. the base progress bar
- *		.dijitProgressBar -	sets margins for the progress bar
+ *		.duiProgressBar -	sets margins for the progress bar
  *
  * 2. the empty bar
- *		.dijitProgressBarEmpty  - sets background img and color for bar or parts of bar that are not finished yet
+ *		.duiProgressBarEmpty  - sets background img and color for bar or parts of bar that are not finished yet
  *		Also sets border color for whole bar
  *
  * 3. tile mode
- * 		.dijitProgressBarTile
+ * 		.duiProgressBarTile
  *		inner container for finished portion when in 'tile' (image) mode 
  * 	
  * 4. full bar mode
- * 		.dijitProgressBarFull
+ * 		.duiProgressBarFull
  *		adds border to right side of the filled portion of bar
  *
  * 5. text for label of  bar
- *		.dijitProgressBarLabel - sets text color, which must contrast with both the "Empty" and "Full" parts. 
+ *		.duiProgressBarLabel - sets text color, which must contrast with both the "Empty" and "Full" parts. 
  * 	
  * 6. indeterminate mode
- *		.dijitProgressBarIndeterminate .dijitProgressBarTile 
+ *		.duiProgressBarIndeterminate .duiProgressBarTile 
  * 		sets animated gif for the progress bar in 'indeterminate' mode
  */
-.dijitProgressBar {
+.duiProgressBar {
   z-index: 0;
   /* so z-index settings below have no effect outside of the ProgressBar */
 
 }
-.dijitProgressBarEmpty {
+.duiProgressBarEmpty {
   /* outer container and background of the bar that's not finished yet*/
 
   position: relative;
@@ -41,7 +41,7 @@
   /* establish a stacking context for this progress bar */
 
 }
-.dijitProgressBarFull {
+.duiProgressBarFull {
   /* outer container for background of bar that is finished */
 
   position: absolute;
@@ -50,7 +50,7 @@
   top: 0;
   width: 100%;
 }
-.dijitProgressBarTile {
+.duiProgressBarTile {
   /* inner container for finished portion */
 
   position: absolute;
@@ -65,21 +65,21 @@
   background-color: #aaa;
   background-attachment: fixed;
 }
-.dj_a11y .dijitProgressBarTile {
+.dj_a11y .duiProgressBarTile {
   /* a11y:  The border provides visibility in high-contrast mode */
 
   border-width: 2px;
   border-style: solid;
   background-color: transparent !important;
 }
-.dijitProgressBarIndeterminate .dijitProgressBarTile {
+.duiProgressBarIndeterminate .duiProgressBarTile {
   /* animated gif for 'indeterminate' mode */
 
 }
-.dijitProgressBarIndeterminateHighContrastImage {
+.duiProgressBarIndeterminateHighContrastImage {
   display: none;
 }
-.dj_a11y .dijitProgressBarIndeterminate .dijitProgressBarIndeterminateHighContrastImage {
+.dj_a11y .duiProgressBarIndeterminate .duiProgressBarIndeterminateHighContrastImage {
   display: block;
   position: absolute;
   top: 0;
@@ -89,23 +89,23 @@
   width: 100%;
   height: auto;
 }
-.dijitProgressBarLabel {
+.duiProgressBarLabel {
   display: block;
   position: static;
   width: 100%;
   text-align: center;
   background-color: transparent !important;
 }
-.claro .dijitProgressBar {
+.claro .duiProgressBar {
   margin: 2px 0 2px 0;
 }
-.claro .dijitProgressBarEmpty {
+.claro .duiProgressBarEmpty {
   /* outer container and background of the bar that's not finished yet*/
 
   background-color: #ffffff;
   border-color: #759dc0;
 }
-.claro .dijitProgressBarTile {
+.claro .duiProgressBarTile {
   /* inner container for finished portion when in 'tile' (image) mode */
 
   background-color: #abd6ff;
@@ -117,7 +117,7 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
   background-attachment: scroll;
 }
-.claro .dijitProgressBarFull {
+.claro .duiProgressBarFull {
   border: 0px solid #759dc0;
   border-right-width: 1px;
   -webkit-transition-property: width;
@@ -127,12 +127,12 @@
   -moz-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
-.claro .dijitProgressBarLabel {
+.claro .duiProgressBarLabel {
   /* Set to a color that contrasts with both the "Empty" and "Full" parts. */
 
   color: #000000;
 }
-.claro .dijitProgressBarIndeterminate .dijitProgressBarTile {
+.claro .duiProgressBarIndeterminate .duiProgressBarTile {
   /* use an animated gif for the progress bar in 'indeterminate' mode;
 		background-color won't appear unless user has turned off background images */
 

@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Calendar I18N Test</title>
 
-		<!-- required: a default dijit theme: -->
+		<!-- required: a default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../../dijit/themes/claro/claro.css"/>
 
 		<!-- required: dojo.js.
@@ -17,8 +17,8 @@
 		<script type="text/javascript" src="../_testCommon.js"></script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.Calendar");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.Calendar");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.parser"); // scan page for widgets
 
@@ -33,10 +33,10 @@
 
 		before
 
-		<input id="calendar1" data-dojo-type="dijit/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"en-us"'/>
-		<input id="calendar2" data-dojo-type="dijit/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"es-es"'/>
-		<input id="calendar3" data-dojo-type="dijit/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"zh-cn"'/>
-		<input id="calendar4" data-dojo-type="dijit/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"ar-sy"'/>
+		<input id="calendar1" data-dojo-type="dui/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"en-us"'/>
+		<input id="calendar2" data-dojo-type="dui/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"es-es"'/>
+		<input id="calendar3" data-dojo-type="dui/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"zh-cn"'/>
+		<input id="calendar4" data-dojo-type="dui/Calendar" data-dojo-props='onChange:function(val){ myHandler(this.id, val); }, lang:"ar-sy"'/>
 
 		after
 

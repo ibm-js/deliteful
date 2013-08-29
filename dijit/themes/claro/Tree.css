@@ -1,67 +1,67 @@
 /* Tree 
  * 
- * Styling Tree mostly means styling the TreeRow (dijitTreeRow)
+ * Styling Tree mostly means styling the TreeRow (duiTreeRow)
  * There are 4 basic states to style:
  * 
  * Tree Row:
  * 1. tree row (default styling): 
- * 		.dijitTreeRow - styles for each row of the tree
+ * 		.duiTreeRow - styles for each row of the tree
  *
  * 2. hovered tree row (mouse hover on a tree row)
- * 		.dijitTreeRowHover - styles when mouse over on one row
+ * 		.duiTreeRowHover - styles when mouse over on one row
  * 
  * 3. active tree row (mouse down on a tree row)
- * 		.dijitTreeRowActive - styles when mouse down on one row
+ * 		.duiTreeRowActive - styles when mouse down on one row
  * 
  * 4. selected tree row
- * 		dijitTreeRowSelected - style when the row has been selected
+ * 		duiTreeRowSelected - style when the row has been selected
  * 
  * Tree Expando:
- * 	    dijitTreeExpando - the expando at the left of the text of each tree row
+ * 	    duiTreeExpando - the expando at the left of the text of each tree row
  * 
- * Drag and Drop on TreeNodes: (insert line on dijitTreeContent node so it'll aligned w/ target element)
- * 		.dijitTreeNode .dojoDndItemBefore/.dojoDndItemAfter - use border style simulate a separate line
+ * Drag and Drop on TreeNodes: (insert line on duiTreeContent node so it'll aligned w/ target element)
+ * 		.duiTreeNode .dojoDndItemBefore/.dojoDndItemAfter - use border style simulate a separate line
  */
-.dj_a11y .dijitTreeExpando {
+.dj_a11y .duiTreeExpando {
   display: none;
 }
-.dijitTree {
+.duiTree {
   overflow: auto;
   /* for scrollbars when Tree has a height setting, and to prevent wrapping around float elements, see #11491 */
 
   -webkit-tap-highlight-color: transparent;
 }
-.dijitTreeContainer {
+.duiTreeContainer {
   float: left;
   /* for correct highlighting during horizontal scroll, see #16132 */
 
 }
-.dijitTreeIndent {
+.duiTreeIndent {
   /* amount to indent each tree node (relative to parent node) */
 
   width: 19px;
 }
-.dijitTreeRow,
-.dijitTreeContent {
+.duiTreeRow,
+.duiTreeContent {
   white-space: nowrap;
 }
-.dj_ie .dijitTreeLabel:focus {
+.dj_ie .duiTreeLabel:focus {
   /* workaround IE9 behavior where down arrowing through TreeNodes doesn't show focus outline */
 
   outline: 1px dotted black;
 }
-.dijitTreeRow img {
+.duiTreeRow img {
   /* make the expando and folder icons line up with the label */
 
   vertical-align: middle;
 }
-.dijitTreeContent {
+.duiTreeContent {
   cursor: default;
 }
-.dijitExpandoText {
+.duiExpandoText {
   display: none;
 }
-.dj_a11y .dijitExpandoText {
+.dj_a11y .duiExpandoText {
   display: inline;
   padding-left: 10px;
   padding-right: 10px;
@@ -70,24 +70,24 @@
   border-width: thin;
   cursor: pointer;
 }
-.dijitTreeLabel {
+.duiTreeLabel {
   margin: 0 4px;
 }
-.claro .dijitTreeNode {
+.claro .duiTreeNode {
   zoom: 1;
   /* force layout on IE (TODO: may not be needed anymore) */
 
 }
-.claro .dijitTreeIsRoot {
+.claro .duiTreeIsRoot {
   background-image: none;
 }
 /* Styling for basic tree node (unhovered, unselected)
  * Also use this styling when dropping between items on the tree (in other words, don't
  * use hover effect)
  */
-.claro .dijitTreeRow,
-.claro .dijitTreeNode .dojoDndItemBefore,
-.claro .dijitTreeNode .dojoDndItemAfter {
+.claro .duiTreeRow,
+.claro .duiTreeNode .dojoDndItemBefore,
+.claro .duiTreeNode .dojoDndItemAfter {
   /* so insert line shows up on IE when dropping after a target element */
 
   padding: 4px 0 2px 0;
@@ -108,7 +108,7 @@
   -moz-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.claro .dijitTreeRowSelected {
+.claro .duiTreeRowSelected {
   background-color: #cfe5fa;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -119,7 +119,7 @@
   border-width: 1px 0;
   color: #000000;
 }
-.claro .dijitTreeRowHover {
+.claro .duiTreeRowHover {
   background-color: #abd6ff;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -133,7 +133,7 @@
   -moz-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
-.claro .dijitTreeRowActive {
+.claro .duiTreeRowActive {
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -144,41 +144,41 @@
   border-width: 1px 0;
   color: #000000;
 }
-.claro .dijitTreeRowFocused {
+.claro .duiTreeRowFocused {
   background-repeat: repeat;
 }
 /* expando (open/closed) icon */
-.claro .dijitTreeExpando {
+.claro .duiTreeExpando {
   background-image: url("images/treeExpandImages.png");
   width: 16px;
   height: 16px;
   background-position: -35px 0;
-  /* for dijitTreeExpandoOpened */
+  /* for duiTreeExpandoOpened */
 
 }
-.claro .dijitTreeRowHover .dijitTreeExpandoOpened {
+.claro .duiTreeRowHover .duiTreeExpandoOpened {
   background-position: -53px 0;
 }
-.claro .dijitTreeExpandoClosed {
+.claro .duiTreeExpandoClosed {
   background-position: 1px 0;
 }
-.claro .dijitTreeRowHover .dijitTreeExpandoClosed {
+.claro .duiTreeRowHover .duiTreeExpandoClosed {
   background-position: -17px 0;
 }
-.claro .dijitTreeExpandoLeaf {
+.claro .duiTreeExpandoLeaf {
   background-image: none;
 }
-.claro .dijitTreeExpandoLoading {
+.claro .duiTreeExpandoLoading {
   background-image: url("images/loadingAnimation.gif");
 }
 /* Drag and Drop on TreeNodes
- * Put insert line on dijitTreeContent node so it's aligned w/
+ * Put insert line on duiTreeContent node so it's aligned w/
  * (ie, indented equally with) target element, even
- * though dijitTreeRowNode is the actual "drag object"
+ * though duiTreeRowNode is the actual "drag object"
  */
-.claro .dijitTreeNode .dojoDndItemBefore .dijitTreeContent {
+.claro .duiTreeNode .dojoDndItemBefore .duiTreeContent {
   border-top: 2px solid #759dc0;
 }
-.claro .dijitTreeNode .dojoDndItemAfter .dijitTreeContent {
+.claro .duiTreeNode .dojoDndItemAfter .duiTreeContent {
   border-bottom: 2px solid #759dc0;
 }

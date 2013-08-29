@@ -27,9 +27,9 @@ define([
 ], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
 
 	// module:
-	//		dijit/InlineEditBox
+	//		dui/InlineEditBox
 
-	var InlineEditor = declare("dijit._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _FocusMixin], {
+	var InlineEditor = declare("dui._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _FocusMixin], {
 		// summary:
 		//		Internal widget used by InlineEditBox, displayed when in editing mode
 		//		to display the editor and maybe save/cancel buttons.  Calling code should
@@ -247,7 +247,7 @@ define([
 	});
 
 
-	var InlineEditBox = declare("dijit.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), _WidgetBase, {
+	var InlineEditBox = declare("dui.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), _WidgetBase, {
 		// summary:
 		//		An element with in-line edit capabilities
 		//
@@ -259,7 +259,7 @@ define([
 		//		widget and redisplayed and the edit widget is again hidden.
 		//		By default a plain Textarea widget is used as the editor (or for
 		//		inline values a TextBox), but you can specify an editor such as
-		//		dijit.Editor (for editing HTML) or a Slider (for adjusting a number).
+		//		dui.Editor (for editing HTML) or a Slider (for adjusting a number).
 		//		An edit widget must support the following API to be used:
 		//
 		//		- displayedValue or value as initialization parameter,
@@ -286,11 +286,11 @@ define([
 
 		// renderAsHtml: Boolean
 		//		Set this to true if the specified Editor's value should be interpreted as HTML
-		//		rather than plain text (ex: `dijit.Editor`)
+		//		rather than plain text (ex: `dui.Editor`)
 		renderAsHtml: false,
 
 		// editor: String|Function
-		//		MID (ex: "dijit/form/TextBox") or constructor for editor widget
+		//		MID (ex: "dui/form/TextBox") or constructor for editor widget
 		editor: TextBox,
 
 		// editorWrapper: String|Function
@@ -374,7 +374,7 @@ define([
 				this.displayNode.innerHTML = this.noValueIndicator;
 			}
 
-			domClass.add(this.displayNode, 'dijitInlineEditBoxDisplayMode');
+			domClass.add(this.displayNode, 'duiInlineEditBoxDisplayMode');
 		},
 
 		_setDisabledAttr: function(/*Boolean*/ disabled){
@@ -387,7 +387,7 @@ define([
 			}else{
 				this.displayNode.setAttribute("tabIndex", 0);
 			}
-			domClass.toggle(this.displayNode, "dijitInlineEditBoxDisplayModeDisabled", disabled);
+			domClass.toggle(this.displayNode, "duiInlineEditBoxDisplayModeDisabled", disabled);
 			this._set("disabled", disabled);
 		},
 
@@ -397,7 +397,7 @@ define([
 			// tags:
 			//		private
 			if(!this.disabled){
-				domClass.add(this.displayNode, "dijitInlineEditBoxDisplayModeHover");
+				domClass.add(this.displayNode, "duiInlineEditBoxDisplayModeHover");
 			}
 		},
 
@@ -406,7 +406,7 @@ define([
 			//		Handler for onmouseout and onblur event.
 			// tags:
 			//		private
-			domClass.remove(this.displayNode, "dijitInlineEditBoxDisplayModeHover");
+			domClass.remove(this.displayNode, "duiInlineEditBoxDisplayModeHover");
 		},
 
 		_onClick: function(/*Event*/ e){
@@ -478,12 +478,12 @@ define([
 			// opacity:0 is the same as visibility: hidden but is still focusable
 			// visibility: hidden removes focus outline
 
-			domClass.add(this.displayNode, "dijitOffScreen");
-			domClass.remove(ww.domNode, "dijitOffScreen");
+			domClass.add(this.displayNode, "duiOffScreen");
+			domClass.remove(ww.domNode, "duiOffScreen");
 			domStyle.set(ww.domNode, { visibility: "visible" });
 			domAttr.set(this.displayNode, "tabIndex", "-1"); // needed by WebKit for TAB from editor to skip displayNode
 
-			// After edit widget has finished initializing (in particular need to wait for dijit.Editor),
+			// After edit widget has finished initializing (in particular need to wait for dui.Editor),
 			// or immediately if there is no onLoadDeferred Deferred,
 			// replace the display widget with edit widget, leaving them both displayed for a brief time so that
 			// focus can be shifted without incident.
@@ -517,8 +517,8 @@ define([
 
 			var ww = this.wrapperWidget;
 			domStyle.set(ww.domNode, { visibility: "hidden" }); // hide the editor from mouse/keyboard events
-			domClass.add(ww.domNode, "dijitOffScreen");
-			domClass.remove(this.displayNode, "dijitOffScreen");
+			domClass.add(ww.domNode, "duiOffScreen");
+			domClass.remove(this.displayNode, "duiOffScreen");
 			domAttr.set(this.displayNode, "tabIndex", this._savedTabIndex);
 			if(focus){
 				fm.focus(this.displayNode);
@@ -582,7 +582,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		InlineEditBox = declare("dijit.InlineEditBox", InlineEditBox, {
+		InlineEditBox = declare("dui.InlineEditBox", InlineEditBox, {
 			_setValueAttr: function(){
 				this.inherited(arguments);
 				this.applyTextDir(this.displayNode);

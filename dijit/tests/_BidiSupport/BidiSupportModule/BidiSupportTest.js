@@ -2,8 +2,8 @@ define(["doh/main", "dojo/has"], function(doh, has){
 
 	has.add("dojo-bidi", true);
 
-	require(["dijit/_Widget"], function(_Widget){
-		doh.register("dijit.tests._BidiSupport.BidiSupportModule.BidiSupportTest", [
+	require(["dui/_Widget"], function(_Widget){
+		doh.register("dui.tests._BidiSupport.BidiSupportModule.BidiSupportTest", [
 			{
 				name:"1. checkContextual(), dir = LTR",
 

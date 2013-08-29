@@ -20,23 +20,23 @@
 			"dojo/dom",
 			"dojo/parser",
 			"dui/registry",
-			"dijit/Dialog",
+			"dui/Dialog",
 
 			// used by parser
-			"dijit/Editor",
-			"dijit/_editor/plugins/AlwaysShowToolbar",
-			"dijit/InlineEditBox",
-			"dijit/Menu",
-			"dijit/MenuItem",
-			"dijit/MenuSeparator",
-			"dijit/form/Button",
-			"dijit/form/TextBox",
-			"dijit/form/DateTextBox",
-			"dijit/form/TimeTextBox",
-			"dijit/form/FilteringSelect",
-			"dijit/layout/BorderContainer",
-			"dijit/layout/ContentPane",
-			"dijit/layout/TabContainer",
+			"dui/Editor",
+			"dui/_editor/plugins/AlwaysShowToolbar",
+			"dui/InlineEditBox",
+			"dui/Menu",
+			"dui/MenuItem",
+			"dui/MenuSeparator",
+			"dui/form/Button",
+			"dui/form/TextBox",
+			"dui/form/DateTextBox",
+			"dui/form/TimeTextBox",
+			"dui/form/FilteringSelect",
+			"dui/layout/BorderContainer",
+			"dui/layout/ContentPane",
+			"dui/layout/TabContainer",
 
 			"dojo/domReady!"
 		], function(lang, stamp, dom, parser, registry, Dialog){
@@ -46,7 +46,7 @@
 				if(!thirdDlg){
 					var pane = dom.byId('thirdDialog');
 					// should specify a width on dialogs with <p> tags, otherwise they get too wide
-					thirdDlg = new dijit.Dialog({
+					thirdDlg = new dui.Dialog({
 						id: "dialog3",
 						title: "Programmatic Dialog Creation",
 						style: {width: '300px'}
@@ -90,9 +90,9 @@
 	<h1 class="testTitle">Dijit.Dialog tests</h1>
 
 	<h2>General Dialogs:</h2>
-	<button id="dialog1button" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("dialog1").show() }'>Show Dialog</button> |
+	<button id="dialog1button" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("dialog1").show() }'>Show Dialog</button> |
 
-	<div id="dialog1" data-dojo-type="dijit/Dialog" data-dojo-props='title:"First Dialog",
+	<div id="dialog1" data-dojo-type="dui/Dialog" data-dojo-props='title:"First Dialog",
 			"aria-describedby":"intro",
 			onFocus:function(){ console.log("user focus handler") },
 			onBlur:function(){ console.log("user blur handler") },
@@ -103,48 +103,48 @@
 		<table style="position:relative;" role="presentation">
 			<tr>
 				<td><label for="name">Name: </label></td>
-				<td><input id="name" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"name" '/></td>
+				<td><input id="name" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"name" '/></td>
 			</tr>
 			<tr>
 				<td><label for="loc">Location: </label></td>
-				<td><input id="loc" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"loc" '/></td>
+				<td><input id="loc" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"loc" '/></td>
 			</tr>
 			<tr>
 				<td><label for="date">Date: </label></td>
-				<td><input id="date" data-dojo-type="dijit/form/DateTextBox" data-dojo-props='type:"text", name:"date" '/></td>
+				<td><input id="date" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text", name:"date" '/></td>
 			</tr>
 			<tr>
 				<td><label>Time: </label></td>
-				<td><div id="time" data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/form/TimeTextBox", editorParams:{type:"text", name:"time"}, width:"100px", style:"width:100px;"'></div></td>
+				<td><div id="time" data-dojo-type="dui/InlineEditBox" data-dojo-props='editor:"dui/form/TimeTextBox", editorParams:{type:"text", name:"time"}, width:"100px", style:"width:100px;"'></div></td>
 			</tr>
 			<tr>
 				<td><label for="desc">Description: </label></td>
-				<td><input id="desc" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"desc" '/></td>
+				<td><input id="desc" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"desc" '/></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align:center;">
-					<button id="ok" data-dojo-type="dijit/form/Button" type="submit">OK</button></td>
+					<button id="ok" data-dojo-type="dui/form/Button" type="submit">OK</button></td>
 			</tr>
 		</table>
 	</div>
 
-	<div id="dialog1ContextMenu" data-dojo-type="dijit/Menu" data-dojo-props='targetNodeIds:["dialog1"], style:"display: none;"'>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='disabled:true'
+	<div id="dialog1ContextMenu" data-dojo-type="dui/Menu" data-dojo-props='targetNodeIds:["dialog1"], style:"display: none;"'>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='disabled:true'
 				id="firstMenuItem">Dialog1 Menu</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='onClick:function(){ console.log("Hello world"); }'
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='onClick:function(){ console.log("Hello world"); }'
 			 	id="enabledMenuItem">Enabled Item</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='disabled:true'>Disabled Item</div>
-		<div data-dojo-type="dijit/MenuSeparator"></div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='disabled:true'>Disabled Item</div>
+		<div data-dojo-type="dui/MenuSeparator"></div>
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 			onClick:function(){ console.log("not actually cutting anything, just a test!") }'>Cut</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
 			onClick:function(){ console.log("not actually copying anything, just a test!") }'>Copy</div>
-		<div data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste",
+		<div data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 			onClick:function(){ console.log("not actually pasting anything, just a test!") }'>Paste</div>
 	</div>
 
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ createDialog(); }, title:"shows after 3 second delay, with blue background"'>Programatic Dialog (3 second delay)</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ createDialog(); }, title:"shows after 3 second delay, with blue background"'>Programatic Dialog (3 second delay)</button> |
 
 
 	<div id="thirdDialog" style="display: none;">
@@ -171,11 +171,11 @@
 		</p>
 	</div>
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("tabDialog").show() }'>Show TabContainer Dialog</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("tabDialog").show() }'>Show TabContainer Dialog</button> |
 
-	<div id="tabDialog" data-dojo-type="dijit/Dialog" data-dojo-props='title:"TabContainer Dialog"'>
-		<div id="tc" data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 400px;"'>
-			<div id="cp1" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"First tab"'>
+	<div id="tabDialog" data-dojo-type="dui/Dialog" data-dojo-props='title:"TabContainer Dialog"'>
+		<div id="tc" data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"width: 400px; height: 400px;"'>
+			<div id="cp1" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"First tab"'>
 				<p>
 					This is the first tab.
 				</p>
@@ -188,7 +188,7 @@
 				risus.
 				</p>
 			</div>
-			<div id="cp2" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Second tab"'>
+			<div id="cp2" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Second tab"'>
 				<p>
 					This is the second tab.
 				</p>
@@ -220,38 +220,38 @@
 		</div>
 	</div>
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("fifthDlg").show(); }'>Test slow loading HREF Dialog</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("fifthDlg").show(); }'>Test slow loading HREF Dialog</button> |
 
-	<div id="fifthDlg" data-dojo-type="dijit/Dialog" data-dojo-props='href:"layout/getResponse.php?delay=3000&amp;messId=3",
+	<div id="fifthDlg" data-dojo-type="dui/Dialog" data-dojo-props='href:"layout/getResponse.php?delay=3000&amp;messId=3",
 		style:"width: 300px", title:"From HREF (slow network simulated)"'></div>
 
-	<button id="filebutton" data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("file").show() }'>Show File Dialog</button>
+	<button id="filebutton" data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("file").show() }'>Show File Dialog</button>
 
-	<div id="file" data-dojo-type="dijit/Dialog" data-dojo-props='title:"File Dialog",
+	<div id="file" data-dojo-type="dui/Dialog" data-dojo-props='title:"File Dialog",
 			onFocus:function(){ console.log("user focus handler") },
 			onBlur:function(){ console.log("user blur handler") },
 			execute:function(args){ console.log("submitted w/args: ", args); }, style:"min-width: 350px"'>
 		<!-- note: style="min-width: 350px" to workaround FF bug where width is too short, see http://bugs.dojotoolkit.org/ticket/5976 -->
 			<label for="afile">ID File: </label>
-			<input id="afile" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"file", name:"afile" '/>
+			<input id="afile" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"file", name:"afile" '/>
 	</div>
 
-	<button id="unmovablebutton" data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("unmovable").show() }'>Show Unmovable</button>
+	<button id="unmovablebutton" data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("unmovable").show() }'>Show Unmovable</button>
 
-	<div id="unmovable" data-dojo-type="dijit/Dialog" data-dojo-props='title:"unmovable", draggable:false'>
+	<div id="unmovable" data-dojo-type="dui/Dialog" data-dojo-props='title:"unmovable", draggable:false'>
 		<p>You should not be able to <br /> drag this dialog</p>
 	</div>
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("preventer").show() }'>Show Close prevention</button>
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("preventer").show() }'>Show Close prevention</button>
 
-	<div id="preventer" data-dojo-type="dijit/Dialog" data-dojo-props='title:"Confirm Close"'>
+	<div id="preventer" data-dojo-type="dui/Dialog" data-dojo-props='title:"Confirm Close"'>
 		I am done entering data:
-		<button id="preventerOK" data-dojo-type="dijit/form/Button" type="submit" onClick='return confirm("Are you sure?");'>OK</button>
+		<button id="preventerOK" data-dojo-type="dui/form/Button" type="submit" onClick='return confirm("Are you sure?");'>OK</button>
 	</div>
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("embedded").show() }'>Dialog w/embedded layout widgets</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("embedded").show() }'>Dialog w/embedded layout widgets</button> |
 
-	<div id="embedded" data-dojo-type="dijit/Dialog" data-dojo-props='title:"Embedded layout widgets",
+	<div id="embedded" data-dojo-type="dui/Dialog" data-dojo-props='title:"Embedded layout widgets",
 		onShow:function(){ this.domNode.setAttribute("aria-describedby", "describe"); } '>
 		<p id="describe">
 			The pane has some text, plus two embedded layout widgets, which should
@@ -260,8 +260,8 @@
 		<p>
 			Here's a BorderContainer:
 		</p>
-		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props='style:"height:200px; width:300px"'>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left", style:"width:100px", splitter:true'>
+		<div data-dojo-type="dui/layout/BorderContainer" data-dojo-props='style:"height:200px; width:300px"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"left", style:"width:100px", splitter:true'>
 				1Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 				Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 				vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -276,7 +276,7 @@
 				sollicitudin sed, consequat nec, facilisis sit amet, orci. Aenean
 				ut eros sit amet ante pharetra interdum.
 			</div>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='region:"center"'>
 				2Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 				Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 				vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -295,8 +295,8 @@
 		<p>
 			And a TabContainer:
 		</p>
-		<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"height:200px; width:300px"'>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 1"'>
+		<div data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"height:200px; width:300px"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 1"'>
 				1Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 				Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 				vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -311,7 +311,7 @@
 				sollicitudin sed, consequat nec, facilisis sit amet, orci. Aenean
 				ut eros sit amet ante pharetra interdum.
 			</div>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
+			<div data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Tab 2"'>
 				2Sed arcu magna, molestie at, fringilla in, sodales eu, elit.
 				Curabitur mattis lorem et est. Quisque et tortor. Integer bibendum
 				vulputate odio. Nam nec ipsum. Vestibulum mollis eros feugiat
@@ -334,71 +334,71 @@
 	
 	
 	<!-- Action Bar test case -->
-	<button id="ABDlg1Btn" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("ABDlg1").show() }'>Show Dialog With Action Buttons</button>
-	<div id="ABDlg1" data-dojo-type="dijit/Dialog" data-dojo-props='title:"ActionBar Dialog 1",
+	<button id="ABDlg1Btn" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("ABDlg1").show() }'>Show Dialog With Action Buttons</button>
+	<div id="ABDlg1" data-dojo-type="dui/Dialog" data-dojo-props='title:"ActionBar Dialog 1",
 			onExecute:function(){ console.log("OK button pressed") },
 			onCancel:function(){ console.log("Cancel button pressed") },
 			"aria-describedby":"intro",
 			execute:function(args){ console.log("submitted w/args: ", args); }'>
-		<div class="dijitDialogPaneContentArea">
+		<div class="duiDialogPaneContentArea">
 			<div id="ABintro1" style="width:30em;">Introductory information spoken by screen reader if aria-describedby is
 			added to the declaration of dialog above with value equal to the id of the container element for this text. This technique
 			will work in Dojo 1.4. </div>
 		</div>
 		
 		
-		<div class="dijitDialogPaneActionBar">
-			<button id="ABdialog1button1" data-dojo-type="dijit/form/Button" type="submit">OK</button>
-			<button id="ABdialog1button2" data-dojo-type="dijit/form/Button" type="button" data-dojo-props='onClick:function(){ registry.byId("ABDlg1").onCancel(); }
+		<div class="duiDialogPaneActionBar">
+			<button id="ABdialog1button1" data-dojo-type="dui/form/Button" type="submit">OK</button>
+			<button id="ABdialog1button2" data-dojo-type="dui/form/Button" type="button" data-dojo-props='onClick:function(){ registry.byId("ABDlg1").onCancel(); }
 					'>Cancel</button>
 		</div>
 	</div>
 	
-	<button id="NABDlgBtn" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("NABDlg").show() }'>Show Dialog With No Action Buttons</button>
-	<div id="NABDlg" data-dojo-type="dijit/Dialog" data-dojo-props='title:"No Action Bar Dialog",
+	<button id="NABDlgBtn" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("NABDlg").show() }'>Show Dialog With No Action Buttons</button>
+	<div id="NABDlg" data-dojo-type="dui/Dialog" data-dojo-props='title:"No Action Bar Dialog",
 			"aria-describedby":"intro",
 			onFocus:function(){ console.log("user focus handler") },
 			onBlur:function(){ console.log("user blur handler") },
 			execute:function(args){ console.log("submitted w/args: ", args); }'>
 				
-		<div class="dijitDialogPaneContentArea">
+		<div class="duiDialogPaneContentArea">
 			<div id="NABintro" style="width:30em;">Introductory information spoken by screen reader if aria-describedby is
 			added to the declaration of dialog above with value equal to the id of the container element for this text. This technique
 			will work in Dojo 1.4. </div>
 			<table>
 				<tr>
 					<td><label for="NABname">Name: </label></td>
-					<td><input id="NABname" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"NABname" '/></td>
+					<td><input id="NABname" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"NABname" '/></td>
 				</tr>
 				<tr>
 					<td><label for="NABloc">Location: </label></td>
-					<td><input id="NABloc" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"NABloc" '/></td>
+					<td><input id="NABloc" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"NABloc" '/></td>
 				</tr>
 				<tr>
 					<td><label for="NABdate">Date: </label></td>
-					<td><input id="NABdate" data-dojo-type="dijit/form/DateTextBox" data-dojo-props='type:"text", name:"NABdate" '/></td>
+					<td><input id="NABdate" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text", name:"NABdate" '/></td>
 				</tr>
 				<tr>
 					<td><label for="NABdesc">Description: </label></td>
-					<td><input id="NABdesc" data-dojo-type="dijit/form/TextBox" data-dojo-props='type:"text", name:"NABdesc" '/></td>
+					<td><input id="NABdesc" data-dojo-type="dui/form/TextBox" data-dojo-props='type:"text", name:"NABdesc" '/></td>
 				</tr>
 			</table>
 		</div>
 	</div>
 
 
-	<button id="layeredDialogs" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:open2Dialogs'>Show 2 Dialogs</button>
+	<button id="layeredDialogs" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:open2Dialogs'>Show 2 Dialogs</button>
 
-	<button id="iframeDlg" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("dlgFrame").show(); }'>Show iframe in dialog</button>
-	<div id="dlgFrame" data-dojo-type="dijit/Dialog" data-dojo-props='title:"Search"'>
+	<button id="iframeDlg" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("dlgFrame").show(); }'>Show iframe in dialog</button>
+	<div id="dlgFrame" data-dojo-type="dui/Dialog" data-dojo-props='title:"Search"'>
 		<iframe title="Test IFrame" src="layout/getResponse.php?delay=3000&amp;messId=3" style="width:600px; height: 400px;">
 	</iframe>
 				
 	</div>
 
-	<button id="RadioButtonDlgBtn" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("RadioButtonDlg").show() }'>Show Dialog With Radio Button at End</button>
-	<div id="RadioButtonDlg" data-dojo-type="dijit/Dialog" data-dojo-props='title:"Radio Button Dialog"'>
-	  <div class="dijitDialogPaneContentArea">
+	<button id="RadioButtonDlgBtn" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("RadioButtonDlg").show() }'>Show Dialog With Radio Button at End</button>
+	<div id="RadioButtonDlg" data-dojo-type="dui/Dialog" data-dojo-props='title:"Radio Button Dialog"'>
+	  <div class="duiDialogPaneContentArea">
 	    <textarea id="textarea-radio-test" width="400" height="200"></textarea>
 	    <fieldset>
 	      <legend>Best Pet</legend>
@@ -410,54 +410,54 @@
 	  </div>
 	</div>
 	
-	<button id="SelfDestructDlgBtn" data-dojo-type="dijit/form/Button" data-dojo-props='onClick:showSelfDestructDlg'>Show Self-Destruct Dialog</button>
-	<div id="SelfDestructDlgBtn2" style="border: 1px solid black;" class="dijitInline" onclick="showSelfDestructDlg();" role="button">Show Self-Destruct Dialog (unfocusable div)</div>
+	<button id="SelfDestructDlgBtn" data-dojo-type="dui/form/Button" data-dojo-props='onClick:showSelfDestructDlg'>Show Self-Destruct Dialog</button>
+	<div id="SelfDestructDlgBtn2" style="border: 1px solid black;" class="duiInline" onclick="showSelfDestructDlg();" role="button">Show Self-Destruct Dialog (unfocusable div)</div>
 
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ createDialog() }, title:"shows after 3 second delay, with blue background"'>Programatic Dialog (3 second delay)</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ createDialog() }, title:"shows after 3 second delay, with blue background"'>Programatic Dialog (3 second delay)</button> |
 
-	<button id="unclosableButton" data-dojo-type="dijit/form/Button"  data-dojo-props='onClick:function(){ registry.byId("unclosable").show() }'>Show Unclosable Dialog</button> |
+	<button id="unclosableButton" data-dojo-type="dui/form/Button"  data-dojo-props='onClick:function(){ registry.byId("unclosable").show() }'>Show Unclosable Dialog</button> |
 
-	<div id="unclosable" data-dojo-type="dijit/Dialog" title="Unclosable Dialog" data-dojo-props="closable:false">
-		<div class="dijitDialogPaneContentArea">
+	<div id="unclosable" data-dojo-type="dui/Dialog" title="Unclosable Dialog" data-dojo-props="closable:false">
+		<div class="duiDialogPaneContentArea">
 			This dialog has no close icon and the ESCAPE key won't close it.  You need to use the buttons.
 		</div>
-		<div class="dijitDialogPaneActionBar">
-			<button id="unclosableSubmit" data-dojo-type="dijit/form/Button" type="submit">OK</button>
-			<button id="unclosableCancel" data-dojo-type="dijit/form/Button" type="button"
+		<div class="duiDialogPaneActionBar">
+			<button id="unclosableSubmit" data-dojo-type="dui/form/Button" type="submit">OK</button>
+			<button id="unclosableCancel" data-dojo-type="dui/form/Button" type="button"
 					onClick='registry.byId("unclosable").onCancel();'>Cancel</button>
 		</div>
 	</div>
 
-	<button id="iebDialogBtn" data-dojo-type="dijit/form/Button"
+	<button id="iebDialogBtn" data-dojo-type="dui/form/Button"
 			data-dojo-props='onClick:function(){ registry.byId("iebDialog").show(); }'>
 		Show Dialog With InlineEditBox Editors
 	</button> |
-	<div id="iebDialog" data-dojo-type="dijit/Dialog" title="Test Dialog with Autosave Inline Rich Text Editors">
+	<div id="iebDialog" data-dojo-type="dui/Dialog" title="Test Dialog with Autosave Inline Rich Text Editors">
 		<h2>Editor 1</h2>
-		<div id="inlineRTE1" data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/Editor",
+		<div id="inlineRTE1" data-dojo-type="dui/InlineEditBox" data-dojo-props='editor:"dui/Editor",
             autoSave:true, renderAsHtml:true,
-            editorParams:{id: "RTE1", height: "", extraPlugins: ["dijit._editor.plugins.AlwaysShowToolbar"]}'>
+            editorParams:{id: "RTE1", height: "", extraPlugins: ["dui._editor.plugins.AlwaysShowToolbar"]}'>
 			first text
 		</div>
 
 		<h2>Editor 2</h2>
-		<div id="inlineRTE2" data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/Editor",
+		<div id="inlineRTE2" data-dojo-type="dui/InlineEditBox" data-dojo-props='editor:"dui/Editor",
             autoSave:true, renderAsHtml:true,
-            editorParams:{id: "RTE2", height: "", extraPlugins: ["dijit._editor.plugins.AlwaysShowToolbar"]}'>
+            editorParams:{id: "RTE2", height: "", extraPlugins: ["dui._editor.plugins.AlwaysShowToolbar"]}'>
 			second text
 		</div>
 
 		<h2>Editor 3</h2>
-		<div id="inlineRTE3" data-dojo-type="dijit/InlineEditBox" data-dojo-props='editor:"dijit/Editor",
+		<div id="inlineRTE3" data-dojo-type="dui/InlineEditBox" data-dojo-props='editor:"dui/Editor",
             autoSave:true, renderAsHtml:true,
-            editorParams:{id: "RTE3", height: "", extraPlugins: ["dijit._editor.plugins.AlwaysShowToolbar"]}'>
+            editorParams:{id: "RTE3", height: "", extraPlugins: ["dui._editor.plugins.AlwaysShowToolbar"]}'>
 			third text
 		</div>
 
 	</div>
 
 	<h2>Simulated Editor with Dialog:</h2>
-	<div id="editorDialog" data-dojo-type="dijit/Dialog" title="Insert Text" data-dojo-props="refocus: false">
+	<div id="editorDialog" data-dojo-type="dui/Dialog" title="Insert Text" data-dojo-props="refocus: false">
 		<script type="dojo/method" data-dojo-event="execute">
 			var editor = dom.byId("editor"), newVal = dom.byId("dialogTextarea").value;
 			console.log("focusing editor and setting value to " + newVal);
@@ -470,7 +470,7 @@
 		</p>
 		<textarea id="dialogTextarea" style="width: 90%" placeholder="enter text here"></textarea>
 		<br>
-		<button data-dojo-type="dijit/form/Button" type="submit">OK</button>
+		<button data-dojo-type="dui/form/Button" type="submit">OK</button>
 	</div>
 	<div style="background-color: #eee; border: solid gray 1px; width: 90%;">
 		<button id="insertTextButton" onclick="registry.byId('editorDialog').show();">insert text</button>
@@ -608,7 +608,7 @@
 	</p>
 
 	<p>
-	<button data-dojo-type="dijit/form/Button" data-dojo-props='onClick:function(){ registry.byId("dialog1").show() }'>Show Dialog</button> |
+	<button data-dojo-type="dui/form/Button" data-dojo-props='onClick:function(){ registry.byId("dialog1").show() }'>Show Dialog</button> |
 	<!-- showing a dialog from an anchor with inline onclick="" is a solution to page onUnLoad firing
 		but you must return false; alternatively, you can dojo.connect() to the anchor links, and
 		e.preventDefault() on the event object passed. using href="javascript:" inline causes onUnLoad

@@ -3,36 +3,36 @@
  * Styling InlineEditBox mainly includes:
  * 
  * 1. Normal state
- * 		.dijitInlineEditBoxDisplayMode  - for border
+ * 		.duiInlineEditBoxDisplayMode  - for border
  * 
  * 2. Hover state
- * 		.dijitInlineEditBoxDisplayModeHover - for border and background color
+ * 		.duiInlineEditBoxDisplayModeHover - for border and background color
  */
 
 @import "variables";
 
 // From dijit.css
-.dijitInlineEditBoxDisplayMode {
+.duiInlineEditBoxDisplayMode {
 	border: 1px solid transparent;	/* so keyline (border) on hover can appear without screen jump */
 	cursor: text;
 }
 
-.dijitInlineEditBoxDisplayModeHover {
+.duiInlineEditBoxDisplayModeHover {
 	/* An InlineEditBox in view mode (click this to edit the text) */
 	background-color: #e2ebf2;
 	border: solid 1px black;
 }
 
-.dijitInlineEditBoxDisplayModeDisabled {
+.duiInlineEditBoxDisplayModeDisabled {
 	cursor: default;
 }
 
 // Claro overrides
-.claro .dijitInlineEditBoxDisplayMode {
+.claro .duiInlineEditBoxDisplayMode {
 	border: 1px solid transparent;
 }
 
-.claro .dijitInlineEditBoxDisplayModeHover {
+.claro .duiInlineEditBoxDisplayModeHover {
 	background-color: @textbox-hovered-background-color;
 	border: solid 1px @hovered-border-color;
 }

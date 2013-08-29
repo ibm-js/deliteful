@@ -14,7 +14,7 @@
 		</script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 
 			dojo.ready(function(){
 				doh.robot.initRobot('../test_InlineEditBox.html');
@@ -33,7 +33,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("P0");
+							inlineBox = dui.byId("P0");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.typeKeys("Hello!!!", 1000, 1200);
 
@@ -52,7 +52,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("P1");
+							inlineBox = dui.byId("P1");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.setClipboard("\u05d5\u05e2\u05db\u05e9\u05d9\u05d5!",'text/html');
 							var modifier = dojo.isMac ? {meta: true} : {ctrl: true};
@@ -74,7 +74,7 @@
 						timeout: 10000,
 
 						runTest: function(){
-							inlineBox = dijit.byId("P2");
+							inlineBox = dui.byId("P2");
 							doh.is('ltr', inlineBox.displayNode.dir, "direction of :" + inlineBox.id);
 						}
 
@@ -85,7 +85,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("P2");
+							inlineBox = dui.byId("P2");
 
 							doh.robot.mouseMoveAt(function(){ return dojo.byId('button'); }, 500, 1000);
 							doh.robot.mouseClick({left: true}, 500);
@@ -108,7 +108,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("P3");
+							inlineBox = dui.byId("P3");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.typeKeys("Hello!!!", 1000, 1200);
 
@@ -127,7 +127,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("P4");
+							inlineBox = dui.byId("P4");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.setClipboard("\u05d5\u05e2\u05db\u05e9\u05d9\u05d5!",'text/html');
 							var modifier = dojo.isMac ? {meta: true} : {ctrl: true};
@@ -149,7 +149,7 @@
 						timeout: 10000,
 
 						runTest: function(){
-							var inlineBox = dijit.byId("P5");
+							var inlineBox = dui.byId("P5");
 							doh.is('ltr', inlineBox.domNode.dir, "direction of :" + inlineBox.id);
 						}
 
@@ -160,7 +160,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							var inlineBox = dijit.byId("P5");
+							var inlineBox = dui.byId("P5");
 							doh.robot.mouseMoveAt(function(){ return dojo.byId('Button1'); }, 500, 1000);
 
 							doh.robot.mouseClick({left: true}, 500);
@@ -183,7 +183,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("combo1");
+							inlineBox = dui.byId("combo1");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 300);
 							doh.robot.keyPress(dojo.keys.UP_ARROW, 300);
@@ -209,7 +209,7 @@
 
 						runTest: function(){
 							var d = new doh.Deferred();
-							inlineBox = dijit.byId("combo2");
+							inlineBox = dui.byId("combo2");
 							moveAndClick(inlineBox.domNode);
 							doh.robot.keyPress(dojo.keys.DOWN_ARROW, 300);
 							doh.robot.keyPress(dojo.keys.UP_ARROW, 300);
@@ -235,7 +235,7 @@
 
 						runTest: function(){
 								var d = new doh.Deferred();
-								inlineBox = dijit.byId("combo3");
+								inlineBox = dui.byId("combo3");
 								moveAndClick(inlineBox.domNode);
 								doh.robot.keyPress(dojo.keys.DOWN_ARROW, 300);
 								doh.robot.keyPress(dojo.keys.UP_ARROW, 300);

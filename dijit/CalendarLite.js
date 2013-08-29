@@ -20,37 +20,37 @@ define([
 
 
 	// module:
-	//		dijit/CalendarLite
+	//		dui/CalendarLite
 
-	var CalendarLite = declare("dijit.CalendarLite", [_WidgetBase, _TemplatedMixin], {
+	var CalendarLite = declare("dui.CalendarLite", [_WidgetBase, _TemplatedMixin], {
 		// summary:
 		//		Lightweight version of Calendar widget aimed towards mobile use
 		//
 		// description:
 		//		A simple GUI for choosing a date in the context of a monthly calendar.
 		//		This widget can't be used in a form because it doesn't serialize the date to an
-		//		`<input>` field.  For a form element, use dijit/form/DateTextBox instead.
+		//		`<input>` field.  For a form element, use dui/form/DateTextBox instead.
 		//
 		//		Note that the parser takes all dates attributes passed in the
 		//		[RFC 3339 format](http://www.faqs.org/rfcs/rfc3339.html), e.g. `2005-06-30T08:05:00-07:00`
 		//		so that they are serializable and locale-independent.
 		//
-		//		Also note that this widget isn't keyboard accessible; use dijit.Calendar for that
+		//		Also note that this widget isn't keyboard accessible; use dui.Calendar for that
 		// example:
-		//	|	var calendar = new dijit.CalendarLite({}, dojo.byId("calendarNode"));
+		//	|	var calendar = new dui.CalendarLite({}, dojo.byId("calendarNode"));
 		//
 		// example:
-		//	|	<div data-dojo-type="dijit/CalendarLite"></div>
+		//	|	<div data-dojo-type="dui/CalendarLite"></div>
 
 		// Template for main calendar
 		templateString: template,
 
 		// Template for cell for a day of the week (ex: M)
-		dowTemplateString: '<th class="dijitReset dijitCalendarDayLabelTemplate" role="columnheader" scope="col"><span class="dijitCalendarDayLabel">${d}</span></th>',
+		dowTemplateString: '<th class="duiReset duiCalendarDayLabelTemplate" role="columnheader" scope="col"><span class="duiCalendarDayLabel">${d}</span></th>',
 
 		// Templates for a single date (ex: 13), and for a row for a week (ex: 20 21 22 23 24 25 26)
-		dateTemplateString: '<td class="dijitReset" role="gridcell" data-dojo-attach-point="dateCells"><span class="dijitCalendarDateLabel" data-dojo-attach-point="dateLabels"></span></td>',
-		weekTemplateString: '<tr class="dijitReset dijitCalendarWeekTemplate" role="row">${d}${d}${d}${d}${d}${d}${d}</tr>',
+		dateTemplateString: '<td class="duiReset" role="gridcell" data-dojo-attach-point="dateCells"><span class="duiCalendarDateLabel" data-dojo-attach-point="dateLabels"></span></td>',
+		weekTemplateString: '<tr class="duiReset duiCalendarWeekTemplate" role="row">${d}${d}${d}${d}${d}${d}${d}</tr>',
 
 		// value: Date
 		//		The currently selected Date, initially set to invalid date to indicate no selection.
@@ -82,7 +82,7 @@ define([
 		// Put the summary to the node with role=grid
 		_setSummaryAttr: "gridNode",
 
-		baseClass: "dijitCalendar",
+		baseClass: "duiCalendar",
 
 		_isValidDate: function(/*Date*/ value){
 			// summary:
@@ -206,7 +206,7 @@ define([
 			array.forEach(this.dateCells, function(template, idx){
 				var i = idx + dayOffset;
 				var date = new this.dateClassObj(month),
-					number, clazz = "dijitCalendar", adj = 0;
+					number, clazz = "duiCalendar", adj = 0;
 
 				if(i < firstDay){
 					number = daysInPreviousMonth - firstDay + i + 1;
@@ -227,14 +227,14 @@ define([
 				date.setDate(number);
 
 				if(!this.dateModule.compare(date, today, "date")){
-					clazz = "dijitCalendarCurrentDate " + clazz;
+					clazz = "duiCalendarCurrentDate " + clazz;
 				}
 
 				if(this.isDisabledDate(date, this.lang)){
-					clazz = "dijitCalendarDisabledDate " + clazz;
+					clazz = "duiCalendarDisabledDate " + clazz;
 					template.setAttribute("aria-disabled", "true");
 				}else{
-					clazz = "dijitCalendarEnabledDate " + clazz;
+					clazz = "duiCalendarEnabledDate " + clazz;
 					template.removeAttribute("aria-disabled");
 					template.setAttribute("aria-selected", "false");
 				}
@@ -244,14 +244,14 @@ define([
 					clazz = clazz2 + " " + clazz;
 				}
 
-				template.className = clazz + "Month dijitCalendarDateTemplate";
+				template.className = clazz + "Month duiCalendarDateTemplate";
 
 				// Each cell has an associated integer value representing it's date
 				var dateVal = date.valueOf();
 				if(idx==0)
 					console.log("setting date2cell[" + dateVal + "]");
 				this._date2cell[dateVal] = template;
-				template.dijitDateValue = dateVal;
+				template.duiDateValue = dateVal;
 
 				// Set Date string (ex: "13").
 				this._setText(this.dateLabels[idx], date.getDateLocalized ? date.getDateLocalized(this.lang) : date.getDate());
@@ -418,11 +418,11 @@ define([
 			//		protected
 			evt.stopPropagation();
 			evt.preventDefault();
-			for(var node = evt.target; node && !node.dijitDateValue; node = node.parentNode){
+			for(var node = evt.target; node && !node.duiDateValue; node = node.parentNode){
 				;
 			}
-			if(node && !domClass.contains(node, "dijitCalendarDisabledDate")){
-				this.set('value', node.dijitDateValue);
+			if(node && !domClass.contains(node, "duiCalendarDisabledDate")){
+				this.set('value', node.duiDateValue);
 			}
 		},
 
@@ -442,7 +442,7 @@ define([
 
 			// Function to mark a cell as selected or unselected
 			function mark(/*Boolean*/ selected, /*DomNode*/ cell){
-				domClass.toggle(cell, "dijitCalendarSelectedDate", selected);
+				domClass.toggle(cell, "duiCalendarSelectedDate", selected);
 				cell.setAttribute("aria-selected", selected ? "true" : "false");
 			}
 
@@ -488,7 +488,7 @@ define([
 		}
 	});
 
-	CalendarLite._MonthWidget = declare("dijit.CalendarLite._MonthWidget", _WidgetBase, {
+	CalendarLite._MonthWidget = declare("dui.CalendarLite._MonthWidget", _WidgetBase, {
 		// summary:
 		//		Displays name of current month padded to the width of the month
 		//		w/the longest name, so that changing months doesn't change width.
@@ -503,7 +503,7 @@ define([
 			// summary:
 			//		Set the current month to display as a label
 			var monthNames = this.dateLocaleModule.getNames('months', 'wide', 'standAlone', this.lang, month),
-				spacer = "<div class='dijitSpacer'>" +
+				spacer = "<div class='duiSpacer'>" +
 					array.map(monthNames,function(s){
 						return "<div>" + s + "</div>";
 					}).join("") + "</div>";
@@ -513,7 +513,7 @@ define([
 			// the center <TH> overlaps the right <TH> (due to a browser bug).
 			this.domNode.innerHTML =
 				spacer +
-					"<div class='dijitCalendarMonthLabel dijitCalendarCurrentMonthLabel'>" +
+					"<div class='duiCalendarMonthLabel duiCalendarCurrentMonthLabel'>" +
 					monthNames[month.getMonth()] + "</div>";
 		}
 	});

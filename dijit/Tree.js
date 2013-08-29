@@ -36,10 +36,10 @@ define([
 			treeNodeTemplate, treeTemplate, _dndSelector){
 
 	// module:
-	//		dijit/Tree
+	//		dui/Tree
 
 
-	var TreeNode = declare("dijit._TreeNode", [_WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin], {
+	var TreeNode = declare("dui._TreeNode", [_WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin], {
 		// summary:
 		//		Single node within a tree.   This class is used internally
 		//		by Tree and should not be accessed directly.
@@ -51,7 +51,7 @@ define([
 		item: null,
 
 		// isTreeNode: [protected] Boolean
-		//		Indicates that this is a TreeNode.   Used by `dijit.Tree` only,
+		//		Indicates that this is a TreeNode.   Used by `dui.Tree` only,
 		//		should not be accessed directly.
 		isTreeNode: true,
 
@@ -84,11 +84,11 @@ define([
 
 		templateString: treeNodeTemplate,
 
-		baseClass: "dijitTreeNode",
+		baseClass: "duiTreeNode",
 
 		// For hover effect for tree node, and focus effect for label
 		cssStateNodes: {
-			rowNode: "dijitTreeRow"
+			rowNode: "duiTreeRow"
 		},
 
 		// Tooltip is defined in _WidgetBase but we need to handle the mapping to DOM here
@@ -197,9 +197,9 @@ define([
 			var parent = this.getParent();
 			if(!parent || !parent.rowNode || parent.rowNode.style.display == "none"){
 				/* if we are hiding the root node then make every first level child look like a root node */
-				domClass.add(this.domNode, "dijitTreeIsRoot");
+				domClass.add(this.domNode, "duiTreeIsRoot");
 			}else{
-				domClass.toggle(this.domNode, "dijitTreeIsLast", !this.getNextSibling());
+				domClass.toggle(this.domNode, "duiTreeIsLast", !this.getNextSibling());
 			}
 		},
 
@@ -209,8 +209,8 @@ define([
 			// tags:
 			//		private
 
-			var styles = ["dijitTreeExpandoLoading", "dijitTreeExpandoOpened",
-					"dijitTreeExpandoClosed", "dijitTreeExpandoLeaf"],
+			var styles = ["duiTreeExpandoLoading", "duiTreeExpandoOpened",
+					"duiTreeExpandoClosed", "duiTreeExpandoLeaf"],
 				_a11yStates = ["*", "-", "+", "*"],
 				idx = processing ? 0 : (this.isExpandable ? (this.isExpanded ? 1 : 2) : 3);
 
@@ -246,7 +246,7 @@ define([
 			if(this.tree.showRoot || this !== this.tree.rootNode){
 				this.containerNode.setAttribute("role", "group");
 			}
-			domClass.add(this.contentNode, 'dijitTreeContentExpanded');
+			domClass.add(this.contentNode, 'duiTreeContentExpanded');
 			this._setExpando();
 			this._updateItemClasses(this.item);
 
@@ -296,7 +296,7 @@ define([
 			if(this == this.tree.rootNode && this.tree.showRoot){
 				this.tree.domNode.setAttribute("aria-expanded", "false");
 			}
-			domClass.remove(this.contentNode, 'dijitTreeContentExpanded');
+			domClass.remove(this.contentNode, 'duiTreeContentExpanded');
 			this._setExpando();
 			this._updateItemClasses(this.item);
 
@@ -502,7 +502,7 @@ define([
 			//		In particular, setting a node as selected involves setting tabIndex
 			//		so that when user tabs to the tree, focus will go to that node (only).
 			this.labelNode.setAttribute("aria-selected", selected ? "true" : "false");
-			domClass.toggle(this.rowNode, "dijitTreeRowSelected", selected);
+			domClass.toggle(this.rowNode, "duiTreeRowSelected", selected);
 		},
 
 		focus: function(){
@@ -524,13 +524,13 @@ define([
 		});
 	}
 
-	var Tree = declare("dijit.Tree", [_WidgetBase, _KeyNavMixin, _TemplatedMixin, _CssStateMixin], {
+	var Tree = declare("dui.Tree", [_WidgetBase, _KeyNavMixin, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		This widget displays hierarchical data from a store.
 
-		baseClass: "dijitTree",
+		baseClass: "duiTree",
 
-		// model: [const] dijit/tree/model
+		// model: [const] dui/tree/model
 		//		Interface to read tree data, get notifications of changes to tree data,
 		//		and for handling drop operations (i.e drag and drop onto the tree)
 		model: null,
@@ -572,8 +572,8 @@ define([
 
 		// dndController: [protected] Function
 		//		Class to use as as the dnd controller.  Specifying this class enables DnD.
-		//		Generally you should specify this as dijit/tree/dndSource.
-		//		Setting of dijit/tree/_dndSelector handles selection only (no actual DnD).
+		//		Generally you should specify this as dui/tree/dndSource.
+		//		Setting of dui/tree/_dndSelector handles selection only (no actual DnD).
 		dndController: _dndSelector,
 
 		// parameters to pull off of the tree and pass on to the dndController as its params
@@ -582,7 +582,7 @@ define([
 		//declare the above items so they can be pulled from the tree's markup
 
 		// onDndDrop: [protected] Function
-		//		Parameter to dndController, see `dijit/tree/dndSource.onDndDrop()`.
+		//		Parameter to dndController, see `dui/tree/dndSource.onDndDrop()`.
 		//		Generally this doesn't need to be set.
 		onDndDrop: null,
 
@@ -616,7 +616,7 @@ define([
 		=====*/
 
 		// onDndCancel: [protected] Function
-		//		Parameter to dndController, see `dijit/tree/dndSource.onDndCancel()`.
+		//		Parameter to dndController, see `dui/tree/dndSource.onDndCancel()`.
 		//		Generally this doesn't need to be set.
 		onDndCancel: null,
 
@@ -624,11 +624,11 @@ define([
 		checkAcceptance: function(source, nodes){
 			// summary:
 			//		Checks if the Tree itself can accept nodes from this source
-			// source: dijit/tree/dndSource
+			// source: dui/tree/dndSource
 			//		The source which provides items
 			// nodes: DOMNode[]
-			//		Array of DOM nodes corresponding to nodes being dropped, dijitTreeRow nodes if
-			//		source is a dijit/Tree.
+			//		Array of DOM nodes corresponding to nodes being dropped, duiTreeRow nodes if
+			//		source is a dui/Tree.
 			// tags:
 			//		extension
 			return true;	// Boolean
@@ -645,9 +645,9 @@ define([
 			//		When betweenThreshold is set, position="before" or "after" means that we
 			//		are asking if the source node can be dropped before/after the target node.
 			// target: DOMNode
-			//		The dijitTreeRoot DOM node inside of the TreeNode that we are dropping on to
+			//		The duiTreeRoot DOM node inside of the TreeNode that we are dropping on to
 			//		Use registry.getEnclosingWidget(target) to get the TreeNode.
-			// source: dijit/tree/dndSource
+			// source: dui/tree/dndSource
 			//		The (set of) nodes we are dropping
 			// position: String
 			//		"over", "before", or "after"
@@ -676,7 +676,7 @@ define([
 
 		// _nodePixelIndent: Integer
 		//		Number of pixels to indent tree nodes (relative to parent node).
-		//		Default is 19 but can be overridden by setting CSS class dijitTreeIndent
+		//		Default is 19 but can be overridden by setting CSS class duiTreeIndent
 		//		and calling resize() or startup() on tree after it's in the DOM.
 		_nodePixelIndent: 19,
 
@@ -710,19 +710,19 @@ define([
 			// Catch events on TreeNodes
 			var self = this;
 			this.own(
-				on(this.containerNode, on.selector(".dijitTreeNode", touch.enter), function(evt){
+				on(this.containerNode, on.selector(".duiTreeNode", touch.enter), function(evt){
 					self._onNodeMouseEnter(registry.byNode(this), evt);
 				}),
-				on(this.containerNode, on.selector(".dijitTreeNode", touch.leave), function(evt){
+				on(this.containerNode, on.selector(".duiTreeNode", touch.leave), function(evt){
 					self._onNodeMouseLeave(registry.byNode(this), evt);
 				}),
-				on(this.containerNode, on.selector(".dijitTreeRow", a11yclick.press), function(evt){
+				on(this.containerNode, on.selector(".duiTreeRow", a11yclick.press), function(evt){
 					self._onNodePress(registry.getEnclosingWidget(this), evt);
 				}),
-				on(this.containerNode, on.selector(".dijitTreeRow", a11yclick), function(evt){
+				on(this.containerNode, on.selector(".duiTreeRow", a11yclick), function(evt){
 					self._onClick(registry.getEnclosingWidget(this), evt);
 				}),
-				on(this.containerNode, on.selector(".dijitTreeRow", "dblclick"), function(evt){
+				on(this.containerNode, on.selector(".duiTreeRow", "dblclick"), function(evt){
 					self._onDblClick(registry.getEnclosingWidget(this), evt);
 				})
 			);
@@ -813,7 +813,7 @@ define([
 						this._itemNodesMap[identity] = [rn];
 					}
 
-					rn._updateLayout();		// sets "dijitTreeIsRoot" CSS classname
+					rn._updateLayout();		// sets "duiTreeIsRoot" CSS classname
 
 					// Load top level children, and if persist==true, all nodes that were previously opened
 					this._expandNode(rn).then(lang.hitch(this, function(){
@@ -995,7 +995,7 @@ define([
 			//		Overridable function to return CSS class name to display icon
 			// tags:
 			//		extension
-			return (!item || this.model.mayHaveChildren(item)) ? (opened ? "dijitFolderOpened" : "dijitFolderClosed") : "dijitLeaf"
+			return (!item || this.model.mayHaveChildren(item)) ? (opened ? "duiFolderOpened" : "duiFolderClosed") : "duiLeaf"
 		},
 
 		getLabelClass: function(/*===== item, opened =====*/){
@@ -1192,7 +1192,7 @@ define([
 		},
 
 		// Implement _KeyNavContainer.childSelector, to identify which nodes are navigable
-		childSelector: ".dijitTreeRow",
+		childSelector: ".duiTreeRow",
 
 		isExpandoNode: function(node, widget){
 			// summary:
@@ -1391,13 +1391,13 @@ define([
 			this.focusChild(node);
 		},
 
-		_onNodeMouseEnter: function(/*dijit/_WidgetBase*/ /*===== node =====*/){
+		_onNodeMouseEnter: function(/*dui/_WidgetBase*/ /*===== node =====*/){
 			// summary:
 			//		Called when mouse is over a node (onmouseenter event),
 			//		this is monitored by the DND code
 		},
 
-		_onNodeMouseLeave: function(/*dijit/_WidgetBase*/ /*===== node =====*/){
+		_onNodeMouseLeave: function(/*dui/_WidgetBase*/ /*===== node =====*/){
 			// summary:
 			//		Called when mouse leaves a node (onmouseleave event),
 			//		this is monitored by the DND code

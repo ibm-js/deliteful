@@ -21,29 +21,29 @@
 
 			"dui/registry",
 
-			"dijit/Tree",
-			"dijit/tree/ForestStoreModel",
+			"dui/Tree",
+			"dui/tree/ForestStoreModel",
 
-			"dijit/Menu",
-			"dijit/MenuItem",
-			"dijit/PopupMenuItem",
+			"dui/Menu",
+			"dui/MenuItem",
+			"dui/PopupMenuItem",
 
-			"dijit/form/Button",
-			"dijit/form/DropDownButton",
-			"dijit/form/ComboButton",
-			"dijit/form/ToggleButton",
+			"dui/form/Button",
+			"dui/form/DropDownButton",
+			"dui/form/ComboButton",
+			"dui/form/ToggleButton",
 	
-			"dijit/ColorPalette",
-			"dijit/Toolbar",
-			"dijit/TooltipDialog",
+			"dui/ColorPalette",
+			"dui/Toolbar",
+			"dui/TooltipDialog",
 	
-			"dijit/form/TextBox",
-			"dijit/form/DateTextBox",
-			"dijit/form/NumberSpinner",
-			"dijit/form/ComboBox",
+			"dui/form/TextBox",
+			"dui/form/DateTextBox",
+			"dui/form/NumberSpinner",
+			"dui/form/ComboBox",
 	
-			"dijit/layout/TabContainer",
-			"dijit/layout/ContentPane",
+			"dui/layout/TabContainer",
+			"dui/layout/ContentPane",
 				
 			"dojo/domReady!"
 		], function(doh, array, dom, domGeom, json, on, parser, query, ItemFileReadStore, registry){
@@ -183,8 +183,8 @@
 						// Check the fields on each of the first tabs
 						doh.is("ltr", registry.byId("ltr_tc_cp").dir);
 
-						var combo = query("input[value='dijit']", dom.byId("ltr_tc_cp"))[0];
-						var arrow = query(".dijitButtonNode", dom.byId("ltr_tc_cp"))[0];
+						var combo = query("input[value='dui']", dom.byId("ltr_tc_cp"))[0];
+						var arrow = query(".duiButtonNode", dom.byId("ltr_tc_cp"))[0];
 						checkLeft(combo, arrow);
 					}
 				},
@@ -197,8 +197,8 @@
 						// Check the fields on each of the first tabs
 						doh.is("rtl", registry.byId("rtl_tc_cp").dir);
 
-						combo = query("input[value='dijit']", dom.byId("rtl_tc_cp"))[0];
-						arrow = query(".dijitButtonNode", dom.byId("rtl_tc_cp"))[0];
+						combo = query("input[value='dui']", dom.byId("rtl_tc_cp"))[0];
+						arrow = query(".duiButtonNode", dom.byId("rtl_tc_cp"))[0];
 						checkLeft(arrow, combo);
 					}
 				}
@@ -210,11 +210,11 @@
 					runTest: function(){
 						registry.byId("ltr_tc").selectChild("ltr_tc_tree");
 
-						var rowNodes = query(".dijitTreeRow", dom.byId("ltr_tc_tree"));
+						var rowNodes = query(".duiTreeRow", dom.byId("ltr_tc_tree"));
 
 						array.forEach(rowNodes, function(rowNode){
-							var expando = query(".dijitTreeExpando", rowNode)[0];
-							var label = query(".dijitTreeContent", rowNode)[0];
+							var expando = query(".duiTreeExpando", rowNode)[0];
+							var label = query(".duiTreeContent", rowNode)[0];
 							checkLeft(expando, label);
 						});
 					}
@@ -224,11 +224,11 @@
 					runTest: function(){
 						registry.byId("rtl_tc").selectChild("rtl_tc_tree");
 
-						var rowNodes = query(".dijitTreeRow", dom.byId("rtl_tc_tree"));
+						var rowNodes = query(".duiTreeRow", dom.byId("rtl_tc_tree"));
 
 						array.forEach(rowNodes, function(rowNode){
-							var expando = query(".dijitTreeExpando", rowNode)[0];
-							var label = query(".dijitTreeContent", rowNode)[0];
+							var expando = query(".duiTreeExpando", rowNode)[0];
+							var label = query(".duiTreeContent", rowNode)[0];
 							checkLeft(label, expando);
 						});
 					}
@@ -244,57 +244,57 @@
 	<h1 class="testTitle">Multi-directional document test</h1>
 
 	<div data-dojo-id="continentStore" data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-props='url:"_data/countries.json"'></div>
-	<div data-dojo-id="continentModel" data-dojo-type="dijit/tree/ForestStoreModel" data-dojo-props='store:continentStore, query:{type:"continent"},
+	<div data-dojo-id="continentModel" data-dojo-type="dui/tree/ForestStoreModel" data-dojo-props='store:continentStore, query:{type:"continent"},
 		rootId:"continentRoot", rootLabel:"Continents", childrenAttrs:["children"]'></div>
 
 	<div id="right" dir="rtl" lang="ar-eg" style="float: right; width: 500px;">
 		<h2>RTL</h2>
 
-		<div data-dojo-type="dijit/Toolbar"
-				><div id="rtl_ToolbarCutButton" data-dojo-type="dijit/form/Button" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut", showLabel:false'>Cut</div
-				><div id="rtl_ToolbarDropDown" data-dojo-type="dijit/form/DropDownButton" data-dojo-props='iconClass:"plusIcon", showLabel:true'>
+		<div data-dojo-type="dui/Toolbar"
+				><div id="rtl_ToolbarCutButton" data-dojo-type="dui/form/Button" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut", showLabel:false'>Cut</div
+				><div id="rtl_ToolbarDropDown" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"plusIcon", showLabel:true'>
 					<span>שיח</span>
-					<div data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
+					<div data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
 						<table>
 							<tr>
 								<td><label id="rtl_l1">שם:</label></td>
-								<td><input id="rtl_i1" data-dojo-type="dijit/form/TextBox"/></td>
+								<td><input id="rtl_i1" data-dojo-type="dui/form/TextBox"/></td>
 							</tr>
 							<tr>
 								<td><label id="rtl_l2">תאריך:</label></td>
-								<td><input id="rtl_i2" data-dojo-type="dijit/form/DateTextBox"/></td>
+								<td><input id="rtl_i2" data-dojo-type="dui/form/DateTextBox"/></td>
 							</tr>
 							<tr>
 								<td><label id="rtl_l3">גיל:</label></td>
-								<td><input id="rtl_i3" data-dojo-type="dijit/form/NumberSpinner"/></td>
+								<td><input id="rtl_i3" data-dojo-type="dui/form/NumberSpinner"/></td>
 							</tr>
 							<tr>
 								<td colspan="2" style="text-align:center;">
-									<button id="rtl_button" data-dojo-type="dijit/form/Button" data-dojo-props='type:"submit", name:"submit"'>כניסה</button>
+									<button id="rtl_button" data-dojo-type="dui/form/Button" data-dojo-props='type:"submit", name:"submit"'>כניסה</button>
 								</td>
 							</tr>
 						</table>
 					</div
 				></div
-				><div id="rtl_ToolbarColorDropDown" data-dojo-type="dijit/form/DropDownButton" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconBackColor", showLabel:true'>
+				><div id="rtl_ToolbarColorDropDown" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconBackColor", showLabel:true'>
 					<span>لوحة الألوان</span>
-					<div id="rtl_colorPalette" data-dojo-type="dijit/ColorPalette" data-dojo-props='style:"display:none;", palette:"7x10", onChange:function(){ console.log(this.value); }'></div>
+					<div id="rtl_colorPalette" data-dojo-type="dui/ColorPalette" data-dojo-props='style:"display:none;", palette:"7x10", onChange:function(){ console.log(this.value); }'></div>
 				</div
-				><div id="rtl_ToolbarComboButton" data-dojo-type="dijit/form/ComboButton" data-dojo-props='optionsTitle:"save options", iconClass:"plusIcon", showLabel:true'>
+				><div id="rtl_ToolbarComboButton" data-dojo-type="dui/form/ComboButton" data-dojo-props='optionsTitle:"save options", iconClass:"plusIcon", showLabel:true'>
 					<span>القائمة</span>
-					<div data-dojo-type="dijit/Menu" data-dojo-props='style:"display:none;"'>
-						<div id="rtl_mi1" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconSave"'>حفظ</div>
-						<div data-dojo-type="dijit/MenuItem">حفظ ك</div>
-						<div id="rtl_popup_mi1" data-dojo-type="dijit/PopupMenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconForeColor"'>
+					<div data-dojo-type="dui/Menu" data-dojo-props='style:"display:none;"'>
+						<div id="rtl_mi1" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconSave"'>حفظ</div>
+						<div data-dojo-type="dui/MenuItem">حفظ ك</div>
+						<div id="rtl_popup_mi1" data-dojo-type="dui/PopupMenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconForeColor"'>
 							<span>فرعية</span>
-							<div data-dojo-type="dijit/Menu">
-								<div data-dojo-type="dijit/MenuItem">Submenu Item One</div>
-								<div data-dojo-type="dijit/MenuItem">Submenu Item Two</div>
-								<div data-dojo-type="dijit/PopupMenuItem">
+							<div data-dojo-type="dui/Menu">
+								<div data-dojo-type="dui/MenuItem">Submenu Item One</div>
+								<div data-dojo-type="dui/MenuItem">Submenu Item Two</div>
+								<div data-dojo-type="dui/PopupMenuItem">
 									<span>Deeper Submenu</span>
-									<div data-dojo-type="dijit/Menu">
-										<div data-dojo-type="dijit/MenuItem">Sub-sub-menu Item One</div>
-										<div data-dojo-type="dijit/MenuItem">Sub-sub-menu Item Two</div>
+									<div data-dojo-type="dui/Menu">
+										<div data-dojo-type="dui/MenuItem">Sub-sub-menu Item One</div>
+										<div data-dojo-type="dui/MenuItem">Sub-sub-menu Item Two</div>
 									</div>
 								</div>
 							</div>
@@ -302,59 +302,59 @@
 					</div>
 				</div
 		></div>
-		<div id="rtl_tc" data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"width: 450px; height: 300px; margin-top: 1em;"'>
-			<div id="rtl_tc_cp" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"رابط", closable:true, href:"layout/doc0.html"'></div>
-			<div id="rtl_tc_tree" data-dojo-type="dijit/Tree" data-dojo-props='model:continentModel, openOnClick:true, title:"עץ", closable:true'></div>
+		<div id="rtl_tc" data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"width: 450px; height: 300px; margin-top: 1em;"'>
+			<div id="rtl_tc_cp" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"رابط", closable:true, href:"layout/doc0.html"'></div>
+			<div id="rtl_tc_tree" data-dojo-type="dui/Tree" data-dojo-props='model:continentModel, openOnClick:true, title:"עץ", closable:true'></div>
 		</div>
 	</div>
 
 	<div id="left" dir="ltr" lang="en-us" style="width: 500px; float: left;">
 		<h2>LTR</h2>
 
-		<div data-dojo-type="dijit/Toolbar"
-				><div id="ltr_ToolbarCutButton" data-dojo-type="dijit/form/Button" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut", showLabel:false'>Cut</div
-				><div id="ltr_ToolbarDropDown" data-dojo-type="dijit/form/DropDownButton" data-dojo-props='iconClass:"plusIcon", showLabel:true'>
+		<div data-dojo-type="dui/Toolbar"
+				><div id="ltr_ToolbarCutButton" data-dojo-type="dui/form/Button" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut", showLabel:false'>Cut</div
+				><div id="ltr_ToolbarDropDown" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"plusIcon", showLabel:true'>
 					<span>TooltipDialog</span>
-					<div data-dojo-type="dijit/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
+					<div data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Enter Login information"'>
 						<table>
 							<tr>
 								<td><label id="ltr_l1">Name:</label></td>
-								<td><input id="ltr_i1" data-dojo-type="dijit/form/TextBox"/></td>
+								<td><input id="ltr_i1" data-dojo-type="dui/form/TextBox"/></td>
 							</tr>
 							<tr>
 								<td><label id="ltr_l2">Date:</label></td>
-								<td><input id="ltr_i2" data-dojo-type="dijit/form/DateTextBox"/></td>
+								<td><input id="ltr_i2" data-dojo-type="dui/form/DateTextBox"/></td>
 							</tr>
 							<tr>
 								<td><label id="ltr_l3">Age:</label></td>
-								<td><input id="ltr_i3" data-dojo-type="dijit/form/NumberSpinner"/></td>
+								<td><input id="ltr_i3" data-dojo-type="dui/form/NumberSpinner"/></td>
 							</tr>
 							<tr>
 								<td colspan="2" style="text-align:center;">
-									<button id="ltr_button" data-dojo-type="dijit/form/Button" data-dojo-props='type:"submit", name:"submit"'>Login</button></td>
+									<button id="ltr_button" data-dojo-type="dui/form/Button" data-dojo-props='type:"submit", name:"submit"'>Login</button></td>
 							</tr>
 						</table>
 					</div
 				></div
-				><div id="ltr_ToolbarColorDropDown" data-dojo-type="dijit/form/DropDownButton" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconBackColor", showLabel:true'>
+				><div id="ltr_ToolbarColorDropDown" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconBackColor", showLabel:true'>
 					<span>ColorPalette</span>
-					<div id="ltr_colorPalette" data-dojo-type="dijit/ColorPalette" data-dojo-props='style:"display:none;", palette:"7x10", onChange:function(){ console.log(this.value); }'></div>
+					<div id="ltr_colorPalette" data-dojo-type="dui/ColorPalette" data-dojo-props='style:"display:none;", palette:"7x10", onChange:function(){ console.log(this.value); }'></div>
 				</div
-				><div id="ltr_ToolbarComboButton" data-dojo-type="dijit/form/ComboButton" data-dojo-props='optionsTitle:"save options", iconClass:"plusIcon", showLabel:true'>
+				><div id="ltr_ToolbarComboButton" data-dojo-type="dui/form/ComboButton" data-dojo-props='optionsTitle:"save options", iconClass:"plusIcon", showLabel:true'>
 					<span>Menu</span>
-					<div data-dojo-type="dijit/Menu" data-dojo-props='style:"display none;"'>
-						<div id="ltr_mi1" data-dojo-type="dijit/MenuItem"  data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconSave"'>Save</div>
-						<div data-dojo-type="dijit/MenuItem">Save As</div>
-						<div id="ltr_popup_mi1" data-dojo-type="dijit/PopupMenuItem">
+					<div data-dojo-type="dui/Menu" data-dojo-props='style:"display none;"'>
+						<div id="ltr_mi1" data-dojo-type="dui/MenuItem"  data-dojo-props='iconClass:"duiEditorIcon duiEditorIconSave"'>Save</div>
+						<div data-dojo-type="dui/MenuItem">Save As</div>
+						<div id="ltr_popup_mi1" data-dojo-type="dui/PopupMenuItem">
 							<span>Enabled Submenu</span>
-							<div data-dojo-type="dijit/Menu">
-								<div data-dojo-type="dijit/MenuItem">Submenu Item One</div>
-								<div data-dojo-type="dijit/MenuItem">Submenu Item Two</div>
-								<div data-dojo-type="dijit/PopupMenuItem">
+							<div data-dojo-type="dui/Menu">
+								<div data-dojo-type="dui/MenuItem">Submenu Item One</div>
+								<div data-dojo-type="dui/MenuItem">Submenu Item Two</div>
+								<div data-dojo-type="dui/PopupMenuItem">
 									<span>Deeper Submenu</span>
-									<div data-dojo-type="dijit/Menu">
-										<div data-dojo-type="dijit/MenuItem">Sub-sub-menu Item One</div>
-										<div data-dojo-type="dijit/MenuItem">Sub-sub-menu Item Two</div>
+									<div data-dojo-type="dui/Menu">
+										<div data-dojo-type="dui/MenuItem">Sub-sub-menu Item One</div>
+										<div data-dojo-type="dui/MenuItem">Sub-sub-menu Item Two</div>
 									</div>
 								</div>
 							</div>
@@ -363,9 +363,9 @@
 				</div
 		></div>
 
-		<div id="ltr_tc" data-dojo-type="dijit/layout/TabContainer" data-dojo-props='style:"width: 450px; height: 300px; margin-top: 1em;"'>
-			<div id="ltr_tc_cp" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='title:"Href", closable:true, href:"layout/doc0.html"'></div>
-			<div id="ltr_tc_tree" data-dojo-type="dijit/Tree" data-dojo-props='model:continentModel, openOnClick:true, title:"Tree", closable:true'></div>
+		<div id="ltr_tc" data-dojo-type="dui/layout/TabContainer" data-dojo-props='style:"width: 450px; height: 300px; margin-top: 1em;"'>
+			<div id="ltr_tc_cp" data-dojo-type="dui/layout/ContentPane" data-dojo-props='title:"Href", closable:true, href:"layout/doc0.html"'></div>
+			<div id="ltr_tc_tree" data-dojo-type="dui/Tree" data-dojo-props='model:continentModel, openOnClick:true, title:"Tree", closable:true'></div>
 		</div>
 
 	</div>

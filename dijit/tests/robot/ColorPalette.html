@@ -29,7 +29,7 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
+					dfocus = robot.window.require("dui/focus");
 
 					// refs to ColorPalette widgets
 					big = registry.byId("big");
@@ -43,7 +43,7 @@
 					});
 				});
 
-				doh.register("dijit.ColorPalette tests", [
+				doh.register("dui.ColorPalette tests", [
 					{
 						name: "initial conditions",
 						runTest: function(){
@@ -256,9 +256,9 @@
 								doh.is("#008000", dye.getValue(), "focused");
 								
 								// test that selected style was removed from previously selected cell and added to new selection
-								doh.f(domClass.contains(red[0], "dijitPaletteCellSelected"),
+								doh.f(domClass.contains(red[0], "duiPaletteCellSelected"),
 									"Red swatch should not have selected class, actual class is: " + red[0].className);
-								doh.t(domClass.contains(green[0], "dijitPaletteCellSelected"),
+								doh.t(domClass.contains(green[0], "duiPaletteCellSelected"),
 									"Green swatch should have selected class, actual class is: " + green[0].className);
 							}), 1000);
 							
@@ -269,7 +269,7 @@
 					function valuePreselected(){
 						var cp = registry.byId("valuePreselected");
 						doh.is("#0000ff", cp.get("value"), "get('value')");
-						doh.is("blue", query(".dijitPaletteCellSelected img", cp.domNode)[0].alt, "marked");
+						doh.is("blue", query(".duiPaletteCellSelected img", cp.domNode)[0].alt, "marked");
 					}
 				]);
 

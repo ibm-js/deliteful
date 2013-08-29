@@ -14,7 +14,7 @@
 		require([
 			"doh/runner",
 			"dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/query", "dojo/window",
-			"dijit/Tooltip",
+			"dui/Tooltip",
 			"dojo/domReady!"
 		], function(doh, dom, domGeom, domStyle, query, winUtils, Tooltip){
 			doh.register("setup", function(){
@@ -101,7 +101,7 @@
 				verifyTooltipArrowPosition(textbox);
 
 				var textboxPos = domGeom.position(textbox);
-				var tooltipContainerPos = domGeom.position(query(".dijitTooltip")[0]);
+				var tooltipContainerPos = domGeom.position(query(".duiTooltip")[0]);
 				
 				var xDiff = textboxPos.x - tooltipContainerPos.x - tooltipContainerPos.w;
 				var toTheLeft = xDiff >= -0.5 && xDiff < 2;
@@ -141,7 +141,7 @@
 			
 			function toTheLeftOrRight(textbox){
 				var textboxPos = domGeom.position(textbox);
-				var tooltipContainerPos = domGeom.position(query(".dijitTooltip")[0]);
+				var tooltipContainerPos = domGeom.position(query(".duiTooltip")[0]);
 				
 				var xDiff = textboxPos.x - tooltipContainerPos.x - tooltipContainerPos.w;
 				var toTheLeft = xDiff >= -1 && xDiff < 2;
@@ -155,7 +155,7 @@
 			//Verify the tooltip arrow is next to the textbox
 			function verifyTooltipArrowPosition(textbox){
 				var textboxPos = domGeom.position(textbox);
-				var tooltipConnectorPos = domGeom.position(query(".dijitTooltipConnector")[0]);
+				var tooltipConnectorPos = domGeom.position(query(".duiTooltipConnector")[0]);
 				
 				var middleOfTextbox = textboxPos.y + (textboxPos.h / 2);
 				var middleOfTooltipConnector = tooltipConnectorPos.y + (tooltipConnectorPos.h /2);
@@ -176,8 +176,8 @@
 		
 			function testAboveBelow(textbox, verifyConnectorPosition){
 				var textboxPos = domGeom.position(textbox);
-				var tooltipConnectorPos = domGeom.position(query(".dijitTooltipConnector")[0]);
-				var tooltipContainerPos = domGeom.position(query(".dijitTooltip")[0]);
+				var tooltipConnectorPos = domGeom.position(query(".duiTooltipConnector")[0]);
+				var tooltipContainerPos = domGeom.position(query(".duiTooltip")[0]);
 
 				if(verifyConnectorPosition){
 					var xAxisValid = textboxPos.x <= tooltipConnectorPos.x && tooltipConnectorPos.x <= (textboxPos.x + textboxPos.w);

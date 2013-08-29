@@ -14,13 +14,13 @@
 				text-align: center;
 			}
 			BUTTON, INPUT,
-			.box .dijit {
+			.box .dui {
 				margin-right: 10px;
 				vertical-align: middle;
 			}
 		</style>
 
-		<!-- required: the default dijit theme: -->
+		<!-- required: the default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../../themes/claro/claro.css"/>
 
 		<!-- required: dojo.js -->
@@ -34,10 +34,10 @@
 				"dojo/dom",
 				"dojo/parser",
 				"dui/registry",
-				"dijit/form/Button",
-				"dijit/Menu",
-				"dijit/MenuItem",
-				"dijit/form/DropDownButton",
+				"dui/form/Button",
+				"dui/Menu",
+				"dui/MenuItem",
+				"dui/form/DropDownButton",
 				"dojo/domReady!"
 			], function(doh, dom, parser, registry, Button, Menu, MenuItem, DropDownButton){
 
@@ -264,127 +264,127 @@
 	<h2>Simple buttons</h2>
 
 	<p class="box">
-		<button data-dojo-type="dijit/form/Button" id="bltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button LTR ...", textDir:"ltr"'>
+		<button data-dojo-type="dui/form/Button" id="bltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button LTR ...", textDir:"ltr"'>
 			Button LTR ...
 		</button>
 
-		<button data-dojo-type="dijit/form/Button" id="bltr_rtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button LTR RTL ...", textDir:"ltr", dir:"rtl"'>
+		<button data-dojo-type="dui/form/Button" id="bltr_rtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button LTR RTL ...", textDir:"ltr", dir:"rtl"'>
 			Button LTR RTL ...
 		</button>
 
-		<button data-dojo-type="dijit/form/Button" id="brtl_ltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button RTL LTR ...", textDir:"rtl", dir:"ltr"'>
+		<button data-dojo-type="dui/form/Button" id="brtl_ltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button RTL LTR ...", textDir:"rtl", dir:"ltr"'>
 			Button LTR RTL ...
 		</button>
 
-		<button data-dojo-type="dijit/form/Button" id="brtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button RTL ...", textDir:"rtl"'>
+		<button data-dojo-type="dui/form/Button" id="brtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"Button RTL ...", textDir:"rtl"'>
 			Button RTL ...
 		</button>
 
-		<button data-dojo-type="dijit/form/Button" id="bauto_ltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"START AUTO &#1495;&#1491;&#1513;!...", textDir:"auto"'>
+		<button data-dojo-type="dui/form/Button" id="bauto_ltr" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"START AUTO &#1495;&#1491;&#1513;!...", textDir:"auto"'>
 			START AUTO &#1495;&#1491;&#1513;!...
 		</button>
 
-		<button data-dojo-type="dijit/form/Button" id="bauto_rtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"&#1495;&#1491;&#1513; AUTO END...", textDir:"auto"'>
+		<button data-dojo-type="dui/form/Button" id="bauto_rtl" data-dojo-props='onClick:function(){ console.log("clicked simple"); }, iconClass:"plusIcon", value:"&#1495;&#1491;&#1513; AUTO END...", textDir:"auto"'>
 			&#1495;&#1491;&#1513; AUTO END...
 		</button>
 
-		<button id="togltr" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
-			iconClass:"dijitCheckBoxIcon", textDir:"ltr"'>
+		<button id="togltr" checked data-dojo-type="dui/form/ToggleButton" data-dojo-props='
+			iconClass:"duiCheckBoxIcon", textDir:"ltr"'>
 			Toggle Button LTR ...
 		</button>
 
-		<button id="togrtl" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
-			iconClass:"dijitCheckBoxIcon", textDir:"rtl"'>
+		<button id="togrtl" checked data-dojo-type="dui/form/ToggleButton" data-dojo-props='
+			iconClass:"duiCheckBoxIcon", textDir:"rtl"'>
 			Toggle Button RTL ...
 		</button>
 
-		<button id="togauto_ltr" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
-			iconClass:"dijitCheckBoxIcon", textDir:"auto"'>
+		<button id="togauto_ltr" checked data-dojo-type="dui/form/ToggleButton" data-dojo-props='
+			iconClass:"duiCheckBoxIcon", textDir:"auto"'>
 			START AUTO &#1495;&#1491;&#1513;!...
 		</button>
 
-		<button id="togauto_rtl" checked data-dojo-type="dijit/form/ToggleButton" data-dojo-props='
-			iconClass:"dijitCheckBoxIcon", textDir:"auto"'>
+		<button id="togauto_rtl" checked data-dojo-type="dui/form/ToggleButton" data-dojo-props='
+			iconClass:"duiCheckBoxIcon", textDir:"auto"'>
 			&#1495;&#1491;&#1513; AUTO END...
 		</button>
 
-		<button id="dropltr" title="edit title" value="Edit" data-dojo-type="dijit/form/DropDownButton" data-dojo-textdir="ltr" data-dojo-props='iconClass:"noteIcon"'>
+		<button id="dropltr" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-textdir="ltr" data-dojo-props='iconClass:"noteIcon"'>
 			<span>Edit<b>!</b></span>
-			<span id="bltr_editMenu" data-dojo-type="dijit/Menu">
-				<span id="bltr_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-				<span id="bltr_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-				<span id="bltr_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
+			<span id="bltr_editMenu" data-dojo-type="dui/Menu">
+				<span id="bltr_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+				<span id="bltr_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+				<span id="bltr_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
 			</span>
 		</button>
 
-		<button id="droprtl" title="edit title" value="Edit" data-dojo-type="dijit/form/DropDownButton" data-dojo-textdir="rtl" data-dojo-props='iconClass:"noteIcon"'>
+		<button id="droprtl" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-textdir="rtl" data-dojo-props='iconClass:"noteIcon"'>
 			<span>Edit<b>!</b></span>
-			<span id="brtl_editMenu" data-dojo-type="dijit/Menu">
-				<span id="brtl_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-				<span id="brtl_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-				<span id="brtl_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
+			<span id="brtl_editMenu" data-dojo-type="dui/Menu">
+				<span id="brtl_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+				<span id="brtl_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+				<span id="brtl_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
 			</span>
 		</button>
 
-		<button id="dropauto" title="edit title" value="Edit" data-dojo-type="dijit/form/DropDownButton" data-dojo-textdir="auto" data-dojo-props='iconClass:"noteIcon"'>
+		<button id="dropauto" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-textdir="auto" data-dojo-props='iconClass:"noteIcon"'>
 			<span>Edit<b>!</b></span>
-			<span id="bauto_editMenu" data-dojo-type="dijit/Menu">
-				<span id="bauto_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
-				<span id="bauto_copy" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>&#1495;&#1491;&#1513; Copy! AUTO END</span>
+			<span id="bauto_editMenu" data-dojo-type="dui/Menu">
+				<span id="bauto_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
+				<span id="bauto_copy" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>&#1495;&#1491;&#1513; Copy! AUTO END</span>
 			</span>
 		</button>
 
-		<button id="comboltr" title="edit title" value="Edit" data-dojo-type="dijit/form/ComboButton" data-dojo-textdir="ltr" data-dojo-props='optionsTitle:"save options"'>
+		<button id="comboltr" title="edit title" value="Edit" data-dojo-type="dui/form/ComboButton" data-dojo-textdir="ltr" data-dojo-props='optionsTitle:"save options"'>
 			<span>Edit<b>!</b></span>
-			<span id="comboltr_editMenu" data-dojo-type="dijit/Menu">
-				<span id="comboltr_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-				<span id="comboltr_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-				<span id="comboltr_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
+			<span id="comboltr_editMenu" data-dojo-type="dui/Menu">
+				<span id="comboltr_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+				<span id="comboltr_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+				<span id="comboltr_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
 			</span>
 		</button>
 
-		<button id="combortl" title="edit title" value="Edit" data-dojo-type="dijit/form/ComboButton" data-dojo-textdir="rtl" data-dojo-props='optionsTitle:"save options"'>
+		<button id="combortl" title="edit title" value="Edit" data-dojo-type="dui/form/ComboButton" data-dojo-textdir="rtl" data-dojo-props='optionsTitle:"save options"'>
 			<span>Edit<b>!</b></span>
-			<span id="combortl_editMenu" data-dojo-type="dijit/Menu">
-				<span id="combortl_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-				<span id="combortl_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-				<span id="combortl_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
+			<span id="combortl_editMenu" data-dojo-type="dui/Menu">
+				<span id="combortl_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+				<span id="combortl_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+				<span id="combortl_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
 			</span>
 		</button>
 
-		<button id="comboauto" title="edit title" value="Edit" data-dojo-type="dijit/form/ComboButton" data-dojo-textdir="auto" data-dojo-props='optionsTitle:"save options"'>
+		<button id="comboauto" title="edit title" value="Edit" data-dojo-type="dui/form/ComboButton" data-dojo-textdir="auto" data-dojo-props='optionsTitle:"save options"'>
 			<span>Edit<b>!</b></span>
-			<span id="comboauto_editMenu" data-dojo-type="dijit/Menu">
-				<span id="comboauto_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
-				<span id="comboauto_copy" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>&#1495;&#1491;&#1513; Copy! AUTO END</span>
+			<span id="comboauto_editMenu" data-dojo-type="dui/Menu">
+				<span id="comboauto_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
+				<span id="comboauto_copy" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>&#1495;&#1491;&#1513; Copy! AUTO END</span>
 			</span>
 		</button>
 
-		<button id="deepedit" title="edit title" value="Edit" data-dojo-type="dijit/form/DropDownButton" data-dojo-textdir="auto" data-dojo-props='iconClass:"noteIcon"'>
+		<button id="deepedit" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-textdir="auto" data-dojo-props='iconClass:"noteIcon"'>
 			<span>Edit<b>!</b></span>
-			<span id="deepeditMenu" data-dojo-type="dijit/Menu">
-				<span id="level1_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-				<span id="level1_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-				<span id="level1_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
-				<span data-dojo-type="dijit/MenuSeparator"></span>
-				<span data-dojo-type="dijit/PopupMenuItem">
+			<span id="deepeditMenu" data-dojo-type="dui/Menu">
+				<span id="level1_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+				<span id="level1_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+				<span id="level1_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
+				<span data-dojo-type="dui/MenuSeparator"></span>
+				<span data-dojo-type="dui/PopupMenuItem">
 					<span>Submenu!</span>
-					<span id="submenu2" data-dojo-type="dijit/Menu">
-						<span id="level2_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>Cut!</span>
-						<span id="level2_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-						<span id="level2_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
-						<span data-dojo-type="dijit/PopupMenuItem">
+					<span id="submenu2" data-dojo-type="dui/Menu">
+						<span id="level2_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>Cut!</span>
+						<span id="level2_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+						<span id="level2_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
+						<span data-dojo-type="dui/PopupMenuItem">
 							<span>Deeper Submenu!</span>
-							<span id="submenu4" data-dojo-type="dijit/Menu">
-								<span id="level3_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
-								<span id="level3_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-								<span id="level3_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
-								<span data-dojo-type="dijit/PopupMenuItem">
+							<span id="submenu4" data-dojo-type="dui/Menu">
+								<span id="level3_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>START AUTO &#1495;&#1491;&#1513; Cut!</span>
+								<span id="level3_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+								<span id="level3_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
+								<span data-dojo-type="dui/PopupMenuItem">
 									<span>Deeper deeper Submenu!</span>
-									<span id="submenu5" data-dojo-type="dijit/Menu">
-										<span id="level4_cut" data-dojo-type="dijit/MenuItem" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCut"'>&#1495;&#1491;&#1513; Cut! AUTO END</span>
-										<span id="level4_copy" data-dojo-type="dijit/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconCopy"'>Copy!</span>
-										<span id="level4_paste" data-dojo-type="dijit/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"dijitEditorIcon dijitEditorIconPaste"'>Paste!</span>
+									<span id="submenu5" data-dojo-type="dui/Menu">
+										<span id="level4_cut" data-dojo-type="dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut"'>&#1495;&#1491;&#1513; Cut! AUTO END</span>
+										<span id="level4_copy" data-dojo-type="dui/MenuItem" data-dojo-textdir="ltr" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy"'>Copy!</span>
+										<span id="level4_paste" data-dojo-type="dui/MenuItem" data-dojo-textdir="rtl" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste"'>Paste!</span>
 									</span>
 							</span>
 						</span>

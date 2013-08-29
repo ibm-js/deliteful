@@ -17,7 +17,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/aspect", "dojo/dom", "dojo/dom-class", "dojo/dom-style", "dojo/keys",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, aspect, dom, domClass, domStyle, keys, helpers){
 
 				robot.initRobot('../test_Dialog.html');
@@ -25,8 +25,8 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
-					DialogUnderlay = robot.window.require("dijit/DialogUnderlay");
+					dfocus = robot.window.require("dui/focus");
+					DialogUnderlay = robot.window.require("dui/DialogUnderlay");
 				});
 
 				doh.register("keyboard tests (cancel)", [
@@ -231,7 +231,7 @@
 					doh.is("dialog1_title", dlog.domNode.getAttribute("aria-labelledby"), "aria-labelledby");
 					doh.isNot(undefined, dom.byId("dialog1_title"), "label node exists");
 					doh.isNot("", helpers.innerText(dom.byId("dialog1_title")), "label node has text");
-					// dijit.Dialog does not implement aria-expanded as of this writing -- should it?
+					// dui.Dialog does not implement aria-expanded as of this writing -- should it?
 				});
 
 				// Focus tests for special cases.   Focus for normal cases was already tested above.
@@ -250,7 +250,7 @@
 
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(dfocus.curNode, "focus is somewhere #1");
-								doh.t(domClass.contains(dfocus.curNode, "dijitDialogCloseIcon"), "focus is on the close button #1");
+								doh.t(domClass.contains(dfocus.curNode, "duiDialogCloseIcon"), "focus is on the close button #1");
 							}), 1000);
 
 							// Tab key shouldn't change the focus
@@ -258,7 +258,7 @@
 
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(dfocus.curNode, "focus is somewhere #2");
-								doh.t(domClass.contains(dfocus.curNode, "dijitDialogCloseIcon"), "focus is on the close button #2");
+								doh.t(domClass.contains(dfocus.curNode, "duiDialogCloseIcon"), "focus is on the close button #2");
 							}), 500);
 
 							// Space key should close the dialog
@@ -274,7 +274,7 @@
 
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(dfocus.curNode, "focus is somewhere #4");
-								doh.t(domClass.contains(dfocus.curNode, "dijitDialogCloseIcon"), "focus is on the close button #4");
+								doh.t(domClass.contains(dfocus.curNode, "duiDialogCloseIcon"), "focus is on the close button #4");
 							}), 500);
 
 							// Esc key should also close the dialog

@@ -20,7 +20,7 @@
 			"dojo/parser",
 			"dojo/query",
 			"dui/registry",
-			"dijit/TitlePane",
+			"dui/TitlePane",
 			"dojo/domReady!"
 		], function(doh, dom, parser, query, registry){
 
@@ -51,7 +51,7 @@
 <body class="claro">
 	<h1 class="testTitle"><b>Bidi TitlePane Test</b></h1>
 	<h1>Title pane with tooltip, textDir == 'auto'</h1>
-	<div id="pane_1" data-dojo-id="pane1" data-dojo-type="dijit/TitlePane" data-dojo-props='textDir:"auto", title:"\u05e9\u05dc\u05d5\u05dd Title Pane!",
+	<div id="pane_1" data-dojo-id="pane1" data-dojo-type="dui/TitlePane" data-dojo-props='textDir:"auto", title:"\u05e9\u05dc\u05d5\u05dd Title Pane!",
 		tooltip:"\u05e9\u05dc\u05d5\u05dd I\"m the tooltip for Title Pane\"s title bar!",
 		style:"width: 500px;" '>
 		Arabic, Hebrew, Urdu, and Farsi (Persian) are written from right to left,
@@ -61,7 +61,7 @@
 
 	</div>
 	<h1>Title pane, textDir == 'rtl'</h1>
-	<div id="pane_2" data-dojo-type="dijit/TitlePane" data-dojo-props='title:"Title Pane!", textDir:"ltr", tooltip:"Title Pane!", style:"width: 500px;"'>
+	<div id="pane_2" data-dojo-type="dui/TitlePane" data-dojo-props='title:"Title Pane!", textDir:"ltr", tooltip:"Title Pane!", style:"width: 500px;"'>
 		The Unicode Bidirectional Algorithm, which is commonly used for preparation of Bidi text for display,
 		is not capable to reliably identify the natural base text direction for a given text.
 		Only a human reader can unfailingly recognize the natural base text direction for a given text.

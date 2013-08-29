@@ -9,7 +9,7 @@
 			@import "../../css/dijitTests.css";
 		</style>
 
-		<!-- required: the default dijit theme: -->
+		<!-- required: the default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../../../dijit/themes/claro/claro.css"/>
 
 		<!-- required: dojo.js -->
@@ -24,9 +24,9 @@
 				"dojo/parser",
 				"dojo/query",
 				"dui/registry",
-				"dijit/form/VerticalSlider",
-				"dijit/form/VerticalRule",
-				"dijit/form/VerticalRuleLabels",
+				"dui/form/VerticalSlider",
+				"dui/form/VerticalRule",
+				"dui/form/VerticalRuleLabels",
 				"dojo/domReady!"
 			], function(doh, dom, number, parser, query, registry, VerticalSlider, VerticalRule, VerticalRuleLabels){
 
@@ -94,7 +94,7 @@
 								doh.is("rtl", node.style.direction, "hoprizontal: label node had 'direction' style corresponding to 'textDir'");
 							});
 							registry.byId("rulerLabels2").set('textDir',"auto");
-							var verticalLabel = query("div.dijitRuleLabelContainerV")[0];
+							var verticalLabel = query("div.duiRuleLabelContainerV")[0];
 							doh.is("rtl", verticalLabel.style.direction, "vertical: label node had 'direction' style corresponding to 'textDir'");
 						}
 					}
@@ -120,7 +120,7 @@
 		<br>initial value=10, min=0, max=100, pageIncrement=100, onChange event triggers input box value change immediately<br>
 		<strong>Horizontal Slider Example, "rtl" base text direction</strong>
 		<br>
-		<div id="slider1" data-dojo-type="dijit/form/HorizontalSlider" data-dojo-props='name:"horizontal1",
+		<div id="slider1" data-dojo-type="dui/form/HorizontalSlider" data-dojo-props='name:"horizontal1",
 			value:10,
 			maximum:100,
 			minimum:0,
@@ -130,9 +130,9 @@
 			slideDuration:500,
 			style:{width:"50%", height:"20px"}
 			' >
-				<div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"topDecoration", count:6, style:{height:"5px"}'></div>
-				<div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:5, style:{height:"5px"}'></div>
-				<ol id="rulerLabels1" data-dojo-type="dijit/form/HorizontalRuleLabels" data-dojo-props='textDir:"rtl", container:"bottomDecoration", style:{height:"1em",fontSize:"75%"}'>
+				<div data-dojo-type="dui/form/HorizontalRule" data-dojo-props='container:"topDecoration", count:6, style:{height:"5px"}'></div>
+				<div data-dojo-type="dui/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:5, style:{height:"5px"}'></div>
+				<ol id="rulerLabels1" data-dojo-type="dui/form/HorizontalRuleLabels" data-dojo-props='textDir:"rtl", container:"bottomDecoration", style:{height:"1em",fontSize:"75%"}'>
 					<li>תגlowest!</li>
 					<li>תגnormal!</li>
 					<li>תגhighest!</li>
@@ -142,7 +142,7 @@
 		<br>
 		<br>initial value=10, min=0, max=100, onChange event triggers input box value change when you mouse up or tab away<br>
 		<h1>Fancy HTML labels (no slide animation), "rtl" base text direction:</h1>
-		<div id="slider3" data-dojo-type="dijit/form/HorizontalSlider" data-dojo-props='name:"horizontal2",
+		<div id="slider3" data-dojo-type="dui/form/HorizontalSlider" data-dojo-props='name:"horizontal2",
 			title:"Fancy HTML Labels",
 			minimum:1,
 			value:2,
@@ -153,8 +153,8 @@
 			slideDuration:0,
 			style:"width:300px; height: 30px;"
 			'>
-				<div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:3, style:{height:"5px"}'></div>
-				<ol data-dojo-type="dijit/form/HorizontalRuleLabels" data-dojo-props='textDir:"rtl", container:"bottomDecoration", style:{height:"1em", fontSize:"75%"}'>
+				<div data-dojo-type="dui/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:3, style:{height:"5px"}'></div>
+				<ol data-dojo-type="dui/form/HorizontalRuleLabels" data-dojo-props='textDir:"rtl", container:"bottomDecoration", style:{height:"1em", fontSize:"75%"}'>
 					<li><img width=10 height=10 src="../../images/note.gif"/><br><span style="font-size: small">תגsmall!</span></li>
 					<li><img width=15 height=15 src="../../images/note.gif"/><br><span style="font-size: small">תגmedium!</span></li>
 					<li><img width=20 height=20 src="../../images/note.gif"/><br><span style="font-size: small">תגlarge!</span></li>

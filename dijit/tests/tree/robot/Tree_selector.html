@@ -54,7 +54,7 @@
 					robot.sequence(k);
 				}
 				function keyboardSelect(tree, item, modifiers, k){
-					var curFocus = robot.window.require("dijit/focus").curNode,
+					var curFocus = robot.window.require("dui/focus").curNode,
 						focused = dom.isDescendant(curFocus, dom.byId("itemTree", robot.doc));
 					if(!focused){
 						robot.keyPress(keys.TAB, 250);

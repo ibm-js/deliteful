@@ -10,13 +10,13 @@ define([
 ], function(declare, domStyle, lang, query, pm, registry, MenuItem){
 
 	// module:
-	//		dijit/PopupMenuItem
+	//		dui/PopupMenuItem
 
-	return declare("dijit.PopupMenuItem", MenuItem, {
+	return declare("dui.PopupMenuItem", MenuItem, {
 		// summary:
 		//		An item in a Menu that spawn a drop down (usually a drop down menu)
 
-		baseClass: "dijitMenuItem dijitPopupMenuItem",
+		baseClass: "duiMenuItem duiPopupMenuItem",
 
 		_fillContent: function(){
 			// summary:
@@ -26,7 +26,7 @@ define([
 			//		srcNodeRef.innerHTML contains both the menu item text and a popup widget
 			//		The first part holds the menu item text and the second part is the popup
 			// example:
-			// |	<div data-dojo-type="dijit/PopupMenuItem">
+			// |	<div data-dojo-type="dui/PopupMenuItem">
 			// |		<span>pick me</span>
 			// |		<popup> ... </popup>
 			// |	</div>

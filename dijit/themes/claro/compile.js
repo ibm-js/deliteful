@@ -1,5 +1,5 @@
 // Script to process all the less files and convert them to CSS files
-// Run from themes/dijit/claro like:
+// Run from themes/dui/claro like:
 //
 //	$ node compile.js
 

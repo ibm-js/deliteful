@@ -6,14 +6,14 @@ define([
 ], function(declare, dom, _WidgetBase, _TemplatedMixin){
 
 	// module:
-	//		dijit/ToolbarSeparator
+	//		dui/ToolbarSeparator
 
 
-	return declare("dijit.ToolbarSeparator", [_WidgetBase, _TemplatedMixin], {
+	return declare("dui.ToolbarSeparator", [_WidgetBase, _TemplatedMixin], {
 		// summary:
-		//		A spacer between two `dijit.Toolbar` items
+		//		A spacer between two `dui.Toolbar` items
 
-		templateString: '<div class="dijitToolbarSeparator dijitInline" role="presentation"></div>',
+		templateString: '<div class="duiToolbarSeparator duiInline" role="presentation"></div>',
 
 		buildRendering: function(){
 			this.inherited(arguments);

@@ -8,11 +8,11 @@
 		<script type="text/javascript" src="../../../dojo/dojo.js"
 			data-dojo-config="isDebug: true, extraLocale: ['zh-cn','fr-fr','ja-jp','ru-ru','en-us','de-de','es-es','it-it','pt-br','ko-kr','zh-tw']"></script>
 		<script type="text/javascript">
-			dojo.require("dijit.dijit"); // optimize: load dijit layer
-			dojo.require("dijit.form.NumberTextBox");
-			dojo.require("dijit.form.CurrencyTextBox");
-			dojo.require("dijit.form.DateTextBox");
-			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dui.dijit"); // optimize: load dui layer
+			dojo.require("dui.form.NumberTextBox");
+			dojo.require("dui.form.CurrencyTextBox");
+			dojo.require("dui.form.DateTextBox");
+			dojo.require("dui.form.ValidationTextBox");
 			dojo.require("dojo.date.locale");
 			dojo.require("dojo.date.stamp");
 			dojo.require("dojo.parser");	// scan page for widgets and instantiate them
@@ -123,7 +123,7 @@
 				"05. 7. 31.", "", "2005. 7. 31.", "", "2005년 7월 31일", "", "2005년 7월 31일 일요일", "");
 			gen4DateFormat(testCases, "zh-tw", "zh-TW", "2005-07-31",
 				"2005/7/31", "", "2005/7/31", "", "2005年7月31日", "", "2005年7月31日星期日", "");
-			genFormatTestCases("Date Format", "dijit.form.DateTextBox", testCases);
+			genFormatTestCases("Date Format", "dui.form.DateTextBox", testCases);
 
 			testCases = [];
 			gen4DateFormat(testCases, "ru-ru", "ru_RU", new Date(2005, 6, 31),
@@ -148,7 +148,7 @@
 				"05. 7. 31.", "", "2005. 7. 31.", "", "2005년 7월 31일", "", "2005년 7월 31일 일요일", "");
 			gen4DateFormat(testCases, "zh-tw", "zh-TW", new Date(2005, 6, 31),
 				"2005/7/31", "", "2005/7/31", "", "2005年7月31日", "", "2005年7月31日星期日", "");
-			genValidateTestCases("Date Validate", "dijit.form.DateTextBox", testCases);
+			genValidateTestCases("Date Validate", "dui.form.DateTextBox", testCases);
 		})();
 		</script>
 	</body>

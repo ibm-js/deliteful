@@ -1,7 +1,7 @@
-.dijitSelectRtl .dijitButtonText {
+.duiSelectRtl .duiButtonText {
   float: right;
 }
-.dijitSelectRtl .dijitButtonContents {
+.duiSelectRtl .duiButtonContents {
   border-style: none none none solid;
   text-align: right;
 }

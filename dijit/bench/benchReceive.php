@@ -14,14 +14,14 @@ CREATE TABLE `benchmarks` (
   `useragent` varchar(242) NOT NULL default '',
   `dojover` varchar(96) NOT NULL default '',
   `testNum` int(11) NOT NULL default '0',
-  `dijit` varchar(64) NOT NULL default '',
+  `dui` varchar(64) NOT NULL default '',
   `testCount` int(11) NOT NULL default '0',
   `testAverage` float NOT NULL default '0',
   `testMethod` varchar(10) NOT NULL default '',
   `testTime` bigint(20) NOT NULL default '0',
   `dataSet` varchar(64) NOT NULL default '',
   PRIMARY KEY  (`id`),
-  KEY `dijit` (`dijit`,`testAverage`),
+  KEY `dui` (`dui`,`testAverage`),
   KEY `dataSet` (`dataSet`)
 ) TYPE=MyISAM;
 
@@ -86,7 +86,7 @@ if(is_array($_POST)){
 					'testTime' => $test->testTime,
 					'testAverage' => $test->testAverage,
 					'testCount' => $test->testCount,
-					'dijit' => $test->dijit
+					'dui' => $test->dijit
 				);
 				print_r($data);
 				add_rec($table,$data);

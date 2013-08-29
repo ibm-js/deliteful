@@ -1,28 +1,28 @@
 /* claro/form/Common_rtl.css */
-.dijitRtl .dijitPlaceHolder {
+.duiRtl .duiPlaceHolder {
   left: auto;
   right: 0;
 }
-.dj_ie .dijitTextBoxRtl .dijitInputContainer {
+.dj_ie .duiTextBoxRtl .duiInputContainer {
   clear: right;
 }
-.dijitTextBoxRtl .dijitValidationContainer,
-.dijitTextBoxRtl .dijitSpinnerButtonContainer,
-.dijitComboBoxRtl .dijitArrowButtonContainer {
+.duiTextBoxRtl .duiValidationContainer,
+.duiTextBoxRtl .duiSpinnerButtonContainer,
+.duiComboBoxRtl .duiArrowButtonContainer {
   /* combobox and spinner: line between the input area and the drop down button */
 
   border-right-width: 1px !important;
   border-left-width: 0 !important;
 }
-.dijitTextBoxRtl .dijitSpinnerButtonContainer,
-.dijitValidationTextBoxRtl .dijitValidationContainer,
-.dijitTextBoxRtl .dijitArrowButtonContainer {
+.duiTextBoxRtl .duiSpinnerButtonContainer,
+.duiValidationTextBoxRtl .duiValidationContainer,
+.duiTextBoxRtl .duiArrowButtonContainer {
   float: left;
 }
-div.dijitNumberTextBoxRtl {
+div.duiNumberTextBoxRtl {
   text-align: right;
 }
-.claro .dijitTextBoxRtlError .dijitValidationContainer {
+.claro .duiTextBoxRtlError .duiValidationContainer {
   border-left-width: 0;
   border-right-width: 1px;
 }

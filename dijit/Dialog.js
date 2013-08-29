@@ -32,18 +32,18 @@ define([
 			DialogUnderlay, ContentPane, utils, template, nlsCommon){
 
 	// module:
-	//		dijit/Dialog
+	//		dui/Dialog
 
 	var resolvedDeferred = new Deferred();
 	resolvedDeferred.resolve(true);
 
-	var _DialogBase = declare("dijit._DialogBase" + (has("dojo-bidi") ? "_NoBidi" : ""), [_TemplatedMixin, _FormMixin, _DialogMixin, _CssStateMixin], {
+	var _DialogBase = declare("dui._DialogBase" + (has("dojo-bidi") ? "_NoBidi" : ""), [_TemplatedMixin, _FormMixin, _DialogMixin, _CssStateMixin], {
 		templateString: template,
 
-		baseClass: "dijitDialog",
+		baseClass: "duiDialog",
 
 		cssStateNodes: {
-			closeButtonNode: "dijitDialogCloseIcon"
+			closeButtonNode: "duiDialogCloseIcon"
 		},
 
 		// Map widget attributes to DOMNode attributes.
@@ -71,12 +71,12 @@ define([
 
 		// _firstFocusItem: [private readonly] DomNode
 		//		The pointer to the first focusable node in the dialog.
-		//		Set by `dijit/_DialogMixin._getFocusItems()`.
+		//		Set by `dui/_DialogMixin._getFocusItems()`.
 		_firstFocusItem: null,
 
 		// _lastFocusItem: [private readonly] DomNode
 		//		The pointer to which node has focus prior to our dialog.
-		//		Set by `dijit/_DialogMixin._getFocusItems()`.
+		//		Set by `dui/_DialogMixin._getFocusItems()`.
 		_lastFocusItem: null,
 
 		// draggable: Boolean
@@ -174,7 +174,7 @@ define([
 				this._moveable = new Moveable(node, { handle: this.titleBar });
 				aspect.after(this._moveable, "onMoveStop", lang.hitch(this, "_endDrag"), true);
 			}else{
-				domClass.add(node, "dijitDialogFixed");
+				domClass.add(node, "duiDialogFixed");
 			}
 
 			this.underlayAttrs = {
@@ -493,7 +493,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		_DialogBase = declare("dijit._DialogBase", _DialogBase, {
+		_DialogBase = declare("dui._DialogBase", _DialogBase, {
 			_setTitleAttr: function(/*String*/ title){
 				this._set("title", title);
 				this.titleNode.innerHTML = title;
@@ -509,7 +509,7 @@ define([
 		});
 	}
 
-	var Dialog = declare("dijit.Dialog", [ContentPane, _DialogBase], {
+	var Dialog = declare("dui.Dialog", [ContentPane, _DialogBase], {
 		// summary:
 		//		A modal dialog Widget.
 		// description:
@@ -517,7 +517,7 @@ define([
 		//		and also graying out the screen Dialog is extended from
 		//		ContentPane so it supports all the same parameters (href, etc.).
 		// example:
-		// |	<div data-dojo-type="dijit/Dialog" data-dojo-props="href: 'test.html'"></div>
+		// |	<div data-dojo-type="dui/Dialog" data-dojo-props="href: 'test.html'"></div>
 		// example:
 		// |	var foo = new Dialog({ title: "test dialog", content: "test content" });
 		// |	foo.placeAt(win.body());
@@ -533,7 +533,7 @@ define([
 
 		_beginZIndex: 950,
 
-		show: function(/*dijit/_WidgetBase*/ dialog, /*Object*/ underlayAttrs){
+		show: function(/*dui/_WidgetBase*/ dialog, /*Object*/ underlayAttrs){
 			// summary:
 			//		Call right before fade-in animation for new dialog.
 			//		Saves current focus, displays/adjusts underlay for new dialog,
@@ -557,14 +557,14 @@ define([
 			ds.push({dialog: dialog, underlayAttrs: underlayAttrs, zIndex: zIndex});
 		},
 
-		hide: function(/*dijit/_WidgetBase*/ dialog){
+		hide: function(/*dui/_WidgetBase*/ dialog){
 			// summary:
 			//		Called when the specified dialog is hidden/destroyed, after the fade-out
 			//		animation ends, in order to reset page focus, fix the underlay, etc.
 			//		If the specified dialog isn't open then does nothing.
 			//
 			//		Caller is responsible for either setting display:none on the dialog domNode,
-			//		or calling dijit/popup.hide(), or removing it from the page DOM.
+			//		or calling dui/popup.hide(), or removing it from the page DOM.
 
 			if(ds[ds.length - 1].dialog == dialog){
 				// Removing the top (or only) dialog in the stack, return focus
@@ -600,7 +600,7 @@ define([
 
 					if(focus){
 						// Refocus the button that spawned the Dialog.   This will fail in corner cases including
-						// page unload on IE, because the dijit/form/Button that launched the Dialog may get destroyed
+						// page unload on IE, because the dui/form/Button that launched the Dialog may get destroyed
 						// before this code runs.  (#15058)
 						try{
 							focus.focus();
@@ -620,7 +620,7 @@ define([
 			}
 		},
 
-		isTop: function(/*dijit/_WidgetBase*/ dialog){
+		isTop: function(/*dui/_WidgetBase*/ dialog){
 			// summary:
 			//		Returns true if specified Dialog is the top in the task
 			return ds[ds.length - 1].dialog == dialog;
@@ -653,10 +653,10 @@ define([
 			// If the node that was focused is inside the dialog or in a popup, even a context menu that isn't
 			// technically a descendant of the the dialog, don't do anything.
 			do{
-				if(node == topDialog.domNode || domClass.contains(node, "dijitPopup")){ return; }
+				if(node == topDialog.domNode || domClass.contains(node, "duiPopup")){ return; }
 			}while(node = node.parentNode);
 
-			// Otherwise, return focus to the dialog.  Use a delay to avoid confusing dijit/focus code's
+			// Otherwise, return focus to the dialog.  Use a delay to avoid confusing dui/focus code's
 			// own tracking of focus.
 			topDialog.focus();
 		}

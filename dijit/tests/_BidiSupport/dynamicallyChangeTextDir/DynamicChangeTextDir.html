@@ -7,7 +7,7 @@
 
 		<style type="text/css">
 			@import "../../../../dojo/resources/dojo.css";
-			@import "../../../../dijit/themes/tundra/tundra.css";
+			@import "../../../../dui/themes/tundra/tundra.css";
 		</style>
 
 		<!-- required: dojo.js -->
@@ -16,20 +16,20 @@
 		</script>
 
 		<script type="text/javascript">
-			dojo.require("dijit.form.Textarea");
-			dojo.require("dijit.form.TextBox");
-			dojo.require("dijit.form.SimpleTextarea");
-			dojo.require("dijit.layout.ContentPane");
-			dojo.require("dijit.layout.TabContainer");
+			dojo.require("dui.form.Textarea");
+			dojo.require("dui.form.TextBox");
+			dojo.require("dui.form.SimpleTextarea");
+			dojo.require("dui.layout.ContentPane");
+			dojo.require("dui.layout.TabContainer");
 			dojo.require("dojo.parser");
 			dojo.require("doh.runner");
-			dojo.require("dijit.form.ComboBox");
+			dojo.require("dui.form.ComboBox");
 
 			dojo.ready(function(){
 				doh.register("parse", function(){
 					dojo.parser.parse();
 
-					programmaticTextareaLTR = new dijit.form.Textarea({
+					programmaticTextareaLTR = new dui.form.Textarea({
 						id: "blankTaP",
 						name: "blankTaP",
 						style:{width:"30em"},
@@ -37,7 +37,7 @@
 						value: ""
 					}, "blankTaP");
 
-					programmaticTextareaRTL = new dijit.form.Textarea({
+					programmaticTextareaRTL = new dui.form.Textarea({
 						id: "filledTaP",
 						name: "filledTaP",
 						style:{width:"30em"},
@@ -45,7 +45,7 @@
 						value: "created programmatically!"
 					}, "filledTaP");
 
-					programmaticSTaB = new dijit.form.SimpleTextarea({
+					programmaticSTaB = new dui.form.SimpleTextarea({
 						id: "blankSTaP",
 						name: "blankSTaP",
 						style:{width:"30em"},
@@ -54,7 +54,7 @@
 						value: ""
 					}, "blankSTaP");
 
-					programmaticSTaF = new dijit.form.SimpleTextarea({
+					programmaticSTaF = new dui.form.SimpleTextarea({
 						id: "filledSTaP",
 						name: "filledSTaP",
 						style:{width:"30em"},
@@ -63,7 +63,7 @@
 						value: "created programmatically!"
 					}, "filledSTaP");
 
-					programmaticTextBoxB = new dijit.form.TextBox({
+					programmaticTextBoxB = new dui.form.TextBox({
 						id: "blankTbP",
 						name: "blankTbP",
 						style:{width:"30em"},
@@ -71,7 +71,7 @@
 						value: ""
 					}, "blankTbP");
 
-					programmaticTextBoxF = new dijit.form.TextBox({
+					programmaticTextBoxF = new dui.form.TextBox({
 						id: "filledTbP",
 						name: "filledTbP",
 						style:{width:"30em"},
@@ -95,29 +95,29 @@
 					, filledSTaP
 					, combo;
 
-				dijit.byId("comboBM").toggleDropDown();
-				dijit.byId("comboBM").closeDropDown();
+				dui.byId("comboBM").toggleDropDown();
+				dui.byId("comboBM").closeDropDown();
 
 				doh.register("test dynamic change of textDir initial", [
 					{
 						name: "initial textDir of all the widgets",
 
 						setUp: function(){
-							blankTaP = dijit.byId("blankTaP");
-							filledTaP = dijit.byId("filledTaP");
-							blankTaM = dijit.byId("blankTaM");
-							filledlTaM = dijit.byId("filledlTaM");
-							comboBM = dijit.byId("comboBM");
-							blankTbM = dijit.byId("blankTbM");
-							filledTbM = dijit.byId("filledTbM");
-							blankStaM = dijit.byId("blankStaM");
-							filledStaM = dijit.byId("filledStaM");
-							blankTbP = dijit.byId("blankTbP");
-							filledTbP = dijit.byId("filledTbP");
-							blankSTaP = dijit.byId("blankSTaP");
-							filledSTaP = dijit.byId("filledSTaP");
+							blankTaP = dui.byId("blankTaP");
+							filledTaP = dui.byId("filledTaP");
+							blankTaM = dui.byId("blankTaM");
+							filledlTaM = dui.byId("filledlTaM");
+							comboBM = dui.byId("comboBM");
+							blankTbM = dui.byId("blankTbM");
+							filledTbM = dui.byId("filledTbM");
+							blankStaM = dui.byId("blankStaM");
+							filledStaM = dui.byId("filledStaM");
+							blankTbP = dui.byId("blankTbP");
+							filledTbP = dui.byId("filledTbP");
+							blankSTaP = dui.byId("blankSTaP");
+							filledSTaP = dui.byId("filledSTaP");
 
-							combo = dijit.byId("comboBM");
+							combo = dui.byId("comboBM");
 						},
 
 						runTest: function(){
@@ -372,13 +372,13 @@
 			<table>
 				<tr>
 					<th>
-						<label for="filledlTaM">dijit.form.Textarea, initially filled, markup created</label>
+						<label for="filledlTaM">dui.form.Textarea, initially filled, markup created</label>
 						<br>
-						<textarea data-dojo-type="dijit/form/Textarea" id="filledlTaM" data-dojo-props='textDir:"ltr", style:{width:"30em"}'>Hello world!</textarea>
+						<textarea data-dojo-type="dui/form/Textarea" id="filledlTaM" data-dojo-props='textDir:"ltr", style:{width:"30em"}'>Hello world!</textarea>
 						<br>
 					</th>
 					<th>
-						<label >dijit.form.Textarea, initially filled, programmatically created:</label>
+						<label >dui.form.Textarea, initially filled, programmatically created:</label>
 						<br>
 						<textarea id="filledTaP"></textarea>
 						<br>
@@ -386,13 +386,13 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="blankTaM">dijit.form.Textarea, initially blank:</label>
+						<label for="blankTaM">dui.form.Textarea, initially blank:</label>
 						<br>
-						<textarea data-dojo-type="dijit/form/Textarea" id="blankTaM" data-dojo-props='textDir:"ltr", style:{width:"30em"}'></textarea>
+						<textarea data-dojo-type="dui/form/Textarea" id="blankTaM" data-dojo-props='textDir:"ltr", style:{width:"30em"}'></textarea>
 						<br>
 					</th>
 					<th>
-						<label for="blankTaP">dijit.form.Textarea, initially blank, programmatically created:</label>
+						<label for="blankTaP">dui.form.Textarea, initially blank, programmatically created:</label>
 						<br>
 						<textarea id="blankTaP"></textarea>
 						<br>
@@ -408,13 +408,13 @@
 			<table>
 				<tr>
 					<th>
-						<label for="filledTbM">dijit.form.TextBox, initially filled, markup created:</label>
+						<label for="filledTbM">dui.form.TextBox, initially filled, markup created:</label>
 						<br>
-						<input data-dojo-type="dijit/form/TextBox" id="filledTbM" data-dojo-props='name:"filledTbM", value:"blah.", style:{width:"30em"},textDir:"ltr"'/>
+						<input data-dojo-type="dui/form/TextBox" id="filledTbM" data-dojo-props='name:"filledTbM", value:"blah.", style:{width:"30em"},textDir:"ltr"'/>
 						<br>
 					</th>
 					<th>
-						<label >dijit.form.TextBox, initially filled, programmatically created:</label>
+						<label >dui.form.TextBox, initially filled, programmatically created:</label>
 						<br>
 						<textarea id="filledTbP"></textarea>
 						<br>
@@ -422,13 +422,13 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="blankTbM">dijit.form.TextBox, initially blank, markup created:</label>
+						<label for="blankTbM">dui.form.TextBox, initially blank, markup created:</label>
 						<br>
-						<input data-dojo-type="dijit/form/TextBox" id="blankTbM" data-dojo-props='name:"blankTbM", style:{width:"30em"}, value:"", textDir:"ltr"'/>
+						<input data-dojo-type="dui/form/TextBox" id="blankTbM" data-dojo-props='name:"blankTbM", style:{width:"30em"}, value:"", textDir:"ltr"'/>
 						<br>
 					</th>
 					<th>
-						<label for="blankTaP">dijit.form.Textarea, initially blank, programmatically created:</label>
+						<label for="blankTaP">dui.form.Textarea, initially blank, programmatically created:</label>
 						<br>
 						<textarea id="blankTbP"></textarea>
 						<br>
@@ -444,16 +444,16 @@
 			<table>
 				<tr>
 					<th>
-						<label>dijit.form.SimpleTextarea, initially filled, markup created</label>
+						<label>dui.form.SimpleTextarea, initially filled, markup created</label>
 						<br>
-						<textarea id="filledStaM" data-dojo-type="dijit/form/SimpleTextarea"
+						<textarea id="filledStaM" data-dojo-type="dui/form/SimpleTextarea"
 							data-dojo-props='name:"filledStaM",rows:"2", style:{width:"30em"}
 							'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;, &#1513;&#1500;&#1493;&#1501; &#1500;&#1499;&#1493;&#1500;&#1501; &#1488;&#1497;&#1503; &#1497;&#1493;&#1514;&#1512; &#1499;&#1497;&#1507; &#1502;&#1491;&#1493;&#1490;'&#1493;!
 						</textarea>
 						<br>
 					</th>
 					<th>
-						<label >dijit.form.SimpleTextarea, initially filled, programmatically created:</label>
+						<label >dui.form.SimpleTextarea, initially filled, programmatically created:</label>
 						<br>
 						<textarea id="filledSTaP"></textarea>
 						<br>
@@ -461,15 +461,15 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="blankTbM">dijit.form.SimpleTextarea, initially blank, markup created:</label>
+						<label for="blankTbM">dui.form.SimpleTextarea, initially blank, markup created:</label>
 						<br>
-						<textarea id="blankStaM" data-dojo-type="dijit/form/SimpleTextarea"
+						<textarea id="blankStaM" data-dojo-type="dui/form/SimpleTextarea"
 							data-dojo-props='name:"blankStaM",rows:"2", style:{width:"30em"},
 							textDir:"ltr"'>
 						</textarea>
 					</th>
 					<th>
-						<label>dijit.form.Textarea, initially blank, programmatically created:</label>
+						<label>dui.form.Textarea, initially blank, programmatically created:</label>
 						<br>
 						<textarea id="blankSTaP"></textarea>
 						<br>
@@ -479,10 +479,10 @@
 		</div>
 				<br>
 		<br>
-		<label for="comboBM">dijit.form.ComboBox, markup</label>
+		<label for="comboBM">dui.form.ComboBox, markup</label>
 		<br>
 		<select id="comboBM"
-			data-dojo-type="dijit/form/ComboBox"
+			data-dojo-type="dui/form/ComboBox"
 			data-dojo-props='name:"comboBM",
 			textDir:"ltr"'>
 				<option >Apples!</option>
@@ -496,51 +496,51 @@
 		<br>
 
 		<input id="swithchTD_RTL" type="button" value="change textDir 2 RTL"
-			onclick="dijit.byId('blankTaP').set('textDir','rtl');
-				dijit.byId('filledTaP').set('textDir','rtl');
-				dijit.byId('blankTaM').set('textDir','rtl');
-				dijit.byId('filledlTaM').set('textDir','rtl');
-				dijit.byId('comboBM').set('textDir','rtl');
-				dijit.byId('blankTbM').set('textDir','rtl');
-				dijit.byId('filledTbM').set('textDir','rtl');
-				dijit.byId('blankStaM').set('textDir','rtl');
-				dijit.byId('filledStaM').set('textDir','rtl');
-				dijit.byId('blankTbP').set('textDir','rtl');
-				dijit.byId('filledTbP').set('textDir','rtl');
-				dijit.byId('blankSTaP').set('textDir','rtl');
-				dijit.byId('filledSTaP').set('textDir','rtl');
+			onclick="dui.byId('blankTaP').set('textDir','rtl');
+				dui.byId('filledTaP').set('textDir','rtl');
+				dui.byId('blankTaM').set('textDir','rtl');
+				dui.byId('filledlTaM').set('textDir','rtl');
+				dui.byId('comboBM').set('textDir','rtl');
+				dui.byId('blankTbM').set('textDir','rtl');
+				dui.byId('filledTbM').set('textDir','rtl');
+				dui.byId('blankStaM').set('textDir','rtl');
+				dui.byId('filledStaM').set('textDir','rtl');
+				dui.byId('blankTbP').set('textDir','rtl');
+				dui.byId('filledTbP').set('textDir','rtl');
+				dui.byId('blankSTaP').set('textDir','rtl');
+				dui.byId('filledSTaP').set('textDir','rtl');
 			"/>
 
 		<input id="swithchTD_LTR" type="button" value="change textDir 2 LTR"
-			onclick="dijit.byId('blankTaP').set('textDir','ltr');
-				dijit.byId('filledTaP').set('textDir','ltr');
-				dijit.byId('blankTaM').set('textDir','ltr');
-				dijit.byId('filledlTaM').set('textDir','ltr');
-				dijit.byId('comboBM').set('textDir','ltr');
-				dijit.byId('blankTbM').set('textDir','ltr');
-				dijit.byId('filledTbM').set('textDir','ltr');
-				dijit.byId('blankStaM').set('textDir','ltr');
-				dijit.byId('filledStaM').set('textDir','ltr');
-				dijit.byId('blankTbP').set('textDir','ltr');
-				dijit.byId('filledTbP').set('textDir','ltr');
-				dijit.byId('blankSTaP').set('textDir','ltr');
-				dijit.byId('filledSTaP').set('textDir','ltr');
+			onclick="dui.byId('blankTaP').set('textDir','ltr');
+				dui.byId('filledTaP').set('textDir','ltr');
+				dui.byId('blankTaM').set('textDir','ltr');
+				dui.byId('filledlTaM').set('textDir','ltr');
+				dui.byId('comboBM').set('textDir','ltr');
+				dui.byId('blankTbM').set('textDir','ltr');
+				dui.byId('filledTbM').set('textDir','ltr');
+				dui.byId('blankStaM').set('textDir','ltr');
+				dui.byId('filledStaM').set('textDir','ltr');
+				dui.byId('blankTbP').set('textDir','ltr');
+				dui.byId('filledTbP').set('textDir','ltr');
+				dui.byId('blankSTaP').set('textDir','ltr');
+				dui.byId('filledSTaP').set('textDir','ltr');
 			"/>
 
 		<input id="switchTD_AUTO" type="button" value="change textDir 2 AUTO"
-			onclick="dijit.byId('blankTaP').set('textDir','auto');
-				dijit.byId('filledTaP').set('textDir','auto');
-				dijit.byId('blankTaM').set('textDir','auto');
-				dijit.byId('filledlTaM').set('textDir','auto');
-				dijit.byId('comboBM').set('textDir','auto');
-				dijit.byId('blankTbM').set('textDir','auto');
-				dijit.byId('filledTbM').set('textDir','auto');
-				dijit.byId('blankStaM').set('textDir','auto');
-				dijit.byId('filledStaM').set('textDir','auto');
-				dijit.byId('blankTbP').set('textDir','auto');
-				dijit.byId('filledTbP').set('textDir','auto');
-				dijit.byId('blankSTaP').set('textDir','auto');
-				dijit.byId('filledSTaP').set('textDir','auto');
+			onclick="dui.byId('blankTaP').set('textDir','auto');
+				dui.byId('filledTaP').set('textDir','auto');
+				dui.byId('blankTaM').set('textDir','auto');
+				dui.byId('filledlTaM').set('textDir','auto');
+				dui.byId('comboBM').set('textDir','auto');
+				dui.byId('blankTbM').set('textDir','auto');
+				dui.byId('filledTbM').set('textDir','auto');
+				dui.byId('blankStaM').set('textDir','auto');
+				dui.byId('filledStaM').set('textDir','auto');
+				dui.byId('blankTbP').set('textDir','auto');
+				dui.byId('filledTbP').set('textDir','auto');
+				dui.byId('blankSTaP').set('textDir','auto');
+				dui.byId('filledSTaP').set('textDir','auto');
 			"/>
 	</body>
 </html>

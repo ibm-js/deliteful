@@ -1,19 +1,19 @@
 define([
 	"dojo/_base/declare",
 	"dojo/query!css2",
-	"dijit/TitlePane",
+	"dui/TitlePane",
 	"dojo/text!./templates/Fieldset.html"
 ], function(declare, query, TitlePane, template){
 
 
-	return declare("dijit.Fieldset", TitlePane, {
+	return declare("dui.Fieldset", TitlePane, {
 		// summary:
 		//		An accessible fieldset that can be expanded or collapsed via
-		//		its legend.  Fieldset extends `dijit.TitlePane`.
+		//		its legend.  Fieldset extends `dui.TitlePane`.
 
 		// baseClass: [protected] String
 		//		The root className to use for the various states of this widget
-		baseClass: 'dijitFieldset',
+		baseClass: 'duiFieldset',
 
 		// title: String
 		//		Content of the legend tag. Overrides <legend> tag if not empty.

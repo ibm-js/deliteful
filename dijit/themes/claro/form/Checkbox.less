@@ -3,29 +3,29 @@
  * Styling CheckBox mainly includes:
  * 
  * 1. Containers
- * 		.dijitCheckBox|.dijitCheckBoxIcon - for border, padding, width|height and background image
+ * 		.duiCheckBox|.duiCheckBoxIcon - for border, padding, width|height and background image
  * 
  * 2. CheckBox within ToggleButton
- * 		.dijitToggleButton|.dijitToggleButtonChecked .* - for background image
+ * 		.duiToggleButton|.duiToggleButtonChecked .* - for background image
  * 
  * 3. Checked state
- * 		.dijitCheckBoxChecked - for checked background-color|image
- * 		.dijitToggleButtonChecked - for border, background-color|image, display and width|height
+ * 		.duiCheckBoxChecked - for checked background-color|image
+ * 		.duiToggleButtonChecked - for border, background-color|image, display and width|height
  * 
  * 4. Hover state
- * 		.dijitCheckBoxHover|.dijitCheckBoxCheckedHover - for background image
+ * 		.duiCheckBoxHover|.duiCheckBoxCheckedHover - for background image
  * 
  * 5. Disabled state
- * 		.dijitCheckBoxDisabled|.dijitCheckBoxCheckedDisabled - for background image
+ * 		.duiCheckBoxDisabled|.duiCheckBoxCheckedDisabled - for background image
  */
 
 @import "../variables";
 
 // From dijit.css
 
-.dijitCheckBox,
-.dijitRadio,
-.dijitCheckBoxInput {
+.duiCheckBox,
+.duiRadio,
+.duiCheckBoxInput {
 	padding: 0;
 	border: 0;
 	width: 16px;
@@ -35,36 +35,36 @@
 	overflow: hidden;
 }
 
-.dijitCheckBox input,
-.dijitRadio input {
+.duiCheckBox input,
+.duiRadio input {
 	margin: 0;
 	padding: 0;
 	display: block;
 }
 
-.dijitCheckBoxInput {
+.duiCheckBoxInput {
 	/* place the actual input on top, but all-but-invisible */
 	opacity: 0.01;
 }
 
-.dj_ie .dijitCheckBoxInput {
+.dj_ie .duiCheckBoxInput {
 	filter: alpha(opacity=0);
 }
 
-.dj_a11y .dijitCheckBox,
-.dj_a11y .dijitRadio {
+.dj_a11y .duiCheckBox,
+.dj_a11y .duiRadio {
 	/* in a11y mode we display the native checkbox (not the icon), so don't restrict the size */
 	width: auto !important;
 	height: auto !important;
 }
-.dj_a11y .dijitCheckBoxInput {
+.dj_a11y .duiCheckBoxInput {
 	opacity: 1;
 	filter: none;
 	width: auto;
 	height: auto;
 }
 
-.dj_a11y .dijitFocusedLabel {
+.dj_a11y .duiFocusedLabel {
 	/* for checkboxes or radio buttons in high contrast mode, use border rather than outline to indicate focus (outline does not work in FF)*/
 	border: 1px dotted;
 	outline: 0px !important;
@@ -72,12 +72,12 @@
 
 
 // Claro overrides
-.claro .dijitToggleButton .dijitCheckBoxIcon {
+.claro .duiToggleButton .duiCheckBoxIcon {
 	background-image: url("../@{image-checkmark}");
 }
 
-.claro .dijitCheckBox,
-.claro .dijitCheckBoxIcon		/* inside a toggle button */	{
+.claro .duiCheckBox,
+.claro .duiCheckBoxIcon		/* inside a toggle button */	{
 	background-image: url("../@{image-form-checkbox-and-radios}"); /* checkbox sprite image */
 	background-repeat: no-repeat;
 	width: 15px;
@@ -86,34 +86,34 @@
 	padding: 0;
 }
 
-.claro .dijitCheckBox,
-.claro .dijitToggleButton .dijitCheckBoxIcon {
+.claro .duiCheckBox,
+.claro .duiToggleButton .duiCheckBoxIcon {
 	/* unchecked */
 	background-position: -15px;
 }
 
-.claro .dijitCheckBoxChecked,
-.claro .dijitToggleButtonChecked .dijitCheckBoxIcon {
+.claro .duiCheckBoxChecked,
+.claro .duiToggleButtonChecked .duiCheckBoxIcon {
 	/* checked */
 	background-position: -0;
 }
 
-.claro .dijitCheckBoxDisabled {
+.claro .duiCheckBoxDisabled {
 	/* disabled */
 	background-position: -75px;
 }
 
-.claro .dijitCheckBoxCheckedDisabled {
+.claro .duiCheckBoxCheckedDisabled {
 	/* disabled but checked */
 	background-position: -60px;
 }
 
-.claro .dijitCheckBoxHover {
+.claro .duiCheckBoxHover {
 	/* hovering over an unchecked enabled checkbox */
 	background-position: -45px;
 }
 
-.claro .dijitCheckBoxCheckedHover {
+.claro .duiCheckBoxCheckedHover {
 	/* hovering over an checked enabled checkbox */
 	background-position: -30px;
 }

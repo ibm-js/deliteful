@@ -9,7 +9,7 @@
 
 <html lang="en">
 <head>
-	<title>dijit.Tree against dijit.tree.ForestStoreModel Automated Tests</title>
+	<title>dui.Tree against dui.tree.ForestStoreModel Automated Tests</title>
 
 	<style type="text/css">
 		@import "../../../dojo/resources/dnd.css";
@@ -25,11 +25,11 @@
 			"dojo/dom",
 			"dojo/dom-attr",
 			"dojo/dom-class",
-			"dijit/Tree",
-			"dijit/tree/ForestStoreModel",
-			"dijit/tree/TreeStoreModel",
-			"dijit/tree/dndSource",
-			"dijit/tests/helpers",
+			"dui/Tree",
+			"dui/tree/ForestStoreModel",
+			"dui/tree/TreeStoreModel",
+			"dui/tree/dndSource",
+			"dui/tests/helpers",
 			"dojo/domReady!"
 		], function(doh, ItemFileWriteStore, dom, domAttr, domClass, Tree, ForestStoreModel, TreeStoreModel, dndSource, helpers){
 
@@ -74,8 +74,8 @@
 						doh.is("South America", children[5].label, "last child");
 
 						// Last child has special CSS for drawing the grid lines
-						doh.f(domClass.contains(children[3].domNode, "dijitTreeIsLast"), "middle node doesn't have dijitTreeIsLast");
-						doh.t(domClass.contains(children[5].domNode, "dijitTreeIsLast"), "last node has dijitTreeIsLast");
+						doh.f(domClass.contains(children[3].domNode, "duiTreeIsLast"), "middle node doesn't have duiTreeIsLast");
+						doh.t(domClass.contains(children[5].domNode, "duiTreeIsLast"), "last node has duiTreeIsLast");
 					}));
 					return d;
 				},
@@ -192,7 +192,7 @@
 					var children = myTree.rootNode.getChildren();
 					doh.is(5, children.length, "five children");
 					doh.is("North America", children[4].label, "last child");
-					doh.t(domClass.contains(children[4].domNode, "dijitTreeIsLast"),
+					doh.t(domClass.contains(children[4].domNode, "duiTreeIsLast"),
 							"North america has become the last node so it gets the CSS class for that");
 				},
 
@@ -248,9 +248,9 @@
 					var children = myTree.rootNode.getChildren();
 					doh.is(6, children.length, "six children");
 					doh.is("Pacifica", children[5].label, "last child");
-					doh.f(domClass.contains(children[4].domNode, "dijitTreeIsLast"),
+					doh.f(domClass.contains(children[4].domNode, "duiTreeIsLast"),
 						"North America no longer last child");
-					doh.t(domClass.contains(children[5].domNode, "dijitTreeIsLast"),
+					doh.t(domClass.contains(children[5].domNode, "duiTreeIsLast"),
 						"Pacifica is last child");
 				},
 
@@ -379,7 +379,7 @@
 </head>
 <body class="claro" role="main">
 
-	<h1 class="testTitle">Dijit.Tree / dijit.tree.ForestStoreModel Automated Tests</h1>
+	<h1 class="testTitle">Dijit.Tree / dui.tree.ForestStoreModel Automated Tests</h1>
 	<div id="container"> <!--  tree will go here --></div>
 	<div id="container2"> <!--  tree2 will go here --></div>
 </body>

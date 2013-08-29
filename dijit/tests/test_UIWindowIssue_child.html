@@ -12,14 +12,14 @@
 		data-dojo-config="parseOnLoad:false, isDebug:true"></script>
 	<script type="text/javascript">
 		dojo.require("dojo.parser");
-		dojo.require("dijit.Menu");
-		dojo.require("dijit.MenuItem");
-		dojo.require("dijit.PopupMenuItem");
-		dojo.require("dijit.CheckedMenuItem");
-		dojo.require("dijit.MenuSeparator");
+		dojo.require("dui.Menu");
+		dojo.require("dui.MenuItem");
+		dojo.require("dui.PopupMenuItem");
+		dojo.require("dui.CheckedMenuItem");
+		dojo.require("dui.MenuSeparator");
 
 		// set objects in parent
-		for (var v in {'dijit':true, 'dojo':true, 'dojox':true})
+		for (var v in {'dui':true, 'dojo':true, 'dojox':true})
 			parent[v] = window[v];
 
 		// set context
@@ -27,10 +27,10 @@
 		
 		// fix focus issue
 		dojo.ready(function(){
-			var handle = dijit.registerWin(dojo.doc.parentWindow || dojo.doc.defaultView);
+			var handle = dui.registerWin(dojo.doc.parentWindow || dojo.doc.defaultView);
 			if(dojo.isIE){
 				dojo.addOnWindowUnload(function(){
-					dijit.unregisterWin(handle);
+					dui.unregisterWin(handle);
 					handle = null;
 				})
 			}

@@ -26,7 +26,7 @@
 					registry = robot.window.require("dui/registry");
 				});
 
-				doh.register("dijit.Tooltip mouse quirks tests", [
+				doh.register("dui.Tooltip mouse quirks tests", [
 					// Test that BackgroundIFrame has right proportions; this used to fail in quirks mode
 					// because the BackgroundIFrame would overlap the calendar, blocking clicks on elements on the right.
 					{
@@ -35,12 +35,12 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							robot.mouseMoveAt(query(".dijitArrowButton", registry.byId("dtb").domNode)[0], 500);
+							robot.mouseMoveAt(query(".duiArrowButton", registry.byId("dtb").domNode)[0], 500);
 							robot.mouseClick({left: true}, 500);
 
 							// Click Dec 4, 2010
 							robot.mouseMoveAt(function(){
-								return query(".dijitCalendarDateLabel", registry.byId("dtb_popup").domNode)[6];
+								return query(".duiCalendarDateLabel", registry.byId("dtb_popup").domNode)[6];
 							} , 1000);
 							robot.mouseClick({left: true}, 500);
 

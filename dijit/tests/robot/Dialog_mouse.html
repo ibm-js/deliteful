@@ -16,7 +16,7 @@
 require([
 	"doh/runner", "dojo/robotx",
 	"dojo/aspect", "dojo/dom", "dojo/keys", "dojo/query",
-	"dijit/tests/helpers", "dojo/domReady!"
+	"dui/tests/helpers", "dojo/domReady!"
 ], function(doh, robot, aspect, dom, keys, query, helpers){
 
 	robot.initRobot('../test_Dialog.html');
@@ -24,11 +24,11 @@ require([
 	doh.register(function setup(){
 		// get pointer to registry in the iframe
 		registry = robot.window.require("dui/registry");
-		dfocus = robot.window.require("dijit/focus");
+		dfocus = robot.window.require("dui/focus");
 	});
 
 
-	doh.register("dijit.Dialog mouse tests (cancel)", [
+	doh.register("dui.Dialog mouse tests (cancel)", [
 		{
 			name: "open dialog",
 			timeout: 4000,
@@ -78,7 +78,7 @@ require([
 				var d = new doh.Deferred();
 
 				helpers.onFocus(d.getTestCallback(function(){
-					var calDomNode = query(".dijitCalendarContainer");
+					var calDomNode = query(".duiCalendarContainer");
 					doh.t(1, calDomNode.length, "found calendar");
 					doh.t(helpers.isVisible(calDomNode[0]), "calendar is being shown");
 					doh.t(dom.isDescendant(dfocus.curNode, calDomNode[0]), "focus is on the calendar");
@@ -86,7 +86,7 @@ require([
 
 
 				robot.mouseMoveAt(function(){
-					return query(".dijitArrowButton", registry.byId("date").domNode)[0];
+					return query(".duiArrowButton", registry.byId("date").domNode)[0];
 				}, 500);
 				robot.mouseClick({left: true}, 1000);
 
@@ -104,7 +104,7 @@ require([
 				robot.mouseClick({left: true}, 1000);
 
 				robot.sequence(d.getTestCallback(function(){
-					var calDomNode = query(".dijitCalendarContainer");
+					var calDomNode = query(".duiCalendarContainer");
 					doh.t(calDomNode.length == 0 || helpers.isHidden(calDomNode[0]), "calendar has disappeared");
 					doh.t(helpers.isVisible("dialog1"), "dialog 1 wasn't closed");
 				}), 1000);
@@ -119,7 +119,7 @@ require([
 			runTest: function(){
 				var d = new doh.Deferred();
 
-				var button = query("#dialog1 .dijitDialogCloseIcon")[0];
+				var button = query("#dialog1 .duiDialogCloseIcon")[0];
 				robot.mouseMoveAt(button, 500);
 				robot.mouseClick({left: true}, 500);
 
@@ -132,7 +132,7 @@ require([
 		}
 	]);
 
-	doh.register("dijit.Dialog mouse tests (submit)", [
+	doh.register("dui.Dialog mouse tests (submit)", [
 		{
 			name: "submit some data",
 			timeout: 15000,
@@ -177,7 +177,7 @@ require([
 		}
 	]);
 
-	doh.register("dijit.Dialog mouse tests (unfocusable open button)", [
+	doh.register("dui.Dialog mouse tests (unfocusable open button)", [
 		{
 			name: "open #1",
 			timeout: 10000,
@@ -204,7 +204,7 @@ require([
 
 				// Close the dialog
 				robot.mouseMoveAt(function(){
-					return query("#SelfDestructDlg .dijitDialogCloseIcon")[0];
+					return query("#SelfDestructDlg .duiDialogCloseIcon")[0];
 				}, 1000);
 				robot.mouseClick({left: true}, 1000);
 				robot.sequence(d.getTestCallback(function(){
@@ -244,7 +244,7 @@ require([
 
 				// Close the dialog
 				robot.mouseMoveAt(function(){
-					return query("#SelfDestructDlg .dijitDialogCloseIcon")[0];
+					return query("#SelfDestructDlg .duiDialogCloseIcon")[0];
 				}, 1000);
 				robot.mouseClick({left: true}, 1000);
 				robot.sequence(d.getTestCallback(function(){
@@ -349,7 +349,7 @@ require([
 		}
 	]);
 
-	doh.register("dijit.Dialog InlineEditBox w/Editor tests", [
+	doh.register("dui.Dialog InlineEditBox w/Editor tests", [
 		{
 			name: "#17225",
 			timeout: 10000,

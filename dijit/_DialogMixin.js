@@ -4,9 +4,9 @@ define([
 ], function(declare, a11y){
 
 	// module:
-	//		dijit/_DialogMixin
+	//		dui/_DialogMixin
 
-	return declare("dijit._DialogMixin", null, {
+	return declare("dui._DialogMixin", null, {
 		// summary:
 		//		This provides functions useful to Dialog and TooltipDialog
 
@@ -30,7 +30,7 @@ define([
 			// description:
 			//		Developer shouldn't override or connect to this method;
 			//		it's a private communication device between the TooltipDialog
-			//		and the thing that opened it (ex: `dijit/form/DropDownButton`)
+			//		and the thing that opened it (ex: `dui/form/DropDownButton`)
 			// type:
 			//		protected
 		},
@@ -41,7 +41,7 @@ define([
 			// description:
 			//		Developer shouldn't override or connect to this method;
 			//		it's a private communication device between the TooltipDialog
-			//		and the thing that opened it (ex: `dijit/form/DropDownButton`)
+			//		and the thing that opened it (ex: `dui/form/DropDownButton`)
 			// type:
 			//		protected
 		},

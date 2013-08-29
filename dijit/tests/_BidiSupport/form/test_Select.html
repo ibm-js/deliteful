@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Bidi BTD in Select</title>
 
-		<!-- required: the default dijit theme: -->
+		<!-- required: the default dui theme: -->
 		<link id="themeStyles" rel="stylesheet" href="../../../../dijit/themes/claro/claro.css"/>
 
 		<style>
@@ -24,10 +24,10 @@
 				"doh/runner",
 				"dojo/parser",
 				"dui/registry",
-				"dijit/form/Select",
-				"dijit/form/Button",
-				"dijit/form/Form",
-				"dijit/Dialog",
+				"dui/form/Select",
+				"dui/form/Button",
+				"dui/form/Form",
+				"dui/Dialog",
 				"dojo/domReady!"
 			], function(doh, parser, registry, Select){
 	
@@ -95,7 +95,7 @@
 					return parser.parse();
 				});
 
-				doh.register("dijit.tests._BidiSupport.form.Select in LTR form", [
+				doh.register("dui.tests._BidiSupport.form.Select in LTR form", [
 					{name:"LTR form, Auto/Hebrew", runTest:function(){testSelectWidget("s10","ltr","auto",false);}},
 					{name:"LTR form, Auto/English",runTest:function(){testSelectWidget("s11","ltr","auto",true);}},
 					{name:"LTR form, LTR",runTest:function(){testSelectWidget("s12","ltr","ltr",true);}},
@@ -109,7 +109,7 @@
 					{name:"LTR form, RTL",runTest:function(){testDropdownList("s13");}}
 				]);
 
-				doh.register("dijit.tests._BidiSupport.form.Select in RTL form", [
+				doh.register("dui.tests._BidiSupport.form.Select in RTL form", [
 					{name:"RTL form, Auto/Hebrew", runTest:function(){testSelectWidget("s10R","rtl","auto",false);}},
 					{name:"RTL form, Auto/English",runTest:function(){testSelectWidget("s11R","rtl","auto",true);}},
 					{name:"RTL form, LTR",runTest:function(){testSelectWidget("s12R","rtl","ltr",true);}},
@@ -123,7 +123,7 @@
 					{name:"LTR form, RTL",runTest:function(){testDropdownList("s13R");}}
 				]);
 
-				doh.register("dijit.tests._BidiSupport.form.Select, rich text (auto)", [
+				doh.register("dui.tests._BidiSupport.form.Select, rich text (auto)", [
 					{name:"Rich text Auto/English Select",runTest:function(){testSelectWidget("s4","ltr","auto",true);}},
 					{name:"Rich text Auto/Hebrew Select", runTest:function(){testSelectWidget("s5","ltr","auto",false);}},
 					{name:"Rich text Auto/English Dropdown",runTest:function(){testDropdownList("s4");}},
@@ -136,23 +136,23 @@
 		</script>
 	</head>
 	<body class="claro">
-		<h1 id="_title" class="testTitle">Test: dijit/form/Select <i>BIDI</i></h1>
+		<h1 id="_title" class="testTitle">Test: dui/form/Select <i>BIDI</i></h1>
 
-		<form id="form" data-dojo-id="formL" data-dojo-type="dijit/form/Form" method="get"
+		<form id="form" data-dojo-id="formL" data-dojo-type="dui/form/Form" method="get"
 				onSubmit="return this.validate();">
 		<div dir="ltr">
-			<h2>dijit/form/Select LTR form</h2>
+			<h2>dui/form/Select LTR form</h2>
 			<h4 class="testSubtitle">Setting Defaults</h4>
 
 			<label for="s10">Test AUTO: </label>
-			<select id="s10" data-dojo-id="s10" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s10" , textDir:"auto", style:{width:"150px"}'>
+			<select id="s10" data-dojo-id="s10" data-dojo-type="dui/form/Select" data-dojo-props='name:"s10" , textDir:"auto", style:{width:"150px"}'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM" selected="selected">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA">Hello AUTO!!</option>
 				<option value="WA">&#1495;&#1491;&#1513;.</option>
 				<option value="FL">NEW!</option>
 			</select>
-			<select id="s11" data-dojo-id="s11" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s11" , textDir:"auto", style:{width:"150px"}'>
+			<select id="s11" data-dojo-id="s11" data-dojo-type="dui/form/Select" data-dojo-props='name:"s11" , textDir:"auto", style:{width:"150px"}'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello AUTO!!</option>
@@ -161,7 +161,7 @@
 			</select>
 			<br>
 			<label for="s12">Test LTR: </label>
-			<select id="s12" data-dojo-id="s12" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s12" , textDir:"ltr", style:{width:"150px"}'>
+			<select id="s12" data-dojo-id="s12" data-dojo-type="dui/form/Select" data-dojo-props='name:"s12" , textDir:"ltr", style:{width:"150px"}'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello LTR!!</option>
@@ -170,7 +170,7 @@
 			</select>
 
 			<label for="s13">Test RTL: </label>
-			<select id="s13" data-dojo-id="s13" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s13" , textDir:"rtl", style:{width:"150px"}'>
+			<select id="s13" data-dojo-id="s13" data-dojo-type="dui/form/Select" data-dojo-props='name:"s13" , textDir:"rtl", style:{width:"150px"}'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello RTL!!</option>
@@ -181,7 +181,7 @@
 			<hr>
 			<h4 class="testSubtitle"> </h4>
 			<label>Rich Text (AUTO):
-			<span id="s4" data-dojo-id="s4" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s4", value:"AK" , textDir:"auto", style:{width:"150px"}'>
+			<span id="s4" data-dojo-id="s4" data-dojo-type="dui/form/Select" data-dojo-props='name:"s4", value:"AK" , textDir:"auto", style:{width:"150px"}'>
 				<span data-dojo-value="AL"><b>Alabama.</b></span>
 				<span data-dojo-value="AK"><span style="color:red;">A</span><span style="color:orange;">l</span><span style="color:yellow;">a</span><span style="color:green;">s</span><span style="color:blue;">k</span><span style="color:purple;">a.</span></span>
 				<span data-dojo-value="AZ"><i>Arizona.</i></span>
@@ -192,7 +192,7 @@
 			</span></label>
 			&nbsp;&nbsp;
 			<label>
-			<span id="s5" data-dojo-id="s5" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s5", value:"IL" , textDir:"auto", style:{width:"150px"}'>
+			<span id="s5" data-dojo-id="s5" data-dojo-type="dui/form/Select" data-dojo-props='name:"s5", value:"IL" , textDir:"auto", style:{width:"150px"}'>
 				<span data-dojo-value="AL"><b>Alabama.</b></span>
 				<span data-dojo-value="AK"><span style="color:red;">A</span><span style="color:orange;">l</span><span style="color:yellow;">a</span><span style="color:green;">s</span><span style="color:blue;">k</span><span style="color:purple;">a.</span></span>
 				<span data-dojo-value="AZ"><i>Arizona.</i></span>
@@ -207,20 +207,20 @@
 		</form>
 
 <!------------------------>
-		<form id="formR" data-dojo-id="form" data-dojo-type="dijit/form/Form" method="get" >
+		<form id="formR" data-dojo-id="form" data-dojo-type="dui/form/Form" method="get" >
 		<div dir="rtl">
-			<h2>dijit/form/Select RTL form</h2>
+			<h2>dui/form/Select RTL form</h2>
 			<h4 class="testSubtitle">Setting Defaults</h4>
 
 			<label for="s10R">Test AUTO: </label>
-			<select id="s10R" data-dojo-id="s10R" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s10R" , textDir:"auto"'>
+			<select id="s10R" data-dojo-id="s10R" data-dojo-type="dui/form/Select" data-dojo-props='name:"s10R" , textDir:"auto"'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM" selected="selected">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA">Hello AUTO!!</option>
 				<option value="WA">&#1495;&#1491;&#1513;.</option>
 				<option value="FL">NEW!</option>
 			</select>
-			<select id="s11R" data-dojo-id="s11" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s11R" , textDir:"auto"'>
+			<select id="s11R" data-dojo-id="s11" data-dojo-type="dui/form/Select" data-dojo-props='name:"s11R" , textDir:"auto"'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello AUTO!!</option>
@@ -229,7 +229,7 @@
 			</select>
 			<br>
 			<label for="s12R">Test LTR: </label>
-			<select id="s12R" data-dojo-id="s12R" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s12R" , textDir:"ltr"'>
+			<select id="s12R" data-dojo-id="s12R" data-dojo-type="dui/form/Select" data-dojo-props='name:"s12R" , textDir:"ltr"'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello LTR!!</option>
@@ -238,7 +238,7 @@
 			</select>
 			<br>
 			<label for="s13R">Test RTL: </label>
-			<select id="s13R" data-dojo-id="s13R" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s13R" , textDir:"rtl"'>
+			<select id="s13R" data-dojo-id="s13R" data-dojo-type="dui/form/Select" data-dojo-props='name:"s13R" , textDir:"rtl"'>
 				<option value="TN">START &#1495;&#1491;&#1513;!</option>
 				<option value="TM">&#1495;&#1491;&#1513; END !</option>
 				<option value="VA" selected="selected">Hello RTL!!</option>
@@ -249,7 +249,7 @@
 			<hr>
 			<h4 class="testSubtitle"> </h4>
 			<label>Rich Text (AUTO):
-			<span id="s4R" data-dojo-id="s4R" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s4R", value:"AK" , textDir:"auto"'>
+			<span id="s4R" data-dojo-id="s4R" data-dojo-type="dui/form/Select" data-dojo-props='name:"s4R", value:"AK" , textDir:"auto"'>
 				<span data-dojo-value="AL"><b>Alabama.</b></span>
 				<span data-dojo-value="AK"><span style="color:red;">A</span><span style="color:orange;">l</span><span style="color:yellow;">a</span><span style="color:green;">s</span><span style="color:blue;">k</span><span style="color:purple;">a.</span></span>
 				<span data-dojo-value="AZ"><i>Arizona.</i></span>
@@ -260,7 +260,7 @@
 			</span></label>
 			&nbsp;&nbsp;
 			<label>
-			<span id="s5R" data-dojo-id="s5" data-dojo-type="dijit/form/Select" data-dojo-props='name:"s5R", value:"IL" , textDir:"auto"'>
+			<span id="s5R" data-dojo-id="s5" data-dojo-type="dui/form/Select" data-dojo-props='name:"s5R", value:"IL" , textDir:"auto"'>
 				<span data-dojo-value="AL"><b>Alabama.</b></span>
 				<span data-dojo-value="AK"><span style="color:red;">A</span><span style="color:orange;">l</span><span style="color:yellow;">a</span><span style="color:green;">s</span><span style="color:blue;">k</span><span style="color:purple;">a.</span></span>
 				<span data-dojo-value="AZ"><i>Arizona.</i></span>
@@ -282,11 +282,11 @@
 		<span id="testProgramatic3">&nbsp;&nbsp;AUTO:&nbsp;</span>
 
 		<!-- testing that tooltip disappears when dialog is closed -->
-		<div data-dojo-type="dijit/Dialog" id="dlg1">
-			<div data-dojo-type="dijit/form/Select" id="dlg1Select"required="true"></div>
-			<div data-dojo-type="dijit/form/Button" id="dlg1ValidateBtn">
+		<div data-dojo-type="dui/Dialog" id="dlg1">
+			<div data-dojo-type="dui/form/Select" id="dlg1Select"required="true"></div>
+			<div data-dojo-type="dui/form/Button" id="dlg1ValidateBtn">
 				<script type=dojo/method data-dojo-event="onClick">
-					var dlg1 = dijit.byId("dlg1");
+					var dlg1 = dui.byId("dlg1");
 					if(dlg1.validate()){
 						dlg1.hide();
 					}

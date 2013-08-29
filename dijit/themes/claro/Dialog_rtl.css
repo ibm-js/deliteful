@@ -1,9 +1,9 @@
 /* Dialog */
-.claro .dijitDialogRtl .dijitDialogCloseIcon {
+.claro .duiDialogRtl .duiDialogCloseIcon {
   right: auto;
   left: 5px;
 }
-.claro .dijitDialogRtl .dijitDialogPaneActionBar {
+.claro .duiDialogRtl .duiDialogPaneActionBar {
   text-align: left;
   padding: 3px 7px 2px 5px;
 }

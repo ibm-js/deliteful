@@ -2,57 +2,57 @@
  *
  * Main class hierarchy:
  *
- * .dijitTabContainer - the whole TabContainer
- *	.dijitTabController / .dijitTabListContainer-top - wrapper for tab buttons, scroll buttons
- *	 .dijitTabListWrapper / .dijitTabContainerTopStrip - outer wrapper for tab buttons (normal width)
- *		.nowrapTabStrip / .dijitTabContainerTop-tabs - inner wrapper for tab buttons (50K width)
- *	.dijitTabPaneWrapper - wrapper for content panes, has all borders except the one between content and tabs
+ * .duiTabContainer - the whole TabContainer
+ *	.duiTabController / .duiTabListContainer-top - wrapper for tab buttons, scroll buttons
+ *	 .duiTabListWrapper / .duiTabContainerTopStrip - outer wrapper for tab buttons (normal width)
+ *		.nowrapTabStrip / .duiTabContainerTop-tabs - inner wrapper for tab buttons (50K width)
+ *	.duiTabPaneWrapper - wrapper for content panes, has all borders except the one between content and tabs
  *
- * Styling TabContainer means styling the TabList and Its content container  (dijitTitlePane)
+ * Styling TabContainer means styling the TabList and Its content container  (duiTitlePane)
  * 
  * Tab List: (including 4 kinds of tab location)
- * 		.dijitTabContainerTop-tabs     - tablist container at top
- * 		.dijitTabContainerBottom-tabs  - tablist container at bottom
- * 		.dijitTabContainerLeft-tabs    - tablist container at left
- * 		.dijitTabContainerRight-tabs   - tablist container at right
+ * 		.duiTabContainerTop-tabs     - tablist container at top
+ * 		.duiTabContainerBottom-tabs  - tablist container at bottom
+ * 		.duiTabContainerLeft-tabs    - tablist container at left
+ * 		.duiTabContainerRight-tabs   - tablist container at right
  * 
  * Tab Strip Button:
- * 		.dijitTabStripIcon - tab strip button icon
- * 		.dijitTabStripMenuIcon - down arrow icon position
- * 		.dijitTabStripSlideLeftIcon - left arrow icon position
- * 		.dijitTabStripSlideRightIcon - right arrow icon position
+ * 		.duiTabStripIcon - tab strip button icon
+ * 		.duiTabStripMenuIcon - down arrow icon position
+ * 		.duiTabStripSlideLeftIcon - left arrow icon position
+ * 		.duiTabStripSlideRightIcon - right arrow icon position
  * 
  * 		.tabStripButtonDisabled - styles for disabled tab strip buttons
  * 
  * Tab Button:
- * 		.dijitTabContainerTop-tabs .dijitTab     - styles for top tab button container
- * 		.dijitTabContainerBottom-tabs .dijitTab  - styles for bottom tab button container
- * 		.dijitTabContainerLeft-tabs .dijitTab    - styles for left tab button container
- * 		.dijitTabContainerRight-tabs .dijitTab   - styles for right tab button container
+ * 		.duiTabContainerTop-tabs .duiTab     - styles for top tab button container
+ * 		.duiTabContainerBottom-tabs .duiTab  - styles for bottom tab button container
+ * 		.duiTabContainerLeft-tabs .duiTab    - styles for left tab button container
+ * 		.duiTabContainerRight-tabs .duiTab   - styles for right tab button container
  * 
- * 		.dijitTabContainerTop-tabs .dijitTabChecked .dijitTab
+ * 		.duiTabContainerTop-tabs .duiTabChecked .duiTab
  * 				- styles for selected status of top tab button
  * 		same to Bottom, Left, Right Tabs
  * 
- * 		.dijitTabHover .dijitTab   - styles when mouse hover on tab buttons
- * 		.dijitTabActive .dijitTab  - styles when mouse down on tab buttons
- * 		.dijitTabChecked .dijitTab  - styles when on buttons of selected tab
+ * 		.duiTabHover .duiTab   - styles when mouse hover on tab buttons
+ * 		.duiTabActive .duiTab  - styles when mouse down on tab buttons
+ * 		.duiTabChecked .duiTab  - styles when on buttons of selected tab
  * 
- * 		.dijitTabCloseButton - the close action buttons lie at the right top of each tab button on closable tabs
- * 		.dijitTabCloseButtonHover - styles when mouse hover on close action button
- * 		.dijitTabCloseButtonActive - styles when mouse down on close action button
+ * 		.duiTabCloseButton - the close action buttons lie at the right top of each tab button on closable tabs
+ * 		.duiTabCloseButtonHover - styles when mouse hover on close action button
+ * 		.duiTabCloseButtonActive - styles when mouse down on close action button
  * 
  * Tab Button: (checked status)
  * 
  * Tab Content Container:
- * 		.dijitTabContainerTop-dijitContentPane
- * 		.dijitTabContainerBottom-dijitContentPane
- * 		.dijitTabContainerLeft-dijitContentPane
- * 		.dijitTabContainerRight-dijitContentPane - for background and padding
+ * 		.duiTabContainerTop-duiContentPane
+ * 		.duiTabContainerBottom-duiContentPane
+ * 		.duiTabContainerLeft-duiContentPane
+ * 		.duiTabContainerRight-duiContentPane - for background and padding
  * 
  * Nested Tabs:
- * 		.dijitTabContainerNested - Container for nested tabs
- * 		.dijitTabContainerTabListNested - tab list container for nested tabs
+ * 		.duiTabContainerNested - Container for nested tabs
+ * 		.duiTabContainerTabListNested - tab list container for nested tabs
  */
 
 @import "../variables";
@@ -69,36 +69,36 @@
 
 /* StackContainer */
 
-.dijitStackController .dijitToggleButtonChecked * {
+.duiStackController .duiToggleButtonChecked * {
 	cursor: default;	/* because pressing it has no effect */
 }
 
 /* TabContainer */
 
-.dijitTabContainer {
+.duiTabContainer {
 	z-index: 0; /* so z-index settings below have no effect outside of the TabContainer */
 	overflow: visible; /* prevent off-by-one-pixel errors from hiding bottom border (opposite tab labels) */
 }
 
-.dijitTabContainerNoLayout {
+.duiTabContainerNoLayout {
 	width: 100%;	/* otherwise ScrollingTabController goes to 50K pixels wide */
 }
 
-.dijitTabContainerBottom-tabs,
-.dijitTabContainerTop-tabs,
-.dijitTabContainerLeft-tabs,
-.dijitTabContainerRight-tabs {
+.duiTabContainerBottom-tabs,
+.duiTabContainerTop-tabs,
+.duiTabContainerLeft-tabs,
+.duiTabContainerRight-tabs {
 	z-index: 1;
 	overflow: visible !important;  /* so tabs can cover up border adjacent to container */
 }
 
-.dijitTabController {
+.duiTabController {
 	z-index: 1;
 }
-.dijitTabContainerBottom-container,
-.dijitTabContainerTop-container,
-.dijitTabContainerLeft-container,
-.dijitTabContainerRight-container {
+.duiTabContainerBottom-container,
+.duiTabContainerTop-container,
+.duiTabContainerLeft-container,
+.duiTabContainerRight-container {
 	z-index:0;
 	overflow: hidden;
 	border: 1px solid black;
@@ -110,7 +110,7 @@
 	text-align: left;  /* just in case ancestor has non-standard setting */
 	z-index: 1;
 }
-.dijitTabListWrapper {
+.duiTabListWrapper {
 	overflow: hidden;
 	z-index: 1;
 }
@@ -120,71 +120,71 @@
 	display: none;
 }
 
-.dijitTabContainerTop-tabs {
+.duiTabContainerTop-tabs {
 	border-bottom: 1px solid black;
 }
-.dijitTabContainerTop-container {
+.duiTabContainerTop-container {
 	border-top: 0;
 }
 
-.dijitTabContainerLeft-tabs {
+.duiTabContainerLeft-tabs {
 	border-right: 1px solid black;
 	float: left;    /* needed for IE7 RTL mode */
 }
-.dijitTabContainerLeft-container {
+.duiTabContainerLeft-container {
 	border-left: 0;
 }
 
-.dijitTabContainerBottom-tabs {
+.duiTabContainerBottom-tabs {
 	border-top: 1px solid black;
 }
-.dijitTabContainerBottom-container {
+.duiTabContainerBottom-container {
 	border-bottom: 0;
 }
 
-.dijitTabContainerRight-tabs {
+.duiTabContainerRight-tabs {
 	border-left: 1px solid black;
 	float: left;    /* needed for IE7 RTL mode */
 }
-.dijitTabContainerRight-container {
+.duiTabContainerRight-container {
 	border-right: 0;
 }
 
-div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
+div.duiTabDisabled, .dj_ie div.duiTabDisabled {
 	cursor: auto;
 }
 
-.dijitTab {
+.duiTab {
 	position:relative;
 	cursor:pointer;
 	-webkit-tap-highlight-color: transparent;
 	white-space:nowrap;
 	z-index:3;
 }
-.dijitTab * {
+.duiTab * {
 	/* make tab icons and close icon line up w/text */
 	vertical-align: middle;
 }
-.dijitTabChecked {
+.duiTabChecked {
 	cursor: default;	/* because clicking will have no effect */
 }
 
-.dijitTabContainerTop-tabs .dijitTab {
-	top: 1px;	/* to overlap border on .dijitTabContainerTop-tabs */
+.duiTabContainerTop-tabs .duiTab {
+	top: 1px;	/* to overlap border on .duiTabContainerTop-tabs */
 }
-.dijitTabContainerBottom-tabs .dijitTab {
-	top: -1px;	/* to overlap border on .dijitTabContainerBottom-tabs */
+.duiTabContainerBottom-tabs .duiTab {
+	top: -1px;	/* to overlap border on .duiTabContainerBottom-tabs */
 }
-.dijitTabContainerLeft-tabs .dijitTab {
-	left: 1px;	/* to overlap border on .dijitTabContainerLeft-tabs */
+.duiTabContainerLeft-tabs .duiTab {
+	left: 1px;	/* to overlap border on .duiTabContainerLeft-tabs */
 }
-.dijitTabContainerRight-tabs .dijitTab {
-	left: -1px;	/* to overlap border on .dijitTabContainerRight-tabs */
+.duiTabContainerRight-tabs .duiTab {
+	left: -1px;	/* to overlap border on .duiTabContainerRight-tabs */
 }
 
 
-.dijitTabContainerTop-tabs .dijitTab,
-.dijitTabContainerBottom-tabs .dijitTab {
+.duiTabContainerTop-tabs .duiTab,
+.duiTabContainerBottom-tabs .duiTab {
 	display: inline-block;
 }
 
@@ -192,20 +192,20 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	z-index: 12;
 }
 
-.dijitTabButtonDisabled .tabStripButton {
+.duiTabButtonDisabled .tabStripButton {
 	display: none;
 }
 
 
-.dijitTabCloseButton {
+.duiTabCloseButton {
 	margin-left: 1em;
 }
 
-.dijitTabCloseText {
+.duiTabCloseText {
 	display:none;
 }
 
-.dijitTab .tabLabel {
+.duiTab .tabLabel {
 	/* make sure tabs w/close button and w/out close button are same height, even w/small (<15px) font.
 	 * assumes <=15px height for close button icon.
 	 */
@@ -215,18 +215,18 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 /* images off, high-contrast mode styles */
 
-.dj_a11y .dijitTabCloseButton {
+.dj_a11y .duiTabCloseButton {
 	background-image: none !important;
 	width: auto !important;
 	height: auto !important;
 }
 
-.dj_a11y .dijitTabCloseText {
+.dj_a11y .duiTabCloseText {
 	display: inline;
 }
 
-.dijitTabPane,
-.dijitStackContainer-child {
+.duiTabPane,
+.duiStackContainer-child {
 	/* children of TabContainer and StackContainer shouldn't have borders
 	 * b/c a border is already there from the TabContainer/StackContainer/AccordionContainer itself.
 	 */
@@ -234,66 +234,66 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 }
 
 /* Icon-only tab labels should still display the text in high-contrast mode */
-.dj_a11y .dijitTab .tabLabel {
+.dj_a11y .duiTab .tabLabel {
 	display: inline !important;
 }
 
 // Claro overrides
 /*** some common features ***/
-.claro .dijitTabPaneWrapper {
+.claro .duiTabPaneWrapper {
 	background:@pane-background-color;
 }
-.claro .dijitTabPaneWrapper,
-.claro .dijitTabContainerTop-tabs,
-.claro .dijitTabContainerBottom-tabs,
-.claro .dijitTabContainerLeft-tabs,
-.claro .dijitTabContainerRight-tabs {
+.claro .duiTabPaneWrapper,
+.claro .duiTabContainerTop-tabs,
+.claro .duiTabContainerBottom-tabs,
+.claro .duiTabContainerLeft-tabs,
+.claro .duiTabContainerRight-tabs {
 	/* todo: add common class name for this div */
 	border-color: @border-color;
 }
-.claro .dijitTabCloseButton {
+.claro .duiTabCloseButton {
 	background: url("../@{image-layout-tab-close}") no-repeat;
 	width: 14px;
 	height: 14px;
 	margin-left: 5px;
 	margin-right:-5px;
 }
-.claro .dijitTabCloseButtonHover {
+.claro .duiTabCloseButtonHover {
 	background-position:-14px;
 }
-.claro .dijitTabCloseButtonActive {
+.claro .duiTabCloseButtonActive {
 	background-position:-28px;
 }
-.claro .dijitTabSpacer {
+.claro .duiTabSpacer {
 	/* set the spacer invisible.  note that height:0 doesn't work on IE/quirks, it's still 10px. */
 	display: none;
 }
-.claro .dijitTab {
+.claro .duiTab {
 	border: 1px solid @border-color;
 	background-color:@unselected-background-color;
 	.transition-property(background-color, border);
  	.transition-duration(.35s);
 	color:@unselected-text-color;
 }
-.claro .dijitTabHover {
+.claro .duiTabHover {
 	border-color: @hovered-border-color;
 	background-color:@hovered-background-color;
  	.transition-duration(.25s);
 	color:@hovered-text-color;
 }
-.claro .dijitTabActive {
+.claro .duiTabActive {
 	border-color: @pressed-border-color;
 	background-color:@pressed-background-color;
 	color:@selected-text-color;
 	.transition-duration(.1s);
 }
-.claro .dijitTabChecked {
+.claro .duiTabChecked {
 	// selected tab
 	border-color: @border-color;			// don't use @selected-border-color because need to match border of TabContainer
 	background-color: @selected-background-color;
 	color: @selected-text-color;
 }
-.claro .dijitTabDisabled {
+.claro .duiTabDisabled {
 	background-color: @tab-disabled-background-color;
 }
 
@@ -305,7 +305,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 
 /*************** top tab ***************/
-.claro .dijitTabContainerTop-tabs .dijitTab {
+.claro .duiTabContainerTop-tabs .duiTab {
 	/* unselected (and not hovered/pressed) tab */
 	top: 1px;	/* used for overlap */
 	margin-right: 1px;
@@ -319,7 +319,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
  	.box-shadow(0 -1px 1px rgba(0, 0, 0, 0.04));
 }
 
-.claro .dijitTabContainerTop-tabs .dijitTabChecked {
+.claro .duiTabContainerTop-tabs .duiTabChecked {
 	/* selected tab */
 	padding-bottom: 4px;
 	padding-top: 9px;
@@ -333,7 +333,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 
 /*************** bottom tab ***************/
-.claro .dijitTabContainerBottom-tabs .dijitTab {
+.claro .duiTabContainerBottom-tabs .duiTab {
 	/* unselected (and not hovered/pressed) tab */
 	top: -1px;	/* used for overlap */
 	margin-right: 1px;
@@ -348,7 +348,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 }
 
 /* selected tab */
-.claro .dijitTabContainerBottom-tabs .dijitTabChecked {
+.claro .duiTabContainerBottom-tabs .duiTabChecked {
 	padding-bottom: 9px;
 	padding-top: 4px;
 
@@ -359,7 +359,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 /** end bottom tab **/
 
 /*************** left tab ***************/
-.claro .dijitTabContainerLeft-tabs .dijitTab {
+.claro .duiTabContainerLeft-tabs .duiTab {
 	/* unselected (and not hovered/pressed) tab */
 	left: 1px;	/* used for overlap */
 	margin-bottom: 1px;
@@ -369,7 +369,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 }
 
 /* selected tab */
-.claro .dijitTabContainerLeft-tabs .dijitTabChecked {
+.claro .duiTabContainerLeft-tabs .duiTabChecked {
 	border-right-width: 0;
 	padding-right: 9px;
 
@@ -380,7 +380,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 /** end left tab **/
 
 /*************** right tab ***************/
-.claro .dijitTabContainerRight-tabs .dijitTab {
+.claro .duiTabContainerRight-tabs .duiTab {
 	/* unselected (and not hovered/pressed) tab */
 	left: -1px;	/* used for overlap */
 	margin-bottom: 1px;
@@ -388,7 +388,7 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 	.unselected-tab-gradient(right);
 }
-.claro .dijitTabContainerRight-tabs .dijitTabChecked {
+.claro .duiTabContainerRight-tabs .duiTabChecked {
 	/* selected tab */
 	padding-left: 5px;
 	border-left-width: 0;
@@ -400,17 +400,17 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 /** end right tab **/
 
 /** round corner **/
-.claro .dijitTabContainerTop-tabs .dijitTab {
+.claro .duiTabContainerTop-tabs .duiTab {
 	.border-radius(2px 2px 0 0);
 }
-.claro .dijitTabContainerBottom-tabs .dijitTab {
+.claro .duiTabContainerBottom-tabs .duiTab {
 	.border-radius(0 0 2px 2px);
 }
-.claro .dijitTabContainerLeft-tabs .dijitTab {
+.claro .duiTabContainerLeft-tabs .duiTab {
 	.border-radius(2px 0 0 2px);
 }
 
-.claro .dijitTabContainerRight-tabs .dijitTab {
+.claro .duiTabContainerRight-tabs .duiTab {
 	.border-radius(0 2px 2px 0);
 }
 
@@ -419,12 +419,12 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 	background-color:@button-background-color;
 	border: 1px solid @border-color;
 }
-.claro .dijitTabListContainer-top .tabStripButton {
+.claro .duiTabListContainer-top .tabStripButton {
 	padding: 4px 3px;
 	margin-top:7px;
 	.alpha-white-gradient (top, 1,0px, 0.1,1px, 0.6,6px, 0,100%);	// to match unselected tab, but had to tweak numbers
 }
-.claro .dijitTabListContainer-bottom .tabStripButton {
+.claro .duiTabListContainer-bottom .tabStripButton {
 	padding:4px 3px;
 	margin-bottom:7px;
 	.alpha-white-gradient (bottom, 1,0px, 0.1,1px, 0.6,6px, 0,100%);	// to match unselected tab, but had to tweak numbers
@@ -435,44 +435,44 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 .claro .tabStripButtonActive {
 	background-color:@pressed-background-color;
 }
-.claro .dijitTabStripIcon {
+.claro .duiTabStripIcon {
 	height:15px;
 	width:15px;
 	margin: 0 auto;
 	background:url("../@{image-form-button-arrows}") no-repeat -75px 50%;
 	background-color: transparent;
 }
-.claro .dijitTabStripSlideRightIcon{
+.claro .duiTabStripSlideRightIcon{
 	background-position: -24px 50%;
 }
-.claro .dijitTabStripMenuIcon {
+.claro .duiTabStripMenuIcon {
 	background-position: -51px 50%;
 }
 
 /*disabled styles for tab strip buttons*/
-.claro .dijitTabListContainer-top .tabStripButtonDisabled,
-.claro .dijitTabListContainer-bottom .tabStripButtonDisabled {
+.claro .duiTabListContainer-top .tabStripButtonDisabled,
+.claro .duiTabListContainer-bottom .tabStripButtonDisabled {
 	background-color:@tab-disabled-background-color;
 	border:1px solid @border-color;	/* to match border of TabContainer itself */
 }
-.claro .tabStripButtonDisabled .dijitTabStripSlideLeftIcon {
+.claro .tabStripButtonDisabled .duiTabStripSlideLeftIcon {
 	background-position:-175px 50%;
 }
-.claro .tabStripButtonDisabled .dijitTabStripSlideRightIcon {
+.claro .tabStripButtonDisabled .duiTabStripSlideRightIcon {
 	background-position: -124px 50%;
 }
-.claro .tabStripButtonDisabled .dijitTabStripMenuIcon {
+.claro .tabStripButtonDisabled .duiTabStripMenuIcon {
 	background-position: -151px 50%;
 } 
 /* Nested Tabs */
-.claro .dijitTabContainerNested .dijitTabListWrapper {
+.claro .duiTabContainerNested .duiTabListWrapper {
 	height: auto;
 }
-.claro .dijitTabContainerNested .dijitTabContainerTop-tabs {
+.claro .duiTabContainerNested .duiTabContainerTop-tabs {
 	border-bottom:solid 1px @border-color;
 	padding:2px 2px 4px;
 }
-.claro .dijitTabContainerTabListNested .dijitTab {
+.claro .duiTabContainerTabListNested .duiTab {
 	background-color:rgba(255, 255, 255, 0);
 	border: none;
 	padding: 4px;
@@ -485,29 +485,29 @@ div.dijitTabDisabled, .dj_ie div.dijitTabDisabled {
 
 	.alpha-white-gradient (0.61,0%, 0,17%, 0,83%, 0.61,100%);
 }
-.claro .dijitTabContainerTabListNested .dijitTabHover {
+.claro .duiTabContainerTabListNested .duiTabHover {
 	background-color: @nestedtab-hovered-background-color;
 	border:solid 1px @nestedtab-hovered-border-color;
 	padding: 3px;	// 4px above padding - 1px compensation for border
 	.transition-duration(.2s);
 }
-.claro .dijitTabContainerTabListNested .dijitTabHover .tabLabel {
+.claro .duiTabContainerTabListNested .duiTabHover .tabLabel {
 	text-decoration: none;
 }
-.claro .dijitTabContainerTabListNested .dijitTabActive {
+.claro .duiTabContainerTabListNested .duiTabActive {
 	border:solid 1px @nestedtab-selected-border-color;
 	padding: 3px;
 	.transition-duration(.1s);
 }
-.claro .dijitTabContainerTabListNested .dijitTabChecked {
+.claro .duiTabContainerTabListNested .duiTabChecked {
 	padding: 3px;
 	border:solid 1px @selected-border-color;
 	background-color:@selected-background-color;
 }
-.claro .dijitTabContainerTabListNested .dijitTabChecked .tabLabel {
+.claro .duiTabContainerTabListNested .duiTabChecked .tabLabel {
 	text-decoration: none;
 	background-image:none;
 }
-.claro .dijitTabPaneWrapperNested {
+.claro .duiTabPaneWrapperNested {
 	border: none;/* prevent double border */
 }

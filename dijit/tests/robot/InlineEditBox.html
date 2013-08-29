@@ -16,7 +16,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/_base/array", "dojo/aspect", "dojo/date/locale", "dojo/keys", "dojo/_base/lang", "dojo/query",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, array, aspect, datelocale, keys, lang, query, helpers){
 				robot.initRobot('../test_InlineEditBox.html');
 
@@ -30,7 +30,7 @@
 					registry = robot.window.require("dui/registry");
 				});
 
-				doh.register("dijit.InlineEditBox autosave tests", [
+				doh.register("dui.InlineEditBox autosave tests", [
 					{
 						name: "CurrencyTextBox invalid value: blur",
 						timeout: 10000,
@@ -214,7 +214,7 @@
 
 				// Testing that the initial display value of the InlineEditBox gets sent to the editor.
 				// For example, in this markup:
-				//		<span dojoType="dijit.InlineEditBox" ...>01/05/2007</span>
+				//		<span dojoType="dui.InlineEditBox" ...>01/05/2007</span>
 				// When the editor is clicked the calendar should open to that date.
 				array.forEach([
 					{ widget: "CurrencyTextBox", id: "dollar", textValue: "$2,000", widgetValue: 2000 },
@@ -258,7 +258,7 @@
 												doh.t(helpers.isHidden(inlineBox.wrapperWidget), "editor widget should be hidden");
 											}), 500);
 										}, true),
-										buttons = query(".dijitButton", inlineBox.domNode.parentNode);
+										buttons = query(".duiButton", inlineBox.domNode.parentNode);
 										moveAndClick(buttons[buttons.length-2]); // Save should be disabled so nothing happens
 										moveAndClick(buttons[buttons.length-1]);
 									}, 1500);

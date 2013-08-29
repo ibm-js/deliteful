@@ -15,7 +15,7 @@
 			require([
 				"doh/runner", "dojo/robotx",
 				"dojo/_base/array", "dojo/dom", "dojo/on", "dojo/sniff", "dojo/window",
-				"dijit/tests/helpers", "dojo/domReady!"
+				"dui/tests/helpers", "dojo/domReady!"
 			], function(doh, robot, array, dom, on, has, winUtils, helpers){
 
 				robot.initRobot('../test_bgIframe.html');
@@ -83,7 +83,7 @@
 							robot.mouseMoveAt("two_" + xId, 500, 1);
 							
 							robot.sequence(function(){ 
-								var tooltip = registry.byId("dijit__MasterTooltip_0");
+								var tooltip = registry.byId("dui__MasterTooltip_0");
 								oldHide = tooltip.hide;
 								tooltip.hide = function(aroundNode){
 									// don't allow the tooltip to be hidden
@@ -98,7 +98,7 @@
 							}, 2000); 
 							
 							// Click on the tooltip
-							robot.mouseMoveAt("dijit__MasterTooltip_0", 1, 1);
+							robot.mouseMoveAt("dui__MasterTooltip_0", 1, 1);
 							robot.mouseClick({left: true}, 500);
 							
 							robot.sequence(d.getTestCallback(function(){

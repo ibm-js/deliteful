@@ -22,7 +22,7 @@
 				doh.register(function setup(){
 					// get pointer to registry in the iframe
 					registry = robot.window.require("dui/registry");
-					dfocus = robot.window.require("dijit/focus");
+					dfocus = robot.window.require("dui/focus");
 
 					toolbar1Before = dom.byId("toolbar1Before", robot.doc);
 					toolbar1 = registry.byId("toolbar1");
@@ -45,10 +45,10 @@
 							doh.t(toolbar4, "toolbar 4");
 							
 							// and that labels are shown except when showLabel==false
-							var cutText = query("#toolbar1_cut .dijitButtonText", robot.doc)[0];
+							var cutText = query("#toolbar1_cut .duiButtonText", robot.doc)[0];
 							doh.is(0, cutText.offsetWidth, "cut button - text hidden");						
 
-							var copyText = query("#toolbar1_copy .dijitButtonText", robot.doc)[0];
+							var copyText = query("#toolbar1_copy .duiButtonText", robot.doc)[0];
 							doh.t(copyText.offsetWidth > 0, "copy button - text shown");						
 						}
 					}

@@ -14,7 +14,7 @@
 		require([
 			"doh/runner", "dojo/robotx",
 			"dojo/keys", "dojo/query",
-			"dijit/tests/helpers","dojo/domReady!"
+			"dui/tests/helpers","dojo/domReady!"
 		], function(doh, robot, keys, query, helpers){
 
 			var tree,registry;
@@ -40,13 +40,13 @@
 					runTest: function(){
 						var d = new doh.Deferred();
 
-						var firstVisibleNode = query(".dijitTreeLabel", robot.doc)[1];
+						var firstVisibleNode = query(".duiTreeLabel", robot.doc)[1];
 						firstVisibleNode.focus();
 
 						robot.keyPress(keys.RIGHT_ARROW, 100);
 						robot.keyPress(keys.RIGHT_ARROW, 100);
 						robot.sequence(d.getTestCallback(function(){
-							var focus = dojo.global.dijit.focus.curNode;
+							var focus = dojo.global.dui.focus.curNode;
 							doh.is("Child_0", helpers.innerText(focus), "focused on first child");
 						}), 500);
 

@@ -2,7 +2,7 @@
 		"http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-	<title>dijit.Tree Automatic Tests</title>
+	<title>dui.Tree Automatic Tests</title>
 
 	<style type="text/css">
 		@import "../../themes/claro/document.css";
@@ -11,7 +11,7 @@
 		@import "../css/dijitTests.css";
 	</style>
 
-	<!-- required: a default dijit theme: -->
+	<!-- required: a default dui theme: -->
 	<link id="themeStyles" rel="stylesheet" href="../../../dijit/themes/claro/claro.css"/>
 	
 	<!-- required: dojo.js -->
@@ -24,12 +24,12 @@
 	<script type="text/javascript">
 		dojo.require("doh.runner");
 		dojo.require("dojo.parser");
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dui.dijit"); // optimize: load dui layer
 		dojo.require("dojox.data.JsonRestStore");
-		dojo.require("dijit.Tree");
-		dojo.require("dijit.tree.ForestStoreModel");
-		dojo.require("dijit.tree.dndSource");
-		dojo.require("dijit.tests.helpers");	// functions to help test
+		dojo.require("dui.Tree");
+		dojo.require("dui.tree.ForestStoreModel");
+		dojo.require("dui.tree.dndSource");
+		dojo.require("dui.tests.helpers");	// functions to help test
 
 		dojo.ready(function(){
 			var handler, myTree;
@@ -47,18 +47,18 @@
 							var
 								d = new doh.Deferred(),
 			 					myStore = new dojox.data.JsonRestStore({target:"./", labelAttribute:"name"}),
-								myModel = new dijit.tree.ForestStoreModel({
+								myModel = new dui.tree.ForestStoreModel({
 									store: myStore,
 									deferItemLoadingUntilExpand: true,
 									query: "treeTestRoot",
 									childrenAttrs: ["children"]
 								});
-							myTree = new dijit.Tree({
+							myTree = new dui.Tree({
 								id: "myTree",
 								model: myModel,
 								"label": "Example",
 								persist: false,		// persist==true is too hard to test
-								dndController: "dijit.tree.dndSource" 
+								dndController: "dui.tree.dndSource" 
 							});
 							doh.t(myTree, "tree created");
 
