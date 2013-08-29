@@ -13,7 +13,7 @@
 		var TEXTAREA_ROWS = 3;
 		var TEXTAREA_COLS = 20;
 		var TEXTAREA_INNERHTML = "ExpandingTextArea";
-		var TEXTAREA_NEW_VALUE = "This is mobile ExpandingTextArea.\nThis text area is automaticaly Expanding.\nHello dojox.mobile";
+		var TEXTAREA_NEW_VALUE = "This is mobile ExpandingTextArea.\nThis text area is automaticaly Expanding.\nHello dui.mobile";
 		var WIDGET_CLASSNAME1 = "duiHeading";
 		var WIDGET_CLASSNAME2 = "duiHeadingCenterTitle";
 		var WIDGET_SPANTITLE_CLASSNAME = "duiHeadingSpanTitle";
@@ -39,10 +39,10 @@
 			"dojo/_base/lang", // lang.trim
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	// doh functions
-			"dojox/mobile/Heading",
+			"dui/mobile/Heading",
 			"dojo/topic",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, has, domConst, domClass, ready, lang, registry, runner, Heading, topic){
 
 			parser.parse();
@@ -91,12 +91,12 @@
 				view1.performTransition("view2", 1, "none");
 			};
 
-			runner.register("dojox/mobile/test.doh.Heading", [
+			runner.register("dui/mobile/test.doh.Heading", [
 				{
 					name: "Heading Verification1",
 					timeout: 4000,
 					runTest: function(){
-						var widget1 = _createHeadingDeclaratively("dojox_mobile_Heading_0");
+						var widget1 = _createHeadingDeclaratively("dui_mobile_Heading_0");
 						var widget2 = _createHeadingProgrammatically("view1-Heading2place", "view1-Heading2", WIDGET_TITLE_TEXT1);
 						var widget3 = _createHeadingProgrammaticallyWithSourceNodeReference("view1-Heading3");
 
@@ -110,16 +110,16 @@
 					name: "Heading Verification2",
 					timeout: 4000,
 					runTest: function(){
-						var widget1 = _createHeadingDeclaratively("dojox_mobile_Heading_1");
+						var widget1 = _createHeadingDeclaratively("dui_mobile_Heading_1");
 						var widget2 = _createHeadingProgrammatically("view2-Heading2place", "view2-Heading2", WIDGET_TITLE_TEXT2);
 						var widget3 = _createHeadingProgrammaticallyWithSourceNodeReference("view2-Heading3");
 
 						var d = new runner.Deferred();
-						var handle2 = topic.subscribe("/dojox/mobile/afterTransitionIn", d.getTestCallback(function(view){
+						var handle2 = topic.subscribe("/dui/mobile/afterTransitionIn", d.getTestCallback(function(view){
 							if(view.id == "view2"){
 								handle2.remove();
 							}
-							var widget1 = registry.byId("dojox_mobile_Heading_1");
+							var widget1 = registry.byId("dui_mobile_Heading_1");
 							var widget2 = registry.byId("view2-Heading2");
 							var widget3 = registry.byId("view2-Heading3");
 							_assertCorrectHeading(widget1, WIDGET_TITLE_TEXT2, WIDGET_BACK_TEXT, WIDGET_BUTTON_CLASSNAME);
@@ -136,19 +136,19 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-<div id="view1" data-dojo-type="dojox/mobile/View">
-	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Settings", moveTo:"settings", label:"View 1"'></h1>
+<div id="view1" data-dojo-type="dui/mobile/View">
+	<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Settings", moveTo:"settings", label:"View 1"'></h1>
 
 	<div id="view1-Heading2place"></div>
 	<h1 id="view1-Heading3">View 1</h1>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
-	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Settings", moveTo:"settings", label:"View 2"'></h1>
+<div id="view2" data-dojo-type="dui/mobile/View">
+	<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Settings", moveTo:"settings", label:"View 2"'></h1>
 
 	<div id="view2-Heading2place"></div>
 	<h1 id="view2-Heading3">View 2</h1>
 </div>
-<div id="settings" data-dojo-type="dojox/mobile/View">
+<div id="settings" data-dojo-type="dui/mobile/View">
 	<h1>settings</h1>
 </div>
 </body>

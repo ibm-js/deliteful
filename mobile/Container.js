@@ -5,9 +5,9 @@ define([
 ], function(declare, Container, Pane){
 
 	// module:
-	//		dojox/mobile/Container
+	//		dui/mobile/Container
 
-	return declare("dojox.mobile.Container", [Pane, Container], {
+	return declare("dui.mobile.Container", [Pane, Container], {
 		// summary:
 		//		A simple container-type widget.
 		// description:

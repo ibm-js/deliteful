@@ -7,14 +7,14 @@ define([
 ], function(declare, domClass, TimePickerMixin, SpinWheel, SpinWheelSlot){
 
 	// module:
-	//		dojox/mobile/SpinWheelTimePicker
+	//		dui/mobile/SpinWheelTimePicker
 
-	return declare("dojox.mobile.SpinWheelTimePicker", [SpinWheel, TimePickerMixin], {
+	return declare("dui.mobile.SpinWheelTimePicker", [SpinWheel, TimePickerMixin], {
 		// summary:
 		//		A SpinWheel-based time picker widget.
 		// description:
 		//		SpinWheelTimePicker is a time picker widget. It is a subclass of
-		//		dojox/mobile/SpinWheel. It has two slots: hour and minute.
+		//		dui/mobile/SpinWheel. It has two slots: hour and minute.
 
 		slotClasses: [
 			SpinWheelSlot,

@@ -1,20 +1,20 @@
 dojo.addOnLoad(function(){
 	var view = dijit.byId("foo");
 
-	var list = new dojox.mobile.RoundRectList({iconBase:"../../images/i-icon-all.png"});
+	var list = new dui.mobile.RoundRectList({iconBase:"../../images/i-icon-all.png"});
 	view.addChild(list);
 
-	var demoWidget = new dojox.mobile.ListItem({iconPos:"0,87,29,29", moveTo:"general", label:"Sounds"});
+	var demoWidget = new dui.mobile.ListItem({iconPos:"0,87,29,29", moveTo:"general", label:"Sounds"});
 	list.addChild(demoWidget);
 
-	demoWidget = new dojox.mobile.ListItem({iconPos:"0,116,29,29", moveTo:"general", label:"Brightness"});
+	demoWidget = new dui.mobile.ListItem({iconPos:"0,116,29,29", moveTo:"general", label:"Brightness"});
 	list.addChild(demoWidget);
 
-	list = new dojox.mobile.EdgeToEdgeList({iconBase:"../../images/i-icon-all.png"});
-	demoWidget = new dojox.mobile.ListItem({iconPos:"0,87,29,29", rightIcon:"duiDomButtonBluePlus", label:"XX Widget"});
+	list = new dui.mobile.EdgeToEdgeList({iconBase:"../../images/i-icon-all.png"});
+	demoWidget = new dui.mobile.ListItem({iconPos:"0,87,29,29", rightIcon:"duiDomButtonBluePlus", label:"XX Widget"});
 	list.addChild(demoWidget);
 
-	demoWidget = new dojox.mobile.ListItem({iconPos:"0,116,29,29", rightIcon:"duiDomButtonRedMinus", label:"YY Widget"});
+	demoWidget = new dui.mobile.ListItem({iconPos:"0,116,29,29", rightIcon:"duiDomButtonRedMinus", label:"YY Widget"});
 	list.addChild(demoWidget);
 
 	view.addChild(list);

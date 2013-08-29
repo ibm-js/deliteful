@@ -8,7 +8,7 @@ define([
 ], function(array, declare, lang, ddate, datelocale, datestamp){
 
 	// module:
-	//		dojox/mobile/_DatePickerMixin
+	//		dui/mobile/_DatePickerMixin
 
 	var slotMixin = {
 		format: function(/*Date*/d){
@@ -53,7 +53,7 @@ define([
 		}
 	}, slotMixin);
 
-	return declare("dojox.mobile._DatePickerMixin", null, {
+	return declare("dui.mobile._DatePickerMixin", null, {
 		// summary:
 		//		A mixin for date picker widget.
 

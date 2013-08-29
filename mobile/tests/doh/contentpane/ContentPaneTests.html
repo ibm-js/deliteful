@@ -26,20 +26,20 @@
 		"dojo/string", // dojo.trim
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
-		"dojox/mobile/ContentPane",
-		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-		"dojox/mobile/RoundRect"
+		"dui/mobile/ContentPane",
+		"dui/mobile/View",		// This mobile app uses mobile view
+		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
+		"dui/mobile/RoundRect"
 	], function(parser, domConst, domClass, ready, string, registry, runner, ContentPane){
 
 		parser.parse();
 
 		function _initContentPane(widgetIds){
-			registry.byId(widgetIds[0]).set("content", "<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 3 : Thank you!</div>");
+			registry.byId(widgetIds[0]).set("content", "<div data-dojo-type='dui.mobile.RoundRect' shadow='true'>Pane 3 : Thank you!</div>");
 			registry.byId(widgetIds[1]).set("href", "fragment2.html");
 
 			var dom = domConst.create("DIV", {
-				dojoType: "dojox/mobile/RoundRect",
+				dojoType: "dui/mobile/RoundRect",
 				shadow: "true"
 			});
 			dom.innerHTML = "Pane 5 : DOM Tree";
@@ -47,7 +47,7 @@
 			
 		}
 		function _createContentPaneProgrammatically(widgetIds, placeHolderId){
-			var r = new ContentPane({id:widgetIds[0], content:"<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"});
+			var r = new ContentPane({id:widgetIds[0], content:"<div data-dojo-type='dui.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"});
 			domConst.place(r.domNode, placeHolderId[0], "replace");
 			r.startup();
 			r = new ContentPane({id:widgetIds[1], href:"fragment1.html"});
@@ -64,7 +64,7 @@
 			r.startup();
 		}
 		function _createContentPaneProgrammaticallyWithSourceNodeReference(widgetIds){
-			new ContentPane({id:widgetIds[0], content:"<div data-dojo-type='dojox.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"}, widgetIds[0]);
+			new ContentPane({id:widgetIds[0], content:"<div data-dojo-type='dui.mobile.RoundRect' shadow='true'>Pane 1 : Thank you!</div>"}, widgetIds[0]);
 			new ContentPane({id:widgetIds[1], href:"fragment1.html"}, widgetIds[1]);
 			new ContentPane({id:widgetIds[2]}, widgetIds[2]);
 			new ContentPane({id:widgetIds[3]}, widgetIds[3]);
@@ -117,7 +117,7 @@
 			_createContentPaneProgrammaticallyWithSourceNodeReference(["view2-pane11","view2-pane12","view2-pane13","view2-pane14","view2-pane15"]);
 			_initContentPane(["view2-pane13","view2-pane14","view2-pane15"]);
 
-			runner.register("dojox/mobile/test.doh.ContentPane", [
+			runner.register("dui/mobile/test.doh.ContentPane", [
 				{
 					name: "ContentPane Verification1",
 					timeout: 10000,
@@ -160,20 +160,20 @@
 </script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View">
+	<div id="view1" data-dojo-type="dui/mobile/View">
 		<h1>View 1</h1>
 
-		<div id="view1-pane1" data-dojo-type="dojox/mobile/ContentPane"
-		     data-dojo-props='content:"&lt;div data-dojo-type=&apos;dojox.mobile.RoundRect&apos; shadow=&apos;true&apos;&gt;Pane 1 : Thank you!&lt;/div&gt;"'></div>
+		<div id="view1-pane1" data-dojo-type="dui/mobile/ContentPane"
+		     data-dojo-props='content:"&lt;div data-dojo-type=&apos;dui.mobile.RoundRect&apos; shadow=&apos;true&apos;&gt;Pane 1 : Thank you!&lt;/div&gt;"'></div>
 
-		<div id="view1-pane2" data-dojo-type="dojox/mobile/ContentPane"
+		<div id="view1-pane2" data-dojo-type="dui/mobile/ContentPane"
 		     data-dojo-props='href:"fragment1.html"'></div>
 
-		<div id="view1-pane3" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view1-pane3" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<div id="view1-pane4" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view1-pane4" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<div id="view1-pane5" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view1-pane5" data-dojo-type="dui/mobile/ContentPane"></div>
 		<hr/>
 		<div id="view1-pane6place"></div>
 
@@ -196,20 +196,20 @@
 		<div id="view1-pane15"></div>
 
 	</div>
-	<div id="view2" data-dojo-type="dojox/mobile/View">
+	<div id="view2" data-dojo-type="dui/mobile/View">
 		<h1>View 2</h1>
 
-		<div id="view2-pane1" data-dojo-type="dojox/mobile/ContentPane"
-		     data-dojo-props='content:"&lt;div data-dojo-type=&apos;dojox.mobile.RoundRect&apos; shadow=&apos;true&apos;&gt;Pane 1 : Thank you!&lt;/div&gt;"'></div>
+		<div id="view2-pane1" data-dojo-type="dui/mobile/ContentPane"
+		     data-dojo-props='content:"&lt;div data-dojo-type=&apos;dui.mobile.RoundRect&apos; shadow=&apos;true&apos;&gt;Pane 1 : Thank you!&lt;/div&gt;"'></div>
 
-		<div id="view2-pane2" data-dojo-type="dojox/mobile/ContentPane"
+		<div id="view2-pane2" data-dojo-type="dui/mobile/ContentPane"
 		     data-dojo-props='href:"fragment1.html"'></div>
 
-		<div id="view2-pane3" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view2-pane3" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<div id="view2-pane4" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view2-pane4" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<div id="view2-pane5" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<div id="view2-pane5" data-dojo-type="dui/mobile/ContentPane"></div>
 		<hr/>
 		<div id="view2-pane6place"></div>
 

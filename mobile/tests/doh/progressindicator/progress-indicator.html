@@ -12,19 +12,19 @@
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
 			dojo.require("dojo.hash");
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 	        
 			dojo.addOnLoad(function(){
 				var container = dojo.byId("home");
 				container.innerHTML = "";
-				var prog = dojox.mobile.ProgressIndicator.getInstance();
+				var prog = dui.mobile.ProgressIndicator.getInstance();
 				container.appendChild(prog.domNode);
 				prog.start();
-				doh.register("dojox/mobile/test.doh.ProgressIndicator", [
+				doh.register("dui/mobile/test.doh.ProgressIndicator", [
 					function test_RoundRectList_Verification(){
 						var demoWidget = dijit.byId("home");
 						doh.assertEqual('duiProgressIndicator duiProgressIndicatorCenter', demoWidget.containerNode.childNodes[0].className);
@@ -39,7 +39,7 @@
 		</script>
 	</head>
 	<body>
-		<div id="home" data-dojo-type="dojox/mobile/View" selected="true">
+		<div id="home" data-dojo-type="dui/mobile/View" selected="true">
 		</div>
 
 	</body>

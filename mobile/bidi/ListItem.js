@@ -7,7 +7,7 @@ define([
 ], function(declare, array, domConstruct, common, win){
 
 	// module:
-	//		dojox/mobile/ListItem
+	//		dui/mobile/ListItem
 
 	return declare(null, {
 		// summary:

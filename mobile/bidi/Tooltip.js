@@ -5,7 +5,7 @@ define([
 ], function(array, declare, common){
 
 	// module:
-	//		dojox/mobile/bidi/Tooltip
+	//		dui/mobile/bidi/Tooltip
 
 	return declare(null, {
 		// summary:
@@ -23,7 +23,7 @@ define([
 		},
 		buildRendering: function(){
 		    this.inherited(arguments);
-			//dojox.mobile mirroring support
+			//dui.mobile mirroring support
 			if(!this.isLeftToRight()){
 				this.arrow.style.left = "0px";
 			}

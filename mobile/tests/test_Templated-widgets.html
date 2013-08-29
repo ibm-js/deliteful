@@ -36,7 +36,7 @@
 			"dojo/dom",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/_base/declare",
 			"dojo/dom-construct",
 			"dijit/_TemplatedMixin",
@@ -53,12 +53,12 @@
 			"dojo/text!./templates/Switch1.html",
 			"dojo/text!./templates/ToggleButton1.html",
 			"dojo/text!./templates/View1.html",
-			"dojox/mobile/ListItem",
-			"dojox/mobile/Heading",
-			"dojox/mobile/Switch",
-			"dojox/mobile/TabBar",
-			"dojox/mobile/TabBarButton",
-			"dojox/mobile/ScrollableView"
+			"dui/mobile/ListItem",
+			"dui/mobile/Heading",
+			"dui/mobile/Switch",
+			"dui/mobile/TabBar",
+			"dui/mobile/TabBarButton",
+			"dui/mobile/ScrollableView"
 		], function(ready, dom, registry, parser, compat, declare, domConstruct, 
 					TemplatedMixin, WidgetsInTemplateMixin, 
 					myTemplateButton1, myTemplateCheckBox1, myTemplateHeading1,
@@ -169,38 +169,38 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="main" data-dojo-type="dojox/mobile/View">
-		<ul data-dojo-type="dojox/mobile/TabBar" 
+	<div id="main" data-dojo-type="dui/mobile/View">
+		<ul data-dojo-type="dui/mobile/TabBar" 
 			data-dojo-props="barType: 'slimTab', fixed: 'top'">
-			<li data-dojo-type="dojox/mobile/TabBarButton" 
+			<li data-dojo-type="dui/mobile/TabBarButton" 
 				data-dojo-props="moveTo:'ListItem', selected: true">ListItem</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton" 
+			<li data-dojo-type="dui/mobile/TabBarButton" 
 				data-dojo-props="moveTo:'Heading'">Heading</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton" 
+			<li data-dojo-type="dui/mobile/TabBarButton" 
 				data-dojo-props="moveTo:'FormControls'">Form Controls</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton" 
+			<li data-dojo-type="dui/mobile/TabBarButton" 
 				data-dojo-props="moveTo:'View'">View</li>
 		</ul>
 
 		<!-- Templated ListItem -->
-		<div id="ListItem" data-dojo-type="dojox/mobile/ScrollableView">
+		<div id="ListItem" data-dojo-type="dui/mobile/ScrollableView">
 			<div id="msgArea1" style="margin-left: 40px; margin-top: 4px; height: 20px"></div>
-			<ul id="list" data-dojo-type="dojox/mobile/RoundRectList" 
+			<ul id="list" data-dojo-type="dui/mobile/RoundRectList" 
 				data-dojo-props="iconBase:'images/tab-icon-11h.png', variableHeight: true">
-				<li data-dojo-type="dojox/mobile/ListItem"
+				<li data-dojo-type="dui/mobile/ListItem"
 					data-dojo-mixins="dijit/_TemplatedMixin"
 					data-dojo-props="label:'Some label', 
 						clickable: true, onClick: onclick1,
 						templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem"
+				<li data-dojo-type="dui/mobile/ListItem"
 					data-dojo-mixins="dijit/_TemplatedMixin"
 					data-dojo-props="clickable: true, onClick: onclick1,
 						templateString: '<div><div>My inline, multiline <i>HTML</i><br>template (markup)</div></div>'">
 				</li>
 				<li data-dojo-type=TemplatedListItem>
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem"
+				<li data-dojo-type="dui/mobile/ListItem"
 					data-dojo-mixins="dijit/_TemplatedMixin"
 					data-dojo-props="label: '(markup, using data-dojo-mixins)', 
 						templateString: templateListItem1,
@@ -211,7 +211,7 @@
 				</li>
 				<li data-dojo-type=TemplatedWithWidgetsListItem2>
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem"
+				<li data-dojo-type="dui/mobile/ListItem"
 					data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin"
 					data-dojo-props="templateString: templateListItem3,
 						clickable: true, onClick: onclick1">
@@ -220,20 +220,20 @@
 		</div>
 		
 		<!-- Templated Form Controls -->
-		<div id="FormControls" data-dojo-type="dojox/mobile/ScrollableView">
-			<h1 data-dojo-type="dojox/mobile/Heading">Form Controls</h1>
+		<div id="FormControls" data-dojo-type="dui/mobile/ScrollableView">
+			<h1 data-dojo-type="dui/mobile/Heading">Form Controls</h1>
 			<div id="msgArea2" style="margin-left: 40px; margin-top: 4px; height: 20px"></div>
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Button</span></td>
 					<td style="text-align:right">
-						<button data-dojo-type="dojox/mobile/Button" 
+						<button data-dojo-type="dui/mobile/Button" 
 							data-dojo-props="templateString: '<button class=\'${baseClass}\' data-dojo-attach-point=\'containerNode\'></button>', onClick: onclick2"
 							data-dojo-mixins="dijit/_TemplatedMixin">
 							 Press me! (inline template)
 						</button>
-						<button data-dojo-type="dojox/mobile/Button" 
+						<button data-dojo-type="dui/mobile/Button" 
 							data-dojo-props="templateString: templateButton1, onClick: onclick2"
 							data-dojo-mixins="dijit/_TemplatedMixin">
 							Press me! (external template)
@@ -243,12 +243,12 @@
 			</table>
 			</div>
 			
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Slider</span></td>
 					<td style="float:right">
-						<input data-dojo-type="dojox/mobile/Slider"
+						<input data-dojo-type="dui/mobile/Slider"
 							style="width:150px;" type="range"
 							data-dojo-props="templateString: templateSlider1, 
 								value:10, min:0, max:40, step:0.1, 
@@ -259,14 +259,14 @@
 			</table>
 			</div>
 			
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">CheckBox</span></td>
 					<td style="text-align:right">
 						<label for="cbox">Click me</label>
 						<input type="checkbox" id="cbox"
-							data-dojo-type="dojox/mobile/CheckBox"
+							data-dojo-type="dui/mobile/CheckBox"
 							data-dojo-props="templateString: templateCheckBox1, 
 								onChange:function(v){ showMsg('msgArea2', 'checked: ' + this.get('checked')); }">
 					</td>
@@ -274,12 +274,12 @@
 			</table>
 			</div>
 			
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">ToggleButton</span></td>
 					<td style="text-align:right">
-						<button data-dojo-type="dojox/mobile/ToggleButton"
+						<button data-dojo-type="dui/mobile/ToggleButton"
 							data-dojo-props="templateString: templateToggleButton1,
 								onChange:function(v){ showMsg('msgArea2', 'checked: ' + this.get('checked')); }">
 								Toggle me
@@ -289,13 +289,13 @@
 			</table>
 			</div>
 			
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Switch</span></td>
 					<td style="text-align:right">
 						<input type="checkbox" value="on"
-							data-dojo-type="dojox/mobile/Switch"
+							data-dojo-type="dui/mobile/Switch"
 							data-dojo-props="templateString: templateSwitch1,
 								onStateChanged:function(v){ showMsg('msgArea2', 'value: ' + v); }"
 							data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
@@ -309,24 +309,24 @@
 			</table>
 			</div>
 			
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Radio Button</span></td>
 					<td style="text-align:right">
-						<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" 
+						<input type="radio" id="rb1" data-dojo-type="dui/mobile/RadioButton" 
 							data-dojo-props="templateString: templateRadioButton1,
 								onChange:function(v){ if(this.get('checked')) showMsg('msgArea2', 'checked RadioButton 1'); }"
 							name="mobileRadio" value="Large" checked>
 						<label for="rb1">1</label>
 						
-						<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" 
+						<input type="radio" id="rb2" data-dojo-type="dui/mobile/RadioButton" 
 							data-dojo-props="templateString: templateRadioButton1,
 								onChange:function(v){ if(this.get('checked')) showMsg('msgArea2', 'checked RadioButton 2'); }"
 							name="mobileRadio" value="Large">
 						<label for="rb2">2</label>
 						
-						<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton" 
+						<input type="radio" id="rb3" data-dojo-type="dui/mobile/RadioButton" 
 							data-dojo-props="templateString: templateRadioButton1,
 								onChange:function(v){ if(this.get('checked')) showMsg('msgArea2', 'checked RadioButton 3'); }"
 							name="mobileRadio" value="Large">
@@ -337,19 +337,19 @@
 		</div>
 		
 		<!-- Templated Heading -->
-		<div id="Heading" data-dojo-type="dojox/mobile/ScrollableView">
+		<div id="Heading" data-dojo-type="dui/mobile/ScrollableView">
 			<!-- Template containing widgets -->
-			<div data-dojo-type="dojox/mobile/Heading" 
+			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="label:'Some label', templateString: templateHeading1"
 				data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
 			</div>
 			<!-- Pure HTML template -->
-			<div data-dojo-type="dojox/mobile/Heading" 
+			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="back:'Back', 
 					templateString: '<div>My inline <i>HTML</i> template (markup)</div>'"
 				data-dojo-mixins="dijit/_TemplatedMixin">
 			</div>
-			<div data-dojo-type="dojox/mobile/Heading" 
+			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="back:'Back',
 					label: 'Templated by: <code>Heading2.html</code> (using data-dojo-mixins)', 
 					templateString: templateHeading2"
@@ -365,7 +365,7 @@
 		</div>
 		
 		<!-- Templated View -->
-		<div id="View" data-dojo-type="dojox/mobile/View"
+		<div id="View" data-dojo-type="dui/mobile/View"
 			data-dojo-props="templateString: templateView1"
 			data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
 		</div>

@@ -19,9 +19,9 @@
 		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
-		"dojox/mobile/ComboBox",
-		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+		"dui/mobile/ComboBox",
+		"dui/mobile/View",		// This mobile app uses mobile view
+		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(connect, has, domConst, domClass, Memory, ready, registry, runner, ComboBox){
 
@@ -64,7 +64,7 @@
 		};
 
 		ready(function(){
-			runner.register("dojox/mobile/test.doh.ComboBoxTests", [
+			runner.register("dui/mobile/test.doh.ComboBoxTests", [
 				{
 					name: "testInView1",
 					timeout: 4000,
@@ -114,7 +114,7 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true" dir="ltr">
+	<div id="view1" data-dojo-type="dui/mobile/View" selected="true" dir="ltr">
 		<h1>View 1</h1>
 		<datalist id="fruits">
 			<select data-dojo-type="dijit.form.DataList" data-dojo-props="id:'fruits'">
@@ -123,18 +123,18 @@
 				<option value="fruit3">Cherry</option>
 			</select>
 		</datalist>
-		<input id="view1-comboBox1" type="text" data-dojo-type="dojox/mobile/ComboBox" data-dojo-props="value:'Apple', list:'fruits'"></input>
+		<input id="view1-comboBox1" type="text" data-dojo-type="dui/mobile/ComboBox" data-dojo-props="value:'Apple', list:'fruits'"></input>
 		<div id="view1-comboBox2"></div>
 		<input id="view1-comboBox3" type="text"></input>
 	</div>
-	<div id="view2" data-dojo-type="dojox/mobile/View" dir="rtl">
+	<div id="view2" data-dojo-type="dui/mobile/View" dir="rtl">
 		<h1>View 2</h1>
 		<select data-dojo-type="dijit.form.DataList" data-dojo-props="id:'fruits2'">
 			<option>Apple</option>
 			<option>Banana</option>
 			<option>Cherry</option>
 		</select>
-		<input id="view2-comboBox1" type="text" data-dojo-type="dojox/mobile/ComboBox" data-dojo-props="value:'Apple', list:'fruits2'"></input>
+		<input id="view2-comboBox1" type="text" data-dojo-type="dui/mobile/ComboBox" data-dojo-props="value:'Apple', list:'fruits2'"></input>
 		<div id="view2-comboBox2"></div>
 		<input id="view2-comboBox3" type="text"></input>
 	</div>

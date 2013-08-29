@@ -16,10 +16,10 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/SpinWheel",
-			"dojox/mobile/SpinWheelSlot",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+			"dui/mobile/SpinWheel",
+			"dui/mobile/SpinWheelSlot",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 		], function(domConst, ready, registry, runner, SpinWheel, SpinWheelSlot){
 			ready(function(){
@@ -91,14 +91,14 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/SpinWheel",
-			"dojox/mobile/SpinWheelSlot",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+			"dui/mobile/SpinWheel",
+			"dui/mobile/SpinWheelSlot",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 		], function(ready, registry, runner, SpinWheel, SpinWheelSlot){
 			ready(function(){
-				runner.register("dojox/mobile/test.doh.SpinWheel", [
+				runner.register("dui/mobile/test.doh.SpinWheel", [
 					{
 						name: "SpinWheel Verification",
 						timeout: 4000,
@@ -145,8 +145,8 @@
 	</style>
 </head>
 <body style="visibility:hidden;" dir="rtl">
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Custom SpinWheel</h1>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Custom SpinWheel</h1>
 	</div>
 </body>
 </html>

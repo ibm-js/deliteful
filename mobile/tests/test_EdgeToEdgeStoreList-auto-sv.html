@@ -19,12 +19,12 @@
 			"dojo/store/Observable",
 			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/ProgressIndicator",
+			"dui/mobile/ProgressIndicator",
 			"dojo/parser",
 			"dojo/when",
-			"dojox/mobile/compat",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/EdgeToEdgeStoreList"
+			"dui/mobile/compat",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/EdgeToEdgeStoreList"
 		], function(domClass, Cache, JsonRest, Memory, Observable, ready, registry, ProgressIndicator, parser, when){
 			//var url = "data/fruits.json";
 			var url = "data/fake_service.php";
@@ -86,9 +86,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props='adjustDestination:adjustDestination'>
-		<h1 data-dojo-type="dojox/mobile/Heading" id="head1" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
+	<div data-dojo-type="dui/mobile/ScrollableView" data-dojo-props='adjustDestination:adjustDestination'>
+		<h1 data-dojo-type="dui/mobile/Heading" id="head1" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
 	</div>
 </body>
 </html>

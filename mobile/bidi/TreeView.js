@@ -3,7 +3,7 @@ define([
 ], function(declare){
 
 	// module:
-	//		dojox/mobile/bidi/TreeView
+	//		dui/mobile/bidi/TreeView
 
 	return declare(null, {
 		// summary:

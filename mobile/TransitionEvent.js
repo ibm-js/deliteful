@@ -1,6 +1,6 @@
 define(["dojo/_base/declare", "dojo/on"], function(declare, on){
 
-	return declare("dojox.mobile.TransitionEvent", null, {
+	return declare("dui.mobile.TransitionEvent", null, {
 		// summary:
 		//		A class used to trigger view transitions.
 		

@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
-Project Name:  dojox/mobile
+Project Name:  dui/mobile
 -------------------------------------------------------------------------------
 Version 1.0
 Release date: 03/23/2010
 -------------------------------------------------------------------------------
 Project state:
-dojox/mobile: stable
-dojox/mobile/app: experimental; please use dojox/app instead.
+dui/mobile: stable
+dui/mobile/app: experimental; please use dojox/app instead.
 -------------------------------------------------------------------------------
 [ YES ]	 l18n support?
 [ YES ]	 a11y support?
@@ -14,7 +14,7 @@ dojox/mobile/app: experimental; please use dojox/app instead.
 Credits:
        Jared Jurkiewicz (jared.jurkiewicz@gmail.com)
        Yoshiroh Kamiyama
-       Shane O'Sullivan (dojox/mobile/app)
+       Shane O'Sullivan (dui/mobile/app)
        Soyhy Lim
        Sebastien Brunot
        Eric Durocher
@@ -38,5 +38,5 @@ Dependencies:
 -------------------------------------------------------------------------------
 Documentation
         Documentation resides at:
-        http://dojotoolkit.org/reference-guide/dojox/mobile.html
+        http://dojotoolkit.org/reference-guide/dui/mobile.html
 -------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ define([
 		},
 		_setIcon: function(icon, n){
 			this.inherited(arguments);
-			// dojox.mobile mirroring support
+			// dui.mobile mirroring support
 			if(this.iconDivNode && !this.isLeftToRight()){
 				domClass.remove(this.iconDivNode, "duiTabBarButtonIconArea");	
 				domClass.add(this.iconDivNode, "duiTabBarButtonIconAreaRtl");	

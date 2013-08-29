@@ -19,7 +19,7 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(array, connect, win, ready, registry){
 			function setRightIcon2Value(id, val){
 				var txt = win.doc.createTextNode(val);
@@ -139,30 +139,30 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true'>
-		<h1 data-dojo-type="dojox/mobile/Heading">View 1</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">RoundRectList</h2>
-		<ul id="list1" data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
+	<div id="view1" data-dojo-type="dui/mobile/View" data-dojo-props='selected:true'>
+		<h1 data-dojo-type="dui/mobile/Heading">View 1</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">RoundRectList</h2>
+		<ul id="list1" data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
 			   , moveTo:"view2", arrowClass:"duiDomButtonSilverCircleDownArrow"'>
 				Slide
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
 			   , moveTo:"view2", arrowClass:"duiDomButtonSilverCircleGreenButton"'>
 				Flip
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"
 			   , moveTo:"view2", arrowClass:"duiDomButtonSilverCircleRedCross"'>
 				Fade
 			</li>
 		</ul>
 	</div>
 
-	<div id="view2" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view1"'>View 2</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Dom Button with Text</h2>
-		<ul id="list2" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
-			<li id="item1" data-dojo-type="dojox/mobile/ListItem"
+	<div id="view2" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view1"'>View 2</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Dom Button with Text</h2>
+		<ul id="list2" data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
+			<li id="item1" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='icon:"duiDomButtonBlueBall", moveTo:"view3", rightIcon2:"duiDomButtonGrayRoundRect"'>
 				<div class="textBox">
 					<div class="subject">Dojo: Traditional Karate-do Spirit</div>
@@ -171,7 +171,7 @@
 					<span style="color:red">$14.50 (50%)</span> In Stock
 				</div>
 			</li>
-			<li id="item2" data-dojo-type="dojox/mobile/ListItem"
+			<li id="item2" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='icon:"duiDomButtonTransparent19", moveTo:"view3", rightIcon2:"duiDomButtonGrayRoundRect"'>
 				<div class="textBox">
 					<div class="subject">Japanese Martial Arts Dojo</div>
@@ -179,7 +179,7 @@
 					<span style="color:red">$14.00 (60%)</span> In Stock
 				</div>
 			</li>
-			<li id="item3" data-dojo-type="dojox/mobile/ListItem"
+			<li id="item3" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='icon:"duiDomButtonGreenBall", moveTo:"view3", rightIcon2:"duiDomButtonGrayRoundRect"'>
 				<div class="textBox">
 					<div class="subject">Total Solar Eclipse</div>
@@ -192,50 +192,50 @@
 		</ul>
 	</div>
 
-	<div id="view3" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view2"'>View 3</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Variable Height List</h2>
-		<ul id="list3" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
-			<li data-dojo-type="dojox/mobile/ListItem"
+	<div id="view3" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view2"'>View 3</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Variable Height List</h2>
+		<ul id="list3" data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='moveTo:"view4", arrowClass:"duiDomButtonBlueCircleArrow"'>
 				Top 10 news stories of the decade
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem"
+			<li data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='moveTo:"view4", arrowClass:"duiDomButtonBlueCircleArrow"'>
 				Create client-side diagrammatic interaction in Web applications with GFX
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem"
+			<li data-dojo-type="dui/mobile/ListItem"
 				data-dojo-props='moveTo:"view4", arrowClass:"duiDomButtonBlueCircleArrow"'>
 				Explores advanced topics in the new Java framework for implementing and consuming REST-based Web services, Part 3
 			</li>
 		</ul>
 	</div>
 
-	<div id="view4" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view3"'>View 4</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Custom DOM Buttons</h2>
-		<ul id="list4" data-dojo-type="dojox/mobile/RoundRectList">
-			<li id="item41" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonMyCustomButton1", moveTo:"view5"'>
+	<div id="view4" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view3"'>View 4</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Custom DOM Buttons</h2>
+		<ul id="list4" data-dojo-type="dui/mobile/RoundRectList">
+			<li id="item41" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonMyCustomButton1", moveTo:"view5"'>
 				My Custom Button 1
 			</li>
-			<li id="item42" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonMyCustomButton2", moveTo:"view5"'>
+			<li id="item42" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonMyCustomButton2", moveTo:"view5"'>
 				My Custom Button 2
 			</li>
 		</ul>
 	</div>
 
-	<div id="view5" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view4"'>View 5</h1>
-		<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">EdgeToEdgeList</h2>
-		<ul id="list5" data-dojo-type="dojox/mobile/EdgeToEdgeList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"'>
+	<div id="view5" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view4"'>View 5</h1>
+		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">EdgeToEdgeList</h2>
+		<ul id="list5" data-dojo-type="dui/mobile/EdgeToEdgeList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus"'>
 				Airplane Mode
-				<div data-dojo-type="dojox/mobile/Switch"></div>
+				<div data-dojo-type="dui/mobile/Switch"></div>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus", rightText:"mac", moveTo:"view1"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus", rightText:"mac", moveTo:"view1"'>
 				Wi-Fi
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus", rightText:"AcmePhone", moveTo:"view1"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"duiDomButtonRedCircleMinus", rightText:"AcmePhone", moveTo:"view1"'>
 				Carrier
 			</li>
 		</ul>

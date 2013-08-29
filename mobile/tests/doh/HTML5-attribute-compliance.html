@@ -22,12 +22,12 @@
 			"dojo/domReady!",
 			"dijit/registry",
 			"doh/runner",
-			"dojox/mobile/compat",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/SwapView"
+			"dui/mobile/compat",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/SwapView"
 		], function(parser, dom, domClass, ready, registry, runner){
 			parser.parse();
-			runner.register("dojox/mobile/test.doh.HTML5compliance", [
+			runner.register("dui/mobile/test.doh.HTML5compliance", [
 				function testInView1(){
 					// Check support for "fixed" attribute on widgets
 					var view = registry.byId("view1");
@@ -104,17 +104,17 @@
 <!-- 1. "fixed" / "data-mobile-fixed" attribute for view header/footer -->
 
 <!-- Using fixed as attribute (legacy) on widgets -->
-<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
+<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
 	<!-- "fixed" attribute on widgets -->
-	<h1 id="fixedTop1" data-dojo-type="dojox/mobile/Heading"
+	<h1 id="fixedTop1" data-dojo-type="dui/mobile/Heading"
 		fixed="top">Top 1</h1>
 
-	<h1 id="fixedBottom1" data-dojo-type="dojox/mobile/Heading"
+	<h1 id="fixedBottom1" data-dojo-type="dui/mobile/Heading"
 		fixed="bottom">Bottom 1</h1>
 </div>
 
 <!-- Using fixed as attribute (legacy) on HTML elements -->
-<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
+<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
 	<!-- "fixed" attribute on HTML elements -->
 	<h1 id="fixedTop2" fixed="top">Top 2</h1>
 
@@ -122,17 +122,17 @@
 </div>
 
 <!-- Using data-mobile-fixed as attribute (new in Dojo 1.9) on widgets -->
-<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
+<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
 	<!-- "data-mobilefixed" attribute on widgets -->
-	<h1 id="fixedTop3" data-dojo-type="dojox/mobile/Heading"
+	<h1 id="fixedTop3" data-dojo-type="dui/mobile/Heading"
 		data-mobile-fixed="top">Top 1</h1>
 
-	<h1 id="fixedBottom3" data-dojo-type="dojox/mobile/Heading"
+	<h1 id="fixedBottom3" data-dojo-type="dui/mobile/Heading"
 		data-mobile-fixed="bottom">Bottom 1</h1>
 </div>
 
 <!-- Using data-mobile fixed as attribute (new in Dojo 1.9) on HTML elements -->
-<div id="view4" data-dojo-type="dojox/mobile/ScrollableView">
+<div id="view4" data-dojo-type="dui/mobile/ScrollableView">
 	<!-- "data-mobile-fixed" attribute on HTML elements -->
 	<h1 id="fixedTop4" data-mobile-fixed="top">Top 2</h1>
 
@@ -141,26 +141,26 @@
 
 <!-- 2. "lazy" / "data-mobile-lazy" attribute for Carusel's children -->
 
-<div id="view6" data-dojo-type="dojox/mobile/View">
-	<ul data-dojo-type="dojox/mobile/RoundRectList">
-		<li data-dojo-type="dojox/mobile/ListItem">
+<div id="view6" data-dojo-type="dui/mobile/View">
+	<ul data-dojo-type="dui/mobile/RoundRectList">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild1" layout="left">
 				<div>Left</div>
 			</div>
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild2" layout="center">Center</div>
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild3" layout="right">Right</div>
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild4" data-mobile-layout="left">Left</div>
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild5" data-mobile-layout="center">Center</div>
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem">
+		<li data-dojo-type="dui/mobile/ListItem">
 			<div id="listItemChild6" data-mobile-layout="right">Right</div>
 		</li>
 	</ul>

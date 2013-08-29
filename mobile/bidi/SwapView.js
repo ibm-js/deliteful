@@ -3,7 +3,7 @@ define([
 ], function(declare){
 
 	// module:
-	//		dojox/mobile/bidi/SwapView
+	//		dui/mobile/bidi/SwapView
 
 	return declare(null, {
 		
@@ -13,7 +13,7 @@ define([
 		_callParentFunction: false,
 		
 		nextView: function(/*DomNode*/node){
-			//dojox.mobile mirroring support
+			//dui.mobile mirroring support
 			if(this.isLeftToRight() || this._callParentFunction){
 				this._callParentFunction = false;
 				return this.inherited(arguments);
@@ -23,7 +23,7 @@ define([
 			}
 		},
 		previousView: function(/*DomNode*/node){
-			//dojox.mobile mirroring support
+			//dui.mobile mirroring support
 			if(this.isLeftToRight() || this._callParentFunction){
 				this._callParentFunction = false;
 				return this.inherited(arguments);

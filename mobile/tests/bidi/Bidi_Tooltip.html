@@ -19,11 +19,11 @@
 			"dijit/registry",
 			"dijit/_base/manager",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/Tooltip",
-			"dojox/mobile/Button",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/ListItem"
+			"dui/mobile/compat",
+			"dui/mobile/Tooltip",
+			"dui/mobile/Button",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/ListItem"
 		], function(connect, ready, array, dom, registry){
 			ready(function(){
 			
@@ -69,45 +69,45 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+<div id="group1" data-dojo-type="dui/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
 
-	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
-	        <h2 data-dojo-type="dojox/mobile/Heading">Tooltip widget</h2>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO (with Span tag)</li>
+	<div id="view0" data-dojo-type="dui/mobile/ScrollableView">
+	        <h2 data-dojo-type="dui/mobile/Heading">Tooltip widget</h2>
+		<h1 data-dojo-type="dui/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO (with Span tag)</li>
 		</ul>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO (with Bold tag)</li>
+		<h1 data-dojo-type="dui/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO (with Bold tag)</li>
 		</ul>	
 		
 	</div>	
 	
 	
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip1" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello world!</div>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip1" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello world!</div>
 		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip2" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip2" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip2').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip3" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip3" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip3').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip4" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip4" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
 		<input readonly onclick="dijit.byId('textTooltip4').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		
@@ -121,33 +121,33 @@
 		<br>
 		<br>
 		<center>
-		<button data-dojo-type="dojox/mobile/Button" id="btn0" >Set textDir for last Tooltip to ltr</button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn1" >Set textDir for last Tooltip to rtl</button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn2" >Set textDir for last Tooltip to auto</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn0" >Set textDir for last Tooltip to ltr</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn1" >Set textDir for last Tooltip to rtl</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn2" >Set textDir for last Tooltip to auto</button>
 		</center>
 			
 	</div>
 	
 		
-	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip5" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
+	<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip5" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
 		<input readonly onclick="dijit.byId('textTooltip5').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip6" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip6" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip6').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip7" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip7" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip7').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip8" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip8" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
 		<input readonly onclick="dijit.byId('textTooltip8').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		
@@ -163,25 +163,25 @@
 		
 	</div>
 		
-	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip9" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><span style="background-color:Lime">Hello world!</span></div>
+	<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip9" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><span style="background-color:Lime">Hello world!</span></div>
 		<input readonly onclick="dijit.byId('textTooltip9').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip10" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span></div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip10" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span></div>
 		<input readonly onclick="dijit.byId('textTooltip10').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip11" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</span></div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip11" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</span></div>
 		<input readonly onclick="dijit.byId('textTooltip11').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip12" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</span></div>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip12" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</span></div>
 		<input readonly onclick="dijit.byId('textTooltip12').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
 		
 		</div>		
@@ -196,25 +196,25 @@
 	</div>	
 	 
 	 
-	<div  id="view4" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>	
-		<div id="textTooltip13" data-dojo-type="dojox/mobile/Tooltip" class="duiTooltipBubble">Hello world!</div>
+	<div  id="view4" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>	
+		<div id="textTooltip13" data-dojo-type="dui/mobile/Tooltip" class="duiTooltipBubble">Hello world!</div>
 		<input readonly onclick="dijit.byId('textTooltip13').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip14" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip14" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip14').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip15" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip15" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip15').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip16" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip16" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
 		<input readonly onclick="dijit.byId('textTooltip16').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 	
@@ -227,25 +227,25 @@
 		</center>
 		
 	</div>
-	<div id="view5" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip17" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
+	<div id="view5" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip17" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
 		<input readonly onclick="dijit.byId('textTooltip17').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip18" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip18" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip18').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip19" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip19" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
 		<input readonly onclick="dijit.byId('textTooltip19').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip20" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip20" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
 		<input readonly onclick="dijit.byId('textTooltip20').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 			
@@ -257,25 +257,25 @@
 		</center>	
 		
 	</div>	
-	<div id="view6" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip21" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><b style="background-color:Lime"> Hello world! </b></div>
+	<div id="view6" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip21" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><b style="background-color:Lime"> Hello world! </b></div>
 		<input readonly onclick="dijit.byId('textTooltip21').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip22" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</b></div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip22" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</b></div>
 		<input readonly onclick="dijit.byId('textTooltip22').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>	
-		<div id="textTooltip23" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</b></div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
+		<div id="textTooltip23" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</b></div>
 		<input readonly onclick="dijit.byId('textTooltip23').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
-		<div dir="rtl" data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
-		<div id="textTooltip24" data-dojo-type="dojox/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</b></div>
+		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div id="textTooltip24" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</b></div>
 		<input readonly onclick="dijit.byId('textTooltip24').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
 		
 		</div>				

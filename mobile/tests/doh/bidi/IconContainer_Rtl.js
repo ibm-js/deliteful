@@ -1,12 +1,12 @@
 dojo.addOnLoad(function(){
-	doh.register("dojox.mobile.test.doh.IconContainer", [
+	doh.register("dui.mobile.test.doh.IconContainer", [
 		{
 			name: "IconContainer Verification",
 			timeout: 4000,
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var demoWidget = dijit.byId("dojox_mobile_IconContainer_0");
+					var demoWidget = dijit.byId("dui_mobile_IconContainer_0");
 					doh.assertEqual('duiIconContainer duiIconContainerRtl', demoWidget.domNode.className);
 					
 				}));
@@ -18,7 +18,7 @@ dojo.addOnLoad(function(){
 			timeout: 4000,
 			runTest: function(){
 				var d = new doh.Deferred();
-				var demoWidget = dijit.byId("dojox_mobile_IconItem_0");
+				var demoWidget = dijit.byId("dui_mobile_IconItem_0");
 				var e;
 				//lazy loading
 
@@ -26,14 +26,14 @@ dojo.addOnLoad(function(){
 				fireOnMouseDown(demoWidget.domNode);
 				fireOnMouseUp(demoWidget.domNode);
 
-				demoWidget = dijit.byId("dojox_mobile_IconItem_1");
+				demoWidget = dijit.byId("dui_mobile_IconItem_1");
 				doh.assertEqual('none', demoWidget.paneWidget.domNode.style.display);
 				fireOnMouseDown(demoWidget.domNode);
 				fireOnMouseUp(demoWidget.domNode);
 
 				setTimeout(d.getTestCallback(function(){
-					verifyIconItem("dojox_mobile_IconItem_0", 'app1', '', /icon3.png/i);
-					verifyIconItem("dojox_mobile_IconItem_1", 'app2', '', /icon3.png/i);
+					verifyIconItem("dui_mobile_IconItem_0", 'app1', '', /icon3.png/i);
+					verifyIconItem("dui_mobile_IconItem_1", 'app2', '', /icon3.png/i);
 				}),2000);
 				return d;
 			}
@@ -42,7 +42,7 @@ dojo.addOnLoad(function(){
 			name: "IconContainer set",
 			timeout: 4000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dojox_mobile_IconContainer_0");
+				var demoWidget = dijit.byId("dui_mobile_IconContainer_0");
 				demoWidget.set({transition:"slide", pressedIconOpacity:"0.8"});
 
 				doh.assertEqual(0.8, demoWidget.get("pressedIconOpacity"));
@@ -53,7 +53,7 @@ dojo.addOnLoad(function(){
 			name: "IconItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dojox_mobile_IconItem_1");
+				var demoWidget = dijit.byId("dui_mobile_IconItem_1");
 				demoWidget.set({icon:"../../images/icon1.png"});
 				doh.assertEqual("../../images/icon1.png", demoWidget.get("icon"));
 				doh.assertTrue(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].src.search(/icon1.png/i) != -1);

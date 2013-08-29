@@ -6,7 +6,7 @@ define([
 	/*=====
 	return function(){
 		// module:
-		//		dojox/mobile/TimePicker
+		//		dui/mobile/TimePicker
 		// summary:
 		//		A wrapper widget around SpinWheelTimePicker or ValuePickerTimePicker.
 		//		Returns ValuePickerTimePicker when the current theme is "android" or "holodark".
@@ -17,5 +17,5 @@ define([
 	 };
 	=====*/
 
-	return lang.setObject("dojox.mobile.TimePicker", TimePicker);
+	return lang.setObject("dui.mobile.TimePicker", TimePicker);
 });

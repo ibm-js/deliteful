@@ -6,13 +6,13 @@ define([
 ],
 	function(declare, domConstruct, domClass, domStyle){
 	// module:
-	//		dojox/mobile/bidi/_ComboBoxMenu
+	//		dui/mobile/bidi/_ComboBoxMenu
 
 	return declare(null, {
 
 		buildRendering: function(){
 			this.inherited(arguments);
-			// dojox.mobile mirroring support
+			// dui.mobile mirroring support
 			if(!this.isLeftToRight()){
 				this.containerNode.style.left = "auto";
 				domStyle.set(this.containerNode, { position:"absolute", top:0, right:0 });

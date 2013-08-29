@@ -15,11 +15,11 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.ValuePicker */
+/* dui.mobile.ValuePicker */
 .duiValuePicker {
   height: 126px;
 }
-/* dojox.mobile.ValuePickerSlot */
+/* dui.mobile.ValuePickerSlot */
 .duiValuePicker > .duiValuePickerSlot {
   float: left;
   margin: 0 5px;
@@ -57,7 +57,7 @@
   background-color: transparent;
   font-size: 17pt;
 }
-/* dojox.mobile.ValuePickerTimePicker */
+/* dui.mobile.ValuePickerTimePicker */
 .duiValuePickerTimePicker > .duiToolBarButton {
   top: 45px;
 }

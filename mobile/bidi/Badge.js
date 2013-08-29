@@ -1,7 +1,7 @@
 define(["dojo/_base/declare", "./common"], function(declare, common){
 
 	// module:
-	//		dojox/mobile/bidi/Badge
+	//		dui/mobile/bidi/Badge
 
 	return declare(null, {
 		// summary:

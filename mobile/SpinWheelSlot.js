@@ -8,7 +8,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/has", 
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/SpinWheelSlot",
+	"dojo/has!dojo-bidi?dui/mobile/bidi/SpinWheelSlot",
 	"dojo/touch",
 	"dojo/on",
 	"dijit/_Contained",
@@ -19,9 +19,9 @@ define([
 	touch, on, Contained, WidgetBase, Scrollable){
 
 	// module:
-	//		dojox/mobile/SpinWheelSlot
+	//		dui/mobile/SpinWheelSlot
 
-	var SpinWheelSlot = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiSpinWheelSlot" : "dojox.mobile.SpinWheelSlot", [WidgetBase, Contained, Scrollable], {
+	var SpinWheelSlot = declare(has("dojo-bidi") ? "dui.mobile.NonBidiSpinWheelSlot" : "dui.mobile.SpinWheelSlot", [WidgetBase, Contained, Scrollable], {
 		// summary:
 		//		A slot of a SpinWheel.
 		// description:
@@ -397,14 +397,14 @@ define([
 		
 		onFlickAnimationStart: function(e){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.onFlickAnimationStart().
+			//		Overrides dui/mobile/scrollable.onFlickAnimationStart().
 			this._onFlickAnimationStartCalled = true;
 			this.inherited(arguments);
 		},
 
 		onFlickAnimationEnd: function(e){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.onFlickAnimationEnd().
+			//		Overrides dui/mobile/scrollable.onFlickAnimationEnd().
 			this._duringSlideTo = false;
 			this._onFlickAnimationStartCalled = false;
 			this.inherited(arguments);
@@ -425,7 +425,7 @@ define([
 
 		getSpeed: function(){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.getSpeed().
+			//		Overrides dui/mobile/scrollable.getSpeed().
 			var y = 0, n = this._time.length;
 			var delta = (new Date()).getTime() - this.startTime - this._time[n - 1];
 			if(n >= 2 && delta < 200){
@@ -438,7 +438,7 @@ define([
 
 		calcSpeed: function(/*Number*/d, /*Number*/t){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.calcSpeed().
+			//		Overrides dui/mobile/scrollable.calcSpeed().
 			var speed = this.inherited(arguments);
 			if(!speed){ return 0; }
 			var v = Math.abs(speed);
@@ -451,7 +451,7 @@ define([
 
 		adjustDestination: function(to, pos, dim){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.adjustDestination().
+			//		Overrides dui/mobile/scrollable.adjustDestination().
 			var h = this._itemHeight;
 			var j = to.y + Math.round(h/2);
 			var r = j >= 0 ? j % h : j % h + h;
@@ -481,7 +481,7 @@ define([
 
 		slideTo: function(/*Object*/to, /*Number*/duration, /*String*/easing){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.slideTo().
+			//		Overrides dui/mobile/scrollable.slideTo().
 			this._duringSlideTo = true; 
 			var pos = this.getPos();
 			var top = pos.y + this.panelNodes[1].offsetTop;
@@ -527,5 +527,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.SpinWheelSlot", [SpinWheelSlot, BidiSpinWheelSlot]) : SpinWheelSlot;	
+	return has("dojo-bidi") ? declare("dui.mobile.SpinWheelSlot", [SpinWheelSlot, BidiSpinWheelSlot]) : SpinWheelSlot;	
 });

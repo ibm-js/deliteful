@@ -14,10 +14,10 @@
 		"dojo/domReady!",
 		"dijit/registry",
 		"doh/runner",
-		"dojox/mobile/Heading",
-		"dojox/mobile/ListItem",
-		"dojox/mobile/View",
-		"dojox/mobile/compat"
+		"dui/mobile/Heading",
+		"dui/mobile/ListItem",
+		"dui/mobile/View",
+		"dui/mobile/compat"
 	], function(parser, ready, registry, runner, Heading, ListItem){
 
 		// This main purpose of this test is to check the correct handling of 
@@ -124,7 +124,7 @@
 		};
 		
 		ready(function(){
-			runner.register("dojox/mobile/test.doh.ListItem3_Programmatic", [
+			runner.register("dui/mobile/test.doh.ListItem3_Programmatic", [
 				{
 					name: "ListItem3_Programmatic for ListItem created with clickable at false",
 					timeout: 2000,
@@ -206,12 +206,12 @@
 </script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
-		<h1 data-dojo-type="dojox/mobile/Heading">RoundRectList</h1>
-		<ul id="list" data-dojo-type="dojox/mobile/RoundRectList">
+	<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
+		<h1 data-dojo-type="dui/mobile/Heading">RoundRectList</h1>
+		<ul id="list" data-dojo-type="dui/mobile/RoundRectList">
 		</ul>
 	</div>
-	<div id="view2" data-dojo-type="dojox/mobile/View">
+	<div id="view2" data-dojo-type="dui/mobile/View">
 	</div>
 </body>
 </html>

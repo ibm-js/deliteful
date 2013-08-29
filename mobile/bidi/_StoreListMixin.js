@@ -3,7 +3,7 @@ define([
 ], function(declare){
 
 	// module:
-	//		dojox/mobile/bidi/_StoreListMixin
+	//		dui/mobile/bidi/_StoreListMixin
 
 	return declare(null, {
 		// summary:

@@ -13,8 +13,8 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/TabBar"
+			"dui/mobile/compat",
+			"dui/mobile/TabBar"
 		]);
 	</script>
 
@@ -41,15 +41,15 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"'>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view1", selected:true'>New</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view2"'>What's Hot</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='moveTo:"view3"'>Genius</li>
+	<ul data-dojo-type="dui/mobile/TabBar" data-dojo-props='barType:"segmentedControl"'>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='moveTo:"view1", selected:true'>New</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='moveTo:"view2"'>What's Hot</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='moveTo:"view3"'>Genius</li>
 	</ul>
 
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" id="list1">
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" id="list1">
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
 				<table>
 					<tbody>
 						<tr>
@@ -65,7 +65,7 @@
 					</tbody>
 				</table>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
 				<table>
 					<tbody>
 						<tr>
@@ -81,7 +81,7 @@
 					</tbody>
 				</table>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
 				<table>
 					<tbody>
 						<tr>
@@ -97,7 +97,7 @@
 					</tbody>
 				</table>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
 				<table>
 					<tbody>
 						<tr>
@@ -113,7 +113,7 @@
 					</tbody>
 				</table>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size: 10px;" data-dojo-props='variableHeight:true'>
 				<table>
 					<tbody>
 						<tr>
@@ -132,29 +132,29 @@
 		</ul>
 	</div>
 
-	<div id="view2" data-dojo-type="dojox/mobile/View">
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png"'>
+	<div id="view2" data-dojo-type="dui/mobile/View">
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png"'>
 				Sounds
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png"'>
 				Brightness
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png"'>
 				Wallpaper
 			</li>
 		</ul>
 	</div>
 
-	<div id="view3" data-dojo-type="dojox/mobile/View">
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png"'>
+	<div id="view3" data-dojo-type="dui/mobile/View">
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png"'>
 				General
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-5.png"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-5.png"'>
 				Mail, Contacts, Calendars
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-6.png"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-6.png"'>
 				Phone
 			</li>
 		</ul>

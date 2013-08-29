@@ -6,9 +6,9 @@ define([
 ], function(array, declare, Contained, WidgetBase){
 
 	// module:
-	//		dojox/mobile/Pane
+	//		dui/mobile/Pane
 
-	return declare("dojox.mobile.Pane", [WidgetBase, Contained], {
+	return declare("dui.mobile.Pane", [WidgetBase, Contained], {
 		// summary:
 		//		A simple pane widget.
 		// description:

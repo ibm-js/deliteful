@@ -11,9 +11,9 @@ define([
 	"./scrollable"
 ], function(dojo, config, declare, lang, win, dom, domClass, registry, topic, Scrollable){
 	// module:
-	//		dojox/mobile/_ScrollableMixin
+	//		dui/mobile/_ScrollableMixin
 
-	var cls = declare("dojox.mobile._ScrollableMixin", Scrollable, {
+	var cls = declare("dui.mobile._ScrollableMixin", Scrollable, {
 		// summary:
 		//		Mixin for widgets to have a touch scrolling capability.
 	
@@ -28,7 +28,7 @@ define([
 		_fixedAppFooter: "",
 
 		// scrollableParams: Object
-		//		Parameters for dojox/mobile/scrollable.init().
+		//		Parameters for dui/mobile/scrollable.init().
 		scrollableParams: null,
 
 		// allowNestedScrolls: Boolean
@@ -87,7 +87,7 @@ define([
 			}
 			// subscribe to afterResizeAll to scroll the focused input field into view
 			// so as not to break layout on orientation changes while keyboard is shown (#14991)
-			this._resizeHandle = this.own(topic.subscribe("/dojox/mobile/afterResizeAll", lang.hitch(this, function(){
+			this._resizeHandle = this.own(topic.subscribe("/dui/mobile/afterResizeAll", lang.hitch(this, function(){
 				if(this.domNode.style.display === 'none'){ return; }
 				var elem = win.doc.activeElement;
 				if(this.isFormElement(elem) && dom.isDescendant(elem, this.containerNode)){

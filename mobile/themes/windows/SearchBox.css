@@ -13,7 +13,7 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.SearchBox */
+/* dui.mobile.SearchBox */
 .duiSearchBox.iphone4:focus::-webkit-search-cancel-button {
   background: none !important;
   border-color: transparent !important;
@@ -51,8 +51,8 @@
 .dj_chrome .duiSearchBox {
   border-radius: 0;
 }
-/* CSS class for the parent DIV of the dojox/mobile/SearchBox used for filtering a 
-  dojox/mobile/RoundRectList or subclass. This class is set by dojox/mobile/FilteredListMixin 
+/* CSS class for the parent DIV of the dui/mobile/SearchBox used for filtering a 
+  dui/mobile/RoundRectList or subclass. This class is set by dui/mobile/FilteredListMixin 
   only if the mixin creates the SearchBox by itself. */
 .duiFilteredRoundRectListSearchBox {
   width: 100%;
@@ -64,8 +64,8 @@
 .duiFilteredRoundRectListSearchBox > input {
   width: 100%;
 }
-/* CSS class for the parent DIV of the dojox/mobile/SearchBox used for filtering a 
-  dojox/mobile/EdgeToEdgeList or subclass. This class is set by dojox/mobile/FilteredListMixin 
+/* CSS class for the parent DIV of the dui/mobile/SearchBox used for filtering a 
+  dui/mobile/EdgeToEdgeList or subclass. This class is set by dui/mobile/FilteredListMixin 
   only if the mixin creates the SearchBox by itself. */
 .duiFilteredEdgeToEdgeListSearchBox {
   width: 100%;

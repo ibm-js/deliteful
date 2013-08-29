@@ -3,14 +3,14 @@ define([
 ], function(lang){
 
 	// module:
-	//		dojox/mobile/dh/SuffixFileTypeMap
+	//		dui/mobile/dh/SuffixFileTypeMap
 
 	var o = {
 		// summary:
 		//		A component that provides a map for determining content-type from
 		//		the suffix of the URL.
 	};
-	lang.setObject("dojox.mobile.dh.SuffixFileTypeMap", o);
+	lang.setObject("dui.mobile.dh.SuffixFileTypeMap", o);
 
 	o.map = {
 		"html": "html",

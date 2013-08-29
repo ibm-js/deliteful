@@ -19,8 +19,8 @@
 			"dojo/store/Observable",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/EdgeToEdgeStoreList"
+			"dui/mobile/compat",
+			"dui/mobile/EdgeToEdgeStoreList"
 		], function(Deferred, Cache, JsonRest, Memory, Observable, registry){
 			var static_data1 = [
 				{ label: "Category 1", header: true },
@@ -76,9 +76,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View" dir="rtl">
-		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList RTL</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='store:store, query:{}'></ul>
+	<div data-dojo-type="dui/mobile/View" dir="rtl">
+		<h1 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList RTL</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='store:store, query:{}'></ul>
 		<p>show the different set:<br>
 		<input type="button" value="Set1" onclick="switchTo(store1)">
 		<input type="button" value="Set2" onclick="switchTo(store2)">

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <title>Templated Widgets Tests</title>
 
-<!-- DOH test for the dojox/mobile widgets which support templatization:
+<!-- DOH test for the dui/mobile widgets which support templatization:
 	 Button, CheckBox, Heading, ListItem, RadioButton, Slider,
 	 Switch, ToggleButton, and View. -->
 
@@ -27,7 +27,7 @@ var templateListItem1 = // pure HTML
 // With widgets; with attach point for labelNode.
 var templateListItem2 =
 		"<div>" +
-				"  <div data-dojo-type='dojox/mobile/RoundRect'>" +
+				"  <div data-dojo-type='dui/mobile/RoundRect'>" +
 				"    A template." +
 				"    <div data-dojo-attach-point='labelNode'></div>" +
 				"  </div>" +
@@ -36,23 +36,23 @@ var templateListItem2 =
 // With widgets; without attach point for labelNode.
 var templateListItem3 =
 		"<div>" +
-				"  <div data-dojo-type='dojox/mobile/RoundRect'>" +
+				"  <div data-dojo-type='dui/mobile/RoundRect'>" +
 				"    A template." +
 				"  </div>" +
 				"</div>";
 
 var templateHeading1 =
 		"<div class='duiHeading duiHeadingCenterTitle'>" +
-				"  <span data-dojo-type='dojox/mobile/ToolBarButton'" +
+				"  <span data-dojo-type='dui/mobile/ToolBarButton'" +
 				"    data-dojo-attach-point='backButton'" +
 				"    data-dojo-props='arrow: \"left\", back: true, transitionDir: -1'>" +
 				"  </span>" +
-				"  <ul data-dojo-type='dojox/mobile/TabBar'" +
+				"  <ul data-dojo-type='dui/mobile/TabBar'" +
 				"    style='float:right;'" +
 				"    data-dojo-props='barType:\"segmentedControl\", selectOne:false'>" +
-				"    <li data-dojo-type='dojox/mobile/TabBarButton'" +
+				"    <li data-dojo-type='dui/mobile/TabBarButton'" +
 				"      data-dojo-props='icon:\"duiDomButtonWhiteUpArrow\"'></li>" +
-				"    <li data-dojo-type='dojox/mobile/TabBarButton'" +
+				"    <li data-dojo-type='dui/mobile/TabBarButton'" +
 				"      data-dojo-props='icon:\"duiDomButtonWhiteDownArrow\"'></li>" +
 				"  </ul>" +
 				"  <span class='duiHeadingSpanTitle'" +
@@ -123,17 +123,17 @@ var templateSwitch1 =
 
 var templateView1 =
 		"<div>" +
-				"	<div data-dojo-type='dojox/mobile/Heading'" +
+				"	<div data-dojo-type='dui/mobile/Heading'" +
 				"		data-dojo-props='label: \"Templated View\"'>" +
 				"	</div>" +
 				"	<div data-dojo-attach-point='myAttachPoint'>" +
 				"${myProp}" + // no indentation here such that we can test by comparing the
 				"</div>" +    // innerHTML of the attach point with the value of myProp
-				"	<ul data-dojo-type='dojox/mobile/RoundRectList'>" +
-				"		<li data-dojo-type='dojox/mobile/ListItem'>" +
+				"	<ul data-dojo-type='dui/mobile/RoundRectList'>" +
+				"		<li data-dojo-type='dui/mobile/ListItem'>" +
 				"			Apple" +
 				"		</li>" +
-				"		<li data-dojo-type='dojox/mobile/ListItem'>" +
+				"		<li data-dojo-type='dui/mobile/ListItem'>" +
 				"			Banana" +
 				"		</li>";
 "	</ul>" +
@@ -150,26 +150,26 @@ require([
 	"dojo/dom-class",
 	"dojo/sniff",
 	"dijit/registry",
-	"dojox/mobile/compat",
+	"dui/mobile/compat",
 	"dojo/_base/declare",
 	"dojo/dom-construct",
 	"doh/runner",
 	"dijit/_TemplatedMixin",
 	"dijit/_WidgetsInTemplateMixin",
-	"dojox/mobile/ListItem",
-	"dojox/mobile/Heading",
-	"dojox/mobile/Switch",
-	"dojox/mobile/View",
-	"dojox/mobile/Button",
-	"dojox/mobile/TabBar",
-	"dojox/mobile/TabBarButton",
-	"dojox/mobile/CheckBox",
-	"dojox/mobile/ToggleButton",
-	"dojox/mobile/RadioButton",
-	"dojox/mobile/Slider",
-	"dojox/mobile/RoundRect",
-	"dojox/mobile/RoundRectList",
-	"dojox/mobile/ScrollableView"
+	"dui/mobile/ListItem",
+	"dui/mobile/Heading",
+	"dui/mobile/Switch",
+	"dui/mobile/View",
+	"dui/mobile/Button",
+	"dui/mobile/TabBar",
+	"dui/mobile/TabBarButton",
+	"dui/mobile/CheckBox",
+	"dui/mobile/ToggleButton",
+	"dui/mobile/RadioButton",
+	"dui/mobile/Slider",
+	"dui/mobile/RoundRect",
+	"dui/mobile/RoundRectList",
+	"dui/mobile/ScrollableView"
 ], function(parser, ready, dom, domClass, has, registry, compat, declare, domConstruct, runner, TemplatedMixin, WidgetsInTemplateMixin, ListItem, Heading, Switch, View){
 
 	// 2.1 Without widgets (pure HTML); with attach point for labelNode and label property specified
@@ -232,7 +232,7 @@ require([
 
 	parser.parse();
 
-	runner.register("dojox/mobile/test.doh.TemplatedWidgetsTests", [
+	runner.register("dui/mobile/test.doh.TemplatedWidgetsTests", [
 		function testTemplatedListItem(){
 			// 1. Using markup
 
@@ -442,28 +442,28 @@ require([
 </head>
 
 <body>
-<div id="main" data-dojo-type="dojox/mobile/View">
+<div id="main" data-dojo-type="dui/mobile/View">
 	<!-- Templated ListItem -->
-	<div id="ListItem" data-dojo-type="dojox/mobile/ScrollableView">
-		<ul id="list" data-dojo-type="dojox/mobile/RoundRectList"
+	<div id="ListItem" data-dojo-type="dui/mobile/ScrollableView">
+		<ul id="list" data-dojo-type="dui/mobile/RoundRectList"
 			data-dojo-props="variableHeight: true">
 
 			<!-- Templated ListItem -->
 
 			<!-- 1. In markup -->
 			<!-- 1.1 With attach point for labelNode and label property specified -->
-			<li id="listItem1" data-dojo-type="dojox/mobile/ListItem"
+			<li id="listItem1" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-mixins="dijit/_TemplatedMixin"
 				data-dojo-props="label:'Some label',
 						templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 			</li>
 			<!-- 1.2 With attach point for labelNode but no label property specified -->
-			<li id="listItem2" data-dojo-type="dojox/mobile/ListItem"
+			<li id="listItem2" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-mixins="dijit/_TemplatedMixin"
 				data-dojo-props="templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 			</li>
 			<!-- 1.3 Without attach point for labelNode and no label property specified -->
-			<li id="listItem3" data-dojo-type="dojox/mobile/ListItem"
+			<li id="listItem3" data-dojo-type="dui/mobile/ListItem"
 				data-dojo-mixins="dijit/_TemplatedMixin"
 				data-dojo-props="templateString: '<div><div>My inline, multiline <i>HTML</i><br>template (markup)</div></div>'">
 			</li>
@@ -481,7 +481,7 @@ require([
 
 			<!-- Templated Heading -->
 			<!-- 3.1 With back specified and no attach point -->
-			<div id="heading1" data-dojo-type="dojox/mobile/Heading"
+			<div id="heading1" data-dojo-type="dui/mobile/Heading"
 				 data-dojo-props="back:'Back',
 						templateString: '<div>My inline <i>HTML</i> template (markup)</div>'"
 				 data-dojo-mixins="dijit/_TemplatedMixin">
@@ -492,12 +492,12 @@ require([
 			</div>
 
 			<!-- Templated Button -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">Button</span></td>
 						<td style="text-align:right">
-							<button id="button1" data-dojo-type="dojox/mobile/Button"
+							<button id="button1" data-dojo-type="dui/mobile/Button"
 									data-dojo-props="templateString: templateButton1"
 									data-dojo-mixins="dijit/_TemplatedMixin">
 								Press me!
@@ -508,12 +508,12 @@ require([
 			</div>
 
 			<!-- Templated Slider -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">Slider</span></td>
 						<td style="float:right">
-							<input id="slider1" data-dojo-type="dojox/mobile/Slider"
+							<input id="slider1" data-dojo-type="dui/mobile/Slider"
 								   style="width:200px;" type="range"
 								   data-dojo-props="templateString: templateSlider1,
 								value:10, min:0, max:40, step:0.1"
@@ -524,14 +524,14 @@ require([
 			</div>
 
 			<!-- Templated CheckBox -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">CheckBox</span></td>
 						<td style="text-align:right">
 							<label for="checkbox1">Click me</label>
 							<input type="checkbox" id="checkbox1"
-								   data-dojo-type="dojox/mobile/CheckBox"
+								   data-dojo-type="dui/mobile/CheckBox"
 								   data-dojo-props="templateString: templateCheckBox1">
 						</td>
 					</tr>
@@ -539,12 +539,12 @@ require([
 			</div>
 
 			<!-- Templated ToggleButton -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">ToggleButton</span></td>
 						<td style="text-align:right">
-							<button id="togglebutton1" data-dojo-type="dojox/mobile/ToggleButton"
+							<button id="togglebutton1" data-dojo-type="dui/mobile/ToggleButton"
 									data-dojo-props="templateString: templateToggleButton1">
 								Toggle me
 							</button>
@@ -554,13 +554,13 @@ require([
 			</div>
 
 			<!-- Templated Switch -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">Switch</span></td>
 						<td style="text-align:right">
 							<input id="switch1" type="checkbox" value="on"
-								   data-dojo-type="dojox/mobile/Switch"
+								   data-dojo-type="dui/mobile/Switch"
 								   data-dojo-props="templateString: templateSwitch1"
 								   data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
 						</td>
@@ -573,22 +573,22 @@ require([
 			</div>
 
 			<!-- Templated RadioButton -->
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props="shadow:true">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props="shadow:true">
 				<table style="width:100%">
 					<tr>
 						<td><span class="bold">Radio Button</span></td>
 						<td style="text-align:right">
-							<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton"
+							<input type="radio" id="rb1" data-dojo-type="dui/mobile/RadioButton"
 								   data-dojo-props="templateString: templateRadioButton1"
 								   name="mobileRadio" value="Large" checked>
 							<label for="rb1">1</label>
 
-							<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton"
+							<input type="radio" id="rb2" data-dojo-type="dui/mobile/RadioButton"
 								   data-dojo-props="templateString: templateRadioButton1"
 								   name="mobileRadio" value="Large">
 							<label for="rb2">2</label>
 
-							<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton"
+							<input type="radio" id="rb3" data-dojo-type="dui/mobile/RadioButton"
 								   data-dojo-props="templateString: templateRadioButton1"
 								   name="mobileRadio" value="Large">
 							<label for="rb3">3</label>

@@ -1,5 +1,5 @@
 @import "../common/domButtons/DomButtonWhiteCross.css";
-/* dojox.mobile.TabBar */
+/* dui.mobile.TabBar */
 .duiTabBar {
   position: relative;
   margin: 0px;
@@ -14,7 +14,7 @@
   border-bottom: 1px solid #292c31;
   text-shadow: none;
 }
-/* dojox.mobile.TabBarButton */
+/* dui.mobile.TabBarButton */
 .duiTabBarFill .duiTabBarButton {
   box-sizing: border-box;
   -moz-box-sizing: border-box;

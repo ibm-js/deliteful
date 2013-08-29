@@ -13,15 +13,15 @@ define([
 	"./ScrollableView",
 	"./viewRegistry",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/TreeView"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/TreeView"
 ], function(kernel, array, declare, lang, win, domConstruct, registry, Heading, ListItem, ProgressIndicator, RoundRectList, ScrollableView, viewRegistry, has, BidiTreeView){
 
 	// module:
-	//		dojox/mobile/TreeView
+	//		dui/mobile/TreeView
 
-	kernel.experimental("dojox.mobile.TreeView");
+	kernel.experimental("dui.mobile.TreeView");
 
-	var TreeView = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiTreeView" : "dojox.mobile.TreeView", ScrollableView, {
+	var TreeView = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTreeView" : "dui.mobile.TreeView", ScrollableView, {
 		// summary:
 		//		A scrollable view with tree-style navigation.
 		// description:
@@ -59,7 +59,7 @@ define([
 		handleClick: function(li){
 			// summary:
 			//		Called when the user clicks a tree item.
-			// li: dojox/mobile/ListItem
+			// li: dui/mobile/ListItem
 			//		The item that the user clicked.
 			var newViewId = "view_";
 			if(li.item[this.model.newItemIdAttr]){
@@ -115,5 +115,5 @@ define([
 		}
 	});
 	
-	return has("dojo-bidi") ? declare("dojox.mobile.TreeView", [TreeView, BidiTreeView]) : TreeView;		
+	return has("dojo-bidi") ? declare("dui.mobile.TreeView", [TreeView, BidiTreeView]) : TreeView;		
 });

@@ -5,9 +5,9 @@ define([
 ], function(declare, domClass, datelocale){
 
 	// module:
-	//		dojox/mobile/_TimePickerMixin
+	//		dui/mobile/_TimePickerMixin
 
-	return declare("dojox.mobile._TimePickerMixin", null, {
+	return declare("dui.mobile._TimePickerMixin", null, {
 		// summary:
 		//		A mixin for time picker widget.
 

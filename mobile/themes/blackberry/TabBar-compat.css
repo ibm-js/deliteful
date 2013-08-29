@@ -1,5 +1,5 @@
 @import "../common/domButtons/DomButtonWhiteCross-compat.css";
-/* dojox.mobile.TabBar */
+/* dui.mobile.TabBar */
 .dj_ie6 .duiTabBar .duiTabBarButton {
   display: inline;
 }

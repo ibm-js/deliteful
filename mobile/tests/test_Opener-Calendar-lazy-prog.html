@@ -15,18 +15,18 @@
 		require([
 			"dojo/domReady",
 			"dojo/dom-construct",
-			"dojox/mobile/Opener",
-			"dojox/mobile/ToolBarButton",
-			"dojox/mobile/Heading",
-			"dojox/mobile/compat",
+			"dui/mobile/Opener",
+			"dui/mobile/ToolBarButton",
+			"dui/mobile/Heading",
+			"dui/mobile/compat",
 			"dojo/parser",
 			"dijit/_base/manager" // dijit.byId
 		], function(ready, domConstruct, Opener, ToolBarButton, Heading){
 			ready(function(){
 				var opener = new Opener({onHide:getDate2, onShow:setDate2, lazy:true}, "calPicker");
-				var headingNode = domConstruct.create("div", {dojoType:"dojox/mobile/Heading", label:"Dates"}, opener.domNode);
-				domConstruct.create("div", {dojoType:"dojox/mobile/ToolBarButton", label:"Done", style:"position:absolute;width:40px;right:0;", onclick:"dijit.byId('calPicker').hide(true)"}, headingNode);
-				domConstruct.create("div", {dojoType:"dojox/mobile/ToolBarButton", label:"Cancel", style:"position:absolute;width:40px;left:0;", onclick:"dijit.byId('calPicker').hide(false)"}, headingNode);
+				var headingNode = domConstruct.create("div", {dojoType:"dui/mobile/Heading", label:"Dates"}, opener.domNode);
+				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Done", style:"position:absolute;width:40px;right:0;", onclick:"dijit.byId('calPicker').hide(true)"}, headingNode);
+				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Cancel", style:"position:absolute;width:40px;left:0;", onclick:"dijit.byId('calPicker').hide(false)"}, headingNode);
 				domConstruct.create("div", {dojoType:"dijit.CalendarLite", id:"cal"}, opener.domNode);
 			});
 		});

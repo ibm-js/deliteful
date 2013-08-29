@@ -9,18 +9,18 @@ define([
 	"dojo/on",
 	"dojo/sniff",
 	"./_ItemBase",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/ToolBarButton"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/ToolBarButton"
 ], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, has, ItemBase, BidiToolBarButton){
 
 	// module:
-	//		dojox/mobile/ToolBarButton
+	//		dui/mobile/ToolBarButton
 
-	var ToolBarButton = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiToolBarButton" : "dojox.mobile.ToolBarButton", ItemBase, {
+	var ToolBarButton = declare(has("dojo-bidi") ? "dui.mobile.NonBidiToolBarButton" : "dui.mobile.ToolBarButton", ItemBase, {
 		// summary:
 		//		A button widget which is placed in the Heading widget.
 		// description:
 		//		ToolBarButton is a button which is typically placed in the
-		//		Heading widget. It is a subclass of dojox/mobile/_ItemBase just
+		//		Heading widget. It is a subclass of dui/mobile/_ItemBase just
 		//		like ListItem or IconItem. So, unlike Button, it has basically
 		//		the same capability as ListItem or IconItem, such as icon
 		//		support, transition, etc.
@@ -175,5 +175,5 @@ define([
 			domClass.toggle(this.bodyNode, "duiToolBarButtonBodySelected", selected);
 		}
 	});
-	return has("dojo-bidi") ? declare("dojox.mobile.ToolBarButton", [ToolBarButton, BidiToolBarButton]) : ToolBarButton;
+	return has("dojo-bidi") ? declare("dui.mobile.ToolBarButton", [ToolBarButton, BidiToolBarButton]) : ToolBarButton;
 });

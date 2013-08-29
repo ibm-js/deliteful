@@ -3,7 +3,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dijit/form/_SearchMixin",
-	"dojox/mobile/TextBox",
+	"dui/mobile/TextBox",
 	"dojo/dom-class",
 	"dojo/keys",
 	"dojo/touch",
@@ -11,7 +11,7 @@ define([
 	"dojo/sniff"
 ], function(declare, lang, win, SearchMixin, TextBox, domClass, keys, touch, on, has){
 
-	return declare("dojox.mobile.SearchBox", [TextBox, SearchMixin], {
+	return declare("dui.mobile.SearchBox", [TextBox, SearchMixin], {
 		// summary:
 		//		A non-templated base class for INPUT type="search".
 

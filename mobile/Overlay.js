@@ -15,7 +15,7 @@ define([
 	"./_css3"
 ], function(declare, lang, has, win, domClass, domGeometry, domStyle, on, windowUtils, WidgetBase, array, registry, touch, css3){
 
-	return declare("dojox.mobile.Overlay", WidgetBase, {
+	return declare("dui.mobile.Overlay", WidgetBase, {
 		// summary:
 		//		A non-templated widget that animates up from the bottom, 
 		//		overlaying the current content.

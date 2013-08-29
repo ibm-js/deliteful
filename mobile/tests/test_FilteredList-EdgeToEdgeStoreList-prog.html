@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Filtered EdgeToEdgeStoreList - prog</title>
 
-	<!-- This test shows a dojox/mobile/EdgeToEdgeStoreList filtered using dojox/mobile/FilteredListMixin. -->
+	<!-- This test shows a dui/mobile/EdgeToEdgeStoreList filtered using dui/mobile/FilteredListMixin. -->
 	<!-- Use-case: programmatic; without customization of filtering criteria. -->
 	
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base', 'SearchBox']"></script>
@@ -22,13 +22,13 @@
 			"dojo/when",
 			"dojo/parser",
 			"dojo/store/Memory",
-			"dojox/mobile/EdgeToEdgeStoreList",
-			"dojox/mobile/FilteredListMixin",
-			"dojox/mobile/SearchBox",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/Heading",
-			"dojox/mobile/View",
-			"dojox/mobile/compat"
+			"dui/mobile/EdgeToEdgeStoreList",
+			"dui/mobile/FilteredListMixin",
+			"dui/mobile/SearchBox",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/Heading",
+			"dui/mobile/View",
+			"dui/mobile/compat"
 		], function(declare, ready, registry, when, parser, Memory, EdgeToEdgeStoreList, FilteredListMixin){
 			var static_data = { 
 				items: [ 
@@ -96,7 +96,7 @@
 				]
 			};
 			
-			// store for the dojox/mobile/EdgeToEdgeStoreList
+			// store for the dui/mobile/EdgeToEdgeStoreList
 			var store = new Memory({idProperty:"label", data: static_data});
 		    
 			ready(function(){
@@ -115,11 +115,11 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
-		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox"
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
+		<input data-dojo-type="dui/mobile/SearchBox" type="search" id="filterBox"
 			class="duiFilteredEdgeToEdgeListSearchBox">
-		<div id="scrollableView" data-dojo-type="dojox/mobile/ScrollableView"></div>
+		<div id="scrollableView" data-dojo-type="dui/mobile/ScrollableView"></div>
 	</div>
 </body>
 </html>

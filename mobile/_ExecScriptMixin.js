@@ -5,9 +5,9 @@ define([
 	"dojo/dom-construct"
 ], function(kernel, declare, win, domConstruct){
 	// module:
-	//		dojox/mobile/_ExecScriptMixin
+	//		dui/mobile/_ExecScriptMixin
 
-	return declare("dojox.mobile._ExecScriptMixin", null, {
+	return declare("dui.mobile._ExecScriptMixin", null, {
 		// summary:
 		//		Mixin for providing script execution capability to content handlers.
 		// description:

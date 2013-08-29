@@ -26,8 +26,8 @@
 				}
 		};
 		require(["dojo/domReady","dojo/parser",
-			"dijit/registry", "dojox/mobile/DatePicker", "dojo/date/stamp", "dojox/mobile/Opener", "dojox/mobile/compat",
-			"dojox/mobile/Heading", "dojox/mobile/ToolBarButton"], 
+			"dijit/registry", "dui/mobile/DatePicker", "dojo/date/stamp", "dui/mobile/Opener", "dui/mobile/compat",
+			"dui/mobile/Heading", "dui/mobile/ToolBarButton"], 
 	function(ready, parser, registry, DatePicker, stamp) {
 		ready(function() {
 			parser.parse();
@@ -62,27 +62,27 @@
 <div>
 	<div style="text-align:left;font-weight:bold">The date picker below should be 
 		displaying: Jan-01-2020</div>
-	<div id="datePicker1" data-dojo-type="dojox/mobile/DatePicker"></div>
+	<div id="datePicker1" data-dojo-type="dui/mobile/DatePicker"></div>
 	<hr>
 	<div style="text-align:left;font-weight:bold">The date picker below should display 
 		the current date unless you change the year using the button</div>
 	<input readOnly value="" placeholder="Select a date" 
 		onclick="showDatePicker(this)"></input>
-	<div id="opener" data-dojo-type="dojox/mobile/Opener"
+	<div id="opener" data-dojo-type="dui/mobile/Opener"
 		data-dojo-props="onShow: onShow, onHide: onHide">
-		<h1 data-dojo-type="dojox/mobile/Heading" label="Date Picker">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" 
+		<h1 data-dojo-type="dui/mobile/Heading" label="Date Picker">
+			<span data-dojo-type="dui/mobile/ToolBarButton" 
 				data-dojo-props="label:'Done'" class="duiColorBlue"
 				onclick="opener.hide(true)" 
 				style="position:absolute;width:45px;right:0;">
 			</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" 
+			<span data-dojo-type="dui/mobile/ToolBarButton" 
 				data-dojo-props="label:'Cancel'" class="duiColorBlue" 
 				onclick="opener.hide(false)"
 				style="position:absolute;width:45px;left:0;">
 			</span>
 		</h1>
-		<div id="datePicker2" data-dojo-type="dojox/mobile/DatePicker"></div>
+		<div id="datePicker2" data-dojo-type="dui/mobile/DatePicker"></div>
 	</div>
 	<button onclick="updateDate();">Change year to 2020</button>
 </div>

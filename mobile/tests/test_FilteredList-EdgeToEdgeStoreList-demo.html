@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Filtered EdgeToEdgeStoreList - demo</title>
 	
-	<!-- This test shows a dojox/mobile/EdgeToEdgeStoreList filtered using dojox/mobile/FilteredListMixin. -->
+	<!-- This test shows a dui/mobile/EdgeToEdgeStoreList filtered using dui/mobile/FilteredListMixin. -->
 	<!-- Use-case: markup; demonstrates the customization of filtering criteria. -->
 	
 	<script type="text/javascript" src="../deviceTheme.js"></script>
@@ -18,19 +18,19 @@
 		var store;
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/store/Memory",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/EdgeToEdgeStoreList",
-			"dojox/mobile/FilteredListMixin",
-			"dojox/mobile/SearchBox",
-			"dojox/mobile/SimpleDialog",
-			"dojox/mobile/RoundRect",
-			"dojox/mobile/Button",
-			"dojox/mobile/RadioButton",
-			"dojox/mobile/Switch"
+			"dui/mobile/ScrollableView",
+			"dui/mobile/EdgeToEdgeStoreList",
+			"dui/mobile/FilteredListMixin",
+			"dui/mobile/SearchBox",
+			"dui/mobile/SimpleDialog",
+			"dui/mobile/RoundRect",
+			"dui/mobile/Button",
+			"dui/mobile/RadioButton",
+			"dui/mobile/Switch"
 			], function(parser, compat, ready, registry, Memory){
 							
 			var static_data = {
@@ -99,7 +99,7 @@
 				]
 			};
 			
-			// store for the dojox/mobile/EdgeToEdgeStoreList
+			// store for the dui/mobile/EdgeToEdgeStoreList
 			store = new Memory({idProperty: "label", data: static_data});
 		    
 			// Shows the Search Options dialog.
@@ -154,60 +154,60 @@
 </head>
 
 <body style="visibility:hidden;background-color:#424142;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
-		<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox"
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
+		<input data-dojo-type="dui/mobile/SearchBox" type="search" id="filterBox"
 			style="width:50%; float: left; margin-top: 2px" class="duiFilteredEdgeToEdgeListSearchBox">
 		<button style="float:right" onclick="showOptions('dlg_options')">Options</button>
-		<div style="clear:left" data-dojo-type="dojox/mobile/ScrollableView">
-			<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list"
-				data-dojo-mixins="dojox/mobile/FilteredListMixin"
+		<div style="clear:left" data-dojo-type="dui/mobile/ScrollableView">
+			<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list"
+				data-dojo-mixins="dui/mobile/FilteredListMixin"
 				data-dojo-props="filterBoxRef: 'filterBox', placeHolder: 'Search', store: store"></ul>
 		</div>
 	</div>
 	
-	<div id="dlg_options" data-dojo-type="dojox/mobile/SimpleDialog">
+	<div id="dlg_options" data-dojo-type="dui/mobile/SimpleDialog">
 		<div class="duiSimpleDialogTitle">Search Options</div>
 		<table style="width:100%">
 			<tr>
 				<td><span class="bold">Ignore case</span></td>
 				<td style="text-align:left">
-					<input type="checkbox" data-dojo-type="dojox/mobile/Switch" 
+					<input type="checkbox" data-dojo-type="dui/mobile/Switch" 
 						id="ignoreCaseSwitch" value="on"></td>
 			</tr>
 			<tr>
 				<td><span class="bold">Incremental</span></td>
 				<td style="text-align:left">
-					<input type="checkbox" data-dojo-type="dojox/mobile/Switch" 
+					<input type="checkbox" data-dojo-type="dui/mobile/Switch" 
 						id="incrementalSwitch" value="on">
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioStartsWith" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioStartsWith" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Starts with" checked>
 					<label for="radioStartsWith">Starts with</label>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioContains" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioContains" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Contains">
 					<label for="radioContains">Contains</label>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioIs" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioIs" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Is">
 					<label for="radioIs">Is</label>
 				</td>
 			</tr>
 		</table>
 
-		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2l" 
+		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2l" 
 			onclick="hideOptions('dlg_options', false)">Cancel</button>
-		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
+		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
 			onclick="hideOptions('dlg_options', true)">OK</button>
 	</div>
 </body>

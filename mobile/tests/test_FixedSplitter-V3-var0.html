@@ -14,8 +14,8 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/FixedSplitter",
-			"dojox/mobile/Pane"
+			"dui/mobile/FixedSplitter",
+			"dui/mobile/Pane"
 		], function(connect, ready, registry){
 			ready(function(){
 				connect.connect(null, "onresize", function(){
@@ -48,14 +48,14 @@
 	</style>
 </head>
 <body>
-	<div id="splitter1" data-dojo-type="dojox/mobile/FixedSplitter" data-dojo-props='orientation:"V", variablePane:0'>
-		<div id="pane0" data-dojo-type="dojox/mobile/Pane">
+	<div id="splitter1" data-dojo-type="dui/mobile/FixedSplitter" data-dojo-props='orientation:"V", variablePane:0'>
+		<div id="pane0" data-dojo-type="dui/mobile/Pane">
 			pane #0 (height=variable)
 		</div>
-		<div id="pane1" data-dojo-type="dojox/mobile/Pane">
+		<div id="pane1" data-dojo-type="dui/mobile/Pane">
 			pane #1 (height=100px)
 		</div>
-		<div id="pane2" data-dojo-type="dojox/mobile/Pane">
+		<div id="pane2" data-dojo-type="dui/mobile/Pane">
 			pane #2 (height=100px)
 		</div>
 	</div>

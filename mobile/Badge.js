@@ -5,19 +5,19 @@ define([
 	"dojo/dom-construct",
 	"./iconUtils",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/Badge"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/Badge"
 ], function(declare, lang, domClass, domConstruct, iconUtils, has, BidiBadge){
 	// module:
-	//		dojox/mobile/Badge
+	//		dui/mobile/Badge
 
-	var Badge = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiBadge" : "dojox.mobile.Badge", null, {
+	var Badge = declare(has("dojo-bidi") ? "dui.mobile.NonBidiBadge" : "dui.mobile.Badge", null, {
 		// summary:
 		//		A utility class to create and update a badge node.
 		// description:
 		//		Badge is not a widget, but a simple utility class for creating and 
 		//		updating a badge node. A badge consists of a simple DOM button. 
-		//		It is intended to be used from other widgets such as dojox/mobile/IconItem 
-		//		or dojox/mobile/TabBarButton.
+		//		It is intended to be used from other widgets such as dui/mobile/IconItem 
+		//		or dui/mobile/TabBarButton.
 
 		// value: [const] String
 		//		A text to show in a badge.
@@ -71,5 +71,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.Badge", [Badge, BidiBadge]) : Badge;
+	return has("dojo-bidi") ? declare("dui.mobile.Badge", [Badge, BidiBadge]) : Badge;
 });

@@ -16,10 +16,10 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/IconContainer",
-			"dojox/mobile/TabBar",
-			"dojox/mobile/RadioButton"
+			"dui/mobile/compat",
+			"dui/mobile/IconContainer",
+			"dui/mobile/TabBar",
+			"dui/mobile/RadioButton"
 		]);
 	</script>
 
@@ -36,85 +36,85 @@
 </head>
 <body style="visibility:hidden;">
 
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" role="heading">Mobile Mashup</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Spaces</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList" role="list">
-			<li id="item1" role="button" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", alt:"Orange", rightText:"Go To", rightIconTitle:"", moveTo:"view2"'>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" role="heading">Mobile Mashup</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Spaces</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList" role="list">
+			<li id="item1" role="button" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", alt:"Orange", rightText:"Go To", rightIconTitle:"", moveTo:"view2"'>
 				Heading Sample
 			</li>
-			<li id="item2" role="button" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", alt:"Green", rightText:"Go To", rightIconTitle:"", moveTo:"view3"'>
+			<li id="item2" role="button" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", alt:"Green", rightText:"Go To", rightIconTitle:"", moveTo:"view3"'>
 				ListItem Sample
 			</li>
-			<li id="item3" role="button" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", alt:"Blue", rightText:"Go To", rightIconTitle:"", moveTo:"view4"'>
+			<li id="item3" role="button" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", alt:"Blue", rightText:"Go To", rightIconTitle:"", moveTo:"view4"'>
 				Icon Sample
 			</li>
 		</ul>
 	</div>
 
-	<div id="view2" data-dojo-type="dojox/mobile/View">
-		<div data-dojo-type="dojox/mobile/Heading">
-			<span id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" title="Edit" role="button">Edit</span>
-			<span id="btn2" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='icon:"duiDomButtonWhitePlus", alt:"Plus"' title="plus" role="button" style="float:right;" onclick="console.log('+ was clicked')"></span>
+	<div id="view2" data-dojo-type="dui/mobile/View">
+		<div data-dojo-type="dui/mobile/Heading">
+			<span id="btn1" data-dojo-type="dui/mobile/ToolBarButton" title="Edit" role="button">Edit</span>
+			<span id="btn2" data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props='icon:"duiDomButtonWhitePlus", alt:"Plus"' title="plus" role="button" style="float:right;" onclick="console.log('+ was clicked')"></span>
 			World Clock
 		</div><br>
 
-		<div data-dojo-type="dojox/mobile/Heading">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="New" role="button" data-dojo-props='toggle:true'>New</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Toggle" role="button" data-dojo-props='toggle:true'>Toggle</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Information" role="button" data-dojo-props='alt:"Information", icon:"images/a-icon-12.png"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Hint" role="button" data-dojo-props='alt:"Hint", icon:"images/tab-icons.png", iconPos:"29,0,29,29"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" data-dojo-props='alt:"Search", icon:"duiDomButtonWhiteSearch"' style="float:right;"></span>
+		<div data-dojo-type="dui/mobile/Heading">
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="New" role="button" data-dojo-props='toggle:true'>New</span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Toggle" role="button" data-dojo-props='toggle:true'>Toggle</span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Information" role="button" data-dojo-props='alt:"Information", icon:"images/a-icon-12.png"'></span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Hint" role="button" data-dojo-props='alt:"Hint", icon:"images/tab-icons.png", iconPos:"29,0,29,29"'></span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Search" role="button" data-dojo-props='alt:"Search", icon:"duiDomButtonWhiteSearch"' style="float:right;"></span>
 		</div><br>
 
-		<div data-dojo-type="dojox/mobile/Heading">
-			<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"' style="float:right;margin-right:6px;" role="tablist">
-				<li data-dojo-type="dojox/mobile/TabBarButton" title="Up" role="button" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", selectOne:false'></li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" title="Down" role="button" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", selectOne:false'></li>
+		<div data-dojo-type="dui/mobile/Heading">
+			<ul data-dojo-type="dui/mobile/TabBar" data-dojo-props='barType:"segmentedControl"' style="float:right;margin-right:6px;" role="tablist">
+				<li data-dojo-type="dui/mobile/TabBarButton" title="Up" role="button" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", selectOne:false'></li>
+				<li data-dojo-type="dui/mobile/TabBarButton" title="Down" role="button" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", selectOne:false'></li>
 			</ul>
 			1 of 10
 		</div><br>
 
-		<div data-dojo-type="dojox/mobile/Heading">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Search" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteSearch", alt:"Search"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Up" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", alt:"Up"'></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Down" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", alt:"Down"'></span>
+		<div data-dojo-type="dui/mobile/Heading">
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Search" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteSearch", alt:"Search"'></span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Up" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteUpArrow", alt:"Up"'></span>
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Down" role="button" style="float:right;" data-dojo-props='icon:"duiDomButtonWhiteDownArrow", alt:"Down"'></span>
 		</div>
 	</div>
 
-	<div id="view3" data-dojo-type="dojox/mobile/View">
-		<div data-dojo-type="dojox/mobile/Heading" role="heading">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
+	<div id="view3" data-dojo-type="dui/mobile/View">
+		<div data-dojo-type="dui/mobile/Heading" role="heading">
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
 			Settings
 		</div>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" role="list">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", alt:""' role="listitem">
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" role="list">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", alt:""' role="listitem">
 				Airplane Mode
-				<div data-dojo-type="dojox/mobile/Switch" title="switch" role="button"></div>
+				<div data-dojo-type="dui/mobile/Switch" title="switch" role="button"></div>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", alt:""' role="listitem">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", alt:""' role="listitem">
 				Wi-Fi
 				<div style="float:right;">
-					<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" value="Medium" checked><label for="rb1">On</label>
-					<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" value="Small"><label for="rb2">Off</label>
+					<input type="radio" id="rb1" data-dojo-type="dui/mobile/RadioButton" value="Medium" checked><label for="rb1">On</label>
+					<input type="radio" id="rb2" data-dojo-type="dui/mobile/RadioButton" value="Small"><label for="rb2">Off</label>
 				</div>
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", alt:"", rightText:"AcmePhone", moveTo:"view1"' role="button">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", alt:"", rightText:"AcmePhone", moveTo:"view1"' role="button">
 				Carrier
 			</li>
 		</ul>
 	</div>
 
-	<div id="view4" data-dojo-type="dojox/mobile/View">
-		<div data-dojo-type="dojox/mobile/Heading" role="heading">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
+	<div id="view4" data-dojo-type="dui/mobile/View">
+		<div data-dojo-type="dui/mobile/Heading" role="heading">
+			<span data-dojo-type="dui/mobile/ToolBarButton" title="Back" role="button" style="float:left;" data-dojo-props='arrow:"left", moveTo:"view1", transitionDir:-1'>Back</span>
 			Icon Container
 		</div>
-		<ul data-dojo-type="dojox/mobile/IconContainer" data-dojo-props='iconItemPaneProps:{closeIconTitle:"Close", closeIconRole:"button"}' role="list">
-			<li data-dojo-type="dojox/mobile/IconItem" lazy="true" data-dojo-props='label:"app1", icon:"images/icon-1.png", alt:"icon1"' role="listitem"><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" lazy="true" data-dojo-props='label:"app2", icon:"images/icon-1.png", alt:"icon2"' role="listitem"><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" lazy="true" data-dojo-props='label:"app3", icon:"images/icon-1.png", alt:"icon3"' role="listitem"><div class="box"></div></li>
+		<ul data-dojo-type="dui/mobile/IconContainer" data-dojo-props='iconItemPaneProps:{closeIconTitle:"Close", closeIconRole:"button"}' role="list">
+			<li data-dojo-type="dui/mobile/IconItem" lazy="true" data-dojo-props='label:"app1", icon:"images/icon-1.png", alt:"icon1"' role="listitem"><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" lazy="true" data-dojo-props='label:"app2", icon:"images/icon-1.png", alt:"icon2"' role="listitem"><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" lazy="true" data-dojo-props='label:"app3", icon:"images/icon-1.png", alt:"icon3"' role="listitem"><div class="box"></div></li>
 		</ul>
 	</div>
 

@@ -19,12 +19,12 @@
 			"doh/runner",
 			"dijit/registry",
 			"dojo/domReady!",
-			"dojox/mobile/compat",
-			"dojox/mobile/Opener",
-			"dojox/mobile/Tooltip",
-			"dojox/mobile/Overlay",
-			"dojox/mobile/SpinWheelDatePicker",
-			"dojox/mobile/ScrollableView",
+			"dui/mobile/compat",
+			"dui/mobile/Opener",
+			"dui/mobile/Tooltip",
+			"dui/mobile/Overlay",
+			"dui/mobile/SpinWheelDatePicker",
+			"dui/mobile/ScrollableView",
 			"dojo/dom-prop"
 		], function(parser, runner, registry, ready){
 
@@ -38,7 +38,7 @@
 						id + ": centerPos should be > 0! got: " + spinWheel.centerPos);
 			};
 
-			runner.register("dojox/mobile/test.doh.OpenerTests", [
+			runner.register("dui/mobile/test.doh.OpenerTests", [
 				function testInView2(){
 					testInView("spin2");
 				},
@@ -57,54 +57,54 @@
 	</script>
 </head>
 <body>
-<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props="selected: true">
-	<ul data-dojo-type="dojox/mobile/RoundRectList">
-		<li data-dojo-type="dojox/mobile/ListItem"
+<div id="view1" data-dojo-type="dui/mobile/View" data-dojo-props="selected: true">
+	<ul data-dojo-type="dui/mobile/RoundRectList">
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props="moveTo: 'view2'">view2 (SpinWheel in ScrollableView)
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props="moveTo: 'view3'">view3 (SpinWheel in Opener lazy:false)
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props="moveTo: 'view4'">view4 (SpinWheel in Overlay)
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props="moveTo: 'view5'">view5 (SpinWheel in Tooltip)
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props="moveTo: 'view6'">view6 (SpinWheel in Opener lazy:true)
 		</li>
 	</ul>
 </div>
 
-<div id="view2" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="selected: false">
-	<div id="spin2" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
+<div id="view2" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="selected: false">
+	<div id="spin2" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 </div>
 
-<div id="view3" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="selected: false">
-	<div data-dojo-type="dojox/mobile/Opener"
+<div id="view3" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="selected: false">
+	<div data-dojo-type="dui/mobile/Opener"
 		 data-dojo-props="lazy:false">
-		<div id="spin3" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
+		<div id="spin3" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 	</div>
 </div>
 
-<div id="view4" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="selected: false">
-	<div data-dojo-type="dojox/mobile/Overlay">
-		<div id="spin4" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
+<div id="view4" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="selected: false">
+	<div data-dojo-type="dui/mobile/Overlay">
+		<div id="spin4" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 	</div>
 </div>
 
-<div id="view5" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="selected: false">
-	<div data-dojo-type="dojox/mobile/Tooltip">
-		<div id="spin5" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
+<div id="view5" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="selected: false">
+	<div data-dojo-type="dui/mobile/Tooltip">
+		<div id="spin5" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 	</div>
 </div>
 
 <!--
-<div id="view6" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="selected: false">
-	<div data-dojo-type="dojox/mobile/Opener"
+<div id="view6" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="selected: false">
+	<div data-dojo-type="dui/mobile/Opener"
 		 data-dojo-props="lazy:true">
-		<div id="spin6" data-dojo-type="dojox/mobile/SpinWheelDatePicker"></div>
+		<div id="spin6" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 	</div>
 </div>
 -->

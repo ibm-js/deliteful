@@ -3,9 +3,9 @@ define([
 	"./IconMenu"
 ], function(declare, IconMenu){
 	// module:
-	//		dojox/mobile/GridLayout
+	//		dui/mobile/GridLayout
 
-	return declare("dojox.mobile.GridLayout", IconMenu, {
+	return declare("dui.mobile.GridLayout", IconMenu, {
 		// summary:
 		//		A container widget that places its children in a grid layout.
 

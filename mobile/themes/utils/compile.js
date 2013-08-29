@@ -60,7 +60,7 @@ function processFolder(folder, usingCommonSubstitution){
 				// Otherwise, fall back to the .less file which is in 'common'.
 				var fileName = commonFiles.dic[commonFile];
 				outputFile = folder + "/" + fileName.replace(".less", ".css");
-				// dojox.mobile mirroring support
+				// dui.mobile mirroring support
 				if(fileName.indexOf("_rtl") == -1){ 
 					applyLess(commonFile, '@import "' + folder + '/variables.less";', outputFile);
 				}else{

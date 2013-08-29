@@ -11,9 +11,9 @@ define([
 ], function(array, declare, win, domClass, domGeometry, Contained, Container, WidgetBase, has){
 
 	// module:
-	//		dojox/mobile/FixedSplitter
+	//		dui/mobile/FixedSplitter
 
-	return declare("dojox.mobile.FixedSplitter", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile.FixedSplitter", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A layout container that splits the window horizontally or
 		//		vertically.
@@ -27,23 +27,23 @@ define([
 		//		specify a border of a child DOM node with CSS.
 		//
 		//		FixedSplitter has no knowledge of its child widgets.
-		//		dojox/mobile/Container, dojox/mobile/Pane, or dojox/mobile/ContentPane 
+		//		dui/mobile/Container, dui/mobile/Pane, or dui/mobile/ContentPane 
 		//		can be used as a child widget of FixedSplitter.
 		//
-		//		- Use dojox/mobile/Container if your content consists of ONLY
+		//		- Use dui/mobile/Container if your content consists of ONLY
 		//		  Dojo widgets.
-		//		- Use dojox/mobile/Pane if your content is an inline HTML
+		//		- Use dui/mobile/Pane if your content is an inline HTML
 		//		  fragment (may or may not include Dojo widgets).
-		//		- Use dojox/mobile/ContentPane if your content is an external
+		//		- Use dui/mobile/ContentPane if your content is an external
 		//		  HTML fragment (may or may not include Dojo widgets).
 		//
 		// example:
-		//	|	<div data-dojo-type="dojox/mobile/FixedSplitter" orientation="H">
-		//	|		<div data-dojo-type="dojox/mobile/Pane"
+		//	|	<div data-dojo-type="dui/mobile/FixedSplitter" orientation="H">
+		//	|		<div data-dojo-type="dui/mobile/Pane"
 		//	|			style="width:200px;border-right:1px solid black;">
 		//	|			pane #1 (width=200px)
 		//	|		</div>
-		//	|		<div data-dojo-type="dojox/mobile/Pane">
+		//	|		<div data-dojo-type="dui/mobile/Pane">
 		//	|			pane #2
 		//	|		</div>
 		//	|	</div>
@@ -105,7 +105,7 @@ define([
 			c = children[idx];
 			domGeometry.setMarginBox(c, props2);
 			c.style[this.orientation === "H" ? "height" : "width"] = "";
-			// dojox.mobile mirroring support
+			// dui.mobile mirroring support
 			if(has("dojo-bidi") && (this.orientation=="H" && !this.isLeftToRight())){
 				offset = l;
 				for(i = children.length - 1; i >= 0; i--){

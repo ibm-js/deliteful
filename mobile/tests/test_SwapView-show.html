@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
   	<title>Test Dojo</title>
-  	<link rel="stylesheet" href="../../../dojox/mobile/themes/iphone/iphone.css"/>
-  	<link rel="stylesheet" href="../../../dojox/mobile/themes/iphone/iphone-compat.css"/>
+  	<link rel="stylesheet" href="../../../dui/mobile/themes/iphone/iphone.css"/>
+  	<link rel="stylesheet" href="../../../dui/mobile/themes/iphone/iphone-compat.css"/>
   	<script src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async:true, parseOnLoad:true, locale:'en', isDebug:true"></script>
   	<script>
@@ -12,9 +12,9 @@
 		"dojo/parser",
 		"dojo/domReady",
 		// non referenced includes
-		"dojox/mobile/compat",
-		"dojox/mobile/SwapView",
-		"dojox/mobile/PageIndicator"
+		"dui/mobile/compat",
+		"dui/mobile/SwapView",
+		"dui/mobile/PageIndicator"
 	], function (parser, ready) {
 
 	    ready(function () {
@@ -37,28 +37,28 @@
   	</style>
 </head>
 <body style="visibility:hidden;">
-	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="label:'Test SwapView'">
-		<span data-dojo-id="Button1" data-dojo-type="dojox/mobile/ToolBarButton">Go to Pane1</span>
-		<span data-dojo-id="Button2" data-dojo-type="dojox/mobile/ToolBarButton">Slide to Pane1</span>
+	<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="label:'Test SwapView'">
+		<span data-dojo-id="Button1" data-dojo-type="dui/mobile/ToolBarButton">Go to Pane1</span>
+		<span data-dojo-id="Button2" data-dojo-type="dui/mobile/ToolBarButton">Slide to Pane1</span>
 	</h1>
 		
-	<div data-dojo-type="dojox/mobile/PageIndicator" data-dojo-id="PageIndicator">
+	<div data-dojo-type="dui/mobile/PageIndicator" data-dojo-id="PageIndicator">
   		</div>
 	
-	<div data-dojo-type="dojox/mobile/SwapView" data-dojo-id="Pane1" id="Pane1">
-    	<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+	<div data-dojo-type="dui/mobile/SwapView" data-dojo-id="Pane1" id="Pane1">
+    	<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
     		Swipe me to the left until Pane 3 is displayed, then click the Go to Pane1 button and check that everything is ok (including the page indicator value). Then do the same using the Slide to Pane1 button.
     	</div>
   	</div>
 
-  	<div data-dojo-type="dojox/mobile/SwapView" data-dojo-id="Pane2">
-    	<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+  	<div data-dojo-type="dui/mobile/SwapView" data-dojo-id="Pane2">
+    	<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
     		Pane 2
     	</div>
   	</div>
 
-  	<div data-dojo-type="dojox/mobile/SwapView" data-dojo-id="Pane3">
-    	<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+  	<div data-dojo-type="dui/mobile/SwapView" data-dojo-id="Pane3">
+    	<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
     		Pane 3
     	</div>
   	</div>

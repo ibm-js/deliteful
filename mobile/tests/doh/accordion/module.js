@@ -1,6 +1,6 @@
 define(["doh/main", "require", "dojo/sniff"], function(doh, require){
 
-	doh.registerUrl("dojox.mobile.tests.doh.Accordion", require.toUrl("./AccordionTests.html"),999999);
+	doh.registerUrl("dui.mobile.tests.doh.Accordion", require.toUrl("./AccordionTests.html"),999999);
 });
 
 

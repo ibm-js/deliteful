@@ -13,8 +13,8 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/IconContainer"
+			"dui/mobile/compat",
+			"dui/mobile/IconContainer"
 		]);
 	</script>
 
@@ -30,31 +30,31 @@
 	</style>
 </head>
 <body style="visibility:hidden;" dir="rtl">
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Icon Container (Multi - Below)</h1>
-		<ul data-dojo-type="dojox/mobile/IconContainer">
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href", icon:"../images/icon-1.png", href:"test_RoundRectList_rtl.html", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"hrefTarget", icon:"../images/icon-1.png", href:"test_RoundRectList_rtl.html", hrefTarget:"_blank"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url", icon:"../images/icon-1.png", url:"../data/view-sample.html", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url-async", icon:"../images/icon-1.png", url:"../data/view-sample.html", transition:"slide", sync:false'></li>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Icon Container (Multi - Below)</h1>
+		<ul data-dojo-type="dui/mobile/IconContainer">
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app1", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app2", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app3", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"href", icon:"../images/icon-1.png", href:"test_RoundRectList_rtl.html", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"hrefTarget", icon:"../images/icon-1.png", href:"test_RoundRectList_rtl.html", hrefTarget:"_blank"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url", icon:"../images/icon-1.png", url:"../data/view-sample.html", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url-async", icon:"../images/icon-1.png", url:"../data/view-sample.html", transition:"slide", sync:false'></li>
 		</ul>
 	</div>
 
-	<div id="about" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">My Phone</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+	<div id="about" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">My Phone</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Network
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Line
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"1024"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"1024"'>
 				Songs
 			</li>
 		</ul>

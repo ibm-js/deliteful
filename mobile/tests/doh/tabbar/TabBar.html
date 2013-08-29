@@ -23,11 +23,11 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/ScrollableView");
-			dojo.require("dojox/mobile/TabBar");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/ScrollableView");
+			dojo.require("dui/mobile/TabBar");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 	        dojo.require("doh.runner");
 	        dojo.require("dojo/dom-geometry");
 		</script>
@@ -35,124 +35,124 @@
 		<script type="text/javascript" src="TabBar.js"></script>
 	</head>
 	<body>
-		<div data-dojo-type="dojox/mobile/ScrollableView">
+		<div data-dojo-type="dui/mobile/ScrollableView">
 			<div class="label">Segmented Control</div>
-			<ul data-dojo-type="dojox/mobile/TabBar" barType="segmentedControl">
-				<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view1" selected="true">New</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view2">What's Hot</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" moveTo="view3">Genius</li>
+			<ul data-dojo-type="dui/mobile/TabBar" barType="segmentedControl">
+				<li data-dojo-type="dui/mobile/TabBarButton" moveTo="view1" selected="true">New</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" moveTo="view2">What's Hot</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" moveTo="view3">Genius</li>
 			</ul>
 	
 			<div class="label">Tab Bar</div>
-			<ul data-dojo-type="dojox/mobile/TabBar">
-				<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
+			<ul data-dojo-type="dui/mobile/TabBar">
+				<li data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
 			</ul>
 	
 			<div class="label">Tab Bar (CSS Sprite)</div>
-			<ul data-dojo-type="dojox/mobile/TabBar" iconBase="../../images/tab-icons.png">
-				<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
-				<li data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
+			<ul data-dojo-type="dui/mobile/TabBar" iconBase="../../images/tab-icons.png">
+				<li data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
+				<li data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
 			</ul>
 	
 			<div class="label">slimTab Tab Bar</div>
-		  	<div data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'slimTab'">
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'slimTab'">
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">standardTab Tab Bar</div>
-		  	<div data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'standardTab'">
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'standardTab'">
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">flatTab Tab Bar</div>
-		  	<div data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'flatTab'">
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'flatTab'">
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">tallTab Tab Bar</div>
-		  	<div data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'tallTab'">
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'tallTab'">
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">Segmented Control with fill = 'always'</div>
-			<ul id="spread-sc" data-dojo-type="dojox/mobile/TabBar" barType="segmentedControl" fill="always">
-				<li id="spread-sc-button1" data-dojo-type="dojox/mobile/TabBarButton" moveTo="view1" selected="true">New</li>
-				<li id="spread-sc-button2" data-dojo-type="dojox/mobile/TabBarButton" moveTo="view2">What's Hot</li>
-				<li id="spread-sc-button3" data-dojo-type="dojox/mobile/TabBarButton" moveTo="view3">Genius</li>
+			<ul id="spread-sc" data-dojo-type="dui/mobile/TabBar" barType="segmentedControl" fill="always">
+				<li id="spread-sc-button1" data-dojo-type="dui/mobile/TabBarButton" moveTo="view1" selected="true">New</li>
+				<li id="spread-sc-button2" data-dojo-type="dui/mobile/TabBarButton" moveTo="view2">What's Hot</li>
+				<li id="spread-sc-button3" data-dojo-type="dui/mobile/TabBarButton" moveTo="view3">Genius</li>
 			</ul>
 	
 			<div class="label">Tab Bar with fill = 'always'</div>
-			<ul id="spread-tb" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="fill: 'always'">
-				<li id="spread-tb-button1" data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
-				<li id="spread-tb-button2" data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
-				<li id="spread-tb-button3" data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
+			<ul id="spread-tb" data-dojo-type="dui/mobile/TabBar" data-dojo-props="fill: 'always'">
+				<li id="spread-tb-button1" data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" moveTo="view1" selected="true">New</li>
+				<li id="spread-tb-button2" data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-15.png" icon2="../../images/tab-icon-15h.png" moveTo="view2">What's Hot</li>
+				<li id="spread-tb-button3" data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-10.png" icon2="../../images/tab-icon-10h.png" moveTo="view3">Genius</li>
 			</ul>
 	
 			<div class="label">Tab Bar (CSS Sprite) with fill = 'always'</div>
-			<ul id="spread-tb-css" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="fill: 'always'" iconBase="../../images/tab-icons.png">
-				<li id="spread-tb-css-button1" data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
-				<li id="spread-tb-css-button2" data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
-				<li id="spread-tb-css-button3" data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
-				<li id="spread-tb-css-button4" data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
-				<li id="spread-tb-css-button5" data-dojo-type="dojox/mobile/TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
+			<ul id="spread-tb-css" data-dojo-type="dui/mobile/TabBar" data-dojo-props="fill: 'always'" iconBase="../../images/tab-icons.png">
+				<li id="spread-tb-css-button1" data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,0,29,29" iconPos2="29,0,29,29" selected="true">Featured</li>
+				<li id="spread-tb-css-button2" data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,29,29,29" iconPos2="29,29,29,29">Categories</li>
+				<li id="spread-tb-css-button3" data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,58,29,29" iconPos2="29,58,29,29">Top 25</li>
+				<li id="spread-tb-css-button4" data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,87,29,29" iconPos2="29,87,29,29">Search</li>
+				<li id="spread-tb-css-button5" data-dojo-type="dui/mobile/TabBarButton" iconPos1="0,116,29,29" iconPos2="29,116,29,29">Updates</li>
 			</ul>
 	
 			<div class="label">slimTab Tab Bar with fill = 'always'</div>
-		  	<div id="spread-st" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'slimTab', fill: 'always'">
-					<div id="spread-st-button1" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div id="spread-st-button2" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div id="spread-st-button3" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div id="spread-st-button4" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div id="spread-st" data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'slimTab', fill: 'always'">
+					<div id="spread-st-button1" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div id="spread-st-button2" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div id="spread-st-button3" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div id="spread-st-button4" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">standardTab Tab Bar with fill = 'always'</div>
-		  	<div id="spread-std" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'standardTab', fill: 'always'">
-					<div id="spread-std-button1" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div id="spread-std-button2" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div id="spread-std-button3" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div id="spread-std-button4" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div id="spread-std" data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'standardTab', fill: 'always'">
+					<div id="spread-std-button1" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div id="spread-std-button2" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div id="spread-std-button3" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div id="spread-std-button4" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">flatTab Tab Bar with fill = 'always'</div>
-		  	<div id="spread-flat" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'flatTab', fill: 'always'">
-					<div id="spread-flat-button1" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div id="spread-flat-button2" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div id="spread-flat-button3" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div id="spread-flat-button4" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div id="spread-flat" data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'flatTab', fill: 'always'">
+					<div id="spread-flat-button1" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div id="spread-flat-button2" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div id="spread-flat-button3" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div id="spread-flat-button4" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
 			<div class="label">tallTab Tab Bar with fill = 'always'</div>
-		  	<div id="spread-tall" data-dojo-type="dojox/mobile/TabBar" data-dojo-props="barType:'tallTab', fill: 'always'">
-					<div id="spread-tall-button1" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
-					<div id="spread-tall-button2" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
-					<div id="spread-tall-button3" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
-					<div id="spread-tall-button4" data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
+		  	<div id="spread-tall" data-dojo-type="dui/mobile/TabBar" data-dojo-props="barType:'tallTab', fill: 'always'">
+					<div id="spread-tall-button1" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Info</div>
+					<div id="spread-tall-button2" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Friends</div>
+					<div id="spread-tall-button3" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Albums</div>
+					<div id="spread-tall-button4" data-dojo-type="dui/mobile/TabBarButton" data-dojo-props="href: 'index.html'">Emails</div>
 			</div>
 	
-			<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+			<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 				<div class="view">View 1</div>
 			</div>
-			<div id="view2" data-dojo-type="dojox/mobile/View">
+			<div id="view2" data-dojo-type="dui/mobile/View">
 				<div class="view">View 2</div>
 			</div>
-			<div id="view3" data-dojo-type="dojox/mobile/View">
+			<div id="view3" data-dojo-type="dui/mobile/View">
 				<div class="view">View 3</div>
 			</div>
 		</div>

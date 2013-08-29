@@ -20,9 +20,9 @@
 			"dojo/store/Observable",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/EdgeToEdgeStoreList",
-			"dojox/mobile/Button"
+			"dui/mobile/compat",
+			"dui/mobile/EdgeToEdgeStoreList",
+			"dui/mobile/Button"
 		], function(lang, array, Memory, Observable, registry){
 			var updateCounter = 0;
 			
@@ -111,22 +111,22 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" 
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list" 
 			data-dojo-props='store: store, query: {}, labelAttr: "text", iconAttr: "profile_image_url"'>
 		</ul>
 		<p>Select the data store:<br>
-		<input data-dojo-type="dojox/mobile/Button" type="button" value="Set1" 
+		<input data-dojo-type="dui/mobile/Button" type="button" value="Set1" 
 			onclick="switchTo(store1)">
-		<input data-dojo-type="dojox/mobile/Button" type="button" value="Set2" 
+		<input data-dojo-type="dui/mobile/Button" type="button" value="Set2" 
 			onclick="switchTo(store2)">
 		<p>Alter the data store:<br>
-		<input data-dojo-type="dojox/mobile/Button" type="button" value="Add" 
+		<input data-dojo-type="dui/mobile/Button" type="button" value="Add" 
 			onclick="add1()">
-		<input data-dojo-type="dojox/mobile/Button" type="button" value="Update" 
+		<input data-dojo-type="dui/mobile/Button" type="button" value="Update" 
 			onclick="update1()">
-		<input data-dojo-type="dojox/mobile/Button" type="button" value="Delete" 
+		<input data-dojo-type="dui/mobile/Button" type="button" value="Delete" 
 			onclick="delete1()">
 	</div>
 </body>

@@ -5,7 +5,7 @@ define([
 	"dijit/form/_ListBase"
 ], function(declare, touch, has, ListBase){
 
-	return declare( "dojox.mobile._ListTouchMixin", ListBase, {
+	return declare( "dui.mobile._ListTouchMixin", ListBase, {
 		// summary:
 		//		Focus-less menu to handle touch events consistently.
 		// description:

@@ -11,27 +11,27 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
-				doh.register("dojox/mobile/test.doh.RoundRect", [
+				doh.register("dui/mobile/test.doh.RoundRect", [
 					{
 						name: "RoundRect Verification",
 						timeout: 4000,
 						runTest: function(){
 							var d = new doh.Deferred();
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dojox_mobile_RoundRect_0");
+								var demoWidget = dijit.byId("dui_mobile_RoundRect_0");
 								if(dojo.isIE < 10){
 									doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 								}else{
 									doh.assertEqual('duiRoundRect duiShadow', demoWidget.domNode.className);
 								}
 
-								demoWidget = dijit.byId("dojox_mobile_RoundRect_1");
+								demoWidget = dijit.byId("dui_mobile_RoundRect_1");
 								doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 							}));
 							return d;
@@ -41,7 +41,7 @@
 						name: "Set",
 						timeout: 4000,
 						runTest: function(){
-							var demoWidget = dijit.byId("dojox_mobile_RoundRect_0");
+							var demoWidget = dijit.byId("dui_mobile_RoundRect_0");
 							demoWidget.set({shadow :false});
 
 							demoWidget.set({shadow :false});
@@ -55,13 +55,13 @@
 		</script>
 	</head>
 	<body>
-		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Round Rectangle</h2>
-			<div data-dojo-type="dojox/mobile/RoundRect" shadow="true">
+		<div id="foo" data-dojo-type="dui/mobile/View" selected="true">
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">Round Rectangle</h2>
+			<div data-dojo-type="dui/mobile/RoundRect" shadow="true">
 				This module provides some widgets that can be used to build web-based
 				applications for mobile devices such as iPhone or Android.
 			</div>
-			<div data-dojo-type="dojox/mobile/RoundRect">
+			<div data-dojo-type="dui/mobile/RoundRect">
 				This module provides some widgets that can be used to build web-based
 				applications for mobile devices such as iPhone or Android.
 			</div>

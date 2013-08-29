@@ -16,9 +16,9 @@ define([
 ], function(array, config, lang, win, kernel, domClass, domConstruct, on, domReady, topic, touch, registry, has){
 
 	// module:
-	//		dojox/mobile/common
+	//		dui/mobile/common
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 
 	// tell dojo/touch to generate synthetic clicks immediately
 	// and regardless of preventDefault() calls on touch events
@@ -77,8 +77,8 @@ define([
 		//
 		//		and it publishes either of the following events:
 		//
-		//		- '/dojox/mobile/screenSize/phone'
-		//		- '/dojox/mobile/screenSize/tablet'
+		//		- '/dui/mobile/screenSize/phone'
+		//		- '/dui/mobile/screenSize/tablet'
 
 		var dim = dm.getScreenSize();
 		var sz = Math.min(dim.w, dim.h);
@@ -92,13 +92,13 @@ define([
 		}
 		if(to){
 			domClass.replace(win.doc.documentElement, "dj_"+to, "dj_"+from);
-			topic.publish("/dojox/mobile/screenSize/"+to, dim);
+			topic.publish("/dui/mobile/screenSize/"+to, dim);
 		}
 		this._sz = sz;
 	};
 	dm.detectScreenSize();
 
-	// dojox/mobile.hideAddressBarWait: Number
+	// dui/mobile.hideAddressBarWait: Number
 	//		The time in milliseconds to wait before the fail-safe hiding address
 	//		bar runs. The value must be larger than 800.
 	dm.hideAddressBarWait = typeof(config["duiHideAddressBarWait"]) === "number" ?
@@ -179,8 +179,8 @@ define([
 		//		top level widget or not.
 		//		If omitted, searches the entire page.
 		if(dm.disableResizeAll){ return; }
-		topic.publish("/dojox/mobile/resizeAll", evt, root); // back compat
-		topic.publish("/dojox/mobile/beforeResizeAll", evt, root);
+		topic.publish("/dui/mobile/resizeAll", evt, root); // back compat
+		topic.publish("/dui/mobile/beforeResizeAll", evt, root);
 		if(dm._resetMinHeight){
 			win.body().style.minHeight = dm.getScreenSize().h + "px";
 		} 
@@ -203,7 +203,7 @@ define([
 			array.forEach(array.filter(registry.toArray(), isTopLevel),
 					function(w){ w.resize(); });
 		}
-		topic.publish("/dojox/mobile/afterResizeAll", evt, root);
+		topic.publish("/dui/mobile/afterResizeAll", evt, root);
 	};
 
 	dm.openWindow = function(url, target){
@@ -278,7 +278,7 @@ define([
 		domClass.add(win.doc.documentElement, "mobile");
 	}
 	if(has('chrome')){
-		// dojox/mobile does not load uacss (only _compat does), but we need dj_chrome.
+		// dui/mobile does not load uacss (only _compat does), but we need dj_chrome.
 		domClass.add(win.doc.documentElement, "dj_chrome");
 	}
 
@@ -375,15 +375,15 @@ define([
 	});
 
 	// TODO: return functions declared above in this hash, rather than
-	// dojox.mobile.
+	// dui.mobile.
 
 	/*=====
 	return {
 		// summary:
-		//		A common module for dojox/mobile.
+		//		A common module for dui/mobile.
 		// description:
 		//		This module includes common utility functions that are used by
-		//		dojox/mobile widgets. Also, it provides functions that are commonly
+		//		dui/mobile widgets. Also, it provides functions that are commonly
 		//		necessary for mobile web applications, such as the hide address bar
 		//		function.
 	};

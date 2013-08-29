@@ -15,16 +15,16 @@ define([
 	"./TextBox",
 	"dojo/sniff"
 ], function(kernel, declare, lang, win, domGeometry, domStyle, domAttr, on, windowUtils, touch, AutoCompleterMixin, popup, ComboBoxMenu, TextBox, has){
-	kernel.experimental("dojox.mobile.ComboBox"); // should be using a more native search-type UI
+	kernel.experimental("dui.mobile.ComboBox"); // should be using a more native search-type UI
 
-	return declare("dojox.mobile.ComboBox", [TextBox, AutoCompleterMixin], {
+	return declare("dui.mobile.ComboBox", [TextBox, AutoCompleterMixin], {
 		// summary:
 		//		A non-templated auto-completing text box widget.
 
 		// dropDownClass: [protected extension] String
 		//		Name of the drop-down widget class used to select a date/time.
 		//		Should be specified by subclasses.
-		dropDownClass: "dojox.mobile._ComboBoxMenu",
+		dropDownClass: "dui.mobile._ComboBoxMenu",
 
 		// initially disable selection since iphone displays selection handles
 		// that makes it hard to pick from the list

@@ -19,8 +19,8 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/ScrollableView"
+			"dui/mobile/compat",
+			"dui/mobile/ScrollableView"
 		], function(connect, domClass, ready, registry){
 			var delItem, handler, btn1, list1;
 
@@ -55,7 +55,7 @@
 				hideDeleteButton();
 			}
 
-			connect.subscribe("/dojox/mobile/deleteListItem", function(item){
+			connect.subscribe("/dui/mobile/deleteListItem", function(item){
 				showDeleteButton(item);
 			});
 
@@ -101,46 +101,46 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top", label:"Editable EdgeToEdgeList"'>
-			<span id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='toggle:true' style="padding: 0px 14px;float:left" onclick="edit">Edit</span>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<div data-dojo-type="dui/mobile/Heading" data-dojo-props='fixed:"top", label:"Editable EdgeToEdgeList"'>
+			<span id="btn1" data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props='toggle:true' style="padding: 0px 14px;float:left" onclick="edit">Edit</span>
 		</div>
-		<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">Transition Effects</h2>
-		<ul id="list1" data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='editable:true'>
-			<li id="item1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png"'>
+		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">Transition Effects</h2>
+		<ul id="list1" data-dojo-type="dui/mobile/EdgeToEdgeList" data-dojo-props='editable:true'>
+			<li id="item1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png"'>
 				Slide
 			</li>
-			<li id="item2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png"'>
+			<li id="item2" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png"'>
 				Flip
 			</li>
-			<li id="item3" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png"'>
+			<li id="item3" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png"'>
 				Fade
 			</li>
 
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 1"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 2"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 3"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 4"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 5"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 6"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 7"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 8"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 9"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item a"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item b"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item c"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item d"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item e"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item f"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item g"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item h"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item i"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item j"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item k"'></li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item l"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 1"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 2"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 3"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 4"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 5"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 6"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 7"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 8"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item 9"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item a"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item b"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item c"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item d"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item e"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item f"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item g"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item h"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item i"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item j"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item k"'></li>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-4.png", label:"Item l"'></li>
 
 		</ul>
-		<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"bottom"'>
+		<div data-dojo-type="dui/mobile/Heading" data-dojo-props='fixed:"bottom"'>
 		</div>
 	</div>
 </body>

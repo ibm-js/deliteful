@@ -11,13 +11,13 @@ define([
 	"dijit/_WidgetBase",
 	"./iconUtils",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/ValuePickerSlot"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/ValuePickerSlot"
 ], function(array, declare, lang, win, domClass, domConstruct, domAttr, on, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
 
 	// module:
-	//		dojox/mobile/ValuePickerSlot
+	//		dui/mobile/ValuePickerSlot
 
-	var ValuePickerSlot = declare(has("dojo-bidi") ?  "dojox.mobile.NonBidiValuePickerSlot" : "dojox.mobile.ValuePickerSlot", WidgetBase, {
+	var ValuePickerSlot = declare(has("dojo-bidi") ?  "dui.mobile.NonBidiValuePickerSlot" : "dui.mobile.ValuePickerSlot", WidgetBase, {
 		// summary:
 		//		A widget representing one slot of a ValuePicker widget.
 		
@@ -288,7 +288,7 @@ define([
 			var x = e.touches ? e.touches[0].pageX : e.clientX;
 			var y = e.touches ? e.touches[0].pageY : e.clientY;
 			if(Math.abs(x - this.touchStartX) >= 4 ||
-			   Math.abs(y - this.touchStartY) >= 4){ // dojox/mobile/scrollable.threshold
+			   Math.abs(y - this.touchStartY) >= 4){ // dui/mobile/scrollable.threshold
 			   	if(this._timer){
 					this._timer.remove(); // fail safe
 					this._timer = null;
@@ -387,5 +387,5 @@ define([
 		}
 	});
 	
-	return has("dojo-bidi") ? declare("dojox.mobile.ValuePickerSlot", [ValuePickerSlot, BidiValuePickerSlot]) : ValuePickerSlot;
+	return has("dojo-bidi") ? declare("dui.mobile.ValuePickerSlot", [ValuePickerSlot, BidiValuePickerSlot]) : ValuePickerSlot;
 });

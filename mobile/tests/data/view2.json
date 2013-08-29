@@ -1,16 +1,16 @@
 {
-  "dojox.mobile.View": {
+  "dui.mobile.View": {
     "@id": "view2",
-    "dojox.mobile.Heading": {
+    "dui.mobile.Heading": {
       "@back": "Home",
       "@label": "view2.json",
       "@moveTo": "home"
     },
-    "dojox.mobile.RoundRectCategory": {
+    "dui.mobile.RoundRectCategory": {
       "@label": "Transition Effects"
     },
-    "dojox.mobile.RoundRectList": {
-      "dojox.mobile.ListItem": [{
+    "dui.mobile.RoundRectList": {
+      "dui.mobile.ListItem": [{
         "@icon": "images/i-icon-1.png",
         "@label": "Slide",
         "@moveTo": "home",

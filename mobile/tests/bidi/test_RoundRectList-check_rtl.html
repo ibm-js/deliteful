@@ -18,7 +18,7 @@
 			"dijit/registry",
 			"dojo/has",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(connect, dom, ready, registry){
 			check = function(){
 				registry.byId("item1").set("checked", true);
@@ -41,32 +41,32 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View" dir="rtl">
-		<h1 data-dojo-type="dojox/mobile/Heading">Selectable List</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Single Select</h2>
-		<ul id="list1" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='select:"single"'>
-			<li id="item1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='checked:true'>
+	<div data-dojo-type="dui/mobile/View" dir="rtl">
+		<h1 data-dojo-type="dui/mobile/Heading">Selectable List</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Single Select</h2>
+		<ul id="list1" data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='select:"single"'>
+			<li id="item1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='checked:true'>
 				Cube
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem">
+			<li data-dojo-type="dui/mobile/ListItem">
 				Dissolve
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem">
+			<li data-dojo-type="dui/mobile/ListItem">
 				Ripple
 			</li>
 		</ul>
 		<input type="button" onclick="check()" value="check">
 		<input type="button" onclick="uncheck()" value="uncheck">
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Multiple Select</h2>
-		<ul id="list2" data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='select:"multiple"' dir="rtl">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='checked:true' dir="rtl">
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Multiple Select</h2>
+		<ul id="list2" data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='select:"multiple"' dir="rtl">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='checked:true' dir="rtl">
 				Cube
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem">
+			<li data-dojo-type="dui/mobile/ListItem">
 				Dissolve
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem">
+			<li data-dojo-type="dui/mobile/ListItem">
 				Ripple
 			</li>
 		</ul>

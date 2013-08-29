@@ -15,17 +15,17 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	// doh functions
-	"dojox/mobile/Heading",
-	"dojox/mobile/ListItem",
-	"dojox/mobile/IconItem",
-	"dojox/mobile/IconContainer",
-	"dojox/mobile/IconMenuItem",
-	"dojox/mobile/IconMenu",
-	"dojox/mobile/TabBarButton",
-	"dojox/mobile/TabBar",
-	"dojox/mobile/ToolBarButton",
-	"dojox/mobile/View",		// This mobile app uses mobile view
-	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+	"dui/mobile/Heading",
+	"dui/mobile/ListItem",
+	"dui/mobile/IconItem",
+	"dui/mobile/IconContainer",
+	"dui/mobile/IconMenuItem",
+	"dui/mobile/IconMenu",
+	"dui/mobile/TabBarButton",
+	"dui/mobile/TabBar",
+	"dui/mobile/ToolBarButton",
+	"dui/mobile/View",		// This mobile app uses mobile view
+	"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(declare, parser, ready, registry, runner, Heading, ListItem, IconItem, IconContainer, IconMenuItem, IconMenu, TabBarButton, TabBar, ToolBarButton){
 
 	// This test mimics a particular case which happens in dojox/mvc due to
@@ -46,7 +46,7 @@ require([
 
 	function _createListItem1(){
 		var MyListItem1 = declare(
-				"dojox/mobile/MyListItem1",
+				"dui/mobile/MyListItem1",
 				ListItem, {
 					startup: function(){
 						this.set("checked", true);
@@ -68,7 +68,7 @@ require([
 	// by the setter of "checked".
 	function _createListItem2(){
 		var MyListItem2 = declare(
-				"dojox/mobile/MyListItem2",
+				"dui/mobile/MyListItem2",
 				ListItem, {
 					startup: function(){
 						this.set("icon", "../images/a-icon1.png");
@@ -103,7 +103,7 @@ require([
 	// by the setter of "checked" (because the setter is not called).).
 	function _createListItem3(){
 		var MyListItem3 = declare(
-				"dojox/mobile/MyListItem3",
+				"dui/mobile/MyListItem3",
 				ListItem, {
 					startup: function(){
 						// This mimics what happens in dojox/mvc due to the binding mechanism:
@@ -141,7 +141,7 @@ require([
 	// 4. Test the icon property for an IconItem added to an IconContainer
 	function _createIconItem(){
 		var MyIconItem = declare(
-				"dojox/mobile/MyIconItem",
+				"dui/mobile/MyIconItem",
 				IconItem, {
 					startup: function(){
 						this.set("icon", "../images/a-icon1.png");
@@ -161,7 +161,7 @@ require([
 	// 5. Test the icon property for an IconMenuItem added to an IconMenu
 	function _createIconMenuItem(){
 		var MyIconMenuItem = declare(
-				"dojox/mobile/MyIconMenuItem",
+				"dui/mobile/MyIconMenuItem",
 				IconMenuItem, {
 					startup: function(){
 						this.set("icon", "../images/a-icon1.png");
@@ -181,7 +181,7 @@ require([
 	// 6. Test the icon1 and icon2 properties for a TabBarButton added to a TabBar
 	function _createTabBarButton(){
 		var MyTabBarButton = declare(
-				"dojox/mobile/MyTabBarButton",
+				"dui/mobile/MyTabBarButton",
 				TabBarButton, {
 					startup: function(){
 						this.set("icon", "../images/a-icon1.png");
@@ -207,7 +207,7 @@ require([
 	// 7. Test the icon property for a ToolBarButton added to a parent
 	function _createToolBarButton(){
 		var MyToolBarButton = declare(
-				"dojox/mobile/MyToolBarButton",
+				"dui/mobile/MyToolBarButton",
 				ToolBarButton, {
 					startup: function(){
 						this.set("icon", "../images/a-icon1.png");
@@ -224,7 +224,7 @@ require([
 				"'icon' property not correctly set if setter called before startup completed (ToolBarButton)");
 	};
 
-	runner.register("dojox/mobile/test.doh.ItemBase_subclasses_Programmatic", [
+	runner.register("dui/mobile/test.doh.ItemBase_subclasses_Programmatic", [
 		{
 			name: "ItemBase_subclasses_Programmatic ListItem.checked",
 			timeout: 2000,
@@ -287,22 +287,22 @@ require([
 </script>
 </head>
 <body style="visibility:hidden;">
-<div id="view" data-dojo-type="dojox/mobile/View" selected="true">
-	<h1 data-dojo-type="dojox/mobile/Heading">RoundRectList</h1>
+<div id="view" data-dojo-type="dui/mobile/View" selected="true">
+	<h1 data-dojo-type="dui/mobile/Heading">RoundRectList</h1>
 	<!-- A list in single select mode -->
-	<ul id="listInSelectMode" data-dojo-type="dojox/mobile/RoundRectList"
+	<ul id="listInSelectMode" data-dojo-type="dui/mobile/RoundRectList"
 		data-dojo-props="select:'single'">
 	</ul>
 	<!-- A list which is not in a select mode -->
-	<ul id="listNotInSelectMode" data-dojo-type="dojox/mobile/RoundRectList">
+	<ul id="listNotInSelectMode" data-dojo-type="dui/mobile/RoundRectList">
 	</ul>
-	<ul id="iconContainer" data-dojo-type="dojox/mobile/IconContainer">
+	<ul id="iconContainer" data-dojo-type="dui/mobile/IconContainer">
 	</ul>
-	<ul id="iconMenu" data-dojo-type="dojox/mobile/IconMenu">
+	<ul id="iconMenu" data-dojo-type="dui/mobile/IconMenu">
 	</ul>
-	<ul id="tabBar" data-dojo-type="dojox/mobile/TabBar">
+	<ul id="tabBar" data-dojo-type="dui/mobile/TabBar">
 	</ul>
-	<div id="toolBar" data-dojo-type="dojox/mobile/Heading">
+	<div id="toolBar" data-dojo-type="dui/mobile/Heading">
 	</div>
 </div>
 </body>

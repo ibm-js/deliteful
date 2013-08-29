@@ -18,9 +18,9 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/Slider",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/Slider",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, topic, domConst, domClass, ready, registry, runner, Slider){
 			parser.parse();
 			var WIDGET_CLASSNAME1 = "duiSlider";
@@ -63,7 +63,7 @@
 				view1.performTransition("view2", 1, "none");
 			};
 
-			runner.register("dojox/mobile/test.doh.Slider", [
+			runner.register("dui/mobile/test.doh.Slider", [
 				{
 					name: "Slider Verification1",
 					timeout: 4000,
@@ -86,7 +86,7 @@
 						var widget3 = _createSliderProgrammaticallyWithSourceNodeReference("view2-Slider3");
 
 						var d = new runner.Deferred();
-						var handle2 = topic.subscribe("/dojox/mobile/afterTransitionIn", d.getTestCallback(function(view){
+						var handle2 = topic.subscribe("/dui/mobile/afterTransitionIn", d.getTestCallback(function(view){
 							if(view.id == "view2"){
 								handle2.remove();
 							}
@@ -104,12 +104,12 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:"true"'>
+<div id="view1" data-dojo-type="dui/mobile/View" data-dojo-props='selected:"true"'>
 	<h1>View1</h1>
 	<table>
 		<tr>
 			<td>0</td>
-			<td><input id="view1-Slider1" data-dojo-type="dojox/mobile/Slider" name="sh1" value="31.4" min="0" max="100"
+			<td><input id="view1-Slider1" data-dojo-type="dui/mobile/Slider" name="sh1" value="31.4" min="0" max="100"
 					   step="0.1" type="range" style="width:150px;"></td>
 			<td>100</td>
 		</tr>
@@ -132,12 +132,12 @@
 		</tr>
 	</table>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View2</h1>
 	<table>
 		<tr>
 			<td>0</td>
-			<td><input id="view2-Slider1" data-dojo-type="dojox/mobile/Slider" name="sh1" value="31.4" min="0" max="100"
+			<td><input id="view2-Slider1" data-dojo-type="dui/mobile/Slider" name="sh1" value="31.4" min="0" max="100"
 					   step="0.1" type="range" style="width:150px;"></td>
 			<td>100</td>
 		</tr>

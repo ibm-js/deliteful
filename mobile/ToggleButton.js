@@ -5,7 +5,7 @@ define([
 	"./Button"
 ], function(declare, domClass, ToggleButtonMixin, Button){
 
-	return declare("dojox.mobile.ToggleButton", [Button, ToggleButtonMixin], {
+	return declare("dui.mobile.ToggleButton", [Button, ToggleButtonMixin], {
 		// summary:
 		//		A non-templated button widget that can be in two states (checked or not).
 		//		Can be base class for things like tabs or checkbox or radio buttons

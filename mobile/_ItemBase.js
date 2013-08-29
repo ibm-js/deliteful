@@ -13,13 +13,13 @@ define([
 	"./TransitionEvent",
 	"./iconUtils",
 	"dojo/sniff",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/_ItemBase"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/_ItemBase"
 ], function(array, declare, lang, win, domClass, on, touch, registry, Contained, Container, WidgetBase, TransitionEvent, iconUtils, has, BidiItemBase){
 
 	// module:
-	//		dojox/mobile/_ItemBase
+	//		dui/mobile/_ItemBase
 
-	var _ItemBase = declare(has("dojo-bidi") ? "dojox.mobile._NonBidiItemBase" : "dojox.mobile._ItemBase", [WidgetBase, Container, Contained], {
+	var _ItemBase = declare(has("dojo-bidi") ? "dui.mobile._NonBidiItemBase" : "dui.mobile._ItemBase", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A base class for item classes (e.g. ListItem, IconItem, etc.).
 		// description:
@@ -350,7 +350,7 @@ define([
 			var x = e.touches ? e.touches[0].pageX : e.clientX;
 			var y = e.touches ? e.touches[0].pageY : e.clientY;
 			if(Math.abs(x - this.touchStartX) >= 4 ||
-			   Math.abs(y - this.touchStartY) >= 4){ // dojox/mobile/scrollable.threshold
+			   Math.abs(y - this.touchStartY) >= 4){ // dui/mobile/scrollable.threshold
 				this.cancel();
 				var p = this.getParent();
 				if(p && p.selectOne){
@@ -459,5 +459,5 @@ define([
 			this._set("selected", selected);
 		}
 	});
-	return has("dojo-bidi") ? declare("dojox.mobile._ItemBase", [_ItemBase, BidiItemBase]) : _ItemBase;
+	return has("dojo-bidi") ? declare("dui.mobile._ItemBase", [_ItemBase, BidiItemBase]) : _ItemBase;
 });

@@ -9,7 +9,7 @@ define([
 ], function(kernel, array, config, win, Deferred, parser, domReady){
 
 	// module:
-	//		dojox/mobile/lazyLoadUtils
+	//		dui/mobile/lazyLoadUtils
 
 	var LazyLoadUtils = function(){
 		// summary:

@@ -5,7 +5,7 @@ define([
 ], function(array, domClass, registry){
 
 	// module:
-	//		dojox/mobile/viewRegistry
+	//		dui/mobile/viewRegistry
 
 	var viewRegistry = {
 		// summary:
@@ -19,11 +19,11 @@ define([
 		//		The object used to register views.
 		hash: {},
 		
-		// initialView: [private] dojox/mobile/View
+		// initialView: [private] dui/mobile/View
 		//		The initial view.
 		initialView: null,
 
-		add: function(/*dojox/mobile/View*/ view){
+		add: function(/*dui/mobile/View*/ view){
 			// summary:
 			//		Adds a view to the registry.
 			this.hash[view.id] = view;
@@ -50,17 +50,17 @@ define([
 			return arr;
 		},
 
-		getParentView: function(/*dojox/mobile/View*/ view){
+		getParentView: function(/*dui/mobile/View*/ view){
 			// summary:
 			//		Gets the parent view of the specified view.
-			// returns: dojox/mobile/View
+			// returns: dui/mobile/View
 			for(var v = view.getParent(); v; v = v.getParent()){
 				if(domClass.contains(v.domNode, "duiView")){ return v; }
 			}
 			return null;
 		},
 
-		getChildViews: function(/*dojox/mobile/View*/ parent){
+		getChildViews: function(/*dui/mobile/View*/ parent){
 			// summary:
 			//		Gets the children views of the specified view.
 			// returns: Array
@@ -70,7 +70,7 @@ define([
 		getEnclosingView: function(/*DomNode*/ node){
 			// summary:
 			//		Gets the view containing the specified DOM node.
-			// returns: dojox/mobile/View
+			// returns: dui/mobile/View
 			for(var n = node; n && n.tagName !== "BODY"; n = n.parentNode){
 				if(n.nodeType === 1 && domClass.contains(n, "duiView")){
 					return registry.byNode(n);
@@ -81,8 +81,8 @@ define([
 
 		getEnclosingScrollable: function(/*DomNode*/ node){
 			// summary:
-			//		Gets the dojox/mobile/scrollable object containing the specified DOM node.
-			// returns: dojox/mobile/scrollable
+			//		Gets the dui/mobile/scrollable object containing the specified DOM node.
+			// returns: dui/mobile/scrollable
 			for(var w = registry.getEnclosingWidget(node); w; w = w.getParent()){
 				if(w.scrollableParams && w._v){ return w; }
 			}

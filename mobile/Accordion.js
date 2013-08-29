@@ -15,11 +15,11 @@ define([
 	"./lazyLoadUtils",
 	"./_css3",
 	"require",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/Accordion"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/Accordion"
 ], function(array, declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
 
 	// module:
-	//		dojox/mobile/Accordion
+	//		dui/mobile/Accordion
 
 	// inner class
 	var _AccordionTitle = declare([WidgetBase, Contained], {
@@ -178,11 +178,11 @@ define([
 		}
 	});
 
-	var Accordion = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiAccordion" : "dojox.mobile.Accordion", [WidgetBase, Container, Contained], {
+	var Accordion = declare(has("dojo-bidi") ? "dui.mobile.NonBidiAccordion" : "dui.mobile.Accordion", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A container widget that can display a group of child panes in a stacked format.
 		// description:
-		//		Typically, dojox/mobile/Pane, dojox/mobile/Container, or dojox/mobile/ContentPane are 
+		//		Typically, dui/mobile/Pane, dui/mobile/Container, or dui/mobile/ContentPane are 
 		//		used as child widgets, but Accordion requires no specific child widget. 
 		//		Accordion supports three modes for opening child panes: multiselect, fixed-height,
 		//		and single-select. Accordion can have rounded corners, and it can lazy-load the 
@@ -471,7 +471,7 @@ define([
 	
 	Accordion.ChildWidgetProperties = {
 		// summary:
-		//		These properties can be specified for the children of a dojox/mobile/Accordion.
+		//		These properties can be specified for the children of a dui/mobile/Accordion.
 
 		// alt: String
 		//		The alternate text of the Accordion title.
@@ -499,5 +499,5 @@ define([
 		lazy: false
 	};
 
-	return has("dojo-bidi") ? declare("dojox.mobile.Accordion", [Accordion, BidiAccordion]) : Accordion;
+	return has("dojo-bidi") ? declare("dui.mobile.Accordion", [Accordion, BidiAccordion]) : Accordion;
 });

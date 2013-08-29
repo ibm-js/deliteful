@@ -18,8 +18,8 @@
 			"dojo/dom-geometry",
 			"dojo/parser",
 			"dijit/registry",
-			"dojox/mobile/compat",
-			"dojox/mobile/Slider"
+			"dui/mobile/compat",
+			"dui/mobile/Slider"
 		], function(doh, has, ready, win, dom, domStyle, domGeometry, parser, registry){
 		ready(function(){
 			var hasTouch = has("touch");
@@ -500,7 +500,7 @@
 		<center>
 			<table><tr>
 				<td>0</td>
-				<td><input id="sh" data-dojo-type="dojox/mobile/Slider" type="range" data-dojo-props='value:0, min:0, max:20, step:0.1, onChange:function(v){ document.getElementById("sh_val").innerHTML=this.value; }' style="width:200px;" /></td>
+				<td><input id="sh" data-dojo-type="dui/mobile/Slider" type="range" data-dojo-props='value:0, min:0, max:20, step:0.1, onChange:function(v){ document.getElementById("sh_val").innerHTML=this.value; }' style="width:200px;" /></td>
 				<td>20</td>
 			</tr><tr>
 				<td></td><td><center>Value:&nbsp;<span id="sh_val">0</span></center></td><td></td>
@@ -511,7 +511,7 @@
 			<table><tr><td style="width:100px;">
 				<center>
 					20<br>
-					<input id="sv" name="sv" data-dojo-type="dojox/mobile/Slider" type="range" data-dojo-props='value:0, min:-20, max:20, step:1, intermediateChanges:true, onChange:function(v){ document.getElementById("sv_val").innerHTML=this.value; }' style="width:2px;height:200px;" />
+					<input id="sv" name="sv" data-dojo-type="dui/mobile/Slider" type="range" data-dojo-props='value:0, min:-20, max:20, step:1, intermediateChanges:true, onChange:function(v){ document.getElementById("sv_val").innerHTML=this.value; }' style="width:2px;height:200px;" />
 					-20
 				</center>
 			</td><td style="width:80px;">

@@ -75,33 +75,33 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
-		dojo.require("dojox/mobile/parser");
-		dojo.require("dojox.mobile");
-		dojo.require("dojox/mobile/SwapView");
-		dojo.require("dojox/mobile/IconContainer");
-		dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+		dojo.require("dui/mobile/parser");
+		dojo.require("dui.mobile");
+		dojo.require("dui/mobile/SwapView");
+		dojo.require("dui/mobile/IconContainer");
+		dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
 		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
 
         dojo.require("doh.runner");
 		dojo.addOnLoad(function(){
 
-			var view = new dojox.mobile.SwapView({id:"foo", selected:"true"});
+			var view = new dui.mobile.SwapView({id:"foo", selected:"true"});
 			dojo.doc.body.appendChild(view.domNode);
-			var demoWidget = new dojox.mobile.RoundRectCategory({label:"Page flipping demo"});
+			var demoWidget = new dui.mobile.RoundRectCategory({label:"Page flipping demo"});
 //			view.addChild(demoWidget);
 			demoWidget.placeAt(view.containerNode);
 
-			demoWidget = new dojox.mobile.RoundRect({innerHTML:"Swipe the screen left or right to flip between the views. There are 4 views in this demo. Vertical scrolling and page indicator are not supported."});
+			demoWidget = new dui.mobile.RoundRect({innerHTML:"Swipe the screen left or right to flip between the views. There are 4 views in this demo. Vertical scrolling and page indicator are not supported."});
 //			view.addChild(demoWidget);
 			demoWidget.placeAt(view.containerNode);
 			view.startup();
 
-			view = new dojox.mobile.SwapView({id:"bar"});
+			view = new dui.mobile.SwapView({id:"bar"});
 			dojo.doc.body.appendChild(view.domNode);
 			view.startup();
-			var list = new dojox.mobile.RoundRectList();
-			demoWidget = new dojox.mobile.ListItem({className:"duiVariableHeight"});
+			var list = new dui.mobile.RoundRectList();
+			demoWidget = new dui.mobile.ListItem({className:"duiVariableHeight"});
 //			demoWidget.domNode.style = {font-size:"10px"};
 //			view.addChild(list);
 			list.placeAt(view.containerNode);
@@ -111,16 +111,16 @@
 
 
 			
-			view = new dojox.mobile.SwapView({id:"icon1"});
-			demoWidget = new dojox.mobile.Heading({label:"Icon Container 1"});
+			view = new dui.mobile.SwapView({id:"icon1"});
+			demoWidget = new dui.mobile.Heading({label:"Icon Container 1"});
 			dojo.doc.body.appendChild(view.domNode);
 //			view.addChild(demoWidget);
 			demoWidget.placeAt(view.containerNode);
-//			container = new dojox.mobile.IconContainer();
+//			container = new dui.mobile.IconContainer();
 
 
 			view.startup();
-			doh.register("dojox/mobile/test.doh.View", [
+			doh.register("dui/mobile/test.doh.View", [
 				{
 					name: "test View Verification",
 					timeout: 4000,

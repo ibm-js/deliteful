@@ -17,11 +17,11 @@
 			"dojo/dom",
 			"dojo/domReady",
 			"dojo/query",			
-			"dojox/mobile/ListItem",
-			"dojox/mobile/RoundRectCategory",			
-			"dojox/mobile/compat",
+			"dui/mobile/ListItem",
+			"dui/mobile/RoundRectCategory",			
+			"dui/mobile/compat",
 			"dojo/parser",
-			"dojox/mobile/Button"			
+			"dui/mobile/Button"			
 			], function(registry,runner,dom,ready,query){			
 				ready(function(){
 					runner.register("Bidi EdgeToEdgeList", [
@@ -70,34 +70,34 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<button data-dojo-type="dojox/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of second item</button>
+	<button data-dojo-type="dui/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of second item</button>
 	<br>
-	<div id="settings" data-dojo-type="dojox/mobile/View">
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory" data-dojo-props='textDir:"rtl"'>RTL RoundRectCategory!</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
-			<li id="first" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-1.png"'>
+	<div id="settings" data-dojo-type="dui/mobile/View">
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory" data-dojo-props='textDir:"rtl"'>RTL RoundRectCategory!</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" data-dojo-props='textDir:"rtl"'>
+			<li id="first" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-1.png"'>
 				<font style="font-style:italic; font-size: 16pt">Rtl </font>direction!!
-				<div data-dojo-type="dojox/mobile/Switch"></div>
+				<div data-dojo-type="dui/mobile/Switch"></div>
 			</li>
-			<li id="second" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
+			<li id="second" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-2.png",rightText:"mac.", moveTo:"hello."'>
 				&nbsp;Wi-Fi!&nbsp;		
 				&nbsp;<span>Internet!</span>&nbsp;				
 				&nbsp;Speedy!&nbsp;
 				&nbsp;<font style="font-style:italic">Rtl direction!</font>&nbsp;				
 			</li>
-			<li id="third" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-3.png",textDir:"ltr", rightText:"AcmePhone.", moveTo:"hello."'>
+			<li id="third" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../../images/i-icon-3.png",textDir:"ltr", rightText:"AcmePhone.", moveTo:"hello."'>
 				Rtl direction!
 			</li>
 		</ul>
 	</div>
 
-	<div id="hello" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Hello</h1>		
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"settings"'>
+	<div id="hello" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Hello</h1>		
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='moveTo:"settings"'>
 				Hello!
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='moveTo:"settings"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='moveTo:"settings"'>
 				Carrier!!
 			</li>
 		</ul>

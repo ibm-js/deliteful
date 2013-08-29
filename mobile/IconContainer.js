@@ -13,14 +13,14 @@ define([
 ], function(array, declare, lang, win, domConstruct, Contained, Container, WidgetBase, IconItem, Heading, View){
 
 	// module:
-	//		dojox/mobile/IconContainer
+	//		dui/mobile/IconContainer
 
-	return declare("dojox.mobile.IconContainer", [WidgetBase, Container, Contained],{
+	return declare("dui.mobile.IconContainer", [WidgetBase, Container, Contained],{
 		// summary:
 		//		A container widget which can hold multiple icons.
 		// description:
 		//		IconContainer is a container widget which can hold multiple
-		//		icons. Each icon must be a subclass of dojox/mobile/IconItem
+		//		icons. Each icon must be a subclass of dui/mobile/IconItem
 		//		and can be associated with a panel which opens when touching
 		//		the icon.
 
@@ -78,10 +78,10 @@ define([
 
 		/* internal properties */	
 		baseClass: "duiIconContainer",
-		editableMixinClass: "dojox/mobile/_EditableIconMixin",
-		iconItemPaneContainerClass: "dojox/mobile/Container",
+		editableMixinClass: "dui/mobile/_EditableIconMixin",
+		iconItemPaneContainerClass: "dui/mobile/Container",
 		iconItemPaneContainerProps: null,
-		iconItemPaneClass: "dojox/mobile/_IconItemPane",
+		iconItemPaneClass: "dui/mobile/_IconItemPane",
 		iconItemPaneProps: null,
 
 		buildRendering: function(){

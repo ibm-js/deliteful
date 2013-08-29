@@ -9,9 +9,9 @@ define([
 ], function(dojo, array, declare, lang, Deferred, json, domConstruct){
 
 	// module:
-	//		dojox/mobile/dh/JsonContentHandler
+	//		dui/mobile/dh/JsonContentHandler
 
-	return declare("dojox.mobile.dh.JsonContentHandler", null, {
+	return declare("dui.mobile.dh.JsonContentHandler", null, {
 		// summary:
 		//		A JSON content handler.
 		// description:
@@ -31,15 +31,15 @@ define([
 		// example:
 		// 	|	// v1.7 format
 		//	|	{
-		//	|	  "dojox.mobile.View": {
+		//	|	  "dui.mobile.View": {
 		//	|	    "@id": "view1",
-		//	|	    "dojox.mobile.Heading": {
+		//	|	    "dui.mobile.Heading": {
 		//	|	      "@back": "Home",
 		//	|	      "@moveTo": "home",
 		//	|	      "@label": "view1.json"
 		//	|	    },
-		//	|	    "dojox.mobile.EdgeToEdgeList": {
-		//	|	      "dojox.mobile.ListItem": [{
+		//	|	    "dui.mobile.EdgeToEdgeList": {
+		//	|	      "dui.mobile.ListItem": [{
 		//	|	        "@label": "Jack Coleman"
 		//	|	      }, {
 		//	|	        "@label": "James Evans"
@@ -53,30 +53,30 @@ define([
 		// example:
 		//	|	// v1.8 format
 		//	|	{
-		//	|	  "class": "dojox.mobile.View",
+		//	|	  "class": "dui.mobile.View",
 		//	|	  "@id": "view1",
 		//	|	  "children": [
 		//	|	
 		//	|	    {
-		//	|	      "class": "dojox.mobile.Heading",
+		//	|	      "class": "dui.mobile.Heading",
 		//	|	      "@back": "Home",
 		//	|	      "@moveTo": "home",
 		//	|	      "@label": "view1.json"
 		//	|	    },
 		//	|	
 		//	|	    {
-		//	|	      "class": "dojox.mobile.EdgeToEdgeList",
+		//	|	      "class": "dui.mobile.EdgeToEdgeList",
 		//	|	      "children": [
 		//	|	        {
-		//	|	          "class": "dojox.mobile.ListItem",
+		//	|	          "class": "dui.mobile.ListItem",
 		//	|	          "@label": "Jack Coleman"
 		//	|	        },
 		//	|	        {
-		//	|	          "class": "dojox.mobile.ListItem",
+		//	|	          "class": "dui.mobile.ListItem",
 		//	|	          "@label": "James Evans"
 		//	|	        },
 		//	|	        {
-		//	|	          "class": "dojox.mobile.ListItem",
+		//	|	          "class": "dui.mobile.ListItem",
 		//	|	          "@label": "Jason Griffin"
 		//	|	        }
 		//	|	      ]
@@ -88,16 +88,16 @@ define([
 		// example:
 		//	|	// SpinWheel in v1.8 format
 		//	|	{
-		//	|	  "class": "dojox.mobile.View",
+		//	|	  "class": "dui.mobile.View",
 		//	|	  "@id": "view1",
 		//	|	  "children": [
 		//	|	    {
-		//	|	      "class": "dojox.mobile.SpinWheel",
+		//	|	      "class": "dui.mobile.SpinWheel",
 		//	|	      "@id": "spin1",
 		//	|	      "@style": {"margin":"10px auto","width":"304px"},
 		//	|	      "children": [
 		//	|	        {
-		//	|	          "class": "dojox.mobile.SpinWheelSlot",
+		//	|	          "class": "dui.mobile.SpinWheelSlot",
 		//	|	          "@labels": "A,B,C,D,E",
 		//	|	          "@style": {"textAlign":"center","width":"300px"}
 		//	|	        }

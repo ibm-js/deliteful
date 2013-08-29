@@ -15,12 +15,12 @@ define([
 	"./ProgressIndicator"
 ], function(common){
 	// module:
-	//		dojox/mobile/_base
+	//		dui/mobile/_base
 
 	/*=====
 	return {
 		// summary:
-		//		Includes the basic dojox/mobile modules: common, View, Heading, 
+		//		Includes the basic dui/mobile modules: common, View, Heading, 
 		//		RoundRect, RoundRectCategory, EdgeToEdgeCategory, RoundRectList,
 		//		EdgeToEdgeList, ListItem, Container, Pane, Switch, ToolBarButton, 
 		//		and ProgressIndicator.

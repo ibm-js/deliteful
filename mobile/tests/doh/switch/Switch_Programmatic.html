@@ -37,19 +37,19 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
-				var roundRect = dijit.byId("dojox_mobile_RoundRect_0");
-				var demoWidget = new dojox.mobile.Switch({value:"off"});
+				var roundRect = dijit.byId("dui_mobile_RoundRect_0");
+				var demoWidget = new dui.mobile.Switch({value:"off"});
 				dojo.addClass(demoWidget.domNode, "float");
 //				roundRect.addChild(demoWidget);
 				demoWidget.placeAt(roundRect.containerNode);
-				demoWidget = new dojox.mobile.Switch({value:"on", leftLabel:"Start", rightLabel:"Stop"});
+				demoWidget = new dui.mobile.Switch({value:"on", leftLabel:"Start", rightLabel:"Stop"});
 				demoWidget.placeAt(roundRect.containerNode);
 //				roundRect.addChild(demoWidget);
 			});
@@ -57,8 +57,8 @@
 		<script type="text/javascript" src="Switch.js"></script>
 	</head>
 	<body style="visibility:visible">
-		<div data-dojo-type="dojox/mobile/View">
-			<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/View">
+			<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 				<span class="bold">Default Shape</span><br>
 			</div>
 

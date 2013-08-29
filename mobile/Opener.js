@@ -14,7 +14,7 @@ define([
 
 	var isOverlay = domClass.contains(win.doc.documentElement, "dj_phone");
 	
-	var cls = declare("dojox.mobile.Opener", isOverlay ? Overlay : Tooltip, {
+	var cls = declare("dui.mobile.Opener", isOverlay ? Overlay : Tooltip, {
 		// summary:
 		//		A non-templated popup widget that will use either Tooltip or 
 		//		Overlay depending on screen size.

@@ -21,10 +21,10 @@
 			"dojo/domReady",
 			"dojo/query",		
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/Accordion",
-			"dojox/mobile/ContentPane",
-			"dojox/mobile/ScrollableView"		
+			"dui/mobile/compat",
+			"dui/mobile/Accordion",
+			"dui/mobile/ContentPane",
+			"dui/mobile/ScrollableView"		
 			], function(registry,runner,dom,ready,query){
 				ready(function(){
 					runner.register("Bidi Accordion", [
@@ -60,24 +60,24 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-		<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-			<div data-dojo-type="dojox/mobile/Accordion" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"External Content!", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16", href:"../../data/fragment1.html"'>
+		<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+			<div data-dojo-type="dui/mobile/Accordion" data-dojo-props='textDir: "rtl",singleOpen:true, roundRect:true' style="height:400px;">
+				<div data-dojo-type="dui/mobile/ContentPane" data-dojo-props='label:"External Content!", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16", href:"../../data/fragment1.html"'>
 				</div>
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"RoundRectList!",icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"'>
-					<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='textDir:"rtl",iconBase:"../../images/tab-icon-11h.png"'>
-						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
+				<div data-dojo-type="dui/mobile/ContentPane" data-dojo-props='label:"RoundRectList!",icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"'>
+					<ul data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='textDir:"rtl",iconBase:"../../images/tab-icon-11h.png"'>
+						<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u1space!
 						</li>
-						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							u2space!
 						</li>
-						<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"Off"'>
+						<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"Off"'>
 							Wi-Fi!
 						</li>
 					</ul>
 				</div>
-				<div data-dojo-type="dojox/mobile/ContentPane" data-dojo-props='label:"Dojo!", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"' class="myPane">
+				<div data-dojo-type="dui/mobile/ContentPane" data-dojo-props='label:"Dojo!", icon1:"duiDomButtonBlackRightArrow16", icon2:"duiDomButtonWhiteDownArrow16"' class="myPane">
 					<div style="padding:10px">
 						<div style="font-size: 24px">Unbeatable JavaScript Tools</div>
 						<div style="border-top: 1px dashed gray;margin: 20px"></div>

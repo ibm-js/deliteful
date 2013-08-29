@@ -24,7 +24,7 @@
 					doh.robot.initRobot("../test_IconContainer.html");
 					var reg = null;
 
-					doh.register("dojox/mobile/Icon mouse tests", [
+					doh.register("dui/mobile/Icon mouse tests", [
 						{
 							name: "Icon mouse tests",
 							timeout: 4000,
@@ -32,11 +32,11 @@
 								var d = new doh.Deferred();
 								reg = registry;
 
-								doh.robot.mouseMoveAt(reg.byId("dojox_mobile_IconItem_0").iconNode, 1000);
+								doh.robot.mouseMoveAt(reg.byId("dui_mobile_IconItem_0").iconNode, 1000);
 								doh.robot.mouseClick({left: true}, 500);
 
 								doh.robot.sequence(d.getTestCallback(function(){
-									doh.assertEqual("",  reg.byId("dojox_mobile__IconItemPane_0").domNode.style.display);
+									doh.assertEqual("",  reg.byId("dui_mobile__IconItemPane_0").domNode.style.display);
 								}), 500);
 								return d;
 							}

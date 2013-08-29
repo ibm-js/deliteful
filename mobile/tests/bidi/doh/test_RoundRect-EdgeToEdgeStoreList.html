@@ -20,9 +20,9 @@
 			"dojo/domReady",
 			"dojo/query",		
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/RoundRectStoreList",
-			"dojox/mobile/EdgeToEdgeStoreList"			
+			"dui/mobile/compat",
+			"dui/mobile/RoundRectStoreList",
+			"dui/mobile/EdgeToEdgeStoreList"			
 		], function(Memory, Observable, registry, runner, dom, ready, query){
 			var static_data1 = [
 				{ label: "Wi-Fi!", icon: "../../images/i-icon-1.png", moveTo: "wifi" },
@@ -82,11 +82,11 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
-		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h1>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+		<h1 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>

@@ -16,10 +16,10 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/TabBar",
-			"dojox/mobile/TabBarButton",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/TabBar",
+			"dui/mobile/TabBarButton",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, domConst, ready, registry, runner, TabBar, TabBarButton){
 
 			parser.parse();
@@ -64,7 +64,7 @@
 				view1.performTransition("view2", 1, "none");
 			};
 
-			runner.register("dojox/mobile/test.doh.TabBarTests", [
+			runner.register("dui/mobile/test.doh.TabBarTests", [
 				function testInView1(){
 					var tabBar1 = _createTabBarDeclaratively("view1-tabBar1");
 					tabBar1.resize();
@@ -93,19 +93,19 @@
 	</script>
 </head>
 <body>
-<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 	<h1>View 1</h1>
-	<ul id="view1-tabBar1" data-dojo-type="dojox/mobile/TabBar">
-		<li id="view1-tabBarButton" data-dojo-type="dojox/mobile/TabBarButton" label="Tab Bar Button"
+	<ul id="view1-tabBar1" data-dojo-type="dui/mobile/TabBar">
+		<li id="view1-tabBarButton" data-dojo-type="dui/mobile/TabBarButton" label="Tab Bar Button"
 			icon1="../../images/tab-icon-16.png" icon2="../../images/tab-icon-16h.png" selected=true></li>
 	</ul>
 	<div id="view1-tabBar2"></div>
 	<ul id="view1-tabBar3"></ul>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View 2</h1>
-	<ul id="view2-tabBar1" data-dojo-type="dojox/mobile/TabBar">
-		<li id="view2-tabBarButton" data-dojo-type="dojox/mobile/TabBarButton" icon1="../../images/tab-icon-16.png"
+	<ul id="view2-tabBar1" data-dojo-type="dui/mobile/TabBar">
+		<li id="view2-tabBarButton" data-dojo-type="dui/mobile/TabBarButton" icon1="../../images/tab-icon-16.png"
 			icon2="../../images/tab-icon-16h.png" selected="true">Tab Bar Button
 		</li>
 	</ul>

@@ -17,9 +17,9 @@
 			"dojo/dom",
 			"dojo/domReady",
 			"dojo/query",
-			"dojox/mobile/IconContainer",			
-			"dojox/mobile/IconItem",
-			"dojox/mobile/compat",
+			"dui/mobile/IconContainer",			
+			"dui/mobile/IconItem",
+			"dui/mobile/compat",
 			"dojo/parser"
 			], function(registry,runner,dom,ready){
 				ready(function(){
@@ -75,13 +75,13 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Icon Container (Multi - Below)</h1>
-		<ul data-dojo-type="dojox/mobile/IconContainer" data-dojo-props='textDir:"rtl" '>
-			<li id="first_li" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1!!", icon:"../../images/icon-1.png", lazy:true '><div class="box"></div></li>
-			<li id="second_li" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2!!", icon:"../../images/icon-1.png", lazy:true,textDir:"ltr" '><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3!!", icon:"../../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href?", icon:"../../images/icon-1.png", href:"../../test_RoundRectList.html", transition:"slide"'></li>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Icon Container (Multi - Below)</h1>
+		<ul data-dojo-type="dui/mobile/IconContainer" data-dojo-props='textDir:"rtl" '>
+			<li id="first_li" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app1!!", icon:"../../images/icon-1.png", lazy:true '><div class="box"></div></li>
+			<li id="second_li" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app2!!", icon:"../../images/icon-1.png", lazy:true,textDir:"ltr" '><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app3!!", icon:"../../images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"href?", icon:"../../images/icon-1.png", href:"../../test_RoundRectList.html", transition:"slide"'></li>
 		</ul>
 	</div>
 	<br>Errors:&nbsp;<span id="errors">?</span>

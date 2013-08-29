@@ -17,9 +17,9 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/RadioButton",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/RadioButton",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, domConst, domClass, ready, registry, runner, RadioButton){
 			parser.parse();
 			function _createRadioButtonDeclaratively(buttonId){
@@ -63,7 +63,7 @@
 				view1.performTransition("view2", 1, "none");
 			};
 
-			runner.register("dojox/mobile/test.doh.ButtonTests", [
+			runner.register("dui/mobile/test.doh.ButtonTests", [
 				function testInView1(){
 					var button11 = _createRadioButtonDeclaratively("view1-button11");
 					var button12 = _createRadioButtonDeclaratively("view1-button12");
@@ -106,11 +106,11 @@
 	</script>
 </head>
 <body>
-<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 	<h1>View 1</h1>
-	<input id="view1-button11" type="radio" name="view1-button1" value="1" data-dojo-type="dojox/mobile/RadioButton">
-	<input id="view1-button12" type="radio" name="view1-button1" value="2" data-dojo-type="dojox/mobile/RadioButton">
-	<input id="view1-button13" type="radio" name="view1-button1" value="3" data-dojo-type="dojox/mobile/RadioButton">
+	<input id="view1-button11" type="radio" name="view1-button1" value="1" data-dojo-type="dui/mobile/RadioButton">
+	<input id="view1-button12" type="radio" name="view1-button1" value="2" data-dojo-type="dui/mobile/RadioButton">
+	<input id="view1-button13" type="radio" name="view1-button1" value="3" data-dojo-type="dui/mobile/RadioButton">
 	<br>
 
 	<div id="view1-button21"></div>
@@ -121,11 +121,11 @@
 	<input id="view1-button32" type="radio">
 	<input id="view1-button33" type="radio">
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View 2</h1>
-	<input id="view2-button11" type="radio" name="view2-button1" value="1" data-dojo-type="dojox/mobile/RadioButton">
-	<input id="view2-button12" type="radio" name="view2-button1" value="2" data-dojo-type="dojox/mobile/RadioButton">
-	<input id="view2-button13" type="radio" name="view2-button1" value="3" data-dojo-type="dojox/mobile/RadioButton">
+	<input id="view2-button11" type="radio" name="view2-button1" value="1" data-dojo-type="dui/mobile/RadioButton">
+	<input id="view2-button12" type="radio" name="view2-button1" value="2" data-dojo-type="dui/mobile/RadioButton">
+	<input id="view2-button13" type="radio" name="view2-button1" value="3" data-dojo-type="dui/mobile/RadioButton">
 	<br>
 
 	<div id="view2-button21"></div>

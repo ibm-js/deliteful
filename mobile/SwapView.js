@@ -10,27 +10,27 @@ define([
 	"./_ScrollableMixin",
 	"dojo/sniff",
 	"./_css3",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/SwapView"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/SwapView"
 ], function(array, declare, lang, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
 
 	// module:
-	//		dojox/mobile/SwapView
+	//		dui/mobile/SwapView
 
-	var SwapView = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiSwapView" : "dojox.mobile.SwapView", [View, ScrollableMixin], {
+	var SwapView = declare(has("dojo-bidi") ? "dui.mobile.NonBidiSwapView" : "dui.mobile.SwapView", [View, ScrollableMixin], {
 		// summary:
 		//		A container that can be swiped horizontally.
 		// description:
 		//		SwapView is a container widget which can be swiped horizontally. 
-		//		SwapView is a subclass of dojox/mobile/View. It allows the user to 
+		//		SwapView is a subclass of dui/mobile/View. It allows the user to 
 		//		swipe the screen left or right to move between the views. When 
 		//		SwapView is swiped, it finds an adjacent SwapView to open. When 
-		//		the transition is done, a topic "/dojox/mobile/viewChanged" is 
+		//		the transition is done, a topic "/dui/mobile/viewChanged" is 
 		//		published. Note that, to behave properly, the SwapView needs to 
 		//		occupy the entire width of the screen.
 
 		/* internal properties */	
 		// scrollDir: [private] String
-		//		Scroll direction, used by dojox/mobile/scrollable (always "f" for this class).
+		//		Scroll direction, used by dui/mobile/scrollable (always "f" for this class).
 		scrollDir: "f",
 		// weight: [private] Number
 		//		Frictional weight used to compute scrolling speed.
@@ -46,8 +46,8 @@ define([
 			domClass.add(this.domNode, "duiSwapView");
 			this.setSelectable(this.domNode, false);
 			this.containerNode = this.domNode;
-			this.own(topic.subscribe("/dojox/mobile/nextPage", lang.hitch(this, "handleNextPage")));
-			this.own(topic.subscribe("/dojox/mobile/prevPage", lang.hitch(this, "handlePrevPage")));
+			this.own(topic.subscribe("/dui/mobile/nextPage", lang.hitch(this, "handleNextPage")));
+			this.own(topic.subscribe("/dui/mobile/prevPage", lang.hitch(this, "handlePrevPage")));
 			this.noResize = true; // not to call resize() from scrollable#init
 		},
 
@@ -108,7 +108,7 @@ define([
 
 		handleNextPage: function(/*Widget*/w){
 			// summary:
-			//		Called when the "/dojox/mobile/nextPage" topic is published.
+			//		Called when the "/dui/mobile/nextPage" topic is published.
 			var refNode = w.refId && dom.byId(w.refId) || w.domNode;
 			if(this.domNode.parentNode !== refNode.parentNode){ return; }
 			if(this.getShowingView() !== this){ return; }
@@ -117,7 +117,7 @@ define([
 
 		handlePrevPage: function(/*Widget*/w){
 			// summary:
-			//		Called when the "/dojox/mobile/prevPage" topic is published.
+			//		Called when the "/dui/mobile/prevPage" topic is published.
 			var refNode = w.refId && dom.byId(w.refId) || w.domNode;
 			if(this.domNode.parentNode !== refNode.parentNode){ return; }
 			if(this.getShowingView() !== this){ return; }
@@ -135,7 +135,7 @@ define([
 				this.domNode._isShowing = false; // update isShowing flag
 				view.domNode._isShowing = true;
 				this.performTransition(view.id, dir, "slide", null, function(){
-					topic.publish("/dojox/mobile/viewChanged", view);
+					topic.publish("/dui/mobile/viewChanged", view);
 				});
 			}
 		},
@@ -166,7 +166,7 @@ define([
 
 		scrollTo: function(/*Object*/to){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.scrollTo().
+			//		Overrides dui/mobile/scrollable.scrollTo().
 			if(!this._beingFlipped){
 				var newView, x;
 				if(to.x){
@@ -193,7 +193,7 @@ define([
 
 		findDisp: function(/*DomNode*/node){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.findDisp().
+			//		Overrides dui/mobile/scrollable.findDisp().
 			// description:
 			//		When this function is called from scrollable.js, there are
 			//		two visible views, one is the current view, the other is the
@@ -216,7 +216,7 @@ define([
 
 		slideTo: function(/*Object*/to, /*Number*/duration, /*String*/easing, /*Object?*/fake_pos){
 			// summary:
-			//		Overrides dojox/mobile/scrollable.slideTo().
+			//		Overrides dui/mobile/scrollable.slideTo().
 			if(!this._beingFlipped){
 				var w = this.domNode.offsetWidth;
 				var pos = fake_pos || this.getPos();
@@ -260,7 +260,7 @@ define([
 
 		onAnimationEnd: function(/*Event*/e){
 			// summary:
-			//		Overrides dojox/mobile/View.onAnimationEnd().
+			//		Overrides dui/mobile/View.onAnimationEnd().
 			if(e && e.target && domClass.contains(e.target, "duiScrollableScrollTo2")){ return; }
 			this.inherited(arguments);
 		},
@@ -270,7 +270,7 @@ define([
 				this._endOfTransitionTimeoutHandle = this._endOfTransitionTimeoutHandle.remove();
 			}
 			// summary:
-			//		Overrides dojox/mobile/scrollable.onFlickAnimationEnd().
+			//		Overrides dui/mobile/scrollable.onFlickAnimationEnd().
 			if(e && e.target && !domClass.contains(e.target, "duiScrollableScrollTo2")){ return; }
 			this.inherited(arguments);
 
@@ -290,7 +290,7 @@ define([
 						}
 					}
 				}, this);
-				topic.publish("/dojox/mobile/viewChanged", this);
+				topic.publish("/dui/mobile/viewChanged", this);
 				// Reset the temporary padding
 				this.containerNode.style.paddingTop = "";
 			}else if(!has("css3-animations")){
@@ -303,18 +303,18 @@ define([
 			var inMotionAttributeValue = inMotion ? "true" : false;
 			var parent = this.domNode.parentNode;
 			if(parent){
-				parent.setAttribute("data-dojox-mobile-swapview-inmotion", inMotionAttributeValue);
+				parent.setAttribute("data-dui-mobile-swapview-inmotion", inMotionAttributeValue);
 			}
 		},
 
 		_siblingViewsInMotion: function(){
 			var parent = this.domNode.parentNode;
 			if(parent){
-				return parent.getAttribute("data-dojox-mobile-swapview-inmotion") == "true";
+				return parent.getAttribute("data-dui-mobile-swapview-inmotion") == "true";
 			}else{
 				return false;
 			}
 		}
 	});
-	return has("dojo-bidi") ? declare("dojox.mobile.SwapView", [SwapView, BidiSwapView]) : SwapView;
+	return has("dojo-bidi") ? declare("dui.mobile.SwapView", [SwapView, BidiSwapView]) : SwapView;
 });

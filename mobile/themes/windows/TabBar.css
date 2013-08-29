@@ -13,7 +13,7 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.TabBar */
+/* dui.mobile.TabBar */
 .duiTabBar {
   position: relative;
   margin: 0px;
@@ -28,7 +28,7 @@
   border-bottom: 1px solid transparent;
   padding: 0px;
 }
-/* dojox.mobile.TabBarButton */
+/* dui.mobile.TabBarButton */
 .duiTabBarFill .duiTabBarButton {
   box-sizing: border-box;
   -moz-box-sizing: border-box;

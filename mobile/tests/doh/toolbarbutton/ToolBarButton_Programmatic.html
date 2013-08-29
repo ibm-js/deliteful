@@ -13,159 +13,159 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/TabBar");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/TabBar");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
 
 				var view = dijit.byId("general");
-				var demoWidget = new dojox.mobile.Heading({label:"World Clock"});
+				var demoWidget = new dui.mobile.Heading({label:"World Clock"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				var childWidget = new dojox.mobile.ToolBarButton({id:"btn1", label:"Edit", style:{padding:"0px 14px"}});
+				var childWidget = new dui.mobile.ToolBarButton({id:"btn1", label:"Edit", style:{padding:"0px 14px"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", style:"float:right;", onclick:"console.log('+ was clicked')"});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", style:"float:right;", onclick:"console.log('+ was clicked')"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({label:"Alarm Clock"});
+				demoWidget = new dui.mobile.Heading({label:"Alarm Clock"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Edit", style:{padding:"0px 14px"}});
+				childWidget = new dui.mobile.ToolBarButton({label:"Edit", style:{padding:"0px 14px"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({label:"Voice Memos"});
+				demoWidget = new dui.mobile.Heading({label:"Voice Memos"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Speaker"});
+				childWidget = new dui.mobile.ToolBarButton({label:"Speaker"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue", style:{float:"right"}});
 				dojo.removeClass(childWidget.domNode, "duiColorDefault ");
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({label:"Updatess"});
+				demoWidget = new dui.mobile.Heading({label:"Updatess"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Update All", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({label:"Update All", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({label:"News", back:"Bookmarks", moveTo:"bookmarks"});
+				demoWidget = new dui.mobile.Heading({label:"News", back:"Bookmarks", moveTo:"bookmarks"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue", style:{float:"right"}});
 				dojo.removeClass(childWidget.domNode, "duiColorDefault ");
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue"});
+				childWidget = new dui.mobile.ToolBarButton({label:"Done", btnClass:"duiColorBlue"});
 				dojo.removeClass(childWidget.domNode, "duiColorDefault ");
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"New Folder", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({label:"New Folder", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"New", toggle:"true"});
+				childWidget = new dui.mobile.ToolBarButton({label:"New", toggle:"true"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({label:"Toggle", toggle:"true"});
+				childWidget = new dui.mobile.ToolBarButton({label:"Toggle", toggle:"true"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"../../images/a-icon-12.png", moveTo:"view3"});
+				childWidget = new dui.mobile.ToolBarButton({icon:"../../images/a-icon-12.png", moveTo:"view3"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"../../images/tab-icons.png", iconPos:"29,0,29,29", moveTo:"view3"});
+				childWidget = new dui.mobile.ToolBarButton({icon:"../../images/tab-icons.png", iconPos:"29,0,29,29", moveTo:"view3"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", iconPos:"29,0,29,29", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus", iconPos:"29,0,29,29", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhiteSearch", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhiteSearch", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({align:"center"});
+				demoWidget = new dui.mobile.Heading({align:"center"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus"});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhitePlus"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"../../images/tab-icon-15h.png", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"../../images/tab-icon-15h.png", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 
-				demoWidget = new dojox.mobile.Heading({label:"Inbox(32)", back:"Top"});
+				demoWidget = new dui.mobile.Heading({label:"Inbox(32)", back:"Top"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhiteSearch", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhiteSearch", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhiteUpArrow", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhiteUpArrow", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({icon:"duiDomButtonWhiteDownArrow", style:{float:"right"}});
+				childWidget = new dui.mobile.ToolBarButton({icon:"duiDomButtonWhiteDownArrow", style:{float:"right"}});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 				
 				// Test cases for #16771
 				// a) With arrow but no label (nor icon)
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({arrow:"left"});
+				childWidget = new dui.mobile.ToolBarButton({arrow:"left"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 				
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({arrow:"right"});
+				childWidget = new dui.mobile.ToolBarButton({arrow:"right"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 				
 				// b) With arrow, icon and label
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({arrow:"left", icon:"duiDomButtonWhiteDownArrow", label:"some label"});
+				childWidget = new dui.mobile.ToolBarButton({arrow:"left", icon:"duiDomButtonWhiteDownArrow", label:"some label"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 				
-				demoWidget = new dojox.mobile.Heading();
+				demoWidget = new dui.mobile.Heading();
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
-				childWidget = new dojox.mobile.ToolBarButton({arrow:"right", icon:"duiDomButtonWhiteDownArrow", label:"some label"});
+				childWidget = new dui.mobile.ToolBarButton({arrow:"right", icon:"duiDomButtonWhiteDownArrow", label:"some label"});
 				childWidget.placeAt(demoWidget.containerNode);
 				childWidget.startup();
 				// end of test cases for #16771
@@ -175,7 +175,7 @@
 		<script type="text/javascript" src="ToolBarButton.js"></script>
 	</head>
 	<body>
-		<div id="general" data-dojo-type="dojox/mobile/View" selected="true">
+		<div id="general" data-dojo-type="dui/mobile/View" selected="true">
 		</div>
 
 	</body>

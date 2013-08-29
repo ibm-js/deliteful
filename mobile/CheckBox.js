@@ -7,7 +7,7 @@ define([
 ],
 	function(declare, domConstruct, CheckBoxMixin, ToggleButton, has){
 
-	return declare("dojox.mobile.CheckBox", [ToggleButton, CheckBoxMixin], {
+	return declare("dui.mobile.CheckBox", [ToggleButton, CheckBoxMixin], {
 		// summary:
 		//		A non-templated checkbox widget that can be in two states 
 		//		(checked or not checked).

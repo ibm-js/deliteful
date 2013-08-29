@@ -14,9 +14,9 @@
 		require([
 			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/ValuePickerTimePicker",
+			"dui/mobile/ValuePickerTimePicker",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(ready, registry, ValuePickerTimePicker){
 			ready(function(){
 				registry.byId("picker1").set("values", ["22","06"]);
@@ -31,10 +31,10 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
+	<div data-dojo-type="dui/mobile/View">
 		<!-- All these widgets should display the same value. -->
-		<div id="picker1" data-dojo-type="dojox/mobile/ValuePickerTimePicker"></div><br>
-		<div id="picker2" data-dojo-type="dojox/mobile/ValuePickerTimePicker" data-dojo-props="values:['22','06']"></div><br>
+		<div id="picker1" data-dojo-type="dui/mobile/ValuePickerTimePicker"></div><br>
+		<div id="picker2" data-dojo-type="dui/mobile/ValuePickerTimePicker" data-dojo-props="values:['22','06']"></div><br>
 		<div id="picker3"></div><br>
 		<div id="picker4"></div><br>
 	</div>

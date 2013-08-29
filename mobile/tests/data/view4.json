@@ -1,39 +1,39 @@
 {
-  "class": "dojox.mobile.View",
+  "class": "dui.mobile.View",
   "@id": "view4",
   "children": [
 
     {
-      "class": "dojox.mobile.Heading",
+      "class": "dui.mobile.Heading",
       "@back": "Home",
       "@moveTo": "home",
       "@label": "view4.json"
     },
 
     {
-      "class": "dojox.mobile.RoundRectCategory",
+      "class": "dui.mobile.RoundRectCategory",
       "@label": "Category 1"
     },
 
     {
-      "class": "dojox.mobile.RoundRectList",
+      "class": "dui.mobile.RoundRectList",
       "children": [
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-1.png",
           "@moveTo": "home",
           "@transition": "slide",
           "@label": "Item 1"
         },
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-2.png",
           "@moveTo": "home",
           "@transition": "flip",
           "@label": "Item 2"
         },
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-3.png",
           "@moveTo": "home",
           "@transition": "fade",
@@ -43,29 +43,29 @@
     },
 
     {
-      "class": "dojox.mobile.RoundRectCategory",
+      "class": "dui.mobile.RoundRectCategory",
       "@label": "Category 2"
     },
 
     {
-      "class": "dojox.mobile.RoundRectList",
+      "class": "dui.mobile.RoundRectList",
       "children": [
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-1.png",
           "@moveTo": "home",
           "@transition": "slide",
           "@label": "Item 1"
         },
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-2.png",
           "@moveTo": "home",
           "@transition": "flip",
           "@label": "Item 2"
         },
         {
-          "class": "dojox.mobile.ListItem",
+          "class": "dui.mobile.ListItem",
           "@icon": "images/i-icon-3.png",
           "@moveTo": "home",
           "@transition": "fade",

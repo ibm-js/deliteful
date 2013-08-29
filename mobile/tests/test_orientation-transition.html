@@ -20,7 +20,7 @@
 			"dijit/registry",
 			"dojo/sniff",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(connect, win, dom, domClass, ready, registry, common, has){
 			ready(function(){
 				var portrait = registry.byId("portrait");
@@ -60,17 +60,17 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="portrait" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true'>
-		<h1 data-dojo-type="dojox/mobile/Heading">Portrait</h1>
+	<div id="portrait" data-dojo-type="dui/mobile/View" data-dojo-props='selected:true'>
+		<h1 data-dojo-type="dui/mobile/Heading">Portrait</h1>
 		<div style="text-align:center;padding-top:20px;">
 			<img alt="" src="images/a-icon-2-41x41.png">
 			<h2>View<br>for<br>portrait</h2>
 		</div>
 	</div>
 
-	<div id="landscape" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Landscape</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true' style="text-align:center;">
+	<div id="landscape" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Landscape</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true' style="text-align:center;">
 			<h2>View for landscape</h2>
 		</div>
 	</div>

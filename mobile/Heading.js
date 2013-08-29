@@ -16,15 +16,15 @@ define([
 	"./ToolBarButton",
 	"./View",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/Heading"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/Heading"
 ], function(array, declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
 
 	// module:
-	//		dojox/mobile/Heading
+	//		dui/mobile/Heading
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 
-	var Heading = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiHeading" : "dojox.mobile.Heading", [WidgetBase, Container, Contained],{
+	var Heading = declare(has("dojo-bidi") ? "dui.mobile.NonBidiHeading" : "dui.mobile.Heading", [WidgetBase, Container, Contained],{
 		// summary:
 		//		A widget that represents a navigation bar.
 		// description:
@@ -32,7 +32,7 @@ define([
 		//		usually appears at the top of an application. It usually
 		//		displays the title of the current view and can contain a
 		//		navigational control. If you use it with
-		//		dojox/mobile/ScrollableView, it can also be used as a fixed
+		//		dui/mobile/ScrollableView, it can also be used as a fixed
 		//		header bar or a fixed footer bar. In such cases, specify the
 		//		fixed="top" attribute to be a fixed header bar or the
 		//		fixed="bottom" attribute to be a fixed footer bar. Heading can
@@ -49,7 +49,7 @@ define([
 		// moveTo: String
 		//		The id of the transition destination of the navigation control.
 		//		If the value has a hash sign ('#') before the id (e.g. #view1)
-		//		and the dojox/mobile/bookmarkable module is loaded by the user application,
+		//		and the dui/mobile/bookmarkable module is loaded by the user application,
 		//		the view transition updates the hash in the browser URL so that the
 		//		user can bookmark the destination view. In this case, the user
 		//		can also use the browser's back/forward button to navigate
@@ -257,5 +257,5 @@ define([
 		}	
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.Heading", [Heading, BidiHeading]) : Heading;
+	return has("dojo-bidi") ? declare("dui.mobile.Heading", [Heading, BidiHeading]) : Heading;
 });

@@ -22,9 +22,9 @@
 			"dijit/registry",
 			"dojo/sniff",
 			"dojo/parser",
-			"dojox/mobile/FixedSplitter",
-			"dojox/mobile/Container",
-			"dojox/mobile/Pane",
+			"dui/mobile/FixedSplitter",
+			"dui/mobile/Container",
+			"dui/mobile/Pane",
 			"dijit/Calendar"
 		], function(connect, win, dom, domClass, ready, registry, has){
 			var change = function() {
@@ -65,12 +65,12 @@
 	</style>
 </head>
 <body class="tundra">
-	<div id="splitter1" data-dojo-type="dojox/mobile/FixedSplitter" data-dojo-props='variablePane:0'>
-		<div id="pane1" data-dojo-type="dojox/mobile/Pane" style="background-color:yellow;">
+	<div id="splitter1" data-dojo-type="dui/mobile/FixedSplitter" data-dojo-props='variablePane:0'>
+		<div id="pane1" data-dojo-type="dui/mobile/Pane" style="background-color:yellow;">
 			pane #1
 		</div>
 
-		<div id="pane2" data-dojo-type="dojox/mobile/Container" style="background-color:pink;">
+		<div id="pane2" data-dojo-type="dui/mobile/Container" style="background-color:pink;">
 			<div id="cal" dojoType='dijit.Calendar'></div>
 		</div>
 	</div>

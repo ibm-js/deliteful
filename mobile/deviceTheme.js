@@ -6,9 +6,9 @@
 ], function(config, lang, win, require){
 
 	// module:
-	//		dojox/mobile/deviceTheme
+	//		dui/mobile/deviceTheme
 
-	var dm = lang && lang.getObject("dojox.mobile", true) || {};
+	var dm = lang && lang.getObject("dui.mobile", true) || {};
 
 	var DeviceTheme = function(){
 		// summary:
@@ -16,9 +16,9 @@
 		// description:
 		//		This module detects the user agent of the browser and loads the
 		//		appropriate theme files. It can be enabled by simply including 
-		//		the dojox/mobile/deviceTheme script in your application as follows:
+		//		the dui/mobile/deviceTheme script in your application as follows:
 		//
-		//	|	<script src="dojox/mobile/deviceTheme.js"></script>
+		//	|	<script src="dui/mobile/deviceTheme.js"></script>
 		//	|	<script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
 		//
 		//		Using the script tag as above is the recommended way to load the 
@@ -46,26 +46,26 @@
 		//		To simulate a particular device from the application code, the user agent
 		//		can be forced by setting dojoConfig.duiUserAgent as follows:
 		//
-		//	|	<script src="dojox/mobile/deviceTheme.js" data-dojo-config="duiUserAgent: 'Holodark'"></script>
+		//	|	<script src="dui/mobile/deviceTheme.js" data-dojo-config="duiUserAgent: 'Holodark'"></script>
 		//	|	<script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
 		//
 		//		By default, an all-in-one theme file (e.g. themes/iphone/iphone.css) is
 		//		loaded. The all-in-one theme files contain style sheets for all the
-		//		dojox/mobile widgets regardless of whether they are used in your
+		//		dui/mobile widgets regardless of whether they are used in your
 		//		application or not.
 		//
 		//		If you want to choose what theme files to load, you can specify them
 		//		via dojoConfig or data-dojo-config as shown in the following example:
 		//
-		//	|	<script src="dojox/mobile/deviceTheme.js"
+		//	|	<script src="dui/mobile/deviceTheme.js"
 		//	|		data-dojo-config="duiThemeFiles:['base','Button']"></script>
 		//	|	<script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
 		//
 		//		In the case of this example, if iphone is detected, for example, the
 		//		following files will be loaded:
 		//
-		//	|	dojox/mobile/themes/iphone/base.css
-		//	|	dojox/mobile/themes/iphone/Button.css
+		//	|	dui/mobile/themes/iphone/base.css
+		//	|	dui/mobile/themes/iphone/Button.css
 		//
 		//		If you want to load style sheets for your own custom widgets, you can
 		//		specify a package name along with a theme file name in an array.
@@ -74,7 +74,7 @@
 		//
 		//		In this case, the following files will be loaded.
 		//
-		//	|	dojox/mobile/themes/iphone/base.css
+		//	|	dui/mobile/themes/iphone/base.css
 		//	|	com/acme/themes/iphone/MyWidget.css
 		//
 		//		If you specify '@theme' as a theme file name, it will be replaced with
@@ -84,7 +84,7 @@
 		//
 		//		will load the following files:
 		//
-		//	|	dojox/mobile/themes/iphone/iphone.css
+		//	|	dui/mobile/themes/iphone/iphone.css
 		//	|	com/acme/themes/iphone/MyWidget.css
 		
 		if(!win){
@@ -133,12 +133,12 @@
 
 		this.setDm = function(/*Object*/_dm){
 			// summary:
-			//		Replaces the dojox/mobile object.
+			//		Replaces the dui/mobile object.
 			// description:
 			//		When this module is loaded from a script tag, dm is a plain
 			//		local object defined at the begining of this module.
 			//		common.js will replace the local dm object with the
-			//		real dojox/mobile object through this method.
+			//		real dui/mobile object through this method.
 			dm = _dm;
 		};
 
@@ -193,7 +193,7 @@
 			[
 				"iPad",
 				"iphone",
-				[this.toUrl("dojox/mobile/themes/iphone/ipad.css")]
+				[this.toUrl("dui/mobile/themes/iphone/ipad.css")]
 			],
 			[
 				"MSIE 10",
@@ -261,7 +261,7 @@
 					}
 					dm.loadedCssFiles = [];
 					for(j = 0; j < files.length; j++){
-						// dojox.mobile mirroring support
+						// dui.mobile mirroring support
 						var cssFilePath = files[j].toString();
 						if(config["dojo-bidi"] == true && cssFilePath.indexOf("_rtl") == -1){
 							var rtlCssList = "android.css blackberry.css custom.css iphone.css holodark.css windows.css base.css ComboBox.css IconContainer.css IconMenu.css ListItem.css RoundRectCategory.css SpinWheel.css Switch.css TabBar.css ToggleButton.css ToolBarButton.css";

@@ -7,11 +7,11 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",
 	"doh/runner",	//doh functions
-	"dojox/mobile/EdgeToEdgeStoreList",
-	"dojox/mobile/RoundRectStoreList",
-	"dojox/mobile/tests/doh/CustomListItem",
-	/*"dojox/mobile/parser",*/
-	"dojox/mobile/compat"
+	"dui/mobile/EdgeToEdgeStoreList",
+	"dui/mobile/RoundRectStoreList",
+	"dui/mobile/tests/doh/CustomListItem",
+	/*"dui/mobile/parser",*/
+	"dui/mobile/compat"
 ], function(parser, Cache, JsonRest, Memory, Observable, ready, registry, runner, EdgeToEdgeStoreList, RoundRectStoreList){
 
 	var CLASS_NAME;
@@ -21,11 +21,11 @@ require([
 	if(IsEdgeToEdgeList){
 		CLASS_NAME = "duiEdgeToEdgeList";
 		DataList = EdgeToEdgeStoreList;
-		testName = "dojox.mobile.test.doh.EdgeToEdgeStoreList";
+		testName = "dui.mobile.test.doh.EdgeToEdgeStoreList";
 	}else{
 		CLASS_NAME = "duiRoundRectList";
 		DataList = RoundRectStoreList;
-		testName = "dojox.mobile.test.doh.RoundRectStoreList";
+		testName = "dui.mobile.test.doh.RoundRectStoreList";
 	}
 
 	var static_data2 = [
@@ -83,7 +83,7 @@ require([
 				runTest: function(){
 					var d = new runner.Deferred();
 					setTimeout(d.getTestCallback(function(){
-						var demoWidget = registry.byId("dojox_mobile_ListItem_0");
+						var demoWidget = registry.byId("dui_mobile_ListItem_0");
 						// check whether we correctly constructed a custom item
 						runner.assertTrue(demoWidget.customProp);
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
@@ -94,7 +94,7 @@ require([
 						runner.assertEqual('Wi-Fi', demoWidget.labelNode.innerHTML);
 						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
-						demoWidget = registry.byId("dojox_mobile_ListItem_3");
+						demoWidget = registry.byId("dui_mobile_ListItem_3");
 						runner.assertEqual('duiListItem duiListItemSelected', demoWidget.domNode.className);
 						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertTrue(demoWidget.iconNode.src.search(/i-icon-4.png/i) != -1);
@@ -115,7 +115,7 @@ require([
 					setTimeout(d.getTestCallback(function(){
 
 						switchTo(store2);
-						var demoWidget = registry.byId("dojox_mobile_ListItem_13");
+						var demoWidget = registry.byId("dui_mobile_ListItem_13");
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
 						runner.assertEqual(null, demoWidget.iconNode);
 						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
@@ -137,7 +137,7 @@ require([
 						add1();
 						add1();
 						add1();
-						var demoWidget = registry.byId("dojox_mobile_ListItem_19");
+						var demoWidget = registry.byId("dui_mobile_ListItem_19");
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
 						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
@@ -145,10 +145,10 @@ require([
 						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
 						delete1();
-						demoWidget = registry.byId("dojox_mobile_ListItem_21");
+						demoWidget = registry.byId("dui_mobile_ListItem_21");
 						runner.assertTrue(!demoWidget);
 
-						demoWidget = registry.byId("dojox_mobile_ListItem_20");
+						demoWidget = registry.byId("dui_mobile_ListItem_20");
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
 						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
@@ -185,7 +185,7 @@ require([
 						add1();
 						add1();
 						add1();
-						var demoWidget = registry.byId("dojox_mobile_ListItem_22");
+						var demoWidget = registry.byId("dui_mobile_ListItem_22");
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
 						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);
@@ -193,10 +193,10 @@ require([
 						runner.assertEqual('duiDomButtonArrow duiDomButton', demoWidget.rightIconNode.childNodes[0].className);
 
 						delete1();
-						demoWidget = registry.byId("dojox_mobile_ListItem_24");
+						demoWidget = registry.byId("dui_mobile_ListItem_24");
 						runner.assertTrue(!demoWidget);
 
-						demoWidget = registry.byId("dojox_mobile_ListItem_23");
+						demoWidget = registry.byId("dui_mobile_ListItem_23");
 						runner.assertEqual('duiListItem', demoWidget.domNode.className);
 						runner.assertEqual('duiImageIcon duiListItemIcon', demoWidget.iconNode.className);
 						runner.assertEqual('duiListItemLabel', demoWidget.labelNode.className);

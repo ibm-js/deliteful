@@ -12,46 +12,46 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 		</script>
 	</head>
 	<body>
-		<div id="general" data-dojo-type="dojox/mobile/View" selected="true">
-			<h1 data-dojo-type="dojox/mobile/Heading" back="Settings" moveTo="foo">General</h1>
+		<div id="general" data-dojo-type="dui/mobile/View" selected="true">
+			<h1 data-dojo-type="dui/mobile/Heading" back="Settings" moveTo="foo">General</h1>
 		</div>
 
-		<div id="foo" data-dojo-type="dojox/mobile/View">
-			<h1 data-dojo-type="dojox/mobile/Heading">Mobile Mashup</h1>
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Spaces</h2>
-			<ul data-dojo-type="dojox/mobile/RoundRectList">
-				<li id="item1" data-dojo-type="dojox/mobile/ListItem" icon="../images/a-icon-10.png" rightText="Off" moveTo="general">
+		<div id="foo" data-dojo-type="dui/mobile/View">
+			<h1 data-dojo-type="dui/mobile/Heading">Mobile Mashup</h1>
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">Spaces</h2>
+			<ul data-dojo-type="dui/mobile/RoundRectList">
+				<li id="item1" data-dojo-type="dui/mobile/ListItem" icon="../images/a-icon-10.png" rightText="Off" moveTo="general">
 					u1space
 				</li>
-				<li id="item2" data-dojo-type="dojox/mobile/ListItem" icon="../images/a-icon-11.png" rightText="Off" moveTo="general">
+				<li id="item2" data-dojo-type="dui/mobile/ListItem" icon="../images/a-icon-11.png" rightText="Off" moveTo="general">
 					u2space
 				</li>
-				<li id="item3" data-dojo-type="dojox/mobile/ListItem" icon="../images/a-icon-12.png" rightText="Off" moveTo="general">
+				<li id="item3" data-dojo-type="dui/mobile/ListItem" icon="../images/a-icon-12.png" rightText="Off" moveTo="general">
 					Wi-Fi
 				</li>
-				<li id="item4" data-dojo-type="dojox/mobile/ListItem" icon="../images/a-icon-13.png" rightText="VPN" moveTo="general">
+				<li id="item4" data-dojo-type="dui/mobile/ListItem" icon="../images/a-icon-13.png" rightText="VPN" moveTo="general">
 					VPN
 				</li>
 			</ul>
 		</div>
 
-		<div id="bar" data-dojo-type="dojox/mobile/View">
-			<h1 data-dojo-type="dojox/mobile/Heading" back="Spaces" moveTo="general">u1space</h1>
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Applications</h2>
-			<ul data-dojo-type="dojox/mobile/RoundRectList">
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="Off">
+		<div id="bar" data-dojo-type="dui/mobile/View">
+			<h1 data-dojo-type="dui/mobile/Heading" back="Spaces" moveTo="general">u1space</h1>
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">Applications</h2>
+			<ul data-dojo-type="dui/mobile/RoundRectList">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="Off">
 					Video
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../images/a-icon-2.png" rightText="VPN">
+				<li data-dojo-type="dui/mobile/ListItem" icon="../images/a-icon-2.png" rightText="VPN">
 					Maps
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="Off">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="Off">
 					Phone Number
 				</li>
 			</ul>

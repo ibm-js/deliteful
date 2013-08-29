@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Filtered EdgeToEdgeStoreList - auto</title>
 	
-	<!-- This test shows a dojox/mobile/EdgeToEdgeStoreList filtered using dojox/mobile/FilteredListMixin. -->
+	<!-- This test shows a dui/mobile/EdgeToEdgeStoreList filtered using dui/mobile/FilteredListMixin. -->
 	<!-- Use-case: markup; SearchBox and ScrollableView created automatically by the mixin. -->
 	
 	<script type="text/javascript" src="../deviceTheme.js"></script>
@@ -18,10 +18,10 @@
 		var store;
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/store/Memory",
-			"dojox/mobile/EdgeToEdgeStoreList",
-			"dojox/mobile/FilteredListMixin"
+			"dui/mobile/EdgeToEdgeStoreList",
+			"dui/mobile/FilteredListMixin"
 			], function(parser, compat, Memory){
 							
 			var static_data = { 
@@ -90,17 +90,17 @@
 				]
 			};
 			
-			// store for the dojox/mobile/EdgeToEdgeStoreList
+			// store for the dui/mobile/EdgeToEdgeStoreList
 			store = new Memory({idProperty: "label", data: static_data});
 		});
 	</script>
 </head>
 
 <body style="visibility:hidden;background-color:#424142;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list"
-			data-dojo-mixins="dojox/mobile/FilteredListMixin"
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list"
+			data-dojo-mixins="dui/mobile/FilteredListMixin"
 			data-dojo-props="placeHolder: 'Search', store: store"></ul>
 	</div>
 </body>

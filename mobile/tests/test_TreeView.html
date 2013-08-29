@@ -15,8 +15,8 @@
 			"dojox/data/FileStore",
 			"dijit/tree/ForestStoreModel",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/TreeView"
+			"dui/mobile/compat",
+			"dui/mobile/TreeView"
 		], function(FileStore, ForestStoreModel){
 			var store = new FileStore({
 				url: "../../data/demos/stores/filestore_dojotree.php",
@@ -34,7 +34,7 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/TreeView"
+	<div data-dojo-type="dui/mobile/TreeView"
 	 data-dojo-props='model: treeModel'></div>
 </body>
 </html>

@@ -32,7 +32,7 @@
 		dojo.require("doh.runner");
 		dojo.require("dijit.dijit"); // optimize: load dijit layer
 		dojo.require("dijit.form.RadioButton");
-		dojo.require("dojox.mobile.RadioButton");
+		dojo.require("dui.mobile.RadioButton");
 
 		dojo.ready(function(){
 
@@ -134,7 +134,7 @@
 					name: "mobile",
 					timeout: 2000,
 					runTest: function(){
-						new dojox.mobile.RadioButton({name:"mobile_programmatic", id:"mobile_programmatic", checked:true, "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
+						new dui.mobile.RadioButton({name:"mobile_programmatic", id:"mobile_programmatic", checked:true, "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
 						var mobile_programmatic = dijit.byId('mobile_programmatic');
 						if(dojo.isIE < 8){ // older IE ignores setting checked after creation but before appending to the DOM
 							dojo.attr(mobile_programmatic.focusNode, "checked", mobile_programmatic.checked);
@@ -164,23 +164,23 @@
 			<td class="layout">attributes</td>
 			<td class="layout"><input name="dijit_attributes" id="dijit_attributes" data-dojo-type="dijit/form/RadioButton" data-dojo-props='checked: true, "class":"duiRedButton", value:"something", name:"dijit_attributes", "aria-label":"dijit_attributes" '/></td>
 			<td class="layout"><input name="dijit_attributes" aria-label="dijit_attributes2" id="dijit_attributes2" type="radio" value="other" dojoType="dijit.form.RadioButton">
-			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes" type="radio" value="something" class="duiRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.RadioButton"/></td>
-			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes2" id="mobile_attributes2" type="radio" value="other" dojoType="dojox.mobile.RadioButton">
+			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes" type="radio" value="something" class="duiRedButton" checked id="mobile_attributes" dojoType="dui.mobile.RadioButton"/></td>
+			<td class="layout"><input name="mobile_attributes" aria-label="mobile_attributes2" id="mobile_attributes2" type="radio" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>
 		<tr>
 		<tr>
 			<td class="layout">Events</td>
 			<td class="layout"><input name="dijit_events" id="dijit_events" data-dojo-type="dijit/form/RadioButton" data-dojo-props='onClick:function(){ return true; }, name:"dijit_events", "aria-label":"dijit_events"' /></td>
 			<td class="layout"><input name="dijit_events" aria-label="dijit_events2" type="radio" value="other" dojoType="dijit.form.RadioButton">
-			<td class="layout"><input name="mobile_events" aria-label="mobile_events" type="radio" id="mobile_events" data-dojo-type="dojox.mobile.RadioButton" data-dojo-props='onClick:function(){ return true; }' /></td>
-			<td class="layout"><input name="mobile_events" aria-label="mobile_events2" type="radio" value="other" dojoType="dojox.mobile.RadioButton">
+			<td class="layout"><input name="mobile_events" aria-label="mobile_events" type="radio" id="mobile_events" data-dojo-type="dui.mobile.RadioButton" data-dojo-props='onClick:function(){ return true; }' /></td>
+			<td class="layout"><input name="mobile_events" aria-label="mobile_events2" type="radio" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>
 			<td class="layout" id="dijit_programmatic_container"></td>
 			<td class="layout"><input name="dijit_programmatic" type="radio" aria-label="dijit_programmatic" value="other" dojoType="dijit.form.RadioButton">
 			<td class="layout" id="mobile_programmatic_container"></td>
-			<td class="layout"><input name="mobile_programmatic" type="radio" aria-label="mobile_programmatic" value="other" dojoType="dojox.mobile.RadioButton">
+			<td class="layout"><input name="mobile_programmatic" type="radio" aria-label="mobile_programmatic" value="other" dojoType="dui.mobile.RadioButton">
 		</tr>
 	</table>
 </body>

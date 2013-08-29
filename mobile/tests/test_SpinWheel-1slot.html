@@ -3,8 +3,8 @@
 <!--
   A SpinWheel that has only one slot.
   padding-right:4px is to adjust the right border width.
-  Note that this test case does not load dojox.mobile themes such as iphone.css.
-  Nor does it load the dojox.mobile base, i.e., not requiring "dojox.mobile".
+  Note that this test case does not load dui.mobile themes such as iphone.css.
+  Nor does it load the dui.mobile base, i.e., not requiring "dui.mobile".
 -->
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
@@ -19,14 +19,14 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/SpinWheel"
+			"dui/mobile/compat",
+			"dui/mobile/SpinWheel"
 		]);
 	</script>
 </head>
 <body>
-	<div data-dojo-type="dojox/mobile/SpinWheel" style="width:200px;padding-right:4px;">
-		<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+	<div data-dojo-type="dui/mobile/SpinWheel" style="width:200px;padding-right:4px;">
+		<div data-dojo-type="dui/mobile/SpinWheelSlot"
 			data-dojo-props='labelFrom:3000, labelTo:3100' style="text-align:center;width:100%;"></div>
 	</div>
 </body>

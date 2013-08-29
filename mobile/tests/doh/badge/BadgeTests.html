@@ -20,11 +20,11 @@
 		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
-		"dojox/mobile/Badge",
+		"dui/mobile/Badge",
 		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
-		"dojox/mobile/Pane",
-		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+		"dui/mobile/Pane",
+		"dui/mobile/View",		// This mobile app uses mobile view
+		"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 	], function(dom, domClass, domConst, ready, registry, runner, Badge, parser){
 
 		parser.parse();
@@ -96,7 +96,7 @@
 			view1.performTransition("view2", 1, "none");
 		};
 
-		runner.register("dojox/mobile/test.doh.BadgeTests", [
+		runner.register("dui/mobile/test.doh.BadgeTests", [
 			{
 				name: "Badge Verification1",
 				timeout: 4000,
@@ -131,12 +131,12 @@
 </script>
 </head>
 <body>
-	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+	<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<div data-dojo-type="dojox/mobile/Pane" style="padding:0px 30px 0px 30px;">
-			<div id="view1-Badge11" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonRedBadge" data-dojo-props='value:"6"'></div>
-			<div id="view1-Badge12" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
-			<div id="view1-Badge13" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
+		<div data-dojo-type="dui/mobile/Pane" style="padding:0px 30px 0px 30px;">
+			<div id="view1-Badge11" data-dojo-type="dui/mobile/Badge" class="duiDomButtonRedBadge" data-dojo-props='value:"6"'></div>
+			<div id="view1-Badge12" data-dojo-type="dui/mobile/Badge" class="duiDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
+			<div id="view1-Badge13" data-dojo-type="dui/mobile/Badge" class="duiDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
 			<div id="view1-Badge21place"></div>
 			<div id="view1-Badge22place"></div>
 			<div id="view1-Badge23place"></div>
@@ -145,12 +145,12 @@
 			<div id="view1-Badge33"></div>
 		</div>
 	</div>	
-	<div id="view2" data-dojo-type="dojox/mobile/View">
+	<div id="view2" data-dojo-type="dui/mobile/View">
 		<h1>View 2</h1>
-		<div data-dojo-type="dojox/mobile/Pane" style="padding:0px 30px 0px 30px;">
-			<div id="view2-Badge11" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonRedBadge" data-dojo-props='value:"6"'></div>
-			<div id="view2-Badge12" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
-			<div id="view2-Badge13" data-dojo-type="dojox/mobile/Badge" class="duiDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
+		<div data-dojo-type="dui/mobile/Pane" style="padding:0px 30px 0px 30px;">
+			<div id="view2-Badge11" data-dojo-type="dui/mobile/Badge" class="duiDomButtonRedBadge" data-dojo-props='value:"6"'></div>
+			<div id="view2-Badge12" data-dojo-type="dui/mobile/Badge" class="duiDomButtonBlueBadge" data-dojo-props='value:"48"'></div>
+			<div id="view2-Badge13" data-dojo-type="dui/mobile/Badge" class="duiDomButtonGreenBadge" data-dojo-props='value:"320",fontSize:11'></div>
 			<div id="view2-Badge21place"></div>
 			<div id="view2-Badge22place"></div>
 			<div id="view2-Badge23place"></div>

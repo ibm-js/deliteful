@@ -9,19 +9,19 @@ define([
 	"./_ItemBase"
 ], function(declare, lang, domClass, domConstruct, domAttr, on, iconUtils, ItemBase){
 	// module:
-	//		dojox/mobile/IconMenuItem
+	//		dui/mobile/IconMenuItem
 
-	return declare("dojox.mobile.IconMenuItem", ItemBase, { 
+	return declare("dui.mobile.IconMenuItem", ItemBase, { 
 		// summary:
 		//		An item of IconMenu.
 		// description:
-		//		IconMenuItem represents a menu item of dojox/mobile/MenuItem. 
-		//		This widget inherits from dojox/mobile/_ItemBase. Its basic usage is 
-		//		similar to other subclasses such as dojox/mobile/ListItem.
+		//		IconMenuItem represents a menu item of dui/mobile/MenuItem. 
+		//		This widget inherits from dui/mobile/_ItemBase. Its basic usage is 
+		//		similar to other subclasses such as dui/mobile/ListItem.
 
 		// closeOnAction: Boolean
 		//		If true, the internal handler of click events calls the hide() method 
-		//		of the parent widget, which is typically a dojox/mobile/SimpleDialog.
+		//		of the parent widget, which is typically a dui/mobile/SimpleDialog.
 		//		The default value is false.
 		closeOnAction: false,
 

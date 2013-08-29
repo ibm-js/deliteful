@@ -16,12 +16,12 @@
 			"dijit/_WidgetBase",
 			"dijit/_Container",
 			"dijit/_Contained",
-			"dojox/mobile/_ScrollableMixin",
+			"dui/mobile/_ScrollableMixin",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(declare, win, WidgetBase, Container, Contained, ScrollableMixin){
-			dojox.mobile.ScrollablePane = declare(
-				"dojox/mobile/ScrollablePane",
+			dui.mobile.ScrollablePane = declare(
+				"dui/mobile/ScrollablePane",
 				[WidgetBase, Container, Contained, ScrollableMixin],
 			{
 				buildRendering: function(){
@@ -68,7 +68,7 @@
 </head>
 <body style="visibility:hidden;">
 	<h1 id="header1">Fixed Header</h1>
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollablePane">
+	<div id="view1" data-dojo-type="dui/mobile/ScrollablePane">
 		<ol>
 			<li>Item</li>
 			<li>Item</li>

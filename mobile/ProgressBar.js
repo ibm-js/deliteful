@@ -6,9 +6,9 @@ define([
 ], function(declare, domClass, domConstruct, WidgetBase){
 
 	// module:
-	//		dojox/mobile/ProgressBar
+	//		dui/mobile/ProgressBar
 
-	return declare("dojox.mobile.ProgressBar", WidgetBase, {
+	return declare("dui.mobile.ProgressBar", WidgetBase, {
 		// summary:
 		//		A widget that shows the progress of a task.
 		// description:

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <title>LongListMixin Tests</title>
 
-<!-- DOH test for dojox/mobile/LongListMixin (performance booster for long scrollable lists) -->
+<!-- DOH test for dui/mobile/LongListMixin (performance booster for long scrollable lists) -->
 
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
 <script type="text/javascript" src="../../../../../dojo/dojo.js"
@@ -21,13 +21,13 @@ require([
 	"doh/runner",
 	"dojo/query",
 	"dojo/dom-geometry",
-	"dojox/mobile/ListItem",
+	"dui/mobile/ListItem",
 	"dojo/store/Memory",
-	"dojox/mobile/compat",
-	"dojox/mobile/ScrollableView",
-	"dojox/mobile/RoundRectList",
-	"dojox/mobile/RoundRectStoreList",
-	"dojox/mobile/LongListMixin"
+	"dui/mobile/compat",
+	"dui/mobile/ScrollableView",
+	"dui/mobile/RoundRectList",
+	"dui/mobile/RoundRectStoreList",
+	"dui/mobile/LongListMixin"
 ], function(parser, ready, registry, runner, query, domGeometry, ListItem, MemoryStore){
 
 	parser.parse();
@@ -105,7 +105,7 @@ require([
 		doh.assertTrue(listBox.t + listBox.h >= viewBox.t + viewBox.h, "empty space at bottom " + (listBox.t + listBox.h) + " < " + (viewBox.t + viewBox.h));
 	}
 
-	doh.register("dojox/mobile/test.doh.LongListMixinTests", [
+	doh.register("dui/mobile/test.doh.LongListMixinTests", [
 		{
 			name: "LongListMixin - initial items",
 			timeout: 200,
@@ -255,15 +255,15 @@ require([
 
 </head>
 <body>
-<div id="view1" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="height:'400px'">
-	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">LongListMixin - no store</h1>
-	<ul data-dojo-type="dojox/mobile/RoundRectList" id="list1"
-		data-dojo-mixins="dojox/mobile/LongListMixin"></ul>
+<div id="view1" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="height:'400px'">
+	<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">LongListMixin - no store</h1>
+	<ul data-dojo-type="dui/mobile/RoundRectList" id="list1"
+		data-dojo-mixins="dui/mobile/LongListMixin"></ul>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/ScrollableView" data-dojo-props="height:'400px'">
-	<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">LongListMixin + store</h1>
-	<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="list2"
-		data-dojo-mixins="dojox/mobile/LongListMixin"></ul>
+<div id="view2" data-dojo-type="dui/mobile/ScrollableView" data-dojo-props="height:'400px'">
+	<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">LongListMixin + store</h1>
+	<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="list2"
+		data-dojo-mixins="dui/mobile/LongListMixin"></ul>
 </div>
 </body>
 </html>

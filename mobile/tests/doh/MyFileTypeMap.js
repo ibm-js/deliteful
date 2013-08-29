@@ -2,7 +2,7 @@ define([
 	"dojo/_base/lang"
 ], function(lang){
 
-	var o = lang.getObject("dojox.mobile.tests.doh.MyFileTypeMap", true);
+	var o = lang.getObject("dui.mobile.tests.doh.MyFileTypeMap", true);
 
 	o.map = {
 		"html": "html",

@@ -14,13 +14,13 @@ define([
 	"dijit/_WidgetBase",
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/TabBar"	
+	"dojo/has!dojo-bidi?dui/mobile/bidi/TabBar"	
 ], function(array, declare, win, lang, domClass, domConstruct, domGeometry, domStyle, domAttr, topic, Contained, Container, WidgetBase, TabBarButton, has, BidiTabBar){
 
 	// module:
-	//		dojox/mobile/TabBar
+	//		dui/mobile/TabBar
 
-	var TabBar =  declare(has("dojo-bidi") ? "dojox.mobile.NonBidiTabBar" : "dojox.mobile.TabBar", [WidgetBase, Container, Contained],{
+	var TabBar =  declare(has("dojo-bidi") ? "dui.mobile.NonBidiTabBar" : "dui.mobile.TabBar", [WidgetBase, Container, Contained],{
 		// summary:
 		//		A bar widget that has buttons to control visibility of views.
 		// description:
@@ -93,8 +93,8 @@ define([
 						return w.moveTo === "#" + view.id || w.moveTo === view.id; })[0];
 					if(child){ child.set("selected", true); }
 				};
-				this.own(topic.subscribe("/dojox/mobile/afterTransitionIn", lang.hitch(this, f)));
-				this.own(topic.subscribe("/dojox/mobile/startView", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dui/mobile/afterTransitionIn", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dui/mobile/startView", lang.hitch(this, f)));
 			}
 		},
 
@@ -216,5 +216,5 @@ define([
 		}
 	});
 	
-	return has("dojo-bidi")?declare("dojox.mobile.TabBar", [TabBar, BidiTabBar]):TabBar;	
+	return has("dojo-bidi")?declare("dui.mobile.TabBar", [TabBar, BidiTabBar]):TabBar;	
 });

@@ -1,7 +1,7 @@
 @import url("../common/domButtons/DomButtonGrayArrow.css");
 
 @import url("../common/domButtons/DomButtonDarkBlueCheck.css");
-/* dojox.mobile.ListItem */
+/* dui.mobile.ListItem */
 .duiListItem {
   position: relative;
   overflow: hidden;
@@ -110,7 +110,7 @@
   position: relative;
   float: right;
 }
-/* dojox.mobile._EditableListMixin */
+/* dui.mobile._EditableListMixin */
 .duiListItemFloat {
   position: absolute;
   border: 1px solid gray;

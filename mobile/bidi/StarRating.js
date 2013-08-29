@@ -6,7 +6,7 @@ define([
 ], function(declare, has, keys, domConstruct){
 
 	// module:
-	//		dojox/mobile/bidi/StarRating
+	//		dui/mobile/bidi/StarRating
 
 	return declare(null, {
 		// summary:

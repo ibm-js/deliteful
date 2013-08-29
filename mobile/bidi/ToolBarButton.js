@@ -5,12 +5,12 @@ define([
 ], function(declare, lang, domClass){
 
 	// module:
-	//		dojox/mobile/ToolBarButton
+	//		dui/mobile/ToolBarButton
 
 	return declare(null, {
 		buildRendering: function(){
 			this.inherited(arguments);
-			//dojox.mobile mirroring support
+			//dui.mobile mirroring support
 			if(!this.isLeftToRight() && this.arrow){
 				var cRemove1 = (this.arrow === "left" ? "duiToolBarButtonLeftArrow" : "duiToolBarButtonRightArrow");
 				var cRemove2 = (this.arrow === "left" ? "duiToolBarButtonHasLeftArrow" : "duiToolBarButtonHasRightArrow");
@@ -26,7 +26,7 @@ define([
 			// summary:
 			//		Sets the button label text.
 			this.inherited(arguments);
-			// dojox.mobile mirroring support
+			// dui.mobile mirroring support
 			if(!this.isLeftToRight()){
 				domClass.toggle(this.tableNode, "duiToolBarButtonTextRtl", text || this.arrow);
 			}

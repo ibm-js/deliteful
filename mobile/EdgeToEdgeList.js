@@ -4,19 +4,19 @@ define([
 ], function(declare, RoundRectList){
 
 	// module:
-	//		dojox/mobile/EdgeToEdgeCategory
+	//		dui/mobile/EdgeToEdgeCategory
 
-	return declare("dojox.mobile.EdgeToEdgeList", RoundRectList, {
+	return declare("dui.mobile.EdgeToEdgeList", RoundRectList, {
 		// summary:
 		//		An edge-to-edge layout list.
 		// description:
 		//		EdgeToEdgeList is an edge-to-edge layout list, which displays
 		//		all items in equally-sized rows. Each item must be a
-		//		dojox/mobile/ListItem.
+		//		dui/mobile/ListItem.
 		
 		// filterBoxClass: String
 		//		The name of the CSS class added to the DOM node inside which is placed the 
-		//		dojox/mobile/SearchBox created when mixing dojox/mobile/FilteredListMixin.
+		//		dui/mobile/SearchBox created when mixing dui/mobile/FilteredListMixin.
 		//		The default value is "duiFilteredEdgeToEdgeListSearchBox". 
 		filterBoxClass: "duiFilteredEdgeToEdgeListSearchBox",
 

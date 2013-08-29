@@ -1,5 +1,5 @@
 dojo.addOnLoad(function(){
-	doh.register("dojox.mobile.test.doh.ListItem", [
+	doh.register("dui.mobile.test.doh.ListItem", [
 		{
 			name: "ListItem Verification",
 			timeout: 4000,
@@ -7,17 +7,17 @@ dojo.addOnLoad(function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
 
-					verifyListItem("dojox_mobile_ListItem_0", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
-					verifyListItemPos("dojox_mobile_ListItem_0", "0px", "116px", "29px", "87px", "0px", "-87px", true);
+					verifyListItem("dui_mobile_ListItem_0", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
+					verifyListItemPos("dui_mobile_ListItem_0", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 
-					verifyListItem("dojox_mobile_ListItem_1", 'Brightness', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
-					verifyListItemPos("dojox_mobile_ListItem_1", "0px", "145px", "29px", "116px", "0px", "-116px", true);
+					verifyListItem("dui_mobile_ListItem_1", 'Brightness', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
+					verifyListItemPos("dui_mobile_ListItem_1", "0px", "145px", "29px", "116px", "0px", "-116px", true);
 
-					verifyListItem("dojox_mobile_ListItem_2", 'XX Widget', '', "duiDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true);
-					verifyListItemPos("dojox_mobile_ListItem_2", "0px", "116px", "29px", "87px", "0px", "-87px", true);
+					verifyListItem("dui_mobile_ListItem_2", 'XX Widget', '', "duiDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true);
+					verifyListItemPos("dui_mobile_ListItem_2", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 
-					verifyListItem("dojox_mobile_ListItem_3", 'YY Widget', '', "duiDomButtonRedMinus", true, true, false, false, /i-icon-all.png/i, false, true);
-					verifyListItemPos("dojox_mobile_ListItem_3", "0px", "145px", "29px", "116px", "0px", "-116px", true);
+					verifyListItem("dui_mobile_ListItem_3", 'YY Widget', '', "duiDomButtonRedMinus", true, true, false, false, /i-icon-all.png/i, false, true);
+					verifyListItemPos("dui_mobile_ListItem_3", "0px", "145px", "29px", "116px", "0px", "-116px", true);
 				}));
 				return d;
 			}
@@ -26,19 +26,19 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dojox_mobile_RoundRectList_0");
+				var demoWidget = dijit.byId("dui_mobile_RoundRectList_0");
 				demoWidget.set({iconBase :""});
 				doh.assertEqual("", demoWidget.get("iconBase"));
 
-				verifyListItem("dojox_mobile_ListItem_0", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
-				verifyListItemPos("dojox_mobile_ListItem_0", "0px", "116px", "29px", "87px", "0px", "-87px", true);
+				verifyListItem("dui_mobile_ListItem_0", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
+				verifyListItemPos("dui_mobile_ListItem_0", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 
-				demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_0");
+				demoWidget = dijit.byId("dui_mobile_EdgeToEdgeList_0");
 				demoWidget.set({iconBase :""});
 				doh.assertEqual("", demoWidget.get("iconBase"));
 
-				verifyListItem("dojox_mobile_ListItem_2", 'XX Widget', '', "duiDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true);
-				verifyListItemPos("dojox_mobile_ListItem_2", "0px", "116px", "29px", "87px", "0px", "-87px", true);
+				verifyListItem("dui_mobile_ListItem_2", 'XX Widget', '', "duiDomButtonBluePlus", true, true, false, false, /i-icon-all.png/i, false, true);
+				verifyListItemPos("dui_mobile_ListItem_2", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 			}
 		}
 	]);

@@ -16,14 +16,14 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/ContentPane"
+			"dui/mobile/compat",
+			"dui/mobile/ContentPane"
 		], function(domConstruct, ready, registry, parser){
 			parser.parse();
-			registry.byId("pane3").set("content", "<div data-dojo-type='dojox/mobile/RoundRect' shadow='true'>Thank you!</div>");
+			registry.byId("pane3").set("content", "<div data-dojo-type='dui/mobile/RoundRect' shadow='true'>Thank you!</div>");
 			registry.byId("pane4").set("href", "data/fragment1.html");
 			var dom = domConstruct.create("DIV", {
-				"data-dojo-type": "dojox/mobile/RoundRect",
+				"data-dojo-type": "dui/mobile/RoundRect",
 				"data-dojo-props": "shadow:true"
 			});
 			dom.innerHTML = "DOM Tree";
@@ -32,25 +32,25 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="foo" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">ContentPane</h1>
+	<div id="foo" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">ContentPane</h1>
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Pane1</h2>
-		<div id="pane1" data-dojo-type="dojox/mobile/ContentPane"
-		     content="&lt;div data-dojo-type='dojox/mobile/RoundRect' shadow='true'&gt;Thank you!&lt;/div&gt;"></div>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Pane1</h2>
+		<div id="pane1" data-dojo-type="dui/mobile/ContentPane"
+		     content="&lt;div data-dojo-type='dui/mobile/RoundRect' shadow='true'&gt;Thank you!&lt;/div&gt;"></div>
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Pane2</h2>
-		<div id="pane2" data-dojo-type="dojox/mobile/ContentPane"
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Pane2</h2>
+		<div id="pane2" data-dojo-type="dui/mobile/ContentPane"
 		     href="data/fragment1.html"></div>
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Pane3</h2>
-		<div id="pane3" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Pane3</h2>
+		<div id="pane3" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Pane4</h2>
-		<div id="pane4" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Pane4</h2>
+		<div id="pane4" data-dojo-type="dui/mobile/ContentPane"></div>
 
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Pane5</h2>
-		<div id="pane5" data-dojo-type="dojox/mobile/ContentPane"></div>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Pane5</h2>
+		<div id="pane5" data-dojo-type="dui/mobile/ContentPane"></div>
 	</div>
 </body>
 </html>

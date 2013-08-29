@@ -10,10 +10,10 @@ define([
 	"dojo/sniff"
 ], function(array, config, lang, win, domClass, domConstruct, domStyle, on, has){
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 
 	// module:
-	//		dojox/mobile/iconUtils
+	//		dui/mobile/iconUtils
 
 	var IconUtils = function(){
 		// summary:

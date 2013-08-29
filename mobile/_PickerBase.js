@@ -7,9 +7,9 @@ define([
 ], function(array, declare, Contained, Container, WidgetBase){
 
 	// module:
-	//		dojox/mobile/_PickerBase
+	//		dui/mobile/_PickerBase
 
-	return declare("dojox.mobile._PickerBase", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile._PickerBase", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A base class for picker classes (e.g. SpinWheel, ValuePicker).
 

@@ -12,15 +12,15 @@ define([
 ], function(declare, lang, dom, domClass, domConstruct, on, topic, registry, Contained, WidgetBase){
 
 	// module:
-	//		dojox/mobile/PageIndicator
+	//		dui/mobile/PageIndicator
 
-	return declare("dojox.mobile.PageIndicator", [WidgetBase, Contained],{
+	return declare("dui.mobile.PageIndicator", [WidgetBase, Contained],{
 		// summary:
 		//		A current page indicator.
 		// description:
 		//		PageIndicator displays a series of gray and white dots to
 		//		indicate which page is currently being viewed. It can typically
-		//		be used with dojox/mobile/SwapView.
+		//		be used with dui/mobile/SwapView.
 
 		// refId: String
 		//		An ID of a DOM node to be searched. Siblings of the reference
@@ -37,7 +37,7 @@ define([
 			this._tblNode = domConstruct.create("table", {className:"duiPageIndicatorContainer"}, this.domNode);
 			this._tblNode.insertRow(-1);
 			this.own(on(this.domNode, "click", lang.hitch(this, "_onClick")));
-			this.own(topic.subscribe("/dojox/mobile/viewChanged", lang.hitch(this, "reset")));
+			this.own(topic.subscribe("/dui/mobile/viewChanged", lang.hitch(this, "reset")));
 		},
 
 		startup: function(){
@@ -94,9 +94,9 @@ define([
 			if(this.onClick(e) === false){ return; } // user's click action
 			if(e.target !== this.domNode){ return; }
 			if(e.layerX < this._tblNode.offsetLeft){
-				topic.publish("/dojox/mobile/prevPage", this);
+				topic.publish("/dui/mobile/prevPage", this);
 			}else if(e.layerX > this._tblNode.offsetLeft + this._tblNode.offsetWidth){
-				topic.publish("/dojox/mobile/nextPage", this);
+				topic.publish("/dui/mobile/nextPage", this);
 			}
 		},
 

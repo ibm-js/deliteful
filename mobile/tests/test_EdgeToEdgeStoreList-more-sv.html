@@ -20,11 +20,11 @@
 			"dojo/store/Observable",
 			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/ListItem",
+			"dui/mobile/ListItem",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/EdgeToEdgeStoreList"
+			"dui/mobile/compat",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/EdgeToEdgeStoreList"
 		], function(when, on, Cache, JsonRest, Memory, Observable, ready, registry, ListItem, parser){
 			//var url = "data/fruits.json";
 			var url = "data/fake_service.php";
@@ -80,9 +80,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
+	<div data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='fixed:"top"'>EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list" data-dojo-props='append:true'></ul>
 	</div>
 </body>
 </html>

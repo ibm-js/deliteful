@@ -13,9 +13,9 @@ define([
 	"dojo/sniff"
 ], function(declare, lang, win, domClass, domAttr, domConstruct, on, touch, registry, Pane, iconUtils, has){
 	// module:
-	//		dojox/mobile/SimpleDialog
+	//		dui/mobile/SimpleDialog
 
-	return declare("dojox.mobile.SimpleDialog", Pane, {
+	return declare("dui.mobile.SimpleDialog", Pane, {
 		// summary:
 		//		A dialog box for mobile.
 		// description:

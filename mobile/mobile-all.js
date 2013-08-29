@@ -65,9 +65,9 @@ define([
 	"./dh/UrlDataSource"
 ], function(common){
 	// module:
-	//		dojox/mobile/mobile-all
+	//		dui/mobile/mobile-all
 
-	console.warn("dojox/mobile/mobile-all may include much more code than your application actually requires. We strongly recommend that you use a custom build.");
+	console.warn("dui/mobile/mobile-all may include much more code than your application actually requires. We strongly recommend that you use a custom build.");
 
 	/*=====
 	return {

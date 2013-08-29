@@ -13,14 +13,14 @@ define([
 ], function(array, declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
 
 	// module:
-	//		dojox/mobile/RoundRectList
+	//		dui/mobile/RoundRectList
 
-	return declare("dojox.mobile.RoundRectList", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile.RoundRectList", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A rounded rectangle list.
 		// description:
 		//		RoundRectList is a rounded rectangle list, which can be used to
-		//		display a group of items. Each item must be a dojox/mobile/ListItem.
+		//		display a group of items. Each item must be a dui/mobile/ListItem.
 
 		// transition: String
 		//		The default animated transition effect for child items.
@@ -66,7 +66,7 @@ define([
 		/* internal properties */
 		// editableMixinClass: String
 		//		The name of the mixin class.
-		editableMixinClass: "dojox/mobile/_EditableListMixin",
+		editableMixinClass: "dui/mobile/_EditableListMixin",
 		
 		// baseClass: String
 		//		The name of the CSS class of this widget.
@@ -74,7 +74,7 @@ define([
 		
 		// filterBoxClass: String
 		//		The name of the CSS class added to the DOM node inside which is placed the 
-		//		dojox/mobile/SearchBox created when mixing dojox/mobile/FilteredListMixin.
+		//		dui/mobile/SearchBox created when mixing dui/mobile/FilteredListMixin.
 		//		The default value is "duiFilteredRoundRectListSearchBox".  
 		filterBoxClass: "duiFilteredRoundRectListSearchBox",
 
@@ -106,8 +106,8 @@ define([
 						return w.moveTo === "#" + view.id || w.moveTo === view.id; })[0];
 					if(child){ child.set("selected", true); }
 				};
-				this.own(topic.subscribe("/dojox/mobile/afterTransitionIn", lang.hitch(this, f)));
-				this.own(topic.subscribe("/dojox/mobile/startView", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dui/mobile/afterTransitionIn", lang.hitch(this, f)));
+				this.own(topic.subscribe("/dui/mobile/startView", lang.hitch(this, f)));
 			}
 		},
 
@@ -136,7 +136,7 @@ define([
 			});
 		},
 
-		deselectItem: function(/*dojox/mobile/ListItem*/item){
+		deselectItem: function(/*dui/mobile/ListItem*/item){
 			// summary:
 			//		Deselects the given item.
 			item.set("selected", false);

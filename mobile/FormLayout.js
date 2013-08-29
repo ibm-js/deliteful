@@ -5,9 +5,9 @@ define([
 ], function(declare, domClass, Container){
 
 	// module:
-	//		dojox/mobile/FormLayout
+	//		dui/mobile/FormLayout
 
-	return declare("dojox.mobile.FormLayout", Container, {
+	return declare("dui.mobile.FormLayout", Container, {
 		// summary:
 		//		A responsive container to create mobile forms.
 		// description:
@@ -16,23 +16,23 @@ define([
 		//		By default, if the width of the screen if greater than 500px, the <label> and the <fieldset> are positioned on the same line.
 		//		Otherwise they are stacked vertically. You can force how a <label> and its <fieldset> are positioned using the
 		//		'columns' property.
-		//		Form controls are: "dojox/mobile/Button", "dojox/mobile/CheckBox", "dojox/mobile/ComboBox",
-		//		"dojox/mobile/RadioButton", "dojox/mobile/Slider", "dojox/mobile/TextBox", "dojox/mobile/SearchBox",
-		//		"dojox/mobile/ExpandingTextArea", "dojox/mobile/ToggleButton".
+		//		Form controls are: "dui/mobile/Button", "dui/mobile/CheckBox", "dui/mobile/ComboBox",
+		//		"dui/mobile/RadioButton", "dui/mobile/Slider", "dui/mobile/TextBox", "dui/mobile/SearchBox",
+		//		"dui/mobile/ExpandingTextArea", "dui/mobile/ToggleButton".
 		// example:
-		// |	<div data-dojo-type="dojox/mobile/FormLayout" data-dojo-props="columns:'two', rightAlign:true">
+		// |	<div data-dojo-type="dui/mobile/FormLayout" data-dojo-props="columns:'two', rightAlign:true">
 		// |		<div>
 		// |			<label>Name:</label>
 		// |			<fieldset>
-		// |				<input data-dojo-type="dojox/mobile/TextBox">
+		// |				<input data-dojo-type="dui/mobile/TextBox">
 		// |			</fieldset>
 		// |		</div>
 		// |		<div>
 		// |			<label>Make a choice:</label>
 		// |			<fieldset>
-		// |				<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" checked><label for="rb1">Small</label>
-		// |				<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" checked><label for="rb2">Medium</label>
-		// |				<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" checked><label for="rb3">Large</label>
+		// |				<input type="radio" id="rb1" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" checked><label for="rb1">Small</label>
+		// |				<input type="radio" id="rb2" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" checked><label for="rb2">Medium</label>
+		// |				<input type="radio" id="rb3" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" checked><label for="rb3">Large</label>
 		// |			</fieldset>
 		// |		</div>
 		// |	</div>

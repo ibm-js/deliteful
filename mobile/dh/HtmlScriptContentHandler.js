@@ -5,9 +5,9 @@ define([
 ], function(declare, HtmlContentHandler, _ExecScriptMixin){
 
 	// module:
-	//		dojox/mobile/dh/HtmlScriptContentHandler
+	//		dui/mobile/dh/HtmlScriptContentHandler
 
-	return declare("dojox.mobile.dh.HtmlScriptContentHandler", [HtmlContentHandler, _ExecScriptMixin], {
+	return declare("dui.mobile.dh.HtmlScriptContentHandler", [HtmlContentHandler, _ExecScriptMixin], {
 		// summary:
 		//		An HTML content handler that has script execution capability.
 	});

@@ -17,14 +17,14 @@ define([
 ], function(array, declare, lang, win, domClass, domGeometry, domStyle, on, topic, touch, domAttr, registry, ListItem){
 
 	// module:
-	//		dojox/mobile/EditableRoundRectList
+	//		dui/mobile/EditableRoundRectList
 
-	return declare("dojox.mobile._EditableListMixin", null, {
+	return declare("dui.mobile._EditableListMixin", null, {
 		// summary:
 		//		A rounded rectangle list.
 		// description:
 		//		EditableRoundRectList is a rounded rectangle list, which can be used to
-		//		display a group of items. Each item must be	a dojox/mobile/ListItem.
+		//		display a group of items. Each item must be	a dui/mobile/ListItem.
 
 		rightIconForEdit: "duiDomButtonGrayKnob",
 		deleteIconForEdit: "duiDomButtonRedCircleMinus",
@@ -78,7 +78,7 @@ define([
 			var item = registry.getEnclosingWidget(e.target);
 			for(var n = e.target; n !== item.domNode; n = n.parentNode){
 				if(n === item.deleteIconNode){
-					topic.publish("/dojox/mobile/deleteListItem", item);
+					topic.publish("/dui/mobile/deleteListItem", item);
 					this.onDeleteItem(item); //callback
 					break;
 				}
@@ -240,7 +240,7 @@ define([
 			// description:
 			//		This function is called when a user clicks the delete
 			//		button.
-			//		You have to provide that function or subscribe to /dojox/mobile/deleteListItem, 
+			//		You have to provide that function or subscribe to /dui/mobile/deleteListItem, 
 			//		otherwise the delete button will have no-effect.
 			
 		},

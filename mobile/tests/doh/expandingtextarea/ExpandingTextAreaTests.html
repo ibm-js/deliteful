@@ -12,7 +12,7 @@
 	var TEXTAREA_ROWS = 3;
 	var TEXTAREA_COLS = 20;
 	var TEXTAREA_INNERHTML = "ExpandingTextArea";
-	var TEXTAREA_NEW_VALUE = "This is mobile ExpandingTextArea.\nThis text area is automaticaly Expanding.\nHello dojox.mobile";
+	var TEXTAREA_NEW_VALUE = "This is mobile ExpandingTextArea.\nThis text area is automaticaly Expanding.\nHello dui.mobile";
 	var WIDGET_CLASSNAME1 = "duiTextArea";
 	var WIDGET_CLASSNAME2 = "duiExpandingTextArea";
 	var WIDGET_HEIGHT1 = "16px";
@@ -40,9 +40,9 @@
 		"dojo/domReady!", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
-		"dojox/mobile/ExpandingTextArea",
-		"dojox/mobile/View",		// This mobile app uses mobile view
-		"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+		"dui/mobile/ExpandingTextArea",
+		"dui/mobile/View",		// This mobile app uses mobile view
+		"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 	], function(parser, has, domConst, domClass, ready, registry, runner, ExpandingTextArea){
 
 		parser.parse();
@@ -94,18 +94,18 @@
 			if(has("ie") < 9){
 				styleHeight = -1; // negative value as convention for skipping tests
 			} 
-			runner.register("dojox/mobile/test.doh.ExpandingTextArea", [
+			runner.register("dui/mobile/test.doh.ExpandingTextArea", [
 				{
 					name: "ExpandingTextArea Verification1",
 					timeout: 4000,
 					runTest: function(){
-						var widget1 = _createExpandingTextAreaDeclaratively("dojox_mobile_ExpandingTextArea_0");
+						var widget1 = _createExpandingTextAreaDeclaratively("dui_mobile_ExpandingTextArea_0");
 						var widget2 = _createExpandingTextAreaProgrammatically("view1-ExpandingTextArea2place", "view1-ExpandingTextArea2", TEXTAREA_ROWS, TEXTAREA_COLS, TEXTAREA_INNERHTML);
 						var widget3 = _createExpandingTextAreaProgrammaticallyWithSourceNodeReference("view1-ExpandingTextArea3");
 
 						var d = new runner.Deferred();
 						setTimeout(d.getTestCallback(function(){
-							var widget1 = registry.byId("dojox_mobile_ExpandingTextArea_0");
+							var widget1 = registry.byId("dui_mobile_ExpandingTextArea_0");
 							var widget2 = registry.byId("view1-ExpandingTextArea2");
 							var widget3 = registry.byId("view1-ExpandingTextArea3");
 							_assertCorrectExpandingTextArea(widget1, styleHeight, offsetHeight1, offsetHeight2);
@@ -119,14 +119,14 @@
 					name: "ExpandingTextArea Verification2",
 					timeout: 4000,
 					runTest: function(){
-						var widget1 = _createExpandingTextAreaDeclaratively("dojox_mobile_ExpandingTextArea_1");
+						var widget1 = _createExpandingTextAreaDeclaratively("dui_mobile_ExpandingTextArea_1");
 						var widget2 = _createExpandingTextAreaProgrammatically("view2-ExpandingTextArea2place", "view2-ExpandingTextArea2", TEXTAREA_ROWS, TEXTAREA_COLS, TEXTAREA_INNERHTML);
 						var widget3 = _createExpandingTextAreaProgrammaticallyWithSourceNodeReference("view2-ExpandingTextArea3");
 
 						_showView2();
 						var d = new runner.Deferred();
 						setTimeout(d.getTestCallback(function(){
-							var widget1 = registry.byId("dojox_mobile_ExpandingTextArea_1");
+							var widget1 = registry.byId("dui_mobile_ExpandingTextArea_1");
 							var widget2 = registry.byId("view2-ExpandingTextArea2");
 							var widget3 = registry.byId("view2-ExpandingTextArea3");
 							_assertCorrectExpandingTextArea(widget1, styleHeight, offsetHeight1, offsetHeight2);
@@ -142,15 +142,15 @@
 </script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+	<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<textarea data-dojo-type="dojox/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
+		<textarea data-dojo-type="dui/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
 		<div id="view1-ExpandingTextArea2place"></div><br>
 		<textarea id="view1-ExpandingTextArea3" rows="3" cols="20">ExpandingTextArea</textarea><br>
 	</div>
-	<div id="view2" data-dojo-type="dojox/mobile/View">
+	<div id="view2" data-dojo-type="dui/mobile/View">
 		<h1>View 2</h1>
-		<textarea data-dojo-type="dojox/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
+		<textarea data-dojo-type="dui/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea><br>
 		<div id="view2-ExpandingTextArea2place"></div><br>
 		<textarea id="view2-ExpandingTextArea3" rows="3" cols="20">ExpandingTextArea</textarea><br>
 	</div>

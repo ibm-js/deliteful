@@ -1,7 +1,7 @@
 @import url("../common/domButtons/DomButtonColorButtons-compat.css");
 
 @import url("../common/domButtons/DomButtonBlackCircleCross-compat.css");
-/* dojox.mobile.IconContainer */
+/* dui.mobile.IconContainer */
 .duiIconItemPaneHeading {
   background-image: url(compat/icon-content-heading-bg.png);
 }

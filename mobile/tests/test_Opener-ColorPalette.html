@@ -13,9 +13,9 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/parser",
-			"dojox/mobile/Opener",
+			"dui/mobile/Opener",
 			"dijit/_base/manager", // dijit.byId
 			"dijit/ColorPalette"
 		]);
@@ -53,11 +53,11 @@
 	</tr>
 	</table>
 
-	<div id="colorPicker1" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getColor1">
-		<h1 data-dojo-type="dojox/mobile/Heading" label="Select a Color">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
+	<div id="colorPicker1" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getColor1">
+		<h1 data-dojo-type="dui/mobile/Heading" label="Select a Color">
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('colorPicker1').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('colorPicker1').hide(false)"></span>
 		</h1>
 		<div id="colorPalette" dojoType='dijit.ColorPalette'></div>

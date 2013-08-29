@@ -13,9 +13,9 @@
 		require([
 			"dojo/ready",
 			"dijit/registry",
-			"dojox/mobile/StarRating",
+			"dui/mobile/StarRating",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(ready, registry, StarRating){
 
 			increment = function(suffix){
@@ -66,35 +66,35 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
+	<div data-dojo-type="dui/mobile/View">
 		<div>
 			<h1>LTR direction</h1>
-			<span id="star" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7'></span>
+			<span id="star" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7'></span>
 			<span id="value">0</span><br>
 			<button type="button" onclick="decrement()">&minus;</button>
 			<button type="button" onclick="increment()">+</button>
 			<p>
-			Editable: <span id="editablestar1" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true'></span>
+			Editable: <span id="editablestar1" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true'></span>
 			<p>
-			Editable (half values increment): <span id="editablestar2" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true'></span>
+			Editable (half values increment): <span id="editablestar2" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true'></span>
 			<p>
-			No zero setting: <span id="editablestar5" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
+			No zero setting: <span id="editablestar5" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
 			<p>
 			Programmatic: <span id="editablestar6"></span><br>
 			<span id="editablestar6value"></span>
 		</div>
 		<div dir="rtl">
 			<h1>RTL direction</h1>
-			<span id="star_rtl" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7'></span>
+			<span id="star_rtl" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7'></span>
 			<span id="value_rtl">0</span><br>
 			<button type="button" onclick="decrement('_rtl')">&minus;</button>
 			<button type="button" onclick="increment('_rtl')">+</button>
 			<p>
-			Editable: <span id="editablestar1_rtl" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true'></span>
+			Editable: <span id="editablestar1_rtl" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true'></span>
 			<p>
-			Editable (half values increment): <span id="editablestar2_rtl" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true'></span>
+			Editable (half values increment): <span id="editablestar2_rtl" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true'></span>
 			<p>
-			No zero setting: <span id="editablestar5_rtl" data-dojo-type="dojox/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
+			No zero setting: <span id="editablestar5_rtl" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"../images/star-4-bidi.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
 			<p>
 			Programmatic: <span id="editablestar6_rtl"></span><br>
 			<span id="editablestar6value_rtl"></span>

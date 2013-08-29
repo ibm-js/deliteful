@@ -15,12 +15,12 @@ define([
 ], function(kernel, lang, win, aspect, domClass, domConstruct, domStyle, domGeom, on, touch, has, css3, maskUtils){
 
 	// module:
-	//		dojox/mobile/scrollable
+	//		dui/mobile/scrollable
 
 	// TODO: rename to Scrollable.js (capital S) for 2.0
 
-	// TODO: shouldn't be referencing this dojox/mobile variable, would be better to require the mobile.js module
-	var dm = lang.getObject("dojox.mobile", true);
+	// TODO: shouldn't be referencing this dui/mobile variable, would be better to require the mobile.js module
+	var dm = lang.getObject("dui.mobile", true);
 
 	// feature detection
 	has.add("translate3d", function(){
@@ -193,7 +193,7 @@ define([
 			var _this = this;
 			setTimeout(function(){ 
 				// Why not using widget.defer() instead of setTimeout()? Because this module
-				// is not always mixed into a widget (ex. dojox/mobile/_ComboBoxMenu), and adding 
+				// is not always mixed into a widget (ex. dui/mobile/_ComboBoxMenu), and adding 
 				// a check to call either defer or setTimeout has been considered overkill.
 				_this.flashScrollBar();
 			}, 600);
@@ -1434,7 +1434,7 @@ define([
 		}
 	});
 
-	lang.setObject("dojox.mobile.scrollable", Scrollable);
+	lang.setObject("dui.mobile.scrollable", Scrollable);
 
 	return Scrollable;
 });

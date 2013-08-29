@@ -4,7 +4,7 @@ define([
 	"./TextArea"
 ], function(declare, ExpandingTextAreaMixin, TextArea){
 
-	return declare("dojox.mobile.ExpandingTextArea", [TextArea, ExpandingTextAreaMixin], {
+	return declare("dui.mobile.ExpandingTextArea", [TextArea, ExpandingTextAreaMixin], {
 		// summary:
 		//		Non-templated TEXTAREA widget with the capability to adjust its 
 		//		height according to the amount of data.
@@ -15,7 +15,7 @@ define([
 		//		Takes all the parameters (name, value, etc.) that a vanilla textarea takes.
 		//		Rows are not supported since this widget adjusts its height.
 		// example:
-		//	|	<textarea dojoType="dojox.mobile.ExpandingTextArea">...</textarea>
+		//	|	<textarea dojoType="dui.mobile.ExpandingTextArea">...</textarea>
 
 		baseClass: "duiTextArea duiExpandingTextArea"
 	});

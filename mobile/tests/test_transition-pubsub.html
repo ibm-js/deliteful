@@ -14,7 +14,7 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(connect){
 			var print = function(name, view, moveTo, dir, transition, context, method){
 				console.log(name +
@@ -27,44 +27,44 @@
 							", movedFrom=" + view.movedFrom);
 			};
 
-			connect.subscribe("/dojox/mobile/startView", function(view){
+			connect.subscribe("/dui/mobile/startView", function(view){
 				console.log("startView: view="+view);
 			});
-			connect.subscribe("/dojox/mobile/beforeTransitionOut", function(view, moveTo, dir, transition, context, method){
+			connect.subscribe("/dui/mobile/beforeTransitionOut", function(view, moveTo, dir, transition, context, method){
 				print("onBeforeTransitionOut", view, moveTo, dir, transition, context, method);
 			});
-			connect.subscribe("/dojox/mobile/beforeTransitionIn", function(view, moveTo, dir, transition, context, method){
+			connect.subscribe("/dui/mobile/beforeTransitionIn", function(view, moveTo, dir, transition, context, method){
 				print("onBeforeTransitionIn", view, moveTo, dir, transition, context, method);
 			});
-			connect.subscribe("/dojox/mobile/afterTransitionOut", function(view, moveTo, dir, transition, context, method){
+			connect.subscribe("/dui/mobile/afterTransitionOut", function(view, moveTo, dir, transition, context, method){
 				print("afterTransitionOut", view, moveTo, dir, transition, context, method);
 			});
-			connect.subscribe("/dojox/mobile/afterTransitionIn", function(view, moveTo, dir, transition, context, method){
+			connect.subscribe("/dui/mobile/afterTransitionIn", function(view, moveTo, dir, transition, context, method){
 				print("afterTransitionIn", view, moveTo, dir, transition, context, method);
 			});
 		});
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Animations</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Transition Effects</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"view2", transition:"slide"'>
+	<div id="view1" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Animations</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Transition Effects</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"view2", transition:"slide"'>
 				Slide
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"view2", transition:"flip"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"view2", transition:"flip"'>
 				Flip
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"view2", transition:"fade"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"view2", transition:"fade"'>
 				Fade
 			</li>
 		</ul>
 	</div>
 
-	<div id="view2" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Home", moveTo:"view1"'>Search Result</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+	<div id="view2" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Home", moveTo:"view1"'>Search Result</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Open the browser console to see transition event logs.
 		</div>
 	</div>

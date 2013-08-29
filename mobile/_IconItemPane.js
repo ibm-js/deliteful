@@ -7,9 +7,9 @@ define([
 ], function(declare, domConstruct, Pane, iconUtils, has){
 
 	// module:
-	//		dojox/mobile/_IconItemPane
+	//		dui/mobile/_IconItemPane
 
-	return declare("dojox.mobile._IconItemPane", Pane, {
+	return declare("dui.mobile._IconItemPane", Pane, {
 		// summary:
 		//		An internal widget used for IconContainer.
 

@@ -15,7 +15,7 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.Overlay */
+/* dui.mobile.Overlay */
 .duiOverlay {
   position: fixed;
   z-index: 2000;

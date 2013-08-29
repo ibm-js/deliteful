@@ -18,9 +18,9 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/IconContainer",
-			"dojox/mobile/ScrollableView"
+			"dui/mobile/compat",
+			"dui/mobile/IconContainer",
+			"dui/mobile/ScrollableView"
 		], function(connect, dom, ready, registry){
 			startEdit = function(){
 				registry.byId("iconContainer").startEdit();
@@ -53,39 +53,39 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading">Editable Icon Container</h1>
-		<ul id="iconContainer" data-dojo-type="dojox/mobile/IconContainer" data-dojo-props='editable:true'>
-			<li id="icon1" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1", icon:"images/icon1.png", badge:"55"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2", icon:"images/icon2.png", deletable:false'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3", icon:"images/icon3.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app4", icon:"images/icon4.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app5", icon:"images/icon5.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app6", icon:"images/icon6.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app7", icon:"images/icon7.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app8", icon:"images/icon8.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app9", icon:"images/icon9.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app10", icon:"images/icon10.png"'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"images/icon1.png", moveTo:"about", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href", icon:"images/icon2.png", href:"test_RoundRectList.html", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url", icon:"images/icon3.png", url:"data/view-sample.html", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url-async", icon:"images/icon4.png", url:"data/view-sample.html", transition:"slide", sync:false'></li>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading">Editable Icon Container</h1>
+		<ul id="iconContainer" data-dojo-type="dui/mobile/IconContainer" data-dojo-props='editable:true'>
+			<li id="icon1" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app1", icon:"images/icon1.png", badge:"55"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app2", icon:"images/icon2.png", deletable:false'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app3", icon:"images/icon3.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app4", icon:"images/icon4.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app5", icon:"images/icon5.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app6", icon:"images/icon6.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app7", icon:"images/icon7.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app8", icon:"images/icon8.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app9", icon:"images/icon9.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app10", icon:"images/icon10.png"'><div class="box"></div></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"images/icon1.png", moveTo:"about", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"href", icon:"images/icon2.png", href:"test_RoundRectList.html", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url", icon:"images/icon3.png", url:"data/view-sample.html", transition:"slide"'></li>
+			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url-async", icon:"images/icon4.png", url:"data/view-sample.html", transition:"slide", sync:false'></li>
 		</ul>
 		<button id="btn1" onclick="startEdit();">Start Edit</button>
 		<button id="btn2" onclick="endEdit();" style="display:none;">End Edit</button>
 	</div>
 
-	<div id="about" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">My Phone</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+	<div id="about" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">My Phone</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Network
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Line
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"1024"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"1024"'>
 				Songs
 			</li>
 		</ul>

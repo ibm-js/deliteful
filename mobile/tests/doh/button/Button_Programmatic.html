@@ -21,28 +21,28 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/Button");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/Button");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
-				var demoWidget = new dojox.mobile.Button({"class":"duiBlueButton", style:"width:120px", label:"Default Button"});
+				var demoWidget = new dui.mobile.Button({"class":"duiBlueButton", style:"width:120px", label:"Default Button"});
 				dojo.doc.body.appendChild(demoWidget.domNode);
 
 				dojo.create("P", null, dojo.doc.body);
 
-				demoWidget = new dojox.mobile.Button({"class":"redButton", style:"width:120px", label:"Custom Button"});
+				demoWidget = new dui.mobile.Button({"class":"redButton", style:"width:120px", label:"Custom Button"});
 				dojo.doc.body.appendChild(demoWidget.domNode);
 
-				doh.register("dojox/mobile/test.doh.Button", [
+				doh.register("dui/mobile/test.doh.Button", [
 					function test_Button_Verification(){
-						var demoWidget = dijit.byId("dojox_mobile_Button_0");
+						var demoWidget = dijit.byId("dui_mobile_Button_0");
 						doh.assertEqual('duiButton duiBlueButton', demoWidget.domNode.className);
 						doh.assertEqual('Default Button', demoWidget.domNode.childNodes[0].nodeValue);
-						demoWidget = dijit.byId("dojox_mobile_Button_1");
+						demoWidget = dijit.byId("dui_mobile_Button_1");
 						doh.assertEqual('duiButton redButton', demoWidget.domNode.className);
 						doh.assertEqual('Custom Button', demoWidget.domNode.childNodes[0].nodeValue);
 					}

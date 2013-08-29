@@ -4,7 +4,7 @@ define([
 ], function(declare){
 
 	// module:
-	//		dojox/mobile/bidi/TextBox
+	//		dui/mobile/bidi/TextBox
 
 	return declare(null, {
 		// summary:

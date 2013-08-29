@@ -13,9 +13,9 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/parser",
-			"dojox/mobile/Opener",
+			"dui/mobile/Opener",
 			"dijit/_base/manager", // dijit.byId
 			"dijit/CalendarLite"
 		]);
@@ -58,11 +58,11 @@
 			onclick="dijit.byId('calPicker').show(this, ['above-centered','below-centered','after','before'])"></td>
 	</tr>
 	</table>
-	<div id="calPicker" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getDate2, onShow:setDate2">
-		<h1 data-dojo-type="dojox/mobile/Heading" label="Dates">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
+	<div id="calPicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getDate2, onShow:setDate2">
+		<h1 data-dojo-type="dui/mobile/Heading" label="Dates">
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('calPicker').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('calPicker').hide(false)"></span>
 		</h1>
 		<div id="cal" dojoType='dijit.CalendarLite'></div>

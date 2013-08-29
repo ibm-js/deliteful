@@ -15,10 +15,10 @@
 			"doh/runner",	//doh functions
 			"dojo/domReady!",
 			"dojo/dom",
-			"dojox/mobile/deviceTheme"
+			"dui/mobile/deviceTheme"
 		], function(parser, registry, runner, ready, dom){
 			parser.parse();
-			runner.register("dojox/mobile/test.doh.MBLCSS3TransitionTests", [
+			runner.register("dui/mobile/test.doh.MBLCSS3TransitionTests", [
 				{
 					name: "Verify ticket #16592 is fixed",
 					timeout: 10000,
@@ -44,17 +44,17 @@
 </head>
 <body style="visibility:hidden;">
 <!-- Views for test "Verify ticket #16592 is fixed" -->
-<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
-	<ul data-dojo-type="dojox/mobile/RoundRectList">
+<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
+	<ul data-dojo-type="dui/mobile/RoundRectList">
 		<li id="slideItem"
-			data-dojo-type="dojox/mobile/ListItem"
+			data-dojo-type="dui/mobile/ListItem"
 			moveTo="view2"
 			transition="slide">Slide this view
 		</li>
 	</ul>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
-	<h1 data-dojo-type="dojox/mobile/Heading" back="Back"
+<div id="view2" data-dojo-type="dui/mobile/View">
+	<h1 data-dojo-type="dui/mobile/Heading" back="Back"
 		moveTo="view1">View 2</h1>
 </div>
 <!-- End of views for test "Verify ticket #16592 is fixed" -->

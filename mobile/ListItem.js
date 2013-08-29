@@ -13,13 +13,13 @@ define([
 	"./_ItemBase",
 	"./ProgressIndicator",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/ListItem"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/ListItem"
 ], function(array, declare, lang, domClass, domConstruct, domStyle, domAttr, on, registry, WidgetBase, iconUtils, ItemBase, ProgressIndicator, has,  BidiListItem){
 
 	// module:
-	//		dojox/mobile/ListItem
+	//		dui/mobile/ListItem
 
-	var ListItem = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiListItem" : "dojox.mobile.ListItem", ItemBase, {
+	var ListItem = declare(has("dojo-bidi") ? "dui.mobile.NonBidiListItem" : "dui.mobile.ListItem", ItemBase, {
 		// summary:
 		//		An item of either RoundRectList or EdgeToEdgeList.
 		// description:
@@ -31,7 +31,7 @@ define([
 		//		whose value is "left", "right", or "center". Such nodes will be
 		//		aligned as specified.
 		// example:
-		// |	<li data-dojo-type="dojox.mobile.ListItem">
+		// |	<li data-dojo-type="dui.mobile.ListItem">
 		// |		<div layout="left">Left Node</div>
 		// |		<div layout="right">Right Node</div>
 		// |		<div layout="center">Center Node</div>
@@ -43,7 +43,7 @@ define([
 		//		because layout node is aligned using float:left, float:right, or
 		//		position:absolute.
 		// example:
-		// |	<li data-dojo-type="dojox.mobile.ListItem" variableHeight="true">
+		// |	<li data-dojo-type="dui.mobile.ListItem" variableHeight="true">
 		// |		<div layout="left"><img src="large-picture.jpg"></div>
 		// |	</li>
 
@@ -557,7 +557,7 @@ define([
 	
 	ListItem.ChildWidgetProperties = {
 		// summary:
-		//		These properties can be specified for the children of a dojox/mobile/ListItem.
+		//		These properties can be specified for the children of a dui/mobile/ListItem.
 
 		// layout: String
 		//		Specifies the position of the ListItem child ("left", "center" or "right").
@@ -568,5 +568,5 @@ define([
 		preventTouch: false
 	};
 	
-	return has("dojo-bidi") ? declare("dojox.mobile.ListItem", [ListItem, BidiListItem]) : ListItem;
+	return has("dojo-bidi") ? declare("dui.mobile.ListItem", [ListItem, BidiListItem]) : ListItem;
 });

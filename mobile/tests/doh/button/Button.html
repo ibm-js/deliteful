@@ -21,15 +21,15 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/Button");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/Button");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
-				doh.register("dojox/mobile/test.doh.Button", [
+				doh.register("dui/mobile/test.doh.Button", [
 					function test_Button_Verification(){
 						var demoWidget = dijit.byId("btn1");
 						doh.assertEqual('duiButton duiBlueButton', demoWidget.domNode.className);
@@ -44,8 +44,8 @@
 		</script>
 	</head>
 	<body style="padding: 20px;visibility:visible">
-		<button id="btn1" data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:120px">Default Button</button>
+		<button id="btn1" data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:120px">Default Button</button>
 		<p></p>
-		<button id="btn2" data-dojo-type="dojox/mobile/Button" class="redButton" style="width:120px">Custom Button</button>
+		<button id="btn2" data-dojo-type="dui/mobile/Button" class="redButton" style="width:120px">Custom Button</button>
 	</body>
 </html>

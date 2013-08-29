@@ -17,10 +17,10 @@
 			"dojo/dom",
 			"dojo/domReady",
 			"dojo/query",			
-			"dojox/mobile/Switch",
-			"dojox/mobile/compat",
+			"dui/mobile/Switch",
+			"dui/mobile/compat",
 			"dojo/parser",
-			"dojox/mobile/Button"
+			"dui/mobile/Button"
 			], function(registry,runner,dom,ready,query){
 				ready(function(){
 					runner.register("Bidi Switch", [
@@ -77,25 +77,25 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<button data-dojo-type="dojox/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of first switch</button>
+	<button data-dojo-type="dui/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of first switch</button>
 	<br>
-	<div data-dojo-type="dojox/mobile/View">
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
+	<div data-dojo-type="dui/mobile/View">
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
 			<span class="bold">Default Shape</span><br>
-			<div data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off"'></div>
-			<div  id="first" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop."'></div>
+			<div data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"off"'></div>
+			<div  id="first" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop."'></div>
 		</div>
 
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<span class="bold">Square Shape</span><br>
-			<div class="duiSwSquareShape" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off"'></div>
-			<div  id="second" class="color2" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwSquareShape"'></div>
+			<div class="duiSwSquareShape" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"off"'></div>
+			<div  id="second" class="color2" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwSquareShape"'></div>
 		</div>
 
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
 			<span class="bold">Round Shape 1</span><br>
-			<div class="duiSwRoundShape1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"off" '></div>
-			<div  id="third" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on",textDir:"rtl", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwRoundShape1"'></div>
+			<div class="duiSwRoundShape1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"off" '></div>
+			<div  id="third" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on",textDir:"rtl", leftLabel:"Start.", rightLabel:"Stop.", shape:"duiSwRoundShape1"'></div>
 		</div>
 	</div>
 	<br>Errors:&nbsp;<span id="errors">?</span>

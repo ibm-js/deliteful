@@ -11,38 +11,38 @@
 
 		<script language="JavaScript" type="text/javascript">
 //			dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 		</script>
 		<script language="JavaScript" type="text/javascript">
 			dojo.addOnLoad(function(){
 				var view = dijit.byId("foo");
-				var demoWidget = new dojox.mobile.RoundRectList();
+				var demoWidget = new dui.mobile.RoundRectList();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
 
-				var childWidget = new dojox.mobile.ListItem({id:"item1", icon:"../../images/i-icon-1.png", rightText:"Off", moveTo:"bar", label:"u1space"});
+				var childWidget = new dui.mobile.ListItem({id:"item1", icon:"../../images/i-icon-1.png", rightText:"Off", moveTo:"bar", label:"u1space"});
 				demoWidget.addChild(childWidget);
-				childWidget = new dojox.mobile.ListItem({id:"item2", icon:"../../images/i-icon-2.png", rightText:"On", moveTo:"bar",label:"u2space"});
+				childWidget = new dui.mobile.ListItem({id:"item2", icon:"../../images/i-icon-2.png", rightText:"On", moveTo:"bar",label:"u2space"});
 				demoWidget.addChild(childWidget);
-//				childWidget = new dojox.mobile.ListItem({id:"item3"});
-				childWidget = new dojox.mobile.ListItem({id:"item3", rightText:"Off", moveTo:"bar", label:"Wi-Fi"});
+//				childWidget = new dui.mobile.ListItem({id:"item3"});
+				childWidget = new dui.mobile.ListItem({id:"item3", rightText:"Off", moveTo:"bar", label:"Wi-Fi"});
 				demoWidget.addChild(childWidget);
 //				childWidget.set({rightText:"Off", moveTo:"bar", label :"Wi-Fi"});
 
 				view = dijit.byId("bar");
-				demoWidget = new dojox.mobile.RoundRectList();
+				demoWidget = new dui.mobile.RoundRectList();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
 				demoWidget.startup();
 
-				childWidget = new dojox.mobile.ListItem({rightText:"Off", label:"Video", moveTo:"foo"});
+				childWidget = new dui.mobile.ListItem({rightText:"Off", label:"Video", moveTo:"foo"});
 				demoWidget.addChild(childWidget);
-				childWidget = new dojox.mobile.ListItem({icon:"../../images/i-icon-1.png", rightText:"VPN", label:"Maps"});
+				childWidget = new dui.mobile.ListItem({icon:"../../images/i-icon-1.png", rightText:"VPN", label:"Maps"});
 				demoWidget.addChild(childWidget);
-				childWidget = new dojox.mobile.ListItem({rightText:"Off", label:"Phone Number"});
+				childWidget = new dui.mobile.ListItem({rightText:"Off", label:"Phone Number"});
 				demoWidget.addChild(childWidget);
 			});
 		</script>
@@ -51,16 +51,16 @@
 		<script type="text/javascript" src="RoundRectList.js"></script>
 	</head>
 	<body>
-		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
-			<h1 data-dojo-type="dojox/mobile/Heading">Mobile Mashup</h1>
-			<h2 id="Category" data-dojo-type="dojox/mobile/RoundRectCategory">Spaces</h2>
-			<ul id="RoundRectList1" data-dojo-type="dojox/mobile/RoundRectList">
+		<div id="foo" data-dojo-type="dui/mobile/View" selected="true">
+			<h1 data-dojo-type="dui/mobile/Heading">Mobile Mashup</h1>
+			<h2 id="Category" data-dojo-type="dui/mobile/RoundRectCategory">Spaces</h2>
+			<ul id="RoundRectList1" data-dojo-type="dui/mobile/RoundRectList">
 			</ul>
 		</div>
 
-		<div id="bar" data-dojo-type="dojox/mobile/View">
-			<h1 data-dojo-type="dojox/mobile/Heading" back="Spaces" moveTo="foo">u1space</h1>
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Applications</h2>
+		<div id="bar" data-dojo-type="dui/mobile/View">
+			<h1 data-dojo-type="dui/mobile/Heading" back="Spaces" moveTo="foo">u1space</h1>
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">Applications</h2>
 		</div>
 	</body>
 </html>

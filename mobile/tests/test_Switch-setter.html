@@ -17,7 +17,7 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(connect, dom, ready, registry){
 			swOn = function(){
 				var w = registry.byId("sw");
@@ -41,9 +41,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true' style="padding:10px">
+	<div data-dojo-type="dui/mobile/View" data-dojo-props='selected:true' style="padding:10px">
 		<br>
-		<input type="checkbox" id="sw" name="swName" data-dojo-type="dojox/mobile/Switch" value="off"><br>
+		<input type="checkbox" id="sw" name="swName" data-dojo-type="dui/mobile/Switch" value="off"><br>
 		<input type="button" onclick="swOn()" value="on">
 		<input type="button" onclick="swOff()" value="off">
 		<span id="msgArea"></span>

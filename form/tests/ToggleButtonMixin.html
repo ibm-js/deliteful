@@ -35,7 +35,7 @@
 		dojo.require("doh.runner");
 		dojo.require("dijit.dijit"); // optimize: load dijit layer
 		dojo.require("dijit.form.ToggleButton");
-		dojo.require("dojox.mobile.ToggleButton");
+		dojo.require("dui.mobile.ToggleButton");
 
 		dojo.ready(function(){
 
@@ -134,7 +134,7 @@
 					name: "mobile",
 					timeout: 2000,
 					runTest: function(){
-						new dojox.mobile.ToggleButton({id:"mobile_programmatic", type:"button", checked:true, label:"No srcNodeRef", "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
+						new dui.mobile.ToggleButton({id:"mobile_programmatic", type:"button", checked:true, label:"No srcNodeRef", "aria-label":"mobile_programmatic"}).placeAt("mobile_programmatic_container", "first");
 						var mobile_programmatic = dijit.byId('mobile_programmatic');
 						var pos = dojo.position(mobile_programmatic.domNode, true);
 						doh.t(pos.w > 0 && pos.h > 0 && pos.x > 0 && pos.y > 0, 'mobile position');
@@ -159,13 +159,13 @@
 		<tr>
 			<td class="layout">attributes</td>
 			<td class="layout"><input id="dijit_attributes" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", checked: true, label:"original", "class":"duiRedButton"'/></td>
-			<td class="layout"><button type="button" class="duiRedButton" checked id="mobile_attributes" dojoType="dojox.mobile.ToggleButton" label="original"/></td>
+			<td class="layout"><button type="button" class="duiRedButton" checked id="mobile_attributes" dojoType="dui.mobile.ToggleButton" label="original"/></td>
 		</tr>
 		<tr>
 		<tr>
 			<td class="layout">Events</td>
 			<td class="layout"><button id="dijit_events" data-dojo-type="dijit/form/ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
-			<td class="layout"><button type="button" id="mobile_events" data-dojo-type="dojox.mobile.ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
+			<td class="layout"><button type="button" id="mobile_events" data-dojo-type="dui.mobile.ToggleButton" data-dojo-props='type:"button", onClick:function(){ return true; }'>innerHTML</button></td>
 		</tr>
 		<tr>
 			<td class="layout">Programmatic</td>

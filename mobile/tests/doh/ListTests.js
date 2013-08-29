@@ -4,11 +4,11 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
-	"dojox/mobile/EdgeToEdgeList",
-	"dojox/mobile/RoundRectList",
-	"dojox/mobile/ListItem",
-	"dojox/mobile/View",		// This mobile app uses mobile view
-	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+	"dui/mobile/EdgeToEdgeList",
+	"dui/mobile/RoundRectList",
+	"dui/mobile/ListItem",
+	"dui/mobile/View",		// This mobile app uses mobile view
+	"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(parser, domConst, ready, registry, runner, EdgeToEdgeList, RoundRectList, ListItem){
 
 	parser.parse();
@@ -18,11 +18,11 @@ require([
 	if(IsEdgeToEdgeList){
 		ITEM_LABEL = "Edge To Edge";
 		ListObject = EdgeToEdgeList;
-		testName = "dojox.mobile.test.doh.EdgeToEdgeListTests";
+		testName = "dui.mobile.test.doh.EdgeToEdgeListTests";
 	}else{
 		ITEM_LABEL = "Round Rect";
 		ListObject = RoundRectList;
-		testName = "dojox.mobile.test.doh.RoundRectListTests";
+		testName = "dui.mobile.test.doh.RoundRectListTests";
 	}
 
 	function _createListObjectDeclaratively(id){
@@ -64,7 +64,7 @@ require([
 		view1.performTransition("view2", 1, "none");
 	};
 
-	runner.register("dojox.mobile.test.doh.EdgeToEdgeListTests", [
+	runner.register("dui.mobile.test.doh.EdgeToEdgeListTests", [
 		function testInView1(){
 			var list1 = _createListObjectDeclaratively("view1-list1");
 			var list2 = _createListObjectProgrammatically("view1-list2");

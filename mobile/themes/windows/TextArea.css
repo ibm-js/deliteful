@@ -12,7 +12,7 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.TextArea */
+/* dui.mobile.TextArea */
 .duiTextArea {
   padding: 4px 1px;
   border-width: 1px;
@@ -31,7 +31,7 @@
   font-size: 9pt;
   width: calc(100% - 10px);
 }
-/* dojox.mobile.ExpandingTextArea */
+/* dui.mobile.ExpandingTextArea */
 .duiExpandingTextArea {
   margin: 2px;
 }

@@ -17,12 +17,12 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.IconContainer */
+/* dui.mobile.IconContainer */
 .duiIconContainer {
   margin: 20px 10px;
   padding: 0;
 }
-/* dojox.mobile.IconItem */
+/* dui.mobile.IconItem */
 .duiIconItem {
   position: relative;
   overflow: hidden;
@@ -116,7 +116,7 @@ table.duiClose {
   -webkit-animation-name: duiShrink3;
   animation-name: duiShrink3;
 }
-/* dojox.mobile._IconItemPane */
+/* dui.mobile._IconItemPane */
 .duiIconItemPaneHeading {
   position: relative;
   clear: both;

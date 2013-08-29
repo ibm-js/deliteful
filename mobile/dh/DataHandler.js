@@ -6,9 +6,9 @@ define([
 ], function(declare, lang, Deferred, ContentTypeMap){
 
 	// module:
-	//		dojox/mobile/dh/DataHandler
+	//		dui/mobile/dh/DataHandler
 
-	return declare("dojox.mobile.dh.DataHandler", null, {
+	return declare("dui.mobile.dh.DataHandler", null, {
 		// summary:
 		//		A component that provides an interface between data and handlers.
 		// description:

@@ -5,9 +5,9 @@ define([
 ], function(declare, domClass, Container){
 
 	// module:
-	//		dojox/mobile/RoundRect
+	//		dui/mobile/RoundRect
 
-	return declare("dojox.mobile.RoundRect", Container, {
+	return declare("dui.mobile.RoundRect", Container, {
 		// summary:
 		//		A simple round rectangle container.
 		// description:

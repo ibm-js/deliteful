@@ -14,9 +14,9 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
-	"dojox/mobile/PageIndicator",
-	"dojox/mobile/SwapView",		// This mobile app uses mobile view
-	"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+	"dui/mobile/PageIndicator",
+	"dui/mobile/SwapView",		// This mobile app uses mobile view
+	"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 ], function(parser, has, domConst, domClass, ready, registry, runner, PageIndicator){
 
 	parser.parse();
@@ -55,23 +55,23 @@ require([
 		return r;
 	};
 	function _initAppBars(){
-		var view1 = registry.byId("dojox_mobile_SwapView_0");
+		var view1 = registry.byId("dui_mobile_SwapView_0");
 		view1.findAppBars();
 		view1.resize();
 
-		var view2 = registry.byId("dojox_mobile_SwapView_1");
+		var view2 = registry.byId("dui_mobile_SwapView_1");
 		view2.findAppBars();
 		view2.resize();
 
-		var view3 = registry.byId("dojox_mobile_SwapView_2");
+		var view3 = registry.byId("dui_mobile_SwapView_2");
 		view3.findAppBars();
 		view3.resize();
 
-		var view4 = registry.byId("dojox_mobile_SwapView_3");
+		var view4 = registry.byId("dui_mobile_SwapView_3");
 		view4.findAppBars();
 		view4.resize();
 
-		var view5 = registry.byId("dojox_mobile_SwapView_4");
+		var view5 = registry.byId("dui_mobile_SwapView_4");
 		view5.findAppBars();
 		view5.resize();
 	};
@@ -90,20 +90,20 @@ require([
 		}
 	};
 	if(WIDGET_PROGRAMMATICALLY === 1){
-		_createPageIndicatorProgrammatically("dojox_mobile_PageIndicator_0Place", "dojox_mobile_PageIndicator_0");
+		_createPageIndicatorProgrammatically("dui_mobile_PageIndicator_0Place", "dui_mobile_PageIndicator_0");
 	}else if(WIDGET_PROGRAMMATICALLY === 2){
-		_createPageIndicatorProgrammaticallyWithSourceNodeReference("dojox_mobile_PageIndicator_0");
+		_createPageIndicatorProgrammaticallyWithSourceNodeReference("dui_mobile_PageIndicator_0");
 	}
 
-	runner.register("dojox.mobile.test.doh.PageIndicator", [
+	runner.register("dui.mobile.test.doh.PageIndicator", [
 		{
 			name: "PageIndicator Verification1",
 			timeout: 4000,
 			runTest: function(){
 
-				var view1 = registry.byId("dojox_mobile_SwapView_0");
-				var view2 = registry.byId("dojox_mobile_SwapView_1");
-				var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+				var view1 = registry.byId("dui_mobile_SwapView_0");
+				var view2 = registry.byId("dui_mobile_SwapView_1");
+				var widget1 = registry.byId("dui_mobile_PageIndicator_0");
 
 				var d = new runner.Deferred();
 				setTimeout(d.getTestCallback(function(){
@@ -118,10 +118,10 @@ require([
 			name: "PageIndicator Verification2",
 			timeout: 4000,
 			runTest: function(){
-				var view2 = registry.byId("dojox_mobile_SwapView_1");
+				var view2 = registry.byId("dui_mobile_SwapView_1");
 				var d = new runner.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					var widget1 = registry.byId("dui_mobile_PageIndicator_0");
 					_assertCorrectPageIndicator(widget1, 2);
 					view2.goTo(1);
 				}), timeoutInterval);
@@ -134,7 +134,7 @@ require([
 			runTest: function(){
 				var d = new runner.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					var widget1 = registry.byId("dui_mobile_PageIndicator_0");
 					_assertCorrectPageIndicator(widget1, 3);
 					fireOnClick(widget1.domNode);
 				}), timeoutInterval);
@@ -147,7 +147,7 @@ require([
 			runTest: function(){
 				var d = new runner.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var widget1 = registry.byId("dojox_mobile_PageIndicator_0");
+					var widget1 = registry.byId("dui_mobile_PageIndicator_0");
 					_assertCorrectPageIndicator(widget1, 2);
 				}), timeoutInterval);
 				return d;

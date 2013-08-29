@@ -1,11 +1,11 @@
 @import url("../common/domButtons/DomButtonGrayPlus.css");
 
 @import url("../common/domButtons/DomButtonGrayMinus.css");
-/* dojox.mobile.ValuePicker */
+/* dui.mobile.ValuePicker */
 .duiValuePicker {
   height: 126px;
 }
-/* dojox.mobile.ValuePickerSlot */
+/* dui.mobile.ValuePickerSlot */
 .duiValuePicker > .duiValuePickerSlot {
   float: left;
   margin: 0 3px;
@@ -54,7 +54,7 @@
   background-color: transparent;
   font: bold 24px/44px Helvetica, sans-serif;
 }
-/* dojox.mobile.ValuePickerTimePicker */
+/* dui.mobile.ValuePickerTimePicker */
 .duiValuePickerTimePicker > .duiToolBarButton {
   top: 45px;
 }

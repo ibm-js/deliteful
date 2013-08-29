@@ -6,7 +6,7 @@
 	background-image: -moz-linear-gradient(top, #f3f4f6 0%, #a7abb8 100%);
 }
 
-/* dojox.mobile.ToolBarButton */
+/* dui.mobile.ToolBarButton */
 .dj_ie.dj_tablet .duiToolBarButtonHasLeftArrow .duiToolBarButtonLeftArrow {
 	background-image: url(compat/ipad-arrow-button-head.png);
 }
@@ -26,7 +26,7 @@
 	background-image: url(compat/ipad-arrow-button-sel-bg.png);
 }
 
-/* dojox.mobile.TabBar */
+/* dui.mobile.TabBar */
 .dj_tablet .duiTabBarSegmentedControl,
 .dj_tablet .duiTabBarStandardTab,
 .dj_tablet .duiTabBarSegmentedControl .duiTabBarButton {

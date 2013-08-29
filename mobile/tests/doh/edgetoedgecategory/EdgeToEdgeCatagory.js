@@ -1,5 +1,5 @@
 dojo.addOnLoad(function(){
-	doh.register("dojox.mobile.test.doh.EdgeToEdgeList", [
+	doh.register("dui.mobile.test.doh.EdgeToEdgeList", [
 		{
 			name: "EdgeToEdgeList Verification",
 			timeout: 4000,
@@ -11,7 +11,7 @@ dojo.addOnLoad(function(){
 					doh.assertEqual('Spaces', demoWidget.domNode.innerHTML);
 
 
-					demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_0");
+					demoWidget = dijit.byId("dui_mobile_EdgeToEdgeList_0");
 					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
 					verifyListItem("item1", 'u1space', 'Off', "duiDomButtonArrow", true, true, false);
 					verifyListItem("item2", 'u2space', 'On', "duiDomButtonArrow", true, true, false);
@@ -26,7 +26,7 @@ dojo.addOnLoad(function(){
 			timeout: 4000,
 			runTest: function(){
 				var d = new doh.Deferred();
-				var demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_0");
+				var demoWidget = dijit.byId("dui_mobile_EdgeToEdgeList_0");
 				demoWidget.set({transition :"flip"});
 				doh.assertEqual("flip", demoWidget.get("transition"));
 				demoWidget.set({transition :"fade"});
@@ -36,16 +36,16 @@ dojo.addOnLoad(function(){
 				fireOnMouseUp("item3");
 				var view = dijit.byId("foo");
 				dojo.connect(view, "onAfterTransitionOut", this, d.getTestCallback(function(){
-					var demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeCategory_0");
+					var demoWidget = dijit.byId("dui_mobile_EdgeToEdgeCategory_0");
 					doh.assertEqual('duiEdgeToEdgeCategory', demoWidget.domNode.className);
 					doh.assertEqual('Applications', demoWidget.domNode.innerHTML);
 
-					demoWidget = dijit.byId("dojox_mobile_EdgeToEdgeList_1");
+					demoWidget = dijit.byId("dui_mobile_EdgeToEdgeList_1");
 					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
 
-					verifyListItem("dojox_mobile_ListItem_0", 'Video', 'Off', "", false, false, false);
-					verifyListItem("dojox_mobile_ListItem_1", 'Maps', 'VPN', "", true, false, false);
-					verifyListItem("dojox_mobile_ListItem_2", 'Phone Number', 'Off', "", false, false, false);
+					verifyListItem("dui_mobile_ListItem_0", 'Video', 'Off', "", false, false, false);
+					verifyListItem("dui_mobile_ListItem_1", 'Maps', 'VPN', "", true, false, false);
+					verifyListItem("dui_mobile_ListItem_2", 'Phone Number', 'Off', "", false, false, false);
 				}));
 				return d;
 			}

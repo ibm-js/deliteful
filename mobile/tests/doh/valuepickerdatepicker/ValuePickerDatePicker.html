@@ -20,8 +20,8 @@
 		"dojo/domReady!",
 		"dijit/registry",
 		"doh/runner",
-		"dojox/mobile/compat",
-		"dojox/mobile/ValuePickerDatePicker"
+		"dui/mobile/compat",
+		"dui/mobile/ValuePickerDatePicker"
 	], function(parser, ready, registry, runner){
 
 		var onYearSetCounter = 0, onMonthSetCounter = 0, onDaySetCounter = 0,
@@ -104,7 +104,7 @@
 		};
 
 		// Test case for #16502
-		runner.register("dojox/mobile/test.doh.SpinWheelTests", [
+		runner.register("dui/mobile/test.doh.SpinWheelTests", [
 			{
 				name: "SpinWheelTest1",
 				timeout: 4000,
@@ -212,12 +212,12 @@
 </script>
 </head>
 <body style="visibility:hidden;">
-<div data-dojo-type="dojox/mobile/View">
+<div data-dojo-type="dui/mobile/View">
 	<form>
-		<div data-dojo-type="dojox/mobile/Heading">
+		<div data-dojo-type="dui/mobile/Heading">
 			SpinWheel
 		</div>
-		<div id="picker1" data-dojo-type="dojox/mobile/ValuePickerDatePicker"
+		<div id="picker1" data-dojo-type="dui/mobile/ValuePickerDatePicker"
 			 data-dojo-props="onYearSet: onYearSet, onMonthSet: onMonthSet, onDaySet: onDaySet"></div>
 	</form>
 </div>

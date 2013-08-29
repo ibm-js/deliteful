@@ -14,17 +14,17 @@
 		require([
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/SimpleDialog",
-			"dojox/mobile/TextBox",
-			"dojox/mobile/ComboBox",
-			"dojox/mobile/TabBar",
-			"dojox/mobile/Heading",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/ListItem",
-			"dojox/mobile/TextArea",
-			"dojox/mobile/EdgeToEdgeList",
-			"dojox/mobile/Button"
+			"dui/mobile/compat",
+			"dui/mobile/SimpleDialog",
+			"dui/mobile/TextBox",
+			"dui/mobile/ComboBox",
+			"dui/mobile/TabBar",
+			"dui/mobile/Heading",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/ListItem",
+			"dui/mobile/TextArea",
+			"dui/mobile/EdgeToEdgeList",
+			"dui/mobile/Button"
 		], function(registry){
 			show1 = function(){
 				registry.byId("dlg1").show();
@@ -239,43 +239,43 @@
 				
 		</select>
 		</datalist>
-<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
-	 <h2 data-dojo-type="dojox/mobile/Heading">Dialog</h2>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+<div id="group1" data-dojo-type="dui/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+	<div id="view0" data-dojo-type="dui/mobile/ScrollableView">
+	 <h2 data-dojo-type="dui/mobile/Heading">Dialog</h2>
+		<h1 data-dojo-type="dui/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dui/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir LTR</h1>
 		
 		<button onclick="show1()">Show Dialog</button>
 		
-	<div id="dlg1" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg1" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"ltr"' ><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"ltr"'>
+					<input data-dojo-type="dui/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"ltr"' ><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"ltr"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 	</div>
@@ -284,77 +284,77 @@
 		
 
 	</div>	
-	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
+	<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir RTL</h1>
 		
 		<button onclick="show2()">Show Dialog</button>
 		
-	<div id="dlg2" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg2" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='value:"Hello World !", textDir:"rtl"' 	><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"rtl"'>
+					<input data-dojo-type="dui/mobile/TextBox" data-dojo-props='value:"Hello World !", textDir:"rtl"' 	><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"rtl"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 		</div>
 	</div>	
-	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
+	<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>textDir AUTO</h1>
 		<button onclick="show3()">Show Dialog</button>
 		
-	<div id="dlg3" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg3" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"auto"' ><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"auto"'>
+					<input data-dojo-type="dui/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"auto"' ><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"auto"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 		</div>
 	</div>	
 	 
-	<div id="view4" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
+	<div id="view4" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir LTR</h1>
 		
 		<button onclick="show4()">Show Dialog</button>
 		
-	<div id="dlg4" dir="rtl" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg4" dir="rtl" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"ltr"' ><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"ltr"'>
+					<input data-dojo-type="dui/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"ltr"' ><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"ltr"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 	</div>
@@ -363,27 +363,27 @@
 		
 		
 	</div>
-	<div id="view5" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDirRTR</h1>
+	<div id="view5" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDirRTR</h1>
 		
 		<button onclick="show5()">Show Dialog</button>
 		
-	<div id="dlg5" dir="rtl" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg5" dir="rtl" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" data-dojo-props='value:"Hello World !", textDir:"rtl"' 	><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"rtl"'>
+					<input data-dojo-type="dui/mobile/TextBox" data-dojo-props='value:"Hello World !", textDir:"rtl"' 	><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"rtl"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 		</div>
@@ -391,27 +391,27 @@
 		
 		
 	</div>	
-	<div id="view6" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir AUTO</h1>
+	<div id="view6" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>dir RTL, textDir AUTO</h1>
 		
 		<button onclick="show6()">Show Dialog</button>
 		
-	<div id="dlg6" dir="rtl" data-dojo-type="dojox/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
+	<div id="dlg6" dir="rtl" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle" >Dialog for Text dir test
-			<button data-dojo-type="dojox/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
+			<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:150px;float:right;" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501; !</button>
 		</div>
 		
 		<table style="width:100%">
 			<tr>
 				<td style="width:250px"><img alt="" src="../images/pic1.jpg" width="230" height="230"></td>
 				<td style="vertical-align:top">
-					<input data-dojo-type="dojox/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"auto"' ><br>
-					<input data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"auto"'>
+					<input data-dojo-type="dui/mobile/TextBox" value="Hello World !" data-dojo-props='textDir:"auto"' ><br>
+					<input data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"Hello &#1506;&#1493;&#1500;&#1501;!", list:"values", textDir:"auto"'>
 					
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea data-dojo-type="dojox/mobile/TextArea" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
+				<td colspan="2"><textarea data-dojo-type="dui/mobile/TextArea" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</textarea></td>
 			</tr>
 		</table>
 		</div>

@@ -15,13 +15,13 @@ define([
 	"./lazyLoadUtils",
 	"./viewRegistry",
 	"./_css3",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/IconItem"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/IconItem"
 ], function(declare, lang, has, win, domClass, domConstruct, domGeometry, domStyle, on, ItemBase, Badge, TransitionEvent, iconUtils, lazyLoadUtils, viewRegistry, css3, BidiIconItem){
 
 	// module:
-	//		dojox/mobile/IconItem
+	//		dui/mobile/IconItem
 
-	var IconItem = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiIconItem" : "dojox.mobile.IconItem", ItemBase, {
+	var IconItem = declare(has("dojo-bidi") ? "dui.mobile.NonBidiIconItem" : "dui.mobile.IconItem", ItemBase, {
 		// summary:
 		//		An icon item widget.
 		// description:
@@ -407,5 +407,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.IconItem", [IconItem, BidiIconItem]) : IconItem;
+	return has("dojo-bidi") ? declare("dui.mobile.IconItem", [IconItem, BidiIconItem]) : IconItem;
 });

@@ -3,9 +3,9 @@ define([
 ], function(declare){
 
 	// module:
-	//		dojox/mobile/dh/StringDataSource
+	//		dui/mobile/dh/StringDataSource
 
-	return declare("dojox.mobile.dh.StringDataSource", null, {
+	return declare("dui.mobile.dh.StringDataSource", null, {
 		// summary:
 		//		A component that simply returns the given text.
 

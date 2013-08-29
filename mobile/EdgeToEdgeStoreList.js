@@ -5,9 +5,9 @@ define([
 ], function(declare, EdgeToEdgeList, StoreListMixin){
 
 	// module:
-	//		dojox/mobile/EdgeToEdgeStoreList
+	//		dui/mobile/EdgeToEdgeStoreList
 
-	return declare("dojox.mobile.EdgeToEdgeStoreList", [EdgeToEdgeList, StoreListMixin],{
+	return declare("dui.mobile.EdgeToEdgeStoreList", [EdgeToEdgeList, StoreListMixin],{
 		// summary:
 		//		A dojo/store-enabled version of EdgeToEdgeList.
 		// description:

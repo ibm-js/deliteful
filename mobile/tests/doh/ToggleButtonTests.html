@@ -23,9 +23,9 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/ToggleButton",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/ToggleButton",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, has, domConst, ready, registry, runner, ToggleButton){
 			parser.parse();
 			function _createToggleButtonDeclaratively(buttonId){
@@ -57,7 +57,7 @@
 
 			var buttonWidth = has("ie") ? BUTTON_WIDTH_IE : BUTTON_WIDTH;
 			var buttonHeight = has("ie") ? BUTTON_HEIGHT_IE : BUTTON_HEIGHT;
-			runner.register("dojox/mobile/test.doh.ToggleButtonTests", [
+			runner.register("dui/mobile/test.doh.ToggleButtonTests", [
 				function testInView1(){
 					var button1 = _createToggleButtonDeclaratively("view1-button1");
 					var button2 = _createToggleButtonProgrammatically("view1-button2");
@@ -84,15 +84,15 @@
 	</script>
 </head>
 <body>
-<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 	<h1>View 1</h1>
-	<button id="view1-button1" data-dojo-type="dojox/mobile/ToggleButton">Button</button>
+	<button id="view1-button1" data-dojo-type="dui/mobile/ToggleButton">Button</button>
 	<div id="view1-button2"></div>
 	<button id="view1-button3"></button>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View 2</h1>
-	<button id="view2-button1" data-dojo-type="dojox/mobile/ToggleButton">Button</button>
+	<button id="view2-button1" data-dojo-type="dui/mobile/ToggleButton">Button</button>
 	<div id="view2-button2"></div>
 	<button id="view2-button3"></button>
 </div>

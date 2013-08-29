@@ -23,23 +23,23 @@
 		<script type="text/javascript" src="../TestUtil.js"></script>
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/View");
-			dojo.require("dojox/mobile/IconContainer");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/View");
+			dojo.require("dui/mobile/IconContainer");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
-				doh.register("dojox/mobile/test.doh.IconContainer", [
+				doh.register("dui/mobile/test.doh.IconContainer", [
 					{
 						name: "IconContainer Verification",
 						timeout: 4000,
 						runTest: function(){
 							var d = new doh.Deferred();
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dojox_mobile_IconContainer_0");
+								var demoWidget = dijit.byId("dui_mobile_IconContainer_0");
 								doh.assertEqual('duiIconContainer', demoWidget.domNode.className);
 								
 							}));
@@ -51,11 +51,11 @@
 						timeout: 4000,
 						runTest: function(){
 							var d = new doh.Deferred();
-							var demoWidget = dijit.byId("dojox_mobile_IconItem_0");
+							var demoWidget = dijit.byId("dui_mobile_IconItem_0");
 							fireOnMouseDown(demoWidget.domNode);
 							fireOnMouseUp(demoWidget.domNode);
 
-							demoWidget = dijit.byId("dojox_mobile_IconItem_1");
+							demoWidget = dijit.byId("dui_mobile_IconItem_1");
 							doh.assertEqual('none', demoWidget.paneWidget.domNode.style.display);
 							fireOnMouseDown(demoWidget.domNode);
 							fireOnMouseUp(demoWidget.domNode);
@@ -65,10 +65,10 @@
 							}
 
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dojox_mobile_IconItem_0");
+								var demoWidget = dijit.byId("dui_mobile_IconItem_0");
 								verifyRect(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0], "0px", "64px", "64px", "0px");
-								verifyIconItem("dojox_mobile_IconItem_0", 'app1', 'none', /icon-all.png/i, true);
-								verifyIconItem("dojox_mobile_IconItem_1", 'app2', '', /icon-all.png/i, true);
+								verifyIconItem("dui_mobile_IconItem_0", 'app1', 'none', /icon-all.png/i, true);
+								verifyIconItem("dui_mobile_IconItem_1", 'app2', '', /icon-all.png/i, true);
 								
 							}),t);
 							return d;
@@ -80,29 +80,29 @@
 		</script>
 	</head>
 	<body>
-		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
-			<h1 data-dojo-type="dojox/mobile/Heading">Icon Container</h1>
-			<ul data-dojo-type="dojox/mobile/IconContainer" transition="slide" single="true" pressedIconOpacity="0.8" iconBase="../../images/icon-all.png" iconPos="0,0,64,64" back="Test" label="test">
-				<li data-dojo-type="dojox/mobile/IconItem" label="app1" lazy="true"><div class="box"></div></li>
-				<li data-dojo-type="dojox/mobile/IconItem" label="app2" iconPos="0,64,64,64" lazy="true"><div class="box"></div></li>
-				<li data-dojo-type="dojox/mobile/IconItem" label="app3" iconPos="0,64,64,64" lazy="true"><div class="box"></div></li>
-				<li data-dojo-type="dojox/mobile/IconItem" label="moveTo" iconPos="0,64,64,64" moveTo="about" transition="slide"></li>
-				<li data-dojo-type="dojox/mobile/IconItem" label="href" iconPos="0,64,64,64" href="../../test_iPhone-RoundRectList.html" transition="slide"></li>
-				<li data-dojo-type="dojox/mobile/IconItem" label="url" iconPos="0,64,64,64" url="../../view-sample.html" transition="slide"></li>
+		<div id="foo" data-dojo-type="dui/mobile/View" selected="true">
+			<h1 data-dojo-type="dui/mobile/Heading">Icon Container</h1>
+			<ul data-dojo-type="dui/mobile/IconContainer" transition="slide" single="true" pressedIconOpacity="0.8" iconBase="../../images/icon-all.png" iconPos="0,0,64,64" back="Test" label="test">
+				<li data-dojo-type="dui/mobile/IconItem" label="app1" lazy="true"><div class="box"></div></li>
+				<li data-dojo-type="dui/mobile/IconItem" label="app2" iconPos="0,64,64,64" lazy="true"><div class="box"></div></li>
+				<li data-dojo-type="dui/mobile/IconItem" label="app3" iconPos="0,64,64,64" lazy="true"><div class="box"></div></li>
+				<li data-dojo-type="dui/mobile/IconItem" label="moveTo" iconPos="0,64,64,64" moveTo="about" transition="slide"></li>
+				<li data-dojo-type="dui/mobile/IconItem" label="href" iconPos="0,64,64,64" href="../../test_iPhone-RoundRectList.html" transition="slide"></li>
+				<li data-dojo-type="dui/mobile/IconItem" label="url" iconPos="0,64,64,64" url="../../view-sample.html" transition="slide"></li>
 			</ul>
 		</div>
 
-		<div id="about" data-dojo-type="dojox/mobile/View">
-			<h1 data-dojo-type="dojox/mobile/Heading" back="Icon Container" moveTo="foo">About</h1>
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">My Phone</h2>
-			<ul data-dojo-type="dojox/mobile/RoundRectList">
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="AcmePhone">
+		<div id="about" data-dojo-type="dui/mobile/View">
+			<h1 data-dojo-type="dui/mobile/Heading" back="Icon Container" moveTo="foo">About</h1>
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">My Phone</h2>
+			<ul data-dojo-type="dui/mobile/RoundRectList">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="AcmePhone">
 					Network											   
 				</li>												   
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="AcmePhone">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="AcmePhone">
 					Line
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="1024">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="1024">
 					Songs
 				</li>
 			</ul>

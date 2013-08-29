@@ -19,11 +19,11 @@ var WIDGET_INNERHTML = [{},
 						{},
 						{innerHTML:"pane #2"},
 						{innerHTML:"pane #3"}];
-var WIDGET_IDS = [{id:"dojox_mobile_FixedSplitter_0"},
-				  {id:"dojox_mobile_Container_0"},
-				  {id:"dojox_mobile_FixedSplitter_1"},
-				  {id:"dojox_mobile_Container_1"},
-				  {id:"dojox_mobile_Container_2"}];
+var WIDGET_IDS = [{id:"dui_mobile_FixedSplitter_0"},
+				  {id:"dui_mobile_Container_0"},
+				  {id:"dui_mobile_FixedSplitter_1"},
+				  {id:"dui_mobile_Container_1"},
+				  {id:"dui_mobile_Container_2"}];
 
 require([
 	"dojo/_base/connect",
@@ -35,9 +35,9 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
-	"dojox/mobile/FixedSplitter",
-	"dojox/mobile/Container",
-	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+	"dui/mobile/FixedSplitter",
+	"dui/mobile/Container",
+	"dui/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
 ], function(connect, lang, domConst, domClass, domGeometry, window, ready, registry, runner, FixedSplitter, Container){
 	function _createFixedSplitterProgrammatically(placeHolderId){
 		// Create FixedSplitter
@@ -102,7 +102,7 @@ require([
 			_createFixedSplitterProgrammaticallyWithSourceNodeReference();
 		}
 
-		runner.register("dojox.mobile.test.doh.FixedSplitter", [
+		runner.register("dui.mobile.test.doh.FixedSplitter", [
 			{
 				name: "FixedSplitter Verification",
 				timeout: 4000,
@@ -111,11 +111,11 @@ require([
 					setTimeout(d.getTestCallback(function(){
 						var box = window.getBox();
 
-						var widget1 = registry.byId("dojox_mobile_FixedSplitter_0");
-						var widget2 = registry.byId("dojox_mobile_Container_0");
-						var widget3 = registry.byId("dojox_mobile_FixedSplitter_1");
-						var widget4 = registry.byId("dojox_mobile_Container_1");
-						var widget5 = registry.byId("dojox_mobile_Container_2");
+						var widget1 = registry.byId("dui_mobile_FixedSplitter_0");
+						var widget2 = registry.byId("dui_mobile_Container_0");
+						var widget3 = registry.byId("dui_mobile_FixedSplitter_1");
+						var widget4 = registry.byId("dui_mobile_Container_1");
+						var widget5 = registry.byId("dui_mobile_Container_2");
 
 						var box2 = domGeometry.getMarginBox(widget1.domNode);
 

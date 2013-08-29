@@ -7,28 +7,28 @@ define([
 ], function(declare, lang, domClass, domConstruct, iconUtils){
 
 	// module:
-	//		dojox/mobile/Icon
+	//		dui/mobile/Icon
 
-	return declare("dojox.mobile.Icon", null, {
+	return declare("dui.mobile.Icon", null, {
 		// summary:
 		//		A wrapper for image icon, CSS sprite icon, or DOM Button.
 		// description:
 		//		Icon is a simple utility class for creating an image icon, a CSS sprite icon, 
-		//		or a DOM Button. It calls dojox/mobile/iconUtils.createIcon() with the 
+		//		or a DOM Button. It calls dui/mobile/iconUtils.createIcon() with the 
 		//		appropriate parameters to create an icon. 
 		//		Note that this module is not a widget, that is it does not inherit 
 		//		from dijit/_WidgetBase.
 		// example:
 		//		Image icon:
-		//	|	<div data-dojo-type="dojox.mobile.Icon"
+		//	|	<div data-dojo-type="dui.mobile.Icon"
 		//	|		data-dojo-props='icon:"images/tab-icon-12h.png"'></div>
 		//
 		//		CSS sprite icon:
-		//	|	<div data-dojo-type="dojox.mobile.Icon"
+		//	|	<div data-dojo-type="dui.mobile.Icon"
 		//	|		data-dojo-props='icon:"images/tab-icons.png",iconPos:"29,116,29,29"'></div>
 		//
 		//		DOM Button:
-		//	|	<div data-dojo-type="dojox.mobile.Icon"
+		//	|	<div data-dojo-type="dui.mobile.Icon"
 		//	|		data-dojo-props='icon:"duiDomButtonBlueCircleArrow"'></div>
 
 		// icon: [const] String

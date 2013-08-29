@@ -20,10 +20,10 @@
 			"dojo/domReady",
 			"dojo/query",		
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/RoundRectStoreList",
-			"dojox/mobile/EdgeToEdgeStoreList"	
+			"dui/mobile/compat",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/RoundRectStoreList",
+			"dui/mobile/EdgeToEdgeStoreList"	
 		], function(Memory, Observable, registry){
 			var static_data1 = {
 				items: [			
@@ -72,31 +72,31 @@
 </head>
 	
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
-	        <h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList widget</h2>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+<div id="group1" data-dojo-type="dui/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+	<div id="view0" data-dojo-type="dui/mobile/ScrollableView">
+	        <h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList widget</h2>
+		<h1 data-dojo-type="dui/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dui/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
 	
 	
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 		
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list1" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list1" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list1" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list1" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>
@@ -111,13 +111,13 @@
 	</div>
 	
 		
-	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+	<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
 			
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list2" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list2" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list2" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list2" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>
@@ -129,12 +129,12 @@
 		
 	</div>
 		
-	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list3" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list3" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
+	<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list3" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list3" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>
@@ -147,13 +147,13 @@
 	</div>	
 	 
 	 
-	<div  id="view4" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+	<div  id="view4" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
 		
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" dir=rtl id="roundrect_list4" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" dir=rtl id="edgetoedge_list4" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" dir=rtl id="roundrect_list4" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" dir=rtl id="edgetoedge_list4" data-dojo-props='textDir:"ltr", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>
@@ -168,13 +168,13 @@
 		
 	
 	
-	<div dir="rtl" id="view5" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+	<div dir="rtl" id="view5" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
 		
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list5" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list5" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list5" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list5" data-dojo-props='textDir:"rtl", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>
@@ -187,13 +187,13 @@
 		
 	</div>	
 	
-	<div dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+	<div dir="rtl" id="view6" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
 		
-		<h2 data-dojo-type="dojox/mobile/Heading">RoundRectStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectStoreList" id="roundrect_list6" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
-		<h2 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h2>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="edgetoedge_list6" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">RoundRectStoreList</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectStoreList" id="roundrect_list6" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h2>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="edgetoedge_list6" data-dojo-props='textDir:"auto", store:store, query:{}'></ul>
 		<table border="1">  
 		<tr><th>Show the different set</th><th>Alter the object store</th></tr>
 		<tr><td>

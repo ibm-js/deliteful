@@ -10,9 +10,9 @@ define([
 ], function(declare, Deferred, lang, win, xhr, ExecScriptMixin, ProgressIndicator, lazyLoadUtils){
 
 	// module:
-	//		dojox/mobile/_ContentPaneMixin
+	//		dui/mobile/_ContentPaneMixin
 
-	return declare("dojox.mobile._ContentPaneMixin", ExecScriptMixin, {
+	return declare("dui.mobile._ContentPaneMixin", ExecScriptMixin, {
 		// summary:
 		//		Mixin for a very simple content pane to embed an HTML fragment.
 		// description:

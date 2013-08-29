@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Filtered RoundRectList - demo</title>
 	
-	<!-- This test shows a dojox/mobile/RoundRectList filtered using dojox/mobile/FilteredListMixin. -->
+	<!-- This test shows a dui/mobile/RoundRectList filtered using dui/mobile/FilteredListMixin. -->
 	<!-- Use-case: markup; demonstrates the customization of filtering criteria. -->
 
 	<script type="text/javascript" src="../deviceTheme.js"></script>
@@ -17,16 +17,16 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
+			"dui/mobile/compat",
 			"dojo/domReady",
 			"dijit/registry",
-			"dojox/mobile/FilteredListMixin",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/SimpleDialog",
-			"dojox/mobile/RoundRect",
-			"dojox/mobile/Button",
-			"dojox/mobile/RadioButton",
-			"dojox/mobile/Switch"
+			"dui/mobile/FilteredListMixin",
+			"dui/mobile/ScrollableView",
+			"dui/mobile/SimpleDialog",
+			"dui/mobile/RoundRect",
+			"dui/mobile/Button",
+			"dui/mobile/RadioButton",
+			"dui/mobile/Switch"
 			], function(parser, compat, ready, registry){
 			
 			var filterBox;
@@ -101,125 +101,125 @@
 </head>
 
 <body style="visibility:hidden;background-color:#424142;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered RoundRectList</h1>
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">Filtered RoundRectList</h1>
 		<div class="duiFilteredRoundRectListSearchBox">
-			<input data-dojo-type="dojox/mobile/SearchBox" type="search" id="filterBox"
+			<input data-dojo-type="dui/mobile/SearchBox" type="search" id="filterBox"
 				data-dojo-props="filterBoxRef: 'filterBox'"
 				style="width: 50%; float: left">
 		</div>
 		<button class="searchOptions" onclick="showOptions('dlg_options')">Options</button>
-		<div data-dojo-type="dojox/mobile/ScrollableView">
-			<ul id="list" data-dojo-type="dojox/mobile/RoundRectList"
-				data-dojo-mixins="dojox/mobile/FilteredListMixin"
+		<div data-dojo-type="dui/mobile/ScrollableView">
+			<ul id="list" data-dojo-type="dui/mobile/RoundRectList"
+				data-dojo-mixins="dui/mobile/FilteredListMixin"
 				data-dojo-props="filterBoxRef: 'filterBox', placeHolder: 'Search'">
-				<li data-dojo-type="dojox/mobile/ListItem">Alabama</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Alaska</li>
-				<li data-dojo-type="dojox/mobile/ListItem">American Samoa</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Arizona</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Arkansas</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Armed Forces Europe</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Armed Forces Pacific</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Armed Forces the Americas</li>
-				<li data-dojo-type="dojox/mobile/ListItem">California</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Colorado</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Connecticut</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Delaware</li>
-				<li data-dojo-type="dojox/mobile/ListItem">District of Columbia</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Federated States of Micronesia</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Florida</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Georgia</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Guam</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Hawaii</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Idaho</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Illinois</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Indiana</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Iowa</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Kansas</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Kentucky</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Louisiana</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Maine</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Marshall Islands</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Maryland</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Massachusetts</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Michigan</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Minnesota</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Mississippi</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Missouri</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Montana</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Nebraska</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Nevada</li>
-				<li data-dojo-type="dojox/mobile/ListItem">New Hampshire</li>
-				<li data-dojo-type="dojox/mobile/ListItem">New Jersey</li>
-				<li data-dojo-type="dojox/mobile/ListItem">New Mexico</li>
-				<li data-dojo-type="dojox/mobile/ListItem">New York</li>
-				<li data-dojo-type="dojox/mobile/ListItem">North Carolina</li>
-				<li data-dojo-type="dojox/mobile/ListItem">North Dakota</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Northern Mariana Islands</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Ohio</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Oklahoma</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Oregon</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Pennsylvania</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Puerto Rico</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Rhode Island</li>
-				<li data-dojo-type="dojox/mobile/ListItem">South Carolina</li>
-				<li data-dojo-type="dojox/mobile/ListItem">South Dakota</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Tennessee</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Texas</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Utah</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Vermont</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Virgin Islands, U.S.</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Virginia</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Washington</li>
-				<li data-dojo-type="dojox/mobile/ListItem">West Virginia</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Wisconsin</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Wyoming</li>
+				<li data-dojo-type="dui/mobile/ListItem">Alabama</li>
+				<li data-dojo-type="dui/mobile/ListItem">Alaska</li>
+				<li data-dojo-type="dui/mobile/ListItem">American Samoa</li>
+				<li data-dojo-type="dui/mobile/ListItem">Arizona</li>
+				<li data-dojo-type="dui/mobile/ListItem">Arkansas</li>
+				<li data-dojo-type="dui/mobile/ListItem">Armed Forces Europe</li>
+				<li data-dojo-type="dui/mobile/ListItem">Armed Forces Pacific</li>
+				<li data-dojo-type="dui/mobile/ListItem">Armed Forces the Americas</li>
+				<li data-dojo-type="dui/mobile/ListItem">California</li>
+				<li data-dojo-type="dui/mobile/ListItem">Colorado</li>
+				<li data-dojo-type="dui/mobile/ListItem">Connecticut</li>
+				<li data-dojo-type="dui/mobile/ListItem">Delaware</li>
+				<li data-dojo-type="dui/mobile/ListItem">District of Columbia</li>
+				<li data-dojo-type="dui/mobile/ListItem">Federated States of Micronesia</li>
+				<li data-dojo-type="dui/mobile/ListItem">Florida</li>
+				<li data-dojo-type="dui/mobile/ListItem">Georgia</li>
+				<li data-dojo-type="dui/mobile/ListItem">Guam</li>
+				<li data-dojo-type="dui/mobile/ListItem">Hawaii</li>
+				<li data-dojo-type="dui/mobile/ListItem">Idaho</li>
+				<li data-dojo-type="dui/mobile/ListItem">Illinois</li>
+				<li data-dojo-type="dui/mobile/ListItem">Indiana</li>
+				<li data-dojo-type="dui/mobile/ListItem">Iowa</li>
+				<li data-dojo-type="dui/mobile/ListItem">Kansas</li>
+				<li data-dojo-type="dui/mobile/ListItem">Kentucky</li>
+				<li data-dojo-type="dui/mobile/ListItem">Louisiana</li>
+				<li data-dojo-type="dui/mobile/ListItem">Maine</li>
+				<li data-dojo-type="dui/mobile/ListItem">Marshall Islands</li>
+				<li data-dojo-type="dui/mobile/ListItem">Maryland</li>
+				<li data-dojo-type="dui/mobile/ListItem">Massachusetts</li>
+				<li data-dojo-type="dui/mobile/ListItem">Michigan</li>
+				<li data-dojo-type="dui/mobile/ListItem">Minnesota</li>
+				<li data-dojo-type="dui/mobile/ListItem">Mississippi</li>
+				<li data-dojo-type="dui/mobile/ListItem">Missouri</li>
+				<li data-dojo-type="dui/mobile/ListItem">Montana</li>
+				<li data-dojo-type="dui/mobile/ListItem">Nebraska</li>
+				<li data-dojo-type="dui/mobile/ListItem">Nevada</li>
+				<li data-dojo-type="dui/mobile/ListItem">New Hampshire</li>
+				<li data-dojo-type="dui/mobile/ListItem">New Jersey</li>
+				<li data-dojo-type="dui/mobile/ListItem">New Mexico</li>
+				<li data-dojo-type="dui/mobile/ListItem">New York</li>
+				<li data-dojo-type="dui/mobile/ListItem">North Carolina</li>
+				<li data-dojo-type="dui/mobile/ListItem">North Dakota</li>
+				<li data-dojo-type="dui/mobile/ListItem">Northern Mariana Islands</li>
+				<li data-dojo-type="dui/mobile/ListItem">Ohio</li>
+				<li data-dojo-type="dui/mobile/ListItem">Oklahoma</li>
+				<li data-dojo-type="dui/mobile/ListItem">Oregon</li>
+				<li data-dojo-type="dui/mobile/ListItem">Pennsylvania</li>
+				<li data-dojo-type="dui/mobile/ListItem">Puerto Rico</li>
+				<li data-dojo-type="dui/mobile/ListItem">Rhode Island</li>
+				<li data-dojo-type="dui/mobile/ListItem">South Carolina</li>
+				<li data-dojo-type="dui/mobile/ListItem">South Dakota</li>
+				<li data-dojo-type="dui/mobile/ListItem">Tennessee</li>
+				<li data-dojo-type="dui/mobile/ListItem">Texas</li>
+				<li data-dojo-type="dui/mobile/ListItem">Utah</li>
+				<li data-dojo-type="dui/mobile/ListItem">Vermont</li>
+				<li data-dojo-type="dui/mobile/ListItem">Virgin Islands, U.S.</li>
+				<li data-dojo-type="dui/mobile/ListItem">Virginia</li>
+				<li data-dojo-type="dui/mobile/ListItem">Washington</li>
+				<li data-dojo-type="dui/mobile/ListItem">West Virginia</li>
+				<li data-dojo-type="dui/mobile/ListItem">Wisconsin</li>
+				<li data-dojo-type="dui/mobile/ListItem">Wyoming</li>
 			</ul>
 		</div>
 	</div>
 	
-	<div id="dlg_options" data-dojo-type="dojox/mobile/SimpleDialog">
+	<div id="dlg_options" data-dojo-type="dui/mobile/SimpleDialog">
 		<div class="duiSimpleDialogTitle">Search Options</div>
 		<table style="width:100%">
 			<tr>
 				<td><span class="bold">Ignore case</span></td>
 				<td style="text-align:left">
-					<input type="checkbox" data-dojo-type="dojox/mobile/Switch" 
+					<input type="checkbox" data-dojo-type="dui/mobile/Switch" 
 						id="ignoreCaseSwitch" value="on"></td>
 			</tr>
 			<tr>
 				<td><span class="bold">Incremental</span></td>
 				<td style="text-align:left">
-					<input type="checkbox" data-dojo-type="dojox/mobile/Switch" 
+					<input type="checkbox" data-dojo-type="dui/mobile/Switch" 
 						id="incrementalSwitch" value="on">
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioStartsWith" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioStartsWith" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Starts with" checked>
 					<label for="radioStartsWith">Starts with</label>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioContains" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioContains" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Contains">
 					<label for="radioContains">Contains</label>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align:left">
-					<input type="radio" id="radioIs" data-dojo-type="dojox/mobile/RadioButton" 
+					<input type="radio" id="radioIs" data-dojo-type="dui/mobile/RadioButton" 
 						name="mobileRadio" value="Is">
 					<label for="radioIs">Is</label>
 				</td>
 			</tr>
 		</table>
 
-		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2l" 
+		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2l" 
 			onclick="hideOptions('dlg_options', false)">Cancel</button>
-		<button data-dojo-type="dojox/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
+		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" 
 			onclick="hideOptions('dlg_options', true)">OK</button>
 	</div>
 </body>

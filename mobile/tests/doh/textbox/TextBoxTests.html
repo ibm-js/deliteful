@@ -30,9 +30,9 @@
 			"dijit/registry",  // dijit.byId
 			"dojo/string", // dojo.trim
 			"doh/runner",	//doh functions
-			"dojox/mobile/TextBox",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/TextBox",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, topic, domConst, domClass, ready, registry, string, runner, TextBox){
 
 			parser.parse();
@@ -73,7 +73,7 @@
 				view1.performTransition("view2", 1, "none");
 			};
 
-			runner.register("dojox/mobile/test.doh.TextBox", [
+			runner.register("dui/mobile/test.doh.TextBox", [
 				{
 					name: "TextBox Verification1",
 					timeout: 4000,
@@ -96,7 +96,7 @@
 						var widget3 = _createTextBoxProgrammaticallyWithSourceNodeReference("view2-TextBox3");
 
 						var d = new runner.Deferred();
-						var handle2 = topic.subscribe("/dojox/mobile/afterTransitionIn", d.getTestCallback(function(view){
+						var handle2 = topic.subscribe("/dui/mobile/afterTransitionIn", d.getTestCallback(function(view){
 							if(view.id == "view2"){
 								handle2.remove();
 							}
@@ -114,12 +114,12 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:"true"'>
+<div id="view1" data-dojo-type="dui/mobile/View" data-dojo-props='selected:"true"'>
 	<h1>View1</h1>
 	<table>
 		<tr>
 			<td valign="top"><span class="bold">TextBox</span></td>
-			<td align="right"><input id="view1-TextBox1" data-dojo-type="dojox/mobile/TextBox" maxLength="9"
+			<td align="right"><input id="view1-TextBox1" data-dojo-type="dui/mobile/TextBox" maxLength="9"
 									 placeHolder="max 9 chars" data-dojo-props='selectOnClick:"true"'></td>
 		</tr>
 	</table>
@@ -138,12 +138,12 @@
 		</tr>
 	</table>
 </div>
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View2</h1>
 	<table>
 		<tr>
 			<td valign="top"><span class="bold">TextBox</span></td>
-			<td align="right"><input id="view2-TextBox1" data-dojo-type="dojox/mobile/TextBox" maxLength="9"
+			<td align="right"><input id="view2-TextBox1" data-dojo-type="dui/mobile/TextBox" maxLength="9"
 									 placeHolder="max 9 chars" data-dojo-props='selectOnClick:"true"'></td>
 		</tr>
 	</table>

@@ -15,9 +15,9 @@ define([
 ], function(array, declare, lang, win, domGeometry, domStyle, on, topic, touch, registry, IconItem, has, viewRegistry, css3){
 
 	// module:
-	//		dojox/mobile/_EditableIconMixin
+	//		dui/mobile/_EditableIconMixin
 
-	return declare("dojox.mobile._EditableIconMixin", null, {
+	return declare("dui.mobile._EditableIconMixin", null, {
 		// summary:
 		//		A mixin for IconContainer to make it editable.
 
@@ -57,7 +57,7 @@ define([
 				}, 15*count++);
 			}, this);
 
-			topic.publish("/dojox/mobile/startEdit", this); // pubsub
+			topic.publish("/dui/mobile/startEdit", this); // pubsub
 			this.onStartEdit(); // callback
 		},
 
@@ -81,7 +81,7 @@ define([
 				this._handles = null;
 			}
 
-			topic.publish("/dojox/mobile/endEdit", this); // pubsub
+			topic.publish("/dui/mobile/endEdit", this); // pubsub
 			this.onEndEdit(); // callback
 			this.isEditing = false;
 		},
@@ -241,7 +241,7 @@ define([
 				var endIndex = this.getIndexOfChild(this._blankItem);
 				this.moveChild(movingItem, endIndex);
 				this.removeChild(this._blankItem);
-				topic.publish("/dojox/mobile/moveIconItem", this, movingItem, startIndex, endIndex); // pubsub
+				topic.publish("/dui/mobile/moveIconItem", this, movingItem, startIndex, endIndex); // pubsub
 				this.onMoveItem(movingItem, startIndex, endIndex); // callback
 			}
 		},
@@ -382,7 +382,7 @@ define([
 			}
 			this.removeChildWithAnimation(item);
 
-			topic.publish("/dojox/mobile/deleteIconItem", this, item); // pubsub
+			topic.publish("/dui/mobile/deleteIconItem", this, item); // pubsub
 			this.onDeleteItem(item); // callback
 
 			item.destroy();

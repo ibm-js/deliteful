@@ -13,9 +13,9 @@ define([
 ], function(config, declare, lang, domClass, domConstruct, domGeometry, domStyle, has, Contained, WidgetBase, css3){
 
 	// module:
-	//		dojox/mobile/ProgressIndicator
+	//		dui/mobile/ProgressIndicator
 
-	var cls = declare("dojox.mobile.ProgressIndicator", [WidgetBase, Contained], {
+	var cls = declare("dui.mobile.ProgressIndicator", [WidgetBase, Contained], {
 		// summary:
 		//		A progress indication widget.
 		// description:

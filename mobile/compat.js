@@ -3,16 +3,16 @@ define([
 	"dojo/sniff"
 ], function(lang, has){
 	// module:
-	//		dojox/mobile/compat
+	//		dui/mobile/compat
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 	// TODO: Use feature detection instead, but this would require a major rewrite of _compat
 	// to detect each feature and plug the corresponding compat code if needed.
 	// Currently the compat code is a workaround for too many different things to be able to
 	// decide based on feature detection. So for now we just disable _compat on the mobile browsers
 	// that are known to support enough CSS3: all webkit-based browsers and IE10 (Windows [Phone] 8).
 	if(!(has("webkit") || has("ie") >= 10)){
-		var s = "dojox/mobile/_compat"; // assign to a variable so as not to be picked up by the build tool
+		var s = "dui/mobile/_compat"; // assign to a variable so as not to be picked up by the build tool
 		require([s]);
 	}
 	
@@ -21,17 +21,17 @@ define([
 		// summary:
 		//		CSS3 compatibility module.
 		// description:
-		//		This module provides to dojox/mobile support for some of the CSS3 features 
+		//		This module provides to dui/mobile support for some of the CSS3 features 
 		//		in non-CSS3 browsers, such as IE or Firefox.
 		//		If you require this module, when running in a non-CSS3 browser it directly 
-		//		replaces some of the methods of	dojox/mobile classes, without any subclassing. 
+		//		replaces some of the methods of	dui/mobile classes, without any subclassing. 
 		//		This way, HTML pages remain the same regardless of whether this compatibility 
 		//		module is used or not.
 		//
 		//		Example of usage: 
 		//		|	require([
-		//		|		"dojox/mobile",
-		//		|		"dojox/mobile/compat",
+		//		|		"dui/mobile",
+		//		|		"dui/mobile/compat",
 		//		|		...
 		//		|	], function(...){
 		//		|		...
@@ -40,8 +40,8 @@ define([
 		//		This module also loads compatibility CSS files, which have a -compat.css
 		//		suffix. You can use either the `<link>` tag or `@import` to load theme
 		//		CSS files. Then, this module searches for the loaded CSS files and loads
-		//		compatibility CSS files. For example, if you load dojox/mobile/themes/iphone/iphone.css
-		//		in a page, this module automatically loads dojox/mobile/themes/iphone/iphone-compat.css.
+		//		compatibility CSS files. For example, if you load dui/mobile/themes/iphone/iphone.css
+		//		in a page, this module automatically loads dui/mobile/themes/iphone/iphone-compat.css.
 		//		If you explicitly load iphone-compat.css with `<link>` or `@import`,
 		//		this module will not load again the already loaded file.
 		//

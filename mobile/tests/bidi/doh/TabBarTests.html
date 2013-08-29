@@ -18,10 +18,10 @@
 		"dojo/domReady", // dojo.ready
 		"dijit/registry",  // dijit.byId
 		"doh/runner",	//doh functions
-		"dojox/mobile/bidi/common",		
-		"dojox/mobile/TabBar",
-		"dojox/mobile/TabBarButton",
-		"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+		"dui/mobile/bidi/common",		
+		"dui/mobile/TabBar",
+		"dui/mobile/TabBarButton",
+		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 
 	], function(has, array, domConst, win, ready, registry, runner, common, TabBar, TabBarButton){
@@ -54,7 +54,7 @@
 				return text ? text.charAt(0) : "";
 			};						
 		
-			runner.register("dojox/mobile/test.bidi.doh.HeadingTests", [
+			runner.register("dui/mobile/test.bidi.doh.HeadingTests", [
 					
 				function test_LTR_TextDir_tabBarButton(){
 					btn = registry.byId("tbb13");
@@ -129,42 +129,42 @@
 
 
 	<h3> textDir for TabBarButton </h3>
-	<ul data-dojo-type="dojox/mobile/TabBar" id="tab1" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
-		<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb11" data-dojo-props='selected:true, icon1:"../../images/tab-icon-21.png", icon2:"../../images/tab-icon-21h.png",textDir:"rtl"'>New &#1495;&#1491;&#1513; !</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb12" data-dojo-props='textDir:"rtl"'>&#1495;&#1491;&#1513; RTL ...</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb13" data-dojo-props='textDir:"ltr"'>&#1495;&#1491;&#1513; LTR...</li>
+	<ul data-dojo-type="dui/mobile/TabBar" id="tab1" data-dojo-props='barType:"segmentedControl", textDir:"ltr"'>
+		<li data-dojo-type="dui/mobile/TabBarButton" id="tbb11" data-dojo-props='selected:true, icon1:"../../images/tab-icon-21.png", icon2:"../../images/tab-icon-21h.png",textDir:"rtl"'>New &#1495;&#1491;&#1513; !</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" id="tbb12" data-dojo-props='textDir:"rtl"'>&#1495;&#1491;&#1513; RTL ...</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" id="tbb13" data-dojo-props='textDir:"ltr"'>&#1495;&#1491;&#1513; LTR...</li>
 	</ul>
 
 	<div class="label">textDir RTL in Heading, textDir AUTO in TabBar </div>
-	<div data-dojo-type="dojox/mobile/Heading" textDir="rtl">
-		<ul data-dojo-type="dojox/mobile/TabBar" id="tab2" data-dojo-props='barType:"segmentedControl", textDir:"auto"'>
-			<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb21" data-dojo-props='selected:true'>&#1495;&#1491;&#1513; Catalog</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb22" >Share ...</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb23" >Start &#1495;&#1491;&#1513;!! </li>
+	<div data-dojo-type="dui/mobile/Heading" textDir="rtl">
+		<ul data-dojo-type="dui/mobile/TabBar" id="tab2" data-dojo-props='barType:"segmentedControl", textDir:"auto"'>
+			<li data-dojo-type="dui/mobile/TabBarButton" id="tbb21" data-dojo-props='selected:true'>&#1495;&#1491;&#1513; Catalog</li>
+			<li data-dojo-type="dui/mobile/TabBarButton" id="tbb22" >Share ...</li>
+			<li data-dojo-type="dui/mobile/TabBarButton" id="tbb23" >Start &#1495;&#1491;&#1513;!! </li>
 		</ul>
-		<span data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props=''>Button...</span>
+		<span data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props=''>Button...</span>
 	</div><br>
 	<h3> TabBar with badge textDir AUTO</h3>
-	<ul data-dojo-type="dojox/mobile/TabBar" id="tab3" data-dojo-props='barType:"standardTab", textDir:"auto", closable:true, center:false'>
-		<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb31" data-dojo-props='selected:true,  badge:"New..."'>Dashboard...</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" id="tbb32" data-dojo-props='selected:true,  badge:"&#1495;&#1491;&#1513;..."'>&#1495;&#1491;&#1513;!</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton">Today's Main Event</li>
+	<ul data-dojo-type="dui/mobile/TabBar" id="tab3" data-dojo-props='barType:"standardTab", textDir:"auto", closable:true, center:false'>
+		<li data-dojo-type="dui/mobile/TabBarButton" id="tbb31" data-dojo-props='selected:true,  badge:"New..."'>Dashboard...</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" id="tbb32" data-dojo-props='selected:true,  badge:"&#1495;&#1491;&#1513;..."'>&#1495;&#1491;&#1513;!</li>
+		<li data-dojo-type="dui/mobile/TabBarButton">Today's Main Event</li>
 	</ul><br>	
 	
 	<h3> textDir for Mirrored TabBarButton </h3>
-	<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"'>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='selected:true, icon1:"../../images/tab-icon-21.png", icon2:"../../images/tab-icon-21h.png",textDir:"auto"'>&#1495;&#1491;&#1513; New</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='textDir:"rtl"'>&#1495;&#1491;&#1513; RTL ...</li>
-		<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='textDir:"ltr"'>&#1495;&#1491;&#1513; LTR...</li>
+	<ul data-dojo-type="dui/mobile/TabBar" data-dojo-props='barType:"segmentedControl"'>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='selected:true, icon1:"../../images/tab-icon-21.png", icon2:"../../images/tab-icon-21h.png",textDir:"auto"'>&#1495;&#1491;&#1513; New</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='textDir:"rtl"'>&#1495;&#1491;&#1513; RTL ...</li>
+		<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='textDir:"ltr"'>&#1495;&#1491;&#1513; LTR...</li>
 	</ul>	
 
-	<div data-dojo-type="dojox/mobile/Heading" textDir="rtl">
-		<ul data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl", textDir:"auto"'>
-			<li data-dojo-type="dojox/mobile/TabBarButton" data-dojo-props='selected:true'>&#1495;&#1491;&#1513; Catalog</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton">Share ...</li>
-			<li data-dojo-type="dojox/mobile/TabBarButton">Start &#1495;&#1491;&#1513;!! </li>
+	<div data-dojo-type="dui/mobile/Heading" textDir="rtl">
+		<ul data-dojo-type="dui/mobile/TabBar" data-dojo-props='barType:"segmentedControl", textDir:"auto"'>
+			<li data-dojo-type="dui/mobile/TabBarButton" data-dojo-props='selected:true'>&#1495;&#1491;&#1513; Catalog</li>
+			<li data-dojo-type="dui/mobile/TabBarButton">Share ...</li>
+			<li data-dojo-type="dui/mobile/TabBarButton">Start &#1495;&#1491;&#1513;!! </li>
 		</ul>
-		<span data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props=''>Button...</span>
+		<span data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props=''>Button...</span>
 	</div><br>	
 </body>
 </html>

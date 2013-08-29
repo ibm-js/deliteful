@@ -7,7 +7,7 @@
 	<title>Heading</title>
 
 	<script type="text/javascript" src="../../../deviceTheme.js"
-		data-dojo-config="duiThemeFiles: ['base','TabBar','base_rtl','TabBar_rtl','dojox/mobile/themes/common/domButtons.css']"></script>
+		data-dojo-config="duiThemeFiles: ['base','TabBar','base_rtl','TabBar_rtl','dui/mobile/themes/common/domButtons.css']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, has:{'dojo-bidi': true}"></script>
 
@@ -21,13 +21,13 @@
 			"dojo/domReady!",
 			"dijit/registry",
 			"doh/runner",	//doh functions
-			"dojox/mobile/tests/doh/TestHelper",
+			"dui/mobile/tests/doh/TestHelper",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/TabBar"
+			"dui/mobile/compat",
+			"dui/mobile/TabBar"
 		], function(domClass, ready, registry, runner, TestHelper){
 			ready(function(){
-				runner.register("dojox/mobile/test.doh.ToolBarButton", [
+				runner.register("dui/mobile/test.doh.ToolBarButton", [
 					{
 						name: "ToolBarButton setter 1",
 						timeout: 4000,
@@ -158,14 +158,14 @@
 	</script>
 </head>
 <body style="visibility:hidden;" dir="rtl">
-	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn1" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false'>MMMM</button>
+	<div data-dojo-type="dui/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn1" data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props='light:false'>MMMM</button>
 	</div>
-	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn2" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"left"'>MMMM</button>
+	<div data-dojo-type="dui/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn2" data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"left"'>MMMM</button>
 	</div>
-	<div data-dojo-type="dojox/mobile/Heading" data-dojo-props='label:"Arrow"'>
-		<button id="btn3" data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"right"'>MMMM</button>
+	<div data-dojo-type="dui/mobile/Heading" data-dojo-props='label:"Arrow"'>
+		<button id="btn3" data-dojo-type="dui/mobile/ToolBarButton" data-dojo-props='light:false, arrow:"right"'>MMMM</button>
 	</div>
 </body>
 </html>

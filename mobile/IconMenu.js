@@ -8,19 +8,19 @@ define([
 	"dijit/_Contained",
 	"dijit/_Container",
 	"dijit/_WidgetBase",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/IconMenu",
+	"dojo/has!dojo-bidi?dui/mobile/bidi/IconMenu",
 	"./IconMenuItem"
 ], function(declare, has, domClass, domConstruct, domStyle, domAttr, Contained, Container, WidgetBase, BidiIconMenu){
 	// module:
-	//		dojox/mobile/IconMenu
+	//		dui/mobile/IconMenu
 
-	var IconMenu = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiIconMenu" : "dojox.mobile.IconMenu", [WidgetBase, Container, Contained], {
+	var IconMenu = declare(has("dojo-bidi") ? "dui.mobile.NonBidiIconMenu" : "dui.mobile.IconMenu", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A pop-up menu.
 		// description:
-		//		The dojox/mobile/IconMenu widget displays a pop-up menu just
+		//		The dui/mobile/IconMenu widget displays a pop-up menu just
 		//		like iPhone's call options menu that is shown while you are on a
-		//		call. Each menu item must be dojox/mobile/IconMenuItem.
+		//		call. Each menu item must be dui/mobile/IconMenuItem.
 
 		// transition: String
 		//		The default animated transition effect for child items.
@@ -122,5 +122,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.IconMenu", [IconMenu, BidiIconMenu]) : IconMenu;
+	return has("dojo-bidi") ? declare("dui.mobile.IconMenu", [IconMenu, BidiIconMenu]) : IconMenu;
 });

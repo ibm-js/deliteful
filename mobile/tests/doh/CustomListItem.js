@@ -1,4 +1,4 @@
-define(["dojo/_base/declare", "dojox/mobile/ListItem"], function(declare, ListItem){
+define(["dojo/_base/declare", "dui/mobile/ListItem"], function(declare, ListItem){
 	return declare(ListItem, {
 		customProp: true
 	});

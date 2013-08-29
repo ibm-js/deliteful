@@ -5,7 +5,7 @@ define([
 ], function(declare, common, domClass){
 
 	// module:
-	//		dojox/mobile/bidi/Switch
+	//		dui/mobile/bidi/Switch
 
 	return declare(null, {
 		// summary:
@@ -22,7 +22,7 @@ define([
 		},
 		buildRendering: function(){
 			this.inherited(arguments);
-			// dojox.mobile mirroring support
+			// dui.mobile mirroring support
 			if(!this.isLeftToRight()){
 				domClass.add(this.left, "duiSwitchBgLeftRtl");
 				domClass.add(this.left.firstChild, "duiSwitchTextLeftRtl");

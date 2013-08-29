@@ -15,7 +15,7 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-/* dojox.mobile.ListItem */
+/* dui.mobile.ListItem */
 .duiListItem {
   position: relative;
   overflow: hidden;
@@ -123,7 +123,7 @@
   position: relative;
   float: right;
 }
-/* dojox.mobile._EditableListMixin */
+/* dui.mobile._EditableListMixin */
 .duiListItemFloat {
   position: absolute;
   border: 1px solid gray;

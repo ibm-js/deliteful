@@ -4,7 +4,7 @@ define([
 ], function(declare, common){
 
 	// module:
-	//		dojox/mobile/bidi/RoundRectCategory
+	//		dui/mobile/bidi/RoundRectCategory
 
 	return declare(null, {
 		// summary:

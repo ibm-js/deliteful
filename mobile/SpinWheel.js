@@ -7,9 +7,9 @@ define([
 ], function(declare, array, domConstruct, PickerBase){
 
 	// module:
-	//		dojox/mobile/SpinWheel
+	//		dui/mobile/SpinWheel
 
-	return declare("dojox.mobile.SpinWheel", PickerBase, {
+	return declare("dui.mobile.SpinWheel", PickerBase, {
 		// summary:
 		//		A value picker widget that has spin wheels.
 		// description:

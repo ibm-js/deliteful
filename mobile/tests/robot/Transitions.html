@@ -28,7 +28,7 @@
 					var seq = [];
 
 
-					runner.register("dojox/mobile/Transitions", [
+					runner.register("dui/mobile/Transitions", [
 						{
 							name: "slideIn",
 							timeout: 50000,
@@ -62,7 +62,7 @@
 									seq.push("onAfterTransitionIn2,"+moveTo+","+dir+","+transition);
 								});
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -82,7 +82,7 @@
 
 								seq = [];
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ToolBarButton_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ToolBarButton_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 								
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -102,7 +102,7 @@
 
 								seq = [];
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_1").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_1").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -122,7 +122,7 @@
 
 								seq = [];
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ToolBarButton_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ToolBarButton_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -142,7 +142,7 @@
 
 								seq = [];
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_2").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_2").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){

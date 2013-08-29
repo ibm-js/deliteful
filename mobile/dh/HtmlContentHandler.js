@@ -10,9 +10,9 @@ define([
 ], function(dojo, array, declare, Deferred, domClass, domConstruct, registry, lazyLoadUtils){
 
 	// module:
-	//		dojox/mobile/dh/HtmlContentHandler
+	//		dui/mobile/dh/HtmlContentHandler
 
-	return declare("dojox.mobile.dh.HtmlContentHandler", null, {
+	return declare("dui.mobile.dh.HtmlContentHandler", null, {
 		// summary:
 		//		A HTML content handler.
 		// description:

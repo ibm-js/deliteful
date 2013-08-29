@@ -45,8 +45,8 @@ define([
      "./view/module"
 ], function(doh, has, require){
 	try{
-		doh.registerUrl("dojox.mobile.tests.doh.URLProperty", require.toUrl("./TestURLProp.html"),999999);
-		doh.registerUrl("dojox.mobile.tests.doh.URLProperty", require.toUrl("./TestURLProp2.html"),999999);
+		doh.registerUrl("dui.mobile.tests.doh.URLProperty", require.toUrl("./TestURLProp.html"),999999);
+		doh.registerUrl("dui.mobile.tests.doh.URLProperty", require.toUrl("./TestURLProp2.html"),999999);
 	}catch(e){
 		doh.debug(e);
 	}

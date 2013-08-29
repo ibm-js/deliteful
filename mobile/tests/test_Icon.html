@@ -7,7 +7,7 @@
 	<title>domButtons</title>
 
 	<script type="text/javascript" src="../deviceTheme.js"
-		data-dojo-config="duiThemeFiles: ['base','dojox/mobile/themes/common/domButtons.css']"></script>
+		data-dojo-config="duiThemeFiles: ['base','dui/mobile/themes/common/domButtons.css']"></script>
 
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
@@ -15,8 +15,8 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/Icon",
-			"dojox/mobile/compat",
+			"dui/mobile/Icon",
+			"dui/mobile/compat",
 			"dojo/domReady!"
 		], function(parser, Icon){
 			parser.parse();
@@ -37,9 +37,9 @@
 </head>
 <body>
   markup:
-  <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"images/tab-icon-23h.png"'></div>
-  <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"images/tab-icons.png",iconPos:"29,116,29,29"'></div>
-  <div data-dojo-type="dojox/mobile/Icon" data-dojo-props='icon:"duiDomButtonBlueCircleArrow"'></div>
+  <div data-dojo-type="dui/mobile/Icon" data-dojo-props='icon:"images/tab-icon-23h.png"'></div>
+  <div data-dojo-type="dui/mobile/Icon" data-dojo-props='icon:"images/tab-icons.png",iconPos:"29,116,29,29"'></div>
+  <div data-dojo-type="dui/mobile/Icon" data-dojo-props='icon:"duiDomButtonBlueCircleArrow"'></div>
   <hr>online:
   <div id="icon1"></div>
   <div id="icon2"></div>

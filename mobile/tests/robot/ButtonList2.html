@@ -25,7 +25,7 @@
 
 					runner.robot.initRobot("../test_RoundRectList-check.html");
 
-					runner.register("dojox/mobile/ButtonList mouse tests", [
+					runner.register("dui/mobile/ButtonList mouse tests", [
 						{
 							name: "ButtonList mouse tests",
 							timeout: 10000,
@@ -33,19 +33,19 @@
 								var d = new runner.Deferred();
 								var reg = registry;
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_2").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_2").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_3").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_3").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_4").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_4").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_2").domNode, "duiListItemUnchecked"), "dojox_mobile_ListItem_2");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_3").domNode, "duiListItemChecked"), "dojox_mobile_ListItem_3");
-									doh.assertTrue(domClass.contains(reg.byId("dojox_mobile_ListItem_4").domNode, "duiListItemChecked"), "dojox_mobile_ListItem_3");
+									doh.assertTrue(domClass.contains(reg.byId("dui_mobile_ListItem_2").domNode, "duiListItemUnchecked"), "dui_mobile_ListItem_2");
+									doh.assertTrue(domClass.contains(reg.byId("dui_mobile_ListItem_3").domNode, "duiListItemChecked"), "dui_mobile_ListItem_3");
+									doh.assertTrue(domClass.contains(reg.byId("dui_mobile_ListItem_4").domNode, "duiListItemChecked"), "dui_mobile_ListItem_3");
 								}), 1000);
 								return d;
 							}

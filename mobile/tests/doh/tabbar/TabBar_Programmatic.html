@@ -23,130 +23,130 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/TabBar");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/TabBar");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
 
 				dojo.create("div", {className:"label", innerHTML:"Segmented Control"}, dojo.doc.body);
-				var tabBar = new dojox.mobile.TabBar({barType:"segmentedControl"});
+				var tabBar = new dui.mobile.TabBar({barType:"segmentedControl"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				tabBar.startup();
 
-				var tabBarButton = new dojox.mobile.TabBarButton({moveTo:"view1", selected:"true", label:"New"});
-//				var tabBarButton = new dojox.mobile.TabBarButton({moveTo:"view1", label:"New"});
+				var tabBarButton = new dui.mobile.TabBarButton({moveTo:"view1", selected:"true", label:"New"});
+//				var tabBarButton = new dui.mobile.TabBarButton({moveTo:"view1", label:"New"});
 				tabBar.addChild(tabBarButton);
 				//work around code
 //				tabBarButton.set("selected", true);
 				
-				tabBarButton = new dojox.mobile.TabBarButton({moveTo:"view2", label:"What's Hot"});
+				tabBarButton = new dui.mobile.TabBarButton({moveTo:"view2", label:"What's Hot"});
 				tabBar.addChild(tabBarButton);
-				tabBarButton = new dojox.mobile.TabBarButton({moveTo:"view3", label:"Genius"});
+				tabBarButton = new dui.mobile.TabBarButton({moveTo:"view3", label:"Genius"});
 				tabBar.addChild(tabBarButton);
 				tabBar.resize();
 
 				dojo.create("div", {className:"label", innerHTML:"Tab Bar"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar();
-				tabBarButton = new dojox.mobile.TabBarButton({icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:"true", label:"New"});
-//				tabBarButton = new dojox.mobile.TabBarButton({icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", label:"New"});
+				tabBar = new dui.mobile.TabBar();
+				tabBarButton = new dui.mobile.TabBarButton({icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:"true", label:"New"});
+//				tabBarButton = new dui.mobile.TabBarButton({icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", label:"New"});
 				tabBar.addChild(tabBarButton);
 				//work around code
 //				tabBarButton.set("selected", true);
 
-				tabBarButton = new dojox.mobile.TabBarButton({icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"view2", label:"What's Hot"});
+				tabBarButton = new dui.mobile.TabBarButton({icon1:"../../images/tab-icon-15.png", icon2:"../../images/tab-icon-15h.png", moveTo:"view2", label:"What's Hot"});
 				tabBar.addChild(tabBarButton);
-				tabBarButton = new dojox.mobile.TabBarButton({icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"view3", label:"Genius"});
+				tabBarButton = new dui.mobile.TabBarButton({icon1:"../../images/tab-icon-10.png", icon2:"../../images/tab-icon-10h.png", moveTo:"view3", label:"Genius"});
 				tabBar.addChild(tabBarButton);
 				dojo.doc.body.appendChild(tabBar.domNode);
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"Tab Bar (CSS Sprite)"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({iconBase:"../../images/tab-icons.png"});
+				tabBar = new dui.mobile.TabBar({iconBase:"../../images/tab-icons.png"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 //				tabBar.startup();
-//				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,0,29,29", iconPos2:"29,0,29,29", selected:"true", label:"Featured"});
-				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,0,29,29", iconPos2:"29,0,29,29", label:"Featured"});
+//				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,0,29,29", iconPos2:"29,0,29,29", selected:"true", label:"Featured"});
+				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,0,29,29", iconPos2:"29,0,29,29", label:"Featured"});
 				tabBar.addChild(tabBarButton);
 				//work around code
 				tabBarButton.set("selected", true);
-				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,29,29,29", iconPos2:"29,29,29,29", label:"Categories"});
+				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,29,29,29", iconPos2:"29,29,29,29", label:"Categories"});
 				tabBar.addChild(tabBarButton);
-				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,58,29,29", iconPos2:"29,58,29,29", label:"Top 25"});
+				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,58,29,29", iconPos2:"29,58,29,29", label:"Top 25"});
 				tabBar.addChild(tabBarButton);
-				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,87,29,29", iconPos2:"29,87,29,29", label:"Search"});
+				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,87,29,29", iconPos2:"29,87,29,29", label:"Search"});
 				tabBar.addChild(tabBarButton);
-				tabBarButton = new dojox.mobile.TabBarButton({iconPos1:"0,116,29,29", iconPos2:"29,116,29,29", label:"Updates"});
+				tabBarButton = new dui.mobile.TabBarButton({iconPos1:"0,116,29,29", iconPos2:"29,116,29,29", label:"Updates"});
 				tabBar.addChild(tabBarButton);
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"segmented control with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-sc", barType:"segmentedControl", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-sc", barType:"segmentedControl", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 3; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-sc-button" + i, innerHTML:"Button"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-sc-button" + i, innerHTML:"Button"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"tabBar with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-tb", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-tb", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 3; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-tb-button" + i, icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:"true", label:"New"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-tb-button" + i, icon1:"../../images/tab-icon-16.png", icon2:"../../images/tab-icon-16h.png", moveTo:"view1", selected:"true", label:"New"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"tabBar with fill = 'always' (CSS sprite)"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-tb-css", fill: "always", iconBase:"../../images/tab-icons.png"});
+				tabBar = new dui.mobile.TabBar({id: "spread-tb-css", fill: "always", iconBase:"../../images/tab-icons.png"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 5; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-tb-css-button" + i, iconPos1:"0,29,29,29", iconPos2:"29,29,29,29", label:"Categories"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-tb-css-button" + i, iconPos1:"0,29,29,29", iconPos2:"29,29,29,29", label:"Categories"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"slimTab with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-st", barType:"slimTab", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-st", barType:"slimTab", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 4; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-st-button" + i, innerHTML:"Button"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-st-button" + i, innerHTML:"Button"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"standardTab with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-std", barType:"standardTab", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-std", barType:"standardTab", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 4; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-std-button" + i, innerHTML:"Button"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-std-button" + i, innerHTML:"Button"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"flatTab with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-flat", barType:"flatTab", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-flat", barType:"flatTab", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 4; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-flat-button" + i, innerHTML:"Button"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-flat-button" + i, innerHTML:"Button"}));
 				}
 				tabBar.startup();
 
 				dojo.create("div", {className:"label", innerHTML:"tallTab with fill = 'always'"}, dojo.doc.body);
-				tabBar = new dojox.mobile.TabBar({id: "spread-tall", barType:"tallTab", fill: "always"});
+				tabBar = new dui.mobile.TabBar({id: "spread-tall", barType:"tallTab", fill: "always"});
 				dojo.doc.body.appendChild(tabBar.domNode);
 				for (var i=1; i <= 4; i++){
-					tabBar.addChild(new dojox.mobile.TabBarButton({id:"spread-tall-button" + i, innerHTML:"Button"}));
+					tabBar.addChild(new dui.mobile.TabBarButton({id:"spread-tall-button" + i, innerHTML:"Button"}));
 				}
 				tabBar.startup();
 
-				var view = new dojox.mobile.View({id:"view1", selected:"true", innerHTML:'<div class="view">View 1</div>'});
+				var view = new dui.mobile.View({id:"view1", selected:"true", innerHTML:'<div class="view">View 1</div>'});
 				dojo.doc.body.appendChild(view.domNode);
 				view.startup();
 
-				view = new dojox.mobile.View({id:"view2", innerHTML:'<div class="view">View 2</div>'});
+				view = new dui.mobile.View({id:"view2", innerHTML:'<div class="view">View 2</div>'});
 				dojo.doc.body.appendChild(view.domNode);
 				view.startup();
 
-				view = new dojox.mobile.View({id:"view3", innerHTML:'<div class="view">View 3</div>'});
+				view = new dui.mobile.View({id:"view3", innerHTML:'<div class="view">View 3</div>'});
 				dojo.doc.body.appendChild(view.domNode);
 				view.startup();
 			});

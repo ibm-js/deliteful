@@ -13,16 +13,16 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/Button",
-			"dojox/mobile/CheckBox",
-			"dojox/mobile/ComboBox",
-			"dojox/mobile/RadioButton",
-			"dojox/mobile/Slider",
-			"dojox/mobile/TextBox",
-			"dojox/mobile/SearchBox",
-			"dojox/mobile/ExpandingTextArea",
-			"dojox/mobile/ToggleButton"
+			"dui/mobile/compat",
+			"dui/mobile/Button",
+			"dui/mobile/CheckBox",
+			"dui/mobile/ComboBox",
+			"dui/mobile/RadioButton",
+			"dui/mobile/Slider",
+			"dui/mobile/TextBox",
+			"dui/mobile/SearchBox",
+			"dui/mobile/ExpandingTextArea",
+			"dui/mobile/ToggleButton"
 		]);
 
 		myOnSearch = function(results, query, options){
@@ -115,45 +115,45 @@
 		</select>
 	</datalist>
 
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">dojox.mobile - form controls</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">dui.mobile - form controls</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Button</span></td>
-					<td style="text-align:right"><button data-dojo-type="dojox/mobile/Button">Help</button>
-						<input type="submit" class="duiBlueButton" data-dojo-type="dojox/mobile/Button" value="Submit">
-						<button class="duiRedButton" data-dojo-type="dojox/mobile/Button">Cancel</button></td>
+					<td style="text-align:right"><button data-dojo-type="dui/mobile/Button">Help</button>
+						<input type="submit" class="duiBlueButton" data-dojo-type="dui/mobile/Button" value="Submit">
+						<button class="duiRedButton" data-dojo-type="dui/mobile/Button">Cancel</button></td>
 				</tr>
 			</table>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">CheckBox</span></td>
-					<td style="text-align:right"><label for="cbox">Click me</label><input type="checkbox" id="cbox" data-dojo-type="dojox/mobile/CheckBox"></td>
+					<td style="text-align:right"><label for="cbox">Click me</label><input type="checkbox" id="cbox" data-dojo-type="dui/mobile/CheckBox"></td>
 				</tr>
 				<tr>
 					<td><span class="bold">ToggleButton</span></td>
-					<td style="text-align:right"><button data-dojo-type="dojox/mobile/ToggleButton">Toggle me</button></td>
+					<td style="text-align:right"><button data-dojo-type="dui/mobile/ToggleButton">Toggle me</button></td>
 				</tr>
 				<tr>
 					<td><span class="bold">Switch</span></td>
-					<td style="text-align:right"><input type="checkbox" data-dojo-type="dojox/mobile/Switch" value="on"></td>
+					<td style="text-align:right"><input type="checkbox" data-dojo-type="dui/mobile/Switch" value="on"></td>
 				</tr>
 			</table>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Radio Button</span></td>
-					<td style="text-align:right"><input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" value="Large" checked><label for="rb1">1</label>
-						<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" value="Medium"><label for="rb2">2</label>
-						<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton" name="mobileRadio" value="Small"><label for="rb3">3</label></td>
+					<td style="text-align:right"><input type="radio" id="rb1" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" value="Large" checked><label for="rb1">1</label>
+						<input type="radio" id="rb2" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" value="Medium"><label for="rb2">2</label>
+						<input type="radio" id="rb3" data-dojo-type="dui/mobile/RadioButton" name="mobileRadio" value="Small"><label for="rb3">3</label></td>
 				</tr>
 			</table>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">Slider</span></td>
@@ -161,7 +161,7 @@
 						<table>
 							<tr>
 								<td>0</td>
-								<td><input id="sh" name="sh" data-dojo-type="dojox/mobile/Slider" value="0" min="0" max="20" step="0.1" type="range" style="width:150px;"></td>
+								<td><input id="sh" name="sh" data-dojo-type="dui/mobile/Slider" value="0" min="0" max="20" step="0.1" type="range" style="width:150px;"></td>
 								<td>20</td>
 							</tr>
 						</table>
@@ -169,26 +169,26 @@
 				</tr>
 			</table>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			<table style="width:100%">
 				<tr>
 					<td><span class="bold">ComboBox</span></td>
-					<td style="text-align:right"><input type="text" data-dojo-type="dojox/mobile/ComboBox" data-dojo-props='value:"", list:"states"'></td>
+					<td style="text-align:right"><input type="text" data-dojo-type="dui/mobile/ComboBox" data-dojo-props='value:"", list:"states"'></td>
 				</tr>
 				<tr>
 					<td style="vertical-align:top"><span class="bold">TextArea</span></td>
 					<td style="text-align:right">
-						<textarea data-dojo-type="dojox/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
-						<textarea data-dojo-type="dojox/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea>
+						<textarea data-dojo-type="dui/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
+						<textarea data-dojo-type="dui/mobile/ExpandingTextArea" rows="3" cols="20">ExpandingTextArea</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td style="vertical-align:top"><span class="bold">TextBox</span></td>
-					<td style="text-align:right"><input data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" maxLength="9" selectOnClick="true" placeHolder="max 9 chars" onChange="console.log('onChange fired with ' + arguments[0])"></td>
+					<td style="text-align:right"><input data-dojo-type="dui/mobile/TextBox" intermediateChanges="true" maxLength="9" selectOnClick="true" placeHolder="max 9 chars" onChange="console.log('onChange fired with ' + arguments[0])"></td>
 				</tr>
 				<tr>
 					<td style="vertical-align:top"><span class="bold">SearchBox</span></td>
-					<td style="text-align:right"><input data-dojo-type="dojox/mobile/SearchBox" type="search" selectOnClick="true" placeHolder="Search" data-dojo-props='list:"states", pageSize:5, onSearch:myOnSearch'></td>
+					<td style="text-align:right"><input data-dojo-type="dui/mobile/SearchBox" type="search" selectOnClick="true" placeHolder="Search" data-dojo-props='list:"states", pageSize:5, onSearch:myOnSearch'></td>
 				</tr>
 			</table>
 		</div>

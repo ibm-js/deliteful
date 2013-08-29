@@ -1,11 +1,11 @@
-/* dojox.mobile.IconItem Rtl */
+/* dui.mobile.IconItem Rtl */
 .duiIconItemRtl {
   float: right;
 }
 .duiIconItemRtl .duiIconItemDeleteIcon {
   right: -2px;
 }
-/* dojox.mobile._IconItemPane Rtl*/
+/* dui.mobile._IconItemPane Rtl*/
 .duiIconItemPaneRtl .duiIconItemPaneHeading {
   padding-right: 40px;
 }

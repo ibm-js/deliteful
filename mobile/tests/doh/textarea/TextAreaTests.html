@@ -13,7 +13,7 @@
 		var TEXTAREA_ROWS = 3;
 		var TEXTAREA_COLS = 20;
 		var TEXTAREA_INNERHTML = "TextArea";
-		var TEXTAREA_NEW_VALUE = "This is mobile TextArea.\nThis is fixed text area.\nScroll bar comes up automatically.\nHello dojox.mobile";
+		var TEXTAREA_NEW_VALUE = "This is mobile TextArea.\nThis is fixed text area.\nScroll bar comes up automatically.\nHello dui.mobile";
 		var WIDGET_CLASSNAME1 = "duiTextArea";
 		var WIDGET_OFFSETHEIGHT1 = 58;
 		var WIDGET_OFFSETHEIGHT1_FF = 75;
@@ -40,9 +40,9 @@
 			"dojo/domReady!", // dojo.ready
 			"dijit/registry",  // dijit.byId
 			"doh/runner",	//doh functions
-			"dojox/mobile/TextArea",
-			"dojox/mobile/View",		// This mobile app uses mobile view
-			"dojox/mobile/compat"		// This mobile app supports running on desktop browsers
+			"dui/mobile/TextArea",
+			"dui/mobile/View",		// This mobile app uses mobile view
+			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 		], function(parser, has, domConst, domClass, ready, registry, runner, TextArea){
 
 			parser.parse();
@@ -106,7 +106,7 @@
 			if(has("ie") < 9){
 				offsetHeight1 = -1; // negative value as convention for skipping tests
 			}
-			runner.register("dojox/mobile/test.doh.TextArea", [
+			runner.register("dui/mobile/test.doh.TextArea", [
 				{
 					name: "TextArea Verification1",
 					timeout: 10000,
@@ -154,17 +154,17 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-<div id="view2" data-dojo-type="dojox/mobile/View">
+<div id="view2" data-dojo-type="dui/mobile/View">
 	<h1>View 2</h1>
-	<textarea id="view2-TextArea1" data-dojo-type="dojox/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
+	<textarea id="view2-TextArea1" data-dojo-type="dui/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
 
 	<div id="view2-TextArea2place"></div>
 	<br>
 	<textarea id="view2-TextArea3" rows="3" cols="20">TextArea</textarea><br>
 </div>
-<div id="view1" data-dojo-type="dojox/mobile/View" selected="true">
+<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 	<h1>View 1</h1>
-	<textarea id="view1-TextArea1" data-dojo-type="dojox/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
+	<textarea id="view1-TextArea1" data-dojo-type="dui/mobile/TextArea" rows="3" cols="20">TextArea</textarea><br>
 
 	<div id="view1-TextArea2place"></div>
 	<br>

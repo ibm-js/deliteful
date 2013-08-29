@@ -13,18 +13,18 @@ define([
 	"./_ItemBase",
 	"./Badge",
 	"dojo/sniff",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/TabBarButton"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/TabBarButton"
 ], function(declare, lang, dom, domClass, domConstruct, domStyle, domAttr, on, topic, View, iconUtils, ItemBase, Badge, has, BidiTabBarButton){
 
 	// module:
-	//		dojox/mobile/TabBarButton
+	//		dui/mobile/TabBarButton
 
-	var TabBarButton = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiTabBarButton" : "dojox.mobile.TabBarButton", ItemBase,{
+	var TabBarButton = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTabBarButton" : "dui.mobile.TabBarButton", ItemBase,{
 		// summary:
 		//		A button widget that is placed in the TabBar widget.
 		// description:
 		//		TabBarButton is a button that is placed in the TabBar widget. It
-		//		is a subclass of dojox/mobile/_ItemBase just like ListItem or
+		//		is a subclass of dui/mobile/_ItemBase just like ListItem or
 		//		IconItem. So, unlike Button, it has similar capability as
 		//		ListItem or IconItem, such as icon support, transition, etc.
 
@@ -92,7 +92,7 @@ define([
 
 		inheritParams: function(){
 			// summary:
-			//		Overrides dojox/mobile/_ItemBase.inheritParams().
+			//		Overrides dui/mobile/_ItemBase.inheritParams().
 			if(this.icon && !this.icon1){ this.icon1 = this.icon; }
 			var parent = this.getParent();
 			if(parent){
@@ -180,8 +180,8 @@ define([
 
 		onClose: function(e){
 			// summary:
-			//		Called when the parent is a dojox/mobile/TabBar whose closable property is true, and the user clicked the close button.
-			topic.publish("/dojox/mobile/tabClose", this);
+			//		Called when the parent is a dui/mobile/TabBar whose closable property is true, and the user clicked the close button.
+			topic.publish("/dui/mobile/tabClose", this);
 			return this.getParent().onCloseButtonClick(this);
 		},
 
@@ -196,7 +196,7 @@ define([
 		onCloseButtonClick: function(/*Event*/ /*===== e =====*/){
 			// summary:
 			//		User defined function to handle clicks
-			//		when the parent is a dojox/mobile/TabBar whose closable property is true.
+			//		when the parent is a dui/mobile/TabBar whose closable property is true.
 			// tags:
 			//		callback
 		},
@@ -301,5 +301,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi")?declare("dojox.mobile.TabBarButton", [TabBarButton, BidiTabBarButton]):TabBarButton;
+	return has("dojo-bidi")?declare("dui.mobile.TabBarButton", [TabBarButton, BidiTabBarButton]):TabBarButton;
 });

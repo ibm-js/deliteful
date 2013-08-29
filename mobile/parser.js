@@ -8,18 +8,18 @@ define([
 ], function(dojo, array, config, lang, win, domReady){
 
 	// module:
-	//		dojox/mobile/parser
+	//		dui/mobile/parser
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 
 	var Parser = function(){
 		// summary:
 		//		A lightweight parser.
 		// description:
-		//		dojox/mobile/parser is an extremely small subset of dojo/parser.
+		//		dui/mobile/parser is an extremely small subset of dojo/parser.
 		//		It has no additional features over dojo/parser, so there is no
-		//		benefit in terms of features by using dojox/mobile/parser instead 
-		//		of dojo/parser.	However, if dojox/mobile/parser's capabilities are
+		//		benefit in terms of features by using dui/mobile/parser instead 
+		//		of dojo/parser.	However, if dui/mobile/parser's capabilities are
 		//		enough for your	application, using it could reduce the total code size.
 
 		var _ctorMap = {};

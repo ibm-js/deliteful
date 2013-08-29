@@ -12,9 +12,9 @@ define([
 ], function(array, declare, has, win, dom, domConstruct, domStyle, ScrollableMixin, Pane, maskUtils){
 
 	// module:
-	//		dojox/mobile/ScrollablePane
+	//		dui/mobile/ScrollablePane
 
-	return declare("dojox.mobile.ScrollablePane", [Pane, ScrollableMixin], {
+	return declare("dui.mobile.ScrollablePane", [Pane, ScrollableMixin], {
 		// summary:
 		//		A pane that has the touch-scrolling capability.
 
@@ -75,7 +75,7 @@ define([
 		isTopLevel: function(e){
 			// summary:
 			//		Returns true if this is a top-level widget.
-			//		Overrides dojox/mobile/scrollable.
+			//		Overrides dui/mobile/scrollable.
 			var parent = this.getParent && this.getParent();
 			return (!parent || !parent.resize); // top level widget
 		},

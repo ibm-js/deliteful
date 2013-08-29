@@ -4,9 +4,9 @@ define([
 ], function(declare, RoundRectCategory){
 
 	// module:
-	//		dojox/mobile/EdgeToEdgeCategory
+	//		dui/mobile/EdgeToEdgeCategory
 
-	return declare("dojox.mobile.EdgeToEdgeCategory", RoundRectCategory, {
+	return declare("dui.mobile.EdgeToEdgeCategory", RoundRectCategory, {
 		// summary:
 		//		A category header for an edge-to-edge list.
 		buildRendering: function(){

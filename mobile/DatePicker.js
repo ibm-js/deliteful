@@ -4,7 +4,7 @@ define([
 ], function(lang, DatePicker){
 
 	// module:
-	//		dojox/mobile/DatePicker
+	//		dui/mobile/DatePicker
 
 	// TODO: need to list all the properties/methods in the interface provided by
 	// SpinWheelDatePicker / ValuePickerDatePicker
@@ -13,10 +13,10 @@ define([
 	return function(){
 		// summary:
 		//		A wrapper widget around SpinWheelDatePicker or ValuePickerDatePicker.
-		//		It should be used with the automatic theme loader, dojox/mobile/deviceTheme.
+		//		It should be used with the automatic theme loader, dui/mobile/deviceTheme.
 		//		Returns ValuePickerDatePicker when the current theme is "android" or "holodark".
 		//		Returns SpinWheelDatePicker otherwise.
 	};
 	=====*/
-	return lang.setObject("dojox.mobile.DatePicker", DatePicker);
+	return lang.setObject("dui.mobile.DatePicker", DatePicker);
 });

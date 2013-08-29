@@ -9,11 +9,11 @@ define([
 	"dijit/form/_ButtonMixin",
 	"dijit/form/_FormWidgetMixin",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/Button"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/Button"
 	],
 	function(array, declare, lang, domClass, domConstruct, on, WidgetBase, ButtonMixin, FormWidgetMixin, has, BidiButton){
 
-	var Button = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiButton" : "dojox.mobile.Button", [WidgetBase, FormWidgetMixin, ButtonMixin], {
+	var Button = declare(has("dojo-bidi") ? "dui.mobile.NonBidiButton" : "dui.mobile.Button", [WidgetBase, FormWidgetMixin, ButtonMixin], {
 		// summary:
 		//		Non-templated BUTTON widget with a thin API wrapper for click 
 		//		events and for setting the label.
@@ -22,7 +22,7 @@ define([
 		//		A label should always be specified (through innerHTML) or the label
 		//		attribute.  It can be hidden via showLabel=false.
 		// example:
-		//	|	<button data-dojo-type="dojox/mobile/Button" onClick="...">Hello world</button>
+		//	|	<button data-dojo-type="dui/mobile/Button" onClick="...">Hello world</button>
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
@@ -85,5 +85,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dojox.mobile.Button", [Button, BidiButton]) : Button;
+	return has("dojo-bidi") ? declare("dui.mobile.Button", [Button, BidiButton]) : Button;
 });

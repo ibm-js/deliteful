@@ -5,9 +5,9 @@ define([
 ], function(declare, Container, ContentPaneMixin){
 
 	// module:
-	//		dojox/mobile/ContentPane
+	//		dui/mobile/ContentPane
 
-	return declare("dojox.mobile.ContentPane", [Container, ContentPaneMixin], {
+	return declare("dui.mobile.ContentPane", [Container, ContentPaneMixin], {
 		// summary:
 		//		A very simple content pane to embed an HTML fragment.
 		// description:

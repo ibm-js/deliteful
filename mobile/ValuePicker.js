@@ -5,9 +5,9 @@ define([
 ], function(declare, PickerBase){
 
 	// module:
-	//		dojox/mobile/ValuePicker
+	//		dui/mobile/ValuePicker
 
-	return declare("dojox.mobile.ValuePicker", PickerBase, {
+	return declare("dui.mobile.ValuePicker", PickerBase, {
 		// summary:
 		//		A value picker that has a stepper.
 		// description:
@@ -19,7 +19,7 @@ define([
 		/* internal properties */	
 		baseClass: "duiValuePicker",
 
-		onValueChanged: function(/*dojox/mobile/ValuePickerSlot*/slot){
+		onValueChanged: function(/*dui/mobile/ValuePickerSlot*/slot){
 			// summary:
 			//		Callback when the slot value is changed.
 			// slot:

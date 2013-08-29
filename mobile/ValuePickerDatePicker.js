@@ -10,14 +10,14 @@ define([
 ], function(declare, lang, domClass, domAttr, on, DatePickerMixin, ValuePicker, ValuePickerSlot){
 
 	// module:
-	//		dojox/mobile/ValuePickerDatePicker
+	//		dui/mobile/ValuePickerDatePicker
 
-	return declare("dojox.mobile.ValuePickerDatePicker", [ValuePicker, DatePickerMixin], {
+	return declare("dui.mobile.ValuePickerDatePicker", [ValuePicker, DatePickerMixin], {
 		// summary:
 		//		A ValuePicker-based date picker widget.
 		// description:
 		//		ValuePickerDatePicker is a date picker widget. It is a subclass of
-		//		dojox/mobile/ValuePicker. It has 3 slots: day, month and year.
+		//		dui/mobile/ValuePicker. It has 3 slots: day, month and year.
 		
 		// readOnly: [const] Boolean
 		//		If true, slot input fields are read-only. Only the plus and

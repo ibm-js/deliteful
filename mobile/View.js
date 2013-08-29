@@ -25,11 +25,11 @@ define([
 ], function(array, config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, transitDeferred, viewRegistry, css3){
 
 	// module:
-	//		dojox/mobile/View
+	//		dui/mobile/View
 
-	var dm = lang.getObject("dojox.mobile", true);
+	var dm = lang.getObject("dui.mobile", true);
 
-	return declare("dojox.mobile.View", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile.View", [WidgetBase, Container, Contained], {
 		// summary:
 		//		A container widget for any HTML element and/or Dojo widgets
 		// description:
@@ -128,7 +128,7 @@ define([
 				// TODO: revisit this for 2.0
 				this.defer(function(){
 					this.onStartView();
-					topic.publish("/dojox/mobile/startView", this);
+					topic.publish("/dui/mobile/startView", this);
 				});
 			}
 
@@ -344,7 +344,7 @@ define([
 			var fromNode = this.domNode;
 			var fromTop = fromNode.offsetTop;
 			toNode = this.toNode = dom.byId(toNode);
-			if(!toNode){ console.log("dojox/mobile/View.performTransition: destination view not found: "+detail.moveTo); return; }
+			if(!toNode){ console.log("dui/mobile/View.performTransition: destination view not found: "+detail.moveTo); return; }
 			toNode.style.visibility = "hidden";
 			toNode.style.display = "";
 			this._fixViewState(toNode);
@@ -377,7 +377,7 @@ define([
 			}
 
 			this.onBeforeTransitionOut.apply(this, this._arguments);
-			topic.publish.apply(topic, ["/dojox/mobile/beforeTransitionOut", this].concat(lang._toArray(this._arguments)));
+			topic.publish.apply(topic, ["/dui/mobile/beforeTransitionOut", this].concat(lang._toArray(this._arguments)));
 			if(toWidget){
 				// perform view transition keeping the scroll position
 				if(this.keepScrollPos && !this.getParent()){
@@ -397,7 +397,7 @@ define([
 					toNode.style.top = "0px";
 				}
 				toWidget.onBeforeTransitionIn.apply(toWidget, this._arguments);
-				topic.publish.apply(topic, ["/dojox/mobile/beforeTransitionIn", toWidget].concat(lang._toArray(this._arguments)));
+				topic.publish.apply(topic, ["/dui/mobile/beforeTransitionIn", toWidget].concat(lang._toArray(this._arguments)));
 			}
 			toNode.style.display = "none";
 			toNode.style.visibility = "visible";
@@ -556,11 +556,11 @@ define([
 			//		A function to be called after performing a transition to
 			//		call a specified callback.
 			this.onAfterTransitionOut.apply(this, this._arguments);
-			topic.publish.apply(topic, ["/dojox/mobile/afterTransitionOut", this].concat(this._arguments));
+			topic.publish.apply(topic, ["/dui/mobile/afterTransitionOut", this].concat(this._arguments));
 			var toWidget = registry.byNode(this.toNode);
 			if(toWidget){
 				toWidget.onAfterTransitionIn.apply(toWidget, this._arguments);
-				topic.publish.apply(topic, ["/dojox/mobile/afterTransitionIn", toWidget].concat(this._arguments));
+				topic.publish.apply(topic, ["/dui/mobile/afterTransitionIn", toWidget].concat(this._arguments));
 				toWidget.movedFrom = undefined;
 			}
 			if(has('duiAndroidWorkaround')){
@@ -643,10 +643,10 @@ define([
 			if(!noEvent){
 				if(out){
 					out.onBeforeTransitionOut(out.id);
-					topic.publish("/dojox/mobile/beforeTransitionOut", out, out.id);
+					topic.publish("/dui/mobile/beforeTransitionOut", out, out.id);
 				}
 				this.onBeforeTransitionIn(this.id);
-				topic.publish("/dojox/mobile/beforeTransitionIn", this, this.id);
+				topic.publish("/dui/mobile/beforeTransitionIn", this, this.id);
 			}
 
 			if(doNotHideOthers){
@@ -661,10 +661,10 @@ define([
 			if(!noEvent){
 				if(out){
 					out.onAfterTransitionOut(out.id);
-					topic.publish("/dojox/mobile/afterTransitionOut", out, out.id);
+					topic.publish("/dui/mobile/afterTransitionOut", out, out.id);
 				}
 				this.onAfterTransitionIn(this.id);
-				topic.publish("/dojox/mobile/afterTransitionIn", this, this.id);
+				topic.publish("/dui/mobile/afterTransitionIn", this, this.id);
 			}
 		},
 

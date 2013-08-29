@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>ValuePicker on SimpleDialog</title>
 
-	<script type="text/javascript" src="../../../../../dojox/mobile/deviceTheme.js"
+	<script type="text/javascript" src="../../../../../dui/mobile/deviceTheme.js"
 			data-dojo-config="duiThemeFiles: ['base','ValuePicker']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
@@ -20,8 +20,8 @@
 			"dojo/dom",
 			"dojo/domReady!",
 			"dijit/registry",
-			"dojox/mobile/compat",
-			"dojox/mobile/ValuePickerTimePicker"
+			"dui/mobile/compat",
+			"dui/mobile/ValuePickerTimePicker"
 		], function(parser, runner, locale, dom, ready, registry){
 			onTimeChanged = function(){
 				var d = registry.byId("picker2").get("date");
@@ -35,7 +35,7 @@
 
 			var picker = registry.byId("picker2");
 			// Tests
-			runner.register("dojox/mobile/test.doh.ValuePickerTimePickerTests", [
+			runner.register("dui/mobile/test.doh.ValuePickerTimePickerTests", [
 				{
 					name: "Verify ticket #16740 is fixed",
 					timeout: 4000,
@@ -62,8 +62,8 @@
 
 </head>
 <body style="visibility:hidden;">
-<div id="view" data-dojo-type="dojox/mobile/View">
-	<div id="picker2" data-dojo-type="dojox/mobile/ValuePickerTimePicker"
+<div id="view" data-dojo-type="dui/mobile/View">
+	<div id="picker2" data-dojo-type="dui/mobile/ValuePickerTimePicker"
 		 data-dojo-props="is24h:false,onValueChanged:onTimeChanged"></div>
 	<div id="changedValue"></div>
 </div>

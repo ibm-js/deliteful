@@ -3,18 +3,18 @@ define([
 ], function(lang){
 
 	// module:
-	//		dojox/mobile/dh/ContentTypeMap
+	//		dui/mobile/dh/ContentTypeMap
 
 	var o = {
 		// summary:
 		//		A component that provides a map for determining the content handler
 		//		class from a content-type.
 	};
-	lang.setObject("dojox.mobile.dh.ContentTypeMap", o);
+	lang.setObject("dui.mobile.dh.ContentTypeMap", o);
 
 	o.map = {
-		"html": "dojox/mobile/dh/HtmlContentHandler",
-		"json": "dojox/mobile/dh/JsonContentHandler"
+		"html": "dui/mobile/dh/HtmlContentHandler",
+		"json": "dui/mobile/dh/JsonContentHandler"
 	};
 
 	o.add = function(/*String*/ contentType, /*String*/ handlerClass){

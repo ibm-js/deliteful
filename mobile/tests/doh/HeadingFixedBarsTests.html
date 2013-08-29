@@ -6,7 +6,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<script type="text/javascript" src="../../../../dojox/mobile/deviceTheme.js"></script>
+	<script type="text/javascript" src="../../../../dui/mobile/deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async:true, duiFixedBarSupportForViews: true"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -17,20 +17,20 @@
 			"doh/runner",	//doh functions
 			"dojo/dom",
 			"dojo/dom-style",
-			"dojox/mobile/ScrollableView",
-			"dojox/mobile/Heading",
-			"dojox/mobile/ToolBarButton"
+			"dui/mobile/ScrollableView",
+			"dui/mobile/Heading",
+			"dui/mobile/ToolBarButton"
 		], function(parser, ready, registry, runner, dom, domStyle){
 
 			var populateView = function(view, headerLabel, previousViewId, nextViewId){
 				var header, footer, previousButton;
-				header = new dojox.mobile.Heading({id: view.domNode.id + "Header", label: headerLabel, fixed: 'top'});
+				header = new dui.mobile.Heading({id: view.domNode.id + "Header", label: headerLabel, fixed: 'top'});
 				if(previousViewId){
-					previousButton = new dojox.mobile.ToolBarButton({label: 'Previous', arrow: 'left', transitionDir: -1, moveTo: previousViewId});
+					previousButton = new dui.mobile.ToolBarButton({label: 'Previous', arrow: 'left', transitionDir: -1, moveTo: previousViewId});
 					header.addChild(previousButton);
 				}
 				if(nextViewId){
-					nextButton = new dojox.mobile.ToolBarButton({label: 'Next', arrow: 'right', moveTo: nextViewId});
+					nextButton = new dui.mobile.ToolBarButton({label: 'Next', arrow: 'right', moveTo: nextViewId});
 					domStyle.set(nextButton.domNode, "float", "right");
 					header.addChild(nextButton);
 				}
@@ -39,7 +39,7 @@
 				}else{
 					view.addChild(header);
 				}
-				footer = new dojox.mobile.Heading({id: view.domNode.id + "Footer", label: 'status ' + view.domNode.id, fixed: 'bottom'});
+				footer = new dui.mobile.Heading({id: view.domNode.id + "Footer", label: 'status ' + view.domNode.id, fixed: 'bottom'});
 				if(view.addFixedBar){
 					view.addFixedBar(footer);
 				}else{
@@ -49,12 +49,12 @@
 
 
 			// Create views programmaticaly
-			var view = new dojox.mobile.ScrollableView({}, "view3");
+			var view = new dui.mobile.ScrollableView({}, "view3");
 			populateView(view, "Programmatic ScrollableView", "view2");
 			view.startup();
 
 			// Test suite
-			runner.register("dojox/mobile/test.doh.HeadingFixedBarsTests", [
+			runner.register("dui/mobile/test.doh.HeadingFixedBarsTests", [
 				{
 					name: "Verify ticket #16681 is fixed",
 					timeout: 10000,
@@ -97,17 +97,17 @@
 </head>
 <body style="visibility:hidden;">
 <!-- App header -->
-<div id="appHeader" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'top', label: 'App header'"></div>
+<div id="appHeader" data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top', label: 'App header'"></div>
 
 <!-- Scrollable View -->
-<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
-	<div id="view2Header" data-dojo-type="dojox/mobile/Heading"
+<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
+	<div id="view2Header" data-dojo-type="dui/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'ScrollableView Header'">
-		<div id="rightButton" data-dojo-type="dojox/mobile/ToolBarButton"
+		<div id="rightButton" data-dojo-type="dui/mobile/ToolBarButton"
 			 data-dojo-props="arrow: 'right', moveTo: 'view3'" style="float: right;">Next
 		</div>
 	</div>
-	<div id="view2Footer" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'bottom'">ScrollableView
+	<div id="view2Footer" data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'bottom'">ScrollableView
 		Footer
 	</div>
 </div>
@@ -116,6 +116,6 @@
 <div id="view3"></div>
 
 <!-- App footer -->
-<div id="appFooter" data-dojo-type="dojox/mobile/Heading" data-dojo-props="fixed: 'bottom'">App Footer</div>
+<div id="appFooter" data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'bottom'">App Footer</div>
 </body>
 </html>

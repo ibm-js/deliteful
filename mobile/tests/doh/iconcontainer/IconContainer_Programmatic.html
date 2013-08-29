@@ -22,19 +22,19 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.require("dojox/mobile/View");
-			dojo.require("dojox/mobile/IconContainer");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.require("dui/mobile/View");
+			dojo.require("dui/mobile/IconContainer");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 			dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
 
 				var view = dijit.byId("foo");
-				var container = new dojox.mobile.IconContainer();
-				var demoWidget = new dojox.mobile.IconItem({label:"app1", icon:"../../images/icon3.png", lazy:"true"});
+				var container = new dui.mobile.IconContainer();
+				var demoWidget = new dui.mobile.IconItem({label:"app1", icon:"../../images/icon3.png", lazy:"true"});
 //This position works fine.
 //				view.addChild(container);
 				container.placeAt(view.containerNode);
@@ -42,22 +42,22 @@
 				container.addChild(demoWidget);
 				demoWidget.set("content", '<div class="box"></div>');
 
-				demoWidget = new dojox.mobile.IconItem({label:"app2", icon:"../../images/icon3.png", lazy:"true"});
+				demoWidget = new dui.mobile.IconItem({label:"app2", icon:"../../images/icon3.png", lazy:"true"});
 				container.addChild(demoWidget);
 				demoWidget.set("content", '<div class="box"></div>');
 
-				demoWidget = new dojox.mobile.IconItem({label:"app3", icon:"../../images/icon3.png", lazy:"true"});
+				demoWidget = new dui.mobile.IconItem({label:"app3", icon:"../../images/icon3.png", lazy:"true"});
 				demoWidget.set("content", '<div class="box"></div>');
 //This position makes error. //Fixed
 				container.addChild(demoWidget);
 
-				demoWidget = new dojox.mobile.IconItem({label:"moveTo", icon:"../../images/icon3.png", moveTo:"about", transition:"slide"});
+				demoWidget = new dui.mobile.IconItem({label:"moveTo", icon:"../../images/icon3.png", moveTo:"about", transition:"slide"});
 				container.addChild(demoWidget);
 
-				demoWidget = new dojox.mobile.IconItem({label:"href", icon:"../../images/icon3.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"});
+				demoWidget = new dui.mobile.IconItem({label:"href", icon:"../../images/icon3.png", href:"../../test_iPhone-RoundRectList.html", transition:"slide"});
 				container.addChild(demoWidget);
 
-				demoWidget = new dojox.mobile.IconItem({label:"url", icon:"../../images/icon3.png", href:"../../view-sample.html", transition:"slide"});
+				demoWidget = new dui.mobile.IconItem({label:"url", icon:"../../images/icon3.png", href:"../../view-sample.html", transition:"slide"});
 				container.addChild(demoWidget);
 //This position makes error.
 //				view.addChild(container);
@@ -69,21 +69,21 @@
 		<script type="text/javascript" src=IconContainer.js></script>
 	</head>
 	<body>
-		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
-			<h1 data-dojo-type="dojox/mobile/Heading">Icon Container</h1>
+		<div id="foo" data-dojo-type="dui/mobile/View" selected="true">
+			<h1 data-dojo-type="dui/mobile/Heading">Icon Container</h1>
 		</div>
 
-		<div id="about" data-dojo-type="dojox/mobile/View">
-			<h1 data-dojo-type="dojox/mobile/Heading" back="Icon Container" moveTo="foo">About</h1>
-			<h2 data-dojo-type="dojox/mobile/RoundRectCategory">My Phone</h2>
-			<ul data-dojo-type="dojox/mobile/RoundRectList">
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="AcmePhone">
+		<div id="about" data-dojo-type="dui/mobile/View">
+			<h1 data-dojo-type="dui/mobile/Heading" back="Icon Container" moveTo="foo">About</h1>
+			<h2 data-dojo-type="dui/mobile/RoundRectCategory">My Phone</h2>
+			<ul data-dojo-type="dui/mobile/RoundRectList">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="AcmePhone">
 					Network											   
 				</li>												   
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="AcmePhone">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="AcmePhone">
 					Line
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="1024">
+				<li data-dojo-type="dui/mobile/ListItem" rightText="1024">
 					Songs
 				</li>
 			</ul>

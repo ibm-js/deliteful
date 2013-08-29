@@ -5,9 +5,9 @@ define([
 ], function(declare, RoundRectList, StoreListMixin){
 
 	// module:
-	//		dojox/mobile/RoundRectStoreList
+	//		dui/mobile/RoundRectStoreList
 
-	return declare("dojox.mobile.RoundRectStoreList", [RoundRectList, StoreListMixin], {
+	return declare("dui.mobile.RoundRectStoreList", [RoundRectList, StoreListMixin], {
 		// summary:
 		//		A dojo/store-enabled version of RoundRectList.
 		// description:

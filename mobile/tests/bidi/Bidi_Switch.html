@@ -18,11 +18,11 @@
 			"dojo/dom",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/Button",
-			"dojox/mobile/Switch",
-			"dojox/mobile/ListItem",
-			"dojox/mobile/ScrollableView"
+			"dui/mobile/compat",
+			"dui/mobile/Button",
+			"dui/mobile/Switch",
+			"dui/mobile/ListItem",
+			"dui/mobile/ScrollableView"
 		], function(connect, ready, array, dom, registry){
 			ready(function(){
 			
@@ -78,90 +78,90 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-<div id="group1" data-dojo-type="dojox/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
-	<div id="view0" data-dojo-type="dojox/mobile/ScrollableView">
-	        <h2 data-dojo-type="dojox/mobile/Heading">Switch widget</h2>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir LTR</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l1" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
-			<li id="l2" data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
-			<li id="l3" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
+<div id="group1" data-dojo-type="dui/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
+	<div id="view0" data-dojo-type="dui/mobile/ScrollableView">
+	        <h2 data-dojo-type="dui/mobile/Heading">Switch widget</h2>
+		<h1 data-dojo-type="dui/mobile/Heading">dir LTR</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
+			<li id="l2" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/RTL.png", moveTo:"view2"'>Tex Dir RTL</li>
+			<li id="l3" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view3"'>Tex Dir AUTO</li>
 		</ul>
-		<h1 data-dojo-type="dojox/mobile/Heading">dir RTL</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeList" >
-			<li id="l4" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
-			<li id="l5" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
-			<li id="l6" data-dojo-type="dojox/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
+		<h1 data-dojo-type="dui/mobile/Heading">dir RTL</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
+			<li id="l4" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/LTR.png", moveTo:"view4"'>Tex Dir LTR</li>
+			<li id="l5" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/RTL.png", moveTo:"view5"'>Tex Dir RTL</li>
+			<li id="l6" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
-	<div id="view1" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
+	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
 				
-		<div  id="switch1" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch1" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch2" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch2" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>
 		
-		<button data-dojo-type="dojox/mobile/Button" id="btn0" >Set textDir for switch to ltr</button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn1" >Set textDir for switch to rtl</button>
-		<button data-dojo-type="dojox/mobile/Button" id="btn2" >Set textDir for switch to auto</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn0" >Set textDir for switch to ltr</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn1" >Set textDir for switch to rtl</button>
+		<button data-dojo-type="dui/mobile/Button" id="btn2" >Set textDir for switch to auto</button>
 		
 			
 	</div>	
-	<div id="view2" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
+	<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
 				
-		<div  id="switch3" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch3" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch4" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch4" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>
 					
 		
 	</div>
 		
-	<div id="view3" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+	<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 				
-		<div  id="switch5" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", textDir:"auto", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch5" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", textDir:"auto", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch6" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", textDir:"auto", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch6" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", textDir:"auto", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>	
 		
-		<button data-dojo-type="dojox/mobile/Button" id="btnLbl" >Set new text Button</button>
+		<button data-dojo-type="dui/mobile/Button" id="btnLbl" >Set new text Button</button>
 		
 	</div>	
 	 
-	<div dir="rtl" id="view4" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
+	<div dir="rtl" id="view4" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>
 				
-		<div  id="switch7" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch7" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch8" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch8" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>
 		
 		
 	</div>
-	<div id="view5" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
+	<div id="view5" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
 				
-		<div  id="switch9" dir="rtl" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch9" dir="rtl" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch10" dir="rtl" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch10" dir="rtl" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>		
 		
 	</div>	
-	<div dir="rtl" id="view6" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"auto"'>
+	<div dir="rtl" id="view6" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"auto"'>
 				
-		<div  id="switch11" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
+		<div  id="switch11" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"Hello!", rightLabel:"&#1513;&#1500;&#1493;&#1501;!"'></div>
 		<br>
-		<div  id="switch12" class="color1" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
+		<div  id="switch12" class="color1" data-dojo-type="dui/mobile/Switch" data-dojo-props='value:"on", leftLabel:"A&#1505;&#1493;&#1507;!", rightLabel:"&#1488;end!"'></div>
 		</div>			
 		
 	</div>	

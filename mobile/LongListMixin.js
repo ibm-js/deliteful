@@ -12,11 +12,11 @@ define([ "dojo/_base/array",
 		function(array, lang, declare, has, domConstruct, domGeometry, on, aspect, registry, dm, viewRegistry){
 
 	// module:
-	//		dojox/mobile/LongListMixin
+	//		dui/mobile/LongListMixin
 	// summary:
 	//		A mixin that enhances performance of long lists contained in scrollable views.
 
-	return declare("dojox.mobile.LongListMixin", null, {
+	return declare("dui.mobile.LongListMixin", null, {
 		// summary:
 		//		This mixin enhances performance of very long lists contained in scrollable views.
 		// description:
@@ -24,7 +24,7 @@ define([ "dojo/_base/array",
 		//		so that only a subset of the list items are actually contained in the DOM
 		//		at any given time. 
 		//		The parent must be a ScrollableView or another scrollable component
-		//		that inherits from the dojox.mobile.scrollable mixin, otherwise the mixin has
+		//		that inherits from the dui.mobile.scrollable mixin, otherwise the mixin has
 		//		no effect. Also, editable lists are not yet supported, so lazy scrolling is
 		//		disabled if the list's 'editable' attribute is true.
 		//		If this mixin is used, list items must be added, removed or reordered exclusively
@@ -287,7 +287,7 @@ define([ "dojo/_base/array",
 		
 		generateList: function(/*Array*/items){
 			// summary:
-			//		Overrides dojox.mobile._StoreListMixin when the list is a store list.
+			//		Overrides dui.mobile._StoreListMixin when the list is a store list.
 			
 			if(this._items && !this.append){
 				// _StoreListMixin calls destroyRecursive to delete existing items, not removeChild,

@@ -1,6 +1,6 @@
-/* dojox.mobile.View */
+/* dui.mobile.View */
 
-/* dojox.mobile.Heading */
+/* dui.mobile.Heading */
 .dj_tablet .duiHeading {
 	background: -webkit-gradient(linear, left top, left bottom, from(#f3f4f6), to(#a7abb8));
 	border-top: 1px solid #fefefe;
@@ -9,7 +9,7 @@
 	text-shadow: rgba(256,256,256,0.6) 0px 1px 0px;
 }
 
-/* dojox.mobile.ToolBarButton */
+/* dui.mobile.ToolBarButton */
 .dj_tablet .duiToolBarButton {
 	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
 }
@@ -26,7 +26,7 @@
 	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
 }
 
-/* dojox.mobile.RoundRect */
+/* dui.mobile.RoundRect */
 .dj_tablet .duiRoundRect {
 	margin: 7px 30px 30px 30px;
 }
@@ -34,13 +34,13 @@
 	margin-top: 30px;
 }
 
-/* dojox.mobile.EdgeToEdgeCategory */
-/* dojox.mobile.RoundRectCategory */
+/* dui.mobile.EdgeToEdgeCategory */
+/* dui.mobile.RoundRectCategory */
 .dj_tablet .duiRoundRectCategory {
 	margin: 18px 0px 0px 41px;
 }
 
-/* dojox.mobile.RoundRectList */
+/* dui.mobile.RoundRectList */
 .dj_tablet .duiRoundRectList {
 	margin: 7px 30px 30px 30px;
 }
@@ -51,22 +51,22 @@
 	margin-top: 30px;
 }
 
-/* dojox.mobile.SearchBox */
+/* dui.mobile.SearchBox */
 .dj_tablet .duiFilteredRoundRectListSearchBox {
   padding-left: 30px;
   padding-right: 30px;
 }
 
-/* dojox.mobile.EdgeToEdgeList */
-/* dojox.mobile.ListItem */
+/* dui.mobile.EdgeToEdgeList */
+/* dui.mobile.ListItem */
 /* Switch */
 /* Icon Container */
 /* Icon Content Heading */
-/* dojox.mobile.Button */
+/* dui.mobile.Button */
 /* Tab Container */
 /* Progress Indicator */
 
-/* dojox.mobile.TabBar */
+/* dui.mobile.TabBar */
 .dj_tablet .duiTabBar {
 	color: #70777f;
 	text-shadow: rgba(255,255,255,0.6) 0px 1px 0px;

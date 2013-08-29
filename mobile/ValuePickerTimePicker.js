@@ -9,14 +9,14 @@ define([
 ], function(declare, domClass, lang, TimePickerMixin, ToolBarButton, ValuePicker, ValuePickerSlot){
 
 	// module:
-	//		dojox/mobile/ValuePickerTimePicker
+	//		dui/mobile/ValuePickerTimePicker
 
-	return declare("dojox.mobile.ValuePickerTimePicker", [ValuePicker, TimePickerMixin], {
+	return declare("dui.mobile.ValuePickerTimePicker", [ValuePicker, TimePickerMixin], {
 		// summary:
 		//		A ValuePicker-based time picker widget.
 		// description:
 		//		ValuePickerTimePicker is a time picker widget. It is a subclass of
-		//		dojox.mobile.ValuePicker. It has two slots: hour and minute.
+		//		dui.mobile.ValuePicker. It has two slots: hour and minute.
 
 		// readOnly: [const] Boolean
 		//		If true, slot input fields are read-only. Only the plus and

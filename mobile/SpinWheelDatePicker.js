@@ -10,14 +10,14 @@ define([
 ], function(array, declare, lang, domClass, aspect, DatePickerMixin, SpinWheel, SpinWheelSlot){
 
 	// module:
-	//		dojox/mobile/SpinWheelDatePicker
+	//		dui/mobile/SpinWheelDatePicker
 
-	return declare("dojox.mobile.SpinWheelDatePicker", [SpinWheel, DatePickerMixin], {
+	return declare("dui.mobile.SpinWheelDatePicker", [SpinWheel, DatePickerMixin], {
 		// summary:
 		//		A SpinWheel-based date picker widget.
 		// description:
 		//		SpinWheelDatePicker is a date picker widget. It is a subclass of
-		//		dojox/mobile/SpinWheel. It has three slots: year, month, and day.
+		//		dui/mobile/SpinWheel. It has three slots: year, month, and day.
 
 		slotClasses: [
 			SpinWheelSlot,

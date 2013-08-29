@@ -20,7 +20,7 @@
 			"dojo/store/Memory",
 			"dojo/store/Observable",
 			"dijit/registry",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(parser, ready, on, when, Memory, Observable, registry){
 			ready(function(){
 				var data = [
@@ -89,9 +89,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="scroll" data-dojo-type="dojox/mobile/ScrollableView">
-		<h1 data-dojo-type="dojox/mobile/Heading"  data-dojo-props="fixed: 'top'">EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" data-dojo-mixins="dojox/mobile/LongListMixin"
+	<div id="scroll" data-dojo-type="dui/mobile/ScrollableView">
+		<h1 data-dojo-type="dui/mobile/Heading"  data-dojo-props="fixed: 'top'">EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" data-dojo-mixins="dui/mobile/LongListMixin"
 			id="list" data-dojo-props="append: true, constraint: false, store:store, query:{}, queryOptions: { count: 20, start: 0}"></ul>
 	</div>
 </body>

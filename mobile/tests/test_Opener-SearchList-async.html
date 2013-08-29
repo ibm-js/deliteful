@@ -27,11 +27,11 @@
 		require([
 			"dojo/_base/html", // dojo.byId
 			"dijit/_base/manager",  // dijit.byId
-			"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
+			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
-			"dojox/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
-			"dojox/mobile/Opener",
-			"dojox/mobile/ScrollableView"
+			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
+			"dui/mobile/Opener",
+			"dui/mobile/ScrollableView"
 		]);
 
 		var checkedItem = 'Aaron Smith';
@@ -65,61 +65,61 @@
 	</tr>
 	</table>
 
-	<div id="listPicker" data-dojo-type="dojox/mobile/Opener" data-dojo-props="onHide:getSelectedContact, onShow:setSearch">
-		<h1 data-dojo-type="dojox/mobile/Heading" label="">
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
+	<div id="listPicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getSelectedContact, onShow:setSearch">
+		<h1 data-dojo-type="dui/mobile/Heading" label="">
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
 				onclick="dijit.byId('listPicker').hide(true)"></span>
-			<span data-dojo-type="dojox/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
+			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
 				onclick="dijit.byId('listPicker').hide(false)"></span>
 			<input id="search1" type="search" results="5" autosave="myrecentcontactsearches" name="searchContacts" placeholder="Search" />
 		</h1>
-		<div data-dojo-type="dojox/mobile/ScrollableView" selected="true" height="auto">
-			<ul id="list1" data-dojo-type="dojox/mobile/EdgeToEdgeList" select="single" data-dojo-props="onCheckStateChanged:onCheck">
-			<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">A</h2>
-				<li id="item1" data-dojo-type="dojox/mobile/ListItem" checked="true">
+		<div data-dojo-type="dui/mobile/ScrollableView" selected="true" height="auto">
+			<ul id="list1" data-dojo-type="dui/mobile/EdgeToEdgeList" select="single" data-dojo-props="onCheckStateChanged:onCheck">
+			<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">A</h2>
+				<li id="item1" data-dojo-type="dui/mobile/ListItem" checked="true">
 					Aaron Smith
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Adam Peller
 				</li>
-			<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">J</h2>
-				<li data-dojo-type="dojox/mobile/ListItem">
+			<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">J</h2>
+				<li data-dojo-type="dui/mobile/ListItem">
 					Jack Coleman
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					James Evans
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Jason Griffin
 				</li>
-			<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">K</h2>
-				<li data-dojo-type="dojox/mobile/ListItem">
+			<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">K</h2>
+				<li data-dojo-type="dui/mobile/ListItem">
 					Karen Hughes
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Kelly Perry
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Kevin Rivera
 				</li>
-			<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">S</h2>
-				<li data-dojo-type="dojox/mobile/ListItem">
+			<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">S</h2>
+				<li data-dojo-type="dui/mobile/ListItem">
 					Sam Jones
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Sandy Smith
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Susan Smith
 				</li>
-			<h2 data-dojo-type="dojox/mobile/EdgeToEdgeCategory">T</h2>
-				<li data-dojo-type="dojox/mobile/ListItem">
+			<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory">T</h2>
+				<li data-dojo-type="dui/mobile/ListItem">
 					Tim Jones
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Tina Smith
 				</li>
-				<li data-dojo-type="dojox/mobile/ListItem">
+				<li data-dojo-type="dui/mobile/ListItem">
 					Tom Smith
 				</li>
 			</ul>

@@ -8,7 +8,7 @@ define([
 ], function(declare, lang, has, domClass, registry){
 
 	// module:
-	//		dojox/mobile/tests/doh/TestHelper
+	//		dui/mobile/tests/doh/TestHelper
 	// summary:
 	//		A DOH test Helper class
 

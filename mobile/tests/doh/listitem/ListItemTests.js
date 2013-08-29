@@ -14,12 +14,12 @@ require([
 	"dijit/registry",  // dijit.byId
 	"dojo/string", // dojo.trim
 	"doh/runner",	//doh functions
-	"dojox/mobile/ListItem",
-	"dojox/mobile/RoundRectList",
-	"dojox/mobile/EdgeToEdgeList",
-	"dojox/mobile/View",		// This mobile app uses mobile view
-	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+	"dui/mobile/ListItem",
+	"dui/mobile/RoundRectList",
+	"dui/mobile/EdgeToEdgeList",
+	"dui/mobile/View",		// This mobile app uses mobile view
+	"dui/mobile/compat",		// This mobile app supports running on desktop browsers
+	"dui/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
 ], function(connect, domClass, ready, registry, string, runner, ListItem){
 
 
@@ -106,7 +106,7 @@ require([
 	};
 
 	ready(function(){
-		runner.register("dojox.mobile.test.doh.Heading", [
+		runner.register("dui.mobile.test.doh.Heading", [
 			{
 				name: "ListItem Verification1",
 				timeout: 4000,
@@ -127,7 +127,7 @@ require([
 					_createListItemProgrammaticallyWithSourceNodeReference(["view2-item11", "view2-item12", "view2-item13", "view2-item14", "view2-item15"]);
 
 					var d = new runner.Deferred();
-					var handle2 = connect.subscribe("/dojox/mobile/afterTransitionIn", d.getTestCallback(function(view){
+					var handle2 = connect.subscribe("/dui/mobile/afterTransitionIn", d.getTestCallback(function(view){
 						if(view.id == "view2"){
 							connect.unsubscribe(handle2);
 						}

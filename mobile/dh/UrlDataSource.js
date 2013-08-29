@@ -5,9 +5,9 @@ define([
 ], function(declare, lang, xhr){
 
 	// module:
-	//		dojox/mobile/dh/UrlDataSource
+	//		dui/mobile/dh/UrlDataSource
 
-	return declare("dojox.mobile.dh.UrlDataSource", null, {
+	return declare("dui.mobile.dh.UrlDataSource", null, {
 		// summary:
 		//		A component that accesses the given URL and fetches the data as text.
 

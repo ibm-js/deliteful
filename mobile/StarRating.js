@@ -10,12 +10,12 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
 	"dijit/_WidgetBase",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/StarRating",
+	"dojo/has!dojo-bidi?dui/mobile/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating"
 ], function(declare, lang, array, string, has, on, touch, keys, domConstruct, domGeometry, WidgetBase, BidiStarRating, messages){
 
 	// module:
-	//		dojox/mobile/StarRating
+	//		dui/mobile/StarRating
 
 	var StarRating = declare(WidgetBase, {
 		// summary:

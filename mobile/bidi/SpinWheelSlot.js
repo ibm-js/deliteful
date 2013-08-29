@@ -7,7 +7,7 @@ define([
 ], function(declare, win, array, domConstruct, common){
 
 	// module:
-	//		dojox/mobile/bidi/SpinWheelSlot
+	//		dui/mobile/bidi/SpinWheelSlot
 
 	return declare(null, {
 		// summary:

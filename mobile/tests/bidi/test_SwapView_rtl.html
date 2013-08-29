@@ -13,9 +13,9 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/IconContainer",
-			"dojox/mobile/SwapView"
+			"dui/mobile/compat",
+			"dui/mobile/IconContainer",
+			"dui/mobile/SwapView"
 		]);
 	</script>
 
@@ -33,27 +33,27 @@
 	</style>
 </head>
 <body style="visibility:hidden;" dir="rtl">
-	<div data-dojo-type="dojox/mobile/SwapView">
-		<h1 data-dojo-type="dojox/mobile/Heading">Page flipping demo</h1>
+	<div data-dojo-type="dui/mobile/SwapView">
+		<h1 data-dojo-type="dui/mobile/Heading">Page flipping demo</h1>
 
-		<div data-dojo-type="dojox/mobile/RoundRect">
+		<div data-dojo-type="dui/mobile/RoundRect">
 			Swipe the screen left or right to flip between the views.
 			There are 4 views in this demo.
 			Vertical scrolling and page indicator are not supported.
 		</div>
 	</div>
 
-	<div data-dojo-type="dojox/mobile/SwapView">
-		<h1 data-dojo-type="dojox/mobile/Heading">Search Result</h1>
-		<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size:10px">
+	<div data-dojo-type="dui/mobile/SwapView">
+		<h1 data-dojo-type="dui/mobile/Heading">Search Result</h1>
+		<ul data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size:10px">
 				1. <a href="#" class="lnk">Dojo: Traditional Karate-do Spirit</a><br>
 				Sarah Connor Hardcover<br>
 				Eligible for FREE Super Saver Shipping<br>
 				<span style="color:red">$14.50 (50%)</span> In Stock<br>
 				# (531)
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" style="font-size:10px">
+			<li data-dojo-type="dui/mobile/ListItem" style="font-size:10px">
 				2. <a href="#" class="lnk">Japanese Martial Arts Dojo</a><br>
 				Martin Parker Hardcover<br>
 				<span style="color:red">$14.00 (60%)</span> In Stock<br>
@@ -62,32 +62,32 @@
 		</ul>
 	</div>
 
-	<div data-dojo-type="dojox/mobile/SwapView">
-		<h1 data-dojo-type="dojox/mobile/Heading">Icon Container 1</h1>
-		<ul data-dojo-type="dojox/mobile/IconContainer">
-			<li data-dojo-type="dojox/mobile/IconItem"
+	<div data-dojo-type="dui/mobile/SwapView">
+		<h1 data-dojo-type="dui/mobile/Heading">Icon Container 1</h1>
+		<ul data-dojo-type="dui/mobile/IconContainer">
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"app1", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"app2", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"app3", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"moveTo", icon:"../images/icon-1.png", moveTo:"about", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"href", icon:"../images/icon-1.png", href:"test_RoundRectList.html", transition:"slide"'></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"url", icon:"../images/icon-1.png", url:"../data/view-sample.html", transition:"slide"'></li>
 		</ul>
 	</div>
 
-	<div data-dojo-type="dojox/mobile/SwapView">
-		<h1 data-dojo-type="dojox/mobile/Heading">Icon Container 2</h1>
-		<ul data-dojo-type="dojox/mobile/IconContainer">
-			<li data-dojo-type="dojox/mobile/IconItem"
+	<div data-dojo-type="dui/mobile/SwapView">
+		<h1 data-dojo-type="dui/mobile/Heading">Icon Container 2</h1>
+		<ul data-dojo-type="dui/mobile/IconContainer">
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"test1", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"test2", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li data-dojo-type="dojox/mobile/IconItem"
+			<li data-dojo-type="dui/mobile/IconItem"
 			    data-dojo-props='label:"test3", icon:"../images/icon-1.png", lazy:true'><div class="box"></div></li>
 		</ul>
 	</div>

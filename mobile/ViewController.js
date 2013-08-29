@@ -18,9 +18,9 @@ define([
 ], function(dojo, array, declare, lang, win, Deferred, dom, domClass, domConstruct, on, domReady, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
 
 	// module:
-	//		dojox/mobile/ViewController
+	//		dui/mobile/ViewController
 
-	var Controller = declare("dojox.mobile.ViewController", null, {
+	var Controller = declare("dui.mobile.ViewController", null, {
 		// summary:
 		//		A singleton class that controls view transition.
 		// description:
@@ -31,19 +31,19 @@ define([
 
 		// dataHandlerClass: Object
 		//		The data handler class used to load external views,
-		//		by default "dojox/mobile/dh/DataHandler"
+		//		by default "dui/mobile/dh/DataHandler"
 		//		(see the Data Handlers page in the reference documentation).
-		dataHandlerClass: "dojox/mobile/dh/DataHandler",
+		dataHandlerClass: "dui/mobile/dh/DataHandler",
 		// dataSourceClass: Object
 		//		The data source class used to load external views,
-		//		by default "dojox/mobile/dh/UrlDataSource"
+		//		by default "dui/mobile/dh/UrlDataSource"
 		//		(see the Data Handlers page in the reference documentation).
-		dataSourceClass: "dojox/mobile/dh/UrlDataSource",
+		dataSourceClass: "dui/mobile/dh/UrlDataSource",
 		// fileTypeMapClass: Object
 		//		The file type map class used to load external views,
-		//		by default "dojox/mobile/dh/SuffixFileTypeMap"
+		//		by default "dui/mobile/dh/SuffixFileTypeMap"
 		//		(see the Data Handlers page in the reference documentation).
-		fileTypeMapClass: "dojox/mobile/dh/SuffixFileTypeMap",
+		fileTypeMapClass: "dui/mobile/dh/SuffixFileTypeMap",
 
 		constructor: function(){
 			// summary:
@@ -91,7 +91,7 @@ define([
 			//		the transition is complete.
 			// description:
 			//		This method loads external view content through the
-			//		dojox/mobile data handlers, creates a new View instance with
+			//		dui/mobile data handlers, creates a new View instance with
 			//		the loaded content, and performs a view transition to the
 			//		new view. The external view content can be specified with
 			//		the url property of transOpts. The new view is created under

@@ -25,7 +25,7 @@
 					runner.robot.initRobot("../test_transition-connect.html");
 					var reg=null;
 
-					runner.register("dojox/mobile/Animation mouse tests", [
+					runner.register("dui/mobile/Animation mouse tests", [
 						{
 							name: "Animation mouse tests",
 							timeout: 50000,
@@ -33,7 +33,7 @@
 								var d = new runner.Deferred();
 								reg = registry;
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -49,7 +49,7 @@
 							runTest: function(){
 								var d = new runner.Deferred();
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ToolBarButton_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ToolBarButton_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 								
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -65,7 +65,7 @@
 							runTest: function(){
 								var d = new runner.Deferred();
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_1").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_1").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -81,7 +81,7 @@
 							runTest: function(){
 								var d = new runner.Deferred();
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ToolBarButton_0").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ToolBarButton_0").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){
@@ -97,7 +97,7 @@
 							runTest: function(){
 								var d = new runner.Deferred();
 
-								runner.robot.mouseMoveAt(reg.byId("dojox_mobile_ListItem_2").domNode, 1000);
+								runner.robot.mouseMoveAt(reg.byId("dui_mobile_ListItem_2").domNode, 1000);
 								runner.robot.mouseClick({left: true}, 500);
 
 								runner.robot.sequence(d.getTestCallback(function(){

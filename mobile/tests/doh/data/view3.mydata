@@ -1,14 +1,14 @@
 {
-  "dojox.mobile.View": {
+  "dui.mobile.View": {
     "@id": "view3",
-    "dojox.mobile.Heading": {
+    "dui.mobile.Heading": {
       "@label": "view3.mydata"
     },
-    "dojox.mobile.RoundRectList": [{
-      "dojox.mobile.ListItem": [{
+    "dui.mobile.RoundRectList": [{
+      "dui.mobile.ListItem": [{
         "@icon": "../images/i-icon-1.png",
         "@label": "Airplane Mode",
-        "dojox.mobile.Switch": {
+        "dui.mobile.Switch": {
         }
       }, {
         "@href": "test_iPhone-Icon.html",

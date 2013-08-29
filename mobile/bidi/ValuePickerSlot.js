@@ -4,7 +4,7 @@ define([
 ], function(declare, common){
 
 	// module:
-	//		dojox/mobile/bidi/ValuePickerSlot
+	//		dui/mobile/bidi/ValuePickerSlot
 
 	return declare(null, {
 		// summary:

@@ -5,9 +5,9 @@ require([
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
 	"doh/runner",	//doh functions
-	"dojox/mobile/SwapView",	// This mobile app uses mobile view
-	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-	"dojox/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
+	"dui/mobile/SwapView",	// This mobile app uses mobile view
+	"dui/mobile/compat",		// This mobile app supports running on desktop browsers
+	"dui/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
 ], function(connect, domConst, domClass, ready, registry, runner, SwapView){
 
 
@@ -18,7 +18,7 @@ require([
 
 	function _createSwapViewProgrammatically(placeHolderId, widgetId, selected, innerHTML){
 		// Create SwapView
-		var r = new dojox.mobile.SwapView({id: widgetId, selected: selected, innerHTML: innerHTML});
+		var r = new dui.mobile.SwapView({id: widgetId, selected: selected, innerHTML: innerHTML});
 		runner.assertNotEqual(null, r);
 		domConst.place(r.domNode, placeHolderId, "replace");
 		r.startup();
@@ -51,7 +51,7 @@ require([
 			_createSwapViewProgrammaticallyWithSourceNodeReference("bar", false);
 		}
 
-		runner.register("dojox.mobile.test.doh.SwapViewTests", [
+		runner.register("dui.mobile.test.doh.SwapViewTests", [
 			{
 				name: "SwapView Verification1",
 				timeout: 4000,

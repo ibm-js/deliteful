@@ -4,7 +4,7 @@ define([
 	"./CheckBox"
 ], function(declare, RadioButtonMixin, CheckBox){
 
-	return declare("dojox.mobile.RadioButton", [CheckBox, RadioButtonMixin], {
+	return declare("dui.mobile.RadioButton", [CheckBox, RadioButtonMixin], {
 		// summary:
 		//		A non-templated radio button widget that can be in two states (checked or not checked).
 

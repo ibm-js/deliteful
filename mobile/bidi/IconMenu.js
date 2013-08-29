@@ -4,7 +4,7 @@ define([
 ], function(declare, common){
 
 	// module:
-	//		dojox/mobile/bidi/IconMenu
+	//		dui/mobile/bidi/IconMenu
 
 	return declare(null, {
 		// summary:

@@ -4,11 +4,11 @@ define([
 	"../mixins/StoreMap",
 	"./ListItem",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/_StoreListMixin"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/_StoreListMixin"
 ], function(array, declare, StoreMap, ListItem, has, BidiStoreListMixin){
 
 	// module:
-	//		dojox/mobile/_StoreListMixin
+	//		dui/mobile/_StoreListMixin
 
 	var _StoreListMixin = declare(StoreMap, {
 		// summary:
@@ -26,7 +26,7 @@ define([
 		append: false,
 
 		// itemRenderer: ListItem class or subclass
-		//		The class used to create list items. Default is dojox/mobile/ListItem.
+		//		The class used to create list items. Default is dui/mobile/ListItem.
 		itemRenderer: ListItem,
 
 		labelAttr: "label",

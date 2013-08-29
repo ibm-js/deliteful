@@ -24,8 +24,8 @@
 				"dojo/domReady",
 				"dijit/registry",
 				"dojo/parser",
-				"dojox/mobile/compat",
-				"dojox/mobile/SpinWheelDatePicker"
+				"dui/mobile/compat",
+				"dui/mobile/SpinWheelDatePicker"
 			], function(win, dom, ready, registry){
 				changeLocale = function(){
 					win.doc.forms[0].submit();
@@ -82,11 +82,11 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
+	<div data-dojo-type="dui/mobile/View">
 		<form>
-			<div data-dojo-type="dojox/mobile/Heading">
-				<span data-dojo-type="dojox/mobile/ToolBarButton" onClick="showSelectedValue()" data-dojo-props='label:"OK"'></span>
-				<span data-dojo-type="dojox/mobile/ToolBarButton" onClick="gotoToday()" data-dojo-props='label:"Today"'></span>
+			<div data-dojo-type="dui/mobile/Heading">
+				<span data-dojo-type="dui/mobile/ToolBarButton" onClick="showSelectedValue()" data-dojo-props='label:"OK"'></span>
+				<span data-dojo-type="dui/mobile/ToolBarButton" onClick="gotoToday()" data-dojo-props='label:"Today"'></span>
 				<select id="sel" name="lang" onchange="changeLocale()" style="float:left;margin-top:10px;">
 					<option value=""></option>
 					<option value="ar">ar</option>
@@ -126,7 +126,7 @@
 					<option value="zh-tw">zh-tw</option>
 				</select>
 			</div>
-			<div id="picker1" data-dojo-type="dojox/mobile/SpinWheelDatePicker"
+			<div id="picker1" data-dojo-type="dui/mobile/SpinWheelDatePicker"
 				data-dojo-props="onYearSet: onYearSet, onMonthSet: onMonthSet, onDaySet: onDaySet">
 			</div>
 			<div id="msg"></div>

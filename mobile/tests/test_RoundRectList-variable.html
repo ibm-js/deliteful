@@ -13,7 +13,7 @@
 	<script type="text/javascript">
 		require([
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		]);
 	</script>
 	<style>
@@ -51,27 +51,27 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="home" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Variable Height List Item</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Top Stories</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"#article", transition:"slide"'>
+	<div id="home" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Variable Height List Item</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">Top Stories</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList" data-dojo-props='variableHeight:true'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", moveTo:"#article", transition:"slide"'>
 				Top 10 news stories of the decade
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"#article", transition:"flip"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", moveTo:"#article", transition:"flip"'>
 				Create client-side diagrammatic interaction in Web applications with GFX
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"#article", transition:"fade"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-3.png", moveTo:"#article", transition:"fade"'>
 				Explores advanced topics in the new Java framework for implementing and consuming REST-based Web services, Part 3
 			</li>
 		</ul>
 	</div>
 
-	<div id="article" data-dojo-type="dojox/mobile/View" style="color:black;background-color:white;height:100%">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Home", moveTo:"#home"'>Article</h1>
+	<div id="article" data-dojo-type="dui/mobile/View" style="color:black;background-color:white;height:100%">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Home", moveTo:"#home"'>Article</h1>
 		<div class="content">
 			<h3 class="title">Did you know?</h3>
-			<h4 class="subtitle">Features of dojox.mobile</h4>
+			<h4 class="subtitle">Features of dui.mobile</h4>
 			<h5 class="subsubtitle">No images are used</h5>
 			<ul class="lst">
 			  	<li>UI parts consist of DOM and CSS3.</li>

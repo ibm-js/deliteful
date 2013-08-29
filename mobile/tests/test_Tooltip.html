@@ -16,9 +16,9 @@
 			"dojo/domReady",
 			"dijit/_base/manager", // dijit.byId in markup
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/SpinWheel",
-			"dojox/mobile/Tooltip"
+			"dui/mobile/compat",
+			"dui/mobile/SpinWheel",
+			"dui/mobile/Tooltip"
 		], function(dom, ready){
 			ready(function(){
 				dom.byId('bot').scrollIntoView(false);
@@ -84,25 +84,25 @@
 		<input readonly onclick="dijit.byId('textTooltip').show(this, ['after','before','below','above'])" value="left" size="4">
 	</div>
 
-	<div id="textTooltip" data-dojo-type="dojox/mobile/Tooltip" class="duiTooltipBubble">Enter a value.<br><center>Please!</center></div>
+	<div id="textTooltip" data-dojo-type="dui/mobile/Tooltip" class="duiTooltipBubble">Enter a value.<br><center>Please!</center></div>
 
-	<div id="customPicker" data-dojo-type="dojox/mobile/Tooltip">
-		<div id="spin1" data-dojo-type="dojox/mobile/SpinWheel">
-			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+	<div id="customPicker" data-dojo-type="dui/mobile/Tooltip">
+		<div id="spin1" data-dojo-type="dui/mobile/SpinWheel">
+			<div data-dojo-type="dui/mobile/SpinWheelSlot"
 				data-dojo-props="labels:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']"
 				style="text-align:center;width:40px;"></div>
-			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+			<div data-dojo-type="dui/mobile/SpinWheelSlot"
 				data-dojo-props='labelFrom:3000, labelTo:3100'
 				style="width:70px;"></div>
 			<div id="pt" class="duiSpinWheelSlot"></div>
 			<div id="txt" class="duiSpinWheelSlot">.</div>
-			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+			<div data-dojo-type="dui/mobile/SpinWheelSlot"
 				data-dojo-props='labelFrom:0, labelTo:9'
 				style="width:30px;"></div>
-			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+			<div data-dojo-type="dui/mobile/SpinWheelSlot"
 				data-dojo-props="labels:['pt','px','cm']"
 				style="width:50px;"></div>
-			<div data-dojo-type="dojox/mobile/SpinWheelSlot"
+			<div data-dojo-type="dui/mobile/SpinWheelSlot"
 				data-dojo-props="labels:[
 					'<img src=images/i-icon-1.png>',
 					'<img src=images/i-icon-2.png>',

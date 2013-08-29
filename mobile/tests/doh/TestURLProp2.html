@@ -18,33 +18,33 @@ require([
 	"dojo/dom-construct", // dojo.place
 	"dojo/domReady!", // dojo.ready
 	"dijit/registry",  // dijit.byId
-	"dojox/mobile/tests/doh/TestHelper",
+	"dui/mobile/tests/doh/TestHelper",
 	"doh/runner",	//doh functions
-	"dojox/mobile/dh/SuffixFileTypeMap",
-	"dojox/mobile/dh/ContentTypeMap",
-	"dojox/mobile/View",		// This mobile app uses mobile view
-	"dojox/mobile/compat",		// This mobile app supports running on desktop browsers
-	"dojox/mobile/SpinWheel"
+	"dui/mobile/dh/SuffixFileTypeMap",
+	"dui/mobile/dh/ContentTypeMap",
+	"dui/mobile/View",		// This mobile app uses mobile view
+	"dui/mobile/compat",		// This mobile app supports running on desktop browsers
+	"dui/mobile/SpinWheel"
 ], function(parser, domConst, ready, registry, TestHelper, runner, SuffixFileTypeMap, ContentTypeMap){
 	parser.parse();
 	SuffixFileTypeMap.add('myjson', 'json');
-	ContentTypeMap.add('myhtml', 'dojox/mobile/dh/HtmlScriptContentHandler');
-	runner.register("dojox/mobile/test.doh.DataHandler", [
+	ContentTypeMap.add('myhtml', 'dui/mobile/dh/HtmlScriptContentHandler');
+	runner.register("dui/mobile/test.doh.DataHandler", [
 		{
 			name: "DataHandlerding Verification1",
 			timeout: 4000,
 			runTest: function(){
 				var d = new runner.Deferred();
-				TestHelper.fireOnClick("dojox_mobile_ListItem_0");
+				TestHelper.fireOnClick("dui_mobile_ListItem_0");
 				setTimeout(d.getTestCallback(function(){
 
 					var demoWidget = registry.byId("view1");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
-					demoWidget = registry.byId("dojox_mobile_RoundRectList_2");
+					demoWidget = registry.byId("dui_mobile_RoundRectList_2");
 					runner.assertNotEqual(null, demoWidget);
 
 					//Back to Home
-					TestHelper.fireOnClick("dojox_mobile_ListItem_6");
+					TestHelper.fireOnClick("dui_mobile_ListItem_6");
 				}), timeoutInterval);
 				return d;
 			}
@@ -59,7 +59,7 @@ require([
 					var demoWidget = registry.byId("home");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-					TestHelper.fireOnClick("dojox_mobile_ListItem_1");
+					TestHelper.fireOnClick("dui_mobile_ListItem_1");
 				}), timeoutInterval);
 				return d;
 			}
@@ -73,12 +73,12 @@ require([
 
 					var demoWidget = registry.byId("view2");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
-					demoWidget = registry.byId("dojox_mobile_RoundRectCategory_1");
+					demoWidget = registry.byId("dui_mobile_RoundRectCategory_1");
 					runner.assertNotEqual(null, demoWidget);
 					runner.assertEqual(window._MyDataHandlerFlag, true);
 
 					//Back to Home
-					TestHelper.fireOnClick("dojox_mobile_ListItem_12");
+					TestHelper.fireOnClick("dui_mobile_ListItem_12");
 				}), timeoutInterval);
 				return d;
 			}
@@ -93,7 +93,7 @@ require([
 					var demoWidget = registry.byId("home");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-					TestHelper.fireOnClick("dojox_mobile_ListItem_2");
+					TestHelper.fireOnClick("dui_mobile_ListItem_2");
 				}), timeoutInterval);
 				return d;
 			}
@@ -107,12 +107,12 @@ require([
 
 					var demoWidget = registry.byId("view3");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
-					demoWidget = registry.byId("dojox_mobile_RoundRectList_2");
+					demoWidget = registry.byId("dui_mobile_RoundRectList_2");
 					runner.assertNotEqual(null, demoWidget);
 					runner.assertEqual(window._MyFileTypeMapFlag, true);
 
 					//Back to Home
-					TestHelper.fireOnClick("dojox_mobile_ListItem_17");
+					TestHelper.fireOnClick("dui_mobile_ListItem_17");
 				}), timeoutInterval);
 				return d;
 			}
@@ -127,7 +127,7 @@ require([
 					var demoWidget = registry.byId("home");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-					TestHelper.fireOnClick("dojox_mobile_ListItem_3");
+					TestHelper.fireOnClick("dui_mobile_ListItem_3");
 				}), timeoutInterval);
 				return d;
 			}
@@ -141,12 +141,12 @@ require([
 
 					var demoWidget = registry.byId("view4");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
-					demoWidget = registry.byId("dojox_mobile_RoundRectCategory_3");
+					demoWidget = registry.byId("dui_mobile_RoundRectCategory_3");
 					runner.assertNotEqual(null, demoWidget);
 					runner.assertEqual(window._MyDataSourceFlag, true);
 
 					//Back to Home
-					TestHelper.fireOnClick("dojox_mobile_ToolBarButton_1");
+					TestHelper.fireOnClick("dui_mobile_ToolBarButton_1");
 				}), timeoutInterval);
 				return d;
 			}
@@ -161,7 +161,7 @@ require([
 					var demoWidget = registry.byId("home");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-					TestHelper.fireOnClick("dojox_mobile_ListItem_4");
+					TestHelper.fireOnClick("dui_mobile_ListItem_4");
 				}), timeoutInterval);
 				return d;
 			}
@@ -175,11 +175,11 @@ require([
 
 					var demoWidget = registry.byId("view5");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
-					demoWidget = registry.byId("dojox_mobile_EdgeToEdgeList_0");
+					demoWidget = registry.byId("dui_mobile_EdgeToEdgeList_0");
 					runner.assertNotEqual(null, demoWidget);
 
 					//Back to Home
-					TestHelper.fireOnClick("dojox_mobile_ToolBarButton_2");
+					TestHelper.fireOnClick("dui_mobile_ToolBarButton_2");
 				}), timeoutInterval);
 				return d;
 			}
@@ -194,7 +194,7 @@ require([
 					var demoWidget = registry.byId("home");
 					runner.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-					TestHelper.fireOnClick("dojox_mobile_ListItem_5");
+					TestHelper.fireOnClick("dui_mobile_ListItem_5");
 				}), timeoutInterval);
 				return d;
 			}
@@ -220,32 +220,32 @@ require([
 </script>
 </head>
 <body style="visibility:hidden;">
-<div id="home" data-dojo-type="dojox/mobile/View">
-	<h1 data-dojo-type="dojox/mobile/Heading">Ajax (HTML)</h1>
+<div id="home" data-dojo-type="dui/mobile/View">
+	<h1 data-dojo-type="dui/mobile/Heading">Ajax (HTML)</h1>
 
-	<h2 data-dojo-type="dojox/mobile/RoundRectCategory">External Views</h2>
-	<ul data-dojo-type="dojox/mobile/RoundRectList">
-		<li data-dojo-type="dojox/mobile/ListItem"
+	<h2 data-dojo-type="dui/mobile/RoundRectCategory">External Views</h2>
+	<ul data-dojo-type="dui/mobile/RoundRectList">
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props='icon:"../images/i-icon-1.png", transition:"slide", url:"data/view1.myjson"'>
 			External View #1
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
-			data-dojo-props='icon:"../images/i-icon-2.png", transition:"flip", url:"data/view2.html", transitionOptions:{dataHandlerClass:"dojox/mobile/tests/doh/MyDataHandler"}'>
+		<li data-dojo-type="dui/mobile/ListItem"
+			data-dojo-props='icon:"../images/i-icon-2.png", transition:"flip", url:"data/view2.html", transitionOptions:{dataHandlerClass:"dui/mobile/tests/doh/MyDataHandler"}'>
 			External View #2
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
-			data-dojo-props='icon:"../images/i-icon-3.png", transition:"slide", url:"data/view3.mydata", transitionOptions:{fileTypeMapClass:"dojox/mobile/tests/doh/MyFileTypeMap"}'>
+		<li data-dojo-type="dui/mobile/ListItem"
+			data-dojo-props='icon:"../images/i-icon-3.png", transition:"slide", url:"data/view3.mydata", transitionOptions:{fileTypeMapClass:"dui/mobile/tests/doh/MyFileTypeMap"}'>
 			External View #3
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
-			data-dojo-props='icon:"../images/i-icon-4.png", transition:"slide", url:"data/view4.html", transitionOptions:{dataSourceClass:"dojox/mobile/tests/doh/MyDataSource"}'>
+		<li data-dojo-type="dui/mobile/ListItem"
+			data-dojo-props='icon:"../images/i-icon-4.png", transition:"slide", url:"data/view4.html", transitionOptions:{dataSourceClass:"dui/mobile/tests/doh/MyDataSource"}'>
 			External View #4
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props='icon:"../images/i-icon-5.png", transition:"slide", url:"data/view5.mydata2", transitionOptions:{contentType:"json"}'>
 			External View #5
 		</li>
-		<li data-dojo-type="dojox/mobile/ListItem"
+		<li data-dojo-type="dui/mobile/ListItem"
 			data-dojo-props='icon:"../images/i-icon-6.png", transition:"slide", url:"data/view6.myhtml", transitionOptions:{contentType:"myhtml"}'>
 			External View #6
 		</li>

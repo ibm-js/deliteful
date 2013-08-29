@@ -9,13 +9,13 @@ define([
 ], function(array, declare, domClass, domConstruct, registry, View, ScrollableMixin){
 
 	// module:
-	//		dojox/mobile/ScrollableView
+	//		dui/mobile/ScrollableView
 
-	return declare("dojox.mobile.ScrollableView", [View, ScrollableMixin], {
+	return declare("dui.mobile.ScrollableView", [View, ScrollableMixin], {
 		// summary:
 		//		A container that has a touch scrolling capability.
 		// description:
-		//		ScrollableView is a subclass of View (dojox/mobile/View).
+		//		ScrollableView is a subclass of View (dui/mobile/View).
 		//		Unlike the base View class, ScrollableView's domNode always stays
 		//		at the top of the screen and its height is "100%" of the screen.
 		//		Inside this fixed domNode, the containerNode scrolls. The browser's
@@ -26,11 +26,11 @@ define([
 		//		and/or footer bars.
 
 		// scrollableParams: Object
-		//		Parameters for dojox/mobile/scrollable.init().
+		//		Parameters for dui/mobile/scrollable.init().
 		scrollableParams: null,
 
 		// keepScrollPos: Boolean
-		//		Overrides dojox/mobile/View/keepScrollPos.
+		//		Overrides dui/mobile/View/keepScrollPos.
 		keepScrollPos: false,
 
 		constructor: function(){
@@ -81,7 +81,7 @@ define([
 		isTopLevel: function(/*Event*/e){
 			// summary:
 			//		Returns true if this is a top-level widget.
-			//		Overrides dojox/mobile/scrollable.isTopLevel.
+			//		Overrides dui/mobile/scrollable.isTopLevel.
 			var parent = this.getParent && this.getParent();
 			return (!parent || !parent.resize); // top level widget
 		},

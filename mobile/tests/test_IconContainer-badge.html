@@ -16,8 +16,8 @@
 			"dojo/dom",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/IconContainer"
+			"dui/mobile/compat",
+			"dui/mobile/IconContainer"
 		], function(dom, registry){
 			test = function(i){
 				var w = registry.byId("icon"+i);
@@ -50,16 +50,16 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<div id="view1" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true'>
-		<h1 data-dojo-type="dojox/mobile/Heading">Icon (Badge)</h1>
-		<ul data-dojo-type="dojox/mobile/IconContainer">
-			<li id="icon0" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app1", icon:"images/icon-1.png", lazy:true, badge:"55"'><div class="box"></div></li>
-			<li id="icon1" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app2", icon:"images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li id="icon2" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"app3", icon:"images/icon-1.png", lazy:true'><div class="box"></div></li>
-			<li id="icon3" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"images/icon-1.png", moveTo:"about", transition:"slide"'></li>
-			<li id="icon4" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"href", icon:"images/icon-1.png", href:"test_RoundRectList.html", transition:"slide"'></li>
-			<li id="icon5" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url", icon:"images/icon-1.png", url:"data/view-sample.html", transition:"slide"'></li>
-			<li id="icon6" data-dojo-type="dojox/mobile/IconItem" data-dojo-props='label:"url-async", icon:"images/icon-1.png", url:"data/view-sample.html", transition:"slide", sync:false'></li>
+	<div id="view1" data-dojo-type="dui/mobile/View" data-dojo-props='selected:true'>
+		<h1 data-dojo-type="dui/mobile/Heading">Icon (Badge)</h1>
+		<ul data-dojo-type="dui/mobile/IconContainer">
+			<li id="icon0" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app1", icon:"images/icon-1.png", lazy:true, badge:"55"'><div class="box"></div></li>
+			<li id="icon1" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app2", icon:"images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li id="icon2" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"app3", icon:"images/icon-1.png", lazy:true'><div class="box"></div></li>
+			<li id="icon3" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"moveTo", icon:"images/icon-1.png", moveTo:"about", transition:"slide"'></li>
+			<li id="icon4" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"href", icon:"images/icon-1.png", href:"test_RoundRectList.html", transition:"slide"'></li>
+			<li id="icon5" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url", icon:"images/icon-1.png", url:"data/view-sample.html", transition:"slide"'></li>
+			<li id="icon6" data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"url-async", icon:"images/icon-1.png", url:"data/view-sample.html", transition:"slide", sync:false'></li>
 		</ul>
 		<div style="margin-bottom:10px;">Badge value: <input id="val" type="text" value="25"></div>
 		<input type="button" onclick="test(0)" value="app1">
@@ -71,17 +71,17 @@
 		<input type="button" onclick="test(6)" value="url-async">
 	</div>
 
-	<div id="about" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
-		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">My Phone</h2>
-		<ul data-dojo-type="dojox/mobile/RoundRectList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+	<div id="about" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Icon Container", moveTo:"view1"'>About</h1>
+		<h2 data-dojo-type="dui/mobile/RoundRectCategory">My Phone</h2>
+		<ul data-dojo-type="dui/mobile/RoundRectList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Network
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"AcmePhone"'>
 				Line
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='rightText:"1024"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='rightText:"1024"'>
 				Songs
 			</li>
 		</ul>

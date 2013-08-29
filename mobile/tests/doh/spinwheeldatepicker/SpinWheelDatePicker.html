@@ -17,8 +17,8 @@
 var onYearSet, onMonthSet, onDaySet;
 require([
 	"dojo/parser", "dojo/domReady!", "dijit/registry", "doh/runner", "dojo/_base/array",
-	"dojo/dom-class", "dojox/mobile/compat",
-	"dojox/mobile/SpinWheelDatePicker"],
+	"dojo/dom-class", "dui/mobile/compat",
+	"dui/mobile/SpinWheelDatePicker"],
 		function(parser, ready, registry, runner, array, domClass){
 			parser.parse();
 
@@ -117,7 +117,7 @@ require([
 			};
 
 			// Test case for #16502
-			runner.register("dojox/mobile/test.doh.SpinWheelTests", [
+			runner.register("dui/mobile/test.doh.SpinWheelTests", [
 				{
 					name: "SpinWheelTest1",
 					timeout: 4000,
@@ -251,12 +251,12 @@ require([
 </script>
 </head>
 <body style="visibility:hidden;">
-<div data-dojo-type="dojox/mobile/View">
+<div data-dojo-type="dui/mobile/View">
 	<form>
-		<div data-dojo-type="dojox/mobile/Heading">
+		<div data-dojo-type="dui/mobile/Heading">
 			SpinWheel
 		</div>
-		<div id="picker1" data-dojo-type="dojox/mobile/SpinWheelDatePicker"
+		<div id="picker1" data-dojo-type="dui/mobile/SpinWheelDatePicker"
 			 data-dojo-props="onYearSet: onYearSet, onMonthSet: onMonthSet, onDaySet: onDaySet"></div>
 	</form>
 </div>

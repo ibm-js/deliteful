@@ -7,10 +7,10 @@ define([
 	"dijit/form/_FormValueMixin",
 	"dijit/form/_TextBoxMixin",
 	"dojo/has",
-	"dojo/has!dojo-bidi?dojox/mobile/bidi/TextBox"
+	"dojo/has!dojo-bidi?dui/mobile/bidi/TextBox"
 ], function(declare, lang, domConstruct, on, WidgetBase, FormValueMixin, TextBoxMixin, has, BidiTextBox){
 
-	var TextBox = declare(has("dojo-bidi") ? "dojox.mobile.NonBidiTextBox" : "dojox.mobile.TextBox", [WidgetBase, FormValueMixin, TextBoxMixin],{
+	var TextBox = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTextBox" : "dui.mobile.TextBox", [WidgetBase, FormValueMixin, TextBoxMixin],{
 		// summary:
 		//		A non-templated base class for textbox form inputs
 
@@ -45,5 +45,5 @@ define([
 			this.own(on(this.textbox, "blur", lang.hitch(this, "_onBlur")));
 		}
 	});
-	return has("dojo-bidi") ? declare("dojox.mobile.TextBox", [TextBox, BidiTextBox]) : TextBox;	
+	return has("dojo-bidi") ? declare("dui.mobile.TextBox", [TextBox, BidiTextBox]) : TextBox;	
 });

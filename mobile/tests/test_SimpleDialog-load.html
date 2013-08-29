@@ -15,14 +15,14 @@
 		require([
 			"dojo/dom",
 			"dijit/registry",
-			"dojox/mobile/ProgressIndicator",
+			"dui/mobile/ProgressIndicator",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/SimpleDialog",
-			"dojox/mobile/TextBox",
-			"dojox/mobile/Button",
-			"dojox/mobile/Slider",
-			"dojox/mobile/_ContentPaneMixin"
+			"dui/mobile/compat",
+			"dui/mobile/SimpleDialog",
+			"dui/mobile/TextBox",
+			"dui/mobile/Button",
+			"dui/mobile/Slider",
+			"dui/mobile/_ContentPaneMixin"
 		], function(dom, registry, ProgressIndicator){
 			show = function(dlg){
 				registry.byId(dlg).show();
@@ -106,52 +106,52 @@
 </head>
 <body style="visibility:hidden;">
 	<div id="dlg_message"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog1.html"'></div>
 
 	<div id="dlg_confirm"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog2.html"'></div>
 	
 	<div id="dlg_login"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog3.html"'></div>
 
 	<div id="dlg_progress"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog4.html"'></div>
 
 	<div id="dlg_volume"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog5.html"'></div>
 
 	<div id="dlg_select"
-		data-dojo-type="dojox/mobile/SimpleDialog"
-		data-dojo-mixins="dojox/mobile/_ContentPaneMixin"
+		data-dojo-type="dui/mobile/SimpleDialog"
+		data-dojo-mixins="dui/mobile/_ContentPaneMixin"
 		data-dojo-props='href:"data/dialog6.html"'></div>
 
-	<div id="view" data-dojo-type="dojox/mobile/View" data-dojo-props='selected:true'>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+	<div id="view" data-dojo-type="dui/mobile/View" data-dojo-props='selected:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Message Box <button onclick="show('dlg_message')">Show Dialog</button>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Confirmation Dialog <button onclick="show('dlg_confirm')">Show Dialog</button>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Login Dialog <button onclick="show('dlg_login')">Show Dialog</button>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Progress Indicator <button onclick="show_progress_indicator('dlg_progress','progress_indicator_container')">Show Dialog</button>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Volume Control <button onclick="show('dlg_volume')">Show Dialog</button>
 		</div>
-		<div data-dojo-type="dojox/mobile/RoundRect" data-dojo-props='shadow:true'>
+		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 			Selectable List <button onclick="show('dlg_select')">Show Dialog</button>
 		</div>
 	</div>

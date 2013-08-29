@@ -24,8 +24,8 @@
 			"dojo/store/Observable",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat",
-			"dojox/mobile/EdgeToEdgeStoreList"
+			"dui/mobile/compat",
+			"dui/mobile/EdgeToEdgeStoreList"
 		], function(ready, runner, query, lang, array, Memory, Observable, registry){
 			var static_data1 = [
 				{ id: 1, text: "Category 1", header: true },
@@ -92,7 +92,7 @@
 			};
 			
 			// Tests
-				runner.register("dojox/mobile/test.doh.scrollablepane.ScrollablePaneTests", [
+				runner.register("dui/mobile/test.doh.scrollablepane.ScrollablePaneTests", [
 					{
 						name: "Verify that ticket #17093 is fixed",
 						timeout: 4000,
@@ -132,9 +132,9 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">EdgeToEdgeStoreList</h1>
-		<ul data-dojo-type="dojox/mobile/EdgeToEdgeStoreList" id="list" 
+	<div data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">EdgeToEdgeStoreList</h1>
+		<ul data-dojo-type="dui/mobile/EdgeToEdgeStoreList" id="list" 
 			data-dojo-props='store:store, query:{}, itemMap:{text:"label", profile_image_url:"icon"}'>
 		</ul>
 		<p>show the different set:<br>

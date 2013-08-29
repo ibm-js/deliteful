@@ -13,47 +13,47 @@
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
-			dojo.require("dojox/mobile/parser");
-			dojo.require("dojox.mobile");
-			dojo.requireIf(!dojo.isWebKit, "dojox/mobile/compat");
+			dojo.require("dui/mobile/parser");
+			dojo.require("dui.mobile");
+			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 		</script>
 
 		<script type="text/javascript" src="../TestUtil.js"></script>
 		<script type="text/javascript" src="ListItem.js"></script>
 	</head>
 	<body>
-		<div id="foo" data-dojo-type="dojox/mobile/View" selected="true">
-			<ul data-dojo-type="dojox/mobile/RoundRectList">
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" transition="slide" url="../../view1.html">External View #1 (sync)</li>
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-2.png" transition="flip" url="../../view2.html" sync="false">External View #2 (async)</li>
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-3.png" transition="fade" url="../../view3.html">External View #3 (sync)</li>
-				<li data-dojo-type="dojox/mobile/ListItem" rightText="Off">Video</li>
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" rightText="VPN">Maps</li>
-				<li data-dojo-type="dojox/mobile/ListItem">Jack Coleman</li>
+		<div id="foo" data-dojo-type="dui/mobile/View" selected="true">
+			<ul data-dojo-type="dui/mobile/RoundRectList">
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-1.png" transition="slide" url="../../view1.html">External View #1 (sync)</li>
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-2.png" transition="flip" url="../../view2.html" sync="false">External View #2 (async)</li>
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-3.png" transition="fade" url="../../view3.html">External View #3 (sync)</li>
+				<li data-dojo-type="dui/mobile/ListItem" rightText="Off">Video</li>
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-1.png" rightText="VPN">Maps</li>
+				<li data-dojo-type="dui/mobile/ListItem">Jack Coleman</li>
 			</ul>
-			<ul data-dojo-type="dojox/mobile/RoundRectList" iconBase="../../images/i-icon-all.png">
-				<li data-dojo-type="dojox/mobile/ListItem" iconPos="0,87,29,29" moveTo="general">Sounds</li>
-				<li data-dojo-type="dojox/mobile/ListItem" iconPos="0,116,29,29" moveTo="general">Brightness</li>
-				<li data-dojo-type="dojox/mobile/ListItem" iconPos="29,0,29,29" moveTo="general">Wallpaper</li>
+			<ul data-dojo-type="dui/mobile/RoundRectList" iconBase="../../images/i-icon-all.png">
+				<li data-dojo-type="dui/mobile/ListItem" iconPos="0,87,29,29" moveTo="general">Sounds</li>
+				<li data-dojo-type="dui/mobile/ListItem" iconPos="0,116,29,29" moveTo="general">Brightness</li>
+				<li data-dojo-type="dui/mobile/ListItem" iconPos="29,0,29,29" moveTo="general">Wallpaper</li>
 			</ul>
-			<ul id="list1" data-dojo-type="dojox/mobile/EdgeToEdgeList">
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-1.png" rightIcon="duiDomButtonBluePlus">XX Widget</li>
-				<li data-dojo-type="dojox/mobile/ListItem" icon="../../images/i-icon-2.png" rightIcon="duiDomButtonRedMinus">YY Widget</li>
+			<ul id="list1" data-dojo-type="dui/mobile/EdgeToEdgeList">
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-1.png" rightIcon="duiDomButtonBluePlus">XX Widget</li>
+				<li data-dojo-type="dui/mobile/ListItem" icon="../../images/i-icon-2.png" rightIcon="duiDomButtonRedMinus">YY Widget</li>
 			</ul>
-		    <ul id="list2" data-dojo-type="dojox/mobile/EdgeToEdgeList">
-			    <li class="duiVariableHeight" data-dojo-type="dojox/mobile/ListItem" rightIcon="duiDomButtonCheckboxOff">
+		    <ul id="list2" data-dojo-type="dui/mobile/EdgeToEdgeList">
+			    <li class="duiVariableHeight" data-dojo-type="dui/mobile/ListItem" rightIcon="duiDomButtonCheckboxOff">
 					Use wireless networks
 					<div class="duiListItemSubText">
 						See location in applications (such as Maps) using wireless networks
 					</div>
 			    </li>
-			    <li class="duiVariableHeight" data-dojo-type="dojox/mobile/ListItem" rightIcon="duiDomButtonCheckboxOn">
+			    <li class="duiVariableHeight" data-dojo-type="dui/mobile/ListItem" rightIcon="duiDomButtonCheckboxOn">
 					Use GPS satellites
 					<div class="duiListItemSubText">
 						When locating, accurate to street level (uncheck to conserve battery)
 					</div>
 			    </li>
-			    <li data-dojo-type="dojox/mobile/ListItem">
+			    <li data-dojo-type="dui/mobile/ListItem">
 					Set unlock pattern
 			    </li>
 		    </ul>

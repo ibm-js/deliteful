@@ -11,7 +11,7 @@ define([
 	var style = win.doc.createElement("div").style;
 
 	// We just test webkit prefix for now since our themes only have standard and webkit
-	// (see dojox/mobile/themes/common/css3.less)
+	// (see dui/mobile/themes/common/css3.less)
 	// More prefixes can be added if/when we add them to css3.less.
 	var prefixes = ["webkit"];
 

@@ -19,7 +19,7 @@
 			"dojo/domReady",
 			"dijit/registry",
 			"dojo/parser",
-			"dojox/mobile/compat"
+			"dui/mobile/compat"
 		], function(connect, dom, domClass, ready, registry){
 			function btnClicked(e){
 				var listItem = registry.getEnclosingWidget(e.currentTarget);
@@ -43,13 +43,13 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<div id="mashups" data-dojo-type="dojox/mobile/View">
-		<h1 data-dojo-type="dojox/mobile/Heading">Mashups</h1>
-		<ul id="list" data-dojo-type="dojox/mobile/EdgeToEdgeList">
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", rightIcon:"duiDomButtonBluePlus"'>
+	<div id="mashups" data-dojo-type="dui/mobile/View">
+		<h1 data-dojo-type="dui/mobile/Heading">Mashups</h1>
+		<ul id="list" data-dojo-type="dui/mobile/EdgeToEdgeList">
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-1.png", rightIcon:"duiDomButtonBluePlus"'>
 				XX Widget
 			</li>
-			<li data-dojo-type="dojox/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", rightIcon:"duiDomButtonRedMinus"'>
+			<li data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"images/i-icon-2.png", rightIcon:"duiDomButtonRedMinus"'>
 				YY Widget
 			</li>
 		</ul>
