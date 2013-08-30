@@ -3,7 +3,7 @@ require([
 	"dojo/dom-construct", // dojo.place
 	"dojo/dom-class", // dojo.hasClass
 	"dojo/domReady!", // dojo.ready
-	"dijit/registry",  // dijit.byId
+	"dui/registry",  // dui.byId
 	"doh/runner",	//doh functions
 	"dui/mobile/SwapView",	// This mobile app uses mobile view
 	"dui/mobile/compat"		// This mobile app supports running on desktop browsers

@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"dijit/_Container",
+	"dui/_Container",
 	"./Pane"
 ], function(declare, Container, Pane){
 

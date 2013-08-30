@@ -7,7 +7,7 @@
 		<link href="../../../themes/iphone/iphone.css" rel="stylesheet"/>
 
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -17,7 +17,7 @@
 
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
-				var view = dijit.byId("foo");
+				var view = dui.byId("foo");
 				var demoWidget = new dui.mobile.RoundRect({shadow:"true"});
 				demoWidget.domNode.appendChild(dojo.doc.createTextNode("This module provides some widgets that can be used to build web-based applications for mobile devices such as iPhone or Android."));
 //				view.addChild(demoWidget);
@@ -37,14 +37,14 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dui_mobile_RoundRect_0");
+								var demoWidget = dui.byId("dui_mobile_RoundRect_0");
 								if(dojo.isIE < 10){
 									doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 								}else{
 									doh.assertEqual('duiRoundRect duiShadow', demoWidget.domNode.className);
 								}
 
-								demoWidget = dijit.byId("dui_mobile_RoundRect_1");
+								demoWidget = dui.byId("dui_mobile_RoundRect_1");
 								doh.assertEqual('duiRoundRect', demoWidget.domNode.className);
 							}));
 							return d;
@@ -54,7 +54,7 @@
 						name: "Set",
 						timeout: 4000,
 						runTest: function(){
-							var demoWidget = dijit.byId("dui_mobile_RoundRect_0");
+							var demoWidget = dui.byId("dui_mobile_RoundRect_0");
 							demoWidget.set({shadow :false});
 
 							demoWidget.set({shadow :false});

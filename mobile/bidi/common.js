@@ -1,4 +1,4 @@
-define(["dojo/_base/array", "dijit/_BidiSupport"], function(array, _BidiSupport){
+define(["dojo/_base/array", "dui/_BidiSupport"], function(array, _BidiSupport){
 
 		// module:
 		//		bidi/common

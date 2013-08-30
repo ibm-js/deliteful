@@ -5,9 +5,9 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/on",
-	"dijit/_WidgetBase",
-	"dijit/form/_ButtonMixin",
-	"dijit/form/_FormWidgetMixin",
+	"dui/_WidgetBase",
+	"dui/form/_ButtonMixin",
+	"dui/form/_FormWidgetMixin",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Button"
 	],
@@ -61,7 +61,7 @@ define([
 		},
 
 		isFocusable: function(){ 
-			// Override of the method of dijit/_WidgetBase.
+			// Override of the method of dui/_WidgetBase.
 			return false; 
 		},
 

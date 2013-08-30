@@ -71,7 +71,7 @@
 	}
 	</style>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -123,11 +123,11 @@
 							t = 2000;
 						}
 						setTimeout(d.getTestCallback(function(){
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('duiView', demoWidget.domNode.className);
 							doh.assertEqual('visible', demoWidget.domNode.style.visibility);
 
-							demoWidget = dijit.byId("dui_mobile_ScrollableView_0");
+							demoWidget = dui.byId("dui_mobile_ScrollableView_0");
 							doh.assertEqual('duiView duiScrollableView', demoWidget.domNode.className);
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 						}),t);

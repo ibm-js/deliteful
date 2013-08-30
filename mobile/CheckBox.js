@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare",
 	"dojo/dom-construct",
-	"dijit/form/_CheckBoxMixin",
+	"dui/form/_CheckBoxMixin",
 	"./ToggleButton",
 	"dojo/sniff"
 ],

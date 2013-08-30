@@ -7,7 +7,7 @@
 <title>Combo Box Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
 <script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true"></script>
 <script type="text/javascript" src="../TestUtil.js"></script>
 <script language="JavaScript" type="text/javascript">
 	var timeoutInterval = 1000;
@@ -21,7 +21,7 @@
 		"dojo/dom-style",
 		"dojo/store/Memory", // dojo.store.Memory
 		"dojo/domReady!", // dojo.ready
-		"dijit/registry",  // dijit.byId
+		"dui/registry",  // dui.byId
 		"doh/runner",	//doh functions
 		"dui/mobile/ComboBox",
 		"dui/mobile/View",		// This mobile app uses mobile view
@@ -203,7 +203,7 @@
 	<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 		<h1>View 1</h1>
 		<datalist id="fruits">
-			<select data-dojo-type="dijit.form.DataList" data-dojo-props="id:'fruits'">
+			<select data-dojo-type="dui.form.DataList" data-dojo-props="id:'fruits'">
 				<option value="fruit1">Apple</option>
 				<option value="fruit2">Banana</option>
 				<option value="fruit3">Cherry</option>
@@ -215,7 +215,7 @@
 	</div>
 	<div id="view2" data-dojo-type="dui/mobile/View">
 		<h1>View 2</h1>
-		<select data-dojo-type="dijit.form.DataList" data-dojo-props="id:'fruits2'">
+		<select data-dojo-type="dui.form.DataList" data-dojo-props="id:'fruits2'">
 			<option>Apple</option>
 			<option>Banana</option>
 			<option>Cherry</option>

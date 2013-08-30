@@ -10,13 +10,13 @@
 
 		<!-- required: dojo.js -->
 		<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], isDebug: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], isDebug: true"></script>
 
 		<!-- functions to help test -->
 		<!-- script type="text/javascript" src="../helpers.js"></script -->
 
 		<script type="text/javascript">
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 			dojo.require("dui/mobile/TabBar");
 
 			dojo.addOnLoad(function(){
@@ -28,7 +28,7 @@
 						timeout: 100000,
 						runTest: function(){
 							var d = new doh.Deferred();
-							var reg = dojo.global.dijit.registry;
+							var reg = dojo.global.dui.registry;
 							
 							doh.robot.mouseMoveAt(reg.byId("dui_mobile_TabBarButton_1").domNode, 1000);
 							doh.robot.mouseClick({left: true}, 500);

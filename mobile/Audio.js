@@ -2,8 +2,8 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom-construct",
 	"dojo/sniff",
-	"dijit/_Contained",
-	"dijit/_WidgetBase"
+	"dui/_Contained",
+	"dui/_WidgetBase"
 ], function(declare, domConstruct, has, Contained, WidgetBase){
 	// module:
 	//		dui/mobile/Audio

@@ -200,7 +200,7 @@ define([
 			
 			// #16363: while navigating among input field using TAB (desktop keyboard) or 
 			// NEXT (mobile soft keyboard), domNode.scrollTop gets modified (this holds even 
-			// if the text widget has selectOnFocus at false, that is even if dijit's _FormWidgetMixin._onFocus 
+			// if the text widget has selectOnFocus at false, that is even if _FormWidgetMixin._onFocus 
 			// does not trigger a global scrollIntoView). This messes up ScrollableView's own 
 			// scrolling machinery. To avoid this misbehavior:
 			if(win.global.addEventListener){ // all supported browsers but IE8

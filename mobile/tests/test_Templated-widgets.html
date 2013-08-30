@@ -9,7 +9,7 @@
 
 	<script type="text/javascript" src="../deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script type="text/javascript">
 		// Templates
@@ -34,13 +34,13 @@
 		require([
 			"dojo/domReady",
 			"dojo/dom",
-			"dijit/registry",
+			"dui/registry",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dojo/_base/declare",
 			"dojo/dom-construct",
-			"dijit/_TemplatedMixin",
-			"dijit/_WidgetsInTemplateMixin", 
+			"dui/_TemplatedMixin",
+			"dui/_WidgetsInTemplateMixin", 
 			"dojo/text!./templates/Button1.html",
 			"dojo/text!./templates/CheckBox1.html",
 			"dojo/text!./templates/Heading1.html",
@@ -188,20 +188,20 @@
 			<ul id="list" data-dojo-type="dui/mobile/RoundRectList" 
 				data-dojo-props="iconBase:'images/tab-icon-11h.png', variableHeight: true">
 				<li data-dojo-type="dui/mobile/ListItem"
-					data-dojo-mixins="dijit/_TemplatedMixin"
+					data-dojo-mixins="dui/_TemplatedMixin"
 					data-dojo-props="label:'Some label', 
 						clickable: true, onClick: onclick1,
 						templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 				</li>
 				<li data-dojo-type="dui/mobile/ListItem"
-					data-dojo-mixins="dijit/_TemplatedMixin"
+					data-dojo-mixins="dui/_TemplatedMixin"
 					data-dojo-props="clickable: true, onClick: onclick1,
 						templateString: '<div><div>My inline, multiline <i>HTML</i><br>template (markup)</div></div>'">
 				</li>
 				<li data-dojo-type=TemplatedListItem>
 				</li>
 				<li data-dojo-type="dui/mobile/ListItem"
-					data-dojo-mixins="dijit/_TemplatedMixin"
+					data-dojo-mixins="dui/_TemplatedMixin"
 					data-dojo-props="label: '(markup, using data-dojo-mixins)', 
 						templateString: templateListItem1,
 						clickable: true, onClick: onclick1">
@@ -212,7 +212,7 @@
 				<li data-dojo-type=TemplatedWithWidgetsListItem2>
 				</li>
 				<li data-dojo-type="dui/mobile/ListItem"
-					data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin"
+					data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin"
 					data-dojo-props="templateString: templateListItem3,
 						clickable: true, onClick: onclick1">
 				</li>
@@ -230,12 +230,12 @@
 					<td style="text-align:right">
 						<button data-dojo-type="dui/mobile/Button" 
 							data-dojo-props="templateString: '<button class=\'${baseClass}\' data-dojo-attach-point=\'containerNode\'></button>', onClick: onclick2"
-							data-dojo-mixins="dijit/_TemplatedMixin">
+							data-dojo-mixins="dui/_TemplatedMixin">
 							 Press me! (inline template)
 						</button>
 						<button data-dojo-type="dui/mobile/Button" 
 							data-dojo-props="templateString: templateButton1, onClick: onclick2"
-							data-dojo-mixins="dijit/_TemplatedMixin">
+							data-dojo-mixins="dui/_TemplatedMixin">
 							Press me! (external template)
 						</button>
 					</td>
@@ -253,7 +253,7 @@
 							data-dojo-props="templateString: templateSlider1, 
 								value:10, min:0, max:40, step:0.1, 
 								onChange:function(v){ showMsg('msgArea2', 'value: ' + this.get('value')); }"
-							data-dojo-mixins="dijit/_TemplatedMixin">
+							data-dojo-mixins="dui/_TemplatedMixin">
 					</td>
 				</tr>
 			</table>
@@ -298,7 +298,7 @@
 							data-dojo-type="dui/mobile/Switch"
 							data-dojo-props="templateString: templateSwitch1,
 								onStateChanged:function(v){ showMsg('msgArea2', 'value: ' + v); }"
-							data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
+							data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin">
 					</td>
 					<td style="text-align:right">
 						<input type="checkbox" value="on"
@@ -341,19 +341,19 @@
 			<!-- Template containing widgets -->
 			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="label:'Some label', templateString: templateHeading1"
-				data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
+				data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin">
 			</div>
 			<!-- Pure HTML template -->
 			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="back:'Back', 
 					templateString: '<div>My inline <i>HTML</i> template (markup)</div>'"
-				data-dojo-mixins="dijit/_TemplatedMixin">
+				data-dojo-mixins="dui/_TemplatedMixin">
 			</div>
 			<div data-dojo-type="dui/mobile/Heading" 
 				data-dojo-props="back:'Back',
 					label: 'Templated by: <code>Heading2.html</code> (using data-dojo-mixins)', 
 					templateString: templateHeading2"
-				data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
+				data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin">
 			</div>
 			<div data-dojo-type=TemplatedHeading>
 			</div>
@@ -367,7 +367,7 @@
 		<!-- Templated View -->
 		<div id="View" data-dojo-type="dui/mobile/View"
 			data-dojo-props="templateString: templateView1"
-			data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
+			data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin">
 		</div>
 	</div>
 </body>

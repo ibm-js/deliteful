@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"dijit/form/_RadioButtonMixin",
+	"dui/form/_RadioButtonMixin",
 	"./CheckBox"
 ], function(declare, RadioButtonMixin, CheckBox){
 

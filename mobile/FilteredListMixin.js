@@ -7,7 +7,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/aspect",
-	"dijit/registry",
+	"dui/registry",
 	"./SearchBox",
 	"./ScrollableView",
 	"./viewRegistry"
@@ -109,7 +109,7 @@ define([
 		// |	// Programmatic use-case:
 		// |	// SearchBox and ScrollableView provided by the user.
 		// |	// Filtered EdgeToEdgeStoreList created programmatically.
-		// |	require(["dojo/_base/declare", "dojo/ready", "dijit/registry",
+		// |	require(["dojo/_base/declare", "dojo/ready", "dui/registry",
 		// |			"dui/mobile/EdgeToEdgeStoreList", "dui/mobile/FilteredListMixin",
 		// |			"dui/mobile/ScrollableView", ...], function(declare, ready, registry, ...){
 		// |		ready(function(){

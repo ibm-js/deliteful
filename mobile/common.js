@@ -10,7 +10,7 @@ define([
 	"dojo/domReady",
 	"dojo/topic",
 	"dojo/touch",
-	"dijit/registry",
+	"dui/registry",
 	"dojo/sniff",
 	"./uacss" // (no direct references)
 ], function(array, config, lang, win, kernel, domClass, domConstruct, on, domReady, topic, touch, registry, has){

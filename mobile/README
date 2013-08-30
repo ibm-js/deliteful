@@ -34,7 +34,7 @@ user experience on mobile devices.
 -------------------------------------------------------------------------------
 Dependencies:
         dojo
-        dijit
+        dui
 -------------------------------------------------------------------------------
 Documentation
         Documentation resides at:

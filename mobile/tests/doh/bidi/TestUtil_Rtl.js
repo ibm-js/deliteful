@@ -1,14 +1,14 @@
 //dojo.require("dojo.has");
 
 require([
-	"dijit/_base/manager",  // dijit.byId
+	"dui/_base/manager",  // dui.byId
 	"doh/runner"	//doh functions
 ]);
 
 function fireOnMouseDown(obj){
 	var anchorNode;
 	if(typeof obj === "string"){
-		var demoWidget = dijit.byId(obj);
+		var demoWidget = dui.byId(obj);
 		anchorNode = demoWidget.domNode;
 	}else{
 		anchorNode = obj;
@@ -28,7 +28,7 @@ function fireOnMouseDown(obj){
 function fireOnMouseUp(obj){
 	var anchorNode;
 	if(typeof obj === "string"){
-		var demoWidget = dijit.byId(obj);
+		var demoWidget = dui.byId(obj);
 		anchorNode = demoWidget.domNode;
 	}else{
 		anchorNode = obj;
@@ -47,7 +47,7 @@ function fireOnMouseUp(obj){
 }
 
 function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIcon, hasIcon2, hasVariableHeight, regExp, hasSelected, isSprite){
-	var demoWidget = dijit.byId(id);
+	var demoWidget = dui.byId(id);
 	doh.assertNotEqual(null, demoWidget, "ListItem: Did not instantiate. id=" + id);
 	doh.assertEqual('duiListItem duiListItemRtl' + (hasVariableHeight ?" duiVariableHeight":"") + (hasSelected ?" duiListItemSelected":""), demoWidget.domNode.className, "id=" + id);
 	var childNodes = demoWidget.domNode.children;
@@ -102,7 +102,7 @@ function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIco
 }
 
 function verifyListItemPos(id, rTop, rRight, rBottom, rLeft, sTop, sLeft, isSprite) {
-	var demoWidget = dijit.byId(id);
+	var demoWidget = dui.byId(id);
 	var node;
 	if(isSprite){
 		node = demoWidget.domNode.childNodes[0].childNodes[0];
@@ -124,7 +124,7 @@ function verifyRect(node, rTop, rRight, rBottom, rLeft) {
 }
 
 function verifyIconItem(id, text, display, regExp, isSprite){
-	var demoWidget = dijit.byId(id);
+	var demoWidget = dui.byId(id);
 	if(!dojo.isIE && !dojo.isFF) {
 		if(isSprite){
 			doh.assertTrue(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
@@ -140,7 +140,7 @@ function verifyIconItem(id, text, display, regExp, isSprite){
 }
 
 function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regExp1, regExp2, isSprite){
-	var demoWidget = dijit.byId(id);
+	var demoWidget = dui.byId(id);
 	for(var i = 0; i < classNames.length;i++){
 		doh.assertTrue(dojo.hasClass(demoWidget.domNode, classNames[i]), classNames[i] + " id=" +id + " className:"+demoWidget.domNode.className);
 	}

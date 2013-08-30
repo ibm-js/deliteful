@@ -6,7 +6,7 @@ define([ "dojo/_base/array",
          "dojo/dom-geometry",
          "dojo/on",
          "dojo/aspect",
-         "dijit/registry",
+         "dui/registry",
          "./common",
          "./viewRegistry" ],
 		function(array, lang, declare, has, domConstruct, domGeometry, on, aspect, registry, dm, viewRegistry){
@@ -238,8 +238,8 @@ define([ "dojo/_base/array",
 		// under the list node, only a subset of them will really be in the DOM,
 		// but we still want the list to look as if all children were there.
 
-		addChild : function(/* dijit._Widget */widget, /* int? */insertIndex){
-			// summary: Overrides dijit._Container
+		addChild : function(/* dui._Widget */widget, /* int? */insertIndex){
+			// summary: Overrides dui._Container
 			if(this._items){
 				if( typeof insertIndex == "number"){
 					this._items.splice(insertIndex, 0, widget);
@@ -253,7 +253,7 @@ define([ "dojo/_base/array",
 		},
 
 		removeChild : function(/* Widget|int */widget){
-			// summary: Overrides dijit._Container
+			// summary: Overrides dui._Container
 			if(this._items){
 				this._items.splice(typeof widget == "number" ? widget : this._items.indexOf(widget), 1);
 				this._childrenChanged();
@@ -263,7 +263,7 @@ define([ "dojo/_base/array",
 		},
 
 		getChildren : function(){
-			// summary: Overrides dijit._WidgetBase
+			// summary: Overrides dui._WidgetBase
 			if(this._items){
 				return this._items.slice(0);
 			}else{
@@ -271,8 +271,8 @@ define([ "dojo/_base/array",
 			}
 		},
 
-		_getSiblingOfChild : function(/* dijit._Widget */child, /* int */dir){
-			// summary: Overrides dijit._Container
+		_getSiblingOfChild : function(/* dui._Widget */child, /* int */dir){
+			// summary: Overrides dui._Container
 
 			if(this._items){
 				var index = this._items.indexOf(child);

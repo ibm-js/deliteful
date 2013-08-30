@@ -21,12 +21,12 @@
 		}
 	</style>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, async:true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true, async:true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		require([
 			"dojo/_base/html", // dojo.byId
-			"dijit/_base/manager",  // dijit.byId
+			"dui/_base/manager",  // dui.byId
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
@@ -48,8 +48,8 @@
 			setTimeout(function(){
 				if(checked){
 					checkedItem = item.labelNode.innerText || dojo.trim(item.labelNode.textContent) || '';
-					if(dojo.hasClass(dijit.byId('listPicker').domNode, 'duiTooltip')){
-						dijit.byId('listPicker').hide(true); // Tooltip + selection = auto-hide
+					if(dojo.hasClass(dui.byId('listPicker').domNode, 'duiTooltip')){
+						dui.byId('listPicker').hide(true); // Tooltip + selection = auto-hide
 					}
 				}
 			}, 500);
@@ -61,16 +61,16 @@
 	<tr>
 		<td style="text-align:right;">Contact:</td>
 		<td><input id="contact1" readOnly value="Aaron Smith" placeholder="Select a contact"
-			onclick="dijit.byId('listPicker').show(this, ['above-centered','below-centered','after','before'])" /></td>
+			onclick="dui.byId('listPicker').show(this, ['above-centered','below-centered','after','before'])" /></td>
 	</tr>
 	</table>
 
 	<div id="listPicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getSelectedContact, onShow:setSearch">
 		<h1 data-dojo-type="dui/mobile/Heading" label="">
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
-				onclick="dijit.byId('listPicker').hide(true)"></span>
+				onclick="dui.byId('listPicker').hide(true)"></span>
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
-				onclick="dijit.byId('listPicker').hide(false)"></span>
+				onclick="dui.byId('listPicker').hide(false)"></span>
 			<input id="search1" type="search" results="5" autosave="myrecentcontactsearches" name="searchContacts" placeholder="Search" />
 		</h1>
 		<div data-dojo-type="dui/mobile/ScrollableView" selected="true" height="auto">

@@ -10,14 +10,14 @@
 
 		<!-- required: dojo.js -->
 		<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], isDebug: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], isDebug: true"></script>
 
 		<!-- functions to help test -->
 		<!-- script type="text/javascript" src="../helpers.js"></script -->
 
 		<script type="text/javascript">
 			dojo.require("dojo.parser");
-			dojo.require("dijit.robotx");
+			dojo.require("dui.robotx");
 			dojo.require("dui.mobile");
 			dojo.require("dui/mobile/IconContainer");
 	        dojo.require("doh.runner");
@@ -32,14 +32,14 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							doh.robot.mouseMoveAt(dijit.registry.byId("view1").domNode, 1000,100,100,300);
+							doh.robot.mouseMoveAt(dui.registry.byId("view1").domNode, 1000,100,100,300);
 							doh.robot.mousePress({left: true}, 500);
 
-							doh.robot.mouseMoveAt(dijit.registry.byId("view1").domNode, 1000,100,100,50);
+							doh.robot.mouseMoveAt(dui.registry.byId("view1").domNode, 1000,100,100,50);
 							doh.robot.mouseRelease({left: true}, 0,5000);
 							
 							doh.robot.sequence(d.getTestCallback(function(){
-								var pos = dijit.registry.byId("view1").getPos();
+								var pos = dui.registry.byId("view1").getPos();
 								doh.assertTrue(pos.y<0);
 							}), 500);
 							return d;

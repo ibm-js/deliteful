@@ -8,11 +8,11 @@
 
 	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SpinWheel','Tooltip']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true,  has: {'dojo-bidi': true }"></script>
 
 	<script type="text/javascript">
 		require([
-			"dijit/registry",		
+			"dui/registry",		
 			"doh/runner",
 			"dojo/dom",
 			"dojo/domReady",
@@ -52,7 +52,7 @@
 				});
 			},
 			toggleTextDir = function(){		
-				w2 = dijit.registry.byId("textTooltip1");
+				w2 = dui.registry.byId("textTooltip1");
 				w2.set("textDir", (w2.get("textDir") !== "rtl") ? "rtl" : "ltr");
 			});			
 	</script>
@@ -88,21 +88,21 @@
 </head>
 <body style="visibility:hidden;">
 	<center style="width:100%;">	
-		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['above-centered','below-centered','after','before'])" value="below" size="5">
+		<input readonly onclick="dui.byId('textTooltip1').show(this, ['above-centered','below-centered','after','before'])" value="below" size="5">
 		<br><br><b>Click boundary nodes to see tooltips</b>
 		<br><input id="btn" type="button" onclick="toggleTextDir()" value="Toggle tooltip textDir"><br>		
 	</center>
 	<center id="bot" class="bottom" style="position:fixed;bottom:10%;width:100%;">
-		<input readonly tabindex="0" onclick="dijit.byId('textTooltip1').show(this, ['above-centered','below-centered','before','after'])" value="above" size="5">
+		<input readonly tabindex="0" onclick="dui.byId('textTooltip1').show(this, ['above-centered','below-centered','before','after'])" value="above" size="5">
 	</center>
 	<center style="position:fixed;bottom:33%;width:100%;">
-		<input readonly onclick="dijit.byId('textTooltip1').hide()" value="click to hide text tooltip" size="26">
+		<input readonly onclick="dui.byId('textTooltip1').hide()" value="click to hide text tooltip" size="26">
 	</center>
 	<div style="position:fixed;top:50%;left:1px;direction:ltr;">
-		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['before','after','below-centered','above-centered'])" value="right" size="5">
+		<input readonly onclick="dui.byId('textTooltip1').show(this, ['before','after','below-centered','above-centered'])" value="right" size="5">
 	</div>
 	<div style="position:fixed;bottom:50%;right:1px;direction:rtl;">
-		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['after','before','below','above'])" value="left" size="4">
+		<input readonly onclick="dui.byId('textTooltip1').show(this, ['after','before','below','above'])" value="left" size="4">
 	</div>
 
 	<div id="textTooltip1" data-dojo-type="dui/mobile/Tooltip"  class="duiTooltipBubble">Dear friend!<br><span style="background-color:Lime">Enter any value.</span><br><center>Please!</center><div style="border:solid; text-align:center"> Thanks.</div> </div>

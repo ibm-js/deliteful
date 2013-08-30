@@ -8,11 +8,11 @@
 
 	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SimpleDialog','TextBox','Button','ComboBox']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true,  has: { 'dojo-bidi': true }"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true,  has: { 'dojo-bidi': true }"></script>
 
 	<script type="text/javascript">
 		require([
-			"dijit/registry",
+			"dui/registry",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/mobile/SimpleDialog",
@@ -233,7 +233,7 @@
 </head>
 <body style="visibility:hidden;">
 <datalist id="values">
-		<select data-dojo-type="dijit.form.DataList" data-dojo-props='id:"values"' >
+		<select data-dojo-type="dui.form.DataList" data-dojo-props='id:"values"' >
 				<option selected>&#1513;&#1500;&#1493;&#1501!</option>
 				<option >Hello!</option>
 				

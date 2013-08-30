@@ -9,8 +9,8 @@ define([
 	"dojo/on",
 	"dojo/window",
 	"dojo/touch",
-	"dijit/form/_AutoCompleterMixin",
-	"dijit/popup",
+	"dui/form/_AutoCompleterMixin",
+	"dui/popup",
 	"./_ComboBoxMenu",
 	"./TextBox",
 	"dojo/sniff"

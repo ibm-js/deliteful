@@ -1,16 +1,16 @@
-/*if you link this stylesheet directory, mobile/common/dijit/base.css must already be imported*/
+/*if you link this stylesheet directory, mobile/common/dui/base.css must already be imported*/
 
-.dijitColorPalette {
+.duiColorPalette {
 	border: 0 solid #b5bcc7;
 	background: none;
 }
-.dijitColorPalette .dijitColorPaletteSwatch {
+.duiColorPalette .duiColorPaletteSwatch {
 	width: 25px;
 	height: 25px;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 }
-.dijitColorPalette .dijitPaletteImg {
+.duiColorPalette .duiPaletteImg {
 	border: 1px solid lightGrey;
 	border-radius: 4px;
 	-moz-border-radius: 4px;

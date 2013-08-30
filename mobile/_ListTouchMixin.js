@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/touch",
 	"dojo/sniff",
-	"dijit/form/_ListBase"
+	"dui/form/_ListBase"
 ], function(declare, touch, has, ListBase){
 
 	return declare( "dui.mobile._ListTouchMixin", ListBase, {

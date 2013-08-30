@@ -1,5 +1,5 @@
 dojo.addOnLoad(function(){
-	var list = dijit.byId("dui_mobile_RoundRectList_0");
+	var list = dui.byId("dui_mobile_RoundRectList_0");
 	var demoWidget = new dui.mobile.ListItem({icon:"../../images/i-icon-1.png", transition:"slide", url:"../../view1.html", label:"External View #1 (sync)"});
 	list.addChild(demoWidget);
 
@@ -18,7 +18,7 @@ dojo.addOnLoad(function(){
 	demoWidget = new dui.mobile.ListItem({label:"Jack Coleman"});
 	list.addChild(demoWidget);
 
-	list = dijit.byId("dui_mobile_RoundRectList_1");
+	list = dui.byId("dui_mobile_RoundRectList_1");
 	demoWidget = new dui.mobile.ListItem({iconPos:"0,87,29,29", moveTo:"general", label:"Sounds"});
 	list.addChild(demoWidget);
 
@@ -28,14 +28,14 @@ dojo.addOnLoad(function(){
 	demoWidget = new dui.mobile.ListItem({iconPos:"29,0,29,29", moveTo:"general", label:"Wallpaper"});
 	list.addChild(demoWidget);
 
-	list = dijit.byId("dui_mobile_EdgeToEdgeList_0");
+	list = dui.byId("dui_mobile_EdgeToEdgeList_0");
 	demoWidget = new dui.mobile.ListItem({icon:"../../images/i-icon-1.png", rightIcon:"duiDomButtonBluePlus", label:"XX Widget"});
 	list.addChild(demoWidget);
 
 	demoWidget = new dui.mobile.ListItem({icon:"../../images/i-icon-2.png", rightIcon:"duiDomButtonRedMinus", label:"YY Widget"});
 	list.addChild(demoWidget);
 
-	list = dijit.byId("dui_mobile_EdgeToEdgeList_1");
+	list = dui.byId("dui_mobile_EdgeToEdgeList_1");
 	demoWidget = new dui.mobile.ListItem({rightIcon:"duiDomButtonCheckboxOff", variableHeight:"true"});
 	dojo.create(dojo.doc.createTextNode("Use wireless networks"), null, demoWidget.labelNode, "before");
 	var child = dojo.create("DIV", {className:"duiListItemSubText"}, demoWidget.labelNode, "before");

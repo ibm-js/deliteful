@@ -18,7 +18,7 @@
 			}
 		</style>
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script type="text/javascript" src="../TestUtil.js"></script>
 		<script language="JavaScript" type="text/javascript">
@@ -39,7 +39,7 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dui_mobile_IconContainer_0");
+								var demoWidget = dui.byId("dui_mobile_IconContainer_0");
 								doh.assertEqual('duiIconContainer', demoWidget.domNode.className);
 								
 							}));
@@ -51,11 +51,11 @@
 						timeout: 4000,
 						runTest: function(){
 							var d = new doh.Deferred();
-							var demoWidget = dijit.byId("dui_mobile_IconItem_0");
+							var demoWidget = dui.byId("dui_mobile_IconItem_0");
 							fireOnMouseDown(demoWidget.domNode);
 							fireOnMouseUp(demoWidget.domNode);
 
-							demoWidget = dijit.byId("dui_mobile_IconItem_1");
+							demoWidget = dui.byId("dui_mobile_IconItem_1");
 							doh.assertEqual('none', demoWidget.paneWidget.domNode.style.display);
 							fireOnMouseDown(demoWidget.domNode);
 							fireOnMouseUp(demoWidget.domNode);
@@ -65,7 +65,7 @@
 							}
 
 							setTimeout(d.getTestCallback(function(){
-								var demoWidget = dijit.byId("dui_mobile_IconItem_0");
+								var demoWidget = dui.byId("dui_mobile_IconItem_0");
 								verifyRect(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0], "0px", "64px", "64px", "0px");
 								verifyIconItem("dui_mobile_IconItem_0", 'app1', 'none', /icon-all.png/i, true);
 								verifyIconItem("dui_mobile_IconItem_1", 'app2', '', /icon-all.png/i, true);

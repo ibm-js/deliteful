@@ -18,7 +18,7 @@
 		</style>
 
 		<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			dojo.require("dui.mobile");			// This is a mobile app.
@@ -48,17 +48,17 @@
 				widget.getIndexOfChild(childWidget);
 				console.log('Retun value of getIndexOfChild = ' + widget.getIndexOfChild(childWidget) + " (It should be 1.)");
 				
-				var roundRect = dijit.byId("dui_mobile_RoundRect_0");
+				var roundRect = dui.byId("dui_mobile_RoundRect_0");
 				var sw2= new dui.mobile.Switch();
 				roundRect.addChild(sw2);
 				
-				var button1 = dijit.byId("dui_mobile_ToolBarButton_1");
+				var button1 = dui.byId("dui_mobile_ToolBarButton_1");
 				button1.select();
 				
-				var button2 = dijit.byId("dui_mobile_TabBarButton_2");
+				var button2 = dui.byId("dui_mobile_TabBarButton_2");
 				button2.select();
 				
-				var view = dijit.byId("bar");
+				var view = dui.byId("bar");
 				ecat = new dui.mobile.EdgeToEdgeCategory({label:"EdgeToEdgeCategory"});
 				view.addChild(ecat);
 

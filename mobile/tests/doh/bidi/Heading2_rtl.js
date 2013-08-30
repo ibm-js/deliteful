@@ -6,22 +6,22 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var demoWidget = dijit.byId("dui_mobile_Heading_0");
+					var demoWidget = dui.byId("dui_mobile_Heading_0");
 					doh.assertTrue('duiHeading duiHeadingRtl duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className, "Heading 0: class name(s) of demo widget dom node is " + demoWidget.domNode.className);
 					doh.assertEqual('General', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
 					doh.assertEqual('Settings', demoWidget.backButton.labelNode.innerHTML);
 
-					demoWidget = dijit.byId("dui_mobile_Heading_1");
+					demoWidget = dui.byId("dui_mobile_Heading_1");
 					doh.assertTrue('duiHeading duiHeadingRtl duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className, "Heading 1: class name(s) of demo widget dom node is " + demoWidget.domNode.className);
 					doh.assertEqual('Test', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
 					doh.assertEqual('Go To', demoWidget.backButton.labelNode.innerHTML);
 
-					demoWidget = dijit.byId("dui_mobile_Heading_2");
+					demoWidget = dui.byId("dui_mobile_Heading_2");
 					doh.assertTrue('duiHeading duiHeadingRtl duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className, "Heading 2: class name(s) of demo widget dom node is " + demoWidget.domNode.className);
 					doh.assertEqual('Test', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
 					doh.assertEqual('Settings', demoWidget.backButton.labelNode.innerHTML);
 
-					demoWidget = dijit.byId("dui_mobile_Heading_3");
+					demoWidget = dui.byId("dui_mobile_Heading_3");
 					// The thiord header has a very long title, so it might not be centered if the test windows width is too small
 					doh.assertTrue('duiHeading duiHeadingRtl duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading duiHeadingRtl' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className, "Heading 3: class name(s) of demo widget dom node is " + demoWidget.domNode.className);
 					doh.assertEqual('Very Very Long Title May Not Be Displayed in the Narrow Space', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
@@ -35,7 +35,7 @@ dojo.addOnLoad(function(){
 			name: "Set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_Heading_2");
+				var demoWidget = dui.byId("dui_mobile_Heading_2");
 				demoWidget.set({back:"Value Changed", label:"Value Changed", moveTo:"bar", transition:"flip"});
 				doh.assertEqual("Value Changed", demoWidget.get("label"), 'get("label")');
 				doh.assertEqual("Value Changed", demoWidget.get("back"), 'get("back")');
@@ -44,7 +44,7 @@ dojo.addOnLoad(function(){
 				doh.assertEqual('Value Changed', demoWidget.backButton.label, "demoWidget.backButton.label");
 				doh.assertEqual('Value Changed', demoWidget.backButton.labelNode.innerHTML, "demoWidget.backButton.labelNode.innerHTML");
 
-				demoWidget = dijit.byId("dui_mobile_Heading_5");
+				demoWidget = dui.byId("dui_mobile_Heading_5");
 				demoWidget.set({transition:"fade"});
 				doh.assertEqual("fade", demoWidget.get("transition"));
 			}
@@ -54,13 +54,13 @@ dojo.addOnLoad(function(){
 			timeout: 1000,
 			runTest: function(){
 				var d = new doh.Deferred();
-				var demoWidget = dijit.byId("dui_mobile_Heading_2");
+				var demoWidget = dui.byId("dui_mobile_Heading_2");
 //				fireOnClick(demoWidget.domNode.childNodes[0].childNodes[1]);
 				fireOnMouseDown(demoWidget.backButton.domNode);
 				fireOnMouseUp(demoWidget.backButton.domNode);
 				setTimeout(d.getTestCallback(function(){
 
-					var demoWidget = dijit.byId("bar");
+					var demoWidget = dui.byId("bar");
 					doh.assertEqual('visible', demoWidget.domNode.style.visibility);
 				}));
 				return d;
@@ -72,10 +72,10 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				setTimeout(function(){
 					var d = new doh.Deferred();
-					var demoWidget = dijit.byId("dui_mobile_Heading_5");
+					var demoWidget = dui.byId("dui_mobile_Heading_5");
 					fireOnClick(demoWidget.domNode.childNodes[0].childNodes[1]);
 					setTimeout(d.getTestCallback(function(){
-						var demoWidget = dijit.byId("general");
+						var demoWidget = dui.byId("general");
 						doh.assertEqual('visible', demoWidget.domNode.style.visibility);
 					}));
 					return d;

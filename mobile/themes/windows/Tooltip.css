@@ -217,45 +217,45 @@
   left: auto !important;
   right: 0px;
 }
-.duiOpener .dijitColorPalette {
+.duiOpener .duiColorPalette {
   width: calc(100% - 10px - 15px);
   height: calc(100% - 50px);
 }
-.duiOpener .dijitColorPalette table {
+.duiOpener .duiColorPalette table {
   width: 100%;
   height: 100%;
   padding: 0px !important;
 }
-.duiOpener .dijitColorPalette tbody {
+.duiOpener .duiColorPalette tbody {
   width: 100%;
   height: 100%;
   position: absolute;
 }
-.duiOpener .dijitColorPalette tr {
+.duiOpener .duiColorPalette tr {
   display: -ms-flexbox;
   -ms-flex: 1;
   -ms-flex-align: center;
 }
-.duiOpener .dijitColorPalette td {
+.duiOpener .duiColorPalette td {
   -ms-flex: 1;
   display: inline-block;
 }
-.duiOpener .dijitColorPalette .dijitPaletteImg {
+.duiOpener .duiColorPalette .duiPaletteImg {
   border: none !important;
   padding: 2px !important;
 }
-.duiOpener .dijitColorPalette .dijitColorPaletteSwatch {
+.duiOpener .duiColorPalette .duiColorPaletteSwatch {
   border-radius: 0px!important;
   border: 2px solid transparent;
 }
-.duiOpener .dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg {
+.duiOpener .duiColorPalette .duiPaletteCellSelected .duiPaletteImg {
   margin: 2px 0px !important;
 }
-.duiOpener .dijitColorPalette .dijitPaletteCellSelected .dijitColorPaletteSwatch {
+.duiOpener .duiColorPalette .duiPaletteCellSelected .duiColorPaletteSwatch {
   border: 2px solid Highlight !important;
 }
 @media screen and (orientation: landscape) {
-  .dijitColorPalette tbody {
+  .duiColorPalette tbody {
     display: -ms-flexbox;
     -ms-flex-direction: column;
   }

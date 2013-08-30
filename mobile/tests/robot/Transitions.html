@@ -10,16 +10,16 @@
 
 		<!-- required: dojo.js -->
 		<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], isDebug: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], isDebug: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			require([
 				"dojo/_base/kernel",
 				"dojo/domReady", // dojo.ready
 				"doh/runner",	//doh functions
-				"dijit/registry",  // dijit.registry.byId
+				"dui/registry",  // dui.registry.byId
 				"dojo/_base/connect",
-				"dijit/robotx"
+				"dui/robotx"
 			], function(kernel, ready, runner, registry, connect){
 				ready(function(){
 
@@ -34,7 +34,7 @@
 							timeout: 50000,
 							runTest: function(){
 								var d = new runner.Deferred();
-								reg = kernel.global.dijit.registry;
+								reg = kernel.global.dui.registry;
 
 								connect.connect(reg.byId("view1"), "onBeforeTransitionOut", null, function(moveTo, dir, transition, context, method){
 									seq.push("onBeforeTransitionOut1,"+moveTo+","+dir+","+transition);

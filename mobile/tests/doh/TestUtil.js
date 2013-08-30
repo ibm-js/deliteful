@@ -5,7 +5,7 @@ var lang;
 var has;
 
 require([
-	"dijit/registry",  // registry.byId
+	"dui/registry",  // registry.byId
 	"dojo/_base/lang",
 	"dojo/has",
 	"doh/runner"	//doh functions

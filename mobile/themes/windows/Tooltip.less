@@ -62,7 +62,7 @@
 
 }
 
-.duiOpener .dijitColorPalette {
+.duiOpener .duiColorPalette {
 	width: calc(~"100% - @{default-padding-right} - @{default-padding-left}");
 	height: calc(~'100% - 50px');
 
@@ -90,28 +90,28 @@
 		display: inline-block;
 	}
 
-	.dijitPaletteImg {
+	.duiPaletteImg {
 		border: none !important;
 		padding: 2px !important;
 	}
 
-	.dijitColorPaletteSwatch {
+	.duiColorPaletteSwatch {
 		border-radius: 0px!important;
 		border: 2px solid transparent;
 	}
 
-	.dijitPaletteCellSelected {
-		.dijitPaletteImg {
+	.duiPaletteCellSelected {
+		.duiPaletteImg {
 			margin: 2px 0px !important;
 		}
-		.dijitColorPaletteSwatch {
+		.duiColorPaletteSwatch {
 			border: 2px solid @win-accent-color !important;
 		}
 	}
 }
 
 @media screen and (orientation: landscape) {
-  .dijitColorPalette tbody {
+  .duiColorPalette tbody {
 	  display: -ms-flexbox;
 	  -ms-flex-direction: column;
   }

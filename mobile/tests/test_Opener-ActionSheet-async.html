@@ -49,11 +49,11 @@
 		}
 	</style>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, async:true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true, async:true"></script>
 	<script language="JavaScript" type="text/javascript">
 		require([
 			"dojo/_base/html", // dojo.byId
-			"dijit/_base/manager",  // dijit.byId
+			"dui/_base/manager",  // dui.byId
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
@@ -62,7 +62,7 @@
 		]);
 
 		function clicked(id){
-			dijit.byId("actionSheet").hide();
+			dui.byId("actionSheet").hide();
 			var span = dojo.byId("msgArea");
 			span.innerHTML += "&quot;" + dojo.byId(id).innerHTML + "&quot; button was clicked.";
 			setTimeout(function(){
@@ -75,7 +75,7 @@
 <body style="visibility:hidden;">
 	<center>
 	<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="margin-top:20px;width:200px;"
-			onclick="dijit.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
+			onclick="dui.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
 	<div id="msgArea" style="margin-top:5px;"></div>
 	</center>
 

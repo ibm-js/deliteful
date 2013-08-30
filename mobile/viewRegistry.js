@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/array",
 	"dojo/dom-class",
-	"dijit/registry"
+	"dui/registry"
 ], function(array, domClass, registry){
 
 	// module:

@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"dijit/form/_ExpandingTextAreaMixin",
+	"dui/form/_ExpandingTextAreaMixin",
 	"./TextArea"
 ], function(declare, ExpandingTextAreaMixin, TextArea){
 

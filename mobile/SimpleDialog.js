@@ -7,7 +7,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/on",
 	"dojo/touch",
-	"dijit/registry",
+	"dui/registry",
 	"./Pane",
 	"./iconUtils",
 	"dojo/sniff"
@@ -29,7 +29,7 @@ define([
 		//		careful when you place in a SimpleDialog elements that cannot 
 		//		be initialized in hidden state.
 		//
-		//		This widget has much less functionalities than dijit/Dialog, 
+		//		This widget has much less functionalities than dui/Dialog, 
 		//		but it has the advantage of a much smaller code size.
 
 		// top: String

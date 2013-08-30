@@ -1,6 +1,6 @@
-/* if you link this style sheet, dijit/themes/dijit.css must be imported. */
-/* dijit.Calendar */
-.dijitCalendar {
+/* if you link this style sheet, dui/themes/dijit.css must be imported. */
+/* dui.Calendar */
+.duiCalendar {
   padding: 0;
   width: 320px;
   border-radius: 0;
@@ -8,28 +8,28 @@
   border: none 0 transparent;
   background-color: white;
 }
-.dijitCalendar thead {
+.duiCalendar thead {
   border-color: inherit;
   vertical-align: middle;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#63696b), to(#182021));
   background-image: linear-gradient(to bottom, #63696b 0%, #182021 100%);
 }
-.dijitCalendarMonthLabel {
+.duiCalendarMonthLabel {
   padding: 0 4px;
   font-family: Helvetica;
   text-shadow: rgba(247, 247, 247, 0.6) 0 1px 0px;
   color: white;
   font-size: 18px;
 }
-.dijitCalendarMonthMenu {
+.duiCalendarMonthMenu {
   border: 1px solid black;
   border-radius: 6px;
   background-color: white;
 }
-.dijitCalendarMonthMenu .dijitCalendarMonthLabel {
+.duiCalendarMonthMenu .duiCalendarMonthLabel {
   color: black;
 }
-.dijitCalendar .dijitDropDownButton .dijitButtonNode {
+.duiCalendar .duiDropDownButton .duiButtonNode {
   padding: 0 3px 0 2px;
   border: none;
   background-color: transparent;
@@ -37,29 +37,29 @@
   -webkit-box-shadow: 0 0 0 transparent;
   box-shadow: 0 0 0 transparent;
 }
-.dijitArrowButtonInner {
+.duiArrowButtonInner {
   display: none;
 }
-.dijitCalendarMonthContainer th {
+.duiCalendarMonthContainer th {
   border-right: 1px solid transparent;
 }
-.dijitCalendarIncrementControl {
+.duiCalendarIncrementControl {
   width: 0;
   height: 0;
   border: 6px solid transparent !important;
 }
-.dijitCalendarDecrease {
+.duiCalendarDecrease {
   border-left-width: 0 !important;
   border-right: 6px solid white !important;
 }
-.dijitCalendarIncrease {
+.duiCalendarIncrease {
   border-right-width: 0 !important;
   border-left: 6px solid white !important;
 }
-.dijitA11ySideArrow {
+.duiA11ySideArrow {
   display: none;
 }
-.dijitCalendarDayLabelTemplate {
+.duiCalendarDayLabelTemplate {
   border-right: 1px solid transparent;
   text-align: center;
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
@@ -67,7 +67,7 @@
   font-size: 14px;
   color: white;
 }
-.dijitCalendarDateTemplate {
+.duiCalendarDateTemplate {
   border-bottom: 1px solid lightGrey;
   font-family: Helvetica;
   font-size: 22px;
@@ -77,47 +77,47 @@
   background-color: white;
   color: black;
 }
-.dijitCalendarDateTemplate:last-child {
+.duiCalendarDateTemplate:last-child {
   border-right: none;
 }
-.dijitCalendarDateTemplate .dijitCalendarDateLabel {
+.duiCalendarDateTemplate .duiCalendarDateLabel {
   padding: 3px 5px 3px 4px;
   display: block;
   text-decoration: none;
   border: none;
 }
-.dijitCalendarPreviousMonth .dijitCalendarDateLabel,
-.dijitCalendarNextMonth .dijitCalendarDateLabel {
+.duiCalendarPreviousMonth .duiCalendarDateLabel,
+.duiCalendarNextMonth .duiCalendarDateLabel {
   background-color: #cecbce;
   color: #adaeb5;
 }
-.dijitCalendarHoveredDate .dijitCalendarDateLabel {
+.duiCalendarHoveredDate .duiCalendarDateLabel {
   color: grey;
 }
-.dijitCalendarSelectedDate .dijitCalendarDateLabel {
+.duiCalendarSelectedDate .duiCalendarDateLabel {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
   color: white;
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
 }
-.dijitCalendarActiveDate .dijitCalendarDateLabel {
+.duiCalendarActiveDate .duiCalendarDateLabel {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
-.dijitCalendarYearLabel {
+.duiCalendarYearLabel {
   margin: 0;
   padding: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#63696b), to(#182021));
   background-image: linear-gradient(to bottom, #63696b 0%, #182021 100%);
 }
-.dijitCalendarSelectedYear {
+.duiCalendarSelectedYear {
   font-family: Helvetica;
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
   color: white;
   font-size: 16px;
 }
-.dijitCalendarNextYear,
-.dijitCalendarPreviousYear {
+.duiCalendarNextYear,
+.duiCalendarPreviousYear {
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
   padding: 1px 6px 3px 6px;
   color: white;

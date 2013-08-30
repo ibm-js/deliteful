@@ -6,9 +6,9 @@ define([
 	"dojo/dom-construct",
 	"dojo/on",
 	"dojo/topic",
-	"dijit/registry",
-	"dijit/_Contained",
-	"dijit/_WidgetBase"
+	"dui/registry",
+	"dui/_Contained",
+	"dui/_WidgetBase"
 ], function(declare, lang, dom, domClass, domConstruct, on, topic, registry, Contained, WidgetBase){
 
 	// module:

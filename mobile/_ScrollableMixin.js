@@ -6,7 +6,7 @@ define([
 	"dojo/_base/window",
 	"dojo/dom",
 	"dojo/dom-class",
-	"dijit/registry",	// registry.byNode
+	"dui/registry",	// registry.byNode
 	"dojo/topic",
 	"./scrollable"
 ], function(dojo, config, declare, lang, win, dom, domClass, registry, topic, Scrollable){

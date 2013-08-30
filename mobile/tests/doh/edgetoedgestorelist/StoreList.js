@@ -5,7 +5,7 @@ require([
 	"dojo/store/Memory",
 	"dojo/store/Observable",
 	"dojo/domReady!", // dojo.ready
-	"dijit/registry",
+	"dui/registry",
 	"doh/runner",	//doh functions
 	"dui/mobile/EdgeToEdgeStoreList",
 	"dui/mobile/RoundRectStoreList",

@@ -7,7 +7,7 @@
 		<link href="../../../themes/iphone/iphone.css" rel="stylesheet"/>
 
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<style>
 		.color1 .duiSwitchBgLeft {
@@ -44,7 +44,7 @@
 	        dojo.require("doh.runner");
 
 			dojo.addOnLoad(function(){
-				var roundRect = dijit.byId("dui_mobile_RoundRect_0");
+				var roundRect = dui.byId("dui_mobile_RoundRect_0");
 				var demoWidget = new dui.mobile.Switch({value:"off"});
 				dojo.addClass(demoWidget.domNode, "float");
 //				roundRect.addChild(demoWidget);

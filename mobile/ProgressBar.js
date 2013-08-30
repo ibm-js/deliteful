@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom-class",
 	"dojo/dom-construct",
-	"dijit/_WidgetBase"
+	"dui/_WidgetBase"
 ], function(declare, domClass, domConstruct, WidgetBase){
 
 	// module:

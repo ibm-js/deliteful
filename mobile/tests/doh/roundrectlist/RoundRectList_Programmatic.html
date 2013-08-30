@@ -7,7 +7,7 @@
 		<link href="../../../themes/iphone/iphone.css" rel="stylesheet"/>
 
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 //			dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -17,7 +17,7 @@
 		</script>
 		<script language="JavaScript" type="text/javascript">
 			dojo.addOnLoad(function(){
-				var view = dijit.byId("foo");
+				var view = dui.byId("foo");
 				var demoWidget = new dui.mobile.RoundRectList();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
@@ -32,7 +32,7 @@
 				demoWidget.addChild(childWidget);
 //				childWidget.set({rightText:"Off", moveTo:"bar", label :"Wi-Fi"});
 
-				view = dijit.byId("bar");
+				view = dui.byId("bar");
 				demoWidget = new dui.mobile.RoundRectList();
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);

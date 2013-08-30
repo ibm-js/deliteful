@@ -33,7 +33,7 @@ require([
 	"dojo/dom-geometry",
 	"dojo/window", // dojo.window.getBox
 	"dojo/domReady!", // dojo.ready
-	"dijit/registry",  // dijit.byId
+	"dui/registry",  // dui.byId
 	"doh/runner",	//doh functions
 	"dui/mobile/FixedSplitter",
 	"dui/mobile/Container",

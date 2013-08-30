@@ -4,9 +4,9 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-construct",
-	"dijit/_Contained",
-	"dijit/_Container",
-	"dijit/_WidgetBase",
+	"dui/_Contained",
+	"dui/_Container",
+	"dui/_WidgetBase",
 	"./IconItem", // to load IconItem for you (no direct references)
 	"./Heading",
 	"./View"

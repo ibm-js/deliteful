@@ -1,6 +1,6 @@
-/*if you link this stylesheet directory, mobile/common/dijit/base.css must already be imported*/
+/*if you link this stylesheet directory, mobile/common/dui/base.css must already be imported*/
 
-/* import base dijit styles to override below */
+/* import base dui styles to override below */
 @import url("ColorPicker-from-dojox-widget.css");
 
 .dojoxColorPicker {

@@ -8,9 +8,9 @@ define([
 	"dojo/dom-style",
 	"dojo/on",
 	"dojo/window",
-	"dijit/_WidgetBase",
+	"dui/_WidgetBase",
 	"dojo/_base/array",
-	"dijit/registry",
+	"dui/registry",
 	"dojo/touch",
 	"./_css3"
 ], function(declare, lang, has, win, domClass, domGeometry, domStyle, on, windowUtils, WidgetBase, array, registry, touch, css3){

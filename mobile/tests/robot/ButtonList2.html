@@ -10,7 +10,7 @@
 
 		<!-- required: dojo.js -->
 		<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], isDebug: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], isDebug: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			require([
@@ -18,8 +18,8 @@
 				"dojo/dom-class", // dojo.hasClass
 				"dojo/domReady", // dojo.ready
 				"doh/runner",	//doh functions
-				"dijit/registry",  // dijit.registry.byId
-				"dijit/robotx"
+				"dui/registry",  // dui.registry.byId
+				"dui/robotx"
 			], function(kernel, domClass, ready, runner, registry){
 				ready(function(){
 

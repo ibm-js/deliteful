@@ -1,9 +1,9 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
-	"dijit/_Contained",
-	"dijit/_Container",
-	"dijit/_WidgetBase"
+	"dui/_Contained",
+	"dui/_Container",
+	"dui/_WidgetBase"
 ], function(array, declare, Contained, Container, WidgetBase){
 
 	// module:

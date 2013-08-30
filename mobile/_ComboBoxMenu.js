@@ -3,8 +3,8 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom-class",
 	"dojo/dom-construct",
-	"dijit/form/_ComboBoxMenuMixin",
-	"dijit/_WidgetBase",
+	"dui/form/_ComboBoxMenuMixin",
+	"dui/_WidgetBase",
 	"./_ListTouchMixin",
 	"./scrollable",
 	"dojo/has",
@@ -41,7 +41,7 @@ define([
 		},
 
 		_createMenuItem: function(){
-			// override of the method from dijit/form/_ComboBoxMenu.
+			// override of the method from dui/form/_ComboBoxMenu.
 			return domConstruct.create("div", {
 				"class": "duiReset duiComboBoxMenuItem" +(this.isLeftToRight() ? "" : " duiComboBoxMenuItemRtl"),
 				role: "option"

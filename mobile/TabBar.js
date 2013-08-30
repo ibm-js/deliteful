@@ -9,9 +9,9 @@ define([
 	"dojo/dom-style",
 	"dojo/dom-attr",
 	"dojo/topic",
-	"dijit/_Contained",
-	"dijit/_Container",
-	"dijit/_WidgetBase",
+	"dui/_Contained",
+	"dui/_Container",
+	"dui/_WidgetBase",
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TabBar"	

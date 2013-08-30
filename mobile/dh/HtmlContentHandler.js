@@ -5,7 +5,7 @@ define([
 	"dojo/_base/Deferred",
 	"dojo/dom-class",
 	"dojo/dom-construct",
-	"dijit/registry",
+	"dui/registry",
 	"../lazyLoadUtils"
 ], function(dojo, array, declare, Deferred, domClass, domConstruct, registry, lazyLoadUtils){
 

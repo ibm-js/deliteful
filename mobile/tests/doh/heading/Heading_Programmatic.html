@@ -8,7 +8,7 @@
 		<link href="../../../themes/common/domButtons.css" rel="stylesheet"/>
 
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -19,7 +19,7 @@
 			
 	        dojo.require("doh.runner");
 			dojo.addOnLoad(function(){
-				var view = dijit.byId("general");
+				var view = dui.byId("general");
 				var demoWidget = new dui.mobile.Heading({back:"Settings", moveTo:"settings", label:"General"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);
@@ -77,27 +77,27 @@
 				
 				doh.register("dui/mobile/test.doh.Heading1", [
 					function test_Heading_Verification(){
-						var demoWidget = dijit.byId("dui_mobile_Heading_0");
+						var demoWidget = dui.byId("dui_mobile_Heading_0");
 						doh.assertTrue('duiHeading duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className);
 						doh.assertEqual('General', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
 
-						demoWidget = dijit.byId("dui_mobile_Heading_1");
+						demoWidget = dui.byId("dui_mobile_Heading_1");
 						doh.assertTrue('duiHeading duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className);
 						doh.assertEqual('Very Very Long Title May Not Be Displayed in the Narrow Space', demoWidget.domNode.childNodes[1].childNodes[0].nodeValue);
 						
-						demoWidget = dijit.byId("dui_mobile_Heading_2");
+						demoWidget = dui.byId("dui_mobile_Heading_2");
 						doh.assertTrue('duiHeading duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className);
 						doh.assertEqual('World Clock', demoWidget.domNode.childNodes[0].childNodes[0].nodeValue);
 
-						demoWidget = dijit.byId("dui_mobile_Heading_3");
+						demoWidget = dui.byId("dui_mobile_Heading_3");
 						doh.assertTrue('duiHeading duiHeadingCenterTitle' == demoWidget.domNode.className || 'duiHeading' == demoWidget.domNode.className);
 						
 						// Test case for #16275
-						demoWidget = dijit.byId("dui_mobile_Heading_4");
+						demoWidget = dui.byId("dui_mobile_Heading_4");
 						doh.assertTrue(demoWidget.backButton.get("moveTo") == "view2", "when changing Heading.moveTo afterwards");
 						
 						// Test case for #16349
-						demoWidget = dijit.byId("dui_mobile_Heading_5");
+						demoWidget = dui.byId("dui_mobile_Heading_5");
 						doh.assertTrue(demoWidget.backButton.get("href") == "fragment2.html", "when changing Heading.href afterwards");
 						doh.assertTrue(demoWidget.backButton.get("transition") == "fade", "when changing Heading.transition afterwards");
 						

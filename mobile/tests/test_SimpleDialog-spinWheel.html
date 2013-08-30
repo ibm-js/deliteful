@@ -9,7 +9,7 @@
 
 	<script type="text/javascript" src="../deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
 	<script type="text/javascript">
 	require(["dojo/parser",
@@ -31,7 +31,7 @@
 
 	<button data-dojo-type="dui/mobile/Button" data-dojo-props="label:'Click me'">
 		<script type="dojo/on" data-dojo-event="click">
-			require(['dijit/registry'], function(registry){
+			require(['dui/registry'], function(registry){
 				registry.byId('dialog').show();
 			});
 		</script>

@@ -2,7 +2,7 @@ require([
 	"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 	"dojo/dom-construct", // dojo.place
 	"dojo/domReady!", // dojo.ready
-	"dijit/registry",  // dijit.byId
+	"dui/registry",  // dui.byId
 	"doh/runner",	//doh functions
 	"dui/mobile/EdgeToEdgeList",
 	"dui/mobile/RoundRectList",

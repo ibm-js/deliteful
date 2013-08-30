@@ -8,7 +8,7 @@
 		<link href="../../../themes/common/domButtons.css" rel="stylesheet"/>
 
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -18,7 +18,7 @@
 		</script>
 		<script language="JavaScript" type="text/javascript">
 			dojo.addOnLoad(function(){
-				var view = dijit.byId("general");
+				var view = dui.byId("general");
 				var demoWidget = new dui.mobile.Heading({back:"Settings", moveTo:"foo", label:"General"});
 //				view.addChild(demoWidget);
 				demoWidget.placeAt(view.containerNode);

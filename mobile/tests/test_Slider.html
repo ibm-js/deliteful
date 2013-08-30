@@ -6,7 +6,7 @@
 
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Slider']"></script>
 	<script src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad:true, isDebug: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad:true, isDebug: true"></script>
 	<script type="text/javascript">
 		require([
 			"doh/runner",
@@ -17,7 +17,7 @@
 			"dojo/dom-style",
 			"dojo/dom-geometry",
 			"dojo/parser",
-			"dijit/registry",
+			"dui/registry",
 			"dui/mobile/compat",
 			"dui/mobile/Slider"
 		], function(doh, has, ready, win, dom, domStyle, domGeometry, parser, registry){

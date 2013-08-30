@@ -8,7 +8,7 @@
 @lightColor02: darken(@lightColor, 40%);
 @lightColor03: darken(@lightColor, 26.5%);
 
-// Background color of form controls, TabBar(segmented), dijit Calendar thread and year label
+// Background color of form controls, TabBar(segmented), dui Calendar thread and year label
 @lightColor04: darken(@lightColor, 11.5%);
 
 // Button background color
@@ -29,15 +29,15 @@
 @lightColor11: darken(@lightColor, 2%);
 
 // Border color of Button (bottom), Toolbar button (top left right), Toolbar button arrow, Switch, Slider handle,
-// standard and segmented TabBar buttons, Tooltip arrow, Accordion, IconMenu (compat), dijit Calendar increase/decrease buttons
+// standard and segmented TabBar buttons, Tooltip arrow, Accordion, IconMenu (compat), dui Calendar increase/decrease buttons
 @lightColor12: darken(@lightColor, 39.2%);
 
 // Background color of View, Switch (left part), Accordion's title, SearchBox's cancel button,
 // Border color of Button (top, left, right), Heading (top, bottom), RoundRect, ListItem, RadioButton, Slider,
-// Accordion's selected title (bottom), SimpleDialog's title (bottom), dijit Calendar.
+// Accordion's selected title (bottom), SimpleDialog's title (bottom), dui Calendar.
 @lightColor13: darken(@lightColor, 24.8%);
 
-// Background color of dijit Calendar month menu label.
+// Background color of dui Calendar month menu label.
 @lightColor14: darken(@lightColor, 5%);
 
 // Color of ListItem subtext, TabBar background gradient (barType=tabBar, tallBar)
@@ -328,7 +328,7 @@
 // ComboBox.less
 @dui-combo-box-popup-box-shadow: none;
 //
-.dijitPopup-styles () {
+.duiPopup-styles () {
 	border-radius: 0;
 }
 .duiComboBoxMenu-styles () {
@@ -683,94 +683,94 @@
 	background-image: @default-selected-background-image-gecko;
 }
 
-// dijit.Calendar
-.dijitCalendar-styles () {
+// dui.Calendar
+.duiCalendar-styles () {
 	border: 1px solid @lightColor13;
 }
-.dijitCalendar-thead-styles () {
+.duiCalendar-thead-styles () {
 	.dui-button-background-image();
 }
-.dijitCalendar-thead-compat () {
+.duiCalendar-thead-compat () {
 	background-image: url(compat/calendar-month-bg.png);
 }
-.dijitCalendar-thead-compat-gecko () {
+.duiCalendar-thead-compat-gecko () {
 	background-image: @dui-button-background-image-gecko;
 }
-.dijitCalendarMonthLabel-styles () {
+.duiCalendarMonthLabel-styles () {
 	color: @darkColor;
 	font-size: 16px;
 }
-.dijitCalendarMonthMenu-styles () {
+.duiCalendarMonthMenu-styles () {
 }
-.dijitCalendarMonthMenu-compat-ff3 () {
+.duiCalendarMonthMenu-compat-ff3 () {
 }
-.dijitCalendarMonthMenu-Label-styles () {
+.duiCalendarMonthMenu-Label-styles () {
 	background-color: @lightColor14;
 	color: @darkColor;
 }
-.dijitCalendarDecrease-styles () {
+.duiCalendarDecrease-styles () {
 	border-right: 6px solid @lightColor12 !important;
 }
-.dijitCalendarIncrease-styles () {
+.duiCalendarIncrease-styles () {
 	border-left: 6px solid @lightColor12 !important;
 }
-.dijitCalendarDayLabelTemplate-styles () {
+.duiCalendarDayLabelTemplate-styles () {
 	background-color: @lightColor06;
 	font-size: 12px;
 	color: @darkColor;
 }
-.dijitCalendarDateTemplate-styles () {
+.duiCalendarDateTemplate-styles () {
 	border: none;
 	background-color: @lightColor;
 	color: @darkColor;
 }
-.dijitCalendarDateTemplate-LastChild-styles () {
+.duiCalendarDateTemplate-LastChild-styles () {
 	border-right: none;
 }
-.dijitCalendarDateLabel-DateTemplate-styles () {
+.duiCalendarDateLabel-DateTemplate-styles () {
 	border: none;
 }
-.dijitCalendarDateLabel-PrevMonth-styles () {
+.duiCalendarDateLabel-PrevMonth-styles () {
 	color: lightGrey;
 }
-.dijitCalendarDateLabel-Hovered-styles () {
+.duiCalendarDateLabel-Hovered-styles () {
 	color: grey;
 }
-.dijitCalendarDateLabel-Selected-styles () {
+.duiCalendarDateLabel-Selected-styles () {
 	.default-button-background-image();
 	color: @darkColor;
 	text-shadow: rgba(0,0,0,0.4) 0 1px 0;
 }
-.dijitCalendarDateLabel-Selected-compat () {
+.duiCalendarDateLabel-Selected-compat () {
 	background-image: url(compat/calendar-datelabel-sel-bg.png);
 }
-.dijitCalendarDateLabel-Selected-compat-gecko () {
+.duiCalendarDateLabel-Selected-compat-gecko () {
 	background-image: @default-button-background-image-gecko;
 }
-.dijitCalendarDateLabel-Active-styles () {
+.duiCalendarDateLabel-Active-styles () {
 	.default-selected-background-image();
 }
-.dijitCalendarDateLabel-Active-compat () {
+.duiCalendarDateLabel-Active-compat () {
 	background-image: url(compat/calendar-datelabel-act-bg.png);
 }
-.dijitCalendarDateLabel-Active-compat-gecko () {
+.duiCalendarDateLabel-Active-compat-gecko () {
 	background-image: @default-selected-background-image-gecko;
 }
-.dijitCalendarYearLabel-styles () {
+.duiCalendarYearLabel-styles () {
 	padding: 0;
 	.dui-button-background-image();
 }
-.dijitCalendarYearLabel-compat () {
+.duiCalendarYearLabel-compat () {
 	background-image: url(compat/calendar-year-bg.png);
 }
-.dijitCalendarYearLabel-compat-gecko () {
+.duiCalendarYearLabel-compat-gecko () {
 	background-image: @dui-button-background-image-gecko;
 }
-.dijitCalendarSelectedYear-styles () {
+.duiCalendarSelectedYear-styles () {
 	color: @darkColor;
 	font-size: 16px;
 }
-.dijitCalendarNextYear-styles () {
+.duiCalendarNextYear-styles () {
 	padding: 1px 6px 3px 6px;
 	color: @darkColor;
 	font-size: 12px;

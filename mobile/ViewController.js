@@ -10,7 +10,7 @@ define([
 	"dojo/dom-construct",
 	"dojo/on",
 	"dojo/domReady",
-	"dijit/registry",
+	"dui/registry",
 	"dojo/topic",
 	"./ProgressIndicator",
 	"./TransitionEvent",

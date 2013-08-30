@@ -17,7 +17,7 @@ define([
 		//		or a DOM Button. It calls dui/mobile/iconUtils.createIcon() with the 
 		//		appropriate parameters to create an icon. 
 		//		Note that this module is not a widget, that is it does not inherit 
-		//		from dijit/_WidgetBase.
+		//		from dui/_WidgetBase.
 		// example:
 		//		Image icon:
 		//	|	<div data-dojo-type="dui.mobile.Icon"

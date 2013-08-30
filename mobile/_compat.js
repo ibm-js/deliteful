@@ -15,7 +15,7 @@ define([
 	"dojo/fx/easing",
 	"dojo/domReady",
 	"dojo/uacss",
-	"dijit/registry",	// registry.byNode
+	"dui/registry",	// registry.byNode
 	"dojox/fx",
 	"dojox/fx/flip",
 	"./EdgeToEdgeList",

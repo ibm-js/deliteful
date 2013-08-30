@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
-	"dijit/form/_SearchMixin",
+	"dui/form/_SearchMixin",
 	"dui/mobile/TextBox",
 	"dojo/dom-class",
 	"dojo/keys",

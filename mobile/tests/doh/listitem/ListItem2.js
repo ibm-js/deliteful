@@ -26,14 +26,14 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_RoundRectList_0");
+				var demoWidget = dui.byId("dui_mobile_RoundRectList_0");
 				demoWidget.set({iconBase :""});
 				doh.assertEqual("", demoWidget.get("iconBase"));
 
 				verifyListItem("dui_mobile_ListItem_0", 'Sounds', '', "duiDomButtonArrow", true, true, false, false, /i-icon-all.png/i, false, true);
 				verifyListItemPos("dui_mobile_ListItem_0", "0px", "116px", "29px", "87px", "0px", "-87px", true);
 
-				demoWidget = dijit.byId("dui_mobile_EdgeToEdgeList_0");
+				demoWidget = dui.byId("dui_mobile_EdgeToEdgeList_0");
 				demoWidget.set({iconBase :""});
 				doh.assertEqual("", demoWidget.get("iconBase"));
 

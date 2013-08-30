@@ -3,7 +3,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/sniff",
 	"dojo/dom-class",
-	"dijit/registry",
+	"dui/registry",
 	"doh/runner"
 ], function(declare, lang, has, domClass, registry){
 

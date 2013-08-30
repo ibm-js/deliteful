@@ -6,14 +6,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>StarRating Tests</title>
 <script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="'dojo-bidi': true"></script>
-<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
+<script type="text/javascript" src="../../../../../dojo/dojo.js" data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
 <script type="text/javascript" src="../TestUtil.js"></script>
 <script language="JavaScript" type="text/javascript">
 	var timeoutInterval = 1000;
 	var val = {"star": 0, "star_rtl": 0};
 	require([
 		"dojo/ready", // dojo.ready
-		"dijit/registry",
+		"dui/registry",
 		"doh/runner",	//doh functions
 		"dojo/query",
 		"dojo/string",
@@ -68,7 +68,7 @@
 
 			var checkRating = function(ratingId, maximum, rtl, expectedValue){
 				var rating = registry.byId(ratingId);
-				runner.assertTrue(rating, ratingId + ' not found in dijit registry');
+				runner.assertTrue(rating, ratingId + ' not found in dui registry');
 				var stars = query('div', ratingId);
 				var i, node;
 				runner.assertEqual(expectedValue, rating.value, 'the rating value is not the expected one for ' + ratingId);

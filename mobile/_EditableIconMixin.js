@@ -8,7 +8,7 @@ define([
 	"dojo/on",
 	"dojo/topic",
 	"dojo/touch",
-	"dijit/registry",
+	"dui/registry",
 	"./IconItem",
 	"./viewRegistry",
 	"./_css3"

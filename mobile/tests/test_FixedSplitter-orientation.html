@@ -6,11 +6,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>FixedSplitter Test</title>
 
-	<link href="../../../dijit/themes/tundra/tundra.css" rel="stylesheet"/>
+	<link href="../../../dui/themes/tundra/tundra.css" rel="stylesheet"/>
 	<link href="../themes/iphone/FixedSplitter.css" rel="stylesheet"/>
 
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -19,13 +19,13 @@
 			"dojo/dom",
 			"dojo/dom-class",
 			"dojo/domReady",
-			"dijit/registry",
+			"dui/registry",
 			"dojo/sniff",
 			"dojo/parser",
 			"dui/mobile/FixedSplitter",
 			"dui/mobile/Container",
 			"dui/mobile/Pane",
-			"dijit/Calendar"
+			"dui/Calendar"
 		], function(connect, win, dom, domClass, ready, registry, has){
 			var change = function() {
 				var splitter = registry.byId("splitter1");
@@ -71,7 +71,7 @@
 		</div>
 
 		<div id="pane2" data-dojo-type="dui/mobile/Container" style="background-color:pink;">
-			<div id="cal" dojoType='dijit.Calendar'></div>
+			<div id="cal" dojoType='dui.Calendar'></div>
 		</div>
 	</div>
 </body>

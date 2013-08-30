@@ -5,7 +5,7 @@ define([
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/topic",
-	"dijit/registry",
+	"dui/registry",
 	"./View",
 	"./_ScrollableMixin",
 	"dojo/sniff",

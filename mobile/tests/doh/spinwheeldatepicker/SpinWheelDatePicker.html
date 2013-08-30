@@ -11,12 +11,12 @@
 		src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','SpinWheel']"></script>
 <script type="text/javascript"
 		src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true"></script>
 
 <script type="text/javascript">
 var onYearSet, onMonthSet, onDaySet;
 require([
-	"dojo/parser", "dojo/domReady!", "dijit/registry", "doh/runner", "dojo/_base/array",
+	"dojo/parser", "dojo/domReady!", "dui/registry", "doh/runner", "dojo/_base/array",
 	"dojo/dom-class", "dui/mobile/compat",
 	"dui/mobile/SpinWheelDatePicker"],
 		function(parser, ready, registry, runner, array, domClass){

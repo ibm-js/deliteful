@@ -1,27 +1,27 @@
-/* dijit.Calendar */
-.dijitCalendar thead {
+/* dui.Calendar */
+.duiCalendar thead {
   background-repeat: repeat-x;
   background-image: url(compat/calendar-month-bg.png);
 }
-.dijitCalendarSelectedDate .dijitCalendarDateLabel {
+.duiCalendarSelectedDate .duiCalendarDateLabel {
   background-repeat: repeat-x;
 }
-.dijitCalendarActiveDate .dijitCalendarDateLabel {
+.duiCalendarActiveDate .duiCalendarDateLabel {
   background-repeat: repeat-x;
 }
-.dijitCalendarYearLabel {
+.duiCalendarYearLabel {
   background-repeat: repeat-x;
   background-image: url(compat/calendar-year-bg.png);
 }
-.dj_gecko .dijitCalendar .dijitDropDownButton .dijitButtonNode {
+.dj_gecko .duiCalendar .duiDropDownButton .duiButtonNode {
   -moz-box-shadow: 0 0 0 transparent;
 }
-.dj_gecko .dijitCalendar thead {
+.dj_gecko .duiCalendar thead {
   background-image: -moz-linear-gradient(top, #f6f6f6 0%, #ccccd1 100%);
 }
-.dj_gecko .dijitCalendarYearLabel {
+.dj_gecko .duiCalendarYearLabel {
   background-image: -moz-linear-gradient(top, #f6f6f6 0%, #ccccd1 100%);
 }
-.dj_ff3 .dijitCalendar {
+.dj_ff3 .duiCalendar {
   -moz-border-radius: 0;
 }

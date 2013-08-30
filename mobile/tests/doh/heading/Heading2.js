@@ -1,7 +1,7 @@
 require([
 	"dojo/parser",
 	"doh/runner",
-	"dijit/registry",
+	"dui/registry",
 	"dojo/domReady!"
 ], function(parser, doh, registry){
 

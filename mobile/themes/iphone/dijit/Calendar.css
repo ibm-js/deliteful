@@ -1,6 +1,6 @@
-/* if you link this style sheet, dijit/themes/dijit.css must be imported. */
-/* dijit.Calendar */
-.dijitCalendar {
+/* if you link this style sheet, dui/themes/dijit.css must be imported. */
+/* dui.Calendar */
+.duiCalendar {
   padding: 0;
   width: 320px;
   border-radius: 0;
@@ -8,20 +8,20 @@
   border: solid 1px #b5bcc7;
   background-color: #dddde0;
 }
-.dijitCalendar thead {
+.duiCalendar thead {
   border-color: inherit;
   vertical-align: middle;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#ccccd1));
   background-image: linear-gradient(to bottom, #f6f6f6 0%, #ccccd1 100%);
 }
-.dijitCalendarMonthLabel {
+.duiCalendarMonthLabel {
   padding: 0 4px;
   font-family: Helvetica;
   text-shadow: rgba(247, 247, 247, 0.6) 0 1px 0px;
   color: #545454;
   font-size: 22px;
 }
-.dijitCalendar .dijitDropDownButton .dijitButtonNode {
+.duiCalendar .duiDropDownButton .duiButtonNode {
   padding: 0 3px 0 2px;
   border: none;
   background-color: transparent;
@@ -29,36 +29,36 @@
   -webkit-box-shadow: 0 0 0 transparent;
   box-shadow: 0 0 0 transparent;
 }
-.dijitArrowButtonInner {
+.duiArrowButtonInner {
   display: none;
 }
-.dijitCalendarMonthContainer th {
+.duiCalendarMonthContainer th {
   border-right: 1px solid transparent;
 }
-.dijitCalendarIncrementControl {
+.duiCalendarIncrementControl {
   width: 0;
   height: 0;
   border: 6px solid transparent !important;
 }
-.dijitCalendarDecrease {
+.duiCalendarDecrease {
   border-left-width: 0 !important;
   border-right: 6px solid #545454 !important;
 }
-.dijitCalendarIncrease {
+.duiCalendarIncrease {
   border-right-width: 0 !important;
   border-left: 6px solid #545454 !important;
 }
-.dijitA11ySideArrow {
+.duiA11ySideArrow {
   display: none;
 }
-.dijitCalendarDayLabelTemplate {
+.duiCalendarDayLabelTemplate {
   border-right: 1px solid transparent;
   text-align: center;
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
   font-size: 9px;
   color: #545454;
 }
-.dijitCalendarDateTemplate {
+.duiCalendarDateTemplate {
   border-bottom: 1px solid lightGrey;
   font-family: Helvetica;
   font-size: 22px;
@@ -68,7 +68,7 @@
   color: #4a5b6e;
   text-shadow: #e7e7e9 0 1px 0;
 }
-.dijitCalendarDateTemplate .dijitCalendarDateLabel {
+.duiCalendarDateTemplate .duiCalendarDateLabel {
   padding: 3px 5px 3px 4px;
   display: block;
   text-decoration: none;
@@ -82,40 +82,40 @@
   -webkit-transition-duration: 0.35s;
   transition-duration: 0.35s;
 }
-.dijitCalendarPreviousMonth .dijitCalendarDateLabel,
-.dijitCalendarNextMonth .dijitCalendarDateLabel {
+.duiCalendarPreviousMonth .duiCalendarDateLabel,
+.duiCalendarNextMonth .duiCalendarDateLabel {
   color: #9099a4;
 }
-.dijitCalendarHoveredDate .dijitCalendarDateLabel {
+.duiCalendarHoveredDate .duiCalendarDateLabel {
   border: solid 1px #769dc0;
   color: black;
 }
-.dijitCalendarSelectedDate .dijitCalendarDateLabel {
+.duiCalendarSelectedDate .duiCalendarDateLabel {
   border: solid 1px #1037b3;
   background-color: #1a80e5;
   color: white;
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
 }
-.dijitCalendarActiveDate .dijitCalendarDateLabel {
+.duiCalendarActiveDate .duiCalendarDateLabel {
   border: solid 1px white;
   background-color: #1a80e5;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
-.dijitCalendarYearLabel {
+.duiCalendarYearLabel {
   margin: 0;
   padding: 2px 0 0 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#ccccd1));
   background-image: linear-gradient(to bottom, #f6f6f6 0%, #ccccd1 100%);
 }
-.dijitCalendarSelectedYear {
+.duiCalendarSelectedYear {
   font-family: Helvetica;
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
   color: #545454;
   font-size: 1.091em;
 }
-.dijitCalendarNextYear,
-.dijitCalendarPreviousYear {
+.duiCalendarNextYear,
+.duiCalendarPreviousYear {
   text-shadow: rgba(247, 247, 247, 0.6) 0px 1px 0px;
   padding: 1px 6px 1px 6px;
   color: #545454;

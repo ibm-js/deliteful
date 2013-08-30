@@ -13,7 +13,7 @@
 
 <script type="text/javascript" src="../../../deviceTheme.js"></script>
 <script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, duiAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, duiAlwaysHideAddressBar: true"></script>
 
 <script type="text/javascript">
 // Templates
@@ -149,13 +149,13 @@ require([
 	"dojo/dom",
 	"dojo/dom-class",
 	"dojo/sniff",
-	"dijit/registry",
+	"dui/registry",
 	"dui/mobile/compat",
 	"dojo/_base/declare",
 	"dojo/dom-construct",
 	"doh/runner",
-	"dijit/_TemplatedMixin",
-	"dijit/_WidgetsInTemplateMixin",
+	"dui/_TemplatedMixin",
+	"dui/_WidgetsInTemplateMixin",
 	"dui/mobile/ListItem",
 	"dui/mobile/Heading",
 	"dui/mobile/Switch",
@@ -453,18 +453,18 @@ require([
 			<!-- 1. In markup -->
 			<!-- 1.1 With attach point for labelNode and label property specified -->
 			<li id="listItem1" data-dojo-type="dui/mobile/ListItem"
-				data-dojo-mixins="dijit/_TemplatedMixin"
+				data-dojo-mixins="dui/_TemplatedMixin"
 				data-dojo-props="label:'Some label',
 						templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 			</li>
 			<!-- 1.2 With attach point for labelNode but no label property specified -->
 			<li id="listItem2" data-dojo-type="dui/mobile/ListItem"
-				data-dojo-mixins="dijit/_TemplatedMixin"
+				data-dojo-mixins="dui/_TemplatedMixin"
 				data-dojo-props="templateString: '<div>My inline <i>HTML</i> template (markup)<div data-dojo-attach-point=\'labelNode\'></div></div>'">
 			</li>
 			<!-- 1.3 Without attach point for labelNode and no label property specified -->
 			<li id="listItem3" data-dojo-type="dui/mobile/ListItem"
-				data-dojo-mixins="dijit/_TemplatedMixin"
+				data-dojo-mixins="dui/_TemplatedMixin"
 				data-dojo-props="templateString: '<div><div>My inline, multiline <i>HTML</i><br>template (markup)</div></div>'">
 			</li>
 
@@ -484,7 +484,7 @@ require([
 			<div id="heading1" data-dojo-type="dui/mobile/Heading"
 				 data-dojo-props="back:'Back',
 						templateString: '<div>My inline <i>HTML</i> template (markup)</div>'"
-				 data-dojo-mixins="dijit/_TemplatedMixin">
+				 data-dojo-mixins="dui/_TemplatedMixin">
 			</div>
 			<!-- 3.2 With attach points; back and label specified -->
 			<div id="heading2" data-dojo-type=TemplatedWithWidgetsHeading1
@@ -499,7 +499,7 @@ require([
 						<td style="text-align:right">
 							<button id="button1" data-dojo-type="dui/mobile/Button"
 									data-dojo-props="templateString: templateButton1"
-									data-dojo-mixins="dijit/_TemplatedMixin">
+									data-dojo-mixins="dui/_TemplatedMixin">
 								Press me!
 							</button>
 						</td>
@@ -517,7 +517,7 @@ require([
 								   style="width:200px;" type="range"
 								   data-dojo-props="templateString: templateSlider1,
 								value:10, min:0, max:40, step:0.1"
-								   data-dojo-mixins="dijit/_TemplatedMixin">
+								   data-dojo-mixins="dui/_TemplatedMixin">
 						</td>
 					</tr>
 				</table>
@@ -562,7 +562,7 @@ require([
 							<input id="switch1" type="checkbox" value="on"
 								   data-dojo-type="dui/mobile/Switch"
 								   data-dojo-props="templateString: templateSwitch1"
-								   data-dojo-mixins="dijit/_TemplatedMixin, dijit/_WidgetsInTemplateMixin">
+								   data-dojo-mixins="dui/_TemplatedMixin, dui/_WidgetsInTemplateMixin">
 						</td>
 						<td style="text-align:right">
 							<input id="switch2" type="checkbox" value="on"

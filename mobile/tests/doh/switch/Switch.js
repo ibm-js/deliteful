@@ -6,7 +6,7 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var demoWidget = dijit.byId("dui_mobile_Switch_0");
+					var demoWidget = dui.byId("dui_mobile_Switch_0");
 					doh.assertTrue(demoWidget.domNode.className.search(/duiSwitch/i) != -1);
 					doh.assertTrue(demoWidget.domNode.className.search(/duiSwitchOff/i) != -1);
 					doh.assertTrue(demoWidget.domNode.className.search(/float/i) != -1);
@@ -21,7 +21,7 @@ dojo.addOnLoad(function(){
 					doh.assertEqual('OFF', demoWidget.inner.childNodes[1].childNodes[0].innerHTML);
 					doh.assertEqual('duiSwitchKnob', demoWidget.inner.childNodes[2].className);
 
-					demoWidget = dijit.byId("dui_mobile_Switch_1");
+					demoWidget = dui.byId("dui_mobile_Switch_1");
 					doh.assertEqual('duiSwitch duiSwDefaultShape duiSwitchOn', demoWidget.domNode.className);
 					doh.assertEqual('duiSwitchInner', demoWidget.inner.className);
 					doh.assertEqual('duiSwitchBg duiSwitchBgLeft', demoWidget.inner.childNodes[0].className);
@@ -41,7 +41,7 @@ dojo.addOnLoad(function(){
 			name: "Switch set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_Switch_0");
+				var demoWidget = dui.byId("dui_mobile_Switch_0");
 				demoWidget.set({value :"on"});
 				doh.assertEqual("on", demoWidget.get("value"));
 //							doh.assertEqual('none', demoWidget.inner.childNodes[1].style.display);
@@ -51,7 +51,7 @@ dojo.addOnLoad(function(){
 			name: "Switch set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_Switch_0");
+				var demoWidget = dui.byId("dui_mobile_Switch_0");
 				demoWidget.set({leftLabel :"Start", rightLabel:"Stop"});
 				doh.assertEqual("Start", demoWidget.get("leftLabel"));
 				doh.assertEqual("Stop", demoWidget.get("rightLabel"));

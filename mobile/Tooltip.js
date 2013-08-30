@@ -1,14 +1,14 @@
 define([
 	"dojo/_base/array", // array.forEach
-	"dijit/registry",
+	"dui/registry",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
 	"dojo/dom-style",
-	"dijit/place",
-	"dijit/_WidgetBase",
+	"dui/place",
+	"dui/_WidgetBase",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Tooltip"
 ], function(array, registry, declare, lang, domClass, domConstruct, domGeometry, domStyle, place, WidgetBase, has, BidiTooltip){

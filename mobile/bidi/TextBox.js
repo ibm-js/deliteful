@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"dijit/_BidiSupport"  //load implementation for textDir from dijit (for editable widgets), (no direct references)
+	"dui/_BidiSupport"  //load implementation for textDir from dui (for editable widgets), (no direct references)
 ], function(declare){
 
 	// module:

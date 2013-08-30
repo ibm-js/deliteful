@@ -8,7 +8,7 @@
 
 	<script type="text/javascript" src="../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Tooltip']"></script>
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
 
 	<script type="text/javascript">
 		require([
@@ -16,8 +16,8 @@
 			"dojo/domReady",
 			"dojo/_base/array",
 			"dojo/dom",
-			"dijit/registry",
-			"dijit/_base/manager",
+			"dui/registry",
+			"dui/_base/manager",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/mobile/Tooltip",
@@ -93,30 +93,30 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip1" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello world!</div>
-		<input readonly onclick="dijit.byId('textTooltip1').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip1').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip2" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip2').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip2').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip3" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip3').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip3').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip4" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
-		<input readonly onclick="dijit.byId('textTooltip4').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip4').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		
 		
 		<center>
-		<button readonly onclick="dijit.byId('textTooltip1').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip2').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip3').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip4').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip1').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip2').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip3').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip4').hide()"> Click to hide fourth text tooltip </button>
 		</center>
 		<br>
 		<br>
@@ -133,29 +133,29 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip5" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
-		<input readonly onclick="dijit.byId('textTooltip5').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip5').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip6" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip6').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip6').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip7" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip7').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip7').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip8" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
-		<input readonly onclick="dijit.byId('textTooltip8').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip8').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		
 		<center>
-		<button readonly onclick="dijit.byId('textTooltip5').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip6').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip7').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip8').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip5').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip6').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip7').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip8').hide()"> Click to hide fourth text tooltip </button>
 		</center>
 		
 		
@@ -167,30 +167,30 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir AUTO</h1>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip9" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><span style="background-color:Lime">Hello world!</span></div>
-		<input readonly onclick="dijit.byId('textTooltip9').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip9').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip10" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</span></div>
-		<input readonly onclick="dijit.byId('textTooltip10').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip10').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip11" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><span style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</span></div>
-		<input readonly onclick="dijit.byId('textTooltip11').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip11').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip12" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><span style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</span></div>
-		<input readonly onclick="dijit.byId('textTooltip12').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
+		<input readonly onclick="dui.byId('textTooltip12').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
 		
 		</div>		
 		
 		<center>
-		<button readonly onclick="dijit.byId('textTooltip9').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip10').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip11').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip12').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip9').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip10').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip11').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip12').hide()"> Click to hide fourth text tooltip </button>
 		</center>
 		
 	</div>	
@@ -200,30 +200,30 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"ltr"'>	
 		<div id="textTooltip13" data-dojo-type="dui/mobile/Tooltip" class="duiTooltipBubble">Hello world!</div>
-		<input readonly onclick="dijit.byId('textTooltip13').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip13').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip14" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip14').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip14').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip15" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip15').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip15').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip16" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"ltr"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
-		<input readonly onclick="dijit.byId('textTooltip16').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip16').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 	
 		
 		<center>
-		<button readonly onclick="dijit.byId('textTooltip13').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip14').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip15').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip16').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip13').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip14').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip15').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip16').hide()"> Click to hide fourth text tooltip </button>
 		</center>
 		
 	</div>
@@ -231,29 +231,29 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip17" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello world!</div>
-		<input readonly onclick="dijit.byId('textTooltip17').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip17').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip18" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip18').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip18').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip19" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!</div>
-		<input readonly onclick="dijit.byId('textTooltip19').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip19').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip20" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"rtl"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!</div>
-		<input readonly onclick="dijit.byId('textTooltip20').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip20').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 			
 			<center>
-		<button readonly onclick="dijit.byId('textTooltip17').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip18').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip19').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip20').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip17').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip18').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip19').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip20').hide()"> Click to hide fourth text tooltip </button>
 		</center>	
 		
 	</div>	
@@ -261,30 +261,30 @@
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir AUTO</h1>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip21" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello world!<br><b style="background-color:Lime"> Hello world! </b></div>
-		<input readonly onclick="dijit.byId('textTooltip21').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip21').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip22" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; &#1506;&#1493;&#1500;&#1501;!</b></div>
-		<input readonly onclick="dijit.byId('textTooltip22').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip22').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>	
 		<div id="textTooltip23" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">Hello &#1506;&#1493;&#1500;&#1501;!<br><b style="background-color:Lime">Hello &#1506;&#1493;&#1500;&#1501;!</b></div>
-		<input readonly onclick="dijit.byId('textTooltip23').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
+		<input readonly onclick="dui.byId('textTooltip23').show(this, ['after','before','above','below'])" value="Click on me!" size="10">
 		</div>
 		<br>
 		<div dir="rtl" data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true'>
 		<div id="textTooltip24" data-dojo-type="dui/mobile/Tooltip" data-dojo-props='textDir:"auto"' class="duiTooltipBubble">&#1513;&#1500;&#1493;&#1501; World!<br><b style="background-color:Lime">&#1513;&#1500;&#1493;&#1501; World!</b></div>
-		<input readonly onclick="dijit.byId('textTooltip24').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
+		<input readonly onclick="dui.byId('textTooltip24').show(this, ['after','before','above','below'])" value="Click on me!" size="10">		
 		
 		</div>				
 		
 		<center>
-		<button readonly onclick="dijit.byId('textTooltip21').hide()"> Click to hide first text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip22').hide()"> Click to hide second text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip23').hide()"> Click to hide third text tooltip </button>
-		<button readonly onclick="dijit.byId('textTooltip24').hide()"> Click to hide fourth text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip21').hide()"> Click to hide first text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip22').hide()"> Click to hide second text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip23').hide()"> Click to hide third text tooltip </button>
+		<button readonly onclick="dui.byId('textTooltip24').hide()"> Click to hide fourth text tooltip </button>
 		</center>
 	</div>	
 </div>

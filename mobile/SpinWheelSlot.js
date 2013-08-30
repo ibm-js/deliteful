@@ -11,8 +11,8 @@ define([
 	"dojo/has!dojo-bidi?dui/mobile/bidi/SpinWheelSlot",
 	"dojo/touch",
 	"dojo/on",
-	"dijit/_Contained",
-	"dijit/_WidgetBase",
+	"dui/_Contained",
+	"dui/_WidgetBase",
 	"./scrollable",
 	"./common"
 ], function(dojo, array, declare, lang, win, aspect, domClass, domConstruct, has, BidiSpinWheelSlot,

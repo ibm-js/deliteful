@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare",
 	"dojo/dom-class",
-	"dijit/form/_ToggleButtonMixin",
+	"dui/form/_ToggleButtonMixin",
 	"./Button"
 ], function(declare, domClass, ToggleButtonMixin, Button){
 

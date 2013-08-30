@@ -12,7 +12,7 @@ define([
 	"dojo/topic",
 	"dojo/touch",
 	"dojo/dom-attr",
-	"dijit/registry",
+	"dui/registry",
 	"./ListItem"
 ], function(array, declare, lang, win, domClass, domGeometry, domStyle, on, topic, touch, domAttr, registry, ListItem){
 

@@ -18,7 +18,7 @@
 			}
 		</style>
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -32,7 +32,7 @@
 
 			dojo.addOnLoad(function(){
 
-				var view = dijit.byId("foo");
+				var view = dui.byId("foo");
 				var container = new dui.mobile.IconContainer();
 				var demoWidget = new dui.mobile.IconItem({label:"app1", icon:"../../images/icon3.png", lazy:"true"});
 //This position works fine.

@@ -33,7 +33,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_0");
+				var demoWidget = dui.byId("dui_mobile_ListItem_0");
 				demoWidget.set({transition :"flip", url:"../../view2.html", noArrow:true, selected:true, anchorLabel:true, rightText:"Value Changed"});
 				doh.assertEqual("flip", demoWidget.get("transition"));
 				doh.assertEqual("../../view2.html", demoWidget.get("url"));
@@ -49,7 +49,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_1");
+				var demoWidget = dui.byId("dui_mobile_ListItem_1");
 				demoWidget.set({icon :"../../images/i-icon-4.png", label:"Value Changed", clickable:true, url:"../../view3.html", transition :"slide", transitionDir:-1, sync:false, toggle:true, _duration:1600});
 
 				doh.assertEqual("slide", demoWidget.get("transition"));
@@ -68,7 +68,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_6");
+				var demoWidget = dui.byId("dui_mobile_ListItem_6");
 				demoWidget.set({iconPos :"0,116,29,29", moveTo:"bar", transition :"fade"});
 
 				doh.assertEqual("bar", demoWidget.get("moveTo"));
@@ -84,7 +84,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_6");
+				var demoWidget = dui.byId("dui_mobile_ListItem_6");
 				demoWidget.set({href :"", hrefTarget:""});
 
 				doh.assertEqual("", demoWidget.get("href"));
@@ -96,7 +96,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_9");
+				var demoWidget = dui.byId("dui_mobile_ListItem_9");
 				demoWidget.set({rightIcon:"duiDomButtonRedMinus"});
 				verifyListItem("dui_mobile_ListItem_9", 'XX Widget', '', "duiDomButtonRedMinus", true, true, false);
 //							doh.assertEqual("duiDomButtonRedMinus", demoWidget.get("icon"));
@@ -106,7 +106,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_11");
+				var demoWidget = dui.byId("dui_mobile_ListItem_11");
 				demoWidget.set({rightIcon:"duiDomButtonCheckboxOn"});
 
 				var txt = 'See location in applications (such as Maps) using wireless networks';
@@ -118,7 +118,7 @@ dojo.addOnLoad(function(){
 			name: "ListItem set",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dijit.byId("dui_mobile_ListItem_11");
+				var demoWidget = dui.byId("dui_mobile_ListItem_11");
 				// Test case for #16314
 				var noError = true;
 				try{

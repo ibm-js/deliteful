@@ -17,7 +17,7 @@
 		}
 		</style>
 		<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -31,10 +31,10 @@
 			dojo.addOnLoad(function(){
 				doh.register("dui/mobile/test.doh.Button", [
 					function test_Button_Verification(){
-						var demoWidget = dijit.byId("btn1");
+						var demoWidget = dui.byId("btn1");
 						doh.assertEqual('duiButton duiBlueButton', demoWidget.domNode.className);
 						doh.assertEqual('Default Button', demoWidget.domNode.childNodes[0].nodeValue);
-						demoWidget = dijit.byId("btn2");
+						demoWidget = dui.byId("btn2");
 						doh.assertEqual('duiButton redButton', demoWidget.domNode.className);
 						doh.assertEqual('Custom Button', demoWidget.domNode.childNodes[0].nodeValue);
 					}

@@ -8,7 +8,7 @@
 
 	<script type="text/javascript" src="../deviceTheme.js" ></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: false"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: false"></script>
 	
 	<script type="text/javascript">
 		var opener, updateDate, showDatePicker, onShow, onHide, datePicker1, datePicker2;
@@ -26,7 +26,7 @@
 				}
 		};
 		require(["dojo/domReady","dojo/parser",
-			"dijit/registry", "dui/mobile/DatePicker", "dojo/date/stamp", "dui/mobile/Opener", "dui/mobile/compat",
+			"dui/registry", "dui/mobile/DatePicker", "dojo/date/stamp", "dui/mobile/Opener", "dui/mobile/compat",
 			"dui/mobile/Heading", "dui/mobile/ToolBarButton"], 
 	function(ready, parser, registry, DatePicker, stamp) {
 		ready(function() {

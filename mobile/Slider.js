@@ -11,8 +11,8 @@ define([
 	"dojo/keys",
 	"dojo/on",
 	"dojo/touch",
-	"dijit/_WidgetBase",
-	"dijit/form/_FormValueMixin"
+	"dui/_WidgetBase",
+	"dui/form/_FormValueMixin"
 ],
 	function(array, declare, lang, win, has, domClass, domConstruct, domGeometry, domStyle, keys, on, touch, WidgetBase, FormValueMixin){
 

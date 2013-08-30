@@ -6,10 +6,10 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Icon Container (Multi - NewPane)</title>
 
-	<link href="../themes/common/dijit/dijit.css" rel="stylesheet"/>
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','IconContainer','dijit.Calendar']"></script>
+	<link href="../themes/common/dui/dijit.css" rel="stylesheet"/>
+	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','IconContainer','dui.Calendar']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
 	<script type="text/javascript">
 		require([
@@ -24,13 +24,13 @@
 		<h1 data-dojo-type="dui/mobile/Heading">Icon Container (Multi - NewPane)</h1>
 		<ul data-dojo-type="dui/mobile/IconContainer" data-dojo-props='transition:"flip"'>
 			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"Calendar", icon:"images/icon-1.png"' lazy="true">
-				<div id="cal" data-dojo-type="dijit.CalendarLite"></div>
+				<div id="cal" data-dojo-type="dui.CalendarLite"></div>
 			</li>
 			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"Color Palette", icon:"images/icon-1.png"' lazy="true">
-				<div data-dojo-type="dijit.ColorPalette"></div>
+				<div data-dojo-type="dui.ColorPalette"></div>
 			</li>
 			<li data-dojo-type="dui/mobile/IconItem" data-dojo-props='label:"Progress Bar", icon:"images/icon-1.png"' lazy="true">
-				<div data-dojo-type="dijit.ProgressBar"></div>
+				<div data-dojo-type="dui.ProgressBar"></div>
 			</li>
 		</ul>
 	</div>

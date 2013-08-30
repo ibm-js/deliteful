@@ -11,14 +11,14 @@
 		src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','ValuePicker']"></script>
 <script type="text/javascript"
 		src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true"></script>
 
 <script type="text/javascript">
 	var onYearSet, onMonthSet, onDaySet;
 	require([
 		"dojo/parser",
 		"dojo/domReady!",
-		"dijit/registry",
+		"dui/registry",
 		"doh/runner",
 		"dui/mobile/compat",
 		"dui/mobile/ValuePickerDatePicker"

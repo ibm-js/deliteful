@@ -8,7 +8,7 @@
 
 	<script type="text/javascript" src="../../../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','TabBar']"></script>
 	<script type="text/javascript" src="../../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true, duiAlwaysHideAddressBar: true"></script>
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dojo.parser"); // Use the lightweight parser.
@@ -33,31 +33,31 @@
 					runTest: function(){
 						var d = new doh.Deferred();
 						setTimeout(d.getTestCallback(function(){
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
 						}),500);
@@ -73,31 +73,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_1");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),1000);
 						return d;
@@ -112,31 +112,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_2");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -151,31 +151,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_4");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),1000);
 						return d;
@@ -190,31 +190,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_5");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -229,31 +229,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_6");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -268,31 +268,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_7");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -307,31 +307,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_3");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -346,31 +346,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_0");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -385,31 +385,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_1");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;
@@ -424,31 +424,31 @@
 						fireOnMouseUp("dui_mobile_TabBarButton_2");
 						setTimeout(d.getTestCallback(function(){
 
-							var demoWidget = dijit.byId("group1");
+							var demoWidget = dui.byId("group1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view1");
+							demoWidget = dui.byId("view1");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view2");
+							demoWidget = dui.byId("view2");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("view3");
+							demoWidget = dui.byId("view3");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("categ");
+							demoWidget = dui.byId("categ");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 							
-							demoWidget = dijit.byId("top25");
+							demoWidget = dui.byId("top25");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("search");
+							demoWidget = dui.byId("search");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("article");
+							demoWidget = dui.byId("article");
 							doh.assertEqual('none', demoWidget.domNode.style.display);
 
-							demoWidget = dijit.byId("dui_mobile_TabBar_1");
+							demoWidget = dui.byId("dui_mobile_TabBar_1");
 							doh.assertEqual('', demoWidget.domNode.style.display);
 						}),500);
 						return d;

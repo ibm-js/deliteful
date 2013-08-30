@@ -10,13 +10,13 @@
 
 		<!-- required: dojo.js -->
 		<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], isDebug: true, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], isDebug: true, parseOnLoad: true"></script>
 
 		<script language="JavaScript" type="text/javascript">
 			dojo.require("dojo._base.kernel");
-			dojo.require("dijit.robotx");
-			dojo.require("dijit.registry");
-			dojo.require("dijit.ready");
+			dojo.require("dui.robotx");
+			dojo.require("dui.registry");
+			dojo.require("dui.ready");
 			dojo.require("doh.runner");
 			dojo.require("dui.mobile");
 				dojo.ready(function(){
@@ -29,7 +29,7 @@
 							timeout: 40000,
 							runTest: function(){
 								var d = new doh.Deferred();
-								reg = kernel.global.dijit.registry;
+								reg = kernel.global.dui.registry;
 								var dim = dui.mobile.getScreenSize();
 
 								doh.robot.mouseMoveAt(reg.byId("dui_mobile_SwapView_0").domNode, 1000,100, (dim.w -30),100);

@@ -6,17 +6,17 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Dynamic Icons</title>
 
-	<link href="../../../dijit/themes/tundra/tundra.css" rel="stylesheet"/>
+	<link href="../../../dui/themes/tundra/tundra.css" rel="stylesheet"/>
 	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiThemeFiles: ['base','Button','IconContainer']"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], async: false, parseOnLoad: true"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: false, parseOnLoad: true"></script>
 
 	<script type="text/javascript">
 		require([
 			"dojo/_base/connect",
 			"dojo/dom",
 			"dojo/domReady",
-			"dijit/registry",
+			"dui/registry",
 			"dui/mobile/IconItem",
 			"dui/mobile/IconContainer",
 			"dui/mobile/Button",
@@ -34,7 +34,7 @@
 					var s = dom.byId("addIndex").value;
 					var index = s ? s - 0 : undefined;
 					iconContainer.addChild(item, index);
-					item.containerNode.innerHTML = "<div data-dojo-type='dijit._Calendar'></div>";
+					item.containerNode.innerHTML = "<div data-dojo-type='dui._Calendar'></div>";
 				};
 				removeIcon = function(e){
 					var index = dom.byId("removeIndex").value - 0;

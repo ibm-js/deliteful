@@ -5,7 +5,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-construct",
-	"dijit/registry",
+	"dui/registry",
 	"./Heading",
 	"./ListItem",
 	"./ProgressIndicator",

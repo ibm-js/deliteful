@@ -12,14 +12,14 @@
 	</style>
 
 	<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dijit', location:'../dui'}], parseOnLoad: true, isDebug: true,  has: { 'dojo-bidi': true }"></script>
+		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], parseOnLoad: true, isDebug: true,  has: { 'dojo-bidi': true }"></script>
 
 	<script type="text/javascript">
 		dojo.require("doh.runner");
 		dojo.require("dui.mobile");			// This is a mobile app.
 		dojo.require("dojo.parser"); //dojo.require("dui/mobile/parser");	// This mobile app supports running on desktop browsers
 		dojo.require("dui/mobile/compat");	// This mobile app uses declarative programming with fast mobile parser
-		dojo.require("dijit.form.DataList");
+		dojo.require("dui.form.DataList");
 		dojo.require("dui/mobile/ComboBox");
 
 		dojo.ready(function(){
@@ -28,7 +28,7 @@
 				{
 					name: "mobile",
 					runTest: function(){
-						var widget = dijit.byId('mobile_attributes');
+						var widget = dui.byId('mobile_attributes');
 						doh.is("", widget.textbox.value, "mobile original value");
 						doh.is("", widget.get('value'), "mobile original get('value')");
 						doh.is(Infinity, widget.get('pageSize'), "mobile original get('pageSize')");
@@ -48,7 +48,7 @@
 					timeout: 2000,
 					runTest: function(){
 						d = new doh.Deferred();
-						widget = dijit.byId('mobile_events');
+						widget = dui.byId('mobile_events');
 
 						function onFocus(){
 							widget.disconnect(focusHandle);
@@ -128,7 +128,7 @@
 <body style="visibility:hidden;" dir="rtl">
 	<h1 class="testTitle">mobile ComboBox non-robot tests</h1>
 	<datalist id="states">
-	<select data-dojo-type="dijit.form.DataList" data-dojo-props='id:"states"' >
+	<select data-dojo-type="dui.form.DataList" data-dojo-props='id:"states"' >
 		<option value="AL">Alabama</option>
 		<option value="AK">Alaska</option>
 		<option value="AS">American Samoa</option>

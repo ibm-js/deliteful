@@ -5,9 +5,9 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
-	"dijit/_Contained",
-	"dijit/_Container",
-	"dijit/_WidgetBase",
+	"dui/_Contained",
+	"dui/_Container",
+	"dui/_WidgetBase",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/IconMenu",
 	"./IconMenuItem"
 ], function(declare, has, domClass, domConstruct, domStyle, domAttr, Contained, Container, WidgetBase, BidiIconMenu){

@@ -8,7 +8,7 @@ define([
 	"dojo/dom-attr",
 	"dojo/on",
 	"dojo/touch",
-	"dijit/_WidgetBase",
+	"dui/_WidgetBase",
 	"./iconUtils",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/ValuePickerSlot"
@@ -137,7 +137,7 @@ define([
 			this._setPlusBtnLabelRefAttr(this.plusBtnLabelRef);
 			
 			domAttr.set(this.inputNode, "role", "textbox");
-			var registry = require("dijit/registry");
+			var registry = require("dui/registry");
 			var inputAreaNodeId =  registry.getUniqueId("dojo_mobile__duiValuePickerSlotInput");
 			domAttr.set(this.inputNode, "id", inputAreaNodeId);
 			domAttr.set(this.plusBtnNode, "aria-controls", inputAreaNodeId);

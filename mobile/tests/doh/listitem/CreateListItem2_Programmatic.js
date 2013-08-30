@@ -1,5 +1,5 @@
 dojo.addOnLoad(function(){
-	var view = dijit.byId("foo");
+	var view = dui.byId("foo");
 
 	var list = new dui.mobile.RoundRectList({iconBase:"../../images/i-icon-all.png"});
 	view.addChild(list);

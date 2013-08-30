@@ -3,9 +3,9 @@ define([
 	"dojo/_base/lang",
 	"dojo/dom-construct",
 	"dojo/on",
-	"dijit/_WidgetBase",
-	"dijit/form/_FormValueMixin",
-	"dijit/form/_TextBoxMixin",
+	"dui/_WidgetBase",
+	"dui/form/_FormValueMixin",
+	"dui/form/_TextBoxMixin",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TextBox"
 ], function(declare, lang, domConstruct, on, WidgetBase, FormValueMixin, TextBoxMixin, has, BidiTextBox){

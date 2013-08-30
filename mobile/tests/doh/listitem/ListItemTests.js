@@ -11,7 +11,7 @@ require([
 	"dojo/_base/connect",
 	"dojo/dom-class", // dojo.hasClass
 	"dojo/domReady!", // dojo.ready
-	"dijit/registry",  // dijit.byId
+	"dui/registry",  // dui.byId
 	"dojo/string", // dojo.trim
 	"doh/runner",	//doh functions
 	"dui/mobile/ListItem",
