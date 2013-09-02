@@ -1,0 +1,6 @@
+/* Css rules for dui/tests/resources/TestCssWidget.js */
+
+.foo {
+	color: red;
+	background-image: url("../images/plus.gif");
+}

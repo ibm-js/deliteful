@@ -1,0 +1,61 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>dui/css unit test</title>
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require(["doh/runner", "dojo/domReady!"], function(doh){
+			doh.register("css", [
+				function setup(){
+					numStyleNodes = document.getElementsByTagName("style").length;
+				},
+				function load(){
+					var d = new doh.Deferred();
+
+					// Load two modules that both use dui/css! to load tests/resources/TestCssWidget.css
+					require([
+						"dui/tests/resources/TestCssWidget1",
+						"dui/tests/resources/TestCssWidget2"
+					], d.getTestCallback(function(TestCssWidget){
+						// TestCssWidget.css should be automatically loaded (but just once, not twice) by the time
+						// this require() call completes.
+						var styleNodes = document.getElementsByTagName("style");
+						doh.is(numStyleNodes + 1, styleNodes.length, "new style node added");
+						var text = styleNodes[styleNodes.length - 1].innerHTML;
+						doh.t(/\.foo/.test(text), "contains the right data");
+
+						// Test that image paths are corrected to be relative to the document rather than the CSS file.
+						text.match(/url\("(.*)"\)/);
+						var path = RegExp.$1;
+						doh.is("dui/tests/css/../images/plus.gif", path, "URL to image");
+					}));
+
+					return d;
+				},
+				function reload(){
+					var d = new doh.Deferred();
+
+					// Load another modules that uses dui/css! to load the same tests/resources/TestCssWidget.css,
+					// just to triple check that the CSS doesn't get reloaded
+					require([
+						"dui/tests/resources/TestCssWidget3"
+					], d.getTestCallback(function(TestCssWidget){
+						var styleNodes = document.getElementsByTagName("style");
+						doh.is(numStyleNodes + 1, styleNodes.length, "no new style node added");
+					}));
+
+					return d;
+				}
+			]);	// doh.register()
+
+			doh.run();
+		});	// require()
+
+	</script>
+</head>
+<body>
+<h1>dui/css Unit Test</h1>
+<p>Check console for results.</p>
+</body>
+</html>
