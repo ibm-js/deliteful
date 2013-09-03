@@ -127,7 +127,7 @@ define([
 			this._onTouchStart(event);
 			if(event.type !== 'dojotouchover'){
 				this._hovering = true;
-				domClass.add(this.domNode, 'hovered');
+				domClass.add(this.domNode, this.baseClass + 'Hovered');
 			}
 			this._enterValue = this.value;
 		},
@@ -136,7 +136,7 @@ define([
 			var newValue = this._coordToValue(event);
 			if(this._hovering){
 				if(newValue != this._hoveredValue){
-					domClass.add(this.domNode, 'hovered');
+					domClass.add(this.domNode, this.baseClass + 'Hovered');
 					this._updateStars(newValue, false);
 					this._hoveredValue = newValue;
 				}
@@ -151,7 +151,7 @@ define([
 			if(!this._hovering){
 				this._removeEventsHandlers();
 			}else{
-				domClass.remove(this.domNode, 'hovered');
+				domClass.remove(this.domNode, this.baseClass + 'Hovered');
 			}
 		},
 
@@ -159,7 +159,7 @@ define([
 			if(this._hovering){
 				this._hovering = false;
 				this._hoveredValue = null;
-				domClass.remove(this.domNode, 'hovered');
+				domClass.remove(this.domNode, this.baseClass + 'Hovered');
 				this._setValueAttr(this._enterValue);
 			}
 			this._removeEventsHandlers();
@@ -256,9 +256,8 @@ define([
 			}
 			this.domNode.setAttribute('aria-disabled', !this.editable);
 			if(this.editable && !this._startHandlers){
-				this._startHandlers = [];
-				this._startHandlers.push(this.on(touch.enter, lang.hitch(this, '_onTouchEnter')));
-				this._startHandlers.push(this.on(touch.press, lang.hitch(this, '_onTouchStart')));
+				this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
+				                       this.on(touch.press, lang.hitch(this, '_onTouchStart'))];
 			}else if(!this.editable && this._startHandlers){
 				while(this._startHandlers.length){
 					this._startHandlers.pop().remove();

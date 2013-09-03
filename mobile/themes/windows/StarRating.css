@@ -12,8 +12,11 @@
   background-size: 27px 27px;
   background-repeat: no-repeat;
 }
-.duiStarRating.hovered {
+.duiStarRating.duiStarRatingHovered {
   opacity: 0.5;
+}
+.duiStarRating {
+  -ms-touch-action: none;
 }
 .duiStarRatingStarIcon {
   height: 40px;
