@@ -111,7 +111,7 @@ define([
 			}
 		},
 
-		_onTouchStart: function(/*Event*/ event){
+		_wireHandlers: function(/*Event*/ event){
 			event.preventDefault();
 			if(!this._otherEventsHandlers.length){
 				// handle move on the stars strip
@@ -124,8 +124,8 @@ define([
 		},
 
 		_onTouchEnter: function(/*Event*/ event){
-			this._onTouchStart(event);
-			if(event.type !== 'dojotouchover'){
+			this._wireHandlers(event);
+			if(event.type !== 'dojotouchover'){ // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
 				this._hovering = true;
 				domClass.add(this.domNode, this.baseClass + 'Hovered');
 			}
@@ -257,7 +257,7 @@ define([
 			this.domNode.setAttribute('aria-disabled', !this.editable);
 			if(this.editable && !this._startHandlers){
 				this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
-				                       this.on(touch.press, lang.hitch(this, '_onTouchStart'))];
+				                       this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
 			}else if(!this.editable && this._startHandlers){
 				while(this._startHandlers.length){
 					this._startHandlers.pop().remove();
