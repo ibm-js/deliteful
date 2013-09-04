@@ -1,0 +1,917 @@
+@import "../common/css3.less";
+
+@holo-color: white;
+@holo-base-color: black;
+@holo-grey1: #222222;
+@holo-grey2: #333333;
+@holo-grey3: #4F4F4F;
+
+@holo-color1: #33B5E5;
+
+@holo-checkbox-border-color: #5C5C5C;
+@holo-checkbox-selected-color: #99BBCA;
+@holo-checkbox-tick-color: #61C6EB;
+@holo-checkbox-checked-color: #1F5366;
+
+@holo-switch-on-color: #0C86AF;
+@holo-switch-off-color: @holo-grey2;
+@holo-switch-knob-color: #606060;
+
+@holo-slider-thumb-color: rgba(31, 83, 102, 0.8);
+
+@holo-slider-background-image-gecko: -moz-linear-gradient(top, @holo-color1 0%, @holo-slider-thumb-color 100%);
+@holo-slider-track-color: #292929;
+
+@default-blue-button-color: white;
+@default-blue-button-background-color: #366edf;
+.default-blue-button-background-image () { 
+  background-image: none;
+}
+
+@default-blue-button-background-image-gecko: none;
+
+.dui-color-blue-45 () { 
+  background-image: none;  
+}
+
+
+.dui-color-default-45 () { background-color: @holo-grey2; }
+.dui-color-default-sel-45 () {background-color: @holo-color1; }
+
+@dui-color-blue-45-gecko: none;
+@dui-color-default-45-gecko: @holo-grey2;
+@dui-color-default-sel-45-gecko: @holo-color1;
+
+@default-button-color: @holo-color;
+@default-button-background-color: @holo-grey2;
+.default-button-background-image() {background-image: none};
+@default-button-background-image-gecko: none;
+@default-button-border-radius: 2px;
+
+@default-button-selected-color: white;
+@default-button-selected-background-color: @holo-color1;
+.default-button-selected-background-image () {background-image: none;}
+@default-button-selected-background-image-gecko: none;
+
+@default-selected-color: white;
+@default-selected-background-color: #3578b1;
+@default-selected-background-image: none;
+@default-selected-background-image-gecko: none;
+
+@heading-background-color: #8c8a8c;
+.heading-background-image () { background-image: none; }
+@heading-background-image-gecko: none;
+@heading-border-top-color: #cdd5df;
+@heading-border-bottom-color: #2d3642;
+
+.default-button-border-styles () {
+	background-image: none;
+	background-color: #333333;
+	border-style: none;
+	border-top-style: solid;
+	border-top-color: rgba(85,85,85,0.9);
+	border-top-width: 1px;
+	border-radius: 2px;
+}
+
+.duiToolBarButtonBodyInLeftArrow-styles () {
+  border-left-width: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.duiToolBarButtonBodyInRightArrow-styles () {
+  border-right-width: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+
+// background styles of form controls
+.dui-button-background-image () { .default-button-border-styles; }
+
+.dui-button-selected-background-image () { .default-button-selected-background-image(); }
+.dui-blue-button-background-image () { .default-blue-button-background-image(); }
+.dui-blue-button-selected-background-image () { .default-button-selected-background-image(); }
+.dui-red-button-background-image () { .background-image-linear-gradient-top-bottom-2-stops(#fa9d58, #ee4115, 0.5, #ff4d25, 0.5, #ed4d15);}
+
+.dui-red-button-selected-background-image () { .default-button-selected-background-image(); }
+.dui-button-checked-background-image () { background-color: transparent; }
+
+// background styles of form controls (for gecko)
+@dui-button-background-image-gecko: none;
+@dui-button-selected-background-image-gecko: @default-button-selected-background-image-gecko;
+@dui-blue-button-background-image-gecko: @default-blue-button-background-image-gecko;
+@dui-blue-button-selected-background-image-gecko: @default-button-selected-background-image-gecko;
+@dui-red-button-background-image-gecko: none;
+@dui-red-button-selected-background-image-gecko: none;
+@dui-button-checked-background-image-gecko: none;
+
+// common.less
+.mobile-body-styles () {
+	font-family: Helvetica;
+	font-size: 17px;
+	color: @holo-color;
+}
+
+.duiBackground-styles () {
+	background-color: @holo-base-color;
+}
+
+.duiView-styles () {
+	color: white;
+}
+
+.duiColorBlue-styles () {
+	color: @default-blue-button-color;
+	background-color: @default-blue-button-background-color;
+	.default-blue-button-background-image();
+}
+.duiColorDefault-styles () {
+	color: @holo-color;
+	background-color: @default-button-background-color;
+	.default-button-background-image();
+}
+.duiColorDefaultSel-styles () {
+	color: @default-button-selected-color;
+	background-color: @default-button-selected-background-color;
+	.default-button-selected-background-image();
+}
+
+// Heading.less
+.duiHeading-styles () {
+	color: @holo-color;
+	background-color: @holo-base-color;
+	border-bottom-color: @holo-color1;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	font-size: 18px;
+	font-weight: normal;
+}
+
+
+// ToolBarButton.less
+@dui-tool-bar-button-body-border-radius: 0;
+//
+.duiToolBarButton-styles () {
+	text-shadow: none;
+}
+
+.duiToolBarButtonArrow-styles () {
+	border-radius: 1px;
+  .transform(scale(0.7, 1.05) rotate(45deg));
+	border: 1px solid #3a4655;
+}
+.duiToolBarButtonArrowInHeading-styles () {
+}
+.duiToolBarButtonHasLeftArrowInHeading-styles () {
+}
+.duiToolBarButtonHasLeftArrowInHeading-compat-gecko () {
+}
+.duiToolBarButtonHasRightArrowInHeading-styles () {
+}
+.duiToolBarButtonHasRightArrowInHeading-compat-gecko () {
+}
+.duiToolBarButtonArrowInLeftArrow-styles () {
+  left: -1px;
+}
+.duiToolBarButtonArrowInRightArrow-styles () {
+  right: -1px;
+}
+.duiToolBarButtonBody-styles () {
+	border: 1px solid #555555;
+}
+.duiToolBarButtonBodyInHeading-styles () {
+}
+.duiToolBarButtonBodyInHeading-compat-gecko () {
+
+}
+
+// RoundRect.less & RoundRectList.less
+@dui-round-rect-border-color: @holo-grey1;
+@dui-round-rect-border-radius: 14px;
+@dui-round-rect-background-color: transparent;
+@dui-round-rect-box-shadow: none;
+//
+.duiRoundRect-styles () {
+	color: white;
+}
+
+// EdgeToEdgeCategory.less
+.duiEdgeToEdgeCategory-styles () {
+	height: 35px;
+	border-bottom: 3px solid #39393A;
+	background-color: rgba(0,0,0,0);
+	color: white;
+	line-height: 35px;
+	margin-right:7px;
+	margin-left:7px;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+
+// RoundRectCategory.less
+@dui-value-picker-slot-margin: 0 5px;
+.duiRoundRectCategory-styles () {
+
+}
+
+// EdgeToEdgeList.less
+.duiEdgeToEdgeList-styles () {
+	
+}
+.duiEdgeToEdgeList-LastListItem-styles () {
+	border-bottom-color: #333538;
+	margin-right:7px;
+  margin-left:7px;
+}
+
+// ListItem.less
+@dui-list-item-height: 50px;
+//
+.duiListItem-styles () {
+	border-bottom: 1px solid #333538;
+  margin-right:7px;
+  margin-left:7px;
+	
+	font-size: 18px;
+	color: @holo-color;
+}
+.duiListItemSelected-styles () {
+	color: @default-selected-color;
+	background-color: @default-selected-background-color;
+}
+.duiListItemLabelSelected-styles () {
+	background-color: #048bf4;
+}
+.duiListItemChecked-styles () {
+}
+.duiListItemRightText-styles () {
+	color: white;
+	margin-top: 14px;
+}
+.duiListItemSubText-styles () {
+	font-size: 14px;
+	color: gray;
+}
+
+// Switch.less
+@dui-switch-bg-left-background-color: #00a200;
+.dui-switch-bg-left-background-image () {background-image: none; }
+@dui-switch-bg-right-background-color: #bdbebd;
+.dui-switch-bg-right-background-image () { .background-image-linear-gradient-top-bottom(#bdbebd, #f7f3f7); }
+.dui-switch-knob-background-image () {  .background-image-linear-gradient-top-bottom(#9c9a9c, #848284); }
+
+//
+@dui-switch-bg-left-background-image-gecko: none;
+@dui-switch-bg-right-background-image-gecko: -none;
+@dui-switch-knob-background-image-gecko: none;
+@dui-switch-square-border-radius: 0px;
+//
+.duiSwitchBg-styles () {
+	border: rgba(176,176,176,0.5) 1px inset;
+}
+.duiSwitchKnob-styles () {
+	border: rgba(157,157,157,0.5) 1px outset;
+}
+
+// Button.less
+.duiButton-styles () {
+	.default-button-border-styles;
+	height: 40px;
+	color: @holo-color;
+	
+}
+.duiButtonSelected-styles () {
+  
+  color: @holo-color;
+  border-color: transparent;
+  background-image: none;
+  background-color: #2C94BB;
+  box-shadow: 0px 0px 1px 4px #1F5366;
+  
+}
+.duiButton-duiBlueButton-styles () {
+  color: @holo-color;
+  .default-button-border-styles;
+  background-color: #0099CC;
+}
+.duiButton-duiRedButton-styles () {
+  color: @holo-color;
+  .default-button-border-styles;
+  background-color: #CC0000;
+}
+
+// CheckBox.less
+.duiCheckBox-styles () {
+	border-color: @holo-checkbox-border-color;
+  border-width: 1px;
+	background-color: transparent;
+	background-image: none;
+  border-style: solid;
+}
+.duiCheckBoxChecked-after-styles () {
+	border-color: white;
+  background-color: transparent;
+  background-image: none;
+
+}
+.duiCheckBoxChecked-duiCheckBoxSelected-after-styles () {
+  background-color: transparent;
+  background-image: none;
+}
+
+// ComboBox.less
+@dui-combo-box-popup-box-shadow: 0 0 50px black;
+//
+.duiPopup-styles () {
+	border-radius: 0;
+}
+
+.duiComboBoxMenu-styles () {
+	border-radius: 0;
+	background-color: @holo-grey2;
+	color: @holo-color;
+}
+
+.duiComboBoxMenuItem-styles () {
+	border-color: @holo-grey3;
+	border-top: none;
+	height: 35px;
+	padding-top: 17px;
+}
+
+.duiComboBoxMenuItemSelected-styles () {
+	background-color: @default-selected-background-color;
+	color: white;
+}
+
+// IconContainer.less
+.duiIconItemSub-styles () {
+	background-color: white;
+	color: black;
+}
+.duiIconArea-styles () {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 74px;
+	color: white;
+}
+.duiIconItemDeleteIcon-styles () {
+	top: -4px;
+	left: -2px;
+}
+
+// RadioButton.less
+.duiRadioButton-styles () {
+	border-color: @holo-checkbox-border-color;
+}
+.duiRadioButtonChecked-after-styles () {
+	border-color: @holo-checkbox-tick-color;
+}
+.duiRadioButtonChecked-Selected-after-styles () {
+	border-color: @holo-checkbox-tick-color;
+}
+
+// Slider.less
+@dui-slider-bar-border-radius: 10em;
+@dui-slider-knob-border-radius: 10em;
+
+//
+.duiSlider-styles () {
+	border-color: #b0b0b0;
+}
+.duiSliderHandle-styles () {
+	border-color: transparent;
+}
+
+// TabBar.less
+
+.holoTabBarBackground-styles () {
+  background-color: rgba(0,0,0,0);
+  background-image: none;
+  border-style:none;
+}
+
+
+.duiTabBar-styles () {
+	text-shadow: none;
+	color: @holo-color;
+}
+
+
+// barType="tabBar"
+.duiTabBarTabBar-styles () {
+	.holoTabBarBackground-styles;
+	line-height: 0.5em;
+	
+}
+.duiTabBarTabBar-compat () {
+  .holoTabBarBackground-styles;
+  line-height: 0.5em;
+}
+
+.duiTabBarTabBarButton-styles () {
+	border-radius: 0px;
+	height:47px;
+	border-bottom-color: @holo-color1;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.duiTabBarTabBarButtonIconArea-styles () {
+	padding-top: 0px;
+}
+
+.duiTabBarTabBarButtonLabel-styles () {
+	display: inline;
+	text-transform: uppercase;
+	color: @holo-color;
+	font-weight: bold;
+}
+
+.duiTabBarTabBarButtonSelected-styles () {
+	border-radius: 0px;
+	height:42px;
+	border-bottom-color: @holo-color1;
+	border-bottom-width: 6px;
+	border-bottom-style: solid;
+}
+.duiTabBarTabBarButtonLabelSelected-styles () {
+}
+
+// barType="segmentedControl"
+@dui-tab-bar-segmented-control-border-radius: 0px;
+//
+.duiTabBarSegmentedControl-styles () {
+	.holoTabBarBackground-styles;
+  line-height: 0.5em;	
+}
+.duiTabBarSegmentedControlButton-styles () {
+  border-radius: 0px;
+  height:28px;
+  border-bottom-color: @holo-color1;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.duiTabBarSegmentedControlButton-compat-gecko () {
+
+}
+
+.duiTabBarSegmentedControlButtonSelected-styles () {
+  border-radius: 0px;
+  height:23px;
+  border-bottom-color: @holo-color1;
+  border-bottom-width: 6px;
+  border-bottom-style: solid;
+}
+
+// barType="standardTab"
+.duiTabBarStandardTab-styles () {
+	.holoTabBarBackground-styles;
+}
+.duiTabBarStandardTabButton-styles () {
+	color: @default-button-color;
+	background-color: @default-button-background-color; /* TODO: to compat */
+	.default-button-background-image();
+}
+.duiTabBarStandardTabButtonIconArea-styles () {
+}
+.duiTabBarStandardTabButtonLabel-styles () {
+  display: inline;
+  text-transform: uppercase;
+  color: @holo-color;
+  font-weight: bold;  
+}
+.duiTabBarStandardTabButtonSelected-styles () {
+	color: @default-button-selected-color;
+	background-color: @default-button-selected-background-color; /* TODO: to compat */
+	.background-image-linear-gradient-top-bottom-2-stops(#313031, #959595, 0.5, #5a555a, 0.5, #616161)
+	
+}
+.duiTabBarStandardTabButtonLabelSelected-styles () {
+}
+
+// barType="tallTab"
+.duiTabBarTallTab-styles () {
+	.holoTabBarBackground-styles;
+}
+.duiTabBarTallTabButton-styles () {
+  background-color: rgba(0,0,0,0);
+  background-image: none;
+  border-radius: 0px;
+  height: 58px;
+  border-style: none;
+  border-bottom-color: @holo-color1;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;  
+}
+.duiTabBarTallTabButton-FirstChild-styles () {
+}
+.duiTabBarTallTabButton-LastChild-styles () {
+}
+.duiTabBarTallTabButtonIconArea-styles () {
+}
+.duiTabBarTallTabButtonLabel-styles () {
+}
+.duiTabBarTallTabButtonSelected-styles () {
+  background-color: rgba(0,0,0,0);
+  background-image: none;
+  border-radius: 0px;
+  height:53px;
+  border-style: none;
+  border-bottom-color: @holo-color1;
+  border-bottom-width: 6px;
+  border-bottom-style: solid;  
+}
+.duiTabBarTallTabButtonLabelSelected-styles () {
+}
+
+// TextArea.less
+.duiTextArea-styles () {
+	.default-button-border-styles;
+	color: @holo-color;
+	border-radius: 0;
+	border-top-color: transparent;
+	font-size: 17px;
+}
+
+// TextBox.less
+
+.duiTextBox-styles () {
+	background-color: transparent;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: @holo-color1;
+	border-width: 2px;
+	font-size: 17px;
+	border-style: solid;
+	color: @holo-color;
+}
+
+// ToggleButton.less
+.duiToggleButton-styles () {
+	.default-button-border-styles;
+	font-size: 13px;
+	color: black;
+}
+.duiToggleButtonSelected-styles () {
+	color: white;
+}
+.duiToggleButtonChecked-styles () {
+	color: white;
+}
+.duiToggleButtonChecked-after-styles () {
+	border-color: white;
+}
+.duiToggleButtonCheckedSelected-styles () {
+	color: white;
+}
+.duiToggleButtonCheckedSelected-after-styles () {
+}
+
+// Overlay.less
+.duiOverlay-styles () {
+	background-color: #333333;
+	background-image: none;
+}
+.duiOverlay-compat () {
+}
+.duiOverlay-compat-gecko () {
+}
+
+// Tooltip.less
+@dui-tooltip-border-radius: 3px;
+//
+.duiTooltip-styles () {
+	border-color: #adaaad;
+	border-radius: @dui-tooltip-border-radius;
+	background-color: #8c8a8c;
+	.background-image-linear-gradient-top-bottom(#9c9e9c, #848284);
+
+}
+.duiTooltipBubble-styles () {
+	background-color: #306ea1;
+	background-image: none;
+	color: white;
+}
+.duiTooltipInnerArrow-Bubble-Above-styles () {
+	border-bottom-color: #306ea1;
+}
+.duiTooltipInnerArrow-Bubble-Below-styles () {
+	border-top-color: #306ea1;
+}
+.duiTooltipInnerArrow-Bubble-After-styles () {
+	border-left-color: #306ea1;
+}
+.duiTooltipInnerArrow-Bubble-Before-styles () {
+	border-right-color: #306ea1;
+}
+.duiTooltipArrow-Before-styles () {
+	border-left-width: 0;
+	border-right-color: #adaaad;
+}
+.duiTooltipArrow-After-styles () {
+	border-right-width: 0;
+	border-left-color: #adaaad;
+}
+.duiTooltipArrow-Above-styles () {
+	border-top-width: 0;
+	border-bottom-color: #adaaad;
+}
+.duiTooltipArrow-Below-styles () {
+	border-bottom-width: 0;
+	border-top-color: #adaaad;
+}
+.duiTooltipInnerArrow-Before-styles () {
+	border-left-width: 0;
+	border-right-color: #848284;
+}
+.duiTooltipInnerArrow-After-styles () {
+	border-right-width: 0;
+	border-left-color: #848284;
+}
+.duiTooltipInnerArrow-Above-styles () {
+	border-top-width: 0;
+	border-bottom-color: #9c9e9c;
+}
+.duiTooltipInnerArrow-Below-styles () {
+	border-bottom-width: 0;
+	border-top-color: #848284;
+}
+.duiTooltip-Heading-styles () {
+	padding-bottom: 3px;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	background-color: transparent;
+	background-image: none;
+}
+.duiTooltip-Heading-compat () {
+}
+.duiTooltip-Heading-ToolbarButton-styles () {
+}
+.duiTooltip-Heading-ToolbarButton-compat () {
+}
+
+// Accordion.less
+.duiAccordion-styles () {
+	border-style:none;
+}
+.duiAccordionTitle-styles () {
+	.dui-button-background-image();
+}
+.duiAccordionTitle-compat () {
+}
+
+.duiAccordionTitle-compat-gecko () {
+  .dui-button-background-image();
+}
+.duiAccordionTitleSelected-styles () {
+	background-color: @holo-color1;
+}
+.duiAccordionTitleSelected-compat () {
+  background-color: @holo-color1;
+}
+.duiAccordionTitleSelected-compat-gecko () {
+  background-color: @holo-color1;
+}
+.duiAccordionTitleAnchor-styles () {
+	color: @holo-color;
+}
+.duiAccordionTitleAnchorSelected-styles () {
+	color: @holo-color;
+}
+
+// SimpleDialog.less
+@dui-simple-dialog-border-radius: 2px;
+//
+.duiSimpleDialog-styles () {
+	padding: 5px;
+	width: 262px;
+}
+.duiSimpleDialogDecoration-styles () {
+	background-color: rgba(64,64,64,0.85);
+	border: 2px solid #eeeeee;
+	color: white;
+
+  background-image: none;
+  background-color: @holo-grey1;
+  border-style: none;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(255,255,255,0.6);
+  border-radius: 2px; 
+}
+.duiSimpleDialogDecoration-compat () {
+	background-color: #404040;
+}
+.duiSimpleDialogDecoration-compat-gecko () {
+	background-color: rgba(64,64,64,0.85);
+}
+.duiSimpleDialogTitle-styles () {
+	margin: 14px 0 7px -5px;
+	padding: 0 14px 14px;
+	width: 244px;
+	border-bottom: 1px solid @holo-color1;
+	font-size: 17px;
+	text-align: left;
+}
+.duiSimpleDialogText-styles () {
+	margin: 14px 9px;
+	width: 244px;
+	font-size: 17px;
+	text-align: left;
+}
+
+// IconMenu.less
+@dui-icon-menu-border-radius: 6px;
+@dui-icon-menu-item-border-radius: 6px;
+//
+.duiIconMenu-styles () {
+	padding: 0;
+	background-color: rgba(64, 64, 64, 0.85);
+	border: 2px solid #eeeeee;
+}
+.duiIconMenu-compat () {
+	background-color: #404040;
+}
+.duiIconMenu-compat-gecko () {
+	background-color: rgba(64, 64, 64, 0.85);
+}
+.duiIconMenuItem-styles () {
+	border-left: 1px solid rgba(96, 96, 96, 0.85);
+	border-bottom: 1px solid rgba(96, 96, 96, 0.85);
+}
+.duiIconMenuItemAnchor-styles () {
+	font-size: 13px;
+	color: white;
+}
+.duiIconMenuItemSel-styles () {
+	background-color: @default-selected-background-color;
+	color: white;
+}
+.duiIconMenuItemSel-compat () {
+	background-color: @default-selected-background-color;
+}
+.duiIconMenuItemSel-compat-gecko () {
+	background-color: @default-selected-background-color;
+}
+
+// dui.Calendar
+.duiCalendar-styles () {
+	border: none 0 transparent;
+	background-color: white;
+}
+.duiCalendar-thead-styles () {
+	background-color: @holo-grey2;
+	
+}
+.duiCalendar-thead-compat () {
+	background-color: @holo-grey2;
+}
+.duiCalendar-thead-compat-gecko () {
+	background-color: @holo-grey2;
+}
+.duiCalendarMonthLabel-styles () {
+	color: white;
+	font-size: 16px;
+}
+.duiCalendarMonthMenu-styles () {
+}
+.duiCalendarMonthMenu-compat-ff3 () {
+}
+.duiCalendarMonthMenu-Label-styles () {
+	color: black;
+}
+.duiCalendarDecrease-styles () {
+	border-right: 6px solid white !important;
+}
+.duiCalendarIncrease-styles () {
+	border-left: 6px solid white !important;
+}
+.duiCalendarDayLabelTemplate-styles () {
+	background-color: #292c31;
+	font-size: 12px;
+	color: white;
+}
+.duiCalendarDateTemplate-styles () {
+	border-right: 1px solid lightGrey;
+	background-color: white;
+	color: black;
+}
+.duiCalendarDateTemplate-LastChild-styles () {
+	border-right: none;
+}
+.duiCalendarDateLabel-DateTemplate-styles () {
+	border: none;
+}
+.duiCalendarDateLabel-PrevMonth-styles () {
+	color: lightGrey;
+}
+.duiCalendarDateLabel-Hovered-styles () {
+	color: @holo-color1;
+}
+.duiCalendarDateLabel-Selected-styles () {
+	color: @holo-color1;
+	
+}
+.duiCalendarDateLabel-Selected-compat () {
+	color: @holo-color1;
+}
+.duiCalendarDateLabel-Selected-compat-gecko () {
+	color: @holo-color1;
+}
+.duiCalendarDateLabel-Active-styles () {
+	
+}
+.duiCalendarDateLabel-Active-compat () {
+	
+}
+.duiCalendarDateLabel-Active-compat-gecko () {
+	
+}
+.duiCalendarYearLabel-styles () {
+	padding: 0;
+	background-color: @holo-grey2;
+}
+.duiCalendarYearLabel-compat () {
+  background-color: @holo-grey2;
+}
+.duiCalendarYearLabel-compat-gecko () {
+  background-color: @holo-grey2;
+}
+.duiCalendarSelectedYear-styles () {
+	color: white;
+	font-size: 16px;
+}
+.duiCalendarNextYear-styles () {
+	padding: 1px 6px 3px 6px;
+	color: white;
+	font-size: 12px;
+}
+
+// SearchBox.less
+@dui-searchbox-cancel-button-color: black;
+@dui-searchbox-cancel-button-bg-color: transparent;
+.duiSearchBox-Cancel-Button-styles () {
+	border-radius: 0;
+}
+@dui-searchbox-results-decoration-color: black;
+
+// ProgressBar.less
+.duiProgressBar-styles () {
+	border-radius: 0px;
+	height: 2px;
+	background-image: none;
+	background-color: @holo-grey2;
+}
+.duiProgressBarProgress-styles () {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	background-image: none;
+	background-color: @holo-color1;
+	height: 2px;
+}
+.duiProgressBarComplete-styles () {
+	border-radius: 0px;
+}
+.duiProgressBarNotStarted-styles () {
+}
+.duiProgressBarMsg-styles () {
+	top: 3px;
+}
+.duiProgressBar-compat () {
+	background-color: @holo-grey2;
+}
+.duiProgressBarProgress-compat () {
+	background-color: @holo-color1;
+}
+.duiProgressBar-compat-gecko () {
+	background-image: none;
+	background-color: @holo-grey2;
+}
+.duiProgressBarProgress-compat-gecko () {
+  background-image: none;
+  background-color: @holo-color1;
+
+}
+
+// ValuePicker.less
+.dui-value-picker-slot-button-background-image () {background-image: none;}
+@dui-value-picker-slot-button-background-image-gecko: none;
+@dui-value-picker-slot-button-radius: 0px;
+.dui-value-picker-slot-input-area-background-image () {background-image: none;}
+@dui-value-picker-slot-input-area-background-image-gecko: none;
+.duiValuePickerSlot-style () {
+  margin:  0 5px;
+}
+.duiValuePickerSlot-input-style () {
+  font-size: 28px;  
+  color: @holo-color;
+}
+
+//StarRating less
+@star-icon-sprite: url('../common/images/yellow-stars-40.png');
+@star-icon-size: 40px;

@@ -1,0 +1,23 @@
+@import "../css3.less";
+.duiFade {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.duiFade.duiTransition {
+	.transition-property(opacity);
+	.transition-duration(.6s);
+}
+.duiFade.duiOut {
+	opacity: 1;
+}
+.duiFade.duiOut.duiTransition {
+	.transition-timing-function(ease-out);
+	opacity: 0;
+}
+.duiFade.duiIn {
+	opacity: 0;
+}
+.duiFade.duiIn.duiTransition {
+	.transition-timing-function(ease-in);
+	opacity: 1;
+}

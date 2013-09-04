@@ -1,0 +1,130 @@
+@import "../css3.less";
+.duiCube {
+	.animation-duration(.8s);
+	.animation-timing-function(linear);
+}
+.duiCube.duiOut {
+	.animation-name(duiCubeOut);
+	.transform-origin(0% 50% ) !important;
+}
+.duiCube.duiIn {
+	.animation-name(duiCubeIn);
+	.transform-origin(100% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOut { .keyframes-transform-0-50-100-webkit(scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(0,1) skew(0deg,0deg)); }
+@keyframes         duiCubeOut { .keyframes-transform-0-50-100       (scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(0,1) skew(0deg,0deg)); }
+@-webkit-keyframes duiCubeIn { .keyframes-transform-0-50-100-webkit(scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(1,1) skew(0deg,0deg)); }
+@keyframes         duiCubeIn { .keyframes-transform-0-50-100       (scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(1,1) skew(0deg,0deg)); }
+.duiCube.duiOut.duiReverse {
+	.animation-name(duiCubeOutReverse);
+	.transform-origin(100% 50% ) !important;
+}
+.duiCube.duiIn.duiReverse {
+	.animation-name(duiCubeInReverse);
+	.transform-origin(0% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOutReverse { .keyframes-transform-0-50-100-webkit(scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(0,1) skew(0deg,0deg)); }
+@keyframes         duiCubeOutReverse { .keyframes-transform-0-50-100       (scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(0,1) skew(0deg,0deg)); }
+@-webkit-keyframes duiCubeInReverse { .keyframes-transform-0-50-100-webkit(scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(1,1) skew(0deg,0deg)); }
+@keyframes         duiCubeInReverse { .keyframes-transform-0-50-100       (scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(1,1) skew(0deg,0deg)); }
+
+.dj_ios .duiCube {
+	.transform-style(preserve-3d) !important;
+}
+.dj_ios .duiCube.duiOut {
+	.animation-name(duiCubeOut_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios .duiCube.duiIn {
+	.animation-name(duiCubeIn_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOut_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px)); }
+@keyframes         duiCubeOut_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px)); }
+@-webkit-keyframes duiCubeIn_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+@keyframes         duiCubeIn_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+.dj_ios.dj_landscape .duiCube.duiOut {
+	.animation-name(duiCubeOut_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios.dj_landscape .duiCube.duiIn {
+	.animation-name(duiCubeIn_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOut_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px)); }
+@keyframes         duiCubeOut_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px)); }
+@-webkit-keyframes duiCubeIn_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+@keyframes         duiCubeIn_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+.dj_ios .duiCube.duiOut.duiReverse {
+	.animation-name(duiCubeOutReverse_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios .duiCube.duiIn.duiReverse {
+	.animation-name(duiCubeInReverse_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOutReverse_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px)); }
+@keyframes         duiCubeOutReverse_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px)); }
+@-webkit-keyframes duiCubeInReverse_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+@keyframes         duiCubeInReverse_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+.dj_ios.dj_landscape .duiCube.duiOut.duiReverse {
+	.animation-name(duiCubeOutReverse_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios.dj_landscape .duiCube.duiIn.duiReverse {
+	.animation-name(duiCubeInReverse_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOutReverse_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px)); }
+@keyframes         duiCubeOutReverse_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px)); }
+@-webkit-keyframes duiCubeInReverse_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+@keyframes         duiCubeInReverse_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+
+.dj_ipad.dj_ios .duiCube.duiOut {
+	.animation-name(duiCubeOut_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios .duiCube.duiIn {
+	.animation-name(duiCubeIn_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOut_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px)); }
+@keyframes         duiCubeOut_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px)); }
+@-webkit-keyframes duiCubeIn_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+@keyframes         duiCubeIn_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+.dj_ipad.dj_ios.dj_landscape .duiCube.duiOut {
+	.animation-name(duiCubeOut_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios.dj_landscape .duiCube.duiIn {
+	.animation-name(duiCubeIn_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOut_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px)); }
+@keyframes         duiCubeOut_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px)); }
+@-webkit-keyframes duiCubeIn_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+@keyframes         duiCubeIn_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+.dj_ipad.dj_ios .duiCube.duiOut.duiReverse {
+	.animation-name(duiCubeOutReverse_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios .duiCube.duiIn.duiReverse {
+	.animation-name(duiCubeInReverse_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOutReverse_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px)); }
+@keyframes         duiCubeOutReverse_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px)); }
+@-webkit-keyframes duiCubeInReverse_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+@keyframes         duiCubeInReverse_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+.dj_ipad.dj_ios.dj_landscape .duiCube.duiOut.duiReverse {
+	.animation-name(duiCubeOutReverse_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios.dj_landscape .duiCube.duiIn.duiReverse {
+	.animation-name(duiCubeInReverse_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes duiCubeOutReverse_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px)); }
+@keyframes         duiCubeOutReverse_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px)); }
+@-webkit-keyframes duiCubeInReverse_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+@keyframes         duiCubeInReverse_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }

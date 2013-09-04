@@ -10,25 +10,20 @@
 //		and optionally enable RTL (right to left) mode, and/or dj_a11y (high-
 //		contrast/image off emulation) ... probably not a genuine test for a11y.
 //
-//		You should NOT be using this in a production environment.  Include
-//		your css and set your classes manually:
+//		You should NOT be using this in a production environment.  Rather, load
+//		the AMD loader directly, for example:
 //
-//		<style type="text/css">
-//			@import "dijit/themes/claro/document.css";
-//		</style>
-//		<link id="themeStyles" rel="stylesheet" href="dijit/themes/claro/claro.css"/>
-//		<script type="text/javascript" src="dojo/dojo.js"></script>
-//		...
-//		<body class="claro">
+//		<script src="requirejs/require.js">
+
 
 var dir = "",
-	theme = "claro",
 	testMode = null;
 
 dojoConfig = {
 	async: true,
 	isDebug: true,
-	locale: "en-us"
+	locale: "en-us",
+	has: {}
 };
 
 // Parse the URL, get parameters
@@ -83,19 +78,6 @@ for(i = 0; script = scripts[i]; i++){
 	}
 }
 
-// Output the boilerplate text to load the theme CSS
-if(theme){
-	// Temporary: get theme from dui/ or mobile/ directory.
-	// Eventually there should be a shared theme in dui/themes.
-	var themeDir = testDir + "../" + (theme == "claro" ? "dui" : "mobile") + "/themes/" + theme + "/";
-	document.write([
-		'<style type="text/css">',
-			theme == "claro" ? '@import "' + themeDir + 'document.css";' : "",
-		'</style>',
-		'<link id="themeStyles" rel="stylesheet" href="' + themeDir + theme + '.css"/>'
-	].join("\n"));
-}
-
 // Setup configuration options for the loader
 require = {
 	baseUrl: testDir + "../../",
@@ -116,14 +98,7 @@ document.write('<script type="text/javascript" src="' + testDir + '../../dojo/re
 document.write('<script type="text/javascript" src="' + testDir + 'boilerplateOnload.js"></script>');
 
 function boilerplateOnLoad(){
-	// This function is the first registered domReady() callback, allowing us to setup
-	// theme stuff etc. before the widgets start instantiating.
-
-	// theme (claro, tundra, etc.)
-	if(theme){
-		// Set <body> to point to the specified theme
-		document.body.className = theme;
-	}
+	// This function is the first registered domReady() callback.
 
 	// a11y (flag for faux high-contrast testing)
 	if(testMode){
@@ -140,6 +115,8 @@ function boilerplateOnLoad(){
 			// that affects how they lay out relative to inline form widgets
 			query("label").attr("dir", "rtl");
 		});
+
+		dojoConfig.has["dojo-bidi"] = true;
 	}
 
 	// parseOnLoad: true requires that the parser itself be loaded.

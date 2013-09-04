@@ -1,0 +1,27 @@
+@import "../css3.less";
+.duiCoverv {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.duiCoverv.duiTransition {
+	.transition-property-transform();
+	.transition-duration(.4s);
+}
+.duiCoverv.duiOut {
+	z-index: -100;
+	.transform(translate3d(0px,0%,-1px) ) !important;
+}
+.duiCoverv.duiIn {
+	.transform(translate3d(0px,100%,0px) ) !important;
+}
+.duiCoverv.duiIn.duiReverse {
+	.transform(translate3d(0px,-100%,0px) ) !important;
+}
+.duiCoverv.duiOut.duiTransition,
+.duiCoverv.duiIn.duiTransition {
+	.transform(translate3d(0px,0%,0px) ) !important;
+}
+.dj_android.dj_tablet .duiCoverv.duiTransition {
+	.transition-duration(.6s);
+	.transition-timing-function(linear);
+}

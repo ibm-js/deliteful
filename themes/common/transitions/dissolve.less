@@ -1,0 +1,15 @@
+@import "../css3.less";
+.duiDissolve.duiOut {
+	.animation-duration(1s);
+	.animation-name(duiDissolveOut);
+	.animation-timing-function(cubic-bezier(.25,1,.75,0));
+}
+.duiDissolve.duiIn {
+	.animation-duration(1s);
+	.animation-name(duiDissolveIn);
+	.animation-timing-function(cubic-bezier(.25,1,.75,0));
+}
+@-webkit-keyframes duiDissolveOut { .keyframes-opacity-from-to(1, 0); }
+@keyframes         duiDissolveOut { .keyframes-opacity-from-to(1, 0); }
+@-webkit-keyframes duiDissolveIn { .keyframes-opacity-from-to(0, 1); }
+@keyframes         duiDissolveIn { .keyframes-opacity-from-to(0, 1); }
