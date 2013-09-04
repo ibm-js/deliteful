@@ -1,0 +1,50 @@
+define(function(){ return '\
+.duiDissolve.duiOut {\
+  -webkit-animation-duration: 1s;\
+  animation-duration: 1s;\
+  -webkit-animation-name: duiDissolveOut;\
+  animation-name: duiDissolveOut;\
+  -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
+  animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
+}\
+.duiDissolve.duiIn {\
+  -webkit-animation-duration: 1s;\
+  animation-duration: 1s;\
+  -webkit-animation-name: duiDissolveIn;\
+  animation-name: duiDissolveIn;\
+  -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
+  animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
+}\
+@-webkit-keyframes duiDissolveOut {\
+  from {\
+    opacity: 1;\
+  }\
+  to {\
+    opacity: 0;\
+  }\
+}\
+@keyframes duiDissolveOut {\
+  from {\
+    opacity: 1;\
+  }\
+  to {\
+    opacity: 0;\
+  }\
+}\
+@-webkit-keyframes duiDissolveIn {\
+  from {\
+    opacity: 0;\
+  }\
+  to {\
+    opacity: 1;\
+  }\
+}\
+@keyframes duiDissolveIn {\
+  from {\
+    opacity: 0;\
+  }\
+  to {\
+    opacity: 1;\
+  }\
+}\
+'; } );

@@ -2,9 +2,9 @@ var fs = require("fs");
 var path = require("path");
 var less = require("less");
 
-var themeFolders = ["../android", "../iphone", "../blackberry", "../holodark", "../windows", "../custom"];
+var themeFolders = ["../ios", "../blackberry", "../holodark", "../windows", "../custom", "../bootstrap"];
 
-var commonFolders = ["../common/domButtons", "../common/transitions"];
+var commonFolders = ["../common/transitions"];
 
 var batchQueue = [];
 var batchIndex = 0;
@@ -13,7 +13,6 @@ var processProgress = 0;
 themeFolders.forEach(function(folder){ 
 	batchQueue.push(function(){
 		processFolder(folder, true);
-		processFolder(folder + "/dijit", false);
 	});
 });
 
@@ -45,7 +44,8 @@ function endProcess(){
 }
 
 function processFolder(folder, usingCommonSubstitution){
-	var folderFiles = getLessFiles(folder);
+	var folderFiles = getLessFiles(folder),
+		theme = folder.replace(/.*\//, "");
 	
 	if(usingCommonSubstitution){
 		var commonFiles = getLessFiles("../common");
@@ -54,47 +54,62 @@ function processFolder(folder, usingCommonSubstitution){
 			var themeFile = folderFiles.dic[commonFiles.dic[commonFile]];
 			if(themeFile){
 				// If there is a .less file in the theme folder, use it. 
-				outputFile = themeFile.replace(".less", ".css");
-				applyLess(themeFile, null, outputFile);
+				outputFile = themeFile.replace(".less", ".js");
+				applyLess(theme, themeFile, null, outputFile);
 			}else{
 				// Otherwise, fall back to the .less file which is in 'common'.
 				var fileName = commonFiles.dic[commonFile];
-				outputFile = folder + "/" + fileName.replace(".less", ".css");
+
+				outputFile = folder + "/" + fileName.replace(".less", ".js");
 				// dui.mobile mirroring support
 				if(fileName.indexOf("_rtl") == -1){ 
-					applyLess(commonFile, '@import "' + folder + '/variables.less";', outputFile);
+					applyLess(theme, commonFile, '@import "' + folder + '/variables.less";', outputFile);
 				}else{
-					applyLess(commonFile, '@import "' + folder + '/variables_rtl.less";', outputFile);
+					applyLess(theme, commonFile, '@import "' + folder + '/variables_rtl.less";', outputFile);
 				}
 			}
 		});
 	}else{
 		folderFiles.array.forEach(function(file){
-			applyLess(file, null, file.replace(".less", ".css"));
+			applyLess(theme, file, null, file.replace(".less", ".js"));
 		});
 	}
 }
 
-function applyLess(file, prependText, outputFile){ 
+function applyLess(theme, file, prependText, outputFile){
 	beginProcess();
 	console.log("compiling:", file);
 	
 	var parser = new(less.Parser)({paths: [path.dirname(file)], filename: file, optimization: 1});
 	var lessContent = fs.readFileSync(file, "utf-8");
-	
+
 	if(prependText){
 		lessContent = prependText + lessContent;
 	}
+
+	// If theme name is mentioned in the less file, substitute it.  Used by ExampleWidget for testing.
+	lessContent = lessContent.replace(/{{theme}}/g, theme);
+
 	parser.parse(lessContent, function(error, tree){
 		if(error){
 			less.writeError(error);
 			process.exit(1);
 		}
+
+		// Get output CSS
+		var outputText = tree.toCSS({compress: false});
+
+		// If the caller asked to output an AMD module rather than a plain CSS file, add define() wrapper around CSS.
+		// Assumes no single quotes or other weird characters, although double quotes for url("...") are OK.
+		if(/\.js$/.test(outputFile)){
+			outputText = "define(function(){ return '\\\n" + outputText.replace(/\n/mg, "\\\n") + "'; } );\n";
+		}
+
+		// Now write out that CSS as an AMD module
+		console.log("writing:", outputFile);
 		var fd = fs.openSync(outputFile, "w");
-		
-		fs.write(fd, tree.toCSS({compress: false}).replace(/\n/g, "\r\n"), 0, "utf-8", function(f){
+		fs.write(fd, outputText, 0, "utf-8", function(f){
 			fs.close(fd);
-			console.log("writing:", outputFile);
 			endProcess();
 		});
 	});
