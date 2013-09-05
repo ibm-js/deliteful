@@ -1,14 +1,17 @@
-define(["dojo/_base/array", "dui/_BidiSupport"], function(array, _BidiSupport){
+define(["dojo/_base/array", "dui/_BidiMixin"], function(array, _BidiMixin){
 
-		// module:
-		//		bidi/common
+	// module:
+	//		dui/mobile/bidi/common
+
+	// TODO: I don't see the point of this module, seems like dijit/_BidiMixin is sufficient.
+
+	var common = {
 		// summary:
 		//		Module contains functions to support text direction, that can be set independent to GUI direction.
 		// description:
-		//		Unicode control characters (UCC) used to control text direction.
+		//		Unicode control characters (UCC) used to control text direction.			
 
-		common = {};
-		common.enforceTextDirWithUcc = function(text, textDir){
+		enforceTextDirWithUcc: function(text, textDir){
 			// summary:
 			//		Wraps by UCC (Unicode control characters) displayed text according to textDir.
 			// text:
@@ -16,17 +19,17 @@ define(["dojo/_base/array", "dui/_BidiSupport"], function(array, _BidiSupport){
 			// textDir:
 			//		Text direction.
 			// description:
-			//		There's a dir problem with some HTML elements. For some Android browsers Hebrew text is displayed right to left also 
+			//		There's a dir problem with some HTML elements. For some Android browsers Hebrew text is displayed right to left also
 			//		when dir is set to LTR.
 			//		Therefore the only solution is to use UCC to display the text in correct orientation.
 			if(textDir){
-				textDir = (textDir === "auto") ? _BidiSupport.prototype._checkContextual(text) : textDir;
+				textDir = (textDir === "auto") ? _BidiMixin._checkContextual(text) : textDir;
 				return ((textDir === "rtl") ? common.MARK.RLE : common.MARK.LRE) + text + common.MARK.PDF;
 			}
 			return text;
-		};
+		},
 
-		common.removeUCCFromText = function(text){
+		removeUCCFromText: function(text){
 			// summary:
 			//		Removes UCC from input string.
 			// text:
@@ -35,9 +38,9 @@ define(["dojo/_base/array", "dui/_BidiSupport"], function(array, _BidiSupport){
 				return text;
 			}
 			return text.replace(/\u202A|\u202B|\u202C/g,"");
-		};
+		},
 
-		common.setTextDirForButtons = function(widget){
+		setTextDirForButtons: function(widget){
 			// summary:
 			//		Sets textDir property to children.
 			// widget:
@@ -46,16 +49,17 @@ define(["dojo/_base/array", "dui/_BidiSupport"], function(array, _BidiSupport){
 			if (children && widget.textDir){
 				array.forEach(children, function(ch){
 					ch.set("textDir", widget.textDir);
-				}, widget); 
+				}, widget);
 			}
-		};
+		},
 
 		// UCC - constants that will be used by bidi support.
-		common.MARK = {
+		MARK: {
 			LRE : '\u202A',
 			RLE : '\u202B',
 			PDF : '\u202C'
-		};
+		}
+	};
 
-		return common;
+	return common;
 });
