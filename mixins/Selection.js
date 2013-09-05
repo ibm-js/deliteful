@@ -107,12 +107,12 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			if(this.selectionMode == "single"){
 				if(value){
 					this.set("selectedItem", item);
-				}else if(this.isItemSelected(item)){
+				}else if(this.isSelected(item)){
 					this.set("selectedItems", null);
 				}
 			}else{ // multiple
 				if(value){
-					if(this.isItemSelected(item)){
+					if(this.isSelected(item)){
 						return; // already selected
 					}
 					if(sel == null){
@@ -122,9 +122,9 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 					}
 					this.set("selectedItems", sel);
 				}else{
-					var res = arr.filter(sel, function(sitem){
-						return sitem.id != item.id; 
-					});
+					var res = arr.filter(sel, lang.hitch(this, function(sitem){
+						return this.getIdentity(sitem) != this.getIdentity(item); 
+					}));
 					if(res == null || res.length == sel.length){
 						return; // already not selected
 					}
@@ -155,7 +155,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			
 			var changed;
 			var oldSelectedItem = this.get("selectedItem");
-			var selected = item ? this.isItemSelected(item): false;
+			var selected = item ? this.isSelected(item): false;
 			
 			if(item == null){
 				if(!e.ctrlKey && this.selectedItem != null){
@@ -164,7 +164,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 				}
 			}else if(this.selectionMode == "multiple"){
 				 if(e.ctrlKey){
-					this.setItemSelected(item, !selected);
+					this.setSelected(item, !selected);
 					changed = true;
 				}else{
 					this.set("selectedItem", item);					
