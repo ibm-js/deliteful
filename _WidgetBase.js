@@ -729,6 +729,7 @@ define([
 				// Checks if an attribute is a "standard attribute" by whether the DOMNode JS object has a similar
 				// attribute name (ex: accept-charset attribute matches jsObject.acceptCharset).
 				// Note also that Tree.focusNode() is a function not a DOMNode, so test for that.
+				// TODO: For 2.0 we probably want to get rid of the default mapping for standard attributes
 				var defaultNode = this.focusNode && !lang.isFunction(this.focusNode) ? "focusNode" : "domNode",
 					tag = this[defaultNode] && this[defaultNode].tagName,
 					attrsForTag = tag && (tagAttrs[tag] || (tagAttrs[tag] = getAttrs(this[defaultNode]))),
