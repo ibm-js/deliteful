@@ -40,7 +40,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 		_setSelectedItemAttr: function(value){
 			if(this.selectedItem != value){
 				this._set("selectedItem", value);
-				this.set("selectedItems", value ? [value] : null);
+				this.set("selectedItems", value == null ? null : [value]);
 			}
 		},
 		
@@ -155,7 +155,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			
 			var changed;
 			var oldSelectedItem = this.get("selectedItem");
-			var selected = item ? this.isSelected(item): false;
+			var selected = item == null ? false : this.isSelected(item);
 			
 			if(item == null){
 				if(!e.ctrlKey && this.selectedItem != null){
