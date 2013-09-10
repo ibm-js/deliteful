@@ -19,10 +19,10 @@
 						"dui/tests/resources/TestCssWidget2"
 					], d.getTestCallback(function(TestCssWidget){
 						// TestCssWidget.css should be automatically loaded (but just once, not twice) by the time
-						// this require() call completes.
+						// this require() call completes.  It should occur before the user defined style node.
 						var styleNodes = document.getElementsByTagName("style");
-						doh.is(numStyleNodes + 1, styleNodes.length, "new style node added");
-						var text = styleNodes[styleNodes.length - 1].innerHTML;
+						doh.is(2, styleNodes.length, "new style node added");
+						var text = styleNodes[0].innerHTML;
 						doh.t(/\.foo/.test(text), "contains the right data");
 
 						// Test that image paths are corrected to be relative to the document rather than the CSS file.
@@ -42,17 +42,39 @@
 						"dui/tests/resources/TestCssWidget3"
 					], d.getTestCallback(function(TestCssWidget){
 						var styleNodes = document.getElementsByTagName("style");
-						doh.is(numStyleNodes + 1, styleNodes.length, "no new style node added");
+						doh.is(2, styleNodes.length, "no new style node added");
+					}));
+
+					return d;
+				},
+				function multiple(){
+					var d = new doh.Deferred();
+
+					// Load multiple CSS files via a comma separated list.
+					// Make sure they appear in the specified order and that already loaded TestCssWidget isn't reloaded.
+					// Also tests that the new style nodes occur before the user defined style nodes.
+					numStyleNodes = document.getElementsByTagName("style").length;
+					require([
+						"dui/css!dui/tests/css/test2.css,dui/tests/css/TestCssWidget.css,dui/tests/css/test3.css"
+					], d.getTestCallback(function(){
+						var styleNodes = document.getElementsByTagName("style");
+						doh.is(4, styleNodes.length, "two new style nodes added");
+						doh.t(/test2/.test(styleNodes[1].innerHTML), "first test2.css");
+						doh.t(/test3/.test(styleNodes[2].innerHTML), "last test3.css");
 					}));
 
 					return d;
 				}
+
 			]);	// doh.register()
 
 			doh.run();
 		});	// require()
 
 	</script>
+	<style>
+		.userDefinedStyle { color: black; }
+	</style>
 </head>
 <body>
 <h1>dui/css Unit Test</h1>

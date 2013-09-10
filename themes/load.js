@@ -40,17 +40,19 @@ define([
 		}
 	}
 
-	function getPaths(/*String*/ widget){
+	function getPaths(/*String*/ widget, /*String[]*/ ary){
 		// summary:
-		//		Given a widget, return an array of paths to the CSS files that need to be loaded for that widget.
+		//		Given a widget, add the paths of the CSS files that need to be loaded for that widget into ary.
 		//		The files to be loaded will vary depending on the theme.
-		//		Typically the array returned will contain one path, but it may contain more if we are loading RTL
-		//		files or compatibility files.
 
 		var base = widget.replace(/\.css$/, ""),
 			suffix = /\.css$/.test(widget) ? ".css" : "",
-			path = "./" + theme + "/" + base
-		return has("dojo-bidi") ? [ path + suffix, path + "_rtl" + suffix ] : [ path + suffix ];
+			path = "./" + theme + "/" + base;
+
+		ary.push(path + suffix);
+		if(has("dojo-bidi")){
+			ary.push(path + "_rtl" + suffix);
+		}
 	}
 
 	return {
@@ -58,9 +60,14 @@ define([
 		//		CSS loading plugin for the widgets with themes in this directory.
 		//		Loads the CSS file(s) for the specified widget for the current theme.
 		//
-		//		For example, on an iPhone, css!Button will load dui/themes/ios/Button.css.
+		//		For example, on an iPhone, css!common,Button will load (in the following order):
 		//
-		//		You can also pass an additional query parameter string:
+		//			- dui/themes/ios/common.css
+		//			- dui/themes/ios/common_rtl.css
+		//			- dui/themes/ios/Button.css
+		//			- dui/themes/ios/Button_rtl.css.
+		//
+		//		You can also pass an additional URL parameter string
 		//		theme={theme widget} to force a specific theme through the browser
 		//		URL input. The available theme ids are bootstrap, holodark (theme introduced in Android 3.0),
 		//		blackberry, custom, and windows (from Windows 8). The theme names are case-sensitive. If the given
@@ -75,8 +82,7 @@ define([
 		//
 		//		You can also specify a particular user agent through the ua=... URL parameter.
 
-
-		load: function(widget, require, onload){
+		load: function(widgets, require, onload){
 			// summary:
 			//		Load and install the specified CSS files for the given widget, then call onload().
 			// widget: String
@@ -88,12 +94,15 @@ define([
 			//		and the stylesheet has been inserted.
 
 
-			var paths = getPaths(widget),
-				dependencies = paths.map(function(path){
-					return "../css!" + path;
-				});
+			// Convert list of widgets (ex: common,Button) into arguments to CSS plugin
+			// ex: ios/common, ios/common_rtl, ios/Button, ios/Button_rtl
+			var paths = [];
+			widgets.split(/, */).forEach(function(widget){
+				getPaths(widget, paths);
+			});
 
-			req(dependencies, function(){
+			// Make single call to css! plugin to load resources in order specified
+			req([ "../css!" + paths.join(",") ], function(){
 				onload(arguments);
 			});
 		}
