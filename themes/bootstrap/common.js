@@ -85,6 +85,28 @@ body .duiAlignClient {\
 .dj_gecko INPUT.duiArrowButtonInner {\
   -moz-user-focus: ignore;\
 }\
+.duiPopup {\
+  position: absolute;\
+  background-color: transparent;\
+  margin: 0;\
+  border: 0;\
+  padding: 0;\
+  -webkit-overflow-scrolling: touch;\
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);\
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);\
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);\
+}\
+.duiTooltipDialogPopup {\
+  -webkit-box-shadow: none;\
+  -moz-box-shadow: none;\
+  box-shadow: none;\
+}\
+.duiComboBoxHighlightMatch {\
+  background-color: #abd6ff;\
+}\
+.duiFocusedLabel {\
+  outline: 1px dotted #494949;\
+}\
 html.mobile,\
 .mobile body {\
   width: 100%;\

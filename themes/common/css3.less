@@ -1,3 +1,180 @@
+//
+// From claro/variables.less
+//
+
+.border-radius (@radius) {
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.transition-property (@value) {
+  -webkit-transition-property: @value;
+  -moz-transition-property: @value;
+  transition-property: @value;
+}
+
+.transition-property (@value1, @value2) {
+  -webkit-transition-property: @value1, @value2;
+  -moz-transition-property: @value1, @value2;
+  transition-property: @value1, @value2;
+}
+
+.transition-duration (@value) {
+  -webkit-transition-duration: @value;
+  -moz-transition-duration: @value;
+  transition-duration: @value;
+}
+
+.transition-duration (@value1, @value2) {
+  -webkit-transition-duration: @value1, @value2;
+  -moz-transition-duration: @value1, @value2;
+  transition-duration: @value1, @value2;
+}
+
+.transition-timing-function (@value) {
+  -webkit-transition-timing-function: @value;
+  -moz-transition-timing-function: @value;
+  transition-timing-function: @value;
+}
+
+.linear-gradient (@value1, @value2) {
+  // summary:
+  //		Expands to browser specific background-image specifications for a linear-gradient (2 stops)
+  background-image: -moz-linear-gradient(@value1, @value2); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2);
+}
+.linear-gradient (@value1, @value2, @value3) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3);
+}
+.linear-gradient (@value1, @value2, @value3, @value4) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5, @value6) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6);
+}
+.linear-gradient (@value1, @value2, @value3, @value4, @value5, @value6, @value7) {
+  background-image: -moz-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // FF3.6 - FF15 (FF16+ supports linear-gradient)
+  background-image: -webkit-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // Chrome10+, Safari5.1+
+  background-image: -o-linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7); // Opera 11.10+
+  background-image: linear-gradient(@value1, @value2, @value3, @value4, @value5, @value6, @value7);
+}
+
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2) {
+  // summary:
+  //		For setting up white background-image with variable transparency.
+  // example:
+  //		Gradient starts at top (0%) with 30% opacity, and then ends at bottom (100%) with full transparency
+  //		|	.alpha-white-gradient(0.3, 0%, 0, 100%)
+  //
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2);
+}
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3) {
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3);
+}
+.alpha-white-gradient (@opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4) {
+  .linear-gradient(rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4, @opacity5, @stop5) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4, rgba(255,255,255, @opacity5) @stop5);
+}
+.alpha-white-gradient (@start, @opacity1, @stop1, @opacity2, @stop2, @opacity3, @stop3, @opacity4, @stop4, @opacity5, @stop5, @opacity6, @stop6) {
+  .linear-gradient(@start, rgba(255,255,255,@opacity1) @stop1, rgba(255,255,255,@opacity2) @stop2, rgba(255,255,255, @opacity3) @stop3, rgba(255,255,255, @opacity4) @stop4, rgba(255,255,255, @opacity5) @stop5, rgba(255,255,255, @opacity6) @stop6);
+}
+
+.gradient-and-filter (@color, @fade1, @fade2) {
+  // summary:
+  //		Sets up a background color with a vertical gradient.
+  //		In order to make transitions work properly on mozilla and webkit, this is done by combining
+  //		a background-color which will be changed based on state (ex: hover) with a constant
+  //		white alpha-transparency background-image.
+  // @color:
+  //		The color
+  // @fade1:
+  //		The percent to fade at the top
+  // @fade2:
+  //		The percent to fade at the bottom
+  background-color: @color; // the base color
+  .linear-gradient(fadeout(#fff, 100-@fade1), fadeout(#fff, 100-@fade2));
+}
+.horizontal-gradient-and-filter (@color, @fade1, @fade2) {
+  // summary:
+  //		Sets up a background color with a horizontal gradient.
+  //		In order to make transitions work properly on mozilla and webkit, this is done by combining
+  //		a background-color which will be changed based on state (ex: hover) with a constant
+  //		white alpha-transparency background-image.
+  // @color:
+  //		The color
+  // @fade1:
+  //		The percent to fade at the top
+  // @fade2:
+  //		The percent to fade at the bottom
+  background-color: @color; // the base color
+  .linear-gradient(left, fadeout(#fff, 100-@fade1), fadeout(#fff, 100-@fade2));
+}
+
+
+// Mixins defining gradients
+
+.textbox-background-image () {
+  // summary:
+  //		Background image used for hovered TextBoxes and similar controls.
+  //		It's just a small inset shadow below the top border (inside of the TextBox).
+  .linear-gradient(rgba(127,127,127,0.2) 0%, rgba(127,127,127,0) 2px);
+}
+
+.standard-gradient (@pathToRoot: "") {
+  // summary:
+  //		Light to dark background-image used by widgets with short height (~16px) including:
+  //			- MenuBar, and hovered MenuItem/MenuBarItem
+  //			- arrow icon wrapper for Select, ComboBox, Spinner
+  //			- Toolbar and hovered Toolbar buttons
+  //			- TitlePane title bar, AccordionContainer title bar, Dialog title bar
+
+  .alpha-white-gradient(0.7, 0%, 0, 100%);
+}
+.active-gradient (@pathToRoot: "") {
+  // summary:
+  //		Light to dark background-image with an inset gray shadow at the top,
+  //		used by widgets when they are active (ie: mousedown) or selected, including:
+  //			- active MenuItem/MenuBarItem
+  //			- arrow icon wrapper for Select, ComboBox, Spinner when active or drop down is open
+  //			- active Toolbar buttons
+  //			- active TitlePane title bar, AccordionContainer title bar
+
+  .linear-gradient(rgba(190,190,190,0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+}
+
+
+//
+// From dojox/mobile/css3.less
+//
+
 .transform (@v) {
 	-webkit-transform: @v;
 	transform: @v;
@@ -52,6 +229,7 @@
 }
 .box-shadow (@v) {
 	-webkit-box-shadow: @v;
+	-moz-box-shadow: @v;
 	box-shadow: @v;
 }
 .box-sizing (@v) {
