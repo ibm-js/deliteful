@@ -1,0 +1,118 @@
+// Drag and Drop
+
+// These declarations are from claro/variables.less
+// TODO: duplicate theme into each theme's variables.less file, adjusted to match the theme
+@primary-color: #cfe5fa;													// Base color for entire theme
+@text-color: #000;													// Text color for enabled widgets
+
+@container-background-color:#fff;										// Backgrounds for various content areas such as TitlePane, ContentPane and Inputs (if changed, adjust selected tab to match)
+@border-color: spin(desaturate(darken(@primary-color, 15), 67), 8);						// Border color for (enabled, unhovered) TextBox, Slider, Accordion, BorderContainer, TabContainer
+@base-border-color: spin(desaturate(darken(@primary-color, 29), 44), -1);		// Augmented and used directly by variables to create border colors for various widgets
+@minor-selected-color: spin(saturate(darken(@primary-color, 6), 19), 0);						// Color for various arrows and buttons
+
+@hovered-border-color: @base-border-color;								// Hover of textbox, tab label, BorderContainer splitter, Calendar, etc.
+@hovered-background-color: @minor-selected-color;	// Background color for hover of Button, MenuBar, Accordion pane, Calendar... anything that has a (non-white) color to start with and gets darker on hover
+@hovered-text-color: @text-color;										// Used for title of select Accordion pane, label of select tab, hovered Menu item, etc.
+
+@selected-border-color: @base-border-color;  							// Selected AccordionPane, tab of nested TabContainer (but plain TabContainer is special)
+@selected-background-color: @primary-color;								// Selected Accordion pane, nested tab label, Tree row
+@selected-text-color: @text-color;										// title of selected Accordion pane, label of selected tab, hovered Menu item, etc.
+
+@dnd-avatar-background-color: @container-background-color;					// Background color of little Dialog-type box indicating dragged items
+@dnd-avatar-header-background-color: #f58383;		// Title bar for dragged items
+@dnd-avatar-candrop-header-background-color: #97e68d;// Title bar for dragged items when they can be dropped
+@dnd-dropseparator-color: @base-border-color;					// Color of line indicating that user is about to drop between items A & B
+@image-dnd: "images/dnd.png";
+
+.dojoDndItem {
+	padding: 2px;  // will be replaced by border during drag over (dojoDndItemBefore, dojoDndItemAfter)
+
+	// Prevent magnifying-glass text selection icon to appear on mobile webkit as it causes a touchout event
+	-webkit-touch-callout: none;
+	-webkit-user-select: none; // Disable selection/Copy of UIWebView
+
+	border-color: rgba(0,0,0,0);	// rgba() instead of none to prevent flash on hover fade-in
+	.transition-duration(.25s);
+	.transition-property(background-color, border-color)
+}
+.dojoDndHorizontal .dojoDndItem {
+	// make contents of horizontal container be side by side, rather than vertical
+	display: inline-block;
+}
+
+.dojoDndItemBefore,
+.dojoDndItemAfter {
+	// line to indicate that user is dropping before/after this dojoDndItem
+	border: 0px solid #369;
+	border-color: @dnd-dropseparator-color;
+}
+.dojoDndItemBefore {
+	border-width: 2px 0 0 0;
+	padding: 0 2px 2px 2px;
+}
+.dojoDndItemAfter {
+	border-width: 0 0 2px 0;
+	padding: 2px 2px 0 2px;
+}
+.dojoDndHorizontal .dojoDndItemBefore {
+	border-width: 0 0 0 2px;
+	padding: 2px 2px 2px 0;
+}
+.dojoDndHorizontal .dojoDndItemAfter {
+	border-width: 0 2px 0 0;
+	padding: 2px 0 2px 2px;
+}
+
+.dojoDndItemOver {
+	// Hovered item.  Matches duiTreeRowHover.
+	cursor:pointer;
+	background-color:@hovered-background-color;
+	.standard-gradient;
+	padding: 1px;	// reduce from 2px in dijit.css
+	border:solid 1px @hovered-border-color;
+	color:@hovered-text-color;
+}
+.dojoDndItemAnchor,
+.dojoDndItemSelected {
+	// Selected items(s).   Matches duiTreeRowSelected.
+	background-color:@selected-background-color;
+	.standard-gradient;
+	padding: 1px;	// reduce from 2px in dijit.css
+	border:solid 1px @selected-border-color;
+	color:@selected-text-color;
+}
+
+table.dojoDndAvatar {
+	border: 1px solid @border-color;
+	border-collapse: collapse;
+	background-color: @dnd-avatar-background-color;
+	.box-shadow(0 1px 3px rgba(0, 0, 0, .25));
+}
+.dojoDndAvatarHeader td	{
+	height: 20px;
+	padding-left:21px;
+}
+.dojoDndMove .dojoDndAvatarHeader, .dojoDndCopy .dojoDndAvatarHeader {
+	background-image: url(@image-dnd);
+	background-repeat: no-repeat;
+	background-position:2px -122px;
+}
+.dojoDndAvatarItem td {
+	padding: 5px;
+}
+.dojoDndMove .dojoDndAvatarHeader	{
+	background-color: @dnd-avatar-header-background-color;
+	background-position:2px -103px;
+}
+.dojoDndCopy .dojoDndAvatarHeader	{
+	background-color: @dnd-avatar-header-background-color;
+	background-position:2px -68px;
+}
+.dojoDndMove .dojoDndAvatarCanDrop .dojoDndAvatarHeader	{
+	background-color: @dnd-avatar-candrop-header-background-color;
+	background-position:2px -33px;
+}
+.dojoDndCopy .dojoDndAvatarCanDrop .dojoDndAvatarHeader	{
+	background-color: @dnd-avatar-candrop-header-background-color;
+	background-position:2px 2px;
+}
