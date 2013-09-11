@@ -31,7 +31,6 @@ define([
      "./slider/module",
      "./spinwheel/module",
      "./spinwheeldatepicker/module",
-     "./starrating/module",
      "./swapview/module",
      "./switch/module",
      "./tabbar/module",

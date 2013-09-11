@@ -37,8 +37,6 @@ var tests = [
 	{ url: "test_RoundRectList-check_rtl.html", tags: "Bidi-mirroring" },
 	{ url: "test_RoundRectStoreList_rtl.html", tags: "Bidi-mirroring" },
 	{ url: "test_SpinWheel-custom_rtl.html", tags: "Bidi-mirroring" },
-	{ url: "test_StarRating_rtl.html", tags: "Bidi-mirroring" },
-	{ url: "test_StarRating-stateful_rtl.html", tags: "Bidi-mirroring" },
 	{ url: "test_SwapView_rtl.html", tags: "Bidi-mirroring" },
 	{ url: "test_Switch_rtl.html", tags: "Bidi-mirroring" },
 	{ url: "test_TabBar_rtl.html", tags: "Bidi-mirroring" },

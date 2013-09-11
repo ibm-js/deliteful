@@ -26,8 +26,6 @@ define(["doh/main", "require", "dojo/sniff"], function(doh, require, has){
 		doh.registerUrl("dui.mobile.tests.doh.Bidi", require.toUrl("./FixedSplitterTests2_Rtl.html"),999999);
 		doh.registerUrl("dui.mobile.tests.doh.Bidi", require.toUrl("./FixedSplitterTests3_Rtl.html"),999999);
 	}
-	// StarRating
-	doh.registerUrl("dui.mobile.tests.doh.Bidi", require.toUrl("./StarRatingTests_Rtl.html"),999999);
 	// TabBar
 	if(!(has("ie") < 10)){
 		doh.registerUrl("dui.mobile.tests.doh.Bidi", require.toUrl("./TabBarTests_Rtl.html"),999999);
