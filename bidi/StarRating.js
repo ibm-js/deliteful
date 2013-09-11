@@ -6,15 +6,15 @@ define([
 ], function(declare, has, keys, domConstruct){
 
 	// module:
-	//		dui/mobile/bidi/StarRating
+	//		dui/bidi/StarRating
 
 	return declare(null, {
 		// summary:
-		//		Bidi support for mobile StarRating widget.
+		//		Bidi support for StarRating widget.
 		// description:
 		//		Implementation for RTL and LTR direction support.
 		//		This class should not be used directly.
-		//		Mobile StarRating widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
+		//		StarRating widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 
 		startup: function(){
 			this.inherited(arguments);
