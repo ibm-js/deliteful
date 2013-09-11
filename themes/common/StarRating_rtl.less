@@ -1,0 +1,31 @@
+.duiStarRating{
+	&.duiStarRatingHovered{
+		opacity: 0.5;
+	}
+}
+
+.duiStarRating{
+	-ms-touch-action: none;
+}
+
+.duiStarRatingStarIcon{
+	height: @star-icon-size;
+	width: @star-icon-size;
+	background-image: @star-icon-sprite;
+	background-repeat: no-repeat;
+}
+
+.duiStarRatingFullStar{
+}
+
+.duiStarRatingEmptyStar{
+	background-position: (-1 * @star-icon-size) 0px;
+}
+
+.duiStarRatingHalfStar{
+	background-position: (-2 * @star-icon-size) 0px;
+}
+
+.duiStarRatingHalfStarRtl{
+	background-position: (-3 * @star-icon-size) 0px;
+}
