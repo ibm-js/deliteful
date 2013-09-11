@@ -6,7 +6,6 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>StarRating</title>
 
-	<script type="text/javascript" src="../deviceTheme.js" data-dojo-config="duiUserAgent:'iPhone'"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true"></script>
 
@@ -14,7 +13,7 @@
 		require([
 			"dojo/domReady",
 			"dojo/_base/window",
-			"dui/mobile/StarRating"
+			"dui/StarRating"
 		], function(ready, win, StarRating){
 			ready(function(){
 				var widget = new StarRating({

@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>StarRating</title>
-	<script type="text/javascript" src="../deviceTheme.js"></script>
 	<script type="text/javascript" src="../../../dojo/dojo.js"
 		data-dojo-config="packages: [{name: 'dojox', location:'../dui'}, {name: 'dui', location:'../dui'}], async: true, parseOnLoad: true"></script>
 
@@ -14,7 +13,7 @@
 		require([
 			"dojo/ready",
 			"dui/registry",
-			"dui/mobile/StarRating",
+			"dui/StarRating",
 			"dojo/parser",
 			"dui/mobile/compat"
 		], function(ready, registry, StarRating){
@@ -58,16 +57,16 @@
 	<div data-dojo-type="dui/mobile/View">
 		<div>
 			<h1>Default direction</h1>
-			<span id="star" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7'></span>
+			<span id="star" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7'></span>
 			<span id="value">0</span><br>
 			<button type="button" onclick="decrement()">&minus;</button>
 			<button type="button" onclick="increment()">+</button>
 			<p>
-			Editable: <span id="editablestar1" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true'></span>
+			Editable: <span id="editablestar1" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true'></span>
 			<p>
-			Editable (half values increment): <span id="editablestar2" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true'></span>
+			Editable (half values increment): <span id="editablestar2" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true'></span>
 			<p>
-			No zero setting: <span id="editablestar5" data-dojo-type="dui/mobile/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
+			No zero setting: <span id="editablestar5" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
 			<p>
 			Programmatic: <span id="editablestar6"></span><br>
 			<span id="editablestar6value"></span>
