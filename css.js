@@ -63,7 +63,7 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 		//		- requirejs-css-plugin (https://github.com/tyt2y3/requirejs-css-plugin)
 		//		- requirecss (https://github.com/guybedford/require-css)
 
-		load: function(paths, require, onload){
+		load: function(mids, require, onload){
 			// summary:
 			//		Load and install the specified CSS files, in specified order, and then call onload().
 			// path: String
@@ -80,9 +80,9 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 			//		2. Avoid browser branching/hacks.  Many browsers have issues detecting
 			//		   when CSS has finished loading and require tricks to detect it.
 
-			paths = paths.split(/, */);
+			mids = mids.split(/, */);
 
-			var dependencies = paths.map(function(path){
+			var dependencies = mids.map(function(path){
 				return /\.css$/.test(path) ? "dojo/text!" + path : path;
 			});
 
@@ -90,19 +90,19 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 				// We loaded all the requested CSS files, but some may have already been inserted into the document,
 				// possibly in between when the require() call started and now.  Insert the others CSS files now.
 				var cssTexts = arguments;
-				paths.forEach(function(path, idx){
-					if(!(path in sheets)){
+				mids.forEach(function(mid, idx){
+					if(!(mid in sheets)){
 						// Adjust relative image paths to be relative to document location rather than to the CSS file.
 						// This is necessary since we are inserting the CSS as <style> nodes rather than as <link> nodes.
 						var css = cssTexts[idx],
-							pathToCssFile = path.replace(/[^/]+$/, ""),
+							pathToCssFile = require.toUrl(mid).replace(/[^/]+$/, ""),
 							adjustedCss = css.replace(/(url\(")([^/])/g, "$1" + pathToCssFile + "$2");
 
 						// Insert CSS into document
-						sheets[path] = insertCss(adjustedCss);
+						sheets[mid] = insertCss(adjustedCss);
 					}
 				});
-				onload(paths);
+				onload(mids);
 			});
 		}
 	};

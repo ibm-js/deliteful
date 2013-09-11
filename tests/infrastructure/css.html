@@ -17,7 +17,7 @@
 					require([
 						"dui/tests/resources/TestCssWidget1",
 						"dui/tests/resources/TestCssWidget2"
-					], d.getTestCallback(function(TestCssWidget){
+					], d.getTestCallback(function(){
 						// TestCssWidget.css should be automatically loaded (but just once, not twice) by the time
 						// this require() call completes.  It should occur before the user defined style node.
 						var styleNodes = document.getElementsByTagName("style");
@@ -28,7 +28,7 @@
 						// Test that image paths are corrected to be relative to the document rather than the CSS file.
 						text.match(/url\("(.*)"\)/);
 						var path = RegExp.$1;
-						doh.is("dui/tests/css/../images/plus.gif", path, "URL to image");
+						doh.is("../../../dui/tests/css/../images/plus.gif", path, "URL to image");
 					}));
 
 					return d;
@@ -40,7 +40,7 @@
 					// just to triple check that the CSS doesn't get reloaded
 					require([
 						"dui/tests/resources/TestCssWidget3"
-					], d.getTestCallback(function(TestCssWidget){
+					], d.getTestCallback(function(){
 						var styleNodes = document.getElementsByTagName("style");
 						doh.is(2, styleNodes.length, "no new style node added");
 					}));
