@@ -87,7 +87,7 @@ define([
 					domConstruct.create("span", {className: "duiReset duiInline duiButtonText"}, this.domNode);
 				this.containerNode.textContent = this.label;
 			}else if(this.containerNode){
-				domClass.destroy(this.containerNode);
+				domConstruct.destroy(this.containerNode);
 				delete this.containerNode;
 			}
 
