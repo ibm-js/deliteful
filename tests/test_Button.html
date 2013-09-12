@@ -14,19 +14,17 @@
 		require([
 			"dojo/_base/array",
 			"dojo/dom",
-			"dui/registry",
 			"dojo/parser",
 			"dui/Button",
 			"dojo/domReady!"
-		], function(array, dom, registry, parser){
+		], function(array, dom, parser){
 
 			parser.parse();
 
-			["btn1", "btn2", "btn3", "btn4", "btn5"].forEach(function(btnId){
-				var btnWidget = registry.byId(btnId);
-				btnWidget.on("click", function(){
+			[btn1, btn2, btn3, btn4, btn5].forEach(function(btnWidget){
+				btnWidget.on("click", function(evt){
 					var span = dom.byId("msgArea");
-					span.innerHTML = "&quot;" + dom.byId(this.id).innerHTML + "&quot; button was clicked.";
+					span.innerHTML = "&quot;" + btnWidget.label + "&quot; button was clicked.";
 					setTimeout(function(){
 						span.innerHTML = "";
 					}, 1000);
@@ -38,10 +36,6 @@
 	</script>
 
 	<style>
-	html, body {
-		height: 100%;
-		overflow: hidden;
-	}
 	hr {
 		border: none;
 		margin: 0;
@@ -57,24 +51,26 @@
 	</style>
 </head>
 <body>
-	<button data-dojo-type="dui/Button" id="btn1">Default</button>
+	<button data-dojo-type="dui/Button" data-dojo-id="btn1">Default</button>
+	<button onclick="btn1.set('label', 'Changed');">Change label to 'Changed'</button>
 	<hr>
-	<button data-dojo-type="dui/Button" id="btn2" class="duiBlueButton">Blue</button>
+	<button data-dojo-type="dui/Button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
 	class="duiBlueButton"
 	<hr>
-	<button data-dojo-type="dui/Button" id="btn3" class="duiRedButton">Red</button>
+	<button data-dojo-type="dui/Button" data-dojo-id="btn3" class="duiRedButton">Red</button>
 	class="duiRedButton"
 	<hr>
-	<button data-dojo-type="dui/Button" id="btn4" disabled>Disabled</button>
+	<button data-dojo-type="dui/Button" data-dojo-id="btn4" disabled>Disabled</button>
 	disabled
 	<hr>
-	<button data-dojo-type="dui/Button" id="btn5" class="customButton">Custom</button>
+	<button data-dojo-type="dui/Button" data-dojo-id="btn5" class="customButton">Custom</button>
 	class="customButton"
 	<hr>
-	<button data-dojo-type="dui/Button" id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
+	<button data-dojo-type="dui/Button" data-dojo-id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
 			data-dojo-props='iconClass:"duiIconSave"'>
 		Icon Button
 	</button>
+	<button onclick="T1465.set('iconClass', 'duiIconCut');">Change icon to cut</button>
 	<div id="msgArea" style="margin:15px"></div>
 </body>
 </html>
