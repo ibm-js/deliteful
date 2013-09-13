@@ -9,7 +9,7 @@ define([
 		//		dui/mobile/TimePicker
 		// summary:
 		//		A wrapper widget around SpinWheelTimePicker or ValuePickerTimePicker.
-		//		Returns ValuePickerTimePicker when the current theme is "android" or "holodark".
+		//		Returns ValuePickerTimePicker when the current theme is "holodark".
 		//		Returns SpinWheelTimePicker otherwise.
 
 		 // TODO: need to list all the properties/methods in the interface provided by

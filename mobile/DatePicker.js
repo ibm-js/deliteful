@@ -14,7 +14,7 @@ define([
 		// summary:
 		//		A wrapper widget around SpinWheelDatePicker or ValuePickerDatePicker.
 		//		It should be used with the automatic theme loader, dui/mobile/deviceTheme.
-		//		Returns ValuePickerDatePicker when the current theme is "android" or "holodark".
+		//		Returns ValuePickerDatePicker when the current theme is "holodark".
 		//		Returns SpinWheelDatePicker otherwise.
 	};
 	=====*/

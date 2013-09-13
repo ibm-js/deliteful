@@ -31,12 +31,11 @@
 		//
 		//		You can also pass an additional query parameter string:
 		//		theme={theme id} to force a specific theme through the browser
-		//		URL input. The available theme ids are Android, Holodark (theme introduced in Android 3.0), 
+		//		URL input. The available theme ids are Holodark (theme introduced in Android 3.0),
 		//		BlackBerry, Custom, iPhone, and iPad. The theme names are case-sensitive. If the given
 		//		id does not match, the iPhone theme is used.
 		//
 		//	|	http://your.server.com/yourapp.html // automatic detection
-		//	|	http://your.server.com/yourapp.html?theme=Android // forces Android theme
 		//	|	http://your.server.com/yourapp.html?theme=Holodark // forces Holodark theme
 		//	|	http://your.server.com/yourapp.html?theme=BlackBerry // forces Blackberry theme
 		//	|	http://your.server.com/yourapp.html?theme=Custom // forces Custom theme
@@ -171,11 +170,6 @@
 				[]
 			],
 			[
-				"Android",
-				"android",
-				[]
-			],
-			[
 				"BlackBerry",
 				"blackberry",
 				[]
@@ -269,7 +263,7 @@
 						// dui.mobile mirroring support
 						var cssFilePath = files[j].toString();
 						if(config["dojo-bidi"] == true && cssFilePath.indexOf("_rtl") == -1){
-							var rtlCssList = "android.css blackberry.css custom.css iphone.css holodark.css windows.css base.css ComboBox.css IconContainer.css IconMenu.css ListItem.css RoundRectCategory.css SpinWheel.css Switch.css TabBar.css ToggleButton.css ToolBarButton.css";
+							var rtlCssList = "blackberry.css custom.css iphone.css holodark.css windows.css base.css ComboBox.css IconContainer.css IconMenu.css ListItem.css RoundRectCategory.css SpinWheel.css Switch.css TabBar.css ToggleButton.css ToolBarButton.css";
 							var cssName = cssFilePath.substr(cssFilePath.lastIndexOf('/') + 1);
 							if(rtlCssList.indexOf(cssName) != -1){
 								this.loadCssFile(cssFilePath.replace(".css","_rtl.css"));

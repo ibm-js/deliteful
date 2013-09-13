@@ -1,7 +1,0 @@
-/* dui.mobile.ToggleButton Rtl */
-.duiToggleButtonRtl {
-  padding: 0 25px 0 10px!important;
-}
-.duiToggleButtonRtl.duiToggleButtonChecked:after {
-  right: 7px;
-}
