@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare", // declare
-	"./Button",
+	"../Button",
 	"./_ToggleButtonMixin"
 ], function(declare, Button, _ToggleButtonMixin){
 
