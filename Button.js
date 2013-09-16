@@ -8,7 +8,6 @@ define([
 	"./_WidgetBase",
 	"./_FormWidgetMixin",
 	"./mixins/_Invalidating",
-	"dojo/has",
 	"dojo/has!dojo-bidi?./bidi/Button",
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
 ], function(array, declare, has, lang, domClass, domConstruct,WidgetBase, FormWidgetMixin, _Invalidating, BidiButton){
