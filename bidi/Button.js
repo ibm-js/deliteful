@@ -15,8 +15,8 @@ define(["dojo/_base/declare"], function(declare){
 			this.inherited(arguments);
 
 			this.containerNode.textContent = this.wrapWithUcc(this.containerNode.textContent);
-			if(this.titleNode.title){
-				this.titleNode.title = this.wrapWithUcc(this.titleNode.title);
+			if(this.domNode.title){
+				this.domNode.title = this.wrapWithUcc(this.domNode.title);
 			}
 		}
 	});
