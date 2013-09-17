@@ -23,7 +23,7 @@ define([
 		// description:
 		//		This mixin adds filtering capabilities to all dui/mobile list widgets:
 		//		dui/mobile/RoundRectList and any of its subclasses (RoundRectStoreList, 
-		//		RoundRectDataList, EdgeToEdgeList, EdgeToEdgeStoreList, EdgeToEdgeDataList).
+		//		EdgeToEdgeList, EdgeToEdgeStoreList).
 		//		When mixing this class into a list widget, the list items are dynamically 
 		//		filtered depending on the filtering string that the user enters in a 
 		//		dui/mobile/SearchBox. 
@@ -92,20 +92,6 @@ define([
 		// |		<div id="filteredList">
 		// |	</div>
 		// example:
-		// |	<!-- Markup use-case: -->
-		// |	<!-- SearchBox and ScrollableView provided by the user. -->
-		// |	<!-- Filtered EdgeToEdgeDataList created in markup. --> 
-		// |	<div data-dojo-type="dui/mobile/View">
-		// |		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props="fixed: 'top'">Some heading</h1>
-		// |		<input id="filterBox" data-dojo-type="dui/mobile/SearchBox" type="search"
-		// |			class="duiFilteredEdgeToEdgeListSearchBox">		
-		// |		<div data-dojo-type="dui/mobile/ScrollableView">
-		// |			<ul data-dojo-type="dui/mobile/EdgeToEdgeDataList" 
-		// |				data-dojo-mixins="dui/mobile/FilteredListMixin"
-		// |				data-dojo-props="filterBoxRef: 'filterBox', placeHolder: 'Search', store: myStore"></ul>
-		// |		</div>
-		// |	</div>
-		// example:
 		// |	// Programmatic use-case:
 		// |	// SearchBox and ScrollableView provided by the user.
 		// |	// Filtered EdgeToEdgeStoreList created programmatically.
@@ -139,7 +125,7 @@ define([
 		// constraint on user's side and it is not a serious overhead, because in practice 
 		// the filtering is used for long lists, for which a ScrollableView is anyway likely 
 		// to be used. 
-		// - Differently, the loading of the store/data modules is performed dynamically,
+		// - Differently, the loading of the store modules is performed dynamically,
 		// in order to avoid their overhead when they are not actually needed.
 		
 		// filterBoxRef: String
