@@ -42,6 +42,9 @@ if(window.location.href.indexOf("?") > -1){
 			case "dir":
 				// rtl | null
 				dir = value;
+				if(dir == "rtl"){
+					dojoConfig.has["dojo-bidi"] = true;
+				}
 				break;
 			case "theme":
 				// tundra | soria | nihilo | claro | null
@@ -115,8 +118,6 @@ function boilerplateOnLoad(){
 			// that affects how they lay out relative to inline form widgets
 			query("label").attr("dir", "rtl");
 		});
-
-		dojoConfig.has["dojo-bidi"] = true;
 	}
 
 	// parseOnLoad: true requires that the parser itself be loaded.
