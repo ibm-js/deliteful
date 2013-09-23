@@ -125,6 +125,14 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 			this.set("items", items);
 		},
 
+		destroy: function(){
+			if(this._observeHandler){
+				this._observeHandler.remove();
+				this._observeHandler = null;
+			}
+			this.inherited(arguments);
+		},
+
 		removeItem: function(index, item, items){
 			// summary:
 			//		Remove a render item. This can be redefined but must not be called directly.
