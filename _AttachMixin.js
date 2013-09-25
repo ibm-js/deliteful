@@ -204,11 +204,7 @@ define([
 			// summary:
 			//		Detach and clean up the attachments made in _attachTemplateNodes.
 
-			// Delete all attach points to prevent IE6 memory leaks.
-			var _attachScope = this.attachScope || this;
-			array.forEach(this._attachPoints, function(point){
-				delete _attachScope[point];
-			});
+			// Delete all attach points
 			this._attachPoints = [];
 
 			// And same for event handlers

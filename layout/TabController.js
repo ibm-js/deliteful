@@ -49,17 +49,6 @@ define([
 			dom.setSelectable(this.containerNode, false);
 		},
 
-		startup: function(){
-			this.inherited(arguments);
-			var n = this.domNode;
-
-			// Required to give IE6 a kick, as it initially hides the
-			// tabs until they are focused on.
-			this.defer(function(){
-				n.className = n.className;
-			}, 1);
-		},
-
 		_setCloseButtonAttr: function(/*Boolean*/ disp){
 			// summary:
 			//		Hide/show close button

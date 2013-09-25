@@ -12,8 +12,7 @@ define([
 	//		dui/BackgroundIFrame
 
 	// Flag for whether to create background iframe behind popups like Menus and Dialog.
-	// A background iframe is useful to prevent problems with popups appearing behind applets/pdf files,
-	// and is also useful on older versions of IE (IE6 and IE7) to prevent the "bleed through select" problem.
+	// A background iframe is useful to prevent problems with popups appearing behind applets/pdf files.
 	has.add("config-bgIframe", false);
 
 	// TODO: remove _frames, it isn't being used much, since popups never release their
@@ -78,17 +77,6 @@ define([
 	};
 
 	lang.extend(BackgroundIframe, {
-		resize: function(node){
-			// summary:
-			//		Resize the iframe so it's the same size as node.
-			//		Needed on IE6 and IE/quirks because height:100% doesn't work right.
-			if(this.iframe){
-				domStyle.set(this.iframe, {
-					width: node.offsetWidth + 'px',
-					height: node.offsetHeight + 'px'
-				});
-			}
-		},
 		destroy: function(){
 			// summary:
 			//		destroy the iframe

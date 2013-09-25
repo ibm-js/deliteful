@@ -522,11 +522,6 @@
 
 		function directionOnChange(direction){
 			dojo.query('[widgetId]', testtable).forEach(function(node){
-				if(dojo.isIE == 7){ // IE layout bugs
-					dojo.query('INPUT', node).forEach(function(node){
-						node.className = node.className;
-					});
-				}
 				node.style.direction = direction;
 				node.parentNode.style.direction = direction;
 				dojo.forEach(node.className.split(' '), function(cls){
@@ -557,24 +552,10 @@
 
 		function sizeOnChange(size){
 			testtable.style.fontSize = size;
-			dojo.query('[widgetId]', testtable).forEach(function(node){
-				if(dojo.isIE == 7){ // IE layout bugs
-					dojo.query('INPUT', node).forEach(function(node){
-						node.className = node.className;
-					});
-				}
-			});
 		}
 
 		function paddingOnChange(padding){
 			testtable.className = padding;
-			dojo.query('[widgetId]', testtable).forEach(function(node){
-				if(dojo.isIE == 7){ // IE layout bugs
-					dojo.query('INPUT', node).forEach(function(node){
-						node.className = node.className;
-					});
-				}
-			});
 		}
 	</script>
 	<table style="background-color:cyan;" border="1" role="presentation">

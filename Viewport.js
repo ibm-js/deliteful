@@ -35,17 +35,6 @@ define([
 			Viewport.emit("resize");
 		});
 
-		// Also catch zoom changes on IE8, since they don't naturally generate resize events
-		if(has("ie") == 8){
-			var deviceXDPI = screen.deviceXDPI;
-			setInterval(function(){
-				if(screen.deviceXDPI != deviceXDPI){
-					deviceXDPI = screen.deviceXDPI;
-					Viewport.emit("resize");
-				}
-			}, 500);
-		}
-
 		// On iOS, keep track of the focused node so we can guess when the keyboard is/isn't being displayed.
 		if(has("ios")){
 			on(document, "focusin", function(evt){
