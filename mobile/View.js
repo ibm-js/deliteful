@@ -83,10 +83,12 @@ define([
 				this.domNode = this.containerNode = this.srcNodeRef || domConstruct.create(this.tag);
 			}
 
-			this.own(on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")))[0];
-			this.own(on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart")))[0];
+			this.own(
+				on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")),
+				on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart"))
+			);
 			if(!config['duiCSS3Transition']){
-				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")))[0];
+				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")));
 			}
 			if(has('duiAndroid3Workaround')){
 				// workaround for the screen flicker issue on Android 3.x/4.0

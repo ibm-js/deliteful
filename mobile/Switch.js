@@ -118,9 +118,11 @@ define([
 		},
 
 		postCreate: function(){
-			this.own(on(this.switchNode, "click", lang.hitch(this, "_onClick")));
-			this.own(on(this.switchNode, "onkeydown", lang.hitch(this, "_onClick"))); // for desktop browsers
-			this.own(on(this.switchNode, touch.press, lang.hitch(this, "onTouchStart")))[0];
+			this.own(
+				on(this.switchNode, "click", lang.hitch(this, "_onClick")),
+				on(this.switchNode, "onkeydown", lang.hitch(this, "_onClick")), // for desktop browsers
+				on(this.switchNode, touch.press, lang.hitch(this, "onTouchStart"))
+			);
 			this._initialValue = this.value; // for reset()
 		},
 

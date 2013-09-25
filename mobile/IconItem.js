@@ -129,8 +129,10 @@ define([
 				}
 				p.paneContainerWidget.addChild(w, this.getIndexInParent());
 				w.set("label", this.label);
-				this.own(on(w.closeIconNode, "click", lang.hitch(this, "_closeIconClicked")))[0];
-				this.own(on(w.closeIconNode, "keydown", lang.hitch(this, "_closeIconClicked")))[0]; // for desktop browsers
+				this.own(
+					on(w.closeIconNode, "click", lang.hitch(this, "_closeIconClicked")),
+					on(w.closeIconNode, "keydown", lang.hitch(this, "_closeIconClicked"))
+				); // for desktop browsers
 			}));
 
 			this.inherited(arguments);
@@ -146,11 +148,13 @@ define([
 				this.set("icon", p.defaultIcon);
 			}
 
-			this.own(on(this.domNode, "dragstart", function(e){
-				e.preventDefault();
-				e.stopPropagation();
-			}))[0];
-			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
+			this.own(
+				on(this.domNode, "dragstart", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+				}),
+				on(this.domNode, "keydown", lang.hitch(this, "_onClick"))
+			); // for desktop browsers
 		},
 
 		highlight: function(/*Number?*/timeout){

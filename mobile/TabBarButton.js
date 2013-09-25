@@ -158,8 +158,10 @@ define([
 			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onClick"))); // for desktop browsers
 			var parent = this.getParent();
 			if(parent && parent.closable){
-				this.own(on(this.iconDivNode, "click", lang.hitch(this, "_onCloseButtonClick")))[0];
-				this.own(on(this.iconDivNode, "keydown", lang.hitch(this, "_onCloseButtonClick")))[0]; // for desktop browsers
+				this.own(
+					on(this.iconDivNode, "click", lang.hitch(this, "_onCloseButtonClick")),
+					on(this.iconDivNode, "keydown", lang.hitch(this, "_onCloseButtonClick"))
+				); // for desktop browsers
 				this.iconDivNode.tabIndex = "0";
 			}
 

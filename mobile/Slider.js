@@ -143,8 +143,10 @@ define([
 				array.forEach(actionHandles, function(h){h.remove();});
 				var root = win.doc.documentElement;
 				actionHandles = [
-					this.own(on(root, touch.move, lang.hitch(this, continueDrag)))[0],
-					this.own(on(root, touch.release, lang.hitch(this, endDrag)))[0]
+					this.own(
+						on(root, touch.move, lang.hitch(this, continueDrag)),
+						on(root, touch.release, lang.hitch(this, endDrag))
+					)
 				];
 			}
 
