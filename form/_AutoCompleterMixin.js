@@ -559,9 +559,6 @@ define([
 			// description:
 			//		Sets the value of the select.
 			this._set("item", item || null); // value not looked up in store
-			if(value == null /* or undefined */){
-				value = '';
-			} // null translates to blank
 			this.inherited(arguments);
 		}
 	});

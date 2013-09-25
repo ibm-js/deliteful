@@ -40,15 +40,6 @@ define([
 			this.inherited(arguments);
 		},
 
-		filter: function(/*String*/ value){
-			// Override TextBox.filter to deal with newlines... specifically (IIRC) this is for IE which writes newlines
-			// as \r\n instead of just \n
-			if(value){
-				value = value.replace(/\r/g, "");
-			}
-			return this.inherited(arguments);
-		},
-
 		_onInput: function(/*Event?*/ e){
 			// Override TextBox._onInput() to enforce maxLength restriction
 			if(this.maxLength){
