@@ -42,7 +42,7 @@ define([
 				// allows multiple root nodes in the fragment,
 				// but transition will be performed to the 1st view.
 				var view;
-				for(i = 0, len = container.childNodes.length; i < len; i++){
+				for(var i = 0, len = container.childNodes.length; i < len; i++){
 					var n = container.firstChild;
 					if(!view && n.nodeType === 1){
 						view = registry.byNode(n);

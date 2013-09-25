@@ -171,8 +171,7 @@ define([
 			//		private
 			if(!this.appView){ return; }
 			this.label = text;
-			var s = text;
-			this.appView._heading.set("label", s);
+			this.appView._heading.set("label", text);
 		}
 	});
 });

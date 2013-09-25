@@ -195,7 +195,7 @@ define([
 
 			// If they didn't provide a summary, change the default summary to match with the new month
 			if(!this.summary){
-				var monthNames = this.dateLocaleModule.getNames('months', 'wide', 'standAlone', this.lang, month)
+				var monthNames = this.dateLocaleModule.getNames('months', 'wide', 'standAlone', this.lang, month);
 				this.gridNode.setAttribute("summary", monthNames[month.getMonth()]);
 			}
 

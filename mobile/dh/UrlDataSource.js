@@ -24,14 +24,13 @@ define([
 		getData: function(){
 			// summary:
 			//		Returns a Deferred that accesses the given URL and fetches the data as text.
-			var obj = xhr(this._url, {
+			return xhr(this._url, {
 				handleAs: "text"
 			}).then(lang.hitch(this, function(response, ioArgs){
 				this.text = response;
 			}),function(error){
 				console.log("Failed to load "+this._url+"\n"+(error.description||error));
-			});
-			return obj; // Deferred
+			}); // Deferred
 		}
 	});
 });

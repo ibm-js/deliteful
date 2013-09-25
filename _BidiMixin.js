@@ -57,7 +57,7 @@ define([], function(){
 			return fdc ? ( fdc[0] <= 'z' ? "ltr" : "rtl" ) : this.dir ? this.dir : this.isLeftToRight() ? "ltr" : "rtl";
 		},
 
-		applyTextDir: function(/*DOMNode*/ element, /*String?*/ text){
+		applyTextDir: function(/*DOMNode*/ element){
 			// summary:
 			//		Set element.dir according to this.textDir, assuming this.textDir has a value.
 			// element: DOMNode

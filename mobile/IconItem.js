@@ -330,8 +330,7 @@ define([
 			// tags:
 			//		private
 			this.label = text;
-			var s = text;
-			this.labelNode.innerHTML = s;
+			this.labelNode.innerHTML = text;
 			if(this.paneWidget){
 				this.paneWidget.set("label", text);
 			}

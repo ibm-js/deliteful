@@ -36,13 +36,13 @@
 					// add the child to the SimpleWidget now
 					pane1 = (new ContentPane({ title: "pane1" })).placeAt(simple);
 					doh.is(pane1, simple.getChildren()[0], "pane1 is child of SimpleWidget");
-					doh.is(simple.containerNode, pane1.domNode.parentNode, "pane1 added to simple.containerNode not simple.domNode")
+					doh.is(simple.containerNode, pane1.domNode.parentNode, "pane1 added to simple.containerNode not simple.domNode");
 				},
 
 				function placeAsWidgetChildOrdered(){
 					// add this child (created second) as the new first child
 					pane2 = (new ContentPane({ title: "pane2" })).placeAt("simple", 0);
-					doh.is(simple.containerNode, pane2.domNode.parentNode, "pane2 added to simple.containerNode not simple.domNode")
+					doh.is(simple.containerNode, pane2.domNode.parentNode, "pane2 added to simple.containerNode not simple.domNode");
 					doh.is(pane2, simple.getChildren()[0], "pane2 is new first child of SimpleWidget");
 					doh.is(pane1, simple.getChildren()[1], "pane1 is now second child of SimpleWidget");
 				},

@@ -319,9 +319,9 @@
 							doh.robot.sequence(d.getTestCallback(function(){
 								doh.t(widgetFocused, "widget focus");
 								doh.t(wasVisible, "drop down menu displayed after down arrow");
-								doh.t(previousSelectionFocused, "focused on previously selected item")
+								doh.t(previousSelectionFocused, "focused on previously selected item");
 								doh.t(stillVisible, "drop down menu still displayed");
-								doh.t(nextFocused, "focused on next menu item")
+								doh.t(nextFocused, "focused on next menu item");
 								doh.t(isHidden(s1_menu), "drop down menu closes after ENTER key");
 								doh.is("FL", s1.get("value"));
 							}), 1000);
@@ -363,7 +363,7 @@
 							doh.robot.sequence(d.getTestCallback(function(){
 								doh.t(widgetFocused, "widget focus");
 								doh.t(wasVisible, "drop down menu displayed after down arrow");
-								doh.t(nextFocused, "focused next menu item")
+								doh.t(nextFocused, "focused next menu item");
 								doh.t(isHidden(s1_menu), "drop down menu closes after ENTER key");
 								doh.is("VA", s1.get("value"), "value unchanged");
 							}), 1000);

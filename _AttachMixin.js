@@ -22,7 +22,7 @@ define([
 	// In that case, the a11yclick variable below will get set to point to that synthetic event.
 	var a11yclick;
 
-	var _AttachMixin = declare("dui._AttachMixin", null, {
+	return declare("dui._AttachMixin", null, {
 		// summary:
 		//		Mixin for widgets to attach to dom nodes and setup events via
 		//		convenient data-dojo-attach-point and data-dojo-attach-event DOM attributes.
@@ -217,6 +217,4 @@ define([
 			this.inherited(arguments);
 		}
 	});
-
-	return _AttachMixin;
 });

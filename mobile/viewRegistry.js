@@ -7,7 +7,7 @@ define([
 	// module:
 	//		dui/mobile/viewRegistry
 
-	var viewRegistry = {
+	return {
 		// summary:
 		//		A registry of existing views.
 
@@ -89,6 +89,4 @@ define([
 			return null;
 		}
 	};
-
-	return viewRegistry;
 });

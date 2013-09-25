@@ -13,7 +13,7 @@ define([
 	// module:
 	//		dui/mobile/_ScrollableMixin
 
-	var cls = declare("dui.mobile._ScrollableMixin", Scrollable, {
+	return declare("dui.mobile._ScrollableMixin", Scrollable, {
 		// summary:
 		//		Mixin for widgets to have a touch scrolling capability.
 	
@@ -141,5 +141,4 @@ define([
 			return null;
 		}
 	});
-	return cls;
 });

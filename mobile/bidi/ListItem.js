@@ -58,6 +58,7 @@ define([
 			}
 			var nEncount = 0;
 			array.forEach(this.domNode.childNodes, function(node){
+				var textNode;
 				if(nEncount === 0){
 					/* Replace content of directional text node, if found */
 					if(node.nodeType === 3 && (node.nodeValue === common.MARK.RLE || node.nodeValue === common.MARK.LRE)){
@@ -70,7 +71,7 @@ define([
 						/* Insert directional text node */
 						if(currentNode.nodeValue.search(/[.\S]/) != -1){
 							nEncount = 1;
-							textNode = win.doc.createTextNode((this.getTextDir(currentNode.nodeValue).toLowerCase() === 'rtl') ? common.MARK.RLE : common.MARK.LRE);    
+							textNode = win.doc.createTextNode((this.getTextDir(currentNode.nodeValue).toLowerCase() === 'rtl') ? common.MARK.RLE : common.MARK.LRE);
 							domConstruct.place(textNode, node, "before");
 						}
 					}

@@ -275,6 +275,7 @@ define([
 				pos = domGeometry.position(w.domNode, true);
 				if(this._contains(point, pos)){
 					this.defer(function(){
+						// TODO: this looks wrong, by the time the deferred executes i will have a different value
 						this.moveChildWithAnimation(blankItem, dir == 1 ? i+1 : i);
 					});
 					break;
@@ -297,7 +298,7 @@ define([
 			var dir = from < to ? 1 : -1;
 			var children = this.getChildren();
 			var posArray = [];
-			var i;
+			var i, j;
 			for(i=from; i!=to; i+=dir){
 				posArray.push({
 					t: (children[i+dir].domNode.offsetTop - children[i].domNode.offsetTop) + "px",
