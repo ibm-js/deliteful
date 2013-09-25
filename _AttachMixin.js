@@ -5,9 +5,8 @@ define([
 	"dojo/_base/lang", // lang.getObject
 	"dojo/mouse",
 	"dojo/on",
-	"dojo/touch",
-	"./_WidgetBase"
-], function(require, array, declare, lang, mouse, on, touch, _WidgetBase){
+	"dojo/touch"
+], function(require, array, declare, lang, mouse, on, touch){
 
 	// module:
 	//		dui/_AttachMixin
@@ -203,7 +202,7 @@ define([
 
 		_detachTemplateNodes: function() {
 			// summary:
-			//		Detach and clean up the attachments made in _attachtempalteNodes.
+			//		Detach and clean up the attachments made in _attachTemplateNodes.
 
 			// Delete all attach points to prevent IE6 memory leaks.
 			var _attachScope = this.attachScope || this;
