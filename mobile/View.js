@@ -19,10 +19,9 @@ define([
 	"dui/_WidgetBase",
 	"./ViewController", // to load ViewController for you (no direct references)
 	"./common",
-	"./transition",
 	"./viewRegistry",
 	"./_css3"
-], function(array, config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, transitDeferred, viewRegistry, css3){
+], function(array, config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, viewRegistry, css3){
 
 	// module:
 	//		dui/mobile/View
@@ -87,9 +86,7 @@ define([
 				on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")),
 				on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart"))
 			);
-			if(!config.duiCSS3Transition){
-				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")));
-			}
+			this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")));
 			if(has('duiAndroid3Workaround')){
 				// workaround for the screen flicker issue on Android 3.x/4.0
 				// applying "-webkit-transform-style:preserve-3d" to domNode can avoid
@@ -367,7 +364,7 @@ define([
 
 				toWidget.movedFrom = fromNode.id;
 			}
-			if(has('duiAndroidWorkaround') && !config.duiCSS3Transition
+			if(has('duiAndroidWorkaround')
 					&& detail.transition && detail.transition != "none"){
 				// workaround for the screen flicker issue on Android 2.2/2.3
 				// apply "-webkit-transform-style:preserve-3d" to both toNode and fromNode
@@ -427,20 +424,6 @@ define([
 			if(!transition || transition == "none"){
 				this.domNode.style.display = "none";
 				this.invokeCallback();
-			}else if(config.duiCSS3Transition){
-				//get dojox/css3/transit first
-				transitDeferred.then(lang.hitch(this, function(transit){
-					//follow the style of .duiView.duiIn in View.css
-					//need to set the toNode to absolute position
-					var toPosition = domStyle.get(toNode, "position");
-					domStyle.set(toNode, "position", "absolute");
-					transit(fromNode, toNode, {transition: transition, reverse: !!(transitionDir===-1)}).then(lang.hitch(this,function(){
-						domStyle.set(toNode, "position", toPosition);
-						// Reset the temporary padding on toNode
-						toNode.style.paddingTop = "";
-						this.invokeCallback();
-					}));
-				}));
 			}else{
 				if(transition.indexOf("cube") != -1){
 					if(has('ipad')){
