@@ -101,8 +101,8 @@ define([
 	// dui/mobile.hideAddressBarWait: Number
 	//		The time in milliseconds to wait before the fail-safe hiding address
 	//		bar runs. The value must be larger than 800.
-	dm.hideAddressBarWait = typeof(config["duiHideAddressBarWait"]) === "number" ?
-		config["duiHideAddressBarWait"] : 1500;
+	dm.hideAddressBarWait = typeof(config.duiHideAddressBarWait) === "number" ?
+		config.duiHideAddressBarWait : 1500;
 
 	dm.hide_1 = function(){
 		// summary:
@@ -274,7 +274,7 @@ define([
 		}
 	};
 
-	if(config["duiApplyPageStyles"] !== false){
+	if(config.duiApplyPageStyles !== false){
 		domClass.add(win.doc.documentElement, "mobile");
 	}
 	if(has('chrome')){
@@ -293,16 +293,16 @@ define([
 
 	// flag for Android transition animation flicker workaround
 	has.add('duiAndroidWorkaround', 
-			config["duiAndroidWorkaround"] !== false && has('android') < 3, undefined, true);
+			config.duiAndroidWorkaround !== false && has('android') < 3, undefined, true);
 	has.add('duiAndroid3Workaround', 
-			config["duiAndroid3Workaround"] !== false && has('android') >= 3, undefined, true);
+			config.duiAndroid3Workaround !== false && has('android') >= 3, undefined, true);
 
 	dm._detectWindowsTheme();
 	
 	domReady(function(){
 		dm.detectScreenSize(true);
 		domClass.add(win.body(), "duiBackground");
-		if(config["duiAndroidWorkaroundButtonStyle"] !== false && has('android')){
+		if(config.duiAndroidWorkaroundButtonStyle !== false && has('android')){
 			// workaround for the form button disappearing issue on Android 2.2-4.0
 			domConstruct.create("style", {innerHTML:"BUTTON,INPUT[type='button'],INPUT[type='submit'],INPUT[type='reset'],INPUT[type='file']::-webkit-file-upload-button{-webkit-appearance:none;} audio::-webkit-media-controls-play-button,video::-webkit-media-controls-play-button{-webkit-appearance:media-play-button;} video::-webkit-media-controls-fullscreen-button{-webkit-appearance:media-fullscreen-button;}"}, win.doc.head, "first");
 		}
@@ -314,11 +314,11 @@ define([
 		//	You can disable hiding the address bar with the following dojoConfig.
 		//	var dojoConfig = { duiHideAddressBar: false };
 		var f = dm.resizeAll;
-		if(config["duiHideAddressBar"] !== false &&
+		if(config.duiHideAddressBar !== false &&
 			navigator.appVersion.indexOf("Mobile") != -1 ||
-			config["duiForceHideAddressBar"] === true){
+			config.duiForceHideAddressBar === true){
 			dm.hideAddressBar();
-			if(config["duiAlwaysHideAddressBar"] === true){
+			if(config.duiAlwaysHideAddressBar === true){
 				f = dm.hideAddressBar;
 			}
 		}

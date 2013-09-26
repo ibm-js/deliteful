@@ -87,7 +87,7 @@ define([
 				on(this.domNode, css3.name("animationEnd"), lang.hitch(this, "onAnimationEnd")),
 				on(this.domNode, css3.name("animationStart"), lang.hitch(this, "onAnimationStart"))
 			);
-			if(!config['duiCSS3Transition']){
+			if(!config.duiCSS3Transition){
 				this.own(on(this.domNode, css3.name("transitionEnd"), lang.hitch(this, "onAnimationEnd")));
 			}
 			if(has('duiAndroid3Workaround')){
@@ -247,7 +247,7 @@ define([
 		},
 
 		_isBookmarkable: function(detail){
-			return detail.moveTo && (config['duiForceBookmarkable'] || detail.moveTo.charAt(0) === '#') && !detail.hashchange;
+			return detail.moveTo && (config.duiForceBookmarkable || detail.moveTo.charAt(0) === '#') && !detail.hashchange;
 		},
 
 		performTransition: function(/*String*/moveTo, /*Number*/transitionDir, /*String*/transition,
@@ -353,7 +353,7 @@ define([
 			var toWidget = registry.byNode(toNode);
 			if(toWidget){
 				// Now that the target view became visible, it's time to run resize()
-				if(config["duiAlwaysResizeOnTransition"] || !toWidget._resized){
+				if(config.duiAlwaysResizeOnTransition || !toWidget._resized){
 					common.resizeAll(null, toWidget);
 					toWidget._resized = true;
 				}
@@ -367,7 +367,7 @@ define([
 
 				toWidget.movedFrom = fromNode.id;
 			}
-			if(has('duiAndroidWorkaround') && !config['duiCSS3Transition']
+			if(has('duiAndroidWorkaround') && !config.duiCSS3Transition
 					&& detail.transition && detail.transition != "none"){
 				// workaround for the screen flicker issue on Android 2.2/2.3
 				// apply "-webkit-transform-style:preserve-3d" to both toNode and fromNode
@@ -389,7 +389,7 @@ define([
 					toNode.style.top = "0px";
 					if(scrollTop > 1 || toTop !== 0){
 						fromNode.style.top = toTop - scrollTop + "px";
-						if(config["duiHideAddressBar"] !== false){
+						if(config.duiHideAddressBar !== false){
 							this.defer(function(){ // iPhone needs setTimeout (via defer)
 								win.global.scrollTo(0, (toTop || 1));
 							});
@@ -432,7 +432,7 @@ define([
 			if(!transition || transition == "none"){
 				this.domNode.style.display = "none";
 				this.invokeCallback();
-			}else if(config['duiCSS3Transition']){
+			}else if(config.duiCSS3Transition){
 				//get dojox/css3/transit first
 				transitDeferred.then(lang.hitch(this, function(transit){
 					//follow the style of .duiView.duiIn in View.css

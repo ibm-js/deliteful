@@ -114,7 +114,7 @@ define([
 					nDiv = this._domButtons[btnClass];
 				}
 				var props = null;
-				if(has("bb") && config["duiBBBoxShadowWorkaround"] !== false){
+				if(has("bb") && config.duiBBBoxShadowWorkaround !== false){
 					// Removes box-shadow because BlackBerry incorrectly renders it.
 					props = {style:"-webkit-box-shadow:none"};
 				}

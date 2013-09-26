@@ -615,7 +615,7 @@ return {
 		};
 
 		domReady(function(){
-			if(config["duiLoadCompatCssFiles"] !== false){
+			if(config.duiLoadCompatCssFiles !== false){
 				dm.loadCompatCssFiles();
 			}
 			if(dm.applyPngFilter){

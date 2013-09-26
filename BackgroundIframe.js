@@ -31,7 +31,7 @@ define([
 			}else{
 				// transparency needed for DialogUnderlay and for tooltips on IE (to see screen near connector)
 				if(has("ie") < 9){
-					var burl = config["dojoBlankHtmlUrl"] || require.toUrl("dojo/resources/blank.html") || "javascript:\"\"";
+					var burl = config.dojoBlankHtmlUrl || require.toUrl("dojo/resources/blank.html") || "javascript:\"\"";
 					var html="<iframe src='" + burl + "' role='presentation'"
 						+ " style='position: absolute; left: 0px; top: 0px;"
 						+ "z-index: -1; filter:Alpha(Opacity=\"0\");'>";
