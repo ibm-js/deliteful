@@ -1,8 +1,8 @@
-@import url("../common/transitions/slide.css");
+@import url("../../../themes/common/transitions/slide.css");
 
-@import url("../common/transitions/flip.css");
+@import url("../../../themes/common/transitions/flip.css");
 
-@import url("../common/transitions/fade.css");
+@import url("../../../themes/common/transitions/fade.css");
 .duiToolBarButtonHasArrow-styles {
   width: 27px;
   height: 27px;
