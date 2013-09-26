@@ -1085,7 +1085,7 @@ define([
 					animationDuration: ""
 				}));
 				// do not use fade animation in case of using top/left on Android
-				// since it causes screen flicker during adress bar's fading out
+				// since it causes screen flicker during address bar's fading out
 				if(!(self._useTopLeft && has('android'))){
 					bar.className = "duiScrollableFadeScrollBar";
 				}

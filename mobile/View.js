@@ -389,11 +389,6 @@ define([
 					toNode.style.top = "0px";
 					if(scrollTop > 1 || toTop !== 0){
 						fromNode.style.top = toTop - scrollTop + "px";
-						if(config.duiHideAddressBar !== false){
-							this.defer(function(){ // iPhone needs setTimeout (via defer)
-								win.global.scrollTo(0, (toTop || 1));
-							});
-						}
 					}
 				}else{
 					toNode.style.top = "0px";

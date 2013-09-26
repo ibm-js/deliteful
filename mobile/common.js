@@ -98,70 +98,6 @@ define([
 	};
 	dm.detectScreenSize();
 
-	// dui/mobile.hideAddressBarWait: Number
-	//		The time in milliseconds to wait before the fail-safe hiding address
-	//		bar runs. The value must be larger than 800.
-	dm.hideAddressBarWait = typeof(config.duiHideAddressBarWait) === "number" ?
-		config.duiHideAddressBarWait : 1500;
-
-	dm.hide_1 = function(){
-		// summary:
-		//		Internal function to hide the address bar.
-		// tags:
-		//		private
-		scrollTo(0, 1);
-		dm._hidingTimer = (dm._hidingTimer == 0) ? 200 : dm._hidingTimer * 2;
-		setTimeout(function(){ // wait for a while for "scrollTo" to finish
-			if(dm.isAddressBarHidden() || dm._hidingTimer > dm.hideAddressBarWait){
-				// Succeeded to hide address bar, or failed but timed out 
-				dm.resizeAll();
-				dm._hiding = false;
-			}else{
-				// Failed to hide address bar, so retry after a while
-				setTimeout(dm.hide_1, dm._hidingTimer);
-			}
-		}, 50); //50ms is an experiential value
-	};
-
-	dm.hideAddressBar = function(/*Event?*/evt){
-		// summary:
-		//		Hides the address bar.
-		// description:
-		//		Tries to hide the address bar a couple of times. The purpose is to do 
-		//		it as quick as possible while ensuring the resize is done after the hiding
-		//		finishes.
-		if(dm.disableHideAddressBar || dm._hiding){ return; }
-		dm._hiding = true;
-		dm._hidingTimer = has("ios") ? 200 : 0; // Need to wait longer in case of iPhone
-		var minH = screen.availHeight;
-		if(has('android')){
-			minH = outerHeight / devicePixelRatio;
-			// On some Android devices such as Galaxy SII, minH might be 0 at this time.
-			// In that case, retry again after a while. (200ms is an experiential value)
-			if(minH == 0){
-				dm._hiding = false;
-				setTimeout(function(){ dm.hideAddressBar(); }, 200);
-			}
-			// On some Android devices such as HTC EVO, "outerHeight/devicePixelRatio"
-			// is too short to hide address bar, so make it high enough
-			if(minH <= innerHeight){ minH = outerHeight; }
-			// On Android 2.2/2.3, hiding address bar fails when "overflow:hidden" style is
-			// applied to html/body element, so force "overflow:visible" style
-			if(has('android') < 3){
-				win.doc.documentElement.style.overflow = win.body().style.overflow = "visible";
-			}
-		}
-		if(win.body().offsetHeight < minH){ // to ensure enough height for scrollTo to work
-			win.body().style.minHeight = minH + "px";
-			dm._resetMinHeight = true;
-		}
-		setTimeout(dm.hide_1, dm._hidingTimer);
-	};
-
-	dm.isAddressBarHidden = function(){
-		return pageYOffset === 1;
-	};
-
 	dm.resizeAll = function(/*Event?*/evt, /*Widget?*/root){
 		// summary:
 		//		Calls the resize() method of all the top level resizable widgets.
@@ -311,17 +247,7 @@ define([
 			domConstruct.create("style", {innerHTML:".duiView.duiAndroidWorkaround{position:absolute;top:-9999px !important;left:-9999px !important;}"}, win.doc.head, "last");
 		}
 
-		//	You can disable hiding the address bar with the following dojoConfig.
-		//	var dojoConfig = { duiHideAddressBar: false };
 		var f = dm.resizeAll;
-		if(config.duiHideAddressBar !== false &&
-			navigator.appVersion.indexOf("Mobile") != -1 ||
-			config.duiForceHideAddressBar === true){
-			dm.hideAddressBar();
-			if(config.duiAlwaysHideAddressBar === true){
-				f = dm.hideAddressBar;
-			}
-		}
 
 		var ios6 = has("ios") >= 6; // Full-screen support for iOS6 or later 
 		if((has('android') || ios6) && win.global.onorientationchange !== undefined){
@@ -383,9 +309,7 @@ define([
 		//		A common module for dui/mobile.
 		// description:
 		//		This module includes common utility functions that are used by
-		//		dui/mobile widgets. Also, it provides functions that are commonly
-		//		necessary for mobile web applications, such as the hide address bar
-		//		function.
+		//		dui/mobile widgets.
 	};
 	=====*/
 	return dm;
