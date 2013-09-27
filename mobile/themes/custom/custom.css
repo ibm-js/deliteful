@@ -2,7 +2,7 @@
 
 /* common styles */
 @import url("../common/domButtons.css");
-@import url("../common/transitions.css");
+@import url("../../../themes/common/transitions.css");
 
 /* widget styles */
 @import url("Accordion.css");
