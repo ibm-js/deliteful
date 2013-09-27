@@ -38,7 +38,6 @@ define([
      "./textarea/module",
      "./textbox/module",
      "./toolbarbutton/module",
-     "./transition/module",
      "./valuepickerdatepicker/module",
      "./valuepickertimepicker/module",
      "./view/module"
