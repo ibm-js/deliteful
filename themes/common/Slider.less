@@ -1,0 +1,59 @@
+/* dui.mobile.Slider */
+.duiSlider {
+	margin: 15px; // 1/2 handle width for hanging off the ends of the bar
+	border-style: inset;
+	border-width: 1px;
+	border-radius: @dui-slider-bar-border-radius;
+	.dui-switch-bg-right-background-image();
+	.user-select(none); // prevent selection
+	.box-sizing(content-box); // make width and height consistent with a DIV
+	.duiSlider-styles;
+}
+.duiSliderH {
+	width: 200px;
+	height: 8px;
+	.duiSliderProgressBar {
+		height: 100%;
+	}
+	.duiSliderHandle {
+		top: 50%;
+	}
+}
+.duiSliderV {
+	height: 200px;
+	width: 8px;
+	.duiSliderProgressBar {
+		width: 100%;
+	}
+	.duiSliderHandle {
+		left: 50%;
+	}
+}
+.duiSliderProgressBar {
+	border-radius: @dui-slider-bar-border-radius;
+	.dui-switch-bg-left-background-image();
+}
+.duiSliderHandle {
+	margin: -10px 0 0 -10px;
+	width: 18px;
+	height: 18px;
+	border-style: outset;
+	border-width: 1px;
+	border-radius: @dui-slider-knob-border-radius;
+	.dui-switch-knob-background-image();
+	.duiSliderHandle-styles;
+}
+.duiSliderTransition {
+	.transition-duration(400ms);
+}
+.duiSliderTouchBox {
+	margin: 0;
+	padding: 12pt;
+	left: -12pt;
+	top: -12pt;
+	border: none;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	.tap-highlight-color(rgba(255,255,255,0));
+}
