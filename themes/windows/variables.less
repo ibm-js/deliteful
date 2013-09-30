@@ -475,42 +475,38 @@
 }
 
 // Slider.less
-@dui-slider-bar-border-radius: 0;
-@dui-slider-knob-border-radius: 0;
-
 @dui-slider-handle-height: 1.1em;
 @dui-slider-handle-width: 0.5em;
 @dui-slider-height: 0.5em;
 
-.duiSlider-size(@width, @height) {
-	width: @width !important;
-	height: @height !important;
-}
-
+@dui-slider-size: 100%;
+@dui-slider-halo-size: 12pt;
+@dui-slider-bar-border-width: 0.1em; // for a11y
+@dui-slider-bar-border-style: solid;
+@dui-slider-bar-border-color: transparent;
+@dui-slider-bar-size: 100%;
+@dui-slider-bar-thickness: 0.65em;
+@dui-slider-bar-border-radius: 0;
+@dui-slider-knob-size: 1.15em; // include border for a11y
+@dui-slider-knob-thickness: 0.65em; // include border for a11y
+@dui-slider-knob-border-width: 0.1em; // for a11y
+@dui-slider-knob-border-style: solid;
+@dui-slider-knob-border-color: transparent;
+@dui-slider-knob-border-radius: 0;
+//
 .duiSlider-styles () {
-	border: none;
-	.default-vertical-margin;
-	margin-left: 0px;
-	margin-right: 0px;
 }
-
-.duiSliderHandle-markup (@orientation) when (@orientation = "V"){
-	.dui-markup(-4px, -8px, @dui-slider-handle-width, @dui-slider-handle-height);
+.duiSliderBar-styles () {
 }
-
-.duiSliderHandle-markup (@orientation) when (@orientation = "H"){
-	.dui-markup(-8px, -4px, @dui-slider-handle-height, @dui-slider-handle-width);
+.duiSliderRemainingBar-styles () {
+	background-clip: content-box;
+	background-color: @win-app-bar-color;
 }
-
-.dui-markup (@mtop, @mleft, @heigth, @width) {
-	height: @heigth;
-	width: @width;
-	margin-top: @mtop;
-	margin-left: @mleft;
+.duiSliderProgressBar-styles () {
+	background-image: none;
+	background-color: @win-accent-color;
 }
-
 .duiSliderHandle-styles () {
-	border: none;
 	background-color: @win-foreground-color;
 }
 

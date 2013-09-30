@@ -1,59 +1,141 @@
-/* dui.mobile.Slider */
 .duiSlider {
-	margin: 15px; // 1/2 handle width for hanging off the ends of the bar
-	border-style: inset;
-	border-width: 1px;
-	border-radius: @dui-slider-bar-border-radius;
-	.dui-switch-bg-right-background-image();
+	display: inline-block; // to mimic an INPUT
+	vertical-align: middle;
+	border-collapse: separate;
+	cursor: pointer;
+	padding: @dui-slider-halo-size; // halo to make touches easier
 	.user-select(none); // prevent selection
-	.box-sizing(content-box); // make width and height consistent with a DIV
+	.box-sizing(border-box);
+	.tap-highlight-color(rgba(255,255,255,0));
+	input {
+		display: none;
+	}
+	.dijitRuleContainer {
+		width: 100%;
+		margin: 0;
+		display: inline-block;
+		vertical-align: top;
+	}
 	.duiSlider-styles;
 }
 .duiSliderH {
-	width: 200px;
-	height: 8px;
+	width: @dui-slider-size;
+	.duiSliderRemainingBar {
+		width: @dui-slider-bar-size;
+		min-width: (@dui-slider-knob-size*4);
+		height: @dui-slider-bar-thickness;
+	}
+	.duiSliderRemainingBar > * {
+	        left: 0; // children are positioned with either top or bottom
+	}
 	.duiSliderProgressBar {
 		height: 100%;
+		top: 0;
+		float: none;
+	}
+	.dijitRuleContainer > * {
+		margin-left: -0.25px; // simple attempt to center tic marks
 	}
 	.duiSliderHandle {
-		top: 50%;
+		top: -(@dui-slider-bar-border-width+@dui-slider-knob-size/2-@dui-slider-bar-thickness/2);
+		width: @dui-slider-knob-thickness;
+		height: @dui-slider-knob-size;
 	}
 }
 .duiSliderV {
-	height: 200px;
-	width: 8px;
+	height: @dui-slider-size;
+	.duiSliderRemainingBar {
+		height: @dui-slider-bar-size;
+		min-height: (@dui-slider-knob-size*4);
+		width: @dui-slider-bar-thickness;
+	}
+	.duiSliderRemainingBar > * {
+	        top: 0; // children are positioned with either left or right
+	}
 	.duiSliderProgressBar {
 		width: 100%;
+		left: 0;
+		display: block;
 	}
 	.duiSliderHandle {
-		left: 50%;
+		left: -(@dui-slider-bar-border-width+@dui-slider-knob-size/2-@dui-slider-bar-thickness/2);
+		width: @dui-slider-knob-size;
+		height: @dui-slider-knob-thickness;
 	}
 }
-.duiSliderProgressBar {
-	border-radius: @dui-slider-bar-border-radius;
-	.dui-switch-bg-left-background-image();
-}
 .duiSliderHandle {
-	margin: -10px 0 0 -10px;
-	width: 18px;
-	height: 18px;
-	border-style: outset;
-	border-width: 1px;
+	position: absolute;
+	display: inline-block;
+	.box-sizing(border-box);
+	border-width: @dui-slider-knob-border-width;
+	border-style: @dui-slider-knob-border-style;
+	border-color: @dui-slider-knob-border-color;
 	border-radius: @dui-slider-knob-border-radius;
-	.dui-switch-knob-background-image();
+	padding: 0;
+	margin: 0;
+	background: gray;
+	background-clip: content-box;
 	.duiSliderHandle-styles;
+}
+.duiSliderRtl .duiSliderHandleMax,
+.duiSliderLtr .duiSliderHandleMin {
+	left: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderRtl .duiSliderHandleMin,
+.duiSliderLtr .duiSliderHandleMax {
+	right: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderTtb .duiSliderHandleMax,
+.duiSliderBtt .duiSliderHandleMin {
+	bottom: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderTtb .duiSliderHandleMin,
+.duiSliderBtt .duiSliderHandleMax {
+	top: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderBar {
+	border-width: @dui-slider-bar-border-width;
+	border-style: @dui-slider-bar-border-style;
+	border-color: @dui-slider-bar-border-color;
+	border-radius: @dui-slider-bar-border-radius;
+	padding: 0;
+	margin: 0;
+	background: none;
+	background-clip: content-box;
+	.duiSliderBar-styles;
+}
+.duiSliderRemainingBar { // content area of domNode
+	.box-sizing(border-box);
+	position: relative; // so children can use position:absolute
+	height: 100%;
+	width: 100%;
+	margin: auto;
+	vertical-align: middle;
+	.duiSliderRemainingBar-styles;
+}
+.duiSliderRemainingBar > * {
+	position: absolute !important; // children use the RemainingBar's size
+}
+.duiSliderProgressBar {
+	.box-sizing(content-box);
+	border-width: 0; // this is a child of the RemainingBar
+	.duiSliderProgressBar-styles;
 }
 .duiSliderTransition {
 	.transition-duration(400ms);
 }
-.duiSliderTouchBox {
-	margin: 0;
-	padding: 12pt;
-	left: -12pt;
-	top: -12pt;
-	border: none;
-	width: 100%;
-	height: 100%;
-	background-color: transparent;
-	.tap-highlight-color(rgba(255,255,255,0));
+.dj_a11y .duiSliderHandle:after {
+	content: "\\025A3"; // make sure there's a visible handle
+	display: block;
+	font-family: monospace;
+	font-size: @dui-slider-knob-thickness;
+}
+.dj_a11y .duiSliderH .duiSliderHandle {
+	line-height: @dui-slider-knob-size;
+}
+.dj_a11y .duiSliderV .duiSliderHandle {
+	line-height: @dui-slider-knob-thickness;
+}
+.dj_a11y .duiSlider .duiSliderHandle {
+	border-radius: 0;
 }

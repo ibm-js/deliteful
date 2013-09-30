@@ -1,16 +1,12 @@
 define([
 	"dojo/_base/declare", // declare
-	"dojo/dom-attr", // domAttr.set
-	"dojo/keys", // keys.ESCAPE
-	"dojo/_base/lang",
-	"dojo/on",
-	"./_FormWidgetMixin"
-], function(declare, domAttr, keys, lang, on, _FormWidgetMixin){
+	"dojo/dom-attr" // domAttr.set
+], function(declare, domAttr){
 
 	// module:
-	//		dui/form/_FormValueMixin
+	//		dui/_FormValueMixin
 
-	return declare("dui.form._FormValueMixin", _FormWidgetMixin, {
+	return declare("dui.form._FormValueMixin", null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<input>` or `<select>`
 		//		that have user changeable values.
@@ -18,6 +14,7 @@ define([
 		//		Each _FormValueMixin represents a single input value, and has a (possibly hidden) `<input>` element,
 		//		to which it serializes it's input value, so that form submission (either normal submission or via FormBind?)
 		//		works as expected.
+		//		After an onBlur event, onChange fires if the serialized widget value has changed from value at the time of onFocus.
 
 		// readOnly: Boolean
 		//		Should this widget respond to user input?
@@ -30,45 +27,49 @@ define([
 			this._set("readOnly", value);
 		},
 
-		postCreate: function(){
-			this.inherited(arguments);
+		// previousOnChangeValue: anything
+		//		The last value fired to onChange.
+		previousOnChangeValue: undefined,
 
-			// Update our reset value if it hasn't yet been set (because this.set()
-			// is only called when there *is* a value)
-			if(this._resetValue === undefined){
-				this._lastValueReported = this._resetValue = this.value;
+		set: function(/*String*/ name, /*anything*/ newValue, /*Boolean?*/ priorityChange){
+			// summary:
+			//		Called when the value of the widget is set.  Calls onChange() if appropriate
+			// newValue:
+			//		the new value
+			// priorityChange:
+			//		For a slider, for example, dragging the slider is priorityChange==false,
+			//		but on mouse up, it's priorityChange==true.
+			//		onChange is only called when priorityChange=true.
+			// tags:
+			//		private
+
+			if(priorityChange != null){
+				this._lastValueAttr = name;
+				if(this.previousOnChangeValue === undefined){
+					this.previousOnChangeValue = this[name];
+				}
+			}else if(name == this._lastValueAttr){
+				this.previousOnChangeValue = undefined;
 			}
-		},
 
-		_setValueAttr: function(/*anything*/ newValue, /*Boolean?*/ priorityChange){
-			// summary:
-			//		Hook so set('value', value) works.
-			// description:
-			//		Sets the value of the widget.
-			//		If the value has changed, then fire onChange event, unless priorityChange
-			//		is specified as null (or false?)
-			this._handleOnChange(newValue, priorityChange);
-		},
-
-		_handleOnChange: function(/*anything*/ newValue, /*Boolean?*/ priorityChange){
-			// summary:
-			//		Called when the value of the widget has changed.  Saves the new value in this.value,
-			//		and calls onChange() if appropriate.   See _FormWidget._handleOnChange() for details.
-			this._set("value", newValue);
 			this.inherited(arguments);
-		},
 
-		undo: function(){
-			// summary:
-			//		Restore the value to the last value passed to onChange
-			this._setValueAttr(this._lastValueReported, false);
-		},
-
-		reset: function(){
-			// summary:
-			//		Reset the widget's value to what it was at initialization time
-			this._hasBeenBlurred = false;
-			this._setValueAttr(this._resetValue, true);
+			if(priorityChange === true){
+				if(this.previousOnChangeValue !== newValue){
+					this.previousOnChangeValue = newValue;
+					if(this._onChangeHandle){
+						this._onChangeHandle.remove();
+					}
+					// defer allows hidden value processing to run and
+					// also the onChange handler can safely adjust focus, etc
+					this._onChangeHandle = this.defer(
+						function(){
+							this._onChangeHandle = null;
+							this.onChange(newValue);
+						}
+					); // try to collapse multiple onChange's fired faster than can be processed
+				}
+			}
 		}
 	});
 });
