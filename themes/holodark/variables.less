@@ -375,15 +375,33 @@
 }
 
 // Slider.less
-@dui-slider-bar-border-radius: 10em;
+@dui-slider-size: auto;
+@dui-slider-halo-size: 12pt;
+@dui-slider-bar-border-width: 1px; // for a11y
+@dui-slider-bar-border-style: solid;
+@dui-slider-bar-border-color: transparent;
+@dui-slider-bar-size: 200px;
+@dui-slider-bar-thickness: 5px; // include border for a11y
+@dui-slider-bar-border-radius: 0;
+@dui-slider-knob-size: 20px; // include border for a11y
+@dui-slider-knob-thickness: 20px; // include border for a11y
+@dui-slider-knob-border-width: 1px; // for a11y
+@dui-slider-knob-border-style: solid;
+@dui-slider-knob-border-color: transparent;
 @dui-slider-knob-border-radius: 10em;
-
 //
 .duiSlider-styles () {
-	border-color: #b0b0b0;
+}
+.duiSliderBar-styles () {
+}
+.duiSliderRemainingBar-styles () {
+	background-color: @holo-slider-track-color;
+}
+.duiSliderProgressBar-styles () {
+	background-color: @holo-color1;
 }
 .duiSliderHandle-styles () {
-	border-color: transparent;
+	.holo-slider-background-image();
 }
 
 // TabBar.less
