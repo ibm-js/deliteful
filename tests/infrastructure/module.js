@@ -1,4 +1,10 @@
-define(["doh/main", "require"], function(doh, require){
+define([
+	"doh/main",
+	"require",
+
+	// Core methods/modules [temporarily in dui?]
+	"./Stateful"
+], function(doh, require){
 
 	// Utility methods (previously in dui/_base)
 	doh.register("registry", require.toUrl("./registry.html"), 999999);
