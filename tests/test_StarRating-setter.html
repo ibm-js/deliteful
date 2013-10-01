@@ -21,14 +21,14 @@
 			increment = function(){
 				if(val == 7){ return; }
 				val += 0.5;
-				registry.byId("star").set("value", val);
+				registry.byId("star").value = val;
 				document.getElementById("value").innerHTML = val;
 			};
 
 			decrement = function(){
 				if(val == 0){ return; }
 				val -= 0.5;
-				registry.byId("star").set("value", val);
+				registry.byId("star").value = val;
 				document.getElementById("value").innerHTML = val;
 			};
 

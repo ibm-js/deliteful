@@ -63,6 +63,21 @@ For properties where the subclass doesn't define a custom setter, Stateful will 
 that just calls this._set(...) to save the new value and announce the change to any listeners registered
 via watch().
 
+# register()
+Dui/register is for declaring widgets and is meant (in the future) to specify the widget's custom tag:
+
+	register("dui-button", ... {
+		label: "Press",
+		_setLabelAttr: function(val){
+				this._set("label", ...);
+				...
+			}
+		}
+	});
+
+It also allows the shorthand syntax for declaring setters from Dijit V1 like:
+
+	_setTabIndexAttr: "focusNode"
 
 # Reactive templates
 

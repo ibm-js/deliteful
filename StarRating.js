@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/array",
 	"dojo/string",
@@ -10,16 +9,18 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-class",
 	"dojo/dom-geometry",
-	"dui/_WidgetBase",
+	"./register",
+	"./_WidgetBase",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
-], function(declare, lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry, WidgetBase, BidiStarRating, messages){
+], function(lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
+			register, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dui/StarRating
 
-	var StarRating = declare(WidgetBase, {
+	var StarRating = register(has('dojo-bidi') ? "dui-nonbidistarrating" : "dui-starrating", WidgetBase, {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
 		//		by touching the stars.
@@ -178,13 +179,13 @@ define([
 
 		_incrementValue: function(){
 			if(this.value < this.maximum){
-				this.set('value', this.value + (this.editHalfValues ? 0.5 : 1));
+				this.value = this.value + (this.editHalfValues ? 0.5 : 1);
 			}
 		},
 
 		_decrementValue: function(){
 			if(this.value > (this.zeroAreaWidth ? 0 : (this.editHalfValues ? 0.5 : 1))){
-				this.set('value', this.value - (this.editHalfValues ? 0.5 : 1));
+				this.value = this.value - (this.editHalfValues ? 0.5 : 1);
 			}
 		},
 
@@ -224,52 +225,60 @@ define([
 			return (x - this.zeroAreaWidth) / (starStripLength / this.maximum);
 		},
 
-		_setMaximumAttr: function(/*Number*/value){
+		_setMaximumAttr: function(/*Number*/ value){
 			this._set("maximum", value);
-			this.domNode.setAttribute('aria-valuemax', this.maximum);
-			// set value to trigger redrawing of the widget
-			this.set("value", this.value);
+			if(this.domNode){
+				this.domNode.setAttribute('aria-valuemax', this.maximum);
+				// set value to trigger redrawing of the widget
+				this.value = this.value;
+			}
 		},
 
-		_setValueAttr: function(/*Number*/value){
+		_setValueAttr: function(/*Number*/ value){
 			// summary:
 			//		Sets the value of the Rating.
 			// tags:
 			//		private
-			var createChildren = this.domNode.children.length != this.maximum;
 			this._set("value", value);
-			if(createChildren){
-				domConstruct.empty(this.domNode);
-			}
-			this._updateStars(value, createChildren);
-			this.domNode.setAttribute('aria-valuenow', this.value);
-			this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
+			this.runAfterRender(function(){
+				var createChildren = this.domNode.children.length != this.maximum;
+				if(createChildren){
+					domConstruct.empty(this.domNode);
+				}
+				this._updateStars(value, createChildren);
+				this.domNode.setAttribute('aria-valuenow', this.value);
+				this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
+			});
 		},
 
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
-			this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
-			if(this.editable && !this._keyDownHandler){
-				this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
-			}else if(!this.editable && this._keyDownHandler){
-				this._keyDownHandler.remove();
-				this._keyDownHandler = null;
-			}
-			this.domNode.setAttribute('aria-disabled', !this.editable);
-			if(this.editable && !this._startHandlers){
-				this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
-				                       this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
-			}else if(!this.editable && this._startHandlers){
-				while(this._startHandlers.length){
-					this._startHandlers.pop().remove();
+			this.runAfterRender(function(){
+				this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
+				if(this.editable && !this._keyDownHandler){
+					this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
+				}else if(!this.editable && this._keyDownHandler){
+					this._keyDownHandler.remove();
+					this._keyDownHandler = null;
 				}
-				this._startHandlers = null;
-			}
+				this.domNode.setAttribute('aria-disabled', !this.editable);
+				if(this.editable && !this._startHandlers){
+					this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
+										   this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
+				}else if(!this.editable && this._startHandlers){
+					while(this._startHandlers.length){
+						this._startHandlers.pop().remove();
+					}
+					this._startHandlers = null;
+				}
+			});
 		},
 
 		_setZeroAreaWidthAttr: function(/*Number*/value){
 			this._set("zeroAreaWidth", value);
-			this.domNode.style.paddingLeft = this.zeroAreaWidth + "px";
+			this.runAfterRender(function(){
+				this.domNode.style.paddingLeft = this.zeroAreaWidth + "px";
+			});
 		},
 
 		_updateStars: function(/*Number*/value, /*Boolean*/create){
@@ -294,5 +303,5 @@ define([
 		}
 	});
 
-	return has('dojo-bidi') ? declare([StarRating, BidiStarRating]) : StarRating;
+	return has('dojo-bidi') ? register("dui-starrating", [StarRating, BidiStarRating]) : StarRating;
 });

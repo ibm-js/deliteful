@@ -12,12 +12,21 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/array",
 			"dojo/dom",
 			"dojo/parser",
+			"dui/register",
 			"dui/Button",
 			"dojo/domReady!"
-		], function(array, dom, parser){
+		], function(dom, parser, register, Button){
+
+			// Just for testing subclassing of widgets
+			NewButton = register("dui-new-button", Button, {
+				declaredClass: "NewButton",
+				_setLabelAttr: function(l){
+					console.log("setting label to " + l);
+					this._set("label", l);
+				}
+			});
 
 			parser.parse();
 
@@ -51,11 +60,12 @@
 	</style>
 </head>
 <body>
-	<button data-dojo-type="dui/Button" data-dojo-id="btn1">Default</button>
-	<button onclick="btn1.set('label', 'Changed');">Change label to 'Changed'</button>
+	<button data-dojo-type="NewButton" data-dojo-id="btn1">Default</button>
+	<button onclick="btn1.label = 'Changed';">Change label to 'Changed'</button>
 	<hr>
 	<button data-dojo-type="dui/Button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
 	class="duiBlueButton"
+	<button onclick="btn2.label = 'Very blue';">Change label to 'Very blue'</button>
 	<hr>
 	<button data-dojo-type="dui/Button" data-dojo-id="btn3" class="duiRedButton">Red</button>
 	class="duiRedButton"
@@ -70,7 +80,7 @@
 			data-dojo-props='iconClass:"duiIconSave"'>
 		Icon Button
 	</button>
-	<button onclick="T1465.set('iconClass', 'duiIconCut');">Change icon to cut</button>
+	<button onclick="T1465.iconClass = 'duiIconCut';">Change icon to cut</button>
 	<div id="msgArea" style="margin:15px"></div>
 </body>
 </html>
