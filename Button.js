@@ -1,18 +1,18 @@
 define([
 	"dojo/_base/array",
-	"dojo/_base/declare",
 	"dojo/hccss",
 	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/dom-construct",
+	"./register",
 	"./_WidgetBase",
 	"./_FormWidgetMixin",
 	"./mixins/_Invalidating",
 	"dojo/has!dojo-bidi?./bidi/Button",
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
-], function(array, declare, has, lang, domClass, domConstruct,WidgetBase, FormWidgetMixin, _Invalidating, BidiButton){
+], function(array, has, lang, domClass, domConstruct, register, WidgetBase, FormWidgetMixin, _Invalidating, BidiButton){
 
-	var Button = declare(has("dojo-bidi") ? "dui.NonBidiButton" : "dui.Button", [WidgetBase, _Invalidating, FormWidgetMixin], {
+	var Button = register(has("dojo-bidi") ? "dui-nonbidibutton" : "dui-button", [WidgetBase, _Invalidating, FormWidgetMixin], {
 		// summary:
 		//		Non-templated BUTTON widget.
 		//
@@ -96,5 +96,5 @@ define([
 		}
 	});
 
-	return has("dojo-bidi") ? declare("dui.Button", [Button, BidiButton]) : Button;
+	return has("dojo-bidi") ? register("dui-button", [Button, BidiButton]) : Button;
 });
