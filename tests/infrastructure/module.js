@@ -15,6 +15,7 @@ define([
 	doh.register("popup", require.toUrl("./popup.html"), 999999);
 	doh.register("a11y", require.toUrl("./a11y.html"), 999999);
 	doh.register("css", require.toUrl("./css.html"), 999999);
+	doh.register("handlebars", require.toUrl("./handlebars.html"), 999999);
 	doh.register("robot.typematic", require.toUrl("./robot/typematic.html"), 999999);
 
 	// _Widget
