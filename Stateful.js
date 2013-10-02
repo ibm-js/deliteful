@@ -1,6 +1,6 @@
-define(["dojo/_base/declare", "dojo/_base/lang"], function(declare, lang){
+define(["dojo/_base/declare"], function(declare){
 	// module:
-	//		dojo/Stateful
+	//		dui/Stateful
 
 	var apn = {};
 	function propNames(name){

@@ -222,6 +222,9 @@ define([
 					delete params[name];
 				}
 			}
+
+			// store pointer to original DOM tree
+			this.srcNodeRef = dom.byId(srcNodeRef);
 		},
 
 		postscript: function(/*Object?*/params, /*DomNode|String*/srcNodeRef){
@@ -257,14 +260,6 @@ define([
 			// tags:
 			//		private
 
-			// store pointer to original DOM tree
-			this.srcNodeRef = dom.byId(srcNodeRef);
-
-			// mix in our passed parameters, thus calling custom setters
-			if(params){
-				this.params = params;
-				lang.mixin(this, params);
-			}
 			this.postMixInProperties();
 
 			// Generate an id for the widget if one wasn't specified, or it was specified as id: undefined.
