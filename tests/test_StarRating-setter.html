@@ -4,19 +4,22 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
 	<title>StarRating</title>
-	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="async: true, parseOnLoad: true"></script>
+
+	<script type="text/javascript" src="./boilerplate.js"></script>
 
 	<script type="text/javascript">
 		var val = 0;
 		require([
-			"dojo/ready",
 			"dui/registry",
 			"dui/StarRating",
 			"dojo/parser",
-			"dui/mobile/compat"
-		], function(ready, registry, StarRating){
+			"dui/mobile/compat",		// TODO: remove
+			"dojo/domReady!"
+		], function(registry, StarRating, parser){
+
+			parser.parse();
 
 			increment = function(){
 				if(val == 7){ return; }
@@ -32,19 +35,17 @@
 				document.getElementById("value").innerHTML = val;
 			};
 
-			ready(function(){
-				var rating = new StarRating({
-					image:"images/star-4.png",
-					maximum:7,
-					editable:true,
-					editHalfValues: true,
-					value: 3.5
-				}, "editablestar6");
-				rating.watch('value', function(name, oldValue, value){
-					document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");
-				});
-				rating.startup();
+			var rating = new StarRating({
+				image:"images/star-4.png",
+				maximum:7,
+				editable:true,
+				editHalfValues: true,
+				value: 3.5
+			}, "editablestar6");
+			rating.watch('value', function(name, oldValue, value){
+				document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");
 			});
+			rating.startup();
 		});
 	</script>
 	<style>

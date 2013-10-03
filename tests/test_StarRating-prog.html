@@ -4,26 +4,23 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
 	<title>StarRating</title>
 
-	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="async: true"></script>
+	<script type="text/javascript" src="./boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/domReady",
-			"dojo/_base/window",
-			"dui/StarRating"
-		], function(ready, win, StarRating){
-			ready(function(){
-				var widget = new StarRating({
-					maximum: 10,
-					value: 5.5,
-					editable: true,
-					editHalfValues: true
-				});
-				win.body().appendChild(widget.domNode);
+			"dui/StarRating",
+			"dojo/domReady!"
+		], function(StarRating){
+			var widget = new StarRating({
+				maximum: 10,
+				value: 5.5,
+				editable: true,
+				editHalfValues: true
 			});
+			widget.placeAt(document.body);
 		});
 	</script>
 	<style type="text/css">

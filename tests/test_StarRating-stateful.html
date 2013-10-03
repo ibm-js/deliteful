@@ -4,49 +4,48 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
 	<title>StarRating stateful attributes</title>
-	<script type="text/javascript" src="../../../dojo/dojo.js"
-		data-dojo-config="async: true, parseOnLoad: true"></script>
+
+	<script type="text/javascript" src="./boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
-			"dojo/ready",
 			"dojo/dom",
 			"dui/registry",
 			"dui/StarRating",
 			"dui/mobile/View",
-			"dui/mobile/compat"
-		], function(ready, dom, registry, StarRating){
+			"dui/mobile/compat",	// TODO: remove
+			"dojo/domReady!"
+		], function(dom, registry, StarRating){
 
-			ready(function(){
-				var rating = new StarRating({
-					maximum:7,
-					editable:true,
-					editHalfValues: false,
-					value: 3
-				}, "srw");
- 				rating.watch(function(name, oldValue, value){
-					var console = dom.byId("console");
-					console.innerHTML = 'LTR: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
-				});
-				rating.startup();
-				var updateRatingAttribute = function(attribute, event, isBoolean, isNumber){
-					var value = isBoolean ? (event.target.value == 'true') : (isNumber ? parseFloat(event.target.value) : event.target.value);
-					rating.set(attribute, value);
-				};
-				dom.byId('maximumInput').onchange = function(event){
-					updateRatingAttribute('maximum', event);
-				};
-				dom.byId('editableSelect').onchange = function(event){
-					updateRatingAttribute('editable', event, true);
-				};
-				dom.byId('editHalfValuesSelect').onchange = function(event){
-					updateRatingAttribute('editHalfValues', event, true);
-				};
-				dom.byId('zeroAreaWidthInput').onchange = function(event){
-					updateRatingAttribute('zeroAreaWidth', event, false, true);
-				};
+			var rating = new StarRating({
+				maximum:7,
+				editable:true,
+				editHalfValues: false,
+				value: 3
+			}, "srw");
+			rating.watch(function(name, oldValue, value){
+				var console = dom.byId("console");
+				console.innerHTML = 'LTR: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
 			});
+			rating.startup();
+			var updateRatingAttribute = function(attribute, event, isBoolean, isNumber){
+				var value = isBoolean ? (event.target.value == 'true') : (isNumber ? parseFloat(event.target.value) : event.target.value);
+				rating[attribute] = value;
+			};
+			dom.byId('maximumInput').onchange = function(event){
+				updateRatingAttribute('maximum', event);
+			};
+			dom.byId('editableSelect').onchange = function(event){
+				updateRatingAttribute('editable', event, true);
+			};
+			dom.byId('editHalfValuesSelect').onchange = function(event){
+				updateRatingAttribute('editHalfValues', event, true);
+			};
+			dom.byId('zeroAreaWidthInput').onchange = function(event){
+				updateRatingAttribute('zeroAreaWidth', event, false, true);
+			};
 		});
 	</script>
 	<style>
