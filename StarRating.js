@@ -68,7 +68,7 @@ define([
 		//		when editable is set to true. Default value is 0 if the widget is not editable, 20 if the widget is editable.
 		//		Set this value to 0 to forbid the user from setting the value to zero during edition. Setting this attribute to a negative
 		//		value is not supported.
-		zeroAreaWidth: null,
+		zeroAreaWidth: -1,
 
 		// tabIndex: Number
 		//		The tabindex of the widget node (set when the widget is in editable mode), for keyboard navigation order in the page. 
@@ -86,7 +86,7 @@ define([
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
 		postMixInProperties: function(){
-			if(this.zeroAreaWidth == null){
+			if(this.zeroAreaWidth == -1){
 				this.zeroAreaWidth = this.editable ? 20 : 0;
 			}
 		},
