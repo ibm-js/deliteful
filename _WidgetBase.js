@@ -104,22 +104,24 @@ define([
 			// tags:
 			//		protected
 
-			var mapNode = this.domNode;
+			this.runAfterRender(function(){
+				var mapNode = this.domNode;
 
-			// Note: technically we should revert any style setting made in a previous call
-			// to his method, but that's difficult to keep track of.
+				// Note: technically we should revert any style setting made in a previous call
+				// to his method, but that's difficult to keep track of.
 
-			if(lang.isObject(value)){
-				domStyle.set(mapNode, value);
-			}else{
-				if(mapNode.style.cssText){
-					mapNode.style.cssText += "; " + value;
+				if(lang.isObject(value)){
+					domStyle.set(mapNode, value);
 				}else{
-					mapNode.style.cssText = value;
+					if(mapNode.style.cssText){
+						mapNode.style.cssText += "; " + value;
+					}else{
+						mapNode.style.cssText = value;
+					}
 				}
-			}
 
-			this._set("style", value);
+				this._set("style", value);
+			});
 		},
 
 		// title: String
