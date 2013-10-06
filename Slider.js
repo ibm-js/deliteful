@@ -1,7 +1,6 @@
 define([
 	"dojo/_base/array",
 	"dojo/_base/connect",
-	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/sniff",
@@ -13,22 +12,21 @@ define([
 	"dojo/keys",
 	"dojo/touch",
 	"dojo/on",
-	"dui/_WidgetBase",
-	"dui/_AttachMixin",
-	"dui/_WidgetsInTemplateMixin",
-	"dui/_FormWidgetMixin",
-	"dui/_FormValueMixin",
+	"./register",
+	"./_WidgetBase",
+	"./_FormWidgetMixin",
+	"./_FormValueMixin",
 	"./themes/load!common,Slider"           // common for duiInline etc., Slider for duiSlider etc.
 ],
-	function(array, connect, declare, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, WidgetBase, AttachMixin, WidgetsInTemplateMixin, FormWidgetMixin, FormValueMixin){
+	function(array, connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin){
 
-	return declare("dui.Slider", [WidgetBase, FormWidgetMixin, FormValueMixin, AttachMixin, WidgetsInTemplateMixin], {
+	return register("dui-slider", [WidgetBase, FormWidgetMixin, FormValueMixin], {
 		// summary:
 		//		A non-templated Slider widget similar to the HTML5 INPUT type=range.
 
-		// value: Number
-		//		The current slider value.
-		value: 0,
+		// value: String
+		//		The current slider value, either String(Number) or String(Number,Number).
+		value: "",
 
 		// min: [const] Number
 		//		The first value the slider can be set to.
@@ -82,15 +80,13 @@ define([
 				this.valueNode = query("> INPUT", this.domNode)[0];
 				if(!this.valueNode){
 					this.domNode.removeAttribute("name");
-					this.valueNode = domConstruct.create("input", this.name ? { "type":"text", name:this.name, readOnly:true } : { "type":"text", readOnly:true });
-					this.domNode.appendChild(this.valueNode);
+					this.valueNode = domConstruct.create("input", this.name ? { "type":"text", name:this.name, readOnly:true } : { "type":"text", readOnly:true }, this.domNode, "last");
 				}
 			}
 			if(!isNaN(parseFloat(this.valueNode.value))){ // browser back button or value coded on INPUT
-				this.value = this.params["value"] = this.valueNode.value;
+				this.value = this.valueNode.value;
 			}
-			this.containerNode = domConstruct.create("div", { "class":toCSS("RemainingBar")+" "+toCSS("Bar") });
-			this.domNode.appendChild(this.containerNode);
+			this.containerNode = domConstruct.create("div", { "class":toCSS("RemainingBar")+" "+toCSS("Bar") }, this.domNode, "last");
 			var n = this.domNode.firstChild;
 			while(n){
 				var next = n.nextSibling;
@@ -100,16 +96,14 @@ define([
 				}
 				n = next;
 			}
-			this.progressBar = domConstruct.create("div", { "class":toCSS("Bar")+" "+toCSS("ProgressBar") });
-			this.containerNode.appendChild(this.progressBar);
+			this.progressBar = domConstruct.create("div", { "class":toCSS("Bar")+" "+toCSS("ProgressBar") }, this.containerNode, "last");
 			var handles = query("> DIV", this.progressBar);
 			if(this.isRange){
 				if(!this.handleMin){
 					if(handles && handles[0]){
 						this.handleMin = handles[0];
 					}else{
-						this.handleMin = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMin"), "tabIndex":0 });
-						this.progressBar.appendChild(this.handleMin);
+						this.handleMin = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMin"), "tabIndex":0 }, this.progressBar, "last");
 					}
 				}
 				this._setTabIndexAttr = ["handleMin", "handle"];
@@ -118,9 +112,9 @@ define([
 			if(handles && handles[idx]){
 				this.handle = handles[idx];
 			}else{
-				this.handle = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMax"), "tabIndex":0 });
-				this.progressBar.appendChild(this.handle);
+				this.handle = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMax"), "tabIndex":0 }, this.progressBar, "last");
 			}
+			this.baseClass += " "+toCSS(this.orientation);
 			this.inherited(arguments);
 			this.textbox = this.domNode;
 			this.focusNode = this.handle;
@@ -147,11 +141,17 @@ define([
 			domStyle.set(this.progressBar, s);
 		},
 
-		_setValueAttr: function(/*Number or Number,Number*/ value, /*Boolean?*/ priorityChange){
+		_setValueAttr: function(/*Number or String(Number) or String(Number,Number)*/ value){
 			// summary:
 			//		Hook such that set('value', value) works.
 			// tags:
 			//		private
+			this.runAfterRender(function(){
+				this._handleOnChange(value, null);
+			});
+		},
+
+		_handleOnChange: function(/*Number or String(Number) or String(Number,Number)*/ value, /*Boolean?*/ priorityChange){
 			var values = String(value).split(',');
 			if(values.length == 1){
 				values = [this.min, values[0]];
@@ -165,8 +165,8 @@ define([
 				this.handleMin.setAttribute("aria-valuenow", minValue);
 			}
 			this.handle.setAttribute("aria-valuenow", maxValue);
-			if(!this._created){ return; } // don't move images until all the properties are set
 			this._refreshState(priorityChange);
+			this.inherited(arguments);
 		},
 
 		postCreate: function(){
@@ -177,7 +177,7 @@ define([
 					var	setValue = lang.hitch(this, function(priorityChange){
 							var values = String(this.value).split(',');
 							value -= offsetValue;
-							this.set('value', this.isRange ? (isMax ? (values[0]+","+value) : (value+","+values[1])) : value, priorityChange);
+							this._handleOnChange(this.isRange ? (isMax ? (values[0]+","+value) : (value+","+values[1])) : value, priorityChange);
 						}),
 						getEventData = lang.hitch(this, function(e){
 							point = isMouse ? e[this._attrs.pageX] : ((e.touches && e.touches[0]) ? e.touches[0][this._attrs.pageX] : e[this._attrs.clientX]);
@@ -200,6 +200,7 @@ define([
 							actionHandles = [];
 							getEventData(e);
 							setValue(true);
+							// fire onChange
 						}),
 						isMouse = e.type == "mousedown",
 						// get the starting position of the content area (dragging region)
@@ -231,7 +232,7 @@ define([
 					);
 				}),
 
-				keyDown = lang.hitch(this, function(/*Event*/ e){
+				keyDown = lang.hitch(this, function(e){
 					if(this.disabled || this.readOnly || e.altKey || e.ctrlKey || e.metaKey){ return; }
 					var	step = this.step,
 						multiplier = 1,
@@ -277,12 +278,12 @@ define([
 							return;
 					}
 					e.preventDefault();
-					this.set('value', this.isRange ? values.join(',') : values[1], false);
+					this._handleOnChange(this.isRange ? values.join(',') : values[1], false);
 				}),
 
-				keyUp = lang.hitch(this, function(/*Event*/ e){
+				keyUp = lang.hitch(this, function(e){
 					if(this.disabled || this.readOnly || e.altKey || e.ctrlKey || e.metaKey){ return; }
-					this.set('value', this.value, true); // fire onChange
+					this._handleOnChange(this.value, true);
 				}),
 
 				point, pixelValue, value,
@@ -300,13 +301,26 @@ define([
 				horizontal ? { x:'x', w:'w', l:'l', r:'r', pageX:'pageX', clientX:'clientX', progressBarStart:"left", progressBarSize:"width" }
 				: { x:'y', w:'h', l:'t', r:'b', pageX:'pageY', clientX:'clientY', progressBarStart:"top", progressBarSize:"height" };
 			var dir = { "H": { false: "Ltr", true: "Rtl" }, "V": { false: "Ttb", true: "Btt" } };
-			domClass.add(this.domNode, array.map(this.baseClass.split(" "), function(c){ return c+self.orientation+" "+c+dir[self.orientation][self._reversed]; }));
+			domClass.add(this.domNode, array.map(this.baseClass.split(" "), function(c){ return c+dir[self.orientation][self._reversed]; }));
 			this.own(
 				on(this.domNode, touch.press, beginDrag),
 				on(this.domNode, "keydown", keyDown), // for desktop a11y
 				on(self.handle, "keyup", keyUp) // fire onChange on desktop
 			);
 			this._refreshState(null);
+		},
+
+		startup: function(){
+			var self = this;
+			// pass widget attributes to children
+			// the forEach wouldn't be needed if _Widgetbase::startup used obj.startup.apply(obj,arguments) instead of obj.startup()
+			// then _parentInit could just be called startup using this.inherited(arguments, [this._reversed, this.orientation]);
+			array.forEach(this.getChildren(), function(obj){
+				if(!obj._started && !obj._destroyed && lang.isFunction(obj._parentInit)){
+					obj._parentInit(self._reversed, self.orientation);
+				}
+			});
+			this.inherited(arguments);
 		},
 
 		destroyRendering: function(/*Boolean*/ preserveDom){

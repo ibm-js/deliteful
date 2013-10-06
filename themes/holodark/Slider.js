@@ -81,20 +81,20 @@ define(function(){ return '\
   background-image: -webkit-gradient(radial, 9 9, 3, 9 9, 9, from(#33b5e5), color-stop(0, #33b5e5), color-stop(0.01, rgba(31, 83, 102, 0.8)), to(rgba(31, 83, 102, 0.8)));\
   background-image: radial-gradient(circle closest-side at center, #ffffff 0%, #a435c5 50%, #251ae7 75%, #00a3ef 100%);\
 }\
-.duiSliderRtl .duiSliderHandleMax,\
-.duiSliderLtr .duiSliderHandleMin {\
+.duiSliderHRtl .duiSliderHandleMax,\
+.duiSliderHLtr .duiSliderHandleMin {\
   left: -10px;\
 }\
-.duiSliderRtl .duiSliderHandleMin,\
-.duiSliderLtr .duiSliderHandleMax {\
+.duiSliderHRtl .duiSliderHandleMin,\
+.duiSliderHLtr .duiSliderHandleMax {\
   right: -10px;\
 }\
-.duiSliderTtb .duiSliderHandleMax,\
-.duiSliderBtt .duiSliderHandleMin {\
+.duiSliderVTtb .duiSliderHandleMax,\
+.duiSliderVBtt .duiSliderHandleMin {\
   bottom: -10px;\
 }\
-.duiSliderTtb .duiSliderHandleMin,\
-.duiSliderBtt .duiSliderHandleMax {\
+.duiSliderVTtb .duiSliderHandleMin,\
+.duiSliderVBtt .duiSliderHandleMax {\
   top: -10px;\
 }\
 .duiSliderBar {\
@@ -145,5 +145,25 @@ define(function(){ return '\
 }\
 .dj_a11y .duiSlider .duiSliderHandle {\
   border-radius: 0;\
+}\
+.duiSliderVRtl .duiRuleAfter .duiRuleLabel,\
+.duiSliderVRtl DIV.duiRuleLabel,\
+.duiSliderV .duiRuleBefore .duiRuleLabel {\
+  right: 100%;\
+  left: auto;\
+}\
+.duiSliderV .duiRuleLabel,\
+.duiSliderVRtl .duiRuleBefore DIV.duiRuleLabel {\
+  left: 100%;\
+  right: auto;\
+}\
+.duiSliderH .duiRuleBefore .duiRuleLabel {\
+  bottom: 100%;\
+  top: auto;\
+}\
+.duiSliderH .duiRuleLabel,\
+.duiSliderH .duiRuleAfter .duiRuleLabel {\
+  top: 100%;\
+  bottom: auto;\
 }\
 '; } );

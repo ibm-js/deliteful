@@ -1,12 +1,12 @@
 define([
-	"dojo/_base/declare", // declare
-	"dojo/dom-attr" // domAttr.set
-], function(declare, domAttr){
+	"dojo/dom-attr", // domAttr.set
+	"./register" // domAttr.set
+], function(domAttr, register){
 
 	// module:
 	//		dui/_FormValueMixin
 
-	return declare("dui.form._FormValueMixin", null, {
+	return register("dui-formvalue-mixin", null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<input>` or `<select>`
 		//		that have user changeable values.
@@ -22,6 +22,10 @@ define([
 		//		Similar to disabled except readOnly form values are submitted.
 		readOnly: false,
 
+		// intermediateChanges: Boolean
+		//		Fires onChange for each value change or only on demand
+		intermediateChanges: false,
+
 		_setReadOnlyAttr: function(/*Boolean*/ value){
 			domAttr.set(this.focusNode, 'readOnly', value);
 			this._set("readOnly", value);
@@ -31,44 +35,57 @@ define([
 		//		The last value fired to onChange.
 		previousOnChangeValue: undefined,
 
-		set: function(/*String*/ name, /*anything*/ newValue, /*Boolean?*/ priorityChange){
+		onChange: function(/*===== newValue =====*/){
+			// summary:
+			//		Callback when this widget's value is changed.
+			// tags:
+			//		callback
+		},
+
+		compare: function(/*anything*/ val1, /*anything*/ val2){
+			// summary:
+			//		Compare 2 values (as returned by get('value') for this widget).
+			// tags:
+			//		protected
+			if(typeof val1 == "number" && typeof val2 == "number"){
+				return (isNaN(val1) && isNaN(val2)) ? 0 : val1 - val2;
+			}else if(val1 > val2){
+				return 1;
+			}else if(val1 < val2){
+				return -1;
+			}else{
+				return 0;
+			}
+		},
+
+		_handleOnChange: function(/*anything*/ newValue, /*Boolean?*/ priorityChange){
 			// summary:
 			//		Called when the value of the widget is set.  Calls onChange() if appropriate
 			// newValue:
 			//		the new value
 			// priorityChange:
 			//		For a slider, for example, dragging the slider is priorityChange==false,
-			//		but on mouse up, it's priorityChange==true.
-			//		onChange is only called when priorityChange=true.
+			//		but on mouse up, it's priorityChange==true.  If intermediateChanges==false,
+			//		onChange is only called form priorityChange=true events.
 			// tags:
 			//		private
-
-			if(priorityChange != null){
-				this._lastValueAttr = name;
-				if(this.previousOnChangeValue === undefined){
-					this.previousOnChangeValue = this[name];
+			this._pendingOnChange = this._pendingOnChange
+				|| (typeof newValue != typeof this.previousOnChangeValue)
+				|| (this.compare(newValue, this.previousOnChangeValue) != 0);
+			if((this.intermediateChanges || priorityChange || priorityChange === undefined) && this._pendingOnChange){
+				this.previousOnChangeValue = newValue;
+				this._pendingOnChange = false;
+				if(this._onChangeHandle){
+					this._onChangeHandle.remove();
 				}
-			}else if(name == this._lastValueAttr){
-				this.previousOnChangeValue = undefined;
-			}
-
-			this.inherited(arguments);
-
-			if(priorityChange === true){
-				if(this.previousOnChangeValue !== newValue){
-					this.previousOnChangeValue = newValue;
-					if(this._onChangeHandle){
-						this._onChangeHandle.remove();
+				// defer allows hidden value processing to run and
+				// also the onChange handler can safely adjust focus, etc
+				this._onChangeHandle = this.defer(
+					function(){
+						this._onChangeHandle = null;
+						this.onChange(newValue);
 					}
-					// defer allows hidden value processing to run and
-					// also the onChange handler can safely adjust focus, etc
-					this._onChangeHandle = this.defer(
-						function(){
-							this._onChangeHandle = null;
-							this.onChange(newValue);
-						}
-					); // try to collapse multiple onChange's fired faster than can be processed
-				}
+				); // try to collapse multiple onChange's fired faster than can be processed
 			}
 		}
 	});
