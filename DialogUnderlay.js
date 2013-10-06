@@ -7,16 +7,15 @@ define([
 	"dojo/on",
 	"dojo/window", // winUtils.getBox, winUtils.get
 	"./_WidgetBase",
-	"./_TemplatedMixin",
 	"./BackgroundIframe",
 	"./Viewport"
 ], function(declare, lang, aspect, domAttr, domStyle, on,
-			winUtils, _WidgetBase, _TemplatedMixin, BackgroundIframe, Viewport){
+			winUtils, _WidgetBase, BackgroundIframe, Viewport){
 
 	// module:
 	//		dui/DialogUnderlay
 
-	var DialogUnderlay = declare("dui.DialogUnderlay", [_WidgetBase, _TemplatedMixin], {
+	var DialogUnderlay = declare("dui.DialogUnderlay", _WidgetBase, {
 		// summary:
 		//		A component used to block input behind a `dui/Dialog`.
 		//
@@ -29,10 +28,6 @@ define([
 		//
 		//		In the case of `dui.Dialog`, this id is based on the id of the Dialog,
 		//		suffixed with _underlay.
-
-		// Template has two divs; outer div is used for fade-in/fade-out, and also to hold background iframe.
-		// Inner div has opacity specified in CSS file.
-		templateString: "<div class='duiDialogUnderlayWrapper'><div class='duiDialogUnderlay' tabIndex='-1' data-dojo-attach-point='node'></div></div>",
 
 		// Parameters on creation or updatable later
 
@@ -56,6 +51,16 @@ define([
 		_setClassAttr: function(clazz){
 			this.node.className = "duiDialogUnderlay " + clazz;
 			this._set("class", clazz);
+		},
+
+		buildRendering: function(){
+			// Outer div is used for fade-in/fade-out, and also to hold background iframe.
+			// Inner div has opacity specified in CSS file.
+			this.inherited(arguments);
+			ths.domNode.class = "duiDialogUnderlayWrapper";
+			this.node = this.ownerDocument.createElement("div");
+			this.node.setAttribute("tabindex", "-1");
+			this.domNode.appendChild(this.node);
 		},
 
 		postCreate: function(){

@@ -35,16 +35,14 @@
 
 		require([
 			"doh/runner",
-			"dojo/_base/declare",
-			"dojo/dom", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style",
-			"dojo/query", "dojo/sniff", "dojo/_base/window", "dojo/window",
-			"dui/popup", "dui/registry", "dui/_WidgetBase", "dui/_TemplatedMixin",
+			"dojo/dom", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/_base/lang",
+			"dojo/on", "dojo/query", "dojo/sniff", "dojo/_base/window", "dojo/window",
+			"dui/popup", "dui/register", "dui/registry", "dui/_WidgetBase",
 			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, declare, dom, domConstruct, domGeometry, domStyle, query, has, win, winUtils,
-					popupUtil, registry, _WidgetBase, _TemplatedMixin){
+					popupUtil, registry, _WidgetBase){
 
-
-			declare("SimpleDropDownButton", [_WidgetBase, _TemplatedMixin], {
+			SimpleDropDownButton = register("simple-dropdown-button", _WidgetBase, {
 				// summary:
 				//		A button that shows a popup.
 				//		Supply popup as parameter when instantiating this widget.
@@ -52,7 +50,11 @@
 				label: "show popup",
 				orient: ["below"],
 
-				templateString: "<button data-dojo-attach-event='onclick: openPopup'>${label}</button>",
+				buildRendering: function(){
+					this.domNode = this.ownerDocument.createElement("button");
+					this.domNode.textContent = this.label;
+					this.own(on(this.domNode, "click", lang.hitch(this, "openPopup")));
+				},
 
 				openPopup: function(){
 					var self = this;
@@ -91,21 +93,29 @@
 				}
 			});
 
-			declare("SimplePopup",  [_WidgetBase, _TemplatedMixin], {
+			SimplePopup = register("simple-popup", _WidgetBase, {
 				// summary:
 				//		A trivial popup widget
 
-				templateString: "<span>i'm a popup</span>"
+				buildRendering: function(){
+					this.domNode = this.ownerDocument.createElement("span");
+					this.domNode.textContent = "i'm a popup";
+				}
 			});
 
-			declare("Tooltip", [_WidgetBase, _TemplatedMixin], {
+			Tooltip = register("test-tooltip", _WidgetBase, {
 				// summary:
 				//		A popup with an orient() method to adjust arrows
 
-				templateString: "<span>i'm a tooltip</span>",
 				constructor: function(){
 					this.orientCalls = [];
 				},
+
+				buildRendering: function(){
+					this.domNode = this.ownerDocument.createElement("span");
+					this.domNode.textContent = "i'm a popup";
+				},
+
 				orient: function(node, aroundCorner, corner, spaceAvailable, aroundNodeCoords){
 					this.orientCalls.push({
 						node: node,
@@ -121,7 +131,7 @@
 				}
 			});
 
-			declare("SimpleChoiceWidget",  [_WidgetBase, _TemplatedMixin], {
+			SimpleChoiceWidget = register("simple-choice-widget", _WidgetBase, {
 				// summary:
 				//		A list of values; select a value by pressing an entry in the list.
 
@@ -129,12 +139,15 @@
 				choice2: "2",
 				choice3: "3",
 
-				templateString:
-					"<div class='choice'>" +
-						"<div data-dojo-attach-event='onclick: onClick'>${choice1}</div>" +
-						"<div data-dojo-attach-event='onclick: onClick'>${choice2}</div>" +
-						"<div data-dojo-attach-event='onclick: onClick'>${choice3}</div>" +
-					"</div>",
+				buildRendering: function(){
+					this.domNode = this.ownerDocument.createElement("div");
+					this.domNode.className = "choice";
+					this.own(on(this.domNode, "click", lang.hitch(this, "onClick")));
+
+					for(var i=0; i < 3; i++){
+						domConstruct.place("<div>choice #" + this["choice"+i] + "</div>", this.domNode);
+					}
+				},
 
 				onClick: function(e){
 					this.onChange(e.target.innerHTML);
@@ -148,14 +161,14 @@
 				}
 			});
 
-			declare("LotsOfChoicesWidget",  [_WidgetBase], {
+			LotsOfChoicesWidget = register("lots-of-choices-widget", _WidgetBase, {
 				// summary:
 				//		A list of values; select a value by pressing an entry in the list.
 
 				length: 100,
 
 				postCreate: function(){
-					for(var i=0; i< this.length; i++){
+					for(var i=0; i < this.length; i++){
 						domConstruct.place("<div>choice #" + i + "</div>", this.domNode);
 					}
 				}
@@ -177,7 +190,7 @@
 				popup: tallChoiceDropDown
 			})).placeAt(dom.byId("widgets"));
 
-			declare("DialogWithPopupWidget",  [_WidgetBase, _TemplatedMixin], {
+			DialogWithPopupWidget = register("dialog-with-popup-widget", _WidgetBase, {
 				// summary:
 				//		This is a dialog that contains a button that spawns a drop down.
 				//		Supply popup as an argument to this widget.
@@ -185,26 +198,27 @@
 				title: "I'm a dialog",
 				label: "click me",
 
-				templateString:
-					"<div style='width: 300px'>" +
-						"<div>${title}</div>" +
-						"<input><br>" +
-						"<button data-dojo-attach-point='button'>${label}</button><br>" +
-						"<button data-dojo-attach-event='onclick: onExecute'>OK</button>" +
-					"</div>",
+				buildRendering: function(){
+					this.domNode = document.createElement("div");
+					domConstruct.place("<div>" + this.title + "</div>", this.domNode);
+					domConstruct.place("<input>", this.domNode);
+					domConstruct.place("<br>", this.domNode);
 
-				postCreate: function(){
+					this.button = domConstruct.place("<button>" + this.label + "</button>", this.domNode);
 					// Convert the plain button into a SimpleDropDownButton widget.
 					// Having it be a widget is important because that's how the popup
 					// code knows where a stack of nested popups (typically menus) ends.
 					// (In this case closing a stack of menus shouldn't close the dialog.)
-
 					new SimpleDropDownButton({
 						id: this.id + "PopupButton",
 						label: this.label,
 						popup: this.popup,
 						orient: ["after"]	// so popup doesn't cover OK button
 					}, this.button);
+
+					domConstruct.place("<br>", this.domNode);
+					var ok = domConstruct.place("<button>OK</button>", this.domNode);
+					this.own(on(ok, "click", lang.hitch(this, "onExecute")));
 				},
 
 				onExecute: function(){
@@ -229,16 +243,20 @@
 				})
 			}).placeAt(dom.byId("widgets"));
 
-			declare("NestedPopupOpener",  [_WidgetBase, _TemplatedMixin], {
+			NestedPopupOpener = register("nested-popup-opener", _WidgetBase, {
 				// summary:
 				//		Clicking a value in this list will open a nested popup.
 				//		Specify popup1 and popup2 as parameters to this widget.
 
-				templateString:
-					"<div class='choice'>" +
-						"<div data-dojo-attach-event='onclick: onClick'>popup1</div>" +
-						"<div data-dojo-attach-event='onclick: onClick'>popup2</div>" +
-					"</div>",
+				buildRendering: function(){
+					this.domNode = this.ownerDocument.createElement("div");
+					this.domNode.className = "choice";
+					this.own(on(this.domNode, "click", lang.hitch(this, "onClick")));
+
+					for(var i=0; i < 2; i++){
+						domConstruct.place("<div>popup" + i + "</div>", this.domNode);
+					}
+				},
 
 				onClick: function(e){
 					var id = this.id,

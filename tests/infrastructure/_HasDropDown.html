@@ -9,21 +9,26 @@
 require([
 	"doh/runner",
 	"dojo/_base/declare", "dojo/keys", "dojo/on", "dojo/_base/window",
-	"dui/_HasDropDown", "dui/_WidgetBase", "dui/_TemplatedMixin",
+	"dui/_HasDropDown", "dui/_WidgetBase",
 	"dui/tests/helpers", "dojo/domReady!"
 ], function(doh, declare, keys, on, win,
-			_HasDropDown, _WidgetBase, _TemplatedMixin, helpers){
+			_HasDropDown, _WidgetBase, helpers){
 
 
-	var SimplePopup = declare([_WidgetBase, _TemplatedMixin], {
+	var SimplePopup = declare(_WidgetBase, {
 		// summary:
 		//		A trivial popup widget
 
 		label: "i'm a popup",
-		templateString: "<span>${label}</span>"
+
+		buildRendering: function(){
+			this.domNode = this.ownerDocument.createElement("span");
+			this.domNode.textContent = this.label;
+			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
+		}
 	});
 
-	var SimpleDropDownButton = declare([_WidgetBase, _TemplatedMixin, _HasDropDown], {
+	var SimpleDropDownButton = declare([_WidgetBase, _HasDropDown], {
 		// summary:
 		//		A button that shows a popup.
 
@@ -31,7 +36,11 @@ require([
 		popupLabel: "i'm a popup",
 		orient: ["below"],
 
-		templateString: "<button>${label}</button>",
+		buildRendering: function(){
+			this.domNode = this.ownerDocument.createElement("button");
+			this.domNode.textContent = this.label;
+			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
+		},
 
 		postCreate: function(){
 			this.inherited(arguments);
@@ -42,14 +51,18 @@ require([
 		}
 	});
 
-	var NonFocusableDropDownButton = declare([_WidgetBase, _TemplatedMixin, _HasDropDown], {
+	var NonFocusableDropDownButton = declare([_WidgetBase, _HasDropDown], {
 		// summary:
 		//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 
 		label: "show popup (non-focusable)",
 		orient: ["below"],
 
-		templateString: "<span>${label}</span>",
+		buildRendering: function(){
+			this.domNode = this.ownerDocument.createElement("span");
+			this.domNode.textContent = this.label;
+			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
+		},
 
 		postCreate: function(){
 			this.inherited(arguments);

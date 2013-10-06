@@ -321,12 +321,11 @@ define([
 		buildRendering: function(){
 			// summary:
 			//		Construct the UI for this widget, setting this.domNode.
-			//		Most widgets will mixin `dui._TemplatedMixin`, which implements this method.
 			// tags:
 			//		protected
 
 			if(!this.domNode){
-				// Create root node if it wasn't created by _TemplatedMixin
+				// Create root node if it wasn't created by the subclass
 				this.domNode = this.srcNodeRef || this.ownerDocument.createElement("div");
 			}
 
@@ -395,8 +394,7 @@ define([
 			//		destroyed, it is removed from the manager object.
 			// preserveDom:
 			//		If true, this method will leave the original DOM structure
-			//		alone of descendant Widgets. Note: This will NOT work with
-			//		dui._TemplatedMixin widgets.
+			//		alone of descendant Widgets.
 
 			this._beingDestroyed = true;
 			this.destroyDescendants(preserveDom);
@@ -416,7 +414,6 @@ define([
 			//		they should use destroyRecursive() for widgets with children.
 			// preserveDom: Boolean
 			//		If true, this method will leave the original DOM structure alone.
-			//		Note: This will not yet work with _TemplatedMixin widgets
 
 			this._beingDestroyed = true;
 
