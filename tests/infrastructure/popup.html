@@ -40,7 +40,7 @@
 			"dui/popup", "dui/register", "dui/registry", "dui/_WidgetBase",
 			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, declare, dom, domConstruct, domGeometry, domStyle, query, has, win, winUtils,
-					popupUtil, registry, _WidgetBase){
+					popupUtil, registry, _WidgetBase, helpers){
 
 			SimpleDropDownButton = register("simple-dropdown-button", _WidgetBase, {
 				// summary:
@@ -362,7 +362,7 @@
 					around.openPopup();
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(isVisible(popup.domNode), "popup is visible");
+						doh.t(helpers.isVisible(popup.domNode), "popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
@@ -407,7 +407,7 @@
 					around.openPopup();
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(isVisible(popup.domNode), "popup is visible");
+						doh.t(helpers.isVisible(popup.domNode), "popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
@@ -438,7 +438,7 @@
 					popup.openPopup(nestedPopup);
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(isVisible(nestedPopup.domNode), "nested popup is visible");
+						doh.t(helpers.isVisible(nestedPopup.domNode), "nested popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
@@ -480,7 +480,7 @@
 			// Make sure there are no hidden tab stops when popups are closed.
 			// This test doesn't work on safari (due to safari bugs) although there aren't any hidden tab stops.
 			doh.register("no hidden tab stops", function hiddenTabStops(){
-				var tabbable = tabOrder();
+				var tabbable = helpers.tabOrder();
 				doh.is("inputAtStart", tabbable[0].id, "first tabbable node");
 				doh.is("inputAtEnd", tabbable[tabbable.length - 1].id, "last tabbable node");
 			});
