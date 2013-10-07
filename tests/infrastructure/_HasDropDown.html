@@ -8,39 +8,29 @@
 <script type="text/javascript">
 require([
 	"doh/runner",
-	"dojo/_base/declare", "dojo/keys", "dojo/on", "dojo/_base/window",
-	"dui/_HasDropDown", "dui/_WidgetBase",
+	"dojo/keys", "dojo/on", "dojo/_base/window",
+	"dui/register", "dui/_HasDropDown", "dui/_WidgetBase",
 	"dui/tests/helpers", "dojo/domReady!"
-], function(doh, declare, keys, on, win,
-			_HasDropDown, _WidgetBase, helpers){
+], function(doh, keys, on, win,
+			register, _HasDropDown, _WidgetBase, helpers){
 
 
-	var SimplePopup = declare(_WidgetBase, {
+	var SimplePopup = register("dui-simple-popup", _WidgetBase, {
 		// summary:
 		//		A trivial popup widget
-
 		label: "i'm a popup",
-
-		buildRendering: function(){
-			this.domNode = this.ownerDocument.createElement("span");
-			this.domNode.textContent = this.label;
-			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
-		}
+		_setLabelAttr: { node: "domNode", type: "innerText" }
 	});
 
-	var SimpleDropDownButton = declare([_WidgetBase, _HasDropDown], {
+	var SimpleDropDownButton = register("dui-simple-drop-down-button", [_WidgetBase, _HasDropDown], {
 		// summary:
 		//		A button that shows a popup.
 
 		label: "show popup",
+		_setLabelAttr: { type: "innerText" },
+
 		popupLabel: "i'm a popup",
 		orient: ["below"],
-
-		buildRendering: function(){
-			this.domNode = this.ownerDocument.createElement("button");
-			this.domNode.textContent = this.label;
-			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
-		},
 
 		postCreate: function(){
 			this.inherited(arguments);
@@ -51,18 +41,14 @@ require([
 		}
 	});
 
-	var NonFocusableDropDownButton = declare([_WidgetBase, _HasDropDown], {
+	var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [_WidgetBase, _HasDropDown], {
 		// summary:
 		//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 
 		label: "show popup (non-focusable)",
-		orient: ["below"],
+		_setLabelAttr: { node: "domNode", type: "innerText" },
 
-		buildRendering: function(){
-			this.domNode = this.ownerDocument.createElement("span");
-			this.domNode.textContent = this.label;
-			this.inherited(arguments);	// run needed code in _HasDropDown::buildRendering()
-		},
+		orient: ["below"],
 
 		postCreate: function(){
 			this.inherited(arguments);

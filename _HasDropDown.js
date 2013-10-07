@@ -94,6 +94,10 @@ define([
 		//		case you want to use them in your subclass
 		_stopClickEvents: true,
 
+		// opened: [readonly] Boolean
+		//		Whether or not the drop down is open.
+		opened: false,
+
 		_onDropDownMouseDown: function(/*Event*/ e){
 			// summary:
 			//		Callback when the user mousedown/touchstart on the arrow icon.
@@ -141,7 +145,7 @@ define([
 			}
 			var dropDown = this.dropDown, overMenu = false;
 
-			if(e && this._opened){
+			if(e && this.opened){
 				// This code deals with the corner-case when the drop down covers the original widget,
 				// because it's so large.  In that case mouse-up shouldn't select a value from the menu.
 				// Find out if our target is somewhere in our dropdown widget,
@@ -171,7 +175,7 @@ define([
 					}
 				}
 			}
-			if(this._opened){
+			if(this.opened){
 				// Focus the dropdown widget unless it's a menu (in which case autoFocus is set to false).
 				// Even if it's a menu, we need to focus it if this is a fake mouse event caused by the user typing
 				// SPACE/ENTER while using JAWS.  Jaws converts the SPACE/ENTER key into mousedown/mouseup events.
@@ -237,7 +241,7 @@ define([
 		destroy: function(){
 			// If dropdown is open, close it, to avoid leaving dui/focus in a strange state.
 			// Put focus back on me to avoid the focused node getting destroyed, which flummoxes IE.
-			if(this._opened){
+			if(this.opened){
 				this.closeDropDown(true);
 			}
 
@@ -260,7 +264,7 @@ define([
 				return;
 			}
 			var d = this.dropDown, target = e.target;
-			if(d && this._opened && d.handleKey){
+			if(d && this.opened && d.handleKey){
 				if(d.handleKey(e) === false){
 					/* false return code means that the drop down handled the key */
 					e.stopPropagation();
@@ -268,11 +272,11 @@ define([
 					return;
 				}
 			}
-			if(d && this._opened && e.keyCode == keys.ESCAPE){
+			if(d && this.opened && e.keyCode == keys.ESCAPE){
 				this.closeDropDown();
 				e.stopPropagation();
 				e.preventDefault();
-			}else if(!this._opened &&
+			}else if(!this.opened &&
 				(e.keyCode == keys.DOWN_ARROW ||
 					// ignore unmodified SPACE if _KeyNavMixin has active searching in progress
 					( (e.keyCode == keys.ENTER || (e.keyCode == keys.SPACE && (!this._searchTimer || (e.ctrlKey || e.altKey || e.metaKey)))) &&
@@ -368,7 +372,7 @@ define([
 			if(this.disabled || this.readOnly){
 				return;
 			}
-			if(!this._opened){
+			if(!this.opened){
 				this.loadAndOpenDropDown();
 			}else{
 				this.closeDropDown(true);	// refocus button to avoid hiding node w/focus
@@ -403,7 +407,7 @@ define([
 				},
 				onClose: function(){
 					domClass.remove(self._popupStateNode, "duiHasDropDownOpen");
-					self._set("_opened", false);	// use set() because _CssStateMixin is watching
+					self._set("opened", false);	// use set() because _CssStateMixin is watching
 				}
 			});
 
@@ -421,7 +425,7 @@ define([
 			}
 
 			domClass.add(this._popupStateNode, "duiHasDropDownOpen");
-			this._set("_opened", true);	// use set() because _CssStateMixin is watching
+			this._set("opened", true);	// use set() because _CssStateMixin is watching
 
 			this._popupStateNode.setAttribute("aria-expanded", "true");
 			this._popupStateNode.setAttribute("aria-owns", dropDown.id);
@@ -447,13 +451,13 @@ define([
 				delete this._focusDropDownTimer;
 			}
 
-			if(this._opened){
+			if(this.opened){
 				this._popupStateNode.setAttribute("aria-expanded", "false");
 				if(focus && this.focus){
 					this.focus();
 				}
 				popup.close(this.dropDown);
-				this._opened = false;
+				this.opened = false;
 			}
 		}
 
