@@ -184,6 +184,35 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			t.is(4, attr4.foo, "value set properly");
 			t.is(["bar", null, 3, "foo", null, 3, "foo", 3, 4, "bar", 3, 4], output);
 		},
+
+		function moreCorrelatedProperties(){
+			var Widget = declare(Stateful, {
+				foo: 10,
+				_setFooAttr: function(val){
+					this._set("foo", val);
+					this._set("bar", val + 1);
+				},
+
+				bar: 11,
+				_setBarAttr: function(val){
+					this._set("bar", val);
+					this._set("foo", val - 1);
+				}
+			});
+
+			var w1 = new Widget({foo: 30});
+			doh.is(30, w1.foo, "w1.foo");
+			doh.is(31, w1.bar, "w1.bar");
+
+			var w2 = new Widget({bar: 30});
+			doh.is(30, w2.bar, "w2.bar");
+			doh.is(29, w2.foo, "w2.foo");
+
+			var w3 = new Widget({});
+			doh.is(10, w3.foo, "w3.foo");
+			doh.is(11, w3.bar, "w3.bar");
+		},
+
 		// serialize test commented out because:
 		//		1. won't print values in prototype like foo
 		//		2. prints _fooAttr shadow value that's supposed to be hidden
