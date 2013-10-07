@@ -66,7 +66,7 @@ define([
 								domAttr.set(this[mapNode], attrName, value);
 							}else{
 								// mapping to a sub-widget
-								this[mapNode].set(attrName, value);
+								this[mapNode][attrName] = value;
 							}
 						});
 						this._set(attr, value);

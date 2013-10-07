@@ -22,6 +22,8 @@ define([
 
 	var lastFocusin;
 
+	// TODO: switch to using dui/Stateful
+
 	var FocusManager = declare([Stateful, Evented], {
 		// summary:
 		//		Tracks the currently focused node, and which widgets are currently "active".
@@ -230,7 +232,7 @@ define([
 						// to support MenuItem)
 						var id = node.getAttribute && node.getAttribute("widgetId"),
 							widget = id && registry.byId(id);
-						if(widget && !(by == "mouse" && widget.get("disabled"))){
+						if(widget && !(by == "mouse" && widget.disabled)){
 							newStack.unshift(id);
 						}
 						node=node.parentNode;

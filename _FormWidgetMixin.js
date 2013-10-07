@@ -93,7 +93,7 @@ define([
 					}, this);
 				}else{
 					if(this.tabIndex != ""){
-						this.set('tabIndex', this.tabIndex);
+						this.tabIndex = this.tabIndex;
 					}
 				}
 			});

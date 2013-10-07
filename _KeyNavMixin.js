@@ -164,7 +164,7 @@ define([
 			// tags:
 			//		protected
 
-			widget.set("tabIndex", this.tabIndex);	// for IE focus outline to appear, must set tabIndex before focus
+			widget.tabIndex = this.tabIndex;	// for IE focus outline to appear, must set tabIndex before focus
 			widget.focus(last ? "end" : "start");
 
 			// Don't set focusedChild here, because the focus event should trigger a call to _onChildFocus(), which will
@@ -220,7 +220,7 @@ define([
 
 			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
 			if(this.focusedChild){
-				this.focusedChild.set("tabIndex", "-1");
+				this.focusedChild.tabIndex = "-1";
 				this.lastFocusedChild = this.focusedChild;
 				this._set("focusedChild", null);
 			}
@@ -238,11 +238,11 @@ define([
 			if(child && child != this.focusedChild){
 				if(this.focusedChild && !this.focusedChild._destroyed){
 					// mark that the previously focusable node is no longer focusable
-					this.focusedChild.set("tabIndex", "-1");
+					this.focusedChild.tabIndex = "-1";
 				}
 
 				// mark that the new node is the currently selected one
-				child.set("tabIndex", this.tabIndex);
+				child.tabIndex = this.tabIndex;
 				this._set("focusedChild", child);
 			}
 		},
