@@ -110,7 +110,7 @@ define(["dojo/_base/declare"], function(declare){
 			//		The value to set in the property.
 			// description:
 			//		Directly change the value of an attribute on an object, bypassing any
-			//		accessor setter.  Also handles the calling of watch and emitting events.
+			//		accessor setter.  Also notifies callbacks registered via watch().
 			//		It is designed to be used by descendant class when there are two values
 			//		of attributes that are linked, but calling .set() is not appropriate.
 
