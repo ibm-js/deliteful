@@ -1,5 +1,5 @@
-define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
-	function(declare, lang, Store){
+define(["dcl/dcl", "dojo/_base/lang", "./Store"],
+	function(dcl, lang, Store){
 
 	var getvalue = function(map, item, key, store){
 		if(map[key+"Func"]){
@@ -23,7 +23,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 
 	var attrregexp = /^(?!_set)(\w)+(?=Attr$|Func$)/;
 
-	return declare(Store, {
+	return dcl(Store, {
 
 		// summary:
 		//		Mixin providing store binding management for widgets that extend dui/mixins/Store. Classes extending
@@ -78,7 +78,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 			// renderItem: Object
 			//		The render item.
 			// returns: Object
-			var item, store = this.get("store");
+			var item, store = this.store;
 			if(this.mapAtInit){
 				item = {};
 				// special id case
@@ -104,7 +104,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "./Store"],
 
 			var renderItem = {};
 			var mappedKeys = this.mappedKeys?this.mappedKeys:Object.keys(item);
-			var self = this, store = this.get("store");
+			var self = this, store = this.store;
 
 			if(!this.mapAtInit){
 				Object.defineProperty(renderItem, "__item", {

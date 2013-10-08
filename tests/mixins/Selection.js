@@ -1,6 +1,6 @@
-define(["doh", "dcl/dcl", "../../mixins/Selection", "../../_WidgetBase"],
-	function(doh, dcl, Selection, _WidgetBase){
-	var C = dcl([_WidgetBase, Selection], {
+define(["doh", "../../register", "../../mixins/Selection", "../../_WidgetBase"],
+	function(doh, register, Selection, _WidgetBase){
+	var C = register("C", [_WidgetBase, Selection], {
 		updateRenderers: function(){
 		},
 		getIdentity: function(item){
@@ -9,20 +9,16 @@ define(["doh", "dcl/dcl", "../../mixins/Selection", "../../_WidgetBase"],
 	});
 	doh.register("mixins.Selection", [
 		function test_SetGet(t){
-			var C = dcl([_WidgetBase, Selection], {
-				updateRenderers: function(){
-				}
-			});
 			var o = new C();
-			o.set("selectedItem", "1");
-			t.is("1", o.get("selectedItem"));
-			t.is(["1"], o.get("selectedItems"));
-			o.set("selectedItems", ["2"]);
-			t.is("2", o.get("selectedItem"));
-			t.is(["2"], o.get("selectedItems"));
+			o.selectedItem = "1";
+			t.is("1", o.selectedItem);
+			t.is(["1"], o.selectedItems);
+			o.selectedItems = ["2"];
+			t.is("2", o.selectedItem);
+			t.is(["2"], o.selectedItems);
 			o = new C({selectedItem: "1"});
-			t.is("1", o.get("selectedItem"));
-			t.is(["1"], o.get("selectedItems"));
+			t.is("1", o.selectedItem);
+			t.is(["1"], o.selectedItems);
 		},
 		function test_Event(t){
 			var d = new doh.Deferred();

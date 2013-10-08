@@ -1,12 +1,12 @@
-define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
-	function(declare, arr, lang){
-	return declare(null, {
+define(["dcl/dcl", "dojo/_base/array", "dojo/_base/lang"],
+	function(dcl, arr, lang){
+	return dcl(null, {
 		// summary:
 		//		Mixin for classes for widgets that manage a list of selected data items. Receiving class must extend
 		//		dui/_WidgetBase.
 
 		constructor: function(){
-			this.selectedItems = [];
+			this._set("selectedItems", []);
 		},
 		
 		// selectionMode: String
@@ -23,49 +23,47 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 				throw new Error("selectionModel invalid value");
 			}
 			if(value != this.selectionMode){
-				this.selectionMode = value;
+				this._set("selectionMode", value);
 				if(value == "none"){
-					this.set("selectedItems", null);
+					this.selectedItems = null;
 				}else if(value == "single"){
-					this.set("selectedItem", this.selectedItem); // null or last selected item 
+					this.selectedItem = this.selectedItem; // null or last selected item
 				}
 			}
 		},
 		
 		// selectedItem: Object
 		//		In single selection mode, the selected item or in multiple selection mode the last selected item.
-		//		Warning: Do not use this property directly, make sure to call set() or get() methods.
 		selectedItem: null,
-		
+
 		_setSelectedItemAttr: function(value){
 			if(this.selectedItem != value){
 				this._set("selectedItem", value);
-				this.set("selectedItems", value == null ? null : [value]);
+				this.selectedItems = (value == null ? null : [value]);
 			}
 		},
 		
 		// selectedItems: Object[]
 		//		The list of selected items.
-		//		Warning: Do not use this property directly, make sure to call set() or get() methods.
 		selectedItems: null,
 		
 		_setSelectedItemsAttr: function(value){
 			var oldSelectedItems = this.selectedItems;
 			
-			this.selectedItems = value;
-			this.selectedItem = null;
+			this._set("selectedItems", value);
+			this._set("selectedItem", null);
 			
 			if(oldSelectedItems != null && oldSelectedItems.length>0){
 				this.updateRenderers(oldSelectedItems, true);
 			}
 			if(this.selectedItems && this.selectedItems.length>0){
-				this.selectedItem = this.selectedItems[0];
+				this._set("selectedItem", this.selectedItems[0]);
 				this.updateRenderers(this.selectedItems, true);
 			}
 		},
 		
 		_getSelectedItemsAttr: function(){
-			return this.selectedItems == null ? [] : this.selectedItems.concat();
+			return this._get("selectedItems") == null ? [] : this._get("selectedItems").concat();
 		},
 		
 		isSelected: function(item){
@@ -102,13 +100,13 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			}
 
 			// copy is returned
-			var sel = this.get("selectedItems");
+			var sel = this.selectedItems;
 
 			if(this.selectionMode == "single"){
 				if(value){
-					this.set("selectedItem", item);
+					this.selectedItem = item;
 				}else if(this.isSelected(item)){
-					this.set("selectedItems", null);
+					this.selectedItems = null;
 				}
 			}else{ // multiple
 				if(value){
@@ -120,7 +118,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 					}else{
 						sel.unshift(item);
 					}
-					this.set("selectedItems", sel);
+					this.selectedItems = sel;
 				}else{
 					var res = arr.filter(sel, lang.hitch(this, function(sitem){
 						return this.getIdentity(sitem) != this.getIdentity(item); 
@@ -128,7 +126,7 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 					if(res == null || res.length == sel.length){
 						return; // already not selected
 					}
-					this.set("selectedItems", res);
+					this.selectedItems = res;
 				}
 			}
 		},
@@ -154,12 +152,12 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 			}
 			
 			var changed;
-			var oldSelectedItem = this.get("selectedItem");
+			var oldSelectedItem = this.selectedItem;
 			var selected = item == null ? false : this.isSelected(item);
 			
 			if(item == null){
 				if(!e.ctrlKey && this.selectedItem != null){
-					this.set("selectedItem", null);
+					this.selectedItem = null;
 					changed = true;
 				}
 			}else if(this.selectionMode == "multiple"){
@@ -167,24 +165,24 @@ define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/lang"],
 					this.setSelected(item, !selected);
 					changed = true;
 				}else{
-					this.set("selectedItem", item);					
+					this.selectedItem = item;
 					changed = true;						
 				}				 								
 			}else{ // single
 				if(e.ctrlKey){					
 					//if the object is selected deselects it.
-					this.set("selectedItem", selected ? null : item);
+					this.selectedItem = (selected ? null : item);
 					changed = true;					
 				}else{
 					if(!selected){							
-						this.set("selectedItem", item);
+						this.selectedItem = item;
 						changed = true;
 					}
 				}
 			}						
 			
 			if(dispatch && changed){
-				this.dispatchSelectionChange(oldSelectedItem, this.get("selectedItem"), renderer, e);
+				this.dispatchSelectionChange(oldSelectedItem, this.selectedItem, renderer, e);
 			}
 			
 			return changed;

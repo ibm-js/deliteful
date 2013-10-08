@@ -1,7 +1,7 @@
-define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
-	function(declare, lang, when, _Invalidating){
+define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
+	function(dcl, lang, when, _Invalidating){
 
-	return declare(_Invalidating, {
+	return dcl(_Invalidating, {
 
 		// summary:
 		//		Mixin for widgets for store management that creates widget render items from store items after querying
@@ -58,7 +58,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 		initItems: function(items){
 			// tags:
 			//		protected
-			this.set("items", items);
+			this.items = items;
 			this.emit("query-success", { items: items, cancelable: false, bubbles: true });
 		},
 
@@ -72,9 +72,9 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 					this._observeHandler.remove();
 					this._observeHandler = null;
 				}
-				var store = this.get("store");
+				var store = this.store;
 				if(store != null){
-					var results = store.query(this.get("query"), this.get("queryOptions"));
+					var results = store.query(this.query, this.queryOptions);
 					if(results.observe){
 						// user asked us to observe the store
 						this._observeHandler = results.observe(lang.hitch(this, "_updateItem"), true);
@@ -102,10 +102,10 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 			// tags:
 			//		private
 
-			var items = this.get("items");
+			var items = this.items;
 
 			// if we have a mapping function between store item and some intermediary items use it
-			var newItem = this.itemToRenderItem(object, this.get("store"));
+			var newItem = this.itemToRenderItem(object, this.store);
 
 			if(previousIndex != -1){
 				// this is a remove or a move
@@ -122,7 +122,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 
 			}
 			// set back the modified items property
-			this.set("items", items);
+			this.items = items;
 		},
 
 		destroy: function(){
@@ -130,7 +130,6 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/when", "./_Invalidating"]
 				this._observeHandler.remove();
 				this._observeHandler = null;
 			}
-			this.inherited(arguments);
 		},
 
 		removeItem: function(index, item, items){

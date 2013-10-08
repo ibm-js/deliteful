@@ -19,17 +19,15 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		//		invalidateRendering to modify this flag. 
 		invalidRendering: false,
 
-		postCreate: dcl.after(function(args){
+		create: dcl.after(function(args){
 			// tags:
 			//		protected
-
-			var mixin = args[0];	// parameters to constructor
-
 			if(this._invalidatingProperties){
+				var params = args[0];
 				var props = this._invalidatingProperties;
 				for(var i = 0; i < props.length; i++){
 					this.watch(props[i], lang.hitch(this, "invalidateRendering"));
-					if(mixin && props[i] in mixin){
+					if(params && props[i] in params){
 						// if the prop happens to have been passed in the ctor mixin we are invalidated
 						this.invalidateRendering(props[i]);
 					}
