@@ -168,7 +168,7 @@ define([
 			this._refreshState(priorityChange);
 		}),
 
-		postCreate: register.after(function(){
+		postCreate: function(){
 			var	beginDrag = lang.hitch(this, function(e){
 					e.preventDefault();
 					var	setValue = lang.hitch(this, function(priorityChange){
@@ -305,7 +305,7 @@ define([
 				on(self.handle, "keyup", keyUp) // fire onChange on desktop
 			);
 			this._refreshState(null);
-		}),
+		},
 
 		startup: register.before(function(){
 			var self = this;
