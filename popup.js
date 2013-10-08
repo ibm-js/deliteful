@@ -13,7 +13,8 @@ define([
 	"dojo/on",
 	"./place",
 	"./BackgroundIframe",
-	"./Viewport"
+	"./Viewport",
+	"./themes/load!common"	// duiPopup class
 ], function(array, aspect, declare, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
 			place, BackgroundIframe, Viewport){
 
