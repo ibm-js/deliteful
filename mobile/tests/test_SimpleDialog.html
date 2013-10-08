@@ -20,7 +20,7 @@
 			"dui/mobile/compat",
 			"dui/mobile/SimpleDialog",
 			"dui/mobile/TextBox",
-			"dui/mobile/Button",
+			"dui/Button",
 			"dui/mobile/Slider"
 		], function(dom, registry, ProgressIndicator){
 			show = function(dlg){
@@ -107,14 +107,14 @@
 	<div id="dlg_message" data-dojo-type="dui/mobile/SimpleDialog">
 		<div class="duiSimpleDialogTitle">Information</div>
 		<div class="duiSimpleDialogText">This is a sample dialog.</div>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton" style="width:100px;" onclick="hide('dlg_message')">OK</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton" style="width:100px;" onclick="hide('dlg_message')">OK</button>
 	</div>
 
 	<div id="dlg_confirm" data-dojo-type="dui/mobile/SimpleDialog">
 		<div class="duiSimpleDialogTitle">Rain Alert</div>
 		<div class="duiSimpleDialogText">Do you have an umbrella?</div>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton" onclick="hide('dlg_confirm')">No</button>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton duiBlueButton" onclick="hide('dlg_confirm')">Yes</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton" onclick="hide('dlg_confirm')">No</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton duiBlueButton" onclick="hide('dlg_confirm')">Yes</button>
 	</div>
 	
 	<div id="dlg_login" data-dojo-type="dui/mobile/SimpleDialog">
@@ -122,14 +122,14 @@
 		<div class="duiSimpleDialogText">Enter your ID and Password</div>
 		<input data-dojo-type="dui/mobile/TextBox" class="duiSimpleDialogInput" type="text" data-dojo-props='selectOnClick:true, placeHolder:"ID"' style="margin-bottom: 0;" required>
 		<input data-dojo-type="dui/mobile/TextBox" class="duiSimpleDialogInput" type="password" data-dojo-props='selectOnClick:true, placeHolder:"Password"' style="margin-top: 0;" required>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2l" onclick="hide('dlg_login')">Cancel</button>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2r duiBlueButton" onclick="hide('dlg_login')">OK</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton2l" onclick="hide('dlg_login')">Cancel</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton2r duiBlueButton" onclick="hide('dlg_login')">OK</button>
 	</div>
 
 	<div id="dlg_progress" data-dojo-type="dui/mobile/SimpleDialog">
 		<div class="duiSimpleDialogText">Please wait for 5 seconds.</div>
 		<div class="duiSimpleDialogText" id="progress_indicator_container"></div>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton duiRedButton" onclick="hide_progress_indicator('dlg_progress')">Cancel</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton duiRedButton" onclick="hide_progress_indicator('dlg_progress')">Cancel</button>
 	</div>
 
 	<div id="dlg_volume" data-dojo-type="dui/mobile/SimpleDialog">
@@ -140,8 +140,8 @@
 		<input data-dojo-type="dui/mobile/Slider" value="0" min="0" max="20" step="0.1" type="range" style="width:90%;">
 		<div class="duiSimpleDialogText">Alarm</div>
 		<input data-dojo-type="dui/mobile/Slider" value="0" min="0" max="20" step="0.1" type="range" style="width:90%;">
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2l" onclick="hide('dlg_volume')">OK</button>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton2r" onclick="hide('dlg_volume')">Cancel</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton2l" onclick="hide('dlg_volume')">OK</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton2r" onclick="hide('dlg_volume')">Cancel</button>
 	</div>
 
 	<div id="dlg_select" data-dojo-type="dui/mobile/SimpleDialog">
@@ -157,7 +157,7 @@
 				All animations
 			</li>
 		</ul>
-		<button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton" style="width:60%;" onclick="hide('dlg_select')">Cancel</button>
+		<button data-dojo-type="dui/Button" class="duiSimpleDialogButton" style="width:60%;" onclick="hide('dlg_select')">Cancel</button>
 	</div>
 
 	<div id="view" data-dojo-type="dui/mobile/View" data-dojo-props='selected:true'>

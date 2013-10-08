@@ -4,7 +4,7 @@ define([
 	"dojo/query", // query
 	"../registry", // registry.byNode
 	"../popup", // dui.popup2.hide
-	"./Button",
+	"../Button",
 	"../_Container",
 	"../_HasDropDown",
 	"dojo/text!./templates/DropDownButton.html"

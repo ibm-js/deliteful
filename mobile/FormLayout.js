@@ -16,7 +16,7 @@ define([
 		//		By default, if the width of the screen if greater than 500px, the <label> and the <fieldset> are positioned on the same line.
 		//		Otherwise they are stacked vertically. You can force how a <label> and its <fieldset> are positioned using the
 		//		'columns' property.
-		//		Form controls are: "dui/mobile/Button", "dui/mobile/CheckBox", "dui/mobile/ComboBox",
+		//		Form controls are: "dui/Button", "dui/mobile/CheckBox", "dui/mobile/ComboBox",
 		//		"dui/mobile/RadioButton", "dui/mobile/Slider", "dui/mobile/TextBox", "dui/mobile/SearchBox",
 		//		"dui/mobile/ExpandingTextArea", "dui/mobile/ToggleButton".
 		// example:

@@ -17,7 +17,7 @@
 		"dui/mobile/TabBar",
 		"dui/mobile/Opener",
 		"dui/mobile/SimpleDialog",
-		"dui/mobile/Button",
+		"dui/Button",
 		"dui/mobile/SpinWheelDatePicker",
 		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 	], function(registry) {
@@ -82,7 +82,7 @@
 		  <li data-dojo-type="dui/mobile/TabBarButton">Genius</li>
 		</ul>
 
-		<button data-dojo-type="dui/mobile/Button" onclick="show('customPicker', this.domNode)">Show Opener</button>
+		<button data-dojo-type="dui/Button" onclick="show('customPicker', this.domNode)">Show Opener</button>
 		<div id="customPicker" data-dojo-type="dui/mobile/Opener">
 		      <h1 data-dojo-type="dui/mobile/Heading" label="Custom Picker">
 		              <div data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="width:45px;float:right;" onClick="hide('customPicker')"></div>
@@ -93,7 +93,7 @@
 		<div id="dlg_message" data-dojo-type="dui/mobile/SimpleDialog">
 		  <div class="duiSimpleDialogTitle">Information</div>
 		  <div class="duiSimpleDialogText">This is a sample dialog.</div>
-		  <button data-dojo-type="dui/mobile/Button" class="duiSimpleDialogButton"
+		  <button data-dojo-type="dui/Button" class="duiSimpleDialogButton"
 		          style="width:100px;" onclick="hide('dlg_message')">OK</button>
 		</div>		
 		<button onclick="show('dlg_message')">Show Dialog</button>

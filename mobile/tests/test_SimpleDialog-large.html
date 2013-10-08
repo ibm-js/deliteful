@@ -18,7 +18,7 @@
 			"dui/mobile/compat",
 			"dui/mobile/SimpleDialog",
 			"dui/mobile/TextBox",
-			"dui/mobile/Button"
+			"dui/Button"
 		], function(registry){
 			show = function(){
 				registry.byId("dlg1").show();
@@ -56,7 +56,7 @@
 <body style="visibility:hidden;">
 	<div id="dlg1" data-dojo-type="dui/mobile/SimpleDialog" data-dojo-props='closeButton:true'>
 		<div class="dlgTitle">Account Information
-			<button id="btn1" data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:60px;float:right;">Edit</button>
+			<button id="btn1" data-dojo-type="dui/Button" class="duiBlueButton" style="width:60px;float:right;">Edit</button>
 		</div>
 		<hr/>
 		<table style="width:100%">

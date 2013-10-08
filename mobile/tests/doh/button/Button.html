@@ -23,7 +23,7 @@
 			//dojo.require("dojo.parser"); // Use the lightweight parser.
 			dojo.require("dui/mobile/parser");
 			dojo.require("dui.mobile._base");
-			dojo.require("dui/mobile/Button");
+			dojo.require("dui/Button");
 			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
 
 	        dojo.require("doh.runner");
@@ -44,8 +44,8 @@
 		</script>
 	</head>
 	<body style="padding: 20px;visibility:visible">
-		<button id="btn1" data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="width:120px">Default Button</button>
+		<button id="btn1" data-dojo-type="dui/Button" class="duiBlueButton" style="width:120px">Default Button</button>
 		<p></p>
-		<button id="btn2" data-dojo-type="dui/mobile/Button" class="redButton" style="width:120px">Custom Button</button>
+		<button id="btn2" data-dojo-type="dui/Button" class="redButton" style="width:120px">Custom Button</button>
 	</body>
 </html>

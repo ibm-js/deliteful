@@ -15,7 +15,7 @@ define([
 	"dojo/on",
 	"../focus", // focus.focus()
 	"../typematic",
-	"./Button",
+	"../Button",
 	"./_FormValueWidget",
 	"../_Container",
 	"dojo/text!./templates/HorizontalSlider.html"

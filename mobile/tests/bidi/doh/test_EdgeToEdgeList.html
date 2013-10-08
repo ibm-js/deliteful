@@ -21,7 +21,7 @@
 			"dui/mobile/RoundRectCategory",			
 			"dui/mobile/compat",
 			"dojo/parser",
-			"dui/mobile/Button"			
+			"dui/Button"			
 			], function(registry,runner,dom,ready,query){			
 				ready(function(){
 					runner.register("Bidi EdgeToEdgeList", [
@@ -70,7 +70,7 @@
 	</script>
 </head>
 <body style="visibility:hidden;">
-	<button data-dojo-type="dui/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of second item</button>
+	<button data-dojo-type="dui/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of second item</button>
 	<br>
 	<div id="settings" data-dojo-type="dui/mobile/View">
 		<h2 data-dojo-type="dui/mobile/RoundRectCategory" data-dojo-props='textDir:"rtl"'>RTL RoundRectCategory!</h2>

@@ -57,7 +57,7 @@
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
-			"dui/mobile/Button",
+			"dui/Button",
 			"dui/mobile/Opener"
 		]);
 
@@ -74,17 +74,17 @@
 </head>
 <body style="visibility:hidden;">
 	<center>
-	<button data-dojo-type="dui/mobile/Button" class="duiBlueButton" style="margin-top:20px;width:200px;"
+	<button data-dojo-type="dui/Button" class="duiBlueButton" style="margin-top:20px;width:200px;"
 			onclick="dui.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
 	<div id="msgArea" style="margin-top:5px;"></div>
 	</center>
 
 	<!-- Action Sheet -->
 	<div id="actionSheet" data-dojo-type="dui/mobile/Opener">
-		<button id="Bookmark" data-dojo-type="dui/mobile/Button" onclick="clicked(this.id)">Add Bookmark</button><br>
-		<button id="HomeScreen" data-dojo-type="dui/mobile/Button" onclick="clicked(this.id)">Add to Home Screen</button><br>
-		<button id="MailLink" data-dojo-type="dui/mobile/Button" onclick="clicked(this.id)">Mail Link to this Page</button><br>
-		<button id="cancel" data-dojo-type="dui/mobile/Button" onclick="clicked(this.id)">Cancel</button>
+		<button id="Bookmark" data-dojo-type="dui/Button" onclick="clicked(this.id)">Add Bookmark</button><br>
+		<button id="HomeScreen" data-dojo-type="dui/Button" onclick="clicked(this.id)">Add to Home Screen</button><br>
+		<button id="MailLink" data-dojo-type="dui/Button" onclick="clicked(this.id)">Mail Link to this Page</button><br>
+		<button id="cancel" data-dojo-type="dui/Button" onclick="clicked(this.id)">Cancel</button>
 	</div>
 	<!-- Action Sheet -->
 </body>

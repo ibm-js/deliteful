@@ -22,7 +22,7 @@
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/mobile/EdgeToEdgeStoreList",
-			"dui/mobile/Button"
+			"dui/Button"
 		], function(lang, array, Memory, Observable, registry){
 			var updateCounter = 0;
 			
@@ -117,16 +117,16 @@
 			data-dojo-props='store: store, query: {}, labelAttr: "text", iconAttr: "profile_image_url"'>
 		</ul>
 		<p>Select the data store:<br>
-		<input data-dojo-type="dui/mobile/Button" type="button" value="Set1" 
+		<input data-dojo-type="dui/Button" type="button" value="Set1" 
 			onclick="switchTo(store1)">
-		<input data-dojo-type="dui/mobile/Button" type="button" value="Set2" 
+		<input data-dojo-type="dui/Button" type="button" value="Set2" 
 			onclick="switchTo(store2)">
 		<p>Alter the data store:<br>
-		<input data-dojo-type="dui/mobile/Button" type="button" value="Add" 
+		<input data-dojo-type="dui/Button" type="button" value="Add" 
 			onclick="add1()">
-		<input data-dojo-type="dui/mobile/Button" type="button" value="Update" 
+		<input data-dojo-type="dui/Button" type="button" value="Update" 
 			onclick="update1()">
-		<input data-dojo-type="dui/mobile/Button" type="button" value="Delete" 
+		<input data-dojo-type="dui/Button" type="button" value="Delete" 
 			onclick="delete1()">
 	</div>
 </body>

@@ -23,7 +23,7 @@
 		"dojo/domReady!", // dojo.ready
 		"dui/registry",  // dui.byId
 		"doh/runner",	//doh functions
-		"dui/mobile/Button",
+		"dui/Button",
 		"dui/mobile/View",		// This mobile app uses mobile view
 		"dui/mobile/compat"		// This mobile app supports running on desktop browsers
 	], function(parser, has, domConst, ready, registry, runner, Button){
@@ -90,13 +90,13 @@
 <body>
 	<div id="view1" data-dojo-type="dui/mobile/View" selected="true">
 		<h1>View 1</h1>
-		<button id="view1-button1" data-dojo-type="dui/mobile/Button">Button</button>
+		<button id="view1-button1" data-dojo-type="dui/Button">Button</button>
 		<div id="view1-button2"></div>
 		<button id="view1-button3"></button>
 	</div>
 	<div id="view2" data-dojo-type="dui/mobile/View">
 		<h1>View 2</h1>
-		<button id="view2-button1" data-dojo-type="dui/mobile/Button">Button</button>
+		<button id="view2-button1" data-dojo-type="dui/Button">Button</button>
 		<div id="view2-button2"></div>
 		<button id="view2-button3"></button>
 	</div>

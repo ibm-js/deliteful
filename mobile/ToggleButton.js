@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom-class",
 	"dui/form/_ToggleButtonMixin",
-	"./Button"
+	"dui/Button"
 ], function(declare, domClass, ToggleButtonMixin, Button){
 
 	return declare("dui.mobile.ToggleButton", [Button, ToggleButtonMixin], {

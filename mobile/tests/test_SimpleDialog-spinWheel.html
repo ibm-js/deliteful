@@ -13,7 +13,7 @@
 
 	<script type="text/javascript">
 	require(["dojo/parser",
-		"dui/mobile/Button",
+		"dui/Button",
 		"dui/mobile/SimpleDialog",
 		"dui/mobile/SpinWheel"]);
 	</script>
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 
-	<button data-dojo-type="dui/mobile/Button" data-dojo-props="label:'Click me'">
+	<button data-dojo-type="dui/Button" data-dojo-props="label:'Click me'">
 		<script type="dojo/on" data-dojo-event="click">
 			require(['dui/registry'], function(registry){
 				registry.byId('dialog').show();

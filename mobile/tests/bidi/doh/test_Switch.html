@@ -20,7 +20,7 @@
 			"dui/mobile/Switch",
 			"dui/mobile/compat",
 			"dojo/parser",
-			"dui/mobile/Button"
+			"dui/Button"
 			], function(registry,runner,dom,ready,query){
 				ready(function(){
 					runner.register("Bidi Switch", [
@@ -77,7 +77,7 @@
 	</style>
 </head>
 <body style="visibility:hidden;">
-	<button data-dojo-type="dui/mobile/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of first switch</button>
+	<button data-dojo-type="dui/Button" data-dojo-props='type:"button", onClick:function(){ toggleTextDir(); }'>Toggle textDir of first switch</button>
 	<br>
 	<div data-dojo-type="dui/mobile/View">
 		<div data-dojo-type="dui/mobile/RoundRect" data-dojo-props='shadow:true, textDir:"rtl"'>
