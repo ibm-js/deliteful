@@ -9,10 +9,10 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/aspect", "dojo/_base/declare", "dojo/dom",
-			"dui/registry", "dui/_WidgetBase",
+			"dojo/aspect", "dojo/dom",
+			"dui/register", "dui/registry", "dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, aspect, declare, dom, registry, _WidgetBase){
+		], function(doh, aspect, dom, register, registry, _WidgetBase){
 
 			var obj = {
 				foo: function(){
@@ -23,7 +23,7 @@
 			// Number of times foo was called while TestWidget existed
 			var calls = 0;
 
-			declare("TestWidget", _WidgetBase, {
+			TestWidget = register("test-widget", _WidgetBase, {
 				postMixInProperties: function(){
 					// make sure we can call set for parameters that don't touch the DOM
 					this.set("foo", "bar");
@@ -96,11 +96,10 @@
 				}
 			]);
 
-			doh.register("setter calls on creation", function(){
-				// Make sure setters are called even for anonymous classes (#12122),
-				// and even when there's no value explicitly specified in the parameters
-				var fooSetterCalled,
-					MyWidget = declare(_WidgetBase, {
+			doh.register("setter not called on creation", function(){
+				// Setters are no longer called on creation except for parameters sent to new Foo(...)
+				var fooSetterCalled = false;
+					MyWidget = register("my-widget", _WidgetBase, {
 						foo: 345,
 						_setFooAttr: function(val){
 							fooSetterCalled = val;
@@ -110,12 +109,12 @@
 
 				new MyWidget();
 
-				doh.is(345, fooSetterCalled, "fooSetterCalled");
+				doh.is(false, fooSetterCalled, "fooSetterCalled");
 			});
 
 			doh.register("tweaking params in postMixInProperties", function(){
 				// Tests that property changes in postMixInProperties() are not lost (#16080)
-				var Test = declare(_WidgetBase, { foo: "bar", postMixInProperties: function(){ this.foo = "baz"; } });
+				var Test = register("lifecycle-test", _WidgetBase, { foo: "bar", postMixInProperties: function(){ this.foo = "baz"; } });
 				var t = new Test({ foo: "blah" });
 				doh.is("baz", t.foo);
 			});

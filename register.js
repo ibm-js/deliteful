@@ -87,7 +87,7 @@ define([
 		}
 	}
 
-	return function (tag, superclasses, props) {
+	return function(tag, superclasses, props) {
 		// summary:
 		//		Declare a widget class.
 		//		Eventually this will be for creating a custom element, hence the tag parameter.
@@ -128,14 +128,17 @@ define([
 		props = props || {};
 		props.tag = props.declaredClass = tag;	// for debugging
 
+		// Generate class
+		var ctor = declare(superclasses, props),
+			proto = ctor.prototype;
+
 		// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
-		for(var name in props){
-			if(/^_set[A-Z](.*)Attr$/.test(name) && typeof props[name] != "function"){
-				props[name] = genSetter(name.charAt(4).toLowerCase() + name.substr(5, name.length - 9), props[name]);
+		for(var name in proto){
+			if(/^_set[A-Z](.*)Attr$/.test(name) && typeof proto[name] != "function"){
+				proto[name] = genSetter(name.charAt(4).toLowerCase() + name.substr(5, name.length - 9), proto[name]);
 			}
 		}
 
-		// Generate class
-		return declare(superclasses, props);
+		return ctor;
 	}
 });

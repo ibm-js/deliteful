@@ -1,5 +1,6 @@
 define([
 	"dojo/_base/array", // array.forEach
+	"dojo/_base/declare",
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-style", // domStyle.get
 	"dojo/_base/lang", // lang.hitch lang.isArray
@@ -7,14 +8,13 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
 	"dojo/window", // winUtils.scrollIntoView
-	"./a11y",    // a11y.hasDefaultTabStop
-	"./register"
-], function(array, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y, register){
+	"./a11y"    // a11y.hasDefaultTabStop
+], function(array, declare, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
 
 	// module:
-	//		dui/form/_FormWidgetMixin
+	//		dui/_FormWidgetMixin
 
-	return register("dui-formwidget-mixin", null, {
+	return declare( null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<checkbox>` or `<button>`,
 		//		which can be children of a `<form>` node or a `dui/form/Form` widget.

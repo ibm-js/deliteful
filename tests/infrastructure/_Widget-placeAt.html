@@ -10,13 +10,13 @@
 
 	<script type="text/javascript">
 		require([
-			"doh/runner", "dojo/aspect", "dojo/_base/declare", "dojo/dom",
-			"dui/_WidgetBase", "dui/form/Button",
+			"doh/runner", "dojo/aspect", "dojo/dom",
+			"dui/register", "dui/_WidgetBase", "dui/Button",
 			"dui/layout/ContentPane", "dui/layout/TabContainer", "dui/layout/BorderContainer",
 			"dojo/domReady!"
-		], function(doh, aspect, declare, dom, _WidgetBase, Button, ContentPane, TabContainer, BorderContainer){
+		], function(doh, aspect, dom, register, _WidgetBase, Button, ContentPane, TabContainer, BorderContainer){
 
-			var SimpleWidget = declare(_WidgetBase, {
+			var SimpleWidget = register("simple-widget", _WidgetBase, {
 				buildRendering: function(){
 					this.domNode = document.createElement("div");
 					this.containerNode = document.createElement("div");

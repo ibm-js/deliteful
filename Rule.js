@@ -6,10 +6,10 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-class",
-	"dojo/_base/declare",
+	"./register",
 	"./_WidgetBase",
 	"./themes/load!common,Rule"
-], function(lang, array, has, query, domConstruct, domStyle, domClass, declare, WidgetBase){
+], function(lang, array, has, query, domConstruct, domStyle, domClass, register, WidgetBase){
 
 	function toCSS(baseClass, modifier){
 		return array.map(baseClass.split(" "), function(c){
@@ -20,7 +20,7 @@ define([
 	// module:
 	//		dui/Rule
 
-	var duiRule = declare("dui.Rule", [WidgetBase], {
+	var duiRule = register("dui-rule", WidgetBase, {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations (e.g. hash marks and labels).
 

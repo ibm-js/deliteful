@@ -1,12 +1,12 @@
 define([
-	"dojo/_base/declare",
+	"./register",
 	"./_WidgetBase",
 	"./_CssStateMixin",
 	"./handlebars!./templates/ExampleWidget.html",
 	"./themes/load!ExampleWidget"	// inserts the CSS for this widget for page's theme
-], function(declare, _WidgetBase, _CssStateMixin, renderer){
+], function(register, _WidgetBase, _CssStateMixin, renderer){
 
-	return declare([_WidgetBase, _CssStateMixin], {
+	return register("dui-example", [_WidgetBase, _CssStateMixin], {
 		// summary:
 		//		Example widget for testing and as template for new widgets.
 

@@ -1,21 +1,21 @@
 define([
-	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.hitch
 	"dojo/aspect", // aspect.after
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-style", // domStyle.getComputedStyle
 	"dojo/on",
 	"dojo/window", // winUtils.getBox, winUtils.get
+	"./register",
 	"./_WidgetBase",
 	"./BackgroundIframe",
 	"./Viewport"
-], function(declare, lang, aspect, domAttr, domStyle, on,
-			winUtils, _WidgetBase, BackgroundIframe, Viewport){
+], function(lang, aspect, domAttr, domStyle, on,
+			winUtils, register, _WidgetBase, BackgroundIframe, Viewport){
 
 	// module:
 	//		dui/DialogUnderlay
 
-	var DialogUnderlay = declare("dui.DialogUnderlay", _WidgetBase, {
+	var DialogUnderlay = register("dui-dialog-underlay", _WidgetBase, {
 		// summary:
 		//		A component used to block input behind a `dui/Dialog`.
 		//

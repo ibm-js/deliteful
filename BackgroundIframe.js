@@ -3,7 +3,7 @@ define([
 	"dojo/_base/config",
 	"dojo/dom-construct", // domConstruct.create
 	"dojo/dom-style", // domStyle.set
-	"dojo/_base/lang", // lang.extend lang.hitch
+	"dojo/_base/lang", // lang.extend
 	"dojo/on",
 	"dojo/sniff" // has("ie"), has("mozilla"), has("quirks")
 ], function(require, config, domConstruct, domStyle, lang, on, has){

@@ -3,6 +3,7 @@ define([
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
 	"dojo/_base/config", // config.blankGif
+	"dojo/_base/declare",
 	"dojo/Deferred",
 	"dojo/dom", // dom.byId
 	"dojo/dom-attr", // domAttr.set domAttr.remove
@@ -15,14 +16,13 @@ define([
 	"dojo/_base/lang", // mixin(), isArray(), etc.
 	"dojo/on",
 	"dojo/_base/window", // win.body()
-	"./register",
 	"./Destroyable",
 	"./Stateful",
 	"dojo/has!dojo-bidi?./_BidiMixin",
 	"./registry"    // registry.getUniqueId(), registry.findWidgets()
-], function(require, array, aspect, config, Deferred,
+], function(require, array, aspect, config, declare, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
-			lang, on, win, register, Destroyable, Stateful, _BidiMixin, registry){
+			lang, on, win, Destroyable, Stateful, _BidiMixin, registry){
 
 	// module:
 	//		dui/_WidgetBase
@@ -56,7 +56,7 @@ define([
 		};
 	}
 
-	var _WidgetBase = register("dui-widgetbase", [Stateful, Destroyable], {
+	var _WidgetBase = declare([Stateful, Destroyable], {
 		// summary:
 		//		Base class for all widgets.
 		//

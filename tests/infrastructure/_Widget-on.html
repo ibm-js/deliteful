@@ -7,15 +7,15 @@
 	<script>
 		require([
 			"doh/runner",
-			"dojo/_base/declare", "dojo/has", "dojo/_base/lang", "dojo/on", "dojo/parser", "dojo/touch",
-			"dui/registry", "dui/_WidgetBase", "dojo/domReady!"
-		], function(doh, declare, has, lang, on, parser, touch, registry, _WidgetBase){
+			"dojo/has", "dojo/_base/lang", "dojo/on", "dojo/parser", "dojo/touch",
+			"dui/register", "dui/registry", "dui/_WidgetBase", "dojo/domReady!"
+		], function(doh, has, lang, on, parser, touch, register, registry, _WidgetBase){
 
 			var mousedOver, clicked;
 
 			doh.register("on", [
 				function setup(){
-					declare("MyWidget", _WidgetBase, {
+					MyWidget = register("my-widget", _WidgetBase, {
 						postCreate: function(){
 							on(this.domNode, "click", lang.hitch(this, "onFooBar"));
 						},
@@ -89,7 +89,7 @@
 
 				function syntheticNoCallbackArgs(){
 					var evt = null;
-					var MyWidget = declare(_WidgetBase, {
+					var MyWidget = register("my-widget2", _WidgetBase, {
 						show: function(){
 							return this.emit('show');
 						},

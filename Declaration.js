@@ -1,20 +1,18 @@
 define([
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",	// aspect.after
-	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.getObject
 	"dojo/parser", // parser._functionFromScript
 	"dojo/query", // query
+	"./register",
 	"./_WidgetBase",
-	"./_TemplatedMixin",
-	"./_WidgetsInTemplateMixin",
 	"dojo/NodeList-dom"
-], function(array, aspect, declare, lang, parser, query, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin){
+], function(array, aspect,lang, parser, query, register, _WidgetBase){
 
 	// module:
 	//		dui/Declaration
 
-	return declare("dui.Declaration", _WidgetBase, {
+	return register("dui-declaration", _WidgetBase, {
 		// summary:
 		//		The Declaration widget allows a developer to declare new widget
 		//		classes directly from a snippet of markup.
@@ -82,7 +80,7 @@ define([
 				"' >"+src.innerHTML.replace(/\%7B/g,"{").replace(/\%7D/g,"}")+"</"+srcType+">";
 
 			// create the new widget class
-			var wc = declare(
+			var wc = register(
 				this.widgetClass,
 				this.mixins,
 				propList

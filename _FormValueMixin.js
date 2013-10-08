@@ -1,12 +1,12 @@
 define([
-	"dojo/dom-attr", // domAttr.set
-	"./register" // domAttr.set
-], function(domAttr, register){
+	"dojo/_base/declare",
+	"dojo/dom-attr" // domAttr.set
+], function(declare, domAttr){
 
 	// module:
 	//		dui/_FormValueMixin
 
-	return register("dui-formvalue-mixin", null, {
+	return declare(null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<input>` or `<select>`
 		//		that have user changeable values.
