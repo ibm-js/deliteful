@@ -54,7 +54,7 @@ define([
 		childSelector: null,
 
 		postCreate: function(){
-			// Set tabIndex on this.domNode.  Will be automatic after #7381 is fixed.
+			// Set tabIndex on root node
 			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
 
 			if(!this._keyNavCodes){
@@ -72,9 +72,9 @@ define([
 					? this.childSelector
 					: lang.hitch(this, "childSelector");
 			this.own(
-				on(this.domNode, "keypress", lang.hitch(this, "_onContainerKeypress")),
-				on(this.domNode, "keydown", lang.hitch(this, "_onContainerKeydown")),
-				on(this.domNode, "focus", lang.hitch(this, "_onContainerFocus")),
+				on(this, "keypress", lang.hitch(this, "_onContainerKeypress")),
+				on(this, "keydown", lang.hitch(this, "_onContainerKeydown")),
+				on(this, "focus", lang.hitch(this, "_onContainerFocus")),
 				on(this.containerNode, on.selector(childSelector, "focusin"), function(evt){
 					self._onChildFocus(registry.getEnclosingWidget(this), evt);
 				})
@@ -191,7 +191,7 @@ define([
 			// Ignore spurious focus events:
 			//	1. focus on a child widget bubbles on FF
 			//	2. on IE, clicking the scrollbar of a select dropdown moves focus from the focused child item to me
-			if(evt.target !== this.domNode || this.focusedChild){
+			if(evt.target !== this || this.focusedChild){
 				return;
 			}
 
@@ -202,7 +202,7 @@ define([
 			// When the container gets focus by being tabbed into, or a descendant gets focus by being clicked,
 			// set the container's tabIndex to -1 (don't remove as that breaks Safari 4) so that tab or shift-tab
 			// will go to the fields after/before the container, rather than the container itself
-			domAttr.set(this.domNode, "tabIndex", "-1");
+			domAttr.set(this, "tabIndex", "-1");
 		}),
 
 		_onBlur: dcl.after(function(evt){
@@ -214,7 +214,7 @@ define([
 			// TODO: for 2.0 consider changing this to blur whenever the container blurs, to be truthful that there is
 			// no focused child at that time.
 
-			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
+			domAttr.set(this, "tabIndex", this.tabIndex);
 			if(this.focusedChild){
 				this.focusedChild.tabIndex = "-1";
 				this.lastFocusedChild = this.focusedChild;
@@ -273,7 +273,7 @@ define([
 			// tags:
 			//		private
 
-			var element = item.domNode,
+			var element = item,
 				text = item.label || (element.focusNode ? element.focusNode.label : '') || element.innerText || element.textContent || "",
 				currentString = text.replace(/^\s+/, '').substr(0, searchString.length).toLowerCase();
 
@@ -442,15 +442,12 @@ define([
 			// tags:
 			//		abstract extension
 
-			if(child){
-				child = child.domNode;
-				while(child){
-					child = child[dir < 0 ? "previousSibling" : "nextSibling"];
-					if(child  && "getAttribute" in child){
-						var w = registry.byNode(child);
-						if(w){
-							return w; // dui/_WidgetBase
-						}
+			while(child){
+				child = child[dir < 0 ? "previousSibling" : "nextSibling"];
+				if(child  && "getAttribute" in child){
+					var w = registry.byNode(child);
+					if(w){
+						return w; // dui/_WidgetBase
 					}
 				}
 			}

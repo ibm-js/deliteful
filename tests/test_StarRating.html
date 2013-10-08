@@ -11,12 +11,12 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/parser",
-			"dui/mobile/compat",	// TODO: get rid of this
+			"dui/register",
+			"dui/mobile/compat",
 			"dui/StarRating",
 			"dojo/domReady!"
-		], function(parser){
-			parser.parse();
+		], function(register){
+			register.parse();
 		});
 	</script>
 	<style>
@@ -147,44 +147,44 @@
 </head>
 <body style="background-color:white;">
 	<div class="group group1">
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:0'></span> 0<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:0.5'></span> 0.5<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:1'></span> 1<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:1.5'></span> 1.5<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:2'></span> 2<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='value:5'></span> 5<br>
+		Rating is <dui-starrating value='0'></dui-starrating> 0<br>
+		Rating is <dui-starrating value='0.5'></dui-starrating> 0.5<br>
+		Rating is <dui-starrating value='1'></dui-starrating> 1<br>
+		Rating is <dui-starrating value='1.5'></dui-starrating> 1.5<br>
+		Rating is <dui-starrating value='2'></dui-starrating> 2<br>
+		Rating is <dui-starrating value='5'></dui-starrating> 5<br>
 	</div>
 
 	<div class="group group2">
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='maximum:3,value:0'></span> 0<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='maximum:3,value:0.5'></span> 0.5<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='maximum:3,value:1'></span> 1<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='maximum:3,value:1.5'></span> 1.5<br>
-		Rating is <span data-dojo-type="dui/StarRating" data-dojo-props='maximum:3,value:3'></span> 3<br>
+		Rating is <dui-starrating maximum=3 value=0></dui-starrating> 0<br>
+		Rating is <dui-starrating maximum=3 value=0.5></dui-starrating> 0.5<br>
+		Rating is <dui-starrating maximum=3 value=1></dui-starrating> 1<br>
+		Rating is <dui-starrating maximum=3 value=1.5></dui-starrating> 1.5<br>
+		Rating is <dui-starrating maximum=3 value=3></dui-starrating> 3<br>
 	</div>
 
 	<div class="group group3">
-		<span data-dojo-type="dui/StarRating" data-dojo-props='maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiYellowStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiGreenStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiBlueStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust1StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust2StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust3StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust4StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust5StarRating",maximum:5,value:2.5'></span><br>
+		<dui-starrating maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiYellowStarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiGreenStarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiBlueStarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiCust1StarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiCust2StarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiCust3StarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiCust4StarRating" maximum=5 value=2.5'></dui-starrating><br>
+		<dui-starrating baseClass="duiCust5StarRating" maximum=5 value=2.5'></dui-starrating><br>
 	</div>
 
 	<div class="group group4">
-		<span data-dojo-type="dui/StarRating" data-dojo-props='maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiYellowStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiGreenStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiBlueStarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust1StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust2StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust3StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust4StarRating",maximum:5,value:2.5'></span><br>
-		<span data-dojo-type="dui/StarRating" data-dojo-props='baseClass: "duiCust5StarRating",maximum:5,value:2.5'></span><br>
+		<dui-starrating maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiYellowStarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiGreenStarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiBlueStarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiCust1StarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiCust2StarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiCust3StarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiCust4StarRating" maximum=5 value=2.5></dui-starrating><br>
+		<dui-starrating baseClass="duiCust5StarRating" maximum=5 value=2.5></dui-starrating><br>
 	</div>
 </body>
 </html>

@@ -30,7 +30,7 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 		items: [],
 		*****/
 
-		constructor: function(){
+		postCreate: function(){
 			// we want to be able to wait for potentially several of those properties to be set before
 			// actually firing the store request
 			this.addInvalidatingProperties("store", "query", "queryOptions");

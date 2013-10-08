@@ -61,12 +61,17 @@ define([
 		//		On focus, should this widget scroll into view?
 		scrollOnFocus: true,
 
+/****
+TODO: the code below only makes sense when focusNode != the root node.
+Otherwise, we can't setup custom setters for DOMNode properties like "disabled" because then we can't control
+the domnode's disabled property.
+
 		// Override _WidgetBase mapping id to this.domNode, needs to be on focusNode so <label> etc.
 		// works with screen reader
 		_setIdAttr: "focusNode",
 
 		// TODO: trim or remove this function
-		_setDisabledAttr: function(/*Boolean*/ value){
+		_setDisabledAttr: function(/#Boolean#/ value){
 			this._set("disabled", value);
 			this.runAfterRender(function(){
 				domAttr.set(this.focusNode, 'disabled', value);
@@ -99,6 +104,7 @@ define([
 				}
 			});
 		},
+****/
 
 		_onFocus: dcl.before(function(){
 			if(this.scrollOnFocus){
@@ -113,7 +119,7 @@ define([
 			//		Tells if this widget is focusable or not.  Used internally by dui.
 			// tags:
 			//		protected
-			return !this.disabled && this.focusNode && (domStyle.get(this.domNode, "display") != "none");
+			return !this.disabled && this.focusNode && (domStyle.get(this, "display") != "none");
 		},
 
 		focus: function(){

@@ -42,7 +42,7 @@
 		], function(doh, dom, domConstruct, domGeometry, domStyle, lang, on, query, has, win, winUtils,
 					popupUtil, register, registry, _WidgetBase, helpers){
 
-			SimpleDropDownButton = register("simple-dropdown-button", _WidgetBase, {
+			SimpleDropDownButton = register("simple-dropdown-button", [HTMLButtonElement, _WidgetBase], {
 				// summary:
 				//		A button that shows a popup.
 				//		Supply popup as parameter when instantiating this widget.
@@ -51,9 +51,8 @@
 				orient: ["below"],
 
 				buildRendering: function(){
-					this.domNode = this.ownerDocument.createElement("button");
-					this.domNode.textContent = this.label;
-					this.own(on(this.domNode, "click", lang.hitch(this, "openPopup")));
+					this.textContent = this.label;
+					this.own(on(this, "click", lang.hitch(this, "openPopup")));
 				},
 
 				openPopup: function(){
@@ -62,7 +61,7 @@
 					popupUtil.open({
 						popup: this.popup,
 						parent: this,
-						around: this.domNode,
+						around: this,
 						orient: this.orient,
 						onCancel: function(){
 							log(self.id + ": cancel of child");
@@ -93,27 +92,25 @@
 				}
 			});
 
-			SimplePopup = register("simple-popup", _WidgetBase, {
+			SimplePopup = register("simple-popup", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		A trivial popup widget
 
 				buildRendering: function(){
-					this.domNode = this.ownerDocument.createElement("span");
-					this.domNode.textContent = "i'm a popup";
+					this.textContent = "i'm a popup";
 				}
 			});
 
-			Tooltip = register("test-tooltip", _WidgetBase, {
+			Tooltip = register("test-tooltip", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		A popup with an orient() method to adjust arrows
 
-				constructor: function(){
+				postMixInProperties: function(){
 					this.orientCalls = [];
 				},
 
 				buildRendering: function(){
-					this.domNode = this.ownerDocument.createElement("span");
-					this.domNode.textContent = "i'm a popup";
+					this.textContent = "i'm a popup";
 				},
 
 				orient: function(node, aroundCorner, corner, spaceAvailable, aroundNodeCoords){
@@ -131,7 +128,7 @@
 				}
 			});
 
-			SimpleChoiceWidget = register("simple-choice-widget", _WidgetBase, {
+			SimpleChoiceWidget = register("simple-choice-widget", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		A list of values; select a value by pressing an entry in the list.
 
@@ -140,12 +137,11 @@
 				choice3: "3",
 
 				buildRendering: function(){
-					this.domNode = this.ownerDocument.createElement("div");
-					this.domNode.className = "choice";
-					this.own(on(this.domNode, "click", lang.hitch(this, "onClick")));
+					this.className = "choice";
+					this.own(on(this, "click", lang.hitch(this, "onClick")));
 
 					for(var i=0; i < 3; i++){
-						domConstruct.place("<div>choice #" + this["choice"+i] + "</div>", this.domNode);
+						domConstruct.place("<div>choice #" + this["choice"+i] + "</div>", this);
 					}
 				},
 
@@ -161,15 +157,15 @@
 				}
 			});
 
-			LotsOfChoicesWidget = register("lots-of-choices-widget", _WidgetBase, {
+			LotsOfChoicesWidget = register("lots-of-choices-widget", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		A list of values; select a value by pressing an entry in the list.
 
 				length: 100,
 
-				postCreate: function(){
+				buildRendering: function(){
 					for(var i=0; i < this.length; i++){
-						domConstruct.place("<div>choice #" + i + "</div>", this.domNode);
+						domConstruct.place("<div>choice #" + i + "</div>", this);
 					}
 				}
 			});
@@ -190,7 +186,7 @@
 				popup: tallChoiceDropDown
 			})).placeAt(dom.byId("widgets"));
 
-			DialogWithPopupWidget = register("dialog-with-popup-widget", _WidgetBase, {
+			DialogWithPopupWidget = register("dialog-with-popup-widget", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		This is a dialog that contains a button that spawns a drop down.
 				//		Supply popup as an argument to this widget.
@@ -199,12 +195,11 @@
 				label: "click me",
 
 				buildRendering: function(){
-					this.domNode = document.createElement("div");
-					domConstruct.place("<div>" + this.title + "</div>", this.domNode);
-					domConstruct.place("<input>", this.domNode);
-					domConstruct.place("<br>", this.domNode);
+					domConstruct.place("<div>" + this.title + "</div>", this);
+					domConstruct.place("<input>", this);
+					domConstruct.place("<br>", this);
 
-					this.button = domConstruct.place("<button>" + this.label + "</button>", this.domNode);
+					this.button = domConstruct.place("<button>" + this.label + "</button>", this);
 					// Convert the plain button into a SimpleDropDownButton widget.
 					// Having it be a widget is important because that's how the popup
 					// code knows where a stack of nested popups (typically menus) ends.
@@ -216,8 +211,8 @@
 						orient: ["after"]	// so popup doesn't cover OK button
 					}, this.button);
 
-					domConstruct.place("<br>", this.domNode);
-					var ok = domConstruct.place("<button>OK</button>", this.domNode);
+					domConstruct.place("<br>", this);
+					var ok = domConstruct.place("<button>OK</button>", this);
 					this.own(on(ok, "click", lang.hitch(this, "onExecute")));
 				},
 
@@ -243,18 +238,17 @@
 				})
 			}).placeAt(dom.byId("widgets"));
 
-			NestedPopupOpener = register("nested-popup-opener", _WidgetBase, {
+			NestedPopupOpener = register("nested-popup-opener", [HTMLElement, _WidgetBase], {
 				// summary:
 				//		Clicking a value in this list will open a nested popup.
 				//		Specify popup1 and popup2 as parameters to this widget.
 
 				buildRendering: function(){
-					this.domNode = this.ownerDocument.createElement("div");
-					this.domNode.className = "choice";
-					this.own(on(this.domNode, "click", lang.hitch(this, "onClick")));
+					this.className = "choice";
+					this.own(on(this, "click", lang.hitch(this, "onClick")));
 
 					for(var i=0; i < 2; i++){
-						domConstruct.place("<div>popup" + i + "</div>", this.domNode);
+						domConstruct.place("<div>popup" + i + "</div>", this);
 					}
 				},
 
@@ -269,7 +263,7 @@
 					popupUtil.open({
 						popup: popup,
 						parent: this,
-						around: this.domNode,
+						around: this,
 						orient: ["after", "before"],
 						onCancel: function(){
 							log(id + ": cancel of child " + popup.id);
@@ -336,11 +330,11 @@
 			domConstruct.place("<span id='sdn'>simple dom node</span>", win.body());
 
 			doh.register("API", [
-					function repeatMoveOffScreen(){
-						// Previously, calling moveOffScreen twice would cause an exception
-						popupUtil.moveOffScreen(registry.byId("spw"));
-						popupUtil.moveOffScreen(registry.byId("spw"));
-					}
+				function repeatMoveOffScreen(){
+					// Previously, calling moveOffScreen twice would cause an exception
+					popupUtil.moveOffScreen(registry.byId("spw"));
+					popupUtil.moveOffScreen(registry.byId("spw"));
+				}
 			]);
 
 			doh.register("simple open and close", [
@@ -362,14 +356,14 @@
 					around.openPopup();
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(helpers.isVisible(popup.domNode), "popup is visible");
+						doh.t(helpers.isVisible(popup), "popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
 							var iframes = query("iframe");
 							doh.is(1, iframes.length, "one background iframe on IE6");
 
-							var popupCoords = domGeometry.position(popup.domNode),
+							var popupCoords = domGeometry.position(popup),
 								iframeCoords = domGeometry.position(iframes[0]);
 							doh.is(popupCoords.x, iframeCoords.x, "x is same: " + popupCoords.x);
 							doh.is(popupCoords.y, iframeCoords.y, "y is same: " + popupCoords.y);
@@ -391,7 +385,7 @@
 					around.closePopup();
 
 					// Make sure the popup is hidden
-					doh.is("none", popup.domNode.parentNode.style.display, "popup is hidden");
+					doh.is("none", popup.parentNode.style.display, "popup is hidden");
 				}
 			]);
 
@@ -407,14 +401,14 @@
 					around.openPopup();
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(helpers.isVisible(popup.domNode), "popup is visible");
+						doh.t(helpers.isVisible(popup), "popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
-							var iframes = query("iframe", popup.domNode.parentNode);
+							var iframes = query("iframe", popup.parentNode);
 							doh.is(1, iframes.length, "one background iframe on IE6");
 
-							var popupCoords = domGeometry.position(popup.domNode),
+							var popupCoords = domGeometry.position(popup),
 								iframeCoords = domGeometry.position(iframes[0]);
 							doh.is(popupCoords.x, iframeCoords.x, "x is same: " + popupCoords.x);
 							doh.is(popupCoords.y, iframeCoords.y, "y is same: " + popupCoords.y);
@@ -438,17 +432,17 @@
 					popup.openPopup(nestedPopup);
 
 					setTimeout(d.getTestCallback(function(){
-						doh.t(helpers.isVisible(nestedPopup.domNode), "nested popup is visible");
+						doh.t(helpers.isVisible(nestedPopup), "nested popup is visible");
 
 						if(has("ie") <= 6){
 							// Test the BackgroundIFrame
-							var iframes = query("iframe", popup.domNode.parentNode);
+							var iframes = query("iframe", popup.parentNode);
 							doh.is(1, iframes.length, "one background iframe for popup");
 
-							iframes = query("iframe", nestedPopup.domNode.parentNode);
+							iframes = query("iframe", nestedPopup.parentNode);
 							doh.is(1, iframes.length, "another background iframe for nested popup");
 
-							var popupCoords = domGeometry.position(nestedPopup.domNode),
+							var popupCoords = domGeometry.position(nestedPopup),
 								iframeCoords = domGeometry.position(iframes[0]);
 							doh.is(popupCoords.x, iframeCoords.x, "x is same: " + popupCoords.x);
 							doh.is(popupCoords.y, iframeCoords.y, "y is same: " + popupCoords.y);
@@ -472,8 +466,8 @@
 
 					// Make sure the popups are both hidden
 					// (in a future release this might change to display:none etc but currently it's visibility:hidden)
-					doh.is("none", popup.domNode.parentNode.style.display, "popup is hidden");
-					doh.is("none", nestedPopup.domNode.parentNode.style.display, "nested popup is hidden");
+					doh.is("none", popup.parentNode.style.display, "popup is hidden");
+					doh.is("none", nestedPopup.parentNode.style.display, "nested popup is hidden");
 				}
 			]);
 
@@ -496,7 +490,7 @@
 					y: 15
 				});
 
-				var popupCoords = domGeometry.position(popup.domNode);
+				var popupCoords = domGeometry.position(popup);
 				doh.is(10, popupCoords.x, "popup x coord");
 				doh.is(15, popupCoords.y, "popup y coord");
 
@@ -586,7 +580,7 @@
 					y: 15
 				});
 
-				var w = popup.domNode;
+				var w = popup;
 				doh.is("region", w.parentNode.getAttribute("role"), "popup's wrapper node needs role=region");
 				doh.is("scwPopup", w.parentNode.getAttribute("aria-label"), "popup's wrapper node needs aria-label");
 			});
@@ -602,7 +596,7 @@
 						y: 15
 					});
 
-					var w = popup.domNode;
+					var w = popup;
 					doh.t(domStyle.get(w, "height") > winUtils.getBox().h, "popup is taller than the viewport");
 					doh.t(domStyle.get(w.parentNode, "height") < winUtils.getBox().h, "but wrapper " +
 							domStyle.get(w.parentNode, "height") + " is shorter than viewport " + winUtils.getBox().h);
@@ -610,7 +604,7 @@
 				function scrollbarAround(){
 					tallChoiceDropDownButton.openPopup();
 
-					var w = tallChoiceDropDown.domNode;
+					var w = tallChoiceDropDown;
 					doh.t(domStyle.get(w, "height") > winUtils.getBox().h, "popup is taller than the viewport");
 					doh.t(domStyle.get(w.parentNode, "height") < winUtils.getBox().h, "but wrapper is shorter than viewport");
 				}

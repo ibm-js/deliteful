@@ -24,7 +24,8 @@
 				editable:true,
 				editHalfValues: false,
 				value: 3
-			}, "srw");
+			});
+			rating.placeAt("srw");
 			rating.watch(function(name, oldValue, value){
 				var console = dom.byId("console");
 				console.innerHTML = 'LTR: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;

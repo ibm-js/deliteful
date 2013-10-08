@@ -1,6 +1,6 @@
 define(["doh/runner", "../../register", "../../mixins/Selection", "../../_WidgetBase"],
 	function(doh, register, Selection, _WidgetBase){
-	var C = register("C", [_WidgetBase, Selection], {
+	var C = register("test-selection", [HTMLElement, _WidgetBase, Selection], {
 		updateRenderers: function(){
 		},
 		getIdentity: function(item){

@@ -19,7 +19,7 @@ function fireOnInput(obj){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
-		anchorNode = demoWidget.domNode;
+		anchorNode = demoWidget;
 	}else{
 		anchorNode = obj;
 	}
@@ -36,7 +36,7 @@ function fireOnClick(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
-		anchorNode = demoWidget.domNode;
+		anchorNode = demoWidget;
 	}else{
 		anchorNode = obj;
 	}
@@ -53,7 +53,7 @@ function fireOnMouseDown(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
-		anchorNode = demoWidget.domNode;
+		anchorNode = demoWidget;
 	}else{
 		anchorNode = obj;
 	}
@@ -73,7 +73,7 @@ function fireOnMouseUp(obj, eventMixin){
 	var anchorNode;
 	if(typeof obj === "string"){
 		var demoWidget = registry.byId(obj);
-		anchorNode = demoWidget.domNode;
+		anchorNode = demoWidget;
 	}else{
 		anchorNode = obj;
 	}
@@ -126,8 +126,8 @@ function fireTouchMove(node, x, y){
 function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIcon, hasIcon2, hasVariableHeight, regExp, hasSelected, isSprite){
 	var demoWidget = registry.byId(id);
 	doh.assertNotEqual(null, demoWidget, "ListItem: Did not instantiate. id=" + id);
-	doh.assertEqual('duiListItem' + (hasVariableHeight ?" duiVariableHeight":"") + (hasSelected ?" duiListItemSelected":""), demoWidget.domNode.className, "id=" + id);
-	var childNodes = demoWidget.domNode.children;
+	doh.assertEqual('duiListItem' + (hasVariableHeight ?" duiVariableHeight":"") + (hasSelected ?" duiListItemSelected":""), demoWidget.className, "id=" + id);
+	var childNodes = demoWidget.children;
 //	doh.assertEqual('duiListItemAnchor' + (hasIcon?'':' duiListItemAnchorNoIcon'), childNodes[0].className);
 	
 //	doh.assertEqual('A', childNodes[0].tagName);
@@ -188,9 +188,9 @@ function verifyListItemPos(id, rTop, rRight, rBottom, rLeft, sTop, sLeft, isSpri
 	var demoWidget = registry.byId(id);
 	var node;
 	if(isSprite){
-		node = demoWidget.domNode.childNodes[0].childNodes[0];
+		node = demoWidget.childNodes[0].childNodes[0];
 	}else{
-		node = demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0];
+		node = demoWidget.childNodes[0].childNodes[0].childNodes[0];
 	}
 	verifyRect(node, rTop, rRight, rBottom, rLeft);
 
@@ -210,25 +210,25 @@ function verifyIconItem(id, text, display, regExp, isSprite){
 	var demoWidget = registry.byId(id);
 	if(!has('ie') && !dojo.isFF) {
 		if(isSprite){
-			doh.assertTrue(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
+			doh.assertTrue(demoWidget.childNodes[0].childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
 		}else{
-			doh.assertTrue(demoWidget.domNode.childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
+			doh.assertTrue(demoWidget.childNodes[0].childNodes[0].childNodes[0].src.search(regExp) != -1, "search " + regExp.toString() + " id=" +id);
 		}
 	}
-	doh.assertEqual(text, demoWidget.domNode.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
-	doh.assertEqual(display, demoWidget.paneWidget.domNode.style.display, "id=" +id);
-	doh.assertEqual('duiIconItemPaneHeading', demoWidget.paneWidget.domNode.childNodes[0].className, "id=" +id);
-	doh.assertEqual('duiDomButtonBlueMinus duiDomButton', demoWidget.paneWidget.domNode.childNodes[0].childNodes[0].childNodes[0].className, "id=" +id);
-	doh.assertEqual(text, demoWidget.paneWidget.domNode.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
+	doh.assertEqual(text, demoWidget.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
+	doh.assertEqual(display, demoWidget.paneWidget.style.display, "id=" +id);
+	doh.assertEqual('duiIconItemPaneHeading', demoWidget.paneWidget.childNodes[0].className, "id=" +id);
+	doh.assertEqual('duiDomButtonBlueMinus duiDomButton', demoWidget.paneWidget.childNodes[0].childNodes[0].childNodes[0].className, "id=" +id);
+	doh.assertEqual(text, demoWidget.paneWidget.childNodes[0].childNodes[1].childNodes[0].nodeValue, "id=" +id);
 }
 
 function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regExp1, regExp2, isSprite){
 	var demoWidget = registry.byId(id);
 	for(var i = 0; i < classNames.length;i++){
-		doh.assertTrue(dojo.hasClass(demoWidget.domNode, classNames[i]), classNames[i] + " id=" +id + " className:"+demoWidget.domNode.className);
+		doh.assertTrue(dojo.hasClass(demoWidget, classNames[i]), classNames[i] + " id=" +id + " className:"+demoWidget.className);
 	}
-	doh.assertEqual('duiTabBarButtonIconArea', demoWidget.domNode.childNodes[0].className, "id=" +id);
-	doh.assertEqual('duiTabBarButtonLabel', demoWidget.domNode.childNodes[1].className, "id=" +id);
+	doh.assertEqual('duiTabBarButtonIconArea', demoWidget.childNodes[0].className, "id=" +id);
+	doh.assertEqual('duiTabBarButtonLabel', demoWidget.childNodes[1].className, "id=" +id);
 	if(demoWidget.iconNode1){
 		if(!has('ie')) {
 			if(isSprite){

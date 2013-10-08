@@ -14,14 +14,15 @@ require([
 ], function(doh, keys, on, win,
 			register, _HasDropDown, _WidgetBase, helpers){
 
-	var SimplePopup = register("dui-simple-popup", _WidgetBase, {
+	var SimplePopup = register("dui-simple-popup", [HTMLElement, _WidgetBase], {
 		// summary:
 		//		A trivial popup widget
 		label: "i'm a popup",
-		_setLabelAttr: { node: "domNode", type: "innerText" }
+		_setLabelAttr: { type: "innerText" }
 	});
 
-	var SimpleDropDownButton = register("dui-simple-drop-down-button", [_WidgetBase, _HasDropDown], {
+	var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, _WidgetBase, _HasDropDown], {
+
 		// summary:
 		//		A button that shows a popup.
 
@@ -39,12 +40,12 @@ require([
 		})
 	});
 
-	var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [_WidgetBase, _HasDropDown], {
+	var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, _WidgetBase, _HasDropDown], {
 		// summary:
 		//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 
 		label: "show popup (non-focusable)",
-		_setLabelAttr: { node: "domNode", type: "innerText" },
+		_setLabelAttr: { type: "innerText" },
 
 		orient: ["below"],
 
@@ -89,7 +90,7 @@ require([
 		},
 		function open(){
 			var d = new doh.Deferred();
-			click(dd.domNode);
+			click(dd);
 			setTimeout(d.getTestCallback(function(){
 				doh.t(helpers.isVisible(popup), "popup visible");
 			}), 10);
@@ -101,7 +102,7 @@ require([
 		},
 		function openBySpace(){
 			var d = new doh.Deferred();
-			key(dd.domNode, keys.SPACE);
+			key(dd, keys.SPACE);
 			setTimeout(d.getTestCallback(function(){
 				doh.t(!!popup, "popup exists");
 				doh.t(helpers.isVisible(popup), "popup visible again");
@@ -124,7 +125,7 @@ require([
 		},
 		function open(){
 			var d = new doh.Deferred();
-			click(ndd.domNode);
+			click(ndd);
 			setTimeout(d.getTestCallback(function(){
 				doh.t(helpers.isVisible(popup), "popup visible");
 			}), 10);
@@ -143,7 +144,7 @@ require([
 		},
 		function open(){
 			var d = new doh.Deferred();
-			click(dd.domNode);
+			click(dd);
 			setTimeout(d.getTestCallback(function(){
 				doh.t(helpers.isVisible(popup), "popup visible");
 				doh.is(1, require("dui/popup")._stack.length, "in popup manager stack");

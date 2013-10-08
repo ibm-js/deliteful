@@ -1,153 +1,362 @@
 define([
 	"dcl/dcl",
-	"dojo/dom-attr", // domAttr.set domAttr.remove
-	"dojo/dom-class" // domClass.add domClass.replace
-], function (dcl, domAttr, domClass) {
+	"dojo/has"
+], function (dcl, has) {
 	'use strict';
 
-	function genSetter(/*String*/ attr, /*Object*/ commands){
-		// summary:
-		//		Return setter for a widget property, often mapping the property to a
-		//		DOMNode attribute, innerHTML, or innerText.
-		//		Note some attributes like "type" cannot be processed this way as they are not mutable.
-		// attr:
-		//		Name of widget property, ex: "label"
-		// commands:
-		//		A single command or array of commands.  A command is:
-		//
-		//			- null to indicate a plain setter that just saves the value and notifies listeners registered with watch()
-		//			- a string like "focusNode" to set this.focusNode[attr]
-		//			- an object like {node: "labelNode", type: "attribute", attribute: "role" } to set this.labelNode.role
-		//			- an object like {node: "domNode", type: "class" } to set this.domNode.className
-		//			- an object like {node: "labelNode", type: "innerHTML" } to set this.labelNode.innerHTML
-		//			- an object like {node: "labelNode", type: "innerText" } to set this.labelNode.innerText
+	var doc = document;
 
-		function genSimpleSetter(command){
-			var mapNode = command.node || command || "domNode";	// this[mapNode] is the DOMNode to adjust
-			switch(command.type){
-				case "innerText":
-					return function(value){
-						this.runAfterRender(function(){
-							this[mapNode].innerHTML = "";
-							this[mapNode].appendChild(this.ownerDocument.createTextNode(value));
-						});
-						this._set(attr, value);
-					};
-				case "innerHTML":
-					return function(value){
-						this.runAfterRender(function(){
-							this[mapNode].innerHTML = value;
-						});
-						this._set(attr, value);
-					};
-				case "class":
-					return function(value){
-						this.runAfterRender(function(){
-							domClass.replace(this[mapNode], value, this[attr]);
-						});
-						this._set(attr, value);
-					};
-				default:
-					// Map to DOMNode attribute, or attribute on a supporting widget.
-					// First, get the name of the DOM node attribute; usually it's the same
-					// as the name of the attribute in the widget (attr), but can be overridden.
-					// Also maps handler names to lowercase, like onSubmit --> onsubmit
-					var attrName = command.attribute ? command.attribute :
-						(/^on[A-Z][a-zA-Z]*$/.test(attr) ? attr.toLowerCase() : attr);
+	// Does platform have native support for document.register() or a polyfill to simulate it?
+	has.add('document-register', document.register);
 
-					return function(value){
-						if(typeof value == "function"){ // functions execute in the context of the widget
-							value = lang.hitch(this, value);
-						}
-						this.runAfterRender(function(){
-							if(this[mapNode].tagName){
-								// Normal case, mapping to a DOMNode.  Note that modern browsers will have a mapNode.setAttribute()
-								// method, but for consistency we still call domAttr().  For 2.0 change to set property?
-								domAttr.set(this[mapNode], attrName, value);
-							}else{
-								// mapping to a sub-widget
-								this[mapNode][attrName] = value;
-							}
-						});
-						this._set(attr, value);
-					};
-			}
+	// Can we use __proto__ to reset the prototype of DOMNodes?
+	// It's not available on IE<11, and even on IE11 it makes the node's attributes (ex: node.attributes, node.textContent)
+	// disappear, so disabling it on IE11 for now.
+	has.add('dom-proto-set', function(){
+		var node = document.createElement("div");
+		if(!node.__proto__){ return false; }
+		node.__proto__ = {};
+		return !!node.attributes;
+	});
+
+	/**
+	 * List of selectors that the parser needs to search for as possible upgrade targets.  Mainly contains
+	 * the widget custom tags like d-accordion, but also selectors like button[is='d-button'] to find <button is="...">
+	 * @type {String[]}
+	 */
+	var selectors = [];
+
+	/**
+	 * Internal registry of widget class metadata.
+	 * Key is custom widget tag name, used as Element tag name like <d-accordion> or "is" attribute like
+	 * <button is="d-accordion">).
+	 * Value is metadata about the widget, including its prototype, ex: {prototype: object, extends: "button", ... }
+	 * @type {Object}
+	 */
+	var registry = {};
+
+	/**
+	 * Create an Element.  Equivalent to document.createElement(), but if tag is the name of a widget defined by
+	 * register(), then it upgrades the Element to be a widget.
+	 * @param {String} tag
+	 * @param {Object?} params
+	 * @returns {Element} The DOMNode
+	 */
+	function createElement(tag, params){
+		// TODO: support custom document
+		var base = registry[tag] ? registry[tag].extends : null,
+			element = doc.createElement(base || tag);
+		if (base) {
+			element.setAttribute('is', tag);
 		}
 
-		if(commands instanceof Array){
-			// Unusual case where there's a list of commands, ex: _setFooAttr: ["focusNode", "domNode"].
-			var setters = array.map(commands, genSimpleSetter);
-			return function(value){
-				setters.forEach(function(setter){
-					setter.call(this, value);
-				}, this);
+		// TODO: Next two steps are meaningless if browser supports document.register(); in that
+		// case the DOMNode has already automatically been upgraded.   But in that case, the params will be lost.
+		// We should probably set them after the element has been created, except that doesn't work for
+		// const parameters, ao
+		element.params = params;
+		upgrade(element);
+
+		return element;
+	}
+
+	function getPropDescriptors(proto) {
+		// summary:
+		//		Generate metadata about all the properties in proto, both direct and inherited.
+		//		On IE<=10, these properties will be applied to a DOMNode via Object.defineProperties().
+		//		Skips properties in the base element (HTMLElement, HTMLButtonElement, etc.)
+
+		var props = {};
+
+		do {
+			var keys = Object.getOwnPropertyNames(proto);	// better than Object.keys() because finds hidden props too
+			for (var i=0, k; k=keys[i]; i++) {
+				if (!props[k]) {
+					props[k] = Object.getOwnPropertyDescriptor(proto, k);
+				}
 			}
-		}else{
-			return genSimpleSetter(commands);
+			proto = Object.getPrototypeOf(proto);
+		} while (!/HTML[a-zA-Z]*Element/.test(proto.toString()));
+
+		return props;
+	}
+
+	/**
+	 * Converts plain DOMNode of custom type into widget, by adding the widget's custom methods, etc.
+	 * Does nothing if the DOMNode has already been converted or if it doesn't correspond to a custom widget.
+	 * Roughly equivalent to dojo/parser::instantiate(), but for a single node, not an array
+	 * @param {Element} inElement The DOMNode
+	 */
+	function upgrade(element){
+		if (!element.__upgraded__) {
+			var widget = registry[element.getAttribute('is') || element.nodeName.toLowerCase()];
+			if (widget) {
+				if (has("dom-proto-set")) {
+					// Redefine Element's prototype to point to widget's methods etc.
+					element.__proto__ = widget.prototype;
+				}
+				else {
+					// Mixin all the widget's methods etc. into Element
+					Object.defineProperties(element, widget.props);
+				}
+				element.__upgraded__ = true;
+				element._constructor = widget.constructor;	// _constructor b/c constructor is read-only on iOS
+				if (element.createdCallback) {
+					element.createdCallback.call(element, widget.prototype);
+				}
+				if (element.enteredViewCallback && doc.documentElement.contains(element)) {
+					// TODO: doc that if apps insert an element manually they need to call enteredViewCallback() manually
+					element.enteredViewCallback.call(element, widget.prototype);
+				}
+			}
 		}
 	}
 
-	function register (tag, superclasses, props) {
-		// summary:
-		//		Declare a widget class.
-		//		Eventually this will be for creating a custom element, hence the tag parameter.
-		//
-		//		props{} can provide custom setters/getters for widget properties, which are called automatically when
-		//		the widget properties are set.
-		//		For a property XXX, define methods _setXXXAttr() and/or _getXXXAttr().
-		//
-		//		_setXXXAttr can also be a string/hash/array mapping from a widget attribute XXX to the widget's DOMNodes:
-		//
-		//		- DOM node attribute
-		// |		_setFocusAttr: {node: "focusNode", type: "attribute"}
-		// |		_setFocusAttr: "focusNode"	(shorthand)
-		// |		_setFocusAttr: ""		(shorthand, maps to this.domNode)
-		//		Maps this.focus to this.focusNode.focus, or (last example) this.domNode.focus
-		//
-		//		- DOM node innerHTML
-		//	|		_setTitleAttr: { node: "titleNode", type: "innerHTML" }
-		//		Maps this.title to this.titleNode.innerHTML
-		//
-		//		- DOM node innerText
-		//	|		_setTitleAttr: { node: "titleNode", type: "innerText" }
-		//		Maps this.title to this.titleNode.innerText
-		//
-		//		- DOM node CSS class
-		// |		_setMyClassAttr: { node: "domNode", type: "class" }
-		//		Maps this.myClass to this.domNode.className
-		//
-		//		If the value of _setXXXAttr is an array, then each element in the array matches one of the
-		//		formats of the above list.
-		//
-		//		If the custom setter is null, no action is performed other than saving the new value
-		//		in the widget (in this), and notifying any listeners registered with watch()
+	/**
+	 * Hash mapping of HTMLElement interfaces to tag names
+	 * @type {Object}
+	 */
+	var tags = {
+		HTMLAnchorElement: 'a',
+		HTMLAppletElement: 'applet',
+		HTMLAreaElement: 'area',
+		HTMLAudioElement: 'audio',
+		HTMLBaseElement: 'base',
+		HTMLBRElement: 'br',
+		HTMLButtonElement: 'button',
+		HTMLCanvasElement: 'canvas',
+		HTMLDataElement: 'data',
+		HTMLDataListElement: 'datalist',
+		HTMLDivElement: 'div',
+		HTMLDListElement: 'dl',
+		HTMLDirectoryElement: 'directory',
+		HTMLEmbedElement: 'embed',
+		HTMLFieldSetElement: 'fieldset',
+		HTMLFontElement: 'font',
+		HTMLFormElement: 'form',
+		HTMLHeadElement: 'head',
+		HTMLHeadingElement: 'h1',
+		HTMLHtmlElement: 'html',
+		HTMLHRElement: 'hr',
+		HTMLIFrameElement: 'iframe',
+		HTMLImageElement: 'img',
+		HTMLInputElement: 'input',
+		HTMLKeygenElement: 'keygen',
+		HTMLLabelElement: 'label',
+		HTMLLegendElement: 'legend',
+		HTMLLIElement: 'li',
+		HTMLLinkElement: 'link',
+		HTMLMapElement: 'map',
+		HTMLMediaElement: 'media',
+		HTMLMenuElement: 'menu',
+		HTMLMetaElement: 'meta',
+		HTMLMeterElement: 'meter',
+		HTMLModElement: 'ins',
+		HTMLObjectElement: 'object',
+		HTMLOListElement: 'ol',
+		HTMLOptGroupElement: 'optgroup',
+		HTMLOptionElement: 'option',
+		HTMLOutputElement: 'output',
+		HTMLParagraphElement: 'p',
+		HTMLParamElement: 'param',
+		HTMLPreElement: 'pre',
+		HTMLProgressElement: 'progress',
+		HTMLQuoteElement: 'quote',
+		HTMLScriptElement: 'script',
+		HTMLSelectElement: 'select',
+		HTMLSourceElement: 'source',
+		HTMLSpanElement: 'span',
+		HTMLStyleElement: 'style',
+		HTMLTableElement: 'table',
+		HTMLTableCaptionElement: 'caption',
+		HTMLTableDataCellElement: 'td',
+		HTMLTableHeaderCellElement: 'th',
+		HTMLTableColElement: 'col',
+		HTMLTableRowElement: 'tr',
+		HTMLTableSectionElement: 'tbody',
+		HTMLTextAreaElement: 'textarea',
+		HTMLTimeElement: 'time',
+		HTMLTitleElement: 'title',
+		HTMLTrackElement: 'track',
+		HTMLUListElement: 'ul',
+		HTMLUnknownElement: 'blink',
+		HTMLVideoElement: 'video'
+	};
 
+	/**
+	 * For a constructor function, attempt to determine name of the "class"
+	 * @param  {Function} base The constructor function to identify
+	 * @return {String}	       The string name of the class
+	 */
+	function getBaseName(base) {
+		// Try to use Function.name if available
+		if (base && base.name) {
+			return base.name;
+		}
+		var matches;
+		// Attempt to determine the name of the "class" by either getting it from the "function Name()" or the
+		// .toString() of the constructor function.  This is required on IE due to the fact that function.name is
+		// not a standard property and is not implemented on IE
+		if ((matches = base.toString().match(/^(?:function\s(\S+)\(\)\s|\[\S+\s(\S+)\])/))) {
+			return matches[1] || matches[2];
+		}
+	}
+
+	/**
+	 * Registers the tag with the current document, and save tag information in registry.
+	 * Handles situations where the base constructor inherits from
+	 * HTMLElement but is not HTMLElement.
+	 * @param  {String}   tag      The custom tag name for the element, or the "is" attribute value.
+	 * @param  {String}   baseName The base "class" name that this custom element is being built on
+	 * @param  {Function} baseCtor The constructor function
+	 * @return {Function}          The "new" constructor function that can create instances of the custom element
+	 */
+	function getTagConstructor(tag, baseName, baseCtor) {
+		var proto = baseCtor.prototype,
+			config = registry[tag] = {
+				constructor: baseCtor,
+				prototype: proto
+			};
+		if (baseName !== 'HTMLElement') {
+			config.extends = tags[baseName];
+		}
+
+		// If platform natively support document.register, we can call it here.
+		var tagConstructor;
+
+		if (has("document-register")) {
+			tagConstructor = doc.register(tag, config);
+		} else {
+			if(!has("dom-proto-set")) {
+				// Get descriptors for all the properties in the prototype.  This is needed on IE<=10 in upgrade().
+				config.props = getPropDescriptors(proto);
+			}
+
+			// Register the selector to find this custom element
+			selectors.push( config.extends ? config.extends + '[is="' + tag + '"]' : tag);
+
+			// Note: if we wanted to support registering new types after the parser was called, then here we should
+			// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
+
+			// Create a constructor method to return a DOMNode representing this widget.
+			// TODO: argument to specify non-default document, and also initialization parameters.
+			tagConstructor = function(params, srcNodeRef){
+				if(srcNodeRef){
+					// TODO: This is meaningless if browser supports document.register(); in that
+					// case the DOMNode has already automatically been upgraded.   But in that case, the params will be lost.
+					// We should probably set them after the element has been created, except that doesn't work for
+					// const parameters.
+					srcNodeRef = typeof srcNodeRef == "string" ? document.getElementById(srcNodeRef) : srcNodeRef;
+					srcNodeRef.params = params;
+					upgrade(srcNodeRef);
+					return srcNodeRef;
+				}else{
+					return createElement(tag, params);
+				}
+			};
+		}
+
+		// Add some flags for debugging and return the new constructor
+		tagConstructor.tag = tag;
+		tagConstructor._ctor = baseCtor;
+		return tagConstructor;
+	}
+
+	/**
+	 * Restore the "true" constructor when trying to recombine custom elements
+	 * @param  {Function} extension A constructor function that might have a shadow property that contains the
+	 *                              original constructor
+	 * @return {Function}           The original construction function or the existing function/object
+	 */
+	function restore(extension) {
+		return (extension && extension._ctor) || extension;
+	}
+
+	/**
+	 * Declare a widget and register as a custom element.
+	 *
+	 * props{} can provide custom setters/getters for widget properties, which are called automatically when
+	 * the widget properties are set.
+	 * For a property XXX, define methods _setXXXAttr() and/or _getXXXAttr().
+	 *
+	 * @param  {String}               tag             The custom element's tag name
+	 * @param  {Objects}              [extensions...] Any number of extensions to be built into the custom element
+	 *                                                constructor.   But first one must be [descendant] of HTMLElement.
+	 * @param  {Object}               props           Properties of this widget class
+	 * @return {Function}                             A constructor function that will create an instance of the custom
+	 *                                                element
+	 */
+	function register (tag, superclasses, props) {
 		// Create the widget class by extending specified superclasses and adding specified properties.
-		// Then create a a wrapper class around that, with native accessors and introspected metadata.
+
+		// Make sure all the bases have their proper constructors for being composited.
+		// I.E. remove the wrapper added by getTagConstructor().
+		var bases = (superclasses instanceof Array ? superclasses : superclasses ? [superclasses] : []).map(restore);
+
+		var baseName, baseElement = bases[0];
+
+		// Check to see if the custom tag is already registered
+		if (tag in registry) {
+			throw new TypeError('A widget is already registered with tag "' + tag + '".');
+		}
+		// Get name of root class: "HTMLElement", "HTMLInputElement", etc.
+		if (!(baseName = (baseElement.prototype && baseElement.prototype._baseName) || getBaseName(baseElement))) {
+			throw new TypeError(tag + ': Cannot determine class of baseElement');
+		}
+		baseName = baseName.replace(/Constructor$/, "");	// normalize HTMLElementConstructor --> HTMLElement on iOS
+
+		// Check to see if baseElement is appropriate
+		if (!/^HTML.*Element$/.test(baseName)) {
+			throw new TypeError(tag + ': baseElement must have HTMLElement in its prototype chain');
+		}
 
 		props = props || {};
 		props.tag = props.declaredClass = tag;	// for debugging
 
-		// Generate class
-		var ctor = dcl(superclasses, props),
+		// Get a composited constructor
+		var ctor = dcl(bases, props),
 			proto = ctor.prototype;
+		proto._ctor = ctor;
+		proto._baseName = baseName;
 
-		// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
-		for(var name in proto){
-			if(/^_set[A-Z](.*)Attr$/.test(name) && typeof proto[name] != "function"){
-				proto[name] = genSetter(name.charAt(4).toLowerCase() + name.substr(5, name.length - 9), proto[name]);
-			}
-		}
+		// Run introspection to add ES5 getters/setters.
+		// Doesn't happen automatically because Stateful's constructor isn't called.
+		// Also, on IE this needs to happen before the getTagConstructor() call,
+		// since getTagConstructor() scans all the properties on the widget prototype.
+		proto._introspect(ctor);
+		ctor._introspected = true;
 
-		return ctor;
+		// Save widget metadata to the registry and return constructor that creates an upgraded DOMNode for the widget
+		/* jshint boss:true */
+		return getTagConstructor(tag, baseName, ctor);
 	}
 
-	// Export dcl methods for convenience, so other modules can just include dui/register.
-	register.mix = dcl.mix;
-	register.before = dcl.before;
+	/**
+	 * Parse the given DOM tree for any DOMNodes that need to be upgraded to widgets.
+	 * @param {Element?} Root DOMNode to parse from
+	 */
+	function parse(root){
+		if(has("document-register")){
+			// If there's native support for custom elements then they are parsed automatically
+			return;
+		}
+
+		// Otherwise, parse manually
+		var node, idx = 0, nodes = (root || doc).querySelectorAll(selectors);
+		while(node = nodes[idx++]){
+			upgrade(node);
+		}
+	}
+
+	// Setup return value as register() method, with other methods hung off it.
+	register.upgrade = upgrade;
+	register.createElement = createElement;
+
+	// Add helpers from dcl for declaring classes.
 	register.after = dcl.after;
-	register.advise = dcl.advise;
-	register.superCall = dcl.superCall;
+	register.before = dcl.before;
+	register.around = dcl.around;
+	register.parse = parse;
 
 	return register;
 });

@@ -216,7 +216,7 @@ define([
 				while(node){
 					var popupParent = domAttr.get(node, "duiPopupParent");
 					if(popupParent){
-						node=registry.byId(popupParent).domNode;
+						node = registry.byId(popupParent);
 					}else if(node.tagName && node.tagName.toLowerCase() == "body"){
 						// is this the root of the document or just the root of an iframe?
 						if(node === win.body()){
@@ -296,7 +296,7 @@ define([
 				widget = registry.byId(oldStack[i]);
 				if(widget){
 					widget._hasBeenBlurred = true;		// TODO: used by form widgets, should be moved there
-					widget.set("focused", false);
+					widget.focused = false;
 					if(widget._focusManager == this){
 						widget._onBlur(by);
 					}
@@ -308,7 +308,7 @@ define([
 			for(i++; i <= lastNewIdx; i++){
 				widget = registry.byId(newStack[i]);
 				if(widget){
-					widget.set("focused", true);
+					widget.focused = true;
 					if(widget._focusManager == this){
 						widget._onFocus(by);
 					}

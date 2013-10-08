@@ -131,9 +131,7 @@ define([
 			//		Puts widget inside a wrapper DIV (if not already in one),
 			//		and returns pointer to that wrapper DIV.
 
-			var wrapper = widget._popupWrapper,
-				node = widget.domNode;
-
+			var wrapper = widget._popupWrapper;
 			if(!wrapper){
 				// Create wrapper <div> for when this widget [in the future] will be used as a popup.
 				// This is done early because of IE bugs where creating/moving DOM nodes causes focus
@@ -144,9 +142,9 @@ define([
 					role: "region",
 					"aria-label": widget["aria-label"] || widget.label || widget.name || widget.id
 				}, widget.ownerDocumentBody);
-				wrapper.appendChild(node);
+				wrapper.appendChild(widget);
 
-				var s = node.style;
+				var s = widget.style;
 				s.display = "";
 				s.visibility = "";
 				s.position = "";
@@ -204,9 +202,8 @@ define([
 			});
 
 			// Open() may have moved border from popup to wrapper.  Move it back.
-			var node = widget.domNode;
-			if("_originalStyle" in node){
-				node.style.cssText = node._originalStyle;
+			if("_originalStyle" in widget){
+				widget.style.cssText = widget._originalStyle;
 			}
 		},
 
@@ -231,14 +228,13 @@ define([
 			//
 			// example:
 			//		opening the widget as a dropdown
-			//		|		popup.open({parent: this, popup: menuWidget, around: this.domNode, onClose: function(){...}});
+			//		|		popup.open({parent: this, popup: menuWidget, around: this, onClose: function(){...}});
 			//
 			//		Note that whatever widget called dui/popup.open() should also listen to its own _onBlur callback
 			//		(fired from _base/focus.js) to know that focus has moved somewhere else and thus the popup should be closed.
 
 			var stack = this._stack,
 				widget = args.popup,
-				node = widget.domNode,
 				orient = args.orient || ["below", "below-alt", "above", "above-alt"],
 				ltr = args.parent ? args.parent.isLeftToRight() : domGeometry.isBodyLtr(widget.ownerDocument),
 				around = args.around,
@@ -247,7 +243,7 @@ define([
 			// If we are opening a new popup that isn't a child of a currently opened popup, then
 			// close currently opened popup(s).   This should happen automatically when the old popups
 			// gets the _onBlur() event, except that the _onBlur() event isn't reliable on IE, see [22198].
-			while(stack.length && (!args.parent || !dom.isDescendant(args.parent.domNode, stack[stack.length - 1].widget.domNode))){
+			while(stack.length && (!args.parent || !dom.isDescendant(args.parent, stack[stack.length - 1].widget))){
 				this.close(stack[stack.length - 1].widget);
 			}
 
@@ -262,7 +258,7 @@ define([
 			// Limit height to space available in viewport either above or below aroundNode (whichever side has more
 			// room), adding scrollbar if necessary. Can't add scrollbar to widget because it may be a <table> (ex:
 			// dui/Menu), so add to wrapper, and then move popup's border to wrapper so scroll bar inside border.
-			var maxHeight, popupSize = domGeometry.position(node);
+			var maxHeight, popupSize = domGeometry.position(widget);
 			if("maxHeight" in args && args.maxHeight != -1){
 				maxHeight = args.maxHeight || Infinity;	// map 0 --> infinity for back-compat of _HasDropDown.maxHeight
 			}else{
@@ -273,15 +269,15 @@ define([
 			if(popupSize.h > maxHeight){
 				// Get style of popup's border.  Unfortunately domStyle.get(node, "border") doesn't work on FF or IE,
 				// and domStyle.get(node, "borderColor") etc. doesn't work on FF, so need to use fully qualified names.
-				var cs = domStyle.getComputedStyle(node),
+				var cs = domStyle.getComputedStyle(widget),
 					borderStyle = cs.borderLeftWidth + " " + cs.borderLeftStyle + " " + cs.borderLeftColor;
 				domStyle.set(wrapper, {
 					overflowY: "scroll",
 					height: maxHeight + "px",
 					border: borderStyle	// so scrollbar is inside border
 				});
-				node._originalStyle = node.style.cssText;
-				node.style.border = "none";
+				widget._originalStyle = widget.style.cssText;
+				widget.style.border = "none";
 			}
 
 			domAttr.set(wrapper, {
@@ -313,7 +309,7 @@ define([
 						layoutFunc);
 
 			wrapper.style.visibility = "visible";
-			node.style.visibility = "visible";	// counteract effects from _HasDropDown
+			widget.style.visibility = "visible";	// counteract effects from _HasDropDown
 
 			var handlers = [];
 
@@ -398,9 +394,7 @@ define([
 				}
 
 				// Hide the widget and it's wrapper unless it has already been destroyed in above onClose() etc.
-				if(widget && widget.domNode){
-					this.hide(widget);
-				}
+				this.hide(widget);
 
 				if(onClose){
 					onClose();

@@ -53,20 +53,20 @@ define([
 			this._set("class", clazz);
 		},
 
-		buildRendering: register.after(function(){
+		buildRendering: function(){
 			// Outer div is used for fade-in/fade-out, and also to hold background iframe.
 			// Inner div has opacity specified in CSS file.
 			ths.domNode.class = "duiDialogUnderlayWrapper";
 			this.node = this.ownerDocument.createElement("div");
 			this.node.setAttribute("tabindex", "-1");
 			this.domNode.appendChild(this.node);
-		}),
+		},
 
 		postCreate: function(){
 			// Append the underlay to the body
-			this.ownerDocumentBody.appendChild(this.domNode);
+			this.ownerDocumentBody.appendChild(this);
 
-			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onKeyDown")));
+			this.own(on(this, "keydown", lang.hitch(this, "_onKeyDown")));
 		},
 
 		layout: function(){
@@ -81,7 +81,7 @@ define([
 			//		private
 
 			var is = this.node.style,
-				os = this.domNode.style;
+				os = this.style;
 
 			// hide the background temporarily, so that the background itself isn't
 			// causing scrollbars to appear (might happen when user shrinks browser
@@ -100,10 +100,10 @@ define([
 		show: function(){
 			// summary:
 			//		Show the dialog underlay
-			this.domNode.style.display = "block";
+			this.style.display = "block";
 			this.open = true;
 			this.layout();
-			this.bgIframe = new BackgroundIframe(this.domNode);
+			this.bgIframe = new BackgroundIframe(this);
 
 			var win = winUtils.get(this.ownerDocument);
 			this._modalConnects = [
@@ -119,7 +119,7 @@ define([
 
 			this.bgIframe.destroy();
 			delete this.bgIframe;
-			this.domNode.style.display = "none";
+			this.style.display = "none";
 			while(this._modalConnects.length){ (this._modalConnects.pop()).remove(); }
 			this.open = false;
 		},
@@ -149,7 +149,7 @@ define([
 		}else{
 			if(attrs){ underlay.set(attrs); }
 		}
-		domStyle.set(underlay.domNode, 'zIndex', zIndex);
+		domStyle.set(underlay, 'zIndex', zIndex);
 		if(!underlay.open){
 			underlay.show();
 		}

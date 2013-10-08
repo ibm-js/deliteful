@@ -19,11 +19,11 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		//		invalidateRendering to modify this flag. 
 		invalidRendering: false,
 
-		create: dcl.after(function(args){
+		createdCallback: dcl.after(function(){
 			// tags:
 			//		protected
 			if(this._invalidatingProperties){
-				var params = args[0];
+				var params = this.params;
 				var props = this._invalidatingProperties;
 				for(var i = 0; i < props.length; i++){
 					this.watch(props[i], lang.hitch(this, "invalidateRendering"));
@@ -38,10 +38,9 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		addInvalidatingProperties: function(){
 			// summary:
 			//		Add the properties listed as parameters to the watched properties to trigger invalidation. This method
-			// 		must be called in the constructor. It is typically used by subclasses of a _Invalidating class to
+			// 		must be called during the startup lifecycle, before createdCallback() completes.
+			//		It is typically used by subclasses of a _Invalidating class to
 			// 		add more properties	to watch for.
-			// properties:
-			//		The list of properties to watch for.
 			// tags:
 			//		protected
 			this._invalidatingProperties = this._invalidatingProperties?

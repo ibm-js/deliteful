@@ -17,7 +17,7 @@ define({
 	//	|		]
 	//	|	}
 
-	// TODO: add data-dojo-attach-point support
+	// TODO: possibly add data-dojo-attach-point support
 	// TODO: possibly add support to control which properties are / aren't bound (for performance)
 
 	// Note: this is generating actual JS code since:
@@ -66,22 +66,22 @@ define({
 		return text;
 	},
 
-	generateNodeCode: function(/*String*/ nodeName, /*Object*/ templateNode, /*Boolean*/ mayAlreadyExist){
+	generateNodeCode: function(/*String*/ nodeName, /*Object*/ templateNode){
 		// summary:
 		//		Return JS code to create a node called nodeName based on templateNode.
 		//		Works recursively according to descendants of templateNode.
 		// nodeName:
 		//		The node will be created in a variable with this name.
+		//		If "this", indicates that the node already exists and should be referenced as "this".
 		// templateNode:
 		//		An object representing a node in the template, as described in module summary
-		// mayAlreadyExist:
-		//		Indicates that the variable nodeName already exists, and it may point to the DOMNode already.
-		//		This happens in the case of declarative markup of web components.
+
+		var text = "";
 
 		// Create node
-		var text = mayAlreadyExist ?
-			nodeName + " = " + nodeName + " || doc.createElement('" + templateNode.tag + "');\n" :
-			"var " + nodeName + " = doc.createElement('" + templateNode.tag + "');\n";
+		if(nodeName != "this"){
+			text += "var " + nodeName + " = doc.createElement('" + templateNode.tag + "');\n";
+		}
 
 		// Set attributes
 		for(var attr in templateNode.attributes){
@@ -124,12 +124,10 @@ define({
 		//		and setup listeners (using `_WidgetBase.watch()`) to propagate changes in the widget
 		//		properties to the templates.
 		//
-		//		Code assumes that the root of the object tree is called "root".
+		//		Code assumes that the root node already exists as "this".
 
 		return "var widget = this, doc = this.ownerDocument;\n" +
-			this.generateNodeCode("root", tree, true) +
-			"this.domNode = root;\n" +
-			"return root;";
+			this.generateNodeCode("this", tree);
 	},
 
 	compile: function(tree){
@@ -140,6 +138,6 @@ define({
 		//		properties to the templates.
 
 		var text = this.codegen(tree);
-		return new Function("root", text);
+		return new Function(text);
 	}
 });

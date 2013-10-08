@@ -13,11 +13,10 @@
 	<script type="text/javascript">
 		require([
 			"dojo/dom",
-			"dojo/parser",
 			"dui/register",
 			"dui/Button",
 			"dojo/domReady!"
-		], function(dom, parser, register, Button){
+		], function(dom, register, Button){
 
 			// Just for testing subclassing of widgets
 			NewButton = register("dui-new-button", Button, {
@@ -28,7 +27,7 @@
 				}
 			});
 
-			parser.parse();
+			register.parse();
 
 			[btn1, btn2, btn3, btn4, btn5].forEach(function(btnWidget){
 				btnWidget.on("click", function(evt){
@@ -60,24 +59,24 @@
 	</style>
 </head>
 <body>
-	<button data-dojo-type="NewButton" data-dojo-id="btn1">Default</button>
+	<button is="dui-new-button" data-dojo-id="btn1">Default</button>
 	<button onclick="btn1.label = 'Changed';">Change label to 'Changed'</button>
 	<hr>
-	<button data-dojo-type="dui/Button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
+	<button is="dui-button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
 	class="duiBlueButton"
 	<button onclick="btn2.label = 'Very blue';">Change label to 'Very blue'</button>
 	<hr>
-	<button data-dojo-type="dui/Button" data-dojo-id="btn3" class="duiRedButton">Red</button>
+	<button is="dui-button" data-dojo-id="btn3" class="duiRedButton">Red</button>
 	class="duiRedButton"
 	<hr>
-	<button data-dojo-type="dui/Button" data-dojo-id="btn4" disabled>Disabled</button>
+	<button is="dui-button" data-dojo-id="btn4" disabled>Disabled</button>
 	disabled
 	<hr>
-	<button data-dojo-type="dui/Button" data-dojo-id="btn5" class="customButton">Custom</button>
+	<button is="dui-button" data-dojo-id="btn5" class="customButton">Custom</button>
 	class="customButton"
 	<hr>
-	<button data-dojo-type="dui/Button" data-dojo-id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
-			data-dojo-props='iconClass:"duiIconSave"'>
+	<button is="dui-button" data-dojo-id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
+			iconClass="duiIconSave">
 		Icon Button
 	</button>
 	<button onclick="T1465.iconClass = 'duiIconCut';">Change icon to cut</button>

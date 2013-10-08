@@ -16,8 +16,8 @@ define([
 				// All widgets with descendants must set containerNode.
 				// NB: this code doesn't quite work right because for TabContainer it runs before
 				// _TemplatedMixin::buildRendering(), and thus
-				// sets this.containerNode to this.domNode, later to be overridden by the assignment in the template.
-				this.containerNode = this.domNode;
+				// sets this.containerNode to this, later to be overridden by the assignment in the template.
+				this.containerNode = this;
 			}
 		}),
 
@@ -28,7 +28,7 @@ define([
 			//		Inserts specified child widget's dom node as a child of this widget's
 			//		container node, and possibly does other processing (such as layout).
 
-			// I want to just call domConstruct.place(widget.domNode, this.containerNode, insertIndex), but the counting
+			// I want to just call domConstruct.place(widget, this.containerNode, insertIndex), but the counting
 			// is thrown off by text nodes and comment nodes that show up when constructed by markup.
 			// In the future consider stripping those nodes on construction, either in the parser or this widget code.
 			var refNode = this.containerNode;
@@ -49,7 +49,7 @@ define([
 				}
 			}
 
-			domConstruct.place(widget.domNode, refNode, insertIndex);
+			domConstruct.place(widget, refNode, insertIndex);
 
 			// If I've been started but the child widget hasn't been started,
 			// start it now.  Make sure to do this after widget has been
@@ -71,9 +71,9 @@ define([
 			}
 
 			if(widget){
-				var node = widget.domNode;
+				var node = widget;
 				if(node && node.parentNode){
-					node.parentNode.removeChild(node); // detach but don't destroy
+					HTMLElement.prototype.removeChild.call(node.parentNode, node); // detach but don't destroy
 				}
 			}
 		},

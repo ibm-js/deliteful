@@ -23,7 +23,7 @@ define([
 		//
 		// description:
 		//		By mixing this class into your widget, and setting the this.baseClass attribute, it will automatically
-		//		maintain CSS classes on the widget root node (this.domNode) depending on hover,
+		//		maintain CSS classes on the widget root node depending on hover,
 		//		active, focus, etc. state.   Ex: with a baseClass of duiButton, it will apply the classes
 		//		duiButtonHovered and duiButtonActive, as the user moves the mouse over the widget and clicks it.
 		//
@@ -70,7 +70,7 @@ define([
 			for(var ap in this.cssStateNodes || {}){
 				this._trackMouseState(this[ap], this.cssStateNodes[ap]);
 			}
-			this._trackMouseState(this.domNode, this.baseClass);
+			this._trackMouseState(this, this.baseClass);
 
 			// Set state initially; there's probably no hover/active/focus state but widget might be
 			// disabled/readonly/checked/selected so we want to set CSS classes for those conditions.
@@ -79,8 +79,8 @@ define([
 
 		_cssMouseEvent: function(/*Event*/ event){
 			// summary:
-			//		Handler for CSS event on this.domNode. Sets hovering and active properties depending on mouse state,
-			//		which triggers _setStateClass() to set appropriate CSS classes for this.domNode.
+			//		Handler for CSS event on widget root node. Sets hovering and active properties depending on mouse state,
+			//		which triggers _setStateClass() to set appropriate CSS classes on widget root node.
 
 			if(!this.disabled){
 				switch(event.type){
@@ -111,7 +111,7 @@ define([
 
 		_setStateClass: function(){
 			// summary:
-			//		Update the visual state of the widget by setting the css classes on this.domNode
+			//		Update the visual state of the widget by setting the css classes on widget root node
 			//		(or this.stateNode if defined) by combining this.baseClass with
 			//		various suffixes that represent the current widget state(s).
 			//
@@ -183,7 +183,7 @@ define([
 
 			// Remove old state classes and add new ones.
 			// For performance concerns we only write into domNode.className once.
-			var tn = this.stateNode || this.domNode,
+			var tn = this.stateNode || this,
 				classHash = {};	// set of all classes (state and otherwise) for node
 
 			array.forEach(tn.className.split(" "), function(c){
@@ -274,7 +274,7 @@ define([
 			//
 			//		Note that it won't set any classes if the widget is disabled.
 			// node: DomNode
-			//		Should be a sub-node of the widget, not the top node (this.domNode), since the top node
+			//		Should be a sub-node of the widget, not the root node, since the root node
 			//		is handled specially and automatically just by mixing in this class.
 			// clazz: String
 			//		CSS class name (ex: duiSliderUpArrow)
@@ -306,7 +306,7 @@ define([
 				if(node._cssState){
 					var widget = registry.getEnclosingWidget(node);
 					if(widget){
-						if(node == widget.domNode){
+						if(node == widget){
 							// event on the widget's root node
 							widget._cssMouseEvent(evt);
 						}else{

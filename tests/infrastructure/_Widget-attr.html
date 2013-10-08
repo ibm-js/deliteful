@@ -16,8 +16,8 @@
 			doh.register("attributes", [
 				// Test attributes mapped to DOMNodes
 				function domMapping(){
-					var IndividualMaps = register("dui-individual-maps", _WidgetBase, {
-						// Mapping foo to this.domNode.foo
+					var IndividualMaps = register("dui-individual-maps", [HTMLElement, _WidgetBase], {
+						// Mapping foo to this.foo
 						foo:"",
 						_setFooAttr: "",
 		
@@ -30,33 +30,31 @@
 						_setPlainTextAttr: {node: "plainTextNode", type: "innerText"},
 
 						buildRendering: function(){
-							this.domNode = this.ownerDocument.createElement("div");
-							this.domNode.className = "class1";
+							this.className = "class1";
 
 							this.buttonNode = this.focusNode = this.ownerDocument.createElement("button");
 							this.buttonNode.textContent = "hi";
-							this.domNode.appendChild(this.buttonNode);
+							this.appendChild(this.buttonNode);
 
 							this.plainTextNode = this.focusNode = this.ownerDocument.createElement("span");
 							this.plainTextNode.textContent = "original plain text";
-							this.domNode.appendChild(this.plainTextNode);
+							this.appendChild(this.plainTextNode);
 						}
 					});
 
 					var widget = new IndividualMaps({
 						foo:"value1",
 						bar:"value2",
-						"class":"class2",
-						style:"height: 123px",
+						className: "class2",
+						style: "height: 123px",
 						plainText: "hello world <>&;",
 						"name-with-dashes": "name with dashes"
 					}).placeAt(dom.byId("wrapper"));
 
 					// test attributes specified to constructor were copied over to DOM
-					doh.is("value1", widget.domNode.getAttribute("foo"), "widget.domNode.getAttribute('foo')");
-					doh.is("value2", widget.buttonNode.getAttribute("bar"), "widget.domNode.getAttribute('bar')");
-					doh.t(domClass.contains(widget.domNode, "class1"), "class1");
-					doh.t(domClass.contains(widget.domNode, "class2"), "class2");
+					doh.is("value1", widget.getAttribute("foo"), "widget.getAttribute('foo')");
+					doh.is("value2", widget.buttonNode.getAttribute("bar"), "widget.getAttribute('bar')");
+					doh.t(domClass.contains(widget, "class2"), "class2");
 					doh.is("hello world &lt;&gt;&amp;;", widget.plainTextNode.innerHTML, "innerHTML");
 				}
 			]);	// doh.register()

@@ -20,7 +20,7 @@ define([
 ],
 	function(array, connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin){
 
-	return register("dui-slider", [WidgetBase, FormWidgetMixin, FormValueMixin], {
+	return register("dui-slider", [HTMLElement, WidgetBase, FormWidgetMixin, FormValueMixin], {
 		// summary:
 		//		A non-templated Slider widget similar to the HTML5 INPUT type=range.
 
@@ -69,25 +69,19 @@ define([
 					return c + modifier;
 				}).join(" ");
 			});
-			this.domNode = this.srcNodeRef || domConstruct.create("div", {});
-			if(this.domNode.tagName.toUpperCase() == "INPUT"){
-				// single INPUT specified in markup
-				this.valueNode = this.domNode;
-				this.srcNodeRef = this.domNode = domConstruct.create("div", {}, this.valueNode, "after");
-				domStyle.set(this.valueNode, "display", "none"); // value node is always hidden
-			}else{
-				// look for child INPUT node under root node
-				this.valueNode = query("> INPUT", this.domNode)[0];
-				if(!this.valueNode){
-					this.domNode.removeAttribute("name");
-					this.valueNode = domConstruct.create("input", this.name ? { "type":"text", name:this.name, readOnly:true } : { "type":"text", readOnly:true }, this.domNode, "last");
-				}
+
+			// look for child INPUT node under root node
+			this.valueNode = query("> INPUT", this)[0];
+			if(!this.valueNode){
+				this.removeAttribute("name");
+				this.valueNode = domConstruct.create("input", this.name ? { "type":"text", name:this.name, readOnly:true } : { "type":"text", readOnly:true }, this, "last");
 			}
+
 			if(!isNaN(parseFloat(this.valueNode.value))){ // browser back button or value coded on INPUT
 				this.value = this.valueNode.value;
 			}
-			this.containerNode = domConstruct.create("div", { "class":toCSS("RemainingBar")+" "+toCSS("Bar") }, this.domNode, "last");
-			var n = this.domNode.firstChild;
+			this.containerNode = domConstruct.create("div", { "class":toCSS("RemainingBar")+" "+toCSS("Bar") }, this, "last");
+			var n = this.firstChild;
 			while(n){
 				var next = n.nextSibling;
 				if(n != this.valueNode && n != this.containerNode){
@@ -116,12 +110,11 @@ define([
 			}
 			this.baseClass += " "+toCSS(this.orientation);
 
-			this.textbox = this.domNode;
 			this.focusNode = this.handle;
 
 			// prevent browser scrolling on IE10 (evt.preventDefault() is not enough)
-			if(typeof this.domNode.style.msTouchAction != "undefined"){
-				this.domNode.style.msTouchAction = "none";
+			if(typeof this.style.msTouchAction != "undefined"){
+				this.style.msTouchAction = "none";
 			}
 		},
 
@@ -284,7 +277,7 @@ define([
 				}),
 
 				point, pixelValue, value,
-				node = this.domNode;
+				node = this;
 			// add V or H suffix to baseClass for styling purposes
 			var	horizontal = this.orientation != "V",
 				ltr = horizontal ? this.isLeftToRight() : false,
@@ -298,10 +291,10 @@ define([
 				horizontal ? { x:'x', w:'w', l:'l', r:'r', pageX:'pageX', clientX:'clientX', progressBarStart:"left", progressBarSize:"width" }
 				: { x:'y', w:'h', l:'t', r:'b', pageX:'pageY', clientX:'clientY', progressBarStart:"top", progressBarSize:"height" };
 			var dir = { "H": { false: "Ltr", true: "Rtl" }, "V": { false: "Ttb", true: "Btt" } };
-			domClass.add(this.domNode, array.map(this.baseClass.split(" "), function(c){ return c+dir[self.orientation][self._reversed]; }));
+			domClass.add(this, array.map(this.baseClass.split(" "), function(c){ return c+dir[self.orientation][self._reversed]; }));
 			this.own(
-				on(this.domNode, touch.press, beginDrag),
-				on(this.domNode, "keydown", keyDown), // for desktop a11y
+				on(this, touch.press, beginDrag),
+				on(this, "keydown", keyDown), // for desktop a11y
 				on(self.handle, "keyup", keyUp) // fire onChange on desktop
 			);
 			this._refreshState(null);
@@ -320,7 +313,7 @@ define([
 		}),
 
 		destroyRendering: register.before(function(/*Boolean*/ preserveDom){
-			if(!preserveDom && this.valueNode.parentNode != this.domNode){
+			if(!preserveDom && this.valueNode.parentNode != this){
 				domConstruct.destroy(this.valueNode);
 			}
 			this.inherited(arguments);

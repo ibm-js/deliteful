@@ -20,7 +20,7 @@ define([
 			//		Either "next" or "previous"
 			// tags:
 			//		private
-			var node = this.domNode;
+			var node = this;
 			do{
 				node = node[which+"Sibling"];
 			}while(node && node.nodeType != 1);

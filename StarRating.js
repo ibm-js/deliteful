@@ -20,7 +20,7 @@ define([
 	// module:
 	//		dui/StarRating
 
-	var StarRating = register(has('dojo-bidi') ? "dui-nonbidistarrating" : "dui-starrating", WidgetBase, {
+	var StarRating = register(has('dojo-bidi') ? "dui-nonbidistarrating" : "dui-starrating", [HTMLElement, WidgetBase], {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
 		//		by touching the stars.
@@ -91,20 +91,21 @@ define([
 			}
 		},
 
-		buildRendering: register.after(function(){
-			this.domNode.style.display = "inline-block";
+		buildRendering: function(){
+			this.style.display = "inline-block";
+
 			// init WAI-ARIA attributes
-			this.domNode.setAttribute('role', 'slider');
-			this.domNode.setAttribute('aria-label', messages['aria-label']);
-			this.domNode.setAttribute('aria-valuemin', 0);
-			this.domNode.setAttribute('aria-valuemax', this.maximum);
-			this.domNode.setAttribute('aria-valuenow', this.value);
-			this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
-			this.domNode.setAttribute('aria-disabled', !this.editable);
+			this.setAttribute('role', 'slider');
+			this.setAttribute('aria-label', messages['aria-label']);
+			this.setAttribute('aria-valuemin', 0);
+			this.setAttribute('aria-valuemax', this.maximum);
+			this.setAttribute('aria-valuenow', this.value);
+			this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
+			this.setAttribute('aria-disabled', !this.editable);
 			// keyboard navigation
-			this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
+			this.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 			this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
-		}),
+		},
 
 		_removeEventsHandlers: function(){
 			while(this._otherEventsHandlers.length){
@@ -128,7 +129,7 @@ define([
 			this._wireHandlers(event);
 			if(event.type !== 'dojotouchover'){ // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
 				this._hovering = true;
-				domClass.add(this.domNode, this.baseClass + 'Hovered');
+				domClass.add(this, this.baseClass + 'Hovered');
 			}
 			this._enterValue = this.value;
 		},
@@ -137,7 +138,7 @@ define([
 			var newValue = this._coordToValue(event);
 			if(this._hovering){
 				if(newValue != this._hoveredValue){
-					domClass.add(this.domNode, this.baseClass + 'Hovered');
+					domClass.add(this, this.baseClass + 'Hovered');
 					this._updateStars(newValue, false);
 					this._hoveredValue = newValue;
 				}
@@ -152,7 +153,7 @@ define([
 			if(!this._hovering){
 				this._removeEventsHandlers();
 			}else{
-				domClass.remove(this.domNode, this.baseClass + 'Hovered');
+				domClass.remove(this, this.baseClass + 'Hovered');
 			}
 		},
 
@@ -160,7 +161,7 @@ define([
 			if(this._hovering){
 				this._hovering = false;
 				this._hoveredValue = null;
-				domClass.remove(this.domNode, this.baseClass + 'Hovered');
+				domClass.remove(this, this.baseClass + 'Hovered');
 				this._setValueAttr(this._enterValue);
 			}
 			this._removeEventsHandlers();
@@ -189,7 +190,7 @@ define([
 		},
 
 		_coordToValue: function(/*Event*/event){
-			var box = domGeometry.position(this.domNode, false);
+			var box = domGeometry.position(this, false);
 			var xValue = event.clientX - box.x;
 			var rawValue = null, discreteValue;
 			// fix off values observed on leave event
@@ -226,11 +227,9 @@ define([
 
 		_setMaximumAttr: function(/*Number*/ value){
 			this._set("maximum", value);
-			if(this.domNode){
-				this.domNode.setAttribute('aria-valuemax', this.maximum);
-				// set value to trigger redrawing of the widget
-				this.value = this.value;
-			}
+			this.setAttribute('aria-valuemax', this.maximum);
+			// set value to trigger redrawing of the widget
+			this.value = this.value;
 		},
 
 		_setValueAttr: function(/*Number*/ value){
@@ -240,27 +239,27 @@ define([
 			//		private
 			this._set("value", value);
 			this.runAfterRender(function(){
-				var createChildren = this.domNode.children.length != this.maximum;
+				var createChildren = this.children.length != this.maximum;
 				if(createChildren){
-					domConstruct.empty(this.domNode);
+					domConstruct.empty(this);
 				}
 				this._updateStars(value, createChildren);
-				this.domNode.setAttribute('aria-valuenow', this.value);
-				this.domNode.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
+				this.setAttribute('aria-valuenow', this.value);
+				this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 			});
 		},
 
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
 			this.runAfterRender(function(){
-				this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
+				this.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 				if(this.editable && !this._keyDownHandler){
 					this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
 				}else if(!this.editable && this._keyDownHandler){
 					this._keyDownHandler.remove();
 					this._keyDownHandler = null;
 				}
-				this.domNode.setAttribute('aria-disabled', !this.editable);
+				this.setAttribute('aria-disabled', !this.editable);
 				if(this.editable && !this._startHandlers){
 					this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
 										   this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
@@ -276,7 +275,7 @@ define([
 		_setZeroAreaWidthAttr: function(/*Number*/value){
 			this._set("zeroAreaWidth", value);
 			this.runAfterRender(function(){
-				this.domNode.style.paddingLeft = this.zeroAreaWidth + "px";
+				this.style.paddingLeft = this.zeroAreaWidth + "px";
 			});
 		},
 
@@ -293,9 +292,9 @@ define([
 				if(create){
 					parent = domConstruct.create("div", {
 						style: {"float": "left"}
-					}, this.domNode);
+					}, this);
 				}else{
-					parent = this.domNode.children[i];
+					parent = this.children[i];
 				}
 				parent.className = this.baseClass +  "StarIcon " + starClass;
 			}

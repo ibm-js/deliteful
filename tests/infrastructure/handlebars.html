@@ -11,61 +11,61 @@
 					var d = new doh.Deferred();
 					require(["dui/handlebars!dui/tests/infrastructure/templates/SimpleHandlebarsButton.html"], d.getTestCallback(function(br){
 						// Test that function returned from dui/handlebars! creates the template correctly
-						var TestButton = register("test-button", _WidgetBase, {
+						var TestButton = register("test-button", [HTMLButtonElement, _WidgetBase], {
 							iconClass: "originalClass",
 							label: "original label",
 							buildRendering: br
 						});
 						myButton = new TestButton();
-						doh.is("button", myButton.domNode.tagName.toLowerCase(), "root node exists");
-						doh.is("span", myButton.domNode.firstChild.tagName.toLowerCase(), "icon node exists too");
-						doh.is("duiReset originalClass", myButton.domNode.firstChild.className, "icon class set");
-						doh.is("original label", myButton.domNode.textContent.trim(), "label set");
+						doh.is("button", myButton.tagName.toLowerCase(), "root node exists");
+						doh.is("span", myButton.firstChild.tagName.toLowerCase(), "icon node exists too");
+						doh.is("duiReset originalClass", myButton.firstChild.className, "icon class set");
+						doh.is("original label", myButton.textContent.trim(), "label set");
 					}));
 					return d;
 				},
 				function update(){
 					// Test that updates to widget are reflected into template
 					myButton.label = "new label";
-					doh.is("new label", myButton.domNode.textContent.trim(), "label updated");
+					doh.is("new label", myButton.textContent.trim(), "label updated");
 
 					myButton.iconClass = "newClass";
-					doh.is("duiReset newClass", myButton.domNode.firstChild.className, "icon class set");
+					doh.is("duiReset newClass", myButton.firstChild.className, "icon class set");
 				},
 				function branching(){
 					var d = new doh.Deferred();
 					require(["dui/handlebars!dui/tests/infrastructure/templates/HandlebarsButton.html"], d.getTestCallback(function(br){
 						// Test false if condition
-						var NoLabelButton = register("no-label-button", _WidgetBase, {
+						var NoLabelButton = register("no-label-button", [HTMLButtonElement, _WidgetBase], {
 							iconClass: "originalClass",
 							showLabel: false,
 							label: "original label",
 							buildRendering: br
 						});
 						myButton = new NoLabelButton();
-						doh.is("button", myButton.domNode.tagName.toLowerCase(), "root node exists");
-						doh.is("span", myButton.domNode.firstChild.tagName.toLowerCase(), "icon node exists too");
-						doh.is("duiReset originalClass", myButton.domNode.firstChild.className, "icon class set");
-						doh.is("", myButton.domNode.textContent.trim(), "no label");
+						doh.is("button", myButton.tagName.toLowerCase(), "root node exists");
+						doh.is("span", myButton.firstChild.tagName.toLowerCase(), "icon node exists too");
+						doh.is("duiReset originalClass", myButton.firstChild.className, "icon class set");
+						doh.is("", myButton.textContent.trim(), "no label");
 						myButton.label = "new label";
-						doh.is("", myButton.domNode.textContent.trim(), "still no label");
+						doh.is("", myButton.textContent.trim(), "still no label");
 
 						// Test true if condition
-						var LabelButton = register("label-button", _WidgetBase, {
+						var LabelButton = register("label-button", [HTMLButtonElement, _WidgetBase], {
 							iconClass: "originalClass",
 							showLabel: true,
 							label: "original label",
 							buildRendering: br
 						});
 						myButton = new LabelButton();
-						doh.is("button", myButton.domNode.tagName.toLowerCase(), "root node exists");
-						doh.is("span", myButton.domNode.firstChild.tagName.toLowerCase(), "icon node exists too");
-						doh.is("duiReset originalClass", myButton.domNode.firstChild.className, "icon class set");
-						doh.is("original label", myButton.domNode.textContent.trim(), "label");
+						doh.is("button", myButton.tagName.toLowerCase(), "root node exists");
+						doh.is("span", myButton.firstChild.tagName.toLowerCase(), "icon node exists too");
+						doh.is("duiReset originalClass", myButton.firstChild.className, "icon class set");
+						doh.is("original label", myButton.textContent.trim(), "label");
 
 						// Make sure that changes still work
 						myButton.label = "new label";
-						doh.is("new label", myButton.domNode.textContent.trim(), "label updated");
+						doh.is("new label", myButton.textContent.trim(), "label updated");
 					}));
 					return d;
 				}

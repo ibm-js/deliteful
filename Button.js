@@ -12,7 +12,8 @@ define([
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
 ], function(array, has, lang, domClass, domConstruct, register, WidgetBase, FormWidgetMixin, _Invalidating, BidiButton){
 
-	var Button = register(has("dojo-bidi") ? "dui-nonbidibutton" : "dui-button", [WidgetBase, _Invalidating, FormWidgetMixin], {
+	var Button = register(has("dojo-bidi") ? "dui-nonbidibutton" : "dui-button",
+		[HTMLButtonElement, WidgetBase, _Invalidating, FormWidgetMixin], {
 		// summary:
 		//		Non-templated BUTTON widget.
 		//
@@ -50,16 +51,12 @@ define([
 		//		The name of the CSS class of this widget.
 		baseClass: "duiButton",
 
-		postMixInProperties: function(){
-			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
-			if(this.srcNodeRef && (!this.params || !("label" in this.params))){
-				this.label = lang.trim(this.srcNodeRef.textContent);
-				this.srcNodeRef.innerHTML = "";
-			}
-		},
-
 		buildRendering: function(){
-			this.domNode = this.focusNode = this.srcNodeRef || domConstruct.create("button", {"type": this.type});
+			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
+			this.label = this.textContent.trim();
+			this.innerHTML = "";
+
+			this.focusNode = this;
 			this.refreshRendering();
 		},
 
@@ -71,7 +68,7 @@ define([
 
 			// Add or remove icon, or change its class
 			if(this.iconClass && !has("highcontrast")){
-				this.iconNode = this.iconNode || domConstruct.create("span", null, this.domNode, "first");
+				this.iconNode = this.iconNode || domConstruct.create("span", null, this, "first");
 				this.iconNode.className = "duiReset duiInline duiIcon " + this.iconClass;
 			}else if(this.iconNode){
 				domClass.destroy(this.iconNode);
@@ -82,7 +79,7 @@ define([
 			var showLabel = this.label && (this.showLabel || has("highcontrast"));
 			if(showLabel){
 				this.containerNode = this.containerNode ||
-					domConstruct.create("span", {className: "duiReset duiInline duiButtonText"}, this.domNode);
+					domConstruct.create("span", {className: "duiReset duiInline duiButtonText"}, this);
 				this.containerNode.textContent = this.label;
 			}else if(this.containerNode){
 				domConstruct.destroy(this.containerNode);
@@ -91,7 +88,8 @@ define([
 
 			// Set title.  If no label is shown and no title has been specified,
 			// label is also set as title attribute of icon.
-			this.domNode.title = this.title || (!showLabel && this.label) || "";
+			// TODO: if label is later changed, title won't be changed.
+			this.title = this.title || (!showLabel && this.label) || "";
 		}
 	});
 

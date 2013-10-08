@@ -12,28 +12,27 @@
 	<script type="text/javascript">
 		var val = 0;
 		require([
-			"dui/registry",
+			"dui/register",
 			"dui/StarRating",
-			"dojo/parser",
 			"dui/mobile/compat",		// TODO: remove
 			"dojo/domReady!"
-		], function(registry, StarRating, parser){
-
-			parser.parse();
+		], function(register, StarRating){
 
 			increment = function(){
 				if(val == 7){ return; }
 				val += 0.5;
-				registry.byId("star").value = val;
+				document.getElementById("star").value = val;
 				document.getElementById("value").innerHTML = val;
 			};
 
 			decrement = function(){
 				if(val == 0){ return; }
 				val -= 0.5;
-				registry.byId("star").value = val;
+				document.getElementById("star").value = val;
 				document.getElementById("value").innerHTML = val;
 			};
+
+			register.parse();
 
 			var rating = new StarRating({
 				image:"images/star-4.png",
@@ -41,7 +40,7 @@
 				editable:true,
 				editHalfValues: true,
 				value: 3.5
-			}, "editablestar6");
+			}).placeAt("editablestar6wrapper");
 			rating.watch('value', function(name, oldValue, value){
 				document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");
 			});
@@ -54,24 +53,22 @@
 	}
 	</style>
 </head>
-<body style="visibility:hidden;">
-	<div data-dojo-type="dui/mobile/View">
-		<div>
-			<h1>Default direction</h1>
-			<span id="star" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7'></span>
-			<span id="value">0</span><br>
-			<button type="button" onclick="decrement()">&minus;</button>
-			<button type="button" onclick="increment()">+</button>
-			<p>
-			Editable: <span id="editablestar1" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true'></span>
-			<p>
-			Editable (half values increment): <span id="editablestar2" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true'></span>
-			<p>
-			No zero setting: <span id="editablestar5" data-dojo-type="dui/StarRating" data-dojo-props='image:"images/star-4.png",maximum:7,editable:true, editHalfValues: true, value: 0.5, zeroAreaWidth: 0'></span>
-			<p>
-			Programmatic: <span id="editablestar6"></span><br>
-			<span id="editablestar6value"></span>
-		</div>
-	</div>	
+<body>
+	<h1>Default direction</h1>
+	<dui-starrating id="star" image="images/star-4.png" maximum="7"></dui-starrating>
+	<span id="value">0</span><br>
+	<button type="button" onclick="decrement()">&minus;</button>
+	<button type="button" onclick="increment()">+</button>
+	<p>
+	Editable: <dui-starrating id="editablestar1" image="images/star-4.png" maximum="7" editable="true"></dui-starrating>
+	<p>
+	Editable (half values increment): <dui-starrating id="editablestar2" image="images/star-4.png"
+													  maximum="7" editable="true" editHalfValues="true"></dui-starrating>
+	<p>
+	No zero setting: <dui-starrating id="editablestar5" image="images/star-4.png" maximum="7" editable="true"
+									 editHalfValues="true" value="0.5" zeroAreaWidth="0"></dui-starrating>
+	<p>
+	Programmatic: <span id="editablestar6wrapper"></span><br>
+	<span id="editablestar6value"></span>
 </body>
 </html>

@@ -5,8 +5,8 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 			timeout: 2000,
 			name: "Simple",
 			runTest: function(t){
-				var C = register("C", [_WidgetBase, _Invalidating], {
-					constructor: function(){
+				var C = register("test-invalidating", [HTMLElement, _WidgetBase, _Invalidating], {
+					postCreate: function(){
 						this.addInvalidatingProperties("a");
 						this.addInvalidatingProperties("b");
 					},

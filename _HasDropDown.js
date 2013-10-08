@@ -18,7 +18,6 @@ define([
 ], function(dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
 			registry, focus, popup, _FocusMixin){
 
-
 	// module:
 	//		dui/_HasDropDown
 
@@ -205,7 +204,7 @@ define([
 		},
 
 		buildRendering: dcl.after(function(){
-			this._buttonNode = this._buttonNode || this.focusNode || this.domNode;
+			this._buttonNode = this._buttonNode || this.focusNode || this;
 			this._popupStateNode = this._popupStateNode || this.focusNode || this._buttonNode;
 
 			// Add a class to the "duiDownArrowButton" type class to _buttonNode so theme can set direction of arrow
@@ -225,7 +224,7 @@ define([
 			// summary:
 			//		set up nodes and connect our mouse and keyboard events
 
-			var keyboardEventNode = this.focusNode || this.domNode;
+			var keyboardEventNode = this.focusNode || this;
 			this.own(
 				on(this._buttonNode, touch.press, lang.hitch(this, "_onDropDownMouseDown")),
 				on(this._buttonNode, "click", lang.hitch(this, "_onDropDownClick")),
@@ -382,8 +381,7 @@ define([
 			//		protected
 
 			var dropDown = this.dropDown,
-				ddNode = dropDown.domNode,
-				aroundNode = this._aroundNode || this.domNode,
+				aroundNode = this._aroundNode || this,
 				self = this;
 
 			var retVal = popup.open({
@@ -408,12 +406,12 @@ define([
 			// matches width of aroundNode
 			if(this.forceWidth || (this.autoWidth && aroundNode.offsetWidth > dropDown._popupWrapper.offsetWidth)){
 				var resizeArgs = {
-					w: aroundNode.offsetWidth - (dropDown._popupWrapper.offsetWidth - dropDown.domNode.offsetWidth)
+					w: aroundNode.offsetWidth - (dropDown._popupWrapper.offsetWidth - dropDown.offsetWidth)
 				};
 				if(lang.isFunction(dropDown.resize)){
 					dropDown.resize(resizeArgs);
 				}else{
-					domGeometry.setMarginBox(ddNode, resizeArgs);
+					domGeometry.setMarginBox(dropDown, resizeArgs);
 				}
 			}
 
@@ -424,8 +422,8 @@ define([
 			this._popupStateNode.setAttribute("aria-owns", dropDown.id);
 
 			// Set aria-labelledby on dropdown if it's not already set to something more meaningful
-			if(ddNode.getAttribute("role") !== "presentation" && !ddNode.getAttribute("aria-labelledby")){
-				ddNode.setAttribute("aria-labelledby", this.id);
+			if(dropDown.getAttribute("role") !== "presentation" && !dropDown.getAttribute("aria-labelledby")){
+				dropDown.setAttribute("aria-labelledby", this.id);
 			}
 
 			return retVal;

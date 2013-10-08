@@ -23,7 +23,7 @@
 			// Number of times foo was called while TestWidget existed
 			var calls = 0;
 
-			TestWidget = register("test-widget", _WidgetBase, {
+			TestWidget = register("test-widget", [HTMLElement, _WidgetBase], {
 				postMixInProperties: function(){
 					// make sure we can call set for parameters that don't touch the DOM
 					this.set("foo", "bar");
@@ -40,14 +40,12 @@
 
 			doh.register("create and destroy", [
 				{
-					name: "create",
+					name: "upgrade plain DOMNode",
 					runTest: function(t){
-						w = new TestWidget({id: "w1"}, "w1");
+						w = document.getElementById("w1");
+						register.upgrade(w);
 
 						doh.t(registry.byId("w1"), "widget in registry");
-
-						// since there's no template, the widget just points to the srcNodeRef
-						doh.is(w.domNode, dom.byId("w1"), "srcNodeRef read in");
 
 						// test the connection
 						doh.is(0, calls, "foo() not called yet");
@@ -74,7 +72,8 @@
 				{
 					name: "destroy(true)  (preserving DOM node)",
 					runTest: function(t){
-						w = new TestWidget({id: "w2"}, "w2");
+						w = document.getElementById("w2");
+						register.upgrade(w);
 
 						doh.t(registry.byId("w2"), "widget in registry");
 						w.destroy(true);
@@ -99,13 +98,13 @@
 			doh.register("setter not called on creation", function(){
 				// Setters are no longer called on creation except for parameters sent to new Foo(...)
 				var fooSetterCalled = false;
-					MyWidget = register("my-widget", _WidgetBase, {
-						foo: 345,
-						_setFooAttr: function(val){
-							fooSetterCalled = val;
-							this._set("foo", val);
-						}
-					});
+				var MyWidget = register("my-widget", [HTMLElement, _WidgetBase], {
+					foo: 345,
+					_setFooAttr: function(val){
+						fooSetterCalled = val;
+						this._set("foo", val);
+					}
+				});
 
 				new MyWidget();
 
@@ -114,7 +113,10 @@
 
 			doh.register("tweaking params in postMixInProperties", function(){
 				// Tests that property changes in postMixInProperties() are not lost (#16080)
-				var Test = register("lifecycle-test", _WidgetBase, { foo: "bar", postMixInProperties: function(){ this.foo = "baz"; } });
+				var Test = register("lifecycle-test", [HTMLElement, _WidgetBase], {
+					foo: "bar",
+					postMixInProperties: function(){ this.foo = "baz"; }
+				});
 				var t = new Test({ foo: "blah" });
 				doh.is("baz", t.foo);
 			});
@@ -125,8 +127,7 @@
 	</script>
 </head>
 <body class="claro">
-
-	<div id="w1"></div>
-	<div id="w2"></div>
+	<test-widget id="w1"></test-widget>
+	<test-widget id="w2"></test-widget>
 </body>
 </html>

@@ -58,9 +58,8 @@
 			var touchEvent = null;
 			var touchTarget = null;
 			function getZoom(widget){
-				var node = widget.domNode;
 				var bodyZoom = domStyle.get(win.body(), "zoom") || 1;
-				var nodeZoom = (has("ie") ? parseFloat(domStyle.get(node).getPropertyValue("zoom"))/100 : domStyle.get(node, "zoom")) || 1;
+				var nodeZoom = (has("ie") ? parseFloat(domStyle.get(widget).getPropertyValue("zoom"))/100 : domStyle.get(widget, "zoom")) || 1;
 				return nodeZoom * bodyZoom;
 			}
 			function fireTouchEvent(type, widget, x, y, delay){
@@ -88,7 +87,7 @@
 					var touchX = (x + pos.x) * zoom + scroll.x;
 					var touchY = (y + pos.y) * zoom + scroll.y;
 					if(type == touchstart){
-						touchTarget = widget.domNode;
+						touchTarget = widget;
 						// see if handle is under the touch pos
 						if(touchX >= handlePos.l && touchX <= handlePos.r && touchY >= handlePos.t && touchY <= handlePos.b){
 							touchTarget = handle;

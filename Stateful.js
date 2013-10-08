@@ -40,12 +40,13 @@ define(["dcl/dcl"], function(dcl){
 		//	|	});
 		//	|	obj.foo = bar;
 
-		_introspect: function(){
+		_introspect: function(/*Function*/ ctor){
 			// summary:
 			//		Sets up ES5 getters/setters for each class property, except for functions and privates.
+			//		_introspect() is meant to run as a static method, i.e. w/out referencing
+			//		this.
 
-			var ctor = this.constructor,
-				proto = ctor.prototype;
+			var proto = ctor.prototype;
 
 			for(var name in proto){
 				// TODO: If this class extends HTMLElement, then generally shouldn't setup custom getters/setters
@@ -59,9 +60,7 @@ define(["dcl/dcl"], function(dcl){
 				// _setFooAttr method.
 				if(!(names.p in proto)){
 					(function(prop, shadowProp, getter, setter){
-						// TODO: this set enumerable:false on prototype.shadowProp, but not on instance.shadowProp
-						// (instance.shadowProp is set when the instance changes the value)... so, useless?
-						Object.defineProperty(proto, shadowProp, {value: proto[prop], enumerable: false, writable: true});
+						proto[shadowProp] = proto[prop];
 						Object.defineProperty(proto, prop, {
 							set: function(x){
 								setter in this ? this[setter](x) : this._set(prop, x);
@@ -79,7 +78,7 @@ define(["dcl/dcl"], function(dcl){
 			before: function(){
 				// First time this class is instantiated, introspect it.
 				if(!this.constructor._introspected){	// note: checking if this class was introspected, not a superclass
-					this._introspect();
+					this._introspect(this.constructor);
 					this.constructor._introspected = true;
 				}
 			},
@@ -198,6 +197,5 @@ define(["dcl/dcl"], function(dcl){
 				}
 			}; //Object
 		}
-
 	});
 });
