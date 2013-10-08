@@ -20,7 +20,7 @@ define([
 	// module:
 	//		dui/Rule
 
-	var duiRule = register("dui-rule", WidgetBase, {
+	var duiRule = register("dui-rule", [HTMLElement, WidgetBase], {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations (e.g. hash marks and labels).
 
@@ -50,9 +50,7 @@ define([
 		},
 
 		buildRendering: function(){
-			this.domNode = this.srcNodeRef || domConstruct.create("div", {});
-
-			var children = query("> div", this.domNode);
+			var children = query("> div", this);
 			if(this.labels.length == 0){
 				this.labels = children.map(function(node){
 					return String(node.innerHTML);
@@ -64,7 +62,7 @@ define([
 				if(i < children.length){
 					node = children[i];
 				}else{
-					node = domConstruct.create("div", {}, this.domNode, "last");
+					node = domConstruct.create("div", {}, this, "last");
 				}
 				var css = toCSS(this.baseClass, "Label");
 				domClass.add(node, css);
@@ -94,9 +92,9 @@ define([
 				pos = 50;
 			}
 			var css = toCSS(this.baseClass, this.orientation);
-			domClass.add(this.domNode, css);
+			domClass.add(this, css);
 			var css = toCSS(this.baseClass, "Label" + this.orientation);
-			var children = query("> div", this.domNode);
+			var children = query("> div", this);
 			for(var i = 0; i < this.count; i++){
 				var node = children[i];
 				domClass.add(node, css);
@@ -113,7 +111,7 @@ define([
 			_setTextDirAttr: function(textDir){
 				if(this.textDir != textDir){
 					this._set("textDir", textDir);
-					query(".duiRuleLabel", this.domNode).forEach(
+					query(".duiRuleLabel", this).forEach(
 						lang.hitch(this, function(labelNode){
 							this._setLabelDirection(labelNode);
 						})
