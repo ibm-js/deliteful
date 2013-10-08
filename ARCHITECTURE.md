@@ -6,9 +6,9 @@ TODO: document
 
 # dui/Stateful
 
-The goal is to dui/Stateful is three-fold:
+The goal with dui/Stateful was three-fold:
 
-1. declare a class where properties are set and gotten using standard notation:
+(1) declare a class where properties are set and gotten using standard notation
 
 	myWidget.label = "hello";
 	console.log(myWidget.label);
@@ -18,20 +18,19 @@ instead of:
 	myWidget.set("label", "hello");
 	console.log(myWidget.get("label"));
 
-2. be able to watch for changes to [a subset of] instance properties:
+(2) be able to watch for changes to [a subset of] instance properties
 
-   	myWidget.watch("label", callback);
+	myWidget.watch("label", callback);
 
-3. allow the class to define custom getters/setters for some (but not necessarily all) of the properties
+(3) allow the class to define custom getters/setters for some (but not necessarily all) of the properties
 
-	MyClass = dcl(Stateful, {
-		label: "Press",
-		_setLabelAttr: function(val){
-				this._set("label", ...);
-				...
-			}
+  	MyClass = dcl(Stateful, {
+  		label: "Press",
+  		_setLabelAttr: function(val){
+			this._set("label", ...);
+			...
 		}
-	});
+  	});
 
 Ideally ES5 native accessors would be supported via [dcl](http://www.dcljs.org/) but we are
 [still waiting for that](https://github.com/uhop/dcl/issues/2).  It's not supported
@@ -79,9 +78,6 @@ It also allows the shorthand syntax for declaring setters from Dijit V1 like:
 
 	_setTabIndexAttr: "focusNode"
 
-# Reactive templates
-
-TODO: merge from wkeese/handlebars branch
 
 # Reactive templates
 
@@ -97,49 +93,52 @@ DOM as the widget's `iconClass` and `label` properties were changed:
 
 The implementation consists of two parts:
 
-1. code in dui/handlebars that compiles the above template into an AST:
+(1) code in dui/handlebars that compiles the above template into an AST
 
-		{
-			tag: "BUTTON",
-			attributes: {},
-			children: [
-				{
-					tag: "SPAN",
-					attributes: {
-						class: ["duiReset ", {property: "iconClass"}]
-					},
-					children: []
+	{
+		tag: "BUTTON",
+		attributes: {},
+		children: [
+			{
+				tag: "SPAN",
+				attributes: {
+					class: ["duiReset ", {property: "iconClass"}]
 				},
-				{property: "label"}
-			]
-		}
+				children: []
+			},
+			{property: "label"}
+		]
+	}
 
-2. code in dui/template that uses code generation to compile the above AST into a function:
+(2) code in dui/template that uses code generation to compile the above AST into a function
 
-		function buildRendering(root) {
-			var widget = this, doc = this.ownerDocument;
-			root = root || doc.createElement('BUTTON');
-			var rootc1 = doc.createElement('SPAN');
-			function rootc1_setattr_class(){ rootc1.setAttribute('class', 'duiReset ' + widget.iconClass); }
-			rootc1_setattr_class();
-			this.watch('iconClass', rootc1_setattr_class);
-			root.appendChild(rootc1);
-			var rootc1t2 = doc.createTextNode(this.label);
-			root.appendChild(rootc1t2);
-			this.watch('label', function(a,o,n){ rootc1t2.nodeValue = n; });
-			this.domNode = root;
-			return root;
-		}
+	function buildRendering(root) {
+		var widget = this, doc = this.ownerDocument;
+		root = root || doc.createElement('BUTTON');
+		var rootc1 = doc.createElement('SPAN');
+		function rootc1_setattr_class(){ rootc1.setAttribute('class', 'duiReset ' + widget.iconClass); }
+		rootc1_setattr_class();
+		this.watch('iconClass', rootc1_setattr_class);
+		root.appendChild(rootc1);
+		var rootc1t2 = doc.createTextNode(this.label);
+		root.appendChild(rootc1t2);
+		this.watch('label', function(a,o,n){ rootc1t2.nodeValue = n; });
+		this.domNode = root;
+		return root;
+	}
 
 The dui/handlebars! plugin returns a function to operate in the widget's context, so
 for widgets to leverage the template engine, you put your template in a separate file,
 and then define the widget like:
 
 	define([..., "./handlebars!./templates/MyTemplate.html"], function(..., renderFunc){
-		...
-		buildRendering: renderFunc,
-		...
-	}
+
+		register("dui-widget", ... {
+			...
+			buildRendering: renderFunc,
+			...
+		});
+	})
 
 
 ## Supported Handlebars constructs
@@ -211,4 +210,4 @@ So, perhaps that implementation will change.
 
 # Custom elements
 
-TODO: implement and document
+TODO: implement and document (note: combine with register() section above maybe)
