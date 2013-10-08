@@ -53,7 +53,7 @@ define([
 		//		(ex: "> *") then the implementing class must require dojo/query.
 		childSelector: null,
 
-		postCreate: dcl.after(function(){
+		postCreate: function(){
 			// Set tabIndex on this.domNode.  Will be automatic after #7381 is fixed.
 			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
 
@@ -79,7 +79,7 @@ define([
 					self._onChildFocus(registry.getEnclosingWidget(this), evt);
 				})
 			);
-		}),
+		},
 
 		_onLeftArrow: function(){
 			// summary:

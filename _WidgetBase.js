@@ -713,5 +713,11 @@ define([
 		dcl.mix(_WidgetBase.prototype, _BidiMixin);
 	}
 
+	// Setup automatic chaining for lifecycle methods, except for buildRendering()
+	dcl.chainAfter(_WidgetBase, "postMixInProperties");
+	dcl.chainAfter(_WidgetBase, "postCreate");
+	dcl.chainAfter(_WidgetBase, "startup");
+	dcl.chainBefore(_WidgetBase, "destroy");
+
 	return _WidgetBase;
 });

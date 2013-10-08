@@ -221,7 +221,7 @@ define([
 			domClass.add(this._arrowWrapperNode || this._buttonNode, "dui" + defaultPos + "ArrowButton");
 		}),
 
-		postCreate: dcl.after(function(){
+		postCreate: function(){
 			// summary:
 			//		set up nodes and connect our mouse and keyboard events
 
@@ -232,9 +232,9 @@ define([
 				on(keyboardEventNode, "keydown", lang.hitch(this, "_onKey")),
 				on(keyboardEventNode, "keyup", lang.hitch(this, "_onKeyUp"))
 			);
-		}),
+		},
 
-		destroy: dcl.before(function(){
+		destroy: function(){
 			// If dropdown is open, close it, to avoid leaving dui/focus in a strange state.
 			// Put focus back on me to avoid the focused node getting destroyed, which flummoxes IE.
 			if(this.opened){
@@ -249,7 +249,7 @@ define([
 				}
 				delete this.dropDown;
 			}
-		}),
+		},
 
 		_onKey: function(/*Event*/ e){
 			// summary:

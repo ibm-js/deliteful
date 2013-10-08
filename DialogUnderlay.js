@@ -62,12 +62,12 @@ define([
 			this.domNode.appendChild(this.node);
 		}),
 
-		postCreate: register.after(function(){
+		postCreate: function(){
 			// Append the underlay to the body
 			this.ownerDocumentBody.appendChild(this.domNode);
 
 			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onKeyDown")));
-		}),
+		},
 
 		layout: function(){
 			// summary:
