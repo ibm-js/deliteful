@@ -15,25 +15,26 @@
 		require([
 			"dojo/domReady",
 			"dojo/dom-construct",
+			"dijit/registry",
 			"dui/mobile/Opener",
 			"dui/mobile/ToolBarButton",
 			"dui/mobile/Heading",
 			"dui/mobile/compat",
-			"dojo/parser",
-			"dui/_base/manager" // dui.byId
-		], function(ready, domConstruct, Opener, ToolBarButton, Heading){
+			"dojo/parser"
+		], function(ready, domConstruct, reg, Opener, ToolBarButton, Heading){
+			registry = reg; // for registry.byId in markup
 			ready(function(){
 				var opener = new Opener({onHide:getDate2, onShow:setDate2, lazy:true}, "calPicker");
 				var headingNode = domConstruct.create("div", {dojoType:"dui/mobile/Heading", label:"Dates"}, opener.domNode);
-				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Done", style:"position:absolute;width:40px;right:0;", onclick:"dui.byId('calPicker').hide(true)"}, headingNode);
-				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Cancel", style:"position:absolute;width:40px;left:0;", onclick:"dui.byId('calPicker').hide(false)"}, headingNode);
+				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Done", style:"position:absolute;width:40px;right:0;", onclick:"registry.byId('calPicker').hide(true)"}, headingNode);
+				domConstruct.create("div", {dojoType:"dui/mobile/ToolBarButton", label:"Cancel", style:"position:absolute;width:40px;left:0;", onclick:"registry.byId('calPicker').hide(false)"}, headingNode);
 				domConstruct.create("div", {dojoType:"dui.CalendarLite", id:"cal"}, opener.domNode);
 			});
 		});
 
 		function getDate2(node, v){
 			if(v === true){ // Done clicked
-				var w = dui.byId("cal");
+				var w = registry.byId("cal");
 				var date;
 				try {
 					date = w.get("value");
@@ -46,7 +47,7 @@
 		function setDate2(node){
 			var v = node.value.split(/-/);
 			if(v.length == 3){
-				var w = dui.byId("cal");
+				var w = registry.byId("cal");
 				w.setValue(v);
 			}
 		}
@@ -69,7 +70,7 @@
 	<tr>
 		<td style="text-align:right;">Date</td>
 		<td><input id="date3" readOnly value=""
-			onclick="dui.byId('calPicker').show(this, ['above-centered','below-centered','after','before'])"></td>
+			onclick="registry.byId('calPicker').show(this, ['above-centered','below-centered','after','before'])"></td>
 	</tr>
 	</table>
 	<div id="calPicker"></div>

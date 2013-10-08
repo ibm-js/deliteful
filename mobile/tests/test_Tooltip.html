@@ -14,12 +14,13 @@
 		require([
 			"dojo/dom",
 			"dojo/domReady",
-			"dui/_base/manager", // dui.byId in markup
+			"dui/registry",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/mobile/SpinWheel",
 			"dui/mobile/Tooltip"
-		], function(dom, ready){
+		], function(dom, ready, reg){
+			registry = reg; // for registry.byId in markup
 			ready(function(){
 				dom.byId('bot').scrollIntoView(false);
 			});
@@ -57,31 +58,31 @@
 </head>
 <body style="visibility:hidden;">
 	<center style="width:100%;">
-		<button type="button" onclick="dui.byId('customPicker').show(this, ['above','below-centered','before','after'])">below</button>
-		<input readonly onclick="dui.byId('textTooltip').show(this, ['above-centered','below-centered','after','before'])" value="below" size="5">
+		<button type="button" onclick="registry.byId('customPicker').show(this, ['above','below-centered','before','after'])">below</button>
+		<input readonly onclick="registry.byId('textTooltip').show(this, ['above-centered','below-centered','after','before'])" value="below" size="5">
 		<br><br><b>Click boundary nodes to see tooltips</b>
 	</center>
 	<center id="bot" class="bottom" style="position:fixed;bottom:0;width:100%;">
-		<input readonly tabindex="0" onclick="dui.byId('textTooltip').show(this, ['above-centered','below-centered','before','after'])" value="above" size="5">
-		<button type="button" tabindex="0" onclick="dui.byId('customPicker').show(this, ['below','above-centered','after','before'])">above</button>
+		<input readonly tabindex="0" onclick="registry.byId('textTooltip').show(this, ['above-centered','below-centered','before','after'])" value="above" size="5">
+		<button type="button" tabindex="0" onclick="registry.byId('customPicker').show(this, ['below','above-centered','after','before'])">above</button>
 	</center>
 	<center style="position:fixed;top:33%;width:100%;">
-		<button type="button" onclick="dui.byId('customPicker').hide()">click to hide spin wheels</button>
+		<button type="button" onclick="registry.byId('customPicker').hide()">click to hide spin wheels</button>
 	</center>
 	<center style="position:fixed;bottom:33%;width:100%;">
-		<input readonly onclick="dui.byId('textTooltip').hide()" value="click to hide text tooltip" size="26">
+		<input readonly onclick="registry.byId('textTooltip').hide()" value="click to hide text tooltip" size="26">
 	</center>
 	<div style="position:fixed;top:50%;left:1px;direction:ltr;">
-		<input readonly onclick="dui.byId('textTooltip').show(this, ['before','after','below-centered','above-centered'])" value="right" size="5">
+		<input readonly onclick="registry.byId('textTooltip').show(this, ['before','after','below-centered','above-centered'])" value="right" size="5">
 		<br>
 		<br>
-		<button type="button" onclick="dui.byId('customPicker').show(this, ['before','after','below-centered','above-centered'])">right</button>
+		<button type="button" onclick="registry.byId('customPicker').show(this, ['before','after','below-centered','above-centered'])">right</button>
 	</div>
 	<div style="position:fixed;bottom:50%;right:1px;direction:rtl;">
-		<button type="button" onclick="dui.byId('customPicker').show(this, ['after','before','above','below'])">left</button>
+		<button type="button" onclick="registry.byId('customPicker').show(this, ['after','before','above','below'])">left</button>
 		<br>
 		<br>
-		<input readonly onclick="dui.byId('textTooltip').show(this, ['after','before','below','above'])" value="left" size="4">
+		<input readonly onclick="registry.byId('textTooltip').show(this, ['after','before','below','above'])" value="left" size="4">
 	</div>
 
 	<div id="textTooltip" data-dojo-type="dui/mobile/Tooltip" class="duiTooltipBubble">Enter a value.<br><center>Please!</center></div>

@@ -6,12 +6,12 @@ dojo.addOnLoad(function(){
 			runTest: function(){
 				var d = new doh.Deferred();
 				setTimeout(d.getTestCallback(function(){
-					var demoWidget = dui.byId("Category");
+					var demoWidget = registry.byId("Category");
 					doh.assertEqual('duiEdgeToEdgeCategory', demoWidget.domNode.className);
 					doh.assertEqual('Spaces', demoWidget.domNode.innerHTML);
 
 
-					demoWidget = dui.byId("dui_mobile_EdgeToEdgeList_0");
+					demoWidget = registry.byId("dui_mobile_EdgeToEdgeList_0");
 					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
 					verifyListItem("item1", 'u1space', 'Off', "duiDomButtonArrow", true, true, false);
 					verifyListItem("item2", 'u2space', 'On', "duiDomButtonArrow", true, true, false);
@@ -26,7 +26,7 @@ dojo.addOnLoad(function(){
 			timeout: 4000,
 			runTest: function(){
 				var d = new doh.Deferred();
-				var demoWidget = dui.byId("dui_mobile_EdgeToEdgeList_0");
+				var demoWidget = registry.byId("dui_mobile_EdgeToEdgeList_0");
 				demoWidget.set({transition :"flip"});
 				doh.assertEqual("flip", demoWidget.get("transition"));
 				demoWidget.set({transition :"fade"});
@@ -34,13 +34,13 @@ dojo.addOnLoad(function(){
 
 				fireOnMouseDown("item3");
 				fireOnMouseUp("item3");
-				var view = dui.byId("foo");
+				var view = registry.byId("foo");
 				dojo.connect(view, "onAfterTransitionOut", this, d.getTestCallback(function(){
-					var demoWidget = dui.byId("dui_mobile_EdgeToEdgeCategory_0");
+					var demoWidget = registry.byId("dui_mobile_EdgeToEdgeCategory_0");
 					doh.assertEqual('duiEdgeToEdgeCategory', demoWidget.domNode.className);
 					doh.assertEqual('Applications', demoWidget.domNode.innerHTML);
 
-					demoWidget = dui.byId("dui_mobile_EdgeToEdgeList_1");
+					demoWidget = registry.byId("dui_mobile_EdgeToEdgeList_1");
 					doh.assertEqual('duiEdgeToEdgeList', demoWidget.domNode.className);
 
 					verifyListItem("dui_mobile_ListItem_0", 'Video', 'Off', "", false, false, false);
@@ -54,14 +54,14 @@ dojo.addOnLoad(function(){
 			name: "EdgeToEdgeCategory getLabel",
 			timeout: 1000,
 			runTest: function(){
-				doh.assertEqual("Spaces", dui.byId("Category").get("label")); 
+				doh.assertEqual("Spaces", registry.byId("Category").get("label")); 
 			}
 		},
 		{
 			name: "EdgeToEdgeCategory setLabel",
 			timeout: 1000,
 			runTest: function(){
-				var demoWidget = dui.byId("Category");
+				var demoWidget = registry.byId("Category");
 				demoWidget.set({label :"Value Changed"});
 				doh.assertEqual("Value Changed", demoWidget.get("label"));
 				doh.assertEqual('Value Changed', demoWidget.domNode.innerHTML);

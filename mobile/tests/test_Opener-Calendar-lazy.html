@@ -13,15 +13,17 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
+			"dui/registry",
 			"dui/mobile/compat",
 			"dojo/parser",
-			"dui/mobile/Opener",
-			"dui/_base/manager" // dui.byId
-		]);
+			"dui/mobile/Opener"
+		], function(reg){
+			registry = reg; // for registry.byId in the global functions below and in markup
+		});
 
 		function getDate2(node, v){
 			if(v === true){ // Done clicked
-				var w = dui.byId("cal");
+				var w = registry.byId("cal");
 				var date;
 				try {
 					date = w.get("value");
@@ -34,7 +36,7 @@
 		function setDate2(node){
 			var v = node.value.split(/-/);
 			if(v.length == 3){
-				var w = dui.byId("cal");
+				var w = registry.byId("cal");
 				w.setValue(v);
 			}
 		}
@@ -57,15 +59,15 @@
 	<tr>
 		<td style="text-align:right;">Date</td>
 		<td><input id="date3" readOnly value=""
-			onclick="dui.byId('calPicker').show(this, ['above-centered','below-centered','after','before'])"></td>
+			onclick="registry.byId('calPicker').show(this, ['above-centered','below-centered','after','before'])"></td>
 	</tr>
 	</table>
 	<div id="calPicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getDate2, onShow:setDate2, lazy:true">
 		<h1 data-dojo-type="dui/mobile/Heading" label="Dates">
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" style="position:absolute;width:45px;right:0;"
-				onclick="dui.byId('calPicker').hide(true)"></span>
+				onclick="registry.byId('calPicker').hide(true)"></span>
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" style="position:absolute;width:45px;left:0;"
-				onclick="dui.byId('calPicker').hide(false)"></span>
+				onclick="registry.byId('calPicker').hide(false)"></span>
 		</h1>
 		<div id="cal" dojoType='dui.CalendarLite'></div>
 	</div>

@@ -25,20 +25,23 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
-			"dojo/_base/html", // dojo.byId
-			"dui/_base/manager",  // dui.byId
+			"dojo/dom",
+			"dui/registry",
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
 			"dui/mobile/Opener",
 			"dui/mobile/ScrollableView"
-		]);
+		], function(dojoDom, reg){
+			dom = dojoDom; // for dom.byId in the global functions below
+			registry = reg; // for registry.byId in the global functions below and in markup
+		});
 
 		var checkedItem = 'Aaron Smith';
 
 		function getSelectedContact(node, accept){
 			if(accept === true){
-				dojo.byId('contact1').value = checkedItem || '';
+				dom.byId('contact1').value = checkedItem || '';
 			}
 		}
 		function setSearch(node){
@@ -47,9 +50,9 @@
 		function onCheck(item, checked){
 			setTimeout(function(){
 				if(checked){
-					checkedItem = item.labelNode.innerText || dojo.trim(item.labelNode.textContent) || '';
-					if(dojo.hasClass(dui.byId('listPicker').domNode, 'duiTooltip')){
-						dui.byId('listPicker').hide(true); // Tooltip + selection = auto-hide
+					checkedItem = item.labelNode.innerText || item.labelNode.textContent.trim() || '';
+					if(domClass.contains(registry.byId('listPicker').domNode, 'duiTooltip')){
+						registry.byId('listPicker').hide(true); // Tooltip + selection = auto-hide
 					}
 				}
 			}, 500);
@@ -61,16 +64,16 @@
 	<tr>
 		<td style="text-align:right;">Contact:</td>
 		<td><input id="contact1" readOnly value="Aaron Smith" placeholder="Select a contact"
-			onclick="dui.byId('listPicker').show(this, ['above-centered','below-centered','after','before'])" /></td>
+			onclick="registry.byId('listPicker').show(this, ['above-centered','below-centered','after','before'])" /></td>
 	</tr>
 	</table>
 
 	<div id="listPicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getSelectedContact, onShow:setSearch">
 		<h1 data-dojo-type="dui/mobile/Heading" label="">
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
-				onclick="dui.byId('listPicker').hide(true)"></span>
+				onclick="registry.byId('listPicker').hide(true)"></span>
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
-				onclick="dui.byId('listPicker').hide(false)"></span>
+				onclick="registry.byId('listPicker').hide(false)"></span>
 			<input id="search1" type="search" results="5" autosave="myrecentcontactsearches" name="searchContacts" placeholder="Search" />
 		</h1>
 		<div data-dojo-type="dui/mobile/ScrollableView" selected="true" height="auto">

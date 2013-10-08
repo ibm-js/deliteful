@@ -13,16 +13,18 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
+			"dui/registry",
 			"dui/mobile/compat",
 			"dojo/parser",
 			"dui/mobile/Opener",
-			"dui/_base/manager", // dui.byId
 			"dui/ColorPalette"
-		]);
+		], function(reg){
+			registry = reg; // for registry.byId in the global function below and in markup
+		});
 
 		function getColor1(node, v){
 			if(v === true){ // Done clicked
-				var w = dui.byId("colorPalette");
+				var w = registry.byId("colorPalette");
 				var color = w.get("value");
 				if(color){
 					node.value = color;
@@ -49,16 +51,16 @@
 	<tr>
 		<td style="text-align:right;">Color (Palette)</td>
 		<td><input id="color1" readOnly value="transparent" style="background-color:transparent;"
-			onclick="dui.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])"></td>
+			onclick="registry.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])"></td>
 	</tr>
 	</table>
 
 	<div id="colorPicker1" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getColor1">
 		<h1 data-dojo-type="dui/mobile/Heading" label="Select a Color">
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
-				onclick="dui.byId('colorPicker1').hide(true)"></span>
+				onclick="registry.byId('colorPicker1').hide(true)"></span>
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
-				onclick="dui.byId('colorPicker1').hide(false)"></span>
+				onclick="registry.byId('colorPicker1').hide(false)"></span>
 		</h1>
 		<div id="colorPalette" dojoType='dui.ColorPalette'></div>
 	</div>

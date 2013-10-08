@@ -52,19 +52,22 @@
 		data-dojo-config="parseOnLoad: true, async:true"></script>
 	<script language="JavaScript" type="text/javascript">
 		require([
-			"dojo/_base/html", // dojo.byId
-			"dui/_base/manager",  // dui.byId
+			"dojo/dom",
+			"dui/registry",
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
 			"dui/Button",
 			"dui/mobile/Opener"
-		]);
+		], function(dojoDom, reg){
+			dom = dojoDom; // for dom.byId in the global function below
+			registry = reg; // for registry.byId in the global function below and in markup
+		});
 
 		function clicked(id){
-			dui.byId("actionSheet").hide();
-			var span = dojo.byId("msgArea");
-			span.innerHTML += "&quot;" + dojo.byId(id).innerHTML + "&quot; button was clicked.";
+			registry.byId("actionSheet").hide();
+			var span = dom.byId("msgArea");
+			span.innerHTML += "&quot;" + dom.byId(id).innerHTML + "&quot; button was clicked.";
 			setTimeout(function(){
 				span.innerHTML = "";
 			}, 2000);
@@ -75,7 +78,7 @@
 <body style="visibility:hidden;">
 	<center>
 	<button data-dojo-type="dui/Button" class="duiBlueButton" style="margin-top:20px;width:200px;"
-			onclick="dui.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
+			onclick="registry.byId('actionSheet').show(this.domNode, ['above-centered','below-centered','after','before'])">Open Action Sheet</button>
 	<div id="msgArea" style="margin-top:5px;"></div>
 	</center>
 

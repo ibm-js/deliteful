@@ -13,21 +13,23 @@
 
 	<script language="JavaScript" type="text/javascript">
 		require([
-			"dui/_base/manager",  // dui.byId
+			"dui/registry",
 			"dui/mobile/compat",
 			"dojo/parser",
 			"dui/mobile/Opener"
-		]);
+		], function(reg){
+			registry = reg; // for registry.byId in the global function below and in markup
+		});
 
 		function getDate(node, v){
 			if(v === true){ // Done clicked
-				node.value = dui.byId("spin1").get("values").join('-');
+				node.value = registry.byId("spin1").get("values").join('-');
 			}
 		}
 		function setDate(node){
 			var v = node.value.split(/-/);
 			if(v.length == 3){
-				var w = dui.byId("spin1");
+				var w = registry.byId("spin1");
 				w.set("values", v);
 			}
 		}
@@ -47,16 +49,16 @@
 	<tr>
 		<td style="text-align:right;">Date</td>
 		<td><input id="date1" readOnly value=""
-			onclick="dui.byId('datePicker').show(this, ['above-centered','below-centered','after','before'])"></td>
+			onclick="registry.byId('datePicker').show(this, ['above-centered','below-centered','after','before'])"></td>
 	</tr>
 	</table>
 
 	<div id="datePicker" data-dojo-type="dui/mobile/Opener" data-dojo-props="onHide:getDate, onShow:setDate, lazy:true">
  		<h1 data-dojo-type="dui/mobile/Heading" label="Date Picker">
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Done" class="duiColorBlue" style="position:absolute;width:45px;right:0;"
-				onclick="dui.byId('datePicker').hide(true)"></span>
+				onclick="registry.byId('datePicker').hide(true)"></span>
 			<span data-dojo-type="dui/mobile/ToolBarButton" label="Cancel" class="duiColorBlue" style="position:absolute;width:45px;left:0;"
-				onclick="dui.byId('datePicker').hide(false)"></span>
+				onclick="registry.byId('datePicker').hide(false)"></span>
 		</h1>
 		<div id="spin1" data-dojo-type="dui/mobile/SpinWheelDatePicker"></div>
 	</div>

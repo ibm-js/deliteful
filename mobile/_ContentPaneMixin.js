@@ -6,8 +6,9 @@ define([
 	"dojo/request/xhr",
 	"./_ExecScriptMixin",
 	"./ProgressIndicator",
-	"./lazyLoadUtils"
-], function(declare, Deferred, lang, win, xhr, ExecScriptMixin, ProgressIndicator, lazyLoadUtils){
+	"./lazyLoadUtils",
+	"dojo/when"
+], function(declare, Deferred, lang, win, xhr, ExecScriptMixin, ProgressIndicator, lazyLoadUtils, when){
 
 	// module:
 	//		dui/mobile/_ContentPaneMixin
@@ -125,7 +126,7 @@ define([
 			}
 			if(this.parseOnLoad){
 				var _this = this;
-				return lazyLoadUtils.instantiateLazyWidgets(_this.containerNode).then(function(){
+				return when(lazyLoadUtils.instantiateLazyWidgets(_this.containerNode), function(){
 					if(_this._p){ _this._p.stop(); }
 					return _this.onLoad();
 				});

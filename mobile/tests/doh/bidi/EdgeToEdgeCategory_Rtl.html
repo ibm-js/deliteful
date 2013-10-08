@@ -12,10 +12,12 @@
 		<script type="text/javascript" src="../../../../../dojo/dojo.js" djConfig="parseOnLoad: true, has:{'dojo-bidi': true}"></script>
 
 		<script language="JavaScript" type="text/javascript">
-			dojo.require("dojo.parser"); // Use the lightweight parser.
-			//dojo.require("dui/mobile/parser");
-			dojo.require("dui.mobile._base");
-			dojo.requireIf(!dojo.isWebKit, "dui/mobile/compat");
+			require(["dui/registry",
+					"dojo/parser",
+					"dui/mobile/_base"], 
+				function(reg){
+					registry = reg; // for registry.byId used in markup
+			});
 		</script>
 		<script type="text/javascript" src="TestUtil_Rtl.js"></script>
 		<script type="text/javascript" src="EdgeToEdgeCatagory_Rtl.js"></script>
