@@ -127,6 +127,20 @@ define(["dcl/dcl"], function(dcl){
 			}
 		},
 
+		_get: function(name){
+			// summary:
+			//		Internal helper for directly accessing an attribute value.
+			// name: String
+			//		The property to get.
+			// description:
+			//		Directly get the value of an attribute on an object, bypassing any
+			//		accessor getter.
+			//		It is designed to be used by descendant class if they want in their custom getter to access the value
+			//		before returning it.
+
+			return this[propNames(name).p];
+		},
+
 		watch: function(/*String?*/ name, /*Function*/ callback){
 			// summary:
 			//		Watches a property for changes
