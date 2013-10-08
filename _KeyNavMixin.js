@@ -1,18 +1,18 @@
 define([
 	"dojo/_base/array", // array.forEach
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/dom-attr", // domAttr.set
 	"dojo/keys", // keys.END keys.HOME, keys.LEFT_ARROW etc.
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"./registry",
 	"./_FocusMixin"        // to make _onBlur() work
-], function(array, declare, domAttr, keys, lang, on, registry, _FocusMixin){
+], function(array, dcl, domAttr, keys, lang, on, registry, _FocusMixin){
 
 	// module:
 	//		dui/_KeyNavMixin
 
-	return declare("dui._KeyNavMixin", _FocusMixin, {
+	return dcl(_FocusMixin, {
 		// summary:
 		//		A mixin to allow arrow key and letter key navigation of child or descendant widgets.
 		//		It can be used by dui/_Container based widgets with a flat list of children,
@@ -53,9 +53,7 @@ define([
 		//		(ex: "> *") then the implementing class must require dojo/query.
 		childSelector: null,
 
-		postCreate: function(){
-			this.inherited(arguments);
-
+		postCreate: dcl.after(function(){
 			// Set tabIndex on this.domNode.  Will be automatic after #7381 is fixed.
 			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
 
@@ -81,7 +79,7 @@ define([
 					self._onChildFocus(registry.getEnclosingWidget(this), evt);
 				})
 			);
-		},
+		}),
 
 		_onLeftArrow: function(){
 			// summary:
@@ -200,16 +198,14 @@ define([
 			this.focus();
 		},
 
-		_onFocus: function(){
+		_onFocus: dcl.after(function(){
 			// When the container gets focus by being tabbed into, or a descendant gets focus by being clicked,
 			// set the container's tabIndex to -1 (don't remove as that breaks Safari 4) so that tab or shift-tab
 			// will go to the fields after/before the container, rather than the container itself
 			domAttr.set(this.domNode, "tabIndex", "-1");
+		}),
 
-			this.inherited(arguments);
-		},
-
-		_onBlur: function(evt){
+		_onBlur: dcl.after(function(evt){
 			// When focus is moved away the container, and its descendant (popup) widgets,
 			// then restore the container's tabIndex so that user can tab to it again.
 			// Note that using _onBlur() so that this doesn't happen when focus is shifted
@@ -224,8 +220,7 @@ define([
 				this.lastFocusedChild = this.focusedChild;
 				this._set("focusedChild", null);
 			}
-			this.inherited(arguments);
-		},
+		}),
 
 		_onChildFocus: function(/*dui/_WidgetBase*/ child){
 			// summary:

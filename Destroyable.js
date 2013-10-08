@@ -1,13 +1,13 @@
 define([
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
-	"dojo/_base/declare"
-], function(array, aspect, declare){
+	"dcl/dcl"
+], function(array, aspect, dcl){
 
 	// module:
 	//		dui/Destroyable
 
-	return declare("dui.Destroyable", null, {
+	return dcl(null, {
 		// summary:
 		//		Mixin to track handles and release them when instance is destroyed.
 		// description:
@@ -38,9 +38,7 @@ define([
 							"remove";
 
 				// When this.destroy() is called, destroy handle.  Since I'm using aspect.before(),
-				// the handle will be destroyed before a subclass's destroy() method starts running, before it calls
-				// this.inherited() or even if it doesn't call this.inherited() at all.  If that's an issue, make an
-				// onDestroy() method and connect to that instead.
+				// the handle will be destroyed before a subclass's destroy() method starts running.
 				var odh = aspect.before(this, "destroy", function(preserveDom){
 					handle[destroyMethodName](preserveDom);
 				});

@@ -1,11 +1,11 @@
-define(["doh", "dojo/_base/declare", "../../mixins/_Invalidating", "../../_WidgetBase"],
-	function(doh, declare, _Invalidating, _WidgetBase){
+define(["doh", "dcl/dcl", "../../mixins/_Invalidating", "../../_WidgetBase"],
+	function(doh, dcl, _Invalidating, _WidgetBase){
 	doh.register("mixins._Invalidating", [
 		{
 			timeout: 2000,
 			name: "Simple",
 			runTest: function(t){
-				var C = declare("MyWidget", [_WidgetBase, _Invalidating], {
+				var C = dcl([_WidgetBase, _Invalidating], {
 					constructor: function(){
 						this.addInvalidatingProperties("a");
 						this.addInvalidatingProperties("b");

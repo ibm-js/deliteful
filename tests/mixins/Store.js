@@ -1,8 +1,8 @@
-define(["doh", "dojo/_base/declare", "../../_WidgetBase", "../../mixins/Store",
+define(["doh", "dcl/dcl", "../../_WidgetBase", "../../mixins/Store",
 	"dojo/store/Observable", "dojo/store/JsonRest", "dojo/store/Memory"],
-	function (doh, declare, _WidgetBase, Store, Observable, JsonRest, Memory){
+	function (doh, dcl, _WidgetBase, Store, Observable, JsonRest, Memory){
 
-		var C = declare("MyWidget", [_WidgetBase, Store]);
+		var C = dcl([_WidgetBase, Store]);
 
 		doh.register("mixins.Store", [
 			{

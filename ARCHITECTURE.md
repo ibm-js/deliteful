@@ -24,7 +24,7 @@ instead of:
 
 3. allow the class to define custom getters/setters for some (but not necessarily all) of the properties
 
-	MyClass = declare(Stateful, {
+	MyClass = dcl(Stateful, {
 		label: "Press",
 		_setLabelAttr: function(val){
 				this._set("label", ...);

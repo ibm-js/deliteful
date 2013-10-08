@@ -1,8 +1,8 @@
 define([
-	"dojo/_base/declare",
+	"dcl/dcl",
 	"dojo/dom-attr", // domAttr.set domAttr.remove
 	"dojo/dom-class" // domClass.add domClass.replace
-], function (declare, domAttr, domClass) {
+], function (dcl, domAttr, domClass) {
 	'use strict';
 
 	function genSetter(/*String*/ attr, /*Object*/ commands){
@@ -87,7 +87,7 @@ define([
 		}
 	}
 
-	return function(tag, superclasses, props) {
+	function register (tag, superclasses, props) {
 		// summary:
 		//		Declare a widget class.
 		//		Eventually this will be for creating a custom element, hence the tag parameter.
@@ -129,7 +129,7 @@ define([
 		props.tag = props.declaredClass = tag;	// for debugging
 
 		// Generate class
-		var ctor = declare(superclasses, props),
+		var ctor = dcl(superclasses, props),
 			proto = ctor.prototype;
 
 		// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
@@ -141,4 +141,13 @@ define([
 
 		return ctor;
 	}
+
+	// Export dcl methods for convenience, so other modules can just include dui/register.
+	register.mix = dcl.mix;
+	register.before = dcl.before;
+	register.after = dcl.after;
+	register.advise = dcl.advise;
+	register.superCall = dcl.superCall;
+
+	return register;
 });

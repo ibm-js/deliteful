@@ -1,9 +1,9 @@
 define([
 	"require", // require.toUrl
+	"dcl/dcl",
 	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
 	"dojo/_base/config", // config.blankGif
-	"dojo/_base/declare",
 	"dojo/Deferred",
 	"dojo/dom", // dom.byId
 	"dojo/dom-attr", // domAttr.set domAttr.remove
@@ -20,7 +20,7 @@ define([
 	"./Stateful",
 	"dojo/has!dojo-bidi?./_BidiMixin",
 	"./registry"    // registry.getUniqueId(), registry.findWidgets()
-], function(require, array, aspect, config, declare, Deferred,
+], function(require, dcl, array, aspect, config, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
 			lang, on, win, Destroyable, Stateful, _BidiMixin, registry){
 
@@ -56,7 +56,7 @@ define([
 		};
 	}
 
-	var _WidgetBase = declare([Stateful, Destroyable], {
+	var _WidgetBase = dcl([Stateful, Destroyable], {
 		// summary:
 		//		Base class for all widgets.
 		//
@@ -198,46 +198,43 @@ define([
 
 		//////////// INITIALIZATION METHODS ///////////////////////////////////////
 
-		constructor: function(params, srcNodeRef){
-			// summary:
-			//		Create the widget.
-			// params: Object|null
-			//		Hash of initialization parameters for widget, including scalar values (like title, duration etc.)
-			//		and functions, typically callbacks like onClick.
-			//		The hash can contain any of the widget's properties, excluding read-only properties.
-			// srcNodeRef: DOMNode|String?
-			//		If a srcNodeRef (DOM node) is specified:
-			//
-			//		- use srcNodeRef.innerHTML as my contents
-			//		- if this is a behavioral widget then apply behavior to that srcNodeRef
-			//		- otherwise, replace srcNodeRef with my generated DOM tree
+		constructor: dcl.advise({
+			before: function(params, srcNodeRef){
+				// summary:
+				//		Create the widget.
+				// params: Object|null
+				//		Hash of initialization parameters for widget, including scalar values (like title, duration etc.)
+				//		and functions, typically callbacks like onClick.
+				//		The hash can contain any of the widget's properties, excluding read-only properties.
+				// srcNodeRef: DOMNode|String?
+				//		If a srcNodeRef (DOM node) is specified:
+				//
+				//		- use srcNodeRef.innerHTML as my contents
+				//		- if this is a behavioral widget then apply behavior to that srcNodeRef
+				//		- otherwise, replace srcNodeRef with my generated DOM tree
 
-			// Setup queue of actions to perform after the rendering has completed.  Used by runAfterRendering(),
-			// which is used by custom setters.
-			this._afterRender = new Deferred();
+				// Setup queue of actions to perform after the rendering has completed.  Used by runAfterRendering(),
+				// which is used by custom setters.
+				this._afterRender = new Deferred();
 
-			// extract parameters like onMouseMove that should be converted to on() calls
-			this._toConnect = {};
-			for(var name in params){
-				if(!(name in this) && /^on[A-Z]/.test(name)){
-					this._toConnect[name.substring(2).toLowerCase()] = params[name];
-					delete params[name];
+				// extract parameters like onMouseMove that should be converted to on() calls
+				this._toConnect = {};
+				for(var name in params){
+					if(!(name in this) && /^on[A-Z]/.test(name)){
+						this._toConnect[name.substring(2).toLowerCase()] = params[name];
+						delete params[name];
+					}
 				}
+
+				// store pointer to original DOM tree
+				this.srcNodeRef = dom.byId(srcNodeRef);
+			},
+			after: function(args, res){
+				// Call create() after all the constructor() methods have run and after Stateful has
+				// mixed in the properties.
+				this.create(args[0], args[1]);
 			}
-
-			// store pointer to original DOM tree
-			this.srcNodeRef = dom.byId(srcNodeRef);
-		},
-
-		postscript: function(/*Object?*/params, /*DomNode|String*/srcNodeRef){
-			// summary:
-			//		Kicks off widget instantiation.  See create() for details.
-			// tags:
-			//		private
-
-			this.inherited(arguments);
-			this.create(params, srcNodeRef);
-		},
+		}),
 
 		create: function(params, srcNodeRef){
 			// summary:
@@ -318,7 +315,7 @@ define([
 			//		protected
 		},
 
-		buildRendering: function(){
+		buildRendering: dcl.after(function(){
 			// summary:
 			//		Construct the UI for this widget, setting this.domNode.
 			// tags:
@@ -341,7 +338,7 @@ define([
 				}
 				domClass.add(this.domNode, classes);
 			}
-		},
+		}),
 
 		postCreate: function(){
 			// summary:
@@ -360,7 +357,7 @@ define([
 			delete this._toConnect;
 		},
 
-		startup: function(){
+		startup: dcl.after(function(){
 			// summary:
 			//		Processing after the DOM fragment is added to the document
 			// description:
@@ -381,7 +378,7 @@ define([
 					obj._started = true;
 				}
 			});
-		},
+		}),
 
 		//////////// DESTROY FUNCTIONS ////////////////////////////////
 
@@ -713,7 +710,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		_WidgetBase.extend(_BidiMixin);
+		dcl.mix(_WidgetBase.prototype, _BidiMixin);
 	}
 
 	return _WidgetBase;

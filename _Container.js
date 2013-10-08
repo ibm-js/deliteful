@@ -1,18 +1,17 @@
 define([
 	"dojo/_base/array", // array.forEach array.indexOf
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/dom-construct" // domConstruct.place
-], function(array, declare, domConstruct){
+], function(array, dcl, domConstruct){
 
 	// module:
 	//		dui/_Container
 
-	return declare("dui._Container", null, {
+	return dcl(null, {
 		// summary:
 		//		Mixin for widgets that contain HTML and/or a set of widget children.
 
-		buildRendering: function(){
-			this.inherited(arguments);
+		buildRendering: dcl.after(function(){
 			if(!this.containerNode){
 				// All widgets with descendants must set containerNode.
 				// NB: this code doesn't quite work right because for TabContainer it runs before
@@ -20,7 +19,7 @@ define([
 				// sets this.containerNode to this.domNode, later to be overridden by the assignment in the template.
 				this.containerNode = this.domNode;
 			}
-		},
+		}),
 
 		addChild: function(/*dui/_WidgetBase*/ widget, /*int?*/ insertIndex){
 			// summary:

@@ -104,7 +104,6 @@
 		<script type='dojo/method' data-dojo-event='postCreate'>
 			console.log("in postCreate ", this, arguments);
 			mPrototypeExecuted = true;
-			this.inherited(arguments);
 			this.baz.innerHTML += " (created via custom postCreate) ";
 		</script>
 		<script type='dojo/method' data-dojo-event='plus' data-dojo-args="a, b">

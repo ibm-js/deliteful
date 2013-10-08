@@ -1,8 +1,8 @@
-define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, Stateful, declare){
+define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 
 	doh.register("tests.Stateful", [
 		function getSetWatch(t){
-			var clz = declare(Stateful, {
+			var clz = dcl(Stateful, {
 					foo: 3
 				}),
 				s = new clz;
@@ -20,7 +20,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			doh.is(5, s.foo);
 		},
 		function removeWatchHandle(t){
-			var clz = declare(Stateful, {
+			var clz = dcl(Stateful, {
 					foo: 3
 				}),
 				s = new clz,
@@ -35,7 +35,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			s.foo = 5;
 		},
 		function removeWatchHandleTwice(t){
-			var clz = declare(Stateful, {
+			var clz = dcl(Stateful, {
 					foo: 3
 				}),
 				s = new clz,
@@ -55,7 +55,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			t.is(3, assertions, "assertions");
 		},
 		function setHash(t){
-			var clz = declare(Stateful, {
+			var clz = dcl(Stateful, {
 					foo: 0,
 					bar: 0
 				}),
@@ -72,7 +72,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			doh.is(5, s.bar);
 			doh.is(1, fooCount);
 
-			var clz2 = declare(Stateful, {
+			var clz2 = dcl(Stateful, {
 					foo: 0,
 					bar: 0
 				}),
@@ -85,7 +85,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			handle.remove();
 		},
 		function wildcard(t){
-			var clz = declare(Stateful, {
+			var clz = dcl(Stateful, {
 					foo: 0,
 					bar: 0
 				}),
@@ -108,7 +108,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			doh.is(1, foo);
 		},
 		function accessors(t){
-			var StatefulClass1 = declare(Stateful,{
+			var StatefulClass1 = dcl(Stateful,{
 				foo: 0,
 				bar: 0,
 				baz: "",
@@ -132,7 +132,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			t.is("bar", attr1.baz, "attribute set properly");
 		},
 		function paramHandling(t){
-			var StatefulClass2 = declare(Stateful, {
+			var StatefulClass2 = dcl(Stateful, {
 				foo: null,
 				bar: 5,
 
@@ -157,7 +157,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 		},
 		function _set(t){
 			var output = [];
-			var StatefulClass4 = declare(Stateful, {
+			var StatefulClass4 = dcl(Stateful, {
 				foo: null,
 				bar: null,
 
@@ -186,7 +186,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 		},
 
 		function moreCorrelatedProperties(){
-			var Widget = declare(Stateful, {
+			var Widget = dcl(Stateful, {
 				foo: 10,
 				_setFooAttr: function(val){
 					this._set("foo", val);
@@ -218,7 +218,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 		//		2. prints _fooAttr shadow value that's supposed to be hidden
 		/*
 		function serialize(t){
-			var StatefulClass5 = declare(Stateful, {
+			var StatefulClass5 = dcl(Stateful, {
 				foo: null,
 				_setFooAttr: function(value){
 					this._set("foo", value + "baz");
@@ -235,11 +235,11 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 
 		function subclasses1(){
 			// Test when superclass and subclass are declared first, and afterwards instantiated
-			var SuperClass = declare(Stateful, {
+			var SuperClass = dcl(Stateful, {
 				foo: null,
 				bar: null
 			});
-			var SubClass = declare(SuperClass, {
+			var SubClass = dcl(SuperClass, {
 				bar: 5
 			});
 
@@ -277,7 +277,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 		function subclasses2(){
 			// Test when superclass is declared and instantiated, then subclass is declared and use later
 			var output = [];
-			var SuperClass = declare(Stateful, {
+			var SuperClass = dcl(Stateful, {
 				foo: null,
 				bar: null
 			});
@@ -296,7 +296,7 @@ define(["doh/main", "../../Stateful", "dojo/_base/declare"], function(doh, State
 			doh.is(6, superBarWatchedVal, "bar watch() on SuperClass");
 
 			var customSetterCalled;
-			var SubClass = declare(SuperClass, {
+			var SubClass = dcl(SuperClass, {
 				bar: 5,
 				_setBarAttr: function(val){
 					// this should get called even though SuperClass doesn't have a custom setter for "bar"

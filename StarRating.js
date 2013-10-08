@@ -91,8 +91,7 @@ define([
 			}
 		},
 
-		buildRendering: function(){
-			this.inherited(arguments);
+		buildRendering: register.after(function(){
 			this.domNode.style.display = "inline-block";
 			// init WAI-ARIA attributes
 			this.domNode.setAttribute('role', 'slider');
@@ -105,7 +104,7 @@ define([
 			// keyboard navigation
 			this.domNode.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 			this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
-		},
+		}),
 
 		_removeEventsHandlers: function(){
 			while(this._otherEventsHandlers.length){

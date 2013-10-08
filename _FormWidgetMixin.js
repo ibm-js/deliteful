@@ -1,4 +1,5 @@
 define([
+	"dcl/dcl",
 	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare",
 	"dojo/dom-attr", // domAttr.set
@@ -9,12 +10,12 @@ define([
 	"dojo/sniff", // has("webkit")
 	"dojo/window", // winUtils.scrollIntoView
 	"./a11y"    // a11y.hasDefaultTabStop
-], function(array, declare, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
+], function(dcl, array, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
 
 	// module:
 	//		dui/_FormWidgetMixin
 
-	return declare( null, {
+	return dcl(null, {
 		// summary:
 		//		Mixin for widgets corresponding to native HTML elements such as `<checkbox>` or `<button>`,
 		//		which can be children of a `<form>` node or a `dui/form/Form` widget.
@@ -99,14 +100,13 @@ define([
 			});
 		},
 
-		_onFocus: function(/*String*/ by){
+		_onFocus: dcl.before(function(){
 			if(this.scrollOnFocus){
 				this.defer(function(){
-					winUtils.scrollIntoView(this.domNode);
+					winUtils.scrollIntoView(this);
 				}); // without defer, the input caret position can change on mouse click
 			}
-			this.inherited(arguments);
-		},
+		}),
 
 		isFocusable: function(){
 			// summary:

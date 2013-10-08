@@ -1,5 +1,5 @@
 define([
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/Deferred",
 	"dojo/dom", // dom.isDescendant
 	"dojo/dom-attr", // domAttr.set
@@ -15,14 +15,14 @@ define([
 	"./focus",
 	"./popup",
 	"./_FocusMixin"
-], function(declare, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
+], function(dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
 			registry, focus, popup, _FocusMixin){
 
 
 	// module:
 	//		dui/_HasDropDown
 
-	return declare("dui._HasDropDown", _FocusMixin, {
+	return dcl(_FocusMixin, {
 		// summary:
 		//		Mixin for widgets that need drop down ability.
 
@@ -204,9 +204,7 @@ define([
 			}
 		},
 
-		buildRendering: function(){
-			this.inherited(arguments);
-
+		buildRendering: dcl.after(function(){
 			this._buttonNode = this._buttonNode || this.focusNode || this.domNode;
 			this._popupStateNode = this._popupStateNode || this.focusNode || this._buttonNode;
 
@@ -221,13 +219,11 @@ define([
 				"right": "Right"
 			}[this.dropDownPosition[0]] || this.dropDownPosition[0] || "Down";
 			domClass.add(this._arrowWrapperNode || this._buttonNode, "dui" + defaultPos + "ArrowButton");
-		},
+		}),
 
-		postCreate: function(){
+		postCreate: dcl.after(function(){
 			// summary:
 			//		set up nodes and connect our mouse and keyboard events
-
-			this.inherited(arguments);
 
 			var keyboardEventNode = this.focusNode || this.domNode;
 			this.own(
@@ -236,9 +232,9 @@ define([
 				on(keyboardEventNode, "keydown", lang.hitch(this, "_onKey")),
 				on(keyboardEventNode, "keyup", lang.hitch(this, "_onKeyUp"))
 			);
-		},
+		}),
 
-		destroy: function(){
+		destroy: dcl.before(function(){
 			// If dropdown is open, close it, to avoid leaving dui/focus in a strange state.
 			// Put focus back on me to avoid the focused node getting destroyed, which flummoxes IE.
 			if(this.opened){
@@ -253,8 +249,7 @@ define([
 				}
 				delete this.dropDown;
 			}
-			this.inherited(arguments);
-		},
+		}),
 
 		_onKey: function(/*Event*/ e){
 			// summary:
@@ -303,7 +298,7 @@ define([
 			}
 		},
 
-		_onBlur: function(){
+		_onBlur: dcl.before(function(){
 			// summary:
 			//		Called magically when focus has shifted away from this widget and it's dropdown
 
@@ -311,9 +306,7 @@ define([
 			// input), and even if they just clicked a blank area of the screen, focusing my <input> will unwantedly
 			// popup the keyboard on mobile.
 			this.closeDropDown(false);
-
-			this.inherited(arguments);
-		},
+		}),
 
 		isLoaded: function(){
 			// summary:

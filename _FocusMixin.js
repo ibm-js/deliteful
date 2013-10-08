@@ -1,16 +1,15 @@
 define([
 	"./focus",
 	"./_WidgetBase",
-	"dojo/_base/declare", // declare
-	"dojo/_base/lang" // lang.extend
-], function(focus, _WidgetBase, declare, lang){
+	"dcl/dcl"
+], function(focus, _WidgetBase, dcl){
 
 	// module:
 	//		dui/_FocusMixin
 
 	// We don't know where _FocusMixin will occur in the inheritance chain, but we need the _onFocus()/_onBlur() below
 	// to be last in the inheritance chain, so mixin to _WidgetBase.
-	lang.extend(_WidgetBase, {
+	dcl.mix(_WidgetBase.prototype, {
 		// focused: [readonly] Boolean
 		//		This widget or a widget it contains has focus, or is "active" because
 		//		it was recently clicked.
@@ -54,7 +53,7 @@ define([
 		}
 	});
 
-	return declare("dui._FocusMixin", null, {
+	return dcl(null, {
 		// summary:
 		//		Mixin to widget to provide _onFocus() and _onBlur() methods that
 		//		fire when a widget or its descendants get/lose focus

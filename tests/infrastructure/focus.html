@@ -8,18 +8,20 @@
 
 		<script type="text/javascript">
 			require([
-				"doh/runner", "dojo/_base/array", "dojo/_base/declare", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
+				"doh/runner", "dojo/_base/array", "dcl/dcl", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
 				"dui/focus", "dui/registry",
-				"dui/_WidgetBase", "dui/_TemplatedMixin", "dui/_FocusMixin",
+				"dui/_WidgetBase", "dui/_FocusMixin",
 				"dojo/domReady!",
 				"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner","dui/form/ComboButton",
-				"dui/dui/Menu", "dui/dui/MenuItem", "dui/dui/PopupMenuItem"
-			], function(doh, array, declare, dom, on, parser, query, focus, registry, _WidgetBase, _TemplatedMixin, _FocusMixin){
+				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
+			], function(doh, array, dcl, dom, on, parser, query, focus, registry, _WidgetBase, _FocusMixin){
 
-				FakeEditor = declare([_WidgetBase, _TemplatedMixin, _FocusMixin], {
-					// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
-					templateString: "<iframe data-dojo-attach-point='containerNode' " +
-							"src='javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"'/>",
+				FakeEditor = dcl([_WidgetBase, _FocusMixin], {
+					buildRendering: function(){
+						// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
+						this.domNode = this.containerNode = this.ownerDocument.createElement("iframe");
+						this.domNode.src = 'javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"';
+					},
 
 					postCreate: function(){
 						focus.registerIframe(this.containerNode);

@@ -5,13 +5,13 @@
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
-		require(["doh/runner", "dojo/_base/declare", "dui/_WidgetBase", "dojo/domReady!"], function(doh, declare, _WidgetBase){
+		require(["doh/runner", "dui/register", "dui/_WidgetBase", "dojo/domReady!"], function(doh, register, _WidgetBase){
 			doh.register("handlebars", [
 				function load(){
 					var d = new doh.Deferred();
 					require(["dui/handlebars!dui/tests/infrastructure/templates/SimpleHandlebarsButton.html"], d.getTestCallback(function(br){
 						// Test that function returned from dui/handlebars! creates the template correctly
-						var TestButton = declare(_WidgetBase, {
+						var TestButton = register("test-button", _WidgetBase, {
 							iconClass: "originalClass",
 							label: "original label",
 							buildRendering: br
@@ -36,7 +36,7 @@
 					var d = new doh.Deferred();
 					require(["dui/handlebars!dui/tests/infrastructure/templates/HandlebarsButton.html"], d.getTestCallback(function(br){
 						// Test false if condition
-						var NoLabelButton = declare(_WidgetBase, {
+						var NoLabelButton = register("no-label-button", _WidgetBase, {
 							iconClass: "originalClass",
 							showLabel: false,
 							label: "original label",
@@ -51,7 +51,7 @@
 						doh.is("", myButton.domNode.textContent.trim(), "still no label");
 
 						// Test true if condition
-						var LabelButton = declare(_WidgetBase, {
+						var LabelButton = register("label-button", _WidgetBase, {
 							iconClass: "originalClass",
 							showLabel: true,
 							label: "original label",

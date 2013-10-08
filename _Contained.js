@@ -1,17 +1,17 @@
 define([
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"./registry"	// registry.getEnclosingWidget(), registry.byNode()
-], function(declare, registry){
+], function(dcl, registry){
 
 	// module:
 	//		dui/_Contained
 
-	return declare("dui._Contained", null, {
+	return dcl(null, {
 		// summary:
 		//		Mixin for widgets that are children of a container widget
 		// example:
 		//	|	// make a basic custom widget that knows about its parents
-		//	|	declare("my.customClass",[dui._WidgetBase, dui._Contained],{});
+		//	|	register("my.customClass", [HTMLElement, _WidgetBase, _Contained], {});
 
 		_getSibling: function(/*String*/ which){
 			// summary:

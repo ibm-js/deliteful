@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/array", // array.forEach array.some
 	"dojo/aspect",
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/dom", // dom.isDescendant
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-construct", // domConstruct.create domConstruct.destroy
@@ -15,7 +15,7 @@ define([
 	"./BackgroundIframe",
 	"./Viewport",
 	"./themes/load!common"	// duiPopup class
-], function(array, aspect, declare, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
+], function(array, aspect, dcl, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
 			place, BackgroundIframe, Viewport){
 
 	// module:
@@ -80,7 +80,7 @@ define([
 		}
 	}
 
-	var PopupManager = declare(null, {
+	var PopupManager = dcl(null, {
 		// summary:
 		//		Used to show drop downs (ex: the select list of a ComboBox)
 		//		or popups (ex: right-click context menus).

@@ -14,7 +14,6 @@ require([
 ], function(doh, keys, on, win,
 			register, _HasDropDown, _WidgetBase, helpers){
 
-
 	var SimplePopup = register("dui-simple-popup", _WidgetBase, {
 		// summary:
 		//		A trivial popup widget
@@ -32,13 +31,12 @@ require([
 		popupLabel: "i'm a popup",
 		orient: ["below"],
 
-		postCreate: function(){
-			this.inherited(arguments);
+		postCreate: register.after(function(){
 			this.dropDown = new SimplePopup({
 				id: this.id + "_popup",
 				label: this.popupLabel
 			});
-		}
+		})
 	});
 
 	var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [_WidgetBase, _HasDropDown], {
@@ -50,13 +48,12 @@ require([
 
 		orient: ["below"],
 
-		postCreate: function(){
-			this.inherited(arguments);
+		postCreate: register.after(function(){
 			this.dropDown = new SimplePopup({
 				id: this.id + "_popup",
 				label: "popup from non-focusable"
 			});
-		}
+		})
 	});
 
 	// Synthetic events.   Could alternately use robot.

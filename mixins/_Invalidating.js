@@ -1,7 +1,7 @@
-define(["dojo/_base/declare", "dojo/_base/lang"],
-	function(declare, lang){
+define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
+	function(dcl, lang, _WidgetBase){
 		
-	return declare(null, {
+	return dcl(_WidgetBase, {
 		// summary:
 		//		Mixin for classes (usually widgets) that watch invalidated properties and delay the rendering
 		//		after these properties modifications to the next execution frame. The receiving class must extend
@@ -19,10 +19,12 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 		//		invalidateRendering to modify this flag. 
 		invalidRendering: false,
 
-		postscript: function(mixin){
+		postCreate: dcl.after(function(args){
 			// tags:
 			//		protected
-			this.inherited(arguments);
+
+			var mixin = args[0];	// parameters to constructor
+
 			if(this._invalidatingProperties){
 				var props = this._invalidatingProperties;
 				for(var i = 0; i < props.length; i++){
@@ -33,7 +35,8 @@ define(["dojo/_base/declare", "dojo/_base/lang"],
 					}
 				}
 			}
-		},
+		}),
+
 		addInvalidatingProperties: function(){
 			// summary:
 			//		Add the properties listed as parameters to the watched properties to trigger invalidation. This method

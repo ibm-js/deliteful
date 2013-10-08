@@ -1,6 +1,6 @@
-define(["doh", "dojo/_base/declare", "../../mixins/Selection", "../../_WidgetBase"],
-	function(doh, declare, Selection, _WidgetBase){
-	var C = declare("MyWidget", [_WidgetBase, Selection], {
+define(["doh", "dcl/dcl", "../../mixins/Selection", "../../_WidgetBase"],
+	function(doh, dcl, Selection, _WidgetBase){
+	var C = dcl([_WidgetBase, Selection], {
 		updateRenderers: function(){
 		},
 		getIdentity: function(item){
@@ -9,7 +9,7 @@ define(["doh", "dojo/_base/declare", "../../mixins/Selection", "../../_WidgetBas
 	});
 	doh.register("mixins.Selection", [
 		function test_SetGet(t){
-			var C = declare("MyWidget", [_WidgetBase, Selection], {
+			var C = dcl([_WidgetBase, Selection], {
 				updateRenderers: function(){
 				}
 			});

@@ -1,6 +1,6 @@
 define([
 	"dojo/aspect",
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/dom", // domAttr.get dom.isDescendant
 	"dojo/dom-attr", // domAttr.get dom.isDescendant
 	"dojo/dom-class",
@@ -14,7 +14,7 @@ define([
 	"dojo/window", // winUtils.get
 	"./a11y",	// a11y.isTabNavigable
 	"./registry"	// registry.byId
-], function(aspect, declare, dom, domAttr, domClass, domConstruct, Evented, lang, on, domReady, Stateful, win, winUtils,
+], function(aspect, dcl, dom, domAttr, domClass, domConstruct, Evented, lang, on, domReady, Stateful, win, winUtils,
 			a11y, registry){
 
 	// module:
@@ -22,9 +22,9 @@ define([
 
 	var lastFocusin;
 
-	// TODO: switch to using dui/Stateful
+	// TODO: switch to using dui/Stateful, and dcl.advise
 
-	var FocusManager = declare([Stateful, Evented], {
+	var FocusManager = dcl([Stateful, Evented], {
 		// summary:
 		//		Tracks the currently focused node, and which widgets are currently "active".
 		//		Access via require(["dui/focus"], function(focus){ ... }).

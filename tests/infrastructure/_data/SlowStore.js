@@ -1,6 +1,6 @@
-define(["dojo/_base/declare", "dojo/data/ItemFileReadStore"], function(declare, ItemFileReadStore){
+define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadStore){
 
-	return declare("dui.tests._data.SlowStore", ItemFileReadStore, {
+	return dcl(ItemFileReadStore, {
 		// summary:
 		//		This wrapper decorates an ItemFileReadStore by delaying queries issued according to the
 		//		length of the query:
@@ -9,6 +9,8 @@ define(["dojo/_base/declare", "dojo/data/ItemFileReadStore"], function(declare, 
 		//		- 1 or 2 characters: 1000ms,
 		//		- 3 characters: 500ms,
 		//		- 4 or more characters: 100ms.
+
+		declaredClass: "dui.tests._data.SlowStore",
 
 		constructor: function(){
 			this.log = [];

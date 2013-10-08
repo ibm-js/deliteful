@@ -1,4 +1,4 @@
-define(["dojo/_base/declare"], function(declare){
+define(["dcl/dcl"], function(dcl){
 	// module:
 	//		dui/Stateful
 
@@ -17,7 +17,7 @@ define(["dojo/_base/declare"], function(declare){
 		});
 	}
 
-	return declare("dojo.Stateful", null, {
+	return dcl(null, {
 		// summary:
 		//		Base class for objects that provide named properties with optional getter/setter
 		//		control and the ability to watch for property changes.
@@ -33,7 +33,7 @@ define(["dojo/_base/declare"], function(declare){
 		//		and getters should access the property value as this._fooAttr.
 		//
 		// example:
-		//	|	var MyClass = declare(Stateful, {});
+		//	|	var MyClass = dcl(Stateful, {});
 		//	|	var obj = new MyClass();
 		//	|	obj.watch("foo", function(){
 		//	|		console.log("foo changed to " + this.foo);
@@ -75,16 +75,21 @@ define(["dojo/_base/declare"], function(declare){
 			}
 		},
 
-		postscript: function(/*Object?*/ params){
-			// First time this class is instantiated, introspect it.
-			if(!this.constructor._introspected){	// note: checking if this class was introspected, not a superclass
-				this._introspect();
-				this.constructor._introspected = true;
-			}
+		constructor: dcl.advise({
+			before: function(){
+				// First time this class is instantiated, introspect it.
+				if(!this.constructor._introspected){	// note: checking if this class was introspected, not a superclass
+					this._introspect();
+					this.constructor._introspected = true;
+				}
+			},
 
-			// Automatic setting of params during construction
-			if (params){ this.set(params); }
-		},
+			after: function(args){
+				// Automatic setting of params during construction.
+				// In after() advice so that it runs after all the subclass constructor methods.
+				if (args.length){ this.set(args[0]); }
+			}
+		}),
 
 		set: function(/*Object*/ hash){
 			// summary:

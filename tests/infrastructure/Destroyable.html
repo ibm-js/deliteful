@@ -6,12 +6,12 @@
 
 <script type="text/javascript">
 require([
-	"doh/runner", "dojo/aspect", "dojo/_base/declare", "dojo/dom", "dojo/dom-construct", "dojo/on", "dojo/Stateful",
+	"doh/runner", "dojo/aspect", "dcl/dcl", "dojo/dom", "dojo/dom-construct", "dojo/on", "dojo/Stateful",
 	"dui/Destroyable", "dojo/domReady!"
-], function(doh, aspect, declare, dom, domConstruct, on, Stateful, Destroyable){
+], function(doh, aspect, dcl, dom, domConstruct, on, Stateful, Destroyable){
 	doh.register("Deferred", [
 		function general(){
-			var SupportingWidget = declare([], {
+			var SupportingWidget = dcl(null, {
 				destroyCalls: 0,
 				constructor: function(name){
 					this.name = name;
@@ -24,7 +24,7 @@ require([
 				name: "watchMe",
 				x: 0
 			});
-			var DestroyableSubClass = declare(Destroyable, {
+			var DestroyableSubClass = dcl(Destroyable, {
 				// number of times my button was clicked
 				clicks: 0,
 

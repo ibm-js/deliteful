@@ -69,7 +69,6 @@ define([
 				var css = toCSS(this.baseClass, "Label");
 				domClass.add(node, css);
 			}
-			this.inherited(arguments);
 		},
 
 		_parentInit: function(/*Boolean*/ reversed, /*String*/ orientation){
@@ -86,7 +85,7 @@ define([
 		_setLabelDirection: function(node){
 		},
 
-		startup: function(){
+		startup: register.after(function(){
 			if(this.labels.length < this.count){
 				this._parentInit(false, this.orientation);
 			}
@@ -106,8 +105,7 @@ define([
 				domStyle.set(node, { H: "left", V: "top" }[this.orientation], pos + "%");
 				pos = 100 / ((this.count - 1) / (i+1));
 			}
-			this.inherited(arguments);
-		}
+		})
 	});
 
 	if(has("dojo-bidi")){

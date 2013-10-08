@@ -22,12 +22,14 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 This project requires the following other projects to run:
  * dojo
+ * dcl    (git clone https://github.com/uhop/dcl.git)
 
 ## Installation
 
-* Manual installation by dropping dui as a sibling of the top level Dojo modules:
+* Manual installation by dropping dui as a sibling of the top level modules:
  * dojo
  * dui
+ * dcl
 
  To install the latest master, go to the root Dojo installation directory and clone dui from github
 

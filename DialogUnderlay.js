@@ -53,24 +53,21 @@ define([
 			this._set("class", clazz);
 		},
 
-		buildRendering: function(){
+		buildRendering: register.after(function(){
 			// Outer div is used for fade-in/fade-out, and also to hold background iframe.
 			// Inner div has opacity specified in CSS file.
-			this.inherited(arguments);
 			ths.domNode.class = "duiDialogUnderlayWrapper";
 			this.node = this.ownerDocument.createElement("div");
 			this.node.setAttribute("tabindex", "-1");
 			this.domNode.appendChild(this.node);
-		},
+		}),
 
-		postCreate: function(){
+		postCreate: register.after(function(){
 			// Append the underlay to the body
 			this.ownerDocumentBody.appendChild(this.domNode);
 
 			this.own(on(this.domNode, "keydown", lang.hitch(this, "_onKeyDown")));
-
-			this.inherited(arguments);
-		},
+		}),
 
 		layout: function(){
 			// summary:
@@ -127,10 +124,9 @@ define([
 			this.open = false;
 		},
 
-		destroy: function(){
+		destroy: register.before(function(){
 			while(this._modalConnects.length){ (this._modalConnects.pop()).remove(); }
-			this.inherited(arguments);
-		},
+		}),
 
 		_onKeyDown: function(){
 			// summary:

@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/array", // array.forEach array.map
-	"dojo/_base/declare", // declare
+	"dcl/dcl",
 	"dojo/dom", // dom.isDescendant()
 	"dojo/dom-class", // domClass.toggle
 	"dojo/has",
@@ -11,12 +11,12 @@ define([
 	"dojo/_base/window", // win.body
 	"./a11yclick",
 	"./registry"
-], function(array, declare, dom, domClass, has, lang, on, domReady, touch, win, a11yclick, registry){
+], function(array, dcl, dom, domClass, has, lang, on, domReady, touch, win, a11yclick, registry){
 
 	// module:
 	//		dui/_CssStateMixin
 
-	var CssStateMixin = declare("dui._CssStateMixin", [], {
+	var CssStateMixin = dcl(null, {
 		// summary:
 		//		Mixin for widgets to set CSS classes on the widget DOM nodes depending on hover/mouse press/focus
 		//		state changes, and also higher-level state changes such becoming disabled or selected.
@@ -56,12 +56,10 @@ define([
 		//		True if mouse was pressed while over this widget, and hasn't been released yet
 		active: false,
 
-		_applyAttributes: function(){
+		_applyAttributes: dcl.after(function(){
 			// This code would typically be in postCreate(), but putting in _applyAttributes() for
 			// performance: so the class changes happen before DOM is inserted into the document.
 			// Change back to postCreate() in 2.0.  See #11635.
-
-			this.inherited(arguments);
 
 			// Monitoring changes to disabled, readonly, etc. state, and update CSS class of root node
 			array.forEach(["disabled", "readOnly", "checked", "selected", "focused", "state", "hovering", "active", "_opened"], function(attr){
@@ -77,7 +75,7 @@ define([
 			// Set state initially; there's probably no hover/active/focus state but widget might be
 			// disabled/readonly/checked/selected so we want to set CSS classes for those conditions.
 			this._setStateClass();
-		},
+		}),
 
 		_cssMouseEvent: function(/*Event*/ event){
 			// summary:
