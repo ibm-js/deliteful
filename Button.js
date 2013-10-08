@@ -61,7 +61,6 @@ define([
 		buildRendering: function(){
 			this.domNode = this.focusNode = this.srcNodeRef || domConstruct.create("button", {"type": this.type});
 			this.refreshRendering();
-			this.inherited(arguments);
 		},
 
 		refreshRendering: function(){

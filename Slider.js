@@ -115,7 +115,7 @@ define([
 				this.handle = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMax"), "tabIndex":0 }, this.progressBar, "last");
 			}
 			this.baseClass += " "+toCSS(this.orientation);
-			this.inherited(arguments);
+
 			this.textbox = this.domNode;
 			this.focusNode = this.handle;
 
@@ -151,7 +151,7 @@ define([
 			});
 		},
 
-		_handleOnChange: function(/*Number or String(Number) or String(Number,Number)*/ value, /*Boolean?*/ priorityChange){
+		_handleOnChange: register.before(function(/*Number or String(Number) or String(Number,Number)*/ value, /*Boolean?*/ priorityChange){
 			var values = String(value).split(',');
 			if(values.length == 1){
 				values = [this.min, values[0]];
@@ -166,12 +166,9 @@ define([
 			}
 			this.handle.setAttribute("aria-valuenow", maxValue);
 			this._refreshState(priorityChange);
-			this.inherited(arguments);
-		},
+		}),
 
-		postCreate: function(){
-			this.inherited(arguments);
-
+		postCreate: register.after(function(){
 			var	beginDrag = lang.hitch(this, function(e){
 					e.preventDefault();
 					var	setValue = lang.hitch(this, function(priorityChange){
@@ -308,9 +305,9 @@ define([
 				on(self.handle, "keyup", keyUp) // fire onChange on desktop
 			);
 			this._refreshState(null);
-		},
+		}),
 
-		startup: function(){
+		startup: register.before(function(){
 			var self = this;
 			// pass widget attributes to children
 			// the forEach wouldn't be needed if _Widgetbase::startup used obj.startup.apply(obj,arguments) instead of obj.startup()
@@ -320,14 +317,13 @@ define([
 					obj._parentInit(self._reversed, self.orientation);
 				}
 			});
-			this.inherited(arguments);
-		},
+		}),
 
-		destroyRendering: function(/*Boolean*/ preserveDom){
+		destroyRendering: register.before(function(/*Boolean*/ preserveDom){
 			if(!preserveDom && this.valueNode.parentNode != this.domNode){
 				domConstruct.destroy(this.valueNode);
 			}
 			this.inherited(arguments);
-		}
+		})
 	});
 });
