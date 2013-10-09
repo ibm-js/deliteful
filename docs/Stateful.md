@@ -2,7 +2,7 @@
 
 The purpose is to dui/Stateful is three-fold:
 
-(1) declare a class where properties are set and gotten using standard notation:
+(1) declare a class where properties are set and retrieved using standard notation:
 
 	myWidget.label = "hello";
 	console.log(myWidget.label);
