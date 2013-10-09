@@ -60,7 +60,7 @@ define([
 		//		CSS loading plugin for the widgets with themes in this directory.
 		//		Loads the CSS file(s) for the specified widget for the current theme.
 		//
-		//		For example, on an iPhone, css!common,Button will load (in the following order):
+		//		For example, on an iPhone, load!common,Button will load (in the following order):
 		//
 		//			- dui/themes/ios/common.css
 		//			- dui/themes/ios/common_rtl.css
@@ -71,7 +71,7 @@ define([
 		//		theme={theme widget} to force a specific theme through the browser
 		//		URL input. The available theme ids are bootstrap, holodark (theme introduced in Android 3.0),
 		//		blackberry, custom, and windows (from Windows 8). The theme names are case-sensitive. If the given
-		//		widget does not match, the iPhone theme is used.
+		//		widget does not match, the bootstrap theme is used.
 		//
 		//	|	http://your.server.com/yourapp.html // automatic detection
 		//	|	http://your.server.com/yourapp.html?theme=android // forces Android theme

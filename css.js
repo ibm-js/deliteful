@@ -58,10 +58,10 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 		//
 		//		For a more full featured loader one can use:
 		//
-		//		- Xstyle's CSS loader (https://github.com/kriszyp/xstyle/blob/master/core/load-css.js)
-		//		- CURL's (https://github.com/cujojs/curl/blob/master/src/curl/plugin/css.js)
-		//		- requirejs-css-plugin (https://github.com/tyt2y3/requirejs-css-plugin)
-		//		- requirecss (https://github.com/guybedford/require-css)
+		//		- [Xstyle's CSS loader](https://github.com/kriszyp/xstyle/blob/master/core/load-css.js)
+		//		- [CURL's](https://github.com/cujojs/curl/blob/master/src/curl/plugin/css.js)
+		//		- [requirejs-css-plugin](https://github.com/tyt2y3/requirejs-css-plugin)
+		//		- [requirecss](https://github.com/guybedford/require-css)
 
 		load: function(mids, require, onload){
 			// summary:
