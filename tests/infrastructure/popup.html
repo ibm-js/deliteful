@@ -19,6 +19,9 @@
 		}
 
 		/* the menu type test widgets */
+		.choice {
+			display: block;
+		}
 		.choice div {
 			width: 200px;
 			cursor: pointer;
@@ -164,6 +167,7 @@
 				length: 100,
 
 				buildRendering: function(){
+					this.className = "choice";
 					for(var i=0; i < this.length; i++){
 						domConstruct.place("<div>choice #" + i + "</div>", this);
 					}
