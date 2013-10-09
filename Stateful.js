@@ -86,14 +86,14 @@ define(["dcl/dcl"], function(dcl){
 			after: function(args){
 				// Automatic setting of params during construction.
 				// In after() advice so that it runs after all the subclass constructor methods.
-				if (args.length){ this.set(args[0]); }
+				if (args.length){ this.mix(args[0]); }
 			}
 		}),
 
-		set: function(/*Object*/ hash){
+		mix: function(/*Object*/ hash){
 			// summary:
 			//		Set a hash of properties on a Stateful instance
-			//	|	myObj.set({
+			//	|	myObj.mix({
 			//	|		foo: "Howdy",
 			//	|		bar: 3
 			//	|	})

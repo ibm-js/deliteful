@@ -64,7 +64,7 @@ define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 				handle = s.watch('foo', function () {
 					fooCount++;
 				});
-			s.set({
+			s.mix({
 				foo: 3,
 				bar: 5
 			});
@@ -77,7 +77,7 @@ define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 					bar: 0
 				}),
 				s2 = new clz2();
-			s2.set(s);
+			s2.mix(s);
 			doh.is(3, s2.foo);
 			doh.is(5, s2.bar);
 			// s watchers should not be copied to s2
@@ -90,7 +90,7 @@ define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 					bar: 0
 				}),
 				s = new clz();
-			s.set({
+			s.mix({
 				foo: 3,
 				bar: 5
 			});

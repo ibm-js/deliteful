@@ -287,7 +287,7 @@ define([
 			// Note that Stateful won't do this because its constructor isn't called.
 			this.mapAttributes();
 			if(this.params){
-				this.set(this.params);
+				this.mix(this.params);
 			}
 
 			this.postMixInProperties();
