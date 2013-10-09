@@ -1,4 +1,4 @@
-define(["doh", "../../register", "../../_WidgetBase", "../../mixins/Store",
+define(["doh/runner", "../../register", "../../_WidgetBase", "../../mixins/Store",
 	"dojo/store/Observable", "dojo/store/JsonRest", "dojo/store/Memory"],
 	function (doh, register, _WidgetBase, Store, Observable, JsonRest, Memory){
 

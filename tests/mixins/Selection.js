@@ -1,4 +1,4 @@
-define(["doh", "../../register", "../../mixins/Selection", "../../_WidgetBase"],
+define(["doh/runner", "../../register", "../../mixins/Selection", "../../_WidgetBase"],
 	function(doh, register, Selection, _WidgetBase){
 	var C = register("C", [_WidgetBase, Selection], {
 		updateRenderers: function(){

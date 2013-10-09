@@ -1,4 +1,4 @@
-define(["doh", "../../register", "../../mixins/_Invalidating", "../../_WidgetBase"],
+define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_WidgetBase"],
 	function(doh, register, _Invalidating, _WidgetBase){
 	doh.register("mixins._Invalidating", [
 		{

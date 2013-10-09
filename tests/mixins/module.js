@@ -1,5 +1,5 @@
 define([
-	"dui/tests/mixins/_Invalidating",
-	"dui/tests/mixins/Selection",
-	"dui/tests/mixins/Store"
+	"./_Invalidating",
+	"./Selection",
+	"./Store"
 ], 1);
