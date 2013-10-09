@@ -244,7 +244,7 @@ define([
 				// Destroy the drop down, unless it's already been destroyed.  This can happen because
 				// the drop down is a direct child of <body> even though it's logically my child.
 				if(!this.dropDown._destroyed){
-					this.dropDown.destroyRecursive();
+					this.dropDown.destroy();
 				}
 				delete this.dropDown;
 			}

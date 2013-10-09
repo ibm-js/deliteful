@@ -450,51 +450,22 @@ define([
 		},
 
 		//////////// DESTROY FUNCTIONS ////////////////////////////////
-
-		destroyRecursive: function(/*Boolean?*/ preserveDom){
-			// summary:
-			//		Destroy this widget and its descendants
-			// description:
-			//		This is the generic "destructor" function that all widget users
-			//		should call to cleanly discard with a widget. Once a widget is
-			//		destroyed, it is removed from the manager object.
-			// preserveDom:
-			//		If true, this method will leave the original DOM structure
-			//		alone of descendant Widgets.
-
-			this._beingDestroyed = true;
-			this.destroyDescendants(preserveDom);
-			this.destroy(preserveDom);
-		},
-
 		destroy: function(/*Boolean*/ preserveDom){
 			// summary:
-			//		Destroy this widget, but not its descendants.  Descendants means widgets inside of
-			//		this.containerNode.   Will also destroy any resources (including widgets) registered via this.own().
-			//
-			//		This method will also destroy internal widgets such as those created from a template,
-			//		assuming those widgets exist outside of this.containerNode.
-			//
-			//		For 2.0 it's planned that this method will also destroy descendant widgets, so apps should not
-			//		depend on the current ability to destroy a widget without destroying its descendants.   Generally
-			//		they should use destroyRecursive() for widgets with children.
+			//		Destroy this widget and its descendants.
 			// preserveDom: Boolean
 			//		If true, this method will leave the original DOM structure alone.
 
 			this._beingDestroyed = true;
 
-			function destroy(w){
-				if(w.destroyRecursive){
-					w.destroyRecursive(preserveDom);
-				}else if(w.destroy){
-					w.destroy(preserveDom);
+			// Destroy child widgets
+			registry.findWidgets(this).forEach(function(w){
+				if(w.destroy){
+					w.destroy();
 				}
-			}
+			});
 
-			// Destroy supporting widgets, but not child widgets under this.containerNode (for 2.0, destroy child widgets
-			// here too).   if() statement is to guard against exception if destroy() called multiple times (see #15815).
-			array.forEach(registry.findWidgets(this, this.containerNode), destroy);
-
+			// Destroy this widget
 			this.destroyRendering(preserveDom);
 			registry.remove(this.id);
 			this._destroyed = true;
@@ -520,23 +491,6 @@ define([
 			}else{
 				domConstruct.destroy(this);
 			}
-		},
-
-		destroyDescendants: function(/*Boolean?*/ preserveDom){
-			// summary:
-			//		Recursively destroy the children of this widget and their
-			//		descendants.
-			// preserveDom:
-			//		If true, the preserveDom attribute is passed to all descendant
-			//		widget's .destroy() method. Not for use with _Templated
-			//		widgets.
-
-			// get all direct descendants and destroy them recursively
-			array.forEach(this.getChildren(), function(widget){
-				if(widget.destroyRecursive){
-					widget.destroyRecursive(preserveDom);
-				}
-			});
 		},
 
 		emit: function(/*String*/ type, /*Object?*/ eventObj, /*Array?*/ callbackArgs){

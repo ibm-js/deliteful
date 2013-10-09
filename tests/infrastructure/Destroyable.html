@@ -9,7 +9,7 @@ require([
 	"doh/runner", "dojo/aspect", "dcl/dcl", "dojo/dom", "dojo/dom-construct", "dojo/on", "dojo/Stateful",
 	"dui/Destroyable", "dojo/domReady!"
 ], function(doh, aspect, dcl, dom, domConstruct, on, Stateful, Destroyable){
-	doh.register("Deferred", [
+	doh.register("Destroyable", [
 		function general(){
 			var SupportingWidget = dcl(null, {
 				destroyCalls: 0,

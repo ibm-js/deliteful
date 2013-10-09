@@ -24,10 +24,6 @@
 			var calls = 0;
 
 			TestWidget = register("test-widget", [HTMLElement, _WidgetBase], {
-				postMixInProperties: function(){
-					// make sure we can call set for parameters that don't touch the DOM
-					this.set("foo", "bar");
-				},
 				postCreate: function(){
 					// Rather odd call to this.own() for testing the connections are dropped on destroy()
 					this.own(aspect.after(obj, "foo", function(){

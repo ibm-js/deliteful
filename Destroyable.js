@@ -32,10 +32,7 @@ define([
 			//	|		var handle = this.own(on(...))[0];
 
 			array.forEach(arguments, function(handle){
-				var destroyMethodName =
-					"destroyRecursive" in handle ? "destroyRecursive" : // remove "destroyRecursive" for 2.0
-						"destroy" in handle ? "destroy" :
-							"remove";
+				var destroyMethodName = "destroy" in handle ? "destroy" : "remove";
 
 				// When this.destroy() is called, destroy handle.  Since I'm using aspect.before(),
 				// the handle will be destroyed before a subclass's destroy() method starts running.

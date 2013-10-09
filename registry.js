@@ -114,19 +114,12 @@ define([
 			// summary:
 			//		Code to destroy all widgets and do other cleanup on page unload
 
-			// Clean up focus manager lingering references to widgets and nodes
-			dui._curFocus = null;
-			dui._prevFocus = null;
-			dui._activeStack = [];
-
 			// Destroy all the widgets, top down
 			array.forEach(registry.findWidgets(win.body()), function(widget){
 				// Avoid double destroy of widgets like Menu that are attached to <body>
 				// even though they are logically children of other widgets.
 				if(!widget._destroyed){
-					if(widget.destroyRecursive){
-						widget.destroyRecursive();
-					}else if(widget.destroy){
+					if(widget.destroy){
 						widget.destroy();
 					}
 				}
@@ -147,8 +140,6 @@ define([
 			return null;
 		}
 	};
-
-	dijit.registry = registry;
 
 	return registry;
 });
