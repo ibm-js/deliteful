@@ -184,7 +184,20 @@ define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 			t.is(4, attr4.foo, "value set properly");
 			t.is(["bar", null, 3, "foo", null, 3, "foo", 3, 4, "bar", 3, 4], output);
 		},
+		function _get(t){
+			var output = [];
+			var StatefulClass5 = dcl(Stateful, {
+				foo: "",
+				_getFooAttr: function(value){
+					return this._get("foo")+"modified";
+				}
+			});
 
+			var attr5 = new StatefulClass5();
+			t.is("modified", attr5.foo, "value get properly");
+			attr5.foo = "further";
+			t.is("furthermodified", attr5.foo, "");
+		},
 		function moreCorrelatedProperties(){
 			var Widget = dcl(Stateful, {
 				foo: 10,
@@ -218,14 +231,14 @@ define(["doh/main", "../../Stateful", "dcl/dcl"], function(doh, Stateful, dcl){
 		//		2. prints _fooAttr shadow value that's supposed to be hidden
 		/*
 		function serialize(t){
-			var StatefulClass5 = dcl(Stateful, {
+			var StatefulClass6 = dcl(Stateful, {
 				foo: null,
 				_setFooAttr: function(value){
 					this._set("foo", value + "baz");
 				}
 			});
 
-			var obj = new StatefulClass5({
+			var obj = new StatefulClass6({
 				foo: "bar"
 			});
 
