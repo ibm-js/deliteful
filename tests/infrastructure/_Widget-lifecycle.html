@@ -10,9 +10,9 @@
 		require([
 			"doh/runner",
 			"dojo/aspect", "dojo/dom",
-			"dui/register", "dui/registry", "dui/_WidgetBase",
+			"dui/register", "dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, aspect, dom, register, registry, _WidgetBase){
+		], function(doh, aspect, dom, register, _WidgetBase){
 
 			var obj = {
 				foo: function(){
@@ -41,8 +41,6 @@
 						w = document.getElementById("w1");
 						register.upgrade(w);
 
-						doh.t(registry.byId("w1"), "widget in registry");
-
 						// test the connection
 						doh.is(0, calls, "foo() not called yet");
 						obj.foo();
@@ -54,7 +52,7 @@
 					runTest: function(t){
 						w.destroy();
 
-						doh.f(registry.byId("w1"), "widget no longer in registry");
+						doh.f(dom.byId("w1"), "widget no longer exists");
 
 						// test the connection was destroyed
 						calls = 0;
@@ -71,10 +69,7 @@
 						w = document.getElementById("w2");
 						register.upgrade(w);
 
-						doh.t(registry.byId("w2"), "widget in registry");
 						w.destroy(true);
-
-						doh.f(registry.byId("w2"), "widget no longer in registry");
 
 						// test the DOM node *wasn't* removed
 						doh.t(dom.byId("w2"), "DOM Node left");

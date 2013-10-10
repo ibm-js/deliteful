@@ -5,9 +5,8 @@ define([
 	"dojo/keys", // keys.END keys.HOME, keys.LEFT_ARROW etc.
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"./registry",
 	"./_FocusMixin"        // to make _onBlur() work
-], function(array, dcl, domAttr, keys, lang, on, registry, _FocusMixin){
+], function(array, dcl, domAttr, keys, lang, on, _FocusMixin){
 
 	// module:
 	//		dui/_KeyNavMixin
@@ -76,7 +75,8 @@ define([
 				on(this, "keydown", lang.hitch(this, "_onContainerKeydown")),
 				on(this, "focus", lang.hitch(this, "_onContainerFocus")),
 				on(this.containerNode, on.selector(childSelector, "focusin"), function(evt){
-					self._onChildFocus(registry.getEnclosingWidget(this), evt);
+					// "this" refers to the DOMNode where the event occurred
+					self._onChildFocus(self.getEnclosingWidget(this), evt);
 				})
 			);
 		},
@@ -444,11 +444,8 @@ define([
 
 			while(child){
 				child = child[dir < 0 ? "previousSibling" : "nextSibling"];
-				if(child  && "getAttribute" in child){
-					var w = registry.byNode(child);
-					if(w){
-						return w; // dui/_WidgetBase
-					}
+				if(child && child.hasAttribute && child.hasAttribute("widgetId")){
+					return w; // dui/_WidgetBase
 				}
 			}
 			return null;	// dui/_WidgetBase

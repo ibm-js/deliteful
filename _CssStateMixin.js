@@ -10,8 +10,8 @@ define([
 	"dojo/touch",
 	"dojo/_base/window", // win.body
 	"./a11yclick",
-	"./registry"
-], function(array, dcl, dom, domClass, has, lang, on, domReady, touch, win, a11yclick, registry){
+	"./_WidgetBase"
+], function(array, dcl, dom, domClass, has, lang, on, domReady, touch, win, a11yclick, _WidgetBase){
 
 	// module:
 	//		dui/_CssStateMixin
@@ -304,7 +304,7 @@ define([
 				// Process any nodes with _cssState property.   They are generally widget root nodes,
 				// but could also be sub-nodes within a widget
 				if(node._cssState){
-					var widget = registry.getEnclosingWidget(node);
+					var widget = _WidgetBase.prototype.getEnclosingWidget(node);
 					if(widget){
 						if(node == widget){
 							// event on the widget's root node
@@ -349,7 +349,7 @@ define([
 		on(body, "focusin, focusout", function(evt){
 			var node = evt.target;
 			if(node._cssState && !node.getAttribute("widgetId")){
-				var widget = registry.getEnclosingWidget(node);
+				var widget = _WidgetBase.prototype.getEnclosingWidget(node);
 				if(widget){
 					widget._subnodeCssMouseEvent(node, node._cssState, evt);
 				}

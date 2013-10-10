@@ -11,12 +11,11 @@ define([
 	"dojo/_base/lang", // lang.hitch lang.isFunction
 	"dojo/on",
 	"dojo/touch",
-	"./registry", // registry.byNode()
 	"./focus",
 	"./popup",
 	"./_FocusMixin"
 ], function(dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
-			registry, focus, popup, _FocusMixin){
+			focus, popup, _FocusMixin){
 
 	// module:
 	//		dui/_HasDropDown
@@ -160,12 +159,8 @@ define([
 						}
 					}
 					if(overMenu){
-						t = e.target;
 						if(dropDown.onItemClick){
-							var menuItem;
-							while(t && !(menuItem = registry.byNode(t))){
-								t = t.parentNode;
-							}
+							var menuItem = this.getEnclosingWidget(e.target);
 							if(menuItem && menuItem.onClick && menuItem.getParent){
 								menuItem.getParent().onItemClick(menuItem, e);
 							}

@@ -9,12 +9,12 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/_base/array", "dcl/dcl", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
-				"dui/focus", "dui/registry",
+				"dui/focus",
 				"dui/_WidgetBase", "dui/_FocusMixin",
 				"dojo/domReady!",
 				"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner","dui/form/ComboButton",
 				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
-			], function(doh, array, dcl, dom, on, parser, query, focus, registry, _WidgetBase, _FocusMixin){
+			], function(doh, array, dcl, dom, on, parser, query, focus, _WidgetBase, _FocusMixin){
 
 				FakeEditor = dcl([_WidgetBase, _FocusMixin], {
 					buildRendering: function(){
@@ -38,7 +38,7 @@
 					},
 					function listeners(){
 						array.forEach(["form", "fieldset1", "fieldset2", "select", "editor", "spinner"], function(id){
-							var w = registry.byId(id);
+							var w = dom.byId(id);
 
 							w.onFocus = function(){
 								focusEvents[id] = true;
@@ -165,7 +165,7 @@
 
 							// This onFocus() function from helpers.js would be useful here, except it
 							// defeats the purpose of the test by using dui/focus.
-							on.once(registry.byId("select").focusNode, "focus", function(){
+							on.once(dom.byId("select").focusNode, "focus", function(){
 								setTimeout(d.getTestCallback(function(){
 									// Focus goes to an <input> node deep inside of select.domNode,
 									// but that <input> node has the id of the widget
@@ -190,7 +190,7 @@
 									doh.is("focused", focusedWatchLog["select"], "select watch callback");
 								}), 100);
 							});
-							registry.byId("select").focus();
+							dom.byId("select").focus();
 
 							return d;
 						}
@@ -209,10 +209,10 @@
 								again = true;
 							});
 
-							registry.byId("select").focus();
+							dom.byId("select").focus();
 
-							on.emit(registry.byId("select").focusNode, "mousedown", {bubbles: true});
-							on.emit(registry.byId("select").focusNode, "mouseup", {bubbles: true});
+							on.emit(dom.byId("select").focusNode, "mousedown", {bubbles: true});
+							on.emit(dom.byId("select").focusNode, "mouseup", {bubbles: true});
 
 							setTimeout(d.getTestCallback(function(){
 								doh.f(again, "duplicate notification about activeStack");
@@ -230,7 +230,7 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							registry.byId("editor").focus();
+							dom.byId("editor").focus();
 
 							setTimeout(d.getTestCallback(function(){
 								// The focus stack should show the Editor plus all parent widgets
@@ -338,7 +338,7 @@
 						runTest: function(){
 							var d = new doh.Deferred();
 
-							var button = registry.byId('button').focusNode;
+							var button = dom.byId('button').focusNode;
 							doh.t(button, "found drop down button");
 
 							doh.robot.mouseMoveAt(button);

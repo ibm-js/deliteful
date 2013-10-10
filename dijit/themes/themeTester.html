@@ -240,20 +240,12 @@
 			}
 		};
 
-		logWidgets = function(){
-			// summary:
-			//		Print all the widgets to console
-			console.log("Widgets in registry:");
-			registry.forEach(function(w){
-				console.log(w);
-			});
-		};
-
 		tearDown = function(){
 			// summary:
 			//		Destroy all widgets, top down, and then check for any orphaned widgets
-			registry._destroyAll();
-			logWidgets();
+			require("dui/_WidgetBase").prototype.findWidgets(document.body).forEach(function(w){
+				w.destroy();
+			});
 		};
 
 		// Data for Tree, ComboBox, InlineEditBox
@@ -493,7 +485,6 @@
 		<div data-dojo-type="dui/Menu" id="fileMenu">
 			<div data-dojo-type="dui/MenuItem" id="globals" data-dojo-props="onClick: logStrayGlobals">Log globals
 			</div>
-			<div data-dojo-type="dui/MenuItem" id="widgets" data-dojo-props="onClick: logWidgets">Log widgets</div>
 			<div data-dojo-type="dui/MenuItem" id="destroy"
 				 data-dojo-props="iconClass:'duiIconDelete', onClick:tearDown">Destroy All
 			</div>

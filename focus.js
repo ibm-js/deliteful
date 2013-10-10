@@ -1,8 +1,8 @@
 define([
 	"dojo/aspect",
 	"dcl/dcl",
-	"dojo/dom", // domAttr.get dom.isDescendant
-	"dojo/dom-attr", // domAttr.get dom.isDescendant
+	"dojo/dom", // dom.byId dom.isDescendant
+	"dojo/dom-attr", // domAttr.get
 	"dojo/dom-class",
 	"dojo/dom-construct", // connect to domConstruct.empty, domConstruct.destroy
 	"dojo/Evented",
@@ -12,10 +12,9 @@ define([
 	"dojo/Stateful",
 	"dojo/_base/window", // win.body
 	"dojo/window", // winUtils.get
-	"./a11y",	// a11y.isTabNavigable
-	"./registry"	// registry.byId
+	"./a11y"	// a11y.isTabNavigable
 ], function(aspect, dcl, dom, domAttr, domClass, domConstruct, Evented, lang, on, domReady, Stateful, win, winUtils,
-			a11y, registry){
+			a11y){
 
 	// module:
 	//		dui/focus
@@ -216,7 +215,7 @@ define([
 				while(node){
 					var popupParent = domAttr.get(node, "duiPopupParent");
 					if(popupParent){
-						node = registry.byId(popupParent);
+						node = dom.byId(popupParent);
 					}else if(node.tagName && node.tagName.toLowerCase() == "body"){
 						// is this the root of the document or just the root of an iframe?
 						if(node === win.body()){
@@ -230,12 +229,11 @@ define([
 						// if this node is the root node of a widget, then add widget id to stack,
 						// except ignore clicks on disabled widgets (actually focusing a disabled widget still works,
 						// to support MenuItem)
-						var id = node.getAttribute && node.getAttribute("widgetId"),
-							widget = id && registry.byId(id);
-						if(widget && !(by == "mouse" && widget.disabled)){
+						var id = node.getAttribute && node.getAttribute("widgetId");
+						if(id && !(by == "mouse" && node.disabled)){
 							newStack.unshift(id);
 						}
-						node=node.parentNode;
+						node = node.parentNode;
 					}
 				}
 			}catch(e){ /* squelch */ }
@@ -293,7 +291,7 @@ define([
 
 			// for all elements that have gone out of focus, set focused=false
 			for(i = lastOldIdx; i >= 0 && oldStack[i] != newStack[i]; i--){
-				widget = registry.byId(oldStack[i]);
+				widget = dom.byId(oldStack[i]);
 				if(widget){
 					widget._hasBeenBlurred = true;		// TODO: used by form widgets, should be moved there
 					widget.focused = false;
@@ -306,7 +304,7 @@ define([
 
 			// for all element that have come into focus, set focused=true
 			for(i++; i <= lastNewIdx; i++){
-				widget = registry.byId(newStack[i]);
+				widget = dom.byId(newStack[i]);
 				if(widget){
 					widget.focused = true;
 					if(widget._focusManager == this){

@@ -7,7 +7,6 @@ define([
 ], function(doh, require){
 
 	// Utility methods (previously in dui/_base)
-	doh.register("registry", require.toUrl("./registry.html"), 999999);
 	doh.register("focus", require.toUrl("./focus.html"), 999999);
 	doh.register("place", require.toUrl("./place.html"), 999999);
 	doh.register("place-margin", require.toUrl("./place-margin.html"), 999999);
@@ -22,6 +21,7 @@ define([
 	doh.register("_Widget-lifecycle", require.toUrl("./_Widget-lifecycle.html"), 999999);
 	doh.register("_Widget-attr", require.toUrl("./_Widget-attr.html"), 999999);
 	doh.register("_Widget-placeAt", require.toUrl("./_Widget-placeAt.html"), 999999);
+	doh.register("_Widget-utility", require.toUrl("./_Widget-utility.html"), 999999);
 	doh.register("robot._Widget-on", require.toUrl("./_Widget-on.html"), 999999);
 
 	// Mixins

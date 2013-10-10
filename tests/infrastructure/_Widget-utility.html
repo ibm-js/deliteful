@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>dui/_WidgetBase Utility Functions Unit Test</title>
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"doh/runner",
+			"dojo/dom", "dojo/parser", "dojo/_base/window",
+			"dui/register", "dui/_WidgetBase",
+			"dojo/domReady!"
+		], function(doh, dom, parser, win, register, _WidgetBase){
+
+			register("dui-foo", [HTMLElement, _WidgetBase], {
+				name: "",
+				attr1: 0,
+				attr2: 0
+			});
+
+			register("dui-bar", [HTMLElement, _WidgetBase], {
+				name: "",
+				attr1: 0,
+				attr2: 0
+			});
+
+			register("dui-baz", [HTMLElement, _WidgetBase], {
+				name: "",
+				attr1: 1,
+				attr2: 1
+			});
+
+			doh.register("parse", function(){
+				register.parse();
+			});
+
+			doh.register("util", [
+				function getEnclosingWidget(){
+					doh.is(null, _WidgetBase.prototype.getEnclosingWidget(dom.byId("not-a-widget")), "not-a-widget");
+					doh.is("your", _WidgetBase.prototype.getEnclosingWidget(dom.byId("three")).name, "three");
+					doh.is("your", _WidgetBase.prototype.getEnclosingWidget(dom.byId("three.one")).name, "three.one");
+					doh.is("your", _WidgetBase.prototype.getEnclosingWidget(dom.byId("three.one.one")).name, "three.one.one");
+				},
+				function findWidgets(){
+					doh.is(3, _WidgetBase.prototype.findWidgets(win.body()).length);
+					doh.is(1, _WidgetBase.prototype.findWidgets(dom.byId("threeWrapper")).length);
+				}
+			]);
+
+			doh.run();
+		});
+
+	</script>
+</head>
+<body>
+	<h1>dui/_WidgetBase Utility Functions Unit Test</h1>
+	<dui-foo id="one" name="bob" attr1=10 attr2=10></dui-foo>
+	<dui-foo id="two" name="is" attr1=5 attr2=10></dui-foo>
+	<div id="threeWrapper">
+		<dui-bar id="three" name="your" attr1=5 attr2=5>
+			<div id="three.one">
+				<div id="three.one.one"></div>
+				<dui-bar id="four" name="uncle" attr1=10 attr2=5></dui-bar>
+			</div>
+		</dui-bar>
+	</div>
+	<div id="not-a-widget"></div>
+</body>
+</html>

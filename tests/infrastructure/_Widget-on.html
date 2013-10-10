@@ -7,9 +7,9 @@
 	<script>
 		require([
 			"doh/runner",
-			"dojo/has", "dojo/_base/lang", "dojo/on", "dojo/touch",
-			"dui/register", "dui/registry", "dui/_WidgetBase", "dojo/domReady!"
-		], function(doh, has, lang, on, touch, register, registry, _WidgetBase){
+			"dojo/dom", "dojo/has", "dojo/_base/lang", "dojo/on", "dojo/touch",
+			"dui/register", "dui/_WidgetBase", "dojo/domReady!"
+		], function(doh, dom, has, lang, on, touch, register, _WidgetBase){
 
 			var mousedOver, clicked;
 
@@ -33,21 +33,21 @@
 				function connect(){
 					// This should work despite the fact that the function onMouseOver has
 					// multiple capital letters
-					registry.byId("myWidget").on("mouseover", function(){
+					dom.byId("myWidget").on("mouseover", function(){
 						mousedOver = true;
 						console.log("mouseover event");
 					});
 
 					// Likewise, this should work despite the fact that the function onFooBar has
 					// multiple capital letters
-					registry.byId("myWidget").on("foobar", function(){
+					dom.byId("myWidget").on("foobar", function(){
 						clicked = true;
 						console.log("click event");
 					});
 				},
 
 				function test(){
-					var myWidget = registry.byId("myWidget");
+					var myWidget = dom.byId("myWidget");
 
 					// Test that _WidgetBase.on() catches click event
 					doh.f(clicked, "clicked");
@@ -71,7 +71,7 @@
 				function synthetic(){
 					// Test that on() works for synthetic events
 
-					var myWidget = registry.byId("myWidget"),
+					var myWidget = dom.byId("myWidget"),
 						touched;
 
 					myWidget.on(touch.press, function(){

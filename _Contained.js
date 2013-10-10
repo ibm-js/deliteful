@@ -1,7 +1,6 @@
 define([
-	"dcl/dcl",
-	"./registry"	// registry.getEnclosingWidget(), registry.byNode()
-], function(dcl, registry){
+	"dcl/dcl"
+], function(dcl){
 
 	// module:
 	//		dui/_Contained
@@ -24,7 +23,7 @@ define([
 			do{
 				node = node[which+"Sibling"];
 			}while(node && node.nodeType != 1);
-			return node && registry.byNode(node);	// dui/_WidgetBase
+			return node;	// Element
 		},
 
 		getPreviousSibling: function(){
@@ -32,7 +31,7 @@ define([
 			//		Returns null if this is the first child of the parent,
 			//		otherwise returns the next element sibling to the "left".
 
-			return this._getSibling("previous"); // dui/_WidgetBase
+			return this._getSibling("previous"); // Element
 		},
 
 		getNextSibling: function(){
@@ -40,7 +39,7 @@ define([
 			//		Returns null if this is the last child of the parent,
 			//		otherwise returns the next element sibling to the "right".
 
-			return this._getSibling("next"); // dui/_WidgetBase
+			return this._getSibling("next"); // Element
 		},
 
 		getIndexInParent: function(){

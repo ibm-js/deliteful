@@ -40,10 +40,10 @@
 			"doh/runner",
 			"dojo/dom", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/_base/lang",
 			"dojo/on", "dojo/query", "dojo/sniff", "dojo/_base/window", "dojo/window",
-			"dui/popup", "dui/register", "dui/registry", "dui/_WidgetBase",
+			"dui/popup", "dui/register", "dui/_WidgetBase",
 			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, dom, domConstruct, domGeometry, domStyle, lang, on, query, has, win, winUtils,
-					popupUtil, register, registry, _WidgetBase, helpers){
+					popupUtil, register, _WidgetBase, helpers){
 
 			SimpleDropDownButton = register("simple-dropdown-button", [HTMLButtonElement, _WidgetBase], {
 				// summary:
@@ -336,8 +336,8 @@
 			doh.register("API", [
 				function repeatMoveOffScreen(){
 					// Previously, calling moveOffScreen twice would cause an exception
-					popupUtil.moveOffScreen(registry.byId("spw"));
-					popupUtil.moveOffScreen(registry.byId("spw"));
+					popupUtil.moveOffScreen(dom.byId("spw"));
+					popupUtil.moveOffScreen(dom.byId("spw"));
 				}
 			]);
 

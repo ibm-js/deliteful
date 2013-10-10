@@ -23,13 +23,12 @@
 			"dojo/dom-style",
 			"dojo/dom-geometry",
 			"dojo/dom-form",
-			"dui/registry",
 			"dojo/parser",
 			"dui/Rule",
 			"dui/mobile/compat",
 			"dui/Slider",
 			"dojo/domReady!"
-		], function(doh, has, on, keys, win, dom, domStyle, domGeometry, domForm, registry, parser){
+		], function(doh, has, on, keys, win, dom, domStyle, domGeometry, domForm, parser){
 
 			defaultSubmitHandler = function(values){
 				for(var i in values){ console.debug(i + ' = ' + values[i]); }
@@ -39,15 +38,15 @@
 			parser.parse();
 
 			var form = dom.byId("myForm");
-			var Ltr2 = registry.byId("Ltr2");
-			var customH = registry.byId("customH");
-			var Rtl1 = registry.byId("Rtl1");
-			var Btt1 = registry.byId("Btt1");
-			var customV = registry.byId("customV");
-			var Ltr1 = registry.byId("Ltr1");
-			var a11yRtl1 = registry.byId("a11yRtl1");
-			var Btt2 = registry.byId("Btt2");
-			var a11yTtb2 = registry.byId("a11yTtb2");
+			var Ltr2 = dom.byId("Ltr2");
+			var customH = dom.byId("customH");
+			var Rtl1 = dom.byId("Rtl1");
+			var Btt1 = dom.byId("Btt1");
+			var customV = dom.byId("customV");
+			var Ltr1 = dom.byId("Ltr1");
+			var a11yRtl1 = dom.byId("a11yRtl1");
+			var Btt2 = dom.byId("Btt2");
+			var a11yTtb2 = dom.byId("a11yTtb2");
 
 			var hasTouch = has("touch");
 			var msPointer = navigator.msPointerEnabled;

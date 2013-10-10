@@ -105,22 +105,19 @@ return {
 
 	waitForLoad: function(){
 		// summary:
-		//		Returns Promise that fires when all widgets have finished initializing
+		//		Returns Promise that fires when all widgets have finished initializing.
+		//		Call this after the parser has finished running.
 
 		var d = new Deferred();
 
-		dojo.global.require(["dojo/ready", "dui/registry"], function(ready, registry){
-			ready(function(){
-				// Deferred fires when all widgets with an onLoadDeferred have fired
-				var widgets = registry.toArray().filter(function(w){ return w.onLoadDeferred; }),
-					deferreds = array.map(widgets, function(w){ return w.onLoadDeferred; });
-				console.log("Waiting for " + widgets.length + " widgets: " +
-					array.map(widgets, function(w){ return w.id; }).join(", "));
-				new all(deferreds).then(function(){
-					console.log("All widgets loaded.");
-					d.resolve(widgets);
-				});
-			});
+		// Deferred fires when all widgets with an onLoadDeferred have fired
+		var widgets = query("[widgetId]").filter(function(w){ return w.onLoadDeferred; }),
+			deferreds = widgets.map(function(w){ return w.onLoadDeferred; });
+		console.log("Waiting for " + widgets.length + " widgets: " +
+			array.map(widgets, function(w){ return w.id; }).join(", "));
+		new all(deferreds).then(function(){
+			console.log("All widgets loaded.");
+			d.resolve(widgets);
 		});
 
 		return d.promise;

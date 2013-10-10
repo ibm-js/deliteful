@@ -18,11 +18,10 @@ define([
 	"dojo/_base/window", // win.body()
 	"./Destroyable",
 	"./Stateful",
-	"dojo/has!dojo-bidi?./_BidiMixin",
-	"./registry"    // registry.getUniqueId(), registry.findWidgets()
+	"dojo/has!dojo-bidi?./_BidiMixin"
 ], function(require, dcl, array, aspect, config, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
-			lang, on, win, Destroyable, Stateful, _BidiMixin, registry){
+			lang, on, win, Destroyable, Stateful, _BidiMixin){
 
 	// module:
 	//		dui/_WidgetBase
@@ -143,6 +142,21 @@ define([
 		}else{
 			return genSimpleSetter(commands);
 		}
+	}
+
+	var _widgetTypeCtr = {};
+	function getUniqueId(/*String*/ tag){
+		// summary:
+		//		Generates a unique id for a given widget type.
+		//		Note: doesn't work for multi-document case.
+
+		var id;
+		do{
+			id = tag + "-" +
+				(tag in _widgetTypeCtr ?
+					++_widgetTypeCtr[tag] : _widgetTypeCtr[tag] = 0);
+		}while(dom.byId(tag));
+		return id; // String
 	}
 
 	var _WidgetBase = dcl([Stateful, Destroyable], {
@@ -296,16 +310,13 @@ define([
 			// Do this before buildRendering() because it might expect the id to be there.
 			// TODO: this will be problematic for form widgets that want to put the id on the nested <input>
 			if(!this.id){
-				this.id = registry.getUniqueId(this.declaredClass.replace(/\./g, "_"));
+				this.id = getUniqueId(this.tag);
 			}
-			this.setAttribute("widgetId", this.id);	// needed by registry.findWidgets()
+			this.setAttribute("widgetId", this.id);	// needed by findWidgets(), getEnclosingWidget(), etc.
 
 			// The document and <body> node this widget is associated with
 			this.ownerDocument = this.ownerDocument || (this.srcNodeRef ? this.srcNodeRef.ownerDocument : document);
 			this.ownerDocumentBody = win.body(this.ownerDocument);
-
-			// TODO: remove registry completely
-			registry.add(this);
 
 			// Render the widget
 			this.buildRendering();
@@ -459,7 +470,7 @@ define([
 			this._beingDestroyed = true;
 
 			// Destroy child widgets
-			registry.findWidgets(this).forEach(function(w){
+			this.findWidgets(this).forEach(function(w){
 				if(w.destroy){
 					w.destroy();
 				}
@@ -467,7 +478,6 @@ define([
 
 			// Destroy this widget
 			this.destroyRendering(preserveDom);
-			registry.remove(this.id);
 			this._destroyed = true;
 		},
 
@@ -585,18 +595,15 @@ define([
 			//
 			//		The result intentionally excludes internally created widgets (a.k.a. supporting widgets)
 			//		outside of this.containerNode.
-			//
-			//		Note that the array returned is a simple array.  Application code should not assume
-			//		existence of methods like forEach().
 
-			return this.containerNode ? registry.findWidgets(this.containerNode) : []; // dui/_WidgetBase[]
+			return this.containerNode ? this.findWidgets(this.containerNode) : []; // dui/_WidgetBase[]
 		},
 
 		getParent: function(){
 			// summary:
 			//		Returns the parent widget of this widget.
 
-			return registry.getEnclosingWidget(this.parentNode);
+			return this.getEnclosingWidget(this.parentNode);
 		},
 
 		isLeftToRight: function(){
@@ -614,7 +621,7 @@ define([
 			return this.focus && (domStyle.get(this, "display") != "none");
 		},
 
-		placeAt: function(/* String|DomNode|_Widget */ reference, /* String|Int? */ position){
+		placeAt: function(/* String|DomNode|_WidgetBase */ reference, /* String|Int? */ position){
 			// summary:
 			//		Place this widget somewhere in the DOM based
 			//		on standard domConstruct.place() conventions.
@@ -652,17 +659,18 @@ define([
 			//	|	var tc = dui.byId("myTabs");
 			//	|	new ContentPane({ href:"foo.html", title:"Wow!" }).placeAt(tc)
 
-			var refWidget = !reference.tagName && registry.byId(reference);
-			if(refWidget && refWidget.addChild && (!position || typeof position === "number")){
-				// Adding this to refWidget and can use refWidget.addChild() to handle everything.
-				refWidget.addChild(this, position);
+			reference = dom.byId(reference);
+
+			if(reference && reference.addChild && (!position || typeof position === "number")){
+				// Use addChild() if available because it skips over text nodes and comments.
+				reference.addChild(this, position);
 			}else{
 				// "reference" is a plain DOMNode, or we can't use refWidget.addChild().   Use domConstruct.place() and
 				// target refWidget.containerNode for nested placement (position==number, "first", "last", "only"), and
-				// refWidget otherwise ("after"/"before"/"replace").  (But not supported officially, see #14946.)
-				var ref = refWidget ?
-					(refWidget.containerNode && !/after|before|replace/.test(position || "") ?
-						refWidget.containerNode : refWidget) : dom.byId(reference, this.ownerDocument);
+				// refWidget otherwise ("after"/"before"/"replace").
+				var ref = reference ?
+					(reference.containerNode && !/after|before|replace/.test(position || "") ?
+						reference.containerNode : reference) : dom.byId(reference, this.ownerDocument);
 				domConstruct.place(this, ref, position);
 
 				// Start this iff it has a parent widget that's already started.
@@ -713,6 +721,45 @@ define([
 			this._afterRender.then(lang.hitch(this, callback));
 		},
 
+		// Utility functions previously in registry.js
+
+		findWidgets: function(root){
+			// summary:
+			//		Search subtree under root returning widgets found.
+			//		Doesn't search for nested widgets (ie: widgets inside other widgets).
+			// root: DOMNode
+			//		Node to search under.
+
+			var outAry = [];
+
+			function getChildrenHelper(root){
+				for(var node = root.firstChild; node; node = node.nextSibling){
+					if(node.nodeType == 1 && node.hasAttribute("widgetId")){
+						outAry.push(node);
+					}else{
+						getChildrenHelper(node);
+					}
+				}
+			}
+
+			getChildrenHelper(root || document.body);
+			return outAry;
+		},
+
+		getEnclosingWidget: function(/*DOMNode*/ node){
+			// summary:
+			//		Returns the widget whose DOM tree contains the specified DOMNode, or null if
+			//		the node is not contained within the DOM tree of any widget
+			do{
+				if(node.nodeType == 1 && node.hasAttribute("widgetId")){
+					return node;
+				}
+			}while(node = node.parentNode);
+			return null;
+		},
+
+		// Focus related methods.   Used by focus.js and _FocusMixin but listed here
+		// so they become part of every widget.
 		onFocus: function(){
 			// summary:
 			//		Called when the widget becomes "active" because
