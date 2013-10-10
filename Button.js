@@ -57,7 +57,7 @@ define([
 			this.innerHTML = "";
 
 			this.focusNode = this;
-			this.refreshRendering();
+			this.invalidateRendering("label");	// because _InvalidateRendering hasn't setup it's listener yet
 		},
 
 		refreshRendering: function(){

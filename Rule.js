@@ -45,7 +45,7 @@ define([
 		//		The value can inherit from a Slider parent widget during startup().
 		orientation: "H",
 
-		constructor: function(){
+		preCreate: function(){
 			this.labels = [];
 		},
 
