@@ -444,7 +444,7 @@ define([
 
 			while(child){
 				child = child[dir < 0 ? "previousSibling" : "nextSibling"];
-				if(child && child.hasAttribute && child.hasAttribute("widgetId")){
+				if(child && child.hasAttribute && child.buildRendering){
 					return w; // dui/_WidgetBase
 				}
 			}

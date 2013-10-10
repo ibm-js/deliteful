@@ -6,7 +6,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 			name: "Simple",
 			runTest: function(t){
 				var C = register("test-invalidating", [HTMLElement, _WidgetBase, _Invalidating], {
-					postCreate: function(){
+					preCreate: function(){
 						this.addInvalidatingProperties("a");
 						this.addInvalidatingProperties("b");
 					},

@@ -102,16 +102,6 @@
 				doh.is(false, fooSetterCalled, "fooSetterCalled");
 			});
 
-			doh.register("tweaking params in postMixInProperties", function(){
-				// Tests that property changes in postMixInProperties() are not lost (#16080)
-				var Test = register("lifecycle-test", [HTMLElement, _WidgetBase], {
-					foo: "bar",
-					postMixInProperties: function(){ this.foo = "baz"; }
-				});
-				var t = new Test({ foo: "blah" });
-				doh.is("baz", t.foo);
-			});
-
 			doh.run();
 		});
 

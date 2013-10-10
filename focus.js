@@ -229,7 +229,7 @@ define([
 						// if this node is the root node of a widget, then add widget id to stack,
 						// except ignore clicks on disabled widgets (actually focusing a disabled widget still works,
 						// to support MenuItem)
-						var id = node.getAttribute && node.getAttribute("widgetId");
+						var id = node.buildRendering && node.id;
 						if(id && !(by == "mouse" && node.disabled)){
 							newStack.unshift(id);
 						}

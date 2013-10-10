@@ -8,8 +8,8 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		//		dojo/Stateful and dojo/Evented or dui/_WidgetBase.
 		
 		// _invalidatingProperties: String[]
-		//		The list of properties to watch for to trigger invalidation. This list must be initialized in the
-		//		constructor. Default value is null.
+		//		The list of properties to watch for to trigger invalidation. This list must be initialized
+		//		by the time buildRendering() completes, usually in preCreate(). Default value is null.
 		_invalidatingProperties: null,
 		// invalidatedProperties: Object
 		//		A hash of invalidated properties.
@@ -19,7 +19,10 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		//		invalidateRendering to modify this flag. 
 		invalidRendering: false,
 
-		createdCallback: dcl.after(function(){
+		// Listen for any changes to properties after the widget has been rendered,
+		// including when declarative properties (ex: iconClass=xyz) are applied at
+		// end of _WidgetBase.createdCallback().
+		buildRendering: dcl.after(function(){
 			// tags:
 			//		protected
 			if(this._invalidatingProperties){
@@ -38,7 +41,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		addInvalidatingProperties: function(){
 			// summary:
 			//		Add the properties listed as parameters to the watched properties to trigger invalidation. This method
-			// 		must be called during the startup lifecycle, before createdCallback() completes.
+			// 		must be called during the startup lifecycle, before buildRendering() completes.
 			//		It is typically used by subclasses of a _Invalidating class to
 			// 		add more properties	to watch for.
 			// tags:
@@ -48,7 +51,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 		},
 		invalidateRendering: function(name){
 			// summary:
-			//		Invalidating the rendering for the next executation frame.
+			//		Invalidating the rendering for the next execution frame.
 			// tags:
 			//		protected
 			if(!this.invalidatedProperties[name]){

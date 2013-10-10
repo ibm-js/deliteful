@@ -69,6 +69,14 @@ define([
 		//		Set this value to 0 to forbid the user from setting the value to zero during edition. Setting this attribute to a negative
 		//		value is not supported.
 		zeroAreaWidth: -1,
+		_setZeroAreaWidthAttr: function(/*Number*/value){
+			this._set("zeroAreaWidth", value);
+			this.style.paddingLeft = this.zeroAreaWidth + "px";
+		},
+		_getZeroAreaWidthAttr: function(){
+			var val = this._get("zeroAreaWidth");
+			return val == -1 ? (this.editable ? 20 : 0) : val;
+		},
 
 		/* internal properties */
 
@@ -80,12 +88,6 @@ define([
 		_keyDownHandler: null,
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
-
-		postMixInProperties: function(){
-			if(this.zeroAreaWidth == -1){
-				this.zeroAreaWidth = this.editable ? 20 : 0;
-			}
-		},
 
 		buildRendering: function(){
 			this.style.display = "inline-block";
@@ -235,44 +237,34 @@ define([
 			// tags:
 			//		private
 			this._set("value", value);
-			this.runAfterRender(function(){
-				var createChildren = this.children.length != this.maximum;
-				if(createChildren){
-					domConstruct.empty(this);
-				}
-				this._updateStars(value, createChildren);
-				this.setAttribute('aria-valuenow', this.value);
-				this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
-			});
+			var createChildren = this.children.length != this.maximum;
+			if(createChildren){
+				domConstruct.empty(this);
+			}
+			this._updateStars(value, createChildren);
+			this.setAttribute('aria-valuenow', this.value);
+			this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 		},
 
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
-			this.runAfterRender(function(){
-				if(this.editable && !this._keyDownHandler){
-					this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
-				}else if(!this.editable && this._keyDownHandler){
-					this._keyDownHandler.remove();
-					this._keyDownHandler = null;
+			if(this.editable && !this._keyDownHandler){
+				this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
+			}else if(!this.editable && this._keyDownHandler){
+				this._keyDownHandler.remove();
+				this._keyDownHandler = null;
+			}
+			this.setAttribute('aria-disabled', !this.editable);
+			if(this.editable && !this._startHandlers){
+				this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
+									   this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
+			}else if(!this.editable && this._startHandlers){
+				while(this._startHandlers.length){
+					this._startHandlers.pop().remove();
 				}
-				this.setAttribute('aria-disabled', !this.editable);
-				if(this.editable && !this._startHandlers){
-					this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
-										   this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
-				}else if(!this.editable && this._startHandlers){
-					while(this._startHandlers.length){
-						this._startHandlers.pop().remove();
-					}
-					this._startHandlers = null;
-				}
-			});
-		},
-
-		_setZeroAreaWidthAttr: function(/*Number*/value){
-			this._set("zeroAreaWidth", value);
-			this.runAfterRender(function(){
-				this.style.paddingLeft = this.zeroAreaWidth + "px";
-			});
+				this._startHandlers = null;
+			}
+			this._startHandlers = null;
 		},
 
 		_updateStars: function(/*Number*/value, /*Boolean*/create){

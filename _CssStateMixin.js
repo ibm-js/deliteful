@@ -348,7 +348,7 @@ define([
 		// Remove for 2.0 (if focus CSS needed, just use :focus pseudo-selector).
 		on(body, "focusin, focusout", function(evt){
 			var node = evt.target;
-			if(node._cssState && !node.getAttribute("widgetId")){
+			if(node._cssState && !node.buildRendering){
 				var widget = _WidgetBase.prototype.getEnclosingWidget(node);
 				if(widget){
 					widget._subnodeCssMouseEvent(node, node._cssState, evt);

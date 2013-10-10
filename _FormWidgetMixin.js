@@ -73,36 +73,34 @@ the domnode's disabled property.
 		// TODO: trim or remove this function
 		_setDisabledAttr: function(/#Boolean#/ value){
 			this._set("disabled", value);
-			this.runAfterRender(function(){
-				domAttr.set(this.focusNode, 'disabled', value);
-				if(this.valueNode){
-					domAttr.set(this.valueNode, 'disabled', value);
-				}
-				this.focusNode.setAttribute("aria-disabled", value ? "true" : "false");
+			domAttr.set(this.focusNode, 'disabled', value);
+			if(this.valueNode){
+				domAttr.set(this.valueNode, 'disabled', value);
+			}
+			this.focusNode.setAttribute("aria-disabled", value ? "true" : "false");
 
-				if(value){
-					// reset these, because after the domNode is disabled, we can no longer receive
-					// mouse related events, see #4200
-					this._set("hovering", false);
-					this._set("active", false);
+			if(value){
+				// reset these, because after the domNode is disabled, we can no longer receive
+				// mouse related events, see #4200
+				this._set("hovering", false);
+				this._set("active", false);
 
-					// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
-					var attachPointNames = this.focusNode ? ["focusNode"] : [];
-					array.forEach(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames], function(attachPointName){
-						var node = this[attachPointName];
-						// complex code because tabIndex=-1 on a <div> doesn't work on FF
-						if(has("webkit") || a11y.hasDefaultTabStop(node)){    // see #11064 about webkit bug
-							node.setAttribute('tabIndex', "-1");
-						}else{
-							node.removeAttribute('tabIndex');
-						}
-					}, this);
-				}else{
-					if(this.tabIndex != ""){
-						this.tabIndex = this.tabIndex;
+				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
+				var attachPointNames = this.focusNode ? ["focusNode"] : [];
+				array.forEach(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames], function(attachPointName){
+					var node = this[attachPointName];
+					// complex code because tabIndex=-1 on a <div> doesn't work on FF
+					if(has("webkit") || a11y.hasDefaultTabStop(node)){    // see #11064 about webkit bug
+						node.setAttribute('tabIndex', "-1");
+					}else{
+						node.removeAttribute('tabIndex');
 					}
+				}, this);
+			}else{
+				if(this.tabIndex != ""){
+					this.tabIndex = this.tabIndex;
 				}
-			});
+			}
 		},
 ****/
 

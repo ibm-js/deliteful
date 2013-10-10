@@ -16,7 +16,7 @@
 2. `this.srcNodeRef` and `this.domNode` both replaced by `this`; for example `this.className = "myButton"`
 3. `create()` renamed to `createdCallback()`
 4. `constructor()` and `postscript()` no longer run; move custom code from constructor
-	to `createdCallback()` as advice: `register.before(function(){  ... })`.
+	to `preCreate()`.
 5. The `buildRendering()` method must not try to create the root DOMNode.  It already exists.
    It should just set attributes on the root node, and create subnodes and/or text inside it.
 6. `_TemplatedMixin` is replaced by the [handlebars!](handlebars.md) plugin, see that page for details.

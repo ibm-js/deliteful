@@ -39,10 +39,9 @@ define([
 	 * Create an Element.  Equivalent to document.createElement(), but if tag is the name of a widget defined by
 	 * register(), then it upgrades the Element to be a widget.
 	 * @param {String} tag
-	 * @param {Object?} params
 	 * @returns {Element} The DOMNode
 	 */
-	function createElement(tag, params){
+	function createElement(tag){
 		// TODO: support custom document
 		var base = registry[tag] ? registry[tag].extends : null,
 			element = doc.createElement(base || tag);
@@ -50,11 +49,6 @@ define([
 			element.setAttribute('is', tag);
 		}
 
-		// TODO: Next two steps are meaningless if browser supports document.register(); in that
-		// case the DOMNode has already automatically been upgraded.   But in that case, the params will be lost.
-		// We should probably set them after the element has been created, except that doesn't work for
-		// const parameters, ao
-		element.params = params;
 		upgrade(element);
 
 		return element;
@@ -239,20 +233,28 @@ define([
 			// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
 
 			// Create a constructor method to return a DOMNode representing this widget.
-			// TODO: argument to specify non-default document, and also initialization parameters.
+			// TODO: argument to specify non-default document
 			tagConstructor = function(params, srcNodeRef){
+				// Create new widget node or upgrade existing node to widget
+				var node;
 				if(srcNodeRef){
-					// TODO: This is meaningless if browser supports document.register(); in that
-					// case the DOMNode has already automatically been upgraded.   But in that case, the params will be lost.
-					// We should probably set them after the element has been created, except that doesn't work for
-					// const parameters.
-					srcNodeRef = typeof srcNodeRef == "string" ? document.getElementById(srcNodeRef) : srcNodeRef;
-					srcNodeRef.params = params;
-					upgrade(srcNodeRef);
-					return srcNodeRef;
+					node = typeof srcNodeRef == "string" ? document.getElementById(srcNodeRef) : srcNodeRef;
+					upgrade(node);
 				}else{
-					return createElement(tag, params);
+					node = createElement(tag);
 				}
+
+				// Set parameters on node
+				for(var name in params || {}){
+					if(!(name in node) && /^on[A-Z]/.test(name) && node.on){
+						// convert parameters like onMouseMove to on() calls
+						node.on(name.substring(2).toLowerCase(), params[name]);
+					}else{
+						node[name] = params[name];
+					}
+				}
+
+				return node;
 			};
 		}
 
