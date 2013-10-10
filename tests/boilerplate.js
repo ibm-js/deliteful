@@ -93,7 +93,7 @@ require = {
 };
 
 // Output the boilerplate text to load the loader.
-document.write('<script type="text/javascript" src="' + testDir + '../../dojo/requirejs/require.js"></script>');
+document.write('<script type="text/javascript" src="' + testDir + '../../requirejs/require.js"></script>');
 
 // On IE9 the following inlined script will run before dojo has finished loading, leading to an error because require()
 // isn't defined yet.  Workaround it by putting the code in a separate file.

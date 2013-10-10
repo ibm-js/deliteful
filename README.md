@@ -34,15 +34,17 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 This project requires the following other projects to run:
  * dojo
  * dcl    (git clone https://github.com/uhop/dcl.git)
+ * requirejs (git clone https://github.com/jrburke/requirejs.git)
 
 ## Installation
 
-* Manual installation by dropping dui as a sibling of the top level modules:
+* Manual installation by dropping dui as a sibling of the top level packages:
  * dojo
  * dui
  * dcl
+ * requirejs
 
- To install the latest master, go to the root Dojo installation directory and clone dui from github
+To install the latest master, go to the root Dojo installation directory and clone dui from github
 
  git clone git://github.com/ibm-dojo/dui.git
 
