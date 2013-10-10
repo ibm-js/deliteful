@@ -346,6 +346,8 @@ define([
 		while(node = nodes[idx++]){
 			upgrade(node);
 		}
+
+		// TODO: call startup() on top level nodes
 	}
 
 	// Setup return value as register() method, with other methods hung off it.

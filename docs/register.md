@@ -144,4 +144,43 @@ Eventually browsers will support custom elements natively, and then this step wi
 `register()` tries to conform to the proposed custom elements standard.   Internally, it will call `document.register()`
 on platforms that support it.
 
+## Implementation details
+
+dui/register shims custom element support in a manner similar to Polymer.
+
+If the browser supports `document.register()`, then dui/register just uses that.
+
+Otherwise:
+
+1. If the Element doesn't already exist it's created via document.createElement().
+   This will create an Element with the right tag name (ex: `<dui-star-rating>`) but
+   without any of the behaviors associated with that widget.
+
+2. It calls the `upgrade()` method that converts the plain Element
+   into a "widget" by adding all the methods and properties of the widget.
+
+On most platforms upgrading is done by "prototype swizzling",
+i.e. swapping the Element's prototype with the widget's prototype:
+
+```js
+element.__proto__ = widget.prototype;
+```
+
+That's why the widget's prototype must extend `HTMLElement` or something
+similar like `HTMLButtonElement`.
+
+On IE, it's not possible to swizzle the prototype, so `upgrade()` calls
+`Object.defineProperties()` to manually adjust every property that the widget
+has added or overridden (compared to a plain Element):
+
+```js
+Object.defineProperties(element, widget.props)
+```
+
+Note that `widget.props`, along with some other metadata, is (pre)computed
+when the widget is registered, so it's not possible to dynamically add properties
+to the widget.
+
+
+
 
