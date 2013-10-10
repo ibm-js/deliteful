@@ -31,11 +31,12 @@
 					runTest: function(t){
 						var c = dom.byId("container");
 						var children = c.getChildren();
-						t.is(4, children.length);
+						t.is(5, children.length);
 						t.is("zero", children[0].id);
 						t.is("one", children[1].id);
 						t.is("two", children[2].id);
 						t.is("three", children[3].id);
+						t.is("four", children[4].id);
 					}
 				},
 				{
@@ -46,6 +47,7 @@
 						t.is(1, c.getIndexOfChild(dom.byId("one")));
 						t.is(2, c.getIndexOfChild(dom.byId("two")));
 						t.is(3, c.getIndexOfChild(dom.byId("three")));
+						t.is(4, c.getIndexOfChild(dom.byId("four")));
 						t.is(-1, c.getIndexOfChild(dom.byId("outside")));
 						t.is(-1, c.getIndexOfChild(dom.byId("outsideCont")));
 					}
@@ -64,11 +66,13 @@
 					runTest: function(t){
 						var c = dom.byId("container");
 						var children = c.getChildren();
-						t.is(4, children.length);
+						t.is(5, children.length);
 						zero = dom.byId("zero");
 						c.removeChild(zero);
 						two = dom.byId("two");
 						c.removeChild(1); // should remove "two" - because zero is already removed
+						four = dom.byId("four");
+						c.removeChild(four);
 						children = c.getChildren();
 						t.is(2, children.length);
 						t.is("one", children[0].id);
@@ -97,8 +101,8 @@
 						t.is("two", children[2].id, "after addChild(two), two");
 						t.is("three", children[3].id, "after addChild(two), three");
 
-						// Add child at end
-						c.addChild(new TestContained({id: "four"}));
+						// Add a DOMNode at the end
+						c.addChild(four);
 						children = c.getChildren();
 						t.is(5, children.length);
 						t.is("zero", children[0].id, "after addChild(four), zero");
@@ -107,8 +111,8 @@
 						t.is("three", children[3].id, "after addChild(four), three");
 						t.is("four", children[4].id, "after addChild(four), four");
 
-						// Add child at end with explicit position specified
-						c.addChild(new TestContained({id: "five"}), 5);
+						// Add child at end
+						c.addChild(new TestContained({id: "five"}));
 						children = c.getChildren();
 						t.is(6, children.length);
 						t.is("zero", children[0].id, "after addChild(five), zero");
@@ -117,6 +121,18 @@
 						t.is("three", children[3].id, "after addChild(five), three");
 						t.is("four", children[4].id, "after addChild(five), four");
 						t.is("five", children[5].id, "after addChild(five), five");
+
+						// Add child at end with explicit position specified
+						c.addChild(new TestContained({id: "six"}), 6);
+						children = c.getChildren();
+						t.is(7, children.length);
+						t.is("zero", children[0].id, "after addChild(six), zero");
+						t.is("one", children[1].id, "after addChild(six), one");
+						t.is("two", children[2].id, "after addChild(six), two");
+						t.is("three", children[3].id, "after addChild(six), three");
+						t.is("four", children[4].id, "after addChild(six), four");
+						t.is("five", children[5].id, "after addChild(six), five");
+						t.is("six", children[6].id, "after addChild(six), five");
 					}
 				}
 			]);
@@ -135,6 +151,8 @@
 	<test-contained id="one"></test-contained>
 	<test-contained id="two"></test-contained>
 	<plain-widget id="three"></plain-widget>
+	<!-- at least for now it needs to have a widget ID to be returned by getChildren() -->
+	<div id="four" widgetId="four"></div>
 </test-container>
 <plain-widget id="outside"></plain-widget>
 <test-contained id="outsideCont"></test-contained>

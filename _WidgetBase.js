@@ -544,15 +544,14 @@ define([
 
 		getChildren: function(){
 			// summary:
-			//		Returns all direct children of this widget, i.e. all widgets underneath this.containerNode whose parent
-			//		is this widget.   Note that it does not return all descendants, but rather just direct children.
-			//		Analogous to [Node.childNodes](https://developer.mozilla.org/en-US/docs/DOM/Node.childNodes),
-			//		except containing widgets rather than DOMNodes.
+			//    Returns all direct children of this widget, i.e. all widgets or DOM node underneath this.containerNode
+			//     whose parent is this widget.   Note that it does not return all descendants, but rather just direct children.
 			//
 			//		The result intentionally excludes internally created widgets (a.k.a. supporting widgets)
 			//		outside of this.containerNode.
 
-			return this.containerNode ? this.findWidgets(this.containerNode) : []; // dui/_WidgetBase[]
+			// use Array.prototype.slice to transform the live HTMLCollection into an Array
+			return this.containerNode ? Array.prototype.slice.call(this.containerNode.children) : []; // []
 		},
 
 		getParent: function(){

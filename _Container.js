@@ -1,8 +1,9 @@
 define([
 	"dojo/_base/array", // array.forEach array.indexOf
 	"dcl/dcl",
-	"dojo/dom-construct" // domConstruct.place
-], function(array, dcl, domConstruct){
+	"dojo/dom-construct", // domConstruct.place
+	"./_WidgetBase"
+], function(array, dcl, domConstruct, _WidgetBase){
 
 	// module:
 	//		dui/_Container
@@ -21,11 +22,11 @@ define([
 			}
 		}),
 
-		addChild: function(/*dui/_WidgetBase*/ widget, /*int?*/ insertIndex){
+		addChild: function(/*dui/_WidgetBase|DOMNode*/ widget, /*int?*/ insertIndex){
 			// summary:
-			//		Makes the given widget a child of this widget.
+			//		Makes the given widget or DOM node a child of this widget.
 			// description:
-			//		Inserts specified child widget's dom node as a child of this widget's
+			//		Inserts specified child widget or DOM node as a child of this widget's
 			//		container node, and possibly does other processing (such as layout).
 
 			// I want to just call domConstruct.place(widget, this.containerNode, insertIndex), but the counting
@@ -55,7 +56,7 @@ define([
 			// start it now.  Make sure to do this after widget has been
 			// inserted into the DOM tree, so it can see that it's being controlled by me,
 			// so it doesn't try to size itself.
-			if(this._started && !widget._started){
+			if(this._started && !widget._started && dcl.isInstanceOf(widget, _WidgetBase)){
 				widget.startup();
 			}
 		},
