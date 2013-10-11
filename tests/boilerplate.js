@@ -18,13 +18,14 @@
 
 var dir = "",
 	testMode = null;
-if(!window.dojoConfig){
-	dojoConfig = {};
-}
-if(dojoConfig.async === undefined){dojoConfig.async = true;};
-if(dojoConfig.isDebug === undefined){dojoConfig.isDebug = true;};
-if(dojoConfig.locale === undefined){dojoConfig.locale = "en-us";};
-if(dojoConfig.has === undefined){dojoConfig.has = {};};
+
+dojoConfig = {
+		async: true,
+		isDebug: true,
+		locale: "en-us",
+		has: {}
+};
+
 // Parse the URL, get parameters
 if(window.location.href.indexOf("?") > -1){
 	var str = window.location.href.substr(window.location.href.indexOf("?")+1).split(/#/);
