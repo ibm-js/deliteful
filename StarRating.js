@@ -1,4 +1,5 @@
 define([
+    "dcl/dcl",
 	"dojo/_base/lang",
 	"dojo/_base/array",
 	"dojo/string",
@@ -11,16 +12,16 @@ define([
 	"dojo/dom-geometry",
 	"./register",
 	"./_WidgetBase",
-	"dojo/has!dojo-bidi?dui/bidi/StarRating",
+//	"dojo/has!dojo-bidi?dui/bidi/StarRating",
+	"dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
-], function(lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
+], function(dcl, lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
 			register, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dui/StarRating
-
-	var StarRating = register(has('dojo-bidi') ? "dui-nonbidistarrating" : "dui-starrating", [HTMLElement, WidgetBase], {
+	var StarRating = dcl(WidgetBase, {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
 		//		by touching the stars.
@@ -70,10 +71,6 @@ define([
 		//		value is not supported.
 		zeroAreaWidth: -1,
 
-		// tabIndex: Number
-		//		The tabindex of the widget node (set when the widget is in editable mode), for keyboard navigation order in the page. 
-		tabIndex: 0,
-
 		/* internal properties */
 
 		_enterValue: null,
@@ -103,8 +100,9 @@ define([
 			this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 			this.setAttribute('aria-disabled', !this.editable);
 			// keyboard navigation
-			this.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
-			this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
+			if(this.tabIndex == -1){
+				this.setAttribute('tabindex', 0);
+			}
 		},
 
 		_removeEventsHandlers: function(){
@@ -143,12 +141,12 @@ define([
 					this._hoveredValue = newValue;
 				}
 			}else{
-				this._setValueAttr(newValue);
+				this.value = newValue;
 			}
 		},
 
 		_onTouchRelease: function(/*Event*/ event){
-			this._setValueAttr(this._coordToValue(event));
+			this.value = this._coordToValue(event);
 			this._enterValue = this.value;
 			if(!this._hovering){
 				this._removeEventsHandlers();
@@ -162,7 +160,7 @@ define([
 				this._hovering = false;
 				this._hoveredValue = null;
 				domClass.remove(this, this.baseClass + 'Hovered');
-				this._setValueAttr(this._enterValue);
+				this.value = this._enterValue;
 			}
 			this._removeEventsHandlers();
 		},
@@ -252,7 +250,6 @@ define([
 		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
 			this.runAfterRender(function(){
-				this.setAttribute('tabindex', this.editable ? this.tabIndex : -1);
 				if(this.editable && !this._keyDownHandler){
 					this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
 				}else if(!this.editable && this._keyDownHandler){
@@ -301,5 +298,5 @@ define([
 		}
 	});
 
-	return has('dojo-bidi') ? register("dui-starrating", [StarRating, BidiStarRating]) : StarRating;
+	return register("dui-starrating", has('dojo-bidi') ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
 });
