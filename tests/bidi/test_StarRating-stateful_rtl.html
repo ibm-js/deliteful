@@ -5,18 +5,17 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>StarRating stateful attributes</title>
-	<script type="text/javascript" src="../../../../dojo/dojo.js"
-		data-dojo-config="async: true, parseOnLoad: true, has: { 'dojo-bidi': true }"></script>
+	<script type="text/javascript">
+		dojoConfig = {has: { 'dojo-bidi': true }};
+	</script>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
 			"dojo/ready",
 			"dojo/dom",
-			"dui/registry",
-			"dui/StarRating",
-			"dui/mobile/View",
-			"dui/mobile/compat"
-		], function(ready, dom, registry, StarRating){
+			"dui/StarRating"
+		], function(ready, dom, StarRating){
 
 			ready(function(){
 				var rating = new StarRating({
@@ -25,7 +24,7 @@
 						editable:true,
 						editHalfValues: false,
 						value: 3
-					}, "srw");
+					}).placeAt("srw");
  				rating.watch(function(name, oldValue, value){
 					var console = dom.byId("console");
 					console.innerHTML = 'LTR: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
@@ -38,17 +37,16 @@
 					editHalfValues: false,
 					value: 3,
 					dir: "rtl"
-				}, "srw_rtl");
+				}).placeAt("srw_rtl");
  				ratingrtl.watch(function(name, oldValue, value){
 					var console = dom.byId("console");
 					console.innerHTML = 'RTL: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
 				});
 				ratingrtl.startup();
 				var updateRatingAttribute = function(attribute, event, isBoolean, isNumber){
-					console.log("start " + attribute + " update");
 					var value = isBoolean ? (event.target.value == 'true') : (isNumber ? parseFloat(event.target.value) : event.target.value);
-					rating.set(attribute, value);
-					ratingrtl.set(attribute, value);
+					rating[attribute] = value;
+					ratingrtl[attribute] = value;
 				};
 				dom.byId('maximumInput').onchange = function(event){
 					updateRatingAttribute('maximum', event);
@@ -71,8 +69,8 @@
 	}
 	</style>
 </head>
-<body style="visibility:hidden;">
-	<div data-dojo-type="dui/mobile/View">
+<body>
+	<div>
 		<div>
 			<h1>Test that star rating attributes are stateful</h1>
 			<p>

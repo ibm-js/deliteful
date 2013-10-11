@@ -13,8 +13,6 @@
 		require([
 			"dojo/dom",
 			"dui/StarRating",
-			"dui/mobile/View",
-			"dui/mobile/compat",	// TODO: remove
 			"dojo/domReady!"
 		], function(dom, StarRating){
 
@@ -54,8 +52,8 @@
 	}
 	</style>
 </head>
-<body style="visibility:hidden;">
-	<div data-dojo-type="dui/mobile/View">
+<body>
+	<div>
 		<div>
 			<h1>Test that star rating attributes are stateful</h1>
 			<p>
