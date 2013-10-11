@@ -347,7 +347,16 @@ define([
 			upgrade(node);
 		}
 
-		// TODO: call startup() on top level nodes
+		// Call startup() on top level nodes.  Since I don't know which nodes are top level,
+		// just call startup on all widget nodes.  Most of the calls will be ignored since the nodes
+		// have already been started.
+		idx = 0;
+		while(node = nodes[idx++]){
+			if(node.startup){
+				node.startup();
+			}
+		}
+
 	}
 
 	// Setup return value as register() method, with other methods hung off it.
