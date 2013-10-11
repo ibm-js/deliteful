@@ -13,7 +13,7 @@ define([
 	"./register",
 	"./_WidgetBase",
 //	"dojo/has!dojo-bidi?dui/bidi/StarRating",
-	"dui/bidi/StarRating",
+	"dui/bidi/StarRating", // FIXME: MUST BE LOADED ONLY IF has('dojo-bidi'). CURRENTLY NOT WORKING WITH THE PREVIOUS CONDITIONAL LOADING LINE
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
 ], function(dcl, lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
