@@ -16,7 +16,7 @@ define([
 	"./_WidgetBase",
 	"./_FormWidgetMixin",
 	"./_FormValueMixin",
-	"./themes/load!common,Slider"           // common for duiInline etc., Slider for duiSlider etc.
+	"./themes/load!common,Slider"	// common for duiInline etc., Slider for duiSlider etc.
 ],
 	function(array, connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin){
 
@@ -64,12 +64,6 @@ define([
 		_setTabIndexAttr: "handle",
 
 		buildRendering: function(){
-			var toCSS = lang.hitch(this, function(modifier){
-				return array.map(this.baseClass.split(" "), function(c){
-					return c + modifier;
-				}).join(" ");
-			});
-
 			// look for child INPUT node under root node
 			this.valueNode = query("> INPUT", this)[0];
 			if(!this.valueNode){
@@ -80,7 +74,7 @@ define([
 			if(!isNaN(parseFloat(this.valueNode.value))){ // browser back button or value coded on INPUT
 				this.value = this.valueNode.value;
 			}
-			this.containerNode = domConstruct.create("div", { "class":toCSS("RemainingBar")+" "+toCSS("Bar") }, this, "last");
+			this.containerNode = domConstruct.create("div", {}, this, "last");
 			var n = this.firstChild;
 			while(n){
 				var next = n.nextSibling;
@@ -90,25 +84,9 @@ define([
 				}
 				n = next;
 			}
-			this.progressBar = domConstruct.create("div", { "class":toCSS("Bar")+" "+toCSS("ProgressBar") }, this.containerNode, "last");
-			var handles = query("> DIV", this.progressBar);
-			if(this.isRange){
-				if(!this.handleMin){
-					if(handles && handles[0]){
-						this.handleMin = handles[0];
-					}else{
-						this.handleMin = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMin"), "tabIndex":0 }, this.progressBar, "last");
-					}
-				}
-				this._setTabIndexAttr = ["handleMin", "handle"];
-			}
-			var idx = this.isRange ? 1 : 0;
-			if(handles && handles[idx]){
-				this.handle = handles[idx];
-			}else{
-				this.handle = domConstruct.create("div", { "class":toCSS("Handle")+" "+toCSS("HandleMax"), "tabIndex":0 }, this.progressBar, "last");
-			}
-			this.baseClass += " "+toCSS(this.orientation);
+			this.progressBar = domConstruct.create("div", {}, this.containerNode, "last");
+			this.handleMin = domConstruct.create("div", { "tabIndex":0 }, this.progressBar, "last");
+			this.handle = domConstruct.create("div", { "tabIndex":0 }, this.progressBar, "last");
 
 			this.focusNode = this.handle;
 
@@ -119,10 +97,15 @@ define([
 		},
 
 		_refreshState: function(/*Boolean?*/ priorityChange){
+			this.valueNode.value = String(this.value);
 			var values = String(this.value).split(',');
 			if(values.length == 1){
 				values = [this.min, values[0]];
 			}
+			if(this.isRange){
+				this.handleMin.setAttribute("aria-valuenow", values[0]);
+			}
+			this.handle.setAttribute("aria-valuenow", values[1]);
 			var	toPercent = (values[1] - this.min) * 100 / (this.max - this.min),
 				toPercentMin = (values[0] - this.min) * 100 / (this.max - this.min),
 				// now perform visual slide
@@ -139,26 +122,24 @@ define([
 			//		Hook such that set('value', value) works.
 			// tags:
 			//		private
-			this.runAfterRender(function(){
-				this._handleOnChange(value, null);
-			});
+			this._handleOnChange(value, null);
 		},
 
 		_handleOnChange: register.before(function(/*Number or String(Number) or String(Number,Number)*/ value, /*Boolean?*/ priorityChange){
-			var values = String(value).split(',');
-			if(values.length == 1){
-				values = [this.min, values[0]];
+			if(this._started){
+				// force the value in bounds
+				var values = String(value).split(',');
+				if(values.length == 1){
+					values = [this.min, values[0]];
+				}
+				var	minValue = Math.max(Math.min(Math.min(values[0], values[1]), this.max), this.min),
+					maxValue = Math.max(Math.min(Math.max(values[0], values[1]), this.max), this.min);
+				value = this.isRange ? (minValue+","+maxValue) : maxValue; // in case the values were outside min/max
 			}
-			var	minValue = Math.max(Math.min(Math.min(values[0], values[1]), this.max), this.min),
-				maxValue = Math.max(Math.min(Math.max(values[0], values[1]), this.max), this.min);
-			value = this.isRange ? (minValue+","+maxValue) : maxValue; // in case the values were outside min/max
-			this.valueNode.value = String(value);
 			this._set('value', value);
-			if(this.isRange){
-				this.handleMin.setAttribute("aria-valuenow", minValue);
+			if(this._started){
+				this._refreshState(priorityChange);
 			}
-			this.handle.setAttribute("aria-valuenow", maxValue);
-			this._refreshState(priorityChange);
 		}),
 
 		postCreate: function(){
@@ -196,7 +177,9 @@ define([
 						// get the starting position of the content area (dragging region)
 						box = domGeometry.position(this.containerNode, false), // can't use true since the added docScroll and the returned x are body-zoom incompatibile
 						bodyZoom = has("ie") ? 1 : (domStyle.get(win.body(), "zoom") || 1),
-						nodeZoom = has("ie") ? 1 : (domStyle.get(node, "zoom") || 1);
+						nodeZoom = has("ie") ? 1 : (domStyle.get(node, "zoom") || 1),
+						root = win.doc.documentElement,
+						actionHandles;
 					if(isNaN(bodyZoom)){ bodyZoom = 1; }
 					if(isNaN(nodeZoom)){ nodeZoom = 1; }
 					var startPixel = box[this._attrs.x] * nodeZoom * bodyZoom + domGeometry.docScroll()[this._attrs.x];
@@ -228,7 +211,8 @@ define([
 						multiplier = 1,
 						newValue,
 						idx,
-						values = String(this.value).split(',');
+						values = String(this.value).split(','),
+						horizontal = this.orientation != "V";
 					if(values.length == 1){
 						values = [this.min, values[0]];
 					}
@@ -257,12 +241,12 @@ define([
 						case keys.RIGHT_ARROW:
 							multiplier = -1;
 						case keys.LEFT_ARROW:
-							values[idx] = parseFloat(values[idx]) + multiplier * ((flip && horizontal) ? step : -step);
+							values[idx] = parseFloat(values[idx]) + multiplier * ((this.flip && horizontal) ? step : -step);
 							break;
 						case keys.DOWN_ARROW:
 							multiplier = -1;
 						case keys.UP_ARROW:
-							values[idx] = parseFloat(values[idx]) + multiplier * ((!flip || horizontal) ? step : -step);
+							values[idx] = parseFloat(values[idx]) + multiplier * ((!this.flip || horizontal) ? step : -step);
 							break;
 						default:
 							return;
@@ -278,30 +262,44 @@ define([
 
 				point, pixelValue, value,
 				node = this;
-			// add V or H suffix to baseClass for styling purposes
-			var	horizontal = this.orientation != "V",
-				ltr = horizontal ? this.isLeftToRight() : false,
-				actionHandles = [],
-				root = win.doc.documentElement,
-				self = this,
-				flip = !!this.flip;
-			// _reversed is complicated since you can have flipped right-to-left and vertical is upside down by default
-			this._reversed = !((horizontal && ((ltr && !flip) || (!ltr && flip))) || (!horizontal && flip));
-			this._attrs =
-				horizontal ? { x:'x', w:'w', l:'l', r:'r', pageX:'pageX', clientX:'clientX', progressBarStart:"left", progressBarSize:"width" }
-				: { x:'y', w:'h', l:'t', r:'b', pageX:'pageY', clientX:'clientY', progressBarStart:"top", progressBarSize:"height" };
-			var dir = { "H": { false: "Ltr", true: "Rtl" }, "V": { false: "Ttb", true: "Btt" } };
-			domClass.add(this, array.map(this.baseClass.split(" "), function(c){ return c+dir[self.orientation][self._reversed]; }));
 			this.own(
 				on(this, touch.press, beginDrag),
 				on(this, "keydown", keyDown), // for desktop a11y
-				on(self.handle, "keyup", keyUp) // fire onChange on desktop
+				on(this.handle, "keyup", keyUp) // fire onChange on desktop
 			);
-			this._refreshState(null);
 		},
 
 		startup: register.before(function(){
 			var self = this;
+			var toCSS = function(baseClass, modifier){
+				return array.map(baseClass.split(" "), function(c){
+					return c + modifier;
+				}).join(" ");
+			};
+
+			// add V or H suffix to baseClass for styling purposes
+			var	horizontal = this.orientation != "V",
+				ltr = horizontal ? this.isLeftToRight() : false,
+				flip = !!this.flip;
+			// _reversed is complicated since you can have flipped right-to-left and vertical is upside down by default
+			this._reversed = !((horizontal && ((ltr && !flip) || (!ltr && flip))) || (!horizontal && flip));
+			this._attrs = horizontal
+				? { x:'x', w:'w', l:'l', r:'r', pageX:'pageX', clientX:'clientX', progressBarStart:"left", progressBarSize:"width" }
+				: { x:'y', w:'h', l:'t', r:'b', pageX:'pageY', clientX:'clientY', progressBarStart:"top", progressBarSize:"height" };
+			var baseClass = toCSS(this.className, this.orientation);
+			domClass.add(this, baseClass);
+			var baseClass = this.baseClass + " " + baseClass;
+			domClass.add(this, toCSS(baseClass, this._reversed ? "HtL" : "LtH"));
+			domClass.add(this.containerNode, toCSS(baseClass, "Bar") + " " + toCSS(baseClass, "RemainingBar"));
+			domClass.add(this.progressBar, toCSS(baseClass, "Bar") + " " + toCSS(baseClass, "ProgressBar"));
+			if(this.isRange){
+				this._setTabIndexAttr = ["handleMin", "handle"];
+				domClass.add(this.handleMin, toCSS(baseClass, "Handle") + " " + toCSS(baseClass, "HandleMin"));
+			}else{
+				this.progressBar.removeChild(this.handleMin);
+			}
+			domClass.add(this.handle, toCSS(baseClass, "Handle") + " " + toCSS(baseClass, "HandleMax"));
+
 			// pass widget attributes to children
 			// the forEach wouldn't be needed if _Widgetbase::startup used obj.startup.apply(obj,arguments) instead of obj.startup()
 			// then _parentInit could just be called startup using this.inherited(arguments, [this._reversed, this.orientation]);
@@ -310,13 +308,8 @@ define([
 					obj._parentInit(self._reversed, self.orientation);
 				}
 			});
-		}),
 
-		destroyRendering: register.before(function(/*Boolean*/ preserveDom){
-			if(!preserveDom && this.valueNode.parentNode != this){
-				domConstruct.destroy(this.valueNode);
-			}
-			this.inherited(arguments);
+			this._refreshState(null);
 		})
 	});
 });
