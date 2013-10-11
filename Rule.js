@@ -49,7 +49,12 @@ define([
 			this.labels = [];
 		},
 
-		buildRendering: function(){
+		_parentInit: function(/*Boolean*/ reversed, /*String*/ orientation){
+			// summary:
+			//		Hook so that a parent widget like Slider can pass inherited values down to children decoration widgets.
+			// tags:
+			//		private
+			this.orientation = orientation;
 			var children = query("> div", this);
 			if(this.labels.length == 0){
 				this.labels = children.map(function(node){
@@ -67,14 +72,6 @@ define([
 				var css = toCSS(this.baseClass, "Label");
 				domClass.add(node, css);
 			}
-		},
-
-		_parentInit: function(/*Boolean*/ reversed, /*String*/ orientation){
-			// summary:
-			//		Hook so that a parent widget like Slider can pass inherited values down to children decoration widgets.
-			// tags:
-			//		private
-			this.orientation = orientation;
 			if(this.labels.length == 0){ this.labels.push({ H: "\u007c", V: "\u2014" }[this.orientation]); }
 			while(this.labels.length < this.count){ this.labels = this.labels.concat(this.labels); }
 			if(reversed){ this.labels.reverse(); }
@@ -107,8 +104,8 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		duiRule.extend({
-			_setTextDirAttr: function(textDir){
+
+		duiRule.prototype._setTextDirAttr = function(textDir){
 				if(this.textDir != textDir){
 					this._set("textDir", textDir);
 					query(".duiRuleLabel", this).forEach(
@@ -117,12 +114,11 @@ define([
 						})
 					);
 				}
-			},
+			};
 
-			_setLabelDirection: function(labelNode){
+		duiRule.prototype._setLabelDirection = function(labelNode){
 				domStyle.set(labelNode, "direction", this.textDir ? this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "");
-			}
-		});
+		};
 	}
 
 	return duiRule;

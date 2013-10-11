@@ -23,19 +23,21 @@
 			"dojo/dom-style",
 			"dojo/dom-geometry",
 			"dojo/dom-form",
-			"dojo/parser",
+			"dui/register",
 			"dui/Rule",
-			"dui/mobile/compat",
 			"dui/Slider",
 			"dojo/domReady!"
-		], function(doh, has, on, keys, win, dom, domStyle, domGeometry, domForm, parser){
+		], function(doh, has, on, keys, win, dom, domStyle, domGeometry, domForm, register){
 
 			defaultSubmitHandler = function(values){
 				for(var i in values){ console.debug(i + ' = ' + values[i]); }
 			};
 			submittedValues = defaultSubmitHandler;
 
-			parser.parse();
+			register.parse();
+
+			var test = /mode=test/i.test(window.location.href);
+			if(!test){ return; }
 
 			var form = dom.byId("myForm");
 			var Ltr2 = dom.byId("Ltr2");
@@ -625,9 +627,8 @@ TD {
 
 /* instance specific custom rules */
 
-/* numericMargin should be removed from RuleLabels since it can be done in CSS and for consistency since it isn't supported for Rule */
-.customLabels div.duiRule:nth-of-type(-n+2) > div:nth-child(odd),
-.customLabels div.duiRuleLabel:nth-of-type(-n+2) > div:nth-child(odd) {
+/* remove odd marks and labels from top decoration */
+.customLabels dui-rule.duiRule:nth-of-type(-n+2) > div:nth-child(odd) {
 	visibility: hidden; /* remove first, middle and last top rule marks since they have no labels */
 }
 /* create lots of custom rules to make sure full customization is possible */
@@ -701,84 +702,80 @@ TD {
 		<br>
 		<center><table>
 			<tr>
-				<td colspan=3 class="customLabels"><div id="Ltr2" data-dojo-type="dui/Slider" data-dojo-props='value:"10,15", orientation:"H", isRange:true, min:0, max:20, step:0.125, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }, style:{width:"90%"}' >
+				<td colspan=3 class="customLabels"><dui-slider id="Ltr2" value="10,15" orientation="H" isRange min="0" max="20" step="0.125" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")' style='width:90%' >
 					<input name="Ltr2">
-					<div data-dojo-type="dui/Rule" class="duiRuleBefore" data-dojo-props='count:5, style:{ fontSize:"5px", fontWeight:"bold", margin:"-3.5px 0" }'></div>
-					<div data-dojo-type="dui/Rule" class="duiRuleBefore"
-						data-dojo-props='style:{ fontSize:"10px", margin:"-8px 0" }' >
+					<dui-rule class="duiRuleBefore" count="5" style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></dui-rule>
+					<dui-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;' >
 						<div></div>
 						<div>5</div>
 						<div></div>
 						<div>15</div>
 						<div></div>
-					</div>
-					<div data-dojo-type="dui/Rule" data-dojo-props='count:3, style:{ fontSize:"5px", fontWeight:"bold", margin:"3px 0" }'></div>
-					<div data-dojo-type="dui/Rule" class="duiRuleAfter"
-						data-dojo-props='style:{ fontSize:"10px", margin:"8px 0" }' >
+					</dui-rule>
+					<dui-rule count="3" style='font-size:5px; font-weight:bold; margin:3px 0;'></dui-rule>
+					<dui-rule class="duiRuleAfter" style='font-size:10px; margin:8px 0;' >
 						<div>0</div>
 						<div>10</div>
 						<div>20</div>
-					</div>
-				</div></td>
+					</dui-rule>
+				</dui-slider></td>
 			</tr>
 			<tr>
 				<td>20</td>
-				<td class="custom" style="width:110pt;"><input name="customH" data-dojo-type="dui/Slider" data-dojo-props='id:"customH", value:"5,15", orientation:"H", flip:true, isRange:true, min:0, max:20, step:1.0, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'></td>
+				<td class="custom" style="width:110pt;"><dui-slider id="customH" value="5,15" orientation="H" flip isRange min="0" max="20" step="1.0" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'><input name="customH"></dui-slider></td>
 				<td>0</td>
 			</tr>
 			<tr>
 				<td>20</td>
-				<td><div id="Rtl1" data-dojo-type="dui/Slider" data-dojo-props='value:"15", name:"Rtl1", orientation:"H", flip:true, isRange:false, min:0, max:20, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'></div></td>
+				<td><dui-slider id="Rtl1" value="15" name="Rtl1" orientation="H" flip min="0" max="20" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></dui-slider></td>
 				<td>0</td>
 			</tr>
 			<tr>
 				<td>0</td>
-				<td><div id="Ltr1" data-dojo-type="dui/Slider" data-dojo-props='value:"15", flip:false, isRange:false, min:0, max:20, step:1.0, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'><input></div></td>
+				<td><dui-slider id="Ltr1" value="15" min="0" max="20" step="1.0" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'><input></dui-slider></td>
 				<td>20</td>
 			</tr>
 			<tr>
 				<td>20</td>
-				<td class="dj_a11y"><div id="a11yRtl1" data-dojo-type="dui/Slider" data-dojo-props='flip:true, isRange:false, min:0, max:20, step:1.0, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'><input value="15"></div></td>
+				<td class="dj_a11y"><dui-slider id="a11yRtl1" flip min="0" max="20" step="1.0" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'><input value="15"></dui-slider></td>
 				<td>0</td>
 			</tr>
 		</table></center>
 		<br>
 		<center><table style="width:100%;height:250px;"><tr>
 			<td style="width:50px;" class="customLabels"><div style="height:250px;">
-				<div id="Btt1" data-dojo-type="dui/Slider" data-dojo-props='value:"10", orientation:"V", isRange:false, min:-20, max:20, step:0.125, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'>
+				<dui-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
 					<input name="Btt1">
-					<div data-dojo-type="dui/Rule" class="duiRuleAfter" data-dojo-props='count:5, orientation:"V", style:{ fontSize:"5px", fontWeight:"bold", margin:"0 3px" }'></div>
+					<dui-rule class="duiRuleAfter" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></dui-rule>
 					<!-- default class is duiRuleAfter -->
-					<div data-dojo-type="dui/Rule"
-						data-dojo-props='style:{ fontSize:"10px", margin:"0 9px" }' >
+					<dui-rule style='font-size:10px; margin:0 9px;' >
 						<div></div>
 						<div>25%</div>
 						<div></div>
 						<div>75%</div>
 						<div></div>
-					</div>
-					<div data-dojo-type="dui/Rule" class="duiRuleBefore" data-dojo-props='count:3, orientation:"V", style:{ fontSize:"5px", fontWeight:"bold", margin:"0 -3px" }'></div>
-					<div data-dojo-type="dui/Rule" class="duiRuleBefore"
-						data-dojo-props='style:{ fontSize:"10px", margin:"0 -9px" }' >
+					</dui-rule>
+					<dui-rule class="duiRuleBefore" count="3" style='font-size:5px; font-weight:bold; margin:0 -3px;'></dui-rule>
+					<dui-rule class="duiRuleBefore" style='font-size:10px; margin:0 -9px;' >
 						<div>low</div>
 						<div>normal</div>
 						<div>high</div>
-					</div>
-				</div>
+					</dui-rule>
+				</dui-slider>
 			</div></td>
 			<td style="width:50px;"><div class="custom" style="height:110pt;">
 				-20<br>
-				<div id="customV" data-dojo-type="dui/Slider" data-dojo-props='value:"10", name:"customV", orientation:"V", isRange:false, flip:true, min:-20, max:20, step:0.125, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'></div>
+				<dui-slider id="customV" value="10" name="customV" orientation="V" flip min="-20" max="20" step="0.125" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></dui-slider>
 				<br>20
 			</div></td>
 			<td style="width:50px;"><div style="height:100%;">
 				20<br>
-				<div id="Btt2" data-dojo-type="dui/Slider" data-dojo-props='value:"0,10", orientation:"V", isRange:true, flip:false, min:-20, max:20, step:0.125, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'><input></div>
+				<dui-slider id="Btt2" value="0,10" orientation="V" isRange min="-20" max="20" step="0.125" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'><input></dui-slider>
 				<br>-20
 			</div></td>
 			<td style="width:50px;" class="dj_a11y" ><div style="height:100%;">
 				-20<br>
-				<div id="a11yTtb2" data-dojo-type="dui/Slider" data-dojo-props='orientation:"V", isRange:true, flip:true, min:-20, max:20, step:0.125, onChange:function(v){ document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1"); }'><input value="0,10"></div>
+				<dui-slider id="a11yTtb2" orientation="V" isRange flip min="-20" max="20" step="0.125" onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'><input value="0,10"></dui-slider>
 				<br>20
 			</div></td>
 		</tr></table></center>

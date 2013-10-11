@@ -94,20 +94,20 @@ define(function(){ return '\
   background-clip: content-box;\
   background-color: #ffffff;\
 }\
-.duiSliderHRtl .duiSliderHandleMax,\
-.duiSliderHLtr .duiSliderHandleMin {\
+.duiSliderHHtL .duiSliderHandleMax,\
+.duiSliderHLtH .duiSliderHandleMin {\
   left: -0.325em;\
 }\
-.duiSliderHRtl .duiSliderHandleMin,\
-.duiSliderHLtr .duiSliderHandleMax {\
+.duiSliderHHtL .duiSliderHandleMin,\
+.duiSliderHLtH .duiSliderHandleMax {\
   right: -0.325em;\
 }\
-.duiSliderVTtb .duiSliderHandleMax,\
-.duiSliderVBtt .duiSliderHandleMin {\
+.duiSliderVLtH .duiSliderHandleMax,\
+.duiSliderVHtL .duiSliderHandleMin {\
   bottom: -0.325em;\
 }\
-.duiSliderVTtb .duiSliderHandleMin,\
-.duiSliderVBtt .duiSliderHandleMax {\
+.duiSliderVLtH .duiSliderHandleMin,\
+.duiSliderVHtL .duiSliderHandleMax {\
   top: -0.325em;\
 }\
 .duiSliderBar {\
@@ -161,14 +161,23 @@ define(function(){ return '\
 .dj_a11y .duiSlider .duiSliderHandle {\
   border-radius: 0;\
 }\
-.duiSliderVRtl .duiRuleAfter .duiRuleLabel,\
-.duiSliderVRtl DIV.duiRuleLabel,\
+.duiSliderV .duiRule {\
+  left: 0;\
+}\
+.duiSliderRtlV .duiRule {\
+  right: 0;\
+}\
+.duiSliderH .duiRule {\
+  top: 0;\
+}\
+.duiSliderRtlV .duiRuleAfter .duiRuleLabel,\
+.duiSliderRtlV DIV.duiRuleLabel,\
 .duiSliderV .duiRuleBefore .duiRuleLabel {\
   right: 100%;\
   left: auto;\
 }\
 .duiSliderV .duiRuleLabel,\
-.duiSliderVRtl .duiRuleBefore DIV.duiRuleLabel {\
+.duiSliderRtlV .duiRuleBefore DIV.duiRuleLabel {\
   left: 100%;\
   right: auto;\
 }\

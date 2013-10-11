@@ -77,20 +77,20 @@
 	background-clip: content-box;
 	.duiSliderHandle-styles;
 }
-.duiSliderHRtl .duiSliderHandleMax,
-.duiSliderHLtr .duiSliderHandleMin {
+.duiSliderHHtL .duiSliderHandleMax,
+.duiSliderHLtH .duiSliderHandleMin {
 	left: -(@dui-slider-knob-thickness/2);
 }
-.duiSliderHRtl .duiSliderHandleMin,
-.duiSliderHLtr .duiSliderHandleMax {
+.duiSliderHHtL .duiSliderHandleMin,
+.duiSliderHLtH .duiSliderHandleMax {
 	right: -(@dui-slider-knob-thickness/2);
 }
-.duiSliderVTtb .duiSliderHandleMax,
-.duiSliderVBtt .duiSliderHandleMin {
+.duiSliderVLtH .duiSliderHandleMax,
+.duiSliderVHtL .duiSliderHandleMin {
 	bottom: -(@dui-slider-knob-thickness/2);
 }
-.duiSliderVTtb .duiSliderHandleMin,
-.duiSliderVBtt .duiSliderHandleMax {
+.duiSliderVLtH .duiSliderHandleMin,
+.duiSliderVHtL .duiSliderHandleMax {
 	top: -(@dui-slider-knob-thickness/2);
 }
 .duiSliderBar {
@@ -139,15 +139,24 @@
 .dj_a11y .duiSlider .duiSliderHandle {
 	border-radius: 0;
 }
+.duiSliderV .duiRule {
+	left: 0;
+}
+.duiSliderRtlV .duiRule {
+	right: 0;
+}
+.duiSliderH .duiRule {
+	top: 0;
+}
 // if neither duiRuleAfter nor duiRuleBefore are specified, then the default is duiRuleAfter
-.duiSliderVRtl .duiRuleAfter .duiRuleLabel,
-.duiSliderVRtl DIV.duiRuleLabel,
+.duiSliderRtlV .duiRuleAfter .duiRuleLabel,
+.duiSliderRtlV DIV.duiRuleLabel,
 .duiSliderV .duiRuleBefore .duiRuleLabel {
 	right: 100%;
 	left: auto;
 }
 .duiSliderV .duiRuleLabel,
-.duiSliderVRtl .duiRuleBefore DIV.duiRuleLabel {
+.duiSliderRtlV .duiRuleBefore DIV.duiRuleLabel {
 	left: 100%;
 	right: auto;
 }

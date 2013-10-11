@@ -81,20 +81,20 @@ define(function(){ return '\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#999999), color-stop(0.5, #bbbbbb));\
   background-image: linear-gradient(to bottom, #fafafa 0%, #bbbbbb 50%, #999999 100%);\
 }\
-.duiSliderHRtl .duiSliderHandleMax,\
-.duiSliderHLtr .duiSliderHandleMin {\
+.duiSliderHHtL .duiSliderHandleMax,\
+.duiSliderHLtH .duiSliderHandleMin {\
   left: -10px;\
 }\
-.duiSliderHRtl .duiSliderHandleMin,\
-.duiSliderHLtr .duiSliderHandleMax {\
+.duiSliderHHtL .duiSliderHandleMin,\
+.duiSliderHLtH .duiSliderHandleMax {\
   right: -10px;\
 }\
-.duiSliderVTtb .duiSliderHandleMax,\
-.duiSliderVBtt .duiSliderHandleMin {\
+.duiSliderVLtH .duiSliderHandleMax,\
+.duiSliderVHtL .duiSliderHandleMin {\
   bottom: -10px;\
 }\
-.duiSliderVTtb .duiSliderHandleMin,\
-.duiSliderVBtt .duiSliderHandleMax {\
+.duiSliderVLtH .duiSliderHandleMin,\
+.duiSliderVHtL .duiSliderHandleMax {\
   top: -10px;\
 }\
 .duiSliderBar {\
@@ -148,14 +148,23 @@ define(function(){ return '\
 .dj_a11y .duiSlider .duiSliderHandle {\
   border-radius: 0;\
 }\
-.duiSliderVRtl .duiRuleAfter .duiRuleLabel,\
-.duiSliderVRtl DIV.duiRuleLabel,\
+.duiSliderV .duiRule {\
+  left: 0;\
+}\
+.duiSliderRtlV .duiRule {\
+  right: 0;\
+}\
+.duiSliderH .duiRule {\
+  top: 0;\
+}\
+.duiSliderRtlV .duiRuleAfter .duiRuleLabel,\
+.duiSliderRtlV DIV.duiRuleLabel,\
 .duiSliderV .duiRuleBefore .duiRuleLabel {\
   right: 100%;\
   left: auto;\
 }\
 .duiSliderV .duiRuleLabel,\
-.duiSliderVRtl .duiRuleBefore DIV.duiRuleLabel {\
+.duiSliderRtlV .duiRuleBefore DIV.duiRuleLabel {\
   left: 100%;\
   right: auto;\
 }\
