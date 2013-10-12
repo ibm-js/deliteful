@@ -16,17 +16,10 @@
 //		<script src="requirejs/require.js">
 
 
-var dir = "",
-	testMode = null;
-
-dojoConfig = {
-		async: true,
-		isDebug: true,
-		locale: "en-us",
-		has: {}
-};
-
 // Parse the URL, get parameters
+var dir = "",
+	testMode = null,
+	locale;
 if(window.location.href.indexOf("?") > -1){
 	var str = window.location.href.substr(window.location.href.indexOf("?")+1).split(/#/);
 	var ary  = str[0].split(/&/);
@@ -37,18 +30,11 @@ if(window.location.href.indexOf("?") > -1){
 		switch(key){
 			case "locale":
 				// locale string | null
-				dojoConfig.locale = value;
+				locale = value;
 				break;
 			case "dir":
 				// rtl | null
 				dir = value;
-				if(dir == "rtl"){
-					dojoConfig.has["dojo-bidi"] = true;
-				}
-				break;
-			case "theme":
-				// tundra | soria | nihilo | claro | null
-				theme = /null|none/.test(value) ? null : value;
 				break;
 			case "a11y":
 				if(value){ testMode = "dj_a11y"; }
@@ -58,7 +44,7 @@ if(window.location.href.indexOf("?") > -1){
 }
 
 // Find the <script src="boilerplate.js"> tag, to get test directory and data-dojo-config argument
-var scripts = document.getElementsByTagName("script"), script;	// testDir is global
+var scripts = document.getElementsByTagName("script"), script, overrides = {};
 for(i = 0; script = scripts[i]; i++){
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
@@ -72,10 +58,7 @@ for(i = 0; script = scripts[i]; i++){
 		// specified override the default settings.
 		var attr = script.getAttribute("data-dojo-config");
 		if(attr){
-			var overrides = eval("({ " + attr + " })");
-			for(var key in overrides){
-				dojoConfig[key] = overrides[key];
-			}
+			overrides = eval("({ " + attr + " })");
 		}
 		break;
 	}
@@ -89,8 +72,17 @@ require = {
 		{name:'dui', location:'dui'},
 		{name:'dojox', location:'dojox'},
 		{name:'doh', location:'util/doh'}
-	]
+	],
+	locale: locale || "en-us",
+	config: {
+		'dojo/has': {
+			'dojo-bidi': dir == "rtl"
+		}
+	}
 };
+for(var key in overrides){
+	require[key] = overrides[key];
+}
 
 // Output the boilerplate text to load the loader.
 document.write('<script type="text/javascript" src="' + testDir + '../../requirejs/require.js"></script>');
@@ -121,7 +113,7 @@ function boilerplateOnLoad(){
 	}
 
 	// parseOnLoad: true requires that the parser itself be loaded.
-	if(dojoConfig.parseOnLoad){
+	if(require.parseOnLoad){
 		require(["dojo/parser"]);
 	}
 }
