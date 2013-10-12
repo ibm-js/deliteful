@@ -1,9 +1,9 @@
-define(["dojo/_base/declare"], function(declare){
+define(["dcl/dcl"], function(dcl){
 
 	// module:
 	//		dui/bidi/Button
 
-	return declare(null, {
+	return dcl(null, {
 		// summary:
 		//		Support for control over text direction for Button widget, using Unicode Control Characters to control text direction.
 		// description:
@@ -11,13 +11,11 @@ define(["dojo/_base/declare"], function(declare){
 		//		This class should not be used directly.
 		//		Button widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 
-		refreshRendering: function(){
-			this.inherited(arguments);
-
+		refreshRendering: dcl.after(function(){
 			this.containerNode.textContent = this.wrapWithUcc(this.containerNode.textContent);
-			if(this.domNode.title){
-				this.domNode.title = this.wrapWithUcc(this.domNode.title);
+			if(this.title){
+				this.title = this.wrapWithUcc(this.title);
 			}
-		}
+		})
 	});
 });

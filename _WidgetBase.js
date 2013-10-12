@@ -799,7 +799,7 @@ define([
 	});
 
 	if(has("dojo-bidi")){
-		dcl.mix(_WidgetBase.prototype, _BidiMixin);
+		_WidgetBase = dcl(_WidgetBase, _BidiMixin);
 	}
 
 	// Setup automatic chaining for lifecycle methods, except for buildRendering()
