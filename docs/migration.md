@@ -1,7 +1,7 @@
 # Migrating from dijit and dojox/mobile to dui
 
 ## Notes for applications
-1. In markup, widgets look like `<dui-starrating foo=bar>` rather than
+1. In markup, widgets look like `<dui-star-rating foo=bar>` rather than
 	`<div data-dojo-type=dui/StarRating data-dojo-props="foo: bar">`.
 	For widgets that enhance an existing tag, syntax is `<button is="dui-button">`.
 2. Use `register.parse()` rather than `dojo/parser.parse()`.  There's no `parseOnLoad:true` or auto-loading
