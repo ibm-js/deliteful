@@ -42,7 +42,6 @@ define([
 	 * @returns {Element} The DOMNode
 	 */
 	function createElement(tag){
-		// TODO: support custom document
 		var base = registry[tag] ? registry[tag].extends : null,
 			element = doc.createElement(base || tag);
 		if (base) {
@@ -99,7 +98,7 @@ define([
 					element.createdCallback.call(element, widget.prototype);
 				}
 				if (element.enteredViewCallback && doc.documentElement.contains(element)) {
-					// TODO: doc that if apps insert an element manually they need to call enteredViewCallback() manually
+					// Note: if app inserts an element manually it needs to call enteredViewCallback() manually
 					element.enteredViewCallback.call(element, widget.prototype);
 				}
 			}
@@ -233,7 +232,6 @@ define([
 			// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
 
 			// Create a constructor method to return a DOMNode representing this widget.
-			// TODO: argument to specify non-default document
 			tagConstructor = function(params, srcNodeRef){
 				// Create new widget node or upgrade existing node to widget
 				var node;
