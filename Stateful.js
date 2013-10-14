@@ -17,7 +17,7 @@ define(["dcl/dcl"], function(dcl){
 		});
 	}
 
-	return dcl(null, {
+	var Stateful = dcl(null, {
 		// summary:
 		//		Base class for objects that provide named properties with optional getter/setter
 		//		control and the ability to watch for property changes.
@@ -198,4 +198,8 @@ define(["dcl/dcl"], function(dcl){
 			}; //Object
 		}
 	});
+
+	dcl.chainAfter(Stateful, "_introspect");
+
+	return Stateful;
 });

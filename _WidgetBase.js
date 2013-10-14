@@ -228,12 +228,11 @@ define([
 		//		Used by `<img>` nodes in templates that really get their image via CSS background-image.
 		_blankGif: config.blankGif || require.toUrl("dojo/resources/blank.gif"),
 
-		_introspect: dcl.after(function(args){
+		_introspect: function(ctor){
 			// Various introspection to be done on my prototype.
 			// This is a static method called on the widget's constructor, not on an instance.
 
-			var ctor = args[0],
-				proto = ctor.prototype;
+			var proto = ctor.prototype;
 
 			var pcm = ctor._propCaseMap = {},
 				onmap = ctor._onMap = {};
@@ -251,7 +250,7 @@ define([
 					proto[key] = genSetter(key.charAt(4).toLowerCase() + key.substr(5, key.length - 9), proto[key]);
 				}
 			}
-		}),
+		},
 
 		//////////// INITIALIZATION METHODS ///////////////////////////////////////
 
