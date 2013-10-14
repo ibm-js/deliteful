@@ -1,10 +1,11 @@
 define([
 	"dojo/_base/declare", // declare
+	"dojo/_base/lang",
 	"./TextBox",
 	"../dui/Tooltip",
 	"dojo/text!./templates/ValidationTextBox.html",
 	"dojo/i18n!./nls/validate"
-], function(declare, TextBox, Tooltip, template, nlsValidate){
+], function(declare, lang, TextBox, Tooltip, template, nlsValidate){
 
 	// module:
 	//		dui/form/ValidationTextBox
@@ -200,7 +201,7 @@ define([
 			// srcNodeRef: DOMNode|String?
 			//		If a srcNodeRef (DOM node) is specified, replace srcNodeRef with my generated DOM tree.
 
-			this.constraints = {};
+			this.constraints = lang.clone(this.constraints);
 			this.baseClass += ' duiValidationTextBox';
 		},
 
