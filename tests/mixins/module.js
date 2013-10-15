@@ -1,5 +1,6 @@
 define([
 	"./_Invalidating",
 	"./Selection",
-	"./Store"
+	"./Store",
+	"./StoreMap"
 ], 1);
