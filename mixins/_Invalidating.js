@@ -26,14 +26,9 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 			// tags:
 			//		protected
 			if(this._invalidatingProperties){
-				var params = this.params;
 				var props = this._invalidatingProperties;
 				for(var i = 0; i < props.length; i++){
 					this.watch(props[i], lang.hitch(this, "invalidateRendering"));
-					if(params && props[i] in params){
-						// if the prop happens to have been passed in the ctor mixin we are invalidated
-						this.invalidateRendering(props[i]);
-					}
 				}
 			}
 		}),
