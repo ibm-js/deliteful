@@ -54,7 +54,7 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"],
 		// 		with direct mapping. Default is false.
 		copyAllItemProps: false,
 
-		postMixInProperties: function(){
+		_introspect: function(){
 			var match;
 			if(!this.mappedKeys){
 				this.mappedKeys = [];

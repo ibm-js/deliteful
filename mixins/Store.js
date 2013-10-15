@@ -24,11 +24,10 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 		//		Options to be applied when querying the store.
 		queryOptions: null,
 
-		/*****
 		// items: Array
-		//		The render items corresponding to the store items for this widget.
-		items: [],
-		*****/
+		//		The render items corresponding to the store items for this widget. This is filled from the store and is
+		//		not supposed to be modified directly. Initially null.
+		items: null,
 
 		preCreate: function(){
 			// we want to be able to wait for potentially several of those properties to be set before
