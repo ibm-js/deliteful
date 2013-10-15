@@ -21,7 +21,7 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"],
 		}
 	};
 
-	var attrregexp = /^(?!_set)(\w)+(?=Attr$|Func$)/;
+	var attrregexp = /^(?!_)(\w)+(?=Attr$|Func$)/;
 
 	return dcl(Store, {
 
