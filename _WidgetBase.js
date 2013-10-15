@@ -329,7 +329,7 @@ define([
 							props[name] = value !== 'false';
 							break;
 						case 'object':
-							if (props[name] instanceof Array) {
+							if (this[name] instanceof Array) {
 								props[name] = value ? value.split(/\s+/) : [];
 							}
 							else {
