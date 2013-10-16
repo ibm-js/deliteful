@@ -18,10 +18,11 @@ define([
 	"dojo/_base/window", // win.body()
 	"./Destroyable",
 	"./Stateful",
+	"./register",
 	"dojo/has!dojo-bidi?./_BidiMixin"
 ], function(require, dcl, array, aspect, config, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
-			lang, on, win, Destroyable, Stateful, _BidiMixin){
+			lang, on, win, Destroyable, Stateful, register, _BidiMixin){
 
 	// module:
 	//		dui/_WidgetBase
@@ -214,6 +215,11 @@ define([
 		//		Path to a blank 1x1 image.
 		//		Used by `<img>` nodes in templates that really get their image via CSS background-image.
 		_blankGif: config.blankGif || require.toUrl("dojo/resources/blank.gif"),
+
+		// register: dui/register
+		//		Convenience pointer to register class.   Used by buildRendering() functions produced from
+		//		handlebars! / template.
+		register: register,
 
 		_introspect: function(){
 			// Various introspection to be done on my prototype.

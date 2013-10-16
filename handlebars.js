@@ -49,7 +49,7 @@ define(["./template"], function(template){
 			}
 
 			return {
-				tag: templateNode.tagName,
+				tag: templateNode.getAttribute("is") || templateNode.tagName,
 				attributes: attributes,
 				children: handlebars.parseChildren(templateNode)
 			};
