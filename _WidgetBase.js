@@ -228,14 +228,14 @@ define([
 		//		Used by `<img>` nodes in templates that really get their image via CSS background-image.
 		_blankGif: config.blankGif || require.toUrl("dojo/resources/blank.gif"),
 
-		_introspect: function(ctor){
+		_introspect: function(){
 			// Various introspection to be done on my prototype.
-			// This is a static method called on the widget's constructor, not on an instance.
+			// "this" refers to my prototype.
 
-			var proto = ctor.prototype;
+			var proto = this;
 
-			var pcm = ctor._propCaseMap = {},
-				onmap = ctor._onMap = {};
+			var pcm = proto._propCaseMap = {},
+				onmap = proto._onMapHash = {};
 			for(var key in proto){
 				// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass
 				pcm[key.toLowerCase()] = key;
@@ -311,7 +311,7 @@ define([
 				return obj;
 			}
 
-			var pcm = this._constructor._propCaseMap,
+			var pcm = this._propCaseMap,
 				idx = 0, props = {};
 			while(attr = this.attributes[idx++]){
 				var name = attr.name;	// note: will be lower case
@@ -514,22 +514,13 @@ define([
 
 			// For backwards compatibility, if there's an onType() method in the widget then connect to that.
 			// Remove in 2.0.
-			var widgetMethod = this._onMap(type);
+			var widgetMethod = this._onMapHash[typeof type == "string" && type.toLowerCase()];
 			if(widgetMethod){
 				return aspect.after(this, widgetMethod, func, true);
 			}
 
 			// Otherwise, just listen for the event on the widget's root node.
 			return this.own(on(this, type, func))[0];
-		},
-
-		_onMap: function(/*String|Function*/ type){
-			// summary:
-			//		Maps on() type parameter (ex: "mousemove") to method name (ex: "onMouseMove").
-			//		If type is a synthetic event like touch.press then returns undefined.
-
-			var ctor = this._constructor, map = ctor._onMap;
-			return map[typeof type == "string" && type.toLowerCase()];	// String
 		},
 
 		toString: function(){

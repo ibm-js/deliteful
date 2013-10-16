@@ -40,13 +40,12 @@ define(["dcl/dcl"], function(dcl){
 		//	|	});
 		//	|	obj.foo = bar;
 
-		_introspect: function(/*Function*/ ctor){
+		_introspect: function(){
 			// summary:
 			//		Sets up ES5 getters/setters for each class property, except for functions and privates.
-			//		_introspect() is meant to run as a static method, i.e. w/out referencing
-			//		this.
+			//		Inside _introspect(), "this" is a reference to the prototype rather than any individual instance.
 
-			var proto = ctor.prototype;
+			var proto = this;
 
 			for(var name in proto){
 				// TODO: If this class extends HTMLElement, then generally shouldn't setup custom getters/setters
@@ -78,7 +77,7 @@ define(["dcl/dcl"], function(dcl){
 			before: function(){
 				// First time this class is instantiated, introspect it.
 				if(!this.constructor._introspected){	// note: checking if this class was introspected, not a superclass
-					this._introspect(this.constructor);
+					this.constructor.prototype._introspect();	// note: inside _introspect() this refs prototype
 					this.constructor._introspected = true;
 				}
 			},
