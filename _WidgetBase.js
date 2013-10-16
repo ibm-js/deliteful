@@ -96,26 +96,13 @@ define([
 						this._set(attr, value);
 					};
 				default:
-					// Map to DOMNode attribute, or attribute on a supporting widget.
-					// First, get the name of the DOM node attribute; usually it's the same
-					// as the name of the attribute in the widget (attr), but can be overridden.
-					// Also maps handler names to lowercase, like onSubmit --> onsubmit
-					var attrName = command.attribute ? command.attribute :
-						(/^on[A-Z][a-zA-Z]*$/.test(attr) ? attr.toLowerCase() : attr);
-
+					// Map to DOMNode property.   DOMNode is possibly a widget.
+					var attrName = command.attribute || attr;
 					return function(value){
 						if(typeof value == "function"){ // functions execute in the context of the widget
 							value = lang.hitch(this, value);
 						}
-						// TODO: this if/else doesn't make sense now because widgets are DOMNodes
-						if(mapNode(this).tagName){
-							// Normal case, mapping to a DOMNode.  Note that modern browsers will have a mapNode(this).setAttribute()
-							// method, but for consistency we still call domAttr().  For 2.0 change to set property?
-							domAttr.set(mapNode(this), attrName, value);
-						}else{
-							// mapping to a sub-widget
-							mapNode(this)[attrName] = value;
-						}
+						mapNode(this)[attrName] = value;
 						this._set(attr, value);
 					};
 			}
