@@ -9,7 +9,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/aspect",
 			"dojo/_base/declare",
 			"dojo/dom",
@@ -31,7 +30,7 @@
 			"dui/layout/AccordionContainer",
 			"dui/tests/helpers",
 			"dojo/domReady!"
-		], function(doh, array, aspect, declare, dom, domClass, lang, parser, request, when,
+		], function(doh, aspect, declare, dom, domClass, lang, parser, request, when,
 				registry, _WidgetBase, _TemplatedMixin, Tooltip, TooltipDialog, Button, DropDownButton,
 				ContentPane, StackContainer, TabContainer, AccordionContainer, helpers){
 
@@ -230,7 +229,7 @@
 							doh.t(cp.isLoaded, "eventually, cp was loaded");
 							doh.is("unloaded and reloaded", history);
 
-							array.forEach(handles, function(handle){
+							handles.forEach(function(handle){
 								handle.remove();
 							});
 						}), true));

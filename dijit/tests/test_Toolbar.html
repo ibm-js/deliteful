@@ -8,7 +8,6 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/array",
 			"dojo/dom",
 			"dojo/parser",
 	
@@ -29,12 +28,12 @@
 			"dui/MenuItem",
 	
 			"dojo/domReady!"
-		], function(array, dom, parser, Toolbar, Button){
+		], function(dom, parser, Toolbar, Button){
 
 			// programatic creation
-			array.forEach(["toolbar2", "toolbar3", "toolbar4"], function(toolbarId){
+			["toolbar2", "toolbar3", "toolbar4"].forEach(function(toolbarId){
 				var toolbar = new Toolbar({}, dom.byId(toolbarId));
-				array.forEach(["Cut", "Copy", "Paste"], function(label){
+				["Cut", "Copy", "Paste"].forEach(function(label){
 					var button = new Button({
                         id: toolbarId+"."+label,
                         // note: should always specify a label, for accessibility reasons.

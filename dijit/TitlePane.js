@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
 	"dojo/dom-attr", // domAttr.set or get domAttr.remove
@@ -13,7 +12,7 @@ define([
 	"../layout/ContentPane",
 	"dojo/text!./templates/TitlePane.html",
 	"../a11yclick"	// template uses ondijitclick
-], function(array, declare, dom, domAttr, domClass, domGeometry, fxUtils, has, keys,
+], function(declare, dom, domAttr, domClass, domGeometry, fxUtils, has, keys,
 			_CssStateMixin, _TemplatedMixin, ContentPane, template){
 
 	// module:
@@ -120,7 +119,7 @@ define([
 			// open: Boolean
 			//		True if you want to open the pane, false if you want to close it.
 
-			array.forEach([this._wipeIn, this._wipeOut], function(animation){
+			[this._wipeIn, this._wipeOut].forEach(function(animation){
 				if(animation && animation.status() == "playing"){
 					animation.stop();
 				}

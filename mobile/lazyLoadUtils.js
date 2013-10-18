@@ -1,12 +1,11 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/window",
 	"dojo/Deferred",
 	"dojo/parser",
 	"dojo/domReady"
-], function(kernel, array, config, win, Deferred, parser, domReady){
+], function(kernel, config, win, Deferred, parser, domReady){
 
 	// module:
 	//		dui/mobile/lazyLoadUtils
@@ -20,13 +19,16 @@ define([
 		if(false && config.parseOnLoad){
 			// TODO: was ready(90, function()). FIXIT
 			domReady(function(){
-				var lazyNodes = array.filter(win.body().getElementsByTagName("*"), // avoid use of dojo.query
-					function(n){ return n.getAttribute("lazy") === "true" || (n.getAttribute("data-dojo-props")||"").match(/lazy\s*:\s*true/); });
+				var lazyNodes = win.body().getElementsByTagName("*").filter( // avoid use of dojo.query
+					function(n){ 
+						return n.getAttribute("lazy") === "true" || (n.getAttribute("data-dojo-props") || "").match(/lazy\s*:\s*true/); 
+				});
 				var i, j, nodes, n;
 				for(i = 0; i < lazyNodes.length; i++){
-					array.forEach(["dojoType", "data-dojo-type"], function(a){
-						nodes = array.filter(lazyNodes[i].getElementsByTagName("*"),
-											function(n){ return n.getAttribute(a); });
+					["dojoType", "data-dojo-type"].forEach(function(a){
+						nodes = lazyNodes[i].getElementsByTagName("*").filter(function(n){ 
+							return n.getAttribute(a); 
+						});
 						for(j = 0; j < nodes.length; j++){
 							n = nodes[j];
 							n.setAttribute("__" + a, n.getAttribute(a));
@@ -40,7 +42,7 @@ define([
 		domReady(function(){
 			for(var i = 0; i < _this._lazyNodes.length; i++){ /* 1.8 */
 				var n = _this._lazyNodes[i];
-				array.forEach(["dojoType", "data-dojo-type"], function(a){
+				["dojoType", "data-dojo-type"].forEach(function(a){
 					if(n.getAttribute("__" + a)){
 						n.setAttribute(a, n.getAttribute("__" + a));
 						n.removeAttribute("__" + a);
@@ -72,7 +74,9 @@ define([
 			}
 			if(req.length === 0){ return true; }
 
-			req = array.map(req, function(s){ return s.replace(/\./g, "/"); });
+			req = req.map(function(s){ 
+				return s.replace(/\./g, "/"); 
+			});
 			require(req, function(){
 				parser.parse(root);
 				if(callback){ callback(root); }

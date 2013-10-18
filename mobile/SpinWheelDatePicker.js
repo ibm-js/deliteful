@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-class",
@@ -7,7 +6,7 @@ define([
 	"./_DatePickerMixin",
 	"./SpinWheel",
 	"./SpinWheelSlot"
-], function(array, declare, lang, domClass, aspect, DatePickerMixin, SpinWheel, SpinWheelSlot){
+], function(declare, lang, domClass, aspect, DatePickerMixin, SpinWheel, SpinWheelSlot){
 
 	// module:
 	//		dui/mobile/SpinWheelDatePicker
@@ -46,7 +45,7 @@ define([
 			// summary:
 			//		Disables the end days of the month to match the specified
 			//		number of days of the month.
-			array.forEach(this.slots[2].panelNodes, function(panel){
+			this.slots[2].panelNodes.forEach(function(panel){
 				for(var i = 27; i < 31; i++){
 					domClass.toggle(panel.childNodes[i], "duiSpinWheelSlotLabelGray", i >= daysInMonth);
 				}

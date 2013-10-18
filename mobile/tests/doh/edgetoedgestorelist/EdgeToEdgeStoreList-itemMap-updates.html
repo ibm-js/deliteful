@@ -19,14 +19,13 @@
 			"doh/runner",
 			"dojo/query",
 			"dojo/_base/lang",
-			"dojo/_base/array",
 			"dojo/store/Memory",
 			"dojo/store/Observable",
 			"dui/registry",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/mobile/EdgeToEdgeStoreList"
-		], function(ready, runner, query, lang, array, Memory, Observable, registry){
+		], function(ready, runner, query, lang, Memory, Observable, registry){
 			var static_data1 = [
 				{ id: 1, text: "Category 1", header: true },
 				{ id: 2, text: "Wi-Fi", profile_image_url: "../../images/i-icon-1.png", moveTo: "wifi" },
@@ -74,7 +73,7 @@
 			};
 			// update all items text or label
 			update1 = function(){
-				array.forEach(store.query({}), function(item, i){
+				store.query({}).forEach(function(item, i){
 					var newItem = lang.clone(item);
 					if(newItem.text){
 						newItem.text = newItem.text+"-Updated";

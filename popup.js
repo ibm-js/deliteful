@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.some
 	"dojo/aspect",
 	"dcl/dcl",
 	"dojo/dom", // dom.isDescendant
@@ -15,7 +14,7 @@ define([
 	"./BackgroundIframe",
 	"./Viewport",
 	"./themes/load!common"	// duiPopup class
-], function(array, aspect, dcl, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
+], function(aspect, dcl, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on,
 			place, BackgroundIframe, Viewport){
 
 	// module:
@@ -373,7 +372,7 @@ define([
 			// a popup would cause others to close too.  Thus if we are trying to close B in [A,B,C]
 			// closing C might close B indirectly and then the while() condition will run where stack==[A]...
 			// so the while condition is constructed defensively.
-			while((popup && array.some(stack, function(elem){
+			while((popup && stack.some(function(elem){
 				return elem.widget == popup;
 			})) ||
 				(!popup && stack.length)){

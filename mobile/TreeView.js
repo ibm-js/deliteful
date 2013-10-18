@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -14,7 +13,7 @@ define([
 	"./viewRegistry",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TreeView"
-], function(kernel, array, declare, lang, win, domConstruct, registry, Heading, ListItem, ProgressIndicator, RoundRectList, ScrollableView, viewRegistry, has, BidiTreeView){
+], function(kernel, declare, lang, win, domConstruct, registry, Heading, ListItem, ProgressIndicator, RoundRectList, ScrollableView, viewRegistry, has, BidiTreeView){
 
 	// module:
 	//		dui/mobile/TreeView
@@ -81,7 +80,7 @@ define([
 				lang.hitch(this, function(items){
 					var scope = this;
 					var list = new RoundRectList();
-					array.forEach(items, function(item){
+					items.forEach(function(item){
 						var listItemArgs = {
 							item: item,
 							label: item[scope.model.store.label],
@@ -111,7 +110,7 @@ define([
 					prog.stop();
 					registry.byNode(li.domNode).transitionTo(newView.id);
 				})
-			)
+			);
 		}
 	});
 	

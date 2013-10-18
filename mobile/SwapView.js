@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom",
@@ -11,7 +10,7 @@ define([
 	"dojo/sniff",
 	"./_css3",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/SwapView"
-], function(array, declare, lang, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
+], function(declare, lang, dom, domClass, topic, registry, View, ScrollableMixin, has, css3, BidiSwapView){
 
 	// module:
 	//		dui/mobile/SwapView
@@ -60,7 +59,7 @@ define([
 			// summary:
 			//		Calls resize() of each child widget.
 			this.inherited(arguments); // scrollable#resize() will be called
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},
@@ -278,7 +277,7 @@ define([
 				// Hide all the views other than the currently showing one.
 				// Otherwise, when the orientation is changed, other views
 				// may appear unexpectedly.
-				array.forEach(this.domNode.parentNode.childNodes, function(c){
+				this.domNode.parentNode.childNodes.forEach(function(c){
 					if(this.isSwapView(c)){
 						domClass.remove(c, "duiIn");
 						if(!c._isShowing){

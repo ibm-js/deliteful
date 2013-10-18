@@ -1,13 +1,12 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/Deferred",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dui/registry",
 	"../lazyLoadUtils"
-], function(dojo, array, declare, Deferred, domClass, domConstruct, registry, lazyLoadUtils){
+], function(dojo, declare, Deferred, domClass, domConstruct, registry, lazyLoadUtils){
 
 	// module:
 	//		dui/mobile/dh/HtmlContentHandler

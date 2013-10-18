@@ -9,11 +9,10 @@ define([
 	"dojo/on",
 	"dojo/window",
 	"dui/_WidgetBase",
-	"dojo/_base/array",
 	"dui/registry",
 	"dojo/touch",
 	"./_css3"
-], function(declare, lang, has, win, domClass, domGeometry, domStyle, on, windowUtils, WidgetBase, array, registry, touch, css3){
+], function(declare, lang, has, win, domClass, domGeometry, domStyle, on, windowUtils, WidgetBase, registry, touch, css3){
 
 	return declare("dui.mobile.Overlay", WidgetBase, {
 		// summary:
@@ -50,7 +49,7 @@ define([
 		show: function(/*DomNode?*/aroundNode){
 			// summary:
 			//		Scroll the overlay up into view
-			array.forEach(registry.findWidgets(this.domNode), function(w){
+			registry.findWidgets(this.domNode).forEach(function(w){
 				if(w && w.height == "auto" && typeof w.resize == "function"){
 					w.resize();
 				}

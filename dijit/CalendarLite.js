@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.map
 	"dojo/_base/declare", // declare
 	"dojo/cldr/supplemental", // cldrSupplemental.getFirstDayOfWeek
 	"dojo/date", // date
@@ -16,7 +15,7 @@ define([
 	"dojo/text!./templates/Calendar.html",
 	"../a11yclick",	// not used directly, but template has ondijitclick in it
 	"dojo/hccss"    // not used directly, but sets CSS class on <body>
-], function(array, declare, cldrSupplemental, date, locale, stamp, dom, domClass, lang, on, has, string, _WidgetBase, _TemplatedMixin, template){
+], function(declare, cldrSupplemental, date, locale, stamp, dom, domClass, lang, on, has, string, _WidgetBase, _TemplatedMixin, template){
 
 
 	// module:
@@ -203,7 +202,7 @@ define([
 			this._date2cell = {};
 
 			// Iterate through dates in the calendar and fill in date numbers and style info
-			array.forEach(this.dateCells, function(template, idx){
+			this.dateCells.forEach(function(template, idx){
 				var i = idx + dayOffset;
 				var date = new this.dateClassObj(month),
 					number, clazz = "duiCalendar", adj = 0;
@@ -272,7 +271,7 @@ define([
 
 			var y = month.getFullYear() - 1;
 			var d = new this.dateClassObj();
-			array.forEach(["previous", "current", "next"], function(name){
+			["previous", "current", "next"].forEach(function(name){
 				d.setFullYear(y++);
 				this._setText(this[name + "YearLabelNode"],
 					this.dateLocaleModule.format(d, {selector: 'year', locale: this.lang}));
@@ -447,13 +446,15 @@ define([
 			}
 
 			// Clear previously selected cells.
-			array.forEach(this._selectedCells || [], lang.partial(mark, false));
+			if(this._selectedCells){
+				this._selectedCells.forEach(lang.partial(mark, false));
+			}
 
 			// Mark newly selected cells.  Ignore dates outside the currently displayed month.
-			this._selectedCells = array.filter(array.map(dates, this._getNodeByDate, this), function(n){
+			this._selectedCells = dates.map(this._getNodeByDate, this).filter(function(n){
 				return n;
 			});
-			array.forEach(this._selectedCells, lang.partial(mark, true));
+			this._selectedCells.forEach(lang.partial(mark, true));
 		},
 
 		onChange: function(/*Date*/ /*===== date =====*/){
@@ -504,7 +505,7 @@ define([
 			//		Set the current month to display as a label
 			var monthNames = this.dateLocaleModule.getNames('months', 'wide', 'standAlone', this.lang, month),
 				spacer = "<div class='duiSpacer'>" +
-					array.map(monthNames,function(s){
+					monthNames.map(function(s){
 						return "<div>" + s + "</div>";
 					}).join("") + "</div>";
 

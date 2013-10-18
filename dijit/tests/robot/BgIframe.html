@@ -14,9 +14,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/dom", "dojo/on", "dojo/sniff", "dojo/window",
+				"dojo/dom", "dojo/on", "dojo/sniff", "dojo/window",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, array, dom, on, has, winUtils, helpers){
+			], function(doh, robot, dom, on, has, winUtils, helpers){
 
 				robot.initRobot('../test_bgIframe.html');
 
@@ -26,7 +26,7 @@
 				});
 
 				// Test for applets and flash, except on chrome where flash is still problematic
-				array.forEach(has("webkit") ? ["applet"] : ["applet", "xapp"], function(xId){
+				(has("webkit") ? ["applet"] : ["applet", "xapp"]).forEach(function(xId){
 					doh.register(xId, [
 					{
 						name: "dialog_" + xId,

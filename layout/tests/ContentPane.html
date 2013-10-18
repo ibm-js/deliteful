@@ -24,7 +24,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/_base/declare",
 			"dojo/dom",
 			"dojo/data/ItemFileReadStore",
@@ -40,7 +39,7 @@
 			"dui/layout/ContentPane",
 			"dui/layout/StackContainer",
 			"dojo/domReady!"
-		], function(doh, array, declare, dom, ItemFileReadStore, NodeList, parser,
+		], function(doh, declare, dom, ItemFileReadStore, NodeList, parser,
 					registry, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Dialog, _LayoutWidget,
 					ContentPane, StackContainer){
 
@@ -137,7 +136,7 @@
 									+"<div data-dojo-type='TestWidget'>below</div>";
 
 						var list = new NodeList();
-						array.forEach(div.childNodes, function(n){
+						div.childNodes.forEach(function(n){
 							list.push(n.cloneNode(true));
 						});
 

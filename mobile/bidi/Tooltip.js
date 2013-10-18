@@ -1,8 +1,7 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
-	"./common"   
-], function(array, declare, common){
+	"./common"
+], function(declare, common){
 
 	// module:
 	//		dui/mobile/bidi/Tooltip
@@ -39,7 +38,7 @@ define([
 		_applyTextDirToTextElements: function(){
 			// summary:
 			//		Wrap relevant child text nodes in directional UCC marks
-			array.forEach(this.domNode.childNodes, function(node){
+			this.domNode.childNodes.forEach(function(node){
 				var currentNode = (node.nodeType === 1 && node.childNodes.length === 1) ? node.firstChild : node;
 				if(currentNode.nodeType === 3 && currentNode.nodeValue){
 					if(currentNode.nodeValue.search(/[.\S]/) != -1){

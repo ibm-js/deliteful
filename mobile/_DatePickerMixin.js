@@ -1,11 +1,10 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/date",
 	"dojo/date/locale",
 	"dojo/date/stamp"
-], function(array, declare, lang, ddate, datelocale, datestamp){
+], function(declare, lang, ddate, datelocale, datestamp){
 
 	// module:
 	//		dui/mobile/_DatePickerMixin
@@ -100,7 +99,7 @@ define([
 			//		Reorders the slots.			
 			if(this.slotOrder.length){ return; }
 			var a = datelocale._parseInfo().bundle["dateFormat-short"].toLowerCase().split(/[^ymd]+/, 3);
-			this.slotOrder = array.map(a, function(pat){
+			this.slotOrder = a.map(function(pat){
 				return {y:0, m:1, d:2}[pat.charAt(0)];
 			});
 		},
@@ -109,7 +108,7 @@ define([
 			// summary:
 			//		Goes to today.
 			var now = new Date();
-			var v = array.map(this.slots, function(w){ return w.format(now); });
+			var v = this.slots.map(function(w){ return w.format(now); });
 			this.set("colors", v);
 			this._disableEndDaysOfMonth();
 			if(this.value){
@@ -234,7 +233,7 @@ define([
 			//	|	set("values", [2012, 1, 20]); // January 20, 2012
 			// tags:
 			//		private
-			array.forEach(this.getSlots(), function(w, i){
+			this.getSlots().forEach(function(w, i){
 				var v = values[i];
 				if(typeof v == "number"){
 					var arr = [1970, 1, 1];
@@ -259,7 +258,7 @@ define([
 			// tags:
 			//		private			
 			var date = datestamp.fromISOString(value);
-			this.set("values", array.map(this.slots, function(w){ return w.format(date); }));
+			this.set("values", this.slots.map(function(w){ return w.format(date); }));
 		},
 		
 		_getValueAttr: function(){

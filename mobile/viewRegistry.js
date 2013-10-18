@@ -1,8 +1,7 @@
 define([
-	"dojo/_base/array",
 	"dojo/dom-class",
 	"dui/registry"
-], function(array, domClass, registry){
+], function(domClass, registry){
 
 	// module:
 	//		dui/mobile/viewRegistry
@@ -64,7 +63,7 @@ define([
 			// summary:
 			//		Gets the children views of the specified view.
 			// returns: Array
-			return array.filter(this.getViews(), function(v){ return this.getParentView(v) === parent; }, this);
+			return this.getViews().filter(function(v){ return this.getParentView(v) === parent; }, this);
 		},
 
 		getEnclosingView: function(/*DomNode*/ node){

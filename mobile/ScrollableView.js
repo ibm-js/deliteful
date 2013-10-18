@@ -1,12 +1,11 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dui/registry",	// registry.byNode
 	"./View",
 	"./_ScrollableMixin"
-], function(array, declare, domClass, domConstruct, registry, View, ScrollableMixin){
+], function(declare, domClass, domConstruct, registry, View, ScrollableMixin){
 
 	// module:
 	//		dui/mobile/ScrollableView
@@ -68,7 +67,7 @@ define([
 			// summary:
 			//		Calls resize() of each child widget.
 			this.inherited(arguments); // scrollable#resize() will be called
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 			this._dim = this.getDim(); // update dimension cache

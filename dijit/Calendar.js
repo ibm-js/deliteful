@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.map
 	"dojo/date",
 	"dojo/date/locale",
 	"dojo/_base/declare", // declare
@@ -13,7 +12,7 @@ define([
 	"../_CssStateMixin",
 	"../_TemplatedMixin",
 	"../form/DropDownButton"
-], function(array, date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
+], function(date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:
 	//		dui/Calendar
@@ -269,7 +268,7 @@ define([
 			"data-dojo-attach-event='onclick:_onClick,onmouseover:_onMenuHover,onmouseout:_onMenuHover'></div>",
 
 		_setMonthsAttr: function(/*String[]*/ months){
-			this.domNode.innerHTML = array.map(months,function(month, idx){
+			this.domNode.innerHTML = months.map(function(month, idx){
 				return month ? "<div class='duiCalendarMonthLabel' month='" + idx + "'>" + month + "</div>" : "";
 			}).join("");
 		},

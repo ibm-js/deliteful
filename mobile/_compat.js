@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",	// array.forEach
 	"dojo/_base/config",
 	"dojo/_base/fx",	// fx.fadeOut, fx.fadeIn
 	"dojo/_base/lang",	// lang.extend, lang.isArray
@@ -28,7 +27,7 @@ define([
 	"./View",
 	"./Heading",
 	"require"
-], function(array, config, bfx, lang, has, win, domClass, domConstruct, domGeometry, domStyle, domAttr, fx, easing, domReady, uacss, registry, xfx, flip, EdgeToEdgeList, IconContainer, ProgressIndicator, RoundRect, RoundRectList, ScrollableView, Switch, View, Heading, require){
+], function(config, bfx, lang, has, win, domClass, domConstruct, domGeometry, domStyle, domAttr, fx, easing, domReady, uacss, registry, xfx, flip, EdgeToEdgeList, IconContainer, ProgressIndicator, RoundRect, RoundRectList, ScrollableView, Switch, View, Heading, require){
 
 	// module:
 	//		dui/mobile/compat
@@ -512,7 +511,7 @@ return {
 			//		private
 			if(!dm._loadedCss){
 				var obj = {};
-				array.forEach(dm.getCssPaths(), function(path){
+				dm.getCssPaths().forEach(function(path){
 					obj[path] = true;
 				});
 				dm._loadedCss = obj;

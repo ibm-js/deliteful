@@ -9,8 +9,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-
-			"dojo/_base/array",
 			"dojo/dom",
 			"dojo/dom-geometry",
 			"dojo/json",
@@ -46,7 +44,7 @@
 			"dui/layout/ContentPane",
 				
 			"dojo/domReady!"
-		], function(doh, array, dom, domGeom, json, on, parser, query, ItemFileReadStore, registry){
+		], function(doh, dom, domGeom, json, on, parser, query, ItemFileReadStore, registry){
 		
 
 			function checkLeft(/*Widget*/ left, /*Widget*/ right){
@@ -212,7 +210,7 @@
 
 						var rowNodes = query(".duiTreeRow", dom.byId("ltr_tc_tree"));
 
-						array.forEach(rowNodes, function(rowNode){
+						rowNodes.forEach(function(rowNode){
 							var expando = query(".duiTreeExpando", rowNode)[0];
 							var label = query(".duiTreeContent", rowNode)[0];
 							checkLeft(expando, label);
@@ -226,7 +224,7 @@
 
 						var rowNodes = query(".duiTreeRow", dom.byId("rtl_tc_tree"));
 
-						array.forEach(rowNodes, function(rowNode){
+						rowNodes.forEach(function(rowNode){
 							var expando = query(".duiTreeExpando", rowNode)[0];
 							var label = query(".duiTreeContent", rowNode)[0];
 							checkLeft(label, expando);

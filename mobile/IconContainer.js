@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -10,7 +9,7 @@ define([
 	"./IconItem", // to load IconItem for you (no direct references)
 	"./Heading",
 	"./View"
-], function(array, declare, lang, win, domConstruct, Contained, Container, WidgetBase, IconItem, Heading, View){
+], function(declare, lang, win, domConstruct, Contained, Container, WidgetBase, IconItem, Heading, View){
 
 	// module:
 	//		dui/mobile/IconContainer
@@ -143,7 +142,7 @@ define([
 		closeAll: function(){
 			// summary:
 			//		Closes all the icon items.
-			array.forEach(this.getChildren(), function(w){
+			this.getChildren().forEach(function(w){
 				w.close(true); // disables closing animation
 			}, this);
 		},

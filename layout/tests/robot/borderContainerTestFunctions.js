@@ -1,4 +1,4 @@
-define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json"], function(dojo, array, geom, json){
+define(["dojo/_base/kernel", "dojo/dom-geometry", "dojo/json"], function(dojo, geom, json){
 
 	function duiById(id){
 		return dojo.global.require("dui/registry").byId(id);
@@ -61,37 +61,37 @@ define(["dojo/_base/kernel", "dojo/_base/array", "dojo/dom-geometry", "dojo/json
 				regions = {};
 	
 			// Check all panes inside BorderContainer
-			array.forEach(children, function(child, comment){
+			children.forEach(function(child, comment){
 				exports.checkInside(child, bc, comment);
 				regions[child.region] = child;
 			});
 	
 			// Check pane positions relative to each other
-			array.forEach(children, function(child){
+			children.forEach(function(child){
 				switch(child.region){
 					case "top":
-						array.forEach(bc.design == "sidebar" ? ["center", "bottom"] : ["left", "center", "right", "bottom"], function(region){
+						(bc.design == "sidebar" ? ["center", "bottom"] : ["left", "center", "right", "bottom"]).forEach(function(region){
 							if(regions[region]){
 								exports.checkAbove(bc.id, child, regions[region], comment);
 							}
 						});
 						break;
 					case "bottom":
-						array.forEach(bc.design == "sidebar" ? ["center", "top"] : ["left", "center", "right", "top"], function(region){
+						(bc.design == "sidebar" ? ["center", "top"] : ["left", "center", "right", "top"]).forEach(function(region){
 							if(regions[region]){
 								exports.checkAbove(bc.id, regions[region], child, comment);
 							}
 						});
 						break;
 					case "left":
-						array.forEach(bc.design == "sidebar" ? ["top", "center", "bottom", "right"] : ["right"], function(region){
+						(bc.design == "sidebar" ? ["top", "center", "bottom", "right"] : ["right"]).forEach(function(region){
 							if(regions[region]){
 								exports.checkLeft(bc.id, child, regions[region], comment);
 							}
 						});
 						break;
 					case "right":
-						array.forEach(bc.design == "sidebar" ? ["top", "center", "bottom", "left"] : ["left"], function(region){
+						(bc.design == "sidebar" ? ["top", "center", "bottom", "left"] : ["left"]).forEach(function(region){
 							if(regions[region]){
 								exports.checkLeft(bc.id, regions[region], child, comment);
 							}

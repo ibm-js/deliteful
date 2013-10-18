@@ -37,7 +37,6 @@
 
 		require([
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
-			"dojo/_base/array", // dojo.forEach
 			"dojo/sniff",
 			"dojo/dom-construct", // dojo.place
 			"dojo/dom-class", // dojo.hasClass
@@ -48,7 +47,7 @@
 			"dui/mobile/IconItem",
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dui/mobile/View"		// This mobile app uses mobile view
-		], function(parser, array, has, domConst, domClass, ready, registry, runner, IconContainer, IconItem){
+		], function(parser, has, domConst, domClass, ready, registry, runner, IconContainer, IconItem){
 			parser.parse();
 			function _createIconContainerDeclaratively(widgetId){
 				return registry.byId(widgetId);
@@ -92,7 +91,7 @@
 				runner.assertNotEqual(null, widget, "IconContainer: Did not instantiate.");
 				runner.assertEqual(WIDGET_CLASSNAME, widget.domNode.className, "id=" + widget.domNode.id);
 				var index = 0;
-				array.forEach(widget.getChildren(), function(iconItem){
+				widget.getChildren().forEach(function(iconItem){
 					_assertCorrectIconItem(iconItem, CHILD_ITEM_PROPS[index++]);
 				});
 
@@ -146,7 +145,7 @@
 				}
 			]);
 			runner.run();
-		})
+		});
 	</script>
 </head>
 <body>

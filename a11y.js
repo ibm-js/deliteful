@@ -1,9 +1,8 @@
 define([
-	"dojo/_base/array", // array.forEach array.map
 	"dojo/dom",			// dom.byId
 	"dojo/dom-attr", // domAttr.attr domAttr.has
 	"dojo/dom-style" // domStyle.style
-], function(array, dom, domAttr, domStyle){
+], function(dom, domAttr, domStyle){
 
 	// module:
 	//		dui/a11y

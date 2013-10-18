@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/dom", "dojo/dom-geometry", "dojo/keys",
+				"dojo/dom", "dojo/dom-geometry", "dojo/keys",
 				"dui/tests/helpers", "dui/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
-			], function(doh, robot, array, dom, geom, keys, helpers, bcTest){
+			], function(doh, robot, dom, geom, keys, helpers, bcTest){
 
 				function checkLayoutPriorityBC(){
 					bcTest.checkAbove("top bar above second top bar", "top1", "top2");
@@ -60,7 +60,7 @@
 						// Check that all panes within BC borders
 						var children = registry.byId("pbc").getChildren();
 						doh.is(11, children.length, "# of children");
-						array.forEach(children, function(child){
+						children.forEach(function(child){
 							bcTest.checkInside(child, registry.byId("pbc"));
 						});
 					}							

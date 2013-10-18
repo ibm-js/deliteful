@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dui/registry",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
@@ -11,7 +10,7 @@ define([
 	"dui/_WidgetBase",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Tooltip"
-], function(array, registry, declare, lang, domClass, domConstruct, domGeometry, domStyle, place, WidgetBase, has, BidiTooltip){
+], function(registry, declare, lang, domClass, domConstruct, domGeometry, domStyle, place, WidgetBase, has, BidiTooltip){
 
 	var Tooltip = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTooltip" : "dui.mobile.Tooltip", WidgetBase, {
 		// summary:
@@ -58,7 +57,7 @@ define([
 				"BLB": "duiTooltipBefore"
 			};
 			domClass.remove(domNode, ["duiTooltipAfter","duiTooltipBefore","duiTooltipBelow","duiTooltipAbove"]);
-			array.forEach(registry.findWidgets(domNode), function(widget){
+			registry.findWidgets(domNode).forEach(function(widget){
 				if(widget.height == "auto" && typeof widget.resize == "function"){
 					if(!widget._parentPadBorderExtentsBottom){
 						widget._parentPadBorderExtentsBottom = domGeometry.getPadBorderExtents(domNode).b;

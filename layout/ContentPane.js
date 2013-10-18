@@ -6,7 +6,6 @@ define([
 	"dojo/string", // string.substitute
 	"dojo/html", // html._ContentSetter
 	"dojo/i18n!../nls/loading",
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/Deferred", // Deferred
 	"dojo/dom", // dom.byId
@@ -14,7 +13,7 @@ define([
 	"dojo/dom-construct", // empty()
 	"dojo/request",
 	"dojo/when"
-], function(lang, _WidgetBase, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, array, declare,
+], function(lang, _WidgetBase, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, declare,
 			Deferred, dom, domAttr, domConstruct, request, when){
 
 	// module:
@@ -192,7 +191,7 @@ define([
 
 			// And this catches stuff like dojo/dnd/Source
 			if(this._contentSetter){
-				array.forEach(this._contentSetter.parseResults, function(obj){
+				this._contentSetter.parseResults.forEach(function(obj){
 					if(!obj._started && !obj._destroyed && lang.isFunction(obj.startup)){
 						obj.startup();
 						obj._started = true;
@@ -207,7 +206,7 @@ define([
 			//		itself, but avoids marking the ContentPane itself as "restarted" (see #15581).
 
 			// This starts all the widgets
-			array.forEach(this.getChildren(), function(obj){
+			this.getChildren().forEach(function(obj){
 				if(!obj._started && !obj._destroyed && lang.isFunction(obj.startup)){
 					obj.startup();
 					obj._started = true;
@@ -216,7 +215,7 @@ define([
 
 			// And this catches stuff like dojo/dnd/Source
 			if(this._contentSetter){
-				array.forEach(this._contentSetter.parseResults, function(obj){
+				this._contentSetter.parseResults.forEach(function(obj){
 					if(!obj._started && !obj._destroyed && lang.isFunction(obj.startup)){
 						obj.startup();
 						obj._started = true;
@@ -441,7 +440,7 @@ define([
 			// For historical reasons we need to delete all widgets under this.containerNode,
 			// even ones that the user has created manually.
 			var setter = this._contentSetter;
-			array.forEach(this.getChildren(), function(widget){
+			this.getChildren().forEach(function(widget){
 				if(widget.destroyRecursive){
 					// All widgets will hit this branch
 					widget.destroyRecursive(preserveDom);
@@ -454,7 +453,7 @@ define([
 			if(setter){
 				// Most of the widgets in setter.parseResults have already been destroyed, but
 				// things like Menu that have been moved to <body> haven't yet
-				array.forEach(setter.parseResults, function(widget){
+				setter.parseResults.forEach(function(widget){
 					if(!widget._destroyed){
 						if(widget.destroyRecursive){
 							// All widgets will hit this branch

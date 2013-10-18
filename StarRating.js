@@ -1,7 +1,6 @@
 define([
     "dcl/dcl",
 	"dojo/_base/lang",
-	"dojo/_base/array",
 	"dojo/string",
 	"dojo/has",
 	"dojo/on",
@@ -15,7 +14,7 @@ define([
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
-], function(dcl, lang, array, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
+], function(dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
 			register, WidgetBase, BidiStarRating, messages){
 
 	// module:
@@ -167,10 +166,10 @@ define([
 		},
 
 		_onKeyDown: function(/*Event*/ event){
-			if(array.indexOf(this._incrementKeyCodes, event.keyCode) != -1){
+			if(this._incrementKeyCodes.indexOf(event.keyCode) != -1){
 				event.preventDefault();
 				this._incrementValue();
-			}else if(array.indexOf(this._decrementKeyCodes, event.keyCode) != -1){
+			}else if(this._decrementKeyCodes.indexOf(event.keyCode) != -1){
 				event.preventDefault();
 				this._decrementValue();
 			}

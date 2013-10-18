@@ -1,6 +1,5 @@
 define([
 	"require",
-	"dojo/_base/array", // array.forEach array.indexOf array.map
 	"dojo/aspect",
 	"dojo/_base/declare", // declare
 	"dojo/Deferred", // Deferred
@@ -26,7 +25,7 @@ define([
 	"../layout/utils",
 	"dojo/text!./templates/Dialog.html",
 	"dojo/i18n!../nls/common"
-], function(require, array, aspect, declare, Deferred,
+], function(require, aspect, declare, Deferred,
 			dom, domClass, domGeometry, domStyle, fx, keys, lang, on, has, winUtils,
 			Moveable, focus, _WidgetBase, _TemplatedMixin, _CssStateMixin, _FormMixin, _DialogMixin,
 			DialogUnderlay, ContentPane, utils, template, nlsCommon){
@@ -179,7 +178,7 @@ define([
 
 			this.underlayAttrs = {
 				dialogId: this.id,
-				"class": array.map(this["class"].split(/\s/),function(s){
+				"class": this["class"].split(/\s/).map(function(s){
 					return s + "_underlay";
 				}).join(" "),
 				_onKeyDown: lang.hitch(this, "_onKey"),
@@ -396,7 +395,7 @@ define([
 								delete this._singleChildOriginalStyle;
 							}
 						}
-						array.forEach([this.domNode, this.containerNode, this.titleBar], function(node){
+						[this.domNode, this.containerNode, this.titleBar].forEach(function(node){
 							domStyle.set(node, {
 								position: "static",
 								width: "auto",
@@ -464,7 +463,7 @@ define([
 			// Override _ContentPaneResizeMixin._layoutChildren because even when there's just a single layout child
 			// widget, sometimes we don't want to size it explicitly (i.e. to pass a dim argument to resize())
 
-			array.forEach(this.getChildren(), function(widget){
+			this.getChildren().forEach(function(widget){
 				if(widget.resize){
 					widget.resize();
 				}
@@ -611,9 +610,9 @@ define([
 			}else{
 				// Removing a dialog out of order (#9944, #10705).
 				// Don't need to mess with underlay or z-index or anything.
-				var idx = array.indexOf(array.map(ds, function(elem){
+				var idx = ds.map(function(elem){
 					return elem.dialog;
-				}), dialog);
+				}).indexOf(dialog);
 				if(idx != -1){
 					ds.splice(idx, 1);
 				}

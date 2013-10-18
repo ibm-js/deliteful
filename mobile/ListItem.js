@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-class",
@@ -14,7 +13,7 @@ define([
 	"./ProgressIndicator",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/ListItem"
-], function(array, declare, lang, domClass, domConstruct, domStyle, domAttr, on, registry, WidgetBase, iconUtils, ItemBase, ProgressIndicator, has,  BidiListItem){
+], function(declare, lang, domClass, domConstruct, domStyle, domAttr, on, registry, WidgetBase, iconUtils, ItemBase, ProgressIndicator, has,  BidiListItem){
 
 	// module:
 	//		dui/mobile/ListItem
@@ -252,7 +251,7 @@ define([
 
 		layoutChildren: function(){
 			var centerNode;
-			array.forEach(this.domNode.childNodes, function(n){
+			this.domNode.childNodes.forEach(function(n){
 				if(n.nodeType !== 1){ return; }
 				var layout = n.getAttribute("data-mobile-layout") ||
 					(registry.byNode(n) || {}).layout;
@@ -338,7 +337,7 @@ define([
 			var h = this.domNode.offsetHeight;
 			if(h === this.domNodeHeight){ return; }
 			this.domNodeHeight = h;
-			array.forEach(this._layoutChildren.concat([
+			this._layoutChildren.concat([
 				this.rightTextNode,
 				this.rightIcon2Node,
 				this.rightIconNode,
@@ -346,7 +345,7 @@ define([
 				this.iconNode,
 				this.deleteIconNode,
 				this.knobIconNode
-			]), function(n){
+			]).forEach(function(n){
 				if(n){
 					var domNode = this.domNode;
 					var f = function(){
@@ -387,7 +386,7 @@ define([
 			// tags:
 			//		private
 			var i, node, list = ["deleteIcon", "icon", "rightIcon", "uncheckIcon", "rightIcon2", "rightText"];
-			for(i = array.indexOf(list, type) + 1; i < list.length; i++){
+			for(i = list.indexOf(type) + 1; i < list.length; i++){
 				node = this[list[i] + "Node"];
 				if(node){ return node; }
 			}
@@ -470,7 +469,7 @@ define([
 			} // icon may be invalid because inheritParams is not called yet
 			var parent = this.getParent();
 			if(parent && parent.select === "single" && checked){
-				array.forEach(parent.getChildren(), function(child){
+				parent.getChildren().forEach(function(child){
 					child !== this && child.checked && child.set("checked", false) && domAttr.set(child.domNode, "aria-selected", "false");
 				}, this);
 			}

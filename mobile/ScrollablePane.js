@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/sniff",
 	"dojo/_base/window",
@@ -9,7 +8,7 @@ define([
 	"./_ScrollableMixin",
 	"./Pane",
 	"./_maskUtils"
-], function(array, declare, has, win, dom, domConstruct, domStyle, ScrollableMixin, Pane, maskUtils){
+], function(declare, has, win, dom, domConstruct, domStyle, ScrollableMixin, Pane, maskUtils){
 
 	// module:
 	//		dui/mobile/ScrollablePane
@@ -67,7 +66,7 @@ define([
 			if(this.roundCornerMask){
 				this.createRoundMask();
 			}
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},

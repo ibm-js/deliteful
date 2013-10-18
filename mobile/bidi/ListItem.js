@@ -1,10 +1,9 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/array",
 	"dojo/dom-construct",
 	"./common",
 	"dojo/_base/window"
-], function(declare, array, domConstruct, common, win){
+], function(declare, domConstruct, common, win){
 
 	// module:
 	//		dui/mobile/ListItem
@@ -57,7 +56,7 @@ define([
 				return;
 			}
 			var nEncount = 0;
-			array.forEach(this.domNode.childNodes, function(node){
+			this.domNode.childNodes.forEach(function(node){
 				var textNode;
 				if(nEncount === 0){
 					/* Replace content of directional text node, if found */

@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/window",
 	"dojo/dom-class",
@@ -8,7 +7,7 @@ define([
 	"dui/_Container",
 	"dui/_WidgetBase",
 	"dojo/has"
-], function(array, declare, win, domClass, domGeometry, Contained, Container, WidgetBase, has){
+], function(declare, win, domClass, domGeometry, Contained, Container, WidgetBase, has){
 
 	// module:
 	//		dui/mobile/FixedSplitter
@@ -84,7 +83,7 @@ define([
 				props1 = {}, props2 = {},
 				i, c, h,
 				a = [], offset = 0, total = 0,
-				children = array.filter(this.domNode.childNodes, function(node){ return node.nodeType == 1; }),
+				children = this.domNode.childNodes.filter(function(node){ return node.nodeType == 1; }),
 				idx = this.variablePane == -1 ? children.length - 1 : this.variablePane;
 			for(i = 0; i < children.length; i++){
 				if(i != idx){
@@ -95,7 +94,7 @@ define([
 
 			if(this.orientation == "V"){
 				if(this.domNode.parentNode.tagName == "BODY"){
-					if(array.filter(win.body().childNodes, function(node){ return node.nodeType == 1; }).length == 1){
+					if(win.body().childNodes.filter(function(node){ return node.nodeType == 1; }).length == 1){
 						h = (win.global.innerHeight||win.doc.documentElement.clientHeight);
 					}
 				}
@@ -125,7 +124,7 @@ define([
 				}
 			}
 
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},

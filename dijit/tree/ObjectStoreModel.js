@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array", // array.filter array.forEach array.indexOf array.some
 	"dojo/aspect", // aspect.before, aspect.after
 	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.hitch
 	"dojo/when"
-], function(array, aspect, declare, lang, when){
+], function(aspect, declare, lang, when){
 
 	// module:
 	//		dui/tree/ObjectStoreModel
@@ -205,7 +204,7 @@ define([
 				// TreeNode vs. the drop-onto TreeNode.
 
 				var oldParentChildren = [].concat(this.childrenCache[this.getIdentity(oldParentItem)]), // concat to make copy
-					index = array.indexOf(oldParentChildren, childItem);
+					index = oldParentChildren.indexOf(childItem);
 				oldParentChildren.splice(index, 1);
 				this.onChildrenChange(oldParentItem, oldParentChildren);
 			}

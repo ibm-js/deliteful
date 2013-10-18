@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
 	"dojo/has",
 	"dojo/i18n!./nls/ComboBox"
-], function(array, declare, domAttr, has, nlsComboBox){
+], function(declare, domAttr, has, nlsComboBox){
 
 	// module:
 	//		dui/form/_ComboBoxMenuMixin
@@ -109,7 +108,7 @@ define([
 			// ComboBox (or FilteringSelect) class
 			// #2309:
 			//		iterate over cache nondestructively
-			array.forEach(results, function(item, i){
+			results.forEach(function(item, i){
 				var menuitem = this._createOption(item, labelFunc);
 				menuitem.setAttribute("item", i);	// index to this.items; use indirection to avoid mem leak
 				domAttr.set(menuitem, "id", this.id + i);

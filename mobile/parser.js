@@ -1,11 +1,10 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/domReady"
-], function(dojo, array, config, lang, win, domReady){
+], function(dojo, config, lang, win, domReady){
 
 	// module:
 	//		dui/mobile/parser
@@ -27,7 +26,7 @@ define([
 			if(typeof(mixins) === "string"){
 				var t = type + ":" + mixins.replace(/ /g, "");
 				return _ctorMap[t] ||
-					(_ctorMap[t] = getCtor(type).createSubclass(array.map(mixins.split(/, */), getCtor)));
+					(_ctorMap[t] = getCtor(type).createSubclass(mixins.split(/, */).map(getCtor)));
 			}
 			return _ctorMap[type] || (_ctorMap[type] = lang.getObject(type) || require(type));
 		};

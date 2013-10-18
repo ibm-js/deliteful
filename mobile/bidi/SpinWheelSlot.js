@@ -1,10 +1,9 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/window",
-	"dojo/_base/array",
 	"dojo/dom-construct",
-	"./common"      
-], function(declare, win, array, domConstruct, common){
+	"./common"
+], function(declare, win, domConstruct, common){
 
 	// module:
 	//		dui/mobile/bidi/SpinWheelSlot
@@ -30,8 +29,8 @@ define([
 		},
 
 		_setTextDirToNodes: function(textDir){
-			array.forEach(this.panelNodes, function(panel){
-				array.forEach(panel.childNodes, function(node, i){
+			this.panelNodes.forEach(function(panel){
+				panel.childNodes.forEach(function(node, i){
 					node.innerHTML = common.removeUCCFromText(node.innerHTML);     
 					node.innerHTML = common.enforceTextDirWithUcc(node.innerHTML, this.textDir);      
 					node.style.textAlign = (this.dir.toLowerCase() === "rtl") ? "right" : "left";      

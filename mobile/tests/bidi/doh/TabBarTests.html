@@ -12,7 +12,6 @@
 
 	require([
 		"dojo/sniff",
-		"dojo/_base/array",
 		"dojo/dom-construct", // dojo.place
 		"dojo/_base/window",		
 		"dojo/domReady", // dojo.ready
@@ -24,7 +23,7 @@
 		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
 
-	], function(has, array, domConst, win, ready, registry, runner, common, TabBar, TabBarButton){
+	], function(has, domConst, win, ready, registry, runner, common, TabBar, TabBarButton){
 
 		function _createTabBarProgrammatically(){
 				domConst.create("div", {className:"label", innerHTML:"Segmented Control"}, win.body());
@@ -88,7 +87,6 @@
 					btn = registry.byId("tbb32");
 					runner.assertEqual("auto", btn.badgeObj.textDir);
 					runner.assertEqual(rle, btn.badgeObj.getValue().charAt(0));
-					
 				},				
 				
 				function test_change_textDir(){
@@ -112,8 +110,7 @@
 				}, 
 				
 				function test_program_created_TBButton(){
-					var children = tabbar.getChildren();
-					array.forEach(children, function(ch){
+					tabbar.getChildren().forEach(function(ch){
 						runner.assertEqual("rtl", ch.get("textDir"));
 						runner.assertEqual(rle, getFirstChar(ch));
 					}, this); 
@@ -122,7 +119,7 @@
 			]);
 			runner.run();
 		});
-	})
+	});
 </script>
 </head>
 <body>

@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -13,7 +12,7 @@ define([
 	"dui/registry",
 	"dojo/sniff",
 	"./uacss" // (no direct references)
-], function(array, config, lang, win, kernel, domClass, domConstruct, on, domReady, topic, touch, registry, has){
+], function(config, lang, win, kernel, domClass, domConstruct, on, domReady, topic, touch, registry, has){
 
 	// module:
 	//		dui/mobile/common
@@ -127,7 +126,7 @@ define([
 			return !!((!parent || !parent.resize) && w.resize);
 		};
 		var resizeRecursively = function(w){
-			array.forEach(w.getChildren(), function(child){
+			w.getChildren().forEach(function(child){
 				if(isTopLevel(child)){ child.resize(); }
 				resizeRecursively(child);
 			});
@@ -136,8 +135,9 @@ define([
 			if(root.resize){ root.resize(); }
 			resizeRecursively(root);
 		}else{
-			array.forEach(array.filter(registry.toArray(), isTopLevel),
-					function(w){ w.resize(); });
+			registry.toArray().filter(isTopLevel).forEach(function(w){
+				w.resize(); 
+			});
 		}
 		topic.publish("/dui/mobile/afterResizeAll", evt, root);
 	};

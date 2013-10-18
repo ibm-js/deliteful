@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.indexOf
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.isDescendant domClass.replace
 	"dojo/dom-attr",
@@ -15,7 +14,7 @@ define([
 	"../_CssStateMixin",
 	"../_KeyNavMixin",
 	"../_TemplatedMixin"
-], function(array, declare, dom, domAttr, domClass, lang, mouse, on, winUtils, a11yclick,
+], function(declare, dom, domAttr, domClass, lang, mouse, on, winUtils, a11yclick,
 			registry, _WidgetBase, _Container, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
 
 	// module:

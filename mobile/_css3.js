@@ -1,8 +1,7 @@
 define([
 	"dojo/_base/window",
-	"dojo/_base/array",
 	"dojo/has"
-], function(win, arr, has){
+], function(win, has){
 
 	// caches for capitalized names and hypen names
 	var cnames = [], hnames = [];
@@ -19,7 +18,7 @@ define([
 	has.add("css3-animations", function(global, document, element){
 		var style = element.style;
 		return (style["animation"] !== undefined && style["transition"] !== undefined) ||
-			arr.some(prefixes, function(p){
+			prefixes.some(function(p){
 				return style[p+"Animation"] !== undefined && style[p+"Transition"] !== undefined;
 			});
 	});
@@ -84,7 +83,7 @@ define([
 					}else{
 						// try prefixed versions
 						cn = cn.charAt(0).toUpperCase() + cn.slice(1);
-						arr.some(prefixes, function(prefix){
+						prefixes.some(function(prefix){
 							if(style[prefix+cn] !== undefined){
 								if(hyphen){
 									n = "-" + prefix + "-" + p;

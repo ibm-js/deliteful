@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add domClass.contains
 	"dojo/dom-geometry", // domGeometry.contentBox
@@ -21,7 +20,7 @@ define([
 	"../_HasDropDown",
 	"dojo/NodeList-dom", // NodeList.style
 	"../a11yclick"	// template uses ondijitclick (not for keyboard support, but for responsive touch support)
-], function(array, declare, domClass, domGeometry, domStyle, fx, lang, on, query, has,
+], function(declare, domClass, domGeometry, domStyle, fx, lang, on, query, has,
 	registry, tabControllerTemplate, buttonTemplate, TabController, layoutUtils, _WidgetsInTemplateMixin,
 	Menu, MenuItem, Button, _HasDropDown){
 
@@ -467,7 +466,7 @@ define([
 				textDir: this.textDir
 			});
 			var container = registry.byId(this.containerId);
-			array.forEach(container.getChildren(), function(page){
+			container.getChildren().forEach(function(page){
 				var menuItem = new MenuItem({
 					id: page.id + "_stcMi",
 					label: page.title,

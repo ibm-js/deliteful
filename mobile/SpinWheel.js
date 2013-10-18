@@ -1,10 +1,9 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/array",
 	"dojo/dom-construct",
 	"./_PickerBase",
 	"./SpinWheelSlot" // to load SpinWheelSlot for you (no direct references)
-], function(declare, array, domConstruct, PickerBase){
+], function(declare, domConstruct, PickerBase){
 
 	// module:
 	//		dui/mobile/SpinWheel
@@ -33,7 +32,7 @@ define([
 
 		resize: function() {
 			this.centerPos = Math.round(this.domNode.offsetHeight / 2);
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				child.resize && child.resize();
 			});
 		},

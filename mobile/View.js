@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
@@ -21,7 +20,7 @@ define([
 	"./common",
 	"./viewRegistry",
 	"./_css3"
-], function(array, config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, viewRegistry, css3){
+], function(config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, viewRegistry, css3){
 
 	// module:
 	//		dui/mobile/View
@@ -110,8 +109,8 @@ define([
 				var views = this.getSiblingViews();
 				var ids = location.hash && location.hash.substring(1).split(/,/);
 				var fragView, selectedView, firstView;
-				array.forEach(views, function(v, i){
-					if(array.indexOf(ids, v.id) !== -1){ fragView = v; }
+				views.forEach(function(v, i){
+					if(ids.indexOf(v.id) !== -1){ fragView = v; }
 					if(i == 0){ firstView = v; }
 					if(v.selected){ selectedView = v; }
 					v._visible = false;
@@ -154,7 +153,7 @@ define([
 		resize: function(){
 			// summary:
 			//		Calls resize() of each child widget.
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},
@@ -201,7 +200,7 @@ define([
 			//		Remove all the "dui" prefixed classes except dui*View.
 			if(!node){ return; }
 			var classes = [];
-			array.forEach(lang.trim(node.className||"").split(/\s+/), function(c){
+			lang.trim(node.className||"").split(/\s+/).forEach(function(c){
 				if(c.match(/^dui\w*View$/) || c.indexOf("dui") === -1){
 					classes.push(c);
 				}
@@ -611,9 +610,11 @@ define([
 			// summary:
 			//		Returns an array of the sibling views.
 			if(!this.domNode.parentNode){ return [this]; }
-			return array.map(array.filter(this.domNode.parentNode.childNodes,
-				function(n){ return n.nodeType === 1 && domClass.contains(n, "duiView"); }),
-				function(n){ return registry.byNode(n); });
+			return this.domNode.parentNode.childNodes.filter(function(n){ 
+					return n.nodeType === 1 && domClass.contains(n, "duiView"); 
+				}).map(function(n){ 
+				return registry.byNode(n); 
+			});
 		},
 
 		show: function(/*Boolean?*/noEvent, /*Boolean?*/doNotHideOthers){
@@ -632,7 +633,7 @@ define([
 			if(doNotHideOthers){
 				this.domNode.style.display = "";
 			}else{
-				array.forEach(this.getSiblingViews(), function(v){
+				this.getSiblingViews().forEach(function(v){
 					v.domNode.style.display = (v === this) ? "" : "none";
 				}, this);
 			}

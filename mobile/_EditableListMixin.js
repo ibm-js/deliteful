@@ -1,7 +1,6 @@
 // TODO: auto scroll?
 
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -14,7 +13,7 @@ define([
 	"dojo/dom-attr",
 	"dui/registry",
 	"./ListItem"
-], function(array, declare, lang, win, domClass, domGeometry, domStyle, on, topic, touch, domAttr, registry, ListItem){
+], function(declare, lang, win, domClass, domGeometry, domStyle, on, topic, touch, domAttr, registry, ListItem){
 
 	// module:
 	//		dui/mobile/EditableRoundRectList
@@ -122,7 +121,7 @@ define([
 				];
 			}
 			this._pos = [];
-			array.forEach(this.getChildren(), function(c){
+			this.getChildren().forEach(function(c){
 				this._pos.push(domGeometry.position(c.domNode, true).y);
 			}, this);
 			this.touchStartY = e.touches ? e.touches[0].pageY : e.pageY;
@@ -172,7 +171,11 @@ define([
 			this.containerNode.removeChild(this._blankItem.domNode);
 			this._resetMoveItem(this._movingItem.domNode);
 
-			array.forEach(this._conn, function(h){h.remove();});
+			if (this._conn){
+				this._conn.forEach(function(h){
+					h.remove();
+				});
+			}
 			this._conn = null;
 			
 			this.onMoveItem(this._movingItem, startIndex, endIndex); //callback
@@ -183,7 +186,7 @@ define([
 			//		Starts the editing.
 			this.isEditing = true;
 			domClass.add(this.domNode, "duiEditableRoundRectList");
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(!child.deleteIconNode){
 					child.set("rightIcon", this.rightIconForEdit);
 					if(child.rightIconNode && child.rightIconNode.firstChild){
@@ -217,7 +220,7 @@ define([
 			// summary:
 			//		Ends the editing.
 			domClass.remove(this.domNode, "duiEditableRoundRectList");
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				child.rightIconNode.style.display = "none";
 				child.deleteIconNode.style.display = "none";
 				if(typeof child.rightIconNode.style.msTouchAction != "undefined"){
@@ -225,7 +228,7 @@ define([
 				}
 			});
 			if(this._handles){
-				array.forEach(this._handles, function(h){h.remove();}, this);
+				this._handles.forEach(function(h){h.remove();}, this);
 				this._handles = null;
 			}
 			this.isEditing = false;

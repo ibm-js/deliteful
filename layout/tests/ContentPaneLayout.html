@@ -20,7 +20,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/aspect",
 			"dojo/_base/declare",
 			"dojo/dom-geometry",
@@ -38,7 +37,7 @@
 			"dui/layout/TabContainer",
 			"dui/TitlePane",
 			"dojo/domReady!"
-		], function(doh, array, aspect, declare, domGeom, Memory, parser,
+		], function(doh, aspect, declare, domGeom, Memory, parser,
 				registry, _WidgetBase, _TemplatedMixin,
 				Dialog, Form, BorderContainer, ContentPane, _LayoutWidget, TabContainer, TitlePane){
 
@@ -139,7 +138,7 @@
 						// Wait for load events to occur (after fetching URL's)
 						setTimeout(d.getTestCallback(function(){
 							doh.is(1, loadEvents.pane1, "pane1");
-							array.forEach(["pane2", "innerPane1", "innerPane2", "bcPane1", "bcPane2"], function(pane){
+							["pane2", "innerPane1", "innerPane2", "bcPane1", "bcPane2"].forEach(function(pane){
 								doh.f(loadEvents[pane], pane, pane + " shouldn't be loaded");
 							});
 						}), 4000);

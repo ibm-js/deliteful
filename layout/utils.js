@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array", // array.filter array.forEach
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-geometry", // domGeometry.marginBox
 	"dojo/dom-style", // domStyle.getComputedStyle
 	"dojo/_base/lang" // lang.mixin, lang.setObject
-], function(array, domClass, domGeometry, domStyle, lang){
+], function(domClass, domGeometry, domStyle, lang){
 
 	// module:
 	//		dui/layout/utils
@@ -81,11 +80,11 @@ define([
 			domClass.add(container, "duiLayoutContainer");
 
 			// set positions/sizes
-			array.forEach(children, function(child){
+			children.forEach(function(child){
 				var elm = child.domNode,
 					pos = child.region;
 				if(!pos){
-					throw new Error("No region setting for " + child.id)
+					throw new Error("No region setting for " + child.id);
 				}
 
 				// set elem to upper left corner of unused space; may move it later

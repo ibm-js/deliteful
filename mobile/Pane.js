@@ -1,9 +1,8 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dui/_Contained",
 	"dui/_WidgetBase"
-], function(array, declare, Contained, WidgetBase){
+], function(declare, Contained, WidgetBase){
 
 	// module:
 	//		dui/mobile/Pane
@@ -30,7 +29,7 @@ define([
 		resize: function(){
 			// summary:
 			//		Calls resize() of each child widget.
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		}

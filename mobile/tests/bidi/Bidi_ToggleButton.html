@@ -14,7 +14,6 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
 			"dui/mobile/Heading",
@@ -24,7 +23,7 @@
 			"dui/mobile/ScrollableView",
 			"dui/mobile/TabBar",
 			"dui/mobile/ListItem"
-		], function(connect, ready, array, dom, registry, Heading, ToggleButton){
+		], function(connect, ready, dom, registry, Heading, ToggleButton){
 			ready(function(){
 				//create list programmaticaly
 				var view = registry.byId("view2");
@@ -35,19 +34,19 @@
 				//change textDir, text
 				var btnLtr = registry.byId("btn5");				
 				btnLtr.connect(btnLtr, "onClick", function(){
-					array.forEach(["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"], function (btnId){
+					["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"].forEach(function (btnId){
 						registry.byId(btnId).set("textDir", "ltr");
 					});							
 				});
 				var btnRtl = registry.byId("btn6");
 				btnLtr.connect(btnRtl, "onClick", function(){
-					array.forEach(["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"], function (btnId) {
+					["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"].forEach(function (btnId) {
 						registry.byId(btnId).set("textDir", "rtl");
 					});							
 				});	
 				var btnAuto = registry.byId("btn7");
 				btnAuto.connect(btnAuto, "onClick", function(){
-					array.forEach(["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"], function (btnId) {
+					["ltrbtn1", "ltrbtn2", "ltrbtn3", "ltrbtn4"].forEach(function (btnId) {
 						registry.byId(btnId).set("textDir", "auto");
 					});							
 				});						

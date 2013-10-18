@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -15,7 +14,7 @@ define([
 	"./_maskUtils",
 	"./common",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Switch"
-], function(array, declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, touch, Contained, WidgetBase, has, maskUtils, dm, BidiSwitch){
+], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, touch, Contained, WidgetBase, has, maskUtils, dm, BidiSwitch){
 
 	// module:
 	//		dui/mobile/Switch
@@ -237,7 +236,11 @@ define([
 		onTouchEnd: function(/*Event*/e){
 			// summary:
 			//		Internal function to handle touchEnd events.
-			array.forEach(this._conn, function(h){h.remove();});
+			if(this._conn){
+				this._conn.forEach(function(h){
+					h.remove();
+				});
+			}
 			this._conn = null;
 			if(this.innerStartX == this.inner.offsetLeft){
 				// need to send a synthetic click?

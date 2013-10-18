@@ -1,13 +1,12 @@
 define([
-	"dojo/_base/array", // array.forEach array.map
-	"dojo/aspect",	// aspect.after
+	"dojo/aspect", // aspect.after
 	"dojo/_base/lang", // lang.getObject
 	"dojo/parser", // parser._functionFromScript
 	"dojo/query", // query
 	"./register",
 	"./_WidgetBase",
 	"dojo/NodeList-dom"
-], function(array, aspect,lang, parser, query, register, _WidgetBase){
+], function(aspect, lang, parser, query, register, _WidgetBase){
 
 	// module:
 	//		dui/Declaration
@@ -51,7 +50,7 @@ define([
 			// add that method to prototype.
 			// If there's no "event" specified then it's code to run on instantiation,
 			// so it becomes a connection to "postscript" (handled below).
-			array.forEach(methods, function(s){
+			methods.forEach(function(s){
 				var evt = s.getAttribute("data-dojo-event"),
 					func = parser._functionFromScript(s, "data-dojo-");
 				if(evt){
@@ -62,10 +61,10 @@ define([
 			});
 
 			// map array of strings like [ "dui.form.Button" ] to array of mixin objects
-			// (note that array.map(this.mixins, lang.getObject) doesn't work because it passes
+			// (note that this.mixins.map(lang.getObject) doesn't work because it passes
 			// a bogus third argument to getObject(), confusing it)
 			if(this.mixins.length){
-				this.mixins = array.map(this.mixins, function(name){ return lang.getObject(name); } );
+				this.mixins = this.mixins.map(function(name){ return lang.getObject(name); } );
 			}else{
 				this.mixins = [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ];
 			}
@@ -93,7 +92,7 @@ define([
 			// (Note that the second one is just shorthand for a dojo/aspect to postscript)
 			// Since this is a connect in the declaration, we are actually connection to the method
 			// in the _prototype_.
-			array.forEach(aspects, function(s){
+			aspects.forEach(function(s){
 				var advice = s.getAttribute("data-dojo-advice") || "after",
 					method = s.getAttribute("data-dojo-method") || "postscript",
 					func = parser._functionFromScript(s);

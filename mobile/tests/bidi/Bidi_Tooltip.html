@@ -14,7 +14,6 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
 			"dojo/parser",
@@ -23,7 +22,7 @@
 			"dui/Button",
 			"dui/mobile/ScrollableView",
 			"dui/mobile/ListItem"
-		], function(connect, ready, array, dom, reg){
+		], function(connect, ready, dom, reg){
 			registry = reg; // for registry.byId used in markup
 			
 			ready(function(){

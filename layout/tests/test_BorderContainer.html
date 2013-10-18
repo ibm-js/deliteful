@@ -29,7 +29,6 @@
 		var bc, cp1, cp2, cp3;
 
 		require([
-			"dojo/_base/array",
 			"dojo/aspect",
 			"dojo/dom",
 			"dojo/dom-style",
@@ -41,7 +40,7 @@
 			"dui/layout/ContentPane",
 			"dui/form/FilteringSelect",
 			"dojo/domReady!"
-		], function(array, aspect, dom, domStyle, json, on, parser, registry, BorderContainer, ContentPane, FilteringSelect){
+		], function(aspect, dom, domStyle, json, on, parser, registry, BorderContainer, ContentPane, FilteringSelect){
 
 			togglePanel = function(button, id){
 				var leftPanel = registry.byId(id);
@@ -63,7 +62,7 @@
 			function watchSplitters(bc){
 				var out = dom.byId("watchedOutput");
 				var moveConnects = {};
-				array.forEach(["top", "left"], function(region){
+				["top", "left"].forEach(function(region){
 					var spl = bc.getSplitter(region);
 	
 					aspect.after(spl, "_startDrag", function(){

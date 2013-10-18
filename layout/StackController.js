@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.indexOf array.map
 	"dojo/_base/declare", // declare
 	"dojo/dom-class",
 	"dojo/dom-construct",
@@ -14,7 +13,7 @@ define([
 	"../_Container",
 	"../form/ToggleButton",
 	"dojo/touch"	// for normalized click handling, see dojoClick property setting in postCreate()
-], function(array, declare, domClass, domConstruct, keys, lang, on, topic,
+], function(declare, domClass, domConstruct, keys, lang, on, topic,
 		focus, registry, _WidgetBase, _TemplatedMixin, _Container, ToggleButton){
 
 	// module:
@@ -119,7 +118,7 @@ define([
 			// tags:
 			//		private
 			this.textDir = info.textDir;
-			array.forEach(info.children, this.onAddChild, this);
+			info.children.forEach(this.onAddChild, this);
 			if(info.selected){
 				// Show button corresponding to selected pane (unless selected
 				// is null because there are no panes)
@@ -289,7 +288,7 @@ define([
 			}
 			// find currently focused button in children array
 			var children = this.getChildren();
-			var idx = array.indexOf(children, this.pane2button(this._currentChild.id)),
+			var idx = children.indexOf(this.pane2button(this._currentChild.id)),
 				current = children[idx];
 
 			// Pick next/previous non-disabled button to focus on.   If we get back to the original button it means

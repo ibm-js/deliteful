@@ -1,15 +1,15 @@
-define([ "dojo/_base/array",
-         "dojo/_base/lang",
-         "dojo/_base/declare",
-         "dojo/sniff",
-         "dojo/dom-construct",
-         "dojo/dom-geometry",
-         "dojo/on",
-         "dojo/aspect",
-         "dui/registry",
-         "./common",
-         "./viewRegistry" ],
-		function(array, lang, declare, has, domConstruct, domGeometry, on, aspect, registry, dm, viewRegistry){
+define([
+		"dojo/_base/lang",
+		"dojo/_base/declare",
+		"dojo/sniff",
+		"dojo/dom-construct",
+		"dojo/dom-geometry",
+		"dojo/on",
+		"dojo/aspect",
+		"dui/registry",
+		"./common",
+		"./viewRegistry" ],
+		function(lang, declare, has, domConstruct, domGeometry, on, aspect, registry, dm, viewRegistry){
 
 	// module:
 	//		dui/mobile/LongListMixin
@@ -118,7 +118,7 @@ define([ "dojo/_base/array",
 		_clearItems: function(){
 			// summary: Removes all currently loaded items.
 			var c = this.containerNode;
-			array.forEach(registry.findWidgets(c), function(item){
+			registry.findWidgets(c).forEach(function(item){
 				c.removeChild(item.domNode);
 			});
 		},
@@ -295,7 +295,7 @@ define([ "dojo/_base/array",
 				// And since the superclass destroys all children returned by getChildren(), and
 				// this would actually return no children because _items is now empty, we must
 				// destroy all children manually first.
-				array.forEach(this.getChildren(), function(child){
+				this.getChildren().forEach(function(child){
 					child.destroyRecursive();
 				});
 				this._items = [];

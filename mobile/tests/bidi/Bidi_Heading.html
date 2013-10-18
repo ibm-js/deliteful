@@ -14,17 +14,16 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
-			"dui/mobile/Heading",			
+			"dui/mobile/Heading",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/Button",
 			"dui/mobile/ScrollableView",
 			"dui/mobile/TabBar",
 			"dui/mobile/ListItem"
-		], function(connect, ready, array, dom, registry, Heading){
+		], function(connect, ready, dom, registry, Heading){
 			ready(function(){
 				var view = registry.byId("view2");
 				var demoWidget = new Heading({label:"Programm Heading!", textDir:"rtl", id:"hdn", back:"\u05e9\u05d9\u05de\u05d5\u05e9\u0020\u05d1\u05ea\u05d2\u05d9\u05d5\u05ea back..."});

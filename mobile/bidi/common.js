@@ -1,4 +1,4 @@
-define(["dojo/_base/array", "dui/_BidiMixin"], function(array, _BidiMixin){
+define(["dui/_BidiMixin"], function(_BidiMixin){
 
 	// module:
 	//		dui/mobile/bidi/common
@@ -47,7 +47,7 @@ define(["dojo/_base/array", "dui/_BidiMixin"], function(array, _BidiMixin){
 			//		parent widget
 			var children = widget.getChildren();
 			if (children && widget.textDir){
-				array.forEach(children, function(ch){
+				children.forEach(function(ch){
 					ch.set("textDir", widget.textDir);
 				}, widget);
 			}

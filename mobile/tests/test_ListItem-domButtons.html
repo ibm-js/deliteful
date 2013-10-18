@@ -13,14 +13,13 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/_base/array",
 			"dojo/_base/connect",
 			"dojo/_base/window",
 			"dojo/domReady",
 			"dui/registry",
 			"dojo/parser",
 			"dui/mobile/compat"
-		], function(array, connect, win, ready, registry){
+		], function(connect, win, ready, registry){
 			function setRightIcon2Value(id, val){
 				var txt = win.doc.createTextNode(val);
 				registry.byId(id).rightIcon2Node.firstChild.firstChild.appendChild(txt);
@@ -34,13 +33,13 @@
 				setRightIcon2Value("item2", "5");
 				setRightIcon2Value("item3", "108");
 				setIconValue("item42", "3");
-				array.forEach(registry.byId("list1").getChildren(), function(w){
+				registry.byId("list1").getChildren().forEach(function(w){
 					connect.connect(w.iconNode, "onclick", w, function(e){
 						console.log(this);
 						registry.byId("list1").removeChild(this);
 					});
 				});
-				array.forEach(registry.byId("list5").getChildren(), function(w){
+				registry.byId("list5").getChildren().forEach(function(w){
 					connect.connect(w.iconNode, "onclick", w, function(e){
 						console.log(this);
 						registry.byId("list5").removeChild(this);

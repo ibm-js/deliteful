@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array", // array.every array.filter array.forEach array.indexOf array.map
 	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.hitch lang.isArray
 	"dojo/on",
 	"dojo/window" // winUtils.scrollIntoView
-], function(array, declare, lang, on, winUtils){
+], function(declare, lang, on, winUtils){
 
 	// module:
 	//		dui/form/_FormMixin
@@ -50,7 +49,7 @@ define([
 			// summary:
 			//		Returns all form widget descendants, searching through non-form child widgets like BorderContainer
 			var res = [];
-			array.forEach(children || this.getChildren(), function(child){
+			(children || this.getChildren()).forEach(function(child){
 				if("value" in child){
 					res.push(child);
 				}else{
@@ -61,7 +60,7 @@ define([
 		},
 
 		reset: function(){
-			array.forEach(this._getDescendantFormWidgets(), function(widget){
+			this._getDescendantFormWidgets().forEach(function(widget){
 				if(widget.reset){
 					widget.reset();
 				}
@@ -76,7 +75,7 @@ define([
 			//		1. it will highlight any sub-widgets that are not valid
 			//		2. it will call focus() on the first invalid sub-widget
 			var didFocus = false;
-			return array.every(array.map(this._getDescendantFormWidgets(), function(widget){
+			return this._getDescendantFormWidgets().map(function(widget){
 				// Need to set this so that "required" widgets get their
 				// state set.
 				widget._hasBeenBlurred = true;
@@ -88,7 +87,7 @@ define([
 					didFocus = true;
 				}
 				return valid;
-			}), function(item){ return item; });
+			}).every(function(item){ return item; });
 		},
 
 		_setValueAttr: function(/*Object*/ obj){
@@ -97,7 +96,7 @@ define([
 
 			// generate map from name --> [list of widgets with that name]
 			var map = { };
-			array.forEach(this._getDescendantFormWidgets(), function(widget){
+			this._getDescendantFormWidgets().forEach(function(widget){
 				if(!widget.name){ return; }
 				var entry = map[widget.name] || (map[widget.name] = [] );
 				entry.push(widget);
@@ -116,15 +115,15 @@ define([
 				values = [].concat(values);
 				if(typeof widgets[0].checked == 'boolean'){
 					// for checkbox/radio, values is a list of which widgets should be checked
-					array.forEach(widgets, function(w){
-						w.set('value', array.indexOf(values, w._get('value')) != -1);
+					widgets.forEach(function(w){
+						w.set('value', values.indexOf(w._get('value')) != -1);
 					});
 				}else if(widgets[0].multiple){
 					// it takes an array (e.g. multi-select)
 					widgets[0].set('value', values);
 				}else{
 					// otherwise, values is a list of values to be assigned sequentially to each widget
-					array.forEach(widgets, function(w, i){
+					widgets.forEach(function(w, i){
 						w.set('value', values[i]);
 					});
 				}
@@ -133,7 +132,7 @@ define([
 			/***
 			 *	TODO: code for plain input boxes (this shouldn't run for inputs that are part of widgets)
 
-			array.forEach(this.containerNode.elements, function(element){
+			this.containerNode.elements.forEach(function(element){
 				if(element.name == ''){return};	// like "continue"
 				var namePath = element.name.split(".");
 				var myObj=obj;
@@ -175,20 +174,20 @@ define([
 				switch(element.type){
 					case "checkbox":
 						element.checked = (name in myObj) &&
-							array.some(myObj[name], function(val){ return val == element.value; });
+							myObj[name].some(function(val){ return val == element.value; });
 						break;
 					case "radio":
 						element.checked = (name in myObj) && myObj[name] == element.value;
 						break;
 					case "select-multiple":
 						element.selectedIndex=-1;
-						array.forEach(element.options, function(option){
-							option.selected = array.some(myObj[name], function(val){ return option.value == val; });
+						element.options.forEach(function(option){
+							option.selected = myObj[name].some(function(val){ return option.value == val; });
 						});
 						break;
 					case "select-one":
 						element.selectedIndex="0";
-						array.forEach(element.options, function(option){
+						element.options.forEach(function(option){
 							option.selected = option.value == myObj[name];
 						});
 						break;
@@ -223,7 +222,7 @@ define([
 
 			// get widget values
 			var obj = { };
-			array.forEach(this._getDescendantFormWidgets(), function(widget){
+			this._getDescendantFormWidgets().forEach(function(widget){
 				var name = widget.name;
 				if(!name || widget.disabled){ return; }
 
@@ -273,7 +272,7 @@ define([
 			 * code for plain input boxes (see also domForm.formToObject, can we use that instead of this code?
 			 * but it doesn't understand [] notation, presumably)
 			var obj = { };
-			array.forEach(this.containerNode.elements, function(elm){
+			this.containerNode.elements.forEach(function(elm){
 				if(!elm.name)	{
 					return;		// like "continue"
 				}
@@ -333,12 +332,12 @@ define([
 		_getState: function(){
 			// summary:
 			//		Compute what this.state should be based on state of children
-			var states = array.map(this._descendants, function(w){
+			var states = this._descendants.map(function(w){
 				return w.get("state") || "";
 			});
 
-			return array.indexOf(states, "Error") >= 0 ? "Error" :
-				array.indexOf(states, "Incomplete") >= 0 ? "Incomplete" : "";
+			return states.indexOf("Error") >= 0 ? "Error" :
+				states.indexOf("Incomplete") >= 0 ? "Incomplete" : "";
 		},
 
 		connectChildren: function(/*Boolean*/ inStartup){
@@ -353,7 +352,7 @@ define([
 
 			// To get notifications from children they need to be started.   Children didn't used to need to be started,
 			// so for back-compat, start them here
-			array.forEach(this._descendants, function(child){
+			this._descendants.forEach(function(child){
 				if(!child._started){ child.startup(); }
 			});
 

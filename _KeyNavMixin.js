@@ -1,12 +1,11 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dcl/dcl",
 	"dojo/dom-attr", // domAttr.set
 	"dojo/keys", // keys.END keys.HOME, keys.LEFT_ARROW etc.
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"./_FocusMixin"        // to make _onBlur() work
-], function(array, dcl, domAttr, keys, lang, on, _FocusMixin){
+	"./_FocusMixin" // to make _onBlur() work
+], function(dcl, domAttr, keys, lang, on, _FocusMixin){
 
 	// module:
 	//		dui/_KeyNavMixin

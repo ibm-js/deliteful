@@ -14,9 +14,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/dom", "dojo/keys", "dojo/_base/lang", "dojo/query",
+				"dojo/dom", "dojo/keys", "dojo/_base/lang", "dojo/query",
 				"dojo/domReady!"
-			], function(doh, robot, array, dom, keys, lang, query){
+			], function(doh, robot, dom, keys, lang, query){
 				robot.initRobot('../test_Toolbar.html');
 
 				doh.register(function setup(){
@@ -98,8 +98,8 @@
 							// Disable a bunch of buttons to make sure that left/right arrow
 							// keys skip over disabled buttons, and also that initial focus
 							// goes to the first enabled button
-							array.forEach(["toolbar1_cut", "toolbar1_copy", "toolbar1_bold", "toolbar1_backcolor",
-								"toolbar1_forecolor", "toolbar1_combo2"], function(widgetName){
+							["toolbar1_cut", "toolbar1_copy", "toolbar1_bold", "toolbar1_backcolor",
+								"toolbar1_forecolor", "toolbar1_combo2"].forEach(function(widgetName){
 								registry.byId(widgetName).set("disabled", true);
 							});
 
@@ -114,7 +114,7 @@
 							var focusPoints = ["toolbar1_dialog", "toolbar1_combo_button", "toolbar1_combo_arrow", "toolbar1_insertorderedlist"];
 
 							// Use right arrow key to visit every enabled button (and for combobutton to hit left and right sides)
-							array.forEach(focusPoints, function(str){
+							focusPoints.forEach(function(str){
 								robot.keyPress(keys.RIGHT_ARROW, 500, {});
 								robot.sequence(d.getTestErrback(lang.hitch(this, function(){
 									doh.is(str, dfocus.curNode.id, str + ", first visit");
@@ -124,7 +124,7 @@
 							// Now go backwards
 							focusPoints.reverse();
 							focusPoints.shift();
-							array.forEach(focusPoints, function(str){
+							focusPoints.forEach(function(str){
 								robot.keyPress(keys.LEFT_ARROW, 500, {});
 								robot.sequence(d.getTestErrback(lang.hitch(this, function(){
 									doh.is(str, dfocus.curNode.id, str + ", second visit");

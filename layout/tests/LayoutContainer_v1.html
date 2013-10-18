@@ -8,7 +8,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/dom-geometry",
 			"dojo/json",
 			"dojo/parser",
@@ -18,7 +17,7 @@
 			"dui/tests/helpers",
 			"dui/form/FilteringSelect",
 			"dojo/domReady!"
-		], function(doh, array,domGeom, json, parser,
+		], function(doh, domGeom, json, parser,
 					registry, ContentPane, LayoutContainer, helpers){
 
 			function checkInside(/*Widget*/ child, /*Widget*/ parent){
@@ -63,7 +62,7 @@
 			doh.register("LayoutContainer", [
 				function basic(){
 					var lc = registry.byId("basic");
-					array.forEach(lc.getChildren(), function(child){
+					lc.getChildren().forEach(function(child){
 						checkInside(child, lc);
 					});
 
@@ -92,7 +91,7 @@
 
 				function advanced(){
 					var lc = registry.byId("advanced");
-					array.forEach(lc.getChildren(), function(child){
+					lc.getChildren().forEach(function(child){
 						checkInside(child, lc);
 					});
 

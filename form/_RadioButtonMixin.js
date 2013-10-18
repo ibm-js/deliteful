@@ -1,11 +1,10 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
 	"dojo/_base/lang", // lang.hitch
 	"dojo/query", // query
 	"../registry"    // registry.getEnclosingWidget
-], function(array, declare, domAttr, lang, query, registry){
+], function(declare, domAttr, lang, query, registry){
 
 	// module:
 	//		dui/form/_RadioButtonMixin
@@ -42,7 +41,7 @@ define([
 				return;
 			}
 			if(value){
-				array.forEach(this._getRelatedWidgets(), lang.hitch(this, function(widget){
+				this._getRelatedWidgets().forEach(lang.hitch(this, function(widget){
 					if(widget != this && widget.checked){
 						widget.set('checked', false);
 					}
@@ -63,7 +62,7 @@ define([
 			if(this.readOnly){ // ignored by some browsers so we have to resync the DOM elements with widget values
 				e.stopPropagation();
 				e.preventDefault();
-				array.forEach(this._getRelatedWidgets(), lang.hitch(this, function(widget){
+				this._getRelatedWidgets().forEach(lang.hitch(this, function(widget){
 					domAttr.set(this.focusNode || this.domNode, 'checked', widget.checked);
 				}));
 				return false;

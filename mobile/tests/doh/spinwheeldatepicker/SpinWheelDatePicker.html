@@ -16,10 +16,10 @@
 <script type="text/javascript">
 var onYearSet, onMonthSet, onDaySet;
 require([
-	"dojo/parser", "dojo/domReady!", "dui/registry", "doh/runner", "dojo/_base/array",
+	"dojo/parser", "dojo/domReady!", "dui/registry", "doh/runner",
 	"dojo/dom-class", "dui/mobile/compat",
 	"dui/mobile/SpinWheelDatePicker"],
-		function(parser, ready, registry, runner, array, domClass){
+		function(parser, ready, registry, runner, domClass){
 			parser.parse();
 
 			var onYearSetCounter = 0, onMonthSetCounter = 0, onDaySetCounter = 0,
@@ -98,7 +98,7 @@ require([
 				minGrayDay--; // index 0 holds for day 1
 				var daySlot = picker.slots[2];
 				var child, i;
-				array.forEach(daySlot.panelNodes, function(panel){
+				daySlot.panelNodes.forEach(function(panel){
 					for(i = 0; i < minGrayDay; i++){
 						child = panel.childNodes[i];
 						runner.assertFalse(domClass.contains(child, "duiSpinWheelSlotLabelGray"),
@@ -106,7 +106,7 @@ require([
 										"Actual child.className: " + child.className + " (" + title + ")");
 					}
 				});
-				array.forEach(daySlot.panelNodes, function(panel){
+				daySlot.panelNodes.forEach(function(panel){
 					for(i = minGrayDay; i < panel.childNodes.length; i++){
 						child = panel.childNodes[i];
 						runner.assertTrue(domClass.contains(child, "duiSpinWheelSlotLabelGray"),

@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array",
 	"dojo/dom", // dom.byId
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dui/focus"
-], function(array, dom, lang, baseWindow, focus){
+], function(dom, lang, baseWindow, focus){
 
 	// module:
 	//		dui/selection

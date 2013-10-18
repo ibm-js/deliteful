@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.indexOf array.map
 	"dojo/_base/declare", // declare
 	"dojo/_base/fx", // fx.fadeIn fx.fadeOut
 	"dojo/dom", // dom.byId
@@ -15,7 +14,7 @@ define([
 	"../_TemplatedMixin",
 	"../BackgroundIframe",
 	"dojo/text!./templates/Tooltip.html"
-], function(array, declare, fx, dom, domClass, domGeometry, domStyle, lang, mouse, on, has,
+], function(declare, fx, dom, domClass, domGeometry, domStyle, lang, mouse, on, has,
 			place, _WidgetBase, _TemplatedMixin, BackgroundIframe, template){
 
 	// module:
@@ -238,7 +237,7 @@ define([
 				//		private
 
 				this.applyTextDir(node);
-				array.forEach(node.children, function(child){ this._setAutoTextDir(child); }, this);
+				node.children.forEach(function(child){ this._setAutoTextDir(child); }, this);
 			},
 
 			_setTextDirAttr: function(/*String*/ textDir){
@@ -299,9 +298,11 @@ define([
 			//		Connect to specified node
 
 			// Remove connections to old nodes (if there are any)
-			array.forEach(this._connections || [], function(handle){
-				handle.remove();
-			});
+			if(this._connections){
+				this._connections.forEach(function(handle){
+					handle.remove();
+				});
+			}
 
 			var node = dom.byId(newId, this.ownerDocument);
 
@@ -435,9 +436,11 @@ define([
 			this.close();
 
 			// Remove connections manually since they aren't registered to be removed by _WidgetBase
-			array.forEach(this._connections || [], function(handle){
-				handle.remove();
-			}, this);
+			if(this._connections){
+				this._connections.forEach(function(handle){
+					handle.remove();
+				}, this);
+			}
 
 			this.inherited(arguments);
 		}
@@ -465,7 +468,7 @@ define([
 		// After/before don't work, but for back-compat convert them to the working after-centered, before-centered.
 		// Possibly remove this in 2.0.   Alternately, get before/after to work.
 		if(position){
-			position = array.map(position, function(val){
+			position = position.map(function(val){
 				return {after: "after-centered", before: "before-centered"}[val] || val;
 			});
 		}

@@ -1,6 +1,5 @@
 define([
 	"require",
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.byId dom.isDescendant
 	"dojo/dom-attr", // domAttr.get domAttr.set domAttr.has domAttr.remove
@@ -13,7 +12,7 @@ define([
 	"dojo/window", // winUtils.get
 	"../popup",
 	"./DropDownMenu"
-], function(require, array, declare, dom, domAttr, domGeometry, domStyle, keys, lang, on,
+], function(require, declare, dom, domAttr, domGeometry, domStyle, keys, lang, on,
 			win, winUtils, pm, DropDownMenu){
 
 	// module:
@@ -80,7 +79,7 @@ define([
 			if(this.contextMenuForWindow){
 				this.bindDomNode(this.ownerDocumentBody);
 			}else{
-				array.forEach(this.targetNodeIds, this.bindDomNode, this);
+				this.targetNodeIds.forEach(this.bindDomNode, this);
 			}
 			this.inherited(arguments);
 		},
@@ -347,7 +346,7 @@ define([
 		},
 
 		destroy: function(){
-			array.forEach(this._bindings, function(b){
+			this._bindings.forEach(function(b){
 				if(b){
 					this.unBindDomNode(b.node);
 				}

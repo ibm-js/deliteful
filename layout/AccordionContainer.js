@@ -1,6 +1,5 @@
 define([
 	"require",
-	"dojo/_base/array", // array.forEach array.map
 	"dojo/_base/declare", // declare
 	"dojo/_base/fx", // fx.Animation
 	"dojo/dom", // dom.setSelectable
@@ -21,7 +20,7 @@ define([
 	"./ContentPane",
 	"dojo/text!./templates/AccordionButton.html",
 	"../a11yclick" // AccordionButton template uses ondijitclick; not for keyboard, but for responsive touch.
-], function(require, array, declare, fx, dom, domAttr, domClass, domConstruct, domGeometry, keys, lang, has, topic,
+], function(require, declare, fx, dom, domAttr, domClass, domConstruct, domGeometry, keys, lang, has, topic,
 		focus, manager, _WidgetBase, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
 
 	// module:
@@ -234,7 +233,7 @@ define([
 		destroy: function(){
 			this.button.destroyRecursive();
 
-			array.forEach(this._contentWidgetWatches || [], function(w){
+			(this._contentWidgetWatches || []).forEach(function(w){
 				w.unwatch();
 			});
 
@@ -332,7 +331,7 @@ define([
 
 			// get cumulative height of all the unselected title bars
 			var totalCollapsedHeight = 0;
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child != openPane){
 					// Using domGeometry.getMarginSize() rather than domGeometry.position() since claro has 1px bottom margin
 					// to separate accordion panes.  Not sure that works perfectly, it's probably putting a 1px
@@ -397,7 +396,7 @@ define([
 
 		getChildren: function(){
 			// Overrides _Container.getChildren() to return content panes rather than internal AccordionInnerContainer panes
-			return array.map(this.inherited(arguments), function(child){
+			return this.inherited(arguments).map(function(child){
 				return child.declaredClass == "dui.layout._AccordionInnerContainer" ? child.contentWidget : child;
 			}, this);
 		},
@@ -406,7 +405,7 @@ define([
 			if(this._animation){
 				this._animation.stop();
 			}
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				// If AccordionContainer has been started, then each child has a wrapper widget which
 				// also needs to be destroyed.
 				if(child._wrapperWidget){

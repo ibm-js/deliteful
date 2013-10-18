@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -12,7 +11,7 @@ define([
 	"./iconUtils",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/ValuePickerSlot"
-], function(array, declare, lang, win, domClass, domConstruct, domAttr, on, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
+], function(declare, lang, win, domClass, domConstruct, domAttr, on, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
 
 	// module:
 	//		dui/mobile/ValuePickerSlot
@@ -251,7 +250,7 @@ define([
 		},
 
 		validate: function(value){
-			return array.filter(this.items, function(a){
+			return this.items.filter(function(a){
 				return (a[1] + "").toLowerCase() == (value + "").toLowerCase();
 			});
 		},
@@ -297,7 +296,11 @@ define([
 					clearInterval(this._interval); // fail safe
 					this._interval = null;
 				}
-				array.forEach(this._conn, function(h){h.remove();});
+				if(this._conn){
+					this._conn.forEach(function(h){
+						h.remove();
+					});
+				}
 				domClass.remove(this._btn, "duiValuePickerSlotButtonSelected");
 			}
 		},
@@ -307,7 +310,9 @@ define([
 				this._timer.remove();
 				this._timer = null;
 			}
-			array.forEach(this._conn, function(h){h.remove();});
+			if(this._conn){
+				this._conn.forEach(function(h){h.remove();});
+			}
 			domClass.remove(this._btn, "duiValuePickerSlotButtonSelected");
 			if(this._interval){
 				clearInterval(this._interval);
@@ -319,7 +324,7 @@ define([
 
 		_getKeyAttr: function(){
 			var val = this.get("value");
-			var item = array.filter(this.items, function(item){
+			var item = this.items.filter(function(item){
 				return item[1] === val;
 			})[0];
 			return item ? item[0] : null;

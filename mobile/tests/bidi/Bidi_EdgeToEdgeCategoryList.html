@@ -14,20 +14,17 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
 			"dui/mobile/ListItem",
-			"dui/mobile/EdgeToEdgeCategory",				
+			"dui/mobile/EdgeToEdgeCategory",
 			"dojo/parser",
 			"dui/mobile/compat",
 			"dui/Button",
 			"dui/mobile/ScrollableView"
-		], function(connect, ready, array, dom, registry){
-			
+		], function(connect, ready, dom, registry){
 			
 			ready(function(){
-			
 				
 				//change label 
 				var btnlbl1 = registry.byId("btnLbl");
@@ -54,11 +51,7 @@
 					registry.byId("category1").set("textDir", "auto");
 				
 				});
-				
 			});
-			
-			
-			
 		});
 	
 	</script>  
@@ -67,7 +60,7 @@
 <body style="visibility:hidden;">
 <div id="group1" data-dojo-type="dui/mobile/View" data-dojo-props='keepScrollPos:false'><!-- keepScrollPos=false is to improve performance -->
 	<div id="view0" data-dojo-type="dui/mobile/ScrollableView">
-	        <h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeCategoryList widget</h2>
+		<h2 data-dojo-type="dui/mobile/Heading">EdgeToEdgeCategoryList widget</h2>
 		<h1 data-dojo-type="dui/mobile/Heading">dir LTR</h1>
 		<ul data-dojo-type="dui/mobile/EdgeToEdgeList" >
 			<li id="l1" data-dojo-type="dui/mobile/ListItem" data-dojo-props='icon:"../images/LTR.png", moveTo:"view1"'>Tex Dir LTR</li>
@@ -81,7 +74,6 @@
 			<li id="l6" data-dojo-type="dui/mobile/ListItem"  data-dojo-props='icon:"../images/auto.png", moveTo:"view6"'>Tex Dir AUTO</li>
 		</ul>	
 	</div>	
-	
 	
 	<div id="view1" data-dojo-type="dui/mobile/ScrollableView">
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir LTR</h1>
@@ -139,11 +131,7 @@
 			</li>
 	
 		</ul>
-		
-			
-	
 	</div>
-	
 		
 	<div id="view2" data-dojo-type="dui/mobile/ScrollableView">
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir LTR | textDir RTL</h1>
@@ -198,8 +186,6 @@
 	
 		</ul>
 		
-		
-		
 	</div>
 		
 	<div id="view3" data-dojo-type="dui/mobile/ScrollableView">
@@ -233,7 +219,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				bye!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" data-dojo-props='textDir:"auto"'>Hello &#1506;&#1493;&#1500;&#1501;!</h2>
@@ -244,7 +229,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Sasha!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</h2>
@@ -255,14 +239,10 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Tomer!
 			</li>
-	
 		</ul>
 		
-		
-		
 	</div>	
-	 
-	 
+	
 	<div  id="view4" data-dojo-type="dui/mobile/ScrollableView">
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir LTR</h1>
 		
@@ -302,7 +282,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Sasha!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" dir=rtl data-dojo-props='textDir:"ltr"'>&#1513;&#1500;&#1493;&#1501; World!</h2>
@@ -313,14 +292,8 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Tomer!
 			</li>
-	
 		</ul>
-		
-		
-			
 	</div>
-		
-	
 	
 	<div dir="rtl" id="view5" data-dojo-type="dui/mobile/ScrollableView">
 		<h1 data-dojo-type="dui/mobile/Heading" data-dojo-props='back:"Back", moveTo:"view0"'>Dir RTL | textDir RTL</h1>
@@ -349,7 +322,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				bye!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" data-dojo-props='textDir:"rtl"'>Hello &#1506;&#1493;&#1500;&#1501;!</h2>
@@ -360,7 +332,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Sasha!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" data-dojo-props='textDir:"rtl"'>&#1513;&#1500;&#1493;&#1501; World!</h2>
@@ -371,11 +342,7 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Tomer!
 			</li>
-	
 		</ul>
-		
-		
-		
 	</div>	
 	
 	<div id="view6" data-dojo-type="dui/mobile/ScrollableView">
@@ -405,7 +372,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				bye!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" dir=rtl data-dojo-props='textDir:"auto"'>Hello &#1506;&#1493;&#1500;&#1501;!</h2>
@@ -416,7 +382,6 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Sasha!
 			</li>
-	
 		</ul>
 		
 		<h2 data-dojo-type="dui/mobile/EdgeToEdgeCategory" dir=rtl data-dojo-props='textDir:"auto"'>&#1513;&#1500;&#1493;&#1501; World!</h2>
@@ -427,13 +392,8 @@
 			<li data-dojo-type="dui/mobile/ListItem">
 				Tomer!
 			</li>
-	
 		</ul>
-		
-		
-	</div>	
-
-
+	</div>
 </div>
 </body>
 </html>

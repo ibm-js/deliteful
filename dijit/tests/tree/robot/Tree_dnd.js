@@ -4,9 +4,9 @@
 
 define([
 	"doh/runner", "dojo/robotx",
-	"dojo/_base/array", "dojo/dnd/autoscroll", "dojo/dom", "dojo/dom-geometry", "dojo/query", "dojo/_base/window",
+	"dojo/dnd/autoscroll", "dojo/dom", "dojo/dom-geometry", "dojo/query", "dojo/_base/window",
 	"dui/tests/helpers"
-], function(doh, robot, array, autoscroll, dom, domGeom, query, win, helpers){
+], function(doh, robot, autoscroll, dom, domGeom, query, win, helpers){
 
 	var exports = {
 		setup: function setup(){
@@ -106,9 +106,9 @@ define([
 			// summary:
 			//		Convert an array of items into an array of names
 			var myStore = robot.window.myStore;
-			return array.map(ary, function(item){
+			return ary ? ary.map(function(item){
 				return myStore.getValue(item, "name");
-			});
+			}) : [];
 		},
 
 		getNamesOfChildrenOfItem: function getNamesOfChildrenOfItem(/*String*/ name){

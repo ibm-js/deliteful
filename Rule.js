@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/lang",
-	"dojo/_base/array",
 	"dojo/has",
 	"dojo/query",
 	"dojo/dom-construct",
@@ -9,10 +8,10 @@ define([
 	"./register",
 	"./_WidgetBase",
 	"./themes/load!common,Rule"
-], function(lang, array, has, query, domConstruct, domStyle, domClass, register, WidgetBase){
+], function(lang, has, query, domConstruct, domStyle, domClass, register, WidgetBase){
 
 	function toCSS(baseClass, modifier){
-		return array.map(baseClass.split(" "), function(c){
+		return baseClass.split(" ").map(function(c){
 			return c + modifier;
 		}).join(" ");
 	}

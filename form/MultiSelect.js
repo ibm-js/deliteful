@@ -1,11 +1,10 @@
 define([
-	"dojo/_base/array", // array.indexOf, array.map
 	"dojo/_base/declare", // declare
 	"dojo/dom-geometry", // domGeometry.setMarginBox
 	"dojo/has",
 	"dojo/query", // query
 	"./_FormValueWidget"
-], function(array, declare, domGeometry, has, query, _FormValueWidget){
+], function(declare, domGeometry, has, query, _FormValueWidget){
 
 	// module:
 	//		dui/form/MultiSelect
@@ -64,7 +63,7 @@ define([
 
 			// Don't call getSelect.map() because it doesn't return a real array,
 			// and that messes up dojo.toJson() calls like in the Form.html test
-			return array.map(this.getSelected(), function(n){
+			return this.getSelected().map(function(n){
 				return n.value;
 			});
 		},
@@ -77,7 +76,7 @@ define([
 			// description:
 			//		Set the value(s) of this Select based on passed values
 			query("option", this.containerNode).forEach(function(n){
-				n.selected = (array.indexOf(values, n.value) != -1);
+				n.selected = (values.indexOf(n.value) != -1);
 			});
 			this.inherited(arguments);
 		},

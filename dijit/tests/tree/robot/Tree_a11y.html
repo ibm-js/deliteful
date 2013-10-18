@@ -13,9 +13,9 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner", "dojo/robotx",
-			"dojo/_base/array", "dojo/dom", "dojo/keys", "dojo/query", "dojo/window",
+			"dojo/dom", "dojo/keys", "dojo/query", "dojo/window",
 			"dui/tests/helpers", "dojo/domReady!"
-		], function(doh, robot, array, dom, keys, query, winUtils, helpers){
+		], function(doh, robot, dom, keys, query, winUtils, helpers){
 
 			var treeIds = ["mytree", "tree2"];
 	
@@ -435,7 +435,7 @@
 						var tree = registry.byId("mytree");
 
 						// Close all tree nodes except for Asia and Oceania
-						array.forEach(tree.rootNode.getChildren(), function(child, idx){
+						tree.rootNode.getChildren().forEach(function(child, idx){
 							if(child.label == "Asia" || child.label == "Oceania"){
 								console.log("expanding " + child.label);
 								if(!child.isExpanded){

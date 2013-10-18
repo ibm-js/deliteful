@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.indexOf array.some
 	"dojo/cookie", // cookie
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add domClass.replace
@@ -12,7 +11,7 @@ define([
 	"../registry", // registry.byId
 	"../_WidgetBase",
 	"./_LayoutWidget"
-], function(array, cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, _WidgetBase, _LayoutWidget){
+], function(cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, _WidgetBase, _LayoutWidget){
 
 	// module:
 	//		dui/layout/StackContainer
@@ -70,13 +69,13 @@ define([
 			var children = this.getChildren();
 
 			// Setup each page panel to be initially hidden
-			array.forEach(children, this._setupChild, this);
+			children.forEach(this._setupChild, this);
 
 			// Figure out which child to initially display, defaulting to first one
 			if(this.persist){
 				this.selectedChildWidget = registry.byId(cookie(this.id + "_selectedChild"));
 			}else{
-				array.some(children, function(child){
+				children.some(function(child){
 					if(child.selected){
 						this.selectedChildWidget = child;
 					}
@@ -169,7 +168,7 @@ define([
 		removeChild: function(/*dui/_WidgetBase*/ page){
 			// Overrides _Container.removeChild() to do layout and publish events
 
-			var idx = array.indexOf(this.getChildren(), page);
+			var idx = this.getChildren().indexOf(page);
 
 			this.inherited(arguments);
 
@@ -274,7 +273,7 @@ define([
 			// TODO: remove for 2.0 if this isn't being used.   Otherwise, fix to skip disabled tabs.
 
 			var children = this.getChildren();
-			var index = array.indexOf(children, this.selectedChildWidget);
+			var index = children.indexOf(this.selectedChildWidget);
 			index += forward ? 1 : children.length - 1;
 			return children[ index % children.length ]; // dui/_WidgetBase
 		},
@@ -355,7 +354,7 @@ define([
 		destroyDescendants: function(/*Boolean*/ preserveDom){
 			this._descendantsBeingDestroyed = true;
 			this.selectedChildWidget = undefined;
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(!preserveDom){
 					this.removeChild(child);
 				}

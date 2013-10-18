@@ -1,9 +1,8 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/lang", // lang.mixin, lang.hitch
 	"dojo/on",
 	"dojo/sniff" // has("ie")
-], function(array, lang, on, has){
+], function(lang, on, has){
 
 	// module:
 	//		dui/typematic
@@ -136,7 +135,7 @@ define([
 				}))
 			];
 			return { remove: function(){
-				array.forEach(handles, function(h){
+				handles.forEach(function(h){
 					h.remove();
 				});
 			} };
@@ -174,7 +173,7 @@ define([
 				}))
 			];
 			return { remove: function(){
-				array.forEach(handles, function(h){
+				handles.forEach(function(h){
 					h.remove();
 				});
 			} };
@@ -196,7 +195,7 @@ define([
 				this.addMouseListener(mouseNode, _this, callback, subsequentDelay, initialDelay, minDelay)
 			];
 			return { remove: function(){
-				array.forEach(handles, function(h){
+				handles.forEach(function(h){
 					h.remove();
 				});
 			} };

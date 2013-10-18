@@ -15,7 +15,6 @@
 	<script type="text/javascript">
 		require([
 			"dojo/_base/lang",
-			"dojo/_base/array",
 			"dojo/store/Memory",
 			"dojo/store/Observable",
 			"dui/registry",
@@ -23,7 +22,7 @@
 			"dui/mobile/compat",
 			"dui/mobile/EdgeToEdgeStoreList",
 			"dui/Button"
-		], function(lang, array, Memory, Observable, registry){
+		], function(lang, Memory, Observable, registry){
 			var updateCounter = 0;
 			
 			var static_data1 = [
@@ -89,14 +88,14 @@
 			
 			update1 = function(){
 				updateCounter++;
-				array.forEach(store.query({}), function(item, i){
+				store.query({}).forEach(function(item, i){
 					// Changes of the data items of the store must only be done
 					// through the API of the store. Hence the cloning.
 					var newItem = lang.clone(item);
 					if(newItem.text){
 						newItem.text = updateUtil(newItem.text);
 					}else{
-						newItem.label = updateUtil(newItem.label)
+						newItem.label = updateUtil(newItem.label);
 					}
 					store.put(newItem);
 				});

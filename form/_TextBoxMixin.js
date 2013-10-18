@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.byId
 	"dojo/has",
@@ -7,7 +6,7 @@ define([
 	"dojo/_base/lang", // lang.mixin
 	"dojo/on", // on
 	"../_FocusMixin"
-], function(array, declare, dom, has, keys, lang, on, _FocusMixin){
+], function(declare, dom, has, keys, lang, on, _FocusMixin){
 
 	// module:
 	//		dui/form/_TextBoxMixin

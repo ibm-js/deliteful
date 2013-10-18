@@ -24,7 +24,6 @@
 
 		<script type="text/javascript">
 			require([
-				"dojo/_base/array",
 				"dojo/_base/declare",
 				"dojo/dom",
 				"dojo/dom-construct",
@@ -36,7 +35,7 @@
 				"dui/form/Button",
 				"dui/layout/ContentPane",
 				"dojo/domReady!"
-			], function(array, declare, dom, domConstruct, domStyle, parser, query,
+			], function(declare, dom, domConstruct, domStyle, parser, query,
 						registry, BorderContainer, Button, ContentPane){
 
 				var open = false;
@@ -93,7 +92,7 @@
 							var struct = this.opts[lay] || false;
 							this._clearSplitters();
 	
-							array.forEach(struct.panes,function(pane,i){
+							struct.panes.forEach(function(pane,i){
 								// setup each pane
 								var d = registry.byId(pane.id);
 								d.region = pane.region || "center";
@@ -141,7 +140,7 @@
 				parser.parse();
 
 				// make buttons
-				array.forEach(["a","av","ah"],function(n){
+				["a","av","ah"].forEach(function(n){
 
 					var but = new Button({
 						label: "Set "+n,

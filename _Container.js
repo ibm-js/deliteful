@@ -1,9 +1,8 @@
 define([
-	"dojo/_base/array", // array.forEach array.indexOf
 	"dcl/dcl",
 	"dojo/dom-construct", // domConstruct.place
 	"./_WidgetBase"
-], function(array, dcl, domConstruct, _WidgetBase){
+], function(dcl, domConstruct, _WidgetBase){
 
 	// module:
 	//		dui/_Container
@@ -88,7 +87,7 @@ define([
 		getIndexOfChild: function(/*dui/_WidgetBase*/ child){
 			// summary:
 			//		Gets the index of the child in this container or -1 if not found
-			return array.indexOf(this.getChildren(), child);	// int
+			return this.getChildren().indexOf(child);	// int
 		}
 	});
 });

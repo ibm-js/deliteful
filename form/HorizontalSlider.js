@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dnd/move",
 	"dojo/_base/fx", // fx.animateProperty
@@ -19,7 +18,7 @@ define([
 	"./_FormValueWidget",
 	"../_Container",
 	"dojo/text!./templates/HorizontalSlider.html"
-], function(array, declare, move, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, mouse, on,
+], function(declare, move, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, mouse, on,
 			focus, typematic, Button, _FormValueWidget, _Container, template){
 
 	// module:
@@ -308,7 +307,7 @@ define([
 				return;
 			}
 
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(this[child.container] != this.containerNode){
 					this[child.container].appendChild(child.domNode);
 				}

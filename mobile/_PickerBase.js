@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dui/_Contained",
 	"dui/_Container",
 	"dui/_WidgetBase"
-], function(array, declare, Contained, Container, WidgetBase){
+], function(declare, Contained, Container, WidgetBase){
 
 	// module:
 	//		dui/mobile/_PickerBase
@@ -70,7 +69,7 @@ define([
 			// summary:
 			//		Returns an array of child slot widgets.
 			return this.slots.length ? this.slots :
-				array.filter(this.getChildren(), function(c){
+				this.getChildren().filter(function(c){
 					return c.declaredClass.indexOf("Slot") !== -1;
 				});
 		},
@@ -80,7 +79,7 @@ define([
 			//		Returns an array of slot values.
 			// tags:
 			//		private
-			return array.map(this.getSlots(), function(w){
+			return this.getSlots().map(function(w){
 				return w.get("value");
 			});
 		},
@@ -90,7 +89,7 @@ define([
 			//		Sets the slot values.
 			// tags:
 			//		private
-			array.forEach(this.getSlots(), function(w, i){
+			this.getSlots().forEach(function(w, i){
 				w.set("value", a[i]);
 			});
 		},
@@ -100,7 +99,7 @@ define([
 			//		Sets the slot colors.
 			// tags:
 			//		private
-			array.forEach(this.getSlots(), function(w, i){
+			this.getSlots().forEach(function(w, i){
 				w.setColor && w.setColor(a[i]);
 			});
 		},
@@ -108,7 +107,7 @@ define([
 		reset: function(){
 			// summary:
 			//		Resets the picker to show the initial values.
-			array.forEach(this.getSlots(), function(w){
+			this.getSlots().forEach(function(w){
 				w.setInitialValue();
 			});
 		}

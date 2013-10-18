@@ -13,9 +13,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/dom", "dojo/dom-geometry", "dojo/keys", "dojo/sniff", "dojo/window",
+				"dojo/dom", "dojo/dom-geometry", "dojo/keys", "dojo/sniff", "dojo/window",
 				"./Tree_dnd", "dojo/domReady!"
-			], function(doh, robot, array, dom, domGeom, keys, has, winUtils, dndHelpers){
+			], function(doh, robot, dom, domGeom, keys, has, winUtils, dndHelpers){
 
 				function clickItem(modifiers){
 					var i;
@@ -205,7 +205,7 @@
 						robot.mouseMove(10, 10, 100, 100);
 						robot.mouseClick({left:true}, 100);
 						robot.sequence(function(){
-                            //Focus the page, so tabbing will work.
+							//Focus the page, so tabbing will work.
 							d.callback(true);
 						}, 250);
 						return d;
@@ -220,7 +220,7 @@
 				// Failsafe to clear pressed keys in case above tests timeout etc.
 				doh.register("clear pressed keys", function(){
 					var d = new doh.Deferred();
-					array.forEach([keys.META, keys.CTRL, keys.SHIFT], function(key){
+					[keys.META, keys.CTRL, keys.SHIFT].forEach(function(key){
 						robot.keyUp(key, 250);
 					});
 					robot.sequence(function(){

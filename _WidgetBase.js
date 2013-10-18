@@ -1,7 +1,6 @@
 define([
 	"require", // require.toUrl
 	"dcl/dcl",
-	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
 	"dojo/_base/config", // config.blankGif
 	"dojo/Deferred",
@@ -20,7 +19,7 @@ define([
 	"./Stateful",
 	"./register",
 	"dojo/has!dojo-bidi?./_BidiMixin"
-], function(require, dcl, array, aspect, config, Deferred,
+], function(require, dcl, aspect, config, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
 			lang, on, win, Destroyable, Stateful, register, _BidiMixin){
 
@@ -111,12 +110,12 @@ define([
 
 		if(commands instanceof Array){
 			// Unusual case where there's a list of commands, ex: _setFooAttr: ["focusNode", "domNode"].
-			var setters = array.map(commands, genSimpleSetter);
+			var setters = commands.map(genSimpleSetter);
 			return function(value){
 				setters.forEach(function(setter){
 					setter.call(this, value);
 				}, this);
-			}
+			};
 		}else{
 			return genSimpleSetter(commands);
 		}
@@ -359,7 +358,7 @@ define([
 			if(this.baseClass){
 				var classes = this.baseClass.split(" ");
 				if(!this.isLeftToRight()){
-					classes = classes.concat(array.map(classes, function(name){
+					classes = classes.concat(classes.map(function(name){
 						return name + "Rtl";
 					}));
 				}
@@ -403,7 +402,7 @@ define([
 			// TODO: Maybe startup() should call enteredViewCallback.
 
 			this._started = true;
-			array.forEach(this.getChildren(), function(obj){
+			this.getChildren().forEach(function(obj){
 				if(!obj._started && !obj._destroyed && lang.isFunction(obj.startup)){
 					obj.startup();
 					obj._started = true;

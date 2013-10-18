@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -12,7 +11,7 @@ define([
 	"./IconItem",
 	"./viewRegistry",
 	"./_css3"
-], function(array, declare, lang, win, domGeometry, domStyle, on, topic, touch, registry, IconItem, has, viewRegistry, css3){
+], function(declare, lang, win, domGeometry, domStyle, on, topic, touch, registry, IconItem, has, viewRegistry, css3){
 
 	// module:
 	//		dui/mobile/_EditableIconMixin
@@ -47,7 +46,7 @@ define([
 			}
 
 			var count = 0;
-			array.forEach(this.getChildren(), function(w){
+			this.getChildren().forEach(function(w){
 				this.defer(function(){
 					w.set("deleteIcon", this.deleteIconForEdit);
 					if(w.deleteIconNode){
@@ -66,7 +65,7 @@ define([
 			//		Ends the editing.
 			if(!this.isEditing){ return; }
 
-			array.forEach(this.getChildren(), function(w){
+			this.getChildren().forEach(function(w){
 				w.unhighlight();
 				if(w._deleteHandle){
 					w._deleteHandle.remove();
@@ -77,7 +76,7 @@ define([
 
 			this._movingItem = null;
 			if(this._handles){
-				array.forEach(this._handles, function(h){h.remove();}, this);
+				this._handles.forEach(function(h){h.remove();}, this);
 				this._handles = null;
 			}
 
@@ -222,7 +221,7 @@ define([
 			//		private
 			this._clearPressTimer();
 			if(this._conn){
-				array.forEach(this._conn, function(h){h.remove();}, this);
+				this._conn.forEach(function(h){h.remove();}, this);
 				this._conn = null;
 			}
 

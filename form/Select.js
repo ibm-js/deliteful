@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-class", // domClass.add domClass.remove domClass.toggle
@@ -17,7 +16,7 @@ define([
 	"../registry", // registry.byNode
 	"dojo/text!./templates/Select.html",
 	"dojo/i18n!./nls/validate"
-], function(array, declare, domAttr, domClass, domGeometry, lang, on, has,
+], function(declare, domAttr, domClass, domGeometry, lang, on, has,
 			_FormSelectWidget, _HasDropDown, DropDownMenu, MenuItem, MenuSeparator, Tooltip, _KeyNavMixin, registry,
 			template, nlsValidate){
 
@@ -58,7 +57,7 @@ define([
 				val = val[val.length - 1];
 			}
 			if(val){ // if focus selected
-				array.forEach(this.parentWidget._getChildren(), function(child){
+				this.parentWidget._getChildren().forEach(function(child){
 					if(child.option && (val === child.option.value)){ // find menu item widget with this value
 						found = true;
 						this.focusChild(child, false); // focus previous selection
@@ -250,7 +249,7 @@ define([
 				}else{
 					// Drop down menu is blank but add one blank entry just so something appears on the screen
 					// to let users know that they are no choices (mimicing native select behavior)
-					array.forEach(this._getChildren(), function(child){
+					this._getChildren().forEach(function(child){
 						child.destroyRecursive();
 					});
 					var item = new MenuItem({

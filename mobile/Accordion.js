@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/sniff",
@@ -16,7 +15,7 @@ define([
 	"./_css3",
 	"require",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Accordion"
-], function(array, declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
+], function(declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
 
 	// module:
 	//		dui/mobile/Accordion
@@ -246,10 +245,10 @@ define([
 				this.singleOpen = true;
 			}
 			var children = this.getChildren();
-			array.forEach(children, this._setupChild, this);
+			children.forEach(this._setupChild, this);
 			var sel;
 			var posinset = 1;
-			array.forEach(children, function(child){
+			children.forEach(function(child){
 				child.startup();
 				child._at.startup();
 				this.collapse(child, true);
@@ -324,32 +323,31 @@ define([
 		
 		_addChildAriaAttrs: function(){
 			var posinset = 1;
-			var children = this.getChildren();
-			array.forEach(children, function(child){
+			this.getChildren().forEach(function(child){
 				domAttr.set(child._at.textBoxNode, "aria-posinset", posinset++);
 				domAttr.set(child._at.textBoxNode, "aria-setsize", children.length);
 			});
 		},
 
 		getChildren: function(){
-			return array.filter(this.inherited(arguments), function(child){
+			return this.inherited(arguments).filter(function(child){
 				return !(child instanceof _AccordionTitle);
 			});
 		},
 
 		getSelectedPanes: function(){
-			return array.filter(this.getChildren(), function(pane){
+			return this.getChildren().filter(function(pane){
 				return pane.domNode.style.display != "none";
 			});
 		},
 
 		resize: function(){
 			if(this.fixedHeight){
-				var panes = array.filter(this.getChildren(), function(child){ // active pages
+				var panes = this.getChildren().filter(function(child){ // active pages
 					return child._at.domNode.style.display != "none";
 				});
 				var openSpace = this.domNode.clientHeight; // height of all panes
-				array.forEach(panes, function(child){
+				panes.forEach(function(child){
 					openSpace -= child._at.domNode.offsetHeight;
 				});
 				this._openSpace = openSpace > 0 ? openSpace : 0;
@@ -363,10 +361,10 @@ define([
 			// tags:
 			//		private
 			var children = this.getChildren();
-			array.forEach(children, function(c, i){
+			children.forEach(function(c, i){
 				// add "duiAccordionTitleLast" to the last, closed accordion title
 				domClass.toggle(c._at.domNode, "duiAccordionTitleLast",
-					i === children.length - 1 && !domClass.contains(c._at.domNode, "duiAccordionTitleSelected"))
+					i === children.length - 1 && !domClass.contains(c._at.domNode, "duiAccordionTitleSelected"));
 			}, this);
 		},
 
@@ -381,8 +379,7 @@ define([
 				lazyLoadUtils.instantiateLazyWidgets(pane.containerNode, pane.requires);
 				pane.lazy = false;
 			}
-			var children = this.getChildren();
-			array.forEach(children, function(c){
+			this.getChildren().forEach(function(c){
 				c.domNode.style[css3.name("transition")] = noAnimation ? "" : "height "+this.duration+"s linear";
 				if(c === pane){
 					c.domNode.style.display = "";

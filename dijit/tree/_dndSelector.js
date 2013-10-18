@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.filter array.forEach array.map
 	"dojo/_base/declare", // declare
 	"dojo/_base/kernel",	// global
 	"dojo/_base/lang", // lang.hitch
@@ -10,7 +9,7 @@ define([
 	"dojo/touch",
 	"../../a11yclick",
 	"./_dndContainer"
-], function(array, declare, kernel, lang, dndCommon, dom, mouse, on, touch, a11yclick, _dndContainer){
+], function(declare, kernel, lang, dndCommon, dom, mouse, on, touch, a11yclick, _dndContainer){
 
 	// module:
 	//		dui/tree/_dndSelector
@@ -102,7 +101,7 @@ define([
 			//		remove node and it's descendants from current selection
 			// node: Node
 			//		node to remove
-			var newSelection = array.filter(this.getSelectedTreeNodes(), function(selectedNode){
+			var newSelection = this.getSelectedTreeNodes().filter(function(selectedNode){
 				return !dom.isDescendant(selectedNode.domNode, node.domNode); // also matches when selectedNode == node
 			});
 			this.setSelection(newSelection);
@@ -125,14 +124,14 @@ define([
 			// newSelection: Node[]
 			//		list of tree nodes to make selected
 			var oldSelection = this.getSelectedTreeNodes();
-			array.forEach(this._setDifference(oldSelection, newSelection), lang.hitch(this, function(node){
+			this._setDifference(oldSelection, newSelection).forEach(lang.hitch(this, function(node){
 				node.setSelected(false);
 				if(this.anchor == node){
 					delete this.anchor;
 				}
 				delete this.selection[node.id];
 			}));
-			array.forEach(this._setDifference(newSelection, oldSelection), lang.hitch(this, function(node){
+			this._setDifference(newSelection, oldSelection).forEach(lang.hitch(this, function(node){
 				node.setSelected(true);
 				this.selection[node.id] = node;
 			}));
@@ -145,11 +144,11 @@ define([
 			//		modifying and then reading the object, so it will
 			//		not properly handle sets of numbers or strings.
 
-			array.forEach(ys, function(y){ y.__exclude__ = true; });
-			var ret = array.filter(xs, function(x){ return !x.__exclude__; });
+			ys.forEach(function(y){ y.__exclude__ = true; });
+			var ret = xs.filter(function(x){ return !x.__exclude__; });
 
 			// clean up after ourselves.
-			array.forEach(ys, function(y){ delete y['__exclude__'] });
+			ys.forEach(function(y){ delete y['__exclude__'] });
 			return ret;
 		},
 		_updateSelectionProperties: function(){
@@ -159,12 +158,12 @@ define([
 
 			var selected = this.getSelectedTreeNodes();
 			var paths = [], nodes = [];
-			array.forEach(selected, function(node){
+			selected.forEach(function(node){
 				var ary = node.getTreePath();
 				nodes.push(node);
 				paths.push(ary);
 			}, this);
-			var items = array.map(nodes,function(node){ return node.item; });
+			var items = nodes.map(function(node){ return node.item; });
 			this.tree._set("paths", paths);
 			this.tree._set("path", paths[0] || []);
 			this.tree._set("selectedNodes", nodes);

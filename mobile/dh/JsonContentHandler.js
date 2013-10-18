@@ -1,12 +1,11 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/Deferred",
 	"dojo/json",
 	"dojo/dom-construct"
-], function(dojo, array, declare, lang, Deferred, json, domConstruct){
+], function(dojo, declare, lang, Deferred, json, domConstruct){
 
 	// module:
 	//		dui/mobile/dh/JsonContentHandler
@@ -123,11 +122,13 @@ define([
 			return Deferred.when(this._loadPrereqs(root), lang.hitch(this, function(){
 				view = this._instantiate(root, container);
 				view.style.visibility = "hidden";
-				array.forEach(this._ws, function(w){
-					if(!w._started && w.startup){
-						w.startup();
-					}
-				});
+				if(this._ws){
+					this._ws.forEach(function(w){
+						if(!w._started && w.startup){
+							w.startup();
+						}
+					});
+				}
 				this._ws = null;
 				return view.id;
 			}));
@@ -141,12 +142,12 @@ define([
 			if(req.length === 0){ return true; }
 
 			if(dojo.require){
-				array.forEach(req, function(c){
+				req.forEach(function(c){
 					dojo["require"](c);
 				});
 				return true;
 			}else{
-				req = array.map(req, function(s){ return s.replace(/\./g, "/"); });
+				req = req.map(function(s){ return s.replace(/\./g, "/"); });
 				require(req, function(){
 					d.resolve(true);
 				});

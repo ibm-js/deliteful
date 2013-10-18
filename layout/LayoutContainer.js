@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare", // declare
 	"dojo/dom-class",
 	"dojo/dom-style",
@@ -7,7 +6,7 @@ define([
 	"../_WidgetBase",
 	"./_LayoutWidget",
 	"./utils" // layoutUtils.layoutChildren
-], function(array, declare, domClass, domStyle, lang, _WidgetBase, _LayoutWidget, layoutUtils){
+], function(declare, domClass, domStyle, lang, _WidgetBase, _LayoutWidget, layoutUtils){
 
 	// module:
 	//		dui/layout/LayoutContainer
@@ -50,7 +49,7 @@ define([
 			if(this._started){
 				return;
 			}
-			array.forEach(this.getChildren(), this._setupChild, this);
+			this.getChildren().forEach(this._setupChild, this);
 			this.inherited(arguments);
 		},
 
@@ -70,7 +69,7 @@ define([
 			//		Return list of my children in the order that I want layoutChildren()
 			//		to process them (i.e. from the outside to the inside)
 
-			var wrappers = array.map(this.getChildren(), function(child, idx){
+			var wrappers = this.getChildren().map(function(child, idx){
 				return {
 					pane: child,
 					weight: [
@@ -91,7 +90,7 @@ define([
 				return 0;
 			});
 
-			return array.map(wrappers, function(w){ return w.pane; });
+			return wrappers.map(function(w){ return w.pane; });
 		},
 
 		layout: function(){

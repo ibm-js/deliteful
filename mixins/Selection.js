@@ -1,5 +1,5 @@
-define(["dcl/dcl", "dojo/_base/array", "dojo/_base/lang"],
-	function(dcl, arr, lang){
+define(["dcl/dcl", "dojo/_base/lang"],
+	function(dcl, lang){
 	return dcl(null, {
 		// summary:
 		//		Mixin for classes for widgets that manage a list of selected data items. Receiving class must extend
@@ -71,11 +71,11 @@ define(["dcl/dcl", "dojo/_base/array", "dojo/_base/lang"],
 			//		Returns whether an item is selected or not.
 			// item: Object
 			//		The item to test the selection for.			
-			if(this.selectedItems == null || this.selectedItems.length== 0){
+			if(this.selectedItems == null || this.selectedItems.length == 0){
 				return false;
 			}
 			 
-			return arr.some(this.selectedItems, lang.hitch(this, function(sitem){
+			return this.selectedItems.some(lang.hitch(this, function(sitem){
 				return this.getIdentity(sitem) == this.getIdentity(item);
 			}));
 		},
@@ -120,9 +120,9 @@ define(["dcl/dcl", "dojo/_base/array", "dojo/_base/lang"],
 					}
 					this.selectedItems = sel;
 				}else{
-					var res = arr.filter(sel, lang.hitch(this, function(sitem){
+					var res = sel ? sel.filter(lang.hitch(this, function(sitem){
 						return this.getIdentity(sitem) != this.getIdentity(item); 
-					}));
+					})) : [];
 					if(res == null || res.length == sel.length){
 						return; // already not selected
 					}

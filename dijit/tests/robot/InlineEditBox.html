@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/aspect", "dojo/date/locale", "dojo/keys", "dojo/_base/lang", "dojo/query",
+				"dojo/aspect", "dojo/date/locale", "dojo/keys", "dojo/_base/lang", "dojo/query",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, array, aspect, datelocale, keys, lang, query, helpers){
+			], function(doh, robot, aspect, datelocale, keys, lang, query, helpers){
 				robot.initRobot('../test_InlineEditBox.html');
 
 				function moveAndClick(node){
@@ -216,14 +216,14 @@
 				// For example, in this markup:
 				//		<span dojoType="dui.InlineEditBox" ...>01/05/2007</span>
 				// When the editor is clicked the calendar should open to that date.
-				array.forEach([
+				[
 					{ widget: "CurrencyTextBox", id: "dollar", textValue: "$2,000", widgetValue: 2000 },
 					{ widget: "NumberTextBox", id: "quantity", textValue: "3", widgetValue: 3 },
 					{ widget: "ComboBox", id: "item", textValue: "refrigerators", widgetValue: "refrigerators" },
 					{ widget: "DateTextBox", id: "purchase", textValue: "01/05/2007", widgetValue: datelocale.parse("01/05/2007", {datePattern: 'MM/dd/yyyy', selector:'date'}) },
 					{ widget: "FilteringSelect", id: "state", textValue: "Pennsylvania", widgetValue: "PA" },
 					{ widget: "Select", id: "country", textValue: "United States of America", widgetValue: "US" }
-				], function(test){
+				].forEach(function(test){
 					doh.register("preDefinedValue " + test.widget, {
 						timeout: 8000,
  						name: test.id,

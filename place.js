@@ -1,10 +1,9 @@
 define([
-	"dojo/_base/array", // array.forEach array.map array.some
 	"dojo/dom-geometry", // domGeometry.position
 	"dojo/dom-style", // domStyle.getComputedStyle
 	"dojo/_base/window", // win.body
 	"./Viewport" // getEffectiveBox
-], function(array, domGeometry, domStyle, win, Viewport){
+], function(domGeometry, domStyle, win, Viewport){
 
 	// module:
 	//		dui/place
@@ -39,7 +38,7 @@ define([
 		}
 
 		var best = null;
-		array.some(choices, function(choice){
+		choices.some(function(choice){
 			var corner = choice.corner;
 			var pos = choice.pos;
 			var overflow = 0;
@@ -196,7 +195,7 @@ define([
 			//		If that makes node go (partially) off screen, then try placing
 			//		bottom left corner at (10,20).
 			//	|	place(node, {x: 10, y: 20}, ["TR", "BL"])
-			var choices = array.map(corners, function(corner){
+			var choices = corners.map(function(corner){
 				var c = {
 					corner: corner,
 					aroundCorner: reverse[corner],	// so TooltipDialog.orient() gets aroundCorner argument set
@@ -306,7 +305,7 @@ define([
 					}
 					parent = parent.parentNode;
 				}
-			}			
+			}
 
 			var x = aroundNodePos.x,
 				y = aroundNodePos.y,
@@ -331,9 +330,9 @@ define([
 							'M': y + (height >> 1)
 						}[aroundCorner.charAt(0)]
 					}
-				})
+				});
 			}
-			array.forEach(positions, function(pos){
+			positions.forEach(function(pos){
 				var ltr =  leftToRight;
 				switch(pos){
 					case "above-centered":

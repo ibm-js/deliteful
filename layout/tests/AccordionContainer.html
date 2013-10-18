@@ -9,11 +9,11 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array", "dojo/data/ItemFileReadStore", "dojo/dom", "dojo/dom-geometry", "dojo/parser", "dojo/query",
+			"dojo/data/ItemFileReadStore", "dojo/dom", "dojo/dom-geometry", "dojo/parser", "dojo/query",
 			"dui/registry", "dui/layout/AccordionContainer", "dui/layout/ContentPane", "dui/Tree",
 			"dui/tree/ForestStoreModel", "dui/tests/helpers",
 			"dui/form/Button", "dojo/domReady!"
-		], function(doh, array, ItemFileReadStore, dom, domGeom, parser, query,
+		], function(doh, ItemFileReadStore, dom, domGeom, parser, query,
 					registry, AccordionContainer, ContentPane, Tree, ForestStoreModel, helpers){
 
 			// Data used by Tree in markup test
@@ -41,7 +41,7 @@
 						runTest: function(t){
 							accordion = new AccordionContainer({style: "width: 400px; height: 400px;"}).placeAt(document.body);
 
-							array.forEach([ "pane 1", "pane 2", "pane 3" ], function(title, i){
+							[ "pane 1", "pane 2", "pane 3" ].forEach(function(title, i){
 								var content = new ContentPane({id: title, title: title, selected: i==1});
 								content.containerNode.innerHTML = "this is " + title;
 								accordion.addChild(content);
@@ -199,7 +199,7 @@
 			doh.register("child events", function childEvents(t){
 				accordion = new AccordionContainer({style: "width: 400px; height: 400px;"}).placeAt(document.body);
 
-				array.forEach([ "a", "b", "c" ], function(title, i){
+				[ "a", "b", "c" ].forEach(function(title, i){
 					var content = new ContentPane({id: title, title: title, selected: i==1});
 					content.containerNode.innerHTML = "this is " + title;
 					accordion.addChild(content);
@@ -235,7 +235,7 @@
 					{
 						name: "add children",
 						runTest: function(t){
-							array.forEach([ "pane 10", "pane 11"], function(title, i){
+							[ "pane 10", "pane 11"].forEach(function(title, i){
 								var content = new ContentPane({id: title, title: title});
 								content.containerNode.innerHTML = "this is " + title;
 								accordion.addChild(content);
@@ -264,7 +264,7 @@
 					{
 						name: "add back children",
 						runTest: function(t){
-							array.forEach([ "pane 12", "pane 13"], function(title, i){
+							[ "pane 12", "pane 13"].forEach(function(title, i){
 								var content = new ContentPane({id: title, title: title});
 								content.containerNode.innerHTML = "this is " + title;
 								accordion.addChild(content);
@@ -287,7 +287,7 @@
 						runTest: function(t){
 							accordion = new AccordionContainer({style: "width: 400px; height: 400px;"}).placeAt(document.body);
 
-							array.forEach([ "pane 1", "pane 2", "pane 3" ], function(title, i){
+							[ "pane 1", "pane 2", "pane 3" ].forEach(function(title, i){
 								var content = new ContentPane({id: title, title: title, selected: i==1});
 								content.containerNode.innerHTML = "this is " + title;
 								accordion.addChild(content);

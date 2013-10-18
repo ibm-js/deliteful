@@ -15,10 +15,10 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/_base/array", "dojo/date", "dojo/date/locale", "dojo/dom", "dojo/keys", "dojo/_base/lang",
+				"dojo/date", "dojo/date/locale", "dojo/dom", "dojo/keys", "dojo/_base/lang",
 				"dojo/query", "dojo/sniff",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, array, date, datelocale, dom, keys, lang, query, has, helpers){
+			], function(doh, robot, date, datelocale, dom, keys, lang, query, has, helpers){
 
 				robot.initRobot('../test_Calendar.html');
 
@@ -72,13 +72,13 @@
 				doh.register("aria", function(){
 					// test all days are loaded correctly
 					var dateCells = registry.byId("calendar1").dateCells;
-					array.forEach(dateCells, function(cellNode){
+					dateCells.forEach(function(cellNode){
 						doh.is("false", cellNode.getAttribute("aria-selected"), "aria-selected should be false at startup");
 						doh.is(undefined, cellNode.getAttribute("aria-disabled should be undefined at startup"), "aria-disabled");
 					});
 										
 					// disable weekends
-					array.forEach(registry.toArray(), function(c){
+					registry.toArray().forEach(function(c){
 						if(c.isDisabledDate){
 							c.isDisabledDate = datelocale.isWeekend;
 							c._populateGrid();
@@ -88,7 +88,7 @@
 					// select a day
 					registry.byId("calendar1").set("value",  new Date(2009, 8, 15));
 					
-					array.forEach(dateCells, function(cellNode, index){
+					dateCells.forEach(function(cellNode, index){
 						var selected = cellNode.getAttribute("aria-selected");
 						var disabled = cellNode.getAttribute("aria-disabled");
 						helpers.innerText(cellNode)==="15" ? doh.is("true", selected, "aria-selected should be true: "+helpers.innerText(cellNode))
@@ -98,7 +98,7 @@
 					});
 					
 					// enable all again
-					array.forEach(registry.toArray(), function(c){
+					registry.toArray().forEach(function(c){
 						if(c.isDisabledDate){
 							c.isDisabledDate = function(){return false;};
 							c._populateGrid();
@@ -108,7 +108,7 @@
 					// select a different day
 					registry.byId("calendar1").set("value",  new Date(2009, 8, 17));
 					
-					array.forEach(dateCells, function(cellNode, index){
+					dateCells.forEach(function(cellNode, index){
 						var selected = cellNode.getAttribute("aria-selected");
 						var disabled = cellNode.getAttribute("aria-disabled");
 						helpers.innerText(cellNode)==="17" ? doh.is("true", selected, "aria-selected should be true for day 17: "+helpers.innerText(cellNode))

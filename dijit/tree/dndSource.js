@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach array.indexOf array.map
 	"dojo/_base/declare", // declare
 	"dojo/dnd/common",
 	"dojo/dom-class", // domClass.add
@@ -10,7 +9,7 @@ define([
 	"dojo/topic",
 	"dojo/dnd/Manager", // DNDManager.manager
 	"./_dndSelector"
-], function(array, declare, dndCommon, domClass, domGeometry, lang, on, touch, topic, DNDManager, _dndSelector){
+], function(declare, dndCommon, domClass, domGeometry, lang, on, touch, topic, DNDManager, _dndSelector){
 
 	// module:
 	//		dui/tree/dndSource
@@ -240,7 +239,7 @@ define([
 							}
 							nodes = r;
 						}
-						nodes = array.map(nodes, function(n){
+						nodes = nodes.map(function(n){
 							return n.domNode
 						});
 						m.startDrag(this, nodes, this.copyState(dndCommon.getCopyKeyState(e)));
@@ -367,7 +366,7 @@ define([
 			// TODO: for 2.0 refactor so itemCreator() is called once per drag node, and
 			// make signature itemCreator(sourceItem, node, target) (or similar).
 
-			return array.map(nodes, function(node){
+			return nodes.map(function(node){
 				return {
 					"id": node.id,
 					"name": node.textContent || node.innerText || ""
@@ -421,7 +420,7 @@ define([
 				// (one entry in the array for each dragged node).
 				var newItemsParams;
 
-				array.forEach(nodes, function(node, idx){
+				nodes.forEach(function(node, idx){
 					// dojo/dnd/Item representing the thing being dropped.
 					// Don't confuse the use of item here (meaning a DnD item) with the
 					// uses below where item means dojo.data item.
@@ -430,7 +429,7 @@ define([
 					// Information that's available if the source is another Tree
 					// (possibly but not necessarily this tree, possibly but not
 					// necessarily the same model as this Tree)
-					if(array.indexOf(sourceItem.type, "treeNode") != -1){
+					if(sourceItem.type && sourceItem.type.indexOf("treeNode") != -1){
 						var childTreeNode = sourceItem.data,
 							childItem = childTreeNode.item,
 							oldParentItem = childTreeNode.getParent().item;

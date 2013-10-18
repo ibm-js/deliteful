@@ -29,7 +29,6 @@
 							       ''];
 
 	require([
-		"dojo/_base/array", // dojo.forEach
 		"dojo/_base/sniff",
 		"dojo/dom-construct", // dojo.place
 		"dojo/domReady!", // dojo.ready
@@ -39,8 +38,8 @@
 		"dui/mobile/IconItem",
 		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
-		"dui/mobile/View"		// This mobile app uses mobile view
-	], function(array, has, domConst, ready, registry, runner, IconContainer, IconItem){
+		"dui/mobile/View"	// This mobile app uses mobile view
+	], function(has, domConst, ready, registry, runner, IconContainer, IconItem){
 		function _createIconContainerDeclaratively(widgetId) {
 			return registry.byId(widgetId);
 		}
@@ -79,7 +78,7 @@
 		function _assertCorrectIconContainer(widget){
 			runner.assertNotEqual(null, widget, "IconContainer: Did not instantiate.");
 			runner.assertEqual(WIDGET_CLASSNAME, widget.domNode.className, "id=" + widget.domNode.id);
-			array.forEach(widget.getChildren(), function(iconItem){
+			widget.getChildren().forEach(function(iconItem){
 				_assertCorrectIconItem(iconItem);
 			});
 			

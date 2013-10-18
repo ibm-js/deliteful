@@ -22,13 +22,12 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/dom-class",
 			"dojo/parser",
 			"dui/registry",
 			"dui/form/TimeTextBox",
 			"dojo/domReady!"
-		], function(doh, array, domClass, parser, registry, TimeTextBox){
+		], function(doh, domClass, parser, registry, TimeTextBox){
 
 			doh.register("parse", function(){
 				return parser.parse();
@@ -51,7 +50,7 @@
 				var itemTextDir = widgetTextDir;
 				var list = widget.dropDown.getChildren();
 				var correct = true;
-				array.forEach(list, function(child){
+				list.forEach(function(child){
 					if(widgetTextDir == "auto"){
 						itemTextDir = widget._checkContextual(child.label.replace(/<[^>]*>/gm," "));
 					}

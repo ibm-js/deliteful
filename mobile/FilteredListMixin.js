@@ -1,6 +1,5 @@
 define([
 	"require",
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom",
@@ -11,7 +10,7 @@ define([
 	"./SearchBox",
 	"./ScrollableView",
 	"./viewRegistry"
-], function(require, array, declare, lang, dom, domClass, domConstruct,  
+], function(require, declare, lang, dom, domClass, domConstruct,  
 			aspect, registry, SearchBox, ScrollableView, viewRegistry){
 
 	// module:
@@ -318,7 +317,7 @@ define([
 					
 				aspect.before(this, "initItems", function(){
 					// remove all children
-					array.forEach(this.getChildren(), function(child){
+					this.getChildren().forEach(function(child){
 						child.domNode.parentNode.removeChild(child.domNode);
 					});
 				});
@@ -326,7 +325,7 @@ define([
 				// Collect the text from the list items
 				var items = [];
 				var text = null;
-				array.forEach(this.getChildren(), function(child){
+				this.getChildren().forEach(function(child){
 					text = child.label ? child.label : (child.domNode.innerText || child.domNode.textContent);
 					items.push({label: text, listItem: child});
 				});

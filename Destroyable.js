@@ -1,8 +1,7 @@
 define([
-	"dojo/_base/array", // array.forEach array.map
 	"dojo/aspect",
 	"dcl/dcl"
-], function(array, aspect, dcl){
+], function(aspect, dcl){
 
 	// module:
 	//		dui/Destroyable
@@ -31,7 +30,8 @@ define([
 			//		The array of specified handles, so you can do for example:
 			//	|		var handle = this.own(on(...))[0];
 
-			array.forEach(arguments, function(handle){
+			// transform arguments into an Array
+			Array.prototype.slice.call(arguments).forEach(function(handle){
 				var destroyMethodName = "destroy" in handle ? "destroy" : "remove";
 
 				// When this.destroy() is called, destroy handle.  Since I'm using aspect.before(),

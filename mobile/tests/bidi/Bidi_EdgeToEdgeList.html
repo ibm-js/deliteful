@@ -14,7 +14,6 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
 			"dui/mobile/Heading",
@@ -24,7 +23,7 @@
 			"dui/mobile/compat",
 			"dui/Button",
 			"dui/mobile/ScrollableView"
-		], function(connect, ready, array, dom, registry, Heading, EdgeToEdgeList, ListItem){
+		], function(connect, ready, dom, registry, Heading, EdgeToEdgeList, ListItem){
 			ready(function(){
 				//create list programmaticaly
 				var view = registry.byId("view2");

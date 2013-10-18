@@ -1,11 +1,10 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"../mixins/StoreMap",
 	"./ListItem",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/_StoreListMixin"
-], function(array, declare, StoreMap, ListItem, has, BidiStoreListMixin){
+], function(declare, StoreMap, ListItem, has, BidiStoreListMixin){
 
 	// module:
 	//		dui/mobile/_StoreListMixin
@@ -56,11 +55,11 @@ define([
 			// summary:
 			//		Given the data, generates a list of items.
 			if(!this.append){
-				array.forEach(this.getChildren(), function(child){
+				this.getChildren().forEach(function(child){
 					child.destroyRecursive();
 				});
 			}
-			array.forEach(items, function(item){
+			items.forEach(function(item){
 				this.addChild(this.createListItem(item));
 				// TODO re-introduce child management
 			}, this);

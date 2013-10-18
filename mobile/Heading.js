@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -17,7 +16,7 @@ define([
 	"./View",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Heading"
-], function(array, declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
+], function(declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
 
 	// module:
 	//		dui/mobile/Heading
@@ -104,7 +103,7 @@ define([
 			
 			if(!this.templateString){ // true if this widget is not templated
 				if(!this.label){
-					array.forEach(this.domNode.childNodes, function(n){
+					this.domNode.childNodes.forEach(function(n){
 						if(n.nodeType == 3){
 							var v = lang.trim(n.nodeValue);
 							if(v){
@@ -176,7 +175,7 @@ define([
 				var tw = this.labelNodeLen || 0; // title width
 				domClass[bw - Math.max(rw,lw)*2 > tw ? "add" : "remove"](this.domNode, "duiHeadingCenterTitle");
 			}
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},

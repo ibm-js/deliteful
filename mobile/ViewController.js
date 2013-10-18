@@ -1,6 +1,5 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -15,7 +14,7 @@ define([
 	"./ProgressIndicator",
 	"./TransitionEvent",
 	"./viewRegistry"
-], function(dojo, array, declare, lang, win, Deferred, dom, domClass, domConstruct, on, domReady, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
+], function(dojo, declare, lang, win, Deferred, dom, domClass, domConstruct, on, domReady, registry, topic, ProgressIndicator, TransitionEvent, viewRegistry){
 
 	// module:
 	//		dui/mobile/ViewController

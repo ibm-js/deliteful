@@ -17,7 +17,6 @@
 		require([
 			"dojo/_base/connect",
 			"dojo/domReady",
-			"dojo/_base/array",
 			"dojo/dom",
 			"dui/registry",
 			"dui/mobile/IconMenu", 
@@ -30,7 +29,7 @@
 			"dui/mobile/Heading",
 			"dui/mobile/ListItem",
 			"dui/mobile/Heading"
-		], function(connect, ready, array, dom, registry, IconMenu, IconMenuItem){
+		], function(connect, ready, dom, registry, IconMenu, IconMenuItem){
 			ready(function(){
 				var view = registry.byId("view2");
 				var menu = new IconMenu({

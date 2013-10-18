@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/config",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -8,7 +7,7 @@ define([
 	"dojo/dom-style",
 	"dojo/on",
 	"dojo/sniff"
-], function(array, config, lang, win, domClass, domConstruct, domStyle, on, has){
+], function(config, lang, win, domClass, domConstruct, domStyle, on, has){
 
 	var dm = lang.getObject("dui.mobile", true);
 
@@ -23,7 +22,9 @@ define([
 			// summary:
 			//		Sets up CSS sprite for a foreground image.
 			if(iconNode && iconPos){
-				var arr = array.map(iconPos.split(/[ ,]/),function(item){return item-0});
+				var arr = iconPos.split(/[ ,]/).map(function(item){
+					return item-0;
+				});
 				var t = arr[0]; // top
 				var r = arr[1] + arr[2]; // right
 				var b = arr[0] + arr[3]; // bottom

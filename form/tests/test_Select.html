@@ -59,7 +59,6 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner",
-				"dojo/_base/array",
 				"dojo/_base/lang",
 				"dojo/parser",
 				"dojo/data/ItemFileReadStore",	// for testing old API (remove for 2.0)
@@ -75,7 +74,7 @@
 				"dui/Tooltip",
 				"dui/tests/helpers",
 				"dojo/domReady!"
-			], function(doh, array, lang, parser, ItemFileReadStore, ItemFileWriteStore, Memory, Observable,
+			], function(doh, lang, parser, ItemFileReadStore, ItemFileWriteStore, Memory, Observable,
 						focus, registry, Select, Button, Form, Dialog, Tooltip, helpers){
 
 				var numOptions = 0;
@@ -597,10 +596,10 @@
 								}
 							},
 							runTest: function(t){
-								array.forEach(t.options, function(opt){
+								t.options.forEach(function(opt){
 									s6.addOption(opt);
 								});
-								array.forEach(t.options, function(opt){
+								t.options.forEach(function(opt){
 									s6.removeOption(opt);
 								});
 							},

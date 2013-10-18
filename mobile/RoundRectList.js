@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -10,7 +9,7 @@ define([
 	"dui/_Contained",
 	"dui/_Container",
 	"dui/_WidgetBase"
-], function(array, declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
+], function(declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
 
 	// module:
 	//		dui/mobile/RoundRectList
@@ -102,7 +101,7 @@ define([
 
 			if(this.syncWithViews){ // see also TabBar#postCreate
 				var f = function(view, moveTo, dir, transition, context, method){
-					var child = array.filter(this.getChildren(), function(w){
+					var child = this.getChildren().filter(function(w){
 						return w.moveTo === "#" + view.id || w.moveTo === view.id; })[0];
 					if(child){ child.set("selected", true); }
 				};
@@ -114,7 +113,7 @@ define([
 		resize: function(){
 			// summary:
 			//		Calls resize() of each child widget.
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				if(child.resize){ child.resize(); }
 			});
 		},
@@ -131,7 +130,7 @@ define([
 			//		private
 			this._set("stateful", stateful);
 			this.selectOne = stateful;
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				child.setArrow && child.setArrow();
 			});
 		},
@@ -145,7 +144,7 @@ define([
 		deselectAll: function(){
 			// summary:
 			//		Deselects all the items.
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				child.set("selected", false);
 			});
 		},

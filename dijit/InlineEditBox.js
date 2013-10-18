@@ -1,6 +1,5 @@
 define([
 	"require",
-	"dojo/_base/array", // array.forEach
 	"dojo/aspect",
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set domAttr.get
@@ -24,7 +23,7 @@ define([
 	"../form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!../nls/common"
-], function(require, array, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
+], function(require, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
 
 	// module:
 	//		dui/InlineEditBox
@@ -65,14 +64,15 @@ define([
 			var srcStyle = this.sourceStyle,
 				editStyle = "line-height:" + srcStyle.lineHeight + ";",
 				destStyle = domStyle.getComputedStyle(this.domNode);
-			array.forEach(["Weight", "Family", "Size", "Style"], function(prop){
+			["Weight", "Family", "Size", "Style"].forEach(function(prop){
 				var textStyle = srcStyle["font" + prop],
 					wrapperStyle = destStyle["font" + prop];
 				if(wrapperStyle != textStyle){
 					editStyle += "font-" + prop + ":" + srcStyle["font" + prop] + ";";
 				}
 			}, this);
-			array.forEach(["marginTop", "marginBottom", "marginLeft", "marginRight", "position", "left", "top", "right", "bottom", "float", "clear", "display"], function(prop){
+			["marginTop", "marginBottom", "marginLeft", "marginRight", "position", "left", 
+				"top", "right", "bottom", "float", "clear", "display"].forEach(function(prop){
 				this.domNode.style[prop] = srcStyle[prop];
 			}, this);
 			var width = this.inlineEditBox.width;

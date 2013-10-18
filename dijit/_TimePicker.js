@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.forEach
 	"dojo/date", // date.compare
 	"dojo/date/locale", // locale.format
 	"dojo/date/stamp", // stamp.fromISOString stamp.toISOString
@@ -14,7 +13,7 @@ define([
 	"dojo/on",
 	"../_WidgetBase",
 	"../form/_ListMouseMixin"
-], function(array, ddate, locale, stamp, declare, domClass, domConstruct, keys, lang, has, query, mouse, on,
+], function(ddate, locale, stamp, declare, domClass, domConstruct, keys, lang, has, query, mouse, on,
 			_WidgetBase, _ListMouseMixin){
 
 	// module:
@@ -177,7 +176,7 @@ define([
 			this._maxIncrement = (60 * 60 * 24) / clickableIncrementSeconds;
 
 			var nodes  = this._getFilteredNodes();
-			array.forEach(nodes, function(n){
+			nodes.forEach(function(n){
 				this.domNode.appendChild(n);
 			}, this);
 

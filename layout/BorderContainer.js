@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array", // array.filter array.forEach array.map
 	"dojo/cookie", // cookie
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add domClass.remove domClass.toggle
@@ -14,7 +13,7 @@ define([
 	"../_TemplatedMixin",
 	"./LayoutContainer",
 	"./utils"        // layoutUtils.layoutChildren
-], function(array, cookie, declare, domClass, domConstruct, domGeometry, domStyle, keys, lang, on, touch,
+], function(cookie, declare, domClass, domConstruct, domGeometry, domStyle, keys, lang, on, touch,
 			_WidgetBase, _TemplatedMixin, LayoutContainer, layoutUtils){
 
 	// module:
@@ -83,7 +82,7 @@ define([
 
 			var dim = this.horizontal ? 'h' : 'w',
 				childSize = domGeometry.getMarginBox(this.child.domNode)[dim],
-				center = array.filter(this.container.getChildren(), function(child){
+				center = this.container.getChildren().filter(function(child){
 					return child.region == "center";
 				})[0];
 
@@ -351,7 +350,7 @@ define([
 
 		getChildren: function(){
 			// Override _LayoutWidget.getChildren() to only return real children, not the splitters.
-			return array.filter(this.inherited(arguments), function(widget){
+			return this.inherited(arguments).filter(function(widget){
 				return !widget.isSplitter;
 			});
 		},
@@ -397,7 +396,7 @@ define([
 
 			// Combining the externally specified children with splitters and gutters
 			var childrenAndSplitters = [];
-			array.forEach(this._getOrderedChildren(), function(pane){
+			this._getOrderedChildren().forEach(function(pane){
 				childrenAndSplitters.push(pane);
 				if(pane._splitterWidget){
 					childrenAndSplitters.push(pane._splitterWidget);
@@ -419,7 +418,7 @@ define([
 
 		destroyRecursive: function(){
 			// Destroy splitters first, while getChildren() still works
-			array.forEach(this.getChildren(), function(child){
+			this.getChildren().forEach(function(child){
 				var splitter = child._splitterWidget;
 				if(splitter){
 					splitter.destroy();

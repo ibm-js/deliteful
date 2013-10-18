@@ -1,6 +1,5 @@
 define([
 	"dcl/dcl",
-	"dojo/_base/array", // array.forEach
 	"dojo/_base/declare",
 	"dojo/dom-attr", // domAttr.set
 	"dojo/dom-style", // domStyle.get
@@ -9,8 +8,8 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
 	"dojo/window", // winUtils.scrollIntoView
-	"./a11y"    // a11y.hasDefaultTabStop
-], function(dcl, array, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
+	"./a11y" // a11y.hasDefaultTabStop
+], function(dcl, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
 
 	// module:
 	//		dui/_FormWidgetMixin
@@ -82,7 +81,7 @@ the domnode's disabled property.
 			if(value){
 				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
 				var attachPointNames = this.focusNode ? ["focusNode"] : [];
-				array.forEach(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames], function(attachPointName){
+				(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames]).forEach(function(attachPointName){
 					var node = this[attachPointName];
 					// complex code because tabIndex=-1 on a <div> doesn't work on FF
 					if(has("webkit") || a11y.hasDefaultTabStop(node)){    // see #11064 about webkit bug

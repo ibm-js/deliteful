@@ -9,7 +9,6 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner",
-			"dojo/_base/array",
 			"dojo/aspect",
 			"dojo/dom",
 			"dojo/dom-class",
@@ -24,7 +23,7 @@
 			"dui/layout/ContentPane",
 			"dui/tests/helpers",
 			"dojo/domReady!"
-		], function(doh, array, aspect, dom, domClass, domGeom, json, lang, parser, query,
+		], function(doh, aspect, dom, domClass, domGeom, json, lang, parser, query,
 					focus, registry, TabContainer, ContentPane, helpers){
 
 
@@ -435,7 +434,7 @@
 						doh.t(height1 < height0, "content area size reduced ", height1, height0);
 
 						// and that size increases back when children are removed
-						array.forEach(newGrandchildren, lang.hitch(child, "removeChild"));
+						newGrandchildren.forEach(lang.hitch(child, "removeChild"));
 						var height2 = domGeom.position(content).h;
 						doh.is(height0, height2, "after deleting extra children height restored to original");
 					}
