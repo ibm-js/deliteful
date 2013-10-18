@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/array",
 	"dojo/_base/connect",
 	"dojo/_base/lang",
 	"dojo/_base/window",
@@ -18,7 +17,7 @@ define([
 	"./_FormValueMixin",
 	"./themes/load!common,Slider"	// common for duiInline etc., Slider for duiSlider etc.
 ],
-	function(array, connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin){
+	function(connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin){
 
 	return register("dui-slider", [HTMLElement, WidgetBase, FormWidgetMixin, FormValueMixin], {
 		// summary:
@@ -167,7 +166,9 @@ define([
 						}),
 						endDrag = lang.hitch(this, function(e){
 							e.preventDefault();
-							array.forEach(actionHandles, function(h){ h.remove(); });
+							if(actionHandles){
+								actionHandles.forEach(function(h){ h.remove(); });
+							}
 							actionHandles = [];
 							getEventData(e);
 							setValue(true);
@@ -198,7 +199,9 @@ define([
 					}else{
 						this.handleMin.focus();
 					}
-					array.forEach(actionHandles, function(h){ h.remove(); });
+					if(actionHandles){
+						actionHandles.forEach(function(h){ h.remove(); });
+					}
 					actionHandles = this.own(
 						on(root, touch.move, continueDrag),
 						on(root, touch.release, endDrag)
@@ -272,7 +275,7 @@ define([
 		startup: register.before(function(){
 			var self = this;
 			var toCSS = function(baseClass, modifier){
-				return array.map(baseClass.split(" "), function(c){
+				return baseClass.split(" ").map(function(c){
 					return c + modifier;
 				}).join(" ");
 			};
@@ -303,7 +306,7 @@ define([
 			// pass widget attributes to children
 			// the forEach wouldn't be needed if _Widgetbase::startup used obj.startup.apply(obj,arguments) instead of obj.startup()
 			// then _parentInit could just be called startup using this.inherited(arguments, [this._reversed, this.orientation]);
-			array.forEach(this.getChildren(), function(obj){
+			this.getChildren().forEach(function(obj){
 				if(!obj._started && !obj._destroyed && lang.isFunction(obj._parentInit)){
 					obj._parentInit(self._reversed, self.orientation);
 				}
