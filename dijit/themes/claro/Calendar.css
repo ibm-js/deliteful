@@ -4,13 +4,13 @@
  * 
  * 1. Calendar container
  * 		.duiCalendar - main container
- * 		.duiCalendarHover / .duiCalendarActive - states e.g. hover,active
+ * 		.duiCalendar:hover / .duiCalendar:active - states e.g. hover,active
  * 
  * 2. Month
  * 		.duiCalendarMonthContainer
  * 		.duiCalendarMonthLabel
  *      .duiCalendarDecrease / .duiCalendarDecrease - icons for switching to previous/next month
- *      .duiCalendarArrowActive .duiCalendarDecrease - states e.g. hover,active
+ *      .duiCalendarArrow:active .duiCalendarDecrease - states e.g. hover,active
  * 
  * 3. Date
  * 		.duiCalendarDayLabelTemplate - week day column header e.g. S M T W T F S
@@ -18,18 +18,18 @@
  * 		.duiCalendarPreviousMonth .duiCalendarDateLabel - special labels for previous or next month
  *      .duiCalendarSelectedDate .duiCalendarDateLabel - styles for selected date
  * 		.duiCalendarDisabledDate .duiCalendarDateLabel - styles for disabled date
- * 		.duiCalendarActiveDate .duiCalendarDateLabel - states e.g. hover,active
+ * 		.duiCalendar:activeDate .duiCalendarDateLabel - states e.g. hover,active
  * 
  * 4. Year
  * 		.duiCalendarYearContainer
  * 		.duiCalendarYearLabel
  * 		.duiCalendarPreviousYear /.duiCalendarNextYear
- *      .duiCalendarNextYearHover / .duiCalendarPreviousYearHover - states e.g. hover,active
+ *      .duiCalendarNextYear:hover / .duiCalendarPreviousYear:hover - states e.g. hover,active
  *      
  * 5. Dropdown Month Menu
  * 		.duiCalendarMonthMenu - menu container     
  * 		.duiCalendarMonthMenu .duiCalendarMonthLabel - month label in menu item
- * 		.duiCalendarMonthMenu .duiCalendarMonthLabelHover - menu item hover state
+ * 		.duiCalendarMonthMenu .duiCalendarMonthLabel:hover - menu item hover state
  */
 .dj_a11y .duiCalendarIncrementControl {
   display: none;
@@ -122,10 +122,9 @@
 .claro .duiCalendar img {
   border: none;
 }
-.claro .duiCalendarHover,
 .claro .duiCalendar:hover,
-.claro .duiCalendarActive {
-  /* treat duiCalendarActive like hover since there's
+.claro .duiCalendar:active {
+  /* treat duiCalendar:active like hover since there's
 	 * no concept of clicking a Calendar as a whole (although you can click things inside the calendar)
 	 */
 
@@ -152,19 +151,15 @@
 .claro .duiCalendarIncrease {
   background-position: -18px 0;
 }
-.claro .duiCalendarArrowHover .duiCalendarDecrease,
 .claro .duiCalendarArrow:hover .duiCalendarDecrease {
   background-position: -36px 0;
 }
-.claro .duiCalendarArrowHover .duiCalendarIncrease,
 .claro .duiCalendarArrow:hover .duiCalendarIncrease {
   background-position: -55px 0;
 }
-.claro .duiCalendarArrowActive .duiCalendarDecrease,
 .claro .duiCalendarArrow:active .duiCalendarDecrease {
   background-position: -72px 0;
 }
-.claro .duiCalendarArrowActive .duiCalendarIncrease,
 .claro .duiCalendarArrow:active .duiCalendarIncrease {
   background-position: -91px 0;
 }
@@ -258,7 +253,7 @@
 }
 /* End Normal Calendar Style */
 /* Hovered Calendar Style */
-.claro .duiCalendarHoveredDate .duiCalendarDateLabel,
+.claro .duiCalendarDate:hover .duiCalendarDateLabel,
 .claro .duiCalendarEnabledDate:hover .duiCalendarDateLabel {
   background-color: #abd6ff;
   border: solid 1px #759dc0;
@@ -267,9 +262,7 @@
   -moz-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-.claro .duiCalendarNextYearHover,
 .claro .duiCalendarNextYear:hover,
-.claro .duiCalendarPreviousYearHover,
 .claro .duiCalendarPreviousYear:hover {
   color: #000000;
   border: solid 1px #ffffff;
@@ -280,8 +273,7 @@
 }
 /* End Hovered Calendar Style */
 /* Active Calendar Style */
-.claro .duiCalendarNextYearActive,
-.claro .duiCalendarNextYear:active .claro .duiCalendarPreviousYearActive,
+.claro .duiCalendarNextYear:active,
 .claro .duiCalendarPreviousYear:active {
   border: solid 1px #759dc0;
   padding: 0 5px 0 5px;
@@ -289,7 +281,7 @@
 
   background-color: #7dbdfa;
 }
-.claro .duiCalendarActiveDate .duiCalendarDateLabel,
+.claro .duiCalendarDate:active .duiCalendarDateLabel,
 .claro .duiCalendarEnabledDate:active .duiCalendarDateLabel {
   background-color: #7dbdfa;
   border: solid 1px #ffffff;
@@ -328,7 +320,6 @@
   background-color: transparent;
   background-image: none;
 }
-.claro .duiCalendar .duiDropDownButtonHover .duiButtonNode,
 .claro .duiCalendar .duiDropDownButton:hover .duiButtonNode {
   background-color: #e5f2fe;
   border: solid 1px #ffffff;
@@ -347,7 +338,6 @@
   border-bottom: solid 1px #ffffff;
   padding: 2px 0;
 }
-.claro .duiCalendarMonthMenu .duiCalendarMonthLabelHover,
 .claro .duiCalendarMonthMenu .duiCalendarMonthLabel:hover {
   border-color: #759dc0;
   border-width: 1px 0;

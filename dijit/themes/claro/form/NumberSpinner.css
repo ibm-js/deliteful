@@ -7,11 +7,11 @@
  * 		Arrows: .duiArrowButton|.duiUpArrowButton.|duiDownArrowButton
  * 		Inner container: .duiArrowButtonInner - for border, padding, width|height and background image
  * 
- * 2. Hover state
- * 		.duiUpArrowButtonHover|.duiDownArrowButtonHover .*  - for background color|image
+ * 2. :hover state
+ * 		.duiUpArrowButton:hover|.duiDownArrowButton:hover .*  - for background color|image
  * 
- * 3. Active state
- * 		.duiUpArrowButtonActive|.duiDownArrowButtonActive .*  - for border, padding, margin and background color|image
+ * 3. :active state
+ * 		.duiUpArrowButton:active|.duiDownArrowButton:active .*  - for border, padding, margin and background color|image
  * 
  * 4. Focused state
  * 		.duiSpinnerFocused .* - for background color|image
@@ -206,19 +206,19 @@
   padding: 0;
 }
 /** hover & focused status **/
-.claro .duiUpArrowButtonActive,
-.claro .duiDownArrowButtonActive {
+.claro .duiUpArrowButton:active,
+.claro .duiDownArrowButton:active {
   background-color: #abd6ff;
 }
-.claro .duiSpinner .duiUpArrowButtonHover,
-.claro .duiSpinner .duiDownArrowButtonHover,
+.claro .duiSpinner .duiUpArrowButton:hover,
+.claro .duiSpinner .duiDownArrowButton:hover,
 .claro .duiSpinnerFocused .duiArrowButton {
   background-color: #abd6ff;
 }
-.claro .duiSpinner .duiUpArrowButtonHover .duiArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButton:hover .duiArrowButtonInner {
   background-position: -174px;
 }
-.claro .duiSpinner .duiDownArrowButtonHover .duiArrowButtonInner {
+.claro .duiSpinner .duiDownArrowButton:hover .duiArrowButtonInner {
   background-position: -69px;
 }
 .claro .duiSpinnerFocused {
@@ -226,16 +226,16 @@
   background-image: none;
 }
 /* mouse down status */
-.claro .duiSpinner .duiDownArrowButtonActive,
-.claro .duiSpinner .duiUpArrowButtonActive {
+.claro .duiSpinner .duiDownArrowButton:active,
+.claro .duiSpinner .duiUpArrowButton:active {
   background-color: #7dbefa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
-.claro .duiSpinner .duiUpArrowButtonActive .duiArrowButtonInner,
-.claro .duiSpinner .duiDownArrowButtonActive .duiArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButton:active .duiArrowButtonInner,
+.claro .duiSpinner .duiDownArrowButton:active .duiArrowButtonInner {
   /* hide inner border while button is depressed */
 
   border: 0;
@@ -243,10 +243,10 @@
   margin-right: 2px;
   margin-bottom: 1px;
 }
-.claro .duiSpinner .duiUpArrowButtonActive .duiArrowButtonInner {
+.claro .duiSpinner .duiUpArrowButton:active .duiArrowButtonInner {
   background-position: -173px;
 }
-.claro .duiSpinner .duiDownArrowButtonActive .duiArrowButtonInner {
+.claro .duiSpinner .duiDownArrowButton:active .duiArrowButtonInner {
   background-position: -68px;
 }
 /* disabled */

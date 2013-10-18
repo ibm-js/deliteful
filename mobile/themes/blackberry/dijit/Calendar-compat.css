@@ -7,7 +7,7 @@
   background-repeat: repeat-x;
   background-image: url(compat/calendar-datelabel-sel-bg.png);
 }
-.duiCalendarActiveDate .duiCalendarDateLabel {
+.duiCalendarDate:active .duiCalendarDateLabel {
   background-repeat: repeat-x;
   background-image: url(compat/calendar-datelabel-sel-bg.png);
 }
@@ -24,7 +24,7 @@
 .dj_gecko .duiCalendarSelectedDate .duiCalendarDateLabel {
   background-image: -moz-linear-gradient(top, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
-.dj_gecko .duiCalendarActiveDate .duiCalendarDateLabel {
+.dj_gecko .duiCalendarDate:active .duiCalendarDateLabel {
   background-image: -moz-linear-gradient(top, #088eef 0%, #0869c6 50%, #0851ad 100%);
 }
 .dj_gecko .duiCalendarYearLabel {

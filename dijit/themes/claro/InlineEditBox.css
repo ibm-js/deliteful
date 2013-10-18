@@ -6,7 +6,7 @@
  * 		.duiInlineEditBoxDisplayMode  - for border
  * 
  * 2. Hover state
- * 		.duiInlineEditBoxDisplayModeHover - for border and background color
+ * 		.duiInlineEditBoxDisplayMode:hover - for border and background color
  */
 .duiInlineEditBoxDisplayMode {
   border: 1px solid transparent;
@@ -14,7 +14,7 @@
 
   cursor: text;
 }
-.duiInlineEditBoxDisplayModeHover {
+.duiInlineEditBoxDisplayMode:hover {
   /* An InlineEditBox in view mode (click this to edit the text) */
 
   background-color: #e2ebf2;
@@ -26,7 +26,7 @@
 .claro .duiInlineEditBoxDisplayMode {
   border: 1px solid transparent;
 }
-.claro .duiInlineEditBoxDisplayModeHover {
+.claro .duiInlineEditBoxDisplayMode:hover {
   background-color: #e5f2fe;
   border: solid 1px #759dc0;
 }

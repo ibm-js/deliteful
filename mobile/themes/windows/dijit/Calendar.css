@@ -97,7 +97,7 @@
 .duiCalendarNextMonth .duiCalendarDateLabel {
   color: lightGrey;
 }
-.duiCalendarHoveredDate .duiCalendarDateLabel {
+.duiCalendarDate:hover .duiCalendarDateLabel {
   color: grey;
 }
 .duiCalendarSelectedDate .duiCalendarDateLabel {

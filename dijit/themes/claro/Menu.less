@@ -17,8 +17,8 @@ There are three areas of styling for the Menu:
  	
  3. Menu items - items in the menu.  
  	.duiMenuItem - for color
- 	.duiMenuItemHover, .duiMenuItemSelected - for background-color, border, text color, padding of a menu item or menubar item that has been hovered over or selected	
- 	.duiMenuItemActive - for background-color of an active (mousedown) menu item
+ 	.duiMenuItem:hover, .duiMenuItemSelected - for background-color, border, text color, padding of a menu item or menubar item that has been hovered over or selected
+ 	.duiMenuItem:active - for background-color of an active (mousedown) menu item
 	td.duiMenuItemIconCell - for padding around a  menu item's icon
 	td.duiMenuItemLabel - for padding around a menu item's label	
 	.duiMenuSeparatorTop - for border, top border, of the separator
@@ -65,10 +65,10 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
 	outline: none
 }
 
-.duiMenuPassive .duiMenuItemHover,
+.duiMenuPassive .duiMenuItem:hover,
 .duiMenuItemSelected {
 	/*
- * duiMenuItemHover refers to actual mouse over
+ * duiMenuItem:hover refers to actual mouse over
  * duiMenuItemSelected is used after a menu has been "activated" by
  * clicking it, tabbing into it, or being opened from a parent menu,
  * and denotes that the menu item has focus or that focus is on a child
@@ -180,7 +180,7 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
 	padding: 6px 10px 7px;
 	margin:-1px;
 }
-.claro .duiMenuBar .duiMenuItemHover,
+.claro .duiMenuBar .duiMenuItem:hover,
 .claro .duiMenuBar .duiMenuItemSelected {
 	// on hover or selection of MenuBar item, add border and reduce padding to compensate
 	border:solid 1px @hovered-border-color;
@@ -203,10 +203,10 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
 }
 
 /* hover over a MenuItem or MenuBarItem */
-.claro .duiMenu .duiMenuItemHover td,
+.claro .duiMenu .duiMenuItem:hover td,
 .claro .duiMenu .duiMenuItemSelected td,
-.claro .duiMenuItemHover,
-.claro .duiComboBoxMenu .duiMenuItemHover,
+.claro .duiMenuItem:hover,
+.claro .duiComboBoxMenu .duiMenuItem:hover,
 .claro .duiMenuItemSelected {
 	// note: seems like the selected MenuItem should use @pressed-background-color
 	// and .active-gradient, but claro didn't to that
@@ -215,14 +215,14 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
 	.standard-gradient;
 }
 
-.claro .duiMenuItemActive {
+.claro .duiMenuItem:active {
 	// todo: seems like the selected MenuItem should come here
 	// todo: seems like should use @pressed-background-color
 	.active-gradient;
 }
-.dj_ie .claro .duiMenuActive .duiMenuItemHover,
-.dj_ie .claro .duiMenuActive .duiMenuItemSelected,
-.dj_ie .claro .duiMenuPassive .duiMenuItemHover,
+.dj_ie .claro .duiMenu:active .duiMenuItem:hover,
+.dj_ie .claro .duiMenu:active .duiMenuItemSelected,
+.dj_ie .claro .duiMenuPassive .duiMenuItem:hover,
 .dj_ie .claro .duiMenuPassive .duiMenuItemSelected {
 	// Selectivity set to override ComboBox rules below.
 	// If this rule isn't present, on IE6 hovering an item in the ComboBox drop down causes two
@@ -295,7 +295,7 @@ Hiding the focus border also works around webkit bug https://code.google.com/p/c
 	background-color:@hovered-background-color;
 }
 
-.claro .duiComboBoxMenuActive .duiMenuItemSelected {
+.claro .duiComboBoxMenu:active .duiMenuItemSelected {
 	background-color: @select-dropdownitem-hovered-background-color;	/* TODO: why is this a different color than normal .duiMenuItemSelected? */
 }
 .claro .duiMenuPreviousButton, .claro .duiMenuNextButton {

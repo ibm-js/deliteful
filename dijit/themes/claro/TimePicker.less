@@ -4,17 +4,17 @@
  *
  * 1. minor time values
  * 		.duiTimePickerTick - set text color, size, background color of minor values
- * 		.duiTimePickerTickHover - set hover style of minor time values
+ * 		.duiTimePickerTick:hover - set hover style of minor time values
  * 		duiTimePickerTickSelected - set selected style of minor time values
  *
  * 2. major time values - 1:00, 2:00, times on the hour 
  * 		set text color, size, background color, left/right margins for "zoom" affect
- * 		.duiTimePickerMarkerHover - to set hover style of major time values
+ * 		.duiTimePickerMarker:hover - to set hover style of major time values
  * 		.duiTimePickerMarkerSelected - set selected style of major time values
  * 
  * 3. up and down arrow buttons
  * 		.duiTimePicker .duiButtonNode - background-color, border
- * 		.duiTimePicker .duiUpArrowHover, .duiTimePicker .duiDownArrowHover - set background-color for hover state
+ * 		.duiTimePicker .duiUpArrow:hover, .duiTimePicker .duiDownArrow:hover - set background-color for hover state
  *
  *	Other classes provide the fundamental structure of the TimePicker and should not be modified. 
  */
@@ -29,7 +29,7 @@
 	cursor:pointer;
 	-webkit-tap-highlight-color: transparent;
 }
-.duiTimePickerItemHover {
+.duiTimePickerItem:hover {
 	background-color:gray;
 	color:white;
 }
@@ -70,7 +70,7 @@
 .dj_a11y .duiTimePickerItemSelected .duiTimePickerItemInner {
 	border: solid 4px black;
 }
-.dj_a11y .duiTimePickerItemHover .duiTimePickerItemInner {
+.dj_a11y .duiTimePickerItem:hover .duiTimePickerItemInner {
 	border: dashed 4px black;
 }
 
@@ -105,8 +105,8 @@
 	font-size: 1em;
 	white-space: nowrap;
 }
-.claro .duiTimePickerTickHover,
-.claro .duiTimePickerMarkerHover,
+.claro .duiTimePickerTick:hover,
+.claro .duiTimePickerMarker:hover,
 .claro .duiTimePickerMarkerSelected,
 .claro .duiTimePickerTickSelected {
 	background-color: @timepicker-value-hovered-background-color;
@@ -138,14 +138,14 @@
 	background-position:-35px 45%;
 }
 /* hover */
-.claro .duiTimePicker .duiUpArrowHover, 
-.claro .duiTimePicker .duiDownArrowHover {
+.claro .duiTimePicker .duiUpArrow:hover,
+.claro .duiTimePicker .duiDownArrow:hover {
 	background-color: @timepicker-arrow-hovered-background-color;
 }
-.claro .duiTimePicker .duiUpArrowHover .duiArrowButtonInner {
+.claro .duiTimePicker .duiUpArrow:hover .duiArrowButtonInner {
 	background-position:-175px 45%;
 }
-.claro .duiTimePicker .duiDownArrowHover .duiArrowButtonInner {
+.claro .duiTimePicker .duiDownArrow:hover .duiArrowButtonInner {
 	background-position:-70px 45%;
 }
 

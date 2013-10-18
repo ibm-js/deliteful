@@ -14,7 +14,7 @@
  * 		.duiSelectMenu .* - for border, padding
  * 
  * 4. Various states
- * 		.duiSelectHover|.duiSelectFocused|.duiSelectDisabled .* - for border, padding and background-color|image 
+ * 		.duiSelect:hover|.duiSelectFocused|.duiSelectDisabled .* - for border, padding and background-color|image
  */
 .dj_ie .duiSelect input {
   font-size: 100%;
@@ -147,7 +147,7 @@ TABLE.duiSelect {
   height: 16px;
 }
 /* hover status */
-.claro .duiSelectHover {
+.claro .duiSelect:hover {
   background-color: #e5f2fe;
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
@@ -155,10 +155,10 @@ TABLE.duiSelect {
   background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-repeat: repeat-x;
 }
-.claro .duiSelectHover .duiArrowButton {
+.claro .duiSelect:hover .duiArrowButton {
   background-color: #abd6ff;
 }
-.claro .duiSelectHover .duiArrowButton .duiArrowButtonInner {
+.claro .duiSelect:hover .duiArrowButton .duiArrowButtonInner {
   background-position: -70px 53%;
 }
 /* focused status */

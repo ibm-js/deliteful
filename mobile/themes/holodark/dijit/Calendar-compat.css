@@ -7,7 +7,7 @@
   background-repeat: repeat-x;
   color: #33b5e5;
 }
-.duiCalendarActiveDate .duiCalendarDateLabel {
+.duiCalendarDate:active .duiCalendarDateLabel {
   background-repeat: repeat-x;
 }
 .duiCalendarYearLabel {

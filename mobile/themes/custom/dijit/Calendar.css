@@ -85,7 +85,7 @@
 .duiCalendarNextMonth .duiCalendarDateLabel {
   color: lightGrey;
 }
-.duiCalendarHoveredDate .duiCalendarDateLabel {
+.duiCalendarDate:hover .duiCalendarDateLabel {
   color: grey;
 }
 .duiCalendarSelectedDate .duiCalendarDateLabel {
@@ -94,7 +94,7 @@
   color: #000000;
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
 }
-.duiCalendarActiveDate .duiCalendarDateLabel {
+.duiCalendarDate:active .duiCalendarDateLabel {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);
 }

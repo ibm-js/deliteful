@@ -12,8 +12,8 @@
  * 		.duiRadioChecked - for checked background-color|image
  * 		.duiToggleButtonChecked - for border, background-color|image, display and width|height
  * 
- * 4. Hover state
- * 		.duiRadioHover|.duiRadioCheckedHover - for background image
+ * 4. :hover state
+ * 		.duiRadio:hover|.duiRadioChecked:hover - for background image
  * 
  * 5. Disabled state
  * 		.duiRadioDisabled|.duiRadioCheckedDisabled - for background image
@@ -50,7 +50,7 @@
 
   background-position: -165px;
 }
-.claro .duiRadioHover {
+.claro .duiRadio:hover {
   /* hovering over an unselected enabled radio button */
 
   background-position: -135px;
@@ -61,7 +61,7 @@
 .claro .duiToggleButtonChecked .duiRadioIcon {
   background-position: -92px;
 }
-.claro .duiRadioCheckedHover {
+.claro .duiRadioChecked:hover {
   background-position: -120px;
 }
 .claro .duiRadioCheckedDisabled {

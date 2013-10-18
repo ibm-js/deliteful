@@ -6,7 +6,7 @@
 .duiCalendarSelectedDate .duiCalendarDateLabel {
   background-repeat: repeat-x;
 }
-.duiCalendarActiveDate .duiCalendarDateLabel {
+.duiCalendarDate:active .duiCalendarDateLabel {
   background-repeat: repeat-x;
 }
 .duiCalendarYearLabel {

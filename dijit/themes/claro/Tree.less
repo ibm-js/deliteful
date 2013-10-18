@@ -8,10 +8,10 @@
  * 		.duiTreeRow - styles for each row of the tree
  *
  * 2. hovered tree row (mouse hover on a tree row)
- * 		.duiTreeRowHover - styles when mouse over on one row
+ * 		.duiTreeRow:hover - styles when mouse over on one row
  * 
  * 3. active tree row (mouse down on a tree row)
- * 		.duiTreeRowActive - styles when mouse down on one row
+ * 		.duiTreeRow:active - styles when mouse down on one row
  * 
  * 4. selected tree row
  * 		duiTreeRowSelected - style when the row has been selected
@@ -123,7 +123,7 @@
 	border-width: 1px 0;
 	color: @selected-text-color;
 }
-.claro .duiTreeRowHover {
+.claro .duiTreeRow:hover {
 	background-color: @hovered-background-color;
 	.standard-gradient;
 	padding: 3px 0 1px;
@@ -132,7 +132,7 @@
 	color: @hovered-text-color;
 	.transition-duration(.25s);
 }
-.claro .duiTreeRowActive {
+.claro .duiTreeRow:active {
 	background-color:@pressed-background-color;
 	.active-gradient;
 	padding: 3px 0 1px;
@@ -152,13 +152,13 @@
 	height: 16px;
 	background-position: -35px 0;		/* for duiTreeExpandoOpened */
 }
-.claro .duiTreeRowHover .duiTreeExpandoOpened {
+.claro .duiTreeRow:hover .duiTreeExpandoOpened {
 	background-position: -53px 0;
 }
 .claro .duiTreeExpandoClosed {
 	background-position: 1px 0;
 }
-.claro .duiTreeRowHover .duiTreeExpandoClosed {
+.claro .duiTreeRow:hover .duiTreeExpandoClosed {
 	background-position: -17px 0;
 }
 .claro .duiTreeExpandoLeaf {

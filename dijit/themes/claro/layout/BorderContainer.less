@@ -25,12 +25,12 @@ Splitters and gutters:
 .duiSplitterH .duiSplitterThumb - for color, height/width of the thumb on a horizontal splitter
 .duiSplitterV, .duiGutterV - - for height, background, and border of a vertical splitter and gutter 
 .duiSplitterV .duiSplitterThumb - for color, height/width of the thumb on a vertical splitter
-.duiSplitterHHover - for background-color of a hovered horizontal splitter
-.duiSplitterHHover .duiSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
-.duiSplitterVHover  - for background-color of a hovered vertical splitter
-.duiSplitterVHover .duiSplitterThumb - for background-color of a hovered thumb on a vertical splitter
-.duiSplitterHActive - for background-color of an active horizontal splitter
-.duiSplitterVActive - for background-color of an active horizontal splitter
+.duiSplitterH:hover - for background-color of a hovered horizontal splitter
+.duiSplitterH:hover .duiSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
+.duiSplitterV:hover  - for background-color of a hovered vertical splitter
+.duiSplitterV:hover .duiSplitterThumb - for background-color of a hovered thumb on a vertical splitter
+.duiSplitterH:active - for background-color of an active horizontal splitter
+.duiSplitterV:active - for background-color of an active horizontal splitter
 */
 
 @import "../variables";
@@ -73,7 +73,7 @@ Splitters and gutters:
 	z-index: 1;	/* behind the panes so that pane borders aren't obscured see test_Gui.html/[14392] */
 }
 
-.duiSplitterActive {
+.duiSplitter:active {
 	z-index: 11 !important;
 }
 
@@ -86,7 +86,7 @@ Splitters and gutters:
 	height:100%;
 }
 
-.duiSplitterCoverActive {
+.duiSplitterCover:active {
 	z-index:3 !important;
 }
 
@@ -198,29 +198,29 @@ Splitters and gutters:
 }
 
 /* hovered splitter */
-.claro .duiSplitterHHover,
-.claro .duiSplitterVHover {
+.claro .duiSplitterH:hover,
+.claro .duiSplitterV:hover {
 	font-size: 1px;
 	background-color: @splitter-hovered-background-color;
 }
 
-.claro .duiSplitterHHover {
+.claro .duiSplitterH:hover {
 	.alpha-white-gradient (left, 1,0px,  0,50%, 1,100%);
 }
 
-.claro .duiSplitterVHover {
+.claro .duiSplitterV:hover {
 	.alpha-white-gradient (top, 1,0px,  0,50%, 1,100%);
 }
 
-.claro .duiSplitterHHover .duiSplitterThumb,
-.claro .duiSplitterVHover .duiSplitterThumb {
+.claro .duiSplitterH:hover .duiSplitterThumb,
+.claro .duiSplitterV:hover .duiSplitterThumb {
 	background:@hovered-border-color none;
 }
 
 
 /* active splitter */
-.claro .duiSplitterHActive,
-.claro .duiSplitterVActive {
+.claro .duiSplitterH:active,
+.claro .duiSplitterV:active {
 	font-size: 1px;
 	background-color:@splitter-dragged-background-color;
 	background-image: none;		// color all the way across, not gradient like in hover mode

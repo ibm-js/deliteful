@@ -34,13 +34,13 @@
  * 				- styles for selected status of top tab button
  * 		same to Bottom, Left, Right Tabs
  * 
- * 		.duiTabHover .duiTab   - styles when mouse hover on tab buttons
- * 		.duiTabActive .duiTab  - styles when mouse down on tab buttons
+ * 		.duiTab:hover .duiTab   - styles when mouse hover on tab buttons
+ * 		.duiTab:active .duiTab  - styles when mouse down on tab buttons
  * 		.duiTabChecked .duiTab  - styles when on buttons of selected tab
  * 
  * 		.duiTabCloseButton - the close action buttons lie at the right top of each tab button on closable tabs
- * 		.duiTabCloseButtonHover - styles when mouse hover on close action button
- * 		.duiTabCloseButtonActive - styles when mouse down on close action button
+ * 		.duiTabCloseButton:hover - styles when mouse hover on close action button
+ * 		.duiTabCloseButton:active - styles when mouse down on close action button
  * 
  * Tab Button: (checked status)
  * 
@@ -258,10 +258,10 @@ div.duiTabDisabled, .dj_ie div.duiTabDisabled {
 	margin-left: 5px;
 	margin-right:-5px;
 }
-.claro .duiTabCloseButtonHover {
+.claro .duiTabCloseButton:hover {
 	background-position:-14px;
 }
-.claro .duiTabCloseButtonActive {
+.claro .duiTabCloseButton:active {
 	background-position:-28px;
 }
 .claro .duiTabSpacer {
@@ -275,13 +275,13 @@ div.duiTabDisabled, .dj_ie div.duiTabDisabled {
  	.transition-duration(.35s);
 	color:@unselected-text-color;
 }
-.claro .duiTabHover {
+.claro .duiTab:hover {
 	border-color: @hovered-border-color;
 	background-color:@hovered-background-color;
  	.transition-duration(.25s);
 	color:@hovered-text-color;
 }
-.claro .duiTabActive {
+.claro .duiTab:active {
 	border-color: @pressed-border-color;
 	background-color:@pressed-background-color;
 	color:@selected-text-color;
@@ -429,10 +429,10 @@ div.duiTabDisabled, .dj_ie div.duiTabDisabled {
 	margin-bottom:7px;
 	.alpha-white-gradient (bottom, 1,0px, 0.1,1px, 0.6,6px, 0,100%);	// to match unselected tab, but had to tweak numbers
 }
-.claro .tabStripButtonHover {
+.claro .tabStripButton:hover {
 	background-color:@hovered-background-color;
 }
-.claro .tabStripButtonActive {
+.claro .tabStripButton:active {
 	background-color:@pressed-background-color;
 }
 .claro .duiTabStripIcon {
@@ -485,16 +485,16 @@ div.duiTabDisabled, .dj_ie div.duiTabDisabled {
 
 	.alpha-white-gradient (0.61,0%, 0,17%, 0,83%, 0.61,100%);
 }
-.claro .duiTabContainerTabListNested .duiTabHover {
+.claro .duiTabContainerTabListNested .duiTab:hover {
 	background-color: @nestedtab-hovered-background-color;
 	border:solid 1px @nestedtab-hovered-border-color;
 	padding: 3px;	// 4px above padding - 1px compensation for border
 	.transition-duration(.2s);
 }
-.claro .duiTabContainerTabListNested .duiTabHover .tabLabel {
+.claro .duiTabContainerTabListNested .duiTab:hover .tabLabel {
 	text-decoration: none;
 }
-.claro .duiTabContainerTabListNested .duiTabActive {
+.claro .duiTabContainerTabListNested .duiTab:active {
 	border:solid 1px @nestedtab-selected-border-color;
 	padding: 3px;
 	.transition-duration(.1s);

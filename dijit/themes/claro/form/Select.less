@@ -14,7 +14,7 @@
  * 		.duiSelectMenu .* - for border, padding
  * 
  * 4. Various states
- * 		.duiSelectHover|.duiSelectFocused|.duiSelectDisabled .* - for border, padding and background-color|image 
+ * 		.duiSelect:hover|.duiSelectFocused|.duiSelectDisabled .* - for border, padding and background-color|image
  */
 
 @import "../variables";
@@ -151,17 +151,17 @@ TABLE.duiSelect {
 }
 
 /* hover status */
-.claro .duiSelectHover {
+.claro .duiSelect:hover {
 	background-color: @textbox-hovered-background-color;
 	.textbox-background-image;
 	background-repeat: repeat-x;
 }
 
-.claro .duiSelectHover .duiArrowButton {
+.claro .duiSelect:hover .duiArrowButton {
 	background-color:@arrowbutton-hovered-background-color;
 }
 
-.claro .duiSelectHover .duiArrowButton .duiArrowButtonInner {
+.claro .duiSelect:hover .duiArrowButton .duiArrowButtonInner {
 	background-position:-70px 53%;
 }
 

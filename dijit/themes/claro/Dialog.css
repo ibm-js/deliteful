@@ -178,10 +178,10 @@
   height: 15px;
   width: 21px;
 }
-.claro .duiDialogCloseIconHover {
+.claro .duiDialogCloseIcon:hover {
   background-position: -21px;
 }
-.claro .duiDialogCloseIconActive {
+.claro .duiDialogCloseIcon:active {
   background-position: -42px;
 }
 /* Tooltip and TooltipDialog */

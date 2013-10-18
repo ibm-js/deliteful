@@ -21,7 +21,7 @@
   background-repeat: repeat-x;
   background-image: url(compat/calendar-datelabel-sel-bg.png);
 }
-.duiCalendarActiveDate .duiCalendarDateLabel {
+.duiCalendarDate:active .duiCalendarDateLabel {
   background-repeat: repeat-x;
   background-image: url(compat/calendar-datelabel-act-bg.png);
 }

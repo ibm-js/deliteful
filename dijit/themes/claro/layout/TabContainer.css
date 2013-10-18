@@ -34,13 +34,13 @@
  * 				- styles for selected status of top tab button
  * 		same to Bottom, Left, Right Tabs
  * 
- * 		.duiTabHover .duiTab   - styles when mouse hover on tab buttons
- * 		.duiTabActive .duiTab  - styles when mouse down on tab buttons
+ * 		.duiTab:hover .duiTab   - styles when mouse hover on tab buttons
+ * 		.duiTab:active .duiTab  - styles when mouse down on tab buttons
  * 		.duiTabChecked .duiTab  - styles when on buttons of selected tab
  * 
  * 		.duiTabCloseButton - the close action buttons lie at the right top of each tab button on closable tabs
- * 		.duiTabCloseButtonHover - styles when mouse hover on close action button
- * 		.duiTabCloseButtonActive - styles when mouse down on close action button
+ * 		.duiTabCloseButton:hover - styles when mouse hover on close action button
+ * 		.duiTabCloseButton:active - styles when mouse down on close action button
  * 
  * Tab Button: (checked status)
  * 
@@ -248,10 +248,10 @@ div.duiTabDisabled,
   margin-left: 5px;
   margin-right: -5px;
 }
-.claro .duiTabCloseButtonHover {
+.claro .duiTabCloseButton:hover {
   background-position: -14px;
 }
-.claro .duiTabCloseButtonActive {
+.claro .duiTabCloseButton:active {
   background-position: -28px;
 }
 .claro .duiTabSpacer {
@@ -270,7 +270,7 @@ div.duiTabDisabled,
   transition-duration: 0.35s;
   color: #494949;
 }
-.claro .duiTabHover {
+.claro .duiTab:hover {
   border-color: #759dc0;
   background-color: #abd6ff;
   -webkit-transition-duration: 0.25s;
@@ -278,7 +278,7 @@ div.duiTabDisabled,
   transition-duration: 0.25s;
   color: #000000;
 }
-.claro .duiTabActive {
+.claro .duiTab:active {
   border-color: #759dc0;
   background-color: #7dbdfa;
   color: #000000;
@@ -459,10 +459,10 @@ div.duiTabDisabled,
   background-image: -o-linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
 }
-.claro .tabStripButtonHover {
+.claro .tabStripButton:hover {
   background-color: #abd6ff;
 }
-.claro .tabStripButtonActive {
+.claro .tabStripButton:active {
   background-color: #7dbdfa;
 }
 .claro .duiTabStripIcon {
@@ -527,7 +527,7 @@ div.duiTabDisabled,
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
 }
-.claro .duiTabContainerTabListNested .duiTabHover {
+.claro .duiTabContainerTabListNested .duiTab:hover {
   background-color: #e5f2fe;
   border: solid 1px #cfe5fa;
   padding: 3px;
@@ -535,10 +535,10 @@ div.duiTabDisabled,
   -moz-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-.claro .duiTabContainerTabListNested .duiTabHover .tabLabel {
+.claro .duiTabContainerTabListNested .duiTab:hover .tabLabel {
   text-decoration: none;
 }
-.claro .duiTabContainerTabListNested .duiTabActive {
+.claro .duiTabContainerTabListNested .duiTab:active {
   border: solid 1px #759dc0;
   padding: 3px;
   -webkit-transition-duration: 0.1s;

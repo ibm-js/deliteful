@@ -25,12 +25,12 @@ Splitters and gutters:
 .duiSplitterH .duiSplitterThumb - for color, height/width of the thumb on a horizontal splitter
 .duiSplitterV, .duiGutterV - - for height, background, and border of a vertical splitter and gutter 
 .duiSplitterV .duiSplitterThumb - for color, height/width of the thumb on a vertical splitter
-.duiSplitterHHover - for background-color of a hovered horizontal splitter
-.duiSplitterHHover .duiSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
-.duiSplitterVHover  - for background-color of a hovered vertical splitter
-.duiSplitterVHover .duiSplitterThumb - for background-color of a hovered thumb on a vertical splitter
-.duiSplitterHActive - for background-color of an active horizontal splitter
-.duiSplitterVActive - for background-color of an active horizontal splitter
+.duiSplitterH:hover - for background-color of a hovered horizontal splitter
+.duiSplitterH:hover .duiSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
+.duiSplitterV:hover  - for background-color of a hovered vertical splitter
+.duiSplitterV:hover .duiSplitterThumb - for background-color of a hovered thumb on a vertical splitter
+.duiSplitterH:active - for background-color of an active horizontal splitter
+.duiSplitterV:active - for background-color of an active horizontal splitter
 */
 .duiBorderContainer,
 .duiBorderContainerNoGutter {
@@ -79,7 +79,7 @@ Splitters and gutters:
   /* behind the panes so that pane borders aren't obscured see test_Gui.html/[14392] */
 
 }
-.duiSplitterActive {
+.duiSplitter:active {
   z-index: 11 !important;
 }
 .duiSplitterCover {
@@ -90,7 +90,7 @@ Splitters and gutters:
   width: 100%;
   height: 100%;
 }
-.duiSplitterCoverActive {
+.duiSplitterCover:active {
   z-index: 3 !important;
 }
 /* #6945: stop mouse events */
@@ -197,30 +197,30 @@ Splitters and gutters:
   left: 5px;
 }
 /* hovered splitter */
-.claro .duiSplitterHHover,
-.claro .duiSplitterVHover {
+.claro .duiSplitterH:hover,
+.claro .duiSplitterV:hover {
   font-size: 1px;
   background-color: #cfe5fa;
 }
-.claro .duiSplitterHHover {
+.claro .duiSplitterH:hover {
   background-image: -moz-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -webkit-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -o-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
 }
-.claro .duiSplitterVHover {
+.claro .duiSplitterV:hover {
   background-image: -moz-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -webkit-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: -o-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
 }
-.claro .duiSplitterHHover .duiSplitterThumb,
-.claro .duiSplitterVHover .duiSplitterThumb {
+.claro .duiSplitterH:hover .duiSplitterThumb,
+.claro .duiSplitterV:hover .duiSplitterThumb {
   background: #759dc0 none;
 }
 /* active splitter */
-.claro .duiSplitterHActive,
-.claro .duiSplitterVActive {
+.claro .duiSplitterH:active,
+.claro .duiSplitterV:active {
   font-size: 1px;
   background-color: #abd6ff;
   background-image: none;

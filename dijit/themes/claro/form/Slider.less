@@ -9,10 +9,10 @@
  * 		.duiSliderRightBumper - bar at the right of horizontal slider
  * 		.duiSliderProgressBarV - progress bar at the middle of vertical slider
  * 		.duiSliderTopBumper - bar at the top of vertical slider
- * 		.duiSliderBottomtBumper - bar at the bottom of vertical slider
+ * 		.duiSliderBottomBumper - bar at the bottom of vertical slider
  * 
  * 2. hovered Slider progress bar (ie, mouse hover on progress bar)
- * 		.duiSliderHover .duiSliderProgressBarH(horizontal) - hovered bar style: background, border
+ * 		.duiSlider:hover .duiSliderProgressBarH(horizontal) - hovered bar style: background, border
  * 
  * 3. focused Slider progress bar (ie, mouse focused on progress bar)
  * 		.duiSliderFocused .duiSliderProgressBarH(horizontal) - focus bar style: background, border
@@ -26,7 +26,7 @@
  * 		.duiSliderImageHandleH / .duiSliderImageHandleV - styles for the controller on the progress bar
  * 
  * 2. hovered Slider Thumbs (ie, mouse hover on slider thumbs)
- * 		.duiSliderHover .duiSliderImageHandleH - hovered controller style
+ * 		.duiSlider:hover .duiSliderImageHandleH - hovered controller style
  * 
  * 3. focused Slider progress bar (ie, mouse focused on slider thumbs)
  * 		.duiSliderFocused .duiSliderImageHandleV - focused controller style
@@ -40,10 +40,10 @@
  * 		.duiSliderIncrementIconV - increment icon which lies at the top of vertical slider
  * 
  * 2. hovered Slider Increment/Decrement Buttons (mouse hover on the icons)
- * 		.duiSliderHover .duiSliderDecrementIconH - for background, border
+ * 		.duiSlider:hover .duiSliderDecrementIconH - for background, border
  * 
  * 3. active Slider Increment/Decrement Buttons (mouse down on the icons)
- * 		.duiSliderActive .duiSliderIncrementIconV - for background, border
+ * 		.duiSlider:active .duiSliderIncrementIconV - for background, border
  * 
  * 4. disabled/read-only Slider Increment/Decrement Buttons
  * 		.duiSliderDisabled .duiSliderDecrementIconH - styles for the icons in disabled slider
@@ -325,7 +325,7 @@
 .claro .duiSliderFocused .duiSliderBar {
 	border-color: @focused-border-color;
 }
-.claro .duiSliderHover .duiSliderBar {
+.claro .duiSlider:hover .duiSliderBar {
 	border-color: @hovered-border-color;
 }
 .claro .duiSliderDisabled .duiSliderBar {
@@ -358,13 +358,13 @@
 .claro .duiSliderLeftBumper {
 	border-left: solid 1px @border-color;
 }
-.claro .duiSliderHover .duiSliderProgressBarH,
-.claro .duiSliderHover .duiSliderLeftBumper{
+.claro .duiSlider:hover .duiSliderProgressBarH,
+.claro .duiSlider:hover .duiSliderLeftBumper{
 	background-color: @slider-hovered-fullbar-background-color;
 	border-color: @hovered-border-color;
 }
-.claro .duiSliderHover .duiSliderRemainingBarH,
-.claro .duiSliderHover .duiSliderRightBumper{
+.claro .duiSlider:hover .duiSliderRemainingBarH,
+.claro .duiSlider:hover .duiSliderRightBumper{
 	background-color: @slider-hovered-remainingbar-background-color;
 	border-color: @hovered-border-color;
 }
@@ -412,13 +412,13 @@
 .claro .duiSliderTopBumper {
 	border-top: solid 1px @border-color;
 }
-.claro .duiSliderHover .duiSliderProgressBarV,
-.claro .duiSliderHover .duiSliderBottomBumper{
+.claro .duiSlider:hover .duiSliderProgressBarV,
+.claro .duiSlider:hover .duiSliderBottomBumper{
 	background-color: @slider-hovered-fullbar-background-color;
 	border-color: @hovered-border-color;
 }
-.claro .duiSliderHover .duiSliderRemainingBarV,
-.claro .duiSliderHover .duiSliderTopBumper{
+.claro .duiSlider:hover .duiSliderRemainingBarV,
+.claro .duiSlider:hover .duiSliderTopBumper{
 	background-color: @slider-hovered-remainingbar-background-color;
 	border-color: @hovered-border-color;
 }
@@ -454,16 +454,16 @@
 	background-repeat:no-repeat;
 	background-position:0 0;
 }
-.claro .duiSliderHover .duiSliderImageHandleH {
+.claro .duiSlider:hover .duiSliderImageHandleH {
 	background-position:-18px 0;
 }
 .claro .duiSliderFocused .duiSliderImageHandleH {
 	background-position:-36px 0;
 }
-.claro .duiSliderProgressBarH .duiSliderThumbHover{
+.claro .duiSliderProgressBarH .duiSliderThumb:hover{
 	background-position:-36px 0;
 }
-.claro .duiSliderProgressBarH .duiSliderThumbActive{
+.claro .duiSliderProgressBarH .duiSliderThumb:active{
 	background-position:-36px 0;
 }
 .claro .duiSliderReadOnly .duiSliderImageHandleH,
@@ -478,16 +478,16 @@
 	background-repeat:no-repeat;
 	background-position:-289px 0;
 }
-.claro .duiSliderHover .duiSliderImageHandleV {
+.claro .duiSlider:hover .duiSliderImageHandleV {
 	background-position:-307px 0;
 }
 .claro .duiSliderFocused .duiSliderImageHandleV {
 	background-position:-325px 0;
 }
-.claro .duiSliderProgressBarV .duiSliderThumbHover{
+.claro .duiSliderProgressBarV .duiSliderThumb:hover{
 	background-position:-325px 0;
 }
-.claro .duiSliderProgressBarV .duiSliderThumbActive{
+.claro .duiSliderProgressBarV .duiSliderThumb:active{
 	background-position:-325px 0;
 }
 .claro .duiSliderReadOnly .duiSliderImageHandleV,
@@ -524,15 +524,15 @@
 	height: 9px;
 	width: 12px;
 }
-.claro .duiSliderActive .duiSliderDecrementIconH,
-.claro .duiSliderActive .duiSliderIncrementIconH,
-.claro .duiSliderActive .duiSliderDecrementIconV,
-.claro .duiSliderActive .duiSliderIncrementIconV,
-.claro .duiSliderHover .duiSliderDecrementIconH,
-.claro .duiSliderHover .duiSliderIncrementIconH,
-.claro .duiSliderHover .duiSliderDecrementIconV,
-.claro .duiSliderHover .duiSliderIncrementIconV {
-	/* duiSliderActive should be treated as duiSliderHover since "clicking the slider" has no meaning */
+.claro .duiSlider:active .duiSliderDecrementIconH,
+.claro .duiSlider:active .duiSliderIncrementIconH,
+.claro .duiSlider:active .duiSliderDecrementIconV,
+.claro .duiSlider:active .duiSliderIncrementIconV,
+.claro .duiSlider:hover .duiSliderDecrementIconH,
+.claro .duiSlider:hover .duiSliderIncrementIconH,
+.claro .duiSlider:hover .duiSliderDecrementIconV,
+.claro .duiSlider:hover .duiSliderIncrementIconV {
+	/* duiSlider:active should be treated as duiSlider:hover since "clicking the slider" has no meaning */
 	border: solid 1px @hovered-border-color;
 	background-color: @slider-hoveredButton-background-color;
 }
@@ -540,41 +540,41 @@
 .claro .duiSliderDecrementIconH {
 	background-position:-357px 50%;
 }
-.claro .duiSliderActive .duiSliderDecrementIconH
-.claro .duiSliderHover .duiSliderDecrementIconH {
+.claro .duiSlider:active .duiSliderDecrementIconH
+.claro .duiSlider:hover .duiSliderDecrementIconH {
 	background-position:-393px 50%;
 }
 .claro .duiSliderIncrementIconH {
 	background-position:-251px 50%;
 }
-.claro .duiSliderActive .duiSliderIncrementIconH
-.claro .duiSliderHover .duiSliderIncrementIconH {
+.claro .duiSlider:active .duiSliderIncrementIconH
+.claro .duiSlider:hover .duiSliderIncrementIconH {
 	background-position:-283px 50%;
 }
 .claro .duiSliderDecrementIconV {
 	background-position:-38px 50%;
 }
-.claro .duiSliderActive .duiSliderDecrementIconV
-.claro .duiSliderHover .duiSliderDecrementIconV {
+.claro .duiSlider:active .duiSliderDecrementIconV
+.claro .duiSlider:hover .duiSliderDecrementIconV {
 	background-position:-73px 50%;
 }
 .claro .duiSliderIncrementIconV {
 	background-position:-143px 49%;
 }
-.claro .duiSliderActive .duiSliderIncrementIconV
-.claro .duiSliderHover .duiSliderIncrementIconV {
+.claro .duiSlider:active .duiSliderIncrementIconV
+.claro .duiSlider:hover .duiSliderIncrementIconV {
 	background-position:-178px 49%;
 }
-.claro .duiSliderButtonContainerV .duiSliderDecrementButtonHover,
-.claro .duiSliderButtonContainerH .duiSliderDecrementButtonHover,
-.claro .duiSliderButtonContainerV .duiSliderIncrementButtonHover,
-.claro .duiSliderButtonContainerH .duiSliderIncrementButtonHover {
+.claro .duiSliderButtonContainerV .duiSliderDecrementButton:hover,
+.claro .duiSliderButtonContainerH .duiSliderDecrementButton:hover,
+.claro .duiSliderButtonContainerV .duiSliderIncrementButton:hover,
+.claro .duiSliderButtonContainerH .duiSliderIncrementButton:hover {
 	background-color: @slider-button-hovered-background-color;
 }
-.claro .duiSliderButtonContainerV .duiSliderDecrementButtonActive,
-.claro .duiSliderButtonContainerH .duiSliderDecrementButtonActive,
-.claro .duiSliderButtonContainerV .duiSliderIncrementButtonActive,
-.claro .duiSliderButtonContainerH .duiSliderIncrementButtonActive {
+.claro .duiSliderButtonContainerV .duiSliderDecrementButton:active,
+.claro .duiSliderButtonContainerH .duiSliderDecrementButton:active,
+.claro .duiSliderButtonContainerV .duiSliderIncrementButton:active,
+.claro .duiSliderButtonContainerH .duiSliderIncrementButton:active {
 	background-color: @slider-button-pressed-background-color;
 	border-color:@pressed-border-color;
 }

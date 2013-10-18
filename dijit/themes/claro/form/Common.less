@@ -311,15 +311,15 @@ div.duiArrowButton {
 }
 
 /* hover */
-.claro .duiSelectHover,
-.claro .duiSelectHover .duiButtonContents,
-.claro .duiTextBoxHover,
-.claro .duiTextBoxHover .duiButtonNode {
+.claro .duiSelect:hover,
+.claro .duiSelect:hover .duiButtonContents,
+.claro .duiTextBox:hover,
+.claro .duiTextBox:hover .duiButtonNode {
 	border-color: @hovered-border-color;
  	.transition-duration(.25s);
 }
 
-.claro .duiTextBoxHover {
+.claro .duiTextBox:hover {
 	background-color: @textbox-hovered-background-color;
 	.textbox-background-image;
 }
@@ -430,14 +430,14 @@ div.duiArrowButton {
  * will toggle the drop down.   That's either (1) anywhere over the ComboBox or (2) over the arrow
  * button, depending on the openOnClick setting for the widget.
  */
-.claro .duiComboBoxOpenOnClickHover .duiButtonNode,
-.claro .duiComboBox .duiDownArrowButtonHover,
+.claro .duiComboBoxOpenOnClick:hover .duiButtonNode,
+.claro .duiComboBox .duiDownArrowButton:hover,
 .claro .duiComboBoxFocused .duiArrowButton {
 	background-color:@arrowbutton-hovered-background-color;
 }
 
-.claro .duiComboBoxOpenOnClickHover .duiArrowButtonInner,
-.claro .duiComboBox .duiDownArrowButtonHover .duiArrowButtonInner {
+.claro .duiComboBoxOpenOnClick:hover .duiArrowButtonInner,
+.claro .duiComboBox .duiDownArrowButton:hover .duiArrowButtonInner {
 	background-position:-70px 53%;
 }
 

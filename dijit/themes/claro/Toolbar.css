@@ -12,10 +12,10 @@
  * 					  .duiToggleButton  - ToggleButton widget
  * 		
  * 3. hovered widget inside toolbar (ie, mouse hover on the widget inside)
- * 			.duiToolbar .duiButtonNodeHover  - styles for hovered Button widget
+ * 			.duiToolbar .duiButtonNode:hover  - styles for hovered Button widget
  * 
  * 4. actived widget inside toolbar (ie, mouse down on the widget inside)
- * 			.duiToolbar .duiButtonNodeActive  - mouse down on Button widget
+ * 			.duiToolbar .duiButtonNode:active  - mouse down on Button widget
  */
 .dj_a11y .duiButtonNode {
   border: black outset medium !important;
@@ -118,20 +118,20 @@
 
 }
 /* hover status */
-.dj_ie .claro .duiToolbar .duiButtonHover .duiButtonNode,
-.dj_ie .claro .duiToolbar .duiDropDownButtonHover .duiButtonNode,
-.dj_ie .claro .duiToolbar .duiComboButton .duiButtonNodeHover,
-.dj_ie .claro .duiToolbar .duiComboButton .duiDownArrowButtonHover,
-.dj_ie .claro .duiToolbar .duiToggleButtonHover .duiButtonNode {
+.dj_ie .claro .duiToolbar .duiButton:hover .duiButtonNode,
+.dj_ie .claro .duiToolbar .duiDropDownButton:hover .duiButtonNode,
+.dj_ie .claro .duiToolbar .duiComboButton .duiButtonNode:hover,
+.dj_ie .claro .duiToolbar .duiComboButton .duiDownArrowButton:hover,
+.dj_ie .claro .duiToolbar .duiToggleButton:hover .duiButtonNode {
   /* button should still turn blue on hover, so need to override .dj_ie rules above */
 
   background-color: #abd6ff;
 }
 /* active status */
-.dj_ie .claro .duiToolbar .duiButtonActive .duiButtonNode,
-.dj_ie .claro .duiToolbar .duiDropDownButtonActive .duiButtonNode,
-.dj_ie .claro .duiToolbar .duiComboButtonActive .duiButtonNode,
-.dj_ie .claro .duiToolbar .duiToggleButtonActive .duiButtonNode {
+.dj_ie .claro .duiToolbar .duiButton:active .duiButtonNode,
+.dj_ie .claro .duiToolbar .duiDropDownButton:active .duiButtonNode,
+.dj_ie .claro .duiToolbar .duiComboButton:active .duiButtonNode,
+.dj_ie .claro .duiToolbar .duiToggleButton:active .duiButtonNode {
   /* button should still turn blue on press, so need to override .dj_ie rules above */
 
   background-color: #abd6ff;
@@ -152,10 +152,10 @@
   padding: 0;
 }
 /* hover status */
-.claro .duiToolbar .duiButtonHover .duiButtonNode,
-.claro .duiToolbar .duiDropDownButtonHover .duiButtonNode,
-.claro .duiToolbar .duiToggleButtonHover .duiButtonNode,
-.claro .duiToolbar .duiComboButtonHover .duiButtonNode {
+.claro .duiToolbar .duiButton:hover .duiButtonNode,
+.claro .duiToolbar .duiDropDownButton:hover .duiButtonNode,
+.claro .duiToolbar .duiToggleButton:hover .duiButtonNode,
+.claro .duiToolbar .duiComboButton:hover .duiButtonNode {
   border-width: 1px;
   background-color: #abd6ff;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -164,18 +164,18 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   padding: 1px;
 }
-.claro .duiToolbar .duiComboButtonHover .duiButtonNode,
-.claro .duiToolbar .duiComboButtonHover .duiDownArrowButton {
+.claro .duiToolbar .duiComboButton:hover .duiButtonNode,
+.claro .duiToolbar .duiComboButton:hover .duiDownArrowButton {
   background-color: #f3ffff;
 }
-.claro .duiToolbar .duiComboButtonHover .duiButtonNodeHover,
-.claro .duiToolbar .duiComboButtonHover .duiDownArrowButtonHover {
+.claro .duiToolbar .duiComboButton:hover .duiButtonNode:hover,
+.claro .duiToolbar .duiComboButton:hover .duiDownArrowButton:hover {
   background-color: #abd6ff;
 }
 /* active status */
-.claro .duiToolbar .duiButtonActive .duiButtonNode,
-.claro .duiToolbar .duiDropDownButtonActive .duiButtonNode,
-.claro .duiToolbar .duiToggleButtonActive .duiButtonNode {
+.claro .duiToolbar .duiButton:active .duiButtonNode,
+.claro .duiToolbar .duiDropDownButton:active .duiButtonNode,
+.claro .duiToolbar .duiToggleButton:active .duiButtonNode {
   border-width: 1px;
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -184,26 +184,26 @@
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   padding: 1px;
 }
-.claro .duiToolbar .duiComboButtonActive {
+.claro .duiToolbar .duiComboButton:active {
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
   transition-duration: 0.2s;
   border-width: 1px;
   padding: 0;
 }
-.claro .duiToolbar .duiComboButtonActive .duiButtonNode,
-.claro .duiToolbar .duiComboButtonActive .duiDownArrowButton {
+.claro .duiToolbar .duiComboButton:active .duiButtonNode,
+.claro .duiToolbar .duiComboButton:active .duiDownArrowButton {
   background-color: #f3ffff;
   padding: 2px;
 }
-.claro .duiToolbar .duiComboButtonActive .duiButtonNodeActive {
+.claro .duiToolbar .duiComboButton:active .duiButtonNode:active {
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
-.claro .duiToolbar .duiComboButtonActive .duiDownArrowButtonActive {
+.claro .duiToolbar .duiComboButton:active .duiDownArrowButton:active {
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -211,11 +211,11 @@
   background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
 }
 /* Avoid double border between button and arrow */
-.claro .duiToolbar .duiComboButtonHover .duiDownArrowButton,
-.claro .duiToolbar .duiComboButtonActive .duiDownArrowButton {
+.claro .duiToolbar .duiComboButton:hover .duiDownArrowButton,
+.claro .duiToolbar .duiComboButton:active .duiDownArrowButton {
   border-left-width: 0;
 }
-.claro .duiToolbar .duiComboButtonHover .duiDownArrowButton {
+.claro .duiToolbar .duiComboButton:hover .duiDownArrowButton {
   padding-left: 2px;
   /* since there's no left border, don't reduce from 2px --> 1px */
 

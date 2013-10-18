@@ -8,8 +8,8 @@
  * 		.duiAccordionTitle - title for each accordion child
  *
  * 2. active closed pane (ie, mouse down on a title bar)
- * 		.duiAccordionInnerContainerActive - for background-color, border
- * 		.duiAccordionInnerContainerActive duiAccordionTitle - for text color
+ * 		.duiAccordionInnerContainer:active - for background-color, border
+ * 		.duiAccordionInnerContainer:active duiAccordionTitle - for text color
  * 
  * 3. open pane (expanded child)
  *		.duiAccordionChildWrapper - wraps around the child widget (typically ContentPane)
@@ -24,8 +24,8 @@
  * 		The selectors below affect hovering over both a closed pane (ie, hovering a title bar),
  * 		and hovering over an open pane.   Also, treat mouse down on an open pane as a hover:
  *
- * 		.duiAccordionInnerContainerHover, .duiAccordionInnerContainerSelectedActive - for background-color, border
- * 		.duiAccordionInnerContainerHover .duiAccordionTitle - for text color
+ * 		.duiAccordionInnerContainer:hover, .duiAccordionInnerContainerSelected:active - for background-color, border
+ * 		.duiAccordionInnerContainer:hover .duiAccordionTitle - for text color
  */
 
 @import "../variables";
@@ -109,24 +109,24 @@
 
 /* Hover state for closed pane */
 
-.claro .duiAccordionInnerContainerHover {
+.claro .duiAccordionInnerContainer:hover {
 	border:1px solid @hovered-border-color;
 	background-color:@hovered-background-color;
 	.transition-duration(.2s);
 }
 
-.claro .duiAccordionInnerContainerHover .duiAccordionTitle {
+.claro .duiAccordionInnerContainer:hover .duiAccordionTitle {
 	color:@hovered-text-color;
 }
 
 /* Active state for closed pane */
 
-.claro .duiAccordionInnerContainerActive {
+.claro .duiAccordionInnerContainer:active {
 	border:1px solid @selected-border-color;
 	background-color:@pressed-background-color;
 	.transition-duration(.1s);
 }
-.claro .duiAccordionInnerContainerActive .duiAccordionTitle {
+.claro .duiAccordionInnerContainer:active .duiAccordionTitle {
 	.active-gradient("../");
 	color:@selected-text-color;
 }

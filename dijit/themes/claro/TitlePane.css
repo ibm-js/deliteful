@@ -7,10 +7,10 @@
  * 		.duiTitlePaneTitle - TitlePane's title div style: background-color, border
  *
  * 2. hovered TitlePane title (ie, mouse hover on a title bar)
- * 		.duiTitlePaneTitleHover - styles when mouse hover on the title div
+ * 		.duiTitlePaneTitle:hover - styles when mouse hover on the title div
  * 
  * 3. active TitlePane title (ie, mouse down on a title bar)
- * 		.duiTitlePaneTitleActive - styles when mouse down on the title div
+ * 		.duiTitlePaneTitle:active - styles when mouse down on the title div
  * 
  * 
  * TitlePane Content Container:
@@ -95,11 +95,11 @@
   background-color: #cfe5fa;
   color: #000000;
 }
-.claro .duiTitlePaneTitleHover {
+.claro .duiTitlePaneTitle:hover {
   background-color: #abd6ff;
   border-color: #759dc0;
 }
-.claro .duiTitlePaneTitleActive {
+.claro .duiTitlePaneTitle:active {
   background-color: #7dbdfa;
   border-color: #759dc0;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);

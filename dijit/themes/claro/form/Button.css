@@ -17,13 +17,13 @@
  *      .duiLeftArrowButton .duiArrowButtonInner - left arrow
  *      .duiRightArrowButton .duiArrowButtonInner - right arrow
  *      .duiUpArrowButton .duiArrowButtonInner - up arrow
- * 
+ *
  * 4. States - Hover, Active, Disabled, e.g.
- * 		.duiButtonHover .duiButtonNode
- * 		.duiButtonActive .duiButtonNode
+ * 		.duiButton:hover .duiButtonNode
+ * 		.duiButton:active .duiButtonNode
  * 		.duiButtonDisabled .duiButtonNode
- *      
- *      .duiDisabled .duiArrowButtonInner  - disabled arrow states 
+ *
+ *      .duiDisabled .duiArrowButtonInner  - disabled arrow states
  */
 .dj_a11y .duiButtonContents {
   margin: 0.15em;
@@ -160,11 +160,11 @@ td.duiButtonContents {
   text-align: center;
 }
 /* hover status */
-.claro .duiButtonHover .duiButtonNode,
-.claro .duiDropDownButtonHover .duiButtonNode,
-.claro .duiComboButton .duiButtonNodeHover,
-.claro .duiComboButton .duiDownArrowButtonHover,
-.claro .duiToggleButtonHover .duiButtonNode {
+.claro .duiButton:hover .duiButtonNode,
+.claro .duiDropDownButton:hover .duiButtonNode,
+.claro .duiComboButton .duiButtonNode:hover,
+.claro .duiComboButton .duiDownArrowButton:hover,
+.claro .duiToggleButton:hover .duiButtonNode {
   background-color: #86bdf2;
   color: #000000;
   -webkit-transition-duration: 0.2s;
@@ -172,10 +172,10 @@ td.duiButtonContents {
   transition-duration: 0.2s;
 }
 /* active, checked status */
-.claro .duiButtonActive .duiButtonNode,
-.claro .duiDropDownButtonActive .duiButtonNode,
-.claro .duiComboButtonActive .duiButtonNode,
-.claro .duiToggleButtonActive .duiButtonNode,
+.claro .duiButton:active .duiButtonNode,
+.claro .duiDropDownButton:active .duiButtonNode,
+.claro .duiComboButton:active .duiButtonNode,
+.claro .duiToggleButton:active .duiButtonNode,
 .claro .duiToggleButtonChecked .duiButtonNode {
   background-color: #86bdf2;
   -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);

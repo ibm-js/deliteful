@@ -6,7 +6,7 @@
  * 		.duiEditorIFrameContainer - normal state styles: background-color, border, padding
  *
  * 2. hovered Editor iframe container (ie, mouse hover on editor)
- * 		.duiEditorHover .duiEditorIFrameContainer/duiEditorIFrame - styles when mouse hover on the container
+ * 		.duiEditor:hover .duiEditorIFrameContainer/duiEditorIFrame - styles when mouse hover on the container
  * 
  * 3. focused Editor iframe container (ie, mouse focus on the editor pane)
  * 		.duiEditorFocused .duiEditorIFrameContainer/duiEditorIFrame - styles when container focused
@@ -36,15 +36,15 @@
   background-color: #ffffff;
   background-repeat: repeat-x;
 }
-.claro .duiEditorHover .duiEditorIFrameContainer,
-.claro .duiEditorHover .duiEditorIFrameContainer .duiEditorIFrame {
+.claro .duiEditor:hover .duiEditorIFrameContainer,
+.claro .duiEditor:hover .duiEditorIFrameContainer .duiEditorIFrame {
   background-color: #e5f2fe;
 }
 .claro .duiEditorFocused .duiEditorIFrameContainer,
 .claro .duiEditorFocused .duiEditorIFrameContainer .duiEditorIFrame {
   background-color: #ffffff;
 }
-.claro .duiEditorHover .duiEditorIFrameContainer,
+.claro .duiEditor:hover .duiEditorIFrameContainer,
 .claro .duiEditorFocused .duiEditorIFrameContainer {
   background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
   background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);

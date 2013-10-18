@@ -8,10 +8,10 @@
  * 		.duiTreeRow - styles for each row of the tree
  *
  * 2. hovered tree row (mouse hover on a tree row)
- * 		.duiTreeRowHover - styles when mouse over on one row
+ * 		.duiTreeRow:hover - styles when mouse over on one row
  * 
  * 3. active tree row (mouse down on a tree row)
- * 		.duiTreeRowActive - styles when mouse down on one row
+ * 		.duiTreeRow:active - styles when mouse down on one row
  * 
  * 4. selected tree row
  * 		duiTreeRowSelected - style when the row has been selected
@@ -119,7 +119,7 @@
   border-width: 1px 0;
   color: #000000;
 }
-.claro .duiTreeRowHover {
+.claro .duiTreeRow:hover {
   background-color: #abd6ff;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -133,7 +133,7 @@
   -moz-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
-.claro .duiTreeRowActive {
+.claro .duiTreeRow:active {
   background-color: #7dbdfa;
   background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
   background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
@@ -156,13 +156,13 @@
   /* for duiTreeExpandoOpened */
 
 }
-.claro .duiTreeRowHover .duiTreeExpandoOpened {
+.claro .duiTreeRow:hover .duiTreeExpandoOpened {
   background-position: -53px 0;
 }
 .claro .duiTreeExpandoClosed {
   background-position: 1px 0;
 }
-.claro .duiTreeRowHover .duiTreeExpandoClosed {
+.claro .duiTreeRow:hover .duiTreeExpandoClosed {
   background-position: -17px 0;
 }
 .claro .duiTreeExpandoLeaf {
