@@ -217,8 +217,6 @@ define([
 			}
 
 			this._hoveredChild = item;
-
-			item._set("hovering", true);
 		},
 
 		_onChildDeselect: function(item){
@@ -253,8 +251,6 @@ define([
 				this.passive_hover_timer.remove();
 				this.passive_hover_timer = null;
 			}
-
-			item._set("hovering", false);
 		},
 
 		_stopPopupTimer: function(){

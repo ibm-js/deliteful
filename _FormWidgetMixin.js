@@ -80,11 +80,6 @@ the domnode's disabled property.
 			this.focusNode.setAttribute("aria-disabled", value ? "true" : "false");
 
 			if(value){
-				// reset these, because after the domNode is disabled, we can no longer receive
-				// mouse related events, see #4200
-				this._set("hovering", false);
-				this._set("active", false);
-
 				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
 				var attachPointNames = this.focusNode ? ["focusNode"] : [];
 				array.forEach(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames], function(attachPointName){

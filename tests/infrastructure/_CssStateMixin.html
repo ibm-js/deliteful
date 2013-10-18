@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+		"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>_CssStateMixin unit test</title>
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"doh/runner",
+			"dojo/dom-class",
+			"dui/register", "dui/_CssStateMixin",
+			"dojo/domReady!"
+		], function(doh, domClass, register, _CssStateMixin){
+
+			doh.register("_CssStateMixin", [
+				// Test attributes mapped to DOMNodes
+				function basic(){
+					var CssWidget = register("dui-css-widget", [HTMLElement, _CssStateMixin], {
+						baseClass: "duiCss foo",
+						state: "",
+						disabled: false,
+						checked: false
+					});
+
+					var widget = new CssWidget({
+						state: "Error",
+						disabled: true,
+						checked: true
+					});
+
+					doh.t(domClass.contains(widget, "duiCssError"), "error state");
+					doh.t(domClass.contains(widget, "fooDisabled"), "disabled");
+					doh.t(domClass.contains(widget, "fooChecked"), "checked");
+
+					widget.mix({
+						state: "Incomplete",
+						disabled: false,
+						checked: "mixed"
+					});
+
+					doh.f(domClass.contains(widget, "duiCssError"), "not error state");
+					doh.t(domClass.contains(widget, "duiCssIncomplete"), "incomplete state");
+					doh.f(domClass.contains(widget, "fooDisabled"), "not disabled");
+					doh.t(domClass.contains(widget, "fooMixed"), "half checked");
+					doh.f(domClass.contains(widget, "fooChecked"), "original checked removed");
+				}
+			]);	// doh.register()
+
+			doh.run();
+
+		});	// require()
+
+	</script>
+</head>
+<body>
+<h1>_CssStateMixin Unit Test</h1>
+</body>
+</html>
