@@ -304,7 +304,7 @@ define([
 			}
 
 			var pcm = this._propCaseMap,
-				idx = 0, props = {};
+				attr, idx = 0, props = {};
 			while(attr = this.attributes[idx++]){
 				var name = attr.name;	// note: will be lower case
 				if(name in pcm){
