@@ -31,7 +31,8 @@ define([
 			//	|		var handle = this.own(on(...))[0];
 
 			// transform arguments into an Array
-			Array.prototype.slice.call(arguments).forEach(function(handle){
+			var ary = Array.prototype.slice.call(arguments);
+			ary.forEach(function(handle){
 				var destroyMethodName = "destroy" in handle ? "destroy" : "remove";
 
 				// When this.destroy() is called, destroy handle.  Since I'm using aspect.before(),
@@ -47,7 +48,7 @@ define([
 				}, true);
 			}, this);
 
-			return arguments;		// handle
+			return ary;		// [handle]
 		}
 	});
 });
