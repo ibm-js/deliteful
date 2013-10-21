@@ -42,35 +42,40 @@ define(["dcl/dcl"], function(dcl){
 
 		_introspect: function(){
 			// summary:
-			//		Sets up ES5 getters/setters for each class property, except for functions and privates.
+			//		Sets up ES5 getters/setters for each class property, except for functions and privates
+			//		and properties inside of an HTMLElement type base class.
 			//		Inside _introspect(), "this" is a reference to the prototype rather than any individual instance.
 
-			var proto = this;
+			var self = this, proto = this, ctor;
 
-			for(var name in proto){
-				// TODO: If this class extends HTMLElement, then generally shouldn't setup custom getters/setters
-				// for DOMNode attributes like dir, since it blocks the ability to ever set that param on the dom node.
-				if(typeof proto[name] == "function" || /^_/.test(name)){ continue; }
-				var names = propNames(name);
+			do {
+				Object.keys(proto).forEach(function(prop){
+					if(typeof proto[prop] == "function" || /^_/.test(prop)){ return; }
+					var names = propNames(prop),
+						shadowProp = names.p,
+						getter = names.g,
+						setter = names.s;
 
-				// Setup ES5 getter and setter for this property, if not already setup by a superclass.
-				// For a property named foo, saves raw value in _fooAttr.
-				// ES5 setter intentionally does late checking for this[names.s] in case a subclass sets up a
-				// _setFooAttr method.
-				if(!(names.p in proto)){
-					(function(prop, shadowProp, getter, setter){
-						proto[shadowProp] = proto[prop];
-						Object.defineProperty(proto, prop, {
+					// Setup ES5 getter and setter for this property, if not already setup.
+					// For a property named foo, saves raw value in _fooAttr.
+					// ES5 setter intentionally does late checking for this[names.s] in case a subclass sets up a
+					// _setFooAttr method.
+					if(!(shadowProp in proto)){
+						self[shadowProp] = self[prop];
+						Object.defineProperty(self, prop, {
 							set: function(x){
 								setter in this ? this[setter](x) : this._set(prop, x);
 							},
 							get: function(){
-								return getter in proto ? this[getter]() : this[shadowProp];
+								return getter in this ? this[getter]() : this[shadowProp];
 							}
 						});
-					})(name, names.p, names.g, names.s);	// save value of name etc. in this loop iteration
-				}
-			}
+					}
+				});
+
+				proto = Object.getPrototypeOf(proto);
+				ctor = proto && proto.constructor;
+			} while(proto && !/HTML[a-zA-Z]*Element/.test(ctor.name || ctor.toString()));
 		},
 
 		constructor: dcl.advise({
