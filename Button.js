@@ -5,14 +5,13 @@ define([
 	"dojo/dom-construct",
 	"./register",
 	"./_WidgetBase",
-	"./_FormWidgetMixin",
 	"./mixins/_Invalidating",
 	"dojo/has!dojo-bidi?./bidi/Button",
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
-], function(has, lang, domClass, domConstruct, register, WidgetBase, FormWidgetMixin, _Invalidating, BidiButton){
+], function(has, lang, domClass, domConstruct, register, WidgetBase, _Invalidating, BidiButton){
 
 	var Button = register(has("dojo-bidi") ? "dui-nonbidibutton" : "dui-button",
-		[HTMLButtonElement, WidgetBase, _Invalidating, FormWidgetMixin], {
+		[HTMLButtonElement, WidgetBase, _Invalidating], {
 		// summary:
 		//		Non-templated BUTTON widget.
 		//
@@ -25,10 +24,6 @@ define([
 		// label: String
 		//		Text to display in button.
 		label: "",
-
-		// type: [const] String
-		//		Type of button (submit, reset, button, checkbox, radio)
-		type: "submit",
 
 		_invalidatingProperties: ["label", "showLabel", "title", "iconClass", "textDir"],
 
