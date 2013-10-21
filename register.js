@@ -69,7 +69,7 @@ define([
 				}
 			}
 			proto = Object.getPrototypeOf(proto);
-		} while (!/HTML[a-zA-Z]*Element/.test(proto.toString()));
+		} while (!/HTML[a-zA-Z]*Element/.test(proto.constructor.toString()));
 
 		return props;
 	}
