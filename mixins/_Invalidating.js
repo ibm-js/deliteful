@@ -49,12 +49,10 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"],
 			//		Invalidating the rendering for the next execution frame.
 			// tags:
 			//		protected
-			if(!this.invalidatedProperties[name]){
-				this.invalidatedProperties[name] = true;
-			}
+			this.invalidatedProperties[name] = true;
 			if(!this.invalidRendering){
 				this.invalidRendering = true;
-				setTimeout(lang.hitch(this, "validateRendering"), 0);
+				this.defer("validateRendering");
 			}
 		},
 		validateRendering: function(){
