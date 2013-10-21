@@ -343,6 +343,10 @@ define([
 			//		Processing before buildRendering()
 			// tags:
 			//		protected
+
+			// FF has a native watch() method that overrides our Stateful.watch() method and breaks custom setters,
+			// so that any command like this.label = "hello" sets label to undefined instead.  Try to workaround.
+			this.watch = Stateful.prototype.watch;
 		},
 
 		buildRendering: dcl.after(function(){
