@@ -62,11 +62,11 @@ define([
 		//		False will disable refocusing. Default: true
 		refocus: true,
 
-		// autofocus: Boolean
+		// focusOnOpen: Boolean
 		//		A Toggle to modify the default focus behavior of a Dialog, which
 		//		is to focus on the first dialog element after opening the dialog.
 		//		False will disable autofocusing. Default: true
-		autofocus: true,
+		focusOnOpen: true,
 
 		// _firstFocusItem: [private readonly] DomNode
 		//		The pointer to the first focusable node in the dialog.
@@ -134,7 +134,7 @@ define([
 			this.resize();
 			this._position();
 
-			if(this.autofocus && DialogLevelManager.isTop(this)){
+			if(this.focusOnOpen && DialogLevelManager.isTop(this)){
 				this._getFocusItems(this.domNode);
 				focus.focus(this._firstFocusItem);
 			}
@@ -302,7 +302,7 @@ define([
 					DialogLevelManager.show(this, this.underlayAttrs);
 				}),
 				onEnd: lang.hitch(this, function(){
-					if(this.autofocus && DialogLevelManager.isTop(this)){
+					if(this.focusOnOpen && DialogLevelManager.isTop(this)){
 						// find focusable items each time dialog is shown since if dialog contains a widget the
 						// first focusable items can change
 						this._getFocusItems(this.domNode);

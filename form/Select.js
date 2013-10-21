@@ -27,8 +27,8 @@ define([
 		// summary:
 		//		An internally-used menu for dropdown that allows us a vertical scrollbar
 
-		// Override Menu.autoFocus setting so that opening a Select highlights the current value.
-		autoFocus: true,
+		// Override Menu.focusOnOpen setting so that opening a Select highlights the current value.
+		focusOnOpen: true,
 
 		buildRendering: function(){
 			this.inherited(arguments);

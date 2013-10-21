@@ -33,11 +33,11 @@ define([
 			//		TooltipDialog in order to control the size of an inner widget.
 			doLayout: false,
 
-			// autofocus: Boolean
+			// focusOnOpen: Boolean
 			//		A Toggle to modify the default focus behavior of a Dialog, which
 			//		is to focus on the first dialog element after opening the dialog.
 			//		False will disable autofocusing.  Default: true.
-			autofocus: true,
+			focusOnOpen: true,
 
 			// baseClass: [protected] String
 			//		The root className to use for the various states of this widget

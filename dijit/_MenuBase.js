@@ -71,10 +71,10 @@ define([
 		//		the popup to open.  Default is Infinity, meaning you need to click the menu to open it.
 		passivePopupDelay: Infinity,
 
-		// autoFocus: Boolean
+		// focusOnOpen: Boolean
 		//		A toggle to control whether or not a Menu gets focused when opened as a drop down from a MenuBar
 		//		or DropDownButton/ComboButton.   Note though that it always get focused when opened via the keyboard.
-		autoFocus: false,
+		focusOnOpen: false,
 
 		childSelector: function(/*DOMNode*/ node){
 			// summary:

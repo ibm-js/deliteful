@@ -170,14 +170,14 @@ define([
 				}
 			}
 			if(this.opened){
-				// Focus the dropdown widget unless it's a menu (in which case autoFocus is set to false).
+				// Focus the dropdown widget unless it's a menu (in which case focusOnOpen is set to false).
 				// Even if it's a menu, we need to focus it if this is a fake mouse event caused by the user typing
 				// SPACE/ENTER while using JAWS.  Jaws converts the SPACE/ENTER key into mousedown/mouseup events.
 				// If this.hovering is false then it's presumably actually a keyboard event.
 
 				// TODO: this.hovering was removed from _CssStateMixin, so need to track hovered node/widget
 				// from this module (or put code back into _CssStateMixin)
-				if(dropDown.focus && (dropDown.autoFocus !== false || (e.type == "mouseup" && !this.hovering))){
+				if(dropDown.focus && (dropDown.focusOnOpen !== false || (e.type == "mouseup" && !this.hovering))){
 					// Do it on a delay so that we don't steal back focus from the dropdown.
 					this._focusDropDownTimer = this.defer(function(){
 						dropDown.focus();
