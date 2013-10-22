@@ -410,7 +410,7 @@ define([
 			// Used by focus.js etc.
 			// TODO: this will be problematic for form widgets that want to put the id on the nested <input>
 			if (!this.id) {
-				this.id = getUniqueId(this.tag);
+				this.id = getUniqueId(this.nodeName.toLowerCase());
 			}
 
 			// TODO: Maybe startup() should call enteredViewCallback.
@@ -536,7 +536,7 @@ define([
 			//		When a widget is cast to a string, this method will be used to generate the
 			//		output. Currently, it does not implement any sort of reversible
 			//		serialization.
-			return "[Widget " + this.declaredClass + ", " + (this.id || "NO ID") + "]"; // String
+			return "[Widget " + this.nodeName.toLowerCase() + ", " + (this.id || "NO ID") + "]"; // String
 		},
 
 		getChildren: function () {

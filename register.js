@@ -311,7 +311,6 @@ define([
 		}
 
 		props = props || {};
-		props.tag = props.declaredClass = tag;	// for debugging
 
 		// Get a composited constructor
 		var ctor = dcl(bases, props),

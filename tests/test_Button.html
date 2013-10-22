@@ -20,7 +20,6 @@
 
 			// Just for testing subclassing of widgets
 			NewButton = register("dui-new-button", Button, {
-				declaredClass: "NewButton",
 				_setLabelAttr: function(l){
 					console.log("setting label to " + l);
 					this._set("label", l);
