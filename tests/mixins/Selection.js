@@ -1,14 +1,14 @@
 define(["doh/runner", "../../register", "../../mixins/Selection", "../../_WidgetBase"],
-	function(doh, register, Selection, _WidgetBase){
+	function (doh, register, Selection, _WidgetBase) {
 	var C = register("test-selection", [HTMLElement, _WidgetBase, Selection], {
-		updateRenderers: function(){
+		updateRenderers: function () {
 		},
-		getIdentity: function(item){
+		getIdentity: function (item) {
 			return item;
 		}
 	});
 	doh.register("mixins.Selection", [
-		function test_SetGet(t){
+		function testSetGet(t) {
 			var o = new C();
 			o.selectedItem = "1";
 			t.is("1", o.selectedItem);
@@ -20,11 +20,10 @@ define(["doh/runner", "../../register", "../../mixins/Selection", "../../_Widget
 			t.is("1", o.selectedItem);
 			t.is(["1"], o.selectedItems);
 		},
-		function test_Event(t){
-			var d = new doh.Deferred();
-			var o = new C({selectedItem : "1"});
+		function testEvent(t) {
+			var o = new C({selectedItem: "1"});
 			var callbackCalled = false;
-			o.on("selection-change", function(evt){
+			o.on("selection-change", function (evt) {
 				t.is("1", evt.oldValue);
 				t.is("2", evt.newValue);
 				callbackCalled = true;

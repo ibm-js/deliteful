@@ -1,16 +1,16 @@
-define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
-	function(dcl, lang, when, _Invalidating){
+define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"], function (dcl, lang, when, _Invalidating) {
 
 	return dcl(_Invalidating, {
 
 		// summary:
-		//		Mixin for widgets for store management that creates widget render items from store items after querying
-		// 		the store. The receiving class must extend dojo/Stateful and dojo/Evented or dui/_WidgetBase.
+		//		Mixin for widgets for store management that creates widget render items from store items after
+		//		querying the store. The receiving class must extend dojo/Stateful and dojo/Evented or
+		//		dui/_WidgetBase.
 		// description:
 		//		Classes extending this mixin automatically create render items that are consumable by the widget
-		// 		from store items after querying the store. This happens each time the widget store, query or queryOptions
-		// 		properties are set. If that store is Observable it will be observed and render items will be automatically
-		// 		updated, added or deleted from the items property based on store notifications.
+		//		from store items after querying the store. This happens each time the widget store, query or
+		//		queryOptions properties are set. If that store is Observable it will be observed and render items
+		//		will be automatically updated, added or deleted from the items property based on store notifications.
 
 		// store: dojo/store/Store
 		//		The store that contains the items to display.
@@ -25,17 +25,17 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 		queryOptions: null,
 
 		// items: Array
-		//		The render items corresponding to the store items for this widget. This is filled from the store and is
-		//		not supposed to be modified directly. Initially null.
+		//		The render items corresponding to the store items for this widget. This is filled from the store and
+		//		is not supposed to be modified directly. Initially null.
 		items: null,
 
-		preCreate: function(){
+		preCreate: function () {
 			// we want to be able to wait for potentially several of those properties to be set before
 			// actually firing the store request
 			this.addInvalidatingProperties("store", "query", "queryOptions");
 		},
 
-		renderItemToItem: function(/*Object*/ renderItem){
+		renderItemToItem: function (/*Object*/ renderItem) {
 			// summary:
 			//		Creates a store item from the render item. By default it returns the render item itself.
 			// renderItem: Object
@@ -44,7 +44,7 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			return renderItem;
 		},
 
-		itemToRenderItem: function(item){
+		itemToRenderItem: function (item) {
 			// summary:
 			//		Returns the render item for a given store item. By default it returns the store item itself.
 			// item: Object
@@ -54,50 +54,51 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			return item;
 		},
 
-		initItems: function(items){
+		initItems: function (items) {
 			// tags:
 			//		protected
 			this.items = items;
 			this.emit("query-success", { items: items, cancelable: false, bubbles: true });
 		},
 
-		refreshRendering: function(){
+		refreshRendering: function () {
 			// summary:
 			//		Actually refresh the rendering by querying the store.
 			// tags:
 			//		protected
-			if(this._isStoreInvalidated()){
-				if(this._observeHandler){
+			if (this._isStoreInvalidated()) {
+				if (this._observeHandler) {
 					this._observeHandler.remove();
 					this._observeHandler = null;
 				}
 				var store = this.store;
-				if(store != null){
+				if (store != null) {
 					var results = store.query(this.query, this.queryOptions);
-					if(results.observe){
+					if (results.observe) {
 						// user asked us to observe the store
 						this._observeHandler = results.observe(lang.hitch(this, "_updateItem"), true);
 					}
 					// if we have a mapping function between store item and some intermediary items use it
-					results = results.map(lang.hitch(this, function(item){
+					results = results.map(lang.hitch(this, function (item) {
 						return this.itemToRenderItem(item, store);
 					}));
 					when(results, lang.hitch(this, this.initItems), lang.hitch(this, "_queryError"));
-				}else{
+				} else {
 					this.initItems([]);
 				}
 			}
 		},
 
-		_isStoreInvalidated: function(){
-			return this.invalidatedProperties["store"] || this.invalidatedProperties["query"] ||this.invalidatedProperties["queryOptions"];
+		_isStoreInvalidated: function () {
+			return this.invalidatedProperties.store || this.invalidatedProperties.query ||
+				this.invalidatedProperties.queryOptions;
 		},
 
-		_queryError: function(error){
+		_queryError: function (error) {
 			this.emit("query-error", { error: error, cancelable: false, bubbles: true });
 		},
 
-		_updateItem: function(object, previousIndex, newIndex){
+		_updateItem: function (object, previousIndex, newIndex) {
 			// tags:
 			//		private
 
@@ -106,16 +107,16 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			// if we have a mapping function between store item and some intermediary items use it
 			var newItem = this.itemToRenderItem(object, this.store);
 
-			if(previousIndex != -1){
+			if (previousIndex !== -1) {
 				// this is a remove or a move
-				if(newIndex != previousIndex){
+				if (newIndex !== previousIndex) {
 					// remove
 					this.removeItem(previousIndex, newItem, items);
-				}else{
+				} else {
 					// this is a put, previous and new index identical
 					this.putItem(previousIndex, newItem, items);
 				}
-			}else if(newIndex != -1){
+			} else if (newIndex !== -1) {
 				// this is a add
 				this.addItem(newIndex, newItem, items);
 
@@ -124,14 +125,14 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			this.items = items;
 		},
 
-		destroy: function(){
-			if(this._observeHandler){
+		destroy: function () {
+			if (this._observeHandler) {
 				this._observeHandler.remove();
 				this._observeHandler = null;
 			}
 		},
 
-		removeItem: function(index, item, items){
+		removeItem: function (index, item, items) {
 			// summary:
 			//		Remove a render item. This can be redefined but must not be called directly.
 			// index: Number
@@ -145,7 +146,7 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			items.splice(index, 1);
 		},
 
-		putItem: function(index, item, items){
+		putItem: function (index, item, items) {
 			// summary:
 			//		Modify a render item. This can be redefined but must not be called directly.
 			// index: Number
@@ -161,7 +162,7 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"],
 			lang.mixin(items[index], item);
 		},
 
-		addItem: function(index, item, items){
+		addItem: function (index, item, items) {
 			// summary:
 			//		Add a render item. This can be redefined but must not be called directly.
 			// index: Number
