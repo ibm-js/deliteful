@@ -12,15 +12,14 @@ require([
 	"dojo/dom-class", // dojo.hasClass
 	"dojo/domReady!", // dojo.ready
 	"dui/registry",  // dui.byId
-	"dojo/string", // dojo.trim
 	"doh/runner",	//doh functions
 	"dui/mobile/ListItem",
 	"dui/mobile/RoundRectList",
 	"dui/mobile/EdgeToEdgeList",
 	"dui/mobile/View",		// This mobile app uses mobile view
-	"dui/mobile/compat",		// This mobile app supports running on desktop browsers
+	"dui/mobile/compat",	// This mobile app supports running on desktop browsers
 	"dui/mobile/parser"		// This mobile app uses declarative programming with fast mobile parser
-], function(connect, domClass, ready, registry, string, runner, ListItem){
+], function(connect, domClass, ready, registry, runner, ListItem){
 
 
 	function _createListItemProgrammatically(parentId, widgetId){
@@ -95,7 +94,7 @@ require([
 		}
 		if(boxText){
 			runner.assertTrue(widget.labelNode, "box: There is no box. id=" + widget.domNode.id);
-			var innerHTML = string.trim(widget.labelNode.innerHTML.replace(/\r\n/g, ""));
+			var innerHTML = widget.labelNode.innerHTML.replace(/\r\n/g, "").trim();
 			runner.assertEqual(boxText, innerHTML, "id=" + widget.domNode.id);
 		}
 	};

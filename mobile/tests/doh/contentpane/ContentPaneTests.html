@@ -23,14 +23,13 @@
 		"dojo/dom-construct", // dojo.place, dojo.create
 		"dojo/dom-class",
 		"dojo/domReady!", // dojo.ready
-		"dojo/string", // dojo.trim
 		"dui/registry",  // dui.byId
 		"doh/runner",	//doh functions
 		"dui/mobile/ContentPane",
 		"dui/mobile/View",		// This mobile app uses mobile view
 		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dui/mobile/RoundRect"
-	], function(parser, domConst, domClass, ready, string, registry, runner, ContentPane){
+	], function(parser, domConst, domClass, ready, registry, runner, ContentPane){
 
 		parser.parse();
 
@@ -95,7 +94,7 @@
 				widget.domNode.id + " c=" + c + " c[0]=" + c[0]);
 			runner.assertTrue(domClass.contains(c[0].domNode, WIDGET2_CLASSNAME1), WIDGET2_CLASSNAME1 + " id=" + c[0].domNode.id);
 			runner.assertTrue(domClass.contains(c[0].domNode, WIDGET2_CLASSNAME2), WIDGET2_CLASSNAME2 + " id=" + c[0].domNode.id);
-			runner.assertEqual(titleText, string.trim(c[0].domNode.innerHTML.replace(/\r\n/g,"")), "id=" + c[0].domNode.id);
+			runner.assertEqual(titleText, c[0].domNode.innerHTML.replace(/\r\n/g,"").trim(), "id=" + c[0].domNode.id);
 		}
 		function _showView2(){
 			var view1 = registry.byId("view1");
@@ -156,7 +155,7 @@
 			
 			runner.run();
 
-	})
+	});
 </script>
 </head>
 <body style="visibility:hidden;">

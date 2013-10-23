@@ -14,12 +14,11 @@
 		"doh/runner",	//doh functions
 		"dui/register",
 		"dojo/query",
-		"dojo/string",
 		"dojo/sniff",
 		"dojo/dom-geometry",
 		"dui/StarRating",
 		"dojo/domReady!"
-	], function(runner, register, query, string, has, domGeometry, StarRating){
+	], function(runner, register, query, has, domGeometry, StarRating){
 
 		increment = function(suffix){
 			if(val == 7){ return; }
@@ -232,7 +231,7 @@
 			}
 		]);
 		runner.run();
-	})
+	});
 </script>
 </head>
 <body>

@@ -28,12 +28,11 @@
 			"dojo/dom-class", // dojo.hasClass
 			"dojo/domReady!", // dojo.ready
 			"dui/registry",  // dui.byId
-			"dojo/string", // dojo.trim
 			"doh/runner",	//doh functions
 			"dui/mobile/TextBox",
 			"dui/mobile/View",		// This mobile app uses mobile view
 			"dui/mobile/compat"		// This mobile app supports running on desktop browsers
-		], function(parser, topic, domConst, domClass, ready, registry, string, runner, TextBox){
+		], function(parser, topic, domConst, domClass, ready, registry, runner, TextBox){
 
 			parser.parse();
 
@@ -110,7 +109,7 @@
 				}
 			]);
 			runner.run();
-		})
+		});
 	</script>
 </head>
 <body style="visibility:hidden;">

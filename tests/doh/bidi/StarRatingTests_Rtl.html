@@ -16,14 +16,13 @@
 	require([
 		"doh/runner",	//doh functions
 		"dojo/query",
-		"dojo/string",
 		"dojo/sniff",
 		"dojo/dom",
 		"dojo/dom-geometry",
 		"dui/register",
 		"dui/StarRating",
 		"dojo/domReady!"
-	], function(runner, query, string, has, dom, domGeometry, register, StarRating){
+	], function(runner, query, has, dom, domGeometry, register, StarRating){
 
 		increment = function(suffix){
 			if(val["star" + (suffix ? suffix : "")] == 7){ return; }
@@ -387,7 +386,7 @@
 			}
 		]);
 		runner.run();
-	})
+	});
 </script>
 </head>
 <body>
