@@ -25,8 +25,6 @@ define([
 		//		Text to display in button.
 		label: "",
 
-		_invalidatingProperties: ["label", "showLabel", "title", "iconClass", "textDir"],
-
 		// showLabel: Boolean
 		//		Set this to true to hide the label text and display only the icon.
 		//		(If showLabel=false then iconClass must be specified.)
@@ -45,13 +43,18 @@ define([
 		//		The name of the CSS class of this widget.
 		baseClass: "duiButton",
 
-		buildRendering: function(){
+		preCreate: function(){
+			this.addInvalidatingProperties("label", "showLabel", "title", "iconClass", "textDir");
+		},
+
+		postCreate: function(){
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
-			this.label = this.textContent.trim();
-			this.innerHTML = "";
+			if(!this.label){
+				this.label = this.textContent.trim();
+				this.innerHTML = "";
+			}
 
 			this.focusNode = this;
-			this.invalidateRendering("label");	// because _InvalidateRendering hasn't setup it's listener yet
 		},
 
 		refreshRendering: function(){
