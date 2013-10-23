@@ -19,9 +19,9 @@ define([
 	"./Stateful",
 	"./register",
 	"dojo/has!dojo-bidi?./_BidiMixin"
-], function(require, dcl, aspect, config, Deferred,
+], function (require, dcl, aspect, config, Deferred,
 			dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel,
-			lang, on, win, Destroyable, Stateful, register, _BidiMixin){
+			lang, on, win, Destroyable, Stateful, register, _BidiMixin) {
 
 	// module:
 	//		dui/_WidgetBase
@@ -32,28 +32,30 @@ define([
 
 	// Nested hash listing attributes for each tag, all strings in lowercase.
 	// ex: {"div": {"style": true, "tabindex" true}, "form": { ...
+	/*
 	var tagAttrs = {};
 
-	function getAttrs(obj){
+	function getAttrs(obj) {
 		var ret = {};
-		for(var attr in obj){
+		for (var attr in obj) {
 			ret[attr.toLowerCase()] = true;
 		}
 		return ret;
 	}
 
-	function nonEmptyAttrToDom(attr){
+	function nonEmptyAttrToDom(attr) {
 		// summary:
 		//		Returns a setter function that sets the attribute on the root DOM node,
 		//		or removes the attribute, depending on whether the
 		//		value is defined or not.
-		return function(val){
+		return function (val) {
 			domAttr[val ? "set" : "remove"](this, attr, val);
 			this._set(attr, val);
 		};
 	}
+	*/
 
-	function genSetter(/*String*/ attr, /*Object*/ commands){
+	function genSetter(/*String*/ attr, /*Object*/ commands) {
 		// summary:
 		//		Return setter for a widget property, often mapping the property to a
 		//		DOMNode attribute, innerHTML, or innerText.
@@ -63,43 +65,45 @@ define([
 		// commands:
 		//		A single command or array of commands.  A command is:
 		//
-		//			- null to indicate a plain setter that just saves the value and notifies listeners registered with watch()
+		//			- null to indicate a plain setter that just saves the value and notifies listeners
+		//				registered with watch()
 		//			- a string like "focusNode" to set this.focusNode[attr]
-		//			- an object like {node: "labelNode", type: "attribute", attribute: "role" } to set this.labelNode.role
+		//			- an object like {node: "labelNode", type: "attribute", attribute: "role" } to set
+		//				this.labelNode.role
 		//			- an object like {node: "focusNode", type: "class" } to set this.focusNode.className
 		//			- an object like {node: "labelNode", type: "innerHTML" } to set this.labelNode.innerHTML
 		//			- an object like {node: "labelNode", type: "innerText" } to set this.labelNode.innerText
 		//
 		//		If an object doesn't specify a node, it maps to the root node.
 
-		function genSimpleSetter(command){
+		function genSimpleSetter(command) {
 			// Setup mapNode(this) method that returns the node to map to.  Does late resolution, i.e. doesn't
 			// lookup this.focusNode until it's called.
-			var mapNodeName = command.node || (command && typeof command == "string" ? command : "domNode"),
-				mapNode = mapNodeName == "domNode" ? function(x){ return x; } :
-					function(x){ return x[mapNodeName]; };
-			switch(command.type){
+			var mapNodeName = command.node || (command && typeof command === "string" ? command : "domNode"),
+				mapNode = mapNodeName === "domNode" ? function (x) { return x; } :
+					function (x) { return x[mapNodeName]; };
+			switch (command.type) {
 				case "innerText":
-					return function(value){
+					return function (value) {
 						mapNode(this).innerHTML = "";
 						mapNode(this).appendChild(this.ownerDocument.createTextNode(value));
 						this._set(attr, value);
 					};
 				case "innerHTML":
-					return function(value){
+					return function (value) {
 						mapNode(this).innerHTML = value;
 						this._set(attr, value);
 					};
 				case "class":
-					return function(value){
+					return function (value) {
 						domClass.replace(mapNode(this), value, this[attr]);
 						this._set(attr, value);
 					};
 				default:
 					// Map to DOMNode property.   DOMNode is possibly a widget.
 					var attrName = command.attribute || attr;
-					return function(value){
-						if(typeof value == "function"){ // functions execute in the context of the widget
+					return function (value) {
+						if (typeof value === "function") { // functions execute in the context of the widget
 							value = lang.hitch(this, value);
 						}
 						mapNode(this)[attrName] = value;
@@ -108,31 +112,31 @@ define([
 			}
 		}
 
-		if(commands instanceof Array){
+		if (commands instanceof Array) {
 			// Unusual case where there's a list of commands, ex: _setFooAttr: ["focusNode", "domNode"].
 			var setters = commands.map(genSimpleSetter);
-			return function(value){
-				setters.forEach(function(setter){
+			return function (value) {
+				setters.forEach(function (setter) {
 					setter.call(this, value);
 				}, this);
 			};
-		}else{
+		} else {
 			return genSimpleSetter(commands);
 		}
 	}
 
 	var _widgetTypeCtr = {};
-	function getUniqueId(/*String*/ tag){
+	function getUniqueId(/*String*/ tag) {
 		// summary:
 		//		Generates a unique id for a given widget type.
 		//		Note: doesn't work for multi-document case.
 
 		var id;
-		do{
+		do {
 			id = tag + "-" +
 				(tag in _widgetTypeCtr ?
 					++_widgetTypeCtr[tag] : _widgetTypeCtr[tag] = 0);
-		}while(dom.byId(tag));
+		} while (dom.byId(tag));
 		return id; // String
 	}
 
@@ -143,10 +147,11 @@ define([
 		//		Provides stubs for widget lifecycle methods for subclasses to extend, like  buildRendering(),
 		//		postCreate(), startup(), and destroy(), and also public API methods like watch().
 		//
-		//		Widgets can provide custom setters/getters for widget attributes, which are called automatically by set(name, value).
-		//		For an attribute XXX, define methods _setXXXAttr() and/or _getXXXAttr().
+		//		Widgets can provide custom setters/getters for widget attributes, which are called automatically
+		//		by set(name, value).  For an attribute XXX, define methods _setXXXAttr() and/or _getXXXAttr().
 		//
-		//		_setXXXAttr can also be a string/hash/array mapping from a widget attribute XXX to the widget's DOMNodes:
+		//		_setXXXAttr can also be a string/hash/array mapping from a widget attribute XXX to the
+		//		widget's DOMNodes:
 		//
 		//		- DOM node attribute
 		// |		_setFocusAttr: {node: "focusNode", type: "attribute"}
@@ -220,7 +225,7 @@ define([
 		//		handlebars! / template.
 		register: register,
 
-		_introspect: function(){
+		_introspect: function () {
 			// Various introspection to be done on my prototype.
 			// "this" refers to my prototype.
 
@@ -228,17 +233,17 @@ define([
 
 			var pcm = proto._propCaseMap = {},
 				onmap = proto._onMapHash = {};
-			for(var key in proto){
+			for (var key in proto) {
 				// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass
 				pcm[key.toLowerCase()] = key;
 
 				// on mapping, ex: click --> onClick
-				if(/^on/.test(key)){
+				if (/^on/.test(key)) {
 					onmap[key.substr(2).toLowerCase()] = key;
 				}
 
 				// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
-				if(/^_set[A-Z](.*)Attr$/.test(key) && typeof proto[key] != "function"){
+				if (/^_set[A-Z](.*)Attr$/.test(key) && typeof proto[key] !== "function") {
 					proto[key] = genSetter(key.charAt(4).toLowerCase() + key.substr(5, key.length - 9), proto[key]);
 				}
 			}
@@ -246,12 +251,13 @@ define([
 
 		//////////// INITIALIZATION METHODS ///////////////////////////////////////
 
-		createdCallback: function(){
+		createdCallback: function () {
 			// summary:
 			//		Kick off the life-cycle of a widget
 			// description:
 			//		Create calls a number of widget methods (buildRendering, postCreate,
-			//		etc.), some of which of you'll want to override. See http://dojotoolkit.org/reference-guide/dui/_WidgetBase.html
+			//		etc.), some of which of you'll want to override.
+			//		See http://dojotoolkit.org/reference-guide/dui/_WidgetBase.html
 			//		for a discussion of the widget creation lifecycle.
 			//
 			//		Of course, adventurous developers could override create entirely, but this should
@@ -276,7 +282,7 @@ define([
 			this._created = true;
 
 			// data-dojo-id specifies that a global variable should be created to point to this widget
-			if(this.hasAttribute("data-dojo-id")){
+			if (this.hasAttribute("data-dojo-id")) {
 				window[this.getAttribute("data-dojo-id")] = this;
 			}
 
@@ -288,57 +294,61 @@ define([
 		/**
 		 * Get declaratively specified attributes to widget properties
 		 */
-		mapAttributes: function() {
+		mapAttributes: function () {
+			var pcm = this._propCaseMap,
+				attr,
+				idx = 0,
+				props = {};
+
+			// inner functions useful to reduce cyclomatic complexity when using jshint
 			function stringToObject(value) {
 				var obj;
 
 				try {
 					/* jshint evil:true */
-					obj = eval('(' + (value[0] === '{' ? '' : '{') + value + (value[0] === '{' ? '' : '}') + ')');
+					obj = eval("(" + (value[0] === "{" ? "" : "{") + value + (value[0] === "{" ? "" : "}") + ")");
 				}
 				catch (e) {
-					throw new SyntaxError('Error in attribute conversion to object: ' + e.message + '\nAttribute Value: "' +
-						value + '"');
+					// need to squelch errors from converting style et al
+					//throw new SyntaxError("Error in attribute conversion to object: " + e.message +
+					//	"\nAttribute Value: '" + value + "'");
 				}
 				return obj;
 			}
+			function setTypedValue(widget, name, value) {
+				switch (typeof widget[name]) {
+					case "string":
+						props[name] = value;
+						break;
+					case "number":
+						props[name] = value - 0;
+						break;
+					case "boolean":
+						props[name] = value !== "false";
+						break;
+					case "object":
+						props[name] = (widget[name] instanceof Array)
+							? (value
+								? value.split(/\s+/)
+								: [])
+							: stringToObject(value);
+						break;
+					case "function":
+						/* jshint evil:true */
+						props[name] = lang.getObject(value, false) || new Function(value);
+				}
+			}
 
-			var pcm = this._propCaseMap,
-				attr, idx = 0, props = {};
-			while(attr = this.attributes[idx++]){
-				var name = attr.name;	// note: will be lower case
-				if(name in pcm){
-					name = pcm[name];	// convert to correct case for widget
-					var value = attr.value;
-					switch (typeof this[name]) {
-						case 'string':
-							props[name] = value;
-							break;
-						case 'number':
-							props[name] = value - 0;
-							break;
-						case 'boolean':
-							props[name] = value !== 'false';
-							break;
-						case 'object':
-							if (this[name] instanceof Array) {
-								props[name] = value ? value.split(/\s+/) : [];
-							}
-							else {
-								props[name] = stringToObject(value);
-							}
-							break;
-						case 'function':
-							/* jshint evil:true */
-							props[name] = lang.getObject(value, false) || new Function(value);
-							break;
-					}
+			while ((attr = this.attributes[idx++])) {
+				var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
+				if (name in pcm) {
+					setTypedValue(this, pcm[name]/* convert to correct case for widget */, attr.value);
 				}
 			}
 			return props;
 		},
 
-		preCreate: function(){
+		preCreate: function () {
 			// summary:
 			//		Processing before buildRendering()
 			// tags:
@@ -349,7 +359,7 @@ define([
 			this.watch = Stateful.prototype.watch;
 		},
 
-		buildRendering: dcl.after(function(){
+		buildRendering: dcl.after(function () {
 			// summary:
 			//		Construct the UI for this widget, filling in subnodes and/or text inside of this.
 			//		Most widgets will leverage dui/handlebars! to implement this method.
@@ -359,10 +369,10 @@ define([
 			// baseClass is a single class name or occasionally a space-separated list of names.
 			// Add those classes to the DOMNode.  If RTL mode then also add with Rtl suffix.
 			// TODO: baseClass no longer needed?   just use tag name itself, right?
-			if(this.baseClass){
+			if (this.baseClass) {
 				var classes = this.baseClass.split(" ");
-				if(!this.isLeftToRight()){
-					classes = classes.concat(classes.map(function(name){
+				if (!this.isLeftToRight()) {
+					classes = classes.concat(classes.map(function (name) {
 						return name + "Rtl";
 					}));
 				}
@@ -370,7 +380,7 @@ define([
 			}
 		}),
 
-		postCreate: function(){
+		postCreate: function () {
 			// summary:
 			//		Processing after the DOM fragment is created
 			// description:
@@ -381,7 +391,7 @@ define([
 			//		protected
 		},
 
-		startup: function(){
+		startup: function () {
 			// summary:
 			//		Processing after the DOM fragment is added to the document
 			// description:
@@ -392,22 +402,22 @@ define([
 			//		inside a hidden dui/Dialog or an unselected tab of a dui/layout/TabContainer.
 			//		For widgets that need to do layout, it's best to put that layout code inside resize(), and then
 			//		extend dui/layout/_LayoutWidget so that resize() is called when the widget is visible.
-			if(this._started){
+			if (this._started) {
 				return;
 			}
 
 			// Generate an id for the widget if one wasn't specified, or it was specified as id: undefined.
 			// Used by focus.js etc.
 			// TODO: this will be problematic for form widgets that want to put the id on the nested <input>
-			if(!this.id){
+			if (!this.id) {
 				this.id = getUniqueId(this.tag);
 			}
 
 			// TODO: Maybe startup() should call enteredViewCallback.
 
 			this._started = true;
-			this.getChildren().forEach(function(obj){
-				if(!obj._started && !obj._destroyed && lang.isFunction(obj.startup)){
+			this.getChildren().forEach(function (obj) {
+				if (!obj._started && !obj._destroyed && lang.isFunction(obj.startup)) {
 					obj.startup();
 					obj._started = true;
 				}
@@ -415,7 +425,7 @@ define([
 		},
 
 		//////////// DESTROY FUNCTIONS ////////////////////////////////
-		destroy: function(/*Boolean*/ preserveDom){
+		destroy: function (/*Boolean*/ preserveDom) {
 			// summary:
 			//		Destroy this widget and its descendants.
 			// preserveDom: Boolean
@@ -424,8 +434,8 @@ define([
 			this._beingDestroyed = true;
 
 			// Destroy child widgets
-			this.findWidgets(this).forEach(function(w){
-				if(w.destroy){
+			this.findWidgets(this).forEach(function (w) {
+				if (w.destroy) {
 					w.destroy();
 				}
 			});
@@ -435,7 +445,7 @@ define([
 			this._destroyed = true;
 		},
 
-		destroyRendering: function(/*Boolean?*/ preserveDom){
+		destroyRendering: function (/*Boolean?*/ preserveDom) {
 			// summary:
 			//		Destroys the DOM nodes associated with this widget.
 			// preserveDom:
@@ -445,17 +455,17 @@ define([
 			// tags:
 			//		protected
 
-			if(this.bgIframe){
+			if (this.bgIframe) {
 				this.bgIframe.destroy(preserveDom);
 				delete this.bgIframe;
 			}
 
-			if(!preserveDom){
+			if (!preserveDom) {
 				domConstruct.destroy(this);
 			}
 		},
 
-		emit: function(/*String*/ type, /*Object?*/ eventObj, /*Array?*/ callbackArgs){
+		emit: function (/*String*/ type, /*Object?*/ eventObj, /*Array?*/ callbackArgs) {
 			// summary:
 			//		Used by widgets to signal that a synthetic event occurred, ex:
 			//	|	myWidget.emit("attrmodified-selectedChildWidget", {}).
@@ -471,13 +481,13 @@ define([
 			// Also set pointer to widget, although since we can't add a pointer to the widget for native events
 			// (see #14729), maybe we shouldn't do it here?
 			eventObj = eventObj || {};
-			if(eventObj.bubbles === undefined){
+			if (eventObj.bubbles === undefined) {
 				eventObj.bubbles = true;
 			}
-			if(eventObj.cancelable === undefined){
+			if (eventObj.cancelable === undefined) {
 				eventObj.cancelable = true;
 			}
-			if(!eventObj.detail){
+			if (!eventObj.detail) {
 				eventObj.detail = {};
 			}
 			eventObj.detail.widget = this;
@@ -485,12 +495,12 @@ define([
 			// Call onType() method.   TODO: remove this for 2.0?  In general we won't have such methods anymore.
 			// See on() method below, which has the same code.
 			var ret, callback = this["on" + type];
-			if(callback){
+			if (callback) {
 				ret = callback.apply(this, callbackArgs ? callbackArgs : [eventObj]);
 			}
 
 			// Emit event, but avoid spurious emit()'s as parent sets properties on child during startup/destroy
-			if(this._started && !this._beingDestroyed){
+			if (this._started && !this._beingDestroyed) {
 				// TODO: won't this cause an infinite loop? dojo/on.emit() will presumably delgate to this func.
 				on.emit(this, type, eventObj);
 			}
@@ -498,20 +508,20 @@ define([
 			return ret;
 		},
 
-		on: function(/*String|Function*/ type, /*Function*/ func){
+		on: function (/*String|Function*/ type, /*Function*/ func) {
 			// summary:
-			//		Call specified function when event occurs, ex: myWidget.on("click", function(){ ... }).
+			//		Call specified function when event occurs, ex: myWidget.on("click", function () { ... }).
 			// type:
 			//		Name of event (ex: "click") or extension event like touch.press.
 			// description:
-			//		Call specified function when event `type` occurs, ex: `myWidget.on("click", function(){ ... })`.
-			//		Note that the function is not run in any particular scope, so if (for example) you want it to run in the
-			//		widget's scope you must do `myWidget.on("click", lang.hitch(myWidget, func))`.
+			//		Call specified function when event `type` occurs, ex: `myWidget.on("click", function () { ... })`.
+			//		Note that the function is not run in any particular scope, so if (for example) you want it to run
+			//		in the widget's scope you must do `myWidget.on("click", lang.hitch(myWidget, func))`.
 
 			// For backwards compatibility, if there's an onType() method in the widget then connect to that.
 			// Remove in 2.0.
-			var widgetMethod = this._onMapHash[typeof type == "string" && type.toLowerCase()];
-			if(widgetMethod){
+			var widgetMethod = this._onMapHash[typeof type === "string" && type.toLowerCase()];
+			if (widgetMethod) {
 				return aspect.after(this, widgetMethod, func, true);
 			}
 
@@ -519,20 +529,21 @@ define([
 			return this.own(on(this, type, func))[0];
 		},
 
-		toString: function(){
+		toString: function () {
 			// summary:
 			//		Returns a string that represents the widget.
 			// description:
 			//		When a widget is cast to a string, this method will be used to generate the
 			//		output. Currently, it does not implement any sort of reversible
 			//		serialization.
-			return '[Widget ' + this.declaredClass + ', ' + (this.id || 'NO ID') + ']'; // String
+			return "[Widget " + this.declaredClass + ", " + (this.id || "NO ID") + "]"; // String
 		},
 
-		getChildren: function(){
+		getChildren: function () {
 			// summary:
-			//    Returns all direct children of this widget, i.e. all widgets or DOM node underneath this.containerNode
-			//     whose parent is this widget.   Note that it does not return all descendants, but rather just direct children.
+			//		Returns all direct children of this widget, i.e. all widgets or DOM node underneath
+			//		this.containerNode whose parent is this widget.  Note that it does not return all
+			//		descendants, but rather just direct children.
 			//
 			//		The result intentionally excludes internally created widgets (a.k.a. supporting widgets)
 			//		outside of this.containerNode.
@@ -541,29 +552,29 @@ define([
 			return this.containerNode ? Array.prototype.slice.call(this.containerNode.children) : []; // []
 		},
 
-		getParent: function(){
+		getParent: function () {
 			// summary:
 			//		Returns the parent widget of this widget.
 
 			return this.getEnclosingWidget(this.parentNode);
 		},
 
-		isLeftToRight: function(){
+		isLeftToRight: function () {
 			// summary:
 			//		Return this widget's explicit or implicit orientation (true for LTR, false for RTL)
 			// tags:
 			//		protected
-			return this.dir ? (this.dir == "ltr") : domGeometry.isBodyLtr(this.ownerDocument); //Boolean
+			return this.dir ? (this.dir === "ltr") : domGeometry.isBodyLtr(this.ownerDocument); //Boolean
 		},
 
-		isFocusable: function(){
+		isFocusable: function () {
 			// summary:
 			//		Return true if this widget can currently be focused
 			//		and false if not
-			return this.focus && (domStyle.get(this, "display") != "none");
+			return this.focus && (domStyle.get(this, "display") !== "none");
 		},
 
-		placeAt: function(/* String|DomNode|_WidgetBase */ reference, /* String|Int? */ position){
+		placeAt: function (/* String|DomNode|_WidgetBase */ reference, /* String|Int? */ position) {
 			// summary:
 			//		Place this widget somewhere in the DOM based
 			//		on standard domConstruct.place() conventions.
@@ -589,7 +600,7 @@ define([
 			//	|	// create a Button with no srcNodeRef, and place it in the body:
 			//	|	var button = new Button({ label:"click" }).placeAt(win.body());
 			//	|	// now, 'button' is still the widget reference to the newly created button
-			//	|	button.on("click", function(e){ console.log('click'); }));
+			//	|	button.on("click", function (e) { console.log('click'); }));
 			// example:
 			//	|	// create a button out of a node with id="src" and append it to id="wrapper":
 			//	|	var button = new Button({},"src").placeAt("wrapper");
@@ -603,10 +614,10 @@ define([
 
 			reference = dom.byId(reference);
 
-			if(reference && reference.addChild && (!position || typeof position === "number")){
+			if (reference && reference.addChild && (!position || typeof position === "number")) {
 				// Use addChild() if available because it skips over text nodes and comments.
 				reference.addChild(this, position);
-			}else{
+			} else {
 				// "reference" is a plain DOMNode, or we can't use refWidget.addChild().   Use domConstruct.place() and
 				// target refWidget.containerNode for nested placement (position==number, "first", "last", "only"), and
 				// refWidget otherwise ("after"/"before"/"replace").
@@ -617,14 +628,14 @@ define([
 
 				// Start this iff it has a parent widget that's already started.
 				// TODO: for 2.0 maybe it should also start the widget when this.getParent() returns null??
-				if(!this._started && (this.getParent() || {})._started){
+				if (!this._started && (this.getParent() || {})._started) {
 					this.startup();
 				}
 			}
 			return this;
 		},
 
-		defer: function(fcn, delay){
+		defer: function (fcn, delay) {
 			// summary:
 			//		Wrapper to setTimeout to avoid deferred functions executing
 			//		after the originating widget has been destroyed.
@@ -637,20 +648,20 @@ define([
 			//		protected
 
 			var timer = setTimeout(lang.hitch(this,
-				function(){
-					if(!timer){
+				function () {
+					if (!timer) {
 						return;
 					}
 					timer = null;
-					if(!this._destroyed){
+					if (!this._destroyed) {
 						lang.hitch(this, fcn)();
 					}
 				}),
 				delay || 0
 			);
 			return {
-				remove: function(){
-					if(timer){
+				remove: function () {
+					if (timer) {
 						clearTimeout(timer);
 						timer = null;
 					}
@@ -661,7 +672,7 @@ define([
 
 		// Utility functions previously in registry.js
 
-		findWidgets: function(root){
+		findWidgets: function (root) {
 			// summary:
 			//		Search subtree under root returning widgets found.
 			//		Doesn't search for nested widgets (ie: widgets inside other widgets).
@@ -670,11 +681,11 @@ define([
 
 			var outAry = [];
 
-			function getChildrenHelper(root){
-				for(var node = root.firstChild; node; node = node.nextSibling){
-					if(node.nodeType == 1 && node.buildRendering){
+			function getChildrenHelper(root) {
+				for (var node = root.firstChild; node; node = node.nextSibling) {
+					if (node.nodeType === 1 && node.buildRendering) {
 						outAry.push(node);
-					}else{
+					} else {
 						getChildrenHelper(node);
 					}
 				}
@@ -684,21 +695,21 @@ define([
 			return outAry;
 		},
 
-		getEnclosingWidget: function(/*DOMNode*/ node){
+		getEnclosingWidget: function (/*DOMNode*/ node) {
 			// summary:
 			//		Returns the widget whose DOM tree contains the specified DOMNode, or null if
 			//		the node is not contained within the DOM tree of any widget
-			do{
-				if(node.nodeType == 1 && node.buildRendering){
+			do {
+				if (node.nodeType === 1 && node.buildRendering) {
 					return node;
 				}
-			}while(node = node.parentNode);
+			} while ((node = node.parentNode));
 			return null;
 		},
 
 		// Focus related methods.   Used by focus.js and _FocusMixin but listed here
 		// so they become part of every widget.
-		onFocus: function(){
+		onFocus: function () {
 			// summary:
 			//		Called when the widget becomes "active" because
 			//		it or a widget inside of it either has focus, or has recently
@@ -707,7 +718,7 @@ define([
 			//		callback
 		},
 
-		onBlur: function(){
+		onBlur: function () {
 			// summary:
 			//		Called when the widget stops being "active" because
 			//		focus moved to something outside of it, or the user
@@ -717,7 +728,7 @@ define([
 			//		callback
 		},
 
-		_onFocus: function(){
+		_onFocus: function () {
 			// summary:
 			//		This is where widgets do processing for when they are active,
 			//		such as changing CSS classes.  See onFocus() for more details.
@@ -726,7 +737,7 @@ define([
 			this.onFocus();
 		},
 
-		_onBlur: function(){
+		_onBlur: function () {
 			// summary:
 			//		This is where widgets do processing for when they stop being active,
 			//		such as changing CSS classes.  See onBlur() for more details.
@@ -736,7 +747,7 @@ define([
 		}
 	});
 
-	if(has("dojo-bidi")){
+	if (has("dojo-bidi")) {
 		_WidgetBase = dcl(_WidgetBase, _BidiMixin);
 	}
 
