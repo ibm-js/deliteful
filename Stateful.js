@@ -46,7 +46,7 @@ define(["dcl/dcl"], function(dcl){
 
 			var list = [];
 			for(var prop in this){
-				if(typeof proto[prop] != "function" && !/^_/.test(prop)){
+				if(typeof this[prop] != "function" && !/^_/.test(prop)){
 					list.push(prop);
 				}
 			}
@@ -90,7 +90,7 @@ define(["dcl/dcl"], function(dcl){
 				var ctor = this.constructor;
 				if(!ctor._introspected){
 					// note: inside _introspect() this refs prototype
-					ctor.prototype._introspect(ctor.prototype.getProps());
+					ctor.prototype._introspect(ctor.prototype._getProps());
 					ctor._introspected = true;
 				}
 			},
