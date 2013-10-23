@@ -2,7 +2,7 @@ define([
 	"dcl/dcl",
 	"dojo/dom-class", // domClass.toggle
 	"./_WidgetBase"
-], function(dcl, domClass, _WidgetBase){
+], function (dcl, domClass, _WidgetBase) {
 
 	// module:
 	//		dui/_CssStateMixin
@@ -29,29 +29,30 @@ define([
 		//		List of properties to watch
 		booleanCssProps: ["disabled", "readOnly", "selected", "focused", "opened"],
 
-		postCreate: function(){
+		postCreate: function () {
 			var self = this, baseClasses = this.baseClass.split(" ");
-			function toggleClasses(/*String*/ modifier, /*Boolean*/ condition){
-				if(!modifier){
+
+			function toggleClasses(/*String*/ modifier, /*Boolean*/ condition) {
+				if (!modifier) {
 					return;
 				}
-				var classes = baseClasses.map(function(c){
+				var classes = baseClasses.map(function (c) {
 					return c + modifier[0].toUpperCase() + modifier.substr(1);
 				});
 				domClass.toggle(self, classes, condition);
 			}
 
 			// Monitoring changes to disabled, readonly, etc. state, and update CSS class of root node
-			this.booleanCssProps.forEach(function(name){
-				this.watch(name, function(name, oval, nval){
+			this.booleanCssProps.forEach(function (name) {
+				this.watch(name, function (name, oval, nval) {
 					toggleClasses(name, nval);
 				});
 			}, this);
-			this.watch("checked",  function(name, oval, nval){
+			this.watch("checked", function (name, oval, nval) {
 				toggleClasses(oval == "mixed" ? "mixed" : "checked", false);
 				toggleClasses(nval == "mixed" ? "mixed" : "checked", nval);
 			});
-			this.watch("state",  function(name, oval, nval){
+			this.watch("state", function (name, oval, nval) {
 				toggleClasses(oval, false);
 				toggleClasses(nval, true);
 			});

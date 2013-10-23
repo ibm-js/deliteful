@@ -9,7 +9,7 @@ define([
 	"dojo/sniff", // has("webkit")
 	"dojo/window", // winUtils.scrollIntoView
 	"./a11y" // a11y.hasDefaultTabStop
-], function(dcl, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y){
+], function (dcl, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y) {
 
 	// module:
 	//		dui/_FormWidgetMixin
@@ -47,13 +47,13 @@ define([
 		//		Apply aria-label in markup to the widget's focusNode
 		"aria-label": "focusNode",
 
-/***
- TODO: commented out as it causes errors on FF
-		// tabIndex: String
-		//		Order fields are traversed when user hits the tab key
-		tabIndex: "0",
-		_setTabIndexAttr: "focusNode", // force copy even when tabIndex default value, needed since Button is <span>
-***/
+		/***
+		 TODO: commented out as it causes errors on FF
+		 // tabIndex: String
+		 //        Order fields are traversed when user hits the tab key
+		 tabIndex: "0",
+		 _setTabIndexAttr: "focusNode", // force copy even when tabIndex default value, needed since Button is <span>
+		 ***/
 
 		// disabled: Boolean
 		//		Should this widget respond to user input?
@@ -64,17 +64,17 @@ define([
 		//		On focus, should this widget scroll into view?
 		scrollOnFocus: true,
 
-/****
-TODO: the code below only makes sense when focusNode != the root node.
-Otherwise, we can't setup custom setters for DOMNode properties like "disabled" because then we can't control
-the domnode's disabled property.
+		/****
+		 TODO: the code below only makes sense when focusNode != the root node.
+		 Otherwise, we can't setup custom setters for DOMNode properties like "disabled" because then we can't control
+		 the domnode's disabled property.
 
-		// Override _WidgetBase mapping id to this.domNode, needs to be on focusNode so <label> etc.
-		// works with screen reader
-		_setIdAttr: "focusNode",
+		 // Override _WidgetBase mapping id to this.domNode, needs to be on focusNode so <label> etc.
+		 // works with screen reader
+		 _setIdAttr: "focusNode",
 
-		// TODO: trim or remove this function
-		_setDisabledAttr: function(/#Boolean#/ value){
+		 // TODO: trim or remove this function
+		 _setDisabledAttr: function(/#Boolean#/ value){
 			this._set("disabled", value);
 			domAttr.set(this.focusNode, 'disabled', value);
 			if(this.valueNode){
@@ -100,17 +100,17 @@ the domnode's disabled property.
 				}
 			}
 		},
-****/
+		 ****/
 
-		_onFocus: dcl.before(function(){
-			if(this.scrollOnFocus){
-				this.defer(function(){
+		_onFocus: dcl.before(function () {
+			if (this.scrollOnFocus) {
+				this.defer(function () {
 					winUtils.scrollIntoView(this);
 				}); // without defer, the input caret position can change on mouse click
 			}
 		}),
 
-		isFocusable: function(){
+		isFocusable: function () {
 			// summary:
 			//		Tells if this widget is focusable or not.  Used internally by dui.
 			// tags:
@@ -118,13 +118,13 @@ the domnode's disabled property.
 			return !this.disabled && this.focusNode && (domStyle.get(this, "display") != "none");
 		},
 
-		focus: function(){
+		focus: function () {
 			// summary:
 			//		Put focus on this widget
-			if(!this.disabled && this.focusNode.focus){
-				try{
+			if (!this.disabled && this.focusNode.focus) {
+				try {
 					this.focusNode.focus();
-				}catch(e){
+				} catch (e) {
 					// squelch errors from hidden nodes
 				}
 			}

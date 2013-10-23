@@ -10,6 +10,7 @@
 		html {
 			overflow: hidden; /* ie6 needs this */
 		}
+
 		body {
 			height: 100%;
 			padding: 0;
@@ -43,18 +44,18 @@
 			"doh/runner",
 			"dojo/dom", "dojo/dom-geometry", "dojo/window",
 			"dui/place", "dojo/domReady!"
-		], function(doh, dom, domGeometry, winUtils, place){
+		], function (doh, dom, domGeometry, winUtils, place) {
 
 			// The around nodes
 			var aroundTop = dom.byId("aroundTop"),
-				aroundLeft = dom.byId("aroundLeft"),
-				aroundRight = dom.byId("aroundRight");
+					aroundLeft = dom.byId("aroundLeft"),
+					aroundRight = dom.byId("aroundRight");
 
 			// The popup (aka dropdown)
 			var popup = dom.byId("popup");
 
 			doh.register("around with body margin", [
-				function aroundT(t){
+				function aroundT(t) {
 					// Dropdown from "aroundTop" node.
 					var ret = place.around(popup, aroundTop, [
 						"below"	// aroundTop's bottom-left corner with the popup's top-left corner
@@ -62,7 +63,7 @@
 
 					doh.is("20px", popup.style.top, "underneath around node");
 				},
-				function aroundL(t){
+				function aroundL(t) {
 					// middle left popup from "aroundLeft" node
 					var ret = place.around(popup, aroundLeft, [
 						"after-centered"	// aroundLeft's middle-right with the popup's middle-left
@@ -72,7 +73,7 @@
 					var aroundPos = domGeometry.position(aroundLeft);
 					doh.is(Math.round(aroundPos.x + aroundPos.w), Math.round(popupPos.x), "after around node");
 				},
-				function aroundR(t){
+				function aroundR(t) {
 					// This will put the drop-down to the left of the "aroundRight" node
 					var ret = place.around(popup, aroundRight, ["before-centered"], true);
 
@@ -89,16 +90,17 @@
 	</script>
 </head>
 <body style="position: relative; top: 0; margin-top: 40px;">
-	<h1>Dijit Place With Margin On BODY Unit Test</h1>
-	<div id="aroundTop" class="aroundNode" style="top: 0px; left: 50%">T</div>
-	<div id="aroundLeft" class="aroundNode" style="bottom: 30%; left: 0px;">L</div>
-	<div id="aroundRight" class="aroundNode" style="bottom: 30%; right: 0px;">R</div>
+<h1>Dijit Place With Margin On BODY Unit Test</h1>
 
-	<div id="popup">
-		I'm a drop down, wider and taller than the around nodes I'm placed next to.
-	</div>
-	<div style="height: 200px">
-		<!-- spacer -->
-	</div>
+<div id="aroundTop" class="aroundNode" style="top: 0px; left: 50%">T</div>
+<div id="aroundLeft" class="aroundNode" style="bottom: 30%; left: 0px;">L</div>
+<div id="aroundRight" class="aroundNode" style="bottom: 30%; right: 0px;">R</div>
+
+<div id="popup">
+	I'm a drop down, wider and taller than the around nodes I'm placed next to.
+</div>
+<div style="height: 200px">
+	<!-- spacer -->
+</div>
 </body>
 </html>

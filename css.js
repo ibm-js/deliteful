@@ -1,4 +1,4 @@
-define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
+define(["dojo/dom-construct", "dojo/has"], function (domConstruct, has) {
 	"use strict";
 
 	var
@@ -11,7 +11,7 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 	// Will be true except for IE6 - IE10.
 	has.add("dom-create-style-element", !doc.createStyleSheet);
 
-	function insertCss(/*String*/ css){
+	function insertCss(/*String*/ css) {
 		// summary:
 		//		Inserts the specified CSS into the document, after any CSS previously inserted
 		//		by this function, but before any user-defined CSS.  This lets the app's stylesheets
@@ -19,7 +19,7 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 
 		// Creates a new stylesheet on each call.  Could alternately just add CSS to the old stylesheet.
 		// Maybe the current implementation is faster.
-		if(has("dom-create-style-element")){
+		if (has("dom-create-style-element")) {
 			// we can use standard <style> element creation
 			styleSheet = doc.createElement("style");
 			styleSheet.setAttribute("type", "text/css");
@@ -27,7 +27,7 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 			domConstruct.place(styleSheet, lastInsertedStylesheet || head, lastInsertedStylesheet ? "after" : "first");
 			lastInsertedStylesheet = styleSheet;
 			return styleSheet;
-		}else{
+		} else {
 			// IE6 - 10
 			var styleSheet = doc.createStyleSheet();
 			styleSheet.cssText = css;
@@ -63,7 +63,7 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 		//		- [requirejs-css-plugin](https://github.com/tyt2y3/requirejs-css-plugin)
 		//		- [requirecss](https://github.com/guybedford/require-css)
 
-		load: function(mids, require, onload){
+		load: function (mids, require, onload) {
 			// summary:
 			//		Load and install the specified CSS files, in specified order, and then call onload().
 			// path: String
@@ -82,16 +82,16 @@ define(["dojo/dom-construct", "dojo/has"], function(domConstruct, has){
 
 			mids = mids.split(/, */);
 
-			var dependencies = mids.map(function(path){
+			var dependencies = mids.map(function (path) {
 				return /\.css$/.test(path) ? "dojo/text!" + path : path;
 			});
 
-			require(dependencies, function(){
+			require(dependencies, function () {
 				// We loaded all the requested CSS files, but some may have already been inserted into the document,
 				// possibly in between when the require() call started and now.  Insert the others CSS files now.
 				var cssTexts = arguments;
-				mids.forEach(function(mid, idx){
-					if(!(mid in sheets)){
+				mids.forEach(function (mid, idx) {
+					if (!(mid in sheets)) {
 						// Adjust relative image paths to be relative to document location rather than to the CSS file.
 						// This is necessary since we are inserting the CSS as <style> nodes rather than as <link> nodes.
 						var css = cssTexts[idx],

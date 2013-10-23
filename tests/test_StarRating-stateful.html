@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>StarRating stateful attributes</title>
@@ -14,83 +15,85 @@
 			"dojo/dom",
 			"dui/StarRating",
 			"dojo/domReady!"
-		], function(dom, StarRating){
+		], function (dom, StarRating) {
 
 			var rating = new StarRating({
-				maximum:7,
-				editable:true,
+				maximum: 7,
+				editable: true,
 				editHalfValues: false,
 				value: 3
 			});
 			rating.placeAt("srw");
-			rating.watch(function(name, oldValue, value){
+			rating.watch(function (name, oldValue, value) {
 				var console = dom.byId("console");
 				console.innerHTML = 'LTR: ' + new Date() + ': ' + name + ' attribute updated from ' + oldValue + ' to ' + value + '<br>' + console.innerHTML;
 			});
 			rating.startup();
-			var updateRatingAttribute = function(attribute, event, isBoolean, isNumber){
+			var updateRatingAttribute = function (attribute, event, isBoolean, isNumber) {
 				var value = isBoolean ? (event.target.value == 'true') : (isNumber ? parseFloat(event.target.value) : event.target.value);
 				rating[attribute] = value;
 			};
-			dom.byId('maximumInput').onchange = function(event){
+			dom.byId('maximumInput').onchange = function (event) {
 				updateRatingAttribute('maximum', event);
 			};
-			dom.byId('editableSelect').onchange = function(event){
+			dom.byId('editableSelect').onchange = function (event) {
 				updateRatingAttribute('editable', event, true);
 			};
-			dom.byId('editHalfValuesSelect').onchange = function(event){
+			dom.byId('editHalfValuesSelect').onchange = function (event) {
 				updateRatingAttribute('editHalfValues', event, true);
 			};
-			dom.byId('zeroAreaWidthInput').onchange = function(event){
+			dom.byId('zeroAreaWidthInput').onchange = function (event) {
 				updateRatingAttribute('zeroAreaWidth', event, false, true);
 			};
 		});
 	</script>
 	<style>
-	button {
-		width: 100px;
-	}
+		button {
+			width: 100px;
+		}
 	</style>
 </head>
 <body>
+<div>
 	<div>
-		<div>
-			<h1>Test that star rating attributes are stateful</h1>
-			<p>
+		<h1>Test that star rating attributes are stateful</h1>
+
+		<p>
 			Use the form below the star rating widget to set different values to the stateful attributes of the widget.
-			</p>
-			<br>
-			Left to Right StarRating:
-			<br>
-			<span id="srw"></span>
-			<div>
-				<table>
-					<tr>
-						<td>maximum:</td>
-						<td><input id="maximumInput" type="text" value="7"></td>
-					</tr>
-					<tr>
-						<td>editable:</td>
-						<td><select id="editableSelect">
-								<option selected="selected">true</option>
-								<option>false</option>
-							</select></td>
-					</tr>
-					<tr>
-						<td>editHalfValues:</td>
-						<td><select id="editHalfValuesSelect">
-								<option selected="selected">false</option>
-								<option>true</option>
-							</select></td>
-					</tr>
-					<tr>
-						<td>zeroSettingArea:</td>
-						<td><input id="zeroAreaWidthInput" type="number" value="20"></td>
-					</tr>
-				</table>
-			</div>
-			<div id="console" style="background-color: grey; height: 100px; overflow: auto"></div>
+		</p>
+		<br>
+		Left to Right StarRating:
+		<br>
+		<span id="srw"></span>
+
+		<div>
+			<table>
+				<tr>
+					<td>maximum:</td>
+					<td><input id="maximumInput" type="text" value="7"></td>
+				</tr>
+				<tr>
+					<td>editable:</td>
+					<td><select id="editableSelect">
+						<option selected="selected">true</option>
+						<option>false</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>editHalfValues:</td>
+					<td><select id="editHalfValuesSelect">
+						<option selected="selected">false</option>
+						<option>true</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>zeroSettingArea:</td>
+					<td><input id="zeroAreaWidthInput" type="number" value="20"></td>
+				</tr>
+			</table>
 		</div>
-	</div>	
+		<div id="console" style="background-color: grey; height: 100px; overflow: auto"></div>
+	</div>
+</div>
 </body>
 </html>

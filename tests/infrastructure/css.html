@@ -5,19 +5,19 @@
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
-		require(["doh/runner", "dojo/domReady!"], function(doh){
+		require(["doh/runner", "dojo/domReady!"], function (doh) {
 			doh.register("css", [
-				function setup(){
+				function setup() {
 					numStyleNodes = document.getElementsByTagName("style").length;
 				},
-				function load(){
+				function load() {
 					var d = new doh.Deferred();
 
 					// Load two modules that both use dui/css! to load tests/resources/TestCssWidget.css
 					require([
 						"dui/tests/resources/TestCssWidget1",
 						"dui/tests/resources/TestCssWidget2"
-					], d.getTestCallback(function(){
+					], d.getTestCallback(function () {
 						// TestCssWidget.css should be automatically loaded (but just once, not twice) by the time
 						// this require() call completes.  It should occur before the user defined style node.
 						var styleNodes = document.getElementsByTagName("style");
@@ -33,21 +33,21 @@
 
 					return d;
 				},
-				function reload(){
+				function reload() {
 					var d = new doh.Deferred();
 
 					// Load another modules that uses dui/css! to load the same tests/resources/TestCssWidget.css,
 					// just to triple check that the CSS doesn't get reloaded
 					require([
 						"dui/tests/resources/TestCssWidget3"
-					], d.getTestCallback(function(){
+					], d.getTestCallback(function () {
 						var styleNodes = document.getElementsByTagName("style");
 						doh.is(2, styleNodes.length, "no new style node added");
 					}));
 
 					return d;
 				},
-				function multiple(){
+				function multiple() {
 					var d = new doh.Deferred();
 
 					// Load multiple CSS files via a comma separated list.
@@ -56,7 +56,7 @@
 					numStyleNodes = document.getElementsByTagName("style").length;
 					require([
 						"dui/css!dui/tests/css/test2.css,dui/tests/css/TestCssWidget.css,dui/tests/css/test3.css"
-					], d.getTestCallback(function(){
+					], d.getTestCallback(function () {
 						var styleNodes = document.getElementsByTagName("style");
 						doh.is(4, styleNodes.length, "two new style nodes added");
 						doh.t(/test2/.test(styleNodes[1].innerHTML), "first test2.css");
@@ -73,11 +73,14 @@
 
 	</script>
 	<style>
-		.userDefinedStyle { color: black; }
+		.userDefinedStyle {
+			color: black;
+		}
 	</style>
 </head>
 <body>
 <h1>dui/css Unit Test</h1>
+
 <p>Check console for results.</p>
 </body>
 </html>

@@ -1,4 +1,4 @@
-define([], function(){
+define([], function () {
 
 	// module:
 	//		dui/_BidiMixin
@@ -32,7 +32,7 @@ define([], function(){
 		//		By default is as the page direction.
 		textDir: "",
 
-		getTextDir: function(/*String*/ text){
+		getTextDir: function (/*String*/ text) {
 			// summary:
 			//		Gets the right direction of text.
 			// description:
@@ -44,7 +44,7 @@ define([], function(){
 			return this.textDir == "auto" ? this._checkContextual(text) : this.textDir;
 		},
 
-		_checkContextual: function(text){
+		_checkContextual: function (text) {
 			// summary:
 			//		Finds the first strong (directional) character, return ltr if isLatin
 			//		or rtl if isBidiChar.
@@ -57,7 +57,7 @@ define([], function(){
 			return fdc ? ( fdc[0] <= 'z' ? "ltr" : "rtl" ) : this.dir ? this.dir : this.isLeftToRight() ? "ltr" : "rtl";
 		},
 
-		applyTextDir: function(/*DOMNode*/ element){
+		applyTextDir: function (/*DOMNode*/ element) {
 			// summary:
 			//		Set element.dir according to this.textDir, assuming this.textDir has a value.
 			// element: DOMNode
@@ -65,9 +65,9 @@ define([], function(){
 			// tags:
 			//		protected.
 
-			if(this.textDir){
+			if (this.textDir) {
 				var textDir = this.textDir;
-				if(textDir == "auto"){
+				if (textDir == "auto") {
 					// convert "auto" to either "ltr" or "rtl"
 					var tagName = element.tagName.toLowerCase();
 					var text = (tagName == "input" || tagName == "textarea") ? element.value : element.textContent;
@@ -77,14 +77,14 @@ define([], function(){
 			}
 		},
 
-		wrapWithUcc: function(/*String*/ text){
+		wrapWithUcc: function (/*String*/ text) {
 			// summary:
 			//		Returns specified text with UCC added to enforce widget's textDir setting
 			var dir = this.textDir == "auto" ? this._checkContextual(text) : this.textDir;
 			return (dir == "ltr" ? LRE : RLE ) + text + PDF;
 		},
 
-		enforceTextDirWithUcc: function(node){
+		enforceTextDirWithUcc: function (node) {
 			// summary:
 			//		Wraps by UCC (Unicode control characters) option's text according to this.textDir
 			//		This function saves the original text value for later restoration if needed,
@@ -96,7 +96,7 @@ define([], function(){
 			node.innerHTML = this.wrapWithUcc(node.innerHTML)
 		},
 
-		restoreOriginalText: function(/*DOMNode*/ origObj){
+		restoreOriginalText: function (/*DOMNode*/ origObj) {
 			// summary:
 			//		Restores the text of origObj, if needed, after enforceTextDirWithUcc, e.g. set("textDir", textDir).
 			// origObj:
@@ -104,7 +104,7 @@ define([], function(){
 			// description:
 			//		Sets the text of origObj to origObj.originalText, which is the original text, without the UCCs.
 			//		The function than removes the originalText from origObj!
-			if(origObj.originalText){
+			if (origObj.originalText) {
 				origObj.text = origObj.originalText;
 				delete origObj.originalText;
 			}

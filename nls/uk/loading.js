@@ -1,6 +1,6 @@
 define(
-({
-	loadingState: "Завантаження...",
-	errorState: "Сталася помилка"
-})
+	({
+		loadingState: "Завантаження...",
+		errorState: "Сталася помилка"
+	})
 );

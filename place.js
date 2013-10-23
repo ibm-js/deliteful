@@ -3,13 +3,13 @@ define([
 	"dojo/dom-style", // domStyle.getComputedStyle
 	"dojo/_base/window", // win.body
 	"./Viewport" // getEffectiveBox
-], function(domGeometry, domStyle, win, Viewport){
+], function (domGeometry, domStyle, win, Viewport) {
 
 	// module:
 	//		dui/place
 
 
-	function _place(/*DomNode*/ node, choices, layoutNode, aroundNodeCoords){
+	function _place(/*DomNode*/ node, choices, layoutNode, aroundNodeCoords) {
 		// summary:
 		//		Given a list of spots to put node, put it at the first spot where it fits,
 		//		of if it doesn't fit anywhere then the place with the least overflow
@@ -33,12 +33,12 @@ define([
 		// This won't work if the node is inside a <div style="position: relative">,
 		// so reattach it to <body>.	 (Otherwise, the positioning will be wrong
 		// and also it might get cutoff.)
-		if(!node.parentNode || String(node.parentNode.tagName).toLowerCase() != "body"){
+		if (!node.parentNode || String(node.parentNode.tagName).toLowerCase() != "body") {
 			win.body(node.ownerDocument).appendChild(node);
 		}
 
 		var best = null;
-		choices.some(function(choice){
+		choices.some(function (choice) {
 			var corner = choice.corner;
 			var pos = choice.pos;
 			var overflow = 0;
@@ -65,7 +65,7 @@ define([
 			// configure node to be displayed in given position relative to button
 			// (need to do this in order to get an accurate size for the node, because
 			// a tooltip's size changes based on position, due to triangle)
-			if(layoutNode){
+			if (layoutNode) {
 				var res = layoutNode(node, choice.aroundCorner, corner, spaceAvailable, aroundNodeCoords);
 				overflow = typeof res == "undefined" ? 0 : res;
 			}
@@ -74,7 +74,7 @@ define([
 			var style = node.style;
 			var oldDisplay = style.display;
 			var oldVis = style.visibility;
-			if(style.display == "none"){
+			if (style.display == "none") {
 				style.visibility = "hidden";
 				style.display = "";
 			}
@@ -104,7 +104,7 @@ define([
 
 			overflow += (bb.w - width) + (bb.h - height);
 
-			if(best == null || overflow < best.overflow){
+			if (best == null || overflow < best.overflow) {
 				best = {
 					corner: corner,
 					aroundCorner: choice.aroundCorner,
@@ -122,7 +122,7 @@ define([
 
 		// In case the best position is not the last one we checked, need to call
 		// layoutNode() again.
-		if(best.overflow && layoutNode){
+		if (best.overflow && layoutNode) {
 			layoutNode(node, best.aroundCorner, best.corner, best.spaceAvailable, aroundNodeCoords);
 		}
 
@@ -138,7 +138,7 @@ define([
 			top = best.y,
 			side = l ? best.x : view.w - best.x - best.w;
 
-		if(/relative|absolute/.test(domStyle.get(win.body(node.ownerDocument), "position"))){
+		if (/relative|absolute/.test(domStyle.get(win.body(node.ownerDocument), "position"))) {
 			// compensate for margin on <body>, see #16148
 			top -= domStyle.get(win.body(node.ownerDocument), "marginTop");
 			side -= (l ? 1 : -1) * domStyle.get(win.body(node.ownerDocument), l ? "marginLeft" : "marginRight");
@@ -165,7 +165,7 @@ define([
 		//		Code to place a DOMNode relative to another DOMNode.
 		//		Load using require(["dui/place"], function(place){ ... }).
 
-		at: function(node, pos, corners, padding, layoutNode){
+		at: function (node, pos, corners, padding, layoutNode) {
 			// summary:
 			//		Positions node kitty-corner to the rectangle centered at (pos.x, pos.y) with width and height of
 			//		padding.x * 2 and padding.y * 2, or zero if padding not specified.  Picks first corner in corners[]
@@ -195,13 +195,13 @@ define([
 			//		If that makes node go (partially) off screen, then try placing
 			//		bottom left corner at (10,20).
 			//	|	place(node, {x: 10, y: 20}, ["TR", "BL"])
-			var choices = corners.map(function(corner){
+			var choices = corners.map(function (corner) {
 				var c = {
 					corner: corner,
 					aroundCorner: reverse[corner],	// so TooltipDialog.orient() gets aroundCorner argument set
-					pos: {x: pos.x,y: pos.y}
+					pos: {x: pos.x, y: pos.y}
 				};
-				if(padding){
+				if (padding) {
 					c.pos.x += corner.charAt(1) == 'L' ? padding.x : -padding.x;
 					c.pos.y += corner.charAt(0) == 'T' ? padding.y : -padding.y;
 				}
@@ -211,12 +211,7 @@ define([
 			return _place(node, choices, layoutNode);
 		},
 
-		around: function(
-			/*DomNode*/		node,
-			/*DomNode|dui/place.__Rectangle*/ anchor,
-			/*String[]*/	positions,
-			/*Boolean*/		leftToRight,
-			/*Function?*/	layoutNode){
+		around: function (/*DomNode*/        node, /*DomNode|dui/place.__Rectangle*/ anchor, /*String[]*/    positions, /*Boolean*/        leftToRight, /*Function?*/    layoutNode) {
 
 			// summary:
 			//		Position node adjacent or kitty-corner to anchor
@@ -262,37 +257,37 @@ define([
 
 			// If around is a DOMNode (or DOMNode id), convert to coordinates.
 			var aroundNodePos;
-			if(typeof anchor == "string" || "offsetWidth" in anchor){
+			if (typeof anchor == "string" || "offsetWidth" in anchor) {
 				aroundNodePos = domGeometry.position(anchor, true);
 
 				// For above and below dropdowns, subtract width of border so that popup and aroundNode borders
 				// overlap, preventing a double-border effect.  Unfortunately, difficult to measure the border
 				// width of either anchor or popup because in both cases the border may be on an inner node.
-				if(/^(above|below)/.test(positions[0])){
+				if (/^(above|below)/.test(positions[0])) {
 					var anchorBorder = domGeometry.getBorderExtents(anchor),
-						anchorChildBorder = anchor.firstChild ? domGeometry.getBorderExtents(anchor.firstChild) : {t:0,l:0,b:0,r:0},
-						nodeBorder =  domGeometry.getBorderExtents(node),
-						nodeChildBorder = node.firstChild ? domGeometry.getBorderExtents(node.firstChild) : {t:0,l:0,b:0,r:0};
+						anchorChildBorder = anchor.firstChild ? domGeometry.getBorderExtents(anchor.firstChild) : {t: 0, l: 0, b: 0, r: 0},
+						nodeBorder = domGeometry.getBorderExtents(node),
+						nodeChildBorder = node.firstChild ? domGeometry.getBorderExtents(node.firstChild) : {t: 0, l: 0, b: 0, r: 0};
 					aroundNodePos.y += Math.min(anchorBorder.t + anchorChildBorder.t, nodeBorder.t + nodeChildBorder.t);
-					aroundNodePos.h -=  Math.min(anchorBorder.t + anchorChildBorder.t, nodeBorder.t+ nodeChildBorder.t) +
+					aroundNodePos.h -= Math.min(anchorBorder.t + anchorChildBorder.t, nodeBorder.t + nodeChildBorder.t) +
 						Math.min(anchorBorder.b + anchorChildBorder.b, nodeBorder.b + nodeChildBorder.b);
 				}
-			}else{
+			} else {
 				aroundNodePos = anchor;
 			}
 
 			// Compute position and size of visible part of anchor (it may be partially hidden by ancestor nodes w/scrollbars)
-			if(anchor.parentNode){
+			if (anchor.parentNode) {
 				// ignore nodes between position:relative and position:absolute
 				var sawPosAbsolute = domStyle.getComputedStyle(anchor).position == "absolute";
 				var parent = anchor.parentNode;
-				while(parent && parent.nodeType == 1 && parent.nodeName != "BODY"){  //ignoring the body will help performance
+				while (parent && parent.nodeType == 1 && parent.nodeName != "BODY") {  //ignoring the body will help performance
 					var parentPos = domGeometry.position(parent, true),
 						pcs = domStyle.getComputedStyle(parent);
-					if(/relative|absolute/.test(pcs.position)){
+					if (/relative|absolute/.test(pcs.position)) {
 						sawPosAbsolute = false;
 					}
-					if(!sawPosAbsolute && /hidden|auto|scroll/.test(pcs.overflow)){
+					if (!sawPosAbsolute && /hidden|auto|scroll/.test(pcs.overflow)) {
 						var bottomYCoord = Math.min(aroundNodePos.y + aroundNodePos.h, parentPos.y + parentPos.h);
 						var rightXCoord = Math.min(aroundNodePos.x + aroundNodePos.w, parentPos.x + parentPos.w);
 						aroundNodePos.x = Math.max(aroundNodePos.x, parentPos.x);
@@ -300,7 +295,7 @@ define([
 						aroundNodePos.h = bottomYCoord - aroundNodePos.y;
 						aroundNodePos.w = rightXCoord - aroundNodePos.x;
 					}
-					if(pcs.position == "absolute"){
+					if (pcs.position == "absolute") {
 						sawPosAbsolute = true;
 					}
 					parent = parent.parentNode;
@@ -314,7 +309,8 @@ define([
 
 			// Convert positions arguments into choices argument for _place()
 			var choices = [];
-			function push(aroundCorner, corner){
+
+			function push(aroundCorner, corner) {
 				choices.push({
 					aroundCorner: aroundCorner,
 					corner: corner,
@@ -332,44 +328,45 @@ define([
 					}
 				});
 			}
-			positions.forEach(function(pos){
-				var ltr =  leftToRight;
-				switch(pos){
-					case "above-centered":
-						push("TM", "BM");
-						break;
-					case "below-centered":
-						push("BM", "TM");
-						break;
-					case "after-centered":
-						ltr = !ltr;
-						// fall through
-					case "before-centered":
-						push(ltr ? "ML" : "MR", ltr ? "MR" : "ML");
-						break;
-					case "after":
-						ltr = !ltr;
-						// fall through
-					case "before":
-						push(ltr ? "TL" : "TR", ltr ? "TR" : "TL");
-						push(ltr ? "BL" : "BR", ltr ? "BR" : "BL");
-						break;
-					case "below-alt":
-						ltr = !ltr;
-						// fall through
-					case "below":
-						// first try to align left borders, next try to align right borders (or reverse for RTL mode)
-						push(ltr ? "BL" : "BR", ltr ? "TL" : "TR");
-						push(ltr ? "BR" : "BL", ltr ? "TR" : "TL");
-						break;
-					case "above-alt":
-						ltr = !ltr;
-						// fall through
-					case "above":
-						// first try to align left borders, next try to align right borders (or reverse for RTL mode)
-						push(ltr ? "TL" : "TR", ltr ? "BL" : "BR");
-						push(ltr ? "TR" : "TL", ltr ? "BR" : "BL");
-						break;
+
+			positions.forEach(function (pos) {
+				var ltr = leftToRight;
+				switch (pos) {
+				case "above-centered":
+					push("TM", "BM");
+					break;
+				case "below-centered":
+					push("BM", "TM");
+					break;
+				case "after-centered":
+					ltr = !ltr;
+					// fall through
+				case "before-centered":
+					push(ltr ? "ML" : "MR", ltr ? "MR" : "ML");
+					break;
+				case "after":
+					ltr = !ltr;
+					// fall through
+				case "before":
+					push(ltr ? "TL" : "TR", ltr ? "TR" : "TL");
+					push(ltr ? "BL" : "BR", ltr ? "BR" : "BL");
+					break;
+				case "below-alt":
+					ltr = !ltr;
+					// fall through
+				case "below":
+					// first try to align left borders, next try to align right borders (or reverse for RTL mode)
+					push(ltr ? "BL" : "BR", ltr ? "TL" : "TR");
+					push(ltr ? "BR" : "BL", ltr ? "TR" : "TL");
+					break;
+				case "above-alt":
+					ltr = !ltr;
+					// fall through
+				case "above":
+					// first try to align left borders, next try to align right borders (or reverse for RTL mode)
+					push(ltr ? "TL" : "TR", ltr ? "BL" : "BR");
+					push(ltr ? "TR" : "TL", ltr ? "BR" : "BL");
+					break;
 				}
 			});
 
@@ -381,23 +378,23 @@ define([
 	};
 
 	/*=====
-	place.__Position = {
-		// x: Integer
-		//		horizontal coordinate in pixels, relative to document body
-		// y: Integer
-		//		vertical coordinate in pixels, relative to document body
-	};
-	place.__Rectangle = {
-		// x: Integer
-		//		horizontal offset in pixels, relative to document body
-		// y: Integer
-		//		vertical offset in pixels, relative to document body
-		// w: Integer
-		//		width in pixels.   Can also be specified as "width" for backwards-compatibility.
-		// h: Integer
-		//		height in pixels.   Can also be specified as "height" for backwards-compatibility.
-	};
-	=====*/
+	 place.__Position = {
+	 // x: Integer
+	 //		horizontal coordinate in pixels, relative to document body
+	 // y: Integer
+	 //		vertical coordinate in pixels, relative to document body
+	 };
+	 place.__Rectangle = {
+	 // x: Integer
+	 //		horizontal offset in pixels, relative to document body
+	 // y: Integer
+	 //		vertical offset in pixels, relative to document body
+	 // w: Integer
+	 //		width in pixels.   Can also be specified as "width" for backwards-compatibility.
+	 // h: Integer
+	 //		height in pixels.   Can also be specified as "height" for backwards-compatibility.
+	 };
+	 =====*/
 
 	return place;
 });

@@ -1,6 +1,6 @@
 define(
-({
-	loadingState: "Zavádza sa...",
-	errorState: "Ľutujeme, ale vyskytla sa chyba"
-})
+	({
+		loadingState: "Zavádza sa...",
+		errorState: "Ľutujeme, ale vyskytla sa chyba"
+	})
 );

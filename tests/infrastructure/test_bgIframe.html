@@ -18,14 +18,14 @@
 			"dui/form/Button",
 			"dui/dui/Tooltip",
 			"dojo/domReady!"
-		], function(parser){
+		], function (parser) {
 			parser.parse();
 		});
 	</script>
 
 </head>
 <body class="claro">
-	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"one_applet"'>
+<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"one_applet"'>
 		This is one tooltip.
 	</span>
 	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"two_applet"'>
@@ -37,20 +37,22 @@
 	<span data-dojo-type="dui/dui/Tooltip" data-dojo-props='connectId:"two_xapp"'>
 		This is another tooltip.  A little longer...
 	</span>
-	<button id="showDialog" data-dojo-type="dui/form/Button">
-		Show Dialog
-		<script type="dojo/on" data-dojo-event="click">
+<button id="showDialog" data-dojo-type="dui/form/Button">
+	Show Dialog
+	<script type="dojo/on" data-dojo-event="click">
 			dialog.show();
-		</script>
-	</button>
-	<table>
-			<tr>
-				<td></td>
-				<td>
-					<input id="dateText_applet" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
-					<button id="menuButton_applet" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"noteIcon"'>
-						<span>Edit<b>!</b></span>
-						<span id="menu_applet" data-dojo-type="dui/dui/DropDownMenu" >
+
+	</script>
+</button>
+<table>
+	<tr>
+		<td></td>
+		<td>
+			<input id="dateText_applet" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
+			<button id="menuButton_applet" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton"
+					data-dojo-props='iconClass:"noteIcon"'>
+				<span>Edit<b>!</b></span>
+						<span id="menu_applet" data-dojo-type="dui/dui/DropDownMenu">
 							<span id="cut_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 								onClick:function(){ console.log("not actually cutting anything, just a test!"); }'>Cut</span>
 							<span id="copy_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
@@ -58,45 +60,47 @@
 							<span id="paste_applet" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 								onClick:function(){ console.log("not actually pasting anything, just a test!"); }'>Paste</span>
 						</span>
-					</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div style="width: 200px;">
-						This &lt;select&gt; will disappear on IE6
-						when the dialog is displayed.
-						But the dialog's iframe shouldn't make it disappear because they shouldn't overlap.
-					</div>
-					<select id="dropDown_applet">
-						<option>cat</option>
-						<option>dog</option>
-						<option>mouse</option>
-					</select>
-					<br><br>
+			</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="width: 200px;">
+				This &lt;select&gt; will disappear on IE6
+				when the dialog is displayed.
+				But the dialog's iframe shouldn't make it disappear because they shouldn't overlap.
+			</div>
+			<select id="dropDown_applet">
+				<option>cat</option>
+				<option>dog</option>
+				<option>mouse</option>
+			</select>
+			<br><br>
 
-					<div id="one_applet">Mouse over this to see the tooltip</div>
-					<br>
-					<div id="two_applet">Mouse over this to see a different tooltip</div>
-				</td>
-				<td id="applet_td">
-					<!-- TODO: remove the applet tag which is deprecated -->
-					<applet id="applet" width="400" height="300" code="javax.swing.JApplet">
-						<param name="mayscript" value="false">
-						<param name="scriptable" value="false">
-						<param name="initial_focus" value="false">
-					</applet>
-				</td>
-			</tr>
-	</table>
-	<table>
-			<tr>
-				<td></td>
-				<td>
-					<input id="dateText_xapp" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
-					<button id="menuButton_xapp" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"noteIcon"'>
-						<span>Edit<b>!</b></span>
-						<span id="menu_xapp" data-dojo-type="dui/dui/DropDownMenu" >
+			<div id="one_applet">Mouse over this to see the tooltip</div>
+			<br>
+
+			<div id="two_applet">Mouse over this to see a different tooltip</div>
+		</td>
+		<td id="applet_td">
+			<!-- TODO: remove the applet tag which is deprecated -->
+			<applet id="applet" width="400" height="300" code="javax.swing.JApplet">
+				<param name="mayscript" value="false">
+				<param name="scriptable" value="false">
+				<param name="initial_focus" value="false">
+			</applet>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td></td>
+		<td>
+			<input id="dateText_xapp" data-dojo-type="dui/form/DateTextBox" data-dojo-props='type:"text" '/>
+			<button id="menuButton_xapp" title="edit title" value="Edit" data-dojo-type="dui/form/DropDownButton"
+					data-dojo-props='iconClass:"noteIcon"'>
+				<span>Edit<b>!</b></span>
+						<span id="menu_xapp" data-dojo-type="dui/dui/DropDownMenu">
 							<span id="cut_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCut",
 								onClick:function(){ console.log("not actually cutting anything, just a test!"); }'>Cut</span>
 							<span id="copy_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconCopy",
@@ -104,34 +108,35 @@
 							<span id="paste_xapp" data-dojo-type="dui/dui/MenuItem" data-dojo-props='iconClass:"duiEditorIcon duiEditorIconPaste",
 								onClick:function(){ console.log("not actually pasting anything, just a test!"); }'>Paste</span>
 						</span>
-					</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div style="width: 200px;">
-						This select will disappear on IE6
-						when the dialog is displayed.
-						But the dialog's iframe shouldn't make it disappear because they shouldn't overlap.
-					</div>
-					<select id="dropDown_xapp">
-						<option>cat</option>
-						<option>dog</option>
-						<option>mouse</option>
-					</select>
-					<br><br>
+			</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="width: 200px;">
+				This select will disappear on IE6
+				when the dialog is displayed.
+				But the dialog's iframe shouldn't make it disappear because they shouldn't overlap.
+			</div>
+			<select id="dropDown_xapp">
+				<option>cat</option>
+				<option>dog</option>
+				<option>mouse</option>
+			</select>
+			<br><br>
 
-					<div id="one_xapp">Mouse over this to see the tooltip</div>
-					<br>
-					<div id="two_xapp">Mouse over this to see a different tooltip</div>
-				</td>
-				<td>
-					<embed id="xapp" src="video.swf" width="400" height="300" />
-				</td>
-			</tr>
-	</table>
-	<div id="dialog" data-dojo-id="dialog" data-dojo-type="dui/dui/Dialog">
-		Hello!
-	</div>
+			<div id="one_xapp">Mouse over this to see the tooltip</div>
+			<br>
+
+			<div id="two_xapp">Mouse over this to see a different tooltip</div>
+		</td>
+		<td>
+			<embed id="xapp" src="video.swf" width="400" height="300"/>
+		</td>
+	</tr>
+</table>
+<div id="dialog" data-dojo-id="dialog" data-dojo-type="dui/dui/Dialog">
+	Hello!
+</div>
 </body>
 </html>

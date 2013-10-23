@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>StarRating</title>
@@ -15,17 +16,21 @@
 			"dui/register",
 			"dui/StarRating",
 			"dojo/domReady!"
-		], function(register, StarRating){
+		], function (register, StarRating) {
 
-			increment = function(){
-				if(val == 7){ return; }
+			increment = function () {
+				if (val == 7) {
+					return;
+				}
 				val += 0.5;
 				document.getElementById("star").value = val;
 				document.getElementById("value").innerHTML = val;
 			};
 
-			decrement = function(){
-				if(val == 0){ return; }
+			decrement = function () {
+				if (val == 0) {
+					return;
+				}
 				val -= 0.5;
 				document.getElementById("star").value = val;
 				document.getElementById("value").innerHTML = val;
@@ -34,39 +39,42 @@
 			register.parse();
 
 			var rating = new StarRating({
-				image:"images/star-4.png",
-				maximum:7,
-				editable:true,
+				image: "images/star-4.png",
+				maximum: 7,
+				editable: true,
 				editHalfValues: true,
 				value: 3.5
 			}).placeAt("editablestar6wrapper");
-			rating.watch('value', function(name, oldValue, value){
+			rating.watch('value', function (name, oldValue, value) {
 				document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");
 			});
 			rating.startup();
 		});
 	</script>
 	<style>
-	button {
-		width: 100px;
-	}
+		button {
+			width: 100px;
+		}
 	</style>
 </head>
 <body>
-	<h1>Default direction</h1>
-	<dui-star-rating id="star" image="images/star-4.png" maximum="7"></dui-star-rating>
-	<span id="value">0</span><br>
-	<button type="button" onclick="decrement()">&minus;</button>
-	<button type="button" onclick="increment()">+</button>
-	<p>
-	Editable: <dui-star-rating id="editablestar1" image="images/star-4.png" maximum="7" editable="true"></dui-star-rating>
-	<p>
-	Editable (half values increment): <dui-star-rating id="editablestar2" image="images/star-4.png"
-													  maximum="7" editable="true" editHalfValues="true"></dui-star-rating>
-	<p>
-	No zero setting: <dui-star-rating id="editablestar5" image="images/star-4.png" maximum="7" editable="true"
-									 editHalfValues="true" value="0.5" zeroAreaWidth="0"></dui-star-rating>
-	<p>
+<h1>Default direction</h1>
+<dui-star-rating id="star" image="images/star-4.png" maximum="7"></dui-star-rating>
+<span id="value">0</span><br>
+<button type="button" onclick="decrement()">&minus;</button>
+<button type="button" onclick="increment()">+</button>
+<p>
+	Editable:
+	<dui-star-rating id="editablestar1" image="images/star-4.png" maximum="7" editable="true"></dui-star-rating>
+<p>
+	Editable (half values increment):
+	<dui-star-rating id="editablestar2" image="images/star-4.png"
+					 maximum="7" editable="true" editHalfValues="true"></dui-star-rating>
+<p>
+	No zero setting:
+	<dui-star-rating id="editablestar5" image="images/star-4.png" maximum="7" editable="true"
+					 editHalfValues="true" value="0.5" zeroAreaWidth="0"></dui-star-rating>
+<p>
 	Programmatic: <span id="editablestar6wrapper"></span><br>
 	<span id="editablestar6value"></span>
 </body>

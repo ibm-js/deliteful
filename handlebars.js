@@ -1,16 +1,16 @@
-define(["./template"], function(template){
-	function tokenize(/*String*/ text){
+define(["./template"], function (template) {
+	function tokenize(/*String*/ text) {
 		// Given a string like "hello {{foo}} world", split it into static text and property references,
 		//  and return array representing the parts, ex: ["hello ", {property: "foo"}, " world"]
 		var inVar, parts = [];
 		text = text.trim();
-		if(text){
-			text.split(/({{|}})/).forEach(function(str){	// TODO: test on IE
-				if(str == "{{"){
+		if (text) {
+			text.split(/({{|}})/).forEach(function (str) {	// TODO: test on IE
+				if (str == "{{") {
 					inVar = true;
-				}else if(str == "}}"){
+				} else if (str == "}}") {
 					inVar = false;
-				}else if(str){
+				} else if (str) {
 					parts.push(inVar ? { property: str.trim() } : str);
 				}
 			});
@@ -35,15 +35,15 @@ define(["./template"], function(template){
 		//		(<ul> in this example) can't have any other children besides what's defined by
 		//		the {{#each ary}}...{{/ary}} block.
 
-		parseNode: function(/*DOMNode*/ templateNode){
+		parseNode: function (/*DOMNode*/ templateNode) {
 			// summary:
 			//		Scan a single Element (not text node, not branching node like {{#if}}, but regular DOMNode
 
 			// Scan attributes
 			var attributes = {};
 			var i = 0, item, attrs = templateNode.attributes;
-			for(i = 0; item = attrs[i]; i++){
-				if(item.value){
+			for (i = 0; item = attrs[i]; i++) {
+				if (item.value) {
 					attributes[item.name] = tokenize(item.value);
 				}
 			}
@@ -55,24 +55,24 @@ define(["./template"], function(template){
 			};
 		},
 
-		parseChildren: function(/*DOMNode*/ templateNode){
+		parseChildren: function (/*DOMNode*/ templateNode) {
 			// summary:
 			//		Scan child nodes, both text and Elements
 
 			var children = [];
 
-			for(var child = templateNode.firstChild; child; child = child.nextSibling){
+			for (var child = templateNode.firstChild; child; child = child.nextSibling) {
 				var childType = child.nodeType;
-				if(/each|if/i.test(child.tagName)){
-					children.push( {
+				if (/each|if/i.test(child.tagName)) {
+					children.push({
 						branch: child.attributes.condition.nodeValue,
 						children: this.parseChildren(child)
 					});
 					// TODO: handle <each> tags
-				}else if(childType == 1){
+				} else if (childType == 1) {
 					// Standard DOM node, recurse
-					children.push( handlebars.parseNode(child) );
-				}else if(childType == 3){
+					children.push(handlebars.parseNode(child));
+				} else if (childType == 3) {
 					// Text node likely containing variables like {{foo}}.
 					children = children.concat(tokenize(child.nodeValue.trim()));
 				}
@@ -81,7 +81,7 @@ define(["./template"], function(template){
 			return children;
 		},
 
-		parse: function(/*String*/ templateText){
+		parse: function (/*String*/ templateText) {
 			// summary:
 			//		Given a template, returns the tree representing that template
 
@@ -97,12 +97,14 @@ define(["./template"], function(template){
 			// Skip optional top comment node and find root node of template.
 			// Note that template needs to have a single root node.
 			var root = container.firstChild;
-			while(root.nodeType != 1){ root = root.nextSibling; }
+			while (root.nodeType != 1) {
+				root = root.nextSibling;
+			}
 
 			return handlebars.parseNode(root);
 		},
 
-		compile: function(templateText){
+		compile: function (templateText) {
 			// summary:
 			//		Given a template, returns a function to generate DOM corresponding to that template,
 			//		and setup listeners (using `_WidgetBase.watch()`) to propagate changes in the widget
@@ -118,7 +120,7 @@ define(["./template"], function(template){
 			return func;
 		},
 
-		load: function(mid, require, onload){
+		load: function (mid, require, onload) {
 			// summary:
 			//		Returns a function to generate the DOM specified by the template.
 			//		This is the function run when you use this module as a plugin.
@@ -130,7 +132,7 @@ define(["./template"], function(template){
 			//		Callback function which will be called, when the loading finishes
 			//		and the stylesheet has been inserted.
 
-			require(["dojo/text!" + mid], function(template){
+			require(["dojo/text!" + mid], function (template) {
 				onload(handlebars.compile(template));
 			});
 		}

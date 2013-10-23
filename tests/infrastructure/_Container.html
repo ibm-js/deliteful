@@ -13,7 +13,7 @@
 			"dojo/dom", "dojo/parser",
 			"dui/a11y", "dui/focus", "dui/register", "dui/_WidgetBase", "dui/_Container", "dui/_Contained",
 			"dui/tests/helpers", "dojo/domReady!"
-		], function(doh, dom, parser, a11y, focus, register, _WidgetBase, _Container, _Contained, helpers){
+		], function (doh, dom, parser, a11y, focus, register, _WidgetBase, _Container, _Contained, helpers) {
 
 			PlainWidget = register("plain-widget", [HTMLElement, _WidgetBase], {});
 
@@ -21,14 +21,14 @@
 
 			TestContained = register("test-contained", [HTMLElement, _WidgetBase, _Contained], {});
 
-			doh.register("parse", function(){
+			doh.register("parse", function () {
 				register.parse();
 			});
 
 			doh.register("basic tests", [
 				{
 					name: "getChildren",
-					runTest: function(t){
+					runTest: function (t) {
 						var c = dom.byId("container");
 						var children = c.getChildren();
 						t.is(5, children.length);
@@ -41,7 +41,7 @@
 				},
 				{
 					name: "getIndexOfChild",
-					runTest: function(t){
+					runTest: function (t) {
 						var c = dom.byId("container");
 						t.is(0, c.getIndexOfChild(dom.byId("zero")));
 						t.is(1, c.getIndexOfChild(dom.byId("one")));
@@ -54,7 +54,7 @@
 				},
 				{
 					name: "getIndexInParent",
-					runTest: function(t){
+					runTest: function (t) {
 						t.is(0, dom.byId("zero").getIndexInParent());
 						t.is(1, dom.byId("one").getIndexInParent());
 						t.is(2, dom.byId("two").getIndexInParent());
@@ -63,7 +63,7 @@
 				},
 				{
 					name: "removeChild",
-					runTest: function(t){
+					runTest: function (t) {
 						var c = dom.byId("container");
 						var children = c.getChildren();
 						t.is(5, children.length);
@@ -81,7 +81,7 @@
 				},
 				{
 					name: "addChild",
-					runTest: function(t){
+					runTest: function (t) {
 						var c = dom.byId("container");
 
 						// Add child at beginning

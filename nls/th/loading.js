@@ -1,6 +1,6 @@
 define(
-({
-	loadingState: "กำลังโหลด...",
-	errorState: "ขออภัย เกิดข้อผิดพลาด"
-})
+	({
+		loadingState: "กำลังโหลด...",
+		errorState: "ขออภัย เกิดข้อผิดพลาด"
+	})
 );

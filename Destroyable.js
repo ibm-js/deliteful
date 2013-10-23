@@ -1,7 +1,7 @@
 define([
 	"dojo/aspect",
 	"dcl/dcl"
-], function(aspect, dcl){
+], function (aspect, dcl) {
 
 	// module:
 	//		dui/Destroyable
@@ -14,13 +14,13 @@ define([
 		//		dojo/Stateful::watch, or any class (including widgets) with a destroyRecursive() or destroy() method.
 		//		Then call destroy() later to destroy this instance and release the resources.
 
-		destroy: function(/*Boolean*/ preserveDom){
+		destroy: function (/*Boolean*/ preserveDom) {
 			// summary:
 			//		Destroy this class, releasing any resources registered via own().
 			this._destroyed = true;
 		},
 
-		own: function(){
+		own: function () {
 			// summary:
 			//		Track specified handles and remove/destroy them when this instance is destroyed, unless they were
 			//		already removed/destroyed manually.
@@ -32,17 +32,17 @@ define([
 
 			// transform arguments into an Array
 			var ary = Array.prototype.slice.call(arguments);
-			ary.forEach(function(handle){
+			ary.forEach(function (handle) {
 				var destroyMethodName = "destroy" in handle ? "destroy" : "remove";
 
 				// When this.destroy() is called, destroy handle.  Since I'm using aspect.before(),
 				// the handle will be destroyed before a subclass's destroy() method starts running.
-				var odh = aspect.before(this, "destroy", function(preserveDom){
+				var odh = aspect.before(this, "destroy", function (preserveDom) {
 					handle[destroyMethodName](preserveDom);
 				});
 
 				// If handle is destroyed manually before this.destroy() is called, remove the listener set directly above.
-				var hdh = aspect.after(handle, destroyMethodName, function(){
+				var hdh = aspect.after(handle, destroyMethodName, function () {
 					odh.remove();
 					hdh.remove();
 				}, true);

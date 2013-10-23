@@ -11,25 +11,25 @@
 			"dojo/dom", "dojo/dom-attr", "dojo/dom-class", "dojo/dom-style", "dojo/sniff",
 			"dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, register, dom, domAttr, domClass, domStyle, has, _WidgetBase){
+		], function (doh, register, dom, domAttr, domClass, domStyle, has, _WidgetBase) {
 
 			doh.register("attributes", [
 				// Test attributes mapped to DOMNodes
-				function domMapping(){
+				function domMapping() {
 					var IndividualMaps = register("dui-individual-maps", [HTMLElement, _WidgetBase], {
 						// Mapping foo to this.foo
-						foo:"",
+						foo: "",
 						_setFooAttr: "",
-		
+
 						// Mapping bar to this.buttonNode.bar
 						bar: "",
 						_setBarAttr: "buttonNode",
-		
+
 						// Mapping plainText to this.plainTextNode.innerHTML
 						plainText: "",
 						_setPlainTextAttr: {node: "plainTextNode", type: "innerText"},
 
-						buildRendering: function(){
+						buildRendering: function () {
 							this.className = "class1";
 
 							this.buttonNode = this.focusNode = this.ownerDocument.createElement("button");
@@ -43,8 +43,8 @@
 					});
 
 					var widget = new IndividualMaps({
-						foo:"value1",
-						bar:"value2",
+						foo: "value1",
+						bar: "value2",
 						className: "class2",
 						style: "height: 123px",
 						plainText: "hello world <>&;",
@@ -66,7 +66,8 @@
 	</script>
 </head>
 <body>
-	<h1>_WidgetBase Attribute Unit Test</h1>
-	<div id="wrapper"></div>
+<h1>_WidgetBase Attribute Unit Test</h1>
+
+<div id="wrapper"></div>
 </body>
 </html>

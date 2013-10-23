@@ -1,457 +1,462 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 		"http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<title>dui/focus automated test</title>
+<head>
+<title>dui/focus automated test</title>
 
-		<script type="text/javascript" src="../boilerplate.js"></script>
+<script type="text/javascript" src="../boilerplate.js"></script>
 
-		<script type="text/javascript">
-			require([
-				"doh/runner", "dcl/dcl", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
-				"dui/focus",
-				"dui/_WidgetBase", "dui/_FocusMixin",
-				"dojo/domReady!",
-				"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner","dui/form/ComboButton",
-				"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
-			], function(doh, dcl, dom, on, parser, query, focus, _WidgetBase, _FocusMixin){
+<script type="text/javascript">
+require([
+	"doh/runner", "dcl/dcl", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
+	"dui/focus",
+	"dui/_WidgetBase", "dui/_FocusMixin",
+	"dojo/domReady!",
+	"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner", "dui/form/ComboButton",
+	"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
+], function (doh, dcl, dom, on, parser, query, focus, _WidgetBase, _FocusMixin) {
 
-				FakeEditor = dcl([_WidgetBase, _FocusMixin], {
-					buildRendering: function(){
-						// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
-						this.domNode = this.containerNode = this.ownerDocument.createElement("iframe");
-						this.domNode.src = 'javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"';
-					},
+	FakeEditor = dcl([_WidgetBase, _FocusMixin], {
+		buildRendering: function () {
+			// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
+			this.domNode = this.containerNode = this.ownerDocument.createElement("iframe");
+			this.domNode.src = 'javascript:\"<html><body><div contenteditable=true>hello world</div></body></html>\"';
+		},
 
-					postCreate: function(){
-						focus.registerIframe(this.containerNode);
-					},
+		postCreate: function () {
+			focus.registerIframe(this.containerNode);
+		},
 
-					focus: function(){
-						this.containerNode.contentDocument.body.firstChild.focus();
-					}
+		focus: function () {
+			this.containerNode.contentDocument.body.firstChild.focus();
+		}
+	});
+
+	doh.register("setup", [
+		function parse() {
+			return parser.parse();
+		},
+		function listeners() {
+			["form", "fieldset1", "fieldset2", "select", "editor", "spinner"].forEach(function (id) {
+				var w = dom.byId(id);
+
+				w.onFocus = function () {
+					focusEvents[id] = true;
+				};
+				w.onBlur = function () {
+					blurEvents[id] = true;
+				};
+
+				// new API is to watch "focused" attribute
+				w.watch("focused", function (name, oldValue, newValue) {
+					// keep track of current state
+					focusedState[name] = newValue;
+
+					// keep log of every watch notification
+					var nvs = newValue ? "focused" : "blurred";
+					focusedWatchLog[w.id] = !focusedWatchLog[w.id] ? nvs : focusedWatchLog[w.id] + ", " + nvs;
+				});
+			});
+
+			// And there's also a curNode attribute that you can watch
+			focus.watch("curNode", function (name, oldValue, newValue) {
+				curNodeWatchLog.push(newValue ? newValue.id || newValue.tagName : "null")
+			});
+		}
+	]);
+
+	function resetEvents() {
+		// These are objects used to track calls to _onFocus and _onBlur in various widgets
+		focusEvents = {};
+		blurEvents = {};
+		focusedState = {};
+		focusedWatchLog = {};
+
+		// This tracks watch("curNode")
+		curNodeWatchLog = [];
+	}
+
+	resetEvents();
+
+	function click(node) {
+		on.emit(node, "mousedown", {
+			bubbles: true,
+			cancelable: true,
+			which: 1
+		});
+		on.emit(node, "mouseup", {
+			bubbles: true,
+			cancelable: true,
+			which: 1
+		});
+		on.emit(node, "click", {
+			bubbles: true,
+			cancelable: true,
+			which: 1
+		});
+	}
+
+	doh.register("basic", [
+		{
+			name: "focus simple input",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				// Focus the simple input
+				dom.byId("first").focus();
+
+				setTimeout(d.getTestCallback(function () {
+					// Make sure that focus manager caught the focus event
+					doh.is(dom.byId("first"), focus.curNode);
+					doh.is("first", curNodeWatchLog.join(", "), "curNodeWatchLog");
+
+					// And that the dui.form.Form widget is marked as
+					// being "in focus"
+					doh.t(focusEvents["form"], "form focused");
+
+					// And that it got one watch event
+					doh.is("focused", focusedWatchLog["form"], "watch callback");
+				}), 500);
+
+				return d;
+			}
+		},
+		{
+			name: "focus another simple input",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				// Focus the simple input
+				dom.byId("second").focus();
+
+				setTimeout(d.getTestCallback(function () {
+					// Make sure that focus manager caught the focus event
+					doh.is(dom.byId("second"), focus.curNode);
+					doh.is("second", curNodeWatchLog.join(", "), "curNodeWatchLog");
+
+					// Since the dui.form.Form widget didn't leave the focus chain it
+					// shouldn't have any more events (since the resetEvents() call in setUp() above)
+					doh.f("form" in focusEvents, "form no new focus event");
+				}), 500);
+
+				return d;
+			}
+		},
+		{
+			name: "focus combobox",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				var watchedActiveStack, activeStackWatchNotifications = 0;
+				focus.watch("activeStack", function (attr, oldVal, newVal) {
+					watchedActiveStack = newVal;
+					activeStackWatchNotifications++;
 				});
 
-				doh.register("setup", [
-					function parse(){
-						return parser.parse();
-					},
-					function listeners(){
-						["form", "fieldset1", "fieldset2", "select", "editor", "spinner"].forEach(function(id){
-							var w = dom.byId(id);
+				// This onFocus() function from helpers.js would be useful here, except it
+				// defeats the purpose of the test by using dui/focus.
+				on.once(dom.byId("select").focusNode, "focus", function () {
+					setTimeout(d.getTestCallback(function () {
+						// Focus goes to an <input> node deep inside of select.domNode,
+						// but that <input> node has the id of the widget
+						doh.is(dom.byId("select"), focus.curNode);
 
-							w.onFocus = function(){
-								focusEvents[id] = true;
-							};
-							w.onBlur = function(){
-								blurEvents[id] = true;
-							};
+						// The focus stack should show the ComboBox plus all parent widgets
+						var stack = focus.activeStack;
+						doh.is("form, fieldset1, select", stack.join(", "), "active stack");
 
-							// new API is to watch "focused" attribute
-							w.watch("focused", function(name, oldValue, newValue){
-								// keep track of current state
-								focusedState[name] = newValue;
+						// Also check that we got (exactly) one watch notification about active stack
+						doh.is(1, activeStackWatchNotifications, "one watch() on activeStack");
+						doh.is("form, fieldset1, select", watchedActiveStack.join(", "), "watched active stack");
 
-								// keep log of every watch notification
-								var nvs = newValue ? "focused" : "blurred";
-								focusedWatchLog[w.id] = !focusedWatchLog[w.id] ? nvs : focusedWatchLog[w.id] + ", " + nvs;
-							});
-						});
+						// _onFocus()/_onBlur was called appropriately
+						doh.f(focusEvents["form"], "form was already focused, no duplicate event");
+						doh.f(blurEvents["form"], "form wasn't blurred");
+						doh.t(focusEvents["fieldset1"], "fieldset1 focused");
+						doh.t(focusEvents["select"], "select focused");
 
-						// And there's also a curNode attribute that you can watch
-						focus.watch("curNode", function(name, oldValue, newValue){
-							curNodeWatchLog.push(newValue ? newValue.id || newValue.tagName : "null")
-						});
-					}
-				]);
+						doh.f(focusedWatchLog["form"], "form watch callback (no new notification)");
+						doh.is("focused", focusedWatchLog["fieldset1"], "fieldset watch callback");
+						doh.is("focused", focusedWatchLog["select"], "select watch callback");
+					}), 100);
+				});
+				dom.byId("select").focus();
 
-				function resetEvents(){
-					// These are objects used to track calls to _onFocus and _onBlur in various widgets
-					focusEvents = {};
-					blurEvents = {};
-					focusedState = {};
-					focusedWatchLog = {};
-
-					// This tracks watch("curNode")
-					curNodeWatchLog = [];
-				}
+				return d;
+			}
+		},
+		{
+			name: "focus combobox again",
+			timeout: 4000,
+			setUp: function () {
 				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
 
-				function click(node){
-					on.emit(node, "mousedown", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
-					});
-					on.emit(node, "mouseup", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
-					});
-					on.emit(node, "click", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
-					});
+				var again;
+				focus.watch("activeStack", function () {
+					again = true;
+				});
+
+				dom.byId("select").focus();
+
+				on.emit(dom.byId("select").focusNode, "mousedown", {bubbles: true});
+				on.emit(dom.byId("select").focusNode, "mouseup", {bubbles: true});
+
+				setTimeout(d.getTestCallback(function () {
+					doh.f(again, "duplicate notification about activeStack");
+				}), 100);
+
+				return d;
+			}
+		},
+		{
+			name: "focus editor",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				dom.byId("editor").focus();
+
+				setTimeout(d.getTestCallback(function () {
+					// The focus stack should show the Editor plus all parent widgets
+					var stack = focus.activeStack;
+					doh.is("form, editor", stack.join(", "), "active stack");
+
+					// _onFocus()/_onBlur was called appropriately
+					doh.f(focusEvents["form"], "form was already focused, no duplicate event");
+					doh.f(blurEvents["form"], "form wasn't blurred");
+					doh.t(blurEvents["fieldset1"], "fieldset no longer focused");
+					doh.t(focusEvents["editor"], "editor focused");
+
+					doh.f(focusedWatchLog["form"], "form watch callback (no new notification)");
+					doh.is("blurred", focusedWatchLog["fieldset1"], "fieldset watch callback, no longer focused");
+					doh.is("blurred", focusedWatchLog["select"], "select watch callback, no longer focused");
+					doh.is("focused", focusedWatchLog["editor"], "editor watch callback");
+				}), 500);
+
+				return d;
+			}
+		},
+
+		// clicking spinner buttons should activate the spinner, even
+		// though there's no actual DOM focus event
+		{
+			name: "spinner",
+			timeout: 4000,
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				var upArrow = query(".duiSpinner .duiUpArrowButton")[0];
+				doh.t(upArrow, "found the up arrow");
+
+				click(upArrow);
+
+				setTimeout(d.getTestCallback(function () {
+					// The focus stack should show the Spinner plus all parent widgets
+					var stack = focus.activeStack;
+					doh.is("form, fieldset2, spinner", stack.join(", "), "active stack");
+
+					// check watch callbacks
+					doh.f(focusedWatchLog["form"], "grandparent of spinner stayed focused, so no new watch event (watch)");
+					doh.is("focused", focusedWatchLog["fieldset2"], "parent of spinner (watch)");
+					doh.is("focused", focusedWatchLog["spinner"], "spinner (watch)");
+				}), 500);
+
+				return d;
+			}
+		},
+
+		// Clicking a tabIndex=-1 node should set focus.curNode even though it's not tab navigable
+		{
+			name: "tabIndex=-1",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				var minusOne = query("#minusOne")[0];
+				doh.t(minusOne, "found tabIndex=-1 button");
+
+				minusOne.focus();
+
+				setTimeout(d.getTestCallback(function () {
+					doh.is("minusOne", focus.curNode.id);
+				}), 500);
+
+				return d;
+			}
+		},
+
+		// Clicking a disabled button should not set focus.curNode
+		{
+			name: "disabled button",
+			timeout: 4000,
+			setUp: function () {
+				resetEvents();
+			},
+			runTest: function () {
+				var d = new doh.Deferred();
+
+				var disabledButton = query("#disabledButton")[0];
+				doh.t(disabledButton, "found disabled button");
+
+				try {
+					disabledButton.focus();
+				} catch (e) {
+					/* IE throws exception trying to focus disabled button */
 				}
-				doh.register("basic", [
-					{
-						name: "focus simple input",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
 
-							// Focus the simple input
-							dom.byId("first").focus();
+				setTimeout(d.getTestCallback(function () {
+					doh.is("minusOne", focus.curNode.id, "focus.curNode still old value");
+				}), 500);
 
-							setTimeout(d.getTestCallback(function(){
-								// Make sure that focus manager caught the focus event
-								doh.is(dom.byId("first"), focus.curNode);
-								doh.is("first", curNodeWatchLog.join(", "), "curNodeWatchLog");
+				return d;
+			}
+		}
+		/*,
+		 // FIXME: this test is invalid because focus is not designed to change on mouse click to the first item in the menu
+		 {
+		 name: "combo button menu",
+		 timeout: 4000,
+		 runTest: function(){
+		 var d = new doh.Deferred();
 
-								// And that the dui.form.Form widget is marked as
-								// being "in focus"
-								doh.t(focusEvents["form"], "form focused");
-								
-								// And that it got one watch event
-								doh.is("focused", focusedWatchLog["form"], "watch callback");
-							}), 500);
+		 var button = dom.byId('button').focusNode;
+		 doh.t(button, "found drop down button");
 
-							return d;
-						}
-					},
-					{
-						name: "focus another simple input",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
+		 doh.robot.mouseMoveAt(button);
+		 doh.robot.mouseClick({left: true}, 500);
 
-							// Focus the simple input
-							dom.byId("second").focus();
+		 setTimeout(d.getTestCallback(function(){
+		 // Focus goes to an first item in the drop down menu
+		 doh.is(dom.byId("mi1").id, focus.curNode.id);
 
-							setTimeout(d.getTestCallback(function(){
-								// Make sure that focus manager caught the focus event
-								doh.is(dom.byId("second"), focus.curNode);
-								doh.is("second", curNodeWatchLog.join(", "), "curNodeWatchLog");
+		 // The focus stack should show the ComboBox plus all parent widgets
+		 var stack = focus.activeStack;
+		 console.log("menu stack is ", stack);
+		 doh.is("form, fieldset2, button, menu, mil", stack.join(", "), "active stack");
+		 }), 500);
 
-								// Since the dui.form.Form widget didn't leave the focus chain it
-								// shouldn't have any more events (since the resetEvents() call in setUp() above)
-								doh.f("form" in focusEvents, "form no new focus event");
-							}), 500);
+		 return d;
+		 },
+		 tearDown: function(){
+		 dojo.disconnect(handle);
+		 }
+		 }*/
 
-							return d;
-						}
-					},
-					{
-						name: "focus combobox",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
+		/*
+		 // Commented out because
+		 // in order to allow dui.popup's getTopPopup() to work,a sub menu's popupParent
+		 // points to the parent Menu, bypassing the parent MenuItem... thus the
+		 // MenuItem is not in the chain of active widgets
+		 {
+		 name: "nested menu",
+		 timeout: 4000,
+		 runTest: function(){
+		 var d = new doh.Deferred();
 
-							var watchedActiveStack, activeStackWatchNotifications = 0;
-							focus.watch("activeStack", function(attr, oldVal, newVal){
-								watchedActiveStack = newVal;
-								activeStackWatchNotifications++;
-							});
+		 doh.robot.mouseMoveAt("popupMenuItem");
 
-							// This onFocus() function from helpers.js would be useful here, except it
-							// defeats the purpose of the test by using dui/focus.
-							on.once(dom.byId("select").focusNode, "focus", function(){
-								setTimeout(d.getTestCallback(function(){
-									// Focus goes to an <input> node deep inside of select.domNode,
-									// but that <input> node has the id of the widget
-									doh.is(dom.byId("select"), focus.curNode);
+		 setTimeout(d.getTestCallback(function(){
+		 // Focus goes to an first item in the sub menu
+		 doh.is(dom.byId("smi1"), focus.curNode);
 
-									// The focus stack should show the ComboBox plus all parent widgets
-									var stack = focus.activeStack;
-									doh.is("form, fieldset1, select", stack.join(", "), "active stack");
+		 // The focus stack should show the two submenus and then upwards
+		 // to the ComboButton, and the rest
+		 var stack = focus.activeStack;
+		 console.log("menu stack is ", stack);
+		 doh.is("form, fieldset2, button, menu, mil, submenu, smil", stack.join(", "), "active stack");
+		 }), 1000);
 
-									// Also check that we got (exactly) one watch notification about active stack
-									doh.is(1, activeStackWatchNotifications, "one watch() on activeStack");
-									doh.is("form, fieldset1, select", watchedActiveStack.join(", "), "watched active stack");
+		 return d;
+		 }
+		 }
+		 */
+	]);
 
-									// _onFocus()/_onBlur was called appropriately
-									doh.f(focusEvents["form"], "form was already focused, no duplicate event");
-									doh.f(blurEvents["form"], "form wasn't blurred");
-									doh.t(focusEvents["fieldset1"], "fieldset1 focused");
-									doh.t(focusEvents["select"], "select focused");
+	doh.run();
+});
+</script>
+</head>
+<body style="background-color: #fff; color: black; padding: 0; margin: 0" class="claro">
 
-									doh.f(focusedWatchLog["form"], "form watch callback (no new notification)");
-									doh.is("focused", focusedWatchLog["fieldset1"], "fieldset watch callback");
-									doh.is("focused", focusedWatchLog["select"], "select watch callback");
-								}), 100);
-							});
-							dom.byId("select").focus();
+<h3>dui/focus Automated Test</h3>
 
-							return d;
-						}
-					},
-					{
-						name: "focus combobox again",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
+<label>a form ContentPane widget:</label><br>
 
-							var again;
-							focus.watch("activeStack", function(){
-								again = true;
-							});
+<form id="form" data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+	<label for="first">simple input: </label><input id="first"/><br>
+	<label for="second">another simple input: </label><input id="second"/><br>
 
-							dom.byId("select").focus();
+	<label>a fieldset ContentPane widget:</label><br>
+	<fieldset id=fieldset1 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+		<label for="select">a ComboBox widget:</label>
+		<select id=select data-dojo-type="dui/form/ComboBox">
+			<option>this</option>
+			<option>is</option>
+			<option>a</option>
+			<option>list</option>
+		</select>
+		<label for="plain">a plain input:</label>
+		<input id=plain value=plain/>
+	</fieldset>
+	<label>Editor:</label><br>
 
-							on.emit(dom.byId("select").focusNode, "mousedown", {bubbles: true});
-							on.emit(dom.byId("select").focusNode, "mouseup", {bubbles: true});
+	<div id=editor data-dojo-type="FakeEditor">
+		Hello world, this is an <i>editor</i>
+	</div>
+	<br>
+	<label>another fieldset ContentPane:</label><br>
+	<fieldset id=fieldset2 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+		<label for="date">a DateTextBox widget:</label>
+		<input id=date data-dojo-type="dui/form/DateTextBox"/><br>
 
-							setTimeout(d.getTestCallback(function(){
-								doh.f(again, "duplicate notification about activeStack");
-							}), 100);
+		<label for="textarea">a plain textarea:</label><br>
+		<textarea id=textarea>hello there!</textarea><br>
 
-							return d;
-						}
-					},
-					{
-						name: "focus editor",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
+		<label for="spinner">a Spinner widget:</label>
+		<input id=spinner data-dojo-type="dui/form/NumberSpinner" data-dojo-props='value:100'/><br>
 
-							dom.byId("editor").focus();
+		<label>a Combobutton widget:</label>
 
-							setTimeout(d.getTestCallback(function(){
-								// The focus stack should show the Editor plus all parent widgets
-								var stack = focus.activeStack;
-								doh.is("form, editor", stack.join(", "), "active stack");
+		<div id=button data-dojo-type="dui/form/ComboButton" data-dojo-props='tabIndex:"0"'>
+			<span>push me</span>
 
-								// _onFocus()/_onBlur was called appropriately
-								doh.f(focusEvents["form"], "form was already focused, no duplicate event");
-								doh.f(blurEvents["form"], "form wasn't blurred");
-								doh.t(blurEvents["fieldset1"], "fieldset no longer focused");
-								doh.t(focusEvents["editor"], "editor focused");
+			<div id=menu data-dojo-type="dui/dui/Menu">
+				<div id=mi1 data-dojo-type="dui/dui/MenuItem">menu item 1</div>
+				<div id=mi2 data-dojo-type="dui/dui/MenuItem">menu item 2</div>
+				<div id=popupMenuItem data-dojo-type="dui/dui/PopupMenuItem">
+					<span>submenu</span>
 
-								doh.f(focusedWatchLog["form"], "form watch callback (no new notification)");
-								doh.is("blurred", focusedWatchLog["fieldset1"], "fieldset watch callback, no longer focused");
-								doh.is("blurred", focusedWatchLog["select"], "select watch callback, no longer focused");
-								doh.is("focused", focusedWatchLog["editor"], "editor watch callback");
-							}), 500);
-
-							return d;
-						}
-					},
-
-					// clicking spinner buttons should activate the spinner, even
-					// though there's no actual DOM focus event
-					{
-						name: "spinner",
-						timeout: 4000,
-						runTest: function(){
-							var d = new doh.Deferred();
-
-							var upArrow = query(".duiSpinner .duiUpArrowButton")[0];
-							doh.t(upArrow, "found the up arrow");
-
-							click(upArrow);
-
-							setTimeout(d.getTestCallback(function(){
-								// The focus stack should show the Spinner plus all parent widgets
-								var stack = focus.activeStack;
-								doh.is("form, fieldset2, spinner", stack.join(", "), "active stack");
-
-								// check watch callbacks
-								doh.f(focusedWatchLog["form"], "grandparent of spinner stayed focused, so no new watch event (watch)");
-								doh.is("focused", focusedWatchLog["fieldset2"], "parent of spinner (watch)");
-								doh.is("focused", focusedWatchLog["spinner"], "spinner (watch)");
-							}), 500);
-
-							return d;
-						}
-					},
-
-					// Clicking a tabIndex=-1 node should set focus.curNode even though it's not tab navigable
-					{
-						name: "tabIndex=-1",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
-
-							var minusOne = query("#minusOne")[0];
-							doh.t(minusOne, "found tabIndex=-1 button");
-
-							minusOne.focus();
-
-							setTimeout(d.getTestCallback(function(){
-								doh.is("minusOne", focus.curNode.id);
-							}), 500);
-
-							return d;
-						}
-					},
-
-					// Clicking a disabled button should not set focus.curNode
-					{
-						name: "disabled button",
-						timeout: 4000,
-						setUp: function(){
-							resetEvents();
-						},
-						runTest: function(){
-							var d = new doh.Deferred();
-
-							var disabledButton = query("#disabledButton")[0];
-							doh.t(disabledButton, "found disabled button");
-
-							try{
-								disabledButton.focus();
-							}catch(e){
-								/* IE throws exception trying to focus disabled button */
-							}
-
-							setTimeout(d.getTestCallback(function(){
-								doh.is("minusOne", focus.curNode.id, "focus.curNode still old value");
-							}), 500);
-
-							return d;
-						}
-					}
-					/*,
-					// FIXME: this test is invalid because focus is not designed to change on mouse click to the first item in the menu
-					{
-						name: "combo button menu",
-						timeout: 4000,
-						runTest: function(){
-							var d = new doh.Deferred();
-
-							var button = dom.byId('button').focusNode;
-							doh.t(button, "found drop down button");
-
-							doh.robot.mouseMoveAt(button);
-							doh.robot.mouseClick({left: true}, 500);
-
-							setTimeout(d.getTestCallback(function(){
-								// Focus goes to an first item in the drop down menu
-								doh.is(dom.byId("mi1").id, focus.curNode.id);
-
-								// The focus stack should show the ComboBox plus all parent widgets
-								var stack = focus.activeStack;
-								console.log("menu stack is ", stack);
-								doh.is("form, fieldset2, button, menu, mil", stack.join(", "), "active stack");
-							}), 500);
-
-							return d;
-						},
-						tearDown: function(){
-							dojo.disconnect(handle);
-						}
-					}*/
-
-/*
-					// Commented out because
-					// in order to allow dui.popup's getTopPopup() to work,a sub menu's popupParent
-					// points to the parent Menu, bypassing the parent MenuItem... thus the
-					// MenuItem is not in the chain of active widgets
-					{
-						name: "nested menu",
-						timeout: 4000,
-						runTest: function(){
-							var d = new doh.Deferred();
-
-							doh.robot.mouseMoveAt("popupMenuItem");
-
-							setTimeout(d.getTestCallback(function(){
-								// Focus goes to an first item in the sub menu
-								doh.is(dom.byId("smi1"), focus.curNode);
-
-								// The focus stack should show the two submenus and then upwards
-								// to the ComboButton, and the rest
-								var stack = focus.activeStack;
-								console.log("menu stack is ", stack);
-								doh.is("form, fieldset2, button, menu, mil, submenu, smil", stack.join(", "), "active stack");
-							}), 1000);
-
-							return d;
-						}
-					}
-*/
-				]);
-
-				doh.run();
-			});
-		</script>
-	</head>
-	<body style="background-color: #fff; color: black; padding: 0; margin: 0" class="claro">
-	
-		<h3>dui/focus Automated Test</h3>
-
-		<label>a form ContentPane widget:</label><br>
-
-		<form id="form" data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
-			<label for="first">simple input: </label><input id="first"/><br>
-			<label for="second">another simple input: </label><input id="second"/><br>
-
-			<label>a fieldset ContentPane widget:</label><br>
-			<fieldset id=fieldset1 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
-			<label for="select">a ComboBox widget:</label>
-				<select id=select data-dojo-type="dui/form/ComboBox">
-					<option>this</option>
-					<option>is</option>
-					<option>a</option>
-					<option>list</option>
-				</select>
-				<label for="plain">a plain input:</label>
-				<input id=plain value=plain/>
-			</fieldset>
-			<label>Editor:</label><br>
-
-			<div id=editor data-dojo-type="FakeEditor">
-			Hello world, this is an <i>editor</i>
-			</div>
-			<br>
-			<label>another fieldset ContentPane:</label><br>
-			<fieldset id=fieldset2 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
-			<label for="date">a DateTextBox widget:</label>
-				<input id=date data-dojo-type="dui/form/DateTextBox"/><br>
-	
-				<label for="textarea">a plain textarea:</label><br>
-				<textarea id=textarea>hello there!</textarea><br>
-	
-				<label for="spinner">a Spinner widget:</label>
-				<input id=spinner data-dojo-type="dui/form/NumberSpinner" data-dojo-props='value:100'/><br>
-	
-				<label>a Combobutton widget:</label>
-				<div id=button data-dojo-type="dui/form/ComboButton" data-dojo-props='tabIndex:"0"'>
-					<span>push me</span>
-					<div id=menu data-dojo-type="dui/dui/Menu">
-						<div id=mi1 data-dojo-type="dui/dui/MenuItem">menu item 1</div>
-						<div id=mi2 data-dojo-type="dui/dui/MenuItem">menu item 2</div>
-						<div id=popupMenuItem data-dojo-type="dui/dui/PopupMenuItem">
-							<span>submenu</span>
-							<div id=submenu data-dojo-type="dui/dui/Menu">
-								<div id=smi1 data-dojo-type="dui/dui/MenuItem">submenu item 1</div>
-								<div id=smi2 data-dojo-type="dui/dui/MenuItem">submenu item 2</div>
-							</div>
-						</div>
+					<div id=submenu data-dojo-type="dui/dui/Menu">
+						<div id=smi1 data-dojo-type="dui/dui/MenuItem">submenu item 1</div>
+						<div id=smi2 data-dojo-type="dui/dui/MenuItem">submenu item 2</div>
 					</div>
 				</div>
-			</fieldset>
-			<button tabIndex="-1" id="minusOne" type="button">non tab-navigable button</button>
-			<button id="disabledButton" type="button" disabled>disabled button</button>
-		</form>
-	</body>
+			</div>
+		</div>
+	</fieldset>
+	<button tabIndex="-1" id="minusOne" type="button">non tab-navigable button</button>
+	<button id="disabledButton" type="button" disabled>disabled button</button>
+</form>
+</body>
 </html>

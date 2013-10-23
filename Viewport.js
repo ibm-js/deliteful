@@ -4,49 +4,51 @@ define([
 	"dojo/domReady",
 	"dojo/sniff",	// has("ie"), has("ios")
 	"dojo/window" // getBox()
-], function(Evented, on, domReady, has, winUtils){
+], function (Evented, on, domReady, has, winUtils) {
 
 	// module:
 	//		dui/Viewport
 
 	/*=====
-	return {
-		// summary:
-		//		Utility singleton to watch for viewport resizes, avoiding duplicate notifications
-		//		which can lead to infinite loops.
-		// description:
-		//		Usage: Viewport.on("resize", myCallback).
-		//
-		//		myCallback() is called without arguments in case it's _WidgetBase.resize(),
-		//		which would interpret the argument as the size to make the widget.
-	};
-	=====*/
+	 return {
+	 // summary:
+	 //		Utility singleton to watch for viewport resizes, avoiding duplicate notifications
+	 //		which can lead to infinite loops.
+	 // description:
+	 //		Usage: Viewport.on("resize", myCallback).
+	 //
+	 //		myCallback() is called without arguments in case it's _WidgetBase.resize(),
+	 //		which would interpret the argument as the size to make the widget.
+	 };
+	 =====*/
 
 	var Viewport = new Evented();
 
 	var focusedNode;
 
-	domReady(function(){
+	domReady(function () {
 		var oldBox = winUtils.getBox();
-		Viewport._rlh = on(window, "resize", function(){
+		Viewport._rlh = on(window, "resize", function () {
 			var newBox = winUtils.getBox();
-			if(oldBox.h == newBox.h && oldBox.w == newBox.w){ return; }
+			if (oldBox.h == newBox.h && oldBox.w == newBox.w) {
+				return;
+			}
 			oldBox = newBox;
 			Viewport.emit("resize");
 		});
 
 		// On iOS, keep track of the focused node so we can guess when the keyboard is/isn't being displayed.
-		if(has("ios")){
-			on(document, "focusin", function(evt){
+		if (has("ios")) {
+			on(document, "focusin", function (evt) {
 				focusedNode = evt.target;
 			});
-			on(document, "focusout", function(evt){
+			on(document, "focusout", function (evt) {
 				focusedNode = null;
 			});
 		}
 	});
 
-	Viewport.getEffectiveBox = function(/*Document*/ doc){
+	Viewport.getEffectiveBox = function (/*Document*/ doc) {
 		// summary:
 		//		Get the size of the viewport, or on mobile devices, the part of the viewport not obscured by the
 		//		virtual keyboard.
@@ -55,8 +57,8 @@ define([
 
 		// Account for iOS virtual keyboard, if it's being shown.  Unfortunately no direct way to check or measure.
 		var tag = focusedNode && focusedNode.tagName && focusedNode.tagName.toLowerCase();
-		if(has("ios") && focusedNode && !focusedNode.readOnly && (tag == "textarea" || (tag == "input" &&
-			/^(color|email|number|password|search|tel|text|url)$/.test(focusedNode.type)))){
+		if (has("ios") && focusedNode && !focusedNode.readOnly && (tag == "textarea" || (tag == "input" &&
+			/^(color|email|number|password|search|tel|text|url)$/.test(focusedNode.type)))) {
 
 			// Box represents the size of the viewport.  Some of the viewport is likely covered by the keyboard.
 			// Estimate height of visible viewport assuming viewport goes to bottom of screen, but is covered by keyboard.

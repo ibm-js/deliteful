@@ -16,19 +16,19 @@
 			"dojo/parser",
 			"dui/ExampleWidget",
 			"dojo/domReady!"
-		], function(doh, has, parser){
+		], function (doh, has, parser) {
 
 			doh.register("ExampleWidget", [
-				function parse(){
+				function parse() {
 					// run parser inside of DOH so we can tell if there are any exceptions
 					parser.parse();
 				},
-				function css(){
+				function css() {
 					// check that CSS files for ExampleWidget were loaded
 					var styleNodes = document.getElementsByTagName("style");
-					if(has("dojo-bidi")){
+					if (has("dojo-bidi")) {
 						doh.is(2, styleNodes.length, "loaded CSS for LTR and RTL");
-					}else{
+					} else {
 						doh.is(1, styleNodes.length, "loaded CSS for LTR only");
 					}
 				}
@@ -41,11 +41,11 @@
 
 </head>
 <body>
-	<div data-dojo-type="dui/ExampleWidget"></div>
+<div data-dojo-type="dui/ExampleWidget"></div>
 
-	<br>
-	<a href="./test_ExampleWidget.html?dir=ltr">force LTR mode</a>
-	<a href="./test_ExampleWidget.html?dir=rtl">force RTL mode</a>
-	<a href="./test_ExampleWidget.html?theme=ios">force iOS theme</a>
+<br>
+<a href="./test_ExampleWidget.html?dir=ltr">force LTR mode</a>
+<a href="./test_ExampleWidget.html?dir=rtl">force RTL mode</a>
+<a href="./test_ExampleWidget.html?theme=ios">force iOS theme</a>
 </body>
 </html>

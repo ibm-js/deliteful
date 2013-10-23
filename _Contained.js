@@ -1,6 +1,6 @@
 define([
 	"dcl/dcl"
-], function(dcl){
+], function (dcl) {
 
 	// module:
 	//		dui/_Contained
@@ -12,7 +12,7 @@ define([
 		//	|	// make a basic custom widget that knows about its parents
 		//	|	register("my.customClass", [HTMLElement, _WidgetBase, _Contained], {});
 
-		_getSibling: function(/*String*/ which){
+		_getSibling: function (/*String*/ which) {
 			// summary:
 			//		Returns next or previous sibling
 			// which:
@@ -20,13 +20,13 @@ define([
 			// tags:
 			//		private
 			var node = this;
-			do{
-				node = node[which+"Sibling"];
-			}while(node && node.nodeType != 1);
+			do {
+				node = node[which + "Sibling"];
+			} while (node && node.nodeType != 1);
 			return node;	// Element
 		},
 
-		getPreviousSibling: function(){
+		getPreviousSibling: function () {
 			// summary:
 			//		Returns null if this is the first child of the parent,
 			//		otherwise returns the next element sibling to the "left".
@@ -34,7 +34,7 @@ define([
 			return this._getSibling("previous"); // Element
 		},
 
-		getNextSibling: function(){
+		getNextSibling: function () {
 			// summary:
 			//		Returns null if this is the last child of the parent,
 			//		otherwise returns the next element sibling to the "right".
@@ -42,14 +42,14 @@ define([
 			return this._getSibling("next"); // Element
 		},
 
-		getIndexInParent: function(){
+		getIndexInParent: function () {
 			// summary:
 			//		Returns the index of this widget within its container parent.
 			//		It returns -1 if the parent does not exist, or if the parent
 			//		is not a dui/_Container
 
 			var p = this.getParent();
-			if(!p || !p.getIndexOfChild){
+			if (!p || !p.getIndexOfChild) {
 				return -1; // int
 			}
 			return p.getIndexOfChild(this); // int

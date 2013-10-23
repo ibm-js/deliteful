@@ -9,20 +9,20 @@
 			"doh/runner",
 			"dojo/dom", "dojo/has", "dojo/_base/lang", "dojo/on", "dojo/touch",
 			"dui/register", "dui/_WidgetBase", "dojo/domReady!"
-		], function(doh, dom, has, lang, on, touch, register, _WidgetBase){
+		], function (doh, dom, has, lang, on, touch, register, _WidgetBase) {
 
 			var mousedOver, clicked;
 
 			doh.register("on", [
-				function setup(){
+				function setup() {
 					MyWidget = register("my-widget", [HTMLElement, _WidgetBase], {
-						postCreate: function(){
+						postCreate: function () {
 							on(this, "click", lang.hitch(this, "onFooBar"));
 						},
-						onFooBar: function(){
+						onFooBar: function () {
 							// This is called whenever the widget is clicked
 						},
-						foobar: function(){
+						foobar: function () {
 							// A widget.on("foobar") should go to onFooBar() (above), not here
 						}
 					});
@@ -30,23 +30,23 @@
 					register.parse();
 				},
 
-				function connect(){
+				function connect() {
 					// This should work despite the fact that the function onMouseOver has
 					// multiple capital letters
-					dom.byId("myWidget").on("mouseover", function(){
+					dom.byId("myWidget").on("mouseover", function () {
 						mousedOver = true;
 						console.log("mouseover event");
 					});
 
 					// Likewise, this should work despite the fact that the function onFooBar has
 					// multiple capital letters
-					dom.byId("myWidget").on("foobar", function(){
+					dom.byId("myWidget").on("foobar", function () {
 						clicked = true;
 						console.log("click event");
 					});
 				},
 
-				function test(){
+				function test() {
 					var myWidget = dom.byId("myWidget");
 
 					// Test that _WidgetBase.on() catches click event
@@ -68,13 +68,13 @@
 					doh.t(mousedOver, "mousedOver");
 				},
 
-				function synthetic(){
+				function synthetic() {
 					// Test that on() works for synthetic events
 
 					var myWidget = dom.byId("myWidget"),
-						touched;
+							touched;
 
-					myWidget.on(touch.press, function(){
+					myWidget.on(touch.press, function () {
 						touched = true;
 					});
 
@@ -87,13 +87,13 @@
 					doh.t(touched, "touched");
 				},
 
-				function syntheticNoCallbackArgs(){
+				function syntheticNoCallbackArgs() {
 					var evt = null;
 					var MyWidget = register("my-widget2", [HTMLElement, _WidgetBase], {
-						show: function(){
+						show: function () {
 							return this.emit('show');
 						},
-						onshow: function(e){
+						onshow: function (e) {
 							evt = e;
 						}
 					});
@@ -108,8 +108,8 @@
 	</script>
 </head>
 <body class="claro">
-	<my-widget id="myWidget">
-		mouseover and click events to console
-	</my-widget>
+<my-widget id="myWidget">
+	mouseover and click events to console
+</my-widget>
 </body>
 </html>

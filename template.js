@@ -1,7 +1,8 @@
-define(["./register"], function(register){
+define(["./register"], function (register) {
 
 	var attrMap = {};
-	function getProp(tag, attrName){
+
+	function getProp(tag, attrName) {
 		// summary:
 		//		Given a tag and attribute name, return the associated property name,
 		//		or undefined if no such property exists, for example:
@@ -10,10 +11,10 @@ define(["./register"], function(register){
 		//			- getProp("tabindex") --> "tabIndex"
 		//			- getProp("role") --> undefined
 
-		if(!(tag in attrMap)){
+		if (!(tag in attrMap)) {
 			var proto = register.createElement(tag),
 				map = attrMap[tag] = {};
-			for(var prop in proto){
+			for (var prop in proto) {
 				map[prop.toLowerCase()] = prop;
 			}
 			map["class"] = "className";
@@ -55,33 +56,33 @@ define(["./register"], function(register){
 		// Note: JSONML (http://www.ibm.com/developerworks/library/x-jsonml/#c7) represents elements as a single array
 		// like [tag, attributesHash, child1, child2, child3].  Should we do the same?   But attach points are tricky.
 
-		generateNodeChildrenCode: function(/*String*/ nodeName, /*Object[]*/ children){
+		generateNodeChildrenCode: function (/*String*/ nodeName, /*Object[]*/ children) {
 			// summary:
 			//		Return JS code to create and add children to a node named nodeName.
 
 			var text = "";
 
-			children.forEach(function(child, idx){
-				var childName = nodeName + "c" + (idx+1);
-				if(child.branch){
+			children.forEach(function (child, idx) {
+				var childName = nodeName + "c" + (idx + 1);
+				if (child.branch) {
 					// {{#if ...}} in Handlebars syntax
 					text += "if(this." + child.branch + "){\n";
 					text += this.generateNodeChildrenCode(nodeName, child.children);
 					text += "}\n";
-				}else if(child.each){
+				} else if (child.each) {
 					throw new Error("TODO: each not supported yet")
-				}else if(child.tag){
+				} else if (child.tag) {
 					// Standard DOM node, recurse
 					text += this.generateNodeCode(childName, child);
 					text += nodeName + ".appendChild(" + childName + ");\n";
-				}else if(child.property){
+				} else if (child.property) {
 					// text node bound to a widget property, ex: this.label
-					var textNodeName = childName + "t" + (idx+1);
+					var textNodeName = childName + "t" + (idx + 1);
 					text += "var " + textNodeName + " = doc.createTextNode(this." + child.property + ");\n";
 					text += nodeName + ".appendChild(" + textNodeName + ");\n";
 					text += "this.watch('" + child.property + "', function(a,o,n){ " + textNodeName +
 						".nodeValue = n; });\n";
-				}else{
+				} else {
 					// static text
 					text += nodeName + ".appendChild(doc.createTextNode('" + child + "'));\n";
 				}
@@ -90,7 +91,7 @@ define(["./register"], function(register){
 			return text;
 		},
 
-		generateNodeCode: function(/*String*/ nodeName, /*Object*/ templateNode){
+		generateNodeCode: function (/*String*/ nodeName, /*Object*/ templateNode) {
 			// summary:
 			//		Return JS code to create a node called nodeName based on templateNode.
 			//		Works recursively according to descendants of templateNode.
@@ -103,20 +104,20 @@ define(["./register"], function(register){
 			var text = "";
 
 			// Create node
-			if(nodeName != "this"){
+			if (nodeName != "this") {
 				text += "var " + nodeName + " = register.createElement('" + templateNode.tag + "');\n";
 			}
 
 			// Set attributes/properties
-			for(var attr in templateNode.attributes){
+			for (var attr in templateNode.attributes) {
 				// Get expression for the value of this property, ex: 'duiReset ' + this.baseClass.
 				// Also get list of properties that we need to watch for changes.
 				var parts = templateNode.attributes[attr];
-				var watchProps = [], js = parts.map(function(part){
-					if(part.property){
+				var watchProps = [], js = parts.map(function (part) {
+					if (part.property) {
 						watchProps.push(part.property);
 						return "widget." + part.property;	// note: "this" not available in func passed to watch()
-					}else{
+					} else {
 						return "'" + part + "'";
 					}
 				}).join(" + ");
@@ -126,7 +127,7 @@ define(["./register"], function(register){
 				var codeToSetProp = propName ? nodeName + "." + propName + "=" + js + ";" :
 					nodeName + ".setAttribute('" + attr + "', " + js + ");";
 				text += codeToSetProp + "\n";
-				watchProps.forEach(function(wp){
+				watchProps.forEach(function (wp) {
 					text += "this.watch('" + wp + "', function(){ " + codeToSetProp + " });\n";
 				});
 			}
@@ -137,7 +138,7 @@ define(["./register"], function(register){
 			return text;
 		},
 
-		codegen: function(/*Object*/ tree){
+		codegen: function (/*Object*/ tree) {
 			// summary:
 			//		Given an object tree as described in the module summary,
 			//		returns the text for a function to generate DOM corresponding to that template,
@@ -150,7 +151,7 @@ define(["./register"], function(register){
 				this.generateNodeCode("this", tree);
 		},
 
-		compile: function(tree){
+		compile: function (tree) {
 			// summary:
 			//		Given an object tree as described in the module summary,
 			//		returns a function to generate DOM corresponding to that template,

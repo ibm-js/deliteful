@@ -1,4 +1,4 @@
-define(["dcl/dcl"], function(dcl){
+define(["dcl/dcl"], function (dcl) {
 
 	// module:
 	//		dui/bidi/Button
@@ -11,9 +11,9 @@ define(["dcl/dcl"], function(dcl){
 		//		This class should not be used directly.
 		//		Button widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 
-		refreshRendering: dcl.after(function(){
+		refreshRendering: dcl.after(function () {
 			this.containerNode.textContent = this.wrapWithUcc(this.containerNode.textContent);
-			if(this.title){
+			if (this.title) {
 				this.title = this.wrapWithUcc(this.title);
 			}
 		})

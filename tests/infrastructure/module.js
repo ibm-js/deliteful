@@ -4,7 +4,7 @@ define([
 
 	// Core methods/modules [temporarily in dui?]
 	"./Stateful"
-], function(doh, require){
+], function (doh, require) {
 
 	// Utility methods (previously in dui/_base)
 	doh.register("focus", require.toUrl("./focus.html"), 999999);

@@ -3,12 +3,12 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dui/focus"
-], function(dom, lang, baseWindow, focus){
+], function (dom, lang, baseWindow, focus) {
 
 	// module:
 	//		dui/selection
 
-	var SelectionManager = function(win){
+	var SelectionManager = function (win) {
 		// summary:
 		//		Class for monitoring / changing the selection (typically highlighted text) in a given window
 		// win: Window
@@ -16,7 +16,7 @@ define([
 
 		var doc = win.document;
 
-		this.getType = function(){
+		this.getType = function () {
 			// summary:
 			//		Get the selection type (like doc.select.type in IE).
 
@@ -24,23 +24,24 @@ define([
 
 			// Check if the actual selection is a CONTROL (IMG, TABLE, HR, etc...).
 			var oSel;
-			try{
+			try {
 				oSel = win.getSelection();
-			}catch(e){ /*squelch*/ }
+			} catch (e) { /*squelch*/
+			}
 
-			if(oSel && oSel.rangeCount == 1){
+			if (oSel && oSel.rangeCount == 1) {
 				var oRange = oSel.getRangeAt(0);
-				if(	(oRange.startContainer == oRange.endContainer) &&
+				if ((oRange.startContainer == oRange.endContainer) &&
 					((oRange.endOffset - oRange.startOffset) == 1) &&
 					(oRange.startContainer.nodeType != 3 /* text node*/)
-					){
+					) {
 					stype = "control";
 				}
 			}
 			return stype; //String
 		};
 
-		this.getSelectedText = function(){
+		this.getSelectedText = function () {
 			// summary:
 			//		Return the text (no html tags) included in the current selection or null if no text is selected
 
@@ -48,15 +49,15 @@ define([
 			return selection ? selection.toString() : ""; //String
 		};
 
-		this.getSelectedHtml = function(){
+		this.getSelectedHtml = function () {
 			// summary:
 			//		Return the html text of the current selection or null if unavailable
 
 			var selection = win.getSelection();
-			if(selection && selection.rangeCount){
+			if (selection && selection.rangeCount) {
 				var i;
 				var html = "";
-				for(i = 0; i < selection.rangeCount; i++){
+				for (i = 0; i < selection.rangeCount; i++) {
 					//Handle selections spanning ranges, such as Opera
 					var frag = selection.getRangeAt(i).cloneContents();
 					var div = doc.createElement("div");
@@ -68,29 +69,31 @@ define([
 			return null;
 		};
 
-		this.getSelectedElement = function(){
+		this.getSelectedElement = function () {
 			// summary:
 			//		Retrieves the selected element (if any), just in the case that
 			//		a single element (object like and image or a table) is
 			//		selected.
-			if(this.getType() == "control"){
+			if (this.getType() == "control") {
 				var selection = win.getSelection();
 				return selection.anchorNode.childNodes[ selection.anchorOffset ];
 			}
 			return null;
 		};
 
-		this.getParentElement = function(){
+		this.getParentElement = function () {
 			// summary:
 			//		Get the parent element of the current selection
-			if(this.getType() == "control"){
+			if (this.getType() == "control") {
 				var p = this.getSelectedElement();
-				if(p){ return p.parentNode; }
-			}else{
+				if (p) {
+					return p.parentNode;
+				}
+			} else {
 				var selection = doc.getSelection();
-				if(selection){
+				if (selection) {
 					var node = selection.anchorNode;
-					while(node && (node.nodeType != 1)){ // not an element
+					while (node && (node.nodeType != 1)) { // not an element
 						node = node.parentNode;
 					}
 					return node;
@@ -99,7 +102,7 @@ define([
 			return null;
 		};
 
-		this.hasAncestorElement = function(/*String*/ tagName /* ... */){
+		this.hasAncestorElement = function (/*String*/ tagName /* ... */) {
 			// summary:
 			//		Check whether current selection has a  parent element which is
 			//		of type tagName (or one of the other specified tagName)
@@ -108,7 +111,7 @@ define([
 			return this.getAncestorElement.apply(this, arguments) != null; //Boolean
 		};
 
-		this.getAncestorElement = function(/*String*/ tagName /* ... */){
+		this.getAncestorElement = function (/*String*/ tagName /* ... */) {
 			// summary:
 			//		Return the parent element of the current selection which is of
 			//		type tagName (or one of the other specified tagName)
@@ -118,18 +121,18 @@ define([
 			return this.getParentOfType(node, arguments); //DOMNode
 		};
 
-		this.isTag = function(/*DomNode*/ node, /*String[]*/ tags){
+		this.isTag = function (/*DomNode*/ node, /*String[]*/ tags) {
 			// summary:
 			//		Function to determine if a node is one of an array of tags.
 			// node:
 			//		The node to inspect.
 			// tags:
 			//		An array of tag name strings to check to see if the node matches.
-			if(node && node.tagName){
+			if (node && node.tagName) {
 				var _nlc = node.tagName.toLowerCase();
-				for(var i=0; i<tags.length; i++){
+				for (var i = 0; i < tags.length; i++) {
 					var _tlc = String(tags[i]).toLowerCase();
-					if(_nlc == _tlc){
+					if (_nlc == _tlc) {
 						return _tlc; // String
 					}
 				}
@@ -137,15 +140,15 @@ define([
 			return "";
 		};
 
-		this.getParentOfType = function(/*DomNode*/ node, /*String[]*/ tags){
+		this.getParentOfType = function (/*DomNode*/ node, /*String[]*/ tags) {
 			// summary:
 			//		Function to locate a parent node that matches one of a set of tags
 			// node:
 			//		The node to inspect.
 			// tags:
 			//		An array of tag name strings to check to see if the node matches.
-			while(node){
-				if(this.isTag(node, tags).length){
+			while (node) {
+				if (this.isTag(node, tags).length) {
 					return node; // DOMNode
 				}
 				node = node.parentNode;
@@ -153,26 +156,26 @@ define([
 			return null;
 		};
 
-		this.collapse = function(/*Boolean*/ beginning){
+		this.collapse = function (/*Boolean*/ beginning) {
 			// summary:
 			//		Function to collapse (clear), the current selection
 			// beginning: Boolean
 			//		Indicates whether to collapse the cursor to the beginning of the selection or end.
 
 			var selection = win.getSelection();
-			if(selection.removeAllRanges){ // Mozilla
-				if(beginning){
+			if (selection.removeAllRanges) { // Mozilla
+				if (beginning) {
 					selection.collapseToStart();
-				}else{
+				} else {
 					selection.collapseToEnd();
 				}
-			}else{ // Safari
+			} else { // Safari
 				// pulled from WebCore/ecma/kjs_window.cpp, line 2536
 				selection.collapse(beginning);
 			}
 		};
 
-		this.remove = function(){
+		this.remove = function () {
 			// summary:
 			//		Function to delete the currently selected content from the document.
 			var sel = doc.selection;
@@ -182,7 +185,7 @@ define([
 			return sel; //Selection
 		};
 
-		this.selectElementChildren = function(/*DomNode*/ element, /*Boolean?*/ nochangefocus){
+		this.selectElementChildren = function (/*DomNode*/ element, /*Boolean?*/ nochangefocus) {
 			// summary:
 			//		clear previous selection and select the content of the node
 			//		(excluding the node itself)
@@ -198,7 +201,7 @@ define([
 			selection.selectAllChildren(element);
 		};
 
-		this.selectElement = function(/*DomNode*/ element){
+		this.selectElement = function (/*DomNode*/ element) {
 			// summary:
 			//		clear previous selection and select element (including all its children)
 			// element: DOMNode
@@ -206,41 +209,42 @@ define([
 
 			var selection = doc.getSelection(),
 				range = doc.createRange();
-			if(selection.removeAllRanges){ // Mozilla
+			if (selection.removeAllRanges) { // Mozilla
 				range.selectNode(element);
 				selection.removeAllRanges();
 				selection.addRange(range);
 			}
 		};
 
-		this.inSelection = function(node){
+		this.inSelection = function (node) {
 			// summary:
 			//		This function determines if 'node' is
 			//		in the current selection.
 			// tags:
 			//		public
-			if(node){
+			if (node) {
 				var newRange;
 				var range;
 
 				var sel = win.getSelection();
-				if(sel && sel.rangeCount > 0){
+				if (sel && sel.rangeCount > 0) {
 					range = sel.getRangeAt(0);
 				}
-				if(range && range.compareBoundaryPoints && doc.createRange){
-					try{
+				if (range && range.compareBoundaryPoints && doc.createRange) {
+					try {
 						newRange = doc.createRange();
 						newRange.setStart(node, 0);
-						if(range.compareBoundaryPoints(range.START_TO_END, newRange) === 1){
+						if (range.compareBoundaryPoints(range.START_TO_END, newRange) === 1) {
 							return true;
 						}
-					}catch(e){ /* squelch */}
+					} catch (e) { /* squelch */
+					}
 				}
 			}
 			return false; // Boolean
 		};
 
-		this.getBookmark = function(){
+		this.getBookmark = function () {
 			// summary:
 			//		Retrieves a bookmark that can be used with moveToBookmark to reselect the currently selected range.
 
@@ -249,14 +253,14 @@ define([
 			var bm, rg, tg, sel = doc.selection, cf = focus.curNode;
 
 			sel = win.getSelection();
-			if(sel){
-				if(sel.isCollapsed){
-					tg = cf? cf.tagName : "";
-					if(tg){
+			if (sel) {
+				if (sel.isCollapsed) {
+					tg = cf ? cf.tagName : "";
+					if (tg) {
 						// Create a fake rangelike item to restore selections.
 						tg = tg.toLowerCase();
-						if(tg == "textarea" ||
-							(tg == "input" && (!cf.type || cf.type.toLowerCase() == "text"))){
+						if (tg == "textarea" ||
+							(tg == "input" && (!cf.type || cf.type.toLowerCase() == "text"))) {
 							sel = {
 								start: cf.selectionStart,
 								end: cf.selectionEnd,
@@ -266,11 +270,11 @@ define([
 							return {isCollapsed: (sel.end <= sel.start), mark: sel}; //Object.
 						}
 					}
-					bm = {isCollapsed:true};
-					if(sel.rangeCount){
+					bm = {isCollapsed: true};
+					if (sel.rangeCount) {
 						bm.mark = sel.getRangeAt(0).cloneRange();
 					}
-				}else{
+				} else {
 					rg = sel.getRangeAt(0);
 					bm = {isCollapsed: false, mark: rg.cloneRange()};
 				}
@@ -278,7 +282,7 @@ define([
 			return bm; // Object
 		};
 
-		this.moveToBookmark = function(/*Object*/ bookmark){
+		this.moveToBookmark = function (/*Object*/ bookmark) {
 			// summary:
 			//		Moves current selection to a bookmark.
 			// bookmark:
@@ -287,25 +291,25 @@ define([
 			// TODO: merge additional code from Editor._moveToBookmark into this method
 
 			var mark = bookmark.mark;
-			if(mark){
+			if (mark) {
 				// W3C Range API (FF, WebKit, Opera, etc)
 				var sel = win.getSelection();
-				if(sel && sel.removeAllRanges){
-					if(mark.pRange){
+				if (sel && sel.removeAllRanges) {
+					if (mark.pRange) {
 						var n = mark.node;
 						n.selectionStart = mark.start;
 						n.selectionEnd = mark.end;
-					}else{
+					} else {
 						sel.removeAllRanges();
 						sel.addRange(mark);
 					}
-				}else{
+				} else {
 					console.warn("No idea how to restore selection for this browser!");
 				}
 			}
 		};
 
-		this.isCollapsed = function(){
+		this.isCollapsed = function () {
 			// summary:
 			//		Returns true if there is no text selected
 			return this.getBookmark().isCollapsed;

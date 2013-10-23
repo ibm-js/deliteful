@@ -1,58 +1,64 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<title>dui.mobile</title>
 	<style>
-	body {
-		font-family: Helvetica;
-		font-size: 17px;
-	}
-	.section {
-		font-weight: bold;
-		color: #008080;
-	}
-	.titleBar {
-		padding: 10px 0;
-	}
-	.contents {
-		margin-left: 30px;
-		font-weight: normal;
-		color: #000000;
-	}
-	.item {
-		position: relative;
-		border-bottom: 1px solid gray;
-	}
-	.anchor {
-		display: block;
-		padding: 10px 0;
-		text-decoration: none;
-	}
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+		}
+
+		.section {
+			font-weight: bold;
+			color: #008080;
+		}
+
+		.titleBar {
+			padding: 10px 0;
+		}
+
+		.contents {
+			margin-left: 30px;
+			font-weight: normal;
+			color: #000000;
+		}
+
+		.item {
+			position: relative;
+			border-bottom: 1px solid gray;
+		}
+
+		.anchor {
+			display: block;
+			padding: 10px 0;
+			text-decoration: none;
+		}
 	</style>
 	<script src="mobile_tests.js"></script>
 	<script>
-		function setRightIcon(icon){
+		function setRightIcon(icon) {
 			icon.src = "images/blackRightArrow16.png";
 		}
-		function setDownIcon(icon){
+		function setDownIcon(icon) {
 			icon.src = "images/blackDownArrow16.png";
 		}
-		function isRightIcon(icon){
+		function isRightIcon(icon) {
 			return (icon.src && icon.src.indexOf("Right") !== -1);
 		}
 
-		function sort(keys){
+		function sort(keys) {
 			var data = [];
-			for(var i = 0; i < keys.length; i++){
+			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
 				var items = [];
 				items.label = key.label;
-				for(var j = 0; j < tests.length; j++){
+				for (var j = 0; j < tests.length; j++) {
 					var item = tests[j];
 					var tags = item.tags ? item.tags.split(/,/) : [];
-					for(var k = 0; k < tags.length; k++){
-						if(tags[k] === key.tag){
+					for (var k = 0; k < tags.length; k++) {
+						if (tags[k] === key.tag) {
 							items.push(item);
 						}
 					}
@@ -61,7 +67,7 @@
 			}
 			return data;
 		}
-		function init(){
+		function init() {
 			var theme = document.getElementById("sel1").value;
 			var prio = document.getElementById("sel2").value;
 			var container = document.getElementById("container");
@@ -73,26 +79,30 @@
 			var itemPriority;
 			container.innerHTML = "";
 
-			for(i = 0; i < data.length; i++){
+			for (i = 0; i < data.length; i++) {
 				items = data[i];
-				if(items.length == 0){ continue; }
+				if (items.length == 0) {
+					continue;
+				}
 
 				displayedItems = []; // reinit
 				// collect the tests to be displayed according to the test priority
-				for(j = 0; j < items.length; j++){
+				for (j = 0; j < items.length; j++) {
 					item = items[j];
 					// test without a specified priority: defaults to low
 					itemPriority = item.priority || priority.low;
-					if(prio == "All" || itemPriority == prio ||
-						(prio == "HighAndMedium" &&
-							(itemPriority == priority.high || itemPriority == priority.medium)) ||
-						(prio == "MediumAndLow" &&
-							(itemPriority == priority.medium || itemPriority == priority.low))){
+					if (prio == "All" || itemPriority == prio ||
+							(prio == "HighAndMedium" &&
+									(itemPriority == priority.high || itemPriority == priority.medium)) ||
+							(prio == "MediumAndLow" &&
+									(itemPriority == priority.medium || itemPriority == priority.low))) {
 						displayedItems.push(item);
 					}
 				}
 
-				if(displayedItems.length == 0){ continue; }
+				if (displayedItems.length == 0) {
+					continue;
+				}
 
 				numberOfTests += displayedItems.length;
 				displayedItems.label = items.label; // copy
@@ -121,7 +131,7 @@
 				contents.style.display = "none";
 				section.appendChild(contents);
 
-				for(j = 0; j < displayedItems.length; j++){
+				for (j = 0; j < displayedItems.length; j++) {
 					item = displayedItems[j];
 					url = item.url;
 					label = item.label || item.url;
@@ -148,7 +158,7 @@
 			var titleBar = (node.className == "titleBar") ? node : node.parentNode;
 			var img = titleBar.childNodes[0];
 			var contents = titleBar.nextSibling;
-			if (isRightIcon(img)){
+			if (isRightIcon(img)) {
 				setDownIcon(img);
 				contents.style.display = "block";
 			}
@@ -159,42 +169,43 @@
 			e.cancelBubble = true;
 		}
 
-		function onThemeChange(){
+		function onThemeChange() {
 			var theme = document.getElementById("sel1").value;
 			var nodes = document.getElementsByTagName("a");
-			for(var i = 0; i < nodes.length; i++){
+			for (var i = 0; i < nodes.length; i++) {
 				var a = nodes[i];
 				a.href = a.href.replace(/(\?theme=.*)?$/, theme ? "?theme=" + theme : "");
 			}
 		}
 
-		function onPriorityChange(){
+		function onPriorityChange() {
 			init();
 		}
 	</script>
 </head>
 <body onload="init()">
-	Theme:
-	<select id="sel1" onchange="onThemeChange()">
-		<option value=""></option>
-		<option value="ios">ios</option>
-		<option value="holodark">holodark</option>
-		<option value="blackberry">blackberry</option>
-		<option value="windows">windows</option>
-		<option value="custom">custom</option>
-	</select>
-	Test priority:
-	<select id="sel2" onchange="onPriorityChange()">
-		<option value="All">All</option>
-		<option value="High">High</option>
-		<option value="HighAndMedium">High and medium</option>
-		<option value="Medium">Medium</option>
-		<option value="MediumAndLow">Medium and low</option>
-		<option value="Low">Low</option>
-	</select>
-	<br/>
-	Number of tests:
-	<input id="numberOfTests" readonly>
-	<div id="container"></div>
+Theme:
+<select id="sel1" onchange="onThemeChange()">
+	<option value=""></option>
+	<option value="ios">ios</option>
+	<option value="holodark">holodark</option>
+	<option value="blackberry">blackberry</option>
+	<option value="windows">windows</option>
+	<option value="custom">custom</option>
+</select>
+Test priority:
+<select id="sel2" onchange="onPriorityChange()">
+	<option value="All">All</option>
+	<option value="High">High</option>
+	<option value="HighAndMedium">High and medium</option>
+	<option value="Medium">Medium</option>
+	<option value="MediumAndLow">Medium and low</option>
+	<option value="Low">Low</option>
+</select>
+<br/>
+Number of tests:
+<input id="numberOfTests" readonly>
+
+<div id="container"></div>
 </body>
 </html>

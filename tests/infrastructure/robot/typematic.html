@@ -16,14 +16,14 @@
 			"doh/runner", "dojo/robotx",
 			"dojo/dom", "dojo/keys",
 			"dojo/domReady!"
-		], function(doh, robot, dom, keys){
+		], function (doh, robot, dom, keys) {
 			robot.initRobot('../test_typematic.html');
 
 			doh.register("press and hold test", [
 				{
 					name: "keyboard",
 					timeout: 9000,
-					runTest: function(){
+					runTest: function () {
 						var
 								d = new doh.Deferred(),
 								input = dom.byId("typematicInput"),
@@ -33,13 +33,13 @@
 
 						robot.keyDown(keys.CTRL, 1000);
 						robot.keyDown(keys.F11, 200);
-						robot.sequence(function(){
+						robot.sequence(function () {
 							v = input.value; // get value before releasing key to reduce timing dependence on the robot
 						}, 2000);
 						robot.keyUp(keys.F11, 100);
 						robot.keyUp(keys.CTRL, 100);
 
-						robot.sequence(d.getTestCallback(function(){
+						robot.sequence(d.getTestCallback(function () {
 							// allow off by 1
 							doh.t(v == "aaaaaaaaaa" || v == "aaaaaaaaaaa" || v == "aaaaaaaaaaaa", "a letters typed " + v);
 						}), 500);
@@ -50,7 +50,7 @@
 				{
 					name: "mouse",
 					timeout: 5000,
-					runTest: function(){
+					runTest: function () {
 						var
 								d = new doh.Deferred(),
 								input = dom.byId("typematicInput"),
@@ -59,12 +59,12 @@
 
 						robot.mouseMoveAt("typematicButton", 500, 1);
 						robot.mousePress({left: true}, 500);
-						robot.sequence(function(){
+						robot.sequence(function () {
 							v = input.value; // get value before releasing button to reduce timing dependence on the robot
 						}, 1000);
 						robot.mouseRelease({left: true}, 100);
 
-						robot.sequence(d.getTestCallback(function(){
+						robot.sequence(d.getTestCallback(function () {
 							// allow off by 1
 							doh.t(v == "bbbbbb" || v == "bbbbbbb" || v == "bbbbbbbb", "b letters typed " + v);
 						}), 500);
@@ -75,7 +75,7 @@
 				{
 					name: "double click",
 					timeout: 5000,
-					runTest: function(){
+					runTest: function () {
 						var
 								d = new doh.Deferred(),
 								input = dom.byId("typematicInput");
@@ -87,7 +87,7 @@
 						robot.mousePress({left: true}, 100);
 						robot.mouseRelease({left: true}, 100);
 
-						robot.sequence(d.getTestCallback(function(){
+						robot.sequence(d.getTestCallback(function () {
 							doh.is("bb", input.value, "b letters typed " + input.value);
 						}), 500);
 

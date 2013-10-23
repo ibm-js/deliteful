@@ -1,7 +1,7 @@
-define(["doh/main", "require", "dojo/sniff"], function(doh, require, has){
-	
+define(["doh/main", "require", "dojo/sniff"], function (doh, require, has) {
+
 	// StarRating
-	doh.registerUrl("dui.tests.doh.Bidi", require.toUrl("./StarRatingTests_Rtl.html"),999999);
+	doh.registerUrl("dui.tests.doh.Bidi", require.toUrl("./StarRatingTests_Rtl.html"), 999999);
 
 });
 

@@ -5,7 +5,7 @@ define([
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"./_FocusMixin" // to make _onBlur() work
-], function(dcl, domAttr, keys, lang, on, _FocusMixin){
+], function (dcl, domAttr, keys, lang, on, _FocusMixin) {
 
 	// module:
 	//		dui/_KeyNavMixin
@@ -51,11 +51,11 @@ define([
 		//		(ex: "> *") then the implementing class must require dojo/query.
 		childSelector: null,
 
-		postCreate: function(){
+		postCreate: function () {
 			// Set tabIndex on root node
 			domAttr.set(this.domNode, "tabIndex", this.tabIndex);
 
-			if(!this._keyNavCodes){
+			if (!this._keyNavCodes) {
 				var keyCodes = this._keyNavCodes = {};
 				keyCodes[keys.HOME] = lang.hitch(this, "focusFirstChild");
 				keyCodes[keys.END] = lang.hitch(this, "focusLastChild");
@@ -73,14 +73,14 @@ define([
 				on(this, "keypress", lang.hitch(this, "_onContainerKeypress")),
 				on(this, "keydown", lang.hitch(this, "_onContainerKeydown")),
 				on(this, "focus", lang.hitch(this, "_onContainerFocus")),
-				on(this.containerNode, on.selector(childSelector, "focusin"), function(evt){
+				on(this.containerNode, on.selector(childSelector, "focusin"), function (evt) {
 					// "this" refers to the DOMNode where the event occurred
 					self._onChildFocus(self.getEnclosingWidget(this), evt);
 				})
 			);
 		},
 
-		_onLeftArrow: function(){
+		_onLeftArrow: function () {
 			// summary:
 			//		Called on left arrow key, or right arrow key if widget is in RTL mode.
 			//		Should go back to the previous child in horizontal container widgets like Toolbar.
@@ -88,7 +88,7 @@ define([
 			//		extension
 		},
 
-		_onRightArrow: function(){
+		_onRightArrow: function () {
 			// summary:
 			//		Called on right arrow key, or left arrow key if widget is in RTL mode.
 			//		Should go to the next child in horizontal container widgets like Toolbar.
@@ -96,27 +96,27 @@ define([
 			//		extension
 		},
 
-		_onUpArrow: function(){
+		_onUpArrow: function () {
 			// summary:
 			//		Called on up arrow key. Should go to the previous child in vertical container widgets like Menu.
 			// tags:
 			//		extension
 		},
 
-		_onDownArrow: function(){
+		_onDownArrow: function () {
 			// summary:
 			//		Called on down arrow key. Should go to the next child in vertical container widgets like Menu.
 			// tags:
 			//		extension
 		},
 
-		focus: function(){
+		focus: function () {
 			// summary:
 			//		Default focus() implementation: focus the first child.
 			this.focusFirstChild();
 		},
 
-		_getFirstFocusableChild: function(){
+		_getFirstFocusableChild: function () {
 			// summary:
 			//		Returns first child that can be focused.
 
@@ -124,7 +124,7 @@ define([
 			return this._getNextFocusableChild(null, 1);	// dui/_WidgetBase
 		},
 
-		_getLastFocusableChild: function(){
+		_getLastFocusableChild: function () {
 			// summary:
 			//		Returns last child that can be focused.
 
@@ -132,7 +132,7 @@ define([
 			return this._getNextFocusableChild(null, -1);	// dui/_WidgetBase
 		},
 
-		focusFirstChild: function(){
+		focusFirstChild: function () {
 			// summary:
 			//		Focus the first focusable child in the container.
 			// tags:
@@ -141,7 +141,7 @@ define([
 			this.focusChild(this._getFirstFocusableChild());
 		},
 
-		focusLastChild: function(){
+		focusLastChild: function () {
 			// summary:
 			//		Focus the last focusable child in the container.
 			// tags:
@@ -150,7 +150,7 @@ define([
 			this.focusChild(this._getLastFocusableChild());
 		},
 
-		focusChild: function(/*dui/_WidgetBase*/ widget, /*Boolean*/ last){
+		focusChild: function (/*dui/_WidgetBase*/ widget, /*Boolean*/ last) {
 			// summary:
 			//		Focus specified child widget.
 			// widget:
@@ -169,7 +169,7 @@ define([
 			// returns) needs to know the old focusedChild to set its tabIndex to -1.
 		},
 
-		_onContainerFocus: function(evt){
+		_onContainerFocus: function (evt) {
 			// summary:
 			//		Handler for when the container itself gets focus.
 			// description:
@@ -190,21 +190,21 @@ define([
 			// Ignore spurious focus events:
 			//	1. focus on a child widget bubbles on FF
 			//	2. on IE, clicking the scrollbar of a select dropdown moves focus from the focused child item to me
-			if(evt.target !== this || this.focusedChild){
+			if (evt.target !== this || this.focusedChild) {
 				return;
 			}
 
 			this.focus();
 		},
 
-		_onFocus: dcl.after(function(){
+		_onFocus: dcl.after(function () {
 			// When the container gets focus by being tabbed into, or a descendant gets focus by being clicked,
 			// set the container's tabIndex to -1 (don't remove as that breaks Safari 4) so that tab or shift-tab
 			// will go to the fields after/before the container, rather than the container itself
 			domAttr.set(this, "tabIndex", "-1");
 		}),
 
-		_onBlur: dcl.after(function(evt){
+		_onBlur: dcl.after(function (evt) {
 			// When focus is moved away the container, and its descendant (popup) widgets,
 			// then restore the container's tabIndex so that user can tab to it again.
 			// Note that using _onBlur() so that this doesn't happen when focus is shifted
@@ -214,14 +214,14 @@ define([
 			// no focused child at that time.
 
 			domAttr.set(this, "tabIndex", this.tabIndex);
-			if(this.focusedChild){
+			if (this.focusedChild) {
 				this.focusedChild.tabIndex = "-1";
 				this.lastFocusedChild = this.focusedChild;
 				this._set("focusedChild", null);
 			}
 		}),
 
-		_onChildFocus: function(/*dui/_WidgetBase*/ child){
+		_onChildFocus: function (/*dui/_WidgetBase*/ child) {
 			// summary:
 			//		Called when a child widget gets focus, either by user clicking
 			//		it, or programatically by arrow key handling code.
@@ -229,8 +229,8 @@ define([
 			//		It marks that the current node is the selected one, and the previously
 			//		selected node no longer is.
 
-			if(child && child != this.focusedChild){
-				if(this.focusedChild && !this.focusedChild._destroyed){
+			if (child && child != this.focusedChild) {
+				if (this.focusedChild && !this.focusedChild._destroyed) {
 					// mark that the previously focusable node is no longer focusable
 					this.focusedChild.tabIndex = "-1";
 				}
@@ -251,18 +251,18 @@ define([
 		//		"ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
 		multiCharSearchDuration: 1000,
 
-		onKeyboardSearch: function(/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
+		onKeyboardSearch: function (/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches) {
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.
 			// tags:
 			//		protected
-			if(item){
+			if (item) {
 				this.focusChild(item);
 			}
 		},
 
-		_keyboardSearchCompare: function(/*dui/_WidgetBase*/ item, /*String*/ searchString){
+		_keyboardSearchCompare: function (/*dui/_WidgetBase*/ item, /*String*/ searchString) {
 			// summary:
 			//		Compares the searchString to the widget's text label, returning:
 			//
@@ -279,33 +279,33 @@ define([
 			return (!!searchString.length && currentString == searchString) ? -1 : 0; // stop searching after first match by default
 		},
 
-		_onContainerKeydown: function(evt){
+		_onContainerKeydown: function (evt) {
 			// summary:
 			//		When a key is pressed, if it's an arrow key etc. then it's handled here.
 			// tags:
 			//		private
 
 			var func = this._keyNavCodes[evt.keyCode];
-			if(func){
+			if (func) {
 				func(evt, this.focusedChild);
 				evt.stopPropagation();
 				evt.preventDefault();
 				this._searchString = ''; // so a DOWN_ARROW b doesn't search for ab
-			}else if(evt.keyCode == keys.SPACE && this._searchTimer && !(evt.ctrlKey || evt.altKey || evt.metaKey)){
+			} else if (evt.keyCode == keys.SPACE && this._searchTimer && !(evt.ctrlKey || evt.altKey || evt.metaKey)) {
 				evt.stopImmediatePropagation(); // stop a11yclick and _HasDropdown from seeing SPACE if we're doing keyboard searching
 				evt.preventDefault(); // stop IE from scrolling, and most browsers (except FF) from sending keypress
 				this._keyboardSearch(evt, ' ');
 			}
 		},
 
-		_onContainerKeypress: function(evt){
+		_onContainerKeypress: function (evt) {
 			// summary:
 			//		When a printable key is pressed, it's handled here, searching by letter.
 			// tags:
 			//		private
 
-			if(evt.charCode < keys.SPACE || evt.ctrlKey || evt.altKey || evt.metaKey ||
-					(evt.charCode == keys.SPACE && this._searchTimer)){
+			if (evt.charCode < keys.SPACE || evt.ctrlKey || evt.altKey || evt.metaKey ||
+				(evt.charCode == keys.SPACE && this._searchTimer)) {
 				// Avoid duplicate events on firefox (ex: arrow key that will be handled by keydown handler),
 				// and also control sequences like CMD-Q
 				return;
@@ -316,7 +316,7 @@ define([
 			this._keyboardSearch(evt, String.fromCharCode(evt.charCode).toLowerCase());
 		},
 
-		_keyboardSearch: function(/*Event*/ evt, /*String*/ keyChar){
+		_keyboardSearch: function (/*Event*/ evt, /*String*/ keyChar) {
 			// summary:
 			//		Perform a search of the widget's options based on the user's keyboard activity
 			// description:
@@ -329,8 +329,8 @@ define([
 				matchedItem = null,
 				searchString,
 				numMatches = 0,
-				search = lang.hitch(this, function(){
-					if(this._searchTimer){
+				search = lang.hitch(this, function () {
+					if (this._searchTimer) {
 						this._searchTimer.remove();
 					}
 					this._searchString += keyChar;
@@ -345,29 +345,29 @@ define([
 					//		this._searchString = '';
 					//	}, this.multiCharSearchDuration >> 1);
 					//}, this.multiCharSearchDuration >> 1);
-					this._searchTimer = this.defer(function(){ // this is the "success" timeout
+					this._searchTimer = this.defer(function () { // this is the "success" timeout
 						this._searchTimer = null;
 						this._searchString = '';
 					}, this.multiCharSearchDuration);
 					var currentItem = this.focusedChild || null;
-					if(searchLen == 1 || !currentItem){
+					if (searchLen == 1 || !currentItem) {
 						currentItem = this._getNextFocusableChild(currentItem, 1); // skip current
-						if(!currentItem){
+						if (!currentItem) {
 							return;
 						} // no items
 					}
 					var stop = currentItem;
-					do{
+					do {
 						var rc = this._keyboardSearchCompare(currentItem, searchString);
-						if(!!rc && numMatches++ == 0){
+						if (!!rc && numMatches++ == 0) {
 							matchedItem = currentItem;
 						}
-						if(rc == -1){ // priority match
+						if (rc == -1) { // priority match
 							numMatches = -1;
 							break;
 						}
 						currentItem = this._getNextFocusableChild(currentItem, 1);
-					}while(currentItem != stop);
+					} while (currentItem != stop);
 					// commented out code block to search again if the multichar search fails after a smaller timeout
 					//if(!numMatches && (this._typingSlowly || searchLen == 1)){
 					//	this._searchString = '';
@@ -384,7 +384,7 @@ define([
 			this.onKeyboardSearch(matchedItem, evt, searchString, numMatches);
 		},
 
-		_getNextFocusableChild: function(child, dir){
+		_getNextFocusableChild: function (child, dir) {
 			// summary:
 			//		Returns the next or previous focusable descendant, compared to "child".
 			//		Implements and extends _KeyNavMixin._getNextFocusableChild() for a _Container.
@@ -397,22 +397,24 @@ define([
 			//		abstract extension
 
 			var wrappedValue = child;
-			do{
-				if(!child){
+			do {
+				if (!child) {
 					child = this[dir > 0 ? "_getFirst" : "_getLast"]();
-					if(!child){ break; }
-				}else{
+					if (!child) {
+						break;
+					}
+				} else {
 					child = this._getNext(child, dir);
 				}
-				if(child != null && child != wrappedValue && child.isFocusable()){
+				if (child != null && child != wrappedValue && child.isFocusable()) {
 					return child;	// dui/_WidgetBase
 				}
-			}while(child != wrappedValue);
+			} while (child != wrappedValue);
 			// no focusable child found
 			return null;	// dui/_WidgetBase
 		},
 
-		_getFirst: function(){
+		_getFirst: function () {
 			// summary:
 			//		Returns the first child.
 			// tags:
@@ -421,7 +423,7 @@ define([
 			return null;	// dui/_WidgetBase
 		},
 
-		_getLast: function(){
+		_getLast: function () {
 			// summary:
 			//		Returns the last descendant.
 			// tags:
@@ -430,7 +432,7 @@ define([
 			return null;	// dui/_WidgetBase
 		},
 
-		_getNext: function(child, dir){
+		_getNext: function (child, dir) {
 			// summary:
 			//		Returns the next descendant, compared to "child".
 			// child: Widget
@@ -441,9 +443,9 @@ define([
 			// tags:
 			//		abstract extension
 
-			while(child){
+			while (child) {
 				child = child[dir < 0 ? "previousSibling" : "nextSibling"];
-				if(child && child.hasAttribute && child.buildRendering){
+				if (child && child.hasAttribute && child.buildRendering) {
 					return w; // dui/_WidgetBase
 				}
 			}

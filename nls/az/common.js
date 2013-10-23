@@ -1,8 +1,8 @@
 define(
-({
-	"buttonOk" : "Ok",
-	"buttonCancel" : "Ləğv et",
-	"buttonSave" : "Saxla",
-	"itemClose" : "Bağla"
-})
+	({
+		"buttonOk": "Ok",
+		"buttonCancel": "Ləğv et",
+		"buttonSave": "Saxla",
+		"itemClose": "Bağla"
+	})
 );

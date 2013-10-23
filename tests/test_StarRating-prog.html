@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>StarRating</title>
@@ -13,7 +14,7 @@
 		require([
 			"dui/StarRating",
 			"dojo/domReady!"
-		], function(StarRating){
+		], function (StarRating) {
 			var widget = new StarRating({
 				maximum: 10,
 				value: 5.5,
@@ -28,13 +29,16 @@
 			height: 14px;
 			width: 13px;
 			background-image: url('images/star-orange.png');
-		}		
+		}
+
 		.duiStarRatingEmptyStar {
 			background-position: -13px 0px;
 		}
+
 		.duiStarRatingHalfStar {
 			background-position: -26px 0px;
 		}
+
 		.duiStarRatingHalfStarRtl {
 			background-position: -39px 0px;
 		}

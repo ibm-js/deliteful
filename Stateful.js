@@ -1,15 +1,20 @@
-define(["dcl/dcl"], function(dcl){
+define(["dcl/dcl"], function (dcl) {
 	// module:
 	//		dui/Stateful
 
 	var apn = {};
-	function propNames(name){
+
+	function propNames(name) {
 		// summary:
 		//		Helper function to map "foo" --> "_setFooAttr" with caching to avoid recomputing strings.
 		//		Note: in dojo/Stateful they are _fooGetter and _fooSetter.
 
-		if(apn[name]){ return apn[name]; }
-		var uc = name.replace(/^[a-z]|-[a-zA-Z]/g, function(c){ return c.charAt(c.length-1).toUpperCase(); });
+		if (apn[name]) {
+			return apn[name];
+		}
+		var uc = name.replace(/^[a-z]|-[a-zA-Z]/g, function (c) {
+			return c.charAt(c.length - 1).toUpperCase();
+		});
 		return (apn[name] = {
 			p: "_" + name + "Attr",		// shadow property, since real property hidden by setter/getter
 			s: "_set" + uc + "Attr",	// converts dashes to camel case, ex: accept-charset --> _setAcceptCharsetAttr
@@ -40,25 +45,25 @@ define(["dcl/dcl"], function(dcl){
 		//	|	});
 		//	|	obj.foo = bar;
 
-		_getProps: function(){
+		_getProps: function () {
 			// summary:
 			//		Return the list of properties that should be watchable
 
 			var list = [];
-			for(var prop in this){
-				if(typeof this[prop] != "function" && !/^_/.test(prop)){
+			for (var prop in this) {
+				if (typeof this[prop] != "function" && !/^_/.test(prop)) {
 					list.push(prop);
 				}
 			}
 			return list;
 		},
 
-		_introspect: function(/*String[]*/ props){
+		_introspect: function (/*String[]*/ props) {
 			// summary:
 			//		Sets up ES5 getters/setters for each class property.
 			//		Inside _introspect(), "this" is a reference to the prototype rather than any individual instance.
 
-			props.forEach(function(prop){
+			props.forEach(function (prop) {
 				var names = propNames(prop),
 					shadowProp = names.p,
 					getter = names.g,
@@ -68,13 +73,13 @@ define(["dcl/dcl"], function(dcl){
 				// For a property named foo, saves raw value in _fooAttr.
 				// ES5 setter intentionally does late checking for this[names.s] in case a subclass sets up a
 				// _setFooAttr method.
-				if(!(shadowProp in this)){
+				if (!(shadowProp in this)) {
 					this[shadowProp] = this[prop];
 					Object.defineProperty(this, prop, {
-						set: function(x){
+						set: function (x) {
 							setter in this ? this[setter](x) : this._set(prop, x);
 						},
-						get: function(){
+						get: function () {
 							return getter in this ? this[getter]() : this[shadowProp];
 						}
 					});
@@ -83,26 +88,28 @@ define(["dcl/dcl"], function(dcl){
 		},
 
 		constructor: dcl.advise({
-			before: function(){
+			before: function () {
 				// First time this class is instantiated, introspect it.
 				// Use _introspected flag on constructor, rather than prototype, to avoid hits when superclass
 				// was already inspected but this class wasn't.
 				var ctor = this.constructor;
-				if(!ctor._introspected){
+				if (!ctor._introspected) {
 					// note: inside _introspect() this refs prototype
 					ctor.prototype._introspect(ctor.prototype._getProps());
 					ctor._introspected = true;
 				}
 			},
 
-			after: function(args){
+			after: function (args) {
 				// Automatic setting of params during construction.
 				// In after() advice so that it runs after all the subclass constructor methods.
-				if (args.length){ this.mix(args[0]); }
+				if (args.length) {
+					this.mix(args[0]);
+				}
 			}
 		}),
 
-		mix: function(/*Object*/ hash){
+		mix: function (/*Object*/ hash) {
 			// summary:
 			//		Set a hash of properties on a Stateful instance
 			//	|	myObj.mix({
@@ -110,14 +117,14 @@ define(["dcl/dcl"], function(dcl){
 			//	|		bar: 3
 			//	|	})
 
-			for(var x in hash){
-				if(hash.hasOwnProperty(x) && x != "_watchCallbacks"){
+			for (var x in hash) {
+				if (hash.hasOwnProperty(x) && x != "_watchCallbacks") {
 					this[x] = hash[x];
 				}
 			}
 		},
 
-		_set: function(name, value){		// note: called _changeAttrValue() in dojo/Stateful
+		_set: function (name, value) {		// note: called _changeAttrValue() in dojo/Stateful
 			// summary:
 			//		Internal helper for directly changing an attribute value.
 			// name: String
@@ -133,12 +140,12 @@ define(["dcl/dcl"], function(dcl){
 			var shadowPropName = propNames(name).p;
 			var oldValue = this[shadowPropName];
 			this[shadowPropName] = value;
-			if(this._watchCallbacks){
+			if (this._watchCallbacks) {
 				this._watchCallbacks(name, oldValue, value);
 			}
 		},
 
-		_get: function(name){
+		_get: function (name) {
 			// summary:
 			//		Internal helper for directly accessing an attribute value.
 			// name: String
@@ -152,7 +159,7 @@ define(["dcl/dcl"], function(dcl){
 			return this[propNames(name).p];
 		},
 
-		watch: function(/*String?*/ name, /*Function*/ callback){
+		watch: function (/*String?*/ name, /*Function*/ callback) {
 			// summary:
 			//		Watches a property for changes
 			// name:
@@ -170,40 +177,40 @@ define(["dcl/dcl"], function(dcl){
 			//		second argument as the old value and the third argument as the new value.
 
 			var callbacks = this._watchCallbacks;
-			if(!callbacks){
+			if (!callbacks) {
 				var self = this;
-				callbacks = this._watchCallbacks = function(name, oldValue, value, ignoreCatchall){
-					var notify = function(propertyCallbacks){
-						if(propertyCallbacks){
+				callbacks = this._watchCallbacks = function (name, oldValue, value, ignoreCatchall) {
+					var notify = function (propertyCallbacks) {
+						if (propertyCallbacks) {
 							propertyCallbacks = propertyCallbacks.slice();
-							for(var i = 0, l = propertyCallbacks.length; i < l; i++){
+							for (var i = 0, l = propertyCallbacks.length; i < l; i++) {
 								propertyCallbacks[i].call(self, name, oldValue, value);
 							}
 						}
 					};
 					notify(callbacks['_' + name]);
-					if(!ignoreCatchall){
+					if (!ignoreCatchall) {
 						notify(callbacks["*"]); // the catch-all
 					}
 				}; // we use a function instead of an object so it will be ignored by JSON conversion
 			}
-			if(!callback && typeof name === "function"){
+			if (!callback && typeof name === "function") {
 				callback = name;
 				name = "*";
-			}else{
+			} else {
 				// prepend with dash to prevent name conflicts with function (like "name" property)
 				name = '_' + name;
 			}
 			var propertyCallbacks = callbacks[name];
-			if(typeof propertyCallbacks !== "object"){
+			if (typeof propertyCallbacks !== "object") {
 				propertyCallbacks = callbacks[name] = [];
 			}
 			propertyCallbacks.push(callback);
 
 			return {
-				remove: function(){
+				remove: function () {
 					var index = propertyCallbacks.indexOf(callback);
-					if(index > -1){
+					if (index > -1) {
 						propertyCallbacks.splice(index, 1);
 					}
 				}

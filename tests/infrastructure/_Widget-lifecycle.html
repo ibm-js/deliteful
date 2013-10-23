@@ -12,10 +12,10 @@
 			"dojo/aspect", "dojo/dom",
 			"dui/register", "dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, aspect, dom, register, _WidgetBase){
+		], function (doh, aspect, dom, register, _WidgetBase) {
 
 			var obj = {
-				foo: function(){
+				foo: function () {
 					// summary: empty function that we connect to
 				}
 			};
@@ -24,9 +24,9 @@
 			var calls = 0;
 
 			TestWidget = register("test-widget", [HTMLElement, _WidgetBase], {
-				postCreate: function(){
+				postCreate: function () {
 					// Rather odd call to this.own() for testing the connections are dropped on destroy()
-					this.own(aspect.after(obj, "foo", function(){
+					this.own(aspect.after(obj, "foo", function () {
 						calls++;
 					}, true));
 				}
@@ -37,7 +37,7 @@
 			doh.register("create and destroy", [
 				{
 					name: "upgrade plain DOMNode",
-					runTest: function(t){
+					runTest: function (t) {
 						w = document.getElementById("w1");
 						register.upgrade(w);
 
@@ -49,7 +49,7 @@
 				},
 				{
 					name: "destroy",
-					runTest: function(t){
+					runTest: function (t) {
 						w.destroy();
 
 						doh.f(dom.byId("w1"), "widget no longer exists");
@@ -65,7 +65,7 @@
 				},
 				{
 					name: "destroy(true)  (preserving DOM node)",
-					runTest: function(t){
+					runTest: function (t) {
 						w = document.getElementById("w2");
 						register.upgrade(w);
 
@@ -77,7 +77,7 @@
 				},
 				{
 					name: "create with undefined id",
-					runTest: function(t){
+					runTest: function (t) {
 						// If id is "specified" as undefined, generate a new one
 						w = new TestWidget({id: undefined});
 
@@ -86,12 +86,12 @@
 				}
 			]);
 
-			doh.register("setter not called on creation", function(){
+			doh.register("setter not called on creation", function () {
 				// Setters are no longer called on creation except for parameters sent to new Foo(...)
 				var fooSetterCalled = false;
 				var MyWidget = register("my-widget", [HTMLElement, _WidgetBase], {
 					foo: 345,
-					_setFooAttr: function(val){
+					_setFooAttr: function (val) {
 						fooSetterCalled = val;
 						this._set("foo", val);
 					}
@@ -108,7 +108,7 @@
 	</script>
 </head>
 <body class="claro">
-	<test-widget id="w1"></test-widget>
-	<test-widget id="w2"></test-widget>
+<test-widget id="w1"></test-widget>
+<test-widget id="w2"></test-widget>
 </body>
 </html>

@@ -1,6 +1,6 @@
 define(
-({
-	"loadingState" : "Yüklənir...",
-	"errorState" : "Problem yarandı"
-})
+	({
+		"loadingState": "Yüklənir...",
+		"errorState": "Problem yarandı"
+	})
 );

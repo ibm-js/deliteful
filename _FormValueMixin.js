@@ -1,7 +1,7 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-attr" // domAttr.set
-], function(dcl, domAttr){
+], function (dcl, domAttr) {
 
 	// module:
 	//		dui/_FormValueMixin
@@ -26,7 +26,7 @@ define([
 		//		Fires onChange for each value change or only on demand
 		intermediateChanges: false,
 
-		_setReadOnlyAttr: function(/*Boolean*/ value){
+		_setReadOnlyAttr: function (/*Boolean*/ value) {
 			domAttr.set(this.focusNode, 'readOnly', value);
 			this._set("readOnly", value);
 		},
@@ -35,30 +35,30 @@ define([
 		//		The last value fired to onChange.
 		previousOnChangeValue: undefined,
 
-		onChange: function(/*===== newValue =====*/){
+		onChange: function (/*===== newValue =====*/) {
 			// summary:
 			//		Callback when this widget's value is changed.
 			// tags:
 			//		callback
 		},
 
-		compare: function(/*anything*/ val1, /*anything*/ val2){
+		compare: function (/*anything*/ val1, /*anything*/ val2) {
 			// summary:
 			//		Compare 2 values (as returned by get('value') for this widget).
 			// tags:
 			//		protected
-			if(typeof val1 == "number" && typeof val2 == "number"){
+			if (typeof val1 == "number" && typeof val2 == "number") {
 				return (isNaN(val1) && isNaN(val2)) ? 0 : val1 - val2;
-			}else if(val1 > val2){
+			} else if (val1 > val2) {
 				return 1;
-			}else if(val1 < val2){
+			} else if (val1 < val2) {
 				return -1;
-			}else{
+			} else {
 				return 0;
 			}
 		},
 
-		_handleOnChange: function(/*anything*/ newValue, /*Boolean?*/ priorityChange){
+		_handleOnChange: function (/*anything*/ newValue, /*Boolean?*/ priorityChange) {
 			// summary:
 			//		Called when the value of the widget is set.  Calls onChange() if appropriate
 			// newValue:
@@ -72,16 +72,16 @@ define([
 			this._pendingOnChange = this._pendingOnChange
 				|| (typeof newValue != typeof this.previousOnChangeValue)
 				|| (this.compare(newValue, this.previousOnChangeValue) != 0);
-			if((this.intermediateChanges || priorityChange || priorityChange === undefined) && this._pendingOnChange){
+			if ((this.intermediateChanges || priorityChange || priorityChange === undefined) && this._pendingOnChange) {
 				this.previousOnChangeValue = newValue;
 				this._pendingOnChange = false;
-				if(this._onChangeHandle){
+				if (this._onChangeHandle) {
 					this._onChangeHandle.remove();
 				}
 				// defer allows hidden value processing to run and
 				// also the onChange handler can safely adjust focus, etc
 				this._onChangeHandle = this.defer(
-					function(){
+					function () {
 						this._onChangeHandle = null;
 						this.onChange(newValue);
 					}

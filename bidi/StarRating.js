@@ -3,7 +3,7 @@ define([
 	"dojo/has",
 	"dojo/keys",
 	"dojo/dom-construct"
-], function(dcl, has, keys, domConstruct){
+], function (dcl, has, keys, domConstruct) {
 
 	// module:
 	//		dui/bidi/StarRating
@@ -16,38 +16,38 @@ define([
 		//		This class should not be used directly.
 		//		StarRating widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 
-		startup: function(){
-			if(!this.isLeftToRight()){
+		startup: function () {
+			if (!this.isLeftToRight()) {
 				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
 				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];
 			}
 		},
 
-		_inZeroSettingArea: dcl.superCall(function(sup){
-			return function(/*Number*/x, /*Number*/domNodeWidth){
-				if(this.isLeftToRight()){
+		_inZeroSettingArea: dcl.superCall(function (sup) {
+			return function (/*Number*/x, /*Number*/domNodeWidth) {
+				if (this.isLeftToRight()) {
 					return sup.call(this, x, domNodeWidth);
-				}else{
+				} else {
 					return x > (domNodeWidth - this.zeroAreaWidth);
 				}
 			};
 		}),
 
-		_xToRawValue: dcl.superCall(function(sup){
-			return function(/*Number*/x, /*Number*/domNodeWidth){
+		_xToRawValue: dcl.superCall(function (sup) {
+			return function (/*Number*/x, /*Number*/domNodeWidth) {
 				var starStripLength = domNodeWidth - this.zeroAreaWidth;
-				if(this.isLeftToRight()){
+				if (this.isLeftToRight()) {
 					return sup.call(this, x, domNodeWidth);
-				}else{
+				} else {
 					return (starStripLength - x) / (starStripLength / this.maximum);
 				}
 			};
 		}),
 
-		_setZeroAreaWidthAttr: dcl.superCall(function(sup){
-			return function(/*Number*/value){
+		_setZeroAreaWidthAttr: dcl.superCall(function (sup) {
+			return function (/*Number*/value) {
 				sup.call(this, value);
-				if(!this.isLeftToRight()){
+				if (!this.isLeftToRight()) {
 					// Zero setting area is on the right side
 					this.style.paddingLeft = "0px";
 					this.style.paddingRight = this.zeroAreaWidth + "px";
@@ -55,26 +55,26 @@ define([
 			};
 		}),
 
-		_updateStars: dcl.superCall(function(sup){
-			return function(/*Number*/value, /*Boolean*/create){
-				if(this.isLeftToRight()){
+		_updateStars: dcl.superCall(function (sup) {
+			return function (/*Number*/value, /*Boolean*/create) {
+				if (this.isLeftToRight()) {
 					return sup.call(this, value, create);
-				}else{
+				} else {
 					var i, index, parent, starClass;
-					for(i = 0; i < this.maximum; i++){
+					for (i = 0; i < this.maximum; i++) {
 						index = (this.maximum - i - 1);
-						if(index <= value - 1){
+						if (index <= value - 1) {
 							starClass = this.baseClass + "FullStar";
-						}else if(index >= value){
+						} else if (index >= value) {
 							starClass = this.baseClass + "EmptyStar";
-						}else{
+						} else {
 							starClass = this.baseClass + "HalfStarRtl";
 						}
-						if(create){
+						if (create) {
 							parent = domConstruct.create("div", {
 								style: {"float": "left"}
 							}, this);
-						}else{
+						} else {
 							parent = this.children[i];
 						}
 						parent.className = this.baseClass + "StarIcon " + starClass;

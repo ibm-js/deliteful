@@ -6,7 +6,7 @@ define([
 	"./register",
 	"./_WidgetBase",
 	"dojo/NodeList-dom"
-], function(aspect, lang, parser, query, register, _WidgetBase){
+], function (aspect, lang, parser, query, register, _WidgetBase) {
 
 	// module:
 	//		dui/Declaration
@@ -38,7 +38,7 @@ define([
 		//		ex: ["dui._WidgetBase", "dui._Container"]
 		mixins: [],
 
-		buildRendering: function(){
+		buildRendering: function () {
 			var src = this.srcNodeRef.parentNode.removeChild(this.srcNodeRef),
 				methods = query("> script[type='dojo/method']", src).orphan(),
 				aspects = query("> script[type='dojo/aspect']", src).orphan(),
@@ -50,12 +50,12 @@ define([
 			// add that method to prototype.
 			// If there's no "event" specified then it's code to run on instantiation,
 			// so it becomes a connection to "postscript" (handled below).
-			methods.forEach(function(s){
+			methods.forEach(function (s) {
 				var evt = s.getAttribute("data-dojo-event"),
 					func = parser._functionFromScript(s, "data-dojo-");
-				if(evt){
+				if (evt) {
 					propList[evt] = func;
-				}else{
+				} else {
 					aspects.push(s);
 				}
 			});
@@ -63,20 +63,22 @@ define([
 			// map array of strings like [ "dui.form.Button" ] to array of mixin objects
 			// (note that this.mixins.map(lang.getObject) doesn't work because it passes
 			// a bogus third argument to getObject(), confusing it)
-			if(this.mixins.length){
-				this.mixins = this.mixins.map(function(name){ return lang.getObject(name); } );
-			}else{
+			if (this.mixins.length) {
+				this.mixins = this.mixins.map(function (name) {
+					return lang.getObject(name);
+				});
+			} else {
 				this.mixins = [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ];
 			}
 
 			propList._skipNodeCache = true;
 			propList.templateString =
-				"<"+srcType+" class='"+src.className+"'" +
-				" data-dojo-attach-point='"+
-					(src.getAttribute("data-dojo-attach-point") || '')+
-				"' data-dojo-attach-event='"+
-					(src.getAttribute("data-dojo-attach-event") || '')+
-				"' >"+src.innerHTML.replace(/\%7B/g,"{").replace(/\%7D/g,"}")+"</"+srcType+">";
+				"<" + srcType + " class='" + src.className + "'" +
+					" data-dojo-attach-point='" +
+					(src.getAttribute("data-dojo-attach-point") || '') +
+					"' data-dojo-attach-event='" +
+					(src.getAttribute("data-dojo-attach-event") || '') +
+					"' >" + src.innerHTML.replace(/\%7B/g, "{").replace(/\%7D/g, "}") + "</" + srcType + ">";
 
 			// create the new widget class
 			var wc = register(
@@ -92,7 +94,7 @@ define([
 			// (Note that the second one is just shorthand for a dojo/aspect to postscript)
 			// Since this is a connect in the declaration, we are actually connection to the method
 			// in the _prototype_.
-			aspects.forEach(function(s){
+			aspects.forEach(function (s) {
 				var advice = s.getAttribute("data-dojo-advice") || "after",
 					method = s.getAttribute("data-dojo-method") || "postscript",
 					func = parser._functionFromScript(s);

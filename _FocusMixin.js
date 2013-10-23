@@ -2,7 +2,7 @@ define([
 	"./focus",
 	"./_WidgetBase",
 	"dcl/dcl"
-], function(focus, _WidgetBase, dcl){
+], function (focus, _WidgetBase, dcl) {
 
 	// module:
 	//		dui/_FocusMixin

@@ -1,4 +1,4 @@
-define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadStore){
+define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function (dcl, ItemFileReadStore) {
 
 	return dcl(ItemFileReadStore, {
 		// summary:
@@ -12,17 +12,17 @@ define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadSto
 
 		declaredClass: "dui.tests._data.SlowStore",
 
-		constructor: function(){
+		constructor: function () {
 			this.log = [];
 		},
 
-		fetch: function(/* Object */ keywordArgs){
+		fetch: function (/* Object */ keywordArgs) {
 			// Get the query phrase (store into first), and the # of chars it has
 			var count = 0;
 			var first;
-			if("query" in keywordArgs){
+			if ("query" in keywordArgs) {
 				var query = keywordArgs.query;
-				for(var attr in query){
+				for (var attr in query) {
 					first = query[attr];
 					break;
 				}
@@ -30,20 +30,20 @@ define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadSto
 			}
 
 			var delay = 100;
-			switch(count || 0){
-				case 0:
-					delay = 2000;
-					break;
-				case 1:
-				case 2:
-					delay = 1000;
-					break;
-				case 3:
-					delay = 500;
-					break;
-				case 4:
-					delay = 100;
-					break;
+			switch (count || 0) {
+			case 0:
+				delay = 2000;
+				break;
+			case 1:
+			case 2:
+				delay = 1000;
+				break;
+			case 3:
+				delay = 500;
+				break;
+			case 4:
+				delay = 100;
+				break;
 			}
 
 			this.log.push({
@@ -57,7 +57,7 @@ define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadSto
 
 			var that = this,
 				thatArgs = arguments;
-			var handle = setTimeout(function(){
+			var handle = setTimeout(function () {
 				that.log.push({
 					type: "end",
 					date: new Date(),
@@ -72,7 +72,7 @@ define(["dcl/dcl", "dojo/data/ItemFileReadStore"], function(dcl, ItemFileReadSto
 			// This abort() method cancels a request before it has even been sent to ItemFileReadStore.
 			// (Since ItemFileReadStore has already loaded the data (as per code in the test file),
 			// it operates synchronously; there is never a case to send the cancel request to that object)
-			keywordArgs.abort = function(){
+			keywordArgs.abort = function () {
 				clearTimeout(handle);
 				that.log.push({
 					type: "cancel",

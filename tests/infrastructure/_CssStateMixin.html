@@ -11,11 +11,11 @@
 			"dojo/dom-class",
 			"dui/register", "dui/_CssStateMixin",
 			"dojo/domReady!"
-		], function(doh, domClass, register, _CssStateMixin){
+		], function (doh, domClass, register, _CssStateMixin) {
 
 			doh.register("_CssStateMixin", [
 				// Test attributes mapped to DOMNodes
-				function basic(){
+				function basic() {
 					var CssWidget = register("dui-css-widget", [HTMLElement, _CssStateMixin], {
 						baseClass: "duiCss foo",
 						state: "",

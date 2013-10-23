@@ -1,6 +1,6 @@
 define(
-({
-	loadingState: "Загрузка...",
-	errorState: "Извините, возникла ошибка"
-})
+	({
+		loadingState: "Загрузка...",
+		errorState: "Извините, возникла ошибка"
+	})
 );

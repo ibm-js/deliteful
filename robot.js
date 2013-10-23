@@ -1,6 +1,6 @@
 define([
 	"dojo/robot"
-], function(){
+], function () {
 	// module:
 	//		dui/robot
 	// summary:

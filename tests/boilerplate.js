@@ -20,35 +20,37 @@
 var dir = "",
 	testMode = null,
 	locale;
-if(window.location.href.indexOf("?") > -1){
-	var str = window.location.href.substr(window.location.href.indexOf("?")+1).split(/#/);
-	var ary  = str[0].split(/&/);
-	for(var i = 0; i < ary.length; i++){
+if (window.location.href.indexOf("?") > -1) {
+	var str = window.location.href.substr(window.location.href.indexOf("?") + 1).split(/#/);
+	var ary = str[0].split(/&/);
+	for (var i = 0; i < ary.length; i++) {
 		var split = ary[i].split("="),
 			key = split[0],
-			value = (split[1]||'').replace(/[^\w]/g, "");	// replace() to prevent XSS attack
-		switch(key){
-			case "locale":
-				// locale string | null
-				locale = value;
-				break;
-			case "dir":
-				// rtl | null
-				dir = value;
-				break;
-			case "a11y":
-				if(value){ testMode = "dj_a11y"; }
-				break;
+			value = (split[1] || '').replace(/[^\w]/g, "");	// replace() to prevent XSS attack
+		switch (key) {
+		case "locale":
+			// locale string | null
+			locale = value;
+			break;
+		case "dir":
+			// rtl | null
+			dir = value;
+			break;
+		case "a11y":
+			if (value) {
+				testMode = "dj_a11y";
+			}
+			break;
 		}
 	}
 }
 
 // Find the <script src="boilerplate.js"> tag, to get test directory and data-dojo-config argument
 var scripts = document.getElementsByTagName("script"), script, overrides = {};
-for(i = 0; script = scripts[i]; i++){
+for (i = 0; script = scripts[i]; i++) {
 	var src = script.getAttribute("src"),
 		match = src && src.match(/(.*|^)boilerplate\.js/i);
-	if(match){
+	if (match) {
 		// Sniff location of dui/tests directory relative to this test file.   testDir will be an empty string if it's
 		// the same directory, or a string including a slash, ex: "../", if the test is in a subdirectory.
 		testDir = match[1];
@@ -57,7 +59,7 @@ for(i = 0; script = scripts[i]; i++){
 		// Allows syntax like <script src="boilerplate.js data-dojo-config="parseOnLoad: true">, where the settings
 		// specified override the default settings.
 		var attr = script.getAttribute("data-dojo-config");
-		if(attr){
+		if (attr) {
 			overrides = eval("({ " + attr + " })");
 		}
 		break;
@@ -68,10 +70,10 @@ for(i = 0; script = scripts[i]; i++){
 require = {
 	baseUrl: testDir + "../../",
 	packages: [
-		{name:'dojo', location:'dojo'},
-		{name:'dui', location:'dui'},
-		{name:'dojox', location:'dojox'},
-		{name:'doh', location:'util/doh'}
+		{name: 'dojo', location: 'dojo'},
+		{name: 'dui', location: 'dui'},
+		{name: 'dojox', location: 'dojox'},
+		{name: 'doh', location: 'util/doh'}
 	],
 	locale: locale || "en-us",
 	config: {
@@ -80,7 +82,7 @@ require = {
 		}
 	}
 };
-for(var key in overrides){
+for (var key in overrides) {
 	require[key] = overrides[key];
 }
 
@@ -92,20 +94,20 @@ document.write('<script type="text/javascript" src="' + testDir + '../../require
 //document.write('<script type="text/javascript">require(["dojo/domReady!"], boilerplateOnLoad);</script>');
 document.write('<script type="text/javascript" src="' + testDir + 'boilerplateOnload.js"></script>');
 
-function boilerplateOnLoad(){
+function boilerplateOnLoad() {
 	// This function is the first registered domReady() callback.
 
 	// a11y (flag for faux high-contrast testing)
-	if(testMode){
+	if (testMode) {
 		document.body.className += " " + testMode;
 	}
 
 	// BIDI
-	if(dir == "rtl"){
+	if (dir == "rtl") {
 		// set dir=rtl on <html> node
 		document.body.parentNode.setAttribute("dir", "rtl");
 
-		require(["dojo/query!css2", "dojo/NodeList-dom"], function(query){
+		require(["dojo/query!css2", "dojo/NodeList-dom"], function (query) {
 			// pretend all the labels are in an RTL language, because
 			// that affects how they lay out relative to inline form widgets
 			query("label").attr("dir", "rtl");
@@ -113,7 +115,7 @@ function boilerplateOnLoad(){
 	}
 
 	// parseOnLoad: true requires that the parser itself be loaded.
-	if(require.parseOnLoad){
+	if (require.parseOnLoad) {
 		require(["dojo/parser"]);
 	}
 }

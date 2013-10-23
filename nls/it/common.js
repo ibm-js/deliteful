@@ -1,8 +1,8 @@
 define(
-({
-	buttonOk: "Ok",
-	buttonCancel: "Annulla",
-	buttonSave: "Salva",
-	itemClose: "Chiudi"
-})
+	({
+		buttonOk: "Ok",
+		buttonCancel: "Annulla",
+		buttonSave: "Salva",
+		itemClose: "Chiudi"
+	})
 );

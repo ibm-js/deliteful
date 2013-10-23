@@ -1,8 +1,8 @@
 define(
-({
-	buttonOk: "V redu",
-	buttonCancel: "Prekliči",
-	buttonSave: "Shrani",
-	itemClose: "Zapri"
-})
+	({
+		buttonOk: "V redu",
+		buttonCancel: "Prekliči",
+		buttonSave: "Shrani",
+		itemClose: "Zapri"
+	})
 );

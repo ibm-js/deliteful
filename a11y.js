@@ -2,7 +2,7 @@ define([
 	"dojo/dom",			// dom.byId
 	"dojo/dom-attr", // domAttr.attr domAttr.has
 	"dojo/dom-style" // domStyle.style
-], function(dom, domAttr, domStyle){
+], function (dom, domAttr, domStyle) {
 
 	// module:
 	//		dui/a11y
@@ -13,7 +13,7 @@ define([
 		// summary:
 		//		Accessibility utility functions (keyboard, tab stops, etc.)
 
-		_isElementShown: function(/*Element*/ elem){
+		_isElementShown: function (/*Element*/ elem) {
 			var s = domStyle.get(elem);
 			return (s.visibility != "hidden")
 				&& (s.visibility != "collapsed")
@@ -21,67 +21,67 @@ define([
 				&& (domAttr.get(elem, "type") != "hidden");
 		},
 
-		hasDefaultTabStop: function(/*Element*/ elem){
+		hasDefaultTabStop: function (/*Element*/ elem) {
 			// summary:
 			//		Tests if element is tab-navigable even without an explicit tabIndex setting
 
 			// No explicit tabIndex setting, need to investigate node type
-			switch(elem.nodeName.toLowerCase()){
-				case "a":
-					// An <a> w/out a tabindex is only navigable if it has an href
-					return domAttr.has(elem, "href");
-				case "area":
-				case "button":
-				case "input":
-				case "object":
-				case "select":
-				case "textarea":
-					// These are navigable by default
+			switch (elem.nodeName.toLowerCase()) {
+			case "a":
+				// An <a> w/out a tabindex is only navigable if it has an href
+				return domAttr.has(elem, "href");
+			case "area":
+			case "button":
+			case "input":
+			case "object":
+			case "select":
+			case "textarea":
+				// These are navigable by default
+				return true;
+			case "iframe":
+				// If it's an editor <iframe> then it's tab navigable.
+				var contentDocument = elem.contentDocument;
+				if ("designMode" in contentDocument && contentDocument.designMode == "on") {
 					return true;
-				case "iframe":
-					// If it's an editor <iframe> then it's tab navigable.
-					var contentDocument = elem.contentDocument;
-					if("designMode" in contentDocument && contentDocument.designMode == "on"){
-						return true;
-					}
-					var body = contentDocument.body;
-					return body && (body.contentEditable == 'true' ||
-						(body.firstChild && body.firstChild.contentEditable == 'true'));
-				default:
-					return elem.contentEditable == 'true';
+				}
+				var body = contentDocument.body;
+				return body && (body.contentEditable == 'true' ||
+					(body.firstChild && body.firstChild.contentEditable == 'true'));
+			default:
+				return elem.contentEditable == 'true';
 			}
 		},
 
-		effectiveTabIndex: function(/*Element*/ elem){
+		effectiveTabIndex: function (/*Element*/ elem) {
 			// summary:
 			//		Returns effective tabIndex of an element, either a number, or undefined if element isn't focusable.
 
-			if(domAttr.get(elem, "disabled")){
+			if (domAttr.get(elem, "disabled")) {
 				return undefined;
-			}else if(domAttr.has(elem, "tabIndex")){
+			} else if (domAttr.has(elem, "tabIndex")) {
 				// Explicit tab index setting
 				return +domAttr.get(elem, "tabIndex");// + to convert string --> number
-			}else{
+			} else {
 				// No explicit tabIndex setting, so depends on node type
 				return a11y.hasDefaultTabStop(elem) ? 0 : undefined;
 			}
 		},
 
-		isTabNavigable: function(/*Element*/ elem){
+		isTabNavigable: function (/*Element*/ elem) {
 			// summary:
 			//		Tests if an element is tab-navigable
 
 			return a11y.effectiveTabIndex(elem) >= 0;
 		},
 
-		isFocusable: function(/*Element*/ elem){
+		isFocusable: function (/*Element*/ elem) {
 			// summary:
 			//		Tests if an element is focusable by tabbing to it, or clicking it with the mouse.
 
 			return a11y.effectiveTabIndex(elem) >= -1;
 		},
 
-		_getTabNavigable: function(/*DOMNode*/ root){
+		_getTabNavigable: function (/*DOMNode*/ root) {
 			// summary:
 			//		Finds descendants of the specified root node.
 			// description:
@@ -97,7 +97,7 @@ define([
 			//		  positive tabIndex value
 			var first, last, lowest, lowestTabindex, highest, highestTabindex, radioSelected = {};
 
-			function radioName(node){
+			function radioName(node) {
 				// If this element is part of a radio button group, return the name for that group.
 				return node && node.tagName.toLowerCase() == "input" &&
 					node.type && node.type.toLowerCase() == "radio" &&
@@ -105,44 +105,44 @@ define([
 			}
 
 			var shown = a11y._isElementShown, effectiveTabIndex = a11y.effectiveTabIndex;
-			var walkTree = function(/*DOMNode*/ parent){
-				for(var child = parent.firstChild; child; child = child.nextSibling){
+			var walkTree = function (/*DOMNode*/ parent) {
+				for (var child = parent.firstChild; child; child = child.nextSibling) {
 					// Skip text elements, hidden elements
-					if(child.nodeType != 1 || !shown(child)){
+					if (child.nodeType != 1 || !shown(child)) {
 						continue;
 					}
 
 					var tabindex = effectiveTabIndex(child);
-					if(tabindex >= 0){
-						if(tabindex == 0){
-							if(!first){
+					if (tabindex >= 0) {
+						if (tabindex == 0) {
+							if (!first) {
 								first = child;
 							}
 							last = child;
-						}else if(tabindex > 0){
-							if(!lowest || tabindex < lowestTabindex){
+						} else if (tabindex > 0) {
+							if (!lowest || tabindex < lowestTabindex) {
 								lowestTabindex = tabindex;
 								lowest = child;
 							}
-							if(!highest || tabindex >= highestTabindex){
+							if (!highest || tabindex >= highestTabindex) {
 								highestTabindex = tabindex;
 								highest = child;
 							}
 						}
 						var rn = radioName(child);
-						if(domAttr.get(child, "checked") && rn){
+						if (domAttr.get(child, "checked") && rn) {
 							radioSelected[rn] = child;
 						}
 					}
-					if(child.nodeName.toUpperCase() != 'SELECT'){
+					if (child.nodeName.toUpperCase() != 'SELECT') {
 						walkTree(child);
 					}
 				}
 			};
-			if(shown(root)){
+			if (shown(root)) {
 				walkTree(root);
 			}
-			function rs(node){
+			function rs(node) {
 				// substitute checked radio button for unchecked one, if there is a checked one with the same name.
 				return radioSelected[radioName(node)] || node;
 			}
@@ -150,7 +150,7 @@ define([
 			return { first: rs(first), last: rs(last), lowest: rs(lowest), highest: rs(highest) };
 		},
 
-		getFirstInTabbingOrder: function(/*String|DOMNode*/ root, /*Document?*/ doc){
+		getFirstInTabbingOrder: function (/*String|DOMNode*/ root, /*Document?*/ doc) {
 			// summary:
 			//		Finds the descendant of the specified root node
 			//		that is first in the tabbing order
@@ -158,7 +158,7 @@ define([
 			return elems.lowest ? elems.lowest : elems.first; // DomNode
 		},
 
-		getLastInTabbingOrder: function(/*String|DOMNode*/ root, /*Document?*/ doc){
+		getLastInTabbingOrder: function (/*String|DOMNode*/ root, /*Document?*/ doc) {
 			// summary:
 			//		Finds the descendant of the specified root node
 			//		that is last in the tabbing order

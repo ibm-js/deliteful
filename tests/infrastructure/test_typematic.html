@@ -6,19 +6,20 @@
 
 	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script type="text/javascript">
-		require(["dojo/dom", "dojo/keys", "dui/typematic", "dojo/domReady!"], function(dom, keys, typematic){
+		require(["dojo/dom", "dojo/keys", "dui/typematic", "dojo/domReady!"], function (dom, keys, typematic) {
 
 			var lastCount = 0;
-			function typematicCallBack(count, node, evt){
+
+			function typematicCallBack(count, node, evt) {
 				var inputNode = dom.byId('typematicInput');
-				if(node == inputNode){
+				if (node == inputNode) {
 					key = "a";
-				}else{
+				} else {
 					key = "b";
 				}
-				if(-1 == count){
+				if (-1 == count) {
 					console.debug((lastCount + 1) + ' ' + key + ' events');
-				}else{
+				} else {
 					lastCount = count;
 					inputNode.value += key;
 				}
@@ -28,23 +29,23 @@
 			var keyNode = dom.byId('typematicInput');
 			var mouseNode = dom.byId('typematicButton');
 			typematic.addKeyListener(keyNode,
-				{
-					keyCode: keys.F11,
-					shiftKey: false,
-					metaKey: false,
-					ctrlKey: true // ALT is optional since its unspecified
-				},
-				this, typematicCallBack, 200, 200);
+					{
+						keyCode: keys.F11,
+						shiftKey: false,
+						metaKey: false,
+						ctrlKey: true // ALT is optional since its unspecified
+					},
+					this, typematicCallBack, 200, 200);
 			typematic.addMouseListener(mouseNode,
-				this, typematicCallBack, 0.9, 200);
+					this, typematicCallBack, 0.9, 200);
 
-			try{
+			try {
 				// Focus the input so it's easier for user to start typing.
 				// Doesn't work well in IE6 though, when this test is loaded from robot/typematic.html,
 				// Apparently the robot code sets up a cover <div> over this page and IE doesn't want to focus
 				// the input since it's hidden.
 				keyNode.focus();
-			}catch(e){
+			} catch (e) {
 			}
 		});
 	</script>

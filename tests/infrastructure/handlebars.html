@@ -9,12 +9,12 @@
 			"doh/runner",
 			"dui/handlebars", "dui/register", "dui/_WidgetBase",
 			"dojo/domReady!"
-		], function(doh, handlebars, register, _WidgetBase){
+		], function (doh, handlebars, register, _WidgetBase) {
 			doh.register("handlebars", [
 				// Test using handlebars! as a plugin to load a template
-				function load(){
+				function load() {
 					var d = new doh.Deferred();
-					require(["dui/handlebars!dui/tests/infrastructure/templates/SimpleHandlebarsButton.html"], d.getTestCallback(function(br){
+					require(["dui/handlebars!dui/tests/infrastructure/templates/SimpleHandlebarsButton.html"], d.getTestCallback(function (br) {
 						// Test that function returned from dui/handlebars! creates the template correctly
 						var TestButton = register("test-button", [HTMLButtonElement, _WidgetBase], {
 							iconClass: "originalClass",
@@ -31,7 +31,7 @@
 				},
 
 				// Test that updates to widget are reflected into template
-				function update(){
+				function update() {
 					myButton.label = "new label";
 					doh.is("new label", myButton.textContent.trim(), "label updated");
 
@@ -40,9 +40,9 @@
 				},
 
 				// Test {{#if}}
-				function branching(){
+				function branching() {
 					var d = new doh.Deferred();
-					require(["dui/handlebars!dui/tests/infrastructure/templates/HandlebarsButton.html"], d.getTestCallback(function(br){
+					require(["dui/handlebars!dui/tests/infrastructure/templates/HandlebarsButton.html"], d.getTestCallback(function (br) {
 						// Test false if condition
 						var NoLabelButton = register("no-label-button", [HTMLButtonElement, _WidgetBase], {
 							iconClass: "originalClass",
@@ -79,17 +79,17 @@
 				},
 
 				// Testing for special properties
-				function specialProps(){
+				function specialProps() {
 					var SpecialPropsWidget = register("special-props", [HTMLElement, _WidgetBase], {
 						inputClass: "originalClass",	// attribute called "class" but property called "className"
 						inputValue: "original value",	// must be set as property
 						role: "originalRole",			// must be set as attribute
 						buildRendering: handlebars.compile(
-							'<special-props><input class="{{inputClass}}" value="{{inputValue}}" role="{{role}}"/></special-props>'
+								'<special-props><input class="{{inputClass}}" value="{{inputValue}}" role="{{role}}"/></special-props>'
 						)
 					});
 					var mySpecialPropsWidget = new SpecialPropsWidget();
-						input = mySpecialPropsWidget.children[0];
+					input = mySpecialPropsWidget.children[0];
 
 					doh.is("original value", input.value, "value set as property");
 					doh.is("originalClass", input.className, "class set even though property is called className, not class");
@@ -108,7 +108,7 @@
 				},
 
 				// Test that widgets in the templates are instantiated, and respond to updates in the main widget.
-				function widgetsInTemplate(){
+				function widgetsInTemplate() {
 					register("simple-heading", [HTMLElement, _WidgetBase], {
 						text: "",
 						buildRendering: handlebars.compile("<simple-heading>{{text}}</simple-heading>")
@@ -120,17 +120,17 @@
 						content: "original content",
 						buttonLabel: "original button label",
 						buildRendering: handlebars.compile(
-							'<widgets-in-template>' +
-								'<simple-heading text="{{heading}}"></simple-heading>' +
-								'<span>{{content}}</span>' +
-								'<button is="test-button" label="{{buttonLabel}}"></button>' +
-							'</widgets-in-template>'
+								'<widgets-in-template>' +
+										'<simple-heading text="{{heading}}"></simple-heading>' +
+										'<span>{{content}}</span>' +
+										'<button is="test-button" label="{{buttonLabel}}"></button>' +
+										'</widgets-in-template>'
 						)
 					});
 
 					var myComplexWidget = new ComplexWidget(),
-						headingWidget = myComplexWidget.getElementsByTagName("simple-heading")[0],
-						buttonWidget = myComplexWidget.getElementsByTagName("button")[0];
+							headingWidget = myComplexWidget.getElementsByTagName("simple-heading")[0],
+							buttonWidget = myComplexWidget.getElementsByTagName("button")[0];
 					doh.t(headingWidget.buildRendering, "heading widget was instantiated");
 					doh.is("original heading", headingWidget.textContent, "heading widget got title from main widget");
 					doh.t(buttonWidget.buildRendering, "button widget was instantiated");
@@ -153,6 +153,7 @@
 </head>
 <body>
 <h1>dui/handlebars Unit Test</h1>
+
 <p>Check console for results.</p>
 </body>
 </html>

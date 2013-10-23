@@ -6,7 +6,7 @@ define([
 	"dojo/_base/lang", // lang.extend
 	"dojo/on",
 	"dojo/sniff" // has("ie"), has("mozilla"), has("quirks")
-], function(require, config, domConstruct, domStyle, lang, on, has){
+], function (require, config, domConstruct, domStyle, lang, on, has) {
 
 	// module:
 	//		dui/BackgroundIFrame
@@ -17,26 +17,26 @@ define([
 
 	// TODO: remove _frames, it isn't being used much, since popups never release their
 	// iframes (see [22236])
-	var _frames = new function(){
+	var _frames = new function () {
 		// summary:
 		//		cache of iframes
 
 		var queue = [];
 
-		this.pop = function(){
+		this.pop = function () {
 			var iframe;
-			if(queue.length){
+			if (queue.length) {
 				iframe = queue.pop();
-				iframe.style.display="";
-			}else{
+				iframe.style.display = "";
+			} else {
 				// transparency needed for DialogUnderlay and for tooltips on IE (to see screen near connector)
-				if(has("ie") < 9){
+				if (has("ie") < 9) {
 					var burl = config.dojoBlankHtmlUrl || require.toUrl("dojo/resources/blank.html") || "javascript:\"\"";
-					var html="<iframe src='" + burl + "' role='presentation'"
+					var html = "<iframe src='" + burl + "' role='presentation'"
 						+ " style='position: absolute; left: 0px; top: 0px;"
 						+ "z-index: -1; filter:Alpha(Opacity=\"0\");'>";
 					iframe = document.createElement(html);
-				}else{
+				} else {
 					iframe = domConstruct.create("iframe");
 					iframe.src = 'javascript:""';
 					iframe.className = "duiBackgroundIframe";
@@ -48,14 +48,14 @@ define([
 			return iframe;
 		};
 
-		this.push = function(iframe){
-			iframe.style.display="none";
+		this.push = function (iframe) {
+			iframe.style.display = "none";
 			queue.push(iframe);
 		}
 	}();
 
 
-	var BackgroundIframe = function(/*DomNode*/ node){
+	var BackgroundIframe = function (/*DomNode*/ node) {
 		// summary:
 		//		For IE/FF z-index shenanigans. id attribute is required.
 		//
@@ -65,8 +65,10 @@ define([
 		//		Makes a background iframe as a child of node, that fills
 		//		area (and position) of node
 
-		if(!node.id){ throw new Error("no id"); }
-		if(has("config-bgIframe")){
+		if (!node.id) {
+			throw new Error("no id");
+		}
+		if (has("config-bgIframe")) {
 			var iframe = (this.iframe = _frames.pop());
 			node.appendChild(iframe);
 			domStyle.set(iframe, {
@@ -77,14 +79,14 @@ define([
 	};
 
 	lang.extend(BackgroundIframe, {
-		destroy: function(){
+		destroy: function () {
 			// summary:
 			//		destroy the iframe
-			if(this._conn){
+			if (this._conn) {
 				this._conn.remove();
 				this._conn = null;
 			}
-			if(this.iframe){
+			if (this.iframe) {
 				_frames.push(this.iframe);
 				delete this.iframe;
 			}
