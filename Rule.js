@@ -8,10 +8,10 @@ define([
 	"./register",
 	"./_WidgetBase",
 	"./themes/load!common,Rule"
-], function(lang, has, query, domConstruct, domStyle, domClass, register, WidgetBase){
+], function (lang, has, query, domConstruct, domStyle, domClass, register, WidgetBase) {
 
-	function toCSS(baseClass, modifier){
-		return baseClass.split(" ").map(function(c){
+	function toCSS(baseClass, modifier) {
+		return baseClass.split(" ").map(function (c) {
 			return c + modifier;
 		}).join(" ");
 	}
@@ -44,79 +44,87 @@ define([
 		//		The value can inherit from a Slider parent widget during startup().
 		orientation: "H",
 
-		preCreate: function(){
+		preCreate: function () {
 			this.labels = [];
 		},
 
-		_parentInit: function(/*Boolean*/ reversed, /*String*/ orientation){
+		_parentInit: function (/*Boolean*/ reversed, /*String*/ orientation) {
 			// summary:
 			//		Hook so that a parent widget like Slider can pass inherited values down to children decoration widgets.
 			// tags:
 			//		private
 			this.orientation = orientation;
 			var children = query("> div", this);
-			if(this.labels.length == 0){
-				this.labels = children.map(function(node){
+			if (this.labels.length == 0) {
+				this.labels = children.map(function (node) {
 					return String(node.innerHTML);
 				});
 			}
-			if(this.count < 0){ this.count = this.labels.length || 1; }
-			for(var i = 0; i < this.count; i++){
+			if (this.count < 0) {
+				this.count = this.labels.length || 1;
+			}
+			for (var i = 0; i < this.count; i++) {
 				var node;
-				if(i < children.length){
+				if (i < children.length) {
 					node = children[i];
-				}else{
+				} else {
 					node = domConstruct.create("div", {}, this, "last");
 				}
 				var css = toCSS(this.baseClass, "Label");
 				domClass.add(node, css);
 			}
-			if(this.labels.length == 0){ this.labels.push({ H: "\u007c", V: "\u2014" }[this.orientation]); }
-			while(this.labels.length < this.count){ this.labels = this.labels.concat(this.labels); }
-			if(reversed){ this.labels.reverse(); }
+			if (this.labels.length == 0) {
+				this.labels.push({ H: "\u007c", V: "\u2014" }[this.orientation]);
+			}
+			while (this.labels.length < this.count) {
+				this.labels = this.labels.concat(this.labels);
+			}
+			if (reversed) {
+				this.labels.reverse();
+			}
 		},
 
-		_setLabelDirection: function(node){
+		_setLabelDirection: function (node) {
 		},
 
-		startup: function(){
-			if(this.labels.length < this.count){
+		startup: function () {
+			if (this.labels.length < this.count) {
 				this._parentInit(false, this.orientation);
 			}
 			var pos = 0;
-			if(this.count == 1){
+			if (this.count == 1) {
 				pos = 50;
 			}
 			var css = toCSS(this.baseClass, this.orientation);
 			domClass.add(this, css);
 			var css = toCSS(this.baseClass, "Label" + this.orientation);
 			var children = query("> div", this);
-			for(var i = 0; i < this.count; i++){
+			for (var i = 0; i < this.count; i++) {
 				var node = children[i];
 				domClass.add(node, css);
 				node.innerHTML = this.labels[i];
 				this._setLabelDirection(node);
 				domStyle.set(node, { H: "left", V: "top" }[this.orientation], pos + "%");
-				pos = 100 / ((this.count - 1) / (i+1));
+				pos = 100 / ((this.count - 1) / (i + 1));
 			}
 		}
 	});
 
-	if(has("dojo-bidi")){
+	if (has("dojo-bidi")) {
 
-		duiRule.prototype._setTextDirAttr = function(textDir){
-				if(this.textDir != textDir){
-					this._set("textDir", textDir);
-					query(".duiRuleLabel", this).forEach(
-						lang.hitch(this, function(labelNode){
-							this._setLabelDirection(labelNode);
-						})
-					);
-				}
-			};
+		duiRule.prototype._setTextDirAttr = function (textDir) {
+			if (this.textDir != textDir) {
+				this._set("textDir", textDir);
+				query(".duiRuleLabel", this).forEach(
+					lang.hitch(this, function (labelNode) {
+						this._setLabelDirection(labelNode);
+					})
+				);
+			}
+		};
 
-		duiRule.prototype._setLabelDirection = function(labelNode){
-				domStyle.set(labelNode, "direction", this.textDir ? this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "");
+		duiRule.prototype._setLabelDirection = function (labelNode) {
+			domStyle.set(labelNode, "direction", this.textDir ? this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "");
 		};
 	}
 
