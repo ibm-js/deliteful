@@ -225,26 +225,51 @@ define([
 		//		handlebars! / template.
 		register: register,
 
-		_introspect: function () {
+		_getProps: function () {
+			// override _Stateful._getProps() to ignore properties from the HTML*Element superclasses
+
+			var list = [], proto = this, ctor;
+
+			do {
+				Object.keys(proto).forEach(function(prop){
+					if(typeof proto[prop] != "function" && !/^_/.test(prop)){
+						list.push(prop);
+					}
+				});
+
+				proto = Object.getPrototypeOf(proto);
+				ctor = proto && proto.constructor;
+			} while(proto && !/HTML[a-zA-Z]*Element/.test(ctor.name || ctor.toString()));
+
+			return list;
+		},
+
+		_introspect: function (/*String[]*/ props) {
 			// Various introspection to be done on my prototype.
 			// "this" refers to my prototype.
 
-			var proto = this;
+			var pcm = this._propCaseMap = {},
+				onmap = this._onMapHash = {};
 
-			var pcm = proto._propCaseMap = {},
-				onmap = proto._onMapHash = {};
-			for (var key in proto) {
-				// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass
+			// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass.
+			// Doesn't handle attribute names with dashes.
+			// This is the list of properties returned from getProp(); it intentionally doesn't
+			// include props like "style" that are merely inherited from HTMLElement.   You would need to
+			// explicitly declare style: "" in your widget to get it here.
+			props.forEach(function(key){
 				pcm[key.toLowerCase()] = key;
+			});
 
+			// Legacy stuff.  Revisit later to see if we really need this.
+			for(var key in this){
 				// on mapping, ex: click --> onClick
 				if (/^on/.test(key)) {
 					onmap[key.substr(2).toLowerCase()] = key;
 				}
 
 				// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
-				if (/^_set[A-Z](.*)Attr$/.test(key) && typeof proto[key] !== "function") {
-					proto[key] = genSetter(key.charAt(4).toLowerCase() + key.substr(5, key.length - 9), proto[key]);
+				if(/^_set[A-Z](.*)Attr$/.test(key) && typeof this[key] !== "function"){
+					this[key] = genSetter(key.charAt(4).toLowerCase() + key.substr(5, key.length - 9), this[key]);
 				}
 			}
 		},
@@ -309,9 +334,8 @@ define([
 					obj = eval("(" + (value[0] === "{" ? "" : "{") + value + (value[0] === "{" ? "" : "}") + ")");
 				}
 				catch (e) {
-					// need to squelch errors from converting style et al
-					//throw new SyntaxError("Error in attribute conversion to object: " + e.message +
-					//	"\nAttribute Value: '" + value + "'");
+					throw new SyntaxError('Error in attribute conversion to object: ' + e.message + '\nAttribute Value: "' +
+						value + '"');
 				}
 				return obj;
 			}

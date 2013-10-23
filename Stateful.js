@@ -40,50 +40,58 @@ define(["dcl/dcl"], function(dcl){
 		//	|	});
 		//	|	obj.foo = bar;
 
-		_introspect: function(){
+		_getProps: function(){
 			// summary:
-			//		Sets up ES5 getters/setters for each class property, except for functions and privates
-			//		and properties inside of an HTMLElement type base class.
+			//		Return the list of properties that should be watchable
+
+			var list = [];
+			for(var prop in this){
+				if(typeof proto[prop] != "function" && !/^_/.test(prop)){
+					list.push(prop);
+				}
+			}
+			return list;
+		},
+
+		_introspect: function(/*String[]*/ props){
+			// summary:
+			//		Sets up ES5 getters/setters for each class property.
 			//		Inside _introspect(), "this" is a reference to the prototype rather than any individual instance.
 
-			var self = this, proto = this, ctor;
+			props.forEach(function(prop){
+				var names = propNames(prop),
+					shadowProp = names.p,
+					getter = names.g,
+					setter = names.s;
 
-			do {
-				Object.keys(proto).forEach(function(prop){
-					if(typeof proto[prop] == "function" || /^_/.test(prop)){ return; }
-					var names = propNames(prop),
-						shadowProp = names.p,
-						getter = names.g,
-						setter = names.s;
-
-					// Setup ES5 getter and setter for this property, if not already setup.
-					// For a property named foo, saves raw value in _fooAttr.
-					// ES5 setter intentionally does late checking for this[names.s] in case a subclass sets up a
-					// _setFooAttr method.
-					if(!(shadowProp in proto)){
-						self[shadowProp] = self[prop];
-						Object.defineProperty(self, prop, {
-							set: function(x){
-								setter in this ? this[setter](x) : this._set(prop, x);
-							},
-							get: function(){
-								return getter in this ? this[getter]() : this[shadowProp];
-							}
-						});
-					}
-				});
-
-				proto = Object.getPrototypeOf(proto);
-				ctor = proto && proto.constructor;
-			} while(proto && !/HTML[a-zA-Z]*Element/.test(ctor.name || ctor.toString()));
+				// Setup ES5 getter and setter for this property, if not already setup.
+				// For a property named foo, saves raw value in _fooAttr.
+				// ES5 setter intentionally does late checking for this[names.s] in case a subclass sets up a
+				// _setFooAttr method.
+				if(!(shadowProp in this)){
+					this[shadowProp] = this[prop];
+					Object.defineProperty(this, prop, {
+						set: function(x){
+							setter in this ? this[setter](x) : this._set(prop, x);
+						},
+						get: function(){
+							return getter in this ? this[getter]() : this[shadowProp];
+						}
+					});
+				}
+			}, this);
 		},
 
 		constructor: dcl.advise({
 			before: function(){
 				// First time this class is instantiated, introspect it.
-				if(!this.constructor._introspected){	// note: checking if this class was introspected, not a superclass
-					this.constructor.prototype._introspect();	// note: inside _introspect() this refs prototype
-					this.constructor._introspected = true;
+				// Use _introspected flag on constructor, rather than prototype, to avoid hits when superclass
+				// was already inspected but this class wasn't.
+				var ctor = this.constructor;
+				if(!ctor._introspected){
+					// note: inside _introspect() this refs prototype
+					ctor.prototype._introspect(ctor.prototype.getProps());
+					ctor._introspected = true;
 				}
 			},
 

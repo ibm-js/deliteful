@@ -322,7 +322,7 @@ define([
 		// Doesn't happen automatically because Stateful's constructor isn't called.
 		// Also, on IE this needs to happen before the getTagConstructor() call,
 		// since getTagConstructor() scans all the properties on the widget prototype.
-		proto._introspect(ctor);
+		proto._introspect(proto._getProps());
 		ctor._introspected = true;
 
 		// Save widget metadata to the registry and return constructor that creates an upgraded DOMNode for the widget
