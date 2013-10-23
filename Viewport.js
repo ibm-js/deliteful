@@ -11,14 +11,14 @@ define([
 
 	/*=====
 	 return {
-	 // summary:
-	 //		Utility singleton to watch for viewport resizes, avoiding duplicate notifications
-	 //		which can lead to infinite loops.
-	 // description:
-	 //		Usage: Viewport.on("resize", myCallback).
-	 //
-	 //		myCallback() is called without arguments in case it's _WidgetBase.resize(),
-	 //		which would interpret the argument as the size to make the widget.
+		 // summary:
+		 //		Utility singleton to watch for viewport resizes, avoiding duplicate notifications
+		 //		which can lead to infinite loops.
+		 // description:
+		 //		Usage: Viewport.on("resize", myCallback).
+		 //
+		 //		myCallback() is called without arguments in case it's _WidgetBase.resize(),
+		 //		which would interpret the argument as the size to make the widget.
 	 };
 	 =====*/
 
@@ -30,7 +30,7 @@ define([
 		var oldBox = winUtils.getBox();
 		Viewport._rlh = on(window, "resize", function () {
 			var newBox = winUtils.getBox();
-			if (oldBox.h == newBox.h && oldBox.w == newBox.w) {
+			if (oldBox.h === newBox.h && oldBox.w === newBox.w) {
 				return;
 			}
 			oldBox = newBox;
@@ -42,7 +42,7 @@ define([
 			on(document, "focusin", function (evt) {
 				focusedNode = evt.target;
 			});
-			on(document, "focusout", function (evt) {
+			on(document, "focusout", function () {
 				focusedNode = null;
 			});
 		}
@@ -57,12 +57,13 @@ define([
 
 		// Account for iOS virtual keyboard, if it's being shown.  Unfortunately no direct way to check or measure.
 		var tag = focusedNode && focusedNode.tagName && focusedNode.tagName.toLowerCase();
-		if (has("ios") && focusedNode && !focusedNode.readOnly && (tag == "textarea" || (tag == "input" &&
+		if (has("ios") && focusedNode && !focusedNode.readOnly && (tag === "textarea" || (tag === "input" &&
 			/^(color|email|number|password|search|tel|text|url)$/.test(focusedNode.type)))) {
 
 			// Box represents the size of the viewport.  Some of the viewport is likely covered by the keyboard.
-			// Estimate height of visible viewport assuming viewport goes to bottom of screen, but is covered by keyboard.
-			box.h *= (orientation == 0 || orientation == 180 ? 0.66 : 0.40);
+			// Estimate height of visible viewport assuming viewport goes to bottom of screen,
+			// but is covered by keyboard.
+			box.h *= (window.orientation === 0 || window.orientation === 180 ? 0.66 : 0.40);
 
 			// Above measurement will be inaccurate if viewport was scrolled up so far that it ends before the bottom
 			// of the screen.   In this case, keyboard isn't covering as much of the viewport as we thought.

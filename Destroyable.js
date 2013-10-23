@@ -14,7 +14,7 @@ define([
 		//		dojo/Stateful::watch, or any class (including widgets) with a destroyRecursive() or destroy() method.
 		//		Then call destroy() later to destroy this instance and release the resources.
 
-		destroy: function (/*Boolean*/ preserveDom) {
+		destroy: function (/*Boolean*/ /*===== preserveDom =====*/) {
 			// summary:
 			//		Destroy this class, releasing any resources registered via own().
 			this._destroyed = true;
@@ -41,7 +41,8 @@ define([
 					handle[destroyMethodName](preserveDom);
 				});
 
-				// If handle is destroyed manually before this.destroy() is called, remove the listener set directly above.
+				// If handle is destroyed manually before this.destroy() is called,
+				// remove the listener set directly above.
 				var hdh = aspect.after(handle, destroyMethodName, function () {
 					odh.remove();
 					hdh.remove();

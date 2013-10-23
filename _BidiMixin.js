@@ -4,9 +4,9 @@ define([], function () {
 	//		dui/_BidiMixin
 
 	// UCC - constants that will be used by bidi support.
-	var LRE = '\u202A',
-		RLE = '\u202B',
-		PDF = '\u202C';
+	var LRE = "\u202A",
+		RLE = "\u202B",
+		PDF = "\u202C";
 
 	return {
 		// summary:
@@ -41,7 +41,7 @@ define([], function () {
 			//		for checking the value, and defining the direction.
 			// tags:
 			//		protected.
-			return this.textDir == "auto" ? this._checkContextual(text) : this.textDir;
+			return this.textDir === "auto" ? this._checkContextual(text) : this.textDir;
 		},
 
 		_checkContextual: function (text) {
@@ -54,7 +54,7 @@ define([], function () {
 			// look for strong (directional) characters
 			var fdc = /[A-Za-z\u05d0-\u065f\u066a-\u06ef\u06fa-\u07ff\ufb1d-\ufdff\ufe70-\ufefc]/.exec(text);
 			// if found return the direction that defined by the character, else return widgets dir as default.
-			return fdc ? ( fdc[0] <= 'z' ? "ltr" : "rtl" ) : this.dir ? this.dir : this.isLeftToRight() ? "ltr" : "rtl";
+			return fdc ? (fdc[0] <= "z" ? "ltr" : "rtl") : this.dir ? this.dir : this.isLeftToRight() ? "ltr" : "rtl";
 		},
 
 		applyTextDir: function (/*DOMNode*/ element) {
@@ -67,10 +67,10 @@ define([], function () {
 
 			if (this.textDir) {
 				var textDir = this.textDir;
-				if (textDir == "auto") {
+				if (textDir === "auto") {
 					// convert "auto" to either "ltr" or "rtl"
 					var tagName = element.tagName.toLowerCase();
-					var text = (tagName == "input" || tagName == "textarea") ? element.value : element.textContent;
+					var text = (tagName === "input" || tagName === "textarea") ? element.value : element.textContent;
 					textDir = this._checkContextual(text);
 				}
 				element.dir = textDir;
@@ -80,8 +80,8 @@ define([], function () {
 		wrapWithUcc: function (/*String*/ text) {
 			// summary:
 			//		Returns specified text with UCC added to enforce widget's textDir setting
-			var dir = this.textDir == "auto" ? this._checkContextual(text) : this.textDir;
-			return (dir == "ltr" ? LRE : RLE ) + text + PDF;
+			var dir = this.textDir === "auto" ? this._checkContextual(text) : this.textDir;
+			return (dir === "ltr" ? LRE : RLE) + text + PDF;
 		},
 
 		enforceTextDirWithUcc: function (node) {
@@ -92,13 +92,14 @@ define([], function () {
 			// node: DOMNode
 			//		The node we wrapping the text for.
 
-			node.originalText = text;
-			node.innerHTML = this.wrapWithUcc(node.innerHTML)
+			node.originalText = node.text;
+			node.innerHTML = this.wrapWithUcc(node.innerHTML);
 		},
 
 		restoreOriginalText: function (/*DOMNode*/ origObj) {
 			// summary:
-			//		Restores the text of origObj, if needed, after enforceTextDirWithUcc, e.g. set("textDir", textDir).
+			//		Restores the text of origObj, if needed, after enforceTextDirWithUcc,
+			//		e.g. set("textDir", textDir).
 			// origObj:
 			//		The node to restore.
 			// description:

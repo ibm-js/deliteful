@@ -75,9 +75,9 @@ define([
 			propList.templateString =
 				"<" + srcType + " class='" + src.className + "'" +
 					" data-dojo-attach-point='" +
-					(src.getAttribute("data-dojo-attach-point") || '') +
+					(src.getAttribute("data-dojo-attach-point") || "") +
 					"' data-dojo-attach-event='" +
-					(src.getAttribute("data-dojo-attach-event") || '') +
+					(src.getAttribute("data-dojo-attach-event") || "") +
 					"' >" + src.innerHTML.replace(/\%7B/g, "{").replace(/\%7D/g, "}") + "</" + srcType + ">";
 
 			// create the new widget class

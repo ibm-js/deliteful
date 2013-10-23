@@ -22,7 +22,7 @@ define([
 			var node = this;
 			do {
 				node = node[which + "Sibling"];
-			} while (node && node.nodeType != 1);
+			} while (node && node.nodeType !== 1);
 			return node;	// Element
 		},
 

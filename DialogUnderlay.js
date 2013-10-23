@@ -55,7 +55,7 @@ define([
 		buildRendering: function () {
 			// Outer div is used for fade-in/fade-out, and also to hold background iframe.
 			// Inner div has opacity specified in CSS file.
-			ths.domNode.class = "duiDialogUnderlayWrapper";
+			this.domNode.class = "duiDialogUnderlayWrapper";
 			this.node = this.ownerDocument.createElement("div");
 			this.node.setAttribute("tabindex", "-1");
 			this.domNode.appendChild(this.node);
@@ -154,7 +154,7 @@ define([
 				underlay.set(attrs);
 			}
 		}
-		domStyle.set(underlay, 'zIndex', zIndex);
+		domStyle.set(underlay, "zIndex", zIndex);
 		if (!underlay.open) {
 			underlay.show();
 		}

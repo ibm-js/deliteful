@@ -15,11 +15,12 @@ define(["dcl/dcl"], function (dcl) {
 		var uc = name.replace(/^[a-z]|-[a-zA-Z]/g, function (c) {
 			return c.charAt(c.length - 1).toUpperCase();
 		});
-		return (apn[name] = {
+		var ret = apn[name] = {
 			p: "_" + name + "Attr",		// shadow property, since real property hidden by setter/getter
 			s: "_set" + uc + "Attr",	// converts dashes to camel case, ex: accept-charset --> _setAcceptCharsetAttr
 			g: "_get" + uc + "Attr"
-		});
+		};
+		return ret;
 	}
 
 	var Stateful = dcl(null, {
@@ -51,7 +52,7 @@ define(["dcl/dcl"], function (dcl) {
 
 			var list = [];
 			for (var prop in this) {
-				if (typeof this[prop] != "function" && !/^_/.test(prop)) {
+				if (typeof this[prop] !== "function" && !/^_/.test(prop)) {
 					list.push(prop);
 				}
 			}
@@ -118,7 +119,7 @@ define(["dcl/dcl"], function (dcl) {
 			//	|	})
 
 			for (var x in hash) {
-				if (hash.hasOwnProperty(x) && x != "_watchCallbacks") {
+				if (hash.hasOwnProperty(x) && x !== "_watchCallbacks") {
 					this[x] = hash[x];
 				}
 			}
@@ -148,13 +149,12 @@ define(["dcl/dcl"], function (dcl) {
 		_get: function (name) {
 			// summary:
 			//		Internal helper for directly accessing an attribute value.
+			// description:
+			//		Directly get the value of an attribute on an object, bypassing any accessor getter.
+			//		It is designed to be used by descendant class if they want
+			//		to access the value in their custom getter before returning it.
 			// name: String
 			//		The property to get.
-			// description:
-			//		Directly get the value of an attribute on an object, bypassing any
-			//		accessor getter.
-			//		It is designed to be used by descendant class if they want in their custom getter to access the value
-			//		before returning it.
 
 			return this[propNames(name).p];
 		},
@@ -188,7 +188,7 @@ define(["dcl/dcl"], function (dcl) {
 							}
 						}
 					};
-					notify(callbacks['_' + name]);
+					notify(callbacks["_" + name]);
 					if (!ignoreCatchall) {
 						notify(callbacks["*"]); // the catch-all
 					}
@@ -199,7 +199,7 @@ define(["dcl/dcl"], function (dcl) {
 				name = "*";
 			} else {
 				// prepend with dash to prevent name conflicts with function (like "name" property)
-				name = '_' + name;
+				name = "_" + name;
 			}
 			var propertyCallbacks = callbacks[name];
 			if (typeof propertyCallbacks !== "object") {

@@ -7,9 +7,8 @@ define([
 	"dojo/mouse", // mouse.isLeft
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
-	"dojo/window", // winUtils.scrollIntoView
-	"./a11y" // a11y.hasDefaultTabStop
-], function (dcl, domAttr, domStyle, lang, mouse, on, has, winUtils, a11y) {
+	"dojo/window" // winUtils.scrollIntoView
+], function (dcl, domAttr, domStyle, lang, mouse, on, has, winUtils) {
 
 	// module:
 	//		dui/_FormWidgetMixin
@@ -85,7 +84,8 @@ define([
 			if(value){
 				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
 				var attachPointNames = this.focusNode ? ["focusNode"] : [];
-				(lang.isArray(attachPointNames) ? attachPointNames : [attachPointNames]).forEach(function(attachPointName){
+				(typeof attachPointNames === "array" ? attachPointNames : [attachPointNames]).forEach(
+						function(attachPointName){
 					var node = this[attachPointName];
 					// complex code because tabIndex=-1 on a <div> doesn't work on FF
 					if(has("webkit") || a11y.hasDefaultTabStop(node)){    // see #11064 about webkit bug
@@ -115,7 +115,7 @@ define([
 			//		Tells if this widget is focusable or not.  Used internally by dui.
 			// tags:
 			//		protected
-			return !this.disabled && this.focusNode && (domStyle.get(this, "display") != "none");
+			return !this.disabled && this.focusNode && (domStyle.get(this, "display") !== "none");
 		},
 
 		focus: function () {

@@ -34,10 +34,10 @@ define([
 			var refNode = this.containerNode;
 			if (insertIndex > 0) {
 				// Old-school way to get nth child; dojo.query would be easier but _Container was weened from dojo.query
-				// in #10087 to minimize download size.   Not sure if that's still and issue with new smaller dojo/query.
+				// in #10087 to minimize download size.  Not sure if that's still and issue with new smaller dojo/query.
 				refNode = refNode.firstChild;
 				while (insertIndex > 0) {
-					if (refNode.nodeType == 1) {
+					if (refNode.nodeType === 1) {
 						insertIndex--;
 					}
 					refNode = refNode.nextSibling;
@@ -68,7 +68,7 @@ define([
 			//		not destroy it.  You can also pass in an integer indicating
 			//		the index within the container to remove (ie, removeChild(5) removes the sixth widget).
 
-			if (typeof widget == "number") {
+			if (typeof widget === "number") {
 				widget = this.getChildren()[widget];
 			}
 

@@ -31,19 +31,22 @@ define([
 			} else {
 				// transparency needed for DialogUnderlay and for tooltips on IE (to see screen near connector)
 				if (has("ie") < 9) {
-					var burl = config.dojoBlankHtmlUrl || require.toUrl("dojo/resources/blank.html") || "javascript:\"\"";
+					var burl = config.dojoBlankHtmlUrl || require.toUrl("dojo/resources/blank.html") ||
+						"javascript:\"\"";
 					var html = "<iframe src='" + burl + "' role='presentation'"
 						+ " style='position: absolute; left: 0px; top: 0px;"
 						+ "z-index: -1; filter:Alpha(Opacity=\"0\");'>";
 					iframe = document.createElement(html);
 				} else {
 					iframe = domConstruct.create("iframe");
-					iframe.src = 'javascript:""';
+					iframe.src = "javascript:''";
 					iframe.className = "duiBackgroundIframe";
 					iframe.setAttribute("role", "presentation");
 					domStyle.set(iframe, "opacity", 0.1);
 				}
-				iframe.tabIndex = -1; // Magic to prevent iframe from getting focus on tab keypress - as style didn't work.
+
+				// Magic to prevent iframe from getting focus on tab keypress - as style didn't work.
+				iframe.tabIndex = -1;
 			}
 			return iframe;
 		};
@@ -51,7 +54,7 @@ define([
 		this.push = function (iframe) {
 			iframe.style.display = "none";
 			queue.push(iframe);
-		}
+		};
 	}();
 
 
@@ -72,8 +75,8 @@ define([
 			var iframe = (this.iframe = _frames.pop());
 			node.appendChild(iframe);
 			domStyle.set(iframe, {
-				width: '100%',
-				height: '100%'
+				width: "100%",
+				height: "100%"
 			});
 		}
 	};

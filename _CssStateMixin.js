@@ -18,7 +18,8 @@ define([
 		//		this.disabled and this.readOnly:
 		//
 		//		- Error - ValidationTextBox sets this.state to "Error" if the current input value is invalid
-		//		- Incomplete - ValidationTextBox sets this.state to "Incomplete" if the current input value is not finished yet
+		//		- Incomplete - ValidationTextBox sets this.state to "Incomplete" if the current input value
+		//		  is not finished yet
 		//		- Checked - ex: a checkmark or a ToggleButton in a checked state, will have this.checked==true
 		//		- Selected - ex: currently selected tab will have this.selected==true
 		//		- Disabled - if the widget is disabled
@@ -49,8 +50,8 @@ define([
 				});
 			}, this);
 			this.watch("checked", function (name, oval, nval) {
-				toggleClasses(oval == "mixed" ? "mixed" : "checked", false);
-				toggleClasses(nval == "mixed" ? "mixed" : "checked", nval);
+				toggleClasses(oval === "mixed" ? "mixed" : "checked", false);
+				toggleClasses(nval === "mixed" ? "mixed" : "checked", nval);
 			});
 			this.watch("state", function (name, oval, nval) {
 				toggleClasses(oval, false);

@@ -14,7 +14,8 @@ define([
 	"./focus",
 	"./popup",
 	"./_FocusMixin"
-], function (dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch, focus, popup, _FocusMixin) {
+], function (dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
+			 focus, popup, _FocusMixin) {
 
 	// module:
 	//		dui/_HasDropDown
@@ -110,11 +111,12 @@ define([
 			//
 			// Also, don't call preventDefault() on MSPointerDown event (on IE10) because that prevents the button
 			// from getting focus, and then the focus manager doesn't know what's going on (#17262)
-			if (e.type != "MSPointerDown") {
+			if (e.type !== "MSPointerDown") {
 				e.preventDefault();
 			}
 
-			this._docHandler = this.own(on(this.ownerDocument, touch.release, lang.hitch(this, "_onDropDownMouseUp")))[0];
+			this._docHandler = this.own(on(this.ownerDocument, touch.release,
+				lang.hitch(this, "_onDropDownMouseUp")))[0];
 
 			this.toggleDropDown();
 		},
@@ -125,9 +127,8 @@ define([
 			//		Note that this function is called regardless of what node the event occurred on (but only after
 			//		a mousedown/touchstart on the arrow).
 			//
-			//		If the drop down is a simple menu and the cursor is over the menu, we execute it, otherwise, we focus our
-			//		drop down widget.  If the event is missing, then we are not
-			//		a mouseup event.
+			//		If the drop down is a simple menu and the cursor is over the menu, we execute it, otherwise,
+			//		we focus our drop down widget.  If the event is missing, then we are not a mouseup event.
 			//
 			//		This is useful for the common mouse movement pattern
 			//		with native browser `<select>` nodes:
@@ -176,7 +177,7 @@ define([
 
 				// TODO: this.hovering was removed from _CssStateMixin, so need to track hovered node/widget
 				// from this module (or put code back into _CssStateMixin)
-				if (dropDown.focus && (dropDown.focusOnOpen !== false || (e.type == "mouseup" && !this.hovering))) {
+				if (dropDown.focus && (dropDown.focusOnOpen !== false || (e.type === "mouseup" && !this.hovering))) {
 					// Do it on a delay so that we don't steal back focus from the dropdown.
 					this._focusDropDownTimer = this.defer(function () {
 						dropDown.focus();
@@ -263,17 +264,18 @@ define([
 					return;
 				}
 			}
-			if (d && this.opened && e.keyCode == keys.ESCAPE) {
+			if (d && this.opened && e.keyCode === keys.ESCAPE) {
 				this.closeDropDown();
 				e.stopPropagation();
 				e.preventDefault();
 			} else if (!this.opened &&
-				(e.keyCode == keys.DOWN_ARROW ||
+				(e.keyCode === keys.DOWN_ARROW ||
 					// ignore unmodified SPACE if _KeyNavMixin has active searching in progress
-					( (e.keyCode == keys.ENTER || (e.keyCode == keys.SPACE && (!this._searchTimer || (e.ctrlKey || e.altKey || e.metaKey)))) &&
+					((e.keyCode === keys.ENTER || (e.keyCode === keys.SPACE &&
+						(!this._searchTimer || (e.ctrlKey || e.altKey || e.metaKey)))) &&
 						//ignore enter and space if the event is for a text input
-						((target.tagName || "").toLowerCase() !== 'input' ||
-							(target.type && target.type.toLowerCase() !== 'text'))))) {
+						((target.tagName || "").toLowerCase() !== "input" ||
+							(target.type && target.type.toLowerCase() !== "text"))))) {
 				// Toggle the drop down, but wait until keyup so that the drop down doesn't
 				// get a stray keyup event, or in the case of key-repeat (because user held
 				// down key for too long), stray keydown events

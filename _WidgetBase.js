@@ -19,7 +19,8 @@ define([
 	"./Stateful",
 	"./register",
 	"dojo/has!dojo-bidi?./_BidiMixin"
-], function (require, dcl, aspect, config, Deferred, dom, domAttr, domClass, domConstruct, domGeometry, domStyle, has, kernel, lang, on, win, Destroyable, Stateful, register, _BidiMixin) {
+], function (require, dcl, aspect, config, Deferred, dom, domAttr, domClass, domConstruct, domGeometry, domStyle,
+			 has, kernel, lang, on, win, Destroyable, Stateful, register, _BidiMixin) {
 
 	// module:
 	//		dui/_WidgetBase
@@ -235,7 +236,7 @@ define([
 
 			do {
 				Object.keys(proto).forEach(function (prop) {
-					if (typeof proto[prop] != "function" && !/^_/.test(prop)) {
+					if (typeof proto[prop] !== "function" && !/^_/.test(prop)) {
 						list.push(prop);
 					}
 				});
@@ -339,8 +340,8 @@ define([
 					obj = eval("(" + (value[0] === "{" ? "" : "{") + value + (value[0] === "{" ? "" : "}") + ")");
 				}
 				catch (e) {
-					throw new SyntaxError('Error in attribute conversion to object: ' + e.message + '\nAttribute Value: "' +
-						value + '"');
+					throw new SyntaxError("Error in attribute conversion to object: " + e.message +
+						"\nAttribute Value: '" + value + "'");
 				}
 				return obj;
 			}
