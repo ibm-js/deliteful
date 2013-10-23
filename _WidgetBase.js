@@ -331,6 +331,8 @@ define([
 
 				try {
 					/* jshint evil:true */
+					// This is only called when complex parameters are used in markup, ex: constraints="max: 3, min: 2"
+					// TODO: remove this code if it isn't being used, so we don't scare people that are afraid of eval.
 					obj = eval("(" + (value[0] === "{" ? "" : "{") + value + (value[0] === "{" ? "" : "}") + ")");
 				}
 				catch (e) {
