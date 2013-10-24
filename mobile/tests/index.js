@@ -18,6 +18,7 @@ var categories = [
 	{ tag: "Media", label: "Media"},
 	{ tag: "Opener", label: "Opener"},
 	{ tag: "ProgressIndicator", label: "ProgressIndicator"},
+	{ tag: "ProgressBar", label: "ProgressBar"},
 	{ tag: "RoundRect", label: "RoundRect"},
 	{ tag: "RoundRectList", label: "RoundRectList"},
 	{ tag: "ScrollablePane", label: "ScrollablePane"},
