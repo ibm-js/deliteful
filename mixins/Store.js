@@ -1,6 +1,6 @@
-define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"], function (dcl, lang, when, _Invalidating) {
+define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./Invalidating"], function (dcl, lang, when, Invalidating) {
 
-	return dcl(_Invalidating, {
+	return dcl(Invalidating, {
 
 		// summary:
 		//		Mixin for widgets for store management that creates widget render items from store items after

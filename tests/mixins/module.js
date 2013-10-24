@@ -1,5 +1,5 @@
 define([
-	"./_Invalidating",
+	"./Invalidating",
 	"./Selection",
 	"./Store",
 	"./StoreMap"

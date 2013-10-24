@@ -5,13 +5,13 @@ define([
 	"dojo/dom-construct",
 	"./register",
 	"./Widget",
-	"./mixins/_Invalidating",
+	"./mixins/Invalidating",
 	"dojo/has!dojo-bidi?./bidi/Button",
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
-], function (has, lang, domClass, domConstruct, register, Widget, _Invalidating, BidiButton) {
+], function (has, lang, domClass, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = register(has("dojo-bidi") ? "dui-nonbidibutton" : "dui-button",
-		[HTMLButtonElement, Widget, _Invalidating], {
+		[HTMLButtonElement, Widget, Invalidating], {
 			// summary:
 			//		Non-templated BUTTON widget.
 			//
