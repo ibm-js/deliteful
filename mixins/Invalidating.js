@@ -143,7 +143,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			this.validateProperties();
 			this.validateRendering();
 		},
-		refreshProperties: function (props) {
+		refreshProperties: function (/*props*/) {
 			// summary:
 			//		Actually refresh the properties. Implementation should implement that method.
 			// props: Object
@@ -151,7 +151,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			// tags:
 			//		protected
 		},
-		refreshRendering: function (props) {
+		refreshRendering: function (/*props*/) {
 			// summary:
 			//		Actually refresh the rendering. Implementation should implement that method.
 			// props: Object
