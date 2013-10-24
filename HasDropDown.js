@@ -13,14 +13,14 @@ define([
 	"dojo/touch",
 	"./focus",
 	"./popup",
-	"./_FocusMixin"
+	"./Widget"
 ], function (dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
-			 focus, popup, _FocusMixin) {
+			 focus, popup) {
 
 	// module:
 	//		dui/HasDropDown
 
-	return dcl(_FocusMixin, {
+	return dcl(Widget, {
 		// summary:
 		//		Mixin for widgets that need drop down ability.
 

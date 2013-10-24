@@ -712,8 +712,7 @@ define([
 			return null;
 		},
 
-		// Focus related methods.   Used by focus.js and _FocusMixin but listed here
-		// so they become part of every widget.
+		// Focus related methods.  Used by focus.js.
 		onFocus: function () {
 			// summary:
 			//		Called when the widget becomes "active" because

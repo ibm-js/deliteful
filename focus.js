@@ -303,7 +303,7 @@ define([
 				if (widget) {
 					widget._hasBeenBlurred = true;		// TODO: used by form widgets, should be moved there
 					widget.focused = false;
-					if (widget._focusManager == this) {
+					if (widget._onBlur) {
 						widget._onBlur(by);
 					}
 					this.emit("widget-blur", widget, by);
@@ -315,7 +315,7 @@ define([
 				widget = dom.byId(newStack[i]);
 				if (widget) {
 					widget.focused = true;
-					if (widget._focusManager == this) {
+					if (widget._onFocus) {
 						widget._onFocus(by);
 					}
 					this.emit("widget-focus", widget, by);

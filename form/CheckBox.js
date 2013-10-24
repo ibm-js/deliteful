@@ -5,17 +5,16 @@ define([
 	"dojo/has",		// has("dijit-legacy-requires")
 	"dojo/query", // query
 	"./ToggleButton",
-	"./_CheckBoxMixin",
-	"../_FocusMixin",
+	"./_CheckBoxMixin",,
 	"dojo/text!./templates/CheckBox.html",
 	"dojo/NodeList-dom", // NodeList.addClass/removeClass
 	"../a11yclick"	// template uses ondijitclick
-], function(require, declare, domAttr, has, query, ToggleButton, _CheckBoxMixin, _FocusMixin, template){
+], function(require, declare, domAttr, has, query, ToggleButton, _CheckBoxMixin, template){
 
 	// module:
 	//		dui/form/CheckBox
 
-	return declare("dui.form.CheckBox", [ToggleButton, _CheckBoxMixin, _FocusMixin], {
+	return declare("dui.form.CheckBox", [ToggleButton, _CheckBoxMixin], {
 		// summary:
 		//		Same as an HTML checkbox, but with fancy styling.
 		//

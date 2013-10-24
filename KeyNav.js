@@ -4,13 +4,13 @@ define([
 	"dojo/keys", // keys.END keys.HOME, keys.LEFT_ARROW etc.
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
-	"./_FocusMixin" // to make _onBlur() work
-], function (dcl, domAttr, keys, lang, on, _FocusMixin) {
+	"./Widget"
+], function (dcl, domAttr, keys, lang, on, Widget) {
 
 	// module:
-	//		dui/_KeyNavMixin
+	//		dui/KeyNav
 
-	return dcl(_FocusMixin, {
+	return dcl(Widget, {
 		// summary:
 		//		A mixin to allow arrow key and letter key navigation of child or descendant widgets.
 		//		It can be used by dui/Container based widgets with a flat list of children,
