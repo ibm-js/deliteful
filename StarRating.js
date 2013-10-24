@@ -1,5 +1,5 @@
 define([
-	"dcl/dcl",
+    "dcl/dcl",
 	"dojo/_base/lang",
 	"dojo/string",
 	"dojo/has",
@@ -14,7 +14,8 @@ define([
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
-], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry, register, WidgetBase, BidiStarRating, messages) {
+], function(dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
+			register, WidgetBase, BidiStarRating, messages){
 
 	// module:
 	//		dui/StarRating
@@ -67,11 +68,15 @@ define([
 		//		Set this value to 0 to forbid the user from setting the value to zero during edition. Setting this attribute to a negative
 		//		value is not supported.
 		zeroAreaWidth: -1,
-		_setZeroAreaWidthAttr: function (/*Number*/value) {
+		_setZeroAreaWidthAttr: function(/*Number*/value){
 			this._set("zeroAreaWidth", value);
-			this.style.paddingLeft = this.zeroAreaWidth + "px";
+			if(this.editable){
+				this.style.paddingLeft = this.zeroAreaWidth + "px";
+			}else{
+				this.style.paddingLeft = "0px";
+			}
 		},
-		_getZeroAreaWidthAttr: function () {
+		_getZeroAreaWidthAttr: function(){
 			var val = this._get("zeroAreaWidth");
 			return val == -1 ? (this.editable ? 20 : 0) : val;
 		},
@@ -87,7 +92,7 @@ define([
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
-		buildRendering: function () {
+		buildRendering: function(){
 			this.style.display = "inline-block";
 
 			// init WAI-ARIA attributes
@@ -99,20 +104,20 @@ define([
 			this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 			this.setAttribute('aria-disabled', !this.editable);
 			// keyboard navigation
-			if (this.tabIndex == -1) {
+			if(this.tabIndex == -1){
 				this.setAttribute('tabindex', 0);
 			}
 		},
 
-		_removeEventsHandlers: function () {
-			while (this._otherEventsHandlers.length) {
+		_removeEventsHandlers: function(){
+			while(this._otherEventsHandlers.length){
 				this._otherEventsHandlers.pop().remove();
 			}
 		},
 
-		_wireHandlers: function (/*Event*/ event) {
+		_wireHandlers: function(/*Event*/ event){
 			event.preventDefault();
-			if (!this._otherEventsHandlers.length) {
+			if(!this._otherEventsHandlers.length){
 				// handle move on the stars strip
 				this._otherEventsHandlers.push(this.on(touch.move, lang.hitch(this, '_onTouchMove')));
 				// handle the end of the value editing
@@ -122,40 +127,41 @@ define([
 			}
 		},
 
-		_onTouchEnter: function (/*Event*/ event) {
+		_onTouchEnter: function(/*Event*/ event){
 			this._wireHandlers(event);
-			if (event.type !== 'dojotouchover') { // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
+			if(event.type !== 'dojotouchover'){ // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
 				this._hovering = true;
 				domClass.add(this, this.baseClass + 'Hovered');
 			}
 			this._enterValue = this.value;
 		},
 
-		_onTouchMove: function (/*Event*/ event) {
+		_onTouchMove: function(/*Event*/ event){
 			var newValue = this._coordToValue(event);
-			if (this._hovering) {
-				if (newValue != this._hoveredValue) {
+			if(this._hovering){
+				if(newValue != this._hoveredValue){
 					domClass.add(this, this.baseClass + 'Hovered');
 					this._updateStars(newValue, false);
 					this._hoveredValue = newValue;
 				}
-			} else {
+			}else{
 				this.value = newValue;
 			}
 		},
 
-		_onTouchRelease: function (/*Event*/ event) {
+		_onTouchRelease: function(/*Event*/ event){
+			console.log(event);
 			this.value = this._coordToValue(event);
 			this._enterValue = this.value;
-			if (!this._hovering) {
+			if(!this._hovering){
 				this._removeEventsHandlers();
-			} else {
+			}else{
 				domClass.remove(this, this.baseClass + 'Hovered');
 			}
 		},
 
-		_onTouchLeave: function (/*Event*/ event) {
-			if (this._hovering) {
+		_onTouchLeave: function(/*Event*/ event){
+			if(this._hovering){
 				this._hovering = false;
 				this._hoveredValue = null;
 				domClass.remove(this, this.baseClass + 'Hovered');
@@ -164,79 +170,79 @@ define([
 			this._removeEventsHandlers();
 		},
 
-		_onKeyDown: function (/*Event*/ event) {
-			if (this._incrementKeyCodes.indexOf(event.keyCode) != -1) {
+		_onKeyDown: function(/*Event*/ event){
+			if(this._incrementKeyCodes.indexOf(event.keyCode) != -1){
 				event.preventDefault();
 				this._incrementValue();
-			} else if (this._decrementKeyCodes.indexOf(event.keyCode) != -1) {
+			}else if(this._decrementKeyCodes.indexOf(event.keyCode) != -1){
 				event.preventDefault();
 				this._decrementValue();
 			}
 		},
 
-		_incrementValue: function () {
-			if (this.value < this.maximum) {
+		_incrementValue: function(){
+			if(this.value < this.maximum){
 				this.value = this.value + (this.editHalfValues ? 0.5 : 1);
 			}
 		},
 
-		_decrementValue: function () {
-			if (this.value > (this.zeroAreaWidth ? 0 : (this.editHalfValues ? 0.5 : 1))) {
+		_decrementValue: function(){
+			if(this.value > (this.zeroAreaWidth ? 0 : (this.editHalfValues ? 0.5 : 1))){
 				this.value = this.value - (this.editHalfValues ? 0.5 : 1);
 			}
 		},
 
-		_coordToValue: function (/*Event*/event) {
+		_coordToValue: function(/*Event*/event){
 			var box = domGeometry.position(this, false);
 			var xValue = event.clientX - box.x;
 			var rawValue = null, discreteValue;
 			// fix off values observed on leave event
-			if (xValue < 0) {
+			if(xValue < 0){
 				xValue = 0;
-			} else if (xValue > box.w) {
+			}else if(xValue > box.w){
 				xValue = box.w;
 			}
-			if (this._inZeroSettingArea(xValue, box.w)) {
+			if(this._inZeroSettingArea(xValue, box.w)){
 				return 0;
-			} else {
+			}else{
 				rawValue = this._xToRawValue(xValue, box.w);
 			}
-			if (rawValue != null) {
-				if (rawValue == 0) {
+			if(rawValue != null){
+				if(rawValue == 0){
 					rawValue = 0.1; // do not allow setting the value to 0 when clicking on a star
 				}
 				discreteValue = Math.ceil(rawValue);
-				if (this.editHalfValues && (discreteValue - rawValue) > 0.5) {
+				if(this.editHalfValues && (discreteValue - rawValue) > 0.5){
 					discreteValue -= 0.5;
 				}
 				return discreteValue;
 			}
 		},
 
-		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) {
+		_inZeroSettingArea: function(/*Number*/x, /*Number*/domNodeWidth){
 			return x < this.zeroAreaWidth;
 		},
 
-		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
+		_xToRawValue: function(/*Number*/x, /*Number*/domNodeWidth){
 			var starStripLength = domNodeWidth - this.zeroAreaWidth;
 			return (x - this.zeroAreaWidth) / (starStripLength / this.maximum);
 		},
 
-		_setMaximumAttr: function (/*Number*/ value) {
+		_setMaximumAttr: function(/*Number*/ value){
 			this._set("maximum", value);
 			this.setAttribute('aria-valuemax', this.maximum);
 			// set value to trigger redrawing of the widget
 			this.value = this.value;
 		},
 
-		_setValueAttr: function (/*Number*/ value) {
+		_setValueAttr: function(/*Number*/ value){
 			// summary:
 			//		Sets the value of the Rating.
 			// tags:
 			//		private
 			this._set("value", value);
 			var createChildren = this.children.length != this.maximum;
-			if (createChildren) {
+			if(createChildren){
 				domConstruct.empty(this);
 			}
 			this._updateStars(value, createChildren);
@@ -244,45 +250,46 @@ define([
 			this.setAttribute('aria-valuetext', string.substitute(messages['aria-valuetext'], this));
 		},
 
-		_setEditableAttr: function (/*Boolean*/value) {
+		_setEditableAttr: function(/*Boolean*/value){
 			this._set("editable", value);
-			if (this.editable && !this._keyDownHandler) {
+			// set zeroAreaWidth to trigger its drawing
+			this.zeroAreaWidth = this.zeroAreaWidth;
+			if(this.editable && !this._keyDownHandler){
 				this._keyDownHandler = this.on('keydown', lang.hitch(this, '_onKeyDown'));
-			} else if (!this.editable && this._keyDownHandler) {
+			}else if(!this.editable && this._keyDownHandler){
 				this._keyDownHandler.remove();
 				this._keyDownHandler = null;
 			}
 			this.setAttribute('aria-disabled', !this.editable);
-			if (this.editable && !this._startHandlers) {
+			if(this.editable && !this._startHandlers){
 				this._startHandlers = [this.on(touch.enter, lang.hitch(this, '_onTouchEnter')),
-					this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
-			} else if (!this.editable && this._startHandlers) {
-				while (this._startHandlers.length) {
+									   this.on(touch.press, lang.hitch(this, '_wireHandlers'))];
+			}else if(!this.editable && this._startHandlers){
+				while(this._startHandlers.length){
 					this._startHandlers.pop().remove();
 				}
 				this._startHandlers = null;
 			}
-			this._startHandlers = null;
 		},
 
-		_updateStars: function (/*Number*/value, /*Boolean*/create) {
+		_updateStars: function(/*Number*/value, /*Boolean*/create){
 			var i, parent, starClass;
-			for (i = 0; i < this.maximum; i++) {
-				if (i <= value - 1) {
+			for(i = 0; i < this.maximum; i++){
+				if(i <= value - 1){
 					starClass = this.baseClass + "FullStar";
-				} else if (i >= value) {
+				}else if(i >= value){
 					starClass = this.baseClass + "EmptyStar";
-				} else {
+				}else{
 					starClass = this.baseClass + "HalfStar";
 				}
-				if (create) {
+				if(create){
 					parent = domConstruct.create("div", {
 						style: {"float": "left"}
 					}, this);
-				} else {
+				}else{
 					parent = this.children[i];
 				}
-				parent.className = this.baseClass + "StarIcon " + starClass;
+				parent.className = this.baseClass +  "StarIcon " + starClass;
 			}
 		}
 	});
