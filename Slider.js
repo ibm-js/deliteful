@@ -12,14 +12,14 @@ define([
 	"dojo/touch",
 	"dojo/on",
 	"./register",
-	"./_WidgetBase",
+	"./Widget",
 	"./_FormWidgetMixin",
 	"./_FormValueMixin",
 	"./themes/load!common,Slider"	// common for duiInline etc., Slider for duiSlider etc.
 ],
-	function (connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, WidgetBase, FormWidgetMixin, FormValueMixin) {
+	function (connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle, keys, touch, on, register, Widget, FormWidgetMixin, FormValueMixin) {
 
-		return register("dui-slider", [HTMLElement, WidgetBase, FormWidgetMixin, FormValueMixin], {
+		return register("dui-slider", [HTMLElement, Widget, FormWidgetMixin, FormValueMixin], {
 			// summary:
 			//		A non-templated Slider widget similar to the HTML5 INPUT type=range.
 

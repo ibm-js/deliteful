@@ -1,6 +1,6 @@
-# dui/_WidgetBase
+# dui/Widget
 
-`dui/_WidgetBase` is a mixin used by all widgets.
+`dui/Widget` is a mixin used by all widgets.
 It provides fine grained lifecycle methods, shorthand notation for declaring custom setters,
 and code to read widget parameters specified as DOMNode attributes.
 
@@ -125,7 +125,7 @@ _setLabelAttr: function(val){
 }
 ```
 
-Also, note that `dui/_WidgetBase` also allows the shorthand syntax for declaring setters from Dijit V1 like:
+Also, note that `dui/Widget` also allows the shorthand syntax for declaring setters from Dijit V1 like:
 
 ```js
 _setTabIndexAttr: "focusNode"
