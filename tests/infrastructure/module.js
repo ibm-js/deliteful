@@ -28,7 +28,7 @@ define([
 	doh.register("Container", require.toUrl("./Container.html"), 999999);
 	doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999);
 	doh.register("_HasDropDown", require.toUrl("./_HasDropDown.html"), 999999);
-	doh.register("_CssStateMixin", require.toUrl("./_CssStateMixin.html"), 999999);
+	doh.register("CssState", require.toUrl("./CssState.html"), 999999);
 
 	doh.register("Declaration", require.toUrl("./test_Declaration.html"), 999999);
 

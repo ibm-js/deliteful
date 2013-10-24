@@ -7,7 +7,7 @@ define([
 	"dojo/fx", // fxUtils.wipeIn fxUtils.wipeOut
 	"dojo/has",
 	"dojo/keys", // keys.DOWN_ARROW keys.ENTER
-	"../_CssStateMixin",
+	"../CssState",
 	"../_TemplatedMixin",
 	"../layout/ContentPane",
 	"dojo/text!./templates/TitlePane.html",
@@ -18,7 +18,7 @@ define([
 	// module:
 	//		dui/TitlePane
 
-	var TitlePane = declare("dui.TitlePane", [ContentPane, _TemplatedMixin, _CssStateMixin], {
+	var TitlePane = declare("dui.TitlePane", [ContentPane, _TemplatedMixin, CssState], {
 		// summary:
 		//		A pane with a title on top, that can be expanded or collapsed.
 		//

@@ -9,7 +9,7 @@ define([
 	"dojo/on",
 	"./CalendarLite",
 	"../Widget",
-	"../_CssStateMixin",
+	"../CssState",
 	"../_TemplatedMixin",
 	"../form/DropDownButton"
 ], function(date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, Widget, _CssStateMixin, _TemplatedMixin, DropDownButton){
@@ -17,7 +17,7 @@ define([
 	// module:
 	//		dui/Calendar
 
-	var Calendar = declare("dui.Calendar", [CalendarLite, Widget, _CssStateMixin], {
+	var Calendar = declare("dui.Calendar", [CalendarLite, Widget, CssState], {
 		// summary:
 		//		A simple GUI for choosing a date in the context of a monthly calendar.
 		//

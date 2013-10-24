@@ -6,7 +6,7 @@ define([
 	"dojo/keys", // keys
 	"dojo/_base/lang", // lang.getObject
 	"dojo/on",
-	"../_CssStateMixin",
+	"../CssState",
 	"../a11yclick",
 	"../focus",
 	"../typematic"
@@ -15,7 +15,7 @@ define([
 	// module:
 	//		dui/_PaletteMixin
 
-	var PaletteMixin = declare("dui._PaletteMixin", _CssStateMixin, {
+	var PaletteMixin = declare("dui._PaletteMixin", CssState, {
 		// summary:
 		//		A keyboard accessible palette, for picking a color/emoticon/etc.
 		// description:

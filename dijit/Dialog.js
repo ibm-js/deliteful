@@ -17,7 +17,7 @@ define([
 	"../focus",
 	"../Widget",
 	"../_TemplatedMixin",
-	"../_CssStateMixin",
+	"../CssState",
 	"../form/_FormMixin",
 	"./_DialogMixin",
 	"../DialogUnderlay",
@@ -36,7 +36,7 @@ define([
 	var resolvedDeferred = new Deferred();
 	resolvedDeferred.resolve(true);
 
-	var _DialogBase = declare("dui._DialogBase" + (has("dojo-bidi") ? "_NoBidi" : ""), [_TemplatedMixin, _FormMixin, _DialogMixin, _CssStateMixin], {
+	var _DialogBase = declare("dui._DialogBase" + (has("dojo-bidi") ? "_NoBidi" : ""), [_TemplatedMixin, _FormMixin, _DialogMixin, CssState], {
 		templateString: template,
 
 		baseClass: "duiDialog",

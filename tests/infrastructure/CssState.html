@@ -2,21 +2,21 @@
 		"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title>_CssStateMixin unit test</title>
+	<title>CssState unit test</title>
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require([
 			"doh/runner",
 			"dojo/dom-class",
-			"dui/register", "dui/_CssStateMixin",
+			"dui/register", "dui/CssState",
 			"dojo/domReady!"
-		], function (doh, domClass, register, _CssStateMixin) {
+		], function (doh, domClass, register, CssState) {
 
-			doh.register("_CssStateMixin", [
+			doh.register("CssState", [
 				// Test attributes mapped to DOMNodes
 				function basic() {
-					var CssWidget = register("dui-css-widget", [HTMLElement, _CssStateMixin], {
+					var CssWidget = register("dui-css-widget", [HTMLElement, CssState], {
 						baseClass: "duiCss foo",
 						state: "",
 						disabled: false,
@@ -54,6 +54,6 @@
 	</script>
 </head>
 <body>
-<h1>_CssStateMixin Unit Test</h1>
+<h1>CssState Unit Test</h1>
 </body>
 </html>

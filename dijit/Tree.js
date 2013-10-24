@@ -23,7 +23,7 @@ define([
 	"../_TemplatedMixin",
 	"../Container",
 	"../Contained",
-	"../_CssStateMixin",
+	"../CssState",
 	"../_KeyNavMixin",
 	"dojo/text!./templates/TreeNode.html",
 	"dojo/text!./templates/Tree.html",
@@ -38,7 +38,7 @@ define([
 	//		dui/Tree
 
 
-	var TreeNode = declare("dui._TreeNode", [Widget, _TemplatedMixin, Container, Contained, _CssStateMixin], {
+	var TreeNode = declare("dui._TreeNode", [Widget, _TemplatedMixin, Container, Contained, CssState], {
 		// summary:
 		//		Single node within a tree.   This class is used internally
 		//		by Tree and should not be accessed directly.
@@ -523,7 +523,7 @@ define([
 		});
 	}
 
-	var Tree = declare("dui.Tree", [Widget, _KeyNavMixin, _TemplatedMixin, _CssStateMixin], {
+	var Tree = declare("dui.Tree", [Widget, _KeyNavMixin, _TemplatedMixin, CssState], {
 		// summary:
 		//		This widget displays hierarchical data from a store.
 

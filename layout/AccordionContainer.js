@@ -15,7 +15,7 @@ define([
 	"../Widget",
 	"../Container",
 	"../_TemplatedMixin",
-	"../_CssStateMixin",
+	"../CssState",
 	"./StackContainer",
 	"./ContentPane",
 	"dojo/text!./templates/AccordionButton.html",
