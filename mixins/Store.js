@@ -1,5 +1,13 @@
 define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./Invalidating"], function (dcl, lang, when, Invalidating) {
 
+	var isStoreInvalidated = function (props) {
+		return props.store || props.query || props.queryOptions;
+	};
+
+	var setStoreValidate = function (props) {
+		props.store = props.query = props.queryOptions = false;
+	};
+
 	return dcl(Invalidating, {
 
 		// summary:
@@ -32,7 +40,12 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./Invalidating"], function (
 		preCreate: function () {
 			// we want to be able to wait for potentially several of those properties to be set before
 			// actually firing the store request
-			this.addInvalidatingProperties("store", "query", "queryOptions");
+			this.addInvalidatingProperties({
+					"store": "invalidateProperty",
+					"query": "invalidateProperty",
+					"queryOptions": "invalidateProperty"
+				}
+			);
 		},
 
 		renderItemToItem: function (/*Object*/ renderItem) {
@@ -61,16 +74,17 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./Invalidating"], function (
 			this.emit("query-success", { items: items, cancelable: false, bubbles: true });
 		},
 
-		refreshRendering: function (props) {
+		refreshProperties: function (props) {
 			// summary:
 			//		Actually refresh the rendering by querying the store.
 			// tags:
 			//		protected
-			if (this._isStoreInvalidated(props)) {
+			if (isStoreInvalidated(props)) {
 				if (this._observeHandler) {
 					this._observeHandler.remove();
 					this._observeHandler = null;
 				}
+				setStoreValidate(props);
 				var store = this.store;
 				if (store != null) {
 					var results = store.query(this.query, this.queryOptions);
@@ -87,10 +101,6 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./Invalidating"], function (
 					this.initItems([]);
 				}
 			}
-		},
-
-		_isStoreInvalidated: function (props) {
-			return props.store || props.query || props.queryOptions;
 		},
 
 		_queryError: function (error) {

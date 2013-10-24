@@ -6,6 +6,8 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 		//		after these properties modifications to the next execution frame. The receiving class must extend
 		//		dojo/Stateful and dojo/Evented or dui/Widget.
 
+		_renderHandle: null,
+
 		// _invalidatingProperties: {}
 		//		A hash of properties to watch for to trigger properties invalidation and/or rendering
 		//		invalidation.
@@ -76,7 +78,13 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			}
 			if (!this.invalidProperties) {
 				this.invalidProperties = true;
-				setTimeout(lang.hitch(this, "validateProperties"), 0);
+				// if we have a pending render, let's cancel it to execute it post properties refresh
+				if (this._renderHandle) {
+					this._renderHandle.remove();
+					this.invalidRendering = false;
+					this._renderHandle = null;
+				}
+				this.defer("validateProperties");
 			}
 		},
 		invalidateRendering: function (name) {
@@ -92,7 +100,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			}
 			if (!this.invalidRendering) {
 				this.invalidRendering = true;
-				this.defer("validateRendering");
+				this._renderHandle = this.defer("validateRendering");
 			}
 		},
 		validateProperties: function () {
