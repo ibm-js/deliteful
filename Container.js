@@ -5,7 +5,7 @@ define([
 ], function (dcl, domConstruct, Widget) {
 
 	// module:
-	//		dui/_Container
+	//		dui/Container
 
 	return dcl(null, {
 		// summary:
@@ -33,7 +33,7 @@ define([
 			// In the future consider stripping those nodes on construction, either in the parser or this widget code.
 			var refNode = this.containerNode;
 			if (insertIndex > 0) {
-				// Old-school way to get nth child; dojo.query would be easier but _Container was weened from dojo.query
+				// Old-school way to get nth child; dojo.query would be easier but Container was weened from dojo.query
 				// in #10087 to minimize download size.  Not sure if that's still and issue with new smaller dojo/query.
 				refNode = refNode.firstChild;
 				while (insertIndex > 0) {

@@ -35,7 +35,7 @@ define([
 
 		// mixins: [const] String[]
 		//		List containing the prototype for this widget, and also any mixins,
-		//		ex: ["dui.Widget", "dui._Container"]
+		//		ex: ["dui.Widget", "dui.Container"]
 		mixins: [],
 
 		buildRendering: function () {

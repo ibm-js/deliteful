@@ -1,23 +1,23 @@
 define([
 	"dojo/_base/lang", // lang.mixin
 	"../Widget",
-	"../_Container",
-	"../_Contained",
+	"../Container",
+	"../Contained",
 	"../Viewport",
 	"dojo/_base/declare", // declare
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-geometry", // domGeometry.marginBox
 	"dojo/dom-style" // domStyle.getComputedStyle
-], function(lang, Widget, _Container, _Contained, Viewport,
+], function(lang, Widget, Container, Contained, Viewport,
 	declare, domClass, domGeometry, domStyle){
 
 	// module:
 	//		dui/layout/_LayoutWidget
 
 
-	return declare("dui.layout._LayoutWidget", [Widget, _Container, _Contained], {
+	return declare("dui.layout._LayoutWidget", [Widget, Container, Contained], {
 		// summary:
-		//		Base class for a _Container widget which is responsible for laying out its children.
+		//		Base class for a Container widget which is responsible for laying out its children.
 		//		Widgets which mixin this code must define layout() to manage placement and sizing of the children.
 
 		// baseClass: [protected extension] String
@@ -165,7 +165,7 @@ define([
 		},
 
 		addChild: function(/*dui/Widget*/ child, /*Integer?*/ insertIndex){
-			// Overrides _Container.addChild() to call _setupChild()
+			// Overrides Container.addChild() to call _setupChild()
 			this.inherited(arguments);
 			if(this._started){
 				this._setupChild(child);
@@ -173,7 +173,7 @@ define([
 		},
 
 		removeChild: function(/*dui/Widget*/ child){
-			// Overrides _Container.removeChild() to remove class added by _setupChild()
+			// Overrides Container.removeChild() to remove class added by _setupChild()
 			var cls = this.baseClass + "-child"
 					+ (child.baseClass ?
 						" " + this.baseClass + "-" + child.baseClass : "");

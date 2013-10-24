@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/window",
 	"dojo/dom-construct",
-	"dui/_Contained",
+	"../Contained",
 	"../Widget",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/RoundRectCategory"

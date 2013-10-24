@@ -10,11 +10,11 @@ define([
 	"../registry", // registry.byId
 	"../Widget",
 	"../_TemplatedMixin",
-	"../_Container",
+	"../Container",
 	"../form/ToggleButton",
 	"dojo/touch"	// for normalized click handling, see dojoClick property setting in postCreate()
 ], function(declare, domClass, domConstruct, keys, lang, on, topic,
-		focus, registry, Widget, _TemplatedMixin, _Container, ToggleButton){
+		focus, registry, Widget, _TemplatedMixin, Container, ToggleButton){
 
 	// module:
 	//		dui/layout/StackController
@@ -45,7 +45,7 @@ define([
 	});
 
 
-	var StackController = declare("dui.layout.StackController", [Widget, _TemplatedMixin, _Container], {
+	var StackController = declare("dui.layout.StackController", [Widget, _TemplatedMixin, Container], {
 		// summary:
 		//		Set of buttons to select a page in a `dui/layout/StackContainer`
 		// description:

@@ -13,7 +13,7 @@ define([
 	"dojo/topic", // publish
 	"../focus", // focus.focus()
 	"../Widget",
-	"../_Container",
+	"../Container",
 	"../_TemplatedMixin",
 	"../_CssStateMixin",
 	"./StackContainer",
@@ -21,7 +21,7 @@ define([
 	"dojo/text!./templates/AccordionButton.html",
 	"../a11yclick" // AccordionButton template uses ondijitclick; not for keyboard, but for responsive touch.
 ], function(require, declare, fx, dom, domAttr, domClass, domConstruct, domGeometry, keys, lang, has, topic,
-		focus, manager, Widget, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
+		focus, manager, Widget, Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
 
 	// module:
 	//		dui/layout/AccordionContainer
@@ -226,7 +226,7 @@ define([
 		},
 
 		startup: function(){
-			// Called by _Container.addChild()
+			// Called by Container.addChild()
 			this.contentWidget.startup();
 		},
 
@@ -395,7 +395,7 @@ define([
 		},
 
 		getChildren: function(){
-			// Overrides _Container.getChildren() to return content panes rather than internal AccordionInnerContainer panes
+			// Overrides Container.getChildren() to return content panes rather than internal AccordionInnerContainer panes
 			return this.inherited(arguments).map(function(child){
 				return child.declaredClass == "dui.layout._AccordionInnerContainer" ? child.contentWidget : child;
 			}, this);

@@ -11,15 +11,15 @@
 		require([
 			"doh/runner",
 			"dojo/dom", "dojo/parser",
-			"dui/a11y", "dui/focus", "dui/register", "dui/Widget", "dui/_Container", "dui/_Contained",
-			"dui/tests/helpers", "dojo/domReady!"
-		], function (doh, dom, parser, a11y, focus, register, Widget, _Container, _Contained, helpers) {
+			"dui/a11y", "dui/focus", "dui/register", "dui/Widget", "dui/Container", "dui/Contained",
+			"dojo/domReady!"
+		], function (doh, dom, parser, a11y, focus, register, Widget, Container, Contained) {
 
 			PlainWidget = register("plain-widget", [HTMLElement, Widget], {});
 
-			TestContainer = register("test-container", [HTMLElement, Widget, _Container], {});
+			TestContainer = register("test-container", [HTMLElement, Widget, Container], {});
 
-			TestContained = register("test-contained", [HTMLElement, Widget, _Contained], {});
+			TestContained = register("test-contained", [HTMLElement, Widget, Contained], {});
 
 			doh.register("parse", function () {
 				register.parse();

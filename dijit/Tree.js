@@ -21,8 +21,8 @@ define([
 	"../registry", // registry.byNode(), registry.getEnclosingWidget()
 	"../Widget",
 	"../_TemplatedMixin",
-	"../_Container",
-	"../_Contained",
+	"../Container",
+	"../Contained",
 	"../_CssStateMixin",
 	"../_KeyNavMixin",
 	"dojo/text!./templates/TreeNode.html",
@@ -31,14 +31,14 @@ define([
 	"dojo/query!css2"	// needed when on.selector() used with a string for the selector
 ], function(aspect, cookie, declare, Deferred, all,
 			dom, domClass, domGeometry, domStyle, createError, fxUtils, has, keys, lang, on, touch, when,
-			a11yclick, focus, registry, Widget, _TemplatedMixin, _Container, _Contained, _CssStateMixin, _KeyNavMixin,
+			a11yclick, focus, registry, Widget, _TemplatedMixin, Container, Contained, _CssStateMixin, _KeyNavMixin,
 			treeNodeTemplate, treeTemplate, _dndSelector){
 
 	// module:
 	//		dui/Tree
 
 
-	var TreeNode = declare("dui._TreeNode", [Widget, _TemplatedMixin, _Container, _Contained, _CssStateMixin], {
+	var TreeNode = declare("dui._TreeNode", [Widget, _TemplatedMixin, Container, Contained, _CssStateMixin], {
 		// summary:
 		//		Single node within a tree.   This class is used internally
 		//		by Tree and should not be accessed directly.
@@ -343,7 +343,7 @@ define([
 			// Don't call this.removeChild() because that will collapse the tree etc.
 			var oldChildren = this.getChildren();
 			oldChildren.forEach(function(child){
-				_Container.prototype.removeChild.call(this, child);
+				Container.prototype.removeChild.call(this, child);
 			}, this);
 
 			// All the old children of this TreeNode are subject for destruction if

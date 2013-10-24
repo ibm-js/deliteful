@@ -25,7 +25,7 @@ define([
 	doh.register("Widget-on", require.toUrl("./Widget-on.html"), 999999);
 
 	// Mixins
-	doh.register("_Container", require.toUrl("./_Container.html"), 999999);
+	doh.register("Container", require.toUrl("./Container.html"), 999999);
 	doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999);
 	doh.register("_HasDropDown", require.toUrl("./_HasDropDown.html"), 999999);
 	doh.register("_CssStateMixin", require.toUrl("./_CssStateMixin.html"), 999999);

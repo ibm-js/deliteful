@@ -142,7 +142,7 @@ define([
 		},
 
 		addChild: function(/*dui/Widget*/ child, /*Integer?*/ insertIndex){
-			// Overrides _Container.addChild() to do layout and publish events
+			// Overrides Container.addChild() to do layout and publish events
 
 			this.inherited(arguments);
 
@@ -166,7 +166,7 @@ define([
 		},
 
 		removeChild: function(/*dui/Widget*/ page){
-			// Overrides _Container.removeChild() to do layout and publish events
+			// Overrides Container.removeChild() to do layout and publish events
 
 			var idx = this.getChildren().indexOf(page);
 

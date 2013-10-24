@@ -5,8 +5,8 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-attr",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/IconMenu",
 	"./IconMenuItem"

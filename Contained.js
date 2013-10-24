@@ -3,14 +3,14 @@ define([
 ], function (dcl) {
 
 	// module:
-	//		dui/_Contained
+	//		dui/Contained
 
 	return dcl(null, {
 		// summary:
 		//		Mixin for widgets that are children of a container widget
 		// example:
 		//	|	// make a basic custom widget that knows about its parents
-		//	|	register("my.customClass", [HTMLElement, Widget, _Contained], {});
+		//	|	register("my.customClass", [HTMLElement, Widget, Contained], {});
 
 		_getSibling: function (/*String*/ which) {
 			// summary:
@@ -46,7 +46,7 @@ define([
 			// summary:
 			//		Returns the index of this widget within its container parent.
 			//		It returns -1 if the parent does not exist, or if the parent
-			//		is not a dui/_Container
+			//		is not a dui/Container
 
 			var p = this.getParent();
 			if (!p || !p.getIndexOfChild) {

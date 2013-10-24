@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget"
 ], function(declare, Contained, Container, WidgetBase){
 

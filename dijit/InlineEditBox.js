@@ -16,14 +16,14 @@ define([
 	"../Widget",
 	"../_TemplatedMixin",
 	"../_WidgetsInTemplateMixin",
-	"../_Container",
+	"../Container",
 	"../_FocusMixin",
 	"../form/Button",
 	"../form/_TextBoxMixin",
 	"../form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!../nls/common"
-], function(require, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
+], function(require, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, Widget, _TemplatedMixin, _WidgetsInTemplateMixin, Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
 
 	// module:
 	//		dui/InlineEditBox

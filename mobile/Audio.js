@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/dom-construct",
 	"dojo/sniff",
-	"dui/_Contained",
+	"../Contained",
 	"../Widget"
 ], function(declare, domConstruct, has, Contained, WidgetBase){
 	// module:

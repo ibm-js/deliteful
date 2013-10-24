@@ -8,8 +8,8 @@ define([
 	"dojo/dom-style",
 	"dojo/dom-attr",
 	"dojo/topic",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget",
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",

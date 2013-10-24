@@ -13,8 +13,8 @@ define([
 	"dojo/on",
 	"dui/registry",
 	"dojo/topic",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget",
 	"./ViewController", // to load ViewController for you (no direct references)
 	"./common",

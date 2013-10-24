@@ -13,7 +13,7 @@ define([
 	return dcl(_FocusMixin, {
 		// summary:
 		//		A mixin to allow arrow key and letter key navigation of child or descendant widgets.
-		//		It can be used by dui/_Container based widgets with a flat list of children,
+		//		It can be used by dui/Container based widgets with a flat list of children,
 		//		or more complex widgets like dui/Tree.
 		//
 		//		To use this mixin, the subclass must:
@@ -387,7 +387,7 @@ define([
 		_getNextFocusableChild: function (child, dir) {
 			// summary:
 			//		Returns the next or previous focusable descendant, compared to "child".
-			//		Implements and extends _KeyNavMixin._getNextFocusableChild() for a _Container.
+			//		Implements and extends _KeyNavMixin._getNextFocusableChild() for a Container.
 			// child: Widget
 			//		The current widget
 			// dir: Integer

@@ -3,8 +3,8 @@ define([
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/dom-construct",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget",
 	"./IconItem", // to load IconItem for you (no direct references)
 	"./Heading",

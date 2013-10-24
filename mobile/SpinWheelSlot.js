@@ -10,7 +10,7 @@ define([
 	"dojo/has!dojo-bidi?dui/mobile/bidi/SpinWheelSlot",
 	"dojo/touch",
 	"dojo/on",
-	"dui/_Contained",
+	"../Contained",
 	"../Widget",
 	"./scrollable",
 	"./common"

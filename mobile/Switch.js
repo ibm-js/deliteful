@@ -8,7 +8,7 @@ define([
 	"dojo/dom-attr",
 	"dojo/on",
 	"dojo/touch",
-	"dui/_Contained",
+	"../Contained",
 	"../Widget",
 	"dojo/sniff",
 	"./_maskUtils",

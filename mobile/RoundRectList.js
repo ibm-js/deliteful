@@ -6,8 +6,8 @@ define([
 	"dojo/dom-attr",
 	"dojo/on",
 	"dojo/topic",
-	"dui/_Contained",
-	"dui/_Container",
+	"../Contained",
+	"../Container",
 	"../Widget"
 ], function(declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
 

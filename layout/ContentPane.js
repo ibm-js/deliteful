@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/lang", // lang.mixin lang.delegate lang.hitch lang.isFunction lang.isObject
 	"../Widget",
-	"../_Container",
+	"../Container",
 	"./_ContentPaneResizeMixin",
 	"dojo/string", // string.substitute
 	"dojo/html", // html._ContentSetter
@@ -13,13 +13,13 @@ define([
 	"dojo/dom-construct", // empty()
 	"dojo/request",
 	"dojo/when"
-], function(lang, Widget, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, declare,
+], function(lang, Widget, Container, _ContentPaneResizeMixin, string, html, nlsLoading, declare,
 			Deferred, dom, domAttr, domConstruct, request, when){
 
 	// module:
 	//		dui/layout/ContentPane
 
-	return declare("dui.layout.ContentPane", [Widget, _Container, _ContentPaneResizeMixin], {
+	return declare("dui.layout.ContentPane", [Widget, Container, _ContentPaneResizeMixin], {
 		// summary:
 		//		A widget containing an HTML fragment, specified inline
 		//		or by uri.  Fragment may include widgets.

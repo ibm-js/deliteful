@@ -7,17 +7,17 @@ define([
 	"dojo/_base/lang", // lang.hitch
 	"../Widget",
 	"../_TemplatedMixin",
-	"../_Contained",
+	"../Contained",
 	"../_CssStateMixin",
 	"dojo/text!./templates/MenuItem.html"
 ], function(declare, dom, domAttr, domClass, has, lang,
-			Widget, _TemplatedMixin, _Contained, _CssStateMixin, template){
+			Widget, _TemplatedMixin, Contained, _CssStateMixin, template){
 
 	// module:
 	//		dui/MenuItem
 
 	var MenuItem = declare("dui.MenuItem" + (has("dojo-bidi") ? "_NoBidi" : ""),
-		[Widget, _TemplatedMixin, _Contained, _CssStateMixin], {
+		[Widget, _TemplatedMixin, Contained, _CssStateMixin], {
 
 		// summary:
 		//		A line item in a Menu Widget

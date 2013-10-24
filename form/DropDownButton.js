@@ -5,15 +5,15 @@ define([
 	"../registry", // registry.byNode
 	"../popup", // dui.popup2.hide
 	"../Button",
-	"../_Container",
+	"../Container",
 	"../_HasDropDown",
 	"dojo/text!./templates/DropDownButton.html"
-], function(declare, lang, query, registry, popup, Button, _Container, _HasDropDown, template){
+], function(declare, lang, query, registry, popup, Button, Container, _HasDropDown, template){
 
 	// module:
 	//		dui/form/DropDownButton
 
-	return declare("dui.form.DropDownButton", [Button, _Container, _HasDropDown], {
+	return declare("dui.form.DropDownButton", [Button, Container, _HasDropDown], {
 		// summary:
 		//		A button with a drop down
 		//
