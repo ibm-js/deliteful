@@ -28,32 +28,6 @@ define([
 	// Flag to enable support for textdir attribute
 	has.add("dojo-bidi", false);
 
-
-	// Nested hash listing attributes for each tag, all strings in lowercase.
-	// ex: {"div": {"style": true, "tabindex" true}, "form": { ...
-	/*
-	 var tagAttrs = {};
-
-	 function getAttrs(obj) {
-	 var ret = {};
-	 for (var attr in obj) {
-	 ret[attr.toLowerCase()] = true;
-	 }
-	 return ret;
-	 }
-
-	 function nonEmptyAttrToDom(attr) {
-	 // summary:
-	 //		Returns a setter function that sets the attribute on the root DOM node,
-	 //		or removes the attribute, depending on whether the
-	 //		value is defined or not.
-	 return function (val) {
-	 domAttr[val ? "set" : "remove"](this, attr, val);
-	 this._set(attr, val);
-	 };
-	 }
-	 */
-
 	function genSetter(/*String*/ attr, /*Object*/ commands) {
 		// summary:
 		//		Return setter for a widget property, often mapping the property to a
