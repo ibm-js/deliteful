@@ -10,7 +10,7 @@ define([
 	"dui/registry",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./ProgressIndicator",
 	"./ToolBarButton",
 	"./View",

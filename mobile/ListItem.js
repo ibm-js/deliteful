@@ -7,7 +7,7 @@ define([
 	"dojo/dom-attr",
 	"dojo/on",
 	"dui/registry",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./iconUtils",
 	"./_ItemBase",
 	"./ProgressIndicator",

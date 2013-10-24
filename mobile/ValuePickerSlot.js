@@ -7,7 +7,7 @@ define([
 	"dojo/dom-attr",
 	"dojo/on",
 	"dojo/touch",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./iconUtils",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/ValuePickerSlot"

@@ -12,7 +12,7 @@ define([
 	"dojo/has", // has("dojo-bidi")
 	"dojo/topic", // publish
 	"../focus", // focus.focus()
-	"../_WidgetBase",
+	"../Widget",
 	"../_Container",
 	"../_TemplatedMixin",
 	"../_CssStateMixin",
@@ -21,7 +21,7 @@ define([
 	"dojo/text!./templates/AccordionButton.html",
 	"../a11yclick" // AccordionButton template uses ondijitclick; not for keyboard, but for responsive touch.
 ], function(require, declare, fx, dom, domAttr, domClass, domConstruct, domGeometry, keys, lang, has, topic,
-		focus, manager, _WidgetBase, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
+		focus, manager, Widget, _Container, _TemplatedMixin, _CssStateMixin, StackContainer, ContentPane, template){
 
 	// module:
 	//		dui/layout/AccordionContainer
@@ -48,7 +48,7 @@ define([
 	// During animation there are two dijtAccordionChildWrapper's shown, so we need
 	// to compensate for that.
 
-	var AccordionButton = declare("dui.layout._AccordionButton", [_WidgetBase, _TemplatedMixin, _CssStateMixin], {
+	var AccordionButton = declare("dui.layout._AccordionButton", [Widget, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		The title bar to click to open up an accordion pane.
 		//		Internal widget used by AccordionContainer.
@@ -134,7 +134,7 @@ define([
 		});
 	}
 
-	var AccordionInnerContainer = declare("dui.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [_WidgetBase, _CssStateMixin], {
+	var AccordionInnerContainer = declare("dui.layout._AccordionInnerContainer" + (has("dojo-bidi") ? "_NoBidi" : ""), [Widget, _CssStateMixin], {
 		// summary:
 		//		Internal widget placed as direct child of AccordionContainer.containerNode.
 		//		When other widgets are added as children to an AccordionContainer they are wrapped in
@@ -149,7 +149,7 @@ define([
 		 =====*/
 
 		/*=====
-		 // contentWidget: dui/_WidgetBase
+		 // contentWidget: dui/Widget
 		 //		Pointer to the real child widget
 		 contentWidget: null,
 		 =====*/
@@ -429,7 +429,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_transition: function(/*dui/_WidgetBase?*/ newWidget, /*dui/_WidgetBase?*/ oldWidget, /*Boolean*/ animate){
+		_transition: function(/*dui/Widget?*/ newWidget, /*dui/Widget?*/ oldWidget, /*Boolean*/ animate){
 			// Overrides StackContainer._transition() to provide sliding of title bars etc.
 
 			if(this._animation){
@@ -499,7 +499,7 @@ define([
 		},
 
 		// note: we are treating the container as controller here
-		_onKeyDown: function(/*Event*/ e, /*dui/_WidgetBase*/ fromTitle){
+		_onKeyDown: function(/*Event*/ e, /*dui/Widget*/ fromTitle){
 			// summary:
 			//		Handle keydown events
 			// description:

@@ -6,12 +6,12 @@ class decorators for creating properties, and methods for chaining method calls
 ## Usage
 
 You declare a new widget that is based off a DOM object that either is
-`HTMLElement` or implements `HTMLElement`, and also includes `_WidgetBase` directly or indirectly.
+`HTMLElement` or implements `HTMLElement`, and also includes `Widget` directly or indirectly.
 To register the most basic of widgets, you would do the following:
 
 ```js
-require(['dui/register', 'dui/_WidgetBase'], function (register, _WidgetBase) {
-	var MyWidget = register('my-widget', [HTMLElement, _WidgetBase], {
+require(['dui/register', 'dui/Widget'], function (register, Widget) {
+	var MyWidget = register('my-widget', [HTMLElement, Widget], {
 		foo: 'bar'
 	});
 
@@ -41,7 +41,7 @@ Note that the `register` module has a `createElement()` method, and new MyWidget
 * `extensions...` - An array of constructor functions which are used
   to create the prototype of the widget class.  They are mixed in left to right.  The first
   class/constructor function must have `HTMLElement` in its prototype chain.  This serves as the
-  foundation for the widget.   _WidgetBase should typically be directly or indirectly pulled in too.
+  foundation for the widget.   Widget should typically be directly or indirectly pulled in too.
 
 * `props` - A set of properties for the widget
 
@@ -57,8 +57,8 @@ should consider utilising a different base for your widget.  This will ensure yo
 root HTML element.  For example, to create something that extends a `<button>`, you would do something like this:
 
 ```js
-require(['dui/register', 'dui/_WidgetBase'], function (register, _Widget) {
-	var MyButton = register('my-widget', [HTMLButtonElement, _WidgetBase], {
+require(['dui/register', 'dui/Widget'], function (register, _Widget) {
+	var MyButton = register('my-widget', [HTMLButtonElement, Widget], {
 		foo: 'bar'
 	});
 
@@ -74,7 +74,7 @@ And if you then wanted to instantiate this widget in HTML, you would use the fol
 <button is="my-button"></button>
 ```
 
-You can also descend from other widgets, but not mixins like `dui/_WidgetBase` that don't have HTMLElement in their
+You can also descend from other widgets, but not mixins like `dui/Widget` that don't have HTMLElement in their
 prototype chain.  If you are descending from another widget, you should just use that as the base instead of one of the
 `HTML*` elements.  For example, to create your own descendant of `dui/Button`:
 
@@ -102,11 +102,11 @@ on top of a base other than `HTMLElement`.
 
 First of all, note that no constructor methods are called when a widget is created.
 Rather, createdCallback() and enterViewCallback() are called.
-Generally though, you will extend `dui/_WidgetBase` which provides more specific lifecycle methods.
+Generally though, you will extend `dui/Widget` which provides more specific lifecycle methods.
 
 ## Rendering a widget
 
-Unlike Dijit V1, by the time `createdCallback()` is called (and in `dui/_WidgetBase` extensions: `buildRendering()`),
+Unlike Dijit V1, by the time `createdCallback()` is called (and in `dui/Widget` extensions: `buildRendering()`),
 the widget's root node already exists.  Either it's the original root node from the markup
 (ex: `<button is="dui-button">`) or it was created via the internal `register.createElement()` call.
 
@@ -114,7 +114,7 @@ You cannot change the root node, although you can set attributes on it and setup
 In addition, you will often create subnodes underneath the root node.
 
 Also note that the root node is `this`.   So putting those concepts together, a trivial `buildRendering()` method
-in a `dui/_WidgetBase` subclass would be:
+in a `dui/Widget` subclass would be:
 
 ```js
 buildRendering: function(){

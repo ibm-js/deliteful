@@ -10,7 +10,7 @@ define([], function () {
 
 	return {
 		// summary:
-		//		When has("dojo-bidi") is true, _WidgetBase will mixin this class.   It enables support for the textdir
+		//		When has("dojo-bidi") is true, Widget will mixin this class.   It enables support for the textdir
 		//		property to control text direction independently from the GUI direction.
 		// description:
 		//		There's a special need for displaying BIDI text in rtl direction

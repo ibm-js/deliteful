@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/lang", // lang.mixin lang.delegate lang.hitch lang.isFunction lang.isObject
-	"../_WidgetBase",
+	"../Widget",
 	"../_Container",
 	"./_ContentPaneResizeMixin",
 	"dojo/string", // string.substitute
@@ -13,13 +13,13 @@ define([
 	"dojo/dom-construct", // empty()
 	"dojo/request",
 	"dojo/when"
-], function(lang, _WidgetBase, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, declare,
+], function(lang, Widget, _Container, _ContentPaneResizeMixin, string, html, nlsLoading, declare,
 			Deferred, dom, domAttr, domConstruct, request, when){
 
 	// module:
 	//		dui/layout/ContentPane
 
-	return declare("dui.layout.ContentPane", [_WidgetBase, _Container, _ContentPaneResizeMixin], {
+	return declare("dui.layout.ContentPane", [Widget, _Container, _ContentPaneResizeMixin], {
 		// summary:
 		//		A widget containing an HTML fragment, specified inline
 		//		or by uri.  Fragment may include widgets.
@@ -55,10 +55,10 @@ define([
 		//		Changing href after creation doesn't have any effect; Use set('href', ...);
 		href: "",
 
-		// content: String|DomNode|NodeList|dui/_WidgetBase
+		// content: String|DomNode|NodeList|dui/Widget
 		//		The innerHTML of the ContentPane.
 		//		Note that the initialization parameter / argument to set("content", ...)
-		//		can be a String, DomNode, Nodelist, or _WidgetBase.
+		//		can be a String, DomNode, Nodelist, or Widget.
 		content: "",
 
 		// extractContent: Boolean
@@ -120,7 +120,7 @@ define([
 		//		or content is loaded.
 		onLoadDeferred: null,
 
-		// Cancel _WidgetBase's _setTitleAttr because we don't want the title attribute (used to specify
+		// Cancel Widget's _setTitleAttr because we don't want the title attribute (used to specify
 		// tab labels) to be copied to ContentPane.domNode... otherwise a tooltip shows up over the
 		// entire pane.
 		_setTitleAttr: null,
@@ -184,7 +184,7 @@ define([
 
 		startup: function(){
 			// summary:
-			//		Call startup() on all children including non _WidgetBase ones like dojo/dnd/Source objects
+			//		Call startup() on all children including non Widget ones like dojo/dnd/Source objects
 
 			// This starts all the widgets
 			this.inherited(arguments);

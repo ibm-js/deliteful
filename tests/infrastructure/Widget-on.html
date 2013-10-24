@@ -2,20 +2,20 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>_WidgetBase on() test</title>
+	<title>Widget on() test</title>
 	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script>
 		require([
 			"doh/runner",
 			"dojo/dom", "dojo/has", "dojo/_base/lang", "dojo/on", "dojo/touch",
-			"dui/register", "dui/_WidgetBase", "dojo/domReady!"
-		], function (doh, dom, has, lang, on, touch, register, _WidgetBase) {
+			"dui/register", "dui/Widget", "dojo/domReady!"
+		], function (doh, dom, has, lang, on, touch, register, Widget) {
 
 			var mousedOver, clicked;
 
 			doh.register("on", [
 				function setup() {
-					MyWidget = register("my-widget", [HTMLElement, _WidgetBase], {
+					MyWidget = register("my-widget", [HTMLElement, Widget], {
 						postCreate: function () {
 							on(this, "click", lang.hitch(this, "onFooBar"));
 						},
@@ -49,7 +49,7 @@
 				function test() {
 					var myWidget = dom.byId("myWidget");
 
-					// Test that _WidgetBase.on() catches click event
+					// Test that Widget.on() catches click event
 					doh.f(clicked, "clicked");
 					on.emit(myWidget, "click", {
 						bubbles: true,
@@ -58,7 +58,7 @@
 					});
 					doh.t(clicked, "clicked");
 
-					// Test that _WidgetBase.on() catches mouseover event
+					// Test that Widget.on() catches mouseover event
 					doh.f(mousedOver, "mousedOver");
 					on.emit(myWidget, "mouseover", {
 						bubbles: true,
@@ -89,7 +89,7 @@
 
 				function syntheticNoCallbackArgs() {
 					var evt = null;
-					var MyWidget = register("my-widget2", [HTMLElement, _WidgetBase], {
+					var MyWidget = register("my-widget2", [HTMLElement, Widget], {
 						show: function () {
 							return this.emit('show');
 						},

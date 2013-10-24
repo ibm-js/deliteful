@@ -9,18 +9,18 @@ define([
 	"dojo/window",
 	"../a11yclick",
 	"../registry",
-	"../_WidgetBase",
+	"../Widget",
 	"../_Container",
 	"../_CssStateMixin",
 	"../_KeyNavMixin",
 	"../_TemplatedMixin"
 ], function(declare, dom, domAttr, domClass, lang, mouse, on, winUtils, a11yclick,
-			registry, _WidgetBase, _Container, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
+			registry, Widget, _Container, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
 	//		dui/_MenuBase
 
-	return declare("dui._MenuBase", [_WidgetBase, _TemplatedMixin, _Container, _KeyNavMixin, _CssStateMixin], {
+	return declare("dui._MenuBase", [Widget, _TemplatedMixin, _Container, _KeyNavMixin, _CssStateMixin], {
 		// summary:
 		//		Abstract base class for Menu and MenuBar.
 		//		Subclass should implement _onUpArrow(), _onDownArrow(), _onLeftArrow(), and _onRightArrow().
@@ -120,7 +120,7 @@ define([
 			}
 		},
 
-		_keyboardSearchCompare: function(/*dui/_WidgetBase*/ item, /*String*/ searchString){
+		_keyboardSearchCompare: function(/*dui/Widget*/ item, /*String*/ searchString){
 			// summary:
 			//		Compares the searchString to the widget's text label, returning:
 			//		-1: a high priority match and stop searching
@@ -283,7 +283,7 @@ define([
 			return top;
 		},
 
-		onItemClick: function(/*dui/_WidgetBase*/ item, /*Event*/ evt){
+		onItemClick: function(/*dui/Widget*/ item, /*Event*/ evt){
 			// summary:
 			//		Handle clicks on an item.
 			// tags:

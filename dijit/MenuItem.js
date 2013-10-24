@@ -5,19 +5,19 @@ define([
 	"dojo/dom-class", // domClass.toggle
 	"dojo/sniff", // has("ie")
 	"dojo/_base/lang", // lang.hitch
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"../_Contained",
 	"../_CssStateMixin",
 	"dojo/text!./templates/MenuItem.html"
 ], function(declare, dom, domAttr, domClass, has, lang,
-			_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin, template){
+			Widget, _TemplatedMixin, _Contained, _CssStateMixin, template){
 
 	// module:
 	//		dui/MenuItem
 
 	var MenuItem = declare("dui.MenuItem" + (has("dojo-bidi") ? "_NoBidi" : ""),
-		[_WidgetBase, _TemplatedMixin, _Contained, _CssStateMixin], {
+		[Widget, _TemplatedMixin, _Contained, _CssStateMixin], {
 
 		// summary:
 		//		A line item in a Menu Widget

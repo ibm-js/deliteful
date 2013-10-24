@@ -10,7 +10,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"./register",
-	"./_WidgetBase",
+	"./Widget",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"

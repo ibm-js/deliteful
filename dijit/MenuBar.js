@@ -71,7 +71,7 @@ define([
 		_onUpArrow: function(){
 		},
 
-		onItemClick: function(/*dui/_WidgetBase*/ item, /*Event*/ evt){
+		onItemClick: function(/*dui/Widget*/ item, /*Event*/ evt){
 			// summary:
 			//		Handle clicks on an item.   Also called by _moveToPopup() due to a down-arrow key on the item.
 			//		Cancels a dropdown if already open and click is either mouse or space/enter.

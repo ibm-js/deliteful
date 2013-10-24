@@ -13,16 +13,16 @@
 		require([
 			"dojo/_base/declare",
 			"dojo/_base/window",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_Container",
 			"dui/_Contained",
 			"dui/mobile/_ScrollableMixin",
 			"dojo/parser",
 			"dui/mobile/compat"
-		], function(declare, win, WidgetBase, Container, Contained, ScrollableMixin){
+		], function(declare, win, Widget, Container, Contained, ScrollableMixin){
 			dui.mobile.ScrollablePane = declare(
 				"dui/mobile/ScrollablePane",
-				[WidgetBase, Container, Contained, ScrollableMixin],
+				[Widget, Container, Contained, ScrollableMixin],
 			{
 				buildRendering: function(){
 					this.inherited(arguments);

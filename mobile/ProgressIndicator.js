@@ -8,7 +8,7 @@ define([
 	"dojo/dom-style",
 	"dojo/has",
 	"dui/_Contained",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./_css3"
 ], function(config, declare, lang, domClass, domConstruct, domGeometry, domStyle, has, Contained, WidgetBase, css3){
 

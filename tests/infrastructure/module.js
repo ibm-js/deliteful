@@ -18,11 +18,11 @@ define([
 	doh.register("robot.typematic", require.toUrl("./robot/typematic.html"), 999999);
 
 	// _Widget
-	doh.register("_Widget-lifecycle", require.toUrl("./_Widget-lifecycle.html"), 999999);
-	doh.register("_Widget-attr", require.toUrl("./_Widget-attr.html"), 999999);
-	doh.register("_Widget-placeAt", require.toUrl("./_Widget-placeAt.html"), 999999);
-	doh.register("_Widget-utility", require.toUrl("./_Widget-utility.html"), 999999);
-	doh.register("robot._Widget-on", require.toUrl("./_Widget-on.html"), 999999);
+	doh.register("Widget-lifecycle", require.toUrl("./Widget-lifecycle.html"), 999999);
+	doh.register("Widget-attr", require.toUrl("./Widget-attr.html"), 999999);
+	doh.register("Widget-placeAt", require.toUrl("./Widget-placeAt.html"), 999999);
+	doh.register("Widget-utility", require.toUrl("./Widget-utility.html"), 999999);
+	doh.register("Widget-on", require.toUrl("./Widget-on.html"), 999999);
 
 	// Mixins
 	doh.register("_Container", require.toUrl("./_Container.html"), 999999);

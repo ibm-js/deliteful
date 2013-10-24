@@ -42,7 +42,7 @@ define([
 		//		Currently focused item on screen
 		curNode: null,
 
-		// activeStack: dui/_WidgetBase[]
+		// activeStack: dui/Widget[]
 		//		List of currently active widgets (focused widget and it's ancestors)
 		activeStack: [],
 

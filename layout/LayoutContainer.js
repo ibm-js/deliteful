@@ -3,10 +3,10 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dojo/_base/lang",
-	"../_WidgetBase",
+	"../Widget",
 	"./_LayoutWidget",
 	"./utils" // layoutUtils.layoutChildren
-], function(declare, domClass, domStyle, lang, _WidgetBase, _LayoutWidget, layoutUtils){
+], function(declare, domClass, domStyle, lang, Widget, _LayoutWidget, layoutUtils){
 
 	// module:
 	//		dui/layout/LayoutContainer
@@ -53,7 +53,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dui/_WidgetBase*/ child){
+		_setupChild: function(/*dui/Widget*/ child){
 			// Override _LayoutWidget._setupChild().
 
 			this.inherited(arguments);
@@ -97,14 +97,14 @@ define([
 			layoutUtils.layoutChildren(this.domNode, this._contentBox, this._getOrderedChildren());
 		},
 
-		addChild: function(/*dui/_WidgetBase*/ child, /*Integer?*/ insertIndex){
+		addChild: function(/*dui/Widget*/ child, /*Integer?*/ insertIndex){
 			this.inherited(arguments);
 			if(this._started){
 				this.layout();
 			}
 		},
 
-		removeChild: function(/*dui/_WidgetBase*/ child){
+		removeChild: function(/*dui/Widget*/ child){
 			this.inherited(arguments);
 			if(this._started){
 				this.layout();
@@ -142,7 +142,7 @@ define([
 	// Since any widget can be specified as a LayoutContainer child, mix it
 	// into the base widget class.  (This is a hack, but it's effective.)
 	// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-	lang.extend(_WidgetBase, /*===== {} || =====*/ LayoutContainer.ChildWidgetProperties);
+	lang.extend(Widget, /*===== {} || =====*/ LayoutContainer.ChildWidgetProperties);
 
 	return LayoutContainer;
 });

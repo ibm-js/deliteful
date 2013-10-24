@@ -9,18 +9,18 @@
 		require([
 			"doh/runner",
 			"dojo/keys", "dojo/on", "dojo/_base/window",
-			"dui/register", "dui/_HasDropDown", "dui/_WidgetBase",
+			"dui/register", "dui/_HasDropDown", "dui/Widget",
 			"dui/tests/helpers", "dojo/domReady!"
-		], function (doh, keys, on, win, register, _HasDropDown, _WidgetBase, helpers) {
+		], function (doh, keys, on, win, register, _HasDropDown, Widget, helpers) {
 
-			var SimplePopup = register("dui-simple-popup", [HTMLElement, _WidgetBase], {
+			var SimplePopup = register("dui-simple-popup", [HTMLElement, Widget], {
 				// summary:
 				//		A trivial popup widget
 				label: "i'm a popup",
 				_setLabelAttr: { type: "innerText" }
 			});
 
-			var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, _WidgetBase, _HasDropDown], {
+			var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, Widget, _HasDropDown], {
 
 				// summary:
 				//		A button that shows a popup.
@@ -39,7 +39,7 @@
 				})
 			});
 
-			var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, _WidgetBase, _HasDropDown], {
+			var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, Widget, _HasDropDown], {
 				// summary:
 				//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 

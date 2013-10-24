@@ -11,7 +11,7 @@ define([
 	"dojo/touch",
 	"dojo/on",
 	"dui/_Contained",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./scrollable",
 	"./common"
 ], function(dojo, declare, lang, win, aspect, domClass, domConstruct, has, BidiSpinWheelSlot,

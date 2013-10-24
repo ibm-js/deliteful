@@ -1,10 +1,10 @@
-define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _WidgetBase) {
+define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget) {
 
-	return dcl(_WidgetBase, {
+	return dcl(Widget, {
 		// summary:
 		//		Mixin for classes (usually widgets) that watch invalidated properties and delay the rendering
 		//		after these properties modifications to the next execution frame. The receiving class must extend
-		//		dojo/Stateful and dojo/Evented or dui/_WidgetBase.
+		//		dojo/Stateful and dojo/Evented or dui/Widget.
 
 		// _invalidatingProperties: {}
 		//		A hash of properties to watch for to trigger properties invalidation and/or rendering
@@ -26,7 +26,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 
 		// Listen for any changes to properties after the widget has been rendered,
 		// including when declarative properties (ex: iconClass=xyz) are applied at
-		// end of _WidgetBase.createdCallback().
+		// end of Widget.createdCallback().
 		buildRendering: dcl.after(function () {
 			// tags:
 			//		protected

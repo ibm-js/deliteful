@@ -24,17 +24,17 @@
 			"dojo/dom-construct",
 			"dojo/parser",
 			"dui/registry",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_TemplatedMixin",
 			"dui/layout/ContentPane",
 			"dui/Dialog",
 			"dojo/domReady!"
 		], function(doh, declare, dom, domConstruct, parser,
-					registry, _WidgetBase, _TemplatedMixin){
+					registry, Widget, _TemplatedMixin){
 
 
 			// create a do nothing, only for test widget
-			declare("TestWidget", [_WidgetBase, _TemplatedMixin], {
+			declare("TestWidget", [Widget, _TemplatedMixin], {
 				templateString: "<span class='dojoxTestWidget'></span>"
 			});
 

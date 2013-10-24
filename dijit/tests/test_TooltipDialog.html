@@ -35,7 +35,7 @@
 			"dojo/dom",
 			"dojo/date/stamp",
 			"dojo/parser",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_TemplatedMixin",
 			"dui/TooltipDialog",
 			"dui/layout/ContentPane",
@@ -57,10 +57,10 @@
 			"dui/MenuSeparator",
 				
 			"dojo/domReady!"
-		], function(declare, dom, stamp, parser, _WidgetBase, _TemplatedMixin, TooltipDialog, ContentPane, DropDownButton){
+		], function(declare, dom, stamp, parser, Widget, _TemplatedMixin, TooltipDialog, ContentPane, DropDownButton){
 
 			// create a do nothing, only for test widget
-			declare("TestWidget", [_WidgetBase, _TemplatedMixin], {
+			declare("TestWidget", [Widget, _TemplatedMixin], {
 				templateString: "<div style='margin: 10px; border: inset #700 4px; padding: 5px;' data-dojo-attach-point='containerNode'></div>"
 			});
 

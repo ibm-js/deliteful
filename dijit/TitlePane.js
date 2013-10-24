@@ -77,7 +77,7 @@ define([
 		//		the size of an inner widget.
 		doLayout: false,
 
-		// Tooltip is defined in _WidgetBase but we need to handle the mapping to DOM here
+		// Tooltip is defined in Widget but we need to handle the mapping to DOM here
 		_setTooltipAttr: {node: "focusNode", type: "attribute", attribute: "title"}, // focusNode spans the entire width, titleNode doesn't
 
 		buildRendering: function(){

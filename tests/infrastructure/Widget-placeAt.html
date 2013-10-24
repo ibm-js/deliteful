@@ -11,11 +11,11 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner", "dojo/aspect", "dojo/dom",
-			"dui/register", "dui/_WidgetBase", "dui/Button",
+			"dui/register", "dui/Widget", "dui/Button",
 			"dojo/domReady!"
-		], function (doh, aspect, dom, register, _WidgetBase, Button) {
+		], function (doh, aspect, dom, register, Widget, Button) {
 
-			var SimpleWidget = register("simple-widget", [HTMLElement, _WidgetBase], {
+			var SimpleWidget = register("simple-widget", [HTMLElement, Widget], {
 				buildRendering: function () {
 					this.containerNode = document.createElement("div");
 					this.appendChild(this.containerNode);

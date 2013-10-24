@@ -5,7 +5,7 @@ define([
 	"dojo/dom-construct",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./IconItem", // to load IconItem for you (no direct references)
 	"./Heading",
 	"./View"

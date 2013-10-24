@@ -13,7 +13,7 @@ define([
 
 	return {
 
-		isVisible: function isVisible(/*dui/_WidgetBase|DomNode*/ node) {
+		isVisible: function isVisible(/*dui/Widget|DomNode*/ node) {
 			// summary:
 			//		Return true if node/widget is visible
 			var p;
@@ -23,7 +23,7 @@ define([
 				(p = domGeometry.position(node, true), p.y + p.h >= 0 && p.x + p.w >= 0 && p.h && p.w);
 		},
 
-		isHidden: function isHidden(/*dui/_WidgetBase|DomNode*/ node) {
+		isHidden: function isHidden(/*dui/Widget|DomNode*/ node) {
 			// summary:
 			//		Return true if node/widget is hidden
 			var p;

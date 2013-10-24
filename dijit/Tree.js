@@ -19,7 +19,7 @@ define([
 	"../a11yclick",
 	"../focus",
 	"../registry", // registry.byNode(), registry.getEnclosingWidget()
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"../_Container",
 	"../_Contained",
@@ -31,14 +31,14 @@ define([
 	"dojo/query!css2"	// needed when on.selector() used with a string for the selector
 ], function(aspect, cookie, declare, Deferred, all,
 			dom, domClass, domGeometry, domStyle, createError, fxUtils, has, keys, lang, on, touch, when,
-			a11yclick, focus, registry, _WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin, _KeyNavMixin,
+			a11yclick, focus, registry, Widget, _TemplatedMixin, _Container, _Contained, _CssStateMixin, _KeyNavMixin,
 			treeNodeTemplate, treeTemplate, _dndSelector){
 
 	// module:
 	//		dui/Tree
 
 
-	var TreeNode = declare("dui._TreeNode", [_WidgetBase, _TemplatedMixin, _Container, _Contained, _CssStateMixin], {
+	var TreeNode = declare("dui._TreeNode", [Widget, _TemplatedMixin, _Container, _Contained, _CssStateMixin], {
 		// summary:
 		//		Single node within a tree.   This class is used internally
 		//		by Tree and should not be accessed directly.
@@ -90,7 +90,7 @@ define([
 			rowNode: "duiTreeRow"
 		},
 
-		// Tooltip is defined in _WidgetBase but we need to handle the mapping to DOM here
+		// Tooltip is defined in Widget but we need to handle the mapping to DOM here
 		_setTooltipAttr: {node: "rowNode", type: "attribute", attribute: "title"},
 
 		buildRendering: function(){
@@ -523,7 +523,7 @@ define([
 		});
 	}
 
-	var Tree = declare("dui.Tree", [_WidgetBase, _KeyNavMixin, _TemplatedMixin, _CssStateMixin], {
+	var Tree = declare("dui.Tree", [Widget, _KeyNavMixin, _TemplatedMixin, _CssStateMixin], {
 		// summary:
 		//		This widget displays hierarchical data from a store.
 
@@ -1390,13 +1390,13 @@ define([
 			this.focusChild(node);
 		},
 
-		_onNodeMouseEnter: function(/*dui/_WidgetBase*/ /*===== node =====*/){
+		_onNodeMouseEnter: function(/*dui/Widget*/ /*===== node =====*/){
 			// summary:
 			//		Called when mouse is over a node (onmouseenter event),
 			//		this is monitored by the DND code
 		},
 
-		_onNodeMouseLeave: function(/*dui/_WidgetBase*/ /*===== node =====*/){
+		_onNodeMouseLeave: function(/*dui/Widget*/ /*===== node =====*/){
 			// summary:
 			//		Called when mouse leaves a node (onmouseleave event),
 			//		this is monitored by the DND code

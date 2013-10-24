@@ -74,7 +74,7 @@ define([
 			}
 		},
 
-		_setupChild: function(/*dui/_WidgetBase*/ tab){
+		_setupChild: function(/*dui/Widget*/ tab){
 			// Overrides StackContainer._setupChild().
 			domClass.add(tab.domNode, "duiTabPane");
 			this.inherited(arguments);
@@ -146,7 +146,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		selectChild: function(/*dui/_WidgetBase|String*/ page, /*Boolean*/ animate){
+		selectChild: function(/*dui/Widget|String*/ page, /*Boolean*/ animate){
 			// Override _StackContainer.selectChild() so the page's focus isn't left in a strange state.
 
 			if(this._focused){

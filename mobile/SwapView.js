@@ -36,7 +36,7 @@ define([
 		weight: 1.2,
 
 		// _endOfTransitionTimeoutHandle: [private] Object
-		//		The handle (returned by _WidgetBase.defer) for the timeout set on touchEnd in case
+		//		The handle (returned by Widget.defer) for the timeout set on touchEnd in case
 		//      the end of transition event is not fired by the browser.
 		_endOfTransitionTimeoutHandle: null,
 

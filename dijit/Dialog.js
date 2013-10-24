@@ -15,7 +15,7 @@ define([
 	"dojo/window", // winUtils.getBox, winUtils.get
 	"dojo/dnd/Moveable", // Moveable
 	"../focus",
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"../_CssStateMixin",
 	"../form/_FormMixin",
@@ -27,7 +27,7 @@ define([
 	"dojo/i18n!../nls/common"
 ], function(require, aspect, declare, Deferred,
 			dom, domClass, domGeometry, domStyle, fx, keys, lang, on, has, winUtils,
-			Moveable, focus, _WidgetBase, _TemplatedMixin, _CssStateMixin, _FormMixin, _DialogMixin,
+			Moveable, focus, Widget, _TemplatedMixin, _CssStateMixin, _FormMixin, _DialogMixin,
 			DialogUnderlay, ContentPane, utils, template, nlsCommon){
 
 	// module:
@@ -84,7 +84,7 @@ define([
 		//		in the viewport.
 		draggable: true,
 		_setDraggableAttr: function(/*Boolean*/ val){
-			// Avoid _WidgetBase behavior of copying draggable attribute to this.domNode,
+			// Avoid Widget behavior of copying draggable attribute to this.domNode,
 			// as that prevents text select on modern browsers (#14452)
 			this._set("draggable", val);
 		},
@@ -532,7 +532,7 @@ define([
 
 		_beginZIndex: 950,
 
-		show: function(/*dui/_WidgetBase*/ dialog, /*Object*/ underlayAttrs){
+		show: function(/*dui/Widget*/ dialog, /*Object*/ underlayAttrs){
 			// summary:
 			//		Call right before fade-in animation for new dialog.
 			//		Saves current focus, displays/adjusts underlay for new dialog,
@@ -556,7 +556,7 @@ define([
 			ds.push({dialog: dialog, underlayAttrs: underlayAttrs, zIndex: zIndex});
 		},
 
-		hide: function(/*dui/_WidgetBase*/ dialog){
+		hide: function(/*dui/Widget*/ dialog){
 			// summary:
 			//		Called when the specified dialog is hidden/destroyed, after the fade-out
 			//		animation ends, in order to reset page focus, fix the underlay, etc.
@@ -619,7 +619,7 @@ define([
 			}
 		},
 
-		isTop: function(/*dui/_WidgetBase*/ dialog){
+		isTop: function(/*dui/Widget*/ dialog){
 			// summary:
 			//		Returns true if specified Dialog is the top in the task
 			return ds[ds.length - 1].dialog == dialog;

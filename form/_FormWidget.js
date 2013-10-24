@@ -1,16 +1,16 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/sniff", // has("msapp")
-	"../_WidgetBase",
+	"../Widget",
 	"../_CssStateMixin",
 	"../_TemplatedMixin",
 	"./_FormWidgetMixin"
-], function(declare, has, _WidgetBase, _CssStateMixin, _TemplatedMixin, _FormWidgetMixin){
+], function(declare, has, Widget, _CssStateMixin, _TemplatedMixin, _FormWidgetMixin){
 
 	// module:
 	//		dui/form/_FormWidget
 
-	return declare("dui.form._FormWidget", [_WidgetBase, _TemplatedMixin, _CssStateMixin, _FormWidgetMixin], {
+	return declare("dui.form._FormWidget", [Widget, _TemplatedMixin, _CssStateMixin, _FormWidgetMixin], {
 		// summary:
 		//		Base class for widgets corresponding to native HTML elements such as `<checkbox>` or `<button>`,
 		//		which can be children of a `<form>` node or a `dui/form/Form` widget.
@@ -18,7 +18,7 @@ define([
 		// description:
 		//		Represents a single HTML element.
 		//		All these widgets should have these attributes just like native HTML input elements.
-		//		You can set them during widget construction or afterwards, via `dui/_WidgetBase.set()`.
+		//		You can set them during widget construction or afterwards, via `dui/Widget.set()`.
 		//
 		//		They also share some common methods.
 

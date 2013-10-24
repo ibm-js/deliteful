@@ -142,7 +142,7 @@ define(["./register"], function (register) {
 			// summary:
 			//		Given an object tree as described in the module summary,
 			//		returns the text for a function to generate DOM corresponding to that template,
-			//		and setup listeners (using `_WidgetBase.watch()`) to propagate changes in the widget
+			//		and setup listeners (using `Widget.watch()`) to propagate changes in the widget
 			//		properties to the templates.
 			//
 			//		Code assumes that the root node already exists as "this".

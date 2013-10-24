@@ -17,7 +17,7 @@ define([
 		 // description:
 		 //		Usage: Viewport.on("resize", myCallback).
 		 //
-		 //		myCallback() is called without arguments in case it's _WidgetBase.resize(),
+		 //		myCallback() is called without arguments in case it's Widget.resize(),
 		 //		which would interpret the argument as the size to make the widget.
 	 };
 	 =====*/

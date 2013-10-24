@@ -26,7 +26,7 @@
 			"dojo/store/Memory",
 			"dojo/parser",
 			"dui/registry",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_TemplatedMixin",
 			"dui/Dialog",
 			"dui/form/ComboBox",
@@ -38,7 +38,7 @@
 			"dui/TitlePane",
 			"dojo/domReady!"
 		], function(doh, aspect, declare, domGeom, Memory, parser,
-				registry, _WidgetBase, _TemplatedMixin,
+				registry, Widget, _TemplatedMixin,
 				Dialog, Form, BorderContainer, ContentPane, _LayoutWidget, TabContainer, TitlePane){
 
 			// Keep track of which panes have had a load event, and how
@@ -51,7 +51,7 @@
 			};
 
 			// create a do nothing, only for test widget
-			declare("ResizableWidget", [_WidgetBase, _TemplatedMixin], {
+			declare("ResizableWidget", [Widget, _TemplatedMixin], {
 				templateString: "<span class='duiInline resizableWidget'>resizable widget</span>",
 				_resized: 0,
 				_resizeArgs: null,
@@ -74,7 +74,7 @@
 				}
 			});
 
-			// Monitor lifecycle of widgets.  This used to be done by attaching to _WidgetBase.prototype and
+			// Monitor lifecycle of widgets.  This used to be done by attaching to Widget.prototype and
 			// _LayoutWidget.prototype, but that leads to race conditions since declare() runs first, and looks
 			// at the original methods, not the advised-methods.
 			var startups = {};
@@ -766,7 +766,7 @@
 		</div>
 	</form>
 	<form data-dojo-type="dui/form/Form" style="height:250px; width: 150px; border: medium inset gray; padding: 10px;" id="fsm2">
-		<div id="fsm2_vc" data-dojo-type="dui/_WidgetBase">visible</div>
+		<div id="fsm2_vc" data-dojo-type="dui/Widget">visible</div>
 		<div id="fsm2_rc" data-dojo-type="ResizableWidget">resizable</div>
 	</form>
 

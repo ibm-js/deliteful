@@ -7,7 +7,7 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dui/place",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Tooltip"
 ], function(registry, declare, lang, domClass, domConstruct, domGeometry, domStyle, place, WidgetBase, has, BidiTooltip){

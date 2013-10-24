@@ -4,7 +4,7 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dui/form/_ComboBoxMenuMixin",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./_ListTouchMixin",
 	"./scrollable",
 	"dojo/has",

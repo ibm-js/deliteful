@@ -134,7 +134,7 @@ define([
 
 		getChildren: function(){
 			// summary:
-			//		Overrides _WidgetBase.getChildren to add local fixed bars,
+			//		Overrides Widget.getChildren to add local fixed bars,
 			//		which are not under containerNode, to the children array.
 			var children = this.inherited(arguments);
 			var fixedWidget;

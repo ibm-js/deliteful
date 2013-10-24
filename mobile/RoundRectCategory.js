@@ -3,7 +3,7 @@ define([
 	"dojo/_base/window",
 	"dojo/dom-construct",
 	"dui/_Contained",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/RoundRectCategory"
 ], function(declare, win, domConstruct, Contained, WidgetBase, has, BidiRoundRectCategory){

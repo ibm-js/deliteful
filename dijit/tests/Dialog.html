@@ -9,10 +9,10 @@
 		require([
 			"doh/runner",
 			"dojo/_base/declare", "dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/window",
-			"dui/focus", "dui/registry", "dui/Dialog", "dui/DialogUnderlay", "dui/_WidgetBase",
+			"dui/focus", "dui/registry", "dui/Dialog", "dui/DialogUnderlay", "dui/Widget",
 			"dui/tests/helpers", "dojo/domReady!"
 		], function(doh, declare, dom, domGeom, domStyle, winUtils,
-					focus, registry, Dialog, DialogUnderlay, _WidgetBase, helpers){
+					focus, registry, Dialog, DialogUnderlay, Widget, helpers){
 			// Non robot tests to see if nested dialogs work correctly
 			// when obscured dialogs are destroyed/hidden, on race conditions of
 			// multiple dialogs fading in/out at once, etc.
@@ -552,7 +552,7 @@
 				}
 			]);
 
-			LayoutWidget = declare(_WidgetBase, {
+			LayoutWidget = declare(Widget, {
 				resize: function(dim){
 					this._resized = true;
 					this._resizeArg = dim;

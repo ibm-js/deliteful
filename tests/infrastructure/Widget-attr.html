@@ -9,15 +9,14 @@
 		require([
 			"doh/runner", "dui/register",
 			"dojo/dom", "dojo/dom-attr", "dojo/dom-class", "dojo/dom-style", "dojo/sniff",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dojo/domReady!"
-		], function (doh, register, dom, domAttr, domClass, domStyle, has, _WidgetBase) {
+		], function (doh, register, dom, domAttr, domClass, domStyle, has, Widget) {
 
 			doh.register("attributes", [
 				// Test attributes mapped to DOMNodes
 				function domMapping() {
-					var IndividualMaps = register("dui-individual-maps", [HTMLElement, _WidgetBase], {
-
+					var IndividualMaps = register("dui-individual-maps", [HTMLElement, Widget], {
 						// Mapping foo to this.plainTextNode.foo
 						foo: "",
 						_setFooAttr: "plainTextNode",
@@ -67,7 +66,7 @@
 	</script>
 </head>
 <body>
-<h1>_WidgetBase Attribute Unit Test</h1>
+<h1>Widget Attribute Unit Test</h1>
 
 <div id="wrapper"></div>
 </body>

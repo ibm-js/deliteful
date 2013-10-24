@@ -9,9 +9,9 @@ define([
 	"dojo/topic", // publish
 	"dojo/when",
 	"../registry", // registry.byId
-	"../_WidgetBase",
+	"../Widget",
 	"./_LayoutWidget"
-], function(cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, _WidgetBase, _LayoutWidget){
+], function(cookie, declare, domClass, domConstruct, has, lang, on, topic, when, registry, Widget, _LayoutWidget){
 
 	// module:
 	//		dui/layout/StackContainer
@@ -43,7 +43,7 @@ define([
 		baseClass: "duiStackContainer",
 
 		/*=====
-		// selectedChildWidget: [readonly] dui/_WidgetBase
+		// selectedChildWidget: [readonly] dui/Widget
 		//		References the currently selected child widget, if any.
 		//		Adjust selected child with selectChild() method.
 		selectedChildWidget: null,
@@ -113,7 +113,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dui/_WidgetBase*/ child){
+		_setupChild: function(/*dui/Widget*/ child){
 			// Overrides _LayoutWidget._setupChild()
 
 			// For aria support, wrap child widget in a <div role="tabpanel">
@@ -141,7 +141,7 @@ define([
 			child.domNode.title = "";
 		},
 
-		addChild: function(/*dui/_WidgetBase*/ child, /*Integer?*/ insertIndex){
+		addChild: function(/*dui/Widget*/ child, /*Integer?*/ insertIndex){
 			// Overrides _Container.addChild() to do layout and publish events
 
 			this.inherited(arguments);
@@ -165,7 +165,7 @@ define([
 			}
 		},
 
-		removeChild: function(/*dui/_WidgetBase*/ page){
+		removeChild: function(/*dui/Widget*/ page){
 			// Overrides _Container.removeChild() to do layout and publish events
 
 			var idx = this.getChildren().indexOf(page);
@@ -208,7 +208,7 @@ define([
 			}
 		},
 
-		selectChild: function(/*dui/_WidgetBase|String*/ page, /*Boolean*/ animate){
+		selectChild: function(/*dui/Widget|String*/ page, /*Boolean*/ animate){
 			// summary:
 			//		Show the given widget (which must be one of my children)
 			// page:
@@ -237,9 +237,9 @@ define([
 			// summary:
 			//		Hide the old widget and display the new widget.
 			//		Subclasses should override this.
-			// newWidget: dui/_WidgetBase
+			// newWidget: dui/Widget
 			//		The newly selected widget.
-			// oldWidget: dui/_WidgetBase
+			// oldWidget: dui/Widget
 			//		The previously selected widget.
 			// animate: Boolean
 			//		Used by AccordionContainer to turn on/off slide effect.
@@ -275,7 +275,7 @@ define([
 			var children = this.getChildren();
 			var index = children.indexOf(this.selectedChildWidget);
 			index += forward ? 1 : children.length - 1;
-			return children[ index % children.length ]; // dui/_WidgetBase
+			return children[ index % children.length ]; // dui/Widget
 		},
 
 		forward: function(){
@@ -306,7 +306,7 @@ define([
 			}
 		},
 
-		_showChild: function(/*dui/_WidgetBase*/ page){
+		_showChild: function(/*dui/Widget*/ page){
 			// summary:
 			//		Show the specified child by changing it's CSS, and call _onShow()/onShow() so
 			//		it can do any updates it needs regarding loading href's etc.
@@ -324,7 +324,7 @@ define([
 			return (page._onShow && page._onShow()) || true;
 		},
 
-		_hideChild: function(/*dui/_WidgetBase*/ page){
+		_hideChild: function(/*dui/Widget*/ page){
 			// summary:
 			//		Hide the specified child by changing it's CSS, and call _onHide() so
 			//		it's notified.
@@ -337,7 +337,7 @@ define([
 			page.onHide && page.onHide();
 		},
 
-		closeChild: function(/*dui/_WidgetBase*/ page){
+		closeChild: function(/*dui/Widget*/ page){
 			// summary:
 			//		Callback when user clicks the [X] to remove a page.
 			//		If onClose() returns true then remove and destroy the child.
@@ -395,7 +395,7 @@ define([
 	// Since any widget can be specified as a StackContainer child, mix them
 	// into the base widget class.  (This is a hack, but it's effective.)
 	// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-	lang.extend(_WidgetBase, /*===== {} || =====*/ StackContainer.ChildWidgetProperties);
+	lang.extend(Widget, /*===== {} || =====*/ StackContainer.ChildWidgetProperties);
 
 	return StackContainer;
 });

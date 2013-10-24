@@ -9,7 +9,7 @@ define([
 	"dojo/on",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./iconUtils",
 	"./lazyLoadUtils",
 	"./_css3",

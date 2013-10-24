@@ -9,7 +9,7 @@ define([
 	"dojo/on",
 	"dojo/touch",
 	"dui/_Contained",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dojo/sniff",
 	"./_maskUtils",
 	"./common",

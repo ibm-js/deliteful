@@ -9,12 +9,12 @@
         <script type="text/javascript">
 			require([
 				"dojo/_base/declare", "dojo/data/ItemFileReadStore", "dojo/dom-construct",
-				"dui/_WidgetBase", "dui/Tree", "dui/tree/ForestStoreModel",
+				"dui/Widget", "dui/Tree", "dui/tree/ForestStoreModel",
 				"dojo/domReady!"
 			], function(declare, ItemFileReadStore, domConstruct,
-						_WidgetBase, Tree, ForestStoreModel){
+						Widget, Tree, ForestStoreModel){
 
-				declare("SuperSmartLink", _WidgetBase, {
+				declare("SuperSmartLink", Widget, {
 					buildRendering: function(){
 						this.domNode = document.createElement("A");
 						this.domNode.href = "http://ibm.com";

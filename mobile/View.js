@@ -15,7 +15,7 @@ define([
 	"dojo/topic",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./ViewController", // to load ViewController for you (no direct references)
 	"./common",
 	"./viewRegistry",

@@ -121,7 +121,7 @@ define([
 			//		Returns first child that can be focused.
 
 			// Leverage _getNextFocusableChild() to skip disabled children
-			return this._getNextFocusableChild(null, 1);	// dui/_WidgetBase
+			return this._getNextFocusableChild(null, 1);	// dui/Widget
 		},
 
 		_getLastFocusableChild: function () {
@@ -129,7 +129,7 @@ define([
 			//		Returns last child that can be focused.
 
 			// Leverage _getNextFocusableChild() to skip disabled children
-			return this._getNextFocusableChild(null, -1);	// dui/_WidgetBase
+			return this._getNextFocusableChild(null, -1);	// dui/Widget
 		},
 
 		focusFirstChild: function () {
@@ -150,7 +150,7 @@ define([
 			this.focusChild(this._getLastFocusableChild());
 		},
 
-		focusChild: function (/*dui/_WidgetBase*/ widget, /*Boolean*/ last) {
+		focusChild: function (/*dui/Widget*/ widget, /*Boolean*/ last) {
 			// summary:
 			//		Focus specified child widget.
 			// widget:
@@ -221,7 +221,7 @@ define([
 			}
 		}),
 
-		_onChildFocus: function (/*dui/_WidgetBase*/ child) {
+		_onChildFocus: function (/*dui/Widget*/ child) {
 			// summary:
 			//		Called when a child widget gets focus, either by user clicking
 			//		it, or programatically by arrow key handling code.
@@ -251,7 +251,7 @@ define([
 		//		"ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
 		multiCharSearchDuration: 1000,
 
-		onKeyboardSearch: function (/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches) {
+		onKeyboardSearch: function (/*dui/Widget*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches) {
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.
@@ -262,7 +262,7 @@ define([
 			}
 		},
 
-		_keyboardSearchCompare: function (/*dui/_WidgetBase*/ item, /*String*/ searchString) {
+		_keyboardSearchCompare: function (/*dui/Widget*/ item, /*String*/ searchString) {
 			// summary:
 			//		Compares the searchString to the widget's text label, returning:
 			//
@@ -407,11 +407,11 @@ define([
 					child = this._getNext(child, dir);
 				}
 				if (child != null && child != wrappedValue && child.isFocusable()) {
-					return child;	// dui/_WidgetBase
+					return child;	// dui/Widget
 				}
 			} while (child != wrappedValue);
 			// no focusable child found
-			return null;	// dui/_WidgetBase
+			return null;	// dui/Widget
 		},
 
 		_getFirst: function () {
@@ -420,7 +420,7 @@ define([
 			// tags:
 			//		abstract extension
 
-			return null;	// dui/_WidgetBase
+			return null;	// dui/Widget
 		},
 
 		_getLast: function () {
@@ -429,7 +429,7 @@ define([
 			// tags:
 			//		abstract extension
 
-			return null;	// dui/_WidgetBase
+			return null;	// dui/Widget
 		},
 
 		_getNext: function (child, dir) {
@@ -446,10 +446,10 @@ define([
 			while (child) {
 				child = child[dir < 0 ? "previousSibling" : "nextSibling"];
 				if (child && child.hasAttribute && child.buildRendering) {
-					return w; // dui/_WidgetBase
+					return w; // dui/Widget
 				}
 			}
-			return null;	// dui/_WidgetBase
+			return null;	// dui/Widget
 		}
 	});
 });

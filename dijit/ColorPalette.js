@@ -1,7 +1,7 @@
 define([
 	"require", // require.toUrl
 	"dojo/text!./templates/ColorPalette.html",
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"./_PaletteMixin",
 	"dojo/hccss", // has("highcontrast")
@@ -11,13 +11,13 @@ define([
 	"dojo/string", // string.substitute
 	"dojo/i18n!dojo/nls/colors", // translations
 	"dojo/colors"    // extend dojo.Color w/names of other colors
-], function(require, template, _WidgetBase, _TemplatedMixin, _PaletteMixin, has, Color,
+], function(require, template, Widget, _TemplatedMixin, _PaletteMixin, has, Color,
 	declare, domConstruct, string, nlsStrings){
 
 	// module:
 	//		dui/ColorPalette
 
-	var ColorPalette = declare("dui.ColorPalette", [_WidgetBase, _TemplatedMixin, _PaletteMixin], {
+	var ColorPalette = declare("dui.ColorPalette", [Widget, _TemplatedMixin, _PaletteMixin], {
 		// summary:
 		//		A keyboard accessible color-picking widget
 		// description:

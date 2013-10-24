@@ -4,14 +4,14 @@ define([
 	"dojo/parser", // parser._functionFromScript
 	"dojo/query", // query
 	"./register",
-	"./_WidgetBase",
+	"./Widget",
 	"dojo/NodeList-dom"
-], function (aspect, lang, parser, query, register, _WidgetBase) {
+], function (aspect, lang, parser, query, register, Widget) {
 
 	// module:
 	//		dui/Declaration
 
-	return register("dui-declaration", _WidgetBase, {
+	return register("dui-declaration", Widget, {
 		// summary:
 		//		The Declaration widget allows a developer to declare new widget
 		//		classes directly from a snippet of markup.
@@ -35,7 +35,7 @@ define([
 
 		// mixins: [const] String[]
 		//		List containing the prototype for this widget, and also any mixins,
-		//		ex: ["dui._WidgetBase", "dui._Container"]
+		//		ex: ["dui.Widget", "dui._Container"]
 		mixins: [],
 
 		buildRendering: function () {
@@ -68,7 +68,7 @@ define([
 					return lang.getObject(name);
 				});
 			} else {
-				this.mixins = [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ];
+				this.mixins = [ Widget, _TemplatedMixin, _WidgetsInTemplateMixin ];
 			}
 
 			propList._skipNodeCache = true;

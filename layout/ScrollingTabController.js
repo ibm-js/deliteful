@@ -234,7 +234,7 @@ define([
 			}
 		},
 
-		onSelectChild: function(/*dui/_WidgetBase*/ page){
+		onSelectChild: function(/*dui/Widget*/ page){
 			// summary:
 			//		Smoothly scrolls to a tab when it is selected.
 

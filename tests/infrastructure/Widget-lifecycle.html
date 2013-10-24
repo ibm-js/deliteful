@@ -3,16 +3,16 @@
 <html>
 <head>
 
-	<title>_WidgetBase lifecycle unit test</title>
+	<title>Widget lifecycle unit test</title>
 
 	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script type="text/javascript">
 		require([
 			"doh/runner",
 			"dojo/aspect", "dojo/dom",
-			"dui/register", "dui/_WidgetBase",
+			"dui/register", "dui/Widget",
 			"dojo/domReady!"
-		], function (doh, aspect, dom, register, _WidgetBase) {
+		], function (doh, aspect, dom, register, Widget) {
 
 			var obj = {
 				foo: function () {
@@ -23,7 +23,7 @@
 			// Number of times foo was called while TestWidget existed
 			var calls = 0;
 
-			TestWidget = register("test-widget", [HTMLElement, _WidgetBase], {
+			TestWidget = register("test-widget", [HTMLElement, Widget], {
 				postCreate: function () {
 					// Rather odd call to this.own() for testing the connections are dropped on destroy()
 					this.own(aspect.after(obj, "foo", function () {
@@ -89,7 +89,7 @@
 			doh.register("setter not called on creation", function () {
 				// Setters are no longer called on creation except for parameters sent to new Foo(...)
 				var fooSetterCalled = false;
-				var MyWidget = register("my-widget", [HTMLElement, _WidgetBase], {
+				var MyWidget = register("my-widget", [HTMLElement, Widget], {
 					foo: 345,
 					_setFooAttr: function (val) {
 						fooSetterCalled = val;

@@ -107,7 +107,7 @@ define(["./template"], function (template) {
 		compile: function (templateText) {
 			// summary:
 			//		Given a template, returns a function to generate DOM corresponding to that template,
-			//		and setup listeners (using `_WidgetBase.watch()`) to propagate changes in the widget
+			//		and setup listeners (using `Widget.watch()`) to propagate changes in the widget
 			//		properties to the templates.
 			// template: String
 			//		See module description for details on template format.

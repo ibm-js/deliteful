@@ -8,16 +8,16 @@ define([
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"./CalendarLite",
-	"../_WidgetBase",
+	"../Widget",
 	"../_CssStateMixin",
 	"../_TemplatedMixin",
 	"../form/DropDownButton"
-], function(date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, _WidgetBase, _CssStateMixin, _TemplatedMixin, DropDownButton){
+], function(date, local, declare, domAttr, domClass, keys, lang, on, CalendarLite, Widget, _CssStateMixin, _TemplatedMixin, DropDownButton){
 
 	// module:
 	//		dui/Calendar
 
-	var Calendar = declare("dui.Calendar", [CalendarLite, _WidgetBase, _CssStateMixin], {
+	var Calendar = declare("dui.Calendar", [CalendarLite, Widget, _CssStateMixin], {
 		// summary:
 		//		A simple GUI for choosing a date in the context of a monthly calendar.
 		//
@@ -255,7 +255,7 @@ define([
 		}
 	});
 
-	Calendar._MonthDropDown = declare("dui.Calendar._MonthDropDown", [_WidgetBase, _TemplatedMixin], {
+	Calendar._MonthDropDown = declare("dui.Calendar._MonthDropDown", [Widget, _TemplatedMixin], {
 		// summary:
 		//		The list-of-months drop down from the MonthDropDownButton
 

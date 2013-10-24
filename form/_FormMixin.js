@@ -45,7 +45,7 @@ define([
 		//	* people[3].sex (for a list of people [{name: Bill, sex: M}, ...])
 
 
-		_getDescendantFormWidgets: function(/*dui/_WidgetBase[]?*/ children){
+		_getDescendantFormWidgets: function(/*dui/Widget[]?*/ children){
 			// summary:
 			//		Returns all form widget descendants, searching through non-form child widgets like BorderContainer
 			var res = [];

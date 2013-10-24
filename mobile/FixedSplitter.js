@@ -5,7 +5,7 @@ define([
 	"dojo/dom-geometry",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dojo/has"
 ], function(declare, win, domClass, domGeometry, Contained, Container, WidgetBase, has){
 

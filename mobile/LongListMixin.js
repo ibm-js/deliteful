@@ -233,7 +233,7 @@ define([
 			}
 		},
 		
-		// The rest of the methods are overrides of _Container and _WidgetBase.
+		// The rest of the methods are overrides of _Container and Widget.
 		// We must override them because children are not all added to the DOM tree
 		// under the list node, only a subset of them will really be in the DOM,
 		// but we still want the list to look as if all children were there.
@@ -263,7 +263,7 @@ define([
 		},
 
 		getChildren : function(){
-			// summary: Overrides dui._WidgetBase
+			// summary: Overrides dui.Widget
 			if(this._items){
 				return this._items.slice(0);
 			}else{

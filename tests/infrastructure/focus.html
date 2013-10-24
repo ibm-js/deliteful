@@ -10,13 +10,13 @@
 require([
 	"doh/runner", "dcl/dcl", "dojo/dom", "dojo/on", "dojo/parser", "dojo/query",
 	"dui/focus",
-	"dui/_WidgetBase", "dui/_FocusMixin",
+	"dui/Widget", "dui/_FocusMixin",
 	"dojo/domReady!",
 	"dui/form/DateTextBox", "dui/form/ComboBox", "dui/form/NumberSpinner", "dui/form/ComboButton",
 	"dui/dijit/Menu", "dui/dijit/MenuItem", "dui/dijit/PopupMenuItem"
-], function (doh, dcl, dom, on, parser, query, focus, _WidgetBase, _FocusMixin) {
+], function (doh, dcl, dom, on, parser, query, focus, Widget, _FocusMixin) {
 
-	FakeEditor = dcl([_WidgetBase, _FocusMixin], {
+	FakeEditor = dcl([Widget, _FocusMixin], {
 		buildRendering: function () {
 			// dui/focus gets confused if <body> gets focused, so need to add an extra <div> and focus that instead
 			this.domNode = this.containerNode = this.ownerDocument.createElement("iframe");
@@ -403,12 +403,12 @@ require([
 
 <label>a form ContentPane widget:</label><br>
 
-<form id="form" data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+<form id="form" data-dojo-type="dui/Widget" data-dojo-mixins="dui/_FocusMixin">
 	<label for="first">simple input: </label><input id="first"/><br>
 	<label for="second">another simple input: </label><input id="second"/><br>
 
 	<label>a fieldset ContentPane widget:</label><br>
-	<fieldset id=fieldset1 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+	<fieldset id=fieldset1 data-dojo-type="dui/Widget" data-dojo-mixins="dui/_FocusMixin">
 		<label for="select">a ComboBox widget:</label>
 		<select id=select data-dojo-type="dui/form/ComboBox">
 			<option>this</option>
@@ -426,7 +426,7 @@ require([
 	</div>
 	<br>
 	<label>another fieldset ContentPane:</label><br>
-	<fieldset id=fieldset2 data-dojo-type="dui/_WidgetBase" data-dojo-mixins="dui/_FocusMixin">
+	<fieldset id=fieldset2 data-dojo-type="dui/Widget" data-dojo-mixins="dui/_FocusMixin">
 		<label for="date">a DateTextBox widget:</label>
 		<input id=date data-dojo-type="dui/form/DateTextBox"/><br>
 

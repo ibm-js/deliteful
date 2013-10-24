@@ -23,7 +23,7 @@ define([
 			 has, kernel, lang, on, win, Destroyable, Stateful, register, _BidiMixin) {
 
 	// module:
-	//		dui/_WidgetBase
+	//		dui/Widget
 
 	// Flag to enable support for textdir attribute
 	has.add("dojo-bidi", false);
@@ -118,7 +118,7 @@ define([
 		return id; // String
 	}
 
-	var _WidgetBase = dcl([Stateful, Destroyable], {
+	var Widget = dcl([Stateful, Destroyable], {
 		// summary:
 		//		Base class for all widgets.
 		//
@@ -260,7 +260,7 @@ define([
 			// description:
 			//		Create calls a number of widget methods (buildRendering, postCreate,
 			//		etc.), some of which of you'll want to override.
-			//		See http://dojotoolkit.org/reference-guide/dui/_WidgetBase.html
+			//		See http://dojotoolkit.org/reference-guide/dui/Widget.html
 			//		for a discussion of the widget creation lifecycle.
 			//
 			//		Of course, adventurous developers could override create entirely, but this should
@@ -579,7 +579,7 @@ define([
 			return this.focus && (domStyle.get(this, "display") !== "none");
 		},
 
-		placeAt: function (/* String|DomNode|_WidgetBase */ reference, /* String|Int? */ position) {
+		placeAt: function (/* String|DomNode|Widget */ reference, /* String|Int? */ position) {
 			// summary:
 			//		Place this widget somewhere in the DOM based
 			//		on standard domConstruct.place() conventions.
@@ -597,7 +597,7 @@ define([
 			//		If reference is a DOMNode (or id matching a DOMNode but not a widget),
 			//		the position argument can be a numeric index or a string
 			//		"first", "last", "before", or "after", same as dojo/dom-construct::place().
-			// returns: dui/_WidgetBase
+			// returns: dui/Widget
 			//		Provides a useful return of the newly created dui._Widget instance so you
 			//		can "chain" this function by instantiating, placing, then saving the return value
 			//		to a variable.
@@ -753,14 +753,14 @@ define([
 	});
 
 	if (has("dojo-bidi")) {
-		_WidgetBase = dcl(_WidgetBase, _BidiMixin);
+		Widget = dcl(Widget, _BidiMixin);
 	}
 
 	// Setup automatic chaining for lifecycle methods, except for buildRendering()
-	dcl.chainAfter(_WidgetBase, "preCreate");
-	dcl.chainAfter(_WidgetBase, "postCreate");
-	dcl.chainAfter(_WidgetBase, "startup");
-	dcl.chainBefore(_WidgetBase, "destroy");
+	dcl.chainAfter(Widget, "preCreate");
+	dcl.chainAfter(Widget, "postCreate");
+	dcl.chainAfter(Widget, "startup");
+	dcl.chainBefore(Widget, "destroy");
 
-	return _WidgetBase;
+	return Widget;
 });

@@ -6,15 +6,15 @@ define([
 	"dojo/on",
 	"dojo/window", // winUtils.getBox, winUtils.get
 	"./register",
-	"./_WidgetBase",
+	"./Widget",
 	"./BackgroundIframe",
 	"./Viewport"
-], function (lang, aspect, domAttr, domStyle, on, winUtils, register, _WidgetBase, BackgroundIframe, Viewport) {
+], function (lang, aspect, domAttr, domStyle, on, winUtils, register, Widget, BackgroundIframe, Viewport) {
 
 	// module:
 	//		dui/DialogUnderlay
 
-	var DialogUnderlay = register("dui-dialog-underlay", _WidgetBase, {
+	var DialogUnderlay = register("dui-dialog-underlay", Widget, {
 		// summary:
 		//		A component used to block input behind a `dui/Dialog`.
 		//

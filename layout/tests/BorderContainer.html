@@ -39,7 +39,7 @@ require([
 			bcTest.checkBCpanes(registry.byId("border2"));
 			doh.is("auto", style.get("border1-left", "overflow"), "overflow on ContentPane should be auto");
 			doh.t("layoutPriority" in registry.byId("menu"),
-					"make sure layoutPriority flag added to _WidgetBase is visible in MenuBar");
+					"make sure layoutPriority flag added to Widget is visible in MenuBar");
 		},
 
 		function tabOrder(){

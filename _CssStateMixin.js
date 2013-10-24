@@ -1,13 +1,13 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // domClass.toggle
-	"./_WidgetBase"
-], function (dcl, domClass, _WidgetBase) {
+	"./Widget"
+], function (dcl, domClass, Widget) {
 
 	// module:
 	//		dui/_CssStateMixin
 
-	return dcl(_WidgetBase, {
+	return dcl(Widget, {
 		// summary:
 		//		Update the visual state of the widget by setting CSS classes on widget root node
 		//		by combining this.baseClass with various suffixes that represent the current widget state(s).

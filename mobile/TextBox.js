@@ -3,7 +3,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/dom-construct",
 	"dojo/on",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dui/form/_FormValueMixin",
 	"dui/form/_TextBoxMixin",
 	"dojo/has",

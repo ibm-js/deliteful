@@ -1,8 +1,8 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-construct", // domConstruct.place
-	"./_WidgetBase"
-], function (dcl, domConstruct, _WidgetBase) {
+	"./Widget"
+], function (dcl, domConstruct, Widget) {
 
 	// module:
 	//		dui/_Container
@@ -21,7 +21,7 @@ define([
 			}
 		}),
 
-		addChild: function (/*dui/_WidgetBase|DOMNode*/ widget, /*int?*/ insertIndex) {
+		addChild: function (/*dui/Widget|DOMNode*/ widget, /*int?*/ insertIndex) {
 			// summary:
 			//		Makes the given widget or DOM node a child of this widget.
 			// description:
@@ -57,7 +57,7 @@ define([
 			// start it now.  Make sure to do this after widget has been
 			// inserted into the DOM tree, so it can see that it's being controlled by me,
 			// so it doesn't try to size itself.
-			if (this._started && !widget._started && dcl.isInstanceOf(widget, _WidgetBase)) {
+			if (this._started && !widget._started && dcl.isInstanceOf(widget, Widget)) {
 				widget.startup();
 			}
 		},
@@ -86,7 +86,7 @@ define([
 			return this.getChildren().length > 0;	// Boolean
 		},
 
-		getIndexOfChild: function (/*dui/_WidgetBase*/ child) {
+		getIndexOfChild: function (/*dui/Widget*/ child) {
 			// summary:
 			//		Gets the index of the child in this container or -1 if not found
 			return this.getChildren().indexOf(child);	// int

@@ -11,16 +11,16 @@ define([
 	"dojo/query", // query
 	"dojo/mouse", // mouse.wheel
 	"dojo/on",
-	"../_WidgetBase",
+	"../Widget",
 	"../form/_ListMouseMixin"
 ], function(ddate, locale, stamp, declare, domClass, domConstruct, keys, lang, has, query, mouse, on,
-			_WidgetBase, _ListMouseMixin){
+			Widget, _ListMouseMixin){
 
 	// module:
 	//		dui/_TimePicker
 
 
-	var TimePicker = declare("dui._TimePicker", [_WidgetBase, _ListMouseMixin], {
+	var TimePicker = declare("dui._TimePicker", [Widget, _ListMouseMixin], {
 		// summary:
 		//		A time picker dropdown, used by dui/form/TimeTextBox.
 		//		This widget is not available as a standalone widget due to lack of accessibility support.

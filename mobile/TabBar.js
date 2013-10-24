@@ -10,7 +10,7 @@ define([
 	"dojo/topic",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TabBar"	

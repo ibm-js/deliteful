@@ -1,11 +1,11 @@
-define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_WidgetBase"],
-	function (doh, register, _Invalidating, _WidgetBase) {
+define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../Widget"],
+	function (doh, register, _Invalidating, Widget) {
 		doh.register("mixins._Invalidating", [
 			{
 				timeout: 2000,
 				name: "PostCreation",
 				runTest: function (t) {
-					var C = register("test-invalidating-post", [HTMLElement, _WidgetBase, _Invalidating], {
+					var C = register("test-invalidating-post", [HTMLElement, Widget, _Invalidating], {
 						preCreate: function () {
 							this.addInvalidatingProperties("a");
 							this.addInvalidatingProperties("b");
@@ -44,7 +44,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 				timeout: 2000,
 				name: "InCreation",
 				runTest: function (t) {
-					var C = register("test-invalidating-in", [HTMLElement, _WidgetBase, _Invalidating], {
+					var C = register("test-invalidating-in", [HTMLElement, Widget, _Invalidating], {
 						preCreate: function () {
 							this.addInvalidatingProperties("a", "b");
 						},
@@ -81,7 +81,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 				timeout: 2000,
 				name: "OnlyRefreshProperty",
 				runTest: function (t) {
-					var C = register("test-invalidating-only-refresh-props", [HTMLElement, _WidgetBase, _Invalidating], {
+					var C = register("test-invalidating-only-refresh-props", [HTMLElement, Widget, _Invalidating], {
 						preCreate: function () {
 							this.addInvalidatingProperties({"a": "invalidateProperty"});
 							this.addInvalidatingProperties({"b": "invalidateProperty"});
@@ -127,7 +127,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 				timeout: 2000,
 				name: "Manual",
 				runTest: function (t) {
-					var C = register("test-invalidating-manual", [HTMLElement, _WidgetBase, _Invalidating], {
+					var C = register("test-invalidating-manual", [HTMLElement, Widget, _Invalidating], {
 						a: null,
 						b: null,
 						refreshProperties: function (props) {
@@ -166,7 +166,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 				timeout: 2000,
 				name: "PropertyAndRendering",
 				runTest: function (t) {
-					var C = register("test-invalidating-prop-rendering", [HTMLElement, _WidgetBase, _Invalidating], {
+					var C = register("test-invalidating-prop-rendering", [HTMLElement, Widget, _Invalidating], {
 						preCreate: function () {
 							this.addInvalidatingProperties({"a": "invalidateProperty", "b": "invalidateProperty"});
 						},

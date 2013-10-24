@@ -1,16 +1,16 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"../_Contained",
 	"dojo/text!./templates/MenuSeparator.html"
-], function(declare, dom, _WidgetBase, _TemplatedMixin, _Contained, template){
+], function(declare, dom, Widget, _TemplatedMixin, _Contained, template){
 
 	// module:
 	//		dui/MenuSeparator
 
-	return declare("dui.MenuSeparator", [_WidgetBase, _TemplatedMixin, _Contained], {
+	return declare("dui.MenuSeparator", [Widget, _TemplatedMixin, _Contained], {
 		// summary:
 		//		A line between two menu items
 

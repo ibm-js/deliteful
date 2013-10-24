@@ -9,17 +9,17 @@ define([
 	"dojo/_base/lang", // getObject() hitch() delegate()
 	"dojo/on",
 	"dojo/touch",
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"./LayoutContainer",
 	"./utils"        // layoutUtils.layoutChildren
 ], function(cookie, declare, domClass, domConstruct, domGeometry, domStyle, keys, lang, on, touch,
-			_WidgetBase, _TemplatedMixin, LayoutContainer, layoutUtils){
+			Widget, _TemplatedMixin, LayoutContainer, layoutUtils){
 
 	// module:
 	//		dui/layout/BorderContainer
 
-	var _Splitter = declare("dui.layout._Splitter", [_WidgetBase, _TemplatedMixin ], {
+	var _Splitter = declare("dui.layout._Splitter", [Widget, _TemplatedMixin ], {
 		// summary:
 		//		A draggable spacer between two items in a `dui/layout/BorderContainer`.
 		// description:
@@ -226,7 +226,7 @@ define([
 		}
 	});
 
-	var _Gutter = declare("dui.layout._Gutter", [_WidgetBase, _TemplatedMixin], {
+	var _Gutter = declare("dui.layout._Gutter", [Widget, _TemplatedMixin], {
 		// summary:
 		//		Just a spacer div to separate side pane from center pane.
 		//		Basically a trick to lookup the gutter/splitter width from the theme.
@@ -291,7 +291,7 @@ define([
 			this.inherited(arguments);
 		},
 
-		_setupChild: function(/*dui/_WidgetBase*/ child){
+		_setupChild: function(/*dui/Widget*/ child){
 			// Override LayoutContainer._setupChild().
 
 			this.inherited(arguments);
@@ -336,7 +336,7 @@ define([
 			this._layoutChildren();
 		},
 
-		removeChild: function(/*dui/_WidgetBase*/ child){
+		removeChild: function(/*dui/Widget*/ child){
 			// Override _LayoutWidget.removeChild().
 
 			var splitter = child._splitterWidget;
@@ -454,7 +454,7 @@ define([
 	// Since any widget can be specified as a BorderContainer child, mix it
 	// into the base widget class.  (This is a hack, but it's effective.)
 	// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-	lang.extend(_WidgetBase, /*===== {} || =====*/ BorderContainer.ChildWidgetProperties);
+	lang.extend(Widget, /*===== {} || =====*/ BorderContainer.ChildWidgetProperties);
 
 	// For monkey patching
 	BorderContainer._Splitter = _Splitter;

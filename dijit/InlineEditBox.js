@@ -13,7 +13,7 @@ define([
 	"dojo/when",
 	"../a11yclick",
 	"../focus",
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"../_WidgetsInTemplateMixin",
 	"../_Container",
@@ -23,12 +23,12 @@ define([
 	"../form/TextBox",
 	"dojo/text!./templates/InlineEditBox.html",
 	"dojo/i18n!../nls/common"
-], function(require, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
+], function(require, aspect, declare, domAttr, domClass, domConstruct, domStyle, keys, lang, on, has, when, a11yclick, fm, Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FocusMixin, Button, _TextBoxMixin, TextBox, template, nlsCommon){
 
 	// module:
 	//		dui/InlineEditBox
 
-	var InlineEditor = declare("dui._InlineEditor", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _FocusMixin], {
+	var InlineEditor = declare("dui._InlineEditor", [Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _FocusMixin], {
 		// summary:
 		//		Internal widget used by InlineEditBox, displayed when in editing mode
 		//		to display the editor and maybe save/cancel buttons.  Calling code should
@@ -247,7 +247,7 @@ define([
 	});
 
 
-	var InlineEditBox = declare("dui.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), _WidgetBase, {
+	var InlineEditBox = declare("dui.InlineEditBox" + (has("dojo-bidi") ? "_NoBidi" : ""), Widget, {
 		// summary:
 		//		An element with in-line edit capabilities
 		//

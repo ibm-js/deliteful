@@ -8,7 +8,7 @@ define([
 	"dojo/topic",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase"
+	"../Widget"
 ], function(declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
 
 	// module:

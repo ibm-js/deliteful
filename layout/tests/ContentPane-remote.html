@@ -18,7 +18,7 @@
 			"dojo/request",
 			"dojo/when",
 			"dui/registry",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_TemplatedMixin",
 			"dui/Tooltip",
 			"dui/TooltipDialog",
@@ -31,7 +31,7 @@
 			"dui/tests/helpers",
 			"dojo/domReady!"
 		], function(doh, aspect, declare, dom, domClass, lang, parser, request, when,
-				registry, _WidgetBase, _TemplatedMixin, Tooltip, TooltipDialog, Button, DropDownButton,
+				registry, Widget, _TemplatedMixin, Tooltip, TooltipDialog, Button, DropDownButton,
 				ContentPane, StackContainer, TabContainer, AccordionContainer, helpers){
 
 			var tabCounter;
@@ -64,7 +64,7 @@
 
 			// create a do nothing, only for test widget
 			declare("TestWidget",
-				[_WidgetBase, _TemplatedMixin], {
+				[Widget, _TemplatedMixin], {
 				templateString: "<span class='duiTestWidget'></span>"
 			});
 
@@ -90,7 +90,7 @@
 						var d = new doh.Deferred();
 
 						cp.set('href', 'getResponse.php?messId=1').then(d.getTestCallback(function(){
-							doh.is(1, _WidgetBase.prototype.getChildren.call(cp).length);
+							doh.is(1, Widget.prototype.getChildren.call(cp).length);
 						}));
 						return d;
 					}

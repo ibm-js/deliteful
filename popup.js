@@ -83,7 +83,7 @@ define([
 		//		Used to show drop downs (ex: the select list of a ComboBox)
 		//		or popups (ex: right-click context menus).
 
-		// _stack: dui/_WidgetBase[]
+		// _stack: dui/Widget[]
 		//		Stack of currently popped up widgets.
 		//		(someone opened _stack[0], and then it opened _stack[1], etc.)
 		_stack: [],
@@ -295,7 +295,7 @@ define([
 			}
 
 			if (has("config-bgIframe") && !widget.bgIframe) {
-				// setting widget.bgIframe triggers cleanup in _WidgetBase.destroyRendering()
+				// setting widget.bgIframe triggers cleanup in Widget.destroyRendering()
 				widget.bgIframe = new BackgroundIframe(wrapper);
 			}
 

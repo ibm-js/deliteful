@@ -1,15 +1,15 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.setSelectable
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin"
-], function(declare, dom, _WidgetBase, _TemplatedMixin){
+], function(declare, dom, Widget, _TemplatedMixin){
 
 	// module:
 	//		dui/ToolbarSeparator
 
 
-	return declare("dui.ToolbarSeparator", [_WidgetBase, _TemplatedMixin], {
+	return declare("dui.ToolbarSeparator", [Widget, _TemplatedMixin], {
 		// summary:
 		//		A spacer between two `dui.Toolbar` items
 

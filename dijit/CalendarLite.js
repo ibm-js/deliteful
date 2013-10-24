@@ -10,18 +10,18 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("webkit")
 	"dojo/string", // string.substitute
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"dojo/text!./templates/Calendar.html",
 	"../a11yclick",	// not used directly, but template has ondijitclick in it
 	"dojo/hccss"    // not used directly, but sets CSS class on <body>
-], function(declare, cldrSupplemental, date, locale, stamp, dom, domClass, lang, on, has, string, _WidgetBase, _TemplatedMixin, template){
+], function(declare, cldrSupplemental, date, locale, stamp, dom, domClass, lang, on, has, string, Widget, _TemplatedMixin, template){
 
 
 	// module:
 	//		dui/CalendarLite
 
-	var CalendarLite = declare("dui.CalendarLite", [_WidgetBase, _TemplatedMixin], {
+	var CalendarLite = declare("dui.CalendarLite", [Widget, _TemplatedMixin], {
 		// summary:
 		//		Lightweight version of Calendar widget aimed towards mobile use
 		//
@@ -489,7 +489,7 @@ define([
 		}
 	});
 
-	CalendarLite._MonthWidget = declare("dui.CalendarLite._MonthWidget", _WidgetBase, {
+	CalendarLite._MonthWidget = declare("dui.CalendarLite._MonthWidget", Widget, {
 		// summary:
 		//		Displays name of current month padded to the width of the month
 		//		w/the longest name, so that changing months doesn't change width.

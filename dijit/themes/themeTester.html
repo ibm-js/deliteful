@@ -243,7 +243,7 @@
 		tearDown = function(){
 			// summary:
 			//		Destroy all widgets, top down, and then check for any orphaned widgets
-			require("dui/_WidgetBase").prototype.findWidgets(document.body).forEach(function(w){
+			require("dui/Widget").prototype.findWidgets(document.body).forEach(function(w){
 				w.destroy();
 			});
 		};

@@ -2,17 +2,17 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/dom-attr", // domAttr.set
 	"dojo/sniff", // has("ie")
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"./_FormMixin",
 	"../layout/_ContentPaneResizeMixin"
-], function(declare, domAttr, has, _WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin){
+], function(declare, domAttr, has, Widget, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin){
 
 	// module:
 	//		dui/form/Form
 
 
-	return declare("dui.form.Form", [_WidgetBase, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
+	return declare("dui.form.Form", [Widget, _TemplatedMixin, _FormMixin, _ContentPaneResizeMixin], {
 		// summary:
 		//		Widget corresponding to HTML form tag, for validation and serialization
 		//

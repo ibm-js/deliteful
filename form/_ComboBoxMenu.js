@@ -3,18 +3,18 @@ define([
 	"dojo/dom-class", // domClass.add domClass.remove
 	"dojo/dom-style", // domStyle.get
 	"dojo/keys", // keys.DOWN_ARROW keys.PAGE_DOWN keys.PAGE_UP keys.UP_ARROW
-	"../_WidgetBase",
+	"../Widget",
 	"../_TemplatedMixin",
 	"./_ComboBoxMenuMixin",
 	"./_ListMouseMixin"
 ], function(declare, domClass, domStyle, keys,
-			_WidgetBase, _TemplatedMixin, _ComboBoxMenuMixin, _ListMouseMixin){
+			Widget, _TemplatedMixin, _ComboBoxMenuMixin, _ListMouseMixin){
 
 
 	// module:
 	//		dui/form/_ComboBoxMenu
 
-	return declare("dui.form._ComboBoxMenu",[_WidgetBase, _TemplatedMixin, _ListMouseMixin, _ComboBoxMenuMixin], {
+	return declare("dui.form._ComboBoxMenu",[Widget, _TemplatedMixin, _ListMouseMixin, _ComboBoxMenuMixin], {
 		// summary:
 		//		Focus-less menu for internal use in `dui/form/ComboBox`
 		//		Abstract methods that must be defined externally:

@@ -6,7 +6,7 @@ define([
 	"dojo/dom-style",
 	"dojo/dom-class",
 	"./register",
-	"./_WidgetBase",
+	"./Widget",
 	"./themes/load!common,Rule"
 ], function (lang, has, query, domConstruct, domStyle, domClass, register, WidgetBase) {
 

@@ -7,13 +7,13 @@ define(["dojo/_base/declare", "./common"], function(declare, common){
 		// summary:
 		//		Support for control over text direction for Badge, using Unicode Control Characters to control text direction.
 		// description:
-		//		Added textDir attribute, similar to mobile widgets based on dui._WidgetBase.
+		//		Added textDir attribute, similar to mobile widgets based on dui.Widget.
 		//		Extension to value setting attributes, with text direction support.
 		//		This class should not be used directly.
 		//		Mobile Badge widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
 		
 		// textDir: String
-		//		Mobile widgets, derived from dui._WidgetBase has this attribute for text direction support (bidi support).
+		//		Mobile widgets, derived from dui.Widget has this attribute for text direction support (bidi support).
 		//		The text direction can be different than the GUI direction.
 		//		Values: "ltr", "rtl", "auto"(the direction of a text defined by first strong letter).
 		textDir: "", 

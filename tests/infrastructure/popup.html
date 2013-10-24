@@ -42,11 +42,11 @@ require([
 	"doh/runner",
 	"dojo/dom", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-style", "dojo/_base/lang",
 	"dojo/on", "dojo/query", "dojo/sniff", "dojo/_base/window", "dojo/window",
-	"dui/popup", "dui/register", "dui/_WidgetBase",
+	"dui/popup", "dui/register", "dui/Widget",
 	"dui/tests/helpers", "dojo/domReady!"
-], function (doh, dom, domConstruct, domGeometry, domStyle, lang, on, query, has, win, winUtils, popupUtil, register, _WidgetBase, helpers) {
+], function (doh, dom, domConstruct, domGeometry, domStyle, lang, on, query, has, win, winUtils, popupUtil, register, Widget, helpers) {
 
-	SimpleDropDownButton = register("simple-dropdown-button", [HTMLButtonElement, _WidgetBase], {
+	SimpleDropDownButton = register("simple-dropdown-button", [HTMLButtonElement, Widget], {
 		// summary:
 		//		A button that shows a popup.
 		//		Supply popup as parameter when instantiating this widget.
@@ -96,7 +96,7 @@ require([
 		}
 	});
 
-	SimplePopup = register("simple-popup", [HTMLElement, _WidgetBase], {
+	SimplePopup = register("simple-popup", [HTMLElement, Widget], {
 		// summary:
 		//		A trivial popup widget
 
@@ -105,7 +105,7 @@ require([
 		}
 	});
 
-	Tooltip = register("test-tooltip", [HTMLElement, _WidgetBase], {
+	Tooltip = register("test-tooltip", [HTMLElement, Widget], {
 		// summary:
 		//		A popup with an orient() method to adjust arrows
 
@@ -132,7 +132,7 @@ require([
 		}
 	});
 
-	SimpleChoiceWidget = register("simple-choice-widget", [HTMLElement, _WidgetBase], {
+	SimpleChoiceWidget = register("simple-choice-widget", [HTMLElement, Widget], {
 		// summary:
 		//		A list of values; select a value by pressing an entry in the list.
 
@@ -161,7 +161,7 @@ require([
 		}
 	});
 
-	LotsOfChoicesWidget = register("lots-of-choices-widget", [HTMLElement, _WidgetBase], {
+	LotsOfChoicesWidget = register("lots-of-choices-widget", [HTMLElement, Widget], {
 		// summary:
 		//		A list of values; select a value by pressing an entry in the list.
 
@@ -191,7 +191,7 @@ require([
 		popup: tallChoiceDropDown
 	})).placeAt(dom.byId("widgets"));
 
-	DialogWithPopupWidget = register("dialog-with-popup-widget", [HTMLElement, _WidgetBase], {
+	DialogWithPopupWidget = register("dialog-with-popup-widget", [HTMLElement, Widget], {
 		// summary:
 		//		This is a dialog that contains a button that spawns a drop down.
 		//		Supply popup as an argument to this widget.
@@ -243,7 +243,7 @@ require([
 		})
 	}).placeAt(dom.byId("widgets"));
 
-	NestedPopupOpener = register("nested-popup-opener", [HTMLElement, _WidgetBase], {
+	NestedPopupOpener = register("nested-popup-opener", [HTMLElement, Widget], {
 		// summary:
 		//		Clicking a value in this list will open a nested popup.
 		//		Specify popup1 and popup2 as parameters to this widget.

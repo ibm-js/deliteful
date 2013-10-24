@@ -8,7 +8,7 @@ define([
 	"dojo/dom-style",
 	"dojo/on",
 	"dojo/window",
-	"dui/_WidgetBase",
+	"../Widget",
 	"dui/registry",
 	"dojo/touch",
 	"./_css3"

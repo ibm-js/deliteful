@@ -178,7 +178,7 @@ define([
 			}
 		},
 
-		focusChild: function(/*dui/_WidgetBase*/ widget){
+		focusChild: function(/*dui/Widget*/ widget){
 			// summary:
 			//		Sets the value to the given option, used during search by letter.
 			// widget:
@@ -217,7 +217,7 @@ define([
 			return node && node.getParent() == this.dropDown;
 		},
 
-		onKeyboardSearch: function(/*dui/_WidgetBase*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
+		onKeyboardSearch: function(/*dui/Widget*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches){
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.

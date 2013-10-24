@@ -1,6 +1,6 @@
-define(["doh/runner", "../../register", "../../_WidgetBase", "../../mixins/StoreMap",
+define(["doh/runner", "../../register", "../../Widget", "../../mixins/StoreMap",
 	"dojo/store/Observable", "dojo/store/JsonRest", "dojo/store/Memory"],
-	function (doh, register, _WidgetBase, StoreMap, Observable, JsonRest, Memory) {
+	function (doh, register, Widget, StoreMap, Observable, JsonRest, Memory) {
 
 		/* jshint -W064 */
 
@@ -10,7 +10,7 @@ define(["doh/runner", "../../register", "../../_WidgetBase", "../../mixins/Store
 				name: "Regular",
 				timeout: 2000,
 				runTest: function (t) {
-					var C = register("test-storemap-1", [HTMLElement, _WidgetBase, StoreMap], {
+					var C = register("test-storemap-1", [HTMLElement, Widget, StoreMap], {
 						fooAttr: "name",
 						barFunc: function (item) {
 							return item.firstname;
@@ -61,7 +61,7 @@ define(["doh/runner", "../../register", "../../_WidgetBase", "../../mixins/Store
 				name: "CopyAll",
 				timeout: 2000,
 				runTest: function (t) {
-					var C = register("test-storemap-2", [HTMLElement, _WidgetBase, StoreMap], {
+					var C = register("test-storemap-2", [HTMLElement, Widget, StoreMap], {
 						copyAllItemProps: true
 					});
 					var d = new doh.Deferred();

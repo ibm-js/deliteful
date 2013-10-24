@@ -8,7 +8,7 @@ define([
 	"dui/registry",
 	"dui/_Contained",
 	"dui/_Container",
-	"dui/_WidgetBase",
+	"../Widget",
 	"./TransitionEvent",
 	"./iconUtils",
 	"dojo/sniff",

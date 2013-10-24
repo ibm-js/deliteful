@@ -30,7 +30,7 @@
 			"dojo/_base/NodeList",
 			"dojo/parser",
 			"dui/registry",
-			"dui/_WidgetBase",
+			"dui/Widget",
 			"dui/_TemplatedMixin",
 			"dui/_WidgetsInTemplateMixin",
 			"dui/_Container",
@@ -40,12 +40,12 @@
 			"dui/layout/StackContainer",
 			"dojo/domReady!"
 		], function(doh, declare, dom, ItemFileReadStore, NodeList, parser,
-					registry, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Dialog, _LayoutWidget,
+					registry, Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, Dialog, _LayoutWidget,
 					ContentPane, StackContainer){
 
 			// create a do nothing, only for test widget
 			declare("TestWidget",
-				[_WidgetBase, _TemplatedMixin], {
+				[Widget, _TemplatedMixin], {
 				templateString: "<span class='duiTestWidget'></span>"
 			});
 
@@ -72,7 +72,7 @@
 						pane2.set("content", "");// pass undefined on purpose
 					},
 					runTest: function(t){
-						doh.is(0, _WidgetBase.prototype.getChildren.call(pane2).length);
+						doh.is(0, Widget.prototype.getChildren.call(pane2).length);
 						doh.is("", pane2.domNode.innerHTML)
 					}
 				},
@@ -96,7 +96,7 @@
 						pane2.set("content", div);
 					},
 					runTest: function(t){
-						doh.is(1, _WidgetBase.prototype.getChildren.call(pane2).length);
+						doh.is(1, Widget.prototype.getChildren.call(pane2).length);
 					},
 					tearDown: function(t){
 						pane2.set("content", ""); // clear content for next test
@@ -114,7 +114,7 @@
 						pane2.set("content", div.childNodes);
 					},
 					runTest: function(t){
-						doh.is(2, _WidgetBase.prototype.getChildren.call(pane2).length);
+						doh.is(2, Widget.prototype.getChildren.call(pane2).length);
 
 						//regular DOM check
 						var children = pane2.domNode.childNodes;
@@ -167,7 +167,7 @@
 					name: "setContent_widget", // for #12348
 					setUp: function(t){
 						// declare a widget whose template contains a non-templated widget
-						MyWidget = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+						MyWidget = declare([Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 							templateString: '<div><div '
 								+ 'data-dojo-type="dui/layout/StackContainer"></div></div>'
 						});
@@ -333,7 +333,7 @@
 								'<div id="one" data-dojo-type="TestContained"></div>' +
 							'</span></div>' +
 							'<div id="two" data-dojo-type="TestContained"></div>' +
-							'<div id="three" data-dojo-type="dui/_WidgetBase"></div>'
+							'<div id="three" data-dojo-type="dui/Widget"></div>'
 						);
 
 						// Since ContentPane is a container it should call startup
@@ -375,7 +375,7 @@
 								'<div id="deferredOne" data-dojo-type="TestContained"></div>' +
 							'</span></div>' +
 							'<div id="deferredTwo" data-dojo-type="TestContained"></div>' +
-							'<div id="deferredThree" data-dojo-type="dui/_WidgetBase"></div>'
+							'<div id="deferredThree" data-dojo-type="dui/Widget"></div>'
 						);
 
 						t.f(registry.byId('deferredTwo')._resized, "not resized yet");
@@ -450,7 +450,7 @@
 			var nwStartupCalls = 0, nwDestroyCalls = 0;
 			declare("NonWidget", null, {
 				// summary:
-				//		Doesn't extend _WidgetBase.  Used to test that startup() is still called.
+				//		Doesn't extend Widget.  Used to test that startup() is still called.
 				startup: function(){
 					if(!this._started){
 						nwStartupCalls++;
@@ -487,7 +487,7 @@
 				}
 			]);
 
-			// Tests for when ContentPane contains objects not descended from _WidgetBase,
+			// Tests for when ContentPane contains objects not descended from Widget,
 			// like dojo.Dnd.Source
 			doh.register("non widget", [
 				function startupAndDestroy(){
@@ -523,9 +523,9 @@
 		Even though the entire page isn't scanned for widgets,
 		any sub widgets of a ContentPane will be created when a ContentPane is created<br/>
 		<span id="2_zero" data-dojo-type='TestWidget'>This should have a backgroundcolor and a border</span>
-		<div id="2_one" data-dojo-type="dui/_WidgetBase"></div>
-		<div id="2_two" data-dojo-type="dui/_WidgetBase"></div>
-		<div id="2_three" data-dojo-type="dui/_WidgetBase"></div>
+		<div id="2_one" data-dojo-type="dui/Widget"></div>
+		<div id="2_two" data-dojo-type="dui/Widget"></div>
+		<div id="2_three" data-dojo-type="dui/Widget"></div>
 	</div>
 	<br/><br/>
 
@@ -534,9 +534,9 @@
 		<div id="zero" data-dojo-type="TestContained"></div>
 		<div id="one" data-dojo-type="TestContained"></div>
 		<div id="two" data-dojo-type="TestContained"></div>
-		<div id="three" data-dojo-type="dui/_WidgetBase"></div>
+		<div id="three" data-dojo-type="dui/Widget"></div>
 	</div>
-	<div id="outside" data-dojo-type="dui/_WidgetBase"></div>
+	<div id="outside" data-dojo-type="dui/Widget"></div>
 	<div id="outsideCont" data-dojo-type="TestContained"></div>
 
 	<!-- for testing popup widgets inside of a content pane -->
