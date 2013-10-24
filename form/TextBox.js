@@ -5,16 +5,16 @@ define([
 	"dojo/_base/lang", // lang.hitch
 	"dojo/on",
 	"dojo/sniff", // has("ie") has("mozilla")
-	"./_FormValueWidget",
+	"../FormValueWidget",
 	"./_TextBoxMixin",
 	"dojo/text!./templates/TextBox.html"
 ], function(declare, domConstruct, domStyle, lang, on, has,
-			_FormValueWidget, _TextBoxMixin, template){
+			FormValueWidget, _TextBoxMixin, template){
 
 	// module:
 	//		dui/form/TextBox
 
-	var TextBox = declare("dui.form.TextBox" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormValueWidget, _TextBoxMixin], {
+	var TextBox = declare("dui.form.TextBox" + (has("dojo-bidi") ? "_NoBidi" : ""), [FormValueWidget, _TextBoxMixin], {
 		// summary:
 		//		A base class for textbox form inputs
 

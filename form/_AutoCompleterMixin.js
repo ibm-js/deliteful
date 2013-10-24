@@ -19,7 +19,8 @@ define([
 		// summary:
 		//		A mixin that implements the base functionality for `dui/form/ComboBox`/`dui/form/FilteringSelect`
 		// description:
-		//		All widgets that mix in dui/form/_AutoCompleterMixin must extend `dui/form/_FormValueWidget`.
+		//		All widgets that mix in dui/form/_AutoCompleterMixin must extend `dui/FormValueWidget`.
+		//		(TODO: just make _AutoCompleterMixin extend FormValueWidget)
 		// tags:
 		//		protected
 
@@ -97,7 +98,7 @@ define([
 
 		_setDisabledAttr: function(/*Boolean*/ value){
 			// Additional code to set disabled state of ComboBox node.
-			// Overrides _FormValueWidget._setDisabledAttr() or ValidationTextBox._setDisabledAttr().
+			// Overrides FormValueWidget._setDisabledAttr() or ValidationTextBox._setDisabledAttr().
 			this.inherited(arguments);
 			this.domNode.setAttribute("aria-disabled", value ? "true" : "false");
 		},
@@ -530,7 +531,7 @@ define([
 		},
 
 		reset: function(){
-			// Overrides the _FormWidget.reset().
+			// Overrides FormWidget.reset().
 			// Additionally reset the .item (to clean up).
 			this.item = null;
 			this.inherited(arguments);

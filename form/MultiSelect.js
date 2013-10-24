@@ -3,13 +3,13 @@ define([
 	"dojo/dom-geometry", // domGeometry.setMarginBox
 	"dojo/has",
 	"dojo/query", // query
-	"./_FormValueWidget"
-], function(declare, domGeometry, has, query, _FormValueWidget){
+	"../FormValueWidget"
+], function(declare, domGeometry, has, query, FormValueWidget){
 
 	// module:
 	//		dui/form/MultiSelect
 
-	var MultiSelect = declare("dui.form.MultiSelect" + (has("dojo-bidi") ? "_NoBidi" : ""), _FormValueWidget, {
+	var MultiSelect = declare("dui.form.MultiSelect" + (has("dojo-bidi") ? "_NoBidi" : ""), FormValueWidget, {
 		// summary:
 		//		Widget version of a `<select multiple=true>` element,
 		//		for selecting multiple options.

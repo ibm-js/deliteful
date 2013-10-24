@@ -9,9 +9,9 @@ define([
 	"dojo/query", // query
 	"dojo/when",
 	"dojo/store/util/QueryResults",
-	"./_FormValueWidget"
+	"../FormValueWidget"
 ], function(Deferred, aspect, declare, dom, domClass, kernel, lang, query, when,
-			QueryResults, _FormValueWidget){
+			QueryResults, FormValueWidget){
 
 	// module:
 	//		dui/form/_FormSelectWidget
@@ -30,9 +30,9 @@ define([
 	};
 	=====*/
 
-	var _FormSelectWidget = declare("dui.form._FormSelectWidget", _FormValueWidget, {
+	var _FormSelectWidget = declare("dui.form._FormSelectWidget", FormValueWidget, {
 		// summary:
-		//		Extends _FormValueWidget in order to provide "select-specific"
+		//		Extends FormValueWidget in order to provide "select-specific"
 		//		values - i.e., those values that are unique to `<select>` elements.
 		//		This also provides the mechanism for reading the elements from
 		//		a store, if desired.

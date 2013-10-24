@@ -445,7 +445,7 @@ define([
 		},
 
 		reset: function(){
-			// Overrides `dui/_FormWidget/reset()`.
+			// Overrides FormWidget.reset()
 			// Additionally resets the displayed textbox value to ''
 			this.textbox.value = '';
 			this.inherited(arguments);

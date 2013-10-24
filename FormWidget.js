@@ -1,19 +1,13 @@
 define([
 	"dcl/dcl",
-	"dojo/_base/declare",
-	"dojo/dom-attr", // domAttr.set
-	"dojo/dom-style", // domStyle.get
-	"dojo/_base/lang", // lang.hitch lang.isArray
-	"dojo/mouse", // mouse.isLeft
-	"dojo/on",
-	"dojo/sniff", // has("webkit")
-	"dojo/window" // winUtils.scrollIntoView
-], function (dcl, domAttr, domStyle, lang, mouse, on, has, winUtils) {
+	"dojo/window", // winUtils.scrollIntoView
+	"./Widget"
+], function (dcl, winUtils, Widget) {
 
 	// module:
-	//		dui/_FormWidgetMixin
+	//		dui/FormWidget
 
-	return dcl(null, {
+	return dcl(Widget, {
 		// summary:
 		//		Mixin for widgets that extend HTMLElement, but conceptually correspond
 		//		to native HTML elements such as `<checkbox>` or `<button>`,
