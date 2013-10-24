@@ -12,9 +12,9 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 		//		This list must be initialized by the time buildRendering() completes, usually in preCreate()
 		//		using addInvalidatingProperties. Default value is null.
 		_invalidatingProperties: null,
-		// invalidatedProperties: Object
+		// _invalidatedProperties: Object
 		//		A hash of invalidated properties either to refresh them or refresh the rendering
-		invalidatedProperties: null,
+		_invalidatedProperties: null,
 		// invalidProperties: Boolean
 		//		Whether at least one property is invalid or not. This is a readonly information, one must call
 		//		invalidateProperties to modify this flag.
@@ -36,7 +36,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 					this.watch(props[i], lang.hitch(this, this._invalidatingProperties[props[i]]));
 				}
 			}
-			this.invalidatedProperties = {};
+			this._invalidatedProperties = {};
 		}),
 
 		addInvalidatingProperties: function () {
@@ -72,7 +72,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 			// tags:
 			//		protected
 			if (name) {
-				this.invalidatedProperties[name] = true;
+				this._invalidatedProperties[name] = true;
 			}
 			if (!this.invalidProperties) {
 				this.invalidProperties = true;
@@ -88,7 +88,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 			// tags:
 			//		protected
 			if (name) {
-				this.invalidatedProperties[name] = true;
+				this._invalidatedProperties[name] = true;
 			}
 			if (!this.invalidRendering) {
 				this.invalidRendering = true;
@@ -102,9 +102,9 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 			// tags:
 			//		protected
 			if (this.invalidProperties) {
-				var props = lang.clone(this.invalidatedProperties);
+				var props = lang.clone(this._invalidatedProperties);
 				this.invalidProperties = false;
-				this.refreshProperties();
+				this.refreshProperties(this._invalidatedProperties);
 				this.emit("refresh-properties-complete",
 					{ invalidatedProperties: props, bubbles: true, cancelable: false });
 				// if there are properties still marked invalid pursue further with rendering refresh
@@ -118,10 +118,10 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 			// tags:
 			//		protected
 			if (this.invalidRendering) {
-				var props = lang.clone(this.invalidatedProperties);
+				var props = lang.clone(this._invalidatedProperties);
 				this.invalidRendering = false;
-				this.refreshRendering();
-				this.invalidatedProperties = {};
+				this.refreshRendering(this._invalidatedProperties);
+				this._invalidatedProperties = {};
 				this.emit("refresh-rendering-complete",
 					{ invalidatedProperties: props, bubbles: true, cancelable: false });
 			}
@@ -135,15 +135,19 @@ define(["dcl/dcl", "dojo/_base/lang", "../_WidgetBase"], function (dcl, lang, _W
 			this.validateProperties();
 			this.validateRendering();
 		},
-		refreshProperties: function () {
+		refreshProperties: function (props) {
 			// summary:
 			//		Actually refresh the properties. Implementation should implement that method.
+			// props: Object
+			//		A hash of invalidated properties.
 			// tags:
 			//		protected
 		},
-		refreshRendering: function () {
+		refreshRendering: function (props) {
 			// summary:
 			//		Actually refresh the rendering. Implementation should implement that method.
+			// props: Object
+			//		A hash of invalidated properties.
 			// tags:
 			//		protected
 		}

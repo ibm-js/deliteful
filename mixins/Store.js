@@ -61,12 +61,12 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"], function 
 			this.emit("query-success", { items: items, cancelable: false, bubbles: true });
 		},
 
-		refreshRendering: function () {
+		refreshRendering: function (props) {
 			// summary:
 			//		Actually refresh the rendering by querying the store.
 			// tags:
 			//		protected
-			if (this._isStoreInvalidated()) {
+			if (this._isStoreInvalidated(props)) {
 				if (this._observeHandler) {
 					this._observeHandler.remove();
 					this._observeHandler = null;
@@ -89,9 +89,8 @@ define(["dcl/dcl", "dojo/_base/lang", "dojo/when", "./_Invalidating"], function 
 			}
 		},
 
-		_isStoreInvalidated: function () {
-			return this.invalidatedProperties.store || this.invalidatedProperties.query ||
-				this.invalidatedProperties.queryOptions;
+		_isStoreInvalidated: function (props) {
+			return props.store || props.query || props.queryOptions;
 		},
 
 		_queryError: function (error) {

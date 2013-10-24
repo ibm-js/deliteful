@@ -15,8 +15,8 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						refreshProperties: function () {
 							t.is(true, false, "refreshProperties should not be called");
 						},
-						refreshRendering: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshRendering: function (props) {
+							t.is({"b": true}, props);
 						}
 					});
 					var d = new doh.Deferred();
@@ -26,7 +26,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						t.is(true, false, "refreshProperties should not be called");
 					});
 					o.on("refresh-rendering-complete", function (e) {
-						afterPropsR = o.invalidatedProperties;
+						afterPropsR = o._invalidatedProperties;
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
@@ -53,8 +53,8 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						refreshProperties: function () {
 							t.is(true, false, "refreshProperties should not be called");
 						},
-						refreshRendering: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshRendering: function (props) {
+							t.is({"b": true}, props);
 						}
 					});
 					var d = new doh.Deferred();
@@ -64,7 +64,7 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						t.is(true, false, "refreshProperties should not be called");
 					});
 					o.on("refresh-rendering-complete", function (e) {
-						afterPropsR = o.invalidatedProperties;
+						afterPropsR = o._invalidatedProperties;
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
@@ -88,25 +88,25 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						},
 						a: null,
 						b: null,
-						refreshProperties: function () {
-							t.is({"a": true, "b": true}, this.invalidatedProperties);
+						refreshProperties: function (props) {
+							t.is({"a": true, "b": true}, props);
 							// only a should lead to a refreshRendering
-							delete this.invalidatedProperties.b;
+							delete props.b;
 
 						},
-						refreshRendering: function () {
-							t.is({"a": true}, o.invalidatedProperties);
+						refreshRendering: function (props) {
+							t.is({"a": true}, props);
 						}
 					});
 					var d = new doh.Deferred();
 					var o = new C();
 					var afterPropsR, beforePropsR, afterPropsP, beforePropsP;
 					o.on("refresh-properties-complete", function (e) {
-						afterPropsP = o.invalidatedProperties;
+						afterPropsP = o._invalidatedProperties;
 						beforePropsP = e.invalidatedProperties;
 					});
 					o.on("refresh-rendering-complete", function (e) {
-						afterPropsR = o.invalidatedProperties;
+						afterPropsR = o._invalidatedProperties;
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
@@ -130,22 +130,22 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 					var C = register("test-invalidating-manual", [HTMLElement, _WidgetBase, _Invalidating], {
 						a: null,
 						b: null,
-						refreshProperties: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshProperties: function (props) {
+							t.is({"b": true}, props);
 						},
-						refreshRendering: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshRendering: function (props) {
+							t.is({"b": true}, props);
 						}
 					});
 					var d = new doh.Deferred();
 					var o = new C();
 					var afterPropsR, beforePropsR, afterPropsP, beforePropsP;
 					o.on("refresh-properties-complete", function (e) {
-						afterPropsP = o.invalidatedProperties;
+						afterPropsP = o._invalidatedProperties;
 						beforePropsP = e.invalidatedProperties;
 					});
 					o.on("refresh-rendering-complete", function (e) {
-						afterPropsR = o.invalidatedProperties;
+						afterPropsR = o._invalidatedProperties;
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
@@ -172,22 +172,22 @@ define(["doh/runner", "../../register", "../../mixins/_Invalidating", "../../_Wi
 						},
 						a: null,
 						b: null,
-						refreshProperties: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshProperties: function (props) {
+							t.is({"b": true}, props);
 						},
-						refreshRendering: function () {
-							t.is({"b": true}, this.invalidatedProperties);
+						refreshRendering: function (props) {
+							t.is({"b": true}, props);
 						}
 					});
 					var d = new doh.Deferred();
 					var o = new C();
 					var afterPropsR, beforePropsR, afterPropsP, beforePropsP;
 					o.on("refresh-properties-complete", function (e) {
-						afterPropsP = o.invalidatedProperties;
+						afterPropsP = o._invalidatedProperties;
 						beforePropsP = e.invalidatedProperties;
 					});
 					o.on("refresh-rendering-complete", function (e) {
-						afterPropsR = o.invalidatedProperties;
+						afterPropsR = o._invalidatedProperties;
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
