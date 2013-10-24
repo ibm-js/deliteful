@@ -18,9 +18,9 @@ define([
 	"./Destroyable",
 	"./Stateful",
 	"./register",
-	"dojo/has!dojo-bidi?./_BidiMixin"
+	"dojo/has!dojo-bidi?./Bidi"
 ], function (require, dcl, aspect, config, Deferred, dom, domAttr, domClass, domConstruct, domGeometry, domStyle,
-			 has, kernel, lang, on, win, Destroyable, Stateful, register, _BidiMixin) {
+			 has, kernel, lang, on, win, Destroyable, Stateful, register, Bidi) {
 
 	// module:
 	//		dui/Widget
@@ -753,7 +753,7 @@ define([
 	});
 
 	if (has("dojo-bidi")) {
-		Widget = dcl(Widget, _BidiMixin);
+		Widget = dcl(Widget, Bidi);
 	}
 
 	// Setup automatic chaining for lifecycle methods, except for buildRendering()
