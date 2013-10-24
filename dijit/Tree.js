@@ -24,7 +24,7 @@ define([
 	"../Container",
 	"../Contained",
 	"../CssState",
-	"../_KeyNavMixin",
+	"../KeyNav",
 	"dojo/text!./templates/TreeNode.html",
 	"dojo/text!./templates/Tree.html",
 	"./tree/_dndSelector",
@@ -523,7 +523,7 @@ define([
 		});
 	}
 
-	var Tree = declare("dui.Tree", [Widget, _KeyNavMixin, _TemplatedMixin, CssState], {
+	var Tree = declare("dui.Tree", [Widget, KeyNav, _TemplatedMixin, CssState], {
 		// summary:
 		//		This widget displays hierarchical data from a store.
 

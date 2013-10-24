@@ -12,7 +12,7 @@ define([
 	"../Widget",
 	"../Container",
 	"../CssState",
-	"../_KeyNavMixin",
+	"../KeyNav",
 	"../_TemplatedMixin"
 ], function(declare, dom, domAttr, domClass, lang, mouse, on, winUtils, a11yclick,
 			registry, Widget, Container, _CssStateMixin, _KeyNavMixin, _TemplatedMixin){
@@ -20,7 +20,7 @@ define([
 	// module:
 	//		dui/_MenuBase
 
-	return declare("dui._MenuBase", [Widget, _TemplatedMixin, Container, _KeyNavMixin, CssState], {
+	return declare("dui._MenuBase", [Widget, _TemplatedMixin, Container, KeyNav, CssState], {
 		// summary:
 		//		Abstract base class for Menu and MenuBar.
 		//		Subclass should implement _onUpArrow(), _onDownArrow(), _onLeftArrow(), and _onRightArrow().

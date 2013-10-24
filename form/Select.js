@@ -12,7 +12,7 @@ define([
 	"../dui/MenuItem",
 	"../dui/MenuSeparator",
 	"../dui/Tooltip",
-	"../_KeyNavMixin",
+	"../KeyNav",
 	"../registry", // registry.byNode
 	"dojo/text!./templates/Select.html",
 	"dojo/i18n!./nls/validate"
@@ -70,7 +70,7 @@ define([
 		}
 	});
 
-	var Select = declare("dui.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, HasDropDown, _KeyNavMixin], {
+	var Select = declare("dui.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, HasDropDown, KeyNav], {
 		// summary:
 		//		This is a "styleable" select box - it is basically a DropDownButton which
 		//		can take a `<select>` as its input.

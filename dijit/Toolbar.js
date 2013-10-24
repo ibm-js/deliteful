@@ -5,14 +5,14 @@ define([
 	"dojo/keys", // keys.LEFT_ARROW keys.RIGHT_ARROW
 	"../Widget",
 	"../Container",
-	"../_KeyNavMixin",
+	"../KeyNav",
 	"../_TemplatedMixin"
 ], function(require, declare, has, keys, Widget, Container, _KeyNavMixin, _TemplatedMixin){
 
 	// module:
 	//		dui/Toolbar
 
-	return declare("dui.Toolbar", [Widget, _TemplatedMixin, Container, _KeyNavMixin], {
+	return declare("dui.Toolbar", [Widget, _TemplatedMixin, Container, KeyNav], {
 		// summary:
 		//		A Toolbar widget, used to hold things like `dui/Editor` buttons
 
