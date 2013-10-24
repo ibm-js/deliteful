@@ -7,7 +7,7 @@ define([
 	"dojo/on",
 	"dojo/sniff", // has("ie")
 	"./_FormSelectWidget",
-	"../_HasDropDown",
+	"../HasDropDown",
 	"../dui/DropDownMenu",
 	"../dui/MenuItem",
 	"../dui/MenuSeparator",
@@ -17,7 +17,7 @@ define([
 	"dojo/text!./templates/Select.html",
 	"dojo/i18n!./nls/validate"
 ], function(declare, domAttr, domClass, domGeometry, lang, on, has,
-			_FormSelectWidget, _HasDropDown, DropDownMenu, MenuItem, MenuSeparator, Tooltip, _KeyNavMixin, registry,
+			_FormSelectWidget, HasDropDown, DropDownMenu, MenuItem, MenuSeparator, Tooltip, _KeyNavMixin, registry,
 			template, nlsValidate){
 
 	// module:
@@ -70,7 +70,7 @@ define([
 		}
 	});
 
-	var Select = declare("dui.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, _HasDropDown, _KeyNavMixin], {
+	var Select = declare("dui.form.Select" + (has("dojo-bidi") ? "_NoBidi" : ""), [_FormSelectWidget, HasDropDown, _KeyNavMixin], {
 		// summary:
 		//		This is a "styleable" select box - it is basically a DropDownButton which
 		//		can take a `<select>` as its input.

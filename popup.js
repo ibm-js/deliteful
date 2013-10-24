@@ -258,7 +258,7 @@ define([
 			// dui/Menu), so add to wrapper, and then move popup's border to wrapper so scroll bar inside border.
 			var maxHeight, popupSize = domGeometry.position(widget);
 			if ("maxHeight" in args && args.maxHeight != -1) {
-				maxHeight = args.maxHeight || Infinity;	// map 0 --> infinity for back-compat of _HasDropDown.maxHeight
+				maxHeight = args.maxHeight || Infinity;	// map 0 --> infinity for back-compat of HasDropDown.maxHeight
 			} else {
 				var viewport = Viewport.getEffectiveBox(this.ownerDocument),
 					aroundPos = around ? domGeometry.position(around, false) : {y: args.y - (args.padding || 0), h: (args.padding || 0) * 2};
@@ -307,7 +307,7 @@ define([
 						layoutFunc);
 
 			wrapper.style.visibility = "visible";
-			widget.style.visibility = "visible";	// counteract effects from _HasDropDown
+			widget.style.visibility = "visible";	// counteract effects from HasDropDown
 
 			var handlers = [];
 

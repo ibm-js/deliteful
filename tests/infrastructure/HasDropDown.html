@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>_HasDropDown unit test</title>
+	<title>HasDropDown unit test</title>
 
 	<script type="text/javascript" src="../boilerplate.js"></script>
 
@@ -9,9 +9,9 @@
 		require([
 			"doh/runner",
 			"dojo/keys", "dojo/on", "dojo/_base/window",
-			"dui/register", "dui/_HasDropDown", "dui/Widget",
+			"dui/register", "dui/HasDropDown", "dui/Widget",
 			"dui/tests/helpers", "dojo/domReady!"
-		], function (doh, keys, on, win, register, _HasDropDown, Widget, helpers) {
+		], function (doh, keys, on, win, register, HasDropDown, Widget, helpers) {
 
 			var SimplePopup = register("dui-simple-popup", [HTMLElement, Widget], {
 				// summary:
@@ -20,7 +20,7 @@
 				_setLabelAttr: { type: "innerText" }
 			});
 
-			var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, Widget, _HasDropDown], {
+			var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, Widget, HasDropDown], {
 
 				// summary:
 				//		A button that shows a popup.
@@ -39,7 +39,7 @@
 				})
 			});
 
-			var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, Widget, _HasDropDown], {
+			var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, Widget, HasDropDown], {
 				// summary:
 				//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 
@@ -162,6 +162,6 @@
 	</script>
 </head>
 <body class="claro">
-<h1>_HasDropDown Unit Test</h1>
+<h1>HasDropDown Unit Test</h1>
 </body>
 </html>

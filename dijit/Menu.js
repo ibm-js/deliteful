@@ -69,7 +69,7 @@ define([
 		// leftClickToOpen: [const] Boolean
 		//		If true, menu will open on left click instead of right click, similar to a file menu.
 		leftClickToOpen: false,
-		// TODO: remove in 2.0, we have better ways of opening a menu with a left click, by extending _HasDropDown.
+		// TODO: remove in 2.0, we have better ways of opening a menu with a left click, by extending HasDropDown.
 
 		// refocus: Boolean
 		//		When this menu closes, re-focus the element which had focus before it was opened.

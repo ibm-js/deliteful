@@ -6,14 +6,14 @@ define([
 	"../popup", // dui.popup2.hide
 	"../Button",
 	"../Container",
-	"../_HasDropDown",
+	"../HasDropDown",
 	"dojo/text!./templates/DropDownButton.html"
-], function(declare, lang, query, registry, popup, Button, Container, _HasDropDown, template){
+], function(declare, lang, query, registry, popup, Button, Container, HasDropDown, template){
 
 	// module:
 	//		dui/form/DropDownButton
 
-	return declare("dui.form.DropDownButton", [Button, Container, _HasDropDown], {
+	return declare("dui.form.DropDownButton", [Button, Container, HasDropDown], {
 		// summary:
 		//		A button with a drop down
 		//
@@ -91,8 +91,8 @@ define([
 		},
 
 		isFocusable: function(){
-			// Overridden so that focus is handled by the _HasDropDown mixin, not by
-			// the _FormWidget mixin.
+			// Overridden so that focus is handled by the HasDropDown mixin, not by
+			// the FormWidget mixin.
 			return this.inherited(arguments) && !this._mouseDown;
 		}
 	});

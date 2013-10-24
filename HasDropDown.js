@@ -18,7 +18,7 @@ define([
 			 focus, popup, _FocusMixin) {
 
 	// module:
-	//		dui/_HasDropDown
+	//		dui/HasDropDown
 
 	return dcl(_FocusMixin, {
 		// summary:

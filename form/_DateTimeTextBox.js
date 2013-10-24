@@ -5,16 +5,16 @@ define([
 	"dojo/_base/declare", // declare
 	"dojo/_base/lang", // lang.getObject
 	"./RangeBoundTextBox",
-	"../_HasDropDown",
+	"../HasDropDown",
 	"dojo/text!./templates/DropDownBox.html"
-], function(date, locale, stamp, declare, lang, RangeBoundTextBox, _HasDropDown, template){
+], function(date, locale, stamp, declare, lang, RangeBoundTextBox, HasDropDown, template){
 
 	// module:
 	//		dui/form/_DateTimeTextBox
 
 	new Date("X"); // workaround for #11279, new Date("") == NaN
 
-	var _DateTimeTextBox = declare("dui.form._DateTimeTextBox", [RangeBoundTextBox, _HasDropDown], {
+	var _DateTimeTextBox = declare("dui.form._DateTimeTextBox", [RangeBoundTextBox, HasDropDown], {
 		// summary:
 		//		Base class for validating, serializable, range-bound date or time text box.
 
@@ -62,7 +62,7 @@ define([
 			return isInvalid1 ? (isInvalid2 ? 0 : -1) : (isInvalid2 ? 1 : date.compare(val1, val2, this._selector));
 		},
 
-		// flag to _HasDropDown to make drop down Calendar width == <input> width
+		// flag to HasDropDown to make drop down Calendar width == <input> width
 		autoWidth: true,
 
 		format: function(/*Date*/ value, /*locale.__FormatOptions*/ constraints){

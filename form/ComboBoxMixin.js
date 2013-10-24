@@ -5,15 +5,15 @@ define([
 	"dojo/store/util/QueryResults",
 	"./_AutoCompleterMixin",
 	"./_ComboBoxMenu",
-	"../_HasDropDown",
+	"../HasDropDown",
 	"dojo/text!./templates/DropDownBox.html"
-], function(declare, Deferred,lang, QueryResults, _AutoCompleterMixin, _ComboBoxMenu, _HasDropDown, template){
+], function(declare, Deferred,lang, QueryResults, _AutoCompleterMixin, _ComboBoxMenu, HasDropDown, template){
 
 
 	// module:
 	//		dui/form/ComboBoxMixin
 
-	return declare("dui.form.ComboBoxMixin", [_HasDropDown, _AutoCompleterMixin], {
+	return declare("dui.form.ComboBoxMixin", [HasDropDown, _AutoCompleterMixin], {
 		// summary:
 		//		Provides main functionality of ComboBox widget
 

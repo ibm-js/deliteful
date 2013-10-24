@@ -56,7 +56,7 @@ define([
 		//		Can be "html" or "text".
 		labelType: "text",
 
-		// Flags to _HasDropDown to limit height of drop down to make it fit in viewport
+		// Flags to HasDropDown to limit height of drop down to make it fit in viewport
 		maxHeight: -1,
 
 		// For backwards compatibility let onClick events propagate, even clicks on the down arrow button
@@ -121,7 +121,7 @@ define([
 			var highlighted = null;
 			this._abortQuery();
 
-			// _HasDropDown will do some of the work:
+			// HasDropDown will do some of the work:
 			//
 			//	1. when drop down is not yet shown:
 			//		- if user presses the down arrow key, call loadDropDown()
@@ -297,20 +297,20 @@ define([
 		},
 
 		loadDropDown: function(/*Function*/ /*===== callback =====*/){
-			// Overrides _HasDropDown.loadDropDown().
+			// Overrides HasDropDown.loadDropDown().
 			// This is called when user has pressed button icon or pressed the down arrow key
 			// to open the drop down.
 			this._startSearchAll();
 		},
 
 		isLoaded: function(){
-			// signal to _HasDropDown that it needs to call loadDropDown() to load the
+			// signal to HasDropDown that it needs to call loadDropDown() to load the
 			// drop down asynchronously before displaying it
 			return false;
 		},
 
 		closeDropDown: function(){
-			// Overrides _HasDropDown.closeDropDown().  Closes the drop down (assuming that it's open).
+			// Overrides HasDropDown.closeDropDown().  Closes the drop down (assuming that it's open).
 			// This method is the callback when the user types ESC or clicking
 			// the button icon while the drop down is open.  It's also called by other code.
 			this._abortQuery();
