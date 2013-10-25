@@ -294,5 +294,5 @@ define([
 		}
 	});
 
-	return register("dui-star-rating", has('dojo-bidi') ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
+	return register("d-star-rating", has('dojo-bidi') ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
 });

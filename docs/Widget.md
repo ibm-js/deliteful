@@ -12,13 +12,13 @@ Declarative creation:
 2. preCreate() callback executed.
 3. buildRendering() callback executed.   Note though that the root node already exists.
 4. postCreate() callback.
-5. Parameters specified as DOMNode attributes (ex: `<dui-slider max=10>`) are mixed into the widget, thus calling
+5. Parameters specified as DOMNode attributes (ex: `<d-slider max=10>`) are mixed into the widget, thus calling
    custom setters.
 6. startup() callback.
 
 Programmatic creation is:
 
-1. Element created with widget tag name (ex: `<dui-slider>`), and
+1. Element created with widget tag name (ex: `<d-slider>`), and
    upgraded to have all methods and properties of the widget class.
 2. preCreate() callback executed.
 3. buildRendering() callback executed.   Note though that the root node already exists.

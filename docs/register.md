@@ -108,7 +108,7 @@ Generally though, you will extend `dui/Widget` which provides more specific life
 
 Unlike Dijit V1, by the time `createdCallback()` is called (and in `dui/Widget` extensions: `buildRendering()`),
 the widget's root node already exists.  Either it's the original root node from the markup
-(ex: `<button is="dui-button">`) or it was created via the internal `register.createElement()` call.
+(ex: `<button is="d-button">`) or it was created via the internal `register.createElement()` call.
 
 You cannot change the root node, although you can set attributes on it and setup event listeners.
 In addition, you will often create subnodes underneath the root node.
@@ -153,7 +153,7 @@ If the browser supports `document.register()`, then dui/register just uses that.
 Otherwise:
 
 1. If the Element doesn't already exist it's created via document.createElement().
-   This will create an Element with the right tag name (ex: `<dui-star-rating>`) but
+   This will create an Element with the right tag name (ex: `<d-star-rating>`) but
    without any of the behaviors associated with that widget.
 
 2. It calls the `upgrade()` method that converts the plain Element

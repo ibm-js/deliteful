@@ -19,7 +19,7 @@
 		], function (dom, register, Button) {
 
 			// Just for testing subclassing of widgets
-			NewButton = register("dui-new-button", Button, {
+			NewButton = register("new-button", Button, {
 				declaredClass: "NewButton",
 				_setLabelAttr: function (l) {
 					console.log("setting label to " + l);
@@ -61,24 +61,24 @@
 	</style>
 </head>
 <body>
-<button is="dui-new-button" data-dojo-id="btn1">Default</button>
+<button is="new-button" data-dojo-id="btn1">Default</button>
 <button onclick="btn1.label = 'Changed';">Change label to 'Changed'</button>
 <hr>
-<button is="dui-button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
+<button is="d-button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
 class="duiBlueButton"
 <button onclick="btn2.label = 'Very blue';">Change label to 'Very blue'</button>
 <button onclick="btn2.label = '';">Remove label</button>
 <hr>
-<button is="dui-button" data-dojo-id="btn3" class="duiRedButton">Red</button>
+<button is="d-button" data-dojo-id="btn3" class="duiRedButton">Red</button>
 class="duiRedButton"
 <hr>
-<button is="dui-button" data-dojo-id="btn4" disabled>Disabled</button>
+<button is="d-button" data-dojo-id="btn4" disabled>Disabled</button>
 disabled
 <hr>
-<button is="dui-button" data-dojo-id="btn5" class="customButton">Custom</button>
+<button is="d-button" data-dojo-id="btn5" class="customButton">Custom</button>
 class="customButton"
 <hr>
-<button is="dui-button" data-dojo-id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
+<button is="d-button" data-dojo-id="T1465" onclick="console.log('clicked icon button');" value="T1465Val"
 		iconClass="duiIconSave">
 	Icon Button
 </button>
