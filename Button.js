@@ -94,6 +94,6 @@ define([
 		}
 	});
 
-	return register("dui-button", has("dojo-bidi") ? [HTMLButtonElement, Button, BidiButton] :
+	return register("d-button", has("dojo-bidi") ? [HTMLButtonElement, Button, BidiButton] :
 		[HTMLButtonElement, Button]);
 });

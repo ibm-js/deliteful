@@ -19,7 +19,7 @@ define([
 	// module:
 	//		dui/Rule
 
-	var duiRule = register("dui-rule", [HTMLElement, WidgetBase], {
+	var duiRule = register("d-rule", [HTMLElement, WidgetBase], {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations (e.g. hash marks and labels).
 

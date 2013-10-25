@@ -662,7 +662,7 @@ require([
 		/* instance specific custom rules */
 
 		/* remove odd marks and labels from top decoration */
-	.customLabels dui-rule.duiRule:nth-of-type(-n+2) > div:nth-child(odd) {
+	.customLabels d-rule.duiRule:nth-of-type(-n+2) > div:nth-child(odd) {
 		visibility: hidden; /* remove first, middle and last top rule marks since they have no labels */
 	}
 
@@ -755,60 +755,60 @@ require([
 		<table>
 			<tr>
 				<td colspan=3 class="customLabels">
-					<dui-slider id="Ltr2" value="10,15" orientation="H" isRange min="0" max="20" step="0.125"
+					<d-slider id="Ltr2" value="10,15" orientation="H" isRange min="0" max="20" step="0.125"
 								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'
 								style='width:90%'>
 						<input name="Ltr2">
-						<dui-rule class="duiRuleBefore" count="5"
-								  style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></dui-rule>
-						<dui-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;'>
+						<d-rule class="duiRuleBefore" count="5"
+								  style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></d-rule>
+						<d-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;'>
 							<div></div>
 							<div>5</div>
 							<div></div>
 							<div>15</div>
 							<div></div>
-						</dui-rule>
-						<dui-rule count="3" style='font-size:5px; font-weight:bold; margin:3px 0;'></dui-rule>
-						<dui-rule class="duiRuleAfter" style='font-size:10px; margin:8px 0;'>
+						</d-rule>
+						<d-rule count="3" style='font-size:5px; font-weight:bold; margin:3px 0;'></d-rule>
+						<d-rule class="duiRuleAfter" style='font-size:10px; margin:8px 0;'>
 							<div>0</div>
 							<div>10</div>
 							<div>20</div>
-						</dui-rule>
-					</dui-slider>
+						</d-rule>
+					</d-slider>
 				</td>
 			</tr>
 			<tr>
 				<td>20</td>
 				<td class="custom" style="width:110pt;">
-					<dui-slider id="customH" value="5,15" orientation="H" flip isRange min="0" max="20" step="1.0"
+					<d-slider id="customH" value="5,15" orientation="H" flip isRange min="0" max="20" step="1.0"
 								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
-						<input name="customH"></dui-slider>
+						<input name="customH"></d-slider>
 				</td>
 				<td>0</td>
 			</tr>
 			<tr>
 				<td>20</td>
 				<td>
-					<dui-slider id="Rtl1" value="15" name="Rtl1" orientation="H" flip min="0" max="20"
-								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></dui-slider>
+					<d-slider id="Rtl1" value="15" name="Rtl1" orientation="H" flip min="0" max="20"
+								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></d-slider>
 				</td>
 				<td>0</td>
 			</tr>
 			<tr>
 				<td>0</td>
 				<td>
-					<dui-slider id="Ltr1" value="15" min="0" max="20" step="1.0"
+					<d-slider id="Ltr1" value="15" min="0" max="20" step="1.0"
 								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
-						<input></dui-slider>
+						<input></d-slider>
 				</td>
 				<td>20</td>
 			</tr>
 			<tr>
 				<td>20</td>
 				<td class="dj_a11y">
-					<dui-slider id="a11yRtl1" flip min="0" max="20" step="1.0"
+					<d-slider id="a11yRtl1" flip min="0" max="20" step="1.0"
 								onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
-						<input value="15"></dui-slider>
+						<input value="15"></d-slider>
 				</td>
 				<td>0</td>
 			</tr>
@@ -820,53 +820,53 @@ require([
 			<tr>
 				<td style="width:50px;" class="customLabels">
 					<div style="height:250px;">
-						<dui-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125"
+						<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125"
 									onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
 							<input name="Btt1">
-							<dui-rule class="duiRuleAfter" count="5"
-									  style='font-size:5px; font-weight:bold; margin:0 3px;'></dui-rule>
+							<d-rule class="duiRuleAfter" count="5"
+									  style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
 							<!-- default class is duiRuleAfter -->
-							<dui-rule style='font-size:10px; margin:0 9px;'>
+							<d-rule style='font-size:10px; margin:0 9px;'>
 								<div></div>
 								<div>25%</div>
 								<div></div>
 								<div>75%</div>
 								<div></div>
-							</dui-rule>
-							<dui-rule class="duiRuleBefore" count="3"
-									  style='font-size:5px; font-weight:bold; margin:0 -3px;'></dui-rule>
-							<dui-rule class="duiRuleBefore" style='font-size:10px; margin:0 -9px;'>
+							</d-rule>
+							<d-rule class="duiRuleBefore" count="3"
+									  style='font-size:5px; font-weight:bold; margin:0 -3px;'></d-rule>
+							<d-rule class="duiRuleBefore" style='font-size:10px; margin:0 -9px;'>
 								<div>low</div>
 								<div>normal</div>
 								<div>high</div>
-							</dui-rule>
-						</dui-slider>
+							</d-rule>
+						</d-slider>
 					</div>
 				</td>
 				<td style="width:50px;">
 					<div class="custom" style="height:110pt;">
 						-20<br>
-						<dui-slider id="customV" value="10" name="customV" orientation="V" flip min="-20" max="20"
+						<d-slider id="customV" value="10" name="customV" orientation="V" flip min="-20" max="20"
 									step="0.125"
-									onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></dui-slider>
+									onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'></d-slider>
 						<br>20
 					</div>
 				</td>
 				<td style="width:50px;">
 					<div style="height:100%;">
 						20<br>
-						<dui-slider id="Btt2" value="0,10" orientation="V" isRange min="-20" max="20" step="0.125"
+						<d-slider id="Btt2" value="0,10" orientation="V" isRange min="-20" max="20" step="0.125"
 									onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
-							<input></dui-slider>
+							<input></d-slider>
 						<br>-20
 					</div>
 				</td>
 				<td style="width:50px;" class="dj_a11y">
 					<div style="height:100%;">
 						-20<br>
-						<dui-slider id="a11yTtb2" orientation="V" isRange flip min="-20" max="20" step="0.125"
+						<d-slider id="a11yTtb2" orientation="V" isRange flip min="-20" max="20" step="0.125"
 									onChange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g,"$1")'>
-							<input value="0,10"></dui-slider>
+							<input value="0,10"></d-slider>
 						<br>20
 					</div>
 				</td>

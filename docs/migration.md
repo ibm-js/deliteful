@@ -2,9 +2,9 @@
 
 ## Notes for applications
 
-1. In markup, widgets look like `<dui-star-rating foo=bar>` rather than
+1. In markup, widgets look like `<d-star-rating foo=bar>` rather than
 	`<div data-dojo-type=dui/StarRating data-dojo-props="foo: bar">`.
-	For widgets that enhance an existing tag, syntax is `<button is="dui-button">`.
+	For widgets that enhance an existing tag, syntax is `<button is="d-button">`.
 2. Use `register.parse()` rather than `dojo/parser.parse()`.  There's no `parseOnLoad:true` or auto-loading
 	or `data-dojo-mixins`.
 3. Since each widget defines and loads its own CSS, you don't need to manually include dijit.css or claro.css;

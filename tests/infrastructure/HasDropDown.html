@@ -13,14 +13,14 @@
 			"dui/tests/helpers", "dojo/domReady!"
 		], function (doh, keys, on, win, register, HasDropDown, Widget, helpers) {
 
-			var SimplePopup = register("dui-simple-popup", [HTMLElement, Widget], {
+			var SimplePopup = register("simple-popup", [HTMLElement, Widget], {
 				// summary:
 				//		A trivial popup widget
 				label: "i'm a popup",
 				_setLabelAttr: { type: "innerText" }
 			});
 
-			var SimpleDropDownButton = register("dui-simple-drop-down-button", [HTMLButtonElement, Widget, HasDropDown], {
+			var SimpleDropDownButton = register("simple-drop-down-button", [HTMLButtonElement, Widget, HasDropDown], {
 
 				// summary:
 				//		A button that shows a popup.
@@ -39,7 +39,7 @@
 				})
 			});
 
-			var NonFocusableDropDownButton = register("dui-non-focusable-drop-down-button", [HTMLElement, Widget, HasDropDown], {
+			var NonFocusableDropDownButton = register("non-focusable-drop-down-button", [HTMLElement, Widget, HasDropDown], {
 				// summary:
 				//		A non-focusable "button" that shows a popup.   Should work for mouse, although not for keyboard.
 

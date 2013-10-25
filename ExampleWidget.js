@@ -6,7 +6,7 @@ define([
 	"./themes/load!ExampleWidget"	// inserts the CSS for this widget for page's theme
 ], function (register, Widget, _CssStateMixin, renderer) {
 
-	return register("dui-example", [Widget, CssState], {
+	return register("d-example", [Widget, CssState], {
 		// summary:
 		//		Example widget for testing and as template for new widgets.
 

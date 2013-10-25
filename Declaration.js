@@ -11,7 +11,7 @@ define([
 	// module:
 	//		dui/Declaration
 
-	return register("dui-declaration", Widget, {
+	return register("d-declaration", Widget, {
 		// summary:
 		//		The Declaration widget allows a developer to declare new widget
 		//		classes directly from a snippet of markup.

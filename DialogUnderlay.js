@@ -14,7 +14,7 @@ define([
 	// module:
 	//		dui/DialogUnderlay
 
-	var DialogUnderlay = register("dui-dialog-underlay", Widget, {
+	var DialogUnderlay = register("d-dialog-underlay", Widget, {
 		// summary:
 		//		A component used to block input behind a `dui/Dialog`.
 		//
