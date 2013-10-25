@@ -15,7 +15,7 @@ define([
 	"./popup",
 	"./Widget"
 ], function (dcl, Deferred, dom, domAttr, domClass, domGeometry, domStyle, has, keys, lang, on, touch,
-			 focus, popup) {
+			 focus, popup, Widget) {
 
 	// module:
 	//		dui/HasDropDown
