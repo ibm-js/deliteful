@@ -19,22 +19,20 @@
 		data-dojo-config="parseOnLoad: true, async: true"></script>
 
 	<script type="text/javascript">
-		var ringtone, listPicker, trim;
+		var ringtone, listPicker;
 		require([
 			"dojo/domReady",			// ready
 			"dojo/_base/html",		// dojo.byId
-			"dojo/_base/lang",		// dojo.trim
 			"dui/registry",		// byId
 			"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 			"dojo/parser",		// This mobile app uses declarative programming with fast mobile parser
 			"dui/mobile/deviceTheme",	// This mobile app automatically changes it's theme to match devices
 			"dui/mobile/Opener",
 			"dui/mobile/ScrollableView"
-		], function(ready, html, lang, registry){
+		], function(ready, html, registry){
 			ready(function(){
 				ringtone = html.byId('ringtone');
 				listPicker = registry.byId('listPicker');
-				trim = lang.trim;
 			});
 		});
 		var checkedItem = 'Marimba';
@@ -50,7 +48,7 @@
 		function onCheck(item, checked){
 			setTimeout(function(){
 				if(checked){
-					checkedItem = trim(item.labelNode.innerText || item.labelNode.textContent || '');
+					checkedItem = (item.labelNode.innerText || item.labelNode.textContent || '').trim();
 				}
 			}, 500);
 		}

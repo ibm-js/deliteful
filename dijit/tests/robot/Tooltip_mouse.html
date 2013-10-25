@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 		require([
 				"doh/runner", "dojo/robotx",
-				"dojo/dom", "dojo/dom-geometry", "dojo/_base/lang", "dojo/query", "dojo/window",
+				"dojo/dom", "dojo/dom-geometry", "dojo/query", "dojo/window",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, dom, domGeom, lang, query, winUtils, helpers){
+			], function(doh, robot, dom, domGeom, query, winUtils, helpers){
 				robot.initRobot('../test_Tooltip.html');
 
 				// Pointer to master tooltip.  This gets set in the first test when the
@@ -111,7 +111,7 @@
 							robot.mouseMoveAt("copy", 2000);
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
-								doh.is("tooltip for copy", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("tooltip for copy", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 							}), 750);
 
 							return d;
@@ -148,7 +148,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
-								doh.is("tooltip on TitlePane span", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("tooltip on TitlePane span", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 							}), 500);
 
 							return d;
@@ -199,7 +199,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
-								doh.is("Tooltip for row 1", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("Tooltip for row 1", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 
 								var tooltipPos = domGeom.position(masterTT.domNode),
 									anchorPos = domGeom.position("myTable-row1");
@@ -224,7 +224,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
-								doh.is("Tooltip for row 3", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("Tooltip for row 3", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 
 								var tooltipPos = domGeom.position(masterTT.domNode),
 									anchorPos = domGeom.position("myTable-row3");
@@ -265,7 +265,7 @@
 
 							robot.sequence(d.getTestCallback(function(){
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
-								doh.is("Tooltip for row 2", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("Tooltip for row 2", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 
 								var tooltipPos = domGeom.position(masterTT.domNode),
 									anchorPos = domGeom.position("myTable-row2");

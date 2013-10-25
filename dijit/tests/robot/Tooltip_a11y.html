@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/dom", "dojo/dom-geometry", "dojo/keys", "dojo/_base/lang", "dojo/_base/window", "dojo/window",
+				"dojo/dom", "dojo/dom-geometry", "dojo/keys", "dojo/_base/window", "dojo/window",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, dom, domGeom, keys, lang, win, winUtils, helpers){
+			], function(doh, robot, dom, domGeom, keys, win, winUtils, helpers){
 
 				robot.initRobot('../test_Tooltip.html');
 
@@ -64,7 +64,7 @@
 								doh.t(aroundCoords.y  >= tooltipCoords.y, "upper aligned");
 
 								// Make sure it has right content
-								doh.is("tooltip on a button", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("tooltip on a button", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 							}), 2000);
 
 							return d;
@@ -114,7 +114,7 @@
 
 								// Make sure it has the new content.
 								// There's a newline in this tooltip text, so to make comparison easier do substr()
-								doh.is("tooltip on a select", lang.trim(helpers.innerText(masterTT.domNode)).substr(0, 19), "tooltip text");
+								doh.is("tooltip on a select", helpers.innerText(masterTT.domNode).trim().substr(0, 19), "tooltip text");
 							}), 2000);
 
 							return d;
@@ -145,7 +145,7 @@
 
 							robot.sequence(d.getTestErrback(function(){
 								doh.t(helpers.isHidden(masterTT.domNode), "tooltip should be hidden on initial focus, but text shown is: " +
-										lang.trim(helpers.innerText(masterTT.domNode)));
+										helpers.innerText(masterTT.domNode).trim());
 							}), 50);
 
 							// But then tab away after 100ms, before tooltip is shown
@@ -202,7 +202,7 @@
 								doh.t(masterTT && helpers.isVisible(masterTT.domNode), "tooltip shown");
 
 								// Make sure it has right content
-								doh.is("bill was here", lang.trim(helpers.innerText(masterTT.domNode)), "tooltip text");
+								doh.is("bill was here", helpers.innerText(masterTT.domNode).trim(), "tooltip text");
 							}), 2000);
 
 							return d;

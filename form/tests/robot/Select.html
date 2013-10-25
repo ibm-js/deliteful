@@ -734,7 +734,7 @@
 									masterTT = dojo.global.dui._masterTT;
 									doh.t(masterTT && isVisible(masterTT.domNode), "visible");
 									doh.is("s13", masterTT.aroundNode.id, "tooltip for s13");
-									doh.is("This value is required.", dojo.trim(innerText(masterTT.domNode)));
+									doh.is("This value is required.", innerText(masterTT.domNode).trim());
 								}), 750);
 							}));
 
@@ -784,7 +784,7 @@
 									masterTT = dojo.global.dui._masterTT;
 									doh.t(masterTT && isVisible(masterTT.domNode), "visible");
 									doh.is("s14", masterTT.aroundNode.id, "tooltip for s14");
-									doh.is("This value is required.", dojo.trim(innerText(masterTT.domNode)));
+									doh.is("This value is required.", innerText(masterTT.domNode).trim());
 								}), 750);
 							}));
 

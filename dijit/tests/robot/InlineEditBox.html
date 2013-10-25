@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/aspect", "dojo/date/locale", "dojo/keys", "dojo/_base/lang", "dojo/query",
+				"dojo/aspect", "dojo/date/locale", "dojo/keys", "dojo/query",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, aspect, datelocale, keys, lang, query, helpers){
+			], function(doh, robot, aspect, datelocale, keys, query, helpers){
 				robot.initRobot('../test_InlineEditBox.html');
 
 				function moveAndClick(node){
@@ -281,7 +281,7 @@
 
 							// confirm initial displayed value
 							var inlineBox = registry.byId("renderAsHtml_false");
-							doh.is("&lt;B&gt;not bold&lt;/B&gt;&amp;lt;input&amp;gt;", lang.trim(inlineBox.domNode.innerHTML),
+							doh.is("&lt;B&gt;not bold&lt;/B&gt;&amp;lt;input&amp;gt;", inlineBox.domNode.innerHTML.trim(),
 								"confirm initial value (with special chars) wasn't modified");
 							doh.is("<B>not bold</B>&lt;input&gt;", inlineBox.get("value"),
 								"confirm initial get('value')");
@@ -300,7 +300,7 @@
 
 							// check that display value didn't mangle special characters
 							robot.sequence(d.getTestCallback(function(){
-								doh.is("&lt;B&gt;not bold&lt;/B&gt;&amp;lt;input&amp;gt;end", lang.trim(inlineBox.domNode.innerHTML),
+								doh.is("&lt;B&gt;not bold&lt;/B&gt;&amp;lt;input&amp;gt;end", inlineBox.domNode.innerHTML.trim(),
 									"displayed value after edit");
 								doh.is("<B>not bold</B>&lt;input&gt;end", inlineBox.get("value"),
 									"get('value') after edit");
@@ -320,7 +320,7 @@
 							// confirm initial displayed value
 							var inlineBox = registry.byId("renderAsHtml_true");
 							doh.is("&lt;b&gt;not bold&lt;/b&gt;<b>bold</b>&amp;lt;input&amp;gt;",
-								lang.trim(inlineBox.domNode.innerHTML).toLowerCase(),
+								inlineBox.domNode.innerHTML.trim().toLowerCase(),
 								"confirm initial value (with special chars) wasn't modified");
 							doh.is("&lt;b&gt;not bold&lt;/b&gt;<b>bold</b>&amp;lt;input&amp;gt;",
 								inlineBox.get("value").toLowerCase(),
@@ -343,7 +343,7 @@
 							// check that display value didn't mangle special characters
 							robot.sequence(d.getTestCallback(function(){
 								doh.is("&lt;b&gt;not bold&lt;/b&gt;<b>bold</b>&amp;lt;input&amp;gt;end",
-									lang.trim(inlineBox.domNode.innerHTML).toLowerCase(),
+									inlineBox.domNode.innerHTML.trim().toLowerCase(),
 									"displayed value after edit");
 								doh.is("&lt;b&gt;not bold&lt;/b&gt;<b>bold</b>&amp;lt;input&amp;gt;end",
 									inlineBox.get("value").toLowerCase(),

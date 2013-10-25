@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/declare", // declare
 	"dojo/dom", // dom.byId
-	"dojo/_base/lang", // lang.trim
+	"dojo/_base/lang", // lang.mixin
 	"dojo/query", // query
 	"dojo/store/Memory",
 	"../registry"	// registry.add registry.remove
@@ -16,7 +16,7 @@ define([
 		return {
 			id: option.value,
 			value: option.value,
-			name: lang.trim(option.innerText || option.textContent || '')
+			name: (option.innerText || option.textContent || '').trim()
 		};
 	}
 

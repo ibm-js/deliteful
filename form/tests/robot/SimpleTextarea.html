@@ -91,7 +91,7 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is("shichashaw, textarea text baw.", dojo.trim(dojo.byId('ta1').value));
+								doh.is("shichashaw, textarea text baw.", dojo.byId('ta1').value.trim());
 							}), 1000);
 							return d;
 						}

@@ -1,11 +1,10 @@
 define([
 	"dojo/_base/kernel",
-	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/sniff"
-], function(dojo, lang, win, has){
+], function(dojo, win, has){
 	var html = win.doc.documentElement;
-	html.className = lang.trim(html.className + " " + [
+	html.className = (html.className + " " + [
 		has('bb') ? "dj_bb" : "",
 		has('android') ? "dj_android" : "",
 		has("ios") ? "dj_ios" : "",
@@ -13,7 +12,7 @@ define([
 		has('ipod') ? "dj_ipod" : "",
 		has('ipad') ? "dj_ipad" : "",
 		has('ie') ? "dj_ie": ""
-	].join(" ").replace(/ +/g," "));
+	].join(" ").replace(/ +/g," ")).trim();
 	
 	/*=====
 	return {

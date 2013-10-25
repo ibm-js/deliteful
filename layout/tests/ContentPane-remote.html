@@ -37,7 +37,7 @@
 			var tabCounter;
 			testClose = function(pane, tab){
 				// remove html from title
-				var title = lang.trim(tab.title.replace(/<\/?[a-z][a-z0-9]*[^>]*>/ig, ""));
+				var title = tab.title.replace(/<\/?[a-z][a-z0-9]*[^>]*>/ig, "").trim();
 				return confirm("Please confirm that you want tab "+title+" closed");
 			};
 

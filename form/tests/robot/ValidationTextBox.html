@@ -1037,7 +1037,7 @@
 								// Tooltip should appear with information message
 								masterTT = dojo.global.dui._masterTT;
 								doh.t(masterTT && isVisible(masterTT.domNode), "visible");
-								doh.is("(optional) Enter an age between 0 and 120", dojo.trim(innerText(masterTT.domNode)));
+								doh.is("(optional) Enter an age between 0 and 120", innerText(masterTT.domNode).trim());
 							}), 750);
 						}
 					},
@@ -1049,7 +1049,7 @@
 							testOn('keyup', textbox, d, function(){
 								masterTT = dojo.global.dui._masterTT;
 								doh.t(masterTT && isVisible(masterTT.domNode), "visible");
-								doh.is("The value entered is not valid.", dojo.trim(innerText(masterTT.domNode)),
+								doh.is("The value entered is not valid.", innerText(masterTT.domNode).trim(),
 									"message changed from info message to error message");
 							});
 							doh.robot.typeKeys("a", 0, 0);
@@ -1065,7 +1065,7 @@
 							testOn('keyup', textbox, d, function(){
 								masterTT = dojo.global.dui._masterTT;
 								doh.f(tooltipHidden, "tooltip didn't blink or disappear");
-								doh.is("The value entered is not valid.", dojo.trim(innerText(masterTT.domNode)),
+								doh.is("The value entered is not valid.", innerText(masterTT.domNode).trim(),
 									"same message");
 							});
 							dojo.connect(dijit, "hideTooltip", function(){ tooltipHidden = true; });
@@ -1094,7 +1094,7 @@
 							testOn('focus', textbox, d, function(){
 								masterTT = dojo.global.dui._masterTT;
 								doh.t(masterTT && isVisible(masterTT.domNode), "visible again");
-								doh.is("The value entered is not valid.", dojo.trim(innerText(masterTT.domNode)),
+								doh.is("The value entered is not valid.", innerText(masterTT.domNode).trim(),
 									"same message");
 							});
 							doh.robot.keyPress(dojo.keys.TAB, 0, { shift:true });

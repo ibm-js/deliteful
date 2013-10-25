@@ -38,7 +38,7 @@
 						timeout: 1000,
 						runTest: function(){
 							var label = dui.byId("T1465").containerNode.innerHTML;
-							doh.is('Create', dojo.trim(label), "source.innerHTML label " + label);
+							doh.is('Create', label.trim(), "source.innerHTML label " + label);
 							var label2 = dui.byId("T1466").containerNode.innerHTML;
 							doh.is('View', label2, "subclass label " + label2);
 						}

@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/aspect", "dojo/dom", "dojo/keys", "dojo/_base/lang", "dojo/query", "dojo/window",
+				"dojo/aspect", "dojo/dom", "dojo/keys", "dojo/query", "dojo/window",
 				"dui/tests/helpers", "dojo/domReady!"
-			], function(doh, robot, aspect, dom, keys, lang, query, winUtils, helpers){
+			], function(doh, robot, aspect, dom, keys, query, winUtils, helpers){
 
 				robot.initRobot('../test_TitlePane.html');
 
@@ -196,13 +196,13 @@
 							// Initially it should display "Loading..." with a small height (enough for that one message)
 							var height1, height2;
 							robot.sequence(d.getTestErrback(function(){
-								doh.is("Loading...", lang.trim(helpers.innerText(href1.containerNode)));
+								doh.is("Loading...", helpers.innerText(href1.containerNode).trim());
 								height1 = href1.domNode.offsetHeight;
 							}), 1500);
 
 							// Then the real content should be loaded and height should change to accommodate it
 							robot.sequence(d.getTestCallback(function(){
-								doh.isNot("Loading...", lang.trim(helpers.innerText(href1.containerNode)), "actual content");
+								doh.isNot("Loading...", helpers.innerText(href1.containerNode).trim(), "actual content");
 								height2 = href1.domNode.offsetHeight;
 								doh.t(height2 > height1, "expected height increase, actually went from " + height1 + " to " + height2);
 							}), 3000);

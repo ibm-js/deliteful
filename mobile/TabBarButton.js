@@ -126,7 +126,7 @@ define([
 			this.domNode = this.srcNodeRef || domConstruct.create(this.tag);
 			if(this.srcNodeRef){
 				if(!this.label){
-					this.label = lang.trim(this.srcNodeRef.innerHTML);
+					this.label = this.srcNodeRef.innerHTML.trim();
 				}
 				this.srcNodeRef.innerHTML = "";
 			}

@@ -102,7 +102,7 @@
 
 				runner.assertTrue(domClass.contains(childWidgets[0].domNode, WIDGET_ICON_SEL), WIDGET_ICON_SEL + " id=" + childWidgets[0].domNode.id);
 				for(var i=0;i< ITEM_NUM;i++){
-	 				runner.assertEqual(WIDGET_LABELS[i].label, dojo.trim(childWidgets[i].labelNode.innerHTML.replace(/\r\n|\n|\t/g,"")), "id=" + childWidgets[i].domNode.id);
+	 				runner.assertEqual(WIDGET_LABELS[i].label, childWidgets[i].labelNode.innerHTML.replace(/\r\n|\n|\t/g,"").trim(), "id=" + childWidgets[i].domNode.id);
 	 				switch(i % COL_NUM){
 						case 0:
 							runner.assertTrue(domClass.contains(childWidgets[i].domNode, CHILDWIDGET_CLASSNAME2), CHILDWIDGET_CLASSNAME2 + " id=" + childWidgets[i].domNode.id);

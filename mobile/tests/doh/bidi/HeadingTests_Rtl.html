@@ -35,14 +35,13 @@
 		"dojo/dom-construct", // dojo.place
 		"dojo/dom-class", // dojo.hasClass
 		"dojo/domReady!", // dojo.ready
-		"dojo/_base/lang", // lang.trim
-		"dui/registry",  // dui.byId
+		"dui/registry", // dui.byId
 		"doh/runner",	// doh functions
 		"dui/mobile/Heading",
 		"dui/mobile/View",		// This mobile app uses mobile view
 		"dui/mobile/compat",		// This mobile app supports running on desktop browsers
 		"dojo/parser"		// This mobile app uses declarative programming with fast mobile parser
-	], function(has, domConst, domClass, ready, lang, registry, runner, Heading){
+	], function(has, domConst, domClass, ready, registry, runner, Heading){
 
 		function _createHeadingDeclaratively(widgetId) {
 			return registry.byId(widgetId);
@@ -76,8 +75,8 @@
 			runner.assertEqual(titleText, widget.labelDivNode.innerHTML, "widget.labelDivNode.innerHTML");
 			runner.assertEqual(backClassName, widget.backButton.domNode.className);
 			runner.assertEqual(has("ie") < 10 ? WIDGET_BUTTON_HEAD_CLASSNAME_IE : WIDGET_BUTTON_HEAD_CLASSNAME,
-			    // calling trim() because of a blank that ToolBarButton.js adds at the end of widget's className attribute value 
-				lang.trim(widget.backButton.arrowNode.className));
+				// calling trim() because of a blank that ToolBarButton.js adds at the end of widget's className attribute value 
+				widget.backButton.arrowNode.className.trim());
 			runner.assertEqual(WIDGET_BUTTON_BODY_CLASSNAME, widget.backButton.bodyNode.className);
 			runner.assertEqual(backText, widget.backButton.labelNode.innerHTML, "widget.labelDivNode.innerHTML");
 		};
@@ -130,7 +129,7 @@
 			]);
 			runner.run();
 		});
-	})
+	});
 </script>
 </head>
 <body style="visibility:hidden;" dir="rtl">

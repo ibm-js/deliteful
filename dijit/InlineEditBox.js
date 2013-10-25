@@ -368,8 +368,8 @@ define([
 			}
 
 			if(!this.value && !("value" in this.params)){ // "" is a good value if specified directly so check params){
-				this.value = lang.trim(this.renderAsHtml ? this.displayNode.innerHTML :
-					(this.displayNode.innerText || this.displayNode.textContent || ""));
+				this.value = (this.renderAsHtml ? this.displayNode.innerHTML :
+					(this.displayNode.innerText || this.displayNode.textContent || "")).trim();
 			}
 			if(!this.value){
 				this.displayNode.innerHTML = this.noValueIndicator;
@@ -551,7 +551,7 @@ define([
 			//		Hook to make set("value", ...) work.
 			//		Inserts specified HTML value into this node, or an "input needed" character if node is blank.
 
-			val = lang.trim(val);
+			val = val.trim();
 			var renderVal = this.renderAsHtml ? val : val.replace(/&/gm, "&amp;").replace(/</gm, "&lt;").replace(/>/gm, "&gt;").replace(/"/gm, "&quot;").replace(/\n/g, "<br>");
 			this.displayNode.innerHTML = renderVal || this.noValueIndicator;
 			this._set("value", val);

@@ -68,7 +68,7 @@ define([
 			if(!this.label && this.srcNodeRef){
 				this.label = this.srcNodeRef.innerHTML;
 			}
-			this.label = lang.trim(this.label);
+			this.label = this.label.trim();
 			this.domNode = (this.srcNodeRef && this.srcNodeRef.tagName === "SPAN") ?
 				this.srcNodeRef : domConstruct.create("span");
 			domAttr.set(this.domNode, "role", "button");

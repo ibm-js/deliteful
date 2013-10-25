@@ -173,10 +173,10 @@ function verifyListItem(id, text, rightText, domButtonType, hasIcon, hasRightIco
 	}
 
 	try{
-		doh.assertEqual(text, dojo.trim(childNodes[i].innerHTML.replace(/\r\n|\n|\t/g,"")), "id=" + id);
+		doh.assertEqual(text, childNodes[i].innerHTML.replace(/\r\n|\n|\t/g,"").trim(), "id=" + id);
 	} catch (e) {
 		if(dojo.isFF ==3.6){
-			doh.assertEqual(text, dojo.trim(childNodes[i].childNodes[0].innerHTML.replace(/\r\n|\n|\t/g,"")), "id=" + id);
+			doh.assertEqual(text, childNodes[i].childNodes[0].innerHTML.replace(/\r\n|\n|\t/g,"").trim(), "id=" + id);
 		}else{
 			throw e;
 		}
@@ -253,5 +253,5 @@ function verifyTabBarButton(id, text, classNames, visibility1, visibility2, regE
 	}else{
 		console.log("There is no iconNode2. id=" + id);
 	}
-	doh.assertEqual(text, dojo.trim(demoWidget.labelNode.innerHTML), "id=" +id);
+	doh.assertEqual(text, demoWidget.labelNode.innerHTML.trim(), "id=" +id);
 }

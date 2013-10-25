@@ -105,7 +105,7 @@ define([
 				if(!this.label){
 					this.domNode.childNodes.forEach(function(n){
 						if(n.nodeType == 3){
-							var v = lang.trim(n.nodeValue);
+							var v = n.nodeValue.trim();
 							if(v){
 								this.label = v;
 								this.labelNode = domConstruct.create("span", {innerHTML:v}, n, "replace");

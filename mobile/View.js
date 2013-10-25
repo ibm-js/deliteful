@@ -200,7 +200,7 @@ define([
 			//		Remove all the "dui" prefixed classes except dui*View.
 			if(!node){ return; }
 			var classes = [];
-			lang.trim(node.className||"").split(/\s+/).forEach(function(c){
+			(node.className || "").trim().split(/\s+/).forEach(function(c){
 				if(c.match(/^dui\w*View$/) || c.indexOf("dui") === -1){
 					classes.push(c);
 				}

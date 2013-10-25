@@ -3,7 +3,7 @@ define([
 	"dojo/dom", // dom.byId
 	"dojo/has",
 	"dojo/keys", // keys.ALT keys.CAPS_LOCK keys.CTRL keys.META keys.SHIFT
-	"dojo/_base/lang", // lang.mixin
+	"dojo/_base/lang", // lang.mixin, lang.hitch
 	"dojo/on" // on
 ], function(declare, dom, has, keys, lang, on){
 
@@ -373,7 +373,7 @@ define([
 				return val;
 			}
 			if(this.trim){
-				val = lang.trim(val);
+				val = val.trim();
 			}
 			if(this.uppercase){
 				val = val.toUpperCase();

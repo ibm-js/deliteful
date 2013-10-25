@@ -4,7 +4,7 @@ define([
 	"dojo/dom-attr", // domAttr.attr
 	"dojo/dom-class", // domClass.toggle
 	"dojo/has",
-	"dojo/_base/lang", // lang.hitch lang.trim
+	"dojo/_base/lang", // lang.hitch
 	"./StackController",
 	"../registry",
 	"../dui/Menu",
@@ -87,7 +87,7 @@ define([
 			//		Need to set the alt attribute of icon on tab buttons if no label displayed
 			this.inherited(arguments);
 			if(!this.showLabel && !this.params.title){
-				this.iconNode.alt = lang.trim(this.containerNode.innerText || this.containerNode.textContent || '');
+				this.iconNode.alt = (this.containerNode.innerText || this.containerNode.textContent || '').trim();
 			}
 		}
 	});
