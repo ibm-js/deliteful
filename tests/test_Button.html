@@ -20,6 +20,7 @@
 
 			// Just for testing subclassing of widgets
 			NewButton = register("dui-new-button", Button, {
+				declaredClass: "NewButton",
 				_setLabelAttr: function (l) {
 					console.log("setting label to " + l);
 					this._set("label", l);
@@ -66,6 +67,7 @@
 <button is="dui-button" data-dojo-id="btn2" class="duiBlueButton">Blue</button>
 class="duiBlueButton"
 <button onclick="btn2.label = 'Very blue';">Change label to 'Very blue'</button>
+<button onclick="btn2.label = '';">Remove label</button>
 <hr>
 <button is="dui-button" data-dojo-id="btn3" class="duiRedButton">Red</button>
 class="duiRedButton"
@@ -81,6 +83,7 @@ class="customButton"
 	Icon Button
 </button>
 <button onclick="T1465.iconClass = 'duiIconCut';">Change icon to cut</button>
+<button onclick="T1465.iconClass = '';">Remove icon</button>
 <div id="msgArea" style="margin:15px"></div>
 </body>
 </html>
