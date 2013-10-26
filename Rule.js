@@ -8,7 +8,7 @@ define([
 	"./register",
 	"./Widget",
 	"./themes/load!common,Rule"
-], function (lang, has, query, domConstruct, domStyle, domClass, register, WidgetBase) {
+], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget) {
 
 	function toCSS(baseClass, modifier) {
 		return baseClass.split(" ").map(function (c) {
@@ -19,7 +19,7 @@ define([
 	// module:
 	//		dui/Rule
 
-	var duiRule = register("d-rule", [HTMLElement, WidgetBase], {
+	var duiRule = register("d-rule", [HTMLElement, Widget], {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations (e.g. hash marks and labels).
 
