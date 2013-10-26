@@ -2,12 +2,12 @@ define([
 	"dojo/_base/declare",
 	"../Contained",
 	"../Widget"
-], function(declare, Contained, WidgetBase){
+], function(declare, Contained, Widget){
 
 	// module:
 	//		dui/mobile/Pane
 
-	return declare("dui.mobile.Pane", [WidgetBase, Contained], {
+	return declare("dui.mobile.Pane", [Widget, Contained], {
 		// summary:
 		//		A simple pane widget.
 		// description:

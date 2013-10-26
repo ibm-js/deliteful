@@ -8,9 +8,9 @@ define([
 	"dui/form/_TextBoxMixin",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TextBox"
-], function(declare, lang, domConstruct, on, WidgetBase, FormValueMixin, TextBoxMixin, has, BidiTextBox){
+], function(declare, lang, domConstruct, on, Widget, FormValueMixin, TextBoxMixin, has, BidiTextBox){
 
-	var TextBox = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTextBox" : "dui.mobile.TextBox", [WidgetBase, FormValueMixin, TextBoxMixin],{
+	var TextBox = declare(has("dojo-bidi") ? "dui.mobile.NonBidiTextBox" : "dui.mobile.TextBox", [Widget, FormValueMixin, TextBoxMixin],{
 		// summary:
 		//		A non-templated base class for textbox form inputs
 

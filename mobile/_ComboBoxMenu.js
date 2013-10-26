@@ -10,11 +10,11 @@ define([
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/_ComboBoxMenu"
 ],
-	function(dojo, declare, domClass, domConstruct, ComboBoxMenuMixin, WidgetBase, ListTouchMixin, Scrollable, has, BidiComboBoxMenu){
+	function(dojo, declare, domClass, domConstruct, ComboBoxMenuMixin, Widget, ListTouchMixin, Scrollable, has, BidiComboBoxMenu){
 	// module:
 	//		dui/mobile/_ComboBoxMenu
 
-	var _ComboBoxMenu = declare(has("dojo-bidi") ? "dui.mobile._NonBidiComboBoxMenu" : "dui.mobile._ComboBoxMenu", [WidgetBase, ListTouchMixin, ComboBoxMenuMixin], {
+	var _ComboBoxMenu = declare(has("dojo-bidi") ? "dui.mobile._NonBidiComboBoxMenu" : "dui.mobile._ComboBoxMenu", [Widget, ListTouchMixin, ComboBoxMenuMixin], {
 		// summary:
 		//		Focus-less menu for internal use in dui/mobile/ComboBox.
 		//		Abstract methods that must be defined externally:

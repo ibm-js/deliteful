@@ -65,10 +65,10 @@ define([
 			// position: String[]?
 			//		List of positions to try to position tooltip (ex: ["right", "above"])
 			// rtl: Boolean?
-			//		Corresponds to `WidgetBase.dir` attribute, where false means "ltr" and true
+			//		Corresponds to `Widget.dir` attribute, where false means "ltr" and true
 			//		means "rtl"; specifies GUI direction, not text direction.
 			// textDir: String?
-			//		Corresponds to `WidgetBase.textdir` attribute; specifies direction of text.
+			//		Corresponds to `Widget.textdir` attribute; specifies direction of text.
 
 
 			if(this.aroundNode && this.aroundNode === aroundNode && this.containerNode.innerHTML == innerHTML){
@@ -460,10 +460,10 @@ define([
 		// position: String[]?
 		//		List of positions to try to position tooltip (ex: ["right", "above"])
 		// rtl: Boolean?
-		//		Corresponds to `WidgetBase.dir` attribute, where false means "ltr" and true
+		//		Corresponds to `Widget.dir` attribute, where false means "ltr" and true
 		//		means "rtl"; specifies GUI direction, not text direction.
 		// textDir: String?
-		//		Corresponds to `WidgetBase.textdir` attribute; specifies direction of text.
+		//		Corresponds to `Widget.textdir` attribute; specifies direction of text.
 
 		// After/before don't work, but for back-compat convert them to the working after-centered, before-centered.
 		// Possibly remove this in 2.0.   Alternately, get before/after to work.

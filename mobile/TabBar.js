@@ -14,12 +14,12 @@ define([
 	"./TabBarButton",// to load TabBarButton for you (no direct references)
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/TabBar"	
-], function(declare, win, lang, domClass, domConstruct, domGeometry, domStyle, domAttr, topic, Contained, Container, WidgetBase, TabBarButton, has, BidiTabBar){
+], function(declare, win, lang, domClass, domConstruct, domGeometry, domStyle, domAttr, topic, Contained, Container, Widget, TabBarButton, has, BidiTabBar){
 
 	// module:
 	//		dui/mobile/TabBar
 
-	var TabBar =  declare(has("dojo-bidi") ? "dui.mobile.NonBidiTabBar" : "dui.mobile.TabBar", [WidgetBase, Container, Contained],{
+	var TabBar =  declare(has("dojo-bidi") ? "dui.mobile.NonBidiTabBar" : "dui.mobile.TabBar", [Widget, Container, Contained],{
 		// summary:
 		//		A bar widget that has buttons to control visibility of views.
 		// description:

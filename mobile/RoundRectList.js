@@ -9,12 +9,12 @@ define([
 	"../Contained",
 	"../Container",
 	"../Widget"
-], function(declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, WidgetBase){
+], function(declare, lang, win, domConstruct, domAttr, on, topic, Contained, Container, Widget){
 
 	// module:
 	//		dui/mobile/RoundRectList
 
-	return declare("dui.mobile.RoundRectList", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile.RoundRectList", [Widget, Container, Contained], {
 		// summary:
 		//		A rounded rectangle list.
 		// description:

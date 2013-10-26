@@ -1,5 +1,5 @@
-define(["dcl/dcl", "dojo/_base/lang"], function (dcl, lang) {
-	return dcl(null, {
+define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget) {
+	return dcl(Widget, {
 		// summary:
 		//		Mixin for classes for widgets that manage a list of selected data items. Receiving class must extend
 		//		dui/Widget.
@@ -199,7 +199,6 @@ define(["dcl/dcl", "dojo/_base/lang"], function (dcl, lang) {
 			// triggerEvent: Event
 			//		The event that lead to the selection of the item.
 
-			// we assume we are a WidgetBase and we have an emit method
 			this.emit("selection-change", {
 				oldValue: oldSelectedItem,
 				newValue: newSelectedItem,

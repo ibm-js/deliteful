@@ -15,13 +15,13 @@ define([
 	"./_css3",
 	"require",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Accordion"
-], function(declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, WidgetBase, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
+], function(declare, lang, has, dom, domClass, domConstruct, domAttr, on, Contained, Container, Widget, iconUtils, lazyLoadUtils, css3, require, BidiAccordion){
 
 	// module:
 	//		dui/mobile/Accordion
 
 	// inner class
-	var _AccordionTitle = declare([WidgetBase, Contained], {
+	var _AccordionTitle = declare([Widget, Contained], {
 		// summary:
 		//		A widget for the title of the accordion.
 	
@@ -177,7 +177,7 @@ define([
 		}
 	});
 
-	var Accordion = declare(has("dojo-bidi") ? "dui.mobile.NonBidiAccordion" : "dui.mobile.Accordion", [WidgetBase, Container, Contained], {
+	var Accordion = declare(has("dojo-bidi") ? "dui.mobile.NonBidiAccordion" : "dui.mobile.Accordion", [Widget, Container, Contained], {
 		// summary:
 		//		A container widget that can display a group of child panes in a stacked format.
 		// description:

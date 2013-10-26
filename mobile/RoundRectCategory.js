@@ -6,12 +6,12 @@ define([
 	"../Widget",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/RoundRectCategory"
-], function(declare, win, domConstruct, Contained, WidgetBase, has, BidiRoundRectCategory){
+], function(declare, win, domConstruct, Contained, Widget, has, BidiRoundRectCategory){
 
 	// module:
 	//		dui/mobile/RoundRectCategory
 
-	var RoundRectCategory = declare(has("dojo-bidi") ? "dui.mobile.NonBidiRoundRectCategory" : "dui.mobile.RoundRectCategory", [WidgetBase, Contained], {
+	var RoundRectCategory = declare(has("dojo-bidi") ? "dui.mobile.NonBidiRoundRectCategory" : "dui.mobile.RoundRectCategory", [Widget, Contained], {
 		// summary:
 		//		A category header for a rounded rectangle list.
 

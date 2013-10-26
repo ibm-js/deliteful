@@ -9,12 +9,12 @@ define([
 	"dui/registry",
 	"../Contained",
 	"../Widget"
-], function(declare, lang, dom, domClass, domConstruct, on, topic, registry, Contained, WidgetBase){
+], function(declare, lang, dom, domClass, domConstruct, on, topic, registry, Contained, Widget){
 
 	// module:
 	//		dui/mobile/PageIndicator
 
-	return declare("dui.mobile.PageIndicator", [WidgetBase, Contained],{
+	return declare("dui.mobile.PageIndicator", [Widget, Contained],{
 		// summary:
 		//		A current page indicator.
 		// description:

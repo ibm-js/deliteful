@@ -20,14 +20,14 @@ define([
 	"./common",
 	"./viewRegistry",
 	"./_css3"
-], function(config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, WidgetBase, ViewController, common, viewRegistry, css3){
+], function(config, declare, lang, has, win, Deferred, dom, domClass, domConstruct, domGeometry, domStyle, on, registry, topic, Contained, Container, Widget, ViewController, common, viewRegistry, css3){
 
 	// module:
 	//		dui/mobile/View
 
 	var dm = lang.getObject("dui.mobile", true);
 
-	return declare("dui.mobile.View", [WidgetBase, Container, Contained], {
+	return declare("dui.mobile.View", [Widget, Container, Contained], {
 		// summary:
 		//		A container widget for any HTML element and/or Dojo widgets
 		// description:

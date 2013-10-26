@@ -10,7 +10,7 @@ define([
 		//		Mixin for widgets that are children of a container widget
 		// example:
 		//	|	// make a basic custom widget that knows about its parents
-		//	|	register("my.customClass", [HTMLElement, Widget, Contained], {});
+		//	|	register("my.customClass", [HTMLElement, Contained], {});
 
 		_getSibling: function (/*String*/ which) {
 			// summary:

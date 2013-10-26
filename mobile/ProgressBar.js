@@ -3,12 +3,12 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"../Widget"
-], function(declare, domClass, domConstruct, WidgetBase){
+], function(declare, domClass, domConstruct, Widget){
 
 	// module:
 	//		dui/mobile/ProgressBar
 
-	return declare("dui.mobile.ProgressBar", WidgetBase, {
+	return declare("dui.mobile.ProgressBar", Widget, {
 		// summary:
 		//		A widget that shows the progress of a task.
 		// description:

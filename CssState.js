@@ -5,7 +5,7 @@ define([
 ], function (dcl, domClass, Widget) {
 
 	// module:
-	//		dui/_CssStateMixin
+	//		dui/CssState
 
 	return dcl(Widget, {
 		// summary:

@@ -16,14 +16,14 @@ define([
 	"./View",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Heading"
-], function(declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, WidgetBase, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
+], function(declare, lang, win, dom, domClass, domConstruct, domStyle, domAttr, registry, Contained, Container, Widget, ProgressIndicator, ToolBarButton, View, has, BidiHeading){
 
 	// module:
 	//		dui/mobile/Heading
 
 	var dm = lang.getObject("dui.mobile", true);
 
-	var Heading = declare(has("dojo-bidi") ? "dui.mobile.NonBidiHeading" : "dui.mobile.Heading", [WidgetBase, Container, Contained],{
+	var Heading = declare(has("dojo-bidi") ? "dui.mobile.NonBidiHeading" : "dui.mobile.Heading", [Widget, Container, Contained],{
 		// summary:
 		//		A widget that represents a navigation bar.
 		// description:

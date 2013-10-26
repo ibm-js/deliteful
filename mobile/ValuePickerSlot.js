@@ -11,12 +11,12 @@ define([
 	"./iconUtils",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/ValuePickerSlot"
-], function(declare, lang, win, domClass, domConstruct, domAttr, on, touch, WidgetBase, iconUtils, has, BidiValuePickerSlot){
+], function(declare, lang, win, domClass, domConstruct, domAttr, on, touch, Widget, iconUtils, has, BidiValuePickerSlot){
 
 	// module:
 	//		dui/mobile/ValuePickerSlot
 
-	var ValuePickerSlot = declare(has("dojo-bidi") ?  "dui.mobile.NonBidiValuePickerSlot" : "dui.mobile.ValuePickerSlot", WidgetBase, {
+	var ValuePickerSlot = declare(has("dojo-bidi") ?  "dui.mobile.NonBidiValuePickerSlot" : "dui.mobile.ValuePickerSlot", Widget, {
 		// summary:
 		//		A widget representing one slot of a ValuePicker widget.
 		

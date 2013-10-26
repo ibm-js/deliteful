@@ -14,12 +14,12 @@ define([
 	"./_maskUtils",
 	"./common",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/Switch"
-], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, touch, Contained, WidgetBase, has, maskUtils, dm, BidiSwitch){
+], function(declare, lang, win, domClass, domConstruct, domStyle, domAttr, on, touch, Contained, Widget, has, maskUtils, dm, BidiSwitch){
 
 	// module:
 	//		dui/mobile/Switch
 
-	var Switch = declare(has("dojo-bidi") ? "dui.mobile.NonBidiSwitch" : "dui.mobile.Switch", [WidgetBase, Contained],{
+	var Switch = declare(has("dojo-bidi") ? "dui.mobile.NonBidiSwitch" : "dui.mobile.Switch", [Widget, Contained],{
 		// summary:
 		//		A toggle switch with a sliding knob.
 		// description:
