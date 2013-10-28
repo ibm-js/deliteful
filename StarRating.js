@@ -11,15 +11,16 @@ define([
 	"dojo/dom-geometry",
 	"./register",
 	"./Widget",
+	"./mixins/Invalidating",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
 ], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
-			register, Widget, BidiStarRating, messages) {
+			register, Widget, Invalidating, BidiStarRating, messages) {
 
 	// module:
 	//		dui/StarRating
-	var StarRating = dcl(Widget, {
+	var StarRating = dcl([Widget, Invalidating], {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
 		//		by touching the stars.
@@ -77,14 +78,7 @@ define([
 		//		Set this value to 0 to forbid the user from setting the value to zero during edition.
 		//		Setting this attribute to a negative value is not supported.
 		zeroAreaWidth: -1,
-		_setZeroAreaWidthAttr: function (/*Number*/value) {
-			this._set("zeroAreaWidth", value);
-			if (this.editable) {
-				this.style.paddingLeft = this.zeroAreaWidth + "px";
-			} else {
-				this.style.paddingLeft = "0px";
-			}
-		},
+
 		_getZeroAreaWidthAttr: function () {
 			var val = this._get("zeroAreaWidth");
 			return val === -1 ? (this.editable ? 20 : 0) : val;
@@ -101,6 +95,14 @@ define([
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
+		preCreate: function () {
+			this.addInvalidatingProperties("maximum",
+					"value",
+					"editable",
+					"editHalfValues",
+					"zeroAreaWidth");
+		},
+
 		buildRendering: function () {
 			this.style.display = "inline-block";
 
@@ -115,6 +117,44 @@ define([
 			// keyboard navigation
 			if (this.tabIndex === -1) {
 				this.setAttribute("tabindex", 0);
+			}
+		},
+
+		refreshRendering: function (props) {
+			if (props.maximum) {
+				this.setAttribute("aria-valuemax", this.maximum);
+			}
+			if (props.value) {
+				this.setAttribute("aria-valuenow", this.value);
+				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
+			}
+			if (props.maximum || props.value) {
+				var createChildren = this.children.length !== this.maximum;
+				if (createChildren) {
+					domConstruct.empty(this);
+				}
+				this._updateStars(this.value, createChildren);
+			}
+			if (props.editable) {
+				this.setAttribute("aria-disabled", !this.editable);
+				if (this.editable && !this._keyDownHandler) {
+					this._keyDownHandler = this.on("keydown", lang.hitch(this, "_onKeyDown"));
+				} else if (!this.editable && this._keyDownHandler) {
+					this._keyDownHandler.remove();
+					this._keyDownHandler = null;
+				}
+				if (this.editable && !this._startHandlers) {
+					this._startHandlers = [this.on(touch.enter, lang.hitch(this, "_onTouchEnter")),
+										   this.on(touch.press, lang.hitch(this, "_wireHandlers"))];
+				} else if (!this.editable && this._startHandlers) {
+					while (this._startHandlers.length) {
+						this._startHandlers.pop().remove();
+					}
+					this._startHandlers = null;
+				}
+			}
+			if (props.editable || props.zeroAreaWidth) {
+				this._updateZeroArea();
 			}
 		},
 
@@ -159,7 +199,6 @@ define([
 		},
 
 		_onTouchRelease: function (/*Event*/ event) {
-			console.log(event);
 			this.value = this._coordToValue(event);
 			this._enterValue = this.value;
 			if (!this._hovering) {
@@ -237,50 +276,6 @@ define([
 			return (x - this.zeroAreaWidth) / (starStripLength / this.maximum);
 		},
 
-		_setMaximumAttr: function (/*Number*/ value) {
-			this._set("maximum", value);
-			this.setAttribute("aria-valuemax", this.maximum);
-			// set value to trigger redrawing of the widget
-			this.value = this.value;
-		},
-
-		_setValueAttr: function (/*Number*/ value) {
-			// summary:
-			//		Sets the value of the Rating.
-			// tags:
-			//		private
-			this._set("value", value);
-			var createChildren = this.children.length !== this.maximum;
-			if (createChildren) {
-				domConstruct.empty(this);
-			}
-			this._updateStars(value, createChildren);
-			this.setAttribute("aria-valuenow", this.value);
-			this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
-		},
-
-		_setEditableAttr: function (/*Boolean*/value) {
-			this._set("editable", value);
-			// set zeroAreaWidth to trigger its drawing
-			this.zeroAreaWidth = this.zeroAreaWidth;
-			if (this.editable && !this._keyDownHandler) {
-				this._keyDownHandler = this.on("keydown", lang.hitch(this, "_onKeyDown"));
-			} else if (!this.editable && this._keyDownHandler) {
-				this._keyDownHandler.remove();
-				this._keyDownHandler = null;
-			}
-			this.setAttribute("aria-disabled", !this.editable);
-			if (this.editable && !this._startHandlers) {
-				this._startHandlers = [this.on(touch.enter, lang.hitch(this, "_onTouchEnter")),
-									   this.on(touch.press, lang.hitch(this, "_wireHandlers"))];
-			} else if (!this.editable && this._startHandlers) {
-				while (this._startHandlers.length) {
-					this._startHandlers.pop().remove();
-				}
-				this._startHandlers = null;
-			}
-		},
-
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
 			var i, parent, starClass;
 			for (i = 0; i < this.maximum; i++) {
@@ -299,6 +294,14 @@ define([
 					parent = this.children[i];
 				}
 				parent.className = this.baseClass +  "StarIcon " + starClass;
+			}
+		},
+		
+		_updateZeroArea: function () {
+			if (this.editable) {
+				this.style.paddingLeft = this.zeroAreaWidth + "px";
+			} else {
+				this.style.paddingLeft = "0px";
 			}
 		}
 	});
