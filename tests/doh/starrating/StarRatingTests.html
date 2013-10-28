@@ -55,7 +55,7 @@
 			var stars = query('div', ratingId);
 			var i, node;
 			runner.assertEqual(expectedValue, rating.value, 'the rating value is not the expected one for ' + ratingId);
-			runner.assertEqual(maximum, stars.length, "number of stars displayed on node with id star");
+			runner.assertEqual(maximum, stars.length, "number of stars displayed on node with id " + ratingId);
 			for(i = 0; i < stars.length; i++){
 				node = stars[i];
 				if(i > (expectedValue - 1)){
@@ -93,14 +93,18 @@
 			// check rating change after firing down and up events on a star
 			fireMouseUpAndDownOnStar(ratingId, 2, -1);
 			expected = (halfStars ? 2.5 : 3);
-			checkRating(ratingId, 7, expected);
-			// set zero rating
-			fireMouseUpAndDownOnZeroSettingArea(ratingId);
-			expected = zeroSetting ? 0 : 0.5;
-			checkRating(ratingId, 7, expected);
-			///////////////////////////////////////////
-			// TODO: CHECK USING MOVE TO SET VALUES
-			///////////////////////////////////////////
+			setTimeout(function () {
+				checkRating(ratingId, 7, expected);
+				// set zero rating
+				fireMouseUpAndDownOnZeroSettingArea(ratingId);
+				expected = zeroSetting ? 0 : 0.5;
+				setTimeout(function () {
+					checkRating(ratingId, 7, expected);
+					///////////////////////////////////////////
+					// TODO: CHECK USING MOVE TO SET VALUES
+					///////////////////////////////////////////
+				});
+			});
 		};
 
 		runner.register("dui.mobile.test.doh.StarRatingTests", [
@@ -116,26 +120,36 @@
 						var expected;
 						// Check initial rating
 						checkRating('star', 7, 0);
-						// Check rating change when clicking the plus button
-						for(i=0; i < 14; i++){
-							fireOnClick(plusButton);
-							expected = (i + 1) * 0.5;
-							checkRating('star', 7, expected);
-						}
-						// Check rating change when clicking the minus button
-						for(i=0; i < 14; i++){
-							fireOnClick(minusButton);
-							expected = (13 - i) * 0.5;
-							checkRating('star', 7, expected);
-						}
-						// Fire down and up events on a star: doesn't change anything
-						fireMouseUpAndDownOnStar('star', 2, -1);
-						checkRating('star', 7, 0);
+						var recursiveTest = function (step, expectedAfterClick) {
+							// Click + button 14 times and check value after each click,
+							// then click - minus button 14 times and check value.
+							// When done, fire click event on a star and check that it
+							// doesn't update the value of the widget.
+							if (step < 14) {
+								fireOnClick(plusButton);
+								setTimeout(function () {
+									checkRating('star', 7, expectedAfterClick);
+									recursiveTest(step + 1, expectedAfterClick + (step === 13 ? -0.5 : 0.5));
+								});
+							} else if (step < 28) {
+								fireOnClick(minusButton);
+								setTimeout(function () {
+									checkRating('star', 7, expectedAfterClick);
+									recursiveTest(step + 1, expectedAfterClick - 0.5);
+								});
+							} else {
+		 						fireMouseUpAndDownOnStar('star', 2, -1);
+		 						setTimeout(function () {
+									checkRating('star', 7, 0);
+		 						});
+							}
+						};
+						recursiveTest(0, 0.5);
 					}), 2000);
 					return deferred;
 				}
 			},
-			{
+ 			{
 				name: 'test editable ltr',
 				timeout: 4000,
 				runTest: function(){
@@ -179,23 +193,29 @@
 						var messageNode = document.getElementById(id + 'value');
 						// Check initial rating
 						checkRating(id, 7, 3.5);
-						// Check message
-						runner.assertEqual('Rating is 3.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
-						// check rating change after firing down and up events on a star
-						fireMouseUpAndDownOnStar(id, 2, -1);
-						expected = 2.5;
-						checkRating(id, 7, expected);
-						// Check message
-						runner.assertEqual('Rating is 2.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
-						// set zero rating
-						fireMouseUpAndDownOnZeroSettingArea(id);
-						expected = 0;
-						checkRating(id, 7, expected);
-						// Check message
-						runner.assertEqual('Rating is 0 star', messageNode.innerHTML, 'message is not the one expected for ' + id);
-						///////////////////////////////////////////
-						// TODO: CHECK USING MOVE TO SET VALUES
-						///////////////////////////////////////////
+						setTimeout(function () {
+							// Check message
+							runner.assertEqual('Rating is 3.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
+							// check rating change after firing down and up events on a star
+							fireMouseUpAndDownOnStar(id, 2, -1);
+							expected = 2.5;
+							setTimeout(function () {
+								checkRating(id, 7, expected);
+								// Check message
+								runner.assertEqual('Rating is 2.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
+								// set zero rating
+								fireMouseUpAndDownOnZeroSettingArea(id);
+								expected = 0;
+								setTimeout(function () {
+									checkRating(id, 7, expected);
+									// Check message
+									runner.assertEqual('Rating is 0 star', messageNode.innerHTML, 'message is not the one expected for ' + id);
+									///////////////////////////////////////////
+									// TODO: CHECK USING MOVE TO SET VALUES
+									///////////////////////////////////////////
+								});
+							});
+						});
 					}), 100);
 					return deferred;
 				}
@@ -211,24 +231,38 @@
 						var newMax = 5;
 						var expected;
 						rating.maximum = newMax;
-						checkRating(ratingId, newMax, 0);
-						rating.editable = false;
-						fireMouseUpAndDownOnStar(ratingId, 1, -1);
-						checkRating(ratingId, newMax, 0);
-						rating.editHalfValues = false;
-						rating.editable = true;
-						fireMouseUpAndDownOnStar(ratingId, 1, -1);
-						expected = 2;
-						checkRating(ratingId, newMax, expected);
-						rating.zeroAreaWidth = 0;
-						rating.editHalfValues = true;
-						fireMouseUpAndDownOnZeroSettingArea(ratingId);
-						expected = 0.5;
-						checkRating(ratingId, newMax, expected);
+						setTimeout(function () {
+							checkRating(ratingId, newMax, 0);
+							rating.editable = false;
+							setTimeout(function () {
+								fireMouseUpAndDownOnStar(ratingId, 1, -1);
+								setTimeout(function () {
+									checkRating(ratingId, newMax, 0);
+									rating.editHalfValues = false;
+									rating.editable = true;
+									setTimeout(function () {
+										fireMouseUpAndDownOnStar(ratingId, 1, -1);
+										expected = 2;
+										setTimeout(function () {
+											checkRating(ratingId, newMax, expected);
+											rating.zeroAreaWidth = 0;
+											rating.editHalfValues = true;
+											setTimeout(function () {
+												fireMouseUpAndDownOnZeroSettingArea(ratingId);
+												expected = 0.5;
+												setTimeout(function () {
+													checkRating(ratingId, newMax, expected);
+												});
+											})
+										});
+									})
+								});
+							});
+						});
 					}), 100);
 					return deferred;
 				}
-			}
+ 			}
 		]);
 		runner.run();
 	});

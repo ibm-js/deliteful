@@ -44,17 +44,6 @@ define([
 			};
 		}),
 
-		_setZeroAreaWidthAttr: dcl.superCall(function (sup) {
-			return function (/*Number*/value) {
-				sup.call(this, value);
-				if (!this.isLeftToRight()) {
-					// Zero setting area is on the right side
-					this.style.paddingLeft = "0px";
-					this.style.paddingRight = this.zeroAreaWidth + "px";
-				}
-			};
-		}),
-
 		_updateStars: dcl.superCall(function (sup) {
 			return function (/*Number*/value, /*Boolean*/create) {
 				if (this.isLeftToRight()) {
@@ -81,6 +70,22 @@ define([
 					}
 				}
 			};
-		})
+		}),
+		
+		_updateZeroArea: dcl.superCall(function (sup) {
+			return function (/*Number*/value) {
+				if (!this.isLeftToRight()) {
+					if (this.editable) {
+						this.style.paddingRight = this.zeroAreaWidth + "px";
+					} else {
+						this.style.paddingRight = "0px";
+					}
+				} else {
+					sup.call(this, value);
+				}
+			};
+		}),
+
+
 	});
 });
