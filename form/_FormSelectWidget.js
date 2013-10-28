@@ -122,7 +122,7 @@ define([
 			if(typeof valueOrIdx === "string"){
 				valueOrIdx = { value: valueOrIdx };
 			}
-			if(lang.isObject(valueOrIdx)){ // TBD call of isObject: to be addressed later
+			if(lang.isObject(valueOrIdx)){ // TODO: call of lang.isObject to be addressed later
 				// We were passed an option - so see if it's in our array (directly),
 				// and if it's not, try and find it by value.
 
@@ -151,7 +151,7 @@ define([
 			//		Passing in an array of options will yield slightly better performance
 			//		since the children are only loaded once.
 			(Array.isArray(option) ? option : [option]).forEach(function(i){
-				if(i && lang.isObject(i)){ // TBD call of isObject: to be addressed later
+				if(i && lang.isObject(i)){ // TODO: call of lang.isObject to be addressed later
 					this.options.push(i);
 				}
 			}, this);
@@ -317,9 +317,10 @@ define([
 			}
 			if(Array.isArray(newValue)){
 				newValue = newValue.map(function(value){
-					return lang.isObject(value) ? value : { value: value }; // TBD call of isObject: to be addressed later
+					// TODO: call of lang.isObject to be addressed later
+					return lang.isObject(value) ? value : { value: value };
 				}); // __SelectOption[]
-			}else if(lang.isObject(newValue)){ // TBD call of isObject: to be addressed later
+			}else if(lang.isObject(newValue)){ // TODO: call of lang.isObject to be addressed later
 				newValue = [newValue];
 			}else{
 				newValue = [
