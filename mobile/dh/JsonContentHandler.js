@@ -165,7 +165,7 @@ define([
 				this._req.push(cls);
 				if(!cls){ continue; }
 				var objs = className ? [obj] :
-						(lang.isArray(obj[key]) ? obj[key] : [obj[key]]);
+						(Array.isArray(obj[key]) ? obj[key] : [obj[key]]);
 				for(var i = 0; i < objs.length; i++){
 					// process child widgets
 					if(!className){
@@ -194,7 +194,7 @@ define([
 				if(!cls){ continue; }
 				var proto = cls.prototype,
 					objs = className ? [obj] :
-						(lang.isArray(obj[key]) ? obj[key] : [obj[key]]);
+						(Array.isArray(obj[key]) ? obj[key] : [obj[key]]);
 				for(var i = 0; i < objs.length; i++){
 					var params = {};
 					for(var prop in objs[i]){
@@ -202,7 +202,7 @@ define([
 							var v = objs[i][prop];
 							prop = prop.substring(1);
 							var t = typeof proto[prop];
-							if(lang.isArray(proto[prop])){
+							if(Array.isArray(proto[prop])){
 								params[prop] = v.split(/\s*,\s*/);
 							}else if(t === "string"){
 								params[prop] = v;

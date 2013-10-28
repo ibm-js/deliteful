@@ -837,7 +837,7 @@ define([
 			if(!item){
 				return [];
 			}
-			var identity = lang.isString(item) ? item : this.model.getIdentity(item);
+			var identity = (typeof item === "string") ? item : this.model.getIdentity(item);
 			// return a copy so widget don't get messed up by changes to returned array
 			return [].concat(this._itemNodesMap[identity]);
 		},
@@ -850,7 +850,7 @@ define([
 			var tree = this;
 			return this.pendingCommandsPromise = this.pendingCommandsPromise.always(lang.hitch(this, function(){
 				var identities = items.map(function(item){
-					return (!item || lang.isString(item)) ? item : tree.model.getIdentity(item);
+					return (!item || (typeof item === "string")) ? item : tree.model.getIdentity(item);
 				});
 				var nodes = [];
 				identities.forEach(function(id){
@@ -900,7 +900,7 @@ define([
 				return all(array.map(paths, function(path){
 					// normalize path to use identity
 					path = array.map(path, function(item){
-						return lang.isString(item) ? item : tree.model.getIdentity(item);
+						return (typeof item === "string") ? item : tree.model.getIdentity(item);
 					});
 
 					if(path.length){
@@ -1519,7 +1519,7 @@ define([
 			if(this.rootNode){
 				this.rootNode.destroyRecursive();
 			}
-			if(this.dndController && !lang.isString(this.dndController)){
+			if(this.dndController && (typeof this.dndController !== "string")){
 				this.dndController.destroy();
 			}
 			this.rootNode = null;

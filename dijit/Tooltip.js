@@ -5,7 +5,7 @@ define([
 	"dojo/dom-class", // domClass.add
 	"dojo/dom-geometry", // domGeometry.position
 	"dojo/dom-style", // domStyle.set, domStyle.get
-	"dojo/_base/lang", // lang.hitch lang.isArrayLike
+	"dojo/_base/lang", // lang.hitch
 	"dojo/mouse",
 	"dojo/on",
 	"dojo/sniff", // has("ie")

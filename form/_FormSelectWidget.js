@@ -5,7 +5,7 @@ define([
 	"dojo/dom", // dom.setSelectable
 	"dojo/dom-class", // domClass.toggle
 	"dojo/_base/kernel",	// _scopeName
-	"dojo/_base/lang", // lang.delegate lang.isArray lang.isObject lang.hitch
+	"dojo/_base/lang", // lang.delegate lang.isObject lang.hitch
 	"dojo/query", // query
 	"dojo/when",
 	"dojo/store/util/QueryResults",
@@ -114,15 +114,15 @@ define([
 			if(valueOrIdx == null){
 				return opts; // __SelectOption[]
 			}
-			if(lang.isArray(valueOrIdx)){
+			if(Array.isArray(valueOrIdx)){
 				return valueOrIdx.map(function(item){
 					return this.getOptions(item); 
 				}, this); // __SelectOption[]
 			}
-			if(lang.isString(valueOrIdx)){
+			if(typeof valueOrIdx === "string"){
 				valueOrIdx = { value: valueOrIdx };
 			}
-			if(lang.isObject(valueOrIdx)){
+			if(lang.isObject(valueOrIdx)){ // TBD call of isObject: to be addressed later
 				// We were passed an option - so see if it's in our array (directly),
 				// and if it's not, try and find it by value.
 
@@ -150,8 +150,8 @@ define([
 			//		of the option is empty or missing, a separator is created instead.
 			//		Passing in an array of options will yield slightly better performance
 			//		since the children are only loaded once.
-			(lang.isArray(option) ? option : [option]).forEach(function(i){
-				if(i && lang.isObject(i)){
+			(Array.isArray(option) ? option : [option]).forEach(function(i){
+				if(i && lang.isObject(i)){ // TBD call of isObject: to be addressed later
 					this.options.push(i);
 				}
 			}, this);
@@ -167,7 +167,7 @@ define([
 			//		You can also pass in an array of those values for a slightly
 			//		better performance since the children are only loaded once.
 			//		For numeric option values, specify {value: number} as the argument.
-			var oldOpts = this.getOptions(lang.isArray(valueOrIdx) ? valueOrIdx : [valueOrIdx]);
+			var oldOpts = this.getOptions(Array.isArray(valueOrIdx) ? valueOrIdx : [valueOrIdx]);
 			if(oldOpts){ // getOptions() can return null
 				oldOpts.forEach(function(option){
 					// We can get null back in our array - if our option was not found.  In
@@ -189,7 +189,7 @@ define([
 			//		is matched based on the value of the entered option.  Passing
 			//		in an array of new options will yield better performance since
 			//		the children will only be loaded once.
-			(lang.isArray(newOption) ? newOption : [newOption]).forEach(function(i){
+			(Array.isArray(newOption) ? newOption : [newOption]).forEach(function(i){
 				var oldOpt = this.getOptions({ value: i.value }), k;
 				if(oldOpt){
 					for(k in i){
@@ -315,11 +315,11 @@ define([
 			if(newValue == null){
 				return;
 			}
-			if(lang.isArray(newValue)){
+			if(Array.isArray(newValue)){
 				newValue = newValue.map(function(value){
-					return lang.isObject(value) ? value : { value: value };
+					return lang.isObject(value) ? value : { value: value }; // TBD call of isObject: to be addressed later
 				}); // __SelectOption[]
-			}else if(lang.isObject(newValue)){
+			}else if(lang.isObject(newValue)){ // TBD call of isObject: to be addressed later
 				newValue = [newValue];
 			}else{
 				newValue = [
@@ -333,7 +333,7 @@ define([
 			if(!this.multiple && (!newValue[0] || !newValue[0].value) && !!opts.length){
 				newValue[0] = opts[0];
 			}
-			if(lang.isArray(opts)){
+			if(Array.isArray(opts)){
 				opts.forEach(function(opt){
 					opt.selected = newValue.some(function(v){
 						return v.value === opt.value;

@@ -226,7 +226,7 @@ define([
 			//		Hook to get the current regExp and to compute the partial validation RE.
 
 			var p = this.pattern;
-			if(typeof p == "function"){
+			if(typeof p === "function"){
 				p = p.call(this, constraints);
 			}
 			if(p != this._lastRegExp){

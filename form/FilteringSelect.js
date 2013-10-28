@@ -126,7 +126,7 @@ define([
 			if(item === undefined){
 				if(value === null || value === ''){
 					value = '';
-					if(!lang.isString(displayedValue)){
+					if(typeof displayedValue !== "string"){
 						this._setDisplayedValueAttr(displayedValue||'', priorityChange);
 						return;
 					}

@@ -1,7 +1,7 @@
 define([
 	"dojo/_base/config",
 	"dojo/_base/fx",	// fx.fadeOut, fx.fadeIn
-	"dojo/_base/lang",	// lang.extend, lang.isArray
+	"dojo/_base/lang",	// lang.extend, lang.hitch, lang.getObject
 	"dojo/sniff",		// has("webkit"), has("ie")
 	"dojo/_base/window",	// win.doc, win.body
 	"dojo/aspect",
@@ -304,7 +304,7 @@ return {
 					dm.createRoundRect(this, true);
 					this.domNode.className = "duiRoundRectList";
 					if(has("ie") && has("dojo-bidi") && !this.isLeftToRight()){
-						this.domNode.className = "duiRoundRectList duiRoundRectListRtl"
+						this.domNode.className = "duiRoundRectList duiRoundRectListRtl";
 					}
 				},
 
@@ -516,7 +516,7 @@ return {
 				});
 				dm._loadedCss = obj;
 			}
-			if(!lang.isArray(files)){ files = [files]; }
+			if(!Array.isArray(files)){ files = [files]; }
 			for(var i = 0; i < files.length; i++){
 				var file = files[i];
 				if(!dm._loadedCss[file]){

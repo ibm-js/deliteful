@@ -53,7 +53,7 @@ define([
 			//		Overridden so that the previously selected value will be focused instead of only the first item
 			var found = false,
 				val = this.parentWidget.value;
-			if(lang.isArray(val)){
+			if(Array.isArray(val)){
 				val = val[val.length - 1];
 			}
 			if(val){ // if focus selected

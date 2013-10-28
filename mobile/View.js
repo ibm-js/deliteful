@@ -375,7 +375,8 @@ define([
 			}
 
 			this.onBeforeTransitionOut.apply(this, this._arguments);
-			topic.publish.apply(topic, ["/dui/mobile/beforeTransitionOut", this].concat(lang._toArray(this._arguments)));
+			topic.publish.apply(topic, 
+				["/dui/mobile/beforeTransitionOut", this].concat([].concat(Array.prototype.slice.call(this._arguments, 0))));
 			if(toWidget){
 				// perform view transition keeping the scroll position
 				if(this.keepScrollPos && !this.getParent()){
@@ -390,7 +391,8 @@ define([
 					toNode.style.top = "0px";
 				}
 				toWidget.onBeforeTransitionIn.apply(toWidget, this._arguments);
-				topic.publish.apply(topic, ["/dui/mobile/beforeTransitionIn", toWidget].concat(lang._toArray(this._arguments)));
+				topic.publish.apply(topic, 
+					["/dui/mobile/beforeTransitionIn", toWidget].concat(Array.prototype.slice.call(this._arguments, 0)));
 			}
 			toNode.style.display = "none";
 			toNode.style.visibility = "visible";

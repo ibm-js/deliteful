@@ -12,7 +12,7 @@ define([
 	"dojo/dom-style", // domStyle.set, domStyle.get
 	"dojo/has",
 	"dojo/_base/kernel",
-	"dojo/_base/lang", // mixin(), isArray(), etc.
+	"dojo/_base/lang", // mixin(), hitch(), etc.
 	"dojo/on",
 	"dojo/_base/window", // win.body()
 	"./Destroyable",

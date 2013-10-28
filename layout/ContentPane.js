@@ -520,6 +520,7 @@ define([
 				textDir: this.textDir
 			}, this._contentSetterParams || {});
 
+			// TBD call of lang.isObject: to be addressed later
 			var p = setter.set((lang.isObject(cont) && cont.domNode) ? cont.domNode : cont, setterParams);
 
 			// dojox/layout/html/_base::_ContentSetter.set() returns a Promise that indicates when everything is completed.

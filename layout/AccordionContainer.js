@@ -174,7 +174,7 @@ define([
 
 			// wrapper div's first child is the button widget (ie, the title bar)
 			var child = this.contentWidget,
-				cls = lang.isString(this.buttonWidget) ? lang.getObject(this.buttonWidget) : this.buttonWidget;
+				cls = (typeof this.buttonWidget === "string") ? lang.getObject(this.buttonWidget) : this.buttonWidget;
 			this.button = child._buttonWidget = (new cls({
 				contentWidget: child,
 				label: child.title,

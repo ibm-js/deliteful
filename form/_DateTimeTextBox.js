@@ -208,7 +208,7 @@ define([
 			if(this.dropDown){
 				this.dropDown.destroy();
 			}
-			var PopupProto = lang.isString(this.popupClass) ? lang.getObject(this.popupClass, false) : this.popupClass,
+			var PopupProto = (typeof this.popupClass === "string") ? lang.getObject(this.popupClass, false) : this.popupClass,
 				textBox = this,
 				value = this.get("value");
 			this.dropDown = new PopupProto({
