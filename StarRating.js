@@ -10,17 +10,16 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"./register",
-	"./Widget",
 	"./mixins/Invalidating",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
 ], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
-			register, Widget, Invalidating, BidiStarRating, messages) {
+			register, Invalidating, BidiStarRating, messages) {
 
 	// module:
 	//		dui/StarRating
-	var StarRating = dcl([Widget, Invalidating], {
+	var StarRating = dcl(Invalidating, {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
 		//		by touching the stars.
