@@ -84,8 +84,6 @@ define([
 					sup.call(this, value);
 				}
 			};
-		}),
-
-
+		})
 	});
 });
