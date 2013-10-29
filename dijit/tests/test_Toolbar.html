@@ -83,7 +83,7 @@
 			><div id="toolbar1_dialog" data-dojo-type="dui/form/DropDownButton" data-dojo-props='iconClass:"plusIcon", showLabel:true'>
 				<span>TooltipDialog</span>
 				<div id="tooltipDlg" data-dojo-type="dui/TooltipDialog" data-dojo-props='title:"Enter Login information",
-					execute:function(args){ console.log("submitted w/args:\n" + dojo.toJson(args, true)); }'>
+					execute:function(args){ console.log("submitted w/args:\n" + JSON.stringify(args)); }'>
 					<table>
 						<tr>
 							<td><label for="user">User:</label></td>

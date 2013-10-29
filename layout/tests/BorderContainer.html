@@ -9,7 +9,7 @@
 <script type="text/javascript">
 require([
 	"doh/runner",
-	"dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/json", "dojo/parser", "dojo/query",
+	"dojo/dom", "dojo/dom-geometry", "dojo/dom-style", "dojo/parser", "dojo/query",
 	"dui/registry", "dui/tests/helpers",
 	"dui/tests/layout/robot/borderContainerTestFunctions",
 	"dui/layout/BorderContainer",
@@ -24,7 +24,7 @@ require([
 
 	"dojo/domReady!"
 
-], function(doh, dom, geom, style, json, parser, query, registry, helpers, bcTest,
+], function(doh, dom, geom, style, parser, query, registry, helpers, bcTest,
 		BorderContainer, ContentPane){
 
 	var bc, cp1, cp2, cp3;
@@ -93,11 +93,11 @@ require([
 					nnRight = geom.position(dom.byId("border1-right")),
 					nnBottom = geom.position(dom.byId("border1-bottom"));
 
-			doh.is(json.stringify(oTop), json.stringify(nnTop), "top after second resize");
-			doh.is(json.stringify(oCenter), json.stringify(nnCenter), "center after second resize");
-			doh.is(json.stringify(oBottom), json.stringify(nnBottom), "bottom after second resize");
-			doh.is(json.stringify(oLeft), json.stringify(nnLeft), "left after second resize");
-			doh.is(json.stringify(oRight), json.stringify(nnRight), "right after second resize");
+			doh.is(JSON.stringify(oTop), JSON.stringify(nnTop), "top after second resize");
+			doh.is(JSON.stringify(oCenter), JSON.stringify(nnCenter), "center after second resize");
+			doh.is(JSON.stringify(oBottom), JSON.stringify(nnBottom), "bottom after second resize");
+			doh.is(JSON.stringify(oLeft), JSON.stringify(nnLeft), "left after second resize");
+			doh.is(JSON.stringify(oRight), JSON.stringify(nnRight), "right after second resize");
 		},
 
 		function addRemovePanes(){
@@ -133,8 +133,8 @@ require([
 					nnBottom = geom.position(dom.byId("border1-bottom"));
 
 			doh.t(nnCenter.w > nCenter.w, "center width increased");
-			doh.is(json.stringify(nRight), json.stringify(nnRight), "right stayed same");
-			doh.is(json.stringify(nBottom), json.stringify(nnBottom), "bottom stayed same");
+			doh.is(JSON.stringify(nRight), JSON.stringify(nnRight), "right stayed same");
+			doh.is(JSON.stringify(nBottom), JSON.stringify(nnBottom), "bottom stayed same");
 
 			// check that all panes sane
 			bcTest.checkBCpanes(registry.byId("border1"));

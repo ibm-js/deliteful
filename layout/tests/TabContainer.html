@@ -13,7 +13,6 @@
 			"dojo/dom",
 			"dojo/dom-class",
 			"dojo/dom-geometry",
-			"dojo/json",
 			"dojo/_base/lang",
 			"dojo/parser",
 			"dojo/query",
@@ -23,7 +22,7 @@
 			"dui/layout/ContentPane",
 			"dui/tests/helpers",
 			"dojo/domReady!"
-		], function(doh, aspect, dom, domClass, domGeom, json, lang, parser, query,
+		], function(doh, aspect, dom, domClass, domGeom, lang, parser, query,
 					focus, registry, TabContainer, ContentPane, helpers){
 
 
@@ -375,7 +374,7 @@
 							topTabsPos = domGeom.position(topTabs),
 							topContentPos = domGeom.position(topContent);
 						t.t(topTabsPos.y + topTabsPos.h <= topContentPos.y, "top tabs above content " +
-							json.stringify(topTabsPos) + json.stringify(topContentPos));
+							JSON.stringify(topTabsPos) + JSON.stringify(topContentPos));
 
 						// left tabs to left of content
 						var leftTabs = dom.byId("leftTabs_tablist"),
@@ -383,7 +382,7 @@
 							leftTabsPos = domGeom.position(leftTabs),
 							leftContentPos = domGeom.position(leftContent);
 						t.t(leftTabsPos.x + Math.floor(leftTabsPos.w) <= leftContentPos.x, "left tabs before content " +
-							json.stringify(leftTabsPos) + json.stringify(leftContentPos));
+							JSON.stringify(leftTabsPos) + JSON.stringify(leftContentPos));
 
 						// right tabs to right of content
 						var rightTabs = dom.byId("rightTabs_tablist"),
@@ -391,7 +390,7 @@
 							rightTabsPos = domGeom.position(rightTabs),
 							rightContentPos = domGeom.position(rightContent);
 						t.t(rightTabsPos.x >= rightContentPos.x + rightContentPos.w, "right tabs after content " +
-							json.stringify(rightTabsPos) + json.stringify(rightContentPos));
+							JSON.stringify(rightTabsPos) + JSON.stringify(rightContentPos));
 
 						// bottom tabs below content
 						var bottomTabs = dom.byId("bottomTabs_tablist"),
@@ -399,7 +398,7 @@
 							bottomTabsPos = domGeom.position(bottomTabs),
 							bottomContentPos = domGeom.position(bottomContent);
 						t.t(bottomTabsPos.y >= bottomContentPos.y + bottomContentPos.h, "bottom tabs below content " +
-							json.stringify(bottomTabsPos) + json.stringify(bottomContentPos));
+							JSON.stringify(bottomTabsPos) + JSON.stringify(bottomContentPos));
 					}
 				},
 				{

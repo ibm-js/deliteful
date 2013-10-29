@@ -14,9 +14,9 @@
 	<script type="text/javascript">
 		require([
 			"doh/runner", "dojo/robotx",
-			"dojo/aspect", "dojo/json", "dojo/keys", "dojo/on",
+			"dojo/aspect", "dojo/keys", "dojo/on",
 			"dojo/domReady!"
-		], function(doh, robot, aspect, json, keys, on){
+		], function(doh, robot, aspect, keys, on){
 			robot.initRobot('../test_validate.html');
 
 			var widget, registry;
@@ -88,9 +88,9 @@
 								handler.remove();
 								d.getTestCallback(function(){
 									var hint = "Expected: " +
-											json.stringify({ type: expEvt.type, charOrCode: expEvt.charOrCode, ctrlKey: expEvt.ctrlKey, shiftKey: expEvt.shiftKey, altKey: expEvt.altKey }) +
+											JSON.stringify({ type: expEvt.type, charOrCode: expEvt.charOrCode, ctrlKey: expEvt.ctrlKey, shiftKey: expEvt.shiftKey, altKey: expEvt.altKey }) +
 											", Actual " +
-											json.stringify({ type: e.type, charOrCode: e.charOrCode, ctrlKey: e.ctrlKey, shiftKey: e.shiftKey, altKey: e.altKey });
+											JSON.stringify({ type: e.type, charOrCode: e.charOrCode, ctrlKey: e.ctrlKey, shiftKey: e.shiftKey, altKey: e.altKey });
 									doh.is(expEvt.type, e.type, hint);
 									doh.is(expEvt.charOrCode, e.charOrCode, hint);
 									doh.is(expEvt.ctrlKey, e.ctrlKey, hint);

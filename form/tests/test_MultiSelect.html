@@ -36,7 +36,6 @@
 			"doh/runner",
 			"dojo/query",
 			"dojo/dom-form",
-			"dojo/_base/json",
 			"dojo/_base/lang",
 			"dojo/dom-class",
 			"dojo/parser",
@@ -48,7 +47,7 @@
 			"dui/form/Form",
 			"dui/tests/helpers",
 			"dojo/domReady!"
-		], function(doh, query, domForm, json, lang, domClass, parser, dijit, focus, registry, MultiSelect, Button, Form,  helpers){
+		], function(doh, query, domForm, lang, domClass, parser, dijit, focus, registry, MultiSelect, Button, Form,  helpers){
 
 			parser.parse();
 
@@ -119,7 +118,7 @@
 			if(test){
 				doh.register("API", [
 					function initial(t){
-						var vals = json.fromJson(domForm.toJson("test"));
+						var vals = JSON.parse(domForm.toJson("test"));
 						t.is(select1Values, query("option", registry.byId('select').containerNode).map(function(n){ return n.innerHTML; }).join(','));
 						t.is("", registry.byId('select').get('value').join(''), 'easing widget value');
 						t.is("", registry.byId('select2').get('value').join(''), 'second widget value');
@@ -138,7 +137,7 @@
 							var d = new doh.Deferred();
 							registry.byId('select3').set('value', ['TN','FL']);
 							setTimeout(d.getTestCallback(function(){
-								var vals = json.fromJson(domForm.toJson("test"));
+								var vals = JSON.parse(domForm.toJson("test"));
 								t.is("TN,FL", registry.byId('select3').get('value').join(','), "select3 widget value");
 								t.is("TN,FL", vals.select3, "select3 form value");
 							}), 500);

@@ -15,9 +15,9 @@
 		<script type="text/javascript">
 			require([
 				"doh/runner", "dojo/robotx",
-				"dojo/aspect", "dojo/dom", "dojo/dom-geometry", "dojo/json", "dojo/query",
+				"dojo/aspect", "dojo/dom", "dojo/dom-geometry", "dojo/query",
 				"dui/tests/helpers", "dui/tests/layout/robot/borderContainerTestFunctions", "dojo/domReady!"
-			], function(doh, robot, aspect, dom, geom, json, query, helpers, bcTest){
+			], function(doh, robot, aspect, dom, geom, query, helpers, bcTest){
 
 				function checkInside(childDomNode, parentDomNode){
 					var cp = geom.position(childDomNode, true),
@@ -26,7 +26,7 @@
 					doh.t(
 						cp.y > pp.y && cp.y+cp.h < pp.y+pp.h &&
 						cp.x > pp.x && cp.x+cp.w < pp.x+pp.w,
-						childDomNode.id + "child not inside " + parentDomNode.id + json.stringify(cp) + json.stringify(pp)
+						childDomNode.id + "child not inside " + parentDomNode.id + JSON.stringify(cp) + JSON.stringify(pp)
 					);
 				}
 

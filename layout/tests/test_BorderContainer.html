@@ -32,7 +32,6 @@
 			"dojo/aspect",
 			"dojo/dom",
 			"dojo/dom-style",
-			"dojo/json",
 			"dojo/on",
 			"dojo/parser",
 			"dui/registry",
@@ -40,7 +39,7 @@
 			"dui/layout/ContentPane",
 			"dui/form/FilteringSelect",
 			"dojo/domReady!"
-		], function(aspect, dom, domStyle, json, on, parser, registry, BorderContainer, ContentPane, FilteringSelect){
+		], function(aspect, dom, domStyle, on, parser, registry, BorderContainer, ContentPane, FilteringSelect){
 
 			togglePanel = function(button, id){
 				var leftPanel = registry.byId(id);
@@ -70,11 +69,11 @@
 						domStyle.set(spl.child.domNode, "opacity", "0.4");
 						moveConnects[spl.widgetId] = on(spl.domNode, "mousemove", function(evt){
 	
-							out.innerHTML = spl.region + ": " + json.stringify({
+							out.innerHTML = spl.region + ": " + JSON.stringify({
 								x: !spl.horizontal ? spl.domNode.style[spl.region] : 0,
 								y: spl.horizontal ? spl.domNode.style[spl.region] : 0
 							});
-						})
+						});
 	
 					});
 					aspect.after(spl, "_stopDrag", function(evt){
@@ -82,7 +81,7 @@
 						moveConnects[spl.widgetId].remove();
 						delete moveConnects[spl.widgetId];
 					});
-				})
+				});
 			}
 
 			parser.parse();

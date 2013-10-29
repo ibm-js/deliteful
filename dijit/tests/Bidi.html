@@ -11,7 +11,6 @@
 			"doh/runner",
 			"dojo/dom",
 			"dojo/dom-geometry",
-			"dojo/json",
 			"dojo/on",
 			"dojo/parser",
 			"dojo/query",
@@ -44,7 +43,7 @@
 			"dui/layout/ContentPane",
 				
 			"dojo/domReady!"
-		], function(doh, dom, domGeom, json, on, parser, query, ItemFileReadStore, registry){
+		], function(doh, dom, domGeom, on, parser, query, ItemFileReadStore, registry){
 		
 
 			function checkLeft(/*Widget*/ left, /*Widget*/ right){
@@ -55,7 +54,7 @@
 					rp = domGeom.position(right, true);
 	
 				doh.t(lp.x+lp.w-0.1 <= rp.x,
-					left.id + " to left of " + right.id + json.stringify(lp) + json.stringify(rp)
+					left.id + " to left of " + right.id + JSON.stringify(lp) + JSON.stringify(rp)
 				);
 			}
 

@@ -3,9 +3,8 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/Deferred",
-	"dojo/json",
 	"dojo/dom-construct"
-], function(dojo, declare, lang, Deferred, json, domConstruct){
+], function(dojo, declare, lang, Deferred, domConstruct){
 
 	// module:
 	//		dui/mobile/dh/JsonContentHandler
@@ -118,7 +117,7 @@ define([
 			target.insertBefore(container, refNode);
 			this._ws = [];
 			this._req = [];
-			var root = json.parse(content);
+			var root = JSON.parse(content);
 			return Deferred.when(this._loadPrereqs(root), lang.hitch(this, function(){
 				view = this._instantiate(root, container);
 				view.style.visibility = "hidden";
@@ -211,7 +210,7 @@ define([
 							}else if(t === "boolean"){
 								params[prop] = (v !== "false");
 							}else if(t === "object"){
-								params[prop] = json.parse(v);
+								params[prop] = JSON.parse(v);
 							}else if(t === "function"){
 								params[prop] = lang.getObject(v, false) || new Function(v);
 							}

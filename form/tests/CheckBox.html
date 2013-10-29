@@ -19,15 +19,15 @@
 
 		<script type="text/javascript">
 			function defaultSubmitHandler(values){
-				console.debug('actual submitted values: ' + json.stringify(values));
+				console.debug('actual submitted values: ' + JSON.stringify(values));
 			}
 			submittedValues = defaultSubmitHandler;
 
 			require([
 				"doh/runner",
-				"dojo/dom", "dojo/json", "dojo/parser", "dojo/query",
+				"dojo/dom", "dojo/parser", "dojo/query",
 				"dui/registry", "dui/form/CheckBox", "dui/form/Form", "dojo/domReady!"
-			], function(doh, dom, json, parser, query, registry, CheckBox){
+			], function(doh, dom, parser, query, registry, CheckBox){
 
 				// These are the values assigned to the widgets in the page's HTML
 				var originalGet = {
@@ -124,7 +124,7 @@
 
 				doh.register("CheckBox values", [
 					function getValues(){
-						doh.is( json.stringify(originalGet), json.stringify(registry.byId("myForm").get('value')) );
+						doh.is( JSON.stringify(originalGet), JSON.stringify(registry.byId("myForm").get('value')) );
 					},
 					{
 						timeout:3000,
@@ -137,7 +137,7 @@
 								setTimeout(d.getTestErrback(function(){
 									registry.byId("myForm").set('value', change);
 									setTimeout(d.getTestCallback(function(){
-										doh.is(json.stringify(changedGet), json.stringify(registry.byId("myForm").get('value')) );
+										doh.is(JSON.stringify(changedGet), JSON.stringify(registry.byId("myForm").get('value')) );
 									}), 1000);
 								}), 500);
 							}), 500);
@@ -156,7 +156,7 @@
 								setTimeout(d.getTestErrback(function(){
 									registry.byId("myForm").reset();
 									setTimeout(d.getTestCallback(function(){
-										doh.is( json.stringify(originalGet), json.stringify(registry.byId("myForm").get('value')), "reset to original values" );
+										doh.is( JSON.stringify(originalGet), JSON.stringify(registry.byId("myForm").get('value')), "reset to original values" );
 									}), 1000);
 								}), 500);
 							}), 500);

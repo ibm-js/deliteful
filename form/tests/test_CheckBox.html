@@ -28,7 +28,7 @@
 		dojo.require("dui.form.Form");
 
 		function defaultSubmitHandler(values){
-			console.debug('actual submitted values: ' + dojo.toJson(values));
+			console.debug('actual submitted values: ' + JSON.stringify(values));
 		}
 		submittedValues = defaultSubmitHandler;
 

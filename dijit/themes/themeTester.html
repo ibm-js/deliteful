@@ -650,7 +650,7 @@
 
 				<div data-dojo-type="dui/TooltipDialog" id="tooltipDlg" data-dojo-props='
 						title:"Enter Login information",
-						execute: function(){ alert("submitted w/args:\n" + dojo.toJson(arguments[0], true)); }
+						execute: function(){ alert("submitted w/args:\n" + JSON.stringify(arguments[0])); }
 					'>
 					<table>
 						<tr>

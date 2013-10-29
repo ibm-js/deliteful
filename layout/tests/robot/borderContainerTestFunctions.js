@@ -1,4 +1,4 @@
-define(["dojo/_base/kernel", "dojo/dom-geometry", "dojo/json"], function(dojo, geom, json){
+define(["dojo/_base/kernel", "dojo/dom-geometry"], function(dojo, geom){
 
 	function duiById(id){
 		return dojo.global.require("dui/registry").byId(id);
@@ -18,7 +18,7 @@ define(["dojo/_base/kernel", "dojo/dom-geometry", "dojo/json"], function(dojo, g
 			doh.t(
 				cp.y >= pp.y && cp.y+cp.h <= pp.y+pp.h &&
 				cp.x >= pp.x && cp.x+cp.w <= pp.x+pp.w,
-				(comment ? comment + ": " : "") + child.region + " inside " + parent.id + json.stringify(cp) + json.stringify(pp)
+				(comment ? comment + ": " : "") + child.region + " inside " + parent.id + JSON.stringify(cp) + JSON.stringify(pp)
 			);
 		},
 
@@ -33,7 +33,7 @@ define(["dojo/_base/kernel", "dojo/dom-geometry", "dojo/json"], function(dojo, g
 				bp = geom.position(below.domNode, true);
 	
 			doh.t(ap.y+ap.h < bp.y,
-				comment + " " + above.region + " above " + below.region + json.stringify(ap) + json.stringify(bp)
+				comment + " " + above.region + " above " + below.region + JSON.stringify(ap) + JSON.stringify(bp)
 			);
 		},
 
@@ -48,7 +48,7 @@ define(["dojo/_base/kernel", "dojo/dom-geometry", "dojo/json"], function(dojo, g
 				rp = geom.position(right.domNode, true);
 	
 			doh.t(lp.x+lp.w < rp.x,
-				comment + " " + left.region + " to left of " + right.region + json.stringify(lp) + json.stringify(rp)
+				comment + " " + left.region + " to left of " + right.region + JSON.stringify(lp) + JSON.stringify(rp)
 			);
 		},
 

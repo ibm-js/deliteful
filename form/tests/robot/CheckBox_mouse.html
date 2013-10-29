@@ -101,7 +101,7 @@
 							doh.robot.mouseClick({left:true}, 500);
 
 							doh.robot.sequence(d.getTestCallback(function(){
-								doh.is( dojo.toJson(originalGet), dojo.global.dojo.toJson(dui.byId("myForm").get('value')), "still have original values" );
+								doh.is( JSON.stringify(originalGet), JSON.stringify(dui.byId("myForm").get('value')), "still have original values" );
 								submitForm("resubmit", originalSubmit);
 							}), 1000);
 

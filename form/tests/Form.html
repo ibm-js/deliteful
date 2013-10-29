@@ -44,14 +44,14 @@
 		var obj;
 		function getValues(){
 			obj = dui.byId('myForm').get('value');
-			console.log("Object is: " + dojo.toJson(obj, true));
+			console.log("Object is: " + JSON.stringify(obj));
 		}
 
 		function setValues(){
 			if(!obj){
 		 		obj = {testF: 'testi'};
 			}
-			console.log("Object is: " + dojo.toJson(obj, true));
+			console.log("Object is: " + JSON.stringify(obj));
 			dui.byId('myForm').set('value', obj);
 		}
 
@@ -60,9 +60,10 @@
 		}
 
 		function defaultSubmitHandler(values){
-			console.log('actual submitted values: ' + dojo.toJson(values));
+			console.log('actual submitted values: ' + JSON.stringify(values));
 		}
 		submittedValues = defaultSubmitHandler;
+		// TODO: check this for Dojo 2. Note that dojo.toJson() is no longer used.  
 		// make dojo.toJson() print dates correctly (this feels a bit dirty)
 		Date.prototype.json = function(){ return dojo.date.stamp.toISOString(this, {selector: 'date'});};
 
@@ -208,7 +209,7 @@
 						// Need better way to compare two HTML trees but for now do this.
 						values.richtext = values.richtext.replace(/[\n\t]/, "", "g");
 
-						doh.is( dojo.toJson(original), dojo.toJson(values) );
+						doh.is( JSON.stringify(original), JSON.stringify(values) );
 					},
 					{
 						name:"testSubmit",
@@ -227,10 +228,10 @@
 					},
 					function setValues(){
 						formWidget.set('value', changed);
-						doh.is( dojo.toJson(changed), dojo.toJson(formWidget.get('value')) );
+						doh.is( JSON.stringify(changed), JSON.stringify(formWidget.get('value')) );
 
 						formWidget.set('value', partialChange);
-						doh.is( dojo.toJson(dojo.mixin(changed,partialChange)), dojo.toJson(formWidget.get('value')) );
+						doh.is( JSON.stringify(dojo.mixin(changed,partialChange)), JSON.stringify(formWidget.get('value')) );
 					},
 					function nameAttributeSurvived(){  // ticket:4753
 						var radios = dojo.query("INPUT[type=radio]", "radio-cells").forEach(
@@ -256,11 +257,11 @@
 					function resetTest(){
 						formWidget._onResetReturn = false;
 						formWidget.reset();
-						doh.isNot( dojo.toJson(original), dojo.toJson(formWidget.get('value')), "onReset false");
+						doh.isNot( JSON.stringify(original), JSON.stringify(formWidget.get('value')), "onReset false");
 						formWidget._onResetReturn = true;
 						formWidget.reset();
 						delete formWidget._onResetReturn;
-						doh.is( dojo.toJson(original), dojo.toJson(formWidget.get('value')), "onReset true" );
+						doh.is( JSON.stringify(original), JSON.stringify(formWidget.get('value')), "onReset true" );
 					}
 				]
 			);
@@ -647,7 +648,7 @@
 		</script>
 		<script type="dojo/method" data-dojo-event="onSubmit">
 			console.debug('Attempting to submit form w/values:\n',
-				dojo.toJson(this.get('value'),true)
+				JSON.stringify(this.get('value'))
 			);
 			if(this.validate()){
 				return confirm('Form is valid, press OK to submit');

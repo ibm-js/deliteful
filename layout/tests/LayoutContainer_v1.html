@@ -9,7 +9,6 @@
 		require([
 			"doh/runner",
 			"dojo/dom-geometry",
-			"dojo/json",
 			"dojo/parser",
 			"dui/registry",
 			"dui/layout/ContentPane",
@@ -17,7 +16,7 @@
 			"dui/tests/helpers",
 			"dui/form/FilteringSelect",
 			"dojo/domReady!"
-		], function(doh, domGeom, json, parser,
+		], function(doh, domGeom, parser,
 					registry, ContentPane, LayoutContainer, helpers){
 
 			function checkInside(/*Widget*/ child, /*Widget*/ parent){
@@ -29,7 +28,7 @@
 				doh.t(
 					cp.y > pp.y && cp.y+cp.h < pp.y+pp.h &&
 					cp.x > pp.x && cp.x+cp.w < pp.x+pp.w,
-					child.layoutAlign + " inside " + parent.id + json.stringify(cp) + json.stringify(pp)
+					child.layoutAlign + " inside " + parent.id + JSON.stringify(cp) + JSON.stringify(pp)
 				);
 			}
 			function checkAbove(/*String*/ comment, /*Widget*/ above, /*Widget*/ below){
@@ -40,7 +39,7 @@
 					bp = domGeom.position(below.domNode, true);
 
 				doh.t(Math.round(ap.y+ap.h) <= Math.round(bp.y),
-					comment + " " + above.layoutAlign + " above " + below.layoutAlign + json.stringify(ap) + json.stringify(bp)
+					comment + " " + above.layoutAlign + " above " + below.layoutAlign + JSON.stringify(ap) + JSON.stringify(bp)
 				);
 			}
 			function checkLeft(/*String*/ comment, /*Widget*/ left, /*Widget*/ right){
@@ -51,7 +50,7 @@
 					rp = domGeom.position(right.domNode, true);
 
 				doh.t(lp.x+lp.w <= rp.x,
-					comment + " " + left.layoutAlign + " to left of " + right.layoutAlign + json.stringify(lp) + json.stringify(rp)
+					comment + " " + left.layoutAlign + " to left of " + right.layoutAlign + JSON.stringify(lp) + JSON.stringify(rp)
 				);
 			}
 

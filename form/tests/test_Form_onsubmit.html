@@ -29,8 +29,8 @@
 		dojo.require("dui.form.TextBox");
 		
 		function submittedValues(values){
-			console.log('actual submitted values: ' + dojo.toJson(values));
-			dui.byId("textbox").set('value', dojo.fromJson(dojo.toJson(values)).plopcombo, true);
+			console.log('actual submitted values: ' + JSON.stringify(values));
+			dui.byId("textbox").set('value', JSON.parse(JSON.stringify(values)).plopcombo, true);
 		}
 	</script>
 

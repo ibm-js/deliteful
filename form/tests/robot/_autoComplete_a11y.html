@@ -1556,7 +1556,7 @@
 					doh.register("highlight", [
 						{
 							timeout: 6000,
-							name: dojo.toJson(test.attrs),
+							name: JSON.stringify(test.attrs),
 							setUp: function(){
 								combo = dui.byId("highlight");
 								dojo.mixin(combo, test.attrs);

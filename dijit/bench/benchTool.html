@@ -164,7 +164,7 @@
 		}
 
 		function doDebug(){
-			dojo.byId('hiddenHolder').value = dojo.toJson(masterResults);
+			dojo.byId('hiddenHolder').value = JSON.stringify(masterResults);
 			return true;
 		}
 
