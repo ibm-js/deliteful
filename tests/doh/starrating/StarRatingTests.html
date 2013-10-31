@@ -88,23 +88,25 @@
 
 		var defaultEditableRatingTest = function(ratingId, tooltipText, halfStars, zeroSetting, expectedInitialValue){
 			var expected;
+			var deferred = new doh.Deferred();
 			// Check initial rating
 			checkRating(ratingId, 7, expectedInitialValue);
 			// check rating change after firing down and up events on a star
 			fireMouseUpAndDownOnStar(ratingId, 2, -1);
 			expected = (halfStars ? 2.5 : 3);
-			setTimeout(function () {
+			setTimeout(deferred.getTestErrback(function () {
 				checkRating(ratingId, 7, expected);
 				// set zero rating
 				fireMouseUpAndDownOnZeroSettingArea(ratingId);
 				expected = zeroSetting ? 0 : 0.5;
-				setTimeout(function () {
+				setTimeout(deferred.getTestCallback(function () {
 					checkRating(ratingId, 7, expected);
 					///////////////////////////////////////////
 					// TODO: CHECK USING MOVE TO SET VALUES
 					///////////////////////////////////////////
-				});
-			});
+				}));
+			}));
+			return deferred;
 		};
 
 		runner.register("dui.mobile.test.doh.StarRatingTests", [
@@ -115,7 +117,7 @@
 					var deferred = new doh.Deferred();
 					var plusButton = document.getElementById('starplus');
 					var minusButton = document.getElementById('starminus');
-					setTimeout(deferred.getTestCallback(function(){
+					setTimeout(deferred.getTestErrback(function(){
 						var i;
 						var expected;
 						// Check initial rating
@@ -127,21 +129,21 @@
 							// doesn't update the value of the widget.
 							if (step < 14) {
 								fireOnClick(plusButton);
-								setTimeout(function () {
+								setTimeout(deferred.getTestErrback(function () {
 									checkRating('star', 7, expectedAfterClick);
 									recursiveTest(step + 1, expectedAfterClick + (step === 13 ? -0.5 : 0.5));
-								});
+								}));
 							} else if (step < 28) {
 								fireOnClick(minusButton);
-								setTimeout(function () {
+								setTimeout(deferred.getTestErrback(function () {
 									checkRating('star', 7, expectedAfterClick);
 									recursiveTest(step + 1, expectedAfterClick - 0.5);
-								});
+								}));
 							} else {
 		 						fireMouseUpAndDownOnStar('star', 2, -1);
-		 						setTimeout(function () {
+		 						setTimeout(deferred.getTestCallback(function () {
 									checkRating('star', 7, 0);
-		 						});
+		 						}));
 							}
 						};
 						recursiveTest(0, 0.5);
@@ -153,33 +155,21 @@
 				name: 'test editable ltr',
 				timeout: 4000,
 				runTest: function(){
-					var deferred = new doh.Deferred();
-					setTimeout(deferred.getTestCallback(function(){
-						defaultEditableRatingTest('editablestar1', '${value}', false, true, 0);
-					}), 100);
-					return deferred;
+					return defaultEditableRatingTest('editablestar1', '${value}', false, true, 0);
 				}
 			},
 			{
 				name: 'test editable half values ltr',
 				timeout: 4000,
 				runTest: function(){
-					var deferred = new doh.Deferred();
-					setTimeout(deferred.getTestCallback(function(){
-						defaultEditableRatingTest('editablestar2', '${value}', true, true, 0);
-					}), 100);
-					return deferred;
+					return defaultEditableRatingTest('editablestar2', '${value}', true, true, 0);
 				}
 			},
 			{
 				name: 'test editable half values no zero setting ltr',
 				timeout: 4000,
 				runTest: function(){
-					var deferred = new doh.Deferred();
-					setTimeout(deferred.getTestCallback(function(){
-						defaultEditableRatingTest('editablestar5', '${value}', true, false, 0.5);
-					}), 100);
-					return deferred;
+					return defaultEditableRatingTest('editablestar5', '${value}', true, false, 0.5);
 				}
 			},
 			{
@@ -187,35 +177,35 @@
 				timeout: 4000,
 				runTest: function(){
 					var deferred = new doh.Deferred();
-					setTimeout(deferred.getTestCallback(function(){
+					setTimeout(deferred.getTestErrback(function(){
 						var expected;
 						var id = 'editablestar6';
 						var messageNode = document.getElementById(id + 'value');
 						// Check initial rating
 						checkRating(id, 7, 3.5);
-						setTimeout(function () {
+						setTimeout(deferred.getTestErrback(function () {
 							// Check message
 							runner.assertEqual('Rating is 3.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
 							// check rating change after firing down and up events on a star
 							fireMouseUpAndDownOnStar(id, 2, -1);
 							expected = 2.5;
-							setTimeout(function () {
+							setTimeout(deferred.getTestErrback(function () {
 								checkRating(id, 7, expected);
 								// Check message
 								runner.assertEqual('Rating is 2.5 stars', messageNode.innerHTML, 'message is not the one expected for ' + id);
 								// set zero rating
 								fireMouseUpAndDownOnZeroSettingArea(id);
 								expected = 0;
-								setTimeout(function () {
+								setTimeout(deferred.getTestCallback(function () {
 									checkRating(id, 7, expected);
 									// Check message
 									runner.assertEqual('Rating is 0 star', messageNode.innerHTML, 'message is not the one expected for ' + id);
 									///////////////////////////////////////////
 									// TODO: CHECK USING MOVE TO SET VALUES
 									///////////////////////////////////////////
-								});
-							});
-						});
+								}));
+							}));
+						}));
 					}), 100);
 					return deferred;
 				}
@@ -225,40 +215,40 @@
 				timeout: 4000,
 				runTest: function(){
 					var deferred = new doh.Deferred();
-					setTimeout(deferred.getTestCallback(function(){
+					setTimeout(deferred.getTestErrback(function(){
 						var ratingId = 'editablestar2';
 						var rating = dom.byId(ratingId);
 						var newMax = 5;
 						var expected;
 						rating.maximum = newMax;
-						setTimeout(function () {
+						setTimeout(deferred.getTestErrback(function () {
 							checkRating(ratingId, newMax, 0);
 							rating.editable = false;
-							setTimeout(function () {
+							setTimeout(deferred.getTestErrback(function () {
 								fireMouseUpAndDownOnStar(ratingId, 1, -1);
-								setTimeout(function () {
+								setTimeout(deferred.getTestErrback(function () {
 									checkRating(ratingId, newMax, 0);
 									rating.editHalfValues = false;
 									rating.editable = true;
-									setTimeout(function () {
+									setTimeout(deferred.getTestErrback(function () {
 										fireMouseUpAndDownOnStar(ratingId, 1, -1);
 										expected = 2;
-										setTimeout(function () {
+										setTimeout(deferred.getTestErrback(function () {
 											checkRating(ratingId, newMax, expected);
 											rating.zeroAreaWidth = 0;
 											rating.editHalfValues = true;
-											setTimeout(function () {
+											setTimeout(deferred.getTestErrback(function () {
 												fireMouseUpAndDownOnZeroSettingArea(ratingId);
 												expected = 0.5;
-												setTimeout(function () {
+												setTimeout(deferred.getTestCallback(function () {
 													checkRating(ratingId, newMax, expected);
-												});
-											})
-										});
-									})
-								});
-							});
-						});
+												}));
+											}))
+										}));
+									}))
+								}));
+							}));
+						}));
 					}), 100);
 					return deferred;
 				}
