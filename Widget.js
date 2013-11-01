@@ -275,6 +275,10 @@ define([
 			// Get parameters that were specified declaratively on the widget DOMNode.
 			var params = this.mapAttributes();
 
+			// this is needed for Chrome to delete the tabIndex=-1 default attribute from DIV elements,
+			// so that the custom setter in the prototype runs.
+			delete this.tabIndex;
+
 			this.preCreate();
 
 			// Render the widget
@@ -342,6 +346,8 @@ define([
 					/* jshint evil:true */
 					props[name] = lang.getObject(value, false) || new Function(value);
 				}
+				delete widget[name]; // make sure custom setters fire
+				widget.removeAttribute(name.toLowerCase());	// when name==tabIndex, avoid tab stop on root node
 			}
 
 			while ((attr = this.attributes[idx++])) {

@@ -76,6 +76,7 @@ define(["dcl/dcl"], function (dcl) {
 				// _setFooAttr method.
 				if (!(shadowProp in this)) {
 					this[shadowProp] = this[prop];
+					delete this[prop]; // make sure custom setters fire
 					Object.defineProperty(this, prop, {
 						set: function (x) {
 							setter in this ? this[setter](x) : this._set(prop, x);

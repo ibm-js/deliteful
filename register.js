@@ -6,6 +6,23 @@ define([
 
 	var doc = document;
 
+	// Workaround problem using dcl() on native DOMNodes on FF and IE,
+	// see https://github.com/uhop/dcl/issues/9
+	dcl.mix = function(a, b){
+		for(var n in b){
+			try {
+				a[n] = b[n];
+			} catch (e) {
+				Object.defineProperty(a, n, {
+					configurable: true,
+					writable: true,
+					enumerable: true,
+					value: b[n]
+				});
+			}
+		}
+	};
+
 	// Does platform have native support for document.register() or a polyfill to simulate it?
 	has.add('document-register', document.register);
 
