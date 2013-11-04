@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>StarRating Tests</title>
+<script type="text/javascript" src="../boilerplate.js"></script>
+<script language="JavaScript" type="text/javascript">
+	var ready = false; // set to true when the test page is ready
+	var timeoutInterval = 1000;
+	var val = 0;
+	require([
+		"dui/register",
+		"dojo/dom",
+		"dui/StarRating",
+		"dojo/domReady!"
+	], function(register, dom, StarRating){
+
+		increment = function(suffix){
+			if(val == 7){ return; }
+			val += 0.5;
+			dom.byId("star").value = val;
+			document.getElementById("value").innerHTML = val;
+		};
+
+		decrement = function(suffix){
+			if(val == 0){ return; }
+			val -= 0.5;
+			dom.byId("star").value = val;
+			document.getElementById("value").innerHTML = val;
+		};
+
+		register.parse();
+
+		// Create rating widget programmaticaly
+		var rating = new StarRating({
+			id: "editablestar6",
+			image:"../../../images/star-4.png",
+			maximum:7,
+			editable:true,
+			editHalfValues: true,
+			value: 3.5
+		}).placeAt("editablestar6", 'replace');
+		rating.watch('value', function(name, oldValue, value){
+			document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");				
+		});
+		rating.startup();
+
+		// Set global variable to signal that the test page is ready
+		ready = true;
+	})
+</script>
+</head>
+<body>
+	<div>
+		<div>
+			<dui-star-rating id="star" image="../../images/star-4.png" maximum=7></dui-star-rating>
+			<span id="value">0</span><br>
+			<button id="starminus" type="button" onclick="decrement()">&minus;</button>
+			<button id="starplus" type="button" onclick="increment()">+</button>
+			<p>
+			Editable: <dui-star-rating id="editablestar1" image="../../images/star-4.png" maximum=7 editable=true></dui-star-rating>
+			<p>
+			Editable (half values increment): <dui-star-rating id="editablestar2" image="../../images/star-4.png" maximum=7 editable=true editHalfValues=true></dui-star-rating>
+			<p>
+			No zero setting: <dui-star-rating id="editablestar5" image="../../images/star-4.png" maximum=7 editable=true editHalfValues=true value=0.5 zeroAreaWidth=0></dui-star-rating>
+			<p>
+			Programmatic: <span id="editablestar6"></span><br>
+			<span id="editablestar6value">Rating is 3.5 stars</span>
+		</div>
+	</div>	
+</body>
+</html>
