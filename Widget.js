@@ -206,14 +206,25 @@ define([
 		register: register,
 
 		_getProps: function () {
-			// override _Stateful._getProps() to ignore properties from the HTML*Element superclasses
+			// Override _Stateful._getProps() to ignore properties from the HTML*Element superclasses, like "style".
+			// You would need to explicitly declare style: "" in your widget to get it here.
+			// Intentionally skips privates and methods, because it seems wasteful to have a custom
+			// setter for every method; not sure that would work anyway.
+			//
+			// Also sets up this._propCaseMap, a mapping from lowercase property name to actual name,
+			// ex: iconclass --> iconClass, which does include the methods, but again doesn't
+			// include props like "style" that are merely inherited from HTMLElement.
 
-			var list = [], proto = this, ctor;
+			var list = [], proto = this, ctor,
+				pcm = this._propCaseMap = {};
 
 			do {
 				Object.keys(proto).forEach(function (prop) {
-					if (typeof proto[prop] !== "function" && !/^_/.test(prop)) {
-						list.push(prop);
+					if (!/^_/.test(prop)) {
+						if (typeof proto[prop] !== "function" ) {
+							list.push(prop);
+						}
+						pcm[prop.toLowerCase()] = prop;
 					}
 				});
 
@@ -227,17 +238,6 @@ define([
 		_introspect: function (/*String[]*/ props) {
 			// Various introspection to be done on my prototype.
 			// "this" refers to my prototype.
-
-			var pcm = this._propCaseMap = {};
-
-			// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass.
-			// Doesn't handle attribute names with dashes.
-			// This is the list of properties returned from getProp(); it intentionally doesn't
-			// include props like "style" that are merely inherited from HTMLElement.   You would need to
-			// explicitly declare style: "" in your widget to get it here.
-			props.forEach(function (key) {
-				pcm[key.toLowerCase()] = key;
-			});
 
 			// Legacy stuff.  Revisit later to see if we really need this.
 			for (var key in this) {
@@ -332,11 +332,18 @@ define([
 					props[name] = value !== "false";
 					break;
 				case "object":
-					props[name] = (widget[name] instanceof Array)
-						? (value
+					var obj = lang.getObject(value, false);
+					if (obj) {
+						// it's a global, ex: store="myStore"
+						props[name] = obj;
+					} else {
+						// it's an expression, ex: constraints="min: 10, max: 100"
+						props[name] = (widget[name] instanceof Array)
+							? (value
 							? value.split(/\s+/)
 							: [])
-						: stringToObject(value);
+							: stringToObject(value);
+					}
 					break;
 				case "function":
 					/* jshint evil:true */

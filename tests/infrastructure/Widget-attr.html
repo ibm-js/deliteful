@@ -14,6 +14,32 @@
 		], function (doh, register, dom, domAttr, domClass, domStyle, has, Widget) {
 
 			doh.register("attributes", [
+				// Test attribute mapping for declarative instantiation
+				function declarative() {
+					global = 0;		// create intentional global
+					global2 = { text: "global var" };
+					var Declarative = register("test-declarative", [HTMLElement, Widget], {
+						boolProp: false,
+						numProp: 0,
+						stringProp: "",
+						funcProp: function(){ },
+						objProp1: { },
+						objProp2: { }
+					});
+					document.body.innerHTML +=
+							"<test-declarative id='d' boolProp='boolProp' numProp='5' stringProp='hello' funcProp='global=123;' objProp1='foo:1,bar:2' objProp2='global2'/>";
+					var d = document.getElementById("d");
+					register.upgrade(d);
+					doh.t(d.boolProp, "d.boolProp");
+					doh.is(5, d.numProp, "d.numProp");
+					doh.is("hello", d.stringProp, "d.stringProp");
+					d.funcProp();
+					doh.is(123, global, "d.funcProp() executed");
+					doh.is(1, d.objProp1.foo, "d.objProp1.foo");
+					doh.is(2, d.objProp1.bar, "d.objProp1.bar");
+					doh.is("global var", d.objProp2.text, "d.objProp2.text");
+				},
+
 				// Test attributes mapped to DOMNodes
 				function domMapping() {
 					var IndividualMaps = register("individual-maps", [HTMLElement, Widget], {
@@ -108,7 +134,7 @@
 					document.body.innerHTML += "<test-special-names-extended id=specialNames tabIndex=8/>";
 					var declarative = document.getElementById("specialNames");
 					register.upgrade(declarative);
-					doh.f(declarative.hasAttribute("tabIndex"));
+					doh.f(declarative.hasAttribute("tabIndex"), "tabIndex attr removed");
 				}
 
 			]);	// doh.register()
