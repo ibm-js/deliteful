@@ -28,6 +28,8 @@ define([
 	// Flag to enable support for textdir attribute
 	has.add("dojo-bidi", false);
 
+	var div = document.createElement("div");
+
 	function genSetter(/*String*/ attr, /*Object*/ commands) {
 		// summary:
 		//		Return setter for a widget property, often mapping the property to a
@@ -226,8 +228,7 @@ define([
 			// Various introspection to be done on my prototype.
 			// "this" refers to my prototype.
 
-			var pcm = this._propCaseMap = {},
-				onmap = this._onMapHash = {};
+			var pcm = this._propCaseMap = {};
 
 			// Setup mapping from lowercase property name to actual name, ex: iconclass --> iconClass.
 			// Doesn't handle attribute names with dashes.
@@ -240,11 +241,6 @@ define([
 
 			// Legacy stuff.  Revisit later to see if we really need this.
 			for (var key in this) {
-				// on mapping, ex: click --> onClick
-				if (/^on/.test(key)) {
-					onmap[key.substr(2).toLowerCase()] = key;
-				}
-
 				// Convert shorthand notations like _setAltAttr: "focusNode" into real functions.
 				if (/^_set[A-Z](.*)Attr$/.test(key) && typeof this[key] !== "function") {
 					this[key] = genSetter(key.charAt(4).toLowerCase() + key.substr(5, key.length - 9), this[key]);
@@ -352,6 +348,7 @@ define([
 			}
 
 			while ((attr = this.attributes[idx++])) {
+				// Map all attributes except for things like onclick="..." since the browser already handles them.
 				var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
 				if (name in pcm) {
 					setTypedValue(this, pcm[name]/* convert to correct case for widget */, attr.value);
@@ -477,14 +474,13 @@ define([
 			}
 		},
 
-		emit: function (/*String*/ type, /*Object?*/ eventObj, /*Array?*/ callbackArgs) {
+		emit: function (/*String*/ type, /*Object?*/ eventObj) {
 			// summary:
 			//		Used by widgets to signal that a synthetic event occurred, ex:
 			//	|	myWidget.emit("attrmodified-selectedChildWidget", {}).
 			//
 			//		Emits an event of specified type, based on eventObj.
 			//		Also calls onType() method, if present, and returns value from that method.
-			//		By default passes eventObj to callback, but will pass callbackArgs instead, if specified.
 			//		Modifies eventObj by adding missing parameters (bubbles, cancelable, widget).
 			// tags:
 			//		protected
@@ -504,16 +500,16 @@ define([
 			}
 			eventObj.detail.widget = this;
 
-			// Call onType() method.   TODO: remove this for 2.0?  In general we won't have such methods anymore.
-			// See on() method below, which has the same code.
-			var ret, callback = this["on" + type];
-			if (callback) {
-				ret = callback.apply(this, callbackArgs ? callbackArgs : [eventObj]);
-			}
-
 			// Emit event, but avoid spurious emit()'s as parent sets properties on child during startup/destroy
 			if (this._started && !this._beingDestroyed) {
-				// TODO: won't this cause an infinite loop? dojo/on.emit() will presumably delgate to this func.
+				// Call onType() method if one exists.   But skip functions like onchange and onclick
+				// because the browser will call them automatically when the event is emitted.
+				var ret, callback = this["on" + type];
+				if (callback && !("on" + type.toLowerCase() in div)) {
+					ret = callback.call(this, eventObj);
+				}
+
+				// Emit the event
 				on.emit(this, type, eventObj);
 			}
 
@@ -530,14 +526,6 @@ define([
 			//		Note that the function is not run in any particular scope, so if (for example) you want it to run
 			//		in the widget's scope you must do `myWidget.on("click", lang.hitch(myWidget, func))`.
 
-			// For backwards compatibility, if there's an onType() method in the widget then connect to that.
-			// Remove in 2.0.
-			var widgetMethod = this._onMapHash[typeof type === "string" && type.toLowerCase()];
-			if (widgetMethod) {
-				return aspect.after(this, widgetMethod, func, true);
-			}
-
-			// Otherwise, just listen for the event on the widget's root node.
 			return this.own(on(this, type, func))[0];
 		},
 

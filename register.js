@@ -264,12 +264,7 @@ define([
 
 				// Set parameters on node
 				for (var name in params || {}) {
-					if (!(name in node) && /^on[A-Z]/.test(name) && node.on) {
-						// convert parameters like onMouseMove to on() calls
-						node.on(name.substring(2).toLowerCase(), params[name]);
-					} else {
-						node[name] = params[name];
-					}
+					node[name] = params[name];
 				}
 
 				return node;

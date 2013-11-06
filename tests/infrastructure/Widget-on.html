@@ -11,94 +11,81 @@
 			"dui/register", "dui/Widget", "dojo/domReady!"
 		], function (doh, dom, has, lang, on, touch, register, Widget) {
 
-			var mousedOver, clicked;
+			doh.register("widget events", [
+				function declarative () {
+					// Test that declarative instantiation (onfoo=...) works,
+					// and also that widget.on() works.
 
-			doh.register("on", [
-				function setup() {
+					// Define a widget that emits two events, "click" and "custom".
+					// You can catch the events via either on("click", ...) or oncustom=... syntax.
+					// Note that the HTMLElement prototype already defines onclick() so we don't need to.
 					MyWidget = register("my-widget", [HTMLElement, Widget], {
-						postCreate: function () {
-							on(this, "click", lang.hitch(this, "onFooBar"));
+						emitCustomEvent: function () {
+							this.emit("custom");
 						},
-						onFooBar: function () {
-							// This is called whenever the widget is clicked
+						emitClickEvent: function () {
+							this.emit("click");
 						},
-						foobar: function () {
-							// A widget.on("foobar") should go to onFooBar() (above), not here
+						oncustom: function () {
+							// summary:
+							//		User can set oncustom=... rather than using on("custom", ...)
 						}
 					});
 
+					// Create variables accessed from the declarative widget (see definition in <body>)
+					globalClicked = 0;
+					globalCustom = 0;
+
 					register.parse();
-				},
 
-				function connect() {
-					// This should work despite the fact that the function onMouseOver has
-					// multiple capital letters
-					dom.byId("myWidget").on("mouseover", function () {
-						mousedOver = true;
-						console.log("mouseover event");
-					});
-
-					// Likewise, this should work despite the fact that the function onFooBar has
-					// multiple capital letters
-					dom.byId("myWidget").on("foobar", function () {
-						clicked = true;
-						console.log("click event");
-					});
-				},
-
-				function test() {
 					var myWidget = dom.byId("myWidget");
 
-					// Test that Widget.on() catches click event
-					doh.f(clicked, "clicked");
-					on.emit(myWidget, "click", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
+					var clicked = 0;
+					myWidget.on("click", function () {
+						clicked++;
 					});
-					doh.t(clicked, "clicked");
+					myWidget.emitClickEvent();
+					doh.is(1, clicked, ".on('clicked', ...)");
+					doh.is(1, globalClicked, "onclick='...'");
 
-					// Test that Widget.on() catches mouseover event
-					doh.f(mousedOver, "mousedOver");
-					on.emit(myWidget, "mouseover", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
+					var custom = 0;
+					myWidget.on("custom", function () {
+						custom++;
 					});
-					doh.t(mousedOver, "mousedOver");
+					myWidget.emitCustomEvent();
+					doh.is(1, custom, ".on('custom', ...)");
+					doh.is(1, globalCustom, "oncustom='...'");
 				},
 
-				function synthetic() {
-					// Test that on() works for synthetic events
-
-					var myWidget = dom.byId("myWidget"),
-							touched;
-
-					myWidget.on(touch.press, function () {
-						touched = true;
-					});
-
-					on.emit(myWidget, navigator.msPointerEnabled ? "MSPointerDown" : has("touch") ? "touchstart" : "mousedown", {
-						bubbles: true,
-						cancelable: true,
-						which: 1
-					});
-
-					doh.t(touched, "touched");
-				},
-
-				function syntheticNoCallbackArgs() {
-					var evt = null;
+				function programmatic() {
+					// Create a widget with a custom "show" event, plus the standard "click" event.
 					var MyWidget = register("my-widget2", [HTMLElement, Widget], {
 						show: function () {
 							return this.emit('show');
 						},
-						onshow: function (e) {
-							evt = e;
+						onshow: function(){ },
+						click: function () {
+							this.emit("click");
 						}
 					});
-					new MyWidget({}).show();
+
+					var evt = null, clicked = 0;
+					var w = new MyWidget({
+						onshow: function (e) {
+							evt = e;
+						},
+						onclick: function (e) {
+							clicked++;
+						}
+					});
+					w.placeAt(document.body);
+					w.startup();
+
+					w.show();
 					doh.isNot(null, evt, "onshow was called with event object");
+
+					w.click();
+					doh.is(1, clicked, "one click event")
 				}
 			]);
 
@@ -108,8 +95,10 @@
 	</script>
 </head>
 <body class="claro">
-<my-widget id="myWidget">
-	mouseover and click events to console
+<h1>Widget events test</h1>
+<p>See console for results</p>
+<my-widget id="myWidget" onclick="globalClicked++;" oncustom="globalCustom++;">
+	hi
 </my-widget>
 </body>
 </html>
