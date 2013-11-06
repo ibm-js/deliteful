@@ -102,6 +102,13 @@
 
 					// test attributes specified to constructor were copied over to DOM
 					doh.is("5", extended.watchedTabIndex, "watch fired on extended");
+
+					// And also test for declarative widgets, to make sure the tabIndex property is
+					// removed from the root node, to prevent an extra tab stop
+					document.body.innerHTML += "<test-special-names-extended id=specialNames tabIndex=8/>";
+					var declarative = document.getElementById("specialNames");
+					register.upgrade(declarative);
+					doh.f(declarative.hasAttribute("tabIndex"));
 				}
 
 			]);	// doh.register()
