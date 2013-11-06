@@ -1,8 +1,9 @@
 define([
 	"dcl/dcl",
 	"dojo/window", // winUtils.scrollIntoView
+	"dojo/dom-style", // domStyle
 	"./Widget"
-], function (dcl, winUtils, Widget) {
+], function (dcl, winUtils, domStyle, Widget) {
 
 	// module:
 	//		dui/FormWidget
@@ -32,69 +33,68 @@ define([
 		//		Corresponds to the native HTML `<input>` element's attribute.
 		value: "",
 
-		// type: [const] String
-		//		Corresponds to the native HTML `<input>` element's attribute.
-		type: "text",
+		// scrollOnFocus: Boolean
+		//		On focus, should this widget scroll into view?
+		scrollOnFocus: true,
 
-		// type: String
-		//		Apply aria-label in markup to the widget's focusNode
-		"aria-label": "focusNode",
+		// tabIndex: Number
+		//        The order in which fields are traversed when user hits the tab key
+		tabIndex: 0,
+		_setTabIndexAttr: function (/*Number*/ value) {
+			this._set("tabIndex", value);
+			if (!this._postMixInProperties) { return; }
+			var isRoot = false;
+			this.tabStops.split(/[ ,]/).forEach(
+				function (nodeName) {
+					var node = this[nodeName];
+					if (this[nodeName] !== this) {
+						if (this.disabled) {
+							node.removeAttribute("tabindex");
+						} else {
+							node.tabIndex = value;
+						}
+					} else {
+						isRoot = true;
+					}
+				},
+				this
+			);
+			if (!isRoot) {
+				this.removeAttribute("tabindex");
+			}
+		},
 
-		/***
-		 TODO: commented out as it causes errors on FF
-		 // tabIndex: String
-		 //        Order fields are traversed when user hits the tab key
-		 tabIndex: "0",
-		 _setTabIndexAttr: "focusNode", // force copy even when tabIndex default value, needed since Button is <span>
-		 ***/
+		// tabStops: [const] String
+		//        Concatenated list of node names that can receive focus during tab operations
+		tabStops: "focusNode", // should be "" if the widget's only tab stop is the outer root node
 
 		// disabled: Boolean
 		//		Should this widget respond to user input?
 		//		In markup, this is specified as "disabled='disabled'", or just "disabled".
 		disabled: false,
-
-		// scrollOnFocus: Boolean
-		//		On focus, should this widget scroll into view?
-		scrollOnFocus: true,
-
-		/****
-		 TODO: the code below only makes sense when focusNode != the root node.
-		 Otherwise, we can't setup custom setters for DOMNode properties like "disabled" because then we can't control
-		 the domnode's disabled property.
-
-		 // Override Widget mapping id to this.domNode, needs to be on focusNode so <label> etc.
-		 // works with screen reader
-		 _setIdAttr: "focusNode",
-
-		 // TODO: trim or remove this function
-		 _setDisabledAttr: function(/#Boolean#/ value){
-			this._set("disabled", value);
-			domAttr.set(this.focusNode, 'disabled', value);
-			if(this.valueNode){
-				domAttr.set(this.valueNode, 'disabled', value);
+		_setDisabledAttr: function (/*Boolean*/ isDisabled) {
+			this._set("disabled", isDisabled);
+			if (!this._postMixInProperties) { return; }
+			if (this.valueNode && this.valueNode !== this) {
+				this.valueNode.disabled = isDisabled; // prevent submit
 			}
-			this.focusNode.setAttribute("aria-disabled", value ? "true" : "false");
-
-			if(value){
-				// clear tab stop(s) on this widget's focusable node(s)  (ComboBox has two focusable nodes)
-				var attachPointNames = this.focusNode ? ["focusNode"] : [];
-				(typeof attachPointNames === "array" ? attachPointNames : [attachPointNames]).forEach(
-						function(attachPointName){
-					var node = this[attachPointName];
-					// complex code because tabIndex=-1 on a <div> doesn't work on FF
-					if(has("webkit") || a11y.hasDefaultTabStop(node)){    // see #11064 about webkit bug
-						node.setAttribute('tabIndex', "-1");
-					}else{
-						node.removeAttribute('tabIndex');
+			this.tabStops.split(/[ ,]/).forEach(
+				function (nodeName) {
+					var node = this[nodeName];
+					if (node !== this) {
+						node.disabled = isDisabled;
 					}
-				}, this);
-			}else{
-				if(this.tabIndex != ""){
-					this.tabIndex = this.tabIndex;
-				}
+					// let JAWS know
+					node.setAttribute("aria-disabled", "" + isDisabled);
+				},
+				this
+			);
+			this.setAttribute("aria-disabled", "" + isDisabled);
+			if (!isDisabled) {
+				this.removeAttribute("disabled");
 			}
+			this.tabIndex = this.tabIndex; // run tabIndex setter
 		},
-		 ****/
 
 		_onFocus: dcl.before(function () {
 			if (this.scrollOnFocus) {
@@ -122,6 +122,13 @@ define([
 					// squelch errors from hidden nodes
 				}
 			}
-		}
+		},
+
+		createdCallback: dcl.after(function () {
+			// summary:
+			//		Process interdependent fields: tabStops, tabIndex, disabled
+			this._postMixInProperties = true;
+			this.disabled = this.disabled; // run disabled setter which also runs tabIndex setter
+		})
 	});
 });

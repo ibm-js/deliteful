@@ -338,8 +338,8 @@ define([
 				case "object":
 					props[name] = (widget[name] instanceof Array)
 						? (value
-						? value.split(/\s+/)
-						: [])
+							? value.split(/\s+/)
+							: [])
 						: stringToObject(value);
 					break;
 				case "function":
@@ -347,7 +347,8 @@ define([
 					props[name] = lang.getObject(value, false) || new Function(value);
 				}
 				delete widget[name]; // make sure custom setters fire
-				widget.removeAttribute(name.toLowerCase());	// when name==tabIndex, avoid tab stop on root node
+				// removeAttribute breaks disabled on IE, see test_Slider.html?mode=test
+				//widget.removeAttribute(name.toLowerCase());	// when name==tabIndex, avoid tab stop on root node
 			}
 
 			while ((attr = this.attributes[idx++])) {
