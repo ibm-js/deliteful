@@ -56,7 +56,54 @@
 					doh.is("value2", widget.buttonNode.bar, "widget.buttonNode.bar");
 					doh.t(domClass.contains(widget, "class2"), "class2");
 					doh.is("hello world &lt;&gt;&amp;;", widget.plainTextNode.innerHTML, "innerHTML");
+				},
+
+				// tabIndex is problematic, see https://github.com/ibm-dojo/dui/issues/34.
+				function specialNames() {
+					// Test when tabIndex is declared top level, in the props passed to register().
+					// TODO: enable when https://github.com/uhop/dcl/issues/9 is fixed
+					/*
+					var SpecialNames = register("test-special-names", [HTMLElement, Widget], {
+						tabIndex: "0",
+
+						postCreate: function () {
+							this.watch("tabIndex", function(name, o, n){
+								this.watchedTabIndex = n;
+							})
+						}
+					});
+					var widget = new SpecialNames({ });
+					widget.tabIndex = "3";
+					doh.is("3", widget.watchedTabIndex, "watch fired on widget");
+					*/
+
+					// And test when tabIndex is declared in a mixin.
+					var SpecialNamesMixin = register.dcl(Widget, {
+						tabIndex: "0",
+
+						postCreate: function () {
+							this.watch("tabIndex", function(name, o, n){
+								this.watchedTabIndex = n;
+							})
+						}
+					});
+					var SpecialExtendedWidget = register("test-special-names-extended", [HTMLElement, SpecialNamesMixin], {
+						tabIndex: "0",
+
+						postCreate: function () {
+							this.watch("tabIndex", function(name, o, n){
+								this.watchedTabIndex = n;
+							})
+						}
+					});
+
+					var extended = new SpecialExtendedWidget({ });
+					extended.tabIndex = "5";
+
+					// test attributes specified to constructor were copied over to DOM
+					doh.is("5", extended.watchedTabIndex, "watch fired on extended");
 				}
+
 			]);	// doh.register()
 
 			doh.run();

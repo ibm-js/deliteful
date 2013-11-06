@@ -7,7 +7,8 @@ define([
 	var doc = document;
 
 	// Workaround problem using dcl() on native DOMNodes on FF and IE,
-	// see https://github.com/uhop/dcl/issues/9
+	// see https://github.com/uhop/dcl/issues/9.
+	// Fixes case where tabIndex is declared in a mixin that's passed to register().
 	dcl.mix = function(a, b){
 		for(var n in b){
 			try {
@@ -380,12 +381,13 @@ define([
 	// Setup return value as register() method, with other methods hung off it.
 	register.upgrade = upgrade;
 	register.createElement = createElement;
+	register.parse = parse;
 
 	// Add helpers from dcl for declaring classes.
+	register.dcl = dcl;
 	register.after = dcl.after;
 	register.before = dcl.before;
 	register.around = dcl.around;
-	register.parse = parse;
 
 	return register;
 });
