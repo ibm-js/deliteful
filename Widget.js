@@ -350,17 +350,22 @@ define([
 					props[name] = lang.getObject(value, false) || new Function(value);
 				}
 				delete widget[name]; // make sure custom setters fire
-				// removeAttribute breaks disabled on IE, see test_Slider.html?mode=test
-				//widget.removeAttribute(name.toLowerCase());	// when name==tabIndex, avoid tab stop on root node
 			}
 
+			var attrsToRemove = [];
 			while ((attr = this.attributes[idx++])) {
 				// Map all attributes except for things like onclick="..." since the browser already handles them.
 				var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
 				if (name in pcm) {
 					setTypedValue(this, pcm[name]/* convert to correct case for widget */, attr.value);
+					attrsToRemove.push(name);
 				}
 			}
+
+			// Remove attributes that were processed, but do it in a separate loop so we don't modify this.attributes
+			// while we are looping through it.   (See Widget-attr.html test failure on IE10.)
+			attrsToRemove.forEach(this.removeAttribute, this);
+
 			return props;
 		},
 
