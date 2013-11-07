@@ -78,6 +78,7 @@ define(["dcl/dcl"], function (dcl) {
 					this[shadowProp] = this[prop];
 					delete this[prop]; // make sure custom setters fire
 					Object.defineProperty(this, prop, {
+						enumerable: true,
 						set: function (x) {
 							setter in this ? this[setter](x) : this._set(prop, x);
 						},
