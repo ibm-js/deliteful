@@ -159,7 +159,7 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 				// if we allow remap we need to store the initial item
 				// we need this to be enumerable for dealing with update case (where only enumerable
 				// properties are copied)
-				renderItem.__item = lang.clone(item);
+				renderItem.__item = item;
 			}
 
 			// special id case
