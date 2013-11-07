@@ -115,6 +115,9 @@
 					});
 					var SpecialExtendedWidget = register("test-special-names-extended", [HTMLElement, SpecialNamesMixin], {
 						tabIndex: "0",
+						value: "0",
+						isrange: false,
+						isbool: false,
 
 						postCreate: function () {
 							this.watch("tabIndex", function(name, o, n){
@@ -131,10 +134,13 @@
 
 					// And also test for declarative widgets, to make sure the tabIndex property is
 					// removed from the root node, to prevent an extra tab stop
-					document.body.innerHTML += "<test-special-names-extended id=specialNames tabIndex=8/>";
+					document.body.innerHTML += "<test-special-names-extended id=specialNames value=5 isrange isbool tabIndex=8/>";
 					var declarative = document.getElementById("specialNames");
 					register.upgrade(declarative);
 					doh.f(declarative.hasAttribute("tabIndex"), "tabIndex attr removed");
+					doh.t(declarative.isrange, "isrange set");
+					doh.t(declarative.isbool, "isbool set");
+					doh.is("5", declarative.value, "value");
 				}
 
 			]);	// doh.register()
