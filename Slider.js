@@ -154,10 +154,10 @@ define([
 						}),
 						getEventData = lang.hitch(this, function (e) {
 							point = isMouse
-								? e[this._attrs.pageX]
+								? e[this._attrs.pageStart]
 								: ((e.touches && e.touches[0])
-									? e.touches[0][this._attrs.pageX]
-									: e[this._attrs.clientX]);
+									? e.touches[0][this._attrs.pageStart]
+									: e[this._attrs.clientStart]);
 							pixelValue = point - startPixel;
 							pixelValue = Math.min(Math.max(pixelValue, 0), maxPixels);
 							var discreteValues = this.step ? ((this.max - this.min) / this.step) : maxPixels;
@@ -181,17 +181,21 @@ define([
 							setValue(true);
 							// fire onChange
 						}),
-						isMouse = e.type === "mousedown",
+						isMouse = e instanceof MouseEvent, // e.type can be MSPointerDown but still be instanceof MouseEvent
 						// get the starting position of the content area (dragging region)
 						// can't use true since the added docScroll and the returned x are body-zoom incompatibile
 						box = domGeometry.position(this.containerNode, false),
+						scroll = domGeometry.docScroll(),
 						bodyZoom = has("ie") ? 1 : (parseFloat(domStyle.get(win.body(), "zoom")) || 1),
 						nodeZoom = has("ie") ? 1 : (parseFloat(domStyle.get(node, "zoom")) || 1),
 						root = win.doc.documentElement,
 						actionHandles;
 					if (this.disabled || this.readOnly) { return; }
-					var startPixel = box[this._attrs.x] * nodeZoom * bodyZoom + domGeometry.docScroll()[this._attrs.x];
-					var maxPixels = box[this._attrs.w] * nodeZoom * bodyZoom;
+					// fix scroll.y in IE10 for incorrect pageYOffset
+					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-incorrect-value-when-page-zoomed-breaks-jquery-etc
+					scroll.y = Math.min(scroll.y, this.containerNode.ownerDocument.documentElement.scrollTop || scroll.y);
+					var startPixel = box[this._attrs.start] * nodeZoom * bodyZoom + scroll[this._attrs.start];
+					var maxPixels = box[this._attrs.size] * nodeZoom * bodyZoom;
 					var offsetValue = 0;
 					getEventData(e);
 					var values = String(this.value).split(",");
@@ -312,9 +316,9 @@ define([
 			// _reversed is complicated since you can have flipped right-to-left and vertical is upside down by default
 			this._reversed = !((horizontal && ((ltr && !flip) || (!ltr && flip))) || (!horizontal && flip));
 			this._attrs = horizontal
-				? { x: "x", w: "w", pageX: "pageX", clientX: "clientX",
+				? { start: "x", size: "w", pageStart: "pageX", clientStart: "clientX",
 					progressBarStart: "left", progressBarSize: "width" }
-				: { x: "y", w: "h", pageX: "pageY", clientX: "clientY", progressBarStart: "top",
+				: { start: "y", size: "h", pageStart: "pageY", clientStart: "clientY", progressBarStart: "top",
 					progressBarSize: "height" };
 			var baseClass = toCSS(this.className, this.orientation);
 			domClass.add(this, baseClass);

@@ -43,7 +43,8 @@
 			var Ltr2 = dom.byId("Ltr2");
 			on(dom.byId("enableLtr2"), "click",
 				function () {
-					Ltr2.disabled = false;
+					Ltr2.disabled = !Ltr2.disabled;
+					this.innerHTML = Ltr2.disabled ? "Enable" : "Disable";
 				}
 			);
 
@@ -105,6 +106,9 @@
 						zoom = 1;
 					}
 					var scroll = domGeometry.docScroll();
+					// fix scroll.y in IE10 for incorrect pageYOffset
+					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-incorrect-value-when-page-zoomed-breaks-jquery-etc
+					scroll.y = Math.min(scroll.y, node.ownerDocument.documentElement.scrollTop || scroll.y);
 					var pos = domGeometry.position(node, false);
 					var handlePos = domGeometry.position(handle, false);
 					handlePos.l = handlePos.x * zoom + scroll.x;
@@ -229,7 +233,7 @@
 						doh.is(0, customH.tabIndex, "customH widget tabIndex #1");
 						doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #1");
 						doh.is(0, customH.handle.getAttribute("tabIndex"), "customH handle tabIndex #1");
-						Ltr2.disabled = false;
+						dom.byId("enableLtr2").click(); // Ltr2.disabled = false;
 						customH.disabled = true;
 						doh.is(false, !!Ltr2.valueNode.disabled, "Ltr2 valueNode enabled");
 						doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #2");
@@ -349,7 +353,7 @@
 			doh.register("tap", [
 				{
 					name: "horizontal end",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -362,7 +366,7 @@
 				},
 				{
 					name: "horizontal start",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -375,11 +379,11 @@
 				},
 				{
 					name: "horizontal middle",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
-							doh.t(Math.abs(v - ((Ltr1.max+Ltr1.min) >> 1)) <= Ltr1.step);
+							doh.t(Math.abs(v - ((Ltr1.max + Ltr1.min) >> 1)) <= Ltr1.step);
 						};
 						fireTouchEvent(touchstart, Ltr1, Ltr1_width >> 1, Ltr1_height >> 1, speed);
 						fireTouchEvent(touchend);
@@ -388,7 +392,7 @@
 				},
 				{
 					name: "vertical end",
-					timeout: 2000+speed,
+					timeout: 2000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -401,7 +405,7 @@
 				},
 				{
 					name: "vertical start",
-					timeout: 2000+speed,
+					timeout: 2000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -414,11 +418,11 @@
 				},
 				{
 					name: "vertical middle",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
-							doh.t(Math.abs(v - ((Btt1.max+Btt1.min) >> 1)) <= Btt1.step);
+							doh.t(Math.abs(v - ((Btt1.max + Btt1.min) >> 1)) <= Btt1.step, "value = " + v + ", min = " + Btt1.min + ", max = " + Btt1.max + ", step = " + Btt1.step);
 						};
 						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height >> 1, speed);
 						fireTouchEvent(touchend);
@@ -430,7 +434,7 @@
 			doh.register("move", [
 				{
 					name: "horizontal right",
-					timeout: 1000+speed*2,
+					timeout: 1000 + speed*2,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Ltr1.max, v);
@@ -444,7 +448,7 @@
 				},
 				{
 					name: "horizontal left",
-					timeout: 1000+speed*2,
+					timeout: 1000 + speed*2,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Ltr1.min, v);
@@ -458,7 +462,7 @@
 				},
 				{
 					name: "vertical up",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Btt1.max, v);
@@ -472,7 +476,7 @@
 				},
 				{
 					name: "vertical down",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Btt1.min, v);
@@ -489,7 +493,7 @@
 			doh.register("click handle", [
 				{
 					name: "horizontal right",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						Ltr1.value = mid;
@@ -499,13 +503,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.is(mid, Ltr1.value, "right value");
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "horizontal left",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						var d = new doh.Deferred();
@@ -513,13 +517,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.is(mid, Ltr1.value, "left value");
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "horizontal change right",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						var d = new doh.Deferred();
@@ -527,13 +531,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.t(Ltr1.value > mid, "right changed value " + Ltr1.value);
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "horizontal change left",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						var d = new doh.Deferred();
@@ -541,13 +545,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.t(Ltr1.value < mid, "left changed value " + Ltr1.value);
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "vertical bottom",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
@@ -557,13 +561,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.is(mid, Btt1.value, "bottom value");
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "vertical top",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						var d = new doh.Deferred();
@@ -571,13 +575,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.is(mid, Btt1.value, "top value");
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "vertical change bottom",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
@@ -587,13 +591,13 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.t(Btt1.value < mid, "bottom changed value " + Btt1.value);
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				},
 				{
 					name: "vertical change top",
-					timeout: 1000+speed,
+					timeout: 1000 + speed,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
@@ -603,32 +607,35 @@
 						fireTouchEvent(touchend);
 						setTimeout(d.getTestCallback(function () {
 							doh.t(Btt1.value > mid, "top changed value " + Btt1.value);
-						}), 500+speed);
+						}), 500 + speed);
 						return d;
 					}
 				}
 			]);
 
-			if (has("webkit") || has("ie") >= 10) {
+			if (!(has("ie") <= 9)) {
 				doh.register("animation", {
 					name: "horizontal 100%",
 					timeout: 3000,
 					runTest: function () {
 						var d = new doh.Deferred();
+						domStyle.set(Ltr1.handle, transitionDuration, "0ms");
 						Ltr1.value = Ltr1.min;
 						var startX = Math.round(domGeometry.position(Ltr1.handle).x), midX, endX;
 						domStyle.set(Ltr1.progressBar, transitionDuration, "1000ms");
-						Ltr1.value = Ltr1.max;
+						setTimeout(function () {
+							Ltr1.value = Ltr1.max;
+						}, 500);
 						setTimeout(function () {
 							midX = domGeometry.position(Ltr1.handle).x;
-						}, 400); 
+						}, 900); 
 						setTimeout(d.getTestCallback(function () {
 							endX = Math.round(domGeometry.position(Ltr1.handle).x);
 							doh.t(midX > startX, "started sliding");
 							doh.t(midX < endX, "continued sliding");
-							var zoom = has("ie") ? getZoom(sh) : 1;
-							var distance = domGeometry.position(Ltr1.containerNode).w * zoom;
-							doh.t(Math.abs(Math.abs(endX-startX)-distance) <= 3, "stopped sliding end=" + endX + ",start=" + startX + ",width=" + distance);
+							var zoom = has("ie") ? getZoom(Ltr1) : 1;
+							var distance = Ltr1.progressBar.offsetWidth * zoom;
+							doh.t(Math.abs(Math.abs(endX - startX) - distance) <= 3, "stopped sliding end=" + endX + ",start=" + startX + ",width=" + distance + ", zoom = " + zoom);
 						}), 2100);
 						return d;
 					},
@@ -759,9 +766,9 @@
 <body style="zoom:2.0;background-color:#888888;font-size:9pt;">
 	<form id="myForm" method="GET" action="resources/formAction.html" target="formSubmitIframe">
 		<br>
-		<center><table>
+		<table style="margin:10px 50px;float:left;">
 			<tr>
-				<td colspan=3 class="customLabels"><d-slider id="Ltr2" value="10,15" orientation="H" isRange disabled tabIndex="3" min="0" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style='width:90%' >
+				<td colspan=3 class="customLabels"><d-slider id="Ltr2" value="10,15" orientation="H" isRange disabled tabIndex="3" min="0" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:10px 20px;width:90%" >
 					<input name="Ltr2">
 					<d-rule class="duiRuleBefore" count="5" style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></d-rule>
 					<d-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;' >
@@ -799,11 +806,11 @@
 				<td class="dj_a11y"><d-slider id="a11yRtl1" flip min="0" max="20" step="1.0" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input value="15"></d-slider></td>
 				<td>0</td>
 			</tr>
-		</table></center>
+		</table>
 		<br>
-		<center><table style="width:100%;height:250px;"><tr>
+		<table style="height:250px;clear:both;float:left;"><tr>
 			<td style="width:50px;" class="customLabels"><div style="height:250px;">
-				<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'>
+				<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
 					<input name="Btt1">
 					<d-rule class="duiRuleAfter" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
 					<d-rule style='font-size:10px; margin:0 9px;' >
@@ -836,17 +843,21 @@
 				<d-slider id="a11yTtb2" orientation="V" isRange flip min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input value="0,10"></d-slider>
 				<br>20
 			</div></td>
-		</tr></table></center>
+		</tr></table>
+		<div style="clear:both;float:left;">
 		<br>
 		<br>
 		Value:&nbsp;<span id="val">?</span>
 		<br>
 		<input type=submit>
 		<input type=reset>
+		</div>
 	</form>
+	<div style="clear:both;float:left;">
 	<br>
 	Errors:&nbsp;<span id="errors">?</span><br>
 	Failures:&nbsp;<span id="failures">?</span>
-<iframe name="formSubmitIframe" src="about:blank" onload="if(this.values)submittedValues(this.values)" style="display:none;"></iframe>
+	</div>
+	<iframe name="formSubmitIframe" src="about:blank" onload="if(this.values)submittedValues(this.values)" style="display:none;"></iframe>
 </body>
 </html>
