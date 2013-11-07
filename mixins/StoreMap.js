@@ -43,19 +43,23 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 		//			  fooFunc is of the following signature (value must be passed only for set operations:
 		//				fooFunc(item, store, value)
 		//			* if none of this is provided the mapping is looking into store item "foo" property
+		//		Mapping property are meant to be added to the widget class using the mixin. One can directly add the
+		// 		mapping properties to an instance but in this cases there are two limitations:
+		//			* The property must be added before the widget is started
+		//			* If the property is added in the markup only fully lower case properties are supported
+		// 				(e.g. foobar not fooBar)
 
 		// allowRemap: Boolean
-		//		Whether the created render items will contain a remap() function allowing the consuming component
-		//		to re-perform the mapping on demand. This property must not be changed after the initialization cycle.
+		//		Whether the created render items will be updated when call the remap() function on the component
+		//		allowing the consuming component to re-perform the mapping on demand. This property must not be
+		//		changed after the initialization cycle.
 		//		Default is false.
 		allowRemap: false,
 
-		// mappedKeys: Array?
-		//		Array of item keys to be considered for mapping. If null the component will be introspected to find
-		//		all the properties ending with "Attr" or "Func" and provide mapping for those. This property must not
-		//		be changed after the initialization cycle. Subclasses that do not want to override mappedKeys set by
-		// 		a super class must concatenate their added keys to the ones of the superclass. Default is null.
-		mappedKeys: null,
+		// _mappedKeys: [private] Array?
+		//		Array of item keys to be considered for mapping. The component will be introspected to find
+		//		all the properties ending with "Attr" or "Func" and provide mapping for those.
+		_mappedKeys: null,
 
 		// copyAllItemProps: Boolean
 		//		If true, in addition to the mapped properties copy all the other properties of the store item into
@@ -65,39 +69,41 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 
 		startup: function () {
 			var match, attr, idx = 0, value;
-			if (!this.mappedKeys) {
-				this.mappedKeys = [];
-				// look into properties of the instance for keys to map
-				for (var prop in this) {
-					match = null;
-					if ((match = propregexp.exec(prop)) && match && this.mappedKeys.indexOf(match[0]) === -1) {
-						this.mappedKeys.push(match[0]);
-					}
+			var mappedKeys = [];
+			// look into properties of the instance for keys to map
+			for (var prop in this) {
+				match = null;
+				if ((match = propregexp.exec(prop)) && mappedKeys.indexOf(match[0]) === -1) {
+					mappedKeys.push(match[0]);
 				}
-				// look into attributes as well because only pre-declared properties are mapped from attr -> prop
-				while ((attr = this.attributes[idx++])) {
-					var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
-					match = null;
-					if ((match = attrregexp.exec(name)) && match) {
-						name = name.replace(capitalize, capitalize.exec(name)[0].toUpperCase());
-						this.mappedKeys.push(match[0]);
-						value = attr.value;
-						if (name.lastIndexOf("Attr") === name.length - 4) {
-							this[name] = value;
-						} else {
-							// this will be executed only if you use functions in your tag attributes
-							// <my-tag labelFunc="myfunc"></my-tag>
-							/* jshint evil:true */
-							this[name] = lang.getObject(value, false) || new Function(value);
-						}
+			}
+			// look into attributes as well because only pre-declared properties are mapped from attr -> prop
+			while ((attr = this.attributes[idx++])) {
+				var name = attr.name.toLowerCase();	// note: will be lower case already except for IE9
+				match = null;
+				if ((match = attrregexp.exec(name))) {
+					name = name.replace(capitalize, capitalize.exec(name)[0].toUpperCase());
+					mappedKeys.push(match[0]);
+					value = attr.value;
+					if (name.lastIndexOf("Attr") === name.length - 4) {
+						this[name] = value;
+					} else {
+						// this will be executed only if you use functions in your tag attributes
+						// <my-tag labelFunc="myfunc"></my-tag>
+						/* jshint evil:true */
+						this[name] = lang.getObject(value, false) || new Function(value);
 					}
 				}
 			}
 			// which are the considered keys in the store item itself
-			this._itemKeys = [];
-			for (var key in this.mappedKeys) {
-				this._itemKeys.push(this[key + "Attr"] ? this[key + "Attr"] : key);
+			if (this.copyAllItemProps) {
+				this._itemKeys = [];
+				for (var i = 0; i < mappedKeys.length; i++) {
+					this._itemKeys.push(this[mappedKeys[i] + "Attr"] ?
+						this[mappedKeys[i] + "Attr"] : mappedKeys[i]);
+				}
 			}
+			this._mappedKeys = mappedKeys;
 			this.validateProperties();
 		},
 
@@ -146,12 +152,13 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 			//		protected
 
 			var renderItem = {};
-			var mappedKeys = this.mappedKeys;
+			var mappedKeys = this._mappedKeys;
 			var store = this.store;
 
 			if (this.allowRemap) {
 				// if we allow remap we need to store the initial item
-				// we need this to be re-write for dealing with update case
+				// we need this to be enumerable for dealing with update case (where only enumerable
+				// properties are copied)
 				renderItem.__item = lang.clone(item);
 			}
 
@@ -174,7 +181,7 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 
 		remap: function () {
 			var items = this.items;
-			var mappedKeys = this.mappedKeys;
+			var mappedKeys = this._mappedKeys;
 			for (var i = 0; i < items.length; i++) {
 				for (var j = 0; j < mappedKeys.length; j++) {
 					items[i][mappedKeys[j]] = getvalue(this, items[i].__item, mappedKeys[j], this.store);
