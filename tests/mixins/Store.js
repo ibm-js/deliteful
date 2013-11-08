@@ -37,8 +37,7 @@ define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
 						{ id: "foo", name: "Foo" },
 						{ id: "bar", name: "Bar" }
 					];
-					var callbackCalled = false;
-					store.on("query-success", function () {
+					store.on("query-success", d.getTestCallback(function () {
 						t.assertEqual(myData, store.items);
 						myStore.put({ id: "foo", name: "Foo2" });
 						// this works because put is synchronous & same for add etc...
@@ -57,15 +56,10 @@ define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
 							{ id: "foo", name: "Foo2" },
 							{ id: "fb", name: "FB" }
 						], store.items);
-						callbackCalled = true;
-					});
+					}));
 					store.startup();
 					var myStore = Observable(new Memory({ data: myData }));
 					store.store = myStore;
-					// we need to check before the timeout that refresh-complete was called
-					setTimeout(d.getTestCallback(function () {
-						t.t(callbackCalled, "refresh-complete callback");
-					}), 1000);
 					return d;
 				}
 			},
@@ -79,8 +73,7 @@ define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
 						{ id: "foo", name: "Foo" },
 						{ id: "bar", name: "Bar" }
 					];
-					var callbackCalled = false;
-					store.on("query-success", function () {
+					store.on("query-success", d.getTestCallback(function () {
 						t.assertEqual(myData, store.items);
 						// we destroy the store, we should not get any notification after that
 						store.destroy();
@@ -100,14 +93,10 @@ define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
 							{ id: "foo", name: "Foo" },
 							{ id: "bar", name: "Bar" }
 						], store.items);
-						callbackCalled = true;
-					});
+					}));
 					store.startup();
 					var myStore = Observable(new Memory({ data: myData }));
 					store.store = myStore;
-					setTimeout(d.getTestCallback(function () {
-						t.t(callbackCalled, "refresh-complete callback");
-					}), 1000);
 					return d;
 				}
 			}

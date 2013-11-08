@@ -36,7 +36,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 		selectedItem: null,
 
 		_setSelectedItemAttr: function (value) {
-			if (this.selectedItem != value) {
+			if (this.selectedItem !== value) {
 				this._set("selectedItem", value);
 				this.selectedItems = (value == null ? null : [value]);
 			}
@@ -70,21 +70,22 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			//		Returns whether an item is selected or not.
 			// item: Object
 			//		The item to test the selection for.			
-			if (this.selectedItems == null || this.selectedItems.length == 0) {
+			if (this.selectedItems == null || this.selectedItems.length === 0) {
 				return false;
 			}
 
 			return this.selectedItems.some(lang.hitch(this, function (sitem) {
-				return this.getIdentity(sitem) == this.getIdentity(item);
+				return this.getIdentity(sitem) === this.getIdentity(item);
 			}));
 		},
-
+		/*jshint unused: vars */
 		getIdentity: function (item) {
 			// summary:
 			//		This function must be implemented to return the id of a item.
 			// item: Object
 			//		The item to query the identity for.
 		},
+		/*jshint unused: true */
 
 		setSelected: function (item, value) {
 			// summary:
@@ -94,14 +95,14 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			// value: Boolean
 			//		True to select the item, false to deselect it. 
 
-			if (this.selectionMode == "none" || item == null) {
+			if (this.selectionMode === "none" || item == null) {
 				return;
 			}
 
 			// copy is returned
 			var sel = this.selectedItems;
 
-			if (this.selectionMode == "single") {
+			if (this.selectionMode === "single") {
 				if (value) {
 					this.selectedItem = item;
 				} else if (this.isSelected(item)) {
@@ -120,9 +121,9 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 					this.selectedItems = sel;
 				} else {
 					var res = sel ? sel.filter(lang.hitch(this, function (sitem) {
-						return this.getIdentity(sitem) != this.getIdentity(item);
+						return this.getIdentity(sitem) !== this.getIdentity(item);
 					})) : [];
-					if (res == null || res.length == sel.length) {
+					if (res == null || res.length === sel.length) {
 						return; // already not selected
 					}
 					this.selectedItems = res;
@@ -146,7 +147,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			// tags:
 			//		protected
 
-			if (this.selectionMode == "none") {
+			if (this.selectionMode === "none") {
 				return false;
 			}
 
@@ -159,7 +160,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 					this.selectedItem = null;
 					changed = true;
 				}
-			} else if (this.selectionMode == "multiple") {
+			} else if (this.selectionMode === "multiple") {
 				if (e.ctrlKey) {
 					this.setSelected(item, !selected);
 					changed = true;
