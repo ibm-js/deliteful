@@ -1,10 +1,10 @@
 define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget) {
 
-	return dcl(Widget, {
+	return dcl(null, {
 		// summary:
 		//		Mixin for classes (usually widgets) that watch invalidated properties and delay the rendering
 		//		after these properties modifications to the next execution frame. The receiving class must extend
-		//		dojo/Stateful and dojo/Evented or dui/Widget.
+		//		dui/Widget or dui/Stateful and dojo/Evented.
 
 		_renderHandle: null,
 
@@ -26,12 +26,20 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 		//		invalidateRendering to modify this flag.
 		invalidRendering: false,
 
-		// Listen for any changes to properties after the widget has been rendered,
-		// including when declarative properties (ex: iconClass=xyz) are applied at
-		// end of Widget.createdCallback().
+		// if we are not a Widget, setup the listeners at construction time
+		constructor: dcl.after(function () {
+			this._initializeInvalidating();
+		}),
+
+		// if we are on a Widget listen for any changes to properties after the widget has been rendered,
+		// including when declarative properties (ex: iconClass=xyz) are applied.
 		buildRendering: dcl.after(function () {
 			// tags:
 			//		protected
+			this._initializeInvalidating();
+		}),
+
+		_initializeInvalidating: function () {
 			if (this._invalidatingProperties) {
 				var props = Object.keys(this._invalidatingProperties);
 				for (var i = 0; i < props.length; i++) {
@@ -39,7 +47,7 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 				}
 			}
 			this._invalidatedProperties = {};
-		}),
+		},
 
 		addInvalidatingProperties: function () {
 			// summary:
@@ -84,7 +92,10 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 					this.invalidRendering = false;
 					this._renderHandle = null;
 				}
-				this.defer("validateProperties");
+				// TODO: should be defer but we might change this mechanism to a centralized one, so keep it like
+				// that for now. If we don't come up with a centralized one, move defer to Destroyable and require
+				// Destroyable mixin
+				setTimeout(lang.hitch(this, "validateProperties"), 0);
 			}
 		},
 		invalidateRendering: function (name) {
@@ -100,7 +111,10 @@ define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget)
 			}
 			if (!this.invalidRendering) {
 				this.invalidRendering = true;
-				this._renderHandle = this.defer("validateRendering");
+				// TODO: should be defer but we might change this mechanism to a centralized one, so keep it like
+				// that for now. If we don't come up with a centralized one, move defer to Destroyable and require
+				// Destroyable mixin
+				this._renderHandle = setTimeout(lang.hitch(this, "validateRendering"), 0);
 			}
 		},
 		validateProperties: function () {

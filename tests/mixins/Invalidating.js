@@ -1,5 +1,5 @@
-define(["doh/runner", "../../register", "../../mixins/Invalidating", "../../Widget"],
-	function (doh, register, Invalidating, Widget) {
+define(["doh/runner", "dcl/dcl", "dojo/Evented", "../../Stateful", "../../register", "../../mixins/Invalidating", "../../Widget"],
+	function (doh, dcl, Evented, Stateful, register, Invalidating, Widget) {
 		doh.register("mixins.Invalidating", [
 			{
 				timeout: 2000,
@@ -191,6 +191,46 @@ define(["doh/runner", "../../register", "../../mixins/Invalidating", "../../Widg
 						beforePropsR = e.invalidatedProperties;
 					});
 					o.startup();
+					t.is({ "a": "invalidateProperty", "b": "invalidateProperty" }, o._invalidatingProperties);
+					o.b = "foo";
+					// we need to check before the timeout that refresh-complete was called
+					setTimeout(d.getTestCallback(function () {
+						t.is({"b": true}, afterPropsP);
+						t.is({"b": true}, beforePropsP);
+						t.is({}, afterPropsR);
+						t.is({"b": true}, beforePropsR);
+					}), 1000);
+					return d;
+				}
+			},
+			{
+				timeout: 2000,
+				name: "NonWidget",
+				runTest: function (t) {
+					var C = dcl([Invalidating, Stateful, Evented], {
+						constructor: function () {
+							this.addInvalidatingProperties({"a": "invalidateProperty", "b": "invalidateProperty"});
+						},
+						a: null,
+						b: null,
+						refreshProperties: function (props) {
+							t.is({"b": true}, props);
+						},
+						refreshRendering: function (props) {
+							t.is({"b": true}, props);
+						}
+					});
+					var d = new doh.Deferred();
+					var o = new C();
+					var afterPropsR, beforePropsR, afterPropsP, beforePropsP;
+					o.on("refresh-properties-complete", function (e) {
+						afterPropsP = o._invalidatedProperties;
+						beforePropsP = e.invalidatedProperties;
+					});
+					o.on("refresh-rendering-complete", function (e) {
+						afterPropsR = o._invalidatedProperties;
+						beforePropsR = e.invalidatedProperties;
+					});
 					t.is({ "a": "invalidateProperty", "b": "invalidateProperty" }, o._invalidatingProperties);
 					o.b = "foo";
 					// we need to check before the timeout that refresh-complete was called

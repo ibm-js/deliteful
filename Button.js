@@ -10,7 +10,7 @@ define([
 	"./themes/load!common,Button"		// common for duiInline etc., Button for duiButton etc.
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
-	var Button = dcl(Invalidating, {
+	var Button = dcl([Widget, Invalidating], {
 		// summary:
 		//		Non-templated BUTTON widget.
 		//
