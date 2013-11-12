@@ -1,10 +1,10 @@
-define(["dcl/dcl", "dojo/_base/lang", "../Widget"], function (dcl, lang, Widget) {
+define(["dcl/dcl", "dojo/_base/lang", "../Stateful"], function (dcl, lang, Stateful) {
 
-	return dcl(null, {
+	return dcl(Stateful, {
 		// summary:
 		//		Mixin for classes (usually widgets) that watch invalidated properties and delay the rendering
 		//		after these properties modifications to the next execution frame. The receiving class must extend
-		//		dui/Widget or dui/Stateful and dojo/Evented.
+		//		dui/Widget or dojo/Evented.
 
 		_renderHandle: null,
 
