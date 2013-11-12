@@ -11,19 +11,19 @@ provided by GitHub.
 
 ## Is It Really a Support Issue
 
-If you aren't sure if your contribution is needed or necessary, please visit the [support forum][] before attempting to
+If you aren't sure if your contribution is needed or necessary, please visit the [support forum][ml-users] before attempting to
 submit a pull request or a ticket.
 
-## Search Dojo Toolkit's Bug Database
+## Search Project Bug Base
 
-We require every commit to be tracked via our [bug database][].  It is useful, before you get too far, that you have
-checked that your issue isn't already known, otherwise addressed?  If you think it is a valid defect or enhancement,
-please open a new ticket before submitting your pull request.
+We require every commit, bug or enhancement to be tracked via our [bug database][].  It is useful, before you get too
+far, that you have checked that your issue isn't already known, otherwise addressed?  If you think it is a valid defect or
+enhancement, please open a new ticket before submitting your pull request.
 
 ## Discuss Non-Trivial Contributions with the Committers
 
 If your desired contribution is more than a non-trivial fix, you should discuss it on the
-[contributor's mailing list][dojo-contrib].  If you currently are not a member, you can request to be added.
+[contributor's mailing list][ml-dev].  If you currently are not a member, you can request to be added.
 
 ## Contributor License Agreement
 
@@ -38,6 +38,28 @@ you are covered by a CLA in the notes of the pull request.  The committer will [
 If your GitHub user id you are submitting your pull request from differs from the Dojo Community ID or e-mail address
 which you have signed your CLA under, you should specifically note what you have your CLA filed under (and for CCLA
 that you are listed under your companies authorised contributors).
+
+## Coding Style and Linting
+
+The project has a very specific coding style that are checked using this [jshintrc].  All pull requests should adhere to this.
+
+## Inline Documentation
+
+For now our inline API documentation is using [DojoDoc][].  Any pull request should ensure it has updated the inline
+documentation appropriately or added the appropriate inline documentation.
+
+## Test Cases
+
+If the pull request changes the functional behaviour or is fixing a defect, the unit test cases should be modified to
+reflect this.  The committer reviewing your pull request is likely to request the appropriate changes in the test
+cases. The test case must be written using [Intern].
+
+It is expected that you will have tested your changes against the existing test cases and appropriate platforms prior to
+submitting your pull request.
+
+## Licensing
+
+All of your submissions are licensed under "New" BSD license.
 
 # Submitting a Pull Request
 
@@ -70,21 +92,17 @@ layer of structure of how repositories can relate to each other.
 Once you have successfully forked your repository, you will need to clone it locally to your machine:
 
 ```bash
-$ git clone --recursive git@github.com:username/dijit.git
+$ git clone git@github.com:username/dui.git
 ```
 
-This will clone your fork to your current path in a directory named `dijit`.
-
-It is important that you clone recursively for ``dojox``, ``demos`` or ``util``because some of the code is contained in
-submodules.  You won't be able to submit your changes to the repositories that way though.  If you are working on any of
-these sub-projects, you should contact those project leads to see if their workflow differs.
+This will clone your fork to your current path in a directory named `dui`.
 
 You should also setup the `upstream` repository.  This will allow you to take changes from the "master" repository
 and merge them into your local clone and then push them to your GitHub fork:
 
 ```bash
-$ cd dojo
-$ git remote add upstream git@github.com:dojo/dijit.git
+$ cd dui
+$ git remote add upstream git@github.com:ibm-dojo/dui.git
 $ git fetch upstream
 ```
 
@@ -105,15 +123,15 @@ a new branch from there.  While the name of the branch can be anything, it can o
 you might be working on.  For example:
 
 ```bash
-$ git checkout -b t12345 master
-Switched to a new branch 't12345'
+$ git checkout -b t12 master
+Switched to a new branch 't12'
 ```
 
 You will then be on the feature branch.  You can verify what branch you are on like this:
 
 ```bash
 $ git status
-# On branch t12345
+# On branch t12
 nothing to commit, working directory clean
 ```
 
@@ -130,8 +148,8 @@ $ git status
 #
 #        modified:   somefile.js
 #
-$ git commit -m "Corrects some defect, fixes #12345, refs #12346"
-[t12345 0000000] Corrects some defect, fixes #12345, refs #12346
+$ git commit -m "Corrects some defect, fixes #12"
+[t12 0000000] Corrects some defect, fixes #12
  1 file changed, 2 insertions(+), 2 deletions(-)
 ```
 
@@ -148,7 +166,7 @@ When you are ready to push your commit to your GitHub repository for the first t
 following:
 
 ```bash
-$ git push -u origin t12345
+$ git push -u origin t12
 ```
 
 After the first time, you simply need to do:
@@ -176,52 +194,17 @@ You will get notified about the status of your pull request based on your GitHub
 Your request will be reviewed.  It may be merged directly, or you may receive feedback or questions on your pull
 request.
 
-# What Makes a Successful Pull Request?
-
-Having your contribution accepted is more than just the mechanics of getting your contribution into a pull request,
-there are several other things that are expected when contributing to the Dojo Toolkit which are covered below.
-
-## Coding Style and Linting
-
-Dojo has a very specific [coding style][styleguide].  All pull requests should adhere to this.
-
-## Inline Documentation
-
-Dojo has an inline API documentation called [DojoDoc][].  Any pull request should ensure it has updated the inline
-documentation appropriately or added the appropriate inline documentation.
-
-## Test Cases
-
-If the pull request changes the functional behaviour or is fixing a defect, the unit test cases should be modified to
-reflect this.  The committer reviewing your pull request is likely to request the appropriate changes in the test
-cases.  Dojo utilises its own test harness called [D.O.H.][] and is available as part of the [dojo/util][] repository.
-
-It is expected that you will have tested your changes against the existing test cases and appropriate platforms prior to
-submitting your pull request.
-
-## Licensing
-
-All of your submissions are licensed under a dual "New" BSD/AFL license.
-
-## Expect Discussion and Rework
-
-Unless you have been working with contributing to Dojo for a while, expect a a significant amount of feedback on your
-pull requests.  We are a very passionate community and even the committers often will provide robust feedback to each
-other about their code.  Don't be offended by such feedback or feel that your contributions aren't welcome, it is just
-that we are quite passionate and Dojo has a long history with many things that are the "Dojo-way" which may be
-unfamiliar to those who are just starting to contribute.
 
 [help documentation]: http://help.github.com/send-pull-requests
-[bug database]: http://bugs.dojotoolkit.org/
-[support forum]: http://dojotoolkit.org/community/
-[dojo-contrib]: http://mail.dojotoolkit.org/mailman/listinfo/dojo-contributors
+[bug database]: ../../issues
+[ml-users]: http://dojotoolkit.org/community/
+[ml-dev]: http://mail.dojotoolkit.org/mailman/listinfo/dojo-contributors
 [cla]: http://dojofoundation.org/about/cla
 [claCheck]: http://dojofoundation.org/about/claCheck
 [Creating a Pull Request]: https://help.github.com/articles/creating-a-pull-request
 [Fork a Repo]: https://help.github.com/articles/fork-a-repo
-[styleguide]: http://dojotoolkit.org/reference-guide/developer/styleguide.html
+[jshintrc]: ./.jshintrc
 [DojoDoc]: http://dojotoolkit.org/reference-guide/developer/markup.html
-[D.O.H.]: http://dojotoolkit.org/reference-guide/util/doh.html
-[dojo/util]: https://github.com/dojo/util
+[Intern]: http://theintern.io/
 [interactive rebase]: http://git-scm.com/book/en/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages
 [rebasing]: http://git-scm.com/book/en/Git-Branching-Rebasing
