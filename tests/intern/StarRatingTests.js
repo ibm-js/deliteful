@@ -234,6 +234,63 @@ define(["intern!object",
 			.then(function () {
 				return checkRating(remote, "defaultstar", 5, 0, false);
 			});
+		},
+		"tab order": function () {
+			console.log("# running test 'tab order'");
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./StarRatingTests.html"))
+			.waitForCondition("ready", 5000)
+			// Check active element
+			.execute("return document.activeElement.tagName")
+			.then(function (value) {
+				assert.equal("BODY", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("firsttabindexstar", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("star", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("starminus", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("starplus", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("editablestar1", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("editablestar2", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("editablestar5", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("editablestar6", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
+				assert.equal("defaultstar", value);
+			});
 		}
 	});
 });

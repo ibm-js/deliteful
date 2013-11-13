@@ -104,6 +104,7 @@ define([
 		},
 
 		buildRendering: function () {
+			var tabIndex = this.getAttribute("tabIndex");
 			this.style.display = "inline-block";
 
 			// init WAI-ARIA attributes
@@ -111,7 +112,7 @@ define([
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
 			// keyboard navigation
-			if (this.tabIndex === -1 || this.tabIndex === undefined) {
+			if (tabIndex === -1 || tabIndex === null) {
 				this.setAttribute("tabindex", 0);
 			}
 			this.refreshRendering(this);
