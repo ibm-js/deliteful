@@ -110,32 +110,29 @@ define([
 			this.setAttribute("role", "slider");
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
-			this.setAttribute("aria-valuemax", this.maximum);
-			this.setAttribute("aria-valuenow", this.value);
-			this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
-			this.setAttribute("aria-disabled", !this.editable);
 			// keyboard navigation
-			if (this.tabIndex === -1) {
+			if (this.tabIndex === -1 || this.tabIndex === undefined) {
 				this.setAttribute("tabindex", 0);
 			}
+			this.refreshRendering(this);
 		},
 
 		refreshRendering: function (props) {
-			if (props.maximum) {
+			if (props.maximum !== undefined) {
 				this.setAttribute("aria-valuemax", this.maximum);
 			}
-			if (props.value) {
+			if (props.value !== undefined) {
 				this.setAttribute("aria-valuenow", this.value);
 				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
 			}
-			if (props.maximum || props.value) {
+			if (props.maximum !== undefined || props.value !== undefined) {
 				var createChildren = this.children.length !== this.maximum;
 				if (createChildren) {
 					domConstruct.empty(this);
 				}
 				this._updateStars(this.value, createChildren);
 			}
-			if (props.editable) {
+			if (props.editable !== undefined) {
 				this.setAttribute("aria-disabled", !this.editable);
 				if (this.editable && !this._keyDownHandler) {
 					this._keyDownHandler = this.on("keydown", lang.hitch(this, "_onKeyDown"));
@@ -153,7 +150,7 @@ define([
 					this._startHandlers = null;
 				}
 			}
-			if (props.editable || props.zeroAreaWidth) {
+			if (props.editable !== undefined || props.zeroAreaWidth !== undefined) {
 				this._updateZeroArea();
 			}
 		},

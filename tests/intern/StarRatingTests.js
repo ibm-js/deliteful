@@ -20,9 +20,9 @@ define(["intern!object",
 			.click();
 	};
 
-	var checkRating = function (remote, widgetId, expectedValue) {
-		var numberOfStars = 7, i, expectedClasses = [];
-		for (i = 0; i < numberOfStars; i++) {
+	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedEditable) {
+		var i, expectedClasses = [];
+		for (i = 0; i < expectedMax; i++) {
 			if (i > expectedValue - 1) {
 				if (i === (expectedValue - 0.5)) {
 					expectedClasses[i] = "duiStarRatingStarIcon duiStarRatingHalfStar";
@@ -35,17 +35,45 @@ define(["intern!object",
 		}
 		return remote
 			.elementById(widgetId)
+				.getAttribute("role")
+				.then(function (value) {
+					assert.equal("slider", value);
+				})
+				.getAttribute("aria-label")
+				.then(function (value) {
+					assert.equal("rating", value);
+				})
+				.getAttribute("aria-valuemin")
+				.then(function (value) {
+					assert.equal("0", value);
+				})
+				.getAttribute("aria-valuemax")
+				.then(function (value) {
+					assert.equal(expectedMax, value);
+				})
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
 					assert.equal(expectedValue, value);
 				})
+				.getAttribute("aria-valuetext")
+				.then(function (value) {
+					assert.equal(expectedValue + " stars", value);
+				})
+				.getAttribute("aria-disabled")
+				.then(function (value) {
+					assert.equal(expectedEditable ? "false" : "true", value);
+				})
+				.getAttribute("tabIndex")
+				.then(function (value) {
+					assert.equal("0", value);
+				})
 				.elementsByTagName("div")
 					.then(function (children) {
-						assert.equal(numberOfStars, children.length, "The expected number of stars is wrong");
+						assert.equal(expectedMax, children.length, "The expected number of stars is wrong");
 					})
 					.end()
 				.then(function () {
-					for (i = 0; i < numberOfStars; i++) {
+					for (i = 0; i < expectedMax; i++) {
 						(function (i) {
 							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 1) + "]")
 								.getAttribute("className")
@@ -67,21 +95,21 @@ define(["intern!object",
 		.waitForCondition("ready", 5000)
 		// Check initial rating
 		.then(function () {
-			return checkRating(remote, widgetId, expectedInitialValue);
+			return checkRating(remote, widgetId, 7, expectedInitialValue, true);
 		})
 		// check rating change after firing down and up events on a star
 		.then(function () {
 			return clickOnStar(remote, widgetId, 3, -1);
 		})
 		.then(function () {
-			return checkRating(remote, widgetId, expectedAfterClickOnThirdStar);
+			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, true);
 		})
 		// set zero rating
 		.then(function () {
 			return clickOnZeroSettingArea(remote, widgetId);
 		})
 		.then(function () {
-			return checkRating(remote, widgetId, expectedAfterZeroSetting);
+			return checkRating(remote, widgetId, 7, expectedAfterZeroSetting, true);
 		});
 		///////////////////////////////////////////
 		// TODO: CHECK USING MOVE TO SET VALUES
@@ -99,7 +127,7 @@ define(["intern!object",
 			.waitForCondition("ready", 5000)
 			.then(function () {
 				// Check initial rating
-				return checkRating(remote, widgetId, 0);
+				return checkRating(remote, widgetId, 7, 0, false);
 			})
 			// click the + button and verify the value is updated
 			.then(function () {
@@ -109,7 +137,7 @@ define(["intern!object",
 							.clickElement()
 							.end()
 						.then(function () {
-							checkRating(remote, widgetId, (i + 1) * 0.5);
+							checkRating(remote, widgetId, 7, (i + 1) * 0.5, false);
 						});
 					})(i);
 				}
@@ -122,7 +150,7 @@ define(["intern!object",
 							.clickElement()
 							.end()
 						.then(function () {
-							checkRating(remote, widgetId, (13 - i) * 0.5);
+							checkRating(remote, widgetId, 7, (13 - i) * 0.5, false);
 						});
 					})(i);
 				}
@@ -132,7 +160,7 @@ define(["intern!object",
 				return clickOnStar(remote, widgetId, 2, -1);
 			})
 			.then(function () {
-				return checkRating(remote, widgetId, 0);
+				return checkRating(remote, widgetId, 7, 0, false);
 			});
 		},
 		"editable ltr": function () {
@@ -155,7 +183,7 @@ define(["intern!object",
 				.waitForCondition("ready", 5000)
 				// Check initial rating
 				.then(function () {
-					return checkRating(remote, id, 3.5);
+					return checkRating(remote, id, 7, 3.5, true);
 				})
 				// Check message
 				.elementById(id + "value")
@@ -169,7 +197,7 @@ define(["intern!object",
 					return clickOnStar(remote, id, 3, -1);
 				})
 				.then(function () {
-					return checkRating(remote, id, 2.5);
+					return checkRating(remote, id, 7, 2.5, true);
 				})
 				// Check message
 				.elementById(id + "value")
@@ -183,7 +211,7 @@ define(["intern!object",
 					return clickOnZeroSettingArea(remote, id);
 				})
 				.then(function () {
-					return checkRating(remote, id, 0);
+					return checkRating(remote, id, 7, 0, true);
 				})
 			// Check message
 			.elementById(id + "value")
@@ -195,6 +223,17 @@ define(["intern!object",
 			///////////////////////////////////////////
 			// TODO: CHECK USING MOVE TO SET VALUES
 			///////////////////////////////////////////
+		},
+		"default": function () {
+			console.log("# running test 'default'");
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./StarRatingTests.html"))
+			.waitForCondition("ready", 5000)
+			// Check initial rating
+			.then(function () {
+				return checkRating(remote, "defaultstar", 5, 0, false);
+			});
 		}
 	});
 });
