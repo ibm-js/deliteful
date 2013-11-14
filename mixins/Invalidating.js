@@ -88,7 +88,8 @@ define(["dcl/dcl", "dojo/_base/lang", "../Stateful"], function (dcl, lang, State
 				this.invalidProperties = true;
 				// if we have a pending render, let's cancel it to execute it post properties refresh
 				if (this._renderHandle) {
-					this._renderHandle.remove();
+					// TODO: if we switch to defer() use remove() here
+					clearTimeout(this._renderHandle);
 					this.invalidRendering = false;
 					this._renderHandle = null;
 				}
