@@ -112,7 +112,7 @@ define([
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
 			// keyboard navigation
-			if (tabIndex === -1 || tabIndex === null) {
+			if (tabIndex === null) {
 				this.setAttribute("tabindex", 0);
 			}
 			this.refreshRendering(this);
