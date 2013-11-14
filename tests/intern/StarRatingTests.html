@@ -47,6 +47,18 @@
 		});
 		rating.startup();
 
+		rating = new StarRating({
+			id: "secondtabindexstar",
+			tabIndex: 2
+		}).placeAt("secondtabindexstar", 'replace');
+		rating.startup();
+
+		rating = new StarRating({
+			id: "secondnotabindexstar",
+			tabIndex: -1
+		}).placeAt("secondnotabindexstar", 'replace');
+		rating.startup();
+
 		// Set global variable to signal that the test page is ready
 		ready = true;
 	})
@@ -72,6 +84,12 @@
 			Default: <d-star-rating id="defaultstar"></d-star-rating>
 			<p>
 			Custom tab index: <d-star-rating id="firsttabindexstar" tabindex="1"></d-star-rating>
+			<p>
+			Programmatic custom tab index: <span id="secondtabindexstar"></span>
+			<p>
+			No tab index: <d-star-rating id="firstnotabindexstar" tabindex="-1"></d-star-rating>
+			<p>
+			Programmatic no tab index: <span id="secondnotabindexstar"></span>
 		</div>
 	</div>	
 </body>
