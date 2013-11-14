@@ -254,6 +254,11 @@ define(["intern!object",
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
+				assert.equal("secondtabindexstar", value);
+			})
+			.keys("\uE004") // Press TAB
+			.execute("return document.activeElement.id")
+			.then(function (value) {
 				assert.equal("star", value);
 			})
 			.keys("\uE004") // Press TAB
