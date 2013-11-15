@@ -284,7 +284,8 @@ div.duiArrowButton {
 }
 .dj_gecko .claro .duiTextBox .duiInputInner,
 .dj_webkit .claro .duiTextBox .duiInputInner {
-  padding: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 .claro .duiSelect,
 .claro .duiSelect .duiButtonContents,
