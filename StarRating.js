@@ -84,11 +84,6 @@ define([
 			return val === -1 ? (this.editable ? 20 : 0) : val;
 		},
 
-		tabIndex: 0,
-
-		_setTabIndexAttr: function (value) {
-			this._set("tabIndex", value);
-		},
 		/* internal properties */
 
 		_enterValue: null,
@@ -104,7 +99,6 @@ define([
 			this.addInvalidatingProperties("maximum",
 					"value",
 					"editable",
-					"tabIndex",
 					"editHalfValues",
 					"zeroAreaWidth");
 		},
@@ -116,16 +110,15 @@ define([
 			this.setAttribute("role", "slider");
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
-			// init tabIndex
-			this.setAttribute("tabindex", this.tabIndex);				
+            // init tabIndex if not explicitly set
+            if (!this.hasAttribute("tabindex")) {
+                this.setAttribute("tabindex", "0");
+            }
 
 			this.refreshRendering(this);
 		},
 
 		refreshRendering: function (props) {
-			if (props.tabIndex !== undefined) {
-				this.setAttribute("tabindex", this.tabIndex);				
-			}
 			if (props.maximum !== undefined) {
 				this.setAttribute("aria-valuemax", this.maximum);
 			}
