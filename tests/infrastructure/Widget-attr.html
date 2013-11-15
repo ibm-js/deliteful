@@ -152,12 +152,12 @@
 
 					// And also test for declarative widgets, to make sure the tabIndex property is
 					// removed from the root node, to prevent an extra tab stop
-					document.body.innerHTML += "<simple-widget id=simple tabIndex=8/>";
+					document.body.innerHTML += "<simple-widget id=simple tabIndex=8>";
 					var simpleDeclarative = document.getElementById("simple");
 					register.upgrade(simpleDeclarative);
 
 					// make sure that tabIndex wasn't unset
-					doh.is("5", simple.getAttribute("tabindex"), "declarative set");
+					doh.is("8", simpleDeclarative.getAttribute("tabindex"), "declarative set");
 				}
 
 			]);	// doh.register()
