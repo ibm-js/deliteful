@@ -46,7 +46,7 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: [ "dui/tests/infrastructure/register" ],
+	suites: [ "dui/tests/infrastructure/register", "dui/tests/infrastructure/Destroyable", "dui/tests/infrastructure/Widget-attr" ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
 	functionalSuites: [ ],
