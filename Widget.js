@@ -221,7 +221,7 @@ define([
 			do {
 				Object.keys(proto).forEach(function (prop) {
 					if (!/^_/.test(prop)) {
-						if (typeof proto[prop] !== "function" ) {
+						if (typeof proto[prop] !== "function") {
 							list.push(prop);
 						}
 						pcm[prop.toLowerCase()] = prop;
@@ -235,7 +235,7 @@ define([
 			return list;
 		},
 
-		_introspect: function (/*String[]*/ props) {
+		_introspect: function () {
 			// Various introspection to be done on my prototype.
 			// "this" refers to my prototype.
 
@@ -273,7 +273,9 @@ define([
 
 			// this is needed for Chrome to delete the tabIndex=-1 default attribute from DIV elements,
 			// so that the custom setter in the prototype runs.
-			delete this.tabIndex;
+			if ("tabIndex" in Object.getPrototypeOf(this)) {
+				delete this.tabIndex;
+			}
 
 			this.preCreate();
 

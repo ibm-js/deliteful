@@ -141,6 +141,23 @@
 					doh.t(declarative.isrange, "isrange set");
 					doh.t(declarative.isbool, "isbool set");
 					doh.is("5", declarative.value, "value");
+
+					// Finally, test when the widget prototype doesn't declare tabIndex at all.
+					// Then the widget should just act like a simple <div>, passing tabIndex through to root node.
+					var SimpleWidget = register("simple-widget", [HTMLElement, Widget], { });
+					var simple = new SimpleWidget({ tabIndex: 5 });
+
+					// make sure that tabIndex was correctly set
+					doh.is("5", simple.getAttribute("tabindex"), "programmatic set");
+
+					// And also test for declarative widgets, to make sure the tabIndex property is
+					// removed from the root node, to prevent an extra tab stop
+					document.body.innerHTML += "<simple-widget id=simple tabIndex=8/>";
+					var simpleDeclarative = document.getElementById("simple");
+					register.upgrade(simpleDeclarative);
+
+					// make sure that tabIndex wasn't unset
+					doh.is("5", simple.getAttribute("tabindex"), "declarative set");
 				}
 
 			]);	// doh.register()
