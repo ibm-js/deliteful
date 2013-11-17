@@ -38,16 +38,14 @@ This project requires the following other projects to run:
 
 ## Installation
 
-* Manual installation by dropping dui as a sibling of the top level packages:
- * dojo
- * dui
- * dcl
- * requirejs
+To install the latest master, go to the root Dojo installation directory and clone dui from github:
 
-To install the latest master, go to the root Dojo installation directory and clone dui from github
+	$ git clone git://github.com/ibm-dojo/dui.git
 
- git clone git://github.com/ibm-dojo/dui.git
+Then install dependencies:
+
+	$ bower install
 
 ## Documentation
 
-TODO
+See the [docs directory](./docs).
