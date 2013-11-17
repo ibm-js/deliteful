@@ -2,13 +2,14 @@ define([
 	"dcl/dcl",
 	"dojo/window", // winUtils.scrollIntoView
 	"dojo/dom-style", // domStyle
-	"./Widget"
-], function (dcl, winUtils, domStyle, Widget) {
+	"./Widget",
+	"./mixins/Invalidating"
+], function (dcl, winUtils, domStyle, Widget, Invalidating) {
 
 	// module:
 	//		dui/FormWidget
 
-	return dcl(Widget, {
+	return dcl([Widget, Invalidating], {
 		// summary:
 		//		Mixin for widgets that extend HTMLElement, but conceptually correspond
 		//		to native HTML elements such as `<checkbox>` or `<button>`,
@@ -40,29 +41,6 @@ define([
 		// tabIndex: Number
 		//        The order in which fields are traversed when user hits the tab key
 		tabIndex: 0,
-		_setTabIndexAttr: function (/*Number*/ value) {
-			this._set("tabIndex", value);
-			if (!this._postMixInProperties) { return; }
-			var isRoot = false;
-			this.tabStops.split(/[ ,]/).forEach(
-				function (nodeName) {
-					var node = this[nodeName];
-					if (this[nodeName] !== this) {
-						if (this.disabled) {
-							node.removeAttribute("tabindex");
-						} else {
-							node.tabIndex = value;
-						}
-					} else {
-						isRoot = true;
-					}
-				},
-				this
-			);
-			if (!isRoot) {
-				this.removeAttribute("tabindex");
-			}
-		},
 
 		// tabStops: [const] String
 		//        Concatenated list of node names that can receive focus during tab operations
@@ -72,28 +50,63 @@ define([
 		//		Should this widget respond to user input?
 		//		In markup, this is specified as "disabled='disabled'", or just "disabled".
 		disabled: false,
-		_setDisabledAttr: function (/*Boolean*/ isDisabled) {
-			this._set("disabled", isDisabled);
-			if (!this._postMixInProperties) { return; }
-			if (this.valueNode && this.valueNode !== this) {
-				this.valueNode.disabled = isDisabled; // prevent submit
-			}
-			this.tabStops.split(/[ ,]/).forEach(
-				function (nodeName) {
-					var node = this[nodeName];
-					if (node !== this) {
-						node.disabled = isDisabled;
-					}
-					// let JAWS know
-					node.setAttribute("aria-disabled", "" + isDisabled);
-				},
-				this
+
+		preCreate: function () {
+			this.addInvalidatingProperties(
+				"disabled",
+				"tabStops",
+				"tabIndex"
 			);
-			this.setAttribute("aria-disabled", "" + isDisabled);
-			if (!isDisabled) {
-				this.removeAttribute("disabled");
+		},
+
+		refreshRendering: function (props) {
+			// summary:
+			//		Handle disabled and tabIndex, across the tabStops and root node.
+			//		No special processing is needed for tabStops other than just to refresh disable and tabIndex.
+			var self = this;
+			var tabStops = this.tabStops.split(/[ ,]/);
+			if (props.tabStops || props.disabled) {
+				var isDisabled = this.disabled;
+				if (this.valueNode && this.valueNode !== this) {
+					this.valueNode.disabled = isDisabled; // prevent submit
+				}
+				tabStops.forEach(
+					function (nodeName) {
+						var node = self[nodeName];
+						if (node !== self) {
+							node.disabled = isDisabled;
+						}
+						// let JAWS know
+						node.setAttribute("aria-disabled", "" + isDisabled);
+					},
+					this
+				);
+				if (!isDisabled) {
+					this.removeAttribute("disabled");
+				}
 			}
-			this.tabIndex = this.tabIndex; // run tabIndex setter
+			if (props.tabStops || props.tabIndex || props.disabled) {
+				var isRoot = false;
+				tabStops.forEach(
+					function (nodeName) {
+						var node = self[nodeName];
+						if (node !== self) {
+							if (self.disabled) {
+								node.removeAttribute("tabindex");
+							} else {
+								node.tabIndex = self.tabIndex;
+							}
+						} else {
+							isRoot = true;
+						}
+					},
+					this
+				);
+				if (!isRoot) {
+					this.removeAttribute("tabindex");
+				}
+			}
+			return props; // for after advice
 		},
 
 		_onFocus: dcl.before(function () {

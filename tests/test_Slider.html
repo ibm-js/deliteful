@@ -87,37 +87,47 @@
 
 			function getZoom (widget) {
 				var bodyZoom = domStyle.get(win.body(), "zoom") || 1;
-				var nodeZoom = (has("ie") ? parseFloat(domStyle.get(widget).getPropertyValue("zoom"))/100 : domStyle.get(widget, "zoom")) || 1;
-				return nodeZoom * bodyZoom;
+				var nodeZoom = domStyle.get(widget, "zoom") || 1;
+				return has("ie") ? 1 : (nodeZoom * bodyZoom);
 			}
-			function fireTouchEvent (type, widget, x, y, delay) {
+			function fireTouchEvent (type, widget, x, y) {
+				if (type === touchend) {
+					if (!hasTouch && !msPointer) { type = "mouseup"; }
+					on.emit(touchTarget, type, touchEvent);
+					return;
+				}
 				function doit() {
-					if (type == touchend) {
-						if (!hasTouch && !msPointer) { type = "mouseup"; }
-						on.emit(touchTarget, type, touchEvent);
-						return;
-					}
 					var node = widget.containerNode;
-					var handle = widget.handle;
-					var zoom = getZoom(widget);
-					if (has("ie")) {
+					var handle = widget.focusNode;
+					var pos = domGeometry.position(node, false);
+					var handlePos = domGeometry.position(handle, false);
+					/*var zoom = Math.max(pos.w, pos.h) / Math.max(node.offsetWidth, node.offsetHeight);
+					if (zoom !== 1) {
 						x *= zoom;
 						y *= zoom;
-						zoom = 1;
-					}
+					}*/
+					var zoom = getZoom(widget);
+					x *= zoom;
+					y *= zoom;
+					handlePos.x *= zoom;
+					handlePos.y *= zoom;
+					handlePos.w *= zoom;
+					handlePos.h *= zoom;
+					pos.x *= zoom;
+					pos.y *= zoom;
+					pos.w *= zoom;
+					pos.h *= zoom;
 					var scroll = domGeometry.docScroll();
 					// fix scroll.y in IE10 for incorrect pageYOffset
 					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-incorrect-value-when-page-zoomed-breaks-jquery-etc
 					scroll.y = Math.min(scroll.y, node.ownerDocument.documentElement.scrollTop || scroll.y);
-					var pos = domGeometry.position(node, false);
-					var handlePos = domGeometry.position(handle, false);
-					handlePos.l = handlePos.x * zoom + scroll.x;
-					handlePos.t = handlePos.y * zoom + scroll.y;
-					handlePos.r = handlePos.l + (handlePos.w - 1) * zoom;
-					handlePos.b = handlePos.t + (handlePos.h - 1) * zoom;
-					var touchX = (x + pos.x) * zoom + scroll.x;
-					var touchY = (y + pos.y) * zoom + scroll.y;
-					if (type == touchstart) {
+					handlePos.l = handlePos.x;
+					handlePos.t = handlePos.y;
+					handlePos.r = handlePos.l + handlePos.w - 1;
+					handlePos.b = handlePos.t + handlePos.h - 1;
+					var touchX = x + pos.x;
+					var touchY = y + pos.y;
+					if (type === touchstart) {
 						touchTarget = widget;
 						// see if handle is under the touch pos
 						if (touchX >= handlePos.l && touchX <= handlePos.r && touchY >= handlePos.t && touchY <= handlePos.b) {
@@ -135,34 +145,33 @@
 					if (document.createEvent) {
 						touchEvent.initEvent(type, true, true);
 					}
+					touchX += scroll.x;
+					touchY += scroll.y;
 					touchEvent.touches = [ { pageX: touchX, pageY: touchY } ];
 					touchEvent.pageX = touchX;
 					touchEvent.pageY = touchY;
 					touchEvent.changedTouches = touchEvent.touches;
 					on.emit(touchTarget, type, touchEvent);
 				}
-				if (delay) {
-					setTimeout(doit, delay);
-				} else {
-					doit();
-				}
+				doit();
 			}
-			var Ltr1_width = Ltr1.containerNode.offsetWidth;
-			var Ltr1_height = Ltr1.containerNode.offsetHeight;
-			var Ltr1_handle_width = Ltr1.handle.offsetWidth;
-			var Btt1_width = Btt1.containerNode.offsetWidth;
-			var Btt1_height = Btt1.containerNode.offsetHeight;
-			var Btt1_handle_height = Btt1.handle.offsetHeight;
+			Ltr1.validateRendering();
+			Btt1.validateRendering();
+			var Ltr1_width = domGeometry.position(Ltr1.containerNode, false).w;
+			var Ltr1_height = domGeometry.position(Ltr1.containerNode, false).h;
+			var Ltr1_handle_width = domGeometry.position(Ltr1.focusNode, false).w;
+			var Btt1_width = domGeometry.position(Btt1.containerNode, false).w;
+			var Btt1_height = domGeometry.position(Btt1.containerNode, false).h;
+			var Btt1_handle_height = domGeometry.position(Btt1.focusNode, false).h;
 			var d, handle, testOnChange = null;
-			var speed = 0; // should be 0 unless it's a demo
-			domStyle.set(Ltr1.progressBar, transitionDuration, (speed >> 1) + "ms");
-			domStyle.set(Btt1.progressBar, transitionDuration, (speed >> 1) + "ms");
+			domStyle.set(Ltr1.progressBar, transitionDuration, "0ms");
+			domStyle.set(Btt1.progressBar, transitionDuration, "0ms");
 
 			function onChange (widget) {
 				var originalOnChange = widget.onchange;
 				return function (e) {
 					if (typeof e !== "object" || e.type !== "change") { return; }
-					typeof originalOnChange == "function" && lang.hitch(widget, originalOnChange)(e);
+					typeof originalOnChange === "function" && lang.hitch(widget, originalOnChange)(e);
 					if (testOnChange){
 						d.getTestCallback(function (v) {
 							var fcn = testOnChange;
@@ -228,24 +237,24 @@
 						doh.is(true, !!Ltr2.valueNode.disabled, "Ltr2 valueNode disabled");
 						doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #1");
 						doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex #1");
-						doh.is(null, Ltr2.handle.getAttribute("tabIndex"), "Ltr2 handle tabIndex #1");
+						doh.is(null, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex #1");
 						doh.is(false, !!customH.valueNode.disabled, "customH valueNode enabled");
-						doh.is(0, customH.tabIndex, "customH widget tabIndex #1");
+						doh.is(5, customH.tabIndex, "customH widget tabIndex #1");
 						doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #1");
-						doh.is(0, customH.handle.getAttribute("tabIndex"), "customH handle tabIndex #1");
+						doh.is(5, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex #1");
 						dom.byId("enableLtr2").click(); // Ltr2.disabled = false;
 						customH.disabled = true;
-						doh.is(false, !!Ltr2.valueNode.disabled, "Ltr2 valueNode enabled");
-						doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #2");
-						doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex #2");
-						doh.is(3, Ltr2.handle.getAttribute("tabIndex"), "Ltr2 handle tabIndex #2");
-						doh.is(true, !!customH.valueNode.disabled, "customH valueNode disabled");
-						doh.is(0, customH.tabIndex, "customH widget tabIndex #2");
-						doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #2");
-						doh.is(null, customH.handle.getAttribute("tabIndex"), "customH handle tabIndex #2");
 						var d = new doh.Deferred();
 						submittedValues = function (formValues) {
 							d.getTestCallback(function () {
+								doh.is(false, !!Ltr2.valueNode.disabled, "Ltr2 valueNode enabled");
+								doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #2");
+								doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex #2");
+								doh.is(3, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex #2");
+								doh.is(true, !!customH.valueNode.disabled, "customH valueNode disabled");
+								doh.is(5, customH.tabIndex, "customH widget tabIndex #2");
+								doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #2");
+								doh.is(null, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex #2");
 								doh.is("10,15", formValues["Ltr2"], "submit Ltr2");
 								doh.is(null, formValues["customH"], "submit customH");
 							})();
@@ -263,19 +272,24 @@
 					runTest:function () {
 						doh.is(0, Rtl1.tabIndex, "Rtl1 widget tabIndex #1");
 						doh.is(null, Rtl1.getAttribute("tabIndex"), "Rtl1 domNode tabIndex #1");
-						doh.is(0, Rtl1.handle.getAttribute("tabIndex"), "Rtl1 handle tabIndex #1");
+						doh.is(0, Rtl1.focusNode.getAttribute("tabIndex"), "Rtl1 handle tabIndex #1");
 						Ltr2.tabIndex = 1;
 						customH.tabIndex = 2;
 						Rtl1.tabIndex = 3;
-						doh.is(3, Rtl1.tabIndex, "Rtl1 widget tabIndex #2");
-						doh.is(null, Rtl1.getAttribute("tabIndex"), "Rtl1 domNode tabIndex #2");
-						doh.is(3, Rtl1.handle.getAttribute("tabIndex"), "Rtl1 handle tabIndex #2");
-						doh.is(1, Ltr2.tabIndex, "Ltr2 widget tabIndex");
-						doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex");
-						doh.is(1, Ltr2.handle.getAttribute("tabIndex"), "Ltr2 handle tabIndex");
-						doh.is(2, customH.tabIndex, "customH widget tabIndex");
-						doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex");
-						doh.is(null, customH.handle.getAttribute("tabIndex"), "customH handle tabIndex");
+						var d = new doh.Deferred();
+						setTimeout(d.getTestCallback(
+							function () {
+								doh.is(3, Rtl1.tabIndex, "Rtl1 widget tabIndex #2");
+								doh.is(null, Rtl1.getAttribute("tabIndex"), "Rtl1 domNode tabIndex #2");
+								doh.is(3, Rtl1.focusNode.getAttribute("tabIndex"), "Rtl1 handle tabIndex #2");
+								doh.is(1, Ltr2.tabIndex, "Ltr2 widget tabIndex");
+								doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex");
+								doh.is(1, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex");
+								doh.is(2, customH.tabIndex, "customH widget tabIndex");
+								doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex");
+								doh.is(null, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex");
+							}), 1);
+						return d;
 					}
 				},
 				{
@@ -283,25 +297,12 @@
 					name:"keyboard",
 					runTest:function () {
 						customH.disabled = false;
-						pushKey(Ltr2.handleMin, keys.HOME);
-						pushKey(customH.handle, keys.END);
-						pushKey(Btt2.handleMin, keys.HOME);
-						pushKey(a11yTtb2.handle, keys.END);
-						pushKey(Ltr1.handle, keys.RIGHT_ARROW);
-						pushKey(Rtl1.handle, keys.RIGHT_ARROW);
-						pushKey(Btt1.handle, keys.DOWN_ARROW);
-						pushKey(customV.handle, keys.DOWN_ARROW);
-						pushKey(Ltr2.handle, keys.LEFT_ARROW);
-						pushKey(customH.handleMin, keys.LEFT_ARROW);
-						pushKey(a11yTtb2.handleMin, keys.UP_ARROW);
-						pushKey(Btt2.handle, keys.UP_ARROW);
-						var d = new doh.Deferred();
 						submittedValues = function (formValues) {
 							d.getTestCallback(function () {
 								doh.is("0,14.875", Ltr2.value, "widget Ltr2");
 								doh.is("6,20", customH.value, "widget customH");
 								doh.is("14", Rtl1.value, "widget Rtl1");
-								doh.is("9.875", Btt1.value, "widget Btt1");
+								doh.is("9.5", Btt1.value, "widget Btt1");
 								doh.is("10.125", customV.value, "widget customV");
 								doh.is("16", Ltr1.value, "widget Ltr1");
 								doh.is("-20,10.125", Btt2.value, "widget Btt2");
@@ -309,11 +310,28 @@
 								doh.is("0,14.875", formValues["Ltr2"], "submit Ltr2");
 								doh.is("6,20", formValues["customH"], "submit customH");
 								doh.is("14", formValues["Rtl1"], "submit Rtl1");
-								doh.is("9.875", formValues["Btt1"], "submit Btt1");
+								doh.is("9.5", formValues["Btt1"], "submit Btt1");
 								doh.is("10.125", formValues["customV"], "submit customV");
 							})();
 						};
-						setTimeout(function () { form.submit(); }, 1); // return before submit
+						var d = new doh.Deferred();
+						setTimeout(function () {
+							pushKey(Ltr2.handleMin, keys.HOME);
+							pushKey(customH.focusNode, keys.END);
+							pushKey(Btt2.handleMin, keys.HOME);
+							pushKey(a11yTtb2.focusNode, keys.END);
+							pushKey(Ltr1.focusNode, keys.RIGHT_ARROW);
+							pushKey(Rtl1.focusNode, keys.RIGHT_ARROW);
+							pushKey(Btt1.focusNode, keys.DOWN_ARROW);
+							pushKey(customV.focusNode, keys.DOWN_ARROW);
+							pushKey(Ltr2.focusNode, keys.LEFT_ARROW);
+							pushKey(customH.handleMin, keys.LEFT_ARROW);
+							pushKey(a11yTtb2.handleMin, keys.UP_ARROW);
+							pushKey(Btt2.focusNode, keys.UP_ARROW);
+							setTimeout(function () {
+								form.submit();
+							}, 1);
+						}, 1); // return before submit
 						return d;
 					},
 					tearDown: function () {
@@ -325,18 +343,15 @@
 					name:"set extreme values",
 					runTest:function () {
 						Ltr2.value = "-100,100";
-						customH.value = "100";
 						Rtl1.value = "100";
 						Btt1.value = "-100";
-						doh.is("0,20", Ltr2.value, "widget Ltr2");
-						doh.is("0,20", customH.value, "widget customH");
-						doh.is("20", Rtl1.value, "widget Rtl1");
-						doh.is("-20", Btt1.value, "widget Btt1");
 						var d = new doh.Deferred();
 						submittedValues = function (formValues) {
 							d.getTestCallback(function () {
+								doh.is("0,20", Ltr2.value, "widget Ltr2");
+								doh.is("20", Rtl1.value, "widget Rtl1");
+								doh.is("-20", Btt1.value, "widget Btt1");
 								doh.is("0,20", formValues["Ltr2"], "submit Ltr2");
-								doh.is("0,20", formValues["customH"], "submit customH");
 								doh.is("20", formValues["Rtl1"], "submit Rtl1");
 								doh.is("-20", formValues["Btt1"], "submit Btt1");
 							})();
@@ -353,79 +368,91 @@
 			doh.register("tap", [
 				{
 					name: "horizontal end",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.is(Ltr1.max, v);
 						};
-						fireTouchEvent(touchstart, Ltr1, Ltr1_width, Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, Ltr1_width, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal start",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.is(Ltr1.min, v);
 						};
-						fireTouchEvent(touchstart, Ltr1, 0, Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, 0, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal middle",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.t(Math.abs(v - ((Ltr1.max + Ltr1.min) >> 1)) <= Ltr1.step);
 						};
-						fireTouchEvent(touchstart, Ltr1, Ltr1_width >> 1, Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, Ltr1_width >> 1, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical end",
-					timeout: 2000 + speed,
+					timeout: 2000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.is(Btt1.max, v);
 						};
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, 0, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, 0);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical start",
-					timeout: 2000 + speed,
+					timeout: 2000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.is(Btt1.min, v);
 						};
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical middle",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
 							doh.t(Math.abs(v - ((Btt1.max + Btt1.min) >> 1)) <= Btt1.step, "value = " + v + ", min = " + Btt1.min + ", max = " + Btt1.max + ", step = " + Btt1.step);
 						};
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				}
@@ -434,57 +461,65 @@
 			doh.register("move", [
 				{
 					name: "horizontal right",
-					timeout: 1000 + speed*2,
+					timeout: 1000,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Ltr1.max, v);
 						};
 						d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, Ltr1_width >> 1, Ltr1_height >> 1);
-						fireTouchEvent(touchmove, Ltr1, Ltr1_width, Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, Ltr1_width >> 1, Ltr1_height >> 1);
+							fireTouchEvent(touchmove, Ltr1, Ltr1_width, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal left",
-					timeout: 1000 + speed*2,
+					timeout: 1000,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Ltr1.min, v);
 						};
 						d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, Ltr1_width, Ltr1_height >> 1);
-						fireTouchEvent(touchmove, Ltr1, 0, Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, Ltr1_width, Ltr1_height >> 1);
+							fireTouchEvent(touchmove, Ltr1, 0, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical up",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Btt1.max, v);
 						};
 						d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height >> 1);
-						fireTouchEvent(touchmove, Btt1, Btt1_width >> 1, 0, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_handle_height + 1);
+							fireTouchEvent(touchmove, Btt1, Btt1_width >> 1, 0);
+							fireTouchEvent(touchend);
+						}, 100);
 						return d;
 					}
 				},
 				{
 					name: "vertical down",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						testOnChange = function (v) {
 							doh.is(Btt1.min, v);
 						};
 						d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height >> 1);
-						fireTouchEvent(touchmove, Btt1, Btt1_width >> 1, Btt1_height, speed);
-						fireTouchEvent(touchend);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, Btt1_height - Btt1_handle_height - 1);
+							fireTouchEvent(touchmove, Btt1, Btt1_width >> 1, Btt1_height);
+							fireTouchEvent(touchend);
+						}, 0);
 						return d;
 					}
 				}
@@ -493,121 +528,143 @@
 			doh.register("click handle", [
 				{
 					name: "horizontal right",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						Ltr1.value = mid;
+						Ltr1.validateProperties();
 						doh.is(mid, Ltr1.value, "initial value");
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) + (Ltr1_handle_width >> 2), Ltr1_height >> 1, speed);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.is(mid, Ltr1.value, "right value");
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) + (Ltr1_handle_width >> 2) - 1, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.is(mid, Ltr1.value, "right value");
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal left",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) - (Ltr1_handle_width >> 2), Ltr1_height >> 1);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.is(mid, Ltr1.value, "left value");
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) - (Ltr1_handle_width >> 2) + 1, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.is(mid, Ltr1.value, "left value");
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal change right",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) + (Ltr1_handle_width >> 1) + 2, Ltr1_height >> 1, speed >> 1);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.t(Ltr1.value > mid, "right changed value " + Ltr1.value);
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) + (Ltr1_handle_width >> 1) + 2, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.t(Ltr1.value > mid, "right changed value " + Ltr1.value);
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "horizontal change left",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Ltr1.max + Ltr1.min) >> 1;
+						Ltr1.value = mid;
+						Ltr1.validateProperties();
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) - ((Ltr1_handle_width >> 1) + 2), Ltr1_height >> 1, speed >> 1);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.t(Ltr1.value < mid, "left changed value " + Ltr1.value);
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Ltr1, (Ltr1_width >> 1) - (Ltr1_handle_width >> 1) - 2, Ltr1_height >> 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.t(Ltr1.value < mid, "left changed value " + Ltr1.value);
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical bottom",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
+						Btt1.validateProperties();
 						doh.is(mid, Btt1.value, "initial value");
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) + (Btt1_handle_height >> 2), speed);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.is(mid, Btt1.value, "bottom value");
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) + (Btt1_handle_height >> 2) - 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.is(mid, Btt1.value, "bottom value");
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical top",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) - (Btt1_handle_height >> 2));
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.is(mid, Btt1.value, "top value");
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) - (Btt1_handle_height >> 2) + 1);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.is(mid, Btt1.value, "top value");
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical change bottom",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
+						Btt1.validateProperties();
 						doh.is(mid, Btt1.value, "initial value");
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) + (Btt1_handle_height >> 1) + 2, speed >> 1);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.t(Btt1.value < mid, "bottom changed value " + Btt1.value);
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) + (Btt1_handle_height >> 1) + 2);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.t(Btt1.value < mid, "bottom changed value " + Btt1.value);
+							}), 500);
+						}, 0);
 						return d;
 					}
 				},
 				{
 					name: "vertical change top",
-					timeout: 1000 + speed,
+					timeout: 1000,
 					runTest: function () {
 						var mid = (Btt1.max + Btt1.min) >> 1;
 						Btt1.value = mid;
+						Btt1.validateProperties();
 						doh.is(mid, Btt1.value, "initial value");
 						var d = new doh.Deferred();
-						fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) - ((Btt1_handle_height >> 1) + 2), speed >> 1);
-						fireTouchEvent(touchend);
-						setTimeout(d.getTestCallback(function () {
-							doh.t(Btt1.value > mid, "top changed value " + Btt1.value);
-						}), 500 + speed);
+						setTimeout(function () {
+							fireTouchEvent(touchstart, Btt1, Btt1_width >> 1, (Btt1_height >> 1) - (Btt1_handle_height >> 1) - 2);
+							fireTouchEvent(touchend);
+							setTimeout(d.getTestCallback(function () {
+								doh.t(Btt1.value > mid, "top changed value " + Btt1.value);
+							}), 500);
+						}, 0);
 						return d;
 					}
 				}
@@ -619,28 +676,25 @@
 					timeout: 3000,
 					runTest: function () {
 						var d = new doh.Deferred();
-						domStyle.set(Ltr1.handle, transitionDuration, "0ms");
+						domStyle.set(Ltr1.progressBar, transitionDuration, "0ms");
 						Ltr1.value = Ltr1.min;
-						var startX = Math.round(domGeometry.position(Ltr1.handle).x), midX, endX;
-						domStyle.set(Ltr1.progressBar, transitionDuration, "1000ms");
 						setTimeout(function () {
+							var startX = Math.round(domGeometry.position(Ltr1.focusNode).x);
+							domStyle.set(Ltr1.progressBar, transitionDuration, "1000ms");
 							Ltr1.value = Ltr1.max;
-						}, 500);
-						setTimeout(function () {
-							midX = domGeometry.position(Ltr1.handle).x;
-						}, 900); 
-						setTimeout(d.getTestCallback(function () {
-							endX = Math.round(domGeometry.position(Ltr1.handle).x);
-							doh.t(midX > startX, "started sliding");
-							doh.t(midX < endX, "continued sliding");
-							var zoom = has("ie") ? getZoom(Ltr1) : 1;
-							var distance = Ltr1.progressBar.offsetWidth * zoom;
-							doh.t(Math.abs(Math.abs(endX - startX) - distance) <= 3, "stopped sliding end=" + endX + ",start=" + startX + ",width=" + distance + ", zoom = " + zoom);
-						}), 2100);
+							setTimeout(function () {
+								var midX = domGeometry.position(Ltr1.focusNode).x;
+								setTimeout(d.getTestCallback(function () {
+									var endX = Math.round(domGeometry.position(Ltr1.focusNode).x);
+									doh.t(midX > startX, "started sliding");
+									doh.t(midX < endX, "continued sliding");
+								}), 500);
+							}, 500); 
+						}, 0);
 						return d;
 					},
 					tearDown: function () {
-						domStyle.set(Ltr1.handle, transitionDuration, (speed >> 1) + "ms");
+						domStyle.set(Ltr1.focusNode, transitionDuration, "0ms");
 					}
 				})
 			}
@@ -788,7 +842,7 @@
 			</tr>
 			<tr>
 				<td>20</td>
-				<td class="custom" style="width:110pt;"><d-slider id="customH" value="5,15" orientation="H" isRange flip min="0" max="20" step="1.0" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input name="customH"></d-slider></td>
+				<td class="custom" style="width:110pt;"><d-slider id="customH" value="5,15" orientation="H" tabIndex="5" isRange flip min="0" max="20" step="1.0" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input name="customH"></d-slider></td>
 				<td>0</td>
 			</tr>
 			<tr>
@@ -810,7 +864,7 @@
 		<br>
 		<table style="height:250px;clear:both;float:left;"><tr>
 			<td style="width:50px;" class="customLabels"><div style="height:250px;">
-				<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
+				<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.5" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
 					<input name="Btt1">
 					<d-rule class="duiRuleAfter" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
 					<d-rule style='font-size:10px; margin:0 9px;' >

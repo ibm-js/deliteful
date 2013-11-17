@@ -27,15 +27,24 @@ define([
 		//		In markup, this is specified as "readOnly".
 		//		Similar to disabled except readOnly form values are submitted.
 		readOnly: false,
-		_setReadOnlyAttr: function (/*Boolean*/ isReadOnly) {
-			this._set("readOnly", isReadOnly);
-			if (this.valueNode && this.valueNode !== this) {
-				this.valueNode.readOnly = isReadOnly; // inform screen reader
-			}
-			if (!isReadOnly) {
-				this.removeAttribute("readonly");
-			}
+
+		preCreate: function () {
+			this.addInvalidatingProperties(
+				"readOnly"
+			);
 		},
+
+		refreshRendering: dcl.before(function (props) {
+			if (props.readOnly) {
+				var isReadOnly = this.readOnly;
+				if (this.valueNode && this.valueNode !== this) {
+					this.valueNode.readOnly = isReadOnly; // inform screen reader
+				}
+				if (!isReadOnly) {
+					this.removeAttribute("readonly");
+				}
+			}
+		}),
 
 		// previousOnChangeValue: anything
 		//		The last value fired to onChange.
