@@ -296,6 +296,14 @@ define([
 			dcl.mix(this, params);
 		},
 
+		enteredViewCallback: function(){
+			// summary:
+			//		Called when the widget is first inserted into the document.
+			//		If widget is created programatically then app must call startup() to trigger this method.
+
+			this._enteredView = true;
+		},
+
 		/**
 		 * Get declaratively specified attributes to widget properties
 		 */
@@ -425,8 +433,13 @@ define([
 			//		inside a hidden dui/Dialog or an unselected tab of a dui/layout/TabContainer.
 			//		For widgets that need to do layout, it's best to put that layout code inside resize(), and then
 			//		extend dui/layout/_LayoutWidget so that resize() is called when the widget is visible.
+
 			if (this._started) {
 				return;
+			}
+
+			if (!this._enteredView){
+				this.enteredViewCallback();
 			}
 
 			// Generate an id for the widget if one wasn't specified, or it was specified as id: undefined.
@@ -435,8 +448,6 @@ define([
 			if (!this.id) {
 				this.id = getUniqueId(this.nodeName.toLowerCase());
 			}
-
-			// TODO: Maybe startup() should call enteredViewCallback.
 
 			this._started = true;
 			this.getChildren().forEach(function (obj) {
