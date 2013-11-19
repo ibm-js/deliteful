@@ -271,12 +271,6 @@ define([
 			// Get parameters that were specified declaratively on the widget DOMNode.
 			var params = this.mapAttributes();
 
-			// this is needed for Chrome to delete the tabIndex=-1 default attribute from DIV elements,
-			// so that the custom setter in the prototype runs.
-			if ("tabIndex" in Object.getPrototypeOf(this)) {
-				delete this.tabIndex;
-			}
-
 			this.preCreate();
 
 			// Render the widget
@@ -302,6 +296,28 @@ define([
 			//		If widget is created programatically then app must call startup() to trigger this method.
 
 			this._enteredView = true;
+
+			// Since safari masks all custom setters for tabIndex on the prototype, call them here manually.
+			// For details see:
+			//		https://bugs.webkit.org/show_bug.cgi?id=36423
+			//		https://bugs.webkit.org/show_bug.cgi?id=49739
+			//		https://bugs.webkit.org/show_bug.cgi?id=75297
+			var desc;
+			if (has("dom-proto-set")) {
+				// Trace up prototype chain looking for custom setter
+				for (var proto = Object.getPrototypeOf(this); proto && !desc; proto = Object.getPrototypeOf(proto)) {
+					desc = Object.getOwnPropertyDescriptor(proto, "tabIndex");
+				}
+			} else {
+				// IE.  If there's a custom setter it's on the element itself.
+				desc = Object.getOwnPropertyDescriptor(this, "tabIndex");
+			}
+			if ( desc && desc.set ){
+				var tabIndex = (this.tabIndex !== null && this.tabIndex !== "") ? this.tabIndex : proto.tabIndex;
+				delete this.tabIndex;
+				this.removeAttribute("tabindex");
+				desc.set.call(this, tabIndex);
+			}
 		},
 
 		/**

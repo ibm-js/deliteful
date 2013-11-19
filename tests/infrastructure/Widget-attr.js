@@ -88,17 +88,19 @@ define([
 			// TODO: enable when https://github.com/uhop/dcl/issues/9 is fixed
 			/*
 			var SpecialNames = register("test-special-names", [HTMLElement, Widget], {
-			tabIndex: "0",
+				tabIndex: "0",
 
-			postCreate: function () {
-			this.watch("tabIndex", function(name, o, n){
-			this.watchedTabIndex = n;
-			})
-			}
+				postCreate: function () {
+					this.watch("tabIndex", function(name, o, n){
+						this.watchedTabIndex = n;
+					});
+				}
 			});
 			var widget = new SpecialNames({ });
 			widget.tabIndex = "3";
-			doh.is("3", widget.watchedTabIndex, "watch fired on widget");
+			document.body.appendChild(widget);
+			widget.startup();
+			assert.equal("3", widget.watchedTabIndex, "watch fired on widget");
 			*/
 
 			// And test when tabIndex is declared in a mixin.
@@ -126,8 +128,8 @@ define([
 
 			var extended = new SpecialExtendedWidget({ });
 			extended.tabIndex = "5";
-
-			// test attributes specified to constructor were copied over to DOM
+			document.body.appendChild(extended);
+			extended.startup();
 			assert.equal("5", extended.watchedTabIndex, "watch fired on extended");
 
 			// And also test for declarative widgets, to make sure the tabIndex property is
@@ -135,7 +137,7 @@ define([
 			container.innerHTML += "<test-special-names-extended id=specialNames value=5 isrange isbool tabIndex=8/>";
 			var declarative = document.getElementById("specialNames");
 			register.upgrade(declarative);
-			assert.isFalse(declarative.hasAttribute("tabIndex"), "tabIndex attr removed");
+			assert.isFalse(declarative.hasAttribute("tabindex"), "tabindex attr removed");
 			assert.isTrue(declarative.isrange, "isrange set");
 			assert.isTrue(declarative.isbool, "isbool set");
 			assert.strictEqual("5", declarative.value, "value");
@@ -144,6 +146,8 @@ define([
 			// Then the widget should just act like a simple <div>, passing tabIndex through to root node.
 			var SimpleWidget = register("simple-widget", [HTMLElement, Widget], { });
 			var simple = new SimpleWidget({ tabIndex: 5 });
+			document.body.appendChild(simple);
+			simple.startup();
 
 			// make sure that tabIndex was correctly set
 			assert.strictEqual("5", simple.getAttribute("tabindex"), "programmatic set");
