@@ -264,7 +264,11 @@ define([
 
 				// Set parameters on node
 				for (var name in params || {}) {
-					node[name] = params[name];
+					if ( name === "style" ) {
+						node.style.cssText = params.style;
+					} else {
+						node[name] = params[name];
+					}
 				}
 
 				return node;
