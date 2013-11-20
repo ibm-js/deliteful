@@ -2,5 +2,7 @@
 define([
 	"./Destroyable",
 	"./register",
-	"./Widget-attr"
+	"./Widget-attr",
+	"./handlebars",
+	"./Widget-lifecycle"
 ]);
