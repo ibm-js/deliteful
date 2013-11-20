@@ -20,10 +20,11 @@ define([
 		//	|	<form data-dojo-type="dui/form/Form" id="myForm">
 		//	|		Name: <input type="text" name="name" />
 		//	|	</form>
+		//	|	// Example assumes you have required dijit/registry
 		//	|	myObj = {name: "John Doe"};
-		//	|	dui.byId('myForm').set('value', myObj);
+		//	|	document.getElementById('myForm').value = myObj
 		//	|
-		//	|	myObj=dui.byId('myForm').get('value');
+		//	|	myObj=document.getElementById('myForm').value;
 
 		// HTML <FORM> attributes
 
