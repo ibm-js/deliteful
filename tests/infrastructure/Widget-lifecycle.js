@@ -2,9 +2,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/aspect",
-	"dojo/dom",
 	"dui/register",
-	"dui/Widget"], function (registerSuite, assert, aspect, dom, register, Widget) {
+	"dui/Widget"], function (registerSuite, assert, aspect, register, Widget) {
 	var container, TestWidget, w;
 	var obj = {
 		foo: function () {
@@ -15,8 +14,9 @@ define([
 	// Number of times foo was called while TestWidget existed
 	var calls = 0;
 	registerSuite({
-		name: "create and destroy",
-		setup: function () {
+		name: "widget-lifecycle",
+
+		create: function () {
 			TestWidget = register("test-lifecycle-widget", [HTMLElement, Widget], {
 				postCreate: function () {
 					// Rather odd call to this.own() for testing the connections are dropped on destroy()
@@ -29,40 +29,38 @@ define([
 			document.body.appendChild(container);
 			container.innerHTML +=
 				"<test-lifecycle-widget id='w1'></test-lifecycle-widget><test-lifecycle-widget id='w2'></test-lifecycle-widget>";
-		},
-		"upgrade plain DOMNode" : function () {
-			w = document.getElementById("w1");
-			register.upgrade(w);
+			register.parse(container);
 
 			// test the connection
-			assert.deepEqual(0, calls, "foo() not called yet");
+			assert.equal(0, calls, "foo() not called yet");
 			obj.foo();
-			assert.deepEqual(1, calls, "foo() called");
+			assert.equal(2, calls, "foo() called from each widget");
 		},
 		"destroy" : function () {
+			var w = document.getElementById("w1");
 			w.destroy();
 			assert.ok(!document.getElementById("w1"), "widget no longer exists");
 
-			// test the connection was destroyed
+			// test the connection from w1 was destroyed (w2 still there)
 			calls = 0;
 			obj.foo();
-			assert.deepEqual(0, calls, "connection was deleted");
+			assert.equal(1, calls, "connection was deleted");
 
 			// test the DOM node was removed
 			assert.ok(!document.getElementById("w1"), "DOM Node removed");
 		},
 		"destroy(true)  (preserving DOM node)" : function () {
-			w = document.getElementById("w2");
-			register.upgrade(w);
+			var w = document.getElementById("w2");
 			w.destroy(true);
+
 			// test the DOM node *wasn't* removed
-			assert.ok(dom.byId("w2"), "DOM Node left");
+			assert.ok(document.getElementById("w2"), "DOM Node left");
 
 		},
 		"create with undefined id" : function () {
 			// If id is "specified" as undefined, generate a new one
-			w = new TestWidget({id: undefined});
-			assert.notDeepEqual(undefined, w.id);
+			var w = new TestWidget({id: undefined});
+			assert.notEqual(undefined, w.id);
 		},
 		"setter not called on creation" : function () {
 			// Setters are no longer called on creation except for parameters sent to new Foo(...)
@@ -75,7 +73,7 @@ define([
 				}
 			});
 			new MyWidget();
-			assert.deepEqual(false, fooSetterCalled, "fooSetterCalled");
+			assert.equal(false, fooSetterCalled, "fooSetterCalled");
 		},
 		teardown : function () {
 			container.parentNode = null;
