@@ -56,21 +56,23 @@ define([
 	var registry = {};
 
 	/**
-	 * Create an Element.  Equivalent to document.createElement(), but if tag is the name of a widget defined by
+	 * Create an Element.  Similar to document.createElement(), but if tag is the name of a widget defined by
 	 * register(), then it upgrades the Element to be a widget.
 	 * @param {String} tag
 	 * @returns {Element} The DOMNode
 	 */
 	function createElement(tag) {
-		var base = registry[tag] ? registry[tag].extends : null,
-			element = doc.createElement(base || tag);
-		if (base) {
-			element.setAttribute('is', tag);
+		var base = registry[tag] ? registry[tag].extends : null;
+		if (has("document-register")) {
+			return base ? doc.createElement(base, tag) : doc.createElement(tag);
+		} else {
+			var element = doc.createElement(base || tag);
+			if (base) {
+				element.setAttribute('is', tag);
+			}
+			upgrade(element);
+			return element;
 		}
-
-		upgrade(element);
-
-		return element;
 	}
 
 	function getPropDescriptors(proto) {
@@ -101,7 +103,7 @@ define([
 	 * @param {Element} inElement The DOMNode
 	 */
 	function upgrade(element) {
-		if (!element.__upgraded__) {
+		if (!has("document-register") && !element.__upgraded__) {
 			var widget = registry[element.getAttribute('is') || element.nodeName.toLowerCase()];
 			if (widget) {
 				if (has("dom-proto-set")) {
@@ -241,13 +243,13 @@ define([
 				// Get descriptors for all the properties in the prototype.  This is needed on IE<=10 in upgrade().
 				config.props = getPropDescriptors(proto);
 			}
-
-			// Register the selector to find this custom element
-			selectors.push(config.extends ? config.extends + '[is="' + tag + '"]' : tag);
-
-			// Note: if we wanted to support registering new types after the parser was called, then here we should
-			// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
 		}
+
+		// Register the selector to find this custom element
+		selectors.push(config.extends ? config.extends + '[is="' + tag + '"]' : tag);
+
+		// Note: if we wanted to support registering new types after the parser was called, then here we should
+		// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
 
 		// Create a constructor method to return a DOMNode representing this widget.
 		var tagConstructor = function (params, srcNodeRef) {
@@ -352,12 +354,8 @@ define([
 	 * @param {Element?} Root DOMNode to parse from
 	 */
 	function parse(root) {
-		if (has("document-register")) {
-			// If there's native support for custom elements then they are parsed automatically
-			return;
-		}
-
-		// Otherwise, parse manually
+		// Note that upgrade() will be a no-op when has("document-register") is true, but we still
+		// need to calculate nodes[] for the startup() call below.
 		var node, idx = 0, nodes = (root || doc).querySelectorAll(selectors);
 		while (node = nodes[idx++]) {
 			upgrade(node);
