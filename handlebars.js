@@ -5,7 +5,7 @@ define(["./template"], function (template) {
 		var inVar, parts = [];
 		text = text.trim();
 		if (text) {
-			text.split(/({{|}})/).forEach(function (str) {	// TODO: test on IE
+			text.split(/({{|}})/).forEach(function (str) {
 				if (str == "{{") {
 					inVar = true;
 				} else if (str == "}}") {
@@ -43,13 +43,13 @@ define(["./template"], function (template) {
 			var attributes = {};
 			var i = 0, item, attrs = templateNode.attributes;
 			for (i = 0; item = attrs[i]; i++) {
-				if (item.value) {
+				if (item.name !== "is" && item.value) {
 					attributes[item.name] = tokenize(item.value);
 				}
 			}
 
 			return {
-				tag: templateNode.getAttribute("is") || templateNode.tagName,
+				tag: templateNode.getAttribute("is") || templateNode.tagName.replace(/^template-/i, ""),
 				attributes: attributes,
 				children: handlebars.parseChildren(templateNode)
 			};
@@ -85,12 +85,18 @@ define(["./template"], function (template) {
 			// summary:
 			//		Given a template, returns the tree representing that template
 
-			// Create a DOM tree from the template, putting if statements and looping statements inside their own
+			// Adjust the template, putting if statements and looping statements inside their own
 			// <each> and <if> blocks.
 			var adjustedTemplate = templateText.
 				replace(/{{#(each|if) +([^}]+)}}/g, "<$1 condition='$2'>").
 				replace(/{{\/[^}]+}}/g, "</$1>");
 
+			// Also, rename all the nodes in the template so that browsers with native document.createElement() support
+			// don't start instantiating nested widgets, creating internal nodes etc.
+			// Regex designed to match <foo> but not <!-- comment -->.
+			adjustedTemplate = adjustedTemplate.replace(/(<\/? *)([-a-zA-Z0-9]+)/g, "$1template-$2");
+
+			// Create DOM tree from template
 			var container = document.createElement("div");
 			container.innerHTML = adjustedTemplate;
 
