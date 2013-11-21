@@ -47,6 +47,11 @@
 					this.innerHTML = Ltr2.disabled ? "Enable" : "Disable";
 				}
 			);
+			on(dom.byId("tabIndexLtr2"), "click",
+				function () {
+					Ltr2.tabIndex = 7;
+				}
+			);
 
 			var form = dom.byId("myForm");
 			form.reset(); // restore values to the defaults
@@ -235,26 +240,26 @@
 					name:"disable",
 					runTest:function () {
 						doh.is(true, !!Ltr2.valueNode.disabled, "Ltr2 valueNode disabled");
-						doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #1");
-						doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex #1");
-						doh.is(null, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex #1");
+						doh.is(3, Ltr2._get("tabIndex"), "Ltr2 shadow tabIndex #1");
+						doh.is(null, Ltr2.getAttribute("tabindex"), "Ltr2 domNode tabIndex #1");
+						doh.is(null, Ltr2.focusNode.getAttribute("tabindex"), "Ltr2 handle tabIndex #1");
 						doh.is(false, !!customH.valueNode.disabled, "customH valueNode enabled");
-						doh.is(5, customH.tabIndex, "customH widget tabIndex #1");
-						doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #1");
-						doh.is(5, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex #1");
+						doh.is(5, customH._get("tabIndex"), "customH shadow tabIndex #1");
+						doh.is(null, customH.getAttribute("tabindex"), "customH domNode tabIndex #1");
+						doh.is(5, customH.focusNode.getAttribute("tabindex"), "customH handle tabIndex #1");
 						dom.byId("enableLtr2").click(); // Ltr2.disabled = false;
 						customH.disabled = true;
 						var d = new doh.Deferred();
 						submittedValues = function (formValues) {
 							d.getTestCallback(function () {
 								doh.is(false, !!Ltr2.valueNode.disabled, "Ltr2 valueNode enabled");
-								doh.is(3, Ltr2.tabIndex, "Ltr2 widget tabIndex #2");
-								doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex #2");
-								doh.is(3, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex #2");
+								doh.is(3, Ltr2._get("tabIndex"), "Ltr2 widget tabIndex #2");
+								doh.is(null, Ltr2.getAttribute("tabindex"), "Ltr2 domNode tabIndex #2");
+								doh.is(3, Ltr2.focusNode.getAttribute("tabindex"), "Ltr2 handle tabIndex #2");
 								doh.is(true, !!customH.valueNode.disabled, "customH valueNode disabled");
-								doh.is(5, customH.tabIndex, "customH widget tabIndex #2");
-								doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex #2");
-								doh.is(null, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex #2");
+								doh.is(5, customH._get("tabIndex"), "customH widget tabIndex #2");
+								doh.is(null, customH.getAttribute("tabindex"), "customH domNode tabIndex #2");
+								doh.is(null, customH.focusNode.getAttribute("tabindex"), "customH handle tabIndex #2");
 								doh.is("10,15", formValues["Ltr2"], "submit Ltr2");
 								doh.is(null, formValues["customH"], "submit customH");
 							})();
@@ -270,25 +275,25 @@
 					timeout:1000,
 					name:"tabIndex",
 					runTest:function () {
-						doh.is(0, Rtl1.tabIndex, "Rtl1 widget tabIndex #1");
-						doh.is(null, Rtl1.getAttribute("tabIndex"), "Rtl1 domNode tabIndex #1");
-						doh.is(0, Rtl1.focusNode.getAttribute("tabIndex"), "Rtl1 handle tabIndex #1");
+						doh.is(0, Rtl1._get("tabIndex"), "Rtl1 widget tabIndex #1");
+						doh.is(null, Rtl1.getAttribute("tabindex"), "Rtl1 domNode tabIndex #1");
+						doh.is(0, Rtl1.focusNode.getAttribute("tabindex"), "Rtl1 handle tabIndex #1");
 						Ltr2.tabIndex = 1;
 						customH.tabIndex = 2;
 						Rtl1.tabIndex = 3;
 						var d = new doh.Deferred();
 						setTimeout(d.getTestCallback(
 							function () {
-								doh.is(3, Rtl1.tabIndex, "Rtl1 widget tabIndex #2");
-								doh.is(null, Rtl1.getAttribute("tabIndex"), "Rtl1 domNode tabIndex #2");
-								doh.is(3, Rtl1.focusNode.getAttribute("tabIndex"), "Rtl1 handle tabIndex #2");
-								doh.is(1, Ltr2.tabIndex, "Ltr2 widget tabIndex");
-								doh.is(null, Ltr2.getAttribute("tabIndex"), "Ltr2 domNode tabIndex");
-								doh.is(1, Ltr2.focusNode.getAttribute("tabIndex"), "Ltr2 handle tabIndex");
-								doh.is(2, customH.tabIndex, "customH widget tabIndex");
-								doh.is(null, customH.getAttribute("tabIndex"), "customH domNode tabIndex");
-								doh.is(null, customH.focusNode.getAttribute("tabIndex"), "customH handle tabIndex");
-							}), 1);
+								doh.is(3, Rtl1._get("tabIndex"), "Rtl1 widget tabIndex #2");
+								doh.is(null, Rtl1.getAttribute("tabindex"), "Rtl1 domNode tabIndex #2");
+								doh.is(3, Rtl1.focusNode.getAttribute("tabindex"), "Rtl1 handle tabIndex #2");
+								doh.is(1, Ltr2._get("tabIndex"), "Ltr2 widget tabIndex");
+								doh.is(null, Ltr2.getAttribute("tabindex"), "Ltr2 domNode tabIndex");
+								doh.is(1, Ltr2.focusNode.getAttribute("tabindex"), "Ltr2 handle tabIndex");
+								doh.is(2, customH._get("tabIndex"), "customH widget tabIndex");
+								doh.is(null, customH.getAttribute("tabindex"), "customH domNode tabIndex");
+								doh.is(null, customH.focusNode.getAttribute("tabindex"), "customH handle tabIndex");
+							}), 100);
 						return d;
 					}
 				},
@@ -720,9 +725,18 @@
 				}
 			});
 
+			var log = "";
 			doh.register("log", function () {
 				dom.byId("failures").innerHTML = doh._failureCount;
 				dom.byId("errors").innerHTML = doh._errorCount;
+				dom.byId("failureLog").innerHTML = log.replace(/\n/g, "<BR>");
+			});
+			aspect.after(doh, "_handleFailure", function (ret, args) {
+				var groupName = args[0];
+				var fixture = args[1];
+				var e = args[2];
+				var message = e.message;
+				log += groupName + " / " + fixture.name + " " + message.replace(/\s*\n\s*with hint:/g, "\nwith hint:") + "\n";
 			});
 
 			doh.run();
@@ -838,7 +852,8 @@
 						<div>10</div>
 						<div>20</div>
 					</d-rule>
-				</d-slider><button id="enableLtr2" type="button">Enable</button></td>
+				</d-slider><button id="enableLtr2" type="button">Enable</button>
+				<button id="tabIndexLtr2" type="button">tabIndex</button></td>
 			</tr>
 			<tr>
 				<td>20</td>
@@ -911,6 +926,7 @@
 	<br>
 	Errors:&nbsp;<span id="errors">?</span><br>
 	Failures:&nbsp;<span id="failures">?</span>
+	<div id="failureLog"><div>
 	</div>
 	<iframe name="formSubmitIframe" src="about:blank" onload="if(this.values)submittedValues(this.values)" style="display:none;"></iframe>
 </body>

@@ -87,7 +87,6 @@ define([
 				}
 			}
 			if (props.tabStops || props.tabIndex || props.disabled) {
-				var isRoot = false;
 				tabStops.forEach(
 					function (nodeName) {
 						var node = self[nodeName];
@@ -95,17 +94,12 @@ define([
 							if (self.disabled) {
 								node.removeAttribute("tabindex");
 							} else {
-								node.tabIndex = self.tabIndex;
+								node.tabIndex = self._get("tabIndex");
 							}
-						} else {
-							isRoot = true;
 						}
 					},
 					this
 				);
-				if (!isRoot) {
-					this.removeAttribute("tabindex");
-				}
 			}
 			return props; // for after advice
 		}),

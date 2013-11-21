@@ -302,21 +302,34 @@ define([
 			//		https://bugs.webkit.org/show_bug.cgi?id=36423
 			//		https://bugs.webkit.org/show_bug.cgi?id=49739
 			//		https://bugs.webkit.org/show_bug.cgi?id=75297
-			var desc;
-			if (has("dom-proto-set")) {
-				// Trace up prototype chain looking for custom setter
-				for (var proto = Object.getPrototypeOf(this); proto && !desc; proto = Object.getPrototypeOf(proto)) {
-					desc = Object.getOwnPropertyDescriptor(proto, "tabIndex");
+			var tabIndex = this.tabIndex;
+			// Trace up prototype chain looking for custom setter
+			for (var proto = this; proto; proto = Object.getPrototypeOf(proto)) {
+				var desc = Object.getOwnPropertyDescriptor(proto, "tabIndex");
+				if (desc && "set" in desc && "get" in desc) {
+					if (this.getAttribute("tabindex") === null) { // initial value was the native default
+						tabIndex = desc.get.call(this, "tabIndex"); // call custom getter
+					}
+					this.removeAttribute("tabindex");
+					desc.set.call(this, tabIndex); // call custom setter
+					var self = this;
+					// begin watching for changes to the tabindex DOM attribute
+					if ("WebKitMutationObserver" in window) {
+						var observer = new WebKitMutationObserver(function (mutations) {
+							var newValue = self.getAttribute("tabindex");
+							if (newValue !== desc.get.call(self, "tabIndex") && newValue !== null) {
+								self.removeAttribute("tabindex");
+								desc.set.call(self, newValue);
+							}
+						});
+						observer.observe(this, {
+							subtree: false,
+							attributeFilter: ['tabindex'],
+							attributes: true
+						});
+					}
+					break;
 				}
-			} else {
-				// IE.  If there's a custom setter it's on the element itself.
-				desc = Object.getOwnPropertyDescriptor(this, "tabIndex");
-			}
-			if ( desc && desc.set ){
-				var tabIndex = (this.tabIndex !== null && this.tabIndex !== "") ? this.tabIndex : proto.tabIndex;
-				delete this.tabIndex;
-				this.removeAttribute("tabindex");
-				desc.set.call(this, tabIndex);
 			}
 		},
 
