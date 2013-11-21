@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>tabIndex tests</title>
+	<style>
+		test-tab-index {
+			display: block;
+		}
+	</style>
+	<script type="text/javascript" src="../boilerplate.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		var timeoutInterval = 1000;
+		var val = 0;
+		require([
+			"dui/register",
+			"dui/Widget",
+			"dojo/domReady!"
+		], function(register, Widget){
+
+			// Simple widget where the tabIndex (on the root node) is redirected to an inner node.
+			// Putting tabIndex in mixin class to workaround https://github.com/uhop/dcl/issues/9.
+			var TabbableWidget = register.dcl(Widget, {
+				tabIndex: 0
+			});
+			register("test-tab-index", [HTMLElement, TabbableWidget], {
+				buildRendering: function(){
+					this.labelNode = document.createElement("span");
+					this.labelNode.tabIndex = 0;
+					this.appendChild(this.labelNode);
+				},
+
+				startup: function(){
+					// We could do this in _setTabIndexAttr() but I want to test that watch() is working
+					this.watch("tabIndex", function(n, oval, nval){
+						this.label = this.label + ", updated to " + nval;
+					});
+				},
+
+				_setTabIndexAttr: function(val){
+					this.labelNode.tabIndex = val;
+					this._set("tabIndex", val);
+				},
+
+				label: "",
+				_setLabelAttr: function(val){
+					this.labelNode.innerHTML = val;	// should be innerText/textContent but we're just testing
+					this._set("label", val);
+				}
+			});
+
+			register.parse();
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		});
+
+		function changeIndices() {
+			document.getElementById("s2").tabIndex = 5;
+			document.getElementById("s3").tabIndex = 6;
+		}
+	</script>
+</head>
+<body>
+<fieldset>
+	<legend>Default (unspecified) tab index</legend>
+	<div id="d1" tabindex="0">div</div>
+	<test-tab-index id="d2" label="d2"></test-tab-index>
+	<test-tab-index id="d3" label="d3"></test-tab-index>
+	<div id="d4" tabindex="0">div</div>
+</fieldset>
+
+<fieldset>
+	<legend>Specified tab index</legend>
+	<div id="s1" tabindex="1">div, tabindex=1</div>
+	<test-tab-index id="s3" label="widget, tabindex=2" tabindex="2"></test-tab-index>
+	<test-tab-index id="s2" label="widget, tabindex=1" tabindex="1"></test-tab-index>
+	<div id="s4" tabindex="3">div, tabindex=3</div>
+	<button id="button" tabindex="3" onclick="changeIndices();">change indices</button>
+
+</fieldset>
+</body>
+</html>

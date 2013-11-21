@@ -23,13 +23,16 @@ Note that this won't run the functional tests.
 
 ## Running the unit and functional tests in Sauce Labs
 
-On Mac/Linux:
+First, setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
+on https://saucelabs.com/appium/tutorial/3.
+
+Then, on Mac/Linux:
 
 ```
-$ sh ./runsauce.sh
+$ ./runsauce.sh
 ```
 
-On Windows (untested):
+Or on Windows (untested):
 
 ```
 cd ..\..\..
@@ -38,7 +41,7 @@ node node_modules\intern\runner.js config=dui\tests\infrastructure\sauce.js
 
 ## Running the unit and functional tests locally
 
-1) Install selenium server 2.37.0 (http://www.seleniumhq.org/download/) and start it on the default port (4444):
+1) Download selenium server 2.37.0 (http://www.seleniumhq.org/download/) and start it on the default port (4444):
 
 ```
 $ java -jar selenium-server-standalone-2.37.0.jar
@@ -49,6 +52,14 @@ $ java -jar selenium-server-standalone-2.37.0.jar
 3) Run the tests:
 
 ```
-$ node /my/project/root/node_modules/intern/runner.js config=dui/tests/infrastructure/local.js
+$ ./runlocal.sh
 ```
+
+Or on Windows (untested):
+
+```
+cd ..\..\..
+node node_modules\intern\runner.js config=dui\tests\infrastructure\local.js
+```
+
 
