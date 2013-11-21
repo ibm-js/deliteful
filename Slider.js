@@ -90,7 +90,7 @@ define([
 			}
 		},
 
-		refreshRendering: register.before(function (props) {
+		refreshRendering: function (props) {
 			var toCSS = function (baseClass, modifier) {
 				return baseClass.split(/ /g).map(function (c) {
 					return c + modifier;
@@ -134,7 +134,7 @@ define([
 			if (props.value || props.min || props.max) {
 				this._positionHandles();
 			}
-		}),
+		},
 
 		buildRendering: function () {
 
