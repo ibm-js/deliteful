@@ -17,7 +17,7 @@ define([
 	registerSuite({
 		name: "create and destroy",
 		setup: function () {
-			TestWidget = register("test-widget", [HTMLElement, Widget], {
+			TestWidget = register("test-lifecycle-widget", [HTMLElement, Widget], {
 				postCreate: function () {
 					// Rather odd call to this.own() for testing the connections are dropped on destroy()
 					this.own(aspect.after(obj, "foo", function () {
@@ -28,7 +28,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML +=
-				"<test-widget id='w1'></test-widget><test-widget id='w2'></test-widget>";
+				"<test-lifecycle-widget id='w1'></test-lifecycle-widget><test-lifecycle-widget id='w2'></test-lifecycle-widget>";
 		},
 		"upgrade plain DOMNode" : function () {
 			w = document.getElementById("w1");
@@ -79,7 +79,6 @@ define([
 		},
 		teardown : function () {
 			container.parentNode = null;
-			// TODO: Since intern doesn't have sandboxing, need some way to clear all the registered widgets
 		}
 	});
 });
