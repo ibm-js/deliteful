@@ -34,7 +34,8 @@ define([
 			);
 		},
 
-		refreshRendering: dcl.before(function (props) {
+		refreshRendering: dcl.after(function (args) {
+			var props = args[0];
 			if (props.readOnly) {
 				var isReadOnly = this.readOnly;
 				if (this.valueNode && this.valueNode !== this) {

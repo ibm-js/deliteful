@@ -59,10 +59,11 @@ define([
 			);
 		},
 
-		refreshRendering: function (props) {
+		refreshRendering: dcl.after(function (args) {
 			// summary:
 			//		Handle disabled and tabIndex, across the tabStops and root node.
 			//		No special processing is needed for tabStops other than just to refresh disable and tabIndex.
+			var props = args[0];
 			var self = this;
 			var tabStops = this.tabStops.split(/[ ,]/);
 			if (props.tabStops || props.disabled) {
@@ -107,7 +108,7 @@ define([
 				}
 			}
 			return props; // for after advice
-		},
+		}),
 
 		_onFocus: dcl.before(function () {
 			if (this.scrollOnFocus) {
