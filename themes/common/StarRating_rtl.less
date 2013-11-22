@@ -6,6 +6,15 @@
 
 .duiStarRating{
 	-ms-touch-action: none;
+	input{
+		display: none;
+	}
+}
+
+.duiStarRatingDisabled{
+	.duiStarRatingStarIcon{
+		background-image: @star-icon-disabled-sprite;
+	}
 }
 
 .duiStarRatingStarIcon{

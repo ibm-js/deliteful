@@ -20,6 +20,29 @@ define(["intern!object",
 			.click();
 	};
 
+	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
+		var i = 0;
+		return remote.wait(1)
+				.then(function () {
+					for (; i < expectedKeys.length; i++) {
+						(function (i) {
+							remote.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
+								.text()
+								.then( function (value) {
+									assert.equal(expectedKeys[i], value);
+								})
+								.end()
+							.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
+								.text()
+								.then( function (value) {
+									assert.equal(expectedValues[i], value);
+								})
+								.end();
+						})(i);
+					}
+				});
+	};
+
 	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedEditable) {
 		var i, expectedClasses = [];
 		for (i = 0; i < expectedMax; i++) {
@@ -232,7 +255,7 @@ define(["intern!object",
 			.waitForCondition("ready", 5000)
 			// Check initial rating
 			.then(function () {
-				return checkRating(remote, "defaultstar", 5, 0, false);
+				return checkRating(remote, "defaultstar", 5, 0, true);
 			});
 		},
 		"tab order": function () {
@@ -296,6 +319,35 @@ define(["intern!object",
 			.then(function (value) {
 				assert.equal("defaultstar", value);
 			});
-		}
+		},
+		"disabled": function () {
+			console.log("# running test 'disabled'");
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./StarRatingFormTests.html"))
+			.waitForCondition("ready", 5000)
+			// Check initial rating
+			.then(function () {
+				return checkRating(remote, "starrating3", 7, 3, false);
+			});
+		},
+		"form values": function () {
+			console.log("# running test 'form values'");
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./StarRatingFormTests.html"))
+			.waitForCondition("ready", 5000)
+			.then(function () {
+				return clickOnStar(remote, "starrating1", 2);
+			})
+			.elementById("submitButton")
+			.click()
+			.end()
+			.waitForElementById("parameters", 5000)
+			.end()
+			.then(function () {
+				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
+			});
+		},
 	});
 });
