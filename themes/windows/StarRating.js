@@ -19,6 +19,12 @@ define(function(){ return '\
 .duiStarRating {\
   -ms-touch-action: none;\
 }\
+.duiStarRating input {\
+  display: none;\
+}\
+.duiStarRatingDisabled .duiStarRatingStarIcon {\
+  background-image: url("../common/images/grey-stars-40.png");\
+}\
 .duiStarRatingStarIcon {\
   height: 40px;\
   width: 40px;\

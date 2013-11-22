@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>Using StarRating in forms</title>
+		<script type="text/javascript" src="../boilerplate.js"></script>
+		<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		var timeoutInterval = 1000;
+		var val = 0;
+		require([
+			"dui/register",
+			"dojo/dom",
+			"dui/StarRating",
+			"dojo/domReady!"
+		], function(register, dom, StarRating){
+
+			register.parse();
+
+ 			// Create rating widget programmaticaly
+			var rating = new StarRating({
+				id: "starrating4",
+				max:7,
+				value: 4,
+				name: "star4"
+			}).placeAt("star4", 'replace');
+			rating.startup();
+
+			rating = new StarRating({
+				id: "starrating5",
+				max:7,
+				value: 5,
+				readOnly: true,
+				name: "star5"
+			}).placeAt("star5", 'replace');
+			rating.startup();
+
+			rating = new StarRating({
+				id: "starrating6",
+				max:7,
+				value: 6,
+				disabled: true,
+				name: "star6"
+			}).placeAt("star6", 'replace');
+			rating.startup();
+
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		})
+		</script>
+	</head>
+	<body>
+		<form action="processForm.html">
+			Default: <d-star-rating id="starrating1" max=7 name="star1" value="1"></d-star-rating>
+			<br>
+			Readonly: <d-star-rating id="starrating2" max=7 name="star2" value="2" readonly></d-star-rating>
+			<br>
+			Disabled: <d-star-rating id="starrating3" max=7 name="star3" value="3" disabled></d-star-rating>
+			<br>
+			Default prog: <span id="star4"></span>
+			<br>
+			Readonly prog: <span id="star5"></span>
+			<br>
+			Disabled prog: <span id="star6"></span>
+			<br>
+			<input id="submitButton" type="submit">
+		</form>
+	</body>
+</html>

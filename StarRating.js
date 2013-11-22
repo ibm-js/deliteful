@@ -55,33 +55,41 @@ define([
 		//		The name of the CSS class of this widget.
 		baseClass: "duiStarRating",
 
-		// maximum: Number
+		// max: Number
 		//		The maximum rating, that is also the number of stars to show.
-		maximum: 5,
+		max: 5,
 
 		// value: Number
 		//		The current value of the Rating.
 		value: 0,
 
-		// editable: Boolean
-		//		Is the user allowed to edit the value of the Rating by touching / clicking the stars ?
-		editable: false,
+		// readOnly: Boolean
+		//		If false, the widget is editable and allows editing the value of the Rating by touching / clicking the stars
+		readOnly: false,
+
+		// name: String
+		//		mandatory if using the star rating widget in a form, in order to have it value submited
+		name: "",
+
+		// disabled: Boolean
+		//		if true, the widget is disabled (its value will not be submited if it is included in a form)
+		disabled: false,
 
 		// editHalfValues: Boolean
-		//		If the Rating is editable, is the user allowed to edit half values (0.5, 1.5, ...) or not ?
+		//		If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
 		editHalfValues: false,
 
 		// zeroAreaWidth: Number
 		//		The number of pixel to add to the left of the widget (or right if the direction is rtl) to allow
-		//		setting the value to 0 when editable is set to true. Default value is 0 if the widget is not editable,
-		//		20 if the widget is editable.
+		//		setting the value to 0 when readOnly is set to falsy. Default value is 0 if the widget is read only,
+		//		20 if the widget is not read only.
 		//		Set this value to 0 to forbid the user from setting the value to zero during edition.
 		//		Setting this attribute to a negative value is not supported.
 		zeroAreaWidth: -1,
 
 		_getZeroAreaWidthAttr: function () {
 			var val = this._get("zeroAreaWidth");
-			return val === -1 ? (this.editable ? 20 : 0) : val;
+			return val === -1 ? (this.readOnly ? 0 : 20) : val;
 		},
 
 		/* internal properties */
@@ -96,9 +104,11 @@ define([
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
 		preCreate: function () {
-			this.addInvalidatingProperties("maximum",
+			this.addInvalidatingProperties("max",
+					"name",
 					"value",
-					"editable",
+					"readOnly",
+					"disabled",
 					"editHalfValues",
 					"zeroAreaWidth");
 		},
@@ -119,40 +129,52 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			if (props.maximum !== undefined) {
-				this.setAttribute("aria-valuemax", this.maximum);
+			var passive;
+			if (props.disabled !== undefined) {
+				if (this.disabled) {
+					domClass.add(this, this.baseClass + "Disabled");
+				} else {
+					domClass.remove(this, this.baseClass + "Disabled");
+				}
 			}
-			if (props.value !== undefined) {
-				console.log(this.id + " " + this.value);
-				this.setAttribute("aria-valuenow", this.value);
-				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
+			if (props.max !== undefined) {
+				this.setAttribute("aria-valuemax", this.max);
 			}
-			if (props.maximum !== undefined || props.value !== undefined) {
-				var createChildren = this.children.length !== this.maximum;
+			if (props.max !== undefined || props.value !== undefined) {
+				var createChildren = this.children.length !== this.max;
 				if (createChildren) {
 					domConstruct.empty(this);
 				}
 				this._updateStars(this.value, createChildren);
 			}
-			if (props.editable !== undefined) {
-				this.setAttribute("aria-disabled", !this.editable);
-				if (this.editable && !this._keyDownHandler) {
+			if (props.value !== undefined) {
+				this.setAttribute("aria-valuenow", this.value);
+				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
+				this.valueNode.setAttribute("value", this.value);
+			}
+			if (props.name !== undefined) {
+				this.valueNode.name = this.name;
+			}
+			if (props.readOnly !== undefined || props.disabled !== undefined) {
+				passive = this.disabled ? true : this.readOnly;
+				this.setAttribute("aria-disabled", passive);
+				if (!passive && !this._keyDownHandler) {
 					this._keyDownHandler = this.on("keydown", lang.hitch(this, "_onKeyDown"));
-				} else if (!this.editable && this._keyDownHandler) {
+				} else if (passive && this._keyDownHandler) {
 					this._keyDownHandler.remove();
 					this._keyDownHandler = null;
 				}
-				if (this.editable && !this._startHandlers) {
+				if (!passive && !this._startHandlers) {
 					this._startHandlers = [this.on(touch.enter, lang.hitch(this, "_onTouchEnter")),
 										   this.on(touch.press, lang.hitch(this, "_wireHandlers"))];
-				} else if (!this.editable && this._startHandlers) {
+				} else if (passive && this._startHandlers) {
 					while (this._startHandlers.length) {
 						this._startHandlers.pop().remove();
 					}
 					this._startHandlers = null;
 				}
 			}
-			if (props.editable !== undefined || props.zeroAreaWidth !== undefined) {
+			if (props.readOnly !== undefined || props.disabled !== undefined || props.zeroAreaWidth !== undefined) {
 				this._updateZeroArea();
 			}
 		},
@@ -228,7 +250,7 @@ define([
 		},
 
 		_incrementValue: function () {
-			if (this.value < this.maximum) {
+			if (this.value < this.max) {
 				this.value = this.value + (this.editHalfValues ? 0.5 : 1);
 			}
 		},
@@ -272,12 +294,12 @@ define([
 
 		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
 			var starStripLength = domNodeWidth - this.zeroAreaWidth;
-			return (x - this.zeroAreaWidth) / (starStripLength / this.maximum);
+			return (x - this.zeroAreaWidth) / (starStripLength / this.max);
 		},
 
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
 			var i, parent, starClass;
-			for (i = 0; i < this.maximum; i++) {
+			for (i = 0; i < this.max; i++) {
 				if (i <= value - 1) {
 					starClass = this.baseClass + "FullStar";
 				} else if (i >= value) {
@@ -294,13 +316,16 @@ define([
 				}
 				parent.className = this.baseClass +  "StarIcon " + starClass;
 			}
+			if (create) {
+	            this.valueNode = domConstruct.create("input", {type: "number", name: this.name, readOnly: this.readOnly, disabled: this.disabled, value: this.value}, this, "last");
+			}
 		},
-		
+
 		_updateZeroArea: function () {
-			if (this.editable) {
-				this.style.paddingLeft = this.zeroAreaWidth + "px";
-			} else {
+			if (this.readOnly) {
 				this.style.paddingLeft = "0px";
+			} else {
+				this.style.paddingLeft = this.zeroAreaWidth + "px";
 			}
 		}
 	});

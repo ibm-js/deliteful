@@ -40,8 +40,8 @@
 
 			var rating = new StarRating({
 				image: "images/star-4.png",
-				maximum: 7,
-				editable: true,
+				max: 7,
+				readOnly: false,
 				editHalfValues: true,
 				value: 3.5
 			}).placeAt("editablestar6wrapper");
@@ -59,23 +59,27 @@
 </head>
 <body>
 <h1>Default direction</h1>
-<d-star-rating id="star" image="images/star-4.png" maximum="7"></d-star-rating>
+<d-star-rating id="star" image="images/star-4.png" max="7" readonly></d-star-rating>
 <span id="value">0</span><br>
 <button type="button" onclick="decrement()">&minus;</button>
 <button type="button" onclick="increment()">+</button>
 <p>
 	Editable:
-	<d-star-rating id="editablestar1" image="images/star-4.png" maximum="7" editable="true"></d-star-rating>
+	<d-star-rating id="editablestar1" image="images/star-4.png" max="7"></d-star-rating>
 <p>
 	Editable (half values increment):
 	<d-star-rating id="editablestar2" image="images/star-4.png"
-					 maximum="7" editable="true" editHalfValues="true"></d-star-rating>
+					 max="7" editHalfValues="true"></d-star-rating>
 <p>
 	No zero setting:
-	<d-star-rating id="editablestar5" image="images/star-4.png" maximum="7" editable="true"
+	<d-star-rating id="editablestar5" image="images/star-4.png" max="7"
 					 editHalfValues="true" value="0.5" zeroAreaWidth="0"></d-star-rating>
 <p>
 	Programmatic: <span id="editablestar6wrapper"></span><br>
 	<span id="editablestar6value"></span>
+<p>
+	Disabled:
+	<d-star-rating id="disabledstar" max="7"
+					 editHalfValues="true" value="3.5" disabled></d-star-rating>
 </body>
 </html>

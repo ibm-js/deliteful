@@ -18,8 +18,8 @@
 		], function (dom, StarRating) {
 
 			var rating = new StarRating({
-				maximum: 7,
-				editable: true,
+				max: 7,
+				readOnly: false,
 				editHalfValues: false,
 				value: 3
 			});
@@ -34,10 +34,13 @@
 				rating[attribute] = value;
 			};
 			dom.byId('maximumInput').onchange = function (event) {
-				updateRatingAttribute('maximum', event);
+				updateRatingAttribute('max', event);
 			};
 			dom.byId('editableSelect').onchange = function (event) {
-				updateRatingAttribute('editable', event, true);
+				updateRatingAttribute('readOnly', event, true);
+			};
+			dom.byId('disabledSelect').onchange = function (event) {
+				updateRatingAttribute('disabled', event, true);
 			};
 			dom.byId('editHalfValuesSelect').onchange = function (event) {
 				updateRatingAttribute('editHalfValues', event, true);
@@ -69,14 +72,21 @@
 		<div>
 			<table>
 				<tr>
-					<td>maximum:</td>
+					<td>max:</td>
 					<td><input id="maximumInput" type="text" value="7"></td>
 				</tr>
 				<tr>
-					<td>editable:</td>
+					<td>readOnly:</td>
 					<td><select id="editableSelect">
-						<option selected="selected">true</option>
-						<option>false</option>
+						<option selected="selected">false</option>
+						<option>true</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>disabled:</td>
+					<td><select id="disabledSelect">
+						<option selected="selected">false</option>
+						<option>true</option>
 					</select></td>
 				</tr>
 				<tr>
