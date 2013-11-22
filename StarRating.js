@@ -216,7 +216,6 @@ define([
 					this._hoveredValue = newValue;
 				}
 			} else {
-				console.log("set value to " + newValue);
 				this.value = newValue;
 			}
 		},
