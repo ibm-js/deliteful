@@ -306,18 +306,17 @@ define([
 			// Trace up prototype chain looking for custom setter
 			for (var proto = this; proto; proto = Object.getPrototypeOf(proto)) {
 				var desc = Object.getOwnPropertyDescriptor(proto, "tabIndex");
-				if (desc && "set" in desc && "get" in desc) {
-					if (this.getAttribute("tabindex") === null) { // initial value was the native default
-						tabIndex = desc.get.call(this, "tabIndex"); // call custom getter
+				if (desc && desc.set) {
+					if (this.hasAttribute("tabindex")) { // initial value was specified
+						this.removeAttribute("tabindex");
+						desc.set.call(this, tabIndex); // call custom setter
 					}
-					this.removeAttribute("tabindex");
-					desc.set.call(this, tabIndex); // call custom setter
 					var self = this;
 					// begin watching for changes to the tabindex DOM attribute
 					if ("WebKitMutationObserver" in window) {
-						var observer = new WebKitMutationObserver(function (mutations) {
+						var observer = new WebKitMutationObserver(function () {
 							var newValue = self.getAttribute("tabindex");
-							if (newValue !== desc.get.call(self, "tabIndex") && newValue !== null) {
+							if (newValue !== null) {
 								self.removeAttribute("tabindex");
 								desc.set.call(self, newValue);
 							}
