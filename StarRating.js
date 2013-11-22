@@ -129,6 +129,7 @@ define([
 		},
 
 		refreshRendering: function (props) {
+			console.log(props);
 			var passive;
 			if (props.disabled !== undefined) {
 				if (this.disabled) {
@@ -141,7 +142,7 @@ define([
 				this.setAttribute("aria-valuemax", this.max);
 			}
 			if (props.max !== undefined || props.value !== undefined) {
-				var createChildren = this.children.length !== this.max;
+				var createChildren = this.children.length - 1 !== this.max;
 				if (createChildren) {
 					domConstruct.empty(this);
 				}
@@ -150,7 +151,7 @@ define([
 			if (props.value !== undefined) {
 				this.setAttribute("aria-valuenow", this.value);
 				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
-				this.valueNode.setAttribute("value", this.value);
+				this.valueNode.value = this.value;
 			}
 			if (props.name !== undefined) {
 				this.valueNode.name = this.name;
@@ -215,6 +216,7 @@ define([
 					this._hoveredValue = newValue;
 				}
 			} else {
+				console.log("set value to " + newValue);
 				this.value = newValue;
 			}
 		},
