@@ -137,7 +137,7 @@
 						doh.is("3,000", dojo.byId("q05").value, "elevation display value");
 						doh.is("not fired yet!", dojo.byId("oc5").value, "elevation onchange");
 						doh.t(!!dui.byId("q05").constraints.allowCruft, "constructor constraints value");
-						
+
 						doh.is("54775.53", form1.income1.value, "income1");
 						doh.is("$54,775.53", dojo.byId("q08").value, "income1 display value");
 						doh.is("not fired yet!", dojo.byId("oc8").value, "income1 onchange");
@@ -353,8 +353,10 @@
 							var w = dui.byId('q22');
 							w.set('value', 'someTestString');
 							w.set('pattern', function(){ return "[a-z]+"; }); // invalid
+							doh.is('Error', w.get('state'));
 							doh.is(false, w.isValid(false), "invalid string");
 							w.set('pattern', function(){ return "[a-zTS]+"; }); // valid
+							doh.is('', w.get('state'));
 							doh.is(true, w.isValid(false), "valid string");
 						}
 					}
