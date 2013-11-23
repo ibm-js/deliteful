@@ -130,13 +130,6 @@ define([
 					// squelch errors from hidden nodes
 				}
 			}
-		},
-
-		createdCallback: dcl.after(function () {
-			// summary:
-			//		Process interdependent fields: tabStops, tabIndex, disabled
-			this._postMixInProperties = true;
-			this.disabled = this.disabled; // run disabled setter which also runs tabIndex setter
-		})
+		}
 	});
 });
