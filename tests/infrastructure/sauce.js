@@ -1,14 +1,5 @@
-// Test file to run infrastructure tests against SauceLabs
-//
-// Setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
-// on https://saucelabs.com/appium/tutorial/3.
-//
-// Then run from the parent directory of dui:
-//
-//	$ cd ../../..
-// 	$ node node_modules/intern/runner.js config=dui/tests/infrastructure/sauce.js
-//
-// (Adjust path to runner.js as necessary.)
+// Test file to run infrastructure tests against SauceLabs.
+// Run using "runsauce.sh"
 
 // Learn more about configuring this file at <https://github.com/theintern/intern/wiki/Configuring-Intern>.
 // These default settings work OK for most people. The options that *must* be changed below are the
@@ -67,9 +58,6 @@ define({
 		port: 4444
 	},
 
-	loader: {
-	},
-
 	// Non-functional test suite(s) to run in each browser
 	suites: [ "dui/tests/infrastructure/unit" ],
 
@@ -77,5 +65,5 @@ define({
 	functionalSuites: [ "dui/tests/infrastructure/functional" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(dcl|dojo|dui\/tests)/
+	excludeInstrumentation: /^(requirejs|dcl|dojo|dui\/tests)/
 });

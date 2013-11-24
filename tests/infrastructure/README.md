@@ -1,14 +1,18 @@
 # DUI Infrastructure Unit Tests
 
-This directory contains the DUI unit tests (to be renamed as "delite").
+This directory contains the DUI infrastructure (to be renamed as "delite") unit tests.
 
-Before starting, install Intern (https://github.com/theintern/intern#quick-start),
-using the parent directory of your dui checkout as the installation directory:
+## Setup
+
+Before starting, install Intern by running
 
 ```
-$ cd ../../..
-$ npm install intern --save-dev
+$ npm install
 ```
+
+Also, if you are going to run against Sauce Labs, then
+setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
+on https://saucelabs.com/appium/tutorial/3.
 
 
 ## Running the unit tests in a browser
@@ -16,17 +20,15 @@ $ npm install intern --save-dev
 Navigate to:
 
 ```
-http://localhost/node_modules/intern/client.html?config=dui/tests/infrastructure/sauce
+http://localhost/dui/node_modules/intern/client.html?config=tests/infrastructure/client
 ```
 
 Note that this won't run the functional tests.
 
+
 ## Running the unit and functional tests in Sauce Labs
 
-First, setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
-on https://saucelabs.com/appium/tutorial/3.
-
-Then, on Mac/Linux:
+On Mac/Linux:
 
 ```
 $ ./runsauce.sh
@@ -36,7 +38,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node node_modules\intern\runner.js config=dui\tests\infrastructure\sauce.js
+node dui\node_modules\intern\runner.js config=dui\tests\infrastructure\sauce.js
 ```
 
 ## Running the unit and functional tests locally
@@ -59,7 +61,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node node_modules\intern\runner.js config=dui\tests\infrastructure\local.js
+node dui\node_modules\intern\runner.js config=dui\tests\infrastructure\local.js
 ```
 
 

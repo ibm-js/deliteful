@@ -1,3 +1,3 @@
-# Script to run infrastructure tests in Sauce Labs
+# Script to run infrastructure tests locally
 cd ../../..
-node node_modules/intern/runner.js config=dui/tests/infrastructure/local.js
+node dui/node_modules/intern/runner.js config=dui/tests/infrastructure/local.js
