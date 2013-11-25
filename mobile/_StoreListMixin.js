@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/declare",
-	"../mixins/StoreMap",
+	"../StoreMap",
 	"./ListItem",
 	"dojo/has",
 	"dojo/has!dojo-bidi?dui/mobile/bidi/_StoreListMixin"

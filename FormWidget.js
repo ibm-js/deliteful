@@ -3,7 +3,7 @@ define([
 	"dojo/window", // winUtils.scrollIntoView
 	"dojo/dom-style", // domStyle
 	"./Widget",
-	"./mixins/Invalidating"
+	"./Invalidating"
 ], function (dcl, winUtils, domStyle, Widget, Invalidating) {
 
 	// module:

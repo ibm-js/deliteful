@@ -1,4 +1,4 @@
-define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
+define(["doh/runner", "../../register", "../../Widget", "../../Store",
 	"dojo/store/Observable", "dojo/store/JsonRest", "dojo/store/Memory"],
 	function (doh, register, Widget, Store, Observable, JsonRest, Memory) {
 
@@ -6,7 +6,7 @@ define(["doh/runner", "../../register", "../../Widget", "../../mixins/Store",
 
 		/* jshint -W064 */
 
-		doh.register("mixins.Store", [
+		doh.register("Store", [
 			{
 				timeout: 2000,
 				name: "Error",

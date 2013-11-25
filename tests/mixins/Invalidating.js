@@ -1,6 +1,6 @@
-define(["doh/runner", "dcl/dcl", "dojo/Evented", "../../Stateful", "../../register", "../../mixins/Invalidating", "../../Widget"],
+define(["doh/runner", "dcl/dcl", "dojo/Evented", "../../Stateful", "../../register", "../../Invalidating", "../../Widget"],
 	function (doh, dcl, Evented, Stateful, register, Invalidating, Widget) {
-		doh.register("mixins.Invalidating", [
+		doh.register("Invalidating", [
 			{
 				timeout: 2000,
 				name: "PostCreation",

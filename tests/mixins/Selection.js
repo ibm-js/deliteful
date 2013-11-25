@@ -1,4 +1,4 @@
-define(["doh/runner", "../../register", "../../mixins/Selection"],
+define(["doh/runner", "../../register", "../../Selection"],
 	function (doh, register, Selection) {
 		var C = register("test-selection", [HTMLElement, Selection], {
 			updateRenderers: function () {
@@ -7,7 +7,7 @@ define(["doh/runner", "../../register", "../../mixins/Selection"],
 				return item;
 			}
 		});
-		doh.register("mixins.Selection", [
+		doh.register("Selection", [
 			function testSetGet(t) {
 				var o = new C();
 				o.selectedItem = "1";

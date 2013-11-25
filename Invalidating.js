@@ -1,4 +1,4 @@
-define(["dcl/dcl", "dojo/_base/lang", "../Stateful"], function (dcl, lang, Stateful) {
+define(["dcl/dcl", "dojo/_base/lang", "./Stateful"], function (dcl, lang, Stateful) {
 
 	return dcl(Stateful, {
 		// summary:
