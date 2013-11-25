@@ -1,7 +1,7 @@
 define([
     "intern!object",
     "intern/chai!assert",
-    "dui/register",
+    "../register",
 	"dui/Stateful",
     "dojo/domReady!"
 ], function (registerSuite, assert, register, Stateful) {

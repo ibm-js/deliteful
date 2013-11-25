@@ -1,7 +1,7 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dui/register",
+	"../register",
 	"dojo/sniff",
 	"dui/Widget",
 	"dojo/domReady!"

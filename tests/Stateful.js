@@ -1,4 +1,4 @@
-define(["doh/main", "../../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
+define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 
 	doh.register("tests.Stateful", [
 		function getSetWatch(t) {

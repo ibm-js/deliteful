@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>dui/css unit test</title>
-	<script type="text/javascript" src="../boilerplate.js"></script>
+	<script type="text/javascript" src="boilerplate.js"></script>
 
 	<script type="text/javascript">
 		require(["doh/runner", "dojo/domReady!"], function (doh) {
@@ -28,7 +28,7 @@
 						// Test that image paths are corrected to be relative to the document rather than the CSS file.
 						text.match(/url\("(.*)"\)/);
 						var path = RegExp.$1;
-						doh.is("../../../dui/tests/css/../images/plus.gif", path, "URL to image");
+						doh.is("../../dui/tests/css/../images/plus.gif", path, "URL to image");
 					}));
 
 					return d;
