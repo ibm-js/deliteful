@@ -70,6 +70,7 @@ for (i = 0; script = scripts[i]; i++) {
 require = {
 	baseUrl: testDir + "../../",
 	packages: [
+		{name: 'dcl', location: 'dcl'},
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dui', location: 'dui'},
 		{name: 'dojox', location: 'dojox'},

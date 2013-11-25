@@ -7,7 +7,7 @@ define([
 	"dojo/dom-class",
 	"./register",
 	"./Widget",
-	"./mixins/Invalidating",
+	"./Invalidating",
 	"./themes/load!common,Rule"
 ], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
 

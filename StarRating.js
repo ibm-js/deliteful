@@ -11,7 +11,7 @@ define([
 	"dojo/dom-geometry",
 	"./register",
 	"./Widget",
-	"./mixins/Invalidating",
+	"./Invalidating",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
 	"./themes/load!StarRating"
