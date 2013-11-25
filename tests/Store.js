@@ -1,4 +1,4 @@
-define(["doh/runner", "../../register", "../../Widget", "../../Store",
+define(["doh/runner", "../register", "../Widget", "../Store",
 	"dojo/store/Observable", "dojo/store/JsonRest", "dojo/store/Memory"],
 	function (doh, register, Widget, Store, Observable, JsonRest, Memory) {
 

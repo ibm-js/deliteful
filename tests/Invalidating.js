@@ -1,4 +1,4 @@
-define(["doh/runner", "dcl/dcl", "dojo/Evented", "../../Stateful", "../../register", "../../Invalidating", "../../Widget"],
+define(["doh/runner", "dcl/dcl", "dojo/Evented", "../Stateful", "../register", "../Invalidating", "../Widget"],
 	function (doh, dcl, Evented, Stateful, register, Invalidating, Widget) {
 		doh.register("Invalidating", [
 			{

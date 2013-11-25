@@ -2,8 +2,12 @@ define([
 	"doh/main",
 	"require",
 
-	// Core methods/modules [temporarily in dui?]
-	"./Stateful"
+	// Unit tests
+	"./Stateful",
+	"./Invalidating",
+	"./Selection",
+	"./Store",
+	"./StoreMap"
 ], function (doh, require) {
 
 	// Utility methods (previously in dui/_base)

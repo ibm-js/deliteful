@@ -1,4 +1,4 @@
-define(["doh/runner", "../../register", "../../Selection"],
+define(["doh/runner", "../register", "../Selection"],
 	function (doh, register, Selection) {
 		var C = register("test-selection", [HTMLElement, Selection], {
 			updateRenderers: function () {
