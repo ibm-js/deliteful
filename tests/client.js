@@ -4,9 +4,9 @@
 define({
 	loader: {
 		// location of all the packages, relative to client.html
-		baseUrl: "../../.."
+		baseUrl: "../.."
 	},
 
 	// Non-functional test suites
-	suites: [ "dui/tests/infrastructure/unit" ]
+	suites: [ "dui/tests/unit" ]
 });
