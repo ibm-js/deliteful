@@ -77,7 +77,7 @@ define([
 
 		postCreate: function(){
 			if(this.contextMenuForWindow){
-				this.bindDomNode(this.ownerDocumentBody);
+				this.bindDomNode(this.ownerDocument.body);
 			}else{
 				this.targetNodeIds.forEach(this.bindDomNode, this);
 			}

@@ -75,7 +75,7 @@ define([
 				var node = query("[widgetId]", this.dropDownContainer)[0];
 				this.popup = registry.byNode(node);
 			}
-			this.ownerDocumentBody.appendChild(this.popup.domNode);
+			this.ownerDocument.body.appendChild(this.popup.domNode);
 			this.popup.domNode.setAttribute("aria-labelledby", this.containerNode.id);
 			this.popup.startup();
 

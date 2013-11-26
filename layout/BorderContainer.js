@@ -148,7 +148,7 @@ define([
 					e.stopPropagation();
 					e.preventDefault();
 				}),
-				on(this.ownerDocumentBody, "selectstart", function(e){
+				on(this.ownerDocument.body, "selectstart", function(e){
 					e.stopPropagation();
 					e.preventDefault();
 				}),

@@ -139,7 +139,7 @@ define([
 					style: { display: "none"},
 					role: "region",
 					"aria-label": widget["aria-label"] || widget.label || widget.name || widget.id
-				}, widget.ownerDocumentBody);
+				}, widget.ownerDocument.body);
 				wrapper.appendChild(widget);
 
 				var s = widget.style;

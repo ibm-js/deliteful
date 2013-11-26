@@ -45,7 +45,7 @@ define([
 		templateString: template,
 
 		postCreate: function(){
-			this.ownerDocumentBody.appendChild(this.domNode);
+			this.ownerDocument.body.appendChild(this.domNode);
 
 			this.bgIframe = new BackgroundIframe(this.domNode);
 

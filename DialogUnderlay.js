@@ -63,7 +63,7 @@ define([
 
 		postCreate: function () {
 			// Append the underlay to the body
-			this.ownerDocumentBody.appendChild(this);
+			this.ownerDocument.body.appendChild(this);
 
 			this.own(on(this, "keydown", lang.hitch(this, "_onKeyDown")));
 		},

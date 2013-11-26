@@ -111,7 +111,7 @@ define([
 				display: "none",
 				position: "absolute"
 			});
-			this.ownerDocumentBody.appendChild(this.domNode);
+			this.ownerDocument.body.appendChild(this.domNode);
 
 			this.inherited(arguments);
 
@@ -192,7 +192,7 @@ define([
 			//		in the viewport has been determined (by dragging, for instance),
 			//		center the dialog.  Otherwise, use the Dialog's stored relative offset,
 			//		adjusted by the viewport's scroll.
-			if(!domClass.contains(this.ownerDocumentBody, "dojoMove")){    // don't do anything if called during auto-scroll
+			if(!domClass.contains(this.ownerDocument.body, "dojoMove")){    // don't do anything if called during auto-scroll
 				var node = this.domNode,
 					viewport = winUtils.getBox(this.ownerDocument),
 					p = this._relativePosition,
