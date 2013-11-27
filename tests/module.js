@@ -33,5 +33,6 @@ define([
 
 	// Miscellaneous
 	// doh.register("robot.BgIframe", require.toUrl("./robot/BgIframe.html"), 999999);	// comment out until converted to webdriver test
+	doh.register("ExampleWidget", require.toUrl("./test_ExampleWidget.html"), 999999);
 
 });

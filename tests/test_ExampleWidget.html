@@ -13,15 +13,15 @@
 		require([
 			"doh/runner",
 			"dojo/has",
-			"dojo/parser",
+			"dui/register",
 			"dui/ExampleWidget",
 			"dojo/domReady!"
-		], function (doh, has, parser) {
+		], function (doh, has, register) {
 
 			doh.register("ExampleWidget", [
 				function parse() {
 					// run parser inside of DOH so we can tell if there are any exceptions
-					parser.parse();
+					register.parse();
 				},
 				function css() {
 					// check that CSS files for ExampleWidget were loaded
@@ -41,7 +41,7 @@
 
 </head>
 <body>
-<div data-dojo-type="dui/ExampleWidget"></div>
+<d-example></d-example>
 
 <br>
 <a href="./test_ExampleWidget.html?dir=ltr">force LTR mode</a>
