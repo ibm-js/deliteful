@@ -1,9 +1,9 @@
 define([
-    "intern!object",
-    "intern/chai!assert",
-    "../register",
+	"intern!object",
+	"intern/chai!assert",
+	"../register",
 	"dui/Stateful",
-    "dojo/domReady!"
+	"dojo/domReady!"
 ], function (registerSuite, assert, register, Stateful) {
 
 	// The <div> node where we will put all our DOM nodes
@@ -13,16 +13,16 @@ define([
 
 	var nativeButton = document.createElement("button");
 
-    registerSuite({
-        name: "dui/register tests",
+	registerSuite({
+		name: "dui/register tests",
 
-        setup: function () {
+		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-        },
+		},
 
 		// Declare and instantiate a simple widget
-        "simple" : function () {
+		"simple" : function () {
 			// Create a mixin for testing purposes.  Note that (currently) Stateful must be in the inheritance chain
 			// because register() expects this.introspect() and this._getProps() to be defined.
 			Mixin = register.dcl(Stateful, {
@@ -46,7 +46,7 @@ define([
 			});
 			assert.ok(Mixin, "Mixin created");
 
-            TestWidget = register("test-widget", [HTMLElement, Mixin], {
+			TestWidget = register("test-widget", [HTMLElement, Mixin], {
 				barFunc: function () {
 					this._barCalled = true;
 				}
@@ -147,27 +147,27 @@ define([
 			assert.ok(tebw.label, "label");
 			tebw.extFunc();
 			assert.ok(tebw._extCalled, "_extCalled");
-        },
+		},
 
 		// Create element is like upgrade() but it also creates the element for you.
-        "createElement" : function () {
+		"createElement" : function () {
 			var tw = register.createElement("test-widget");
 			assert.ok(tw.foo, "TestWidget.foo");
 
 			// Test also that we can create plain elements that are not registered as widgets
-            var div = register.createElement("div");
+			var div = register.createElement("div");
 			assert.strictEqual("div", div.nodeName.toLowerCase(), "nodeName of div");
-        },
+		},
 
 		// Test the new MyWidget() syntactic sugar
-        "new" : function () {
+		"new" : function () {
 			var tw = new TestWidget({});
 			assert.ok(tw.foo, "TestWidget.foo");
 			assert.strictEqual("test-widget", tw.nodeName.toLowerCase(), "nodeName of TestWidget");
-        },
+		},
 
 		// Test the parser, which scans the DOM for registered widgets and upgrades them
-        "parse" : function () {
+		"parse" : function () {
 			container.innerHTML += "<div>" +
 				"<button is='test-extended-button-widget' id=ebw2>hello</button>" +
 				"<span>random node</span>" +
@@ -179,7 +179,7 @@ define([
 			assert.strictEqual(3, document.getElementById("ew2").foo, "ew2.foo");
 
 			// TODO: test that startup() is called.
-        },
+		},
 
 		teardown: function () {
 			container.parentNode = null;
