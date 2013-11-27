@@ -1,6 +1,6 @@
-# DUI Infrastructure Unit Tests
+# Delite Unit Tests
 
-This directory contains the DUI infrastructure (to be renamed as "delite") unit tests.
+This directory contains the Delite unit tests.
 
 ## Setup
 
@@ -20,7 +20,7 @@ on https://saucelabs.com/appium/tutorial/3.
 Navigate to:
 
 ```
-http://localhost/dui/node_modules/intern/client.html?config=tests/infrastructure/client
+http://localhost/dui/node_modules/intern/client.html?config=tests/client
 ```
 
 Note that this won't run the functional tests.
@@ -38,7 +38,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node dui\node_modules\intern\runner.js config=dui\tests\infrastructure\sauce.js
+node dui\node_modules\intern\runner.js config=dui\tests\sauce.js
 ```
 
 ## Running the unit and functional tests locally
@@ -61,7 +61,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node dui\node_modules\intern\runner.js config=dui\tests\infrastructure\local.js
+node dui\node_modules\intern\runner.js config=dui\tests\local.js
 ```
 
 
