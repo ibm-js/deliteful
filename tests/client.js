@@ -4,7 +4,7 @@
 define({
 	loader: {
 		// location of all the packages, relative to client.html
-		baseUrl: "../.."
+		baseUrl: "../../.."
 	},
 
 	// Non-functional test suites
