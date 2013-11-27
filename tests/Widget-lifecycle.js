@@ -76,7 +76,7 @@ define([
 			assert.equal(false, fooSetterCalled, "fooSetterCalled");
 		},
 		teardown : function () {
-			container.parentNode = null;
+			container.parentNode.removeChild(container);
 		}
 	});
 });

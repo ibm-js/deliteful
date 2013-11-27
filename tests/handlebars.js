@@ -133,7 +133,7 @@ define([
 		},
 
 		teardown : function () {
-			container.parentNode = null;
+			container.parentNode.removeChild(container);
 		}
 	});
 });

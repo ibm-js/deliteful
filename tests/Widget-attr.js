@@ -162,7 +162,7 @@ define([
 			assert.strictEqual("8", simpleDeclarative.getAttribute("tabindex"), "declarative set");
 		},
 		teardown : function () {
-			container.parentNode = null;
+			container.parentNode.removeChild(container);
 		}
 	});
 });

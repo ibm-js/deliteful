@@ -92,7 +92,7 @@ define([
 			assert.strictEqual(1, destroyable1.watches);
 		},
 		teardown : function () {
-			container.parentNode = null;
+			container.parentNode.removeChild(container);
 		}
 	});
 });

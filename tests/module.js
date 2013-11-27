@@ -21,7 +21,6 @@ define([
 	// doh.register("robot.typematic", require.toUrl("./robot/typematic.html"), 999999);	// comment out until converted to webdriver test
 
 	// _Widget
-	doh.register("Widget-placeAt", require.toUrl("./Widget-placeAt.html"), 999999);
 	doh.register("Widget-utility", require.toUrl("./Widget-utility.html"), 999999);
 	doh.register("Widget-on", require.toUrl("./Widget-on.html"), 999999);
 
