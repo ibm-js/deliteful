@@ -24,7 +24,6 @@ define([
 	doh.register("Widget-on", require.toUrl("./Widget-on.html"), 999999);
 
 	// Mixins
-	doh.register("Container", require.toUrl("./Container.html"), 999999);
 	// doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999); // removed in 622fe52c7e0fe7466a375e23a18ddb6a12b9aaa6 but it should be restored!
 
 	// Miscellaneous

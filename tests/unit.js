@@ -9,4 +9,5 @@ define([
 	"./Widget-utility",
 	"./HasDropDown",
 	"./CssState",
+	"./Container"
 ]);
