@@ -1,4 +1,4 @@
-// Test file to run infrastructure tests locally.
+// Test file to run tests locally.
 // Run using "runlocal.sh"
 
 define({

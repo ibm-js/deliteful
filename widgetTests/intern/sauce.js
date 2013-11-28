@@ -1,4 +1,4 @@
-// Test file to run infrastructure tests against SauceLabs.
+// Test file to run tests against SauceLabs.
 // Run using "runsauce.sh"
 
 // Learn more about configuring this file at <https://github.com/theintern/intern/wiki/Configuring-Intern>.
