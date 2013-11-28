@@ -6,5 +6,7 @@ define([
 	"./handlebars",
 	"./Widget-lifecycle",
 	"./Widget-placeAt",
-	"./Widget-utility"
+	"./Widget-utility",
+	"./HasDropDown",
+	"./CssState",
 ]);

@@ -26,8 +26,6 @@ define([
 	// Mixins
 	doh.register("Container", require.toUrl("./Container.html"), 999999);
 	// doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999); // removed in 622fe52c7e0fe7466a375e23a18ddb6a12b9aaa6 but it should be restored!
-	doh.register("HasDropDown", require.toUrl("./HasDropDown.html"), 999999);
-	doh.register("CssState", require.toUrl("./CssState.html"), 999999);
 
 	// Miscellaneous
 	// doh.register("robot.BgIframe", require.toUrl("./robot/BgIframe.html"), 999999);	// comment out until converted to webdriver test
