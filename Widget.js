@@ -548,10 +548,6 @@ define([
 			if (eventObj.cancelable === undefined) {
 				eventObj.cancelable = true;
 			}
-			if (!eventObj.detail) {
-				eventObj.detail = {};
-			}
-			eventObj.detail.widget = this;
 
 			// Emit event, but avoid spurious emit()'s as parent sets properties on child during startup/destroy
 			if (this._started && !this._beingDestroyed) {
