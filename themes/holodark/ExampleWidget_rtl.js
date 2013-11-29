@@ -1,9 +1,9 @@
 define(function(){ return '\
-/* RTL CSS for holodark theme for ExampleWidget */\
-.duiExampleWidgetRtl {\
+/* RTL CSS for holodark theme for ExampleWidget. */\
+.duiExampleWidget.duiExampleWidgetRtl {\
   text-align: right;\
 }\
-.duiExampleWidgetRtl:before {\
+.duiExampleWidget.duiExampleWidgetRtl:before {\
   content: "(RTL variant) ";\
 }\
 '; } );

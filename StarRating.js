@@ -14,7 +14,8 @@ define([
 	"./Invalidating",
 	"dojo/has!dojo-bidi?dui/bidi/StarRating",
 	"dojo/i18n!./nls/StarRating",
-	"./themes/load!StarRating"
+	"./themes/load!./themes/{{theme}}/StarRating",
+	"dojo/has!dojo-bidi?./themes/load!./themes/{{theme}}/StarRating_rtl"
 ], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 

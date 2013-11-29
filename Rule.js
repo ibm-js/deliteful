@@ -8,7 +8,7 @@ define([
 	"./register",
 	"./Widget",
 	"./Invalidating",
-	"./themes/load!common,Rule"
+	"./themes/load!./themes/{{theme}}/common,./themes/{{theme}}/Rule"
 ], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
 
 	function toCSS(baseClass, modifier) {

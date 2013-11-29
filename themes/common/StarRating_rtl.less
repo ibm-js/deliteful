@@ -1,40 +1,6 @@
-.duiStarRating{
-	&.duiStarRatingHovered{
-		opacity: 0.5;
-	}
-}
+// Note that selectors are more selective than StarRating.less because it's indeterminate which order the styles
+// are inserted into the document.
 
-.duiStarRating{
-	-ms-touch-action: none;
-	input{
-		display: none;
-	}
-}
-
-.duiStarRatingDisabled{
-	.duiStarRatingStarIcon{
-		background-image: @star-icon-disabled-sprite;
-	}
-}
-
-.duiStarRatingStarIcon{
-	height: @star-icon-size;
-	width: @star-icon-size;
-	background-image: @star-icon-sprite;
-	background-repeat: no-repeat;
-}
-
-.duiStarRatingFullStar{
-}
-
-.duiStarRatingEmptyStar{
-	background-position: (-1 * @star-icon-size) 0px;
-}
-
-.duiStarRatingHalfStar{
-	background-position: (-2 * @star-icon-size) 0px;
-}
-
-.duiStarRatingHalfStarRtl{
+.duiStarRatingRtl .duiStarRatingHalfStarRtl {
 	background-position: (-3 * @star-icon-size) 0px;
 }
