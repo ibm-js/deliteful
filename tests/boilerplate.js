@@ -1,12 +1,10 @@
 // module:
 //		dui/tests/boilerplate
 // description:
-//		A <script src="boilerplate.js"> on your test page will:
+//		A <script src="boilerplate.js"> on your test page will
+//		load the loader (i.e. define the require() method)
 //
-//		- load claro or a specified theme
-//		- load the loader (i.e. define the require() method)
-//
-//		By URL flags you can specify the theme,
+//		In addition, by URL flags you can specify the theme,
 //		and optionally enable RTL (right to left) mode, and/or dj_a11y (high-
 //		contrast/image off emulation) ... probably not a genuine test for a11y.
 //
@@ -113,10 +111,5 @@ function boilerplateOnLoad() {
 			// that affects how they lay out relative to inline form widgets
 			query("label").attr("dir", "rtl");
 		});
-	}
-
-	// parseOnLoad: true requires that the parser itself be loaded.
-	if (require.parseOnLoad) {
-		require(["dojo/parser"]);
 	}
 }
