@@ -13,7 +13,7 @@ define([
 	"./place",
 	"./BackgroundIframe",
 	"./Viewport",
-	"./themes/load!common"	// duiPopup class
+	"./themes/load!./themes/common"	// duiPopup class
 ], function (aspect, dcl, dom, domAttr, domConstruct, domGeometry, domStyle, has, keys, lang, on, place, BackgroundIframe, Viewport) {
 
 	// module:
