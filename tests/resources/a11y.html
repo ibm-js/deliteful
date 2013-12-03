@@ -1,0 +1,165 @@
+<div id="empty"></div>
+
+<div id="div-container">
+    <div id="div"></div>
+</div>
+<div id="a-without-href-container">
+    <a id="a-without-href"></a>
+</div>
+<div id="a-with-href-container">
+    <a id="a-with-href" href="#a-without-href"></a>
+</div>
+<!-- todo: widgetTests is seperated now and may be moved -->
+<div><img src="../../widgetTests/images/flatScreen.gif" alt="picture of a flat-screen monitor" usemap="#area-map"/></div>
+<map id="area-map" name="area-map">
+    <area id="area" href="#" alt="example area" shape="rect" coords="0,0,8,8"/>
+</map>
+
+<div id="button-container">
+    <button id="button"></button>
+</div>
+<div id="input-container">
+    <input id="input"/>
+</div>
+<div id="object-container">
+    <object id="object" type="text/javascript"></object>
+</div>
+<div id="select-container">
+    <select id="select"></select>
+</div>
+<div id="textarea-container">
+    <textarea id="textarea"></textarea>
+</div>
+
+<div id="skip-disabled">
+    <input id="disabled-input1" disabled="disabled"/>
+    <input id="not-disabled-input"/>
+    <input id="disabled-input2" disabled="disabled"/>
+</div>
+
+<div id="zero-tabindex-div-container">
+    <div id="zero-tabindex-div" tabindex="0"></div>
+</div>
+
+<div id="no-tabindex-div-container">
+    <div id="no-tabindex-div"></div>
+</div>
+
+<div id="zero-tabindex-input-container">
+    <input id="zero-tabindex-input" tabindex="0"/>
+</div>
+
+<div id="iframe-container">
+    <div id="iframe"></div>
+</div>
+
+<div id="positive-tabindex-mixed-with-no-tabindex">
+    <input id="no-tabindex-input1"/>
+    <input id="no-tabindex-input2"/>
+    <input id="positive-tabindex-input1a" tabindex="1"/>
+    <input id="positive-tabindex-input1b" tabindex="1"/>
+    <input id="positive-tabindex-input2a" tabindex="2"/>
+    <input id="positive-tabindex-input2b" tabindex="2"/>
+</div>
+
+<div id="positive-tabindex">
+    <input id="positive-tabindex-input3a" tabindex="3"/>
+    <input id="positive-tabindex-input3b" tabindex="3"/>
+    <input id="positive-tabindex-input4a" tabindex="4"/>
+    <input id="positive-tabindex-input4b" tabindex="4"/>
+</div>
+
+<div id="skip-minus-one">
+    <input id="minus-one-input1" tabindex="-1"/>
+    <input id="not-minus-one-input"/>
+    <input id="minus-one-input2" tabindex="-1"/>
+</div>
+
+<div id="descend">
+    <input disabled="disabled"/>
+
+    <div>
+        <input disabled="disabled"/>
+
+        <div>
+            <input disabled="disabled"/>
+        </div>
+    </div>
+    <div>
+        <input disabled="disabled"/>
+
+        <div>
+            <input disabled="disabled"/>
+        </div>
+        <div>
+            <input id="child-input1"/>
+        </div>
+        <div>
+            <input id="child-input2"/>
+        </div>
+    </div>
+    <div>
+        <div>
+            <input disabled="disabled"/>
+        </div>
+        <input disabled="disabled"/>
+    </div>
+    <input disabled="disabled"/>
+</div>
+
+<div id="outer-inner-container">
+    <div id="outer1" tabindex="0">
+        <div id="inner1" tabindex="0"></div>
+    </div>
+    <div id="outer2" tabindex="0">
+        <div id="inner2" tabindex="0"></div>
+    </div>
+</div>
+
+<div id="hidden-element-container">
+    <div id="hidden-element" tabindex="0" style="visibility: hidden;">
+    </div>
+</div>
+
+<div id="container-with-hidden-containers">
+    <div id="hidden-container-tabindex-zero" tabindex="0" style="visibility: hidden;">
+        <div id="inside-hidden-container-tabindex-zero" tabindex="0">
+        </div>
+    </div>
+
+    <div id="hidden-container-no-tabindex" style="visibility: hidden;">
+        <div id="inside-hidden-container-no-tabindex" tabindex="0">
+        </div>
+    </div>
+</div>
+
+<div id="display-none-element-container">
+    <div id="display-none-element" tabindex="0" style="display: none;">
+    </div>
+</div>
+
+<div id="container-with-display-none-containers">
+    <div id="display-none-container-tabindex-zero" tabindex="0" style="display: none;">
+        <div id="inside-display-none-container-tabindex-zero" tabindex="0">
+        </div>
+    </div>
+
+    <div id="display-none-container-no-tabindex" style="display: none;">
+        <div id="inside-display-none-container-no-tabindex" tabindex="0">
+        </div>
+    </div>
+</div>
+
+<div id="multiDigitTabIndex">
+    <input name="one" tabindex=1>
+    <input name="two" tabindex=2>
+    <input name="three" tabindex=3>
+    <input name="four" tabindex=4>
+    <input name="five" tabindex=5>
+    <input name="six" tabindex=6>
+    <input name="seven" tabindex=7>
+    <input name="eight" tabindex=8>
+    <input name="nine" tabindex=9>
+    <input name="ten" tabindex=10>
+    <input name="eleven" tabindex=11>
+</div>
