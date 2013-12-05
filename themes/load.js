@@ -7,7 +7,7 @@ define([
 
 	"use strict";
 
-	return {
+	var load = {
 		// summary:
 		//		Loads the specified CSS file(s), substituting {{theme}} with the theme for the current page.
 		//
@@ -50,7 +50,7 @@ define([
 		getTheme: function () {
 			// summary:
 			//		Compute the theme name, according to browser and this.themeMap.
-			var theme = this.theme || config.theme || location.search.match(/theme=(\w+)/) ? RegExp.$1 : null;
+			var theme = load.theme || config.theme || location.search.match(/theme=(\w+)/) ? RegExp.$1 : null;
 			if (!theme) {
 				var ua = config.userAgent || (location.search.match(/ua=(\w+)/) ? RegExp.$1 : navigator.userAgent),
 					themeMap = this.themeMap;
@@ -61,7 +61,7 @@ define([
 					}
 				}
 			}
-			this.theme = theme;
+			load.theme = theme;
 			return theme;
 		},
 
@@ -88,7 +88,7 @@ define([
 
 			// Convert list of logical paths into list of actual paths
 			// ex: Button/css/{{theme}}/Button --> Button/css/ios/Button
-			var actualPaths = logicalPaths.replace(/{{theme}}/g, this.getTheme());
+			var actualPaths = logicalPaths.replace(/{{theme}}/g, load.getTheme());
 
 			// Make single call to css! plugin to load resources in order specified
 			req([ "../css!" + actualPaths ], function () {
@@ -96,4 +96,6 @@ define([
 			});
 		}
 	};
+
+	return load;
 });
