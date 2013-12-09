@@ -2,15 +2,15 @@ define([
 	"dcl/dcl",
 	"dojo/has"
 ], function (dcl, has) {
-	'use strict';
+	"use strict";
 
 	var doc = document;
 
 	// Workaround problem using dcl() on native DOMNodes on FF and IE,
 	// see https://github.com/uhop/dcl/issues/9.
 	// Fixes case where tabIndex is declared in a mixin that's passed to register().
-	dcl.mix = function(a, b){
-		for(var n in b){
+	dcl.mix = function (a, b) {
+		for (var n in b) {
 			try {
 				a[n] = b[n];
 			} catch (e) {
@@ -25,12 +25,12 @@ define([
 	};
 
 	// Does platform have native support for document.register() or a polyfill to simulate it?
-	has.add('document-register', !!document.register);
+	has.add("document-register", !!document.register);
 
 	// Can we use __proto__ to reset the prototype of DOMNodes?
 	// It's not available on IE<11, and even on IE11 it makes the node's attributes (ex: node.attributes, node.textContent)
 	// disappear, so disabling it on IE11 for now.
-	has.add('dom-proto-set', function () {
+	has.add("dom-proto-set", function () {
 		var node = document.createElement("div");
 		if (!node.__proto__) {
 			return false;
@@ -68,7 +68,7 @@ define([
 		} else {
 			var element = doc.createElement(base || tag);
 			if (base) {
-				element.setAttribute('is', tag);
+				element.setAttribute("is", tag);
 			}
 			upgrade(element);
 			return element;
@@ -104,7 +104,7 @@ define([
 	 */
 	function upgrade(element) {
 		if (!has("document-register") && !element.__upgraded__) {
-			var widget = registry[element.getAttribute('is') || element.nodeName.toLowerCase()];
+			var widget = registry[element.getAttribute("is") || element.nodeName.toLowerCase()];
 			if (widget) {
 				if (has("dom-proto-set")) {
 					// Redefine Element's prototype to point to widget's methods etc.
@@ -132,70 +132,70 @@ define([
 	 * @type {Object}
 	 */
 	var tags = {
-		HTMLAnchorElement: 'a',
-		HTMLAppletElement: 'applet',
-		HTMLAreaElement: 'area',
-		HTMLAudioElement: 'audio',
-		HTMLBaseElement: 'base',
-		HTMLBRElement: 'br',
-		HTMLButtonElement: 'button',
-		HTMLCanvasElement: 'canvas',
-		HTMLDataElement: 'data',
-		HTMLDataListElement: 'datalist',
-		HTMLDivElement: 'div',
-		HTMLDListElement: 'dl',
-		HTMLDirectoryElement: 'directory',
-		HTMLEmbedElement: 'embed',
-		HTMLFieldSetElement: 'fieldset',
-		HTMLFontElement: 'font',
-		HTMLFormElement: 'form',
-		HTMLHeadElement: 'head',
-		HTMLHeadingElement: 'h1',
-		HTMLHtmlElement: 'html',
-		HTMLHRElement: 'hr',
-		HTMLIFrameElement: 'iframe',
-		HTMLImageElement: 'img',
-		HTMLInputElement: 'input',
-		HTMLKeygenElement: 'keygen',
-		HTMLLabelElement: 'label',
-		HTMLLegendElement: 'legend',
-		HTMLLIElement: 'li',
-		HTMLLinkElement: 'link',
-		HTMLMapElement: 'map',
-		HTMLMediaElement: 'media',
-		HTMLMenuElement: 'menu',
-		HTMLMetaElement: 'meta',
-		HTMLMeterElement: 'meter',
-		HTMLModElement: 'ins',
-		HTMLObjectElement: 'object',
-		HTMLOListElement: 'ol',
-		HTMLOptGroupElement: 'optgroup',
-		HTMLOptionElement: 'option',
-		HTMLOutputElement: 'output',
-		HTMLParagraphElement: 'p',
-		HTMLParamElement: 'param',
-		HTMLPreElement: 'pre',
-		HTMLProgressElement: 'progress',
-		HTMLQuoteElement: 'quote',
-		HTMLScriptElement: 'script',
-		HTMLSelectElement: 'select',
-		HTMLSourceElement: 'source',
-		HTMLSpanElement: 'span',
-		HTMLStyleElement: 'style',
-		HTMLTableElement: 'table',
-		HTMLTableCaptionElement: 'caption',
-		HTMLTableDataCellElement: 'td',
-		HTMLTableHeaderCellElement: 'th',
-		HTMLTableColElement: 'col',
-		HTMLTableRowElement: 'tr',
-		HTMLTableSectionElement: 'tbody',
-		HTMLTextAreaElement: 'textarea',
-		HTMLTimeElement: 'time',
-		HTMLTitleElement: 'title',
-		HTMLTrackElement: 'track',
-		HTMLUListElement: 'ul',
-		HTMLUnknownElement: 'blink',
-		HTMLVideoElement: 'video'
+		HTMLAnchorElement: "a",
+		HTMLAppletElement: "applet",
+		HTMLAreaElement: "area",
+		HTMLAudioElement: "audio",
+		HTMLBaseElement: "base",
+		HTMLBRElement: "br",
+		HTMLButtonElement: "button",
+		HTMLCanvasElement: "canvas",
+		HTMLDataElement: "data",
+		HTMLDataListElement: "datalist",
+		HTMLDivElement: "div",
+		HTMLDListElement: "dl",
+		HTMLDirectoryElement: "directory",
+		HTMLEmbedElement: "embed",
+		HTMLFieldSetElement: "fieldset",
+		HTMLFontElement: "font",
+		HTMLFormElement: "form",
+		HTMLHeadElement: "head",
+		HTMLHeadingElement: "h1",
+		HTMLHtmlElement: "html",
+		HTMLHRElement: "hr",
+		HTMLIFrameElement: "iframe",
+		HTMLImageElement: "img",
+		HTMLInputElement: "input",
+		HTMLKeygenElement: "keygen",
+		HTMLLabelElement: "label",
+		HTMLLegendElement: "legend",
+		HTMLLIElement: "li",
+		HTMLLinkElement: "link",
+		HTMLMapElement: "map",
+		HTMLMediaElement: "media",
+		HTMLMenuElement: "menu",
+		HTMLMetaElement: "meta",
+		HTMLMeterElement: "meter",
+		HTMLModElement: "ins",
+		HTMLObjectElement: "object",
+		HTMLOListElement: "ol",
+		HTMLOptGroupElement: "optgroup",
+		HTMLOptionElement: "option",
+		HTMLOutputElement: "output",
+		HTMLParagraphElement: "p",
+		HTMLParamElement: "param",
+		HTMLPreElement: "pre",
+		HTMLProgressElement: "progress",
+		HTMLQuoteElement: "quote",
+		HTMLScriptElement: "script",
+		HTMLSelectElement: "select",
+		HTMLSourceElement: "source",
+		HTMLSpanElement: "span",
+		HTMLStyleElement: "style",
+		HTMLTableElement: "table",
+		HTMLTableCaptionElement: "caption",
+		HTMLTableDataCellElement: "td",
+		HTMLTableHeaderCellElement: "th",
+		HTMLTableColElement: "col",
+		HTMLTableRowElement: "tr",
+		HTMLTableSectionElement: "tbody",
+		HTMLTextAreaElement: "textarea",
+		HTMLTimeElement: "time",
+		HTMLTitleElement: "title",
+		HTMLTrackElement: "track",
+		HTMLUListElement: "ul",
+		HTMLUnknownElement: "blink",
+		HTMLVideoElement: "video"
 	};
 
 	/**
@@ -232,7 +232,7 @@ define([
 				constructor: baseCtor,
 				prototype: proto
 			};
-		if (baseName !== 'HTMLElement') {
+		if (baseName !== "HTMLElement") {
 			config.extends = tags[baseName];
 		}
 
@@ -246,7 +246,7 @@ define([
 		}
 
 		// Register the selector to find this custom element
-		selectors.push(config.extends ? config.extends + '[is="' + tag + '"]' : tag);
+		selectors.push(config.extends ? config.extends + "[is='" + tag + "']" : tag);
 
 		// Note: if we wanted to support registering new types after the parser was called, then here we should
 		// scan the document for the new type (selectors[length-1]) and upgrade any nodes found.
@@ -256,7 +256,7 @@ define([
 			// Create new widget node or upgrade existing node to widget
 			var node;
 			if (srcNodeRef) {
-				node = typeof srcNodeRef == "string" ? document.getElementById(srcNodeRef) : srcNodeRef;
+				node = typeof srcNodeRef === "string" ? document.getElementById(srcNodeRef) : srcNodeRef;
 				upgrade(node);
 			} else {
 				node = createElement(tag);
@@ -264,7 +264,7 @@ define([
 
 			// Set parameters on node
 			for (var name in params || {}) {
-				if ( name === "style" ) {
+				if (name === "style") {
 					node.style.cssText = params.style;
 				} else {
 					node[name] = params[name];
@@ -316,17 +316,17 @@ define([
 
 		// Check to see if the custom tag is already registered
 		if (tag in registry) {
-			throw new TypeError('A widget is already registered with tag "' + tag + '".');
+			throw new TypeError("A widget is already registered with tag '" + tag + "'.");
 		}
 		// Get name of root class: "HTMLElement", "HTMLInputElement", etc.
 		if (!(baseName = (baseElement.prototype && baseElement.prototype._baseName) || getBaseName(baseElement))) {
-			throw new TypeError(tag + ': Cannot determine class of baseElement');
+			throw new TypeError(tag + ": Cannot determine class of baseElement");
 		}
 		baseName = baseName.replace(/Constructor$/, "");	// normalize HTMLElementConstructor --> HTMLElement on iOS
 
 		// Check to see if baseElement is appropriate
 		if (!/^HTML.*Element$/.test(baseName)) {
-			throw new TypeError(tag + ': baseElement must have HTMLElement in its prototype chain');
+			throw new TypeError(tag + ": baseElement must have HTMLElement in its prototype chain");
 		}
 
 		props = props || {};
