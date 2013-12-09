@@ -4,6 +4,7 @@
 	"dependencies": {
 		"dojo": ">=1.9.1",
 		"requirejs": "2.1.x",
-		"dcl": "1.1.x"
+		"dcl": "1.1.x",
+		"dpointer": ">=0.1.0"
 	}
 }
