@@ -50,7 +50,9 @@ define([
 		getTheme: function () {
 			// summary:
 			//		Compute the theme name, according to browser and this.themeMap.
-			var theme = load.theme || config.theme || location.search.match(/theme=(\w+)/) ? RegExp.$1 : null;
+			var re = /theme=(\w+)/,
+				matches = location.search.match(re),
+				theme = load.theme || config.theme || (matches && matches.length > 1 ? matches[1] : null);
 			if (!theme) {
 				var ua = config.userAgent || (location.search.match(/ua=(\w+)/) ? RegExp.$1 : navigator.userAgent),
 					themeMap = this.themeMap;
