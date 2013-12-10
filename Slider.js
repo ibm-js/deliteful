@@ -318,8 +318,8 @@ define([
 
 				point, pixelValue, value,
 				node = this;
-			if (!isNaN(parseFloat(this.valueNode.value))) { // browser back button or value coded on INPUT
-				this.value = this.valueNode.value;
+			if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
+				this.value = this.valueNode.value; // set this here in case refreshProperties runs before startup (Chrome)
 			}
 			this.own(
 				on(this, touch.press, beginDrag),
@@ -331,7 +331,13 @@ define([
 		},
 
 		startup: function () {
-			this.valueNode.setAttribute("value", this.value); // set the reset value once
+			if (this.valueNode.getAttribute("value") === null) {
+				this.valueNode.setAttribute("value", this.value); // set the reset value
+			}
+			var valueNodeValue = this.valueNode.value; // setting the DOM attribute can change the element value on IE11
+			if (!isNaN(parseFloat(valueNodeValue))) { // browser back button or value coded on INPUT
+				this.value = valueNodeValue; // the valueNode value has precedence over the widget markup value
+			}
 			// if the form is reset, then notify the widget to reposition the handles
 			if (this.valueNode.form) {
 				this.own(on(this.valueNode.form, "reset", lang.hitch(this, "defer",
