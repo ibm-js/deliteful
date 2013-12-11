@@ -38,12 +38,12 @@ define([
 		//		If labels.length < count, then the labels are repeated beginning with index 0.
 		labels: [],
 
-		// orientation: [const] String
+		// vertical: [const] Boolean
 		//		The direction of the nodes relative to parent container.
-		//		- "H": horizontal
-		//		- "V": vertical
+		//		- false: horizontal
+		//		- true: vertical
 		//		The value can inherit from a Slider parent widget.
-		orientation: "",
+		vertical: false,
 
 		// reverse: [const] Boolean
 		//		Specifies if the labels array should be reversed.
@@ -56,7 +56,7 @@ define([
 				"labels",
 				"count",
 				"reverse",
-				"orientation"
+				"vertical"
 			);
 		},
 
@@ -71,7 +71,7 @@ define([
 
 		refreshRendering: function (props) {
 			// summary:
-			//		Slider passes inherited values orientation and flip down to child decoration widgets.
+			//		Slider passes inherited values vertical and flip down to child decoration widgets.
 			// tags:
 			//		private
 			var children = query("> div", this);
@@ -93,23 +93,23 @@ define([
 					this.labels.reverse();
 				}
 			}
-			if (props.orientation) {
+			if (props.vertical) {
 				if (count > 0) {
 					var pos = 0;
 					if (count === 1) {
 						pos = 50;
 					}
-					var css = toCSS(this.baseClass, this.orientation);
+					var css = toCSS(this.baseClass, this.vertical ? "V" : "H");
 					domClass.add(this, css);
-					var css = toCSS(this.baseClass, "Label" + this.orientation);
+					var css = toCSS(this.baseClass, "Label" + (this.vertical ? "V" : "H"));
 					var children = query("> div", this);
 					for (var i = 0; i < count; i++) {
 						var node = children[i];
 						domClass.add(node, css);
-						var label = this.labels.length > 0 ? this.labels[i % this.labels.length] : { H: "\u007c", V: "\u2014" }[this.orientation];
+						var label = this.labels.length > 0 ? this.labels[i % this.labels.length] : (this.vertical ? "\u2014" : "\u007c");
 						node.innerHTML = label;
 						this._setLabelDirection(node);
-						domStyle.set(node, { H: "left", V: "top" }[this.orientation], pos + "%");
+						domStyle.set(node, this.vertical ? "top" : "left", pos + "%");
 						pos = 100 / ((count - 1) / (i + 1));
 					}
 				}

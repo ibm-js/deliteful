@@ -76,7 +76,7 @@
 				id: "Rtl1",
 				name: "Rtl1",
 				value: "10",
-				orientation: "H",
+				vertical: false,
 				flip: true,
 				min: "0",
 				max: "20",
@@ -836,7 +836,7 @@
 		<br>
 		<table style="margin:10px 50px;float:left;">
 			<tr>
-				<td colspan=3 class="customLabels"><d-slider id="Ltr2" value="10,15" orientation="H" isRange disabled tabIndex="3" min="0" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:10px 20px;width:90%" >
+				<td colspan=3 class="customLabels"><d-slider id="Ltr2" value="10,15" disabled tabIndex="3" min="0" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:10px 20px;width:90%" >
 					<input name="Ltr2">
 					<d-rule class="duiRuleBefore" count="5" style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></d-rule>
 					<d-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;' >
@@ -857,7 +857,7 @@
 			</tr>
 			<tr>
 				<td>20</td>
-				<td class="custom" style="width:110pt;"><d-slider id="customH" value="5,15" orientation="H" tabIndex="5" isRange flip min="0" max="20" step="1.0" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input name="customH"></d-slider></td>
+				<td class="custom" style="width:110pt;"><d-slider id="customH" value="5,15" tabIndex="5" flip min="0" max="20" step="1.0" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input name="customH"></d-slider></td>
 				<td>0</td>
 			</tr>
 			<tr>
@@ -879,7 +879,7 @@
 		<br>
 		<table style="height:250px;clear:both;float:left;"><tr>
 			<td style="width:50px;" class="customLabels"><div style="height:250px;">
-				<d-slider id="Btt1" value="10" orientation="V" min="-20" max="20" step="0.5" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
+				<d-slider id="Btt1" value="10" vertical min="-20" max="20" step="0.5" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
 					<input name="Btt1">
 					<d-rule class="duiRuleAfter" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
 					<d-rule style='font-size:10px; margin:0 9px;' >
@@ -899,17 +899,17 @@
 			</div></td>
 			<td style="width:50px;"><div class="custom" style="height:110pt;">
 				-20<br>
-				<d-slider id="customV" value="10" name="customV" orientation="V" flip min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'></d-slider>
+				<d-slider id="customV" value="10" name="customV" vertical flip min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'></d-slider>
 				<br>20
 			</div></td>
 			<td style="width:50px;"><div style="height:100%;">
 				20<br>
-				<d-slider id="Btt2" value="0,10" orientation="V" isRange min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input></d-slider>
+				<d-slider id="Btt2" value="0,10" vertical min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input></d-slider>
 				<br>-20
 			</div></td>
 			<td style="width:50px;" class="dj_a11y" ><div style="height:100%;">
 				-20<br>
-				<d-slider id="a11yTtb2" orientation="V" isRange flip min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input value="0,10"></d-slider>
+				<d-slider id="a11yTtb2" vertical flip min="-20" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")'><input value="0,10"></d-slider>
 				<br>20
 			</div></td>
 		</tr></table>
