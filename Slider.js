@@ -123,7 +123,9 @@ define([
 				});
 			}
 			if (props.name) {
-				this.valueNode.name = this.name;
+				var name = this.name;
+				this.removeAttribute("name");
+				this.valueNode.setAttribute("name", name); // won't restore after a browser back operation since name changed nodes
 			}
 			if (props.max) {
 				this.focusNode.setAttribute("aria-valuemax", this.max);
@@ -331,10 +333,10 @@ define([
 		},
 
 		startup: function () {
+			var valueNodeValue = this.valueNode.value; // setting the DOM attribute can change the element value
 			if (this.valueNode.getAttribute("value") === null) {
 				this.valueNode.setAttribute("value", this.value); // set the reset value
 			}
-			var valueNodeValue = this.valueNode.value; // setting the DOM attribute can change the element value on IE11
 			if (!isNaN(parseFloat(valueNodeValue))) { // browser back button or value coded on INPUT
 				this.value = valueNodeValue; // the valueNode value has precedence over the widget markup value
 			}
