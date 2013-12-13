@@ -2,10 +2,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"../register",
-	"dojo/sniff",
-	"dui/Widget",
-	"dojo/domReady!"
-], function (registerSuite, assert, register, has, Widget) {
+	"dui/Widget"
+], function (registerSuite, assert, register, Widget) {
 	var container, html;
 	/*jshint multistr: true */
 	html = '<my-widget-on id="myWidget" onclick="globalClicked++;" oncustom="globalCustom++;">hi</my-widget-on>';
