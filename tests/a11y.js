@@ -5,7 +5,7 @@ define([
 	"dojo/sniff",
 	"dojo/text!./resources/a11y.html"
 ], function (registerSuite, assert, a11y, has, html) {
-	var container, html;
+	var container;
 		registerSuite({
 		name: "a11y",
 		setup: function () {
