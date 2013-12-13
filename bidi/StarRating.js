@@ -53,11 +53,11 @@ define([
 					for (i = 0; i < this.max; i++) {
 						index = (this.max - i - 1);
 						if (index <= value - 1) {
-							starClass = this.baseClass + "FullStar";
+							starClass = this.baseClass + "-full-star";
 						} else if (index >= value) {
-							starClass = this.baseClass + "EmptyStar";
+							starClass = this.baseClass + "-empty-star";
 						} else {
-							starClass = this.baseClass + "HalfStarRtl";
+							starClass = this.baseClass + "-half-star";
 						}
 						if (create) {
 							parent = domConstruct.create("div", {
@@ -66,10 +66,16 @@ define([
 						} else {
 							parent = this.children[i];
 						}
-						parent.className = this.baseClass + "StarIcon " + starClass;
+						parent.className = this.baseClass + "-star-icon " + starClass;
 					}
 					if (create) {
-			            this.valueNode = domConstruct.create("input", {type: "number", name: this.name, readOnly: this.readOnly, disabled: this.disabled, value: this.value}, this, "last");
+			            this.valueNode = domConstruct.create("input",
+                               {type: "number",
+			                    name: this.name,
+			                    readOnly: this.readOnly,
+			                    disabled: this.disabled,
+			                    value: this.value},
+			                   this, "last");
 					}
 				}
 			};

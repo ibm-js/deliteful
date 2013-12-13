@@ -1,36 +1,37 @@
-.duiStarRating{
-	&.duiStarRatingHovered{
+.d-star-rating{
+	&.d-star-rating-hovered{
 		opacity: 0.5;
 	}
 }
 
-.duiStarRating{
+.d-star-rating{
 	-ms-touch-action: none;
 	input{
 		display: none;
 	}
 }
 
-.duiStarRatingDisabled{
-	.duiStarRatingStarIcon{
-		background-image: @star-icon-disabled-sprite;
+.d-star-rating-disabled{
+	.d-star-rating-star-icon:before{
+		content: @star-icon-disabled-sprite;
 	}
 }
 
-.duiStarRatingStarIcon{
+.d-star-rating-star-icon{
 	height: @star-icon-size;
 	width: @star-icon-size;
-	background-image: @star-icon-sprite;
-	background-repeat: no-repeat;
+	overflow: hidden;
 }
 
-.duiStarRatingFullStar{
+.d-star-rating-star-icon:before{
+	display: inline-block;
+	content: @star-icon-sprite;
 }
 
-.duiStarRatingEmptyStar{
-	background-position: (-1 * @star-icon-size) 0px;
+.d-star-rating-empty-star:before{
+	margin-left: (-1 * @star-icon-size);
 }
 
-.duiStarRatingHalfStar{
-	background-position: (-2 * @star-icon-size) 0px;
+.d-star-rating-half-star:before{
+	margin-left: (-2 * @star-icon-size);
 }

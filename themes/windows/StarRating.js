@@ -13,28 +13,31 @@ define(function(){ return '\
   background-size: 27px 27px;\
   background-repeat: no-repeat;\
 }\
-.duiStarRating.duiStarRatingHovered {\
+.d-star-rating.d-star-rating-hovered {\
   opacity: 0.5;\
 }\
-.duiStarRating {\
+.d-star-rating {\
   -ms-touch-action: none;\
 }\
-.duiStarRating input {\
+.d-star-rating input {\
   display: none;\
 }\
-.duiStarRatingDisabled .duiStarRatingStarIcon {\
-  background-image: url("../common/images/grey-stars-40.png");\
+.d-star-rating-disabled .d-star-rating-star-icon:before {\
+  content: url("../common/images/grey-stars-40.png");\
 }\
-.duiStarRatingStarIcon {\
+.d-star-rating-star-icon {\
   height: 40px;\
   width: 40px;\
-  background-image: url("../common/images/yellow-stars-40.png");\
-  background-repeat: no-repeat;\
+  overflow: hidden;\
 }\
-.duiStarRatingEmptyStar {\
-  background-position: -40px 0px;\
+.d-star-rating-star-icon:before {\
+  display: inline-block;\
+  content: url("../common/images/yellow-stars-40.png");\
 }\
-.duiStarRatingHalfStar {\
-  background-position: -80px 0px;\
+.d-star-rating-empty-star:before {\
+  margin-left: -40px;\
+}\
+.d-star-rating-half-star:before {\
+  margin-left: -80px;\
 }\
 '; } );

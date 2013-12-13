@@ -48,12 +48,12 @@ define(["intern!object",
 		for (i = 0; i < expectedMax; i++) {
 			if (i > expectedValue - 1) {
 				if (i === (expectedValue - 0.5)) {
-					expectedClasses[i] = "duiStarRatingStarIcon duiStarRatingHalfStar";
+					expectedClasses[i] = "d-star-rating-star-icon d-star-rating-half-star";
 				} else {
-					expectedClasses[i] = "duiStarRatingStarIcon duiStarRatingEmptyStar";
+					expectedClasses[i] = "d-star-rating-star-icon d-star-rating-empty-star";
 				}
 			} else {
-				expectedClasses[i] = "duiStarRatingStarIcon duiStarRatingFullStar";
+				expectedClasses[i] = "d-star-rating-star-icon d-star-rating-full-star";
 			}
 		}
 		return remote

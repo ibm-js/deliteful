@@ -1,6 +1,17 @@
 // Note that selectors are more selective than StarRating.less because it's indeterminate which order the styles
 // are inserted into the document.
 
-.duiStarRatingRtl .duiStarRatingHalfStarRtl {
-	background-position: (-3 * @star-icon-size) 0px;
+
+.d-star-ratingRtl .d-star-rating-full-star:before{
+	margin-left: 0px;
+	margin-right: (-3 * @star-icon-size);
+}
+
+.d-star-ratingRtl .d-star-rating-empty-star:before{
+	margin-left: 0px;
+	margin-right: (-2 * @star-icon-size);
+}
+
+.d-star-ratingRtl .d-star-rating-half-star:before {
+	margin-left: 0px;
 }

@@ -30,20 +30,20 @@ define([
 		//		empty stars.
 		//		The star displayed can be fully customized by redefining the following css classes in
 		//		your application:
-		//		- duiStarRatingStarIcon: defines the size of each star icon, and the css sprite to use as
-		//		the background image stars;
-		//		- duiStarRatingFullStar: defines the background-position of the css sprite to display
-		//		a full star icon;
-		//		- duiStarRatingHalfStar: defines the background-position of the css sprite to display
-		//		a half star icon (ltr);
-		//		- duiStarRatingHalfStarRtl: defines the background-position of the css sprite to display
-		//		a half star icon (rtl);
-		//		- duiStarRatingEmptyStar: defines the background-position of the css sprite to display
-		//		an empty star icon.
+		//		- .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
+		//		- .d-star-rating-disabled .d-star-rating-star-icon:before
+		//        {content: url(url_to_the_disabled_stars_sprite);}
+		//		If the custom stars are not 40px height and width images, you also have to redefine the
+		//		following CSS classes:
+		//		- .d-star-rating-star-icon {height: iconSize; width: iconSize;}
+		//		- .d-star-rating-empty-star:before {margin-left: -iconSize}
+		//		- .d-star-rating-half-star:before {margin-left: -2*iconSize}
+		//		- .d-star-ratingRtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
+		//		- .d-star-ratingRtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
+		//		- .d-star-ratingRtl .d-star-rating-half-star:before {margin-left: 0px;}
 		//		Note that if your using a different baseClass than the default one "duiStarRating",
 		//		you should replace 'duiStarRating' in the previous css class names with your
-		//		baseClass value (for example, with a baseClass of 'myClass', the css classes to use
-		//		will be myClassStarIcon, myClassFullStar, myClassHalfStar, myClassHalfStarRtl, myClassEmptyStar).
+		//		baseClass value.
 		//
 		//		The widget can be used in read-only or in editable mode. In editable mode, the widget allows
 		//		to set the rating to 0 stars or not using the zeroAreaWidth property. In this mode, it also allows
@@ -54,7 +54,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "duiStarRating",
+		baseClass: "d-star-rating",
 
 		// max: Number
 		//		The maximum rating, that is also the number of stars to show.
@@ -65,7 +65,8 @@ define([
 		value: 0,
 
 		// readOnly: Boolean
-		//		If false, the widget is editable and allows editing the value of the Rating by touching / clicking the stars
+		//		If false, the widget is editable and allows editing the value of the Rating
+		//		by touching / clicking the stars
 		readOnly: false,
 
 		// name: String
@@ -98,9 +99,9 @@ define([
 		_enterValue: null,
 		_hovering: false,
 		_hoveredValue: null,
-		_startHandlers: null,
-		_otherEventsHandlers: [],
-		_keyDownHandler: null,
+		_startHandles: null,
+		_otherEventsHandles: [],
+		_keyDownHandle: null,
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
@@ -130,13 +131,12 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			console.log(props);
 			var passive;
 			if (props.disabled !== undefined) {
 				if (this.disabled) {
-					domClass.add(this, this.baseClass + "Disabled");
+					domClass.add(this, this.baseClass + "-disabled");
 				} else {
-					domClass.remove(this, this.baseClass + "Disabled");
+					domClass.remove(this, this.baseClass + "-disabled");
 				}
 			}
 			if (props.max !== undefined) {
@@ -160,20 +160,20 @@ define([
 			if (props.readOnly !== undefined || props.disabled !== undefined) {
 				passive = this.disabled ? true : this.readOnly;
 				this.setAttribute("aria-disabled", passive);
-				if (!passive && !this._keyDownHandler) {
-					this._keyDownHandler = this.on("keydown", lang.hitch(this, "_onKeyDown"));
-				} else if (passive && this._keyDownHandler) {
-					this._keyDownHandler.remove();
-					this._keyDownHandler = null;
+				if (!passive && !this._keyDownHandle) {
+					this._keyDownHandle = this.on("keydown", lang.hitch(this, "_keyDownHandler"));
+				} else if (passive && this._keyDownHandle) {
+					this._keyDownHandle.remove();
+					this._keyDownHandle = null;
 				}
-				if (!passive && !this._startHandlers) {
-					this._startHandlers = [this.on(touch.enter, lang.hitch(this, "_onTouchEnter")),
+				if (!passive && !this._startHandles) {
+					this._startHandles = [this.on(touch.enter, lang.hitch(this, "_touchEnterHandler")),
 										   this.on(touch.press, lang.hitch(this, "_wireHandlers"))];
-				} else if (passive && this._startHandlers) {
-					while (this._startHandlers.length) {
-						this._startHandlers.pop().remove();
+				} else if (passive && this._startHandles) {
+					while (this._startHandles.length) {
+						this._startHandles.pop().remove();
 					}
-					this._startHandlers = null;
+					this._startHandles = null;
 				}
 			}
 			if (props.readOnly !== undefined || props.disabled !== undefined || props.zeroAreaWidth !== undefined) {
@@ -182,37 +182,37 @@ define([
 		},
 
 		_removeEventsHandlers: function () {
-			while (this._otherEventsHandlers.length) {
-				this._otherEventsHandlers.pop().remove();
+			while (this._otherEventsHandles.length) {
+				this._otherEventsHandles.pop().remove();
 			}
 		},
 
 		_wireHandlers: function (/*Event*/ event) {
 			event.preventDefault();
-			if (!this._otherEventsHandlers.length) {
+			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
-				this._otherEventsHandlers.push(this.on(touch.move, lang.hitch(this, "_onTouchMove")));
+				this._otherEventsHandles.push(this.on(touch.move, lang.hitch(this, "_touchMoveHandler")));
 				// handle the end of the value editing
-				this._otherEventsHandlers.push(this.on(touch.release, lang.hitch(this, "_onTouchRelease")));
-				this._otherEventsHandlers.push(this.on(touch.leave, lang.hitch(this, "_onTouchLeave")));
-				this._otherEventsHandlers.push(this.on(touch.cancel, lang.hitch(this, "_onTouchLeave")));
+				this._otherEventsHandles.push(this.on(touch.release, lang.hitch(this, "_touchReleaseHandler")));
+				this._otherEventsHandles.push(this.on(touch.leave, lang.hitch(this, "_touchLeaveHandler")));
+				this._otherEventsHandles.push(this.on(touch.cancel, lang.hitch(this, "_touchLeaveHandler")));
 			}
 		},
 
-		_onTouchEnter: function (/*Event*/ event) {
+		_touchEnterHandler: function (/*Event*/ event) {
 			this._wireHandlers(event);
 			if (event.type !== "dojotouchover") { // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
 				this._hovering = true;
-				domClass.add(this, this.baseClass + "Hovered");
+				domClass.add(this, this.baseClass + "-hovered");
 			}
 			this._enterValue = this.value;
 		},
 
-		_onTouchMove: function (/*Event*/ event) {
+		_touchMoveHandler: function (/*Event*/ event) {
 			var newValue = this._coordToValue(event);
 			if (this._hovering) {
 				if (newValue !== this._hoveredValue) {
-					domClass.add(this, this.baseClass + "Hovered");
+					domClass.add(this, this.baseClass + "-hovered");
 					this._updateStars(newValue, false);
 					this._hoveredValue = newValue;
 				}
@@ -221,27 +221,28 @@ define([
 			}
 		},
 
-		_onTouchRelease: function (/*Event*/ event) {
+		_touchReleaseHandler: function (/*Event*/ event) {
 			this.value = this._coordToValue(event);
 			this._enterValue = this.value;
 			if (!this._hovering) {
 				this._removeEventsHandlers();
 			} else {
-				domClass.remove(this, this.baseClass + "Hovered");
+				domClass.remove(this, this.baseClass + "-hovered");
 			}
 		},
 
-		_onTouchLeave: function (/*Event*/ event) { // jshint ignore
+		/*jshint unused:false */
+		_touchLeaveHandler: function (/*Event*/ event) {
 			if (this._hovering) {
 				this._hovering = false;
 				this._hoveredValue = null;
-				domClass.remove(this, this.baseClass + "Hovered");
+				domClass.remove(this, this.baseClass + "-hovered");
 				this.value = this._enterValue;
 			}
 			this._removeEventsHandlers();
 		},
 
-		_onKeyDown: function (/*Event*/ event) {
+		_keyDownHandler: function (/*Event*/ event) {
 			if (this._incrementKeyCodes.indexOf(event.keyCode) !== -1) {
 				event.preventDefault();
 				this._incrementValue();
@@ -290,7 +291,8 @@ define([
 			}
 		},
 
-		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) { // jshint ignore
+		/*jshint unused:false */
+		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) {
 			return x < this.zeroAreaWidth;
 		},
 
@@ -303,11 +305,11 @@ define([
 			var i, parent, starClass;
 			for (i = 0; i < this.max; i++) {
 				if (i <= value - 1) {
-					starClass = this.baseClass + "FullStar";
+					starClass = this.baseClass + "-full-star";
 				} else if (i >= value) {
-					starClass = this.baseClass + "EmptyStar";
+					starClass = this.baseClass + "-empty-star";
 				} else {
-					starClass = this.baseClass + "HalfStar";
+					starClass = this.baseClass + "-half-star";
 				}
 				if (create) {
 					parent = domConstruct.create("div", {
@@ -316,10 +318,16 @@ define([
 				} else {
 					parent = this.children[i];
 				}
-				parent.className = this.baseClass +  "StarIcon " + starClass;
+				parent.className = this.baseClass + "-star-icon " + starClass;
 			}
 			if (create) {
-	            this.valueNode = domConstruct.create("input", {type: "number", name: this.name, readOnly: this.readOnly, disabled: this.disabled, value: this.value}, this, "last");
+	            this.valueNode = domConstruct.create("input",
+	                                                 {type: "number",
+	                                                  name: this.name,
+	                                                  readOnly: this.readOnly,
+	                                                  disabled: this.disabled,
+	                                                  value: this.value},
+	                                                 this, "last");
 			}
 		},
 
