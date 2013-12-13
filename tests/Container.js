@@ -24,7 +24,7 @@ define([
 		<test-contained id='outsideCont'></test-contained>";
 
 	registerSuite({
-		name: "Container",
+		name: "dui/Container",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

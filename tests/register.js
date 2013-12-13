@@ -14,7 +14,7 @@ define([
 	var nativeButton = document.createElement("button");
 
 	registerSuite({
-		name: "dui/register tests",
+		name: "dui/register",
 
 		setup: function () {
 			container = document.createElement("div");

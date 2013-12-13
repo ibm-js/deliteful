@@ -6,7 +6,7 @@ define([
 	"dui/CssState",
 ], function (registerSuite, assert, domClass, register, CssState) {
 	registerSuite({
-		name: "CssState",
+		name: "dui/CssState",
 		"basic" : function () {
 			// Workaround problem using dcl() on native DOMNodes on FF and IE,
 			// see https://github.com/uhop/dcl/issues/9.

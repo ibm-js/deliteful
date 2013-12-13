@@ -8,7 +8,7 @@ define([
 ], function (registerSuite, assert, register, has, Widget) {
 	var container;
 	registerSuite({
-		name: "attributes",
+		name: "dui/Widget-attr",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

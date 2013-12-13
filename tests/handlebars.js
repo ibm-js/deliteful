@@ -9,7 +9,7 @@ define([
 ], function (registerSuite, assert, handlebars, register, Widget, simpleHBTmpl, buttonHBTmpl) {
 	var container, myButton;
 	registerSuite({
-		name: "handlebars",
+		name: "dui/handlebars",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

@@ -10,5 +10,6 @@ define([
 	"./HasDropDown", /* breaks dui/themes/load */
 	"./CssState",
 	"./Container",
-	"./a11y"
+	"./a11y",
+	"./Widget-on"
 ]);

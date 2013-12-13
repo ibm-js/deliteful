@@ -36,7 +36,7 @@ define([
 	}
 
 	registerSuite({
-		name: "HasDropDown",
+		name: "dui/HasDropDown",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

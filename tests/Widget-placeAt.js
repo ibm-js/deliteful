@@ -8,7 +8,7 @@ define([
 ], function (registerSuite, assert, aspect, register, Widget, Button) {
 	var container, SimpleWidget, simple, pane1, pane2, pane3, pane4;
 	registerSuite({
-		name: "Widget-placeAt",
+		name: "dui/Widget-placeAt",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

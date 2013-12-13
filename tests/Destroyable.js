@@ -48,7 +48,7 @@ define([
 		}
 	});
 	registerSuite({
-		name: "Destroyable",
+		name: "dui/Destroyable",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

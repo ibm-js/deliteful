@@ -18,10 +18,6 @@ define([
 	doh.register("popup", require.toUrl("./popup.html"), 999999);
 	doh.register("css", require.toUrl("./css.html"), 999999);
 	// doh.register("robot.typematic", require.toUrl("./robot/typematic.html"), 999999);	// comment out until converted to webdriver test
-
-	// _Widget
-	doh.register("Widget-on", require.toUrl("./Widget-on.html"), 999999);
-
 	// Mixins
 	// doh.register("_KeyNavContainer", require.toUrl("./_KeyNavContainer.html"), 999999); // removed in 622fe52c7e0fe7466a375e23a18ddb6a12b9aaa6 but it should be restored!
 

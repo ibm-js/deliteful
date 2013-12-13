@@ -19,7 +19,7 @@ define([
 		<div id='not-a-widget'></div>";
 
 		registerSuite({
-		name: "Widget-utility",
+		name: "dui/Widget-utility",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);

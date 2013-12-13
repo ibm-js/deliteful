@@ -14,7 +14,7 @@ define([
 	// Number of times foo was called while TestWidget existed
 	var calls = 0;
 	registerSuite({
-		name: "widget-lifecycle",
+		name: "dui/Widget-lifecycle",
 
 		create: function () {
 			TestWidget = register("test-lifecycle-widget", [HTMLElement, Widget], {
