@@ -1,25 +1,30 @@
-define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
-
-	doh.register("tests.Stateful", [
-		function getSetWatch(t) {
+define([
+	"intern!object",
+	"intern/chai!assert",
+	"../Stateful",
+	"dcl/dcl"
+], function (registerSuite, assert, Stateful, dcl) {
+	registerSuite({
+		name: "dui/Stateful",
+		"getSetWatch" : function () {
 			var clz = dcl(Stateful, {
 					foo: 3
 				}),
 				s = new clz;
-			doh.is(3, s.foo);
+			assert.deepEqual(3, s.foo);
 			var watching = s.watch("foo", function (name, oldValue, value) {
-				doh.is("foo", name);
-				doh.is(3, oldValue);
-				doh.is(4, value);
-				doh.is(4, s.foo);
+				assert.deepEqual("foo", name);
+				assert.deepEqual(3, oldValue);
+				assert.deepEqual(4, value);
+				assert.deepEqual(4, s.foo);
 			});
 			s.foo = 4;
-			doh.is(4, s.foo);
+			assert.deepEqual(4, s.foo);
 			watching.remove();
 			s.foo = 5;
-			doh.is(5, s.foo);
+			assert.deepEqual(5, s.foo);
 		},
-		function removeWatchHandle(t) {
+		"removeWatchHandle" : function () {
 			var clz = dcl(Stateful, {
 					foo: 3
 				}),
@@ -27,14 +32,14 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				watched = false;
 
 			var watching = s.watch("foo", function () {
-				t.f(watched);
+				assert.isFalse(watched);
 				watched = true;
 			});
 			s.foo = 4;
 			watching.remove();
 			s.foo = 5;
 		},
-		function removeWatchHandleTwice(t) {
+		"removeWatchHandleTwice" : function () {
 			var clz = dcl(Stateful, {
 					foo: 3
 				}),
@@ -52,9 +57,10 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 			watching.remove();
 			s.foo = 5;
 
-			t.is(3, assertions, "assertions");
+			assert.deepEqual(3, assertions, "assertions");
+
 		},
-		function setHash(t) {
+		"setHash" : function () {
 			var clz = dcl(Stateful, {
 					foo: 0,
 					bar: 0
@@ -68,9 +74,9 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				foo: 3,
 				bar: 5
 			});
-			doh.is(3, s.foo);
-			doh.is(5, s.bar);
-			doh.is(1, fooCount);
+			assert.deepEqual(3, s.foo);
+			assert.deepEqual(5, s.bar);
+			assert.deepEqual(1, fooCount);
 
 			var clz2 = dcl(Stateful, {
 					foo: 0,
@@ -78,13 +84,12 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				}),
 				s2 = new clz2();
 			s2.mix(s);
-			doh.is(3, s2.foo);
-			doh.is(5, s2.bar);
+			assert.deepEqual(3, s2.foo);
+			assert.deepEqual(5, s2.bar);
 			// s watchers should not be copied to s2
-			doh.is(1, fooCount);
-			handle.remove();
+			assert.deepEqual(1, fooCount);
 		},
-		function wildcard(t) {
+		"wildcard" : function () {
 			var clz = dcl(Stateful, {
 					foo: 0,
 					bar: 0
@@ -104,10 +109,10 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 			});
 			s.foo = 4;
 			s.bar = 6;
-			doh.is(2, wildcard);
-			doh.is(1, foo);
+			assert.deepEqual(2, wildcard);
+			assert.deepEqual(1, foo);
 		},
-		function accessors(t) {
+		"accessors" : function () {
 			var StatefulClass1 = dcl(Stateful, {
 				foo: 0,
 				bar: 0,
@@ -127,11 +132,11 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 			attr1.bar = 2;
 			attr1.baz = "bar";
 
-			t.is(3, attr1.foo, "attr1.foo getter works");
-			t.is(3, attr1.bar, "attr1.bar setter works");
-			t.is("bar", attr1.baz, "attribute set properly");
+			assert.deepEqual(3, attr1.foo, "attr1.foo getter works");
+			assert.deepEqual(3, attr1.bar, "attr1.bar setter works");
+			assert.deepEqual("bar", attr1.baz, "attribute set properly");
 		},
-		function paramHandling(t) {
+		"paramHandling" : function () {
 			var StatefulClass2 = dcl(Stateful, {
 				foo: null,
 				bar: 5,
@@ -151,11 +156,11 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				bar: 4
 			});
 
-			t.is("function", typeof attr2.foo, "function attribute set");
-			t.is("baz", attr2.foo(), "function has proper return value");
-			t.is(4, attr2.bar, "attribute has proper value");
+			assert.deepEqual("function", typeof attr2.foo, "function attribute set");
+			assert.deepEqual("baz", attr2.foo(), "function has proper return value");
+			assert.deepEqual(4, attr2.bar, "attribute has proper value");
 		},
-		function _set(t) {
+		"_set" : function () {
 			var output = [];
 			var StatefulClass4 = dcl(Stateful, {
 				foo: null,
@@ -179,12 +184,12 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				output.push(name, oldValue, value);
 			});
 			attr4.foo = 3;
-			t.is(3, attr4.bar, "value set properly");
+			assert.deepEqual(3, attr4.bar, "value set properly");
 			attr4.bar = 4;
-			t.is(4, attr4.foo, "value set properly");
-			t.is(["bar", null, 3, "foo", null, 3, "foo", 3, 4, "bar", 3, 4], output);
+			assert.deepEqual(4, attr4.foo, "value set properly");
+			assert.deepEqual(["bar", null, 3, "foo", null, 3, "foo", 3, 4, "bar", 3, 4], output);
 		},
-		function _get(t) {
+		"_get" : function () {
 			var output = [];
 			var StatefulClass5 = dcl(Stateful, {
 				foo: "",
@@ -194,11 +199,11 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 			});
 
 			var attr5 = new StatefulClass5();
-			t.is("modified", attr5.foo, "value get properly");
+			assert.deepEqual("modified", attr5.foo, "value get properly");
 			attr5.foo = "further";
-			t.is("furthermodified", attr5.foo, "");
+			assert.deepEqual("furthermodified", attr5.foo, "");
 		},
-		function moreCorrelatedProperties() {
+		"moreCorrelatedProperties" : function () {
 			var Widget = dcl(Stateful, {
 				foo: 10,
 				_setFooAttr: function (val) {
@@ -214,39 +219,18 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 			});
 
 			var w1 = new Widget({foo: 30});
-			doh.is(30, w1.foo, "w1.foo");
-			doh.is(31, w1.bar, "w1.bar");
+			assert.deepEqual(30, w1.foo, "w1.foo");
+			assert.deepEqual(31, w1.bar, "w1.bar");
 
 			var w2 = new Widget({bar: 30});
-			doh.is(30, w2.bar, "w2.bar");
-			doh.is(29, w2.foo, "w2.foo");
+			assert.deepEqual(30, w2.bar, "w2.bar");
+			assert.deepEqual(29, w2.foo, "w2.foo");
 
 			var w3 = new Widget({});
-			doh.is(10, w3.foo, "w3.foo");
-			doh.is(11, w3.bar, "w3.bar");
+			assert.deepEqual(10, w3.foo, "w3.foo");
+			assert.deepEqual(11, w3.bar, "w3.bar");
 		},
-
-		// serialize test commented out because:
-		//		1. won't print values in prototype like foo
-		//		2. prints _fooAttr shadow value that's supposed to be hidden
-		/*
-		 function serialize(t){
-		 var StatefulClass6 = dcl(Stateful, {
-		 foo: null,
-		 _setFooAttr: function(value){
-		 this._set("foo", value + "baz");
-		 }
-		 });
-
-		 var obj = new StatefulClass6({
-		 foo: "bar"
-		 });
-
-		 t.is('{"foo":"barbaz"}', JSON.stringify(obj), "object serializes properly");
-		 }
-		 */
-
-		function subclasses1() {
+		"subclasses1" : function () {
 			// Test when superclass and subclass are declared first, and afterwards instantiated
 			var SuperClass = dcl(Stateful, {
 				foo: null,
@@ -266,9 +250,9 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				barWatchedVal = n;
 			});
 			sub.foo = 3;
-			doh.is(3, fooWatchedVal, "foo watch() on SubClass");
+			assert.deepEqual(3, fooWatchedVal, "foo watch() on SubClass");
 			sub.bar = 4;
-			doh.is(4, barWatchedVal, "bar watch() on SubClass");
+			assert.deepEqual(4, barWatchedVal, "bar watch() on SubClass");
 
 			var sup = new SuperClass();
 			var superFooWatchedVal;
@@ -280,14 +264,13 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				superBarWatchedVal = n;
 			});
 			sup.foo = 5;
-			doh.is(5, superFooWatchedVal, "foo watch() on SuperClass");
+			assert.deepEqual(5, superFooWatchedVal, "foo watch() on SuperClass");
 			sup.bar = 6;
-			doh.is(6, superBarWatchedVal, "bar watch() on SuperClass");
-			doh.is(3, fooWatchedVal, "SubClass listener on foo not called");
-			doh.is(4, barWatchedVal, "SubClass listener on bar not called");
+			assert.deepEqual(6, superBarWatchedVal, "bar watch() on SuperClass");
+			assert.deepEqual(3, fooWatchedVal, "SubClass listener on foo not called");
+			assert.deepEqual(4, barWatchedVal, "SubClass listener on bar not called");
 		},
-
-		function subclasses2() {
+		"subclasses2" : function () {
 			// Test when superclass is declared and instantiated, then subclass is declared and use later
 			var output = [];
 			var SuperClass = dcl(Stateful, {
@@ -304,9 +287,9 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				superBarWatchedVal = n;
 			});
 			sup.foo = 5;
-			doh.is(5, superFooWatchedVal, "foo watch() on SuperClass");
+			assert.deepEqual(5, superFooWatchedVal, "foo watch() on SuperClass");
 			sup.bar = 6;
-			doh.is(6, superBarWatchedVal, "bar watch() on SuperClass");
+			assert.deepEqual(6, superBarWatchedVal, "bar watch() on SuperClass");
 
 			var customSetterCalled;
 			var SubClass = dcl(SuperClass, {
@@ -327,15 +310,18 @@ define(["doh/main", "../Stateful", "dcl/dcl"], function (doh, Stateful, dcl) {
 				barWatchedVal = n;
 			});
 			sub.foo = 3;
-			doh.is(3, fooWatchedVal, "foo watch() on SubClass");
+			assert.deepEqual(3, fooWatchedVal, "foo watch() on SubClass");
 			sub.bar = 4;
-			doh.is(4, barWatchedVal, "bar watch() on SubClass");
-			doh.t(customSetterCalled, "SubClass custom setter called");
+			assert.deepEqual(4, barWatchedVal, "bar watch() on SubClass");
+			assert.ok(customSetterCalled, "SubClass custom setter called");
 
-			doh.is(5, superFooWatchedVal, "SuperClass listener on foo not called");
+			assert.deepEqual(5, superFooWatchedVal, "SuperClass listener on foo not called");
 			sup.bar = 6;
-			doh.is(6, superBarWatchedVal, "SuperClass listener on bar not called");
+			assert.deepEqual(6, superBarWatchedVal, "SuperClass listener on bar not called");
+		},
+		teardown : function () {
+			//container.parentNode.removeChild(container);
 		}
-	]);
-
+	});
 });
+

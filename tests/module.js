@@ -3,9 +3,7 @@ define([
 	"require",
 
 	// Unit tests
-	"./Stateful",
 	"./Invalidating",
-	"./Selection",
 	"./Store",
 	"./StoreMap"
 ], function (doh, require) {
