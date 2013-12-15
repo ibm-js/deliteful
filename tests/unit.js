@@ -13,5 +13,7 @@ define([
 	"./a11y",
 	"./Widget-on",
 	"./Stateful",
-	"./Selection"
+	"./Selection",
+	"./StoreMap",
+	"./Store"
 ]);

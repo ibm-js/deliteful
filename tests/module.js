@@ -3,9 +3,7 @@ define([
 	"require",
 
 	// Unit tests
-	"./Invalidating",
-	"./Store",
-	"./StoreMap"
+	"./Invalidating"
 ], function (doh, require) {
 
 	// Utility methods (previously in dui/_base)
