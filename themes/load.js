@@ -44,6 +44,7 @@ define([
 			[/Holodark|Android/, "holodark"],
 			[/BlackBerry|BB10/, "blackberry"],
 			[/iPhone|iPad/, "ios"],
+			[/Windows Phone/, "windows"],
 			[/.*/, "bootstrap"]			// chrome, firefox, IE
 		],
 
