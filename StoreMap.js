@@ -88,9 +88,12 @@ define(["dcl/dcl", "dojo/_base/lang", "./Store"], function (dcl, lang, Store) {
 					if (name.lastIndexOf("Attr") === name.length - 4) {
 						this[name] = value;
 					} else {
-						// this will be executed only if you use functions in your tag attributes
-						// <my-tag labelFunc="myfunc"></my-tag>
 						/* jshint evil:true */
+						// This will be executed only if you use StoreMap mapping by function in your tag attributes:
+						// <my-tag labelFunc="myfunc"></my-tag>
+						// This can be avoided by using mapping by function progammatically or by not using it at all.
+						// This is harmless if you make sure the JavaScript code that is passed to the attribute
+						// is harmless.
 						this[name] = lang.getObject(value, false) || new Function(value);
 					}
 				}

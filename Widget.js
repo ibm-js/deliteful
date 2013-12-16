@@ -356,9 +356,14 @@ define([
 				var obj;
 
 				try {
-					/* jshint evil:true */
-					// This is only called when complex parameters are used in markup, ex: constraints="max: 3, min: 2"
 					// TODO: remove this code if it isn't being used, so we don't scare people that are afraid of eval.
+					/* jshint evil:true */
+					// This will only be executed when complex parameters are used in markup
+					// <my-tag constraints="max: 3, min: 2"></my-tag>
+					// This can be avoided by using such complex paramaters only progammatically or by not using
+					// them at all.
+					// This is harmless if you make sure the JavaScript code that is passed to the attribute
+					// is harmless.
 					obj = eval("(" + (value[0] === "{" ? "" : "{") + value + (value[0] === "{" ? "" : "}") + ")");
 				}
 				catch (e) {
@@ -395,6 +400,12 @@ define([
 					break;
 				case "function":
 					/* jshint evil:true */
+					// This will only be executed if you have properties that are of function type if your widget
+					// and that you set them in your tag attributes:
+					// <my-tag whatever="myfunc"></my-tag>
+					// This can be avoided by setting the function progammatically or by not setting it at all.
+					// This is harmless if you make sure the JavaScript code that is passed to the attribute
+					// is harmless.
 					props[name] = lang.getObject(value, false) || new Function(value);
 				}
 				delete widget[name]; // make sure custom setters fire
