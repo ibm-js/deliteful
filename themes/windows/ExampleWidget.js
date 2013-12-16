@@ -13,11 +13,11 @@ define(function(){ return '\
   background-size: 27px 27px;\
   background-repeat: no-repeat;\
 }\
-.duiExampleWidget {\
+.d-example-widget {\
   color: #ffffff;\
   background: transparent;\
 }\
-.duiExampleWidget:after {\
+.d-example-widget:after {\
   content: " (windows theme)";\
 }\
 '; } );

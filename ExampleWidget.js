@@ -12,6 +12,6 @@ define([
 
 		buildRendering: renderer,
 
-		baseClass: "duiExampleWidget"
+		baseClass: "d-example-widget"
 	});
 });
