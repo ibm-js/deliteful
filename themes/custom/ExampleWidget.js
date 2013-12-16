@@ -1,9 +1,9 @@
 define(function(){ return '\
-.duiExampleWidget {\
+.d-example-widget {\
   color: #000000;\
   background: #a4a4a4;\
 }\
-.duiExampleWidget:after {\
+.d-example-widget:after {\
   content: " (custom theme)";\
 }\
 '; } );
