@@ -297,6 +297,16 @@ define([
 
 			this._enteredView = true;
 
+			// When Widget extends Invalidating some/all of this code should probably be moved to refreshRendering()
+
+			// baseClass is a single class name or occasionally a space-separated list of names.
+			if (this.baseClass) {
+				domClass.add(this, this.baseClass.split(" "));
+			}
+			if (!this.isLeftToRight()) {
+				domClass.add(this, "d-rtl");
+			}
+
 			// Since safari masks all custom setters for tabIndex on the prototype, call them here manually.
 			// For details see:
 			//		https://bugs.webkit.org/show_bug.cgi?id=36423
@@ -418,26 +428,13 @@ define([
 			this.watch = Stateful.prototype.watch;
 		},
 
-		buildRendering: dcl.after(function () {
+		buildRendering: function () {
 			// summary:
 			//		Construct the UI for this widget, filling in subnodes and/or text inside of this.
 			//		Most widgets will leverage dui/handlebars! to implement this method.
 			// tags:
 			//		protected
-
-			// baseClass is a single class name or occasionally a space-separated list of names.
-			// Add those classes to the DOMNode.  If RTL mode then also add with Rtl suffix.
-			// TODO: baseClass no longer needed?   just use tag name itself, right?
-			if (this.baseClass) {
-				var classes = this.baseClass.split(" ");
-				if (!this.isLeftToRight()) {
-					classes = classes.concat(classes.map(function (name) {
-						return name + "Rtl";
-					}));
-				}
-				domClass.add(this, classes);
-			}
-		}),
+		},
 
 		postCreate: function () {
 			// summary:

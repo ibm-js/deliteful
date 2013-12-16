@@ -19,6 +19,7 @@ define(function(){ return '\
 .duiButtonText {\
   margin: 10px;\
 }\
+.duiButton:active,\
 .duiButtonSelected {\
   color: #ffffff;\
   border-color: transparent;\

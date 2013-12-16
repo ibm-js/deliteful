@@ -16,6 +16,7 @@ define(function(){ return '\
 .duiButtonText {\
   margin: 10px;\
 }\
+.duiButton:active,\
 .duiButtonSelected {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#088eef), to(#0851ad), color-stop(0.5, #0869c6));\
   background-image: linear-gradient(to bottom, #088eef 0%, #0869c6 50%, #0851ad 100%);\
