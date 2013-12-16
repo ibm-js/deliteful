@@ -1,9 +1,9 @@
 define(function(){ return '\
 /* RTL CSS for ios theme for ExampleWidget. */\
-.duiExampleWidget.duiExampleWidgetRtl {\
+.duiExampleWidget.d-rtl {\
   text-align: right;\
 }\
-.duiExampleWidget.duiExampleWidgetRtl:before {\
+.duiExampleWidget.d-rtl:before {\
   content: "(RTL variant) ";\
 }\
 '; } );

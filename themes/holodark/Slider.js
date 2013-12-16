@@ -149,20 +149,20 @@ define(function(){ return '\
 .duiSliderV .duiRule {\
   left: 0;\
 }\
-.duiSliderRtlV .duiRule {\
+.duiSliderV.d-rtl .duiRule {\
   right: 0;\
 }\
 .duiSliderH .duiRule {\
   top: 0;\
 }\
-.duiSliderRtlV .duiRuleAfter .duiRuleLabel,\
-.duiSliderRtlV DIV.duiRuleLabel,\
+.duiSliderV.d-rtl .duiRuleAfter .duiRuleLabel,\
+.duiSliderV.d-rtl DIV.duiRuleLabel,\
 .duiSliderV .duiRuleBefore .duiRuleLabel {\
   right: 100%;\
   left: auto;\
 }\
 .duiSliderV .duiRuleLabel,\
-.duiSliderRtlV .duiRuleBefore DIV.duiRuleLabel {\
+.duiSliderV.d-rtl .duiRuleBefore DIV.duiRuleLabel {\
   left: 100%;\
   right: auto;\
 }\
