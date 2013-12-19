@@ -61,12 +61,12 @@ define([
 
 		},
 		"programmatic" : function () {
-			// Create a widget with a custom "show" event, plus the standard "click" event.
+			// Create a widget with a custom "foo" event, plus the standard "click" event.
 			var MyWidget = register("my-widget2-on", [HTMLElement, Widget], {
-				show: function () {
-					return this.emit('show');
+				foo: function () {
+					return this.emit('foo');
 				},
-				onshow: function(){ },
+				onfoo: function(){ },
 				click: function () {
 					this.emit("click");
 				}
@@ -74,7 +74,7 @@ define([
 
 			var evt = null, clicked = 0;
 			var w = new MyWidget({
-				onshow: function (e) {
+				onfoo: function (e) {
 					evt = e;
 				},
 				onclick: function (e) {
@@ -84,8 +84,8 @@ define([
 			w.placeAt(document.body);
 			w.startup();
 
-			w.show();
-			assert.isNotNull(evt, "onshow was called with event object");
+			w.foo();
+			assert.isNotNull(evt, "onfoo was called with event object");
 
 			w.click();
 			assert.deepEqual(1, clicked, "one click event");
