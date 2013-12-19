@@ -201,10 +201,14 @@ define([
 
 		_touchEnterHandler: function (/*Event*/ event) {
 			this._wireHandlers(event);
-			if (event.type !== "dojotouchover") { // Note: this will be replaced by a test on event.pointerType when we'll implement the pointer event spec in dojo.
+
+			// Note: this will be replaced by a test on event.pointerType
+			// when we'll implement the pointer event spec in dojo.
+			if (event.type !== "dojotouchover") {
 				this._hovering = true;
 				domClass.add(this, this.baseClass + "-hovered");
 			}
+
 			this._enterValue = this.value;
 		},
 
