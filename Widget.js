@@ -290,7 +290,7 @@ define([
 			dcl.mix(this, params);
 		},
 
-		enteredViewCallback: function(){
+		enteredViewCallback: function () {
 			// summary:
 			//		Called when the widget is first inserted into the document.
 			//		If widget is created programatically then app must call startup() to trigger this method.
@@ -333,7 +333,7 @@ define([
 						});
 						observer.observe(this, {
 							subtree: false,
-							attributeFilter: ['tabindex'],
+							attributeFilter: ["tabindex"],
 							attributes: true
 						});
 					}
@@ -360,7 +360,7 @@ define([
 					/* jshint evil:true */
 					// This will only be executed when complex parameters are used in markup
 					// <my-tag constraints="max: 3, min: 2"></my-tag>
-					// This can be avoided by using such complex paramaters only progammatically or by not using
+					// This can be avoided by using such complex parameters only programmatically or by not using
 					// them at all.
 					// This is harmless if you make sure the JavaScript code that is passed to the attribute
 					// is harmless.
@@ -474,7 +474,7 @@ define([
 				return;
 			}
 
-			if (!this._enteredView){
+			if (!this._enteredView) {
 				this.enteredViewCallback();
 			}
 

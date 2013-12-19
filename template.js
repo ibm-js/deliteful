@@ -18,7 +18,7 @@ define(["./register"], function (register) {
 				map[prop.toLowerCase()] = prop;
 			}
 			map["class"] = "className";
-			map["style"] = "style.cssText";
+			map.style = "style.cssText";
 		}
 		return attrMap[tag][attrName];
 	}
@@ -33,7 +33,8 @@ define(["./register"], function (register) {
 		//	|	{
 		//	|		tag: "button",
 		//	|		attributes: {
-		//	|			"class": ["duiReset ", {property: "baseClass"}]	// concatenate these values to get attr value
+		//	|			// concatenate values in array to get attr value
+		//	|			"class": ["duiReset ", {property: "baseClass"}]
 		//	|		},
 		//	|		children: [
 		//	|			{ tag: "span", ... },
@@ -70,7 +71,7 @@ define(["./register"], function (register) {
 					text += this.generateNodeChildrenCode(nodeName, child.children);
 					text += "}\n";
 				} else if (child.each) {
-					throw new Error("TODO: each not supported yet")
+					throw new Error("TODO: each not supported yet");
 				} else if (child.tag) {
 					// Standard DOM node, recurse
 					text += this.generateNodeCode(childName, child);
@@ -104,7 +105,7 @@ define(["./register"], function (register) {
 			var text = "";
 
 			// Create node
-			if (nodeName != "this") {
+			if (nodeName !== "this") {
 				text += "var " + nodeName + " = register.createElement('" + templateNode.tag + "');\n";
 			}
 
@@ -159,6 +160,8 @@ define(["./register"], function (register) {
 			//		properties to the templates.
 
 			var text = this.codegen(tree);
+
+			/* jshint evil:true */
 			return new Function(text);
 		}
 	};

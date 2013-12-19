@@ -67,7 +67,7 @@ define([
 			}
 
 			var self = this,
-				childSelector = typeof this.childSelector == "string"
+				childSelector = typeof this.childSelector === "string"
 					? this.childSelector
 					: lang.hitch(this, "childSelector");
 			this.own(
@@ -177,9 +177,9 @@ define([
 			//		Initially the container itself has a tabIndex, but when it gets
 			//		focus, switch focus to first child.
 			//
-			//		TODO for 2.0 (or earlier): Instead of having the container tabbable, always maintain a single child
-			//		widget as tabbable, Requires code in startup(), addChild(), and removeChild().
-			//		That would avoid various issues like #17347.
+			//		TODO for 2.0 (or earlier): Instead of having the container tabbable,
+			//		always maintain a single child widget as tabbable, Requires code in startup(),
+			//		addChild(), and removeChild().  That would avoid various issues like #17347.
 			// tags:
 			//		private
 
@@ -206,7 +206,7 @@ define([
 			domAttr.set(this, "tabIndex", "-1");
 		}),
 
-		_onBlur: dcl.after(function (evt) {
+		_onBlur: dcl.after(function () {
 			// When focus is moved away the container, and its descendant (popup) widgets,
 			// then restore the container's tabIndex so that user can tab to it again.
 			// Note that using _onBlur() so that this doesn't happen when focus is shifted
@@ -230,7 +230,7 @@ define([
 			//		It marks that the current node is the selected one, and the previously
 			//		selected node no longer is.
 
-			if (child && child != this.focusedChild) {
+			if (child && child !== this.focusedChild) {
 				if (this.focusedChild && !this.focusedChild._destroyed) {
 					// mark that the previously focusable node is no longer focusable
 					this.focusedChild.tabIndex = "-1";
@@ -252,7 +252,12 @@ define([
 		//		"ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
 		multiCharSearchDuration: 1000,
 
-		onKeyboardSearch: function (/*dui/Widget*/ item, /*Event*/ evt, /*String*/ searchString, /*Number*/ numMatches) {
+		onKeyboardSearch: function (
+				/*dui/Widget*/ item,
+				/*jshint unused: vars */
+				/*Event*/ evt,
+				/*String*/  searchString,
+				/*Number*/ numMatches) {
 			// summary:
 			//		When a key is pressed that matches a child item,
 			//		this method is called so that a widget can take appropriate action is necessary.
@@ -268,16 +273,17 @@ define([
 			//		Compares the searchString to the widget's text label, returning:
 			//
 			//			* -1: a high priority match  and stop searching
-			//		 	* 0: not a match
-			//		 	* 1: a match but keep looking for a higher priority match
+			//			* 0: not a match
+			//			* 1: a match but keep looking for a higher priority match
 			// tags:
 			//		private
 
 			var element = item,
-				text = item.label || (element.focusNode ? element.focusNode.label : '') || element.innerText || element.textContent || "",
-				currentString = text.replace(/^\s+/, '').substr(0, searchString.length).toLowerCase();
+				text = item.label || (element.focusNode ? element.focusNode.label : "") || element.textContent || "",
+				currentString = text.replace(/^\s+/, "").substr(0, searchString.length).toLowerCase();
 
-			return (!!searchString.length && currentString == searchString) ? -1 : 0; // stop searching after first match by default
+			// stop searching after first match by default
+			return (!!searchString.length && currentString === searchString) ? -1 : 0;
 		},
 
 		_onContainerKeydown: function (evt) {
@@ -291,11 +297,15 @@ define([
 				func(evt, this.focusedChild);
 				evt.stopPropagation();
 				evt.preventDefault();
-				this._searchString = ''; // so a DOWN_ARROW b doesn't search for ab
-			} else if (evt.keyCode == keys.SPACE && this._searchTimer && !(evt.ctrlKey || evt.altKey || evt.metaKey)) {
-				evt.stopImmediatePropagation(); // stop a11yclick and _HasDropdown from seeing SPACE if we're doing keyboard searching
-				evt.preventDefault(); // stop IE from scrolling, and most browsers (except FF) from sending keypress
-				this._keyboardSearch(evt, ' ');
+				this._searchString = ""; // so a DOWN_ARROW b doesn't search for ab
+			} else if (evt.keyCode === keys.SPACE && this._searchTimer && !(evt.ctrlKey || evt.altKey || evt.metaKey)) {
+				// stop a11yclick and _HasDropdown from seeing SPACE if we're doing keyboard searching
+				evt.stopImmediatePropagation();
+
+				// stop IE from scrolling, and most browsers (except FF) from sending keypress
+				evt.preventDefault();
+
+				this._keyboardSearch(evt, " ");
 			}
 		},
 
@@ -306,7 +316,7 @@ define([
 			//		private
 
 			if (evt.charCode < keys.SPACE || evt.ctrlKey || evt.altKey || evt.metaKey ||
-				(evt.charCode == keys.SPACE && this._searchTimer)) {
+				(evt.charCode === keys.SPACE && this._searchTimer)) {
 				// Avoid duplicate events on firefox (ex: arrow key that will be handled by keydown handler),
 				// and also control sequences like CMD-Q
 				return;
@@ -348,10 +358,10 @@ define([
 					//}, this.multiCharSearchDuration >> 1);
 					this._searchTimer = this.defer(function () { // this is the "success" timeout
 						this._searchTimer = null;
-						this._searchString = '';
+						this._searchString = "";
 					}, this.multiCharSearchDuration);
 					var currentItem = this.focusedChild || null;
-					if (searchLen == 1 || !currentItem) {
+					if (searchLen === 1 || !currentItem) {
 						currentItem = this._getNextFocusableChild(currentItem, 1); // skip current
 						if (!currentItem) {
 							return;
@@ -360,17 +370,17 @@ define([
 					var stop = currentItem;
 					do {
 						var rc = this._keyboardSearchCompare(currentItem, searchString);
-						if (!!rc && numMatches++ == 0) {
+						if (!!rc && numMatches++ === 0) {
 							matchedItem = currentItem;
 						}
-						if (rc == -1) { // priority match
+						if (rc === -1) { // priority match
 							numMatches = -1;
 							break;
 						}
 						currentItem = this._getNextFocusableChild(currentItem, 1);
-					} while (currentItem != stop);
+					} while (currentItem !== stop);
 					// commented out code block to search again if the multichar search fails after a smaller timeout
-					//if(!numMatches && (this._typingSlowly || searchLen == 1)){
+					//if(!numMatches && (this._typingSlowly || searchLen === 1)){
 					//	this._searchString = '';
 					//	if(searchLen > 1){
 					//		// if no matches and they're typing slowly, then go back to first letter searching
@@ -407,10 +417,10 @@ define([
 				} else {
 					child = this._getNext(child, dir);
 				}
-				if (child != null && child != wrappedValue && child.isFocusable()) {
+				if (child !== null && child !== wrappedValue && child.isFocusable()) {
 					return child;	// dui/Widget
 				}
-			} while (child != wrappedValue);
+			} while (child !== wrappedValue);
 			// no focusable child found
 			return null;	// dui/Widget
 		},

@@ -28,8 +28,8 @@ define([
 	has.add("document-register", !!document.register);
 
 	// Can we use __proto__ to reset the prototype of DOMNodes?
-	// It's not available on IE<11, and even on IE11 it makes the node's attributes (ex: node.attributes, node.textContent)
-	// disappear, so disabling it on IE11 for now.
+	// It's not available on IE<11, and even on IE11 it makes the node's attributes
+	// (ex: node.attributes, node.textContent) disappear, so disabling it on IE11 too.
 	has.add("dom-proto-set", function () {
 		var node = document.createElement("div");
 		if (!node.__proto__) {
@@ -85,7 +85,7 @@ define([
 
 		do {
 			var keys = Object.getOwnPropertyNames(proto);	// better than Object.keys() because finds hidden props too
-			for (var i = 0, k; k = keys[i]; i++) {
+			for (var i = 0, k; (k = keys[i]); i++) {
 				if (!props[k]) {
 					props[k] = Object.getOwnPropertyDescriptor(proto, k);
 				}
@@ -357,7 +357,7 @@ define([
 		// Note that upgrade() will be a no-op when has("document-register") is true, but we still
 		// need to calculate nodes[] for the startup() call below.
 		var node, idx = 0, nodes = (root || doc).querySelectorAll(selectors);
-		while (node = nodes[idx++]) {
+		while ((node = nodes[idx++])) {
 			upgrade(node);
 		}
 
@@ -365,7 +365,7 @@ define([
 		// just call startup on all widget nodes.  Most of the calls will be ignored since the nodes
 		// have already been started.
 		idx = 0;
-		while (node = nodes[idx++]) {
+		while ((node = nodes[idx++])) {
 			if (node.startup) {
 				node.startup();
 			}

@@ -3,7 +3,7 @@ define(["dojo/dom-construct", "dojo/has"], function (domConstruct, has) {
 
 	var
 		doc = document,
-		head = doc.head || (doc.head = doc.getElementsByTagName('head')[0]),
+		head = doc.head || (doc.head = doc.getElementsByTagName("head")[0]),
 		lastInsertedStylesheet,
 		sheets = {};		// map of which stylesheets have already been inserted
 
@@ -50,7 +50,7 @@ define(["dojo/dom-construct", "dojo/has"], function (domConstruct, has) {
 		//		This loader has the following limitations:
 		//
 		//			- The plugin will not wait for @import statements to complete before resolving.
-		//	  		  Imported CSS files should not have @import statements, but rather
+		//			  Imported CSS files should not have @import statements, but rather
 		//			  all CSS files needed should be listed in the widget's define([...], ...) dependency list.
 		//
 		//			- Loading plain CSS files won't work cross domain, unless you set Access-Control-Allow-Origin
@@ -83,7 +83,7 @@ define(["dojo/dom-construct", "dojo/has"], function (domConstruct, has) {
 			mids = mids.split(/, */);
 
 			var dependencies = mids.map(function (path) {
-				return /\.css$/.test(path) ? "dojo/text!" + path : path;
+				return (/\.css$/).test(path) ? "dojo/text!" + path : path;
 			});
 
 			require(dependencies, function () {
@@ -93,7 +93,7 @@ define(["dojo/dom-construct", "dojo/has"], function (domConstruct, has) {
 				mids.forEach(function (mid, idx) {
 					if (!(mid in sheets)) {
 						// Adjust relative image paths to be relative to document location rather than to the CSS file.
-						// This is necessary since we are inserting the CSS as <style> nodes rather than as <link> nodes.
+						// Necessary since we are inserting the CSS as <style> nodes rather than as <link> nodes.
 						var css = cssTexts[idx],
 							pathToCssFile = require.toUrl(mid).replace(/[^/]+$/, ""),
 							adjustedCss = css.replace(/(url\(")([^/])/g, "$1" + pathToCssFile + "$2");

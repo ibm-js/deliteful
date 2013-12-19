@@ -17,7 +17,7 @@ define([
 
 	// TODO: remove _frames, it isn't being used much, since popups never release their
 	// iframes (see [22236])
-	var _frames = new function () {
+	var Frames = function () {
 		// summary:
 		//		cache of iframes
 
@@ -55,7 +55,8 @@ define([
 			iframe.style.display = "none";
 			queue.push(iframe);
 		};
-	}();
+	};
+	var _frames = new Frames();
 
 
 	var BackgroundIframe = function (/*DomNode*/ node) {
