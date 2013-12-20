@@ -1,8 +1,9 @@
+/*global module */
 module.exports = function (grunt) {
 
 	// Helper function to return target for compiling less files for given theme.
 	// This should be doable with templates (<%= this.target =>) but unfortunately it doesn't seem to work.
-	function lessToTheme(theme){
+	function lessToTheme(theme) {
 		return {
 			files: [
 				{
@@ -11,7 +12,7 @@ module.exports = function (grunt) {
 
 					// process less files in themes/common (ex: themes/common/Button.less)
 					cwd: "themes/common",
-					src: ["*.less"],
+					src: ["*.less", "!variables.less", "!css3.less"],
 
 					// and put output into theme dir (ex: themes/blackberry/Button.css)
 					dest: "themes/" + theme,
@@ -30,7 +31,7 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON("package.json"),
 
 		jshint: {
-			files: [
+			src: [
 				// only doing top level files for now, to avoid old files in dijit/, form/, layout/, and mobile
 				"*.js",
 
