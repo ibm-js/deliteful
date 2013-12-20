@@ -12,11 +12,9 @@ Building mobile themes
 
 1. Install Node.js (http://nodejs.org/). 
 
-2. npm install less
+2. "npm install" from top level directory
 
-3. Run compile.bat or compile.sh to generate all themes.
-
-You can also run cleanup.bat or cleanup.sh to remove all the generated css files.  
+3. "grunt"
 
 
 Creating a new theme from the Custom theme
