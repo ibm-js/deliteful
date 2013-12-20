@@ -69,9 +69,5 @@
 	"maxerr": 250,
 	"predef": [ "require", "define" ],
 	"quotmark": "double",
-	"maxcomplexity": 10,
-
-	"globals" : {
-		"WebKitMutationObserver": true	// used by Widget.js feature test
-	}
+	"maxcomplexity": 10
 }

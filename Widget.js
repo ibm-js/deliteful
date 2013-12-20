@@ -323,6 +323,7 @@ define([
 					}
 					var self = this;
 					// begin watching for changes to the tabindex DOM attribute
+					/* global WebKitMutationObserver */
 					if ("WebKitMutationObserver" in window) {
 						var observer = new WebKitMutationObserver(function () {
 							var newValue = self.getAttribute("tabindex");
