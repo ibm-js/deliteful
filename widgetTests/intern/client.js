@@ -8,5 +8,5 @@ define({
 	},
 
 	// Non-functional test suites
-	suites: [ "dui/tests/intern/unit" ]
+	suites: [ "dui/widgetTests/intern/unit" ]
 });
