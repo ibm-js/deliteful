@@ -366,7 +366,7 @@ define([
 		// have already been started.
 		idx = 0;
 		while ((node = nodes[idx++])) {
-			if (node.startup) {
+			if (node.startup && !node._started) {
 				node.startup();
 			}
 		}

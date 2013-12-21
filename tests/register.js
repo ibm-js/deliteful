@@ -168,17 +168,33 @@ define([
 
 		// Test the parser, which scans the DOM for registered widgets and upgrades them
 		"parse" : function () {
+			register("test-parser-widget", [HTMLElement, Mixin], {
+				createdCalls: 0,
+				startupCalls: 0,
+				createdCallback: function () {
+					this.createdCalls++;
+				},
+				startup: function () {
+					this._started = true;	// done by Widget, required by register.parse
+					this.startupCalls++;
+				}
+			});
+
 			container.innerHTML += "<div>" +
 				"<button is='test-extended-button-widget' id=ebw2>hello</button>" +
 				"<span>random node</span>" +
-				"<test-extended-widget id=ew2></test-extended-widget>" +
+				"<test-parser-widget id=pw></test-parser-widget>" +
 				"</div>";
 
 			register.parse(container);
 			assert.strictEqual("my label", document.getElementById("ebw2").label, "ebw2.label");
-			assert.strictEqual(3, document.getElementById("ew2").foo, "ew2.foo");
+			assert.strictEqual(1, document.getElementById("pw").createdCalls, "pw.createdCalls");
+			assert.strictEqual(1, document.getElementById("pw").startupCalls, "pw.startupCalls");
 
-			// TODO: test that startup() is called.
+			// Call parse again to make sure that we don't repeat
+			register.parse(container);
+			assert.strictEqual(1, document.getElementById("pw").createdCalls, "pw.createdCalls");
+			assert.strictEqual(1, document.getElementById("pw").startupCalls, "pw.startupCalls");
 		},
 
 		teardown: function () {
