@@ -1,31 +1,6 @@
 /*global module */
 module.exports = function (grunt) {
 
-	// Helper function to return target for compiling less files for given theme.
-	// This should be doable with templates (<%= this.target =>) but unfortunately it doesn't seem to work.
-	function lessToTheme(theme) {
-		return {
-			files: [
-				{
-					// Enable dynamic expansion.
-					expand: true,
-
-					// process less files in themes/common (ex: themes/common/Button.less)
-					cwd: "themes/common",
-					src: ["*.less", "!variables.less", "!css3.less"],
-
-					// and put output into theme dir (ex: themes/blackberry/Button.css)
-					dest: "themes/" + theme,
-					ext: ".css"
-				}
-			],
-			options: {
-				// Look for @import files in theme directory (ex: themes/blackberry), then fallback to themes/common
-				paths: ["themes/" + theme, "themes/common"]
-			}
-		};
-	}
-
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
@@ -54,13 +29,6 @@ module.exports = function (grunt) {
 
 		// Task for compiling less files into CSS files
 		less : {
-			// Compile each theme
-			blackberry : lessToTheme("blackberry"),
-			bootstrap : lessToTheme("bootstrap"),
-			custom : lessToTheme("custom"),
-			holodark : lessToTheme("holodark"),
-			ios : lessToTheme("ios"),
-			windows : lessToTheme("windows"),
 
 			// Compile theme independent files
 			transitions: {
@@ -69,12 +37,37 @@ module.exports = function (grunt) {
 				src: ["*.less"],
 				dest: "themes/common/transitions",
 				ext: ".css"
+			},
+
+			// Infrastructure per-theme files
+			common : {
+				files: [
+					{
+						expand: true,
+						src: ["themes/*/*.less", "!themes/common/*.less", "!**/variables.less"],
+						ext: ".css"
+					}
+				]
+			},
+
+			// Compile less code for each widget
+			widgets : {
+				files: [
+					{
+						expand: true,
+						src: ["*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less"],
+						ext: ".css"
+					}
+				]
 			}
 		},
 
 		// Convert CSS files to JS files
 		cssToJs : {
-			src: ["themes/*/*.css", "!themes/common/*.css"]
+			src: [
+				"themes/*/*.css", "!themes/common/*.css", "themes/common/transitions/*.css",	// infrastructure
+				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css"	// widgets
+			]
 		},
 
 		// Copied from grunt web site but not tested

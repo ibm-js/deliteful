@@ -1,0 +1,173 @@
+// Template for Slider CSS, included from themes/*/Slider.less files
+
+.duiSlider {
+	display: inline-block; // to mimic an INPUT
+	vertical-align: middle;
+	border-collapse: separate;
+	cursor: pointer;
+	padding: @dui-slider-halo-size; // halo to make touches easier
+	.user-select(none); // prevent selection
+	.box-sizing(border-box);
+	.tap-highlight-color(rgba(255,255,255,0));
+	input {
+		display: none;
+	}
+	.dijitRuleContainer {
+		width: 100%;
+		margin: 0;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.duiSlider-styles;
+}
+.duiSliderH {
+	width: @dui-slider-size;
+	.duiSliderRemainingBar {
+		width: @dui-slider-bar-size;
+		min-width: (@dui-slider-knob-size*4);
+		height: @dui-slider-bar-thickness;
+	}
+	.duiSliderRemainingBar > * {
+	        left: 0; // children are positioned with either top or bottom
+	}
+	.duiSliderProgressBar {
+		height: 100%;
+		top: 0;
+		float: none;
+	}
+	.dijitRuleContainer > * {
+		margin-left: -0.25px; // simple attempt to center tic marks
+	}
+	.duiSliderHandle {
+		top: -(@dui-slider-bar-border-width+@dui-slider-knob-size/2-@dui-slider-bar-thickness/2);
+		width: @dui-slider-knob-thickness;
+		height: @dui-slider-knob-size;
+	}
+}
+.duiSliderV {
+	height: @dui-slider-size;
+	.duiSliderRemainingBar {
+		height: @dui-slider-bar-size;
+		min-height: (@dui-slider-knob-size*4);
+		width: @dui-slider-bar-thickness;
+	}
+	.duiSliderRemainingBar > * {
+	        top: 0; // children are positioned with either left or right
+	}
+	.duiSliderProgressBar {
+		width: 100%;
+		left: 0;
+		display: block;
+	}
+	.duiSliderHandle {
+		left: -(@dui-slider-bar-border-width+@dui-slider-knob-size/2-@dui-slider-bar-thickness/2);
+		width: @dui-slider-knob-size;
+		height: @dui-slider-knob-thickness;
+	}
+}
+.duiSliderHandle {
+	position: absolute;
+	display: inline-block;
+	.box-sizing(border-box);
+	border-width: @dui-slider-knob-border-width;
+	border-style: @dui-slider-knob-border-style;
+	border-color: @dui-slider-knob-border-color;
+	border-radius: @dui-slider-knob-border-radius;
+	padding: 0;
+	margin: 0;
+	background: gray;
+	background-clip: content-box;
+	.duiSliderHandle-styles;
+}
+.duiSliderHHtL .duiSliderHandleMax,
+.duiSliderHLtH .duiSliderHandleMin {
+	left: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderHHtL .duiSliderHandleMin,
+.duiSliderHLtH .duiSliderHandleMax {
+	right: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderVLtH .duiSliderHandleMax,
+.duiSliderVHtL .duiSliderHandleMin {
+	bottom: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderVLtH .duiSliderHandleMin,
+.duiSliderVHtL .duiSliderHandleMax {
+	top: -(@dui-slider-knob-thickness/2);
+}
+.duiSliderBar {
+	border-width: @dui-slider-bar-border-width;
+	border-style: @dui-slider-bar-border-style;
+	border-color: @dui-slider-bar-border-color;
+	border-radius: @dui-slider-bar-border-radius;
+	padding: 0;
+	margin: 0;
+	background: none;
+	background-clip: content-box;
+	.duiSliderBar-styles;
+}
+.duiSliderRemainingBar { // content area of domNode
+	.box-sizing(border-box);
+	position: relative; // so children can use position:absolute
+	height: 100%;
+	width: 100%;
+	margin: auto;
+	vertical-align: middle;
+	.duiSliderRemainingBar-styles;
+}
+.duiSliderRemainingBar > * {
+	position: absolute !important; // children use the RemainingBar's size
+}
+.duiSliderProgressBar {
+	.box-sizing(content-box);
+	border-width: 0; // this is a child of the RemainingBar
+	.duiSliderProgressBar-styles;
+}
+.duiSliderTransition {
+	.transition-duration(400ms);
+}
+.dj_a11y .duiSliderHandle:after {
+	content: "\\025A3"; // make sure there's a visible handle
+	display: block;
+	font-family: monospace;
+	font-size: @dui-slider-knob-thickness;
+}
+.dj_a11y .duiSliderH .duiSliderHandle {
+	line-height: @dui-slider-knob-size;
+}
+.dj_a11y .duiSliderV .duiSliderHandle {
+	line-height: @dui-slider-knob-thickness;
+}
+.dj_a11y .duiSlider .duiSliderHandle {
+	border-radius: 0;
+}
+.duiSliderV .duiRule {
+	left: 0;
+}
+.duiSliderV.d-rtl .duiRule {
+	right: 0;
+}
+.duiSliderH .duiRule {
+	top: 0;
+}
+// if neither duiRuleAfter nor duiRuleBefore are specified, then the default is duiRuleAfter
+.duiSliderV.d-rtl .duiRuleAfter .duiRuleLabel,
+.duiSliderV.d-rtl DIV.duiRuleLabel,
+.duiSliderV .duiRuleBefore .duiRuleLabel {
+	right: 100%;
+	left: auto;
+}
+.duiSliderV .duiRuleLabel,
+.duiSliderV.d-rtl .duiRuleBefore DIV.duiRuleLabel {
+	left: 100%;
+	right: auto;
+}
+.duiSliderH .duiRuleBefore .duiRuleLabel {
+	bottom: 100%;
+	top: auto;
+}
+.duiSliderH .duiRuleLabel,
+.duiSliderH .duiRuleAfter .duiRuleLabel {
+	top: 100%;
+	bottom: auto;
+}

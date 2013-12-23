@@ -1,9 +1,9 @@
 define([
 	"./register",
 	"./CssState",
-	"./handlebars!./templates/ExampleWidget.html",
-	"./themes/load!./themes/{{theme}}/ExampleWidget",	// inserts the CSS for this widget for page's theme
-	"dojo/has!dojo-bidi?./themes/load!./themes/{{theme}}/ExampleWidget_rtl"
+	"./handlebars!./ExampleWidget/ExampleWidget.html",
+	"./themes/load!./ExampleWidget/themes/{{theme}}/ExampleWidget_css",
+	"dojo/has!dojo-bidi?./themes/load!./ExampleWidget/themes/{{theme}}/ExampleWidget_rtl_css"
 ], function (register, CssState, renderer) {
 
 	return register("d-example", [HTMLElement, CssState], {
