@@ -1,0 +1,35 @@
+// Template for StarRating CSS, included from themes/*/StarRating.less files
+
+.d-star-rating{
+	&.d-star-rating-hovered{
+		opacity: 0.5;
+	}
+}
+
+.d-star-rating{
+	-ms-touch-action: none;
+}
+
+.d-star-rating-disabled{
+	.d-star-rating-star-icon:before{
+		content: @star-icon-disabled-sprite;
+	}
+}
+
+.d-star-rating-star-icon{
+	height: @star-icon-size;
+	width: @star-icon-size;
+}
+
+.d-star-rating-star-icon:before{
+	display: inline-block;
+	content: @star-icon-sprite;
+}
+
+.d-star-rating-empty-star:before{
+	margin-left: (-1 * @star-icon-size);
+}
+
+.d-star-rating-half-star:before{
+	margin-left: (-2 * @star-icon-size);
+}

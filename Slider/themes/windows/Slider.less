@@ -1,0 +1,40 @@
+@import "../../../themes/windows/variables.less";
+
+@dui-slider-handle-height: 1.1em;
+@dui-slider-handle-width: 0.5em;
+@dui-slider-height: 0.5em;
+
+@dui-slider-size: 100%;
+@dui-slider-halo-size: 12pt;
+@dui-slider-bar-border-width: 0.1em; // for a11y
+@dui-slider-bar-border-style: solid;
+@dui-slider-bar-border-color: transparent;
+@dui-slider-bar-size: 100%;
+@dui-slider-bar-thickness: 0.65em;
+@dui-slider-bar-border-radius: 0;
+@dui-slider-knob-size: 1.15em; // include border for a11y
+@dui-slider-knob-thickness: 0.65em; // include border for a11y
+@dui-slider-knob-border-width: 0.1em; // for a11y
+@dui-slider-knob-border-style: solid;
+@dui-slider-knob-border-color: transparent;
+@dui-slider-knob-border-radius: 0;
+.dui-slider-knob-background-image () { .default-button-background-image(); }
+
+//
+.duiSlider-styles () {
+}
+.duiSliderBar-styles () {
+}
+.duiSliderRemainingBar-styles () {
+  background-clip: content-box;
+  background-color: @win-app-bar-color;
+}
+.duiSliderProgressBar-styles () {
+  background-image: none;
+  background-color: @win-accent-color;
+}
+.duiSliderHandle-styles () {
+  background-color: @win-foreground-color;
+}
+
+@import "../Slider_template";

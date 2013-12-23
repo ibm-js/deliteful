@@ -1,0 +1,34 @@
+@import "../../../themes/ios/variables.less";
+
+@dui-slider-size: auto;
+@dui-slider-halo-size: 12pt;
+@dui-slider-bar-border-width: 1px; // for a11y
+@dui-slider-bar-border-style: inset;
+@dui-slider-bar-border-color: #b0b0b0;
+@dui-slider-bar-size: 200px;
+@dui-slider-bar-thickness: 8px;
+@dui-slider-bar-border-radius: @dui-slider-bar-thickness;
+@dui-slider-knob-size: 20px; // include border for a11y
+@dui-slider-knob-thickness: 20px; // include border for a11y
+@dui-slider-knob-border-width: 1px; // for a11y
+@dui-slider-knob-border-style: outset;
+@dui-slider-knob-border-color: #9d9d9d;
+@dui-slider-knob-border-radius: 10px;
+.dui-slider-knob-background-image () { .background-image-linear-gradient-top-bottom(#cccccc, #fafafa); }
+
+//
+.duiSlider-styles () {
+}
+.duiSliderBar-styles () {
+}
+.duiSliderRemainingBar-styles () {
+  .background-image-linear-gradient-top-bottom-2-stops(#cecece, #fdfdfd, 0.5, #eeeeee, 0.5, #f8f8f8);
+}
+.duiSliderProgressBar-styles () {
+  .background-image-linear-gradient-top-bottom-2-stops(#2859b1, #75acfb, 0.5, #3f84eb, 0.5, #4c8eee);
+}
+.duiSliderHandle-styles () {
+  .dui-slider-knob-background-image();
+}
+
+@import "../Slider_template";

@@ -12,10 +12,10 @@ define([
 	"./register",
 	"./Widget",
 	"./Invalidating",
-	"dojo/has!dojo-bidi?dui/bidi/StarRating",
-	"dojo/i18n!./nls/StarRating",
-	"./themes/load!./themes/{{theme}}/StarRating",
-	"dojo/has!dojo-bidi?./themes/load!./themes/{{theme}}/StarRating_rtl"
+	"dojo/has!dojo-bidi?./StarRating/bidi/StarRating",
+	"dojo/i18n!./StarRating/nls/StarRating",
+	"./themes/load!./StarRating/themes/{{theme}}/StarRating_css",
+	"dojo/has!dojo-bidi?./themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
