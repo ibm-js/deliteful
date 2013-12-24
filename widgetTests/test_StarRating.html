@@ -38,166 +38,293 @@
 			background-color: black;
 		}
 
-		.duiStarRatingStarIcon {
+		/* customize stars */
+
+		.d-star-rating-star-icon:before {
+			content: url('images/star-orange.png');
+		}
+		
+		.d-star-rating-star-icon {
 			height: 14px;
 			width: 13px;
-			background-image: url('images/star-orange.png');
 		}
 
-		.duiStarRatingEmptyStar {
-			background-position: -13px 0px;
+		.d-star-rating-empty-star:before {
+			margin-left: -13px;
 		}
 
-		.duiStarRatingHalfStar {
-			background-position: -26px 0px;
+		.d-star-rating-half-star:before {
+			margin-left: -26px;
 		}
 
-		.duiStarRatingHalfStarRtl {
-			background-position: -39px 0px;
+		.d-star-rating.d-rtl .d-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -39px;
 		}
 
-		.duiYellowStarRatingStarIcon {
+		.d-star-rating.d-rtl .d-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -26px;
+		}
+
+		.d-star-rating.d-rtl .d-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		/* custom yellow stars */
+		
+		.d-yellow-star-rating-star-icon:before {
+			content: url('images/star-yellow.png');
+		}
+		
+		.d-yellow-star-rating-star-icon {
 			height: 14px;
 			width: 13px;
-			background-image: url('images/star-yellow.png');
 		}
 
-		.duiYellowStarRatingEmptyStar {
-			background-position: -13px 0px;
+		.d-yellow-star-rating-empty-star:before {
+			margin-left: -13px;
 		}
 
-		.duiYellowStarRatingHalfStar {
-			background-position: -26px 0px;
+		.d-yellow-star-rating-half-star:before {
+			margin-left: -26px;
 		}
 
-		.duiYellowStarRatingHalfStarRtl {
-			background-position: -39px 0px;
+		.d-yellow-star-rating.d-rtl .d-yellow-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -39px;
 		}
 
-		.duiBlueStarRatingStarIcon {
+		.d-yellow-star-rating.d-rtl .d-yellow-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -26px;
+		}
+
+		.d-yellow-star-rating.d-rtl .d-yellow-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		/* custom blue stars */
+
+		.d-blue-star-rating-star-icon:before {
+			content: url('images/star-blue.png');
+		}
+		
+		.d-blue-star-rating-star-icon {
 			height: 14px;
 			width: 13px;
-			background-image: url('images/star-blue.png');
 		}
 
-		.duiBlueStarRatingEmptyStar {
-			background-position: -13px 0px;
+		.d-blue-star-rating-empty-star:before {
+			margin-left: -13px;
 		}
 
-		.duiBlueStarRatingHalfStar {
-			background-position: -26px 0px;
+		.d-blue-star-rating-half-star:before {
+			margin-left: -26px;
 		}
 
-		.duiBlueStarRatingHalfStarRtl {
-			background-position: -39px 0px;
+		.d-blue-star-rating.d-rtl .d-blue-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -39px;
 		}
 
-		.duiGreenStarRatingStarIcon {
+		.d-blue-star-rating.d-rtl .d-blue-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -26px;
+		}
+
+		.d-blue-star-rating.d-rtl .d-blue-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		/* custom green stars */
+
+		.d-green-star-rating-star-icon:before {
+			content: url('images/star-green.png');
+		}
+		
+		.d-green-star-rating-star-icon {
 			height: 14px;
 			width: 13px;
-			background-image: url('images/star-green.png');
 		}
 
-		.duiGreenStarRatingEmptyStar {
-			background-position: -13px 0px;
+		.d-green-star-rating-empty-star:before {
+			margin-left: -13px;
 		}
 
-		.duiGreenStarRatingHalfStar {
-			background-position: -26px 0px;
+		.d-green-star-rating-half-star:before {
+			margin-left: -26px;
 		}
 
-		.duiGreenStarRatingHalfStarRtl {
-			background-position: -39px 0px;
+		.d-green-star-rating.d-rtl .d-green-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -39px;
 		}
 
-		.duiCust1StarRatingStarIcon {
+		.d-green-star-rating.d-rtl .d-green-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -26px;
+		}
+
+		.d-green-star-rating.d-rtl .d-green-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		/* other custom stars */
+
+		.d-cust1-star-rating-star-icon:before {
+			content: url('images/star-2.png');
+		}
+		
+		.d-cust1-star-rating-star-icon {
 			height: 20px;
 			width: 20px;
-			background-image: url('images/star-2.png');
 		}
 
-		.duiCust1StarRatingEmptyStar {
-			background-position: -20px 0px;
+		.d-cust1-star-rating-empty-star:before {
+			margin-left: -20px;
 		}
 
-		.duiCust1StarRatingHalfStar {
-			background-position: -40px 0px;
+		.d-cust1-star-rating-half-star:before {
+			margin-left: -40px;
 		}
 
-		.duiCust1StarRatingHalfStarRtl {
-			background-position: -60px 0px;
+		.d-cust1-star-rating.d-rtl .d-cust1-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -60px;
 		}
 
-		.duiCust2StarRatingStarIcon {
+		.d-cust1-star-rating.d-rtl .d-cust1-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -40px;
+		}
+
+		.d-cust1-star-rating.d-rtl .d-cust1-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		.d-cust2-star-rating-star-icon:before {
+			content: url('images/star-3.png');
+		}
+		
+		.d-cust2-star-rating-star-icon {
 			height: 30px;
 			width: 30px;
-			background-image: url('images/star-3.png');
 		}
 
-		.duiCust2StarRatingEmptyStar {
-			background-position: -30px 0px;
+		.d-cust2-star-rating-empty-star:before {
+			margin-left: -30px;
 		}
 
-		.duiCust2StarRatingHalfStar {
-			background-position: -60px 0px;
+		.d-cust2-star-rating-half-star:before {
+			margin-left: -60px;
 		}
 
-		.duiCust2StarRatingHalfStarRtl {
-			background-position: -90px 0px;
+		.d-cust2-star-rating.d-rtl .d-cust2-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -90px;
 		}
 
-		.duiCust3StarRatingStarIcon {
+		.d-cust2-star-rating.d-rtl .d-cust2-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -60px;
+		}
+
+		.d-cust2-star-rating.d-rtl .d-cust2-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		.d-cust3-star-rating-star-icon:before {
+			content: url('images/star-4.png');
+		}
+		
+		.d-cust3-star-rating-star-icon {
 			height: 40px;
 			width: 40px;
-			background-image: url('images/star-4.png');
 		}
 
-		.duiCust3StarRatingEmptyStar {
-			background-position: -40px 0px;
+		.d-cust3-star-rating-empty-star:before {
+			margin-left: -40px;
 		}
 
-		.duiCust3StarRatingHalfStar {
-			background-position: -80px 0px;
+		.d-cust3-star-rating-half-star:before {
+			margin-left: -80px;
 		}
 
-		.duiCust3StarRatingHalfStarRtl {
-			background-position: -120px 0px;
+		.d-cust3-star-rating.d-rtl .d-cust3-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -120px;
 		}
 
-		.duiCust4StarRatingStarIcon {
+		.d-cust3-star-rating.d-rtl .d-cust3-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -80px;
+		}
+
+		.d-cust3-star-rating.d-rtl .d-cust3-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		.d-cust4-star-rating-star-icon:before {
+			content: url('images/star-5.png');
+		}
+		
+		.d-cust4-star-rating-star-icon {
 			height: 32px;
 			width: 32px;
-			background-image: url('images/star-5.png');
 		}
 
-		.duiCust4StarRatingEmptyStar {
-			background-position: -32px 0px;
+		.d-cust4-star-rating-empty-star:before {
+			margin-left: -32px;
 		}
 
-		.duiCust4StarRatingHalfStar {
-			background-position: -64px 0px;
+		.d-cust4-star-rating-half-star:before {
+			margin-left: -64px;
 		}
 
-		.duiCust4StarRatingHalfStarRtl {
-			background-position: -96px 0px;
+		.d-cust4-star-rating.d-rtl .d-cust4-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -96px;
 		}
 
-		.duiCust5StarRatingStarIcon {
+		.d-cust4-star-rating.d-rtl .d-cust4-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -64px;
+		}
+
+		.d-cust4-star-rating.d-rtl .d-cust4-star-rating-half-star:before {
+			margin-left: 0px;
+		}
+
+		.d-cust5-star-rating-star-icon:before {
+			content: url('images/star-6.png');
+		}
+		
+		.d-cust5-star-rating-star-icon {
 			height: 32px;
 			width: 32px;
-			background-image: url('images/star-6.png');
 		}
 
-		.duiCust5StarRatingEmptyStar {
-			background-position: -32px 0px;
+		.d-cust5-star-rating-empty-star:before {
+			margin-left: -32px;
 		}
 
-		.duiCust5StarRatingHalfStar {
-			background-position: -64px 0px;
+		.d-cust5-star-rating-half-star:before {
+			margin-left: -64px;
 		}
 
-		.duiCust5StarRatingHalfStarRtl {
-			background-position: -96px 0px;
+		.d-cust5-star-rating.d-rtl .d-cust5-star-rating-full-star:before {
+			margin-left: 0px;
+			margin-right: -96px;
+		}
+
+		.d-cust5-star-rating.d-rtl .d-cust5-star-rating-empty-star:before {
+			margin-left: 0px;
+			margin-right: -64px;
+		}
+
+		.d-cust5-star-rating.d-rtl .d-cust5-star-rating-half-star:before {
+			margin-left: 0px;
 		}
 
 	</style>
@@ -245,42 +372,42 @@
 <div class="group group3">
 	<d-star-rating readonly max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiYellowStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-yellow-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiGreenStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-green-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiBlueStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-blue-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust1StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust1-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust2StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust2-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust3StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust3-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust4StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust4-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust5StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust5-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
 </div>
 
 <div class="group group4">
 	<d-star-rating readonly max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiYellowStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-yellow-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiGreenStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-green-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiBlueStarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-blue-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust1StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust1-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust2StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust2-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust3StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust3-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust4StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust4-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
-	<d-star-rating readonly baseClass="duiCust5StarRating" max=5 value=2.5></d-star-rating>
+	<d-star-rating readonly baseClass="d-cust5-star-rating" max=5 value=2.5></d-star-rating>
 	<br>
 </div>
 </body>

@@ -61,7 +61,7 @@ define([
 						}
 						if (create) {
 							parent = domConstruct.create("div", {
-								style: {"float": "left"}
+								style: "float: left; overflow: hidden;"
 							}, this);
 						} else {
 							parent = this.children[i];
@@ -74,7 +74,8 @@ define([
 			                    name: this.name,
 			                    readOnly: this.readOnly,
 			                    disabled: this.disabled,
-			                    value: this.value},
+			                    value: this.value,
+			                    style: "display: none;"},
 			                   this, "last");
 					}
 				}
