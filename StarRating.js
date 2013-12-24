@@ -38,9 +38,9 @@ define([
 		//		- .d-star-rating-star-icon {height: iconSize; width: iconSize;}
 		//		- .d-star-rating-empty-star:before {margin-left: -iconSize}
 		//		- .d-star-rating-half-star:before {margin-left: -2*iconSize}
-		//		- .d-star-ratingRtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
-		//		- .d-star-ratingRtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
-		//		- .d-star-ratingRtl .d-star-rating-half-star:before {margin-left: 0px;}
+		//		- .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
+		//		- .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
+		//		- .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
 		//		Note that if your using a different baseClass than the default one "duiStarRating",
 		//		you should replace 'duiStarRating' in the previous css class names with your
 		//		baseClass value.
@@ -317,7 +317,7 @@ define([
 				}
 				if (create) {
 					parent = domConstruct.create("div", {
-						style: {"float": "left"}
+						style: "float: left; overflow: hidden;"
 					}, this);
 				} else {
 					parent = this.children[i];
@@ -330,7 +330,8 @@ define([
 	                                                  name: this.name,
 	                                                  readOnly: this.readOnly,
 	                                                  disabled: this.disabled,
-	                                                  value: this.value},
+	                                                  value: this.value,
+	                                                  style: "display: none;"},
 	                                                 this, "last");
 			}
 		},
