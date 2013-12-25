@@ -3,11 +3,11 @@ define([
 	"dojo/hccss",
 	"dojo/_base/lang",
 	"dojo/dom-construct",
-	"./register",
-	"./Widget",
-	"./Invalidating",
+	"delite/register",
+	"delite/Widget",
+	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"./themes/load!./themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css"	 // common for duiInline etc.
+	"delite/themes/load!delite/themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css"	 // common for duiInline etc.
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
@@ -17,8 +17,6 @@ define([
 		//		Buttons can display a label, an icon, or both.
 		//		A name for the button should always be specified through innerHTML or the label attribute.
 		//		It can be hidden via showLabel=false, but will always appear in high contrast mode.
-		// example:
-		//	|	<button data-dojo-type="dui/Button" onclick="...">Hello world</button>
 
 		// label: String
 		//		Text to display in button.

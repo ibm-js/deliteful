@@ -9,18 +9,19 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-class",
 	"dojo/dom-geometry",
-	"./register",
-	"./Widget",
-	"./Invalidating",
+	"delite/register",
+	"delite/Widget",
+	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./StarRating/bidi/StarRating",
 	"dojo/i18n!./StarRating/nls/StarRating",
-	"./themes/load!./StarRating/themes/{{theme}}/StarRating_css",
-	"dojo/has!dojo-bidi?./themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"delite/themes/load!./StarRating/themes/{{theme}}/StarRating_css",
+	"dojo/has!dojo-bidi?delite/themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
 	// module:
-	//		dui/StarRating
+	//		deliteful/StarRating
+
 	var StarRating = dcl([Widget, Invalidating], {
 		// summary:
 		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value

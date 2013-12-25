@@ -6,7 +6,7 @@ define([
 ], function (dcl, has, keys, domConstruct) {
 
 	// module:
-	//		dui/bidi/StarRating
+	//		deliteful/StarRating/bidi/StarRating
 
 	return dcl(null, {
 		// summary:

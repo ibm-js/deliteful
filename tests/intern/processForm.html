@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>form parameters processing</title>
+		<script type="text/javascript">
+			window.onload = function () {
+				var tableHTML = "Request parameters: <table id='parameters'><tr><th>Name</th><th>Value</th></tr>";
+				var requestParameters = decodeURIComponent(window.location.search).substring(1).split("&"),
+					currentParameter, i = 0;
+				for (; i < requestParameters.length; i++) {
+					currentParameter = requestParameters[i].split("=");
+					tableHTML = tableHTML + "<tr><td>" + currentParameter[0] + "</td><td>" + currentParameter[1] + "</td></tr>";
+				}
+				tableHTML += "</table>";
+				document.body.innerHTML = tableHTML;
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

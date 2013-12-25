@@ -12,15 +12,7 @@ module.exports = function (grunt) {
 
 				// Skip files that still have many errors or haven't been updated at all (TODO: fix)
 				"!Rule.js",
-				"!Slider.js",
-				"!a11y.js",
-				"!a11yclick.js",
-				"!focus.js",
-				"!handlebars.js",
-				"!place.js",
-				"!popup.js",
-				"!template.js",
-				"!typematic.js"
+				"!Slider.js"
 			],
 			options: {
 				jshintrc: ".jshintrc"
@@ -29,27 +21,6 @@ module.exports = function (grunt) {
 
 		// Task for compiling less files into CSS files
 		less : {
-
-			// Compile theme independent files
-			transitions: {
-				expand: true,
-				cwd: "themes/common/transitions",
-				src: ["*.less"],
-				dest: "themes/common/transitions",
-				ext: ".css"
-			},
-
-			// Infrastructure per-theme files
-			common : {
-				files: [
-					{
-						expand: true,
-						src: ["themes/*/*.less", "!themes/common/*.less", "!**/variables.less"],
-						ext: ".css"
-					}
-				]
-			},
-
 			// Compile less code for each widget
 			widgets : {
 				files: [
@@ -65,8 +36,7 @@ module.exports = function (grunt) {
 		// Convert CSS files to JS files
 		cssToJs : {
 			src: [
-				"themes/*/*.css", "!themes/common/*.css", "themes/common/transitions/*.css",	// infrastructure
-				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css"	// widgets
+				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css"
 			]
 		},
 
@@ -86,7 +56,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadTasks("themes/tasks");// Custom cssToJs task to convert CSS to JS
+	grunt.loadTasks("../delite/themes/tasks");// Custom cssToJs task to convert CSS to JS
 
 	grunt.registerTask("default", ["less", "cssToJs"]);
 };
