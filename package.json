@@ -1,5 +1,5 @@
 {
-	"name": "dui",
+	"name": "deliteful",
 	"version": "0.1.0-dev",
 	"dependencies": {
 	},
@@ -13,8 +13,8 @@
 	"licenses": [
 		{
 			"type": "BSD",
-			"url": "https://github.com/ibm-dojo/dui/blob/master/LICENSE"
+			"url": "https://github.com/ibm-dojo/deliteful/blob/master/LICENSE"
 		}
 	],
-	"bugs": "https://github.com/ibm-dojo/dui/issues"
+	"bugs": "https://github.com/ibm-dojo/deliteful/issues"
 }

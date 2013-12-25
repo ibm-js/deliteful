@@ -11,9 +11,9 @@ define([
 	"dojo/keys",
 	"dojo/touch",
 	"dojo/on",
-	"./register",
-	"./FormValueWidget",
-	"./themes/load!./themes/{{theme}}/common_css,./Slider/themes/{{theme}}/Slider_css"	// common for duiInline etc.
+	"delite/register",
+	"delite/FormValueWidget",
+	"delite/themes/load!delite/themes/{{theme}}/common_css,./Slider/themes/{{theme}}/Slider_css"
 ], function (connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
 		keys, touch, on, register, FormValueWidget) {
 

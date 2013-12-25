@@ -5,10 +5,10 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-class",
-	"./register",
-	"./Widget",
-	"./Invalidating",
-	"./themes/load!./themes/{{theme}}/common_css,./Rule/css/Rule"
+	"delite/register",
+	"delite/Widget",
+	"delite/Invalidating",
+	"delite/themes/load!delite/themes/{{theme}}/common_css,./Rule/css/Rule"
 ], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
 
 	function toCSS(baseClass, modifier) {
@@ -18,7 +18,7 @@ define([
 	}
 
 	// module:
-	//		dui/Rule
+	//		deliteful/Rule
 
 	var duiRule = register("d-rule", [HTMLElement, Widget, Invalidating], {
 		// summary:

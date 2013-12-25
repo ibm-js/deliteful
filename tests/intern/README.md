@@ -1,6 +1,6 @@
-# DUI Infrastructure Unit Tests
+# Deliteful Tests
 
-This directory contains the DUI widgets (to be renamed as "deliteful") unit tests.
+This directory contains the Deliteful widgets tests.
 
 ## Setup
 
@@ -20,7 +20,7 @@ on https://saucelabs.com/appium/tutorial/3.
 Navigate to:
 
 ```
-http://localhost/dui/node_modules/intern/client.html?config=tests/intern/client
+http://localhost/deliteful/node_modules/intern/client.html?config=tests/intern/client
 ```
 
 Note that this won't run the functional tests.
@@ -38,7 +38,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node dui\node_modules\intern\runner.js config=dui\tests\intern\sauce.js
+node deliteful\node_modules\intern\runner.js config=deliteful\tests\intern\sauce.js
 ```
 
 ## Running the unit and functional tests locally
@@ -61,7 +61,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node dui\node_modules\intern\runner.js config=dui\tests\intern\local.js
+node deliteful\node_modules\intern\runner.js config=deliteful\tests\intern\local.js
 ```
 
 
