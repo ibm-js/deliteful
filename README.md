@@ -33,17 +33,22 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 This project requires the following other projects to run:
  * dojo
+ * delite
+ * dpointer
  * dcl    (git clone https://github.com/uhop/dcl.git)
  * requirejs (git clone https://github.com/jrburke/requirejs.git)
 
 ## Installation
 
-To install the latest master, go to the root Dojo installation directory and clone deliteful from github:
+* Bower release installation: `bower install deliteful`
+
+* Manual master installation: go to the root Dojo installation directory and clone deliteful from github:
 
 	$ git clone git://github.com/ibm-dojo/deliteful.git
 
 Then install dependencies:
 
+	$ cd deliteful
 	$ bower install
 
 ## Documentation
