@@ -76,8 +76,8 @@ define([
 			if (props.value || props.min || props.max) {
 				// force the value in bounds
 				var values = String(this.value).split(/,/g);
-				var	minValue = Math.max(Math.min(values[0], values[values.length-1], this.max), this.min),
-					maxValue = Math.min(Math.max(values[0], values[values.length-1], this.min), this.max);
+				var	minValue = Math.max(Math.min(values[0], values[values.length - 1], this.max), this.min),
+					maxValue = Math.min(Math.max(values[0], values[values.length - 1], this.min), this.max);
 				// correct value in case the values were outside min/max
 				var correctedValue = values.length === 1 ? String(maxValue) : (minValue + "," + maxValue);
 				if (correctedValue !== this.value) {
@@ -99,8 +99,10 @@ define([
 
 			if (props.vertical || props.flip) {
 				// add V or H suffix to baseClass for styling purposes
-				// _reversed is complicated since you can have flipped right-to-left and vertical is upside down by default
-				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip)) || (this.vertical && this.flip));
+				// _reversed is complicated since you can have flipped right-to-left and vertical
+				// is upside down by default
+				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip)) ||
+					(this.vertical && this.flip));
 				this._attrs = this._orientationAttrs[this.vertical];
 				var baseClass = toCSS(this.className, this.vertical ? "V" : "H");
 				domClass.add(this, baseClass);
@@ -122,7 +124,8 @@ define([
 			if (props.name) {
 				var name = this.name;
 				this.removeAttribute("name");
-				this.valueNode.setAttribute("name", name); // won't restore after a browser back operation since name changed nodes
+				// won't restore after a browser back operation since name changed nodes
+				this.valueNode.setAttribute("name", name);
 			}
 			if (props.max) {
 				this.focusNode.setAttribute("aria-valuemax", this.max);
@@ -140,7 +143,8 @@ define([
 			// look for child INPUT node under root node
 			this.valueNode = query("> INPUT", this)[0];
 			if (!this.valueNode) {
-				this.valueNode = domConstruct.create("input", { "type": "text", readOnly: true, value: this.value }, this, "last");
+				this.valueNode = domConstruct.create("input", { "type": "text", readOnly: true, value: this.value },
+					this, "last");
 			}
 
 			this.containerNode = domConstruct.create("div", {}, this, "last");
@@ -189,8 +193,7 @@ define([
 							value -= offsetValue;
 							// now perform visual slide
 							domClass.toggle(this.progressBar, "duiSliderTransition", !!priorityChange);
-							this.value = 
-								values.length === 1
+							this.value = values.length === 1
 									? String(value)
 									: (isMax
 										? (values[0] + "," + value)
@@ -227,9 +230,10 @@ define([
 							setValue(true);
 							// fire onChange
 						}),
-						isMouse = e instanceof MouseEvent, // e.type can be MSPointerDown but still be instanceof MouseEvent
+						// e.type can be MSPointerDown but still be instanceof MouseEvent
+						isMouse = e instanceof MouseEvent,
 						// get the starting position of the content area (dragging region)
-						// can't use true since the added docScroll and the returned x are body-zoom incompatibile
+						// can't use true since the added docScroll and the returned x are body-zoom incompatible
 						box = domGeometry.position(this.containerNode, false),
 						scroll = domGeometry.docScroll(),
 						bodyZoom = has("ie") ? 1 : (parseFloat(domStyle.get(win.body(), "zoom")) || 1),
@@ -238,8 +242,10 @@ define([
 						actionHandles;
 					if (this.disabled || this.readOnly) { return; }
 					// fix scroll.y in IE10 for incorrect pageYOffset
-					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-incorrect-value-when-page-zoomed-breaks-jquery-etc
-					scroll.y = Math.min(scroll.y, this.containerNode.ownerDocument.documentElement.scrollTop || scroll.y);
+					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-
+					// incorrect-value-when-page-zoomed-breaks-jquery-etc
+					scroll.y = Math.min(scroll.y,
+						this.containerNode.ownerDocument.documentElement.scrollTop || scroll.y);
 					var startPixel = box[this._attrs.start] * nodeZoom * bodyZoom + scroll[this._attrs.start];
 					var maxPixels = box[this._attrs.size] * nodeZoom * bodyZoom;
 					var offsetValue = 0;
@@ -266,28 +272,28 @@ define([
 						var	step = this.step,
 							multiplier = 1;
 						switch (e.keyCode) {
-							case keys.HOME:
-								values[handleIdx] = [ this.min, values[0] ][handleIdx];
-								break;
-							case keys.END:
-								values[handleIdx] = maxValue;
-								break;
-							case keys.RIGHT_ARROW:
-								multiplier = -1;
-								/* falls through */
-							case keys.LEFT_ARROW:
-								values[handleIdx] = parseFloat(values[handleIdx]) +
-									multiplier * ((this.flip && !this.vertical) ? step : -step);
-								break;
-							case keys.DOWN_ARROW:
-								multiplier = -1;
-								/* falls through */
-							case keys.UP_ARROW:
-								values[handleIdx] = parseFloat(values[handleIdx]) +
-									multiplier * ((!this.flip || !this.vertical) ? step : -step);
-								break;
-							default:
-								return;
+						case keys.HOME:
+							values[handleIdx] = [ this.min, values[0] ][handleIdx];
+							break;
+						case keys.END:
+							values[handleIdx] = maxValue;
+							break;
+						case keys.RIGHT_ARROW:
+							multiplier = -1;
+							/* falls through */
+						case keys.LEFT_ARROW:
+							values[handleIdx] = parseFloat(values[handleIdx]) +
+								multiplier * ((this.flip && !this.vertical) ? step : -step);
+							break;
+						case keys.DOWN_ARROW:
+							multiplier = -1;
+							/* falls through */
+						case keys.UP_ARROW:
+							values[handleIdx] = parseFloat(values[handleIdx]) +
+								multiplier * ((!this.flip || !this.vertical) ? step : -step);
+							break;
+						default:
+							return;
 						}
 						e.preventDefault();
 						this.value = values.join(",");
@@ -317,7 +323,8 @@ define([
 				point, pixelValue, value,
 				node = this;
 			if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
-				this.value = this.valueNode.value; // set this here in case refreshProperties runs before startup (Chrome)
+				// set this here in case refreshProperties runs before startup (Chrome)
+				this.value = this.valueNode.value;
 			}
 			this.own(
 				on(this, touch.press, beginDrag),
