@@ -174,7 +174,6 @@ define([
 				this.setAttribute("aria-valuenow", this.value);
 				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
 				this.valueNode.value = this.value;
-				console.log(this.id + " value node value set to " + this.value);
 			}
 			if (props.name !== undefined && this.name) {
 				this.valueNode.name = this.name;
