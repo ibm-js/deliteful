@@ -1,0 +1,25 @@
+@import "../css3.less";
+.-delite-swap {
+	.animation-duration(.6s);
+	.animation-timing-function(linear);
+}
+.-delite-swap.-delite-out {
+	.animation-name(-delite-swapOut);
+}
+.-delite-swap.-delite-in {
+	.animation-name(-delite-swapIn);
+}
+.-delite-swap.-delite-out.-delite-reverse {
+	.animation-name(-delite-swapOutReverse);
+}
+.-delite-swap.-delite-in.-delite-reverse {
+	.animation-name(-delite-swapInReverse);
+}
+@-webkit-keyframes -delite-swapOut { .keyframes-z-index-transform-opacity-0-50-100-webkit(auto, translate3d(0%,0%,0px) scale(1.0), 1, -60, translate3d(-45%,5%,0px) scale(.6), .4, -100, translate3d(-20%,10%,0px) scale(.4), 0); }
+@keyframes         -delite-swapOut { .keyframes-z-index-transform-opacity-0-50-100       (auto, translate3d(0%,0%,0px) scale(1.0), 1, -60, translate3d(-45%,5%,0px) scale(.6), .4, -100, translate3d(-20%,10%,0px) scale(.4), 0); }
+@-webkit-keyframes -delite-swapIn { .keyframes-z-index-transform-opacity-0-50-100-webkit(-100, translate3d(-20%,0%,0px) scale(.5), .4, -40, translate3d(45%,0%,0px) scale(.7), 1, auto, translate3d(0%,0%,0px) scale(1.0), 1); }
+@keyframes         -delite-swapIn { .keyframes-z-index-transform-opacity-0-50-100       (-100, translate3d(-20%,0%,0px) scale(.5), .4, -40, translate3d(45%,0%,0px) scale(.7), 1, auto, translate3d(0%,0%,0px) scale(1.0), 1); }
+@-webkit-keyframes -delite-swapOutReverse { .keyframes-z-index-transform-opacity-0-50-100-webkit(auto, translate3d(0%,0%,0px) scale(1.0), 1, -60, translate3d(45%,5%,0px) scale(.6), .4, -100, translate3d(20%,10%,0px) scale(.4), 0); }
+@keyframes         -delite-swapOutReverse { .keyframes-z-index-transform-opacity-0-50-100       (auto, translate3d(0%,0%,0px) scale(1.0), 1, -60, translate3d(45%,5%,0px) scale(.6), .4, -100, translate3d(20%,10%,0px) scale(.4), 0); }
+@-webkit-keyframes -delite-swapInReverse { .keyframes-z-index-transform-opacity-0-50-100-webkit(-100, translate3d(20%,0%,0px) scale(.5), .4, -40, translate3d(-45%,0%,0px) scale(.7), 1, auto, translate3d(0%,0%,0px) scale(1.0), 1); }
+@keyframes         -delite-swapInReverse { .keyframes-z-index-transform-opacity-0-50-100       (-100, translate3d(20%,0%,0px) scale(.5), .4, -40, translate3d(-45%,0%,0px) scale(.7), 1, auto, translate3d(0%,0%,0px) scale(1.0), 1); }

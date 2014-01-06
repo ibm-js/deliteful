@@ -1,0 +1,21 @@
+@import "../css3.less";
+.-delite-scaleOut.-delite-out {
+	.animation-duration(.5s);
+	.animation-name(-delite-scaleOutOut);
+	.animation-timing-function(ease-in);
+}
+.dj_android .-delite-scaleOut.-delite-out {
+	.animation-name(-delite-scaleOutOutAndroid);
+}
+.-delite-scaleOut.-delite-in {
+	z-index: -100;
+	.animation-duration(.5s);
+	.animation-name(-delite-scaleOutIn);
+	.animation-timing-function(ease-in);
+}
+@-webkit-keyframes -delite-scaleOutOut { .keyframes-transform-opacity-from-to-webkit(scale(1.0), 1, scale(0.0), 0); }
+@keyframes         -delite-scaleOutOut { .keyframes-transform-opacity-from-to       (scale(1.0), 1, scale(0.0), 0); }
+@-webkit-keyframes -delite-scaleOutOutAndroid { .keyframes-transform-from-to-webkit(scale(1.0), scale(0.0)); }
+@keyframes         -delite-scaleOutOutAndroid { .keyframes-transform-from-to       (scale(1.0), scale(0.0)); }
+@-webkit-keyframes -delite-scaleOutIn { .keyframes-transform-from-to-webkit(scale(1.0), scale(1.0)); }
+@keyframes         -delite-scaleOutIn { .keyframes-transform-from-to       (scale(1.0), scale(1.0)); }
