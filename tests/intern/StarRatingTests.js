@@ -331,6 +331,42 @@ define(["intern!object",
 				return checkRating(remote, "starrating3", 7, 3, false);
 			});
 		},
+		"form back button": function () {
+			console.log("# running test 'form back button'");
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./StarRatingFormBackTests.html"))
+			.waitForCondition("ready", 5000)
+			.then(function () {
+				return clickOnStar(remote, "starratingA", 7);
+			})
+			.elementById("submitButton")
+			.click()
+			.end()
+			.waitForElementById("parameters", 5000)
+			.end()
+			.then(function () {
+				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
+			})
+			.back()
+			.waitForCondition("ready", 5000)
+			.then(function () {
+				return checkRating(remote, "starratingA", 7, 7, true);
+			})
+			.elementById("submitButton")
+			.click()
+			.end()
+			.waitForElementById("parameters", 5000)
+			.end()
+			.then(function () {
+				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
+			})
+			.back()
+			.waitForCondition("ready", 5000)
+			.then(function () {
+				return checkRating(remote, "starratingA", 7, 7, true);
+			});
+		},
 		"form values": function () {
 			console.log("# running test 'form values'");
 			var remote = this.remote;
@@ -348,6 +384,6 @@ define(["intern!object",
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
 			});
-		},
+		}
 	});
 });
