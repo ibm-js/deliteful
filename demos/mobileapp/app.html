@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Mobile Application</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="app.css">
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ScrollableContainer",
+			"deliteful/ViewStack",
+			"deliteful/SidePane",
+			"deliteful/LinearLayout",
+			"deliteful/Button",
+			"dojo/domReady!"
+		], function(register){
+			register.parse();
+		});
+	</script>
+</head>
+<body>
+<!-- A SidePane for the left menu -->
+<d-side-pane mode="push" position="start" id="leftPane">
+	<d-linear-layout class="height100">
+		<d-linear-layout vertical="false" class="pageHeader">
+			<div><button is="d-button" onclick="leftPane.close()"></button></div>
+			<div class="fill titleStyle">Menu</div>
+			<div><button is="d-button" onclick="leftStack.show(settings, {direction:'start'})"></button></div>
+		</d-linear-layout>
+
+		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
+			<div id="menu">
+				<d-linear-layout>
+					<ul>
+						<li onClick="vs.show(aaa)">AAA</li>
+						<li onClick="vs.show(bbb)">BBB</li>
+						<li onClick="vs.show(ccc)">CCC</li>
+						<li onClick="vs.show(ddd)">DDD</li>
+					</ul>
+				</d-linear-layout>
+			</div>
+			<div id="settings" style="text-align: center">
+				<button is="d-button" onclick="leftStack.show(menu, {direction:'end'})"></button>
+			</div>
+		</d-view-stack>
+	</d-linear-layout>
+</d-side-pane>
+
+<!-- Main application -->
+<d-linear-layout class=" width100 height100 page">
+	<!-- Header -->
+	<d-linear-layout vertical="false" class=" width100 pageHeader">
+		<div><button is="d-button" onclick="leftPane.open()"></button></div>
+		<div class="fill titleStyle">Deliteful Mobile App</div>
+		<div><button is="d-button"></button></div>
+	</d-linear-layout>
+	<!-- Main content (ViewStack) -->
+	<d-view-stack is="d-view-stack" id="vs" class="width100 fill">
+		<div style="background-color: white;" id="aaa">
+			AAA
+		</div>
+		<d-scrollable-container style="background-color: white;" id="bbb">
+			<ul>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+				<li onClick="vs.show(aaa)">AAA</li>
+				<li onClick="vs.show(bbb)">BBB</li>
+				<li onClick="vs.show(ccc)">CCC</li>
+				<li onClick="vs.show(ddd)">DDD</li>
+			</ul>
+		</d-scrollable-container>
+		<div style="background-color: powderblue;" id='ccc'>
+			CCC
+		</div>
+		<div style="background-color: oldlace;" id="ddd">
+			DDD
+		</div>
+	</d-view-stack>
+	<!-- Footer -->
+	<d-linear-layout vertical="false" class="pageFooter">
+		<div class="fill"><button is="d-button" onclick="vs.show(aaa)"></button></div>
+		<div class="fill"><button is="d-button" onclick="vs.show(bbb)"></button></div>
+		<div class="fill"><button is="d-button" onclick="vs.show(ccc)"></button></div>
+		<div class="fill"><button is="d-button" onclick="vs.show(ddd)"></button></div>
+	</d-linear-layout>
+</d-linear-layout>
+</body>
+</html>

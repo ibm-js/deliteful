@@ -1,0 +1,23 @@
+@import "../css3.less";
+.-delite-fade {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.-delite-fade.-delite-transition {
+	.transition-property(opacity);
+	.transition-duration(.6s);
+}
+.-delite-fade.-delite-out {
+	opacity: 1;
+}
+.-delite-fade.-delite-out.-delite-transition {
+	.transition-timing-function(ease-out);
+	opacity: 0;
+}
+.-delite-fade.-delite-in {
+	opacity: 0;
+}
+.-delite-fade.-delite-in.-delite-transition {
+	.transition-timing-function(ease-in);
+	opacity: 1;
+}

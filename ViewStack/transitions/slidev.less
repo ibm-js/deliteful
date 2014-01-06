@@ -1,0 +1,26 @@
+@import "../css3.less";
+.-delite-slidev {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.-delite-slidev.-delite-transition {
+	.transition-property-transform();
+	.transition-duration(.3s);
+}
+.-delite-slidev.-delite-out.-delite-reverse.-delite-transition,
+.-delite-slidev.-delite-in {
+	.transform(translate3d(0px,100%,0px) ) !important;
+}
+.-delite-slidev.-delite-out.-delite-transition,
+.-delite-slidev.-delite-in.-delite-reverse {
+	.transform(translate3d(0px,-100%,0px) ) !important;
+}
+.-delite-slidev.-delite-out,
+.-delite-slidev.-delite-in.-delite-transition {
+	.transform(translate3d(0px,0%,0px) ) !important;
+}
+.dj_android.dj_tablet .-delite-slidev.-delite-transition {
+	.transition-duration(.6s);
+	.transition-timing-function(linear);
+}
+

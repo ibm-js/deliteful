@@ -1,0 +1,33 @@
+@import "../css3.less";
+.-delite-flip {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.-delite-flip.-delite-transition {
+	.transition-property(all);
+	.transition-duration(.2s);
+	.transition-timing-function(linear);
+}
+.-delite-flip.-delite-out {
+	opacity: 1;
+	.transform(scale(1,1) skew(0,0) ) !important;
+}
+.-delite-flip.-delite-out.-delite-transition {
+	opacity: 0;
+	.transform(scale(0,0.8) skew(0,30deg) ) !important;
+}
+.-delite-flip.-delite-in {
+	opacity: 0;
+	.transform(scale(0,0.8) skew(0,-30deg) ) !important;
+}
+.-delite-flip.-delite-in.-delite-transition {
+	.transition-delay(.2s);
+	opacity: 1;
+	.transform(scale(1,1) skew(0,0) ) !important;
+}
+.dj_android.dj_tablet .-delite-flip.-delite-transition {
+	.transition-duration(.4s);
+}
+.dj_android.dj_tablet .-delite-flip.-delite-in.-delite-transition {
+	.transition-delay(.4s);
+}

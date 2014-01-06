@@ -1,0 +1,67 @@
+/* App style */
+* {
+	font-family: sans-serif;
+}
+
+.pageHeader, .pageFooter{
+	background-color: #1AA1E1;
+	color: white;
+}
+
+.pageHeader {
+	border-bottom: 2px solid black;
+	padding: 0.3em;
+}
+
+.pageFooter {
+	border-top: 2px solid black;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
+
+.pageFooter > div {
+	text-align: center;
+}
+
+button{
+	width: 32px;
+	height: 32px;
+}
+
+.titleStyle{
+	font-size: 1.5em;
+	text-align: center;
+	padding-top: 0.2em;
+
+	/* One line title with ellipsis if needed */
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	padding: 0 0.5em;
+	height: 2em;
+	list-style-type: none;
+	line-height: 2em;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	border-bottom: 1px solid #222222;
+	font-size: 2em;
+	cursor: pointer;
+}
+li:hover {
+	background-color: #61C6EB;
+}
+
+li:active {
+	background-color: #007fea ;
+}
+
+.page {
+	border-left: 1px solid #000000;
+}

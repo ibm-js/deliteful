@@ -1,0 +1,130 @@
+@import "../css3.less";
+.-delite-cube {
+	.animation-duration(.8s);
+	.animation-timing-function(linear);
+}
+.-delite-cube.-delite-out {
+	.animation-name(-delite-cube-out);
+	.transform-origin(0% 50% ) !important;
+}
+.-delite-cube.-delite-in {
+	.animation-name(-delite-cube-in);
+	.transform-origin(100% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out { .keyframes-transform-0-50-100-webkit(scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(0,1) skew(0deg,0deg)); }
+@keyframes         -delite-cube-out { .keyframes-transform-0-50-100       (scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(0,1) skew(0deg,0deg)); }
+@-webkit-keyframes -delite-cube-in { .keyframes-transform-0-50-100-webkit(scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(1,1) skew(0deg,0deg)); }
+@keyframes         -delite-cube-in { .keyframes-transform-0-50-100       (scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(1,1) skew(0deg,0deg)); }
+.-delite-cube.-delite-out.-delite-reverse {
+	.animation-name(-delite-cube-out-reverse);
+	.transform-origin(100% 50% ) !important;
+}
+.-delite-cube.-delite-in.-delite-reverse {
+	.animation-name(-delite-cube-in-reverse);
+	.transform-origin(0% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out-reverse { .keyframes-transform-0-50-100-webkit(scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(0,1) skew(0deg,0deg)); }
+@keyframes         -delite-cube-out-reverse { .keyframes-transform-0-50-100       (scale(1,1) skew(0deg,0deg), scale(.5,1) skew(0deg,-3deg), scale(0,1) skew(0deg,0deg)); }
+@-webkit-keyframes -delite-cube-in-reverse { .keyframes-transform-0-50-100-webkit(scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(1,1) skew(0deg,0deg)); }
+@keyframes         -delite-cube-in-reverse { .keyframes-transform-0-50-100       (scale(0,1) skew(0deg,0deg), scale(.5,1) skew(0deg,3deg), scale(1,1) skew(0deg,0deg)); }
+
+.dj_ios .-delite-cube {
+	.transform-style(preserve-3d) !important;
+}
+.dj_ios .-delite-cube.-delite-out {
+	.animation-name(-delite-cube-out_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios .-delite-cube.-delite-in {
+	.animation-name(-delite-cube-in_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px)); }
+@keyframes         -delite-cube-out_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px)); }
+@-webkit-keyframes -delite-cube-in_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+@keyframes         -delite-cube-in_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+.dj_ios.dj_landscape .-delite-cube.-delite-out {
+	.animation-name(-delite-cube-out_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios.dj_landscape .-delite-cube.-delite-in {
+	.animation-name(-delite-cube-in_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px)); }
+@keyframes         -delite-cube-out_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px)); }
+@-webkit-keyframes -delite-cube-in_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+@keyframes         -delite-cube-in_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+.dj_ios .-delite-cube.-delite-out.-delite-reverse {
+	.animation-name(-delite-cube-out-reverse_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios .-delite-cube.-delite-in.-delite-reverse {
+	.animation-name(-delite-cube-in-reverse_iphone);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out-reverse_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px)); }
+@keyframes         -delite-cube-out-reverse_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(90deg) translateZ(160px)); }
+@-webkit-keyframes -delite-cube-in-reverse_iphone { .keyframes-transform-from-to-webkit(scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+@keyframes         -delite-cube-in-reverse_iphone { .keyframes-transform-from-to       (scale3d(0.835,0.835,0.835) rotateY(-90deg) translateZ(160px), scale3d(0.835,0.835,0.835) rotateY(0deg) translateZ(160px)); }
+.dj_ios.dj_landscape .-delite-cube.-delite-out.-delite-reverse {
+	.animation-name(-delite-cube-out-reverse_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ios.dj_landscape .-delite-cube.-delite-in.-delite-reverse {
+	.animation-name(-delite-cube-in-reverse_iphone_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out-reverse_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px)); }
+@keyframes         -delite-cube-out-reverse_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(90deg) translateZ(240px)); }
+@-webkit-keyframes -delite-cube-in-reverse_iphone_l { .keyframes-transform-from-to-webkit(scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+@keyframes         -delite-cube-in-reverse_iphone_l { .keyframes-transform-from-to       (scale3d(0.77,0.77,0.77) rotateY(-90deg) translateZ(240px), scale3d(0.77,0.77,0.77) rotateY(0deg) translateZ(240px)); }
+
+.dj_ipad.dj_ios .-delite-cube.-delite-out {
+	.animation-name(-delite-cube-out_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios .-delite-cube.-delite-in {
+	.animation-name(-delite-cube-in_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px)); }
+@keyframes         -delite-cube-out_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px)); }
+@-webkit-keyframes -delite-cube-in_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+@keyframes         -delite-cube-in_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+.dj_ipad.dj_ios.dj_landscape .-delite-cube.-delite-out {
+	.animation-name(-delite-cube-out_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios.dj_landscape .-delite-cube.-delite-in {
+	.animation-name(-delite-cube-in_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px)); }
+@keyframes         -delite-cube-out_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px)); }
+@-webkit-keyframes -delite-cube-in_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+@keyframes         -delite-cube-in_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+.dj_ipad.dj_ios .-delite-cube.-delite-out.-delite-reverse {
+	.animation-name(-delite-cube-out-reverse_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios .-delite-cube.-delite-in.-delite-reverse {
+	.animation-name(-delite-cube-in-reverse_ipad);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out-reverse_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px)); }
+@keyframes         -delite-cube-out-reverse_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(90deg) translateZ(384px)); }
+@-webkit-keyframes -delite-cube-in-reverse_ipad { .keyframes-transform-from-to-webkit(scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+@keyframes         -delite-cube-in-reverse_ipad { .keyframes-transform-from-to       (scale3d(0.806,0.806,0.806) rotateY(-90deg) translateZ(384px), scale3d(0.806,0.806,0.806) rotateY(0deg) translateZ(384px)); }
+.dj_ipad.dj_ios.dj_landscape .-delite-cube.-delite-out.-delite-reverse {
+	.animation-name(-delite-cube-out-reverse_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+.dj_ipad.dj_ios.dj_landscape .-delite-cube.-delite-in.-delite-reverse {
+	.animation-name(-delite-cube-in-reverse_ipad_l);
+	.transform-origin(50% 50% ) !important;
+}
+@-webkit-keyframes -delite-cube-out-reverse_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px)); }
+@keyframes         -delite-cube-out-reverse_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(90deg) translateZ(512px)); }
+@-webkit-keyframes -delite-cube-in-reverse_ipad_l { .keyframes-transform-from-to-webkit(scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }
+@keyframes         -delite-cube-in-reverse_ipad_l { .keyframes-transform-from-to       (scale3d(0.758,0.758,0.758) rotateY(-90deg) translateZ(512px), scale3d(0.758,0.758,0.758) rotateY(0deg) translateZ(512px)); }

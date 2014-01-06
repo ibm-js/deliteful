@@ -1,0 +1,21 @@
+@import "../css3.less";
+.-delite-swirl.-delite-out {
+	.animation-duration(.5s);
+	.animation-name(-delite-swirlOut);
+	.animation-timing-function(ease-in);
+}
+.-delite-swirl.-delite-in {
+	z-index: -100;
+	.animation-duration(.5s);
+	.animation-name(-delite-swirlIn);
+	.animation-timing-function(ease-in);
+}
+.-delite-swirl.-delite-out.-delite-reverse {
+	.animation-name(-delite-swirlOutReverse);
+}
+@-webkit-keyframes -delite-swirlOut { .keyframes-transform-from-to-webkit(rotate(0deg) scale(1.0), rotate(-360deg) scale(0.0)); }
+@keyframes         -delite-swirlOut { .keyframes-transform-from-to       (rotate(0deg) scale(1.0), rotate(-360deg) scale(0.0)); }
+@-webkit-keyframes -delite-swirlOutReverse { .keyframes-transform-from-to-webkit(rotate(0deg) scale(1.0), rotate(360deg) scale(0.0)); }
+@keyframes         -delite-swirlOutReverse { .keyframes-transform-from-to       (rotate(0deg) scale(1.0), rotate(360deg) scale(0.0)); }
+@-webkit-keyframes -delite-swirlIn { .keyframes-transform-from-to-webkit(scale(1.0), scale(1.0)); }
+@keyframes         -delite-swirlIn { .keyframes-transform-from-to       (scale(1.0), scale(1.0)); }

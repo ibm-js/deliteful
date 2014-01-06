@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>View Stack</title>
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<style>
+		button {
+			width: 10em;
+		}
+		div {
+			font-size: 15em;
+			font-family: Helvetica;
+			text-align: center;
+			font-weight: bold;
+		}
+		#vs {
+			display:inline-block;
+			min-width: 530px;
+			width:50%;
+			height: 300px;
+			border: 2px solid gold
+		}
+	</style>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ViewStack",
+			"deliteful/Button",
+			"dojo/domReady!"
+		], function(register){
+			register.parse();
+
+			createChild = function (){
+				var newChild = document.createElement("div");
+				newChild.id = "eee";
+				newChild.innerHTML = "EEE";
+				newChild.style.backgroundColor = "orangered";
+				vs.addChild(newChild);
+				vs.show(newChild);
+			};
+		});
+	</script>
+</head>
+<body style="margin:2em;">
+<button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
+<button is="d-button" onclick="createChild()">Create EEE</button>
+<button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>
+<br>
+<d-view-stack id="vs">
+	<div style="background-color: honeydew;" id="aaa">
+		AAA
+	</div>
+	<div style="background-color: whitesmoke;" id="bbb">
+		BBB
+	</div>
+	<div style="background-color: powderblue;" id=ccc>
+		CCC
+	</div>
+	<div style="background-color: oldlace;" id="ddd">
+		DDD
+	</div>
+</d-view-stack>
+<br>
+<button is="d-button" onclick="vs.show(aaa,{transition:'slide'})">Slide AAA</button>
+<button is="d-button" onclick="vs.show(bbb,{transition:'slide'})">Slide BBB</button>
+<button is="d-button" onclick="vs.show(ccc,{transition:'slide'})">Slide CCC</button>
+<button is="d-button" onclick="vs.show(ddd,{transition:'slide'})">Slide DDD</button>
+<br>
+<button is="d-button" onclick="vs.show(aaa,{transition:'reveal'})">Reveal AAA</button>
+<button is="d-button" onclick="vs.show(bbb,{transition:'reveal'})">Reveal BBB</button>
+<button is="d-button" onclick="vs.show(ccc,{transition:'reveal'})">Reveal CCC</button>
+<button is="d-button" onclick="vs.show(ddd,{transition:'reveal'})">Reveal DDD</button>
+<br>
+<button is="d-button" onclick="vs.show(aaa,{transition:'fade'})">Fade AAA</button>
+<button is="d-button" onclick="vs.show(bbb,{transition:'fade'})">Fade BBB</button>
+<button is="d-button" onclick="vs.show(ccc,{transition:'fade'})">Fade CCC</button>
+<button is="d-button" onclick="vs.show(ddd,{transition:'fade'})">Fade DDD</button>
+<br>
+<button is="d-button" onclick="vs.show(aaa,{transition:'flip'})">Flip AAA</button>
+<button is="d-button" onclick="vs.show(bbb,{transition:'flip'})">Flip BBB</button>
+<button is="d-button" onclick="vs.show(ccc,{transition:'flip'})">Flip CCC</button>
+<button is="d-button" onclick="vs.show(ddd,{transition:'flip'})">Flip DDD</button>
+
+<br>
+<button is="d-button" onclick="vs.show(aaa,{transition:'none'})">(No Transition) AAA</button>
+<button is="d-button" onclick="vs.show(bbb,{transition:'none'})">(No Transition) BBB</button>
+<button is="d-button" onclick="vs.show(ccc,{transition:'none'})">(No Transition) CCC</button>
+<button is="d-button" onclick="vs.show(ddd,{transition:'none'})">(No Transition) DDD</button>
+
+<div style="display: none">
+	<div style="background-color: darkolivegreen;" id="fff">
+		FFF
+	</div>
+</div>
+</body>
+</html>
