@@ -117,23 +117,23 @@ define([
 		},
 
 		createdCallback: dcl.after(function () {
-            var inputs = this.getElementsByTagName("INPUT");
-            if (inputs.length) {
-            	this.valueNode = inputs[0];
-            	if (!isNaN(parseFloat(this.valueNode.value))) {
-            		this.value = this.valueNode.value;
-            	}
-            	this.valueNode.style.display = "none";
-            } else {
-	            this.valueNode = domConstruct.create("input",
-                        {type: "number",
-                         name: this.name,
-                         value: this.value,
-                         readOnly: this.readOnly,
-                         disabled: this.disabled,
-                         style: "display: none;"},
-                        this, "last");
-            }
+			var inputs = this.getElementsByTagName("INPUT");
+			if (inputs.length) {
+				this.valueNode = inputs[0];
+				if (!isNaN(parseFloat(this.valueNode.value))) {
+					this.value = this.valueNode.value;
+				}
+				this.valueNode.style.display = "none";
+			} else {
+				this.valueNode = domConstruct.create("input",
+						{type: "number",
+						 name: this.name,
+						 value: this.value,
+						 readOnly: this.readOnly,
+						 disabled: this.disabled,
+						 style: "display: none;"},
+						this, "last");
+			}
 			this.style.display = "inline-block";
 
 			// init WAI-ARIA attributes
@@ -141,9 +141,9 @@ define([
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
 			// init tabIndex if not explicitly set
-            if (!this.hasAttribute("tabindex")) {
-                this.setAttribute("tabindex", "0");
-            }
+			if (!this.hasAttribute("tabindex")) {
+				this.setAttribute("tabindex", "0");
+			}
 
 			this.refreshRendering(this);
 		}),
