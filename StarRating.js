@@ -140,7 +140,7 @@ define([
 			this.setAttribute("role", "slider");
 			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
-            // init tabIndex if not explicitly set
+			// init tabIndex if not explicitly set
             if (!this.hasAttribute("tabindex")) {
                 this.setAttribute("tabindex", "0");
             }
