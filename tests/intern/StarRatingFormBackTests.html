@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>Using StarRating in forms</title>
+		<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+		<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		var timeoutInterval = 1000;
+		var val = 0;
+		require([
+			"delite/register",
+			"deliteful/StarRating",
+			"dojo/domReady!"
+		], function(register){
+			register.parse();
+			// Set global variable to signal that the test page is ready
+			ready = true;
+		})
+		</script>
+	</head>
+	<body>
+		<form action="processForm.html">
+			Default: <d-star-rating id="starratingA" max=7 value="1"><input name="star1"></d-star-rating>
+			<br>
+			Readonly: <d-star-rating id="starratingB" max=7 value="2" readonly><input name="star2"></d-star-rating>
+			<br>
+			Disabled: <d-star-rating id="starratingC" max=7 value="3" disabled><input name="star3"></d-star-rating>
+			<br>
+			<input id="submitButton" type="submit">
+		</form>
+	</body>
+</html>

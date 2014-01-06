@@ -68,16 +68,6 @@ define([
 						}
 						parent.className = this.baseClass + "-star-icon " + starClass;
 					}
-					if (create) {
-			            this.valueNode = domConstruct.create("input",
-                               {type: "number",
-			                    name: this.name,
-			                    readOnly: this.readOnly,
-			                    disabled: this.disabled,
-			                    value: this.value,
-			                    style: "display: none;"},
-			                   this, "last");
-					}
 				}
 			};
 		}),

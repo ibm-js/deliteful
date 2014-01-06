@@ -116,7 +116,24 @@ define([
 					"zeroAreaWidth");
 		},
 
-		buildRendering: function () {
+		createdCallback: dcl.after(function () {
+            var inputs = this.getElementsByTagName("INPUT");
+            if (inputs.length) {
+            	this.valueNode = inputs[0];
+            	if (!isNaN(parseFloat(this.valueNode.value))) {
+            		this.value = this.valueNode.value;
+            	}
+            	this.valueNode.style.display = "none";
+            } else {
+	            this.valueNode = domConstruct.create("input",
+                        {type: "number",
+                         name: this.name,
+                         value: this.value,
+                         readOnly: this.readOnly,
+                         disabled: this.disabled,
+                         style: "display: none;"},
+                        this, "last");
+            }
 			this.style.display = "inline-block";
 
 			// init WAI-ARIA attributes
@@ -129,10 +146,10 @@ define([
             }
 
 			this.refreshRendering(this);
-		},
+		}),
 
 		refreshRendering: function (props) {
-			var passive;
+			var passive, divChildren;
 			if (props.disabled !== undefined) {
 				if (this.disabled) {
 					domClass.add(this, this.baseClass + "-disabled");
@@ -146,7 +163,10 @@ define([
 			if (props.max !== undefined || props.value !== undefined) {
 				var createChildren = this.children.length - 1 !== this.max;
 				if (createChildren) {
-					domConstruct.empty(this);
+					divChildren = this.getElementsByTagName("DIV");
+					while (divChildren.length) {
+						this.removeChild(divChildren[0]);
+					}
 				}
 				this._updateStars(this.value, createChildren);
 			}
@@ -154,8 +174,9 @@ define([
 				this.setAttribute("aria-valuenow", this.value);
 				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
 				this.valueNode.value = this.value;
+				console.log(this.id + " value node value set to " + this.value);
 			}
-			if (props.name !== undefined) {
+			if (props.name !== undefined && this.name) {
 				this.valueNode.name = this.name;
 			}
 			if (props.readOnly !== undefined || props.disabled !== undefined) {
@@ -176,6 +197,8 @@ define([
 					}
 					this._startHandles = null;
 				}
+				this.valueNode.readOnly = this.readOnly;
+				this.valueNode.disabled = this.disabled;
 			}
 			if (props.readOnly !== undefined || props.disabled !== undefined || props.zeroAreaWidth !== undefined) {
 				this._updateZeroArea();
@@ -236,7 +259,7 @@ define([
 			}
 		},
 
-		/*jshint unused:false */
+		/*jshint unused:vars */
 		_touchLeaveHandler: function (/*Event*/ event) {
 			if (this._hovering) {
 				this._hovering = false;
@@ -296,7 +319,7 @@ define([
 			}
 		},
 
-		/*jshint unused:false */
+		/*jshint unused:vars*/
 		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) {
 			return x < this.zeroAreaWidth;
 		},
@@ -319,21 +342,11 @@ define([
 				if (create) {
 					parent = domConstruct.create("div", {
 						style: "float: left; overflow: hidden;"
-					}, this);
+					}, this.valueNode, "before");
 				} else {
 					parent = this.children[i];
 				}
 				parent.className = this.baseClass + "-star-icon " + starClass;
-			}
-			if (create) {
-	            this.valueNode = domConstruct.create("input",
-	                                                 {type: "number",
-	                                                  name: this.name,
-	                                                  readOnly: this.readOnly,
-	                                                  disabled: this.disabled,
-	                                                  value: this.value,
-	                                                  style: "display: none;"},
-	                                                 this, "last");
 			}
 		},
 
