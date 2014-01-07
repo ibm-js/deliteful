@@ -28,13 +28,8 @@ define([
 		},
 
 		refreshRendering: function () {
-			if (this.vertical) {
-				domClass.add(this, "-d-linear-layout-v");
-				domClass.remove(this, "-d-linear-layout-h");
-			} else {
-				domClass.add(this, "-d-linear-layout-h");
-				domClass.remove(this, "-d-linear-layout-v");
-			}
+			domClass.toggle(this, "-d-linear-layout-v", this.vertical);
+			domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
 		},
 
 		buildRendering: function () {

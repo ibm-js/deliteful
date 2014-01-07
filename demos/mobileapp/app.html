@@ -16,7 +16,7 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"deliteful/ScrollableContainer",
+//			"deliteful/ScrollableContainer",
 			"deliteful/ViewStack",
 			"deliteful/SidePane",
 			"deliteful/LinearLayout",
@@ -68,7 +68,8 @@
 		<div style="background-color: white;" id="aaa">
 			AAA
 		</div>
-		<d-scrollable-container style="background-color: white;" id="bbb">
+		<!--<d-scrollable-container style="background-color: white;" id="bbb">-->
+		<div id="bbb">
 			<ul>
 				<li onClick="vs.show(aaa)">AAA</li>
 				<li onClick="vs.show(bbb)">BBB</li>
@@ -111,7 +112,8 @@
 				<li onClick="vs.show(ccc)">CCC</li>
 				<li onClick="vs.show(ddd)">DDD</li>
 			</ul>
-		</d-scrollable-container>
+		</div>
+		<!--</d-scrollable-container>-->
 		<div style="background-color: powderblue;" id='ccc'>
 			CCC
 		</div>

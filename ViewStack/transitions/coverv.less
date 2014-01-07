@@ -1,27 +1,27 @@
 @import "../css3.less";
-.-delite-coverv {
+.-d-view-stack-coverv {
 	.transition-property(none);
 	.transition-duration(0s);
 }
-.-delite-coverv.-delite-transition {
+.-d-view-stack-coverv.-d-view-stack-transition {
 	.transition-property-transform();
 	.transition-duration(.4s);
 }
-.-delite-coverv.-delite-out {
+.-d-view-stack-coverv.-d-view-stack-out {
 	z-index: -100;
 	.transform(translate3d(0px,0%,-1px) ) !important;
 }
-.-delite-coverv.-delite-in {
+.-d-view-stack-coverv.-d-view-stack-in {
 	.transform(translate3d(0px,100%,0px) ) !important;
 }
-.-delite-coverv.-delite-in.-delite-reverse {
+.-d-view-stack-coverv.-d-view-stack-in.-d-view-stack-reverse {
 	.transform(translate3d(0px,-100%,0px) ) !important;
 }
-.-delite-coverv.-delite-out.-delite-transition,
-.-delite-coverv.-delite-in.-delite-transition {
+.-d-view-stack-coverv.-d-view-stack-out.-d-view-stack-transition,
+.-d-view-stack-coverv.-d-view-stack-in.-d-view-stack-transition {
 	.transform(translate3d(0px,0%,0px) ) !important;
 }
-.dj_android.dj_tablet .-delite-coverv.-delite-transition {
+.dj_android.dj_tablet .-d-view-stack-coverv.-d-view-stack-transition {
 	.transition-duration(.6s);
 	.transition-timing-function(linear);
 }

@@ -1,7 +1,6 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dojo/_base/window",
 	"dojo/sniff",
@@ -10,20 +9,19 @@ define([
 	"delite/Container",
 	"delite/Contained",
 	"delite/Invalidating",
+	"dojo/Deferred",
 	"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"],
-	function (dcl, pointer, lang, domClass, win, has, register, Widget, Container, Contained, Invalidating) {
+	function (dcl, pointer, domClass, win, has, register, Widget, Container, Contained, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
 		function setVisibility(node, val) {
-			if (node) {
-				if (val) {
-					node.style.visibility = "visible";
-					node.style.display = "";
-				} else {
-					node.style.visibility = "hidden";
-					node.style.display = "none";
-				}
+			if (val) {
+				node.style.visibility = "visible";
+				node.style.display = "";
+			} else {
+				node.style.visibility = "hidden";
+				node.style.display = "none";
 			}
 		}
 
@@ -31,7 +29,7 @@ define([
 
 			// summary:
 			//		A container displayed on the side of the screen. It can be displayed on top of the page
-			// 		(mode=overlay) or
+			//		(mode=overlay) or
 			//		can push the content of the page (mode=push or mode=reveal).
 			// description:
 			//		SidePane is a container hidden by default.
@@ -48,6 +46,10 @@ define([
 
 			// mode: String
 			//		Can be "overlay", "reveal" or "push". Default is "push".
+			//		In overlay mode, the pane is shown on top of the page.
+			//		In reveal and push modes, The page is moved to make the pane visible. The difference between
+			//		these two modes is the animated transition: in reveal mode, the pane does not move, it is
+			//		already under the page. In push mode, the pane slide with the page.
 			mode: "push",
 
 			// position: String
@@ -69,28 +71,26 @@ define([
 			_opening: false,
 			_originX: NaN,
 			_originY: NaN,
-			_transitionEndHandlers: [],
 
 			open: function () {
 				// summary:
 				//		Open the pane.
-				var nextElement;
+				var deferred = new Deferred();
+				var nextElement = this.getNextSibling();
 				if (!this._visible) {
 					if (this.animate) {
 						domClass.add(this, prefix("animate"));
-						nextElement = this.getNextSibling();
 						if (nextElement) {
 							domClass.add(nextElement, prefix("animate"));
 						}
 					}
 
 					if (this.mode === "reveal") {
-						nextElement = this.getNextSibling();
 						if (nextElement) {
-							this._setAfterTransitionHandlers(nextElement, {node: nextElement});
+							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
 						}
 					} else {
-						this._setAfterTransitionHandlers(this, {node: this});
+						this._setAfterTransitionHandlers(this, {node: this}, deferred);
 					}
 
 					setVisibility(this, true);
@@ -99,14 +99,16 @@ define([
 						this.defer(this._openImpl, this._timing);
 					} else {
 						this._openImpl();
-						this.defer(this._afterTransitionHandle, this._timing);
+						this.defer(function () {deferred.resolve(); }, this._timing);
 					}
 				}
+				return deferred.promise;
 			},
 
 			close: function () {
 				// summary:
 				//		Close the pane.
+				var deferred = new Deferred();
 				if (this._visible) {
 					if (this.mode === "reveal") {
 						var nextElement = this.getNextSibling();
@@ -114,39 +116,37 @@ define([
 							this._setAfterTransitionHandlers(nextElement, {node: nextElement});
 						}
 					} else {
-						this._setAfterTransitionHandlers(this, {node: this});
+						this._setAfterTransitionHandlers(this, {node: this}, deferred);
 					}
 					this._hideImpl();
 					if (!this.animate) {
-						this.defer(this._afterTransitionHandle, this._timing);
+						this.defer(function () {deferred.resolve(); setVisibility(this, false); }.bind(this),
+							this._timing);
 					}
 				}
+				return deferred.promise;
 			},
 
 			_setAfterTransitionHandlers: function (node, event, deferred) {
-				var handle = lang.hitch(this, this._afterTransitionHandle);
-				this._transitionEndHandlers.push({node: node, handle: handle, props: event, deferred: deferred});
-				node.addEventListener("webkitTransitionEnd", handle);
-				node.addEventListener("transitionend", handle); // IE10 + FF
+				var self = this, endProps = {
+					node: node,
+					handle: function () { self._afterTransitionHandle(endProps); },
+					props: event,
+					deferred: deferred
+				};
+				node.addEventListener("webkitTransitionEnd", endProps.handle);
+				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
 			},
 
-			_afterTransitionHandle: function () {
-				var item;
-				domClass.remove(this, prefix("under"));
+			_afterTransitionHandle: function (item) {
 
-				for (var i = 0; i < this._transitionEndHandlers.length; i++) {
-					item = this._transitionEndHandlers[i];
-					if (!this._visible) {
-						setVisibility(this, false);
-					}
-					item.node.removeEventListener("webkitTransitionEnd", item.handle);
-					item.node.removeEventListener("transitionend", item.handle);
-					this._transitionEndHandlers.splice(i, 1);
-					if (item.props.deferred) {
-						item.props.deferred.resolve();
-					}
-					break;
+				domClass.remove(this, prefix("under"));
+				if (!this._visible) {
+					setVisibility(this, false);
 				}
+				item.node.removeEventListener("webkitTransitionEnd", item.handle);
+				item.node.removeEventListener("transitionend", item.handle);
+				item.deferred.resolve();
 			},
 
 			postCreate: function () {
@@ -158,16 +158,15 @@ define([
 
 			preCreate: function () {
 				this.addInvalidatingProperties("position", "mode", "animate");
-				if (this._timing === 0) {
-					for (var o in this._transitionTiming) {
-						if (has(o) && this._timing < this._transitionTiming[o]) {
-							this._timing = this._transitionTiming[o];
-						}
+				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
+				for (var o in this._transitionTiming) {
+					if (has(o) && this._timing < this._transitionTiming[o]) {
+						this._timing = this._transitionTiming[o];
 					}
 				}
 			},
 
-			buildRendering: function(){
+			buildRendering: function () {
 				this.parentNode.style.overflow = "hidden";
 				this.setAttribute("data-touch-action", "none");
 				this._resetInteractions();
@@ -184,17 +183,11 @@ define([
 				}
 
 				if (props.mode) {
-					domClass.remove(this, prefix("push"));
-					domClass.remove(this, prefix("overlay"));
-					domClass.remove(this, prefix("reveal"));
+					domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
 					domClass.add(this, prefix(this.mode));
 
 					if (nextElement && this._visible) {
-						if (this.mode === "overlay") {
-							domClass.remove(nextElement, prefix("translated"));
-						} else {
-							domClass.add(nextElement, prefix("translated"));
-						}
+						domClass.toggle(nextElement, prefix("translated"), this.mode !== "overlay");
 					}
 
 					if (this.mode === "reveal" && !this._visible) {
@@ -206,30 +199,22 @@ define([
 						domClass.remove(this, prefix("under"));
 						domClass.add(this, prefix("ontop"));
 					} else {
-						domClass.remove(this, prefix("under"));
-						domClass.remove(this, prefix("ontop"));
+						domClass.remove(this, [prefix("under"), prefix("ontop")]);
 					}
 
 				}
 
 				if (props.position) {
-					domClass.remove(this, prefix("start"));
-					domClass.remove(this, prefix("end"));
+					domClass.remove(this, [prefix("start"), prefix("end")]);
 					domClass.add(this, prefix(this.position));
 					if (nextElement && this._visible) {
-						domClass.remove(nextElement, prefix("start"));
-						domClass.remove(nextElement, prefix("end"));
+						domClass.remove(nextElement, [prefix("start"), prefix("end")]);
 						domClass.add(nextElement, prefix(this.position));
 					}
 				}
 
-				if (this._visible) {
-					domClass.remove(this, prefix("hidden"));
-					domClass.add(this, prefix("visible"));
-				} else {
-					domClass.remove(this, prefix("visible"));
-					domClass.add(this, prefix("hidden"));
-				}
+				domClass.toggle(this, prefix("hidden"), !this._visible);
+				domClass.toggle(this, prefix("visible"), this._visible);
 
 				// Re-enable animation
 				if (this.animate) {
@@ -251,11 +236,8 @@ define([
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = this.getNextSibling();
 						if (nextElement) {
-							domClass.remove(nextElement, prefix("nottranslated"));
-							domClass.remove(nextElement, prefix("start"));
-							domClass.remove(nextElement, prefix("end"));
-							domClass.add(nextElement, prefix(this.position));
-							domClass.add(nextElement, prefix("translated"));
+							domClass.remove(nextElement, [prefix("nottranslated"), prefix("start"), prefix("end")]);
+							domClass.add(nextElement, [prefix(this.position), prefix("translated")]);
 						}
 					}
 				}
@@ -271,11 +253,8 @@ define([
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = this.getNextSibling();
 						if (nextElement) {
-							domClass.remove(nextElement, prefix("translated"));
-							domClass.remove(nextElement, prefix("start"));
-							domClass.remove(nextElement, prefix("end"));
-							domClass.add(nextElement, prefix(this.position));
-							domClass.add(nextElement, prefix("nottranslated"));
+							domClass.remove(nextElement, [prefix("translated"), prefix("start"), prefix("end")]);
+							domClass.add(nextElement, [prefix(this.position), prefix("nottranslated")]);
 						}
 					}
 				}
@@ -289,10 +268,10 @@ define([
 					(this.position === "end" && !this._visible && this._originX >= win.doc.width - 10)) {
 					this._opening = !this._visible;
 					this._pressHandle.remove();
-					this._moveHandle = this.on("pointermove", lang.hitch(this, this._pointerMoveHandler));
-					this._releaseHandle = this.on("pointerup", lang.hitch(this, this._pointerUpHandler));
+					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
+					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
 
-					domClass.add(win.doc.body, "-d-side-pane-no-select");
+					domClass.add(win.doc.body, prefix("no-select"));
 				}
 			},
 
@@ -329,7 +308,7 @@ define([
 
 			_pointerUpHandler: function () {
 				this._opening = false;
-				domClass.remove(win.doc.body, "-d-side-pane-no-select");
+				domClass.remove(win.doc.body, prefix("no-select"));
 				this._resetInteractions();
 			},
 
@@ -345,7 +324,7 @@ define([
 				}
 
 				if (this.swipeClosing) {
-					this._pressHandle = this.on("pointerdown", lang.hitch(this, this._pointerDownHandler));
+					this._pressHandle = this.on("pointerdown", this._pointerDownHandler.bind(this));
 				}
 
 				this._originX = NaN;
