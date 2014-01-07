@@ -1,21 +1,21 @@
 define(function(){ return '\
-.-delite-dissolve.-delite-out {\
+.-d-view-stack-dissolve.-d-view-stack-out {\
   -webkit-animation-duration: 1s;\
   animation-duration: 1s;\
-  -webkit-animation-name: -delite-dissolveOut;\
-  animation-name: -delite-dissolveOut;\
+  -webkit-animation-name: -d-view-stack-dissolveOut;\
+  animation-name: -d-view-stack-dissolveOut;\
   -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
   animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
 }\
-.-delite-dissolve.-delite-in {\
+.-d-view-stack-dissolve.-d-view-stack-in {\
   -webkit-animation-duration: 1s;\
   animation-duration: 1s;\
-  -webkit-animation-name: -delite-dissolveIn;\
-  animation-name: -delite-dissolveIn;\
+  -webkit-animation-name: -d-view-stack-dissolveIn;\
+  animation-name: -d-view-stack-dissolveIn;\
   -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
   animation-timing-function: cubic-bezier(0.25, 1, 0.75, 0);\
 }\
-@-webkit-keyframes -delite-dissolve-out {\
+@-webkit-keyframes -d-view-stack-dissolve-out {\
   from {\
     opacity: 1;\
   }\
@@ -23,7 +23,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@keyframes -delite-dissolve-out {\
+@keyframes -d-view-stack-dissolve-out {\
   from {\
     opacity: 1;\
   }\
@@ -31,7 +31,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@-webkit-keyframes -delite-dissolve-in {\
+@-webkit-keyframes -d-view-stack-dissolve-in {\
   from {\
     opacity: 0;\
   }\
@@ -39,7 +39,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@keyframes -delite-dissolve-in {\
+@keyframes -d-view-stack-dissolve-in {\
   from {\
     opacity: 0;\
   }\

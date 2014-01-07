@@ -1,26 +1,26 @@
 define(function(){ return '\
-.-delite-zoomOut.-delite-out {\
+.-d-view-stack-zoomOut.-d-view-stack-out {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-zoomOutOut;\
-  animation-name: -delite-zoomOutOut;\
+  -webkit-animation-name: -d-view-stack-zoomOutOut;\
+  animation-name: -d-view-stack-zoomOutOut;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-.dj_android .-delite-zoomOut.-delite-out {\
-  -webkit-animation-name: -delite-zoomOutOutAndroid;\
-  animation-name: -delite-zoomOutOutAndroid;\
+.dj_android .-d-view-stack-zoomOut.-d-view-stack-out {\
+  -webkit-animation-name: -d-view-stack-zoomOutOutAndroid;\
+  animation-name: -d-view-stack-zoomOutOutAndroid;\
 }\
-.-delite-zoomOut.-delite-in {\
+.-d-view-stack-zoomOut.-d-view-stack-in {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-zoomOutIn;\
-  animation-name: -delite-zoomOutIn;\
+  -webkit-animation-name: -d-view-stack-zoomOutIn;\
+  animation-name: -d-view-stack-zoomOutIn;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-@-webkit-keyframes -delite-zoomOutOut {\
+@-webkit-keyframes -d-view-stack-zoomOutOut {\
   from {\
     -webkit-transform: scale(1);\
     opacity: 1;\
@@ -30,7 +30,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@keyframes -delite-zoomOutOut {\
+@keyframes -d-view-stack-zoomOutOut {\
   from {\
     transform: scale(1);\
     opacity: 1;\
@@ -40,7 +40,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@-webkit-keyframes -delite-zoomOutOutAndroid {\
+@-webkit-keyframes -d-view-stack-zoomOutOutAndroid {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -48,7 +48,7 @@ define(function(){ return '\
     -webkit-transform: scale(0);\
   }\
 }\
-@keyframes -delite-zoomOutOutAndroid {\
+@keyframes -d-view-stack-zoomOutOutAndroid {\
   from {\
     transform: scale(1);\
   }\
@@ -56,7 +56,7 @@ define(function(){ return '\
     transform: scale(0);\
   }\
 }\
-@-webkit-keyframes -delite-zoomOutIn {\
+@-webkit-keyframes -d-view-stack-zoomOutIn {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -64,7 +64,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-zoomOutIn {\
+@keyframes -d-view-stack-zoomOutIn {\
   from {\
     transform: scale(1);\
   }\

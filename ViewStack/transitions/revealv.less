@@ -1,29 +1,29 @@
 @import "../css3.less";
-.-delite-revealv {
+.-d-view-stack-revealv {
 	.transition-property(none);
 	.transition-duration(0s);
 }
-.-delite-revealv.-delite-transition {
+.-d-view-stack-revealv.-d-view-stack-transition {
 	.transition-property-transform();
 	.transition-duration(.4s);
 }
-.-delite-revealv.-delite-out {
+.-d-view-stack-revealv.-d-view-stack-out {
 	.transform(translate3d(0px,0%,0px) ) !important;
 }
-.-delite-revealv.-delite-out.-delite-transition {
+.-d-view-stack-revealv.-d-view-stack-out.-d-view-stack-transition {
 	.transform(translate3d(0px,-100%,0px) ) !important;
 }
-.-delite-revealv.-delite-out.-delite-reverse.-delite-transition {
+.-d-view-stack-revealv.-d-view-stack-out.-d-view-stack-reverse.-d-view-stack-transition {
 	.transform(translate3d(0px,100%,0px) ) !important;
 }
-.-delite-revealv.-delite-in {
+.-d-view-stack-revealv.-d-view-stack-in {
 	z-index: -100;
 	.transform(translate3d(0px,0%,-1px) ) !important;
 }
-.-delite-revealv.-delite-in.-delite-transition {
+.-d-view-stack-revealv.-d-view-stack-in.-d-view-stack-transition {
 	.transform(translate3d(0px,0%,0px) ) !important;
 }
-.dj_android.dj_tablet .-delite-revealv.-delite-transition {
+.dj_android.dj_tablet .-d-view-stack-revealv.-d-view-stack-transition {
 	.transition-duration(.6s);
 	.transition-timing-function(linear);
 }

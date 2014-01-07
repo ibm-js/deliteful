@@ -1,26 +1,26 @@
 define(function(){ return '\
-.-delite-scaleOut.-delite-out {\
+.-d-view-stack-scaleOut.-d-view-stack-out {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-scaleOutOut;\
-  animation-name: -delite-scaleOutOut;\
+  -webkit-animation-name: -d-view-stack-scaleOutOut;\
+  animation-name: -d-view-stack-scaleOutOut;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-.dj_android .-delite-scaleOut.-delite-out {\
-  -webkit-animation-name: -delite-scaleOutOutAndroid;\
-  animation-name: -delite-scaleOutOutAndroid;\
+.dj_android .-d-view-stack-scaleOut.-d-view-stack-out {\
+  -webkit-animation-name: -d-view-stack-scaleOutOutAndroid;\
+  animation-name: -d-view-stack-scaleOutOutAndroid;\
 }\
-.-delite-scaleOut.-delite-in {\
+.-d-view-stack-scaleOut.-d-view-stack-in {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-scaleOutIn;\
-  animation-name: -delite-scaleOutIn;\
+  -webkit-animation-name: -d-view-stack-scaleOutIn;\
+  animation-name: -d-view-stack-scaleOutIn;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-@-webkit-keyframes -delite-scaleOutOut {\
+@-webkit-keyframes -d-view-stack-scaleOutOut {\
   from {\
     -webkit-transform: scale(1);\
     opacity: 1;\
@@ -30,7 +30,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@keyframes -delite-scaleOutOut {\
+@keyframes -d-view-stack-scaleOutOut {\
   from {\
     transform: scale(1);\
     opacity: 1;\
@@ -40,7 +40,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@-webkit-keyframes -delite-scaleOutOutAndroid {\
+@-webkit-keyframes -d-view-stack-scaleOutOutAndroid {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -48,7 +48,7 @@ define(function(){ return '\
     -webkit-transform: scale(0);\
   }\
 }\
-@keyframes -delite-scaleOutOutAndroid {\
+@keyframes -d-view-stack-scaleOutOutAndroid {\
   from {\
     transform: scale(1);\
   }\
@@ -56,7 +56,7 @@ define(function(){ return '\
     transform: scale(0);\
   }\
 }\
-@-webkit-keyframes -delite-scaleOutIn {\
+@-webkit-keyframes -d-view-stack-scaleOutIn {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -64,7 +64,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-scaleOutIn {\
+@keyframes -d-view-stack-scaleOutIn {\
   from {\
     transform: scale(1);\
   }\

@@ -1,26 +1,26 @@
 define(function(){ return '\
-.-delite-scaleIn.-delite-out {\
+.-d-view-stack-scaleIn.-d-view-stack-out {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-scaleInOut;\
-  animation-name: -delite-scaleInOut;\
+  -webkit-animation-name: -d-view-stack-scaleInOut;\
+  animation-name: -d-view-stack-scaleInOut;\
   -webkit-animation-timing-function: ease-out;\
   animation-timing-function: ease-out;\
 }\
-.-delite-scaleIn.-delite-in {\
+.-d-view-stack-scaleIn.-d-view-stack-in {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-scaleInIn;\
-  animation-name: -delite-scaleInIn;\
+  -webkit-animation-name: -d-view-stack-scaleInIn;\
+  animation-name: -d-view-stack-scaleInIn;\
   -webkit-animation-timing-function: ease-out;\
   animation-timing-function: ease-out;\
 }\
-.dj_android .-delite-scaleIn.-delite-in {\
-  -webkit-animation-name: -delite-scaleInInAndroid;\
-  animation-name: -delite-scaleInInAndroid;\
+.dj_android .-d-view-stack-scaleIn.-d-view-stack-in {\
+  -webkit-animation-name: -d-view-stack-scaleInInAndroid;\
+  animation-name: -d-view-stack-scaleInInAndroid;\
 }\
-@-webkit-keyframes -delite-scaleInOut {\
+@-webkit-keyframes -d-view-stack-scaleInOut {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -28,7 +28,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-scaleInOut {\
+@keyframes -d-view-stack-scaleInOut {\
   from {\
     transform: scale(1);\
   }\
@@ -36,7 +36,7 @@ define(function(){ return '\
     transform: scale(1);\
   }\
 }\
-@-webkit-keyframes -delite-scaleInIn {\
+@-webkit-keyframes -d-view-stack-scaleInIn {\
   from {\
     -webkit-transform: scale(0);\
     opacity: 0;\
@@ -46,7 +46,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@keyframes -delite-scaleInIn {\
+@keyframes -d-view-stack-scaleInIn {\
   from {\
     transform: scale(0);\
     opacity: 0;\
@@ -56,7 +56,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@-webkit-keyframes -delite-scaleInInAndroid {\
+@-webkit-keyframes -d-view-stack-scaleInInAndroid {\
   from {\
     -webkit-transform: scale(0);\
   }\
@@ -64,7 +64,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-scaleInInAndroid {\
+@keyframes -d-view-stack-scaleInInAndroid {\
   from {\
     transform: scale(0);\
   }\

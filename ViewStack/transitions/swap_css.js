@@ -1,27 +1,27 @@
 define(function(){ return '\
-.-delite-swap {\
+.-d-view-stack-swap {\
   -webkit-animation-duration: 0.6s;\
   animation-duration: 0.6s;\
   -webkit-animation-timing-function: linear;\
   animation-timing-function: linear;\
 }\
-.-delite-swap.-delite-out {\
-  -webkit-animation-name: -delite-swapOut;\
-  animation-name: -delite-swapOut;\
+.-d-view-stack-swap.-d-view-stack-out {\
+  -webkit-animation-name: -d-view-stack-swapOut;\
+  animation-name: -d-view-stack-swapOut;\
 }\
-.-delite-swap.-delite-in {\
-  -webkit-animation-name: -delite-swapIn;\
-  animation-name: -delite-swapIn;\
+.-d-view-stack-swap.-d-view-stack-in {\
+  -webkit-animation-name: -d-view-stack-swapIn;\
+  animation-name: -d-view-stack-swapIn;\
 }\
-.-delite-swap.-delite-out.-delite-reverse {\
-  -webkit-animation-name: -delite-swapOutReverse;\
-  animation-name: -delite-swapOutReverse;\
+.-d-view-stack-swap.-d-view-stack-out.-d-view-stack-reverse {\
+  -webkit-animation-name: -d-view-stack-swapOutReverse;\
+  animation-name: -d-view-stack-swapOutReverse;\
 }\
-.-delite-swap.-delite-in.-delite-reverse {\
-  -webkit-animation-name: -delite-swapInReverse;\
-  animation-name: -delite-swapInReverse;\
+.-d-view-stack-swap.-d-view-stack-in.-d-view-stack-reverse {\
+  -webkit-animation-name: -d-view-stack-swapInReverse;\
+  animation-name: -d-view-stack-swapInReverse;\
 }\
-@-webkit-keyframes -delite-swapOut {\
+@-webkit-keyframes -d-view-stack-swapOut {\
   0% {\
     z-index: auto;\
     -webkit-transform: translate3d(0%, 0%, 0px) scale(1);\
@@ -38,7 +38,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@keyframes -delite-swapOut {\
+@keyframes -d-view-stack-swapOut {\
   0% {\
     z-index: auto;\
     transform: translate3d(0%, 0%, 0px) scale(1);\
@@ -55,7 +55,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@-webkit-keyframes -delite-swapIn {\
+@-webkit-keyframes -d-view-stack-swapIn {\
   0% {\
     z-index: -100;\
     -webkit-transform: translate3d(-20%, 0%, 0px) scale(0.5);\
@@ -72,7 +72,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@keyframes -delite-swapIn {\
+@keyframes -d-view-stack-swapIn {\
   0% {\
     z-index: -100;\
     transform: translate3d(-20%, 0%, 0px) scale(0.5);\
@@ -89,7 +89,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@-webkit-keyframes -delite-swapOutReverse {\
+@-webkit-keyframes -d-view-stack-swapOutReverse {\
   0% {\
     z-index: auto;\
     -webkit-transform: translate3d(0%, 0%, 0px) scale(1);\
@@ -106,7 +106,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@keyframes -delite-swapOutReverse {\
+@keyframes -d-view-stack-swapOutReverse {\
   0% {\
     z-index: auto;\
     transform: translate3d(0%, 0%, 0px) scale(1);\
@@ -123,7 +123,7 @@ define(function(){ return '\
     opacity: 0;\
   }\
 }\
-@-webkit-keyframes -delite-swapInReverse {\
+@-webkit-keyframes -d-view-stack-swapInReverse {\
   0% {\
     z-index: -100;\
     -webkit-transform: translate3d(20%, 0%, 0px) scale(0.5);\
@@ -140,7 +140,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@keyframes -delite-swapInReverse {\
+@keyframes -d-view-stack-swapInReverse {\
   0% {\
     z-index: -100;\
     transform: translate3d(20%, 0%, 0px) scale(0.5);\

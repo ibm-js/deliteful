@@ -1,5 +1,5 @@
 define(function(){ return '\
-d-linear-layout.-d-linear-layout-h {\
+d-linear-layout {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -7,11 +7,6 @@ d-linear-layout.-d-linear-layout-h {\
   display: flex;\
 }\
 d-linear-layout.-d-linear-layout-v {\
-  display: -webkit-box;\
-  display: -moz-box;\
-  display: -ms-flexbox;\
-  display: -webkit-flex;\
-  display: flex;\
   -webkit-flex-direction: column;\
   -ms-flex-direction: column;\
   -webkit-box-orient: vertical;\

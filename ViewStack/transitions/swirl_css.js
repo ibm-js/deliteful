@@ -1,26 +1,26 @@
 define(function(){ return '\
-.-delite-swirl.-delite-out {\
+.-d-view-stack-swirl.-d-view-stack-out {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-swirlOut;\
-  animation-name: -delite-swirlOut;\
+  -webkit-animation-name: -d-view-stack-swirlOut;\
+  animation-name: -d-view-stack-swirlOut;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-.-delite-swirl.-delite-in {\
+.-d-view-stack-swirl.-d-view-stack-in {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-swirlIn;\
-  animation-name: -delite-swirlIn;\
+  -webkit-animation-name: -d-view-stack-swirlIn;\
+  animation-name: -d-view-stack-swirlIn;\
   -webkit-animation-timing-function: ease-in;\
   animation-timing-function: ease-in;\
 }\
-.-delite-swirl.-delite-out.-delite-reverse {\
-  -webkit-animation-name: -delite-swirlOutReverse;\
-  animation-name: -delite-swirlOutReverse;\
+.-d-view-stack-swirl.-d-view-stack-out.-d-view-stack-reverse {\
+  -webkit-animation-name: -d-view-stack-swirlOutReverse;\
+  animation-name: -d-view-stack-swirlOutReverse;\
 }\
-@-webkit-keyframes -delite-swirlOut {\
+@-webkit-keyframes -d-view-stack-swirlOut {\
   from {\
     -webkit-transform: rotate(0deg) scale(1);\
   }\
@@ -28,7 +28,7 @@ define(function(){ return '\
     -webkit-transform: rotate(-360deg) scale(0);\
   }\
 }\
-@keyframes -delite-swirlOut {\
+@keyframes -d-view-stack-swirlOut {\
   from {\
     transform: rotate(0deg) scale(1);\
   }\
@@ -36,7 +36,7 @@ define(function(){ return '\
     transform: rotate(-360deg) scale(0);\
   }\
 }\
-@-webkit-keyframes -delite-swirlOutReverse {\
+@-webkit-keyframes -d-view-stack-swirlOutReverse {\
   from {\
     -webkit-transform: rotate(0deg) scale(1);\
   }\
@@ -44,7 +44,7 @@ define(function(){ return '\
     -webkit-transform: rotate(360deg) scale(0);\
   }\
 }\
-@keyframes -delite-swirlOutReverse {\
+@keyframes -d-view-stack-swirlOutReverse {\
   from {\
     transform: rotate(0deg) scale(1);\
   }\
@@ -52,7 +52,7 @@ define(function(){ return '\
     transform: rotate(360deg) scale(0);\
   }\
 }\
-@-webkit-keyframes -delite-swirlIn {\
+@-webkit-keyframes -d-view-stack-swirlIn {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -60,7 +60,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-swirlIn {\
+@keyframes -d-view-stack-swirlIn {\
   from {\
     transform: scale(1);\
   }\

@@ -1,26 +1,26 @@
 define(function(){ return '\
-.-delite-zoomIn.-delite-out {\
+.-d-view-stack-zoomIn.-d-view-stack-out {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-zoomInOut;\
-  animation-name: -delite-zoomInOut;\
+  -webkit-animation-name: -d-view-stack-zoomInOut;\
+  animation-name: -d-view-stack-zoomInOut;\
   -webkit-animation-timing-function: ease-out;\
   animation-timing-function: ease-out;\
 }\
-.-delite-zoomIn.-delite-in {\
+.-d-view-stack-zoomIn.-d-view-stack-in {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
-  -webkit-animation-name: -delite-zoomInIn;\
-  animation-name: -delite-zoomInIn;\
+  -webkit-animation-name: -d-view-stack-zoomInIn;\
+  animation-name: -d-view-stack-zoomInIn;\
   -webkit-animation-timing-function: ease-out;\
   animation-timing-function: ease-out;\
 }\
-.dj_android .-delite-zoomIn.-delite-in {\
-  -webkit-animation-name: -delite-zoomInInAndroid;\
-  animation-name: -delite-zoomInInAndroid;\
+.dj_android .-d-view-stack-zoomIn.-d-view-stack-in {\
+  -webkit-animation-name: -d-view-stack-zoomInInAndroid;\
+  animation-name: -d-view-stack-zoomInInAndroid;\
 }\
-@-webkit-keyframes -delite-zoomInOut {\
+@-webkit-keyframes -d-view-stack-zoomInOut {\
   from {\
     -webkit-transform: scale(1);\
   }\
@@ -28,7 +28,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-zoomInOut {\
+@keyframes -d-view-stack-zoomInOut {\
   from {\
     transform: scale(1);\
   }\
@@ -36,7 +36,7 @@ define(function(){ return '\
     transform: scale(1);\
   }\
 }\
-@-webkit-keyframes -delite-zoomInIn {\
+@-webkit-keyframes -d-view-stack-zoomInIn {\
   from {\
     -webkit-transform: scale(0);\
     opacity: 0;\
@@ -46,7 +46,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@keyframes -delite-zoomInIn {\
+@keyframes -d-view-stack-zoomInIn {\
   from {\
     transform: scale(0);\
     opacity: 0;\
@@ -56,7 +56,7 @@ define(function(){ return '\
     opacity: 1;\
   }\
 }\
-@-webkit-keyframes -delite-zoomInInAndroid {\
+@-webkit-keyframes -d-view-stack-zoomInInAndroid {\
   from {\
     -webkit-transform: scale(0);\
   }\
@@ -64,7 +64,7 @@ define(function(){ return '\
     -webkit-transform: scale(1);\
   }\
 }\
-@keyframes -delite-zoomInInAndroid {\
+@keyframes -d-view-stack-zoomInInAndroid {\
   from {\
     transform: scale(0);\
   }\

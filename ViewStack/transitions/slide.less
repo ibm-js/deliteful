@@ -1,25 +1,25 @@
 @import "../css3.less";
-.-delite-slide {
+.-d-view-stack-slide {
 	.transition-property(none);
 	.transition-duration(0s);
 }
-.-delite-slide.-delite-transition {
+.-d-view-stack-slide.-d-view-stack-transition {
 	.transition-property-transform();
 	.transition-duration(.3s);
 }
-.-delite-slide.-delite-out.-delite-reverse.-delite-transition,
-.-delite-slide.-delite-in {
+.-d-view-stack-slide.-d-view-stack-out.-d-view-stack-reverse.-d-view-stack-transition,
+.-d-view-stack-slide.-d-view-stack-in {
 	.transform(translate3d(100%,0px,0px) ) !important;
 }
-.-delite-slide.-delite-out.-delite-transition,
-.-delite-slide.-delite-in.-delite-reverse {
+.-d-view-stack-slide.-d-view-stack-out.-d-view-stack-transition,
+.-d-view-stack-slide.-d-view-stack-in.-d-view-stack-reverse {
 	.transform(translate3d(-100%,0px,0px) ) !important;
 }
-.-delite-slide.-delite-out,
-.-delite-slide.-delite-in.-delite-transition {
+.-d-view-stack-slide.-d-view-stack-out,
+.-d-view-stack-slide.-d-view-stack-in.-d-view-stack-transition {
 	.transform(translate3d(0%,0px,0px) ) !important;
 }
-.dj_android.dj_tablet .-delite-slide.-delite-transition {
+.dj_android.dj_tablet .-d-view-stack-slide.-d-view-stack-transition {
 	.transition-duration(.6s);
 	.transition-timing-function(linear);
 }
