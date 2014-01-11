@@ -763,70 +763,70 @@
 		/* instance specific custom rules */
 
 		/* remove odd marks and labels from top decoration */
-		.customLabels d-rule.duiRule:nth-of-type(-n+2) > div:nth-child(odd) {
+		.customLabels d-rule.d-rule:nth-of-type(-n+2) > div:nth-child(odd) {
 			visibility: hidden; /* remove first, middle and last top rule marks since they have no labels */
 		}
 		/* create lots of custom rules to make sure full customization is possible */
-		.custom .duiSlider {
+		.custom .d-slider {
 			border: 5px inset gray;
 			padding: 10px;
 			background-color: #c8c8c8;
 		}
-		.custom .duiSliderH {
+		.custom .d-slider-h {
 			width: 100%;
 		}
-		.custom .duiSliderV {
+		.custom .d-slider-v {
 			height: 100%;
 		}
-		.custom .duiSliderH .duiSliderRemainingBar {
+		.custom .d-slider-h .d-slider-remaining-bar {
 			width: 100%;
 		}
-		.custom .duiSliderV .duiSliderRemainingBar {
+		.custom .d-slider-v .d-slider-remaining-bar {
 			height: 100%;
 		}
-		.custom .duiSliderRemainingBar {
+		.custom .d-slider-remaining-bar {
 			background-color: black;
 			background-image: none;
 		}
-		.custom .duiSliderH .duiSliderProgressBar {
+		.custom .d-slider-h .d-slider-progress-bar {
 			background-image: url("images/progressBarAnim.gif");
 		}
-		.custom .duiSliderV .duiSliderProgressBar {
+		.custom .d-slider-v .d-slider-progress-bar {
 			background: red;
 		}
-		.custom .duiSliderHandle {
+		.custom .d-slider-handle {
 			border-color: transparent;
 		}
-		.custom .duiSliderH .duiSliderHandle {
+		.custom .d-slider-h .d-slider-handle {
 			width: 18px;
 			height: 18px;
 			background: url("images/sliderHthumb.png") no-repeat center center;
 		}
-		.custom .duiSliderV .duiSliderHandle {
+		.custom .d-slider-v .d-slider-handle {
 			width: 18px;
 			height: 18px;
 			background: url("images/sliderVthumb.png") no-repeat center right;
 		}
-		.custom .duiSliderH .duiSliderHandle {
+		.custom .d-slider-h .d-slider-handle {
 		        top: -5.5px;
 		}
-		.custom .duiSliderV .duiSliderHandle {
+		.custom .d-slider-v .d-slider-handle {
 		        left: -5px;
 		}
-		.custom .duiSliderRtl .duiSliderHandleMax,
-		.custom .duiSliderLtr .duiSliderHandleMin {
+		.custom .d-slider-rtl .d-slider-handle-max,
+		.custom .d-slider-ltr .d-slider-handle-min {
 			left: -9px;
 		}
-		.custom .duiSliderRtl .duiSliderHandleMin,
-		.custom .duiSliderLtr .duiSliderHandleMax {
+		.custom .d-slider-rtl .d-slider-handle-min,
+		.custom .d-slider-ltr .d-slider-handle-max {
 			right: -9px;
 		}
-		.custom .duiSliderTtb .duiSliderHandleMax,
-		.custom .duiSliderBtt .duiSliderHandleMin {
+		.custom .d-slider-ttb .d-slider-handle-max,
+		.custom .d-slider-btt .d-slider-handle-min {
 			bottom: -9px;
 		}
-		.custom .duiSliderTtb .duiSliderHandleMin,
-		.custom .duiSliderBtt .duiSliderHandleMax {
+		.custom .d-slider-ttb .d-slider-handle-min,
+		.custom .d-slider-btt .d-slider-handle-max {
 			top: -9px;
 		}
 	</style>
@@ -838,8 +838,8 @@
 			<tr>
 				<td colspan=3 class="customLabels"><d-slider id="Ltr2" value="10,15" disabled tabIndex="3" min="0" max="20" step="0.125" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:10px 20px;width:90%" >
 					<input name="Ltr2">
-					<d-rule class="duiRuleBefore" count="5" style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></d-rule>
-					<d-rule class="duiRuleBefore" style='font-size:10px; margin:-8px 0;' >
+					<d-rule class="d-rule-before" count="5" style='font-size:5px; font-weight:bold; margin:-3.5px 0;'></d-rule>
+					<d-rule class="d-rule-before" style='font-size:10px; margin:-8px 0;' >
 						<div></div>
 						<div>5</div>
 						<div></div>
@@ -847,7 +847,7 @@
 						<div></div>
 					</d-rule>
 					<d-rule count="3" style='font-size:5px; font-weight:bold; margin:3px 0;'></d-rule>
-					<d-rule class="duiRuleAfter" style='font-size:10px; margin:8px 0;' >
+					<d-rule class="d-rule-after" style='font-size:10px; margin:8px 0;' >
 						<div>0</div>
 						<div>10</div>
 						<div>20</div>
@@ -881,7 +881,7 @@
 			<td style="width:50px;" class="customLabels"><div style="height:250px;">
 				<d-slider id="Btt1" value="10" vertical min="-20" max="20" step="0.5" onchange='document.getElementById("val").innerHTML=String(this.value).replace(/(\.\d)\d*/g, "$1")' style="margin:20px 50px;">
 					<input name="Btt1">
-					<d-rule class="duiRuleAfter" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
+					<d-rule class="d-rule-after" count="5" style='font-size:5px; font-weight:bold; margin:0 3px;'></d-rule>
 					<d-rule style='font-size:10px; margin:0 9px;' >
 						<div></div>
 						<div>25%</div>
@@ -889,8 +889,8 @@
 						<div>75%</div>
 						<div></div>
 					</d-rule>
-					<d-rule class="duiRuleBefore" count="3" style='font-size:5px; font-weight:bold; margin:0 -3px;'></d-rule>
-					<d-rule class="duiRuleBefore" style='font-size:10px; margin:0 -9px;' >
+					<d-rule class="d-rule-before" count="3" style='font-size:5px; font-weight:bold; margin:0 -3px;'></d-rule>
+					<d-rule class="d-rule-before" style='font-size:10px; margin:0 -9px;' >
 						<div>low</div>
 						<div>normal</div>
 						<div>high</div>

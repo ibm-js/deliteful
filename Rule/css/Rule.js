@@ -1,11 +1,11 @@
 define(function(){ return '\
-.duiRule {\
+.d-rule {\
   position: absolute;\
   text-align: left;\
   height: 100%;\
   width: 100%;\
 }\
-.duiRuleLabel {\
+.d-rule-label {\
   position: absolute;\
   display: inline-block;\
   border: 0 none transparent;\
@@ -13,12 +13,12 @@ define(function(){ return '\
   margin: 0;\
   line-height: 100%;\
 }\
-.duiRuleLabelH {\
+.d-rule-label-h {\
   width: 100%;\
   margin-left: -50%;\
   text-align: center;\
 }\
-.duiRuleLabelV {\
+.d-rule-label-v {\
   margin-top: -0.5em;\
 }\
 '; } );
