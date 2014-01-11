@@ -1,34 +1,34 @@
 @import "../../../../delite/themes/blackberry/variables.less";
 
-@dui-slider-size: auto;
-@dui-slider-halo-size: 12pt;
-@dui-slider-bar-border-width: 1px; // for a11y
-@dui-slider-bar-border-style: inset;
-@dui-slider-bar-border-color: #b0b0b0;
-@dui-slider-bar-size: 200px;
-@dui-slider-bar-thickness: 8px;
-@dui-slider-bar-border-radius: @default-button-border-radius;
-@dui-slider-knob-size: 20px; // include border for a11y
-@dui-slider-knob-thickness: 20px; // include border for a11y
-@dui-slider-knob-border-width: 1px; // for a11y
-@dui-slider-knob-border-style: outset;
-@dui-slider-knob-border-color: #9d9d9d;
-@dui-slider-knob-border-radius: @default-button-border-radius;
-.dui-slider-knob-background-image () { .background-image-linear-gradient-top-bottom-1-stop(#fafafa, #999999, 0.5, #bbbbbb); }
+@d-slider-size: auto;
+@d-slider-halo-size: 12pt;
+@d-slider-bar-border-width: 1px; // for a11y
+@d-slider-bar-border-style: inset;
+@d-slider-bar-border-color: #b0b0b0;
+@d-slider-bar-size: 200px;
+@d-slider-bar-thickness: 8px;
+@d-slider-bar-border-radius: @default-button-border-radius;
+@d-slider-knob-size: 20px; // include border for a11y
+@d-slider-knob-thickness: 20px; // include border for a11y
+@d-slider-knob-border-width: 1px; // for a11y
+@d-slider-knob-border-style: outset;
+@d-slider-knob-border-color: #9d9d9d;
+@d-slider-knob-border-radius: @default-button-border-radius;
+.d-slider-knob-background-image () { .background-image-linear-gradient-top-bottom-1-stop(#fafafa, #999999, 0.5, #bbbbbb); }
 
 //
-.duiSlider-styles () {
+.d-slider-styles () {
 }
-.duiSliderBar-styles () {
+.d-slider-bar-styles () {
 }
-.duiSliderRemainingBar-styles () {
+.d-slider-remaining-bar-styles () {
   .background-image-linear-gradient-top-bottom-1-stop(#f7f3f7, #cec5d6, 0.5, #ced3ce);
 }
-.duiSliderProgressBar-styles () {
+.d-slider-progress-bar-styles () {
   .background-image-linear-gradient-top-bottom-1-stop(#088eef, #0851ad, 0.5, #0869c6);
 }
-.duiSliderHandle-styles () {
-  .dui-slider-knob-background-image();
+.d-slider-handle-styles () {
+  .d-slider-knob-background-image();
 }
 
 @import "../Slider_template";

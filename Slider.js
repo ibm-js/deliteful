@@ -37,7 +37,7 @@ define([
 
 		// baseClass: [const] String
 		//		The name of the CSS class of this widget.
-		baseClass: "duiSlider",
+		baseClass: "d-slider",
 
 		// flip: [const] Boolean
 		//		Specifies if the slider should change its default: ascending <--> descending.
@@ -104,15 +104,15 @@ define([
 				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip)) ||
 					(this.vertical && this.flip));
 				this._attrs = this._orientationAttrs[this.vertical];
-				var baseClass = toCSS(this.className, this.vertical ? "V" : "H");
+				var baseClass = toCSS(this.className, this.vertical ? "-v" : "-h");
 				domClass.add(this, baseClass);
 				baseClass = this.baseClass + " " + baseClass;
-				domClass.add(this, toCSS(baseClass, this._reversed ? "HtL" : "LtH"));
-				domClass.add(this.containerNode, toCSS(baseClass, "Bar") + " " + toCSS(baseClass, "RemainingBar"));
-				domClass.add(this.progressBar, toCSS(baseClass, "Bar") + " " + toCSS(baseClass, "ProgressBar"));
-				domClass.add(this.focusNode, toCSS(baseClass, "Handle") + " " + toCSS(baseClass, "HandleMax"));
+				domClass.add(this, toCSS(baseClass, this._reversed ? "-htl" : "-lth"));
+				domClass.add(this.containerNode, toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-remaining-bar"));
+				domClass.add(this.progressBar, toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar"));
+				domClass.add(this.focusNode, toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-max"));
 				if (this.handleMin) {
-					domClass.add(this.handleMin, toCSS(baseClass, "Handle") + " " + toCSS(baseClass, "HandleMin"));
+					domClass.add(this.handleMin, toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-min"));
 				}
 				// pass widget attributes to children
 				var self = this;
@@ -192,7 +192,7 @@ define([
 							var values = String(this.value).split(/,/g);
 							value -= offsetValue;
 							// now perform visual slide
-							domClass.toggle(this.progressBar, "duiSliderTransition", !!priorityChange);
+							domClass.toggle(this.progressBar, "d-slider-transition", !!priorityChange);
 							this.value = values.length === 1
 									? String(value)
 									: (isMax

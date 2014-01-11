@@ -20,14 +20,14 @@ define([
 	// module:
 	//		deliteful/Rule
 
-	var duiRule = register("d-rule", [HTMLElement, Widget, Invalidating], {
+	var dRule = register("d-rule", [HTMLElement, Widget, Invalidating], {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations
 		//		(e.g. hash marks and labels).
 
 		// baseClass: [const] String
 		//		The name of the CSS class of this widget.
-		baseClass: "duiRule",
+		baseClass: "d-rule",
 
 		// count: [const] Integer
 		//		Number of nodes to display.
@@ -85,7 +85,7 @@ define([
 					} else {
 						node = domConstruct.create("div", {}, this, "last");
 					}
-					css = toCSS(this.baseClass, "Label");
+					css = toCSS(this.baseClass, "-label");
 					domClass.add(node, css);
 				}
 			}
@@ -100,9 +100,9 @@ define([
 					if (count === 1) {
 						pos = 50;
 					}
-					css = toCSS(this.baseClass, this.vertical ? "V" : "H");
+					css = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
 					domClass.add(this, css);
-					css = toCSS(this.baseClass, "Label" + (this.vertical ? "V" : "H"));
+					css = toCSS(this.baseClass, "-label" + (this.vertical ? "-v" : "-h"));
 					children = query("> div", this);
 					for (i = 0; i < count; i++) {
 						node = children[i];
@@ -124,10 +124,10 @@ define([
 
 	if (has("dojo-bidi")) {
 
-		duiRule.prototype._setTextDirAttr = function (textDir) {
+		dRule.prototype._setTextDirAttr = function (textDir) {
 			if (this.textDir !== textDir) {
 				this._set("textDir", textDir);
-				query(".duiRuleLabel", this).forEach(
+				query(".d-rule-label", this).forEach(
 					lang.hitch(this, function (labelNode) {
 						this._setLabelDirection(labelNode);
 					})
@@ -135,11 +135,11 @@ define([
 			}
 		};
 
-		duiRule.prototype._setLabelDirection = function (labelNode) {
+		dRule.prototype._setLabelDirection = function (labelNode) {
 			domStyle.set(labelNode, "direction", this.textDir ?
 				this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "");
 		};
 	}
 
-	return duiRule;
+	return dRule;
 });
