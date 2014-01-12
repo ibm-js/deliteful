@@ -14,12 +14,6 @@ define(function(){ return '\
 .d-slider input {\
   display: none;\
 }\
-.d-slider .dijitRuleContainer {\
-  width: 100%;\
-  margin: 0;\
-  display: inline-block;\
-  vertical-align: top;\
-}\
 .d-slider-h {\
   width: auto;\
 }\
@@ -35,9 +29,6 @@ define(function(){ return '\
   height: 100%;\
   top: 0;\
   float: none;\
-}\
-.d-slider-h .dijitRuleContainer > * {\
-  margin-left: -0.25px;\
 }\
 .d-slider-h .d-slider-handle {\
   top: -7px;\
