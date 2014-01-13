@@ -4,7 +4,7 @@ define([
 	"dojo/string",
 	"dojo/has",
 	"dojo/on",
-	"dojo/touch",
+	"dpointer/events",
 	"dojo/keys",
 	"dojo/dom-construct",
 	"dojo/dom-class",
@@ -16,7 +16,7 @@ define([
 	"dojo/i18n!./StarRating/nls/StarRating",
 	"delite/themes/load!./StarRating/themes/{{theme}}/StarRating_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (dcl, lang, string, has, on, touch, keys, domConstruct, domClass, domGeometry,
+], function (dcl, lang, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
 	// module:
@@ -117,6 +117,7 @@ define([
 		},
 
 		createdCallback: dcl.after(function () {
+			pointer.setTouchAction(this, "none");
 			var inputs = this.getElementsByTagName("INPUT");
 			if (inputs.length) {
 				this.valueNode = inputs[0];
@@ -188,8 +189,8 @@ define([
 					this._keyDownHandle = null;
 				}
 				if (!passive && !this._startHandles) {
-					this._startHandles = [this.on(touch.enter, lang.hitch(this, "_touchEnterHandler")),
-										   this.on(touch.press, lang.hitch(this, "_wireHandlers"))];
+					this._startHandles = [this.on(pointer.events.ENTER, lang.hitch(this, "_touchEnterHandler")),
+										   this.on(pointer.events.DOWN, lang.hitch(this, "_wireHandlers"))];
 				} else if (passive && this._startHandles) {
 					while (this._startHandles.length) {
 						this._startHandles.pop().remove();
@@ -211,23 +212,20 @@ define([
 		},
 
 		_wireHandlers: function (/*Event*/ event) {
-			event.preventDefault();
 			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
-				this._otherEventsHandles.push(this.on(touch.move, lang.hitch(this, "_touchMoveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.MOVE, lang.hitch(this, "_touchMoveHandler")));
 				// handle the end of the value editing
-				this._otherEventsHandles.push(this.on(touch.release, lang.hitch(this, "_touchReleaseHandler")));
-				this._otherEventsHandles.push(this.on(touch.leave, lang.hitch(this, "_touchLeaveHandler")));
-				this._otherEventsHandles.push(this.on(touch.cancel, lang.hitch(this, "_touchLeaveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.UP, lang.hitch(this, "_touchReleaseHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.LEAVE, lang.hitch(this, "_touchLeaveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.CANCEL, lang.hitch(this, "_touchLeaveHandler")));
 			}
 		},
 
 		_touchEnterHandler: function (/*Event*/ event) {
 			this._wireHandlers(event);
 
-			// Note: this will be replaced by a test on event.pointerType
-			// when we'll implement the pointer event spec in dojo.
-			if (event.type !== "dojotouchover") {
+			if (event.pointerType === "mouse") {
 				this._hovering = true;
 				domClass.add(this, this.baseClass + "-hovered");
 			}
