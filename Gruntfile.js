@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: ["*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less"],
+						src: ["*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less", "*/css/*.less"],
 						ext: ".css"
 					}
 				]
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 		// Convert CSS files to JS files
 		cssToJs : {
 			src: [
-				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css"
+				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css", "*/css/*.css"
 			]
 		},
 
