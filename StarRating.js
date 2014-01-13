@@ -189,7 +189,7 @@ define([
 					this._keyDownHandle = null;
 				}
 				if (!passive && !this._startHandles) {
-					this._startHandles = [this.on(pointer.events.ENTER, lang.hitch(this, "_touchEnterHandler")),
+					this._startHandles = [this.on(pointer.events.ENTER, lang.hitch(this, "_pointerEnterHandler")),
 										   this.on(pointer.events.DOWN, lang.hitch(this, "_wireHandlers"))];
 				} else if (passive && this._startHandles) {
 					while (this._startHandles.length) {
@@ -214,15 +214,15 @@ define([
 		_wireHandlers: function (/*Event*/ event) {
 			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
-				this._otherEventsHandles.push(this.on(pointer.events.MOVE, lang.hitch(this, "_touchMoveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.MOVE, lang.hitch(this, "_pointerMoveHandler")));
 				// handle the end of the value editing
-				this._otherEventsHandles.push(this.on(pointer.events.UP, lang.hitch(this, "_touchReleaseHandler")));
-				this._otherEventsHandles.push(this.on(pointer.events.LEAVE, lang.hitch(this, "_touchLeaveHandler")));
-				this._otherEventsHandles.push(this.on(pointer.events.CANCEL, lang.hitch(this, "_touchLeaveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.UP, lang.hitch(this, "_pointerUpHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.LEAVE, lang.hitch(this, "_pointerLeaveHandler")));
+				this._otherEventsHandles.push(this.on(pointer.events.CANCEL, lang.hitch(this, "_pointerLeaveHandler")));
 			}
 		},
 
-		_touchEnterHandler: function (/*Event*/ event) {
+		_pointerEnterHandler: function (/*Event*/ event) {
 			this._wireHandlers(event);
 
 			if (event.pointerType === "mouse") {
@@ -233,7 +233,7 @@ define([
 			this._enterValue = this.value;
 		},
 
-		_touchMoveHandler: function (/*Event*/ event) {
+		_pointerMoveHandler: function (/*Event*/ event) {
 			var newValue = this._coordToValue(event);
 			if (this._hovering) {
 				if (newValue !== this._hoveredValue) {
@@ -246,7 +246,7 @@ define([
 			}
 		},
 
-		_touchReleaseHandler: function (/*Event*/ event) {
+		_pointerUpHandler: function (/*Event*/ event) {
 			this.value = this._coordToValue(event);
 			this._enterValue = this.value;
 			if (!this._hovering) {
@@ -257,7 +257,7 @@ define([
 		},
 
 		/*jshint unused:vars */
-		_touchLeaveHandler: function (/*Event*/ event) {
+		_pointerLeaveHandler: function (/*Event*/ event) {
 			if (this._hovering) {
 				this._hovering = false;
 				this._hoveredValue = null;
