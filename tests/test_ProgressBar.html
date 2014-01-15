@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="duiReset mobile">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>ProgressBar</title>
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"dojo/dom",
+			"dojo/dom-class",
+			"delite/register",
+			"dojo/on",
+			"deliteful/ProgressBar",
+			"dojo/domReady!"
+		], function (dom, domClass, register, on, ProgressBar) {
+			register.parse();
+			var testBar = dom.byId("testBar");
+			var testBarPrg = new ProgressBar({value: 75, style:"width: 250px"}).placeAt("testBarPrgLabel","after");
+			on(testBarPrg, "change", function(event) {
+				document.getElementById('extLabelPrg').innerHTML =
+						event.value  + '/' +
+						event.maximum + ' ; ' +
+						((event.percent)*100) + '%';
+			});
+			testBarPrg.startup();
+			var inputVal = dom.byId("progressValue");
+			var inputMax = dom.byId("maximum");
+			var inputPla = dom.byId("fractionDigits");
+			// set default value
+			inputMax.value = testBar.maximum;
+			inputVal.value = testBar.value;
+			inputPla.value = testBar.fractionDigits;
+
+			on(dom.byId("setAll"), "click", function() {
+				setValue(inputVal.value);
+				setMaximum(inputMax.value);
+				setfractionDigits(inputPla.value);
+			});
+			on(dom.byId("setValue"), "click", function() {
+				setValue(inputVal.value);
+			});
+			on(dom.byId("setMaximum"), "click", function() {
+				setMaximum(inputMax.value);
+			});
+			on(dom.byId("setFractionDigits"), "click", function() {
+				setFractionDigits(inputPla.value);
+			});
+			setFractionDigits = function (fractionDigits) {
+				testBar.fractionDigits = parseInt(fractionDigits);
+				testBarPrg.fractionDigits = parseInt(fractionDigits);
+			};
+			setMaximum = function (max) {
+				testBar.maximum = max;
+				testBarPrg.maximum = max;
+			};
+			setValue = function (value) {
+				testBar.value = (value === "Infinity")?Infinity:value;
+				testBarPrg.value = (value === "Infinity")?Infinity:value;
+			};
+			setState = function (indeterminate) {
+				testBar.value = (indeterminate)?Infinity:(testBar.value === Infinity)?0:testBar.value;
+				testBarPrg.value = (indeterminate)?Infinity:(testBarPrg.value === Infinity)?0:testBarPrg.value;
+			};
+			setLabel = function (label) {
+				testBar.label = label;
+				testBarPrg.label = label;
+			};
+			setDisplay = function (type) {
+				if (type) {
+					testBar.style.display = type;
+					testBarPrg.style.display = type;
+				} else {
+					testBar.style.removeProperty('display');
+					testBarPrg.style.removeProperty('display');
+				}
+			};
+			setSize = function (size) {
+				testBar.style.width = size;
+				testBarPrg.style.width = size;
+			};
+			displayValues = function (flag) {
+				testBar.displayValues = flag;
+				testBarPrg.displayValues = flag;
+			};
+
+		});
+	</script>
+</head>
+<body class="duiBackground">
+	<div style="padding: 2px 5% 0 5%;">
+		<h3>d-progress-bar</h3>
+		<hr>
+		Declarative:<d-progress-bar id="testBar" value="75" style="width:250px;"
+					onchange="document.getElementById('extLabel').innerHTML =
+							event.value  + '/' + event.maximum + ' ; ' + ((event.percent)*100) + '%';">
+				</d-progress-bar>.
+		<br>onchange: <span id="extLabel"></span>
+		<hr>
+		<span id="testBarPrgLabel">Programmatic:</span>.
+		<br>onchange: <span id="extLabelPrg"></span>
+		<hr>
+		<input type="button" value="0%" onclick="setValue('0%');" />
+		<input type="button" value="1%" onclick="setValue('1%');" />
+		<input type="button" value="25%" onclick="setValue('25%');" />
+		<input type="button" value="50%" onclick="setValue('50%');" />
+		<input type="button" value="75%" onclick="setValue('75%');" />
+		<input type="button" value="99%" onclick="setValue('99%');" />
+		<input type="button" value="100%" onclick="setValue('100%');" />
+		<br>
+		<input type="button" value="show values" onclick="displayValues(true);" />
+		<input type="button" value="hide values" onclick="displayValues(false);" />
+		<br>
+		<input type="button" value="Indeterminate" onclick="setState(true);" />
+		<input type="button" value="Determinate" onclick="setState(false);" />
+		<br>
+		<input type="button" value="Custom label" onclick="setLabel('Loading...');" />
+		<input type="button" value="Default label" onclick="setLabel('');" />
+		<br>
+		<input type="button" value="display:block" onclick="setDisplay('block');" />
+		<input type="button" value="display:default" onclick="setDisplay();" />
+		<br>
+		<input type="button" value="100px" onclick="setSize('100px');" />
+		<input type="button" value="250px" onclick="setSize('250px');" />
+		<input type="button" value="50%" onclick="setSize('50%');" />
+		<input type="button" value="100%" onclick="setSize('100%');" />
+		<hr>
+		<input type="button" name="set" id="setValue" value="Set value"/>
+		<input type="text" name="progressValue" id="progressValue" size="6"/>
+		<label for="progressValue">(Number, percentage or 'Infinity')</label>
+		<br>
+		<input type="button" name="set" id="setMaximum" value="Set maximum"/>
+		<input type="text" name="maximum" id="maximum" size="6"/>
+		<label for="maximum">(Number)</label>
+		<br>
+		<input type="button" name="set" id="setFractionDigits" value="Set fractionDigits"/>
+		<input type="text" name="fractionDigits" id="fractionDigits" size="1" maxlength="1"/>
+		<label for="fractionDigits">(Number)</label>
+		<br>
+		<input type="button" name="set" id="setAll" value="Set all"/>
+		<br>
+		<!-- include theme selector -->
+		<iframe src="theme_selector.html" height="250px" width="250px"></iframe>
+	</div>
+</body>
+</html>

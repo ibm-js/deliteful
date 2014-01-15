@@ -1,0 +1,92 @@
+/*
+ * -----------------------------------------------
+ *  Theme     : holodark
+ *  Widget    : deliteful/ProgressBar
+ *  baseClass : d-progress-bar
+ * -----------------------------------------------
+ */
+@import "../../../../delite/themes/holodark/variables.less";
+
+.d-progress-bar-styles() {
+  height: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.d-progress-bar-background-styles() {
+  height: 2px;
+  background-color: #333333;
+}
+
+.d-progress-bar-backgroundBefore-styles() {
+}
+
+.d-progress-bar-indicator-styles() {
+  .transition(width 0.25s);
+  height: 2px;
+  background: #33B5E5;
+}
+
+.d-progress-bar-empty-indicator-styles() {
+}
+
+.d-progress-bar-full-indicator-styles() {
+}
+
+.d-progress-bar-label-styles() {
+  top: 3px; /* below the progress bar */
+  text-align: center;
+}
+
+.d-progress-bar-label-ext-styles() {
+  text-align: left;
+}
+
+.d-progress-bar-label-extAfter-styles() {
+  content: attr(label-ext);
+  float: right;
+}
+
+.d-progress-bar-indeterminate-background-styles() {
+  height: 2px;
+  background: #33B5E5;
+}
+
+.d-progress-bar-indeterminate-indicator-styles() {
+  background: #333333;
+  width: 5%;
+  left: -5%; /* avoid displaying when animation is not supported (IE9) */
+  .transition(width 0s);
+  .animation-name(d-progress-bar-indeterminate-animation);
+  .animation-duration(1.5s);
+  .animation-timing-function(cubic-bezier(.1, .86, .76, .1));
+  .animation-iteration-count(infinite);
+}
+
+.keyframes-d-progress-bar-indeterminate-animation() {
+  0% {
+    left: 2%;
+  }
+  100% {
+    left: 93%;
+  }
+}
+
+// A11Y
+.d-progress-bar-indicator-a11y-styles() {
+}
+
+.d-progress-bar-empty-indicator-a11y-styles() {
+}
+
+.d-progress-bar-full-indicator-a11y-styles() {
+}
+
+.d-progress-bar-label-a11y-styles() {
+}
+
+.d-progress-bar-indeterminate-indicator-a11y-styles() {
+}
+
+@import "../ProgressBar_template";

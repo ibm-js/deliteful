@@ -1,0 +1,98 @@
+.d-progress-bar  {
+  display: inline-block;
+  position: relative;
+  margin: 2px;
+  padding: 0;
+  width: 100%;
+  .d-progress-bar-styles;
+}
+
+.d-progress-bar-background {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  .d-progress-bar-background-styles;
+}
+
+.d-progress-bar-background::before {
+  .d-progress-bar-backgroundBefore-styles;
+}
+
+.d-progress-bar-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  .d-progress-bar-indicator-styles;
+}
+
+.d-progress-bar-empty .d-progress-bar-indicator {
+  .d-progress-bar-empty-indicator-styles;
+}
+
+.d-progress-bar-full .d-progress-bar-indicator {
+  .d-progress-bar-full-indicator-styles;
+}
+
+.d-progress-bar-label {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  .d-progress-bar-label-styles;
+}
+
+.d-progress-bar-label-ext {
+  .d-progress-bar-label-ext-styles;
+}
+
+.d-progress-bar-label-ext::after {
+  .d-progress-bar-label-extAfter-styles;
+}
+
+.d-progress-bar-indeterminate .d-progress-bar-background {
+  margin: 0;
+  padding: 0;
+  .d-progress-bar-indeterminate-background-styles;
+}
+
+.d-progress-bar-indeterminate .d-progress-bar-indicator {
+  margin: 0;
+  padding: 0;
+  .d-progress-bar-indeterminate-indicator-styles;
+}
+
+@keyframes d-progress-bar-indeterminate-animation {
+  .keyframes-d-progress-bar-indeterminate-animation;
+}
+
+@-webkit-keyframes d-progress-bar-indeterminate-animation {
+  .keyframes-d-progress-bar-indeterminate-animation;
+}
+
+/*
+ * -----------------------------------------------
+ *  A11Y
+ * -----------------------------------------------
+ */
+.dj_a11y .d-progress-bar-indicator {
+  .d-progress-bar-indicator-a11y-styles;
+}
+.dj_a11y .d-progress-bar-empty .d-progress-bar-indicator {
+  .d-progress-bar-empty-indicator-a11y-styles;
+}
+.dj_a11y .d-progress-bar-full .d-progress-bar-indicator {
+  .d-progress-bar-full-indicator-a11y-styles;
+}
+.dj_a11y .d-progress-bar-label {
+  .d-progress-bar-label-a11y-styles;
+}
+.dj_a11y .d-progress-bar-indeterminate .d-progress-bar-indicator {
+  .d-progress-bar-indeterminate-indicator-a11y-styles;
+}

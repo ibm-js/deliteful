@@ -1,0 +1,44 @@
+/*
+ * -----------------------------------------------
+ *  Theme     : windows (RTL)
+ *  Widget    : deliteful/ProgressBar
+ *  baseClass : d-progress-bar
+ * -----------------------------------------------
+ */
+@import "../../../../delite/themes/windows/variables.less";
+
+.d-progress-bar-indicator-rtl-styles() {
+  .transition(left 0.25s, width 0s);
+}
+
+.d-progress-bar-full-indicator-rtl-styles() {
+}
+
+.d-progress-bar-indeterminate-indicator-rtl-styles() {
+  .transition(left 0s);
+  .animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
+}
+
+.d-progress-bar-background-rtl-styles() {
+}
+
+.d-progress-bar-empty-background-rtl-styles() {
+}
+
+.d-progress-bar-label-ext-rtl-styles() {
+  text-align: right;
+}
+
+.d-progress-bar-label-extAfter-rtl-styles() {
+  content: attr(label-ext);
+  float: left;
+}
+
+// A11Y
+.d-progress-bar-indicator-a11y-rtl-styles() {
+}
+
+.d-progress-bar-full-indicator-a11y-rtl-styles() {
+}
+
+@import "../ProgressBar_template_rtl";
