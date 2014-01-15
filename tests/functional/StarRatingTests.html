@@ -36,7 +36,6 @@
 		// Create rating widget programmaticaly
 		var rating = new StarRating({
 			id: "editablestar6",
-			image:"../../../images/star-4.png",
 			max:7,
 			editHalfValues: true,
 			value: 3.5
@@ -66,16 +65,16 @@
 <body>
 	<div>
 		<div>
-			<d-star-rating id="star" image="../../images/star-4.png" max=7 name="star1" readonly></d-star-rating>
+			<d-star-rating id="star" max=7 name="star1" readonly></d-star-rating>
 			<span id="value">0</span><br>
 			<button id="starminus" type="button" onclick="decrement()">&minus;</button>
 			<button id="starplus" type="button" onclick="increment()">+</button>
 			<p>
-			Editable: <d-star-rating id="editablestar1" image="../../images/star-4.png" max=7></d-star-rating>
+			Editable: <d-star-rating id="editablestar1" max=7></d-star-rating>
 			<p>
-			Editable (half values increment): <d-star-rating id="editablestar2" image="../../images/star-4.png" max=7 editHalfValues=true></d-star-rating>
+			Editable (half values increment): <d-star-rating id="editablestar2" max=7 editHalfValues=true></d-star-rating>
 			<p>
-			No zero setting: <d-star-rating id="editablestar5" image="../../images/star-4.png" max=7 editHalfValues=true value=0.5 zeroAreaWidth=0></d-star-rating>
+			No zero setting: <d-star-rating id="editablestar5" max=7 editHalfValues=true value=0.5 zeroAreaWidth=0></d-star-rating>
 			<p>
 			Programmatic: <span id="editablestar6"></span><br>
 			<span id="editablestar6value">Rating is 3.5 stars</span>
