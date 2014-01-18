@@ -71,6 +71,7 @@
 			var transitionDuration = has("webkit") ? "WebkitTransitionDuration" : "transitionDuration";
 			var touchEvent = null;
 			var touchTarget = null;
+			var touchId = 0;
 
 			var Rtl1 = new Slider({
 				id: "Rtl1",
@@ -134,6 +135,7 @@
 					var touchY = y + pos.y;
 					if (type === touchstart) {
 						touchTarget = widget;
+						touchId = Math.floor((Math.random()*10000)+1);
 						// see if handle is under the touch pos
 						if (touchX >= handlePos.l && touchX <= handlePos.r && touchY >= handlePos.t && touchY <= handlePos.b) {
 							touchTarget = handle;
@@ -150,12 +152,21 @@
 					if (document.createEvent) {
 						touchEvent.initEvent(type, true, true);
 					}
-					touchX += scroll.x;
-					touchY += scroll.y;
-					touchEvent.touches = [ { pageX: touchX, pageY: touchY } ];
-					touchEvent.pageX = touchX;
-					touchEvent.pageY = touchY;
-					touchEvent.changedTouches = touchEvent.touches;
+					touchEvent.clientX = touchX;
+					touchEvent.clientY = touchY;
+					touchEvent.pageX = touchX + scroll.x;
+					touchEvent.pageY = touchY + scroll.y;
+					touchEvent.touches = [ {
+						target: touchTarget, identifier: touchId,
+						pageX: touchEvent.pageX, pageY: touchEvent.pageY,
+						clientX: touchEvent.clientX, clientY: touchEvent.clientY
+					} ];
+					touchEvent.changedTouches = {
+						length: 1,
+						item: function (idx) {
+							return touchEvent.touches[idx];
+						}
+					};
 					on.emit(touchTarget, type, touchEvent);
 				}
 				doit();
@@ -418,7 +429,7 @@
 				},
 				{
 					name: "vertical end",
-					timeout: 2000,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -433,7 +444,7 @@
 				},
 				{
 					name: "vertical start",
-					timeout: 2000,
+					timeout: 1000,
 					runTest: function () {
 						d = new doh.Deferred();
 						testOnChange = function (v) {
@@ -926,7 +937,7 @@
 	<br>
 	Errors:&nbsp;<span id="errors">?</span><br>
 	Failures:&nbsp;<span id="failures">?</span>
-	<div id="failureLog"><div>
+	<div id="failureLog"></div>
 	</div>
 	<iframe name="formSubmitIframe" src="about:blank" onload="if(this.values)submittedValues(this.values)" style="display:none;"></iframe>
 </body>
