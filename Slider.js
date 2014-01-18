@@ -9,13 +9,18 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-style",
 	"dojo/keys",
-	"dojo/touch",
+	"dpointer/events",
 	"dojo/on",
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./Slider/themes/{{theme}}/Slider_css"
 ], function (connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
-		keys, touch, on, register, FormValueWidget) {
+		keys, dpointer, on, register, FormValueWidget) {
+
+	// boolean feature test variable to decide if position() return attributes
+	// need to be adjusted by the body and node current zoom levels
+	// null = unknown
+	useZoom = null;
 
 	return register("d-slider", [HTMLElement, FormValueWidget], {
 		// summary:
@@ -160,10 +165,8 @@ define([
 			this.progressBar = domConstruct.create("div", {}, this.containerNode, "last");
 			this.focusNode = domConstruct.create("div", { role: "slider" }, this.progressBar, "last");
 
-			// prevent browser scrolling on IE10 (evt.preventDefault() is not enough)
-			if (typeof this.style.msTouchAction !== "undefined") {
-				this.style.msTouchAction = "none";
-			}
+			// prevent default browser behavior (like scrolling) on touchstart
+			dpointer.setTouchAction(this, "none");
 		},
 
 		_positionHandles: function () {
@@ -187,7 +190,6 @@ define([
 		postCreate: function () {
 			var	beginDrag = lang.hitch(this,
 				function (e) {
-					e.preventDefault();
 					var	setValue = lang.hitch(this, function (priorityChange) {
 							var values = String(this.value).split(/,/g);
 							value -= offsetValue;
@@ -202,26 +204,19 @@ define([
 							this._handleOnChange(this.value, priorityChange);
 						}),
 						getEventData = lang.hitch(this, function (e) {
-							point = isMouse
-								? e[this._attrs.pageStart]
-								: ((e.touches && e.touches[0])
-									? e.touches[0][this._attrs.pageStart]
-									: e[this._attrs.clientStart]);
-							pixelValue = point - startPixel;
-							pixelValue = Math.min(Math.max(pixelValue, 0), maxPixels);
-							var discreteValues = this.step ? ((this.max - this.min) / this.step) : maxPixels;
-							if (discreteValues <= 1 || discreteValues === Infinity) { discreteValues = maxPixels; }
-							var wholeIncrements = Math.round(pixelValue * discreteValues / maxPixels);
+							var pixelValue = e[this._attrs.clientStart] - box[this._attrs.start];
+							pixelValue = Math.min(Math.max(pixelValue, 0), box[this._attrs.size]);
+							var discreteValues = this.step ? ((this.max - this.min) / this.step) : box[this._attrs.size];
+							if (discreteValues <= 1 || discreteValues === Infinity) { discreteValues = box[this._attrs.size]; }
+							var wholeIncrements = Math.round(pixelValue * discreteValues / box[this._attrs.size]);
 							value = (this.max - this.min) * wholeIncrements / discreteValues;
 							value = this._reversed ? (this.max - value) : (this.min + value);
 						}),
 						continueDrag = lang.hitch(this, function (e) {
-							e.preventDefault();
 							getEventData(e);
 							setValue(false);
 						}),
 						endDrag = lang.hitch(this, function (e) {
-							e.preventDefault();
 							if (actionHandles) {
 								actionHandles.forEach(function (h) { h.remove(); });
 							}
@@ -230,24 +225,42 @@ define([
 							setValue(true);
 							// fire onChange
 						}),
-						// e.type can be MSPointerDown but still be instanceof MouseEvent
-						isMouse = e instanceof MouseEvent,
 						// get the starting position of the content area (dragging region)
 						// can't use true since the added docScroll and the returned x are body-zoom incompatible
 						box = domGeometry.position(this.containerNode, false),
-						scroll = domGeometry.docScroll(),
-						bodyZoom = has("ie") ? 1 : (parseFloat(domStyle.get(win.body(), "zoom")) || 1),
-						nodeZoom = has("ie") ? 1 : (parseFloat(domStyle.get(node, "zoom")) || 1),
+						bodyZoom = /*has("ie") ? 1 : */(parseFloat(domStyle.get(win.body(), "zoom")) || 1),
+						nodeZoom = /*has("ie") ? 1 : */(parseFloat(domStyle.get(node, "zoom")) || 1),
 						root = win.doc.documentElement,
 						actionHandles;
 					if (this.disabled || this.readOnly) { return; }
-					// fix scroll.y in IE10 for incorrect pageYOffset
-					// https://connect.microsoft.com/IE/feedback/details/768781/ie10-window-pageyoffset-
-					// incorrect-value-when-page-zoomed-breaks-jquery-etc
-					scroll.y = Math.min(scroll.y,
-						this.containerNode.ownerDocument.documentElement.scrollTop || scroll.y);
-					var startPixel = box[this._attrs.start] * nodeZoom * bodyZoom + scroll[this._attrs.start];
-					var maxPixels = box[this._attrs.size] * nodeZoom * bodyZoom;
+					// begin feature test to see if position() values need zoom
+					// seems to result in "if any version of IE, then don't use zoom"
+					// check if pointer down event is inside the box
+					var zoom = bodyZoom * nodeZoom;
+					if (zoom !== 1 || useZoom === false) {
+						if (useZoom === null) {
+							var outerBox = this.getBoundingClientRect();
+							var errorWithoutZoom = Math.max(0, 
+								outerBox.left - e.clientX, e.clientX - outerBox.right,
+								outerBox.top - e.clientY, e.clientY - outerBox.bottom
+							);
+							var errorWithZoom = Math.max(0, 
+								outerBox.left * zoom - e.clientX, e.clientX - outerBox.right * zoom,
+								outerBox.top * zoom - e.clientY, e.clientY - outerBox.bottom * zoom
+							);
+							if (errorWithZoom < errorWithoutZoom) {
+								useZoom = true;
+							} else if (errorWithZoom > errorWithoutZoom) {
+								useZoom = false;
+							}
+						}
+						if (useZoom === true) {
+							box.x *= zoom;
+							box.y *= zoom;
+							box.w *= zoom;
+							box.h *= zoom;
+						}
+					}
 					var offsetValue = 0;
 					getEventData(e);
 					var values = String(this.value).split(/,/g);
@@ -262,8 +275,8 @@ define([
 						actionHandles.forEach(function (h) { h.remove(); });
 					}
 					actionHandles = this.own(
-						on(root, touch.move, continueDrag),
-						on(root, touch.release, endDrag)
+						on(root, dpointer.events.MOVE, continueDrag),
+						on(root, dpointer.events.UP, endDrag)
 					);
 				}),
 
@@ -320,14 +333,14 @@ define([
 					this._handleOnChange(this.value, true);
 				}),
 
-				point, pixelValue, value,
+				value,
 				node = this;
 			if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
 				// set this here in case refreshProperties runs before startup (Chrome)
 				this.value = this.valueNode.value;
 			}
 			this.own(
-				on(this, touch.press, beginDrag),
+				on(this, dpointer.events.DOWN, beginDrag),
 				on(this, "keydown", keyDown), // for desktop a11y
 				on(this.focusNode, "keyup", keyUp) // fire onChange on desktop
 			);
