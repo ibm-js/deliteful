@@ -38,7 +38,7 @@ define([
 
 		// baseClass: String
 		//		The name of the CSS class of this widget.
-		baseClass: "duiButton",
+		baseClass: "d-button",
 
 		preCreate: function () {
 			this.addInvalidatingProperties("label", "showLabel", "title", "iconClass", "textDir");

@@ -1,45 +1,46 @@
 // Template for Button CSS, included from themes/*/Button.less files
 
-.duiButton {
+.d-button {
 	padding: 15px 10px;
 	border-style: outset;
 	border-width: 1px;
-	.dui-button-background-image();
+	.d-button-background-image();
 	font-family: Helvetica;
 	cursor: pointer;
 	.tap-highlight-color(rgba(255,255,255,0));
-	.duiButton-styles;
+	.d-button-styles;
 
 	// These are from original dojox.mobile but they presumably break accessibility
 	// height: 29px;
 	// line-height: 29px;
 }
-.duiButtonText {
+.d-button-text {
 	margin: 10px;	// space between button and icon (in unlikely case both are displayed)
 }
-.duiButton:active,
-.duiButtonSelected {
-	.dui-button-selected-background-image();
-	.duiButtonSelected-styles;
+.d-button:active,
+.d-button-selected {
+	.d-button-selected-background-image();
+	.d-button-selected-styles;
 }
-.duiButtonDisabled,
-.duiButton:disabled {
+.d-button-disabled,
+.d-button:disabled {
 	border-color: grey;
 	background-image: none;
 	color: grey;
 	cursor: default;
 }
-.duiBlueButton {
-	.dui-blue-button-background-image();
-	.duiButton-duiBlueButton-styles;
+// TODO: do we really need to keep these ?
+.d-button-blue {
+	.d-button-blue-background-image();
+	.d-button-blue-styles;
 }
-.duiBlueButtonSelected {
-	.dui-blue-button-selected-background-image();
+.d-button-blue-selected {
+	.d-button-blue-selected-background-image();
 }
-.duiRedButton {
-	.dui-red-button-background-image();
-	.duiButton-duiRedButton-styles;
+.d-button-red {
+	.d-button-red-background-image();
+	.d-button-red-styles;
 }
-.duiRedButtonSelected {
-	.dui-red-button-selected-background-image();
+.d-button-red-selected {
+	.d-button-red-selected-background-image();
 }
