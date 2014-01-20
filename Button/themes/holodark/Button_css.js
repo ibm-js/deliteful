@@ -1,5 +1,5 @@
 define(function(){ return '\
-.duiButton {\
+.d-button {\
   padding: 15px 10px;\
   border-style: outset;\
   border-width: 1px;\
@@ -16,25 +16,25 @@ define(function(){ return '\
   height: 40px;\
   color: #ffffff;\
 }\
-.duiButtonText {\
+.d-button-text {\
   margin: 10px;\
 }\
-.duiButton:active,\
-.duiButtonSelected {\
+.d-button:active,\
+.d-button-selected {\
   color: #ffffff;\
   border-color: transparent;\
   background-image: none;\
   background-color: #2C94BB;\
   box-shadow: 0px 0px 1px 4px #1F5366;\
 }\
-.duiButtonDisabled,\
-.duiButton:disabled {\
+.d-button-disabled,\
+.d-button:disabled {\
   border-color: grey;\
   background-image: none;\
   color: grey;\
   cursor: default;\
 }\
-.duiBlueButton {\
+.d-button-blue {\
   color: #ffffff;\
   background-image: none;\
   background-color: #333333;\
@@ -45,10 +45,10 @@ define(function(){ return '\
   border-radius: 2px;\
   background-color: #0099CC;\
 }\
-.duiBlueButtonSelected {\
+.d-button-blue-selected {\
   background-image: none;\
 }\
-.duiRedButton {\
+.d-button-red {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fa9d58), to(#ee4115), color-stop(0.5, #ff4d25), color-stop(0.5, #ed4d15));\
   background-image: linear-gradient(to bottom, #fa9d58 0%, #ff4d25 50%, #ed4d15 50%, #ee4115 100%);\
   color: #ffffff;\
@@ -61,7 +61,7 @@ define(function(){ return '\
   border-radius: 2px;\
   background-color: #CC0000;\
 }\
-.duiRedButtonSelected {\
+.d-button-red-selected {\
   background-image: none;\
 }\
 '; } );

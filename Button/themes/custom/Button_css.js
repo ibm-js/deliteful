@@ -1,5 +1,5 @@
 define(function(){ return '\
-.duiButton {\
+.d-button {\
   padding: 15px 10px;\
   border-style: outset;\
   border-width: 1px;\
@@ -14,37 +14,37 @@ define(function(){ return '\
   color: #000000;\
   font-size: 13px;\
 }\
-.duiButtonText {\
+.d-button-text {\
   margin: 10px;\
 }\
-.duiButton:active,\
-.duiButtonSelected {\
+.d-button:active,\
+.d-button-selected {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));\
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);\
   color: #ffffff;\
 }\
-.duiButtonDisabled,\
-.duiButton:disabled {\
+.d-button-disabled,\
+.d-button:disabled {\
   border-color: grey;\
   background-image: none;\
   color: grey;\
   cursor: default;\
 }\
-.duiBlueButton {\
+.d-button-blue {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#48adfc), to(#048bf4));\
   background-image: linear-gradient(to bottom, #48adfc 0%, #048bf4 100%);\
   color: #ffffff;\
 }\
-.duiBlueButtonSelected {\
+.d-button-blue-selected {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));\
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);\
 }\
-.duiRedButton {\
+.d-button-red {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fa9d58), to(#ee4115));\
   background-image: linear-gradient(to bottom, #fa9d58 0%, #ee4115 100%);\
   color: #ffffff;\
 }\
-.duiRedButtonSelected {\
+.d-button-red-selected {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));\
   background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);\
 }\
