@@ -10,7 +10,10 @@ define([
 	"delite/Contained",
 	"delite/Invalidating",
 	"dojo/Deferred",
-	"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"],
+	"dojo/has!dojo-bidi?" +
+		"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_rtl_css:" +
+		"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"
+],
 	function (dcl, pointer, domClass, win, has, register, Widget, Container, Contained, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
@@ -260,12 +263,17 @@ define([
 				}
 			},
 
+			_isLeft: function () {
+				return (this.position === "start" && this.isLeftToRight()) ||
+					(this.position === "end" && !this.isLeftToRight());
+			},
+
 			_pointerDownHandler: function (event) {
 				this._originX = event.pageX;
 				this._originY = event.pageY;
 
-				if (this._visible || (this.position === "start" && !this._visible && this._originX <= 10) ||
-					(this.position === "end" && !this._visible && this._originX >= win.doc.width - 10)) {
+				if (this._visible || (this._isLeft() && !this._visible && this._originX <= 10) ||
+					(!this._isLeft() && !this._visible && this._originX >= win.doc.width - 10)) {
 					this._opening = !this._visible;
 					this._pressHandle.remove();
 					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
@@ -281,7 +289,7 @@ define([
 				} else {
 					var pos = event.pageX;
 
-					if (this.position === "start") {
+					if (this._isLeft()) {
 						if (this._visible) {
 							if (this._originX < pos) {
 								this._originX = pos;
