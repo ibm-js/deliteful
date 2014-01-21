@@ -7,14 +7,13 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Container",
-	"delite/Contained",
 	"delite/Invalidating",
 	"dojo/Deferred",
 	"dojo/has!dojo-bidi?" +
 		"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_rtl_css:" +
 		"delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"
 ],
-	function (dcl, pointer, domClass, win, has, register, Widget, Container, Contained, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, win, has, register, Widget, Container, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -27,8 +26,14 @@ define([
 				node.style.display = "none";
 			}
 		}
+		function getNextSibling(node) {
+			do {
+				node = node.nextSibling;
+			} while (node && node.nodeType !== 1);
+			return node;
+		}
 
-		return register("d-side-pane", [HTMLElement, Widget, Container, Contained, Invalidating], {
+		return register("d-side-pane", [HTMLElement, Widget, Container, Invalidating], {
 
 			// summary:
 			//		A container displayed on the side of the screen. It can be displayed on top of the page
@@ -79,7 +84,7 @@ define([
 				// summary:
 				//		Open the pane.
 				var deferred = new Deferred();
-				var nextElement = this.getNextSibling();
+				var nextElement = getNextSibling(this);
 				if (!this._visible) {
 					if (this.animate) {
 						domClass.add(this, prefix("animate"));
@@ -114,7 +119,7 @@ define([
 				var deferred = new Deferred();
 				if (this._visible) {
 					if (this.mode === "reveal") {
-						var nextElement = this.getNextSibling();
+						var nextElement = getNextSibling(this);
 						if (nextElement) {
 							this._setAfterTransitionHandlers(nextElement, {node: nextElement});
 						}
@@ -176,7 +181,7 @@ define([
 			},
 
 			refreshRendering: function (props) {
-				var nextElement = this.getNextSibling();
+				var nextElement = getNextSibling(this);
 
 				// Always remove animation during a refresh. Avoid to see moving the pane on mode changes.
 				// Not very reliable on IE11.
@@ -237,7 +242,7 @@ define([
 					domClass.add(this, prefix("visible"));
 
 					if (this.mode === "push" || this.mode === "reveal") {
-						var nextElement = this.getNextSibling();
+						var nextElement = getNextSibling(this);
 						if (nextElement) {
 							domClass.remove(nextElement, [prefix("nottranslated"), prefix("start"), prefix("end")]);
 							domClass.add(nextElement, [prefix(this.position), prefix("translated")]);
@@ -254,7 +259,7 @@ define([
 					domClass.remove(this, prefix("visible"));
 					domClass.add(this, prefix("hidden"));
 					if (this.mode === "push" || this.mode === "reveal") {
-						var nextElement = this.getNextSibling();
+						var nextElement = getNextSibling(this);
 						if (nextElement) {
 							domClass.remove(nextElement, [prefix("translated"), prefix("start"), prefix("end")]);
 							domClass.add(nextElement, [prefix(this.position), prefix("nottranslated")]);

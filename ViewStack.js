@@ -72,8 +72,6 @@ define(["dcl/dcl",
 
 			preCreate: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
-				this._transitionEndHandlers = [];
-
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
 						this._timing = this._transitionTiming[o];
@@ -90,33 +88,47 @@ define(["dcl/dcl",
 
 			showNext: function (props) {
 				//		Shows the next child in the container.
-				//		The current child must implement getNextSlibling method which is available
-				//		in the Contained class.
-				if (!this._visibleChild && this.children.length > 0) {
-					this._visibleChild = this.children[0];
-				}
-				if (this._visibleChild && this._visibleChild.getNextSibling) {
-					this.show(this._visibleChild.getNextSibling(), props);
-				}
+				this._showPreviousNext(this.getNextSibling.bind(this), props);
 			},
 
 			showPrevious: function (props) {
-				//		Shows the previous children in the container.
-				//		The current children must implement getPreviousSlibling method which is available
-				//		in the Contained class.
+				//		Shows the previous child in the container.
+				this._showPreviousNext(this.getPreviousSibling.bind(this), props);
+			},
+
+			_showPreviousNext: function (func, props) {
 				if (!this._visibleChild && this.children.length > 0) {
 					this._visibleChild = this.children[0];
 				}
-				if (this._visibleChild && this._visibleChild.getPreviousSibling) {
-					this.show(this._visibleChild.getPreviousSibling(), props);
+				if (this._visibleChild) {
+					var target = func(this._visibleChild);
+					if (target) {
+						this.show(target, props);
+					}
 				}
+			},
+
+			_cleanCSS: function (node) {
+				var classes = [];
+				for (var i = 0; i < node.classList.length; i++) {
+					if (node.classList[i].indexOf("-d-view-stack") === 0) {
+						classes.push(node.classList[i]);
+					}
+				}
+				domClass.remove(node, classes);
 			},
 
 			performDisplay: function (widget, event) {
 				var origin = this._visibleChild;
 				var dest = widget;
+
+				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
+				this._cleanCSS(origin);
+				this._cleanCSS(dest);
+
 				var deferred = new Deferred();
 				setVisibility(dest, true);
+				this._visibleChild = dest;
 				if (event.transition && event.transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
@@ -125,7 +137,6 @@ define(["dcl/dcl",
 					if (dest) {
 						this._setAfterTransitionHandlers(dest, event, deferred);
 						domClass.add(dest, [transitionClass(event.transition), "-d-view-stack-in"]);
-						domClass.remove(dest, "-d-view-stack-transition");
 					}
 					if (event.reverse) {
 						setReverse(origin);
@@ -150,35 +161,30 @@ define(["dcl/dcl",
 					setVisibility(origin, false);
 					deferred.resolve();
 				}
-				this._visibleChild = dest;
-				return deferred;
+
+				return deferred.promise;
 			},
 
-			show: function (/* HTMLElement */ node, props) {
-				//		Shows a children of the ViewStack. The parameter 'props' is optional. If not specified,
-				//		its value is {transition: this.transition, reverse: this.reverse}. In other words,
-				//		transition and/or reverse properties are used.
-				if (!this._visibleChild) {
-					this._visibleChild = this.children[0];
-				}
-				var origin = this._visibleChild;
-				if (origin !== node) {
-					if (!props) {
-						props = {transition: this.transition, reverse: this.reverse};
+			show: dcl.superCall(function (sup) {
+				return function (/* HTMLElement */ node, props) {
+					//		Shows a children of the ViewStack. The parameter 'props' is optional. If not specified,
+					//		its value is {transition: this.transition, reverse: this.reverse}. In other words,
+					//		transition and/or reverse properties are used.
+					if (!this._visibleChild) {
+						this._visibleChild = this.children[0];
 					}
-					else if (!props.transition) {
-						props.transition = this.transition;
+					var origin = this._visibleChild;
+					if (origin !== node) {
+						if (!props) {
+							props = {transition: this.transition, reverse: this.reverse};
+						}
+						else if (!props.transition) {
+							props.transition = this.transition;
+						}
 					}
-					dcl.mix(props, {
-						dest: node,
-						transitionDeferred: new Deferred(),
-						bubbles: true,
-						cancelable: true
-					});
-					on.emit(document, "delite-display", props);
-				}
-
-			},
+					return sup.apply(this, arguments);
+				};
+			}),
 
 			addChild: dcl.superCall(function (sup) {
 				return function (/*HTMLElement*/ widget, /*jshint unused: vars */insertIndex) {
@@ -190,30 +196,28 @@ define(["dcl/dcl",
 			}),
 
 			_setAfterTransitionHandlers: function (node, event, deferred) {
-				var handle = this._afterTransitionHandle.bind(this);
-				this._transitionEndHandlers.push({node: node, handle: handle, props: event, deferred: deferred});
-				node.addEventListener("webkitTransitionEnd", handle);
-				node.addEventListener("transitionend", handle); // IE10 + FF
+				var self = this, endProps = {
+					node: node,
+					handle: function () { self._afterTransitionHandle(endProps); },
+					props: event,
+					deferred: deferred
+				};
+				node.addEventListener("webkitTransitionEnd", endProps.handle);
+				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
 			},
 
-			_afterTransitionHandle: function (event) {
-				var item;
-				for (var i = 0; i < this._transitionEndHandlers.length; i++) {
-					item = this._transitionEndHandlers[i];
-					if (event.target === item.node) {
-						if (event.target !== this._visibleChild && domClass.contains(item.node, "-d-view-stack-out")) {
-							setVisibility(item.node, false);
-						}
-						domClass.remove(item.node, ["-d-view-stack-in", "-d-view-stack-out", "-d-view-stack-reverse",
-							transitionClass(item.props.transition), "-d-view-stack-transition"]);
-						item.node.removeEventListener("webkitTransitionEnd", item.handle);
-						item.node.removeEventListener("transitionend", item.handle);
-						this._transitionEndHandlers.splice(i, 1);
-						if (item.props.deferred) {
-							item.props.deferred.resolve();
-						}
-						break;
-					}
+			_afterTransitionHandle: function (item) {
+				// Defensive approach
+				// We should work only on item.node but transitionEnd events can be dropped on aggressive interactions
+				for (var i = 0; i < this.children.length; i++) {
+					setVisibility(this.children[i], this._visibleChild === this.children[i]);
+				}
+				this._cleanCSS(item.node);
+
+				item.node.removeEventListener("webkitTransitionEnd", item.handle);
+				item.node.removeEventListener("transitionend", item.handle);
+				if (item.deferred) {
+					item.deferred.resolve();
 				}
 			}
 		});

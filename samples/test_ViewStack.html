@@ -31,11 +31,15 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dojo/when",
 			"deliteful/ViewStack",
 			"deliteful/Button",
 			"dojo/domReady!"
-		], function(register){
+		], function(register, when){
 			register.parse();
+			vs.on("delite-display-complete", function(event){
+				console.log("Displayed node: " + event.child.id);
+			});
 
 			createChild = function (){
 				var newChild = document.createElement("div");
@@ -52,6 +56,8 @@
 <button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
 <button is="d-button" onclick="createChild()">Create EEE</button>
 <button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>
+<button is="d-button" onclick="vs.showNext();">Next</button>
+<button is="d-button" onclick="vs.showPrevious();">Next</button>
 <br>
 <d-view-stack id="vs">
 	<div style="background-color: honeydew;" id="aaa">
