@@ -29,7 +29,17 @@ define(["dcl/dcl",
 				domClass.add(node, "-d-view-stack-reverse");
 			}
 		}
-
+		function cleanCSS(node) {
+			var classes = [];
+			if (node) {
+				for (var i = 0; i < node.classList.length; i++) {
+					if (node.classList[i].indexOf("-d-view-stack") === 0) {
+						classes.push(node.classList[i]);
+					}
+				}
+				domClass.remove(node, classes);
+			}
+		}
 		function transitionClass(s) {
 			return "-d-view-stack-" + s;
 		}
@@ -108,23 +118,13 @@ define(["dcl/dcl",
 				}
 			},
 
-			_cleanCSS: function (node) {
-				var classes = [];
-				for (var i = 0; i < node.classList.length; i++) {
-					if (node.classList[i].indexOf("-d-view-stack") === 0) {
-						classes.push(node.classList[i]);
-					}
-				}
-				domClass.remove(node, classes);
-			},
-
 			performDisplay: function (widget, event) {
 				var origin = this._visibleChild;
 				var dest = widget;
 
 				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
-				this._cleanCSS(origin);
-				this._cleanCSS(dest);
+				cleanCSS(origin);
+				cleanCSS(dest);
 
 				var deferred = new Deferred();
 				setVisibility(dest, true);
@@ -212,7 +212,7 @@ define(["dcl/dcl",
 				for (var i = 0; i < this.children.length; i++) {
 					setVisibility(this.children[i], this._visibleChild === this.children[i]);
 				}
-				this._cleanCSS(item.node);
+				cleanCSS(item.node);
 
 				item.node.removeEventListener("webkitTransitionEnd", item.handle);
 				item.node.removeEventListener("transitionend", item.handle);
