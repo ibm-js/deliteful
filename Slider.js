@@ -20,7 +20,7 @@ define([
 	// boolean feature test variable to decide if position() return attributes
 	// need to be adjusted by the body and node current zoom levels
 	// null = unknown
-	useZoom = null;
+	var useZoom = null;
 
 	return register("d-slider", [HTMLElement, FormValueWidget], {
 		// summary:
