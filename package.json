@@ -13,8 +13,8 @@
 	"licenses": [
 		{
 			"type": "BSD",
-			"url": "https://github.com/ibm-dojo/deliteful/blob/master/LICENSE"
+			"url": "https://github.com/ibm-js/deliteful/blob/master/LICENSE"
 		}
 	],
-	"bugs": "https://github.com/ibm-dojo/deliteful/issues"
+	"bugs": "https://github.com/ibm-js/deliteful/issues"
 }
