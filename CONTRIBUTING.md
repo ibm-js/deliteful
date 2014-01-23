@@ -102,7 +102,7 @@ and merge them into your local clone and then push them to your GitHub fork:
 
 ```bash
 $ cd deliteful
-$ git remote add upstream git@github.com:ibm-dojo/deliteful.git
+$ git remote add upstream git@github.com:ibm-js/deliteful.git
 $ git fetch upstream
 ```
 

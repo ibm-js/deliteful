@@ -22,7 +22,7 @@ Migration will require manual steps listed [here](docs/migration.md).
 ## Issues
 
 Bugs and open issues are tracked in the
-[github issues tracker])(https://github.com/ibm-dojo/deliteful/issues).
+[github issues tracker])(https://github.com/ibm-js/deliteful/issues).
 
 ## Licensing
 
@@ -44,7 +44,7 @@ This project requires the following other projects to run:
 
 * Manual master installation: go to the root Dojo installation directory and clone deliteful from github:
 
-	$ git clone git://github.com/ibm-dojo/deliteful.git
+	$ git clone git://github.com/ibm-js/deliteful.git
 
 Then install dependencies:
 
