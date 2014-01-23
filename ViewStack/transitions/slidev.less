@@ -1,0 +1,26 @@
+@import "../css3.less";
+.-d-view-stack-slidev {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.-d-view-stack-slidev.-d-view-stack-transition {
+	.transition-property-transform();
+	.transition-duration(.3s);
+}
+.-d-view-stack-slidev.-d-view-stack-out.-d-view-stack-reverse.-d-view-stack-transition,
+.-d-view-stack-slidev.-d-view-stack-in {
+	.transform(translate3d(0px,100%,0px) ) !important;
+}
+.-d-view-stack-slidev.-d-view-stack-out.-d-view-stack-transition,
+.-d-view-stack-slidev.-d-view-stack-in.-d-view-stack-reverse {
+	.transform(translate3d(0px,-100%,0px) ) !important;
+}
+.-d-view-stack-slidev.-d-view-stack-out,
+.-d-view-stack-slidev.-d-view-stack-in.-d-view-stack-transition {
+	.transform(translate3d(0px,0%,0px) ) !important;
+}
+.dj_android.dj_tablet .-d-view-stack-slidev.-d-view-stack-transition {
+	.transition-duration(.6s);
+	.transition-timing-function(linear);
+}
+

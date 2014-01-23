@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Side Pane Push Mode</title>
+
+	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/SidePane",
+			"deliteful/Button",
+			"dojo/domReady!"
+		], function(register){
+			register.parse();
+		});
+	</script>
+</head>
+<body>
+<d-side-pane id="sp" mode="push">
+	<div style="background-color: #088eef">SidePane</div>
+	<div style="background-color: #0869c6">Push</div>
+	<div style="background-color: #3578b1">Mode</div>
+</d-side-pane>
+<div style="width: 100%; height: 100%; background-color: #7a9de9">
+	<div style="width: 100%; text-align: center">
+		<button is="d-button" onclick="sp.open()">Open</button>
+		<button is="d-button" onclick="sp.close()">Close</button>
+	</div>
+</div>
+</body>
+</html>

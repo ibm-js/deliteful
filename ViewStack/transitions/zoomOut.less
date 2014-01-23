@@ -1,0 +1,21 @@
+@import "../css3.less";
+.-d-view-stack-zoomOut.-d-view-stack-out {
+	.animation-duration(.5s);
+	.animation-name(-d-view-stack-zoomOutOut);
+	.animation-timing-function(ease-in);
+}
+.dj_android .-d-view-stack-zoomOut.-d-view-stack-out {
+	.animation-name(-d-view-stack-zoomOutOutAndroid);
+}
+.-d-view-stack-zoomOut.-d-view-stack-in {
+	z-index: -100;
+	.animation-duration(.5s);
+	.animation-name(-d-view-stack-zoomOutIn);
+	.animation-timing-function(ease-in);
+}
+@-webkit-keyframes -d-view-stack-zoomOutOut { .keyframes-transform-opacity-from-to-webkit(scale(1.0), 1, scale(0.0), 0); }
+@keyframes         -d-view-stack-zoomOutOut { .keyframes-transform-opacity-from-to       (scale(1.0), 1, scale(0.0), 0); }
+@-webkit-keyframes -d-view-stack-zoomOutOutAndroid { .keyframes-transform-from-to-webkit(scale(1.0), scale(0.0)); }
+@keyframes         -d-view-stack-zoomOutOutAndroid { .keyframes-transform-from-to       (scale(1.0), scale(0.0)); }
+@-webkit-keyframes -d-view-stack-zoomOutIn { .keyframes-transform-from-to-webkit(scale(1.0), scale(1.0)); }
+@keyframes         -d-view-stack-zoomOutIn { .keyframes-transform-from-to       (scale(1.0), scale(1.0)); }

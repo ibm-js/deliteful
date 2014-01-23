@@ -1,0 +1,23 @@
+@import "../css3.less";
+.-d-view-stack-fade {
+	.transition-property(none);
+	.transition-duration(0s);
+}
+.-d-view-stack-fade.-d-view-stack-transition {
+	.transition-property(opacity);
+	.transition-duration(.6s);
+}
+.-d-view-stack-fade.-d-view-stack-out {
+	opacity: 1;
+}
+.-d-view-stack-fade.-d-view-stack-out.-d-view-stack-transition {
+	.transition-timing-function(ease-out);
+	opacity: 0;
+}
+.-d-view-stack-fade.-d-view-stack-in {
+	opacity: 0;
+}
+.-d-view-stack-fade.-d-view-stack-in.-d-view-stack-transition {
+	.transition-timing-function(ease-in);
+	opacity: 1;
+}

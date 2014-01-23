@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Basic Layout</title>
+
+	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"deliteful/LinearLayout",
+			"delite/register",
+			"dojo/domReady!"
+		], function(LinearLayout, register){
+			register.parse();
+		});
+	</script>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<d-linear-layout style="height: 100%">
+		<div style="background-color: red" class="fill">Dojo</div>
+		<div style="background-color: blue">Dojo</div>
+		<div style="background-color: #ffff00">Dojo</div>
+	</d-linear-layout>
+</body>
+</html>
