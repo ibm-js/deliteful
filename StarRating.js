@@ -211,7 +211,7 @@ define([
 			}
 		},
 
-		_wireHandlers: function (/*Event*/ event) {
+		_wireHandlers: function () {
 			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
 				this._otherEventsHandles.push(this.on(pointer.events.MOVE, lang.hitch(this, "_pointerMoveHandler")));
@@ -223,7 +223,7 @@ define([
 		},
 
 		_pointerEnterHandler: function (/*Event*/ event) {
-			this._wireHandlers(event);
+			this._wireHandlers();
 
 			if (event.pointerType === "mouse") {
 				this._hovering = true;
