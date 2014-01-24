@@ -13,7 +13,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./StarRating/bidi/StarRating",
-	"dojo/i18n!./StarRating/nls/StarRating",
+	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/themes/load!./StarRating/themes/{{theme}}/StarRating_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, lang, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
