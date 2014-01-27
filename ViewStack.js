@@ -30,15 +30,9 @@ define(["dcl/dcl",
 			}
 		}
 		function cleanCSS(node) {
-			var classes = [];
-			if (node) {
-				for (var i = 0; i < node.classList.length; i++) {
-					if (node.classList[i].indexOf("-d-view-stack") === 0) {
-						classes.push(node.classList[i]);
-					}
-				}
-				domClass.remove(node, classes);
-			}
+			node.className = node.className.split(/ +/).filter(function(x){
+				return !/^-d-view-stack/.test(x);
+			}).join(" ");
 		}
 		function transitionClass(s) {
 			return "-d-view-stack-" + s;
@@ -120,41 +114,40 @@ define(["dcl/dcl",
 
 			performDisplay: function (widget, event) {
 				var origin = this._visibleChild;
-				var dest = widget;
 
 				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
 				cleanCSS(origin);
-				cleanCSS(dest);
+				cleanCSS(widget);
 
 				var deferred = new Deferred();
-				setVisibility(dest, true);
-				this._visibleChild = dest;
+				setVisibility(widget, true);
+				this._visibleChild = widget;
 				if (event.transition && event.transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
 						domClass.add(origin, transitionClass(event.transition));
 					}
-					if (dest) {
-						this._setAfterTransitionHandlers(dest, event, deferred);
-						domClass.add(dest, [transitionClass(event.transition), "-d-view-stack-in"]);
+					if (widget) {
+						this._setAfterTransitionHandlers(widget, event, deferred);
+						domClass.add(widget, [transitionClass(event.transition), "-d-view-stack-in"]);
 					}
 					if (event.reverse) {
 						setReverse(origin);
-						setReverse(dest);
+						setReverse(widget);
 					}
 					this.defer(function () {
-						if (dest) {
-							domClass.add(dest, "-d-view-stack-transition");
+						if (widget) {
+							domClass.add(widget, "-d-view-stack-transition");
 						}
 						if (origin) {
 							domClass.add(origin, ["-d-view-stack-transition", "-d-view-stack-out"]);
 						}
 						if (event.reverse) {
 							setReverse(origin);
-							setReverse(dest);
+							setReverse(widget);
 						}
-						if (dest) {
-							domClass.add(dest, "-d-view-stack-in");
+						if (widget) {
+							domClass.add(widget, "-d-view-stack-in");
 						}
 					}, this._timing);
 				} else {
