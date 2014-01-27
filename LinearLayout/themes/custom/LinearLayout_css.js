@@ -1,12 +1,12 @@
 define(function(){ return '\
-d-linear-layout {\
+.d-linear-layout {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
 }\
-d-linear-layout.-d-linear-layout-v {\
+.d-linear-layout.-d-linear-layout-v {\
   -webkit-flex-direction: column;\
   -ms-flex-direction: column;\
   -webkit-box-orient: vertical;\
