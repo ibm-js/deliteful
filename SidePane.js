@@ -125,7 +125,7 @@ define([
 					}
 					this._hideImpl();
 					if (!this.animate) {
-						this.defer(function () {deferred.resolve(); setVisibility(this, false); }.bind(this),
+						this.defer(function () {setVisibility(this, false); deferred.resolve();}.bind(this),
 							this._timing);
 					}
 				}
