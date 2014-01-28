@@ -34,7 +34,7 @@
 		<d-linear-layout vertical="false" class="pageHeader">
 			<div><button is="d-button" onclick="leftPane.close()"></button></div>
 			<div class="fill titleStyle">Menu</div>
-			<div><button is="d-button" onclick="leftStack.show(settings, {direction:'start'})"></button></div>
+			<div><button is="d-button" onclick="leftStack.show(settings)"></button></div>
 		</d-linear-layout>
 
 		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
@@ -49,7 +49,7 @@
 				</d-linear-layout>
 			</div>
 			<div id="settings" style="text-align: center">
-				<button is="d-button" onclick="leftStack.show(menu, {direction:'end'})"></button>
+				<button is="d-button" onclick="leftStack.show(menu, {reverse:true})"></button>
 			</div>
 		</d-view-stack>
 	</d-linear-layout>

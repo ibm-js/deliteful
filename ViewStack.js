@@ -30,7 +30,7 @@ define(["dcl/dcl",
 			}
 		}
 		function cleanCSS(node) {
-			node.className = node.className.split(/ +/).filter(function(x){
+			node.className = node.className.split(/ +/).filter(function (x) {
 				return !/^-d-view-stack/.test(x);
 			}).join(" ");
 		}
@@ -119,19 +119,25 @@ define(["dcl/dcl",
 				cleanCSS(origin);
 				cleanCSS(widget);
 
+				// Resolved when display is completed.
 				var deferred = new Deferred();
+
 				setVisibility(widget, true);
 				this._visibleChild = widget;
-				if (event.transition && event.transition !== "none") {
+
+				var transition = event.transition ? event.transition : "slide";
+				var reverse = event.reverse ? event.reverse : false;
+
+				if (transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
-						domClass.add(origin, transitionClass(event.transition));
+						domClass.add(origin, transitionClass(transition));
 					}
 					if (widget) {
 						this._setAfterTransitionHandlers(widget, event, deferred);
-						domClass.add(widget, [transitionClass(event.transition), "-d-view-stack-in"]);
+						domClass.add(widget, [transitionClass(transition), "-d-view-stack-in"]);
 					}
-					if (event.reverse) {
+					if (reverse) {
 						setReverse(origin);
 						setReverse(widget);
 					}
@@ -142,7 +148,7 @@ define(["dcl/dcl",
 						if (origin) {
 							domClass.add(origin, ["-d-view-stack-transition", "-d-view-stack-out"]);
 						}
-						if (event.reverse) {
+						if (reverse) {
 							setReverse(origin);
 							setReverse(widget);
 						}
@@ -159,23 +165,25 @@ define(["dcl/dcl",
 			},
 
 			show: dcl.superCall(function (sup) {
-				return function (/* HTMLElement */ node, props) {
-					//		Shows a children of the ViewStack. The parameter 'props' is optional. If not specified,
-					//		its value is {transition: this.transition, reverse: this.reverse}. In other words,
-					//		transition and/or reverse properties are used.
+				return function (dest, params) {
+					//		Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
+					//		this.transition, and this.reverse are used.
+					// summary:
+					//		This method must be called to display a particular destination child on this container.
+					// dest:
+					//		Widget or HTMLElement or id that points to the child this container must display.
+					// params:
+					//		Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+					//		can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
+					//		"reveal".
+					// returns:
+					//		A promise that will be resolved when the display & transition effect will have been
+					//		performed.
+
 					if (!this._visibleChild) {
 						this._visibleChild = this.children[0];
 					}
-					var origin = this._visibleChild;
-					if (origin !== node) {
-						if (!props) {
-							props = {transition: this.transition, reverse: this.reverse};
-						}
-						else if (!props.transition) {
-							props.transition = this.transition;
-						}
-					}
-					return sup.apply(this, arguments);
+					return sup.apply(this, [dest, params]);
 				};
 			}),
 

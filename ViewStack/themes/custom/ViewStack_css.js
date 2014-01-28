@@ -1,12 +1,10 @@
 define(function(){ return '\
 .d-view-stack {\
+  display: inline-block;\
   box-sizing: border-box !important;\
   overflow-x: hidden !important;\
   overflow-y: hidden;\
   position: relative !important;\
-}\
-.d-basic-layout > .d-view-stack {\
-  display: block !important;\
 }\
 .d-view-stack > * {\
   position: absolute;\
