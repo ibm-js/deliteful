@@ -13,16 +13,14 @@
 		button {
 			width: 10em;
 		}
-		div {
+		#vs > div {
 			font-size: 15em;
 			font-family: Helvetica;
 			text-align: center;
 			font-weight: bold;
 		}
 		#vs {
-			display:inline-block;
-			min-width: 530px;
-			width:50%;
+			width: 50%;
 			height: 300px;
 			border: 2px solid gold
 		}
@@ -57,7 +55,7 @@
 <button is="d-button" onclick="createChild()">Create EEE</button>
 <button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>
 <button is="d-button" onclick="vs.showNext();">Next</button>
-<button is="d-button" onclick="vs.showPrevious();">Next</button>
+<button is="d-button" onclick="vs.showPrevious();">Previous</button>
 <br>
 <d-view-stack id="vs">
 	<div style="background-color: honeydew;" id="aaa">
