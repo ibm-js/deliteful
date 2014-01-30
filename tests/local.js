@@ -4,7 +4,7 @@
 define({
 	// Browsers to run tests against
 	environments: [
-		{ browserName: "chrome" }
+		{ browserName: "firefox" }
 	],
 
 	// Whether or not to start Sauce Connect before running tests
@@ -17,5 +17,5 @@ define({
 	functionalSuites: ["deliteful/tests/functional"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(requirejs|dcl|dojo|deliteful\/tests)/
+	excludeInstrumentation: /^(requirejs|dcl|dojo|dpointer|delite\/|deliteful\/tests|.*themes|.*transitions)/
 });
