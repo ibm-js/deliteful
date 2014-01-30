@@ -8,6 +8,7 @@ define([
 	"delite/Container",
 	"delite/Invalidating",
 	"dojo/Deferred",
+	/*jshint maxlen: 150*/
 	"dojo/has!dojo-bidi?delite/themes/load!./SidePane/themes/{{theme}}/SidePane_rtl_css:delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"
 ],
 	function (dcl, pointer, domClass, win, has, register, Container, Invalidating, Deferred) {
@@ -342,4 +343,3 @@ define([
 			}
 		});
 	});
-
