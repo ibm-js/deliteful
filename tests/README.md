@@ -1,6 +1,6 @@
 # Deliteful Tests
 
-This directory contains the Deliteful widgets tests.
+This directory contains the Deliteful widget tests.
 
 ## Setup
 
@@ -20,7 +20,7 @@ on https://saucelabs.com/appium/tutorial/3.
 Navigate to:
 
 ```
-http://localhost/deliteful/node_modules/intern/client.html?config=tests/intern/client
+http://localhost/deliteful/node_modules/intern/client.html?config=tests/client
 ```
 
 Note that this won't run the functional tests.
@@ -38,7 +38,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node deliteful\node_modules\intern\runner.js config=deliteful\tests\intern\sauce.js
+node deliteful\node_modules\intern\runner.js config=deliteful\tests\sauce.js
 ```
 
 ## Running the unit and functional tests locally
@@ -61,7 +61,7 @@ Or on Windows (untested):
 
 ```
 cd ..\..\..
-node deliteful\node_modules\intern\runner.js config=deliteful\tests\intern\local.js
+node deliteful\node_modules\intern\runner.js config=deliteful\tests\local.js
 ```
 
 
