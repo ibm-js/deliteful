@@ -190,7 +190,7 @@ define([
 				}
 				if (!passive && !this._startHandles) {
 					this._startHandles = [this.on(pointer.events.ENTER, lang.hitch(this, "_pointerEnterHandler")),
-										   this.on(pointer.events.DOWN, lang.hitch(this, "_wireHandlers"))];
+										  this.on(pointer.events.DOWN, lang.hitch(this, "_wireHandlers"))];
 				} else if (passive && this._startHandles) {
 					while (this._startHandles.length) {
 						this._startHandles.pop().remove();

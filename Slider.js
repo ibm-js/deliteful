@@ -95,6 +95,7 @@ define([
 			}
 		},
 
+		/*jshint maxcomplexity: 14*/
 		refreshRendering: function (props) {
 			var toCSS = function (baseClass, modifier) {
 				return baseClass.split(/ /g).map(function (c) {
