@@ -206,8 +206,11 @@ define([
 						getEventData = lang.hitch(this, function (e) {
 							var pixelValue = e[this._attrs.clientStart] - box[this._attrs.start];
 							pixelValue = Math.min(Math.max(pixelValue, 0), box[this._attrs.size]);
-							var discreteValues = this.step ? ((this.max - this.min) / this.step) : box[this._attrs.size];
-							if (discreteValues <= 1 || discreteValues === Infinity) { discreteValues = box[this._attrs.size]; }
+							var discreteValues = this.step ? ((this.max - this.min) / this.step) :
+								box[this._attrs.size];
+							if (discreteValues <= 1 || discreteValues === Infinity) {
+								discreteValues = box[this._attrs.size];
+							}
 							var wholeIncrements = Math.round(pixelValue * discreteValues / box[this._attrs.size]);
 							value = (this.max - this.min) * wholeIncrements / discreteValues;
 							value = this._reversed ? (this.max - value) : (this.min + value);
@@ -240,12 +243,11 @@ define([
 					if (zoom !== 1 || useZoom === false) {
 						if (useZoom === null) {
 							var outerBox = this.getBoundingClientRect();
-							var errorWithoutZoom = Math.max(0, 
-								outerBox.left - e.clientX, e.clientX - outerBox.right,
+							var errorWithoutZoom = Math.max(0, outerBox.left - e.clientX, e.clientX - outerBox.right,
 								outerBox.top - e.clientY, e.clientY - outerBox.bottom
 							);
-							var errorWithZoom = Math.max(0, 
-								outerBox.left * zoom - e.clientX, e.clientX - outerBox.right * zoom,
+							var errorWithZoom = Math.max(0, outerBox.left * zoom - e.clientX,
+								e.clientX - outerBox.right * zoom,
 								outerBox.top * zoom - e.clientY, e.clientY - outerBox.bottom * zoom
 							);
 							if (errorWithZoom < errorWithoutZoom) {
