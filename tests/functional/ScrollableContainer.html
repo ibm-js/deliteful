@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" 
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>ScrollableContainer</title>
+
+	<!-- TODO: understand the impact of LinearLayout on the horizontal sizing of ScrollableContainer -->
+	
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var scrollBy, onScroll, log, clearMsgArea;
+		require([
+			"delite/register",
+			"deliteful/ScrollableContainer",
+			"deliteful/LinearLayout",
+			"deliteful/Button",
+			"dojo/domReady!"
+		], function (register) {
+			register.parse();
+			
+			var reachedTop = false, reachedBottom = false,
+				reachedLeft = false, reachedRight = false;
+			var scrollableContainer = document.getElementById("scrollContainer");
+			
+			scrollBy = function() {
+				scrollableContainer.scrollBy({x: 100, y: 100}, 1000);
+			};
+			onScroll = function () {
+				if (scrollableContainer.isBottomScroll()) {
+					// scrolled to bottom
+					if (!reachedBottom) { 
+						log("event: scroll-reached-bottom");
+						reachedBottom = true;
+					}
+				} else if (scrollableContainer.isTopScroll()) {
+					// scrolled to top
+					if (!reachedTop) { 
+						log("event: scroll-reached-top");
+						reachedTop = true;
+					}
+				} else {
+					reachedBottom = false;
+					reachedTop = false;
+				}
+				if (scrollableContainer.isRightScroll()) {
+					// scrolled to bottoms
+					if (!reachedRight) { 
+						log("event: scroll-reached-right");
+						reachedRight = true;
+					}
+				} else if (scrollableContainer.isLeftScroll()) {
+					// scrolled to top
+					if (!reachedRight) { 
+						log("event: scroll-reached-left");
+						reachedLeft = true;
+					}
+				} else {
+					reachedRight = false;
+					reachedLeft = false;
+				}
+			};
+			
+			log = function (str) {
+				var msgArea = document.getElementById("msgArea");
+				msgArea.innerHTML += str + "\n"; 
+				// Automatic scroll such that the last line is visible
+				msgArea.scrollTop = msgArea.scrollHeight;
+			};
+			
+			clearMsgArea = function () {
+				document.getElementById("msgArea").innerHTML = "";
+			};
+		});
+	</script>
+
+	<style type="text/css">
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		padding: 0 0.5em;
+		height: 2em;
+		list-style-type: none;
+		line-height: 2em;
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+		border-bottom: 1px solid #222222;
+		font-size: 2em;
+		cursor: pointer;
+	}
+	li:hover {
+		background-color: #61C6EB;
+	}
+	li:active {
+		background-color: #007fea;
+	}
+	</style>
+</head>
+<body>
+	<d-linear-layout style="height: 100%">
+		<d-linear-layout vertical="false">
+			<!-- Button to test the programmatic scroll API of ScrollableContainer -->
+			<button is="d-button" onclick="scrollBy();">
+				Programmatic scroll: scrollBy({x: 100, y: 100})
+			</button>
+			<textarea id="msgArea" readonly class="fill"></textarea>
+			<button is="d-button" onclick="clearMsgArea();">Clear</button>
+		</d-linear-layout>
+		<d-scrollable-container id="scrollContainer" scrollDirection="both" 
+			style="background-color: green" class="fill"
+			onScroll="onScroll();">
+			<ul>
+				<li>Item 1</li>
+				<li>Item 2</li>
+				<li>Item 3</li>
+				<li>Item 4</li>
+				<li>Item 5</li>
+				<li>Item 6</li>
+				<li>Item 7</li>
+				<li>Item 8</li>
+				<li>Item 9</li>
+				<li>Item 10</li>
+				<li>Item 11</li>
+				<li>Item 12</li>
+				<li>Item 13</li>
+				<li>Item 14</li>
+				<li>Item 15</li>
+				<li>Item 16</li>
+				<li>Item 17</li>
+				<li>Item 18</li>
+				<li>Item 19</li>
+				<li>Item 20</li>
+				<li>Item 21</li>
+				<li>Item 22</li>
+				<li>Item 23</li>
+				<li>Item 24</li>
+				<li>Item 25</li>
+				<li>Item 26</li>
+				<li>Item 27</li>
+				<li>Item 28</li>
+				<li>Item 29</li>
+				<li>Item 30</li>
+				<li>Item 31</li>
+				<li>Item 32</li>
+				<li>Item 33</li>
+				<li>Item 34</li>
+				<li>Item 35</li>
+				<li>Item 36</li>
+				<li>Item 37</li>
+				<li>Item 38</li>
+				<li>Item 39</li>
+				<li>Item 40</li>
+				<li>Item 41</li>
+				<li>Item 42</li>
+				<li>Item 43</li>
+				<li>Item 44</li>
+				<li>Item 45</li>
+				<li>Item 46</li>
+				<li>Item 47</li>
+				<li>Item 48</li>
+				<li>Item 49</li>
+				<li>Item 50</li>
+				<li>Item 61</li>
+				<li>Item 62</li>
+				<li>Item 63</li>
+				<li>Item 64</li>
+				<li>Item 65</li>
+				<li>Item 66</li>
+				<li>Item 67</li>
+				<li>Item 68</li>
+				<li>Item 69</li>
+				<li>Item 70</li>
+				<li>Item 81</li>
+				<li>Item 82</li>
+				<li>Item 83</li>
+				<li>Item 84</li>
+				<li>Item 85</li>
+				<li>Item 86</li>
+				<li>Item 87</li>
+				<li>Item 88</li>
+				<li>Item 89</li>
+				<li>Item 90</li>
+				<li>Item 91</li>
+				<li>Item 92</li>
+				<li>Item 93</li>
+				<li>Item 94</li>
+				<li>Item 95</li>
+				<li>Item 96</li>
+				<li>Item 97</li>
+				<li>Item 98</li>
+				<li>Item 99</li>
+				<li>Item 100</li>
+			</ul>
+		</d-scrollable-container>
+	</d-linear-layout>
+</body>
+</html>
