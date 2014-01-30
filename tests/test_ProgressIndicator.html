@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="duiReset mobile">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>ProgressIndicator</title>
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"dojo/dom",
+			"delite/register",
+			"dojo/on",
+			"deliteful/ProgressIndicator",
+			"dojo/domReady!"
+		], function (dom, register, on, ProgressIndicator) {
+			register.parse();
+			var testIndicator = dom.byId("testIndicator");
+			var testIndicatorPrg = new ProgressIndicator({style: "color:red"}).placeAt("testIndicatorPrgLabel", "after");
+			testIndicatorPrg.startup();
+
+			var inputSize = dom.byId("sizeTxt");
+			var inputValue = dom.byId("valueTxt");
+			var inputLapsTime = dom.byId("lapsTimeTxt");
+
+			setValue = function (value) {
+				testIndicator.value = value;
+				testIndicatorPrg.value = value;
+			};
+			on(dom.byId("startBtn"), "click", function() {
+				testIndicator.start();
+				testIndicatorPrg.start();
+			});
+			on(dom.byId("stopBtn"), "click", function() {
+				testIndicator.stop();
+				testIndicatorPrg.stop();
+			});
+			setLapsTime = function (lapsTime) {
+				testIndicator.lapsTime = lapsTime;
+				testIndicatorPrg.lapsTime = lapsTime;
+			};
+			setSize = function (size) {
+				testIndicator.style.width = testIndicator.style.height = size;
+				testIndicatorPrg.style.width = testIndicatorPrg.style.height = size;
+				//hack to force ie9 to redraw after size changes...
+				testIndicator.style.display = "none";
+				testIndicator.style.removeProperty("display");
+				testIndicatorPrg.style.display = "none";
+				testIndicatorPrg.style.removeProperty("display");
+			};
+			setColor = function (color) {
+				testIndicator.setColor(color);
+				testIndicatorPrg.setColor(color);
+			};
+			setDisplay = function (type) {
+				if (type) {
+					testIndicator.style.display = type;
+					testIndicatorPrg.style.display = type;
+				} else {
+					testIndicator.style.removeProperty('display');
+					testIndicatorPrg.style.removeProperty('display');
+				}
+			};
+			on(dom.byId("setSizeBtn"), "click", function() {
+				setSize(inputSize.value);
+			});
+			on(dom.byId("setValueBtn"), "click", function() {
+				setValue(inputValue.value);
+			});
+			on(dom.byId("setLapsTimeBtn"), "click", function() {
+				setLapsTime(inputLapsTime.value);
+			});
+		});
+	</script>
+	<style>
+		.colorPicker {
+			display:inline-block;
+			width: 1em;
+			height: 1em;
+			text-align:center;
+			vertical-align: middle;
+			margin-right: 1.5em;
+		}
+	</style>
+</head>
+<body class="duiBackground">
+	<div style="padding: 2px 5% 0 5%;">
+		<h3>d-progress-indicator</h3>
+		<hr>
+		Declarative
+		<d-progress-indicator id="testIndicator"></d-progress-indicator>.
+		<hr>
+		<span id="testIndicatorPrgLabel">Programmatic:</span>.
+		<hr>
+		<input type="button" id="startBtn" value="start"/>
+		<input type="button" id="stopBtn" value="stop"/>
+		<br>
+		<input type="button" value="0" onclick="setValue('0');" />
+		<input type="button" value="5" onclick="setValue('5');" />
+		<input type="button" value="27" onclick="setValue('27');" />
+		<input type="button" value="42" onclick="setValue('42');" />
+		<input type="button" value="67" onclick="setValue('67');" />
+		<input type="button" value="95" onclick="setValue('95');" />
+		<input type="button" value="100" onclick="setValue('100');" />
+		<br>
+		<input type="button" value="30px" onclick="setSize('30px');" />
+		<input type="button" value="40px" onclick="setSize('40px');" />
+		<input type="button" value="60px" onclick="setSize('60px');" />
+		<input type="button" value="80px" onclick="setSize('80px');" />
+		<input type="button" value="120px" onclick="setSize('120px');" />
+		<br>
+		<input type="button" value="500ms" onclick="setLapsTime(500);" />
+		<input type="button" value="1s" onclick="setLapsTime(1000);" />
+		<input type="button" value="2s" onclick="setLapsTime(2000);" />
+		<input type="button" value="3s" onclick="setLapsTime(3000);" />
+		<br>
+		<input type="button" value="display:block" onclick="setDisplay('block');" />
+		<input type="button" value="display:default" onclick="setDisplay();" />
+		<br>
+		<div class="colorPicker" style="background-color:red;" onclick="setColor('red');"></div>
+		<div class="colorPicker" style="background-color:#003bb3;" onclick="setColor('#003bb3');"></div>
+		<div class="colorPicker" style="background-color:#ffff00;" onclick="setColor('#ffff00');"></div>
+		<div class="colorPicker" style="background-color:green" onclick="setColor('green');"></div>
+		<div class="colorPicker" style="background-color:white;" onclick="setColor('white');"></div>
+		<div class="colorPicker" style="background-color:#000000;" onclick="setColor('#000000');"></div>
+		<hr>
+		<input type="button" id="setValueBtn" value="set value"/>
+		<input type="text" id="valueTxt" name="valueTxt" size="3" value="27"/>
+		<label for="valueTxt">(0 to 100)</label>
+		<br>
+		<input type="button" id="setSizeBtn" value="set size"/>
+		<input type="text" id="sizeTxt" name="sizeTxt" size="3" value="30px"/>
+		<label for="sizeTxt">(px/%)</label>
+		<br>
+		<input type="button" id="setLapsTimeBtn" value="set laps time"/>
+		<input type="text" id="lapsTimeTxt" name="lapsTimeTxt" size="3" value="500"/>
+		<label for="lapsTimeTxt">(ms)</label>
+		<hr>
+		<!-- include theme selector -->
+		<iframe src="theme_selector.html" height="250px" width="250px"></iframe>
+	</div>
+</body>
+</html>
