@@ -2,18 +2,15 @@ define([
 	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-class",
 	"delite/register",
-	"delite/Widget",
-	"delite/Scrollable",
 	"deliteful/ScrollableContainer",
 	"delite/tests/Scrollable-shared" // reuse the test cases from the tests of delite/Scrollable
-], function (dcl, registerSuite, assert, domClass, register, Widget, 
-	Scrollable, ScrollableContainer, ScrollableSharedTests) {
+], function (dcl, registerSuite, assert, register,
+	ScrollableContainer, ScrollableSharedTests) {
 	
 	// Note that the actual testing is done in ScrollableContainer-shared.
 	
-	var container, MyScrollableWidget, MyScrollableContainer;
+	var container, MyScrollableContainer;
 	/*jshint multistr: true */
 	var html = "<d-scrollable-container id='sc1' \
 			style='position: absolute; width: 200px; height: 200px;'> \
@@ -23,7 +20,6 @@ define([
 			</my-scrolable-container> \
 			<d-scrollable-container scrollDirection='none' id='sc2'> \
 			</d-scrollable-container>";
-
 	
 	// Markup use-case
 	
