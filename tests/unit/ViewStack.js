@@ -10,6 +10,16 @@ define([
 	var aaa, bbb, ccc, ddd;
 	var htmlContent = "<d-view-stack id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
 		"<div id='ddd'>DDD</div></d-view-stack>";
+
+	function checkNodeVisibility(vs, target) {
+		for (var i = 0; i < vs.children.length; i++) {
+			if ((vs.children[i] === target && vs.children[i].style.display !== "") ||
+				(vs.children[i] !== target && vs.children[i].style.display !== "none")) {
+				return false;
+			}
+		}
+		return true;
+	}
 	registerSuite({
 		name: "ViewStack",
 		setup: function () {
@@ -30,45 +40,84 @@ define([
 			assert.deepEqual(node.transition, "slide");
 			assert.deepEqual(node.reverse, false);
 		},
+		"Show null" : function () {
+			try {
+				node.show(null);
+			}
+			catch (error) {
+				assert.reject("show(null) should not crash.");
+			}
+		},
 		"Show (default)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, bbb));
+			}));
 			node.show(bbb);
-			assert.deepEqual(bbb.style.display, "");
 		},
 		"Show (no transition)" : function () {
+			// Shorter timing if no transition
+			var d = this.async(100);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, ccc));
+			}));
 			node.show(ccc, {transition: "none"});
-			assert.deepEqual(ccc.style.display, "");
 		},
 		"Show (reverse)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, ddd));
+			}));
 			node.show(ddd, {reverse: true});
-			assert.deepEqual(ddd.style.display, "");
 		},
 		"Show (reverse, no transition)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, aaa));
+			}));
 			node.show(aaa, {transition: "none", reverse: true});
-			assert.deepEqual(aaa.style.display, "");
 		},
 		"Show (reveal)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, bbb));
+			}));
 			node.show(bbb, {transition: "reveal", reverse: false});
-			assert.deepEqual(bbb.style.display, "");
 		},
 		"Show (reverse, reveal)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, ccc));
+			}));
 			node.show(ccc, {transition: "reveal", reverse: true});
-			assert.deepEqual(ccc.style.display, "");
 		},
 		"Show (flip)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, ddd));
+			}));
 			node.show(ddd, {transition: "flip", reverse: false});
-			assert.deepEqual(ddd.style.display, "");
 		},
 		"Show (reverse, flip)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, aaa));
+			}));
 			node.show(aaa, {transition: "flip", reverse: true});
-			assert.deepEqual(aaa.style.display, "");
 		},
 		"Show (fade)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, bbb));
+			}));
 			node.show(bbb, {transition: "fade", reverse: false});
-			assert.deepEqual(bbb.style.display, "");
 		},
 		"Show (reverse, fade)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				assert.isTrue(checkNodeVisibility(node, ccc));
+			}));
 			node.show(ccc, {transition: "slide", reverse: true});
-			assert.deepEqual(ccc.style.display, "");
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);

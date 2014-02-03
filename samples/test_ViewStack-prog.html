@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>View Stack</title>
+
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<style>
+		button {
+			width: 10em;
+		}
+		#vs > div {
+			font-size: 15em;
+			font-family: Helvetica;
+			text-align: center;
+			font-weight: bold;
+		}
+		#vs {
+			display: block;
+			width: 50%;
+			height: 300px;
+			border: 2px solid #000000;
+		}
+	</style>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ViewStack",
+			"deliteful/Button",
+			"dojo/domReady!"
+		], function(register, ViewStack){
+			var vs = new ViewStack({id: "vs"});
+			document.body.appendChild(vs);
+			var newChild = document.createElement("div");
+			newChild.innerHTML = "AAA";
+			newChild.style.backgroundColor = "orangered";
+			vs.addChild(newChild);
+			newChild = document.createElement("div");
+			newChild.innerHTML = "BBB";
+			newChild.style.backgroundColor = "orange";
+			vs.appendChild(newChild);
+			register.parse();
+		});
+	</script>
+</head>
+<body style="margin:2em;">
+<button is="d-button" onclick="vs.showPrevious();">Previous</button>
+<button is="d-button" onclick="vs.showNext();">Next</button>
+</body>
+</html>
