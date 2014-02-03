@@ -74,6 +74,16 @@ define(["dcl/dcl",
 
 			_timing: 0,
 
+			_setChildrenVisibility: function () {
+				var cdn = this.children;
+				if (!this._visibleChild && cdn.length > 0) {
+					this._visibleChild = cdn[0];
+				}
+				for (var i = 0; i < cdn.length; i++) {
+					setVisibility(cdn[i], cdn[i] === this._visibleChild);
+				}
+			},
+
 			preCreate: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
@@ -81,13 +91,11 @@ define(["dcl/dcl",
 						this._timing = this._transitionTiming[o];
 					}
 				}
+				this.on("DOMNodeInserted", this._setChildrenVisibility.bind(this));
 			},
 
 			buildRendering: function () {
-				// Keep visible the first child, hide others
-				for (var i = 1; i < this.children.length; i++) {
-					setVisibility(this.children[i], false);
-				}
+				this._setChildrenVisibility();
 			},
 
 			showNext: function (props) {
@@ -157,7 +165,9 @@ define(["dcl/dcl",
 						}
 					}, this._timing);
 				} else {
-					setVisibility(origin, false);
+					if (origin !== widget) {
+						setVisibility(origin, false);
+					}
 					deferred.resolve();
 				}
 
@@ -180,18 +190,16 @@ define(["dcl/dcl",
 					//		A promise that will be resolved when the display & transition effect will have been
 					//		performed.
 
-					if (!this._visibleChild) {
+					if (this._visibleChild && this._visibleChild.parentNode !== this) {
+						// The visible child has been removed.
+						this._visibleChild = null;
+					}
+					if (!this._visibleChild && this.children.length > 0) {
+						// The default visible child is the first one.
 						this._visibleChild = this.children[0];
 					}
-					return sup.apply(this, [dest, params]);
-				};
-			}),
-
-			addChild: dcl.superCall(function (sup) {
-				return function (/*HTMLElement*/ widget, /*jshint unused: vars */insertIndex) {
-					sup.apply(this, arguments);
-					if (this.children.length !== 1) {
-						setVisibility(widget, false);
+					if (dest && dest.parentNode === this) {
+						return sup.apply(this, [dest, params]);
 					}
 				};
 			}),
