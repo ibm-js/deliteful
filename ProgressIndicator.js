@@ -126,6 +126,8 @@ define([
 			//		Color parameter: Use same values as the color CSS property
 			this.linesNode.style.stroke = color; // text value color
 			this.labelNode.style.fill = color; // lines color
+			//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
+			this.labelNode.textContent = this.labelNode.textContent;
 		},
 
 		/* widget lifecycle methods */
