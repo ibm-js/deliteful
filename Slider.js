@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/connect",
 	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/sniff",
@@ -14,7 +13,7 @@ define([
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./Slider/themes/{{theme}}/Slider_css"
-], function (connect, lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
+], function (lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
 		keys, dpointer, on, register, FormValueWidget) {
 
 	// boolean feature test variable to decide if position() return attributes
