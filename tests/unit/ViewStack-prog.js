@@ -3,34 +3,26 @@ define([
 	"intern/chai!assert",
 	"dojo/dom-geometry",
 	"dojo/dom-class",
-	"delite/register",
 	"deliteful/ViewStack"
-], function (registerSuite, assert, domGeom, domClass, register) {
-	var container, node;
-	var aaa, bbb, ccc, ddd;
-	var htmlContent = "<d-view-stack id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
-		"<div id='ddd'>DDD</div></d-view-stack>";
+], function (registerSuite, assert, domGeom, domClass, ViewStack) {
+	var container, node, aaa, bbb, ccc, ddd;
 
 	function checkNodeVisibility(vs, target) {
 		for (var i = 0; i < vs.children.length; i++) {
 			assert.isTrue(
 				(vs.children[i] === target && vs.children[i].style.display !== "none") ||
-					(vs.children[i] !== target && vs.children[i].style.display === "none")
+				(vs.children[i] !== target && vs.children[i].style.display === "none")
 			);
 		}
 	}
 	registerSuite({
-		name: "ViewStack Markup",
+		name: "ViewStack Programmatic",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-			container.innerHTML = htmlContent;
-			register.parse(container);
-			node = document.getElementById("vs");
-			aaa = document.getElementById("aaa");
-			bbb = document.getElementById("bbb");
-			ccc = document.getElementById("ccc");
-			ddd = document.getElementById("ddd");
+			node = new ViewStack();
+			container.appendChild(node);
+			node.startup();
 		},
 		"Default CSS" : function () {
 			assert.isTrue(domClass.contains(node, "d-view-stack"));
@@ -46,6 +38,20 @@ define([
 			catch (error) {
 				assert.reject("show(null) should not crash.");
 			}
+		},
+		"First Child Visibility" : function () {
+			aaa = document.createElement("div");
+			node.appendChild(aaa);
+			checkNodeVisibility(node, aaa);
+			bbb = document.createElement("div");
+			ccc = document.createElement("div");
+			ddd = document.createElement("div");
+			node.appendChild(bbb);
+			checkNodeVisibility(node, aaa);
+			node.appendChild(ccc);
+			checkNodeVisibility(node, aaa);
+			node.appendChild(ddd);
+			checkNodeVisibility(node, aaa);
 		},
 		"Show (default)" : function () {
 			var d = this.async(1000);
