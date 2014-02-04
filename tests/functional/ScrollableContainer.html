@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
 
 	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
 		var scrollBy, onScroll, log, clearMsgArea;
 		require([
 			"delite/register",
@@ -77,6 +78,8 @@
 			clearMsgArea = function () {
 				document.getElementById("msgArea").innerHTML = "";
 			};
+			
+			ready = true;
 		});
 	</script>
 
@@ -107,7 +110,7 @@
 	<d-linear-layout style="height: 100%">
 		<d-linear-layout vertical="false">
 			<!-- Button to test the programmatic scroll API of ScrollableContainer -->
-			<button is="d-button" onclick="scrollBy();">
+			<button id="scrollButton" is="d-button" onclick="scrollBy();">
 				Scroll
 			</button>
 			<textarea id="msgArea" readonly class="fill"></textarea>
