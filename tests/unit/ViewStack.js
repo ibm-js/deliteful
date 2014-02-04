@@ -39,20 +39,19 @@ define([
 			assert.deepEqual(node.transition, "slide");
 			assert.deepEqual(node.reverse, false);
 		},
-		"Show null" : function () {
-			try {
-				node.show(null);
-			}
-			catch (error) {
-				assert.reject("show(null) should not crash.");
-			}
-		},
-		"Show (default)" : function () {
+		"Show (by widget)" : function () {
 			var d = this.async(1000);
 			node.on("delite-display-complete", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb);
+		},
+		"Show (by id)" : function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				checkNodeVisibility(node, aaa);
+			}));
+			node.show("aaa");
 		},
 		"Show (no transition)" : function () {
 			// Shorter timing if no transition
