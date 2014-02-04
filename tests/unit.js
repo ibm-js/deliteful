@@ -7,5 +7,9 @@ define(["./unit/LinearLayout1",
 		"./unit/SidePane.js",
 		"./unit/ViewStack.js",
 		"./unit/ViewStack-prog.js",
-		"./unit/ScrollableContainer"
+		"./unit/ScrollableContainer",
+		"./unit/list/List",
+		"./unit/list/DefaultStore",
+		"./unit/list/Selection",
+		"./unit/list/Categories"
 ]);
