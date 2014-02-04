@@ -31,14 +31,6 @@ define([
 			assert.deepEqual(node.transition, "slide");
 			assert.deepEqual(node.reverse, false);
 		},
-		"Show null" : function () {
-			try {
-				node.show(null);
-			}
-			catch (error) {
-				assert.reject("show(null) should not crash.");
-			}
-		},
 		"First Child Visibility" : function () {
 			aaa = document.createElement("div");
 			node.appendChild(aaa);

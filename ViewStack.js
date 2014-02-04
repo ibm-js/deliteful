@@ -121,14 +121,19 @@ define(["dcl/dcl",
 			},
 
 			performDisplay: function (widget, event) {
+				// Resolved when display is completed.
+				var deferred = new Deferred();
+
+				if (!widget || widget.parentNode !== this) {
+					deferred.resolve();
+					return deferred.promise;
+				}
+
 				var origin = this._visibleChild;
 
 				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
 				cleanCSS(origin);
 				cleanCSS(widget);
-
-				// Resolved when display is completed.
-				var deferred = new Deferred();
 
 				setVisibility(widget, true);
 				this._visibleChild = widget;
@@ -198,9 +203,7 @@ define(["dcl/dcl",
 						// The default visible child is the first one.
 						this._visibleChild = this.children[0];
 					}
-					if (dest && dest.parentNode === this) {
-						return sup.apply(this, [dest, params]);
-					}
+					return sup.apply(this, [dest, params]);
 				};
 			}),
 
