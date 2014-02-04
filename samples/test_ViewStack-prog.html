@@ -29,11 +29,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ViewStack",
 			"deliteful/Button",
 			"dojo/domReady!"
-		], function(register, ViewStack){
+		], function(ViewStack){
 			var vs = new ViewStack({id: "vs"});
 			document.body.appendChild(vs);
 			var newChild = document.createElement("div");
@@ -44,7 +43,7 @@
 			newChild.innerHTML = "BBB";
 			newChild.style.backgroundColor = "orange";
 			vs.appendChild(newChild);
-			register.parse();
+			vs.startup();
 		});
 	</script>
 </head>
