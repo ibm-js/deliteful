@@ -5,13 +5,13 @@ define([
 	"dojo/_base/window",
 	"dojo/sniff",
 	"delite/register",
-	"delite/Container",
+	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/Deferred",
 	/*jshint maxlen: 150*/
 	"dojo/has!dojo-bidi?delite/themes/load!./SidePane/themes/{{theme}}/SidePane_rtl_css:delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"
 ],
-	function (dcl, pointer, domClass, win, has, register, Container, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, win, has, register, Widget, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -31,7 +31,7 @@ define([
 			return node;
 		}
 
-		return register("d-side-pane", [HTMLElement, Container, Invalidating], {
+		return register("d-side-pane", [HTMLElement, Widget, Invalidating], {
 
 			// summary:
 			//		A container displayed on the side of the screen. It can be displayed on top of the page
