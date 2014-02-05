@@ -4,7 +4,7 @@ define([
 	"intern/chai!assert",
 	"delite/register",
 	"deliteful/ScrollableContainer",
-	"delite/tests/Scrollable-shared" // reuse the test cases from the tests of delite/Scrollable
+	"delite/tests/unit/resources/Scrollable-shared" // reuse the test cases from the tests of delite/Scrollable
 ], function (dcl, registerSuite, assert, register,
 	ScrollableContainer, ScrollableSharedTests) {
 	
@@ -24,7 +24,7 @@ define([
 	// Markup use-case
 	
 	var suite = {
-		name: "delite/ScrollableContainer: markup",
+		name: "deliteful/ScrollableContainer: markup",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -46,7 +46,7 @@ define([
 	// Programatic creation 
 	
 	suite = {
-		name: "delite/ScrollableContainer: programatic",
+		name: "deliteful/ScrollableContainer: programatic",
 		setup: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
