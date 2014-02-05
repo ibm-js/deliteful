@@ -41,13 +41,13 @@ rtl and a11y.
 				if (params.dir) {
 					eltName = "rbDir" + params.dir.charAt(0).toUpperCase() +  params.dir.slice(1);
 				} else {
-					eltName = "rbDirAuto";
+					eltName = "rbDirLtr";
 				}
 				document.getElementById(eltName).checked = true;
 				if (params.a11y) {
 					eltName = "rbA11yEnable";
 				} else {
-					eltName = "rbA11yAuto";
+					eltName = "rbA11yDisable";
 				}
 				document.getElementById(eltName).checked = true;
 			}
@@ -82,10 +82,10 @@ rtl and a11y.
 				if (theme !== "auto") {
 					query = "?theme=" + theme;
 				}
-				if (bidi !== "auto") {
+				if (bidi !== "ltr") {
 					query = query + ((query.length === 0)?"?":"&") + "dir=" + bidi;
 				}
-				if (a11y !== "auto") {
+				if (a11y !== "disable") {
 					query = query + ((query.length === 0)?"?":"&") + "a11y=true";
 				}
 				loc.replace(loc.pathname.substring(loc.pathname.lastIndexOf("/") + 1) + query);
@@ -123,17 +123,14 @@ rtl and a11y.
 		<input type="radio" name="rbTheme" id="rbThemeBootstrap" 	value="bootstrap"><label for="rbThemeBootstrap">Bootstrap</label><br>
 		<input type="radio" name="rbTheme" id="rbThemeIos" 			value="ios"><label for="rbThemeIOS">iOS</label><br>
 		<input type="radio" name="rbTheme" id="rbThemeHolodark" 	value="holodark"><label for="rbThemeHolodark">Holodark</label><br>
-		<input type="radio" name="rbTheme" id="rbThemeWindows" 		value="windows"><label for="rbThemeWindows">Windows</label><br>
-		<input type="radio" name="rbTheme" id="rbThemeBlackberry" 	value="blackberry"><label for="rbThemeBlackberry">BlackBerry</label><br>
 	</div>
 	<div class="themeSelectorCols">
 		<strong>Bibi</strong><br>
-		<input type="radio" name="rbDir" id="rbDirAuto"	value="auto"><label for="rbDirAuto">Auto detect</label><br>
 		<input type="radio" name="rbDir" id="rbDirLtr"	value="ltr"><label for="rbDirLtr">LTR</label><br>
 		<input type="radio" name="rbDir" id="rbDirRtl"	value="rtl"><label for="rbDirRtl">RTL</label><br>
 		<hr>
 		<strong>a11y</strong><br>
-		<input type="radio" name="rbA11y" id="rbA11yAuto"	value="auto" checked="true"><label for="rbA11yAuto">Auto detect</label><br>
+		<input type="radio" name="rbA11y" id="rbA11yDisable"	value="disable" checked="true"><label for="rbA11yDisable">disable</label><br>
 		<input type="radio" name="rbA11y" id="rbA11yEnable"	value="enable"><label for="rbA11yEnable">enable</label><br>
 	</div>
 	<hr>
