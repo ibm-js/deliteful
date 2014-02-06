@@ -27,22 +27,29 @@ define(["dcl/dcl",
 		//		the renderer child that currently has the focus (null if no child has the focus)
 		_focusedChild: null,
 
+		/*=====
+		// renderNode: DOMNode
+		//		the dom node within which the rendering will occur.
+		renderNode: null,
+		=====*/
+
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: function () {
 			// summary:
-			//		set Aria attributes.
+			//		set containerNode and Aria attributes.
 			// tags:
 			//		protected
+			this.containerNode = this;
 			this.setAttribute("role", "listitem");
 		},
 
 		/*=====
 		 render: function () {
 			// summary:
-			// 		render the item or category inside the containerNode of the renderer.
+			// 		render the item or category inside the renderNode of the renderer.
 			// tags:
-			//		protected extension
+			//		protected abstract
 		 },
 		 =====*/
 
@@ -58,39 +65,18 @@ define(["dcl/dcl",
 			//		they are focusable using keyboard navigation.
 			// tags:
 			//		protected
-			var i, node, that = this;
+			var that = this;
 			var focusHandler = function () {
 				that._focusedChild = this;
 			};
 			this._focusableChildren = [];
 			this._focusedChild = null;
-			for (i = 0; i < arguments.length; i++) {
-				node = arguments[i];
+			for (var i = 0; i < arguments.length; i++) {
+				var node = arguments[i];
 				if (node) {
-					// this value will then be returned by _getNextFocusableChild
-					// and processed by delite/KeyNav, that needs a proper delite/Widget
-					// value for the child.
-					register.dcl.mix(node, new Widget());
 					node.onfocus = focusHandler;
 					this._focusableChildren.push(node);
 				}
-			}
-		},
-
-		destroy: function () {
-			// summary:
-			//		Destroy the widget.
-			// tags:
-			//		protected
-			var i;
-			this._focusedChild = null;
-			if (this._focusableChildren) {
-				for (i = 0; i < this._focusableChildren.length; i++) {
-					if (this._focusableChildren[i]) {
-						this._focusableChildren[i].destroy();
-					}
-				}
-				this._focusableChildren = null;
 			}
 		},
 

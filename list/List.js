@@ -11,11 +11,11 @@ define(["dcl/dcl",
 	"delite/Scrollable",
 	"./ItemRenderer",
 	"./CategoryRenderer",
-	"dojo/i18n!./List/nls/List",
+	"./_DefaultStore",
 	"delite/themes/load!./List/themes/{{theme}}/List_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, lang, when, domClass, keys, Selection, KeyNav, StoreMap,
-		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, messages) {
+		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore) {
 
 	// module:
 	//		deliteful/list/List
@@ -82,7 +82,7 @@ define(["dcl/dcl",
 		//				function (register, ItemRenderer) {
 		//					var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 		//						render: function () {
-		//							this.containerNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
+		//							this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
 		//							this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
 		//						}
 		//					});
@@ -165,11 +165,11 @@ define(["dcl/dcl",
 		//			list.selectionMode = "multiple";
 		//
 		//		When the selection mode is "single", a click or tap on a item (or a press on the ENTER or SPACE key
-		//		when an item got the focus) select it and deselect any previously selected item. When the selection
-		//		mode is "multiple", a click or tap on an item (or a press on the ENTER or SPACE key when an item got
+		//		when an item has the focus) select it and deselect any previously selected item. When the selection
+		//		mode is "multiple", a click or tap on an item (or a press on the ENTER or SPACE key when an item has
 		//		the focus) toggle its selected state.
 		//
-		//		When the current selection change, a "selection-change" event is emitted. Its oldValue attribute
+		//		When the current selection changes, a "selection-change" event is emitted. Its oldValue attribute
 		//		contains the previous selection, and its newValue attribute contains the new selection.
 		//
 		//		the d-selected CSS class is applied to items currently selected in the list, so you can define your
@@ -177,14 +177,14 @@ define(["dcl/dcl",
 		//
 		//		## Keyboard navigation
 		//
-		//		The List widget uses delite/KeyNav to provide keyboard navigation. When the widget got the focus with
-		//		keyboard navigation, the first item displayed at the top of the scroll viewport got the focus.
-		//		The list items can then be navigated using the UP and DOWN arrow key, and the List will scroll
+		//		The List widget uses delite/KeyNav to provide keyboard navigation. When the widget gets focus via
+		//		keyboard navigation, the first item displayed at the top of the scroll viewport is focused.
+		//		The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
 		//		accordingly when you reach the top or the bottom of the scroll viewport. You can also search for items
-		//		by typing a word on the keyboard, and the first item which label begins with the word will get
-		//		the focus. When a List item got the focus, you can also use the LEFT and RIGHT keys to navigate
-		//		within it. Pressing the UP or ARROW key again with set the focus back to the item. While navigating
-		//		within the item, you can also type words on the keyboard to search for text labels (for example to
+		//		by typing letters on the keyboard, and the first item whose label begins with the letters will get
+		//		the focus. When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
+		//		within it. Pressing the UP or ARROW key again will set the focus back to the item. While navigating
+		//		within the item, you can also type letters on the keyboard to search for text labels (for example to
 		//		move from left to right label).
 		//
 		//		## Styling
@@ -207,18 +207,14 @@ define(["dcl/dcl",
 		// query: Object
 		//		Query to pass to the store to retrieve the items to render in the list.
 		query: {},
-
-		// queryOptions: dojo/store/api/Store.QueryOptions?
-		//		Options to be applied when querying the store.
-		queryOptions: null,
 		=====*/
 
-		// itemRenderer: deliteful/list/ItemRenderer subclass
+		// itemRenderer: deliteful/list/ItemRenderer
 		//		The widget class to use to render list items.
 		//		It MUST extend deliteful/list/ItemRenderer.
 		itemRenderer: ItemRenderer,
 
-		// categoryRenderer: deliteful/list/CategoryRenderer subclass
+		// categoryRenderer: deliteful/list/CategoryRenderer
 		//		The widget class to use to render category headers when the list items are categorized.
 		//		It MUST extend deliteful/list/CategoryRenderer.
 		categoryRenderer: CategoryRenderer,
@@ -241,12 +237,6 @@ define(["dcl/dcl",
 		//		- "d-list" (default): render a list with no rounded corners and no left and right margins;
 		//		- "d-round-rect-list": render a list with rounded corners and left and right margins.
 		baseClass: "d-list",
-		_setBaseClassAttr: function (value) {
-			if (this.baseClass !== value) {
-				domClass.replace(this, value, this.baseClass);
-				this._set("baseClass", value);
-			}
-		},
 
 		/*=====
 		// scrollDirection: String
@@ -256,7 +246,7 @@ define(["dcl/dcl",
 		_setScrollDirectionAttr: function (value) {
 			if (value === "horizontal") {
 				this.scrollDirection = "none";
-				throw new Error(messages["horizontal-scroll-not-supported"]);
+				throw new Error("'horizontal' not supported for scrollDirection, reverting to 'none'");
 			} else {
 				this._set("scrollDirection", value);
 			}
@@ -308,7 +298,6 @@ define(["dcl/dcl",
 			this.containerNode = this;
 			// Aria attributes
 			this.setAttribute("role", "list");
-			this.setAttribute("aria-label", messages["aria-label"]);
 		},
 
 		createdCallback: dcl.superCall(function (sup) {
@@ -320,102 +309,9 @@ define(["dcl/dcl",
 				if (sup) {
 					sup.apply(this, arguments);
 				}
-				var list = this;
 				if (!this.store) {
-					this.store = {
-						data: [],
-						_ids: [],
-						idProperty: "id",
-						_queried: false,
-						get: function (id) {
-							var index = this._ids.indexOf(id);
-							if (index >= 0) {
-								return this.data[index];
-							}
-						},
-						query: function (query, options) {
-							var results;
-							if (options && (options.start || options.count)) {
-								results = this.data.slice(options.start || 0,
-										(options.start || 0) + (options.count || Infinity));
-							} else {
-								results = this.data.slice();
-							}
-							results.total = this.data.length;
-							this._queried = true;
-							return results;
-						},
-						getIdentity: function (item) {
-							return item[this.idProperty];
-						},
-						put: function (item, options) {
-							var beforeIndex = -1;
-							var itemBeforeUpdate;
-							var id = item[this.idProperty] = (options && "id" in options)
-								? options.id : this.idProperty in item ? item[this.idProperty] : Math.random();
-							var existingIndex = this._ids.indexOf(id);
-							if (options && options.before) {
-								if (this.idProperty in options.before) {
-									beforeIndex = this._ids.indexOf(options.before[this.idProperty]);
-								} else {
-									beforeIndex = this.data.indexOf(options.before);
-								}
-							}
-							if (existingIndex >= 0) {
-								// item exists in store
-								if (options && options.overwrite === false) {
-									throw new Error(messages["exception-item-already-exists"]);
-								}
-								// update the item
-								itemBeforeUpdate = this.data[existingIndex];
-								this.data[existingIndex] = item;
-								if (beforeIndex >= 0 && beforeIndex !== existingIndex) {
-									// move the item
-									this.data.splice(beforeIndex, 0, this.data.splice(existingIndex, 1)[0]);
-									this._ids.splice(beforeIndex, 0, this._ids.splice(existingIndex, 1)[0]);
-									if (this._queried) {
-										list.removeItem(existingIndex,
-												list.itemToRenderItem(itemBeforeUpdate), null, true);
-										list.addItem(beforeIndex, list.itemToRenderItem(item), null);
-									}
-								} else {
-									if (this._queried) {
-										list.putItem(existingIndex, list.itemToRenderItem(item), null);
-									}
-								}
-							} else {
-								// new item to add to store
-								if (beforeIndex >= 0) {
-									this.data.splice(beforeIndex, 0, item);
-									this._ids.splice(beforeIndex, 0, id);
-								} else {
-									this.data.push(item);
-									this._ids.push(id);
-								}
-								if (this._queried) {
-									list.addItem(beforeIndex >= 0 ? beforeIndex : this.data.length - 1,
-											list.itemToRenderItem(item), null);
-								}
-							}
-							return id;
-						},
-						add: function (item, options) {
-							var opts = options || {};
-							opts.overwrite = false;
-							return this.put(item, opts);
-						},
-						remove: function (id) {
-							var index = this._ids.indexOf(id), item;
-							if (index >= 0 && index < this.data.length) {
-								item = this.data.splice(index, 1)[0];
-								this._ids.splice(index, 1);
-								if (this._queried) {
-									list.removeItem(index, list.itemToRenderItem(item), null, false);
-								}
-								return true;
-							}
-						}
-					};
+					// TODO: should the store reference to the list be removed in destroy ?
+					this.store = new DefaultStore(this);
 				}
 			};
 		}),
@@ -483,7 +379,7 @@ define(["dcl/dcl",
 							&& (props.categoryAttr || props.categoryFunc || props.categoryRenderer))) {
 					if (this._started) {
 						this._setBusy(true);
-						props.store = true; // to toggle a reload of the list.
+						props.store = true; // to trigger a reload of the list.
 					}
 				}
 				if (sup) {
@@ -494,14 +390,12 @@ define(["dcl/dcl",
 
 		//////////// Public methods ///////////////////////////////////////
 
-		getRendererByItem: function (/*Object*/item) {
+		getRendererByItemId: function (/*Object*/id) {
 			// summary:
-			//		Returns the renderer currently displaying a specific item.
-			//		This method uses the getIdentity method to compare items.
-			// item: Object
-			//		The item displayed by the renderer.
+			//		Returns the renderer currently displaying an item with a specific id.
+			// id: Object
+			//		The id of the item displayed by the renderer.
 			var renderers = this.containerNode.querySelectorAll("." + this._cssClasses.item);
-			var id = this.getIdentity(item);
 			var renderer, i;
 			for (i = 0; i < renderers.length; i++) {
 				renderer = renderers.item(i);
@@ -554,7 +448,7 @@ define(["dcl/dcl",
 				}
 				currentNode = currentNode.parentNode;
 			}
-			return currentNode ? currentNode : null; // Widget
+			return currentNode; // Widget
 		},
 
 		//////////// delite/Selection implementation ///////////////////////////////////////
@@ -576,11 +470,10 @@ define(["dcl/dcl",
 			//		The items which renderers must be updated.
 			// tags:
 			//		protected
-			var i = 0, currentItem, renderer;
 			if (this.selectionMode !== "none") {
-				for (; i < items.length; i++) {
-					currentItem = items[i];
-					renderer = this.getRendererByItem(currentItem);
+				for (var i = 0; i < items.length; i++) {
+					var currentItem = items[i];
+					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
 						domClass.toggle(renderer, "d-selected", this.isSelected(currentItem));
 					}
@@ -596,7 +489,7 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			var item, itemSelected, eventRenderer, oldSelection;
-			eventRenderer = this.getEnclosingRenderer(event.target || event.srcElement);
+			eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
 				item = eventRenderer.item;
 				if (item) {
@@ -626,22 +519,16 @@ define(["dcl/dcl",
 			//		recursive processing.
 			// tags:
 			//		private
-			var i, len, child, tagName;
-			if (node.childNodes.length > 1) {
-				len = node.childNodes.length;
-				for (i = 0; i < len; i++) {
-					child = node.firstChild;
-					if (child) {
-						tagName = child.tagName;
-						if (tagName && tagHandlers[tagName]) {
-							tagHandlers[tagName].call(this, child);
-						}
-						if (child.destroy) {
-							child.destroy();
-						} else {
-							child.parentNode.removeChild(child);
-						}
-					}
+			var child;
+			while ((child = node.firstChild)) {
+				var tagName = child.tagName;
+				if (tagName && tagHandlers[tagName]) {
+					tagHandlers[tagName].call(this, child);
+				}
+				if (child.destroy) {
+					child.destroy();
+				} else {
+					child.parentNode.removeChild(child);
 				}
 			}
 		},
@@ -710,7 +597,7 @@ define(["dcl/dcl",
 			//		A DocumentFragment that contains the renderers.
 			var currentIndex = fromIndex,
 				currentItem, toIndex = fromIndex + count - 1;
-			var documentFragment = document.createDocumentFragment();
+			var documentFragment = this.ownerDocument.createDocumentFragment();
 			for (; currentIndex <= toIndex; currentIndex++) {
 				currentItem = items[currentIndex];
 				if (this._isCategorized()
@@ -924,7 +811,7 @@ define(["dcl/dcl",
 			//		Set to true if the item should not be removed from the list of selected items.
 			// tags:
 			//		protected
-			var renderer = this.getRendererByItem(item);
+			var renderer = this.getRendererByItemId(this.getIdentity(item));
 			if (renderer) {
 				this._removeRenderer(renderer, keepSelection);
 			}
@@ -988,7 +875,7 @@ define(["dcl/dcl",
 				(clientRect.bottom - clientRect.top);
 		},
 
-		//////////// Keyboard navigation (KeyNav implementation) ///////////////////////////////////////
+		//////////// Keyboard navigation (delite/KeyNav implementation) ///////////////////////////////////////
 
 		_onContainerKeydown: dcl.before(function (evt) {
 			// summary:
@@ -1131,7 +1018,7 @@ define(["dcl/dcl",
 
 		_getFocusedRenderer: function () {
 			// summary:
-			//		Returns the renderer that currently got the focused or is
+			//		Returns the renderer that currently has the focused or is
 			//		an ancestor of the focused node.
 			// tags:
 			//		private

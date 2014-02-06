@@ -70,7 +70,7 @@ define(["delite/register", "deliteful/list/ItemRenderer"],
 	function (register, ItemRenderer) {
 		var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 			render: function () {
-				this.containerNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
+				this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
 				this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
 			}
 		});
@@ -173,7 +173,7 @@ require([
 ], function (register, CategoryRenderer) {
 	var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 		render: function () {
-			this.containerNode.innerHTML = "<div class='categoryName'>" + this.category + "</div><div class='categoryLink'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
+			this.renderNode.innerHTML = "<div class='categoryName'>" + this.category + "</div><div class='categoryLink'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
 			this.setFocusableChildren(this.querySelector(".categoryName"),  this.querySelector(".categoryLink"));
 		}
 	});
@@ -205,11 +205,11 @@ list.selectionMode = "multiple";
 TODO: INSERT SCREENSHOT(S) HERE
 
 When the selection mode is `"single"`, a click or tap on a item (or a press on the ENTER or SPACE key
-when an item got the focus) select it and de-select any previously selected item. When the selection
-mode is `"multiple"`, a click or tap on an item (or a press on the ENTER or SPACE key when an item got
+when an item has the focus) select it and de-select any previously selected item. When the selection
+mode is `"multiple"`, a click or tap on an item (or a press on the ENTER or SPACE key when an item has
 the focus) toggle its selected state.
 
-When the current selection change, a `"selection-change"` event is emitted. Its `oldValue` attribute
+When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` attribute
 contains the previous selection, and its `newValue` attribute contains the new selection.
 
 The `d-selected` CSS class is applied to items currently selected in the list, so you can define your
@@ -217,14 +217,14 @@ own CSS rules to easily customize how selected items are rendered.
 
 ## Keyboard navigation
 
-The List widget uses [delite/KeyNav]() to provide keyboard navigation. When the widget got the focus with
-keyboard navigation, the first item displayed at the top of the scroll viewport got the focus.
-The list items can then be navigated using the UP and DOWN arrow key, and the List will scroll
+The List widget uses [delite/KeyNav]() to provide keyboard navigation. When the widget get focus via
+keyboard navigation, the first item displayed at the top of the scroll viewport is focused.
+The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
 accordingly when you reach the top or the bottom of the scroll viewport. You can also search for items
-by typing a word on the keyboard, and the first item which label begins with the word will get
-the focus. When a List item got the focus, you can also use the LEFT and RIGHT keys to navigate
-within it. Pressing the UP or ARROW key again with set the focus back to the item. While navigating
-within the item, you can also type words on the keyboard to search for text labels (for example to
+by typing letters on the keyboard, and the first item whose label begins with the letters will get
+the focus. When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
+within it. Pressing the UP or ARROW key again will set the focus back to the item. While navigating
+within the item, you can also type letters on the keyboard to search for text labels (for example to
 move from left to right label).
 
 ## Styling

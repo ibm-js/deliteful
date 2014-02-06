@@ -6,7 +6,7 @@ define(["dcl/dcl",
 	// module:
 	//		deliteful/list/ItemRenderer
 
-	var ItemRenderer = dcl([Renderer], {
+	var ItemRenderer = dcl(Renderer, {
 		// summary:
 		//		Default item renderer for the deliteful/list/List widget.
 		//
@@ -41,27 +41,24 @@ define(["dcl/dcl",
 		//		so it must not be changed.
 		baseClass: "d-list-item",
 
-
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: dcl.superCall(function (sup) {
 			// summary:
-			//		Create the widget container node, into which an item will be rendered.
+			//		Create the widget render node (this.renderNode), into which an item will be rendered.
 			// tags:
 			//		protected
 			return function () {
-				if (sup) {
-					sup.apply(this, arguments);
-				}
-				this.containerNode = register.createElement("div");
-				this.containerNode.className = "d-list-item-node";
-				this.appendChild(this.containerNode);
+				sup.apply(this, arguments);
+				this.renderNode = this.ownerDocument.createElement("div");
+				this.renderNode.className = "d-list-item-node";
+				this.appendChild(this.renderNode);
 			};
 		}),
 
 		render: function () {
 			// summary:
-			//		render the item inside this.containerNode.
+			//		render the item inside this.renderNode.
 			// item: Object
 			//		The item to render.
 			// tags:
@@ -95,14 +92,14 @@ define(["dcl/dcl",
 			var nodeTag = (nodeType === "text" ? "DIV" : "IMG");
 			if (data) {
 				if (!this[nodeName]) {
-					this[nodeName] = register.createElement(nodeTag);
+					this[nodeName] = this.ownerDocument.createElement(nodeTag);
 					this[nodeName].id = this.id + nodeName;
 					this[nodeName].className = nodeClass;
 					this[nodeName].tabIndex = -1;
-					if (this.containerNode.firstChild) {
-						this.containerNode.insertBefore(this[nodeName], this.containerNode.firstChild);
+					if (this.renderNode.firstChild) {
+						this.renderNode.insertBefore(this[nodeName], this.renderNode.firstChild);
 					} else {
-						this.containerNode.appendChild(this[nodeName]);
+						this.renderNode.appendChild(this[nodeName]);
 					}
 				}
 				if (this[nodeName].getAttribute(dataAttribute) !== data) {

@@ -6,7 +6,7 @@ define(["dcl/dcl",
 	// module:
 	//		deliteful/list/CategoryRenderer
 
-	var CategoryRenderer = dcl([Renderer], {
+	var CategoryRenderer = dcl(Renderer, {
 		// summary:
 		//		Default category renderer for the deliteful/list/List widget.
 		//
@@ -32,22 +32,18 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			return function () {
-				if (sup) {
-					sup.apply(this, arguments);
-				}
-				this.containerNode = this;
+				sup.apply(this, arguments);
+				this.renderNode = this;
 				this.style.display = "block";
 			};
 		}),
 
 		render: function () {
 			// summary:
-			//		render the category inside this.containerNode.
-			// item: Object
-			//		The category to render.
+			//		render the category of the item inside this.renderNode.
 			// tags:
 			//		protected
-			this.containerNode.innerHTML = this.category;
+			this.renderNode.innerHTML = this.category;
 		}
 
 	});

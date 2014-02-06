@@ -1,9 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List",
-	"dojo/i18n!deliteful/list/List/nls/List"
-], function (registerSuite, assert, List, listMessages) {
+	"deliteful/list/List"
+], function (registerSuite, assert, List) {
 
 	var list = null;
 
@@ -14,6 +13,7 @@ define([
 				list.destroy();
 			}
 			list = new List();
+			document.body.appendChild(list);
 			list.startup();
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
@@ -32,7 +32,9 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.equal(error.message, listMessages["horizontal-scroll-not-supported"], "error message");
+				assert.equal(error.message,
+						"'horizontal' not supported for scrollDirection, reverting to 'none'",
+						"error message");
 				assert.equal(list.scrollDirection, "none");
 			}
 		},
@@ -53,12 +55,12 @@ define([
 			}), 0);
 			return dfd;
 		},
-		"getRendererByItem": function () {
+		"getRendererByItemId": function () {
 			var children = list.getChildren();
-			assert.equal(list.getRendererByItem(list.store.data[0]), children[0], "first renderer");
-			assert.equal(list.getRendererByItem(list.store.data[1]), children[1], "second renderer");
-			assert.equal(list.getRendererByItem(list.store.data[2]), children[2], "third renderer");
-			assert.isNull(list.getRendererByItem({label: "I do not exist"}), "non list item");
+			assert.equal(list.getRendererByItemId(list.store.data[0].id), children[0], "first renderer");
+			assert.equal(list.getRendererByItemId(list.store.data[1].id), children[1], "second renderer");
+			assert.equal(list.getRendererByItemId(list.store.data[2].id), children[2], "third renderer");
+			assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
 		},
 		"getItemRendererIndex": function () {
 			var children = list.getChildren();
@@ -108,21 +110,23 @@ define([
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].getChildren()[0].innerHTML, "item a");
+			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
 		"update item: add and remove icon" : function () {
 			list.store.put({label: "item a", icon: "../../images/plus.gif"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].getChildren()[0].className, "d-list-item-icon");
-			assert(children[0].getChildren()[0].src.match(/images\/plus.gif$/));
-			assert.equal(children[0].getChildren()[1].className, "d-list-item-label");
-			assert.equal(children[0].getChildren()[1].innerHTML, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon");
+			assert(children[0].firstChild.firstChild.src.match(/images\/plus.gif$/));
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
+			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].getChildren()[0].className, "d-list-item-label");
-			assert.equal(children[0].getChildren()[0].innerHTML, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-label");
+			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
 		"item category attribute is not undefined by StoreMap": function () {
 			list.destroy();

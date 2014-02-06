@@ -2,9 +2,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"deliteful/list/List",
-	"dojo/i18n!deliteful/list/List/nls/List"
-], function (registerSuite, assert, register, List, listMessages) {
+	"deliteful/list/List"
+], function (registerSuite, assert, register, List) {
 
 	var MockList = register("mock-list", [List], {
 		put: null,
@@ -142,7 +141,7 @@ define([
 				list.store.add({id: 1, label: "bar"});
 				assert.fail("exception was expected");
 			} catch (e) {
-				assert.equal(e.message, listMessages["exception-item-already-exists"]);
+				assert.equal(e.message, "Item already exists");
 			}
 		},
 		"get" : function () {

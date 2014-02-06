@@ -18,7 +18,7 @@
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 				render: function () {
-					this.containerNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
+					this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
 					this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
 				}
 			});
