@@ -2,14 +2,14 @@ define(function(){ return '\
 /********************************/\
 /* iOS theme for all Lists      */\
 /*                              */\
-/* IMPORTANT: a renderer MUST       */\
+/* IMPORTANT: a renderer MUST   */\
 /* have the same height (inc.   */\
 /* borders) whatever its index  */\
 /* in the list !                */\
 /********************************/\
 .d-list-category {\
+  /* Edit display at your own risk */\
   display: block;\
-  /* Edit at your own risk */\
   position: relative;\
   margin: 0;\
   padding: 0 10px;\
@@ -30,7 +30,7 @@ define(function(){ return '\
 }\
 .d-list-item {\
   overflow: hidden;\
-  /* for focus frame */\
+  /* padding for focus frame */\
   padding: 0 8px;\
   list-style-type: none;\
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\
@@ -125,11 +125,12 @@ define(function(){ return '\
 /* in the list !               */\
 /*******************************/\
 .d-round-rect-list {\
+  /* edit display at your own risk */\
   display: block;\
-  /* edit at your own risk */\
+  /* position needed for moving list items in editable mode: do not edit */\
   position: relative;\
-  /* needed for moving list items in editable mode: do not edit */\
-  margin: 0 9px !important;\
+  /* Do not change this margin setting when customizing list in the app css */\
+  margin: 0 9px;\
   padding: 0;\
   overflow-x: hidden;\
   overflow-y: hidden;\
@@ -140,8 +141,8 @@ define(function(){ return '\
 }\
 .d-round-rect-list > *:last-child {\
   border-bottom-width: 0;\
+  /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-  /* to compensate the fact that the bottom width is 0 instead of 1 */\
   border-bottom-left-radius: 8px;\
   border-bottom-right-radius: 8px;\
 }\
@@ -159,19 +160,20 @@ define(function(){ return '\
 /* in the list !                */\
 /********************************/\
 .d-list {\
+  /* edit display at your own risk */\
   display: block;\
-  /* edit at your own risk */\
+  /* position needed for moving list items in editable mode: do not edit */\
   position: relative;\
-  /* needed for moving list items in editable mode: do not edit */\
   padding: 0;\
-  margin: 0 !important;\
+  /* Do not change this margin setting when customizing list in the app css*/\
+  margin: 0;\
   overflow-x: hidden;\
   overflow-y: hidden;\
 }\
 .d-list > *:last-child {\
   border-bottom-width: 0;\
+  /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-  /* to compensate the fact that the bottom width is 0 instead of 1 */\
 }\
 .d-list > .d-selected {\
   color: #ffffff;\
