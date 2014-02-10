@@ -348,9 +348,7 @@ define(["dcl/dcl",
 					}});
 				}});
 				this._setBusy(true);
-				this.on("query-error", lang.hitch(this, function () {
-					this._setBusy(false);
-				}));
+				this.on("query-error", (function () { this._setBusy(false); }).bind(this));
 				if (sup) {
 					sup.call(this, arguments);
 				}
