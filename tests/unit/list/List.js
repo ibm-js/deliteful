@@ -112,15 +112,24 @@ define([
 			assert.equal(children[0].item.label, "item a");
 			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
-		"update item: add and remove icon" : function () {
-			list.store.put({label: "item a", icon: "../../images/plus.gif"}, {id: list.store.data[0].id});
+		"update item: add, update and remove icon" : function () {
+			// add
+			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
 			assert.equal(children[0].firstChild.className, "d-list-item-node");
-			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon");
-			assert(children[0].firstChild.firstChild.src.match(/images\/plus.gif$/));
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-icon");
 			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
 			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
+			// update
+			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
+			children = list.getChildren();
+			assert.equal(children[0].item.label, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-other-icon");
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
+			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
+			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");

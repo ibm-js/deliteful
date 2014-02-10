@@ -2,7 +2,7 @@ define(["dcl/dcl",
         "delite/register",
         "./Renderer"
 ], function (dcl, register, Renderer) {
-	
+
 	// module:
 	//		deliteful/list/ItemRenderer
 
@@ -13,16 +13,19 @@ define(["dcl/dcl",
 		// description:
 		//		This renderer renders generic items that can have any of the following attributes (display
 		//		position of the rendering described for LTR direction) :
-		//		- icon: path to an image to render as an icon on the left side of the list item.
-		//				Rendered with CSS class d-list-item-icon;
+		//		- iconclass: css class to apply to a DIV element on the left side of the list item in order
+		//				to display an icon.
+		//				Rendered with CSS class d-list-item-icon + the value of the attribute;
 		//		- label: string to render on the left side of the node, after the icon.
 		//				Rendered with CSS class d-list-item-label;
 		//		- righttext: string to render of the right side if the node.
 		//				Rendered with CSS class d-list-item-right-text;
-		//		- righticon2: path to an image to render as icon on the right side, after the right text. 
-		//				Rendered with CSS class d-list-item-right-icon2;
-		//		- righticon: path to an image to render as icon on the right side, after righticon2. 
-		//				Rendered with CSS class d-list-item-right-icon;
+		//		- righticon2class: css class to apply to a DIV element on the right side of the list item
+		//				in order to display an icon.
+		//				Rendered with CSS class d-list-item-right-icon2 + the value of the attribute;
+		//		- righticonclass: css class to apply to a DIV element on the right side of the list item,
+		//				after the DIV element styled with righticon2class, in order to display an icon. 
+		//				Rendered with CSS class d-list-item-right-icon + the value of the attribute;
 		//		All the nodes that renders the attributes are focusable with keyboard navigation (using left and
 		//		right arrows).
 
@@ -63,11 +66,16 @@ define(["dcl/dcl",
 			//		The item to render.
 			// tags:
 			//		protected
-			this._renderNode("text", "labelNode", this.item ? this.item.label : null, "d-list-item-label");
-			this._renderNode("image", "iconNode", this.item ? this.item.icon : null, "d-list-item-icon");
-			this._renderNode("text", "righttext", this.item ? this.item.righttext : null, "d-list-item-right-text");
-			this._renderNode("image", "righticon2", this.item ? this.item.righticon2 : null, "d-list-item-right-icon2");
-			this._renderNode("image", "righticon", this.item ? this.item.righticon : null, "d-list-item-right-icon");
+			this._renderNode("text", "labelNode",
+					this.item ? this.item.label : null, "d-list-item-label");
+			this._renderNode("icon", "iconNode",
+					this.item ? this.item.iconclass : null, "d-list-item-icon");
+			this._renderNode("text", "righttext",
+					this.item ? this.item.righttext : null, "d-list-item-right-text");
+			this._renderNode("icon", "righticon2",
+					this.item ? this.item.righticon2class : null, "d-list-item-right-icon2");
+			this._renderNode("icon", "righticon",
+					this.item ? this.item.righticonclass : null, "d-list-item-right-icon");
 			this.setFocusableChildren(this.iconNode, this.labelNode, this.righttext, this.righticon2, this.righticon);
 		},
 
@@ -77,23 +85,20 @@ define(["dcl/dcl",
 			// summary:
 			//		render a node.
 			// nodeType: String
-			//		"text" for a text node, "image" for an image node.
+			//		"text" for a text node, "icon" for an icon node.
 			// nodeName: String
 			//		the name of the attribute to use to store a reference to the node in the renderer.
 			// data: String
 			//		the data to render (null if there is no data and the node should be deleted).
 			//		For a nodeType of "text", data is the text to render.
-			//		For a nodeType of "image", data is the path of the image to render
+			//		For a nodeType of "icon", data is the extra class to apply to the node
 			// nodeClass: String
-			//		CSS class for the node.
+			//		base CSS class for the node.
 			// tag:
 			//		private
-			var dataAttribute = (nodeType === "text" ? "innerHTML" : "src");
-			var nodeTag = (nodeType === "text" ? "DIV" : "IMG");
 			if (data) {
 				if (!this[nodeName]) {
-					this[nodeName] = this.ownerDocument.createElement(nodeTag);
-					this[nodeName].id = this.id + nodeName;
+					this[nodeName] = this.ownerDocument.createElement("DIV");
 					this[nodeName].className = nodeClass;
 					this[nodeName].tabIndex = -1;
 					if (this.renderNode.firstChild) {
@@ -102,8 +107,10 @@ define(["dcl/dcl",
 						this.renderNode.appendChild(this[nodeName]);
 					}
 				}
-				if (this[nodeName].getAttribute(dataAttribute) !== data) {
-					this[nodeName][dataAttribute] = data;
+				if (nodeType === "text") {
+					this[nodeName].innerHTML = data;
+				} else {
+					this[nodeName].className = nodeClass + " " + data;
 				}
 			} else {
 				if (this[nodeName]) {
@@ -112,7 +119,6 @@ define(["dcl/dcl",
 				}
 			}
 		}
-
 	});
 
 	return register("d-list-item", [HTMLElement, ItemRenderer]);

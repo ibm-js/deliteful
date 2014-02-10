@@ -6,16 +6,16 @@ TODO: INSERT SCREENSHOT(S) HERE
 
 This renderer renders generic items that can have any of the following attributes (display
 position of the rendering described for LTR direction) :
-- `icon`: path to an image to render as an icon on the left side of the list item.
-Rendered with CSS class `d-list-item-icon`;
+- `iconclass`: css class to apply to a DIV element on the left side of the list item in order to display an icon.
+Rendered with CSS class _d-list-item-icon_ + the value of the attribute;
 - `label`: string to render on the left side of the node, after the icon.
-Rendered with CSS class `d-list-item-label`;
+Rendered with CSS class _d-list-item-label_;
 - `righttext`: string to render of the right side if the node.
-Rendered with CSS class `d-list-item-right-text`;
-- `righticon2`: path to an image to render as icon on the right side, after the right text. 
-Rendered with CSS class `d-list-item-right-icon2`;
-- `righticon`: path to an image to render as icon on the right side, after righticon2. 
-Rendered with CSS class `d-list-item-right-icon`;
+Rendered with CSS class _d-list-item-right-text_;
+- `righticon2class`: css class to apply to a DIV element on the right side of the list item in order to display an icon.
+Rendered with CSS class _d-list-item-right-icon2_ + the value of the attribute;
+- `righticonclass`: css class to apply to a DIV element on the right side of the list item, after the DIV element styled with righticon2class, in order to display an icon. 
+Rendered with CSS class _d-list-item-right-icon_ + the value of the attribute;
 
 TODO: INSERT SCREENSHOT(S) HERE
 

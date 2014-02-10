@@ -98,16 +98,16 @@
 			list.righttextFunc = function (item) {
 				return "id: " + item.id;
 			};
-			list.iconFunc = function (item) {
+			list.iconclassFunc = function (item) {
 				var i = parseInt(item.id.slice(3));
-				return "../../images/i-icon-" + (i % 10 + 1) + ".png";
+				return "left-icon-" + (i % 10 + 1);
 			};
-			list.righticonFunc = function () {
-				return "../../images/a-icon-1.png";
+			list.righticonclassFunc = function () {
+				return "right-icon";
 			};
-			list.righticon2Func = function (item) {
+ 			list.righticon2classFunc = function (item) {
 				var i = parseInt(item.id.slice(3));
-				return "../../images/b-icon-" + (i % 8 + 1) + ".png";
+				return "right-icon-2-" + (i % 8 + 1);
 			};
 			list.startup();
 			document.getElementById("list5Placeholder").appendChild(list);
@@ -156,6 +156,98 @@
 			font-size: 17px;
 			background-color: #c5ccd3;
 		}
+		
+ 		.d-list-item-icon {
+			width: 29px;
+			height: 29px;
+		}
+
+		.left-icon-1:before {
+			content: url('../../images/i-icon-1.png');
+		}
+
+		.left-icon-2:before {
+			content: url('../../images/i-icon-2.png');
+		}
+
+		.left-icon-3:before {
+			content: url('../../images/i-icon-3.png');
+		}
+
+		.left-icon-4:before {
+			content: url('../../images/i-icon-4.png');
+		}
+
+		.left-icon-5:before {
+			content: url('../../images/i-icon-5.png');
+		}
+
+		.left-icon-6:before {
+			content: url('../../images/i-icon-6.png');
+		}
+		
+		.left-icon-7:before {
+			content: url('../../images/i-icon-7.png');
+		}
+		
+		.left-icon-8:before {
+			content: url('../../images/i-icon-8.png');
+		}
+
+		.left-icon-9:before {
+			content: url('../../images/i-icon-9.png');
+		}
+
+		.left-icon-10:before {
+			content: url('../../images/i-icon-10.png');
+		}
+
+		.d-list-item-right-icon {
+			width: 29px;
+			height: 29px;
+		}
+
+		.right-icon:before {
+			content: url('../../images/a-icon-1.png');
+		}
+
+		.d-list-item-right-icon2 {
+			width: 29px;
+			height: 29px;
+		}
+
+		.right-icon-2-1:before {
+			content: url('../../images/b-icon-1.png');
+		}
+
+		.right-icon-2-2:before {
+			content: url('../../images/b-icon-2.png');
+		}
+
+		.right-icon-2-3:before {
+			content: url('../../images/b-icon-3.png');
+		}
+
+		.right-icon-2-4:before {
+			content: url('../../images/b-icon-4.png');
+		}
+
+		.right-icon-2-5:before {
+			content: url('../../images/b-icon-5.png');
+		}
+
+		.right-icon-2-6:before {
+			content: url('../../images/b-icon-6.png');
+		}
+		
+		.right-icon-2-7:before {
+			content: url('../../images/b-icon-7.png');
+		}
+		
+		.right-icon-2-8:before {
+			content: url('../../images/b-icon-8.png');
+		}
+
 	</style>
 </head>
 <body>
@@ -222,16 +314,16 @@
    	<h2>10 items declared as markup, using all items attribute (id: list-mark-4)</h2>
 	<d-list id="list-mark-4" style="height: 200px">
 		<d-list-store>
-			<d-list-store-item item="{icon: '../../images/i-icon-1.png', label: 'list item 0', righttext: 'A', righticon2: '../../images/b-icon-1.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-2.png', label: 'list item 1', righttext: 'A', righticon2: '../../images/b-icon-2.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-3.png', label: 'list item 2', righttext: 'A', righticon2: '../../images/b-icon-3.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-4.png', label: 'list item 3', righttext: 'A', righticon2: '../../images/b-icon-4.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-5.png', label: 'list item 4', righttext: 'A', righticon2: '../../images/b-icon-5.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-6.png', label: 'list item 5', righttext: 'B', righticon2: '../../images/b-icon-6.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-7.png', label: 'list item 6', righttext: 'B', righticon2: '../../images/b-icon-7.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-8.png', label: 'list item 7', righttext: 'B', righticon2: '../../images/b-icon-8.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-9.png', label: 'list item 8', righttext: 'B', righticon2: '../../images/b-icon-1.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
-			<d-list-store-item item="{icon: '../../images/i-icon-10.png', label: 'list item 9', righttext: 'B', righticon2: '../../images/b-icon-2.png', righticon: '../../images/a-icon-1.png'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-1', label: 'list item 0', righttext: 'A', righticon2class: 'right-icon-2-1', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-2', label: 'list item 1', righttext: 'A', righticon2class: 'right-icon-2-2', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-3', label: 'list item 2', righttext: 'A', righticon2class: 'right-icon-2-3', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-4', label: 'list item 3', righttext: 'A', righticon2class: 'right-icon-2-4', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-5', label: 'list item 4', righttext: 'A', righticon2class: 'right-icon-2-5', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-6', label: 'list item 5', righttext: 'B', righticon2class: 'right-icon-2-6', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-7', label: 'list item 6', righttext: 'B', righticon2class: 'right-icon-2-7', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-8', label: 'list item 7', righttext: 'B', righticon2class: 'right-icon-2-8', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-9', label: 'list item 8', righttext: 'B', righticon2class: 'right-icon-2-1', righticonclass: 'right-icon'}"></d-list-store-item>
+			<d-list-store-item item="{iconclass: 'left-icon-10', label: 'list item 9', righttext: 'B', righticon2class: 'right-icon-2-2', righticonclass: 'right-icon'}"></d-list-store-item>
 		</d-list-store>
 	</d-list>
 	<div style="height: 350px;">
