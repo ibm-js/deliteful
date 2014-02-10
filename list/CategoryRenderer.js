@@ -34,7 +34,6 @@ define(["dcl/dcl",
 			return function () {
 				sup.apply(this, arguments);
 				this.renderNode = this;
-				this.style.display = "block";
 			};
 		}),
 

@@ -8,6 +8,8 @@ define(function(){ return '\
 /* in the list !                */\
 /********************************/\
 .d-list-category {\
+  display: block;\
+  /* Edit at your own risk */\
   position: relative;\
   margin: 0;\
   padding: 0 10px;\
@@ -123,8 +125,10 @@ define(function(){ return '\
 /* in the list !               */\
 /*******************************/\
 .d-round-rect-list {\
+  display: block;\
+  /* edit at your own risk */\
   position: relative;\
-  /* needed for moving list items in editable mode */\
+  /* needed for moving list items in editable mode: do not edit */\
   margin: 0 9px !important;\
   padding: 0;\
   overflow-x: hidden;\
@@ -155,8 +159,10 @@ define(function(){ return '\
 /* in the list !                */\
 /********************************/\
 .d-list {\
+  display: block;\
+  /* edit at your own risk */\
   position: relative;\
-  /* needed for moving list items in editable mode */\
+  /* needed for moving list items in editable mode: do not edit */\
   padding: 0;\
   margin: 0 !important;\
   overflow-x: hidden;\

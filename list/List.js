@@ -294,7 +294,6 @@ define(["dcl/dcl",
 			//		Initialize the widget node and set the container node.
 			// tags:
 			//		protected
-			this.style.display = "block";
 			this.containerNode = this;
 			// Aria attributes
 			this.setAttribute("role", "list");
