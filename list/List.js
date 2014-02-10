@@ -332,6 +332,8 @@ define(["dcl/dcl",
 			// summary:
 			//		Starts the widget: parse the content of the widget node to clean it,
 			//		add items to the store if specified in markup.
+			//		Using superCall() rather than the default chaining so that the code runs
+			//		before StoreMap.startup()
 			return function () {
 				this._processAndRemoveContent(this, {"D-LIST-STORE": function (node) {
 					this._processAndRemoveContent(node, {"D-LIST-STORE-ITEM": function (node) {
