@@ -8,5 +8,5 @@ define({
 	},
 
 	// Non-functional test suites
-	suites: [ "deliteful/tests/unit" ]
+	suites: [ "deliteful/tests/unit/all" ]
 });
