@@ -9,7 +9,6 @@ module.exports = function (grunt) {
 			src: [
 				// only doing top level files for now, to avoid old files in dijit/, form/, layout/, and mobile
 				"*.js"
-
 			],
 			options: {
 				jshintrc: ".jshintrc"
@@ -23,7 +22,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: ["*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
+						src: ["*/themes/*/*.less", "list/*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
 							"ViewStack/transitions/*.less"],
 						ext: ".css"
 					}
@@ -34,7 +33,7 @@ module.exports = function (grunt) {
 		// Convert CSS files to JS files
 		cssToJs : {
 			src: [
-				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
+				"*/themes/*/*.css", "list/*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
 			]
 		},
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List"
+		], function (register, ItemRenderer) {
+			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
+					this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
+				}
+			});
+			var list = register.createElement("d-list");
+			list.itemRenderer = MyCustomRenderer;
+			list.store.add({title: "Dojo: The Definitive Guide", isbn: "0596516487"});
+			list.store.add({title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications", isbn: "0132358042"});
+			list.store.add({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664"});
+			list.store.add({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128"});
+			list.store.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115"});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+	
+	<style>
+		.d-list-item {
+			background-color: black;
+			color: white;
+			font-family: monospace;
+			height: 45px;
+		}
+		.title {
+			float: left;
+		}
+		.isbn {
+			float: right;
+		}
+		
+	</style>
+</head>
+<body>
+	This sample demonstrate how to write a custom item renderer.
+</body>
+</html>
