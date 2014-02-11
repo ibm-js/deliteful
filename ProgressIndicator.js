@@ -34,6 +34,16 @@ define([
 		//		Default: 1000
 		lapsTime: 1000,
 
+		// color: String
+		// 		Sets the widget color. Use this parameter if you wish to change the color AFTER the widget is
+		// 		created, otherwise you can change the color from the theme in CSS class .d-progress-indicator OR
+		// 		you can set inline color style when you declare the widget:
+		// 			<d-progress-indicator style="color:red;"></d-progress-indicator>
+		//		or when you instantiates the widget:
+		// 			new ProgressIndicator({style:"color:red;});
+		//		Color parameter: Use same values as the color CSS property
+		color: "",
+
 		// baseClass: String
 		// 		Name prefix for CSS classes used by this widget.
 		//		Default: "d-progress-indicator"
@@ -85,6 +95,13 @@ define([
 				}.bind(this));
 		},
 
+		_setColor: function (color) {
+			this.linesNode.style.stroke = color; // text value color
+			this.labelNode.style.fill = color; // lines color
+			//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
+			this.labelNode.textContent = this.labelNode.textContent;
+		},
+
 		/* public methods */
 		start: function () {
 			// summary:
@@ -121,25 +138,10 @@ define([
 			}
 		},
 
-		setColor: function (color) {
-			// summary
-			// 		Sets the widget color. Use this method if you wish to change the color after the widget is
-			// 		created, otherwise you can change the color from the theme in CSS class .d-progress-indicator
-			// 		You can also set inline color style color when you declare the widget:
-			// 			<d-progress-indicator style="color:red;"></d-progress-indicator>
-			//		or when you instantiates the widget:
-			// 			new ProgressIndicator({style:"color:red;});
-			//		Color parameter: Use same values as the color CSS property
-			this.linesNode.style.stroke = color; // text value color
-			this.labelNode.style.fill = color; // lines color
-			//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
-			this.labelNode.textContent = this.labelNode.textContent;
-		},
-
 		/* widget lifecycle methods */
 		preCreate: function () {
 			//watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "lapsTime");
+			this.addInvalidatingProperties("value", "lapsTime", "color");
 		},
 
 		buildRendering: function () {
@@ -280,7 +282,7 @@ define([
 			this.svgNode.style.textAnchor = "middle";
 			//set color from CSS color property (either from theme or overridden by the user)
 			//also allow to get the proper color value on Windows IE/FF when high contrast mode is enforced
-			this.setColor(window.getComputedStyle(this).getPropertyValue("color"));
+			this._setColor(window.getComputedStyle(this).getPropertyValue("color"));
 			//set initial widget appearance
 			this._reset();
 			//auto start animation
@@ -316,6 +318,10 @@ define([
 					this.stop();
 					this.start();
 				}
+			}
+			//refresh color
+			if (props.color) {
+				this._setColor(this.color);
 			}
 		}
 	});
