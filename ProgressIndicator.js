@@ -293,7 +293,7 @@ define([
 				//ensure pending frame animation requests are done before any updates
 				this._requestRendering(function () {
 					//normalize the value
-					var percent = (this.value < 0) ? 0 : (this.value > 100) ? 100 : this.value;
+					var percent = Math.max(Math.min(this.value, 100), 0);
 					//display the integer value
 					this.labelNode.textContent = Math.floor(percent);
 					//minimum amount of opacity.
