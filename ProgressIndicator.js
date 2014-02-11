@@ -9,22 +9,21 @@ define([
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
 		// summary:
 		//		d-progress-indicator widget displays a round spinning graphical representation that indicates
-		//		that a task is ongoing. A spinning animation automatically starts when the widget starts.
-		// 		Automatic animation startup can be disabled by setting the autoStart
-		// 		attribute to false. The animation can be stopped or started manually using start() and stop()
-		// 		methods. A value can be set to indicate a percentage of progression.
+		//		that a task is ongoing. This widget starts hidden. Call the start() method to show the widget and start
+		// 		the spinning animation. Use  autoStart to automatically show and start the animation  when the widget
+		// 		starts. A value can be set to indicate a percentage of progression.
 
 		// autoStart: boolean
-		//		Set to false disabled the automatic startup of the spinning animation when the widget startup()
-		// 		method executes. Use start() method to manually start the animation.
-		//		Note that explicit declaration of the value attribute has precedence over this attribute.
+		//		Set to true enabled the automatic startup of the spinning animation when the widget startup()
+		// 		method executes.
 		//		Default: true
-		autoStart: true,
+		autoStart: false,
 
 		// value: Number
 		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task.
 		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100. NaN is ignored.
-		//		Explicit declaration of this attribute cancels the autStart animation.
+		//		Explicit declaration of this attribute cancels the autStart animation. Setting a value makes this
+		//		widget visible.
 		//		Default: NaN
 		value: NaN,
 
@@ -102,6 +101,13 @@ define([
 			this.labelNode.textContent = this.labelNode.textContent;
 		},
 
+		_stopAnimation: function () {
+			if (this._requestId) {
+				this._cancelRequestRendering(this._requestId);
+				this._requestId = 0;
+			}
+		},
+
 		/* public methods */
 		start: function () {
 			// summary:
@@ -127,14 +133,18 @@ define([
 			}.bind(this);
 			//start the animation
 			this._requestId = this._requestRendering(frameAnimation);
+			//ensure the widget is visible
+			this.style.visibility = "visible";
 		},
 
-		stop: function () {
+		stop: function (/*boolean*/destroy) {
 			// summary:
-			//		Stops the animation.
-			if (this._requestId) {
-				this._cancelRequestRendering(this._requestId);
-				this._requestId = 0;
+			//		Stops the animation if it is running and hide the widget.
+			//		destroy: set to true to destroy the widget after it stopped.
+			this._stopAnimation();
+			this.style.visibility = "hidden";
+			if (destroy) {
+				this.destroy();
 			}
 		},
 
@@ -295,7 +305,9 @@ define([
 			//refresh value
 			if (props.value && !isNaN(this.value)) {
 				//ensure any ongoing animation stops
-				this.stop();
+				this._stopAnimation();
+				//ensure the widget is visible
+				this.style.visibility = "visible";
 				//ensure pending frame animation requests are done before any updates
 				this._requestRendering(function () {
 					//normalize the value

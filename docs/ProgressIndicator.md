@@ -5,26 +5,30 @@ A **ProgressIndicator** widget displays a round spinning graphical representatio
 ```html
 <!-- html -->
 <d-progress-indicator></d-progress-indicator>
+<!-- the widget is created and ready but it is hidden until you programmatically call the start() method.
+     use the autoStart attribute to automatically start the animation.
+-->
 ```
 
 ```js
 /* Javascript */
-var aProgressInidator = new ProgressIndicator();
-aProgressInidator.startup();
+var aProgressIndicator = new ProgressIndicator();
+aProgressIndicator.startup();
+aProgressIndicator.start(); // start and show the animation
 ```
 
-The animation automatically starts when the html page is loaded, or when the *startup()* method is called. 
+The widget starts hidden. Use the **start()** method to make it visible and start the animation.
 
-###Disable the automatic startup of the animation
-You can disable the automatic startup of the animation with the `autoStart`	attribute:
+###Enable the automatic startup of the animation
+You can show the widget and enable the automatic startup of the animation with the `autoStart`	attribute:
 
 ```html
 <!-- html -->
-<d-progress-indicator autoStart=false></d-progress-indicator>
+<d-progress-indicator autoStart=true></d-progress-indicator>
 ```
 ```js
 /* Javascript */
-var aProgressInidator = new ProgressIndicator({autoStart: false});
+var aProgressInidator = new ProgressIndicator({autoStart: true});
 aProgressInidator.startup();
 ```
 You may also set `aProgressInidator.autoStart` *before* you call the startup() method.
@@ -49,16 +53,22 @@ Setting the `value` attribute:
 - displays the value and the fill the spinning lines accordingly.
 
 
-###Manually start and stop the animation
-The animation can be stopped or started manually using *start()* and *stop()*	methods. 
+###Stopping and hidding the widget
+Call the *stop()* method to stop any ongoing animation and hide the widget. Call the *start()* method or set a value to make it visible again and start the animation or display a progression value. Call *stop(true)* You can ask the widget to release its resources and remove itself from the dom.
+
 ```js
 /* Javascript */
-var aProgressInidator = new ProgressIndicator({autoStart: false});
+var aProgressInidator = new ProgressIndicator();
 aProgressInidator.startup();
 // ...
-aProgressIndicator.start(); // start the animation
+aProgressIndicator.start(); // show and start the animation
 // ...
-aProgressIndicator.stop(); // stop the animation
+aProgressIndicator.stop(); // stop the animation and hide
+// ...
+aProgressIndicator.value = 50; // show and set 50% progression
+//
+aProgressIndicator.stop(true); // stop the animation and remove the widget from the dom
+
 ```
 
 ###Change the speed of the animation
@@ -111,7 +121,7 @@ aProgressInidator.lapsTime = 2000;
 </table>
 
 ##Styling
-**ProgressIndicator** generates SVG markup that can be styled using CSS and/or inline styles. The treemap provides a default TreeMap.css that must be included in your application. Alternate rendering can be achieved by overriding some of the CSS rules and using the classes put by the treemap on the HTML elements.
+**ProgressIndicator** generates SVG markup that can be styled using CSS and/or inline styles.
 
 Todo: CSS classes (.d-progress-indicator + .d-progress-indicator-lines)
 
