@@ -35,12 +35,12 @@
 			document.getElementById("list1Placeholder").appendChild(list);
 			list.startup();
 
-  			// Programmatic list: default store, items added after the list startup and after adding the list to the document
+  			// Programmatic list: default store, items added after the list startup
 			list = register.createElement("d-list");
 			list.id = "list-prog-2";
 			list.style.height = "200px";
-			list.startup();
 			document.getElementById("list2Placeholder").appendChild(list);
+			list.startup();
   			for (i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i, righttext: list.id});
 			}
@@ -58,13 +58,13 @@
 			list.startup();
 			
 
-  			// Programmatic list: observable memory store, items added after the list startup and after adding the list to the document
+  			// Programmatic list: observable memory store, items added after the list startup
 			list = register.createElement("d-list");
 			list.id = "list-prog-4";
 			list.style.height = "200px";
 			list.store = new Observable(new MemoryStore({data: [], idProperty: "label"}));
-			list.startup();
 			document.getElementById("list4Placeholder").appendChild(list);
+			list.startup();
   			for (i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i});
 			}
@@ -109,8 +109,8 @@
 				var i = parseInt(item.id.slice(3));
 				return "right-icon-2-" + (i % 8 + 1);
 			};
-			list.startup();
 			document.getElementById("list5Placeholder").appendChild(list);
+			list.startup();
 			
  			register.parse();
 
@@ -256,11 +256,11 @@
  	<h1>Programmatic lists</h1>
  	<h2>Default store, items added before adding the list to the document and before startup (id: list-prog-1)</h2>
  	<div id="list1Placeholder"></div>
- 	<h2>Default store, items added after the list startup and after adding the list to the document (id: list-prog-2)</h2>
+ 	<h2>Default store, items added after the list startup (id: list-prog-2)</h2>
  	<div id="list2Placeholder"></div>
  	<h2>Memory store, items added before adding the list to the document and before startup (id: list-prog-3)</h2>
  	<div id="list3Placeholder"></div>
- 	<h2>Observable Memory store, items added after the list startup and after adding the list to the document (id: list-prog-4)</h2>
+ 	<h2>Observable Memory store, items added after the list startup (id: list-prog-4)</h2>
  	<div id="list4Placeholder"></div>
  	<h2>Observable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
  	<div id="list5Placeholder"></div>

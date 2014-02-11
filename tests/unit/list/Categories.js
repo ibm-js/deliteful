@@ -25,6 +25,7 @@ define([
 				list.destroy();
 			}
 			list = new List();
+			document.body.appendChild(list);
 			list.startup();
 			list.store.query();
 			list.categoryAttr = "category";

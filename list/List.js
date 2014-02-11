@@ -570,6 +570,12 @@ define(["dcl/dcl",
 							this._getLastRenderer().item));
 				}
 			}
+			// start renderers
+			this.findCustomElements(this.containerNode).forEach(function (w) {
+				if (w.startup) {
+					w.startup();
+				}
+			});
 		},
 
 		_createRenderers: function (/*Array*/ items, /*int*/fromIndex, /*int*/count, /*Object*/previousItem) {
@@ -588,7 +594,8 @@ define(["dcl/dcl",
 			//		The item that precede the first one for which a renderer will be created. This is only usefull for
 			//		categorized lists.
 			// returns:
-			//		A DocumentFragment that contains the renderers.
+			//		A DocumentFragment that contains the renderers. The startup method of the renderers has not
+			//		been called at this point.
 			var currentIndex = fromIndex,
 				currentItem, toIndex = fromIndex + count - 1;
 			var documentFragment = this.ownerDocument.createDocumentFragment();
@@ -607,6 +614,8 @@ define(["dcl/dcl",
 		_addItemRenderer: function (/*Widget*/renderer, /*int*/atIndex) {
 			// summary:
 			//		Add an item renderer to the List, updating category renderers if needed.
+			//		This method calls the startup method on the renderer after it has been
+			//		added to the List.
 			// renderer: List/ItemRenderer subclass
 			//		The renderer to add to the list.
 			// atIndex: int
@@ -615,15 +624,19 @@ define(["dcl/dcl",
 			if (spec.nodeRef) {
 				this.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
-					this.insertBefore(this._createCategoryRenderer(spec.nodeRef.item.category),
-							spec.nodeRef);
+					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item.category);
+					this.insertBefore(categoryRenderer, spec.nodeRef);
+					categoryRenderer.startup();
 				}
 			} else {
 				this.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
-				this.insertBefore(this._createCategoryRenderer(renderer.item.category), renderer);
+				categoryRenderer = this._createCategoryRenderer(renderer.item.category);
+				this.insertBefore(categoryRenderer, renderer);
+				categoryRenderer.startup();
 			}
+			renderer.startup();
 		},
 
 		_getInsertSpec: function (/*Widget*/renderer, /*int*/atIndex) {
@@ -711,7 +724,6 @@ define(["dcl/dcl",
 			// returns:
 			//		An instance of item renderer that renders the item.
 			var renderer = new this.itemRenderer({tabindex: "-1"});
-			renderer.startup();
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
 				domClass.toggle(renderer, "d-selected", this.isSelected(item));
@@ -727,7 +739,6 @@ define(["dcl/dcl",
 			// returns:
 			//		An instance of category renderer that renders the category.
 			var renderer = new this.categoryRenderer({category: category, tabindex: "-1"});
-			renderer.startup();
 			return renderer;
 		},
 
