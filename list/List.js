@@ -343,7 +343,7 @@ define(["dcl/dcl",
 							// FIXME: should not have to manipulate node._propCaseMap but use a "more public" method ?
 							node._propCaseMap = {item: "item"};
 							node.item = {};
-							this.store.add(this.mapAttributes.call(node).item);
+							this.store.add(this._mapAttributes.call(node).item);
 						}
 					}});
 				}});
