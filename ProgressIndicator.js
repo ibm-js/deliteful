@@ -49,7 +49,6 @@ define([
 			return (window.requestAnimationFrame || // standard
 				window.webkitRequestAnimationFrame || // webkit
 				window.mozRequestAnimationFrame || // mozilla
-				window.oRequestAnimationFrame || // opera
 				window.msRequestAnimationFrame || // ie10
 				function (callBack) {// others (ie9)
 					return window.setTimeout(callBack, 1000 / 60);
@@ -62,7 +61,6 @@ define([
 				window.webkitCancelAnimationFrame || // webkit
 				window.webkitCancelRequestAnimationFrame || // webkit deprecated
 				window.mozCancelRequestAnimationFrame || // mozilla
-				window.oCancelRequestAnimationFrame || // opera
 				window.msCancelRequestAnimationFrame || // ie10
 				clearTimeout)(requestId);// others (ie9)
 		},
