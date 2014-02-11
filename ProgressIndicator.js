@@ -51,8 +51,8 @@ define([
 				window.mozRequestAnimationFrame || // mozilla
 				window.msRequestAnimationFrame || // ie10
 				function (callBack) {// others (ie9)
-					return window.setTimeout(callBack, 1000 / 60);
-				})(animationFrame);
+					return this.defer(callBack, 1000 / 60);
+				}.bind(this))(animationFrame);
 		},
 
 		_cancelRequestRendering: function (requestId) {
@@ -62,7 +62,9 @@ define([
 				window.webkitCancelRequestAnimationFrame || // webkit deprecated
 				window.mozCancelRequestAnimationFrame || // mozilla
 				window.msCancelRequestAnimationFrame || // ie10
-				clearTimeout)(requestId);// others (ie9)
+				function (handle) {// others (ie9)
+					handle.remove();
+				})(requestId);
 		},
 
 		_reset: function () {
