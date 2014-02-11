@@ -1,9 +1,10 @@
 define([
+	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (register, Widget, Invalidating) {
+], function (dcl, register, Widget, Invalidating) {
 
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
 		// summary:
@@ -258,7 +259,7 @@ define([
 			this.appendChild(svgNode);
 		},
 
-		startup: function () {
+		enteredViewCallback: dcl.after(function () {
 			//template: use query selector to get nodes reference that will not be available from buildRendering
 			this.svgNode = this.querySelector(".d-progress-indicator svg");
 			this.linesNode = this.querySelector(".d-progress-indicator-lines");
@@ -281,7 +282,7 @@ define([
 			if (this.autoStart) {
 				this.start();
 			}
-		},
+		}),
 
 		refreshRendering: function (props) {
 			//refresh value
