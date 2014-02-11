@@ -42,30 +42,34 @@ define([
 		/* internal properties */
 		_requestId: 0, //request animation id or clearTimeout param
 		_minLapsTime: 200, // lower limit threshold for lapsTime property
+		_requestAnimationFunction: (
+			(window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) || // standard
+			(window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) || // webkit
+			(window.mozRequestAnimationFrame && window.mozRequestAnimationFrame.bind(window)) || // mozilla
+			(window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window)) || // ie10
+			function (callBack) {// others (ie9)
+				return this.defer(callBack, 1000 / 60);
+			}),
+		_cancelRequestAnimationFunction: (
+			window.cancelRequestAnimationFrame || //standard
+			//window.webkitCancelAnimationFrame || // webkit
+			window.webkitCancelRequestAnimationFrame || // webkit
+			window.mozCancelRequestAnimationFrame || // mozilla
+			window.msCancelRequestAnimationFrame || // ie10
+			function (handle) {// others (ie9)
+				handle.remove();
+			}).bind(window),
 
 		/* internal methods */
 		_requestRendering: function (animationFrame) {
 			//browser agnostic animation frame renderer
 			//return a request id
-			return (window.requestAnimationFrame || // standard
-				window.webkitRequestAnimationFrame || // webkit
-				window.mozRequestAnimationFrame || // mozilla
-				window.msRequestAnimationFrame || // ie10
-				function (callBack) {// others (ie9)
-					return this.defer(callBack, 1000 / 60);
-				}.bind(this))(animationFrame);
+			return this._requestAnimationFunction.bind(this)(animationFrame); // bind 'this' to match this.defer
 		},
 
 		_cancelRequestRendering: function (requestId) {
 			//browser agnostic animation frame canceler
-			return (window.cancelRequestAnimationFrame || //standard
-				window.webkitCancelAnimationFrame || // webkit
-				window.webkitCancelRequestAnimationFrame || // webkit deprecated
-				window.mozCancelRequestAnimationFrame || // mozilla
-				window.msCancelRequestAnimationFrame || // ie10
-				function (handle) {// others (ie9)
-					handle.remove();
-				})(requestId);
+			return this._cancelRequestAnimationFunction(requestId);
 		},
 
 		_reset: function () {
