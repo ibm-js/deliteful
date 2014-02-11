@@ -7,7 +7,7 @@ define([
 ], function (register, Widget, Invalidating, lang) {
 
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
-		// summary
+		// summary:
 		//		d-progress-indicator widget displays a round spinning graphical representation that indicates
 		//		that a task is ongoing. A spinning animation automatically starts when the widget starts.
 		// 		Automatic animation startup can be disabled by setting the autoStart
@@ -24,7 +24,7 @@ define([
 		// value: Number
 		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task.
 		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100. NaN is ignored.
-		//		Explicit declaration of this attribute cancel the auto start animation.
+		//		Explicit declaration of this attribute cancels the autStart animation.
 		//		Default: NaN
 		value: NaN,
 
@@ -35,7 +35,7 @@ define([
 		lapsTime: 1000,
 
 		// baseClass: String
-		// 		Name prefix for CSS classes used by this widget
+		// 		Name prefix for CSS classes used by this widget.
 		//		Default: "d-progress-indicator"
 		baseClass: "d-progress-indicator",
 
