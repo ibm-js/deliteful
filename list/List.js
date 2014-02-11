@@ -4,6 +4,7 @@ define(["dcl/dcl",
 	"dojo/when",
 	"dojo/dom-class",
 	"dojo/keys",
+	"delite/CustomElement",
 	"delite/Selection",
 	"delite/KeyNav",
 	"delite/StoreMap",
@@ -14,11 +15,15 @@ define(["dcl/dcl",
 	"./_DefaultStore",
 	"delite/themes/load!./List/themes/{{theme}}/List_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./List/themes/{{theme}}/List_rtl_css"
-], function (dcl, register, lang, when, domClass, keys, Selection, KeyNav, StoreMap,
+], function (dcl, register, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
 		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore) {
 
 	// module:
 	//		deliteful/list/List
+
+	// Register custom elements we use to support markup for adding items to the list store.
+	register("d-list-store", [HTMLElement, CustomElement]);
+	register("d-list-store-item", [HTMLElement, CustomElement], {item: null});
 
 	var List = dcl([Invalidating, Selection, KeyNav, StoreMap, Scrollable], {
 		// summary:
@@ -335,18 +340,24 @@ define(["dcl/dcl",
 			//		Using superCall() rather than the default chaining so that the code runs
 			//		before StoreMap.startup()
 			return function () {
-				this._processAndRemoveContent(this, {"D-LIST-STORE": function (node) {
-					this._processAndRemoveContent(node, {"D-LIST-STORE-ITEM": function (node) {
-						var itemAttribute = node.getAttribute("item");
-						if (itemAttribute) {
-							// Reusing the widget mechanism to extract attribute value.
-							// FIXME: should not have to manipulate node._propCaseMap but use a "more public" method ?
-							node._propCaseMap = {item: "item"};
-							node.item = {};
-							this.store.add(this._mapAttributes.call(node).item);
+				// search for custom elements to populate the store
+				var children = this.getChildren();
+				if (children.length) {
+					for (var i = 0; i < children.length; i++) {
+						var child = children[i];
+						if (child.tagName === "D-LIST-STORE") {
+							var items = this.findCustomElements(child);
+							for (var j = 0; j < items.length; j++) {
+								var item = items[j].item;
+								if (item) {
+									this.store.add(item);
+								}
+								items[j].destroy();
+							}
 						}
-					}});
-				}});
+						child.destroy();
+					}
+				}
 				this._setBusy(true);
 				this.on("query-error", (function () { this._setBusy(false); }).bind(this));
 				if (sup) {
@@ -505,33 +516,6 @@ define(["dcl/dcl",
 
 		//////////// Private methods ///////////////////////////////////////
 
-		_processAndRemoveContent: function (/*DomNode*/node, /*Object*/tagHandlers) {
-			// summary:
-			//		process the content of a dom node using tag handlers and remove this content. 
-			// node: Object
-			//		the dom node to process
-			// tagHandlers: Object
-			//		a map which keys are tag names and values are functions that are executed
-			//		when a node with the corresponding tag has been found under node. The
-			//		function takes one parameter, that is the node that has been found. Note
-			//		that the function is run in the context of the widget, to allow easy
-			//		recursive processing.
-			// tags:
-			//		private
-			var child;
-			while ((child = node.firstChild)) {
-				var tagName = child.tagName;
-				if (tagName && tagHandlers[tagName]) {
-					tagHandlers[tagName].call(this, child);
-				}
-				if (child.destroy) {
-					child.destroy();
-				} else {
-					child.parentNode.removeChild(child);
-				}
-			}
-		},
-
 		_setBusy: function (status) {
 			// summary:
 			//		Set the "busy" status of the widget.
@@ -550,6 +534,17 @@ define(["dcl/dcl",
 
 		_isCategorized: function () {
 			return this.categoryAttr || this.categoryFunc;
+		},
+
+		_empty: function () {
+			// summary:
+			//		destroy all children of the list and empty it.
+			this.findCustomElements(this.containerNode).forEach(function (w) {
+				if (w.destroy) {
+					w.destroy();
+				}
+			});
+			this.innerHTML = "";
 		},
 
 		//////////// Renderers life cycle ///////////////////////////////////////
@@ -791,7 +786,7 @@ define(["dcl/dcl",
 			//		Populate the list using the items retrieved from the store.
 			// tags:
 			//		protected
-			this._processAndRemoveContent(this, {});
+			this._empty();
 			this._renderNewItems(items, false);
 			this._setBusy(false);
 		},
