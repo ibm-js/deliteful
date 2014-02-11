@@ -41,9 +41,9 @@ define(["dcl/dcl",
 		return register("d-view-stack", [HTMLElement, Widget, DisplayContainer], {
 
 			// summary:
-			//		ViewStack container widget.
+			//		ViewStack container widget. Display one child at a time.
 			//
-			//		ViewStack displays its first child node by default.
+			//		The first child is displayed by default.
 			//		The methods 'show' is used to change the visible child.
 			//
 			//		Styling

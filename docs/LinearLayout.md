@@ -22,10 +22,7 @@ These constraints can be mixed together in the same container.
 [Element Instantiation](#instantiation)
 [Element Configuration](#configuration)
 [Element Styling](#styling)
-[User Interactions](#interactions)
-[Mixins](#mixins)
-[Element Events](#events)
-[Enteprise Use](#enterprise)
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -69,7 +66,7 @@ require(["deliteful/LinearLayout", "dojo/domReady!"], function (LinearLayout) {
 });
 ```
 
-
+<a name="configuration"></a>
 ## Element Configuration
 
 ### Properties
@@ -81,20 +78,16 @@ In addition to the `fill` CSS class, this element provides two utility CSS class
 <a name="styling"></a>
 ## Element Styling
 
-Since `deliteful/LinearLayout` has no visual appearance, it does not provide CSS classes for styling.
+`deliteful/LinearLayout` has no visual appearance, it does not provide any CSS class for styling.
 
 If `vertical` is `true`, the height of `deliteful\LinearLayout` must be explicitly set, otherwise the width must be explictly set.
 
 To set the height of a `deliteful/LinearLayout` using a percentage expression, the height of all its ancestors (including `<body>`) must also be expressed as percentage.
 
-## Styling Exceptions
+### Styling Limitations
 
 Using `padding-top` and `padding-bottom` on the `deliteful/LinearLayout` is discouraged since it's not well supported on Firefox.
 
-<a name="interactions"></a>
-## User Interactions
-
-`deliteful/LinearLayout` does not provide any user interaction.
 
 <a name="enterprise"></a>
 ## Enterprise Use
@@ -109,7 +102,7 @@ Rely on browser.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/LinearLayout` element:
 
-```js
+```html
 <d-linear-layout dir="rtl"></d-linear-layout>
 ```
 
@@ -120,9 +113,3 @@ This widget as no specific security concern. Refers to `delite/Widget` documenta
 ### Browser Support
 
 This widget supports all supported browsers except Internet Explorer 9.
-
-## See also
-### Samples
-### Blog posts…
-
-
