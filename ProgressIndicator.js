@@ -2,9 +2,8 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"dojo/_base/lang", //hitch
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (register, Widget, Invalidating, lang) {
+], function (register, Widget, Invalidating) {
 
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
 		// summary:
@@ -69,14 +68,15 @@ define([
 
 		_reset: function () {
 			//ensure that any pending frame animation request is done before doing the actual reset
-			this._requestRendering(lang.hitch(this, function () {
-				//remove any displayed value
-				this.labelNode.textContent = "";
-				//reset the opacity
-				for (var i = 0; i < 12; i++) {
-					this.lineNodeList[i].setAttribute("opacity", (i + 1) * (1 / 12));
-				}
-			}));
+			this._requestRendering(
+				function () {
+					//remove any displayed value
+					this.labelNode.textContent = "";
+					//reset the opacity
+					for (var i = 0; i < 12; i++) {
+						this.lineNodeList[i].setAttribute("opacity", (i + 1) * (1 / 12));
+					}
+				}.bind(this));
 		},
 
 		/* public methods */
@@ -93,7 +93,7 @@ define([
 			//note: 16.7 is the average animation frame refresh interval in ms (~60FPS)
 			var delta = (16.7 / ((this.lapsTime < 500) ? 500 : this.lapsTime));
 			//round spinning animation routine
-			var frameAnimation = lang.hitch(this, function () {
+			var frameAnimation = function () {
 				//set lines opacity
 				for (var i = 0, opacity; i < 12; i++) {
 					opacity = (parseFloat(this.lineNodeList[i].getAttribute("opacity")) - delta) % 1;
@@ -101,7 +101,7 @@ define([
 				}
 				//render the next frame
 				this._requestId = this._requestRendering(frameAnimation);
-			});
+			}.bind(this);
 			//start the animation
 			this._requestId = this._requestRendering(frameAnimation);
 		},
@@ -289,7 +289,7 @@ define([
 				//ensure any ongoing animation stops
 				this.stop();
 				//ensure pending frame animation requests are done before any updates
-				this._requestRendering(lang.hitch(this, function () {
+				this._requestRendering(function () {
 					//normalize the value
 					var percent = (this.value < 0) ? 0 : (this.value > 100) ? 100 : this.value;
 					//display the integer value
@@ -301,7 +301,7 @@ define([
 						opacity = Math.min(Math.max((percent * 0.12 - i), 0), 1) * (1 - minOpacity);
 						this.lineNodeList[i].setAttribute("opacity", minOpacity + opacity);
 					}
-				}));
+				}.bind(this));
 			}
 			//refresh lapsTime
 			if (props.lapsTime) {
