@@ -15,9 +15,10 @@
 			"dojo/dom",
 			"delite/register",
 			"dojo/on",
+			"dojo/Deferred",
 			"deliteful/ProgressIndicator",
 			"dojo/domReady!"
-		], function (dom, register, on, ProgressIndicator) {
+		], function (dom, register, on, Deferred, ProgressIndicator) {
 			register.parse();
 			var testIndicator = dom.byId("testIndicator");
 			var testIndicatorPrg = new ProgressIndicator({style: "color:red"}).placeAt("testIndicatorPrgLabel", "after");
@@ -74,6 +75,39 @@
 			on(dom.byId("setLapsTimeBtn"), "click", function() {
 				setLapsTime(inputLapsTime.value);
 			});
+
+			//timer
+			var startTimerBtn = dom.byId("startTimer");
+			startTimerBtn.disabled = false;
+			on(startTimerBtn, "click", function() {
+				remoteProgress(testIndicator);
+			});
+
+			var fakeProgress = 0, step = 6;
+			function getProgressReport(){
+				var deferred = new Deferred();
+				fakeProgress = Math.min(fakeProgress + step, 100);
+				deferred.resolve(fakeProgress);
+				return deferred;
+			}
+			function remoteProgress(indicator){
+				startTimerBtn.disabled = true;
+				fakeProgress = 0;
+				indicator.value = 0;
+				var _timer = setInterval(function(){
+					var report = getProgressReport();
+					report.then(function(response){
+						indicator.value = response;
+						if(response === 100){
+							clearInterval(_timer);
+							_timer = null;
+							startTimerBtn.disabled = false;
+						}
+					});
+				}, 100);
+			}
+
+
 		});
 	</script>
 	<style>
@@ -140,6 +174,8 @@
 		<input type="text" id="lapsTimeTxt" name="lapsTimeTxt" size="3" value="500"/>
 		<label for="lapsTimeTxt">(ms)</label>
 		<hr>
+		<input type="button" id="startTimer" value="Start timer"/>
+		<br>
 		<!-- include theme selector -->
 		<iframe src="theme_selector.html" height="250px" width="250px"></iframe>
 	</div>
