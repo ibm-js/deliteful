@@ -38,6 +38,18 @@ define([
 				assert.equal(list.scrollDirection, "none");
 			}
 		},
+		"scrollDirection foo not supported": function () {
+			try {
+				list.scrollDirection = "foo";
+			} catch (error) {
+				assert.isNotNull(error);
+				console.log(error);
+				assert.equal(error.message,
+						"'foo' not supported for scrollDirection, reverting to 'none'",
+						"error message");
+				assert.equal(list.scrollDirection, "none");
+			}
+		},
 		"default scroll direction is vertical": function () {
 			var dfd = this.async(1000);
 			setTimeout(dfd.callback(function () {

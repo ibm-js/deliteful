@@ -244,9 +244,9 @@ define(["dcl/dcl",
 		scrollDirection: "vertical",
 		=====*/
 		_setScrollDirectionAttr: function (value) {
-			if (value === "horizontal") {
+			if (value !== "vertical" && value !== "none") {
 				this.scrollDirection = "none";
-				throw new Error("'horizontal' not supported for scrollDirection, reverting to 'none'");
+				throw new Error("'" + value + "' not supported for scrollDirection, reverting to 'none'");
 			} else {
 				this._set("scrollDirection", value);
 			}
