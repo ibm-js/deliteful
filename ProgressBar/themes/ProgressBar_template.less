@@ -8,9 +8,9 @@
 }
 
 .d-progress-bar-background {
-  overflow: hidden;
-  position: absolute;
+//  position: relative;
   top: 0;
+  left:0;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -22,12 +22,12 @@
 }
 
 .d-progress-bar-indicator {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   margin: 0;
   padding: 0;
+
   .d-progress-bar-indicator-styles;
 }
 
@@ -40,16 +40,20 @@
 }
 
 .d-progress-bar-label {
-  position: absolute;
-  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   .d-progress-bar-label-styles;
+}
+
+.d-progress-bar-label-invert {
+  .d-progress-bar-label-invert-styles;
 }
 
 .d-progress-bar-label-ext {
   .d-progress-bar-label-ext-styles;
+  overflow: hidden;
 }
 
 .d-progress-bar-label-ext::after {
@@ -74,25 +78,4 @@
 
 @-webkit-keyframes d-progress-bar-indeterminate-animation {
   .keyframes-d-progress-bar-indeterminate-animation;
-}
-
-/*
- * -----------------------------------------------
- *  A11Y
- * -----------------------------------------------
- */
-.dj_a11y .d-progress-bar-indicator {
-  .d-progress-bar-indicator-a11y-styles;
-}
-.dj_a11y .d-progress-bar-empty .d-progress-bar-indicator {
-  .d-progress-bar-empty-indicator-a11y-styles;
-}
-.dj_a11y .d-progress-bar-full .d-progress-bar-indicator {
-  .d-progress-bar-full-indicator-a11y-styles;
-}
-.dj_a11y .d-progress-bar-label {
-  .d-progress-bar-label-a11y-styles;
-}
-.dj_a11y .d-progress-bar-indeterminate .d-progress-bar-indicator {
-  .d-progress-bar-indeterminate-indicator-a11y-styles;
 }

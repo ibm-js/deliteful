@@ -7,18 +7,30 @@
  */
 @import "../../../../delite/themes/bootstrap/variables.less";
 
+@border-radius-value: 4px;
+@transition-params: 0.3s linear 0s;
+
 .d-progress-bar-indicator-rtl-styles() {
-  .transition(left 0.25s, width 0s);
-  border-right-width: 0px;
-  border-left: 1px solid rgb(117, 157, 192);
+  .transition(width @transition-params);
+  border-top-right-radius: @border-radius-value; // force border radius for webkit which ignores parent overflow in that specific case
+  border-bottom-right-radius: @border-radius-value; // force border radius for webkit which ignores parent overflow in that specific case
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  float: right;
+  position: relative;
 }
 
 .d-progress-bar-full-indicator-rtl-styles() {
-  border-left-width: 0;
+  //here we force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
+  border-top-left-radius: @border-radius-value;
+  border-bottom-left-radius: @border-radius-value;
 }
+
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
-  .transition(left 0s);
   .animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
+  .transition(width 0s);
+  border-top-right-radius: @border-radius-value;
+  border-bottom-right-radius: @border-radius-value;
 }
 
 .d-progress-bar-background-rtl-styles() {
@@ -27,19 +39,20 @@
 .d-progress-bar-empty-background-rtl-styles() {
 }
 
+.d-progress-bar-label-rtl-styles(){
+  border-right: 2px solid transparent; // to make sure label and inverted label are aligned
+  border-left: 0;
+}
+
+.d-progress-bar-label-invert-rtl-styles() {
+  position: absolute;
+  overflow: hidden;
+}
+
 .d-progress-bar-label-ext-rtl-styles() {
 }
 
 .d-progress-bar-label-extAfter-rtl-styles() {
-}
-
-// A11Y
-.d-progress-bar-indicator-a11y-rtl-styles() {
-  border-left: 2px solid;
-}
-
-.d-progress-bar-full-indicator-a11y-rtl-styles() {
-  border-width: 2px;
 }
 
 @import "../ProgressBar_template_rtl";

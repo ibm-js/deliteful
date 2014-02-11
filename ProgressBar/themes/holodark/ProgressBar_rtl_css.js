@@ -7,12 +7,13 @@ define(function(){ return '\
  * -----------------------------------------------\
  */\
 .d-rtl .d-progress-bar-indicator {\
-  -webkit-transition: left 0.25s, width 0s;\
-  transition: left 0.25s, width 0s;\
+  -webkit-transition: width 0.3s linear 0s;\
+  transition: width 0.3s linear 0s;\
+  float: right;\
+  position: relative;\
 }\
 .d-rtl.d-progress-bar-indeterminate .d-progress-bar-indicator {\
-  -webkit-transition: left 0s;\
-  transition: left 0s;\
+  position: absolute;\
   -webkit-animation-direction: reverse;\
   animation-direction: reverse;\
   /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */\
@@ -24,9 +25,4 @@ define(function(){ return '\
   content: attr(label-ext);\
   float: left;\
 }\
-/*\
- * -----------------------------------------------\
- *  A11Y (RTL)\
- * -----------------------------------------------\
- */\
 '; } );

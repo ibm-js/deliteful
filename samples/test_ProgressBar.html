@@ -15,9 +15,10 @@
 			"dojo/dom-class",
 			"delite/register",
 			"dojo/on",
+			"dojo/Deferred",
 			"deliteful/ProgressBar",
 			"dojo/domReady!"
-		], function (dom, domClass, register, on, ProgressBar) {
+		], function (dom, domClass, register, on,Deferred,  ProgressBar) {
 			register.parse();
 			var testBar = dom.byId("testBar");
 			var testBarPrg = new ProgressBar({value: 75, style:"width: 250px"}).placeAt("testBarPrgLabel","after");
@@ -88,11 +89,45 @@
 				testBarPrg.displayValues = flag;
 			};
 
+			//timer
+			var startTimerBtn = dom.byId("startTimer");
+			startTimerBtn.disabled = false;
+			on(startTimerBtn, "click", function() {
+				remoteProgress(testBar);
+			});
+
+			var fakeProgress = 0, step = 5;
+			function getProgressReport(){
+				var deferred = new Deferred();
+				fakeProgress = Math.min(fakeProgress + step, 100);
+				deferred.resolve(fakeProgress+"%");
+				return deferred;
+			}
+			function remoteProgress(bar){
+				startTimerBtn.disabled = true;
+				fakeProgress = 0;
+				bar.value = 0;
+				bar.label = "Starting, please wait...";
+				var _timer = setInterval(function(){
+					bar.label = "";
+					var report = getProgressReport();
+					report.then(function(response){
+						started = true;
+						bar.value = response;
+						if(response === "100%"){
+							clearInterval(_timer);
+							_timer = null;
+							startTimerBtn.disabled = false;
+						}
+					});
+				}, 300);
+			}
+
 		});
 	</script>
 </head>
 <body class="duiBackground">
-	<div style="padding: 2px 5% 0 5%;">
+	<div style="padding: 2px 5% 0 5%; font-size: 16px">
 		<h3>d-progress-bar</h3>
 		<hr>
 		Declarative:<d-progress-bar id="testBar" value="75" style="width:250px;"
@@ -143,6 +178,8 @@
 		<label for="fractionDigits">(Number)</label>
 		<br>
 		<input type="button" name="set" id="setAll" value="Set all"/>
+		<hr>
+		<input type="button" name="startTimer" id="startTimer" value="Start Timer" /><br>
 		<br>
 		<!-- include theme selector -->
 		<iframe src="theme_selector.html" height="250px" width="250px"></iframe>

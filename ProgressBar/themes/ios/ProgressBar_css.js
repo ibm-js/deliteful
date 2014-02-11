@@ -18,15 +18,15 @@ define(function(){ return '\
   vertical-align: middle;\
 }\
 .d-progress-bar-background {\
-  overflow: hidden;\
-  position: absolute;\
   top: 0;\
+  left: 0;\
   width: 100%;\
   margin: 0;\
   padding: 0;\
   height: 100%;\
   -moz-border-radius: 6px;\
   border-radius: 6px;\
+  overflow: hidden;\
   background-color: white;\
   background-image: -moz-linear-gradient(#a5a6a5 0%, #d6d7d6 50%, #ffffff 50%, #ffffff 90%, #b5b6b5 100%);\
   background-image: -webkit-linear-gradient(#a5a6a5 0%, #d6d7d6 50%, #ffffff 50%, #ffffff 90%, #b5b6b5 100%);\
@@ -34,7 +34,6 @@ define(function(){ return '\
   background-image: linear-gradient(#a5a6a5 0%, #d6d7d6 50%, #ffffff 50%, #ffffff 90%, #b5b6b5 100%);\
 }\
 .d-progress-bar-indicator {\
-  position: absolute;\
   top: 0;\
   left: 0;\
   width: 100%;\
@@ -43,6 +42,7 @@ define(function(){ return '\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
+  position: absolute;\
   height: 100%;\
   -webkit-transition: width 0.25s;\
   transition: width 0.25s;\
@@ -59,14 +59,19 @@ define(function(){ return '\
   border: 0px;\
 }\
 .d-progress-bar-label {\
-  position: absolute;\
-  height: 100%;\
   width: 100%;\
   margin: 0;\
   padding: 0;\
+  overflow: hidden;\
   top: 0;\
   text-align: center;\
   color: #000000;\
+}\
+.d-progress-bar-label-invert {\
+  display: none;\
+}\
+.d-progress-bar-label-ext {\
+  overflow: hidden;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-background {\
   margin: 0;\
@@ -113,9 +118,4 @@ define(function(){ return '\
     left: 0%;\
   }\
 }\
-/*\
- * -----------------------------------------------\
- *  A11Y\
- * -----------------------------------------------\
- */\
 '; } );

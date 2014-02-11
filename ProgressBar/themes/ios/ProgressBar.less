@@ -17,6 +17,7 @@
 .d-progress-bar-background-styles() {
   height: 100%;
   .border-radius(6px);
+  overflow: hidden;
   background-color: white;
   .linear-gradient(rgb(165, 166, 165) 0%, rgb(214, 215, 214) 50%, rgb(255, 255, 255) 50%, rgb(255, 255, 255) 90%, rgb(181, 182, 181) 100%);
 }
@@ -26,6 +27,7 @@
 
 .d-progress-bar-indicator-styles() {
   .box-sizing(border-box);
+  position: absolute;
   height: 100%;
   .transition(width 0.25s);
   .border-radius(6px);
@@ -45,6 +47,10 @@
   top: 0;
   text-align: center;
   color: #000000;
+}
+
+.d-progress-bar-label-invert-styles() {
+  display: none;
 }
 
 .d-progress-bar-label-ext-styles() {
@@ -80,22 +86,6 @@
   to {
     left: 0%;
   }
-}
-
-// A11Y
-.d-progress-bar-indicator-a11y-styles() {
-}
-
-.d-progress-bar-empty-indicator-a11y-styles() {
-}
-
-.d-progress-bar-full-indicator-a11y-styles() {
-}
-
-.d-progress-bar-label-a11y-styles() {
-}
-
-.d-progress-bar-indeterminate-indicator-a11y-styles() {
 }
 
 @import "../ProgressBar_template";

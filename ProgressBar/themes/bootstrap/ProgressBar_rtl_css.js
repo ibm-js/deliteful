@@ -7,30 +7,34 @@ define(function(){ return '\
  * -----------------------------------------------\
  */\
 .d-rtl .d-progress-bar-indicator {\
-  -webkit-transition: left 0.25s, width 0s;\
-  transition: left 0.25s, width 0s;\
-  border-right-width: 0px;\
-  border-left: 1px solid #759dc0;\
+  -webkit-transition: width 0.3s linear 0s;\
+  transition: width 0.3s linear 0s;\
+  border-top-right-radius: 4px;\
+  border-bottom-right-radius: 4px;\
+  border-top-left-radius: 0;\
+  border-bottom-left-radius: 0;\
+  float: right;\
+  position: relative;\
 }\
 .d-rtl.d-progress-bar-full .d-progress-bar-indicator {\
-  border-left-width: 0;\
+  border-top-left-radius: 4px;\
+  border-bottom-left-radius: 4px;\
 }\
 .d-rtl.d-progress-bar-indeterminate .d-progress-bar-indicator {\
-  -webkit-transition: left 0s;\
-  transition: left 0s;\
   -webkit-animation-direction: reverse;\
   animation-direction: reverse;\
   /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */\
+  -webkit-transition: width 0s;\
+  transition: width 0s;\
+  border-top-right-radius: 4px;\
+  border-bottom-right-radius: 4px;\
 }\
-/*\
- * -----------------------------------------------\
- *  A11Y (RTL)\
- * -----------------------------------------------\
- */\
-.dj_a11y .d-rtl .d-progress-bar-indicator {\
-  border-left: 2px solid;\
+.d-rtl .d-progress-bar-label {\
+  border-right: 2px solid transparent;\
+  border-left: 0;\
 }\
-.dj_a11y .d-rtl.d-progress-bar-full .d-progress-bar-indicator {\
-  border-width: 2px;\
+.d-rtl .d-progress-bar-label-invert {\
+  position: absolute;\
+  overflow: hidden;\
 }\
 '; } );

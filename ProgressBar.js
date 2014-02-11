@@ -30,13 +30,13 @@ define([
 		//		Set the value to 'Infinity' to force the progress bar state to indeterminate.
 		//		Negative and NaN values are defaulted to 0.
 		//		Default: Infinity
-		value: "Infinity",
+		value: "Infinity", // todo: allow only Number. indeterminate set by NaN or Infinity. Negative defaulted to 0.
 
 		// maximum: Number
 		//		Number which express the task as completed.
 		//		Negative values are defaulted to 0.
 		//		Default: 100
-		maximum: 100,
+		maximum: 100,//todo: rename to max
 
 		// label: String
 		//		Allow to specify/override the label on the progress bar whether it's determinate or indeterminate.
@@ -85,11 +85,12 @@ define([
 			this.setAttribute("role", "progressbar");
 			this.backgroundNode = domConstruct.create("div",
 				{className: this.baseClass + "-background"}, this, "last");
-			this.indicatorNode = domConstruct.create("div",
-				{className: this.baseClass + "-indicator "},
-				this.backgroundNode, "last");
 			this.labelNode = domConstruct.create("div",
-				{className: this.baseClass + "-label"}, this, "last");
+				{className: this.baseClass + "-label"}, this.backgroundNode, "last");
+			this.indicatorNode = domConstruct.create("div",
+				{className: this.baseClass + "-indicator "}, this.backgroundNode, "last");
+			this.labelInvertNode = domConstruct.create("div",
+				{className: this.baseClass + "-label-invert"}, this.indicatorNode, "last");
 			this.setAttribute("aria-valuemin", 0);
 			domClass.add(this, this.baseClass + "-empty");
 		},
@@ -127,8 +128,11 @@ define([
 			if (this.isLeftToRight()) {
 				this.indicatorNode.style.width = percent + "%";
 			} else {
-				this.indicatorNode.style.left = (100 - percent) + "%";
+				//this.indicatorNode.style.left = (100 - percent) + "%";
+				this.indicatorNode.style.width = (percent) + "%";
+				//this.labelInvertNode.style.left = "-" + (100 - percent) + "%";
 			}
+			this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
 		},
 
 		_update: function () {
@@ -143,7 +147,7 @@ define([
 
 			if (_value === Infinity) {
 				this.indicatorNode.style.removeProperty("width");
-				this.indicatorNode.style.removeProperty("left"); // RTL
+				//this.indicatorNode.style.removeProperty("left"); // RTL
 				this.labelNode.removeAttribute("label-ext");
 				this.removeAttribute("aria-valuenow");
 			} else {
@@ -161,29 +165,17 @@ define([
 				this._setIndicatorSize(_percent * 100);
 				this.setAttribute("aria-valuenow", _value);
 			}
-			this.labelNode.innerHTML = this.formatMessage(_percent, _value, _maximum);
+			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _maximum);
 			domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
 			if (_displayValues) {
 				//set content value to be used by pseudo element d-progress-bar-label-ext::after
 				this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _maximum));
 			}
 
-			this.setAttribute("aria-labelledby", this.labelNode.id);
-			this.setAttribute("aria-valuemax", _maximum);
-			if (_value !== Infinity) {
-				if (domClass.contains(this, this.baseClass + "-indeterminate")) {
-					// force remove transition to avoid flickering when switching
-					// from Indeterminate to determinate state.
-					this.indicatorNode.style.webkitTransition = this.indicatorNode.style.transition = "width 0s";
-					//this.indicatorNode.style.webkitTransition = "width 0s";
-					domClass.remove(this, this.baseClass + "-indeterminate");
-				} else {
-					this.indicatorNode.style.removeProperty("transition");
-					this.indicatorNode.style.removeProperty("-webkit-transition");
-				}
-			} else {
-				domClass.add(this, this.baseClass + "-indeterminate");
-			}
+			this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
+			this.setAttribute("aria-valuemax", _maximum);//todo: set only on max value change
+
+			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
 			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
 			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
 			this.emit("change", {percent: _percent, value: _value, maximum: _maximum});

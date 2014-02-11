@@ -7,45 +7,79 @@
  */
 @import "../../../../delite/themes/bootstrap/variables.less";
 
+@border-radius-value: 4px;
+@transition-params: 0.3s linear 0s;
+
 .d-progress-bar-styles() {
-  height: 15px;
-  font-size: 11px;
-  line-height: 17px;
-  border: 1px solid rgb(117, 157, 192);
+  font-size: 0.750em;
+  height: 1.667em;
   vertical-align: middle;
+  overflow: hidden;
+  text-align: center;
+
+  border: 1px solid transparent; //a11y
 }
 
 .d-progress-bar-background-styles() {
+  position: absolute;
+  overflow: hidden;
   height: 100%;
-  background-color: white;
+  background-color: #F5F5F5;
+  .box-sizing(border-box);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1) inset;
+  border-radius: @border-radius-value;
 }
 
 .d-progress-bar-backgroundBefore-styles() {
 }
 
 .d-progress-bar-indicator-styles() {
-  .box-sizing(border-box);
+  position: relative;
+  overflow: hidden;
   height: 100%;
-  .transition(width 0.25s);
-  border: 0px;
-  border-right: 1px solid rgb(117, 157, 192);
-  background-color: rgb(171, 214, 255);
-  .linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#EEEEEE, endColorstr=#ABD6FF)"; /* ie9 */
+  .box-sizing(border-box);
+  color: white;
+  .transition(width @transition-params);
+  //here we force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
+  border-top-left-radius: @border-radius-value;
+  border-bottom-left-radius: @border-radius-value;
+  background-color: #428BCA;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-size: 40px 40px;
+
+  border:1px solid transparent; //a11y
 }
 
 .d-progress-bar-empty-indicator-styles() {
-  border-right-width: 0px;
+  border: 0;
 }
 
 .d-progress-bar-full-indicator-styles() {
-  border-right-width: 0px;
+  //here we force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
+  border-top-right-radius: @border-radius-value;
+  border-bottom-right-radius: @border-radius-value;
 }
 
 .d-progress-bar-label-styles() {
-  top: 0;
-  text-align: center;
-  color: #000000;
+  position: absolute;
+  height: 100%;
+  line-height: 1.667em;
+  left: 0;
+  white-space: nowrap;
+  .box-sizing(border-box);
+  border-left: 2px solid transparent; // to make sure label and inverted label are aligned
+}
+
+.d-progress-bar-label-invert-styles() {
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  white-space: nowrap;
+  line-height: 1.447em;
+  width: 100%;
+  color: #f5f5f5;
+  border-radius: @border-radius-value; // force border radius for webkit which ignores parent overflow in that specific case
 }
 
 .d-progress-bar-label-ext-styles() {
@@ -55,19 +89,21 @@
 }
 
 .d-progress-bar-indeterminate-background-styles() {
-  overflow: hidden;
 }
 
 .d-progress-bar-indeterminate-indicator-styles() {
-  -ms-filter: ""; /* ie9 */
   background: #efefef url("../../images/indeterminate-anim.gif") repeat-x top; /* ie9 fallback */
-  width: 200%;
-  // be careful: -webkit-repeating-linear-gradient 0deg ===  repeating-linear-gradient 90deg
-  background-image: repeating-linear-gradient(90deg, rgb(255, 255, 255) 0px, rgb(171, 214, 255) 2%, rgb(171, 214, 255) 4%, rgb(255, 255, 255) 5%);
-  background-image: -webkit-repeating-linear-gradient(0deg, rgb(255, 255, 255) 0px, rgb(171, 214, 255) 2%, rgb(171, 214, 255) 4%, rgb(255, 255, 255) 5%);
+  width: 100%;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-size: 40px 40px;
+  background-color: #428BCA;
+  .box-sizing(border-box);
+  border-radius: @border-radius-value; // force border radius for webkit which ignores parent overflow in that specific case
+  border:1px solid transparent; //a11y
   .transition(width 0s);
   .animation-name(d-progress-bar-indeterminate-animation);
-  .animation-duration(5s);
+  .animation-duration(2s);
   .animation-timing-function(linear);
   .animation-delay(0s);
   .animation-iteration-count(infinite);
@@ -75,37 +111,12 @@
 }
 
 .keyframes-d-progress-bar-indeterminate-animation() {
-  from {
-    left: -100%;
+  0% {
+    background-position: 40px 0;
   }
-  to {
-    left: 0;
+  100% {
+    background-position: 0 0;
   }
-}
-
-// A11Y
-.d-progress-bar-indicator-a11y-styles() {
-  border: 2px solid;
-  border-left-width: 0px;
-  -ms-filter: ""; /* ie9 */
-}
-
-.d-progress-bar-empty-indicator-a11y-styles() {
-  border: 0 none;
-}
-
-.d-progress-bar-full-indicator-a11y-styles() {
-  border-left-width: 2px;
-}
-
-.d-progress-bar-label-a11y-styles() {
-  font-weight: bolder;
-}
-
-.d-progress-bar-indeterminate-indicator-a11y-styles() {
-  .animation-name(none);
-  width: 100%;
-  border: 2px dashed;
 }
 
 @import "../ProgressBar_template";

@@ -12,45 +12,49 @@ define(function(){ return '\
   margin: 2px;\
   padding: 0;\
   width: 100%;\
-  height: 16px;\
+  height: 1.5em;\
   font-size: 12px;\
-  line-height: 16px;\
   vertical-align: middle;\
 }\
 .d-progress-bar-background {\
-  overflow: hidden;\
-  position: absolute;\
-  top: 0;\
-  width: 100%;\
-  margin: 0;\
-  padding: 0;\
-  height: 2px;\
-  background-color: #333333;\
-}\
-.d-progress-bar-indicator {\
-  position: absolute;\
   top: 0;\
   left: 0;\
   width: 100%;\
   margin: 0;\
   padding: 0;\
-  -webkit-transition: width 0.25s;\
-  transition: width 0.25s;\
-  height: 2px;\
-  background: #33B5E5;\
-}\
-.d-progress-bar-label {\
+  height: 0.334em;\
+  background-color: #333333;\
   position: absolute;\
-  height: 100%;\
+}\
+.d-progress-bar-indicator {\
+  top: 0;\
+  left: 0;\
   width: 100%;\
   margin: 0;\
   padding: 0;\
-  top: 3px;\
-  /* below the progress bar */\
+  -webkit-transition: width 0.3s linear 0s;\
+  transition: width 0.3s linear 0s;\
+  height: 100%;\
+  background: #33B5E5;\
+  position: relative;\
+}\
+.d-progress-bar-label {\
+  width: 100%;\
+  margin: 0;\
+  padding: 0;\
+  overflow: hidden;\
   text-align: center;\
+  position: absolute;\
+  height: 1em;\
+  line-height: 1em;\
+  top: 0.5em;\
+}\
+.d-progress-bar-label-invert {\
+  display: none;\
 }\
 .d-progress-bar-label-ext {\
   text-align: left;\
+  overflow: hidden;\
 }\
 .d-progress-bar-label-ext::after {\
   content: attr(label-ext);\
@@ -59,7 +63,6 @@ define(function(){ return '\
 .d-progress-bar-indeterminate .d-progress-bar-background {\
   margin: 0;\
   padding: 0;\
-  height: 2px;\
   background: #33B5E5;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-indicator {\
@@ -96,9 +99,4 @@ define(function(){ return '\
     left: 93%;\
   }\
 }\
-/*\
- * -----------------------------------------------\
- *  A11Y\
- * -----------------------------------------------\
- */\
 '; } );

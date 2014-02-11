@@ -24,9 +24,4 @@ define(function(){ return '\
 .d-rtl.d-progress-bar-empty .d-progress-bar-background {\
   border-right: 0px;\
 }\
-/*\
- * -----------------------------------------------\
- *  A11Y (RTL)\
- * -----------------------------------------------\
- */\
 '; } );
