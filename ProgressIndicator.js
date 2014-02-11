@@ -41,6 +41,7 @@ define([
 
 		/* internal properties */
 		_requestId: 0, //request animation id or clearTimeout param
+		_minLapsTime: 200, // lower limit threshold for lapsTime property
 
 		/* internal methods */
 		_requestRendering: function (animationFrame) {
@@ -92,7 +93,7 @@ define([
 			this._reset();
 			//compute the amount of opacity to subtract at each frame, on each line.
 			//note: 16.7 is the average animation frame refresh interval in ms (~60FPS)
-			var delta = (16.7 / ((this.lapsTime < 500) ? 500 : this.lapsTime));
+			var delta = (16.7 / Math.max(this._minLapsTime, this.lapsTime));
 			//round spinning animation routine
 			var frameAnimation = function () {
 				//set lines opacity
