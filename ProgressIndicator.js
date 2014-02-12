@@ -141,10 +141,11 @@ define([
 			// summary:
 			//		Stops the animation if it is running and hide the widget.
 			//		destroy: set to true to destroy the widget after it stopped.
-			this._stopAnimation();
-			this.style.visibility = "hidden";
 			if (destroy) {
 				this.destroy();
+			} else {
+				this._stopAnimation();
+				this.style.visibility = "hidden";
 			}
 		},
 
@@ -335,6 +336,10 @@ define([
 			if (props.color) {
 				this._setColor(this.color);
 			}
+		},
+
+		destroy: function () {
+			this._stopAnimation();
 		}
 	});
 });
