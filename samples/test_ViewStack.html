@@ -6,8 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>View Stack</title>
 
-	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
-	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
 	<style>
 		button {
@@ -27,7 +26,9 @@
 	</style>
 
 	<script type="text/javascript">
-		require([
+		require({
+			baseUrl: "../.."
+		},[
 			"delite/register",
 			"deliteful/ViewStack",
 			"deliteful/Button",
