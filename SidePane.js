@@ -34,11 +34,11 @@ define([
 		return register("d-side-pane", [HTMLElement, Widget, Invalidating], {
 
 			// summary:
-			//		A container displayed on the side of the screen. It can be displayed on top of the page
+			//		A widget displayed on the side of the screen. It can be displayed on top of the page
 			//		(mode=overlay) or
 			//		can push the content of the page (mode=push or mode=reveal).
 			// description:
-			//		SidePane is a container hidden by default.
+			//		SidePane is a widget hidden by default.
 			//		This widget must be a sibling of html's body element.
 			//		If mode is set to "push" or "reveal", the width of the SidePane can't be changed in the markup
 			//		(15em by default).
