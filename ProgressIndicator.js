@@ -50,7 +50,7 @@ define([
 
 		/* internal properties */
 		_requestId: 0, //request animation id or clearTimeout param
-		_minLapsTime: 200, // lower limit threshold for lapsTime property
+		_minLapsTime: 500, // lower limit threshold for lapsTime property
 		_requestAnimationFunction: (
 			(window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) || // standard
 			(window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) || // webkit
@@ -61,7 +61,6 @@ define([
 			}),
 		_cancelRequestAnimationFunction: (
 			window.cancelRequestAnimationFrame || //standard
-			//window.webkitCancelAnimationFrame || // webkit
 			window.webkitCancelRequestAnimationFrame || // webkit
 			window.mozCancelRequestAnimationFrame || // mozilla
 			window.msCancelRequestAnimationFrame || // ie10
