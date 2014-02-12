@@ -76,8 +76,7 @@ define(function(){ return '\
   margin-right: 11px;\
   vertical-align: top;\
 }\
-.d-list-item-right-icon,\
-.d-list-item-right-icon2 {\
+.d-list-item-right-icon {\
   position: relative;\
   float: right;\
   line-height: normal;\

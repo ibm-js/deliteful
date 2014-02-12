@@ -33,172 +33,7 @@ define(["dcl/dcl",
 		//		The List widget renders a scrollable list of items that are retrieved from a Store.
 		//		Its custom element tag is d-list.
 		//
-		//		## Scroll capabilities
-		//
-		//		If you do not want the list to be scrollable, you can set its scrollDirection attribute
-		//		to "none" in order to remove the default scrolling capability.
-		//
-		//		## Store capabilities
-		//
-		//		If the store the items are retrieved from is observable, the widget will react to addition,
-		//		deletion, move and update of the store content to refresh its rendering accordingly.
-		//
-		//		If you do not specify the store to retrieve the items from, the widget uses a default
-		//		in memory store implementation that can be retrieved in the store attributes, as in
-		//		the following example:
-		//
-		//			var list = register.createElement("d-list");
-		//			var defaultStore = list.store;
-		//
-		//		This default store can be populated programmatically using the add and put methods
-		//		defined by the store API, and it supports the before options in both methods to easily
-		//		order elements in the list, as in the following example:
-		//
-		//			var list = register.createElement("d-list");
-		//			var defaultStore = list.store;
-		//			var item1 = {...};
-		//			var item2 = {...};
-		//			defaultStore.add(item1);
-		//			defaultStore.add(item2, {before: item1});
-		//
-		//		Note that the default store does not support ordering and filtering, so you must use
-		//		another store implementation to do this (Memory store, for example).
-		//
-		//		When creating a list widget declaratively, it is possible to use markup to add items to
-		//		the list store using the d-list-store and d-list-store-items tags, as in the following
-		//		example:
-		//
-		//			<d-list>
-		//				<d-list-store>
-		//					<d-list-store-item item="{...}"></d-list-store-item>
-		//					<d-list-store-item item="{...}"></d-list-store-item>
-		//					<d-list-store-item item="{...}"></d-list-store-item>
-		//					...
-		//				</d-list-store>
-		//			</d-list>
-		//
-		//		Note that items are appended to the store in the order they are declared in the markup.
-		//
-		//		The actual rendering of the items in the list is performed by an item renderer widget.
-		//		The default one is deliteful/list/ItemRenderer, but another one can be specified
-		//		using the itemRenderer attribute of the list, as in the following example:
-		//
-		//			define(["delite/register", "deliteful/list/ItemRenderer"],
-		//				function (register, ItemRenderer) {
-		//					var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-		//						render: function () {
-		//							this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
-		//							this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
-		//						}
-		//					});
-		//					var list = register.createElement("d-list");
-		//					list.itemRenderer = myCustomRenderer;
-		//			});
-		//
-		//		If you are using a custom type of items but want to render them using the default renderer,
-		//		you can redefine the itemToRenderItem method (inherited from delite/Store) so that it creates
-		//		items for the default renderer, as in the following example:
-		//
-		//			var list = register.createElement("d-list");
-		//			list.itemToRenderItem = function (myItem) {
-		//				var itemForDefaultRenderer = {};
-		//				itemForDefaultRenderer.label = myItem.title;
-		//				...
-		//				return itemForDefaultRenderer;
-		//			};
-		//
-		//		Because the List widget inherit from delite/StoreMap, you can also define the mapping between
-		//		your store items and the ones expected by the renderer as in the following example:
-		//
-		//			require([
-		//					"delite/register",
-		//					"deliteful/list/List"
-		//				], function (register, List) {
-		//					var MyList = register("m-list",
-		//							[List, StoreMap],
-		//							{labelAttr: "title",
-		//							 righttextFunc: function (item, store, value) {
-		//								 return item.title.split(" ")[0];
-		//							}});
-		//					var list = register.createElement("m-list");
-		//					list.store.add({title: "first item"});
-		//					...
-		//					document.body.appendChild(list);
-		//					list.startup();
-		//			});
-		//
-		//		Errors encountered when querying the store are reported by the widget through a "query-error" event.
-		//		It should be listened to in order to react to it in the application, as in the following example:
-		//
-		//			var list = register.createElement("d-list");
-		//			list.on("query-error", function (error) {
-		//				// Report the error to the user
-		//				...
-		//			});
-		//
-		//		## Categorized items
-		//
-		//		The List widget supports categorized items, that are rendered with a category header that separates
-		//		each category of items in the list. To enable this feature, use the categoryAttr attribute to
-		//		define the name of the item attribute that holds the category of the item, as in the following
-		//		example:
-		//
-		//			var list = register.createElement("d-list");
-		//			list.categoryAttribute = "category";
-		//			list.store.add({label: "first item", category: "Category A"});
-		//			list.store.add({label: "second item", category: "Category A"});
-		//			list.store.add({label: "third item", category: "Category B"});
-		//
-		//		An alternative is to set categoryFunc to a function that extract the category from the store item,
-		//		as in the following example:
-		//
-		//			var list = register.createElement("d-list");
-		//			list.categoryFunc = function(item, store) {
-		//				return item.category;
-		//			});
-		//			list.store.add({label: "first item", category: "Category A"});
-		//			list.store.add({label: "second item", category: "Category A"});
-		//			list.store.add({label: "third item", category: "Category B"});
-		//
-		//		## Selection support
-		//
-		//		The list uses the delite/Selection mixin to provides support for selectable items. By default, items
-		//		in the list are not selectable, but you can change this behaviour using the selectionMode attribute
-		//		of the widget:
-		//
-		//			var list = register.createElement("d-list");
-		//			list.selectionMode = "multiple";
-		//
-		//		When the selection mode is "single", a click or tap on a item (or a press on the ENTER or SPACE key
-		//		when an item has the focus) select it and deselect any previously selected item. When the selection
-		//		mode is "multiple", a click or tap on an item (or a press on the ENTER or SPACE key when an item has
-		//		the focus) toggle its selected state.
-		//
-		//		When the current selection changes, a "selection-change" event is emitted. Its oldValue attribute
-		//		contains the previous selection, and its newValue attribute contains the new selection.
-		//
-		//		the d-selected CSS class is applied to items currently selected in the list, so you can define your
-		//		own CSS rules to easily customize how selected items are rendered.
-		//
-		//		## Keyboard navigation
-		//
-		//		The List widget uses delite/KeyNav to provide keyboard navigation. When the widget gets focus via
-		//		keyboard navigation, the first item displayed at the top of the scroll viewport is focused.
-		//		The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
-		//		accordingly when you reach the top or the bottom of the scroll viewport. You can also search for items
-		//		by typing letters on the keyboard, and the first item whose label begins with the letters will get
-		//		the focus. When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
-		//		within it. Pressing the UP or ARROW key again will set the focus back to the item. While navigating
-		//		within the item, you can also type letters on the keyboard to search for text labels (for example to
-		//		move from left to right label).
-		//
-		//		## Styling
-		//
-		//		The List widget comes with two different styling that are applied by setting the baseClass attribute
-		//		to one of the following values:
-		//		- "d-list" (default): the list is displayed with an edge to edge layout;
-		//		- "d-rounded-list": the list has rounded corners and both a left and right margin.
-		//
+		//		See the user documentation at https://github.com/ibm-js/deliteful/tree/master/docs/list/List.md
 
 		/*=====
 		// store: dojo/store/Store
@@ -314,24 +149,10 @@ define(["dcl/dcl",
 					sup.apply(this, arguments);
 				}
 				if (!this.store) {
-					// TODO: should the store reference to the list be removed in destroy ?
 					this.store = new DefaultStore(this);
 				}
 			};
 		}),
-
-		enteredViewCallback: function () {
-			// FIXME: THIS IS A WORKAROUND, BECAUSE Widget.enteredViewCallback IS RESETING THE TAB INDEX TO -1.
-			// => WITH THIS WORKAROUND, ANY CUSTOM TABINDEX SET ON A WIDGET NODE IS IGNORED AND REPLACED WITH 0
-			this._enteredView = true;
-			if (!this.isLeftToRight()) {
-				domClass.add(this, "d-rtl");
-			}
-			this.setAttribute("tabindex", "0");
-			this.tabIndex = "0";
-			domClass.add(this, this.baseClass);
-			// END OF WORKAROUND
-		},
 
 		startup: dcl.superCall(function (sup) {
 			// summary:
@@ -397,6 +218,13 @@ define(["dcl/dcl",
 				}
 			};
 		}),
+
+		destroy: function () {
+			// Remove reference to the list in the default store
+			if (this.store && this.store.list) {
+				this.store.list = null;
+			}
+		},
 
 		//////////// Public methods ///////////////////////////////////////
 
@@ -567,7 +395,7 @@ define(["dcl/dcl",
 							this.containerNode.firstElementChild);
 				} else {
 					this.containerNode.appendChild(this._createRenderers(items, 0, items.length,
-							this._getLastRenderer().item));
+							this._getLast().item));
 				}
 			}
 			// start renderers
@@ -657,7 +485,7 @@ define(["dcl/dcl",
 			if (this._isCategorized()) {
 				var previousRenderer = result.nodeRef
 										? this._getNextRenderer(result.nodeRef, -1)
-										: this._getLastRenderer();
+										: this._getLast();
 				if (!previousRenderer) {
 					result.addCategoryBefore = true;
 				} else {
@@ -702,7 +530,7 @@ define(["dcl/dcl",
 			}
 			// Update focus if necessary
 			if (this._getFocusedRenderer() === renderer) {
-				var nextFocusRenderer = this._getNext(renderer, 1) || this._getNext(renderer, -1);
+				var nextFocusRenderer = this._getNextRenderer(renderer, 1) || this._getNextRenderer(renderer, -1);
 				if (nextFocusRenderer) {
 					this.focusChild(nextFocusRenderer);
 				}
@@ -773,21 +601,6 @@ define(["dcl/dcl",
 			} else {
 				return renderer.previousElementSibling; // Widget
 			}
-		},
-
-		_getFirstRenderer: function () {
-			// summary:
-			//		Returns the first renderer in the list.
-			return this.containerNode
-						.querySelector("." + this._cssClasses.item + ", ." + this._cssClasses.category); // Widget
-		},
-
-		_getLastRenderer: function () {
-			// summary:
-			//		Returns the last renderer in the list.
-			var renderers = this.containerNode
-								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
-			return renderers.item(renderers.length - 1);
 		},
 
 		////////////delite/Store implementation ///////////////////////////////////////
@@ -880,7 +693,14 @@ define(["dcl/dcl",
 				(clientRect.bottom - clientRect.top);
 		},
 
-		//////////// Keyboard navigation (delite/KeyNav implementation) ///////////////////////////////////////
+		//////////// delite/KeyNav implementation ///////////////////////////////////////
+
+		childSelector: function (child) {
+			// tags:
+			//		private
+			// Using a childSelector function instead of a String to avoid a dependency on dojo/query
+			return (" " + child.className + " ").indexOf(" d-key-nav ") >= 0;
+		},
 
 		_onContainerKeydown: dcl.before(function (evt) {
 			// summary:
@@ -899,6 +719,74 @@ define(["dcl/dcl",
 			}
 		}),
 
+		focus: function () {
+			// summary:
+			//		Focus the first visible child
+			var renderer = this._getFirst();
+			if (renderer) {
+				while (renderer) {
+					if (this.getTopDistance(renderer) >= 0) {
+						break;
+					}
+					renderer = renderer.nextElementSibling;
+				}
+				this.focusChild(renderer);
+			}
+		},
+
+		// Home/End key support
+		_getFirst: function () {
+			// summary:
+			//		Returns the first renderer in the list.
+			return this.containerNode
+						.querySelector("." + this._cssClasses.item + ", ." + this._cssClasses.category); // Widget
+		},
+
+		_getLast: function () {
+			// summary:
+			//		Returns the last renderer in the list.
+			var renderers = this.containerNode
+								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
+			return renderers.item(renderers.length - 1);
+		},
+
+		// Simple arrow key support.
+		_onLeftArrow: function () {
+			var renderer = this._getFocusedRenderer();
+			this.focusChild(renderer._getPrev(this.focusedChild) || renderer._getLast());
+		},
+
+		_onRightArrow: function () {
+			var renderer = this._getFocusedRenderer();
+			this.focusChild(renderer._getNext(this.focusedChild) || renderer._getFirst());
+		},
+
+		_onDownArrow: function () {
+			var renderer = this._getFocusedRenderer();
+			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling :
+				this.firstElementChild);
+		},
+
+		_onUpArrow: function () {
+			var renderer = this._getFocusedRenderer();
+			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling :
+				this.lastElementChild);
+		},
+
+		// Letter key navigation support, loops through all focusable childs of all list-items.
+		_getNext: function (child) {
+			// Return either:
+			//		1. next field in current list item (if there is one)
+			//		2. first field in next list item (if there is one)
+			var renderer = this.getEnclosingRenderer(child);
+			return (child === renderer) ? renderer._getFirst() : null
+			|| renderer._getNext(child)
+			|| (renderer.nextElementSibling && renderer.nextElementSibling._getFirst())
+			|| this._getFirst()._getFirst();
+		},
+
+		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
+
 		_actionKeydownHandler: function (evt) {
 			// summary:
 			//		Handle SPACE and ENTER keys
@@ -907,117 +795,6 @@ define(["dcl/dcl",
 			if (this.selectionMode !== "none") {
 				evt.preventDefault();
 				this._handleSelection(evt);
-			}
-		},
-
-		childSelector: function (child) {
-			// tags:
-			//		private
-			return child !== this;
-		},
-
-		_getFirst: function () {
-			// tags:
-			//		private
-			var renderer = this._getFirstRenderer();
-			while (renderer) {
-				if (this.getTopDistance(renderer) >= 0) {
-					break;
-				}
-				renderer = renderer.nextElementSibling;
-			}
-			return renderer;
-		},
-
-		_getLast: function () {
-			// tags:
-			//		private
-			var renderer = this._getLastRenderer();
-			while (renderer) {
-				if (this.getBottomDistance(renderer) <= 0) {
-					break;
-				}
-				renderer = renderer.previousElementSibling;
-			}
-			return renderer;
-		},
-
-		_getNext: function (child, dir) {
-			// tags:
-			//		private
-			var focusedRenderer, refChild, returned = null;
-			if (this.focusedChild) {
-				focusedRenderer = this._getFocusedRenderer();
-				if (focusedRenderer === this.focusedChild) {
-					// The renderer itself has the focus
-					refChild = child || this.focusedChild;
-					if (refChild) {
-						// do not use _nextRenderer and _previousRenderer as we want to include the pageloader
-						// if it exists
-						returned = refChild[(dir === 1) ? "nextElementSibling" : "previousElementSibling"];
-					}
-				} else {
-					// A descendant of the renderer has the focus
-					// FIXME: can it be a category header, with no _getNextFocusableChild method ?
-					returned = focusedRenderer._getNextFocusableChild(child, dir);
-				}
-			} else {
-				returned = (dir === 1 ? this._getFirst() : this._getLast());
-			}
-			return returned;
-		},
-
-		_onLeftArrow: function () {
-			// tags:
-			//		private
-			var nextChild, focusedRenderer = this._getFocusedRenderer();
-			if (focusedRenderer && focusedRenderer._getNextFocusableChild) {
-				nextChild = focusedRenderer._getNextFocusableChild(null, -1);
-				if (nextChild) {
-					this.focusChild(nextChild);
-				}
-			}
-		},
-
-		_onRightArrow: function () {
-			// tags:
-			//		private
-			var nextChild, focusedRenderer = this._getFocusedRenderer();
-			if (focusedRenderer && focusedRenderer._getNextFocusableChild) {
-				nextChild = focusedRenderer._getNextFocusableChild(null, 1);
-				if (nextChild) {
-					this.focusChild(nextChild);
-				}
-			}
-		},
-
-		_onDownArrow: function () {
-			// tags:
-			//		private
-			this._focusNextChild(1);
-		},
-
-		_onUpArrow: function () {
-			// tags:
-			//		private
-			this._focusNextChild(-1);
-		},
-
-		_focusNextChild: function (dir) {
-			// tags:
-			//		private
-			var child, renderer = this._getFocusedRenderer();
-			if (renderer) {
-				if (renderer === this.focusedChild) {
-					child = this._getNext(renderer, dir);
-					if (!child) {
-						child = renderer;
-					}
-				} else {
-					child = renderer;
-				}
-				this.focusChild(child);
-				return child;
 			}
 		},
 

@@ -1,13 +1,13 @@
 define(["dcl/dcl",
+        "dojo/dom-class",
         "delite/register",
-        "delite/Widget",
-        "delite/Invalidating"
-], function (dcl, register, Widget, Invalidating) {
+        "delite/Widget"
+], function (dcl, domClass, register, Widget) {
 
 	// module:
 	//		deliteful/list/Renderer
 
-	return dcl([Widget, Invalidating], {
+	return dcl([Widget], {
 		// summary:
 		//		Base class for a widget that render an item or a category inside a deliteful/list/List widget.
 		//
@@ -15,17 +15,13 @@ define(["dcl/dcl",
 		//		This base class provide all the infrastructure that a deliteful/list/List widget
 		//		expect from a renderer, including keyboard navigation support.
 		//
-		//		Keyboard navigation for a concrete renderer class is defined using the setFocusableChildren method.
+		//		Keyboard navigation for a renderer instance is defined using the setFocusableChildren method.
 
 		// _focusableChildren: Array
 		//		contains all the renderer nodes that can be focused, in the same order
 		//		that they are to be focused during keyboard navigation with the left and right arrow
 		//		keys.
 		_focusableChildren: null,
-
-		// _focusedChild: Widget
-		//		the renderer child that currently has the focus (null if no child has the focus)
-		_focusedChild: null,
 
 		/*=====
 		// renderNode: DOMNode
@@ -42,6 +38,7 @@ define(["dcl/dcl",
 			//		protected
 			this.containerNode = this;
 			this.setAttribute("role", "listitem");
+			domClass.add(this, "d-key-nav");
 		},
 
 		/*=====
@@ -65,31 +62,52 @@ define(["dcl/dcl",
 			//		they are focusable using keyboard navigation.
 			// tags:
 			//		protected
-			var that = this;
-			var focusHandler = function () {
-				that._focusedChild = this;
-			};
+			if (this._focusableChildren) {
+				for (var i = 0; i < this._focusableChildren.length; i++) {
+					domClass.remove(this._focusableChildren[i], "d-key-nav");
+					delete this._focusableChildren[i].tabIndex;
+				}
+			}
 			this._focusableChildren = [];
-			this._focusedChild = null;
-			for (var i = 0; i < arguments.length; i++) {
+			for (i = 0; i < arguments.length; i++) {
 				var node = arguments[i];
 				if (node) {
-					node.onfocus = focusHandler;
 					this._focusableChildren.push(node);
+					domClass.add(node, "d-key-nav");
+					node.tabIndex = -1;
 				}
 			}
 		},
 
-		focus: dcl.superCall(function (sup) {
-			// summary:
-			//		Focus the widget.
-			// tags:
-			//		protected
-			return function () {
-				this._focusedChild = null;
-				sup.apply(this, arguments);
-			};
-		}),
+		// Interface from List to Renderer to navigate fields
+
+		_getFirst: function () {
+			// first focusable node
+			if (this._focusableChildren && this._focusableChildren.length) {
+				return this._focusableChildren[0];
+			} else {
+				return null;
+			}
+		},
+
+		_getLast: function () {
+			// last focusable node
+			if (this._focusableChildren && this._focusableChildren.length) {
+				return this._focusableChildren[this._focusableChildren.length - 1];
+			} else {
+				return null;
+			}
+		},
+
+		_getNext: function (child) {
+			// focusable node after child
+			return this._getNextFocusableChild(child, 1);
+		},
+
+		_getPrev: function (child) {
+			// focusable node before child
+			return this._getNextFocusableChild(child, -1);
+		},
 
 		_getNextFocusableChild: function (fromChild, dir) {
 			// summary:
@@ -103,23 +121,18 @@ define(["dcl/dcl",
 			//		protected
 			// returns:
 			//		the next focusable child if there is one.
-			if (this._focusableChildren) {
+			if (this._focusableChildren && fromChild !== this) {
 				// retrieve the position of the from node
-				var nextChildIndex, fromChildIndex = -1, refNode = fromChild || this._focusedChild;
+				var fromChildIndex = -1, refNode = fromChild || this._focusedChild;
 				if (refNode) {
 					fromChildIndex = this._focusableChildren.indexOf(refNode);
 				}
-				if (dir === 1) {
-					nextChildIndex = fromChildIndex + 1;
+				var nextChildIndex = fromChildIndex + dir;
+				if (nextChildIndex >= 0 && nextChildIndex < this._focusableChildren.length) {
+					return this._focusableChildren[nextChildIndex]; // Widget
 				} else {
-					nextChildIndex = fromChildIndex - 1;
+					return null;
 				}
-				if (nextChildIndex >= this._focusableChildren.length) {
-					nextChildIndex = 0;
-				} else if (nextChildIndex < 0) {
-					nextChildIndex = this._focusableChildren.length - 1;
-				}
-				return this._focusableChildren[nextChildIndex]; // Widget
 			}
 		}
 		

@@ -6,7 +6,16 @@ The List widget renders a scrollable list of items that are retrieved from a [St
 Its custom element tag is `d-list`.
 
 TODO: INSERT SCREENSHOT(S) HERE
+##### Table of content
 
+- [Scroll capabilities](#scroll)
+- [Store capabilities](#store)
+- [Categorized items](#categories)
+- [Selection support](#selection)
+- [Keyboard navigation](#keynav)
+- [Styling](#style)
+
+<a name="scroll"/>
 ## Scroll capabilities
 
 If you do not want the list to be scrollable, you can set its `scrollDirection` attribute
@@ -14,6 +23,7 @@ to `"none"` in order to remove the default scrolling capability.
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+<a name="store"/>
 ## Store capabilities
 
 If the store the items are retrieved from is [observable](), the widget will react to addition,
@@ -130,7 +140,7 @@ list.on("query-error", function (error) {
 	...
 });
 ```
-
+<a name="categories"/>
 ## Categorized items
 
 The List widget supports categorized items, that are rendered with a category header that separates
@@ -191,6 +201,7 @@ require([
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+<a name="selection"/>
 ## Selection support
 
 The list uses the [delite/Selection]() mixin to provides support for selectable items. By default, items
@@ -215,18 +226,30 @@ contains the previous selection, and its `newValue` attribute contains the new s
 The `d-selected` CSS class is applied to items currently selected in the list, so you can define your
 own CSS rules to easily customize how selected items are rendered.
 
+<a name="keynav"/>
 ## Keyboard navigation
 
 The List widget uses [delite/KeyNav]() to provide keyboard navigation. When the widget get focus via
 keyboard navigation, the first item displayed at the top of the scroll viewport is focused.
-The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
-accordingly when you reach the top or the bottom of the scroll viewport. You can also search for items
-by typing letters on the keyboard, and the first item whose label begins with the letters will get
-the focus. When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
-within it. Pressing the UP or ARROW key again will set the focus back to the item. While navigating
-within the item, you can also type letters on the keyboard to search for text labels (for example to
-move from left to right label).
 
+The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
+accordingly when you reach the top or the bottom of the scroll viewport. Pressing the DOWN arrow
+while the last item has focus will focus the first item. Pressing the UP arrow while the first item
+has the focus will focus the next item.
+
+When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
+within it. Pressing the UP or ARROW key again will set the focus to the previous or next item.
+
+Pressing the HOME key will focus the first item of the list, while pressing the END key will focus
+the last one.
+
+You can also search for items by typing letters on the keyboard, and the next item element which text
+begins with the letters will get the focus.
+
+All the elements that can be focused during keyboard navigation have the `d-key-nav` CSS class applied
+to them, so it can be used to style the item that currently has the focus.
+
+<a name="style"/>
 ## Styling
 
 The List widget comes with two different styling that are applied by setting the `baseClass` attribute

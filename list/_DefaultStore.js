@@ -98,11 +98,7 @@ define(["dcl/dcl",
 				? options.id : this.idProperty in item ? item[this.idProperty] : Math.random();
 			var existingIndex = this._ids.indexOf(id);
 			if (options && options.before) {
-				if (this.idProperty in options.before) {
-					beforeIndex = this._ids.indexOf(options.before[this.idProperty]);
-				} else {
-					beforeIndex = this.data.indexOf(options.before);
-				}
+				beforeIndex = this._ids.indexOf(options.before[this.idProperty]);
 			}
 			if (existingIndex >= 0) {
 				// item exists in store

@@ -43,6 +43,7 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			this.renderNode.innerHTML = this.category;
+			this.setFocusableChildren(this.renderNode);
 		}
 
 	});

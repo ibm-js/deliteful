@@ -68,12 +68,12 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.end();
 			});
@@ -91,39 +91,39 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[4]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.end();
 			});
@@ -141,39 +141,39 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[4]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.click()
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+						assert.equal(className, "d-key-nav d-list-item d-selected");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
 					.getAttribute("className")
 					.then(function (className) {
-						assert.equal(className, "d-list-item");
+						assert.equal(className, "d-key-nav d-list-item");
 					})
 					.end();
 			});
@@ -233,12 +233,6 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list-prog-1");
 				})
-				.keys("\uE013") // Press UP ARROW
-				.execute("return document.activeElement")
-				.text()
-				.then(function (value) {
-					assert.equal(value, "list-prog-1\nProgrammatic item of order 2");
-				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.execute("return document.activeElement")
@@ -272,7 +266,7 @@ define(["intern!object",
 				})
 				.getAttribute("className")
 				.then(function (value) {
-					assert.equal(value, "d-list-item d-selected");
+					assert.equal(value, "d-key-nav d-list-item d-selected");
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
@@ -283,7 +277,7 @@ define(["intern!object",
 				})
 				.getAttribute("className")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, "d-key-nav d-list-item");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
@@ -301,7 +295,7 @@ define(["intern!object",
 				})
 				.getAttribute("className")
 				.then(function (value) {
-					assert.equal(value, "d-list-item d-selected");
+					assert.equal(value, "d-key-nav d-list-item d-selected");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
@@ -312,7 +306,95 @@ define(["intern!object",
 				})
 				.getAttribute("className")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, "d-key-nav d-list-item");
+				})
+				.end()
+				.keys("\uE010") // Press END
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text 10\nlist item 9");
+				})
+				.getAttribute("className")
+				.then(function (value) {
+					assert.equal(value, "d-key-nav d-list-item");
+				})
+				.end()
+				.keys("\uE011") // Press HOME
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text 1\nlist item 0");
+				})
+				.getAttribute("className")
+				.then(function (value) {
+					assert.equal(value, "d-key-nav d-list-item");
+				})
+				.end()
+				.keys("\uE013") // Press UP ARROW
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text 10\nlist item 9");
+				})
+				.end()
+				.keys("\uE015") // Press DOWN ARROW
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text 1\nlist item 0");
+				})
+				.end();
+			});
+		},
+		"keyboard search": function () {
+			var remote = this.remote;
+			return remote
+			.get(require.toUrl("./ListGallery.html"))
+			.waitForCondition("ready", 5000)
+			.then(function () {
+				remote
+				.keys("\uE004") // Press TAB 6 times
+				.keys("\uE004")
+				.keys("\uE004")
+				.keys("\uE004")
+				.keys("\uE004")
+				.keys("\uE004")
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text A\nlist item 0");
+				})
+				.end()
+				.keys("R")
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text A");
+				})
+				.end()
+				.wait(1000)
+				.keys("r")
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "right text B");
+				})
+				.end()
+				.wait(1000)
+				.keys("L")
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 2");
+				})
+				.end()
+				.wait(1000)
+				.keys("l")
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 3");
 				})
 				.end();
 			});

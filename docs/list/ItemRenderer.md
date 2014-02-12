@@ -12,10 +12,8 @@ Rendered with CSS class _d-list-item-icon_ + the value of the attribute;
 Rendered with CSS class _d-list-item-label_;
 - `righttext`: string to render of the right side if the node.
 Rendered with CSS class _d-list-item-right-text_;
-- `righticon2class`: css class to apply to a DIV element on the right side of the list item in order to display an icon.
+- `righticonclass`: css class to apply to a DIV element on the right side of the list item in order to display an icon.
 Rendered with CSS class _d-list-item-right-icon2_ + the value of the attribute;
-- `righticonclass`: css class to apply to a DIV element on the right side of the list item, after the DIV element styled with righticon2class, in order to display an icon. 
-Rendered with CSS class _d-list-item-right-icon_ + the value of the attribute;
 
 TODO: INSERT SCREENSHOT(S) HERE
 

@@ -20,14 +20,11 @@ define(["dcl/dcl",
 		//				Rendered with CSS class d-list-item-label;
 		//		- righttext: string to render of the right side if the node.
 		//				Rendered with CSS class d-list-item-right-text;
-		//		- righticon2class: css class to apply to a DIV element on the right side of the list item
+		//		- righticonclass: css class to apply to a DIV element on the right side of the list item
 		//				in order to display an icon.
 		//				Rendered with CSS class d-list-item-right-icon2 + the value of the attribute;
-		//		- righticonclass: css class to apply to a DIV element on the right side of the list item,
-		//				after the DIV element styled with righticon2class, in order to display an icon. 
-		//				Rendered with CSS class d-list-item-right-icon + the value of the attribute;
-		//		All the nodes that renders the attributes are focusable with keyboard navigation (using left and
-		//		right arrows).
+		//		All the nodes that renders the attributes are focusable with keyboard navigation
+		//		(using left and right arrows).
 
 		// item: Object
 		//		the list item to render.
@@ -70,13 +67,11 @@ define(["dcl/dcl",
 					this.item ? this.item.label : null, "d-list-item-label");
 			this._renderNode("icon", "iconNode",
 					this.item ? this.item.iconclass : null, "d-list-item-icon");
-			this._renderNode("text", "righttext",
+			this._renderNode("text", "righttextNode",
 					this.item ? this.item.righttext : null, "d-list-item-right-text");
-			this._renderNode("icon", "righticon2",
-					this.item ? this.item.righticon2class : null, "d-list-item-right-icon2");
-			this._renderNode("icon", "righticon",
+			this._renderNode("icon", "righticonNode",
 					this.item ? this.item.righticonclass : null, "d-list-item-right-icon");
-			this.setFocusableChildren(this.iconNode, this.labelNode, this.righttext, this.righticon2, this.righticon);
+			this.setFocusableChildren(this.labelNode, this.righttextNode);
 		},
 
 		//////////// PRIVATE METHODS ///////////////////////////////////////
@@ -100,7 +95,6 @@ define(["dcl/dcl",
 				if (!this[nodeName]) {
 					this[nodeName] = this.ownerDocument.createElement("DIV");
 					this[nodeName].className = nodeClass;
-					this[nodeName].tabIndex = -1;
 					if (this.renderNode.firstChild) {
 						this.renderNode.insertBefore(this[nodeName], this.renderNode.firstChild);
 					} else {
