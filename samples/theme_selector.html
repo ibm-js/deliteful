@@ -14,7 +14,6 @@ rtl and a11y.
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
 	<title>Theme selector</title>
-
 	<script>
 		function load () {
 			var loc = parent.location;
@@ -110,29 +109,29 @@ rtl and a11y.
 			width: auto;
 			display: table-cell;
 			border-right: 1px solid black;
-			height: 160px;
 		}
 	</style>
 </head>
 <body class="themeSelector">
-<strong>Theme selector</strong><br>
-<hr>
-<div class="themeSelectorCols">
-	<strong>Theme</strong><br>
-	<input type="radio" name="rbTheme" id="rbThemeAuto" 		value="auto"><label for="rbThemeAuto">Auto detect</label><br>
-	<input type="radio" name="rbTheme" id="rbThemeBootstrap" 	value="bootstrap"><label for="rbThemeBootstrap">Bootstrap</label><br>
-	<input type="radio" name="rbTheme" id="rbThemeIos" 			value="ios"><label for="rbThemeIOS">iOS</label><br>
-	<input type="radio" name="rbTheme" id="rbThemeHolodark" 	value="holodark"><label for="rbThemeHolodark">Holodark</label><br>
-</div>
-<div class="themeSelectorCols">
-	<strong>Bibi</strong><br>
-	<input type="radio" name="rbDir" id="rbDirLtr"	value="ltr"><label for="rbDirLtr">LTR</label><br>
-	<input type="radio" name="rbDir" id="rbDirRtl"	value="rtl"><label for="rbDirRtl">RTL</label><br>
+	<strong>Theme selector</strong><br>
 	<hr>
-	<strong>a11y</strong><br>
-	<input type="radio" name="rbA11y" id="rbA11yDisable"	value="disable" checked="true"><label for="rbA11yDisable">disable</label><br>
-	<input type="radio" name="rbA11y" id="rbA11yEnable"	value="enable"><label for="rbA11yEnable">enable</label><br>
-</div>
-<hr>
-<input type="button" name="btTheme" value="Set theme" onclick="setTheme()">
+	<div class="themeSelectorCols">
+		<strong>Theme</strong><br>
+		<input type="radio" name="rbTheme" id="rbThemeAuto" 		value="auto"><label for="rbThemeAuto">Auto detect</label><br>
+		<input type="radio" name="rbTheme" id="rbThemeBootstrap" 	value="bootstrap"><label for="rbThemeBootstrap">Bootstrap</label><br>
+		<input type="radio" name="rbTheme" id="rbThemeIos" 			value="ios"><label for="rbThemeIos">iOS</label><br>
+		<input type="radio" name="rbTheme" id="rbThemeHolodark" 	value="holodark"><label for="rbThemeHolodark">Holodark</label><br>
+	</div>
+	<div class="themeSelectorCols">
+		<strong>Bibi</strong><br>
+		<input type="radio" name="rbDir" id="rbDirLtr"	value="ltr"><label for="rbDirLtr">LTR</label><br>
+		<input type="radio" name="rbDir" id="rbDirRtl"	value="rtl"><label for="rbDirRtl">RTL</label><br>
+	</div>
+	<div class="themeSelectorCols">
+		<strong>a11y</strong><br>
+		<input type="radio" name="rbA11y" id="rbA11yDisable"	value="disable" checked="true"><label for="rbA11yDisable">disable</label><br>
+		<input type="radio" name="rbA11y" id="rbA11yEnable"	value="enable"><label for="rbA11yEnable">enable</label><br>
+	</div>
+	<hr>
+	<input type="button" name="btTheme" value="Set theme" onclick="setTheme()">
 </body>
