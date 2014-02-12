@@ -138,9 +138,8 @@ define(["dcl/dcl",
 				setVisibility(widget, true);
 				this._visibleChild = widget;
 
-				var transition = event.transition ? event.transition : "slide";
-				var reverse = event.reverse ? event.reverse : false;
-
+				var transition = event.transition || "slide";
+				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
 				if (transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
