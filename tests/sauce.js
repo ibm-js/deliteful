@@ -45,7 +45,7 @@ define({
 		{ browserName: "iphone", platform: "OS X 10.8", version: "6.1" },
 		{ browserName: "ipad", platform: "OS X 10.8", version: "6.1" },
 		{ browserName: "iphone", platform: "OS X 10.8", version: "6.0" },
-		{ browserName: "ipad", platform: "OS X 10.8", version: "6.0" },
+		{ browserName: "ipad", platform: "OS X 10.8", version: "6.0" }
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
