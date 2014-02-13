@@ -39,7 +39,7 @@
 			on(dom.byId("setAll"), "click", function() {
 				setValue(inputVal.value);
 				setMaximum(inputMax.value);
-				setfractionDigits(inputPla.value);
+				setFractionDigits(inputPla.value);
 			});
 			on(dom.byId("setValue"), "click", function() {
 				setValue(inputVal.value);
@@ -118,8 +118,9 @@
 		<input type="button" value="Indeterminate" onclick="setState(true);" />
 		<input type="button" value="Determinate" onclick="setState(false);" />
 		<br>
-		<input type="button" value="Custom label" onclick="setLabel('Loading...');" />
 		<input type="button" value="Default label" onclick="setLabel('');" />
+		<input type="button" value="Custom label" onclick="setLabel(document.getElementById('label').value);" />
+		<input type="text" name="label" id="label" size="15" value="Loading..."/>
 		<br>
 		<input type="button" value="display:block" onclick="setDisplay('block');" />
 		<input type="button" value="display:default" onclick="setDisplay();" />
