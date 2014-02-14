@@ -26,17 +26,17 @@ define([
 		// value: String (Percentage or Number)
 		//		Number or percentage indicating the amount of completed task.
 		//		With "%": percentage value, 0% <= progress <= 100%, or
-		//		without "%": absolute value, 0 <= progress <= maximum.
+		//		without "%": absolute value, 0 <= progress <= max.
 		//		Set the value to 'Infinity' to force the progress bar state to indeterminate.
 		//		Negative and NaN values are defaulted to 0.
 		//		Default: Infinity
 		value: "Infinity", // todo: allow only Number. indeterminate set by NaN or Infinity. Negative defaulted to 0.
 
-		// maximum: Number
+		// max: Number
 		//		Number which express the task as completed.
 		//		Negative values are defaulted to 0.
 		//		Default: 100
-		maximum: 100,//todo: rename to max
+		max: 100,//todo: rename to max
 
 		// label: String
 		//		Allow to specify/override the label on the progress bar whether it's determinate or indeterminate.
@@ -48,8 +48,8 @@ define([
 		label: "",
 
 		// displayValues: Boolean
-		//		Allow to display the current value vs the maximum in the form value/maximum in addition to the current
-		//		label. When true, the label stick to one side and value/maximum stick to the other side.
+		//		Allow to display the current value vs the max in the form value/max in addition to the current
+		//		label. When true, the label stick to one side and value/max stick to the other side.
 		//		Ex: [65%........379/583]
 		//		This property is theme dependent. On some theme it has no effect.
 		//		Default: false
@@ -67,7 +67,7 @@ define([
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "label", "maximum", "fractionDigits", "displayValues");
+			this.addInvalidatingProperties("value", "label", "max", "fractionDigits", "displayValues");
 		},
 
 		buildRendering: function () {
@@ -96,9 +96,9 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			var _percent = 0, _value, _maximum, _displayValues;
+			var _percent = 0, _value, _max, _displayValues;
 			_value = (this.value === "Infinity") ? Infinity:this.value;
-			_maximum = (this.maximum < 0) ? 100:this.maximum;
+			_max = (this.max < 0) ? 100:this.max;
 			_displayValues = this.displayValues && _value !== Infinity && this.label === "";
 
 			if (_value === Infinity) {
@@ -109,33 +109,33 @@ define([
 			} else {
 				if (String(this.value).indexOf("%") !== -1) {
 					_percent = Math.min(parseFloat(this.value) / 100, 1);
-					_value = _percent * _maximum;
+					_value = _percent * _max;
 				} else {
 					if (isNaN(this.value) || this.value < 0) {
 						_value = 0;
 					} else {
-						_value = Math.min(parseFloat(this.value), _maximum);
+						_value = Math.min(parseFloat(this.value), _max);
 					}
-					_percent = _value / _maximum;
+					_percent = _value / _max;
 				}
 				this.indicatorNode.style.width = (_percent * 100) + "%";
 				this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
 				this.setAttribute("aria-valuenow", _value);
 			}
-			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _maximum);
+			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
 			domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
 			if (_displayValues) {
 				//set content value to be used by pseudo element d-progress-bar-label-ext::after
-				this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _maximum));
+				this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _max));
 			}
 
 			this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
-			this.setAttribute("aria-valuemax", _maximum);//todo: set only on max value change
+			this.setAttribute("aria-valuemax", _max);//todo: set only on max value change
 
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
 			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
 			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
-			this.emit("change", {percent: _percent, value: _value, maximum: _maximum});
+			this.emit("change", {percent: _percent, value: _value, max: _max});
 			/*	issue:
 			 this inline declaration doesn't work on iOS and Android stock browser (4.2.2/webkit:535.19):
 			 onchange="alert(this.value + "," + event.percent)"
@@ -167,7 +167,7 @@ define([
 //		onChange: function () {
 //		},
 
-		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/maximum) {
+		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
 			//		Generates HTML message to show inside/beside the progress bar (depends on theme settings).
 			// 		May be overridden.
@@ -175,25 +175,25 @@ define([
 			//		Percentage indicating the amount of completed task.
 			// value:
 			//		The current value
-			// maximum:
+			// max:
 			//		The maximum value
 
 			return this.label ? this.label : (value === Infinity ?
 				"" : number.format(percent, {type: "percent", places: this.fractionDigits, round: -1, locale: this.lang}));
 		},
 
-		formatValues: function (/*Number*/percent, /*Number*/value, /*Number*/maximum) {
+		formatValues: function (/*Number*/percent, /*Number*/value, /*Number*/max) {
 			// summary:
 			//		Set content to be displayed when property displayValues is enabled. By default it returns
-			//		value/maximum
+			//		value/max
 			// 		May be overridden.
 			// percent:
 			//		Percentage indicating the amount of completed task.
 			// value:
 			//		The current value
-			// maximum:
+			// max:
 			//		The maximum value
-			return (this.isLeftToRight()) ? value + "/" + maximum:maximum + "/" + value;
+			return (this.isLeftToRight()) ? value + "/" + max:max + "/" + value;
 		}
 	});
 });

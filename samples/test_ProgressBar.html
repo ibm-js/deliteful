@@ -21,11 +21,11 @@
 		], function (dom, domClass, register, on,Deferred,  ProgressBar) {
 			register.parse();
 			var testBar = dom.byId("testBar");
-			var testBarPrg = new ProgressBar({value: 75, style:"width: 250px"}).placeAt("testBarPrgLabel","after");
+			var testBarPrg = new ProgressBar({id: "testBarPrg", value: 75, style:"width: 250px"}).placeAt("testBarPrgLabel","after");
 			on(testBarPrg, "change", function(event) {
 				document.getElementById('extLabelPrg').innerHTML =
 						event.value  + '/' +
-						event.maximum + ' ; ' +
+						event.max + ' ; ' +
 						((event.percent)*100) + '%';
 			});
 			testBarPrg.startup();
@@ -33,7 +33,7 @@
 			var inputMax = dom.byId("maximum");
 			var inputPla = dom.byId("fractionDigits");
 			// set default value
-			inputMax.value = testBar.maximum;
+			inputMax.value = testBar.max;
 			inputVal.value = testBar.value;
 			inputPla.value = testBar.fractionDigits;
 
@@ -56,8 +56,8 @@
 				testBarPrg.fractionDigits = parseInt(fractionDigits);
 			};
 			setMaximum = function (max) {
-				testBar.maximum = max;
-				testBarPrg.maximum = max;
+				testBar.max = max;
+				testBarPrg.max = max;
 			};
 			setValue = function (value) {
 				testBar.value = (value === "Infinity")?Infinity:value;
@@ -83,6 +83,8 @@
 			setSize = function (size) {
 				testBar.style.width = size;
 				testBarPrg.style.width = size;
+				testBar.value = testBar.value;//force label to align correctly...//todo: use mutation event to detect width change on widget
+				testBarPrg.value = testBarPrg.value;
 			};
 			displayValues = function (flag) {
 				testBar.displayValues = flag;
@@ -132,7 +134,7 @@
 		<hr>
 		Declarative:<d-progress-bar id="testBar" value="75" style="width:250px;"
 					onchange="document.getElementById('extLabel').innerHTML =
-							event.value  + '/' + event.maximum + ' ; ' + ((event.percent)*100) + '%';">
+							event.value  + '/' + event.max + ' ; ' + ((event.percent)*100) + '%';">
 				</d-progress-bar>.
 		<br>onchange: <span id="extLabel"></span>
 		<hr>
