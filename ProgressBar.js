@@ -129,10 +129,6 @@ define([
 			if (props.value || props.max) {
 				this.emit("change", {percent: _percent, value: _value, max: _max});
 			}
-			/*	issue:
-			 this inline declaration doesn't work on iOS and Android stock browser (4.2.2/webkit:535.19):
-			 onchange="alert(this.value + "," + event.percent)"
-			 */
 		},
 
 		startup: function () {
@@ -144,14 +140,6 @@ define([
 				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
 			}
 		},
-
-		/*
-		 issue:
-		 if this function is defined, this inline declaration doesn't work:
-		 onchange="alert(this.value + "," + event.percent)"
-		 */
-//		onChange: function () {
-//		},
 
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
