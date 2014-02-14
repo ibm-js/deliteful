@@ -15,7 +15,14 @@ define(["dcl/dcl",
 		//		This base class provide all the infrastructure that a deliteful/list/List widget
 		//		expect from a renderer, including keyboard navigation support.
 		//
-		//		Keyboard navigation for a renderer instance is defined using the setFocusableChildren method.
+		//		Focusability and Keyboard navigation order for a renderer instance is defined using
+		//		the navindex attribute on the rendered nodes:
+		//		- no navindex attribute or a negative navindex value means that the node is not focusable
+		//		- a navindex attribute with a value >= 0 means that the node is focusable. When navigating
+		//		  the renderer instance using arrow keys, the traversal order is the following:
+		//			- the nodes with the lowest navindex value comes first
+		//			- if two nodes have the same navindex value, the one that is before the other one in the DOM
+		//			  comes first.
 
 		// _focusableChildren: Array
 		//		contains all the renderer nodes that can be focused, in the same order
@@ -38,46 +45,15 @@ define(["dcl/dcl",
 			//		protected
 			this.containerNode = this;
 			this.setAttribute("role", "listitem");
-			domClass.add(this, "d-key-nav");
 		},
 
-		/*=====
-		 render: function () {
+		render: dcl.after(function () {
 			// summary:
 			// 		render the item or category inside the renderNode of the renderer.
 			// tags:
 			//		protected abstract
-		 },
-		 =====*/
-
-		setFocusableChildren: function (/*DomNode...*//*jshint unused:vars*/children) {
-			// summary:
-			//		This method set the list of children of the renderer that can
-			//		be focused during keyboard navigation, by keyboard navigation
-			//		order. This method is generally called from the render method
-			//		implementation, after the focused node have been created and
-			//		assigned as named attributes of the renderer.
-			// children: DomNode
-			//		The focusable children (dom nodes) of the renderer, in the order
-			//		they are focusable using keyboard navigation.
-			// tags:
-			//		protected
-			if (this._focusableChildren) {
-				for (var i = 0; i < this._focusableChildren.length; i++) {
-					domClass.remove(this._focusableChildren[i], "d-key-nav");
-					delete this._focusableChildren[i].tabIndex;
-				}
-			}
-			this._focusableChildren = [];
-			for (i = 0; i < arguments.length; i++) {
-				var node = arguments[i];
-				if (node) {
-					this._focusableChildren.push(node);
-					domClass.add(node, "d-key-nav");
-					node.tabIndex = -1;
-				}
-			}
-		},
+			this._updateFocusableChildren();
+		}),
 
 		// Interface from List to Renderer to navigate fields
 
@@ -109,6 +85,44 @@ define(["dcl/dcl",
 			return this._getNextFocusableChild(child, -1);
 		},
 
+		_updateFocusableChildren: function () {
+			// summary:
+			//		This method update the list of children of the renderer that can
+			//		be focused during keyboard navigation.
+			// tags:
+			//		protected
+			if (this._focusableChildren) {
+				for (var i = 0; i < this._focusableChildren.length; i++) {
+					delete this._focusableChildren[i].tabIndex;
+				}
+			}
+			// parse the renderNode content to retrieve the ordered list of focusable children
+			var nodes = Array.prototype.slice.call(this.renderNode.querySelectorAll("[navindex]"), 0);
+			this._focusableChildren = nodes.slice(0).sort(function (a, b) {
+				var navindexA = parseInt(a.getAttribute("navindex"), 10);
+				var navindexB = parseInt(b.getAttribute("navindex"), 10);
+				if (navindexA === navindexB) {
+					return nodes.indexOf(a) - nodes.indexOf(b);
+				} else {
+					return navindexA - navindexB;
+					
+				}
+			});
+			// ignore nodes with negative navindex
+			while (this._focusableChildren.length) {
+				if (parseInt(this._focusableChildren[0].getAttribute("navindex"), 10) < 0) {
+					this._focusableChildren.shift();
+				} else {
+					break;
+				}
+			}
+			// update the focusable children nodes
+			for (i = 0; i < this._focusableChildren.length; i++) {
+				var node = this._focusableChildren[i];
+				node.tabIndex = -1;
+			}
+		},
+
 		_getNextFocusableChild: function (fromChild, dir) {
 			// summary:
 			//		Get the next renderer child that can be focused using arrow keys.
@@ -123,10 +137,7 @@ define(["dcl/dcl",
 			//		the next focusable child if there is one.
 			if (this._focusableChildren && fromChild !== this) {
 				// retrieve the position of the from node
-				var fromChildIndex = -1, refNode = fromChild || this._focusedChild;
-				if (refNode) {
-					fromChildIndex = this._focusableChildren.indexOf(refNode);
-				}
+				var fromChildIndex = fromChild ? this._focusableChildren.indexOf(fromChild) : -1;
 				var nextChildIndex = fromChildIndex + dir;
 				if (nextChildIndex >= 0 && nextChildIndex < this._focusableChildren.length) {
 					return this._focusableChildren[nextChildIndex]; // Widget
@@ -135,7 +146,7 @@ define(["dcl/dcl",
 				}
 			}
 		}
-		
+
 	});
 
 });

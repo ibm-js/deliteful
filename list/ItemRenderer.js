@@ -64,19 +64,18 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			this._renderNode("text", "labelNode",
-					this.item ? this.item.label : null, "d-list-item-label");
+					this.item ? this.item.label : null, "d-list-item-label", "0");
 			this._renderNode("icon", "iconNode",
 					this.item ? this.item.iconclass : null, "d-list-item-icon");
 			this._renderNode("text", "righttextNode",
-					this.item ? this.item.righttext : null, "d-list-item-right-text");
+					this.item ? this.item.righttext : null, "d-list-item-right-text", "1");
 			this._renderNode("icon", "righticonNode",
 					this.item ? this.item.righticonclass : null, "d-list-item-right-icon");
-			this.setFocusableChildren(this.labelNode, this.righttextNode);
 		},
 
 		//////////// PRIVATE METHODS ///////////////////////////////////////
 
-		_renderNode: function (nodeType, nodeName, data, nodeClass) {
+		_renderNode: function (nodeType, nodeName, data, nodeClass, navindex) {
 			// summary:
 			//		render a node.
 			// nodeType: String
@@ -89,12 +88,17 @@ define(["dcl/dcl",
 			//		For a nodeType of "icon", data is the extra class to apply to the node
 			// nodeClass: String
 			//		base CSS class for the node.
+			// navindex: String
+			//		keyboard navigation index for the node.
 			// tag:
 			//		private
 			if (data) {
 				if (!this[nodeName]) {
 					this[nodeName] = this.ownerDocument.createElement("DIV");
 					this[nodeName].className = nodeClass;
+					if (navindex) {
+						this[nodeName].setAttribute("navindex", navindex);
+					}
 					if (this.renderNode.firstChild) {
 						this.renderNode.insertBefore(this[nodeName], this.renderNode.firstChild);
 					} else {

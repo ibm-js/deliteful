@@ -131,7 +131,7 @@ define([
 			assert.equal(children[0].item.label, "item a");
 			assert.equal(children[0].firstChild.className, "d-list-item-node");
 			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-icon");
-			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label d-key-nav");
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
 			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
 			// update
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
@@ -139,14 +139,14 @@ define([
 			assert.equal(children[0].item.label, "item a");
 			assert.equal(children[0].firstChild.className, "d-list-item-node");
 			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-other-icon");
-			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label d-key-nav");
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
 			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
 			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
 			assert.equal(children[0].firstChild.className, "d-list-item-node");
-			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-label d-key-nav");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-label");
 			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
 		"item category attribute is not undefined by StoreMap": function () {

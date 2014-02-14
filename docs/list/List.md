@@ -80,8 +80,7 @@ define(["delite/register", "deliteful/list/ItemRenderer"],
 	function (register, ItemRenderer) {
 		var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 			render: function () {
-				this.renderNode.innerHTML = "<div class='title'>" + this.item.title + "</div><div class='isbn'>ISBN: " + this.item.isbn + "</div>";
-				this.setFocusableChildren(this.querySelector(".title"),  this.querySelector(".isbn"));
+				this.renderNode.innerHTML = "<div class='title' navindex='0'>" + this.item.title + "</div><div class='isbn' navindex='0'>ISBN: " + this.item.isbn + "</div>";
 			}
 		});
 		var list = register.createElement("d-list");
@@ -183,8 +182,7 @@ require([
 ], function (register, CategoryRenderer) {
 	var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 		render: function () {
-			this.renderNode.innerHTML = "<div class='categoryName'>" + this.category + "</div><div class='categoryLink'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
-			this.setFocusableChildren(this.querySelector(".categoryName"),  this.querySelector(".categoryLink"));
+			this.renderNode.innerHTML = "<div class='categoryName' navindex='0'>" + this.category + "</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
 		}
 	});
 	var list = register.createElement("d-list");
@@ -245,9 +243,6 @@ the last one.
 
 You can also search for items by typing letters on the keyboard, and the next item element which text
 begins with the letters will get the focus.
-
-All the elements that can be focused during keyboard navigation have the `d-key-nav` CSS class applied
-to them, so it can be used to style the item that currently has the focus.
 
 <a name="style"/>
 ## Styling

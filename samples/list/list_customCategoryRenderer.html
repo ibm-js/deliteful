@@ -23,8 +23,7 @@
 		], function (register, CategoryRenderer) {
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 				render: function () {
-					this.renderNode.innerHTML = "<div class='categoryName'>" + this.category + "</div><div class='categoryLink'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
-					this.setFocusableChildren(this.querySelector(".categoryName"),  this.querySelector(".categoryLink"));
+					this.renderNode.innerHTML = "<div class='categoryName' navindex='0'>" + this.category + "</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.category + "&go=Go'>Wikipedia</a></div>";
 				}
 			});
 			var list = register.createElement("d-list");

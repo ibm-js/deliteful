@@ -28,7 +28,7 @@ define([
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item");
 			// Selection event on first item (select)
 			event = {target: firstItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -39,8 +39,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, firstItem, "event1 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item d-selected");
-			assert.equal(secondItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item d-selected");
+			assert.equal(secondItem.className, "d-list-item");
 			// Selection event on second item (select)
 			event = {target: secondItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -53,8 +53,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, secondItem, "event2 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item d-selected");
-			assert.equal(secondItem.className, "d-key-nav d-list-item d-selected");
+			assert.equal(firstItem.className, "d-list-item d-selected");
+			assert.equal(secondItem.className, "d-list-item d-selected");
 			// Selection event on first item (deselect)
 			event = {target: firstItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -67,8 +67,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, firstItem, "event3 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
-			assert.equal(secondItem.className, "d-key-nav d-list-item d-selected");
+			assert.equal(firstItem.className, "d-list-item");
+			assert.equal(secondItem.className, "d-list-item d-selected");
 		},
 		"selectionMode 'single'" : function () {
 			var selectionChangeEvent = null;
@@ -79,7 +79,7 @@ define([
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item");
 			// Selection event on first item (select)
 			event = {target: firstItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -89,8 +89,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, firstItem, "event1 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item d-selected");
-			assert.equal(secondItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item d-selected");
+			assert.equal(secondItem.className, "d-list-item");
 			// Selection event on second item (select)
 			event = {target: secondItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -100,8 +100,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, secondItem, "event2 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
-			assert.equal(secondItem.className, "d-key-nav d-list-item d-selected");
+			assert.equal(firstItem.className, "d-list-item");
+			assert.equal(secondItem.className, "d-list-item d-selected");
 			// Selection event on second item (deselect)
 			event = {target: secondItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
@@ -111,8 +111,8 @@ define([
 			assert.equal(selectionChangeEvent.renderer, secondItem, "event3 renderer");
 			assert.equal(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
 			selectionChangeEvent = null;
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
-			assert.equal(secondItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item");
+			assert.equal(secondItem.className, "d-list-item");
 		},
 		"selectionMode 'none'" : function () {
 			var selectionChangeEvent = null;
@@ -122,12 +122,12 @@ define([
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item");
 			// Selection event on first item (no effect)
 			event = {target: firstItem, preventDefault: function () {}};
 			list._actionKeydownHandler(event);
 			assert.isNull(selectionChangeEvent);
-			assert.equal(firstItem.className, "d-key-nav d-list-item");
+			assert.equal(firstItem.className, "d-list-item");
 		},
 		"revert selection to 'none' remove event handler": function () {
 			var dfd = this.async(1000);

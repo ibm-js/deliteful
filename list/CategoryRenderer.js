@@ -42,8 +42,7 @@ define(["dcl/dcl",
 			//		render the category of the item inside this.renderNode.
 			// tags:
 			//		protected
-			this.renderNode.innerHTML = this.category;
-			this.setFocusableChildren(this.renderNode);
+			this.renderNode.innerHTML = "<span navindex='0'>" + this.category + "</span>";
 		}
 
 	});

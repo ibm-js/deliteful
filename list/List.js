@@ -698,8 +698,8 @@ define(["dcl/dcl",
 		childSelector: function (child) {
 			// tags:
 			//		private
-			// Using a childSelector function instead of a String to avoid a dependency on dojo/query
-			return (" " + child.className + " ").indexOf(" d-key-nav ") >= 0;
+			var navindex = child.getAttribute("navindex");
+			return (child === this.getEnclosingRenderer(child) || (navindex && parseInt(navindex, 10) >= 0));
 		},
 
 		_onContainerKeydown: dcl.before(function (evt) {

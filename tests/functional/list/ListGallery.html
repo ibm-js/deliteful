@@ -18,8 +18,9 @@
 			"dojo/store/Memory",
 			"dojo/store/Observable",
 			"delite/register",
-			"deliteful/list/List"
-		], function (dcl, on, Deferred, QueryResults, MemoryStore, Observable, register, List) {
+			"deliteful/list/List",
+			"deliteful/list/ItemRenderer"
+		], function (dcl, on, Deferred, QueryResults, MemoryStore, Observable, register, List, ItemRenderer) {
   			var i, list;
 
   			globalStore = new Observable(MemoryStore({data: []}));
@@ -109,6 +110,23 @@
 			document.getElementById("list5Placeholder").appendChild(list);
 			list.startup();
 			
+			// Custom item renderer with custom keyboard navigation order
+			var MyCustomRenderer = register("d-customnav-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div><div navindex='-1'>1 navindex -1</div><div navindex='1'>2 navindex 1</div><div>3 no navindex</div><div navindex='0'>4 navindex 0</div><div navindex='1'>5 navindex 1</div><div navindex='-1'>6 navindex -1</div></div>";
+				}
+			});
+			list = register.createElement("d-list");
+			list.id = "list-cust-1";
+			list.itemRenderer = MyCustomRenderer;
+			list.style.height = "200px";
+			document.getElementById("cust1Placeholder").appendChild(list);
+			list.startup();
+  			for (i = 0; i < 40; i++) {
+				list.store.add({});
+			}
+			
+
  			register.parse();
 
 
@@ -142,10 +160,6 @@
 		});
 	</script>
 	<style>
-		.d-key-nav:focus {
-			background-color: #f7f7f7;
-		}
-
 		html {
 			width: 100%;
 			margin: 0;
@@ -318,6 +332,9 @@
 			<d-list-store-item item="{iconclass: 'left-icon-10', label: 'list item 9', righttext: 'B', righticonclass: 'right-icon-2-2'}"></d-list-store-item>
 		</d-list-store>
 	</d-list>
+ 	<h1>Custom lists</h1>
+ 	<h2>Default store, custom renderer with custom navigation order (id: list-cust-1)</h2>
+ 	<div id="cust1Placeholder"></div>
 	<div style="height: 350px;">
 	</div>
 	<div style="border-top: 1px white; position: fixed; bottom: 0px; z-index: 10; background: #c5ccd3; width: 100%">
