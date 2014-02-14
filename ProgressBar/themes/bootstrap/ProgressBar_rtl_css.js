@@ -23,7 +23,6 @@ define(function(){ return '\
 .d-rtl.d-progress-bar-indeterminate .d-progress-bar-indicator {\
   -webkit-animation-direction: reverse;\
   animation-direction: reverse;\
-  /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */\
   -webkit-transition: width 0s;\
   transition: width 0s;\
   border-top-right-radius: 4px;\

@@ -24,9 +24,7 @@
 			var testBarPrg = new ProgressBar({id: "testBarPrg", value: 75, style:"width: 250px"}).placeAt("testBarPrgLabel","after");
 			on(testBarPrg, "change", function(event) {
 				document.getElementById('extLabelPrg').innerHTML =
-						event.value  + '/' +
-						event.max + ' ; ' +
-						((event.percent)*100) + '%';
+						(event.percent * 100) + '% (' + event.value  + '/' + event.max + ')';
 			});
 			testBarPrg.startup();
 			var inputVal = dom.byId("progressValue");
@@ -37,11 +35,6 @@
 			inputVal.value = testBar.value;
 			inputPla.value = testBar.fractionDigits;
 
-			on(dom.byId("setAll"), "click", function() {
-				setValue(inputVal.value);
-				setMaximum(inputMax.value);
-				setFractionDigits(inputPla.value);
-			});
 			on(dom.byId("setValue"), "click", function() {
 				setValue(inputVal.value);
 			});
@@ -62,10 +55,6 @@
 			setValue = function (value) {
 				testBar.value = (value === "Infinity")?Infinity:value;
 				testBarPrg.value = (value === "Infinity")?Infinity:value;
-			};
-			setState = function (indeterminate) {
-				testBar.value = (indeterminate)?Infinity:(testBar.value === Infinity)?0:testBar.value;
-				testBarPrg.value = (indeterminate)?Infinity:(testBarPrg.value === Infinity)?0:testBarPrg.value;
 			};
 			setLabel = function (label) {
 				testBar.label = label;
@@ -128,6 +117,11 @@
 
 		});
 	</script>
+	<style>
+		.spanContent {
+			font-size: 12px;
+		}
+	</style>
 </head>
 <body class="duiBackground">
 	<div style="padding: 2px 5% 0 5%; font-size: 16px">
@@ -135,13 +129,16 @@
 		<hr>
 		Declarative:<d-progress-bar id="testBar" value=75 style="width:250px;"
 					onchange="document.getElementById('extLabel').innerHTML =
-							event.value  + '/' + event.max + ' ; ' + ((event.percent)*100) + '%';">
+					(event.percent * 100) + '% (' + event.value  + '/' + event.max + ')';">
 				</d-progress-bar>.
-		<br>onchange: <span id="extLabel"></span>
+		<br>onchange: <span id="extLabel" class="spanContent"></span>
 		<hr>
 		<span id="testBarPrgLabel">Programmatic:</span>.
-		<br>onchange: <span id="extLabelPrg"></span>
+		<br>onchange: <span id="extLabelPrg" class="spanContent"></span>
 		<hr>
+		<input type="button" name="set" id="setValue" value="Set value"/>
+		<input type="text" name="progressValue" id="progressValue" size="6"/>
+		<label for="progressValue"></label>
 		<input type="button" value="0" onclick="setValue(0);" />
 		<input type="button" value="1" onclick="setValue(1);" />
 		<input type="button" value="25" onclick="setValue(25);" />
@@ -149,17 +146,27 @@
 		<input type="button" value="75" onclick="setValue(75);" />
 		<input type="button" value="99" onclick="setValue(99);" />
 		<input type="button" value="100" onclick="setValue(100);" />
-		<input type="button" value="Infinity" onclick="setValue(Infinity);" />
+		<input type="button" value="Indeterminate" onclick="setValue(Infinity);" />
 		<br>
-		<input type="button" value="show values" onclick="displayValues(true);" />
-		<input type="button" value="hide values" onclick="displayValues(false);" />
+		<input type="button" name="set" id="setMaximum" value="Set maximum"/>
+		<input type="text" name="maximum" id="maximum" size="6"/>
+		<input type="button" value="50" onclick="setMaximum(50);" />
+		<input type="button" value="100" onclick="setMaximum(100);" />
+		<input type="button" value="200" onclick="setMaximum(200);" />
+		<input type="button" value="500" onclick="setMaximum(500);" />
 		<br>
-		<input type="button" value="Indeterminate" onclick="setState(true);" />
-		<input type="button" value="Determinate" onclick="setState(false);" />
+		<input type="button" name="set" id="setFractionDigits" value="Set fractionDigits"/>
+		<input type="text" name="fractionDigits" id="fractionDigits" size="1" maxlength="1"/>
+		<input type="button" value="0" onclick="setFractionDigits(0);" />
+		<input type="button" value="1" onclick="setFractionDigits(1);" />
+		<input type="button" value="2" onclick="setFractionDigits(2);" />
 		<br>
-		<input type="button" value="Default label" onclick="setLabel('');" />
-		<input type="button" value="Custom label" onclick="setLabel(document.getElementById('label').value);" />
+		<input type="button" value="Set label" onclick="setLabel(document.getElementById('label').value);" />
 		<input type="text" name="label" id="label" size="15" value="Loading..."/>
+		<input type="button" value="Default label" onclick="setLabel('');" />
+		<br>
+		<input type="button" value="displayValues:true" onclick="displayValues(true);" />
+		<input type="button" value="displayValues:false" onclick="displayValues(false);" />
 		<br>
 		<input type="button" value="display:block" onclick="setDisplay('block');" />
 		<input type="button" value="display:default" onclick="setDisplay();" />
@@ -169,22 +176,13 @@
 		<input type="button" value="50%" onclick="setSize('50%');" />
 		<input type="button" value="100%" onclick="setSize('100%');" />
 		<hr>
-		<input type="button" name="set" id="setValue" value="Set value"/>
-		<input type="text" name="progressValue" id="progressValue" size="6"/>
-		<label for="progressValue">(Number, percentage or 'Infinity')</label>
-		<br>
-		<input type="button" name="set" id="setMaximum" value="Set maximum"/>
-		<input type="text" name="maximum" id="maximum" size="6"/>
-		<label for="maximum">(Number)</label>
-		<br>
-		<input type="button" name="set" id="setFractionDigits" value="Set fractionDigits"/>
-		<input type="text" name="fractionDigits" id="fractionDigits" size="1" maxlength="1"/>
-		<label for="fractionDigits">(Number)</label>
-		<br>
-		<input type="button" name="set" id="setAll" value="Set all"/>
-		<hr>
 		<input type="button" name="startTimer" id="startTimer" value="Start Timer" /><br>
-		<br>
+		<hr>
+		<d-progress-bar class="d-progress-bar-success" label="d-progress-bar-success" value=20 style="width:400px;"></d-progress-bar><br>
+		<d-progress-bar class="d-progress-bar-info" label="d-progress-bar-info" value=30 style="width:400px;"></d-progress-bar><br>
+		<d-progress-bar class="d-progress-bar-warning" label="d-progress-bar-warning" value=50 style="width:400px;"></d-progress-bar><br>
+		<d-progress-bar class="d-progress-bar-danger" label="d-progress-bar-danger" value=80 style="width:400px;"></d-progress-bar><br>
+		<hr>
 		<!-- include theme selector -->
 		<iframe src="theme_selector.html" height="250px" width="250px"></iframe>
 	</div>

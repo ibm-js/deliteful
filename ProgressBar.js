@@ -12,16 +12,6 @@ define([
 	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], {
 		// summary
 		//		d-progress-bar widget displays status for tasks that takes a long time.
-		//
-		//		CSS styles:
-		//		- d-progress-bar: margins, display type, position, borders and font styles.
-		//		- d-progress-bar-background: background color and shape.
-		//		- d-progress-bar-indicator: progress indicator styles: color, transition...
-		//		- d-progress-bar-label: text label content and position.
-		//		- d-progress-bar-label-ext: text label content and position (see displayValues property).
-		//		- d-progress-bar-indeterminate: set indeterminate state styles with descendent selectors.
-		//		- d-progress-bar-empty: set when progress is 0% (set styles with descendent selectors).
-		//		- d-progress-bar-full: set when progress is 100% (set styles with descendent selectors).
 
 		// value: Number
 		//		Number indicating the amount of completed task. The ProgressBar calculates the percentage of
@@ -78,9 +68,11 @@ define([
 			//	role="progressbar"
 			//	aria-valuenow="..." aria-valuemin="0" aria-valuemax="..." aria-labelledby="{widgetID}_label">
 			//	<div class="d-progress-bar-background">
-			//		<div style="width: x%" class="d-progress-bar-indicator"></div>
+			//		<div id="{widgetID}_label" label-ext="..." class="d-progress-bar-label" >{label}</div>
+			//		<div style="width: x%" class="d-progress-bar-indicator">
+			//			<div class="d-progress-bar-label-invert">{label}</div>
+			// 		</div>
 			//	</div>
-			//	<div id="{widgetID}_label" label-ext="..." class="d-progress-bar-label" >{label}</div>
 			//</div>
 			this.setAttribute("role", "progressbar");
 			this.backgroundNode = domConstruct.create("div",

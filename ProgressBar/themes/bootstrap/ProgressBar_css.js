@@ -6,6 +6,18 @@ define(function(){ return '\
  *  baseClass : d-progress-bar\
  * -----------------------------------------------\
  */\
+.d-progress-bar-success .d-progress-bar-indicator {\
+  background-color: #5cb85c;\
+}\
+.d-progress-bar-info .d-progress-bar-indicator {\
+  background-color: #5bc0de;\
+}\
+.d-progress-bar-warning .d-progress-bar-indicator {\
+  background-color: #f0ad4e;\
+}\
+.d-progress-bar-danger .d-progress-bar-indicator {\
+  background-color: #d9534f;\
+}\
 .d-progress-bar {\
   display: inline-block;\
   position: relative;\
@@ -28,7 +40,7 @@ define(function(){ return '\
   position: absolute;\
   overflow: hidden;\
   height: 100%;\
-  background-color: #F5F5F5;\
+  background-color: #f5f5f5;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
@@ -47,12 +59,11 @@ define(function(){ return '\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
-  color: white;\
   -webkit-transition: width 0.3s linear 0s;\
   transition: width 0.3s linear 0s;\
   border-top-left-radius: 4px;\
   border-bottom-left-radius: 4px;\
-  background-color: #428BCA;\
+  background-color: #428bca;\
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
   background-size: 40px 40px;\
@@ -78,6 +89,7 @@ define(function(){ return '\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
+  text-overflow: ellipsis;\
   border-left: 2px solid transparent;\
 }\
 .d-progress-bar-label-invert {\
@@ -86,9 +98,9 @@ define(function(){ return '\
   height: 100%;\
   white-space: nowrap;\
   line-height: 1.447em;\
+  text-overflow: ellipsis;\
   width: 100%;\
-  color: #f5f5f5;\
-  border-radius: 4px;\
+  color: #ffffff;\
 }\
 .d-progress-bar-label-ext {\
   overflow: hidden;\
@@ -100,13 +112,10 @@ define(function(){ return '\
 .d-progress-bar-indeterminate .d-progress-bar-indicator {\
   margin: 0;\
   padding: 0;\
-  background: #efefef url("../../images/indeterminate-anim.gif") repeat-x top;\
-  /* ie9 fallback */\
   width: 100%;\
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
   background-size: 40px 40px;\
-  background-color: #428BCA;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
@@ -116,8 +125,8 @@ define(function(){ return '\
   transition: width 0s;\
   -webkit-animation-name: d-progress-bar-indeterminate-animation;\
   animation-name: d-progress-bar-indeterminate-animation;\
-  -webkit-animation-duration: 2s;\
-  animation-duration: 2s;\
+  -webkit-animation-duration: 1s;\
+  animation-duration: 1s;\
   -webkit-animation-timing-function: linear;\
   animation-timing-function: linear;\
   -webkit-delay: 0s;\
