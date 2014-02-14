@@ -30,8 +30,8 @@
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
   .animation-direction(reverse); //fyi: reverse has same effect as normal on android (4.2.2 GS4)
   .transition(width 0s);
-  border-top-right-radius: @border-radius-value;
-  border-bottom-right-radius: @border-radius-value;
+  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
+  border-radius: @border-radius-value;
 }
 
 .d-progress-bar-background-rtl-styles() {

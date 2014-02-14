@@ -25,8 +25,7 @@ define(function(){ return '\
   animation-direction: reverse;\
   -webkit-transition: width 0s;\
   transition: width 0s;\
-  border-top-right-radius: 4px;\
-  border-bottom-right-radius: 4px;\
+  border-radius: 4px;\
 }\
 .d-rtl .d-progress-bar-label {\
   border-right: 2px solid transparent;\
