@@ -15,12 +15,14 @@
 	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
 
 	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
 		require([
 			"delite/register",
 			"deliteful/ScrollableContainer",
 			"dojo/domReady!"
 		], function(register){
 			register.parse();
+			ready = true;
 		});
 	</script>
 
@@ -70,7 +72,7 @@
 	<div class="container1">
 		<div style="background-color: lightblue">scrollDirection="both"</div>
 		
-		<d-scrollable-container class="scrollContainer" 
+		<d-scrollable-container class="scrollContainer" id="scrollContainer1"
 			scrollDirection="both" style="background-color: lightgreen;">
 			<ul>
 				<li>Item 1 - This is a long label</li>
@@ -162,7 +164,7 @@
 		<div style="background-color: lightblue">scrollDirection="vertical"</div>
 		
 		<!-- Using default scrollDirection, which is "vertical" -->
-		<d-scrollable-container style="background-color: lightgreen" class="scrollContainer">
+		<d-scrollable-container style="background-color: lightgreen" class="scrollContainer" id="scrollContainer2">
 			<ul>
 				<li>Item 1</li>
 				<li>Item 2</li>
