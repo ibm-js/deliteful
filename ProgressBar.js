@@ -95,51 +95,7 @@ define([
 			domClass.add(this, this.baseClass + "-empty");
 		},
 
-		refreshRendering: function () {
-			this._update();
-		},
-
-		startup:  function () {
-			//set label id here because this.id is not available in buildRendering when
-			//the widget is instantiated programmatically
-			this._setLabelId();
-			//refreshRendering not called when the widget is instantiated programmatically, so
-			//explicitly update the widget state here.
-			this._update();
-		},
-
-		_setLabelId: function () {
-			// summary:
-			//		Set the label id (required by aria-labelledby).
-			// tags:
-			//		private
-			if (this.id) {
-				this.labelNode.setAttribute("id", this.id + "_label");
-			}
-		},
-
-		_setIndicatorSize: function (percent) {
-			// summary:
-			//		Set indicatorNode size according to the amount of completed task.
-			//		LTR: set the width property
-			//		RTL: set the left property
-			// tags:
-			//		private
-			if (this.isLeftToRight()) {
-				this.indicatorNode.style.width = percent + "%";
-			} else {
-				//this.indicatorNode.style.left = (100 - percent) + "%";
-				this.indicatorNode.style.width = (percent) + "%";
-				//this.labelInvertNode.style.left = "-" + (100 - percent) + "%";
-			}
-			this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
-		},
-
-		_update: function () {
-			// summary:
-			//		Internal method to update ProgressBar according to its attributes values.
-			// tags:
-			//		private
+		refreshRendering: function (props) {
 			var _percent = 0, _value, _maximum, _displayValues;
 			_value = (this.value === "Infinity") ? Infinity:this.value;
 			_maximum = (this.maximum < 0) ? 100:this.maximum;
@@ -162,7 +118,8 @@ define([
 					}
 					_percent = _value / _maximum;
 				}
-				this._setIndicatorSize(_percent * 100);
+				this.indicatorNode.style.width = (_percent * 100) + "%";
+				this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
 				this.setAttribute("aria-valuenow", _value);
 			}
 			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _maximum);
@@ -184,6 +141,24 @@ define([
 			 onchange="alert(this.value + "," + event.percent)"
 			 */
 		},
+
+		startup:  function () {
+			//set label id here because this.id is not available in buildRendering when
+			//the widget is instantiated programmatically
+			//todo: ensure an id is available, otw generate one
+			this._setLabelId();
+		},
+
+		_setLabelId: function () {
+			// summary:
+			//		Set the label id (required by aria-labelledby).
+			// tags:
+			//		private
+			if (this.id) {
+				this.labelNode.setAttribute("id", this.id + "_label");
+			}
+		},
+
 		/*
 		issue:
 		if this function is defined, this inline declaration doesn't work:
