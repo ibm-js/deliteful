@@ -95,38 +95,48 @@ define([
 			domClass.add(this, this.baseClass + "-empty");
 		},
 
-		refreshRendering: function () {
-			var _percent = 0, _value, _max, _displayValues;
+		refreshRendering: function (props) {
+			var _percent, _value, _max, _displayValues;
 			_value = Math.max(0, isNaN(this.value) ? 0 : this.value);
 			_max = Math.max(0, isNaN(this.max) ? 0 : this.max);
-
-			if (_value === Infinity) {
-				this.indicatorNode.style.removeProperty("width");
-				this.labelNode.removeAttribute("label-ext");
-				this.removeAttribute("aria-valuenow");
-			} else {
+			if (_value !== Infinity) {
 				_value = Math.min(this.value, _max);
 				_percent = _value / _max;
-				this.indicatorNode.style.width = (_percent * 100) + "%";
-				this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
-				this.setAttribute("aria-valuenow", _value);
+			}
+
+			if (props.value || props.max) {
+				if (_value === Infinity) {
+					this.indicatorNode.style.removeProperty("width");
+					this.labelNode.removeAttribute("label-ext");
+					this.removeAttribute("aria-valuenow");
+				} else {
+					this.indicatorNode.style.width = (_percent * 100) + "%";
+					this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
+					this.setAttribute("aria-valuenow", _value);
+				}
+			}
+
+			if (props.max) {
+				this.setAttribute("aria-valuemax", _max);
+			}
+
+			if (props.displayValues) {
+				_displayValues = this.displayValues && _value !== Infinity && this.label === "";
+				domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
+				if (_displayValues) {
+					//set content value to be used by pseudo element d-progress-bar-label-ext::after
+					this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _max));
+				}
 			}
 			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
-
-			// display value/max only if asked + value is valid + no custom label
-			_displayValues = this.displayValues && _value !== Infinity && this.label === "";
-			domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
-			if (_displayValues) {
-				//set content value to be used by pseudo element d-progress-bar-label-ext::after
-				this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _max));
-			}
-
-			this.setAttribute("aria-valuemax", _max);//todo: set only on max value change
 
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
 			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
 			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
-			this.emit("change", {percent: _percent, value: _value, max: _max});
+
+			if (props.value || props.max) {
+				this.emit("change", {percent: _percent, value: _value, max: _max});
+			}
 			/*	issue:
 			 this inline declaration doesn't work on iOS and Android stock browser (4.2.2/webkit:535.19):
 			 onchange="alert(this.value + "," + event.percent)"
