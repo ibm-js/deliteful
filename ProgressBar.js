@@ -121,7 +121,6 @@ define([
 				this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _max));
 			}
 
-			this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
 			this.setAttribute("aria-valuemax", _max);//todo: set only on max value change
 
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
@@ -137,17 +136,10 @@ define([
 		startup: function () {
 			//set label id here because this.id is not available in buildRendering when
 			//the widget is instantiated programmatically
-			//todo: ensure an id is available, otw generate one
-			this._setLabelId();
-		},
-
-		_setLabelId: function () {
-			// summary:
-			//		Set the label id (required by aria-labelledby).
-			// tags:
-			//		private
+			//todo: ensure an id is available, otw generate one, see https://github.com/ibm-js/delite/issues/109
 			if (this.id) {
 				this.labelNode.setAttribute("id", this.id + "_label");
+				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
 			}
 		},
 
