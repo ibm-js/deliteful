@@ -17,8 +17,8 @@ define(["dcl/dcl",
 		//
 		//		Focusability and Keyboard navigation order for a renderer instance is defined using
 		//		the navindex attribute on the rendered nodes:
-		//		- no navindex attribute or a negative navindex value means that the node is not focusable
-		//		- a navindex attribute with a value >= 0 means that the node is focusable. When navigating
+		//		- no navindex attribute value means that the node is not focusable
+		//		- a navindex attribute means that the node is focusable. When navigating
 		//		  the renderer instance using arrow keys, the traversal order is the following:
 		//			- the nodes with the lowest navindex value comes first
 		//			- if two nodes have the same navindex value, the one that is before the other one in the DOM
@@ -108,14 +108,6 @@ define(["dcl/dcl",
 					
 				}
 			});
-			// ignore nodes with negative navindex
-			while (this._focusableChildren.length) {
-				if (parseInt(this._focusableChildren[0].getAttribute("navindex"), 10) < 0) {
-					this._focusableChildren.shift();
-				} else {
-					break;
-				}
-			}
 			// update the focusable children nodes
 			for (i = 0; i < this._focusableChildren.length; i++) {
 				var node = this._focusableChildren[i];

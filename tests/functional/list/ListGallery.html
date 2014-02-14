@@ -113,7 +113,7 @@
 			// Custom item renderer with custom keyboard navigation order
 			var MyCustomRenderer = register("d-customnav-item", [HTMLElement, ItemRenderer], {
 				render: function () {
-					this.renderNode.innerHTML = "<div><div navindex='-1'>1 navindex -1</div><div navindex='1'>2 navindex 1</div><div>3 no navindex</div><div navindex='0'>4 navindex 0</div><div navindex='1'>5 navindex 1</div><div navindex='-1'>6 navindex -1</div></div>";
+					this.renderNode.innerHTML = "<div><div navindex='-1'>1 navindex -1</div><div navindex='1'>2 navindex 1</div><div>3 no navindex</div><div navindex='0'>4 navindex 0</div><div navindex='1'>5 navindex 1</div><div navindex='-2'>6 navindex -2</div></div>";
 				}
 			});
 			list = register.createElement("d-list");

@@ -698,8 +698,7 @@ define(["dcl/dcl",
 		childSelector: function (child) {
 			// tags:
 			//		private
-			var navindex = child.getAttribute("navindex");
-			return (child === this.getEnclosingRenderer(child) || (navindex && parseInt(navindex, 10) >= 0));
+			return (child === this.getEnclosingRenderer(child) || child.getAttribute("navindex"));
 		},
 
 		_onContainerKeydown: dcl.before(function (evt) {

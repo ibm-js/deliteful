@@ -426,6 +426,20 @@ define(["intern!object",
 				.execute("return document.activeElement")
 				.text()
 				.then(function (value) {
+					assert.equal(value, "6 navindex -2");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
+					assert.equal(value, "1 navindex -1");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.execute("return document.activeElement")
+				.text()
+				.then(function (value) {
 					assert.equal(value, "4 navindex 0");
 				})
 				.end()
@@ -447,7 +461,7 @@ define(["intern!object",
 				.execute("return document.activeElement")
 				.text()
 				.then(function (value) {
-					assert.equal(value, "4 navindex 0");
+					assert.equal(value, "6 navindex -2");
 				})
 				.end();
 			});
