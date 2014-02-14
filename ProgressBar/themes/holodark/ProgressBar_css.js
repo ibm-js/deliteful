@@ -45,8 +45,8 @@ define(function(){ return '\
   overflow: hidden;\
   text-align: center;\
   position: absolute;\
-  height: 1em;\
-  line-height: 1em;\
+  height: 1.1em;\
+  line-height: 1.1em;\
   top: 0.5em;\
 }\
 .d-progress-bar-label-invert {\
@@ -70,8 +70,6 @@ define(function(){ return '\
   padding: 0;\
   background: #333333;\
   width: 5%;\
-  left: -5%;\
-  /* avoid displaying when animation is not supported (IE9) */\
   -webkit-transition: width 0s;\
   transition: width 0s;\
   -webkit-animation-name: d-progress-bar-indeterminate-animation;\
