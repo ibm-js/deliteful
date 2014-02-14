@@ -23,20 +23,20 @@ define([
 		//		- d-progress-bar-empty: set when progress is 0% (set styles with descendent selectors).
 		//		- d-progress-bar-full: set when progress is 100% (set styles with descendent selectors).
 
-		// value: String (Percentage or Number)
-		//		Number or percentage indicating the amount of completed task.
-		//		With "%": percentage value, 0% <= progress <= 100%, or
-		//		without "%": absolute value, 0 <= progress <= max.
+		// value: Number
+		//		Number indicating the amount of completed task. The ProgressBar calculates the percentage of
+		// 		progression with respect to the max value (ie: if value is 53 and max is 100, the progression is 53%.
+		// 		If max is 200, the progression is 26%). Negative and NaN values are defaulted to 0. Values higher
+		// 		than max are defaulted to max.
 		//		Set the value to 'Infinity' to force the progress bar state to indeterminate.
-		//		Negative and NaN values are defaulted to 0.
 		//		Default: Infinity
-		value: "Infinity", // todo: allow only Number. indeterminate set by NaN or Infinity. Negative defaulted to 0.
+		value: Infinity,
 
 		// max: Number
 		//		Number which express the task as completed.
-		//		Negative values are defaulted to 0.
+		//		Negative and NaN values are defaulted to 0.
 		//		Default: 100
-		max: 100,//todo: rename to max
+		max: 100,
 
 		// label: String
 		//		Allow to specify/override the label on the progress bar whether it's determinate or indeterminate.
@@ -95,34 +95,26 @@ define([
 			domClass.add(this, this.baseClass + "-empty");
 		},
 
-		refreshRendering: function (props) {
+		refreshRendering: function () {
 			var _percent = 0, _value, _max, _displayValues;
-			_value = (this.value === "Infinity") ? Infinity:this.value;
-			_max = (this.max < 0) ? 100:this.max;
-			_displayValues = this.displayValues && _value !== Infinity && this.label === "";
+			_value = Math.max(0, isNaN(this.value) ? 0 : this.value);
+			_max = Math.max(0, isNaN(this.max) ? 0 : this.max);
 
 			if (_value === Infinity) {
 				this.indicatorNode.style.removeProperty("width");
-				//this.indicatorNode.style.removeProperty("left"); // RTL
 				this.labelNode.removeAttribute("label-ext");
 				this.removeAttribute("aria-valuenow");
 			} else {
-				if (String(this.value).indexOf("%") !== -1) {
-					_percent = Math.min(parseFloat(this.value) / 100, 1);
-					_value = _percent * _max;
-				} else {
-					if (isNaN(this.value) || this.value < 0) {
-						_value = 0;
-					} else {
-						_value = Math.min(parseFloat(this.value), _max);
-					}
-					_percent = _value / _max;
-				}
+				_value = Math.min(this.value, _max);
+				_percent = _value / _max;
 				this.indicatorNode.style.width = (_percent * 100) + "%";
 				this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
 				this.setAttribute("aria-valuenow", _value);
 			}
 			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
+
+			// display value/max only if asked + value is valid + no custom label
+			_displayValues = this.displayValues && _value !== Infinity && this.label === "";
 			domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
 			if (_displayValues) {
 				//set content value to be used by pseudo element d-progress-bar-label-ext::after
@@ -142,7 +134,7 @@ define([
 			 */
 		},
 
-		startup:  function () {
+		startup: function () {
 			//set label id here because this.id is not available in buildRendering when
 			//the widget is instantiated programmatically
 			//todo: ensure an id is available, otw generate one
@@ -160,16 +152,18 @@ define([
 		},
 
 		/*
-		issue:
-		if this function is defined, this inline declaration doesn't work:
-		onchange="alert(this.value + "," + event.percent)"
-		*/
+		 issue:
+		 if this function is defined, this inline declaration doesn't work:
+		 onchange="alert(this.value + "," + event.percent)"
+		 */
 //		onChange: function () {
 //		},
 
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
 			//		Generates HTML message to show inside/beside the progress bar (depends on theme settings).
+			//		If a custom label is specified, use it. If value is not Infinity, format the percentage of
+			//		progression in respect with fractionDigits.
 			// 		May be overridden.
 			// percent:
 			//		Percentage indicating the amount of completed task.
@@ -177,15 +171,18 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-
-			return this.label ? this.label : (value === Infinity ?
-				"" : number.format(percent, {type: "percent", places: this.fractionDigits, round: -1, locale: this.lang}));
+			return this.label ? this.label : (value === Infinity ? "" : number.format(percent, {
+				type: "percent",
+				places: this.fractionDigits,
+				round: -1,
+				locale: this.lang
+			}));
 		},
 
 		formatValues: function (/*Number*/percent, /*Number*/value, /*Number*/max) {
 			// summary:
-			//		Set content to be displayed when property displayValues is enabled. By default it returns
-			//		value/max
+			//		Set content to be displayed when property displayValues is enabled. By default it returns a
+			// 		String formatted with "value/max"
 			// 		May be overridden.
 			// percent:
 			//		Percentage indicating the amount of completed task.
@@ -193,7 +190,7 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-			return (this.isLeftToRight()) ? value + "/" + max:max + "/" + value;
+			return (this.isLeftToRight()) ? value + "/" + max : max + "/" + value;
 		}
 	});
 });

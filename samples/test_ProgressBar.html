@@ -102,13 +102,14 @@
 			function getProgressReport(){
 				var deferred = new Deferred();
 				fakeProgress = Math.min(fakeProgress + step, 100);
-				deferred.resolve(fakeProgress+"%");
+				deferred.resolve(fakeProgress);
 				return deferred;
 			}
 			function remoteProgress(bar){
 				startTimerBtn.disabled = true;
 				fakeProgress = 0;
 				bar.value = 0;
+				bar.max = 100;
 				bar.label = "Starting, please wait...";
 				var _timer = setInterval(function(){
 					bar.label = "";
@@ -116,7 +117,7 @@
 					report.then(function(response){
 						started = true;
 						bar.value = response;
-						if(response === "100%"){
+						if(response === 100){
 							clearInterval(_timer);
 							_timer = null;
 							startTimerBtn.disabled = false;
@@ -132,7 +133,7 @@
 	<div style="padding: 2px 5% 0 5%; font-size: 16px">
 		<h3>d-progress-bar</h3>
 		<hr>
-		Declarative:<d-progress-bar id="testBar" value="75" style="width:250px;"
+		Declarative:<d-progress-bar id="testBar" value=75 style="width:250px;"
 					onchange="document.getElementById('extLabel').innerHTML =
 							event.value  + '/' + event.max + ' ; ' + ((event.percent)*100) + '%';">
 				</d-progress-bar>.
@@ -141,13 +142,14 @@
 		<span id="testBarPrgLabel">Programmatic:</span>.
 		<br>onchange: <span id="extLabelPrg"></span>
 		<hr>
-		<input type="button" value="0%" onclick="setValue('0%');" />
-		<input type="button" value="1%" onclick="setValue('1%');" />
-		<input type="button" value="25%" onclick="setValue('25%');" />
-		<input type="button" value="50%" onclick="setValue('50%');" />
-		<input type="button" value="75%" onclick="setValue('75%');" />
-		<input type="button" value="99%" onclick="setValue('99%');" />
-		<input type="button" value="100%" onclick="setValue('100%');" />
+		<input type="button" value="0" onclick="setValue(0);" />
+		<input type="button" value="1" onclick="setValue(1);" />
+		<input type="button" value="25" onclick="setValue(25);" />
+		<input type="button" value="50" onclick="setValue(50);" />
+		<input type="button" value="75" onclick="setValue(75);" />
+		<input type="button" value="99" onclick="setValue(99);" />
+		<input type="button" value="100" onclick="setValue(100);" />
+		<input type="button" value="Infinity" onclick="setValue(Infinity);" />
 		<br>
 		<input type="button" value="show values" onclick="displayValues(true);" />
 		<input type="button" value="hide values" onclick="displayValues(false);" />
