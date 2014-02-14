@@ -104,7 +104,7 @@ define([
 				} else {
 					this.indicatorNode.style.width = (_percent * 100) + "%";
 					this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
-					this.setAttribute("aria-valuenow", _value);
+					this.setAttribute("aria-valuenow", _percent * 100);
 				}
 			}
 
