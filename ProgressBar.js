@@ -30,10 +30,9 @@ define([
 
 		// label: String
 		//		Allow to specify/override the label on the progress bar whether it's determinate or indeterminate.
-		// 		By default, when the state is determinate the progress bar displays the percentage of completion
-		// 		or a number which express the amount of task completed.
-		// 		When state is indeterminate it doesn't display a label.
-		//		Set an empty string to restore the default label.
+		// 		The default behavior of the ProgressBar is to  displays the percentage of completion when the state
+		// 		is determinate, and to display no label when state is indeterminate. You can override this with the
+		// 		label attribute. Set an empty string to restore the default behavior.
 		//		Default: ""
 		label: "",
 
