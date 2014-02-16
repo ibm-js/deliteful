@@ -6,6 +6,18 @@ define(function(){ return '\
  *  baseClass : d-progress-bar\
  * -----------------------------------------------\
  */\
+.d-progress-bar-success .d-progress-bar-indicator {\
+  background-color: #5cb85c;\
+}\
+.d-progress-bar-info .d-progress-bar-indicator {\
+  background-color: #5bc0de;\
+}\
+.d-progress-bar-warning .d-progress-bar-indicator {\
+  background-color: #f0ad4e;\
+}\
+.d-progress-bar-danger .d-progress-bar-indicator {\
+  background-color: #d9534f;\
+}\
 .d-progress-bar {\
   display: inline-block;\
   position: relative;\

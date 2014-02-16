@@ -9,10 +9,32 @@
 
 @transition-params: 0.3s linear 0s;
 
+@progress-bar-success-bg:     #5cb85c;
+@progress-bar-warning-bg:     #f0ad4e;
+@progress-bar-danger-bg:      #d9534f;
+@progress-bar-info-bg:        #5bc0de;
+
 .d-progress-bar-styles() {
   height: 1.5em;
   font-size: 12px;
   vertical-align: middle;
+}
+
+
+.d-progress-bar-success .d-progress-bar-indicator {
+  background-color: @progress-bar-success-bg;
+}
+
+.d-progress-bar-info .d-progress-bar-indicator {
+  background-color: @progress-bar-info-bg;
+}
+
+.d-progress-bar-warning .d-progress-bar-indicator {
+  background-color: @progress-bar-warning-bg;
+}
+
+.d-progress-bar-danger .d-progress-bar-indicator {
+  background-color: @progress-bar-danger-bg;
 }
 
 .d-progress-bar-background-styles() {
