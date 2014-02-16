@@ -18,11 +18,11 @@ define(function(){ return '\
   animation-direction: reverse;\
   /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */\
 }\
-.d-rtl .d-progress-bar-label-ext {\
+.d-rtl .d-progress-bar-msg-ext {\
   text-align: right;\
 }\
-.d-rtl .d-progress-bar-label-ext::after {\
-  content: attr(label-ext);\
+.d-rtl .d-progress-bar-msg-ext::after {\
+  content: attr(msg-ext);\
   float: left;\
 }\
 '; } );

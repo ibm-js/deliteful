@@ -76,7 +76,7 @@ define(function(){ return '\
   border-top-right-radius: 4px;\
   border-bottom-right-radius: 4px;\
 }\
-.d-progress-bar-label {\
+.d-progress-bar-msg {\
   width: 100%;\
   margin: 0;\
   padding: 0;\
@@ -92,7 +92,7 @@ define(function(){ return '\
   text-overflow: ellipsis;\
   border-left: 2px solid transparent;\
 }\
-.d-progress-bar-label-invert {\
+.d-progress-bar-msg-invert {\
   position: absolute;\
   overflow: hidden;\
   height: 100%;\
@@ -102,7 +102,7 @@ define(function(){ return '\
   width: 100%;\
   color: #ffffff;\
 }\
-.d-progress-bar-label-ext {\
+.d-progress-bar-msg-ext {\
   overflow: hidden;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-background {\

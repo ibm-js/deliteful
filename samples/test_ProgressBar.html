@@ -56,9 +56,9 @@
 				testBar.value = (value === "Infinity")?Infinity:value;
 				testBarPrg.value = (value === "Infinity")?Infinity:value;
 			};
-			setLabel = function (label) {
-				testBar.label = label;
-				testBarPrg.label = label;
+			setMessage = function (message) {
+				testBar.message = message;
+				testBarPrg.message = message;
 			};
 			setDisplay = function (type) {
 				if (type) {
@@ -72,7 +72,7 @@
 			setSize = function (size) {
 				testBar.style.width = size;
 				testBarPrg.style.width = size;
-				testBar.value = testBar.value;//force label to align correctly...//todo: use mutation event to detect width change on widget
+				testBar.value = testBar.value;//force message to align correctly...//todo: use mutation event to detect width change on widget
 				testBarPrg.value = testBarPrg.value;
 			};
 			displayValues = function (flag) {
@@ -99,9 +99,9 @@
 				fakeProgress = 0;
 				bar.value = 0;
 				bar.max = 100;
-				bar.label = "Starting, please wait...";
+				bar.message = "Starting, please wait...";
 				var _timer = setInterval(function(){
-					bar.label = "";
+					bar.message = "";
 					var report = getProgressReport();
 					report.then(function(response){
 						started = true;
@@ -161,9 +161,9 @@
 		<input type="button" value="1" onclick="setFractionDigits(1);" />
 		<input type="button" value="2" onclick="setFractionDigits(2);" />
 		<br>
-		<input type="button" value="Set label" onclick="setLabel(document.getElementById('label').value);" />
-		<input type="text" name="label" id="label" size="15" value="Loading..."/>
-		<input type="button" value="Default label" onclick="setLabel('');" />
+		<input type="button" value="Set message" onclick="setMessage(document.getElementById('message').value);" />
+		<input type="text" name="message" id="message" size="15" value="Loading..."/>
+		<input type="button" value="Default Message" onclick="setMessage('');" />
 		<br>
 		<input type="button" value="displayValues:true" onclick="displayValues(true);" />
 		<input type="button" value="displayValues:false" onclick="displayValues(false);" />

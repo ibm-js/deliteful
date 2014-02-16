@@ -58,7 +58,7 @@ define(function(){ return '\
 .d-progress-bar-empty .d-progress-bar-indicator {\
   border: 0px;\
 }\
-.d-progress-bar-label {\
+.d-progress-bar-msg {\
   width: 100%;\
   margin: 0;\
   padding: 0;\
@@ -67,10 +67,10 @@ define(function(){ return '\
   text-align: center;\
   color: #000000;\
 }\
-.d-progress-bar-label-invert {\
+.d-progress-bar-msg-invert {\
   display: none;\
 }\
-.d-progress-bar-label-ext {\
+.d-progress-bar-msg-ext {\
   overflow: hidden;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-background {\

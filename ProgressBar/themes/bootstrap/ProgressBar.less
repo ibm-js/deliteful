@@ -83,7 +83,7 @@
   border-bottom-right-radius: @border-radius-value;
 }
 
-.d-progress-bar-label-styles() {
+.d-progress-bar-msg-styles() {
   position: absolute;
   height: 100%;
   line-height: 1.667em;
@@ -91,10 +91,10 @@
   white-space: nowrap;
   .box-sizing(border-box);
   text-overflow: ellipsis;
-  border-left: 2px solid transparent; // to make sure label and inverted label are aligned
+  border-left: 2px solid transparent; // to make sure message and inverted message are aligned
 }
 
-.d-progress-bar-label-invert-styles() {
+.d-progress-bar-msg-invert-styles() {
   position: absolute;
   overflow: hidden;
   height: 100%;
@@ -105,10 +105,10 @@
   color: @progress-bar-color;
 }
 
-.d-progress-bar-label-ext-styles() {
+.d-progress-bar-msg-ext-styles() {
 }
 
-.d-progress-bar-label-extAfter-styles() {
+.d-progress-bar-msg-extAfter-styles() {
 }
 
 .d-progress-bar-indeterminate-background-styles() {

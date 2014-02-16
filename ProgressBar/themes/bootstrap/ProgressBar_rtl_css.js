@@ -27,11 +27,11 @@ define(function(){ return '\
   transition: width 0s;\
   border-radius: 4px;\
 }\
-.d-rtl .d-progress-bar-label {\
+.d-rtl .d-progress-bar-msg {\
   border-right: 2px solid transparent;\
   border-left: 0;\
 }\
-.d-rtl .d-progress-bar-label-invert {\
+.d-rtl .d-progress-bar-msg-invert {\
   position: absolute;\
   overflow: hidden;\
 }\

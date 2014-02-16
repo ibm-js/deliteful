@@ -38,7 +38,7 @@ define(function(){ return '\
   background: #33B5E5;\
   position: relative;\
 }\
-.d-progress-bar-label {\
+.d-progress-bar-msg {\
   width: 100%;\
   margin: 0;\
   padding: 0;\
@@ -49,15 +49,15 @@ define(function(){ return '\
   line-height: 1.1em;\
   top: 0.5em;\
 }\
-.d-progress-bar-label-invert {\
+.d-progress-bar-msg-invert {\
   display: none;\
 }\
-.d-progress-bar-label-ext {\
+.d-progress-bar-msg-ext {\
   text-align: left;\
   overflow: hidden;\
 }\
-.d-progress-bar-label-ext::after {\
-  content: attr(label-ext);\
+.d-progress-bar-msg-ext::after {\
+  content: attr(msg-ext);\
   float: right;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-background {\

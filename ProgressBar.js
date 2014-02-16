@@ -28,24 +28,24 @@ define([
 		//		Default: 100
 		max: 100,
 
-		// label: String
-		//		Allow to specify/override the label on the progress bar whether it's determinate or indeterminate.
+		// message: String
+		//		Allow to specify/override the message on the progress bar whether it's determinate or indeterminate.
 		// 		The default behavior of the ProgressBar is to  displays the percentage of completion when the state
-		// 		is determinate, and to display no label when state is indeterminate. You can override this with the
-		// 		label attribute. Set an empty string to restore the default behavior.
+		// 		is determinate, and to display no message when state is indeterminate. You can override this with the
+		// 		message attribute. Set an empty string to restore the default behavior.
 		//		Default: ""
-		label: "",
+		message: "",
 
 		// displayValues: Boolean
 		//		Allow to display the current value vs the max in the form value/max in addition to the current
-		//		label. When true, the label stick to one side and value/max stick to the other side.
-		//		Ex: [65%........379/583]
+		//		message. When true, the message stick to one side and value/max stick to the other side.
+		//		Ex: [65%........379/583] or [Loading......379/583] if you specify a custom message.
 		//		This property is theme dependent. On some theme it has no effect.
 		//		Default: false
 		displayValues: false,
 
 		// fractionDigits: Number
-		//		Number of places to show on default label displayed by the progress bar.
+		//		Number of places to show on default message displayed by the progress bar.
 		//		Default: 0
 		fractionDigits: 0,
 
@@ -56,7 +56,7 @@ define([
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "label", "max", "fractionDigits", "displayValues");
+			this.addInvalidatingProperties("value", "message", "max", "fractionDigits", "displayValues");
 		},
 
 		buildRendering: function () {
@@ -76,12 +76,12 @@ define([
 			this.setAttribute("role", "progressbar");
 			this.backgroundNode = domConstruct.create("div",
 				{className: this.baseClass + "-background"}, this, "last");
-			this.labelNode = domConstruct.create("div",
-				{className: this.baseClass + "-label"}, this.backgroundNode, "last");
+			this.msgNode = domConstruct.create("div",
+				{className: this.baseClass + "-msg"}, this.backgroundNode, "last");
 			this.indicatorNode = domConstruct.create("div",
 				{className: this.baseClass + "-indicator "}, this.backgroundNode, "last");
-			this.labelInvertNode = domConstruct.create("div",
-				{className: this.baseClass + "-label-invert"}, this.indicatorNode, "last");
+			this.msgInvertNode = domConstruct.create("div",
+				{className: this.baseClass + "-msg-invert"}, this.indicatorNode, "last");
 			this.setAttribute("aria-valuemin", 0);
 			domClass.add(this, this.baseClass + "-empty");
 		},
@@ -98,11 +98,11 @@ define([
 			if (props.value || props.max) {
 				if (_value === Infinity) {
 					this.indicatorNode.style.removeProperty("width");
-					this.labelNode.removeAttribute("label-ext");
+					this.msgNode.removeAttribute("msg-ext");
 					this.removeAttribute("aria-valuenow");
 				} else {
 					this.indicatorNode.style.width = (_percent * 100) + "%";
-					this.labelInvertNode.style.width = window.getComputedStyle(this.labelNode).getPropertyValue("width");
+					this.msgInvertNode.style.width = window.getComputedStyle(this.msgNode).getPropertyValue("width");
 					this.setAttribute("aria-valuenow", _percent * 100);
 				}
 			}
@@ -111,15 +111,14 @@ define([
 				this.setAttribute("aria-valuemax", _max);
 			}
 
-			if (props.displayValues) {
-				_displayValues = this.displayValues && _value !== Infinity && this.label === "";
-				domClass.toggle(this.labelNode, this.baseClass + "-label-ext", _displayValues);
-				if (_displayValues) {
-					//set content value to be used by pseudo element d-progress-bar-label-ext::after
-					this.labelNode.setAttribute("label-ext", this.formatValues(_percent, _value, _max));
-				}
+			_displayValues = this.displayValues && _value !== Infinity;
+			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayValues);
+			if (_displayValues) {
+				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
+				this.msgNode.setAttribute("msg-ext", this.formatValues(_percent, _value, _max));
 			}
-			this.labelNode.innerHTML = this.labelInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
+
+			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
 
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
 			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
@@ -134,16 +133,16 @@ define([
 			//set label id here because this.id is not available in buildRendering when
 			//the widget is instantiated programmatically
 			//todo: ensure an id is available, otw generate one, see https://github.com/ibm-js/delite/issues/109
-			if (this.id) {
-				this.labelNode.setAttribute("id", this.id + "_label");
-				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
-			}
+//			if (this.id) {
+//				this.labelNode.setAttribute("id", this.id + "_label");
+//				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
+//			}
 		},
 
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
 			//		Generates HTML message to show inside/beside the progress bar (depends on theme settings).
-			//		If a custom label is specified, use it. If value is not Infinity, format the percentage of
+			//		If a custom message is specified, use it. If value is not Infinity, format the percentage of
 			//		progression in respect with fractionDigits.
 			// 		May be overridden.
 			// percent:
@@ -152,7 +151,7 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-			return this.label ? this.label : (value === Infinity ? "" : number.format(percent, {
+			return this.message ? this.message : (value === Infinity ? "" : number.format(percent, {
 				type: "percent",
 				places: this.fractionDigits,
 				round: -1,
