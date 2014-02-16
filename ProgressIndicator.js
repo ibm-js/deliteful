@@ -3,8 +3,9 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
+	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (dcl, register, Widget, Invalidating) {
+], function (dcl, register, Widget, Invalidating, renderer) {
 
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
 		// summary:
@@ -154,127 +155,7 @@ define([
 			this.addInvalidatingProperties("value", "lapsTime", "color");
 		},
 
-		buildRendering: function () {
-			//todo: should use template. see issue: https://github.com/ibm-js/delite/issues/90
-			// <svg>
-			//	 <defs>
-			//		 <symbol id="symbolId" viewBox="0 0 30 30" preserveAspectRatio="none">
-			//			 <text x="48%" y="67%"></text>
-			//		 </symbol>
-			//	 </defs>
-			//	 <g class="d-progress-indicator-lines">
-			//		 <line x1="50.0%" y1="24.0%" x2="50.0%" y2="07.0%"></line>
-			//		 <line x1="63.0%" y1="28.0%" x2="72.0%" y2="13.0%"></line>
-			//		 <line x1="73.0%" y1="37.0%" x2="88.0%" y2="28.0%"></line>
-			//		 <line x1="93.0%" y1="50.0%" x2="76.0%" y2="50.0%"></line>
-			//		 <line x1="73.0%" y1="63.0%" x2="88.0%" y2="71.0%"></line>
-			//		 <line x1="63.0%" y1="72.0%" x2="71.0%" y2="87.0%"></line>
-			//		 <line x1="50.0%" y1="76.0%" x2="50.0%" y2="93.0%"></line>
-			//		 <line x1="37.0%" y1="72.0%" x2="28.0%" y2="87.0%"></line>
-			//		 <line x1="27.0%" y1="63.0%" x2="13.0%" y2="71.0%"></line>
-			//		 <line x1="24.0%" y1="50.0%" x2="07.0%" y2="50.0%"></line>
-			//		 <line x1="27.0%" y1="37.0%" x2="13.0%" y2="29.0%"></line>
-			//		 <line x1="37.0%" y1="27.0%" x2="29.0%" y2="13.0%"></line>
-			//	 </g>
-			//	 <use x="28.5%" y="28.5%" width="43%" height="43%" xlink:href="#symbolId"></use>
-			// </svg>
-			var svgNS = "http://www.w3.org/2000/svg";
-			var svgNode = document.createElementNS(svgNS, "svg");
-			var defsNode = document.createElementNS(svgNS, "defs");
-			var symbolNode = document.createElementNS(svgNS, "symbol");
-			symbolNode.setAttribute("viewBox", "0 0 30 30");
-			symbolNode.setAttribute("preserveAspectRatio", "none");
-			defsNode.appendChild(symbolNode);
-			var textNode = document.createElementNS(svgNS, "text");
-			textNode.setAttribute("x", "48%");
-			textNode.setAttribute("y", "67%");
-			textNode.textContent = "";
-			symbolNode.appendChild(textNode);
-			svgNode.appendChild(defsNode);
-			var gNode = document.createElementNS(svgNS, "g");
-			gNode.setAttribute("class", "d-progress-indicator-lines");
-			var lineNode;
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "50%");
-			lineNode.setAttribute("y1", "24%");
-			lineNode.setAttribute("x2", "50%");
-			lineNode.setAttribute("y2", "07%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "63%");
-			lineNode.setAttribute("y1", "28%");
-			lineNode.setAttribute("x2", "72%");
-			lineNode.setAttribute("y2", "13%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "73%");
-			lineNode.setAttribute("y1", "37%");
-			lineNode.setAttribute("x2", "88%");
-			lineNode.setAttribute("y2", "28%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "93%");
-			lineNode.setAttribute("y1", "50%");
-			lineNode.setAttribute("x2", "76%");
-			lineNode.setAttribute("y2", "50%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "73%");
-			lineNode.setAttribute("y1", "63%");
-			lineNode.setAttribute("x2", "88%");
-			lineNode.setAttribute("y2", "71%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "63%");
-			lineNode.setAttribute("y1", "72%");
-			lineNode.setAttribute("x2", "71%");
-			lineNode.setAttribute("y2", "87%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "50%");
-			lineNode.setAttribute("y1", "76%");
-			lineNode.setAttribute("x2", "50%");
-			lineNode.setAttribute("y2", "93%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "37%");
-			lineNode.setAttribute("y1", "72%");
-			lineNode.setAttribute("x2", "28%");
-			lineNode.setAttribute("y2", "87%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "27%");
-			lineNode.setAttribute("y1", "63%");
-			lineNode.setAttribute("x2", "13%");
-			lineNode.setAttribute("y2", "71%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "24%");
-			lineNode.setAttribute("y1", "50%");
-			lineNode.setAttribute("x2", "07%");
-			lineNode.setAttribute("y2", "50%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "27%");
-			lineNode.setAttribute("y1", "37%");
-			lineNode.setAttribute("x2", "13%");
-			lineNode.setAttribute("y2", "29%");
-			gNode.appendChild(lineNode);
-			lineNode = document.createElementNS(svgNS, "line");
-			lineNode.setAttribute("x1", "37%");
-			lineNode.setAttribute("y1", "27%");
-			lineNode.setAttribute("x2", "29%");
-			lineNode.setAttribute("y2", "13%");
-			gNode.appendChild(lineNode);
-			svgNode.appendChild(gNode);
-			var useNode = document.createElementNS(svgNS, "use");
-			useNode.setAttribute("x", "28.5%");
-			useNode.setAttribute("y", "28.5%");
-			useNode.setAttribute("width", "43%");
-			useNode.setAttribute("height", "43%");
-			svgNode.appendChild(useNode);
-			this.appendChild(svgNode);
-		},
+		buildRendering: renderer,
 
 		enteredViewCallback: dcl.after(function () {
 			//template: use query selector to get nodes reference that will not be available from buildRendering
