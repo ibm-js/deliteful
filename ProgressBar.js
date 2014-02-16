@@ -1,13 +1,15 @@
 define([
+	"dcl/dcl",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/number",
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
+	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
-], function (domClass, domConstruct, number, register, Widget, Invalidating) {
+], function (dcl, domClass, domConstruct, number, register, Widget, Invalidating, renderer) {
 
 	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], {
 		// summary
@@ -59,32 +61,7 @@ define([
 			this.addInvalidatingProperties("value", "message", "max", "fractionDigits", "displayValues");
 		},
 
-		buildRendering: function () {
-			// Construct the UI for this widget.
-			// The widget structure with supported CSS classes:
-			//<div class="d-progress-bar d-progress-bar-empty d-progress-bar-full d-progress-bar-indeterminate"
-			//	id="{widgetID}"
-			//	role="progressbar"
-			//	aria-valuenow="..." aria-valuemin="0" aria-valuemax="..." aria-labelledby="{widgetID}_label">
-			//	<div class="d-progress-bar-background">
-			//		<div id="{widgetID}_label" label-ext="..." class="d-progress-bar-label" >{label}</div>
-			//		<div style="width: x%" class="d-progress-bar-indicator">
-			//			<div class="d-progress-bar-label-invert">{label}</div>
-			// 		</div>
-			//	</div>
-			//</div>
-			this.setAttribute("role", "progressbar");
-			this.backgroundNode = domConstruct.create("div",
-				{className: this.baseClass + "-background"}, this, "last");
-			this.msgNode = domConstruct.create("div",
-				{className: this.baseClass + "-msg"}, this.backgroundNode, "last");
-			this.indicatorNode = domConstruct.create("div",
-				{className: this.baseClass + "-indicator "}, this.backgroundNode, "last");
-			this.msgInvertNode = domConstruct.create("div",
-				{className: this.baseClass + "-msg-invert"}, this.indicatorNode, "last");
-			this.setAttribute("aria-valuemin", 0);
-			domClass.add(this, this.baseClass + "-empty");
-		},
+		buildRendering: renderer,
 
 		refreshRendering: function (props) {
 			var _percent, _value, _max, _displayValues;
@@ -138,6 +115,12 @@ define([
 //				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
 //			}
 		},
+
+		enteredViewCallback: dcl.after(function () {
+			this.indicatorNode = this.querySelector(".d-progress-bar .d-progress-bar-indicator");
+			this.msgNode = this.querySelector(".d-progress-bar .d-progress-bar-msg");
+			this.msgInvertNode = this.querySelector(".d-progress-bar .d-progress-bar-msg-invert");
+		}),
 
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
