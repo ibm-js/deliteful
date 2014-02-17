@@ -3,12 +3,16 @@ define(function(){ return '\
   opacity: 0.5;\
 }\
 .d-star-rating {\
+  /* Do not modify the display style */\
+  display: inline-block;\
   -ms-touch-action: none;\
 }\
 .d-star-rating-disabled .d-star-rating-star-icon:before {\
   content: url("../../images/grey-stars-40.png");\
 }\
 .d-star-rating-star-icon {\
+  float: left;\
+  overflow: hidden;\
   height: 40px;\
   width: 40px;\
 }\
