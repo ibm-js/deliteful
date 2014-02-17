@@ -109,5 +109,5 @@ define(["dcl/dcl",
 		}
 	});
 
-	return register("d-list-item", [HTMLElement, ItemRenderer]);
+	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);
 });

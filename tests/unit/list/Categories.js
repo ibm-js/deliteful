@@ -7,13 +7,13 @@ define([
 	var list = null;
 
 	var checkCategory = function (node, expectedCategory) {
-		assert.equal(node.tagName, "D-LIST-CATEGORY");
+		assert.equal(node.tagName, "D-LIST-CATEGORY-RENDERER");
 		assert.equal(node.className, "d-list-category");
 		assert.equal(node.textContent, expectedCategory);
 	};
 
 	var checkItem = function (node, expectedLabel) {
-		assert.equal(node.tagName, "D-LIST-ITEM");
+		assert.equal(node.tagName, "D-LIST-ITEM-RENDERER");
 		assert.equal(node.className, "d-list-item");
 		assert.equal(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel);
 	};

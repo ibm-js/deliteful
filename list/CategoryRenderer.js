@@ -39,5 +39,5 @@ define(["dcl/dcl",
 
 	});
 
-	return register("d-list-category", [HTMLElement, CategoryRenderer]);
+	return register("d-list-category-renderer", [HTMLElement, CategoryRenderer]);
 });

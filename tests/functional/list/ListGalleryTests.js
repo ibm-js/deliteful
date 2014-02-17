@@ -16,7 +16,7 @@ define(["intern!object",
 								listId + " number of list items is not the expected one");
 						// TODO: check the label on each item
 					})
-				.elementsByTagName("d-list-category")
+				.elementsByTagName("d-list-category-renderer")
 					.then(function (result) {
 						assert.equal(result.length, numberOfCategoriesExpected,
 								listId + " number of category headers is not the expected one");
@@ -29,31 +29,31 @@ define(["intern!object",
 	registerSuite({
 		name: "ListGallery tests",
 		"ListGallery.html / list-prog-1": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-prog-1", 100, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-prog-2": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-prog-2", 100, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-prog-2", 100, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-prog-3": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-prog-3", 100, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-prog-3", 100, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-prog-4": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-prog-4", 100, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-prog-4", 100, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-prog-5": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-prog-4", 100, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-prog-4", 100, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-mark-1": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-mark-1", 10, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-mark-2": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-mark-2", 10, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-mark-3": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-mark-3", 10, 2, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-mark-4": function () {
-			return basicTest(this.remote, "./ListGallery.html", "list-mark-4", 10, 0, "d-list-item");
+			return basicTest(this.remote, "./ListGallery.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
 		"ListGallery.html / list-cust-1": function () {
 			return basicTest(this.remote, "./ListGallery.html", "list-cust-1", 40, 0, "d-customnav-item");
@@ -68,7 +68,7 @@ define(["intern!object",
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
@@ -91,7 +91,7 @@ define(["intern!object",
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
@@ -112,7 +112,7 @@ define(["intern!object",
 						assert.equal(className, "d-list-item d-selected");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[4]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
@@ -123,7 +123,7 @@ define(["intern!object",
 						assert.equal(className, "d-list-item d-selected");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item d-selected");
@@ -141,7 +141,7 @@ define(["intern!object",
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
@@ -162,7 +162,7 @@ define(["intern!object",
 						assert.equal(className, "d-list-item d-selected");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[4]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
@@ -173,7 +173,7 @@ define(["intern!object",
 						assert.equal(className, "d-list-item d-selected");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("className")
 					.then(function (className) {
 						assert.equal(className, "d-list-item");
