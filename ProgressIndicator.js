@@ -86,7 +86,7 @@ define([
 			this._requestRendering(
 				function () {
 					//remove any displayed value
-					this.labelNode.textContent = "";
+					this.msgNode.textContent = "";
 					//reset the opacity
 					for (var i = 0; i < 12; i++) {
 						this.lineNodeList[i].setAttribute("opacity", (i + 1) * (1 / 12));
@@ -96,9 +96,9 @@ define([
 
 		_setColor: function (color) {
 			this.linesNode.style.stroke = color; // text value color
-			this.labelNode.style.fill = color; // lines color
+			this.msgNode.style.fill = color; // lines color
 			//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
-			this.labelNode.textContent = this.labelNode.textContent;
+			this.msgNode.textContent = this.msgNode.textContent;
 		},
 
 		_stopAnimation: function () {
@@ -162,7 +162,7 @@ define([
 			this.svgNode = this.querySelector(".d-progress-indicator svg");
 			this.linesNode = this.querySelector(".d-progress-indicator-lines");
 			this.lineNodeList = this.querySelectorAll(".d-progress-indicator-lines > line");
-			this.labelNode = this.querySelector(".d-progress-indicator text");
+			this.msgNode = this.querySelector(".d-progress-indicator text");
 			//set unique SVG symbol id
 			if (!this.id) {
 				this.id = this.baseClass + "-" + this.widgetId;
@@ -197,7 +197,7 @@ define([
 					//normalize the value
 					var percent = Math.max(Math.min(this.value, 100), 0);
 					//display the integer value
-					this.labelNode.textContent = Math.floor(percent);
+					this.msgNode.textContent = Math.floor(percent);
 					//minimum amount of opacity.
 					var minOpacity = 0.2;
 					//update lines opacity
