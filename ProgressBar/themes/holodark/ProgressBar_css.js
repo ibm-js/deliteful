@@ -18,13 +18,25 @@ define(function(){ return '\
 .d-progress-bar-danger .d-progress-bar-indicator {\
   background-color: #d9534f;\
 }\
+.d-progress-bar-indeterminate.d-progress-bar-success .d-progress-bar-background {\
+  background-color: #5cb85c;\
+}\
+.d-progress-bar-indeterminate.d-progress-bar-info .d-progress-bar-background {\
+  background-color: #5bc0de;\
+}\
+.d-progress-bar-indeterminate.d-progress-bar-warning .d-progress-bar-background {\
+  background-color: #f0ad4e;\
+}\
+.d-progress-bar-indeterminate.d-progress-bar-danger .d-progress-bar-background {\
+  background-color: #d9534f;\
+}\
 .d-progress-bar {\
   display: inline-block;\
   position: relative;\
   margin: 2px;\
   padding: 0;\
   width: 100%;\
-  height: 1.5em;\
+  height: 1.7em;\
   font-size: 12px;\
   vertical-align: middle;\
 }\
@@ -47,7 +59,7 @@ define(function(){ return '\
   -webkit-transition: width 0.3s linear 0s;\
   transition: width 0.3s linear 0s;\
   height: 100%;\
-  background: #33B5E5;\
+  background: #33b5e5;\
   position: relative;\
 }\
 .d-progress-bar-msg {\
@@ -57,8 +69,8 @@ define(function(){ return '\
   overflow: hidden;\
   text-align: center;\
   position: absolute;\
-  height: 1.1em;\
-  line-height: 1.1em;\
+  height: 1.2em;\
+  line-height: 1em;\
   top: 0.5em;\
 }\
 .d-progress-bar-msg-invert {\
@@ -75,7 +87,7 @@ define(function(){ return '\
 .d-progress-bar-indeterminate .d-progress-bar-background {\
   margin: 0;\
   padding: 0;\
-  background: #33B5E5;\
+  background: #33b5e5;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-indicator {\
   margin: 0;\
