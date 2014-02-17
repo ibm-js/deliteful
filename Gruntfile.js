@@ -8,11 +8,8 @@ module.exports = function (grunt) {
 		jshint: {
 			src: [
 				// only doing top level files for now, to avoid old files in dijit/, form/, layout/, and mobile
-				"*.js",
+				"*.js"
 
-				// Skip files that still have many errors or haven't been updated at all (TODO: fix)
-				"!Rule.js",
-				"!Slider.js"
 			],
 			options: {
 				jshintrc: ".jshintrc"

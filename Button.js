@@ -7,7 +7,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"delite/themes/load!delite/themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css"	 // common for duiInline etc.
+	"delite/themes/load!delite/themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css" // common for duiInline
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
@@ -54,6 +54,7 @@ define([
 			this.focusNode = this;
 		},
 
+		/*jshint maxcomplexity: 15*/
 		refreshRendering: function (props) {
 			// summary:
 			//		Render or re-render the widget, based on property settings.
@@ -85,7 +86,6 @@ define([
 
 			// Set title.  If no label is shown and no title has been specified,
 			// label is also set as title attribute of icon.
-			// TODO: if label is later changed, title won't be changed.
 			if (props.title || props.label) {
 				this.title = this.title || (!showLabel && this.label) || "";
 			}

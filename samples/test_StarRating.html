@@ -8,10 +8,12 @@
 
 	<title>StarRating</title>
 
-	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
-		require([
+		require({
+			baseUrl:"../.."
+		},[
 			"delite/register",
 			"deliteful/StarRating",
 			"dojo/domReady!"

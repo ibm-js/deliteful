@@ -22,7 +22,7 @@ Migration will require manual steps listed [here](docs/migration.md).
 ## Issues
 
 Bugs and open issues are tracked in the
-[github issues tracker])(https://github.com/ibm-js/deliteful/issues).
+[github issues tracker](https://github.com/ibm-js/deliteful/issues).
 
 ## Licensing
 
@@ -37,16 +37,19 @@ This project requires the following other projects to run:
  * dpointer
  * dcl    (git clone https://github.com/uhop/dcl.git)
  * requirejs (git clone https://github.com/jrburke/requirejs.git)
+ * requirejs-dplugins
 
 ## Installation
 
-* Bower release installation: `bower install deliteful`
+_Bower_ release installation:
 
-* Manual master installation: go to the root Dojo installation directory and clone deliteful from github:
+    $ bower install deliteful
 
-	$ git clone git://github.com/ibm-js/deliteful.git
+_Manual_ master installation:
 
-Then install dependencies:
+    $ git clone git://github.com/ibm-js/deliteful.git
+
+Then install dependencies with bower (or manually from github if you prefer to):
 
 	$ cd deliteful
 	$ bower install

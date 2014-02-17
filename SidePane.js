@@ -5,12 +5,13 @@ define([
 	"dojo/_base/window",
 	"dojo/sniff",
 	"delite/register",
-	"delite/Container",
+	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/Deferred",
+	/*jshint maxlen: 150*/
 	"dojo/has!dojo-bidi?delite/themes/load!./SidePane/themes/{{theme}}/SidePane_rtl_css:delite/themes/load!./SidePane/themes/{{theme}}/SidePane_css"
 ],
-	function (dcl, pointer, domClass, win, has, register, Container, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, win, has, register, Widget, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -30,14 +31,14 @@ define([
 			return node;
 		}
 
-		return register("d-side-pane", [HTMLElement, Container, Invalidating], {
+		return register("d-side-pane", [HTMLElement, Widget, Invalidating], {
 
 			// summary:
-			//		A container displayed on the side of the screen. It can be displayed on top of the page
+			//		A widget displayed on the side of the screen. It can be displayed on top of the page
 			//		(mode=overlay) or
 			//		can push the content of the page (mode=push or mode=reveal).
 			// description:
-			//		SidePane is a container hidden by default.
+			//		SidePane is a widget hidden by default.
 			//		This widget must be a sibling of html's body element.
 			//		If mode is set to "push" or "reveal", the width of the SidePane can't be changed in the markup
 			//		(15em by default).
@@ -125,7 +126,7 @@ define([
 					}
 					this._hideImpl();
 					if (!this.animate) {
-						this.defer(function () {setVisibility(this, false); deferred.resolve();}.bind(this),
+						this.defer(function () {setVisibility(this, false); deferred.resolve(); }.bind(this),
 							this._timing);
 					}
 				}
@@ -342,4 +343,3 @@ define([
 			}
 		});
 	});
-

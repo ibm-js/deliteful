@@ -71,6 +71,7 @@ define([
 			}
 		}),
 
+		/*jshint maxcomplexity: 15*/
 		refreshRendering: function (props) {
 			// summary:
 			//		Slider passes inherited values vertical and flip down to child decoration widgets.
@@ -89,31 +90,27 @@ define([
 					domClass.add(node, css);
 				}
 			}
-			if (props.reverse) {
-				if (this.reverse) {
-					this.labels.reverse();
-				}
+			if (props.reverse && this.reverse) {
+				this.labels.reverse();
 			}
-			if (props.vertical) {
-				if (count > 0) {
-					var pos = 0;
-					if (count === 1) {
-						pos = 50;
-					}
-					css = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
-					domClass.add(this, css);
-					css = toCSS(this.baseClass, "-label" + (this.vertical ? "-v" : "-h"));
-					children = query("> div", this);
-					for (i = 0; i < count; i++) {
-						node = children[i];
-						domClass.add(node, css);
-						var label = this.labels.length > 0 ? this.labels[i % this.labels.length] :
-							(this.vertical ? "\u2014" : "\u007c");
-						node.innerHTML = label;
-						this._setLabelDirection(node);
-						domStyle.set(node, this.vertical ? "top" : "left", pos + "%");
-						pos = 100 / ((count - 1) / (i + 1));
-					}
+			if (props.vertical && count > 0) {
+				var pos = 0;
+				if (count === 1) {
+					pos = 50;
+				}
+				css = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
+				domClass.add(this, css);
+				css = toCSS(this.baseClass, "-label" + (this.vertical ? "-v" : "-h"));
+				children = query("> div", this);
+				for (i = 0; i < count; i++) {
+					node = children[i];
+					domClass.add(node, css);
+					var label = this.labels.length > 0 ? this.labels[i % this.labels.length] :
+						(this.vertical ? "\u2014" : "\u007c");
+					node.innerHTML = label;
+					this._setLabelDirection(node);
+					domStyle.set(node, this.vertical ? "top" : "left", pos + "%");
+					pos = 100 / ((count - 1) / (i + 1));
 				}
 			}
 		},

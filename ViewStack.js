@@ -41,9 +41,9 @@ define(["dcl/dcl",
 		return register("d-view-stack", [HTMLElement, Widget, DisplayContainer], {
 
 			// summary:
-			//		ViewStack container widget.
+			//		ViewStack container widget. Display one child at a time.
 			//
-			//		ViewStack displays its first child node by default.
+			//		The first child is displayed by default.
 			//		The methods 'show' is used to change the visible child.
 			//
 			//		Styling
@@ -74,6 +74,16 @@ define(["dcl/dcl",
 
 			_timing: 0,
 
+			_setChildrenVisibility: function () {
+				var cdn = this.children;
+				if (!this._visibleChild && cdn.length > 0) {
+					this._visibleChild = cdn[0];
+				}
+				for (var i = 0; i < cdn.length; i++) {
+					setVisibility(cdn[i], cdn[i] === this._visibleChild);
+				}
+			},
+
 			preCreate: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
@@ -81,13 +91,11 @@ define(["dcl/dcl",
 						this._timing = this._transitionTiming[o];
 					}
 				}
+				this.on("DOMNodeInserted", this._setChildrenVisibility.bind(this));
 			},
 
 			buildRendering: function () {
-				// Keep visible the first child, hide others
-				for (var i = 1; i < this.children.length; i++) {
-					setVisibility(this.children[i], false);
-				}
+				this._setChildrenVisibility();
 			},
 
 			showNext: function (props) {
@@ -113,21 +121,25 @@ define(["dcl/dcl",
 			},
 
 			performDisplay: function (widget, event) {
+				// Resolved when display is completed.
+				var deferred = new Deferred();
+
+				if (!widget || widget.parentNode !== this) {
+					deferred.resolve();
+					return deferred.promise;
+				}
+
 				var origin = this._visibleChild;
 
 				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
 				cleanCSS(origin);
 				cleanCSS(widget);
 
-				// Resolved when display is completed.
-				var deferred = new Deferred();
-
 				setVisibility(widget, true);
 				this._visibleChild = widget;
 
-				var transition = event.transition ? event.transition : "slide";
-				var reverse = event.reverse ? event.reverse : false;
-
+				var transition = event.transition || "slide";
+				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
 				if (transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
@@ -157,7 +169,9 @@ define(["dcl/dcl",
 						}
 					}, this._timing);
 				} else {
-					setVisibility(origin, false);
+					if (origin !== widget) {
+						setVisibility(origin, false);
+					}
 					deferred.resolve();
 				}
 
@@ -180,19 +194,15 @@ define(["dcl/dcl",
 					//		A promise that will be resolved when the display & transition effect will have been
 					//		performed.
 
-					if (!this._visibleChild) {
+					if (this._visibleChild && this._visibleChild.parentNode !== this) {
+						// The visible child has been removed.
+						this._visibleChild = null;
+					}
+					if (!this._visibleChild && this.children.length > 0) {
+						// The default visible child is the first one.
 						this._visibleChild = this.children[0];
 					}
 					return sup.apply(this, [dest, params]);
-				};
-			}),
-
-			addChild: dcl.superCall(function (sup) {
-				return function (/*HTMLElement*/ widget, /*jshint unused: vars */insertIndex) {
-					sup.apply(this, arguments);
-					if (this.children.length !== 1) {
-						setVisibility(widget, false);
-					}
 				};
 			}),
 
