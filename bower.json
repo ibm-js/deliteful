@@ -8,5 +8,12 @@
 		"dpointer": ">=0.1.0-dev",
 		"delite": ">=0.1.0-dev",
 		"requirejs-dplugins": ">=0.1.0-dev"
-	}
+	},
+	"ignore": [
+		".jshintrc",
+		".gitattributes",
+		".travis.yml",
+		"tests",
+		"CONTRIBUTING.md"
+	]
 }

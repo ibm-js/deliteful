@@ -36,12 +36,17 @@ define({
 		{ browserName: "safari", version: "6", platform: [ "OS X 10.8" ] },
 
 		// Mobile
-		{ browserName: "android", platform: "Android" },
-		{ browserName: "iphone",
-			platform: "OS X 10.8",
-			version: "6.1",
-			"device-orientation": "portrait",
-			"selenium-version": "" }
+		{ browserName: "android", platform: "Linux", version: "4.1" },
+		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.1" },
+		{ browserName: "android", platform: "Linux", version: "4.1" },
+		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.0" },
+		{ browserName: "android", platform: "Linux", version: "4.0" },
+		{ browserName: "iphone", platform: "OS X 10.9", version: "7", "selenium-version": "" },
+		{ browserName: "ipad", platform: "OS X 10.9", version: "7", "selenium-version": "" },
+		{ browserName: "iphone", platform: "OS X 10.8", version: "6.1", "selenium-version": "" },
+		{ browserName: "ipad", platform: "OS X 10.8", version: "6.1", "selenium-version": "" },
+		{ browserName: "iphone", platform: "OS X 10.8", version: "6.0", "selenium-version": "" },
+		{ browserName: "ipad", platform: "OS X 10.8", version: "6.0", "selenium-version": "" },
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
@@ -59,10 +64,10 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: [ "deliteful/tests/unit" ],
+	suites: [ "deliteful/tests/unit/all" ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
-	functionalSuites: [ "deliteful/tests/functional" ],
+	functionalSuites: [ "deliteful/tests/functional/all" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
 	excludeInstrumentation: /^(requirejs|dcl|dojo|dpointer|delite\/|deliteful\/tests|.*themes|.*transitions)/
