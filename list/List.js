@@ -23,7 +23,6 @@ define(["dcl/dcl",
 
 	// Register custom elements we use to support markup for adding items to the list store.
 	register("d-list-store", [HTMLElement, CustomElement]);
-	register("d-list-store-item", [HTMLElement, CustomElement], {item: null});
 
 	var List = dcl([Invalidating, Selection, KeyNav, StoreMap, Scrollable], {
 		// summary:
@@ -167,13 +166,9 @@ define(["dcl/dcl",
 					for (var i = 0; i < children.length; i++) {
 						var child = children[i];
 						if (child.tagName === "D-LIST-STORE") {
-							var items = this.findCustomElements(child);
-							for (var j = 0; j < items.length; j++) {
-								var item = items[j].item;
-								if (item) {
-									this.store.add(item);
-								}
-								items[j].destroy();
+							var data = JSON.parse("[" + child.textContent + "]");
+							for (var j = 0; j < data.length; j++) {
+								this.store.add(data[j]);
 							}
 						}
 						child.destroy();

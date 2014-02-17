@@ -273,63 +273,63 @@
     <h1>Markup lists</h1>
     <h2>10 items declared as markup, memory store, and selectionMode set to "multiple" (id: list-mark-1)</h2>
 	<d-list id="list-mark-1" style="height: 200px" selectionMode="multiple" store="globalStore">
-		<d-list-store>
-			<d-list-store-item item="{label: 'list item 0', righttext: 'right text A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 1', righttext: 'right text B'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 2', righttext: 'right text C'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 3', righttext: 'right text D'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 4', righttext: 'right text E'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 5', righttext: 'right text F'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 6', righttext: 'right text G'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 7', righttext: 'right text H'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 8', righttext: 'right text I'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 9', righttext: 'right text J'}"></d-list-store-item>
+ 		<d-list-store>
+ 			{"label": "list item 0", "righttext": "right text A"},
+			{"label": "list item 1", "righttext": "right text B"},
+			{"label": "list item 2", "righttext": "right text C"},
+			{"label": "list item 3", "righttext": "right text D"},
+			{"label": "list item 4", "righttext": "right text E"},
+			{"label": "list item 5", "righttext": "right text F"},
+			{"label": "list item 6", "righttext": "right text G"},
+			{"label": "list item 7", "righttext": "right text H"},
+			{"label": "list item 8", "righttext": "right text I"},
+			{"label": "list item 9", "righttext": "right text J"}
 		</d-list-store>
 	</d-list>
     <h2>Non scrollable with 10 items declared as markup, default store, and selectionMode set to "single" (id: list-mark-2)</h2>
 	<d-list id="list-mark-2" scrollDirection="none" selectionMode="single">
 		<d-list-store>
-			<d-list-store-item item="{label: 'list item 0', righttext: 'right text 1'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 1', righttext: 'right text 2'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 2', righttext: 'right text 3'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 3', righttext: 'right text 4'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 4', righttext: 'right text 5'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 5', righttext: 'right text 6'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 6', righttext: 'right text 7'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 7', righttext: 'right text 8'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 8', righttext: 'right text 9'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 9', righttext: 'right text 10'}"></d-list-store-item>
+			{"label": "list item 0", "righttext": "right text 1"},
+			{"label": "list item 1", "righttext": "right text 2"},
+			{"label": "list item 2", "righttext": "right text 3"},
+			{"label": "list item 3", "righttext": "right text 4"},
+			{"label": "list item 4", "righttext": "right text 5"},
+			{"label": "list item 5", "righttext": "right text 6"},
+			{"label": "list item 6", "righttext": "right text 7"},
+			{"label": "list item 7", "righttext": "right text 8"},
+			{"label": "list item 8", "righttext": "right text 9"},
+			{"label": "list item 9", "righttext": "right text 10"}
 		</d-list-store>
 	</d-list>
    	<h2>10 items declared as markup, default store, categorized (id: list-mark-3)</h2>
 	<d-list id="list-mark-3" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext">
 		<d-list-store>
-			<d-list-store-item item="{label: 'list item 0', righttext: 'A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 1', righttext: 'A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 2', righttext: 'A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 3', righttext: 'A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 4', righttext: 'A'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 5', righttext: 'B'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 6', righttext: 'B'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 7', righttext: 'B'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 8', righttext: 'B'}"></d-list-store-item>
-			<d-list-store-item item="{label: 'list item 9', righttext: 'B'}"></d-list-store-item>
+			{"label": "list item 0", "righttext": "A"},
+			{"label": "list item 1", "righttext": "A"},
+			{"label": "list item 2", "righttext": "A"},
+			{"label": "list item 3", "righttext": "A"},
+			{"label": "list item 4", "righttext": "A"},
+			{"label": "list item 5", "righttext": "B"},
+			{"label": "list item 6", "righttext": "B"},
+			{"label": "list item 7", "righttext": "B"},
+			{"label": "list item 8", "righttext": "B"},
+			{"label": "list item 9", "righttext": "B"}
 		</d-list-store>
 	</d-list>
 	<button onclick="var list = document.getElementById('list-mark-3'); list.categoryAttr = (list.categoryAttr === 'righttext' ? 'label' : 'righttext');">Toggle category attribute between righttext and label.</button>
    	<h2>10 items declared as markup, using all items attribute (id: list-mark-4)</h2>
 	<d-list id="list-mark-4" style="height: 200px">
 		<d-list-store>
-			<d-list-store-item item="{iconclass: 'left-icon-1', label: 'list item 0', righttext: 'A', righticonclass: 'right-icon-2-1'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-2', label: 'list item 1', righttext: 'A', righticonclass: 'right-icon-2-2'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-3', label: 'list item 2', righttext: 'A', righticonclass: 'right-icon-2-3'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-4', label: 'list item 3', righttext: 'A', righticonclass: 'right-icon-2-4'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-5', label: 'list item 4', righttext: 'A', righticonclass: 'right-icon-2-5'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-6', label: 'list item 5', righttext: 'B', righticonclass: 'right-icon-2-6'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-7', label: 'list item 6', righttext: 'B', righticonclass: 'right-icon-2-7'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-8', label: 'list item 7', righttext: 'B', righticonclass: 'right-icon-2-8'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-9', label: 'list item 8', righttext: 'B', righticonclass: 'right-icon-2-1'}"></d-list-store-item>
-			<d-list-store-item item="{iconclass: 'left-icon-10', label: 'list item 9', righttext: 'B', righticonclass: 'right-icon-2-2'}"></d-list-store-item>
+			{"iconclass": "left-icon-1", "label": "list item 0", "righttext": "A", "righticonclass": "right-icon-2-1"},
+			{"iconclass": "left-icon-2", "label": "list item 1", "righttext": "A", "righticonclass": "right-icon-2-2"},
+			{"iconclass": "left-icon-3", "label": "list item 2", "righttext": "A", "righticonclass": "right-icon-2-3"},
+			{"iconclass": "left-icon-4", "label": "list item 3", "righttext": "A", "righticonclass": "right-icon-2-4"},
+			{"iconclass": "left-icon-5", "label": "list item 4", "righttext": "A", "righticonclass": "right-icon-2-5"},
+			{"iconclass": "left-icon-6", "label": "list item 5", "righttext": "B", "righticonclass": "right-icon-2-6"},
+			{"iconclass": "left-icon-7", "label": "list item 6", "righttext": "B", "righticonclass": "right-icon-2-7"},
+			{"iconclass": "left-icon-8", "label": "list item 7", "righttext": "B", "righticonclass": "right-icon-2-8"},
+			{"iconclass": "left-icon-9", "label": "list item 8", "righttext": "B", "righticonclass": "right-icon-2-1"},
+			{"iconclass": "left-icon-10", "label": "list item 9", "righttext": "B", "righticonclass": "right-icon-2-2"}
 		</d-list-store>
 	</d-list>
  	<h1>Custom lists</h1>

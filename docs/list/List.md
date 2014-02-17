@@ -54,22 +54,22 @@ defaultStore.add(item2, {before: item1});
 _Note that the default store does not support ordering and filtering, so you must use
 another store implementation to do this ([Memory store](), for example)._
 
-When creating a list widget declaratively, it is possible to use markup to add items to
-the list store using the `d-list-store` and `d-list-store-items` tags, as in the following
+When creating a list widget declaratively, it is possible to use JSON markup to add items to
+the list store using the `d-list-store` tag, as in the following
 example:
 
 ```html
 <d-list>
 	<d-list-store>
-		<d-list-store-item item="{...}"></d-list-store-item>
-		<d-list-store-item item="{...}"></d-list-store-item>
-		<d-list-store-item item="{...}"></d-list-store-item>
-		...
+		{"label": "First item", "iconClass": "my-icon-class-a"},
+		{"label": "Second item", "iconClass": "my-icon-class-b"},
+		...,
+		{"label": "Last item", "iconClass": "my-icon-class-z"}
 	</d-list-store>
 </d-list>
 ```
 
-_Note that items are appended to the store in the order they are declared in the markup._
+_Note that items are appended to the store in the order they are declared in the JSON markup._
 
 The actual rendering of the items in the list is performed by an item renderer widget.
 The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but another one can be specified

@@ -7,6 +7,9 @@ define(function(){ return '\
 /* borders) whatever its index  */\
 /* in the list !                */\
 /********************************/\
+d-list-store {\
+  display: none;\
+}\
 .d-list-category {\
   /* Edit display at your own risk */\
   display: block;\
