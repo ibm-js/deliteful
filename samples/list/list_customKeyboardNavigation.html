@@ -30,6 +30,8 @@
 						labelNode.className = "label";
 						labelNode.innerHTML = this.item.label;
 						elementNode.setAttribute("aria-label", this.item.label);
+						// Set the label attribute that key search uses
+						elementNode.label = this.item.label;
 					}
 				},
 				_createElement: function (tag, attributes) {
