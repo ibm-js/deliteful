@@ -164,6 +164,9 @@ define([
 			this.lineNodeList = this.querySelectorAll(".d-progress-indicator-lines > line");
 			this.labelNode = this.querySelector(".d-progress-indicator text");
 			//set unique SVG symbol id
+			if (!this.id) {
+				this.id = this.baseClass + "-" + this.widgetId;
+			}
 			this.querySelector(".d-progress-indicator symbol").id = this.id + "-symbol";
 			this.querySelector(".d-progress-indicator use")
 				.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + this.id + "-symbol");
