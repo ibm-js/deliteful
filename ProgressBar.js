@@ -17,16 +17,23 @@ define([
 
 		// value: Number
 		//		Number indicating the amount of completed task. The ProgressBar calculates the percentage of
-		// 		progression with respect to the max value (ie: if value is 53 and max is 100, the progression is 53%.
-		// 		If max is 200, the progression is 26%). Negative and NaN values are defaulted to 0. Values higher
-		// 		than max are defaulted to max.
-		//		Set the value to 'Infinity' to force the progress bar state to indeterminate.
+		// 		progression with respect to the min and the max values (ie: if value is 53, min is 0 and max is 100,
+		// 		the progression is 53%. If min is 0 and max is 200, the progression is 26%).
+		// 		When calculating the percentage, NaN and value lower than min are defaulted to min. Values higher
+		// 		than max are defaulted to max. Set the value to 'Infinity' to force the progress bar state to
+		// 		indeterminate.
 		//		Default: Infinity
 		value: Infinity,
 
+		// min: Number
+		//		Starting point of the progression range. Attempt to set NaN or a number higher or equal to than max
+		// 		will throw a RangeError.
+		//		Default: 0
+		min: 0,
+
 		// max: Number
-		//		Number which express the task as completed.
-		//		Negative and NaN values are defaulted to 0.
+		//		Number which express the task as completed. Attempt to set NaN or a number lower or equal to min will
+		// 		throw a RangeError.
 		//		Default: 100
 		max: 100,
 
@@ -58,24 +65,48 @@ define([
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "message", "max", "fractionDigits", "displayValues");
+			this.addInvalidatingProperties("value", "message", "min", "max", "fractionDigits", "displayValues");
 		},
 
 		buildRendering: renderer,
 
 		refreshRendering: function (props) {
-			var _percent, _value, _max, _displayValues;
-			_value = Math.max(0, isNaN(this.value) ? 0 : this.value);
-			_max = Math.max(0, isNaN(this.max) ? 0 : this.max);
-			if (_value !== Infinity) {
-				_value = Math.min(this.value, _max);
-				_percent = _value / _max;
+			var _percent = NaN, _value;
+			if (props.min && isNaN(this.min)) {
+				throw new RangeError("NaN not allowed for min");
 			}
+			if (props.max && isNaN(this.max)) {
+				throw new RangeError("NaN not allowed for max");
+			}
+			if (this.min >= this.max) {
+				throw new RangeError("min must be lower than max (min: " + this.min + ", max: " + this.max);
+			}
+			_value = Math.max(this.min, isNaN(this.value) ? this.min : this.value);
+			if (_value !== Infinity) {
+				_value = Math.min(this.value, this.max);
+				_percent = (_value - this.min) / (this.max - this.min);
+			}
+			this._updateValues(props, _value, _percent);
+			this._updateMessages(_value, _percent);
+			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
+			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
+			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
+			if (props.value || props.max || props.min) {
+				this.emit("change", {percent: _percent, value: _value, max: this.max});
+			}
+		},
 
-			if (props.value || props.max) {
-				if (_value === Infinity) {
+		_updateValues: function (props, _value, _percent) {
+			//update widget to reflect value changes (value, min or max)
+			if (props.min) {
+				this.setAttribute("aria-valuemin", this.min);
+			}
+			if (props.max) {
+				this.setAttribute("aria-valuemax", this.max);
+			}
+			if (props.value || props.max || props.min) {
+				if (_value === Infinity) { //indeterminate state
 					this.indicatorNode.style.removeProperty("width");
-					this.msgNode.removeAttribute("msg-ext");
 					this.removeAttribute("aria-valuenow");
 				} else {
 					this.indicatorNode.style.width = (_percent * 100) + "%";
@@ -83,43 +114,33 @@ define([
 					this.setAttribute("aria-valuenow", _percent * 100);
 				}
 			}
+		},
 
-			if (props.max) {
-				this.setAttribute("aria-valuemax", _max);
-			}
-
-			_displayValues = this.displayValues && _value !== Infinity;
+		_updateMessages: function (_value, _percent) {
+			//update widget messages
+			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, this.max);
+			var _displayValues = this.displayValues && _value !== Infinity;
 			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayValues);
 			if (_displayValues) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
-				this.msgNode.setAttribute("msg-ext", this.formatValues(_percent, _value, _max));
+				this.msgNode.setAttribute("msg-ext", this.formatValues(_percent, _value, this.max));
+			} else {
+				this.msgNode.removeAttribute("msg-ext");
 			}
-
-			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, _max);
-
-			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
-			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
-			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
-
-			if (props.value || props.max) {
-				this.emit("change", {percent: _percent, value: _value, max: _max});
+			//aria text only on indeterminate state with custom message
+			if (this.message && _value === Infinity) {
+				this.setAttribute("aria-valuetext", this.message);
+			} else {
+				this.removeAttribute("aria-valuetext");
 			}
-		},
-
-		startup: function () {
-			//set label id here because this.id is not available in buildRendering when
-			//the widget is instantiated programmatically
-			//todo: ensure an id is available, otw generate one, see https://github.com/ibm-js/delite/issues/109
-//			if (this.id) {
-//				this.labelNode.setAttribute("id", this.id + "_label");
-//				this.setAttribute("aria-labelledby", this.labelNode.id);//todo: set only once
-//			}
 		},
 
 		enteredViewCallback: dcl.after(function () {
 			this.indicatorNode = this.querySelector(".d-progress-bar .d-progress-bar-indicator");
 			this.msgNode = this.querySelector(".d-progress-bar .d-progress-bar-msg");
 			this.msgInvertNode = this.querySelector(".d-progress-bar .d-progress-bar-msg-invert");
+			//default values
+			this.refreshRendering({value: true, min: true, max: true});
 		}),
 
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
