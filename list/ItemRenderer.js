@@ -26,16 +26,6 @@ define(["dcl/dcl",
 		//		All the nodes that renders the attributes are focusable with keyboard navigation
 		//		(using left and right arrows).
 
-		// item: Object
-		//		the list item to render.
-		item: null,
-		_setItemAttr: function (/*Object*/value) {
-			this._set("item", value);
-			this.render();
-			// Set a label attribute For text search in keyboard navigation
-			this.label = value.label;
-		},
-
 		// baseClass: [protected] String
 		//		CSS class of an item renderer. This value is expected by the deliteful/list/List widget
 		//		so it must not be changed.

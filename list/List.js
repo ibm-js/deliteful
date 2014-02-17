@@ -426,7 +426,7 @@ define(["dcl/dcl",
 				currentItem = items[currentIndex];
 				if (this._isCategorized()
 					&& (!previousItem || currentItem.category !== previousItem.category)) {
-					documentFragment.appendChild(this._createCategoryRenderer(currentItem.category));
+					documentFragment.appendChild(this._createCategoryRenderer(currentItem));
 				}
 				documentFragment.appendChild(this._createItemRenderer(currentItem));
 				previousItem = currentItem;
@@ -447,7 +447,7 @@ define(["dcl/dcl",
 			if (spec.nodeRef) {
 				this.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
-					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item.category);
+					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
 					this.insertBefore(categoryRenderer, spec.nodeRef);
 					categoryRenderer.startup();
 				}
@@ -455,7 +455,7 @@ define(["dcl/dcl",
 				this.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
-				categoryRenderer = this._createCategoryRenderer(renderer.item.category);
+				categoryRenderer = this._createCategoryRenderer(renderer.item);
 				this.insertBefore(categoryRenderer, renderer);
 				categoryRenderer.startup();
 			}
@@ -554,14 +554,14 @@ define(["dcl/dcl",
 			return renderer; // Widget
 		},
 
-		_createCategoryRenderer: function (/*String*/category) {
+		_createCategoryRenderer: function (/*Object*/item) {
 			// summary:
-			//		Create a renderer instance for a category.
-			// category: String
-			//		The category to render.
+			//		Create a category renderer instance for an item.
+			// item: String
+			//		The item which category to render.
 			// returns:
-			//		An instance of category renderer that renders the category.
-			var renderer = new this.categoryRenderer({category: category, tabindex: "-1"});
+			//		An instance of category renderer that renders the category of the item.
+			var renderer = new this.categoryRenderer({item: item, tabindex: "-1"});
 			return renderer;
 		},
 
@@ -578,9 +578,7 @@ define(["dcl/dcl",
 			//		The first renderer.
 			// renderer2; Widget
 			//		The second renderer.
-			var category1 = this._isCategoryRenderer(renderer1) ? renderer1.category : renderer1.item.category;
-			var category2 = this._isCategoryRenderer(renderer2) ? renderer2.category : renderer2.item.category;
-			return category1 === category2; // boolean
+			return renderer1.item.category === renderer2.item.category; // boolean
 		},
 
 		_getNextRenderer: function (/*Widget*/renderer, /*int*/dir) {

@@ -108,7 +108,7 @@ define([
 			list.categoryAttr = "label";
 			setTimeout(function () {
 				children = list.getChildren();
-				assert.equal(children[0].category, "item 1", "first is category");
+				assert.equal(children[0].className, "d-list-category", "first is category");
 				assert.equal(list._getFirst(), children[0], "first renderer is category");
 				dfd.resolve();
 			}, 0);

@@ -9,7 +9,7 @@ define(["dcl/dcl",
 
 	return dcl([Widget], {
 		// summary:
-		//		Base class for a widget that render an item or a category inside a deliteful/list/List widget.
+		//		Base class for a widget that render an item or its category inside a deliteful/list/List widget.
 		//
 		// description:
 		//		This base class provide all the infrastructure that a deliteful/list/List widget
@@ -23,6 +23,14 @@ define(["dcl/dcl",
 		//			- the nodes with the lowest navindex value comes first
 		//			- if two nodes have the same navindex value, the one that is before the other one in the DOM
 		//			  comes first.
+
+		// item: Object
+		//		the list item to render data for.
+		item: null,
+		_setItemAttr: function (/*Object*/value) {
+			this._set("item", value);
+			this.render();
+		},
 
 		// _focusableChildren: Array
 		//		contains all the renderer nodes that can be focused, in the same order

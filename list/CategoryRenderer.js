@@ -11,14 +11,6 @@ define(["dcl/dcl",
 		//		Default category renderer for the deliteful/list/List widget.
 		//
 
-		// category: String
-		//		the category to render.
-		category: "",
-		_setCategoryAttr: function (value) {
-			this._set("category", value);
-			this.render(value);
-		},
-
 		// baseClass: [protected] String
 		//		CSS class of a category renderer. This value is expected by the deliteful/list/List widget
 		//		so it must not be changed.
@@ -42,7 +34,7 @@ define(["dcl/dcl",
 			//		render the category of the item inside this.renderNode.
 			// tags:
 			//		protected
-			this.renderNode.innerHTML = "<span navindex='0'>" + this.category + "</span>";
+			this.renderNode.innerHTML = "<span navindex='0'>" + this.item.category + "</span>";
 		}
 
 	});
