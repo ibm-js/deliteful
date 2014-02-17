@@ -34,16 +34,6 @@ define([
 		//		Default: 1000
 		lapsTime: 1000,
 
-		// color: String
-		// 		Sets the widget color. Use this parameter if you wish to change the color AFTER the widget is
-		// 		created, otherwise you can change the color from the theme in CSS class .d-progress-indicator OR
-		// 		you can set inline color style when you declare the widget:
-		// 			<d-progress-indicator style="color:red;"></d-progress-indicator>
-		//		or when you instantiates the widget:
-		// 			new ProgressIndicator({style:"color:red;});
-		//		Color parameter: Use same values as the color CSS property
-		color: "",
-
 		// baseClass: String
 		// 		Name prefix for CSS classes used by this widget.
 		//		Default: "d-progress-indicator"
@@ -152,7 +142,7 @@ define([
 		/* widget lifecycle methods */
 		preCreate: function () {
 			//watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "lapsTime", "color");
+			this.addInvalidatingProperties("value", "lapsTime");
 		},
 
 		buildRendering: renderer,
@@ -214,10 +204,6 @@ define([
 					this.stop();
 					this.start();
 				}
-			}
-			//refresh color
-			if (props.color) {
-				this._setColor(this.color);
 			}
 		},
 

@@ -21,7 +21,7 @@
 		], function (dom, register, on, Deferred, ProgressIndicator) {
 			register.parse();
 			var testIndicator = dom.byId("testIndicator");
-			var testIndicatorPrg = new ProgressIndicator({autoStart: true, style: "color:red"}).placeAt("testIndicatorPrgLabel", "after");
+			var testIndicatorPrg = new ProgressIndicator({autoStart: true}).placeAt("testIndicatorPrgLabel", "after");
 			testIndicatorPrg.startup();
 
 			var inputSize = dom.byId("sizeTxt");
@@ -56,10 +56,6 @@
 				testIndicator.style.removeProperty("display");
 				testIndicatorPrg.style.display = "none";
 				testIndicatorPrg.style.removeProperty("display");
-			};
-			setColor = function (color) {
-				testIndicator.color = color;
-				testIndicatorPrg.color = color;
 			};
 			setDisplay = function (type) {
 				if (type) {
@@ -110,20 +106,8 @@
 					});
 				}, 100);
 			}
-
-
 		});
 	</script>
-	<style>
-		.colorPicker {
-			display:inline-block;
-			width: 1em;
-			height: 1em;
-			text-align:center;
-			vertical-align: middle;
-			margin-right: 1.5em;
-		}
-	</style>
 </head>
 <body class="duiBackground">
 	<div style="padding: 2px 5% 0 5%;">
@@ -159,13 +143,6 @@
 		<br>
 		<input type="button" value="display:block" onclick="setDisplay('block');" />
 		<input type="button" value="display:default" onclick="setDisplay();" />
-		<br>
-		<div class="colorPicker" style="background-color:red;" onclick="setColor('red');"></div>
-		<div class="colorPicker" style="background-color:#003bb3;" onclick="setColor('#003bb3');"></div>
-		<div class="colorPicker" style="background-color:#ffff00;" onclick="setColor('#ffff00');"></div>
-		<div class="colorPicker" style="background-color:green" onclick="setColor('green');"></div>
-		<div class="colorPicker" style="background-color:white;" onclick="setColor('white');"></div>
-		<div class="colorPicker" style="background-color:#000000;" onclick="setColor('#000000');"></div>
 		<hr>
 		<input type="button" id="setValueBtn" value="set value"/>
 		<input type="text" id="valueTxt" name="valueTxt" size="3" value="27"/>
