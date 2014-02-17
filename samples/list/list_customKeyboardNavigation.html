@@ -44,7 +44,7 @@
 				focus: function() {
 					// Redefine the focus method so that it focus the first child of the renderer instead
 					// of the renderer node itself
-					this._getFirst().focus(arguments);
+					this._getFirst().focus();
 				}
 			});
 			var list = register.createElement("d-list");
