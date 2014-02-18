@@ -8,5 +8,9 @@ define([
 	"./SidePane.js",
 	"./ViewStack.js",
 	"./ViewStack-prog.js",
-	"./ScrollableContainer"
+	"./ScrollableContainer",
+	"./list/List",
+	"./list/DefaultStore",
+	"./list/Selection",
+	"./list/Categories"
 ]);

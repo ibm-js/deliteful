@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+			"deliteful/list/List"
+		], function (register, List) {
+			var list = register.createElement("d-list");
+			list.store.add({label: "first item"});
+			list.store.add({label: "second item"});
+			list.store.add({label: "third item"});
+			var fifth = {label: "fifth item"};
+			list.store.add(fifth);
+			list.store.add({label: "fourth item"}, {before: fifth});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+</head>
+<body>
+	This sample demonstrate how to populate the list default store using the programmatic API.
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List"
+		], function (register, ItemRenderer) {
+			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.appendField("First name", this.item.firstName);
+					this.appendField("Last name", this.item.lastName);
+					this.appendField("Date of birth", this.item.dateOfBirth);
+					var button = this.ownerDocument.createElement("button");
+					button.innerHTML = "Update record";
+					button.setAttribute("navindex", "0");
+					button.onclick = function () {
+						alert("record updated");
+					}
+					this.renderNode.appendChild(button);
+				},
+				appendField: function(name, value) {
+					var label = this.ownerDocument.createElement("span");
+					label.className = "label";
+					label.innerHTML = name + ":";
+					label.setAttribute("navindex","0");
+					this.renderNode.appendChild(label);
+					var input = this.ownerDocument.createElement("input");
+					input.value = value;
+					input.setAttribute("navindex","0");
+					this.renderNode.appendChild(input);
+				}
+			});
+			var list = register.createElement("d-list");
+			list.itemRenderer = MyCustomRenderer;
+			list.store.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
+			list.store.add({firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973"});
+			list.store.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
+			list.store.add({firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964"});
+			list.store.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+	<style type="text/css">
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}
+		
+		input {
+			margin-right: 10px;
+		}
+		
+		d-dataform-item {
+			line-height: 43px;
+		}
+	</style>
+</head>
+<body>
+	This sample demonstrate a list whose items are data forms.
+	<p>
+</body>
+</html>

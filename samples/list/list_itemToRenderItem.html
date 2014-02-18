@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+			"deliteful/list/List"
+		], function (register, List) {
+			var list = register.createElement("d-list");
+			list.itemToRenderItem = function (item) {
+				return {
+					label: item.title,
+					righttext: item.title.split(" ")[0]
+				};
+			};
+			list.store.add({title: "first item"});
+			list.store.add({title: "second item"});
+			list.store.add({title: "third item"});
+			list.store.add({title: "fourth item"});
+			list.store.add({title: "fifth item"});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+</head>
+<body>
+	This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the default item renderer.
+</body>
+</html>
