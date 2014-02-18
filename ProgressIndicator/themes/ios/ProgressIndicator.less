@@ -7,8 +7,9 @@
  */
 @import "../../../../delite/themes/ios/variables.less";
 
+@progress-indicator-color: black;
+
 .d-progress-indicator-styles() {
-  color: black;
   width: 40px;
   height: 40px;
   font-size: 16px;
@@ -18,6 +19,11 @@
 .d-progress-indicator-lines-styles() {
   stroke-width: 8%;
   stroke-linecap: round;
+  stroke: @progress-indicator-color
+}
+
+.d-progress-indicator-msg-styles() {
+  fill: @progress-indicator-color;
 }
 
 @import "../ProgressIndicator_template";

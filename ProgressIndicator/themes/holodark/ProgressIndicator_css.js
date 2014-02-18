@@ -17,7 +17,6 @@ define(function(){ return '\
   -moz-user-select: none;\
   -ms-user-select: none;\
   user-select: none;\
-  color: white;\
   width: 40px;\
   height: 40px;\
   font-size: 16px;\
@@ -26,5 +25,9 @@ define(function(){ return '\
 .d-progress-indicator-lines {\
   stroke-width: 9%;\
   stroke-linecap: round;\
+  stroke: #ffffff;\
+}\
+.d-progress-indicator text {\
+  fill: #ffffff;\
 }\
 '; } );

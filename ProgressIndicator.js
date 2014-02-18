@@ -84,13 +84,6 @@ define([
 				}.bind(this));
 		},
 
-		_setColor: function (color) {
-			this.linesNode.style.stroke = color; // text value color
-			this.msgNode.style.fill = color; // lines color
-			//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
-			this.msgNode.textContent = this.msgNode.textContent;
-		},
-
 		_stopAnimation: function () {
 			if (this._requestId) {
 				this._cancelRequestRendering(this._requestId);
@@ -164,7 +157,21 @@ define([
 			this.svgNode.style.textAnchor = "middle";
 			//set color from CSS color property (either from theme or overridden by the user)
 			//also allow to get the proper color value on Windows IE/FF when high contrast mode is enforced
-			this._setColor(window.getComputedStyle(this).getPropertyValue("color"));
+
+			//a11y high contrast:
+			//widget color is declared on svg line nodes (stroke) and text node (fill).
+			//Unlike the color style property, stroke and fill are not updated by the browser when windows high contrast
+			//mode is enabled. To ensure the widget is visible when high contrast mode is enabled,
+			//we set the color property on the root node and check if it is forced by the browser. In such case we
+			//force the stroke and fill values to reflect the high contrast color.
+			this.style.color = window.getComputedStyle(this.msgNode).getPropertyValue("fill");
+			var currentColor = window.getComputedStyle(this).getPropertyValue("color");
+			if (this.style.color !== currentColor) {
+				this.linesNode.style.stroke = currentColor; // text value color
+				this.msgNode.style.fill = currentColor; // lines color
+				//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
+				this.msgNode.textContent = this.msgNode.textContent;
+			}
 			//set initial widget appearance
 			this._reset();
 			//auto start animation
