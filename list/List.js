@@ -699,11 +699,6 @@ define(["dcl/dcl",
 			//		Handle keydown events
 			// tags:
 			//		private
-			var renderer = this._getFocusedRenderer();
-			if (renderer && renderer.onKeydown) {
-				// onKeydown implementation can cancel the default action
-				renderer.onKeydown(evt);
-			}
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer) || evt.keyCode === keys.ENTER) {
 					this._actionKeydownHandler(evt);
