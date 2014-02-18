@@ -2,8 +2,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"deliteful/list/List"
-], function (registerSuite, assert, register, List) {
+	"deliteful/list/List",
+	"deliteful/list/_DefaultStore",
+], function (registerSuite, assert, register, List, DefaultStore) {
 
 	var MockList = register("mock-list", [List], {
 		put: null,
@@ -215,6 +216,9 @@ define([
 			result = list.store.query();
 			checkArray(result, 0, null, null, "query result");
 		},
+		"remove unexisting item": function () {
+			assert.isUndefined(list.store.remove("non existing id"));
+		},
 		"update with put" : function () {
 			var item1 = {label: "first"};
 			var item2 = {label: "second"};
@@ -328,6 +332,95 @@ define([
 						   item: {id: 3, category: undefined, label: "THIRD", righttext: 3},
 						   items: null}],
 						"added");
+		},
+		"query paging": function () {
+			for (var i = 0; i < 100; i++) {
+				list.store.add({label: "item " + i});
+			}
+			var result = list.store.query({}, {start: 50});
+			assert.equal(100, result.total, "total of first query result");
+			assert.equal(50, result.length, "length of first query result");
+			assert.equal("item 50", result[0].label, "length of first query result");
+			result = list.store.query({}, {start: 48, count: 10});
+			assert.equal(100, result.total, "total of second query result");
+			assert.equal(10, result.length, "length of second query result");
+			assert.equal("item 48", result[0].label, "length of second query result");
+			result = list.store.query({}, {count: 8});
+			assert.equal(100, result.total, "total of third query result");
+			assert.equal(8, result.length, "length of third query result");
+			assert.equal("item 0", result[0].label, "length of third query result");
+			result = list.store.query({}, {count: 110});
+			assert.equal(100, result.total, "total of fourth query result");
+			assert.equal(100, result.length, "length of fourth query result");
+			assert.equal("item 0", result[0].label, "length of fourth query result");
+			result = list.store.query({}, {start: 110});
+			assert.equal(100, result.total, "total of fifth query result");
+			assert.equal(0, result.length, "length of fifth query result");
+		},
+		"put items on a non queried store": function () {
+			var mock = {
+					put: [],
+					added: [],
+					removed: [],
+					putItem: function (index, item, items) {
+						this.put.push({index: index, item: item, items: items});
+					},
+					addItem: function (index, item, items) {
+						this.added.push({index: index, item: item, items: items});
+					},
+					removeItem: function (index, item, items, keepSelection) {
+						this.removed.push({index: index, item: item, items: items, keepSelection: keepSelection});
+					}
+				};
+			var store = new DefaultStore(mock);
+			// put item
+			store.put({label: "item 0"});
+			assert.equal(0, mock.put.length, "put length after first put");
+			assert.equal(0, mock.added.length, "added length after first put");
+			assert.equal(0, mock.removed.length, "removed");
+			assert.equal(1, store.data.length, "number of items in store after first put");
+			// move item
+			var id = store.put({label: "item 1"});
+			assert.equal(0, mock.put.length, "put length after second put");
+			assert.equal(0, mock.added.length, "added length after second put");
+			assert.equal(0, mock.removed.length, "removed length after second put");
+			assert.equal(2, store.data.length, "number of items in store after second put");
+			store.put({label: "item 1"}, {id: id, before: store.data[0]});
+			assert.equal(0, mock.put.length, "put length after put 3");
+			assert.equal(0, mock.added.length, "added length after put 3");
+			assert.equal(0, mock.removed.length, "removed length after put 3");
+			assert.equal(2, store.data.length, "number of items in store after put 3");
+			// update item
+			store.put({label: "item -1"}, {id: id});
+			assert.equal(0, mock.put.length, "put length after put 4");
+			assert.equal(0, mock.added.length, "added length after put 4");
+			assert.equal(0, mock.removed.length, "removed length after put 4");
+			assert.equal(2, store.data.length, "number of items in store after put 4");
+		},
+		"remove items on a non queried store": function () {
+			var mock = {
+					put: [],
+					added: [],
+					removed: [],
+					putItem: function (index, item, items) {
+						this.put.push({index: index, item: item, items: items});
+					},
+					addItem: function (index, item, items) {
+						this.added.push({index: index, item: item, items: items});
+					},
+					removeItem: function (index, item, items, keepSelection) {
+						this.removed.push({index: index, item: item, items: items, keepSelection: keepSelection});
+					}
+				};
+			var store = new DefaultStore(mock);
+			// put item
+			var id = store.put({label: "item 0"});
+			// remove item
+			store.remove(id);
+			assert.equal(0, mock.put.length, "put length");
+			assert.equal(0, mock.added.length, "added length");
+			assert.equal(0, mock.removed.length, "removed length");
+			assert.equal(0, store.data.length, "number of items in store");
 		},
 		teardown : function () {
 			list.destroy();
