@@ -277,7 +277,7 @@ define(["dcl/dcl",
 				}
 				currentNode = currentNode.parentNode;
 			}
-			return currentNode; // Widget
+			return currentNode; // deliteful/list/Renderer
 		},
 
 		//////////// delite/Selection implementation ///////////////////////////////////////
@@ -429,7 +429,7 @@ define(["dcl/dcl",
 			return documentFragment; // DocumentFragment
 		},
 
-		_addItemRenderer: function (/*Widget*/renderer, /*int*/atIndex) {
+		_addItemRenderer: function (/*deliteful/list/Renderer*/renderer, /*int*/atIndex) {
 			// summary:
 			//		Add an item renderer to the List, updating category renderers if needed.
 			//		This method calls the startup method on the renderer after it has been
@@ -457,7 +457,7 @@ define(["dcl/dcl",
 			renderer.startup();
 		},
 
-		_getInsertSpec: function (/*Widget*/renderer, /*int*/atIndex) {
+		_getInsertSpec: function (/*deliteful/list/ItemRenderer*/renderer, /*int*/atIndex) {
 			// summary:
 			//		Get a specification for the insertion of an item renderer in the list.
 			// description:
@@ -501,7 +501,7 @@ define(["dcl/dcl",
 			return result; // Object
 		},
 
-		_removeRenderer: function (/*Widget*/renderer, /*Boolean*/keepSelection) {
+		_removeRenderer: function (/*deliteful/list/Renderer*/renderer, /*Boolean*/keepSelection) {
 			// summary:
 			//		Remove a renderer from the List, updating category renderers if needed.
 			// renderer: List/ItemRenderer or List/CategoryRenderer subclass
@@ -551,7 +551,7 @@ define(["dcl/dcl",
 			if (this.selectionMode !== "none") {
 				domClass.toggle(renderer, "d-selected", this.isSelected(item));
 			}
-			return renderer; // Widget
+			return renderer; // deliteful/list/ItemRenderer
 		},
 
 		_createCategoryRenderer: function (/*Object*/item) {
@@ -562,37 +562,37 @@ define(["dcl/dcl",
 			// returns:
 			//		An instance of category renderer that renders the category of the item.
 			var renderer = new this.categoryRenderer({item: item, tabindex: "-1"});
-			return renderer;
+			return renderer; // deliteful/list/CategoryRenderer
 		},
 
-		_isCategoryRenderer: function (/*Widget*/renderer) {
+		_isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
 			// summary:
 			//		test if a widget is a category renderer.
 			return domClass.contains(renderer, this._cssClasses.category);
 		},
 
-		_sameCategory: function (/*Widget*/renderer1, /*Widget*/renderer2) {
+		_sameCategory: function (/*deliteful/list/Renderer*/renderer1, /*deliteful/list/Renderer*/renderer2) {
 			// summary:
 			//		Returns true if two renderers have the same category, false otherwise
-			// renderer1: Widget
+			// renderer1: deliteful/list/Renderer
 			//		The first renderer.
-			// renderer2; Widget
+			// renderer2: deliteful/list/Renderer
 			//		The second renderer.
 			return renderer1.item.category === renderer2.item.category; // boolean
 		},
 
-		_getNextRenderer: function (/*Widget*/renderer, /*int*/dir) {
+		_getNextRenderer: function (/*deliteful/list/Renderer*/renderer, /*int*/dir) {
 			// summary:
 			//		Returns the renderer that comes immediately after of before another one.
-			// renderer: Widget
+			// renderer: deliteful/list/Renderer
 			//		The renderer immediately before or after the one to return.
 			// dir: int
 			//		1 to return the renderer that comes immediately after renderer, -1 to
 			//		return the one that comes immediately before.
 			if (dir >= 0) {
-				return renderer.nextElementSibling; // Widget
+				return renderer.nextElementSibling; // deliteful/list/Renderer
 			} else {
-				return renderer.previousElementSibling; // Widget
+				return renderer.previousElementSibling; // deliteful/list/Renderer
 			}
 		},
 
@@ -726,7 +726,7 @@ define(["dcl/dcl",
 			// summary:
 			//		Returns the first renderer in the list.
 			return this.containerNode
-						.querySelector("." + this._cssClasses.item + ", ." + this._cssClasses.category); // Widget
+						.querySelector("." + this._cssClasses.item + ", ." + this._cssClasses.category); // deliteful/list/Renderer
 		},
 
 		_getLast: function () {
@@ -734,7 +734,7 @@ define(["dcl/dcl",
 			//		Returns the last renderer in the list.
 			var renderers = this.containerNode
 								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
-			return renderers.item(renderers.length - 1);
+			return renderers.item(renderers.length - 1); // deliteful/list/Renderer
 		},
 
 		// Simple arrow key support.
@@ -761,7 +761,7 @@ define(["dcl/dcl",
 		},
 
 		// Letter key navigation support, loops through all focusable childs of all list-items.
-		_getNext: function (child) {
+		_getNext: function (/*Element*/child) {
 			// Return either:
 			//		1. next field in current list item (if there is one)
 			//		2. first field in next list item (if there is one)
@@ -769,7 +769,7 @@ define(["dcl/dcl",
 			return (child === renderer) ? renderer._getFirst() : null
 			|| renderer._getNext(child)
 			|| (renderer.nextElementSibling && renderer.nextElementSibling._getFirst())
-			|| this._getFirst()._getFirst();
+			|| this._getFirst()._getFirst(); // Element
 		},
 
 		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
@@ -791,7 +791,7 @@ define(["dcl/dcl",
 			//		an ancestor of the focused node.
 			// tags:
 			//		private
-			return this.focusedChild ? this.getEnclosingRenderer(this.focusedChild) : null; /*Widget*/
+			return this.focusedChild ? this.getEnclosingRenderer(this.focusedChild) : null; /*deliteful/list/Renderer*/
 		}
 
 	});
