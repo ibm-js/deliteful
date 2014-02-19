@@ -45,16 +45,12 @@ define([
 		_requestAnimationFunction: (
 			(window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) || // standard
 			(window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) || // webkit
-			(window.mozRequestAnimationFrame && window.mozRequestAnimationFrame.bind(window)) || // mozilla
-			(window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window)) || // ie10
 			function (callBack) {// others (ie9)
 				return this.defer(callBack, 1000 / 60);
 			}),
 		_cancelRequestAnimationFunction: (
-			window.cancelRequestAnimationFrame || //standard
+			window.cancelAnimationFrame || //standard
 			window.webkitCancelRequestAnimationFrame || // webkit
-			window.mozCancelRequestAnimationFrame || // mozilla
-			window.msCancelRequestAnimationFrame || // ie10
 			function (handle) {// others (ie9)
 				handle.remove();
 			}).bind(window),
