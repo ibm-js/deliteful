@@ -1,8 +1,9 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
+	"dojo/Deferred",
 	"deliteful/list/List"
-], function (registerSuite, assert, List) {
+], function (registerSuite, assert, Deferred, List) {
 
 	var list = null;
 
@@ -155,6 +156,72 @@ define([
 			list.startup();
 			list.store.add({label: "item 1", category: "category 1"});
 			assert.equal(list.getChildren()[0].item.category, "category 1");
+		},
+		"query-error event": function () {
+			var def = this.async(1000);
+			try {
+				var queryErrorEvt = null;
+				var store = {query: function () {
+					var result = new Deferred();
+					result.map = function() {return this;};
+					result.reject("Query Error X");
+					return result;
+					}
+				};
+				list.destroy();
+				list = new List({store: store});
+				list.on("query-error", function (evt) {
+					queryErrorEvt = evt;
+				});
+				list.startup();
+				setTimeout(def.callback(function () {
+					assert.isNotNull(queryErrorEvt);
+					assert.equal("Query Error X", queryErrorEvt.error, "error message");
+					assert(!list.hasAttribute("aria-busy"));
+				}), 0);
+			} catch (e) {
+				def.reject(e);
+			}
+			return def;
+		},
+		"focus apply to the first visible child": function () {
+			var def = this.async(1000);
+			try {
+				list.style.height = "200px";
+				var itemHeightInPixel = 43;
+				for (var i = 0; i < 50; i++) {
+					list.store.add({label: "item " + (i + 4)});
+				}
+				list.focus();
+				setTimeout(function () {
+					try {
+						var focusedElement = document.activeElement;
+						assert.isNotNull(focusedElement, "active element");
+						assert.isDefined(focusedElement, "active element");
+						assert.equal("item 1", focusedElement.item.label, "focused element label");
+						list.scrollTop = itemHeightInPixel * 2.5;
+						setTimeout(function () {
+							list.focus();
+							setTimeout(function () {
+								try {
+									var focusedElement = document.activeElement;
+									assert.isNotNull(focusedElement, "active element");
+									assert.isDefined(focusedElement, "active element");
+									assert.equal("item 4", focusedElement.item.label, "focused element label");
+									def.resolve();
+								} catch (error) {
+									def.reject(error);
+								}
+							}, 0);
+						}, 500);
+					} catch (error) {
+						def.reject(error);
+					}
+				}, 0);
+			} catch (error) {
+				def.reject(error);
+			}
+			return def;
 		},
 		teardown : function () {
 			list.destroy();

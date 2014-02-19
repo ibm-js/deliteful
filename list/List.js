@@ -531,8 +531,13 @@ define(["dcl/dcl",
 				}
 			}
 			if (!keepSelection && !this._isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
-				// deselected the item before removing the renderer
+				// deselect the item before removing the renderer
+				var oldSelection = this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"];
 				this.setSelected(renderer.item, false);
+				this.dispatchSelectionChange(oldSelection,
+						this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"],
+						null,
+						null);
 			}
 			// remove and destroy the renderer
 			this.removeChild(renderer);

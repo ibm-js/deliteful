@@ -152,6 +152,22 @@ define([
 			}, 0);
 			return dfd;
 		},
+		"delete selected item": function () {
+			var selectionChangeEvent = null;
+			var firstItem = list.getChildren()[0];
+			list.selectionMode = "single";
+			// select first item
+			var event = {target: firstItem, preventDefault: function () {}};
+			list._actionKeydownHandler(event);
+			// now listen to selection-cnahge event and remove the selected item from the store
+			list.on("selection-change", function (event) {
+				selectionChangeEvent = event;
+			});
+			list.store.remove(firstItem.item.id);
+			assert.isNotNull(selectionChangeEvent);
+			assert.equal("item 1", selectionChangeEvent.oldValue.label);
+			assert.isNull(selectionChangeEvent.newValue);
+		},
 		teardown : function () {
 			list.destroy();
 			list = null;
