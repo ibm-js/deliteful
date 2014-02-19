@@ -85,7 +85,7 @@ define(["dcl/dcl",
 		_setScrollDirectionAttr: function (value) {
 			if (value !== "vertical" && value !== "none") {
 				this.scrollDirection = "none";
-				throw new Error("'" + value + "' not supported for scrollDirection, reverting to 'none'");
+				throw new TypeError("'" + value + "' not supported for scrollDirection, reverting to 'none'");
 			} else {
 				this._set("scrollDirection", value);
 			}
@@ -95,11 +95,9 @@ define(["dcl/dcl",
 		//		The selection mode for list items (see delite/Selection).
 		selectionMode: "none",
 
-		// copyAllItemProps: boolean
+		// copyAllItemProps:  [protected] boolean
 		//		we set it to true to that all the store items property are copied into the
 		//		render item by delite/StoreMap.itemToRenderItem.
-		// tags:
-		//		protected
 		copyAllItemProps: true,
 
 		// CSS classes internally referenced by the List widget
@@ -229,11 +227,10 @@ define(["dcl/dcl",
 			// id: Object
 			//		The id of the item displayed by the renderer.
 			var renderers = this.containerNode.querySelectorAll("." + this._cssClasses.item);
-			var renderer, i;
-			for (i = 0; i < renderers.length; i++) {
-				renderer = renderers.item(i);
+			for (var i = 0; i < renderers.length; i++) {
+				var renderer = renderers.item(i);
 				if (this.getIdentity(renderer.item) === id) {
-					return renderer; // Widget
+					return renderer; // deliteful/list/Renderer
 				}
 			}
 			return null;
@@ -268,15 +265,14 @@ define(["dcl/dcl",
 			return result;
 		},
 
-		getEnclosingRenderer: function (/*DOMNode*/node) {
+		getEnclosingRenderer: function (/*Element*/node) {
 			// summary:
 			//		Returns the renderer enclosing a dom node.
 			// node: DOMNode
 			//		The dom node.
 			var currentNode = node;
 			while (currentNode) {
-				if (currentNode.parentNode && domClass.contains(currentNode.parentNode,
-						this.baseClass)) {
+				if (currentNode.parentNode && currentNode.parentNode === this) {
 					break;
 				}
 				currentNode = currentNode.parentNode;
@@ -321,13 +317,12 @@ define(["dcl/dcl",
 			//		The event the handler was called for.
 			// tags:
 			//		protected
-			var item, itemSelected, eventRenderer, oldSelection;
-			eventRenderer = this.getEnclosingRenderer(event.target);
+			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
-				item = eventRenderer.item;
+				var item = eventRenderer.item;
 				if (item) {
-					oldSelection = this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"];
-					itemSelected = !this.isSelected(item);
+					var oldSelection = this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"];
+					var itemSelected = !this.isSelected(item);
 					this.setSelected(item, itemSelected);
 					this.dispatchSelectionChange(oldSelection,
 							this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"],
@@ -404,7 +399,7 @@ define(["dcl/dcl",
 		_createRenderers: function (/*Array*/ items, /*int*/fromIndex, /*int*/count, /*Object*/previousItem) {
 			// summary:
 			//		Create renderers for a list of items (including the category renderers if the list
-			//      is categorized).
+			//		is categorized).
 			// items: Array
 			//		An array that contains the items to create renderers for.
 			// fromIndex: int
