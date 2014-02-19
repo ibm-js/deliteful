@@ -63,7 +63,7 @@ define([
 		_requestRendering: function (animationFrame) {
 			//browser agnostic animation frame renderer
 			//return a request id
-			return this._requestAnimationFunction.bind(this)(animationFrame); // bind 'this' to match this.defer
+			return this._requestAnimationFunction.call(this, animationFrame);//call on this to match this.defer
 		},
 
 		_cancelRequestRendering: function (requestId) {
