@@ -69,7 +69,7 @@ define(["dcl/dcl",
 			// nodeName: String
 			//		the name of the attribute to use to store a reference to the node in the renderer.
 			// data: String
-			//		the data to render (null if there is no data and the node should be deleted).
+			//		the data to render (null or undefined if there is no data and the node should be deleted).
 			//		For a nodeType of "text", data is the text to render.
 			//		For a nodeType of "icon", data is the extra class to apply to the node
 			// nodeClass: String
@@ -78,7 +78,7 @@ define(["dcl/dcl",
 			//		keyboard navigation index for the node.
 			// tag:
 			//		private
-			if (data) {
+			if (data != null) {
 				if (!this[nodeName]) {
 					this[nodeName] = this.ownerDocument.createElement("DIV");
 					this[nodeName].className = nodeClass;
