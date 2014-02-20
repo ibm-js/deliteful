@@ -118,6 +118,16 @@ d-list-store {\
   font-style: italic;\
   color: #808080;\
 }\
+.d-selectable .d-list-item-selection-mark {\
+  height: 12px;\
+  width: 12px;\
+  margin: auto;\
+  margin-right: 8px;\
+  border: 1px solid black;\
+}\
+.d-selected .d-list-item-selection-mark {\
+  background-color: black;\
+}\
 /*******************************/\
 /* iOS theme for RoundRectList */\
 /*                             */\
@@ -148,11 +158,6 @@ d-list-store {\
   border-bottom-left-radius: 8px;\
   border-bottom-right-radius: 8px;\
 }\
-.d-round-rect-list > .d-selected {\
-  color: #ffffff;\
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#048bf4), to(#005ce5));\
-  background-image: linear-gradient(to bottom, #048bf4 0%, #005ce5 100%);\
-}\
 /********************************/\
 /* iOS theme for EdgeToEdgeList */\
 /*                              */\
@@ -176,10 +181,5 @@ d-list-store {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-}\
-.d-list > .d-selected {\
-  color: #ffffff;\
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#048bf4), to(#005ce5));\
-  background-image: linear-gradient(to bottom, #048bf4 0%, #005ce5 100%);\
 }\
 '; } );

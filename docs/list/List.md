@@ -228,8 +228,7 @@ the focus) toggle its selected state.
 When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` attribute
 contains the previous selection, and its `newValue` attribute contains the new selection.
 
-The `d-selected` CSS class is applied to items currently selected in the list, so you can define your
-own CSS rules to easily customize how selected items are rendered.
+When the selectionMode of a List is different than `"none"`, the `d-selectable` CSS class is applied to it. When an item is selected in such a list, the `d-selected` CSS class is applied to the item node.
 
 <a name="keynav"/>
 ## Keyboard navigation

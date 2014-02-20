@@ -117,6 +117,12 @@ define(["dcl/dcl",
 		// selectionMode: String
 		//		The selection mode for list items (see delite/Selection).
 		selectionMode: "none",
+		_setSelectionModeAttr: dcl.superCall(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				domClass.toggle(this, "d-selectable", this.selectionMode !== "none");
+			};
+		}),
 
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",

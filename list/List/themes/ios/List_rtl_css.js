@@ -12,4 +12,8 @@ define(function(){ return '\
   margin-right: 0px;\
   margin-left: 4px;\
 }\
+.d-rtl.d-selectable .d-list-item-selection-mark {\
+  margin-right: 0px;\
+  margin-left: 8px;\
+}\
 '; } );
