@@ -84,8 +84,7 @@ define(["dcl/dcl",
 		=====*/
 		_setScrollDirectionAttr: function (value) {
 			if (value !== "vertical" && value !== "none") {
-				this.scrollDirection = "none";
-				throw new TypeError("'" + value + "' not supported for scrollDirection, reverting to 'none'");
+				throw new TypeError("'" + value + "' not supported for scrollDirection, keeping the previous value of '" + this.scrollDirection + "'");
 			} else {
 				this._set("scrollDirection", value);
 			}

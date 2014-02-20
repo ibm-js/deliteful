@@ -33,10 +33,10 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.equal(error.message,
-						"'horizontal' not supported for scrollDirection, reverting to 'none'",
+				assert.equal("'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
+						error.message,
 						"error message");
-				assert.equal(list.scrollDirection, "none");
+				assert.equal(list.scrollDirection, "vertical");
 			}
 		},
 		"scrollDirection foo not supported": function () {
@@ -45,10 +45,10 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.equal(error.message,
-						"'foo' not supported for scrollDirection, reverting to 'none'",
+				assert.equal("'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
+						error.message,
 						"error message");
-				assert.equal(list.scrollDirection, "none");
+				assert.equal(list.scrollDirection, "vertical");
 			}
 		},
 		"default scroll direction is vertical": function () {
