@@ -90,6 +90,10 @@ define(["delite/register", "deliteful/list/ItemRenderer"],
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+TODO: REWRITE THE FOLLOWING DOCUMENTATION TO BETTER EXPLAIN THE AVAILABLE OPTIONS, AND THE FACT THAT YOU MUST EITHER DEFINE THE MAPPING BETWEEN STORE ITEMS AND ITEMS EXPECTED BY THE RENDERER OR USE THE copyAllItemProps ATTRIBUTE.
+
+```
+
 If you are using a custom type of items but want to render them using the default renderer,
 you can redefine the `itemToRenderItem(item)` method (inherited from [delite/Store]()) so that it creates
 items for the default renderer, as in the following example:
@@ -107,7 +111,7 @@ require([
 			return itemForDefaultRenderer;
 		};
 });
-```
+//```
 
 Because the List widget inherit from [delite/StoreMap](), you can also define the mapping between
 your store items and the ones expected by the renderer as in the following example:
@@ -127,6 +131,8 @@ require([
 		document.body.appendChild(list);
 		list.startup();
 });
+//```
+
 ```
 
 Errors encountered when querying the store are reported by the widget through a `"query-error"` event.
@@ -139,6 +145,7 @@ list.on("query-error", function (error) {
 	...
 });
 ```
+
 <a name="categories"/>
 ## Categorized items
 

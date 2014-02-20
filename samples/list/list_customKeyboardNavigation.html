@@ -49,6 +49,7 @@
 			});
 			var list = register.createElement("d-list");
 			list.itemRenderer = MyCustomRenderer;
+			list.copyAllItemProps = true;
 			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
 			list.store.add({label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}});
 			list.store.add({label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}});

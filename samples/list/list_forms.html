@@ -48,6 +48,7 @@
 			});
 			var list = register.createElement("d-list");
 			list.itemRenderer = MyCustomRenderer;
+			list.copyAllItemProps = true;
 			list.store.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
 			list.store.add({firstName: "Jane", lastName: "Doe", dateOfBirth: "03/04/1973"});
 			list.store.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
