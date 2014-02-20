@@ -10,21 +10,20 @@ define([
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
 		// summary:
 		//		d-progress-indicator widget displays a round spinning graphical representation that indicates
-		//		that a task is ongoing. This widget starts hidden. Call the start() method to show the widget and start
-		// 		the spinning animation. Use  autoStart to automatically show and start the animation  when the widget
-		// 		starts. A value can be set to indicate a percentage of progression.
+		//		that a task is ongoing. This widget starts hidden. Set the active property to true to make it visible.
+		// 		The spinning animation starts when the widget is visible unless you set the value property to indicate
+		// 		a percentage of progression.
 
-		// autoStart: boolean
-		//		Set to true enabled the automatic startup of the spinning animation when the widget startup()
-		// 		method executes.
-		//		Default: true
-		autoStart: false,
+		// active: boolean
+		//		When inactive (active=false), the widget is hidden and animation is not started. When active, the
+		// 		widget is visible and the animation automatically starts unless you set the value.
+		//		Default: false
+		active: false,
 
 		// value: Number
-		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task.
-		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100. NaN is ignored.
-		//		Explicit declaration of this attribute cancels the autStart animation. Setting a value makes this
-		//		widget visible.
+		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task. Set value to NaN
+		// 		hides the number and starts the spinning animation.
+		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100.
 		//		Default: NaN
 		value: NaN,
 
@@ -68,6 +67,7 @@ define([
 		},
 
 		_reset: function () {
+			//reset text and opacity.
 			//ensure that any pending frame animation request is done before doing the actual reset
 			this._requestRendering(
 				function () {
@@ -81,16 +81,15 @@ define([
 		},
 
 		_stopAnimation: function () {
+			//stops the animation (if already started)
 			if (this._requestId) {
 				this._cancelRequestRendering(this._requestId);
 				this._requestId = 0;
 			}
 		},
 
-		/* public methods */
-		start: function () {
-			// summary:
-			//		Starts the animation.
+		_startAnimation: function () {
+			//starts the animation (if not already started)
 			if (this._requestId) {
 				//animation is already ongoing
 				return;
@@ -112,26 +111,12 @@ define([
 			}.bind(this);
 			//start the animation
 			this._requestId = this._requestRendering(frameAnimation);
-			//ensure the widget is visible
-			this.style.visibility = "visible";
-		},
-
-		stop: function (/*boolean*/destroy) {
-			// summary:
-			//		Stops the animation if it is running and hide the widget.
-			//		destroy: set to true to destroy the widget after it stopped.
-			if (destroy) {
-				this.destroy();
-			} else {
-				this._stopAnimation();
-				this.style.visibility = "hidden";
-			}
 		},
 
 		/* widget lifecycle methods */
 		preCreate: function () {
 			//watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "lapsTime");
+			this.addInvalidatingProperties("value", "lapsTime", "active");
 		},
 
 		buildRendering: renderer,
@@ -151,9 +136,6 @@ define([
 			this.svgNode.style.width = "100%";
 			this.svgNode.style.height = "100%";
 			this.svgNode.style.textAnchor = "middle";
-			//set color from CSS color property (either from theme or overridden by the user)
-			//also allow to get the proper color value on Windows IE/FF when high contrast mode is enforced
-
 			//a11y high contrast:
 			//widget color is declared on svg line nodes (stroke) and text node (fill).
 			//Unlike the color style property, stroke and fill are not updated by the browser when windows high contrast
@@ -170,40 +152,55 @@ define([
 			}
 			//set initial widget appearance
 			this._reset();
-			//auto start animation
-			if (this.autoStart) {
-				this.start();
-			}
 		}),
 
 		refreshRendering: function (props) {
 			//refresh value
-			if (props.value && !isNaN(this.value)) {
-				//ensure any ongoing animation stops
-				this._stopAnimation();
-				//ensure the widget is visible
-				this.style.visibility = "visible";
-				//ensure pending frame animation requests are done before any updates
-				this._requestRendering(function () {
-					//normalize the value
-					var percent = Math.max(Math.min(this.value, 100), 0);
-					//display the integer value
-					this.msgNode.textContent = Math.floor(percent);
-					//minimum amount of opacity.
-					var minOpacity = 0.2;
-					//update lines opacity
-					for (var i = 0, opacity; i < 12; i++) {
-						opacity = Math.min(Math.max((percent * 0.12 - i), 0), 1) * (1 - minOpacity);
-						this.lineNodeList[i].setAttribute("opacity", minOpacity + opacity);
+			if (props.value) {
+				if (isNaN(this.value)) {
+					//NaN: start the animation
+					if (this.active) {
+						this._startAnimation();
 					}
-				}.bind(this));
+				} else {
+					//ensure any ongoing animation stops
+					this._stopAnimation();
+					//ensure pending frame animation requests are done before any updates
+					this._requestRendering(function () {
+						//normalize the value
+						var percent = Math.max(Math.min(this.value, 100), 0);
+						//display the integer value
+						this.msgNode.textContent = Math.floor(percent);
+						//minimum amount of opacity.
+						var minOpacity = 0.2;
+						//update lines opacity
+						for (var i = 0, opacity; i < 12; i++) {
+							opacity = Math.min(Math.max((percent * 0.12 - i), 0), 1) * (1 - minOpacity);
+							this.lineNodeList[i].setAttribute("opacity", minOpacity + opacity);
+						}
+					}.bind(this));
+				}
+
 			}
 			//refresh lapsTime
 			if (props.lapsTime) {
+				//if animation is ongoing, restart the animation to take the new lapsTime into account
 				if (this._requestId) {
-					//restart the animation to take the new lapsTime into account
-					this.stop();
-					this.start();
+					this._stopAnimation();
+					this._startAnimation();
+				}
+			}
+			//refresh active
+			if (props.active) {
+				if (this.active) {
+					if (isNaN(this.value)) {
+						//NaN: start the animation
+						this._startAnimation();
+					}
+					this.style.visibility = "visible";
+				} else {
+					this._stopAnimation();
+					this.style.visibility = "hidden";
 				}
 			}
 		},

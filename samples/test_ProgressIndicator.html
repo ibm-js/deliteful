@@ -21,7 +21,7 @@
 		], function (dom, register, on, Deferred, ProgressIndicator) {
 			register.parse();
 			var testIndicator = dom.byId("testIndicator");
-			var testIndicatorPrg = new ProgressIndicator({autoStart: true}).placeAt("testIndicatorPrgLabel", "after");
+			var testIndicatorPrg = new ProgressIndicator({active: true}).placeAt("testIndicatorPrgLabel", "after");
 			testIndicatorPrg.startup();
 
 			var inputSize = dom.byId("sizeTxt");
@@ -33,16 +33,16 @@
 				testIndicatorPrg.value = value;
 			};
 			on(dom.byId("startBtn"), "click", function() {
-				testIndicator.start();
-				testIndicatorPrg.start();
+				testIndicator.active = true;
+				testIndicatorPrg.active = true;
 			});
 			on(dom.byId("stopBtn"), "click", function() {
-				testIndicator.stop();
-				testIndicatorPrg.stop();
+				testIndicator.active = false;
+				testIndicatorPrg.active = false;
 			});
 			on(dom.byId("removeBtn"), "click", function() {
-				testIndicator.stop(true);
-				testIndicatorPrg.stop(true);
+				testIndicator.destroy();
+				testIndicatorPrg.destroy();
 			});
 			setLapsTime = function (lapsTime) {
 				testIndicator.lapsTime = lapsTime;
@@ -118,8 +118,8 @@
 		<hr>
 		<span id="testIndicatorPrgLabel">Programmatic:</span>.
 		<hr>
-		<input type="button" id="startBtn" value="start"/>
-		<input type="button" id="stopBtn" value="stop"/>
+		<input type="button" id="startBtn" value="active"/>
+		<input type="button" id="stopBtn" value="inactive"/>
 		<input type="button" id="removeBtn" value="remove"/>
 		<br>
 		<input type="button" value="0" onclick="setValue('0');" />
@@ -129,6 +129,7 @@
 		<input type="button" value="67" onclick="setValue('67');" />
 		<input type="button" value="95" onclick="setValue('95');" />
 		<input type="button" value="100" onclick="setValue('100');" />
+		<input type="button" value="NaN (animate)" onclick="setValue(NaN);" />
 		<br>
 		<input type="button" value="30px" onclick="setSize('30px');" />
 		<input type="button" value="40px" onclick="setSize('40px');" />
