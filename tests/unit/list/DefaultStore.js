@@ -63,7 +63,13 @@ define([
 			checkArray(list.added,
 						1,
 						[0],
-						[{index: 0, item: {id: id, category: undefined, label: "firstItem"}, items: null}],
+						[{index: 0, item: {id: id,
+							category: undefined,
+							label: "firstItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null}],
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -77,7 +83,13 @@ define([
 			checkArray(list.added,
 						1,
 						[0],
-						[{index: 0, item: {id: "item0", category: undefined, label: "firstItem"}, items: null}],
+						[{index: 0, item: {id: "item0",
+							category: undefined,
+							label: "firstItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null}],
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -91,7 +103,13 @@ define([
 			checkArray(list.added,
 						1,
 						[0],
-						[{index: 0, item: {id: "item0", category: undefined, label: "firstItem"}, items: null}],
+						[{index: 0, item: {id: "item0",
+							category: undefined,
+							label: "firstItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null}],
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -108,9 +126,27 @@ define([
 			checkArray(list.added,
 						3,
 						[0, 1, 2],
-						[{index: 0, item: {id: id1, category: undefined, label: "firstItem"}, items: null},
-						 {index: 1, item: {id: id2, category: undefined, label: "secondItem"}, items: null},
-						 {index: 2, item: {id: id3, category: undefined, label: "thirdItem"}, items: null}],
+						[{index: 0, item: {id: id1,
+							category: undefined,
+							label: "firstItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null},
+						 {index: 1, item: {id: id2,
+							category: undefined,
+							label: "secondItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							 }, items: null},
+						 {index: 2, item: {id: id3,
+							category: undefined,
+							label: "thirdItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							 }, items: null}],
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -127,9 +163,27 @@ define([
 			checkArray(list.added,
 						3,
 						[0, 1, 2],
-						[{index: 0, item: {id: id1, category: undefined, label: "firstItem"}, items: null},
-						 {index: 1, item: {id: id3, category: undefined, label: "thirdItem"}, items: null},
-						 {index: 1, item: {id: id2, category: undefined, label: "secondItem"}, items: null}],
+						[{index: 0, item: {id: id1,
+							category: undefined,
+							label: "firstItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null},
+						 {index: 1, item: {id: id3,
+							category: undefined,
+							label: "thirdItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							 }, items: null},
+						 {index: 1, item: {id: id2,
+							category: undefined,
+							label: "secondItem",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							 }, items: null}],
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -201,15 +255,30 @@ define([
 						3,
 						[0, 1, 2],
 						[{index: 0,
-						  item: {id: id1, category: undefined, label: "first"},
+						  item: {id: id1,
+							  category: undefined,
+							  label: "first",
+							  iconclass: undefined,
+							  righttext: undefined,
+							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false},
 						 {index: 0,
-						  item: {id: "second", category: undefined, label: "second"},
+						  item: {id: "second",
+							  category: undefined,
+							  label: "second",
+							  iconclass: undefined,
+							  righttext: undefined,
+							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false},
 						 {index: 0,
-						  item: {id: "third", category: undefined, label: "third"},
+						  item: {id: "third",
+							  category: undefined,
+							  label: "third",
+							  iconclass: undefined,
+							  righttext: undefined,
+							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false}],
 						"removed");
@@ -231,7 +300,12 @@ define([
 			checkArray(list.put,
 					1,
 					[0],
-					[{index: 0, item: {id: id1, category: undefined, label: "second"}, items: null}],
+					[{index: 0, item: {id: id1,
+						category: undefined,
+						label: "second",
+						iconclass: undefined,
+						righttext: undefined,
+						righticonclass: undefined}, items: null}],
 					"put");
 			checkArray(list.added, 0, null, null, "added");
 			checkArray(list.removed, 0, null, null, "removed");
@@ -266,14 +340,26 @@ define([
 						1,
 						[0],
 						[{index: 2,
-						  item: {id: 3, category: undefined, label: "third"},
+						  item: {id: 3,
+							category: undefined,
+							label: "third",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							  },
 						  items: null,
 						  keepSelection: true}],
 						"removed");
 			checkArray(list.added,
 						1,
 						[0],
-						[{index: 1, item: {id: 3, category: undefined, label: "third"}, items: null}],
+						[{index: 1, item: {id: 3,
+							category: undefined,
+							label: "third",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null}],
 						"added");
 			var result = list.store.query();
 			checkArray(result, 3, [0, 1, 2], [item1, item3, item2], "query result after move");
@@ -293,14 +379,26 @@ define([
 						1,
 						[0],
 						[{index: 2,
-						  item: {id: 3, category: undefined, label: "third"},
+						  item: {id: 3,
+							category: undefined,
+							label: "third",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+						  },
 						  items: null,
 						  keepSelection: true}],
 						"removed");
 			checkArray(list.added,
 						1,
 						[0],
-						[{index: 1, item: {id: 3, category: undefined, label: "fourth"}, items: null}],
+						[{index: 1, item: {id: 3,
+							category: undefined,
+							label: "fourth",
+							iconclass: undefined,
+							righticonclass: undefined,
+							righttext: undefined
+							}, items: null}],
 						"added");
 			var result = list.store.query();
 			checkArray(result, 3, [0, 1, 2], [item1, item3updated, item2], "query result after move");
@@ -323,13 +421,31 @@ define([
 						3,
 						[0, 1, 2],
 						[{index: 0,
-						  item: {id: 1, category: undefined, label: "FIRST", righttext: 1},
+						  item: {id: 1,
+							category: undefined,
+							label: "FIRST",
+							righttext: 1,
+							iconclass: undefined,
+							righticonclass: undefined
+						  },
 						  items: null},
 						  {index: 1,
-						   item: {id: 2, category: undefined, label: "SECOND", righttext: 2},
+						   item: {id: 2,
+							category: undefined,
+							label: "SECOND",
+							righttext: 2,
+							iconclass: undefined,
+							righticonclass: undefined,
+						   },
 						   items: null},
 						  {index: 2,
-						   item: {id: 3, category: undefined, label: "THIRD", righttext: 3},
+						   item: {id: 3,
+							category: undefined,
+							label: "THIRD",
+							righttext: 3,
+							iconclass: undefined,
+							righticonclass: undefined
+						   },
 						   items: null}],
 						"added");
 		},

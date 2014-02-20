@@ -53,14 +53,10 @@ define(["dcl/dcl",
 			//		The item to render.
 			// tags:
 			//		protected
-			this._renderNode("text", "labelNode",
-					this.item ? this.item.label : null, "d-list-item-label", "0");
-			this._renderNode("icon", "iconNode",
-					this.item ? this.item.iconclass : null, "d-list-item-icon");
-			this._renderNode("text", "righttextNode",
-					this.item ? this.item.righttext : null, "d-list-item-right-text", "1");
-			this._renderNode("icon", "righticonNode",
-					this.item ? this.item.righticonclass : null, "d-list-item-right-icon");
+			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label", "0");
+			this._renderNode("icon", "iconNode", this.item.iconclass, "d-list-item-icon");
+			this._renderNode("text", "righttextNode", this.item.righttext, "d-list-item-right-text", "1");
+			this._renderNode("icon", "righticonNode", this.item.righticonclass, "d-list-item-right-icon");
 		},
 
 		//////////// PRIVATE METHODS ///////////////////////////////////////

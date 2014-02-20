@@ -58,6 +58,26 @@ define(["dcl/dcl",
 		//		It MUST extend deliteful/list/CategoryRenderer.
 		categoryRenderer: CategoryRenderer,
 
+		// labelAttr: String
+		// 		Default mapping between the attribute of the item retrieved from the store
+		//		and the label attribute expected by the default renderer
+		labelAttr: "label",
+
+		// iconAttr: String
+		//		Default mapping between the attribute of the item retrieved from the store
+		//		and the icon attribute expected by the default renderer
+		iconclassAttr: "iconclass",
+
+		// righttextAttr: String
+		//		Default mapping between the attribute of the item retrieved from the store
+		//		and the righttext attribute expected by the default renderer
+		righttextAttr: "righttext",
+
+		// righticonAttr: String
+		// 		Default mapping between the attribute of the item retrieved from the store
+		//		and the righticon attribute expected by the default renderer
+		righticonclassAttr: "righticonclass",
+
 		// categoryAttr: String
 		//		Name of the list item attribute that define the category of a list item.
 		//		If falsy and categoryFunc is also falsy, the list is not categorized.
@@ -84,7 +104,11 @@ define(["dcl/dcl",
 		=====*/
 		_setScrollDirectionAttr: function (value) {
 			if (value !== "vertical" && value !== "none") {
-				throw new TypeError("'" + value + "' not supported for scrollDirection, keeping the previous value of '" + this.scrollDirection + "'");
+				throw new TypeError("'"
+						+ value
+						+ "' not supported for scrollDirection, keeping the previous value of '"
+						+ this.scrollDirection
+						+ "'");
 			} else {
 				this._set("scrollDirection", value);
 			}
@@ -93,11 +117,6 @@ define(["dcl/dcl",
 		// selectionMode: String
 		//		The selection mode for list items (see delite/Selection).
 		selectionMode: "none",
-
-		// copyAllItemProps:  [protected] boolean
-		//		we set it to true to that all the store items property are copied into the
-		//		render item by delite/StoreMap.itemToRenderItem.
-		copyAllItemProps: true,
 
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",
@@ -172,7 +191,7 @@ define(["dcl/dcl",
 					}
 				}
 				this._setBusy(true);
-				this.on("query-error", (function () { this._setBusy(false); }).bind(this));
+				this.on("query-error", function () { this._setBusy(false); }.bind(this));
 				if (sup) {
 					sup.call(this, arguments);
 				}
@@ -725,7 +744,10 @@ define(["dcl/dcl",
 			// summary:
 			//		Returns the first renderer in the list.
 			return this.containerNode
-						.querySelector("." + this._cssClasses.item + ", ." + this._cssClasses.category); // deliteful/list/Renderer
+						.querySelector("."
+								+ this._cssClasses.item
+								+ ", ."
+								+ this._cssClasses.category); // deliteful/list/Renderer
 		},
 
 		_getLast: function () {
