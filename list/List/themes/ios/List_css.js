@@ -123,6 +123,7 @@ d-list-store {\
   color: #808080;\
 }\
 .d-selectable-before .d-list-item::before {\
+  box-sizing: border-box;\
   display: block;\
   height: 12px;\
   width: 12px;\
@@ -131,9 +132,10 @@ d-list-store {\
   content: "";\
 }\
 .d-selectable-before .d-list-item.d-selected::before {\
-  background-color: black;\
+  border-width: 6px;\
 }\
 .d-selectable-after .d-list-item::after {\
+  box-sizing: border-box;\
   display: block;\
   height: 12px;\
   width: 12px;\
@@ -142,7 +144,7 @@ d-list-store {\
   content: "";\
 }\
 .d-selectable-after .d-list-item.d-selected::after {\
-  background-color: black;\
+  border-width: 6px;\
 }\
 /*******************************/\
 /* iOS theme for RoundRectList */\
