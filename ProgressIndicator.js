@@ -47,7 +47,7 @@ define([
 			function (callBack) {// others (ie9)
 				return this.defer(callBack, 1000 / 60);
 			}),
-		_cancelRequestAnimationFunction: (
+		_cancelAnimationFunction: (
 			window.cancelAnimationFrame || //standard
 			window.webkitCancelRequestAnimationFrame || // webkit
 			function (handle) {// others (ie9)
@@ -63,7 +63,7 @@ define([
 
 		_cancelRequestRendering: function (requestId) {
 			//browser agnostic animation frame canceler
-			return this._cancelRequestAnimationFunction(requestId);
+			return this._cancelAnimationFunction(requestId);
 		},
 
 		_reset: function () {
