@@ -44,9 +44,9 @@
 				testIndicator.destroy();
 				testIndicatorPrg.destroy();
 			});
-			setLapsTime = function (lapsTime) {
-				testIndicator.lapsTime = lapsTime;
-				testIndicatorPrg.lapsTime = lapsTime;
+			setSpeed = function (speed) {
+				testIndicator.speed = speed;
+				testIndicatorPrg.speed = speed;
 			};
 			setSize = function (size) {
 				testIndicator.style.width = testIndicator.style.height = size;
@@ -71,9 +71,6 @@
 			});
 			on(dom.byId("setValueBtn"), "click", function() {
 				setValue(inputValue.value);
-			});
-			on(dom.byId("setLapsTimeBtn"), "click", function() {
-				setLapsTime(inputLapsTime.value);
 			});
 
 			//timer
@@ -137,10 +134,9 @@
 		<input type="button" value="80px" onclick="setSize('80px');" />
 		<input type="button" value="120px" onclick="setSize('120px');" />
 		<br>
-		<input type="button" value="500ms" onclick="setLapsTime(500);" />
-		<input type="button" value="1s" onclick="setLapsTime(1000);" />
-		<input type="button" value="2s" onclick="setLapsTime(2000);" />
-		<input type="button" value="3s" onclick="setLapsTime(3000);" />
+		<input type="button" value="low" onclick="setSpeed('low');" />
+		<input type="button" value="normal" onclick="setSpeed('normal');" />
+		<input type="button" value="fast" onclick="setSpeed('fast');" />
 		<br>
 		<input type="button" value="display:block" onclick="setDisplay('block');" />
 		<input type="button" value="display:default" onclick="setDisplay();" />
@@ -153,10 +149,6 @@
 		<input type="text" id="sizeTxt" name="sizeTxt" size="3" value="30px"/>
 		<label for="sizeTxt">(px/%)</label>
 		<br>
-		<input type="button" id="setLapsTimeBtn" value="set laps time"/>
-		<input type="text" id="lapsTimeTxt" name="lapsTimeTxt" size="3" value="500"/>
-		<label for="lapsTimeTxt">(ms)</label>
-		<hr>
 		<input type="button" id="startTimer" value="Start timer"/>
 		<br>
 		<!-- include theme selector -->

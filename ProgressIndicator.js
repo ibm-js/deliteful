@@ -27,11 +27,12 @@ define([
 		//		Default: NaN
 		value: NaN,
 
-		// lapsTime: Number
-		//		Duration of an animation revolution in milliseconds.
-		//		Minimum value is 500ms: lower values are defaulted to the minimum value.
-		//		Default: 1000
-		lapsTime: 1000,
+		// speed: String
+		//		Speed of the spinning animation. Accepted values are "low", "normal" and "fast". Other values are
+		// 		defaulted to "normal". Note that the actual/real speed of the animation depends on the
+		// 		device/os/browser capabilities.
+		//		Default: normal
+		speed: "normal",
 
 		// baseClass: String
 		// 		Name prefix for CSS classes used by this widget.
@@ -40,7 +41,7 @@ define([
 
 		/* internal properties */
 		_requestId: 0, //request animation id or clearTimeout param
-		_minLapsTime: 500, // lower limit threshold for lapsTime property
+		_lapsTime: 1000, //duration of an animation revolution in milliseconds
 		_requestAnimationFunction: (
 			(window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) || // standard
 			(window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) || // webkit
@@ -98,7 +99,7 @@ define([
 			this._reset();
 			//compute the amount of opacity to subtract at each frame, on each line.
 			//note: 16.7 is the average animation frame refresh interval in ms (~60FPS)
-			var delta = (16.7 / Math.max(this._minLapsTime, this.lapsTime));
+			var delta = 16.7 / this._lapsTime;
 			//round spinning animation routine
 			var frameAnimation = function () {
 				//set lines opacity
@@ -116,7 +117,11 @@ define([
 		/* widget lifecycle methods */
 		preCreate: function () {
 			//watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "lapsTime", "active");
+			this.addInvalidatingProperties(
+				"active",
+				"value",
+				{speed: "invalidateProperty"}
+			);
 		},
 
 		buildRendering: renderer,
@@ -154,6 +159,15 @@ define([
 			this._reset();
 		}),
 
+		refreshProperties: function (props) {
+			if (props.speed) {
+				//fast: 500ms
+				//low: 2000ms
+				//normal: 1000ms (also default and fallback value)
+				this._lapsTime = (this.speed === "fast") ? 500:(this.speed === "low") ? 2000:1000;
+			}
+		},
+
 		refreshRendering: function (props) {
 			//refresh value
 			if (props.value) {
@@ -182,9 +196,9 @@ define([
 				}
 
 			}
-			//refresh lapsTime
-			if (props.lapsTime) {
-				//if animation is ongoing, restart the animation to take the new lapsTime into account
+			//refresh speed
+			if (props.speed) {
+				//if animation is ongoing, restart the animation to take the new speed into account
 				if (this._requestId) {
 					this._stopAnimation();
 					this._startAnimation();
