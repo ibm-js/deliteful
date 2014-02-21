@@ -18,9 +18,10 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dojo/on",
 			"dojo/_base/array",
 			"deliteful/list/List"
-		], function (register, array) {
+		], function (register, on, array) {
  			var console = document.createElement("div");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
@@ -40,10 +41,20 @@
 			});
 			document.body.appendChild(list);
 			list.startup();
+			
+			// Allow to change the position of the selection mark
+			on(document.getElementById("markPosition"), "change", function () {
+				list.selectionMarkBefore = (document.getElementById("markPosition").value === "before");
+			});
+
 		});
 	</script>
 </head>
 <body>
 	This sample demonstrate a list with multiple selection mode enabled.
+	<select id="markPosition">
+		<option value="before">Selection mark placed before</option>
+		<option value="after">Selection mark placed after</option>
+	</select>
 </body>
 </html>

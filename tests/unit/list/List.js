@@ -123,32 +123,32 @@ define([
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].children[1].firstChild.innerHTML, "item a");
+			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
 		"update item: add, update and remove icon" : function () {
 			// add
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].children[1].className, "d-list-item-node");
-			assert.equal(children[0].children[1].firstChild.className, "d-list-item-icon my-icon");
-			assert.equal(children[0].children[1].childNodes[1].className, "d-list-item-label");
-			assert.equal(children[0].children[1].childNodes[1].innerHTML, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-icon");
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
+			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
 			// update
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].children[1].className, "d-list-item-node");
-			assert.equal(children[0].children[1].firstChild.className, "d-list-item-icon my-other-icon");
-			assert.equal(children[0].children[1].childNodes[1].className, "d-list-item-label");
-			assert.equal(children[0].children[1].childNodes[1].innerHTML, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-other-icon");
+			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
+			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
 			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].children[1].className, "d-list-item-node");
-			assert.equal(children[0].children[1].firstChild.className, "d-list-item-label");
-			assert.equal(children[0].children[1].firstChild.innerHTML, "item a");
+			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-label");
+			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
 		"item category attribute is not undefined by StoreMap": function () {
 			list.destroy();

@@ -40,9 +40,6 @@ define(["dcl/dcl",
 			//		protected
 			return function () {
 				sup.apply(this, arguments);
-				this.selectionMarkNode = this.ownerDocument.createElement("div");
-				this.selectionMarkNode.className = "d-list-item-selection-mark";
-				this.appendChild(this.selectionMarkNode);
 				this.renderNode = this.ownerDocument.createElement("div");
 				this.renderNode.className = "d-list-item-node";
 				this.appendChild(this.renderNode);

@@ -44,6 +44,10 @@ d-list-store {\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  -webkit-box-align: center;\
+  -ms-flex-align: center;\
+  align-items: center;\
+  -webkit-align-items: center;\
 }\
 .d-list-item-node {\
   -webkit-box-flex: 1;\
@@ -118,14 +122,26 @@ d-list-store {\
   font-style: italic;\
   color: #808080;\
 }\
-.d-selectable .d-list-item-selection-mark {\
+.d-selectable-before .d-list-item::before {\
+  display: block;\
   height: 12px;\
   width: 12px;\
-  margin: auto;\
   margin-right: 8px;\
   border: 1px solid black;\
+  content: "";\
 }\
-.d-selected .d-list-item-selection-mark {\
+.d-selectable-before .d-list-item.d-selected::before {\
+  background-color: black;\
+}\
+.d-selectable-after .d-list-item::after {\
+  display: block;\
+  height: 12px;\
+  width: 12px;\
+  margin-left: 8px;\
+  border: 1px solid black;\
+  content: "";\
+}\
+.d-selectable-after .d-list-item.d-selected::after {\
   background-color: black;\
 }\
 /*******************************/\
