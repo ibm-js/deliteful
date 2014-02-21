@@ -90,31 +90,8 @@ define(["delite/register", "deliteful/list/ItemRenderer"],
 
 TODO: INSERT SCREENSHOT(S) HERE
 
-TODO: REWRITE THE FOLLOWING DOCUMENTATION TO BETTER EXPLAIN THE AVAILABLE OPTIONS, AND THE FACT THAT YOU MUST EITHER DEFINE THE MAPPING BETWEEN STORE ITEMS AND ITEMS EXPECTED BY THE RENDERER OR USE THE copyAllItemProps ATTRIBUTE.
-
-```
-
-If you are using a custom type of items but want to render them using the default renderer,
-you can redefine the `itemToRenderItem(item)` method (inherited from [delite/Store]()) so that it creates
-items for the default renderer, as in the following example:
-
-```js
-require([
-		"delite/register",
-		"deliteful/list/List"
-	], function (register, List) {
-		var list = register.createElement("d-list");
-		list.itemToRenderItem = function (item) {
-			var itemForDefaultRenderer = {};
-			itemForDefaultRenderer.label = item.title;
-			...
-			return itemForDefaultRenderer;
-		};
-});
-//```
-
-Because the List widget inherit from [delite/StoreMap](), you can also define the mapping between
-your store items and the ones expected by the renderer as in the following example:
+Because the List widget inherit from [delite/StoreMap](), you can redefine at will the mapping between
+your store items and the ones expected by the renderer using mapping attributes and functions, as in the following example:
 
 ```js
 require([
@@ -131,8 +108,27 @@ require([
 		document.body.appendChild(list);
 		list.startup();
 });
-//```
+```
 
+See the [delite/StoreMap]() documentation for more information about all the available mapping options.
+
+If you were not to use the StoreMap capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [delite/Store]()),
+be aware that your custom implementation of the method MUST return items that have the same identity than the corresponding store items, as the List
+is relying on it.
+
+Here is an example of redefinition of the `itemToRenderItem(item)` method, using the default store with an `identityAttribute` value set to the default one, _"id"_:
+
+```js
+require([
+		"delite/register",
+		"deliteful/list/List"
+	], function (register, List) {
+		var list = register.createElement("d-list");
+		list.itemToRenderItem = function () {
+			// The list expect an identity for the item so is MUST be copied in the render item.
+			return {id: item.id, righttext: item.label};
+		}
+});
 ```
 
 Errors encountered when querying the store are reported by the widget through a `"query-error"` event.
