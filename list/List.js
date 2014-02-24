@@ -265,8 +265,8 @@ define(["dcl/dcl",
 			// summary:
 			//		Returns the item renderer at a specific index in the List.
 			// index: int
-			//		The index of the item renderer in the list (first item renderer index is 0).
-			return this.containerNode.querySelectorAll("." + this._cssClasses.item).item(index);
+			//		The item renderer at the index (first item renderer index is 0).
+			return index >= 0 ? this.containerNode.querySelectorAll("." + this._cssClasses.item).item(index) : null;
 		},
 
 		getItemRendererIndex: function (/*Object*/renderer) {
@@ -762,7 +762,7 @@ define(["dcl/dcl",
 			//		Returns the last renderer in the list.
 			var renderers = this.containerNode
 								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
-			return renderers.item(renderers.length - 1); // deliteful/list/Renderer
+			return renderers.length ? renderers.item(renderers.length - 1) : null; // deliteful/list/Renderer
 		},
 
 		// Simple arrow key support.

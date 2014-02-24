@@ -6,7 +6,7 @@ define(["intern!object",
 	var basicTest = function (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
 		.get(require.toUrl(testPage))
-		.waitForCondition("ready", 5000)
+		.waitForCondition("ready", 60000)
 		.then(function () {
 			return remote
 			.elementById(listId)
@@ -63,7 +63,7 @@ define(["intern!object",
 			var listId = "list-mark-3";
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -86,7 +86,7 @@ define(["intern!object",
 			var listId = "list-mark-1";
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -136,7 +136,7 @@ define(["intern!object",
 			var listId = "list-mark-2";
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -183,9 +183,13 @@ define(["intern!object",
 		},
 		"keyboard navigation": function () {
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -352,10 +356,14 @@ define(["intern!object",
 		},
 		"keyboard search": function () {
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
 			this.timeout = 120000; // very slow on IE
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB 6 times
@@ -405,10 +413,14 @@ define(["intern!object",
 		},
 		"custom keyboard navigation": function () {
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
 			this.timeout = 120000; // very slow on IE
 			return remote
 			.get(require.toUrl("./ListGallery.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("ready", 60000)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB 11 times
