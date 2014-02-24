@@ -135,7 +135,6 @@ define([
 						 style: "display: none;"},
 						this, "last");
 			}
-			this.style.display = "inline-block";
 
 			// init WAI-ARIA attributes
 			this.setAttribute("role", "slider");
@@ -327,21 +326,19 @@ define([
 		},
 
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
-			var i, parent, starClass;
-			for (i = 0; i < this.max; i++) {
+			var stars = this.querySelectorAll("div");
+			for (var i = 0; i < this.max; i++) {
 				if (i <= value - 1) {
-					starClass = this.baseClass + "-full-star";
+					var starClass = this.baseClass + "-full-star";
 				} else if (i >= value) {
 					starClass = this.baseClass + "-empty-star";
 				} else {
 					starClass = this.baseClass + "-half-star";
 				}
 				if (create) {
-					parent = domConstruct.create("div", {
-						style: "float: left; overflow: hidden;"
-					}, this.valueNode, "before");
+					var parent = domConstruct.create("div", {}, this.valueNode, "before");
 				} else {
-					parent = this.children[i];
+					parent = stars[i];
 				}
 				parent.className = this.baseClass + "-star-icon " + starClass;
 			}

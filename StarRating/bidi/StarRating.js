@@ -49,22 +49,20 @@ define([
 				if (this.isLeftToRight()) {
 					return sup.call(this, value, create);
 				} else {
-					var i, index, parent, starClass;
-					for (i = 0; i < this.max; i++) {
-						index = (this.max - i - 1);
+					var stars = this.querySelectorAll("div");
+					for (var i = 0; i < this.max; i++) {
+						var index = (this.max - i - 1);
 						if (index <= value - 1) {
-							starClass = this.baseClass + "-full-star";
+							var starClass = this.baseClass + "-full-star";
 						} else if (index >= value) {
 							starClass = this.baseClass + "-empty-star";
 						} else {
 							starClass = this.baseClass + "-half-star";
 						}
 						if (create) {
-							parent = domConstruct.create("div", {
-								style: "float: left; overflow: hidden;"
-							}, this);
+							var parent = domConstruct.create("div", {}, this);
 						} else {
-							parent = this.children[i];
+							parent = stars[i];
 						}
 						parent.className = this.baseClass + "-star-icon " + starClass;
 					}
