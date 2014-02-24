@@ -162,20 +162,11 @@ define(["dcl/dcl",
 			this.setAttribute("role", "list");
 		},
 
-		createdCallback: dcl.superCall(function (sup) {
-			// summary:
-			//		Create the default store, if necessary, after all attributes values are set on the widget.
-			// tags:
-			//		protected
-			return function () {
-				if (sup) {
-					sup.apply(this, arguments);
-				}
-				if (!this.store) {
-					this.store = new DefaultStore(this);
-				}
-			};
-		}),
+		postCreate: function () {
+			if (!this.store) {
+				this.store = new DefaultStore(this);
+			}
+		},
 
 		startup: dcl.superCall(function (sup) {
 			// summary:

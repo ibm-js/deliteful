@@ -9,6 +9,15 @@
 	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
 
 	<script type="text/javascript">
+		require([
+			"dojo/store/Memory",
+			"dojo/store/Observable"
+		], function (MemoryStore, Observable) {
+  			globalStore = new Observable(MemoryStore({data: []}));
+  		});
+  	</script>
+	
+	<script type="text/javascript">
 		var ready = false;
 		require([
 		    "dcl/dcl",
@@ -23,8 +32,6 @@
 		], function (dcl, on, Deferred, QueryResults, MemoryStore, Observable, register, List, ItemRenderer) {
   			var i, list;
 
-  			globalStore = new Observable(MemoryStore({data: []}));
- 
   			// Programmatic list: default store, items added before adding the list to the document and before startup
 			list = register.createElement("d-list");
 			list.id = "list-prog-1";
