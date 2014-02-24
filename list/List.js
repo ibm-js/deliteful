@@ -118,13 +118,6 @@ define(["dcl/dcl",
 		//		The selection mode for list items (see delite/Selection).
 		selectionMode: "none",
 
-		// selectionMarkBefore: boolean
-		//		If the selection mode for list items is not "none", this define where
-		//		the selection mack is placed in relation to the rendered item node: if
-		//		true, the mask is placed before the rendered item, if false is is placed
-		//		after.
-		selectionMarkBefore: true,
-
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",
 					  category: "d-list-category",
@@ -197,6 +190,21 @@ define(["dcl/dcl",
 			};
 		}),
 
+		refreshRendering: dcl.superCall(function (sup) {
+			// summary:
+			//		List attributes have been updated.
+			// tags:
+			//		protected
+			return function (props) {
+				if (sup) {
+					sup.call(this, props);
+				}
+				if (props.selectionMode) {
+					domClass.toggle(this, "d-selectable", this.selectionMode !== "none");
+				}
+			};
+		}),
+
 		refreshProperties: dcl.superCall(function (sup) {
 			// summary:
 			//		List attributes have been updated.
@@ -213,17 +221,6 @@ define(["dcl/dcl",
 						if (!this._selectionClickHandle) {
 							this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
 						}
-					}
-				}
-				if (props.selectionMode || props.selectionMarkBefore) {
-					if (this.selectionMode !== "none") {
-						if (this.selectionMarkBefore) {
-							domClass.replace(this, "d-selectable-before", "d-selectable-after");
-						} else {
-							domClass.replace(this, "d-selectable-after", "d-selectable-before");
-						}
-					} else {
-						domClass.remove(this, "d-selectable-before d-selectable-after");
 					}
 				}
 				if (props.itemRenderer

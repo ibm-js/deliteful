@@ -226,6 +226,19 @@ contains the previous selection, and its `newValue` attribute contains the new s
 
 When the selectionMode of a List is different than `"none"`, the `d-selectable` CSS class is applied to it. When an item is selected in such a list, the `d-selected` CSS class is applied to the item node.
 
+By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
+
+``` css
+	.d-selectable .d-list-item::before {
+		display: none;
+	}
+	.d-selectable .d-list-item::after {
+		display: block;
+	}
+```
+
+TODO: INSERT SCREENSHOT(S) HERE
+
 <a name="keynav"/>
 ## Keyboard navigation
 

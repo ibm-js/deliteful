@@ -39,20 +39,20 @@
 				}
 			});
 			document.body.appendChild(list);
-			list.startup();
-			
-			// Allow to change the position of the selection mark
-			on(document.getElementById("markPosition"), "change", function () {
-				list.selectionMarkBefore = (document.getElementById("markPosition").value === "before");
-			});
+			list.startup();			
 		});
 	</script>
+	<style type="text/css">
+		/* CSS to place the selection mark after the list item instead of before the list item */
+		.d-selectable .d-list-item::before {
+			display: none;
+		}
+		.d-selectable .d-list-item::after {
+			display: block;
+		}
+	</style>
 </head>
 <body>
-	This sample demonstrate a list with single selection mode enabled.
-	<select id="markPosition">
-		<option value="before">Selection mark placed before</option>
-		<option value="after">Selection mark placed after</option>
-	</select>
+	This sample demonstrate a list with single selection mode enabled, and the selection mark placed after the list item.
 </body>
 </html>

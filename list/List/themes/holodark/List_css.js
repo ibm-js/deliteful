@@ -122,29 +122,21 @@ d-list-store {\
   font-style: italic;\
   color: #808080;\
 }\
-.d-selectable-before .d-list-item::before {\
-  box-sizing: border-box;\
+.d-selectable .d-list-item::before {\
   display: block;\
-  height: 12px;\
-  width: 12px;\
   margin-right: 8px;\
-  border: 1px solid black;\
-  content: "";\
+  content: "\\2610";\
 }\
-.d-selectable-before .d-list-item.d-selected::before {\
-  border-width: 6px;\
+.d-selectable .d-list-item.d-selected::before {\
+  content: "\\2611";\
 }\
-.d-selectable-after .d-list-item::after {\
-  box-sizing: border-box;\
-  display: block;\
-  height: 12px;\
-  width: 12px;\
+.d-selectable .d-list-item::after {\
+  display: none;\
   margin-left: 8px;\
-  border: 1px solid black;\
-  content: "";\
+  content: "\\2610";\
 }\
-.d-selectable-after .d-list-item.d-selected::after {\
-  border-width: 6px;\
+.d-selectable .d-list-item.d-selected::after {\
+  content: "\\2611";\
 }\
 /*******************************/\
 /* iOS theme for RoundRectList */\

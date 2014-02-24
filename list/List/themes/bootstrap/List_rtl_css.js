@@ -12,11 +12,11 @@ define(function(){ return '\
   margin-right: 0px;\
   margin-left: 4px;\
 }\
-.d-rtl.d-selectable-before .d-list-item::before {\
+.d-rtl.d-selectable .d-list-item::before {\
   margin-right: 0px;\
   margin-left: 8px;\
 }\
-.d-rtl.d-selectable-after .d-list-item::after {\
+.d-rtl.d-selectable .d-list-item::after {\
   margin-left: 0px;\
   margin-right: 8px;\
 }\
