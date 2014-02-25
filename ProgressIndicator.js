@@ -211,11 +211,14 @@ define([
 						//NaN: start the animation
 						this._startAnimation();
 					}
-					this.style.visibility = "visible";
 				} else {
 					this._stopAnimation();
-					this.style.visibility = "hidden";
 				}
+				//set visibility in frame to be in sync with opacity/text changes.
+				//Avoids mis-display when setting visibility=visible just after value=0.
+				this._requestRendering(function () {
+					this.style.visibility = this.active ? "visible" : "hidden";
+				}.bind(this));
 			}
 		},
 
