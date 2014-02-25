@@ -76,7 +76,7 @@ define([
 					this.msgNode.textContent = "";
 					//reset the opacity
 					for (var i = 0; i < 12; i++) {
-						this.lineNodeList[i].setAttribute("opacity", (i + 1) * (1 / 12));
+						this.lineNodeList[i].style.opacity = (i + 1) * (1 / 12);
 					}
 				}.bind(this));
 		},
@@ -104,8 +104,8 @@ define([
 			var frameAnimation = function () {
 				//set lines opacity
 				for (var i = 0, opacity; i < 12; i++) {
-					opacity = (parseFloat(this.lineNodeList[i].getAttribute("opacity")) - delta) % 1;
-					this.lineNodeList[i].setAttribute("opacity", (opacity < 0) ? 1 : opacity);
+					opacity = (parseFloat(this.lineNodeList[i].style.opacity) - delta) % 1;
+					this.lineNodeList[i].style.opacity = (opacity < 0) ? 1 : opacity;
 				}
 				//render the next frame
 				this._requestId = this._requestRendering(frameAnimation);
@@ -190,7 +190,7 @@ define([
 						//update lines opacity
 						for (var i = 0, opacity; i < 12; i++) {
 							opacity = Math.min(Math.max((percent * 0.12 - i), 0), 1) * (1 - minOpacity);
-							this.lineNodeList[i].setAttribute("opacity", minOpacity + opacity);
+							this.lineNodeList[i].style.opacity = minOpacity + opacity;
 						}
 					}.bind(this));
 				}
