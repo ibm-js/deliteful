@@ -753,7 +753,6 @@ define(["dcl/dcl",
 			//		Set the aria-activedescendant attribute on the list when a new child gain focus
 			return function () {
 				sup.apply(this, arguments);
-				console.log(this.focusedChild);
 				if (this.focusedChild && this.focusedChild.id) {
 					this.setAttribute("aria-activedescendant", this.focusedChild.id);
 				}
