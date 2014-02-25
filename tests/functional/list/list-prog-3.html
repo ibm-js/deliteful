@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/list/List",
+			"dojo/store/Memory",
+			"dojo/store/Observable"
+		], function (register, List, MemoryStore, Observable) {
+  			// Programmatic list: memory store, items added before adding the list to the document and before startup
+			var list = register.createElement("d-list");
+			list.id = "list-prog-3";
+			list.pageLength = 20;
+			list.style.height = "200px";
+			list.store = new Observable(new MemoryStore({data: [], idProperty: "label"}));
+ 			for (i = 0; i < 100; i++) {
+				list.store.add({label: "Programmatic item of order " + i});
+			}
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}		
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Memory store, items added before adding the list to the document and before startup (id: list-prog-3)</h2>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>

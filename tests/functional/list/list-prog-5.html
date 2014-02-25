@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "dcl/dcl",
+			"delite/register",
+			"deliteful/list/List",
+			"dojo/Deferred",
+			"dojo/store/util/QueryResults",
+			"dojo/store/Memory",
+			"dojo/store/Observable"
+		], function (dcl, register, List, Deferred, QueryResults, MemoryStore, Observable) {
+  			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
+			var CustomMemoryStore = dcl([MemoryStore], {
+				latency: 500,
+				query: dcl.superCall(function (sup) {
+					return function (query, options) {
+						var def = new Deferred;
+						var that = this;
+						setTimeout(function () {
+							def.resolve(sup.call(that, query, options));
+						}, this.latency);
+						return new QueryResults(def);
+					};
+				})
+			});
+			var createStore = function (itemsCount, latency) {
+				var i = 0, data = [];
+				for (; i < itemsCount; i++) {
+					data.push({id: 'ref' + i, text: 'this is list item ' + i});
+				}
+				return new Observable(new CustomMemoryStore({latency: latency, data: data, idProperty: 'id'}));
+			};
+			var list = register.createElement("d-list");
+			list.id = "list-prog-5";
+			list.style.height = "200px";
+			list.store = createStore(100, 500);
+			list.labelAttr = "text";
+			list.righttextFunc = function (item) {
+				return "id: " + item.id;
+			};
+			list.iconclassFunc = function (item) {
+				var i = parseInt(item.id.slice(3));
+				return "left-icon-" + (i % 10 + 1);
+			};
+ 			list.righticonclassFunc = function (item) {
+				var i = parseInt(item.id.slice(3));
+				return "right-icon-2-" + (i % 8 + 1);
+			};
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}
+
+ 		.d-list-item-icon {
+			width: 29px;
+			height: 29px;
+		}
+
+		.left-icon-1:before {
+			content: url('../../images/i-icon-1.png');
+		}
+
+		.left-icon-2:before {
+			content: url('../../images/i-icon-2.png');
+		}
+
+		.left-icon-3:before {
+			content: url('../../images/i-icon-3.png');
+		}
+
+		.left-icon-4:before {
+			content: url('../../images/i-icon-4.png');
+		}
+
+		.left-icon-5:before {
+			content: url('../../images/i-icon-5.png');
+		}
+
+		.left-icon-6:before {
+			content: url('../../images/i-icon-6.png');
+		}
+		
+		.left-icon-7:before {
+			content: url('../../images/i-icon-7.png');
+		}
+		
+		.left-icon-8:before {
+			content: url('../../images/i-icon-8.png');
+		}
+
+		.left-icon-9:before {
+			content: url('../../images/i-icon-9.png');
+		}
+
+		.left-icon-10:before {
+			content: url('../../images/i-icon-10.png');
+		}
+
+		.d-list-item-right-icon2 {
+			width: 29px;
+			height: 29px;
+		}
+
+		.right-icon-2-1:before {
+			content: url('../../images/b-icon-1.png');
+		}
+
+		.right-icon-2-2:before {
+			content: url('../../images/b-icon-2.png');
+		}
+
+		.right-icon-2-3:before {
+			content: url('../../images/b-icon-3.png');
+		}
+
+		.right-icon-2-4:before {
+			content: url('../../images/b-icon-4.png');
+		}
+
+		.right-icon-2-5:before {
+			content: url('../../images/b-icon-5.png');
+		}
+
+		.right-icon-2-6:before {
+			content: url('../../images/b-icon-6.png');
+		}
+		
+		.right-icon-2-7:before {
+			content: url('../../images/b-icon-7.png');
+		}
+		
+		.right-icon-2-8:before {
+			content: url('../../images/b-icon-8.png');
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Observable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>
