@@ -52,7 +52,9 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			this.containerNode = this;
-			this.setAttribute("role", "listitem");
+			this.setAttribute("role", "row");
+			this.id = "d-list-item-" + this.widgetId;
+			this.tabIndex = "-1";
 		},
 
 		render: dcl.after(function () {
@@ -120,6 +122,10 @@ define(["dcl/dcl",
 			for (i = 0; i < this._focusableChildren.length; i++) {
 				var node = this._focusableChildren[i];
 				node.tabIndex = -1;
+				node.setAttribute("role", "gridcell");
+				if (!node.id) {
+					node.id = this.id + "-cell-" + i;
+				}
 			}
 		},
 

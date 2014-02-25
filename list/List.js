@@ -152,7 +152,9 @@ define(["dcl/dcl",
 			//		protected
 			this.containerNode = this;
 			// Aria attributes
-			this.setAttribute("role", "list");
+			this.setAttribute("role", "grid");
+			// Might be overriden at the gridcell (renderer) level when developing custom renderers
+			this.setAttribute("aria-readonly", "true");
 		},
 
 		postCreate: function () {
@@ -745,6 +747,27 @@ define(["dcl/dcl",
 				this.focusChild(renderer);
 			}
 		},
+
+		_onChildFocus: dcl.superCall(function (sup) {
+			// summary:
+			//		Set the aria-activedescendant attribute on the list when a new child gain focus
+			return function () {
+				sup.apply(this, arguments);
+				console.log(this.focusedChild);
+				if (this.focusedChild && this.focusedChild.id) {
+					this.setAttribute("aria-activedescendant", this.focusedChild.id);
+				}
+			};
+		}),
+
+		_onBlur: dcl.superCall(function (sup) {
+			// summary:
+			//		Remove the aria-activedescendant attribute on the list when it looses focus
+			return function () {
+				sup.apply(this, arguments);
+				this.removeAttribute("aria-activedescendant");
+			};
+		}),
 
 		// Home/End key support
 		_getFirst: function () {
