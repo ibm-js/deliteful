@@ -158,9 +158,11 @@ define(["dcl/dcl",
 		},
 
 		postCreate: function () {
-			if (!this.store) {
-				this.store = new DefaultStore(this);
-			}
+			// summary:
+			//		Assign a default store to the list.
+			// tags:
+			//		protected
+			this.store = new DefaultStore(this);
 		},
 
 		startup: dcl.superCall(function (sup) {
