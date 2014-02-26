@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html class="mobile">
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>ProgressIndicator sample - basic</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/ProgressIndicator"
+		], function (register, ProgressIndicator) {
+			register.parse();
+		});
+	</script>
+</head>
+<body class="duiBackground">
+<p><strong>ProgressIndicator sample - basic</strong></p>
+
+<p>This sample shows how to simply declare and use a progress indicator.</p>
+
+<input type="button"
+	   value="deactivate"
+	   id="deactivateBtn"
+	   onclick="document.getElementById('pi').active = false;
+	   this.disabled = true; document.getElementById('activateBtn').disabled = false;"/>
+<input type="button"
+	   value="activate"
+	   id="activateBtn"
+	   disabled
+	   onclick="document.getElementById('pi').active = true;
+	   this.disabled = true; document.getElementById('deactivateBtn').disabled = false;"/>
+<d-progress-indicator id="pi" active="true"></d-progress-indicator>
+<hr>
+Default size:<d-progress-indicator active="true" value="25"></d-progress-indicator>
+Fixed size 30px:<d-progress-indicator active="true" value="21" style="width: 30px; height: 30px;"></d-progress-indicator>
+<hr>
+Relative size (100% of container):
+<div style="border: solid red; width: 100px; height: 100px;">
+	<d-progress-indicator active="true" value="32" style="width: 100%; height: 100%"></d-progress-indicator>
+</div>
+<hr>
+
+</body>
+</html>

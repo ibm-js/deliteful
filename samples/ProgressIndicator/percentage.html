@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html class="mobile">
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>ProgressIndicator sample - percentage</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/ProgressIndicator"
+		], function (register, ProgressIndicator) {
+			register.parse();
+			var label = document.getElementById("lb");
+			var progressIndicator = document.getElementById("pi");
+			var loadBtn = document.getElementById("loadBtn");
+			loadBtn.disabled = false;
+			//fake function which simulates a long task and updates the progress indicator
+			//accordingly to the progression.
+			var fakeloadFunction = function () {
+				loadBtn.disabled = true;
+				//initiate dans display the progress indicator
+				progressIndicator.value = 0;
+				progressIndicator.active = true;
+				label.innerHTML = "Loading...";
+				var timerId = setInterval(function () {
+					progressIndicator.value += Math.random() * 10 + 5;
+					if (progressIndicator.value >= 100) {
+						window.clearInterval(timerId);
+						//task complete, disable the progress indicator
+						progressIndicator.active = false;
+						label.innerHTML = "Task complete.";
+						loadBtn.disabled = false;
+					}
+				}, 200);
+			};
+			loadBtn.addEventListener("click", fakeloadFunction);
+		});
+	</script>
+</head>
+<body class="duiBackground">
+<p><strong>ProgressIndicator sample - percentage</strong></p>
+
+<p>This sample shows how to display a percentage of progression with the progress indicator.</p>
+
+<input id="loadBtn" type="button" value="load"/>
+<hr>
+<d-progress-indicator id="pi"></d-progress-indicator>
+<br>
+<label id="lb"></label>
+<hr>
+
+</body>
+</html>
