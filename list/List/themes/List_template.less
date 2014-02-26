@@ -12,90 +12,94 @@ d-list-store {
 }
 
 .d-list-category {
-  /* Edit display at your own risk */
-  display: block;
-  position: relative;
-  margin: 0;
-  padding: 0 10px;
-  overflow: hidden;
-  font-family: Helvetica;
-  font-size: 16px;
-  font-weight: bold;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 22px;
-  border-top: 1px solid #a4b0b9;
-  border-bottom: 1px solid #979da3;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
-  background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
-  color: white;
-  line-height: 22px;
-  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
+	/* Edit display at your own risk */
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0 10px;
+	overflow: hidden;
+	font-family: Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 22px;
+	border-top: 1px solid #a4b0b9;
+	border-bottom: 1px solid #979da3;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
+	background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
+	color: white;
+	line-height: 22px;
+	text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
 }
 
 .d-list-item {
-  overflow: hidden;
-  /* padding for focus frame */
-  padding: 0 8px;
-  list-style-type: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  border-bottom: 1px solid #adaaad;
-  background-color: #ffffff;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-items: center;
+	overflow: hidden;
+	/* padding for focus frame */
+	padding: 0 8px;
+	list-style-type: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	border-bottom: 1px solid #adaaad;
+	background-color: #ffffff;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-align-items: center;
 }
 
-.d-list-item-node{
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
+.d-list-item-node {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+}
+
+.d-list-item-node > .d-spacer {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
 	flex: 1;
 }
 
+.d-list-item-icon {
+	margin-right: 7px;
+}
+
 .d-list-item-label {
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-weight: bold;
-  height: 43px;
-  line-height: 43px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-weight: bold;
+	line-height: 43px;
 }
 
 .d-list-item-right-text {
-  position: relative;
-  float: right;
-  line-height: normal;
-  margin-right: 4px;
-  font-weight: bold;
-  color: #324f85;
-  margin-top: 12px;
-}
-
-.d-list-item-icon {
-  position: relative;
-  float: left;
-  line-height: normal;
-  margin-top: 7px;
-  margin-bottom: -7px;
-  margin-right: 11px;
-  vertical-align: top;
+	margin-right: 4px;
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #324f85;
+	line-height: 43px;
 }
 
 .d-list-item-right-icon {
-  position: relative;
-  float: right;
-  line-height: normal;
-  margin-top: 7px;
-  margin-bottom: -7px;
 }
 
 .d-list-loader{
@@ -172,7 +176,6 @@ d-list-store {
 	margin: 0 9px;
 	padding: 0;
 	overflow-x: hidden;
-	overflow-y: hidden;
 }
 
 .d-round-rect-list > *:first-child {
@@ -206,7 +209,6 @@ d-list-store {
 	/* Do not change this margin setting when customizing list in the app css*/
   	margin: 0;
 	overflow-x: hidden;
-	overflow-y: hidden;
 }
 
 .d-list > *:last-child {

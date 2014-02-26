@@ -55,40 +55,41 @@ d-list-store {\
   -webkit-flex: 1;\
   -ms-flex: 1;\
   flex: 1;\
+  display: -webkit-box;\
+  display: -moz-box;\
+  display: -ms-flexbox;\
+  display: -webkit-flex;\
+  display: flex;\
+  -webkit-box-align: center;\
+  -ms-flex-align: center;\
+  align-items: center;\
+  -webkit-align-items: center;\
+}\
+.d-list-item-node > .d-spacer {\
+  -webkit-box-flex: 1;\
+  -moz-box-flex: 1;\
+  -webkit-flex: 1;\
+  -ms-flex: 1;\
+  flex: 1;\
+}\
+.d-list-item-icon {\
+  margin-right: 7px;\
 }\
 .d-list-item-label {\
-  position: relative;\
   overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
   font-weight: bold;\
-  height: 43px;\
   line-height: 43px;\
 }\
 .d-list-item-right-text {\
-  position: relative;\
-  float: right;\
-  line-height: normal;\
   margin-right: 4px;\
   font-weight: bold;\
+  overflow: hidden;\
+  white-space: nowrap;\
+  text-overflow: ellipsis;\
   color: #324f85;\
-  margin-top: 12px;\
-}\
-.d-list-item-icon {\
-  position: relative;\
-  float: left;\
-  line-height: normal;\
-  margin-top: 7px;\
-  margin-bottom: -7px;\
-  margin-right: 11px;\
-  vertical-align: top;\
-}\
-.d-list-item-right-icon {\
-  position: relative;\
-  float: right;\
-  line-height: normal;\
-  margin-top: 7px;\
-  margin-bottom: -7px;\
+  line-height: 43px;\
 }\
 .d-list-loader {\
   padding: 0 8px;\
@@ -155,7 +156,6 @@ d-list-store {\
   margin: 0 9px;\
   padding: 0;\
   overflow-x: hidden;\
-  overflow-y: hidden;\
 }\
 .d-round-rect-list > *:first-child {\
   border-top-left-radius: 8px;\
@@ -185,7 +185,6 @@ d-list-store {\
   /* Do not change this margin setting when customizing list in the app css*/\
   margin: 0;\
   overflow-x: hidden;\
-  overflow-y: hidden;\
 }\
 .d-list > *:last-child {\
   border-bottom-width: 0;\

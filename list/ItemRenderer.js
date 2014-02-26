@@ -31,6 +31,12 @@ define(["dcl/dcl",
 		//		so it must not be changed.
 		baseClass: "d-list-item",
 
+		/*=====
+		// _spacerNode: DOMNode
+		//		a dom node we use to push elements to the left or right of the renderer node (flex layout).
+		_spacerNode: null,
+		=====*/
+
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: dcl.superCall(function (sup) {
@@ -53,8 +59,14 @@ define(["dcl/dcl",
 			//		The item to render.
 			// tags:
 			//		protected
-			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label", "0");
+			while (this.renderNode.children[0]) {
+				this.renderNode.removeChild(this.renderNode.children[0]);
+			}
 			this._renderNode("icon", "iconNode", this.item.iconclass, "d-list-item-icon");
+			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label", "0");
+			this._spacerNode = this.ownerDocument.createElement("DIV");
+			this._spacerNode.className = "d-spacer";
+			this.renderNode.appendChild(this._spacerNode);
 			this._renderNode("text", "righttextNode", this.item.righttext, "d-list-item-right-text", "1");
 			this._renderNode("icon", "righticonNode", this.item.righticonclass, "d-list-item-right-icon");
 		},
@@ -79,18 +91,12 @@ define(["dcl/dcl",
 			// tag:
 			//		private
 			if (data != null) {
-				if (!this[nodeName]) {
-					this[nodeName] = this.ownerDocument.createElement("DIV");
-					this[nodeName].className = nodeClass;
-					if (navindex) {
-						this[nodeName].setAttribute("navindex", navindex);
-					}
-					if (this.renderNode.firstChild) {
-						this.renderNode.insertBefore(this[nodeName], this.renderNode.firstChild);
-					} else {
-						this.renderNode.appendChild(this[nodeName]);
-					}
+				this[nodeName] = this.ownerDocument.createElement("DIV");
+				this[nodeName].className = nodeClass;
+				if (navindex) {
+					this[nodeName].setAttribute("navindex", navindex);
 				}
+				this.renderNode.appendChild(this[nodeName]);
 				if (nodeType === "text") {
 					this[nodeName].innerHTML = data;
 				} else {
@@ -98,7 +104,6 @@ define(["dcl/dcl",
 				}
 			} else {
 				if (this[nodeName]) {
-					this[nodeName].parentNode.removeChild(this[nodeName]);
 					delete this[nodeName];
 				}
 			}

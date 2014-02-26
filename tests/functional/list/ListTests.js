@@ -202,59 +202,59 @@ define(["intern!object",
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list-prog-1\nProgrammatic item of order 0");
+					assert.equal(value, "Programmatic item of order 0\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list-prog-1\nProgrammatic item of order 1");
+					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list-prog-1\nProgrammatic item of order 2");
+					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE014") // Press RIGHT ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "Programmatic item of order 2");
 				})
 				.end()
 				.keys("\uE014") // Press RIGHT ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list-prog-1");
 				})
 				.end()
 				.keys("\uE014") // Press RIGHT ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "Programmatic item of order 2");
 				})
 				.end()
 				.keys("\uE012") // Press LEFT ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list-prog-1");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list-prog-1\nProgrammatic item of order 1");
+					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end();
 			});
@@ -271,17 +271,17 @@ define(["intern!object",
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text A\nlist item 0");
+					assert.equal(value, "list item 0\nright text A");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text A\nlist item 0");
+					assert.equal(value, "list item 0\nright text A");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -289,10 +289,10 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text A\nlist item 0");
+					assert.equal(value, "list item 0\nright text A");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -313,17 +313,17 @@ define(["intern!object",
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 1\nlist item 0");
+					assert.equal(value, "list item 0\nright text 1");
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 1\nlist item 0");
+					assert.equal(value, "list item 0\nright text 1");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -331,10 +331,10 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 1\nlist item 0");
+					assert.equal(value, "list item 0\nright text 1");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -342,10 +342,10 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE010") // Press END
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 10\nlist item 9");
+					assert.equal(value, "list item 9\nright text 10");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -353,10 +353,10 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE011") // Press HOME
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 1\nlist item 0");
+					assert.equal(value, "list item 0\nright text 1");
 				})
 				.getAttribute("className")
 				.then(function (value) {
@@ -364,17 +364,17 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 10\nlist item 9");
+					assert.equal(value, "list item 9\nright text 10");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text 1\nlist item 0");
+					assert.equal(value, "list item 0\nright text 1");
 				})
 				.end();
 			});
@@ -392,14 +392,14 @@ define(["intern!object",
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text A\nlist item 0");
+					assert.equal(value, "list item 0\nright text A");
 				})
 				.end()
 				.keys("R")
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "right text A");
@@ -407,7 +407,7 @@ define(["intern!object",
 				.end()
 				.wait(10)
 				.keys("r")
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "right text B");
@@ -415,7 +415,7 @@ define(["intern!object",
 				.end()
 				.wait(10)
 				.keys("L")
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 2");
@@ -423,7 +423,7 @@ define(["intern!object",
 				.end()
 				.wait(10)
 				.keys("l")
-				.execute("return document.activeElement")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 3");
@@ -431,72 +431,62 @@ define(["intern!object",
 				.end();
 			});
 		},
-//		"custom keyboard navigation": function () {
-//			var remote = this.remote;
-//			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
-//				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-//				return;
-//			}
-//			this.timeout = 120000; // very slow on IE
-//			return remote
-//			.get(require.toUrl("./ListGallery.html"))
-//			.waitForCondition("ready", 60000)
-//			.then(function () {
-//				remote
-//				.keys("\uE004") // Press TAB 11 times
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE004")
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "6 navindex -2");
-//				})
-//				.end()
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "1 navindex -1");
-//				})
-//				.end()
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "4 navindex 0");
-//				})
-//				.end()
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "2 navindex 1");
-//				})
-//				.end()
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "5 navindex 1");
-//				})
-//				.end()
-//				.keys("\uE014") // Press RIGHT ARROW
-//				.execute("return document.activeElement")
-//				.text()
-//				.then(function (value) {
-//					assert.equal(value, "6 navindex -2");
-//				})
-//				.end();
-//			});
-//		}
+		"custom keyboard navigation": function () {
+			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
+			this.timeout = 120000; // very slow on IE
+			return remote
+			.get(require.toUrl("./list-cust-1.html"))
+			.waitForCondition("ready", 60000)
+			.then(function () {
+				remote
+				.keys("\uE004") // Press TAB
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "6 navindex -2");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "1 navindex -1");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "4 navindex 0");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "2 navindex 1");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "5 navindex 1");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "6 navindex -2");
+				})
+				.end();
+			});
+		}
 	});
 });
