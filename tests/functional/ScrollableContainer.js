@@ -6,7 +6,7 @@ define(["intern!object",
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
-			.waitForCondition("ready", 5000);
+			.waitForCondition("ready", 15000); // large timeout because of sauce...
 	};
 
 	var checkScrollAmount = function (remote, scrollContainerId, expectedScroll) {
@@ -53,7 +53,7 @@ define(["intern!object",
 	};
 
 	registerSuite({
-		name: "ScrollableContainer",
+		name: "ScrollableContainer - functional",
 
 		"scroll with animation (via button, inside LinearLayout, scrollDirection=vertical)": function () {
 			var remote = this.remote;
@@ -63,7 +63,7 @@ define(["intern!object",
 				.clickElement()
 				.end()
 				// Check that the scroll arrives at 100:
-				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop=='100'", 5000)
+				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop=='100'", 15000) // large timeout because of sauce...
 				// Check that it stays at 100 even after waiting a while (that is,
 				// that it does not continue to scroll):
 				.wait(200)
