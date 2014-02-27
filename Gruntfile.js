@@ -22,8 +22,9 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: ["*/themes/*/*.less", "list/*/themes/*/*.less", "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
-							"ViewStack/transitions/*.less"],
+						src: ["*/themes/*/*.less", "list/*/themes/*/*.less",
+						      "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
+							 "ViewStack/transitions/*.less"],
 						ext: ".css"
 					}
 				]
@@ -33,7 +34,8 @@ module.exports = function (grunt) {
 		// Convert CSS files to JS files
 		cssToJs : {
 			src: [
-				"*/themes/*/*.css", "list/*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
+				"*/themes/*/*.css", "list/*/themes/*/*.css",
+				"!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
 			]
 		},
 
