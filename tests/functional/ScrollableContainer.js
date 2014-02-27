@@ -20,7 +20,7 @@ define(["intern!object",
 
 	var checkScrollTopLeft = function (remote, wd, scrollContainerId, scrollTo, expectedScroll) {
 		// Executes scrolling by modifying the scrollTop/scrollLeft properties of
-		// widget's scrollableNode. 
+		// widget's scrollableNode.
 		return wd
 			.then(function () {
 				var scrollableNodeStr = "document.getElementById('" +
@@ -56,24 +56,19 @@ define(["intern!object",
 		name: "ScrollableContainer - functional",
 
 		"scroll with animation (via button, inside LinearLayout, scrollDirection=vertical)": function () {
-			var remote = this.remote;
-			return loadFile(remote, "./ScrollableContainer.html")
-			.then(function () {
-				remote.elementById("scrollButton")
-				.clickElement()
+			return loadFile(this.remote, "./ScrollableContainer.html")
+				.elementById("scrollButton")
+				.click()
 				.end()
 				// Check that the scroll arrives at 100:
-				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop=='100'", 15000) // large timeout because of sauce...
+				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop==100", 15000) // large timeout because of sauce...
 				// Check that it stays at 100 even after waiting a while (that is,
 				// that it does not continue to scroll):
 				.wait(200)
-				.then(function () {
-					remote.execute("return document.getElementById('scrollContainer').scrollableNode.scrollTop;")
-					.then(function (value) {
-						assert.equal(value, "100", "scrollTop should have stayed at 100!");
-					});
+				.execute("return document.getElementById('scrollContainer').scrollableNode.scrollTop;")
+				.then(function (value) {
+					assert.equal(value, "100", "scrollTop should have stayed at 100!");
 				});
-			});
 		},
 
 		"scrollBy (without LinearLayout, scrollDirection=vertical)": function () {
