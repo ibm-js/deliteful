@@ -28,19 +28,19 @@ define(["intern!object",
 
 	registerSuite({
 		name: "ListGallery tests",
-		"ListGallery.html / list-prog-1": function () {
+		"list-prog-1.html": function () {
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-prog-2": function () {
+		"list-prog-2.html": function () {
 			return basicTest(this.remote, "./list-prog-2.html", "list-prog-2", 100, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-prog-3": function () {
+		"list-prog-3.html": function () {
 			return basicTest(this.remote, "./list-prog-3.html", "list-prog-3", 100, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-prog-4": function () {
+		"list-prog-4.html": function () {
 			return basicTest(this.remote, "./list-prog-4.html", "list-prog-4", 100, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-prog-5": function () {
+		"list-prog-5.html": function () {
 			var def = this.async(1000);
 			var remote = this.remote;
 			setTimeout(def.callback(function () {
@@ -52,19 +52,19 @@ define(["intern!object",
 			}), 500);
 			return def;
 		},
-		"ListGallery.html / list-mark-1": function () {
+		"list-mark-1.html": function () {
 			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-mark-2": function () {
+		"list-mark-2.html": function () {
 			return basicTest(this.remote, "./list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-mark-3": function () {
+		"list-mark-3.html": function () {
 			return basicTest(this.remote, "./list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-mark-4": function () {
+		"list-mark-4.html": function () {
 			return basicTest(this.remote, "./list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
-		"ListGallery.html / list-cust-1": function () {
+		"list-cust-1.html": function () {
 			return basicTest(this.remote, "./list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
 		},
 		"selectionMode 'none'": function () {
