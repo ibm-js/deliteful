@@ -48,6 +48,7 @@
 				}
 			});
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list list with custom keyboard navigation");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});

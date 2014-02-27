@@ -21,6 +21,7 @@
 			"deliteful/list/List"
 		], function (register, List) {
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample categorized list");
 			list.categoryAttr = "category";
 			list.store.add({label: "first item", category: "Category A"});
 			list.store.add({label: "second item", category: "Category A"});

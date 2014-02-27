@@ -47,6 +47,7 @@
 				}
 			});
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list which items are data forms");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});
@@ -81,7 +82,7 @@
 	</style>
 </head>
 <body>
-	This sample demonstrate a list whose items are data forms.
+	This sample demonstrate a list which items are data forms.
 	<p>
 </body>
 </html>

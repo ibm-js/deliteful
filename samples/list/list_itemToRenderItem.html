@@ -21,6 +21,7 @@
 			"deliteful/list/List"
 		], function (register, List) {
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
 			list.itemToRenderItem = function (item) {
 				return {
 					label: item.title,

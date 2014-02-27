@@ -26,6 +26,7 @@
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
 			list.selectionMode = "multiple";
 			list.store.add({label: "first item"});
 			list.store.add({label: "second item"});

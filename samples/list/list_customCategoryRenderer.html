@@ -27,6 +27,7 @@
 				}
 			});
 			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list with custom category renderer");
 			list.categoryAttr = "cat";
 			list.categoryRenderer = MyCustomRenderer;
 			list.store.add({label: "Apple", cat: "Fruit"});
