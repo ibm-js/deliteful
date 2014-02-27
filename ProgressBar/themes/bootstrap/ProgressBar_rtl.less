@@ -7,31 +7,20 @@
  */
 @import "../../../../delite/themes/bootstrap/variables.less";
 
-@border-radius-value: 4px;
 @transition-params: 0.3s linear 0s;
 
 .d-progress-bar-indicator-rtl-styles() {
   .transition(width @transition-params);
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-top-right-radius: @border-radius-value;
-  border-bottom-right-radius: @border-radius-value;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
   float: right;
   position: relative;
 }
 
 .d-progress-bar-full-indicator-rtl-styles() {
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-top-left-radius: @border-radius-value;
-  border-bottom-left-radius: @border-radius-value;
 }
 
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
   .animation-direction(reverse); //fyi: reverse has same effect as normal on android (4.2.2 GS4)
   .transition(width 0s);
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-radius: @border-radius-value;
 }
 
 .d-progress-bar-background-rtl-styles() {

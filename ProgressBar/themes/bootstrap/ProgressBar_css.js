@@ -45,7 +45,6 @@ define(function(){ return '\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1) inset;\
-  border-radius: 4px;\
 }\
 .d-progress-bar-indicator {\
   top: 0;\
@@ -61,8 +60,6 @@ define(function(){ return '\
   box-sizing: border-box;\
   -webkit-transition: width 0.3s linear 0s;\
   transition: width 0.3s linear 0s;\
-  border-top-left-radius: 4px;\
-  border-bottom-left-radius: 4px;\
   background-color: #428bca;\
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
@@ -71,10 +68,6 @@ define(function(){ return '\
 }\
 .d-progress-bar-empty .d-progress-bar-indicator {\
   border: 0;\
-}\
-.d-progress-bar-full .d-progress-bar-indicator {\
-  border-top-right-radius: 4px;\
-  border-bottom-right-radius: 4px;\
 }\
 .d-progress-bar-msg {\
   width: 100%;\
@@ -119,7 +112,6 @@ define(function(){ return '\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
-  border-radius: 4px;\
   border: 1px solid transparent;\
   -webkit-transition: width 0s;\
   transition: width 0s;\

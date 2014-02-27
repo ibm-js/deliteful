@@ -7,7 +7,6 @@
  */
 @import "../../../../delite/themes/bootstrap/variables.less";
 
-@border-radius-value: 4px;
 @transition-params: 0.3s linear 0s;
 
 //this widget depends on following bootstrap variables:
@@ -51,7 +50,6 @@
   background-color: @progress-bg;
   .box-sizing(border-box);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1) inset;
-  border-radius: @border-radius-value;
 }
 
 .d-progress-bar-backgroundBefore-styles() {
@@ -63,9 +61,6 @@
   height: 100%;
   .box-sizing(border-box);
   .transition(width @transition-params);
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-top-left-radius: @border-radius-value;
-  border-bottom-left-radius: @border-radius-value;
   background-color: @progress-bar-bg;
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
@@ -78,9 +73,6 @@
 }
 
 .d-progress-bar-full-indicator-styles() {
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-top-right-radius: @border-radius-value;
-  border-bottom-right-radius: @border-radius-value;
 }
 
 .d-progress-bar-msg-styles() {
@@ -120,8 +112,6 @@
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
   background-size: 40px 40px;
   .box-sizing(border-box);
-  //force border radius otw webkit ignores parent overflow:hidden on borders (d-progress-bar-background)
-  border-radius: @border-radius-value;
   border:1px solid transparent; //a11y
   .transition(width 0s);
   .animation-name(d-progress-bar-indeterminate-animation);
