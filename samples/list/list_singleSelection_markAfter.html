@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+		    "dojo/on",
+			"deliteful/list/List"
+		], function (register, on, List) {
+			var console = document.createElement("div");
+			console.innerHTML = "Click to select an item.";
+			document.body.appendChild(console);
+			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
+			list.selectionMode = "single";
+			list.store.add({label: "first item"});
+			list.store.add({label: "second item"});
+			list.store.add({label: "third item"});
+			list.store.add({label: "fourth item"});
+			list.store.add({label: "fifth item"});
+			list.on("selection-change", function (event) {
+				if (event.newValue) {
+					console.innerHTML = "Current selection: " + event.newValue.label;
+				} else {
+					console.innerHTML = "Click to select an item."
+				}
+			});
+			document.body.appendChild(list);
+			list.startup();			
+		});
+	</script>
+	<style type="text/css">
+		/* CSS to place the selection mark after the list item instead of before the list item */
+		.d-selectable .d-list-item::before {
+			display: none;
+		}
+		.d-selectable .d-list-item::after {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	This sample demonstrate a list with single selection mode enabled, and the selection mark placed after the list item.
+</body>
+</html>
