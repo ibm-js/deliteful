@@ -84,6 +84,7 @@ define(["dcl/dcl",
 			return item[this.idProperty];
 		},
 
+		/*jshint maxcomplexity:12*/
 		put: function (item, options) {
 			// summary:
 			//		Stores an item.

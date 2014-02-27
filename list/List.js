@@ -214,6 +214,7 @@ define(["dcl/dcl",
 			//		List attributes have been updated.
 			// tags:
 			//		protected
+			/*jshint maxcomplexity:11*/
 			return function (props) {
 				if (props.selectionMode) {
 					if (this.selectionMode === "none") {
@@ -530,6 +531,7 @@ define(["dcl/dcl",
 			return result; // Object
 		},
 
+		/*jshint maxcomplexity:11*/
 		_removeRenderer: function (/*deliteful/list/Renderer*/renderer, /*Boolean*/keepSelection) {
 			// summary:
 			//		Remove a renderer from the List, updating category renderers if needed.
