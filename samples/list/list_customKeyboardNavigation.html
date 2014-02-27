@@ -35,15 +35,17 @@
 					}
 				},
 				_createElement: function (tag, attributes) {
-					var elementNode = this.renderNode.appendChild(this.ownerDocument.createElement(tag));
+					var elementNode = this.ownerDocument.createElement(tag);
 					for (var key in attributes) {
 						elementNode[key] = attributes[key];
 					}
 					return elementNode;
 				},
 				focus: function() {
-					// Redefine the focus method so that it focus the first child of the renderer instead
-					// of the renderer node itself
+					// summary:
+					//		Redefine the focus method so that it focus the first child of the renderer instead
+					// 		of the renderer node itself
+					this.tabIndex = "-1"; // reset the tabindex to -1 before focusing the first child
 					this._getFirst().focus();
 				}
 			});
@@ -79,6 +81,10 @@
 			line-height: 43px;
 		}
 		
+		.d-list-item-node {
+			display: block;
+		}
+
 		.label {
 			float: left;
 		}
