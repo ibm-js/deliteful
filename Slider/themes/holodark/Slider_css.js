@@ -8,6 +8,7 @@ define(function(){ return '\
   -webkit-user-select: none;\
   -ms-user-select: none;\
   -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\
 }\
@@ -60,6 +61,7 @@ define(function(){ return '\
   position: absolute;\
   display: inline-block;\
   -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   border-width: 1px;\
   border-style: solid;\
@@ -100,6 +102,7 @@ define(function(){ return '\
 }\
 .d-slider-remaining-bar {\
   -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   position: relative;\
   height: 100%;\
@@ -113,6 +116,7 @@ define(function(){ return '\
 }\
 .d-slider-progress-bar {\
   -webkit-box-sizing: content-box;\
+  -moz-box-sizing: content-box;\
   box-sizing: content-box;\
   border-width: 0;\
   background-color: #33b5e5;\
@@ -123,7 +127,7 @@ define(function(){ return '\
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\
-  content: "\\025A3";\
+  content: "\\\\025A3";\
   display: block;\
   font-family: monospace;\
   font-size: 20px;\
