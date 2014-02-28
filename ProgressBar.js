@@ -83,7 +83,7 @@ define([
 			}
 			_value = Math.max(this.min, isNaN(this.value) ? this.min : this.value);
 			if (_value !== Infinity) {
-				_value = Math.min(this.value, this.max);
+				_value = Math.min(_value, this.max);
 				_percent = (_value - this.min) / (this.max - this.min);
 			}
 			this._updateValues(props, _value, _percent);
