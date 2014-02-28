@@ -7,39 +7,37 @@
  */
 @import "../../../../delite/themes/ios/variables.less";
 
-.d-progress-bar-indicator-rtl-styles() {
-  .transition(left 0.25s, width 0s);
-  border-right-width: 0px;
-}
+@transition-params: 0.3s linear 0s;
 
-.d-progress-bar-full-indicator-rtl-styles() {
+.d-progress-bar-indicator-rtl-styles() {
+  .transition(width @transition-params);
+  float: right;
+  position: relative;
 }
 
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
-  .transition(left 0s);
+  position: absolute;
   .animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
 }
 
 .d-progress-bar-background-rtl-styles() {
-  border-right: 1px solid rgb(94, 111, 163);
 }
 
-.d-progress-bar-empty-background-rtl-styles() {
-  border-right: 0px;
-}
-
-.d-progress-bar-msg-rtl-styles(){
+.d-progress-bar-msg-rtl-styles() {
 
 }
 
 .d-progress-bar-msg-invert-rtl-styles() {
 }
 
-
 .d-progress-bar-msg-ext-rtl-styles() {
+  text-align: right;
 }
 
-.d-progress-bar-msg-extAfter-rtl-styles() {
+.d-progress-bar-msg-ext::after {
+  content: attr(msg-ext);
+  float: left;
+  display: block;
 }
 
 @import "../ProgressBar_template_rtl";

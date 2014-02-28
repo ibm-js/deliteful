@@ -7,6 +7,7 @@
  */
 @import "../../../../delite/themes/holodark/variables.less";
 
+@bar-height: 0.344em;
 @transition-params: 0.3s linear 0s;
 
 @progress-bg: #333333;
@@ -17,9 +18,20 @@
 @progress-bar-info-bg: #5bc0de;
 
 .d-progress-bar-styles() {
-  height: 1.7em;
+  height: 1.8em;
   font-size: 12px;
   vertical-align: middle;
+}
+
+.d-progress-bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: @bar-height;
+  background-color: white;
+  opacity: 0.15;
 }
 
 .d-progress-bar-success .d-progress-bar-indicator {
@@ -39,36 +51,34 @@
 }
 
 .d-progress-bar-background-styles() {
-  height: 0.334em;
-  background-color: @progress-bg;
   position: absolute;
-}
-
-.d-progress-bar-backgroundBefore-styles() {
+  height: @bar-height;
+  background-color: transparent;
+  top: 0;
 }
 
 .d-progress-bar-indicator-styles() {
   .transition(width @transition-params);
   height: 100%;
   background: @progress-bar-color;
-  position: relative;
-}
-
-.d-progress-bar-empty-indicator-styles() {
-}
-
-.d-progress-bar-full-indicator-styles() {
+  position: absolute; //
 }
 
 .d-progress-bar-msg-styles() {
   text-align: center;
   position: absolute;
-  height: 1.2em;
-  line-height: 1em;
-  top: 0.5em;
+  height: 1.4em;
+  line-height: 1.4em;
+  top: 0.4em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .d-progress-bar-msg-invert-styles() {
+  display: none;
+}
+
+.d-progress-bar-a11y-styles() {
   display: none;
 }
 
@@ -76,9 +86,11 @@
   text-align: left;
 }
 
-.d-progress-bar-msg-extAfter-styles() {
+//non templated
+.d-progress-bar-msg-ext::after {
   content: attr(msg-ext);
   float: right;
+  display: block;
 }
 
 .d-progress-bar-indeterminate-background-styles() {

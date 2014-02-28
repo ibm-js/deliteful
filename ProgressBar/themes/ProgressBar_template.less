@@ -1,4 +1,4 @@
-.d-progress-bar  {
+.d-progress-bar {
   display: inline-block;
   position: relative;
   margin: 2px;
@@ -8,17 +8,11 @@
 }
 
 .d-progress-bar-background {
-//  position: relative;
-  top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   margin: 0;
   padding: 0;
   .d-progress-bar-background-styles;
-}
-
-.d-progress-bar-background::before {
-  .d-progress-bar-backgroundBefore-styles;
 }
 
 .d-progress-bar-indicator {
@@ -29,14 +23,6 @@
   padding: 0;
 
   .d-progress-bar-indicator-styles;
-}
-
-.d-progress-bar-empty .d-progress-bar-indicator {
-  .d-progress-bar-empty-indicator-styles;
-}
-
-.d-progress-bar-full .d-progress-bar-indicator {
-  .d-progress-bar-full-indicator-styles;
 }
 
 .d-progress-bar-msg {
@@ -51,13 +37,13 @@
   .d-progress-bar-msg-invert-styles;
 }
 
+.d-progress-bar-a11y {
+  .d-progress-bar-a11y-styles;
+}
+
 .d-progress-bar-msg-ext {
   .d-progress-bar-msg-ext-styles;
   overflow: hidden;
-}
-
-.d-progress-bar-msg-ext::after {
-  .d-progress-bar-msg-extAfter-styles;
 }
 
 .d-progress-bar-indeterminate .d-progress-bar-background {

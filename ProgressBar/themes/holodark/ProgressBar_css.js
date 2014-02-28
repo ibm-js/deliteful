@@ -6,6 +6,16 @@ define(function(){ return '\
  *  baseClass : d-progress-bar\
  * -----------------------------------------------\
  */\
+.d-progress-bar::before {\
+  content: "";\
+  position: absolute;\
+  left: 0;\
+  top: 0;\
+  width: 100%;\
+  height: 0.344em;\
+  background-color: white;\
+  opacity: 0.15;\
+}\
 .d-progress-bar-success .d-progress-bar-indicator {\
   background-color: #5cb85c;\
 }\
@@ -17,6 +27,11 @@ define(function(){ return '\
 }\
 .d-progress-bar-danger .d-progress-bar-indicator {\
   background-color: #d9534f;\
+}\
+.d-progress-bar-msg-ext::after {\
+  content: attr(msg-ext);\
+  float: right;\
+  display: block;\
 }\
 .d-progress-bar-indeterminate.d-progress-bar-success .d-progress-bar-background {\
   background-color: #5cb85c;\
@@ -36,19 +51,19 @@ define(function(){ return '\
   margin: 2px;\
   padding: 0;\
   width: 100%;\
-  height: 1.7em;\
+  height: 1.8em;\
   font-size: 12px;\
   vertical-align: middle;\
 }\
 .d-progress-bar-background {\
-  top: 0;\
   left: 0;\
   width: 100%;\
   margin: 0;\
   padding: 0;\
-  height: 0.334em;\
-  background-color: #333333;\
   position: absolute;\
+  height: 0.344em;\
+  background-color: transparent;\
+  top: 0;\
 }\
 .d-progress-bar-indicator {\
   top: 0;\
@@ -60,7 +75,7 @@ define(function(){ return '\
   transition: width 0.3s linear 0s;\
   height: 100%;\
   background: #33b5e5;\
-  position: relative;\
+  position: absolute;\
 }\
 .d-progress-bar-msg {\
   width: 100%;\
@@ -69,20 +84,21 @@ define(function(){ return '\
   overflow: hidden;\
   text-align: center;\
   position: absolute;\
-  height: 1.2em;\
-  line-height: 1em;\
-  top: 0.5em;\
+  height: 1.4em;\
+  line-height: 1.4em;\
+  top: 0.4em;\
+  white-space: nowrap;\
+  text-overflow: ellipsis;\
 }\
 .d-progress-bar-msg-invert {\
+  display: none;\
+}\
+.d-progress-bar-a11y {\
   display: none;\
 }\
 .d-progress-bar-msg-ext {\
   text-align: left;\
   overflow: hidden;\
-}\
-.d-progress-bar-msg-ext::after {\
-  content: attr(msg-ext);\
-  float: right;\
 }\
 .d-progress-bar-indeterminate .d-progress-bar-background {\
   margin: 0;\

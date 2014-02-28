@@ -6,6 +6,11 @@ define(function(){ return '\
  *  baseClass : d-progress-bar\
  * -----------------------------------------------\
  */\
+.d-progress-bar-msg-ext::after {\
+  content: attr(msg-ext);\
+  float: left;\
+  display: block;\
+}\
 .d-rtl .d-progress-bar-indicator {\
   -webkit-transition: width 0.3s linear 0s;\
   transition: width 0.3s linear 0s;\
@@ -20,9 +25,5 @@ define(function(){ return '\
 }\
 .d-rtl .d-progress-bar-msg-ext {\
   text-align: right;\
-}\
-.d-rtl .d-progress-bar-msg-ext::after {\
-  content: attr(msg-ext);\
-  float: left;\
 }\
 '; } );

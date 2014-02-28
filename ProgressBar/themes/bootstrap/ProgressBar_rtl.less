@@ -15,9 +15,6 @@
   position: relative;
 }
 
-.d-progress-bar-full-indicator-rtl-styles() {
-}
-
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
   .animation-direction(reverse); //fyi: reverse has same effect as normal on android (4.2.2 GS4)
   .transition(width 0s);
@@ -26,24 +23,14 @@
 .d-progress-bar-background-rtl-styles() {
 }
 
-.d-progress-bar-empty-background-rtl-styles() {
-}
-
-.d-progress-bar-msg-rtl-styles(){
-  border-right: 2px solid transparent; //make sure message and inverted message are aligned
-  border-left: 0;
+.d-progress-bar-msg-rtl-styles() {
 }
 
 .d-progress-bar-msg-invert-rtl-styles() {
-  position: absolute;
-  overflow: hidden;
 }
 
 .d-progress-bar-msg-ext-rtl-styles() {
-}
 
-.d-progress-bar-msg-extAfter-rtl-styles() {
 }
-
 
 @import "../ProgressBar_template_rtl";

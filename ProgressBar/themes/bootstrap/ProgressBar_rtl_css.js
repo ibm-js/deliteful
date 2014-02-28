@@ -18,12 +18,4 @@ define(function(){ return '\
   -webkit-transition: width 0s;\
   transition: width 0s;\
 }\
-.d-rtl .d-progress-bar-msg {\
-  border-right: 2px solid transparent;\
-  border-left: 0;\
-}\
-.d-rtl .d-progress-bar-msg-invert {\
-  position: absolute;\
-  overflow: hidden;\
-}\
 '; } );
