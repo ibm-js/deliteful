@@ -90,7 +90,7 @@ define([
 			this._updateMessages(_value, _percent);
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
 			if (props.value || props.max || props.min) {
-				this.emit("change", {percent: _percent, value: _value, max: this.max});
+				this.emit("change", {percent: _percent, value: _value, min: this.min, max: this.max});
 			}
 		},
 
