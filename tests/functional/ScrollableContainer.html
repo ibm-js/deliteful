@@ -21,7 +21,6 @@
 			"delite/register",
 			"deliteful/ScrollableContainer",
 			"deliteful/LinearLayout",
-			"deliteful/Button",
 			"dojo/domReady!"
 		], function (register) {
 			register.parse();
@@ -110,11 +109,11 @@
 	<d-linear-layout style="height: 100%">
 		<d-linear-layout vertical="false">
 			<!-- Button to test the programmatic scroll API of ScrollableContainer -->
-			<button id="scrollButton" is="d-button" onclick="scrollBy();">
+			<button id="scrollButton" type="button" onclick="scrollBy();">
 				Scroll
 			</button>
 			<textarea id="msgArea" readonly class="fill"></textarea>
-			<button is="d-button" onclick="clearMsgArea();">Clear</button>
+			<button type="button" onclick="clearMsgArea();">Clear</button>
 		</d-linear-layout>
 		<d-scrollable-container id="scrollContainer" scrollDirection="both" 
 			style="background-color: lightgreen" class="fill"

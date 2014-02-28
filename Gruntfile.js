@@ -35,7 +35,10 @@ module.exports = function (grunt) {
 		cssToJs : {
 			src: [
 				"*/themes/*/*.css", "!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
-			]
+			],
+			options: {
+				remove: true	// remove intermediate CSS files, generated from LESS files in less step
+			}
 		},
 
 		// Copied from grunt web site but not tested
