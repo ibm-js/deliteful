@@ -89,8 +89,6 @@ define([
 			this._updateValues(props, _value, _percent);
 			this._updateMessages(_value, _percent);
 			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
-			domClass.toggle(this, this.baseClass + "-empty", (_percent === 0));
-			domClass.toggle(this, this.baseClass + "-full", (_percent === 1));
 			if (props.value || props.max || props.min) {
 				this.emit("change", {percent: _percent, value: _value, max: this.max});
 			}
