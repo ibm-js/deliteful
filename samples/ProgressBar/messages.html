@@ -32,7 +32,7 @@
 			progressBar.formatMessage = function(percent, value, max) {
 				//formatMessage allows to customize the message
 				var message;
-				if (value === Infinity) {//indeterminate
+				if (isNaN(value)) {//indeterminate
 					message = "Click load to start transfer.";
 				} else {
 					if (percent === 1) {
@@ -52,7 +52,7 @@
 				}
 			};
 			progressBar.displayExtMsg = true;//allow extra message to display
-			progressBar.value = Infinity;//displays indeterminate state custom message
+			progressBar.value = NaN;//displays indeterminate state custom message
 
 
 			//fake function which simulates a long task and updates the progress bar
@@ -78,7 +78,7 @@
 				window.clearInterval(timerId);
 				resetBtn.disabled = true;
 				setTimeout(function(){
-					progressBar.value = Infinity;
+					progressBar.value = NaN;
 					lastValue = 0;
 					loadBtn.disabled = false;
 				},UPDATE_FREQ);

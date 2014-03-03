@@ -18,11 +18,11 @@ define([
 		//		Number indicating the amount of completed task. The ProgressBar calculates the percentage of
 		// 		progression with respect to the min and the max values (ie: if value is 53, min is 0 and max is 100,
 		// 		the progression is 53%. If min is 0 and max is 200, the progression is 26%).
-		// 		When calculating the percentage, NaN and value lower than min are defaulted to min. Values higher
-		// 		than max are defaulted to max. Set the value to 'Infinity' to force the progress bar state to
+		// 		When calculating the percentage, value lower than min is defaulted to min. Value higher
+		// 		than max is defaulted to max. Set the value to NaN to force the progress bar state to
 		// 		indeterminate.
-		//		Default: Infinity
-		value: Infinity,
+		//		Default: NaN
+		value: NaN,
 
 		// min: Number
 		//		Starting point of the progression range. Attempt to set NaN or a number higher or equal to than max
@@ -81,14 +81,13 @@ define([
 			if (this.min >= this.max) {
 				throw new RangeError("min must be lower than max (min: " + this.min + ", max: " + this.max);
 			}
-			_value = Math.max(this.min, isNaN(this.value) ? this.min : this.value);
-			if (_value !== Infinity) {
-				_value = Math.min(_value, this.max);
+			if (!isNaN(this.value)) {
+				_value = Math.max(this.min, Math.min(this.max, this.value));
 				_percent = (_value - this.min) / (this.max - this.min);
 			}
 			this._updateValues(props, _value, _percent);
 			this._updateMessages(_value, _percent);
-			domClass.toggle(this, this.baseClass + "-indeterminate", (_value === Infinity));
+			domClass.toggle(this, this.baseClass + "-indeterminate", isNaN(this.value));
 			if (props.value || props.max || props.min) {
 				this.emit("change", {percent: _percent * 100, value: _value, min: this.min, max: this.max});
 			}
@@ -103,7 +102,7 @@ define([
 				this.setAttribute("aria-valuemax", this.max);
 			}
 			if (props.value || props.max || props.min) {
-				if (_value === Infinity) { //indeterminate state
+				if (isNaN(_value)) { //indeterminate state
 					this.indicatorNode.style.removeProperty("width");
 					this.removeAttribute("aria-valuenow");
 				} else {
@@ -117,7 +116,7 @@ define([
 		_updateMessages: function (_value, _percent) {
 			//update widget messages
 			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, this.max);
-			var _displayExtMsg = this.displayExtMsg && _value !== Infinity;
+			var _displayExtMsg = this.displayExtMsg && !isNaN(_value);
 			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayExtMsg);
 			if (_displayExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
@@ -126,7 +125,7 @@ define([
 				this.msgNode.removeAttribute("msg-ext");
 			}
 			//aria text only on indeterminate state with custom message
-			if (this.message && _value === Infinity) {
+			if (this.message && isNaN(_value)) {
 				this.setAttribute("aria-valuetext", this.message);
 			} else {
 				this.removeAttribute("aria-valuetext");
@@ -144,7 +143,7 @@ define([
 		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
 			// summary:
 			//		Generates HTML message to show inside/beside the progress bar (depends on theme settings).
-			//		If a custom message is specified, use it. If value is not Infinity, format the percentage of
+			//		If a custom message is specified, use it. If value is not NaN, format the percentage of
 			//		progression in respect with fractionDigits.
 			// 		May be overridden.
 			// percent:
@@ -153,7 +152,7 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-			return this.message ? this.message : (value === Infinity ? "" : number.format(percent, {
+			return this.message ? this.message : (isNaN(value) ? "" : number.format(percent, {
 				type: "percent",
 				places: this.fractionDigits,
 				round: -1,
