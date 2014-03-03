@@ -30,7 +30,7 @@ define(["intern!object",
 	};
 
 	registerSuite({
-		name: "ListGallery tests",
+		name: "List tests",
 		"list-prog-1.html": function () {
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
