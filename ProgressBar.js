@@ -65,31 +65,51 @@ define([
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "message", "min", "max", "fractionDigits", "displayExtMsg");
+			this.addInvalidatingProperties(
+				{value: "invalidateProperty"},
+				{min: "invalidateProperty"},
+				{max: "invalidateProperty"},
+				"message",
+				"displayExtMsg",
+				"fractionDigits"
+			);
 		},
 
 		buildRendering: renderer,
 
-		refreshRendering: function (props) {
-			var _percent = NaN, _value;
-			if (props.min && isNaN(this.min)) {
-				throw new RangeError("NaN not allowed for min");
+		_setMinAttr: function (value) {
+			if (isNaN(value) || value >= this.max) {
+				throw new RangeError("min (" + value + ") must be < max (" + this.max + ")");
 			}
-			if (props.max && isNaN(this.max)) {
-				throw new RangeError("NaN not allowed for max");
+			this._set("min", value);
+		},
+
+		_setMaxAttr: function (value) {
+			if (isNaN(value) || value <= this.min) {
+				throw new RangeError("max (" + value + ") must be > min (" + this.min + ")");
 			}
-			if (this.min >= this.max) {
-				throw new RangeError("min must be lower than max (min: " + this.min + ", max: " + this.max);
-			}
+			this._set("max", value);
+		},
+
+		refreshProperties: function () {
 			if (!isNaN(this.value)) {
-				_value = Math.max(this.min, Math.min(this.max, this.value));
-				_percent = (_value - this.min) / (this.max - this.min);
+				//ensure value is in range (min < value < max)
+				var correctedValue = Math.max(this.min, Math.min(this.value, this.max));
+				if (correctedValue !== this.value) {
+					this.value = correctedValue;
+					this.validateProperties();
+				}
 			}
-			this._updateValues(props, _value, _percent);
-			this._updateMessages(_value, _percent);
+		},
+
+		refreshRendering: function (props) {
+			var _percent = (this.value - this.min) / (this.max - this.min);
+
+			this._updateValues(props, this.value, _percent);
+			this._updateMessages(this.value, _percent);
 			domClass.toggle(this, this.baseClass + "-indeterminate", isNaN(this.value));
 			if (props.value || props.max || props.min) {
-				this.emit("change", {percent: _percent * 100, value: _value, min: this.min, max: this.max});
+				this.emit("change", {percent: _percent * 100, value: this.value, min: this.min, max: this.max});
 			}
 		},
 
