@@ -224,7 +224,7 @@ the focus) toggle its selected state.
 When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` attribute
 contains the previous selection, and its `newValue` attribute contains the new selection.
 
-When the selectionMode of a List is different than `"none"`, the `d-selectable` CSS class is applied to it. When an item is selected in such a list, the `d-selected` CSS class is applied to the item node.
+When the selectionMode of a List is different than `"none"`, the `d-selectable` CSS class is applied to it. When an item is selected in such a list, its `aria-selected` attribute is set to the value `"true"`.
 
 By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
 

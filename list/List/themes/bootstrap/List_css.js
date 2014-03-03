@@ -128,7 +128,7 @@ d-list-store {\
   margin-right: 8px;\
   content: "\\2610";\
 }\
-.d-selectable .d-list-item.d-selected::before {\
+.d-selectable .d-list-item[aria-selected="true"]::before {\
   content: "\\2611";\
 }\
 .d-selectable .d-list-item::after {\
@@ -136,7 +136,7 @@ d-list-store {\
   margin-left: 8px;\
   content: "\\2610";\
 }\
-.d-selectable .d-list-item.d-selected::after {\
+.d-selectable .d-list-item[aria-selected="true"]::after {\
   content: "\\2611";\
 }\
 /*******************************/\

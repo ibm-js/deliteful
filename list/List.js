@@ -199,12 +199,44 @@ define(["dcl/dcl",
 			//		List attributes have been updated.
 			// tags:
 			//		protected
+			/*jshint maxcomplexity:11*/
 			return function (props) {
 				if (sup) {
 					sup.call(this, props);
 				}
 				if (props.selectionMode) {
 					domClass.toggle(this, "d-selectable", this.selectionMode !== "none");
+					// Update aria attributes
+					this.removeAttribute("aria-selectable");
+					this.removeAttribute("aria-multiselectable");
+					if (this.selectionMode === "single") {
+						this.setAttribute("aria-selectable", true);
+						// update aria-selected attribute on unselected items
+						for (var i = 0; i < this.children.length; i++) {
+							var child = this.children[i];
+							if (child.getAttribute("aria-selected") === "false") {
+								child.removeAttribute("aria-selected");
+							}
+						}
+					} else if (this.selectionMode === "multiple") {
+						this.setAttribute("aria-multiselectable", true);
+						// update aria-selected attribute on unselected items
+						for (i = 0; i < this.children.length; i++) {
+							child = this.children[i];
+							if (domClass.contains(child, this._cssClasses.item)
+									&& !child.hasAttribute("aria-selected")) {
+								child.setAttribute("aria-selected", "false");
+							}
+						}
+					} else {
+						// update aria-selected attribute on unselected items
+						for (i = 0; i < this.children.length; i++) {
+							child = this.children[i];
+							if (child.hasAttribute("aria-selected")) {
+								child.removeAttribute("aria-selected", "false");
+							}
+						}
+					}
 				}
 			};
 		}),
@@ -334,7 +366,16 @@ define(["dcl/dcl",
 					var currentItem = items[i];
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
-						domClass.toggle(renderer, "d-selected", this.isSelected(currentItem));
+						var itemSelected = !!this.isSelected(currentItem);
+						if (this.selectionMode === "single") {
+							if (itemSelected) {
+								renderer.setAttribute("aria-selected", true);
+							} else {
+								renderer.removeAttribute("aria-selected");
+							}
+						} else {
+							renderer.setAttribute("aria-selected", itemSelected);
+						}
 					}
 				}
 			}
@@ -580,7 +621,14 @@ define(["dcl/dcl",
 			var renderer = new this.itemRenderer({tabindex: "-1"});
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
-				domClass.toggle(renderer, "d-selected", this.isSelected(item));
+				var itemSelected = !!this.isSelected(item);
+				if (this.selectionMode === "single") {
+					if (itemSelected) {
+						renderer.setAttribute("aria-selected", true);
+					}
+				} else {
+					renderer.setAttribute("aria-selected", itemSelected);
+				}
 			}
 			return renderer; // deliteful/list/ItemRenderer
 		},

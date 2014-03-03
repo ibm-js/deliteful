@@ -95,14 +95,14 @@ define(["intern!object",
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.end();
 			});
@@ -120,41 +120,41 @@ define(["intern!object",
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "false");
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "false");
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "false");
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.end();
 			});
@@ -172,41 +172,41 @@ define(["intern!object",
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
 				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.click()
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item d-selected");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("className")
-					.then(function (className) {
-						assert.equal(className, "d-list-item");
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, null);
 					})
 					.end();
 			});
@@ -308,9 +308,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text A");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item d-selected");
+					assert.equal(value, "true");
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
@@ -319,9 +319,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text A");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, "false");
 				})
 				.end();
 			});
@@ -352,9 +352,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item d-selected");
+					assert.equal(value, "true");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
@@ -363,9 +363,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, null);
 				})
 				.end()
 				.keys("\uE010") // Press END
@@ -374,9 +374,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 9\nright text 10");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, null);
 				})
 				.end()
 				.keys("\uE011") // Press HOME
@@ -385,9 +385,9 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1");
 				})
-				.getAttribute("className")
+				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "d-list-item");
+					assert.equal(value, null);
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
