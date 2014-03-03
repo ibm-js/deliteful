@@ -3,10 +3,13 @@ define(["intern!object",
         "require"
         ], function (registerSuite, assert, require) {
 
+	var DEFAULT_WAIT_MS = 180000;
+
 	var basicTest = function (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
 		.get(require.toUrl(testPage))
-		.waitForCondition("ready", 60000)
+		.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+				DEFAULT_WAIT_MS)
 		.then(function () {
 			return remote
 			.elementById(listId)
@@ -72,7 +75,8 @@ define(["intern!object",
 			var listId = "list-mark-3";
 			return remote
 			.get(require.toUrl("./list-mark-3.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -95,7 +99,8 @@ define(["intern!object",
 			var listId = "list-mark-1";
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -145,7 +150,8 @@ define(["intern!object",
 			var listId = "list-mark-2";
 			return remote
 			.get(require.toUrl("./list-mark-2.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.execute("document.getElementById('" + listId + "').scrollIntoView();")
@@ -198,7 +204,8 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-prog-1.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('list-prog-1').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -267,7 +274,8 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -309,7 +317,8 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-mark-2.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('list-mark-2').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -388,7 +397,8 @@ define(["intern!object",
 			this.timeout = 120000; // very slow on IE
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -440,7 +450,8 @@ define(["intern!object",
 			this.timeout = 120000; // very slow on IE
 			return remote
 			.get(require.toUrl("./list-cust-1.html"))
-			.waitForCondition("ready", 60000)
+			.waitForCondition("ready && !document.getElementById('list-cust-1').hasAttribute('aria-busy')",
+					DEFAULT_WAIT_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
