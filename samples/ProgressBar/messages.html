@@ -44,14 +44,14 @@
 				}
 				return message;
 			};
-			progressBar.formatValues = function (percent, value, max) {
+			progressBar.formatExtMsg = function (percent, value, max) {
 				if (percent === 1) {
 					return "";
 				} else {
 					return Math.round((this.max - value)/1000) + " KB";
 				}
 			};
-			progressBar.displayValues = true;//allow extra message to display
+			progressBar.displayExtMsg = true;//allow extra message to display
 			progressBar.value = Infinity;//displays indeterminate state custom message
 
 

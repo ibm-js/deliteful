@@ -44,13 +44,14 @@ define([
 		//		Default: ""
 		message: "",
 
-		// displayValues: Boolean
-		//		Allow to display the current value vs the max in the form value/max in addition to the current
-		//		message. When true, the message stick to one side and value/max stick to the other side.
-		//		Ex: [65%........379/583] or [Loading......379/583] if you specify a custom message.
+		// displayExtMsg: Boolean
+		//		Set to true to display an other messages. The actual display of this message depends of the theme
+		// 		which is actually enforced. The message sticks to one side and the extra message sticks to the
+		// 		other side. Ex: [65%........379/583] or [Loading......379/583]. By default, the extra message is
+		// 		in the form value/max. You may customize the extra message by overriding the method formatExtMsg().
 		//		This property is theme dependent. On some theme it has no effect.
 		//		Default: false
-		displayValues: false,
+		displayExtMsg: false,
 
 		// fractionDigits: Number
 		//		Number of places to show on default message displayed by the progress bar.
@@ -64,7 +65,7 @@ define([
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
-			this.addInvalidatingProperties("value", "message", "min", "max", "fractionDigits", "displayValues");
+			this.addInvalidatingProperties("value", "message", "min", "max", "fractionDigits", "displayExtMsg");
 		},
 
 		buildRendering: renderer,
@@ -116,11 +117,11 @@ define([
 		_updateMessages: function (_value, _percent) {
 			//update widget messages
 			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, this.max);
-			var _displayValues = this.displayValues && _value !== Infinity;
-			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayValues);
-			if (_displayValues) {
+			var _displayExtMsg = this.displayExtMsg && _value !== Infinity;
+			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayExtMsg);
+			if (_displayExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
-				this.msgNode.setAttribute("msg-ext", this.formatValues(_percent, _value, this.max));
+				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(_percent, _value, this.max));
 			} else {
 				this.msgNode.removeAttribute("msg-ext");
 			}
@@ -160,9 +161,9 @@ define([
 			}));
 		},
 
-		formatValues: function (/*Number*/percent, /*Number*/value, /*Number*/max) {
+		formatExtMsg: function (/*Number*/percent, /*Number*/value, /*Number*/max) {
 			// summary:
-			//		Set content to be displayed when property displayValues is enabled. By default it returns a
+			//		Set content to be displayed when property displayExtMsg is enabled. By default it returns a
 			// 		String formatted with "value/max"
 			// 		May be overridden.
 			// percent:
