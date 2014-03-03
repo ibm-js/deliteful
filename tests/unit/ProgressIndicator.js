@@ -74,12 +74,12 @@ define([
 			}), FRAME_DELAY);
 			return def;
 		},
-		"Set low speed": function () {
-			progressIndicator.speed = "low";
-			assert.strictEqual(progressIndicator.speed, "low");
+		"Set slow speed": function () {
+			progressIndicator.speed = "slow";
+			assert.strictEqual(progressIndicator.speed, "slow");
 			var def = this.async(FRAME_TIMEOUT);
 			setTimeout(def.callback(function () {
-				assert.strictEqual(progressIndicator._lapsTime, 2000, "low is 2000ms");
+				assert.strictEqual(progressIndicator._lapsTime, 2000, "slow is 2000ms");
 				assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
 				assert.strictEqual(window.getComputedStyle(progressIndicator).getPropertyValue("visibility"),
 					"visible");

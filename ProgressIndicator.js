@@ -28,7 +28,7 @@ define([
 		value: NaN,
 
 		// speed: String
-		//		Speed of the spinning animation. Accepted values are "low", "normal" and "fast". Other values are
+		//		Speed of the spinning animation. Accepted values are "slow", "normal" and "fast". Other values are
 		// 		defaulted to "normal". Note that the actual/real speed of the animation depends on the
 		// 		device/os/browser capabilities.
 		//		Default: normal
@@ -162,9 +162,9 @@ define([
 		refreshProperties: function (props) {
 			if (props.speed) {
 				//fast: 500ms
-				//low: 2000ms
+				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
-				this._lapsTime = (this.speed === "fast") ? 500:(this.speed === "low") ? 2000:1000;
+				this._lapsTime = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
 			}
 		},
 
