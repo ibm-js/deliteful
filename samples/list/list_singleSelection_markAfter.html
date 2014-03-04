@@ -45,10 +45,10 @@
 	</script>
 	<style type="text/css">
 		/* CSS to place the selection mark after the list item instead of before the list item */
-		.d-selectable .d-list-item::before {
+		[aria-selectable="true"] .d-list-item::before {
 			display: none;
 		}
-		.d-selectable .d-list-item::after {
+		[aria-selectable="true"] .d-list-item::after {
 			display: block;
 		}
 	</style>

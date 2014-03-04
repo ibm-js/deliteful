@@ -205,7 +205,6 @@ define(["dcl/dcl",
 					sup.call(this, props);
 				}
 				if (props.selectionMode) {
-					domClass.toggle(this, "d-selectable", this.selectionMode !== "none");
 					// Update aria attributes
 					this.removeAttribute("aria-selectable");
 					this.removeAttribute("aria-multiselectable");

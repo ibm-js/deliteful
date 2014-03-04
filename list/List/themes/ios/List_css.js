@@ -1,5 +1,4 @@
 define(function(){ return '\
-/********************************/\
 /* iOS theme for all Lists      */\
 /*                              */\
 /* IMPORTANT: a renderer MUST   */\
@@ -123,20 +122,24 @@ d-list-store {\
   font-style: italic;\
   color: #808080;\
 }\
-.d-selectable .d-list-item::before {\
+[aria-selectable="true"] .d-list-item::before,\
+[aria-multiselectable="true"] .d-list-item::before {\
   display: block;\
   margin-right: 8px;\
   content: "\\2610";\
 }\
-.d-selectable .d-list-item[aria-selected="true"]::before {\
+[aria-selectable="true"] .d-list-item[aria-selected="true"]::before,\
+[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::before {\
   content: "\\2611";\
 }\
-.d-selectable .d-list-item::after {\
+[aria-selectable="true"] .d-list-item::after,\
+[aria-multiselectable="true"] .d-list-item::after {\
   display: none;\
   margin-left: 8px;\
   content: "\\2610";\
 }\
-.d-selectable .d-list-item[aria-selected="true"]::after {\
+[aria-selectable="true"] .d-list-item[aria-selected="true"]::after,\
+[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::after {\
   content: "\\2611";\
 }\
 /*******************************/\
