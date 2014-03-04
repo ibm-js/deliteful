@@ -3,15 +3,20 @@ define(["intern!object",
         "require"
         ], function (registerSuite, assert, require) {
 
-	var WAIT_TIMEOUT_MS = 120000;
+	var WAIT_TIMEOUT_MS = 180000;
+	
+	var WAIT_POLLING_MS = 200;
 
-	var TEST_TIMEOUT_MS = 180000;
+	var TEST_TIMEOUT_MS = 240000;
 
 	var basicTest = function (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
 		.get(require.toUrl(testPage))
-		.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-				WAIT_TIMEOUT_MS)
+		.waitForCondition("'ready' in window &&  ready "
+				+ "&& document.getElementById('" + listId + "') "
+				+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+				WAIT_TIMEOUT_MS,
+				WAIT_POLLING_MS)
 		.then(function () {
 			return remote
 			.elementById(listId)
@@ -51,16 +56,7 @@ define(["intern!object",
 		},
 		"list-prog-5.html": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			var def = this.async(1000);
-			var remote = this.remote;
-			setTimeout(def.callback(function () {
-				try {
-					basicTest(remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
-				} catch (e) {
-					def.reject(e);
-				}
-			}), 500);
-			return def;
+			basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
 		},
 		"list-mark-1.html": function () {
 			this.timeout = TEST_TIMEOUT_MS;
@@ -88,12 +84,13 @@ define(["intern!object",
 			var listId = "list-mark-3";
 			return remote
 			.get(require.toUrl("./list-mark-3.html"))
-			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('" + listId + "') "
+					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
-				.execute("document.getElementById('" + listId + "').scrollIntoView();")
-				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
@@ -113,12 +110,13 @@ define(["intern!object",
 			var listId = "list-mark-1";
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('" + listId + "') "
+					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
-				.execute("document.getElementById('" + listId + "').scrollIntoView();")
-				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
@@ -165,12 +163,13 @@ define(["intern!object",
 			var listId = "list-mark-2";
 			return remote
 			.get(require.toUrl("./list-mark-2.html"))
-			.waitForCondition("ready && !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('" + listId + "') "
+					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
-				.execute("document.getElementById('" + listId + "').scrollIntoView();")
-				.wait(500)
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
@@ -220,8 +219,11 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-prog-1.html"))
-			.waitForCondition("ready && !document.getElementById('list-prog-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-prog-1') "
+					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -291,8 +293,11 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready && !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-mark-1') "
+					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -335,8 +340,11 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-mark-2.html"))
-			.waitForCondition("ready && !document.getElementById('list-mark-2').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-mark-2') "
+					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -415,8 +423,11 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
-			.waitForCondition("ready && !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-mark-1') "
+					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB
@@ -468,8 +479,11 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./list-cust-1.html"))
-			.waitForCondition("ready && !document.getElementById('list-cust-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS)
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-cust-1') "
+					+ "&& !document.getElementById('list-cust-1').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
 			.then(function () {
 				remote
 				.keys("\uE004") // Press TAB

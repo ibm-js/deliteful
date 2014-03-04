@@ -12,7 +12,8 @@
 		var ready = false;
 		require([
 			"delite/register",
-			"deliteful/list/List"
+			"deliteful/list/List",
+			"dojo/domReady!"
 		], function (register, List) {
   			// Programmatic list: default store, items added after the list startup
 			var list = register.createElement("d-list");
