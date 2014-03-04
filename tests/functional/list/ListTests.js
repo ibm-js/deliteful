@@ -56,7 +56,7 @@ define(["intern!object",
 		},
 		"list-prog-5.html": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
+			return basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
 		},
 		"list-mark-1.html": function () {
 			this.timeout = TEST_TIMEOUT_MS;
