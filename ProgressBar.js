@@ -108,7 +108,7 @@ define([
 				} else {
 					this.indicatorNode.style.width = (_percent * 100) + "%";
 					this.msgInvertNode.style.width = window.getComputedStyle(this.msgNode).getPropertyValue("width");
-					this.setAttribute("aria-valuenow", _percent * 100);
+					this.setAttribute("aria-valuenow", _value);
 				}
 			}
 		},
