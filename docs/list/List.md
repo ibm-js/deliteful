@@ -233,7 +233,7 @@ By default, selectable List displays a selection mark before each list item. The
 	[aria-selectable="true"] .d-list-item::before,[aria-multiselectable="true"] .d-list-item::before {
 		display: none;
 	}
-	[aria-selectable="true"] .d-list-item::before,[aria-multiselectable="true"] .d-list-item::after {
+	[aria-selectable="true"] .d-list-item::after,[aria-multiselectable="true"] .d-list-item::after {
 		display: block;
 	}
 ```
