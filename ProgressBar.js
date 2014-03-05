@@ -153,9 +153,9 @@ define([
 		},
 
 		enteredViewCallback: dcl.after(function () {
-			this.indicatorNode = this.querySelector(".d-progress-bar .d-progress-bar-indicator");
-			this.msgNode = this.querySelector(".d-progress-bar .d-progress-bar-msg");
-			this.msgInvertNode = this.querySelector(".d-progress-bar .d-progress-bar-msg-invert");
+			this.indicatorNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-indicator");
+			this.msgNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-msg");
+			this.msgInvertNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-msg-invert");
 			//default values
 			this.refreshRendering({value: true, min: true, max: true});
 		}),
