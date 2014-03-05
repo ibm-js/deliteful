@@ -165,6 +165,7 @@ define([
 				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
 				this._lapsTime = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
+				this.validate();
 			}
 		},
 
