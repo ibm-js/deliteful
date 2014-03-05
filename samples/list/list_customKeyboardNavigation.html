@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List"
+		], function (register, ItemRenderer) {
+			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					var elementNode = this.renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
+					elementNode.setAttribute("navindex", "0");
+					if (this.item.label) {
+						var labelNode = this.renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
+						labelNode.className = "label";
+						labelNode.innerHTML = this.item.label;
+						elementNode.setAttribute("aria-label", this.item.label);
+						// Set the label attribute that key search uses
+						elementNode.label = this.item.label;
+					}
+				},
+				_createElement: function (tag, attributes) {
+					var elementNode = this.ownerDocument.createElement(tag);
+					for (var key in attributes) {
+						elementNode[key] = attributes[key];
+					}
+					return elementNode;
+				},
+				focus: function() {
+					// summary:
+					//		Redefine the focus method so that it focus the first child of the renderer instead
+					// 		of the renderer node itself
+					this.tabIndex = "-1"; // reset the tabindex to -1 before focusing the first child
+					this._getFirst().focus();
+				}
+			});
+			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list list with custom keyboard navigation");
+			list.itemRenderer = MyCustomRenderer;
+			list.copyAllItemProps = true;
+			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
+			list.store.add({label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}});
+			list.store.add({label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}});
+			list.store.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
+			list.store.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
+			list.store.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+	<style type="text/css">
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}
+
+ 		d-configuration-item {
+			height: 43px;
+			line-height: 43px;
+		}
+		
+		.d-list-item-node {
+			display: block;
+		}
+
+		.label {
+			float: left;
+		}
+
+		input {
+			float: right;
+		}
+		
+	</style>
+</head>
+<body>
+	This sample demonstrate how to write a custom item renderer with custom keyboard navigation.
+	<p>
+</body>
+</html>

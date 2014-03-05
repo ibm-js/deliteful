@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "dcl/dcl",
+			"delite/register",
+			"deliteful/list/List",
+			"dojo/Deferred",
+			"dojo/store/util/QueryResults",
+			"dojo/store/Memory",
+			"dojo/store/Observable",
+			"dojo/domReady!"
+		], function (dcl, register, List, Deferred, QueryResults, MemoryStore, Observable) {
+  			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
+			var CustomMemoryStore = dcl([MemoryStore], {
+				latency: 500,
+				query: dcl.superCall(function (sup) {
+					return function (query, options) {
+						var def = new Deferred;
+						var that = this;
+						setTimeout(function () {
+							def.resolve(sup.call(that, query, options));
+						}, this.latency);
+						return new QueryResults(def);
+					};
+				})
+			});
+			var createStore = function (itemsCount, latency) {
+				var i = 0, data = [];
+				for (; i < itemsCount; i++) {
+					data.push({id: 'ref' + i, text: 'this is list item ' + i});
+				}
+				return new Observable(new CustomMemoryStore({latency: latency, data: data, idProperty: 'id'}));
+			};
+			var list = register.createElement("d-list");
+			list.id = "list-prog-5";
+			list.style.height = "200px";
+			list.store = createStore(100, 500);
+			list.labelAttr = "text";
+			list.righttextFunc = function (item) {
+				return "id: " + item.id;
+			};
+			list.iconclassFunc = function (item) {
+				var i = parseInt(item.id.slice(3));
+				return "left-icon-" + (i % 10 + 1);
+			};
+ 			list.righticonclassFunc = function (item) {
+				var i = parseInt(item.id.slice(3));
+				return "right-icon-2-" + (i % 8 + 1);
+			};
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}
+
+		.left-icon-1:before {
+			content: '\2605';
+			color: red;
+		}
+
+		.left-icon-2:before {
+			content: '\2605';
+			color: green;
+		}
+
+		.left-icon-3:before {
+			content: '\2605';
+			color: blue;
+		}
+
+		.left-icon-4:before {
+			content: '\2605';
+			color: purple;
+		}
+
+		.left-icon-5:before {
+			content: '\2605';
+			color: orange;
+		}
+
+		.left-icon-6:before {
+			content: '\2605';
+			color: brown;
+		}
+		
+		.left-icon-7:before {
+			content: '\2605';
+			color: silver;
+		}
+		
+		.left-icon-8:before {
+			content: '\2605';
+			color: gold;
+		}
+
+		.left-icon-9:before {
+			content: '\2605';
+			color: olive;
+		}
+
+		.left-icon-10:before {
+			content: '\2605';
+			color: green;
+		}
+
+		.right-icon-2-1:before {
+			content: '\2606';
+			color: peachpuff;
+		}
+
+		.right-icon-2-2:before {
+			content: '\2764';
+			color: chartreuse;
+		}
+
+		.right-icon-2-3:before {
+			content: '\2764';
+			color: greenyellow;
+		}
+
+		.right-icon-2-4:before {
+			content: '\2764';
+			color: gold;
+		}
+
+		.right-icon-2-5:before {
+			content: '\2764';
+			color: forestgreen;
+		}
+
+		.right-icon-2-6:before {
+			content: '\2764';
+			color: blueviolet;
+		}
+		
+		.right-icon-2-7:before {
+			content: '\2764';
+			color: fuchsia;
+		}
+		
+		.right-icon-2-8:before {
+			content: '\2764';
+			color: burlywood;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Observable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>
