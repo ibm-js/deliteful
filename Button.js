@@ -7,7 +7,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"delite/themes/load!delite/themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css" // common for duiInline
+	"delite/themes/load!delite/themes/{{theme}}/common_css,./Button/themes/{{theme}}/Button_css" // common for d-inline
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
@@ -65,7 +65,7 @@ define([
 			if (props.iconClass) {
 				if (this.iconClass && !has("highcontrast")) {
 					this.iconNode = this.iconNode || domConstruct.create("span", null, this, "first");
-					this.iconNode.className = "duiReset duiInline duiIcon " + this.iconClass;
+					this.iconNode.className = "d-reset d-inline d-icon " + this.iconClass;
 				} else if (this.iconNode) {
 					domConstruct.destroy(this.iconNode);
 					delete this.iconNode;
@@ -76,7 +76,7 @@ define([
 			if (props.label || props.showLabel) {
 				if (showLabel) {
 					this.containerNode = this.containerNode ||
-						domConstruct.create("span", {className: "duiReset duiInline duiButtonText"}, this);
+						domConstruct.create("span", {className: "d-reset d-inline duiButtonText"}, this);
 					this.containerNode.textContent = this.label;
 				} else if (this.containerNode) {
 					domConstruct.destroy(this.containerNode);
