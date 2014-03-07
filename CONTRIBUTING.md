@@ -59,7 +59,7 @@ submitting your pull request.
 
 ## Licensing
 
-All of your submissions are licensed under "New" BSD license.
+All pull requests should adhere to the [coding guidelines]. 
 
 # Submitting a Pull Request
 
@@ -203,7 +203,7 @@ request.
 [claCheck]: http://dojofoundation.org/about/claCheck
 [Creating a Pull Request]: https://help.github.com/articles/creating-a-pull-request
 [Fork a Repo]: https://help.github.com/articles/fork-a-repo
-[jshintrc]: ./.jshintrc
+[coding guidelines]: https://github.com/ibm-js/sdk/blob/master/GUIDELINES.md
 [DojoDoc]: http://dojotoolkit.org/reference-guide/developer/markup.html
 [Intern]: http://theintern.io/
 [interactive rebase]: http://git-scm.com/book/en/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages
