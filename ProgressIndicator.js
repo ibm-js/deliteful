@@ -126,7 +126,7 @@ define([
 
 		buildRendering: renderer,
 
-		enteredViewCallback: dcl.after(function () {
+		attachedCallback: dcl.after(function () {
 			//template: use query selector to get nodes reference that will not be available from buildRendering
 			this.svgNode = this.querySelector(".d-progress-indicator svg");
 			this.linesNode = this.querySelector(".d-progress-indicator-lines");
