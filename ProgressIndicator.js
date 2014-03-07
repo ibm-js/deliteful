@@ -119,7 +119,7 @@ define([
 			//watched properties to trigger invalidation
 			this.addInvalidatingProperties(
 				"active",
-				"value",
+				{value: "invalidateProperty"},
 				{speed: "invalidateProperty"}
 			);
 		},
@@ -160,11 +160,23 @@ define([
 		}),
 
 		refreshProperties: function (props) {
+			var correctedValue = null;
 			if (props.speed) {
 				//fast: 500ms
 				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
-				this._lapsTime = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
+				correctedValue = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
+				if (this._lapsTime !== correctedValue) {
+					this._lapsTime = correctedValue;
+				}
+			}
+			if (props.value && !isNaN(this.value)) {
+				correctedValue = Math.max(Math.min(this.value, 100), 0);
+				if (this.value !== correctedValue) {
+					this.value = correctedValue;
+				}
+			}
+			if (correctedValue) {
 				this.validate();
 			}
 		},
@@ -182,15 +194,13 @@ define([
 					this._stopAnimation();
 					//ensure pending frame animation requests are done before any updates
 					this._requestRendering(function () {
-						//normalize the value
-						var percent = Math.max(Math.min(this.value, 100), 0);
 						//display the integer value
-						this.msgNode.textContent = Math.floor(percent);
+						this.msgNode.textContent = Math.floor(this.value);
 						//minimum amount of opacity.
 						var minOpacity = 0.2;
 						//update lines opacity
 						for (var i = 0, opacity; i < 12; i++) {
-							opacity = Math.min(Math.max((percent * 0.12 - i), 0), 1) * (1 - minOpacity);
+							opacity = Math.min(Math.max((this.value * 0.12 - i), 0), 1) * (1 - minOpacity);
 							this.lineNodeList[i].style.opacity = minOpacity + opacity;
 						}
 					}.bind(this));
