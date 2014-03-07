@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/list/CategoryRenderer",
+			"deliteful/list/List"
+		], function (register, CategoryRenderer) {
+			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div class='categoryName' navindex='0'>" + this.item.category + "</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.item.category + "&go=Go'>Wikipedia</a></div>";
+				}
+			});
+			var list = register.createElement("d-list");
+			list.setAttribute("aria-label", "Sample list with custom category renderer");
+			list.categoryAttr = "cat";
+			list.categoryRenderer = MyCustomRenderer;
+			list.store.add({label: "Apple", cat: "Fruit"});
+			list.store.add({label: "Apricot", cat: "Fruit"});
+			list.store.add({label: "Banana", cat: "Fruit"});
+			list.store.add({label: "Orange", cat: "Fruit"});
+			list.store.add({label: "Pear", cat: "Fruit"});
+			list.store.add({label: "Strawberry", cat: "Fruit"});
+			list.store.add({label: "Brussel sprout", cat: "Vegetable"});
+			list.store.add({label: "Cabbage", cat: "Vegetable"});
+			list.store.add({label: "Kale", cat: "Vegetable"});
+			list.store.add({label: "Lettuce", cat: "Vegetable"});
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+	
+	<style>
+		.d-list-category {
+			background-image: none;
+			background-color: green;
+			color: white;
+			height: 45px;
+		}
+		.categoryName {
+			float: left;
+		}
+		.categoryLink {
+			float: right;
+		}
+		.categoryLink > a {
+			color: white;
+			font-size: small;
+		}
+	</style>
+</head>
+<body>
+	This sample demonstrate how to write a custom category renderer.
+</body>
+</html>

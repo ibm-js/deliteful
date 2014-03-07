@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "delite/register",
+			"deliteful/list/List",
+			"dojo/domReady!"
+		], function (register) {
+			register.parse();
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}
+
+		.left-icon-1:before {
+			content: '\2605';
+			color: red;
+		}
+
+		.left-icon-2:before {
+			content: '\2605';
+			color: green;
+		}
+
+		.left-icon-3:before {
+			content: '\2605';
+			color: blue;
+		}
+
+		.left-icon-4:before {
+			content: '\2605';
+			color: purple;
+		}
+
+		.left-icon-5:before {
+			content: '\2605';
+			color: orange;
+		}
+
+		.left-icon-6:before {
+			content: '\2605';
+			color: brown;
+		}
+		
+		.left-icon-7:before {
+			content: '\2605';
+			color: silver;
+		}
+		
+		.left-icon-8:before {
+			content: '\2605';
+			color: gold;
+		}
+
+		.left-icon-9:before {
+			content: '\2605';
+			color: olive;
+		}
+
+		.left-icon-10:before {
+			content: '\2605';
+			color: green;
+		}
+
+		.right-icon-2-1:before {
+			content: '\2606';
+			color: peachpuff;
+		}
+
+		.right-icon-2-2:before {
+			content: '\2764';
+			color: chartreuse;
+		}
+
+		.right-icon-2-3:before {
+			content: '\2764';
+			color: greenyellow;
+		}
+
+		.right-icon-2-4:before {
+			content: '\2764';
+			color: gold;
+		}
+
+		.right-icon-2-5:before {
+			content: '\2764';
+			color: forestgreen;
+		}
+
+		.right-icon-2-6:before {
+			content: '\2764';
+			color: blueviolet;
+		}
+		
+		.right-icon-2-7:before {
+			content: '\2764';
+			color: fuchsia;
+		}
+		
+		.right-icon-2-8:before {
+			content: '\2764';
+			color: burlywood;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+   	<h2>10 items declared as markup, using all items attribute (id: list-mark-4)</h2>
+	<d-list id="list-mark-4" style="height: 200px">
+		<d-list-store>
+			{"iconclass": "left-icon-1", "label": "list item 0", "righttext": "A", "righticonclass": "right-icon-2-1"},
+			{"iconclass": "left-icon-2", "label": "list item 1", "righttext": "A", "righticonclass": "right-icon-2-2"},
+			{"iconclass": "left-icon-3", "label": "list item 2", "righttext": "A", "righticonclass": "right-icon-2-3"},
+			{"iconclass": "left-icon-4", "label": "list item 3", "righttext": "A", "righticonclass": "right-icon-2-4"},
+			{"iconclass": "left-icon-5", "label": "list item 4", "righttext": "A", "righticonclass": "right-icon-2-5"},
+			{"iconclass": "left-icon-6", "label": "list item 5", "righttext": "B", "righticonclass": "right-icon-2-6"},
+			{"iconclass": "left-icon-7", "label": "list item 6", "righttext": "B", "righticonclass": "right-icon-2-7"},
+			{"iconclass": "left-icon-8", "label": "list item 7", "righttext": "B", "righticonclass": "right-icon-2-8"},
+			{"iconclass": "left-icon-9", "label": "list item 8", "righttext": "B", "righticonclass": "right-icon-2-1"},
+			{"iconclass": "left-icon-10", "label": "list item 9", "righttext": "B", "righticonclass": "right-icon-2-2"}
+		</d-list-store>
+	</d-list>
+</body>
+</html>
