@@ -185,20 +185,19 @@ define([
 			}), FRAME_DELAY);
 			return def;
 		},
-		"Deactivate while value set": function () {
-			progressIndicator.active = false;
+		"Start animation and destroy": function () {
+			progressIndicator.value = NaN;
 			progressIndicator.validate();
-			assert.strictEqual(progressIndicator.active, false);
-			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
+			assert(isNaN(progressIndicator.value));
+			assert.notStrictEqual(progressIndicator._requestId, 0); //animation should be started
+			progressIndicator.destroy();
 			var def = this.async(FRAME_TIMEOUT);
 			setTimeout(def.callback(function () {
-				checkVisibility("hidden", "must be hidden");
+				assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
 			}), FRAME_DELAY);
 			return def;
 		},
-
 		teardown: function () {
-			progressIndicator.destroy();
 			progressIndicator = null;
 		}
 	});
