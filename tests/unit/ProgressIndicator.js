@@ -4,7 +4,7 @@ define([
 	"deliteful/ProgressIndicator"
 ], function (registerSuite, assert, ProgressIndicator) {
 	var progressIndicator = null,
-		FRAME_DELAY = 30, //delay, in ms, to test for value changed in animation frame
+		FRAME_DELAY = 150, //delay, in ms, to test for value changed in animation frame
 		FRAME_TIMEOUT = FRAME_DELAY + 50;
 
 	//check progressIndicator node visibility style value.
