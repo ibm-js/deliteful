@@ -32,13 +32,13 @@ define(["intern!object",
 						(function (i) {
 							remote.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
 								.text()
-								.then( function (value) {
+								.then(function (value) {
 									assert.equal(value, expectedKeys[i]);
 								})
 								.end()
 							.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
 								.text()
-								.then( function (value) {
+								.then(function (value) {
 									assert.equal(value, expectedValues[i]);
 								})
 								.end();
@@ -64,35 +64,35 @@ define(["intern!object",
 			.elementById(widgetId)
 				.getAttribute("role")
 				.then(function (value) {
-					assert.equal(value, "slider");
+					assert.equal(value, "slider", "role");
 				})
 				.getAttribute("aria-label")
 				.then(function (value) {
-					assert.equal(value, "rating");
+					assert.equal(value, "rating", "aria-label");
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
-					assert.equal(value, "0");
+					assert.equal(value, "0", "aria-valuemin");
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
-					assert.equal(value, expectedMax);
+					assert.equal(value, expectedMax, "aria-valuemax");
 				})
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
-					assert.equal(value, expectedValue);
+					assert.equal(value, expectedValue, "aria-valuenow");
 				})
 				.getAttribute("aria-valuetext")
 				.then(function (value) {
-					assert.equal(value, expectedValue + " stars");
+					assert.equal(value, expectedValue + " stars", "aria-valuetest");
 				})
 				.getAttribute("aria-disabled")
 				.then(function (value) {
-					assert.equal(value, expectedEditable ? "false" : "true");
+					assert.equal(value, expectedEditable ? "false" : "true", "aria-disabled");
 				})
 				.getAttribute("tabIndex")
 				.then(function (value) {
-					assert.equal(value, "0");
+					assert.equal(value, "0", "tabIndex");
 				})
 				.elementsByTagName("div")
 					.then(function (children) {
@@ -105,7 +105,7 @@ define(["intern!object",
 							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 1) + "]")
 								.getAttribute("className")
 								.then(function (result) {
-									assert.equal(result, expectedClasses[i]);
+									assert.equal(result, expectedClasses[i], "star " + i + " class");
 								})
 								.end();
 						})(i);
@@ -149,6 +149,10 @@ define(["intern!object",
 		"read only ltr": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote, widgetId = "star", i;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			console.log("# running test 'read only ltr'");
 			return remote
 			.get(require.toUrl("./StarRatingTests.html"))
@@ -192,16 +196,28 @@ define(["intern!object",
 			});
 		},
 		"editable ltr": function () {
+			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
+			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable half values ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
+			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable half values no zero setting ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
@@ -210,6 +226,10 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			return remote
 				.get(require.toUrl("./StarRatingTests.html"))
 				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -272,6 +292,10 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'tab order'");
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
 			return remote
 			.get(require.toUrl("./StarRatingTests.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -347,6 +371,10 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'form back button'");
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			return remote
 			.get(require.toUrl("./StarRatingFormBackTests.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -384,6 +412,10 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'form values'");
 			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return;
+			}
 			return remote
 			.get(require.toUrl("./StarRatingFormTests.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
