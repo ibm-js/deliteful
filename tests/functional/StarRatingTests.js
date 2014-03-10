@@ -3,6 +3,10 @@ define(["intern!object",
         "require"
         ], function (registerSuite, assert, require) {
 	
+	var WAIT_TIMEOUT_MS = 180000;
+
+	var TEST_TIMEOUT_MS = 120000;
+
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 			pixelsFromCenter/*?Number of pixels from the center of the star*/) {
 			return remote
@@ -29,13 +33,13 @@ define(["intern!object",
 							remote.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
 								.text()
 								.then( function (value) {
-									assert.equal(expectedKeys[i], value);
+									assert.equal(value, expectedKeys[i]);
 								})
 								.end()
 							.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
 								.text()
 								.then( function (value) {
-									assert.equal(expectedValues[i], value);
+									assert.equal(value, expectedValues[i]);
 								})
 								.end();
 						})(i);
@@ -60,39 +64,39 @@ define(["intern!object",
 			.elementById(widgetId)
 				.getAttribute("role")
 				.then(function (value) {
-					assert.equal("slider", value);
+					assert.equal(value, "slider");
 				})
 				.getAttribute("aria-label")
 				.then(function (value) {
-					assert.equal("rating", value);
+					assert.equal(value, "rating");
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
-					assert.equal("0", value);
+					assert.equal(value, "0");
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
-					assert.equal(expectedMax, value);
+					assert.equal(value, expectedMax);
 				})
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
-					assert.equal(expectedValue, value);
+					assert.equal(value, expectedValue);
 				})
 				.getAttribute("aria-valuetext")
 				.then(function (value) {
-					assert.equal(expectedValue + " stars", value);
+					assert.equal(value, expectedValue + " stars");
 				})
 				.getAttribute("aria-disabled")
 				.then(function (value) {
-					assert.equal(expectedEditable ? "false" : "true", value);
+					assert.equal(value, expectedEditable ? "false" : "true");
 				})
 				.getAttribute("tabIndex")
 				.then(function (value) {
-					assert.equal("0", value);
+					assert.equal(value, "0");
 				})
 				.elementsByTagName("div")
 					.then(function (children) {
-						assert.equal(expectedMax, children.length, "The expected number of stars is wrong");
+						assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
 					})
 					.end()
 				.then(function () {
@@ -101,7 +105,7 @@ define(["intern!object",
 							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 1) + "]")
 								.getAttribute("className")
 								.then(function (result) {
-									assert.equal(expectedClasses[i], result);
+									assert.equal(result, expectedClasses[i]);
 								})
 								.end();
 						})(i);
@@ -115,7 +119,7 @@ define(["intern!object",
 			expectedAfterZeroSetting = zeroSetting ? 0 : 0.5;
 		return remote
 		.get(require.toUrl("./StarRatingTests.html"))
-		.waitForCondition("ready", 5000)
+		.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 		// Check initial rating
 		.then(function () {
 			return checkRating(remote, widgetId, 7, expectedInitialValue, true);
@@ -143,11 +147,12 @@ define(["intern!object",
 	registerSuite({
 		name: "StarRating tests",
 		"read only ltr": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote, widgetId = "star", i;
 			console.log("# running test 'read only ltr'");
 			return remote
 			.get(require.toUrl("./StarRatingTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				// Check initial rating
 				return checkRating(remote, widgetId, 7, 0, false);
@@ -187,23 +192,27 @@ define(["intern!object",
 			});
 		},
 		"editable ltr": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable half values ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable half values no zero setting ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
 			return remote
 				.get(require.toUrl("./StarRatingTests.html"))
-				.waitForCondition("ready", 5000)
+				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 				// Check initial rating
 				.then(function () {
 					return checkRating(remote, id, 7, 3.5, true);
@@ -212,7 +221,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal("Rating is 3.5 stars", text, "message is not the one expected for " + id);
+						assert.equal(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
 					})
 					.end()
 				// check rating change after clicking on a star
@@ -226,7 +235,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal("Rating is 2.5 stars", text, "message is not the one expected for " + id);
+						assert.equal(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
 					})
 					.end()
 				// set zero rating
@@ -240,7 +249,7 @@ define(["intern!object",
 			.elementById(id + "value")
 				.text()
 				.then(function (text) {
-					assert.equal("Rating is 0 star", text, "message is not the one expected for " + id);
+					assert.equal(text, "Rating is 0 star", "message is not the one expected for " + id);
 				})
 				.end();
 			///////////////////////////////////////////
@@ -248,138 +257,143 @@ define(["intern!object",
 			///////////////////////////////////////////
 		},
 		"default": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'default'");
 			var remote = this.remote;
 			return remote
 			.get(require.toUrl("./StarRatingTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, "defaultstar", 5, 0, true);
 			});
 		},
 		"tab order": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'tab order'");
 			var remote = this.remote;
 			return remote
 			.get(require.toUrl("./StarRatingTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check active element
-			.execute("return document.activeElement.tagName")
+			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("BODY", value);
+				assert.equal(value, "afinput");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("firsttabindexstar", value);
+				assert.equal(value, "firsttabindexstar");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("secondtabindexstar", value);
+				assert.equal(value, "secondtabindexstar");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("star", value);
+				assert.equal(value, "star");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("starminus", value);
+				assert.equal(value, "starminus");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("starplus", value);
+				assert.equal(value, "starplus");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("editablestar1", value);
+				assert.equal(value, "editablestar1");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("editablestar2", value);
+				assert.equal(value, "editablestar2");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("editablestar5", value);
+				assert.equal(value, "editablestar5");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("editablestar6", value);
+				assert.equal(value, "editablestar6");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal("defaultstar", value);
+				assert.equal(value, "defaultstar");
 			});
 		},
 		"disabled": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'disabled'");
 			var remote = this.remote;
 			return remote
 			.get(require.toUrl("./StarRatingFormTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, "starrating3", 7, 3, false);
 			});
 		},
 		"form back button": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'form back button'");
 			var remote = this.remote;
 			return remote
 			.get(require.toUrl("./StarRatingFormBackTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return clickOnStar(remote, "starratingA", 7);
 			})
 			.elementById("submitButton")
 			.click()
 			.end()
-			.waitForElementById("parameters", 5000)
+			.waitForElementById("parameters", WAIT_TIMEOUT_MS)
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 			})
 			.back()
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return checkRating(remote, "starratingA", 7, 7, true);
 			})
 			.elementById("submitButton")
 			.click()
 			.end()
-			.waitForElementById("parameters", 5000)
+			.waitForElementById("parameters", WAIT_TIMEOUT_MS)
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 			})
 			.back()
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return checkRating(remote, "starratingA", 7, 7, true);
 			});
 		},
 		"form values": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'form values'");
 			var remote = this.remote;
 			return remote
 			.get(require.toUrl("./StarRatingFormTests.html"))
-			.waitForCondition("ready", 5000)
+			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return clickOnStar(remote, "starrating1", 2);
 			})
 			.elementById("submitButton")
 			.click()
 			.end()
-			.waitForElementById("parameters", 5000)
+			.waitForElementById("parameters", WAIT_TIMEOUT_MS)
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
