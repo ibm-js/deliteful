@@ -34,7 +34,7 @@ define(["dcl/dcl",
 			//		render the category of the item inside this.renderNode.
 			// tags:
 			//		protected
-			this.renderNode.innerHTML = "<span navindex='0'>" + this.item.category + "</span>";
+			this.renderNode.innerHTML = this.item.category;
 		}
 
 	});
