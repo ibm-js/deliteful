@@ -53,7 +53,7 @@ define(["dcl/dcl",
 			//		protected
 			this.containerNode = this;
 			this.setAttribute("role", "row");
-			this.id = "d-list-item-" + this.widgetId;
+			this.id = "d-list-renderer-" + this.widgetId;
 			this.tabIndex = "-1";
 		},
 

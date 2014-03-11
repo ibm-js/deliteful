@@ -23,7 +23,7 @@
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 				render: function () {
-					this.renderNode.innerHTML = "<div class='title' navindex='0'>" + this.item.title + "</div><div class='isbn' navindex='0'>ISBN: " + this.item.isbn + "</div>";
+					this.renderNode.innerHTML = "<div class='title' navindex='0'>" + this.item.title + "</div><div class='spacer'></div><div class='isbn' navindex='0'>ISBN: " + this.item.isbn + "</div>";
 				}
 			});
 			var list = register.createElement("d-list");
@@ -47,11 +47,12 @@
 			font-family: monospace;
 			height: 45px;
 		}
-		.title {
-			float: left;
-		}
-		.isbn {
-			float: right;
+		.spacer {
+			-webkit-box-flex: 1;
+			-moz-box-flex: 1;
+			-webkit-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
 		}
 		
 	</style>

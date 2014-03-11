@@ -251,28 +251,14 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 2");
-				})
-				.end()
-				.keys("\uE014") // Press RIGHT ARROW
-				.active()
-				.text()
-				.then(function (value) {
-					assert.equal(value, "list-prog-1");
-				})
-				.end()
-				.keys("\uE014") // Press RIGHT ARROW
-				.active()
-				.text()
-				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 2");
+					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE012") // Press LEFT ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list-prog-1");
+					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
@@ -414,7 +400,7 @@ define(["intern!object",
 				.end();
 			});
 		},
-		"keyboard search": function () {
+		"keyboard search using default renderers": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
@@ -422,10 +408,10 @@ define(["intern!object",
 				return;
 			}
 			return remote
-			.get(require.toUrl("./list-mark-1.html"))
+			.get(require.toUrl("./list-mark-3.html"))
 			.waitForCondition("'ready' in window &&  ready "
-					+ "&& document.getElementById('list-mark-1') "
-					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
+					+ "&& document.getElementById('list-mark-3') "
+					+ "&& !document.getElementById('list-mark-3').hasAttribute('aria-busy')",
 					WAIT_TIMEOUT_MS,
 					WAIT_POLLING_MS)
 			.then(function () {
@@ -434,30 +420,14 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.equal(value, "A");
 				})
 				.end()
-				.keys("R")
+				.keys("B")
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "right text A");
-				})
-				.end()
-				.wait(10)
-				.keys("r")
-				.active()
-				.text()
-				.then(function (value) {
-					assert.equal(value, "right text B");
-				})
-				.end()
-				.wait(10)
-				.keys("L")
-				.active()
-				.text()
-				.then(function (value) {
-					assert.equal(value, "list item 2");
+					assert.equal(value, "B");
 				})
 				.end()
 				.wait(10)
@@ -465,7 +435,47 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 3");
+					assert.equal(value, "list item 5\nB");
+				})
+				.end()
+				.wait(10)
+				.keys("L")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 6\nB");
+				})
+				.end()
+				.wait(10)
+				.keys("l")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 7\nB");
+				})
+				.end()
+				.wait(10)
+				.keys("B")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "B");
+				})
+				.end()
+				.wait(10)
+				.keys("A")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "A");
+				})
+				.end()
+				.wait(10)
+				.keys("l")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 0\nA");
 				})
 				.end();
 			});
@@ -527,6 +537,73 @@ define(["intern!object",
 				.text()
 				.then(function (value) {
 					assert.equal(value, "6 navindex -2");
+				})
+				.end();
+			});
+		},
+		"custom keyboard navigation in items and renderers": function () {
+			this.timeout = TEST_TIMEOUT_MS;
+			var remote = this.remote;
+			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				return;
+			}
+			return remote
+			.get(require.toUrl("./list-cust-2.html"))
+			.waitForCondition("'ready' in window &&  ready "
+					+ "&& document.getElementById('list-cust-2') "
+					+ "&& !document.getElementById('list-cust-2').hasAttribute('aria-busy')",
+					WAIT_TIMEOUT_MS,
+					WAIT_POLLING_MS)
+			.then(function () {
+				remote
+				.keys("\uE004") // Press TAB
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "FNAC\nWebsite: http://www.fnac.com");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "FNAC");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "Website: http://www.fnac.com");
+				})
+				.end()
+				.keys("\uE014") // Press RIGHT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "FNAC");
+				})
+				.end()
+				.keys("\uE015") // Press DOWN ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487");
+				})
+				.end()
+				.keys("\uE012") // Press LEFT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "ISBN: 0596516487");
+				})
+				.end()
+				.keys("\uE012") // Press LEFT ARROW
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "Dojo: The Definitive Guide");
 				})
 				.end();
 			});
