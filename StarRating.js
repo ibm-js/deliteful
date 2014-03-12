@@ -42,9 +42,6 @@ define([
 		//		- .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
 		//		- .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
 		//		- .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
-		//		Note that if your using a different baseClass than the default one "duiStarRating",
-		//		you should replace 'duiStarRating' in the previous css class names with your
-		//		baseClass value.
 		//
 		//		The widget can be used in read-only or in editable mode. In editable mode, the widget allows
 		//		to set the rating to 0 stars or not using the zeroAreaWidth property. In this mode, it also allows
