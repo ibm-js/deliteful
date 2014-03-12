@@ -161,7 +161,7 @@ define([
 			var def = this.async(1000);
 			try {
 				var queryErrorEvt = null;
-				var store = {query: function () {
+				var store = {filter: function () {
 					var result = new Deferred();
 					result.map = function() {return this;};
 					result.reject("Query Error X");

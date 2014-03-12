@@ -14,7 +14,7 @@ define([
 			}
 			list = new List();
 			list.startup();
-			list.store.query();
+			list.store.filter();
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
