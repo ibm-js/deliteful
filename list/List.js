@@ -867,12 +867,10 @@ define(["dcl/dcl",
 			//		1. next field in current list item (if there is one)
 			//		2. first field in next list item (if there is one)
 			var renderer = this.getEnclosingRenderer(child);
-			var next = (child === renderer) ? renderer._getFirst() : renderer._getNext(child);
-			if (!next) {
-				next = renderer.nextElementSibling || this._getFirst();
-				next = next._getFirst() || next;
-			}
-			return next;
+			return (child === renderer) ? renderer._getFirst() : null
+			|| renderer._getNext(child)
+			|| (renderer.nextElementSibling && renderer.nextElementSibling._getFirst())
+			|| this._getFirst()._getFirst(); // Element
 		},
 
 		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
