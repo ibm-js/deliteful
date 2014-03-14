@@ -13,8 +13,9 @@ define([
 				list.destroy();
 			}
 			list = new List();
+			document.body.appendChild(list);
 			list.startup();
-			list.store.query();
+			list.store.filter();
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
@@ -173,6 +174,19 @@ define([
 			assert.equal("item 1", selectionChangeEvent.oldValue.label);
 			assert.isNull(selectionChangeEvent.newValue);
 		},
+		"move selected item": function () {
+			var firstItem = list.getChildren()[0];
+			var thirdItem = list.getChildren()[2];
+			list.selectionMode = "single";
+			// select first item
+			var event = {target: firstItem, preventDefault: function () {}};
+			list._actionKeydownHandler(event);
+			assert(list.isSelected(firstItem.item), "item selected before move");
+			list.store.put(firstItem.item, {before: thirdItem.item});
+			var secondItem = list.getChildren()[1];
+			assert(list.isSelected(secondItem.item), "item selected after move");
+			assert(secondItem.getAttribute("aria-selected"), "item selected after move (aria-selected attribute)");
+		},
 		"aria properties when selection mode is single": function () {
 			var dfd = this.async(1000);
 			list.selectionMode = "single";
@@ -263,8 +277,7 @@ define([
 			return dfd;
 		},
 		teardown : function () {
-//			list.destroy();
-			list = null;
+			list.destroy();
 		}
 	});
 });

@@ -686,58 +686,74 @@ define(["dcl/dcl",
 			this._setBusy(false);
 		},
 
-		removeItem: function (/*jshint unused:vars*/index, item, /*jshint unused:vars*/items, keepSelection) {
+		itemRemoved: function (index, renderItems, keepSelection) {
 			// summary:
 			//		Function to call when an item is removed from the store, to update
 			//		the content of the list widget accordingly.
-			// index: int
-			//		The widget does not use this parameter.
-			// item: Object
-			//		The item that has been removed from the store.
-			// items: Array
-			//		The widget does not use this parameter.
+			// index: Number
+			//		The index of the render item to remove.
+			// renderItems: Array
+			//		Ignored by this implementation.
 			// keepSelection: Boolean
 			//		Set to true if the item should not be removed from the list of selected items.
 			// tags:
 			//		protected
-			var renderer = this.getRendererByItemId(this.getIdentity(item));
+			var renderer = this.getItemRendererByIndex(index);
 			if (renderer) {
 				this._removeRenderer(renderer, keepSelection);
 			}
 		},
 
-		putItem: function (index, item, /*jshint unused:vars*/items) {
+		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
+			// summary:
+			//		Function to call when an item is added to the store, to update
+			//		the content of the list widget accordingly.
+			// index: Number
+			//		The index where to add the render item.
+			// renderItem: Object
+			//		The render item to be added.
+			// renderItems: Array
+			//		Ignored by this implementation.
+			// tags:
+			//		private
+			var newRenderer = this._createItemRenderer(renderItem);
+			this._addItemRenderer(newRenderer, index);
+		},
+
+		itemUpdated: function (index,  renderItem, /*jshint unused:vars*/renderItems) {
 			// summary:
 			//		Function to call when an item is updated in the store, to update
 			//		the content of the list widget accordingly.
-			// index: int
-			//		The index of the item.
-			// item: Object
-			//		The item that has been updated the store.
-			// items: Array
-			//		The widget does not use this parameter.
+			// index: Number
+			//		The index of the render item to update.
+			// renderItem: Object
+			//		The render item data the render item must be updated with.
+			// renderItems: Array
+			//		Ignored by this implementation.
 			// tags:
 			//		protected
 			var renderer = this.getItemRendererByIndex(index);
 			if (renderer) {
-				renderer.item = item;
+				renderer.item = renderItem;
 			}
 		},
 
-		addItem: function (index, item, /*jshint unused:vars*/items) {
+		itemMoved: function (previousIndex, newIndex, renderItem, renderItems) {
 			// summary:
-			//		Function to call when an item is added to the store, to update
+			//		Function to call when an item is moved in the store, to update
 			//		the content of the list widget accordingly.
-			// index:
-			//		The index at which the item has been added to the store.
-			// item: Object
-			//		The item that has been added to the store.
-			// items: Array
-			//		The widget does not use this parameter.
+			// previousIndex: Number
+			//		The previous index of the render item.
+			// newIndex: Number
+			//		The new index of the render item.
+			// renderItem: Object
+			//		The render item to be moved.
+			// renderItems: Array
+			//		Ignored by this implementation.
 			// tags:
-			//		private
-			var newRenderer = this._createItemRenderer(item);
-			this._addItemRenderer(newRenderer, index);
+			//		protected
+			this.itemRemoved(previousIndex, renderItems, true);
+			this.itemAdded(newIndex - (previousIndex < newIndex ? 1 : 0), renderItem, renderItems);
 		},
 
 		//////////// delite/Scrollable extension ///////////////////////////////////////
