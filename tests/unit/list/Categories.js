@@ -27,7 +27,7 @@ define([
 			list = new List();
 			document.body.appendChild(list);
 			list.startup();
-			list.store.query();
+			list.store.filter();
 			list.categoryAttr = "category";
 			list.store.add({category: "A", label: "item 1"});
 			list.store.add({category: "A", label: "item 2"});

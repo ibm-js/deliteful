@@ -11,10 +11,12 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-			"dojo/store/Memory",
-			"dojo/store/Observable"
-		], function (MemoryStore, Observable) {
-  			globalStore = new Observable(MemoryStore({data: []}));
+		    "dojo/_base/declare",
+			"dstore/Memory",
+			"dstore/Observable"
+		], function (declare, MemoryStore, Observable) {
+			var M = declare([MemoryStore, Observable], {});
+  			globalStore = new M({data: []});
   			require([
   				    "delite/register",
   					"deliteful/list/List",

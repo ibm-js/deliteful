@@ -19,14 +19,14 @@ define([
 			this.cleanupMock();
 			this.startup();
 		},
-		putItem: function (index, item, items) {
+		itemUpdated: function (index, item, items) {
 			this.put.push({index: index, item: item, items: items});
 		},
-		addItem: function (index, item, items) {
+		itemAdded: function (index, item, items) {
 			this.added.push({index: index, item: item, items: items});
 		},
-		removeItem: function (index, item, items, keepSelection) {
-			this.removed.push({index: index, item: item, items: items, keepSelection: keepSelection});
+		itemRemoved: function (index, items, keepSelection) {
+			this.removed.push({index: index, items: items, keepSelection: keepSelection});
 		}
 	});
 
@@ -73,7 +73,7 @@ define([
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 1, [0], [item], "query result");
 		},
 		"addItem with identity" : function () {
@@ -93,7 +93,7 @@ define([
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 1, [0], [item], "query result");
 		},
 		"addItem with identity in options" : function () {
@@ -113,7 +113,7 @@ define([
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 1, [0], [item], "query result");
 		},
 		"addItem at the end" : function () {
@@ -150,7 +150,7 @@ define([
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 3, [0, 1, 2], [item1, item2, item3], "query result");
 		},
 		"addItem before another one" : function () {
@@ -187,7 +187,7 @@ define([
 						"added");
 			checkArray(list.put, 0, null, null, "put");
 			checkArray(list.removed, 0, null, null, "removed");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 3, [0, 1, 2], [item1, item2, item3], "query result");
 		},
 		"add existing item id" : function () {
@@ -243,7 +243,7 @@ define([
 			var id1 = list.store.add(item1);
 			list.store.add(item2);
 			list.store.add(item3, {id: "third"});
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 3, [0, 1, 2], [item1, item2, item3], "query result");
 			list.cleanupMock();
 			list.store.remove(id1);
@@ -255,34 +255,16 @@ define([
 						3,
 						[0, 1, 2],
 						[{index: 0,
-						  item: {id: id1,
-							  category: undefined,
-							  label: "first",
-							  iconclass: undefined,
-							  righttext: undefined,
-							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false},
 						 {index: 0,
-						  item: {id: "second",
-							  category: undefined,
-							  label: "second",
-							  iconclass: undefined,
-							  righttext: undefined,
-							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false},
 						 {index: 0,
-						  item: {id: "third",
-							  category: undefined,
-							  label: "third",
-							  iconclass: undefined,
-							  righttext: undefined,
-							  righticonclass: undefined},
 						  items: null,
 						  keepSelection: false}],
 						"removed");
-			result = list.store.query();
+			result = list.store.filter();
 			checkArray(result, 0, null, null, "query result");
 		},
 		"remove unexisting item": function () {
@@ -292,7 +274,7 @@ define([
 			var item1 = {label: "first"};
 			var item2 = {label: "second"};
 			var id1 = list.store.add(item1);
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 1, [0], [item1], "query result");
 			list.cleanupMock();
 			list.store.put(item2, {id: id1});
@@ -309,7 +291,7 @@ define([
 					"put");
 			checkArray(list.added, 0, null, null, "added");
 			checkArray(list.removed, 0, null, null, "removed");
-			result = list.store.query();
+			result = list.store.filter();
 			checkArray(result, 1, [0], [item2], "query result");
 		},
 		"query" : function () {
@@ -319,7 +301,7 @@ define([
 			list.store.add(item1);
 			list.store.add(item2);
 			list.store.add(item3);
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result,
 					3,
 					[0, 1, 2],
@@ -340,13 +322,6 @@ define([
 						1,
 						[0],
 						[{index: 2,
-						  item: {id: 3,
-							category: undefined,
-							label: "third",
-							iconclass: undefined,
-							righticonclass: undefined,
-							righttext: undefined
-							  },
 						  items: null,
 						  keepSelection: true}],
 						"removed");
@@ -361,7 +336,7 @@ define([
 							righttext: undefined
 							}, items: null}],
 						"added");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 3, [0, 1, 2], [item1, item3, item2], "query result after move");
 		},
 		"move and update with put" : function () {
@@ -379,13 +354,6 @@ define([
 						1,
 						[0],
 						[{index: 2,
-						  item: {id: 3,
-							category: undefined,
-							label: "third",
-							iconclass: undefined,
-							righticonclass: undefined,
-							righttext: undefined
-						  },
 						  items: null,
 						  keepSelection: true}],
 						"removed");
@@ -400,7 +368,7 @@ define([
 							righttext: undefined
 							}, items: null}],
 						"added");
-			var result = list.store.query();
+			var result = list.store.filter();
 			checkArray(result, 3, [0, 1, 2], [item1, item3updated, item2], "query result after move");
 		},
 		"use attribute mapping": function () {
@@ -453,23 +421,23 @@ define([
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
-			var result = list.store.query({}, {start: 50});
+			var result = list.store.filter().range(50);
 			assert.equal(100, result.total, "total of first query result");
 			assert.equal(50, result.length, "length of first query result");
 			assert.equal("item 50", result[0].label, "length of first query result");
-			result = list.store.query({}, {start: 48, count: 10});
+			result = list.store.filter().range(48, 58);
 			assert.equal(100, result.total, "total of second query result");
 			assert.equal(10, result.length, "length of second query result");
 			assert.equal("item 48", result[0].label, "length of second query result");
-			result = list.store.query({}, {count: 8});
+			result = list.store.filter().range(0, 8);
 			assert.equal(100, result.total, "total of third query result");
 			assert.equal(8, result.length, "length of third query result");
 			assert.equal("item 0", result[0].label, "length of third query result");
-			result = list.store.query({}, {count: 110});
+			result = list.store.filter().range(0, 110);
 			assert.equal(100, result.total, "total of fourth query result");
 			assert.equal(100, result.length, "length of fourth query result");
 			assert.equal("item 0", result[0].label, "length of fourth query result");
-			result = list.store.query({}, {start: 110});
+			result = list.store.filter().range(110);
 			assert.equal(100, result.total, "total of fifth query result");
 			assert.equal(0, result.length, "length of fifth query result");
 		},
@@ -478,14 +446,14 @@ define([
 					put: [],
 					added: [],
 					removed: [],
-					putItem: function (index, item, items) {
-						this.put.push({index: index, item: item, items: items});
+					itemUpdated: function (event, keepSelection) {
+						this.put.push({event: event, keepSelection: keepSelection});
 					},
-					addItem: function (index, item, items) {
-						this.added.push({index: index, item: item, items: items});
+					itemAdded: function (event) {
+						this.added.push({event: event});
 					},
-					removeItem: function (index, item, items, keepSelection) {
-						this.removed.push({index: index, item: item, items: items, keepSelection: keepSelection});
+					itemRemoved: function (event, keepSelection) {
+						this.removed.push({event: event, keepSelection: keepSelection});
 					}
 				};
 			var store = new DefaultStore(mock);
