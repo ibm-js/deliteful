@@ -753,7 +753,7 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			this.itemRemoved(previousIndex, renderItems, true);
-			this.itemAdded(newIndex, renderItem, renderItems);
+			this.itemAdded(newIndex - (previousIndex < newIndex ? 1 : 0), renderItem, renderItems);
 		},
 
 		//////////// delite/Scrollable extension ///////////////////////////////////////
