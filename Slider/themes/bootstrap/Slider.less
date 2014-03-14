@@ -1,34 +1,49 @@
-@import "../../../../delite/themes/bootstrap/variables.less";
+@import "../../../../delite/themes/bootstrap/variables";
+@import "../../../../delite/themes/common/css3";
 
 @d-slider-size: auto;
 @d-slider-halo-size: 12pt;
 @d-slider-bar-border-width: 1px; // for a11y
 @d-slider-bar-border-style: inset;
-@d-slider-bar-border-color: @lightColor13 @lightColor13 @lightColor12;
+@d-slider-bar-border-color: @btn-default-border; //@lightColor13 @lightColor13 @lightColor12;
 @d-slider-bar-size: 200px;
 @d-slider-bar-thickness: 8px;
-@d-slider-bar-border-radius: 0;
+@d-slider-bar-border-radius: @border-radius-base;
 @d-slider-knob-size: 20px; // include border for a11y
 @d-slider-knob-thickness: 20px; // include border for a11y
 @d-slider-knob-border-width: 1px; // for a11y
 @d-slider-knob-border-style: outset;
-@d-slider-knob-border-color: @lightColor12 @lightColor12 @darkColor06;
-@d-slider-knob-border-radius: 0;
-.d-slider-knob-background-image () { .default-button-background-image(); }
+@d-slider-knob-border-color: @progress-bar-color; //@lightColor12 @lightColor12 @darkColor06;
+@d-slider-knob-border-radius: @border-radius-large;
 
 //
 .d-slider-styles () {
 }
+
+.d-slider:disabled {
+  background-color: @progress-bar-bg;
+  border-color: @btn-default-border;
+  cursor: not-allowed;
+  opacity: .65;
+  .box-shadow(none);
+  pointer-events: none;
+}
+
 .d-slider-bar-styles () {
 }
 .d-slider-remaining-bar-styles () {
-  .d-button-background-image();
+  background-image: none;
 }
 .d-slider-progress-bar-styles () {
-  .default-button-selected-background-image();
+  background-color: @progress-bar-bg;
 }
 .d-slider-handle-styles () {
-  .d-slider-knob-background-image();
+  background-color: @progress-bg;
+}
+
+.d-slider-handle:hover {
+  background-color: darken(@progress-bar-color, 8%);
+  border-color: darken(@btn-default-border, 12%);
 }
 
 @import "../Slider_template";
