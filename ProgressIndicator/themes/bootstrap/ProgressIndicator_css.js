@@ -25,9 +25,9 @@ define(function(){ return '\
 .d-progress-indicator-lines {\
   stroke-width: 9%;\
   stroke-linecap: round;\
-  stroke: #000000;\
+  stroke: #333333;\
 }\
 .d-progress-indicator text {\
-  fill: #000000;\
+  fill: #333333;\
 }\
 '; } );
