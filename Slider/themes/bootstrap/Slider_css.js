@@ -1,4 +1,18 @@
 define(function(){ return '\
+.d-slider:disabled {\
+  background-color: #428bca;\
+  border-color: #cccccc;\
+  cursor: not-allowed;\
+  opacity: .65;\
+  -webkit-box-shadow: none;\
+  -moz-box-shadow: none;\
+  box-shadow: none;\
+  pointer-events: none;\
+}\
+.d-slider-handle:hover {\
+  background-color: #ebebeb;\
+  border-color: #adadad;\
+}\
 .d-slider {\
   display: inline-block;\
   vertical-align: middle;\
@@ -65,14 +79,13 @@ define(function(){ return '\
   box-sizing: border-box;\
   border-width: 1px;\
   border-style: outset;\
-  border-color: #9b9b9b #9b9b9b #767676;\
-  border-radius: 0;\
+  border-color: #ffffff;\
+  border-radius: 6px;\
   padding: 0;\
   margin: 0;\
   background: gray;\
   background-clip: content-box;\
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#e2e2e2), to(#a4a4a4));\
-  background-image: linear-gradient(to bottom, #e2e2e2 0%, #a4a4a4 100%);\
+  background-color: #f5f5f5;\
 }\
 .d-slider-h-htl .d-slider-handle-max,\
 .d-slider-h-lth .d-slider-handle-min {\
@@ -93,8 +106,8 @@ define(function(){ return '\
 .d-slider-bar {\
   border-width: 1px;\
   border-style: inset;\
-  border-color: #c0c0c0 #c0c0c0 #9b9b9b;\
-  border-radius: 0;\
+  border-color: #cccccc;\
+  border-radius: 4px;\
   padding: 0;\
   margin: 0;\
   background: none;\
@@ -109,8 +122,7 @@ define(function(){ return '\
   width: 100%;\
   margin: auto;\
   vertical-align: middle;\
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2e2e2));\
-  background-image: linear-gradient(to bottom, #ffffff 0%, #e2e2e2 100%);\
+  background-image: none;\
 }\
 .d-slider-remaining-bar > * {\
   position: absolute !important;\
@@ -120,8 +132,7 @@ define(function(){ return '\
   -moz-box-sizing: content-box;\
   box-sizing: content-box;\
   border-width: 0;\
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#999999));\
-  background-image: linear-gradient(to bottom, #bbbbbb 0%, #999999 100%);\
+  background-color: #428bca;\
 }\
 .d-slider-transition {\
   -moz-transition-duration: 400ms;\
