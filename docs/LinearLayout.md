@@ -108,7 +108,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl`on
 
 ### Security
 
-This widget as no specific security concern. Refers to `delite/Widget` documentation for general security advices on this base class that `deliteful/LinearLayout` is using.
+This widget has no specific security concern. Refer to `delite/Widget` documentation for general security advice on this base class that `deliteful/LinearLayout` is using.
 
 ### Browser Support
 
