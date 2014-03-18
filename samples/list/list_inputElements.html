@@ -40,17 +40,10 @@
 						elementNode[key] = attributes[key];
 					}
 					return elementNode;
-				},
-				focus: function() {
-					// summary:
-					//		Redefine the focus method so that it focus the first child of the renderer instead
-					// 		of the renderer node itself
-					this.tabIndex = "-1"; // reset the tabindex to -1 before focusing the first child
-					this._getFirst().focus();
 				}
 			});
 			var list = register.createElement("d-list");
-			list.setAttribute("aria-label", "Sample list list with custom keyboard navigation");
+			list.setAttribute("aria-label", "Sample list of input elements");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
@@ -61,6 +54,7 @@
 			list.store.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
 			document.body.appendChild(list);
 			list.startup();
+			list.setAttribute("aria-readonly", "false");
 		});
 	</script>
 	<style type="text/css">
@@ -81,7 +75,7 @@
 			line-height: 43px;
 		}
 		
-		.d-list-item-node {
+		.d-list [role="gridcell"] {
 			display: block;
 		}
 
@@ -95,8 +89,8 @@
 		
 	</style>
 </head>
-<body>
-	This sample demonstrate how to write a custom item renderer with custom keyboard navigation.
+<body role="application">
+	This sample demonstrate a custom item renderer that displays various input elements.
 	<p>
 </body>
 </html>

@@ -22,6 +22,7 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
+				counter: 1,
 				render: function () {
 					this.appendField("First name", this.item.firstName);
 					this.appendField("Last name", this.item.lastName);
@@ -35,14 +36,15 @@
 					this.renderNode.appendChild(button);
 				},
 				appendField: function(name, value) {
-					var label = this.ownerDocument.createElement("span");
+					var label = this.ownerDocument.createElement("label");
 					label.className = "label";
 					label.innerHTML = name + ":";
-					label.setAttribute("navindex","0");
 					this.renderNode.appendChild(label);
 					var input = this.ownerDocument.createElement("input");
 					input.value = value;
 					input.setAttribute("navindex","0");
+					input.id = this.widgetId + "-" + this.counter++;
+					label.setAttribute("for", input.id);
 					this.renderNode.appendChild(input);
 				}
 			});
@@ -57,6 +59,7 @@
 			list.store.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
 			document.body.appendChild(list);
 			list.startup();
+			list.setAttribute("aria-readonly", "false");
 		});
 	</script>
 	<style type="text/css">
@@ -81,7 +84,7 @@
 		}
 	</style>
 </head>
-<body>
+<body role="application">
 	This sample demonstrate a list which items are data forms.
 	<p>
 </body>

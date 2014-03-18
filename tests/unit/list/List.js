@@ -105,19 +105,19 @@ define([
 		"_getFirst": function () {
 			var dfd = this.async(1000);
 			var children = list.getChildren();
-			assert.equal(list._getFirst(), children[0]);
+			assert.equal(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
 			setTimeout(function () {
 				children = list.getChildren();
 				assert.equal(children[0].className, "d-list-category", "first is category");
-				assert.equal(list._getFirst(), children[0], "first renderer is category");
+				assert.equal(list._getFirst(), children[0].renderNode, "first renderer is category");
 				dfd.resolve();
 			}, 0);
 			return dfd;
 		},
 		"_getLast": function () {
 			var children = list.getChildren();
-			assert.equal(list._getLast(), children[2]);
+			assert.equal(list._getLast(), children[2].renderNode);
 		},
 		"update item label": function () {
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
@@ -130,7 +130,7 @@ define([
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			var children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.getAttribute("role"), "gridcell");
 			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-icon");
 			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
 			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
@@ -138,7 +138,7 @@ define([
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.getAttribute("role"), "gridcell");
 			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-icon my-other-icon");
 			assert.equal(children[0].firstChild.childNodes[1].className, "d-list-item-label");
 			assert.equal(children[0].firstChild.childNodes[1].innerHTML, "item a");
@@ -146,7 +146,7 @@ define([
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			children = list.getChildren();
 			assert.equal(children[0].item.label, "item a");
-			assert.equal(children[0].firstChild.className, "d-list-item-node");
+			assert.equal(children[0].firstChild.getAttribute("role"), "gridcell");
 			assert.equal(children[0].firstChild.firstChild.className, "d-list-item-label");
 			assert.equal(children[0].firstChild.firstChild.innerHTML, "item a");
 		},
@@ -184,7 +184,7 @@ define([
 			}
 			return def;
 		},
-		"focus apply to the first visible child": function () {
+		"first focus apply to the first visible child": function () {
 			var def = this.async(1000);
 			try {
 				list.style.height = "200px";
@@ -193,31 +193,31 @@ define([
 					list.store.add({label: "item " + (i + 4)});
 				}
 				list.focus();
-				setTimeout(function () {
+				setTimeout(def.rejectOnError(function () {
 					try {
 						var focusedElement = document.activeElement;
 						assert.isNotNull(focusedElement, "active element");
 						assert.isDefined(focusedElement, "active element");
-						assert.equal("item 1", focusedElement.item.label, "focused element label");
+						assert.equal("item 1", focusedElement.parentNode.item.label, "focused element label");
 						list.scrollTop = itemHeightInPixel * 2.5;
-						setTimeout(function () {
+						setTimeout(def.rejectOnError(function () {
 							list.focus();
-							setTimeout(function () {
+							setTimeout(def.callback(function () {
 								try {
 									var focusedElement = document.activeElement;
 									assert.isNotNull(focusedElement, "active element");
 									assert.isDefined(focusedElement, "active element");
-									assert.equal("item 4", focusedElement.item.label, "focused element label");
+									assert.equal("item 4", focusedElement.parentNode.item.label, "focused element label");
 									def.resolve();
 								} catch (error) {
 									def.reject(error);
 								}
-							}, 0);
-						}, 500);
+							}), 0);
+						}), 500);
 					} catch (error) {
 						def.reject(error);
 					}
-				}, 0);
+				}), 0);
 			} catch (error) {
 				def.reject(error);
 			}

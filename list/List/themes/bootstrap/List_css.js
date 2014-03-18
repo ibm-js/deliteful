@@ -1,4 +1,5 @@
 define(function(){ return '\
+/********************************/\
 /* iOS theme for all Lists      */\
 /*                              */\
 /* IMPORTANT: a renderer MUST   */\
@@ -14,7 +15,6 @@ d-list-store {\
   display: block;\
   position: relative;\
   margin: 0;\
-  padding: 0 10px;\
   overflow: hidden;\
   font-family: Helvetica;\
   font-size: 16px;\
@@ -30,10 +30,11 @@ d-list-store {\
   line-height: 22px;\
   text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
 }\
+.d-list-category [role="gridcell"] {\
+  padding: 0 10px;\
+}\
 .d-list-item {\
   overflow: hidden;\
-  /* padding for focus frame */\
-  padding: 0 8px;\
   list-style-type: none;\
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\
   border-bottom: 1px solid #adaaad;\
@@ -48,7 +49,10 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list-item-node {\
+.d-list-item [role="gridcell"] {\
+  padding: 0 8px;\
+}\
+.d-list [role="gridcell"] {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -64,7 +68,7 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list-item-node > .d-spacer {\
+.d-list [role="gridcell"] > .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -125,7 +129,6 @@ d-list-store {\
 [aria-selectable="true"] .d-list-item::before,\
 [aria-multiselectable="true"] .d-list-item::before {\
   display: block;\
-  margin-right: 8px;\
   content: "\\2610";\
 }\
 [aria-selectable="true"] .d-list-item[aria-selected="true"]::before,\
@@ -135,7 +138,6 @@ d-list-store {\
 [aria-selectable="true"] .d-list-item::after,\
 [aria-multiselectable="true"] .d-list-item::after {\
   display: none;\
-  margin-left: 8px;\
   content: "\\2610";\
 }\
 [aria-selectable="true"] .d-list-item[aria-selected="true"]::after,\

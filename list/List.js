@@ -97,6 +97,10 @@ define(["dcl/dcl",
 		//		- "d-round-rect-list": render a list with rounded corners and left and right margins.
 		baseClass: "d-list",
 
+		// By default, letter search is one character only, so that it does not interfere with pressing
+		// the SPACE key to (de)select an item.
+		multiCharSearchDuration: 0,
+
 		/*=====
 		// scrollDirection: String
 		//		"vertical" for a scrollable List, "none" for a non scrollable List.
@@ -126,6 +130,9 @@ define(["dcl/dcl",
 		/*======
 		// Handle for the selection click event handler 
 		_selectionClickHandle: null,
+		
+		// Previous focus child before the list loose focus
+		_previousFocusedChild: null,
 		=====*/
 		
 		//////////// Widget life cycle ///////////////////////////////////////
@@ -163,6 +170,10 @@ define(["dcl/dcl",
 			// tags:
 			//		protected
 			this.store = new DefaultStore(this);
+			this._keyNavCodes[keys.PAGE_UP] = this._keyNavCodes[keys.HOME];
+			this._keyNavCodes[keys.PAGE_DOWN] = this._keyNavCodes[keys.END];
+			delete this._keyNavCodes[keys.HOME];
+			delete this._keyNavCodes[keys.END];
 		},
 
 		startup: dcl.superCall(function (sup) {
@@ -329,7 +340,7 @@ define(["dcl/dcl",
 		getEnclosingRenderer: function (/*Element*/node) {
 			// summary:
 			//		Returns the renderer enclosing a dom node.
-			// node: DOMNode
+			// node: Element
 			//		The dom node.
 			var currentNode = node;
 			while (currentNode) {
@@ -433,6 +444,7 @@ define(["dcl/dcl",
 				}
 			});
 			this.innerHTML = "";
+			this._previousFocusedChild = null;
 		},
 
 		//////////// Renderers life cycle ///////////////////////////////////////
@@ -455,7 +467,7 @@ define(["dcl/dcl",
 							this.containerNode.firstElementChild);
 				} else {
 					this.containerNode.appendChild(this._createRenderers(items, 0, items.length,
-							this._getLast().item));
+							this._getLastRenderer().item));
 				}
 			}
 			// start renderers
@@ -545,7 +557,7 @@ define(["dcl/dcl",
 			if (this._isCategorized()) {
 				var previousRenderer = result.nodeRef
 										? this._getNextRenderer(result.nodeRef, -1)
-										: this._getLast();
+										: this._getLastRenderer();
 				if (!previousRenderer) {
 					result.addCategoryBefore = true;
 				} else {
@@ -606,6 +618,9 @@ define(["dcl/dcl",
 						null);
 			}
 			// remove and destroy the renderer
+			if (this._previousFocusedChild && this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {
+				this._previousFocusedChild = null;
+			}
 			this.removeChild(renderer);
 			renderer.destroy();
 		},
@@ -672,6 +687,14 @@ define(["dcl/dcl",
 			} else {
 				return renderer.previousElementSibling; // deliteful/list/Renderer
 			}
+		},
+
+		_getLastRenderer: function () {
+			// summary:
+			//		Returns the last renderer in the list.
+			var renderers = this.containerNode
+								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
+			return renderers.length ? renderers.item(renderers.length - 1) : null; // deliteful/list/Renderer
 		},
 
 		////////////delite/Store implementation ///////////////////////////////////////
@@ -781,11 +804,13 @@ define(["dcl/dcl",
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
+		// Keyboard navigation is based on WIA ARIA Pattern for Grid:
+		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		childSelector: function (child) {
 			// tags:
 			//		private
-			return (child === this.getEnclosingRenderer(child) || child.hasAttribute("navindex"));
+			return (child.getAttribute("role") === "gridcell" || child.hasAttribute("navindex"));
 		},
 
 		_onContainerKeydown: dcl.before(function (evt) {
@@ -794,104 +819,112 @@ define(["dcl/dcl",
 			// tags:
 			//		private
 			if (!evt.defaultPrevented) {
-				if ((evt.keyCode === keys.SPACE && !this._searchTimer) || evt.keyCode === keys.ENTER) {
-					this._actionKeydownHandler(evt);
+				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
+					this._spaceKeydownHandler(evt);
+				} else if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+					if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
+						// Enter Actionable Mode
+						evt.preventDefault(); // TODO: ONLY IF autoAction is false on the renderer ? See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+						var focusedRenderer = this._getFocusedRenderer();
+						if (focusedRenderer) {
+							var next = focusedRenderer._getFirst();
+							if (next) {
+								this.focusChild(next);
+							}
+						}
+					}
+				} else if (evt.keyCode === keys.TAB) {
+					if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
+						// We are in Actionable mode
+						evt.preventDefault();
+						var renderer = this._getFocusedRenderer();
+						next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+						while (!next) {
+							renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
+								|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+							next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+						}
+						this.focusChild(next);
+						// TO BE CONTINUED...
+					}
+				} else if (evt.keyCode === keys.ESCAPE) {
+					// Leave Actionable mode
+					this.focusChild(this._getFocusedRenderer().renderNode);
 				}
 			}
 		}),
 
 		focus: function () {
 			// summary:
-			//		Focus the first visible child
-			var renderer = this._getFirst();
-			if (renderer) {
-				while (renderer) {
-					if (this.getTopDistance(renderer) >= 0) {
-						break;
+			//		Focus the previously focused child of the first visible grid cell
+			if (this._previousFocusedChild) {
+				this.focusChild(this._previousFocusedChild);
+			} else {
+				var cell = this._getFirst();
+				if (cell) {
+					while (cell) {
+						if (this.getTopDistance(cell) >= 0) {
+							break;
+						}
+						var nextRenderer = cell.parentNode.nextElementSibling;
+						cell = nextRenderer ? nextRenderer.renderNode : null;
 					}
-					renderer = renderer.nextElementSibling;
+					this.focusChild(cell);
 				}
-				this.focusChild(renderer);
 			}
 		},
 
-		_onChildFocus: dcl.superCall(function (sup) {
-			// summary:
-			//		Set the aria-activedescendant attribute on the list when a new child gain focus
-			return function () {
-				sup.apply(this, arguments);
-				if (this.focusedChild && this.focusedChild.id) {
-					this.setAttribute("aria-activedescendant", this.focusedChild.id);
-				}
-			};
-		}),
-
 		_onBlur: dcl.superCall(function (sup) {
 			// summary:
-			//		Remove the aria-activedescendant attribute on the list when it looses focus
+			//		Store a reference to the focused child
 			return function () {
+				this._previousFocusedChild = this.focusedChild;
 				sup.apply(this, arguments);
-				this.removeAttribute("aria-activedescendant");
 			};
 		}),
 
-		// Home/End key support
+		// Page Up/Page down key support
 		_getFirst: function () {
 			// summary:
-			//		Returns the first renderer in the list.
-			return this.containerNode
-						.querySelector("."
-								+ this._cssClasses.item
-								+ ", ."
-								+ this._cssClasses.category); // deliteful/list/Renderer
+			//		Returns the first cell in the list.
+			return this.containerNode.querySelector("[role='gridcell']"); // Element
 		},
 
 		_getLast: function () {
 			// summary:
-			//		Returns the last renderer in the list.
-			var renderers = this.containerNode
-								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
-			return renderers.length ? renderers.item(renderers.length - 1) : null; // deliteful/list/Renderer
+			//		Returns the last cell in the list.
+			var cells = this.containerNode.querySelectorAll("[role='gridcell']");
+			return cells.length ? cells.item(cells.length - 1) : null; // Element
 		},
 
 		// Simple arrow key support.
-		_onLeftArrow: function () {
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer._getPrev(this.focusedChild) || renderer._getLast());
-		},
-
-		_onRightArrow: function () {
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer._getNext(this.focusedChild) || renderer._getFirst());
-		},
-
 		_onDownArrow: function () {
+			if (this.focusedChild.hasAttribute("navindex")) {
+				return;
+			}
 			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling :
-				this.firstElementChild);
+			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
+				this.firstElementChild.renderNode);
 		},
 
 		_onUpArrow: function () {
+			if (this.focusedChild.hasAttribute("navindex")) {
+				return;
+			}
 			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling :
-				this.lastElementChild);
+			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
+				this.lastElementChild.renderNode);
 		},
 
-		// Letter key navigation support, loops through all focusable childs of all list-items.
 		_getNext: function (/*Element*/child) {
-			// Return either:
-			//		1. next field in current list item (if there is one)
-			//		2. first field in next list item (if there is one)
+			// Letter key navigation support.
 			var renderer = this.getEnclosingRenderer(child);
-			return (child === renderer) ? renderer._getFirst() : null
-			|| renderer._getNext(child)
-			|| (renderer.nextElementSibling && renderer.nextElementSibling._getFirst())
-			|| this._getFirst()._getFirst(); // Element
+			return renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst(); // Element
 		},
 
 		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
 
-		_actionKeydownHandler: function (evt) {
+		_spaceKeydownHandler: function (evt) {
 			// summary:
 			//		Handle SPACE and ENTER keys
 			// tags:
