@@ -845,7 +845,6 @@ define(["dcl/dcl",
 							next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
 						}
 						this.focusChild(next);
-						// TO BE CONTINUED...
 					}
 				} else if (evt.keyCode === keys.ESCAPE) {
 					// Leave Actionable mode
