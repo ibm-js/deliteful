@@ -39,19 +39,6 @@ define(["dcl/dcl",
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: dcl.superCall(function (sup) {
-			// summary:
-			//		Create the widget render node (this.renderNode), into which an item will be rendered.
-			// tags:
-			//		protected
-			return function () {
-				sup.apply(this, arguments);
-				this.renderNode = this.ownerDocument.createElement("div");
-				this.renderNode.className = "d-list-item-node";
-				this.appendChild(this.renderNode);
-			};
-		}),
-
 		render: function () {
 			// summary:
 			//		render the item inside this.renderNode.
@@ -63,17 +50,17 @@ define(["dcl/dcl",
 				this.renderNode.removeChild(this.renderNode.children[0]);
 			}
 			this._renderNode("icon", "iconNode", this.item.iconclass, "d-list-item-icon");
-			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label", "0");
+			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label");
 			this._spacerNode = this.ownerDocument.createElement("DIV");
 			this._spacerNode.className = "d-spacer";
 			this.renderNode.appendChild(this._spacerNode);
-			this._renderNode("text", "righttextNode", this.item.righttext, "d-list-item-right-text", "1");
+			this._renderNode("text", "righttextNode", this.item.righttext, "d-list-item-right-text");
 			this._renderNode("icon", "righticonNode", this.item.righticonclass, "d-list-item-right-icon");
 		},
 
 		//////////// PRIVATE METHODS ///////////////////////////////////////
 
-		_renderNode: function (nodeType, nodeName, data, nodeClass, navindex) {
+		_renderNode: function (nodeType, nodeName, data, nodeClass) {
 			// summary:
 			//		render a node.
 			// nodeType: String
@@ -86,16 +73,11 @@ define(["dcl/dcl",
 			//		For a nodeType of "icon", data is the extra class to apply to the node
 			// nodeClass: String
 			//		base CSS class for the node.
-			// navindex: String
-			//		keyboard navigation index for the node.
 			// tag:
 			//		private
 			if (data != null) {
 				this[nodeName] = this.ownerDocument.createElement("DIV");
 				this[nodeName].className = nodeClass;
-				if (navindex) {
-					this[nodeName].setAttribute("navindex", navindex);
-				}
 				this.renderNode.appendChild(this[nodeName]);
 				if (nodeType === "text") {
 					this[nodeName].innerHTML = data;

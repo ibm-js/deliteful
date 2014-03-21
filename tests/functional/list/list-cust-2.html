@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>List</title>
+	
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/list/List"
+		], function (register, ItemRenderer) {
+			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.title + "</div><div class='d-spacer'></div><div navindex='0'>ISBN: " + this.item.isbn + "</div>";
+				}
+			});
+			var BookStoreRenderer = register("d-book-store", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.category + "</div><div class='d-spacer'></div><a navindex='0' href='" + this.item.bookstoreUrl + "'>" + this.item.bookstoreUrl + "</a>";
+				}
+			});
+			var list = register.createElement("d-list");
+			list.id = "list-cust-2";
+			list.itemRenderer = BookRenderer;
+			list.categoryRenderer = BookStoreRenderer;
+			list.categoryAttr = "bookstore";
+			list.bookstoreUrlFunc = function (item) {
+				if (item.bookstore === "Amazon") {
+					return "http://www.amazon.com";
+				} else if (item.bookstore === "FNAC") {
+					return "http://www.fnac.fr";
+				} 
+			}
+			list.copyAllItemProps = true;
+			list.store.add({title: "Dojo: The Definitive Guide", isbn: "0596516487", bookstore: "Amazon"});
+			list.store.add({title: "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications", isbn: "0132358042", bookstore: "Amazon"});
+			list.store.add({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664", bookstore: "Amazon"});
+			list.store.add({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128", bookstore: "FNAC"});
+			list.store.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115", bookstore: "FNAC"});
+			document.body.appendChild(list);
+			list.startup();
+			ready = true;
+		});
+	</script>
+	
+	<style>
+		.d-list-item {
+			background-color: black;
+			color: white;
+			font-family: monospace;
+			height: 45px;
+		}
+		
+		d-book-store.d-list-item {
+			background-color: white;
+			color: black;
+		}
+	</style>
+</head>
+<body role="application">
+	<input autofocus>
+</body>
+</html>

@@ -34,7 +34,7 @@ define([
 				assert.equal(firstItem.className, "d-list-item");
 				// Selection event on first item (select)
 				event = {target: firstItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.isNotNull(selectionChangeEvent);
 				assert.equal(selectionChangeEvent.oldValue.length, 0, "event1 old selection length");
 				assert.equal(selectionChangeEvent.newValue.length, 1, "event1 new selection length");
@@ -46,7 +46,7 @@ define([
 				assert.equal(secondItem.getAttribute("aria-selected"), "false");
 				// Selection event on second item (select)
 				event = {target: secondItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.isNotNull(selectionChangeEvent);
 				assert.equal(selectionChangeEvent.oldValue.length, 1, "event2 old selection length");
 				assert.equal(selectionChangeEvent.oldValue[0].label, "item 1", "event2 old selection label");
@@ -60,7 +60,7 @@ define([
 				assert.equal(secondItem.getAttribute("aria-selected"), "true");
 				// Selection event on first item (deselect)
 				event = {target: firstItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.isNotNull(selectionChangeEvent);
 				assert.equal(selectionChangeEvent.oldValue.length, 2, "event3 old selection length");
 				assert.equal(selectionChangeEvent.oldValue[0].label, "item 2", "event3 old selection label 1");
@@ -88,7 +88,7 @@ define([
 			assert.equal(firstItem.className, "d-list-item");
 			// Selection event on first item (select)
 			event = {target: firstItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			assert.isNotNull(selectionChangeEvent);
 			assert.equal(selectionChangeEvent.oldValue, null, "event1 old selection");
 			assert.equal(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
@@ -99,7 +99,7 @@ define([
 			assert.isFalse(secondItem.hasAttribute("aria-selected"));
 			// Selection event on second item (select)
 			event = {target: secondItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			assert.isNotNull(selectionChangeEvent);
 			assert.equal(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
 			assert.equal(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
@@ -110,7 +110,7 @@ define([
 			assert.equal(secondItem.getAttribute("aria-selected"), "true");
 			// Selection event on second item (deselect)
 			event = {target: secondItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			assert.isNotNull(selectionChangeEvent);
 			assert.equal(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection");
 			assert.equal(selectionChangeEvent.newValue, null, "event3 new selection");
@@ -131,7 +131,7 @@ define([
 			assert.equal(firstItem.className, "d-list-item");
 			// Selection event on first item (no effect)
 			event = {target: firstItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			assert.isNull(selectionChangeEvent);
 			assert.equal(firstItem.className, "d-list-item");
 		},
@@ -164,7 +164,7 @@ define([
 			list.selectionMode = "single";
 			// select first item
 			var event = {target: firstItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			// now listen to selection-change event and remove the selected item from the store
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
@@ -180,7 +180,7 @@ define([
 			list.selectionMode = "single";
 			// select first item
 			var event = {target: firstItem, preventDefault: function () {}};
-			list._actionKeydownHandler(event);
+			list._spaceKeydownHandler(event);
 			assert(list.isSelected(firstItem.item), "item selected before move");
 			list.store.put(firstItem.item, {before: thirdItem.item});
 			var secondItem = list.getChildren()[1];
@@ -198,7 +198,7 @@ define([
 						"no aria-selected attribute expected on first item");
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.equal(firstItem.getAttribute("aria-selected"), "true",
 						"aria-selected attribute expected on first item after selection");
 			}), 100);
@@ -216,7 +216,7 @@ define([
 						"aria-selected attribute expected on first item");
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.equal(firstItem.getAttribute("aria-selected"), "true",
 						"aria-selected attribute expected on first item after selection");
 			}), 100);
@@ -238,7 +238,7 @@ define([
 				var firstItem = list.children[0];
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
-				list._actionKeydownHandler(event);
+				list._spaceKeydownHandler(event);
 				assert.isFalse(list.hasAttribute("aria-multiselectable"),
 						"A: no aria-multiselectable attribute expected");
 				assert.isTrue(list.hasAttribute("aria-selectable"), "A: aria-selectable attribute expected");
