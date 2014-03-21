@@ -925,7 +925,7 @@ define(["dcl/dcl",
 
 		_spaceKeydownHandler: function (evt) {
 			// summary:
-			//		Handle SPACE and ENTER keys
+			//		Handle SPACE key
 			// tags:
 			//		private
 			if (this.selectionMode !== "none") {
