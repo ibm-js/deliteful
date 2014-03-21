@@ -53,8 +53,10 @@ define(["dcl/dcl",
 			//		protected
 			this.containerNode = this;
 			this.setAttribute("role", "row");
-			this.id = "d-list-item-" + this.widgetId;
-			this.tabIndex = "-1";
+			this.renderNode = this.ownerDocument.createElement("div");
+			this.renderNode.setAttribute("role", "gridcell");
+			this.renderNode.tabIndex = "-1";
+			this.appendChild(this.renderNode);
 		},
 
 		render: dcl.after(function () {
@@ -122,7 +124,6 @@ define(["dcl/dcl",
 			for (i = 0; i < this._focusableChildren.length; i++) {
 				var node = this._focusableChildren[i];
 				node.tabIndex = -1;
-				node.setAttribute("role", "gridcell");
 				if (!node.id) {
 					node.id = this.id + "-cell-" + i;
 				}

@@ -1,7 +1,7 @@
 # deliteful/list/List
 
 
-The List widget renders a scrollable list of items that are retrieved from a [Store]().
+The List widget renders a scrollable list of items that are retrieved from a [Store](https://github.com/SitePen/dstore).
 
 Its custom element tag is `d-list`.
 
@@ -38,8 +38,8 @@ var list = register.createElement("d-list");
 var defaultStore = list.store;
 ```
 
-This default store can be populated programmatically using the `add` and `put` methods
-defined by the [store API](), and it supports the `before` options in both methods to easily
+This default store can be populated programmatically using the `add` method
+defined by the [dstore Collection API](https://github.com/SitePen/dstore/blob/master/docs/Collection.md), and it supports the `before` options to easily
 order elements in the list, as in the following example:
 
 ```js
@@ -52,7 +52,7 @@ defaultStore.add(item2, {before: item1});
 ```
 
 _Note that the default store does not support ordering and filtering, so you must use
-another store implementation to do this ([Memory store](), for example)._
+another store implementation to do this ([Memory store](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory), for example)._
 
 When creating a list widget declaratively, it is possible to use JSON markup to add items to
 the list store using the `d-list-store` tag, as in the following
@@ -216,9 +216,9 @@ list.selectionMode = "multiple";
 
 TODO: INSERT SCREENSHOT(S) HERE
 
-When the selection mode is `"single"`, a click or tap on a item (or a press on the ENTER or SPACE key
+When the selection mode is `"single"`, a click or tap on a item (or a press on the Space key
 when an item has the focus) select it and de-select any previously selected item. When the selection
-mode is `"multiple"`, a click or tap on an item (or a press on the ENTER or SPACE key when an item has
+mode is `"multiple"`, a click or tap on an item (or a press on the Space key when an item has
 the focus) toggle its selected state.
 
 When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` attribute
@@ -243,21 +243,24 @@ TODO: INSERT SCREENSHOT(S) HERE
 <a name="keynav"/>
 ## Keyboard navigation
 
-The List widget uses [delite/KeyNav]() to provide keyboard navigation. When the widget get focus via
-keyboard navigation, the first item displayed at the top of the scroll viewport is focused.
+The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
+except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
 
 The list items can then be navigated using the UP and DOWN arrow keys, and the List will scroll
 accordingly when you reach the top or the bottom of the scroll viewport. Pressing the DOWN arrow
 while the last item has focus will focus the first item. Pressing the UP arrow while the first item
 has the focus will focus the next item.
 
-When a List item has the focus, you can also use the LEFT and RIGHT keys to navigate
-within it. Pressing the UP or ARROW key again will set the focus to the previous or next item.
+When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
+Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
 
-Pressing the HOME key will focus the first item of the list, while pressing the END key will focus
+Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
+as the default renderers do not render any actionable nodes (see [deliteful/list/ItemRenderer](ItemRenderer.md) and [deliteful/list/CategoryRenderer](CategoryRenderer.md) for more information).
+
+Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.
 
-You can also search for items by typing letters on the keyboard, and the next item element which text
+You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
 
 <a name="style"/>

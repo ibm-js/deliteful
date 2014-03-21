@@ -18,23 +18,12 @@ define(["dcl/dcl",
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: dcl.superCall(function (sup) {
-			// summary:
-			//		Create the widget container node, into which a category will be rendered.
-			// tags:
-			//		protected
-			return function () {
-				sup.apply(this, arguments);
-				this.renderNode = this;
-			};
-		}),
-
 		render: function () {
 			// summary:
 			//		render the category of the item inside this.renderNode.
 			// tags:
 			//		protected
-			this.renderNode.innerHTML = "<span navindex='0'>" + this.item.category + "</span>";
+			this.renderNode.innerHTML = this.item.category;
 		}
 
 	});
