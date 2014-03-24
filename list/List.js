@@ -391,6 +391,14 @@ define(["dcl/dcl",
 			}
 		},
 
+		hasSelectionModifier: function (/*Event*/event) {
+			// summary:
+			//		Always return true so that no keyboard modifier is needed when selecting / deselecting items.
+			// tags:
+			//		protected.
+			return true;
+		},
+
 		_handleSelection: function (/*Event*/event) {
 			// summary:
 			//		Event handler that performs items (de)selection.
@@ -400,16 +408,7 @@ define(["dcl/dcl",
 			//		protected
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
-				var item = eventRenderer.item;
-				if (item) {
-					var oldSelection = this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"];
-					var itemSelected = !this.isSelected(item);
-					this.setSelected(item, itemSelected);
-					this.dispatchSelectionChange(oldSelection,
-							this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"],
-							eventRenderer,
-							event);
-				}
+				this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
 			}
 		},
 
@@ -610,12 +609,7 @@ define(["dcl/dcl",
 			}
 			if (!keepSelection && !this._isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
 				// deselect the item before removing the renderer
-				var oldSelection = this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"];
-				this.setSelected(renderer.item, false);
-				this.dispatchSelectionChange(oldSelection,
-						this[this.selectionMode === "single" ? "selectedItem" : "selectedItems"],
-						null,
-						null);
+				this.selectFromEvent(null, renderer.item, renderer, true);
 			}
 			// remove and destroy the renderer
 			if (this._previousFocusedChild && this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {

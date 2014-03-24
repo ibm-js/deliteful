@@ -34,12 +34,12 @@
 			list.store.add({label: "fourth item"});
 			list.store.add({label: "fifth item"});
 			list.on("selection-change", function (event) {
-				if (event.newValue.length) {
-					console.innerHTML = "Current selection: " + array.map(event.newValue, function (item, index, array) {return item.label;}, this).join(", ");
+				if (event.newValue) {
+					console.innerHTML = "Current selection: " + array.map(this.selectedItems, function (item, index, array) {return item.label;}, this).join(", ");
 				} else {
 					console.innerHTML = "Click to select an item.";
 				}
-			});
+			}.bind(list));
 			document.body.appendChild(list);
 			list.startup();
 		});
