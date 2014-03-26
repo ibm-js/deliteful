@@ -1,8 +1,0 @@
-/* === Silver Circle Down Arrow ==*/
-.duiDomButtonSilverCircleDownArrow {
-	background-image: url(compat/duiDomButtonSilverCircleDownArrow.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonSilverCircleDownArrow > div {
-	display: none;
-}

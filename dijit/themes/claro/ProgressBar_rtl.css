@@ -1,8 +1,0 @@
-/* ProgressBar
- * 
- * Styling of the ProgressBar when RTL direction is specified
- */
-.claro .duiProgressBarRtl .duiProgressBarFull {
-  border-left-width: 1px;
-  border-right-width: 0px;
-}

@@ -1,8 +1,0 @@
-/* === Yellow Star ==*/
-.duiDomButtonYellowStar {
-	background-image: url(compat/duiDomButtonYellowStar.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonYellowStar > div {
-	display: none;
-}

@@ -1,8 +1,0 @@
-/* === Silver Circle Red Cross Button ==*/
-.duiDomButtonSilverCircleRedCross {
-	background-image: url(compat/duiDomButtonSilverCircleRedCross.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonSilverCircleRedCross > div {
-	display: none;
-}

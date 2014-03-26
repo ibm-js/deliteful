@@ -1,8 +1,0 @@
-/* === Silver Circle Green Plus Button ==*/
-.duiDomButtonSilverCircleGreenPlus {
-	background-image: url(compat/duiDomButtonSilverCircleGreenPlus.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonSilverCircleGreenPlus > div {
-	display: none;
-}

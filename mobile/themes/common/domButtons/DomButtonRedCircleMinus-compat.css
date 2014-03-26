@@ -1,9 +1,0 @@
-/* === Red Circle Minus Buttons ==*/
-.duiDomButtonRedCircleMinus {
-	background-image: url(compat/duiDomButtonRedCircleMinus.png);
-	background-repeat: no-repeat;
-}
-
-.duiDomButtonRedCircleMinus > div {
-	display: none;
-}

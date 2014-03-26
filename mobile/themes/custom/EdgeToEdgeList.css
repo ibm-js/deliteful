@@ -1,9 +1,0 @@
-/* dui.mobile.EdgeToEdgeList */
-.duiEdgeToEdgeList {
-  margin: 0;
-  padding: 0;
-  background-color: #000000;
-}
-.duiEdgeToEdgeList .duiListItem:last-child {
-  border-bottom-color: #c0c0c0;
-}

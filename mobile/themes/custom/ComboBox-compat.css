@@ -1,7 +1,0 @@
-/* dui.mobile.ComboBox */
-.dj_gecko .duiPopup {
-  -moz-box-shadow: none;
-}
-.dj_gecko .duiComboBoxMenuItemSelected {
-  background-image: -moz-linear-gradient(top, #bbbbbb 0%, #999999 100%);
-}

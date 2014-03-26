@@ -1,9 +1,0 @@
-/* === Blue Circle Plus Buttons ==*/
-.duiDomButtonBlueCirclePlus {
-	background-image: url(compat/duiDomButtonBlueCirclePlus.png);
-	background-repeat: no-repeat;
-}
-
-.duiDomButtonBlueCirclePlus > div {
-	display: none;
-}

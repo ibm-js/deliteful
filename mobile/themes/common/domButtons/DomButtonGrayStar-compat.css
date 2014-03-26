@@ -1,8 +1,0 @@
-/* === Gray Star ==*/
-.duiDomButtonGrayStar {
-	background-image: url(compat/duiDomButtonGrayStar.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonGrayStar > div {
-	display: none;
-}

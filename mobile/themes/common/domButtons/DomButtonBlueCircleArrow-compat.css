@@ -1,9 +1,0 @@
-/* === Blue Circle Arrow Buttons ==*/
-.duiDomButtonBlueCircleArrow {
-	background-image: url(compat/duiDomButtonBlueCircleArrow.png);
-	background-repeat: no-repeat;
-}
-
-.duiDomButtonBlueCircleArrow > div {
-	display: none;
-}

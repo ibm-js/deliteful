@@ -1,8 +1,0 @@
-/* === Minus Button ==*/
-.duiDomButtonWhiteMinus {
-	background-image: url(compat/duiDomButtonWhiteMinus.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhiteMinus div {
-	display: none;
-}

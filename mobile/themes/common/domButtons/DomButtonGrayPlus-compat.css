@@ -1,8 +1,0 @@
-/* === Plus Button ==*/
-.duiDomButtonGrayPlus {
-	background-image: url(compat/duiDomButtonGrayPlus.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonGrayPlus div {
-	display: none;
-}

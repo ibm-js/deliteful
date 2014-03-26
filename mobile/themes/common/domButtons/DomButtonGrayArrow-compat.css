@@ -1,8 +1,0 @@
-/* === Arrow Button ==*/
-.duiDomButtonGrayArrow, .duiDomButtonArrow {
-	background-image: url(compat/duiDomButtonGrayArrow.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonGrayArrow div, .duiDomButtonArrow div {
-	display: none;
-}

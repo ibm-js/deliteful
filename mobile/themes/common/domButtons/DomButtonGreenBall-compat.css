@@ -1,8 +1,0 @@
-/* === Green Ball Button ==*/
-.duiDomButtonGreenBall {
-	background-image: url(compat/duiDomButtonGreenBall.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonGreenBall > div {
-	display: none;
-}

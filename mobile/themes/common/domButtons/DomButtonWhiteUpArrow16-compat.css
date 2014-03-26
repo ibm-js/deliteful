@@ -1,8 +1,0 @@
-/* === WhiteUpArrow16 ==*/
-.duiDomButtonWhiteUpArrow16 {
-	background-image: url(compat/duiDomButtonWhiteUpArrow16.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhiteUpArrow16 > div {
-	display: none;
-}

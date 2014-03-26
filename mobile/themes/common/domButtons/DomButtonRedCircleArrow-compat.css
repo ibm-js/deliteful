@@ -1,9 +1,0 @@
-/* === Red Circle Arrow Buttons ==*/
-.duiDomButtonRedCircleArrow {
-	background-image: url(compat/duiDomButtonRedCircleArrow.png);
-	background-repeat: no-repeat;
-}
-
-.duiDomButtonRedCircleArrow > div {
-	display: none;
-}

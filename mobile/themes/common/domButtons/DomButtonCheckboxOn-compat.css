@@ -1,8 +1,0 @@
-/* === Check Button (ON) ==*/
-.duiDomButtonCheckboxOn {
-	background-image: url(compat/duiDomButtonCheckboxOn.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonCheckboxOn div {
-	display: none;
-}

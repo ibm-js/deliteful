@@ -1,8 +1,0 @@
-/* === Gray Cross Button ==*/
-.duiDomButtonGrayCross, .duiDomButtonCross {
-	background-image: url(compat/duiDomButtonGrayCross.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonGrayCross div, .duiDomButtonCross div {
-	display: none;
-}

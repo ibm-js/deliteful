@@ -1,8 +1,0 @@
-/* === Plus Button ==*/
-.duiDomButtonWhitePlus {
-	background-image: url(compat/duiDomButtonWhitePlus.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhitePlus div {
-	display: none;
-}

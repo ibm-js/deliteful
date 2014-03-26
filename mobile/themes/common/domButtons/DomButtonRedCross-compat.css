@@ -1,8 +1,0 @@
-/* === Red Cross Button ==*/
-.duiDomButtonRedCross, .duiDomButtonCross {
-	background-image: url(compat/duiDomButtonRedCross.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonRedCross div, .duiDomButtonCross div {
-	display: none;
-}

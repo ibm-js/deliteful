@@ -1,8 +1,0 @@
-/* === Black Circle Cross Button ==*/
-.duiDomButtonBlackCircleCross {
-	background-image: url(compat/duiDomButtonBlackCircleCross.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonBlackCircleCross > div {
-	display: none;
-}

@@ -1,8 +1,0 @@
-/* === White Cross Button ==*/
-.duiDomButtonWhiteCross, .duiDomButtonCross {
-	background-image: url(compat/duiDomButtonWhiteCross.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhiteCross div, .duiDomButtonCross div {
-	display: none;
-}

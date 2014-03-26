@@ -1,8 +1,0 @@
-/* === Check Button ==*/
-.duiDomButtonWhiteCheck, .duiDomButtonCheck {
-	background-image: url(compat/duiDomButtonWhiteCheck.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhiteCheck div, .duiDomButtonCheck div {
-	display: none;
-}

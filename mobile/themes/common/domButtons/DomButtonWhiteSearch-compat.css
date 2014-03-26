@@ -1,8 +1,0 @@
-/* === Search Button ==*/
-.duiDomButtonWhiteSearch {
-	background-image: url(compat/duiDomButtonWhiteSearch.png);
-	background-repeat: no-repeat;
-}
-.duiDomButtonWhiteSearch div {
-	display: none;
-}
