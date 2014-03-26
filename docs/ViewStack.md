@@ -92,7 +92,7 @@ Default values are `{transition: "slide", reverse: false}`.
 
 ### Styling Limitations
 
-The `position` CSS attribute of this element must be set to `block` or `inline-block`.
+The `display` CSS attribute of this element must be set to `block` or `inline-block`.
 
 The following CSS layout attributes must **NOT** be changed. They are explicitly set by the container and are required for a correct behaviour of it.
  - ViewStack node:  `box-sizing`, `overflow-x`
