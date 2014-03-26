@@ -72,6 +72,20 @@ define(["dcl/dcl",
 			//		This attribute is supported by "slide" and "reveal" transition types.
 			reverse: false,
 
+			// selectedChildId: String
+			//		The selected child id, can be set explicitly or through the show() method.
+			//		The effect of setting this property (i.e. getting the value through the getter) might be
+			//		asynchronous when an animated transition occurs.
+			selectedChildId: "",
+
+			_setSelectedChildIdAttr: function (child) {
+				this.show(child, this._started ? null : {transition: "none"});
+			},
+
+			_getSelectedChildIdAttr: function () {
+				return this._visibleChild ? this._visibleChild.id : "";
+			},
+
 			_timing: 0,
 
 			_setChildrenVisibility: function () {

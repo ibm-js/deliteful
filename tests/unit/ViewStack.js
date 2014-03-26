@@ -14,7 +14,8 @@ define([
 	function checkNodeVisibility(vs, target) {
 		for (var i = 0; i < vs.children.length; i++) {
 			assert.isTrue(
-				(vs.children[i] === target && vs.children[i].style.display !== "none") ||
+				((vs.children[i] === target && vs.children[i].style.display !== "none" &&
+					vs.selectedChildId === target.id)) ||
 					(vs.children[i] !== target && vs.children[i].style.display === "none")
 			);
 		}
@@ -117,6 +118,13 @@ define([
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "slide", reverse: true});
+		},
+		"SelectedChildId Setter": function () {
+			var d = this.async(1000);
+			node.on("delite-display-complete", d.callback(function () {
+				checkNodeVisibility(node, ddd);
+			}));
+			node.selectedChildId = "ddd";
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
