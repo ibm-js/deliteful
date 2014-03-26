@@ -277,8 +277,8 @@ define([
 						actionHandles.forEach(function (h) { h.remove(); });
 					}
 					actionHandles = this.own(
-						on(root, dpointer.events.MOVE, continueDrag),
-						on(root, dpointer.events.UP, endDrag)
+						on(root, "pointermove", continueDrag),
+						on(root, "pointerup", endDrag)
 					);
 				}),
 
@@ -342,7 +342,7 @@ define([
 				this.value = this.valueNode.value;
 			}
 			this.own(
-				on(this, dpointer.events.DOWN, beginDrag),
+				on(this, "pointerdown", beginDrag),
 				on(this, "keydown", keyDown), // for desktop a11y
 				on(this.focusNode, "keyup", keyUp) // fire onChange on desktop
 			);
