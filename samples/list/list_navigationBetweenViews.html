@@ -27,7 +27,7 @@
 			    "deliteful/list/List",
 				"dojo/domReady!"], function (keys) {
 				register.parse();
-				var actionHandler = function(event, list, ItemRenderer) {
+				var actionHandler = function(event, list) {
 					var renderer = list.getEnclosingRenderer(event.target);
 					if (renderer && renderer.item.moveto) {
 						document.getElementById("viewStack").show(renderer.item.moveto);
