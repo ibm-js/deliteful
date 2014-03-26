@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Navigation between views using lists</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		},[
+			"delite/register",
+			"deliteful/list/ItemRenderer",
+			"deliteful/ViewStack"
+		], function(register, ItemRenderer){
+			// Custom item renderer that renders a navigation button
+			NavigationItemRenderer = register("d-navigation-item", [HTMLElement, ItemRenderer], {
+				render: function () {
+					this.renderNode.innerHTML = "<div role='button' navindex='0'><div class='d-list-item-label'>" + this.item.label + "</div><div class='d-list-item-right-icon'></div></div>";
+				}
+			});
+			require([
+				"dojo/keys",
+			    "deliteful/list/List",
+				"dojo/domReady!"], function (keys) {
+				register.parse();
+				var actionHandler = function(event, list, ItemRenderer) {
+					var renderer = list.getEnclosingRenderer(event.target);
+					if (renderer && renderer.item.moveto) {
+						document.getElementById("viewStack").show(renderer.item.moveto);
+					}
+				}
+				// TODO: ADD THE EVENT HANDLERS USING MARKUP ? 
+				var lists = document.getElementsByTagName("d-list");
+				for (var i = 0; i < lists.length; i++) {
+					(function (list) {
+						// TODO: TODO; USE AN "onAction" METHOD AT THE LIST LEVEL INSTEAD OF DEFINING TWO HANDLERS HERE ?
+						// IN TERMS OF PERFORMANCES, LIST IS ALREADY LISTENING TO keydown EVENTS, SO THERE IS LITTLE POINT
+						// ADDING A HANDLER HERE ?
+						list.on("click", function (event) {
+							actionHandler(event, list);
+						});
+						list.on("keydown", function (event) {
+							if (event.keyCode === keys.SPACE) {
+								actionHandler(event, list);
+							}
+						});
+					})(lists[i]);
+				}
+			});
+		});
+	</script>
+	<style>
+		html {
+			height: 100%;
+		}
+
+		body {
+			height: 100%;
+		}
+		
+		d-view-stack {
+			width: 100%;
+			height: 100%;
+		}
+		
+		d-navigation-item [role="button"] {
+			width: 100%;
+		}
+
+		.d-list-item-label {
+			float: left;
+		}
+
+		.d-list-item-right-icon {
+			float: right;
+		}
+
+		.d-list-item-right-icon:after {
+			color: grey;
+			content: ">";
+		}
+	</style>
+</head>
+<body role="application">
+<d-view-stack id="viewStack">
+	<div id="view1">
+		<h1>List 1</h1>
+ 		<d-list id="list1" arial-label="navigation list 1" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 4", "righticonclass": "rightIcon"},
+				{"label": "To list 5", "righticonclass": "rightIcon"},
+				{"label": "To list 6", "righticonclass": "rightIcon"},
+				{"label": "To list 7", "righticonclass": "rightIcon"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view2">
+		<h1>List 2</h1>
+ 		<d-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 4", "righticonclass": "rightIcon"},
+				{"label": "To list 5", "righticonclass": "rightIcon"},
+				{"label": "To list 6", "righticonclass": "rightIcon"},
+				{"label": "To list 7", "righticonclass": "rightIcon"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view3">
+		<h1>List 3</h1>
+ 		<d-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 4", "righticonclass": "rightIcon"},
+				{"label": "To list 5", "righticonclass": "rightIcon"},
+				{"label": "To list 6", "righticonclass": "rightIcon"},
+				{"label": "To list 7", "righticonclass": "rightIcon"}
+			</d-list-store>
+		</d-list>
+	</div>
+</d-view-stack>
+</body>
+</html>
