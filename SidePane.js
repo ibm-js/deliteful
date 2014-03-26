@@ -174,7 +174,7 @@ define([
 
 			buildRendering: function () {
 				this.parentNode.style.overflow = "hidden";
-				this.setAttribute("data-touch-action", "none");
+				pointer.setTouchAction(this, "none");
 				this._resetInteractions();
 			},
 
