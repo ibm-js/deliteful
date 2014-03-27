@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html class="mobile">
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>ProgressBar sample - basic</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/ProgressBar"
+		], function (register, ProgressBar) {
+			register.parse();
+		});
+	</script>
+
+	<style>
+		.d-progress-bar {
+			width: 200px;
+			display: block;
+		}
+
+		table td {
+			text-align: right;
+			vertical-align: top;
+		}
+
+		table th {
+			text-align: left;
+		}
+
+		footer {
+			font-size: 0.8em;
+			font-style: italic;
+		}
+	</style>
+
+</head>
+<body class="d-background">
+<p><strong>ProgressBar sample - basic</strong></p>
+
+<p>This sample shows how to declare and customize a progress bar.</p>
+
+<hr>
+<table>
+	<tr>
+		<td>% of progression</td>
+		<td>
+			<d-progress-bar value=50></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>Indeterminate</td>
+		<td>
+			<d-progress-bar></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>Messages</td>
+		<td>
+			<d-progress-bar value=50 message="Uploading..."></d-progress-bar>
+			<d-progress-bar message="Waiting for response..."></d-progress-bar>
+			<d-progress-bar message="Task complete." value="100"></d-progress-bar>
+			<d-progress-bar value="32"
+							message="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+									semper sagittis velit. Cras in mi. Duis porta mauris ut ligula. Proin
+									porta rutrum lacus. Etiam consequat scelerisque quam. Nulla facilisi.
+									Maecenas luctus venenatis nulla. In sit amet dui non mi semper iaculis.
+									Sed molestie tortor at ipsum. Morbi dictum rutrum magna. Sed vitae
+									risus."></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>Font scale</td>
+		<td>
+			<d-progress-bar style="font-size: 0.5em" message="0.5em" value="60"></d-progress-bar>
+			<d-progress-bar style="font-size: 1.0em" message="1.0em" value="70"></d-progress-bar>
+			<d-progress-bar style="font-size: 1.5em" message="1.5em" value="80"></d-progress-bar>
+		</td>
+	</tr>
+</table>
+<hr>
+<table>
+	<tr>
+		<th></th>
+		<th>Predefined styles</th>
+	</tr>
+	<tr>
+	<tr>
+		<td>"success"</td>
+		<td>
+			<d-progress-bar class="d-progress-bar-success" message="d-progress-bar-success"></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-success" value=30></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>"info"</td>
+		<td>
+			<d-progress-bar class="d-progress-bar-info" message="d-progress-bar-info"></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-info" value=40></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>"warning"</td>
+		<td>
+			<d-progress-bar class="d-progress-bar-warning" message="d-progress-bar-warning"></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-warning" value=50></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>"danger"</td>
+		<td>
+			<d-progress-bar class="d-progress-bar-danger" message="d-progress-bar-danger"></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-danger" value=60></d-progress-bar>
+		</td>
+	</tr>
+</table>
+<hr>
+<table>
+	<tr>
+		<th></th>
+		<th>Display extra message (*)</th>
+	</tr>
+	<tr>
+		<td>% of progression</td>
+		<td>
+			<d-progress-bar value=150 min=100 max=200 displayExtMsg="true"></d-progress-bar>
+		</td>
+	</tr>
+	<tr>
+		<td>Custom message</td>
+		<td>
+			<d-progress-bar value=150 min=100 max=200 displayExtMsg="true" message="Uploading..."></d-progress-bar>
+			<d-progress-bar value=150 min=100 max=200 displayExtMsg="true"
+							message="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+									semper sagittis velit. Cras in mi. Duis porta mauris ut ligula. Proin
+									porta rutrum lacus. Etiam consequat scelerisque quam. Nulla facilisi.
+									Maecenas luctus venenatis nulla. In sit amet dui non mi semper iaculis.
+									Sed molestie tortor at ipsum. Morbi dictum rutrum magna. Sed vitae
+									risus."></d-progress-bar>
+		</td>
+	</tr>
+</table>
+<footer>(*) only on supported themes.</footer>
+
+</body>
+</html>

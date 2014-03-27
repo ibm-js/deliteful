@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html class="mobile">
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>ProgressBar sample - messages</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/ProgressBar"
+		], function (register, ProgressBar) {
+			register.parse();
+			var label = document.getElementById("lb");
+			var progressBar = document.getElementById("pb1");
+			var loadBtn = document.getElementById("loadBtn");
+			var resetBtn = document.getElementById("resetBtn");
+			loadBtn.disabled = false;
+			resetBtn.disabled = true;
+			var UPDATE_FREQ = 100; //ms
+			var timerId = 0;
+
+			//custom message: override ProgressBar format methods
+			var lastValue = 0;
+			progressBar.formatMessage = function(percent, value, max) {
+				//formatMessage allows to customize the message
+				var message;
+				if (isNaN(value)) {//indeterminate
+					message = "Click load to start transfer.";
+				} else {
+					if (percent === 1) {
+						message = "Transfert complete.";
+					} else {
+						message = Math.round(percent * 100) + "% - " + ((value - lastValue) / UPDATE_FREQ)  + " KB/s";
+						lastValue = value;
+					}
+				}
+				return message;
+			};
+			progressBar.formatExtMsg = function (percent, value, max) {
+				if (percent === 1) {
+					return "";
+				} else {
+					return Math.round((this.max - value)/1000) + " KB";
+				}
+			};
+			progressBar.displayExtMsg = true;//allow extra message to display
+			progressBar.value = NaN;//displays indeterminate state custom message
+
+
+			//fake function which simulates a long task and updates the progress bar
+			//accordingly to the progression.
+			loadBtn.addEventListener("click",  function () {
+				loadBtn.disabled = true;
+				resetBtn.disabled = false;
+				progressBar.value = 0;
+				progressBar.min = 0;
+				progressBar.max = 2000000;//bytes (2Mb)
+				var progress, rate = 500 * Math.random();
+				timerId = setInterval(function () {
+					progress = Math.round(progressBar.max / rate);
+					progressBar.value = Math.min(progressBar.max, progressBar.value + progress);
+					if (progressBar.value === progressBar.max) {
+						window.clearInterval(timerId);
+					}
+				}, UPDATE_FREQ);
+			});
+
+			//reset button
+			resetBtn.addEventListener("click", function () {
+				window.clearInterval(timerId);
+				resetBtn.disabled = true;
+				setTimeout(function(){
+					progressBar.value = NaN;
+					lastValue = 0;
+					loadBtn.disabled = false;
+				},UPDATE_FREQ);
+			});
+		});
+	</script>
+	<style>
+		.d-progress-bar {
+			width: 200px;
+			font-size: 0.6em;
+			font-style: italic;
+			text-align: initial;
+		}
+	</style>
+</head>
+<body class="d-background">
+<p><strong>ProgressIndicator sample - messages</strong></p>
+
+<p>This sample shows how to customize messages by overriding progress bar methods.</p>
+
+<hr>
+<input id="loadBtn" type="button" value="load"/>
+<d-progress-bar id="pb1"></d-progress-bar>
+<input id="resetBtn" type="button" value="stop/reset"/>
+<hr>
+
+</body>
+</html>
