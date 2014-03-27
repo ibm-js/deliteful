@@ -135,8 +135,8 @@ define(function(){ return '\
   background-color: #428bca;\
 }\
 .d-slider-transition {\
-  -moz-transition-duration: 400ms;\
   -webkit-transition-duration: 400ms;\
+  -moz-transition-duration: 400ms;\
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\
