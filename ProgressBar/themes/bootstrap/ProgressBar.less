@@ -1,0 +1,136 @@
+/*
+ * -----------------------------------------------
+ *  Theme     : bootstrap
+ *  Widget    : deliteful/ProgressBar
+ *  baseClass : d-progress-bar
+ * -----------------------------------------------
+ */
+@import "../../../../delite/themes/bootstrap/variables.less";
+
+@transition-params: 0.3s linear 0s;
+@line-height: 1.6em;
+
+//this widget depends on following bootstrap variables:
+@progress-bg: white;
+@progress-bar-color: #fff;
+@progress-bar-bg: #428bca;
+@progress-bar-success-bg: #5cb85c;
+@progress-bar-warning-bg: #f0ad4e;
+@progress-bar-danger-bg: #d9534f;
+@progress-bar-info-bg: #5bc0de;
+
+//predefined styles
+.d-progress-bar-success .d-progress-bar-indicator {
+  background-color: @progress-bar-success-bg;
+}
+
+.d-progress-bar-info .d-progress-bar-indicator {
+  background-color: @progress-bar-info-bg;
+}
+
+.d-progress-bar-warning .d-progress-bar-indicator {
+  background-color: @progress-bar-warning-bg;
+}
+
+.d-progress-bar-danger .d-progress-bar-indicator {
+  background-color: @progress-bar-danger-bg;
+}
+
+.d-progress-bar-styles() {
+  font-size: 0.750em;
+  height: 1.667em;
+  vertical-align: middle;
+  overflow: hidden;
+  text-align: center; //use 'initial' to override and restore default value (left if ltr, right if rtl)
+  .box-sizing(border-box);
+  border: 1px solid transparent; //a11y: high contrast
+}
+
+.d-progress-bar-background-styles() {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  height: 100%;
+  background-color: @progress-bg;
+  box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;
+}
+
+.d-progress-bar-indicator-styles() {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  .transition(width @transition-params);
+  background-color: @progress-bar-bg;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-size: 40px 40px;
+  box-shadow: 0.1em 0.1em 0.3em 0em rgba(0, 0, 0, 0.1) inset;
+}
+
+.d-progress-bar-a11y-styles() {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: 0.2em solid transparent;
+  .box-sizing(border-box);
+}
+
+.d-progress-bar-msg-styles() {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  line-height: @line-height;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.d-progress-bar-msg::before {
+  content: "\00a0"; //nbsp
+}
+
+.d-progress-bar-msg-invert-styles() {
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  white-space: nowrap;
+  line-height: @line-height;
+  text-overflow: ellipsis;
+  width: 100%;
+  color: @progress-bar-color;
+}
+
+.d-progress-bar-msg-invert::before {
+  content: "\00a0"; //nbsp
+}
+
+.d-progress-bar-msg-ext-styles() {
+}
+
+.d-progress-bar-indeterminate-background-styles() {
+}
+
+.d-progress-bar-indeterminate-indicator-styles() {
+  width: 100%;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-size: 40px 40px;
+  .transition(width 0s);
+  .animation-name(d-progress-bar-indeterminate-animation);
+  .animation-duration(1s);
+  .animation-timing-function(linear);
+  .animation-delay(0s);
+  .animation-iteration-count(infinite);
+  .animation-direction(normal);
+}
+
+.keyframes-d-progress-bar-indeterminate-animation() {
+  0% {
+    background-position: 40px 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@import "../ProgressBar_template";
