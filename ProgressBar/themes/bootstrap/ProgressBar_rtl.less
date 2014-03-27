@@ -1,0 +1,36 @@
+/*
+ * -----------------------------------------------
+ *  Theme     : bootstrap (RTL)
+ *  Widget    : deliteful/ProgressBar
+ *  baseClass : d-progress-bar
+ * -----------------------------------------------
+ */
+@import "../../../../delite/themes/bootstrap/variables.less";
+
+@transition-params: 0.3s linear 0s;
+
+.d-progress-bar-indicator-rtl-styles() {
+  .transition(width @transition-params);
+  float: right;
+  position: relative;
+}
+
+.d-progress-bar-indeterminate-indicator-rtl-styles() {
+  .animation-direction(reverse); //fyi: reverse has same effect as normal on android (4.2.2 GS4)
+  .transition(width 0s);
+}
+
+.d-progress-bar-background-rtl-styles() {
+}
+
+.d-progress-bar-msg-rtl-styles() {
+}
+
+.d-progress-bar-msg-invert-rtl-styles() {
+}
+
+.d-progress-bar-msg-ext-rtl-styles() {
+
+}
+
+@import "../ProgressBar_template_rtl";
