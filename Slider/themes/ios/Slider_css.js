@@ -5,8 +5,10 @@ define(function(){ return '\
   border-collapse: separate;\
   cursor: pointer;\
   padding: 12pt;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
@@ -124,8 +126,8 @@ define(function(){ return '\
   background-image: linear-gradient(to bottom, #2859b1 0%, #3f84eb 50%, #4c8eee 50%, #75acfb 100%);\
 }\
 .d-slider-transition {\
-  -moz-transition-duration: 400ms;\
   -webkit-transition-duration: 400ms;\
+  -moz-transition-duration: 400ms;\
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\

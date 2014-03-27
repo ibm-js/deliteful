@@ -3,23 +3,22 @@ define(function(){ return '\
   width: 15em;\
   height: 100%;\
   top: 0;\
+  -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   position: fixed;\
   background-color: white;\
 }\
 .-d-side-pane-animate {\
-  -moz-transition: -moz-transform 0.3s ease-in-out;\
   -webkit-transition: -webkit-transform 0.3s ease-in-out;\
-  -ms-transition: -mstransform 0.3s ease-in-out;\
   transition: transform 0.3s ease-in-out;\
 }\
 .-d-side-pane-no-select {\
   -webkit-touch-callout: none;\
-  -webkit-user-select: none;\
-  -khtml-user-select: none;\
-  -moz-user-select: none;\
-  -ms-user-select: none;\
   user-select: none;\
+  -webkit-user-select: none;\
+  -ms-user-select: none;\
+  -moz-user-select: none;\
 }\
 .-d-side-pane-start {\
   left: 0;\

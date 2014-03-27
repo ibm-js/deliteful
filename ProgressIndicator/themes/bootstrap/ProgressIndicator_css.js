@@ -11,12 +11,11 @@ define(function(){ return '\
   visibility: hidden;\
   vertical-align: middle;\
   background-color: transparent;\
-  -webkit-touch-callout: none;\
-  -webkit-user-select: none;\
-  -khtml-user-select: none;\
-  -moz-user-select: none;\
-  -ms-user-select: none;\
-  user-select: none;\
+  -webkit-touch-callout: "none";\
+  user-select: "none";\
+  -webkit-user-select: "none";\
+  -ms-user-select: "none";\
+  -moz-user-select: "none";\
   width: 40px;\
   height: 40px;\
   font-size: 16px;\
