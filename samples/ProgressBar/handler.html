@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html class="mobile">
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>ProgressBar sample - percentage</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/ProgressBar"
+		], function (register, ProgressBar) {
+			register.parse();
+			var label = document.getElementById("lb");
+			var progressBar = document.getElementById("pb1");
+			var loadBtn = document.getElementById("loadBtn");
+			loadBtn.disabled = false;
+			//fake function which simulates a long task and updates the progress bar
+			//accordingly to the progression.
+			var fakeloadFunction = function () {
+				loadBtn.disabled = true;
+				progressBar.message = "Starting...";
+				progressBar.value = 0;
+				//set random min/max
+				progressBar.min = Math.round(Math.random() * 40);
+				progressBar.max = Math.round(Math.random() * 50 + 100);
+				var timerId = setInterval(function () {
+					progressBar.message = "";
+					progressBar.value += Math.random() * progressBar.max / 10 + progressBar.min;
+					if (progressBar.value >= progressBar.max) {
+						window.clearInterval(timerId);
+						loadBtn.disabled = false;
+					}
+				}, 500);
+			};
+			loadBtn.addEventListener("click", fakeloadFunction);
+
+			//progressbar handler
+			var pbHandler = function (event) {
+				label.innerHTML =
+						"Value: " + event.value.toFixed(2) + "<br>" +
+						"Percent: " + event.percent.toFixed(2) + "% <br>" +
+						"Min/Max: " + event.min + "/" + event.max;
+			};
+			progressBar.addEventListener("change", pbHandler);
+		});
+	</script>
+	<style>
+		.d-progress-bar {
+			width: 300px;
+		}
+	</style>
+</head>
+<body class="d-background">
+<p><strong>ProgressIndicator sample - percentage</strong></p>
+
+<p>This sample shows how to use the progress bar.</p>
+
+<input id="loadBtn" type="button" value="load"/>
+<hr>
+<d-progress-bar id="pb1"></d-progress-bar>
+<br>
+<label id="lb"></label>
+<hr>
+
+</body>
+</html>
