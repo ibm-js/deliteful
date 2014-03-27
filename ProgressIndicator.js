@@ -4,7 +4,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
-	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
+	"delite/themes/load!./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
 ], function (dcl, register, Widget, Invalidating, renderer) {
 
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {

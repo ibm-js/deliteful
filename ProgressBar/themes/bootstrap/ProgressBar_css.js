@@ -1,11 +1,4 @@
 define(function(){ return '\
-/*\
- * -----------------------------------------------\
- *  Theme     : bootstrap\
- *  Widget    : deliteful/ProgressBar\
- *  baseClass : d-progress-bar\
- * -----------------------------------------------\
- */\
 .d-progress-bar-success .d-progress-bar-indicator {\
   background-color: #5cb85c;\
 }\
@@ -49,7 +42,7 @@ define(function(){ return '\
   overflow: hidden;\
   top: 0;\
   height: 100%;\
-  background-color: #ffffff;\
+  background-color: #f5f5f5;\
   box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;\
 }\
 .d-progress-bar-indicator {\

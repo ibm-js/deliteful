@@ -6,7 +6,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
-	"delite/themes/load!delite/themes/{{theme}}/common_css,./ProgressBar/themes/{{theme}}/ProgressBar_css",
+	"delite/themes/load!./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
 ], function (dcl, domClass, number, register, Widget, Invalidating, renderer) {
 

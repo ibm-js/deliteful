@@ -12,7 +12,7 @@ define([
 	"dojo/on",
 	"delite/register",
 	"delite/FormValueWidget",
-	"delite/themes/load!delite/themes/{{theme}}/common_css,./Slider/themes/{{theme}}/Slider_css"
+	"delite/themes/load!./Slider/themes/{{theme}}/Slider_css"
 ], function (lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
 		keys, dpointer, on, register, FormValueWidget) {
 

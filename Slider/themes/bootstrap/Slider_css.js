@@ -19,8 +19,10 @@ define(function(){ return '\
   border-collapse: separate;\
   cursor: pointer;\
   padding: 12pt;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
@@ -135,8 +137,8 @@ define(function(){ return '\
   background-color: #428bca;\
 }\
 .d-slider-transition {\
-  -moz-transition-duration: 400ms;\
   -webkit-transition-duration: 400ms;\
+  -moz-transition-duration: 400ms;\
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\
