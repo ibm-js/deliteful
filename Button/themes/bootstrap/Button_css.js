@@ -15,8 +15,10 @@ define(function(){ return '\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #333333;\
   background-color: #ffffff;\
   border-color: #cccccc;\
@@ -93,8 +95,10 @@ fieldset[disabled] .d-button {\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #ffffff;\
   background-color: #428bca;\
   border-color: #357ebd;\
@@ -196,8 +200,10 @@ fieldset[disabled] .d-button-blue {\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #ffffff;\
   background-color: #5cb85c;\
   border-color: #4cae4c;\
@@ -273,8 +279,10 @@ fieldset[disabled] .d-button-success {\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #ffffff;\
   background-color: #5bc0de;\
   border-color: #46b8da;\
@@ -350,8 +358,10 @@ fieldset[disabled] .d-button-info {\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #ffffff;\
   background-color: #f0ad4e;\
   border-color: #eea236;\
@@ -428,8 +438,10 @@ fieldset[disabled] .d-button-warning {\
   font-size: 14px;\
   line-height: 1.428571429;\
   border-radius: 4px;\
+  user-select: none;\
   -webkit-user-select: none;\
   -ms-user-select: none;\
+  -moz-user-select: none;\
   color: #ffffff;\
   background-color: #d9534f;\
   border-color: #d43f3a;\

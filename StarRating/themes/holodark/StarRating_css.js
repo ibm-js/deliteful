@@ -5,7 +5,6 @@ define(function(){ return '\
 .d-star-rating {\
   /* Do not modify the display style */\
   display: inline-block;\
-  -ms-touch-action: none;\
 }\
 .d-star-rating-disabled .d-star-rating-star-icon:before {\
   content: url("../../images/grey-stars-40.png");\
