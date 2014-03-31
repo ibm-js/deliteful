@@ -185,8 +185,8 @@ define([
 					this._keyDownHandle = null;
 				}
 				if (!passive && !this._startHandles) {
-					this._startHandles = [this.on(pointer.events.ENTER, lang.hitch(this, "_pointerEnterHandler")),
-										  this.on(pointer.events.DOWN, lang.hitch(this, "_wireHandlers"))];
+					this._startHandles = [this.on("pointerenter", lang.hitch(this, "_pointerEnterHandler")),
+										  this.on("pointerdown", lang.hitch(this, "_wireHandlers"))];
 				} else if (passive && this._startHandles) {
 					while (this._startHandles.length) {
 						this._startHandles.pop().remove();
@@ -210,11 +210,11 @@ define([
 		_wireHandlers: function () {
 			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
-				this._otherEventsHandles.push(this.on(pointer.events.MOVE, lang.hitch(this, "_pointerMoveHandler")));
+				this._otherEventsHandles.push(this.on("pointermove", lang.hitch(this, "_pointerMoveHandler")));
 				// handle the end of the value editing
-				this._otherEventsHandles.push(this.on(pointer.events.UP, lang.hitch(this, "_pointerUpHandler")));
-				this._otherEventsHandles.push(this.on(pointer.events.LEAVE, lang.hitch(this, "_pointerLeaveHandler")));
-				this._otherEventsHandles.push(this.on(pointer.events.CANCEL, lang.hitch(this, "_pointerLeaveHandler")));
+				this._otherEventsHandles.push(this.on("pointerup", lang.hitch(this, "_pointerUpHandler")));
+				this._otherEventsHandles.push(this.on("pointerleave", lang.hitch(this, "_pointerLeaveHandler")));
+				this._otherEventsHandles.push(this.on("pointercancel", lang.hitch(this, "_pointerLeaveHandler")));
 			}
 		},
 
