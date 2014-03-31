@@ -48,10 +48,10 @@ That will install all the dependencies of deliteful, including the Intern. You o
 
 #### Sauce Labs configuration
 
-If you don't already have a Sauce Labs account, you can create a free one using the [Open Sauce](https://saucelabs.com/opensauce) scheme for OSS developers:
+If you don't already have a Sauce Labs account, you can create one on their website, choosing the scheme that best fit your situation (Note that they ofer a free one for OSS developpers, [Open Sauce](https://saucelabs.com/opensauce)):
 
 1. Navigate to https://saucelabs.com/signup in your browser;
-2. Select the _Open Sauce - $0_ plan and fill up the form to create your account.
+2. Select the subscription plan you want and fill up the form to create your account.
 
 Once your account has been created, setup your `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables as they are listed
 on https://saucelabs.com/appium/tutorial/3.
@@ -61,10 +61,14 @@ on https://saucelabs.com/appium/tutorial/3.
 To run the tests locally (which is faster than running the tests on Sauce Labs but restricts the list of browsers the test run into to the list of browsers
 that are installed on your computer), you first need to install the following resources:
 
-1. Java SDK version 6
-2. From the [Selenium download page](http://www.seleniumhq.org/download/):
+1. Java JRE version 6
+1. From the [Selenium download page](http://www.seleniumhq.org/download/):
   1. Selenium Server
-  2. Drivers for the browsers installed on your computer. After you've downloaded the browser drivers, make sure that they are referenced in your $PATH (or %PATH% on Windows).
+  1. Drivers for the browsers installed on your computer. After you've downloaded the browser drivers, make sure that they are referenced in your $PATH (or %PATH% on Windows):
+    1. Firefox driver: included with Selenium Server, not extra download needed
+    1. Internet explorer driver: Use the link provided in section _The Internet Explorer Driver Server_ of http://www.seleniumhq.org/download/
+    1. Chrome driver: https://code.google.com/p/chromedriver/
+    1. Safari driver: https://code.google.com/p/selenium/wiki/SafariDriver
 
 <a name="#running"/>
 ## Running the tests
@@ -79,10 +83,10 @@ When running tests using the command line, you can also adjust the list of repor
 
 ### Running the unit tests in a browser
 
-To run the unit tests in a single browser, make sure that your deliteful checkout is accessible through a web server at `http://SERVER:PORT/deliteful` and open the following URL in a test browser:
+To run the unit tests in a single browser, make sure that your `deliteful` checkout is accessible through a web server at `http://SERVER:PORT/PATH` and open the following URL in a test browser:
 
 ```
-http://SERVER:PORT/deliteful/node_modules/intern/client.html?config=tests/client
+http://SERVER:PORT/PATH/node_modules/intern/client.html?config=tests/client
 ```
 
 Note that this won't run the functional tests, and that you will have to check the browser javascript console to get the tests execution result.
@@ -96,7 +100,7 @@ In the deliteful directory, type the following command:
 $ grunt test:remote
 ```
 
-Note that you can update the [intern.js](.\intern.js) configuration file if you need to customize the list of browsers to run the tests into.
+Note that you can update the [intern.js](./intern.js) configuration file if you need to customize the list of browsers to run the tests into.
 
 To monitor the tests execution and access the Sauce Labs reports, you will need to [login to Sauce Labs](https://saucelabs.com/login). 
 
