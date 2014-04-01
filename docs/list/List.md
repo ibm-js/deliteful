@@ -39,7 +39,7 @@ var defaultStore = list.store;
 ```
 
 This default store can be populated programmatically using the `add` method
-defined by the [dstore Collection API](https://github.com/SitePen/dstore/blob/master/docs/Collection.md), and it supports the `before` options to easily
+defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `before` options to easily
 order elements in the list, as in the following example:
 
 ```js
