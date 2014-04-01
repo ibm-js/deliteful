@@ -21,9 +21,23 @@
 			"deliteful/SidePane",
 			"deliteful/LinearLayout",
 			"deliteful/Button",
+			"deliteful/list/List",
 			"dojo/domReady!"
 		], function(register){
 			register.parse();
+			for (var i = 1; i < 100; i++){
+				list.store.add({label: "Item #" + i});
+			}
+			menulist.store.add({label: "List A", target:"aaa"});
+			menulist.store.add({label: "List B", target:"bbb"});
+			var actionHandler = function(event, list) {
+				var renderer = list.getEnclosingRenderer(event.target);
+				vs.show(renderer.item.target, {transition: "fade"});
+			};
+
+			menulist.on("click", function (event) {
+				actionHandler(event, menulist);
+			});
 		});
 	</script>
 </head>
@@ -39,14 +53,7 @@
 
 		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
 			<div id="menu">
-				<d-linear-layout>
-					<ul>
-						<li onClick="vs.show(aaa)">AAA</li>
-						<li onClick="vs.show(bbb)">BBB</li>
-						<li onClick="vs.show(ccc)">CCC</li>
-						<li onClick="vs.show(ddd)">DDD</li>
-					</ul>
-				</d-linear-layout>
+				<d-list id="menulist" targetAttr="target"></d-list>
 			</div>
 			<div id="settings" style="text-align: center">
 				<button is="d-button" onclick="leftStack.show(menu, {reverse:true})"></button>
@@ -66,54 +73,11 @@
 	<!-- Main content (ViewStack) -->
 	<d-view-stack is="d-view-stack" id="vs" class="width100 fill">
 		<div style="background-color: white;" id="aaa">
-			AAA
+			<d-list id="list"></d-list>
 		</div>
-		<!--<d-scrollable-container style="background-color: white;" id="bbb">-->
 		<div id="bbb">
-			<ul>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-				<li onClick="vs.show(aaa)">AAA</li>
-				<li onClick="vs.show(bbb)">BBB</li>
-				<li onClick="vs.show(ccc)">CCC</li>
-				<li onClick="vs.show(ddd)">DDD</li>
-			</ul>
+			BBB
 		</div>
-		<!--</d-scrollable-container>-->
 		<div style="background-color: powderblue;" id='ccc'>
 			CCC
 		</div>
