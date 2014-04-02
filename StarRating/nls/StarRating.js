@@ -1,10 +1,8 @@
-define({ root: //begin v1.x content
+define({ root:
 	({
 		'aria-label': "rating",
 		'aria-valuetext': "${value} stars"
-	})
-//end v1.x content
-	,
+	}),
 	"zh": false,
 	"zh-tw": false,
 	"uk": false,
