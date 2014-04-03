@@ -68,7 +68,7 @@ that are installed on your computer), you first need to install the following re
     1. Firefox driver: included with Selenium Server, no extra download needed
     1. Internet explorer driver: use the link provided in section _The Internet Explorer Driver Server_ of http://www.seleniumhq.org/download/
     1. Chrome driver: https://code.google.com/p/chromedriver/
-    1. Safari driver: included with Selenium Server, not extra download needed
+    1. Safari driver: included with Selenium Server, no extra download needed
 
 <a name="#running"/>
 ## Running the tests
