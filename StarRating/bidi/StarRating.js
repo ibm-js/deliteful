@@ -28,14 +28,14 @@ define([
 				if (this.isLeftToRight()) {
 					return sup.call(this, x, domNodeWidth);
 				} else {
-					return x > (domNodeWidth - this.zeroAreaWidth);
+					return x > (domNodeWidth - this._zeroAreaWidth);
 				}
 			};
 		}),
 
 		_xToRawValue: dcl.superCall(function (sup) {
 			return function (/*Number*/x, /*Number*/domNodeWidth) {
-				var starStripLength = domNodeWidth - this.zeroAreaWidth;
+				var starStripLength = domNodeWidth - this._zeroAreaWidth;
 				if (this.isLeftToRight()) {
 					return sup.call(this, x, domNodeWidth);
 				} else {
@@ -66,22 +66,14 @@ define([
 						}
 						parent.className = this.baseClass + "-star-icon " + starClass;
 					}
-				}
-			};
-		}),
-		
-		_updateZeroArea: dcl.superCall(function (sup) {
-			return function (/*Number*/value) {
-				if (!this.isLeftToRight()) {
-					if (this.readOnly) {
-						this.style.paddingRight = "0px";
-					} else {
-						this.style.paddingRight = this.zeroAreaWidth + "px";
+					if (create) {
+						this._zeroSettingArea = domConstruct.create("div", {}, this);
+						this._zeroSettingArea.className = this.baseClass + "-zero ";
+						this._updateZeroArea();
 					}
-				} else {
-					sup.call(this, value);
 				}
 			};
 		})
+		
 	});
 });

@@ -10,7 +10,7 @@ define(["intern!object",
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 			pixelsFromCenter/*?Number of pixels from the center of the star*/) {
 			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div[" + starIndex + "]")
+				.elementByXPath("//*[@id='" + widgetId + "']/div[" + (starIndex + 1) + "]")
 					.moveTo(20 + (pixelsFromCenter ? pixelsFromCenter : 0), 0)
 					.end()
 				.click();
@@ -18,10 +18,9 @@ define(["intern!object",
 
 	var clickOnZeroSettingArea = function (remote, widgetId) {
 		return remote
-			.elementById(widgetId)
-				.moveTo(0, 0)
-				.end()
-			.click();
+		.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
+			.click()
+			.end();
 	};
 
 	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
@@ -94,7 +93,7 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "0", "tabIndex");
 				})
-				.elementsByTagName("div")
+				.elementsByClassName("d-star-rating-star-icon")
 					.then(function (children) {
 						assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
 					})
@@ -102,7 +101,7 @@ define(["intern!object",
 				.then(function () {
 					for (i = 0; i < expectedMax; i++) {
 						(function (i) {
-							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 1) + "]")
+							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 2) + "]")
 								.getAttribute("className")
 								.then(function (result) {
 									assert.equal(result, expectedClasses[i], "star " + i + " class");
@@ -115,8 +114,7 @@ define(["intern!object",
 	};
 
 	var defaultEditableRatingTest = function (remote, widgetId, halfStars, zeroSetting, expectedInitialValue) {
-		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3,
-			expectedAfterZeroSetting = zeroSetting ? 0 : 0.5;
+		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
 		.get(require.toUrl("./StarRatingTests.html"))
 		.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -133,10 +131,14 @@ define(["intern!object",
 		})
 		// set zero rating
 		.then(function () {
-			return clickOnZeroSettingArea(remote, widgetId);
+			if (zeroSetting) {
+				return clickOnZeroSettingArea(remote, widgetId);
+			}
 		})
 		.then(function () {
-			return checkRating(remote, widgetId, 7, expectedAfterZeroSetting, true);
+			if (zeroSetting) {
+				return checkRating(remote, widgetId, 7, 0, true);
+			}
 		});
 		///////////////////////////////////////////
 		// TODO: CHECK USING MOVE TO SET VALUES
