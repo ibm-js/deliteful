@@ -1,19 +1,22 @@
 define(function(){ return '\
 .d-view-stack {\
   display: inline-block;\
-  -webkit-box-sizing: border-box !important;\
-  -moz-box-sizing: border-box !important;\
-  box-sizing: border-box !important;\
-  overflow-x: hidden !important;\
-  overflow-y: hidden;\
-  position: relative !important;\
+  -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
+  box-sizing: border-box;\
+  overflow-x: hidden;\
+  position: relative;\
 }\
 .d-view-stack > * {\
+  -webkit-box-sizing: border-box;\
+  -moz-box-sizing: border-box;\
+  box-sizing: border-box;\
+  width: 100%;\
+}\
+.-d-view-stack-transition > * {\
   position: absolute;\
-  -webkit-box-sizing: border-box !important;\
-  -moz-box-sizing: border-box !important;\
-  box-sizing: border-box !important;\
-  width: 100% !important;\
-  height: 100% !important;\
+}\
+.-d-view-stack-transition {\
+  overflow-y: hidden;\
 }\
 '; } );
