@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script>
+		require([
+		    "dojo/_base/declare",
+			"delite/register",
+			"deliteful/list/List",
+			"dstore/Memory",
+			"dstore/Observable",
+			"dojo/domReady!"
+		], function (declare, register, List, MemoryStore, Observable) {
+			var list = register.createElement("d-list");
+			list.style.height = "200px";
+			// Custom memory store with a customizable latency
+			var ObservableMemoryStore = declare([MemoryStore, Observable], {});
+			list.store = new ObservableMemoryStore();
+ 			for (i = 0; i < 100; i++) {
+				list.store.add({label: "Programmatic item of order " + i, id: i});
+			}
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+</head>
+<body role="application">
+	This sample demonstrate a list that uses a dstore observable memory store.
+</body>
+</html>
