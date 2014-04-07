@@ -42,9 +42,10 @@ define([
 		//		- .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
 		//		- .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
 		//		- .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
+		//		- .d-star-rating-zero {height: iconSize; width: iconSize/2;}
 		//
 		//		The widget can be used in read-only or in editable mode. In editable mode, the widget allows
-		//		to set the rating to 0 stars or not using the zeroAreaWidth property. In this mode, it also allows
+		//		to set the rating to 0 stars or not using the allowZero property. In this mode, it also allows
 		//		to set half values or not using the editHalfValues property.
 		//
 		//		This widget supports right to left direction.
@@ -79,27 +80,21 @@ define([
 		//		If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
 		editHalfValues: false,
 
-		// zeroAreaWidth: Number
-		//		The number of pixel to add to the left of the widget (or right if the direction is rtl) to allow
-		//		setting the value to 0 when readOnly is set to falsy. Default value is 0 if the widget is read only,
-		//		20 if the widget is not read only.
-		//		Set this value to 0 to forbid the user from setting the value to zero during edition.
-		//		Setting this attribute to a negative value is not supported.
-		zeroAreaWidth: -1,
-
-		_getZeroAreaWidthAttr: function () {
-			var val = this._get("zeroAreaWidth");
-			return val === -1 ? (this.readOnly ? 0 : 20) : val;
-		},
+		// allowZero: boolean
+		//		True to allow setting a value of zero, false otherwise
+		allowZero: true,
 
 		/* internal properties */
 
+		/*=====
+		_zeroAreaWidth: 1,
 		_enterValue: null,
-		_hovering: false,
 		_hoveredValue: null,
 		_startHandles: null,
-		_otherEventsHandles: [],
 		_keyDownHandle: null,
+		=====*/
+		_hovering: false,
+		_otherEventsHandles: [],
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
@@ -110,7 +105,7 @@ define([
 					"readOnly",
 					"disabled",
 					"editHalfValues",
-					"zeroAreaWidth");
+					"allowZero");
 		},
 
 		createdCallback: dcl.after(function () {
@@ -196,7 +191,7 @@ define([
 				this.valueNode.readOnly = this.readOnly;
 				this.valueNode.disabled = this.disabled;
 			}
-			if (props.readOnly !== undefined || props.disabled !== undefined || props.zeroAreaWidth !== undefined) {
+			if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
 				this._updateZeroArea();
 			}
 		},
@@ -280,7 +275,7 @@ define([
 		},
 
 		_decrementValue: function () {
-			if (this.value > (this.zeroAreaWidth ? 0 : (this.editHalfValues ? 0.5 : 1))) {
+			if (this.value > (this.allowZero ? 0 : (this.editHalfValues ? 0.5 : 1))) {
 				this.value = this.value - (this.editHalfValues ? 0.5 : 1);
 			}
 		},
@@ -314,16 +309,21 @@ define([
 
 		/*jshint unused:vars*/
 		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) {
-			return x < this.zeroAreaWidth;
+			return x < this._zeroAreaWidth;
 		},
 
 		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
-			var starStripLength = domNodeWidth - this.zeroAreaWidth;
-			return (x - this.zeroAreaWidth) / (starStripLength / this.max);
+			var starStripLength = domNodeWidth - this._zeroAreaWidth;
+			return (x - this._zeroAreaWidth) / (starStripLength / this.max);
 		},
 
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
 			var stars = this.querySelectorAll("div");
+			if (create) {
+				this._zeroSettingArea = domConstruct.create("div", {}, this.valueNode, "before");
+				this._zeroSettingArea.className = this.baseClass + "-zero ";
+				this._updateZeroArea();
+			}
 			for (var i = 0; i < this.max; i++) {
 				if (i <= value - 1) {
 					var starClass = this.baseClass + "-full-star";
@@ -335,17 +335,19 @@ define([
 				if (create) {
 					var parent = domConstruct.create("div", {}, this.valueNode, "before");
 				} else {
-					parent = stars[i];
+					parent = stars[i+1];
 				}
 				parent.className = this.baseClass + "-star-icon " + starClass;
 			}
 		},
 
 		_updateZeroArea: function () {
-			if (this.readOnly) {
-				this.style.paddingLeft = "0px";
+			if (this.readOnly || !this.allowZero) {
+				domClass.add(this._zeroSettingArea, "d-hidden");
+				this._zeroAreaWidth = 0;
 			} else {
-				this.style.paddingLeft = this.zeroAreaWidth + "px";
+				domClass.remove(this._zeroSettingArea, "d-hidden");
+				this._zeroAreaWidth = domGeometry.position(this._zeroSettingArea, false).w;
 			}
 		}
 	});

@@ -9,6 +9,15 @@ define(function(){ return '\
 .d-star-rating-disabled .d-star-rating-star-icon:before {\
   content: url("../../images/grey-stars-40.png");\
 }\
+.d-star-rating-zero {\
+  float: left;\
+  overflow: hidden;\
+  height: 40px;\
+  width: 20px;\
+}\
+.d-star-rating-zero.d-hidden {\
+  width: 0px;\
+}\
 .d-star-rating-star-icon {\
   float: left;\
   overflow: hidden;\
