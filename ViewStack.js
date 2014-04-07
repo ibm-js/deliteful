@@ -227,6 +227,8 @@ define(["dcl/dcl",
 					props: event,
 					deferred: deferred
 				};
+
+				domClass.add(this, "-d-view-stack-transition");
 				node.addEventListener("webkitTransitionEnd", endProps.handle);
 				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
 			},
@@ -238,10 +240,10 @@ define(["dcl/dcl",
 					setVisibility(this.children[i], this._visibleChild === this.children[i]);
 				}
 				cleanCSS(item.node);
-
 				item.node.removeEventListener("webkitTransitionEnd", item.handle);
 				item.node.removeEventListener("transitionend", item.handle);
 				if (item.deferred) {
+					domClass.remove(this, "-d-view-stack-transition");
 					item.deferred.resolve();
 				}
 			}

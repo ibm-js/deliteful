@@ -21,6 +21,12 @@ define(function(){ return '\
   -ms-flex: 1;\
   flex: 1;\
 }\
+.-d-linear-layout-v > .fill {\
+  height: 100%;\
+}\
+.-d-linear-layout-h > .fill {\
+  width: 100%;\
+}\
 .height100 {\
   height: 100%;\
 }\
