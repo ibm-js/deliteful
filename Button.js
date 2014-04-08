@@ -3,12 +3,13 @@ define([
 	"dojo/hccss",
 	"dojo/_base/lang",
 	"dojo/dom-construct",
+	"dojo/dom-class",
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"delite/themes/load!./Button/themes/{{theme}}/Button_css" // common for d-inline
-], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
+	"delite/themes/load!./Button/themes/{{theme}}/Button_css"
+], function (dcl, has, lang, domConstruct, domClass, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
 		// summary:
@@ -23,10 +24,10 @@ define([
 		label: "",
 
 		// showLabel: Boolean
-		//		Set this to true to hide the label text and display only the icon.
+		//		Set this to false to hide the label text and display only the icon.
 		//		(If showLabel=false then iconClass must be specified.)
 		//		Especially useful for toolbars.
-		//		If showLabel=true, the label will become the title (a.k.a. tooltip/hint) of the icon.
+		//		If showLabel=false, the label will become the title (a.k.a. tooltip/hint) of the icon.
 		//
 		//		The exception case is for computers in high-contrast mode, where the label
 		//		will still be displayed, since the icon doesn't appear.
@@ -44,16 +45,28 @@ define([
 			this.addInvalidatingProperties("label", "showLabel", "title", "iconClass", "textDir");
 		},
 
-		postCreate: function () {
+		buildRendering: function () {
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
 			if (!this.label) {
 				this.label = this.textContent.trim();
-				this.innerHTML = "";
+				this.textContent = "";
 			}
-
 			this.focusNode = this;
+			// Create child <span> here to avoid deletion when we get the label from innerHTML
+			this.containerNode = domConstruct.create("SPAN", {}, this, "last");
 		},
 
+		postCreate: function (){
+			this.invalidateProperty("label");
+			this.validate();
+		},
+
+		_setIconClassAttr: function (value) {
+			// Retain the previous icon class to remove it later in refreshRendering
+			this._previousIconClass = this.iconClass;
+			this._set("iconClass", value);
+		},
+		
 		/*jshint maxcomplexity: 15*/
 		refreshRendering: function (props) {
 			// summary:
@@ -63,27 +76,17 @@ define([
 
 			// Add or remove icon, or change its class
 			if (props.iconClass) {
-				if (this.iconClass && !has("highcontrast")) {
-					this.iconNode = this.iconNode || domConstruct.create("span", null, this, "first");
-					this.iconNode.className = "d-reset d-inline d-icon " + this.iconClass;
-				} else if (this.iconNode) {
-					domConstruct.destroy(this.iconNode);
-					delete this.iconNode;
-				}
+				var showIcon = this.iconClass && !has("highcontrast");
+				domClass.remove(this.containerNode, this._previousIconClass);
+				domClass.toggle(this.containerNode, "d-button-icon", showIcon);
+				domClass.toggle(this.containerNode, this.iconClass, showIcon);
 			}
 			// Set or remove label
 			var showLabel = this.label && (this.showLabel || has("highcontrast"));
 			if (props.label || props.showLabel) {
-				if (showLabel) {
-					this.containerNode = this.containerNode ||
-						domConstruct.create("span", {className: "d-reset d-inline duiButtonText"}, this);
-					this.containerNode.textContent = this.label;
-				} else if (this.containerNode) {
-					domConstruct.destroy(this.containerNode);
-					delete this.containerNode;
-				}
+				this.containerNode.textContent = showLabel ? this.label : "";
+				domClass.toggle(this.containerNode, "d-button-text", showLabel);
 			}
-
 			// Set title.  If no label is shown and no title has been specified,
 			// label is also set as title attribute of icon.
 			if (props.title || props.label) {

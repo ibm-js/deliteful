@@ -1,110 +1,32 @@
 @import "../../../../delite/themes/bootstrap/common";
 
-// ==================== utils ======================
-// Button sizes
-// -------------------------
-.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
-  padding: @padding-vertical @padding-horizontal;
-  font-size: @font-size;
-  line-height: @line-height;
-  border-radius: @border-radius;
-}
-// Tab focus
-// -------------------------
-.tab-focus () {
-  // Default
-  outline: thin dotted;
-  // WebKit
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-// Button variant
-// -------------------------
-.d-button-variant(@color; @background; @border) {
-  color: @color;
-  background-color: @background;
-  border-color: @border;
-  &:hover, &:focus, &:active, &.active {
-    color: @color;
-    background-color: darken(@background, 8%);
-    border-color: darken(@border, 12%);
-  }
-  &:active, &.active {
-    background-image: none;
-  }
-  &.disabled, &[disabled] {
-    &, &:hover, &:focus, &:active, &.active {
-      background-color: @background;
-      border-color: @border;
-    }
-  }
-}
-// Button base
-// -------------------------
-.d-button-base () {
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: @btn-font-weight;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  white-space: nowrap;
-  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
-  .user-select(none);
-  &, &:active, &.active {
-    &:focus {
-      .tab-focus();
-    }
-  }
-  &:hover, &:focus {
-    color: @btn-default-color;
-    text-decoration: none;
-  }
-  &:active, &.active {
-    outline: 0;
-    background-image: none;
-    .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
-  }
-  &.disabled, &[disabled], fieldset[disabled] & {
-    cursor: not-allowed;
-    opacity: .65;
-    .box-shadow(none);
-    pointer-events: none;
-  }
-}
-
-// ==================== d-button ======================
-
+// -----------------------------------------------
+//  Theme     : bootstrap
+//  Widget    : deliteful/Button
+//  baseClass : d-button
+// -----------------------------------------------
 .d-button {
   .d-button-base();
   .d-button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
 }
+
 .d-button-primary, .d-button-blue {
-  .d-button-base();
   .d-button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
 }
-// Success appears as green
+
 .d-button-success {
-  .d-button-base();
   .d-button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
 }
-// Info appears as blue-green
+
 .d-button-info {
-  .d-button-base();
   .d-button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
 }
-// Warning appears as orange
+
 .d-button-warning {
-  .d-button-base();
   .d-button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
 }
-// Danger and error appear as red
+
 .d-button-danger, .d-button-red {
-  .d-button-base();
   .d-button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
 }
 
@@ -135,4 +57,89 @@
   }
 }
 
-//@import "../Button_template";
+.d-button-text {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  max-width: 100%;
+  line-height: normal;
+  .text-ellipsis();
+  padding: 0;
+  margin: 0;
+}
+
+// placeholder for custom icon
+.d-button .d-button-icon:before {
+  display: inline-block;
+  content: "";
+  vertical-align: middle;
+  background-repeat: no-repeat;
+}
+
+// horizontal padding when both text and icon are displayed
+.d-button .d-button-text.d-button-icon:before {
+  padding: 0 @padding-base-horizontal/3;
+}
+
+// -----------------------------------------------
+// mixins
+// -----------------------------------------------
+.d-button-base () {
+  display: inline-block;
+  overflow: hidden;
+  margin-bottom: 0;
+  font-weight: @btn-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  .box-sizing(border-box);
+  padding: @padding-base-vertical @padding-base-horizontal;
+  font-size: @font-size-base;
+  line-height: @line-height-base;
+  border-radius: @border-radius-base;
+  .user-select(none);
+  &, &:active, &.active {
+    &:focus {
+      .tab-focus();
+    }
+  }
+  &:hover, &:focus {
+    color: @btn-default-color;
+    text-decoration: none;
+  }
+  &:active, &.active {
+    outline: 0;
+    background-image: none;
+    .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
+  }
+  &.disabled, &[disabled], fieldset[disabled] & {
+    cursor: not-allowed;
+    opacity: .65;
+    .box-shadow(none);
+    pointer-events: none;
+  }
+}
+
+.d-button-variant(@color; @background; @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+  &:hover, &:focus, &:active, &.active {
+    color: @color;
+    background-color: darken(@background, 8%);
+    border-color: darken(@border, 12%);
+  }
+  &:active, &.active {
+    background-image: none;
+  }
+  &.disabled, &[disabled] {
+    &, &:hover, &:focus, &:active, &.active {
+      background-color: @background;
+      border-color: @border;
+    }
+  }
+}

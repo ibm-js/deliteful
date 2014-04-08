@@ -48,12 +48,12 @@
 			margin: 0;
 		}
 
-		.d-icon-cut {
+		.d-icon-cut:before {
 			background-image: url('images/cut.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 			width: 16px;
 			height: 16px;
 		}
-		.d-icon-copy {
+		.d-icon-copy:before {
 			background-image: url('images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 			width: 16px;
 			height: 16px;
@@ -93,7 +93,10 @@ class="customButton"
 	Icon Button
 </button>
 <button onclick="T1465.iconClass = 'd-icon-cut';">Change icon to cut</button>
+<button onclick="T1465.iconClass = 'd-icon-copy';">Change icon to copy</button>
 <button onclick="T1465.iconClass = '';">Remove icon</button>
+<button onclick="T1465.showLabel = false;">Hide label</button>
+<button onclick="T1465.showLabel = true;">Show label</button>
 <div id="msgArea" style="margin:15px"></div>
 </body>
 </html>
