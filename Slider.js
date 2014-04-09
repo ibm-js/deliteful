@@ -1,5 +1,4 @@
 define([
-	"dojo/_base/lang",
 	"dojo/_base/window",
 	"dojo/sniff",
 	"dojo/query",
@@ -13,7 +12,7 @@ define([
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/themes/load!./Slider/themes/{{theme}}/Slider_css"
-], function (lang, win, has, query, domClass, domConstruct, domGeometry, domStyle,
+], function (win, has, query, domClass, domConstruct, domGeometry, domStyle,
 		keys, dpointer, on, register, FormValueWidget) {
 
 	// boolean feature test variable to decide if position() return attributes
@@ -188,9 +187,8 @@ define([
 		},
 
 		postCreate: function () {
-			var	beginDrag = lang.hitch(this,
-				function (e) {
-					var	setValue = lang.hitch(this, function (priorityChange) {
+			var	beginDrag = function (e) {
+					var	setValue = function (priorityChange) {
 							var values = String(this.value).split(/,/g);
 							value -= offsetValue;
 							// now perform visual slide
@@ -202,8 +200,8 @@ define([
 										: (value + "," + values[1]));
 							this.validateProperties();
 							this._handleOnChange(this.value, priorityChange);
-						}),
-						getEventData = lang.hitch(this, function (e) {
+						}.bind(this),
+						getEventData = function (e) {
 							var pixelValue = e[this._attrs.clientStart] - box[this._attrs.start];
 							pixelValue = Math.min(Math.max(pixelValue, 0), box[this._attrs.size]);
 							var discreteValues = this.step ? ((this.max - this.min) / this.step) :
@@ -214,12 +212,12 @@ define([
 							var wholeIncrements = Math.round(pixelValue * discreteValues / box[this._attrs.size]);
 							value = (this.max - this.min) * wholeIncrements / discreteValues;
 							value = this._reversed ? (this.max - value) : (this.min + value);
-						}),
-						continueDrag = lang.hitch(this, function (e) {
+						}.bind(this),
+						continueDrag = function (e) {
 							getEventData(e);
 							setValue(false);
-						}),
-						endDrag = lang.hitch(this, function (e) {
+						}.bind(this),
+						endDrag = function (e) {
 							if (actionHandles) {
 								actionHandles.forEach(function (h) { h.remove(); });
 							}
@@ -227,7 +225,7 @@ define([
 							getEventData(e);
 							setValue(true);
 							// fire onChange
-						}),
+						}.bind(this),
 						// get the starting position of the content area (dragging region)
 						// can't use true since the added docScroll and the returned x are body-zoom incompatible
 						box = domGeometry.position(this.containerNode, false),
@@ -280,9 +278,9 @@ define([
 						on(root, "pointermove", continueDrag),
 						on(root, "pointerup", endDrag)
 					);
-				}),
+				}.bind(this),
 
-				keyDown = lang.hitch(this, function (e) {
+				keyDown = function (e) {
 					function handleKeys() {
 						var	step = this.step,
 							multiplier = 1;
@@ -327,13 +325,13 @@ define([
 					} else {
 						return;
 					}
-					lang.hitch(this, handleKeys)();
-				}),
+					handleKeys.bind(this)();
+				}.bind(this),
 
-				keyUp = lang.hitch(this, function (e) {
+				keyUp = function (e) {
 					if (this.disabled || this.readOnly || e.altKey || e.ctrlKey || e.metaKey) { return; }
 					this._handleOnChange(this.value, true);
-				}),
+				}.bind(this),
 
 				value,
 				node = this;
@@ -360,13 +358,14 @@ define([
 			}
 			// if the form is reset, then notify the widget to reposition the handles
 			if (this.valueNode.form) {
-				this.own(on(this.valueNode.form, "reset", lang.hitch(this, "defer",
-					function () {
+				var self = this;
+				this.own(on(this.valueNode.form, "reset", function() {
+					self.defer(function () {
 						if (this.value !== this.valueNode.value) {
 							this.value = this.valueNode.value;
 						}
-					}, 0
-				)));
+					});
+				}));
 			}
 		}
 	});

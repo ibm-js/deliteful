@@ -1,6 +1,5 @@
 define([
     "dcl/dcl",
-	"dojo/_base/lang",
 	"dojo/string",
 	"dojo/has",
 	"dojo/on",
@@ -17,7 +16,7 @@ define([
 	"dojo/uacss", // to use dedicated CSS styles in IE9
 	"delite/themes/load!./StarRating/themes/{{theme}}/StarRating_css",
 	"dojo/has!dojo-bidi?delite/themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (dcl, lang, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
+], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
 	// module:
@@ -175,14 +174,14 @@ define([
 				passive = this.disabled ? true : this.readOnly;
 				this.setAttribute("aria-disabled", passive);
 				if (!passive && !this._keyDownHandle) {
-					this._keyDownHandle = this.on("keydown", lang.hitch(this, "_keyDownHandler"));
+					this._keyDownHandle = this.on("keydown", this._keyDownHandler.bind(this));
 				} else if (passive && this._keyDownHandle) {
 					this._keyDownHandle.remove();
 					this._keyDownHandle = null;
 				}
 				if (!passive && !this._startHandles) {
-					this._startHandles = [this.on("pointerenter", lang.hitch(this, "_pointerEnterHandler")),
-										  this.on("pointerdown", lang.hitch(this, "_wireHandlers"))];
+					this._startHandles = [this.on("pointerenter", this._pointerEnterHandler.bind(this)),
+										  this.on("pointerdown", this._wireHandlers.bind(this))];
 				} else if (passive && this._startHandles) {
 					while (this._startHandles.length) {
 						this._startHandles.pop().remove();
@@ -206,11 +205,11 @@ define([
 		_wireHandlers: function () {
 			if (!this._otherEventsHandles.length) {
 				// handle move on the stars strip
-				this._otherEventsHandles.push(this.on("pointermove", lang.hitch(this, "_pointerMoveHandler")));
+				this._otherEventsHandles.push(this.on("pointermove", this._pointerMoveHandler.bind(this)));
 				// handle the end of the value editing
-				this._otherEventsHandles.push(this.on("pointerup", lang.hitch(this, "_pointerUpHandler")));
-				this._otherEventsHandles.push(this.on("pointerleave", lang.hitch(this, "_pointerLeaveHandler")));
-				this._otherEventsHandles.push(this.on("pointercancel", lang.hitch(this, "_pointerLeaveHandler")));
+				this._otherEventsHandles.push(this.on("pointerup", this._pointerUpHandler.bind(this)));
+				this._otherEventsHandles.push(this.on("pointerleave", this._pointerLeaveHandler.bind(this)));
+				this._otherEventsHandles.push(this.on("pointercancel", this._pointerLeaveHandler.bind(this)));
 			}
 		},
 

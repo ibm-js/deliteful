@@ -124,11 +124,9 @@ define([
 		dRule.prototype._setTextDirAttr = function (textDir) {
 			if (this.textDir !== textDir) {
 				this._set("textDir", textDir);
-				query(".d-rule-label", this).forEach(
-					lang.hitch(this, function (labelNode) {
-						this._setLabelDirection(labelNode);
-					})
-				);
+				query(".d-rule-label", this).forEach(function (labelNode) {
+					this._setLabelDirection(labelNode);
+				}.bind(this));
 			}
 		};
 
