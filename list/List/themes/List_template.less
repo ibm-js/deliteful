@@ -7,14 +7,37 @@
 /* in the list !                */
 /********************************/
 
+.flex-display() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.flex-grow(@grow) {
+	-webkit-box-flex: @grow;
+	-moz-box-flex: @grow;
+	-webkit-flex: @grow;
+	-ms-flex: @grow;
+	flex: @grow;
+}
+
+.flex-align(@align) {
+	-webkit-box-align: @align;
+	-ms-flex-align: @align;
+	align-items: @align;
+	-webkit-align-items: @align;	
+}
+
 d-list-store {
 	display: none;
 }
 
 .d-list-category {
+	/* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
 	/* Edit display at your own risk */
 	display: block;
-	position: relative;
 	margin: 0;
 	overflow: hidden;
 	font-family: Helvetica;
@@ -30,56 +53,33 @@ d-list-store {
 	color: white;
 	line-height: 22px;
 	text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
-}
-
-.d-list-category [role="gridcell"] {
-	padding: 0 10px;
+	[role="gridcell"] {
+		padding: 0 10px;
+	}
 }
 
 .d-list-item {
+	/* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
 	overflow: hidden;
 	list-style-type: none;
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 	border-bottom: 1px solid #adaaad;
 	background-color: #ffffff;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-align-items: center;
-}
-
-.d-list-item [role="gridcell"] {
-	padding: 0 8px;
+	.flex-display();
+	.flex-align(center);
+	[role="gridcell"] {
+		padding: 0 8px;
+	}
 }
 
 .d-list [role="gridcell"] {
-	-webkit-box-flex: 1;
-	-moz-box-flex: 1;
-	-webkit-flex: 1;
-	-ms-flex: 1;
-	flex: 1;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-align-items: center;
+	.flex-display();
+	.flex-grow(1);
+	.flex-align(center);
 }
 
 .d-list [role="gridcell"] > .d-spacer {
-	-webkit-box-flex: 1;
-	-moz-box-flex: 1;
-	-webkit-flex: 1;
-	-ms-flex: 1;
-	flex: 1;
+	.flex-grow(1);
 }
 
 .d-list-item-icon {
@@ -107,41 +107,69 @@ d-list-store {
 .d-list-item-right-icon {
 }
 
-.d-list-loader{
-    padding: 0 8px;
-	color: blue;
-	cursor: pointer;
-	height: 43px;
-	line-height: 43px;
-  	background-color: #ffffff;
-  	border-bottom: 1px solid #adaaad;
-}
-
-.d-list-loader.d-loading{
-	color: #808080;
-	cursor: wait;
+.d-list-loader {
+	[role="gridcell"] {
+		font-weight: bold;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #324f85;
+		cursor: pointer;
+		height: 43px;
+	  	background-color: #ffffff;
+	  	border-bottom: 1px solid #adaaad;
+	}
+	[role="button"] {
+		.flex-display();		
+		.d-progress-indicator {
+			width: 24px;
+			height: 24px;
+			vertical-align: top;
+		}
+		.d-progress-indicator-lines {
+			stroke: #808080
+		}
+		div {
+			padding-left: 10px;
+		}
+	}
+	&.d-loading {
+		[role="gridcell"] {
+			color: #808080;
+			font-weight: normal;
+			font-style: italic;
+			cursor: wait;
+		}
+	}
 }
 
 .d-list-loading-panel {
 	position: absolute;
 	color: #808080;
-	font-size: xx-large;
+	font-size: medium;
 	font-style: italic;
 	text-align: center;
 	background-color: #c5ccd3;
 	cursor: wait;
-}
+	
+	.d-progress-indicator {
+		width: 24px;
+		height: 24px;
+		vertical-align: top;
+	}
+	
+	.d-progress-indicator-lines {
+		stroke: #808080
+	}
+	
+	span {
+		vertical-align: middle;
+		padding-left: 10px;
+	}
 
-.d-list.d-loading{
-	padding-top: 50px;
-	text-align: center;
-}
-
-.d-list.d-loading:after{
-	content: "Loading...";
-	font-size: large;
-	font-style: italic;
-	color: #808080;
+	svg {
+		vertical-align: middle;
+	}
 }
 
 [aria-selectable="true"],[aria-multiselectable="true"] {
@@ -197,7 +225,7 @@ d-list-store {
 /********************************/
 /* iOS theme for EdgeToEdgeList */
 /*                              */
-/* IMPORTANT: a renderer MUST       */
+/* IMPORTANT: a renderer MUST   */
 /* have the same height (inc.   */
 /* borders) whatever its index  */
 /* in the list !                */
