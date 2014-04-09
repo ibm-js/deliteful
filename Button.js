@@ -1,6 +1,6 @@
 define([
 	"dcl/dcl",
-	"dojo/hccss",
+	"dojo/has",
 	"dojo/_base/lang",
 	"dojo/dom-construct",
 	"dojo/dom-class",
@@ -76,13 +76,12 @@ define([
 
 			// Add or remove icon, or change its class
 			if (props.iconClass) {
-				var showIcon = this.iconClass && !has("highcontrast");
 				domClass.remove(this.containerNode, this._previousIconClass);
-				domClass.toggle(this.containerNode, "d-button-icon", showIcon);
-				domClass.toggle(this.containerNode, this.iconClass, showIcon);
+				domClass.toggle(this.containerNode, "d-button-icon", this.iconClass);
+				domClass.toggle(this.containerNode, this.iconClass, this.iconClass);
 			}
 			// Set or remove label
-			var showLabel = this.label && (this.showLabel || has("highcontrast"));
+			var showLabel = this.label && this.showLabel;
 			if (props.label || props.showLabel) {
 				this.containerNode.textContent = showLabel ? this.label : "";
 				domClass.toggle(this.containerNode, "d-button-text", showLabel);

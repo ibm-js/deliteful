@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>Button sample - simple</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require({
+			baseUrl: "../../.."
+		}, [
+			"delite/register",
+			"deliteful/Button"
+		], function (register, Button) {
+			register.parse();
+		});
+	</script>
+	
+	<style>
+		.d-icon-cut:before {
+			content: url('images/cut.gif');
+			height: 16px;
+			width: 16px;
+		}
+		.d-icon-copy:before {
+			content: url('images/copy.gif');
+			height: 16px;
+			width: 16px;
+		}
+
+		/* table layout */
+		table th[scope="row"]{
+			text-align: right;
+		}
+		table[dir="rtl"] th[scope="row"]{
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+<p><strong>ProgressBar sample - theme</strong></p>
+
+<p>This sample shows Button look and feel.</p>
+
+<hr>
+<table>
+	<tr>
+		<th scope="row">Enabled</th>
+		<td>
+			<button is="d-button">Default</button>
+			<button is="d-button" class="d-button-blue">Primary</button>
+			<button is="d-button" class="d-button-success">Success</button>
+			<button is="d-button" class="d-button-info">Info</button>
+			<button is="d-button" class="d-button-warning">Warning</button>
+			<button is="d-button" class="d-button-red">Danger</button>
+			<button is="d-button" class="d-button-link">Link</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Disabled</th>
+		<td>
+			<button is="d-button" disabled>Default</button>
+			<button is="d-button" disabled class="d-button-blue">Primary</button>
+			<button is="d-button" disabled class="d-button-success">Success</button>
+			<button is="d-button" disabled class="d-button-info">Info</button>
+			<button is="d-button" disabled class="d-button-warning">Warning</button>
+			<button is="d-button" disabled class="d-button-red">Danger</button>
+			<button is="d-button" disabled class="d-button-link">Link</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Icon</th>
+		<td>
+			<button is="d-button" iconClass="d-icon-cut"></button>
+			<button is="d-button" iconClass="d-icon-copy" disabled></button>
+			<button is="d-button" iconClass="d-icon-cut">Cut</button>
+			<button is="d-button" iconClass="d-icon-copy" disabled>Copy</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Text overflow</th>
+		<td>
+			<button is="d-button" style="max-width: 90px" >Text overflow</button>
+			<button is="d-button" style="width: 90px" iconClass="d-icon-cut">Text overflow</button>
+		</td>
+	</tr>
+</table>
+<hr>
+<table dir="rtl">
+	<tr>
+		<th scope="row">Enabled</th>
+		<td>
+			<button is="d-button">Default</button>
+			<button is="d-button" class="d-button-blue">Primary</button>
+			<button is="d-button" class="d-button-success">Success</button>
+			<button is="d-button" class="d-button-info">Info</button>
+			<button is="d-button" class="d-button-warning">Warning</button>
+			<button is="d-button" class="d-button-red">Danger</button>
+			<button is="d-button" class="d-button-link">Link</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Disabled</th>
+		<td>
+			<button is="d-button" disabled>Default</button>
+			<button is="d-button" disabled class="d-button-blue">Primary</button>
+			<button is="d-button" disabled class="d-button-success">Success</button>
+			<button is="d-button" disabled class="d-button-info">Info</button>
+			<button is="d-button" disabled class="d-button-warning">Warning</button>
+			<button is="d-button" disabled class="d-button-red">Danger</button>
+			<button is="d-button" disabled class="d-button-link">Link</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Icon</th>
+		<td>
+			<button is="d-button" iconClass="d-icon-cut"></button>
+			<button is="d-button" iconClass="d-icon-copy" disabled></button>
+			<button is="d-button" iconClass="d-icon-cut">Cut</button>
+			<button is="d-button" iconClass="d-icon-copy" disabled>Copy</button>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Text overflow</th>
+		<td>
+			<button is="d-button" style="max-width: 90px" >Text overflow</button>
+			<button is="d-button" style="width: 90px" iconClass="d-icon-cut">Text overflow</button>
+		</td>
+	</tr>
+</table>
+<hr>
+</body>
+</html>

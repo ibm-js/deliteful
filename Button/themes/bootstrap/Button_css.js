@@ -311,9 +311,7 @@ fieldset[disabled] .d-button {\
 }\
 .d-button .d-button-icon:before {\
   display: inline-block;\
-  content: "";\
   vertical-align: middle;\
-  background-repeat: no-repeat;\
 }\
 .d-button .d-button-text.d-button-icon:before {\
   padding: 0 4px;\
