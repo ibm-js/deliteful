@@ -16,3 +16,20 @@
 .d-star-rating.d-rtl .d-star-rating-half-star:before {
 	margin-left: 0px;
 }
+
+// IE9 needs another styling
+
+.dj_ie9 .d-star-rating.d-rtl .d-star-rating-full-star:before{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.dj_ie9 .d-star-rating.d-rtl .d-star-rating-empty-star:before{
+	margin-left: 0px;
+	margin-right: (-1 * @star-icon-size);
+}
+
+.dj_ie9 .d-star-rating.d-rtl .d-star-rating-half-star:before {
+	margin-left: 0px;
+	margin-right: (-2 * @star-icon-size);
+}
