@@ -79,6 +79,7 @@ define(function () {
   background-clip: content-box;\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#fafafa));\
   background-image: linear-gradient(to bottom, #cccccc 0%, #fafafa 100%);\
+  outline: none;\
 }\
 .d-slider-h-htl .d-slider-handle-max,\
 .d-slider-h-lth .d-slider-handle-min {\

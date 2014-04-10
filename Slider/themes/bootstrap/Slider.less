@@ -1,48 +1,256 @@
 @import "../../../../delite/themes/bootstrap/common";
 
-@d-slider-size: auto;
+@d-slider-size: 200px;
 @d-slider-halo-size: 12pt;
-@d-slider-bar-border-width: 1px; // for a11y
-@d-slider-bar-border-style: inset;
-@d-slider-bar-border-color: @btn-default-border; //@lightColor13 @lightColor13 @lightColor12;
-@d-slider-bar-size: 200px;
+
+@d-slider-bar-color: @progress-bg;
 @d-slider-bar-thickness: 8px;
+@d-slider-bar-border-width: 1px;
+@d-slider-bar-border-style: inset;
+@d-slider-bar-border-color: @btn-default-border;
 @d-slider-bar-border-radius: @border-radius-base;
-@d-slider-knob-size: 20px; // include border for a11y
-@d-slider-knob-thickness: 20px; // include border for a11y
-@d-slider-knob-border-width: 1px; // for a11y
-@d-slider-knob-border-style: outset;
-@d-slider-knob-border-color: @progress-bar-color; //@lightColor12 @lightColor12 @darkColor06;
-@d-slider-knob-border-radius: @border-radius-large;
+
+@d-slider-handle-size: 20px;
+@d-slider-handle-color: @progress-bg;
+@d-slider-handle-thickness: 20px;
+@d-slider-handle-border-width: 1px;
+@d-slider-handle-border-style: outset;
+@d-slider-handle-border-color: @gray-light;
+//darken(@btn-default-border, 12%);
+@d-slider-handle-border-radius: @border-radius-large;
+
+// Tab focus
+//todo: should move to bootstrap global.css
+// -------------------------
+.tab-focus () {
+  outline: thin dotted;
+  outline-offset: -3px;
+}
 
 //
-.d-slider-styles () {
+// d-slider
+//
+.d-slider {
+  display: inline-block;
+  vertical-align: middle;
+  border-collapse: separate;
+  cursor: pointer;
+  padding: @d-slider-halo-size;
+  .user-select(none);
+  .box-sizing(border-box);
+  .tap-highlight-color(rgba(255, 255, 255, 0));
+
+  input {
+    display: none;
+  }
+
+  //
+  // d-slider-bar
+  //
+  & .d-slider-bar {
+    border-width: @d-slider-bar-border-width;
+    border-style: @d-slider-bar-border-style;
+    border-color: @d-slider-bar-border-color;
+    border-radius: @d-slider-bar-border-radius;
+    padding: 0;
+    margin: 0;
+    background: none;
+    background-clip: content-box;
+    background-color: @d-slider-bar-color;
+  }
+  //
+  // d-slider-remaining-bar
+  // this is the bar below the slider handle(s)
+  //
+  & .d-slider-remaining-bar {
+    .box-sizing(border-box);
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    vertical-align: middle;
+    background-image: none;
+    box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;
+  }
+
+  //
+  // d-slider-progress-bar
+  // this is the bar that start from min, up to the slider handle
+  // when the slider has 2 values, this is the bar between both values
+  //
+  & .d-slider-progress-bar {
+    .box-sizing(content-box);
+    border-width: 0;
+    background-color: lighten(#000000, 60%);
+  }
+
+  &.d-disabled {
+    cursor: default;
+    .box-shadow(none);
+  }
+  &.d-disabled .d-slider-remaining-bar {
+    .box-shadow(none);
+    border-color: lighten(@d-slider-bar-color, 20%);
+  }
+  &.d-disabled .d-slider-progress-bar {
+    background: none;
+  }
+  &.d-disabled .d-slider-handle {
+    &, &:hover, &:focus, &:active, &.active {
+      border-color: lighten(@d-slider-handle-border-color, 20%);
+      .box-shadow(none);
+      background-color: @d-slider-handle-color;
+    }
+  }
 }
 
-.d-slider:disabled {
-  background-color: @progress-bar-bg;
-  border-color: @btn-default-border;
-  cursor: not-allowed;
-  opacity: .65;
-  .box-shadow(none);
-  pointer-events: none;
+//needed when Slider is used with deliteful/Rule
+.d-slider-remaining-bar > * {
+  position: absolute;
 }
 
-.d-slider-bar-styles () {
-}
-.d-slider-remaining-bar-styles () {
-  background-image: none;
-}
-.d-slider-progress-bar-styles () {
-  background-color: @progress-bar-bg;
-}
-.d-slider-handle-styles () {
-  background-color: @progress-bg;
+//
+// d-slider-handle
+//
+.d-slider-handle {
+  .user-select(none);
+  position: absolute;
+  display: inline-block;
+  .box-sizing(border-box);
+  border-width: @d-slider-handle-border-width;
+  border-style: @d-slider-handle-border-style;
+  border-color: @d-slider-handle-border-color;
+  border-radius: @d-slider-handle-border-radius;
+  padding: 0;
+  margin: 0;
+  background-clip: content-box;
+  background-color: @d-slider-handle-color;
+
+  &, &:active, &.active {
+    &:focus {
+      .tab-focus();
+    }
+  }
+  &:hover, &:focus {
+    color: @btn-default-color;
+    text-decoration: none;
+  }
+  &:active, &.active {
+    outline: 0;
+    background-image: none;
+    .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
+  }
 }
 
-.d-slider-handle:hover {
-  background-color: darken(@progress-bar-color, 8%);
-  border-color: darken(@btn-default-border, 12%);
+// =========================================
+// rules below only affect size/position
+// to handle horizontal/vertical/flip
+// =========================================
+
+//
+// horizontal slider
+//
+.d-slider-h {
+  width: @d-slider-size;
+  .d-slider-remaining-bar {
+    min-width: (@d-slider-handle-size * 4);
+    height: @d-slider-bar-thickness;
+  }
+  .d-slider-remaining-bar > * {
+    left: 0; // children are positioned with either top or bottom
+  }
+  .d-slider-progress-bar {
+    height: 100%;
+    top: 0;
+    float: none;
+  }
+  .d-slider-handle {
+    top: -(@d-slider-bar-border-width + @d-slider-handle-size / 2 - @d-slider-bar-thickness / 2);
+    width: @d-slider-handle-thickness;
+    height: @d-slider-handle-size;
+  }
 }
 
-@import "../Slider_template";
+//
+// vertical slider
+//
+.d-slider-v {
+  height: @d-slider-size;
+  .d-slider-remaining-bar {
+    min-height: (@d-slider-handle-size * 4);
+    width: @d-slider-bar-thickness;
+  }
+  .d-slider-remaining-bar > * {
+    top: 0; // children are positioned with either left or right
+  }
+  .d-slider-progress-bar {
+    width: 100%;
+    left: 0;
+    display: block;
+  }
+  .d-slider-handle {
+    left: -(@d-slider-bar-border-width + @d-slider-handle-size / 2 - @d-slider-bar-thickness / 2);
+    width: @d-slider-handle-size;
+    height: @d-slider-handle-thickness;
+  }
+}
+
+.d-slider-h-htl .d-slider-handle-max,
+.d-slider-h-lth .d-slider-handle-min {
+  left: -(@d-slider-handle-thickness / 2);
+}
+
+.d-slider-h-htl .d-slider-handle-min,
+.d-slider-h-lth .d-slider-handle-max {
+  right: -(@d-slider-handle-thickness / 2);
+}
+
+.d-slider-v-lth .d-slider-handle-max,
+.d-slider-v-htl .d-slider-handle-min {
+  bottom: -(@d-slider-handle-thickness / 2);
+}
+
+.d-slider-v-lth .d-slider-handle-min,
+.d-slider-v-htl .d-slider-handle-max {
+  top: -(@d-slider-handle-thickness / 2);
+}
+
+//
+// Rule
+//
+.d-slider-v .d-rule {
+  left: 0;
+}
+
+.d-slider-v.d-rtl .d-rule {
+  right: 0;
+}
+
+.d-slider-h .d-rule {
+  top: 0;
+}
+
+// if neither d-rule-after nor d-rule-before are specified, then the default is d-rule-after
+.d-slider-v.d-rtl .d-rule-after .d-rule-label,
+.d-slider-v.d-rtl DIV.d-rule-label,
+.d-slider-v .d-rule-before .d-rule-label {
+  right: 100%;
+  left: auto;
+}
+
+.d-slider-v .d-rule-label,
+.d-slider-v.d-rtl .d-rule-before DIV.d-rule-label {
+  left: 100%;
+  right: auto;
+}
+
+.d-slider-h .d-rule-before .d-rule-label {
+  bottom: 100%;
+  top: auto;
+}
+
+.d-slider-h .d-rule-label,
+.d-slider-h .d-rule-after .d-rule-label {
+  top: 100%;
+  bottom: auto;
+}
