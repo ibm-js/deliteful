@@ -1,6 +1,6 @@
 # deliteful/list/Pageable
 
-The Pageable mixin add paging capabilities to the [deliteful/list/List](./List.md) widget.
+The Pageable mixin adds paging capabilities to the [deliteful/list/List](./List.md) widget.
 
 A pageable list does not load and display its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
 
@@ -73,6 +73,7 @@ Here is an example of setting a pageLength of 100 items:
 			var pageableList = new PageableList();
 			pageableList.pageLength = 100;
 			...
+			this.ownerDocument.body.appendChild(pageableList);
 			pageableList.startup();
 		});
 ```
@@ -105,11 +106,11 @@ In this example, the list will load (up to) the first 100 items from the store, 
 
 The property `maxPages` defines the maximum number of pages to display at the same time, allowing to keep the size of the DOM under control when using very large lists of items.
 
-When a pageable list loads and display a new page of data, it make sure not to display more pages than the maximum number of pages allowed by unloading some other pages.
+When a pageable list loads and displays a new page of data, it makes sure not to display more pages than the maximum number of pages allowed by unloading some other pages.
 
 Here is an example that illustrates the unloading mechanism, using a pageable list on a store of 1000 items, with a page length of 50 and a maximum number of 2 pages displayed at the same time:
 
-1. Initially, the list load and display the 50 first items of the store (index 0 to 49), and create a user control to load the following page;
+1. Initially, the list loads and displays the 50 first items of the store (index 0 to 49), and creates a user control to load the following page;
 1. When the user control is activated, the following 50 items (index 50 to 99) are loaded from the store and appended to the list (the list now displays the 100 first items from the store);
 1. When the user control is activated once again:
     1. the following 50 items (index 100 to 149) are loaded from the store and appended to the list;
@@ -122,7 +123,7 @@ If the `maxPages` property is set to 0 or less, there is no maximum number of pa
 The list provides up to two user controls to load and display more data:
 
 1. A user control to load the next page of data from the store. It is only present if there is more data to load from the store.
-1. A user control to load the previous page of data from the store. It is only present of there is previous data to load from the store.
+1. A user control to load the previous page of data from the store. It is only present if there is previous data to load from the store.
 
 The user controls can be activated using one of the following interactions, as described in the next sections:
 
@@ -139,7 +140,7 @@ TODO: INSERT SCREENSHOT HERE
 
 The message that is displayed by the control can be customized using the `loadNextMessage` of a pageable List (see the API documentation for more information).
 
-When the user control is activated, its appearance change while the list is busy retrieving data from the store and displaying it:
+When the user control is activated, its appearance changes while the list is busy retrieving data from the store and displaying it:
 
 TODO: INSERT SCREENSHOT HERE
 
@@ -149,16 +150,16 @@ When the new page of items is displayed, the first new item gains the focus and 
 
 TODO: INSERT SCREENSHOT HERE
 
-The user control to load the previous page of data follows the same pattern, instead that it is displayed at the top of the list rather than at the end of the list,
+The user control to load the previous page of data follows the same pattern, except that it is displayed at the top of the list rather than at the end of the list,
 and that the property `loadPreviousMessage` defines what it displays:
 
 TODO: INSERT SCREENSHOT HERE
 
 ### Activation by scrolling
 
-The user controls, when they exists, can be automatically activated when the user scroll to the top of the bottom of the list.
+The user controls, when they exist, can be automatically activated when the user scrolls to the top of the bottom of the list.
 
-To activate this beahaviour, the `autoPaging` property must be set to `true` on the pageable list.
+To activate this behavior, the `autoPaging` property must be set to `true` on the pageable list.
 
 ## Hiding the list while it is busy loading and displaying a page of items
 
