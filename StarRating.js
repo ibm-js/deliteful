@@ -14,8 +14,8 @@ define([
 	"dojo/has!dojo-bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"dojo/uacss", // to use dedicated CSS styles in IE9
-	"delite/themes/load!./StarRating/themes/{{theme}}/StarRating_css",
-	"dojo/has!dojo-bidi?delite/themes/load!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
+	"dojo/has!dojo-bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 

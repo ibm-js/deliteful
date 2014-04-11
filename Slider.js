@@ -11,7 +11,7 @@ define([
 	"dojo/on",
 	"delite/register",
 	"delite/FormValueWidget",
-	"delite/themes/load!./Slider/themes/{{theme}}/Slider_css"
+	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
 ], function (win, has, query, domClass, domConstruct, domGeometry, domStyle,
 		keys, dpointer, on, register, FormValueWidget) {
 

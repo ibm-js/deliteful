@@ -7,7 +7,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"delite/themes/load!./Button/themes/{{theme}}/Button_css" // common for d-inline
+	"delite/theme!./Button/themes/{{theme}}/Button_css" // common for d-inline
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
