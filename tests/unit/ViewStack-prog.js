@@ -47,7 +47,7 @@ define([
 		},
 		"Show (default)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb);
@@ -55,49 +55,49 @@ define([
 		"Show (no transition)" : function () {
 			// Shorter timing if no transition
 			var d = this.async(100);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "none"});
 		},
 		"Show (reverse)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
 			node.show(ddd, {reverse: true});
 		},
 		"Show (reverse, no transition)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show(aaa, {transition: "none", reverse: true});
 		},
 		"Show (reveal)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb, {transition: "reveal", reverse: false});
 		},
 		"Show (reverse, reveal)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "reveal", reverse: true});
 		},
 		"Show (flip)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
 			node.show(ddd, {transition: "flip", reverse: false});
 		},
 		"Show (reverse, flip)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show(aaa, {transition: "flip", reverse: true});
@@ -105,14 +105,14 @@ define([
 		"Show (fade)" : function () {
 			// TODO: Investigate why this test fail on IE11 despite fade transitions work on this browser.
 			//var d = this.async(1000);
-			//node.on("delite-display-complete", d.callback(function () {
+			//node.on("delite-after-show", d.callback(function () {
 			//	checkNodeVisibility(node, bbb);
 			//}));
 			//node.show(bbb, {transition: "fade", reverse: false});
 		},
 		"Show (reverse, slide)" : function () {
 			var d = this.async(1000);
-			node.on("delite-display-complete", d.callback(function () {
+			node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
 			}));
 			node.show(ccc, {transition: "slide", reverse: true});
