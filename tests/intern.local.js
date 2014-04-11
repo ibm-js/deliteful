@@ -15,5 +15,7 @@ define([
 		{ browserName: "internet explorer", requireWindowFocus: "true" }
 	];
 
+	intern.maxConcurrency = 1;
+
 	return intern;
 });
