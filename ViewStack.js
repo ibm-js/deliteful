@@ -134,7 +134,7 @@ define(["dcl/dcl",
 				}
 			},
 
-			performDisplay: function (widget, event) {
+			changeDisplay: function (widget, event) {
 				// Resolved when display is completed.
 				var deferred = new Deferred();
 
