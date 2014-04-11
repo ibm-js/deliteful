@@ -4,7 +4,7 @@ define([
 	"delite/Widget",
 	"delite/DisplayContainer",
 	"delite/Invalidating",
-	"delite/themes/load!./LinearLayout/themes/{{theme}}/LinearLayout_css"
+	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout_css"
 ], function (domClass, register, Widget, DisplayContainer, Invalidating) {
 	return register("d-linear-layout", [HTMLElement, Widget, DisplayContainer, Invalidating], {
 

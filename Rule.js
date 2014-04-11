@@ -8,7 +8,7 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"delite/themes/load!./Rule/css/Rule_css"
+	"delite/theme!./Rule/css/Rule_css"
 ], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
 
 	function toCSS(baseClass, modifier) {
