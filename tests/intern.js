@@ -6,7 +6,7 @@ define({
 	// The port on which the instrumenting proxy will listen
 	proxyPort: 9000,
 
-	serverUrl: "http://127.0.0.1:9000/",
+	proxyUrl: "http://127.0.0.1:9000/",
 
 	// Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
