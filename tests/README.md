@@ -4,12 +4,11 @@ This directory contains the Deliteful widgets tests.
 
 ##### Table of content
 
-- [Directory stucture](#structure)
-- [Initial setup](#setup)
-- [Running the tests](#running)
-- [Writing tests](#writing)
+- [Directory stucture](#directory-structure)
+- [Initial setup](#initial-setup)
+- [Running the tests](#running-the-tests)
+- [Writing tests](#writing-tests)
 
-<a name="#structure"/>
 ## Directory Structure
 
 Deliteful has two sets of automated tests, implemented using [the Intern](https://github.com/theintern/intern):
@@ -27,7 +26,6 @@ Two configuration files defines the two [intern configurations](https://github.c
 Note that as intern provides an in browser runner for the unit tests, you can also run the unit tests in a browser without using the command line.
 This last configuration is defined in the [client.js](./client.js) file.
 
-<a name="#setup"/>
 ## Initial Setup
 
 To be able to run the deliteful automated tests, you need to:
@@ -70,14 +68,24 @@ that are installed on your computer), you first need to install the following re
     1. Chrome driver: https://code.google.com/p/chromedriver/
     1. Safari driver: included with Selenium Server, no extra download needed
 
-<a name="#running"/>
+#### Selendroid / Android SDK installation
+
+To run the tests locally on android emulators or android devices, you first need to install the following resources:
+
+1. Java SDK version 6
+1. [Android SDK](http://developer.android.com/sdk/index.html).
+    1. Once the Android SDK is installed, use the [SDK Manager](http://developer.android.com/tools/help/sdk-manager.html) to download an install Android 4.4 and Android 4.3 platforms.
+    1. You may then [set up virtual devices](http://developer.android.com/tools/devices/managing-avds.html) to use as test platforms: one with Android 4.4, another one with Android 4.3.
+1. [Selendroid standalone with dependencies](http://selendroid.io)
+
 ## Running the tests
 
-You have three options to run the tests:
+You have four options to run the tests:
 
 1. Run the unit tests in a single browser
-2. Run both unit and functional tests in local browsers
-3. Run both unit and functional tests in Sauce Labs browsers
+1. Run both unit and functional tests locally in desktop browsers
+1. Run both unit and functional tests locally in android browsers (emulators or real devices)
+1. Run both unit and functional tests in Sauce Labs browsers
 
 When running tests using the command line, you can also adjust the list of reports generated for the test execution.
 
@@ -91,20 +99,7 @@ http://SERVER:PORT/PATH/node_modules/intern/client.html?config=tests/client
 
 Note that this won't run the functional tests, and that you will have to check the browser javascript console to get the tests execution result.
 
-
-### Running the unit and functional tests in Sauce Labs browsers
-
-In the deliteful directory, type the following command:
-
-```
-$ grunt test:remote
-```
-
-Note that you can update the [intern.js](./intern.js) configuration file if you need to customize the list of browsers to run the tests into.
-
-To monitor the tests execution and access the Sauce Labs reports, you will need to [login to Sauce Labs](https://saucelabs.com/login). 
-
-### Running the unit and functional tests locally
+### Running the unit and functional tests locally in desktop browsers
 
 1. Starts the selenium server on the default port (4444):
 
@@ -120,6 +115,35 @@ To monitor the tests execution and access the Sauce Labs reports, you will need 
    $ grunt test:local
    ```
 
+### Running the unit and functional tests in android browsers
+
+`Note: this does not document how to run the test on real devices, which will come in a further update of this documentation`
+
+1. Starts the selendroid server on the default port (4444):
+
+   ```
+   $ java -jar selendroid-standalone-X.Y.Z-with-dependencies.jar
+   ```
+
+1. Edit the [intern.local.android.js](./intern.local.android.js) configuration to set up the `host` variable to your local IP address  
+
+1. In the deliteful directory, type the following command:
+
+   ```
+   $ grunt test:local.android
+   ```
+
+### Running the unit and functional tests in Sauce Labs browsers
+
+In the deliteful directory, type the following command:
+
+```
+$ grunt test:remote
+```
+
+Note that you can update the [intern.js](./intern.js) configuration file if you need to customize the list of browsers to run the tests into.
+
+To monitor the tests execution and access the Sauce Labs reports, you will need to [login to Sauce Labs](https://saucelabs.com/login). 
 
 ### Adjusting reports
 
@@ -133,7 +157,6 @@ The following reporters are currently provided as optional flags
    * `lcovhtml`: this HTML report is generated at `deliteful/html-report/index.html` and provides detailed information about what sections of the widgets code are executed during the tests and, more importantly, what sections are not.
    * `console`
 
-<a name="#writing"/>
 ## Writing tests
 
 WORK IN PROGRESS (see https://github.com/theintern/intern/wiki/Writing-Tests-With-Intern for a general heads up on writing tests with the Intern).
