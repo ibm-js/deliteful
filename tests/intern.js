@@ -51,10 +51,16 @@ define({
 		host: "localhost",
 		port: 4444
 	},
+	
 	loader: {
 		baseUrl: ".."
 	},
-
+	
+	useLoader: {
+		"host-node": "requirejs",
+		"host-browser": "../../../requirejs/require.js"
+	},
+	
 	// Non-functional test suite(s) to run in each browser
 	suites: [ "deliteful/tests/unit/all" ],
 
@@ -62,5 +68,5 @@ define({
 	functionalSuites: [ "deliteful/tests/functional/all" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(requirejs|dcl|dojo|dpointer|delite\/|deliteful\/tests|.*themes|.*transitions)/
+	excludeInstrumentation: /^(requirejs.*|dcl|dojo|dstore|dpointer|delite\/|deliteful\/tests|.*themes|.*transitions)/
 });
