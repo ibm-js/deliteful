@@ -3,8 +3,8 @@ node_js:
   - "0.10"
 env:
   global:
-    - secure: "OuxW8QJr84SfTXOfonvvuHWvAqQOMmHmfSkVvu1Ys7qmg7pfYg8e41itC7tMd9QuXHoHKtBM1oyLPJClwXqyt0GwnNspPOWMyDpX0yc5A9oyVpVgbifn/lacTOS3hs9UFvd/ankheZYcwiZoTz0KOTgVafyw0i1SvE3Nww8cwYU="
-    - secure: "MNWvsP1nGlm3VcB9MWeFa9YJjLTmkvUcuVqpfs6/zuYIKoS6kXgfzurx+veFjbwnGy0R8/Rp9Eg83LBdcuJyFmZ0Pon8JeOy1yc8knhBQXNIR0mMk5ETj9BpNfRH5ry87nkPpAonDnuPH9N0IF0mYpcC+SjK49DttqyXztfzmEg="
+    - secure: "Ty9a+MKs2JxvGFsV+5Sq9zMLeqYX8OH8FIAzJ00Bw9YdLFcejlFeOqEtSQLPtelDt3kFtddkRssJl2ycLKa6IXPBx09aEQXuzW8o0XgSw+WfR8AqMiKU+N0GrAcyx1ejKnxXxuVHStf703HuCu44CexgCUCnXybKz6V60O+odwk="
+    - secure: "Nx+qPRZqdGfDWQ+lHSDd0TZlXlv9SJqU0WXTD2eMeYR1pPJAZtRtgC1F98qCsiFo/0Vi+JpKFq5W5u0eykfj/43TUQMUtjeJmzefyjZYTsDRoMjQViiX8XyyPEV3kTbTEV3NocQn5WZhB655+hRZqjP7ZzSh9N3tFwWBInY/AQU="
 
 install:
    - npm install -g grunt-cli
@@ -12,5 +12,10 @@ install:
    - npm install
    - bower install
 
+notifications:
+  email:
+    on_failure : "change"
+
 script:
-   - grunt test:remote
+   - grunt jshint test:remote
+

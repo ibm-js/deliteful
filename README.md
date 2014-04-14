@@ -1,4 +1,4 @@
-# deliteful
+# deliteful [![Build Status](https://travis-ci.org/ibm-js/deliteful.png?branch=master)](https://travis-ci.org/ibm-js/deliteful)
 
 This project provides a predefined set of components working both on desktop and mobile platforms.
 
