@@ -10,24 +10,23 @@
 	
 	<script type="text/javascript">
 	require = {
-			baseUrl: "../../../",
+			baseUrl: "../../../"
 		};
 	</script>
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
-			"dojo/on",
-			"dojo/_base/array",
+		    "delite/register",
+		    "dojo/on",
 			"deliteful/list/List"
-		], function (register, on, array) {
- 			var console = document.createElement("div");
+		], function (register, on, List) {
+			var console = document.createElement("div");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
-			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
-			list.selectionMode = "multiple";
+			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
+			list.selectionMode = "single";
 			list.store.add({label: "first item"});
 			list.store.add({label: "second item"});
 			list.store.add({label: "third item"});
@@ -35,17 +34,26 @@
 			list.store.add({label: "fifth item"});
 			list.on("selection-change", function (event) {
 				if (event.newValue) {
-					console.innerHTML = "Current selection: " + array.map(this.selectedItems, function (item, index, array) {return item.label;}, this).join(", ");
+					console.innerHTML = "Current selection: " + event.newValue.label;
 				} else {
-					console.innerHTML = "Click to select an item.";
+					console.innerHTML = "Click to select an item."
 				}
-			}.bind(list));
+			});
 			document.body.appendChild(list);
-			list.startup();
+			list.startup();			
 		});
 	</script>
+	<style type="text/css">
+		/* CSS to place the selection mark after the list item instead of before the list item */
+		[aria-selectable="true"] .d-list-item::before {
+			display: none;
+		}
+		[aria-selectable="true"] .d-list-item::after {
+			display: block;
+		}
+	</style>
 </head>
 <body role="application">
-	This sample demonstrate a list with multiple selection mode enabled.
+	This sample demonstrate a list with single selection mode enabled, and the selection mark placed after the list item.
 </body>
 </html>

@@ -10,30 +10,34 @@
 	
 	<script type="text/javascript">
 	require = {
-			baseUrl: "../../../",
+			baseUrl: "../../../"
 		};
 	</script>
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
-	<script type="text/javascript">
+	<script>
 		require([
-		    "delite/register",
-			"deliteful/list/List"
-		], function (register, List) {
+		    "dojo/_base/declare",
+			"delite/register",
+			"deliteful/list/List",
+			"dstore/Memory",
+			"dstore/Observable",
+			"dojo/domReady!"
+		], function (declare, register, List, MemoryStore, Observable) {
 			var list = register.createElement("d-list");
-			list.setAttribute("aria-label", "Sample categorized list");
-			list.categoryAttr = "category";
-			list.store.add({label: "first item", category: "Category A"});
-			list.store.add({label: "second item", category: "Category A"});
-			list.store.add({label: "third item", category: "Category A"});
-			list.store.add({label: "fourth item", category: "Category B"});
-			list.store.add({label: "fifth item", category: "Category B"});
+			list.style.height = "200px";
+			// Custom memory store with a customizable latency
+			var ObservableMemoryStore = declare([MemoryStore, Observable], {});
+			list.store = new ObservableMemoryStore();
+ 			for (i = 0; i < 100; i++) {
+				list.store.add({label: "Programmatic item of order " + i, id: i});
+			}
 			document.body.appendChild(list);
 			list.startup();
 		});
 	</script>
 </head>
 <body role="application">
-	This sample demonstrate a categorized list.
+	This sample demonstrate a list that uses a dstore observable memory store.
 </body>
 </html>
