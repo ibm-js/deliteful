@@ -4,7 +4,7 @@ define([
 	"intern/chai!assert",
 	"delite/register",
 	"deliteful/ScrollableContainer",
-	"delite/tests/unit/resources/Scrollable-shared" // reuse the test cases from the tests of delite/Scrollable
+	"deliteful/tests/unit/resources/Scrollable-shared" // same test cases as for the tests of delite/Scrollable
 ], function (dcl, registerSuite, assert, register,
 	ScrollableContainer, ScrollableSharedTests) {
 	
