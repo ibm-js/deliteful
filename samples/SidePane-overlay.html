@@ -11,9 +11,13 @@
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
-		require({
+		require.config({
 			baseUrl: "../.."
-		},[
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
 			"delite/register",
 			"deliteful/SidePane",
 			"deliteful/Button",

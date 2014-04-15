@@ -8,27 +8,14 @@
 
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
-	<style>
-		button {
-			width: 10em;
-		}
-		#vs > div {
-			font-size: 15em;
-			font-family: Helvetica;
-			text-align: center;
-			font-weight: bold;
-		}
-		#vs {
-			width: 50%;
-			height: 300px;
-			border: 2px solid gold
-		}
-	</style>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
 
 	<script type="text/javascript">
-		require({
-			baseUrl: "../.."
-		},[
+		require([
 			"delite/register",
 			"deliteful/ViewStack",
 			"deliteful/Button",
@@ -49,6 +36,23 @@
 			};
 		});
 	</script>
+
+	<style>
+		button {
+			width: 10em;
+		}
+		#vs > div {
+			font-size: 15em;
+			font-family: Helvetica;
+			text-align: center;
+			font-weight: bold;
+		}
+		#vs {
+			width: 50%;
+			height: 300px;
+			border: 2px solid gold
+		}
+	</style>
 </head>
 <body style="margin:2em;">
 <button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
