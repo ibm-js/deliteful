@@ -10,15 +10,14 @@
 
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
-	<style>
-		.d-linear-layout div {
-			border: solid 1px;
-		}
-	</style>
 	<script type="text/javascript">
-		require({
+		require.config({
 			baseUrl: "../.."
-		},[
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
 			"delite/register",
 			"deliteful/LinearLayout",
 			"dojo/domReady!"
@@ -26,6 +25,12 @@
 			register.parse();
 		});
 	</script>
+
+	<style>
+		.d-linear-layout div {
+			border: solid 1px;
+		}
+	</style>
 </head>
 <body>
 <!-- This sample demonstrates how to mix:
