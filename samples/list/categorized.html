@@ -10,33 +10,30 @@
 	
 	<script type="text/javascript">
 	require = {
-			baseUrl: "../../../",
+			baseUrl: "../../../"
 		};
 	</script>
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
+		    "delite/register",
 			"deliteful/list/List"
 		], function (register, List) {
 			var list = register.createElement("d-list");
-			list.setAttribute("aria-label", "Sample list that uses attributes for store item to renderer item mapping");
-			list.labelAttr = "title";
-			list.righttextFunc = function (item, store, value) {
-				 return item.title.split(" ")[0];
-			};
-			list.store.add({title: "first item"});
-			list.store.add({title: "second item"});
-			list.store.add({title: "third item"});
-			list.store.add({title: "fourth item"});
-			list.store.add({title: "fifth item"});
+			list.setAttribute("aria-label", "Sample categorized list");
+			list.categoryAttr = "category";
+			list.store.add({label: "first item", category: "Category A"});
+			list.store.add({label: "second item", category: "Category A"});
+			list.store.add({label: "third item", category: "Category A"});
+			list.store.add({label: "fourth item", category: "Category B"});
+			list.store.add({label: "fifth item", category: "Category B"});
 			document.body.appendChild(list);
 			list.startup();
 		});
 	</script>
 </head>
 <body role="application">
-	This sample uses the delite/StoreMap mixin to define a mapping between items from the store and items expected by the default list item renderer.
+	This sample demonstrate a categorized list.
 </body>
 </html>

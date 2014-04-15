@@ -10,34 +10,30 @@
 	
 	<script type="text/javascript">
 	require = {
-			baseUrl: "../../../",
+			baseUrl: "../../../"
 		};
 	</script>
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
 
-	<script>
+	<script type="text/javascript">
 		require([
-		    "dojo/_base/declare",
-			"delite/register",
-			"deliteful/list/List",
-			"dstore/Memory",
-			"dstore/Observable",
-			"dojo/domReady!"
-		], function (declare, register, List, MemoryStore, Observable) {
+		    "delite/register",
+			"deliteful/list/List"
+		], function (register, List) {
 			var list = register.createElement("d-list");
-			list.style.height = "200px";
-			// Custom memory store with a customizable latency
-			var ObservableMemoryStore = declare([MemoryStore, Observable], {});
-			list.store = new ObservableMemoryStore();
- 			for (i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, id: i});
-			}
+			list.setAttribute("aria-label", "Sample list with default store populated using the store API");
+			list.store.add({label: "first item"});
+			list.store.add({label: "second item"});
+			list.store.add({label: "third item"});
+			var fifth = {label: "fifth item"};
+			list.store.add(fifth);
+			list.store.add({label: "fourth item"}, {before: fifth});
 			document.body.appendChild(list);
 			list.startup();
 		});
 	</script>
 </head>
 <body role="application">
-	This sample demonstrate a list that uses a dstore observable memory store.
+	This sample demonstrate how to populate the list default store using the programmatic API.
 </body>
 </html>
