@@ -11,9 +11,9 @@ d-list-store {\
   display: none;\
 }\
 .d-list-category {\
+  /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
   /* Edit display at your own risk */\
   display: block;\
-  position: relative;\
   margin: 0;\
   overflow: hidden;\
   font-family: Helvetica;\
@@ -34,6 +34,7 @@ d-list-store {\
   padding: 0 10px;\
 }\
 .d-list-item {\
+  /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
   overflow: hidden;\
   list-style-type: none;\
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\
@@ -53,16 +54,16 @@ d-list-store {\
   padding: 0 8px;\
 }\
 .d-list [role="gridcell"] {\
-  -webkit-box-flex: 1;\
-  -moz-box-flex: 1;\
-  -webkit-flex: 1;\
-  -ms-flex: 1;\
-  flex: 1;\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  -webkit-box-flex: 1;\
+  -moz-box-flex: 1;\
+  -webkit-flex: 1;\
+  -ms-flex: 1;\
+  flex: 1;\
   -webkit-box-align: center;\
   -ms-flex-align: center;\
   align-items: center;\
@@ -94,37 +95,64 @@ d-list-store {\
   color: #324f85;\
   line-height: 43px;\
 }\
-.d-list-loader {\
-  padding: 0 8px;\
-  color: blue;\
+.d-list-loader [role="gridcell"] {\
+  font-weight: bold;\
+  overflow: hidden;\
+  white-space: nowrap;\
+  text-overflow: ellipsis;\
+  color: #324f85;\
   cursor: pointer;\
   height: 43px;\
-  line-height: 43px;\
   background-color: #ffffff;\
   border-bottom: 1px solid #adaaad;\
 }\
-.d-list-loader.d-loading {\
+.d-list-loader [role="button"] {\
+  display: -webkit-box;\
+  display: -moz-box;\
+  display: -ms-flexbox;\
+  display: -webkit-flex;\
+  display: flex;\
+}\
+.d-list-loader [role="button"] .d-progress-indicator {\
+  width: 24px;\
+  height: 24px;\
+  vertical-align: top;\
+}\
+.d-list-loader [role="button"] .d-progress-indicator-lines {\
+  stroke: #808080;\
+}\
+.d-list-loader [role="button"] div {\
+  padding-left: 10px;\
+}\
+.d-list-loader.d-loading [role="gridcell"] {\
   color: #808080;\
+  font-weight: normal;\
+  font-style: italic;\
   cursor: wait;\
 }\
 .d-list-loading-panel {\
   position: absolute;\
   color: #808080;\
-  font-size: xx-large;\
+  font-size: medium;\
   font-style: italic;\
   text-align: center;\
   background-color: #c5ccd3;\
   cursor: wait;\
 }\
-.d-list.d-loading {\
-  padding-top: 50px;\
-  text-align: center;\
+.d-list-loading-panel .d-progress-indicator {\
+  width: 24px;\
+  height: 24px;\
+  vertical-align: top;\
 }\
-.d-list.d-loading:after {\
-  content: "Loading...";\
-  font-size: large;\
-  font-style: italic;\
-  color: #808080;\
+.d-list-loading-panel .d-progress-indicator-lines {\
+  stroke: #808080;\
+}\
+.d-list-loading-panel span {\
+  vertical-align: middle;\
+  padding-left: 10px;\
+}\
+.d-list-loading-panel svg {\
+  vertical-align: middle;\
 }\
 [aria-selectable="true"] .d-list-item::before,\
 [aria-multiselectable="true"] .d-list-item::before {\
@@ -176,7 +204,7 @@ d-list-store {\
 /********************************/\
 /* iOS theme for EdgeToEdgeList */\
 /*                              */\
-/* IMPORTANT: a renderer MUST       */\
+/* IMPORTANT: a renderer MUST   */\
 /* have the same height (inc.   */\
 /* borders) whatever its index  */\
 /* in the list !                */\

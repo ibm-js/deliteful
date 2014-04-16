@@ -122,17 +122,28 @@ define(["dcl/dcl",
 		//		The selection mode for list items (see delite/Selection).
 		selectionMode: "none",
 
+		// loadingMessage: String
+		//		Optional message to display, with a progress indicator, when
+		//		the list is loading its content.
+		loadingMessage: "",
+
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",
-					  category: "d-list-category",
-					  loading: "d-loading"},
+					  category: "d-list-category"},
 
 		/*======
+		// A panel that hides the content of the widget when shown, and displays a progress indicator
+		// and an optional message.
+		_loadingPanel: null,
+
 		// Handle for the selection click event handler 
 		_selectionClickHandle: null,
 		
 		// Previous focus child before the list loose focus
 		_previousFocusedChild: null,
+		
+		// Flag set to a truthy value once the items have been loaded from the store
+		_dataLoaded: undefined,
 		=====*/
 		
 		//////////// Widget life cycle ///////////////////////////////////////
@@ -148,7 +159,7 @@ define(["dcl/dcl",
 				"itemRenderer": "invalidateProperty",
 				"categoryRenderer": "invalidateProperty",
 				"selectionMode": "invalidateProperty",
-				"selectionMarkBefore": "invalidateProperty",
+				"selectionMarkBefore": "invalidateProperty"
 			});
 		},
 
@@ -197,11 +208,22 @@ define(["dcl/dcl",
 						child.destroy();
 					}
 				}
-				this._setBusy(true);
-				this.on("query-error", function () { this._setBusy(false); }.bind(this));
+				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
 				if (sup) {
 					sup.call(this, arguments);
 				}
+			};
+		}),
+
+		attachedCallback: dcl.superCall(function (sup) {
+			// summary:
+			//		Set the busy status of the list and display the loading panel
+			//		This can't be done in the startup method because the loading panel
+			//		need the geometry of the list to be right, and it also need to be
+			//		done before loading the list items.
+			return function () {
+				sup.call(this, arguments);
+				this._setBusy(true, true);
 			};
 		}),
 
@@ -250,6 +272,7 @@ define(["dcl/dcl",
 				}
 			};
 		}),
+		/*jshint maxcomplexity:10*/
 
 		refreshProperties: dcl.superCall(function (sup) {
 			// summary:
@@ -273,8 +296,8 @@ define(["dcl/dcl",
 				if (props.itemRenderer
 					|| (this._isCategorized()
 							&& (props.categoryAttr || props.categoryFunc || props.categoryRenderer))) {
-					if (this._started) {
-						this._setBusy(true);
+					if (this._dataLoaded) {
+						this._setBusy(true, true);
 						props.store = true; // to trigger a reload of the list.
 					}
 				}
@@ -289,6 +312,7 @@ define(["dcl/dcl",
 			if (this.store && this.store.list) {
 				this.store.list = null;
 			}
+			this._hideLoadingPanel();
 		},
 
 		//////////// Public methods ///////////////////////////////////////
@@ -414,19 +438,62 @@ define(["dcl/dcl",
 
 		//////////// Private methods ///////////////////////////////////////
 
-		_setBusy: function (status) {
+		_setBusy: function (status, hideContent) {
 			// summary:
 			//		Set the "busy" status of the widget.
 			// status: boolean
 			//		true if the list is busy loading and rendering its data.
 			//		false otherwise.
+			// hideContent: boolean
+			//		true if the list should hide its content when it is busy,
+			//		false otherwise
 			// tags:
 			//		private
-			domClass.toggle(this, this._cssClasses.loading, status);
 			if (status) {
 				this.setAttribute("aria-busy", "true");
+				if (hideContent) {
+					this._showLoadingPanel();
+				}
 			} else {
 				this.removeAttribute("aria-busy");
+				this._hideLoadingPanel();
+			}
+		},
+
+		_showLoadingPanel: function () {
+			// summary:
+			//		show the loading panel
+			if (!this._loadingPanel) {
+				var clientRect = this.getBoundingClientRect();
+				this._loadingPanel = this.ownerDocument.createElement("div");
+				this._loadingPanel.innerHTML = "<d-progress-indicator active='true'></d-progress-indicator>"
+					+ (this.loadingMessage ? "<span>" + this.loadingMessage + "</span>" : "");
+				this._loadingPanel.className = "d-list-loading-panel";
+				this._loadingPanel.style.cssText = "position: absolute; line-height: "
+												+ (clientRect.bottom - clientRect.top)
+												+ "px; width: "
+												+ (clientRect.right - clientRect.left)
+												+ "px; top: "
+												+ (clientRect.top + (window.scrollY || window.pageYOffset))
+												+ "px; left: "
+												+ (clientRect.left + (window.scrollX || window.pageXOffset))
+												+ "px;";
+				document.body.appendChild(this._loadingPanel);
+				register.parse(this._loadingPanel);
+			}
+		},
+
+		_hideLoadingPanel: function () {
+			// summary:
+			//		hide the loading panel
+			if (this._loadingPanel) {
+				this.findCustomElements(this._loadingPanel).forEach(function (w) {
+					if (w.destroy) {
+						w.destroy();
+					}
+				});
+				document.body.removeChild(this._loadingPanel);
+				this._loadingPanel = null;
 			}
 		},
 
@@ -462,6 +529,14 @@ define(["dcl/dcl",
 				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
 				if (atTheTop) {
+					if (this._isCategorized()) {
+						var firstRenderer = this._getFirstRenderer();
+						if (this._isCategoryRenderer(firstRenderer)
+								&& items[items.length - 1].category === firstRenderer.item.category) {
+							// Remove the category renderer on top before adding the new items
+							this._removeRenderer(firstRenderer);
+						}
+					}
 					this.containerNode.insertBefore(this._createRenderers(items, 0, items.length, null),
 							this.containerNode.firstElementChild);
 				} else {
@@ -582,7 +657,7 @@ define(["dcl/dcl",
 			return result; // Object
 		},
 
-		/*jshint maxcomplexity:11*/
+		/*jshint maxcomplexity:12*/
 		_removeRenderer: function (/*deliteful/list/Renderer*/renderer, /*Boolean*/keepSelection) {
 			// summary:
 			//		Remove a renderer from the List, updating category renderers if needed.
@@ -604,7 +679,7 @@ define(["dcl/dcl",
 			if (this._getFocusedRenderer() === renderer) {
 				var nextFocusRenderer = this._getNextRenderer(renderer, 1) || this._getNextRenderer(renderer, -1);
 				if (nextFocusRenderer) {
-					this.focusChild(nextFocusRenderer);
+					this.focusChild(nextFocusRenderer.renderNode);
 				}
 			}
 			if (!keepSelection && !this._isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
@@ -618,6 +693,7 @@ define(["dcl/dcl",
 			this.removeChild(renderer);
 			renderer.destroy();
 		},
+		/*jshint maxcomplexity:10*/
 
 		_createItemRenderer: function (/*Object*/item) {
 			// summary:
@@ -683,6 +759,14 @@ define(["dcl/dcl",
 			}
 		},
 
+		_getFirstRenderer: function () {
+			// summary:
+			//		Returns the first renderer in the list.
+			return this.containerNode.querySelector("." + this._cssClasses.item
+					+ ", ." + this._cssClasses.category); // deliteful/list/Renderer
+		},
+
+
 		_getLastRenderer: function () {
 			// summary:
 			//		Returns the last renderer in the list.
@@ -700,7 +784,8 @@ define(["dcl/dcl",
 			//		protected
 			this._empty();
 			this._renderNewItems(items, false);
-			this._setBusy(false);
+			this._setBusy(false, true);
+			this._dataLoaded = true;
 		},
 
 		itemRemoved: function (index, renderItems, keepSelection) {
@@ -807,6 +892,7 @@ define(["dcl/dcl",
 			return (child.getAttribute("role") === "gridcell" || child.hasAttribute("navindex"));
 		},
 
+		/*jshint maxcomplexity:15*/
 		_onContainerKeydown: dcl.before(function (evt) {
 			// summary:
 			//		Handle keydown events
@@ -818,21 +904,17 @@ define(["dcl/dcl",
 				} else if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
 					if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
 						// Enter Actionable Mode
-						evt.preventDefault(); // TODO: ONLY IF autoAction is false on the renderer ? See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-						var focusedRenderer = this._getFocusedRenderer();
-						if (focusedRenderer) {
-							var next = focusedRenderer._getFirst();
-							if (next) {
-								this.focusChild(next);
-							}
-						}
+						// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+						// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+						evt.preventDefault();
+						this._enterActionableMode();
 					}
 				} else if (evt.keyCode === keys.TAB) {
 					if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
 						// We are in Actionable mode
 						evt.preventDefault();
 						var renderer = this._getFocusedRenderer();
-						next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+						var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
 						while (!next) {
 							renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
 								|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
@@ -842,10 +924,25 @@ define(["dcl/dcl",
 					}
 				} else if (evt.keyCode === keys.ESCAPE) {
 					// Leave Actionable mode
-					this.focusChild(this._getFocusedRenderer().renderNode);
+					this._leaveActionableMode();
 				}
 			}
 		}),
+		/*jshint maxcomplexity:10*/
+
+		_enterActionableMode: function () {
+			var focusedRenderer = this._getFocusedRenderer();
+			if (focusedRenderer) {
+				var next = focusedRenderer._getFirst();
+				if (next) {
+					this.focusChild(next);
+				}
+			}
+		},
+
+		_leaveActionableMode: function () {
+			this.focusChild(this._getFocusedRenderer().renderNode);
+		},
 
 		focus: function () {
 			// summary:

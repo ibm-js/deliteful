@@ -303,6 +303,36 @@ define([
 			}), 0);
 			return dfd;
 		},
+		"Add items on top of a list, all list items of the same category": function () {
+			list.destroy();
+			list = null;
+			list = new List();
+			document.body.appendChild(list);
+			list.startup();
+			list.store.filter();
+			list.categoryAttr = "category";
+			list.store.add({category: "A", label: "item 4"});
+			list.store.add({category: "A", label: "item 5"});
+			list.store.add({category: "A", label: "item 6"});
+			var children = list.getChildren();
+			assert.equal(children.length, 4);
+			checkCategory(children[0], "A");
+			checkItem(children[1], "item 4");
+			checkItem(children[2], "item 5");
+			checkItem(children[3], "item 6");
+			list._renderNewItems([{category: "A", label: "item 1"},
+			                     {category: "A", label: "item 2"},
+			                     {category: "A", label: "item 3"}], true);
+			children = list.getChildren();
+   			assert.equal(children.length, 7);
+			checkCategory(children[0], "A");
+			checkItem(children[1], "item 1");
+			checkItem(children[2], "item 2");
+			checkItem(children[3], "item 3");
+			checkItem(children[4], "item 4");
+			checkItem(children[5], "item 5");
+			checkItem(children[6], "item 6");
+		},
 		teardown : function () {
 			list.destroy();
 			list = null;
