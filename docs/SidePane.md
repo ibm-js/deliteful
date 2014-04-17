@@ -12,13 +12,13 @@ title: deliteful/SidePane
 ![SidePane Example](images/SidePane.png)
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)
-[Element Configuration](#configuration)
-[Element Styling](#styling)
-[User Interactions](#interactions)
-[Mixins](#mixins)
-[Element Events](#events)
-[Enteprise Use](#enterprise)
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)  
+[Element Styling](#styling)  
+[User Interactions](#interactions)  
+[Mixins](#mixins)  
+[Element Events](#events)  
+[Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
 ## Element Instantiation

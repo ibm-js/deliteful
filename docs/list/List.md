@@ -8,12 +8,12 @@ Its custom element tag is `d-list`.
 TODO: INSERT SCREENSHOT(S) HERE
 ##### Table of content
 
-- [Scroll capabilities](#scroll)
-- [Store capabilities](#store)
-- [Categorized items](#categories)
-- [Selection support](#selection)
-- [Keyboard navigation](#keynav)
-- [Styling](#style)
+- [Scroll capabilities](#scroll)  
+- [Store capabilities](#store)  
+- [Categorized items](#categories)  
+- [Selection support](#selection)  
+- [Keyboard navigation](#keynav)  
+- [Styling](#style)  
 
 <a name="scroll"/>
 ## Scroll capabilities

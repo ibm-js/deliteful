@@ -19,10 +19,10 @@ These constraints can be mixed together in the same container.
 ![LinearLayout example](images/LinearLayout.png)
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)
-[Element Configuration](#configuration)
-[Element Styling](#styling)
-[Enterprise Use](#enterprise)
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)  
+[Element Styling](#styling)  
+[Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
