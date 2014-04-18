@@ -141,7 +141,7 @@ define([
 		}),
 
 		refreshRendering: function (props) {
-			var passive, divChildren;
+			var passive;
 			if (props.disabled !== undefined) {
 				if (this.disabled) {
 					domClass.add(this, this.baseClass + "-disabled");
@@ -155,10 +155,8 @@ define([
 			if (props.max !== undefined || props.value !== undefined) {
 				var createChildren = this.children.length - 1 !== this.max;
 				if (createChildren) {
-					divChildren = this.getElementsByTagName("DIV");
-					while (divChildren.length) {
-						this.removeChild(divChildren[0]);
-					}
+					// Not relying on live NodeList, due to: https://github.com/Polymer/polymer/issues/346
+					Array.prototype.slice.call(this.getElementsByTagName("DIV")).forEach(this.removeChild, this);
 				}
 				this._updateStars(this.value, createChildren);
 			}
