@@ -140,6 +140,8 @@ define([
 			this.refreshRendering(this);
 		}),
 
+		//TODO fix complexity
+		/*jshint maxcomplexity:21*/
 		refreshRendering: function (props) {
 			var passive, divChildren;
 			if (props.disabled !== undefined) {
@@ -335,7 +337,7 @@ define([
 				if (create) {
 					var parent = domConstruct.create("div", {}, this.valueNode, "before");
 				} else {
-					parent = stars[i+1];
+					parent = stars[i + 1];
 				}
 				parent.className = this.baseClass + "-star-icon " + starClass;
 			}

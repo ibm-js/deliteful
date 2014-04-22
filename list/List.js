@@ -148,7 +148,7 @@ define(["dcl/dcl",
 				"itemRenderer": "invalidateProperty",
 				"categoryRenderer": "invalidateProperty",
 				"selectionMode": "invalidateProperty",
-				"selectionMarkBefore": "invalidateProperty",
+				"selectionMarkBefore": "invalidateProperty"
 			});
 		},
 
@@ -391,7 +391,7 @@ define(["dcl/dcl",
 			}
 		},
 
-		hasSelectionModifier: function (/*Event*/event) {
+		hasSelectionModifier: function (/*Event*/ /*jshint unused: vars*/event) {
 			// summary:
 			//		Always return true so that no keyboard modifier is needed when selecting / deselecting items.
 			// tags:
@@ -807,6 +807,8 @@ define(["dcl/dcl",
 			return (child.getAttribute("role") === "gridcell" || child.hasAttribute("navindex"));
 		},
 
+		//TODO fix complexity
+		/*jshint maxcomplexity:17*/
 		_onContainerKeydown: dcl.before(function (evt) {
 			// summary:
 			//		Handle keydown events
@@ -818,7 +820,9 @@ define(["dcl/dcl",
 				} else if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
 					if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
 						// Enter Actionable Mode
-						evt.preventDefault(); // TODO: ONLY IF autoAction is false on the renderer ? See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+						// TODO: ONLY IF autoAction is false on the renderer ? See
+						// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+						evt.preventDefault();
 						var focusedRenderer = this._getFocusedRenderer();
 						if (focusedRenderer) {
 							var next = focusedRenderer._getFirst();
