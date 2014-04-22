@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+	<title>deliteful Buttons sample</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../..",
+			config: {
+				"requirejs-dplugins/has": {
+					"bidi": true
+				}
+			}
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"delite/Widget",
+			"deliteful/CheckBox",
+			"deliteful/ToggleButton",
+			"deliteful/Switch",
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+		});
+
+	</script>
+<style>
+	.d-icon-cut {
+		background-image: url('../tests/images/cut.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
+		width: 16px;
+		height: 16px;
+	}
+	.d-icon-copy {
+		background-image: url('../tests/images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
+		width: 16px;
+		height: 16px;
+	}
+
+</style>
+</head>
+<body dir="ltr">
+<fieldset>
+	<legend>Wrapped in label</legend>
+	<p><label><d-checkbox id="cb1"></d-checkbox>This is Checkbox (cb1)</label></p>
+	<p><label><d-checkbox id="cb2" disabled></d-checkbox>This is Checkbox disabled (cb2)</label></p>
+	<p><label>This is a Switch (default: unchecked): <d-switch id="sw1"></d-switch></label></p>
+	<p><label>This is a Switch with label (default: checked): <d-switch  id="sw2" checked="true" checkedLabel="ON" uncheckedLabel="OFF"></d-switch></label></p>
+</fieldset>
+<fieldset>
+	<legend>Using label for=</legend>
+	<p><d-checkbox id="cb3" checked="true"></d-checkbox><label for="cb3">This is Checkbox (cb1)</label></p>
+	<p><d-checkbox id="cb4" disabled></d-checkbox><label for="cb4">This is Checkbox disabled (cb2)</label></p>
+	<p><d-switch id="sw3"></d-switch><label for="sw3">This is a Switch</label></p>
+	<p><d-switch id="sw4" checked="true" checkedLabel="ON" uncheckedLabel="OFF"></d-switch><label for="sw4">This is a Switch with label</label></p>
+</fieldset>
+
+<button is="d-toggle-button" checkedLabel="On">Off</button>
+<button is="d-toggle-button" checked="true">Toggle</button>
+<button is="d-toggle-button" checkedLabel="On" checkedIconClass="d-icon-cut" iconClass="d-icon-copy">Off</button>
+<button is="d-toggle-button" checked="true" checkedIconClass="d-icon-cut" iconClass="d-icon-copy"></button>
+
+</body>
+</html>

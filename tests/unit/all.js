@@ -17,5 +17,9 @@ define([
 	"./ToasterMessage",
 	"./ToasterMessage-insert-show-hide-remove",
 	"./Select",
-	"./Slider"
+	"./Slider",
+	"./CheckBox",
+	"./Switch",
+	"./Toggle",
+	"./ToggleButton"
 ]);

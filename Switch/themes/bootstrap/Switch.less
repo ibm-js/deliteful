@@ -1,0 +1,24 @@
+@import "../../../../delite/themes/bootstrap/common";
+@import "../variables";
+
+.d-switch-on-styles() {
+	background: @brand-success;
+	font-weight: bold;
+	color: #ffffff;
+}
+.d-switch-off-styles() {
+	background: @gray-lighter;
+	font-weight: bold;
+	color: @gray;
+}
+.d-switch-knob-styles() {
+	box-shadow: 0 1px 6px black;
+	background: @gray-lighter;
+}
+.d-switch-focused-styles () {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+@import "../Switch_template.less";

@@ -1,0 +1,13 @@
+<template class="d-switch d-switch-width d-switch-rounded" role="presentation" touch-action="none">
+	<input type="checkbox" class="-d-switch-input d-switch-width" attach-point="focusNode,valueNode" checked="{{checked}}"
+		value="{{value}}" name="{{name}}"/>
+	<div class="-d-switch-push -d-switch-transition" attach-point="_pushNode"></div
+	><div class="-d-switch-knobglass" attach-point="_knobGlassNode"
+	></div><div class="-d-switch-inner-wrapper -d-switch-transition" attach-point="_innerWrapperNode">&nbsp
+		<div class="-d-switch-inner -d-switch-pull -d-switch-transition" attach-point="_innerNode">
+			<div class="-d-switch-block -d-switch-off-rtl d-switch-width">{{uncheckedLabel}}&nbsp</div
+			><div class="-d-switch-block -d-switch-knob d-switch-rounded" attach-point="_knobNode">&nbsp</div
+			><div class="-d-switch-block -d-switch-on-rtl d-switch-width">{{checkedLabel}}&nbsp</div>
+		</div>
+	</div>
+</template>
