@@ -11,31 +11,31 @@ define([
 		// summary:
 		//		d-progress-indicator widget displays a round spinning graphical representation that indicates
 		//		that a task is ongoing. This widget starts hidden. Set the active property to true to make it visible.
-		// 		The spinning animation starts when the widget is visible unless you set the value property to indicate
-		// 		a percentage of progression.
+		//		The spinning animation starts when the widget is visible unless you set the value property to indicate
+		//		a percentage of progression.
 
 		// active: boolean
 		//		When inactive (active=false), the widget is hidden and animation is not started. When active, the
-		// 		widget is visible and the animation automatically starts unless you set the value.
+		//		widget is visible and the animation automatically starts unless you set the value.
 		//		Default: false
 		active: false,
 
 		// value: Number
 		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task. Set value to NaN
-		// 		hides the number and starts the spinning animation.
+		//		hides the number and starts the spinning animation.
 		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100.
 		//		Default: NaN
 		value: NaN,
 
 		// speed: String
 		//		Speed of the spinning animation. Accepted values are "slow", "normal" and "fast". Other values are
-		// 		defaulted to "normal". Note that the actual/real speed of the animation depends on the
-		// 		device/os/browser capabilities.
+		//		defaulted to "normal". Note that the actual/real speed of the animation depends on the
+		//		device/os/browser capabilities.
 		//		Default: normal
 		speed: "normal",
 
 		// baseClass: String
-		// 		Name prefix for CSS classes used by this widget.
+		//		Name prefix for CSS classes used by this widget.
 		//		Default: "d-progress-indicator"
 		baseClass: "d-progress-indicator",
 

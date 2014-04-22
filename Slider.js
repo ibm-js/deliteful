@@ -187,6 +187,8 @@ define([
 		},
 
 		postCreate: function () {
+			//TODO fix complexity
+			/*jshint maxcomplexity:16*/
 			var	beginDrag = function (e) {
 					var	setValue = function (priorityChange) {
 							var values = String(this.value).split(/,/g);
@@ -359,7 +361,7 @@ define([
 			// if the form is reset, then notify the widget to reposition the handles
 			if (this.valueNode.form) {
 				var self = this;
-				this.own(on(this.valueNode.form, "reset", function() {
+				this.own(on(this.valueNode.form, "reset", function () {
 					self.defer(function () {
 						if (this.value !== this.valueNode.value) {
 							this.value = this.valueNode.value;
