@@ -4,7 +4,7 @@ define([
 ], function (intern) {
 
 	// TODO: update this variable to use the IP address of your host
-	host = "192.168.0.21";
+	var host = "192.168.0.21";
 
 	intern.useSauceConnect = false;
 	intern.webdriver = {
@@ -17,7 +17,7 @@ define([
 		{ browserName: "android", androidTarget: "18" } // Android 4.3
 	];
 
-	intern.proxyUrl= "http://" + host + ":9000/";
+	intern.proxyUrl = "http://" + host + ":9000/";
 
 	return intern;
 });

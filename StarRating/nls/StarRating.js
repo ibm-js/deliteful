@@ -1,7 +1,7 @@
 define({ root:
 	({
-		'aria-label': "rating",
-		'aria-valuetext': "${value} stars"
+		"aria-label": "rating",
+		"aria-valuetext": "${value} stars"
 	}),
 	"zh": false,
 	"zh-tw": false,
