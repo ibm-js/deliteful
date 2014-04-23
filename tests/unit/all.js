@@ -9,6 +9,7 @@ define([
 	"./ViewStack",
 	"./ViewStack-prog",
 	"./ScrollableContainer",
+	"./StarRating",
 	"./list/List",
 	"./list/DefaultStore",
 	"./list/Selection",
