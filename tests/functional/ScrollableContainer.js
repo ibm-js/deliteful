@@ -10,12 +10,12 @@ define(["intern!object",
 	};
 
 	var checkScrollAmount = function (remote, scrollContainerId, expectedScroll) {
-		remote.execute("return document.getElementById('" + 
+		remote.execute("return document.getElementById('" +
 			scrollContainerId + "').getCurrentScroll();")
 			.then(function (scroll) {
 				assert.equal(scroll.x, expectedScroll.x, "unexpected scrollLeft!");
 				assert.equal(scroll.y, expectedScroll.y, "unexpected scrollTop!");
-		});
+			});
 	};
 
 	var checkScrollTopLeft = function (remote, wd, scrollContainerId, scrollTo, expectedScroll) {
@@ -37,7 +37,7 @@ define(["intern!object",
 		// Executes scrolling by calling the scrollBy() method of the widget.
 		return wd
 			.then(function () {
-				remote.execute("document.getElementById('" + 
+				remote.execute("document.getElementById('" +
 					scrollContainerId + "').scrollBy({" +
 					"x: " + scrollBy.x + ", y: " + scrollBy.y + "});")
 					.then(function () {
@@ -60,8 +60,8 @@ define(["intern!object",
 				.elementById("scrollButton")
 				.click()
 				.end()
-				// Check that the scroll arrives at 100:
-				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop==100", 15000) // large timeout because of sauce...
+				// Check that the scroll arrives at 100: (large timeout because of sauce...)
+				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop==100", 15000)
 				// Check that it stays at 100 even after waiting a while (that is,
 				// that it does not continue to scroll):
 				.wait(200)

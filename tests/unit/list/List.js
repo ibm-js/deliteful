@@ -161,11 +161,12 @@ define([
 			var def = this.async(1000);
 			try {
 				var queryErrorEvt = null;
-				var store = {filter: function () {
-					var result = new Deferred();
-					result.map = function() {return this;};
-					result.reject("Query Error X");
-					return result;
+				var store = {
+					filter: function () {
+						var result = new Deferred();
+						result.map = function () { return this; };
+						result.reject("Query Error X");
+						return result;
 					}
 				};
 				list.destroy();
@@ -207,7 +208,8 @@ define([
 									var focusedElement = document.activeElement;
 									assert.isNotNull(focusedElement, "active element");
 									assert.isDefined(focusedElement, "active element");
-									assert.equal("item 4", focusedElement.parentNode.item.label, "focused element label");
+									assert.equal("item 4", focusedElement.parentNode.item.label,
+										"focused element label");
 									def.resolve();
 								} catch (error) {
 									def.reject(error);
