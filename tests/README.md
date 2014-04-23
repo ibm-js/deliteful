@@ -101,7 +101,7 @@ Note that this won't run the functional tests, and that you will have to check t
 
 ### Running the unit and functional tests locally in desktop browsers
 
-1. Starts the selenium server on the default port (4444):
+1. Starts the selenium server on the default port (4444) (requires selenium server. See [installation instructions](#selenium--webdriver-installation)):
 
    ```
    $ java -jar selenium-server-standalone-2.XX.0.jar
@@ -119,7 +119,7 @@ Note that this won't run the functional tests, and that you will have to check t
 
 `Note: this does not document how to run the test on real devices, which will come in a further update of this documentation`
 
-1. Starts the selendroid server on the default port (4444):
+1. Starts the selendroid server on the default port (4444) (requires selendroid and android SDK. See [installation instructions](#selendroid--android-sdk-installation)):
 
    ```
    $ java -jar selendroid-standalone-X.Y.Z-with-dependencies.jar
