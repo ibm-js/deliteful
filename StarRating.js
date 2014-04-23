@@ -181,7 +181,7 @@ define([
 		},
 
 		_refreshStarsRendering: function () {
-			var createChildren = this.children.length - 1 !== this.max;
+			var createChildren = this.children.length - 2 !== this.max;
 			if (createChildren) {
 				var divChildren = this.getElementsByTagName("DIV");
 				while (divChildren.length) {
