@@ -140,29 +140,16 @@ define([
 			this.refreshRendering(this);
 		}),
 
-		//TODO fix complexity
-		/*jshint maxcomplexity:21*/
+		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
-			var passive, divChildren;
 			if (props.disabled !== undefined) {
-				if (this.disabled) {
-					domClass.add(this, this.baseClass + "-disabled");
-				} else {
-					domClass.remove(this, this.baseClass + "-disabled");
-				}
+				this._refreshDisabledClass();
 			}
 			if (props.max !== undefined) {
 				this.setAttribute("aria-valuemax", this.max);
 			}
 			if (props.max !== undefined || props.value !== undefined) {
-				var createChildren = this.children.length - 1 !== this.max;
-				if (createChildren) {
-					divChildren = this.getElementsByTagName("DIV");
-					while (divChildren.length) {
-						this.removeChild(divChildren[0]);
-					}
-				}
-				this._updateStars(this.value, createChildren);
+				this._refreshStarsRendering();
 			}
 			if (props.value !== undefined) {
 				this.setAttribute("aria-valuenow", this.value);
@@ -173,28 +160,53 @@ define([
 				this.valueNode.name = this.name;
 			}
 			if (props.readOnly !== undefined || props.disabled !== undefined) {
-				passive = this.disabled ? true : this.readOnly;
+				var passive = this.disabled || this.readOnly;
 				this.setAttribute("aria-disabled", passive);
-				if (!passive && !this._keyDownHandle) {
-					this._keyDownHandle = this.on("keydown", this._keyDownHandler.bind(this));
-				} else if (passive && this._keyDownHandle) {
-					this._keyDownHandle.remove();
-					this._keyDownHandle = null;
-				}
-				if (!passive && !this._startHandles) {
-					this._startHandles = [this.on("pointerenter", this._pointerEnterHandler.bind(this)),
-										  this.on("pointerdown", this._wireHandlers.bind(this))];
-				} else if (passive && this._startHandles) {
-					while (this._startHandles.length) {
-						this._startHandles.pop().remove();
-					}
-					this._startHandles = null;
-				}
+				this._refreshEditionEventHandlers();
 				this.valueNode.readOnly = this.readOnly;
 				this.valueNode.disabled = this.disabled;
 			}
 			if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
 				this._updateZeroArea();
+			}
+		},
+		/* jshint maxcomplexity: 10 */
+
+		_refreshDisabledClass: function () {
+			if (this.disabled) {
+				domClass.add(this, this.baseClass + "-disabled");
+			} else {
+				domClass.remove(this, this.baseClass + "-disabled");
+			}
+		},
+
+		_refreshStarsRendering: function () {
+			var createChildren = this.children.length - 1 !== this.max;
+			if (createChildren) {
+				var divChildren = this.getElementsByTagName("DIV");
+				while (divChildren.length) {
+					this.removeChild(divChildren[0]);
+				}
+			}
+			this._updateStars(this.value, createChildren);
+		},
+
+		_refreshEditionEventHandlers: function () {
+			var passive = this.disabled || this.readOnly;
+			if (!passive && !this._keyDownHandle) {
+				this._keyDownHandle = this.on("keydown", this._keyDownHandler.bind(this));
+			} else if (passive && this._keyDownHandle) {
+				this._keyDownHandle.remove();
+				this._keyDownHandle = null;
+			}
+			if (!passive && !this._startHandles) {
+				this._startHandles = [this.on("pointerenter", this._pointerEnterHandler.bind(this)),
+									  this.on("pointerdown", this._wireHandlers.bind(this))];
+			} else if (passive && this._startHandles) {
+				while (this._startHandles.length) {
+					this._startHandles.pop().remove();
+				}
+				this._startHandles = null;
 			}
 		},
 
