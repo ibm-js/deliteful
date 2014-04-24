@@ -17,10 +17,20 @@ define(["intern!object",
 		};
 
 	var clickOnZeroSettingArea = function (remote, widgetId) {
-		return remote
-		.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
-			.click()
-			.end();
+		if (/internet explorer/.test(remote.environmentType.browserName)) {
+			// Clicking the element doesn't work in firefox and internet explorer
+			// (no pointer up event received by StarRating)
+			return remote
+				.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
+					.moveTo()
+					.end()
+				.click();
+		} else {
+			return remote
+				.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
+					.click()
+					.end();
+		}
 	};
 
 	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
@@ -60,57 +70,57 @@ define(["intern!object",
 			}
 		}
 		return remote
-			.elementById(widgetId)
-				.getAttribute("role")
-				.then(function (value) {
-					assert.equal(value, "slider", "role");
-				})
-				.getAttribute("aria-label")
-				.then(function (value) {
-					assert.equal(value, "rating", "aria-label");
-				})
-				.getAttribute("aria-valuemin")
-				.then(function (value) {
-					assert.equal(value, "0", "aria-valuemin");
-				})
-				.getAttribute("aria-valuemax")
-				.then(function (value) {
-					assert.equal(value, expectedMax, "aria-valuemax");
-				})
-				.getAttribute("aria-valuenow")
-				.then(function (value) {
-					assert.equal(value, expectedValue, "aria-valuenow");
-				})
-				.getAttribute("aria-valuetext")
-				.then(function (value) {
-					assert.equal(value, expectedValue + " stars", "aria-valuetest");
-				})
-				.getAttribute("aria-disabled")
-				.then(function (value) {
-					assert.equal(value, expectedEditable ? "false" : "true", "aria-disabled");
-				})
-				.getAttribute("tabIndex")
-				.then(function (value) {
-					assert.equal(value, "0", "tabIndex");
-				})
-				.elementsByClassName("d-star-rating-star-icon")
-					.then(function (children) {
-						assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
+		    .waitForConditionInBrowser("document.getElementById('"+ widgetId + "').getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
+		    .then(function () {
+		    		return remote
+					.elementById(widgetId)
+					.getAttribute("role")
+					.then(function (value) {
+						assert.equal(value, "slider", "role");
 					})
-					.end()
-				.then(function () {
-					for (i = 0; i < expectedMax; i++) {
-						(function (i) {
-							remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 2) + "]")
-								.getAttribute("className")
-								.then(function (result) {
-									assert.equal(result, expectedClasses[i], "star " + i + " class");
-								})
-								.end();
-						})(i);
-					}
-				})
-				.end();
+					.getAttribute("aria-label")
+					.then(function (value) {
+						assert.equal(value, "rating", "aria-label");
+					})
+					.getAttribute("aria-valuemin")
+					.then(function (value) {
+						assert.equal(value, "0", "aria-valuemin");
+					})
+					.getAttribute("aria-valuemax")
+					.then(function (value) {
+						assert.equal(value, expectedMax, "aria-valuemax");
+					})
+					.getAttribute("aria-valuetext")
+					.then(function (value) {
+						assert.equal(value, expectedValue + " stars", "aria-valuetest");
+					})
+					.getAttribute("aria-disabled")
+					.then(function (value) {
+						assert.equal(value, expectedEditable ? "false" : "true", "aria-disabled");
+					})
+					.getAttribute("tabIndex")
+					.then(function (value) {
+						assert.equal(value, "0", "tabIndex");
+					})
+					.elementsByClassName("d-star-rating-star-icon")
+						.then(function (children) {
+							assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
+						})
+						.end()
+					.then(function () {
+						for (i = 0; i < expectedMax; i++) {
+							(function (i) {
+								remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 2) + "]")
+									.getAttribute("className")
+									.then(function (result) {
+										assert.equal(result, expectedClasses[i], "star " + i + " class");
+									})
+									.end();
+							})(i);
+						}
+					})
+					.end();
+		    });
 	};
 
 	var defaultEditableRatingTest = function (remote, widgetId, halfStars, zeroSetting, expectedInitialValue) {
@@ -124,7 +134,7 @@ define(["intern!object",
 		})
 		// check rating change after firing down and up events on a star
 		.then(function () {
-			return clickOnStar(remote, widgetId, 3, -1);
+			return clickOnStar(remote, widgetId, 3, -10);
 		})
 		.then(function () {
 			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, true);
@@ -161,40 +171,40 @@ define(["intern!object",
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				// Check initial rating
-				return checkRating(remote, widgetId, 7, 0, false);
+				return checkRating(remote, widgetId, 1, 0, false);
 			})
 			// click the + button and verify the value is updated
 			.then(function () {
-				for (i = 0; i < 14; i++) {
+				for (i = 0; i < 2; i++) {
 					(function (i) {
 						remote.elementById("starplus")
 							.clickElement()
 							.end()
 						.then(function () {
-							checkRating(remote, widgetId, 7, (i + 1) * 0.5, false);
+							checkRating(remote, widgetId, 1, (i + 1) * 0.5, false);
 						});
 					})(i);
 				}
 			})
 			// click the - button and verify the value is updated
 			.then(function () {
-				for (i = 0; i < 14; i++) {
+				for (i = 0; i < 2; i++) {
 					(function (i) {
 						remote.elementById("starminus")
 							.clickElement()
 							.end()
 						.then(function () {
-							checkRating(remote, widgetId, 7, (13 - i) * 0.5, false);
+							checkRating(remote, widgetId, 1, (1 - i) * 0.5, false);
 						});
 					})(i);
 				}
 			})
-			// click on a star: doesn't change anything
+			// click on the star: doesn't change anything
 			.then(function () {
-				return clickOnStar(remote, widgetId, 2, -1);
+				return clickOnStar(remote, widgetId, 1, -1);
 			})
 			.then(function () {
-				return checkRating(remote, widgetId, 7, 0, false);
+				return checkRating(remote, widgetId, 1, 0, false);
 			});
 		},
 		"editable ltr": function () {
@@ -207,8 +217,9 @@ define(["intern!object",
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone/.test(this.remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				// Problems with moveTo on firefox (SauceLabs).
 				return;
 			}
 			this.timeout = TEST_TIMEOUT_MS;
@@ -216,8 +227,9 @@ define(["intern!object",
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone/.test(this.remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				// Problems with moveTo on firefox (SauceLabs).
 				return;
 			}
 			this.timeout = TEST_TIMEOUT_MS;
@@ -228,55 +240,67 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return;
+				// Problems with moveTo on firefox (SauceLabs).
+				return remote
+					.get(require.toUrl("./StarRatingTests.html"))
+					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+					// Check initial rating
+					.then(function () {
+						return checkRating(remote, id, 7, 3.5, true);
+					})
+					// Check message
+					.elementById(id + "value")
+						.text()
+						.then(function (text) {
+							assert.equal(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
+						})
+						.end();
+			} else {
+				return remote
+					.get(require.toUrl("./StarRatingTests.html"))
+					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+					// Check initial rating
+					.then(function () {
+						return checkRating(remote, id, 7, 3.5, true);
+					})
+					// Check message
+					.elementById(id + "value")
+						.text()
+						.then(function (text) {
+							assert.equal(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
+						})
+						.end()
+					// check rating change after clicking on a star
+					.then(function () {
+						return clickOnStar(remote, id, 3, -1);
+					})
+					.then(function () {
+						return checkRating(remote, id, 7, 2.5, true);
+					})
+					// Check message
+					.elementById(id + "value")
+						.text()
+						.then(function (text) {
+							assert.equal(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
+						})
+						.end()
+					// set zero rating
+					.then(function () {
+						return clickOnZeroSettingArea(remote, id);
+					})
+					.then(function () {
+						return checkRating(remote, id, 7, 0, true);
+					})
+					// Check message
+					.elementById(id + "value")
+						.text()
+						.then(function (text) {
+							assert.equal(text, "Rating is 0 star", "message is not the one expected for " + id);
+						})
+						.end();
 			}
-			return remote
-				.get(require.toUrl("./StarRatingTests.html"))
-				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
-				// Check initial rating
-				.then(function () {
-					return checkRating(remote, id, 7, 3.5, true);
-				})
-				// Check message
-				.elementById(id + "value")
-					.text()
-					.then(function (text) {
-						assert.equal(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
-					})
-					.end()
-				// check rating change after clicking on a star
-				.then(function () {
-					return clickOnStar(remote, id, 3, -1);
-				})
-				.then(function () {
-					return checkRating(remote, id, 7, 2.5, true);
-				})
-				// Check message
-				.elementById(id + "value")
-					.text()
-					.then(function (text) {
-						assert.equal(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
-					})
-					.end()
-				// set zero rating
-				.then(function () {
-					return clickOnZeroSettingArea(remote, id);
-				})
-				.then(function () {
-					return checkRating(remote, id, 7, 0, true);
-				})
-			// Check message
-			.elementById(id + "value")
-				.text()
-				.then(function (text) {
-					assert.equal(text, "Rating is 0 star", "message is not the one expected for " + id);
-				})
-				.end();
-			///////////////////////////////////////////
-			// TODO: CHECK USING MOVE TO SET VALUES
-			///////////////////////////////////////////
 		},
 		"default": function () {
 			this.timeout = TEST_TIMEOUT_MS;
