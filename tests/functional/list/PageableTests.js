@@ -21,7 +21,7 @@ define(["intern!object",
 			.waitForCondition("document.activeElement.textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
 			.eval("document.getElementById('" + listId + "').getBottomDistance(document.activeElement)")
 			.then(function (value) {
-				assert.equal(Math.round(value), -1, "active element expected at the bottom of the scrollable viewport");
+				assert.closeTo(Math.round(value), -1, 1, "active element expected at the bottom of the scrollable viewport");
 			});
 	};
 
@@ -37,7 +37,7 @@ define(["intern!object",
 			.waitForCondition("document.activeElement.textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
 			.eval("document.getElementById('" + listId +"').getTopDistance(document.activeElement)")
 			.then(function (value) {
-				assert.equal(Math.round(value), 0, "active element expected at the top of the scrollable viewport");
+				assert.closeTo(Math.round(value), 0, 1, "active element expected at the top of the scrollable viewport");
 			});
 	};
 
