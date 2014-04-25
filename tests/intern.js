@@ -49,8 +49,14 @@ define({
 		host: "localhost",
 		port: 4444
 	},
+
 	loader: {
 		baseUrl: ".."
+	},
+
+	useLoader: {
+		"host-node": "requirejs",
+		"host-browser": "../../../requirejs/require.js"
 	},
 
 	// Non-functional test suite(s) to run in each browser

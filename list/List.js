@@ -13,8 +13,8 @@ define(["dcl/dcl",
 	"./ItemRenderer",
 	"./CategoryRenderer",
 	"./_DefaultStore",
-	"delite/themes/load!./List/themes/{{theme}}/List_css",
-	"dojo/has!dojo-bidi?delite/themes/load!./List/themes/{{theme}}/List_rtl_css"
+	"delite/theme!./List/themes/{{theme}}/List_css",
+	"dojo/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
 		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore) {
 
