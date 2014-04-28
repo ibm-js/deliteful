@@ -127,36 +127,41 @@ define(["dcl/dcl",
 		_setLoading: function (/*boolean*/loading) {
 			// summary:
 			//		Set the loading status of the widget
-			this._loading = loading;
-			if (loading) {
-				this.beforeLoading();
-			}
-			if (!this._destroyed) {
-				domClass.toggle(this, "d-loading");
-				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-				domClass.toggle(this._progressIndicator, "d-hidden");
-				this._progressIndicator.active = loading;
+				this._loading = loading;
+				// always execute beforeLoading, event if the page loader widget was destroyed
 				if (loading) {
-					this._button.setAttribute("aria-disabled", "true");
-				} else {
-					this._button.removeAttribute("aria-disabled");
+					this.beforeLoading();
 				}
-			}
-			if (!loading) {
-				this.afterLoading();
-			}
+				if (!this._destroyed) {
+					domClass.toggle(this, "d-loading", loading);
+					this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
+					domClass.toggle(this._progressIndicator, "d-hidden");
+					this._progressIndicator.active = loading;
+					if (loading) {
+						this._button.setAttribute("aria-disabled", "true");
+					} else {
+						this._button.removeAttribute("aria-disabled");
+					}
+				}
+				// always execute afterLoading, event if the page loader widget was destroyed
+				if (!loading) {
+					this.afterLoading();
+				}
 		},
 
 		_load: function () {
 			// summary:
 			//		Handle click events on the widget.
-			//		Returns a deferred that resolves when the loading
+			//		If a loading is already in progress, this method
+			//		return undefined. In the other case, it starts a loading
+			//		and returns a Promise that resolves when the loading
 			//		has completed.
 			if (this.isLoading()) { return; }
 			var def = new Deferred();
 			this._setLoading(true);
+			// defer execution so that the new style / class is correctly applied on iOS
 			this.defer(function () {
-				when(this.performLoading(), function () {
+				this.performLoading().then(function () {
 					this._setLoading(false);
 					def.resolve();
 				}.bind(this), function (error) {
@@ -213,7 +218,7 @@ define(["dcl/dcl",
 		// hideOnPageLoad: Boolean
 		//		If true, the content of the list is hidden by a loading panel (displaying a progress
 		//		indicator and an optional label defined with the property loadingMessage)
-		//      while its content is updated with a new page of data.
+		//		while its content is updated with a new page of data.
 		//		This attribute is ignored if autoPaging is true.
 		hideOnPageLoad: false,
 
@@ -235,7 +240,7 @@ define(["dcl/dcl",
 		//		false otherwise.
 		_noExtremity: true,
 
-		// _idPages: Array
+		// _idPages: Object[][]
 		//		one entry per page currently loaded. Each entry contains an array
 		//		of the id of the items displayed in the page.
 		_idPages: null,
@@ -292,7 +297,7 @@ define(["dcl/dcl",
 						this._empty();
 					}
 					this._idPages = [];
-					when(this._loadNextPage(this._nextPageReadyHandler.bind(this)), function () {
+					this._loadNextPage().then(function () {
 						this._setBusy(false);
 						this._dataLoaded = true;
 					}.bind(this), function (error) {
@@ -343,11 +348,9 @@ define(["dcl/dcl",
 			}
 		},
 
-		_loadNextPage: function (/*Function*/onDataReadyHandler) {
+		_loadNextPage: function () {
 			// summary:
 			//		load the next page of items if available.
-			// onDataReadyHandler: Function
-			//		the function to run when the page has been loaded
 			var def = new Deferred();
 			if (!this._rangeSpec) {
 				this._rangeSpec = {};
@@ -383,25 +386,23 @@ define(["dcl/dcl",
 					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
 					this._idPages.push(idPage);
 				}
-				when(onDataReadyHandler.bind(this)(page), function () {
+				try {
+					this._nextPageReadyHandler(page);
 					// TODO: May need to force repaint here,
 					// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
 					def.resolve();
-				}.bind(this),
-				function (error) {
+				} catch (error) {
 					def.reject(error);
-				});
+				}
 			}.bind(this), function (error) {
 				def.reject(error);
 			});
 			return def; // Deferred
 		},
 
-		_loadPreviousPage: function (/*Function*/onDataReadyHandler) {
+		_loadPreviousPage: function () {
 			// summary:
 			//		load the previous page of items if available.
-			// onDataReadyHandler: Function
-			//		the function to run when the page has been loaded
 			var def = new Deferred();
 			this._rangeSpec.count = this.pageLength;
 			this._rangeSpec.start = this._firstLoaded - this.pageLength;
@@ -440,11 +441,12 @@ define(["dcl/dcl",
 					}
 					this._firstLoaded = this._rangeSpec.start;
 					this._idPages.unshift(idPage);
-					when(onDataReadyHandler.bind(this)(page), function () {
+					try {
+						this._previousPageReadyHandler(page);
 						def.resolve();
-					}, function (error) {
+					} catch (error) {
 						def.reject(error);
-					});
+					}
 				} else {
 					def.resolve();
 				}
@@ -494,41 +496,34 @@ define(["dcl/dcl",
 			//		function to call when the previous page has been loaded.
 			// items: Array
 			//		the items in the previous page.
-			var def = new Deferred();
-			try {
-				if (this.focusedChild) {
-					var renderer = this._getFirstVisibleRenderer();
-					if (renderer && this._previousPageLoader && this._previousPageLoader.isLoading()) {
-						this.focusChild(renderer.renderNode);
-					}
+			if (this.focusedChild) {
+				var renderer = this._getFirstVisibleRenderer();
+				if (renderer && this._previousPageLoader && this._previousPageLoader.isLoading()) {
+					this.focusChild(renderer.renderNode);
 				}
-				this._renderNewItems(items, true);
-				if (this.maxPages && this._idPages.length > this.maxPages) {
-					this._unloadPage(false);
-				}
-				if (this._firstLoaded === 0) {
-					// no more previous page
-					this._previousPageLoader.destroy();
-					this._previousPageLoader = null;
-				} else {
-					this._previousPageLoader.placeAt(this.containerNode, "first");
-				}
-				renderer = this._getFocusedRenderer();
-				if (renderer) {
-					var previous = renderer.previousElementSibling;
-					if (previous && previous.renderNode) {
-						this.focusChild(previous.renderNode);
-						// scroll the focused node to the top of the screen.
-						// To avoid flickering, we do not wait for a focus event
-						// to confirm that the child has indeed been focused.
-						this.scrollBy({y: this.getTopDistance(previous)});
-					}
-				}
-				def.resolve();
-			} catch (error) {
-				def.reject(error);
 			}
-			return def; // Deferred
+			this._renderNewItems(items, true);
+			if (this.maxPages && this._idPages.length > this.maxPages) {
+				this._unloadPage(false);
+			}
+			if (this._firstLoaded === 0) {
+				// no more previous page
+				this._previousPageLoader.destroy();
+				this._previousPageLoader = null;
+			} else {
+				this._previousPageLoader.placeAt(this.containerNode, "first");
+			}
+			renderer = this._getFocusedRenderer();
+			if (renderer) {
+				var previous = renderer.previousElementSibling;
+				if (previous && previous.renderNode) {
+					this.focusChild(previous.renderNode);
+					// scroll the focused node to the top of the screen.
+					// To avoid flickering, we do not wait for a focus event
+					// to confirm that the child has indeed been focused.
+					this.scrollBy({y: this.getTopDistance(previous)});
+				}
+			}
 		},
 
 		_nextPageReadyHandler: function (/*array*/ items) {
@@ -536,47 +531,40 @@ define(["dcl/dcl",
 			//		function to call when the next page has been loaded.
 			// items: Array
 			//		the items in the next page.
-			var def = new Deferred();
-			try {
-				if (this.focusedChild) {
-					var renderer = this._getLastVisibleRenderer();
-					if (renderer) {
-						this.focusChild(renderer.renderNode);
-					}
-				}
-				this._renderNewItems(items, false);
-				if (this.maxPages && this._idPages.length > this.maxPages) {
-					this._unloadPage(true);
-				}
-				if (this._nextPageLoader) {
-					if (items.length !== this._rangeSpec.count) {
-						// no more next page
-						this._nextPageLoader.destroy();
-						this._nextPageLoader = null;
-					} else {
-						this._nextPageLoader.placeAt(this.containerNode);
-					}
-				} else {
-					if (items.length === this._rangeSpec.count) {
-						this._createNextPageLoader();
-					}
-				}
-				renderer = this._getFocusedRenderer();
+			if (this.focusedChild) {
+				var renderer = this._getLastVisibleRenderer();
 				if (renderer) {
-					var next = renderer.nextElementSibling;
-					if (next && next.renderNode) {
-						this.focusChild(next.renderNode);
-						// scroll the focused node to the bottom of the screen.
-						// To avoid flickering, we do not wait for a focus event
-						// to confirm that the child has indeed been focused.
-						this.scrollBy({y: this.getBottomDistance(next)});
-					}
+					this.focusChild(renderer.renderNode);
 				}
-				def.resolve();
-			} catch (error) {
-				def.reject(error);
 			}
-			return def; // Deferred
+			this._renderNewItems(items, false);
+			if (this.maxPages && this._idPages.length > this.maxPages) {
+				this._unloadPage(true);
+			}
+			if (this._nextPageLoader) {
+				if (items.length !== this._rangeSpec.count) {
+					// no more next page
+					this._nextPageLoader.destroy();
+					this._nextPageLoader = null;
+				} else {
+					this._nextPageLoader.placeAt(this.containerNode);
+				}
+			} else {
+				if (items.length === this._rangeSpec.count) {
+					this._createNextPageLoader();
+				}
+			}
+			renderer = this._getFocusedRenderer();
+			if (renderer) {
+				var next = renderer.nextElementSibling;
+				if (next && next.renderNode) {
+					this.focusChild(next.renderNode);
+					// scroll the focused node to the bottom of the screen.
+					// To avoid flickering, we do not wait for a focus event
+					// to confirm that the child has indeed been focused.
+					this.scrollBy({y: this.getBottomDistance(next)});
+				}
+			}
 		},
 
 		_getLastVisibleRenderer: function () {
@@ -645,7 +633,7 @@ define(["dcl/dcl",
 				this._setBusy(false);
 			}.bind(this);
 			this._nextPageLoader.performLoading = function () {
-				return this._loadNextPage(this._nextPageReadyHandler);
+				return this._loadNextPage();
 			}.bind(this);
 			this._nextPageLoader.placeAt(this.containerNode);
 			this._nextPageLoader.startup();
@@ -667,7 +655,7 @@ define(["dcl/dcl",
 				this._setBusy(false);
 			}.bind(this);
 			this._previousPageLoader.performLoading = function () {
-				return this._loadPreviousPage(this._previousPageReadyHandler);
+				return this._loadPreviousPage();
 			}.bind(this);
 			this._previousPageLoader.placeAt(this.containerNode, "first");
 			this._previousPageLoader.startup();

@@ -997,6 +997,27 @@ define([
 			}));
 			return dfd;
 		},
+		"hideOnPageLoad: hidding panel removed after loading the last page" : function () {
+			var dfd = this.async(1000);
+			list = new PageableList();
+			for (var i = 0; i < 39; i++) {
+				list.store.add({label: "item " + i});
+			}
+			list.hideOnPageLoad = true;
+			list.pageLength = 20;
+			list.maxPages = 0;
+			document.body.appendChild(list);
+			list.startup();
+			// initial load
+			assertList(list, 0, 19, [], false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				// after second page is loaded
+				assertList(list, 0, 38, [], false, false);
+				// verify that loading panel is not displayed
+				assert.isNull(document.body.querySelector(".d-list-loading-panel"), "loading panel should not be visible");
+			}));
+			return dfd;
+		},
 		///////////////////////////////////////////
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////
