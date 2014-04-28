@@ -11,15 +11,14 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
-		    "dojo/Deferred",
+			"dojo/Deferred",
 			"delite/register",
 			"deliteful/list/List",
 			"deliteful/list/Pageable",
 			"dstore/Memory",
 			"dstore/Observable",
 			"dojo/domReady!"
-		], function (declare, Deferred, register, List, Pageable, MemoryStore, Observable) {
+		], function (Deferred, register, List, Pageable, MemoryStore, Observable) {
 			var PageableList = register("d-pageable-list", [List, Pageable], {});
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-5";
@@ -29,10 +28,10 @@
 			list.loadingMessage = "Updating content...";
 			list.style.height = "200px";
 			// Custom memory store with a customizable latency
-			var CustomMemoryStore = declare([MemoryStore], {
+			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
 				map: function (item) {
-						var def = new Deferred;
+						var def = new Deferred();
 						var that = this;
 						var args = arguments;
 						setTimeout(function () {

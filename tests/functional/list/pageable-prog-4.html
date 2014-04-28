@@ -17,9 +17,8 @@
 			"deliteful/list/List",
 			"deliteful/list/Pageable",
 			"dstore/Memory",
-			"dstore/Observable",
 			"dojo/domReady!"
-		], function (declare, Deferred, register, List, Pageable, MemoryStore, Observable) {
+		], function (declare, Deferred, register, List, Pageable, MemoryStore) {
 			var PageableList = register("d-pageable-list", [List, Pageable], {});
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-4";
@@ -51,7 +50,7 @@
 			var latencyIF = document.getElementById("latency");
 			latencyIF.onchange = function () {
 				list.store.latency = latencyIF.valueAsNumber;
-			}
+			};
 			ready = true;
 		});
 	</script>
@@ -66,10 +65,6 @@
 			font-family: Helvetica;
 			font-size: 17px;
 			background-color: #c5ccd3;
-		}
-		
-		.d-hidden {
-			display: none;
 		}
 	</style>
 </head>

@@ -176,7 +176,7 @@ define(["dcl/dcl",
 
 	return dcl(null, {
 		// summary:
-		//		A Mixin for delite/List that provides paging.
+		//		A Mixin for deliteful/List that provides paging.
 		//
 		// description:
 		//		This mixin allows displaying the content of a list in pages of items instead of rendering
@@ -242,7 +242,7 @@ define(["dcl/dcl",
 
 		// _idPages: Object[][]
 		//		one entry per page currently loaded. Each entry contains an array
-		//		of the id of the items displayed in the page.
+		//		of the ids of the items displayed in the page.
 		_idPages: null,
 		=====*/
 
