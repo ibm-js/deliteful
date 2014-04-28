@@ -70,9 +70,10 @@ define(["intern!object",
 			}
 		}
 		return remote
-		    .waitForConditionInBrowser("document.getElementById('"+ widgetId + "').getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
-		    .then(function () {
-		    		return remote
+			.waitForConditionInBrowser("document.getElementById('" + widgetId +
+				"').getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
+			.then(function () {
+				return remote
 					.elementById(widgetId)
 					.getAttribute("role")
 					.then(function (value) {
@@ -120,7 +121,7 @@ define(["intern!object",
 						}
 					})
 					.end();
-		    });
+			});
 	};
 
 	var defaultEditableRatingTest = function (remote, widgetId, halfStars, zeroSetting, expectedInitialValue) {
