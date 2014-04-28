@@ -127,26 +127,26 @@ define(["dcl/dcl",
 		_setLoading: function (/*boolean*/loading) {
 			// summary:
 			//		Set the loading status of the widget
-				this._loading = loading;
-				// always execute beforeLoading, event if the page loader widget was destroyed
+			this._loading = loading;
+			// always execute beforeLoading, event if the page loader widget was destroyed
+			if (loading) {
+				this.beforeLoading();
+			}
+			if (!this._destroyed) {
+				domClass.toggle(this, "d-loading", loading);
+				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
+				domClass.toggle(this._progressIndicator, "d-hidden");
+				this._progressIndicator.active = loading;
 				if (loading) {
-					this.beforeLoading();
+					this._button.setAttribute("aria-disabled", "true");
+				} else {
+					this._button.removeAttribute("aria-disabled");
 				}
-				if (!this._destroyed) {
-					domClass.toggle(this, "d-loading", loading);
-					this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-					domClass.toggle(this._progressIndicator, "d-hidden");
-					this._progressIndicator.active = loading;
-					if (loading) {
-						this._button.setAttribute("aria-disabled", "true");
-					} else {
-						this._button.removeAttribute("aria-disabled");
-					}
-				}
-				// always execute afterLoading, event if the page loader widget was destroyed
-				if (!loading) {
-					this.afterLoading();
-				}
+			}
+			// always execute afterLoading, event if the page loader widget was destroyed
+			if (!loading) {
+				this.afterLoading();
+			}
 		},
 
 		_load: function () {
@@ -620,6 +620,7 @@ define(["dcl/dcl",
 		_createNextPageLoader: function () {
 			// summary:
 			//		create the next page loader widget
+			/* jshint newcap: false*/
 			this._nextPageLoader = new _PageLoaderRenderer();
 			this._nextPageLoader.item = {
 				loadMessage: string.substitute(this.loadNextMessage, this),
@@ -642,6 +643,7 @@ define(["dcl/dcl",
 		_createPreviousPageLoader: function () {
 			// summary:
 			//		create the previous page loader widget
+			/* jshint newcap: false*/
 			this._previousPageLoader = new _PageLoaderRenderer();
 			this._previousPageLoader.item = {
 				loadMessage: string.substitute(this.loadPreviousMessage, this),

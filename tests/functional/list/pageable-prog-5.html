@@ -27,6 +27,9 @@
 			list.hideOnPageLoad = true;
 			list.loadingMessage = "Updating content...";
 			list.style.height = "200px";
+			list.on("query-error", function (event) {
+				console.error(event.error);
+			});
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,

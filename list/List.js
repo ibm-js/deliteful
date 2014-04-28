@@ -13,6 +13,7 @@ define(["dcl/dcl",
 	"./ItemRenderer",
 	"./CategoryRenderer",
 	"./_DefaultStore",
+	"../ProgressIndicator",
 	"delite/theme!./List/themes/{{theme}}/List_css",
 	"dojo/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
@@ -415,7 +416,7 @@ define(["dcl/dcl",
 			}
 		},
 
-		hasSelectionModifier: function (/*Event*/event) {
+		hasSelectionModifier: function (/*Event*/ /*jshint unused: vars*/event) {
 			// summary:
 			//		Always return true so that no keyboard modifier is needed when selecting / deselecting items.
 			// tags:
@@ -478,7 +479,7 @@ define(["dcl/dcl",
 												+ "px; left: "
 												+ (clientRect.left + (window.scrollX || window.pageXOffset))
 												+ "px;";
-				document.body.appendChild(this._loadingPanel);
+				this.ownerDocument.body.appendChild(this._loadingPanel);
 				register.parse(this._loadingPanel);
 			}
 		},
@@ -492,7 +493,7 @@ define(["dcl/dcl",
 						w.destroy();
 					}
 				});
-				document.body.removeChild(this._loadingPanel);
+				this.ownerDocument.body.removeChild(this._loadingPanel);
 				this._loadingPanel = null;
 			}
 		},
