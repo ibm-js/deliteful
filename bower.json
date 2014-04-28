@@ -1,6 +1,6 @@
 {
 	"name": "deliteful",
-	"version": "0.1.0-dev",
+	"version": "0.1.1-dev",
 	"dependencies": {
 		"dojo": ">=1.9.1",
 		"requirejs": "2.1.x",
