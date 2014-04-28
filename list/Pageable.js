@@ -26,9 +26,33 @@ define(["dcl/dcl",
 		//		the CSS class of the widget
 		baseClass: "d-list-loader",
 
-		// _loading: Boolean
+		// loading: Boolean
 		//		true if a page is loading, false otherwise
-		_loading: false,
+		loading: false,
+		_setLoadingAttr: function (/*boolean*/loading) {
+			// summary:
+			//		Set the loading status of the widget
+			this._set("loading", loading);
+			// always execute beforeLoading, event if the page loader widget was destroyed
+			if (loading) {
+				this.beforeLoading();
+			}
+			if (!this._destroyed) {
+				domClass.toggle(this, "d-loading", loading);
+				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
+				domClass.toggle(this._progressIndicator, "d-hidden");
+				this._progressIndicator.active = loading;
+				if (loading) {
+					this._button.setAttribute("aria-disabled", "true");
+				} else {
+					this._button.removeAttribute("aria-disabled");
+				}
+			}
+			// always execute afterLoading, event if the page loader widget was destroyed
+			if (!loading) {
+				this.afterLoading();
+			}
+		},
 
 		/*====
 		// HTML element that wraps a progress indicator and an optional label in the render node
@@ -79,18 +103,12 @@ define(["dcl/dcl",
 		//////////// Renderer life cycle ///////////////////////////////////////
 
 		render: function () {
-			if (!this._loading) {
+			if (!this.loading) {
 				this._label.innerHTML = this.item.loadMessage;
 			}
 		},
 
 		//////////// Public methods ///////////////////////////////////////
-
-		isLoading: function () {
-			// summary:
-			//		returns true if a page is currently loading, false otherwise
-			return this._loading; // Boolean
-		},
 
 		/*====
 		beforeLoading: function () {
@@ -124,31 +142,6 @@ define(["dcl/dcl",
 
 		//////////// Private methods ///////////////////////////////////////
 
-		_setLoading: function (/*boolean*/loading) {
-			// summary:
-			//		Set the loading status of the widget
-			this._loading = loading;
-			// always execute beforeLoading, event if the page loader widget was destroyed
-			if (loading) {
-				this.beforeLoading();
-			}
-			if (!this._destroyed) {
-				domClass.toggle(this, "d-loading", loading);
-				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-				domClass.toggle(this._progressIndicator, "d-hidden");
-				this._progressIndicator.active = loading;
-				if (loading) {
-					this._button.setAttribute("aria-disabled", "true");
-				} else {
-					this._button.removeAttribute("aria-disabled");
-				}
-			}
-			// always execute afterLoading, event if the page loader widget was destroyed
-			if (!loading) {
-				this.afterLoading();
-			}
-		},
-
 		_load: function () {
 			// summary:
 			//		Handle click events on the widget.
@@ -156,16 +149,16 @@ define(["dcl/dcl",
 			//		return undefined. In the other case, it starts a loading
 			//		and returns a Promise that resolves when the loading
 			//		has completed.
-			if (this.isLoading()) { return; }
+			if (this.loading) { return; }
 			var def = new Deferred();
-			this._setLoading(true);
+			this.loading = true;
 			// defer execution so that the new style / class is correctly applied on iOS
 			this.defer(function () {
 				this.performLoading().then(function () {
-					this._setLoading(false);
+					this.loading = false;
 					def.resolve();
 				}.bind(this), function (error) {
-					this._setLoading(false);
+					this.loading = false;
 					def.reject(error);
 					this._queryError(error);
 				}.bind(this));
@@ -498,7 +491,7 @@ define(["dcl/dcl",
 			//		the items in the previous page.
 			if (this.focusedChild) {
 				var renderer = this._getFirstVisibleRenderer();
-				if (renderer && this._previousPageLoader && this._previousPageLoader.isLoading()) {
+				if (renderer && this._previousPageLoader && this._previousPageLoader.loading) {
 					this.focusChild(renderer.renderNode);
 				}
 			}
