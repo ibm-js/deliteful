@@ -193,7 +193,7 @@ define(["dcl/dcl",
 		//		List attributes to be replaced by their runtime value. For example, the
 		//		message can include the value of the pageLength attribute by using the
 		//		placeholder ${pageLength}.
-		loadPreviousMessage: "",
+		loadPreviousMessage: messages["default-load-message"],
 
 		// loadNextMessage: String
 		//		The message displayed on the next page loader when it can be clicked
@@ -201,12 +201,22 @@ define(["dcl/dcl",
 		//		List attributes to be replaced by their runtime value. For example, the
 		//		message can include the value of the pageLength attribute by using the
 		//		placeholder ${pageLength}.
-		loadNextMessage: "",
+		loadNextMessage: messages["default-load-message"],
 
 		// autoPaging: Boolean
 		//		If true, automatically loads the next or previous page when
 		//		the scrolling reaches the bottom or the top of the list content.
 		autoPaging: false,
+		_setAutoPagingAttr: function (value) {
+			this._set("autoPaging", value);
+			if (this._autoPagingHandle) {
+				this._autoPagingHandle.remove();
+				this._autoPagingHandle = null;
+			}
+			if (value) {
+				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this));
+			}
+		},
 
 		// hideOnPageLoad: Boolean
 		//		If true, the content of the list is hidden by a loading panel (displaying a progress
@@ -216,6 +226,10 @@ define(["dcl/dcl",
 		hideOnPageLoad: false,
 
 		/*=====
+		 // _autoPagingHandle: Object with a remove method
+		 //	handle for the auto paging scroll handler
+		 _autoPagingHandle: null
+
 		// _rangeSpec: Object
 		//		store the spec of the range to use to load a page.
 		_rangeSpec: null,
@@ -228,10 +242,10 @@ define(["dcl/dcl",
 		//		the previous page loader.
 		_previousPageLoader: null,
 
-		// _noExtremity: Boolean
-		//		true if the list is currently not scrolled at the top or the bottom,
+		// _atExtremity: Boolean
+		//		true if the list is currently scrolled at the top or the bottom,
 		//		false otherwise.
-		_noExtremity: true,
+		_atExtremity: false,
 
 		// _idPages: Object[][]
 		//		one entry per page currently loaded. Each entry contains an array
@@ -262,21 +276,6 @@ define(["dcl/dcl",
 			});
 		},
 
-		attachedCallback: dcl.superCall(function (sup) {
-			// summary:
-			//		set default click to load messages if necessary, listen to scroll events.
-			return function () {
-				sup.apply(this, arguments);
-				if (!this.loadPreviousMessage) {
-					this.loadPreviousMessage = messages["default-load-message"];
-				}
-				if (!this.loadNextMessage) {
-					this.loadNextMessage = messages["default-load-message"];
-				}
-				this.on("scroll", this._scrollHandler);
-			};
-		}),
-
 		//////////// delite/Store methods ///////////////////////////////////////
 
 		refreshProperties: dcl.superCall(function (sup) {
@@ -288,6 +287,7 @@ define(["dcl/dcl",
 					// Initial loading of the list
 					if (this._dataLoaded) {
 						this._empty();
+						this._setBusy(true, true);
 					}
 					this._idPages = [];
 					this._loadNextPage().then(function () {
@@ -344,7 +344,6 @@ define(["dcl/dcl",
 		_loadNextPage: function () {
 			// summary:
 			//		load the next page of items if available.
-			var def = new Deferred();
 			if (!this._rangeSpec) {
 				this._rangeSpec = {};
 				if (this.pageLength > 0) {
@@ -369,9 +368,9 @@ define(["dcl/dcl",
 				tracked.on("remove", this._itemRemoved.bind(this));
 			}
 			results = results.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			when(results.map(function (item) {
+			return when(results.map(function (item) {
 				return this.itemToRenderItem(item);
-			}, this), function (page) {
+			}, this)).then(function (page) {
 				if (page.length) {
 					var idPage = page.map(function (item) {
 						return this.getIdentity(item);
@@ -379,24 +378,15 @@ define(["dcl/dcl",
 					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
 					this._idPages.push(idPage);
 				}
-				try {
-					this._nextPageReadyHandler(page);
-					// TODO: May need to force repaint here,
-					// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
-					def.resolve();
-				} catch (error) {
-					def.reject(error);
-				}
-			}.bind(this), function (error) {
-				def.reject(error);
-			});
-			return def; // Deferred
+				this._nextPageReadyHandler(page);
+				// TODO: May need to force repaint here,
+				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
+			}.bind(this));
 		},
 
 		_loadPreviousPage: function () {
 			// summary:
 			//		load the previous page of items if available.
-			var def = new Deferred();
 			this._rangeSpec.count = this.pageLength;
 			this._rangeSpec.start = this._firstLoaded - this.pageLength;
 			if (this._rangeSpec.start < 0) {
@@ -415,9 +405,9 @@ define(["dcl/dcl",
 				tracked.on("remove", this._itemRemoved.bind(this));
 			}
 			results = results.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			when(results.map(function (item) {
+			return when(results.map(function (item) {
 				return this.itemToRenderItem(item);
-			}, this), function (page) {
+			}, this)).then(function (page) {
 				if (page.length) {
 					var i;
 					var idPage = page.map(function (item) {
@@ -434,19 +424,9 @@ define(["dcl/dcl",
 					}
 					this._firstLoaded = this._rangeSpec.start;
 					this._idPages.unshift(idPage);
-					try {
-						this._previousPageReadyHandler(page);
-						def.resolve();
-					} catch (error) {
-						def.reject(error);
-					}
-				} else {
-					def.resolve();
+					this._previousPageReadyHandler(page);
 				}
-			}.bind(this), function (error) {
-				def.reject(error);
-			});
-			return def;
+			}.bind(this));
 		},
 
 		_unloadPage: function (/*Boolean*/first) {
@@ -590,21 +570,19 @@ define(["dcl/dcl",
 
 		_scrollHandler: function () {
 			// summary:
-			//		handler for scroll events.
-			if (this.autoPaging) {
-				if (this.isTopScroll()) {
-					if (this._noExtremity && this._previousPageLoader) {
-						this._previousPageLoader._load();
-					}
-					this._noExtremity = false;
-				} else if (this.isBottomScroll()) {
-					if (this._noExtremity && this._nextPageLoader) {
-						this._nextPageLoader._load();
-					}
-					this._noExtremity = false;
-				} else {
-					this._noExtremity = true;
+			//		handler for scroll events (auto paging).
+			if (this.isTopScroll()) {
+				if (!this._atExtremity && this._previousPageLoader) {
+					this._previousPageLoader._load();
 				}
+				this._atExtremity = true;
+			} else if (this.isBottomScroll()) {
+				if (!this._atExtremity && this._nextPageLoader) {
+					this._nextPageLoader._load();
+				}
+				this._atExtremity = true;
+			} else {
+				this._atExtremity = false;
 			}
 		},
 
