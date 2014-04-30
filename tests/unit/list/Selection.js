@@ -228,7 +228,7 @@ define([
 			var dfd = this.async(1000);
 			list.selectionMode = "single";
 			setTimeout(dfd.rejectOnError(function () {
-				var firstItem = list.children[0];
+				var firstItem = list.getChildren()[0];
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
 				list._spaceKeydownHandler(event);
@@ -237,20 +237,20 @@ define([
 				assert.isTrue(list.hasAttribute("aria-selectable"), "A: aria-selectable attribute expected");
 				assert.equal(firstItem.getAttribute("aria-selected"), "true",
 				"A: aria-selected attribute expected on first item");
-				assert.isFalse(list.children[1].hasAttribute("aria-selected"),
+				assert.isFalse(list.getChildren()[1].hasAttribute("aria-selected"),
 						"A: no aria-selected attribute expected on second item");
-				assert.isFalse(list.children[2].hasAttribute("aria-selected"),
+				assert.isFalse(list.getChildren()[2].hasAttribute("aria-selected"),
 						"A: no aria-selected attribute expected on third item");
 				list.selectionMode = "multiple";
 				setTimeout(dfd.rejectOnError(function () {
 					assert.isTrue(list.hasAttribute("aria-multiselectable"),
 							"B: aria-multiselectable attribute expected");
 					assert.isFalse(list.hasAttribute("aria-selectable"), "B: no aria-selectable attribute expected");
-					assert.equal(list.children[0].getAttribute("aria-selected"), "true",
+					assert.equal(list.getChildren()[0].getAttribute("aria-selected"), "true",
 					"B: aria-selected attribute expected on first item");
-					assert.equal(list.children[1].getAttribute("aria-selected"), "false",
+					assert.equal(list.getChildren()[1].getAttribute("aria-selected"), "false",
 					"B: aria-selected attribute expected on second item");
-					assert.equal(list.children[2].getAttribute("aria-selected"), "false",
+					assert.equal(list.getChildren()[2].getAttribute("aria-selected"), "false",
 					"B: aria-selected attribute expected on third item");
 					list.selectionMode = "none";
 					setTimeout(dfd.callback(function () {
@@ -258,11 +258,11 @@ define([
 								"C: no aria-multiselectable attribute expected");
 						assert.isFalse(list.hasAttribute("aria-selectable"),
 								"C: no aria-selectable attribute expected");
-						assert.isFalse(list.children[0].hasAttribute("aria-selected"),
+						assert.isFalse(list.getChildren()[0].hasAttribute("aria-selected"),
 						"C: no aria-selected attribute expected on first item");
-						assert.isFalse(list.children[1].hasAttribute("aria-selected"),
+						assert.isFalse(list.getChildren()[1].hasAttribute("aria-selected"),
 						"C: no aria-selected attribute expected on second item");
-						assert.isFalse(list.children[2].hasAttribute("aria-selected"),
+						assert.isFalse(list.getChildren()[2].hasAttribute("aria-selected"),
 						"C: no aria-selected attribute expected on third item");
 					}), 100);
 				}), 100);

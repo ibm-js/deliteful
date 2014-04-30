@@ -1,5 +1,6 @@
 define(["dcl/dcl",
 	"delite/register",
+	"dojo/on",
 	"dojo/_base/lang",
 	"dojo/when",
 	"dojo/dom-class",
@@ -13,11 +14,11 @@ define(["dcl/dcl",
 	"./ItemRenderer",
 	"./CategoryRenderer",
 	"./_DefaultStore",
-	"../ProgressIndicator",
+	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List_css",
 	"dojo/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
-], function (dcl, register, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
-		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore) {
+], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
+		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 
 	// module:
 	//		deliteful/list/List
@@ -166,10 +167,17 @@ define(["dcl/dcl",
 
 		buildRendering: function () {
 			// summary:
-			//		Initialize the widget node and set the container node.
+			//		Initialize the widget node and set the container and scrollable node.
 			// tags:
 			//		protected
-			this.containerNode = this;
+			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
+			// Firefox focus the scrollable node when clicking it or tabing: in this case, the list
+			// widget needs to be focused instead.
+			this.own(on(this.scrollableNode, "focus", function () {
+				this.focus();
+			}.bind(this)));
+			this.containerNode.className = "d-list-container";
+			this.appendChild(this.containerNode);
 			// Aria attributes
 			this.setAttribute("role", "grid");
 			// Might be overriden at the gridcell (renderer) level when developing custom renderers
@@ -196,7 +204,8 @@ define(["dcl/dcl",
 			//		before StoreMap.startup()
 			return function () {
 				// search for custom elements to populate the store
-				var children = this.getChildren();
+				this._setBusy(true, true);
+				var children = Array.prototype.slice.call(this.children);
 				if (children.length) {
 					for (var i = 0; i < children.length; i++) {
 						var child = children[i];
@@ -206,7 +215,9 @@ define(["dcl/dcl",
 								this.store.add(data[j]);
 							}
 						}
-						child.destroy();
+						if (child !== this.containerNode && child !== this._loadingPanel) {
+							child.destroy();
+						}
 					}
 				}
 				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
@@ -216,17 +227,18 @@ define(["dcl/dcl",
 			};
 		}),
 
-		attachedCallback: dcl.superCall(function (sup) {
-			// summary:
-			//		Set the busy status of the list and display the loading panel
-			//		This can't be done in the startup method because the loading panel
-			//		need the geometry of the list to be right, and it also need to be
-			//		done before loading the list items.
-			return function () {
-				sup.call(this, arguments);
-				this._setBusy(true, true);
-			};
-		}),
+//		attachedCallback: dcl.superCall(function (sup) {
+//			// summary:
+//			//		Set the busy status of the list and display the loading panel
+//			//		FIXME: TEST DOING IT IN startup WHEN THE GEOMETRY IS NOT NEEDED ANYMORE
+//			//		This can't be done in the startup method because the loading panel
+//			//		need the geometry of the list to be right, and it also need to be
+//			//		done before loading the list items.
+//			return function () {
+//				sup.call(this, arguments);
+//				this._setBusy(true, true);
+//			};
+//		}),
 
 		refreshRendering: dcl.superCall(function (sup) {
 			// summary:
@@ -245,8 +257,8 @@ define(["dcl/dcl",
 					if (this.selectionMode === "single") {
 						this.setAttribute("aria-selectable", true);
 						// update aria-selected attribute on unselected items
-						for (var i = 0; i < this.children.length; i++) {
-							var child = this.children[i];
+						for (var i = 0; i < this.containerNode.children.length; i++) {
+							var child = this.containerNode.children[i];
 							if (child.getAttribute("aria-selected") === "false") {
 								child.removeAttribute("aria-selected");
 							}
@@ -254,8 +266,8 @@ define(["dcl/dcl",
 					} else if (this.selectionMode === "multiple") {
 						this.setAttribute("aria-multiselectable", true);
 						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.children.length; i++) {
-							child = this.children[i];
+						for (i = 0; i < this.containerNode.children.length; i++) {
+							child = this.containerNode.children[i];
 							if (domClass.contains(child, this._cssClasses.item)
 									&& !child.hasAttribute("aria-selected")) {
 								child.setAttribute("aria-selected", "false");
@@ -263,8 +275,8 @@ define(["dcl/dcl",
 						}
 					} else {
 						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.children.length; i++) {
-							child = this.children[i];
+						for (i = 0; i < this.containerNode.children.length; i++) {
+							child = this.containerNode.children[i];
 							if (child.hasAttribute("aria-selected")) {
 								child.removeAttribute("aria-selected", "false");
 							}
@@ -369,7 +381,7 @@ define(["dcl/dcl",
 			//		The dom node.
 			var currentNode = node;
 			while (currentNode) {
-				if (currentNode.parentNode && currentNode.parentNode === this) {
+				if (currentNode.parentNode && currentNode.parentNode === this.containerNode) {
 					break;
 				}
 				currentNode = currentNode.parentNode;
@@ -465,21 +477,10 @@ define(["dcl/dcl",
 			// summary:
 			//		show the loading panel
 			if (!this._loadingPanel) {
-				var clientRect = this.getBoundingClientRect();
-				this._loadingPanel = this.ownerDocument.createElement("div");
-				this._loadingPanel.innerHTML = "<d-progress-indicator active='true'></d-progress-indicator>"
-					+ (this.loadingMessage ? "<span>" + this.loadingMessage + "</span>" : "");
-				this._loadingPanel.className = "d-list-loading-panel";
-				this._loadingPanel.style.cssText = "position: absolute; line-height: "
-												+ (clientRect.bottom - clientRect.top)
-												+ "px; width: "
-												+ (clientRect.right - clientRect.left)
-												+ "px; top: "
-												+ (clientRect.top + (window.scrollY || window.pageYOffset))
-												+ "px; left: "
-												+ (clientRect.left + (window.scrollX || window.pageXOffset))
-												+ "px;";
-				this.ownerDocument.body.appendChild(this._loadingPanel);
+				this._loadingPanel = new LoadingPanel({message: this.loadingMessage});
+				this.insertBefore(this._loadingPanel, this.containerNode);
+				//	this._loadingPanel.startup(); does not start the loading panel progress indicator in safari.
+				// Parsing solves the issue.
 				register.parse(this._loadingPanel);
 			}
 		},
@@ -488,12 +489,7 @@ define(["dcl/dcl",
 			// summary:
 			//		hide the loading panel
 			if (this._loadingPanel) {
-				this.findCustomElements(this._loadingPanel).forEach(function (w) {
-					if (w.destroy) {
-						w.destroy();
-					}
-				});
-				this.ownerDocument.body.removeChild(this._loadingPanel);
+				this._loadingPanel.destroy();
 				this._loadingPanel = null;
 			}
 		},
@@ -510,7 +506,7 @@ define(["dcl/dcl",
 					w.destroy();
 				}
 			});
-			this.innerHTML = "";
+			this.containerNode.innerHTML = "";
 			this._previousFocusedChild = null;
 		},
 
@@ -597,18 +593,18 @@ define(["dcl/dcl",
 			//		The index (not counting category renderers) where to add the item renderer in the list.
 			var spec = this._getInsertSpec(renderer, atIndex);
 			if (spec.nodeRef) {
-				this.insertBefore(renderer, spec.nodeRef);
+				this.containerNode.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
 					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
-					this.insertBefore(categoryRenderer, spec.nodeRef);
+					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
 					categoryRenderer.startup();
 				}
 			} else {
-				this.appendChild(renderer);
+				this.containerNode.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
 				categoryRenderer = this._createCategoryRenderer(renderer.item);
-				this.insertBefore(categoryRenderer, renderer);
+				this.containerNode.insertBefore(categoryRenderer, renderer);
 				categoryRenderer.startup();
 			}
 			renderer.startup();
@@ -691,7 +687,7 @@ define(["dcl/dcl",
 			if (this._previousFocusedChild && this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {
 				this._previousFocusedChild = null;
 			}
-			this.removeChild(renderer);
+			this.containerNode.removeChild(renderer);
 			renderer.destroy();
 		},
 		/*jshint maxcomplexity:10*/
@@ -876,7 +872,7 @@ define(["dcl/dcl",
 			//		the bottom of the scrolling container.
 			// tags:
 			//		protected
-			var clientRect = this.getBoundingClientRect();
+			var clientRect = this.scrollableNode.getBoundingClientRect();
 			return node.offsetTop +
 				node.offsetHeight -
 				this.getCurrentScroll().y -
@@ -995,7 +991,7 @@ define(["dcl/dcl",
 			}
 			var renderer = this._getFocusedRenderer();
 			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
-				this.firstElementChild.renderNode);
+				this.containerNode.firstElementChild.renderNode);
 		},
 
 		_onUpArrow: function () {
@@ -1004,7 +1000,7 @@ define(["dcl/dcl",
 			}
 			var renderer = this._getFocusedRenderer();
 			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
-				this.lastElementChild.renderNode);
+				this.containerNode.lastElementChild.renderNode);
 		},
 
 		_getNext: function (/*Element*/child) {

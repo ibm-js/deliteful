@@ -144,14 +144,23 @@ d-list-store {
 }
 
 .d-list-loading-panel {
+	display: table;
 	position: absolute;
+	z-index: 2;
+	height: 100%;
+	width: 100%;
 	color: #808080;
 	font-size: medium;
 	font-style: italic;
 	text-align: center;
 	background-color: #c5ccd3;
 	cursor: wait;
-	
+}
+
+.d-list-loading-panel-info {
+	display: table-cell;
+	vertical-align: middle;
+
 	.d-progress-indicator {
 		width: 24px;
 		height: 24px;
@@ -189,6 +198,11 @@ d-list-store {
 	}
 }
 
+.d-list-container {
+	position: relative;
+	height: 100%;
+}
+
 /*******************************/
 /* iOS theme for RoundRectList */
 /*                             */
@@ -209,12 +223,12 @@ d-list-store {
 	overflow-x: hidden;
 }
 
-.d-round-rect-list > *:first-child {
+.d-round-rect-list > .d-list-container > *:first-child {
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 }
 
-.d-round-rect-list > *:last-child {
+.d-round-rect-list > .d-list-container > *:last-child {
 	border-bottom-width: 0;
 	/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
 	padding-bottom: 1px;
@@ -242,7 +256,7 @@ d-list-store {
 	overflow-x: hidden;
 }
 
-.d-list > *:last-child {
+.d-list > .d-list-container > *:last-child {
 	border-bottom-width: 0;
 	/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
 	padding-bottom: 1px;

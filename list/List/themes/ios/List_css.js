@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /********************************/\
 /* iOS theme for all Lists      */\
 /*                              */\
@@ -30,7 +34,7 @@ d-list-store {\
   line-height: 22px;\
   text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
 }\
-.d-list-category [role="gridcell"] {\
+.d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
 }\
 .d-list-item {\
@@ -50,10 +54,10 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list-item [role="gridcell"] {\
+.d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
 }\
-.d-list [role="gridcell"] {\
+.d-list [role=\"gridcell\"] {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -69,7 +73,7 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list [role="gridcell"] > .d-spacer {\
+.d-list [role=\"gridcell\"] > .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -95,7 +99,7 @@ d-list-store {\
   color: #324f85;\
   line-height: 43px;\
 }\
-.d-list-loader [role="gridcell"] {\
+.d-list-loader [role=\"gridcell\"] {\
   font-weight: bold;\
   overflow: hidden;\
   white-space: nowrap;\
@@ -106,32 +110,36 @@ d-list-store {\
   background-color: #ffffff;\
   border-bottom: 1px solid #adaaad;\
 }\
-.d-list-loader [role="button"] {\
+.d-list-loader [role=\"button\"] {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
 }\
-.d-list-loader [role="button"] .d-progress-indicator {\
+.d-list-loader [role=\"button\"] .d-progress-indicator {\
   width: 24px;\
   height: 24px;\
   vertical-align: top;\
 }\
-.d-list-loader [role="button"] .d-progress-indicator-lines {\
+.d-list-loader [role=\"button\"] .d-progress-indicator-lines {\
   stroke: #808080;\
 }\
-.d-list-loader [role="button"] div {\
+.d-list-loader [role=\"button\"] div {\
   padding-left: 10px;\
 }\
-.d-list-loader.d-loading [role="gridcell"] {\
+.d-list-loader.d-loading [role=\"gridcell\"] {\
   color: #808080;\
   font-weight: normal;\
   font-style: italic;\
   cursor: wait;\
 }\
 .d-list-loading-panel {\
+  display: table;\
   position: absolute;\
+  z-index: 2;\
+  height: 100%;\
+  width: 100%;\
   color: #808080;\
   font-size: medium;\
   font-style: italic;\
@@ -139,38 +147,46 @@ d-list-store {\
   background-color: #c5ccd3;\
   cursor: wait;\
 }\
-.d-list-loading-panel .d-progress-indicator {\
+.d-list-loading-panel-info {\
+  display: table-cell;\
+  vertical-align: middle;\
+}\
+.d-list-loading-panel-info .d-progress-indicator {\
   width: 24px;\
   height: 24px;\
   vertical-align: top;\
 }\
-.d-list-loading-panel .d-progress-indicator-lines {\
+.d-list-loading-panel-info .d-progress-indicator-lines {\
   stroke: #808080;\
 }\
-.d-list-loading-panel span {\
+.d-list-loading-panel-info span {\
   vertical-align: middle;\
   padding-left: 10px;\
 }\
-.d-list-loading-panel svg {\
+.d-list-loading-panel-info svg {\
   vertical-align: middle;\
 }\
-[aria-selectable="true"] .d-list-item::before,\
-[aria-multiselectable="true"] .d-list-item::before {\
+[aria-selectable=\"true\"] .d-list-item::before,\
+[aria-multiselectable=\"true\"] .d-list-item::before {\
   display: block;\
-  content: "\\2610";\
+  content: \"\\2610\";\
 }\
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::before,\
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::before {\
-  content: "\\2611";\
+[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before,\
+[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before {\
+  content: \"\\2611\";\
 }\
-[aria-selectable="true"] .d-list-item::after,\
-[aria-multiselectable="true"] .d-list-item::after {\
+[aria-selectable=\"true\"] .d-list-item::after,\
+[aria-multiselectable=\"true\"] .d-list-item::after {\
   display: none;\
-  content: "\\2610";\
+  content: \"\\2610\";\
 }\
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::after,\
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::after {\
-  content: "\\2611";\
+[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after,\
+[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after {\
+  content: \"\\2611\";\
+}\
+.d-list-container {\
+  position: relative;\
+  height: 100%;\
 }\
 /*******************************/\
 /* iOS theme for RoundRectList */\
@@ -190,11 +206,11 @@ d-list-store {\
   padding: 0;\
   overflow-x: hidden;\
 }\
-.d-round-rect-list > *:first-child {\
+.d-round-rect-list > .d-list-container > *:first-child {\
   border-top-left-radius: 8px;\
   border-top-right-radius: 8px;\
 }\
-.d-round-rect-list > *:last-child {\
+.d-round-rect-list > .d-list-container > *:last-child {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
@@ -219,9 +235,9 @@ d-list-store {\
   margin: 0;\
   overflow-x: hidden;\
 }\
-.d-list > *:last-child {\
+.d-list > .d-list-container > *:last-child {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-}\
-'; } );
+}";
+});

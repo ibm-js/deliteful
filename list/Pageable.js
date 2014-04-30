@@ -1,5 +1,6 @@
 define(["dcl/dcl",
 		"delite/register",
+		"dojo/on",
 		"dojo/string",
 		"dojo/when",
 		"dojo/Deferred",
@@ -10,7 +11,8 @@ define(["dcl/dcl",
 		"./Renderer",
 		"../ProgressIndicator",
 		"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, string, when, Deferred, dom, domClass, has, Widget, Renderer, ProgressIndicator, messages) {
+], function (dcl, register, on, string, when, Deferred, dom, domClass, has,
+		Widget, Renderer, ProgressIndicator, messages) {
 
 	// module:
 	//		deliteful/list/Pageable
@@ -214,7 +216,7 @@ define(["dcl/dcl",
 				this._autoPagingHandle = null;
 			}
 			if (value) {
-				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this));
+				this._autoPagingHandle = this.own(on(this.scrollableNode, "scroll", this._scrollHandler.bind(this)))[0];
 			}
 		},
 

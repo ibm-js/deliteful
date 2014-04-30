@@ -55,7 +55,7 @@ define([
 			var dfd = this.async(1000);
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "vertical";
-				assert.equal(list.className, "d-list d-scrollable d-scrollable-v");
+				assert.equal(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
 			}), 0);
 			return dfd;
 		},
@@ -199,7 +199,7 @@ define([
 						assert.isNotNull(focusedElement, "active element");
 						assert.isDefined(focusedElement, "active element");
 						assert.equal("item 1", focusedElement.parentNode.item.label, "focused element label");
-						list.scrollTop = itemHeightInPixel * 2.5;
+						list.scrollableNode.scrollTop = itemHeightInPixel * 2.5;
 						setTimeout(def.rejectOnError(function () {
 							list.focus();
 							setTimeout(def.callback(function () {
