@@ -1,7 +1,6 @@
 // Listing of all the deliteful functional tests
 define([
-	"./StarRatingTests",
+	"./StarRating",
 	"./ScrollableContainer",
 	"./list/ListTests"
-
 ]);

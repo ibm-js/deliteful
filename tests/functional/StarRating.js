@@ -127,7 +127,7 @@ define(["intern!object",
 	var defaultEditableRatingTest = function (remote, widgetId, halfStars, zeroSetting, expectedInitialValue) {
 		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
-		.get(require.toUrl("./StarRatingTests.html"))
+		.get(require.toUrl("./StarRating.html"))
 		.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 		// Check initial rating
 		.then(function () {
@@ -168,7 +168,7 @@ define(["intern!object",
 			}
 			console.log("# running test 'read only ltr'");
 			return remote
-			.get(require.toUrl("./StarRatingTests.html"))
+			.get(require.toUrl("./StarRating.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				// Check initial rating
@@ -245,7 +245,7 @@ define(["intern!object",
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				// Problems with moveTo on firefox (SauceLabs).
 				return remote
-					.get(require.toUrl("./StarRatingTests.html"))
+					.get(require.toUrl("./StarRating.html"))
 					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 					// Check initial rating
 					.then(function () {
@@ -260,7 +260,7 @@ define(["intern!object",
 						.end();
 			} else {
 				return remote
-					.get(require.toUrl("./StarRatingTests.html"))
+					.get(require.toUrl("./StarRating.html"))
 					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 					// Check initial rating
 					.then(function () {
@@ -308,7 +308,7 @@ define(["intern!object",
 			console.log("# running test 'default'");
 			var remote = this.remote;
 			return remote
-			.get(require.toUrl("./StarRatingTests.html"))
+			.get(require.toUrl("./StarRating.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
@@ -324,7 +324,7 @@ define(["intern!object",
 				return;
 			}
 			return remote
-			.get(require.toUrl("./StarRatingTests.html"))
+			.get(require.toUrl("./StarRating.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check active element
 			.execute("return document.activeElement.id")
@@ -387,7 +387,7 @@ define(["intern!object",
 			console.log("# running test 'disabled'");
 			var remote = this.remote;
 			return remote
-			.get(require.toUrl("./StarRatingFormTests.html"))
+			.get(require.toUrl("./StarRating-form.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
@@ -403,7 +403,7 @@ define(["intern!object",
 				return;
 			}
 			return remote
-			.get(require.toUrl("./StarRatingFormBackTests.html"))
+			.get(require.toUrl("./StarRating-formback.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return clickOnStar(remote, "starratingA", 7);
@@ -444,7 +444,7 @@ define(["intern!object",
 				return;
 			}
 			return remote
-			.get(require.toUrl("./StarRatingFormTests.html"))
+			.get(require.toUrl("./StarRating-form.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
 				return clickOnStar(remote, "starrating1", 2);
