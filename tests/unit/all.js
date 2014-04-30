@@ -13,5 +13,7 @@ define([
 	"./list/List",
 	"./list/DefaultStore",
 	"./list/Selection",
-	"./list/Categories"
+	"./list/Categories",
+	"./ProgressBar",
+	"./ProgressIndicator",
 ]);
