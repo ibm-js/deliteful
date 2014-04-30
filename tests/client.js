@@ -6,6 +6,10 @@ define({
 		// location of all the packages, relative to client.html
 		baseUrl: "../../.."
 	},
+	useLoader: {
+		"host-node": "requirejs",
+		"host-browser": "../../../requirejs/require.js"
+	},
 
 	// Non-functional test suites
 	suites: [ "deliteful/tests/unit/all" ]
