@@ -19,6 +19,7 @@ define([
 			container.innerHTML = htmlContent;
 			register.parse(container);
 			node = document.getElementById("dlayout");
+			node.validateRendering();
 		},
 		"Horizontal LinearLayout 3 Equal Width" : function () {
 			var children = node.getChildren();
