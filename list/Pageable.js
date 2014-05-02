@@ -98,10 +98,6 @@ define(["dcl/dcl",
 			};
 		}),
 
-		startup: function () {
-			this._progressIndicator.startup();
-		},
-
 		//////////// Renderer life cycle ///////////////////////////////////////
 
 		render: function () {
