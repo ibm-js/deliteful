@@ -119,7 +119,7 @@ define([
 		}
 	});
 
-	if (has("dojo-bidi")) {
+	if (has("bidi")) {
 
 		dRule.prototype._setTextDirAttr = function (textDir) {
 			if (this.textDir !== textDir) {

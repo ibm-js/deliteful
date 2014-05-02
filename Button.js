@@ -6,8 +6,8 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"dojo/has!dojo-bidi?./Button/bidi/Button",
-	"delite/theme!./Button/themes/{{theme}}/Button_css" // common for d-inline
+	"dojo/has!bidi?./Button/bidi/Button",
+	"delite/theme!./Button/themes/{{theme}}/Button_css"
 ], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
@@ -92,6 +92,6 @@ define([
 		}
 	});
 
-	return register("d-button", has("dojo-bidi") ? [HTMLButtonElement, Button, BidiButton] :
+	return register("d-button", has("bidi") ? [HTMLButtonElement, Button, BidiButton] :
 		[HTMLButtonElement, Button]);
 });

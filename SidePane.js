@@ -9,7 +9,7 @@ define([
 	"delite/Invalidating",
 	"dojo/Deferred",
 	/*jshint maxlen: 150*/
-	"dojo/has!dojo-bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css:delite/theme!./SidePane/themes/{{theme}}/SidePane_css"
+	"dojo/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css:delite/theme!./SidePane/themes/{{theme}}/SidePane_css"
 ],
 	function (dcl, pointer, domClass, win, has, register, Widget, Invalidating, Deferred) {
 		function prefix(v) {
