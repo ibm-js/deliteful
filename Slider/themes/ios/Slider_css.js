@@ -135,7 +135,7 @@ define(function () {
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\
-  content: \"\\\\025A3\";\
+  content: \"\\025A3\";\
   display: block;\
   font-family: monospace;\
   font-size: 20px;\
