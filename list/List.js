@@ -227,19 +227,6 @@ define(["dcl/dcl",
 			};
 		}),
 
-//		attachedCallback: dcl.superCall(function (sup) {
-//			// summary:
-//			//		Set the busy status of the list and display the loading panel
-//			//		FIXME: TEST DOING IT IN startup WHEN THE GEOMETRY IS NOT NEEDED ANYMORE
-//			//		This can't be done in the startup method because the loading panel
-//			//		need the geometry of the list to be right, and it also need to be
-//			//		done before loading the list items.
-//			return function () {
-//				sup.call(this, arguments);
-//				this._setBusy(true, true);
-//			};
-//		}),
-
 		refreshRendering: dcl.superCall(function (sup) {
 			// summary:
 			//		List attributes have been updated.
@@ -479,9 +466,7 @@ define(["dcl/dcl",
 			if (!this._loadingPanel) {
 				this._loadingPanel = new LoadingPanel({message: this.loadingMessage});
 				this.insertBefore(this._loadingPanel, this.containerNode);
-				//	this._loadingPanel.startup(); does not start the loading panel progress indicator in safari.
-				// Parsing solves the issue.
-				register.parse(this._loadingPanel);
+				this._loadingPanel.startup();
 			}
 		},
 
