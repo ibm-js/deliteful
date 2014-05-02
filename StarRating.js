@@ -11,11 +11,11 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"dojo/has!dojo-bidi?./StarRating/bidi/StarRating",
+	"dojo/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"dojo/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
-	"dojo/has!dojo-bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"dojo/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
@@ -367,5 +367,5 @@ define([
 	});
 
 	return register("d-star-rating",
-			has("dojo-bidi") ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
+			has("bidi") ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
 });
