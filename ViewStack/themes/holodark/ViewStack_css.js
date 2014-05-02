@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-view-stack {\
   display: inline-block;\
   -webkit-box-sizing: border-box;\
@@ -18,5 +22,5 @@ define(function(){ return '\
 }\
 .-d-view-stack-transition {\
   overflow-y: hidden;\
-}\
-'; } );
+}";
+});

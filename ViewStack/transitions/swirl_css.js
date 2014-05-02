@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-swirl.-d-view-stack-out {\
   -webkit-animation-duration: 0.5s;\
   animation-duration: 0.5s;\
@@ -67,5 +71,5 @@ define(function(){ return '\
   to {\
     transform: scale(1);\
   }\
-}\
-'; } );
+}";
+});

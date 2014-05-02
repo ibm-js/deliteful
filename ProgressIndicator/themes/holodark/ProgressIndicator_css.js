@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /*\
  * -----------------------------------------------\
  *  Theme     : holodark\
@@ -11,11 +15,11 @@ define(function(){ return '\
   visibility: hidden;\
   vertical-align: middle;\
   background-color: transparent;\
-  -webkit-touch-callout: "none";\
-  user-select: "none";\
-  -webkit-user-select: "none";\
-  -ms-user-select: "none";\
-  -moz-user-select: "none";\
+  -webkit-touch-callout: \"none\";\
+  user-select: \"none\";\
+  -webkit-user-select: \"none\";\
+  -ms-user-select: \"none\";\
+  -moz-user-select: \"none\";\
   width: 40px;\
   height: 40px;\
   font-size: 16px;\
@@ -28,5 +32,5 @@ define(function(){ return '\
 }\
 .d-progress-indicator text {\
   fill: #ffffff;\
-}\
-'; } );
+}";
+});

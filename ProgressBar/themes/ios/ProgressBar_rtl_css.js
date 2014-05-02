@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /*\
  * -----------------------------------------------\
  *  Theme     : ios (RTL)\
@@ -25,5 +29,5 @@ define(function(){ return '\
 }\
 .d-rtl .d-progress-bar-msg-ext {\
   text-align: right;\
-}\
-'; } );
+}";
+});

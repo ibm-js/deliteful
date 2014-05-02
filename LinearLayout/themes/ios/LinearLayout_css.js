@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-linear-layout {\
   display: -webkit-box;\
   display: -moz-box;\
@@ -32,5 +36,5 @@ define(function(){ return '\
 }\
 .width100 {\
   width: 100%;\
-}\
-'; } );
+}";
+});

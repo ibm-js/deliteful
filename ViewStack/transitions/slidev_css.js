@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-slidev {\
   -webkit-transition-property: none;\
   -moz-transition-property: none;\
@@ -36,5 +40,5 @@ define(function(){ return '\
   -webkit-transition-timing-function: linear;\
   -moz-transition-timing-function: linear;\
   transition-timing-function: linear;\
-}\
-'; } );
+}";
+});

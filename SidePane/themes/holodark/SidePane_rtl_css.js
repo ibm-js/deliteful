@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-side-pane {\
   width: 15em;\
   height: 100%;\
@@ -74,5 +78,5 @@ define(function(){ return '\
 .-d-side-pane-start.-d-side-pane-reveal.-d-side-pane-visible,\
 .-d-side-pane.-d-side-pane-start-reveal.-d-side-pane-hidden {\
   right: 0;\
-}\
-'; } );
+}";
+});

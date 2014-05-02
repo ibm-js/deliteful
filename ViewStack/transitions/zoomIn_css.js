@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-zoomIn.-d-view-stack-out {\
   z-index: -100;\
   -webkit-animation-duration: 0.5s;\
@@ -71,5 +75,5 @@ define(function(){ return '\
   to {\
     transform: scale(1);\
   }\
-}\
-'; } );
+}";
+});

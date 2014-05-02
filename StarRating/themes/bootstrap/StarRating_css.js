@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-star-rating.d-star-rating-hovered {\
   opacity: 0.5;\
 }\
@@ -7,7 +11,7 @@ define(function(){ return '\
   display: inline-block;\
 }\
 .d-star-rating-disabled .d-star-rating-star-icon:before {\
-  content: url("../../images/grey-stars-40.png");\
+  content: url(\"../../images/grey-stars-40.png\");\
 }\
 .d-star-rating-zero {\
   float: left;\
@@ -26,12 +30,12 @@ define(function(){ return '\
 }\
 .d-star-rating-star-icon:before {\
   display: inline-block;\
-  content: url("../../images/yellow-stars-40.png");\
+  content: url(\"../../images/yellow-stars-40.png\");\
 }\
 .d-star-rating-empty-star:before {\
   margin-left: -40px;\
 }\
 .d-star-rating-half-star:before {\
   margin-left: -80px;\
-}\
-'; } );
+}";
+});

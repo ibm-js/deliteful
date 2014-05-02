@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-star-rating.d-rtl .d-star-rating-full-star:before {\
   margin-left: 0px;\
   margin-right: -120px;\
@@ -21,5 +25,5 @@ define(function(){ return '\
 .dj_ie9 .d-star-rating.d-rtl .d-star-rating-half-star:before {\
   margin-left: 0px;\
   margin-right: -80px;\
-}\
-'; } );
+}";
+});
