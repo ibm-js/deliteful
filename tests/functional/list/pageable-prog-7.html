@@ -11,28 +11,26 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
-		    "dojo/Deferred",
 			"delite/register",
+		    "dojo/Deferred",
 			"deliteful/list/List",
 			"deliteful/list/Pageable",
 			"dstore/Memory",
 			"dojo/domReady!"
-		], function (declare, Deferred, register, List, Pageable, MemoryStore) {
+		], function (register, Deferred, List, Pageable, MemoryStore) {
 			var PageableList = register("d-pageable-list", [List, Pageable], {});
 			var list = register.createElement("d-pageable-list");
-			list.id = "pageable-prog-6";
-			list.pageLength = 23;
+			list.id = "pageable-prog-7";
+			list.categoryAttr = "category";
+			list.pageLength = 25;
 			list.maxPages = 2;
-			list.hideOnPageLoad = true;
-			list.loadingMessage = "Updating content...";
-			list.autoPaging = true;
 			list.style.height = "200px";
+			list.autoPaging = true;
 			// Custom memory store with a customizable latency
-			var CustomMemoryStore = declare([MemoryStore], {
+			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
 				map: function (item) {
-						var def = new Deferred;
+						var def = new Deferred();
 						var that = this;
 						var args = arguments;
 						setTimeout(function () {
@@ -43,14 +41,11 @@
 			});
 			list.store = new CustomMemoryStore();
  			for (i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, id: i});
+				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
-			var latencyIF = document.getElementById("latency");
-			latencyIF.onchange = function () {
-				list.store.latency = latencyIF.valueAsNumber;
-			}
+
 			ready = true;
 		});
 	</script>
@@ -71,9 +66,7 @@
 <body>
  	<label for="latency">Store latency (in ms):</label><input type="number" id="latency" autofocus value="1500" min="0">
  	<br>
- 	<button onclick="document.getElementById('pageable-prog-6').query = null;">Reinit list</button>
- 	<h2>Pageable list with autoPaging set to true (id: pageable-prog-6)</h2>
- 	<p>
+ 	<h2>Pageable categorized list (id: pageable-prog-7) with autoPaging</h2>
  	<div id="listPlaceholder"></div>
 </body>
 </html>

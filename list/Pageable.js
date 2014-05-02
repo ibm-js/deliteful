@@ -471,8 +471,9 @@ define(["dcl/dcl",
 			//		function to call when the previous page has been loaded.
 			// items: Array
 			//		the items in the previous page.
+			var renderer = this._getFirstVisibleRenderer();
+			var nextRenderer = renderer.nextElementSibling;
 			if (this.focusedChild) {
-				var renderer = this._getFirstVisibleRenderer();
 				if (renderer && this._previousPageLoader && this._previousPageLoader.loading) {
 					this.focusChild(renderer.renderNode);
 				}
@@ -488,26 +489,34 @@ define(["dcl/dcl",
 			} else {
 				this._previousPageLoader.placeAt(this.containerNode, "first");
 			}
-			renderer = this._getFocusedRenderer();
+			// the renderer may have been destroyed and replaced by another one (categorized lists)
+			if (renderer._destroyed) {
+				renderer = nextRenderer;
+			}
 			if (renderer) {
 				var previous = renderer.previousElementSibling;
 				if (previous && previous.renderNode) {
+					var currentActiveElement = this.focusedChild ? null : this.ownerDocument.activeElement;
 					this.focusChild(previous.renderNode);
 					// scroll the focused node to the top of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.
 					this.scrollBy({y: this.getTopDistance(previous)});
+					if (currentActiveElement) {
+						currentActiveElement.focus();
+					}
 				}
 			}
 		},
 
+		/*jshint maxcomplexity: 11*/
 		_nextPageReadyHandler: function (/*array*/ items) {
 			// summary:
 			//		function to call when the next page has been loaded.
 			// items: Array
 			//		the items in the next page.
+			var renderer = this._getLastVisibleRenderer();
 			if (this.focusedChild) {
-				var renderer = this._getLastVisibleRenderer();
 				if (renderer) {
 					this.focusChild(renderer.renderNode);
 				}
@@ -529,18 +538,22 @@ define(["dcl/dcl",
 					this._createNextPageLoader();
 				}
 			}
-			renderer = this._getFocusedRenderer();
 			if (renderer) {
 				var next = renderer.nextElementSibling;
 				if (next && next.renderNode) {
+					var currentActiveElement = this.focusedChild ? null : this.ownerDocument.activeElement;
 					this.focusChild(next.renderNode);
 					// scroll the focused node to the bottom of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.
 					this.scrollBy({y: this.getBottomDistance(next)});
+					if (currentActiveElement) {
+						currentActiveElement.focus();
+					}
 				}
 			}
 		},
+		/*jshint maxcomplexity: 10*/
 
 		_getLastVisibleRenderer: function () {
 			// summary:

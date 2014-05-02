@@ -1018,6 +1018,59 @@ define([
 			}));
 			return dfd;
 		},
+		"autoPaging: categorized list with category headers destroyed when loading pages": function () {
+			if (navigator.userAgent.indexOf("Firefox") >= 0) {
+				// This test is not reliable on Firefox
+				return;
+			}
+			var def = this.async(2000);
+			list = new PageableList();
+			list.categoryAttr = "category";
+			list.pageLength = 25;
+			list.maxPages = 2;
+			list.style.height = "200px";
+			list.autoPaging = true;
+ 			for (var i = 0; i < 100; i++) {
+				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+			}
+			document.body.appendChild(list);
+			list.startup();
+			// initial load
+			assertCategorizedList(list, 25, 0, false, true);
+			setTimeout(def.rejectOnError(function() {
+				// scroll to the bottom
+				list.scrollableNode.scrollTop = (list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight);
+				setTimeout(def.rejectOnError(function() {
+					assertCategorizedList(list, 50, 0, false, true);
+					assert.equal("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent), "last visible renderer after first page load");
+					setTimeout(def.rejectOnError(function() {
+						// scroll a little to remove the "_atExtremity" marker
+						list.scrollableNode.scrollTop = ((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight) / 2);
+						setTimeout(def.rejectOnError(function() {
+							// scroll to the bottom
+							list.scrollableNode.scrollTop = ((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight));
+							setTimeout(def.rejectOnError(function() {
+								assertCategorizedList(list, 50, 25, true, true);
+								assert.equal("Category 5", removeTabsAndReturns(list._getLastVisibleRenderer().textContent), "last visible renderer after second page load");
+								setTimeout(def.rejectOnError(function() {
+									// scroll a little to remove the "_atExtremity" marker
+									list.scrollableNode.scrollTop = 100;
+									setTimeout(def.rejectOnError(function() {
+										// scroll to the top
+										list.scrollableNode.scrollTop = 0;
+										setTimeout(def.callback(function() {
+											assertCategorizedList(list, 50, 0, false, true);
+											assert.equal("item 24", removeTabsAndReturns(list._getFirstVisibleRenderer().textContent), "first visible renderer");
+										}), 500);
+									}), 0);
+								}), 0);
+							}), 500);
+						}), 0);
+					}), 0);
+				}), 500);
+			}), 0);
+			return def;
+		},
 		///////////////////////////////////////////
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////
