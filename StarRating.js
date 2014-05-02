@@ -183,10 +183,8 @@ define([
 		_refreshStarsRendering: function () {
 			var createChildren = this.children.length - 2 !== this.max;
 			if (createChildren) {
-				var divChildren = this.getElementsByTagName("DIV");
-				while (divChildren.length) {
-					this.removeChild(divChildren[0]);
-				}
+				// Not relying on live NodeList, due to: https://github.com/Polymer/polymer/issues/346
+				Array.prototype.slice.call(this.getElementsByTagName("DIV")).forEach(this.removeChild, this);
 			}
 			this._updateStars(this.value, createChildren);
 		},
