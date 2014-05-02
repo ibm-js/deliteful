@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-button {\
   padding: 15px 10px;\
   border-style: outset;\
@@ -46,5 +50,5 @@ define(function(){ return '\
 .d-button-red-selected {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#c1a48e), to(#9b6c4a), color-stop(0.5, #a27758), color-stop(0.5, #996947));\
   background-image: linear-gradient(to bottom, #c1a48e 0%, #a27758 50%, #996947 50%, #9b6c4a 100%);\
-}\
-'; } );
+}";
+});

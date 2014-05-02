@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-button {\
   display: inline-block;\
   margin-bottom: 0;\
@@ -558,5 +562,5 @@ fieldset[disabled] .d-button-red {\
 .d-button-link[disabled]:focus {\
   color: #999999;\
   text-decoration: none;\
-}\
-'; } );
+}";
+});

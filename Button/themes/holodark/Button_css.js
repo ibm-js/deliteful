@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-button {\
   padding: 15px 10px;\
   border-style: outset;\
@@ -63,5 +67,5 @@ define(function(){ return '\
 }\
 .d-button-red-selected {\
   background-image: none;\
-}\
-'; } );
+}";
+});

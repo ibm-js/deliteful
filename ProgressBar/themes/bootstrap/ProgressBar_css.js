@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-progress-bar-success .d-progress-bar-indicator {\
   background-color: #5cb85c;\
 }\
@@ -12,10 +16,10 @@ define(function(){ return '\
   background-color: #d9534f;\
 }\
 .d-progress-bar-msg::before {\
-  content: "\\00a0";\
+  content: \"\\00a0\";\
 }\
 .d-progress-bar-msg-invert::before {\
-  content: "\\00a0";\
+  content: \"\\00a0\";\
 }\
 .d-progress-bar {\
   display: inline-block;\
@@ -137,5 +141,5 @@ define(function(){ return '\
   100% {\
     background-position: 0 0;\
   }\
-}\
-'; } );
+}";
+});

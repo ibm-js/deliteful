@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /*\
  * -----------------------------------------------\
  *  Theme     : holodark\
@@ -7,7 +11,7 @@ define(function(){ return '\
  * -----------------------------------------------\
  */\
 .d-progress-bar::before {\
-  content: "";\
+  content: \"\";\
   position: absolute;\
   left: 0;\
   top: 0;\
@@ -136,5 +140,5 @@ define(function(){ return '\
   100% {\
     left: 93%;\
   }\
-}\
-'; } );
+}";
+});

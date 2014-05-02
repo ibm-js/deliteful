@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-fade {\
   -webkit-transition-property: none;\
   -moz-transition-property: none;\
@@ -32,5 +36,5 @@ define(function(){ return '\
   -moz-transition-timing-function: ease-in;\
   transition-timing-function: ease-in;\
   opacity: 1;\
-}\
-'; } );
+}";
+});

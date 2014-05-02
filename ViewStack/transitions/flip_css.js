@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-flip {\
   -webkit-transition-property: none;\
   -moz-transition-property: none;\
@@ -48,5 +52,5 @@ define(function(){ return '\
 .dj_android.dj_tablet .-d-view-stack-flip.-d-view-stack-in.-d-view-stack-transition {\
   -webkit-transition-delay: 0.4s;\
   transition-delay: 0.4s;\
-}\
-'; } );
+}";
+});

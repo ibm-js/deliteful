@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .d-slider {\
   display: inline-block;\
   vertical-align: middle;\
@@ -129,7 +133,7 @@ define(function(){ return '\
   transition-duration: 400ms;\
 }\
 .dj_a11y .d-slider-handle:after {\
-  content: "\\\\025A3";\
+  content: \"\\\\025A3\";\
   display: block;\
   font-family: monospace;\
   font-size: 20px;\
@@ -171,5 +175,5 @@ define(function(){ return '\
 .d-slider-h .d-rule-after .d-rule-label {\
   top: 100%;\
   bottom: auto;\
-}\
-'; } );
+}";
+});

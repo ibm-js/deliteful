@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 .-d-view-stack-cube {\
   -webkit-animation-duration: 0.8s;\
   animation-duration: 0.8s;\
@@ -471,5 +475,5 @@ define(function(){ return '\
   to {\
     transform: scale3d(0.758, 0.758, 0.758) rotateY(0deg) translateZ(512px);\
   }\
-}\
-'; } );
+}";
+});

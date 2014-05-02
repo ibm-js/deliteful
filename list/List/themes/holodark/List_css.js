@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /********************************/\
 /* iOS theme for all Lists      */\
 /*                              */\
@@ -30,7 +34,7 @@ d-list-store {\
   line-height: 22px;\
   text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
 }\
-.d-list-category [role="gridcell"] {\
+.d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
 }\
 .d-list-item {\
@@ -49,10 +53,10 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list-item [role="gridcell"] {\
+.d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
 }\
-.d-list [role="gridcell"] {\
+.d-list [role=\"gridcell\"] {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -68,7 +72,7 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
 }\
-.d-list [role="gridcell"] > .d-spacer {\
+.d-list [role=\"gridcell\"] > .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -121,28 +125,28 @@ d-list-store {\
   text-align: center;\
 }\
 .d-list.d-loading:after {\
-  content: "Loading...";\
+  content: \"Loading...\";\
   font-size: large;\
   font-style: italic;\
   color: #808080;\
 }\
-[aria-selectable="true"] .d-list-item::before,\
-[aria-multiselectable="true"] .d-list-item::before {\
+[aria-selectable=\"true\"] .d-list-item::before,\
+[aria-multiselectable=\"true\"] .d-list-item::before {\
   display: block;\
-  content: "\\2610";\
+  content: \"\\2610\";\
 }\
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::before,\
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::before {\
-  content: "\\2611";\
+[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before,\
+[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before {\
+  content: \"\\2611\";\
 }\
-[aria-selectable="true"] .d-list-item::after,\
-[aria-multiselectable="true"] .d-list-item::after {\
+[aria-selectable=\"true\"] .d-list-item::after,\
+[aria-multiselectable=\"true\"] .d-list-item::after {\
   display: none;\
-  content: "\\2610";\
+  content: \"\\2610\";\
 }\
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::after,\
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::after {\
-  content: "\\2611";\
+[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after,\
+[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after {\
+  content: \"\\2611\";\
 }\
 /*******************************/\
 /* iOS theme for RoundRectList */\
@@ -195,5 +199,5 @@ d-list-store {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-}\
-'; } );
+}";
+});

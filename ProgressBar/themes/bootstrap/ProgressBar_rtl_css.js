@@ -1,4 +1,8 @@
-define(function(){ return '\
+define(function () {
+	/* jshint multistr: true */
+	/* jshint -W015 */
+	/* jshint -W033 */
+	return "\
 /*\
  * -----------------------------------------------\
  *  Theme     : bootstrap (RTL)\
@@ -17,5 +21,5 @@ define(function(){ return '\
   animation-direction: reverse;\
   -webkit-transition: width 0s;\
   transition: width 0s;\
-}\
-'; } );
+}";
+});
