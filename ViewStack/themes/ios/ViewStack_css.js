@@ -4,7 +4,7 @@ define(function () {
 	/* jshint -W033 */
 	return "\
 .d-view-stack {\
-  display: inline-block;\
+  display: block;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
@@ -16,6 +16,7 @@ define(function () {
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
   width: 100%;\
+  height: 100%;\
 }\
 .-d-view-stack-transition > * {\
   position: absolute;\

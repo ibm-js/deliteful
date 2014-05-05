@@ -92,12 +92,14 @@ Default values are `{transition: "slide", reverse: false}`.
 
 ### Styling Limitations
 
-The `display` CSS attribute of this element must be set to `block` or `inline-block` (default).
 The `position` CSS attribute of this element must be set to `absolute` or `relative` (default).
 
 The following CSS layout attributes must **NOT** be changed. They are explicitly set by the container and are required for a correct behaviour of it.
- - ViewStack node:  `box-sizing`, `overflow-x`
+ - ViewStack node:  `display`, `box-sizing`, `overflow-x`
  - ViewStack children:  `box-sizing`, `width`
+
+Note: In some circumstances the animated transition between two children can be broken, for example if a deliteful/List is a direct child of ViewStack.
+To fix this wrong behaviour, wrap the child into a block level element.
 
 <a name="enterprise"></a>
 ## Enterprise Use
