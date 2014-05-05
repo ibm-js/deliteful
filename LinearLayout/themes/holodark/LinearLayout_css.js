@@ -24,12 +24,7 @@ define(function () {
   -webkit-flex: 1;\
   -ms-flex: 1;\
   flex: 1;\
-}\
-.-d-linear-layout-v > .fill {\
-  height: 100%;\
-}\
-.-d-linear-layout-h > .fill {\
-  width: 100%;\
+  overflow: auto;\
 }\
 .height100 {\
   height: 100%;\

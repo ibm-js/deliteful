@@ -1,14 +1,15 @@
 @import "../../../../delite/themes/bootstrap/common";
 .d-view-stack {
-	display: inline-block;
+	display: block;
 	.box-sizing(border-box);
 	overflow-x: hidden;
-	position: relative;
+	position: relative; // Enables clipping
 }
 
 .d-view-stack > * {
   .box-sizing(border-box);
 	width: 100%;
+	height: 100%;
 }
 
 .-d-view-stack-transition > * {
@@ -16,6 +17,5 @@
 }
 
 .-d-view-stack-transition {
-	// Avoid vertical scroll bar on flip animations.
-	overflow-y: hidden;
+	overflow-y: hidden; // Avoid vertical scroll bar on flip animations.
 }

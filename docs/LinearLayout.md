@@ -16,6 +16,8 @@ title: deliteful/LinearLayout
 
 These constraints can be mixed together in the same container.
 
+Note: When using a vertical (respectively horizontal) LinearLayout, do NOT specify height:100% (respectively width:100%) on children that have the `fill` class.
+
 ![LinearLayout example](images/LinearLayout.png)
 
 ##### Table of Contents
