@@ -65,6 +65,9 @@ define(["dcl/dcl",
 		
 		// An HTML element that displays a label for the loader
 		_label: null,
+		
+		// The list that the PageLoader loads data for
+		_list: null,
 		 ====*/
 
 		//////////// Widget life cycle ///////////////////////////////////////
@@ -147,7 +150,7 @@ define(["dcl/dcl",
 			//		return undefined. In the other case, it starts a loading
 			//		and returns a Promise that resolves when the loading
 			//		has completed.
-			if (this.loading) { return; }
+			if (this._list.hasAttribute("aria-busy")) { return; }
 			var def = new Deferred();
 			this.loading = true;
 			// defer execution so that the new style / class is correctly applied on iOS
@@ -284,8 +287,8 @@ define(["dcl/dcl",
 				if (doQuery)  {
 					// Initial loading of the list
 					if (this._dataLoaded) {
-						this._empty();
 						this._setBusy(true, true);
+						this._empty();
 					}
 					this._idPages = [];
 					this._loadNextPage().then(function () {
@@ -618,6 +621,7 @@ define(["dcl/dcl",
 			this._nextPageLoader.performLoading = function () {
 				return this._loadNextPage();
 			}.bind(this);
+			this._nextPageLoader._list = this;
 			this._nextPageLoader.placeAt(this.containerNode);
 			this._nextPageLoader.startup();
 		},
@@ -641,6 +645,7 @@ define(["dcl/dcl",
 			this._previousPageLoader.performLoading = function () {
 				return this._loadPreviousPage();
 			}.bind(this);
+			this._previousPageLoader._list = this;
 			this._previousPageLoader.placeAt(this.containerNode, "first");
 			this._previousPageLoader.startup();
 		},
