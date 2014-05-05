@@ -1,3 +1,4 @@
+/** @module deliteful/StarRating/bidi/StarRating */
 define([
 	"dcl/dcl",
 	"dojo/has",
@@ -5,16 +6,16 @@ define([
 	"dojo/dom-construct"
 ], function (dcl, has, keys, domConstruct) {
 
-	// module:
-	//		deliteful/StarRating/bidi/StarRating
-
-	return dcl(null, {
-		// summary:
-		//		Bidi support for StarRating widget.
-		// description:
-		//		Implementation for RTL and LTR direction support.
-		//		This class should not be used directly.
-		//		StarRating widget loads this module when user sets "has: {'bidi': true }" in data-dojo-config.
+	/**
+	 * @summary
+	 *	Bidi support for StarRating widget.
+	 * @description
+	 * Implementation for RTL and LTR direction support.
+	 * This class should not be used directly.
+	 * StarRating widget loads this module when user sets "has: {'bidi': true }" in data-dojo-config.
+	 * @class module:deliteful/StarRating/bidi/StarRating
+	 */
+	return dcl(null, /** @lends module:deliteful/StarRating/bidi/StarRating */{
 
 		startup: function () {
 			if (!this.isLeftToRight()) {

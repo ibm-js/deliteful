@@ -1,3 +1,4 @@
+/** @module deliteful/StarRating */
 define([
     "dcl/dcl",
 	"dojo/string",
@@ -19,69 +20,88 @@ define([
 ], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
-	// module:
-	//		deliteful/StarRating
+	/**
+	 * @summary
+	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
+	 * by touching the stars.
+	 * 
+	 * @description
+	 * This widget shows the rating using an image sprite that contains full stars, half stars and
+	 * empty stars.
+	 * The star displayed can be fully customized by redefining the following css classes in
+	 * your application:
+	 * - .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
+	 * - .d-star-rating-disabled .d-star-rating-star-icon:before {content: url(url_to_the_disabled_stars_sprite);}
+	 * 
+	 * If the custom stars are not 40px height and width images, you also have to redefine the
+	 * following CSS classes:
+	 * - .d-star-rating-star-icon {height: iconSize; width: iconSize;}
+	 * - .d-star-rating-empty-star:before {margin-left: -iconSize}
+	 * - .d-star-rating-half-star:before {margin-left: -2*iconSize}
+	 * - .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
+	 * - .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
+	 * - .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
+	 * - .d-star-rating-zero {height: iconSize; width: iconSize/2;}
+	 * 
+	 * The widget can be used in read-only or in editable mode. In editable mode, the widget allows
+	 * to set the rating to 0 stars or not using the allowZero property. In this mode, it also allows
+	 * to set half values or not using the editHalfValues property.
+	 * 
+	 * This widget supports right to left direction.
+	 * 
+	 * @class module:deliteful/StarRating
+	 * @augment delite/Widget
+	 * @augment delite/Invalidating
+	 */
+	var StarRating = dcl([Widget, Invalidating], /** @lends module:deliteful/StarRating */ {
 
-	var StarRating = dcl([Widget, Invalidating], {
-		// summary:
-		//		A widget that displays a rating, usually with stars, and that allows setting a different rating value
-		//		by touching the stars.
-		// description:
-		//		This widget shows the rating using an image sprite that contains full stars, half stars and
-		//		empty stars.
-		//		The star displayed can be fully customized by redefining the following css classes in
-		//		your application:
-		//		- .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
-		//		- .d-star-rating-disabled .d-star-rating-star-icon:before
-		//        {content: url(url_to_the_disabled_stars_sprite);}
-		//		If the custom stars are not 40px height and width images, you also have to redefine the
-		//		following CSS classes:
-		//		- .d-star-rating-star-icon {height: iconSize; width: iconSize;}
-		//		- .d-star-rating-empty-star:before {margin-left: -iconSize}
-		//		- .d-star-rating-half-star:before {margin-left: -2*iconSize}
-		//		- .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
-		//		- .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
-		//		- .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
-		//		- .d-star-rating-zero {height: iconSize; width: iconSize/2;}
-		//
-		//		The widget can be used in read-only or in editable mode. In editable mode, the widget allows
-		//		to set the rating to 0 stars or not using the allowZero property. In this mode, it also allows
-		//		to set half values or not using the editHalfValues property.
-		//
-		//		This widget supports right to left direction.
-
-
-		// baseClass: String
-		//		The name of the CSS class of this widget.
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {String}
+		 */
 		baseClass: "d-star-rating",
 
-		// max: Number
-		//		The maximum rating, that is also the number of stars to show.
+		/**
+		 * The maximum rating, that is also the number of stars to show.
+		 * @member {Number}
+		 */
 		max: 5,
 
-		// value: Number
-		//		The current value of the Rating.
+		/**
+		 * The current value of the Rating.
+		 * @member {Number}
+		 */
 		value: 0,
 
-		// readOnly: Boolean
-		//		If false, the widget is editable and allows editing the value of the Rating
-		//		by touching / clicking the stars
+		/**
+		 * If false, the widget is editable and allows editing the value of the Rating
+		 * by touching / clicking the stars
+		 * @member {Boolean}
+		 */
 		readOnly: false,
 
-		// name: String
-		//		mandatory if using the star rating widget in a form, in order to have it value submited
+		/**
+		 * Mandatory if using the star rating widget in a form, in order to have its value submitted
+		 * @member {String}
+		 */
 		name: "",
 
-		// disabled: Boolean
-		//		if true, the widget is disabled (its value will not be submited if it is included in a form)
+		/**
+		 * if true, the widget is disabled (its value will not be submitted if it is included in a form).
+		 * @member {Boolean}
+		 */
 		disabled: false,
 
-		// editHalfValues: Boolean
-		//		If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
+		/**
+		 * If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
+		 * @member {Boolean}
+		 */
 		editHalfValues: false,
 
-		// allowZero: boolean
-		//		True to allow setting a value of zero, false otherwise
+		/**
+		 * True to allow setting a value of zero, false otherwise
+		 * @member {Boolean}
+		 */
 		allowZero: true,
 
 		/* internal properties */
