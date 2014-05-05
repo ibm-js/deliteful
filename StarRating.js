@@ -13,7 +13,7 @@ define([
 	"delite/Invalidating",
 	"dojo/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
-	"dojo/uacss", // to use dedicated CSS styles in IE9
+	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
 	"dojo/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
