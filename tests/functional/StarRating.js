@@ -70,7 +70,7 @@ define(["intern!object",
 			}
 		}
 		return remote
-			.waitForConditionInBrowser("document.getElementById('" + widgetId +
+			.waitForCondition("document.getElementById('" + widgetId +
 				"').getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
 			.then(function () {
 				return remote
@@ -162,10 +162,6 @@ define(["intern!object",
 		"read only ltr": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote, widgetId = "star", i;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
-				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return;
-			}
 			console.log("# running test 'read only ltr'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
@@ -202,15 +198,22 @@ define(["intern!object",
 			})
 			// click on the star: doesn't change anything
 			.then(function () {
-				return clickOnStar(remote, widgetId, 1, -1);
+				if (!/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
+					// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+					// Selendroid doesn't support moveTo,
+					// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
+					return clickOnStar(remote, widgetId, 1, -1);
+				}
 			})
 			.then(function () {
 				return checkRating(remote, widgetId, 1, 0, false);
 			});
 		},
 		"editable ltr": function () {
-			if (/safari|iPhone/.test(this.remote.environmentType.browserName)) {
+			if (/safari|iPhone|selendroid/.test(this.remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return;
 			}
 			this.timeout = TEST_TIMEOUT_MS;
@@ -218,9 +221,11 @@ define(["intern!object",
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			if (/firefox|safari|iPhone/.test(this.remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone|selendroid/.test(this.remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				// Problems with moveTo on firefox (SauceLabs).
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return;
 			}
 			this.timeout = TEST_TIMEOUT_MS;
@@ -228,9 +233,11 @@ define(["intern!object",
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			if (/firefox|safari|iPhone/.test(this.remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone|selendroid/.test(this.remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				// Problems with moveTo on firefox (SauceLabs).
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return;
 			}
 			this.timeout = TEST_TIMEOUT_MS;
@@ -241,9 +248,11 @@ define(["intern!object",
 			this.timeout = TEST_TIMEOUT_MS;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
-			if (/firefox|safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/firefox|safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				// Problems with moveTo on firefox (SauceLabs).
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return remote
 					.get(require.toUrl("./StarRating.html"))
 					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -317,12 +326,13 @@ define(["intern!object",
 		},
 		"tab order": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			console.log("# running test 'tab order'");
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				// Same problem with selendroid, apparently
 				return;
 			}
+			console.log("# running test 'tab order'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -396,12 +406,14 @@ define(["intern!object",
 		},
 		"form back button": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			console.log("# running test 'form back button'");
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return;
 			}
+			console.log("# running test 'form back button'");
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
@@ -437,12 +449,14 @@ define(["intern!object",
 		},
 		"form values": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			console.log("# running test 'form values'");
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				// Selendroid doesn't support moveTo,
+				// see https://github.com/selendroid/selendroid/wiki/JSON-Wire-Protocol:-Supported-Methods
 				return;
 			}
+			console.log("# running test 'form values'");
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
