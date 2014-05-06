@@ -105,7 +105,27 @@ define(["dcl/dcl",
 						this._timing = this._transitionTiming[o];
 					}
 				}
-				this.on("DOMNodeInserted", this._setChildrenVisibility.bind(this));
+				if (typeof MutationObserver !== "undefined") {
+					new MutationObserver(this._setChildrenVisibility.bind(this)).observe(this, {childList: true});
+				}
+				else {
+					this._setupContainerMethods();
+				}
+			},
+
+			_setupContainerMethods: function () {
+				var superAppendChild = this.appendChild;
+				this.appendChild = function (newChild) {
+					var res = superAppendChild.apply(this, [newChild]);
+					this._setChildrenVisibility();
+					return res;
+				};
+				var superInsertBefore = this.insertBefore;
+				this.insertBefore = function (newChild, refChild) {
+					var res = superInsertBefore.apply(this, [newChild, refChild]);
+					this._setChildrenVisibility();
+					return res;
+				};
 			},
 
 			buildRendering: function () {
