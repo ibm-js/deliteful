@@ -187,6 +187,12 @@ define([
 				domClass.remove(this, prefix("animate"));
 				if (nextElement) {
 					domClass.remove(nextElement, prefix("animate"));
+					if (!this.isLeftToRight()) {
+						domClass.add(nextElement, "d-rtl");
+					}
+					else {
+						domClass.remove(nextElement, "d-rtl");
+					}
 				}
 
 				if (props.mode) {
