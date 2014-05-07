@@ -202,12 +202,74 @@ define([
 			}));
 			return dfd;
 		},
+		"Helper: Remove item and browse":function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+			list = new PageableList();
+			if (useObservableStore) {
+				var M = declare([MemoryStore, Observable], {});
+				list.store = new M({data: []});
+			}
+			for (var i = 0; i < 91; i++) {
+				list.store.add({label: "item " + i, id: i});
+			}
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.style.height = "200px";
+			document.body.appendChild(list);
+			list.startup();
+			// Click next page loader three times
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						// remove item 45
+						list.store.remove(45);
+						// Click previous page loader two times
+						clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+								// Click load next page
+								clickNextPageLoader(list).then(dfd.callback(function () {
+									// Check the content of the list
+									assertList(list, 22, 68, [45], true, true);
+								}))
+							}))
+						}))
+					}));
+				}));
+			}));
+			return dfd;
+		},
+		"Helper: Remove all items in non displayed first page removes previous page loader":function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+			list = new PageableList();
+			if (useObservableStore) {
+				var M = declare([MemoryStore, Observable], {});
+				list.store = new M({data: []});
+			}
+			for (var i = 0; i < 91; i++) {
+				list.store.add({label: "item " + i, id: i});
+			}
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.style.height = "200px";
+			document.body.appendChild(list);
+			list.startup();
+			// Click next page loader two times
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				clickNextPageLoader(list).then(dfd.callback(function () {
+					// remove all items in the first page
+					for (var i=0; i < 23; i++) {
+						list.store.remove(i);
+					}
+					// check that the previous page loader has been removed
+					assertList(list, 23, 68, [], false, true);
+				}));
+			}));
+			return dfd;
+		},
 		"Helper: Add items in displayed page": function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
 			list = new PageableList();
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.processStore = function (collection) {
+				list.preProcessStore = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 92; i++, j += 2) {
@@ -310,7 +372,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.processStore = function (collection) {
+				list.preProcessStore = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 24; i++, j += 2) {
@@ -399,7 +461,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.processStore = function (collection) {
+				list.preProcessStore = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 100; i++, j += 2) {
@@ -522,8 +584,8 @@ define([
 			resetList();
 			list.itemRemoved(0);
 			assert.deepEqual(list._idPages, [[1,2,3], [4,5,6]]);
-			assert.equal(list._firstLoaded, 1, "0");
-			assert.equal(list._lastLoaded, 6, "0");
+			assert.equal(list._firstLoaded, 0, "0");
+			assert.equal(list._lastLoaded, 5, "0");
 			resetList();
 			list.itemRemoved(1);
 			assert.deepEqual(list._idPages, [[2,3], [4,5,6]]);
@@ -854,6 +916,18 @@ define([
 		},
 		"Observable store: removing items in previous non displayed page": function () {
 			return testHelpers["Helper: Removing items in previous non displayed page"](this.async(1000), true);
+		},
+		"Remove all items in non displayed first page": function () {
+			return testHelpers["Helper: Remove all items in non displayed first page removes previous page loader"](this.async(1000), false);
+		},
+		"Observable store: remove all items in non displayed first page": function () {
+			return testHelpers["Helper: Remove all items in non displayed first page removes previous page loader"](this.async(1000), true);
+		},
+		"Remove item and browse": function () {
+			return testHelpers["Helper: Remove item and browse"](this.async(1000), false);
+		},
+		"Observable store: remove item and browse": function () {
+			return testHelpers["Helper: Remove item and browse"](this.async(1000), true);
 		},
 		///////////////////////////////////////////
 		// TEST ADDING ITEMS

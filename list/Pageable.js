@@ -281,23 +281,18 @@ define(["dcl/dcl",
 
 		refreshProperties: dcl.superCall(function (sup) {
 			return function (props) {
-				var doQuery = props.store || props.query || props.processStore;
-				props.store = props.query = props.processStore = false;
+				var doQuery = props.store || props.query || props.preProcessStore || props.postProcessStore;
+				props.store = props.query = props.preProcessStore = props.postProcessStore = false;
 				sup.call(this, props);
 				if (doQuery)  {
 					// Initial loading of the list
 					if (this._dataLoaded) {
 						this._setBusy(true, true);
 						this._empty();
+						props.pageLength = true;
 					}
 					this._idPages = [];
-					this._loadNextPage().then(function () {
-						this._setBusy(false);
-						this._dataLoaded = true;
-					}.bind(this), function (error) {
-						this._setBusy(false);
-						this._queryError(error);
-					}.bind(this));
+					this._loadNextPage();
 				}
 				// Update page loader messages as they may depend on any property of the List
 				if (this._previousPageLoader) {
@@ -314,6 +309,42 @@ define(["dcl/dcl",
 				}
 			};
 		}),
+
+		initItems: function (page) {
+			if (this._rangeSpec.isNext) {
+				if (page.length) {
+					var idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
+					this._idPages.push(idPage);
+				}
+				this._nextPageReadyHandler(page);
+				// TODO: May need to force repaint here,
+				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
+			} else {
+				if (page.length) {
+					var i;
+					idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					var previousPageIds = this._idPages[0];
+					for (i = 0; i < idPage.length; i++) {
+						if (previousPageIds.indexOf(idPage[i]) >= 0) {
+							// remove the duplicate (happens if an element was deleted before the first one displayed)
+							page.splice(i, 1);
+							idPage.splice(i, 1);
+							i--;
+						}
+					}
+					this._firstLoaded = this._rangeSpec.start;
+					this._idPages.unshift(idPage);
+				}
+				this._previousPageReadyHandler(page);
+			}
+			this._setBusy(false);
+			this._dataLoaded = true;
+		},
 
 		//////////// Private methods ///////////////////////////////////////
 
@@ -342,6 +373,11 @@ define(["dcl/dcl",
 			}
 		},
 
+		_postProcessStore: function (collection) {
+			var data = this.postProcessStore ? this.postProcessStore(collection) : collection;
+			return data.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
+		},
+
 		_loadNextPage: function () {
 			// summary:
 			//		load the next page of items if available.
@@ -357,32 +393,8 @@ define(["dcl/dcl",
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
 			}
-			var results = this.store.filter(this.query);
-			if (this.processStore) {
-				results = this.processStore(results);
-			}
-			if (results.track) {
-				this._untrack();
-				var tracked = this._tracked = results.track();
-				tracked.on("add", this._itemAdded.bind(this));
-				tracked.on("update", this._itemUpdated.bind(this));
-				tracked.on("remove", this._itemRemoved.bind(this));
-			}
-			results = results.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			return when(results.map(function (item) {
-				return this.itemToRenderItem(item);
-			}, this)).then(function (page) {
-				if (page.length) {
-					var idPage = page.map(function (item) {
-						return this.getIdentity(item);
-					}, this);
-					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
-					this._idPages.push(idPage);
-				}
-				this._nextPageReadyHandler(page);
-				// TODO: May need to force repaint here,
-				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
-			}.bind(this));
+			this._rangeSpec.isNext = true;
+			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
 		_loadPreviousPage: function () {
@@ -394,40 +406,8 @@ define(["dcl/dcl",
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
-			var results = this.store.filter(this.query);
-			if (this.processStore) {
-				results = this.processStore(results);
-			}
-			if (results.track) {
-				this._untrack();
-				var tracked = this._tracked = results.track();
-				tracked.on("add", this._itemAdded.bind(this));
-				tracked.on("update", this._itemUpdated.bind(this));
-				tracked.on("remove", this._itemRemoved.bind(this));
-			}
-			results = results.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			return when(results.map(function (item) {
-				return this.itemToRenderItem(item);
-			}, this)).then(function (page) {
-				if (page.length) {
-					var i;
-					var idPage = page.map(function (item) {
-						return this.getIdentity(item);
-					}, this);
-					var previousPageIds = this._idPages[0];
-					for (i = 0; i < idPage.length; i++) {
-						if (previousPageIds.indexOf(idPage[i]) >= 0) {
-							// remove the duplicate (happens if an element was deleted before the first one displayed)
-							page.splice(i, 1);
-							idPage.splice(i, 1);
-							i--;
-						}
-					}
-					this._firstLoaded = this._rangeSpec.start;
-					this._idPages.unshift(idPage);
-					this._previousPageReadyHandler(page);
-				}
-			}.bind(this));
+			this._rangeSpec.isNext = false;
+			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
 		_unloadPage: function (/*Boolean*/first) {
@@ -658,7 +638,16 @@ define(["dcl/dcl",
 					// Remove the item id in _idPages
 					this._updateIdPages(false, index);
 					sup.call(this, index - this._firstLoaded);
+				}
+				if (index < this._firstLoaded) {
+					this._firstLoaded--;
+				}
+				if (index <= this._lastLoaded) {
 					this._lastLoaded--;
+				}
+				if (this._firstLoaded === 0 && this._previousPageLoader) {
+					this._previousPageLoader.destroy();
+					this._previousPageLoader = null;
 				}
 			};
 		}),
