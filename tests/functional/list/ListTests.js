@@ -215,6 +215,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote
@@ -291,6 +292,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote
@@ -434,6 +436,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote
@@ -481,6 +484,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote
@@ -587,6 +591,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote
@@ -643,6 +648,7 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			return remote

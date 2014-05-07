@@ -329,7 +329,8 @@ define(["intern!object",
 			var remote = this.remote;
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				// Same problem with selendroid, apparently
+				// Same problem with selendroid and iOS, apparently
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
 			}
 			console.log("# running test 'tab order'");
