@@ -19,8 +19,10 @@ Deliteful has two sets of automated tests, implemented using [the Intern](https:
 The unit tests are lightweight, run inside a browser page and do not simulate real interaction between a user and the browser window.
 The functional tests, in comparison, takes longer to run but do simulate real interactions between a user and the browser window.
 
-Two configuration files defines the two [intern configurations](https://github.com/theintern/intern/wiki/Configuring-Intern) that are available to run the automated tests from the command line:
-- [intern.local.js](./intern.local.js) define a configuration that runs the tests locally, on you computer.
+Four configuration files defines the four [intern configurations](https://github.com/theintern/intern/wiki/Configuring-Intern) that are available to run the automated tests from the command line:
+- [intern.local.js](./intern.local.js) define a configuration that runs the tests locally, on desktop browser, on you computer.
+- [intern.local.android.js](./intern.local.android.js) define a configuration that runs the tests locally, on android devices, on you computer.
+- [intern.local.ios.js](./intern.local.ios.js) define a configuration that runs the tests locally, on ios devices, on you computer.
 - [intern.js](./intern.js) define a configuration that runs the tests on [Sauce Labs](https://saucelabs.com/), providing that you have a valid Sauce Labs use account.
 
 Note that as intern provides an in browser runner for the unit tests, you can also run the unit tests in a browser without using the command line.
@@ -31,8 +33,10 @@ This last configuration is defined in the [intern.browser.js](./intern.browser.j
 To be able to run the deliteful automated tests, you need to:
 
 1. Install the Intern
-2. If running the tests on Sauce Labs, create an account and setup your environment to use it
-3. If running the tests locally, you will have to install [selenium](http://www.seleniumhq.org/) and drivers for the browsers that you want to use
+1. If running the tests on Sauce Labs, create an account and setup your environment to use it
+1. If running the tests locally on desktop browsers, you will have to install [selenium](http://www.seleniumhq.org/) and drivers for the browsers that you want to use
+1. If running the tests locally on android devices, you will have to install [selendroid](http://selendroid.io) and the [Android SDK](http://developer.android.com/sdk/index.html?hl=sk)
+1. If running the tests locally on ios devices, you will have to install [appium](http://appium.io) and [XCode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), on a Mac OS X platform
 
 #### Installing the Intern
 
@@ -78,13 +82,28 @@ To run the tests locally on android emulators or android devices, you first need
     1. You may then [set up virtual devices](http://developer.android.com/tools/devices/managing-avds.html) to use as test platforms: one with Android 4.4, another one with Android 4.3.
 1. [Selendroid standalone with dependencies](http://selendroid.io)
 
+#### Appium / XCode installation
+
+To run the tests locally on ios emulators or ios devices, you first need to install the following resources:
+
+1. [XCode 5](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), from the Mac App Store
+    1. Once XCode 5 is installed, install additional iOS Simulator (iOS 7 and iOS 6.1) with the following procedure:
+        1. Launch XCode
+        1. Click the `XCode -> Preferences...` menu entry
+        1. Click the `Downloads` toolbar button
+        1. Under `Components` select and download _iOS 7.0 Simulator_ and _iOS 6.1 Simulator_
+1. Install Appium with Node.js package manager:
+    1. `npm install -g appium`
+    1. authorize use of the iOS Simulator by running the following command: `sudo authorize_ios` (see [Appium documentation](http://appium.io/slate/en/v1.0.0/#system-setup-(ios)) for more info).
+
 ## Running the tests
 
-You have four options to run the tests:
+You have five options to run the tests:
 
 1. Run the unit tests in a single browser
 1. Run both unit and functional tests locally in desktop browsers
 1. Run both unit and functional tests locally in android browsers (emulators or real devices)
+1. Run both unit and functional tests locally in iOS browsers (emulators or real devices)
 1. Run both unit and functional tests in Sauce Labs browsers
 
 When running tests using the command line, you can also adjust the list of reports generated for the test execution.
@@ -131,6 +150,24 @@ Note that this won't run the functional tests, and that you will have to check t
 
    ```
    $ grunt test:local.android
+   ```
+ 
+### Running the unit and functional tests in iOS browsers
+
+`Note: this does not document how to run the test on real devices, which will come in a further update of this documentation`
+
+1. Starts appium (requires appium and XCode. See [installation instructions](#appium--xcode-installation)):
+
+   ```
+   $ appium &
+   ```
+
+1. Edit the [intern.local.ios.js](./intern.local.ios.js) configuration to set up the `host` variable to your local IP address  
+
+1. In the deliteful directory, type the following command:
+
+   ```
+   $ grunt test:local.ios
    ```
 
 ### Running the unit and functional tests in Sauce Labs browsers

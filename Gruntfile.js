@@ -66,6 +66,13 @@ module.exports = function (grunt) {
 					reporters: ["runner"]
 				}
 			},
+			"local.ios": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.local.ios",
+					reporters: ["runner"]
+				}
+			},
 			remote: {
 				options: {
 					runType: "runner",
@@ -90,6 +97,7 @@ module.exports = function (grunt) {
 		"Always specify the test target e.g. \n" +
 		"grunt test:local\n" +
 		"grunt test:local.android\n" +
+		"grunt test:local.ios\n" +
 		"grunt test:remote\n\n" +
 		"Add any optional reporters via a flag e.g. \n" +
 		"grunt test:local:console\n" +
