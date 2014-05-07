@@ -6,8 +6,13 @@ define([
 	"deliteful/ViewStack"
 ], function (registerSuite, assert, domGeom, domClass, ViewStack) {
 	var container, node, aaa, bbb, ccc, ddd;
-
+	function checkNodeVisibilityAsync(vs, target, d) {
+		setTimeout(d.callback(function () {
+			checkNodeVisibility(vs, target);
+		}), 1);
+	}
 	function checkNodeVisibility(vs, target) {
+
 		for (var i = 0; i < vs.children.length; i++) {
 			assert.isTrue(
 				(vs.children[i] === target && vs.children[i].style.display !== "none") ||
@@ -32,18 +37,19 @@ define([
 			assert.deepEqual(node.reverse, false);
 		},
 		"First Child Visibility" : function () {
+			var d = this.async(500);
 			aaa = document.createElement("div");
 			node.appendChild(aaa);
-			checkNodeVisibility(node, aaa);
+			checkNodeVisibilityAsync(node, aaa, d);
 			bbb = document.createElement("div");
 			ccc = document.createElement("div");
 			ddd = document.createElement("div");
 			node.appendChild(bbb);
-			checkNodeVisibility(node, aaa);
+			checkNodeVisibilityAsync(node, aaa, d);
 			node.appendChild(ccc);
-			checkNodeVisibility(node, aaa);
+			checkNodeVisibilityAsync(node, aaa, d);
 			node.appendChild(ddd);
-			checkNodeVisibility(node, aaa);
+			checkNodeVisibilityAsync(node, aaa, d);
 		},
 		"Show (default)" : function () {
 			var d = this.async(1000);
