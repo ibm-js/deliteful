@@ -1,3 +1,4 @@
+/** @module deliteful/ViewStack */
 define(["dcl/dcl",
 	"dojo/sniff",
 	"dojo/on",
@@ -38,44 +39,60 @@ define(["dcl/dcl",
 			return "-d-view-stack-" + s;
 		}
 
-		return register("d-view-stack", [HTMLElement, Widget, DisplayContainer], {
-
-			// summary:
-			//		ViewStack container widget. Display one child at a time.
-			//
-			//		The first child is displayed by default.
-			//		The methods 'show' is used to change the visible child.
-			//
-			//		Styling
-			//		The following CSS attributes must not be changed.
-			// 			- ViewStack node:  position, box-sizing, overflow-x
-			// 			- ViewStack children:  position, box-sizing, width, height
-			//
-			// example:
-			//	|	<d-view-stack id="vs">
-			//	|		<div id="childA">...</div>
-			//	|		<div id="childB">...</div>
-			//	|		<div id="childC">...</div>
-			//	|	</d-view-stack>
-			//	|	<d-button onclick="vs.show(childB, {transition: 'reveal', reverse: true})">...</d-button>
-
+		/**
+		 * @summary:
+		 * ViewStack container widget. Display one child at a time.
+		 * @description
+		 * The first child is displayed by default.
+		 * The methods 'show' is used to change the visible child.
+		 *
+		 * Styling
+		 * The following CSS attributes must not be changed.
+		 *  ViewStack node:  position, box-sizing, overflow-x
+		 *  ViewStack children:  position, box-sizing, width, height
+		 *
+		 * @example:
+		 * <d-view-stack id="vs">
+		 *     <div id="childA">...</div>
+		 *     <div id="childB">...</div>
+		 *     <div id="childC">...</div>
+		 * </d-view-stack>
+		 * <button onclick="vs.show(childB, {transition: 'reveal', reverse: true})">...</button>
+		 * @class module:deliteful/ViewStack
+		 * @augments {module:delite/DisplayContainer}
+		 */
+		return register("d-view-stack", [HTMLElement, DisplayContainer],
+			/** @lends module:deliteful/ViewStack# */{
+			/**
+			 * The name of the CSS class of this widget.
+			 * @member {string}
+			 * @default "d-view-stack"
+			 */
 			baseClass: "d-view-stack",
 
-			// transition: String
-			//		The transition type used if not specified in the second argument of the show method.
-			//		Default value is "slide".
-			//		Transitions type are: "none", "slide", "reveal", "flip", "fade".
+			/**
+			 * The transition type used if not specified in the second argument of the show method.
+			 * Transitions type are: "none", "slide", "reveal", "flip", "fade".
+			 * @member {string}
+			 * @default "slide"
+			 */
 			transition: "slide",
 
-			// reverse: Boolean
-			//		If true, the transition animation is reversed.
-			//		This attribute is supported by "slide" and "reveal" transition types.
+			/**
+			 * If true, the transition animation is reversed.
+			 * This attribute is supported by "slide" and "reveal" transition types.
+			 * @member {boolean}
+			 * @default false
+			 */
 			reverse: false,
 
-			// selectedChildId: String
-			//		The selected child id, can be set explicitly or through the show() method.
-			//		The effect of setting this property (i.e. getting the value through the getter) might be
-			//		asynchronous when an animated transition occurs.
+			/**
+			 * The selected child id, can be set explicitly or through the show() method.
+			 * The effect of setting this property (i.e. getting the value through the getter) might be
+			 * asynchronous when an animated transition occurs.
+			 * @member {string}
+			 * @default ""
+			 */
 			selectedChildId: "",
 
 			_setSelectedChildIdAttr: function (child) {
@@ -165,7 +182,8 @@ define(["dcl/dcl",
 
 				var origin = this._visibleChild;
 
-				// Needed because the CSS state of a node can be incorrect if a previous transitionEnd has been dropped
+				// Needed because the CSS state of a node can be incorrect
+				// if a previous transitionEnd has been dropped
 				cleanCSS(origin);
 				cleanCSS(widget);
 
@@ -211,22 +229,20 @@ define(["dcl/dcl",
 
 				return deferred.promise;
 			},
-
+			/**
+			 * @summary:
+			 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
+			 * this.transition, and this.reverse are used.
+			 * This method must be called to display a particular destination child on this container.
+			 * @param {dest} Widget or HTMLElement or id that points to the child this container must display.
+			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
+			 * "reveal".
+			 * @returns {module:dojo/promise/Promise} A promise that will be resolved when the display and
+			 * transition effect will have been performed.
+			 */
 			show: dcl.superCall(function (sup) {
 				return function (dest, params) {
-					//		Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
-					//		this.transition, and this.reverse are used.
-					// summary:
-					//		This method must be called to display a particular destination child on this container.
-					// dest:
-					//		Widget or HTMLElement or id that points to the child this container must display.
-					// params:
-					//		Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
-					//		can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
-					//		"reveal".
-					// returns:
-					//		A promise that will be resolved when the display & transition effect will have been
-					//		performed.
 
 					if (this._visibleChild && this._visibleChild.parentNode !== this) {
 						// The visible child has been removed.

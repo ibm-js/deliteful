@@ -1,3 +1,4 @@
+/** @module deliteful/SidePane */
 define([
 	"dcl/dcl",
 	"dpointer/events",
@@ -31,45 +32,72 @@ define([
 			} while (node && node.nodeType !== 1);
 			return node;
 		}
-
-		return register("d-side-pane", [HTMLElement, Widget, Invalidating], {
-
-			// summary:
-			//		A widget displayed on the side of the screen. It can be displayed on top of the page
-			//		(mode=overlay) or
-			//		can push the content of the page (mode=push or mode=reveal).
-			// description:
-			//		SidePane is a widget hidden by default.
-			//		This widget must be a sibling of html's body element.
-			//		If mode is set to "push" or "reveal", the width of the SidePane can't be changed in the markup
-			//		(15em by default).
-			//		However it can be changed in SidePane.less (@PANE_WIDTH variable).
-			//		In "push" and "reveal" mode, the pushed element is the first sibling of the SidePane which has
-			//		of type element (nodeType == 1) and not a SidePane.
-
-			// baseClass: String
-			//		The name of the CSS class of this widget.
+		/**
+		 * @summary
+		 * A widget displayed on the side of the screen.
+		 * @description
+		 * It can be displayed on top of the page
+		 * (mode=overlay) or can push the content of the page (mode=push or mode=reveal).
+		 * SidePane is a widget hidden by default.
+		 * This widget must be a sibling of html's body element.
+		 * If mode is set to "push" or "reveal", the width of the SidePane can't be changed in the markup
+		 * (15em by default).
+		 * However it can be changed in SidePane.less (@PANE_WIDTH variable).
+		 * In "push" and "reveal" mode, the pushed element is the first sibling of the SidePane which has
+		 * of type element (nodeType == 1) and not a SidePane.
+		 * @example
+		 * <body>
+		 *   <d-side-pane>
+		 *       SidePane content
+		 *   </d-side-pane>
+		 *   <div>
+		 *       Main application
+		 *   </div>
+		 * </body>
+		 * @class module:deliteful/SidePane
+		 * @augments {module:delite/Container}
+		 * @augments {module:delite/Invalidating}
+		 */
+		return register("d-side-pane", [HTMLElement, Widget, Invalidating],
+			/** @lends module:deliteful/SidePane# */{
+			/**
+			 * The name of the CSS class of this widget.
+			 * @member {string}
+			 * @default "d-side-pane"
+			 */
 			baseClass: "d-side-pane",
 
-			// mode: String
-			//		Can be "overlay", "reveal" or "push". Default is "push".
-			//		In overlay mode, the pane is shown on top of the page.
-			//		In reveal and push modes, The page is moved to make the pane visible. The difference between
-			//		these two modes is the animated transition: in reveal mode, the pane does not move, it is
-			//		already under the page. In push mode, the pane slide with the page.
+			/**
+			 * Can be "overlay", "reveal" or "push".
+			 * In overlay mode, the pane is shown on top of the page.
+			 * In reveal and push modes, The page is moved to make the pane visible. The difference between
+			 * these two modes is the animated transition: in reveal mode, the pane does not move, it is
+			 * already under the page. In push mode, the pane slide with the page.
+			 * @member {string}
+			 * @default "push"
+			 */
 			mode: "push",
 
-			// position: String
-			//		Can be "start" or "end". If set to "start", the panel is displayed on the
-			//		left side in LTR mode.
+			/**
+			 * Can be "start" or "end". If set to "start", the panel is displayed on the
+			 * left side in LTR mode.
+			 * @member {string}
+			 * @default "push"
+			 */
 			position: "start",
 
-			// animate: Boolean
-			//		Enable/Disable animations.
+			/**
+			 * Enable/Disable animations.
+			 * @member {Boolean}
+			 * @default true
+			 */
 			animate: true,
 
-			// swipeClosing: Boolean
-			//		Enables the swipe closing of the pane.
+			/**
+			 * Enables the swipe closing of the pane.
+			 * @member {Boolean}
+			 * @default true
+			 */
 			swipeClosing: true,
 
 			_transitionTiming: {default: 0, chrome: 50, ios: 20, android: 100, mozilla: 100},
@@ -79,6 +107,9 @@ define([
 			_originX: NaN,
 			_originY: NaN,
 
+			/**
+			 * Open the pane.
+			 */
 			open: function () {
 				// summary:
 				//		Open the pane.
@@ -112,9 +143,10 @@ define([
 				return deferred.promise;
 			},
 
+			/**
+			 * Close the pane.
+			 */
 			close: function () {
-				// summary:
-				//		Close the pane.
 				var deferred = new Deferred();
 				if (this._visible) {
 					if (this.mode === "reveal") {
