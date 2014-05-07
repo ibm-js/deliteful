@@ -31,9 +31,11 @@ define(["dcl/dcl",
 			}
 		}
 		function cleanCSS(node) {
-			node.className = node.className.split(/ +/).filter(function (x) {
-				return !/^-d-view-stack/.test(x);
-			}).join(" ");
+			if (node) {
+				node.className = node.className.split(/ +/).filter(function (x) {
+					return !/^-d-view-stack/.test(x);
+				}).join(" ");
+			}
 		}
 		function transitionClass(s) {
 			return "-d-view-stack-" + s;
