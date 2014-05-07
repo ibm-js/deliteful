@@ -15,5 +15,5 @@ define([
 	"./list/Selection",
 	"./list/Categories",
 	"./ProgressBar",
-	"./ProgressIndicator",
+	"./ProgressIndicator"
 ]);
