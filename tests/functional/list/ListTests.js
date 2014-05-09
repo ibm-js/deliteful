@@ -213,7 +213,7 @@ define(["intern!object",
 		"keyboard navigation with default renderers": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
@@ -290,7 +290,7 @@ define(["intern!object",
 		"keyboard navigation with custom renderers": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
@@ -434,7 +434,7 @@ define(["intern!object",
 		"keyboard multiple selection": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
@@ -482,7 +482,7 @@ define(["intern!object",
 		"keyboard single selection": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
@@ -589,7 +589,7 @@ define(["intern!object",
 		"keyboard search": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;
@@ -646,7 +646,7 @@ define(["intern!object",
 		"custom keyboard navigation": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return;

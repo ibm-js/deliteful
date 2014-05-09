@@ -327,7 +327,7 @@ define(["intern!object",
 		"tab order": function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
-			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				// Same problem with selendroid and iOS, apparently
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");

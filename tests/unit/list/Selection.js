@@ -66,7 +66,7 @@ define([
 				// 
 				assert.equal(firstItem.getAttribute("aria-selected"), "false");
 				assert.equal(secondItem.getAttribute("aria-selected"), "true");
-			}), 100);
+			}), 500);
 			return dfd;
 		},
 		"selectionMode 'single'" : function () {
@@ -194,7 +194,7 @@ define([
 				list._spaceKeydownHandler(event);
 				assert.equal(firstItem.getAttribute("aria-selected"), "true",
 						"aria-selected attribute expected on first item after selection");
-			}), 100);
+			}), 500);
 			return dfd;
 		},
 		"aria properties when selection mode is multiple": function () {
@@ -212,7 +212,7 @@ define([
 				list._spaceKeydownHandler(event);
 				assert.equal(firstItem.getAttribute("aria-selected"), "true",
 						"aria-selected attribute expected on first item after selection");
-			}), 100);
+			}), 500);
 			return dfd;
 		},
 		"aria properties when selection mode is none": function () {
@@ -221,11 +221,11 @@ define([
 			setTimeout(dfd.callback(function () {
 				assert.isFalse(list.hasAttribute("aria-multiselectable"), "no aria-multiselectable attribute expected");
 				assert.isFalse(list.hasAttribute("aria-selectable"), "no aria-selectable attribute expected");
-			}), 100);
+			}), 500);
 			return dfd;
 		},
 		"aria properties updated when selection mode is changed": function () {
-			var dfd = this.async(1000);
+			var dfd = this.async(2000);
 			list.selectionMode = "single";
 			setTimeout(dfd.rejectOnError(function () {
 				var firstItem = list.children[0];
@@ -264,9 +264,9 @@ define([
 						"C: no aria-selected attribute expected on second item");
 						assert.isFalse(list.children[2].hasAttribute("aria-selected"),
 						"C: no aria-selected attribute expected on third item");
-					}), 100);
-				}), 100);
-			}), 100);
+					}), 500);
+				}), 500);
+			}), 500);
 			return dfd;
 		},
 		teardown : function () {
