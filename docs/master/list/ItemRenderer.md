@@ -1,6 +1,6 @@
 # deliteful/list/ItemRenderer
 
-Default item renderer for the [deliteful/list/List](List.md) widget.
+Default item renderer for the [deliteful/list/List](List.html) widget.
 
 TODO: INSERT SCREENSHOT(S) HERE
 

@@ -37,7 +37,7 @@ var defaultStore = list.store;
 ```
 
 This default store can be populated programmatically using the `add` method
-defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `before` options to easily
+defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.html), and it supports the `before` options to easily
 order elements in the list, as in the following example:
 
 ```js
@@ -50,7 +50,7 @@ defaultStore.add(item2, {before: item1});
 ```
 
 _Note that the default store does not support ordering and filtering, so you must use
-another store implementation to do this ([Memory store](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory), for example)._
+another store implementation to do this ([Memory store](https://github.com/SitePen/dstore/blob/master/docs/Stores.html#memory), for example)._
 
 When creating a list widget declaratively, it is possible to use JSON markup to add items to
 the list store using the `d-list-store` tag, as in the following
@@ -70,7 +70,7 @@ example:
 _Note that items are appended to the store in the order they are declared in the JSON markup._
 
 The actual rendering of the items in the list is performed by an item renderer widget.
-The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but another one can be specified
+The default one is [deliteful/list/ItemRenderer](ItemRenderer.html), but another one can be specified
 using the `itemRenderer` attribute of the list, as in the following example:
 
 ```js
@@ -171,7 +171,7 @@ list.store.add({label: "third item", category: "Category B"});
 ```
 
 The actual rendering of the categories in the list is performed by a category renderer widget.
-The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.md), but another one can be specified
+The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.html), but another one can be specified
 using the `categoryRenderer` attribute of the list, as in the following example:
 
 ```js
@@ -250,7 +250,7 @@ When a List item has the focus, you can press the ENTER or F2 keys to focus its 
 Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
 
 Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
-as the default renderers do not render any actionable nodes (see [deliteful/list/ItemRenderer](ItemRenderer.md) and [deliteful/list/CategoryRenderer](CategoryRenderer.md) for more information).
+as the default renderers do not render any actionable nodes (see [deliteful/list/ItemRenderer](ItemRenderer.html) and [deliteful/list/CategoryRenderer](CategoryRenderer.html) for more information).
 
 Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.
