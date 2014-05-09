@@ -1,0 +1,8 @@
+markdown: redcarpet
+
+baseurl: /deliteful
+
+pygments: true
+
+redcarpet:
+  extensions: ['tables']
