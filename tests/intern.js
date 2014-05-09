@@ -17,25 +17,29 @@ define({
 
 		// Desktop.
 		// Not running on IE9 since Widget-attr test depends on domClass methods only available in IE10_
-		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true" },
-		{ browserName: "internet explorer", version: "10", platform: "Windows 8", requireWindowFocus: "true" },
+		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
+			name : "deliteful"},
+		{ browserName: "internet explorer", version: "10", platform: "Windows 8", requireWindowFocus: "true",
+			name : "deliteful"},
 		// { browserName: "internet explorer", version: "9", platform: "Windows 7" },
-		{ browserName: "firefox", version: "25", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ] },
-		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ] },
-		{ browserName: "safari", version: "6", platform: [ "OS X 10.8" ] },
+		{ browserName: "firefox", version: "25", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
+			name : "deliteful"},
+		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
+			name : "deliteful"},
+		{ browserName: "safari", version: "6", platform: [ "OS X 10.8" ], name : "deliteful"},
 
 		// Mobile
-//		{ browserName: "android", platform: "Linux", version: "4.1" },
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.1" },
-//		{ browserName: "android", platform: "Linux", version: "4.1" },
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.0" },
-//		{ browserName: "android", platform: "Linux", version: "4.0" },
-//		{ browserName: "iphone", platform: "OS X 10.9", version: "7"},
-//		{ browserName: "ipad", platform: "OS X 10.9", version: "7"},
-//		{ browserName: "iphone", platform: "OS X 10.8", version: "6.1"},
-//		{ browserName: "ipad", platform: "OS X 10.8", version: "6.1"},
-//		{ browserName: "iphone", platform: "OS X 10.8", version: "6.0"},
-//		{ browserName: "ipad", platform: "OS X 10.8", version: "6.0"}
+//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
+//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.1", name : "deliteful"},
+//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
+//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.0", name : "deliteful"},
+//		{ browserName: "android", platform: "Linux", version: "4.0", name : "deliteful"},
+//		{ browserName: "iphone", platform: "OS X 10.9", version: "7", name : "deliteful"},
+//		{ browserName: "ipad", platform: "OS X 10.9", version: "7", name : "deliteful"},
+//		{ browserName: "iphone", platform: "OS X 10.8", version: "6.1", name : "deliteful"},
+//		{ browserName: "ipad", platform: "OS X 10.8", version: "6.1", name : "deliteful"},
+//		{ browserName: "iphone", platform: "OS X 10.8", version: "6.0", name : "deliteful"},
+//		{ browserName: "ipad", platform: "OS X 10.8", version: "6.0", name : "deliteful"}
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
