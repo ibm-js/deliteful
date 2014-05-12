@@ -1,3 +1,8 @@
+---
+layout: default
+title: deliteful/StarRating
+---
+
 #deliteful/StarRating
 
 The StarRating widget displays a rating, usually with stars, that can be edited by touching or clicking the stars.
