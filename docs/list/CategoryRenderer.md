@@ -1,3 +1,8 @@
+---
+layout: default
+title: deliteful/list/CategoryRenderer
+---
+
 # deliteful/list/CategoryRenderer
 
 Default category renderer for the [deliteful/list/List](List.md) widget.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: deliteful/list/List
+---
+
 # deliteful/list/List
 
 
