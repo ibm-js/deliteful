@@ -24,8 +24,15 @@ define(function () {
   -webkit-flex: 1;\
   -ms-flex: 1;\
   flex: 1;\
-  overflow: auto;\
 }\
+/* Allows percentage sizing of arranged elements */\
+.d-linear-layout > * > * {\
+  position: absolute;\
+}\
+.d-linear-layout > * {\
+  position: relative;\
+}\
+/* */\
 .height100 {\
   height: 100%;\
 }\
