@@ -1,17 +1,26 @@
 @import "../../../delite/themes/common/mixins";
 
 .d-linear-layout {
-  .display-flex();
+	.display-flex();
 }
 
 .d-linear-layout.-d-linear-layout-v {
-  .flex-direction-column();
+	.flex-direction-column();
 }
 
 .fill {
 	.flex(1);
-	overflow: auto;
 }
+
+/* Allows percentage sizing of arranged elements */
+.d-linear-layout > * > * {
+	position: absolute;
+}
+
+.d-linear-layout > * {
+	position: relative;
+}
+/* */
 
 .height100 {
 	height: 100%;

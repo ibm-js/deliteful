@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html style="height: 100%">
 <head>
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<title>Linear Layout</title>
+	<title>Linear Layout Example</title>
 
 	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
 
@@ -18,19 +18,67 @@
 
 	<script type="text/javascript">
 		require([
-			"deliteful/LinearLayout",
 			"delite/register",
+			"deliteful/LinearLayout",
 			"dojo/domReady!"
-		], function(LinearLayout, register){
+		], function(register){
 			register.parse();
 		});
 	</script>
+	<style>
+		body > .d-linear-layout {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			right: 5px;
+			bottom: 5px;
+			border: solid 3px;
+			font-weight: bold;
+		}
+		.blue {
+			background-color: #00AEEF;
+		}
+		.red {
+			background-color: #E51D25
+		}
+		.green {
+			background-color: #4DB848;
+		}
+		.yellow {
+			background-color: #FFE800;
+		}
+		.orange {
+			background-color: #FAA61A;
+		}
+
+	</style>
 </head>
 <body>
-	<d-linear-layout style="height: 100%">
-		<div style="background-color: red" class="fill">Dojo</div>
-		<div style="background-color: blue">Dojo</div>
-		<div style="background-color: #ffff00">Dojo</div>
-	</d-linear-layout>
+<!-- This sample demonstrates how to mix:
+		- fixed-sized elements,
+		- percentage-sized elements,
+		- no size constraints (natural size) elements,
+		- and elements that fill remaining space (class="fill")
+-->
+<d-linear-layout vertical="false">
+	<div style="width:30%;">
+		<d-linear-layout style="width: 100%; height: 100%;">
+			<div class="blue" style="height: 50px">ALFA</div>
+			<div class="fill red">BRAVO</div>
+			<div class="green">CHARLY</div>
+			<div class="fill yellow">DELTA</div>
+		</d-linear-layout>
+	</div>
+	<div class="fill">
+		<d-linear-layout style="width: 100%; height: 100%">
+			<div class="yellow" style="height: 30%;">ECHO</div>
+			<div class="fill orange">FOXTROT</div>
+			<div class="red">GOLF</div>
+		</d-linear-layout>
+	</div>
+	<div class="green">
+		HOTEL
+	</div>
+</d-linear-layout>
 </body>
 </html>

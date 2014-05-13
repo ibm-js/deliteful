@@ -5,7 +5,9 @@ title: deliteful/LinearLayout
 
 # deliteful/LinearLayout
 
-`deliteful/LinearLayout` is a CSS layout container based on the [CSS3 Flexible Box Layout Module](http://www.w3.org/TR/css3-flexbox/) . The children of a `deliteful/LinearLayout` container can be laid out horizontally or vertically, and can fill unused space. Children of a `deliteful/LinearLayout` widget support the following sizing constraints:
+`deliteful/LinearLayout` is a CSS layout container based on the [CSS3 Flexible Box Layout Module](http://www.w3.org/TR/css3-flexbox/) .
+The children of a `deliteful/LinearLayout` container can be laid out horizontally or vertically, and can fill unused space.
+Children of a `deliteful/LinearLayout` widget support the following sizing constraints:
 
 | Constraint                            | Example              |
 | ------------------------------------- | -------------------  |
@@ -14,9 +16,10 @@ title: deliteful/LinearLayout
 | Percentage Size                       | style="width: 30%"   |
 | Fill Available Space                  | class="fill"         |
 
-These constraints can be mixed together in the same container.
+These constraints can be mixed together for children of the same container.
 
-Note: When using a vertical (respectively horizontal) LinearLayout, do NOT specify height:100% (respectively width:100%) on children that have the `fill` class.
+Note: When using a vertical (respectively horizontal) LinearLayout, do NOT specify height:100% (respectively width:100%)
+on children that have the `fill` class.
 
 ![LinearLayout example](images/LinearLayout.png)
 
@@ -86,10 +89,14 @@ If `vertical` is `true`, the height of `deliteful\LinearLayout` must be explicit
 
 To set the height of a `deliteful/LinearLayout` using a percentage expression, the height of all its ancestors (including `<body>`) must also be expressed as percentage.
 
-### Styling Limitations
+### Styling
 
-Using `padding-top` and `padding-bottom` on the `deliteful/LinearLayout` is discouraged since it's not well supported on Firefox.
-
+   * Direct children of a LinearLayout have their CSS `position` attribute set to `relative`. Children of direct children
+   of a LinearLayout have their CSS `position` attribute set to `absolute`.
+   A good practice is to systematically use `div` dedicated to the layout as direct children of a LinearLayout.
+   * Using CSS padding for both the LinearLayout and its children is discouraged since it's not well supported on Firefox.
+   * Using `top`, `right`, `bottom` and `left` for the position/size of content inside a direct children of LinearLayout
+   is discouraged since it's not supported on some Android stock browser.
 
 <a name="enterprise"></a>
 ## Enterprise Use
