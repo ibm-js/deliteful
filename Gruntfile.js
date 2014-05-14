@@ -129,7 +129,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("jsdoc-amddcl");
 	grunt.loadTasks("../delite/themes/tasks");// Custom cssToJs task to convert CSS to JS
 
+	// Aliases
 	grunt.registerTask("default", ["less", "cssToJs"]);
+	grunt.registerTask("jsdoc", "jsdoc-amddcl");
+	
+	// Testing.
 	// always specify the target e.g. grunt test:remote, grunt test:remote
 	// then add on any other flags afterwards e.g. console, lcovhtml
 	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
