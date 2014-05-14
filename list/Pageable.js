@@ -586,22 +586,23 @@ define(["dcl/dcl",
 			// summary:
 			//		create the next page loader widget
 			/* jshint newcap: false*/
-			this._nextPageLoader = new _PageLoaderRenderer();
-			this._nextPageLoader.item = {
-				loadMessage: string.substitute(this.loadNextMessage, this),
-				loadingMessage: this.loadingMessage
-			};
-			this._nextPageLoader.beforeLoading = function () {
-				var showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
-				this._setBusy(true, showLoadingPanel);
-			}.bind(this);
-			this._nextPageLoader.afterLoading = function () {
-				this._setBusy(false);
-			}.bind(this);
-			this._nextPageLoader.performLoading = function () {
-				return this._loadNextPage();
-			}.bind(this);
-			this._nextPageLoader._list = this;
+			this._nextPageLoader = new _PageLoaderRenderer({
+				item: {
+					loadMessage: string.substitute(this.loadNextMessage, this),
+					loadingMessage: this.loadingMessage
+				},
+				beforeLoading: function () {
+					var showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
+					this._setBusy(true, showLoadingPanel);
+				}.bind(this),
+				afterLoading: function () {
+					this._setBusy(false);
+				}.bind(this),
+				performLoading: function () {
+					return this._loadNextPage();
+				}.bind(this),
+				_list: this
+			});
 			this._nextPageLoader.placeAt(this.containerNode);
 			this._nextPageLoader.startup();
 		},
@@ -610,22 +611,23 @@ define(["dcl/dcl",
 			// summary:
 			//		create the previous page loader widget
 			/* jshint newcap: false*/
-			this._previousPageLoader = new _PageLoaderRenderer();
-			this._previousPageLoader.item = {
-				loadMessage: string.substitute(this.loadPreviousMessage, this),
-				loadingMessage: this.loadingMessage
-			};
-			this._previousPageLoader.beforeLoading = function () {
-				var showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
-				this._setBusy(true, showLoadingPanel);
-			}.bind(this);
-			this._previousPageLoader.afterLoading = function () {
-				this._setBusy(false);
-			}.bind(this);
-			this._previousPageLoader.performLoading = function () {
-				return this._loadPreviousPage();
-			}.bind(this);
-			this._previousPageLoader._list = this;
+			this._previousPageLoader = new _PageLoaderRenderer({
+				item: {
+					loadMessage: string.substitute(this.loadPreviousMessage, this),
+					loadingMessage: this.loadingMessage
+				},
+				beforeLoading: function () {
+					var showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
+					this._setBusy(true, showLoadingPanel);
+				}.bind(this),
+				afterLoading: function () {
+					this._setBusy(false);
+				}.bind(this),
+				performLoading: function () {
+					return this._loadPreviousPage();
+				}.bind(this),
+				_list: this
+			});
 			this._previousPageLoader.placeAt(this.containerNode, "first");
 			this._previousPageLoader.startup();
 		},
