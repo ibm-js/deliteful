@@ -281,8 +281,8 @@ define(["dcl/dcl",
 
 		refreshProperties: dcl.superCall(function (sup) {
 			return function (props) {
-				var doQuery = props.store || props.query || props.preProcessStore || props.postProcessStore;
-				props.store = props.query = props.preProcessStore = props.postProcessStore = false;
+				var doQuery = props.store || props.query;
+				props.store = props.query = false;
 				sup.call(this, props);
 				if (doQuery)  {
 					// Initial loading of the list
@@ -311,7 +311,7 @@ define(["dcl/dcl",
 		}),
 
 		initItems: function (page) {
-			if (this._rangeSpec.isNext) {
+			if (this._rangeSpec.forward) {
 				if (page.length) {
 					var idPage = page.map(function (item) {
 						return this.getIdentity(item);
@@ -393,7 +393,7 @@ define(["dcl/dcl",
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
 			}
-			this._rangeSpec.isNext = true;
+			this._rangeSpec.forward = true;
 			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
@@ -406,7 +406,7 @@ define(["dcl/dcl",
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
-			this._rangeSpec.isNext = false;
+			this._rangeSpec.forward = false;
 			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
