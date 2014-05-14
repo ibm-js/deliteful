@@ -51,6 +51,7 @@ module.exports = function (grunt) {
 				dest: "build/<%= pkg.name %>.min.js"
 			}
 		},
+		
 		intern: {
 			local: {
 				options: {
@@ -80,6 +81,43 @@ module.exports = function (grunt) {
 					reporters: ["runner"]
 				}
 			}
+		},
+		
+		"jsdoc-amddcl": {
+			deliteful: {
+				files: [
+					{
+						args: [
+							"-c",
+							"./node_modules/jsdoc-amddcl/conf.json"
+						],
+						src: [
+							".",
+							"./README.md",
+							"./package.json"
+						],
+						imports: [
+							"../delite/out"
+						]
+					},
+					{
+						args: [
+							"-X",
+							"-c",
+							"./node_modules/jsdoc-amddcl/conf.json"
+						],
+						src: [
+							".",
+							"./README.md",
+							"./package.json"
+						],
+						dest: "./out/doclets.json",
+						imports: [
+							"../delite/out"
+						]
+					}
+				]
+			}
 		}
 	});
 
@@ -88,6 +126,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("jsdoc-amddcl");
 	grunt.loadTasks("../delite/themes/tasks");// Custom cssToJs task to convert CSS to JS
 
 	grunt.registerTask("default", ["less", "cssToJs"]);
