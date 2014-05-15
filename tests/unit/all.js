@@ -10,10 +10,7 @@ define([
 	"./ViewStack-prog",
 	"./ScrollableContainer",
 	"./StarRating",
-	"./list/List",
-	"./list/DefaultStore",
-	"./list/Selection",
-	"./list/Categories",
+	"./list/all",
 	"./ProgressBar",
 	"./ProgressIndicator"
 ]);
