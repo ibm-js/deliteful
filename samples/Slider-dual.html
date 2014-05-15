@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>Slider sample (dual values)</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			config: { "dojo/has": { bidi: true } },
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/Slider",
+			"dojo/domReady!"
+		], function (register) {
+			register.parse();
+			var slider = document.getElementById('singleSlider');
+			//we want to track intermediate changes as we slide to
+			//display the current value in a tooltip
+			slider.intermediateChanges = true;
+
+			//very basic tooltip to track value changes
+			var tooltip = document.createElement('tooltip');
+			tooltip.id = "tooltip";
+			slider.progressBar.appendChild(tooltip);
+
+			var selectedValue = document.getElementById('msgArea_0');
+			var submittedValue = document.getElementById('msgArea_1');
+			var sliderMin = document.getElementById('sliderMin');
+			var sliderMax = document.getElementById('sliderMax');
+
+			sliderMin.innerHTML = slider.min;
+			sliderMax.innerHTML = slider.max;
+			tooltip.innerHTML = slider.value;
+
+			//on slider value change
+			slider.addEventListener("change", function (e) {
+				tooltip.innerHTML = this.value;
+				if (!e.intermediateChange) {
+					selectedValue.innerHTML = this.value;
+				}
+			});
+
+			//on form submit
+			document.getElementById("form").addEventListener("submit", function (e) {
+				submittedValue.innerHTML = slider.value;
+				e.preventDefault();// prevents page reload
+				return false;
+			});
+
+			//on form reset
+			document.getElementById("form").addEventListener("reset", function (e) {
+				selectedValue.innerHTML = "";
+				submittedValue.innerHTML = "";
+			});
+
+			//intermediate changes
+			var enableIntermediateChanges = document.getElementById('enableIntermediateChanges');
+			enableIntermediateChanges.checked = slider.intermediateChanges;
+			enableIntermediateChanges.addEventListener("click", function (e) {
+				slider.intermediateChanges = this.checked;
+			});
+		});
+	</script>
+
+	<style>
+		#tooltip {
+			background-color: lightyellow;
+			color: #000000;
+			width: 50px;
+			border: solid 1px;
+			text-align: center;
+			top: -35px;
+			left: 80%;
+			position: absolute;
+		}
+		#sliderWidget {
+			width: 80%;
+			position: relative;
+			left: 10%;
+		}
+	</style>
+
+</head>
+<body>
+<p><strong>Slider sample</strong></p>
+
+<p>Select and move the handle or use the arrow/end or up keys.</p>
+<hr>
+<div id="tooltip">Value</div>
+<form id="form">
+	<span id="sliderMin"></span>
+	<d-slider id="singleSlider" min=0 max=25 value="5,10" step="5" intermediateChanges="true"
+			  style="width: 70%"></d-slider>
+	<span id="sliderMax"></span>
+	<br>
+	<button type="submit" value="Submit">Submit</button>
+	<button type="reset" value="Reset">Reset</button>
+</form>
+<hr>
+Selected value: <span id="msgArea_0"></span>
+<br>
+Submitted value: <span id="msgArea_1"></span>
+<hr>
+<label for="enableIntermediateChanges">intermediateChanges</label>
+<input type="checkbox" id="enableIntermediateChanges"/>
+<br>
+</body>
+</html>

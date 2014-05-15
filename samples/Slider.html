@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<title>Slider sample</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			config: { "dojo/has": { bidi: true } },
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/Slider",
+			"dojo/domReady!"
+		], function (register) {
+			register.parse();
+			var slider = document.getElementById('sliderWidget');
+			//we want to track intermediate changes as we slide to
+			//display the current value in a tooltip
+			slider.intermediateChanges = true;
+
+			//very basic tooltip to track value changes
+			var tooltip = document.createElement('tooltip');
+			tooltip.id = "tooltip";
+			slider.progressBar.appendChild(tooltip);
+
+			var selectedValue = document.getElementById('msgArea_0');
+			var submittedValue = document.getElementById('msgArea_1');
+
+			//on slider value change
+			slider.addEventListener("change", function (e) {
+				tooltip.innerHTML = this.value;
+				if (!e.intermediateChange) {
+					selectedValue.value = this.value;
+				}
+			});
+
+			//on form submit
+			document.getElementById("form").addEventListener("submit", function (e) {
+				submittedValue.value = slider.value;
+				e.preventDefault();// prevents page reload
+				return false;
+			});
+
+			//on form reset
+			document.getElementById("form").addEventListener("reset", function (e) {
+				selectedValue.value = "";
+				submittedValue.value = "";
+			});
+
+			//input elements to dynamically change the slider properties
+			var inputValue = document.getElementById('inputValue');
+			var inputStep = document.getElementById('inputStep');
+			var inputMin = document.getElementById('inputMin');
+			var inputMax = document.getElementById('inputMax');
+			var enableSlideRange = document.getElementById('enableSlideRange');
+			var enableIntermediateChanges = document.getElementById('enableIntermediateChanges');
+			var enableVertical = document.getElementById('enableVertical');
+			var enableFlip = document.getElementById('enableFlip');
+			var enableSlider = document.getElementById('enableSlider');
+
+			function refresh() {
+				inputValue.value = slider.value;
+				inputStep.value = slider.step;
+				inputMin.value = slider.min;
+				inputMax.value = slider.max;
+				enableSlideRange.checked = slider.slideRange;
+				enableIntermediateChanges.checked = slider.intermediateChanges;
+				enableSlider.checked = true;
+				selectedValue.value = "";
+				submittedValue.value = "";
+				tooltip.innerHTML = slider.value;
+			}
+
+			refresh();
+			document.getElementById('setSliderValue').addEventListener("click", function (e) {
+				slider.value = inputValue.value;
+			});
+			document.getElementById('setSliderStep').addEventListener("click", function (e) {
+				slider.step = inputStep.value;
+			});
+			document.getElementById('setSliderMin').addEventListener("click", function (e) {
+				slider.min = inputMin.value;
+			});
+			document.getElementById('setSliderMax').addEventListener("click", function (e) {
+				slider.max = inputMax.value;
+			});
+			document.getElementById('setSliderAll').addEventListener("click", function (e) {
+				slider.value = inputValue.value;
+				slider.min = inputMin.value;
+				slider.max = inputMax.value;
+				slider.step = inputStep.value;
+				slider.validateProperties();
+				refresh(slider);
+			});
+			enableSlideRange.addEventListener("click", function (e) {
+				slider.slideRange = this.checked;
+			});
+			enableIntermediateChanges.addEventListener("click", function (e) {
+				slider.intermediateChanges = this.checked;
+			});
+			enableVertical.addEventListener("click", function (e) {
+				slider.vertical = this.checked;
+			});
+			enableFlip.addEventListener("click", function (e) {
+				slider.flip = this.checked;
+			});
+			enableSlider.addEventListener("click", function (e) {
+				slider.disabled = !this.checked;
+			});
+		});
+	</script>
+	<style>
+		#tooltip {
+			background-color: lightyellow;
+			color: #000000;
+			width: 50px;
+			border: solid 1px;
+			text-align: center;
+			top: -35px;
+			left: 80%;
+			position: absolute;
+		}
+
+		#sliderWidget {
+			width: 80%;
+			position: relative;
+			left: 10%;
+		}
+
+		table td {
+			text-align: right;
+		}
+
+		input[type="text"] {
+			width: 4em;
+		}
+	</style>
+</head>
+<body>
+<p><strong>deliteful/Slider</strong></p>
+<hr>
+<br>
+
+<form id="form">
+	<d-slider id="sliderWidget" value=","></d-slider>
+	<hr>
+	<table border="0">
+		<tr>
+			<td>
+				<label for="msgArea_0">Selected value:</label>
+				<input type="text" readonly=true id="msgArea_0"/>
+				<br>
+				<label for="msgArea_1">Submitted value:</label>
+				<input type="text" readonly=true id="msgArea_1"/>
+				<br>
+				<button type="submit" value="Submit">Submit</button>
+				<button type="reset" value="Reset">Reset</button>
+				<br>
+			</td>
+		</tr>
+	</table>
+</form>
+<table>
+	<tr>
+		<td>
+			<label for="enableIntermediateChanges">intermediateChanges</label>
+			<input type="checkbox" id="enableIntermediateChanges"/>
+			<br>
+			<label for="enableVertical">vertical</label>
+			<input type="checkbox" id="enableVertical"/>
+			<br>
+			<label for="enableFlip">flip</label>
+			<input type="checkbox" id="enableFlip"/>
+			<br>
+			<label for="enableSlideRange">slideRange</label>
+			<input type="checkbox" id="enableSlideRange"/>
+			<br>
+			<label for="enableSlider">Enabled</label>
+			<input type="checkbox" checked id="enableSlider"/>
+			<br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="inputValue">Value</label>
+			<input type="text" id="inputValue"/>
+			<button id="setSliderValue">Set</button>
+			<br>
+			<label for="inputStep">Step</label>
+			<input type="text" id="inputStep"/>
+			<button id="setSliderStep">Set</button>
+			<br>
+			<label for="inputValue">Min</label>
+			<input type="text" id="inputMin"/>
+			<button id="setSliderMin">Set</button>
+			<br>
+			<label for="inputValue">Max</label>
+			<input type="text" id="inputMax"/>
+			<button id="setSliderMax">Set</button>
+			<br>
+			<button id="setSliderAll">Set all</button>
+			<br>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>
