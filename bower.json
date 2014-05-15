@@ -9,6 +9,9 @@
 		"delite": ">=0.1.4-dev",
 		"requirejs-dplugins": ">=0.1.0-dev"
 	},
+	"devDependencies": {
+		"dstore": ">=0.1.0-dev"
+	},
 	"ignore": [
 		".jshintrc",
 		".gitattributes",
