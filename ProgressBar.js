@@ -1,15 +1,15 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class",
-	"dojo/number",
+	"ecma402/IntlShim",
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"dojo/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
-], function (dcl, domClass, number, register, Widget, Invalidating, renderer) {
-
+], function (dcl, domClass, Intl, register, Widget, Invalidating, renderer) {
+	
 	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], {
 		// summary
 		//		d-progress-bar widget displays status for tasks that takes a long time.
@@ -172,11 +172,14 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-			return this.message ? this.message : (isNaN(value) ? "" : number.format(percent, {
-				type: "percent",
-				places: this.fractionDigits,
-				round: -1,
-				locale: this.lang
+			if (!this._numberFormat || this._prevLang !== this.lang) {
+				this._numberFormat = new Intl.NumberFormat(this.lang);
+				this._prevLang = this.lang;
+			}
+			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(percent, {
+				style: "percent",
+				minimumFractionDigits: this.fractionDigits,
+				maximumFractionDigits: this.fractionDigits
 			}));
 		},
 
