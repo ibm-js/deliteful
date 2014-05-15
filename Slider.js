@@ -1,7 +1,6 @@
 define([
 	"dojo/_base/window",
 	"dojo/sniff",
-	"dojo/query",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-geometry",
@@ -12,8 +11,7 @@ define([
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
-], function (win, has, query, domClass, domConstruct, domGeometry, domStyle,
-		keys, dpointer, on, register, FormValueWidget) {
+], function (win, has, domClass, domConstruct, domGeometry, domStyle, keys, dpointer, on, register, FormValueWidget) {
 
 	// boolean feature test variable to decide if position() return attributes
 	// need to be adjusted by the body and node current zoom levels
@@ -145,7 +143,7 @@ define([
 		buildRendering: function () {
 
 			// look for child INPUT node under root node
-			this.valueNode = query("> INPUT", this)[0];
+			this.valueNode = this.querySelector("input");
 			if (!this.valueNode) {
 				this.valueNode = domConstruct.create("input", { "type": "text", readOnly: true, value: this.value },
 					this, "last");
