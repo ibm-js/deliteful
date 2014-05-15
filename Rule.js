@@ -1,7 +1,6 @@
 define([
 	"dojo/_base/lang",
 	"dojo/has",
-	"dojo/query",
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-class",
@@ -9,7 +8,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/theme!./Rule/css/Rule_css"
-], function (lang, has, query, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
+], function (lang, has, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
 
 	function toCSS(baseClass, modifier) {
 		return baseClass.split(" ").map(function (c) {
@@ -63,11 +62,12 @@ define([
 		},
 
 		buildRendering: register.after(function () {
-			var children = query("> div", this);
-			if (this.labels.length === 0 && children.length > 0) {
-				this.labels = children.map(function (node) {
-					return String(node.innerHTML);
-				});
+			if (this.labels.length === 0) {
+				var nodeList = this.querySelectorAll("div");
+				for (var i = 0; i < nodeList.length; ++i) {
+					this.labels.push(String(nodeList[i].innerHTML));
+				}
+				this.invalidateProperty("labels");
 			}
 		}),
 
@@ -77,7 +77,7 @@ define([
 			//		Slider passes inherited values vertical and flip down to child decoration widgets.
 			// tags:
 			//		private
-			var children = query("> div", this), css, node, i;
+			var children = this.querySelectorAll("div"), css, node, i;
 			var count = isNaN(this.count) ? this.labels.length : this.count;
 			if (props.count || props.labels) {
 				for (i = 0; i < count; i++) {
@@ -94,18 +94,18 @@ define([
 				this.labels.reverse();
 			}
 			if (props.vertical && count > 0) {
-				var pos = 0;
+				var pos = 0, label;
 				if (count === 1) {
 					pos = 50;
 				}
 				css = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
 				domClass.add(this, css);
 				css = toCSS(this.baseClass, "-label" + (this.vertical ? "-v" : "-h"));
-				children = query("> div", this);
+				children = this.querySelectorAll("div");
 				for (i = 0; i < count; i++) {
 					node = children[i];
 					domClass.add(node, css);
-					var label = this.labels.length > 0 ? this.labels[i % this.labels.length] :
+					label = this.labels.length > 0 ? this.labels[i % this.labels.length] :
 						(this.vertical ? "\u2014" : "\u007c");
 					node.innerHTML = label;
 					this._setLabelDirection(node);
@@ -124,9 +124,10 @@ define([
 		dRule.prototype._setTextDirAttr = function (textDir) {
 			if (this.textDir !== textDir) {
 				this._set("textDir", textDir);
-				query(".d-rule-label", this).forEach(function (labelNode) {
-					this._setLabelDirection(labelNode);
-				}.bind(this));
+				var nodeList = this.querySelectorAll(".d-rule-label");
+				for (var i = 0; i < nodeList.length; ++i) {
+					this._setLabelDirection(nodeList[i]);
+				}
 			}
 		};
 
