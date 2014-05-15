@@ -7,7 +7,8 @@
 		"dcl": "1.1.x",
 		"dpointer": ">=0.1.0-dev",
 		"delite": ">=0.1.4-dev",
-		"requirejs-dplugins": ">=0.1.0-dev"
+		"requirejs-dplugins": ">=0.1.0-dev",
+		"ecma402": ">=0.0.1-dev"
 	},
 	"devDependencies": {
 		"dstore": ">=0.1.0-dev"
