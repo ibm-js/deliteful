@@ -173,7 +173,8 @@ define([
 			// max:
 			//		The maximum value
 			if (!this._numberFormat || this._prevLang !== this.lang) {
-				this._numberFormat = new Intl.NumberFormat(this.lang);
+				this._numberFormat = (this.lang && this.lang.length > 0) ?
+					new Intl.NumberFormat(this.lang) : new Intl.NumberFormat();
 				this._prevLang = this.lang;
 			}
 			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(percent, {
