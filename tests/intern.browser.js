@@ -5,9 +5,7 @@ define([
 	"./intern"
 ], function (intern) {
 
-	intern.loader = {
-		baseUrl: "../../.."
-	};
+	intern.loader.baseUrl = "../../..";
 
 	return intern;
 });

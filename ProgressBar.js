@@ -172,16 +172,17 @@ define([
 			//		The current value
 			// max:
 			//		The maximum value
-			if (!this._numberFormat || this._prevLang !== this.lang) {
-				this._numberFormat = (this.lang && this.lang.length > 0) ?
-					new Intl.NumberFormat(this.lang) : new Intl.NumberFormat();
+			if (!this._numberFormat || this._prevLang !== this.lang ||
+					this._numberFormat.resolvedOptions().minimumFractionDigits !== this.fractionDigits) {
+				var options = {
+					style: "percent",
+					minimumFractionDigits: this.fractionDigits,
+					maximumFractionDigits: this.fractionDigits
+				};
+				this._numberFormat = new Intl.NumberFormat(this.lang || undefined, options);
 				this._prevLang = this.lang;
 			}
-			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(percent, {
-				style: "percent",
-				minimumFractionDigits: this.fractionDigits,
-				maximumFractionDigits: this.fractionDigits
-			}));
+			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(percent));
 		},
 
 		formatExtMsg: function (/*Number*/percent, /*Number*/value, /*Number*/max) {

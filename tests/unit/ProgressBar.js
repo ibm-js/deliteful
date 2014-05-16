@@ -10,6 +10,7 @@ define([
 		name: "ProgressBar",
 		setup: function () {
 			progressBar = new ProgressBar();
+			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
 			progressBar.startup();
 			//progressBar.style.width = "250px";
