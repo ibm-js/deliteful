@@ -36,7 +36,7 @@ define({
 		{ browserName: "", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
 			app: "safari", device: "iPhone Simulator", name: "deliteful" },
 		{ browserName: "", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
-			app: "safari", device: "iPad Simulator", name: "deliteful" },
+			app: "safari", device: "iPad Simulator", name: "deliteful" }
 //		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPhone",
 //			app: "safari", device: "iPhone Simulator", name: "deliteful" },
 //		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPad",
@@ -63,7 +63,10 @@ define({
 	},
 	
 	loader: {
-		baseUrl: ".."
+		baseUrl: "..",
+		config: {
+			"ecma402/locales": "en-US"
+		}
 	},
 	
 	useLoader: {
