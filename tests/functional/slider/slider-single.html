@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>Slider01-Single</title>
+
+	<link type="text/css" rel="stylesheet" href="./slider-tests.css">
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/Slider",
+			"dojo/domReady!"
+		], function (register, Slider) {
+			register.parse();
+			//read value from d-slider elements and set to span.innerHTML for intern functional test suite.
+			var nodeList = document.querySelectorAll("d-slider"), i;
+			for (i = 0; i < nodeList.length; ++i) {
+				document.getElementById(nodeList[i].id + "_value").value = nodeList[i].value;
+			}
+			//set onchange listener
+			document.addEventListener("change", function (event) {
+				if (event.target.id && event.target.id.indexOf("onchange_") === 0){
+					return; //ignore change event caused by webdriver clear() on input text
+				}
+				document.getElementById("onchange_target").value = event.target.id;
+				document.getElementById("onchange_intermediateChange").value = event.intermediateChange;
+				document.getElementById("onchange_value").value = event.target.value;
+				document.getElementById("onchange_input").value = event.target.querySelector("input").value;
+			});
+//
+//			var sliderId = "singleSlider02";
+//			var xNode = document.evaluate("//d-slider[@id='" + sliderId + "']//input", document, null, 9, null).singleNodeValue;
+//			console.log(xNode.getAttribute("value"));
+
+			//allow functional tests to start
+			ready = true;
+		});
+	</script>
+</head>
+<body>
+<table>
+	<caption>Single Slider</caption>
+	<tbody>
+	<tr>
+		<th scope="row">Default</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider01_value"> 
+			<d-slider id="singleSlider01"></d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">In bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider02_value"> 
+			<d-slider id="singleSlider02" value="25"></d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Out of bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider03_value"> 
+			<d-slider id="singleSlider03" value="150"></d-slider>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+<table>
+	<caption>intermediateChanges=true</caption>
+	<tbody>
+		<tr>
+		<th scope="row">Default</th>
+		<td>
+			<input  autocomplete=off  type="text"  id="singleSlider04_value">
+			<d-slider intermediateChanges="true" id="singleSlider04"></d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">In bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider05_value">
+			<d-slider intermediateChanges="true" id="singleSlider05" value="25"></d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Out of bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider06_value">
+			<d-slider intermediateChanges="true" id="singleSlider06" value="150"></d-slider>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+<table>
+	<caption>wrapped input element</caption>
+	<tbody>
+	<tr>
+		<th scope="row">Default</th>
+		<td>
+			<input  autocomplete=off  type="text"  id="singleSlider07_value">
+			<d-slider id="singleSlider07">
+				<input name="singleSlider07_input">
+			</d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">In bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider08_value">
+			<d-slider id="singleSlider08">
+				<input name="singleSlider08_input" value="25">
+			</d-slider>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Out of bound</th>
+		<td>
+			<input autocomplete=off  type="text"  id="singleSlider09_value">
+			<d-slider id="singleSlider09">
+				<input name="singleSlider09_input" value="150">
+			</d-slider>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+<table>
+	<caption>onChange</caption>
+	<tbody>
+	<tr>
+		<th scope="row">targetId</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_target">
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Value</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_value">
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">intermediateChanges</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_intermediateChange">
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">input value</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_input">
+		</td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
