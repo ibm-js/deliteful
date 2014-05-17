@@ -103,13 +103,13 @@ define([
 		},
 
 		refreshRendering: function (props) {
-			var _percent = (this.value - this.min) / (this.max - this.min);
+			var percent = (this.value - this.min) / (this.max - this.min);
 
-			this._updateValues(props, this.value, _percent);
-			this._updateMessages(this.value, _percent);
+			this._updateValues(props, this.value, percent);
+			this._updateMessages(this.value, percent);
 			domClass.toggle(this, this.baseClass + "-indeterminate", isNaN(this.value));
 			if (props.value || props.max || props.min) {
-				this.emit("change", {percent: _percent * 100, value: this.value, min: this.min, max: this.max});
+				this.emit("change", {percent: percent * 100, value: this.value, min: this.min, max: this.max});
 			}
 		},
 
