@@ -13,7 +13,6 @@ define([
 			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
 			progressBar.startup();
-			//progressBar.style.width = "250px";
 		},
 		"Default values and state": function () {
 			//public attribute:value
@@ -46,6 +45,7 @@ define([
 			progressBar.value = testVal;
 			progressBar.validate();
 			checkDeterminate();
+			checkFractionDigits(progressBar.fractionDigits);
 			checkPercentage(testVal);
 			checkAria();
 		},
@@ -154,6 +154,15 @@ define([
 			checkPercentage(progressBar.value);
 			checkAria();
 		},
+		"Set fraction digits": function () {
+			var fractionDigits = 2;
+			progressBar.fractionDigits = fractionDigits;
+			progressBar.validate();
+			checkDeterminate();
+			checkFractionDigits(fractionDigits);
+			checkPercentage(progressBar.value);
+			checkAria();
+		},
 		"Override formatMessage": function () {
 			var testVal = 50, message;
 			progressBar.formatMessage = function (percent, value, max) {
@@ -184,6 +193,24 @@ define([
 			progressBar = null;
 		}
 	});
+
+	function removeWhiteSpaces(value) {
+		return value.replace(/ /g, "");
+	}
+
+	function checkFractionDigits(value) {
+		//check property
+		assert.equal(progressBar.fractionDigits, value);
+		//check that displayed value actually enforces the fractionDigits property
+		if (!isNaN(progressBar.value) && progressBar.message.length === 0) {
+			//removes spaces to avoid false negative: IE11 formats with a space before the % sign
+			var displayedValue = removeWhiteSpaces(progressBar.msgNode.innerHTML);
+			var digits = displayedValue.split(".");
+			assert.equal((digits.length > 1) ? (digits[1].length - 1) : 0, progressBar.fractionDigits,
+				"Displayed value [" + displayedValue + "] should enforce " +
+					"fractionDigits [" + progressBar.fractionDigits + "]");
+		}
+	}
 
 	//simple helper to test if an element contains a class
 	function hasClass(element, className) {
@@ -279,9 +306,11 @@ define([
 			} else {
 				//no custom message: default message is the percentage of progression
 				message = checkIndicatorNodeWidth(progressBar.fractionDigits) + "%";
+				//removes spaces to avoid false negative: IE11 formats with a space before the % sign
+				msg = removeWhiteSpaces(msg);
 				assert.strictEqual(msg, message,
 					"msgNode: current [" + msg + "], expected [" + message + "]");
-				msg = progressBar.msgInvertNode.innerHTML;
+				msg = removeWhiteSpaces(progressBar.msgInvertNode.innerHTML);
 				assert.strictEqual(msg, message,
 					"msgInvertNode: current [" + msg + "], expected [" + message + "]");
 			}
