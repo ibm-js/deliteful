@@ -6,9 +6,8 @@ define([
 	"dojo/dom-class",
 	"delite/register",
 	"delite/Widget",
-	"delite/Invalidating",
 	"delite/theme!./Rule/css/Rule_css"
-], function (lang, has, domConstruct, domStyle, domClass, register, Widget, Invalidating) {
+], function (lang, has, domConstruct, domStyle, domClass, register, Widget) {
 
 	function toCSS(baseClass, modifier) {
 		return baseClass.split(" ").map(function (c) {
@@ -19,7 +18,7 @@ define([
 	// module:
 	//		deliteful/Rule
 
-	var dRule = register("d-rule", [HTMLElement, Widget, Invalidating], {
+	var dRule = register("d-rule", [HTMLElement, Widget], {
 		// summary:
 		//		Creates and lays out evenly spaced nodes useful for axis or Slider decorations
 		//		(e.g. hash marks and labels).
@@ -53,12 +52,6 @@ define([
 
 		preCreate: function () {
 			this.labels = lang.clone(this.labels);
-			this.addInvalidatingProperties(
-				"labels",
-				"count",
-				"reverse",
-				"vertical"
-			);
 		},
 
 		buildRendering: register.after(function () {
@@ -67,7 +60,7 @@ define([
 				for (var i = 0; i < nodeList.length; ++i) {
 					this.labels.push(String(nodeList[i].innerHTML));
 				}
-				this.invalidateProperty("labels");
+				this.deliver();
 			}
 		}),
 

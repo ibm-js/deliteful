@@ -40,20 +40,20 @@ define([
 		},
 		"Set value=NaN while inactive": function () {
 			progressIndicator.value = "not a number";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should not start when not active
 			checkVisibility("hidden", "must be hidden");
 		},
 		"Set speed while inactive": function () {
 			progressIndicator.speed = "fast";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator._lapsTime, 500, "fast is 500ms");
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should not start when not active
 			checkVisibility("hidden", "must be hidden");
 		},
 		"Set active": function () {
 			progressIndicator.active = true;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.notStrictEqual(progressIndicator._requestId, 0); //animation must start
 			var def = this.async(FRAME_TIMEOUT);
 			setTimeout(def.callback(function () {
@@ -63,7 +63,7 @@ define([
 		},
 		"Set active while already active": function () {
 			progressIndicator.active = true;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.notStrictEqual(progressIndicator._requestId, 0); //animation must start
 			var def = this.async(FRAME_TIMEOUT);
 			setTimeout(def.callback(function () {
@@ -73,7 +73,7 @@ define([
 		},
 		"Set value while active and animated": function () {
 			progressIndicator.value = 50;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator._requestId, 0); //animation must stop
 			var def = this.async(FRAME_TIMEOUT);
 			setTimeout(def.callback(function () {
@@ -83,7 +83,7 @@ define([
 		},
 		"Set slow speed": function () {
 			progressIndicator.speed = "slow";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.speed, "slow");
 			assert.strictEqual(progressIndicator._lapsTime, 2000, "slow is 2000ms");
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
@@ -95,7 +95,7 @@ define([
 		},
 		"Set normal speed": function () {
 			progressIndicator.speed = "normal";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.speed, "normal");
 			assert.strictEqual(progressIndicator._lapsTime, 1000, "normal is 1000ms");
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
@@ -107,7 +107,7 @@ define([
 		},
 		"Set fast speed": function () {
 			progressIndicator.speed = "fast";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.speed, "fast");
 			assert.strictEqual(progressIndicator._lapsTime, 500, "fast is 500ms");
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
@@ -119,7 +119,7 @@ define([
 		},
 		"Set undefined speed": function () {
 			progressIndicator.speed = "undefined";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.speed, "undefined");
 			assert.strictEqual(progressIndicator._lapsTime, 1000, "default is 1000ms (normal)");
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
@@ -131,7 +131,7 @@ define([
 		},
 		"Start animation": function () {
 			progressIndicator.value = NaN;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert(isNaN(progressIndicator.value));
 			assert.notStrictEqual(progressIndicator._requestId, 0); //animation should be started
 			var def = this.async(FRAME_TIMEOUT);
@@ -142,7 +142,7 @@ define([
 		},
 		"Change speed while active/animated": function () {
 			progressIndicator.speed = "fast";
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.speed, "fast");
 			assert.strictEqual(progressIndicator._lapsTime, 500, "fast is 500ms");
 			assert.notStrictEqual(progressIndicator._requestId, 0); //animation should be started
@@ -154,7 +154,7 @@ define([
 		},
 		"Deactivate while active/animated": function () {
 			progressIndicator.active = false;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.active, false);
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should be stopped
 			var def = this.async(FRAME_TIMEOUT);
@@ -165,7 +165,7 @@ define([
 		},
 		"Set value while inactive": function () {
 			progressIndicator.value = 50;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.value, 50);
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should not be started
 			var def = this.async(FRAME_TIMEOUT);
@@ -176,7 +176,7 @@ define([
 		},
 		"Activate with value set": function () {
 			progressIndicator.active = true;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert.strictEqual(progressIndicator.active, true);
 			assert.strictEqual(progressIndicator._requestId, 0); //animation should NOT start
 			var def = this.async(FRAME_TIMEOUT);
@@ -187,7 +187,7 @@ define([
 		},
 		"Start animation and destroy": function () {
 			progressIndicator.value = NaN;
-			progressIndicator.validate();
+			progressIndicator.deliver();
 			assert(isNaN(progressIndicator.value));
 			assert.notStrictEqual(progressIndicator._requestId, 0); //animation should be started
 			progressIndicator.destroy();

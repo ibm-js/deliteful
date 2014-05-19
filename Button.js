@@ -4,12 +4,11 @@ define([
 	"dojo/dom-construct",
 	"delite/register",
 	"delite/Widget",
-	"delite/Invalidating",
 	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
 	"delite/theme!./Button/themes/{{theme}}/Button_css"
-], function (dcl, has, domConstruct, register, Widget, Invalidating, BidiButton) {
+], function (dcl, has, domConstruct, register, Widget, BidiButton) {
 
-	var Button = dcl([Widget, Invalidating], {
+	var Button = dcl(Widget, {
 		// summary:
 		//		Non-templated BUTTON widget.
 		//
@@ -38,10 +37,6 @@ define([
 		// baseClass: String
 		//		The name of the CSS class of this widget.
 		baseClass: "d-button",
-
-		preCreate: function () {
-			this.addInvalidatingProperties("label", "showLabel", "title", "iconClass", "textDir");
-		},
 
 		postCreate: function () {
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>

@@ -147,19 +147,6 @@ define([
 			 */
 			_reversed: null,
 
-			preCreate: function () {
-				this.addInvalidatingProperties(
-					{ value: "invalidateProperty" },
-					{ min: "invalidateProperty" },
-					{ max: "invalidateProperty" },
-					{ step: "invalidateProperty" },
-					"slideRange",
-					"name",
-					"flip",
-					"vertical"
-				);
-			},
-
 			buildRendering: function () {
 				renderer.call(this);
 				var n = this.firstChild;
@@ -244,7 +231,7 @@ define([
 				}, this);
 			},
 
-			refreshProperties: function (props) {
+			computeProperties: function (props) {
 				if (props.value || props.min || props.max || props.step) {
 					var value = this._getValueAsArray(),
 						isDual = value.length > 1,
@@ -265,7 +252,7 @@ define([
 					if (value !== this.value) {
 						this.value = value;
 						// do not wait for another cycle
-						this.validateProperties();
+						this.deliver();
 					}
 				}
 			},
@@ -378,24 +365,21 @@ define([
 					on(this.focusNode, "focus", this._onFocus.bind(this)),
 					on(this.handleMin, "focus", this._onFocus.bind(this))
 				);
-				// ensure CSS are applied
-				this.invalidateProperty("vertical");
-				// apply default tabIndex in case the default is used.
-				this.invalidateProperty("tabIndex");
 				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
+				// ensure CSS are applied
+				// apply default tabIndex in case the default is used.
 				// force calculation of the default value in case it is not specified.
-				this.invalidateProperty("value");
+				this.deliver();
 			},
 
 			startup: function () {
 				// force immediate validation, otherwise in certain cases a call to slider.value returns the default
 				// value declared in the markup instead of the calculated default value.
-				// todo: remove in future when validate() will be called by invalidating.js
-				this.validateProperties();
+				this.deliver();
 				// ensure input is in sync after default value is calculated
 				this.valueNode.value = String(this.value);
 				if (this.valueNode.getAttribute("value") === null) {

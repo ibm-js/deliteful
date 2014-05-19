@@ -19,14 +19,14 @@ define([
 	shared.testCases = {
 		"Default CSS" : function () {
 			var w = document.getElementById("sc1");
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (id='sc1')");
 
 			w = document.getElementById("sc2"); // with scrollDirection == "none"
-			w.validateRendering();
+			w.deliver();
 			assert.equal(w.scrollDirection, "none", "wrong scroll direction for id=sc2!");
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc2')");
@@ -35,7 +35,7 @@ define([
 				"Not expecting d-scrollable CSS class! (id='sc2')");
 
 			w = document.getElementById("mysc1");
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (id='mysc1')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
@@ -44,14 +44,14 @@ define([
 
 		"CSS class dependency on scrollDirection" : function () {
 			var w = document.getElementById("sc1");
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc1')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (id='sc1')");
 
 			w.scrollDirection = "none";
-			w.validateRendering(); // scrollDirection is an invalidating property
+			w.deliver(); // scrollDirection is an invalidating property
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
@@ -59,28 +59,28 @@ define([
 				"Not expecting d-scrollable CSS class! (scrollDirection='none')");
 
 			w.scrollDirection = "vertical"; // set back to "vertical"
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='vertical')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='vertical')");
 
 			w.scrollDirection = "horizontal"; // same for "horizontal"
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='horizontal')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='horizontal')");
 
 			w.scrollDirection = "both"; // same for "both"
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='both')");
 			assert.isTrue(domClass.contains(w, "d-scrollable"), // class added by the mixin delite/Scrollable
 				"Expecting d-scrollable CSS class! (scrollDirection='both')");
 
 			w.scrollDirection = "none"; // and none again
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (scrollDirection='none')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
@@ -90,14 +90,14 @@ define([
 
 		"scrollableNode" : function () {
 			var w = document.getElementById("sc1");
-			w.validateRendering();
+			w.deliver();
 			assert.isTrue(w.scrollableNode === w, "Wrong scrollableNode!");
 		},
 
 		"scrollTop/scrollLeft" : function () {
 			var w = document.getElementById("sc1");
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 			assert.equal(w.scrollableNode.scrollTop, 0, "scrollTop");
 			assert.equal(w.scrollableNode.scrollLeft, 0, "scrollLeft");
 		},
@@ -106,7 +106,7 @@ define([
 			var w = document.getElementById("sc1");
 			var d = this.async(1000);
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 			w.scrollBy({x: 10});
 			assert.equal(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
 			assert.equal(w.scrollableNode.scrollTop, 0, "scrollTop #1");
@@ -136,7 +136,7 @@ define([
 			var w = document.getElementById("sc1");
 			var d = this.async(1000);
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 			w.scrollTo({x: 10});
 			assert.equal(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
 			w.scrollTo({y: 10});
@@ -164,7 +164,7 @@ define([
 			var w = document.getElementById("sc1");
 			var pos = {x: 10, y: 10};
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 			w.scrollTo(pos);
 			assert.deepEqual(w.getCurrentScroll(), pos, "Wrong getCurrentScroll!");
 		},
@@ -177,7 +177,7 @@ define([
 			var width = box.w;
 			var height = box.h;
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 			w.scrollTo(pos);
 			assert.isFalse(w.isTopScroll(), "isTopScroll() #1");
 			assert.isFalse(w.isBottomScroll(), "isBottomScroll() #1");
@@ -232,7 +232,7 @@ define([
 			};
 			var w = document.getElementById("sc1");
 			w.scrollDirection = "both";
-			w.validateRendering();
+			w.deliver();
 
 			// Scroll with animation
 			w.scrollBy({x: 10, y: 10}, 300/*duration*/);

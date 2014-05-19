@@ -6,12 +6,11 @@ define([
 	"dojo/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
-	"delite/Invalidating",
 	"dojo/Deferred",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css"
 ],
-	function (dcl, pointer, domClass, has, register, DisplayContainer, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, has, register, DisplayContainer, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -53,9 +52,8 @@ define([
 		 * </body>
 		 * @class module:deliteful/SidePane
 		 * @augments {module:delite/DisplayContainer}
-		 * @augments {module:delite/Invalidating}
 		 */
-		return register("d-side-pane", [HTMLElement, DisplayContainer, Invalidating],
+		return register("d-side-pane", [HTMLElement, DisplayContainer],
 			/** @lends module:deliteful/SidePane#*/ {
 			/**
 			 * The name of the CSS class of this widget.
@@ -218,13 +216,10 @@ define([
 
 			postCreate: function () {
 				setVisibility(this, false);
-				this.invalidateProperty("mode");
-				this.invalidateProperty("position");
-				this.invalidateRendering();
+				this.deliver();
 			},
 
 			preCreate: function () {
-				this.addInvalidatingProperties("position", "mode", "animate");
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
