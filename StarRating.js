@@ -71,14 +71,6 @@ define([
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
-		preCreate: function () {
-			this.addInvalidatingProperties("max",
-					"name",
-					"value",
-					"editHalfValues",
-					"allowZero");
-		},
-
 		buildRendering: function () {
 			this.focusNode = this.ownerDocument.createElement("div");
 			this.appendChild(this.focusNode);
@@ -108,28 +100,28 @@ define([
 		refreshRendering: register.dcl.superCall(function (sup) {
 			return function (props) {
 				sup.call(this, props);
-				if (props.disabled !== undefined) {
+				if ("disabled" in props !== undefined) {
 					this._refreshDisabledClass();
 				}
-				if (props.max !== undefined) {
+				if ("max" in props) {
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 				}
-				if (props.max !== undefined || props.value !== undefined) {
+				if ("max" in props || "value" in props) {
 					this._refreshStarsRendering();
 				}
-				if (props.value !== undefined) {
+				if ("value" in props) {
 					this.focusNode.setAttribute("aria-valuenow", this.value);
 					this.focusNode.setAttribute("aria-valuetext",
 							messages["aria-valuetext"].replace("${value}", this.value));
 					this.valueNode.value = this.value;
 				}
-				if (props.name !== undefined && this.name) {
+				if ("name" in props && this.name) {
 					this.valueNode.name = this.name;
 				}
-				if (props.readOnly !== undefined || props.disabled !== undefined) {
+				if ("readOnly" in props || "disabled" in props) {
 					this._refreshEditionEventHandlers();
 				}
-				if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
+				if ("readOnly" in props || "disabled" in props || "allowZero" in props) {
 					this._updateZeroArea();
 				}
 			};

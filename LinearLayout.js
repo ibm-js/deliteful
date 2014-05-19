@@ -4,9 +4,8 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/DisplayContainer",
-	"delite/Invalidating",
 	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout_css"
-], function (domClass, register, Widget, DisplayContainer, Invalidating) {
+], function (domClass, register, Widget, DisplayContainer) {
 	/**
 	 * A layout container based on CSS3 Flexible Box.
 	 * 
@@ -23,9 +22,8 @@ define([
 	 * </d-linear-layout>
 	 * @class module:deliteful/LinearLayout
 	 * @augments {module:delite/Container}
-	 * @augments {module:delite/Invalidating}
 	 */
-	return register("d-linear-layout", [HTMLElement, Widget, DisplayContainer, Invalidating],
+	return register("d-linear-layout", [HTMLElement, Widget, DisplayContainer],
 		/** @lends module:deliteful/LinearLayout# */{
 		/**
 		 * The name of the CSS class of this widget.
@@ -40,9 +38,6 @@ define([
 		 * @default true
 		 */
 		vertical: true,
-		preCreate: function () {
-			this.addInvalidatingProperties("vertical");
-		},
 
 		refreshRendering: function () {
 			domClass.toggle(this, "-d-linear-layout-v", this.vertical);
@@ -50,7 +45,7 @@ define([
 		},
 
 		buildRendering: function () {
-			this.invalidateRendering();
+			this.deliver();
 		}
 	});
 });

@@ -22,7 +22,6 @@ define([
 	 *  comes first.
 	 * @class module:deliteful/list/Renderer
 	 * @augments module:delite/Widget
-	 * @augments module:delite/Invalidating
 	 */
 	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
 

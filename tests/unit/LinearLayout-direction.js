@@ -19,7 +19,7 @@ define([
 			container.innerHTML = htmlContent;
 			register.parse(container);
 			node = document.getElementById("dlayout");
-			node.validateRendering();
+			node.deliver();
 		},
 		"Horizontal LinearLayout 3 Equal Width" : function () {
 			var children = node.getChildren();
@@ -34,7 +34,7 @@ define([
 
 		"Vertical LinearLayout 3 Equal Height" : function () {
 			node.vertical = true;
-			node.validateRendering();
+			node.deliver();
 			var children = node.getChildren();
 			assert.deepEqual(3, children.length);
 			var box1 = domGeom.getMarginBox(children[0]);

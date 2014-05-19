@@ -19,7 +19,7 @@ define([
 			container.innerHTML = htmlContent;
 			register.parse(container);
 			node = document.getElementById("dlayout");
-			node.validateRendering();
+			node.deliver();
 		},
 		"Horizontal LinearLayout Various Width" : function () {
 			var children = node.getChildren();
