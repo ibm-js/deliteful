@@ -5,15 +5,14 @@ define(["dcl/dcl",
 	"dojo/Deferred",
 	"decor/sniff",
 	"delite/handlebars!./Toaster/Toaster.html",
-	"delite/Invalidating",
 	"./ToasterMessage",
 	"delite/theme!./Toaster/themes/{{theme}}/Toaster_css"
-	], function (dcl, Widget, register, Deferred, has, render, Invalidating, ToasterMessage) {
+	], function (dcl, Widget, register, Deferred, has, render, ToasterMessage) {
 
 		/* helpers */
 		function isRemovable(m) {return m._toBeRemoved && (! m._isRemoved); }
 
-		var Toaster = dcl([Widget, Invalidating], /** @lends module:deliteful/Toaster */ {
+		var Toaster = dcl(Widget, /** @lends module:deliteful/Toaster */ {
 
 			/**
 			 * Toaster widget. Displays instances of `ToasterMessage`.
@@ -26,7 +25,6 @@ define(["dcl/dcl",
 			 *
 			 * @class module:deliteful/Toaster
 			 * @augments delite/Widget
-			 * @augments delite/Invalidating
 			 * @example
 			 *   <d-toaster id="t"></d-toaster>
 			 *   <d-button onclick="t.postMessage('button clicked', {duration: 1000})">...</d-button>
@@ -159,7 +157,6 @@ define(["dcl/dcl",
 			},
 			preCreate: function () {
 				this.messages = [];
-				this.addInvalidatingProperties("messages");
 			},
 			postCreate: function () {
 				// NOTE: the following a11y attributes are needed for JAWS but

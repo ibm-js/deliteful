@@ -3,10 +3,9 @@ define([
 	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
-	"delite/Invalidating",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (dcl, register, Widget, Invalidating, renderer) {
+], function (dcl, register, Widget, renderer) {
 	/**
 	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
 	 *
@@ -21,9 +20,8 @@ define([
 	 *
 	 * @class module:deliteful/ProgressIndicator
 	 * @augments {module:delite/Widget}
-	 * @augments {module:delite/Invalidating}
 	 */
-	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating],
+	return register("d-progress-indicator", [HTMLElement, Widget],
 		/** @lends module:deliteful/ProgressIndicator# */ {
 
 		/**
@@ -135,16 +133,6 @@ define([
 			this._requestId = this._requestRendering(frameAnimation);
 		},
 
-		/* widget lifecycle methods */
-		preCreate: function () {
-			//watched properties to trigger invalidation
-			this.addInvalidatingProperties(
-				"active",
-				{value: "invalidateProperty"},
-				{speed: "invalidateProperty"}
-			);
-		},
-
 		buildRendering: function () {
 			renderer.call(this);
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
@@ -178,7 +166,7 @@ define([
 			this._reset();
 		}),
 
-		refreshProperties: function (props) {
+		computeProperties: function (props) {
 			var correctedValue = null;
 			if (props.speed) {
 				//fast: 500ms
@@ -196,7 +184,7 @@ define([
 				}
 			}
 			if (correctedValue) {
-				this.validate();
+				this.deliver();
 			}
 		},
 

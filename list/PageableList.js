@@ -300,18 +300,6 @@ define([
 		 */
 		_lastLoaded: -1,
 
-		//////////// Widget life cycle ///////////////////////////////////////
-
-		preCreate: function () {
-			//	Set invalidating properties.
-			this.addInvalidatingProperties({
-				"pageLength": "invalidateProperty",
-				"loadPreviousMessage": "invalidateProperty",
-				"loadNextMessage": "invalidateProperty",
-				"loadingMessage": "invalidateProperty"
-			});
-		},
-
 		//////////// delite/Store methods ///////////////////////////////////////
 
 		refreshProperties: dcl.superCall(function (sup) {

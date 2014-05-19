@@ -11,7 +11,6 @@ define([
 	"delite/Selection",
 	"delite/KeyNav",
 	"delite/StoreMap",
-	"delite/Invalidating",
 	"delite/Scrollable",
 	"./ItemRenderer",
 	"./CategoryRenderer",
@@ -20,7 +19,7 @@ define([
 	"delite/theme!./List/themes/{{theme}}/List_css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
-		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
+		Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 
 	// Register custom elements we use to support markup for adding items to the list store.
 	register("d-list-store", [HTMLElement, CustomElement]);
@@ -35,13 +34,12 @@ define([
 	 * for more details.
 	 *
 	 * @class module:deliteful/list/List
-	 * @augments module:delite/Invalidating
 	 * @augments module:delite/Selection
 	 * @augments module:delite/KeyNav
 	 * @augments module:delite/StoreMap
 	 * @augments module:delite/Scrollable
 	 */
-	var List = dcl([Invalidating, Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
+	var List = dcl([Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
 
 		/**
 		 * Dojo object store that contains the items to render in the list.
@@ -202,20 +200,6 @@ define([
 		 * @private
 		 */
 		
-		//////////// Widget life cycle ///////////////////////////////////////
-
-		preCreate: function () {
-			// Set invalidating properties.
-			this.addInvalidatingProperties({
-				"categoryAttr": "invalidateProperty",
-				"categoryFunc": "invalidateProperty",
-				"itemRenderer": "invalidateProperty",
-				"categoryRenderer": "invalidateProperty",
-				"selectionMode": "invalidateProperty",
-				"selectionMarkBefore": "invalidateProperty"
-			});
-		},
-
 		buildRendering: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
@@ -315,7 +299,7 @@ define([
 		}),
 		/*jshint maxcomplexity:10*/
 
-		refreshProperties: dcl.superCall(function (sup) {
+		computeProperties: dcl.superCall(function (sup) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
 			return function (props) {

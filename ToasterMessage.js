@@ -6,9 +6,8 @@ define(["dcl/dcl",
 	"dojo/dom-class",
 	"dojo/on",
 	"dpointer/events",
-	"delite/handlebars!./Toaster/ToasterMessage.html",
-	"delite/Invalidating"
-], function (dcl, Widget, register, Deferred, domClass, on, pointer, renderer, Invalidating) {
+	"delite/handlebars!./Toaster/ToasterMessage.html"
+], function (dcl, Widget, register, Deferred, domClass, on, pointer, renderer) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -278,7 +277,7 @@ define(["dcl/dcl",
 		});
 	}
 
-	var ToasterMessage = dcl([Widget, Invalidating], /** @lends module:deliteful/ToasterMessage */ {
+	var ToasterMessage = dcl(Widget, /** @lends module:deliteful/ToasterMessage */ {
 
 		/**
 		 * ToasterMessage widget.
@@ -288,7 +287,6 @@ define(["dcl/dcl",
 		 *
 		 * @class module:deliteful/ToasterMessage
 		 * @augments delite/Widget
-		 * @augments delite/Invalidating
 		 * @example
 		 *   var toaster = new Toaster();
 		 *   var message = new ToasterMessage({message: "hello, world!"});
@@ -472,7 +470,6 @@ define(["dcl/dcl",
 		buildRendering: renderer,
 		preCreate: function () {
 			this.id = "d-toaster-message-" + this.widgetId;
-			this.addInvalidatingProperties("type", "duration", "dismissible");
 		},
 		postCreate: function () {
 			// TODO this should be done only if this.isDismissible()
