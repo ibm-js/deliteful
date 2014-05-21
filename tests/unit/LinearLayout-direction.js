@@ -27,9 +27,9 @@ define([
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
 			var box3 = domGeom.getMarginBox(children[2]);
-			assert.deepEqual(box1.w, 333);
-			assert.deepEqual(box2.w, 333);
-			assert.deepEqual(box3.w, 333);
+			assert.isTrue(box1.w === 333 || box1.w === 332);
+			assert.isTrue(box2.w === 333 || box2.w === 332);
+			assert.isTrue(box3.w === 333 || box3.w === 332);
 		},
 
 		"Vertical LinearLayout 3 Equal Height" : function () {
@@ -40,9 +40,9 @@ define([
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
 			var box3 = domGeom.getMarginBox(children[2]);
-			assert.deepEqual(box1.h, 333);
-			assert.deepEqual(box2.h, 333);
-			assert.deepEqual(box3.h, 333);
+			assert.isTrue(box1.h === 333 || box1.h === 332);
+			assert.isTrue(box2.h === 333 || box2.h === 332);
+			assert.isTrue(box3.h === 333 || box3.h === 332);
 		},
 		teardown : function () {
 			container.parentNode.removeChild(container);
