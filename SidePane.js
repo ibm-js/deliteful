@@ -88,14 +88,14 @@ define([
 
 			/**
 			 * Enable/Disable animations.
-			 * @member {Boolean}
+			 * @member {boolean}
 			 * @default true
 			 */
 			animate: true,
 
 			/**
 			 * Enables the swipe closing of the pane.
-			 * @member {Boolean}
+			 * @member {boolean}
 			 * @default true
 			 */
 			swipeClosing: true,
