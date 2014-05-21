@@ -57,50 +57,50 @@ define([
 
 		/**
 		 * The name of the CSS class of this widget.
-		 * @member {String}
+		 * @member {string}
 		 */
 		baseClass: "d-star-rating",
 
 		/**
 		 * The maximum rating, that is also the number of stars to show.
-		 * @member {Number}
+		 * @member {number}
 		 */
 		max: 5,
 
 		/**
 		 * The current value of the Rating.
-		 * @member {Number}
+		 * @member {number}
 		 */
 		value: 0,
 
 		/**
 		 * If false, the widget is editable and allows editing the value of the Rating
 		 * by touching / clicking the stars
-		 * @member {Boolean}
+		 * @member {boolean}
 		 */
 		readOnly: false,
 
 		/**
 		 * Mandatory if using the star rating widget in a form, in order to have its value submitted
-		 * @member {String}
+		 * @member {string}
 		 */
 		name: "",
 
 		/**
 		 * if true, the widget is disabled (its value will not be submitted if it is included in a form).
-		 * @member {Boolean}
+		 * @member {boolean}
 		 */
 		disabled: false,
 
 		/**
 		 * If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
-		 * @member {Boolean}
+		 * @member {boolean}
 		 */
 		editHalfValues: false,
 
 		/**
 		 * True to allow setting a value of zero, false otherwise
-		 * @member {Boolean}
+		 * @member {boolean}
 		 */
 		allowZero: true,
 
