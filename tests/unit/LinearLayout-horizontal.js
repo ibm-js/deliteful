@@ -39,8 +39,8 @@ define([
 			domClass.add(children[1], "fill");
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
-			assert.deepEqual(box1.w, 250);
-			assert.deepEqual(box1.w, box2.w);
+			assert.isTrue(box1.w === 250 || box1.w === 249);
+			assert.isTrue(Math.abs(box1.w - box2.w) <= 1);
 		},
 		teardown : function () {
 			container.parentNode.removeChild(container);
