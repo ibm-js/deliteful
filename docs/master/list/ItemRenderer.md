@@ -1,3 +1,8 @@
+---
+layout: default
+title: deliteful/list/ItemRenderer
+---
+
 # deliteful/list/ItemRenderer
 
 Default item renderer for the [deliteful/list/List](List.html) widget.
