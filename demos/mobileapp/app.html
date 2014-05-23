@@ -46,7 +46,7 @@
 <d-side-pane mode="push" position="start" id="leftPane">
 	<d-linear-layout class="height100">
 		<d-linear-layout vertical="false" class="pageHeader">
-			<div><button is="d-button" onclick="leftPane.close()"></button></div>
+			<div><button is="d-button" onclick="leftPane.hide()"></button></div>
 			<div class="fill titleStyle">Menu</div>
 			<div><button is="d-button" onclick="leftStack.show(settings)"></button></div>
 		</d-linear-layout>
@@ -66,7 +66,7 @@
 <d-linear-layout class=" width100 height100 page">
 	<!-- Header -->
 	<d-linear-layout vertical="false" class="pageHeader">
-		<div><button is="d-button" onclick="leftPane.open()"></button></div>
+		<div><button is="d-button" onclick="leftPane.show()"></button></div>
 		<div class="fill titleStyle">Deliteful Mobile App</div>
 		<div><button is="d-button"></button></div>
 	</d-linear-layout>

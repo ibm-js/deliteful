@@ -6,14 +6,13 @@ define([
 	"dojo/_base/window",
 	"dojo/sniff",
 	"delite/register",
-	"delite/Widget",
+	"delite/DisplayContainer",
 	"delite/Invalidating",
 	"dojo/Deferred",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane_css",
 	"dojo/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css"
-
 ],
-	function (dcl, pointer, domClass, win, has, register, Widget, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, win, has, register, DisplayContainer, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -55,11 +54,11 @@ define([
 		 *   </div>
 		 * </body>
 		 * @class module:deliteful/SidePane
-		 * @augments {module:delite/Container}
+		 * @augments {module:delite/DisplayContainer}
 		 * @augments {module:delite/Invalidating}
 		 */
-		return register("d-side-pane", [HTMLElement, Widget, Invalidating],
-			/** @lends module:deliteful/SidePane# */{
+		return register("d-side-pane", [HTMLElement, DisplayContainer, Invalidating],
+			/** @lends module:deliteful/SidePane#*/ {
 			/**
 			 * The name of the CSS class of this widget.
 			 * @member {string}
@@ -107,12 +106,31 @@ define([
 			_originX: NaN,
 			_originY: NaN,
 
+			show: dcl.superCall(function (sup) {
+				return function () {
+					if (arguments.length > 0) {
+						return sup.apply(this, arguments).then(this._open.bind(this));
+					} else {
+						return this._open();
+					}
+				};
+			}),
+			
+			hide: dcl.superCall(function (sup) {
+				return function () {
+					if (arguments.length > 0) {
+						return sup.apply(this, arguments).then(this._close.bind(this));
+					} else {
+						return this._close();
+					}
+				};
+			}),
+			
 			/**
 			 * Open the pane.
+			 * @private
 			 */
-			open: function () {
-				// summary:
-				//		Open the pane.
+			_open: function () {
 				var deferred = new Deferred();
 				var nextElement = getNextSibling(this);
 				if (!this._visible) {
@@ -147,8 +165,9 @@ define([
 
 			/**
 			 * Close the pane.
+			 * @private
 			 */
-			close: function () {
+			_close: function () {
 				var deferred = new Deferred();
 				if (this._visible) {
 					if (this.mode === "reveal") {
