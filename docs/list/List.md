@@ -230,7 +230,7 @@ When an item is selected in such a list, its `aria-selected` attribute is set to
 
 By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
 
-``` css
+```css
 	[aria-selectable="true"] .d-list-item::before,[aria-multiselectable="true"] .d-list-item::before {
 		display: none;
 	}
