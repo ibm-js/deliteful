@@ -108,7 +108,13 @@ define([
 			show: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
-						return sup.apply(this, arguments).then(this._open.bind(this));
+						var deferred = new Deferred();
+						sup.apply(this, arguments).then(function (value) {
+							this._open().then(function () {
+								deferred.resolve(value);
+							});
+						}.bind(this));
+						return deferred.promise;
 					} else {
 						return this._open();
 					}
@@ -118,7 +124,13 @@ define([
 			hide: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
-						return sup.apply(this, arguments).then(this._close.bind(this));
+						var deferred = new Deferred();
+						sup.apply(this, arguments).then(function (value) {
+							this._close().then(function () {
+								deferred.resolve(value);
+							});
+						}.bind(this));
+						return deferred.promise;
 					} else {
 						return this._close();
 					}
@@ -200,7 +212,6 @@ define([
 			},
 
 			_afterTransitionHandle: function (item) {
-
 				domClass.remove(this, prefix("under"));
 				if (!this._visible) {
 					setVisibility(this, false);
