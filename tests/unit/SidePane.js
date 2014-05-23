@@ -16,7 +16,7 @@ define([
 			container.innerHTML = htmlContent;
 			register.parse(container);
 			node = document.getElementById("sp");
-			node.open();
+			node.show();
 		},
 		"Default values" : function () {
 			assert.deepEqual(node.mode, "push");
