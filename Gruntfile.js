@@ -84,13 +84,9 @@ module.exports = function (grunt) {
 		},
 		
 		"jsdoc-amddcl": {
-			deliteful: {
+			docs: {
 				files: [
 					{
-						args: [
-							"-c",
-							"./node_modules/jsdoc-amddcl/conf.json"
-						],
 						src: [
 							".",
 							"./README.md",
@@ -99,12 +95,14 @@ module.exports = function (grunt) {
 						imports: [
 							"../delite/out"
 						]
-					},
+					}
+				]
+			},
+			export: {
+				files: [
 					{
 						args: [
-							"-X",
-							"-c",
-							"./node_modules/jsdoc-amddcl/conf.json"
+							"-X"
 						],
 						src: [
 							".",
