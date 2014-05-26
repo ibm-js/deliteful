@@ -26,7 +26,7 @@ define({
 			name : "deliteful"},
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
-		{ browserName: "safari", version: "6", platform: [ "OS X 10.8" ], name : "deliteful"},
+		{ browserName: "safari", version: "7", platform: [ "OS X 10.8" ], name : "deliteful"},
 
 		// Mobile
 		{ browserName: "", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
