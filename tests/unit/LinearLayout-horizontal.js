@@ -40,7 +40,7 @@ define([
 			var box1 = domGeom.getMarginBox(children[0]);
 			var box2 = domGeom.getMarginBox(children[1]);
 			assert.isTrue(box1.w === 250 || box1.w === 249);
-			assert.isTrue(Math.abs(box1.w - box2.w) <= 1);
+			assert.isTrue(Math.abs(box1.w - box2.w) <= 1, "got a " + (box1.w - box2.w) + " difference");
 		},
 		teardown : function () {
 			container.parentNode.removeChild(container);
