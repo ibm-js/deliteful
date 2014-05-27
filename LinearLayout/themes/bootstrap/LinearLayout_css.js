@@ -9,6 +9,7 @@ define(function () {
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  align-items: stretch;\
 }\
 .d-linear-layout.-d-linear-layout-v {\
   -webkit-flex-direction: column;\
@@ -25,14 +26,16 @@ define(function () {
   -ms-flex: 1;\
   flex: 1;\
 }\
-/* Allows percentage sizing of arranged elements */\
-.d-linear-layout > * > * {\
+/* Allows percentage sizing of the height of arranged elements */\
+.d-linear-layout > * > .height100,\
+.d-linear-layout > * > *[style*=\"height:100%\"],\
+.d-linear-layout > * > *[style*=\"height: 100%\"] {\
   position: absolute;\
+  width: 100%;\
 }\
 .d-linear-layout > * {\
   position: relative;\
 }\
-/* */\
 .height100 {\
   height: 100%;\
 }\
