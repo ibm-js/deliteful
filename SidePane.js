@@ -139,6 +139,8 @@ define([
 						this._openImpl();
 						this.defer(function () {deferred.resolve(); }, this._timing);
 					}
+				} else {
+					deferred.resolve();
 				}
 				return deferred.promise;
 			},
@@ -162,6 +164,8 @@ define([
 						this.defer(function () {setVisibility(this, false); deferred.resolve(); }.bind(this),
 							this._timing);
 					}
+				} else {
+					deferred.resolve();
 				}
 				return deferred.promise;
 			},
