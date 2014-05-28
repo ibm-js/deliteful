@@ -8,9 +8,8 @@ define([
 	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout_css"
 ], function (domClass, register, Widget, DisplayContainer, Invalidating) {
 	/**
-	 * @summary
 	 * A layout container based on CSS3 Flexible Box.
-	 * @description
+	 * 
 	 * Child elements in a LinearLayout container can be laid out horizontally or vertically.
 	 * A child can have a flexible width or height depending on orientation.
 	 * To enable flexibility of a child, add the CSS class "fill" on it.

@@ -7,9 +7,8 @@ define([
 ], function (dcl, has, keys, domConstruct) {
 
 	/**
-	 * @summary
-	 *	Bidi support for StarRating widget.
-	 * @description
+	 * Bidi support for StarRating widget.
+	 * 
 	 * Implementation for RTL and LTR direction support.
 	 * This class should not be used directly.
 	 * StarRating widget loads this module when user sets "has: {'bidi': true }" in data-dojo-config.

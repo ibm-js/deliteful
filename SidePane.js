@@ -33,9 +33,8 @@ define([
 			return node;
 		}
 		/**
-		 * @summary
 		 * A widget displayed on the side of the screen.
-		 * @description
+		 * 
 		 * It can be displayed on top of the page
 		 * (mode=overlay) or can push the content of the page (mode=push or mode=reveal).
 		 * SidePane is a widget hidden by default.

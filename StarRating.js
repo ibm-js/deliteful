@@ -21,11 +21,9 @@ define([
 			register, Widget, Invalidating, BidiStarRating, messages) {
 
 	/**
-	 * @summary
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
 	 * by touching the stars.
 	 * 
-	 * @description
 	 * This widget shows the rating using an image sprite that contains full stars, half stars and
 	 * empty stars.
 	 * The star displayed can be fully customized by redefining the following css classes in

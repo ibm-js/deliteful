@@ -6,12 +6,11 @@ define([
 ], function (register, Container, Scrollable) {
 
 	/**
-	 * @summary 
 	 * A container widget with scrolling capabilities.
-	 * @description
-	 * A container widget which can scroll its contents horizontally and/or
-	 * vertically. Its scrolling capabilities and API are provided by the 
-	 * mixin delite/Scrollable.
+	 * 
+	 * This widget which can scroll its contents horizontally and/or
+	 * vertically. Its scrolling capabilities and API are provided by its parent
+	 * class delite/Scrollable.
 	 * @example
 	 * <d-scrollable-container>
 	 *   <div>...</div>
