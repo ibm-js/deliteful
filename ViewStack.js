@@ -42,9 +42,8 @@ define(["dcl/dcl",
 		}
 
 		/**
-		 * @summary:
 		 * ViewStack container widget. Display one child at a time.
-		 * @description
+		 * 
 		 * The first child is displayed by default.
 		 * The methods 'show' is used to change the visible child.
 		 *
