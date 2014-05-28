@@ -6,6 +6,7 @@ define([
 	"./LinearLayout-horizontal-mixedwidth",
 	"./LinearLayout-vertical",
 	"./SidePane",
+	"./SidePane-showhide",
 	"./ViewStack",
 	"./ViewStack-prog",
 	"./ScrollableContainer",

@@ -108,13 +108,11 @@ define([
 			show: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
-						var deferred = new Deferred();
-						sup.apply(this, arguments).then(function (value) {
-							this._open().then(function () {
-								deferred.resolve(value);
+						return sup.apply(this, arguments).then(function (value) {
+							return this._open().then(function () {
+								return value;
 							});
 						}.bind(this));
-						return deferred.promise;
 					} else {
 						return this._open();
 					}
@@ -124,13 +122,11 @@ define([
 			hide: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
-						var deferred = new Deferred();
-						sup.apply(this, arguments).then(function (value) {
-							this._close().then(function () {
-								deferred.resolve(value);
+						return sup.apply(this, arguments).then(function (value) {
+							return this._close().then(function () {
+								return value;
 							});
 						}.bind(this));
-						return deferred.promise;
 					} else {
 						return this._close();
 					}
