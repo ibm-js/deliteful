@@ -20,15 +20,15 @@ define([
 		"show" : function () {
 			var d = this.async(1000);
 			sp.show("content").then(d.callback(function (value) {
-				assert.equal(value.child.id, "content");
-				assert.equal(sp.children[0].id, "content");
+				assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
+				assert.strictEqual(sp.children[0].id, "content", "SidePane content is incorrect");
 			}));
 		},
 		"hide" : function () {
 			var d = this.async(1000);
 			sp.hide("content").then(d.callback(function (value) {
-				assert.equal(value.child.id, "content");
-				assert.equal(sp.children.length, 0);
+				assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
+				assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
 			}));
 		},
 		teardown: function () {
