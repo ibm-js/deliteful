@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/Pageable samples.</title>
+	
+	<script type="text/javascript">
+	require = {
+			baseUrl: "../../../",
+		};
+	</script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require([
+		    "delite/register",
+			"deliteful/list/List",
+			"deliteful/list/Pageable"
+		], function (register, List, Pageable) {
+			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			list = new PageableList();
+			list.setAttribute("aria-label", "Sample pageable list with custom loader messages");
+			for (var i = 0; i < 100; i++) {
+				list.store.add({label: "item " + i});
+			}
+			list.style.height = "200px";
+			list.pageLength = 20;
+			list.maxPages = 2;
+			list.loadPreviousMessage = "Load previous data (${pageLength} entries)";
+			list.loadNextMessage = "Load next data (${pageLength} entries)";
+			document.body.appendChild(list);
+			list.startup();
+		});
+	</script>
+</head>
+<body role="application">
+	This sample demonstrate a pageable list with custom loader messages.
+</body>
+</html>
