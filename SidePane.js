@@ -3,7 +3,6 @@ define([
 	"dcl/dcl",
 	"dpointer/events",
 	"dojo/dom-class",
-	"dojo/_base/window",
 	"dojo/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
@@ -12,7 +11,7 @@ define([
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane_css",
 	"dojo/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css"
 ],
-	function (dcl, pointer, domClass, win, has, register, DisplayContainer, Invalidating, Deferred) {
+	function (dcl, pointer, domClass, has, register, DisplayContainer, Invalidating, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -321,7 +320,7 @@ define([
 				if (this._visible) {
 					this._visible = false;
 					this._opening = false;
-					domClass.remove(win.doc.body, prefix("no-select"));
+					domClass.remove(this.ownerDocument.body, prefix("no-select"));
 					domClass.remove(this, prefix("visible"));
 					domClass.add(this, prefix("hidden"));
 					if (this.mode === "push" || this.mode === "reveal") {
@@ -344,13 +343,13 @@ define([
 				this._originY = event.pageY;
 
 				if (this._visible || (this._isLeft() && !this._visible && this._originX <= 10) ||
-					(!this._isLeft() && !this._visible && this._originX >= win.doc.width - 10)) {
+					(!this._isLeft() && !this._visible && this._originX >= this.ownerDocument.width - 10)) {
 					this._opening = !this._visible;
 					this._pressHandle.remove();
 					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
 					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
 
-					domClass.add(win.doc.body, prefix("no-select"));
+					domClass.add(this.ownerDocument.body, prefix("no-select"));
 				}
 			},
 
@@ -387,7 +386,7 @@ define([
 
 			_pointerUpHandler: function () {
 				this._opening = false;
-				domClass.remove(win.doc.body, prefix("no-select"));
+				domClass.remove(this.ownerDocument.body, prefix("no-select"));
 				this._resetInteractions();
 			},
 
