@@ -231,7 +231,6 @@ define(["dcl/dcl",
 				return deferred.promise;
 			},
 			/**
-			 * @summary:
 			 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
 			 * this.transition, and this.reverse are used.
 			 * This method must be called to display a particular destination child on this container.
