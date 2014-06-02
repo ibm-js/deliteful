@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Pageable List</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "dojo/_base/declare",
+		    "dojo/Deferred",
+			"delite/register",
+			"deliteful/list/List",
+			"deliteful/list/Pageable",
+			"dstore/Memory",
+			"dojo/domReady!"
+		], function (declare, Deferred, register, List, Pageable, MemoryStore) {
+			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			var list = register.createElement("d-pageable-list");
+			list.id = "pageable-prog-6";
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.hideOnPageLoad = true;
+			list.loadingMessage = "Updating content...";
+			list.autoPaging = true;
+			list.style.height = "200px";
+			// Custom memory store with a customizable latency
+			var CustomMemoryStore = declare([MemoryStore], {
+				latency: 1500,
+				map: function (item) {
+						var def = new Deferred;
+						var that = this;
+						var args = arguments;
+						setTimeout(function () {
+							def.resolve(that.inherited(args));
+						}, this.latency);
+						return def;
+					}
+			});
+			list.store = new CustomMemoryStore();
+ 			for (i = 0; i < 100; i++) {
+				list.store.add({label: "Programmatic item of order " + i, id: i});
+			}
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+			var latencyIF = document.getElementById("latency");
+			latencyIF.onchange = function () {
+				list.store.latency = latencyIF.valueAsNumber;
+			}
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}		
+	</style>
+</head>
+<body>
+ 	<label for="latency">Store latency (in ms):</label><input type="number" id="latency" autofocus value="1500" min="0">
+ 	<br>
+ 	<button onclick="document.getElementById('pageable-prog-6').query = null;">Reinit list</button>
+ 	<h2>Pageable list with autoPaging set to true (id: pageable-prog-6)</h2>
+ 	<p>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Pageable List</title>
+
+	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/list/List",
+			"deliteful/list/Pageable",
+			"dojo/domReady!"
+		], function (register, List, Pageable) {
+			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			var list = register.createElement("d-pageable-list");
+			list.id = "pageable-prog-3";
+			list.pageLength = 23;
+			list.maxPages = 2;
+			list.style.height = "200px";
+ 			for (i = 0; i < 91; i++) {
+				list.store.add({label: "Programmatic item of order " + i, id: i});
+			}
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+
+			document.getElementById("remove").onclick = function () {
+				var inp = document.getElementById("itemIndex");
+				list.store.remove(document.getElementById("itemIndex").valueAsNumber);
+			}
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-family: Helvetica;
+			font-size: 17px;
+			background-color: #c5ccd3;
+		}		
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Pageable list (id: pageable-prog-3)</h2>
+ 	<label for="itemIndex">Programmatic item of order </label><input type="number" id="itemIndex" min="0" max="99"><button id="remove">Remove</button>
+ 	<p>
+ 	<div id="listPlaceholder"></div>
+</body>
+</html>
