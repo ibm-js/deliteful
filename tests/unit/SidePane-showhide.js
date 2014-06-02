@@ -26,10 +26,15 @@ define([
 		},
 		"hide" : function () {
 			var d = this.async(1000);
-			sp.hide("content").then(d.callback(function (value) {
-				assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
-				assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
-			}));
+			sp.hide().then(function () {
+				assert.strictEqual(sp.children[0].id, "content", "Plain hide() removed the children");
+				sp.show().then(function () {
+					sp.hide("content").then(d.callback(function (value) {
+						assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
+						assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
+					}));
+				});
+			});
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
