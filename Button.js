@@ -1,14 +1,13 @@
 define([
 	"dcl/dcl",
 	"dojo/hccss",
-	"dojo/_base/lang",
 	"dojo/dom-construct",
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
 	"dojo/has!bidi?./Button/bidi/Button",
 	"delite/theme!./Button/themes/{{theme}}/Button_css"
-], function (dcl, has, lang, domConstruct, register, Widget, Invalidating, BidiButton) {
+], function (dcl, has, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
 		// summary:
