@@ -26,12 +26,6 @@ define(function () {
   -ms-flex: 1;\
   flex: 1;\
 }\
-/* Allows percentage sizing of the height of arranged elements */\
-.d-linear-layout > * > .height100,\
-.d-linear-layout > * > *[style*=\"height:100%\"],\
-.d-linear-layout > * > *[style*=\"height: 100%\"] {\
-  position: absolute;\
-}\
 .d-linear-layout > * {\
   position: relative;\
 }\
