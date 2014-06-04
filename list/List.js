@@ -41,7 +41,7 @@ define(["dcl/dcl",
 		//		Dojo object store that contains the items to render in the list.
 		//		If no value is provided for this attribute, the List will initialize
 		//		it with an internal store implementation. Note that this internal store
-		//		implementation ignore any query options and return all the items from
+		//		implementation ignores any query options and returns all the items from
 		//		the store, in the order they were added to the store.
 		store: null,
 
