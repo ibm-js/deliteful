@@ -31,7 +31,6 @@ define(function () {
 .d-linear-layout > * > *[style*=\"height:100%\"],\
 .d-linear-layout > * > *[style*=\"height: 100%\"] {\
   position: absolute;\
-  width: 100%;\
 }\
 .d-linear-layout > * {\
   position: relative;\
