@@ -1,16 +1,17 @@
+/** 
+ * @module deliteful/list/_DefaultStore
+ * @private
+ */
 define(["dcl/dcl",
 ], function (dcl) {
 	
-	// module:
-	//		deliteful/list/_DefaultStore
-
 	var FilterAndRange = {
 
 		filter: function () {
 			var	result = this.slice();
 			result.total = this.length;
 			dcl.mix(result, FilterAndRange);
-			return result; // dstore/api/Store.Collection
+			return result;
 		},
 
 		range: function (start, end) {
@@ -18,93 +19,114 @@ define(["dcl/dcl",
 			result.total = this.length;
 			result.ranged = {start: start, end: end};
 			dcl.mix(result, FilterAndRange);
-			return result; // dstore/api/Store.Collection
+			return result;
 		}
 
 	};
 
-	return dcl(null, {
-		// summary:
-		//		Default store implementation that a List widget uses as its model.
-		// description:
-		//		This is a simple memory store implementation that supports the before
-		//		option when adding / putting an item.
-		//		This implementation does not supports the following optional attributes
-		//		and methods defined by the store api:
-		//		- model
-		//		- sort(...) methods
-		//		- range(...) method (but it is supported by the collection returned by the filter method)
+	/**
+	 * Default store implementation that a List widget uses as its model.
+	 * 
+	 * This is a simple memory store implementation that supports the before
+	 * option when adding / putting an item.
+	 * 
+	 * This implementation does not supports the following optional attributes
+	 * and methods defined by the store api:
+	 * - model
+	 * - sort(...) methods
+	 * - range(...) method (but it is supported by the collection returned by the filter method)
+	 * @class module:deliteful/list/_DefaultStore
+	 * @private
+	 */
+	return dcl(null, /** @lends module:deliteful/list/_DefaultStore# */ {
 
-		// data: Array
-		//		The array into which all items are stored
+		/**
+		 * The array into which all items are stored
+		 * @member {Object[]}
+		 */
 		data: null,
 
-		// _ids: Array
-		//		The internal array that stores all the items ids, in the
-		//		same order than the items are store in the data array.
+		/**
+		 * The internal array that stores all the items ids, in the
+		 * same order than the items are store in the data array.
+		 * @member {Object[]}
+		 */
 		_ids: null,
 
-		// idProperty: String
-		//		Name of the item attribute that contains the item's id
+		/**
+		 * Name of the item attribute that contains the item's id
+		 * @member {string}
+		 */
 		idProperty: "id",
 
-		// list: deliteful/list/List
-		//		The List that uses this default store instance as its store.
-		//		Note that a single default store instance cannot be shared
-		//		between list instances.
-		// tags:
-		//		protected
+		/**
+		 * The List that uses this default store instance as its store.
+		 * Note that a single default store instance cannot be shared
+		 * between list instances.
+		 * @member {module:deliteful/list/List}
+		 * @protected
+		 */
 		list: null,
 
-		// _queried: boolean
-		//		true if the store has already been queried, false otherwise
+		/**
+		 * Indicates whether or not the store has already been queried
+		 * @member {boolean}
+		 * @private
+		 */
 		_queried: false,
 
-		constructor: function (/*deliteful/list/List*/list) {
-			// summary:
-			//		called when an instance is created.
-			// list: deliteful/list/List
-			//		the list that uses the default store instance.
+		/**
+		 * Called when an instance is created.
+		 * @param {module:deliteful/list/List} list T
+		 * The list that uses the default store instance.
+		 */
+		constructor: function (list) {
 			this.list = list;
 			this.data = [];
 			dcl.mix(this.data, FilterAndRange);
 			this._ids = [];
 		},
 
+		/**
+		 * Retrieves an item from the store.
+		 * @param {Object} id The item id.
+		 * @returns {Object}
+		 */
 		get: function (id) {
-			// summary:
-			//		Retrieve an item from the store.
-			// id: object
-			//		The item id.
 			var index = this._ids.indexOf(id);
 			if (index >= 0) {
-				return this.data[index]; // Object
+				return this.data[index];
 			}
 		},
 
+		/**
+		 * Retrieves all items from the store, ignoring any input parameter.
+		 * @returns {module:dstore/api/Store.Collection}
+		 */
 		filter: function () {
-			// summary:
-			//		Retrieve all items from the store, ignoring any input parameter.
 			var result = this.data.filter();
 			this._queried = true;
-			return result; // dstore/api/Store.Collection
+			return result;
 		},
 
+		/**
+		 * Retrieves the id of an item
+		 * @param {Object} item The item
+		 * @returns {Object}
+		 */
 		getIdentity: function (item) {
-			// summary:
-			//		Retrieve the id of an item
 			return item[this.idProperty];
 		},
 
 		/*jshint maxcomplexity:12*/
+		/**
+		 * Stores an item.
+		 * @param {Object} item The item to store.
+		 * @param {module:dstore/api/Store.PutDirectives?} directives Additional metadata
+		 * for storing the object. Supported directives are id, overwrite and before.
+		 * @returns {Object} The id of the item
+		 */
 		put: function (item, directives) {
-			// summary:
-			//		Stores an item.
-			// item: Object
-			//		The item to store.
-			// directives: dstore/api/Store.PutDirectives?
-			//		Additional metadata for storing the object. Supported
-			//		directives are id, overwrite and before.
 			var beforeIndex = -1;
 			var id = item[this.idProperty] = (directives && "id" in directives)
 				? directives.id : this.idProperty in item ? item[this.idProperty] : Math.random();
@@ -148,24 +170,26 @@ define(["dcl/dcl",
 			return id;
 		},
 
+		/**
+		 * Adds an item to the store.
+		 * @param {Object} item The item to add to the store.
+		 * @param {module:dojo/store/api/Store.PutDirectives?} directives Additional metadata
+		 * for adding the object. Supported directives are id and before.
+		 * @returns {Object} The id of the item.
+		 */
 		add: function (item, directives) {
-			// summary:
-			//		Add an item to the store.
-			// item: Object
-			//		The item to ass to the store.
-			// directives: dojo/store/api/Store.PutDirectives?
-			//		Additional metadata for adding the object. Supported
-			//		directives are id and before.
 			var opts = directives || {};
 			opts.overwrite = false;
 			return this.put(item, opts);
 		},
 
+		/**
+		 * Removes an item from the store
+		 * @param {Object} id The item id.
+		 * @returns {boolean} true if the item was removed,
+		 * a falsy value otherwise
+		 */
 		remove: function (id) {
-			// summary:
-			//		Remove an item from the store
-			// id: Object
-			//		The item id.
 			var index = this._ids.indexOf(id);
 			if (index >= 0 && index < this.data.length) {
 				this.data.splice(index, 1)[0];

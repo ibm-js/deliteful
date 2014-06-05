@@ -28,18 +28,22 @@ define([
 	 * empty stars.
 	 * The star displayed can be fully customized by redefining the following css classes in
 	 * your application:
-	 * - .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
-	 * - .d-star-rating-disabled .d-star-rating-star-icon:before {content: url(url_to_the_disabled_stars_sprite);}
+	 * ``` css
+	 * .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
+	 * .d-star-rating-disabled .d-star-rating-star-icon:before {content: url(url_to_the_disabled_stars_sprite);}
+	 * ```
 	 * 
 	 * If the custom stars are not 40px height and width images, you also have to redefine the
 	 * following CSS classes:
-	 * - .d-star-rating-star-icon {height: iconSize; width: iconSize;}
-	 * - .d-star-rating-empty-star:before {margin-left: -iconSize}
-	 * - .d-star-rating-half-star:before {margin-left: -2*iconSize}
-	 * - .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
-	 * - .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
-	 * - .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
-	 * - .d-star-rating-zero {height: iconSize; width: iconSize/2;}
+	 * ``` css
+	 * .d-star-rating-star-icon {height: iconSize; width: iconSize;}
+	 * .d-star-rating-empty-star:before {margin-left: -iconSize}
+	 * .d-star-rating-half-star:before {margin-left: -2*iconSize}
+	 * .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
+	 * .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
+	 * .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
+	 * .d-star-rating-zero {height: iconSize; width: iconSize/2;}
+	 * ```
 	 * 
 	 * The widget can be used in read-only or in editable mode. In editable mode, the widget allows
 	 * to set the rating to 0 stars or not using the allowZero property. In this mode, it also allows
@@ -51,7 +55,7 @@ define([
 	 * @augment delite/Widget
 	 * @augment delite/Invalidating
 	 */
-	var StarRating = dcl([Widget, Invalidating], /** @lends module:deliteful/StarRating */ {
+	var StarRating = dcl([Widget, Invalidating], /** @lends module:deliteful/StarRating# */ {
 
 		/**
 		 * The name of the CSS class of this widget.

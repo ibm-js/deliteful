@@ -1,3 +1,7 @@
+/**
+ * @module deliteful/list/_LoadingPanel
+ * @private
+ */
 define(["dcl/dcl",
 	"delite/register",
 	"delite/Widget",
@@ -6,15 +10,19 @@ define(["dcl/dcl",
 	"../ProgressIndicator"
 ], function (dcl, register, Widget, handlebars, template) {
 
-	// module:
-	//		deliteful/list/_LoadingPanel
-
+	/**
+	 * A widget that renders a panel masking a list and displaying a progress indicator and a message.
+	 * @class module:deliteful/list/_LoadingPanel
+	 * @augment module:delite/Widget
+	 * @private
+	 */
 	var _LoadingPanel = dcl([Widget], {
-		// summary:
-		//		A widget that renders a panel masking a list and displaying a progress indicator and a message.
 
-		// message: String
-		//		The message to display
+		/**
+		 * The message to display
+		 * @member {string}
+		 * @default ""
+		 */
 		message: "",
 
 		buildRendering: handlebars.compile(template)
