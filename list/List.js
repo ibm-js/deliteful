@@ -25,12 +25,12 @@ define(["dcl/dcl",
 	register("d-list-store", [HTMLElement, CustomElement]);
 
 	/**
-	 *	A widget that renders a scrollable list of items.
+	 * A widget that renders a scrollable list of items.
 	 *
-	 *	The List widget renders a scrollable list of items that are retrieved from a Store.
-	 *	Its custom element tag is `d-list`.
+	 * The List widget renders a scrollable list of items that are retrieved from a Store.
+	 * Its custom element tag is `d-list`.
 	 *
-	 *	See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/List.md user documentation}
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/List.md user documentation}
 	 * for more details.
 	 *
 	 * @class module:deliteful/list/List
@@ -69,48 +69,48 @@ define(["dcl/dcl",
 		/**
 		 * The widget class to use to render category headers when the list items are categorized.
 		 * It MUST extend {@link module:deliteful/list/CategoryRenderer deliteful/list/CategoryRenderer}.
-		 *  @member {module:deliteful/list/CategoryRenderer}
-		 *  @default module:deliteful/list/CategoryRenderer
+		 * @member {module:deliteful/list/CategoryRenderer}
+		 * @default module:deliteful/list/CategoryRenderer
 		 */
 		categoryRenderer: CategoryRenderer,
 
 		/**
 		 * Default mapping between the attribute of the item retrieved from the store
 		 * and the label attribute expected by the default renderer
-		 *  @member {string}
-		 *  @default "label"
+		 * @member {string}
+		 * @default "label"
 		 */
 		labelAttr: "label",
 
 		/**
 		 * Default mapping between the attribute of the item retrieved from the store
 		 * and the icon attribute expected by the default renderer
-		 *  @member {string}
-		 *  @default "iconclass"
+		 * @member {string}
+		 * @default "iconclass"
 		 */
 		iconclassAttr: "iconclass",
 
 		/**
 		 * Default mapping between the attribute of the item retrieved from the store
 		 * and the righttext attribute expected by the default renderer
-		 *  @member {string}
-		 *  @default "righttext"
+		 * @member {string}
+		 * @default "righttext"
 		 */
 		righttextAttr: "righttext",
 
 		/**
 		 * Default mapping between the attribute of the item retrieved from the store
 		 * and the righticon attribute expected by the default renderer
-		 *  @member {string}
-		 *  @default "righticonclass"
+		 * @member {string}
+		 * @default "righticonclass"
 		 */
 		righticonclassAttr: "righticonclass",
 
 		/**
 		 * Name of the list item attribute that define the category of a list item.
 		 * If falsy and categoryFunc is also falsy, the list is not categorized.
-		 *  @member {string}
-		 *  @default ""
+		 * @member {string}
+		 * @default ""
 		 */
 		categoryAttr: "",
 
