@@ -1,3 +1,4 @@
+/** @module deliteful/list/Pageable */
 define(["dcl/dcl",
 		"delite/register",
 		"dojo/on",
@@ -14,22 +15,27 @@ define(["dcl/dcl",
 ], function (dcl, register, on, string, when, Deferred, dom, domClass, has,
 		Widget, Renderer, ProgressIndicator, messages) {
 
-	// module:
-	//		deliteful/list/Pageable
+	/**
+	 * A clickable renderer that initiate the loading of a page in a pageable list.
+	 * It renders an item that has the following properties:
+	 * - loadMessage: the label to display when a page is not currently loading
+	 * - loadingMessage: the label to display when a page is loading
+	 * @class _PageLoaderRenderer
+	 * @private
+	 */
+	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], /** @lends _PageLoaderRenderer */ {
 
-	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], {
-		// summary:
-		//		A clickable renderer that initiate the loading of a page in a pageable list.
-		//		It renders an item that has the following properties:
-		//		- loadMessage: the label to display when a page is not currently loading
-		//		- loadingMessage: the label to display when a page is loading
-
-		// baseClass: String
-		//		the CSS class of the widget
+		/**
+		 * The CSS class of the widget
+		 * @member {string}
+		 * @default "d-list-loader"
+		 */
 		baseClass: "d-list-loader",
 
-		// loading: Boolean
-		//		true if a page is loading, false otherwise
+		/**
+		 * Indicates whether or not a page is currently loading.
+		 * @member {boolean}
+		 */
 		loading: false,
 		_setLoadingAttr: function (/*boolean*/loading) {
 			// summary:
@@ -56,19 +62,29 @@ define(["dcl/dcl",
 			}
 		},
 
-		/*====
-		// HTML element that wraps a progress indicator and an optional label in the render node
-		_button: null,
+		/**
+		 * HTML element that wraps a progress indicator and an optional label in the render node
+		 * @member {HTMLElement} _PageLoaderRenderer#_button
+		 * @private
+		 */
 
-		// A progress indicator to report that the loader is currently loading a page
-		_progressIndicator: null,
-		
-		// An HTML element that displays a label for the loader
-		_label: null,
-		
-		// The list that the PageLoader loads data for
-		_list: null,
-		 ====*/
+		/**
+		 * A progress indicator to report that the loader is currently loading a page
+		 * @member {module:deliteful/ProgressIndicator} _PageLoaderRenderer#_progressIndicator
+		 * @private
+		 */
+
+		/**
+		 * An HTML element that displays a label for the loader
+		 * @member {HTMLElement} _PageLoaderRenderer#_label
+		 * @private
+		 */
+
+		/**
+		 * The list that the PageLoader loads data for
+		 * @member {module:deliteful/list/List} _PageLoaderRenderer#_list
+		 * @private
+		 */
 
 		//////////// Widget life cycle ///////////////////////////////////////
 
@@ -79,8 +95,7 @@ define(["dcl/dcl",
 		},
 
 		buildRendering: dcl.superCall(function (sup) {
-			// summary:
-			//		creates the button that contains a progress indicator and an optional label
+			//	Creates the button that contains a progress indicator and an optional label
 			return function () {
 				sup.apply(this, arguments);
 				var spacer = this.renderNode.appendChild(this.ownerDocument.createElement("div"));
@@ -111,45 +126,40 @@ define(["dcl/dcl",
 
 		//////////// Public methods ///////////////////////////////////////
 
-		/*====
-		beforeLoading: function () {
-			// summary:
-			//		Executed before loading a page.
-			// description:
-			// 		Callback to be implemented by user of the widget
-			// tags:
-			//		extension
-		},
+		/**
+		 * Executed before loading a page.
+		 * Callback to be implemented by user of the widget
+		 * @method _PageLoaderRenderer#beforeLoading
+		 * @abstract
+		 */
 
-		performLoading: function () {
-			// summary:
-			//		Performs the actual loading of a page.
-			// description:
-			// 		Callback to be implemented by user of the widget
-			// 		It MUST return a promise that is fulfilled when the load operation is finished.
-			// tags:
-			//		extension
-		},
+		/**
+		 * Performs the actual loading of a page.
+		 * Callback to be implemented by user of the widget.
+		 * It MUST return a promise that is fulfilled when the load operation is finished.
+		 * @method _PageLoaderRenderer#performLoading
+		 * @abstract
+		 */
 
-		afterLoading: function () {
-			// summary:
-			//		Executed after loading a page.
-			// description:
-			// 		Callback to be implemented by user of the widget
-			// tags:
-			//		extension
-		},
-		====*/
+		/**
+		 * Executed after loading a page.
+		 * Callback to be implemented by user of the widget
+		 * @method _PageLoaderRenderer#afterLoading
+		 * @abstract
+		 */
 
 		//////////// Private methods ///////////////////////////////////////
 
+		/**
+		 * Handle click events on the widget.
+		 * If a loading is already in progress, this method
+		 * return undefined. In the other case, it starts a loading
+		 * and returns a Promise that resolves when the loading
+		 * has completed.
+		 * @returns {module:dojo/Deffered} or null
+		 * @private
+		 */
 		_load: function () {
-			// summary:
-			//		Handle click events on the widget.
-			//		If a loading is already in progress, this method
-			//		return undefined. In the other case, it starts a loading
-			//		and returns a Promise that resolves when the loading
-			//		has completed.
 			if (this._list.hasAttribute("aria-busy")) { return; }
 			var def = new Deferred();
 			this.loading = true;
@@ -164,49 +174,67 @@ define(["dcl/dcl",
 					this._queryError(error);
 				}.bind(this));
 			}.bind(this));
-			return def; // dojo/Deferred
+			return def;
 		}
 	});
 
-	return dcl(null, {
-		// summary:
-		//		A Mixin for deliteful/List that provides paging.
-		//
-		// description:
-		//		This mixin allows displaying the content of a list in pages of items instead of rendering
-		//		all items at once.
-		//
-		//		See the user documentation at https://github.com/ibm-js/deliteful/tree/master/docs/list/Pageable.md
+	/**
+	 * Mixin for {@link module:deliteful/list/List deliteful/list/List} that provides paging.
+	 * 
+	 * This mixin allows displaying the content of a list in pages of items instead of rendering
+	 * all items at once.
+	 * 
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/Pageable.md user documentation}
+	 * for more details.
+	 * 
+	 * @mixin module:deliteful/list/Pageable
+	 */
+	return dcl(null, /** @lends module:deliteful/list/Pageable# */ {
 
-		// pageLength: int
-		//		if > 0, enable paging while defining the number of items to display per page.
+		/**
+		 * if > 0, enable paging while defining the number of items to display per page.
+		 * @member {number}
+		 * @default 0
+		 */
 		pageLength: 0,
 
-		// maxPages: int
-		//		the maximum number of pages to display at the same time. If a new page is loaded while
-		//		the maximum number of pages is already displayed, another page will be unloaded from the list
-		//		to make room for the new page.
+		/**
+		 * The maximum number of pages to display at the same time. If a new page is loaded while
+		 * the maximum number of pages is already displayed, another page will be unloaded from the list
+		 * to make room for the new page.
+		 * @member {number}
+		 * @default 0
+		 */
 		maxPages: 0,
 
-		// loadPreviousMessage: String
-		//		The message displayed on the previous page loader when it can be clicked
-		//		to load the previous page. This message can contains placeholder for the
-		//		List attributes to be replaced by their runtime value. For example, the
-		//		message can include the value of the pageLength attribute by using the
-		//		placeholder ${pageLength}.
+		/**
+		 * The message displayed on the previous page loader when it can be clicked
+		 * to load the previous page. This message can contains placeholder for the
+		 * List attributes to be replaced by their runtime value. For example, the
+		 * message can include the value of the pageLength attribute by using the
+		 * placeholder `${pageLength}`.
+		 * @member {string}
+		 * @default localized version of "Click to load ${pageLength} more items"
+		 */
 		loadPreviousMessage: messages["default-load-message"],
 
-		// loadNextMessage: String
-		//		The message displayed on the next page loader when it can be clicked
-		//		to load the next page. This message can contains placeholder for the
-		//		List attributes to be replaced by their runtime value. For example, the
-		//		message can include the value of the pageLength attribute by using the
-		//		placeholder ${pageLength}.
+		/**
+		 * The message displayed on the next page loader when it can be clicked
+		 * to load the next page. This message can contains placeholder for the
+		 * List attributes to be replaced by their runtime value. For example, the
+		 * message can include the value of the pageLength attribute by using the
+		 * placeholder `${pageLength}`.
+		 * @member {string}
+		 * @default localized version of "Click to load ${pageLength} more items"
+		 */
 		loadNextMessage: messages["default-load-message"],
 
-		// autoPaging: Boolean
-		//		If true, automatically loads the next or previous page when
-		//		the scrolling reaches the bottom or the top of the list content.
+		/**
+		 * Indicates whether or not to use auto paging. If true, automatically loads the next or previous page when
+		 * the scrolling reaches the bottom or the top of the list content.
+		 * @member {boolean}
+		 * @default false
+		 */
 		autoPaging: false,
 		_setAutoPagingAttr: function (value) {
 			this._set("autoPaging", value);
@@ -219,56 +247,73 @@ define(["dcl/dcl",
 			}
 		},
 
-		// hideOnPageLoad: Boolean
-		//		If true, the content of the list is hidden by a loading panel (displaying a progress
-		//		indicator and an optional label defined with the property loadingMessage)
-		//		while its content is updated with a new page of data.
-		//		This attribute is ignored if autoPaging is true.
+		/**
+		 * Indicates whether or not to hide the content of the list when loading a new page.
+		 * If true, the content of the list is hidden by a loading panel (displaying a progress
+		 * indicator and an optional label defined with the property loadingMessage)
+		 * while its content is updated with a new page of data.
+		 * This attribute is ignored if autoPaging is true.
+		 * @member {boolean}
+		 * @default false
+		 */
 		hideOnPageLoad: false,
 
-		/*=====
-		 // _autoPagingHandle: Object with a remove method
-		 //	handle for the auto paging scroll handler
-		 _autoPagingHandle: null
+		/**
+		 * Handle for the auto paging scroll handler (Object with a remove method)
+		 * @member {module:deliteful/list/Pageable} module:deliteful/list/Pageable#_autoPagingHandle
+		 * @private
+		 */
 
-		// _rangeSpec: Object
-		//		store the spec of the range to use to load a page.
-		_rangeSpec: null,
+		/**
+		 * Spec of the range to use to load a page.
+		 * @member {Object} module:deliteful/list/Pageable#_rangeSpec
+		 * @private
+		 */
 
-		// _nextPageLoader: _PageLoaderRenderer
-		//		the next page loader.
-		_nextPageLoader: null,
+		/**
+		 * The next page loader.
+		 * @member {_PageLoaderRenderer} module:deliteful/list/Pageable#_nextPageLoader
+		 * @private
+		 */
 
-		// _previousPageLoader: _PageLoaderRenderer
-		//		the previous page loader.
-		_previousPageLoader: null,
+		/**
+		 * The previous page loader.
+		 * @member {_PageLoaderRenderer} module:deliteful/list/Pageable#_previousPageLoader
+		 * @private
+		 */
 
-		// _atExtremity: Boolean
-		//		true if the list is currently scrolled at the top or the bottom,
-		//		false otherwise.
-		_atExtremity: false,
+		/**
+		 * Wheter or not the list is currently scrolled at the top or the bottom
+		 * @member {boolean} module:deliteful/list/Pageable#_atExtremity
+		 * @private
+		 */
 
-		// _idPages: Object[][]
-		//		one entry per page currently loaded. Each entry contains an array
-		//		of the ids of the items displayed in the page.
-		_idPages: null,
-		=====*/
+		/**
+		 * One entry per page currently loaded. Each entry contains an array
+		 * of the ids of the items displayed in the page.
+		 * @member {Array[]} module:deliteful/list/Pageable#_idPages
+		 * @private
+		 */
 
-		// _firstLoaded: int
-		//		index of the first item currently loaded.
+		/**
+		 * Index of the first item currently loaded.
+		 * @member {number}
+		 * @default -1
+		 * @private
+		 */
 		_firstLoaded: -1,
 
-		// _lastLoaded: int
-		//		index of the last item currently loaded.
+		/**
+		 * Index of the last item currently loaded.
+		 * @member {number}
+		 * @default -1
+		 */
 		_lastLoaded: -1,
 
 		//////////// Widget life cycle ///////////////////////////////////////
 
 		preCreate: function () {
-			// summary:
-			//		Set invalidating properties.
-			// tags:
-			//		protected
+			//	Set invalidating properties.
 			this.addInvalidatingProperties({
 				"pageLength": "invalidateProperty",
 				"loadPreviousMessage": "invalidateProperty",
@@ -348,15 +393,14 @@ define(["dcl/dcl",
 
 		//////////// Private methods ///////////////////////////////////////
 
+		/**
+		 * Adds or removes the identity of an item in idPages
+		 * @param {boolean} add true to add, false to remove
+		 * @param {number} index Index of the item in the tracked collection
+		 * @param {Object} identity Identity to add (only if add is true)
+		 * @private
+		 */
 		_updateIdPages: function (add, index, identity) {
-			// summary:
-			//		add or remove the identity of an item in idPages
-			// add: boolean
-			//		true to add, false to remove
-			// index: integer
-			//		Index of the item in the tracked collection
-			// identity: object
-			//		Identity to add (only if add is true)
 			var pageFirstIndex = this._firstLoaded;
 			for (var pageIndex = 0; pageIndex < this._idPages.length; pageIndex++) {
 				var pageLastIndex = pageFirstIndex + this._idPages[pageIndex].length - 1;
@@ -378,9 +422,11 @@ define(["dcl/dcl",
 			return data.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
 		},
 
+		/**
+		 * Loads the next page of items if available.
+		 * @private
+		 */
 		_loadNextPage: function () {
-			// summary:
-			//		load the next page of items if available.
 			if (!this._rangeSpec) {
 				this._rangeSpec = {};
 				if (this.pageLength > 0) {
@@ -397,9 +443,11 @@ define(["dcl/dcl",
 			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
+		/**
+		 * Loads the previous page of items if available.
+		 * @private
+		 */
 		_loadPreviousPage: function () {
-			// summary:
-			//		load the previous page of items if available.
 			this._rangeSpec.count = this.pageLength;
 			this._rangeSpec.start = this._firstLoaded - this.pageLength;
 			if (this._rangeSpec.start < 0) {
@@ -410,11 +458,12 @@ define(["dcl/dcl",
 			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
 		},
 
-		_unloadPage: function (/*Boolean*/first) {
-			// summary:
-			//		unload a page.
-			// first: Boolean
-			//		true to unload the first page, false to unload the last one.
+		/**
+		 * Unloads a page.
+		 * @param {boolean} first true to unload the first page, false to unload the last one.
+		 * @private
+		 */
+		_unloadPage: function (first) {
 			var idPage, i;
 			if (first) {
 				idPage = this._idPages.shift();
@@ -445,11 +494,12 @@ define(["dcl/dcl",
 			}
 		},
 
-		_previousPageReadyHandler: function (/*array*/ items) {
-			// summary:
-			//		function to call when the previous page has been loaded.
-			// items: Array
-			//		the items in the previous page.
+		/**
+		 * Function to call when the previous page has been loaded.
+		 * @param {Object[]} items the items in the previous page.
+		 * @private
+		 */
+		_previousPageReadyHandler: function (items) {
 			var renderer = this._getFirstVisibleRenderer();
 			var nextRenderer = renderer.nextElementSibling;
 			if (this.focusedChild) {
@@ -489,11 +539,12 @@ define(["dcl/dcl",
 		},
 
 		/*jshint maxcomplexity: 11*/
-		_nextPageReadyHandler: function (/*array*/ items) {
-			// summary:
-			//		function to call when the next page has been loaded.
-			// items: Array
-			//		the items in the next page.
+		/**
+		 * Function to call when the next page has been loaded.
+		 * @param {Object[]} items the items in the next page.
+		 * @private
+		 */
+		_nextPageReadyHandler: function (items) {
 			var renderer = this._getLastVisibleRenderer();
 			if (this.focusedChild) {
 				if (renderer) {
@@ -534,9 +585,11 @@ define(["dcl/dcl",
 		},
 		/*jshint maxcomplexity: 10*/
 
+		/**
+		 * Returns the last renderer that is visible in the scroll viewport.
+		 * @private
+		 */
 		_getLastVisibleRenderer: function () {
-			// summary:
-			//		returns the last renderer that is visible in the scroll viewport.
 			var renderer = this._getLastRenderer();
 			while (renderer) {
 				if (this.getBottomDistance(renderer) <= 0) {
@@ -547,9 +600,11 @@ define(["dcl/dcl",
 			return renderer;
 		},
 
+		/**
+		 * Returns the first renderer that is visible in the scroll viewport.
+		 * @private
+		 */
 		_getFirstVisibleRenderer: function () {
-			// summary:
-			//		returns the first renderer that is visible in the scroll viewport.
 			var renderer = this._getFirstRenderer();
 			while (renderer) {
 				if (this.getTopDistance(renderer) >= 0) {
@@ -562,9 +617,11 @@ define(["dcl/dcl",
 
 		//////////// Event handlers ///////////////////////////////////////
 
+		/**
+		 * Handler for scroll events (auto paging).
+		 * @private
+		 */
 		_scrollHandler: function () {
-			// summary:
-			//		handler for scroll events (auto paging).
 			if (this.isTopScroll()) {
 				if (!this._atExtremity && this._previousPageLoader) {
 					this._previousPageLoader._load();
@@ -582,9 +639,11 @@ define(["dcl/dcl",
 
 		//////////// Page loaders creation ///////////////////////////////////////
 
+		/**
+		 * Creates the next page loader widget
+		 * @private
+		 */
 		_createNextPageLoader: function () {
-			// summary:
-			//		create the next page loader widget
 			/* jshint newcap: false*/
 			this._nextPageLoader = new _PageLoaderRenderer({
 				item: {
@@ -607,9 +666,11 @@ define(["dcl/dcl",
 			this._nextPageLoader.startup();
 		},
 
+		/**
+		 * Creates the previous page loader widget
+		 * @private
+		 */
 		_createPreviousPageLoader: function () {
-			// summary:
-			//		create the previous page loader widget
 			/* jshint newcap: false*/
 			this._previousPageLoader = new _PageLoaderRenderer({
 				item: {
@@ -687,8 +748,7 @@ define(["dcl/dcl",
 		}),
 
 		_getNextRenderer: dcl.superCall(function (sup) {
-			// summary:
-			//		make sure that no page loader is returned
+			//	make sure that no page loader is returned
 			return function (renderer, /*jshint unused:vars*/dir) {
 				var value = sup.apply(this, arguments);
 				if ((this._nextPageLoader && value === this._nextPageLoader)
@@ -700,8 +760,7 @@ define(["dcl/dcl",
 		}),
 
 		_spaceKeydownHandler: dcl.superCall(function (sup) {
-			// summary:
-			//		handle action key on page loaders
+			//	Handle action key on page loaders
 			return function (event) {
 				if (this._nextPageLoader && dom.isDescendant(event.target, this._nextPageLoader)) {
 					event.preventDefault();

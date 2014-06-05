@@ -89,6 +89,7 @@ module.exports = function (grunt) {
 					{
 						src: [
 							".",
+							"./list",
 							"./README.md",
 							"./package.json"
 						],
@@ -106,6 +107,7 @@ module.exports = function (grunt) {
 						],
 						src: [
 							".",
+							"./list",
 							"./README.md",
 							"./package.json"
 						],
