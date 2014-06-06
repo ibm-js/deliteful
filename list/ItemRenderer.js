@@ -22,7 +22,7 @@ define(["dcl/dcl",
 	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation
 	 * (no navindex attribute on the nodes). 
 	 * @class module:deliteful/list/ItemRenderer
-	 * @augment module:deliteful/list/Renderer
+	 * @augments module:deliteful/list/Renderer
 	 */
 	var ItemRenderer = dcl(Renderer, /** @lends module:deliteful/list/ItemRenderer# */ {
 

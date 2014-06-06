@@ -23,7 +23,7 @@ define(["dcl/dcl",
 	 * @class _PageLoaderRenderer
 	 * @private
 	 */
-	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], /** @lends _PageLoaderRenderer */ {
+	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], {
 
 		/**
 		 * The CSS class of the widget
@@ -307,6 +307,7 @@ define(["dcl/dcl",
 		 * Index of the last item currently loaded.
 		 * @member {number}
 		 * @default -1
+		 * @private
 		 */
 		_lastLoaded: -1,
 
