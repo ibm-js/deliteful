@@ -19,8 +19,8 @@ define(["dcl/dcl",
 	 *  - the nodes with the lowest navindex value comes first
 	 *  - if two nodes have the same navindex value, the one that is before the other one in the DOM
 	 *  comes first.
-	 *  @class module:deliteful/list/Renderer
-	 *  @augment module:delite/Widget
+	 * @class module:deliteful/list/Renderer
+	 * @augments module:delite/Widget
 	 */
 	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
 

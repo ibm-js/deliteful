@@ -13,7 +13,7 @@ define(["dcl/dcl",
 	/**
 	 * A widget that renders a panel masking a list and displaying a progress indicator and a message.
 	 * @class module:deliteful/list/_LoadingPanel
-	 * @augment module:delite/Widget
+	 * @augments module:delite/Widget
 	 * @private
 	 */
 	var _LoadingPanel = dcl([Widget], {

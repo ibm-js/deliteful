@@ -52,8 +52,8 @@ define([
 	 * This widget supports right to left direction.
 	 * 
 	 * @class module:deliteful/StarRating
-	 * @augment delite/Widget
-	 * @augment delite/Invalidating
+	 * @augments delite/Widget
+	 * @augments delite/Invalidating
 	 */
 	var StarRating = dcl([Widget, Invalidating], /** @lends module:deliteful/StarRating# */ {
 

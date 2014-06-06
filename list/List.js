@@ -34,11 +34,11 @@ define(["dcl/dcl",
 	 * for more details.
 	 *
 	 * @class module:deliteful/list/List
-	 * @augment module:delite/Invalidating
-	 * @augment module:delite/Selection
-	 * @augment module:delite/KeyNav
-	 * @augment module:delite/StoreMap
-	 * @augment module:delite/Scrollable
+	 * @augments module:delite/Invalidating
+	 * @augments module:delite/Selection
+	 * @augments module:delite/KeyNav
+	 * @augments module:delite/StoreMap
+	 * @augments module:delite/Scrollable
 	 */
 	var List = dcl([Invalidating, Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
 
@@ -423,7 +423,7 @@ define(["dcl/dcl",
 		 * Returns the identity of an item.
 		 * @param {Object} item The item
 		 * @returns {Object}
-		 *  @protected
+		 * @protected
 		 */
 		getIdentity: function (item) {
 			return this.store.getIdentity(item);
