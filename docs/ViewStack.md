@@ -69,7 +69,8 @@ require(["deliteful/ViewStack", "dojo/domReady!"], function (ViewStack) {
 
 To display a child of the container, call the `show` method.
 Example:
-````js
+
+```js
   vs.show(child2, {transition: "reveal", reverse: true});
 
 ```
