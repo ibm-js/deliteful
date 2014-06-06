@@ -1121,7 +1121,7 @@ define([
 				// This test is not reliable on Firefox
 				return;
 			}
-			var def = this.async(2500);
+			var def = this.async(4000);
 			list = new PageableList();
 			list.categoryAttr = "category";
 			list.pageLength = 25;
@@ -1166,13 +1166,13 @@ define([
 											assert.equal("item 24",
 													removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
 														"first visible renderer");
-										}), 800);
+										}), 1000);
 									}), 0);
 								}), 0);
-							}), 800);
+							}), 1000);
 						}), 0);
 					}), 0);
-				}), 800);
+				}), 1000);
 			}), 0);
 			return def;
 		},

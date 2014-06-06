@@ -1,3 +1,74 @@
-@import "../../../../../delite/themes/holodark/variables.less";
+@import "../../../../../delite/themes/holodark/common";
+/*
+ * -----------------------------------------------
+ *  Theme     : holodark
+ *  Widget    : deliteful/list/List
+ *  baseClass : d-list or d-round-rect-list
+ * -----------------------------------------------
+ */
+ 
+@category-height: 22px;
+@cell-height: 43px;
+@round-radius: 8px;
+
+.d-list-category-styles() {
+	font-family: Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;	
+	height: @category-height;
+	line-height: @category-height;
+	border-top: 1px solid #a4b0b9;
+	border-bottom: 1px solid #979da3;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));
+	background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);
+	[role="gridcell"] {
+		padding: 0 10px;
+	}
+}
+
+.d-list-item-styles() {
+	border-bottom: 1px solid #adaaad;
+	background-color: #ffffff;
+	line-height: @cell-height;
+	[role="gridcell"] {
+		padding: 0 8px;
+	}
+}
+
+.d-list-item-label-style() {
+	font-weight: bold;
+}
+
+.d-list-item-right-text-style() {
+	font-weight: bold;
+	color: #324f85;
+}
+
+.d-progress-indicator-lines-style() {
+	stroke: #808080
+}
+
+.d-list-loader-style() {
+	font-weight: bold;
+	color: #324f85;
+	height: @cell-height;
+  	background-color: #ffffff;
+  	border-bottom: 1px solid #adaaad;
+}
+
+.d-list-loading-style() {
+	color: #808080;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.d-list-loading-panel-style() {
+	color: #808080;
+	background-color: #c5ccd3;
+	font-size: medium;
+	font-style: italic;
+}
 
 @import "../List_template";
