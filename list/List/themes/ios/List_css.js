@@ -3,14 +3,13 @@ define(function () {
 	/* jshint -W015 */
 	/* jshint -W033 */
 	return "\
-/********************************/\
-/* iOS theme for all Lists      */\
-/*                              */\
-/* IMPORTANT: a renderer MUST   */\
-/* have the same height (inc.   */\
-/* borders) whatever its index  */\
-/* in the list !                */\
-/********************************/\
+/*\
+ * -----------------------------------------------\
+ *  Theme     : ios\
+ *  Widget    : deliteful/list/List\
+ *  baseClass : d-list or d-round-rect-list\
+ * -----------------------------------------------\
+ */\
 d-list-store {\
   display: none;\
 }\
@@ -19,31 +18,27 @@ d-list-store {\
   /* Edit display at your own risk */\
   display: block;\
   margin: 0;\
+  text-overflow: ellipsis;\
+  white-space: nowrap;\
   overflow: hidden;\
   font-family: Helvetica;\
   font-size: 16px;\
   font-weight: bold;\
-  text-overflow: ellipsis;\
-  white-space: nowrap;\
+  color: white;\
+  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
   height: 22px;\
+  line-height: 22px;\
   border-top: 1px solid #a4b0b9;\
   border-bottom: 1px solid #979da3;\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));\
   background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);\
-  color: white;\
-  line-height: 22px;\
-  text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
 }\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
 }\
 .d-list-item {\
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
-  overflow: hidden;\
   list-style-type: none;\
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\
-  border-bottom: 1px solid #adaaad;\
-  background-color: #ffffff;\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -53,11 +48,15 @@ d-list-store {\
   -ms-flex-align: center;\
   align-items: center;\
   -webkit-align-items: center;\
+  border-bottom: 1px solid #adaaad;\
+  background-color: #ffffff;\
+  line-height: 43px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
 }\
-.d-list [role=\"gridcell\"] {\
+.d-list [role=\"gridcell\"],\
+.d-round-rect-list [role=\"gridcell\"] {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -72,8 +71,10 @@ d-list-store {\
   -ms-flex-align: center;\
   align-items: center;\
   -webkit-align-items: center;\
+  outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] > .d-spacer {\
+.d-list [role=\"gridcell\"] > .d-spacer,\
+.d-round-rect-list [role=\"gridcell\"] > .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -88,24 +89,22 @@ d-list-store {\
   white-space: nowrap;\
   text-overflow: ellipsis;\
   font-weight: bold;\
-  line-height: 43px;\
 }\
 .d-list-item-right-text {\
   margin-right: 4px;\
-  font-weight: bold;\
   overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
+  font-weight: bold;\
   color: #324f85;\
-  line-height: 43px;\
 }\
 .d-list-loader [role=\"gridcell\"] {\
-  font-weight: bold;\
-  overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
-  color: #324f85;\
+  overflow: hidden;\
   cursor: pointer;\
+  font-weight: bold;\
+  color: #324f85;\
   height: 43px;\
   background-color: #ffffff;\
   border-bottom: 1px solid #adaaad;\
@@ -129,10 +128,10 @@ d-list-store {\
   padding-left: 10px;\
 }\
 .d-list-loader.d-loading [role=\"gridcell\"] {\
+  cursor: wait;\
   color: #808080;\
   font-weight: normal;\
   font-style: italic;\
-  cursor: wait;\
 }\
 .d-list-loading-panel {\
   display: table;\
@@ -140,12 +139,12 @@ d-list-store {\
   z-index: 2;\
   height: 100%;\
   width: 100%;\
+  text-align: center;\
+  cursor: wait;\
   color: #808080;\
+  background-color: #c5ccd3;\
   font-size: medium;\
   font-style: italic;\
-  text-align: center;\
-  background-color: #c5ccd3;\
-  cursor: wait;\
 }\
 .d-list-loading-panel-info {\
   display: table-cell;\
@@ -161,7 +160,6 @@ d-list-store {\
 }\
 .d-list-loading-panel-info span {\
   vertical-align: middle;\
-  padding-left: 10px;\
 }\
 .d-list-loading-panel-info svg {\
   vertical-align: middle;\
@@ -217,14 +215,6 @@ d-list-store {\
   border-bottom-left-radius: 8px;\
   border-bottom-right-radius: 8px;\
 }\
-/********************************/\
-/* iOS theme for EdgeToEdgeList */\
-/*                              */\
-/* IMPORTANT: a renderer MUST   */\
-/* have the same height (inc.   */\
-/* borders) whatever its index  */\
-/* in the list !                */\
-/********************************/\
 .d-list {\
   /* edit display at your own risk */\
   display: block;\

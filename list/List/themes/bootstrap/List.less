@@ -1,3 +1,76 @@
-@import "../../../../../delite/themes/bootstrap/variables.less";
+@import "../../../../../delite/themes/bootstrap/common";
+/*
+ * -----------------------------------------------
+ *  Theme     : bootstrap
+ *  Widget    : deliteful/list/List
+ *  baseClass : d-list or d-round-rect-list
+ * -----------------------------------------------
+ */
+@category-height: 40px;
+@cell-height: 40px;
+@round-radius: @list-group-border-radius;
+
+.d-list {
+	border: 1px solid @list-group-border;	
+}
+
+.d-list-category-styles() {
+	background-color: @panel-default-heading-bg;
+	color: @panel-default-text;
+	border-bottom: 1px solid @list-group-border;
+	height: @category-height;
+	line-height: @category-height;
+	[role="gridcell"] {
+		padding: 0 10px;
+	}
+}
+
+.d-list-item-styles() {
+	border-bottom: 1px solid @list-group-border;
+	background-color: @list-group-bg;
+	line-height: @cell-height;
+	[role="gridcell"] {
+		padding: 0 8px;
+	}
+}
+
+.d-list-item-label-style() {
+}
+
+.d-list-item-right-text-style() {
+}
+
+.d-progress-indicator-lines-style() {
+	stroke: #808080
+}
+
+.d-list-loader-style() {
+	font-weight: 500;
+	height: @cell-height;
+  	border-bottom: 1px solid @list-group-border;
+  	&:hover {
+  		background-color: #ebebeb;
+  	}
+}
+
+.d-list-loading-style() {
+	color: @text-muted;
+	font-weight: normal;
+	font-style: italic;
+  	&:hover {
+  		background-color: inherit;
+  	}
+}
+
+.d-list-loading-panel-style() {
+	color: @text-muted;
+	background-color: @body-bg;
+	font-style: italic;
+}
+
+.d-round-rect-list {
+	border: 1px solid @list-group-border;	
+	border-radius: @round-radius;
+}
 
 @import "../List_template";

@@ -22,6 +22,7 @@
 			var PageableList = register("d-pageable-list", [List, Pageable], {});
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-4";
+			list.baseClass = "d-round-rect-list";
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.loadPreviousMessage = "Load previous data (up to ${pageLength} entries)";
@@ -59,12 +60,6 @@
 			width: 100%;
 			margin: 0;
 			padding: 0;
-		}
-		
-		body {
-			font-family: Helvetica;
-			font-size: 17px;
-			background-color: #c5ccd3;
 		}
 	</style>
 </head>
