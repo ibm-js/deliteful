@@ -124,14 +124,12 @@ define([
 			);
 		},
 
-		buildRendering: renderer,
+		buildRendering: function () {
+			renderer.call(this);
+			this.lineNodeList = this.linesNode.querySelectorAll("line");
+		},
 
 		attachedCallback: dcl.after(function () {
-			//template: use query selector to get nodes reference that will not be available from buildRendering
-			this.svgNode = this.querySelector(".d-progress-indicator svg");
-			this.linesNode = this.querySelector(".d-progress-indicator-lines");
-			this.lineNodeList = this.querySelectorAll(".d-progress-indicator-lines > line");
-			this.msgNode = this.querySelector(".d-progress-indicator text");
 			//set unique SVG symbol id
 			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
 			this.querySelector(".d-progress-indicator symbol").id = symbolId;
