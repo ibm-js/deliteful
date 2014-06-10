@@ -15,24 +15,22 @@ define(["dcl/dcl",
 ], function (dcl, register, on, string, when, Deferred, dom, domClass, has,
 		Widget, Renderer, ProgressIndicator, messages) {
 
-	/**
+	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
 	 * It renders an item that has the following properties:
 	 * - loadMessage: the label to display when a page is not currently loading
 	 * - loadingMessage: the label to display when a page is loading
-	 * @class _PageLoaderRenderer
-	 * @private
 	 */
 	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], {
 
-		/**
+		/*
 		 * The CSS class of the widget
 		 * @member {string}
 		 * @default "d-list-loader"
 		 */
 		baseClass: "d-list-loader",
 
-		/**
+		/*
 		 * Indicates whether or not a page is currently loading.
 		 * @member {boolean}
 		 */
@@ -62,25 +60,25 @@ define(["dcl/dcl",
 			}
 		},
 
-		/**
+		/*
 		 * HTML element that wraps a progress indicator and an optional label in the render node
 		 * @member {HTMLElement} _PageLoaderRenderer#_button
 		 * @private
 		 */
 
-		/**
+		/*
 		 * A progress indicator to report that the loader is currently loading a page
 		 * @member {module:deliteful/ProgressIndicator} _PageLoaderRenderer#_progressIndicator
 		 * @private
 		 */
 
-		/**
+		/*
 		 * An HTML element that displays a label for the loader
 		 * @member {HTMLElement} _PageLoaderRenderer#_label
 		 * @private
 		 */
 
-		/**
+		/*
 		 * The list that the PageLoader loads data for
 		 * @member {module:deliteful/list/List} _PageLoaderRenderer#_list
 		 * @private
@@ -126,14 +124,14 @@ define(["dcl/dcl",
 
 		//////////// Public methods ///////////////////////////////////////
 
-		/**
+		/*
 		 * Executed before loading a page.
 		 * Callback to be implemented by user of the widget
 		 * @method _PageLoaderRenderer#beforeLoading
 		 * @abstract
 		 */
 
-		/**
+		/*
 		 * Performs the actual loading of a page.
 		 * Callback to be implemented by user of the widget.
 		 * It MUST return a promise that is fulfilled when the load operation is finished.
@@ -141,7 +139,7 @@ define(["dcl/dcl",
 		 * @abstract
 		 */
 
-		/**
+		/*
 		 * Executed after loading a page.
 		 * Callback to be implemented by user of the widget
 		 * @method _PageLoaderRenderer#afterLoading
@@ -150,7 +148,7 @@ define(["dcl/dcl",
 
 		//////////// Private methods ///////////////////////////////////////
 
-		/**
+		/*
 		 * Handle click events on the widget.
 		 * If a loading is already in progress, this method
 		 * return undefined. In the other case, it starts a loading
