@@ -19,7 +19,6 @@ TODO: INSERT SCREENSHOT(S) HERE
 - [Selection support](#selection)
 - [Keyboard navigation](#keynav)
 - [Styling](#styling)
-- [Mixins](#mixins)
 
 <a name="scroll">
 ## Scroll capabilities
@@ -282,10 +281,3 @@ TODO: INSERT SCREENSHOT(S) HERE
 - `"d-rounded-list"`: the list has rounded corners and both a left and right margin.
 
 TODO: INSERT SCREENSHOT(S) HERE
-
-<a name="mixins">
-## Mixins
-
-The following mixins are available to extends the List widget feature set:
-
-* [list/Pageable](./Pageable.md), to add paging capabilities to long lists. 

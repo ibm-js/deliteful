@@ -6,7 +6,7 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>deliteful/list/Pageable samples.</title>
+	<title>deliteful/list/PageableList samples.</title>
 	
 	<script type="text/javascript">
 	require = {
@@ -18,10 +18,8 @@
 	<script type="text/javascript">
 		require([
 		    "delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable"
-		], function (register, List, Pageable) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList"
+		], function (register, PageableList) {
 			list = new PageableList();
 			list.setAttribute("aria-label", "Sample pageable list with custom loader messages");
 			for (var i = 0; i < 100; i++) {

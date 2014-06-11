@@ -14,12 +14,10 @@
 		    "dojo/_base/declare",
 		    "dojo/Deferred",
 			"delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
+			"deliteful/list/PageableList",
 			"dstore/Memory",
 			"dojo/domReady!"
-		], function (declare, Deferred, register, List, Pageable, MemoryStore) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+		], function (declare, Deferred, register, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-6";
 			list.pageLength = 23;
