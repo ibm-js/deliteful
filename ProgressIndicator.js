@@ -21,10 +21,11 @@ define([
 	 *
 	 * @class module:deliteful/ProgressIndicator
 	 * @augments {module:delite/Widget}
-	 * @augment {module:delite/Invalidating}
+	 * @augments {module:delite/Invalidating}
 	 */
 	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating],
-		/** @lends module:deliteful/ProgressIndicator#*/ {
+		/** @lends module:deliteful/ProgressIndicator# */ {
+
 		/**
 		 * Set to false to hide the widget and stop any ongoing animation.
 		 * Set to true to show the widget: animation automatically starts unless you set a number to the "value"
@@ -36,8 +37,8 @@ define([
 
 		/**
 		 * A value from 0 to 100 that indicates a percentage of progression of an ongoing task.
-		 * Set the value to NaN to hide the number and start the spinning animation. A negative value is defaulted to 0.
-		 * Values up to 100 are defaulted to 100.
+		 * Set the value to NaN to hide the number and start the spinning animation. Negative values are converted to 0
+		 * and values over 100 are converted to 100.
 		 * @member {number}
 		 * @default NaN
 		 */
@@ -45,7 +46,7 @@ define([
 
 		/**
 		 * The relative speed of the spinning animation.
-		 * Accepted values are "slow", "normal" and "fast". Other values are defaulted to "normal". Note that the
+		 * Accepted values are "slow", "normal" and "fast". Other values are converted to "normal". Note that the
 		 * actual/real speed of the animation depends of the device/os/browser capabilities.
 		 * @member {string}
 		 * @default "normal"
