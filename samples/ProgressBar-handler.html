@@ -28,30 +28,29 @@
 			loadBtn.disabled = false;
 			//fake function which simulates a long task and updates the progress bar
 			//accordingly to the progression.
-			var fakeloadFunction = function () {
+			var fakeLoadFunction = function () {
 				loadBtn.disabled = true;
 				progressBar.message = "Starting...";
 				progressBar.value = 0;
-				//set random min/max
-				progressBar.min = Math.round(Math.random() * 40);
+				//set random max
 				progressBar.max = Math.round(Math.random() * 50 + 100);
 				var timerId = setInterval(function () {
 					progressBar.message = "";
-					progressBar.value += Math.random() * progressBar.max / 10 + progressBar.min;
+					progressBar.value += Math.random() * progressBar.max / 10;
 					if (progressBar.value >= progressBar.max) {
 						window.clearInterval(timerId);
 						loadBtn.disabled = false;
 					}
 				}, 500);
 			};
-			loadBtn.addEventListener("click", fakeloadFunction);
+			loadBtn.addEventListener("click", fakeLoadFunction);
 
 			//progressbar handler
 			var pbHandler = function (event) {
 				label.innerHTML =
 						"Value: " + event.value.toFixed(2) + "<br>" +
 						"Percent: " + event.percent.toFixed(2) + "% <br>" +
-						"Min/Max: " + event.min + "/" + event.max;
+						"Max: " + event.max;
 			};
 			progressBar.addEventListener("change", pbHandler);
 		});

@@ -1,3 +1,4 @@
+/** @module deliteful/ProgressBar */
 define([
 	"dcl/dcl",
 	"dojo/dom-class",
@@ -9,65 +10,98 @@ define([
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"dojo/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
 ], function (dcl, domClass, Intl, register, Widget, Invalidating, renderer) {
-	
-	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], {
-		// summary
-		//		d-progress-bar widget displays status for tasks that takes a long time.
+	/**
+	 * A widget that displays the completion progress of a task.
+	 *
+	 * The progress is either indeterminate, indicating that progress is being made but that it is not clear how
+	 * much more work remains to be done before the task is complete, or the progress is a number in the range
+	 * zero to a maximum, giving the fraction of work that has so far been completed.
+	 *
+	 * There are two properties that determine the current task completion represented by the element. The value
+	 * property specifies how much of the task has been completed, and the max property specifies how much work
+	 * the task requires in total. The units are arbitrary and not specified.
+	 *
+	 * When the progress bar is determinate, a default message displays the percentage of progression.
+	 * The property fractionDigits allows to specify the number of fraction digits to display. You can set a custom
+	 * message using the message property, or override the method formatMessage to generate a dynamic custom message.
+	 *
+	 * When the progress bar is indeterminate, use the message property to display a message.
+	 *
+	 * @class module:deliteful/ProgressBar
+	 * @augments {module:delite/Widget}
+	 * @augments {module:delite/Invalidating}
+	 */
+	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], /** @lends module:deliteful/ProgressBar# */{
 
-		// value: Number
-		//		Number indicating the amount of completed task. The ProgressBar calculates the percentage of
-		// 		progression with respect to the min and the max values (ie: if value is 53, min is 0 and max is 100,
-		// 		the progression is 53%. If min is 0 and max is 200, the progression is 26%).
-		// 		When calculating the percentage, value lower than min is defaulted to min. Value higher
-		// 		than max is defaulted to max. Set the value to NaN to force the progress bar state to
-		// 		indeterminate.
-		//		Default: NaN
+		/**
+		 * A number indicating the amount of completion of a task.
+		 * The value property must be a valid floating-point number or NaN. Set the value to NaN to make the
+		 * progress bar indeterminate. Set a value comprised between 0 and the max property to make
+		 * the progress bar determinate. A value greater than max is converted to the max value. An invalid or
+		 * negative value is converted to 0.
+		 * @member {number}
+		 * @default NaN
+		 */
 		value: NaN,
 
-		// min: Number
-		//		Starting point of the progression range. Attempt to set NaN or a number higher or equal to than max
-		// 		will throw a RangeError.
-		//		Default: 0
-		min: 0,
+		/**
+		 * A number which express the task as completed.
+		 * The max property must be a valid positive floating-point number, otherwise it is converted to 1.0.
+		 * @member {number}
+		 * @default 1.0
+		 */
+		max: 1.0,
 
-		// max: Number
-		//		Number which express the task as completed. Attempt to set NaN or a number lower or equal to min will
-		// 		throw a RangeError.
-		//		Default: 100
-		max: 100,
+		/**
+		 * Indicates the relative position of the current value relative to the maximum value (max).
+		 * If the progress bar is an indeterminate progress bar, then the position is −1. Otherwise, it is the result
+		 * of dividing the current value by the maximum value.
+		 * @member {number}
+		 * @default -1
+		 * @readonly
+		 */
+		position: -1,
 
-		// message: String
-		//		Allow to specify/override the message on the progress bar whether it's determinate or indeterminate.
-		// 		The default behavior of the ProgressBar is to  displays the percentage of completion when the state
-		// 		is determinate, and to display no message when state is indeterminate. You can override this with the
-		// 		message attribute. Set an empty string to restore the default behavior.
-		//		Default: ""
+		/**
+		 * Allow to specify/override the message on the progress bar whether it's determinate or indeterminate.
+		 * The default behavior of the ProgressBar is to  displays the percentage of completion when the state
+		 * is determinate, and to display no message when state is indeterminate. You can override this with the
+		 * message property. Set an empty string to restore the default behavior.
+		 *
+		 * @member {string}
+		 * @default ""
+		 */
 		message: "",
 
-		// displayExtMsg: Boolean
-		//		Set to true to display an other messages. The actual display of this message depends of the theme
-		// 		which is actually enforced. The message sticks to one side and the extra message sticks to the
-		// 		other side. Ex: [65%........379/583] or [Loading......379/583]. By default, the extra message is
-		// 		in the form value/max. You may customize the extra message by overriding the method formatExtMsg().
-		//		This property is theme dependent. On some theme it has no effect.
-		//		Default: false
+		/**
+		 * Allow to set an extra message depending of the theme which is actually enforced.
+		 * The message sticks to one side and the extra message sticks to the  other side. Ex: [65%........379/583]
+		 * or [Loading......379/583]. By default, the extra message is in the form value/max. You may customize
+		 * the extra message by overriding the method formatExtMsg. This property is theme dependent, on some
+		 * theme it has no effect.
+		 * @member {boolean}
+		 * @default false
+		 */
 		displayExtMsg: false,
 
-		// fractionDigits: Number
-		//		Number of places to show on default message displayed by the progress bar.
-		//		Default: 0
+		/**
+		 * Number of places to show on the default message displayed when the progress bar is determinate.
+		 * @member {number}
+		 * @default 0
+		 */
 		fractionDigits: 0,
 
-		// baseClass: String
-		// 		Name prefix for CSS classes used by this widget
-		//		Default: "d-progress-bar"
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-progress-bar"
+		 */
 		baseClass: "d-progress-bar",
 
 		preCreate: function () {
 			// watched properties to trigger invalidation
 			this.addInvalidatingProperties(
 				{value: "invalidateProperty"},
-				{min: "invalidateProperty"},
 				{max: "invalidateProperty"},
 				"message",
 				"displayExtMsg",
@@ -75,128 +109,131 @@ define([
 			);
 		},
 
-		buildRendering: renderer,
-
-		_setMinAttr: function (value) {
-			if (isNaN(value) || value >= this.max) {
-				throw new RangeError("min (" + value + ") must be < max (" + this.max + ")");
-			}
-			this._set("min", value);
+		buildRendering: function () {
+			renderer.call(this);
+			this.setAttribute("aria-valuemin", 0);
 		},
 
-		_setMaxAttr: function (value) {
-			if (isNaN(value) || value <= this.min) {
-				throw new RangeError("max (" + value + ") must be > min (" + this.min + ")");
-			}
-			this._set("max", value);
-		},
-
-		refreshProperties: function () {
-			if (!isNaN(this.value)) {
-				//ensure value is in range (min < value < max)
-				var correctedValue = Math.max(this.min, Math.min(this.value, this.max));
-				if (correctedValue !== this.value) {
-					this.value = correctedValue;
-					this.validateProperties();
+		refreshProperties: function (props) {
+			if (props.max) {
+				var newMax = this._convert2Float(this.max, 1.0);
+				if (newMax <= 0) {
+					newMax = 1.0;
+				}
+				if (newMax !== this.max) {
+					this.max = newMax;
 				}
 			}
+			if (props.value) {
+				if (!isNaN(this.value)) {
+					var newValue = this._convert2Float(this.value, 0);
+					newValue = Math.max(0, Math.min(this.max, newValue));
+					if (newValue !== this.value) {
+						this.value = newValue;
+					}
+				}
+			}
+			this.position = isNaN(this.value) ? -1 : this.value / this.max;
 		},
 
 		refreshRendering: function (props) {
-			var percent = (this.value - this.min) / (this.max - this.min);
-
-			this._updateValues(props, this.value, percent);
-			this._updateMessages(this.value, percent);
-			domClass.toggle(this, this.baseClass + "-indeterminate", isNaN(this.value));
-			if (props.value || props.max || props.min) {
-				this.emit("change", {percent: percent * 100, value: this.value, min: this.min, max: this.max});
-			}
-		},
-
-		_updateValues: function (props, _value, _percent) {
-			//update widget to reflect value changes (value, min or max)
-			if (props.min) {
-				this.setAttribute("aria-valuemin", this.min);
-			}
+			//update widget to reflect value/max changes
 			if (props.max) {
 				this.setAttribute("aria-valuemax", this.max);
 			}
-			if (props.value || props.max || props.min) {
-				if (isNaN(_value)) { //indeterminate state
+			if (props.value || props.max) {
+				if (this.position === -1) { //indeterminate state
 					this.indicatorNode.style.removeProperty("width");
 					this.removeAttribute("aria-valuenow");
 				} else {
-					this.indicatorNode.style.width = (_percent * 100) + "%";
-					this.msgInvertNode.style.width = window.getComputedStyle(this.msgNode).getPropertyValue("width");
-					this.setAttribute("aria-valuenow", _value);
+					this.indicatorNode.style.width = (this.position * 100) + "%";
+					this.msgInvertNode.style.width =
+						window.getComputedStyle(this.msgNode).getPropertyValue("width");
+					this.setAttribute("aria-valuenow", this.value);
 				}
 			}
-		},
 
-		_updateMessages: function (_value, _percent) {
-			//update widget messages
-			this.msgNode.innerHTML = this.msgInvertNode.innerHTML = this.formatMessage(_percent, _value, this.max);
-			var _displayExtMsg = this.displayExtMsg && !isNaN(_value);
-			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", _displayExtMsg);
-			if (_displayExtMsg) {
+			//update widget message
+			this.msgNode.innerHTML = this.msgInvertNode.innerHTML =
+				this.formatMessage(this.position, this.value, this.max);
+			var hasExtMsg = this.displayExtMsg && this.position !== -1;
+			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", hasExtMsg);
+			if (hasExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
-				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(_percent, _value, this.max));
+				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(this.position, this.value, this.max));
 			} else {
 				this.msgNode.removeAttribute("msg-ext");
 			}
 			//aria text only on indeterminate state with custom message
-			if (this.message && isNaN(_value)) {
+			if (this.message && this.position === -1) {
 				this.setAttribute("aria-valuetext", this.message);
 			} else {
 				this.removeAttribute("aria-valuetext");
 			}
+			domClass.toggle(this, this.baseClass + "-indeterminate", (this.position === -1));
+			if (props.value || props.max) {
+				this.emit("change", {percent: this.position * 100, value: this.value, max: this.max});
+			}
 		},
 
-		attachedCallback: dcl.after(function () {
-			this.indicatorNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-indicator");
-			this.msgNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-msg");
-			this.msgInvertNode = this.querySelector("." + this.baseClass + " ." + this.baseClass + "-msg-invert");
-			//default values
-			this.refreshRendering({value: true, min: true, max: true});
+		startup: dcl.after(function () {
+			this.invalidateProperty("value");
+			this.invalidateProperty("max");
+			this.validate();
 		}),
 
-		formatMessage: function (/*Number*/percent, /*Number*/value, /*jshint unused: vars *//*Number*/max) {
-			// summary:
-			//		Generates HTML message to show inside/beside the progress bar (depends on theme settings).
-			//		If a custom message is specified, use it. If value is not NaN, format the percentage of
-			//		progression in respect with fractionDigits.
-			// 		May be overridden.
-			// percent:
-			//		Percentage indicating the amount of completed task.
-			// value:
-			//		The current value
-			// max:
-			//		The maximum value
+		/**
+		 * Formats and returns a message to display inside/beside the progress bar (depends on theme settings).
+		 * If a custom message is specified with the message property, it is returned as-is. Otherwise if the
+		 * progress bar is determined (value is not NaN), it returns the percentage of progression formatted in
+		 * respect with fractionDigits. This method is called when the value and/or the max property changes. May be
+		 * overridden to customize the message.
+		 *
+		 * @param {number} position Position of the current value relative to the maximum value (from 0.0 to 1.0).
+		 * @param {number} value The amount of completion of the task.
+		 * @param {number} max The value that express the task is completed (maximum value).
+		 * @returns {string} The message to display.
+		 */
+		formatMessage: function (position, value, /*jshint unused: vars */max) {
 			if (!this._numberFormat || this._prevLang !== this.lang ||
-					this._numberFormat.resolvedOptions().minimumFractionDigits !== this.fractionDigits) {
+				this._numberFormat.resolvedOptions().minimumFractionDigits !== this.fractionDigits) {
 				var options = {
 					style: "percent",
 					minimumFractionDigits: this.fractionDigits,
 					maximumFractionDigits: this.fractionDigits
 				};
-				this._numberFormat = new Intl.NumberFormat(this.lang || undefined, options);
+				this._numberFormat = new Intl.NumberFormat(this.lang || undefined, options);
 				this._prevLang = this.lang;
 			}
-			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(percent));
+			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(position));
 		},
 
-		formatExtMsg: function (/*Number*/percent, /*Number*/value, /*Number*/max) {
-			// summary:
-			//		Set content to be displayed when property displayExtMsg is enabled. By default it returns a
-			// 		String formatted with "value/max"
-			// 		May be overridden.
-			// percent:
-			//		Percentage indicating the amount of completed task.
-			// value:
-			//		The current value
-			// max:
-			//		The maximum value
+		/**
+		 * Formats and returns the extra message to display when the property displayExtMsg is enabled.
+		 * Returns a string formatted with "value/max". May be overridden to customize the extra message.
+		 *
+		 * @param {number} position Position of the current value relative to the maximum value (from 0.0 to 1.0).
+		 * @param {number} value The amount of completion of the task.
+		 * @param {number} max The value that express the task is completed (maximum value).
+		 * @returns {string} The extra message to display.
+		 */
+		formatExtMsg: function (position, value, max) {
 			return (this.isLeftToRight()) ? value + "/" + max : max + "/" + value;
+		},
+
+		/*
+		 * The Infinity and Not-a-Number (NaN) values are not valid floating-point numbers.
+		 * @param value
+		 * @param defaultValue
+		 * @returns {Number}
+		 * @private
+		 */
+		_convert2Float: function (value, defaultValue) {
+			var v = parseFloat(value);
+			if (isNaN(v) || v === Infinity) {
+				v = defaultValue;
+			}
+			return v;
 		}
 	});
 });
