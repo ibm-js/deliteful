@@ -4,5 +4,5 @@ define([
 	"./DefaultStore",
 	"./Selection",
 	"./Categories",
-	"./Pageable"
+	"./PageableList"
 ]);

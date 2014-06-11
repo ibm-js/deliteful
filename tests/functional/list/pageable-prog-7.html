@@ -13,12 +13,10 @@
 		require([
 			"delite/register",
 		    "dojo/Deferred",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
+			"deliteful/list/PageableList",
 			"dstore/Memory",
 			"dojo/domReady!"
-		], function (register, Deferred, List, Pageable, MemoryStore) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+		], function (register, Deferred, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-7";
 			list.categoryAttr = "category";
