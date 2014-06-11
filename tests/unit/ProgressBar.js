@@ -13,16 +13,14 @@ define([
 			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
 			progressBar.startup();
+			progressBar.validate(); //todo: remove when the initialization of properties will be synchronous.
 		},
 		"Default values and state": function () {
 			//public attribute:value
 			assert(isNaN(progressBar.value),
 				"public attribute:value (default)");
-			//public attribute:min
-			assert.strictEqual(progressBar.min, 0,
-				"public attribute:min (default)");
 			//private attribute:max
-			assert.strictEqual(progressBar.max, 100,
+			assert.strictEqual(progressBar.max, 1.0,
 				"private attribute:max (default)");
 			//private attribute:message
 			assert.strictEqual(progressBar.message, "",
@@ -41,7 +39,7 @@ define([
 			checkIndeterminate();
 		},
 		"Set value in range": function () {
-			var testVal = 50;
+			var testVal = 0.5;
 			progressBar.value = testVal;
 			progressBar.validate();
 			checkDeterminate();
@@ -49,7 +47,7 @@ define([
 			checkPercentage(testVal);
 			checkAria();
 		},
-		"Set value out of range (value < min)": function () {
+		"Set value out of range (value < 0)": function () {
 			var testVal = -0.1;
 			progressBar.value = testVal;
 			progressBar.validate();
@@ -65,63 +63,27 @@ define([
 			checkPercentage(testVal, true);
 			checkAria();
 		},
-		"Set min in range (min < value)": function () {
-			progressBar.min = 10;
-			progressBar.validate();
-			checkDeterminate();
-			checkPercentage(progressBar.value);
-			checkAria();
-		},
-		"Set min out of range (min > max)": function () {
-			var testMin = progressBar.max + 1;
-			try {
-				progressBar.min = testMin;
-			} catch (error) {
-				checkError(
-					error.toString(),
-					"min (" + testMin + ") must be < max (" + progressBar.max + ")"
-				);
-			}
-		},
-		"Set min to NaN": function () {
-			var testMin = NaN;
-			try {
-				progressBar.min = testMin;
-			} catch (error) {
-				checkError(
-					error.toString(),
-					"min (" + testMin + ") must be < max (" + progressBar.max + ")"
-				);
-			}
-		},
 		"Set max in range (max > value)": function () {
+			progressBar.value = 10;
 			progressBar.max = 90;
 			progressBar.validate();
 			checkDeterminate();
 			checkPercentage(progressBar.value);
 			checkAria();
 		},
-		"Set max out of range (max < min)": function () {
-			var testMax = progressBar.min - 1;
-			try {
-				progressBar.max = testMax;
-			} catch (error) {
-				checkError(
-					error.toString(),
-					"max (" + testMax + ") must be > min (" + progressBar.min + ")"
-				);
-			}
+		"Set max out of range (max < 0)": function () {
+			progressBar.max = -10;
+			progressBar.validate();
+			checkDeterminate();
+			checkPercentage(progressBar.value);
+			checkAria();
 		},
 		"Set max to NaN": function () {
-			var testMax = NaN;
-			try {
-				progressBar.max = testMax;
-			} catch (error) {
-				checkError(
-					error.toString(),
-					"max (" + testMax + ") must be > min (" + progressBar.min + ")"
-				);
-			}
+			progressBar.max = NaN;
+			progressBar.validate();
+			checkDeterminate();
+			checkPercentage(progressBar.value);
+			checkAria();
 		},
 		"Set indeterminate state (value = NaN)": function () {
 			progressBar.value = NaN;
@@ -137,7 +99,7 @@ define([
 			checkAria(true);
 		},
 		"Set value (custom message)": function () {
-			var testVal = 50;
+			var testVal = 0.5;
 			progressBar.value = testVal;
 			progressBar.validate();
 			checkDeterminate();
@@ -164,7 +126,7 @@ define([
 			checkAria();
 		},
 		"Override formatMessage": function () {
-			var testVal = 50, message;
+			var testVal = 0.5, message;
 			progressBar.formatMessage = function (percent, value, max) {
 				message = "percent: " + percent + " value: " + value + " max: " + max;
 				return message;
@@ -187,6 +149,25 @@ define([
 			checkPercentage(testVal);
 			checkExtMsg();
 			checkAria();
+		},
+		"valid init value": function () {
+			var pb = new ProgressBar({value: 10, max: 100});
+			document.body.appendChild(pb);
+			pb.startup();
+			pb.validate();//todo: remove when the initialization of properties will be synchronous.
+			assert.strictEqual(10, pb.value);
+			assert.strictEqual(100, pb.max);
+			pb.destroy();
+		},
+		"Invalid init value": function () {
+			var pb = new ProgressBar({value: -10, max: -9});
+			document.body.appendChild(pb);
+			pb.startup();
+			pb.validate();//todo: remove when the initialization of properties will be synchronous.
+			var value = pb.value, max = pb.max;
+			assert.strictEqual(0, value);
+			assert.strictEqual(1.0, max);
+			pb.destroy();
 		},
 		teardown: function () {
 			progressBar.destroy();
@@ -221,7 +202,7 @@ define([
 	function checkAria(indeterminate) {
 		//min: always present
 		assert.ok(progressBar.hasAttribute("aria-valuemin"));
-		assert.equal(progressBar.getAttribute("aria-valuemin"), progressBar.min);
+		assert.equal(progressBar.getAttribute("aria-valuemin"), 0);
 		//max: always present
 		assert.ok(progressBar.hasAttribute("aria-valuemax"));
 		assert.equal(progressBar.getAttribute("aria-valuemax"), progressBar.max);
@@ -247,12 +228,12 @@ define([
 		}
 	}
 
-	//check if percentage is ok regarding current value/min/max props.
-	//set isOutOfRange to true is the value is < min or > max
+	//check if percentage is ok regarding current value/max props.
+	//set isOutOfRange to true is the value is < 0 or > max
 	function checkPercentage(value, isOutOfRange) {
 		if (isOutOfRange) {
 			//correct value
-			value = Math.min(Math.max(progressBar.min, value), progressBar.max);
+			value = Math.min(Math.max(0, value), progressBar.max);
 		}
 		var width = checkIndicatorNodeWidth(2);
 		assert.strictEqual(width, computePercentage(value, 2),
@@ -267,9 +248,9 @@ define([
 		return Number(width.slice(0, -1)).toFixed(fractionDigit ? fractionDigit : 0);
 	}
 
-	//compute a percentage relative to the current min/max and returns a number
+	//compute a percentage relative to max and returns a number
 	function computePercentage(value, fractionDigit) {
-		return ((value - progressBar.min) / (progressBar.max - progressBar.min) * 100)
+		return (value / progressBar.max  * 100)
 			.toFixed(fractionDigit ? fractionDigit : 0);
 	}
 
