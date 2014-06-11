@@ -30,6 +30,15 @@ define([
 		}
 	});
 
+	var checkIndex = function (list) {
+		var count = 0;
+		for (var id in list.store._index) {
+			assert.equal(id, list.store.getIdentity(list.store.data[list.store._index[id]]));
+			count++;
+		}
+		assert.equal(count, list.store.data.length, "number of items in index");
+	};
+
 	var list = null;
 
 	var checkArray = function (checked, count, indexes, expectedValues, hint) {
@@ -505,6 +514,68 @@ define([
 			assert.equal(0, mock.added.length, "added length");
 			assert.equal(0, mock.removed.length, "removed length");
 			assert.equal(0, store.data.length, "number of items in store");
+		},
+		"item indexes" : function () {
+			var zero = {id: 0, label: "zero"};
+			var one = {id: 1, label: "one"};
+			var two = {id: 2, label: "two"};
+			var three = {id: 3, label: "three"};
+			var four = {id: 4, label: "four"};
+			var five = {id: 5, label: "five"};
+			var expectedIndex = {};
+			checkIndex(list, expectedIndex);
+			list.store.add(one);
+			expectedIndex = {"1": 0};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.add(three);
+			expectedIndex = {"1": 0, "3": 1};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.add(five);
+			expectedIndex = {"1": 0, "3": 1, "5": 2};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.add(zero, {before: one});
+			expectedIndex = {"0": 0, "1": 1, "3": 2, "5": 3};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.add(two, {before: three});
+			expectedIndex = {"0": 0, "1": 1, "2": 2, "3": 3, "5": 4};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.add(four, {before: five});
+			expectedIndex = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.put(four, {before: zero});
+			expectedIndex = {"4": 0, "0": 1, "1": 2, "2": 3, "3": 4, "5": 5};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.put(five, {before: four});
+			expectedIndex = {"5": 0, "4": 1, "0": 2, "1": 3, "2": 4, "3": 5};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.put(one, {before: zero});
+			expectedIndex = {"5": 0, "4": 1, "1": 2, "0": 3, "2": 4, "3": 5};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.put(five, {before: three});
+			expectedIndex = {"4": 0, "1": 1, "0": 2, "2": 3, "5": 4, "3": 5};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.remove(0);
+			expectedIndex = {"4": 0, "1": 1, "2": 2, "5": 3, "3": 4};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.remove(3);
+			expectedIndex = {"4": 0, "1": 1, "2": 2, "5": 3};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
+			list.store.remove(4);
+			expectedIndex = {"1": 0, "2": 1, "5": 2};
+			assert.deepEqual(expectedIndex, list.store._index);
+			checkIndex(list);
 		},
 		teardown : function () {
 			list.destroy();
