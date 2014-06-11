@@ -1,6 +1,6 @@
 # deliteful Documentation directory
 
-This directory contains the files for the deliteful widgets reference guide (aka User's Manual).
+This directory contains the files for the deliteful widgets User Guide.
 
 ### Directory structure
  * Each Widget must have a corresponding file, in markdown format. Several files are accepted if needed depending on the widget complexity. The file name should follow the widget name.
