@@ -47,11 +47,11 @@ define(["dcl/dcl",
 		data: null,
 
 		/**
-		 * The internal array that stores all the items ids, in the
-		 * same order than the items are store in the data array.
-		 * @member {Object[]}
+		 * The internal map that stores all the items ids: the key is
+		 *  the id of an item, the value is its index in the data table.
+		 * @member {Object}
 		 */
-		_ids: null,
+		_index: null,
 
 		/**
 		 * Name of the item attribute that contains the item's id
@@ -84,7 +84,7 @@ define(["dcl/dcl",
 			this.list = list;
 			this.data = [];
 			dcl.mix(this.data, FilterAndRange);
-			this._ids = [];
+			this._index = {};
 		},
 
 		/**
@@ -93,9 +93,8 @@ define(["dcl/dcl",
 		 * @returns {Object}
 		 */
 		get: function (id) {
-			var index = this._ids.indexOf(id);
-			if (index >= 0) {
-				return this.data[index];
+			if (id in this._index) {
+				return this.data[this._index[id]];
 			}
 		},
 
@@ -118,7 +117,7 @@ define(["dcl/dcl",
 			return item[this.idProperty];
 		},
 
-		/*jshint maxcomplexity:12*/
+		/*jshint maxcomplexity:13*/
 		/**
 		 * Stores an item.
 		 * @param {Object} item The item to store.
@@ -127,24 +126,24 @@ define(["dcl/dcl",
 		 * @returns {Object} The id of the item
 		 */
 		put: function (item, directives) {
-			var beforeIndex = -1;
 			var id = item[this.idProperty] = (directives && "id" in directives)
 				? directives.id : this.idProperty in item ? item[this.idProperty] : Math.random();
-			var existingIndex = this._ids.indexOf(id);
 			if (directives && directives.before) {
-				beforeIndex = this._ids.indexOf(directives.before[this.idProperty]);
+				var beforeIndex = this._index[this.getIdentity(directives.before)];
 			}
-			if (existingIndex >= 0) {
+			if (id in this._index) {
 				// item exists in store
+				var existingIndex = this._index[id];
 				if (directives && directives.overwrite === false) {
 					throw new Error("Item already exists");
 				}
 				// update the item
 				this.data[existingIndex] = item;
-				if (beforeIndex >= 0 && beforeIndex !== existingIndex) {
+				if (beforeIndex !== undefined && beforeIndex !== existingIndex) {
 					// move the item
-					this.data.splice(beforeIndex, 0, this.data.splice(existingIndex, 1)[0]);
-					this._ids.splice(beforeIndex, 0, this._ids.splice(existingIndex, 1)[0]);
+					this.data.splice(beforeIndex - (existingIndex < beforeIndex ? 1 : 0),
+							0, this.data.splice(existingIndex, 1)[0]);
+					this._reindex(Math.min(beforeIndex, existingIndex), Math.max(beforeIndex, existingIndex));
 					if (this._queried) {
 						this.list.itemMoved(existingIndex, beforeIndex, this.list.itemToRenderItem(item), null);
 					}
@@ -155,19 +154,32 @@ define(["dcl/dcl",
 				}
 			} else {
 				// new item to add to store
-				if (beforeIndex >= 0) {
+				if (beforeIndex !== undefined) {
 					this.data.splice(beforeIndex, 0, item);
-					this._ids.splice(beforeIndex, 0, id);
+					this._index[this.getIdentity(item)] = beforeIndex;
+					this._reindex(beforeIndex, this.data.length - 1);
 				} else {
 					this.data.push(item);
-					this._ids.push(id);
+					this._index[this.getIdentity(item)] = this.data.length - 1;
 				}
 				if (this._queried) {
-					this.list.itemAdded(beforeIndex >= 0 ? beforeIndex : this.data.length - 1,
+					this.list.itemAdded(beforeIndex !== undefined ? beforeIndex : this.data.length - 1,
 							this.list.itemToRenderItem(item), null);
 				}
 			}
 			return id;
+		},
+
+		/**
+		 * Re index
+		 * @param {number} from from index
+		 * @param {number} to to index
+		 * @private
+		 */
+		_reindex: function (from, to) {
+			for (var i = from; i <= to; i++) {
+				this._index[this.getIdentity(this.data[i])] = i;
+			}
 		},
 
 		/**
@@ -190,10 +202,11 @@ define(["dcl/dcl",
 		 * a falsy value otherwise
 		 */
 		remove: function (id) {
-			var index = this._ids.indexOf(id);
-			if (index >= 0 && index < this.data.length) {
+			if (id in this._index) {
+				var index = this._index[id];
 				this.data.splice(index, 1)[0];
-				this._ids.splice(index, 1);
+				delete this._index[id];
+				this._reindex(index, this.data.length - 1);
 				if (this._queried) {
 					this.list.itemRemoved(index, null, false);
 				}
