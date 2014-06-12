@@ -1,3 +1,4 @@
+/** @module deliteful/ProgressIndicator */
 define([
 	"dcl/dcl",
 	"delite/register",
@@ -6,37 +7,57 @@ define([
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
 ], function (dcl, register, Widget, Invalidating, renderer) {
+	/**
+	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
+	 *
+	 * This widget starts hidden and the spinning animation starts when the widget becomes visible. Default widget
+	 * size is 40x40px.
+	 *
+	 * @example <caption>Set the "active" property to true to make the widget visible when it starts.</caption>
+	 * <d-progress-indicator active="true"></d-progress-indicator>
+	 *
+	 * @example <caption>Use style properties "width" and "height" to customize the widget size</caption>
+	 * <d-progress-indicator active="true" style="width: 100%; height: 100%"></d-progress-indicator>
+	 *
+	 * @class module:deliteful/ProgressIndicator
+	 * @augments {module:delite/Widget}
+	 * @augments {module:delite/Invalidating}
+	 */
+	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating],
+		/** @lends module:deliteful/ProgressIndicator# */ {
 
-	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating], {
-		// summary:
-		//		d-progress-indicator widget displays a round spinning graphical representation that indicates
-		//		that a task is ongoing. This widget starts hidden. Set the active property to true to make it visible.
-		//		The spinning animation starts when the widget is visible unless you set the value property to indicate
-		//		a percentage of progression.
-
-		// active: boolean
-		//		When inactive (active=false), the widget is hidden and animation is not started. When active, the
-		//		widget is visible and the animation automatically starts unless you set the value.
-		//		Default: false
+		/**
+		 * Set to false to hide the widget and stop any ongoing animation.
+		 * Set to true to show the widget: animation automatically starts unless you set a number to the "value"
+		 * property.
+		 * @member {boolean}
+		 * @default false
+		 */
 		active: false,
 
-		// value: Number
-		//		Set a value from 0 to 100 to indicate a percentage of progression of an ongoing task. Set value to NaN
-		//		hides the number and starts the spinning animation.
-		//		Negative value is defaulted to 0. Values up to 100 are defaulted to 100.
-		//		Default: NaN
+		/**
+		 * A value from 0 to 100 that indicates a percentage of progression of an ongoing task.
+		 * Set the value to NaN to hide the number and start the spinning animation. Negative values are converted to 0
+		 * and values over 100 are converted to 100.
+		 * @member {number}
+		 * @default NaN
+		 */
 		value: NaN,
 
-		// speed: String
-		//		Speed of the spinning animation. Accepted values are "slow", "normal" and "fast". Other values are
-		//		defaulted to "normal". Note that the actual/real speed of the animation depends on the
-		//		device/os/browser capabilities.
-		//		Default: normal
+		/**
+		 * The relative speed of the spinning animation.
+		 * Accepted values are "slow", "normal" and "fast". Other values are converted to "normal". Note that the
+		 * actual/real speed of the animation depends of the device/os/browser capabilities.
+		 * @member {string}
+		 * @default "normal"
+		 */
 		speed: "normal",
 
-		// baseClass: String
-		//		Name prefix for CSS classes used by this widget.
-		//		Default: "d-progress-indicator"
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-progress-indicator"
+		 */
 		baseClass: "d-progress-indicator",
 
 		/* internal properties */
