@@ -67,18 +67,17 @@ define([
 		 * The default behavior of the ProgressBar is to  displays the percentage of completion when the state
 		 * is determinate, and to display no message when state is indeterminate. You can override this with the
 		 * message property. Set an empty string to restore the default behavior.
-		 *
 		 * @member {string}
 		 * @default ""
 		 */
 		message: "",
 
 		/**
-		 * Allow to set an extra message depending of the theme which is actually enforced.
-		 * The message sticks to one side and the extra message sticks to the  other side. Ex: [65%........379/583]
-		 * or [Loading......379/583]. By default, the extra message is in the form value/max. You may customize
-		 * the extra message by overriding the method formatExtMsg. This property is theme dependent, on some
-		 * theme it has no effect.
+		 * Allow to set an additional message.
+		 * Depending on the theme it may not be displayed. For themes that display
+		 * both messages, typically message is on one side and the additional message is on the other side. By default
+		 * the additional message is in the form value/max. Ex: [65%........379/583] or [Loading......379/583]. You may
+		 * customize it by overriding the method formatExtMsg.
 		 * @member {boolean}
 		 * @default false
 		 */
@@ -124,13 +123,11 @@ define([
 					this.max = newMax;
 				}
 			}
-			if (props.value) {
-				if (!isNaN(this.value)) {
-					var newValue = this._convert2Float(this.value, 0);
-					newValue = Math.max(0, Math.min(this.max, newValue));
-					if (newValue !== this.value) {
-						this.value = newValue;
-					}
+			if (props.value && !isNaN(this.value)) {
+				var newValue = this._convert2Float(this.value, 0);
+				newValue = Math.max(0, Math.min(this.max, newValue));
+				if (newValue !== this.value) {
+					this.value = newValue;
 				}
 			}
 			this.position = isNaN(this.value) ? -1 : this.value / this.max;
@@ -189,9 +186,9 @@ define([
 		 * respect with fractionDigits. This method is called when the value and/or the max property changes. May be
 		 * overridden to customize the message.
 		 *
-		 * @param {number} position Position of the current value relative to the maximum value (from 0.0 to 1.0).
-		 * @param {number} value The amount of completion of the task.
-		 * @param {number} max The value that express the task is completed (maximum value).
+		 * @param {number} position -  Position of the current value relative to the maximum value (from 0.0 to 1.0).
+		 * @param {number} value - The amount of completion of the task.
+		 * @param {number} max - The value that express the task is completed (maximum value).
 		 * @returns {string} The message to display.
 		 */
 		formatMessage: function (position, value, /*jshint unused: vars */max) {
@@ -222,16 +219,18 @@ define([
 		},
 
 		/*
+		 * Converts a value to a valid floating-point numbers.
 		 * The Infinity and Not-a-Number (NaN) values are not valid floating-point numbers.
-		 * @param value
-		 * @param defaultValue
+		 *
+		 * @param value - The value to convert
+		 * @param fallbackValue - The value to assign if the conversion fails.
 		 * @returns {Number}
 		 * @private
 		 */
-		_convert2Float: function (value, defaultValue) {
+		_convert2Float: function (value, fallbackValue) {
 			var v = parseFloat(value);
 			if (isNaN(v) || v === Infinity) {
-				v = defaultValue;
+				v = fallbackValue;
 			}
 			return v;
 		}
