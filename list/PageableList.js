@@ -337,7 +337,7 @@ define(["dcl/dcl",
 						props.pageLength = true;
 					}
 					this._idPages = [];
-					this._loadNextPage();
+					when(this._loadNextPage()).otherwise(this._queryError.bind(this));
 				}
 				// Update page loader messages as they may depend on any property of the List
 				if (this._previousPageLoader) {
