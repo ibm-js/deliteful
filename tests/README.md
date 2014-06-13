@@ -172,7 +172,7 @@ Note that this won't run the functional tests, and that you will have to check t
 
 ### Running the unit and functional tests in Sauce Labs browsers
 
-In the deliteful directory, type the following command:
+In the deliteful directory, type the following command (requires Sauce Labs environment variables. See [Sauce Labs configuration instructions](#sauce-labs-configuration)):
 
 ```
 $ grunt test:remote
