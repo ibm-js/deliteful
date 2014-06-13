@@ -37,9 +37,11 @@ This project requires the following other projects to run:
  * dojo
  * delite
  * dpointer
+ * ecma402
  * dcl    (git clone https://github.com/uhop/dcl.git)
  * requirejs (git clone https://github.com/jrburke/requirejs.git)
  * requirejs-dplugins
+ * requirejs-domready (git clone https://github.com/requirejs/domready)
 
 ## Installation
 
