@@ -24,17 +24,18 @@ define(function () {
 .d-progress-bar {\
   display: inline-block;\
   position: relative;\
-  margin: 2px;\
   padding: 0;\
   width: 100%;\
-  font-size: 0.750em;\
-  height: 1.667em;\
+  font-size: 12px;\
+  height: 1.8em;\
   vertical-align: middle;\
   overflow: hidden;\
   text-align: center;\
   -webkit-box-sizing: border-box;\
   -moz-box-sizing: border-box;\
   box-sizing: border-box;\
+  -moz-border-radius: 4px;\
+  border-radius: 4px;\
   border: 1px solid transparent;\
 }\
 .d-progress-bar-background {\
@@ -61,10 +62,6 @@ define(function () {
   -webkit-transition: width 0.3s linear 0s;\
   transition: width 0.3s linear 0s;\
   background-color: #428bca;\
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));\
-  background-size: 40px 40px;\
-  box-shadow: 0.1em 0.1em 0.3em 0em rgba(0, 0, 0, 0.1) inset;\
 }\
 .d-progress-bar-msg {\
   margin: 0;\

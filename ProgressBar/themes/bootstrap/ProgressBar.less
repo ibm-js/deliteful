@@ -24,12 +24,13 @@
 }
 
 .d-progress-bar-styles() {
-  font-size: 0.750em;
-  height: 1.667em;
+  font-size: 12px;
+  height: 1.8em;
   vertical-align: middle;
   overflow: hidden;
   text-align: center; //use 'initial' to override and restore default value (left if ltr, right if rtl)
   .box-sizing(border-box);
+  .border-radius(4px);
   border: 1px solid transparent; //a11y: high contrast
 }
 
@@ -48,10 +49,6 @@
   height: 100%;
   .transition(width @transition-params);
   background-color: @progress-bar-bg;
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-size: 40px 40px;
-  box-shadow: 0.1em 0.1em 0.3em 0em rgba(0, 0, 0, 0.1) inset;
 }
 
 .d-progress-bar-a11y-styles() {

@@ -12,15 +12,20 @@
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../..",
+			config: {
+				//workaround for https://github.com/ibm-js/ecma402/issues/30
+				"ecma402/locales": "en-US"
+			}
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"deliteful/ProgressBar"
-		], function (register, ProgressBar) {
+			"deliteful/ProgressBar",
+			"requirejs-domready/domReady!"
+		], function (register) {
 			register.parse();
 		});
 	</script>
