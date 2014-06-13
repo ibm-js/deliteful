@@ -12,15 +12,20 @@
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../.."
+			baseUrl: "../..",
+			config: {
+				//workaround for https://github.com/ibm-js/ecma402/issues/30
+				"ecma402/locales": "en-US"
+			}
 		});
 	</script>
 
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"deliteful/ProgressBar"
-		], function (register, ProgressBar) {
+			"deliteful/ProgressBar",
+			"requirejs-domready/domReady!"
+		], function (register) {
 			register.parse();
 			var label = document.getElementById("lb");
 			var progressBar = document.getElementById("pb1");
@@ -28,7 +33,7 @@
 			loadBtn.disabled = false;
 			//fake function which simulates a long task and updates the progress bar
 			//accordingly to the progression.
-			var fakeloadFunction = function () {
+			var fakeLoadFunction = function () {
 				loadBtn.disabled = true;
 				progressBar.message = "Starting...";
 				progressBar.value = 0;
@@ -44,7 +49,7 @@
 					}
 				}, 500);
 			};
-			loadBtn.addEventListener("click", fakeloadFunction);
+			loadBtn.addEventListener("click", fakeLoadFunction);
 
 			//progressbar handler
 			var pbHandler = function (event) {
