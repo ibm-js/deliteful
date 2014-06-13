@@ -28,7 +28,7 @@ See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/LinearLayout", "dojo/domReady!"], function (register) {
+require(["delite/register", "deliteful/LinearLayout", "requirejs-domready/domReady!"], function (register) {
   register.parse();
 });
 ```
@@ -47,7 +47,7 @@ require(["delite/register", "deliteful/LinearLayout", "dojo/domReady!"], functio
 ### Programmatic Instantiation
 
 ```js
-require(["deliteful/SidePane", "dojo/domReady!"], function (SidePane) {
+require(["deliteful/SidePane", "requirejs-domready/domReady!"], function (SidePane) {
   var sp = new SidePane({mode: "overlay"});
   sp.placeAt(document.body);
   sp.startup();

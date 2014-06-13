@@ -13,7 +13,7 @@ A pageable list is defined and created using the following piece of code:
 ```js
 		require([
 			"deliteful/list/PageableList",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (PageableList) {
 			var pageableList = new PageableList();
 			...
@@ -30,7 +30,7 @@ This can also be done using markup, as in the following example:
 		require([
 		    "delite/register",
 			"deliteful/list/PageableList",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (register, PageableList) {
 			register.parse();
 		});
@@ -63,7 +63,7 @@ Here is an example of setting a pageLength of 100 items:
 ```js
 		require([
 			"deliteful/list/PageableList",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (PageableList) {
 			var pageableList = new PageableList();
 			pageableList.pageLength = 100;
@@ -82,7 +82,7 @@ Here is the same example using markup:
 		require([
 		    "delite/register",
 			"deliteful/list/PageableList",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (register, PageableList) {
 			register.parse();
 		});

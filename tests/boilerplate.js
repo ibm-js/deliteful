@@ -93,7 +93,7 @@ document.write("<script type='text/javascript' src='" + testDir + "../../require
 
 // On IE9 the following inlined script will run before dojo has finished loading, leading to an error because require()
 // isn't defined yet.  Workaround it by putting the code in a separate file.
-//document.write('<script type="text/javascript">require(["dojo/domReady!"], boilerplateOnLoad);</script>');
+//document.write('<script type="text/javascript">require(["requirejs-domready/domReady!"], boilerplateOnLoad);</script>');
 document.write("<script type='text/javascript' src='" + testDir + "boilerplateOnload.js'></script>");
 
 /* global boilerplateOnLoad:true */
