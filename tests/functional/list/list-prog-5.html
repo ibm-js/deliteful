@@ -19,7 +19,7 @@
 			"dojo/store/util/QueryResults",
 			"dstore/Memory",
 			"dstore/Observable",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (dcl, declare, register, List, Deferred, QueryResults, MemoryStore, Observable) {
   			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
 			var CustomMemoryStore = dcl([MemoryStore], {

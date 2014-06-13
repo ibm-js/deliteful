@@ -8,6 +8,7 @@
 		"dpointer": ">=0.1.0-dev",
 		"delite": ">=0.1.5-dev",
 		"requirejs-dplugins": ">=0.1.0-dev",
+		"requirejs-domready": ">=2.0.1",
 		"ecma402": ">=0.0.1-dev"
 	},
 	"devDependencies": {
