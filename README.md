@@ -53,11 +53,22 @@ _Manual_ master installation:
 
     $ git clone git://github.com/ibm-js/deliteful.git
 
-Then install dependencies with bower (or manually from github if you prefer to):
+Then install dependencies with bower:
 
 	$ cd deliteful
 	$ bower install
 
+If you prefer to install a dependency manually from github, it must be
+placed as sibling of deliteful. For example:
+
+	$ cd deliteful
+	$ cd ..
+	$ git clone git://github.com/ibm-js/delite.git
+	
+Note that, if a dependency has been already installed manually from github,
+running `bower install` afterwards silently replaces the manual installation
+of this dependency.
+ 
 ## Documentation
 
 See the [docs directory](./docs).
