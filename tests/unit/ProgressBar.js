@@ -13,6 +13,7 @@ define([
 			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
 			progressBar.startup();
+			progressBar.validate(); //todo: remove when the initialization of properties will be synchronous.
 		},
 		"Default values and state": function () {
 			//public attribute:value
@@ -153,6 +154,7 @@ define([
 			var pb = new ProgressBar({value: 10, max: 100});
 			document.body.appendChild(pb);
 			pb.startup();
+			pb.validate();//todo: remove when the initialization of properties will be synchronous.
 			assert.strictEqual(10, pb.value);
 			assert.strictEqual(100, pb.max);
 			pb.destroy();
@@ -161,6 +163,7 @@ define([
 			var pb = new ProgressBar({value: -10, max: -9});
 			document.body.appendChild(pb);
 			pb.startup();
+			pb.validate();//todo: remove when the initialization of properties will be synchronous.
 			var value = pb.value, max = pb.max;
 			assert.strictEqual(0, value);
 			assert.strictEqual(1.0, max);

@@ -173,11 +173,10 @@ define([
 			}
 		},
 
-		startup: dcl.after(function () {
+		postCreate: function () {
 			this.invalidateProperty("value");
 			this.invalidateProperty("max");
-			this.validate();
-		}),
+		},
 
 		/**
 		 * Formats and returns a message to display inside/beside the progress bar (depends on theme settings).
