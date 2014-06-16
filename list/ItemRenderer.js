@@ -60,7 +60,7 @@ define(["dcl/dcl",
 		refreshRendering: function (props) {
 			if (props.item) {
 				if (this.iconNode) {
-					if (this.iconNode) {
+					if (this.item.iconclass) {
 						// FIXME: removal of the previous value
 						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
 						domClass.add(this.iconNode, this.item.iconclass);
