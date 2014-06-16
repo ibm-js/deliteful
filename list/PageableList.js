@@ -1,4 +1,4 @@
-/** @module deliteful/list/Pageable */
+/** @module deliteful/list/PageableList */
 define(["dcl/dcl",
 		"delite/register",
 		"dojo/on",
@@ -8,12 +8,12 @@ define(["dcl/dcl",
 		"dojo/dom",
 		"dojo/dom-class",
 		"dojo/sniff",
-		"delite/Widget",
+		"./List",
 		"./Renderer",
 		"../ProgressIndicator",
 		"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, dom, domClass, has,
-		Widget, Renderer, ProgressIndicator, messages) {
+		List, Renderer, ProgressIndicator, messages) {
 
 	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
@@ -177,17 +177,18 @@ define(["dcl/dcl",
 	});
 
 	/**
-	 * Mixin for {@link module:deliteful/list/List deliteful/list/List} that provides paging.
+	 * A widget that renders a scrollable list of items and provides paging.
 	 * 
-	 * This mixin allows displaying the content of a list in pages of items instead of rendering
+	 * This widget allows displaying the content of a list in pages of items instead of rendering
 	 * all items at once.
 	 * 
-	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/Pageable.md user documentation}
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/PageableList.md user documentation}
 	 * for more details.
 	 * 
-	 * @mixin module:deliteful/list/Pageable
+	 * @class module:deliteful/list/Pageable
+	 * @augments module:deliteful/list/List
 	 */
-	return dcl(null, /** @lends module:deliteful/list/Pageable# */ {
+	return register("d-pageable-list", [HTMLElement, List], /** @lends module:deliteful/list/PageableList# */ {
 
 		/**
 		 * if > 0, enable paging while defining the number of items to display per page.
@@ -336,7 +337,7 @@ define(["dcl/dcl",
 						props.pageLength = true;
 					}
 					this._idPages = [];
-					this._loadNextPage();
+					when(this._loadNextPage()).otherwise(this._queryError.bind(this));
 				}
 				// Update page loader messages as they may depend on any property of the List
 				if (this._previousPageLoader) {
@@ -774,4 +775,5 @@ define(["dcl/dcl",
 		})
 
 	});
+
 });

@@ -6,17 +6,15 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Pageable List</title>
 
-	<script type="text/javascript" src="../../../../delite/tests/boilerplate.js"></script>
+	<script type="text/javascript" src="../../boilerplate.js"></script>
 
 	<script type="text/javascript">
 		var ready = false;
 		require([
 			"delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
-			"dojo/domReady!"
-		], function (register, List, Pageable) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList",
+			"requirejs-domready/domReady!"
+		], function (register, PageableList) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-1";
 			list.pageLength = 20;

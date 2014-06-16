@@ -52,12 +52,12 @@ define(function () {
 .d-progress-bar {\
   display: inline-block;\
   position: relative;\
-  margin: 2px;\
   padding: 0;\
   width: 100%;\
   height: 1.8em;\
   font-size: 12px;\
   vertical-align: middle;\
+  margin: 2px;\
 }\
 .d-progress-bar-background {\
   left: 0;\

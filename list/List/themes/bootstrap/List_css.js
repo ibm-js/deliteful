@@ -12,10 +12,12 @@ define(function () {
  */\
 .d-list {\
   border: 1px solid #dddddd;\
+  background-color: #ffffff;\
 }\
 .d-round-rect-list {\
   border: 1px solid #dddddd;\
   border-radius: 4px;\
+  background-color: #ffffff;\
 }\
 d-list-store {\
   display: none;\
@@ -50,7 +52,6 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
   border-bottom: 1px solid #dddddd;\
-  background-color: #ffffff;\
   line-height: 40px;\
 }\
 .d-list-item [role=\"gridcell\"] {\

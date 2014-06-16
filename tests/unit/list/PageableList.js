@@ -6,7 +6,7 @@ define([
 	"delite/register",
 	"dstore/Memory",
 	"dstore/Observable",
-	"./resources/PageableList"
+	"deliteful/list/PageableList"
 ], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList) {
 
 	/////////////////////////////////

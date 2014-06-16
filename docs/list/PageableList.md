@@ -1,8 +1,10 @@
-# deliteful/list/Pageable
+# deliteful/list/PageableList
 
-The Pageable mixin adds paging capabilities to the [deliteful/list/List](./List.md) widget.
+The PageableList widget extends the [deliteful/list/List](./List.md) widget and adds paging capabilities.
 
 A pageable list does not load and display its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
+
+Its custom element tag is `d-pageable-list`.
 
 TODO: INSERT SCREENSHOT(S) HERE
 
@@ -10,19 +12,16 @@ A pageable list is defined and created using the following piece of code:
 
 ```js
 		require([
-		    "delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
-			"dojo/domReady!"
-		], function (register, List, Pageable) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList",
+			"requirejs-domready/domReady!"
+		], function (PageableList) {
 			var pageableList = new PageableList();
 			...
 			pageableList.startup();
 		});
 ```
 
-This can also be done using a mix of javascript code and markup, as in the following example:
+This can also be done using markup, as in the following example:
 
 ```html
 <head>
@@ -30,11 +29,9 @@ This can also be done using a mix of javascript code and markup, as in the follo
 	<script>
 		require([
 		    "delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
-			"dojo/domReady!"
-		], function (register, List, Pageable) {
-			register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList",
+			"requirejs-domready/domReady!"
+		], function (register, PageableList) {
 			register.parse();
 		});
 	</script>
@@ -57,7 +54,7 @@ This can also be done using a mix of javascript code and markup, as in the follo
 
 When started, a pageable list will load and display only one page of data, and will provide user controls to load and display more pages of data (if there is more data).
 
-The `pageLength` property of a pageable list defines the number of items in a page of data. Note that this number is a maximum, and that a page can contains less items.
+The `pageLength` property of a pageable list defines the number of items in a page of data. Note that this number is a maximum, and that a page may contain less items.
 
 If this property is set to 0 or less, the list will load and display all the items from the store (as a non pageable list does).
 
@@ -65,12 +62,9 @@ Here is an example of setting a pageLength of 100 items:
 
 ```js
 		require([
-		    "delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
-			"dojo/domReady!"
-		], function (register, List, Pageable) {
-			var PageableList = register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList",
+			"requirejs-domready/domReady!"
+		], function (PageableList) {
 			var pageableList = new PageableList();
 			pageableList.pageLength = 100;
 			...
@@ -79,7 +73,7 @@ Here is an example of setting a pageLength of 100 items:
 		});
 ```
 
-Here is the same example using a mix of javascript code and markup:
+Here is the same example using markup:
 
 ```html
 <head>
@@ -87,11 +81,9 @@ Here is the same example using a mix of javascript code and markup:
 	<script>
 		require([
 		    "delite/register",
-			"deliteful/list/List",
-			"deliteful/list/Pageable",
-			"dojo/domReady!"
-		], function (register, List, Pageable) {
-			register("d-pageable-list", [List, Pageable], {});
+			"deliteful/list/PageableList",
+			"requirejs-domready/domReady!"
+		], function (register, PageableList) {
 			register.parse();
 		});
 	</script>
