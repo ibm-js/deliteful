@@ -1,8 +1,11 @@
 /** @module deliteful/list/ItemRenderer */
 define(["dcl/dcl",
+        "dojo/dom-class",
         "delite/register",
+        "delite/handlebars",
+        "requirejs-text/text!./List/ItemRenderer.html",
         "./Renderer"
-], function (dcl, register, Renderer) {
+], function (dcl, domClass, register, handlebars, template, Renderer) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -21,6 +24,9 @@ define(["dcl/dcl",
 	 * Rendered with CSS class `d-list-item-right-icon2` + the value of the attribute;
 	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation
 	 * (no navindex attribute on the nodes). 
+	 * 
+	 * TODO: DESCRIBE THE TEMPLATE AND ITS ATTACH POINTS + document how to extend this class in user doc
+	 * 
 	 * @class module:deliteful/list/ItemRenderer
 	 * @augments module:deliteful/list/Renderer
 	 */
@@ -36,60 +42,51 @@ define(["dcl/dcl",
 		baseClass: "d-list-item",
 
 		/**
-		 * A dom node we use to push elements to the left or right
-		 * of the renderer node (flex layout).
-		 * @member {DOMNode} _spacerNode
-		 * @private
+		 * The {@link module:delite/handlebars} template for the item renderer.
+		 * Note that this value cannot be updated at runtime, it is only mean to
+		 * provide an easy way to customize the renderer when subclassing.
+		 * @member {string}
+		 * @protected
 		 */
+		templateString: template,
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		/**
-		 * Renders the item inside this.renderNode.
-		 * @protected
-		 */
-		render: function () {
-			while (this.renderNode.children[0]) {
-				this.renderNode.removeChild(this.renderNode.children[0]);
-			}
-			this._renderNode("icon", "iconNode", this.item.iconclass, "d-list-item-icon");
-			this._renderNode("text", "labelNode", this.item.label, "d-list-item-label");
-			this._spacerNode = this.ownerDocument.createElement("DIV");
-			this._spacerNode.className = "d-spacer";
-			this.renderNode.appendChild(this._spacerNode);
-			this._renderNode("text", "righttextNode", this.item.righttext, "d-list-item-right-text");
-			this._renderNode("icon", "righticonNode", this.item.righticonclass, "d-list-item-right-icon");
+		buildRendering: function () {
+			var renderFunc = handlebars.compile(this.templateString);
+			renderFunc.call(this);
 		},
 
-		//////////// PRIVATE METHODS ///////////////////////////////////////
-
-		/**
-		 * Renders a node.
-		 * @param {string} nodeType` "text"` for a text node, `"icon"` for an icon node.
-		 * @param {string} nodeName The name of the property to use to store a reference to the node in the renderer.
-		 * @param {string} data The data to render (`null` or `undefined` if there is no data and the node should be
-		 * deleted).
-		 * For a nodeType of `"text"`, data is the text to render.
-		 * For a nodeType of `"icon"`, data is the extra class to apply to the node
-		 * @param {string} nodeClass Base CSS class for the node.
-		 * @private
-		 */
-		_renderNode: function (nodeType, nodeName, data, nodeClass) {
-			if (data != null) {
-				this[nodeName] = this.ownerDocument.createElement("DIV");
-				this[nodeName].className = nodeClass;
-				this.renderNode.appendChild(this[nodeName]);
-				if (nodeType === "text") {
-					this[nodeName].innerHTML = data;
-				} else {
-					this[nodeName].className = nodeClass + " " + data;
+		refreshRendering: function (props) {
+			if (props.item) {
+				if (this.iconNode) {
+					if (this.iconNode) {
+						// FIXME: removal of the previous value
+						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
+						domClass.add(this.iconNode, this.item.iconclass);
+					} else {
+						// FIXME: removal of the previous value
+						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
+					}
 				}
-			} else {
-				if (this[nodeName]) {
-					delete this[nodeName];
+				if (this.rightIconNode) {
+					if (this.item.righticonclass) {
+						// FIXME: removal of the previous value
+						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
+						domClass.add(this.rightIconNode, this.item.righticonclass);
+					} else {
+						// FIXME: removal of the previous value
+						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
+					}
+				}
+				if (this.labelNode) {
+					this.labelNode.innerHTML = this.item.label ? this.item.label : "";
+				}
+				if (this.rightTextNode) {
+					this.rightTextNode.innerHTML = this.item.righttext ? this.item.righttext : "";
 				}
 			}
-		}
+		},
 	});
 
 	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);

@@ -7,12 +7,14 @@ define([
 	var list = null;
 
 	var checkCategory = function (node, expectedCategory) {
+		node.validate(); // to trigger refreshRendering if not already done
 		assert.equal(node.tagName, "D-LIST-CATEGORY-RENDERER");
 		assert.equal(node.className, "d-list-category");
 		assert.equal(node.textContent, expectedCategory);
 	};
 
 	var checkItem = function (node, expectedLabel) {
+		node.validate(); // to trigger refreshRendering if not already done
 		assert.equal(node.tagName, "D-LIST-ITEM-RENDERER");
 		assert.equal(node.className, "d-list-item");
 		assert.equal(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel);

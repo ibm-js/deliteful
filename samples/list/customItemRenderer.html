@@ -23,8 +23,12 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.title + "</div><div class='d-spacer'></div><div navindex='0'>ISBN: " + this.item.isbn + "</div>";
+				templateString: "<template><div data-attach-point='renderNode'><div navindex='0' data-attach-point='_titleNode'></div><div class='d-spacer'></div><div navindex='0' data-attach-point='_isbnNode'></div></div></template>",
+				refreshRendering: function (props) {
+					if (this.item) {
+						this._titleNode.innerHTML = this.item.title;
+						this._isbnNode.innerHTML = "ISBN: " + this.item.isbn;
+					}
 				}
 			});
 			var list = register.createElement("d-list");

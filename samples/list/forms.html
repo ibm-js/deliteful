@@ -24,10 +24,12 @@
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
 				counter: 1,
-				render: function () {
-					this.appendField("First name", this.item.firstName);
-					this.appendField("Last name", this.item.lastName);
-					this.appendField("Date of birth", this.item.dateOfBirth);
+				buildRendering: function () {
+					this.renderNode = this.ownerDocument.createElement("div");
+					this.appendChild(this.renderNode);
+					this._firstNameNode = this.appendField("First name");
+					this._lastNameNode = this.appendField("Last name");
+					this._dateOfBirthNode = this.appendField("Date of birth");
 					var button = this.ownerDocument.createElement("button");
 					button.innerHTML = "Update record";
 					button.setAttribute("navindex", "0");
@@ -36,17 +38,24 @@
 					}
 					this.renderNode.appendChild(button);
 				},
-				appendField: function(name, value) {
+				appendField: function(name) {
 					var label = this.ownerDocument.createElement("label");
 					label.className = "label";
 					label.innerHTML = name + ":";
 					this.renderNode.appendChild(label);
 					var input = this.ownerDocument.createElement("input");
-					input.value = value;
 					input.setAttribute("navindex","0");
 					input.id = this.widgetId + "-" + this.counter++;
 					label.setAttribute("for", input.id);
 					this.renderNode.appendChild(input);
+					return input;
+				},
+				refreshRendering: function (props) {
+					if (props.item) {
+						this._firstNameNode.value = this.item.firstName;
+						this._lastNameNode.value = this.item.lastName;
+						this._dateOfBirthNode.value = this.item.dateOfBirth;
+					}
 				}
 			});
 			var list = register.createElement("d-list");

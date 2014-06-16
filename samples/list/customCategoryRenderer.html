@@ -23,8 +23,12 @@
 			"deliteful/list/List"
 		], function (register, CategoryRenderer) {
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div>" + this.item.category + "</div><div class='d-spacer'></div><a class='categoryLink' href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.item.category + "&go=Go' navindex='0'>Wikipedia</a>";
+				templateString: "<template><div data-attach-point='renderNode'><div data-attach-point='_categoryNode'></div><div class='d-spacer'></div><a class='categoryLink' data-attach-point='_wikipediaLinkNode' navindex='0'>Wikipedia</a><div></template>",
+				refreshRendering: function (props) {
+					if (props.item) {
+						this._categoryNode.innerHTML = this.item.category;
+						this._wikipediaLinkNode.href = "http://en.wikipedia.org/wiki/Special:Search?search=" + this.item.category + "&go=Go";
+					}
 				}
 			});
 			var list = register.createElement("d-list");

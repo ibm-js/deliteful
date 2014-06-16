@@ -2,14 +2,17 @@
 define(["dcl/dcl",
         "dojo/dom-class",
         "delite/register",
-        "delite/Widget"
-], function (dcl, domClass, register, Widget) {
+        "delite/Widget",
+        "delite/Invalidating"
+], function (dcl, domClass, register, Widget, Invalidating) {
 
 	/**
 	 * The base class for a widget that render an item or its category inside a deliteful/list/List widget.
 	 * 
 	 * This base class provide all the infrastructure that a deliteful/list/List widget
 	 * expect from a renderer, including keyboard navigation support.
+	 * 
+	 * TODO: DOCUMENT WHAT IS EXPECTED IF USING A TEMPLATE ?
 	 * 
 	 * Focusability and Keyboard navigation order for a renderer instance is defined using
 	 * the navindex attribute on the rendered nodes:
@@ -21,18 +24,22 @@ define(["dcl/dcl",
 	 *  comes first.
 	 * @class module:deliteful/list/Renderer
 	 * @augments module:delite/Widget
+	 * @augments module:delite/Invalidating
 	 */
-	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
+	return dcl([Widget, Invalidating], /** @lends module:deliteful/list/Renderer# */ {
 
 		/**
 		 * The list item to render.
 		 * @member {Object}
-		 * @default null
+		 * @default {}
 		 */
-		item: null,
-		_setItemAttr: function (/*Object*/value) {
-			this._set("item", value);
-			this.render();
+		item: {}, // must be initialized to an empty object because it is expected by the template
+		_setItemAttr: function (item) {
+			this._set("item", item);
+			// Pageable List depends on the renderer node geometry to be correct once a page
+			// of items has been rendererd on screen. Here we make sure that a renderer rendering
+			// is updated immediately after a new item value has been set.
+			this.validate();
 		},
 
 		/**
@@ -45,30 +52,29 @@ define(["dcl/dcl",
 		_focusableChildren: null,
 
 		
-		/**
-		 * The DOM node within which the rendering of the item will occur.
-		 * @member {HTMLElement} module:deliteful/list/Renderer#renderNode
-		 */
-
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: function () {
-			//	Sets containerNode and Aria attributes.
-			this.containerNode = this;
-			this.setAttribute("role", "row");
-			this.renderNode = this.ownerDocument.createElement("div");
-			this.renderNode.setAttribute("role", "gridcell");
-			this.renderNode.tabIndex = "-1";
-			this.appendChild(this.renderNode);
+		preCreate: function () {
+			this.addInvalidatingProperties("item");
 		},
 
-		/**
-		 * Renders the item or category inside the renderNode of the renderer.
-		 * @method
-		 * @protected
-		 * @abstract
-		 */
-		render: dcl.after(function () {
+		buildRendering: dcl.advise({
+			before: function () {
+				this.containerNode = this;
+			},
+			after: function () {
+				if (!this.renderNode) {
+					throw new Error("Renderer template must define a renderNode using data-attach-point."
+							+ " Example: <template><div data-attach-point='renderNode'></div></template>");
+				}
+				this.setAttribute("role", "row");
+				this.renderNode.setAttribute("role", "gridcell");
+				this.renderNode.tabIndex = -1;
+				this._updateFocusableChildren();
+			}
+		}),
+
+		refreshRendering: dcl.after(function () {
 			this._updateFocusableChildren();
 		}),
 

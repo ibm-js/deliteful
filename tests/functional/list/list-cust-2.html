@@ -18,13 +18,22 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.title + "</div><div class='d-spacer'></div><div navindex='0'>ISBN: " + this.item.isbn + "</div>";
+				templateString: "<template><div data-attach-point='renderNode'><div navindex='0' data-attach-point='_titleNode'></div><div class='d-spacer'></div><div navindex='0' data-attach-point='_isbnNode'></div></div></template>",
+				refreshRendering: function (props) {
+					if (props.item) {
+						this._titleNode.innerHTML = this.item.title;
+						this._isbnNode.innerHTML = "ISBN: " + this.item.isbn;
+					}
 				}
 			});
 			var BookStoreRenderer = register("d-book-store", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.category + "</div><div class='d-spacer'></div><a navindex='0' href='" + this.item.bookstoreUrl + "'>" + this.item.bookstoreUrl + "</a>";
+				templateString: "<template><div data-attach-point='renderNode'><div navindex='0' data-attach-point='_categoryNode'></div><div class='d-spacer'></div><a navindex='0' data-attach-point='_bookstoreNode'></a></div></template>",
+				refreshRendering: function (props) {
+					if (props.item) {
+						this._categoryNode.innerHTML = this.item.category;
+						this._bookstoreNode.href = this.item.bookstoreUrl;
+						this._bookstoreNode.innerHTML = this.item.bookstoreUrl;
+					}					
 				}
 			});
 			var list = register.createElement("d-list");
