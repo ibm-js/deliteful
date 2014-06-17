@@ -12,22 +12,21 @@
 	var val = 0;
 	require([
 		"delite/register",
-		"dojo/dom",
 		"deliteful/StarRating",
 		"requirejs-domready/domReady!"
-	], function(register, dom, StarRating){
+	], function(register, StarRating){
 
 		increment = function(suffix){
 			if(val == 1){ return; }
 			val += 0.5;
-			dom.byId("star").value = val;
+			document.getElementById("star").value = val;
 			document.getElementById("value").innerHTML = val;
 		};
 
 		decrement = function(suffix){
 			if(val == 0){ return; }
 			val -= 0.5;
-			dom.byId("star").value = val;
+			document.getElementById("star").value = val;
 			document.getElementById("value").innerHTML = val;
 		};
 

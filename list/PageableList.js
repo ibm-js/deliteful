@@ -5,14 +5,13 @@ define(["dcl/dcl",
 		"dojo/string",
 		"dojo/when",
 		"dojo/Deferred",
-		"dojo/dom",
 		"dojo/dom-class",
 		"dojo/sniff",
 		"./List",
 		"./Renderer",
 		"../ProgressIndicator",
 		"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, on, string, when, Deferred, dom, domClass, has,
+], function (dcl, register, on, string, when, Deferred, domClass, has,
 		List, Renderer, ProgressIndicator, messages) {
 
 	/*
@@ -762,10 +761,10 @@ define(["dcl/dcl",
 		_spaceKeydownHandler: dcl.superCall(function (sup) {
 			//	Handle action key on page loaders
 			return function (event) {
-				if (this._nextPageLoader && dom.isDescendant(event.target, this._nextPageLoader)) {
+				if (this._nextPageLoader && this._nextPageLoader.contains(event.target)) {
 					event.preventDefault();
 					this._nextPageLoader._load();
-				} else if (this._previousPageLoader && dom.isDescendant(event.target, this._previousPageLoader)) {
+				} else if (this._previousPageLoader && this._previousPageLoader.contains(event.target)) {
 					event.preventDefault();
 					this._previousPageLoader._load();
 				} else {
