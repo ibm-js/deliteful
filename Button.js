@@ -5,7 +5,7 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"dojo/has!bidi?./Button/bidi/Button",
+	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
 	"delite/theme!./Button/themes/{{theme}}/Button_css"
 ], function (dcl, has, domConstruct, register, Widget, Invalidating, BidiButton) {
 

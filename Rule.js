@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/lang",
-	"dojo/has",
+	"requirejs-dplugins/has",
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/dom-class",
