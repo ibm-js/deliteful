@@ -7,7 +7,7 @@ define([
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
-	"dojo/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
+	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
 ], function (dcl, domClass, Intl, register, Widget, Invalidating, renderer) {
 	
 	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], {

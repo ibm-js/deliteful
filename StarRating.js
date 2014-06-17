@@ -2,7 +2,7 @@
 define([
     "dcl/dcl",
 	"dojo/string",
-	"dojo/has",
+	"requirejs-dplugins/has",
 	"dojo/on",
 	"dpointer/events",
 	"dojo/keys",
@@ -12,11 +12,11 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/Invalidating",
-	"dojo/has!bidi?./StarRating/bidi/StarRating",
+	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
-	"dojo/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
 ], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
 			register, Widget, Invalidating, BidiStarRating, messages) {
 

@@ -9,7 +9,7 @@ define([
 	"delite/Invalidating",
 	"dojo/Deferred",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane_css",
-	"dojo/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css"
+	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl_css"
 ],
 	function (dcl, pointer, domClass, has, register, DisplayContainer, Invalidating, Deferred) {
 		function prefix(v) {

@@ -17,7 +17,7 @@ define(["dcl/dcl",
 	"./_DefaultStore",
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List_css",
-	"dojo/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
+	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
 		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 

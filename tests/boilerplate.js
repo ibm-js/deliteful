@@ -4,9 +4,9 @@
 //		A <script src="boilerplate.js"> on your test page will
 //		load the loader (i.e. define the require() method)
 //
-//		In addition, by URL flags you can specify the theme,
-//		and optionally enable RTL (right to left) mode, and/or dj_a11y (high-
-//		contrast/image off emulation) ... probably not a genuine test for a11y.
+//		In addition, by URL flags you can specify:
+//			- locale=... to set the locale
+//			- dir=rtl to turn on the has("bidi") flag and set the page to RTL mode
 //
 //		You should NOT be using this in a production environment.  Rather, load
 //		the AMD loader directly, for example:
@@ -16,7 +16,6 @@
 
 // Parse the URL, get parameters
 var dir = "",
-	testMode = null,
 	locale;
 if (window.location.href.indexOf("?") > -1) {
 	var str = window.location.href.substr(window.location.href.indexOf("?") + 1).split(/#/);
@@ -33,11 +32,6 @@ if (window.location.href.indexOf("?") > -1) {
 		case "dir":
 			// rtl | null
 			dir = value;
-			break;
-		case "a11y":
-			if (value) {
-				testMode = "dj_a11y";
-			}
 			break;
 		}
 	}
@@ -69,17 +63,9 @@ for (i = 0; (script = scripts[i]); i++) {
 /* global require:true */
 require = {
 	baseUrl: testDir + "../../",
-	packages: [
-		{name: "dcl", location: "dcl"},
-		{name: "dojo", location: "dojo"},
-		{name: "delite", location: "delite"},
-		{name: "deliteful", location: "deliteful"},
-		{name: "dojox", location: "dojox"},
-		{name: "doh", location: "util/doh"}
-	],
 	locale: locale || "en-us",
 	config: {
-		"dojo/has": {
+		"requirejs-dplugins/has": {
 			"bidi": dir === "rtl"
 		}
 	}
@@ -99,20 +85,16 @@ document.write("<script type='text/javascript' src='" + testDir + "boilerplateOn
 boilerplateOnLoad = function () {
 	// This function is the first registered domReady() callback.
 
-	// a11y (flag for faux high-contrast testing)
-	if (testMode) {
-		document.body.className += " " + testMode;
-	}
-
 	// BIDI
 	if (dir === "rtl") {
 		// set dir=rtl on <html> node
 		document.body.parentNode.setAttribute("dir", "rtl");
 
-		require(["dojo/query!css2", "dojo/NodeList-dom"], function (query) {
-			// pretend all the labels are in an RTL language, because
-			// that affects how they lay out relative to inline form widgets
-			query("label").attr("dir", "rtl");
-		});
+		// pretend all the labels are in an RTL language, because
+		// that affects how they lay out relative to inline form widgets
+		var labels = document.body.querySelectorAll("label");
+		for (var i = 0; i < labels.length; i++) {
+			labels[i].setAttribute("dir", "rtl");
+		}
 	}
 };

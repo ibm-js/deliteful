@@ -1,7 +1,7 @@
 /** @module deliteful/StarRating/bidi/StarRating */
 define([
 	"dcl/dcl",
-	"dojo/has",
+	"requirejs-dplugins/has",
 	"dojo/keys",
 	"dojo/dom-construct"
 ], function (dcl, has, keys, domConstruct) {
