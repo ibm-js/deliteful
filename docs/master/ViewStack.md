@@ -29,7 +29,7 @@ See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/ViewStack", "dojo/domReady!"], function (register) {
+require(["delite/register", "deliteful/ViewStack", "requirejs-domready/domReady!"], function (register) {
   register.parse();
 });
 ```
@@ -47,7 +47,7 @@ require(["delite/register", "deliteful/ViewStack", "dojo/domReady!"], function (
 ### Programmatic Instantiation
 
 ```js
-require(["deliteful/ViewStack", "dojo/domReady!"], function (ViewStack) {
+require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function (ViewStack) {
   var vs = new ViewStack({width:"100%, height: 200px"});
   var child1 = document.createElement("div");
   var child2 = document.createElement("div");
@@ -69,7 +69,8 @@ require(["deliteful/ViewStack", "dojo/domReady!"], function (ViewStack) {
 
 To display a child of the container, call the `show` method.
 Example:
-````js
+
+```js
   vs.show(child2, {transition: "reveal", reverse: true});
 
 ```

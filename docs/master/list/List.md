@@ -13,13 +13,14 @@ Its custom element tag is `d-list`.
 TODO: INSERT SCREENSHOT(S) HERE
 ##### Table of content
 
-- [Scroll capabilities](#scroll-capabilities)  
-- [Store capabilities](#store-capabilities)  
-- [Categorized items](#categorized-items)  
-- [Selection support](#selection-support)  
-- [Keyboard navigation](#keyboard-navigation)  
-- [Styling](#styling)  
+- [Scroll capabilities](#scroll)
+- [Store capabilities](#store)
+- [Categorized items](#categories)
+- [Selection support](#selection)
+- [Keyboard navigation](#keynav)
+- [Styling](#styling)
 
+<a name="scroll">
 ## Scroll capabilities
 
 If you do not want the list to be scrollable, you can set its `scrollDirection` attribute
@@ -27,6 +28,7 @@ to `"none"` in order to remove the default scrolling capability.
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+<a name="scroll">
 ## Store capabilities
 
 If the store the items are retrieved from is [observable](), the widget will react to addition,
@@ -145,6 +147,7 @@ list.on("query-error", function (error) {
 });
 ```
 
+<a name="categories">
 ## Categorized items
 
 The List widget supports categorized items, that are rendered with a category header that separates
@@ -204,6 +207,7 @@ require([
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+<a name="selection">
 ## Selection support
 
 The list uses the [delite/Selection]() mixin to provides support for selectable items. By default, items
@@ -241,6 +245,7 @@ By default, selectable List displays a selection mark before each list item. The
 
 TODO: INSERT SCREENSHOT(S) HERE
 
+<a name="keynav">
 ## Keyboard navigation
 
 The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
@@ -263,6 +268,7 @@ the last one.
 You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
 
+<a name="styling">
 ## Styling
 
 The List widget comes with two different styling that are applied by setting the `baseClass` attribute
@@ -275,4 +281,3 @@ TODO: INSERT SCREENSHOT(S) HERE
 - `"d-rounded-list"`: the list has rounded corners and both a left and right margin.
 
 TODO: INSERT SCREENSHOT(S) HERE
-
