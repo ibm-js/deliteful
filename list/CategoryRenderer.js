@@ -6,6 +6,8 @@ define(["dcl/dcl",
         "./Renderer"
 ], function (dcl, register, handlebars, defaultTemplate, Renderer) {
 
+	var templateCache = {};
+
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
 	 * 
@@ -34,7 +36,10 @@ define(["dcl/dcl",
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: function () {
-			var renderFunc = handlebars.compile(this.template);
+			if (!(this.template in templateCache)) {
+				templateCache[this.template] = handlebars.compile(this.template);
+			}
+			var renderFunc = templateCache[this.template];
 			renderFunc.call(this);
 		}
 
