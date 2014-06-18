@@ -123,7 +123,6 @@ define([
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			var renderer = list.getChildren()[0];
 			assert.equal(renderer.item.label, "item a");
-			renderer.validate(); // to trigger refreshRendering if not already done
 			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
 		},
 		"update item: add, update and remove icon" : function () {
@@ -131,28 +130,25 @@ define([
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			var renderer = list.getChildren()[0];
 			assert.equal(renderer.item.label, "item a");
-			renderer.validate(); // to trigger refreshRendering if not already done
 			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
 			assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
-			assert.equal(renderer.firstChild.childNodes[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.childNodes[1].innerHTML, "item a");
+			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
 			// update
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
 			renderer = list.getChildren()[0];
 			assert.equal(renderer.item.label, "item a");
-			renderer.validate(); // to trigger refreshRendering if not already done
 			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
 			assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
-			assert.equal(renderer.firstChild.childNodes[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.childNodes[1].innerHTML, "item a");
+			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
 			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			renderer = list.getChildren()[0];
 			assert.equal(renderer.item.label, "item a");
-			renderer.validate(); // to trigger refreshRendering if not already done
 			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-			assert.equal(renderer.firstChild.childNode[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.childNode[1].innerHTML, "item a");
+			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
 		},
 		"item category attribute is not undefined by StoreMap": function () {
 			list.destroy();

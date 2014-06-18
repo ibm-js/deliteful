@@ -4,13 +4,11 @@ define(["dcl/dcl",
         "delite/handlebars",
         "requirejs-text/text!./List/CategoryRenderer.html",
         "./Renderer"
-], function (dcl, register, handlebars, template, Renderer) {
+], function (dcl, register, handlebars, defaultTemplate, Renderer) {
 
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
 	 * 
-	 * 	 TODO: DESCRIBE THE TEMPLATE AND ITS ATTACH POINTS + document how to extend this class in user doc
-	 *
 	 * @class module:deliteful/list/CategoryRenderer
 	 */
 	var CategoryRenderer = dcl(Renderer, /** @lends module:deliteful/list/CategoryRenderer# */ {
@@ -31,19 +29,13 @@ define(["dcl/dcl",
 		 * @member {string}
 		 * @protected
 		 */
-		templateString: template,
+		template: defaultTemplate,
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: function () {
-			var renderFunc = handlebars.compile(this.templateString);
+			var renderFunc = handlebars.compile(this.template);
 			renderFunc.call(this);
-		},
-
-		refreshRendering: function (props) {
-			if (props.item) {
-				this.renderNode.innerHTML = this.item.category;
-			}
 		}
 
 	});

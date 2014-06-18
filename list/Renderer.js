@@ -2,17 +2,14 @@
 define(["dcl/dcl",
         "dojo/dom-class",
         "delite/register",
-        "delite/Widget",
-        "delite/Invalidating"
-], function (dcl, domClass, register, Widget, Invalidating) {
+        "delite/Widget"
+], function (dcl, domClass, register, Widget) {
 
 	/**
 	 * The base class for a widget that render an item or its category inside a deliteful/list/List widget.
 	 * 
 	 * This base class provide all the infrastructure that a deliteful/list/List widget
 	 * expect from a renderer, including keyboard navigation support.
-	 * 
-	 * TODO: DOCUMENT WHAT IS EXPECTED IF USING A TEMPLATE ?
 	 * 
 	 * Focusability and Keyboard navigation order for a renderer instance is defined using
 	 * the navindex attribute on the rendered nodes:
@@ -26,7 +23,7 @@ define(["dcl/dcl",
 	 * @augments module:delite/Widget
 	 * @augments module:delite/Invalidating
 	 */
-	return dcl([Widget, Invalidating], /** @lends module:deliteful/list/Renderer# */ {
+	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
 
 		/**
 		 * The list item to render.
@@ -34,13 +31,6 @@ define(["dcl/dcl",
 		 * @default {}
 		 */
 		item: {}, // must be initialized to an empty object because it is expected by the template
-		_setItemAttr: function (item) {
-			this._set("item", item);
-			// Pageable List depends on the renderer node geometry to be correct once a page
-			// of items has been rendererd on screen. Here we make sure that a renderer rendering
-			// is updated immediately after a new item value has been set.
-			this.validate();
-		},
 
 		/**
 		 * Contains all the renderer nodes that can be focused, in the same order
@@ -54,28 +44,21 @@ define(["dcl/dcl",
 		
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		preCreate: function () {
-			this.addInvalidatingProperties("item");
-		},
-
 		buildRendering: dcl.advise({
 			before: function () {
 				this.containerNode = this;
 			},
 			after: function () {
 				if (!this.renderNode) {
-					throw new Error("Renderer template must define a renderNode using data-attach-point."
-							+ " Example: <template><div data-attach-point='renderNode'></div></template>");
+					throw new Error("buildRendering must define a renderNode property on the Renderer."
+							+ " Example using data-attach-point in a template: "
+							+ "<template><div data-attach-point='renderNode'></div></template>");
 				}
 				this.setAttribute("role", "row");
 				this.renderNode.setAttribute("role", "gridcell");
 				this.renderNode.tabIndex = -1;
-				this._updateFocusableChildren();
+				this.updateFocusableChildren();
 			}
-		}),
-
-		refreshRendering: dcl.after(function () {
-			this._updateFocusableChildren();
 		}),
 
 		// Interface from List to Renderer to navigate fields
@@ -129,9 +112,13 @@ define(["dcl/dcl",
 		/**
 		 * This method update the list of children of the renderer that can
 		 * be focused during keyboard navigation.
-		 * @protected
+		 * If the list of navigable children of the renderer is updated after the
+		 * buildRendering step has been executed, this method must be
+		 * called to take into account the new list.
+		 * If the list of navigable children is defined during the buildRendering
+		 * step, there is no need to call this method.
 		 */
-		_updateFocusableChildren: function () {
+		updateFocusableChildren: function () {
 			if (this._focusableChildren) {
 				for (var i = 0; i < this._focusableChildren.length; i++) {
 					delete this._focusableChildren[i].tabIndex;

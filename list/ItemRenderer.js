@@ -5,7 +5,7 @@ define(["dcl/dcl",
         "delite/handlebars",
         "requirejs-text/text!./List/ItemRenderer.html",
         "./Renderer"
-], function (dcl, domClass, register, handlebars, template, Renderer) {
+], function (dcl, domClass, register, handlebars, defaultTemplate, Renderer) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -24,8 +24,6 @@ define(["dcl/dcl",
 	 * Rendered with CSS class `d-list-item-right-icon2` + the value of the attribute;
 	 * By default, none of the nodes that renders the attributes are focusable with keyboard navigation
 	 * (no navindex attribute on the nodes). 
-	 * 
-	 * TODO: DESCRIBE THE TEMPLATE AND ITS ATTACH POINTS + document how to extend this class in user doc
 	 * 
 	 * @class module:deliteful/list/ItemRenderer
 	 * @augments module:deliteful/list/Renderer
@@ -48,45 +46,15 @@ define(["dcl/dcl",
 		 * @member {string}
 		 * @protected
 		 */
-		templateString: template,
+		template: defaultTemplate,
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: function () {
-			var renderFunc = handlebars.compile(this.templateString);
+			var renderFunc = handlebars.compile(this.template);
 			renderFunc.call(this);
-		},
+		}
 
-		refreshRendering: function (props) {
-			if (props.item) {
-				if (this.iconNode) {
-					if (this.item.iconclass) {
-						// FIXME: removal of the previous value
-						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
-						domClass.add(this.iconNode, this.item.iconclass);
-					} else {
-						// FIXME: removal of the previous value
-						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
-					}
-				}
-				if (this.rightIconNode) {
-					if (this.item.righticonclass) {
-						// FIXME: removal of the previous value
-						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
-						domClass.add(this.rightIconNode, this.item.righticonclass);
-					} else {
-						// FIXME: removal of the previous value
-						// => Need a fix for https://github.com/ibm-js/delite/issues/120 to do so.
-					}
-				}
-				if (this.labelNode) {
-					this.labelNode.innerHTML = this.item.label ? this.item.label : "";
-				}
-				if (this.rightTextNode) {
-					this.rightTextNode.innerHTML = this.item.righttext ? this.item.righttext : "";
-				}
-			}
-		},
 	});
 
 	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);

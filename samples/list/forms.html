@@ -50,12 +50,11 @@
 					this.renderNode.appendChild(input);
 					return input;
 				},
-				refreshRendering: function (props) {
-					if (props.item) {
-						this._firstNameNode.value = this.item.firstName;
-						this._lastNameNode.value = this.item.lastName;
-						this._dateOfBirthNode.value = this.item.dateOfBirth;
-					}
+				_setItemAttr: function (item) {
+					this._set("item", item);
+					this._firstNameNode.value = this.item.firstName;
+					this._lastNameNode.value = this.item.lastName;
+					this._dateOfBirthNode.value = this.item.dateOfBirth;
 				}
 			});
 			var list = register.createElement("d-list");

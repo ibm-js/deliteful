@@ -31,6 +31,13 @@ define(["dcl/dcl",
 		 */
 		baseClass: "d-list-loader",
 
+		_setItemAttr: function (item) {
+			this._set("item", item);
+			if (this.item && !this.loading) {
+				this._label.innerHTML = this.item.loadMessage;
+			}
+		},
+
 		/*
 		 * Indicates whether or not a page is currently loading.
 		 * @member {boolean}
@@ -96,12 +103,6 @@ define(["dcl/dcl",
 		buildRendering: function () {
 			var renderFunc = handlebars.compile(template);
 			renderFunc.call(this);
-		},
-
-		refreshRendering: function (props) {
-			if (props.item && !this.loading) {
-				this._label.innerHTML = this.item.loadMessage;
-			}
 		},
 
 		//////////// Public methods ///////////////////////////////////////

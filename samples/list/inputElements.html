@@ -23,14 +23,14 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
-				buildRendering: function () {
-					this.renderNode = this.ownerDocument.createElement("div");
-					this.appendChild(this.renderNode);
-				},
-				refreshRendering: function (props) {
-					if (props.item) {
+				template: "<template><div data-attach-point='renderNode'></div></template>",
+				_setItemAttr: function (item) {
+					this._set("item", item);
+					this.renderNode.innerHTML = "";
+					if (this.item.elementTag) {
 						var elementNode = this.renderNode.appendChild(this._createElement(this.item.elementTag, this.item.elementAttrs));
 						elementNode.setAttribute("navindex", "0");
+						this.updateFocusableChildren();
 						if (this.item.label) {
 							var labelNode = this.renderNode.appendChild(this.ownerDocument.createElement("SPAN"));
 							labelNode.className = "label";

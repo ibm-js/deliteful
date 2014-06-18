@@ -537,7 +537,7 @@ define([
 	/////////////////////////////////
 
 	registerSuite({
-		name: "list/Pageable",
+		name: "list/PageableList",
 		beforeEach: function () {
 			if (list) {
 				list.destroy();
@@ -1064,7 +1064,7 @@ define([
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
-			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+			clickNextPageLoader(list).then(dfd.callback(function () {
 				assertList(list, 10, 19, [], true, true, "A");
 				list.loadPreviousMessage = "foo";
 				setTimeout(dfd.callback(function () {
@@ -1121,7 +1121,7 @@ define([
 				// This test is not reliable on Firefox
 				return;
 			}
-			var def = this.async(4000);
+			var def = this.async(7000);
 			list = new PageableList();
 			list.categoryAttr = "category";
 			list.pageLength = 25;
@@ -1166,13 +1166,13 @@ define([
 											assert.equal("item 24",
 													removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
 														"first visible renderer");
-										}), 1000);
+										}), 2000);
 									}), 0);
 								}), 0);
-							}), 1000);
+							}), 2000);
 						}), 0);
 					}), 0);
-				}), 1000);
+				}), 2000);
 			}), 0);
 			return def;
 		},
