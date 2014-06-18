@@ -77,16 +77,14 @@ example:
 _Note that items are appended to the store in the order they are declared in the JSON markup._
 
 The actual rendering of the items in the list is performed by an item renderer widget.
-The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but another one can be specified
-using the `itemRenderer` attribute of the list, as in the following example:
+The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but a [custom item renderer](ItemRenderer.md#customization) can be specified
+using the `itemRenderer` attribute of the list, as in the following example that leverage the template capabilities of ItemRenderer:
 
 ```js
 define(["delite/register", "deliteful/list/ItemRenderer"],
 	function (register, ItemRenderer) {
 		var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-			render: function () {
-				this.renderNode.innerHTML = "<div class='title' navindex='0'>" + this.item.title + "</div><div class='isbn' navindex='0'>ISBN: " + this.item.isbn + "</div>";
-			}
+			template: "<template><div data-attach-point='renderNode'><div class='title' navindex='0'>{{item.title}}</div><div class='isbn' navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
 		});
 		var list = register.createElement("d-list");
 		list.itemRenderer = myCustomRenderer;
@@ -179,8 +177,8 @@ list.store.add({label: "third item", category: "Category B"});
 ```
 
 The actual rendering of the categories in the list is performed by a category renderer widget.
-The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.md), but another one can be specified
-using the `categoryRenderer` attribute of the list, as in the following example:
+The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.md), but a [custom category renderer](CategoryRenderer.md#customization) can be specified
+using the `categoryRenderer` attribute of the list, as in the following example that leverage the template capabilities of CategoryRenderer:
 
 ```js
 require([
@@ -189,9 +187,7 @@ require([
 	"deliteful/list/List"
 ], function (register, CategoryRenderer) {
 	var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
-		render: function () {
-			this.renderNode.innerHTML = "<div class='categoryName' navindex='0'>" + this.item.category + "</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.item.category + "&go=Go'>Wikipedia</a></div>";
-		}
+		template: "<template><div data-attach-point='renderNode'><div class='categoryName' navindex='0'>{{item.category}}</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search={{item.category}}&go=Go'>Wikipedia</a></div></div></template>"
 	});
 	var list = register.createElement("d-list");
 	list.categoryAttr = "cat";
