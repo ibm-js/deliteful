@@ -1,0 +1,46 @@
+button.d-toaster-dismiss:before {
+	content: "x";
+}
+
+button.d-toaster-dismiss {
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: 0 0;
+	border: 0;
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 1;
+	color: #black;
+	opacity: .8;
+	position: relative;
+	top: -2px;
+	float: right;
+	right: 2px;
+}
+
+.d-toaster-message {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+}
+
+.d-toaster-message-col {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.d-toaster-dismiss-col {
+	padding: 0 .2em;
+	-webkit-box-flex: none;
+	-moz-box-flex: none;
+	-webkit-flex: none;
+	-ms-flex: none;
+	flex: none;
+}

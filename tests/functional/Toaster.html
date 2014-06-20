@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>StarRating Tests</title>
+<link rel="stylesheet" type="text/css" href="../../Toaster/style.css" />
+
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		var actionsDuration, actionsTypes;
+		var ready = false; // set to true when the test page is ready
+		var timeoutInterval = 1000;
+		var val = 0;
+		var toast;
+		require([
+				"delite/register",
+				"dojo/dom",
+				"deliteful/ToasterMessage",
+				"deliteful/Toaster",
+				"dpointer/events",
+				"requirejs-domready/domReady!"
+				], function(register, dom, ToasterMessage, Toaster){
+
+					register.parse();
+
+					// Create rating widget pragmatically
+					toast = new Toaster({id: "default"});
+					toast.placeAt("container");
+					toast.startup();
+					var counter = 0;
+
+					// helpers
+					var stringToId = function(string){
+						return string.replace(/\s/g, "-").replace(/[?!']/g, "");
+					};
+					var createButtonsForActions = function(actions){
+						for (a in actions) {
+							var buttonId = "button" + (counter++).toString();
+							actions[a].buttonId = buttonId; // storing the id of the button for later reference
+							actions[a].props["id"] = "msg"+buttonId; // has to be triggered by #buttonId
+							actions[a].var = "var" + buttonId;
+
+							var b = document.createElement("button");
+							b.setAttribute("id", buttonId);
+							b.innerText = a;
+							(function(a, action){
+								window[action.var] = {inserted: false, expired: false, removed: false};
+								action.toaster.addEventListener("messageInserted", function(e){
+									if (e.message.id === action.props["id"]){
+										console.log("inserted", e.message);
+										window[action.var].inserted = true;
+										console.log(window[action.var])
+									}
+								});
+								action.toaster.addEventListener("messageExpired", function(e){
+									if (e.message.id === action.props["id"]){
+										console.log("expired", e.message);
+										window[action.var].expired = true;
+										console.log(window[action.var])
+									}
+								});
+								action.toaster.addEventListener("messageRemoved", function(e){
+									if (e.message.id === action.props["id"]){
+										console.log("removed", e.message);
+										window[action.var].removed = true;
+										console.log(window[action.var])
+									}
+								});
+							})(a, actions[a]);
+							b.onclick = (function(a, action){
+								return function(){
+									action.toaster.postMessage(a, action.props);
+								}
+							})(a, actions[a]);
+							actionsContainer.appendChild(b);
+						}
+					};
+
+					actionsDurations = {
+						"default": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : 2000 }
+						},
+						"Duration 6000": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : 6000 }
+						},
+						"Duration -1": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : -1}
+						}
+					};
+					actionsTypes = {
+						"Type info": {
+							toaster : toast,
+							props   : { type : "info", duration : -1}
+						},
+						"Type success": {
+							toaster : toast,
+							props   : { type : "success", duration : -1}
+						},
+						"Type warning": {
+							toaster : toast,
+							props   : { type : "warning", duration : -1}
+						},
+						"Type error": {
+							toaster : toast,
+							props   : { type : "error", duration : -1}
+						}
+					};
+					actionsRemoval = {
+						"permanent1": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : -1 }
+						},
+						"expirable2000": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : 2000 }
+						},
+						"permanent2": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : -1}
+						},
+						"expirable6000": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : 6000 }
+						}
+					};
+					actionsDismiss = {
+						"permanent": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info", duration : -1 }
+						}
+					};
+
+
+					var actionsContainer = document.getElementById("actions");
+					createButtonsForActions(actionsDurations);
+					createButtonsForActions(actionsTypes);
+					createButtonsForActions(actionsRemoval);
+					createButtonsForActions(actionsDismiss);
+
+					// Set global variable to signal that the test page is ready
+					ready = true;
+				})
+			</script>
+</head>
+<body>
+	<div id="container"></div>
+	<button id="trigger-button" class="trigger-button" onclick="toast.postMessage('my message', {duration: NaN})">
+		post
+	</button>
+	<div id="actions"></div>
+</body>
+</html>
