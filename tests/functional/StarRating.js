@@ -10,7 +10,7 @@ define(["intern!object",
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 			pixelsFromCenter/*?Number of pixels from the center of the star*/) {
 			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div[" + (starIndex + 1) + "]")
+				.elementByXPath("//*[@id='" + widgetId + "']/div/div[" + (starIndex + 1) + "]")
 					.moveTo(20 + (pixelsFromCenter ? pixelsFromCenter : 0), 0)
 					.end()
 				.click();
@@ -21,13 +21,13 @@ define(["intern!object",
 			// Clicking the element doesn't work in firefox and internet explorer
 			// (no pointer up event received by StarRating)
 			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
+				.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
 					.moveTo()
 					.end()
 				.click();
 		} else {
 			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div[1]")
+				.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
 					.click()
 					.end();
 		}
@@ -56,7 +56,7 @@ define(["intern!object",
 				});
 	};
 
-	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedEditable) {
+	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedDisabled) {
 		var i, expectedClasses = [];
 		for (i = 0; i < expectedMax; i++) {
 			if (i > expectedValue - 1) {
@@ -71,47 +71,47 @@ define(["intern!object",
 		}
 		return remote
 			.waitForCondition("document.getElementById('" + widgetId +
-				"').getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
+				"').focusNode.getAttribute('aria-valuenow') == '" + expectedValue + "'", 3000, 500)
 			.then(function () {
 				return remote
-					.elementById(widgetId)
-					.getAttribute("role")
-					.then(function (value) {
-						assert.equal(value, "slider", "role");
-					})
-					.getAttribute("aria-label")
-					.then(function (value) {
-						assert.equal(value, "rating", "aria-label");
-					})
-					.getAttribute("aria-valuemin")
-					.then(function (value) {
-						assert.equal(value, "0", "aria-valuemin");
-					})
-					.getAttribute("aria-valuemax")
-					.then(function (value) {
-						assert.equal(value, expectedMax, "aria-valuemax");
-					})
-					.getAttribute("aria-valuetext")
-					.then(function (value) {
-						assert.equal(value, expectedValue + " stars", "aria-valuetest");
-					})
-					.getAttribute("aria-disabled")
-					.then(function (value) {
-						assert.equal(value, expectedEditable ? "false" : "true", "aria-disabled");
-					})
-					.getAttribute("tabIndex")
-					.then(function (value) {
-						assert.equal(value, "0", "tabIndex");
-					})
-					.elementsByClassName("d-star-rating-star-icon")
-						.then(function (children) {
-							assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
+				.elementByXPath("//*[@id='" + widgetId + "']/div")
+						.getAttribute("aria-disabled")
+						.then(function (value) {
+							assert.equal(value, expectedDisabled ? "true" : "false", "aria-disabled");
 						})
+						.getAttribute("tabIndex")
+						.then(function (value) {
+							assert.equal(value, expectedDisabled ? "-1" : "0", "tabIndex");
+						})
+						.getAttribute("role")
+						.then(function (value) {
+							assert.equal(value, "slider", "role");
+						})
+						.getAttribute("aria-label")
+						.then(function (value) {
+							assert.equal(value, "rating", "aria-label");
+						})
+						.getAttribute("aria-valuemin")
+						.then(function (value) {
+							assert.equal(value, "0", "aria-valuemin");
+						})
+						.getAttribute("aria-valuemax")
+						.then(function (value) {
+							assert.equal(value, expectedMax, "aria-valuemax");
+						})
+						.getAttribute("aria-valuetext")
+						.then(function (value) {
+							assert.equal(value, expectedValue + " stars", "aria-valuetest");
+						})
+						.elementsByClassName("d-star-rating-star-icon")
+							.then(function (children) {
+								assert.equal(children.length, expectedMax, "The expected number of stars is wrong");
+							})
 						.end()
 					.then(function () {
 						for (i = 0; i < expectedMax; i++) {
 							(function (i) {
-								remote.elementByXPath("//*[@id='" + widgetId + "']/div[" + (i + 2) + "]")
+								remote.elementByXPath("//*[@id='" + widgetId + "']/div/div[" + (i + 2) + "]")
 									.getAttribute("className")
 									.then(function (result) {
 										assert.equal(result, expectedClasses[i], "star " + i + " class");
@@ -131,14 +131,14 @@ define(["intern!object",
 		.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 		// Check initial rating
 		.then(function () {
-			return checkRating(remote, widgetId, 7, expectedInitialValue, true);
+			return checkRating(remote, widgetId, 7, expectedInitialValue, false);
 		})
 		// check rating change after firing down and up events on a star
 		.then(function () {
 			return clickOnStar(remote, widgetId, 3, -10);
 		})
 		.then(function () {
-			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, true);
+			return checkRating(remote, widgetId, 7, expectedAfterClickOnThirdStar, false);
 		})
 		// set zero rating
 		.then(function () {
@@ -148,7 +148,7 @@ define(["intern!object",
 		})
 		.then(function () {
 			if (zeroSetting) {
-				return checkRating(remote, widgetId, 7, 0, true);
+				return checkRating(remote, widgetId, 7, 0, false);
 			}
 		});
 		///////////////////////////////////////////
@@ -258,7 +258,7 @@ define(["intern!object",
 					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 					// Check initial rating
 					.then(function () {
-						return checkRating(remote, id, 7, 3.5, true);
+						return checkRating(remote, id, 7, 3.5, false);
 					})
 					// Check message
 					.elementById(id + "value")
@@ -273,7 +273,7 @@ define(["intern!object",
 					.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 					// Check initial rating
 					.then(function () {
-						return checkRating(remote, id, 7, 3.5, true);
+						return checkRating(remote, id, 7, 3.5, false);
 					})
 					// Check message
 					.elementById(id + "value")
@@ -287,7 +287,7 @@ define(["intern!object",
 						return clickOnStar(remote, id, 3, -1);
 					})
 					.then(function () {
-						return checkRating(remote, id, 7, 2.5, true);
+						return checkRating(remote, id, 7, 2.5, false);
 					})
 					// Check message
 					.elementById(id + "value")
@@ -301,7 +301,7 @@ define(["intern!object",
 						return clickOnZeroSettingArea(remote, id);
 					})
 					.then(function () {
-						return checkRating(remote, id, 7, 0, true);
+						return checkRating(remote, id, 7, 0, false);
 					})
 					// Check message
 					.elementById(id + "value")
@@ -321,7 +321,7 @@ define(["intern!object",
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
-				return checkRating(remote, "defaultstar", 5, 0, true);
+				return checkRating(remote, "defaultstar", 5, 0, false);
 			});
 		},
 		"tab order": function () {
@@ -343,17 +343,17 @@ define(["intern!object",
 				assert.equal(value, "afinput");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "firsttabindexstar");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "secondtabindexstar");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "star");
 			})
@@ -368,27 +368,27 @@ define(["intern!object",
 				assert.equal(value, "starplus");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "editablestar1");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "editablestar2");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "editablestar5");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "editablestar6");
 			})
 			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.equal(value, "defaultstar");
 			});
@@ -402,7 +402,7 @@ define(["intern!object",
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			// Check initial rating
 			.then(function () {
-				return checkRating(remote, "starrating3", 7, 3, false);
+				return checkRating(remote, "starrating3", 7, 3, true);
 			});
 		},
 		"form back button": function () {
@@ -432,7 +432,7 @@ define(["intern!object",
 			.back()
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
-				return checkRating(remote, "starratingA", 7, 7, true);
+				return checkRating(remote, "starratingA", 7, 7, false);
 			})
 			.elementById("submitButton")
 			.click()
@@ -445,7 +445,7 @@ define(["intern!object",
 			.back()
 			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
 			.then(function () {
-				return checkRating(remote, "starratingA", 7, 7, true);
+				return checkRating(remote, "starratingA", 7, 7, false);
 			});
 		},
 		"form values": function () {

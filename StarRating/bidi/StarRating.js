@@ -3,8 +3,7 @@ define([
 	"dcl/dcl",
 	"requirejs-dplugins/has",
 	"dojo/keys",
-	"dojo/dom-construct"
-], function (dcl, has, keys, domConstruct) {
+], function (dcl, has, keys) {
 
 	/**
 	 * Bidi support for StarRating widget.
@@ -49,7 +48,7 @@ define([
 				if (this.isLeftToRight()) {
 					return sup.call(this, value, create);
 				} else {
-					var stars = this.querySelectorAll("div");
+					var stars = this.focusNode.querySelectorAll("div");
 					for (var i = 0; i < this.max; i++) {
 						var index = (this.max - i - 1);
 						if (index <= value - 1) {
@@ -60,15 +59,17 @@ define([
 							starClass = this.baseClass + "-half-star";
 						}
 						if (create) {
-							var parent = domConstruct.create("div", {}, this);
+							var parent = this.ownerDocument.createElement("div");
+							this.focusNode.appendChild(parent);
 						} else {
 							parent = stars[i];
 						}
 						parent.className = this.baseClass + "-star-icon " + starClass;
 					}
 					if (create) {
-						this._zeroSettingArea = domConstruct.create("div", {}, this);
+						this._zeroSettingArea = this.ownerDocument.createElement("div");
 						this._zeroSettingArea.className = this.baseClass + "-zero ";
+						this.focusNode.appendChild(this._zeroSettingArea);
 						this._updateZeroArea();
 					}
 				}

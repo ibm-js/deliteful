@@ -1,24 +1,20 @@
 /** @module deliteful/StarRating */
 define([
-    "dcl/dcl",
 	"dojo/string",
 	"requirejs-dplugins/has",
-	"dojo/on",
 	"dpointer/events",
 	"dojo/keys",
-	"dojo/dom-construct",
 	"dojo/dom-class",
 	"dojo/dom-geometry",
 	"delite/register",
-	"delite/Widget",
-	"delite/Invalidating",
+	"delite/FormValueWidget",
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (dcl, string, has, on, pointer, keys, domConstruct, domClass, domGeometry,
-			register, Widget, Invalidating, BidiStarRating, messages) {
+], function (string, has, pointer, keys, domClass, domGeometry,
+			register, FormValueWidget, BidiStarRating, messages) {
 
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
@@ -52,11 +48,9 @@ define([
 	 * This widget supports right to left direction.
 	 * 
 	 * @class module:deliteful/StarRating
-	 * @augments delite/Widget
-	 * @augments delite/Invalidating
+	 * @augments delite/FormValueWidget
 	 */
-	var StarRating = dcl([Widget, Invalidating], /** @lends module:deliteful/StarRating# */ {
-
+	var StarRating = register.dcl([FormValueWidget], /** @lends module:deliteful/StarRating# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
@@ -74,25 +68,6 @@ define([
 		 * @member {number}
 		 */
 		value: 0,
-
-		/**
-		 * If false, the widget is editable and allows editing the value of the Rating
-		 * by touching / clicking the stars
-		 * @member {boolean}
-		 */
-		readOnly: false,
-
-		/**
-		 * Mandatory if using the star rating widget in a form, in order to have its value submitted
-		 * @member {string}
-		 */
-		name: "",
-
-		/**
-		 * if true, the widget is disabled (its value will not be submitted if it is included in a form).
-		 * @member {boolean}
-		 */
-		disabled: false,
 
 		/**
 		 * If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
@@ -124,14 +99,21 @@ define([
 			this.addInvalidatingProperties("max",
 					"name",
 					"value",
-					"readOnly",
-					"disabled",
 					"editHalfValues",
 					"allowZero");
 		},
 
-		createdCallback: dcl.after(function () {
+		buildRendering: function () {
+			this.focusNode = this.ownerDocument.createElement("div");
+			this.appendChild(this.focusNode);
 			pointer.setTouchAction(this, "none");
+			// init WAI-ARIA attributes
+			this.focusNode.setAttribute("role", "slider");
+			this.focusNode.setAttribute("aria-label", messages["aria-label"]);
+			this.focusNode.setAttribute("aria-valuemin", 0);
+		},
+
+		createdCallback: register.dcl.after(function () {
 			var inputs = this.getElementsByTagName("INPUT");
 			if (inputs.length) {
 				this.valueNode = inputs[0];
@@ -140,58 +122,47 @@ define([
 				}
 				this.valueNode.style.display = "none";
 			} else {
-				this.valueNode = domConstruct.create("input",
-						{type: "number",
-						 name: this.name,
-						 value: this.value,
-						 readOnly: this.readOnly,
-						 disabled: this.disabled,
-						 style: "display: none;"},
-						this, "last");
+				this.valueNode = this.ownerDocument.createElement("input");
+				this.valueNode.type = "number";
+				this.valueNode.name = this.name;
+				this.valueNode.value = this.value;
+				this.valueNode.readOnly = this.readOnly;
+				this.valueNode.disabled = this.disabled;
+				this.valueNode.style.display = "none";
+				this.appendChild(this.valueNode);
 			}
-
-			// init WAI-ARIA attributes
-			this.setAttribute("role", "slider");
-			this.setAttribute("aria-label", messages["aria-label"]);
-			this.setAttribute("aria-valuemin", 0);
-			// init tabIndex if not explicitly set
-			if (!this.hasAttribute("tabindex")) {
-				this.setAttribute("tabindex", "0");
-			}
-
 			this.refreshRendering(this);
 		}),
 
 		/* jshint maxcomplexity: 13 */
-		refreshRendering: function (props) {
-			if (props.disabled !== undefined) {
-				this._refreshDisabledClass();
-			}
-			if (props.max !== undefined) {
-				this.setAttribute("aria-valuemax", this.max);
-			}
-			if (props.max !== undefined || props.value !== undefined) {
-				this._refreshStarsRendering();
-			}
-			if (props.value !== undefined) {
-				this.setAttribute("aria-valuenow", this.value);
-				this.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
-				this.valueNode.value = this.value;
-			}
-			if (props.name !== undefined && this.name) {
-				this.valueNode.name = this.name;
-			}
-			if (props.readOnly !== undefined || props.disabled !== undefined) {
-				var passive = this.disabled || this.readOnly;
-				this.setAttribute("aria-disabled", passive);
-				this._refreshEditionEventHandlers();
-				this.valueNode.readOnly = this.readOnly;
-				this.valueNode.disabled = this.disabled;
-			}
-			if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
-				this._updateZeroArea();
-			}
-		},
+		refreshRendering: register.dcl.superCall(function (sup) {
+			return function (props) {
+				sup.call(this, props);
+				if (props.disabled !== undefined) {
+					this._refreshDisabledClass();
+				}
+				if (props.max !== undefined) {
+					this.focusNode.setAttribute("aria-valuemax", this.max);
+				}
+				if (props.max !== undefined || props.value !== undefined) {
+					this._refreshStarsRendering();
+				}
+				if (props.value !== undefined) {
+					this.focusNode.setAttribute("aria-valuenow", this.value);
+					this.focusNode.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
+					this.valueNode.value = this.value;
+				}
+				if (props.name !== undefined && this.name) {
+					this.valueNode.name = this.name;
+				}
+				if (props.readOnly !== undefined || props.disabled !== undefined) {
+					this._refreshEditionEventHandlers();
+				}
+				if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
+					this._updateZeroArea();
+				}
+			};
+		}),
 		/* jshint maxcomplexity: 10 */
 
 		_refreshDisabledClass: function () {
@@ -206,7 +177,8 @@ define([
 			var createChildren = this.children.length - 2 !== this.max;
 			if (createChildren) {
 				// Not relying on live NodeList, due to: https://github.com/Polymer/polymer/issues/346
-				Array.prototype.slice.call(this.getElementsByTagName("DIV")).forEach(this.removeChild, this);
+				Array.prototype.slice.call(this.focusNode.getElementsByTagName("DIV"))
+					.forEach(this.removeChild, this.focusNode);
 			}
 			this._updateStars(this.value, createChildren);
 		},
@@ -352,10 +324,11 @@ define([
 		},
 
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
-			var stars = this.querySelectorAll("div");
+			var stars = this.focusNode.querySelectorAll("div");
 			if (create) {
-				this._zeroSettingArea = domConstruct.create("div", {}, this.valueNode, "before");
+				this._zeroSettingArea = this.ownerDocument.createElement("div");
 				this._zeroSettingArea.className = this.baseClass + "-zero ";
+				this.focusNode.appendChild(this._zeroSettingArea);
 				this._updateZeroArea();
 			}
 			for (var i = 0; i < this.max; i++) {
@@ -367,7 +340,8 @@ define([
 					starClass = this.baseClass + "-half-star";
 				}
 				if (create) {
-					var parent = domConstruct.create("div", {}, this.valueNode, "before");
+					var parent = this.ownerDocument.createElement("div");
+					this.focusNode.appendChild(parent);
 				} else {
 					parent = stars[i + 1];
 				}
