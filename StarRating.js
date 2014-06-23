@@ -19,33 +19,10 @@ define([
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
 	 * by touching the stars.
+	 * Its custom element tag is `d-star-rating`.
 	 * 
-	 * This widget shows the rating using an image sprite that contains full stars, half stars and
-	 * empty stars.
-	 * The star displayed can be fully customized by redefining the following css classes in
-	 * your application:
-	 * ``` css
-	 * .d-star-rating-star-icon:before {content: url(url_to_the_stars_sprite);}
-	 * .d-star-rating-disabled .d-star-rating-star-icon:before {content: url(url_to_the_disabled_stars_sprite);}
-	 * ```
-	 * 
-	 * If the custom stars are not 40px height and width images, you also have to redefine the
-	 * following CSS classes:
-	 * ``` css
-	 * .d-star-rating-star-icon {height: iconSize; width: iconSize;}
-	 * .d-star-rating-empty-star:before {margin-left: -iconSize}
-	 * .d-star-rating-half-star:before {margin-left: -2*iconSize}
-	 * .d-star-rating.d-rtl .d-star-rating-full-star:before {margin-left: 0px; margin-right: -3*iconSize}
-	 * .d-star-rating.d-rtl .d-star-rating-empty-star:before {margin-left: 0px; margin-right: -2*iconSize}
-	 * .d-star-rating.d-rtl .d-star-rating-half-star:before {margin-left: 0px;}
-	 * .d-star-rating-zero {height: iconSize; width: iconSize/2;}
-	 * ```
-	 * 
-	 * The widget can be used in read-only or in editable mode. In editable mode, the widget allows
-	 * to set the rating to 0 stars or not using the allowZero property. In this mode, it also allows
-	 * to set half values or not using the editHalfValues property.
-	 * 
-	 * This widget supports right to left direction.
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/StarRating.md user documentation}
+	 * for more details.
 	 * 
 	 * @class module:deliteful/StarRating
 	 * @augments delite/FormValueWidget
@@ -123,11 +100,6 @@ define([
 				this.valueNode.style.display = "none";
 			} else {
 				this.valueNode = this.ownerDocument.createElement("input");
-				this.valueNode.type = "number";
-				this.valueNode.name = this.name;
-				this.valueNode.value = this.value;
-				this.valueNode.readOnly = this.readOnly;
-				this.valueNode.disabled = this.disabled;
 				this.valueNode.style.display = "none";
 				this.appendChild(this.valueNode);
 			}
@@ -174,7 +146,7 @@ define([
 		},
 
 		_refreshStarsRendering: function () {
-			var createChildren = this.children.length - 2 !== this.max;
+			var createChildren = this.focusNode.children.length - 1 !== 2 * this.max;
 			if (createChildren) {
 				// Not relying on live NodeList, due to: https://github.com/Polymer/polymer/issues/346
 				Array.prototype.slice.call(this.focusNode.getElementsByTagName("DIV"))
@@ -327,17 +299,16 @@ define([
 			var stars = this.focusNode.querySelectorAll("div");
 			if (create) {
 				this._zeroSettingArea = this.ownerDocument.createElement("div");
-				this._zeroSettingArea.className = this.baseClass + "-zero ";
+				this._zeroSettingArea.className = this.baseClass + "-zero";
 				this.focusNode.appendChild(this._zeroSettingArea);
 				this._updateZeroArea();
 			}
-			for (var i = 0; i < this.max; i++) {
-				if (i <= value - 1) {
-					var starClass = this.baseClass + "-full-star";
-				} else if (i >= value) {
-					starClass = this.baseClass + "-empty-star";
+			for (var i = 0; i < 2 * this.max; i++) {
+				var starClass = this.baseClass + (i % 2 ? "-end " : "-start ");
+				if ((i + 1) * 0.5 <= value) {
+					starClass += this.baseClass + "-full";
 				} else {
-					starClass = this.baseClass + "-half-star";
+					starClass += this.baseClass + "-empty";
 				}
 				if (create) {
 					var parent = this.ownerDocument.createElement("div");

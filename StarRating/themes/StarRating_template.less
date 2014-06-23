@@ -32,18 +32,24 @@
 	float: left;
 	overflow: hidden;
 	height: @star-icon-size;
-	width: @star-icon-size;
+	width: @star-icon-size / 2;
 }
 
 .d-star-rating-star-icon:before{
-	display: inline-block;
 	content: @star-icon-sprite;
 }
 
-.d-star-rating-empty-star:before{
-	margin-left: (-1 * @star-icon-size);
+.d-star-rating-start {
+	&.d-star-rating-empty:before {
+		margin-left: (-1 * @star-icon-size);
+	}
 }
 
-.d-star-rating-half-star:before{
-	margin-left: (-2 * @star-icon-size);
+.d-star-rating-end {
+	&.d-star-rating-empty:before {
+		margin-left: (-1.5 * @star-icon-size);
+	}
+	&.d-star-rating-full:before {
+		margin-left: (-0.5 * @star-icon-size);
+	}
 }

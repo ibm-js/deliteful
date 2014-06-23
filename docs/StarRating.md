@@ -61,7 +61,7 @@ If the custom stars size is not 40px X 40px, you also have to redefine the follo
 ```css
 .d-star-rating-star-icon {
 	height: @iconSize;
-	width: @iconSize;
+	width: @iconSize/2;
 }
 
 .d-star-rating-zero {
@@ -69,50 +69,59 @@ If the custom stars size is not 40px X 40px, you also have to redefine the follo
 	width: @iconSize/2;
 }
 
-.d-star-rating-empty-star:before {
-	margin-left: -@iconSize;
+.d-star-rating-start.d-star-rating-empty:before {
+	margin-left: -1*@iconSize;
 }
 
-.d-star-rating-half-star:before {
-	margin-left: -2*@iconSize;
+.d-star-rating-end.d-star-rating-empty:before {
+	margin-left: -1.5*@iconSize;
 }
 
+.d-star-rating-end.d-star-rating-full:before {
+	margin-left: -0.5*@iconSize;
+}
 ```
 
 To support Right To Left direction (BIDI) with a custom star size, you also need to define the following CSS:
 
 ```css
-.d-star-rating.d-rtl .d-star-rating-full-star:before {
+.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
 	margin-left: 0px;
-	margin-right: -3*@iconSize;
+	margin-right: -1*@iconSize
 }
 
-.d-star-rating.d-rtl .d-star-rating-empty-star:before {
+.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
 	margin-left: 0px;
-	margin-right: -2*@iconSize;
+	margin-right: -0.5*@iconSize;
 }
 
-.d-star-rating.d-rtl .d-star-rating-half-star:before {
+.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
 	margin-left: 0px;
+	margin-left: -1.5*@iconSize;
 }
 ```
 
 Last, to support Right To Left direction in Internet Explorer 9, the following extra rules are necessary:
 
 ```css
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-full-star:before{
+.d-ie-9 d-star-rating.d-rtl .d-star-rating-start.d-star-rating-empty:before {
+	margin-left: 0px;
+	margin-right: -1*@iconSize
+}
+
+.d-ie-9 .d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
 	margin-left: 0px;
 	margin-right: 0px;
 }
 
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-empty-star:before{
+.d-ie-9 .d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
 	margin-left: 0px;
-	margin-right: -@iconSize;
+	margin-right: -1.5*@iconSize;
 }
 
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-half-star:before {
+.d-ie-9 .d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
 	margin-left: 0px;
-	margin-right: -2*iconSize);
+	margin-left: -0.5*@iconSize;
 }
 ```
 

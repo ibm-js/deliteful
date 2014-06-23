@@ -3,33 +3,53 @@
 // Note that selectors are more selective than StarRating.less because it's indeterminate which order the styles
 // are inserted into the document.
 
-.d-star-rating.d-rtl .d-star-rating-full-star:before{
-	margin-left: 0px;
-	margin-right: (-3 * @star-icon-size);
-}
-
-.d-star-rating.d-rtl .d-star-rating-empty-star:before{
-	margin-left: 0px;
-	margin-right: (-2 * @star-icon-size);
-}
-
-.d-star-rating.d-rtl .d-star-rating-half-star:before {
-	margin-left: 0px;
+.d-star-rating.d-rtl {
+	.d-star-rating-start {
+		&.d-star-rating-empty:before {
+			margin-left: 0px;
+		}
+		&.d-star-rating-full:before {
+			margin-left: 0px;
+			margin-right: (-1 * @star-icon-size);
+		}
+	}
+	
+	.d-star-rating-end {
+		&.d-star-rating-empty:before {
+			margin-left: 0px;
+			margin-right: (-0.5 * @star-icon-size);
+		}
+		&.d-star-rating-full:before {
+			margin-left: 0px;
+			margin-right: (-1.5 * @star-icon-size);
+		}
+	}
 }
 
 // IE9 needs another styling
 
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-full-star:before{
-	margin-left: 0px;
-	margin-right: 0px;
-}
-
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-empty-star:before{
-	margin-left: 0px;
-	margin-right: (-1 * @star-icon-size);
-}
-
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-half-star:before {
-	margin-left: 0px;
-	margin-right: (-2 * @star-icon-size);
+.d-ie-9 {
+	.d-star-rating.d-rtl {
+		.d-star-rating-start {
+			&.d-star-rating-empty:before {
+				margin-left: 0px;
+				margin-right: (-1 * @star-icon-size);
+			}
+			&.d-star-rating-full:before {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+		}
+		
+		.d-star-rating-end {
+			&.d-star-rating-empty:before {
+				margin-left: 0px;
+				margin-right: (-1.5 * @star-icon-size);
+			}
+			&.d-star-rating-full:before {
+				margin-left: 0px;
+				margin-right: (-0.5 * @star-icon-size);
+			}
+		}
+	}
 }

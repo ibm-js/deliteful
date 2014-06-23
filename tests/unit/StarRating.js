@@ -17,10 +17,10 @@ define([
 			var dfd = this.async(1000);
 			sr.max = 1;
 			setTimeout(dfd.rejectOnError(function () {
-				assert.equal(sr.focusNode.children.length, 2, "number of children for max = 1");
+				assert.equal(sr.focusNode.children.length, 3, "number of children for max = 1");
 				sr.max = 2;
 				setTimeout(dfd.callback(function () {
-					assert.equal(sr.focusNode.children.length, 3, "number of children for max = 2");
+					assert.equal(sr.focusNode.children.length, 5, "number of children for max = 2");
 				}), 0);
 			}), 0);
 			return dfd;

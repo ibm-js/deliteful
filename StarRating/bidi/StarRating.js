@@ -49,14 +49,13 @@ define([
 					return sup.call(this, value, create);
 				} else {
 					var stars = this.focusNode.querySelectorAll("div");
-					for (var i = 0; i < this.max; i++) {
-						var index = (this.max - i - 1);
-						if (index <= value - 1) {
-							var starClass = this.baseClass + "-full-star";
-						} else if (index >= value) {
-							starClass = this.baseClass + "-empty-star";
+					for (var i = 0; i < 2 * this.max; i++) {
+						var index = (2 * this.max - i - 1);
+						var starClass = this.baseClass + (index % 2 ? "-end " : "-start ");
+						if ((index + 1) * 0.5 <= value) {
+							starClass += this.baseClass + "-full";
 						} else {
-							starClass = this.baseClass + "-half-star";
+							starClass += this.baseClass + "-empty";
 						}
 						if (create) {
 							var parent = this.ownerDocument.createElement("div");
@@ -68,7 +67,7 @@ define([
 					}
 					if (create) {
 						this._zeroSettingArea = this.ownerDocument.createElement("div");
-						this._zeroSettingArea.className = this.baseClass + "-zero ";
+						this._zeroSettingArea.className = this.baseClass + "-zero";
 						this.focusNode.appendChild(this._zeroSettingArea);
 						this._updateZeroArea();
 					}

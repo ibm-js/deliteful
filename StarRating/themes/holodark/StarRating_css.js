@@ -26,16 +26,18 @@ define(function () {
   float: left;\
   overflow: hidden;\
   height: 40px;\
-  width: 40px;\
+  width: 20px;\
 }\
 .d-star-rating-star-icon:before {\
-  display: inline-block;\
   content: url(\"../../images/yellow-stars-40.png\");\
 }\
-.d-star-rating-empty-star:before {\
+.d-star-rating-start.d-star-rating-empty:before {\
   margin-left: -40px;\
 }\
-.d-star-rating-half-star:before {\
-  margin-left: -80px;\
+.d-star-rating-end.d-star-rating-empty:before {\
+  margin-left: -60px;\
+}\
+.d-star-rating-end.d-star-rating-full:before {\
+  margin-left: -20px;\
 }";
 });
