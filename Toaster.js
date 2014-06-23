@@ -25,8 +25,8 @@ define(["dcl/dcl",
 			 * (cf. `duration` property of `ToasterMessage`).
 			 *
 			 * @class module:deliteful/Toaster
-			 * @augment delite/Widget
-			 * @augment delite/Invalidating
+			 * @augments delite/Widget
+			 * @augments delite/Invalidating
 			 * @example
 			 *   <d-toaster id="t"></d-toaster>
 			 *   <d-button onclick="t.postMessage('button clicked', {duration: 1000})">...</d-button>
@@ -55,9 +55,6 @@ define(["dcl/dcl",
 			 * @default `d-toaster-placement-default`
 			 */
 			placementClass: "d-toaster-placement-default",
-			_setPlacementClassAttr: function (placementClass) {
-				this._set("placementClass", placementClass);
-			},
 
 			/**
 			 * A list containing all ToasterMessage instances posted.

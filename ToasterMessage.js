@@ -253,8 +253,8 @@ define(["dcl/dcl",
 		 * with deliteful/Toaster.
 		 *
 		 * @class module:deliteful/ToasterMessage
-		 * @augment delite/Widget
-		 * @augment delite/Invalidating
+		 * @augments delite/Widget
+		 * @augments delite/Invalidating
 		 * @example
 		 *   var toaster = new Toaster();
 		 *   var message = new ToasterMessage({message: "hello, world!"});
