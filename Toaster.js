@@ -162,7 +162,9 @@ define(["dcl/dcl",
 				this.addInvalidatingProperties("messages");
 			},
 			postCreate: function () {
-				if (!has("ios")) { // specific to JAWS
+				// NOTE: the following a11y attributes are needed for JAWS but
+				// break VoiceOver
+				if (!has("ios")) {
 					this.setAttribute("aria-atomic", "true");
 					this.setAttribute("role", "alert");
 				}
