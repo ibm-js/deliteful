@@ -13,5 +13,6 @@ define([
 	"./StarRating",
 	"./list/all",
 	"./ProgressBar",
-	"./ProgressIndicator"
+	"./ProgressIndicator",
+	"./Select"
 ]);
