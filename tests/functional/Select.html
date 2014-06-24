@@ -19,12 +19,11 @@
 		
 		require([
 			"delite/register",
-			"dojo/_base/declare", // TODO: replace
 			"dstore/Memory",
 			"dstore/Observable",
 			"deliteful/Select",
 			"dojo/domReady!"
-		], function (register, declare, Memory, Observable, Select) {
+		], function (register, Memory, Observable, Select) {
 			register.parse();
 			
 			var nOptions = 40;
@@ -38,7 +37,7 @@
 				}
 				for (var i = min; i <= max; i++) {
 					select.store.add({
-						text: "Option " + i + 
+						text: "Option " + i +
 							(updateCounter > 0 ? (" update #" + updateCounter) : ""),
 						value: i, // optional
 						disabled: i == 5 // optional
@@ -63,8 +62,7 @@
 			
 			var initSelect = function (select, min, max, defaultStore) {
 				if (!defaultStore) {
-					var store = new (declare([Memory, Observable]))({});
-					select.store = store;
+					select.store = new (Memory.createSubclass(Observable))({});
 				}
 				addOptions(select, min, max);
 			};
@@ -395,7 +393,7 @@ and background-color):
 
 11. Pure native select with bootstrap's form-control CSS class (for comparison):
 <br/>
-<select	class="bootstrap-form-control">
+<select id="select11" class="bootstrap-form-control">
 	<option>Option 1</option>
 	<option>Option 2</option>
 	<option selected>Option 3</option>

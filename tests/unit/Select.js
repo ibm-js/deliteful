@@ -3,13 +3,12 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/_base/declare", // TODO: replace (when replacement confirmed)
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
 	"dstore/Observable",
 	"deliteful/Select"
-], function (dcl, registerSuite, assert, register, declare, domClass,
-	Memory, Observable, Select, SelectSharedTests) {
+], function (dcl, registerSuite, assert, register, domClass,
+	Memory, Observable, Select) {
 	
 	var container, MySelect;
 	/*jshint multistr: true */
@@ -33,7 +32,7 @@ define([
 			item = select.store.add({
 				text: "Option " + i,
 				value: i,
-				disabled: i == 5
+				disabled: i === 5
 			});
 			dataItems.push(item);
 		}
@@ -44,18 +43,13 @@ define([
 		select.store.remove(id);
 	};
 	
-	var updateOption = function(select, id) {
+	var updateOption = function (select, id) {
 		var dataItem = select.store.get(id);
 		dataItem.text = "new text";
 		select.store.put(dataItem);
 	};
-			
-	var removeAllOptions = function (select) {
-		select.renderItems = []; // TODO: is it normal that I need it?
-		select.store.setData([]); // This bypasses the notification of Observable??
-	};
 	
-	var checkSelect = function(select, observableStore) {
+	var checkSelect = function (select, observableStore) {
 		// These checks are common to both cases: observable and non-observable stores
 		
 		assert.strictEqual(select.valueNode.length, 0,
@@ -80,12 +74,12 @@ define([
 			
 		// selection API (delite/Select: selectedItem, selectedItems)
 		// Initially:
-		assert.equal(select.value, select.valueNode.value,
+		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after adding 10 options on select.id: " + select.id);
 		// No item initially selected
-		assert.isNull(select.selectedItem, 
+		assert.isNull(select.selectedItem,
 			"select.selectedItem after adding 10 options on select.id: " + select.id);
-		assert.strictEqual(select.selectedItems.length, 0, 
+		assert.strictEqual(select.selectedItems.length, 0,
 			"select.selectedItems after adding 10 options on select.id: " + select.id);
 		
 		// Select an element via delite/Selection's API
@@ -97,14 +91,17 @@ define([
 		
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after selecting dataItems[0] on select.id: " + select.id);
-		assert.equal(select.selectedItem.value, 0,
+		assert.strictEqual(select.selectedItem.value, 0,
 			"select.selectedItem.value after selecting dataItems[0] on select.id: " + select.id);
-		assert.equal(select.selectedItem.text, select.valueNode.options[0].text,
-			"select.selectedItem.text after selecting dataItems[0] on select.id: " + select.id);
+		assert.strictEqual(select.selectedItem.text, select.valueNode.options[0].text,
+			"select.selectedItem.text after selecting dataItems[0] on select.id: " +
+			select.id);
 		assert.strictEqual(select.selectedItems.length, 1,
-			"select.selectedItems.length after selecting dataItems[0] on select.id: " + select.id);
-		assert.equal(select.selectedItems[0].value, 0,
-			"select.selectedItems[0].value after selecting dataItems[0] on select.id: " + select.id);
+			"select.selectedItems.length after selecting dataItems[0] on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItems[0].value, 0,
+			"select.selectedItems[0].value after selecting dataItems[0] on select.id: " +
+			select.id);
 		
 		// Select another element via delite/Selection's API
 		select.setSelected(dataItems[1], true);
@@ -112,15 +109,19 @@ define([
 		
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after selecting dataItems[1] on select.id: " + select.id);
-		assert.equal(select.selectedItem.value, 1,
-			"select.selectedItem.value after selecting dataItems[1] on select.id: " + select.id);
-		assert.equal(select.selectedItem.text, select.valueNode.options[1].text,
-			"select.selectedItem.text after selecting dataItems[1] on select.id: " + select.id);
+		assert.strictEqual(select.selectedItem.value, 1,
+			"select.selectedItem.value after selecting dataItems[1] on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItem.text, select.valueNode.options[1].text,
+			"select.selectedItem.text after selecting dataItems[1] on select.id: " +
+			select.id);
 		// selectionMode being "single", still one selected element
 		assert.strictEqual(select.selectedItems.length, 1,
-			"select.selectedItems.length after selecting dataItems[1] on select.id: " + select.id);
-		assert.equal(select.selectedItems[0].value, 1,
-			"select.selectedItems[0].value after selecting dataItems[0] on select.id: " + select.id);
+			"select.selectedItems.length after selecting dataItems[1] on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItems[0].value, 1,
+			"select.selectedItems[0].value after selecting dataItems[0] on select.id: " +
+			select.id);
 		
 		// Now check in multiple selection mode
 		select.selectionMode = "multiple";
@@ -130,16 +131,22 @@ define([
 		
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after selecting dataItems[0] and [1] on select.id: " + select.id);
-		assert.equal(select.selectedItem.value, 0, // the value of the first selected option
-			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " + select.id);
-		assert.equal(select.selectedItem.text, select.valueNode.options[0].text, // the text of the first selected option
-			"select.selectedItem.text after selecting dataItems[0] and [1] on select.id: " + select.id);
+		assert.strictEqual(select.selectedItem.value, 0, // the value of the first selected option
+			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " + 
+			select.id);
+		assert.strictEqual(select.selectedItem.text, 
+			select.valueNode.options[0].text, // the text of the first selected option
+			"select.selectedItem.text after selecting dataItems[0] and [1] on select.id: " +
+			select.id);
 		assert.strictEqual(select.selectedItems.length, 2,
-			"select.selectedItems.length after selecting dataItems[0] and [1] on select.id: " + select.id);
-		assert.equal(select.selectedItems[0].value, 0,
-			"select.selectedItems[0].value after selecting dataItems[0] and [1] on select.id: " + select.id);
-		assert.equal(select.selectedItems[1].value, 1,
-			"select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " + select.id);
+			"select.selectedItems.length after selecting dataItems[0] and [1] on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItems[0].value, 0,
+			"select.selectedItems[0].value after selecting dataItems[0] and [1] on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItems[1].value, 1,
+			"select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " +
+			select.id);
 		
 		// Restore the initial selection state
 		select.selectionMode = "single";
@@ -148,7 +155,7 @@ define([
 		select.validate();
 	};
 	
-	var checkObservableSelect = function(select) {
+	var checkObservableSelect = function (select) {
 		checkSelect(select, true);
 		
 		// The following additional checks are specific to observable stores:
@@ -218,7 +225,7 @@ define([
 	};
 	
 	var checkDefaultValues = function (select) {
-		assert.isNotNull(select.store, 
+		assert.isNotNull(select.store,
 			"After validation cycle, the default store should not be null on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectionMode, "single", "Select.selectionMode");
@@ -234,19 +241,19 @@ define([
 			var select = document.getElementById("select1");
 			select.validate();
 			assert.isTrue(domClass.contains(select, outerCSS),
-				"Expecting " + outerCSS + 
+				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
 			assert.isTrue(domClass.contains(select.valueNode, innerCSS),
-				"Expecting " + innerCSS + 
+				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 
 			select = document.getElementById("myselect1");
 			select.validate();
 			assert.isTrue(domClass.contains(select, outerCSS),
-				"Expecting " + outerCSS + 
+				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
 			assert.isTrue(domClass.contains(select.valueNode, innerCSS),
-				"Expecting " + innerCSS + 
+				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 		},
 		
@@ -257,7 +264,7 @@ define([
 				
 			select = document.getElementById("myselect1");
 			select.validate();
-			assert.isNotNull(select.store, 
+			assert.isNotNull(select.store,
 				"After validation cycle, the default store should not be null on select.id: " +
 				select.id);
 		},
@@ -274,27 +281,26 @@ define([
 		
 		"Store.add/remove/put (user's observable Memory store)" : function () {
 			var select = document.getElementById("select1");
-			var store = new (declare([Memory, Observable]))({});
-			select.store = store;
+			var ObservableMemoryStore = Memory.createSubclass(Observable);
+			select.store = new ObservableMemoryStore({});
 			select.validate();
 			checkObservableSelect(select);
 			
 			select = document.getElementById("myselect1");
-			store = new (declare([Memory, Observable]))({});
-			select.store = store;
+			select.store = new ObservableMemoryStore({});
 			select.validate();
 			checkObservableSelect(select);
 		},
 		
 		"Store.add (user's non-observable Memory store)" : function () {
 			var select = document.getElementById("select1");
-			var store = new (declare([Memory]))({});
+			var store = new Memory({});
 			select.store = store;
 			select.validate();
 			checkSelect(select);
 			
 			select = document.getElementById("myselect1");
-			store = new (declare([Memory]))({});
+			store = new Memory({});
 			select.store = store;
 			select.validate();
 			checkSelect(select);

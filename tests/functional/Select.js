@@ -3,23 +3,17 @@ define(["intern!object",
 	"require"
 	], function (registerSuite, assert, require) {
 
-	var loadFile = function (remote, fileName) {
-		return remote
-			.get(require.toUrl(fileName))
-			.waitForCondition("ready", 15000); // large timeout because of sauce...
-	};
-	
-	var checkNumberOfOptions = function(remote, selectId, expectedNumberOfOptions) {
+	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
 			.elementById(selectId)
 			.elementsByTagName("OPTION")
 			.then(function (result) {
-				assert.equal(result.length, expectedNumberOfOptions,
+				assert.strictEqual(result.length, expectedNumberOfOptions,
 					selectId + " number of options is not the expected one");
 			});
 	};
 	
-	var updateAndCheckNumberOfOptions = function(remote, selectId, updateId, expectedNumberOfOptions) {
+	var updateAndCheckNumberOfOptions = function (remote, selectId, updateId, expectedNumberOfOptions) {
 		return remote
 				.elementById(updateId)
 				.click()
@@ -27,12 +21,12 @@ define(["intern!object",
 				.elementById(selectId)
 				.elementsByTagName("OPTION")
 				.then(function (result) {
-					assert.equal(result.length, expectedNumberOfOptions,
+					assert.strictEqual(result.length, expectedNumberOfOptions,
 						selectId + " number of options is not the expected one");
 				});
 	};
 
-	var nOptions = 40; 
+	var nOptions = 40;
 	
 	registerSuite({
 		name: "deliteful/Select - functional",

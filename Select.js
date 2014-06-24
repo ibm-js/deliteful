@@ -1,7 +1,6 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"dojo/_base/declare", // TODO: replace (when replacement confirmed)
 	"dojo/on", // TODO: replace (when replacement confirmed)
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
@@ -12,7 +11,7 @@ define([
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select_css"
-], function (dcl, declare, on, domClass, Memory, Observable, register,
+], function (dcl, on, domClass, Memory, Observable, register,
 	FormValueWidget, StoreMap, Selection, template) {
 
 	/**
@@ -23,7 +22,7 @@ define([
 	 * * Store support (limitation: to avoid graphic glitches, the updates to the
 	 * store should not be done while the native dropdown of the select is open).
 	 * * The item rendering has the limitations of the `<option>` elements of the
-	 * native `<select>`.
+	 * native `<select>`, in particular it is text-only.
 	 * 
 	 * TODO: improve doc.
 	 * 
@@ -44,10 +43,10 @@ define([
 	 * <d-select id="select1"></d-select>
 	 * @example <caption>Using user's store</caption>
 	 * JS:
-	 * require("dojo/_base/declare", "dstore/Memory", "dstore/Observable",
+	 * require("dstore/Memory", "dstore/Observable",
 	 *         "deliteful/Select", "dom/domReady!"],
-	 *   function (declare, Memory, Observable) {
-	 *     var store = new (declare([Memory, Observable]))({});
+	 *   function (Memory, Observable) {
+	 *     var store = new (Memory.createSubclass(Observable))({});
 	 *     select1.store = store;
 	 *     store.add({text: "Option 1", value: "1"});
 	 *     ...
@@ -59,7 +58,8 @@ define([
 	 * @augments {module:delite/FormWidget}
 	 * @augments {module:delite/Store}
 	 */
-	return register("d-select", [HTMLElement, FormValueWidget, StoreMap, Selection], /** @lends module:deliteful/Select# */ {
+	return register("d-select", [HTMLElement, FormValueWidget, StoreMap, Selection],
+		/** @lends module:deliteful/Select# */ {
 		
 		// Note: the properties `store` and `query` are inherited from delite/Store, and
 		// the property `disabled` is inherited from delite/FormWidget.
@@ -71,17 +71,19 @@ define([
 		 * @member {number}
 		 * @default 0
 		 */
-		size: 0, 
+		size: 0,
 		
 		/**
-		 * The name of the property of store items which contains the text of Select's options.
+		 * The name of the property of store items which contains the text
+		 * of Select's options.
 		 * @member {string}
 		 * @default "text"
 		 */
 		textAttr: "text",
 		
 		/**
-		 * The name of the property of store items which contains the value of Select's options.
+		 * The name of the property of store items which contains the value
+		 * of Select's options.
 		 * @member {string}
 		 * @default "value"
 		 */
@@ -146,9 +148,7 @@ define([
 		
 		postCreate: function () {
 			if (!this.store) { // If not specified by the user
-				// TODO: replacement for the use of dojo/_base/declare?
-				// (can't use dcl because doesn't work with dstore)
-				this.store = new (declare([Memory, Observable]))({});
+				this.store = new (Memory.createSubclass(Observable))({});
 			}
 			
 			this.focusNode = this.valueNode; // for delite/FormWidget's sake
@@ -157,15 +157,13 @@ define([
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
-			this.own(on(this.valueNode, "focus", function () {
-				domClass.add(this, "d-select-focus");
-			}.bind(this)));
-			this.own(on(this.valueNode, "blur", function () {
-				domClass.remove(this, "d-select-focus");
+			this.own(on(this.valueNode, "focus, blur", function (evt) {
+				domClass.toggle(this, "d-select-focus", evt.type === "focus");
 			}.bind(this)));
 			
-			// Thanks to the custom getter of widget's `value`, there is no need for
-			// code to keep the property in sync after a form reset.
+			// Thanks to the custom getter defined in deliteful/Select for widget's
+			// `value` property, there is no need to add code for keeping the 
+			// property in sync after a form reset.
 		},
 		
 		refreshRendering: function (props) {
@@ -177,11 +175,11 @@ define([
 				// Worth optimizing to avoid recreating from scratch?
 				this.valueNode.innerHTML = ""; // Remove the existing options from the DOM
 				if (n > 0) {
-					var fragment = document.createDocumentFragment();
+					var fragment = this.ownerDocument.createDocumentFragment();
 					var dataItem, option;
 					for (var i = 0; i < n; i++) {
 						dataItem = items[i];
-						option = document.createElement("option");
+						option = this.ownerDocument.createElement("option");
 						// According to http://www.w3.org/TR/html5/forms.html#the-option-element, we 
 						// could use equivalently the label or the text IDL attribute of the option element.
 						// However, using the label attr. breaks the rendering in FF29/Win7!
@@ -190,8 +188,8 @@ define([
 						// option.label = dataItem.label;
 						// Instead:
 						if (dataItem.text) { // optional
-							option.innerHTML = dataItem.text;
-						} 
+							option.text = dataItem.text;
+						}
 						if (dataItem.value) { // optional
 							option.setAttribute("value", dataItem.value);
 						}
@@ -214,7 +212,7 @@ define([
 			return renderItem.id;
 		},
 		
-		updateRenderers: function (renderItems) {
+		updateRenderers: function () {
 			// Override of delite/Selection's method
 			// Trigger recreation from scratch:
 			this.invalidateRendering("renderItems");
@@ -243,11 +241,9 @@ define([
 						this.selectionMode + "'");
 				} else {
 					// Update the internal widget property used for the binding in the template
-					this.multipleSelect = (value == "multiple");
+					this.multipleSelect = (value === "multiple");
 				}
-				if (sup) {
-					sup.call(this, value);
-				}
+				sup.call(this, value);
 			};
 		})
 	});
