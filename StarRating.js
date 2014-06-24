@@ -1,6 +1,5 @@
 /** @module deliteful/StarRating */
 define([
-	"dojo/string",
 	"requirejs-dplugins/has",
 	"dpointer/events",
 	"dojo/keys",
@@ -13,7 +12,7 @@ define([
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (string, has, pointer, keys, domClass, domGeometry,
+], function (has, pointer, keys, domClass, domGeometry,
 			register, FormValueWidget, BidiStarRating, messages) {
 
 	/**
@@ -47,13 +46,14 @@ define([
 		value: 0,
 
 		/**
-		 * If the Rating is not read only, define if the user allowed to edit half values (0.5, 1.5, ...)
+		 * Indicates whether the user is allowed to edit half values (0.5, 1.5, ...) or not.
+		 * Ignored if readOnly is set to false.
 		 * @member {boolean}
 		 */
 		editHalfValues: false,
 
 		/**
-		 * True to allow setting a value of zero, false otherwise
+		 * Indicates whether the user is allowed to set the value to zero or not.
 		 * @member {boolean}
 		 */
 		allowZero: true,
@@ -120,7 +120,8 @@ define([
 				}
 				if (props.value !== undefined) {
 					this.focusNode.setAttribute("aria-valuenow", this.value);
-					this.focusNode.setAttribute("aria-valuetext", string.substitute(messages["aria-valuetext"], this));
+					this.focusNode.setAttribute("aria-valuetext",
+							messages["aria-valuetext"].replace("${value}", this.value));
 					this.valueNode.value = this.value;
 				}
 				if (props.name !== undefined && this.name) {
@@ -147,9 +148,7 @@ define([
 		_refreshStarsRendering: function () {
 			var createChildren = this.focusNode.children.length - 1 !== 2 * this.max;
 			if (createChildren) {
-				// Not relying on live NodeList, due to: https://github.com/Polymer/polymer/issues/346
-				Array.prototype.slice.call(this.focusNode.getElementsByTagName("DIV"))
-					.forEach(this.removeChild, this.focusNode);
+				this.focusNode.innerHTML = "";
 			}
 			this._updateStars(this.value, createChildren);
 		},
