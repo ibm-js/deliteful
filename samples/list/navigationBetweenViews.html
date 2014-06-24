@@ -22,9 +22,7 @@
 		], function(register, ItemRenderer){
 			// Custom item renderer that renders a navigation button
 			NavigationItemRenderer = register("d-navigation-item", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div role='button' navindex='0'><div class='d-list-item-label'>" + this.item.label + "</div><div class='d-list-item-right-icon'></div></div>";
-				}
+				template: "<template><div data-attach-point='renderNode'><div role='button' navindex='0'><div class='d-list-item-label'>{{item.label}}</div><div class='d-list-item-right-icon'></div></div></div></template>"
 			});
 			require([
 				"dojo/keys",

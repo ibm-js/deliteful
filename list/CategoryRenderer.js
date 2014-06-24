@@ -1,11 +1,16 @@
 /** @module deliteful/list/CategoryRenderer */
 define(["dcl/dcl",
         "delite/register",
+        "delite/handlebars",
+        "requirejs-text/text!./List/CategoryRenderer.html",
         "./Renderer"
-], function (dcl, register, Renderer) {
+], function (dcl, register, handlebars, defaultTemplate, Renderer) {
+
+	var templateCache = {};
 
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
+	 * 
 	 * @class module:deliteful/list/CategoryRenderer
 	 */
 	var CategoryRenderer = dcl(Renderer, /** @lends module:deliteful/list/CategoryRenderer# */ {
@@ -19,14 +24,23 @@ define(["dcl/dcl",
 		 */
 		baseClass: "d-list-category",
 
-		//////////// PROTECTED METHODS ///////////////////////////////////////
-
 		/**
-		 * Renders the category of the item inside this.renderNode.
+		 * The {@link module:delite/handlebars} template for the item renderer.
+		 * Note that this value cannot be updated at runtime, it is only mean to
+		 * provide an easy way to customize the renderer when subclassing.
+		 * @member {string}
 		 * @protected
 		 */
-		render: function () {
-			this.renderNode.innerHTML = this.item.category;
+		template: defaultTemplate,
+
+		//////////// PROTECTED METHODS ///////////////////////////////////////
+
+		buildRendering: function () {
+			if (!(this.template in templateCache)) {
+				templateCache[this.template] = handlebars.compile(this.template);
+			}
+			var renderFunc = templateCache[this.template];
+			renderFunc.call(this);
 		}
 
 	});
