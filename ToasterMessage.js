@@ -401,7 +401,7 @@ define(["dcl/dcl",
 			}
 
 			// toggling dismiss button visibility
-			domClass.toggle(this._dismissButton, D_HIDDEN, this.isDismissible());
+			domClass.toggle(this._dismissButton, D_HIDDEN, !this.isDismissible());
 		},
 		_showInDom: function (toaster, animated) {
 			if (animated) {
