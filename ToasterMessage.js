@@ -222,7 +222,7 @@ define(["dcl/dcl",
 	var defaultDuration = 2000;
 
 	function normalizeDuration(duration) {
-		return typeof duration === "number" ? duration : defaultDuration;
+		return typeof duration === "number" && !isNaN(duration) ? duration : defaultDuration;
 	}
 
 	var animationendEvent, transitionendEvent;
@@ -305,7 +305,7 @@ define(["dcl/dcl",
 
 		/**
 		 * Duration for which the message will be shown.
-		 * If set to < -1, the message will be shown persistently until it is
+		 * If set to < 0, the message will be shown persistently until it is
 		 * dismissed.
 		 *
 		 * @member {number}
@@ -356,7 +356,7 @@ define(["dcl/dcl",
 		 * @returns {boolean}
 		 */
 		isExpirable: function () {
-			return this.duration > -1;
+			return this.duration >= 0;
 		},
 
 		/**
@@ -401,11 +401,7 @@ define(["dcl/dcl",
 			}
 
 			// toggling dismiss button visibility
-			if (this.isDismissible()) {
-				domClass.remove(this._dismissButton, D_HIDDEN);
-			} else {
-				domClass.add(this._dismissButton, D_HIDDEN);
-			}
+			domClass.toggle(this._dismissButton, D_HIDDEN, this.isDismissible());
 		},
 		_showInDom: function (toaster, animated) {
 			if (animated) {

@@ -71,13 +71,13 @@ define([
 			assert.isFalse(messageDefault.isDismissible(), false);
 			assert.isFalse(messageDefault._toBeRemoved, false);
 		},
-		"Default with NaN duration": function () {
+		"Default with -1 duration": function () {
 			var messageDefault = new ToasterMessage({
-				duration: NaN
+				duration: -1
 			});
 
 			// forced
-			assert.isTrue(isNaN(messageDefault.duration));
+			assert.strictEqual(messageDefault.duration, -1);
 			assert.isFalse(messageDefault.isExpirable());
 			assert.isTrue(messageDefault.isDismissible());
 
