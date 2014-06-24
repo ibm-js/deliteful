@@ -8,29 +8,19 @@ define(["intern!object",
 	var TEST_TIMEOUT_MS = 120000;
 
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
-			firstHalf/*true to click on the first half, false to click the second half*/) {
-			var divIndex = starIndex * 2 + (firstHalf ? 0 : 1);
-			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
-					.click()
-					.end();
-		};
+		firstHalf/*true to click on the first half, false to click the second half*/) {
+		var divIndex = starIndex * 2 + (firstHalf ? 0 : 1);
+		return remote
+			.elementByXPath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
+				.click()
+				.end();
+	};
 
 	var clickOnZeroSettingArea = function (remote, widgetId) {
-//		if (/internet explorer/.test(remote.environmentType.browserName)) {
-//			// Clicking the element doesn't work in firefox and internet explorer
-//			// (no pointer up event received by StarRating)
-//			return remote
-//				.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
-//					.moveTo()
-//					.end()
-//				.click();
-//		} else {
-			return remote
-				.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
-					.click()
-					.end();
-//		}
+		return remote
+			.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
+				.click()
+				.end();
 	};
 
 	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
@@ -84,10 +74,6 @@ define(["intern!object",
 						.getAttribute("role")
 						.then(function (value) {
 							assert.equal(value, "slider", "role");
-						})
-						.getAttribute("aria-label")
-						.then(function (value) {
-							assert.equal(value, "rating", "aria-label");
 						})
 						.getAttribute("aria-valuemin")
 						.then(function (value) {

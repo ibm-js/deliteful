@@ -86,7 +86,6 @@ define([
 			pointer.setTouchAction(this, "none");
 			// init WAI-ARIA attributes
 			this.focusNode.setAttribute("role", "slider");
-			this.focusNode.setAttribute("aria-label", messages["aria-label"]);
 			this.focusNode.setAttribute("aria-valuemin", 0);
 		},
 
