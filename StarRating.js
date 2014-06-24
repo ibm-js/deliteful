@@ -266,11 +266,7 @@ define([
 			} else if (xValue > box.w) {
 				xValue = box.w;
 			}
-			if (this._inZeroSettingArea(xValue, box.w)) {
-				return 0;
-			} else {
-				rawValue = this._xToRawValue(xValue, box.w);
-			}
+			rawValue = this._xToRawValue(xValue, box.w);
 			if (rawValue != null) {
 				if (rawValue === 0) {
 					rawValue = 0.1; // do not allow setting the value to 0 when clicking on a star
@@ -281,11 +277,6 @@ define([
 				}
 				return discreteValue;
 			}
-		},
-
-		/*jshint unused:vars*/
-		_inZeroSettingArea: function (/*Number*/x, /*Number*/domNodeWidth) {
-			return x < this._zeroAreaWidth;
 		},
 
 		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
