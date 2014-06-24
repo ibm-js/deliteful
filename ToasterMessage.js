@@ -174,29 +174,37 @@ define(["dcl/dcl",
 	
 	};
 
-	// TODO: there is no point in passing element as a parameter here, get rid of it.
-	// TODO: duration should be chosen when calling this.start
-	var Timer = function (element, duration) {
-		var _timer = null, _remaining = null, _startDate = null;
-		this.start = function (then) {
-			this.callback = then;
-			_timer = element.defer(then, duration);
+	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
+	var Timer = function(duration){
+		var _timer = null, _remaining = null,
+			_startDate = null, _d = new Deferred();
+
+		function _start(duration){
 			_startDate = Date.now();
+			_timer = setTimeout(function(){
+				_d.resolve();
+			}, duration);
+			return _d;
+		}
+
+		this.start = function(){
+			return _start(duration);
 		};
-		this.pause = function () {
-			if (_timer !== null) {
-				_timer.remove();
+
+		this.pause = function(){
+			if (_timer !== null){
+				clearTimeout(_timer);
 				var rt = duration - Date.now() + _startDate;
 				_remaining = rt > 0 ? rt : 0;
 			} else {
 				_remaining = 0;
 			}
 		};
+
 		this.resume = function () {
-			_timer = element.defer(this.callback, _remaining);
+			return _start(_remaining);
 		};
-		this.callback = null;
-	};
+	}
 
 	var D_TRANSPARENT = "d-transparent",
 		D_HIDDEN = "d-hidden",
@@ -393,8 +401,8 @@ define(["dcl/dcl",
 
 			// starting timer
 			if (this.isExpirable()) {
-				this._timer = new Timer(this, this.duration);
-				this._timer.start(function () {
+				this._timer = new Timer(this.duration);
+				this._timer.start().then(function () {
 					this._hasExpired = true;
 					toaster.refreshRendering({messages: true});
 				}.bind(this));
