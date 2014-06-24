@@ -260,15 +260,12 @@ When `dismissible` is set to `"auto"`, the output of the method also depends on 
 - a message that is expirable (`duration >= 0`) will have no dismiss button or swipe-to-dismiss (`isDismissible() === false`)
 - a message that does not expire (`duration === -1`) will have a dismiss button and swipe-to-dismiss (`isDismissible() === true`)
 
-| `dismissible`   | `duration`			| `isDismissible()` |
-|-----------------|---------------------|-------------------|
-| `on`            | `*`			    	| `true`	 	    |
-| `off`	          | `*`			    	| `false`	 	    |
-| `auto`          | `>= 0`		    	| `false`	 	    |
-| `auto`          | `-1`		    	| `true`	 	    |
-
-
-
+| `dismissible` | `duration` | `isDismissible()` |
+|---------------|------------|-------------------|
+| `on`   | `*`    | `true`  |
+| `off`  | `*`    | `false` |
+| `auto` | `>= 0` | `false` |
+| `auto` | `-1`   | `true`  |
 
 
 
