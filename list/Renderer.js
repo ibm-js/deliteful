@@ -21,19 +21,16 @@ define(["dcl/dcl",
 	 *  comes first.
 	 * @class module:deliteful/list/Renderer
 	 * @augments module:delite/Widget
+	 * @augments module:delite/Invalidating
 	 */
 	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
 
 		/**
 		 * The list item to render.
 		 * @member {Object}
-		 * @default null
+		 * @default {}
 		 */
-		item: null,
-		_setItemAttr: function (/*Object*/value) {
-			this._set("item", value);
-			this.render();
-		},
+		item: {}, // must be initialized to an empty object because it is expected by the template
 
 		/**
 		 * Contains all the renderer nodes that can be focused, in the same order
@@ -45,31 +42,23 @@ define(["dcl/dcl",
 		_focusableChildren: null,
 
 		
-		/**
-		 * The DOM node within which the rendering of the item will occur.
-		 * @member {HTMLElement} module:deliteful/list/Renderer#renderNode
-		 */
-
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: function () {
-			//	Sets containerNode and Aria attributes.
-			this.containerNode = this;
-			this.setAttribute("role", "row");
-			this.renderNode = this.ownerDocument.createElement("div");
-			this.renderNode.setAttribute("role", "gridcell");
-			this.renderNode.tabIndex = "-1";
-			this.appendChild(this.renderNode);
-		},
-
-		/**
-		 * Renders the item or category inside the renderNode of the renderer.
-		 * @method
-		 * @protected
-		 * @abstract
-		 */
-		render: dcl.after(function () {
-			this._updateFocusableChildren();
+		buildRendering: dcl.advise({
+			before: function () {
+				this.containerNode = this;
+			},
+			after: function () {
+				if (!this.renderNode) {
+					throw new Error("buildRendering must define a renderNode property on the Renderer."
+							+ " Example using data-attach-point in a template: "
+							+ "<template><div data-attach-point='renderNode'></div></template>");
+				}
+				this.setAttribute("role", "row");
+				this.renderNode.setAttribute("role", "gridcell");
+				this.renderNode.tabIndex = -1;
+				this.updateFocusableChildren();
+			}
 		}),
 
 		// Interface from List to Renderer to navigate fields
@@ -123,9 +112,13 @@ define(["dcl/dcl",
 		/**
 		 * This method update the list of children of the renderer that can
 		 * be focused during keyboard navigation.
-		 * @protected
+		 * If the list of navigable children of the renderer is updated after the
+		 * buildRendering step has been executed, this method must be
+		 * called to take into account the new list.
+		 * If the list of navigable children is defined during the buildRendering
+		 * step, there is no need to call this method.
 		 */
-		_updateFocusableChildren: function () {
+		updateFocusableChildren: function () {
 			if (this._focusableChildren) {
 				for (var i = 0; i < this._focusableChildren.length; i++) {
 					delete this._focusableChildren[i].tabIndex;

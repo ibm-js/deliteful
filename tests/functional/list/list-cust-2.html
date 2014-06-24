@@ -18,14 +18,10 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.title + "</div><div class='d-spacer'></div><div navindex='0'>ISBN: " + this.item.isbn + "</div>";
-				}
+				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.title}}</div><div class='d-spacer'></div><div navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
 			});
 			var BookStoreRenderer = register("d-book-store", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.category + "</div><div class='d-spacer'></div><a navindex='0' href='" + this.item.bookstoreUrl + "'>" + this.item.bookstoreUrl + "</a>";
-				}
+				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.category}}</div><div class='d-spacer'></div><a navindex='0' href='{{item.bookstoreUrl}}'>{{item.bookstoreUrl}}</a></div></template>"
 			});
 			var list = register.createElement("d-list");
 			list.id = "list-cust-2";

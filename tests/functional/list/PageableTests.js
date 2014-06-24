@@ -9,7 +9,9 @@ define(["intern!object",
 
 	var TEST_TIMEOUT_MS = 240000;
 
-	var loadNextPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad) {
+	var loadNextPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad, isCategory) {
+		var expectedTextPath = isCategory ? "document.activeElement.textContent"
+				: "document.activeElement.children[1].textContent";
 		return remote.keys("\uE00F") // Press PAGE DOWN
 			.active()
 				.text()
@@ -18,7 +20,7 @@ define(["intern!object",
 				})
 			.end()
 			.keys("\uE00D") // Press SPACE
-			.waitForCondition("document.activeElement.textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
+			.waitForCondition(expectedTextPath + " === '" + expectedActiveTextAfterLoad + "'", 5000)
 			/* jshint evil:true */
 			.eval("document.getElementById('" + listId + "').getBottomDistance(document.activeElement)")
 			.then(function (value) {
@@ -36,7 +38,7 @@ define(["intern!object",
 				})
 			.end()
 			.keys("\uE00D") // Press SPACE
-			.waitForCondition("document.activeElement.textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
+			.waitForCondition("document.activeElement.children[1].textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
 			/* jshint evil:true */
 			.eval("document.getElementById('" + listId + "').getTopDistance(document.activeElement)")
 			.then(function (value) {
@@ -84,7 +86,7 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00F") // Press PAGE DOWN
-							.waitForCondition("document.activeElement.textContent === 'Programmatic item of order 99'",
+							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
 							5000);
 				})
 				.then(function () {
@@ -98,7 +100,7 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00E") // Press PAGE UP
-							.waitForCondition("document.activeElement.textContent === 'Programmatic item of order 0'",
+							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 0'",
 							5000);
 				});
 		},
@@ -123,7 +125,7 @@ define(["intern!object",
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 25");
 				})
 				.then(function () {
-					return loadNextPage(remote, listId, 25, "Category 5");
+					return loadNextPage(remote, listId, 25, "Category 5", true);
 				})
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 75");
@@ -133,7 +135,7 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00F") // Press PAGE DOWN
-							.waitForCondition("document.activeElement.textContent === 'Programmatic item of order 99'",
+							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
 							5000);
 				})
 				.then(function () {

@@ -23,9 +23,7 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				render: function () {
-					this.renderNode.innerHTML = "<div navindex='0'>" + this.item.title + "</div><div class='d-spacer'></div><div navindex='0'>ISBN: " + this.item.isbn + "</div>";
-				}
+				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.title}}</div><div class='d-spacer'></div><div navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
 			});
 			var list = register.createElement("d-list");
 			list.setAttribute("aria-label", "Sample list with custom item renderer");

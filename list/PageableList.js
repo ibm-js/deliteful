@@ -10,9 +10,11 @@ define(["dcl/dcl",
 		"./List",
 		"./Renderer",
 		"../ProgressIndicator",
+        "delite/handlebars",
+        "requirejs-text/text!./List/_PageLoaderRenderer.html",
 		"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, domClass, has,
-		List, Renderer, ProgressIndicator, messages) {
+		List, Renderer, ProgressIndicator, handlebars, template, messages) {
 
 	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
@@ -28,6 +30,13 @@ define(["dcl/dcl",
 		 * @default "d-list-loader"
 		 */
 		baseClass: "d-list-loader",
+
+		_setItemAttr: function (item) {
+			this._set("item", item);
+			if (this.item && !this.loading) {
+				this._label.innerHTML = this.item.loadMessage;
+			}
+		},
 
 		/*
 		 * Indicates whether or not a page is currently loading.
@@ -91,34 +100,9 @@ define(["dcl/dcl",
 			this.on("click", this._load.bind(this));
 		},
 
-		buildRendering: dcl.superCall(function (sup) {
-			//	Creates the button that contains a progress indicator and an optional label
-			return function () {
-				sup.apply(this, arguments);
-				var spacer = this.renderNode.appendChild(this.ownerDocument.createElement("div"));
-				spacer.className = "d-spacer";
-				this.renderNode.appendChild(spacer);
-				this._button = this.renderNode.appendChild(this.ownerDocument.createElement("div"));
-				this._button.setAttribute("role", "button");
-				this._button.setAttribute("navindex", "0");
-				this._progressIndicator = new ProgressIndicator();
-				domClass.toggle(this._progressIndicator, "d-hidden");
-				this._button.appendChild(this._progressIndicator);
-				this._label = this.ownerDocument.createElement("div");
-				this._button.appendChild(this._label);
-				this.renderNode.appendChild(this._button);
-				spacer = this.renderNode.appendChild(this.ownerDocument.createElement("div"));
-				spacer.className = "d-spacer";
-				this.renderNode.appendChild(spacer);
-			};
-		}),
-
-		//////////// Renderer life cycle ///////////////////////////////////////
-
-		render: function () {
-			if (!this.loading) {
-				this._label.innerHTML = this.item.loadMessage;
-			}
+		buildRendering: function () {
+			var renderFunc = handlebars.compile(template);
+			renderFunc.call(this);
 		},
 
 		//////////// Public methods ///////////////////////////////////////
