@@ -212,7 +212,7 @@ define(["dcl/dcl",
 	var defaultType = messageTypes.info;
 
 	function normalizeType(type) {
-		return type in messageTypes ? messageTypes[type] : defaultType;
+		return messageTypes[type] || defaultType;
 	}
 	function messageTypeClass(type) {
 		return "d-toaster-type-" + type;
@@ -224,19 +224,38 @@ define(["dcl/dcl",
 	function normalizeDuration(duration) {
 		return typeof duration === "number" ? duration : defaultDuration;
 	}
+
+	var animationendEvent, transitionendEvent;
+
+	var animationendEvents = {
+		"animation": "animationend", // > IE10, FF
+		"-webkit-animation": "webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
+		"-ms-animation": "MSAnimationEnd" // IE 10
+	};
+	var transitionendEvents = {
+		"transition":'transitionend', // >= IE10, FF
+		"-webkit-transition": "webkitTransitionEnd"  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
+	};
+	function whichEvent(events) {
+		var fakeElement = document.createElement("fakeelement");
+		for (var event in events) {
+			if (fakeElement.style[event] !== undefined) {
+				return events[event];
+			}
+		}
+		return null;
+	}
+
 	function listenAnimationEvents(element, callback) {
-		var events = [
-			"webkitTransitionEnd",  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
-			"transitionend",        // FF           , > IE10
-			"webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
-			"MSAnimationEnd",       // IE 10
-			"animationend"
-		];
+
+		if (!animationendEvent || !transitionendEvent) {
+			animationendEvent = whichEvent(animationendEvents);
+			transitionendEvent = whichEvent(transitionendEvents);
+		}
+
+		var events = [animationendEvent, transitionendEvent];
 		events.forEach(function (event) {
-			on.once(element, event, (function (el, ev) {
-				// TODO: afaik only one of the above events is fired and removed by once
-				// the widget will keep listening to the other events, which can potentially
-				// cause perf loss
+			on.once(element, event, (function (el, ev) { // TODO: add a fallback under IE9
 				return function () {
 					callback(el, ev);
 				};
