@@ -152,7 +152,6 @@ define([
 
 			// init WAI-ARIA attributes
 			this.setAttribute("role", "slider");
-			this.setAttribute("aria-label", messages["aria-label"]);
 			this.setAttribute("aria-valuemin", 0);
 			// init tabIndex if not explicitly set
 			if (!this.hasAttribute("tabindex")) {

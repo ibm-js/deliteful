@@ -40,6 +40,7 @@
 			editHalfValues: true,
 			value: 3.5
 		}).placeAt("editablestar6", 'replace');
+		rating.setAttribute("aria-labelledby", "editablestar6-label");
 		rating.watch('value', function(name, oldValue, value){
 			document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");				
 		});
@@ -49,12 +50,14 @@
 			id: "secondtabindexstar",
 			tabIndex: 2
 		}).placeAt("secondtabindexstar", 'replace');
+		rating.setAttribute("aria-labelledby", "secondtabindexstar-label");
 		rating.startup();
 
 		rating = new StarRating({
 			id: "secondnotabindexstar",
 			tabIndex: -1
 		}).placeAt("secondnotabindexstar", 'replace');
+		rating.setAttribute("aria-labelledby", "secondnotabindexstar-label");
 		rating.startup();
 
 		// Set global variable to signal that the test page is ready
@@ -66,29 +69,41 @@
 	<div>
 		<input id="afinput" autofocus tabindex="1">
 		<div>
-			<d-star-rating id="star" max=1 name="star1" readonly></d-star-rating>
+			<span id="star-label">Read-only one star:</span>
+			<d-star-rating id="star" max=1 name="star1" readonly  aria-labelledby="star-label"></d-star-rating>
 			<span id="value">0</span><br>
 			<button id="starminus" type="button" onclick="decrement()">&minus;</button>
 			<button id="starplus" type="button" onclick="increment()">+</button>
 			<p>
-			Editable: <d-star-rating id="editablestar1" max=7></d-star-rating>
+			<span id="editablestar1-label">Editable:</span>
+			<d-star-rating id="editablestar1" max=7 aria-labelledby="editablestar1-label"></d-star-rating>
 			<p>
-			Editable (half values increment): <d-star-rating id="editablestar2" max=7 editHalfValues=true></d-star-rating>
+			<span id="editablestar2-label">Editable (half values increment):</span>
+			<d-star-rating id="editablestar2" max=7 editHalfValues=true
+						   aria-labelledby="editablestar2-label"></d-star-rating>
 			<p>
-			No zero setting: <d-star-rating id="editablestar5" max=7 editHalfValues=true value=0.5 allowZero=false></d-star-rating>
+			<span id="editablestar5-label">No zero setting:</span>
+			<d-star-rating id="editablestar5" max=7 editHalfValues=true value=0.5 allowZero=false
+					 	   aria-labelledby="editablestar5-label"></d-star-rating>
 			<p>
-			Programmatic: <span id="editablestar6"></span><br>
+			<span id="editablestar6-label">Programmatic:</span>
+			<span id="editablestar6"></span><br>
 			<span id="editablestar6value">Rating is 3.5 stars</span>
 			<p>
-			Default: <d-star-rating id="defaultstar"></d-star-rating>
+			<span id="defaultstar-label">Default:</span>
+			<d-star-rating id="defaultstar" aria-labelledby="defaultstar-label"></d-star-rating>
 			<p>
-			Custom tab index: <d-star-rating id="firsttabindexstar" tabindex="1"></d-star-rating>
+			<span id="firsttabindexstar-label">Custom tab index:</span>
+			<d-star-rating id="firsttabindexstar" tabindex="1" aria-labelledby="firsttabindexstar-label"></d-star-rating>
 			<p>
-			Programmatic custom tab index: <span id="secondtabindexstar"></span>
+			<span id="secondtabindexstar-label">Programmatic custom tab index:</span>
+			<span id="secondtabindexstar"></span>
 			<p>
-			No tab index: <d-star-rating id="firstnotabindexstar" tabindex="-1"></d-star-rating>
+			<span id="firstnotabindexstar-label">No tab index:</span>
+			<d-star-rating id="firstnotabindexstar" tabindex="-1" aria-labelledby="firstnotabindexstar-label"></d-star-rating>
 			<p>
-			Programmatic no tab index: <span id="secondnotabindexstar"></span>
+			<span id="secondnotabindexstar-label">Programmatic no tab index:</span>
+			<span id="secondnotabindexstar"></span>
 		</div>
 	</div>	
 </body>
