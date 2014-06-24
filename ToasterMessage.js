@@ -204,6 +204,10 @@ define(["dcl/dcl",
 		this.resume = function () {
 			return _start(_remaining);
 		};
+
+		this.promise = function(){
+			return _d;
+		}
 	}
 
 	var D_TRANSPARENT = "d-transparent",
@@ -402,6 +406,7 @@ define(["dcl/dcl",
 			// starting timer
 			if (this.isExpirable()) {
 				this._timer = new Timer(this.duration);
+				this.own(this._timer.promise()); // NOTE: this cancels the promise in case the widget is destroyed
 				this._timer.start().then(function () {
 					this._hasExpired = true;
 					toaster.refreshRendering({messages: true});
