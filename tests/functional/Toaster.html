@@ -25,7 +25,7 @@
 
 					register.parse();
 
-					// Create rating widget pragmatically
+					// Create Toaster widget pragmatically
 					toast = new Toaster({id: "default"});
 					toast.placeAt("container");
 					toast.startup();
@@ -39,29 +39,29 @@
 						for (a in actions) {
 							var buttonId = "button" + (counter++).toString();
 							actions[a].buttonId = buttonId; // storing the id of the button for later reference
-							actions[a].props["id"] = "msg"+buttonId; // has to be triggered by #buttonId
+							actions[a].props.id = "msg"+buttonId; // has to be triggered by #buttonId
 							actions[a].var = "var" + buttonId;
 
 							var b = document.createElement("button");
 							b.setAttribute("id", buttonId);
-							b.innerText = a;
+							b.innerHTML = a;
 							(function(a, action){
 								window[action.var] = {inserted: false, expired: false, removed: false};
-								action.toaster.addEventListener("messageInserted", function(e){
+								action.toaster.on("messageInserted", function(e){
 									if (e.message.id === action.props["id"]){
 										console.log("inserted", e.message);
 										window[action.var].inserted = true;
 										console.log(window[action.var])
 									}
 								});
-								action.toaster.addEventListener("messageExpired", function(e){
+								action.toaster.on("messageExpired", function(e){
 									if (e.message.id === action.props["id"]){
 										console.log("expired", e.message);
 										window[action.var].expired = true;
 										console.log(window[action.var])
 									}
 								});
-								action.toaster.addEventListener("messageRemoved", function(e){
+								action.toaster.on("messageRemoved", function(e){
 									if (e.message.id === action.props["id"]){
 										console.log("removed", e.message);
 										window[action.var].removed = true;

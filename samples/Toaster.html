@@ -41,6 +41,7 @@
 			Object.keys(toast).forEach(function (pos) {
 				toast[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toast[pos].placeAt("body");
+				toast[pos].startup();
 			})
 		});
 	</script>
@@ -201,6 +202,7 @@
 		});
 		Object.keys(animatedToast).forEach(function (k) {
 			animatedToast[k].placeAt("body");
+			animatedToast[k].startup();
 		});
 
 	});
