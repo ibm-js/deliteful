@@ -314,14 +314,4 @@ define([
 		}
 	}
 
-	//check if error ends with  the expected message
-	function checkError(error, expectedMessage) {
-		if (expectedMessage) {
-			assert.isTrue(error.indexOf(expectedMessage) !== -1,
-				"Expected error message: [" + expectedMessage + "] not found in [" + error + "]");
-		} else {
-			assert.isNull(error, "Unexpected error: [" + error + "]");
-		}
-	}
-
 });
