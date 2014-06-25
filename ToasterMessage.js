@@ -166,6 +166,7 @@ define(["dcl/dcl",
 		};
 		this.disable = function () {
 			if (this.isEnabled) {
+				this.isEnabled = false;
 				signalDown.remove();
 				signalMove.remove();
 				signalUp.remove();
