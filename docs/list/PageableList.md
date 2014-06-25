@@ -49,7 +49,7 @@ This can also be done using markup, as in the following example:
 - [User controls to load and display more data](#pageloaders)
 - [Hiding the list while it is busy loading and displaying a page of items](#hiding)
 
-<a name="pagelength">
+<a name="pagelength"/>
 ## Defining the length of pages
 
 When started, a pageable list will load and display only one page of data, and will provide user controls to load and display more pages of data (if there is more data).
@@ -95,7 +95,7 @@ Here is the same example using markup:
 ```
 In this example, the list will load (up to) the first 100 items from the store, display them, and provide user controls to load another page of (up to) 100 items if there are more items in the store.
 
-<a name="maxnbpages">
+<a name="maxnbpages"/>
 ## Defining the maximum number of pages to display at once
 
 The property `maxPages` defines the maximum number of pages to display at the same time, allowing to keep the size of the DOM under control when using very large lists of items.
@@ -112,7 +112,7 @@ Here is an example that illustrates the unloading mechanism, using a pageable li
 
 If the `maxPages` property is set to 0 or less, there is no maximum number of pages (pages are never unloaded).
 
-<a name="pageloaders">
+<a name="pageloaders"/>
 ## User controls to load and display more data
 
 The list provides up to two user controls to load and display more data:
@@ -156,7 +156,7 @@ The user controls, when they exist, can be automatically activated when the user
 
 To activate this behavior, the `autoPaging` property must be set to `true` on the pageable list.
 
-<a name="hiding">
+<a name="hiding"/>
 ## Hiding the list while it is busy loading and displaying a page of items
 
 The pageable list provides the options to hides its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`.
