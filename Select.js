@@ -6,13 +6,13 @@ define([
 	"dstore/Memory",
 	"dstore/Observable",
 	"delite/register",
-	"delite/FormValueWidget", // TODO: check whether FormWidget wouldn't be more appropriate (delite/issues/#177)
+	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select_css"
 ], function (dcl, on, domClass, Memory, Observable, register,
-	FormValueWidget, StoreMap, Selection, template) {
+	FormWidget, StoreMap, Selection, template) {
 
 	/**
 	 * A form-aware and store-aware widget leveraging the native HTML5 `<select>`
@@ -58,7 +58,7 @@ define([
 	 * @augments {module:delite/FormWidget}
 	 * @augments {module:delite/Store}
 	 */
-	return register("d-select", [HTMLElement, FormValueWidget, StoreMap, Selection],
+	return register("d-select", [HTMLElement, FormWidget, StoreMap, Selection],
 		/** @lends module:deliteful/Select# */ {
 		
 		// Note: the properties `store` and `query` are inherited from delite/Store, and
