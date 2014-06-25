@@ -5,7 +5,7 @@ define([
 	"delite/register",
 	"deliteful/list/Renderer",
 ], function (registerSuite, assert, Deferred, register, Renderer) {
-
+/* jshint nonew: false */
 	registerSuite({
 		name: "list/Renderer",
 		"Exception thrown if template does not define renderNode" : function () {
