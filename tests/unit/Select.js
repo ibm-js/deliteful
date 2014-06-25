@@ -194,25 +194,77 @@ define([
 			"Custom mapping (text) (select.id: " + select.id + ")");
 		assert.strictEqual(optionWithCustomMapping.value, "7",
 			"Custom mapping (value) (select.id: " + select.id + ")");
-		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"), // "false",
+		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"),
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
-		// Once again with disabled at true
+		// Once again with disabled at true (boolean) and text and value at empty string
 		var newDataItem2 = select.store.add({
-			text1: "custom mapping2",
-			value1: 8,
+			text1: "",
+			value1: "",
 			disabled1: true
 		});
 		
 		select.validate();
 		optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
-		assert.strictEqual(optionWithCustomMapping.text, "custom mapping2",
+		assert.strictEqual(optionWithCustomMapping.text, "",
 			"Custom mapping (text) (select.id: " + select.id + ")");
-		assert.strictEqual(optionWithCustomMapping.value, "8",
+		assert.strictEqual(optionWithCustomMapping.value, "",
 			"Custom mapping (value) (select.id: " + select.id + ")");
-		assert.isTrue(!!optionWithCustomMapping.getAttribute("disabled"), // "true",
+		assert.isTrue(!!optionWithCustomMapping.getAttribute("disabled"),
+			"Custom mapping (disabled) (select.id: " + select.id + ")");
+			
+		// Now with disabled at "false" (string) and value at " "
+		var newDataItem3 = select.store.add({
+			text1: "custom mapping3",
+			value1: " ",
+			disabled1: "false"
+		});
+		
+		select.validate();
+		optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
+		assert.strictEqual(optionWithCustomMapping.text, "custom mapping3",
+			"Custom mapping (text) (select.id: " + select.id + ")");
+		assert.strictEqual(optionWithCustomMapping.value, " ",
+			"Custom mapping (value) (select.id: " + select.id + ")");
+		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"),
+			"Custom mapping (disabled) (select.id: " + select.id + ")");
+		
+		// Now with disabled at "true" (string)
+		var newDataItem4 = select.store.add({
+			text1: "custom mapping4",
+			value1: 10,
+			disabled1: "true"
+		});
+		
+		select.validate();
+		optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
+		assert.strictEqual(optionWithCustomMapping.text, "custom mapping4",
+			"Custom mapping (text) (select.id: " + select.id + ")");
+		assert.strictEqual(optionWithCustomMapping.value, "10",
+			"Custom mapping (value) (select.id: " + select.id + ")");
+		assert.isTrue(!!optionWithCustomMapping.getAttribute("disabled"),
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 
+		// Test custom mapping (via delite/StoreMap)
+		select.textAttr = "text1";
+		select.valueAttr = "value1";
+		select.disabledAttr = "disabled1";
+		select.validate();
+		var newDataItem1 = select.store.add({
+			text1: "custom mapping",
+			value1: 7,
+			disabled1: false
+		});
+		
+		select.validate();
+		var optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
+		assert.strictEqual(optionWithCustomMapping.text, "custom mapping",
+			"Custom mapping (text) (select.id: " + select.id + ")");
+		assert.strictEqual(optionWithCustomMapping.value, "7",
+			"Custom mapping (value) (select.id: " + select.id + ")");
+		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"),
+			"Custom mapping (disabled) (select.id: " + select.id + ")");
+			
 		// Remove the newly added items
 		select.store.remove(newDataItem1.id);
 		select.store.remove(newDataItem2.id);

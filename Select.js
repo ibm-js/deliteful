@@ -91,7 +91,10 @@ define([
 		
 		/**
 		 * The name of the property of store items which contains the disabled
-		 * value of Select's options.
+		 * value of Select's options. To disable a given option, the `disabled`
+		 * property of the corresponding data item must be set to a truthy value.
+		 * Otherwise, the option is enabled if data item property is absent, or
+		 * its value is falsy or the string "false".
 		 * @member {string}
 		 * @default "disabled"
 		 */
@@ -187,17 +190,20 @@ define([
 						// Hence don't do
 						// option.label = dataItem.label;
 						// Instead:
-						if (dataItem.text) { // optional
+						if (dataItem.text !== undefined) { // optional
 							option.text = dataItem.text;
 						}
-						if (dataItem.value) { // optional
+						if (dataItem.value !== undefined) { // optional
 							option.setAttribute("value", dataItem.value);
 						}
-						if (this.isSelected(dataItem)) { // optional
+						if (this.isSelected(dataItem)) { // delite/Selection's API
 							option.setAttribute("selected", "true");
 						}
-						if (dataItem.disabled) { // optional
-							option.setAttribute("disabled", dataItem.disabled);
+						if (dataItem.disabled !== undefined &&
+							!!dataItem.disabled && dataItem.disabled !== "false") { // optional
+							// Note that for an enabled option the attribute must NOT be set
+							// (<option disabled="false"> is a disabled option!)
+							option.setAttribute("disabled", "true");
 						}
 						
 						fragment.appendChild(option);
