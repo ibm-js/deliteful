@@ -28,7 +28,7 @@ Bugs and open issues are tracked in the
 
 ## Licensing
 
-This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](https://github.com/dojo/dojo/blob/master/LICENSE#L13-L41).
+This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](./LICENSE).
 All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/about/claForm).
 
 ## Dependencies
