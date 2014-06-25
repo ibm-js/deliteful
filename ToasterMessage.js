@@ -171,28 +171,28 @@ define(["dcl/dcl",
 				signalUp.remove();
 			}
 		};
-	
+
 	};
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
-	var Timer = function(duration){
+	var Timer = function (duration) {
 		var _timer = null, _remaining = null,
 			_startDate = null, _d = new Deferred();
 
-		function _start(duration){
+		function _start(duration) {
 			_startDate = Date.now();
-			_timer = setTimeout(function(){
+			_timer = setTimeout(function () {
 				_d.resolve();
 			}, duration);
 			return _d;
 		}
 
-		this.start = function(){
+		this.start = function () {
 			return _start(duration);
 		};
 
-		this.pause = function(){
-			if (_timer !== null){
+		this.pause = function () {
+			if (_timer !== null) {
 				clearTimeout(_timer);
 				var rt = duration - Date.now() + _startDate;
 				_remaining = rt > 0 ? rt : 0;
@@ -205,7 +205,7 @@ define(["dcl/dcl",
 			return _start(_remaining);
 		};
 
-		this.promise = function(){
+		this.promise = function () {
 			return _d;
 		}
 	}
@@ -226,6 +226,7 @@ define(["dcl/dcl",
 	function normalizeType(type) {
 		return messageTypes[type] || defaultType;
 	}
+
 	function messageTypeClass(type) {
 		return "d-toaster-type-" + type;
 	}
@@ -245,9 +246,10 @@ define(["dcl/dcl",
 		"-ms-animation": "MSAnimationEnd" // IE 10
 	};
 	var transitionendEvents = {
-		"transition":'transitionend', // >= IE10, FF
+		"transition": 'transitionend', // >= IE10, FF
 		"-webkit-transition": "webkitTransitionEnd"  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
 	};
+
 	function whichEvent(events) {
 		var fakeElement = document.createElement("fakeelement");
 		for (var event in events) {
