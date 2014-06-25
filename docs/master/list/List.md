@@ -20,7 +20,7 @@ TODO: INSERT SCREENSHOT(S) HERE
 - [Keyboard navigation](#keynav)
 - [Styling](#styling)
 
-<a name="scroll">
+<a name="scroll"/>
 ## Scroll capabilities
 
 If you do not want the list to be scrollable, you can set its `scrollDirection` attribute
@@ -28,7 +28,7 @@ to `"none"` in order to remove the default scrolling capability.
 
 TODO: INSERT SCREENSHOT(S) HERE
 
-<a name="scroll">
+<a name="store"/>
 ## Store capabilities
 
 If the store the items are retrieved from is [observable](), the widget will react to addition,
@@ -77,16 +77,14 @@ example:
 _Note that items are appended to the store in the order they are declared in the JSON markup._
 
 The actual rendering of the items in the list is performed by an item renderer widget.
-The default one is [deliteful/list/ItemRenderer](ItemRenderer.html), but another one can be specified
-using the `itemRenderer` attribute of the list, as in the following example:
+The default one is [deliteful/list/ItemRenderer](ItemRenderer.html), but a [custom item renderer](ItemRenderer.html#customization) can be specified
+using the `itemRenderer` attribute of the list, as in the following example that leverage the template capabilities of ItemRenderer:
 
 ```js
 define(["delite/register", "deliteful/list/ItemRenderer"],
 	function (register, ItemRenderer) {
 		var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-			render: function () {
-				this.renderNode.innerHTML = "<div class='title' navindex='0'>" + this.item.title + "</div><div class='isbn' navindex='0'>ISBN: " + this.item.isbn + "</div>";
-			}
+			template: "<template><div data-attach-point='renderNode'><div class='title' navindex='0'>{{item.title}}</div><div class='isbn' navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
 		});
 		var list = register.createElement("d-list");
 		list.itemRenderer = myCustomRenderer;
@@ -147,7 +145,7 @@ list.on("query-error", function (error) {
 });
 ```
 
-<a name="categories">
+<a name="categories"/>
 ## Categorized items
 
 The List widget supports categorized items, that are rendered with a category header that separates
@@ -179,8 +177,8 @@ list.store.add({label: "third item", category: "Category B"});
 ```
 
 The actual rendering of the categories in the list is performed by a category renderer widget.
-The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.html), but another one can be specified
-using the `categoryRenderer` attribute of the list, as in the following example:
+The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.html), but a [custom category renderer](CategoryRenderer.html#customization) can be specified
+using the `categoryRenderer` attribute of the list, as in the following example that leverage the template capabilities of CategoryRenderer:
 
 ```js
 require([
@@ -189,9 +187,7 @@ require([
 	"deliteful/list/List"
 ], function (register, CategoryRenderer) {
 	var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
-		render: function () {
-			this.renderNode.innerHTML = "<div class='categoryName' navindex='0'>" + this.item.category + "</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search=" + this.item.category + "&go=Go'>Wikipedia</a></div>";
-		}
+		template: "<template><div data-attach-point='renderNode'><div class='categoryName' navindex='0'>{{item.category}}</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search={{item.category}}&go=Go'>Wikipedia</a></div></div></template>"
 	});
 	var list = register.createElement("d-list");
 	list.categoryAttr = "cat";
@@ -207,7 +203,7 @@ require([
 
 TODO: INSERT SCREENSHOT(S) HERE
 
-<a name="selection">
+<a name="selection"/>
 ## Selection support
 
 The list uses the [delite/Selection]() mixin to provides support for selectable items. By default, items
@@ -245,7 +241,7 @@ By default, selectable List displays a selection mark before each list item. The
 
 TODO: INSERT SCREENSHOT(S) HERE
 
-<a name="keynav">
+<a name="keynav"/>
 ## Keyboard navigation
 
 The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
@@ -268,7 +264,7 @@ the last one.
 You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
 
-<a name="styling">
+<a name="styling"/>
 ## Styling
 
 The List widget comes with two different styling that are applied by setting the `baseClass` attribute
