@@ -16,15 +16,6 @@
 
 	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
-	<script>
-		var switchTheme = function (theme) {
-			var html = document.getElementById("html")
-			var body = document.getElementById("body")
-			body.classList.remove("bootstrap")
-			body.classList.remove("android")
-			body.classList.add(theme)
-		}
-	</script>
 
 	<script type="text/javascript">
 		var toast = {
@@ -46,7 +37,7 @@
 		});
 	</script>
 </head>
-<body id="body" class="bootstrap small " style="">
+<body id="body">
 <script>
 	var postMessage = function () {
 		var message = document.getElementById("text").value;
@@ -165,9 +156,7 @@
 </p>
 
 <script type="text/javascript">
-	var animatedToast = {
-		fade: null
-	}
+	var animatedToast = { fade: null };
 
 	require([
 		"deliteful/ToasterMessage",
@@ -204,7 +193,6 @@
 			animatedToast[k].placeAt("body");
 			animatedToast[k].startup();
 		});
-
 	});
 </script>
 <h3>Different animations</h3>
