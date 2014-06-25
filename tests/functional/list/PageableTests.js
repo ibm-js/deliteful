@@ -38,7 +38,8 @@ define(["intern!object",
 				})
 			.end()
 			.keys("\uE00D") // Press SPACE
-			.waitForCondition("document.activeElement.children[1].textContent === '" + expectedActiveTextAfterLoad + "'", 5000)
+			.waitForCondition("document.activeElement.children[1].textContent === '"
+					+ expectedActiveTextAfterLoad + "'", 5000)
 			/* jshint evil:true */
 			.eval("document.getElementById('" + listId + "').getTopDistance(document.activeElement)")
 			.then(function (value) {
@@ -86,7 +87,8 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00F") // Press PAGE DOWN
-							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
+							.waitForCondition(
+								"document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
 							5000);
 				})
 				.then(function () {
@@ -100,7 +102,8 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00E") // Press PAGE UP
-							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 0'",
+							.waitForCondition(
+									"document.activeElement.children[1].textContent === 'Programmatic item of order 0'",
 							5000);
 				});
 		},
@@ -135,7 +138,8 @@ define(["intern!object",
 				})
 				.then(function () {
 					return remote.keys("\uE00F") // Press PAGE DOWN
-							.waitForCondition("document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
+							.waitForCondition(
+								"document.activeElement.children[1].textContent === 'Programmatic item of order 99'",
 							5000);
 				})
 				.then(function () {
