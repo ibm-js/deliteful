@@ -241,6 +241,12 @@ define(["dcl/dcl",
 		hideOnPageLoad: false,
 
 		/**
+		 * The collection of items from which pages are extracted
+		 * @member {boolean} module:deliteful/list/Pageable#_collection
+		 * @private
+		 */
+
+		/**
 		 * Handle for the auto paging scroll handler (Object with a remove method)
 		 * @member {module:deliteful/list/Pageable} module:deliteful/list/Pageable#_autoPagingHandle
 		 * @private
@@ -310,7 +316,6 @@ define(["dcl/dcl",
 		refreshProperties: dcl.superCall(function (sup) {
 			return function (props) {
 				var doQuery = props.store || props.query;
-				props.store = props.query = false;
 				sup.call(this, props);
 				if (doQuery)  {
 					// Initial loading of the list
@@ -320,7 +325,13 @@ define(["dcl/dcl",
 						props.pageLength = true;
 					}
 					this._idPages = [];
-					when(this._loadNextPage()).otherwise(this._queryError.bind(this));
+					this._loadNextPage().then(function () {
+						this._setBusy(false);
+						this._dataLoaded = true;
+					}.bind(this), function (error) {
+						this._setBusy(false);
+						this._queryError(error);
+					}.bind(this));
 				}
 				// Update page loader messages as they may depend on any property of the List
 				if (this._previousPageLoader) {
@@ -338,40 +349,9 @@ define(["dcl/dcl",
 			};
 		}),
 
-		initItems: function (page) {
-			if (this._rangeSpec.forward) {
-				if (page.length) {
-					var idPage = page.map(function (item) {
-						return this.getIdentity(item);
-					}, this);
-					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
-					this._idPages.push(idPage);
-				}
-				this._nextPageReadyHandler(page);
-				// TODO: May need to force repaint here,
-				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
-			} else {
-				if (page.length) {
-					var i;
-					idPage = page.map(function (item) {
-						return this.getIdentity(item);
-					}, this);
-					var previousPageIds = this._idPages[0];
-					for (i = 0; i < idPage.length; i++) {
-						if (previousPageIds.indexOf(idPage[i]) >= 0) {
-							// remove the duplicate (happens if an element was deleted before the first one displayed)
-							page.splice(i, 1);
-							idPage.splice(i, 1);
-							i--;
-						}
-					}
-					this._firstLoaded = this._rangeSpec.start;
-					this._idPages.unshift(idPage);
-				}
-				this._previousPageReadyHandler(page);
-			}
-			this._setBusy(false);
-			this._dataLoaded = true;
+		fetch: function (collection) {
+			// Store the result of the store query
+			this._collection = collection;
 		},
 
 		//////////// Private methods ///////////////////////////////////////
@@ -422,8 +402,21 @@ define(["dcl/dcl",
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
 			}
-			this._rangeSpec.forward = true;
-			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
+			var results = this._collection.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
+			return when(results.map(function (item) {
+				return this.itemToRenderItem(item);
+			}, this)).then(function (page) {
+				if (page.length) {
+					var idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
+					this._idPages.push(idPage);
+				}
+				this._nextPageReadyHandler(page);
+				// TODO: May need to force repaint here,
+				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
+			}.bind(this));
 		},
 
 		/**
@@ -437,8 +430,29 @@ define(["dcl/dcl",
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
-			this._rangeSpec.forward = false;
-			return this.queryStoreAndInitItems(this.preProcessStore, this._postProcessStore);
+			var results = this._collection.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
+			return when(results.map(function (item) {
+				return this.itemToRenderItem(item);
+			}, this)).then(function (page) {
+				if (page.length) {
+					var i;
+					idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					var previousPageIds = this._idPages[0];
+					for (i = 0; i < idPage.length; i++) {
+						if (previousPageIds.indexOf(idPage[i]) >= 0) {
+							// remove the duplicate (happens if an element was deleted before the first one displayed)
+							page.splice(i, 1);
+							idPage.splice(i, 1);
+							i--;
+						}
+					}
+					this._firstLoaded = this._rangeSpec.start;
+					this._idPages.unshift(idPage);
+				}
+				this._previousPageReadyHandler(page);
+			}.bind(this));
 		},
 
 		/**
