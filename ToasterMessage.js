@@ -211,7 +211,7 @@ define(["dcl/dcl",
 		}
 	}
 
-	var D_TRANSPARENT = "d-transparent",
+	var D_INVISIBLE = "d-invisible",
 		D_HIDDEN = "d-hidden",
 		D_SWIPEOUT = "d-toaster-swipeout";
 
@@ -239,8 +239,6 @@ define(["dcl/dcl",
 		return typeof duration === "number" && !isNaN(duration) ? duration : defaultDuration;
 	}
 
-	var animationendEvent, transitionendEvent;
-
 	var animationendEvents = {
 		"animation": "animationend", // > IE10, FF
 		"-webkit-animation": "webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
@@ -252,6 +250,7 @@ define(["dcl/dcl",
 	};
 
 	function whichEvent(events) {
+		// NOTE: returns null if event is not supported
 		var fakeElement = document.createElement("fakeelement");
 		for (var event in events) {
 			if (fakeElement.style[event] !== undefined) {
@@ -261,20 +260,21 @@ define(["dcl/dcl",
 		return null;
 	}
 
+	var animationendEvent = whichEvent(animationendEvents),
+		transitionendEvent = whichEvent(transitionendEvents);
+
 	function listenAnimationEvents(element, callback) {
-
-		if (!animationendEvent || !transitionendEvent) {
-			animationendEvent = whichEvent(animationendEvents);
-			transitionendEvent = whichEvent(transitionendEvents);
-		}
-
 		var events = [animationendEvent, transitionendEvent];
 		events.forEach(function (event) {
-			on.once(element, event, (function (el, ev) { // TODO: add a fallback under IE9
-				return function () {
-					callback(el, ev);
-				};
-			})(element, event), false);
+			if (event) { // if event is supported
+				on.once(element, event, (function (el, ev) {
+					return function () {
+						callback(el, ev);
+					};
+				})(element, event), false);
+			} else {
+				callback(element, event);
+			}
 		});
 	}
 
@@ -458,7 +458,7 @@ define(["dcl/dcl",
 						toaster.refreshRendering({messages: true});
 					});
 				} else {
-					domClass.add(this, D_TRANSPARENT);
+					domClass.add(this, D_INVISIBLE);
 					this._toBeRemoved = true;
 					toaster.refreshRendering({messages: true}); // TODO: could be better handled with an event
 				}
