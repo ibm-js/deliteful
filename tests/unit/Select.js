@@ -183,14 +183,14 @@ define([
 		select.disabledAttr = "disabled1";
 		select.validate();
 		var newDataItem1 = select.store.add({
-			text1: "custom mapping",
+			text1: "", // check handling of empty string for text
 			value1: 7,
 			disabled1: false
 		});
 		
 		select.validate();
 		var optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
-		assert.strictEqual(optionWithCustomMapping.text, "custom mapping",
+		assert.strictEqual(optionWithCustomMapping.text, "",
 			"Custom mapping (text) (select.id: " + select.id + ")");
 		assert.strictEqual(optionWithCustomMapping.value, "7",
 			"Custom mapping (value) (select.id: " + select.id + ")");
@@ -199,15 +199,18 @@ define([
 			
 		// Once again with disabled at true (boolean) and text and value at empty string
 		var newDataItem2 = select.store.add({
-			text1: "",
+			text1: "custom mapping",
 			value1: "",
 			disabled1: true
 		});
 		
 		select.validate();
 		optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
-		assert.strictEqual(optionWithCustomMapping.text, "",
+		assert.strictEqual(optionWithCustomMapping.text, "custom mapping",
 			"Custom mapping (text) (select.id: " + select.id + ")");
+		// Check that with dataItem.value = "", widget's value is "" as expected
+		// and does not default to option's text.
+		// dataItem.text
 		assert.strictEqual(optionWithCustomMapping.value, "",
 			"Custom mapping (value) (select.id: " + select.id + ")");
 		assert.isTrue(!!optionWithCustomMapping.getAttribute("disabled"),
