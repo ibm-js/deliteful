@@ -164,43 +164,83 @@ define([
 				domClass.toggle(this, "d-select-focus", evt.type === "focus");
 			}.bind(this)));
 			
+			this.own(on(this.valueNode, "change", function (event) {
+				var selectedItems = this.selectedItems,
+					selectedOptions = this.valueNode.selectedOptions;
+				var nSelectedItems = selectedItems ? selectedItems.length : 0,
+					nSelectedOptions = selectedOptions ? selectedOptions.length : 0;
+				var i;
+				var selectedOption, selectedItem;
+				// We have two collection of options: the old selection (before the
+				// current change event), stored in widget.selectedItems, and the new
+				// selected (after the change event), which is accessible via the native
+				// API selectedOptions of the native select. The goal is to identify
+				// the options which changed their selection state. Two steps:
+				// Step 1. Search options previously selected (currently in widget.selectedItems)
+				// which are now absent in the native select's selectedOptions property.
+				for (i = 0; i < nSelectedItems; i++) {
+					selectedItem = selectedItems[i];
+					if (!(selectedItem.visualItem in selectedOptions)) {
+						this.selectFromEvent(event, selectedItem, selectedItem.visualItem, true);
+					}
+				}
+				// Step 2. Search options newly selected (currently in nativeSelect's selectedOptions)
+				// which are not present in the current selection (widget.selectedItems).
+				for (i = 0; i < nSelectedOptions; i++) {
+					selectedOption = selectedOptions[i];
+					if (!(selectedOption.renderItem in selectedItems)) {
+						this.selectFromEvent(event, selectedOption.renderItem, selectedOption, true);
+					}
+				}
+			}.bind(this)));
+			
 			// Thanks to the custom getter defined in deliteful/Select for widget's
-			// `value` property, there is no need to add code for keeping the 
+			// `value` property, there is no need to add code for keeping the
 			// property in sync after a form reset.
+		},
+		
+		hasSelectionModifier: function () {
+			// Override of the method from delite/Selection because the
+			// default implementation is inappropriate: the "change" event
+			// has no key modifier.
+			return this.selectionMode === "multiple";
 		},
 		
 		refreshRendering: function (props) {
 			if (props.renderItems) {
 				// Populate the select with the items retrieved from the store.
-				var items = this.renderItems;
-				var n = items ? items.length : 0;
+				var renderItems = this.renderItems;
+				var n = renderItems ? renderItems.length : 0;
 				// TODO: CHECKME/IMPROVEME. Also called after adding, deleting or updating just one item.
 				// Worth optimizing to avoid recreating from scratch?
 				this.valueNode.innerHTML = ""; // Remove the existing options from the DOM
 				if (n > 0) {
 					var fragment = this.ownerDocument.createDocumentFragment();
-					var dataItem, option;
+					var renderItem, option;
 					for (var i = 0; i < n; i++) {
-						dataItem = items[i];
+						renderItem = renderItems[i];
 						option = this.ownerDocument.createElement("option");
+						option.renderItem = renderItem;
+						renderItem.visualItem = option;
+						
 						// According to http://www.w3.org/TR/html5/forms.html#the-option-element, we 
 						// could use equivalently the label or the text IDL attribute of the option element.
 						// However, using the label attr. breaks the rendering in FF29/Win7!
 						// This is https://bugzilla.mozilla.org/show_bug.cgi?id=40545.
 						// Hence don't do
-						// option.label = dataItem.label;
+						// option.label = renderItem.label;
 						// Instead:
-						if (dataItem.text !== undefined) { // optional
-							option.text = dataItem.text;
+						if (renderItem.text !== undefined) { // optional
+							option.text = renderItem.text;
 						}
-						if (dataItem.value !== undefined) { // optional
-							option.setAttribute("value", dataItem.value);
+						if (renderItem.value !== undefined) { // optional
+							option.setAttribute("value", renderItem.value);
 						}
-						if (this.isSelected(dataItem)) { // delite/Selection's API
+						if (this.isSelected(renderItem)) { // delite/Selection's API
 							option.setAttribute("selected", "true");
 						}
-						if (dataItem.disabled !== undefined &&
-							!!dataItem.disabled && dataItem.disabled !== "false") { // optional
+						if (renderItem.disabled !== undefined &&
+							!!renderItem.disabled && renderItem.disabled !== "false") { // optional
 							// Note that for an enabled option the attribute must NOT be set
 							// (<option disabled="false"> is a disabled option!)
 							option.setAttribute("disabled", "true");
