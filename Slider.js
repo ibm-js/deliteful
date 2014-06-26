@@ -1,6 +1,5 @@
-/** @module  deliteful/Slider */
+/** @module deliteful/Slider */
 define([
-	"dojo/_base/window",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dojo/dom-style",
@@ -11,28 +10,29 @@ define([
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
-], function (win, domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, cssState) {
+], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState) {
 	/**
 	 * @summary
-	 * The Slider widget allows selecting a value comprised between a minimum (min) and a maximum (max). It can
-	 * also manage 2 handles to allow selecting 2 values.
+	 * The Slider widget allows selecting one value or a pair of values, from a range delimited by a minimum (min) and
+	 * a maximum (max).
 	 *
 	 * @description
 	 * The selected value depends on the position of the handle and the step, which specifies the value granularity.
 	 * Slider can be vertical or horizontal. The position of the minimum and maximum depends on the text direction,
-	 * and can be forced using the flip property. Hanldes can be move using pointers (mouse, touch) or keys
+	 * and can be forced using the flip property. Handles can be move using pointers (mouse, touch) or keys
 	 * (up, down, home or end).
 	 *
-	 * A change event is fire upon user selection when the pointer or the key is released. Application can choose to
-	 * be notified of intermediate changes by setting the intermediateChanges property inherited from FormValueWidget.
+	 * A change event is fired after the user select a new value, either by releasing a pointer, or by pressing a 
+	 * selection key. Applications can set the intermediateChanges property inherited from FormValueWidget in order 
+	 * to be notified of value changes (with a change event) while the user moves the handle.
 	 *
-	 * When intermediateChanges is true, change events are fire on each value change. Change event defines the property
-	 * intermediateChange to allow application to know if the event result from the action of moving a Slider handle,
-	 * or if it results from the actual user selection.
+	 * When intermediateChanges is true, change events are fired on each value change. Change events define the 
+	 * property intermediateChange to allow applications to know if the event resulted from moving a Slider handle, or 
+	 * if it resulted from the end of the user selection.
 	 *
 	 * The Slider Widget supports ARIA attributes aria-valuemin, aria-valuemax, aria-valuenow and aria-orientation.
 	 *
-	 * Most of the Slider behavior (default values, out of bound values reconciliations...) are similar to the
+	 * Most of the Slider behavior (default values, out of bound values reconciliations...) is similar to the
 	 * HTML5.1 input type=range element [1], but it doesn't strictly conform to the specification, in particular for:
 	 * - the "multiple" attribute (single/range Slider is directly determined from the content of the value property)
 	 * - the "datalist" attribute (currently implemented with deliteful/Rule)
@@ -43,17 +43,17 @@ define([
 	 * [1] http://www.w3.org/TR/html5/forms.html#range-state-%28type=range%29
 	 *
 	 * @class module:deliteful/Slider
-	 * @augment delite/FormValueWidget
-	 * @augment delite/CssState
+	 * @augments delite/FormValueWidget
+	 * @augments delite/CssState
 	 */
-	return register("d-slider", [HTMLElement, FormValueWidget, cssState],
+	return register("d-slider", [HTMLElement, FormValueWidget, CssState],
 		//todo: HTML5 introduce the attribute "multiple" to handle multiple values
 		/** @lends module:deliteful/Slider# */ {
 
 			/**
 			 * Indicates the minimum boundary of the allowed range of values. Must be a valid floating-point number.
 			 * Invalid min value is defaulted to 0.
-			 * @member {Number}
+			 * @member {number}
 			 * @default 0
 			 */
 			min: 0,
@@ -61,7 +61,7 @@ define([
 			/**
 			 * Indicates the maximum boundary of the allowed range of values. Must be a valid floating-point number.
 			 * Invalid max value is defaulted to 100.
-			 * @member {Number}
+			 * @member {number}
 			 * @default 100
 			 */
 			max: 100,
@@ -69,15 +69,15 @@ define([
 			/**
 			 * Specifies the value granularity. causes the slider handle to snap/jump to the closest possible value.
 			 * Must be a positive floating-point number. Invalid step value is defaulted to 1.
-			 * @member {Number}
+			 * @member {number}
 			 * @default 1
 			 */
 			step: 1,
 
 			/**
 			 * Applies only when the slider has two values. Allow sliding the area between the handles to change both
-			 * value at the same time.
-			 * @member {Boolean}
+			 * values at the same time.
+			 * @member {boolean}
 			 * @default true
 			 */
 			slideRange: true,
@@ -86,21 +86,21 @@ define([
 			 * The slider direction:
 			 * - false: horizontal
 			 * - true: vertical
-			 * @member {Boolean}
+			 * @member {boolean}
 			 * @default false
 			 */
 			vertical: false,
 
 			/**
 			 * Specifies if the slider should change its default: ascending <--> descending.
-			 * @member {Boolean}
+			 * @member {boolean}
 			 * @default false
 			 */
 			flip: false,
 
 			/**
 			 * The name of the CSS class of this widget.
-			 * @member {String}
+			 * @member {string}
 			 * @default "d-slider"
 			 */
 			baseClass: "d-slider",
@@ -187,9 +187,6 @@ define([
 					this.handleMin = this._buildHandle(this.min, currentValue[1], "first");
 					this.tabStops = "handleMin,focusNode";
 				}
-				this._refreshOrientation();
-				this._refreshReversed();
-				this._refreshCSS();
 				//prevent default browser behavior / accept pointer events
 				//todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
 				//https://github.com/ibm-js/dpointer/issues/8
@@ -231,10 +228,11 @@ define([
 			},
 
 			/**
-			 * Complicated since you can have flipped right-to-left and vertical is upside down by default.
+			 * Sets _reversed according to vertical, flip and the current text direction.
 			 * @private
 			 */
 			_refreshReversed: function () {
+				//Complicated since you can have flipped right-to-left and vertical is upside down by default.
 				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip))
 					|| (this.vertical && this.flip));
 			},
@@ -268,27 +266,26 @@ define([
 			},
 
 			/**
-			 * pass widget attributes to children (needed when Slider is used in conjunction with Rule)
+			 * pass widget attributes to children (needed when Slider is used in conjunction with deliteful/Rule)
 			 * @private
 			 */
 			_updateChildren: function () {
-				var self = this;
 				this.getChildren().forEach(function (obj) {
-					obj.vertical = self.vertical;
-					obj.reverse = self._reversed;
-				});
+					obj.vertical = this.vertical;
+					obj.reverse = this._reversed;
+				}, this);
 			},
 
 			refreshProperties: function (props) {
 				if (props.value || props.min || props.max || props.step) {
 					var value = this._getValueAsArray(),
 						isDual = value.length > 1,
-					//convert and set default value(s) as needed
+						//convert and set default value(s) as needed
 						minValue = this._convert2Float(value[0],
 							this._calculateDefaultValue(isDual ? 0.25 : 0.5)),
 						maxValue = this._convert2Float(value[value.length - 1],
 							this._calculateDefaultValue(isDual ? 0.75 : 0.5)),
-					//ensure minValue is less than maxValue
+						//ensure minValue is less than maxValue
 						maxV = Math.max(minValue, maxValue);
 					minValue = Math.min(minValue, maxValue);
 					maxValue = maxV;
@@ -301,23 +298,23 @@ define([
 			},
 
 			refreshRendering: function (props) {
-				var resetCSS = false;
+				var resetCSS, resetReversed;
 				if (props.value) {
 					resetCSS = this._refreshValueRendering();
 				}
 				if (props.vertical) {
 					this._refreshOrientation();
-					this._refreshReversed();
+					resetReversed = true;
 					resetCSS = true;
 				}
 				if (props.flip) {
-					this._refreshReversed();
+					resetReversed = true;
 					resetCSS = true;
 				}
 				if (props.name) {
 					var name = this.name;
 					this.removeAttribute("name");
-					// won't restore after a browser back operation since name changed nodes
+					//won't restore after a browser back operation since name changed nodes
 					this.valueNode.setAttribute("name", name);
 				}
 				if (props.max) {
@@ -325,6 +322,9 @@ define([
 				}
 				if (props.min) {
 					(this.handleMin || this.focusNode).setAttribute("aria-valuemin", this.min);
+				}
+				if (resetReversed) {
+					this._refreshReversed();
 				}
 				if (resetCSS) {
 					this._refreshCSS();
@@ -358,7 +358,7 @@ define([
 			 * @private
 			 */
 			_refreshValueRendering: function () {
-				var resetClasses = false,
+				var resetClasses,
 					currentValue = this._getValueAsArray();
 				if (!this.handleMin && currentValue.length === 2) {
 					//two values: add handle for the second value
@@ -394,16 +394,16 @@ define([
 					targetElt: null
 				};
 				this.own(
-					on(this, "pointerdown", this._onPointerDown),
-					on(this, "pointermove", this._onPointerMove),
-					on(this, "lostpointercapture", this._onLostCapture),
-					on(this, "keydown", this._onKeyDown),
-					on(this, "keyup", this._onKeyUp), // fire onChange on desktop
-					on(this.focusNode, "focus", this._onFocus.bind(this))
+					on(this, "pointerdown", this._onPointerDown.bind(this)),
+					on(this, "pointermove", this._onPointerMove.bind(this)),
+					on(this, "lostpointercapture", this._onLostCapture.bind(this)),
+					on(this, "keydown", this._onKeyDown.bind(this)),
+					on(this, "keyup", this._onKeyUp.bind(this)), // fire onChange on desktop
+					on(this.focusNode, "focus", this._onFocus.bind(this)),
+					on(this.handleMin, "focus", this._onFocus.bind(this))
 				);
-			},
-
-			startup: function () {
+				//ensure CSS are applied
+				this.invalidateProperty("vertical");
 				//apply default tabIndex in case the default is used.
 				this.invalidateProperty("tabIndex");
 				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
@@ -413,8 +413,12 @@ define([
 				}
 				//force calculation of the default value in case it is not specified.
 				this.invalidateProperty("value");
+			},
+
+			startup: function () {
 				//force immediate validation, otherwise in certain cases a call to slider.value returns the default
 				//value declared in the markup instead of the calculated default value.
+				//todo: remove in future when validate() will be called by invalidating.js
 				this.validateProperties();
 				//ensure input is in sync after default value is calculated
 				this.valueNode.value = String(this.value);
@@ -494,10 +498,7 @@ define([
 			 */
 			_convert2Float: function (value, defaultValue) {
 				var v = parseFloat(value);
-				if (isNaN(v) || v === Infinity) {
-					v = defaultValue;
-				}
-				return v;
+				return (isNaN(v) || v === Infinity) ? defaultValue : v;
 			},
 
 			/**
@@ -505,11 +506,12 @@ define([
 			 * The default value is the minimum plus half the difference between the minimum and the
 			 * maximum, unless the maximum is less than the minimum, in which case the default value
 			 * is the minimum.
-			 * @param defaultValue
+			 * @param ratio For a single handle, ratio is 0.5 ("half the difference between the minimum and the
+			 * maximum"). For dual handle, it is 0.25 or 0.75. 
 			 * @private
 			 */
-			_calculateDefaultValue: function (defaultValue) {
-				return (this.max < this.min) ? this.min : this.min + (this.max - this.min) * defaultValue;
+			_calculateDefaultValue: function (ratio) {
+				return this.max < this.min ? this.min : this.min + (this.max - this.min) * ratio;
 			},
 
 			/**
@@ -536,17 +538,16 @@ define([
 				//When the element is suffering from an overflow, if the maximum is not less than the minimum,
 				//the user agent must set the element's value to a valid floating-point number that represents
 				//the maximum. (spec)
-				value = Math.min((this.max > this.min) ? this.max : this.min, value);
+				value = Math.min(this.max > this.min ? this.max : this.min, value);
 				return value;
 			},
 
 			/**
-			 * convenient method to get the value as an array
+			 * Convenience method to get the value as an array.
 			 * @returns {Array}
 			 * @private
 			 */
 			_getValueAsArray: function () {
-				//convenient method to get the value as an array
 				return String(this.value).split(/,/g);
 			},
 
