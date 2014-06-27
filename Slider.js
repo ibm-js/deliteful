@@ -9,8 +9,9 @@ define([
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/CssState",
+	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
-], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState) {
+], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, renderer) {
 	/**
 	 * @summary
 	 * The Slider widget allows selecting one value or a pair of values, from a range delimited by a minimum (min) and
@@ -157,60 +158,24 @@ define([
 			},
 
 			buildRendering: function () {
-				//look for existing child INPUT node under root node
-				this.valueNode = this.querySelector("input");
-				if (!this.valueNode) {
-					this.valueNode = domConstruct.create("input",
-						{ "type": "text", readOnly: "true", value: this.value }, this, "last");
-				} else {
-					//The element property "value" may not reflect the DOM attribute "value" (observed on FF29)
-					this.valueNode.value = this.valueNode.getAttribute("value");
-				}
-				this.containerNode = domConstruct.create("div", {}, this, "last");
+				renderer.call(this);
 				var n = this.firstChild;
 				while (n) {
 					var next = n.nextSibling;
 					if (n !== this.valueNode && n !== this.containerNode) {
-						// move all extra markup nodes to the containerNode for relative sizing and placement
-						this.containerNode.appendChild(n);
+						//move all extra markup nodes to the containerNode for relative sizing and placement
+						this.containerNode.insertBefore(n, this.progressBar);
 					}
 					n = next;
 				}
-				this.progressBar = domConstruct.create("div", {}, this.containerNode, "last");
-				//create handle(s)
-				var currentValue = this._getValueAsArray();
-				if (currentValue.length === 1) {
-					this.focusNode = this._buildHandle(this.min, this.max, "last");
-					this.tabStops = "focusNode";
-				} else {
-					this.focusNode = this._buildHandle(currentValue[0], this.max, "last");
-					this.handleMin = this._buildHandle(this.min, currentValue[1], "first");
-					this.tabStops = "handleMin,focusNode";
-				}
-				//prevent default browser behavior / accept pointer events
-				//todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
-				//https://github.com/ibm-js/dpointer/issues/8
+				this.handleMin.setAttribute("aria-valuemin", this.min);
+				this.focusNode.setAttribute("aria-valuemax", this.max);
+				this.tabStops = "handleMin,focusNode";
+				this.handleMin._isActive = true;
+				// prevent default browser behavior / accept pointer events
+				// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
+				// https://github.com/ibm-js/dpointer/issues/8
 				dpointer.setTouchAction(this, "none");
-			},
-
-			/**
-			 * Create and set a handle node to the `progressbar`.
-			 * @param {Number} ariaValueMin init value for aria attribute `aria-valuemin`
-			 * @param {Number} ariaValueMax init value for aria attribute `aria-valuemax`
-			 * @param {String} position the insertion position relative to the `progressbar`
-			 * @returns {div}
-			 * @private
-			 */
-			_buildHandle: function (ariaValueMin, ariaValueMax, position) {
-				var handleNode = domConstruct.create("div", { role: "slider" }, this.progressBar, position);
-				//set focus handler
-				handleNode._focusHandler = on(handleNode, "focus", this._onFocus.bind(this));
-				//ensure focus handler is removed when this instance is destroyed
-				this.own(handleNode._focusHandler);
-				//set aria min/max attributes
-				handleNode.setAttribute("aria-valuemin", ariaValueMin);
-				handleNode.setAttribute("aria-valuemax", ariaValueMax);
-				return handleNode;
 			},
 
 			/**
@@ -221,7 +186,7 @@ define([
 			 */
 			_refreshOrientation: function () {
 				this.focusNode.setAttribute("aria-orientation", this.vertical ? "vertical" : "horizontal");
-				if (this.handleMin) {
+				if (this.handleMin._isActive) {
 					this.handleMin.setAttribute("aria-orientation", this.vertical ? "vertical" : "horizontal");
 				}
 				this._propNames = this._orientationNames[this.vertical];
@@ -247,7 +212,7 @@ define([
 						return c + modifier;
 					}).join(" ");
 				};
-				// add V or H suffix to baseClass for styling purposes
+				//add V or H suffix to baseClass for styling purposes
 				var rootBaseClass = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
 				var baseClass = this.baseClass + " " + rootBaseClass;
 				//root node: do not remove all classes; user may define custom classes; CssState adds classes that
@@ -260,7 +225,7 @@ define([
 				this.progressBar.setAttribute("style", "");//reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
 				this.focusNode.className = toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-max");
-				if (this.handleMin) {
+				if (this.handleMin._isActive) {
 					this.handleMin.className = toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-min");
 				}
 			},
@@ -321,7 +286,8 @@ define([
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 				}
 				if (props.min) {
-					(this.handleMin || this.focusNode).setAttribute("aria-valuemin", this.min);
+					(this.handleMin._isActive ? this.handleMin : this.focusNode)
+						.setAttribute("aria-valuemin", this.min);
 				}
 				if (resetReversed) {
 					this._refreshReversed();
@@ -360,22 +326,23 @@ define([
 			_refreshValueRendering: function () {
 				var resetClasses,
 					currentValue = this._getValueAsArray();
-				if (!this.handleMin && currentValue.length === 2) {
-					//two values: add handle for the second value
-					this.handleMin = this._buildHandle(this.min, this.max, "first");
+				if (!this.handleMin._isActive && currentValue.length === 2) {
+					this.handleMin.setAttribute("aria-valuemin", this.min);
+					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = "handleMin,focusNode";
 					resetClasses = true;
+					this.handleMin._isActive = true;
 				}
-				if (this.handleMin && currentValue.length === 1) {
-					//one value: remove the second handle
-					this.tabStops = "focusNode";
-					this.handleMin._focusHandler.remove();
-					this.progressBar.removeChild(this.handleMin);
-					delete this.handleMin;
+				if (this.handleMin._isActive && currentValue.length === 1) {
+					this.handleMin.className = "d-hidden";
+					this.handleMin.removeAttribute("aria-valuemin");
+					this.focusNode.setAttribute("aria-valuemin", this.min);
+					this.focusNode.setAttribute("aria-valuemax", this.max);
 					resetClasses = true;
+					this.handleMin._isActive = false;
 				}
-				//update aria attributes
-				if (this.handleMin) {
+				// update aria attributes
+				if (this.handleMin._isActive) {
 					this.handleMin.setAttribute("aria-valuenow", currentValue[0]);
 					this.handleMin.setAttribute("aria-valuemax", currentValue[1]);
 					this.focusNode.setAttribute("aria-valuemin", currentValue[0]);
@@ -398,7 +365,7 @@ define([
 					on(this, "pointermove", this._onPointerMove.bind(this)),
 					on(this, "lostpointercapture", this._onLostCapture.bind(this)),
 					on(this, "keydown", this._onKeyDown.bind(this)),
-					on(this, "keyup", this._onKeyUp.bind(this)), // fire onChange on desktop
+					on(this, "keyup", this._onKeyUp.bind(this)), //fire onChange on desktop
 					on(this.focusNode, "focus", this._onFocus.bind(this)),
 					on(this.handleMin, "focus", this._onFocus.bind(this))
 				);
@@ -406,9 +373,9 @@ define([
 				this.invalidateProperty("vertical");
 				//apply default tabIndex in case the default is used.
 				this.invalidateProperty("tabIndex");
-				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
-					//browser back button or value coded on INPUT
-					//the valueNode value has precedence over the widget markup value
+				if (!isNaN(parseFloat(this.valueNode.value))) { //INPUT value
+					// browser back button or value coded on INPUT
+					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
 				//force calculation of the default value in case it is not specified.
@@ -427,7 +394,7 @@ define([
 				}
 				//force children (Rule) to refresh their rendering
 				this._updateChildren();
-				// if the form is reset, then notify the widget to reposition the handles
+				//if the form is reset, then notify the widget to reposition the handles
 				if (this.valueNode.form) {
 					var self = this;
 					this.own(on(this.valueNode.form, "reset", function () {
@@ -575,7 +542,7 @@ define([
 				var currentValue = this._getValueAsArray();
 				var valueFromPosition = this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox);
 				var slideHandles;
-				// Determine the handle targeted by the current pointer
+				//Determine the handle targeted by the current pointer
 				if (currentValue.length > 1) {
 					if (isEligibleToSlideRange(currentValue, valueFromPosition, e.target)) {
 						this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
@@ -672,7 +639,7 @@ define([
 				default:
 					return;
 				}
-				this._setNewValue(newValue, e.target, false); // do not fire change event
+				this._setNewValue(newValue, e.target, false); //do not fire change event
 				e.preventDefault();
 			},
 
@@ -689,8 +656,8 @@ define([
 			},
 
 			_onFocus: function (e) {
-				if (this.handleMin) {
-					//in case there are 2 values, ensure the handle which has the focus is above the other.
+				if (this.handleMin._isActive) {
+					// in case there are 2 values, ensure the handle which has the focus is above the other.
 					if (e.target === this.focusNode) {
 						this.focusNode.style.zIndex = 1;
 						this.handleMin.style.zIndex = "auto";

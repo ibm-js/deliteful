@@ -5,83 +5,57 @@ define(["intern!object",
 	"intern/chai!assert",
 	"require"
 ], function (registerSuite, assert, require) {
-	var debug = false;//set to true to add wait time after each action; allows visual feedback when tests are running.
-	/**
-	 * - Check if the value read from widget.value property just after the widget has started is the expected one:
-	 *   a) default computed value when user doesn't specify anything (or just "," to force slider in "range" mode)
-	 *   b) value specified by user is in bound (relative to slider min/max)
-	 *   c) value specified by user is out of bound
-	 * - Check that no "change" event has been fired during the value initialization.
-	 * - check that no onchange is fired when clicking on a slider handle
-	 * - Check that onchange is triggered and resulting value is correct when clicking on the progress bar.
-	 * - Check that onchange is triggered and resulting value is correct when moving a slider handle.
-	 * - Check that onchange is triggered and resulting value is correct when moving progressbar on range slider.
-	 */
+	//set to true to add wait time after each action; allows visual feedback when tests are running.
+	var debug = false;
+	
 	registerSuite({
 		name: "Slider initValue",
-
 		"single slider (default value)": function () {
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-single.html")
 				.then(checkInitValue(remote, "singleSlider01", "50"))
-				.then(checkOnChange(remote, "singleSlider01", false));
+				.then(checkOnChange(remote, "singleSlider01", false))
+				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"single slider (value in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
-				.then(checkOnChange(remote, "singleSlider02", false));
+				.then(checkOnChange(remote, "singleSlider02", false))
+				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"single slider (value out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
-				.then(checkOnChange(remote, "singleSlider03", false));
+				.then(checkOnChange(remote, "singleSlider03", false))
+				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 		"Single slider with intermediateChanges (default)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider04", "50"))
-				.then(checkOnChange(remote, "singleSlider04", false));
+				.then(checkOnChange(remote, "singleSlider04", false))
+				.then(checkAria(remote, "singleSlider04", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"Single slider with intermediateChanges (in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider05", "25"))
-				.then(checkOnChange(remote, "singleSlider05", false));
+				.then(checkOnChange(remote, "singleSlider05", false))
+				.then(checkAria(remote, "singleSlider05", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"Single slider with intermediateChanges (out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider06", "100"))
-				.then(checkOnChange(remote, "singleSlider06", false));
-		},
-
-		"Single slider with input element (default value)": function () {
-			var testPage = this.remote.url();
-			logMessage2(testPage, this.id, "start...");
-			checkInitValue(testPage, "singleSlider07", "50");
-			checkOnChange(testPage, "singleSlider07", false);
-			return testPage;
-		},
-		"Single slider with input element (in bound value)": function () {
-			var testPage = this.remote.url();
-			logMessage2(testPage, this.id, "start...");
-			checkInitValue(testPage, "singleSlider08", "25");
-			checkOnChange(testPage, "singleSlider08", false);
-			return testPage;
-		},
-		"Single slider with input element (out bound value)": function () {
-			var testPage = this.remote.url();
-			logMessage2(testPage, this.id, "start...");
-			checkInitValue(testPage, "singleSlider09", "100");
-			checkOnChange(testPage, "singleSlider09", false);
-			return testPage;
+				.then(checkOnChange(remote, "singleSlider06", false))
+				.then(checkAria(remote, "singleSlider06", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 
 		"Range slider (default value)": function () {
@@ -89,21 +63,27 @@ define(["intern!object",
 			return loadTestPage(remote, "./slider/slider-range.html")
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
-				.then(checkOnChange(remote, "rangeSlider01", false));
+				.then(checkOnChange(remote, "rangeSlider01", false))
+				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-min", "horizontal", "0", "75", "25"))
+				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"Range slider (value in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
-				.then(checkOnChange(remote, "rangeSlider02", false));
+				.then(checkOnChange(remote, "rangeSlider02", false))
+				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-min", "horizontal", "0", "90", "10"))
+				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"Range slider (value out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
-				.then(checkOnChange(remote, "rangeSlider03", false));
+				.then(checkOnChange(remote, "rangeSlider03", false))
+				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-min", "horizontal", "0", "100", "80"))
+				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		},
 
 		"Range slider with intermediateChanges (default)": function () {
@@ -111,21 +91,27 @@ define(["intern!object",
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider04", "25,75"))
-				.then(checkOnChange(remote, "rangeSlider04", false));
+				.then(checkOnChange(remote, "rangeSlider04", false))
+				.then(checkAria(remote, "rangeSlider04", "d-slider-handle-min", "horizontal", "0", "75", "25"))
+				.then(checkAria(remote, "rangeSlider04", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"Range slider with intermediateChanges (in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider05", "10,90"))
-				.then(checkOnChange(remote, "rangeSlider05", false));
+				.then(checkOnChange(remote, "rangeSlider05", false))
+				.then(checkAria(remote, "rangeSlider05", "d-slider-handle-min", "horizontal", "0", "90", "10"))
+				.then(checkAria(remote, "rangeSlider05", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"Range slider with intermediateChanges (out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider06", "80,100"))
-				.then(checkOnChange(remote, "rangeSlider06", false));
+				.then(checkOnChange(remote, "rangeSlider06", false))
+				.then(checkAria(remote, "rangeSlider06", "d-slider-handle-min", "horizontal", "0", "100", "80"))
+				.then(checkAria(remote, "rangeSlider06", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		}
 	});
 
@@ -136,21 +122,24 @@ define(["intern!object",
 			return loadTestPage(remote, "./slider/slider-programmatic.html")
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider01", "50"))
-				.then(checkOnChange(remote, "singleSlider01", false));
+				.then(checkOnChange(remote, "singleSlider01", false))
+				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"single slider (value in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
-				.then(checkOnChange(remote, "singleSlider02", false));
+				.then(checkOnChange(remote, "singleSlider02", false))
+				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"single slider (value out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
-				.then(checkOnChange(remote, "singleSlider03", false));
+				.then(checkOnChange(remote, "singleSlider03", false))
+				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 
 		"Single slider with intermediateChanges (default)": function () {
@@ -158,21 +147,24 @@ define(["intern!object",
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider04", "50"))
-				.then(checkOnChange(remote, "singleSlider04", false));
+				.then(checkOnChange(remote, "singleSlider04", false))
+				.then(checkAria(remote, "singleSlider04", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"Single slider with intermediateChanges (in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider05", "25"))
-				.then(checkOnChange(remote, "singleSlider05", false));
+				.then(checkOnChange(remote, "singleSlider05", false))
+				.then(checkAria(remote, "singleSlider05", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"Single slider with intermediateChanges (out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider06", "100"))
-				.then(checkOnChange(remote, "singleSlider06", false));
+				.then(checkOnChange(remote, "singleSlider06", false))
+				.then(checkAria(remote, "singleSlider06", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 
 		"Range slider (default value)": function () {
@@ -180,21 +172,27 @@ define(["intern!object",
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
-				.then(checkOnChange(remote, "rangeSlider01", false));
+				.then(checkOnChange(remote, "rangeSlider01", false))
+				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-min", "horizontal", "0", "75", "25"))
+				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"Range slider (value in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
-				.then(checkOnChange(remote, "rangeSlider02", false));
+				.then(checkOnChange(remote, "rangeSlider02", false))
+				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-min", "horizontal", "0", "90", "10"))
+				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"Range slider (value out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
-				.then(checkOnChange(remote, "rangeSlider03", false));
+				.then(checkOnChange(remote, "rangeSlider03", false))
+				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-min", "horizontal", "0", "100", "80"))
+				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		},
 
 		"Range slider with intermediateChanges (default)": function () {
@@ -202,28 +200,35 @@ define(["intern!object",
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider04", "25,75"))
-				.then(checkOnChange(remote, "rangeSlider04", false));
+				.then(checkOnChange(remote, "rangeSlider04", false))
+				.then(checkAria(remote, "rangeSlider04", "d-slider-handle-min", "horizontal", "0", "75", "25"))
+				.then(checkAria(remote, "rangeSlider04", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"Range slider with intermediateChanges (in bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider05", "10,90"))
-				.then(checkOnChange(remote, "rangeSlider05", false));
+				.then(checkOnChange(remote, "rangeSlider05", false))
+				.then(checkAria(remote, "rangeSlider05", "d-slider-handle-min", "horizontal", "0", "90", "10"))
+				.then(checkAria(remote, "rangeSlider05", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"Range slider with intermediateChanges (out bound)": function () {
 			var remote = this.remote;
 			return remote.url()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider06", "80,100"))
-				.then(checkOnChange(remote, "rangeSlider06", false));
+				.then(checkOnChange(remote, "rangeSlider06", false))
+				.then(checkAria(remote, "rangeSlider06", "d-slider-handle-min", "horizontal", "0", "100", "80"))
+				.then(checkAria(remote, "rangeSlider06", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		}
 	});
 
 	registerSuite({
 		name: "Slider interactions",
 		"Single": function () {
-			var remote = loadTestPage(this.remote, "./slider/slider-single.html");
+			var remote = this.remote;
+			remote = loadTestPage(remote, "./slider/slider-single.html");
 			if (hasMoveToIssue(remote)) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
@@ -244,7 +249,8 @@ define(["intern!object",
 		},
 
 		"Range": function () {
-			var remote = loadTestPage(this.remote, "./slider/slider-range.html");
+			var remote = this.remote;
+			remote = loadTestPage(remote, "./slider/slider-range.html");
 			if (hasMoveToIssue(remote)) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
@@ -277,9 +283,9 @@ define(["intern!object",
 	/**
 	 * check the value after the slider is started, also check the attribute value of the wrapped input element.
 	 */
-	function checkInitValue(testPage, sliderId, expectedValue) {
+	function checkInitValue(remote, sliderId, expectedValue) {
 		return function () {
-			getElementById(testPage, sliderId + "_value")
+			getElementById(remote, sliderId + "_value")
 				.getAttribute("value")
 				.then(function (value) {
 					assert.strictEqual(value, expectedValue,
@@ -287,7 +293,7 @@ define(["intern!object",
 				})
 				.end();
 
-			getElementByXPath(testPage, "//d-slider[@id='" + sliderId + "']//input")
+			getElementByXPath(remote, "//d-slider[@id='" + sliderId + "']//input")
 				.getAttribute("value")
 				.then(function (value) {
 					assert.strictEqual(value, expectedValue, sliderId + " wrapped input attribute value is [" + value +
@@ -296,15 +302,15 @@ define(["intern!object",
 				.end();
 
 			if (debug) {
-				testPage.wait(500);
+				remote.wait(500);
 			}
-			testPage.end();
+			remote.end();
 		};
 	}
 
-	function checkOnChange(testPage, sliderId, hasValue, isIntermediateChange) {
+	function checkOnChange(remote, sliderId, hasValue, isIntermediateChange) {
 		return function () {
-			getElementById(testPage, "onchange_target")
+			getElementById(remote, "onchange_target")
 				.getAttribute("value")
 				.then(function (target) {
 					if (hasValue) {
@@ -318,7 +324,7 @@ define(["intern!object",
 				.end();
 
 			if (hasValue) {
-				getElementById(testPage, "onchange_value")
+				getElementById(remote, "onchange_value")
 					.getAttribute("value")
 					.then(function (value) {
 						assert.ok(value, "onchange value is expected");
@@ -326,7 +332,7 @@ define(["intern!object",
 					.clear()
 					.end();
 
-				getElementById(testPage, "onchange_intermediateChange")
+				getElementById(remote, "onchange_intermediateChange")
 					.getAttribute("value")
 					.then(function (value) {
 						if (isIntermediateChange) {
@@ -339,21 +345,47 @@ define(["intern!object",
 					.end();
 			}
 			if (debug) {
-				testPage.wait(500);
+				remote.wait(500);
 			}
 		};
 	}
 
-	////////////////////////////////////
-	function getElementById(testPage, elementId) {
-		return testPage.elementById(elementId)
+	function checkAria(remote, sliderId, className, ariaOrientation, ariaValueMin, ariaValueMax, ariaValueNow) {
+		return function () {
+			getSliderElementByCss(remote, sliderId, className)
+				.getAttribute("role")
+				.then(function (value) {
+					assert.equal(value, "slider", "role");
+				})
+				.getAttribute("aria-orientation")
+				.then(function (value) {
+					assert.equal(value, ariaOrientation, "aria-orientation");
+				})
+				.getAttribute("aria-valuemin")
+				.then(function (value) {
+					assert.equal(value, ariaValueMin, "aria-valuemin");
+				})
+				.getAttribute("aria-valuemax")
+				.then(function (value) {
+					assert.equal(value, ariaValueMax, "aria-valuemax");
+				})
+				.getAttribute("aria-valuenow")
+				.then(function (value) {
+					assert.equal(value, ariaValueNow, "aria-valuenow");
+				})
+				.end();
+		};
+	}
+
+	function getElementById(remote, elementId) {
+		return remote.elementById(elementId)
 			.then(null, function (error) {
 				handleElementNotFound(elementId, error);
 			});
 	}
 
-	function getElementByXPath(testPage, xpath) {
-		return testPage.elementByXPath(xpath)
+	function getElementByXPath(remote, xpath) {
+		return remote.elementByXPath(xpath)
 			.then(null, function (error) {
 				handleElementNotFound(xpath, error);
 			});
@@ -375,24 +407,23 @@ define(["intern!object",
 
 	/**
 	 * return a subelement of d-slider based on a css class (must be the only
-	 * element to contain this class name)
-	 * note: elementByCssSelector not working on safari, use elementByXPath instead
+	 * element to contain this class name). Faster than calling getElementById + elementByCssSelector.
 	 */
-	function getSliderElementByCss(testPage, sliderId, cssClass) {
-		return testPage
+	function getSliderElementByCss(remote, sliderId, cssClass) {
+		return remote
 			.elementByXPath("//d-slider[@id='" + sliderId + "']" +
 				"//div[contains(concat(' ', normalize-space(@class), ' '), ' " + cssClass + " ')]")
 			.then(null, function (error) {
-				handleElementNotFound("d-slider: " + sliderId + " > ." + cssClass, error);
+				handleElementNotFound("not found: " + sliderId + " > ." + cssClass, error);
 			});
 	}
 
 	/**
 	 * simulate a click on the slider progress bar.
 	 */
-	function clickOnProgressBar(testPage, sliderId, moveToX, moveToY) {
+	function clickOnProgressBar(remote, sliderId, moveToX, moveToY) {
 		return function () {
-			getSliderElementByCss(testPage, sliderId, "d-slider-progress-bar")
+			getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
 				.moveTo(moveToX, moveToY)
 				.wait(50)
 				//1. There is a pb with "change" event not fired after a click() on FF with selenium:
@@ -404,13 +435,13 @@ define(["intern!object",
 				.buttonUp()
 				.end();
 			if (debug) {
-				testPage.wait(500);
+				remote.wait(500);
 			}
 		};
 	}
 
-	function clickOnHandler(testPage, sliderId) {
-		getSliderElementByCss(testPage, sliderId, "d-slider-handle-max")
+	function clickOnHandler(remote, sliderId) {
+		getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
 			.moveTo()
 			//Simulate click with button down/up to bypass this issue:
 			//"change" event is not fired when click() on FF with selenium
@@ -419,24 +450,24 @@ define(["intern!object",
 			.buttonUp()
 			.end();
 		if (debug) {
-			testPage.wait(500);
+			remote.wait(500);
 		}
 	}
 
-	function moveHandler(testPage, sliderId, moveToX, moveToY) {
-		getSliderElementByCss(testPage, sliderId, "d-slider-handle-max")
+	function moveHandler(remote, sliderId, moveToX, moveToY) {
+		getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
 			.moveTo()
 			.buttonDown()
 			.moveTo(moveToX, moveToY)
 			.buttonUp()
 			.end();
 		if (debug) {
-			testPage.wait(500);
+			remote.wait(500);
 		}
 	}
 
-	function moveRange(testPage, sliderId, moveToX, moveToY) {
-		getSliderElementByCss(testPage, sliderId, "d-slider-progress-bar")
+	function moveRange(remote, sliderId, moveToX, moveToY) {
+		getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
 			.moveTo()
 			.buttonDown()
 			.moveTo(moveToX, moveToY)
@@ -444,12 +475,12 @@ define(["intern!object",
 			.buttonUp()
 			.end();
 		if (debug) {
-			testPage.wait(500);
+			remote.wait(500);
 		}
 	}
 
-	function setSlideRange(testPage, sliderId, enable) {
-		testPage.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
+	function setSlideRange(remote, sliderId, enable) {
+		remote.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
 	}
 
 	/**
@@ -464,15 +495,15 @@ define(["intern!object",
 			});
 	}
 
-	function logMessage(testPage, prefix, message) {
+	function logMessage(remote, prefix, message) {
 		return function () {
 			console.log("[" + prefix + "] " + message);
 		};
 	}
 
-	function hasMoveToIssue(testPage) {
-		// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-		return (/safari|iPhone|selendroid/.test(testPage.environmentType.browserName) ||
-			testPage.environmentType.safari);
+	function hasMoveToIssue(remote) {
+		//SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+		return (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) ||
+			remote.environmentType.safari);
 	}
 });
