@@ -279,7 +279,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 92; i++, j += 2) {
@@ -387,7 +387,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 24; i++, j += 2) {
@@ -477,7 +477,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 100; i++, j += 2) {
