@@ -76,10 +76,14 @@ define([
 		// Initially:
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after adding 10 options on select.id: " + select.id);
-		// No item initially selected
-		assert.isNull(select.selectedItem,
+		// By default, the first option is selected for a
+		// single-select (none for a multi-select)
+		assert.isNotNull(select.selectedItem,
+			"select.selectedItem should not be null after adding 10 options on select.id: " +
+			select.id);
+		assert.strictEqual(select.selectedItem.text, "Option 0",
 			"select.selectedItem after adding 10 options on select.id: " + select.id);
-		assert.strictEqual(select.selectedItems.length, 0,
+		assert.strictEqual(select.selectedItems.length, 1,
 			"select.selectedItems after adding 10 options on select.id: " + select.id);
 		
 		// Select an element via delite/Selection's API
@@ -90,6 +94,9 @@ define([
 		select.validate();
 		
 		assert.strictEqual(select.value, select.valueNode.value,
+			"select.value equal to select.valueNode.value after selecting dataItems[0] on select.id: " +
+			select.id);
+		assert.strictEqual(select.value, "0",
 			"select.value after selecting dataItems[0] on select.id: " + select.id);
 		assert.strictEqual(select.selectedItem.value, 0,
 			"select.selectedItem.value after selecting dataItems[0] on select.id: " + select.id);
@@ -132,9 +139,9 @@ define([
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value after selecting dataItems[0] and [1] on select.id: " + select.id);
 		assert.strictEqual(select.selectedItem.value, 0, // the value of the first selected option
-			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " + 
+			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
-		assert.strictEqual(select.selectedItem.text, 
+		assert.strictEqual(select.selectedItem.text,
 			select.valueNode.options[0].text, // the text of the first selected option
 			"select.selectedItem.text after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
@@ -253,14 +260,14 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.validate();
-		var newDataItem1 = select.store.add({
+		var newDataItem5 = select.store.add({
 			text1: "custom mapping",
 			value1: 7,
 			disabled1: false
 		});
 		
 		select.validate();
-		var optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
+		optionWithCustomMapping = select.valueNode[select.valueNode.length - 1];
 		assert.strictEqual(optionWithCustomMapping.text, "custom mapping",
 			"Custom mapping (text) (select.id: " + select.id + ")");
 		assert.strictEqual(optionWithCustomMapping.value, "7",
@@ -271,6 +278,9 @@ define([
 		// Remove the newly added items
 		select.store.remove(newDataItem1.id);
 		select.store.remove(newDataItem2.id);
+		select.store.remove(newDataItem3.id);
+		select.store.remove(newDataItem4.id);
+		select.store.remove(newDataItem5.id);
 		
 		// Restore the default mapping
 		select.textAttr = "text";

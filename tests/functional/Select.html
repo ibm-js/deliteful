@@ -15,14 +15,14 @@
 	<script type="text/javascript">
 		var ready = false; // set to true when the test page is ready
 
-		var addOptions, removeOptions, updateOptions, show;
+		var addOptions, removeOptions, updateOptions, show, getSelectedOptionsArray;
 		
 		require([
 			"delite/register",
 			"dstore/Memory",
 			"dstore/Observable",
 			"deliteful/Select",
-			"dojo/domReady!"
+			"requirejs-domready/domReady!"
 		], function (register, Memory, Observable, Select) {
 			register.parse();
 			
@@ -56,8 +56,24 @@
 			};
 			
 			show = function (select) {
-				alert("select.id: " + select.id + "\n" + 
-					"select.value: " + select.value);
+				var collectSelectedItems = function() {
+					var selectedOptions = getSelectedOptionsArray(select);
+					var str = "";
+					for (var i = 0; i < selectedOptions.length; i++) {
+						str += "\n  " + selectedOptions[i].text;
+					}
+					return str;
+				};
+				alert("select.id: " + select.id + "\n" +
+					"select.value: " + select.value + "\n" +
+					"select.selectedItem" +
+					(select.selectedItem ? 
+						".text: " + select.selectedItem.text : ": null") + "\n" +
+					"select.selectedItems: " +
+					(select.selectedItems.length > 0 ?
+						collectSelectedItems() : "[]") + "\n" +
+					"select._selection_change_counter: " + select._selection_change_counter
+					);
 			};
 			
 			var initSelect = function (select, min, max, defaultStore) {
@@ -65,6 +81,17 @@
 					select.store = new (Memory.createSubclass(Observable))({});
 				}
 				addOptions(select, min, max);
+				
+				select.on("selection-change", function (event) {
+					if (!select._selection_change_counter) {
+						select._selection_change_counter = 1;
+					} else {
+						select._selection_change_counter++;
+					}
+					
+				});
+				
+				select._selection_change_counter = 0; // used in tests/functional/Select.js
 			};
 			
 			var createSelect = function (selectDiv, min, max, defaultStore) {
@@ -124,6 +151,29 @@
 				// modified while the dropwdown is open.
 				var async = document.getElementById("async").checked;
 				updateOptionsImpl(select, async, min, max);
+			};
+			
+			// Utility function called by the functional test (tests/functional/Select.js)
+			getSelectedOptionsArray = function (select) {
+				var selectedOptions = select.valueNode.selectedOptions;
+				// HTMLSelectElement.selectedOptions is not present in all browsers...
+				// At least IE10/Win misses it. Hence:
+				if (selectedOptions === undefined) {
+					var options = [].map.call(select.valueNode.options, 
+						function (option) {
+							return option;
+						});
+					selectedOptions = options.filter(function (option) {
+						return option.selected;
+					});
+				} else {
+					// convert HTMLCollection into array (to be able to use array.indexOf)
+					selectedOptions = [].map.call(selectedOptions, 
+						function (option) {
+							return option;
+						});
+				}
+				return selectedOptions;
 			};
 			
 			// Fill with options the Select already created declaratively:
@@ -258,6 +308,7 @@
 		<br/>
 		multiple (default size):
 		<d-select selectionMode="multiple" name="d_select_form3" id="d_select_form3"></d-select>
+		<br/>
 		multiple size 1:
 		<d-select selectionMode="multiple" size="1" name="d_select_form4" id="d_select_form4"></d-select>
 		multiple size 2:

@@ -164,31 +164,47 @@ define([
 				domClass.toggle(this, "d-select-focus", evt.type === "focus");
 			}.bind(this)));
 			
+			// Keep delite/Selection's selectedItem/selectedItems in sync after
+			// interactive selection of options.
 			this.own(on(this.valueNode, "change", function (event) {
 				var selectedItems = this.selectedItems,
 					selectedOptions = this.valueNode.selectedOptions;
+				// HTMLSelectElement.selectedOptions is not present in all browsers...
+				// At least IE10/Win misses it. Hence:
+				if (selectedOptions === undefined) {
+					// Convert to array
+					var options = [].map.call(this.valueNode.options,
+						function (option) {
+							return option;
+						});
+					selectedOptions = options.filter(function (option) {
+						return option.selected;
+					});
+				} else {
+					// convert HTMLCollection into array (to be able to use array.indexOf)
+					selectedOptions = [].map.call(selectedOptions,
+						function (option) {
+							return option;
+						});
+				}
 				var nSelectedItems = selectedItems ? selectedItems.length : 0,
 					nSelectedOptions = selectedOptions ? selectedOptions.length : 0;
 				var i;
 				var selectedOption, selectedItem;
-				// We have two collection of options: the old selection (before the
-				// current change event), stored in widget.selectedItems, and the new
-				// selected (after the change event), which is accessible via the native
-				// API selectedOptions of the native select. The goal is to identify
-				// the options which changed their selection state. Two steps:
+				// Identify the options which changed their selection state. Two steps:
 				// Step 1. Search options previously selected (currently in widget.selectedItems)
-				// which are now absent in the native select's selectedOptions property.
+				// which are no longer selected in the native select.
 				for (i = 0; i < nSelectedItems; i++) {
 					selectedItem = selectedItems[i];
-					if (!(selectedItem.visualItem in selectedOptions)) {
+					if (selectedOptions.indexOf(selectedItem.visualItem) === -1) {
 						this.selectFromEvent(event, selectedItem, selectedItem.visualItem, true);
 					}
 				}
-				// Step 2. Search options newly selected (currently in nativeSelect's selectedOptions)
-				// which are not present in the current selection (widget.selectedItems).
+				// Step 2. Search options newly selected in the native select which are not
+				// present in the current selection (widget.selectedItems).
 				for (i = 0; i < nSelectedOptions; i++) {
 					selectedOption = selectedOptions[i];
-					if (!(selectedOption.renderItem in selectedItems)) {
+					if (selectedItems.indexOf(selectedOption.renderItem) === - 1) {
 						this.selectFromEvent(event, selectedOption.renderItem, selectedOption, true);
 					}
 				}
@@ -249,6 +265,15 @@ define([
 						fragment.appendChild(option);
 					}
 					this.valueNode.appendChild(fragment);
+					
+					if (this.selectionMode === "single") {
+						// Since there is no native "change" event initially, initialize
+						// the delite/Selection's selectedItem property with the currently
+						// selected option of the native select.
+						this.selectedItem =
+							this.valueNode.options[this.valueNode.selectedIndex].renderItem;
+					} // else for the native multi-select: it does not have any
+					// option selected by default.
 				}
 			}
 		},
