@@ -10,7 +10,7 @@ define([
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
-	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
+	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
 ], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private

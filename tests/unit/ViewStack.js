@@ -5,12 +5,12 @@ define([
 	"dojo/dom-class",
 	"delite/register",
 	"deliteful/ViewStack",
-	"delite/css!deliteful/ViewStack/transitions/cover_css",
-	"delite/css!deliteful/ViewStack/transitions/coverv_css",
-	"delite/css!deliteful/ViewStack/transitions/fade_css",
-	"delite/css!deliteful/ViewStack/transitions/flip_css",
-	"delite/css!deliteful/ViewStack/transitions/slidev_css",
-	"delite/css!deliteful/ViewStack/transitions/revealv_css"
+	"delite/css!deliteful/ViewStack/transitions/cover.css",
+	"delite/css!deliteful/ViewStack/transitions/coverv.css",
+	"delite/css!deliteful/ViewStack/transitions/fade.css",
+	"delite/css!deliteful/ViewStack/transitions/flip.css",
+	"delite/css!deliteful/ViewStack/transitions/slidev.css",
+	"delite/css!deliteful/ViewStack/transitions/revealv.css"
 ], function (registerSuite, assert, domGeom, domClass, register) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;

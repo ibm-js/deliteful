@@ -9,7 +9,7 @@ define([
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
-	"delite/theme!./Select/themes/{{theme}}/Select_css"
+	"delite/theme!./Select/themes/{{theme}}/Select.css"
 ], function (dcl, domClass, Memory, Observable, register,
 	FormWidget, StoreMap, Selection, template) {
 

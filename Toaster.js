@@ -6,7 +6,7 @@ define(["dcl/dcl",
 	"decor/sniff",
 	"delite/handlebars!./Toaster/Toaster.html",
 	"./ToasterMessage",
-	"delite/theme!./Toaster/themes/{{theme}}/Toaster_css"
+	"delite/theme!./Toaster/themes/{{theme}}/Toaster.css"
 	], function (dcl, Widget, register, Deferred, has, template, ToasterMessage) {
 
 		/* helpers */
