@@ -91,7 +91,7 @@ d-list-store {\
   font-weight: bold;\
 }\
 .d-list-item-right-text {\
-  margin-right: 4px;\
+  padding-right: 4px;\
   overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
@@ -166,6 +166,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::before,\
 [aria-multiselectable=\"true\"] .d-list-item::before {\
+  font-size: large;\
+  padding-left: 5px;\
   display: block;\
   content: \"\\2610\";\
 }\
@@ -175,6 +177,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::after,\
 [aria-multiselectable=\"true\"] .d-list-item::after {\
+  font-size: large;\
+  padding-right: 5px;\
   display: none;\
   content: \"\\2610\";\
 }\
