@@ -10,7 +10,7 @@ define([
 	"dojo/on",
 	"delite/register",
 	"delite/FormValueWidget",
-	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
+	"delite/theme!./Slider/themes/{{theme}}/Slider"
 ], function (win, has, domClass, domConstruct, domGeometry, domStyle, keys, dpointer, on, register, FormValueWidget) {
 
 	// boolean feature test variable to decide if position() return attributes

@@ -7,8 +7,8 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
-	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
-	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
+	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar," +
+		"./ProgressBar/themes/{{theme}}/ProgressBar_rtl:delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar"
 ], function (dcl, domClass, Intl, register, Widget, Invalidating, renderer) {
 	/**
 	 * A widget that displays the completion progress of a task.

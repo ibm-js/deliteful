@@ -10,8 +10,8 @@ define([
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/uacss", // to use dedicated CSS styles in IE9
-	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
-	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating," +
+		"./StarRating/themes/{{theme}}/StarRating_rtl:delite/theme!./StarRating/themes/{{theme}}/StarRating"
 ], function (has, pointer, keys, domClass, domGeometry,
 			register, FormValueWidget, BidiStarRating, messages) {
 
