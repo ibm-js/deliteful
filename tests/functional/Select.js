@@ -3,9 +3,10 @@ define(["intern!object",
 	"require"
 	], function (registerSuite, assert, require) {
 	
-	// Not needed by Chrome 35/Win7, but needed by FF30/Win7... 
-	// var DELAY_FOR_CHANGE_EVENT = 2500;
-	// var TEST_TIMEOUT_MS = 12000;
+	// Huge values not needed when running locally, but needed for running remotely...
+	var WAIT_TIMEOUT_MS = 180000;
+	var TEST_TIMEOUT_MS = 120000;
+	var POLL_FREQUENCY = 1000;
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
@@ -38,6 +39,8 @@ define(["intern!object",
 	var checkKeyboardNavigationSingleSelection = function (remote, selectId) {
 		if (!/chrome|internet explorer/.test(remote.environmentType.browserName)) {
 			// Webdriver issues for now with FF 
+			console.log("Skipping checkKeyboardNavigationSingleSelection on " +
+				remote.environmentType.browserName);
 			return;
 		}
 		var selItemNullStr = "widget.selectedItem is null";
@@ -133,6 +136,8 @@ define(["intern!object",
 		if (!/Chrome/.test(remote.environmentType.browserName)) {
 			// Keyboard shortcuts for multi-selects are browser dependent.
 			// For now testing Chrome only.
+			console.log("Skipping checkKeyboardNavigationMultipleSelection on " +
+				remote.environmentType.browserName);
 			return;
 		}
 		var selItemNullStr = "widget.selectedItem is null";
@@ -264,7 +269,7 @@ define(["intern!object",
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
-				.waitForCondition("ready", 15000); // large timeout because of sauce...
+				.waitForCondition("ready", WAIT_TIMEOUT_MS, POLL_FREQUENCY);
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively (with default store):
@@ -277,21 +282,27 @@ define(["intern!object",
 		border-radius, and background-color (with default store):
 		*/
 		"init (declaratively, default store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select1", nOptions);
 		},
 		"init (programmatically, default store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select2", nOptions);
 		},
 		"init (declaratively, user's store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select3", nOptions);
 		},
 		"init (programmatically, user's store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select4", nOptions);
 		},
 		"init (declaratively, empty)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select5", 0/*empty*/);
 		},
 		"init (programmatically, empty)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkNumberOfOptions(this.remote, "select6", 0/*empty*/);
 		},
 		
@@ -299,28 +310,32 @@ define(["intern!object",
 		// the expected number of options and the options now contain the 
 		// updated text content.
 		"update (declaratively, default store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select1", "update1", nOptions);
 		},
 		"update (programmatically, default store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select2", "update2", nOptions);
 		},
 		"update (declaratively, user's store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select3", "update3", nOptions);
 		},
 		"update (programmatically, user's store)": function () {
+			this.timeout = TEST_TIMEOUT_MS;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select4", "update4", nOptions);
 		},
 		
 		"keyboard navigation selectionMode = single": function () {
-			// this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkKeyboardNavigationSingleSelection(this.remote, "select1");
 		},
 		"keyboard navigation selectionMode = multiple": function () {
-			// this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = TEST_TIMEOUT_MS;
 			return checkKeyboardNavigationMultipleSelection(this.remote, "d_select_form3");
 		}
 	});
