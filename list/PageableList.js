@@ -10,8 +10,8 @@ define(["dcl/dcl",
 		"./List",
 		"./Renderer",
 		"../ProgressIndicator",
-        "delite/handlebars",
-        "requirejs-text/text!./List/_PageLoaderRenderer.html",
+		"delite/handlebars",
+		"requirejs-text/text!./List/_PageLoaderRenderer.html",
 		"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, domClass, has,
 		List, Renderer, ProgressIndicator, handlebars, template, messages) {
