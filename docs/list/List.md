@@ -356,11 +356,15 @@ to one of the following values:
 
 Items are rendered inside a DIV element with the CSS class `d-list-item`.
 
+When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
+
 The default item renderer allow futher styling of its content using CSS classes, as described in the [deliteful/list/ItemRenderer styling documentation](./ItemRenderer.md#styling).
 
 ### Rendered Category Styling
 
 Categories are rendered inside a DIV element with the CSS class `d-list-category`.
+
+When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
 
 The default category renderer allow further styling of its content using CSS classes, as described in the [deliteful/list/CategoryRenderer styling documentation](./CategoryRenderer.md#styling).
 
@@ -449,7 +453,7 @@ the focus) toggle its selected state.
 <a name="mixins"></a>
 ## Mixins
 
-No Mixins are currently provided for this widget.
+No Mixin is currently provided for this widget.
 
 <a name="events"></a>
 ## Element Events
