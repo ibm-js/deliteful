@@ -73,8 +73,8 @@ d-list-store {\
   -webkit-align-items: center;\
   outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] > .d-spacer,\
-.d-round-rect-list [role=\"gridcell\"] > .d-spacer {\
+.d-list [role=\"gridcell\"] .d-spacer,\
+.d-round-rect-list [role=\"gridcell\"] .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -115,6 +115,12 @@ d-list-store {\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  -webkit-box-flex: 1;\
+  -moz-box-flex: 1;\
+  -webkit-flex: 1;\
+  -ms-flex: 1;\
+  flex: 1;\
+  margin: 0px 5px;\
 }\
 .d-list-loader [role=\"button\"] .d-progress-indicator {\
   width: 24px;\
@@ -127,7 +133,7 @@ d-list-store {\
 .d-list-loader [role=\"button\"] div {\
   padding-left: 10px;\
 }\
-.d-list-loader.d-loading [role=\"gridcell\"] {\
+.d-list-loader.d-loading {\
   cursor: wait;\
   color: #808080;\
   font-weight: normal;\
