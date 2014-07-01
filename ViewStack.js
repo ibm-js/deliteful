@@ -152,20 +152,20 @@ define(["dcl/dcl",
 
 			showNext: function (props) {
 				//		Shows the next child in the container.
-				this._showPreviousNext(this.getNextSibling.bind(this), props);
+				this._showPreviousNext("nextElementSibling", props);
 			},
 
 			showPrevious: function (props) {
 				//		Shows the previous child in the container.
-				this._showPreviousNext(this.getPreviousSibling.bind(this), props);
+				this._showPreviousNext("previousElementSibling", props);
 			},
 
-			_showPreviousNext: function (func, props) {
+			_showPreviousNext: function (direction, props) {
 				if (!this._visibleChild && this.children.length > 0) {
 					this._visibleChild = this.children[0];
 				}
 				if (this._visibleChild) {
-					var target = func(this._visibleChild);
+					var target = this._visibleChild[direction];
 					if (target) {
 						this.show(target, props);
 					}
