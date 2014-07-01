@@ -1,5 +1,6 @@
 /** @module deliteful/list/List */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 	"delite/register",
 	"dojo/on",
 	"dojo/_base/lang",

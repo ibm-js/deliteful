@@ -1,8 +1,9 @@
 /** @module deliteful/list/Renderer */
-define(["dcl/dcl",
-        "dojo/dom-class",
-        "delite/register",
-        "delite/Widget"
+define([
+	"dcl/dcl",
+	"dojo/dom-class",
+	"delite/register",
+	"delite/Widget"
 ], function (dcl, domClass, register, Widget) {
 
 	/**

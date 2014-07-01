@@ -1,9 +1,10 @@
 /** @module deliteful/list/CategoryRenderer */
-define(["dcl/dcl",
-        "delite/register",
-        "delite/handlebars",
-        "requirejs-text/text!./List/CategoryRenderer.html",
-        "./Renderer"
+define([
+	"dcl/dcl",
+	"delite/register",
+	"delite/handlebars",
+	"requirejs-text/text!./List/CategoryRenderer.html",
+	"./Renderer"
 ], function (dcl, register, handlebars, defaultTemplate, Renderer) {
 
 	var templateCache = {};
