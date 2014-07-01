@@ -26,7 +26,7 @@ define([
 		}
 		function getNextSibling(node) {
 			do {
-				node = node.nextSibling;
+				node = node.nextElementSibling;
 			} while (node && node.nodeType !== 1);
 			return node;
 		}
