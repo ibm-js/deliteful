@@ -1,18 +1,19 @@
 /** @module deliteful/list/PageableList */
-define(["dcl/dcl",
-		"delite/register",
-		"dojo/on",
-		"dojo/string",
-		"dojo/when",
-		"dojo/Deferred",
-		"dojo/dom-class",
-		"dojo/sniff",
-		"./List",
-		"./Renderer",
-		"../ProgressIndicator",
-		"delite/handlebars",
-		"requirejs-text/text!./List/_PageLoaderRenderer.html",
-		"requirejs-dplugins/i18n!./List/nls/Pageable"
+define([
+	"dcl/dcl",
+	"delite/register",
+	"dojo/on",
+	"dojo/string",
+	"dojo/when",
+	"dojo/Deferred",
+	"dojo/dom-class",
+	"dojo/sniff",
+	"./List",
+	"./Renderer",
+	"../ProgressIndicator",
+	"delite/handlebars",
+	"requirejs-text/text!./List/_PageLoaderRenderer.html",
+	"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, domClass, has,
 		List, Renderer, ProgressIndicator, handlebars, template, messages) {
 

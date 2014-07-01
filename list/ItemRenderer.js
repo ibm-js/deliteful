@@ -1,10 +1,11 @@
 /** @module deliteful/list/ItemRenderer */
-define(["dcl/dcl",
-        "dojo/dom-class",
-        "delite/register",
-        "delite/handlebars",
-        "requirejs-text/text!./List/ItemRenderer.html",
-        "./Renderer"
+define([
+	"dcl/dcl",
+	"dojo/dom-class",
+	"delite/register",
+	"delite/handlebars",
+	"requirejs-text/text!./List/ItemRenderer.html",
+	"./Renderer"
 ], function (dcl, domClass, register, handlebars, defaultTemplate, Renderer) {
 
 	var templateCache = {};

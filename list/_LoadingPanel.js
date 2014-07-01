@@ -2,7 +2,8 @@
  * @module deliteful/list/_LoadingPanel
  * @private
  */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars",

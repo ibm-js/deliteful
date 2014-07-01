@@ -2,7 +2,8 @@
  * @module deliteful/list/_DefaultStore
  * @private
  */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 ], function (dcl) {
 	
 	var FilterAndRange = {
