@@ -1,0 +1,104 @@
+---
+layout: main
+title: deliteful
+key: getting-started
+---
+<div class="jumbotron">
+	<h2>Getting started with deliteful</h2>
+	<p>Deliteful is powering you with a set of multi channel, enterprise class Web Components to be used in 
+	Web & Mobile applications</p>
+</div>
+
+<p></p>
+
+<h3>Start building your own Web or Hybrid Mobile app using deliteful application generator</h3>
+
+<div class="page-header">
+	<h2>Install deliteful generator</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		Start with installing Node.js, then you are ready to install Yeoman scaffolder and our deliteful generator.
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ npm install -g yo
+		$ npm install -g deliteful-app-generator{% endhighlight %}
+	</div>
+</div>
+
+<div class="page-header">
+	<h2>Scaffold a new application</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		Just ask Yeoman to scaffold a new application in your package directory by answering a simple set of questions.
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ mkdir -p app
+		$ cd app
+		$ yo deliteful-app{% endhighlight %}
+	</div>
+</div>
+
+<div class="page-header">
+	<h2>Run it</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		Once your application has been generated you can run it
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ open http://localhost/app/xxx.html{% endhighlight %}
+	</div>
+</div>
+
+
+<div class="page-header">
+	<h2>Hack it</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		The default scaffolded application is just a skeleton you are willing to hack on.
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ vi xxx.js{% endhighlight %}
+	</div>
+</div>
+
+<div class="page-header">
+	<h2>Alternatively</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		Alternatively you could have directly installed deliteful and build your application from scratch instead of using
+		Yeoman.
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ npm install -g bower
+		$ bower install deliteful
+		$ mkdir -p app && cd $_
+		$ vi xxx.js{% endhighlight %}
+	</div>
+</div>
+
+<div class="page-header">
+	<h2>Go further</h2>
+</div>
+<div class="container-fluid">
+	<div class="col-xs-12 col-md-6">
+		Don't hesitate to checkout the <a href="docs.html">documentation</a> to go further.
+		While creating your appplication using deliteful elements you might want to build your own custom element using
+		<a href="../delite/getting-started.html">delite</a>.
+	</div>
+	<div class="col-xs-12 col-md-6">
+		{% highlight bash %}
+		$ npm install generator-delite-element
+		$ yo delite-element{% endhighlight %}
+	</div>
+</div>
+

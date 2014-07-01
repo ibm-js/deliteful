@@ -1,0 +1,15 @@
+body {
+	padding-top: 70px;
+	padding-bottom: 30px;
+	overflow-y: scroll;
+}
+
+#avatar {
+	width: 36px;
+	height: 36px;
+	margin-top: -7px;
+}
+
+.hidden {
+	display: none;
+}
