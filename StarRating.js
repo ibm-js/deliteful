@@ -280,6 +280,9 @@ define([
 		},
 
 		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
+			if (this._zeroAreaWidth === undefined) {
+				this._zeroAreaWidth = domGeometry.position(this._zeroSettingArea, false).w;
+			}
 			var starStripLength = domNodeWidth - this._zeroAreaWidth;
 			return (x - this._zeroAreaWidth) / (starStripLength / this.max);
 		},
@@ -315,7 +318,7 @@ define([
 				this._zeroAreaWidth = 0;
 			} else {
 				domClass.remove(this._zeroSettingArea, "d-hidden");
-				this._zeroAreaWidth = domGeometry.position(this._zeroSettingArea, false).w;
+				delete this._zeroAreaWidth;
 			}
 		}
 	});

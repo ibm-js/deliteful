@@ -1,19 +1,11 @@
 // Template for StarRating CSS, included from themes/*/StarRating.less files
 
 .d-star-rating{
-	&.d-star-rating-hovered{
-		opacity: 0.5;
-	}
-}
-
-.d-star-rating{
 	/* Do not modify the display style */
 	display: inline-block;
-}
-
-.d-star-rating-disabled{
-	.d-star-rating-star-icon:before{
-		content: @star-icon-disabled-sprite;
+	font-size: @star-icon-size;
+	&.d-star-rating-hovered{
+		opacity: 0.5;
 	}
 }
 
@@ -21,37 +13,44 @@
 	/* Do not modify the display style */
 	display: inline-block;
 	overflow: hidden;
-	height: @star-icon-size;
-	width: @star-icon-size / 2;
-}
-
-.d-star-rating-zero.d-hidden{
-	width: 0px;
+	height: 1em;
+	width: 0.5em;
+	&.d-hidden{
+		width: 0px;
+	}
 }
 
 .d-star-rating-star-icon{
 	/* Do not modify the display style */
 	display: inline-block;
 	overflow: hidden;
-	height: @star-icon-size;
-	width: @star-icon-size / 2;
+	line-height: 1em;
+	height: 1em;
+	width: 0.5em;
 }
 
 .d-star-rating-star-icon:before{
-	content: @star-icon-sprite;
+	width: 1em;
+	display: inline-block;
+	text-align: center;
 }
 
-.d-star-rating-start {
-	&.d-star-rating-empty:before {
-		margin-left: (-1 * @star-icon-size);
-	}
+.d-star-rating-empty:before{
+	content: @star-icon-empty;
+	color: @star-icon-empty-color;
 }
 
-.d-star-rating-end {
-	&.d-star-rating-empty:before {
-		margin-left: (-1.5 * @star-icon-size);
-	}
-	&.d-star-rating-full:before {
-		margin-left: (-0.5 * @star-icon-size);
+.d-star-rating-full:before{
+	content: @star-icon-full;
+	color: @star-icon-full-color;
+}
+
+.d-star-rating-disabled .d-star-rating-full:before{
+	color: @star-icon-disabled-color;
+}
+
+.d-star-rating-end{
+	&.d-star-rating-star-icon:before{
+		margin-left: (-0.5em);
 	}
 }

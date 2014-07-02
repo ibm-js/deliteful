@@ -77,88 +77,24 @@ The following properties can be set on a `StarRating` instance:
 <a name="styling"></a>
 ## Element Styling
 
-This widget shows the rating using an image sprite that contains one full star followed by one empty star, as in the follwing example:
+The star characters displayed for an empty star and a full star are font characters.
+Half stars are created by displaying the first half of a full star character followed by the second half of an empty star character.
 
-![Default image stripe](images/yellow-stars-40.png)
-
-The star displayed can be fully customized by redefining the following css classes in your application:
-
-```css
- .d-star-rating-star-icon:before {
- 	content: url(@url_to_the_stars_sprite);
- }
- 
-.d-star-rating-disabled .d-star-rating-star-icon:before {
-	content: url(@url_to_the_disabled_stars_sprite);
-}
-```
-
-If the custom stars size is not 40px X 40px, you also have to redefine the following CSS classes:
+The stars displayed can be fully customized by using the following CSS selectors:
 
 ```css
 .d-star-rating-star-icon {
-	height: @iconSize;
-	width: @iconSize/2;
+	font-size: 150%;
 }
 
-.d-star-rating-zero {
-	height: @iconSize;
-	width: @iconSize/2;
+.d-star-rating-empty:before {
+	content: "\2605"; /* The font character to use to display an empty star */
+	color: #CCC; /* The color of an empty star */
 }
 
-.d-star-rating-start.d-star-rating-empty:before {
-	margin-left: -1*@iconSize;
-}
-
-.d-star-rating-end.d-star-rating-empty:before {
-	margin-left: -1.5*@iconSize;
-}
-
-.d-star-rating-end.d-star-rating-full:before {
-	margin-left: -0.5*@iconSize;
-}
-```
-
-To support Right To Left direction (BIDI) with a custom star size, you also need to define the following CSS:
-
-```css
-.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-	margin-left: 0px;
-	margin-right: -1*@iconSize
-}
-
-.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-	margin-left: 0px;
-	margin-right: -0.5*@iconSize;
-}
-
-.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-	margin-left: 0px;
-	margin-left: -1.5*@iconSize;
-}
-```
-
-Last, to support Right To Left direction in Internet Explorer 9, the following extra rules are necessary:
-
-```css
-.d-ie-9 d-star-rating.d-rtl .d-star-rating-start.d-star-rating-empty:before {
-	margin-left: 0px;
-	margin-right: -1*@iconSize
-}
-
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-	margin-left: 0px;
-	margin-right: 0px;
-}
-
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-	margin-left: 0px;
-	margin-right: -1.5*@iconSize;
-}
-
-.d-ie-9 .d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-	margin-left: 0px;
-	margin-left: -0.5*@iconSize;
+.d-star-rating-full:before {
+	content: "\2605"; /* The font character to use to display a full star */
+	color: yellow; /* The color of a full star */
 }
 ```
 

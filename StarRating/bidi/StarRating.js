@@ -2,7 +2,8 @@
 define([
 	"dcl/dcl",
 	"dojo/keys",
-], function (dcl, keys) {
+	"dojo/dom-geometry"
+], function (dcl, keys, domGeometry) {
 
 	/**
 	 * Bidi support for StarRating widget.
@@ -23,10 +24,13 @@ define([
 
 		_xToRawValue: dcl.superCall(function (sup) {
 			return function (/*Number*/x, /*Number*/domNodeWidth) {
-				var starStripLength = domNodeWidth - this._zeroAreaWidth;
 				if (this.isLeftToRight()) {
 					return sup.call(this, x, domNodeWidth);
 				} else {
+					if (this._zeroAreaWidth === undefined) {
+						this._zeroAreaWidth = domGeometry.position(this._zeroSettingArea, false).w;
+					}
+					var starStripLength = domNodeWidth - this._zeroAreaWidth;
 					return (starStripLength - x) / (starStripLength / this.max);
 				}
 			};

@@ -33,338 +33,59 @@
 			border-radius: 6px;
 		}
 
-		.group2 .duiRating .duiSpriteIconParent {
-			-webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.3)));
-		}
-
-		.group3 {
-		}
-
-		.group4 {
-			background-color: black;
-		}
-
 		/* customize stars */
 
-		.d-star-rating-star-icon {
-			height: 14px;
-			width: 6.5px;
+		.yellowgray .d-star-rating-star-icon {
+			font-size: 150%;
 		}
 
-		.d-star-rating-star-icon:before {
-			content: url('images/star-orange.png');
+		.yellowgray .d-star-rating-empty:before {
+			content: "\2605";
+			color: #CCC;
 		}
 		
-		.d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -13px;
+		.yellowgray .d-star-rating-full:before {
+			content: "\2605";
+			color: yellow;
 		}
 
-		.d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -19.5px;
+		.green-man .d-star-rating-star-icon {
+			font-size: 200%;
+		}
+
+		.green-man .d-star-rating-empty:before {
+			content: "\263A";
+			color: green;
+		}
+
+		.green-man .d-star-rating-full:before {
+			content: "\263B";
+			color: green;
+		}
+
+		.heart .d-star-rating-star-icon {
+			font-size: 150%;
+		}
+
+		.heart .d-star-rating-empty:before {
+			content: "\2665";
+			color: #CCC;
 		}
 		
-		.d-star-rating-end.d-star-rating-full:before {
-			margin-left: -6.5px;
-		}
-
-		.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -13px;
-		}
-
-		.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -6.5px;
-		}
-		
-		.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -19.5px;
-		}
-
-		/* custom yellow stars */
-		
-		.d-yellow-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-yellow.png');
-		}
-		
-
-		/* custom blue stars */
-
-		.d-blue-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-blue.png');
-		}
-		
-		/* custom green stars */
-
-		.d-green-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-green.png');
-		}
-		
-		/* other custom stars */
-
-		.d-cust1-star-rating .d-star-rating-star-icon {
-			height: 20px;
-			width: 10px;
-		}
-
-		.d-cust1-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-2.png');
-		}
-		
-		.d-cust1-star-rating .d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -20px;
-		}
-
-		.d-cust1-star-rating .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -30px;
-		}
-		
-		.d-cust1-star-rating .d-star-rating-end.d-star-rating-full:before {
-			margin-left: -10px;
-		}
-
-		.d-cust1-star-rating.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -20px;
-		}
-
-		.d-cust1-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -10px;
-		}
-
-		.d-cust1-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -30px;
-		}
-
-		.d-cust2-star-rating .d-star-rating-star-icon {
-			height: 30px;
-			width: 15px;
-		}
-
-		.d-cust2-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-3.png');
-		}
-		
-		.d-cust2-star-rating .d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -30px;
-		}
-
-		.d-cust2-star-rating .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -45px;
-		}
-		
-		.d-cust2-star-rating .d-star-rating-end.d-star-rating-full:before {
-			margin-left: -15px;
-		}
-
-		.d-cust2-star-rating.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -30px;
-		}
-
-		.d-cust2-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -15px;
-		}
-
-		.d-cust2-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -45px;
-		}
-
-		.d-cust3-star-rating .d-star-rating-star-icon {
-			height: 40px;
-			width: 20px;
-		}
-
-		.d-cust3-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-4.png');
-		}
-		
-		.d-cust3-star-rating .d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -40px;
-		}
-
-		.d-cust3-star-rating .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -60px;
-		}
-		
-		.d-cust3-star-rating .d-star-rating-end.d-star-rating-full:before {
-			margin-left: -20px;
-		}
-
-		.d-cust3-star-rating.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -40px;
-		}
-
-		.d-cust3-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -20px;
-		}
-
-		.d-cust3-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -60px;
-		}
-
-		.d-cust4-star-rating .d-star-rating-star-icon {
-			height: 32px;
-			width: 16px;
-		}
-
-		.d-cust4-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-5.png');
-		}
-		
-		.d-cust4-star-rating .d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -32px;
-		}
-
-		.d-cust4-star-rating .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -48px;
-		}
-		
-		.d-cust4-star-rating .d-star-rating-end.d-star-rating-full:before {
-			margin-left: -16px;
-		}
-
-		.d-cust4-star-rating.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -32px;
-		}
-
-		.d-cust4-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -16px;
-		}
-
-		.d-cust4-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -48px;
-		}
-
-		.d-cust5-star-rating .d-star-rating-star-icon {
-			height: 32px;
-			width: 16px;
-		}
-
-		.d-cust5-star-rating .d-star-rating-star-icon:before {
-			content: url('images/star-6.png');
-		}
-		
-		.d-cust5-star-rating .d-star-rating-start.d-star-rating-empty:before {
-			margin-left: -32px;
-		}
-
-		.d-cust5-star-rating .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: -48px;
-		}
-		
-		.d-cust5-star-rating .d-star-rating-end.d-star-rating-full:before {
-			margin-left: -16px;
-		}
-
-		.d-cust5-star-rating.d-star-rating.d-rtl .d-star-rating-start.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -32px;
-		}
-
-		.d-cust5-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-empty:before {
-			margin-left: 0px;
-			margin-right: -16px;
-		}
-
-		.d-cust5-star-rating.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-full:before {
-			margin-left: 0px;
-			margin-right: -48px;
+		.heart .d-star-rating-full:before {
+			content: "\2665";
+			color: red;
 		}
 
 	</style>
 </head>
 <body style="background-color:white;">
-<div class="group group1">
-	Rating is
-	<d-star-rating readonly value='0'></d-star-rating>
-	0<br>
-	Rating is
-	<d-star-rating readonly value='0.5'></d-star-rating>
-	0.5<br>
-	Rating is
-	<d-star-rating readonly value='1'></d-star-rating>
-	1<br>
-	Rating is
-	<d-star-rating readonly value='1.5'></d-star-rating>
-	1.5<br>
-	Rating is
-	<d-star-rating readonly value='2'></d-star-rating>
-	2<br>
-	Rating is
-	<d-star-rating readonly value='5'></d-star-rating>
-	5<br>
+<div class="group">
+	<d-star-rating value='3'></d-star-rating><br>
+	<d-star-rating class="yellowgray" value='3'></d-star-rating><br>
+	<d-star-rating class="green-man" value='3'></d-star-rating><br>
+	<d-star-rating class="heart" value='3'></d-star-rating><br>
 </div>
 
-<div class="group group2">
-	Rating is
-	<d-star-rating readonly max=3 value=0></d-star-rating>
-	0<br>
-	Rating is
-	<d-star-rating readonly max=3 value=0.5></d-star-rating>
-	0.5<br>
-	Rating is
-	<d-star-rating readonly max=3 value=1></d-star-rating>
-	1<br>
-	Rating is
-	<d-star-rating readonly max=3 value=1.5></d-star-rating>
-	1.5<br>
-	Rating is
-	<d-star-rating readonly max=3 value=3></d-star-rating>
-	3<br>
-</div>
-
-<div class="group group3">
-	<d-star-rating readonly max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-yellow-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-green-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-blue-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust1-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust2-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust3-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust4-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust5-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-</div>
-
-<div class="group group4">
-	<d-star-rating readonly max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-yellow-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-green-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-blue-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust1-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust2-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust3-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust4-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-	<d-star-rating readonly class="d-cust5-star-rating" max=5 value=2.5></d-star-rating>
-	<br>
-</div>
 </body>
 </html>
