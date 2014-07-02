@@ -172,6 +172,43 @@ define(["dcl/dcl",
 				}
 			},
 
+			_doTransition: function (origin, target, transition, reverse, deferred) {
+				if (transition !== "none") {
+					if (origin) {
+						this._setAfterTransitionHandlers(origin, event);
+						domClass.add(origin, transitionClass(transition));
+					}
+					if (target) {
+						this._setAfterTransitionHandlers(target, event, deferred);
+						domClass.add(target, [transitionClass(transition), "-d-view-stack-in"]);
+					}
+					if (reverse) {
+						setReverse(origin);
+						setReverse(target);
+					}
+					this.defer(function () {
+						if (target) {
+							domClass.add(target, "-d-view-stack-transition");
+						}
+						if (origin) {
+							domClass.add(origin, ["-d-view-stack-transition", "-d-view-stack-out"]);
+						}
+						if (reverse) {
+							setReverse(origin);
+							setReverse(target);
+						}
+						if (target) {
+							domClass.add(target, "-d-view-stack-in");
+						}
+					}, this._timing);
+				} else {
+					if (origin !== target) {
+						setVisibility(origin, false);
+					}
+					deferred.resolve();
+				}
+			},
+
 			changeDisplay: function (widget, event) {
 				// Resolved when display is completed.
 				var deferred = new Deferred();
@@ -191,42 +228,9 @@ define(["dcl/dcl",
 				setVisibility(widget, true);
 				this._visibleChild = widget;
 
-				var transition = event.transition || "slide";
+				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
 				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
-				if (transition !== "none") {
-					if (origin) {
-						this._setAfterTransitionHandlers(origin, event);
-						domClass.add(origin, transitionClass(transition));
-					}
-					if (widget) {
-						this._setAfterTransitionHandlers(widget, event, deferred);
-						domClass.add(widget, [transitionClass(transition), "-d-view-stack-in"]);
-					}
-					if (reverse) {
-						setReverse(origin);
-						setReverse(widget);
-					}
-					this.defer(function () {
-						if (widget) {
-							domClass.add(widget, "-d-view-stack-transition");
-						}
-						if (origin) {
-							domClass.add(origin, ["-d-view-stack-transition", "-d-view-stack-out"]);
-						}
-						if (reverse) {
-							setReverse(origin);
-							setReverse(widget);
-						}
-						if (widget) {
-							domClass.add(widget, "-d-view-stack-in");
-						}
-					}, this._timing);
-				} else {
-					if (origin !== widget) {
-						setVisibility(origin, false);
-					}
-					deferred.resolve();
-				}
+				this._doTransition(origin, widget, transition, reverse, deferred);
 
 				return deferred.promise;
 			},
