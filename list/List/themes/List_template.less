@@ -34,6 +34,9 @@ d-list-store {
 	white-space: nowrap;
 	overflow: hidden;
 	.d-list-category-styles;
+	[role="gridcell"] {
+		height: @category-height;
+	}
 }
 
 .d-list-item {
@@ -42,6 +45,9 @@ d-list-store {
 	.flex-display();
 	.flex-align(center);
 	.d-list-item-styles;
+	[role="gridcell"] {
+		height: @cell-height;
+	}
 }
 
 .d-list [role="gridcell"], .d-round-rect-list [role="gridcell"] {
@@ -49,9 +55,6 @@ d-list-store {
 	.flex-grow(1);
 	.flex-align(center);
 	outline-offset: -2px;
-}
-
-.d-list [role="gridcell"], .d-round-rect-list [role="gridcell"] {
 	.d-spacer {
 		.flex-grow(1);
 	}

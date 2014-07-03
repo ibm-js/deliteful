@@ -312,6 +312,22 @@ to one of the following values:
 
 Items are rendered inside a DIV element with the CSS class `d-list-item`.
 
+By default, all items are rendered with the same height defined using the following CSS:
+
+```css
+d-list-item [role="gridcell"] {
+	height: ...;
+}
+```
+
+To define variable height for the items, use the following CSS:
+
+```css
+d-list-item [role="gridcell"] {
+	height: inherit;
+}
+```
+
 When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
 
 The default item renderer allow futher styling of its content using CSS classes, as described in the [deliteful/list/ItemRenderer styling documentation](./ItemRenderer.md#styling).
@@ -319,6 +335,22 @@ The default item renderer allow futher styling of its content using CSS classes,
 ### Rendered Category Styling
 
 Categories are rendered inside a DIV element with the CSS class `d-list-category`.
+
+By default, all categories are rendered with the same height defined using the following CSS:
+
+```css
+d-list-category [role="gridcell"] {
+	height: ...;
+}
+```
+
+To define variable height for the categories, use the following CSS:
+
+```css
+d-list-category [role="gridcell"] {
+	height: inherit;
+}
+```
 
 When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
 
