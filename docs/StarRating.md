@@ -128,6 +128,14 @@ The `StarRating` widget has an ARIA role of `slider`.
 
 It is keyboard navigable: unless it is read only, its value can be edited using the arrow keys (see [User Interactions](#interactions)).
 
+#### Limitation when using Apple VoiceOver
+
+When a `deliteful/StarRating` widget is selected in Safari while VoiceOver is on:
+* The rating value is announced as a percentage instead as a number of stars ;
+*  VoiceOver announce that the widget value can be adjusted by swiping up or down, but this is not the case. To edit the widget value,
+you must double tap the widget and keep pressing. When VoiceOver announce that the widget is _editable_, you can adjust the value by
+moving left and right. 
+
 ### Globalization
 
 `deliteful/StarRating` provide an internationalizable bundle that contains only one message, with the key `aria-valuetext`.
