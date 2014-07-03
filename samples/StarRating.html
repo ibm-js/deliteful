@@ -77,14 +77,35 @@
 			color: red;
 		}
 
+		.image-sprite .d-star-rating-star-icon {
+			font-size: 40px;
+		}
+
+		.image-sprite .d-star-rating-empty:before {
+			content: url("images/yellow-stars-40.png");
+		}
+
+		.image-sprite .d-star-rating-start.d-star-rating-empty:before {
+			margin-left: -1em;
+		}
+		
+		.image-sprite .d-star-rating-end.d-star-rating-empty:before {
+			margin-left: -1.5em;
+		}
+
+		.image-sprite .d-star-rating-full:before {
+			content: url("images/yellow-stars-40.png");
+		}
+
 	</style>
 </head>
 <body style="background-color:white;">
 <div class="group">
-	<d-star-rating value='3'></d-star-rating><br>
-	<d-star-rating class="yellowgray" value='3'></d-star-rating><br>
-	<d-star-rating class="green-man" value='3'></d-star-rating><br>
-	<d-star-rating class="heart" value='3'></d-star-rating><br>
+	<d-star-rating value="3"></d-star-rating><br>
+	<d-star-rating class="yellowgray" value="3"></d-star-rating><br>
+	<d-star-rating class="green-man" value="3"></d-star-rating><br>
+	<d-star-rating class="heart" value="3"></d-star-rating><br>
+	<d-star-rating class="image-sprite" value="3"></d-star-rating>
 </div>
 
 </body>

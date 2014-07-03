@@ -98,6 +98,10 @@ The stars displayed can be fully customized by using the following CSS selectors
 }
 ```
 
+It is also possible to use an image stripes to render the stars, using a few more CSS selectors, as demonstrated in the following sample:
+
+TODO: ADD JSFIDDLE SAMPLE
+
 <a name="interactions"></a>
 ## User Interactions
 
