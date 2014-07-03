@@ -55,7 +55,7 @@ d-list-store {\
   line-height: 40px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
-  padding-right: 8px;\
+  padding: 0px 8px;\
 }\
 .d-list [role=\"gridcell\"],\
 .d-round-rect-list [role=\"gridcell\"] {\

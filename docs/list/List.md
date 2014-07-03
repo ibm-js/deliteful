@@ -279,36 +279,11 @@ The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but a custom 
 using the `itemRenderer` property of the list.
 
 A custom item renderer must extends `deliteful/list/ItemRenderer`. It accesses the item to render in its `item` property.
+It must assign to its `renderNode` property the node in which the item is rendered .
 
 If the rendered item have actionable / keyboard navigable nodes, those are set using the `navindex` attribute, that behave simillarily to the standard `tabindex` attribute.
 
-Here are two examples of custom item renderers that illustrate these concepts:
-
-##### Templated renderer
-
-This example leverages the templating capabilities of `deliteful/list/ItemRenderer`: a new template is assigned to the `template` property of `deliteful/list/ItemRenderer` (the template format is `<template><div data-attach-point='renderNode'>...</div></template>`), and template nodes are mapped to item properties using the `{{item.property}}` notation:
-
-TODO: INSERT A JSFIDDLE SAMPLE HERE
-
-```js
-require(["delite/register",
-		"deliteful/list/List",
-		"deliteful/list/ItemRenderer",
-		"dojo/domReady!"
-		], function (register, List, ItemRenderer) {
-		// Create a new item renderer class by extending deliteful/list/ItemRenderer and declaring
-		// a template that map items properties to the rendered DOM
-		var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-			template: "<template><div data-attach-point='renderNode'><div class='title' navindex='0'>{{item.title}}</div><div class='isbn' navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
-		});
-		var list = new List();
-		list.itemRenderer = MyCustomRenderer;
-});
-```
-
-##### Non templated renderer
-        
-This exemple re defines the `buildRendering` method to bypass the default templating system, accessing the item to render through the `item` property:
+Here are is an example of custom item renderer that illustrate these concepts:
 
 TODO: INSERT A JSFIDDLE SAMPLE HERE
 
@@ -320,28 +295,9 @@ using the `categoryRenderer` property of the list.
 
 A custom category renderer is similar to a custom item renderer, except that it extends `deliteful/list/CategoryRenderer`.
 
-TODO: USE A JSFIDDLE SAMPLE
+Here are is an example of custom category renderer:
 
-```js
-require([
-	"delite/register",
-	"deliteful/list/CategoryRenderer",
-	"deliteful/list/List"
-], function (register, CategoryRenderer) {
-	var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
-		template: "<template><div data-attach-point='renderNode'><div class='categoryName' navindex='0'>{{item.category}}</div><div class='categoryLink' navindex='0'><a href='http://en.wikipedia.org/wiki/Special:Search?search={{item.category}}&go=Go'>Wikipedia</a></div></div></template>"
-	});
-	var list = register.createElement("d-list");
-	list.categoryAttr = "cat";
-	list.categoryRenderer = MyCustomRenderer;
-	list.store.add({label: "Apple", cat: "Fruit"});
-	...
-	list.store.add({label: "Brussel sprout", cat: "Vegetable"});
-	...
-	document.body.appendChild(list);
-	list.startup();
-});
-```
+TODO: INSERT A JSFIDDLE SAMPLE HERE
 
 <a name="styling"></a>
 ## Element Styling

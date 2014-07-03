@@ -437,7 +437,7 @@ define([
 			}, this)).then(function (page) {
 				if (page.length) {
 					var i;
-					idPage = page.map(function (item) {
+					var idPage = page.map(function (item) {
 						return this.getIdentity(item);
 					}, this);
 					var previousPageIds = this._idPages[0];

@@ -15,15 +15,17 @@
 		require([
 			"delite/register",
 			"deliteful/list/ItemRenderer",
-			"deliteful/list/List"
-		], function (register, ItemRenderer) {
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html",
+			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html"
+		], function (register, ItemRenderer, List, bookTemplateFunc, bookStoreTemplateFunc) {
 			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.title}}</div><div class='d-spacer'></div><div navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
+				buildRendering: bookTemplateFunc
 			});
 			var BookStoreRenderer = register("d-book-store", [HTMLElement, ItemRenderer], {
-				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.category}}</div><div class='d-spacer'></div><a navindex='0' href='{{item.bookstoreUrl}}'>{{item.bookstoreUrl}}</a></div></template>"
+				buildRendering: bookStoreTemplateFunc
 			});
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.id = "list-cust-2";
 			list.itemRenderer = BookRenderer;
 			list.categoryRenderer = BookStoreRenderer;
