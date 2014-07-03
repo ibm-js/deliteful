@@ -5,17 +5,53 @@ title: deliteful/StarRating
 
 #deliteful/StarRating
 
-The StarRating widget displays a rating, usually with stars, that can be edited by touching or clicking the stars.
+The `StarRating` widget displays a rating, usually with stars, that can be edited by touching or clicking the stars.
 
-Its custom element tag is `d-star-rating`.
+![StarRating Example](images/StarRating.png)
 
-TODO: INSERT SCREENSHOT(S) HERE
+The `StarRating` widget is a form field, which means that when included in an HTML form, its value will be submitted with those of the other form fields, under the name defined by its `name`attribute.
 
-## Using StarRating in a Form
+##### Table of Contents
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)  
+[Element Styling](#styling)  
+[User Interactions](#interactions)  
+[Mixins](#mixins)  
+[Element Events](#events)  
+[Enteprise Use](#enterprise)
 
-The StarRating widget is a Form field, which means that when included in an HTML form, its value will be submitted with those of the other form fields, under the name defined by its `name`attribute.
+## Element Instantiation
 
-Here is an example of a StarRating widget included in a form, under the name _rating_:
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
+
+### Declarative Instantiation
+
+```html
+<!-- Editable StarRating with: -->
+<!-- * a minimum value of 0 -->
+<!-- * a maximum value of 7 -->
+<!-- * an initial value of 3.5 -->
+<!-- * values set by increments of .5 -->
+<d-star-rating name="rating" allowZero="true" max="7" value="3.5" editHalfValues="true"></d-star-rating>
+ ```
+### Programmatic Instantiation
+
+```js
+require(["deliteful/StarRating", "dojo/domReady!"], function (StarRating) {
+  var starRating = new StarRating({allowZero: true, max: 7, value: 3.5, editHalfValue: true});
+  starRating.placeAt(document.body);
+  starRating.startup();
+});
+```
+
+<a name="configuration"></a>
+## Element Configuration
+
+### Using StarRating in a Form
+
+The `StarRating` widget is a form field, which means that when included in an HTML form, its value will be submitted with those of the other form fields, under the name defined by its `name`attribute.
+
+Here is an example of a `StarRating` widget included in a form, under the name _rating_:
 
 ```html
 <form action="...">
@@ -24,11 +60,11 @@ Here is an example of a StarRating widget included in a form, under the name _ra
 </form>
 ```
 
-Note that is the StarRating is disabled, its value will not be submited.
+Note that is the `StarRating` is disabled, its value will not be submited.
 
-## Attributes
+### Properties
 
-StarRating defines the following attributes:
+The following properties can be set on a `StarRating` instance:
 
 - `max`: the maximum rating, that is also the number of stars to show.
 - `value`: the current value of the Rating.
@@ -38,87 +74,72 @@ StarRating defines the following attributes:
 - `editHalfValues`: if the Rating is not read only, define if the user is allowed to set half values (0.5, 1.5, ...)
 - `allowZero`: true to allow setting a value of zero, false otherwise
 
-## Customization
+<a name="styling"></a>
+## Element Styling
 
-This widget shows the rating using an image sprite that contains full stars, half stars and empty stars.
+The star characters displayed for an empty star and a full star are font characters.
+Half stars are created by displaying the first half of a full star character followed by the second half of an empty star character.
 
-TODO: INSERT AN IMAGE HERE
-
-The star displayed can be fully customized by redefining the following css classes in your application:
-
-```css
- .d-star-rating-star-icon:before {
- 	content: url(@url_to_the_stars_sprite);
- }
- 
-.d-star-rating-disabled .d-star-rating-star-icon:before {
-	content: url(@url_to_the_disabled_stars_sprite);
-}
-```
-
-If the custom stars size is not 40px X 40px, you also have to redefine the following CSS classes:
+The stars displayed can be fully customized by using the following CSS selectors:
 
 ```css
 .d-star-rating-star-icon {
-	height: @iconSize;
-	width: @iconSize;
+	font-size: 150%;
 }
 
-.d-star-rating-zero {
-	height: @iconSize;
-	width: @iconSize/2;
+.d-star-rating-empty:before {
+	content: "\2605"; /* The font character to use to display an empty star */
+	color: #CCC; /* The color of an empty star */
 }
 
-.d-star-rating-empty-star:before {
-	margin-left: -@iconSize;
-}
-
-.d-star-rating-half-star:before {
-	margin-left: -2*@iconSize;
-}
-
-```
-
-To support Right To Left direction (BIDI) with a custom star size, you also need to define the following CSS:
-
-```css
-.d-star-rating.d-rtl .d-star-rating-full-star:before {
-	margin-left: 0px;
-	margin-right: -3*@iconSize;
-}
-
-.d-star-rating.d-rtl .d-star-rating-empty-star:before {
-	margin-left: 0px;
-	margin-right: -2*@iconSize;
-}
-
-.d-star-rating.d-rtl .d-star-rating-half-star:before {
-	margin-left: 0px;
+.d-star-rating-full:before {
+	content: "\2605"; /* The font character to use to display a full star */
+	color: yellow; /* The color of a full star */
 }
 ```
 
-Last, to support Right To Left direction in Internet Explorer 9, the following extra rules are necessary:
+<a name="interactions"></a>
+## User Interactions
 
-```css
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-full-star:before{
-	margin-left: 0px;
-	margin-right: 0px;
-}
+If the `StarRating` widget properties `readOnly` and / or `disabled` are not set to `true`, the value of the widget can be edited by:
 
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-empty-star:before{
-	margin-left: 0px;
-	margin-right: -@iconSize;
-}
+* Touching the stars on a touch screen device;
+* Clicking the stars when using a mouse. When the stars are hovered by the mouse pointer, the widget highlight the value that will be set if the user click the mouse at the current position, as in the following picture:
 
-.dj_ie9 .d-star-rating.d-rtl .d-star-rating-half-star:before {
-	margin-left: 0px;
-	margin-right: -2*iconSize);
-}
-```
+    ![StarRating Hovered](images/StarRatingHovered.png)
+* Using the `arrow up`, `arrow down`, `arrow left` and `arrow right` keys when the widget has the keyboard focus.
 
-## Accessibility
+<a name="mixins"></a>
+## Mixins
 
-The StarRating widget has an ARIA role of slider.
+No mixin currently available for this widget.
 
-It is keyboard navigable: unless it is read only, its value can be edited using the arrow keys.
+<a name="events"></a>
+## Element Events
 
+This widget does not emit any events.
+
+<a name="enterprise"></a>
+## Enterprise Use
+
+### Accessibility
+
+The `StarRating` widget has an ARIA role of `slider`.
+
+It is keyboard navigable: unless it is read only, its value can be edited using the arrow keys (see [User Interactions](#interactions)).
+
+### Globalization
+
+`deliteful/StarRating` provide an internationalizable bundle that contains only one message, with the key `aria-valuetext`.
+This message supports the keyword `${value}`, that is replaced by the current value of the widget to set its `aria-valuetext`
+property every time that the value is updated.
+
+Right to left orientation is supported.
+
+### Security
+
+This widget has no specific security concern. Refer to `delite/FormValueWidget` documentation for general security advice on this base class.
+
+### Browser Support
+
+This widget supports all supported browsers without any degrated behavior.
