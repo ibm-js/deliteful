@@ -26,8 +26,6 @@ d-list-store {\
   font-weight: bold;\
   color: white;\
   text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
-  height: 22px;\
-  line-height: 22px;\
   border-top: 1px solid #a4b0b9;\
   border-bottom: 1px solid #979da3;\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));\
@@ -35,6 +33,9 @@ d-list-store {\
 }\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
+}\
+.d-list-category [role=\"gridcell\"] {\
+  height: 22px;\
 }\
 .d-list-item {\
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
@@ -50,10 +51,12 @@ d-list-store {\
   -webkit-align-items: center;\
   border-bottom: 1px solid #adaaad;\
   background-color: #ffffff;\
-  line-height: 43px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
+}\
+.d-list-item [role=\"gridcell\"] {\
+  height: 43px;\
 }\
 .d-list [role=\"gridcell\"],\
 .d-round-rect-list [role=\"gridcell\"] {\

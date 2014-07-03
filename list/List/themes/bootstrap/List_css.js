@@ -33,11 +33,12 @@ d-list-store {\
   background-color: #f5f5f5;\
   color: #333333;\
   border-bottom: 1px solid #dddddd;\
-  height: 40px;\
-  line-height: 40px;\
 }\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
+}\
+.d-list-category [role=\"gridcell\"] {\
+  height: 35px;\
 }\
 .d-list-item {\
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
@@ -52,10 +53,12 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
   border-bottom: 1px solid #dddddd;\
-  line-height: 40px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
   padding: 0px 8px;\
+}\
+.d-list-item [role=\"gridcell\"] {\
+  height: 40px;\
 }\
 .d-list [role=\"gridcell\"],\
 .d-round-rect-list [role=\"gridcell\"] {\
