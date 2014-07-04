@@ -5,7 +5,7 @@ define([
 	"delite/Widget",
 	"delite/DisplayContainer",
 	"delite/Invalidating",
-	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout_css"
+	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout"
 ], function (domClass, register, Widget, DisplayContainer, Invalidating) {
 	/**
 	 * A layout container based on CSS3 Flexible Box.
