@@ -1071,7 +1071,7 @@ define([
 		 * @private
 		 */
 		_getNext: function (child, dir) {
-			if (child === this){
+			if (child === this) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}
 
