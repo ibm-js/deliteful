@@ -1070,10 +1070,15 @@ define([
 		 * @return {Element}
 		 * @private
 		 */
-		_getNext: function (child) {
+		_getNext: function (child, dir) {
+			if (child === this){
+				return dir > 0 ? this._getFirst() : this._getLast();
+			}
+
 			// Letter key navigation support.
 			var renderer = this.getEnclosingRenderer(child);
-			return renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst();
+			return dir > 0 ? renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst() :
+				renderer.previousElementSibling ? renderer.previousElementSibling.renderNode : this._getLast();
 		},
 
 		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
