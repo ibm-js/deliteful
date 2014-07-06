@@ -162,7 +162,7 @@ define([
 				this._keyDownHandle = null;
 			}
 			if (!passive && !this._startHandles) {
-				this._startHandles = [this.on("pointerenter", this._pointerEnterHandler.bind(this)),
+				this._startHandles = [this.on("pointerover", this._pointerOverHandler.bind(this)),
 									  this.on("pointerdown", this._wireHandlers.bind(this))];
 			} else if (passive && this._startHandles) {
 				while (this._startHandles.length) {
@@ -180,28 +180,22 @@ define([
 
 		_wireHandlers: function () {
 			if (!this._otherEventsHandles.length) {
-				// handle move on the stars strip
-				this._otherEventsHandles.push(this.on("pointermove", this._pointerMoveHandler.bind(this)));
-				// handle the end of the value editing
 				this._otherEventsHandles.push(this.on("pointerup", this._pointerUpHandler.bind(this)));
 				this._otherEventsHandles.push(this.on("pointerleave", this._pointerLeaveHandler.bind(this)));
 				this._otherEventsHandles.push(this.on("pointercancel", this._pointerLeaveHandler.bind(this)));
 			}
 		},
 
-		_pointerEnterHandler: function (/*Event*/ event) {
+		_pointerOverHandler: function (/*Event*/ event) {
+			// Called when StarRating first clicked and also as mouse is moved from star to star (or to 0 area)
 			this._wireHandlers();
 
-			if (event.pointerType === "mouse") {
+			if (!this._hovering && event.pointerType === "mouse") {
 				this._hovering = true;
 				domClass.add(this, this.baseClass + "-hovered");
 			}
 
-			this._enterValue = this.value;
-		},
-
-		_pointerMoveHandler: function (/*Event*/ event) {
-			var newValue = this._coordToValue(event);
+			var newValue = event.target.value;
 			if (this._hovering) {
 				if (newValue !== this._hoveredValue) {
 					domClass.add(this, this.baseClass + "-hovered");
@@ -211,10 +205,12 @@ define([
 			} else {
 				this.value = newValue;
 			}
+
+			this._enterValue = this.value;
 		},
 
 		_pointerUpHandler: function (/*Event*/ event) {
-			this.value = this._coordToValue(event);
+			this.value = event.target.value;
 			this._enterValue = this.value;
 			if (!this._hovering) {
 				this._removeEventsHandlers();
@@ -256,42 +252,12 @@ define([
 			}
 		},
 
-		_coordToValue: function (/*Event*/event) {
-			var box = domGeometry.position(this, false);
-			var xValue = event.clientX - box.x;
-			var rawValue = null, discreteValue;
-			// fix off values observed on leave event
-			if (xValue < 0) {
-				xValue = 0;
-			} else if (xValue > box.w) {
-				xValue = box.w;
-			}
-			rawValue = this._xToRawValue(xValue, box.w);
-			if (rawValue != null) {
-				if (rawValue === 0) {
-					rawValue = 0.1; // do not allow setting the value to 0 when clicking on a star
-				}
-				discreteValue = Math.ceil(rawValue);
-				if (this.editHalfValues && (discreteValue - rawValue) > 0.5) {
-					discreteValue -= 0.5;
-				}
-				return discreteValue;
-			}
-		},
-
-		_xToRawValue: function (/*Number*/x, /*Number*/domNodeWidth) {
-			if (this._zeroAreaWidth === undefined) {
-				this._zeroAreaWidth = domGeometry.position(this._zeroSettingArea, false).w;
-			}
-			var starStripLength = domNodeWidth - this._zeroAreaWidth;
-			return (x - this._zeroAreaWidth) / (starStripLength / this.max);
-		},
-
 		_updateStars: function (/*Number*/value, /*Boolean*/create) {
 			var stars = this.focusNode.querySelectorAll("div");
 			if (create) {
 				this._zeroSettingArea = this.ownerDocument.createElement("div");
 				this._zeroSettingArea.className = this.baseClass + "-zero";
+				this._zeroSettingArea.value = 0;
 				this.focusNode.appendChild(this._zeroSettingArea);
 				this._updateZeroArea();
 			}
@@ -304,6 +270,7 @@ define([
 				}
 				if (create) {
 					var parent = this.ownerDocument.createElement("div");
+					parent.value = this.editHalfValues ? (i + 1) / 2 : Math.ceil((i + 1) / 2);
 					this.focusNode.appendChild(parent);
 				} else {
 					parent = stars[i + 1];
