@@ -1,9 +1,8 @@
 /** @module deliteful/StarRating/bidi/StarRating */
 define([
 	"dcl/dcl",
-	"dojo/keys",
-	"dojo/dom-geometry"
-], function (dcl, keys, domGeometry) {
+	"dojo/keys"
+], function (dcl, keys) {
 
 	/**
 	 * Bidi support for StarRating widget.

@@ -78,6 +78,7 @@ define(["intern!object",
 					assert.equal(value, expectedValue + " stars", "aria-valuetest");
 				})
 				.end()
+			/* jshint evil:true */
 			.eval("Array.prototype.map.call(" + widgetId + ".getElementsByClassName('d-star-rating-star-icon'), " +
 					"function(elem){ return elem.className; })")
 				.then(function (classNames) {
@@ -132,7 +133,7 @@ define(["intern!object",
 		name: "StarRating tests",
 		"read only ltr": function () {
 			this.timeout = TEST_TIMEOUT_MS;
-			var remote = this.remote, widgetId = "star", i;
+			var remote = this.remote, widgetId = "star";
 			console.log("# running test 'read only ltr'");
 			return remote
 				.get(require.toUrl("./StarRating.html"))
