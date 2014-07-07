@@ -2,5 +2,6 @@
 define([
 	"./StarRating",
 	"./ScrollableContainer",
+	"./Select",
 	"./list/all"
 ]);
