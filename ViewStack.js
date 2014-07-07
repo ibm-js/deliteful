@@ -172,7 +172,7 @@ define(["dcl/dcl",
 				}
 			},
 
-			_doTransition: function (origin, target, transition, reverse, deferred) {
+			_doTransition: function (origin, target, event, transition, reverse, deferred) {
 				if (transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event);
@@ -230,7 +230,7 @@ define(["dcl/dcl",
 
 				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
 				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
-				this._doTransition(origin, widget, transition, reverse, deferred);
+				this._doTransition(origin, widget, event, transition, reverse, deferred);
 
 				return deferred.promise;
 			},
