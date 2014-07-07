@@ -4,7 +4,6 @@ define([
 	"dpointer/events",
 	"dojo/keys",
 	"dojo/dom-class",
-	"dojo/dom-geometry",
 	"delite/register",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
@@ -12,7 +11,7 @@ define([
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (has, pointer, keys, domClass, domGeometry,
+], function (has, pointer, keys, domClass,
 			register, FormValueWidget, BidiStarRating, messages) {
 
 	/**
