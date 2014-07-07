@@ -2,7 +2,7 @@
 define([
 	"./intern"
 ], function (intern) {
-	intern.useSauceConnect = false;
+	intern.tunnel = 'NullTunnel';
 	intern.webdriver = {
 		host: "localhost",
 		port: 4444
