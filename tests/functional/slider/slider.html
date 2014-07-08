@@ -6,7 +6,7 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>Slider</title>
+	<title>Slider01-Single</title>
 
 	<link type="text/css" rel="stylesheet" href="./slider-tests.css">
 
@@ -20,20 +20,23 @@
 			"dojo/domReady!"
 		], function (register, Slider) {
 			register.parse();
-			//read value from d-slider elements and set to span.innerHTML for intern functional test suite.
-			var nodeList = document.querySelectorAll("d-slider");
+			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
+			var nodeList = document.querySelectorAll("d-slider"), i;
 			for (i = 0; i < nodeList.length; ++i) {
 				document.getElementById(nodeList[i].id + "_value").value = nodeList[i].value;
 			}
-			//set onchange listener
+			// set onchange listener
 			document.addEventListener("change", function (event) {
 				if (event.target.id && event.target.id.indexOf("onchange_") === 0){
-					return; //ignore change event caused by webdriver clear() on input text
+					return; // ignore change event caused by webdriver clear() on input text
 				}
 				document.getElementById("onchange_target").value = event.target.id;
-				document.getElementById("onchange_intermediateChange").value = event.intermediateChange;
 				document.getElementById("onchange_value").value = event.target.value;
+				// assign value only if input.value == widget.value
+				var inputValue = event.target.querySelector("input").value;
+				document.getElementById("onchange_input").value = (inputValue == event.target.value) ? inputValue : "";
 			});
+
 			//allow functional tests to start
 			ready = true;
 		});
@@ -41,54 +44,54 @@
 </head>
 <body>
 <table>
-	<caption>Range</caption>
+	<caption>Single Slider</caption>
 	<tbody>
 	<tr>
 		<th scope="row">Default</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value"> 
-			<d-slider id="rangeSlider01" value=","></d-slider>
+			<input autocomplete=off  type="text"  id="singleSlider01_value"> 
+			<d-slider id="singleSlider01"></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">In bound</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider02_value"> 
-			<d-slider id="rangeSlider02" value="10,90"></d-slider>
+			<input autocomplete=off  type="text"  id="singleSlider02_value"> 
+			<d-slider id="singleSlider02" value="25"></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">Out of bound</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider03_value"> 
-			<d-slider id="rangeSlider03" value="80,150"></d-slider>
+			<input autocomplete=off  type="text"  id="singleSlider03_value"> 
+			<d-slider id="singleSlider03" value="150"></d-slider>
 		</td>
 	</tr>
 	</tbody>
 </table>
 <br>
 <table>
-	<caption>Range with intermediateChanges=true</caption>
+	<caption>Range</caption>
 	<tbody>
 	<tr>
 		<th scope="row">Default</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider04_value">
-			<d-slider intermediateChanges="true" id="rangeSlider04" value=","></d-slider>
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value">
+			<d-slider id="rangeSlider01" value=","></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">In bound</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider05_value">
-			<d-slider intermediateChanges="true" id="rangeSlider05" value="10,90"></d-slider>
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider02_value">
+			<d-slider id="rangeSlider02" value="10,90"></d-slider>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row">Out of bound</th>
 		<td>
-			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider06_value">
-			<d-slider intermediateChanges="true" id="rangeSlider06" value="80,150"></d-slider>
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider03_value">
+			<d-slider id="rangeSlider03" value="80,150"></d-slider>
 		</td>
 	</tr>
 	</tbody>
@@ -98,21 +101,21 @@
 	<caption>onChange</caption>
 	<tbody>
 	<tr>
-		<th scope="row">targetId</th>
+		<th scope="row">target</th>
 		<td>
 			<input autocomplete=off  type="text"  id="onchange_target">
 		</td>
 	</tr>
 	<tr>
-		<th scope="row">Value</th>
+		<th scope="row">widget.value</th>
 		<td>
 			<input autocomplete=off  type="text"  id="onchange_value">
 		</td>
 	</tr>
 	<tr>
-		<th scope="row">intermediateChanges</th>
+		<th scope="row">input.value</th>
 		<td>
-			<input autocomplete=off  type="text"  id="onchange_intermediateChange">
+			<input autocomplete=off  type="text"  id="onchange_input">
 		</td>
 	</tr>
 	</tbody>

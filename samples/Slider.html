@@ -25,24 +25,30 @@
 		], function (register) {
 			register.parse();
 			var slider = document.getElementById('sliderWidget');
-			//we want to track intermediate changes as we slide to
-			//display the current value in a tooltip
-			slider.intermediateChanges = true;
 
 			//very basic tooltip to track value changes
 			var tooltip = document.createElement('tooltip');
 			tooltip.id = "tooltip";
 			slider.progressBar.appendChild(tooltip);
 
-			var selectedValue = document.getElementById('msgArea_0');
-			var submittedValue = document.getElementById('msgArea_1');
+			var onInputValue = document.getElementById('msgArea_0');
+			var onChangeValue = document.getElementById('msgArea_1');
+			var submittedValue = document.getElementById('msgArea_2');
 
-			//on slider value change
+			//slider change event
 			slider.addEventListener("change", function (e) {
 				tooltip.innerHTML = this.value;
-				if (!e.intermediateChange) {
-					selectedValue.value = this.value;
-				}
+				onChangeValue.value = this.value;
+				onChangeValue.style.color = "red";
+				window.setTimeout( function () {
+					onChangeValue.style.color = "inherit";
+				}, 500);
+			});
+
+			//slider input event
+			slider.addEventListener("input", function (e) {
+				tooltip.innerHTML = this.value;
+				onInputValue.value = this.value;
 			});
 
 			//on form submit
@@ -54,7 +60,8 @@
 
 			//on form reset
 			document.getElementById("form").addEventListener("reset", function (e) {
-				selectedValue.value = "";
+				onChangeValue.value = "";
+				onInputValue.value = "";
 				submittedValue.value = "";
 			});
 
@@ -64,7 +71,6 @@
 			var inputMin = document.getElementById('inputMin');
 			var inputMax = document.getElementById('inputMax');
 			var enableSlideRange = document.getElementById('enableSlideRange');
-			var enableIntermediateChanges = document.getElementById('enableIntermediateChanges');
 			var enableVertical = document.getElementById('enableVertical');
 			var enableFlip = document.getElementById('enableFlip');
 			var enableSlider = document.getElementById('enableSlider');
@@ -75,9 +81,9 @@
 				inputMin.value = slider.min;
 				inputMax.value = slider.max;
 				enableSlideRange.checked = slider.slideRange;
-				enableIntermediateChanges.checked = slider.intermediateChanges;
 				enableSlider.checked = true;
-				selectedValue.value = "";
+				onChangeValue.value = "";
+				onInputValue.value = "";
 				submittedValue.value = "";
 				tooltip.innerHTML = slider.value;
 			}
@@ -105,9 +111,6 @@
 			});
 			enableSlideRange.addEventListener("click", function (e) {
 				slider.slideRange = this.checked;
-			});
-			enableIntermediateChanges.addEventListener("click", function (e) {
-				slider.intermediateChanges = this.checked;
 			});
 			enableVertical.addEventListener("click", function (e) {
 				slider.vertical = this.checked;
@@ -158,11 +161,14 @@
 	<table border="0">
 		<tr>
 			<td>
-				<label for="msgArea_0">Selected value:</label>
+				<label for="msgArea_0">On input event:</label>
 				<input type="text" readonly=true id="msgArea_0"/>
 				<br>
-				<label for="msgArea_1">Submitted value:</label>
+				<label for="msgArea_1">On change event:</label>
 				<input type="text" readonly=true id="msgArea_1"/>
+				<br>
+				<label for="msgArea_2">Submitted value:</label>
+				<input type="text" readonly=true id="msgArea_2"/>
 				<br>
 				<button type="submit" value="Submit">Submit</button>
 				<button type="reset" value="Reset">Reset</button>
@@ -174,9 +180,6 @@
 <table>
 	<tr>
 		<td>
-			<label for="enableIntermediateChanges">intermediateChanges</label>
-			<input type="checkbox" id="enableIntermediateChanges"/>
-			<br>
 			<label for="enableVertical">vertical</label>
 			<input type="checkbox" id="enableVertical"/>
 			<br>

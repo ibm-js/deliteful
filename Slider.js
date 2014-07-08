@@ -24,12 +24,7 @@ define([
 	 * (up, down, home or end).
 	 *
 	 * A change event is fired after the user select a new value, either by releasing a pointer, or by pressing a 
-	 * selection key. Applications can set the intermediateChanges property inherited from FormValueWidget in order 
-	 * to be notified of value changes (with a change event) while the user moves the handle.
-	 *
-	 * When intermediateChanges is true, change events are fired on each value change. Change events define the 
-	 * property intermediateChange to allow applications to know if the event resulted from moving a Slider handle, or 
-	 * if it resulted from the end of the user selection.
+	 * selection key. Before a change event, input events are fired while the user moves the Slider handle. 
 	 *
 	 * The Slider Widget supports ARIA attributes aria-valuemin, aria-valuemax, aria-valuenow and aria-orientation.
 	 *
@@ -257,8 +252,13 @@ define([
 					//correct step mismatch/underflow/overflow
 					minValue = this._calculateCorrectValue(minValue, this.min);
 					maxValue = this._calculateCorrectValue(maxValue, minValue);
-					//set corrected value as needed
-					this._updateValue(isDual ? (minValue + "," + maxValue) : String(maxValue), false);
+					// set corrected value as needed
+					value = isDual ? (minValue + "," + maxValue) : String(maxValue);
+					if (value !== this.value) {
+						this.value = value;
+						// do not wait for another cycle
+						this.validateProperties();
+					}
 				}
 			},
 
@@ -409,10 +409,9 @@ define([
 				this.onmousedown = function (e) {
 					e.preventDefault();
 				};
-				//avoid unnecessary onchange if user just select and release the handle without moving it
+				// avoid unnecessary onchange if user just select and release the handle without moving it
+				// todo: looks like a common pattern that could be handled by FormValueWidget?
 				this.previousOnChangeValue = this.value;
-				//avoid call to _handleOnChanges until default value is calculated.
-				this._startHandlingOnChange = true;
 			},
 
 			/**
@@ -573,8 +572,8 @@ define([
 					if (slideHandles) {
 						//this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
 					} else {
-						//the pointer is not above an handle, so we just set the value from the position of the pointer.
-						this._setNewValue(valueFromPosition, this._pointerCtx.targetElt, false);
+						// the pointer is not above an handle, so we just set the value from the position of the pointer
+						this._handleOnInput(this._getSelectedValue(valueFromPosition, this._pointerCtx.targetElt));
 					}
 				} else {
 					//the pointer is above an handle: retain the offset which depends where the pointer coordinates are
@@ -592,18 +591,17 @@ define([
 
 			_onPointerMove: function (e) {
 				if (e.target === this._pointerCtx.targetElt) {
-					//do not fire change event
-					this._setNewValue(this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox) -
-						this._pointerCtx.offsetValue, e.target, false);
+					this._handleOnInput(
+						this._getSelectedValue(
+								this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox) -
+								this._pointerCtx.offsetValue, e.target)
+					);
 				}
 			},
 
 			_onLostCapture: function () {
 				this._pointerCtx.targetElt = null;
-				//fire change event if:
-				//- the value has changed
-				//- intermediateChange is true
-				this._updateValue(this.value, true);
+				this._handleOnChange(this.value);
 			},
 
 			//jshint maxcomplexity: 13
@@ -639,7 +637,7 @@ define([
 				default:
 					return;
 				}
-				this._setNewValue(newValue, e.target, false); //do not fire change event
+				this._handleOnInput(this._getSelectedValue(newValue, e.target));
 				e.preventDefault();
 			},
 
@@ -648,10 +646,7 @@ define([
 					return;
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
-					//fire change event if:
-					//- the value has changed
-					//- intermediateChange is true
-					this._updateValue(this.value, true);
+					this._handleOnChange(this.value);
 				}
 			},
 
@@ -690,7 +685,6 @@ define([
 				function pixel2value(pixelValue, pixelMin, pixelMax, valMin, valMax) {
 					return ((pixelValue - pixelMin) * (valMax - valMin)) / (pixelMax - pixelMin) + valMin;
 				}
-
 				var pixelMax = containerBox[this._propNames.size];
 				var pixelValue = event[this._propNames.clientStart] - containerBox[this._propNames.start];
 				return Math.round(pixel2value(pixelValue, this._reversed ? pixelMax : 0, this._reversed ? 0 : pixelMax,
@@ -698,19 +692,15 @@ define([
 			},
 
 			/**
-			 * Set a new value, which can be out of min/max boundaries if the handle is released outside of the
-			 * widget coordinates.
+			 * format and return the selected value corrected from min/max boundaries in case the handle is released
+			 * outside of the widget coordinates.
 			 * @param newValue the new selected value
 			 * @param sourceNode the node responsible of the new selected value
-			 * @param fireOnChange `true` to force change event.
 			 * @private
 			 */
-			_setNewValue: function (newValue, sourceNode, fireOnChange) {
-				//set the slider value starting from a new value which can be out of boundaries.
-				//newValue: the new value to set
-				//targetElt: the reference of the element which provide the new value.
+			_getSelectedValue: function (newValue, sourceNode) {
 				var currentValue = this._getValueAsArray();
-				var updatedValue = null;
+				var updatedValue = newValue;
 				switch (sourceNode) {
 				case this.focusNode:
 					updatedValue = (currentValue.length === 1) ? String(newValue) :
@@ -725,29 +715,7 @@ define([
 					updatedValue = newValue + "," + (newValue + delta);
 					break;
 				}
-				if (updatedValue) {
-					this._updateValue(updatedValue, fireOnChange);
-				}
-			},
-
-			/**
-			 * Set a new value. Value must be in min/max boundaries and corrected with the step.
-			 * @param updatedValue the new value to set
-			 * @param fireOnChange set to true to fire a change event in these cases:
-			 * - if the value changed since the last change event if intermediateChanges===false
-			 * - always, if intermediateChanges===true
-			 * @private
-			 */
-			_updateValue: function (updatedValue, fireOnChange) {
-				if (updatedValue !== this.value) {
-					this.value = updatedValue;
-					this.validateProperties();
-				}
-				if (this._startHandlingOnChange) {
-					//3rd argument: force onchange call if intermediateChanges===true even if value hasn't change
-					//since the last change event. In such case event.intermediateChange is false.
-					this._handleOnChange(this.value, fireOnChange, fireOnChange);
-				}
+				return updatedValue;
 			}
 		});
 });

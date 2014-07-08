@@ -25,17 +25,15 @@
 		], function (register) {
 			register.parse();
 			var slider = document.getElementById('singleSlider');
-			//we want to track intermediate changes as we slide to
-			//display the current value in a tooltip
-			slider.intermediateChanges = true;
 
 			//very basic tooltip to track value changes
 			var tooltip = document.createElement('tooltip');
 			tooltip.id = "tooltip";
 			slider.progressBar.appendChild(tooltip);
 
-			var selectedValue = document.getElementById('msgArea_0');
-			var submittedValue = document.getElementById('msgArea_1');
+			var onInputValue = document.getElementById('msgArea_0');
+			var onChangeValue = document.getElementById('msgArea_1');
+			var submittedValue = document.getElementById('msgArea_2');
 			var sliderMin = document.getElementById('sliderMin');
 			var sliderMax = document.getElementById('sliderMax');
 
@@ -43,12 +41,20 @@
 			sliderMax.innerHTML = slider.max;
 			tooltip.innerHTML = slider.value;
 
-			//on slider value change
+			//slider change event
 			slider.addEventListener("change", function (e) {
 				tooltip.innerHTML = this.value;
-				if (!e.intermediateChange) {
-					selectedValue.innerHTML = this.value;
-				}
+				onChangeValue.innerHTML = this.value;
+				onChangeValue.style.color = "red";
+				window.setTimeout( function () {
+					onChangeValue.style.color = "inherit";
+				}, 500);
+			});
+
+			//slider input event
+			slider.addEventListener("input", function (e) {
+				tooltip.innerHTML = this.value;
+				onInputValue.innerHTML = this.value;
 			});
 
 			//on form submit
@@ -60,15 +66,9 @@
 
 			//on form reset
 			document.getElementById("form").addEventListener("reset", function (e) {
-				selectedValue.innerHTML = "";
+				onInputValue.innerHTML = "";
+				onChangeValue.innerHTML = "";
 				submittedValue.innerHTML = "";
-			});
-
-			//intermediate changes
-			var enableIntermediateChanges = document.getElementById('enableIntermediateChanges');
-			enableIntermediateChanges.checked = slider.intermediateChanges;
-			enableIntermediateChanges.addEventListener("click", function (e) {
-				slider.intermediateChanges = this.checked;
 			});
 		});
 	</script>
@@ -100,19 +100,18 @@
 <div id="tooltip">Value</div>
 <form id="form">
 	<span id="sliderMin"></span>
-	<d-slider id="singleSlider" min=100 max=1000 value=350 step="50" intermediateChanges="true"></d-slider>
+	<d-slider id="singleSlider" min=100 max=1000 value=350 step="50"></d-slider>
 	<span id="sliderMax"></span>
 	<br>
 	<button type="submit" value="Submit">Submit</button>
 	<button type="reset" value="Reset">Reset</button>
 </form>
 <hr>
-Selected value: <span id="msgArea_0"></span>
+On input event: <span id="msgArea_0"></span>
 <br>
-Submitted value: <span id="msgArea_1"></span>
+On change event: <span id="msgArea_1"></span>
+<br>
+Submitted value: <span id="msgArea_2"></span>
 <hr>
-<label for="enableIntermediateChanges">intermediateChanges</label>
-<input type="checkbox" id="enableIntermediateChanges"/>
-<br>
 </body>
 </html>
