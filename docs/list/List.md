@@ -14,7 +14,7 @@ By default, the widget creates its own local observable memory store, accessible
 
 Items rendererd by the list are standard javascript object. The list delegates the rendering of its items to an _item renderer_ widget.
 
-The [default item renderer implementation](./ItemRenderer.md) renders objects that defines any of the following properties:
+The default item renderer implementation renders objects that defines any of the following properties:
 * `label`: the label of the item, displayed on the left (or on the right if direction is right to left)
 * `righttext`: a text to display on the right (or on the left if direction is right to left)
 * `iconclass`: css class to apply to a div before the label in order to display an icon
@@ -244,7 +244,7 @@ list.store.add({label: "third item", category: "Category B"});
 TODO: ADD A JSFIDDLE SAMPLE ?
 
 As with the rendering of items, the actual rendering of the categories in the list is delegated to a category renderer widget.
-The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.md), but a custom category renderer can be specified
+The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
 using the `categoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
 
 <a name="selection"/>
@@ -275,7 +275,7 @@ TODO: INSERT A SCREENSHOT HERE ?
 #### Custom item renderer
 
 The actual rendering of the items in the list is delegated to an item renderer widget.
-The default one is [deliteful/list/ItemRenderer](ItemRenderer.md), but a custom item renderer can be specified
+The default one is `deliteful/list/ItemRenderer`, but a custom item renderer can be specified
 using the `itemRenderer` property of the list.
 
 A custom item renderer must extends `deliteful/list/ItemRenderer`. It accesses the item to render in its `item` property.
@@ -290,7 +290,7 @@ TODO: INSERT A JSFIDDLE SAMPLE HERE
 #### Custom category renderer
 
 The actual rendering of the categories in the list is delegated to a category renderer widget.
-The default one is [deliteful/list/CategoryRenderer](CategoryRenderer.md), but a custom category renderer can be specified
+The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
 using the `categoryRenderer` property of the list.
 
 A custom category renderer is similar to a custom item renderer, except that it extends `deliteful/list/CategoryRenderer`.
@@ -330,7 +330,12 @@ d-list-item [role="gridcell"] {
 
 When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
 
-The default item renderer allow futher styling of its content using CSS classes, as described in the [deliteful/list/ItemRenderer styling documentation](./ItemRenderer.md#styling).
+The default item renderer allow futher styling of its content using the following CSS classes:
+
+- `d-list-item-icon`: applied to the div before the label 
+- `d-list-item-label`: applied to the label
+- `d-list-item-right-text`: applied to the right text
+- `d-list-item-right-icon`: applied to the div after the right text
 
 ### Rendered Category Styling
 
@@ -353,8 +358,6 @@ d-list-category [role="gridcell"] {
 ```
 
 When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
-
-The default category renderer allow further styling of its content using CSS classes, as described in the [deliteful/list/CategoryRenderer styling documentation](./CategoryRenderer.md#styling).
 
 ### Selection Marks Styling
 
@@ -471,7 +474,7 @@ When a List item has the focus, you can press the ENTER or F2 keys to focus its 
 Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
 
 Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
-as the default renderers do not render any actionable nodes (see [deliteful/list/ItemRenderer](ItemRenderer.md) and [deliteful/list/CategoryRenderer](CategoryRenderer.md) for more information).
+as the default renderers do not render any actionable nodes.
 
 Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.
