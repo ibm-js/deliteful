@@ -3,7 +3,9 @@ define([
 	"intern/chai!assert",
 	"dojo/dom-geometry",
 	"dojo/dom-class",
-	"deliteful/ViewStack"
+	"deliteful/ViewStack",
+	"delite/css!deliteful/ViewStack/transitions/fade_css",
+	"delite/css!deliteful/ViewStack/transitions/flip_css"
 ], function (registerSuite, assert, domGeom, domClass, ViewStack) {
 	var container, node, aaa, bbb, ccc, ddd;
 	function checkNodeVisibilityAsync(vs, target, d) {

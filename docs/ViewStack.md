@@ -7,9 +7,11 @@ title: deliteful/ViewStack
 
 `deliteful/ViewStack` is a container that has multiple children, but shows only one child at a time. Moving from one child to another is accomplished via a transition.
 
-The transition types are described in the following picture:
- 1. Slide (reverse=false)
- 2. Reveal (reverse=false)
+This container supports 8 transition types: `slide`, `slidev`, `reveal`, `revealv`, `cover`, `coverv`, `fade`, `flip`.
+
+Some of the transition types are described in the following picture:
+ 1. Slide
+ 2. Reveal
  3. Flip
  4. Fade
 
@@ -60,6 +62,19 @@ require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function (ViewS
 });
 ```
 
+### Loading additional transition types
+
+The ViewStack container include by default 2 transition types: "slide" and "reveal". To use another transition type, you must require it:
+Example: Load all additional transition types
+```
+require(["delite/css!deliteful/ViewStack/transitions/cover_css",
+"delite/css!deliteful/ViewStack/transitions/coverv_css",
+"delite/css!deliteful/ViewStack/transitions/fade_css",
+"delite/css!deliteful/ViewStack/transitions/flip_css",
+"delite/css!deliteful/ViewStack/transitions/slidev_css",
+"delite/css!deliteful/ViewStack/transitions/revealv_css"],...);
+
+```
 
 ## Element Configuration
 
