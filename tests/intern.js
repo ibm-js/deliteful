@@ -63,7 +63,7 @@ define({
 	},
 	
 	loader: {
-		baseUrl: "..",
+		baseUrl: typeof window !== "undefined" ? "../../.." : "..",
 		config: {
 			"ecma402/locales": "en-US"
 		}
