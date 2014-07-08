@@ -84,7 +84,7 @@ src="http://jsfiddle.net/ibmjs/58rt6/embedded/result,js,html">
 <a href="http://jsfiddle.net/ibmjs/58rt6/">checkout the sample on JSFiddle</a></iframe>
 
 ### Animation speed
-The `speed` attribute lets you can change the relative speed of the animation. Accepted values are "slow", "normal"
+The `speed` attribute lets you change the relative speed of the animation. Accepted values are "slow", "normal"
 and "fast". Other values are converted to "normal". Note that the actual/real speed of the animation depends of the
 device/os/browser capabilities.
 

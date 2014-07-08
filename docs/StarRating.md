@@ -38,7 +38,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```js
 require(["deliteful/StarRating", "dojo/domReady!"], function (StarRating) {
-  var starRating = new StarRating({allowZero: true, max: 7, value: 3.5, editHalfValue: true});
+  var starRating = new StarRating({allowZero: true, max: 7, value: 3.5, editHalfValues: true});
   starRating.placeAt(document.body);
   starRating.startup();
 });
