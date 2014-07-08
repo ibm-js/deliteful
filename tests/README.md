@@ -26,7 +26,6 @@ Four configuration files defines the four [intern configurations](https://github
 - [intern.js](./intern.js) define a configuration that runs the tests on [Sauce Labs](https://saucelabs.com/), providing that you have a valid Sauce Labs use account.
 
 Note that as intern provides an in browser runner for the unit tests, you can also run the unit tests in a browser without using the command line.
-This last configuration is defined in the [intern.browser.js](./intern.browser.js) file.
 
 ## Initial Setup
 
@@ -113,7 +112,7 @@ When running tests using the command line, you can also adjust the list of repor
 To run the unit tests in a single browser, make sure that your `deliteful` checkout is accessible through a web server at `http://SERVER:PORT/PATH` and open the following URL in a test browser:
 
 ```
-http://SERVER:PORT/PATH/node_modules/intern/client.html?config=tests/intern.browser
+http://SERVER:PORT/PATH/node_modules/intern/client.html?config=tests/intern
 ```
 
 Note that this won't run the functional tests, and that you will have to check the browser javascript console to get the tests execution result.
