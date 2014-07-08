@@ -75,7 +75,7 @@ Example:
 
 ```
 
-The `show` method takes as first argument a DOM node instance or id. The second argument is optional. Available properties are `transition` and\or `reverse`.
+The `show` method takes as first argument a DOM node instance or id. The second argument is optional. Available properties are `transition` and/or `reverse`.
 
 The `reverse` property applies only to Slide and Reveal transitions.
 
@@ -113,7 +113,7 @@ Rely on browser.
 
 `deliteful/ViewStack` does not provide any internationalizable bundle.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/ViewStack` element. It affects Slide and Reveal transitions.
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the `deliteful/ViewStack` element. It affects Slide and Reveal transitions.
 
 ### Security
 

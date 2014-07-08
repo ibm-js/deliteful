@@ -28,7 +28,7 @@ See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/LinearLayout", "requirejs-domready/domReady!"], function (register) {
+require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"], function (register) {
   register.parse();
 });
 ```
@@ -90,7 +90,7 @@ Rely on browser.
 
 ### Globalization
 
-`deliteful/LinearLayout` does not provide any internationalizable bundle.
+`deliteful/SidePane` does not provide any internationalizable bundle.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/SidePane` element.
 
