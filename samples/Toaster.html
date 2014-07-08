@@ -1,214 +1,44 @@
 <!doctype html>
 <html id="html">
 <head>
+
 	<meta name="viewport"
 	      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+
 	<title>Toaster samples</title>
-
-	<style>
-		body {
-			font-family: sans-serif;
-			font-size: 16px;
-		}
-	</style>
-
 	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
 
-	<script type="text/javascript">
-		var toast = {
-			default: null,
-			tl: null, tc: null, tr: null,
-			bl: null, bc: null, br: null
-		};
 
+	<script type="text/javascript">
 		require([
 			"deliteful/ToasterMessage",
 			"deliteful/Toaster",
 			"requirejs-domready/domReady!"
 		], function (ToasterMessage, Toaster) {
-			Object.keys(toast).forEach(function (pos) {
-				toast[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
-				toast[pos].placeAt("body");
-				toast[pos].startup();
-			})
+			window.toaster = new Toaster({placementClass: "d-toaster-placement-tr"});
+			toaster.placeAt("body")
+			toaster.startup();
+			var timeout = 0;
+			var messages = [
+				new ToasterMessage({ message: "This will fade on its own"}),
+				new ToasterMessage({ message: "This one too"}),
+				new ToasterMessage({ message: "You need to dismiss this yourself, or it won't go away", duration: -1 }), 
+				];
+			messages.forEach(function(m){
+					setTimeout(function(){
+						toaster.postMessage(m)
+					}, timeout)
+					timeout += (Math.floor(Math.random()*3) + 1)*1000
+			});
+			window.input = document.getElementById("input");
 		});
 	</script>
 </head>
 <body id="body">
-<script>
-	var postMessage = function () {
-		var message = document.getElementById("text").value;
-		if (message === "") {
-			message = "[no message]";
-		}
-		toast["tr"].postMessage(message, "info")
-	}
-</script>
-<input id="text" type="text"/>
-<button is="d-button" onclick="postMessage()">post</button>
-<h3>Different types</h3>
-
-<p>
-	<button is="d-button" onclick="toast['tr'].postMessage('Stream refreshed -- not that anyone cares',{type: 'info'})">
-		Info
-	</button>
-	<button is="d-button" onclick="toast['tr'].postMessage('Updated successfully',{type: 'success'})">Success</button>
-	<button is="d-button" onclick="toast['tr'].postMessage('Update failed',{type: 'error'})">Error</button>
-	<button is="d-button"
-	        onclick="toast['tr'].postMessage('Something weird happened and I thought you might want to know', {type: 'warning'})">
-		Warning
-	</button>
-</p>
-<h3>Different durations</h3>
-
-<p>
-	<button is="d-button" onclick="toast['tr'].postMessage('Updated successfully (default: 2s)', {type: 'success'})">
-		Updated successfully (default: 2s)
-	</button>
-	<button is="d-button"
-	        onclick="toast['tr'].postMessage('Updated successfully (5s)', {type: 'success', duration: 5000})">Updated
-		successfully (5s)
-	</button>
-	<button is="d-button" onclick="toast['tr'].postMessage('Updated successfully (Persistent)', {type: 'success',
-		 duration: -1})">Updated successfully (persistent))
-	</button>
-
-</p>
-<h3>With or without a dismiss button</h3>
-
-<p>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'on'})">on</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'on', duration: 3000})">
-		on 3000
-	</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'on', duration: -1})">on
-		perm
-	</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'off'})">off</button>
-	<button is="d-button"
-	        onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'off', duration: 3000})">off 3000
-	</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'off', duration: -1})">
-		off perm
-	</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'auto'})">auto
-		expirable
-	</button>
-	<button is="d-button"
-	        onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'auto', duration: 3000})">auto 3000
-	</button>
-	<button is="d-button"
-	        onclick="m = toast['tr'].postMessage('Stream refreshed',{dismissible: 'auto',  duration: -1})">auto
-		permanent
-	</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{})">none expirable</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{duration: 3000})">none 3000</button>
-	<button is="d-button" onclick="m = toast['tr'].postMessage('Stream refreshed',{ duration: -1})">none permanent
-	</button>
-</p>
-<h3>Different positions</h3>
-
-<p>
-<table style="text-align:center">
-	<tbody>
-	<tr>
-		<td>
-			<button is="d-button" onclick="toast['tl'].postMessage('Your application has been updated')">top left
-			</button>
-		</td>
-		<td>
-			<button is="d-button" onclick="toast['tc'].postMessage('Your application has been updated')">top center
-			</button>
-		</td>
-		<td>
-			<button is="d-button" onclick="toast['tr'].postMessage('Your application has been updated')">top right
-			</button>
-			<br/>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<button is="d-button" onclick="toast['default'].postMessage('Your application has been updated')">default
-			</button>
-		</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>
-			<button is="d-button" onclick="toast['bl'].postMessage('Your application has been updated')">bottom left
-			</button>
-		</td>
-		<td>
-			<button is="d-button" onclick="toast['bc'].postMessage('Your application has been updated')">bottom center
-			</button>
-		</td>
-		<td>
-			<button is="d-button" onclick="toast['br'].postMessage('Your application has been updated')">bottom right
-			</button>
-		</td>
-	</tr>
-	</tbody>
-</table>
-</p>
-
-<script type="text/javascript">
-	var animatedToast = { fade: null };
-
-	require([
-		"deliteful/ToasterMessage",
-		"deliteful/Toaster",
-		"requirejs-domready/domReady!"
-	], function (ToasterMessage, Toaster) {
-
-		animatedToast.fade = new Toaster({
-			placementClass: "d-toaster-placement-tr",
-			animationInitialClass: "d-toaster-initial",
-			animationEnterClass: "d-toaster-fadein",
-			animationQuitClass: "d-toaster-fadeout"
-		});
-		animatedToast.bounce = new Toaster({
-			placementClass: "d-toaster-placement-default",
-			animationInitialClass: "animated",
-			animationEnterClass: "bounceIn",
-			animationQuitClass: "bounceOut",
-			invertOrder: true
-		});
-		animatedToast.fadeUp = new Toaster({
-			placementClass: "d-toaster-placement-tl",
-			animationInitialClass: "animated",
-			animationEnterClass: "fadeInUp",
-			animationQuitClass: "fadeOutUp"
-		});
-		animatedToast.lightSpeed = new Toaster({
-			placementClass: "d-toaster-placement-tr",
-			animationInitialClass: "animated",
-			animationEnterClass: "lightSpeedIn",
-			animationQuitClass: "lightSpeedOut"
-		});
-		Object.keys(animatedToast).forEach(function (k) {
-			animatedToast[k].placeAt("body");
-			animatedToast[k].startup();
-		});
-	});
-</script>
-<h3>Different animations</h3>
-
-<p>
-	<strong>Default</strong>
-	<button is="d-button" onclick="animatedToast.fade.postMessage('fade')">fade</button>
-</p>
-<p>
-	<strong>With animate.css</strong>
-	<button is="d-button" onclick="animatedToast.lightSpeed.postMessage('lightspeed')">lightspeed</button>
-</p>
-<p>
-	<strong>Other animate.css examples</strong>
-	<button is="d-button" onclick="animatedToast.bounce.postMessage('bouncing')">bounce</button>
-	<button is="d-button" onclick="animatedToast.fadeUp.postMessage('fading up')">fadeUp</button>
-</p>
+	<input id="input" type="text" value="Something to post">
+	<button onclick="toaster.postMessage(input.value)">post</button>
 </body>
 </html>
