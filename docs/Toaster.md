@@ -292,7 +292,7 @@ The ToasterMessage widget comes with a default template
 
 ```html
 <template class="{{ messageTypeClass }}" data-touch-action="none">
-	<button type="button" class="d-toaster-dismiss" data-attach-point="_dismissButton"></button>
+	<button type="button" class="d-toaster-dismiss" attach-point="_dismissButton"></button>
 	<span class="d-toaster-icon"></span>
 	<span class="d-toaster-message-content">
 		{{ message }}
