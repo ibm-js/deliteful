@@ -125,7 +125,7 @@ define(["dcl/dcl",
 			_getRemovableMsg: function () {
 				return this.messages.filter(isRemovable);
 			},
-			_allExpAreRemovable: function(){
+			_allExpAreRemovable: function () {
 				for (var i = 0, l = this.messages.length; i < l; i++) {
 					var m = this.messages[i];
 					if (m.isExpirable()) {

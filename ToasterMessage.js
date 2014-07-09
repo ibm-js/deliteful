@@ -208,8 +208,8 @@ define(["dcl/dcl",
 
 		this.promise = function () {
 			return _d;
-		}
-	}
+		};
+	};
 
 	var D_INVISIBLE = "d-invisible",
 		D_HIDDEN = "d-hidden",
@@ -245,7 +245,7 @@ define(["dcl/dcl",
 		"-ms-animation": "MSAnimationEnd" // IE 10
 	};
 	var transitionendEvents = {
-		"transition": 'transitionend', // >= IE10, FF
+		"transition": "transitionend", // >= IE10, FF
 		"-webkit-transition": "webkitTransitionEnd"  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
 	};
 
