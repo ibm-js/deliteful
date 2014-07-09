@@ -52,8 +52,8 @@ define([
 			after: function () {
 				if (!this.renderNode) {
 					throw new Error("buildRendering must define a renderNode property on the Renderer."
-							+ " Example using data-attach-point in a template: "
-							+ "<template><div data-attach-point='renderNode'></div></template>");
+							+ " Example using attach-point in a template: "
+							+ "<template><div attach-point='renderNode'></div></template>");
 				}
 				this.setAttribute("role", "row");
 				this.renderNode.setAttribute("role", "gridcell");
