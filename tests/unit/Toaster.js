@@ -200,8 +200,8 @@ define([
 			// if a message is expirable then it is removable
 			for (i = 0; i < N; i++) {
 				m = new ToasterMessage({messages: "Hello, World", duration: 2000});
-				m.duration = i < N/2 ? -1 : 2000;
-				m._toBeRemoved = m.isExpirable() || !!(i % 2); // some are non removable
+				m.duration = i < N / 2 ? -1 : 2000;
+				m._toBeRemoved = m.isExpirable() || (i % 2 !== 0); // some are non removable
 				toast.postMessage(m);
 			}
 
@@ -215,8 +215,8 @@ define([
 			toast.messages = [];
 			for (i = 0; i < N; i++) {
 				m = new ToasterMessage({messages: "Hello, World", duration: 0});
-				m.duration = i < N/2 ? -1 : 2000; // some are expirable
-				m._toBeRemoved = !!(i % 2);   // some are non removable
+				m.duration = i < N / 2 ? -1 : 2000; // some are expirable
+				m._toBeRemoved = i % 2 !== 0;   // some are non removable
 				toast.postMessage(m);
 			}
 

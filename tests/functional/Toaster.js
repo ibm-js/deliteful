@@ -316,7 +316,7 @@ define(["intern!object",
 								checkHasClass(remote, action.props.id,
 									"d-toaster-type-" + action.props.type);
 							});
-					})
+					});
 			}
 
 			return remote
