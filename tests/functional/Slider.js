@@ -5,8 +5,7 @@ define(["intern!object",
 	"intern/chai!assert",
 	"require"
 ], function (registerSuite, assert, require) {
-	// set to true to add wait time after each action; allows visual feedback when tests are running.
-	var debug = false;
+	var debug = false; //set to true for additional feedback on test execution (adds console messages + wait time).
 
 	registerSuite({
 		name: "Slider (markup)",
@@ -176,88 +175,102 @@ define(["intern!object",
 	 */
 	function checkInitValue(remote, sliderId, expectedValue) {
 		return function () {
-			getElementById(remote, sliderId + "_value")
+			debugMsg("checkInitValue...");
+			return getElementById(remote, sliderId + "_value")
 				.getAttribute("value")
 				.then(function (value) {
-					assert.strictEqual(value, expectedValue,
-							"Element " + sliderId + " value is [" + value + "] instead of [" + expectedValue + "]");
+					debugMsg("checkInitValue: " + value);
+					assert.strictEqual(value, expectedValue, sliderId + ".value");
 				})
-				.end();
-
-			getElementByXPath(remote, "//d-slider[@id='" + sliderId + "']//input")
-				.getAttribute("value")
-				.then(function (value) {
-					assert.strictEqual(value, expectedValue, sliderId + " wrapped input attribute value is [" + value +
-						"] while expected [" + expectedValue + "]");
+				.end()
+				.then(function () {
+					return getElementByXPath(remote, "//d-slider[@id='" + sliderId + "']//input")
+						.getAttribute("value")
+						.then(function (value) {
+							debugMsg("checkInitValue: wrapped input value");
+							assert.strictEqual(value, expectedValue, sliderId + " wrapped input attribute");
+						})
+						.end();
 				})
-				.end();
-
-			if (debug) {
-				remote.wait(500);
-			}
-			remote.end();
+				.then(function () {
+					return waitForDebug(remote);
+				});
 		};
 	}
 
 	function checkOnChange(remote, sliderId, hasValue) {
 		return function () {
-			getElementById(remote, "onchange_target")
+			debugMsg("checkOnChange...");
+			return getElementById(remote, "onchange_target")
 				.getAttribute("value")
 				.then(function (target) {
+					debugMsg("checkOnChange: onchange event target id");
 					if (hasValue) {
-						assert.strictEqual(target, sliderId, "onchange target [" + target + "]" +
-							" not expected. Must be [" + sliderId + "]");
+						assert.strictEqual(target, sliderId, "onchange target id");
 					} else {
 						assert.strictEqual(target.length, 0, "unexpected change event received from [" + target + "]");
 					}
 				})
 				.clear()
-				.end();
-
-			if (hasValue) {
-				getElementById(remote, "onchange_value")
-					.getAttribute("value")
-					.then(function (value) {
-						assert.ok(value, "onchange value is expected");
-					})
-					.clear()
-					.end();
-
-				getElementById(remote, "onchange_input")
-					.getAttribute("value")
-					.then(function (value) {
-						assert.ok(value, "incorrect input value");
-					})
-					.clear()
-					.end();
-			}
-			if (debug) {
-				remote.wait(500);
-			}
+				.end()
+				.then(function () {
+					if (hasValue) {
+						return getElementById(remote, "onchange_value")
+							.getAttribute("value")
+							.then(function (value) {
+								debugMsg("checkOnChange: onchange received?");
+								assert.ok(value, "onchange value is expected");
+							})
+							.clear()
+							.end()
+							.then(function () {
+								return getElementById(remote, "onchange_input")
+									.getAttribute("value")
+									.then(function (value) {
+										debugMsg("checkOnChange: input.value?");
+										assert.ok(value, "incorrect input value");
+									})
+									.clear()
+									.end();
+							});
+					} else {
+						debugMsg("checkOnChange: no value");
+						return remote.end();
+					}
+				})
+				.then(function () {
+					return waitForDebug(remote);
+				});
 		};
 	}
 
 	function checkAria(remote, sliderId, className, ariaOrientation, ariaValueMin, ariaValueMax, ariaValueNow) {
 		return function () {
-			getSliderElementByCss(remote, sliderId, className)
+			debugMsg("checkAria " + sliderId + "/" + className + "...");
+			return getSliderElementByCss(remote, sliderId, className)
 				.getAttribute("role")
 				.then(function (value) {
+					debugMsg("checkAria: role");
 					assert.equal(value, "slider", "role");
 				})
 				.getAttribute("aria-orientation")
 				.then(function (value) {
+					debugMsg("checkAria: aria-orientation");
 					assert.equal(value, ariaOrientation, "aria-orientation");
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
+					debugMsg("checkAria: aria-valuemin");
 					assert.equal(value, ariaValueMin, "aria-valuemin");
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
+					debugMsg("checkAria: aria-valuemax");
 					assert.equal(value, ariaValueMax, "aria-valuemax");
 				})
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
+					debugMsg("checkAria: aria-valuenow");
 					assert.equal(value, ariaValueNow, "aria-valuenow");
 				})
 				.end();
@@ -310,7 +323,8 @@ define(["intern!object",
 	 */
 	function clickOnProgressBar(remote, sliderId, moveToX, moveToY) {
 		return function () {
-			getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
+			debugMsg("clickOnProgressBar...");
+			return getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
 				.moveTo(moveToX, moveToY)
 				.wait(50)
 				// 1. There is a pb with "change" event not fired after a click() on FF with selenium:
@@ -320,53 +334,65 @@ define(["intern!object",
 				.buttonDown()
 				.wait(50)
 				.buttonUp()
-				.end();
-			if (debug) {
-				remote.wait(500);
-			}
+				.end()
+				.then(function () {
+					return waitForDebug(remote);
+				});
 		};
 	}
 
 	function clickOnHandler(remote, sliderId) {
-		getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
-			.moveTo()
-			// Simulate click with button down/up to bypass this issue:
-			// "change" event is not fired when click() on FF with selenium
-			// https://code.google.com/p/selenium/issues/detail?id=157
-			.buttonDown()
-			.buttonUp()
-			.end();
-		if (debug) {
-			remote.wait(500);
-		}
+		return function () {
+			debugMsg("clickOnHandler...");
+			return getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
+				.moveTo()
+				// Simulate click with button down/up to bypass this issue:
+				// "change" event is not fired when click() on FF with selenium
+				// https://code.google.com/p/selenium/issues/detail?id=157
+				.buttonDown()
+				.buttonUp()
+				.end()
+				.then(function () {
+					return waitForDebug(remote);
+				});
+		};
 	}
 
 	function moveHandler(remote, sliderId, moveToX, moveToY) {
-		getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
-			.moveTo()
-			.buttonDown()
-			.moveTo(moveToX, moveToY)
-			.buttonUp()
-			.end();
-		if (debug) {
-			remote.wait(500);
-		}
+		return function () {
+			debugMsg("moveHandler...");
+			return getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
+				.moveTo()
+				.buttonDown()
+				.moveTo(moveToX, moveToY)
+				.buttonUp()
+				.end()
+				.then(function () {
+					return waitForDebug(remote);
+				});
+		};
 	}
 
 	function moveRange(remote, sliderId, moveToX, moveToY) {
-		getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
-			.moveTo()
-			.buttonDown()
-			.moveTo(moveToX, moveToY)
-			.buttonUp()
-			.end();
-		if (debug) {
-			remote.wait(500);
-		}
+		return function () {
+			debugMsg("moveRange...");
+			return getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
+				.moveTo()
+				.buttonDown()
+				.moveTo(moveToX, moveToY)
+				.buttonUp()
+				.end()
+				.then(function () {
+					return waitForDebug(remote);
+				});
+		};
 	}
 
 	function setSlideRange(remote, sliderId, enable) {
-		remote.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
+		return function () {
+			debugMsg("setSlideRange...");
+			return remote.execute("document.getElementById('" + sliderId + "').slideRange = " + String(enable) + ";");
+		};
 	}
 
 	/**
@@ -377,13 +403,15 @@ define(["intern!object",
 			.get(require.toUrl(url))
 			.waitForCondition("'ready' in window &&  ready", 10000, 1000)
 			.then(function () {
-				console.log(url + " loaded.");
+				debugMsg(url + " loaded.");
+				return remote.end();
 			});
 	}
 
 	function logMessage(remote, prefix, message) {
 		return function () {
 			console.log("[" + prefix + "] " + message);
+			return remote.end();
 		};
 	}
 
@@ -391,5 +419,15 @@ define(["intern!object",
 		// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 		return (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) ||
 			remote.environmentType.safari);
+	}
+	
+	function waitForDebug(remote) {
+		return (debug) ? remote.wait(500) : remote.end();
+	}
+	
+	function debugMsg(msg) {
+		if (debug) {
+			console.log(msg);
+		}
 	}
 });
