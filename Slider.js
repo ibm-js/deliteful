@@ -409,9 +409,6 @@ define([
 				this.onmousedown = function (e) {
 					e.preventDefault();
 				};
-				// avoid unnecessary onchange if user just select and release the handle without moving it
-				// todo: looks like a common pattern that could be handled by FormValueWidget?
-				this.previousOnChangeValue = this.value;
 			},
 
 			/**
