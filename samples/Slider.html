@@ -26,7 +26,7 @@
 			register.parse();
 			var slider = document.getElementById('sliderWidget');
 
-			//very basic tooltip to track value changes
+			// very basic tooltip to track value changes
 			var tooltip = document.createElement('tooltip');
 			tooltip.id = "tooltip";
 			slider.progressBar.appendChild(tooltip);
@@ -35,7 +35,7 @@
 			var onChangeValue = document.getElementById('msgArea_1');
 			var submittedValue = document.getElementById('msgArea_2');
 
-			//slider change event
+			// slider change event
 			slider.addEventListener("change", function (e) {
 				tooltip.innerHTML = this.value;
 				onChangeValue.value = this.value;
@@ -45,27 +45,27 @@
 				}, 500);
 			});
 
-			//slider input event
+			// slider input event
 			slider.addEventListener("input", function (e) {
 				tooltip.innerHTML = this.value;
 				onInputValue.value = this.value;
 			});
 
-			//on form submit
+			// on form submit
 			document.getElementById("form").addEventListener("submit", function (e) {
 				submittedValue.value = slider.value;
 				e.preventDefault();// prevents page reload
 				return false;
 			});
 
-			//on form reset
+			// on form reset
 			document.getElementById("form").addEventListener("reset", function (e) {
 				onChangeValue.value = "";
 				onInputValue.value = "";
 				submittedValue.value = "";
 			});
 
-			//input elements to dynamically change the slider properties
+			// input elements to dynamically change the slider properties
 			var inputValue = document.getElementById('inputValue');
 			var inputStep = document.getElementById('inputStep');
 			var inputMin = document.getElementById('inputMin');

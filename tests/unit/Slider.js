@@ -208,19 +208,19 @@ define([
 	}
 
 	function checkSliderProperties(slider, min, max, step, flip, vertical, value) {
-		//public attribute:min
+		// public attribute:min
 		assert.strictEqual(slider.min, min, assertMessage("min"));
-		//public attribute:max
+		// public attribute:max
 		assert.strictEqual(slider.max, max, assertMessage("max"));
-		//public attribute:step
+		// public attribute:step
 		assert.strictEqual(slider.step, step, assertMessage("step"));
-		//public attribute:flip
+		// public attribute:flip
 		assert.strictEqual(slider.flip, flip, assertMessage("flip"));
-		//public attribute:vertical
+		// public attribute:vertical
 		assert.strictEqual(slider.vertical, vertical, assertMessage("vertical"));
-		//value
+		// value
 		assert.equal(slider.value, value, assertMessage("value"));
-		//input value
+		// input value
 		assert.equal(slider.value, slider.querySelector("input").value, assertMessage("input value"));
 	}
 });

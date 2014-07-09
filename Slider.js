@@ -43,7 +43,7 @@ define([
 	 * @augments delite/CssState
 	 */
 	return register("d-slider", [HTMLElement, FormValueWidget, CssState],
-		//todo: HTML5 introduce the attribute "multiple" to handle multiple values
+		// todo: HTML5 introduce the attribute "multiple" to handle multiple values
 		/** @lends module:deliteful/Slider# */ {
 
 			/**
@@ -158,7 +158,7 @@ define([
 				while (n) {
 					var next = n.nextSibling;
 					if (n !== this.valueNode && n !== this.containerNode) {
-						//move all extra markup nodes to the containerNode for relative sizing and placement
+						// move all extra markup nodes to the containerNode for relative sizing and placement
 						this.containerNode.insertBefore(n, this.progressBar);
 					}
 					n = next;
@@ -192,7 +192,7 @@ define([
 			 * @private
 			 */
 			_refreshReversed: function () {
-				//Complicated since you can have flipped right-to-left and vertical is upside down by default.
+				// Complicated since you can have flipped right-to-left and vertical is upside down by default.
 				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip))
 					|| (this.vertical && this.flip));
 			},
@@ -207,17 +207,17 @@ define([
 						return c + modifier;
 					}).join(" ");
 				};
-				//add V or H suffix to baseClass for styling purposes
+				// add V or H suffix to baseClass for styling purposes
 				var rootBaseClass = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
 				var baseClass = this.baseClass + " " + rootBaseClass;
-				//root node: do not remove all classes; user may define custom classes; CssState adds classes that
-				//we do not want to lose.
+				// root node: do not remove all classes; user may define custom classes; CssState adds classes that
+				// we do not want to lose.
 				domClass.replace(this, rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"),
 					toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
 						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
 						this.baseClass + "-v" + " " + this.baseClass + "-h");
 				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-remaining-bar");
-				this.progressBar.setAttribute("style", "");//reset left/width/height/top
+				this.progressBar.setAttribute("style", "");// reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
 				this.focusNode.className = toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-max");
 				if (this.handleMin._isActive) {
@@ -240,16 +240,16 @@ define([
 				if (props.value || props.min || props.max || props.step) {
 					var value = this._getValueAsArray(),
 						isDual = value.length > 1,
-						//convert and set default value(s) as needed
+						// convert and set default value(s) as needed
 						minValue = this._convert2Float(value[0],
 							this._calculateDefaultValue(isDual ? 0.25 : 0.5)),
 						maxValue = this._convert2Float(value[value.length - 1],
 							this._calculateDefaultValue(isDual ? 0.75 : 0.5)),
-						//ensure minValue is less than maxValue
+						// ensure minValue is less than maxValue
 						maxV = Math.max(minValue, maxValue);
 					minValue = Math.min(minValue, maxValue);
 					maxValue = maxV;
-					//correct step mismatch/underflow/overflow
+					// correct step mismatch/underflow/overflow
 					minValue = this._calculateCorrectValue(minValue, this.min);
 					maxValue = this._calculateCorrectValue(maxValue, minValue);
 					// set corrected value as needed
@@ -279,7 +279,7 @@ define([
 				if (props.name) {
 					var name = this.name;
 					this.removeAttribute("name");
-					//won't restore after a browser back operation since name changed nodes
+					// won't restore after a browser back operation since name changed nodes
 					this.valueNode.setAttribute("name", name);
 				}
 				if (props.max) {
@@ -350,7 +350,7 @@ define([
 				} else {
 					this.focusNode.setAttribute("aria-valuenow", currentValue[0]);
 				}
-				//set input field value.
+				// set input field value.
 				this.valueNode.value = String(this.value);
 				return resetClasses;
 			},
@@ -365,36 +365,36 @@ define([
 					on(this, "pointermove", this._onPointerMove.bind(this)),
 					on(this, "lostpointercapture", this._onLostCapture.bind(this)),
 					on(this, "keydown", this._onKeyDown.bind(this)),
-					on(this, "keyup", this._onKeyUp.bind(this)), //fire onChange on desktop
+					on(this, "keyup", this._onKeyUp.bind(this)), // fire onChange on desktop
 					on(this.focusNode, "focus", this._onFocus.bind(this)),
 					on(this.handleMin, "focus", this._onFocus.bind(this))
 				);
-				//ensure CSS are applied
+				// ensure CSS are applied
 				this.invalidateProperty("vertical");
-				//apply default tabIndex in case the default is used.
+				// apply default tabIndex in case the default is used.
 				this.invalidateProperty("tabIndex");
-				if (!isNaN(parseFloat(this.valueNode.value))) { //INPUT value
+				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
-				//force calculation of the default value in case it is not specified.
+				// force calculation of the default value in case it is not specified.
 				this.invalidateProperty("value");
 			},
 
 			startup: function () {
-				//force immediate validation, otherwise in certain cases a call to slider.value returns the default
-				//value declared in the markup instead of the calculated default value.
-				//todo: remove in future when validate() will be called by invalidating.js
+				// force immediate validation, otherwise in certain cases a call to slider.value returns the default
+				// value declared in the markup instead of the calculated default value.
+				// todo: remove in future when validate() will be called by invalidating.js
 				this.validateProperties();
-				//ensure input is in sync after default value is calculated
+				// ensure input is in sync after default value is calculated
 				this.valueNode.value = String(this.value);
 				if (this.valueNode.getAttribute("value") === null) {
 					this.valueNode.setAttribute("value", this.value);
 				}
-				//force children (Rule) to refresh their rendering
+				// force children (Rule) to refresh their rendering
 				this._updateChildren();
-				//if the form is reset, then notify the widget to reposition the handles
+				// if the form is reset, then notify the widget to reposition the handles
 				if (this.valueNode.form) {
 					var self = this;
 					this.own(on(this.valueNode.form, "reset", function () {
@@ -405,7 +405,7 @@ define([
 						});
 					}));
 				}
-				//Chrome: avoids text selection of elements when mouse is dragged outside of the Slider.
+				// Chrome: avoids text selection of elements when mouse is dragged outside of the Slider.
 				this.onmousedown = function (e) {
 					e.preventDefault();
 				};
@@ -485,22 +485,22 @@ define([
 			 * @private
 			 */
 			_calculateCorrectValue: function (value, relativeMin) {
-				//value = (this.max > this.min) ? Math.min(this.max, value) : value;
-				//When the element is suffering from a step mismatch, the user agent must round the element's value to
-				//the nearest number for which the element would not suffer from a step mismatch, and which is greater
-				//than or equal to the minimum, and, if the maximum is not less than the minimum, which is less than or
-				//equal to the maximum, if there is a number that matches these constraints. If two numbers match these
-				//constraints, then user agents must use the one nearest to positive infinity.
+				// value = (this.max > this.min) ? Math.min(this.max, value) : value;
+				// When the element is suffering from a step mismatch, the user agent must round the element's value to
+				// the nearest number for which the element would not suffer from a step mismatch, and which is greater
+				// than or equal to the minimum, and, if the maximum is not less than the minimum, which is less than or
+				// equal to the maximum, if there is a number that matches these constraints. If two numbers match these
+				// constraints, then user agents must use the one nearest to positive infinity.
 				if (value % this.step) {
 					var x = Math.max(relativeMin, Math.round(value / this.step) * this.step);
 					value = (this.max > relativeMin) ? Math.min(this.max, x) : x;
 				}
-				//When the element is suffering from an underflow, the user agent must set the element's
-				//value to a valid floating-point number that represents the minimum. (spec)
+				// When the element is suffering from an underflow, the user agent must set the element's
+				// value to a valid floating-point number that represents the minimum. (spec)
 				value = Math.max(relativeMin, value);
-				//When the element is suffering from an overflow, if the maximum is not less than the minimum,
-				//the user agent must set the element's value to a valid floating-point number that represents
-				//the maximum. (spec)
+				// When the element is suffering from an overflow, if the maximum is not less than the minimum,
+				// the user agent must set the element's value to a valid floating-point number that represents
+				// the maximum. (spec)
 				value = Math.min(this.max > this.min ? this.max : this.min, value);
 				return value;
 			},
@@ -514,7 +514,7 @@ define([
 				return String(this.value).split(/,/g);
 			},
 
-			//jshint maxcomplexity: 12
+			// jshint maxcomplexity: 12
 			_onPointerDown: function (e) {
 				if (this._shouldIgnoreUserInput(e)) {
 					return;
@@ -538,7 +538,7 @@ define([
 				var currentValue = this._getValueAsArray();
 				var valueFromPosition = this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox);
 				var slideHandles;
-				//Determine the handle targeted by the current pointer
+				// Determine the handle targeted by the current pointer
 				if (currentValue.length > 1) {
 					if (isEligibleToSlideRange(currentValue, valueFromPosition, e.target)) {
 						this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
@@ -546,19 +546,19 @@ define([
 						slideHandles = true;
 					} else {
 						slideHandles = false;
-						//relativePos > 0 ==> handleMin
+						// relativePos > 0 ==> handleMin
 						var relativePos = Math.abs(valueFromPosition - currentValue[1])
 							- Math.abs(valueFromPosition - currentValue[0]);
 						if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
-							//same position (and selected): get the one that is above the other
+							// same position (and selected): get the one that is above the other
 							this._pointerCtx.targetElt = document.elementFromPoint(e.clientX, e.clientY);
 						} else {
 							if (relativePos === 0) {
-								//same position (not selected): get the only one that can move to the pointer position
+								// same position (not selected): get the only one that can move to the pointer position
 								relativePos = currentValue[0] -
 									Math.min(this.max - this.step, Math.max(this.min + this.step, valueFromPosition));
 							}
-							//get the closest one
+							// get the closest one
 							this._pointerCtx.targetElt = (relativePos > 0) ? this.handleMin : this.focusNode;
 						}
 					}
@@ -567,14 +567,14 @@ define([
 
 				if (e.target !== this.focusNode && e.target !== this.handleMin) {
 					if (slideHandles) {
-						//this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
+						// this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
 					} else {
 						// the pointer is not above an handle, so we just set the value from the position of the pointer
 						this._handleOnInput(this._getSelectedValue(valueFromPosition, this._pointerCtx.targetElt));
 					}
 				} else {
-					//the pointer is above an handle: retain the offset which depends where the pointer coordinates are
-					//the handle area
+					// the pointer is above an handle: retain the offset which depends where the pointer coordinates are
+					// the handle area
 					if (currentValue.length === 1) {
 						this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
 					} else {
@@ -582,7 +582,7 @@ define([
 							(this._pointerCtx.targetElt === this.handleMin ? currentValue[0] : currentValue[1]);
 					}
 				}
-				//start capture on the target element
+				// start capture on the target element
 				dpointer.setPointerCapture(this._pointerCtx.targetElt, e.pointerId);
 			},
 
@@ -601,7 +601,7 @@ define([
 				this._handleOnChange(this.value);
 			},
 
-			//jshint maxcomplexity: 13
+			// jshint maxcomplexity: 13
 			_onKeyDown: function (e) {
 				if (this._shouldIgnoreUserInput(e)) {
 					return;

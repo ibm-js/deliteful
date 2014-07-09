@@ -38,7 +38,7 @@
 				document.getElementById(slider.id + "_ph").appendChild(slider);
 				slider.startup();
 			}
-			//read value from d-slider elements and set to span.innerHTML for intern functional test suite.
+			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider");
 			for (i = 0; i < nodeList.length; ++i) {
 				document.getElementById(nodeList[i].id + "_value").value = nodeList[i].value;
@@ -54,7 +54,7 @@
 				var inputValue = event.target.querySelector("input").value;
 				document.getElementById("onchange_input").value = (inputValue == event.target.value) ? inputValue : "";
 			});
-			//allow functional tests to start
+			// allow functional tests to start
 			ready = true;
 		});
 	</script>

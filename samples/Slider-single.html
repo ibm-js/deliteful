@@ -26,7 +26,7 @@
 			register.parse();
 			var slider = document.getElementById('singleSlider');
 
-			//very basic tooltip to track value changes
+			// very basic tooltip to track value changes
 			var tooltip = document.createElement('tooltip');
 			tooltip.id = "tooltip";
 			slider.progressBar.appendChild(tooltip);
@@ -41,7 +41,7 @@
 			sliderMax.innerHTML = slider.max;
 			tooltip.innerHTML = slider.value;
 
-			//slider change event
+			// slider change event
 			slider.addEventListener("change", function (e) {
 				tooltip.innerHTML = this.value;
 				onChangeValue.innerHTML = this.value;
@@ -51,20 +51,20 @@
 				}, 500);
 			});
 
-			//slider input event
+			// slider input event
 			slider.addEventListener("input", function (e) {
 				tooltip.innerHTML = this.value;
 				onInputValue.innerHTML = this.value;
 			});
 
-			//on form submit
+			// on form submit
 			document.getElementById("form").addEventListener("submit", function (e) {
 				submittedValue.innerHTML = slider.value;
 				e.preventDefault();// prevents page reload
 				return false;
 			});
 
-			//on form reset
+			// on form reset
 			document.getElementById("form").addEventListener("reset", function (e) {
 				onInputValue.innerHTML = "";
 				onChangeValue.innerHTML = "";

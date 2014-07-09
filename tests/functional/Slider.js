@@ -5,7 +5,7 @@ define(["intern!object",
 	"intern/chai!assert",
 	"require"
 ], function (registerSuite, assert, require) {
-	var debug = false; //set to true for additional feedback on test execution (adds console messages + wait time).
+	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
 
 	registerSuite({
 		name: "Slider (markup)",
@@ -96,7 +96,7 @@ define(["intern!object",
 
 					.then(logMessage(remote, this.id, "click on progress bar"))
 					.then(clickOnProgressBar(remote, "rangeSlider01", 50, 10))
-					.then(checkOnChange(remote, "rangeSlider01", false))//no action when slideRange=true
+					.then(checkOnChange(remote, "rangeSlider01", false))// no action when slideRange=true
 
 					.then(logMessage(remote, this.id, "move handler"))
 					.then(moveHandler(remote, "rangeSlider01", 26, 10))
