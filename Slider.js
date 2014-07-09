@@ -570,7 +570,7 @@ define([
 						// this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
 					} else {
 						// the pointer is not above an handle, so we just set the value from the position of the pointer
-						this._handleOnInput(this._getSelectedValue(valueFromPosition, this._pointerCtx.targetElt));
+						this.handleOnInput(this._getSelectedValue(valueFromPosition, this._pointerCtx.targetElt));
 					}
 				} else {
 					// the pointer is above an handle: retain the offset which depends where the pointer coordinates are
@@ -588,7 +588,7 @@ define([
 
 			_onPointerMove: function (e) {
 				if (e.target === this._pointerCtx.targetElt) {
-					this._handleOnInput(
+					this.handleOnInput(
 						this._getSelectedValue(
 								this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox) -
 								this._pointerCtx.offsetValue, e.target)
@@ -598,7 +598,7 @@ define([
 
 			_onLostCapture: function () {
 				this._pointerCtx.targetElt = null;
-				this._handleOnChange(this.value);
+				this.handleOnChange(this.value);
 			},
 
 			// jshint maxcomplexity: 13
@@ -634,7 +634,7 @@ define([
 				default:
 					return;
 				}
-				this._handleOnInput(this._getSelectedValue(newValue, e.target));
+				this.handleOnInput(this._getSelectedValue(newValue, e.target));
 				e.preventDefault();
 			},
 
@@ -643,7 +643,7 @@ define([
 					return;
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
-					this._handleOnChange(this.value);
+					this.handleOnChange(this.value);
 				}
 			},
 
