@@ -27,6 +27,7 @@
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
+			list.isAriaListbox = true;
 			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
 			list.selectionMode = "multiple";
 			list.store.add({label: "first item"});
@@ -45,9 +46,16 @@
 			list.startup();
 		});
 	</script>
+	<style type="text/css">
+		/* CSS to add a selection mark on the default item renderer */
+		.d-multiselectable .d-selected .d-list-item-icon::before {
+			content: "\2713";
+			padding-left: 5px;
+		}
+	</style>
 </head>
 <body role="application">
-	This sample demonstrate a list with multiple selection mode enabled.
+	This sample demonstrate a list with listbox aria role, multiple selection mode enabled and custom CSS to display a selection mark before the currently selected item(s).
 	<input autofocus></input><br>
 </body>
 </html>

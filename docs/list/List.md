@@ -359,7 +359,7 @@ To define variable height for the categories, use the following CSS:
 
 When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-category .d-list-cell:focus`.
 
-### Selection Marks Styling
+### Selection Styling
 
 Depending on the `selectionMode` property value, the following CSS classes are added to the list:
 * `d-selectable` when `selectionMode` is `single`;
@@ -367,70 +367,22 @@ Depending on the `selectionMode` property value, the following CSS classes are a
 
 The CSS class `d-selected` is added to each list item that is currently selected.
 
-By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
+The style of a selected item can be customized using the following css:
 
 ```css
-	.d-selectable .d-list-item::before,.d-multiselectable .d-list-item::before {
-		display: none;
-	}
-	.d-selectable .d-list-item::after,.d-multiselectable .d-list-item::after {
-		display: block;
-	}
-```
-
-![Selectable Mark After](images/SelectableMarkAfter.png)
-
-The check mark for selectable items is rendered in a _before_ of _after_ pseudo element that can be customized using the following CSS:
-
-```css
-/*================
-  Selection mode = "single"
-=================*/
-
-/* unselected mark placed BEFORE each list item */
-.d-selectable .d-list-item::before {
-	content: ...
+/* CSS selector for a selected item in a list with selectionMode = "single" */
+.d-selectable .d-list-item.d-selected {
+    ...
 }
 
-/* selected mark placed BEFORE each list item */
-.d-selectable .d-list-item.d-selected::before {
-	content: ...
-}
-
-/* unselected mark placed AFTER each list item */
-.d-selectable .d-list-item::after {
-	content: ...
-}
-
-/* selected mark placed AFTER each list item */
-.d-selectable .d-list-item.d-selected::after {
-	content: ...
-}
-
-/*================
-  Selection mode = "multiple"
-=================*/
-
-/* unselected mark placed BEFORE each list item */
-.d-multiselectable .d-list-item::before {
-	content: ...
-}
-
-/* selected mark placed BEFORE each list item */
-.d-multiselectable .d-list-item.d-selected::before {
-	content: ...
-}
-
-/* unselected mark placed AFTER each list item */
-.d-multiselectable .d-list-item::after {
-	content: ...
-}
-
-/* selected mark placed AFTER each list item */
-.d-multiselectable .d-list-item.d-selected::after {
-	content: ...
+/* CSS selector for a selected item in a list with selectionMode = "multiple" */
+.d-multiselectable .d-list-item.d-selected {
+    ...
 }
 ```
+
+To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
+
 TODO: INSERT JSFIDDLE SAMPLE HERE ?
 
 <a name="interactions"></a>

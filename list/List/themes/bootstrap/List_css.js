@@ -14,6 +14,10 @@ define(function () {
   border: 1px solid #dddddd;\
   background-color: #ffffff;\
 }\
+.d-selectable .d-list-item:hover,\
+.d-multiselectable .d-list-item:hover {\
+  background-color: #f5f5f5;\
+}\
 .d-round-rect-list {\
   border: 1px solid #dddddd;\
   border-radius: 4px;\
@@ -175,27 +179,16 @@ d-list-store {\
 .d-list-loading-panel-info svg {\
   vertical-align: middle;\
 }\
-.d-selectable .d-list-item::before,\
-.d-multiselectable .d-list-item::before {\
-  font-size: large;\
-  padding-left: 5px;\
-  display: block;\
-  content: \"\\2610\";\
+.d-selectable,\
+.d-multiselectable {\
+  cursor: pointer;\
 }\
-.d-selectable .d-list-item.d-selected::before,\
-.d-multiselectable .d-list-item.d-selected::before {\
-  content: \"\\2611\";\
-}\
-.d-selectable .d-list-item::after,\
-.d-multiselectable .d-list-item::after {\
-  font-size: large;\
-  padding-right: 5px;\
-  display: none;\
-  content: \"\\2610\";\
-}\
-.d-selectable .d-list-item.d-selected::after,\
-.d-multiselectable .d-list-item.d-selected::after {\
-  content: \"\\2611\";\
+.d-selectable .d-list-item.d-selected,\
+.d-multiselectable .d-list-item.d-selected {\
+  border-bottom: 1px solid #428bca;\
+  background-color: #428bca;\
+  color: #ffffff;\
+  font-weight: bold;\
 }\
 .d-list-container {\
   position: relative;\

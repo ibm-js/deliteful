@@ -31,6 +31,19 @@
 	}
 }
 
+.d-selectable, .d-multiselectable {
+	.d-list-item:hover {
+		background-color: @list-group-hover-bg;	
+	}
+}
+
+.d-list-item-selected-style() {
+	border-bottom: 1px solid @list-group-active-border;
+	background-color: @list-group-active-bg;
+	color: @list-group-active-color;
+	font-weight: bold;
+}
+
 .d-list-item-label-style() {
 }
 
