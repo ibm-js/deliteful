@@ -117,7 +117,7 @@ define(["intern!object",
 					WAIT_POLLING_MS)
 			.then(function () {
 				remote
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.equal(value, "false");
@@ -138,7 +138,7 @@ define(["intern!object",
 						assert.equal(value, "true");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.equal(value, "false");
@@ -149,7 +149,7 @@ define(["intern!object",
 						assert.equal(value, "true");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.equal(value, "true");
@@ -170,10 +170,10 @@ define(["intern!object",
 					WAIT_POLLING_MS)
 			.then(function () {
 				remote
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, null);
+						assert.equal(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
@@ -183,18 +183,7 @@ define(["intern!object",
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, null);
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.equal(value, "true");
-					})
-					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.equal(value, null);
+						assert.equal(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
@@ -202,10 +191,21 @@ define(["intern!object",
 						assert.equal(value, "true");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, null);
+						assert.equal(value, "false");
+					})
+					.click()
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "true");
+					})
+					.end()
+				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+					.getAttribute("aria-selected")
+					.then(function (value) {
+						assert.equal(value, "false");
 					})
 					.end();
 			});
@@ -456,7 +456,7 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text A");
@@ -467,7 +467,7 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text A");
@@ -504,7 +504,7 @@ define(["intern!object",
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1", "keystroke 2");
@@ -516,58 +516,58 @@ define(["intern!object",
 				.end()
 				.wait(10)
 				.keys("\uE00D") // Press SPACE
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1", "keystroke 3");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, null, "keystroke 3");
+					assert.equal(value, "false", "keystroke 3");
 				})
 				.end()
 				.keys("\uE010") // Press END
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1", "keystroke 4");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, null, "keystroke 4");
+					assert.equal(value, "false", "keystroke 4");
 				})
 				.end()
 				.keys("\uE00F") // Press PAGE DOWN
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 9\nright text 10", "keystroke 5");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, null, "keystroke 5");
+					assert.equal(value, "false", "keystroke 5");
 				})
 				.end()
 				.keys("\uE011") // Press HOME
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 9\nright text 10", "keystroke 6");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, null, "keystroke 6");
+					assert.equal(value, "false", "keystroke 6");
 				})
 				.end()
 				.keys("\uE00E") // Press PAGE UP
-				.execute("return document.activeElement.parentNode")
+				.active()
 				.text()
 				.then(function (value) {
 					assert.equal(value, "list item 0\nright text 1", "keystroke 7");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, null, "keystroke 7");
+					assert.equal(value, "false", "keystroke 7");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW

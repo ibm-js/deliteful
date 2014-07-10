@@ -140,6 +140,17 @@ define([
 		multiCharSearchDuration: 0,
 
 		/**
+		 * Indicates whether the list has a WIA-ARIA role of `listbox` or its default WIA-ARIA role of `grid`.
+		 * If this indicator is set to `true`:
+		 * * The WIA-ARIA role of the list is set to `listbox`;
+		 * * The `sectionMode` property cannot take the value `none`anymore. Its default value becomes `single`;
+		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
+		 * @member {boolean}
+		 * @default false
+		 */
+		isAriaListbox: false,
+
+		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
 		 * @member {string} module:deliteful/list/List#scrollDirection
 		 * @default "vertical"
@@ -153,6 +164,20 @@ define([
 						+ "'");
 			} else {
 				this._set("scrollDirection", value);
+			}
+		},
+
+		/**
+		 * Defines the selection mode: `"none"` (not allowed if `isAriaLisbox` is true), `"single"` or `"multiple"`.
+		 * @member {string} module:deliteful/list/List#selectionMode
+		 * @default "none", or "single" if isAriaListbos is true.
+		 */
+		_setSelectionModeAttr: function (value) {
+			if (this.isAriaListbox && value === "none") {
+				throw new TypeError("selectionMode 'none' is invalid for an aria lisbox, "
+						+ "keeping the previous value of '" + this.selectionMode + "'");
+			} else {
+				this._set("selectionMode", value);
 			}
 		},
 
@@ -173,7 +198,11 @@ define([
 
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",
-					  category: "d-list-category"},
+					  category: "d-list-category",
+					  cell: "d-list-cell",
+					  selected: "d-selected",
+					  selectable: "d-selectable",
+					  multiselectable: "d-multiselectable"},
 
 		/**
 		 * A panel that hides the content of the widget when shown, and displays a progress indicator
@@ -199,7 +228,7 @@ define([
 		 * @member {boolean} module:deliteful/list/List#_dataLoaded
 		 * @private
 		 */
-		
+
 		buildRendering: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
@@ -211,8 +240,8 @@ define([
 			this.containerNode.className = "d-list-container";
 			this.appendChild(this.containerNode);
 			// Aria attributes
-			this.setAttribute("role", "grid");
-			// Might be overriden at the gridcell (renderer) level when developing custom renderers
+			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
+			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
 			this.setAttribute("aria-readonly", "true");
 		},
 
@@ -264,33 +293,32 @@ define([
 				}
 				if ("selectionMode" in props) {
 					// Update aria attributes
-					this.removeAttribute("aria-selectable");
+					domClass.remove(this, this._cssClasses.selectable);
+					domClass.remove(this, this._cssClasses.multiselectable);
 					this.removeAttribute("aria-multiselectable");
-					if (this.selectionMode === "single") {
-						this.setAttribute("aria-selectable", true);
+					if (this.selectionMode === "none") {
 						// update aria-selected attribute on unselected items
 						for (var i = 0; i < this.containerNode.children.length; i++) {
 							var child = this.containerNode.children[i];
-							if (child.getAttribute("aria-selected") === "false") {
-								child.removeAttribute("aria-selected");
+							if (child.renderNode.hasAttribute("aria-selected")) {
+								child.renderNode.removeAttribute("aria-selected");
+								domClass.remove(child, this._cssClasses.selected);
 							}
 						}
-					} else if (this.selectionMode === "multiple") {
-						this.setAttribute("aria-multiselectable", true);
+					} else {
+						if (this.selectionMode === "single") {
+							domClass.add(this, this._cssClasses.selectable);
+						} else {
+							domClass.add(this, this._cssClasses.multiselectable);
+							this.setAttribute("aria-multiselectable", true);
+						}
 						// update aria-selected attribute on unselected items
 						for (i = 0; i < this.containerNode.children.length; i++) {
 							child = this.containerNode.children[i];
 							if (domClass.contains(child, this._cssClasses.item)
-									&& !child.hasAttribute("aria-selected")) {
-								child.setAttribute("aria-selected", "false");
-							}
-						}
-					} else {
-						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
-							if (child.hasAttribute("aria-selected")) {
-								child.removeAttribute("aria-selected", "false");
+									&& !child.renderNode.hasAttribute("aria-selected")) {
+								child.renderNode.setAttribute("aria-selected", "false");
+								domClass.remove(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
 							}
 						}
 					}
@@ -301,8 +329,11 @@ define([
 
 		computeProperties: dcl.superCall(function (sup) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:11*/
+			/*jshint maxcomplexity:12*/
 			return function (props) {
+				if ("isAriaListbox" in props) {
+					this._refreshAriaListboxProperty();
+				}
 				if ("selectionMode" in props) {
 					if (this.selectionMode === "none") {
 						if (this._selectionClickHandle) {
@@ -429,15 +460,8 @@ define([
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
 						var itemSelected = !!this.isSelected(currentItem);
-						if (this.selectionMode === "single") {
-							if (itemSelected) {
-								renderer.setAttribute("aria-selected", true);
-							} else {
-								renderer.removeAttribute("aria-selected");
-							}
-						} else {
-							renderer.setAttribute("aria-selected", itemSelected);
-						}
+						renderer.renderNode.setAttribute("aria-selected", itemSelected);
+						domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 					}
 				}
 			}
@@ -466,6 +490,46 @@ define([
 		},
 
 		//////////// Private methods ///////////////////////////////////////
+
+		/*jshint maxcomplexity:12*/
+		_refreshAriaListboxProperty: function () {
+			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
+			if (this.isAriaListbox) {
+				if (this.selectionMode === "none") {
+					this.selectionMode = "single";
+				}
+				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
+				for (var i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "option");
+				}
+				nodes = this.querySelectorAll(".d-list-item[role='row']");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].removeAttribute("role");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category[role='row']");
+					for (i = 0; i < nodes.length; i++) {
+						nodes[i].removeAttribute("role");
+					}
+				}
+			} else {
+				nodes = this.querySelectorAll(".d-list-cell[role='option']");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "gridcell");
+				}
+				nodes = this.querySelectorAll(".d-list-item");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "row");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category");
+					for (i = 0; i < nodes.length; i++) {
+						nodes[i].setAttribute("role", "row");
+					}
+				}
+			}
+		},
+		/*jshint maxcomplexity:10*/
 
 		/**
 		 * Sets the "busy" status of the widget.
@@ -723,13 +787,8 @@ define([
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
-				if (this.selectionMode === "single") {
-					if (itemSelected) {
-						renderer.setAttribute("aria-selected", true);
-					}
-				} else {
-					renderer.setAttribute("aria-selected", itemSelected);
-				}
+				renderer.renderNode.setAttribute("aria-selected", itemSelected);
+				domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
 		},
@@ -913,10 +972,10 @@ define([
 		 * @private
 		 */
 		childSelector: function (child) {
-			return (child.getAttribute("role") === "gridcell" || child.hasAttribute("navindex"));
+			return (domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
-		/*jshint maxcomplexity:15*/
+		/*jshint maxcomplexity:16*/
 		/**
 		 * @method
 		 * Handle keydown events
@@ -926,30 +985,34 @@ define([
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
-				} else if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
-					if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
-						// Enter Actionable Mode
-						// TODO: prevent default ONLY IF autoAction is false on the renderer ?
-						// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-						evt.preventDefault();
-						this._enterActionableMode();
-					}
-				} else if (evt.keyCode === keys.TAB) {
-					if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
-						// We are in Actionable mode
-						evt.preventDefault();
-						var renderer = this._getFocusedRenderer();
-						var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
-						while (!next) {
-							renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
-								|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
-							next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+				} else {
+					if (!this.isAriaListbox) {
+						if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+							if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
+								// Enter Actionable Mode
+								// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+								// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+								evt.preventDefault();
+								this._enterActionableMode();
+							}
+						} else if (evt.keyCode === keys.TAB) {
+							if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
+								// We are in Actionable mode
+								evt.preventDefault();
+								var renderer = this._getFocusedRenderer();
+								var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+								while (!next) {
+									renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
+										|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+									next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+								}
+								this.focusChild(next);
+							}
+						} else if (evt.keyCode === keys.ESCAPE) {
+							// Leave Actionable mode
+							this._leaveActionableMode();
 						}
-						this.focusChild(next);
 					}
-				} else if (evt.keyCode === keys.ESCAPE) {
-					// Leave Actionable mode
-					this._leaveActionableMode();
 				}
 			}
 		}),
@@ -1013,7 +1076,7 @@ define([
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			return this.containerNode.querySelector("[role='gridcell']");
+			return this.containerNode.querySelector("." + this._cssClasses.cell);
 		},
 
 		/**
@@ -1023,7 +1086,7 @@ define([
 		 */
 		_getLast: function () {
 			// summary:
-			var cells = this.containerNode.querySelectorAll("[role='gridcell']");
+			var cells = this.containerNode.querySelectorAll("." + this._cssClasses.cell);
 			return cells.length ? cells.item(cells.length - 1) : null;
 		},
 

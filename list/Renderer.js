@@ -41,7 +41,6 @@ define([
 		 */
 		_focusableChildren: null,
 
-		
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
 		buildRendering: dcl.advise({
@@ -54,10 +53,18 @@ define([
 							+ " Example using attach-point in a template: "
 							+ "<template><div attach-point='renderNode'></div></template>");
 				}
+				this.renderNode.tabIndex = -1;
+				domClass.add(this.renderNode, "d-list-cell");
+				this.updateFocusableChildren();
+			}
+		}),
+
+		attachedCallback: dcl.after(function () {
+			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
 				this.setAttribute("role", "row");
 				this.renderNode.setAttribute("role", "gridcell");
-				this.renderNode.tabIndex = -1;
-				this.updateFocusableChildren();
+			} else {
+				this.renderNode.setAttribute("role", "option");
 			}
 		}),
 

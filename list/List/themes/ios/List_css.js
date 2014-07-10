@@ -34,7 +34,7 @@ d-list-store {\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
 }\
-.d-list-category [role=\"gridcell\"] {\
+.d-list-category .d-list-cell {\
   height: 22px;\
 }\
 .d-list-item {\
@@ -55,11 +55,11 @@ d-list-store {\
 .d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
 }\
-.d-list-item [role=\"gridcell\"] {\
+.d-list-item .d-list-cell {\
   height: 43px;\
 }\
-.d-list [role=\"gridcell\"],\
-.d-round-rect-list [role=\"gridcell\"] {\
+.d-list .d-list-cell,\
+.d-round-rect-list .d-list-cell {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -76,8 +76,8 @@ d-list-store {\
   -webkit-align-items: center;\
   outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] .d-spacer,\
-.d-round-rect-list [role=\"gridcell\"] .d-spacer {\
+.d-list .d-list-cell .d-spacer,\
+.d-round-rect-list .d-list-cell .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -101,7 +101,7 @@ d-list-store {\
   font-weight: bold;\
   color: #324f85;\
 }\
-.d-list-loader [role=\"gridcell\"] {\
+.d-list-loader .d-list-cell {\
   white-space: nowrap;\
   text-overflow: ellipsis;\
   overflow: hidden;\
@@ -173,26 +173,26 @@ d-list-store {\
 .d-list-loading-panel-info svg {\
   vertical-align: middle;\
 }\
-[aria-selectable=\"true\"] .d-list-item::before,\
-[aria-multiselectable=\"true\"] .d-list-item::before {\
+.d-selectable .d-list-item::before,\
+.d-multiselectable .d-list-item::before {\
   font-size: large;\
   padding-left: 5px;\
   display: block;\
   content: \"\\2610\";\
 }\
-[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before,\
-[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before {\
+.d-selectable .d-list-item.d-selected::before,\
+.d-multiselectable .d-list-item.d-selected::before {\
   content: \"\\2611\";\
 }\
-[aria-selectable=\"true\"] .d-list-item::after,\
-[aria-multiselectable=\"true\"] .d-list-item::after {\
+.d-selectable .d-list-item::after,\
+.d-multiselectable .d-list-item::after {\
   font-size: large;\
   padding-right: 5px;\
   display: none;\
   content: \"\\2610\";\
 }\
-[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after,\
-[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after {\
+.d-selectable .d-list-item.d-selected::after,\
+.d-multiselectable .d-list-item.d-selected::after {\
   content: \"\\2611\";\
 }\
 .d-list-container {\

@@ -315,7 +315,7 @@ Items are rendered inside a DIV element with the CSS class `d-list-item`.
 By default, all items are rendered with the same height defined using the following CSS:
 
 ```css
-d-list-item [role="gridcell"] {
+.d-list-item .d-list-cell {
 	height: ...;
 }
 ```
@@ -323,12 +323,12 @@ d-list-item [role="gridcell"] {
 To define variable height for the items, use the following CSS:
 
 ```css
-d-list-item [role="gridcell"] {
+.d-list-item .d-list-cell {
 	height: inherit;
 }
 ```
 
-When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
+When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-item .d-list-cell:focus`.
 
 The default item renderer allow futher styling of its content using the following CSS classes:
 
@@ -344,7 +344,7 @@ Categories are rendered inside a DIV element with the CSS class `d-list-category
 By default, all categories are rendered with the same height defined using the following CSS:
 
 ```css
-d-list-category [role="gridcell"] {
+.d-list-category .d-list-cell {
 	height: ...;
 }
 ```
@@ -352,22 +352,28 @@ d-list-category [role="gridcell"] {
 To define variable height for the categories, use the following CSS:
 
 ```css
-d-list-category [role="gridcell"] {
+.d-list-category .d-list-cell {
 	height: inherit;
 }
 ```
 
-When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
+When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-category .d-list-cell:focus`.
 
 ### Selection Marks Styling
+
+Depending on the `selectionMode` property value, the following CSS classes are added to the list:
+* `d-selectable` when `selectionMode` is `single`;
+* `d-multiselectable` when `selectionMode` is `mulitple`.
+
+The CSS class `d-selected` is added to each list item that is currently selected.
 
 By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
 
 ```css
-	[aria-selectable="true"] .d-list-item::before,[aria-multiselectable="true"] .d-list-item::before {
+	.d-selectable .d-list-item::before,.d-multiselectable .d-list-item::before {
 		display: none;
 	}
-	[aria-selectable="true"] .d-list-item::after,[aria-multiselectable="true"] .d-list-item::after {
+	.d-selectable .d-list-item::after,.d-multiselectable .d-list-item::after {
 		display: block;
 	}
 ```
@@ -382,22 +388,22 @@ The check mark for selectable items is rendered in a _before_ of _after_ pseudo 
 =================*/
 
 /* unselected mark placed BEFORE each list item */
-[aria-selectable="true"] .d-list-item::before {
+.d-selectable .d-list-item::before {
 	content: ...
 }
 
 /* selected mark placed BEFORE each list item */
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::before {
+.d-selectable .d-list-item.d-selected::before {
 	content: ...
 }
 
 /* unselected mark placed AFTER each list item */
-[aria-selectable="true"] .d-list-item::after {
+.d-selectable .d-list-item::after {
 	content: ...
 }
 
 /* selected mark placed AFTER each list item */
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::after {
+.d-selectable .d-list-item.d-selected::after {
 	content: ...
 }
 
@@ -406,22 +412,22 @@ The check mark for selectable items is rendered in a _before_ of _after_ pseudo 
 =================*/
 
 /* unselected mark placed BEFORE each list item */
-[aria-multiselectable="true"] .d-list-item::before {
+.d-multiselectable .d-list-item::before {
 	content: ...
 }
 
 /* selected mark placed BEFORE each list item */
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::before {
+.d-multiselectable .d-list-item.d-selected::before {
 	content: ...
 }
 
 /* unselected mark placed AFTER each list item */
-[aria-multiselectable="true"] .d-list-item::after {
+.d-multiselectable .d-list-item::after {
 	content: ...
 }
 
 /* selected mark placed AFTER each list item */
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::after {
+.d-multiselectable .d-list-item.d-selected::after {
 	content: ...
 }
 ```
@@ -463,6 +469,8 @@ contains the previous selection, and its `newValue` property contains the new se
 
 ### Accessibility
 
+TODO: TWO POSSIBLE ROLES: listbox or grid
+
 The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
 except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
 
@@ -482,7 +490,7 @@ the last one.
 You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
 
-When the `selectionMode` of a List is different than `"none"`, its `aria-selectable` (for selection mode `"single"`) or `aria-multiselectable` (for selection mode `"multiple"`) attribute is set to `"true"`.
+When the `selectionMode` of a List is `"multiple"`, its `aria-multiselectable` attribute is set to `"true"`.
 When an item is selected in such a list, its `aria-selected` attribute is set to the value `"true"`.
 
 ### Globalization

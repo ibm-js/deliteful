@@ -46,15 +46,16 @@
 	</script>
 	<style type="text/css">
 		/* CSS to place the selection mark after the list item instead of before the list item */
-		[aria-selectable="true"] .d-list-item::before {
+		.d-selectable .d-list-item::before {
 			display: none;
 		}
-		[aria-selectable="true"] .d-list-item::after {
+		.d-selectable .d-list-item::after {
 			display: block;
-		}
+		}		
 	</style>
 </head>
 <body role="application">
 	This sample demonstrate a list with single selection mode enabled, and the selection mark placed after the list item.
+	<input autofocus></input><br>
 </body>
 </html>
