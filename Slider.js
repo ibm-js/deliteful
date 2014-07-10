@@ -13,6 +13,14 @@ define([
 	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
 ], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, renderer) {
 	/**
+	 * @private
+	 */
+	function boxFromElement(domElt) {
+		var ret = domElt.getBoundingClientRect();
+		return {x: ret.left, y: ret.top, w: ret.right - ret.left, h: ret.bottom - ret.top};
+	}
+
+	/**
 	 * @summary
 	 * The Slider widget allows selecting one value or a pair of values, from a range delimited by a minimum (min) and
 	 * a maximum (max).
@@ -23,8 +31,8 @@ define([
 	 * and can be forced using the flip property. Handles can be move using pointers (mouse, touch) or keys
 	 * (up, down, home or end).
 	 *
-	 * A change event is fired after the user select a new value, either by releasing a pointer, or by pressing a 
-	 * selection key. Before a change event, input events are fired while the user moves the Slider handle. 
+	 * A change event is fired after the user select a new value, either by releasing a pointer, or by pressing a
+	 * selection key. Before a change event, input events are fired while the user moves the Slider handle.
 	 *
 	 * The Slider Widget supports ARIA attributes aria-valuemin, aria-valuemax, aria-valuenow and aria-orientation.
 	 *
@@ -213,7 +221,7 @@ define([
 				// root node: do not remove all classes; user may define custom classes; CssState adds classes that
 				// we do not want to lose.
 				domClass.replace(this, rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"),
-					toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
+						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
 						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
 						this.baseClass + "-v" + " " + this.baseClass + "-h");
 				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-remaining-bar");
@@ -250,8 +258,8 @@ define([
 					minValue = Math.min(minValue, maxValue);
 					maxValue = maxV;
 					// correct step mismatch/underflow/overflow
-					minValue = this._calculateCorrectValue(minValue, this.min);
-					maxValue = this._calculateCorrectValue(maxValue, minValue);
+					minValue = this._adjustValue(minValue, this.min);
+					maxValue = this._adjustValue(maxValue, minValue);
 					// set corrected value as needed
 					value = isDual ? (minValue + "," + maxValue) : String(maxValue);
 					if (value !== this.value) {
@@ -304,13 +312,13 @@ define([
 			 * @private
 			 */
 			_positionHandles: function () {
-				var currentValue = this._getValueAsArray();
-				if (currentValue.length === 1) {
-					currentValue = [this.min, currentValue[0]];
+				var currentVal = this._getValueAsArray();
+				if (currentVal.length === 1) {
+					currentVal = [this.min, currentVal[0]];
 				}
-				var toPercent = (currentValue[1] - this.min) * 100 /
+				var toPercent = (currentVal[1] - this.min) * 100 /
 						(this.max < this.min ? this.min : this.max - this.min),
-					toPercentMin = (currentValue[0] - this.min) * 100 /
+					toPercentMin = (currentVal[0] - this.min) * 100 /
 						(this.max < this.min ? this.min : this.max - this.min),
 					s = {};
 				s[this._propNames.progressBarSize] = (toPercent - toPercentMin) + "%";
@@ -325,15 +333,15 @@ define([
 			 */
 			_refreshValueRendering: function () {
 				var resetClasses,
-					currentValue = this._getValueAsArray();
-				if (!this.handleMin._isActive && currentValue.length === 2) {
+					currentVal = this._getValueAsArray();
+				if (!this.handleMin._isActive && currentVal.length === 2) {
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = "handleMin,focusNode";
 					resetClasses = true;
 					this.handleMin._isActive = true;
 				}
-				if (this.handleMin._isActive && currentValue.length === 1) {
+				if (this.handleMin._isActive && currentVal.length === 1) {
 					this.handleMin.className = "d-hidden";
 					this.handleMin.removeAttribute("aria-valuemin");
 					this.focusNode.setAttribute("aria-valuemin", this.min);
@@ -343,12 +351,12 @@ define([
 				}
 				// update aria attributes
 				if (this.handleMin._isActive) {
-					this.handleMin.setAttribute("aria-valuenow", currentValue[0]);
-					this.handleMin.setAttribute("aria-valuemax", currentValue[1]);
-					this.focusNode.setAttribute("aria-valuemin", currentValue[0]);
-					this.focusNode.setAttribute("aria-valuenow", currentValue[1]);
+					this.handleMin.setAttribute("aria-valuenow", currentVal[0]);
+					this.handleMin.setAttribute("aria-valuemax", currentVal[1]);
+					this.focusNode.setAttribute("aria-valuemin", currentVal[0]);
+					this.focusNode.setAttribute("aria-valuenow", currentVal[1]);
 				} else {
-					this.focusNode.setAttribute("aria-valuenow", currentValue[0]);
+					this.focusNode.setAttribute("aria-valuenow", currentVal[0]);
 				}
 				// set input field value.
 				this.valueNode.value = String(this.value);
@@ -357,8 +365,9 @@ define([
 
 			postCreate: function () {
 				this._pointerCtx = {
-					offsetValue: 0,
-					targetElt: null
+					target: null, // the element that has focus when user manipulate a pointer
+					offsetVal: 0, // Offset value when use points and drag a handle
+					containerBox: null // to avoid recalculations when moving the slider with a pointer
 				};
 				this.own(
 					on(this, "pointerdown", this._onPointerDown.bind(this)),
@@ -470,7 +479,7 @@ define([
 			 * maximum, unless the maximum is less than the minimum, in which case the default value
 			 * is the minimum.
 			 * @param ratio For a single handle, ratio is 0.5 ("half the difference between the minimum and the
-			 * maximum"). For dual handle, it is 0.25 or 0.75. 
+			 * maximum"). For dual handle, it is 0.25 or 0.75.
 			 * @private
 			 */
 			_calculateDefaultValue: function (ratio) {
@@ -484,7 +493,7 @@ define([
 			 * @returns {Number|*}
 			 * @private
 			 */
-			_calculateCorrectValue: function (value, relativeMin) {
+			_adjustValue: function (value, relativeMin) {
 				// value = (this.max > this.min) ? Math.min(this.max, value) : value;
 				// When the element is suffering from a step mismatch, the user agent must round the element's value to
 				// the nearest number for which the element would not suffer from a step mismatch, and which is greater
@@ -514,132 +523,103 @@ define([
 				return String(this.value).split(/,/g);
 			},
 
-			// jshint maxcomplexity: 12
 			_onPointerDown: function (e) {
-				if (this._shouldIgnoreUserInput(e)) {
+				if (this._ignoreUserInput(e)) {
 					return;
 				}
 
-				var getContainerBox = function () {
-					var ret = this.containerNode.getBoundingClientRect();
-					return {x: ret.left, y: ret.top, w: ret.right - ret.left, h: ret.bottom - ret.top};
-				}.bind(this);
+				this._pointerCtx.target = null;
+				this._pointerCtx.offsetVal = 0;
+				this._pointerCtx.containerBox = boxFromElement(this.containerNode);
+				var currentVal = this._getValueAsArray();
+				var selectedVal = this._selectedValue(e, this._pointerCtx.containerBox);
 
-				var isEligibleToSlideRange = function (currentValue, valueFromPosition, targetNode) {
-					return this.slideRange &&
-						currentValue[0] <= valueFromPosition &&
-						currentValue[1] >= valueFromPosition &&
-						targetNode !== this.focusNode && targetNode !== this.handleMin;
-				}.bind(this);
-
-				this._pointerCtx.offsetValue = 0;
-				this._pointerCtx.targetElt = this.focusNode;
-				this._pointerCtx.containerBox = getContainerBox();
-				var currentValue = this._getValueAsArray();
-				var valueFromPosition = this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox);
-				var slideHandles;
-				// Determine the handle targeted by the current pointer
-				if (currentValue.length > 1) {
-					if (isEligibleToSlideRange(currentValue, valueFromPosition, e.target)) {
-						this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
-						this._pointerCtx.targetElt = this.containerNode;
-						slideHandles = true;
+				if (this._startSlideRange(e)) {
+					// user is about to slide a range of values
+					this._pointerCtx.target = this.progressBar;
+					this._pointerCtx.offsetVal = selectedVal - currentVal[0];
+				} else {
+					// relativePos allow to determine which handle should get the focus and move, according to the
+					// selected value:
+					// relativePos > 0 => handleMin
+					// relativePos < 0 => focusNode
+					// relativePos = 0 => must be decided 
+					var relativePos = Math.abs(selectedVal - currentVal[1]) - Math.abs(selectedVal - currentVal[0]);
+					if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
+						this._pointerCtx.target = document.elementFromPoint(e.clientX, e.clientY);
+						this._pointerCtx.target.focus();
 					} else {
-						slideHandles = false;
-						// relativePos > 0 ==> handleMin
-						var relativePos = Math.abs(valueFromPosition - currentValue[1])
-							- Math.abs(valueFromPosition - currentValue[0]);
-						if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
-							// same position (and selected): get the one that is above the other
-							this._pointerCtx.targetElt = document.elementFromPoint(e.clientX, e.clientY);
-						} else {
-							if (relativePos === 0) {
-								// same position (not selected): get the only one that can move to the pointer position
-								relativePos = currentValue[0] -
-									Math.min(this.max - this.step, Math.max(this.min + this.step, valueFromPosition));
-							}
-							// get the closest one
-							this._pointerCtx.targetElt = (relativePos > 0) ? this.handleMin : this.focusNode;
+						if (relativePos === 0) {
+							// determine which handle can move to the position of the selected value.
+							relativePos = currentVal[0] -
+								Math.min(this.max - this.step, Math.max(this.min + this.step, selectedVal));
 						}
+						// get the handle which is closest from the selected value.
+						this._pointerCtx.target = (relativePos > 0) ? this.handleMin : this.focusNode;
+						this._pointerCtx.target.focus();
+						this.handleOnInput(this._formatSelection(selectedVal, this._pointerCtx.target));
 					}
 				}
-				this._pointerCtx.targetElt.focus();
-
-				if (e.target !== this.focusNode && e.target !== this.handleMin) {
-					if (slideHandles) {
-						// this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
-					} else {
-						// the pointer is not above an handle, so we just set the value from the position of the pointer
-						this.handleOnInput(this._getSelectedValue(valueFromPosition, this._pointerCtx.targetElt));
-					}
-				} else {
-					// the pointer is above an handle: retain the offset which depends where the pointer coordinates are
-					// the handle area
-					if (currentValue.length === 1) {
-						this._pointerCtx.offsetValue = valueFromPosition - currentValue[0];
-					} else {
-						this._pointerCtx.offsetValue = valueFromPosition -
-							(this._pointerCtx.targetElt === this.handleMin ? currentValue[0] : currentValue[1]);
-					}
+				if (e.target === this.focusNode || e.target === this.handleMin) {
+					// track offset between current and selected value 
+					this._pointerCtx.offsetVal = selectedVal -
+						currentVal[(this.handleMin._isActive && (this._pointerCtx.target === this.focusNode)) ? 1 : 0];
 				}
 				// start capture on the target element
-				dpointer.setPointerCapture(this._pointerCtx.targetElt, e.pointerId);
+				dpointer.setPointerCapture(this._pointerCtx.target, e.pointerId);
 			},
 
 			_onPointerMove: function (e) {
-				if (e.target === this._pointerCtx.targetElt) {
-					this.handleOnInput(
-						this._getSelectedValue(
-								this._calculateValueFromPointerPosition(e, this._pointerCtx.containerBox) -
-								this._pointerCtx.offsetValue, e.target)
-					);
+				if (e.target === this._pointerCtx.target) {
+					this.handleOnInput(this._formatSelection(this._selectedValue(e, this._pointerCtx.containerBox) -
+						this._pointerCtx.offsetVal, e.target));
 				}
 			},
 
 			_onLostCapture: function () {
-				this._pointerCtx.targetElt = null;
+				this._pointerCtx.target = null;
 				this.handleOnChange(this.value);
 			},
 
 			// jshint maxcomplexity: 13
 			_onKeyDown: function (e) {
-				if (this._shouldIgnoreUserInput(e)) {
+				if (this._ignoreUserInput(e)) {
 					return;
 				}
-				var currentValue = this._getValueAsArray(),
-					idx = (e.target === this.focusNode) ? currentValue.length - 1 : 0,
+				var currentVal = this._getValueAsArray(),
+					idx = (e.target === this.focusNode) ? currentVal.length - 1 : 0,
 					multiplier = 1,
 					newValue;
 				switch (e.keyCode) {
 				case keys.HOME:
-					newValue = [this.min, currentValue[0]][idx];
+					newValue = [this.min, currentVal[0]][idx];
 					break;
 				case keys.END:
-					newValue = (e.target === this.handleMin) ? currentValue[1] : this.max;
+					newValue = (e.target === this.handleMin) ? currentVal[1] : this.max;
 					break;
 				case keys.RIGHT_ARROW:
 					multiplier = -1;
 					/* falls through */
 				case keys.LEFT_ARROW:
-					newValue = parseFloat(currentValue[idx]) +
+					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((this.flip && !this.vertical) ? this.step : -this.step);
 					break;
 				case keys.DOWN_ARROW:
 					multiplier = -1;
 					/* falls through */
 				case keys.UP_ARROW:
-					newValue = parseFloat(currentValue[idx]) +
+					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((!this.flip || !this.vertical) ? this.step : -this.step);
 					break;
 				default:
 					return;
 				}
-				this.handleOnInput(this._getSelectedValue(newValue, e.target));
+				this.handleOnInput(this._formatSelection(newValue, e.target));
 				e.preventDefault();
 			},
 
 			_onKeyUp: function (e) {
-				if (this._shouldIgnoreUserInput(e)) {
+				if (this._ignoreUserInput(e)) {
 					return;
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
@@ -667,23 +647,41 @@ define([
 			 * @returns {Boolean}
 			 * @private
 			 */
-			_shouldIgnoreUserInput: function (event) {
+			_ignoreUserInput: function (event) {
 				return this.disabled || this.readOnly || event.altKey || event.ctrlKey || event.metaKey;
 			},
 
 			/**
-			 * Read pointer coordinates and calculate the corresponding value, corrected with the step, without
+			 * Return true if all conditions required to slide a range of value are fulfilled.
+			 * @param uiEvent
+			 * @returns {boolean}
+			 * @private
+			 */
+			_startSlideRange: function (uiEvent) {
+				if (!(this.slideRange && this.handleMin._isActive) ||
+					uiEvent.target === this.focusNode || uiEvent.target === this.handleMin) {
+					return false;
+				}
+				var progressBarBox = boxFromElement(this.progressBar);
+				var currentPos = uiEvent[this._propNames.clientStart] - progressBarBox[this._propNames.start];
+				var maxPos = progressBarBox[this._propNames.size];
+				return (currentPos >= 0 && currentPos <= maxPos);
+			},
+
+			/**
+			 * Read UI Event coordinates and calculate the corresponding value, corrected with the step, without
 			 * enforcing boundaries to allow user to slide the handle outside the boundaries to set value to min/max.
-			 * @param event PointerEvent
+			 * @param uiEvent a UI event
 			 * @param containerBox
 			 * @private
 			 */
-			_calculateValueFromPointerPosition: function (event, containerBox) {
+			_selectedValue: function (uiEvent, containerBox) {
 				function pixel2value(pixelValue, pixelMin, pixelMax, valMin, valMax) {
 					return ((pixelValue - pixelMin) * (valMax - valMin)) / (pixelMax - pixelMin) + valMin;
 				}
+
 				var pixelMax = containerBox[this._propNames.size];
-				var pixelValue = event[this._propNames.clientStart] - containerBox[this._propNames.start];
+				var pixelValue = uiEvent[this._propNames.clientStart] - containerBox[this._propNames.start];
 				return Math.round(pixel2value(pixelValue, this._reversed ? pixelMax : 0, this._reversed ? 0 : pixelMax,
 					this.min, this.max) / this.step) * this.step;
 			},
@@ -695,19 +693,19 @@ define([
 			 * @param sourceNode the node responsible of the new selected value
 			 * @private
 			 */
-			_getSelectedValue: function (newValue, sourceNode) {
-				var currentValue = this._getValueAsArray();
+			_formatSelection: function (newValue, sourceNode) {
+				var currentVal = this._getValueAsArray();
 				var updatedValue = newValue;
 				switch (sourceNode) {
 				case this.focusNode:
-					updatedValue = (currentValue.length === 1) ? String(newValue) :
-						Math.min(currentValue[0], newValue) + "," + newValue;
+					updatedValue = (currentVal.length === 1) ? String(newValue) :
+						Math.min(currentVal[0], newValue) + "," + newValue;
 					break;
 				case this.handleMin:
-					updatedValue = newValue + "," + Math.max(currentValue[1], newValue);
+					updatedValue = newValue + "," + Math.max(currentVal[1], newValue);
 					break;
-				case this.containerNode:
-					var delta = currentValue[1] - currentValue[0];
+				case this.progressBar:
+					var delta = currentVal[1] - currentVal[0];
 					newValue = Math.max(this.min, Math.min(newValue + delta, this.max) - delta);
 					updatedValue = newValue + "," + (newValue + delta);
 					break;
