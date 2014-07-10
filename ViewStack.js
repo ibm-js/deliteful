@@ -8,11 +8,11 @@ define(["dcl/dcl",
 	"delite/register",
 	"delite/Widget",
 	"delite/DisplayContainer",
-	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack",
-	"delite/css!./ViewStack/transitions/slide",
-	"delite/css!./ViewStack/transitions/reveal",
-	"delite/css!./ViewStack/transitions/flip",
-	"delite/css!./ViewStack/transitions/fade"],
+	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
+	"delite/css!./ViewStack/transitions/slide.css",
+	"delite/css!./ViewStack/transitions/reveal.css",
+	"delite/css!./ViewStack/transitions/flip.css",
+	"delite/css!./ViewStack/transitions/fade.css"],
 	function (dcl, has, on, Deferred, domGeometry, domClass, register, Widget, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {

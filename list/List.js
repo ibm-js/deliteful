@@ -17,8 +17,8 @@ define([
 	"./CategoryRenderer",
 	"./_DefaultStore",
 	"./_LoadingPanel",
-	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List,./List/themes/{{theme}}/List_rtl:" +
-		"delite/theme!./List/themes/{{theme}}/List"
+	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List.css," +
+		"./List/themes/{{theme}}/List_rtl.css:delite/theme!./List/themes/{{theme}}/List.css"
 ], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
 		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 

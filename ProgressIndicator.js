@@ -5,7 +5,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
-	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator"
+	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator.css"
 ], function (dcl, register, Widget, Invalidating, renderer) {
 	/**
 	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.

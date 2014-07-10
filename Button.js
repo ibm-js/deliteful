@@ -6,7 +6,7 @@ define([
 	"delite/Widget",
 	"delite/Invalidating",
 	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
-	"delite/theme!./Button/themes/{{theme}}/Button"
+	"delite/theme!./Button/themes/{{theme}}/Button.css"
 ], function (dcl, has, domConstruct, register, Widget, Invalidating, BidiButton) {
 
 	var Button = dcl([Widget, Invalidating], {
