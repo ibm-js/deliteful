@@ -1,10 +1,5 @@
 @import "../../../../delite/themes/holodark/common";
 
-.holo-slider-background-image () {
-  background-image: -webkit-gradient(radial, 9 9, 3, 9 9, 9, from(@holo-color1), color-stop(0, @holo-color1), color-stop(0.01, @holo-slider-thumb-color), to(@holo-slider-thumb-color));
-  background-image: radial-gradient(circle closest-side at center, #FFFFFF 0%, #A435C5 50%, #251AE7 75%, #00A3EF 100%);
-}
-
 @d-slider-size: auto;
 @d-slider-halo-size: 12pt;
 @d-slider-bar-border-width: 1px; // for a11y
@@ -19,9 +14,7 @@
 @d-slider-knob-border-style: solid;
 @d-slider-knob-border-color: transparent;
 @d-slider-knob-border-radius: 10em;
-.d-slider-knob-background-image () { .default-button-background-image(); }
 
-//
 .d-slider-styles () {
 }
 .d-slider-bar-styles () {
@@ -33,7 +26,9 @@
   background-color: @holo-color1;
 }
 .d-slider-handle-styles () {
-  .holo-slider-background-image();
+  background-color: #33B5E5;
+  border-color: #000000;
+  outline: none;
 }
 
 @import "../Slider_template";
