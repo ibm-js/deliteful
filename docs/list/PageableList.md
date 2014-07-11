@@ -1,56 +1,92 @@
+---
+layout: default
+title: deliteful/list/PageableList
+---
+
 # deliteful/list/PageableList
 
-The PageableList widget extends the [deliteful/list/List](./List.md) widget and adds paging capabilities.
+The PageableList widget extends the [deliteful/list/List](./List.md) widget and adds paging capabilities to it.
 
-A pageable list does not load and display its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
+A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
 
 Its custom element tag is `d-pageable-list`.
 
-TODO: INSERT SCREENSHOT(S) HERE
+![Next Page Loader Example](images/PageLoader.png)
 
-A pageable list is defined and created using the following piece of code:
+##### Table of Contents
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)  
+[Element Styling](#styling)  
+[User Interactions](#interactions)  
+[Mixins](#mixins)  
+[Element Events](#events)  
+[Enteprise Use](#enterprise)  
 
-```js
-		require([
-			"deliteful/list/PageableList",
-			"requirejs-domready/domReady!"
-		], function (PageableList) {
-			var pageableList = new PageableList();
-			...
-			pageableList.startup();
-		});
-```
+<a name="instantiation"></a>
+## Element Instantiation
 
-This can also be done using markup, as in the following example:
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
+
+### Declarative Instantiation
 
 ```html
-<head>
-	...
-	<script>
-		require([
-		    "delite/register",
-			"deliteful/list/PageableList",
-			"requirejs-domready/domReady!"
-		], function (register, PageableList) {
-			register.parse();
-		});
-	</script>
-</head>
-<body>
-	<d-pageable-list store="...">
-	</d-pageable-list>
-</body>
+<!-- A pageable list of categorized items that uses the default item renderer, -->
+<!-- mapping the sales property of items to righttext, and using the -->
+<!-- region property as the item category -->
+<d-pageable-list height="100%" righttextAttr="sales" categoryAttr="region">
+	<d-list-store>
+		<!-- Add the following items to the list store -->
+		{ label: "France", sales: 500, profit: 50, region: "EU" },
+		{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+		{ label: "UK", sales: 700, profit: 60, region: "EU" },
+		{ label: "USA", sales: 2000, profit: 250, region: "America" },
+		{ label: "Canada", sales: 600, profit: 30, region: "America" },
+		{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+		{ label: "China", sales: 500, profit: 40, region: "Asia" },
+		{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+  	</d-list-store>
+  </d-list>
 ```
+### Programmatic Instantiation
+
+```js
+require(["dstore/Memory", "delite/list/PageableList", "dojo/domReady!"], function (Memory, PageableList) {
+  // Create a memory store for the list and initialize it
+  var dataStore = new Memory({idProperty: "label", data:
+    [
+      { label: "France", sales: 500, profit: 50, region: "EU" },
+      { label: "Germany", sales: 450, profit: 48, region: "EU" },
+      { label: "UK", sales: 700, profit: 60, region: "EU" },
+      { label: "USA", sales: 2000, profit: 250, region: "America" },
+      { label: "Canada", sales: 600, profit: 30, region: "America" },
+      { label: "Brazil", sales: 450, profit: 30, region: "America" },
+      { label: "China", sales: 500, profit: 40, region: "Asia" },
+      { label: "Japan", sales: 900, profit: 100, region: "Asia" }
+  ]});
+  // A pageable list of categorized items from dataStore, that uses the default item renderer,
+  // mapping the sales property of items to righttext and using the region property
+  // as the item category.
+  var list = new PageableList({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+  list.style.height = "100%";
+  list.placeAt(document.body);
+  list.startup();
+});
+```
+
+<a name="configuration"></a>
+## Element Configuration
+
+See also [deliteful/list/List configuration](./List.md#configuration) for the element configuration inherited from the `deliteful/list/List` widget.
 
 ##### Table of content
 
 - [Defining the length of pages](#pagelength)
 - [Defining the maximum number of pages to display at once](#maxnbpages)
-- [User controls to load and display more data](#pageloaders)
 - [Hiding the list while it is busy loading and displaying a page of items](#hiding)
+- [Other properties](#otherProperties)
 
 <a name="pagelength"/>
-## Defining the length of pages
+### Defining the length of pages
 
 When started, a pageable list will load and display only one page of data, and will provide user controls to load and display more pages of data (if there is more data).
 
@@ -96,7 +132,7 @@ Here is the same example using markup:
 In this example, the list will load (up to) the first 100 items from the store, display them, and provide user controls to load another page of (up to) 100 items if there are more items in the store.
 
 <a name="maxnbpages"/>
-## Defining the maximum number of pages to display at once
+### Defining the maximum number of pages to display at once
 
 The property `maxPages` defines the maximum number of pages to display at the same time, allowing to keep the size of the DOM under control when using very large lists of items.
 
@@ -112,8 +148,45 @@ Here is an example that illustrates the unloading mechanism, using a pageable li
 
 If the `maxPages` property is set to 0 or less, there is no maximum number of pages (pages are never unloaded).
 
-<a name="pageloaders"/>
-## User controls to load and display more data
+<a name="hiding"/>
+### Hiding the list while it is busy loading and displaying a page of items
+
+The pageable list provides the options to hides its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`.
+
+<a name="otherProperties"/>
+### Other properties
+
+See the [User Interactions section](#interactions) for the other available properties of a pageable list.
+
+<a name="styling"></a>
+## Element Styling
+
+See also [deliteful/list/List styling](./List.md#styling) for the element styling inherited from the `deliteful/list/List` widget.
+
+The CSS class of a page loader is `d-list-loader`.
+
+When a page is currently loading, the CSS class `d-loading` is added to the page loader.
+
+The progress indicator that is displayed when a page is loading can also be styled using CSS. See [Progress indicator styling](../ProgressIndicator.md#styling) for more details.
+
+The following example demonstrate how to customize the progress indicator using CSS, so that both the progress indicator and the text are displayed in red:
+
+```css
+.d-list-loader {
+	color: red;
+}
+.d-list-loader.d-loading {
+	color: red;
+}
+.d-list-loader.d-loading .d-progress-indicator-lines {
+	stroke: red;
+}
+```
+
+<a name="interactions"></a>
+## User Interactions
+
+See also [deliteful/list/List user interactions](./List.md#interactions) for the user interactions inherited from the `deliteful/list/List` widget.
 
 The list provides up to two user controls to load and display more data:
 
@@ -131,24 +204,24 @@ The user controls for loading pages are clickable (or activable using the SPACE 
 
 If there is a next page of data in the store, the user control is displayed at the end of the list:
 
-TODO: INSERT SCREENSHOT HERE
+![Next Page Loader Example](images/PageLoader.png)
 
 The message that is displayed by the control can be customized using the `loadNextMessage` of a pageable List (see the API documentation for more information).
 
 When the user control is activated, its appearance changes while the list is busy retrieving data from the store and displaying it:
 
-TODO: INSERT SCREENSHOT HERE
+![Next Page Loading Example](images/PageLoading.png)
 
 The message that is displayed when the list is busy can also be customized, using the `loadingMessage` property of a pageable list.
 
 When the new page of items is displayed, the first new item gains the focus and the user control is either deleted (if there is no more data in the store) or moved to the end of the list:
 
-TODO: INSERT SCREENSHOT HERE
+![Next Page Loaded Example](images/PageLoaded.png)
 
 The user control to load the previous page of data follows the same pattern, except that it is displayed at the top of the list rather than at the end of the list,
 and that the property `loadPreviousMessage` defines what it displays:
 
-TODO: INSERT SCREENSHOT HERE
+![Previous Page Loader Example](images/PreviousPageLoader.png)
 
 ### Activation by scrolling
 
@@ -156,7 +229,27 @@ The user controls, when they exist, can be automatically activated when the user
 
 To activate this behavior, the `autoPaging` property must be set to `true` on the pageable list.
 
-<a name="hiding"/>
-## Hiding the list while it is busy loading and displaying a page of items
+<a name="mixins"></a>
+## Mixins
 
-The pageable list provides the options to hides its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`.
+See also [deliteful/list/List mixins](./List.md#mixins) for the mixins provided for the inherited `deliteful/list/List` widget.
+
+No specific Mixin is currently provided for this widget.
+
+<a name="events"></a>
+## Element Events
+
+See also [deliteful/list/List element events](./List.md#events) for the element events inherited from the `deliteful/list/List` widget.
+
+No specific event is emitted by this widget.
+
+<a name="enterprise"></a>
+## Enterprise Use
+
+See also [deliteful/list/List enterprise use](./List.md#enterprise) for the enterprise use inherited from the `deliteful/list/List` widget.
+
+### Globalization
+
+`deliteful/list/PageableList` provides an internationalizable bundle that contains only one message, with the key `default-load-message`.
+This is the message displayed by page loaders.
+ This message supports the keyword `${pageLength}`, that is replaced by the current value of the `pageLength` property of the widget.

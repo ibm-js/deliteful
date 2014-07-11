@@ -13,5 +13,8 @@ define([
 	"./StarRating",
 	"./list/all",
 	"./ProgressBar",
-	"./ProgressIndicator"
+	"./ProgressIndicator",
+	"./Toaster",
+	"./ToasterMessage",
+	"./ToasterMessage-insert-show-hide-remove"
 ]);

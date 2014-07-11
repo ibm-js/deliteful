@@ -1,13 +1,11 @@
 /** @module deliteful/list/ItemRenderer */
-define(["dcl/dcl",
-        "dojo/dom-class",
-        "delite/register",
-        "delite/handlebars",
-        "requirejs-text/text!./List/ItemRenderer.html",
-        "./Renderer"
-], function (dcl, domClass, register, handlebars, defaultTemplate, Renderer) {
-
-	var templateCache = {};
+define([
+	"dcl/dcl",
+	"dojo/dom-class",
+	"delite/register",
+	"delite/handlebars!./List/ItemRenderer.html",
+	"./Renderer"
+], function (dcl, domClass, register, templateFunc, Renderer) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -41,24 +39,9 @@ define(["dcl/dcl",
 		 */
 		baseClass: "d-list-item",
 
-		/**
-		 * The {@link module:delite/handlebars} template for the item renderer.
-		 * Note that this value cannot be updated at runtime, it is only mean to
-		 * provide an easy way to customize the renderer when subclassing.
-		 * @member {string}
-		 * @protected
-		 */
-		template: defaultTemplate,
-
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: function () {
-			if (!(this.template in templateCache)) {
-				templateCache[this.template] = handlebars.compile(this.template);
-			}
-			var renderFunc = templateCache[this.template];
-			renderFunc.call(this);
-		}
+		buildRendering: templateFunc,
 
 	});
 

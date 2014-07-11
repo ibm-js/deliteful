@@ -2,5 +2,6 @@
 define([
 	"./StarRating",
 	"./ScrollableContainer",
-	"./list/all"
+	"./list/all",
+	"./Toaster"
 ]);

@@ -5,7 +5,8 @@ title: deliteful/SidePane
 
 # deliteful/SidePane
 
-`deliteful/SidePane` is a sliding pane displayed on the side of the screen. It can be displayed on top of the page (mode=overlay) or can push the content of the page (mode=push or mode=reveal). This widget is hidden by default. Its visibility is controlled by `show` and `hide` methods.
+`deliteful/SidePane` is a sliding pane displayed on the side of the screen. It can be displayed on top of the page (mode=overlay) or can push the content of the page (mode=push or mode=reveal). In push mode, the SidePane comes from out of the screen, like if the SidePane was pushing the content of the page. In reveal mode, the SidePane is already below the content of the page, the page reveals the SidePane during the transition. 
+ This widget is hidden by default. Its visibility is controlled by `show` and `hide` methods.
 
 *Push and Reveal mode (left), Overlay mode (right)*
 
@@ -28,7 +29,7 @@ See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/LinearLayout", "requirejs-domready/domReady!"], function (register) {
+require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"], function (register) {
   register.parse();
 });
 ```
@@ -70,7 +71,7 @@ For disabling sliding animated transition, set `animate` attribute to `false`.
 
 `deliteful/SidePane` has no visual appearance, it does not provide any CSS class for styling.
 
-The height of a `deliteful/LinearLayout` is set to `"100%"` by default. As a consequence, the height of all its ancestors (including `<body>`) must also be expressed as percentage.
+The height of a `deliteful/SidePane` is set to `"100%"` by default. As a consequence, the height of all its ancestors (including `<body>`) must also be expressed as percentage.
 
 ### Styling Limitations
 
@@ -90,7 +91,7 @@ Rely on browser.
 
 ### Globalization
 
-`deliteful/LinearLayout` does not provide any internationalizable bundle.
+`deliteful/SidePane` does not provide any internationalizable bundle.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/SidePane` element.
 

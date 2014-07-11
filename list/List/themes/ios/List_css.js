@@ -26,8 +26,6 @@ d-list-store {\
   font-weight: bold;\
   color: white;\
   text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;\
-  height: 22px;\
-  line-height: 22px;\
   border-top: 1px solid #a4b0b9;\
   border-bottom: 1px solid #979da3;\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));\
@@ -35,6 +33,9 @@ d-list-store {\
 }\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
+}\
+.d-list-category [role=\"gridcell\"] {\
+  height: 22px;\
 }\
 .d-list-item {\
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
@@ -50,10 +51,12 @@ d-list-store {\
   -webkit-align-items: center;\
   border-bottom: 1px solid #adaaad;\
   background-color: #ffffff;\
-  line-height: 43px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
   padding: 0 8px;\
+}\
+.d-list-item [role=\"gridcell\"] {\
+  height: 43px;\
 }\
 .d-list [role=\"gridcell\"],\
 .d-round-rect-list [role=\"gridcell\"] {\
@@ -73,8 +76,8 @@ d-list-store {\
   -webkit-align-items: center;\
   outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] > .d-spacer,\
-.d-round-rect-list [role=\"gridcell\"] > .d-spacer {\
+.d-list [role=\"gridcell\"] .d-spacer,\
+.d-round-rect-list [role=\"gridcell\"] .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -91,7 +94,7 @@ d-list-store {\
   font-weight: bold;\
 }\
 .d-list-item-right-text {\
-  margin-right: 4px;\
+  padding-right: 4px;\
   overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
@@ -115,6 +118,12 @@ d-list-store {\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  -webkit-box-flex: 1;\
+  -moz-box-flex: 1;\
+  -webkit-flex: 1;\
+  -ms-flex: 1;\
+  flex: 1;\
+  margin: 0px 5px;\
 }\
 .d-list-loader [role=\"button\"] .d-progress-indicator {\
   width: 24px;\
@@ -127,7 +136,7 @@ d-list-store {\
 .d-list-loader [role=\"button\"] div {\
   padding-left: 10px;\
 }\
-.d-list-loader.d-loading [role=\"gridcell\"] {\
+.d-list-loader.d-loading {\
   cursor: wait;\
   color: #808080;\
   font-weight: normal;\
@@ -166,6 +175,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::before,\
 [aria-multiselectable=\"true\"] .d-list-item::before {\
+  font-size: large;\
+  padding-left: 5px;\
   display: block;\
   content: \"\\2610\";\
 }\
@@ -175,6 +186,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::after,\
 [aria-multiselectable=\"true\"] .d-list-item::after {\
+  font-size: large;\
+  padding-right: 5px;\
   display: none;\
   content: \"\\2610\";\
 }\

@@ -15,6 +15,26 @@ define([
 
 	var list = null;
 
+	var waitForCondition = function (func, timeout, interval) {
+		var wait = function (def, start) {
+			setTimeout(function () {
+				if (func()) {
+					def.resolve();
+				} else {
+					if (new Date() - start > timeout) {
+						def.reject(new Error("timeout"));
+					} else {
+						wait(def, start);
+					}
+				}
+			}, interval);
+		};
+		var def = new Deferred();
+		var start = new Date();
+		wait(def, start);
+		return def;
+	};
+
 	var removeTabsAndReturns = function (str) {
 		return str.replace(/\t/g, "").replace(/\n/g, "");
 	};
@@ -279,7 +299,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 92; i++, j += 2) {
@@ -387,7 +407,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 24; i++, j += 2) {
@@ -477,7 +497,7 @@ define([
 			if (useObservableStore) {
 				var M = declare([MemoryStore, Observable], {});
 				list.store = new M({data: []});
-				list.preProcessStore = function (collection) {
+				list.processQueryResult = function (collection) {
 					return collection.sort("order");
 				};
 				for (var i = 0, j = 1; i < 100; i++, j += 2) {
@@ -1117,11 +1137,13 @@ define([
 			return dfd;
 		},
 		"autoPaging: categorized list with category headers destroyed when loading pages": function () {
+			var TIMEOUT = 2000;
+			var INTERVAL = 100;
 			if (navigator.userAgent.indexOf("Firefox") >= 0) {
 				// This test is not reliable on Firefox
 				return;
 			}
-			var def = this.async(7000);
+			var def = this.async(1000 + 3 * TIMEOUT);
 			list = new PageableList();
 			list.categoryAttr = "category";
 			list.pageLength = 25;
@@ -1138,7 +1160,9 @@ define([
 			setTimeout(def.rejectOnError(function () {
 				// scroll to the bottom
 				list.scrollableNode.scrollTop = (list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight);
-				setTimeout(def.rejectOnError(function () {
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 49") >= 0;
+				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
 					assertCategorizedList(list, 50, 0, false, true);
 					assert.equal("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
 							"last visible renderer after first page load");
@@ -1150,7 +1174,9 @@ define([
 							// scroll to the bottom
 							list.scrollableNode.scrollTop =
 								((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight));
-							setTimeout(def.rejectOnError(function () {
+							waitForCondition(function () {
+								return list.textContent.indexOf("item 74") >= 0;
+							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
 								assertCategorizedList(list, 50, 25, true, true);
 								assert.equal("Category 5",
 										removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
@@ -1161,18 +1187,20 @@ define([
 									setTimeout(def.rejectOnError(function () {
 										// scroll to the top
 										list.scrollableNode.scrollTop = 0;
-										setTimeout(def.callback(function () {
+										waitForCondition(function () {
+											return list.textContent.indexOf("item 24") >= 0;
+										}, TIMEOUT, INTERVAL).then(def.callback(function () {
 											assertCategorizedList(list, 50, 0, false, true);
 											assert.equal("item 24",
 													removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
 														"first visible renderer");
-										}), 2000);
+										}));
 									}), 0);
 								}), 0);
-							}), 2000);
+							}));
 						}), 0);
 					}), 0);
-				}), 2000);
+				}));
 			}), 0);
 			return def;
 		},
@@ -1184,4 +1212,5 @@ define([
 //			list = null;
 		}
 	});
+
 });

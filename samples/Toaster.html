@@ -1,0 +1,44 @@
+<!doctype html>
+<html id="html">
+<head>
+
+	<meta name="viewport"
+	      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+	<title>Toaster samples</title>
+	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+
+	<script type="text/javascript">
+		require([
+			"deliteful/ToasterMessage",
+			"deliteful/Toaster",
+			"requirejs-domready/domReady!"
+		], function (ToasterMessage, Toaster) {
+			window.toaster = new Toaster({placementClass: "d-toaster-placement-tr"});
+			toaster.placeAt("body")
+			toaster.startup();
+			var timeout = 0;
+			var messages = [
+				new ToasterMessage({ message: "This will fade on its own"}),
+				new ToasterMessage({ message: "This one too"}),
+				new ToasterMessage({ message: "You need to dismiss this yourself, or it won't go away", duration: -1 }), 
+				];
+			messages.forEach(function(m){
+					setTimeout(function(){
+						toaster.postMessage(m)
+					}, timeout)
+					timeout += (Math.floor(Math.random()*3) + 1)*1000
+			});
+			window.input = document.getElementById("input");
+		});
+	</script>
+</head>
+<body id="body">
+	<input id="input" type="text" value="Something to post">
+	<button onclick="toaster.postMessage(input.value)">post</button>
+</body>
+</html>

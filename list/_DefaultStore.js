@@ -2,16 +2,15 @@
  * @module deliteful/list/_DefaultStore
  * @private
  */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 ], function (dcl) {
 	
 	var FilterAndRange = {
 
 		filter: function () {
-			var	result = this.slice();
-			result.total = this.length;
-			dcl.mix(result, FilterAndRange);
-			return result;
+			this.total = this.length;
+			return this;
 		},
 
 		range: function (start, end) {

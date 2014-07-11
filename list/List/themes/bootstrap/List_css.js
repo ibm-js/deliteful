@@ -33,11 +33,12 @@ d-list-store {\
   background-color: #f5f5f5;\
   color: #333333;\
   border-bottom: 1px solid #dddddd;\
-  height: 40px;\
-  line-height: 40px;\
 }\
 .d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
+}\
+.d-list-category [role=\"gridcell\"] {\
+  height: 35px;\
 }\
 .d-list-item {\
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */\
@@ -52,10 +53,12 @@ d-list-store {\
   align-items: center;\
   -webkit-align-items: center;\
   border-bottom: 1px solid #dddddd;\
-  line-height: 40px;\
 }\
 .d-list-item [role=\"gridcell\"] {\
-  padding: 0 8px;\
+  padding: 0px 8px;\
+}\
+.d-list-item [role=\"gridcell\"] {\
+  height: 40px;\
 }\
 .d-list [role=\"gridcell\"],\
 .d-round-rect-list [role=\"gridcell\"] {\
@@ -75,8 +78,8 @@ d-list-store {\
   -webkit-align-items: center;\
   outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] > .d-spacer,\
-.d-round-rect-list [role=\"gridcell\"] > .d-spacer {\
+.d-list [role=\"gridcell\"] .d-spacer,\
+.d-round-rect-list [role=\"gridcell\"] .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -92,7 +95,7 @@ d-list-store {\
   text-overflow: ellipsis;\
 }\
 .d-list-item-right-text {\
-  margin-right: 4px;\
+  padding-right: 4px;\
   overflow: hidden;\
   white-space: nowrap;\
   text-overflow: ellipsis;\
@@ -103,7 +106,7 @@ d-list-store {\
   overflow: hidden;\
   cursor: pointer;\
   font-weight: 500;\
-  height: 40px;\
+  height: 38px;\
   border-bottom: 1px solid #dddddd;\
 }\
 .d-list-loader [role=\"gridcell\"]:hover {\
@@ -115,6 +118,12 @@ d-list-store {\
   display: -ms-flexbox;\
   display: -webkit-flex;\
   display: flex;\
+  -webkit-box-flex: 1;\
+  -moz-box-flex: 1;\
+  -webkit-flex: 1;\
+  -ms-flex: 1;\
+  flex: 1;\
+  margin: 0px 5px;\
 }\
 .d-list-loader [role=\"button\"] .d-progress-indicator {\
   width: 24px;\
@@ -127,13 +136,13 @@ d-list-store {\
 .d-list-loader [role=\"button\"] div {\
   padding-left: 10px;\
 }\
-.d-list-loader.d-loading [role=\"gridcell\"] {\
+.d-list-loader.d-loading {\
   cursor: wait;\
   color: #999999;\
   font-weight: normal;\
   font-style: italic;\
 }\
-.d-list-loader.d-loading [role=\"gridcell\"]:hover {\
+.d-list-loader.d-loading:hover {\
   background-color: inherit;\
 }\
 .d-list-loading-panel {\
@@ -168,6 +177,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::before,\
 [aria-multiselectable=\"true\"] .d-list-item::before {\
+  font-size: large;\
+  padding-left: 5px;\
   display: block;\
   content: \"\\2610\";\
 }\
@@ -177,6 +188,8 @@ d-list-store {\
 }\
 [aria-selectable=\"true\"] .d-list-item::after,\
 [aria-multiselectable=\"true\"] .d-list-item::after {\
+  font-size: large;\
+  padding-right: 5px;\
   display: none;\
   content: \"\\2610\";\
 }\

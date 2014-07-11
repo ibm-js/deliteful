@@ -20,12 +20,13 @@
 		require([
 			"delite/register",
 			"deliteful/list/ItemRenderer",
-			"deliteful/list/List"
-		], function (register, ItemRenderer) {
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html"
+		], function (register, ItemRenderer, List, templateFunc) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				template: "<template><div data-attach-point='renderNode'><div navindex='0'>{{item.title}}</div><div class='d-spacer'></div><div navindex='0'>ISBN: {{item.isbn}}</div></div></template>"
+				buildRendering: templateFunc
 			});
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.setAttribute("aria-label", "Sample list with custom item renderer");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;

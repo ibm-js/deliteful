@@ -23,7 +23,7 @@
 			"deliteful/list/List"
 		], function (register, ItemRenderer) {
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
-				template: "<template><div data-attach-point='renderNode'></div></template>",
+				template: "<template><div attach-point='renderNode'></div></template>",
 				_setItemAttr: function (item) {
 					this._set("item", item);
 					this.renderNode.innerHTML = "";
