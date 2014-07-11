@@ -77,8 +77,9 @@ define(function () {
   margin: 0;\
   background: gray;\
   background-clip: content-box;\
-  background-image: -webkit-gradient(radial, 9 9, 3, 9 9, 9, from(#33b5e5), color-stop(0, #33b5e5), color-stop(0.01, rgba(31, 83, 102, 0.8)), to(rgba(31, 83, 102, 0.8)));\
-  background-image: radial-gradient(circle closest-side at center, #ffffff 0%, #a435c5 50%, #251ae7 75%, #00a3ef 100%);\
+  background-color: #33B5E5;\
+  border-color: #000000;\
+  outline: none;\
 }\
 .d-slider-h-htl .d-slider-handle-max,\
 .d-slider-h-lth .d-slider-handle-min {\
