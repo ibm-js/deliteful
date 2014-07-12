@@ -35,29 +35,32 @@
 		// Create rating widget programmaticaly
 		var rating = new StarRating({
 			id: "editablestar6",
-			max:7,
+			max: 7,
 			editHalfValues: true,
 			value: 3.5
-		}).placeAt("editablestar6", 'replace');
+		}).placeAt("editablestar6", "replace");
 		rating.focusNode.setAttribute("aria-labelledby", "editablestar6-label");
-		rating.watch('value', function(name, oldValue, value){
-			document.getElementById("editablestar6value").innerHTML = "Rating is " + value + " star" + (value > 1 ? "s" : "");				
+		rating.observe(function(props){		// TODO: StarRating should support .on("change", ...)
+			if ("value" in props) {
+				document.getElementById("editablestar6value").innerHTML = "Rating is " + rating.value +
+						(rating.value === 1 ? " star" : " stars");
+			}
 		});
 		rating.startup();
 
-		rating = new StarRating({
+		var rating2 = new StarRating({
 			id: "secondtabindexstar",
 			tabIndex: 2
-		}).placeAt("secondtabindexstar", 'replace');
-		rating.setAttribute("aria-labelledby", "secondtabindexstar-label");
-		rating.startup();
+		}).placeAt("secondtabindexstar", "replace");
+		rating2.setAttribute("aria-labelledby", "secondtabindexstar-label");
+		rating2.startup();
 
-		rating = new StarRating({
+		rating2 = new StarRating({
 			id: "secondnotabindexstar",
 			tabIndex: -1
-		}).placeAt("secondnotabindexstar", 'replace');
-		rating.setAttribute("aria-labelledby", "secondnotabindexstar-label");
-		rating.startup();
+		}).placeAt("secondnotabindexstar", "replace");
+		rating2.setAttribute("aria-labelledby", "secondnotabindexstar-label");
+		rating2.startup();
 
 		// Set global variable to signal that the test page is ready
 		ready = true;

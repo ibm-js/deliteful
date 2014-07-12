@@ -100,8 +100,8 @@ define([
 		refreshRendering: register.dcl.superCall(function (sup) {
 			return function (props) {
 				sup.call(this, props);
-				if ("disabled" in props !== undefined) {
-					this._refreshDisabledClass();
+				if ("disabled" in props) {
+					domClass.toggle(this, this.baseClass + "-disabled", this.disabled);
 				}
 				if ("max" in props) {
 					this.focusNode.setAttribute("aria-valuemax", this.max);
@@ -127,14 +127,6 @@ define([
 			};
 		}),
 		/* jshint maxcomplexity: 10 */
-
-		_refreshDisabledClass: function () {
-			if (this.disabled) {
-				domClass.add(this, this.baseClass + "-disabled");
-			} else {
-				domClass.remove(this, this.baseClass + "-disabled");
-			}
-		},
 
 		_refreshStarsRendering: function () {
 			var createChildren = this.focusNode.children.length - 1 !== 2 * this.max;
