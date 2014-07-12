@@ -145,10 +145,10 @@ define([
 						setTimeout(function () {
 							assert.isNull(list._selectionClickHandle, "second none");
 							dfd.resolve();
-						}, 0);
-					}, 0);
-				}, 0);
-			}, 0);
+						}, 10);
+					}, 10);
+				}, 10);
+			}, 10);
 			return dfd;
 		},
 		"delete selected item": function () {

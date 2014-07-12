@@ -216,7 +216,10 @@ define([
 
 			postCreate: function () {
 				setVisibility(this, false);
-				this.deliver();
+
+				// trigger refreshRendering() to run and apply mode & position even if they are the default values
+				this.notifyCurrentValue("mode");
+				this.notifyCurrentValue("position");
 			},
 
 			preCreate: function () {
@@ -250,7 +253,7 @@ define([
 					}
 				}
 
-				if (props.mode) {
+				if ("mode" in props) {
 					domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
 					domClass.add(this, prefix(this.mode));
 
@@ -272,7 +275,7 @@ define([
 
 				}
 
-				if (props.position) {
+				if ("position" in props) {
 					domClass.remove(this, [prefix("start"), prefix("end")]);
 					domClass.add(this, prefix(this.position));
 					if (nextElement && this._visible) {

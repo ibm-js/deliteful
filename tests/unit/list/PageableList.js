@@ -1090,7 +1090,7 @@ define([
 				setTimeout(dfd.callback(function () {
 					assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "foo",
 							"loader label not updated");
-				}), 0);
+				}), 10);
 			}));
 			return dfd;
 		},
@@ -1110,7 +1110,7 @@ define([
 				setTimeout(dfd.callback(function () {
 					assert.equal(removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
 							"foo", "loader label not updated");
-				}), 0);
+				}), 10);
 			}));
 			return dfd;
 		},
@@ -1195,13 +1195,13 @@ define([
 													removeTabsAndReturns(list._getFirstVisibleRenderer().textContent),
 														"first visible renderer");
 										}));
-									}), 0);
-								}), 0);
+									}), 10);
+								}), 10);
 							}));
-						}), 0);
-					}), 0);
+						}), 10);
+					}), 10);
 				}));
-			}), 0);
+			}), 10);
 			return def;
 		},
 		///////////////////////////////////////////

@@ -168,7 +168,7 @@ define([
 
 		computeProperties: function (props) {
 			var correctedValue = null;
-			if (props.speed) {
+			if ("speed" in props) {
 				//fast: 500ms
 				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
@@ -177,7 +177,7 @@ define([
 					this._lapsTime = correctedValue;
 				}
 			}
-			if (props.value && !isNaN(this.value)) {
+			if ("value" in props && !isNaN(this.value)) {
 				correctedValue = Math.max(Math.min(this.value, 100), 0);
 				if (this.value !== correctedValue) {
 					this.value = correctedValue;
@@ -190,7 +190,7 @@ define([
 
 		refreshRendering: function (props) {
 			//refresh value
-			if (props.value) {
+			if ("value" in props) {
 				if (isNaN(this.value)) {
 					//NaN: start the animation
 					if (this.active) {
@@ -215,7 +215,7 @@ define([
 
 			}
 			//refresh speed
-			if (props.speed) {
+			if ("speed" in props) {
 				//if animation is ongoing, restart the animation to take the new speed into account
 				if (this._requestId) {
 					this._stopAnimation();
@@ -223,7 +223,7 @@ define([
 				}
 			}
 			//refresh active
-			if (props.active) {
+			if ("active" in props) {
 				if (this.active) {
 					if (isNaN(this.value)) {
 						//NaN: start the animation
