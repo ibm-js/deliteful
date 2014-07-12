@@ -60,7 +60,7 @@ define([
 				for (var i = 0; i < nodeList.length; ++i) {
 					this.labels.push(String(nodeList[i].innerHTML));
 				}
-				this.deliver();
+				this.notifyCurrentValue("labels");
 			}
 		}),
 
