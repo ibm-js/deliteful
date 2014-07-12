@@ -21,8 +21,8 @@ define([
 				sr.max = 2;
 				setTimeout(dfd.callback(function () {
 					assert.equal(sr.focusNode.children.length, 5, "number of children for max = 2");
-				}), 0);
-			}), 0);
+				}), 10);
+			}), 10);
 			return dfd;
 		},
 		teardown: function () {

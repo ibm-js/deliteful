@@ -302,9 +302,9 @@ define([
 
 		//////////// delite/Store methods ///////////////////////////////////////
 
-		refreshProperties: dcl.superCall(function (sup) {
+		computeProperties: dcl.superCall(function (sup) {
 			return function (props) {
-				var doQuery = props.store || props.query;
+				var doQuery = "store" in props || "query" in props;
 				sup.call(this, props);
 				if (doQuery)  {
 					// Initial loading of the list

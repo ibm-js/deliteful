@@ -262,7 +262,7 @@ define([
 				if (sup) {
 					sup.call(this, props);
 				}
-				if (props.selectionMode) {
+				if ("selectionMode" in props) {
 					// Update aria attributes
 					this.removeAttribute("aria-selectable");
 					this.removeAttribute("aria-multiselectable");
@@ -303,7 +303,7 @@ define([
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
 			return function (props) {
-				if (props.selectionMode) {
+				if ("selectionMode" in props) {
 					if (this.selectionMode === "none") {
 						if (this._selectionClickHandle) {
 							this._selectionClickHandle.remove();
@@ -315,12 +315,15 @@ define([
 						}
 					}
 				}
-				if (props.itemRenderer
+				if ("itemRenderer" in props
 					|| (this._isCategorized()
-							&& (props.categoryAttr || props.categoryFunc || props.categoryRenderer))) {
+							&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
 					if (this._dataLoaded) {
 						this._setBusy(true, true);
-						props.store = true; // to trigger a reload of the list.
+
+						// trigger a reload of the list
+						this.notifyCurrentValue("store");
+						this.deliverComputing();
 					}
 				}
 				if (sup) {
@@ -508,7 +511,7 @@ define([
 		},
 
 		/**
-		 * Returns wheher the list is categorized or not.
+		 * Returns whether the list is categorized or not.
 		 * @private
 		 */
 		_isCategorized: function () {

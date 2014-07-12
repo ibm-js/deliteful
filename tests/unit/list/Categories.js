@@ -271,7 +271,7 @@ define([
 				checkItem(children[15], "item 8");
 				checkCategory(children[16], "item 9");
 				checkItem(children[17], "item 9");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"custom category function": function () {
@@ -300,7 +300,7 @@ define([
 				checkItem(children[15], "item 8");
 				checkCategory(children[16], "item 9");
 				checkItem(children[17], "item 9");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"Add items on top of a list, all list items of the same category": function () {

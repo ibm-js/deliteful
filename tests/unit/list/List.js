@@ -56,7 +56,7 @@ define([
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "vertical";
 				assert.equal(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"scroll direction none": function () {
@@ -65,7 +65,7 @@ define([
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "none";
 				assert.equal(list.className, "d-list");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"getRendererByItemId": function () {
@@ -112,7 +112,7 @@ define([
 				assert.equal(children[0].className, "d-list-category", "first is category");
 				assert.equal(list._getFirst(), children[0].renderNode, "first renderer is category");
 				dfd.resolve();
-			}, 0);
+			}, 10);
 			return dfd;
 		},
 		"_getLast": function () {
@@ -179,7 +179,7 @@ define([
 					assert.isNotNull(queryErrorEvt);
 					assert.equal("Query Error X", queryErrorEvt.error, "error message");
 					assert(!list.hasAttribute("aria-busy"));
-				}), 0);
+				}), 10);
 			} catch (e) {
 				def.reject(e);
 			}
@@ -214,12 +214,12 @@ define([
 								} catch (error) {
 									def.reject(error);
 								}
-							}), 0);
+							}), 10);
 						}), 500);
 					} catch (error) {
 						def.reject(error);
 					}
-				}), 0);
+				}), 10);
 			} catch (error) {
 				def.reject(error);
 			}
