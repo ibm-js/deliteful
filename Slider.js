@@ -365,15 +365,17 @@ define([
 					on(this.focusNode, "focus", this._onFocus.bind(this)),
 					on(this.handleMin, "focus", this._onFocus.bind(this))
 				);
+				// ensure CSS are applied
+				this.notifyCurrentValue("vertical");
+				// apply default tabIndex in case the default is used.
+				this.notifyCurrentValue("tabIndex");
 				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
-				// ensure CSS are applied
-				// apply default tabIndex in case the default is used.
 				// force calculation of the default value in case it is not specified.
-				this.deliver();
+				this.notifyCurrentValue("value");
 			},
 
 			startup: function () {
