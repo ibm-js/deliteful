@@ -49,14 +49,14 @@ define([
 		},
 
 		/*jshint maxcomplexity: 15*/
-		refreshRendering: function (props) {
+		refreshRendering: function (oldValues) {
 			// summary:
 			//		Render or re-render the widget, based on property settings.
 			//		Note that this will always create sub-nodes to contain the icon and the label,
 			//		even though that's only really necessary when both are present.
 
 			// Add or remove icon, or change its class
-			if (props.iconClass) {
+			if ("iconClass" in oldValues) {
 				if (this.iconClass && !has("highcontrast")) {
 					this.iconNode = this.iconNode || domConstruct.create("span", null, this, "first");
 					this.iconNode.className = "d-reset d-inline d-icon " + this.iconClass;
@@ -67,7 +67,7 @@ define([
 			}
 			// Set or remove label
 			var showLabel = this.label && (this.showLabel || has("highcontrast"));
-			if (props.label || props.showLabel) {
+			if ("label" in oldValues || "showLabel" in oldValues) {
 				if (showLabel) {
 					this.containerNode = this.containerNode ||
 						domConstruct.create("span", {className: "d-reset d-inline duiButtonText"}, this);
@@ -80,7 +80,7 @@ define([
 
 			// Set title.  If no label is shown and no title has been specified,
 			// label is also set as title attribute of icon.
-			if (props.title || props.label) {
+			if ("title" in oldValues || "label" in oldValues) {
 				this.title = this.title || (!showLabel && this.label) || "";
 			}
 		}
