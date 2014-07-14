@@ -41,6 +41,7 @@
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider");
 			for (i = 0; i < nodeList.length; ++i) {
+				nodeList[i].deliverComputing();
 				document.getElementById(nodeList[i].id + "_value").value = nodeList[i].value;
 			}
 			// set onchange listener
