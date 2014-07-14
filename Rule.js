@@ -1,13 +1,10 @@
 define([
-	"dojo/_base/lang",
 	"requirejs-dplugins/has",
-	"dojo/dom-construct",
-	"dojo/dom-style",
 	"dojo/dom-class",
 	"delite/register",
 	"delite/Widget",
 	"delite/theme!./Rule/css/Rule_css"
-], function (lang, has, domConstruct, domStyle, domClass, register, Widget) {
+], function (has, domClass, register, Widget) {
 
 	function toCSS(baseClass, modifier) {
 		return baseClass.split(" ").map(function (c) {
@@ -51,7 +48,7 @@ define([
 		reverse: false,
 
 		preCreate: function () {
-			this.labels = lang.clone(this.labels);
+			this.labels = this.labels && this.labels.slice();
 		},
 
 		buildRendering: register.after(function () {
@@ -72,21 +69,22 @@ define([
 			//		private
 			var children = this.querySelectorAll("div"), css, node, i;
 			var count = isNaN(this.count) ? this.labels.length : this.count;
-			if (props.count || props.labels) {
+			if ("count" in props || "labels" in props) {
 				for (i = 0; i < count; i++) {
 					if (i < children.length) {
 						node = children[i];
 					} else {
-						node = domConstruct.create("div", {}, this, "last");
+						node = this.ownerDocument.createElement("div");
+						this.placeAt(node, "last");
 					}
 					css = toCSS(this.baseClass, "-label");
 					domClass.add(node, css);
 				}
 			}
-			if (props.reverse && this.reverse) {
+			if ("reverse" in props && this.reverse) {
 				this.labels.reverse();
 			}
-			if (props.vertical && count > 0) {
+			if ("vertical" in props && count > 0) {
 				var pos = 0, label;
 				if (count === 1) {
 					pos = 50;
@@ -102,7 +100,7 @@ define([
 						(this.vertical ? "\u2014" : "\u007c");
 					node.innerHTML = label;
 					this._setLabelDirection(node);
-					domStyle.set(node, this.vertical ? "top" : "left", pos + "%");
+					node.style[this.vertical ? "top" : "left"] = pos + "%";
 					pos = 100 / ((count - 1) / (i + 1));
 				}
 			}
@@ -125,8 +123,8 @@ define([
 		};
 
 		dRule.prototype._setLabelDirection = function (labelNode) {
-			domStyle.set(labelNode, "direction", this.textDir ?
-				this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "");
+			labelNode.style.direction = this.textDir ?
+				this.getTextDir(labelNode.innerText || labelNode.textContent || "") : "";
 		};
 	}
 

@@ -17,7 +17,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.min = 20;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 20, 100, 1, false, false, "50");
 			destroySlider(slider);
 		},
@@ -25,7 +25,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.min = 60;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 60, 100, 1, false, false, "60");
 			destroySlider(slider);
 		},
@@ -33,7 +33,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.max = 80;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 80, 1, false, false, "50");
 			destroySlider(slider);
 		},
@@ -41,7 +41,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.max = 40;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 40, 1, false, false, "40");
 			destroySlider(slider);
 		},
@@ -49,16 +49,16 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.value = 50.1;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "50");
 			slider.value = 50.5;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "51");
 			slider.step = 20;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 20, false, false, "60");
 			slider.value = 90;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 20, false, false, "100");
 			destroySlider(slider);
 		},
@@ -66,10 +66,10 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.value = 20;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "20");
 			slider.value = 90;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "90");
 			destroySlider(slider);
 		},
@@ -77,10 +77,10 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.value = -10;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0");
 			slider.value = 110;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "100");
 			destroySlider(slider);
 		}
@@ -98,7 +98,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			slider.min = 20;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 20, 100, 1, false, false, "25,75");
 			destroySlider(slider);
 		},
@@ -106,7 +106,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			slider.min = 50;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 50, 100, 1, false, false, "50,75");
 			destroySlider(slider);
 		},
@@ -114,7 +114,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			slider.max = 80;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 80, 1, false, false, "25,75");
 			destroySlider(slider);
 		},
@@ -122,7 +122,7 @@ define([
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			slider.max = 60;
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 60, 1, false, false, "25,60");
 			destroySlider(slider);
 		},
@@ -131,10 +131,10 @@ define([
 			var slider = createDualSlider();
 			slider.step = 20;
 			slider.value = "50,70";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 20, false, false, "60,80");
 			slider.value = "10,90";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 20, false, false, "20,100");
 			destroySlider(slider);
 		},
@@ -142,10 +142,10 @@ define([
 			msgPrefix = this.id;
 			var slider = createDualSlider();
 			slider.value = "10,30";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "10,30");
 			slider.value = "60,90";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "60,90");
 			destroySlider(slider);
 		},
@@ -153,16 +153,16 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.value = "-10,20";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0,20");
 			slider.value = "-10,-5";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0,0");
 			slider.value = "80,110";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "80,100");
 			slider.value = "110,150";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "100,100");
 			destroySlider(slider);
 		},
@@ -170,16 +170,16 @@ define([
 			msgPrefix = this.id;
 			var slider = createSingleSlider();
 			slider.value = "75,25";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "25,75");
 			slider.value = "110,50";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "50,100");
 			slider.value = "50,-10";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0,50");
 			slider.value = "110,-10";
-			slider.validate();
+			slider.deliver();
 			checkSliderProperties(slider, 0, 100, 1, false, false, "0,100");
 			destroySlider(slider);
 		}
@@ -189,12 +189,14 @@ define([
 		var slider = new Slider();
 		document.body.appendChild(slider);
 		slider.startup();
+		slider.deliver();
 		return slider;
 	}
 	function createDualSlider() {
 		var slider = new Slider({value: ","});
 		document.body.appendChild(slider);
 		slider.startup();
+		slider.deliver();
 		return slider;
 	}
 

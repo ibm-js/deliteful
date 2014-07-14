@@ -232,7 +232,7 @@ define([
 			},
 
 			computeProperties: function (props) {
-				if (props.value || props.min || props.max || props.step) {
+				if ("value" in props || "min" in props || "max" in props || "step" in props) {
 					var value = this._getValueAsArray(),
 						isDual = value.length > 1,
 						// convert and set default value(s) as needed
@@ -252,35 +252,35 @@ define([
 					if (value !== this.value) {
 						this.value = value;
 						// do not wait for another cycle
-						this.deliver();
+						this.notifyCurrentValue("value");
 					}
 				}
 			},
 
 			refreshRendering: function (props) {
 				var resetCSS, resetReversed;
-				if (props.value) {
+				if ("value" in props) {
 					resetCSS = this._refreshValueRendering();
 				}
-				if (props.vertical) {
+				if ("vertical" in props) {
 					this._refreshOrientation();
 					resetReversed = true;
 					resetCSS = true;
 				}
-				if (props.flip) {
+				if ("flip" in props) {
 					resetReversed = true;
 					resetCSS = true;
 				}
-				if (props.name) {
+				if ("name" in props) {
 					var name = this.name;
 					this.removeAttribute("name");
 					// won't restore after a browser back operation since name changed nodes
 					this.valueNode.setAttribute("name", name);
 				}
-				if (props.max) {
+				if ("max" in props) {
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 				}
-				if (props.min) {
+				if ("min" in props) {
 					(this.handleMin._isActive ? this.handleMin : this.focusNode)
 						.setAttribute("aria-valuemin", this.min);
 				}
@@ -381,7 +381,7 @@ define([
 			startup: function () {
 				// force immediate validation, otherwise in certain cases a call to slider.value returns the default
 				// value declared in the markup instead of the calculated default value.
-				this.deliver();
+				this.notifyCurrentValue("value");
 				// ensure input is in sync after default value is calculated
 				this.valueNode.value = String(this.value);
 				if (this.valueNode.getAttribute("value") === null) {
