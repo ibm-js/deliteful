@@ -43,7 +43,7 @@
 		rating.observe(function(props){		// TODO: StarRating should support .on("change", ...)
 			if ("value" in props) {
 				document.getElementById("editablestar6value").innerHTML = "Rating is " + rating.value +
-						(rating.value === 1 ? " star" : " stars");
+						(rating.value > 1 ? " stars" : " star");
 			}
 		});
 		rating.startup();
