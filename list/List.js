@@ -485,7 +485,9 @@ define([
 		_handleSelection: function (/*Event*/event) {
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
-				this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+				if (!this._isCategoryRenderer(eventRenderer)) {
+					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+				}
 			}
 		},
 
@@ -972,6 +974,11 @@ define([
 		 * @private
 		 */
 		childSelector: function (child) {
+			if (this.isAriaListbox) {
+				if (this._isCategoryRenderer(this.getEnclosingRenderer(child))) {
+					return false;
+				}
+			}
 			return (domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
@@ -1076,7 +1083,11 @@ define([
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			return this.containerNode.querySelector("." + this._cssClasses.cell);
+			var first = this.containerNode.querySelector("." + this._cssClasses.cell);
+			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
+				first = this._getNext(first, 1);
+			}
+			return first;
 		},
 
 		/**
@@ -1087,7 +1098,11 @@ define([
 		_getLast: function () {
 			// summary:
 			var cells = this.containerNode.querySelectorAll("." + this._cssClasses.cell);
-			return cells.length ? cells.item(cells.length - 1) : null;
+			var last = cells.length ? cells.item(cells.length - 1) : null;
+			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
+				last = this._getNext(last, -1);
+			}
+			return last;
 		},
 
 		// Simple arrow key support.
@@ -1098,9 +1113,13 @@ define([
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
-				this.containerNode.firstElementChild.renderNode);
+			var next = this._getFocusedRenderer().nextElementSibling;
+			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+				next = next.nextElementSibling;
+			}
+//			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
+//				this.containerNode.firstElementChild.renderNode);
+			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
 		/**
@@ -1110,9 +1129,13 @@ define([
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
-				this.containerNode.lastElementChild.renderNode);
+			var next = this._getFocusedRenderer().previousElementSibling;
+			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+				next = next.previousElementSibling;
+			}
+//			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
+//				this.containerNode.lastElementChild.renderNode);
+			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
 		/**

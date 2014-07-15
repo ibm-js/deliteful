@@ -59,15 +59,6 @@ define([
 			}
 		}),
 
-		attachedCallback: dcl.after(function () {
-			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
-				this.setAttribute("role", "row");
-				this.renderNode.setAttribute("role", "gridcell");
-			} else {
-				this.renderNode.setAttribute("role", "option");
-			}
-		}),
-
 		// Interface from List to Renderer to navigate fields
 
 		/**

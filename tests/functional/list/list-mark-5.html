@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "delite/register",
+			"deliteful/list/List",
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+   	<h2>10 items declared as markup, default store, categorized (id: list-mark-3)</h2>
+	<d-list id="list-mark-3" baseClass="d-round-rect-list" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext" isAriaListbox="true">
+		<d-list-store>
+			{"label": "list item 0", "righttext": "A"},
+			{"label": "list item 1", "righttext": "A"},
+			{"label": "list item 2", "righttext": "A"},
+			{"label": "list item 3", "righttext": "A"},
+			{"label": "list item 4", "righttext": "A"},
+			{"label": "list item 5", "righttext": "B"},
+			{"label": "list item 6", "righttext": "B"},
+			{"label": "list item 7", "righttext": "B"},
+			{"label": "list item 8", "righttext": "B"},
+			{"label": "list item 9", "righttext": "B"}
+		</d-list-store>
+	</d-list>
+	<br>
+	<button onclick="var list = document.getElementById('list-mark-3'); list.categoryAttr = (list.categoryAttr === 'righttext' ? 'label' : 'righttext');">Toggle category attribute between righttext and label.</button>
+</body>
+</html>

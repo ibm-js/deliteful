@@ -22,7 +22,20 @@ define([
 		 */
 		baseClass: "d-list-category",
 
-		template: template
+		template: template,
+
+		//////////// PROTECTED METHODS ///////////////////////////////////////
+
+		attachedCallback: dcl.after(function () {
+			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
+				this.setAttribute("role", "row");
+				this.renderNode.setAttribute("role", "columnheader");
+			} else {
+				this.renderNode.removeAttribute("tabindex");
+				this.renderNode.setAttribute("role", "heading");
+			}
+		})
+
 	});
 
 	return register("d-list-category-renderer", [HTMLElement, CategoryRenderer]);

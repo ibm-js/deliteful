@@ -39,7 +39,19 @@ define([
 		 */
 		baseClass: "d-list-item",
 
-		template: template
+		template: template,
+
+		//////////// PROTECTED METHODS ///////////////////////////////////////
+
+		attachedCallback: dcl.after(function () {
+			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
+				this.setAttribute("role", "row");
+				this.renderNode.setAttribute("role", "gridcell");
+			} else {
+				this.renderNode.setAttribute("role", "option");
+			}
+		})
+
 	});
 
 	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);
