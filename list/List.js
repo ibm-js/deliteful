@@ -1117,8 +1117,6 @@ define([
 			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
 				next = next.nextElementSibling;
 			}
-//			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
-//				this.containerNode.firstElementChild.renderNode);
 			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
@@ -1133,8 +1131,6 @@ define([
 			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
 				next = next.previousElementSibling;
 			}
-//			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
-//				this.containerNode.lastElementChild.renderNode);
 			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
