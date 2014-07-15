@@ -133,8 +133,8 @@ define([
 			this._requestId = this._requestRendering(frameAnimation);
 		},
 
-		buildRendering: function () {
-			renderer.call(this);
+		buildRendering: function (document, register) {
+			renderer.call(this, document, register);
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
 		},
 

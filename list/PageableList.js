@@ -101,9 +101,9 @@ define([
 			this.on("click", this._load.bind(this));
 		},
 
-		buildRendering: function () {
+		buildRendering: function (document, register) {
 			var renderFunc = handlebars.compile(template);
-			renderFunc.call(this);
+			renderFunc.call(this, document, register);
 		},
 
 		//////////// Public methods ///////////////////////////////////////
