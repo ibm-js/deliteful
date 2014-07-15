@@ -35,7 +35,7 @@
 			createChild = function (){
 				var newChild = document.createElement("div");
 				newChild.id = "eee";
-				newChild.innerHTML = "EEE";
+				newChild.innerHTML = "<h1>EEE</h1>";
 				newChild.style.backgroundColor = "orangered";
 				vs.addChild(newChild);
 				vs.show(newChild);
@@ -49,7 +49,7 @@
 			width: 10em;
 		}
 		#vs > div {
-			font-size: 15em;
+			font-size: 20px;
 			font-family: Helvetica;
 			text-align: center;
 			font-weight: bold;
@@ -70,16 +70,16 @@
 <br>
 <d-view-stack id="vs" selectedChildId="bbb">
 	<div style="background-color: honeydew; " id="aaa">
-		AAA
+		<h1>AAA</h1>
 	</div>
 	<div style="background-color: whitesmoke;" id="bbb">
-		BBB
+		<h1>BBB</h1>
 	</div>
 	<div style="background-color: powderblue;" id=ccc>
-		CCC
+		<h1>CCC</h1>
 	</div>
 	<div style="background-color: oldlace;" id="ddd">
-		DDD
+		<h1>DDD</h1>
 	</div>
 </d-view-stack>
 <br>
@@ -128,7 +128,7 @@
 
 <div style="display: none">
 	<div style="background-color: darkolivegreen;" id="fff">
-		FFF
+		<h1>FFF</h1>
 	</div>
 </div>
 </body>

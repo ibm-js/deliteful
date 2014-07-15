@@ -18,9 +18,6 @@ define(function () {
   width: 100%;\
   height: 100%;\
 }\
-.-d-view-stack-transition > * {\
-  position: absolute;\
-}\
 .-d-view-stack-transition {\
   overflow-x: hidden;\
   overflow-y: hidden;\
