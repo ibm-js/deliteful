@@ -21,7 +21,7 @@ define([
 	 *   <div>...</div>
 	 * </d-linear-layout>
 	 * @class module:deliteful/LinearLayout
-	 * @augments {module:delite/Container}
+	 * @augments module:delite/Container
 	 */
 	return register("d-linear-layout", [HTMLElement, Widget, DisplayContainer],
 		/** @lends module:deliteful/LinearLayout# */{

@@ -58,7 +58,7 @@ define(["dcl/dcl",
 		 * </d-view-stack>
 		 * <button onclick="vs.show(childB, {transition: 'reveal', reverse: true})">...</button>
 		 * @class module:deliteful/ViewStack
-		 * @augments {module:delite/DisplayContainer}
+		 * @augments module:delite/DisplayContainer
 		 */
 		return register("d-view-stack", [HTMLElement, DisplayContainer],
 			/** @lends module:deliteful/ViewStack# */{

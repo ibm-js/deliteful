@@ -19,7 +19,7 @@ define([
 	 * <d-progress-indicator active="true" style="width: 100%; height: 100%"></d-progress-indicator>
 	 *
 	 * @class module:deliteful/ProgressIndicator
-	 * @augments {module:delite/Widget}
+	 * @augments module:delite/Widget
 	 */
 	return register("d-progress-indicator", [HTMLElement, Widget],
 		/** @lends module:deliteful/ProgressIndicator# */ {

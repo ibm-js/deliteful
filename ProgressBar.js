@@ -27,7 +27,7 @@ define([
 	 * When the progress bar is indeterminate, use the message property to display a message.
 	 *
 	 * @class module:deliteful/ProgressBar
-	 * @augments {module:delite/Widget}
+	 * @augments module:delite/Widget
 	 */
 	return register("d-progress-bar", [HTMLElement, Widget], /** @lends module:deliteful/ProgressBar# */{
 
