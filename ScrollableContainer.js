@@ -17,8 +17,8 @@ define([
 	 *   <div>...</div>
 	 * </d-scrollable-container>
 	 * @class module:deliteful/ScrollableContainer
-	 * @augments {module:delite/Container}
-	 * @augments {module:delite/Scrollable}
+	 * @augments module:delite/Container
+	 * @augments module:delite/Scrollable
 	 */
 	return register("d-scrollable-container", [HTMLElement, Container, Scrollable],
 		/** @lends module:deliteful/ScrollableContainer# */{

@@ -51,7 +51,7 @@ define([
 		 *   </div>
 		 * </body>
 		 * @class module:deliteful/SidePane
-		 * @augments {module:delite/DisplayContainer}
+		 * @augments module:delite/DisplayContainer
 		 */
 		return register("d-side-pane", [HTMLElement, DisplayContainer],
 			/** @lends module:deliteful/SidePane#*/ {
