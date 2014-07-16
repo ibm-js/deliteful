@@ -13,7 +13,7 @@
 		"requirejs-dplugins": ">=0.2.2-dev"
 	},
 	"devDependencies": {
-		"dstore": "0.1.0-dev"
+		"dstore": "0.1.0"
 	},
 	"ignore": [
 		".jshintrc",
