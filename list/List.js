@@ -143,7 +143,7 @@ define([
 		 * Indicates whether the list has a WIA-ARIA role of `listbox` or its default WIA-ARIA role of `grid`.
 		 * If this indicator is set to `true`:
 		 * * The WIA-ARIA role of the list is set to `listbox`;
-		 * * The `sectionMode` property cannot take the value `none`anymore. Its default value becomes `single`;
+		 * * The `sectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
 		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
 		 * @member {boolean}
 		 * @default false
@@ -168,9 +168,10 @@ define([
 		},
 
 		/**
-		 * Defines the selection mode: `"none"` (not allowed if `isAriaLisbox` is true), `"single"` or `"multiple"`.
+		 * Defines the selection mode: `"none"` (not allowed if `isAriaLisbox` is true), `"radio"`, `"single"`
+		 *  or `"multiple"`.
 		 * @member {string} module:deliteful/list/List#selectionMode
-		 * @default "none", or "single" if isAriaListbos is true.
+		 * @default "none", or "single" if isAriaListbox is true.
 		 */
 		_setSelectionModeAttr: function (value) {
 			if (this.isAriaListbox && value === "none") {
