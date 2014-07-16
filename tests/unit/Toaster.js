@@ -63,8 +63,8 @@ define([
 		"Checking if placement class of the toaster is correct": function () {
 			var toasters = {
 				default: null,
-				tl: null,
 				tc: null,
+				tl: null,
 				tr: null,
 				bl: null,
 				bc: null,
@@ -74,6 +74,7 @@ define([
 				toasters[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toasters[pos].placeAt("container");
 				toasters[pos].startup();
+				toasters[pos].deliver();
 				assert.isTrue(domClass.contains(toasters[pos], "d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
 			});
