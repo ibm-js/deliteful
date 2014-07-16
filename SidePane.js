@@ -3,7 +3,7 @@ define([
 	"dcl/dcl",
 	"dpointer/events",
 	"dojo/dom-class",
-	"dojo/sniff",
+	"decor/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
 	"dojo/Deferred",

@@ -1,6 +1,6 @@
 /** @module deliteful/ViewStack */
 define(["dcl/dcl",
-	"dojo/sniff",
+	"decor/sniff",
 	"dojo/on",
 	"dojo/Deferred",
 	"dojo/dom-geometry",
