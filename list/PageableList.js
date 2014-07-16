@@ -10,12 +10,10 @@ define([
 	"dojo/sniff",
 	"./List",
 	"./Renderer",
-	"../ProgressIndicator",
-	"delite/handlebars",
-	"requirejs-text/text!./List/_PageLoaderRenderer.html",
+	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, domClass, has,
-		List, Renderer, ProgressIndicator, handlebars, template, messages) {
+		List, Renderer, template, messages) {
 
 	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
@@ -101,10 +99,7 @@ define([
 			this.on("click", this._load.bind(this));
 		},
 
-		buildRendering: function (document, register) {
-			var renderFunc = handlebars.compile(template);
-			renderFunc.call(this, document, register);
-		},
+		template: template,
 
 		//////////// Public methods ///////////////////////////////////////
 

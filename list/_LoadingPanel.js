@@ -6,10 +6,8 @@ define([
 	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
-	"delite/handlebars",
-	"requirejs-text/text!./List/_LoadingPanel.html",
-	"../ProgressIndicator"
-], function (dcl, register, Widget, handlebars, template) {
+	"delite/handlebars!./List/_LoadingPanel.html"
+], function (dcl, register, Widget, template) {
 
 	/**
 	 * A widget that renders a panel masking a list and displaying a progress indicator and a message.
@@ -26,8 +24,7 @@ define([
 		 */
 		message: "",
 
-		buildRendering: handlebars.compile(template)
-
+		template: template
 	});
 
 	return register("d-list-loading-panel", [HTMLElement, _LoadingPanel]);

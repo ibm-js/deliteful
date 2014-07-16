@@ -5,7 +5,7 @@ define([
 	"delite/Widget",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (dcl, register, Widget, renderer) {
+], function (dcl, register, Widget, template) {
 	/**
 	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
 	 *
@@ -133,10 +133,11 @@ define([
 			this._requestId = this._requestRendering(frameAnimation);
 		},
 
-		buildRendering: function (document, register) {
-			renderer.call(this, document, register);
+		template: template,
+
+		buildRendering: dcl.after(function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
-		},
+		}),
 
 		attachedCallback: dcl.after(function () {
 			//set unique SVG symbol id

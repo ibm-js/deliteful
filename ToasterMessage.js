@@ -7,7 +7,7 @@ define(["dcl/dcl",
 	"dojo/on",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Deferred, domClass, on, pointer, renderer) {
+], function (dcl, Widget, register, Deferred, domClass, on, pointer, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -467,7 +467,7 @@ define(["dcl/dcl",
 			toaster._wrapper.removeChild(this);
 			this._isRemoved = true;
 		},
-		buildRendering: renderer,
+		template: template,
 		preCreate: function () {
 			this.id = "d-toaster-message-" + this.widgetId;
 		},
