@@ -135,7 +135,8 @@ define(["dcl/dcl",
 
 			template: template,
 
-			refreshRendering: dcl.after(function (props) {
+			refreshRendering: dcl.after(function (args) {
+				var props = args[0];
 				if ("messages" in props) {
 					this.messages.forEach(function (m) {
 						if (!m._isInserted) {
@@ -197,7 +198,7 @@ define(["dcl/dcl",
 			},
 			_addMessage: function (m) {
 				this.messages.push(m);
-				this.refreshRendering({messages: true});
+				this.notifyCurrentValue("messages");
 				return m;
 			}
 		});
