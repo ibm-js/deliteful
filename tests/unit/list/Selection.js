@@ -8,50 +8,53 @@ define([
 
 	var testHelper = {
 			"Helper selectionMode 'multiple'" : function () {
+				var dfd = this.async(1000);
 				list.selectionMode = "multiple";
-				list.validate();
-				var selectionChangeEvent = null;
-				var firstItem = list.getChildren()[0];
-				var secondItem = list.getChildren()[1];
-				var event = null;
-				list.on("selection-change", function (event) {
-					selectionChangeEvent = event;
-				});
-				assert.equal(firstItem.className, "d-list-item");
-				// Selection event on first item (select)
-				event = {target: firstItem, preventDefault: function () {}};
-				list._spaceKeydownHandler(event);
-				assert.isNotNull(selectionChangeEvent);
-				assert.isNull(selectionChangeEvent.oldValue, 0, "event1 old selection");
-				assert.equal(selectionChangeEvent.newValue.label, "item 1", "event1 new selection label");
-				assert.equal(selectionChangeEvent.renderer, firstItem, "event1 renderer");
-				assert.equal(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
-				selectionChangeEvent = null;
-				assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true");
-				assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "false");
-				// Selection event on second item (select)
-				event = {target: secondItem, preventDefault: function () {}};
-				list._spaceKeydownHandler(event);
-				assert.isNotNull(selectionChangeEvent);
-				assert.equal(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection label");
-				assert.equal(selectionChangeEvent.newValue.label, "item 2", "event2 new selection label 1");
-				assert.equal(selectionChangeEvent.renderer, secondItem, "event2 renderer");
-				assert.equal(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
-				selectionChangeEvent = null;
-				assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true");
-				assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
-				// Selection event on first item (deselect)
-				event = {target: firstItem, preventDefault: function () {}};
-				list._spaceKeydownHandler(event);
-				assert.isNotNull(selectionChangeEvent);
-				assert.equal(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection label 1");
-				assert.equal(selectionChangeEvent.newValue.label, "item 2", "event3 new selection label");
-				assert.equal(selectionChangeEvent.renderer, firstItem, "event3 renderer");
-				assert.equal(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
-				selectionChangeEvent = null;
-				// 
-				assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "false");
-				assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
+				setTimeout(dfd.callback(function () {
+					var selectionChangeEvent = null;
+					var firstItem = list.getChildren()[0];
+					var secondItem = list.getChildren()[1];
+					var event = null;
+					list.on("selection-change", function (event) {
+						selectionChangeEvent = event;
+					});
+					assert.equal(firstItem.className, "d-list-item");
+					// Selection event on first item (select)
+					event = {target: firstItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNotNull(selectionChangeEvent);
+					assert.isNull(selectionChangeEvent.oldValue, 0, "event1 old selection");
+					assert.equal(selectionChangeEvent.newValue.label, "item 1", "event1 new selection label");
+					assert.equal(selectionChangeEvent.renderer, firstItem, "event1 renderer");
+					assert.equal(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
+					selectionChangeEvent = null;
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "false");
+					// Selection event on second item (select)
+					event = {target: secondItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNotNull(selectionChangeEvent);
+					assert.equal(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection label");
+					assert.equal(selectionChangeEvent.newValue.label, "item 2", "event2 new selection label 1");
+					assert.equal(selectionChangeEvent.renderer, secondItem, "event2 renderer");
+					assert.equal(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
+					selectionChangeEvent = null;
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
+					// Selection event on first item (deselect)
+					event = {target: firstItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNotNull(selectionChangeEvent);
+					assert.equal(selectionChangeEvent.oldValue.label, "item 2", "event3 old selection label 1");
+					assert.equal(selectionChangeEvent.newValue.label, "item 2", "event3 new selection label");
+					assert.equal(selectionChangeEvent.renderer, firstItem, "event3 renderer");
+					assert.equal(selectionChangeEvent.triggerEvent, event, "event3 triggerEvent");
+					selectionChangeEvent = null;
+					// 
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "false");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
+				}), 10);
+				return dfd;
 			},
 			"Helper selectionMode 'single'" : function () {
 				var selectionChangeEvent = null;
@@ -182,36 +185,45 @@ define([
 			list.store.add({label: "item 3"});
 		},
 		"aria listbox with selectionMode 'multiple'" : function () {
+			var dfd = this.async(1000);
 			list.isAriaListbox = true;
-			list.validate();
-			return testHelper["Helper selectionMode 'multiple'"]();
+			setTimeout(dfd.callback(function () {
+				return testHelper["Helper selectionMode 'multiple'"]();
+			}), 10);
+			return dfd;
 		},
 		"selectionMode 'multiple'" : function () {
 			return testHelper["Helper selectionMode 'multiple'"]();
 		},
 		"aria listbox with selectionMode 'single'" : function () {
+			var dfd = this.async(1000);
 			list.isAriaListbox = true;
-			list.validate();
-			return testHelper["Helper selectionMode 'single'"]();
+			setTimeout(dfd.callback(function () {
+				return testHelper["Helper selectionMode 'single'"]();
+			}), 10);
+			return dfd;
 		},
 		"selectionMode 'single'" : function () {
 			return testHelper["Helper selectionMode 'single'"]();
 		},
 		"selectionMode 'none'" : function () {
+			var dfd = this.async(1000);
 			var selectionChangeEvent = null;
 			var firstItem = list.getChildren()[0];
 			var event = null;
 			list.selectionMode = "none";
-			list.validate();
-			list.on("selection-change", function (event) {
-				selectionChangeEvent = event;
-			});
-			assert.equal(firstItem.className, "d-list-item");
-			// Selection event on first item (no effect)
-			event = {target: firstItem, preventDefault: function () {}};
-			list._spaceKeydownHandler(event);
-			assert.isNull(selectionChangeEvent);
-			assert.equal(firstItem.className, "d-list-item");
+			setTimeout(dfd.callback(function () {
+				list.on("selection-change", function (event) {
+					selectionChangeEvent = event;
+				});
+				assert.equal(firstItem.className, "d-list-item");
+				// Selection event on first item (no effect)
+				event = {target: firstItem, preventDefault: function () {}};
+				list._spaceKeydownHandler(event);
+				assert.isNull(selectionChangeEvent);
+				assert.equal(firstItem.className, "d-list-item");
+			}), 10);
+			return dfd;
 		},
 		"revert selection to 'none' remove event handler": function () {
 			var dfd = this.async(1000);
