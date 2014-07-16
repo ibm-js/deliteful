@@ -364,7 +364,7 @@ define([
 							}
 
 							if ((this.swipeClosing && this._originX - pos) > 10) {
-								this.close();
+								this._close();
 								this._originX = pos;
 							}
 						}
@@ -374,7 +374,7 @@ define([
 								this._originX = pos;
 							}
 							if ((this.swipeClosing && pos - this._originX) > 10) {
-								this.close();
+								this._close();
 								this._originX = pos;
 							}
 						}
