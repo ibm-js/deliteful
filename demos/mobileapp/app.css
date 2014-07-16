@@ -3,6 +3,10 @@
 	font-family: sans-serif;
 }
 
+.d-list {
+	border: none;
+}
+
 .pageHeader, .pageFooter{
 	background-color: #1AA1E1;
 	color: white;
@@ -11,6 +15,7 @@
 .pageHeader {
 	border-bottom: 2px solid black;
 	padding: 0.3em;
+	height: 60px;
 }
 
 .pageFooter {
@@ -23,16 +28,28 @@
 	text-align: center;
 }
 
-button{
-	width: 32px;
-	height: 32px;
+.appButton, .appButton2 {
+	border: none;
+	background-color: white;
+	font-weight: bold;
+	min-width: 50px;
+	cursor: pointer;
+	padding: 10px 10px 10px 10px;
+	font-size: 110%;
 }
 
-.titleStyle{
-	font-size: 1.5em;
-	text-align: center;
-	padding-top: 0.2em;
+.appButton2 {
+	background-color: #1AA1E1;
+	color: white;
+	margin: 0 30% 0 30%;
+}
 
+.titleStyle {
+	text-align: center;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-weight: bold;
+	font-size: 150%;
 	/* One line title with ellipsis if needed */
 	white-space: nowrap;
 	text-overflow: ellipsis;
