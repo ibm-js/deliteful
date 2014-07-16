@@ -136,7 +136,7 @@ define(["dcl/dcl",
 			template: template,
 
 			refreshRendering: dcl.after(function (props) {
-				if (props.messages) {
+				if ("messages" in props) {
 					this.messages.forEach(function (m) {
 						if (!m._isInserted) {
 							m._insertInDom(this, true);
