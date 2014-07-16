@@ -31,7 +31,7 @@ d-list-store {\
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8f9ea9), to(#b7c0c7));\
   background-image: linear-gradient(to bottom, #8f9ea9 0%, #b7c0c7 100%);\
 }\
-.d-list-category [role=\"gridcell\"] {\
+.d-list-category .d-list-cell {\
   padding: 0 10px;\
 }\
 .d-list-category .d-list-cell {\
@@ -52,7 +52,7 @@ d-list-store {\
   border-bottom: 1px solid #adaaad;\
   background-color: #ffffff;\
 }\
-.d-list-item [role=\"gridcell\"] {\
+.d-list-item .d-list-cell {\
   padding: 0 8px;\
 }\
 .d-list-item .d-list-cell {\

@@ -38,7 +38,7 @@ d-list-store {\
   color: #333333;\
   border-bottom: 1px solid #dddddd;\
 }\
-.d-list-category [role=\"gridcell\"] {\
+.d-list-category .d-list-cell {\
   padding: 0 10px;\
 }\
 .d-list-category .d-list-cell {\
@@ -58,7 +58,7 @@ d-list-store {\
   -webkit-align-items: center;\
   border-bottom: 1px solid #dddddd;\
 }\
-.d-list-item [role=\"gridcell\"] {\
+.d-list-item .d-list-cell {\
   padding: 0px 8px;\
 }\
 .d-list-item .d-list-cell {\
