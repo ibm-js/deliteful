@@ -31,7 +31,7 @@ define([
 		}
 		/**
 		 * A widget displayed on the side of the screen.
-		 * 
+		 *
 		 * It can be displayed on top of the page
 		 * (mode=overlay) or can push the content of the page (mode=push or mode=reveal).
 		 * SidePane is a widget hidden by default.
@@ -115,7 +115,7 @@ define([
 					}
 				};
 			}),
-			
+
 			hide: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
@@ -129,7 +129,15 @@ define([
 					}
 				};
 			}),
-			
+			/**
+			 * This method is called to toggle the visibility of the SidePane.
+			 * @returns {Promise} A promise that will be resolved when the display & transition effect will have been
+			 * performed.
+			 */
+			toggle: function () {
+				return this._visible ? this.hide() : this.show();
+			},
+
 			/**
 			 * Open the pane.
 			 * @private
