@@ -8,7 +8,6 @@ define([
 	"./SidePane",
 	"./SidePane-showhide",
 	"./ViewStack",
-	"./ViewStack-prog",
 	"./ScrollableContainer",
 	"./StarRating",
 	"./list/all",
