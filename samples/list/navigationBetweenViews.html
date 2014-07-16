@@ -18,11 +18,12 @@
 		require([
 			"delite/register",
 			"deliteful/list/ItemRenderer",
+			"delite/handlebars!deliteful/samples/list/templates/NavigationItemRenderer.html",
 			"deliteful/ViewStack"
-		], function(register, ItemRenderer){
+		], function(register, ItemRenderer, template){
 			// Custom item renderer that renders a navigation button
 			NavigationItemRenderer = register("d-navigation-item", [HTMLElement, ItemRenderer], {
-				template: "<template><div attach-point='renderNode'><div role='button' navindex='0'><div class='d-list-item-label'>{{item.label}}</div><div class='d-list-item-right-icon'></div></div></div></template>"
+				template: template
 			});
 			require([
 				"dojo/keys",
