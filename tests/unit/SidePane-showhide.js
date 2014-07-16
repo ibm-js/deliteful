@@ -36,6 +36,24 @@ define([
 				});
 			});
 		},
+		"toggle after hide" : function () {
+			var d = this.async(5000);
+			sp.hide().then(function () {
+				sp.toggle().then(d.callback(function () {
+					assert.isTrue(domClass.contains(sp, "-d-side-pane-visible"));
+					assert.isFalse(domClass.contains(sp, "-d-side-pane-hidden"));
+				}));
+			});
+		},
+		"toggle after show" : function () {
+			var d = this.async(5000);
+			sp.show().then(function () {
+				sp.toggle().then(d.callback(function () {
+					assert.isTrue(domClass.contains(sp, "-d-side-pane-hidden"));
+					assert.isFalse(domClass.contains(sp, "-d-side-pane-visible"));
+				}));
+			});
+		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		}
