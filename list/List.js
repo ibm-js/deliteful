@@ -499,6 +499,7 @@ define([
 			if (this.isAriaListbox) {
 				if (this.selectionMode === "none") {
 					this.selectionMode = "single";
+					this.deliver(); // TODO: see https://github.com/ibm-js/delite/issues/230
 				}
 				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
 				for (var i = 0; i < nodes.length; i++) {
