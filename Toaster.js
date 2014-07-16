@@ -7,7 +7,7 @@ define(["dcl/dcl",
 	"delite/handlebars!./Toaster/Toaster.html",
 	"./ToasterMessage",
 	"delite/theme!./Toaster/themes/{{theme}}/Toaster_css"
-	], function (dcl, Widget, register, Deferred, has, render, ToasterMessage) {
+	], function (dcl, Widget, register, Deferred, has, template, ToasterMessage) {
 
 		/* helpers */
 		function isRemovable(m) {return m._toBeRemoved && (! m._isRemoved); }
@@ -132,8 +132,10 @@ define(["dcl/dcl",
 				}
 				return true;
 			},
-			buildRendering: render,
-			refreshRendering: function (props) {
+
+			template: template,
+
+			refreshRendering: dcl.after(function (props) {
 				if (props.messages) {
 					this.messages.forEach(function (m) {
 						if (!m._isInserted) {
@@ -154,7 +156,8 @@ define(["dcl/dcl",
 						}, this);
 					}
 				}
-			},
+			}),
+
 			preCreate: function () {
 				this.messages = [];
 			},

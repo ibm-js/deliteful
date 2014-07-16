@@ -8,7 +8,7 @@ define([
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
-], function (dcl, domClass, Intl, register, Widget, renderer) {
+], function (dcl, domClass, Intl, register, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
@@ -95,10 +95,11 @@ define([
 		 */
 		baseClass: "d-progress-bar",
 
-		buildRendering: function () {
-			renderer.call(this);
+		template: template,
+
+		buildRendering: dcl.after(function () {
 			this.setAttribute("aria-valuemin", 0);
-		},
+		}),
 
 		computeProperties: function (props) {
 			if ("max" in props) {

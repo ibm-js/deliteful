@@ -16,10 +16,10 @@
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/CustomItemRenderer1.html",
 			"requirejs-domready/domReady!"
-		], function (register, ItemRenderer, List, templateFunc) {
+		], function (register, ItemRenderer, List, template) {
 			// Custom item renderer with custom keyboard navigation order
 			var MyCustomRenderer = register("d-customnav-item", [HTMLElement, ItemRenderer], {
-				buildRendering: templateFunc
+				template: template
 			});
 			var list = new List();
 			list.id = "list-cust-1";

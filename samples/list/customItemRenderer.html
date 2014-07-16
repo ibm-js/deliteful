@@ -22,9 +22,9 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html"
-		], function (register, ItemRenderer, List, templateFunc) {
+		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
-				buildRendering: templateFunc
+				template: template
 			});
 			var list = new List();
 			list.setAttribute("aria-label", "Sample list with custom item renderer");

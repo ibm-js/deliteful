@@ -11,7 +11,7 @@ define([
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider_css"
-], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, renderer) {
+], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private
 	 */
@@ -147,8 +147,9 @@ define([
 			 */
 			_reversed: null,
 
-			buildRendering: function () {
-				renderer.call(this);
+			template: template,
+
+			buildRendering: register.after(function () {
 				var n = this.firstChild;
 				while (n) {
 					var next = n.nextSibling;
@@ -166,7 +167,7 @@ define([
 				// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
 				// https://github.com/ibm-js/dpointer/issues/8
 				dpointer.setTouchAction(this, "none");
-			},
+			}),
 
 			/**
 			 * Update the handle(s) attribute `aria-orientation` to reflect the actual value of the

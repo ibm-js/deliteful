@@ -5,7 +5,7 @@ define([
 	"delite/register",
 	"delite/handlebars!./List/ItemRenderer.html",
 	"./Renderer"
-], function (dcl, domClass, register, templateFunc, Renderer) {
+], function (dcl, domClass, register, template, Renderer) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -39,10 +39,7 @@ define([
 		 */
 		baseClass: "d-list-item",
 
-		//////////// PROTECTED METHODS ///////////////////////////////////////
-
-		buildRendering: templateFunc,
-
+		template: template
 	});
 
 	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);
