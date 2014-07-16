@@ -173,7 +173,8 @@ define([
 				}), 10);
 				return dfd;
 			},
-			"Helper aria properties and classes when selection mode is multiple": function (/*Deferred*/ dfd, isListbox) {
+			"Helper aria properties and classes when selection mode is multiple":
+				function (/*Deferred*/ dfd, isListbox) {
 				if (isListbox) {
 					list.isAriaListbox = true;
 				}

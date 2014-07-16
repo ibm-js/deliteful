@@ -502,6 +502,7 @@ define([
 					this.selectionMode = "single";
 					this.deliver(); // TODO: see https://github.com/ibm-js/delite/issues/230
 				}
+				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
 				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
 				for (var i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "option");
@@ -517,6 +518,7 @@ define([
 					}
 				}
 			} else {
+				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
 				nodes = this.querySelectorAll(".d-list-cell[role='option']");
 				for (i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "gridcell");
