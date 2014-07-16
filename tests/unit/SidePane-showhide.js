@@ -25,7 +25,7 @@ define([
 			}));
 		},
 		"hide" : function () {
-			var d = this.async(1000);
+			var d = this.async(3000);
 			sp.hide().then(function () {
 				assert.strictEqual(sp.children[0].id, "content", "Plain hide() removed the children");
 				sp.show().then(function () {
