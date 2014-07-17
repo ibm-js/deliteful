@@ -230,7 +230,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal(text, "Rating is 0 star", "message is not the one expected for " + id);
+						assert.equal(text, "Rating is 0 stars", "message is not the one expected for " + id);
 					})
 					.end();
 		},
