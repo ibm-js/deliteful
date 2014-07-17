@@ -1,5 +1,38 @@
 /*global module */
+
+
+
 module.exports = function (grunt) {
+	var generateLessSuite = function () {
+		var widgetName = grunt.option("widget"),
+			theme = grunt.option("theme");
+
+		var getWidgetFolder = function(widgetName){
+			var exceptions = { "List": "list/List/" }
+			return widgetName in exceptions ? 
+				 exceptions[widgetName] : widgetName;
+		}
+
+		var widget = getWidgetFolder(widgetName);
+
+		var generate = function (widget, theme, excludeVars) {
+			var path = require("path");
+			var output = {compile: [], watch: []};
+			theme = theme || "*"; // TODO: this should also check widget and theme are correctly spelled;
+			output.compile = [
+				path.join(widget, "themes", theme, "*.less") // <widget>/themes/<theme>/*.less
+				];
+			output.watch = [
+				path.join(widget, "themes", theme, "*.less"), // <widget>/themes/<theme>/*.less
+				path.join(widget, "themes", "*.less")         // <widget>/themes/*.less
+					]
+					return output;
+		}
+		p=  widget ? generate(widget, theme, true) : null;
+		console.log("p")
+		console.log(p)
+		return p
+	};
 
 	// Project configuration.
 	grunt.initConfig({
@@ -24,6 +57,17 @@ module.exports = function (grunt) {
 						src: ["*/themes/*/*.less", "list/*/themes/*/*.less", "!**/variables.less",
 						      "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
 							 "ViewStack/transitions/*.less"],
+						ext: ".css"
+					}
+				]
+			},
+			// Compile less code for a widget and a theme
+			// used by lessToJs.
+			widget : {
+				files: [
+					{
+						expand: true, 
+						src: generateLessSuite().compile,
 						ext: ".css"
 					}
 				]
@@ -118,6 +162,16 @@ module.exports = function (grunt) {
 					}
 				]
 			}
+		},
+		watch: {
+			lessToJs: {
+				files:  generateLessSuite().watch,
+				tasks: ["less:widget", "cssToJs"],
+				options: {
+					spawn: false
+				}
+
+			}
 		}
 	});
 
@@ -126,11 +180,14 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("jsdoc-amddcl");
 	grunt.loadTasks("../delite/themes/tasks");// Custom cssToJs task to convert CSS to JS
 
 	// Aliases
 	grunt.registerTask("default", ["less", "cssToJs"]);
+	grunt.registerTask("less_widget", ["less:widget", "cssToJs"]);
+	grunt.registerTask("less_widget_watch", ["less:widget", "cssToJs", "watch"]);
 	grunt.registerTask("jsdoc", "jsdoc-amddcl");
 	
 	// Testing.
