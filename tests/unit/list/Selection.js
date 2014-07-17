@@ -108,6 +108,51 @@ define([
 				}), 10);
 				return dfd;
 			},
+			"Helper selectionMode 'radio'" : function (/*Deferred*/ dfd, isListbox) {
+				if (isListbox) {
+					list.isAriaListbox = true;
+				}
+				list.selectionMode = "radio";
+				setTimeout(dfd.callback(function () {
+					var selectionChangeEvent = null;
+					var firstItem = list.getChildren()[0];
+					var secondItem = list.getChildren()[1];
+					var event = null;
+					list.on("selection-change", function (event) {
+						selectionChangeEvent = event;
+					});
+					assert.equal(firstItem.className, "d-list-item");
+					// Selection event on first item (select)
+					event = {target: firstItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNotNull(selectionChangeEvent);
+					assert.equal(selectionChangeEvent.oldValue, null, "event1 old selection");
+					assert.equal(selectionChangeEvent.newValue.label, "item 1", "event1 new selection");
+					assert.equal(selectionChangeEvent.renderer, firstItem, "event1 renderer");
+					assert.equal(selectionChangeEvent.triggerEvent, event, "event1 triggerEvent");
+					selectionChangeEvent = null;
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "false");
+					// Selection event on second item (select)
+					event = {target: secondItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNotNull(selectionChangeEvent);
+					assert.equal(selectionChangeEvent.oldValue.label, "item 1", "event2 old selection");
+					assert.equal(selectionChangeEvent.newValue.label, "item 2", "event2 new selection");
+					assert.equal(selectionChangeEvent.renderer, secondItem, "event2 renderer");
+					assert.equal(selectionChangeEvent.triggerEvent, event, "event2 triggerEvent");
+					selectionChangeEvent = null;
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "false");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
+					// Selection event on second item (does not deselect)
+					event = {target: secondItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isNull(selectionChangeEvent);
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "false");
+					assert.equal(secondItem.renderNode.getAttribute("aria-selected"), "true");
+				}), 10);
+				return dfd;
+			},
 			"Helper delete selected item": function (/*Deferred*/ dfd, isListbox) {
 				if (isListbox) {
 					list.isAriaListbox = true;
@@ -155,6 +200,29 @@ define([
 					list.isListbox = true;
 				}
 				list.selectionMode = "single";
+				setTimeout(dfd.callback(function () {
+					assert.isTrue(list.className.indexOf("d-selectable") >= 0, "d-selectable class");
+					assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
+					assert.isFalse(list.hasAttribute("aria-multiselectable"),
+							"no aria-multiselectable attribute expected");
+					var firstItem = list.getChildren()[0];
+					assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "false",
+							"no aria-selected attribute 'false' expected on first item");
+					// select first item
+					var event = {target: firstItem, preventDefault: function () {}};
+					list._spaceKeydownHandler(event);
+					assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "d-selected class expected");
+					assert.equal(firstItem.renderNode.getAttribute("aria-selected"), "true",
+							"aria-selected attribute 'true' expected on first item after selection");
+				}), 10);
+				return dfd;
+			},
+			"Helper aria properties and classes when selection mode is radio": function (/*Deferred*/ dfd, isListbox) {
+				if (isListbox) {
+					list.isListbox = true;
+				}
+				list.selectionMode = "radio";
 				setTimeout(dfd.callback(function () {
 					assert.isTrue(list.className.indexOf("d-selectable") >= 0, "d-selectable class");
 					assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
@@ -225,6 +293,12 @@ define([
 		"selectionMode 'single'" : function () {
 			return testHelper["Helper selectionMode 'single'"](this.async(1000));
 		},
+		"aria listbox with selectionMode 'radio'" : function () {
+			return testHelper["Helper selectionMode 'radio'"](this.async(1000), true);
+		},
+		"selectionMode 'radio'" : function () {
+			return testHelper["Helper selectionMode 'radio'"](this.async(1000));
+		},
 		"selectionMode 'none'" : function () {
 			var dfd = this.async(1000);
 			var selectionChangeEvent = null;
@@ -285,6 +359,13 @@ define([
 		},
 		"aria properties and classes when selection mode is single": function () {
 			return testHelper["Helper aria properties and classes when selection mode is single"](this.async(1000));
+		},
+		"aria listbox aria properties and classes when selection mode is radio": function () {
+			return testHelper["Helper aria properties and classes when selection mode is radio"](this.async(1000),
+					true);
+		},
+		"aria properties and classes when selection mode is radio": function () {
+			return testHelper["Helper aria properties and classes when selection mode is radio"](this.async(1000));
 		},
 		"aria listbox aria properties and classes when selection mode is multiple": function () {
 			testHelper["Helper aria properties and classes when selection mode is multiple"](this.async(1000), true);

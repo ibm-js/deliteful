@@ -26,14 +26,17 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		attachedCallback: dcl.after(function () {
-			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
-				this.setAttribute("role", "row");
-				this.renderNode.setAttribute("role", "columnheader");
-			} else {
-				this.renderNode.removeAttribute("tabindex");
-				this.renderNode.setAttribute("role", "heading");
-			}
+		attachedCallback: dcl.superCall(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if (this.parentNode.parentNode.getAttribute("role") === "grid") {
+					this.setAttribute("role", "row");
+					this.renderNode.setAttribute("role", "columnheader");
+				} else {
+					this.renderNode.removeAttribute("tabindex");
+					this.renderNode.setAttribute("role", "heading");
+				}
+			};
 		})
 
 	});

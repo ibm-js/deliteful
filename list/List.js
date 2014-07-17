@@ -307,7 +307,7 @@ define([
 							}
 						}
 					} else {
-						if (this.selectionMode === "single") {
+						if (this.selectionMode === "single" || this.selectionMode === "radio") {
 							domClass.add(this, this._cssClasses.selectable);
 						} else {
 							domClass.add(this, this._cssClasses.multiselectable);

@@ -27,8 +27,9 @@ Here is a screenshot of a list that displays items using the default renderer:
 Any [custom item renderer](#customRenderers) can be specified  using the `itemRenderer` property of the widget.
 
 The widget also provides the following capabilities:
-* List items can be grouped in categories (see [Categorized items](#categories))
-* List items can be selectable (see [Selection support](#selection))
+* List items can be grouped into categories (see [Categorized items](#categories));
+* List items can be selectable (see [Selection support](#selection));
+* For maximum flexibility, both `grid` and `listbox` WIA-ARIA roles are supported (see [Accessibility](#accessibility)).
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -263,6 +264,8 @@ list.selectionMode = "multiple";
 
 When the selection mode is `single`, one single item can be selected in the list at any time.
 
+When the selection mode is `radio`, one single item can be selected in the list at any time, but it cannot be unselected without selecting another one.
+
 When the selection mode is `multiple`, more than one item can be selected in the list at any time.
 
 When the selection mode is `none`, the items are not selectable.
@@ -363,7 +366,7 @@ When a category has the focus, the style of the cell in which it is rendered can
 
 Depending on the `selectionMode` property value, the following CSS classes are added to the list:
 * `d-selectable` when `selectionMode` is `single`;
-* `d-multiselectable` when `selectionMode` is `mulitple`.
+* `d-multiselectable` when `selectionMode` is `multiple`.
 
 The CSS class `d-selected` is added to each list item that is currently selected.
 
@@ -395,6 +398,11 @@ The widget uses the browser native scroll to allow the user to scroll its conten
 
 When the selection mode is `"single"`, a click or tap on a item (or a press on the Space key
 when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has the effect of de-selecting it.
+
+When the selection mode is `"radio"`, a click or tap on a item (or a press on the Space key
+when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has no effect.
 
 When the selection mode is `"multiple"`, a click or tap on an item (or a press on the Space key when an item has
 the focus) toggle its selected state.
@@ -419,11 +427,17 @@ contains the previous selection, and its `newValue` property contains the new se
 <a name="enterprise"></a>
 ## Enterprise Use
 
+<a name="accessibility"></a>
 ### Accessibility
 
-TODO: TWO POSSIBLE ROLES: listbox or grid
+The widget supports two different WIA-ARIA roles:
 
-The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
+1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
+1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be set by assigning the value `true` to the `isAriaListbox` property.
+
+#### grid role
+
+When using the default `grid` role, the List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
 except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
 
 The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
@@ -443,7 +457,15 @@ You can also search for items by typing their first letter on the keyboard, and 
 begins with the letters will get the focus.
 
 When the `selectionMode` of a List is `"multiple"`, its `aria-multiselectable` attribute is set to `"true"`.
-When an item is selected in such a list, its `aria-selected` attribute is set to the value `"true"`.
+When an item is selected in a list, its `aria-selected` attribute is set to the value `"true"`.
+
+#### listbox role
+
+When using the `listbox` role, the List widget behave as previously described for the `grid` role, with the following differences:
+
+* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `none` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
+* The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
+* If the list is categorized, the category headers are not focusable.
 
 ### Globalization
 

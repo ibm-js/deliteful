@@ -43,13 +43,16 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		attachedCallback: dcl.after(function () {
-			if (this.parentNode.parentNode.getAttribute("role") === "grid") {
-				this.setAttribute("role", "row");
-				this.renderNode.setAttribute("role", "gridcell");
-			} else {
-				this.renderNode.setAttribute("role", "option");
-			}
+		attachedCallback: dcl.superCall(function (sup) {
+			return function () {
+				sup.apply(this, arguments);
+				if (this.parentNode.parentNode.getAttribute("role") === "grid") {
+					this.setAttribute("role", "row");
+					this.renderNode.setAttribute("role", "gridcell");
+				} else {
+					this.renderNode.setAttribute("role", "option");
+				}
+			};
 		})
 
 	});
