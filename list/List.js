@@ -986,7 +986,6 @@ define([
 			return (domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
-		/*jshint maxcomplexity:16*/
 		/**
 		 * @method
 		 * Handle keydown events
@@ -998,56 +997,11 @@ define([
 					this._spaceKeydownHandler(evt);
 				} else {
 					if (!this.isAriaListbox) {
-						if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
-							if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
-								// Enter Actionable Mode
-								// TODO: prevent default ONLY IF autoAction is false on the renderer ?
-								// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-								evt.preventDefault();
-								this._enterActionableMode();
-							}
-						} else if (evt.keyCode === keys.TAB) {
-							if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
-								// We are in Actionable mode
-								evt.preventDefault();
-								var renderer = this._getFocusedRenderer();
-								var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
-								while (!next) {
-									renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
-										|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
-									next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
-								}
-								this.focusChild(next);
-							}
-						} else if (evt.keyCode === keys.ESCAPE) {
-							// Leave Actionable mode
-							this._leaveActionableMode();
-						}
+						this._gridKeydownHandler(evt);
 					}
 				}
 			}
 		}),
-		/*jshint maxcomplexity:10*/
-
-		/**
-		 * @private
-		 */
-		_enterActionableMode: function () {
-			var focusedRenderer = this._getFocusedRenderer();
-			if (focusedRenderer) {
-				var next = focusedRenderer._getFirst();
-				if (next) {
-					this.focusChild(next);
-				}
-			}
-		},
-
-		/**
-		 * @private
-		 */
-		_leaveActionableMode: function () {
-			this.focusChild(this._getFocusedRenderer().renderNode);
-		},
 
 		focus: function () {
 			// Focus the previously focused child of the first visible grid cell
@@ -1166,6 +1120,61 @@ define([
 				evt.preventDefault();
 				this._handleSelection(evt);
 			}
+		},
+
+		/*jshint maxcomplexity:13*/
+		/**
+		 * Handles keydown events for the aria role grid
+		 * @param {Event} evt the keydown event
+		 * @private
+		 */
+		_gridKeydownHandler: function (evt) {
+			if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+				if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
+					// Enter Actionable Mode
+					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+					evt.preventDefault();
+					this._enterActionableMode();
+				}
+			} else if (evt.keyCode === keys.TAB) {
+				if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
+					// We are in Actionable mode
+					evt.preventDefault();
+					var renderer = this._getFocusedRenderer();
+					var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+					while (!next) {
+						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
+							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+						next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+					}
+					this.focusChild(next);
+				}
+			} else if (evt.keyCode === keys.ESCAPE) {
+				// Leave Actionable mode
+				this._leaveActionableMode();
+			}
+		},
+		/*jshint maxcomplexity:10*/
+
+		/**
+		 * @private
+		 */
+		_enterActionableMode: function () {
+			var focusedRenderer = this._getFocusedRenderer();
+			if (focusedRenderer) {
+				var next = focusedRenderer._getFirst();
+				if (next) {
+					this.focusChild(next);
+				}
+			}
+		},
+
+		/**
+		 * @private
+		 */
+		_leaveActionableMode: function () {
+			this.focusChild(this._getFocusedRenderer().renderNode);
 		},
 
 		/**
