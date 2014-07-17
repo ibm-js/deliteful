@@ -266,7 +266,7 @@ define([
 					// Update aria attributes
 					this.removeAttribute("aria-selectable");
 					this.removeAttribute("aria-multiselectable");
-					if (this.selectionMode === "single") {
+					if (this.selectionMode === "single" || this.selectionMode === "radio") {
 						this.setAttribute("aria-selectable", true);
 						// update aria-selected attribute on unselected items
 						for (var i = 0; i < this.containerNode.children.length; i++) {
@@ -429,7 +429,7 @@ define([
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
 						var itemSelected = !!this.isSelected(currentItem);
-						if (this.selectionMode === "single") {
+						if (this.selectionMode === "single" || this.selectionMode === "radio") {
 							if (itemSelected) {
 								renderer.setAttribute("aria-selected", true);
 							} else {
@@ -723,7 +723,7 @@ define([
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
-				if (this.selectionMode === "single") {
+				if (this.selectionMode === "single" || this.selectionMode === "radio") {
 					if (itemSelected) {
 						renderer.setAttribute("aria-selected", true);
 					}
