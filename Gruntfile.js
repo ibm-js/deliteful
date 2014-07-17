@@ -28,10 +28,7 @@ module.exports = function (grunt) {
 					]
 					return output;
 		}
-		p=  widget ? generate(widget, theme, true) : null;
-		console.log("p")
-		console.log(p)
-		return p
+		return widget ? generate(widget, theme, true) : null;
 	};
 
 	// Project configuration.
