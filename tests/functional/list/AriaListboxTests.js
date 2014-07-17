@@ -231,6 +231,16 @@ define(["intern!object",
 				.then(function (value) {
 					assert.equal(value, "list item 0\nA");
 				})
+				.keys("\uE015") // Press DOWN ARROW 5 times
+				.keys("\uE015")
+				.keys("\uE015")
+				.keys("\uE015")
+				.keys("\uE015")
+				.active()
+				.text()
+				.then(function (value) {
+					assert.equal(value, "list item 5\nB");
+				})
 				.end();
 			});
 		},
