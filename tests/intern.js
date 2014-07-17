@@ -29,13 +29,13 @@ define({
 		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"},
 
 		// Mobile
-		{ browserName: "", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
+		{ browserName: "iphone 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
 			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-		{ browserName: "", platform: "OS X 10.9", version: "7.1", deviceName: "iPad",
+		{ browserName: "ipad 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPad",
 			app: "safari", device: "iPad Simulator", name: "deliteful" },
-		{ browserName: "", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
+		{ browserName: "iphone 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
 			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-		{ browserName: "", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
+		{ browserName: "ipad 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
 			app: "safari", device: "iPad Simulator", name: "deliteful" }
 //		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPhone",
 //			app: "safari", device: "iPhone Simulator", name: "deliteful" },
