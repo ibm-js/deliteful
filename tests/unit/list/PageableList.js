@@ -44,7 +44,8 @@ define([
 			previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";
 		var numberOfItems = lastItemNumber - firstItemNumber + 1 - missingItemNumbers.length;
-		assert.strictEqual(list.getChildren().length, numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
+		assert.strictEqual(list.getChildren().length,
+				numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
 				hint + " number of children");
 		if (previousPageLoader) {
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
@@ -83,7 +84,8 @@ define([
 			var category = Math.floor(itemIndex / 10);
 			if (category !== lastCategory) {
 				lastCategory = category;
-				assert.strictEqual(removeTabsAndReturns(list.getChildren()[childIndex].textContent), "Category " + category);
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[childIndex].textContent),
+						"Category " + category);
 				childIndex++;
 			}
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[childIndex].textContent), "item " + itemIndex);
@@ -406,7 +408,8 @@ define([
 							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 								setTimeout(dfd.rejectOnError(function () {
 									assert.strictEqual(list.getChildren().length, 49, "D: number of list children");
-									assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "Click to load 23 more items",
+									assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+											"Click to load 23 more items",
 											"C: previous page loader");
 									assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item C", "C");
 									assert.strictEqual(removeTabsAndReturns(list.getChildren()[47].textContent), "item 68", "C");
@@ -427,9 +430,12 @@ define([
 											clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 												setTimeout(dfd.callback(function () {
 													assert.strictEqual(list.getChildren().length, 26, "E: number of list children");
-													assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "E");
-													assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "E");
-													assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "E");
+													assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+															"item 0", "E");
+													assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent),
+															"item A", "E");
+													assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+															"item 22", "E");
 													assert.strictEqual(removeTabsAndReturns(list.getChildren()[25].textContent),
 															"Click to load 23 more items",
 															"E: next page loader");
@@ -484,7 +490,8 @@ define([
 				for (i = 1; i <= 23; i++) {
 					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "A");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent), "Click to load 23 more items",
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+						"Click to load 23 more items",
 						"A (next page loader)");
 				clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 					assert.strictEqual(list.getChildren().length, 25, "B: number of list children");
@@ -529,13 +536,15 @@ define([
 				for (i = 0; i <= 22; i++) {
 					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + i, "A");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "Click to load 23 more items",
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent),
+						"Click to load 23 more items",
 						"A (next page loader)");
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					assert.strictEqual(list.getChildren().length, 24, "B: number of list children");
 					setTimeout(dfd.callback(function () {
 						for (i = 0; i <= 22; i++) {
-							assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + i, "B");
+							assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
+									"item " + i, "B");
 						}
 						assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item A", "B");
 					}), 10);
@@ -600,8 +609,10 @@ define([
 									assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
 											"item " + i, "C");
 								}
-								assert.strictEqual(removeTabsAndReturns(list.getChildren()[22].textContent), "item B", "C");
-								assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item 22", "C");
+								assert.strictEqual(removeTabsAndReturns(list.getChildren()[22].textContent),
+										"item B", "C");
+								assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent),
+										"item 22", "C");
 								assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
 										"Click to load 23 more items",
 										"C: next page loader");
