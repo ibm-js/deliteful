@@ -27,8 +27,9 @@ Here is a screenshot of a list that displays items using the default renderer:
 Any [custom item renderer](#customRenderers) can be specified  using the `itemRenderer` property of the widget.
 
 The widget also provides the following capabilities:
-* List items can be grouped in categories (see [Categorized items](#categories))
-* List items can be selectable (see [Selection support](#selection))
+* List items can be grouped into categories (see [Categorized items](#categories));
+* List items can be selectable (see [Selection support](#selection));
+* For maximum flexibility, both `grid` and `listbox` WAI-ARIA roles are supported (see [Accessibility](#accessibility)).
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -263,6 +264,8 @@ list.selectionMode = "multiple";
 
 When the selection mode is `single`, one single item can be selected in the list at any time.
 
+When the selection mode is `radio`, one single item can be selected in the list at any time, but it cannot be unselected without selecting another one.
+
 When the selection mode is `multiple`, more than one item can be selected in the list at any time.
 
 When the selection mode is `none`, the items are not selectable.
@@ -315,7 +318,7 @@ Items are rendered inside a DIV element with the CSS class `d-list-item`.
 By default, all items are rendered with the same height defined using the following CSS:
 
 ```css
-d-list-item [role="gridcell"] {
+.d-list-item .d-list-cell {
 	height: ...;
 }
 ```
@@ -323,12 +326,12 @@ d-list-item [role="gridcell"] {
 To define variable height for the items, use the following CSS:
 
 ```css
-d-list-item [role="gridcell"] {
+.d-list-item .d-list-cell {
 	height: inherit;
 }
 ```
 
-When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
+When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-item .d-list-cell:focus`.
 
 The default item renderer allow futher styling of its content using the following CSS classes:
 
@@ -344,7 +347,7 @@ Categories are rendered inside a DIV element with the CSS class `d-list-category
 By default, all categories are rendered with the same height defined using the following CSS:
 
 ```css
-d-list-category [role="gridcell"] {
+.d-list-category .d-list-cell {
 	height: ...;
 }
 ```
@@ -352,79 +355,37 @@ d-list-category [role="gridcell"] {
 To define variable height for the categories, use the following CSS:
 
 ```css
-d-list-category [role="gridcell"] {
+.d-list-category .d-list-cell {
 	height: inherit;
 }
 ```
 
-When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `[role="gridcell"]:focus`.
+When a category has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-category .d-list-cell:focus`.
 
-### Selection Marks Styling
+### Selection Styling
 
-By default, selectable List displays a selection mark before each list item. The CSS can be customized to display the selection mark after each list item, using the following rules:
+Depending on the `selectionMode` property value, the following CSS classes are added to the list:
+* `d-selectable` when `selectionMode` is `single`;
+* `d-multiselectable` when `selectionMode` is `multiple`.
 
-```css
-	[aria-selectable="true"] .d-list-item::before,[aria-multiselectable="true"] .d-list-item::before {
-		display: none;
-	}
-	[aria-selectable="true"] .d-list-item::after,[aria-multiselectable="true"] .d-list-item::after {
-		display: block;
-	}
-```
+The CSS class `d-selected` is added to each list item that is currently selected.
 
-![Selectable Mark After](images/SelectableMarkAfter.png)
-
-The check mark for selectable items is rendered in a _before_ of _after_ pseudo element that can be customized using the following CSS:
+The style of a selected item can be customized using the following css:
 
 ```css
-/*================
-  Selection mode = "single"
-=================*/
-
-/* unselected mark placed BEFORE each list item */
-[aria-selectable="true"] .d-list-item::before {
-	content: ...
+/* CSS selector for a selected item in a list with selectionMode = "single" */
+.d-selectable .d-list-item.d-selected {
+    ...
 }
 
-/* selected mark placed BEFORE each list item */
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::before {
-	content: ...
-}
-
-/* unselected mark placed AFTER each list item */
-[aria-selectable="true"] .d-list-item::after {
-	content: ...
-}
-
-/* selected mark placed AFTER each list item */
-[aria-selectable="true"] .d-list-item[aria-selected="true"]::after {
-	content: ...
-}
-
-/*================
-  Selection mode = "multiple"
-=================*/
-
-/* unselected mark placed BEFORE each list item */
-[aria-multiselectable="true"] .d-list-item::before {
-	content: ...
-}
-
-/* selected mark placed BEFORE each list item */
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::before {
-	content: ...
-}
-
-/* unselected mark placed AFTER each list item */
-[aria-multiselectable="true"] .d-list-item::after {
-	content: ...
-}
-
-/* selected mark placed AFTER each list item */
-[aria-multiselectable="true"] .d-list-item[aria-selected="true"]::after {
-	content: ...
+/* CSS selector for a selected item in a list with selectionMode = "multiple" */
+.d-multiselectable .d-list-item.d-selected {
+    ...
 }
 ```
+
+To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
+
 TODO: INSERT JSFIDDLE SAMPLE HERE ?
 
 <a name="interactions"></a>
@@ -437,6 +398,11 @@ The widget uses the browser native scroll to allow the user to scroll its conten
 
 When the selection mode is `"single"`, a click or tap on a item (or a press on the Space key
 when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has the effect of de-selecting it.
+
+When the selection mode is `"radio"`, a click or tap on a item (or a press on the Space key
+when an item has the focus) select it and de-select any previously selected item.
+Clicking on a selected item has no effect.
 
 When the selection mode is `"multiple"`, a click or tap on an item (or a press on the Space key when an item has
 the focus) toggle its selected state.
@@ -461,9 +427,17 @@ contains the previous selection, and its `newValue` property contains the new se
 <a name="enterprise"></a>
 ## Enterprise Use
 
+<a name="accessibility"></a>
 ### Accessibility
 
-The List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
+The widget supports two different WAI-ARIA roles:
+
+1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
+1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be set by assigning the value `true` to the `isAriaListbox` property.
+
+#### grid role
+
+When using the default `grid` role, the List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
 except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
 
 The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
@@ -482,8 +456,16 @@ the last one.
 You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
 
-When the `selectionMode` of a List is different than `"none"`, its `aria-selectable` (for selection mode `"single"`) or `aria-multiselectable` (for selection mode `"multiple"`) attribute is set to `"true"`.
-When an item is selected in such a list, its `aria-selected` attribute is set to the value `"true"`.
+When the `selectionMode` of a List is `"multiple"`, its `aria-multiselectable` attribute is set to `"true"`.
+When an item is selected in a list, its `aria-selected` attribute is set to the value `"true"`.
+
+#### listbox role
+
+When using the `listbox` role, the List widget behave as previously described for the `grid` role, with the following differences:
+
+* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `none` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
+* The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
+* If the list is categorized, the category headers are not focusable.
 
 ### Globalization
 
