@@ -7,15 +7,15 @@ define([
 	var list = null;
 
 	var checkCategory = function (node, expectedCategory) {
-		assert.equal(node.tagName, "D-LIST-CATEGORY-RENDERER");
-		assert.equal(node.className, "d-list-category");
-		assert.equal(node.textContent, expectedCategory);
+		assert.strictEqual(node.tagName, "D-LIST-CATEGORY-RENDERER");
+		assert.strictEqual(node.className, "d-list-category");
+		assert.strictEqual(node.textContent, expectedCategory);
 	};
 
 	var checkItem = function (node, expectedLabel) {
-		assert.equal(node.tagName, "D-LIST-ITEM-RENDERER");
-		assert.equal(node.className, "d-list-item");
-		assert.equal(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel);
+		assert.strictEqual(node.tagName, "D-LIST-ITEM-RENDERER");
+		assert.strictEqual(node.className, "d-list-item");
+		assert.strictEqual(node.getElementsByClassName("d-list-item-label")[0].innerHTML, expectedLabel);
 	};
 
 	registerSuite({
@@ -43,7 +43,7 @@ define([
 			var dfd = this.async(1000);
 			setTimeout(dfd.callback(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 12);
+				assert.strictEqual(children.length, 12);
 				checkCategory(children[0], "A");
 				checkItem(children[1], "item 1");
 				checkItem(children[2], "item 2");
@@ -67,7 +67,7 @@ define([
 			list.store.remove(list.store.data[0].id);
 			setTimeout(dfd.callback(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 8);
+				assert.strictEqual(children.length, 8);
 				checkCategory(children[0], "B");
 				checkItem(children[1], "item 4");
 				checkItem(children[2], "item 5");
@@ -81,7 +81,7 @@ define([
 				list.store.remove(list.store.data[list.store.data.length - 1].id);
 				list.store.remove(list.store.data[list.store.data.length - 1].id);
 				children = list.getChildren();
-				assert.equal(children.length, 4);
+				assert.strictEqual(children.length, 4);
 				checkCategory(children[0], "B");
 				checkItem(children[1], "item 4");
 				checkItem(children[2], "item 5");
@@ -90,13 +90,13 @@ define([
 				list.store.remove(list.store.data[0].id);
 				list.store.remove(list.store.data[0].id);
 				children = list.getChildren();
-				assert.equal(children.length, 2);
+				assert.strictEqual(children.length, 2);
 				checkCategory(children[0], "B");
 				checkItem(children[1], "item 6");
 				// remove the last item
 				list.store.remove(list.store.data[0].id);
 				children = list.getChildren();
-				assert.equal(children.length, 0);
+				assert.strictEqual(children.length, 0);
 			}), 10);
 			return dfd;
 		},
@@ -108,7 +108,7 @@ define([
 				list.store.remove(list.store.data[3].id);
 				list.store.remove(list.store.data[3].id);
 				var children = list.getChildren();
-				assert.equal(children.length, 8);
+				assert.strictEqual(children.length, 8);
 				checkCategory(children[0], "A");
 				checkItem(children[1], "item 1");
 				checkItem(children[2], "item 2");
@@ -126,7 +126,7 @@ define([
 			list.store.add({category: "C", label: "item a"});
 			setTimeout(dfd.rejectOnError(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 13);
+				assert.strictEqual(children.length, 13);
 				checkCategory(children[0], "A");
 				checkItem(children[1], "item 1");
 				checkItem(children[2], "item 2");
@@ -144,7 +144,7 @@ define([
 				list.store.add({category: "C", label: "item b"}, {before: list.store.data[6]});
 				setTimeout(dfd.rejectOnError(function () {
 					var children = list.getChildren();
-					assert.equal(children.length, 14);
+					assert.strictEqual(children.length, 14);
 					checkCategory(children[0], "A");
 					checkItem(children[1], "item 1");
 					checkItem(children[2], "item 2");
@@ -163,7 +163,7 @@ define([
 					list.store.add({category: "B", label: "item c"}, {before: list.store.data[4]});
 					setTimeout(dfd.rejectOnError(function () {
 						var children = list.getChildren();
-						assert.equal(children.length, 15);
+						assert.strictEqual(children.length, 15);
 						checkCategory(children[0], "A");
 						checkItem(children[1], "item 1");
 						checkItem(children[2], "item 2");
@@ -183,7 +183,7 @@ define([
 						list.store.add({category: "A", label: "item d"}, {before: list.store.data[0]});
 						setTimeout(dfd.callback(function () {
 							var children = list.getChildren();
-							assert.equal(children.length, 16);
+							assert.strictEqual(children.length, 16);
 							checkCategory(children[0], "A");
 							checkItem(children[1], "item d");
 							checkItem(children[2], "item 1");
@@ -212,7 +212,7 @@ define([
 			list.store.add({category: "D", label: "item a"});
 			setTimeout(dfd.rejectOnError(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 14);
+				assert.strictEqual(children.length, 14);
 				checkCategory(children[0], "A");
 				checkItem(children[1], "item 1");
 				checkItem(children[2], "item 2");
@@ -231,7 +231,7 @@ define([
 				list.store.add({category: "E", label: "item b"}, {before: list.store.data[0]});
 				setTimeout(dfd.rejectOnError(function () {
 					var children = list.getChildren();
-					assert.equal(children.length, 16);
+					assert.strictEqual(children.length, 16);
 					checkCategory(children[0], "E");
 					checkItem(children[1], "item b");
 					checkCategory(children[2], "A");
@@ -252,7 +252,7 @@ define([
 					list.store.add({category: "F", label: "item c"}, {before: list.store.data[8]});
 					setTimeout(dfd.callback(function () {
 						var children = list.getChildren();
-						assert.equal(children.length, 19);
+						assert.strictEqual(children.length, 19);
 						checkCategory(children[0], "E");
 						checkItem(children[1], "item b");
 						checkCategory(children[2], "A");
@@ -282,7 +282,7 @@ define([
 			list.categoryAttr = "label";
 			setTimeout(dfd.callback(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 18);
+				assert.strictEqual(children.length, 18);
 				checkCategory(children[0], "item 1");
 				checkItem(children[1], "item 1");
 				checkCategory(children[2], "item 2");
@@ -311,7 +311,7 @@ define([
 			};
 			setTimeout(dfd.callback(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 18);
+				assert.strictEqual(children.length, 18);
 				checkCategory(children[0], "item 1");
 				checkItem(children[1], "item 1");
 				checkCategory(children[2], "item 2");
@@ -347,7 +347,7 @@ define([
 			list.store.add({category: "A", label: "item 6"});
 			setTimeout(dfd.rejectOnError(function () {
 				var children = list.getChildren();
-				assert.equal(children.length, 4);
+				assert.strictEqual(children.length, 4);
 				checkCategory(children[0], "A");
 				checkItem(children[1], "item 4");
 				checkItem(children[2], "item 5");
@@ -357,7 +357,7 @@ define([
 				                     {category: "A", label: "item 3"}], true);
 				setTimeout(dfd.callback(function () {
 					var children = list.getChildren();
-					assert.equal(children.length, 7);
+					assert.strictEqual(children.length, 7);
 					checkCategory(children[0], "A");
 					checkItem(children[1], "item 1");
 					checkItem(children[2], "item 2");

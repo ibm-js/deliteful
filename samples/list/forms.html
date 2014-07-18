@@ -21,7 +21,7 @@
 			"delite/register",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List"
-		], function (register, ItemRenderer) {
+		], function (register, ItemRenderer, List) {
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
 				counter: 1,
 				buildRendering: function () {
@@ -57,7 +57,7 @@
 					this._dateOfBirthNode.value = this.item.dateOfBirth;
 				}
 			});
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.setAttribute("aria-label", "Sample list which items are data forms");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
@@ -72,25 +72,11 @@
 		});
 	</script>
 	<style type="text/css">
-		html {
-			width: 100%;
-			margin: 0;
-			padding: 0;
-		}
 		
-		body {
-			font-family: Helvetica;
-			font-size: 17px;
-			background-color: #c5ccd3;
-		}
+ 		input {
+ 			margin-right: 10px;
+ 		}
 		
-		input {
-			margin-right: 10px;
-		}
-		
-		d-dataform-item {
-			line-height: 43px;
-		}
 	</style>
 </head>
 <body role="application">

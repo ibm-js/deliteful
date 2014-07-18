@@ -21,11 +21,11 @@ define([
 			list.store.add({label: "item 3"});
 		},
 		"baseClass update" : function () {
-			assert.equal(list.className, "d-list");
+			assert.strictEqual(list.className, "d-list");
 			list.baseClass = "d-round-rect-list";
-			assert.equal(list.className, "d-round-rect-list");
+			assert.strictEqual(list.className, "d-round-rect-list");
 			list.baseClass = "d-list";
-			assert.equal(list.className, "d-list");
+			assert.strictEqual(list.className, "d-list");
 		},
 		"scrollDirection horizontal not supported": function () {
 			try {
@@ -33,10 +33,11 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.equal("'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
+				assert.strictEqual(
+						"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
 						error.message,
 						"error message");
-				assert.equal(list.scrollDirection, "vertical");
+				assert.strictEqual(list.scrollDirection, "vertical");
 			}
 		},
 		"scrollDirection foo not supported": function () {
@@ -45,17 +46,17 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.equal("'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
+				assert.strictEqual("'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
 						error.message,
 						"error message");
-				assert.equal(list.scrollDirection, "vertical");
+				assert.strictEqual(list.scrollDirection, "vertical");
 			}
 		},
 		"default scroll direction is vertical": function () {
 			var dfd = this.async(1000);
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "vertical";
-				assert.equal(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
+				assert.strictEqual(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
 			}), 10);
 			return dfd;
 		},
@@ -64,67 +65,67 @@ define([
 			list.scrollDirection = "none";
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "none";
-				assert.equal(list.className, "d-list");
+				assert.strictEqual(list.className, "d-list");
 			}), 10);
 			return dfd;
 		},
 		"getRendererByItemId": function () {
 			var children = list.getChildren();
-			assert.equal(list.getRendererByItemId(list.store.data[0].id), children[0], "first renderer");
-			assert.equal(list.getRendererByItemId(list.store.data[1].id), children[1], "second renderer");
-			assert.equal(list.getRendererByItemId(list.store.data[2].id), children[2], "third renderer");
+			assert.strictEqual(list.getRendererByItemId(list.store.data[0].id), children[0], "first renderer");
+			assert.strictEqual(list.getRendererByItemId(list.store.data[1].id), children[1], "second renderer");
+			assert.strictEqual(list.getRendererByItemId(list.store.data[2].id), children[2], "third renderer");
 			assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
 		},
 		"getItemRendererIndex": function () {
 			var children = list.getChildren();
-			assert.equal(0, list.getItemRendererIndex(children[0]), "first renderer");
-			assert.equal(1, list.getItemRendererIndex(children[1]), "second renderer");
-			assert.equal(2, list.getItemRendererIndex(children[2]), "second renderer");
-			assert.equal(-1, list.getItemRendererIndex(list), "non list renderer");
+			assert.strictEqual(0, list.getItemRendererIndex(children[0]), "first renderer");
+			assert.strictEqual(1, list.getItemRendererIndex(children[1]), "second renderer");
+			assert.strictEqual(2, list.getItemRendererIndex(children[2]), "second renderer");
+			assert.strictEqual(-1, list.getItemRendererIndex(list), "non list renderer");
 		},
 		"getEnclosingRenderer": function () {
 			var children = list.getChildren();
-			assert.equal(list.getEnclosingRenderer(children[0]), children[0], "first");
-			assert.equal(list.getEnclosingRenderer(children[0].getChildren()[0]), children[0], "second");
+			assert.strictEqual(list.getEnclosingRenderer(children[0]), children[0], "first");
+			assert.strictEqual(list.getEnclosingRenderer(children[0].getChildren()[0]), children[0], "second");
 			assert.isNull(list.getEnclosingRenderer(list), "third");
 		},
 		"_renderNewItems": function () {
 			list._renderNewItems([{label: "item a"}, {label: "item b"}, {label: "item c"}], true);
 			var children = list.getChildren();
-			assert.equal(children.length, 6, "nb of items");
-			assert.equal(children[0].item.label, "item a", "first added 1");
-			assert.equal(children[1].item.label, "item b", "first added 2");
-			assert.equal(children[2].item.label, "item c", "firstd added 3");
+			assert.strictEqual(children.length, 6, "nb of items");
+			assert.strictEqual(children[0].item.label, "item a", "first added 1");
+			assert.strictEqual(children[1].item.label, "item b", "first added 2");
+			assert.strictEqual(children[2].item.label, "item c", "firstd added 3");
 			list._renderNewItems([{label: "item d"}, {label: "item e"}, {label: "item f"}], false);
 			children = list.getChildren();
-			assert.equal(children.length, 9, "nb of items 2");
-			assert.equal(children[6].item.label, "item d", "last added 1");
-			assert.equal(children[7].item.label, "item e", "last added 2");
-			assert.equal(children[8].item.label, "item f", "last added 3");
+			assert.strictEqual(children.length, 9, "nb of items 2");
+			assert.strictEqual(children[6].item.label, "item d", "last added 1");
+			assert.strictEqual(children[7].item.label, "item e", "last added 2");
+			assert.strictEqual(children[8].item.label, "item f", "last added 3");
 		},
 		"_getFirst": function () {
 			var dfd = this.async(1000);
 			var children = list.getChildren();
-			assert.equal(list._getFirst(), children[0].renderNode);
+			assert.strictEqual(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
 			setTimeout(dfd.callback(function () {
 				children = list.getChildren();
-				assert.equal(children[0].className, "d-list-category", "first is category");
-				assert.equal(list._getFirst(), children[0].renderNode, "first renderer is category");
+				assert.strictEqual(children[0].className, "d-list-category", "first is category");
+				assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
 			}, 10));
 			return dfd;
 		},
 		"_getLast": function () {
 			var children = list.getChildren();
-			assert.equal(list._getLast(), children[2].renderNode);
+			assert.strictEqual(list._getLast(), children[2].renderNode);
 		},
 		"update item label": function () {
 			var dfd = this.async(1000);
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			setTimeout(dfd.callback(function () {
 				var renderer = list.getChildren()[0];
-				assert.equal(renderer.item.label, "item a");
-				assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+				assert.strictEqual(renderer.item.label, "item a");
+				assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 			}), 10);
 			return dfd;
 		},
@@ -134,28 +135,28 @@ define([
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			setTimeout(dfd.rejectOnError(function () {
 				var renderer = list.getChildren()[0];
-				assert.equal(renderer.item.label, "item a");
-				assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-				assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
-				assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-				assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+				assert.strictEqual(renderer.item.label, "item a");
+				assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+				assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
+				assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+				assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 				// update
 				list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
 				setTimeout(dfd.rejectOnError(function () {
 					var renderer = list.getChildren()[0];
-					assert.equal(renderer.item.label, "item a");
-					assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-					assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
-					assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-					assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+					assert.strictEqual(renderer.item.label, "item a");
+					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
+					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 					// remove
 					list.store.put({label: "item a"}, {id: list.store.data[0].id});
 					setTimeout(dfd.callback(function () {
 						var renderer = list.getChildren()[0];
-						assert.equal(renderer.item.label, "item a");
-						assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-						assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-						assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+						assert.strictEqual(renderer.item.label, "item a");
+						assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+						assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+						assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 					}), 10);
 				}), 10);
 			}), 10);
@@ -166,7 +167,7 @@ define([
 			list = new List();
 			list.startup();
 			list.store.add({label: "item 1", category: "category 1"});
-			assert.equal(list.getChildren()[0].item.category, "category 1");
+			assert.strictEqual(list.getChildren()[0].item.category, "category 1");
 		},
 		"query-error event": function () {
 			var def = this.async(1000);
@@ -188,7 +189,7 @@ define([
 				list.startup();
 				setTimeout(def.callback(function () {
 					assert.isNotNull(queryErrorEvt);
-					assert.equal("Query Error X", queryErrorEvt.error, "error message");
+					assert.strictEqual("Query Error X", queryErrorEvt.error, "error message");
 					assert(!list.hasAttribute("aria-busy"));
 				}), 10);
 			} catch (e) {
@@ -210,7 +211,7 @@ define([
 						var focusedElement = document.activeElement;
 						assert.isNotNull(focusedElement, "active element");
 						assert.isDefined(focusedElement, "active element");
-						assert.equal("item 1", focusedElement.parentNode.item.label, "focused element label");
+						assert.strictEqual("item 1", focusedElement.parentNode.item.label, "focused element label");
 						list.scrollableNode.scrollTop = itemHeightInPixel * 2.5;
 						setTimeout(def.rejectOnError(function () {
 							list.focus();
@@ -219,7 +220,7 @@ define([
 									var focusedElement = document.activeElement;
 									assert.isNotNull(focusedElement, "active element");
 									assert.isDefined(focusedElement, "active element");
-									assert.equal("item 4", focusedElement.parentNode.item.label,
+									assert.strictEqual("item 4", focusedElement.parentNode.item.label,
 										"focused element label");
 									def.resolve();
 								} catch (error) {

@@ -4,6 +4,7 @@ define([
 	"./Renderer",
 	"./DefaultStore",
 	"./Selection",
+	"./AriaListbox",
 	"./Categories",
 	"./PageableList"
 ]);
