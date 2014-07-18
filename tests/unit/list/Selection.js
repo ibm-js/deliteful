@@ -379,7 +379,6 @@ define([
 			setTimeout(dfd.callback(function () {
 				assert.isTrue(list.className.indexOf("d-selectable") === -1, "d-selectable class");
 				assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
-				assert.isFalse(list.hasAttribute("aria-selectable"), "no aria-selectable attribute expected");
 				var firstItem = list.getChildren()[0];
 				assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 			}), 10);
