@@ -33,7 +33,8 @@ define([
 			} catch (error) {
 				assert.isNotNull(error);
 				console.log(error);
-				assert.strictEqual("'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
+				assert.strictEqual(
+						"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
 						error.message,
 						"error message");
 				assert.strictEqual(list.scrollDirection, "vertical");
