@@ -22,13 +22,13 @@ define(["intern!object",
 			.elementById(listId)
 				.elementsByTagName(itemTag)
 					.then(function (result) {
-						assert.equal(result.length, numberOfItemsExpected,
+						assert.strictEqual(result.length, numberOfItemsExpected,
 								listId + " number of list items is not the expected one");
 						// TODO: check the label on each item
 					})
 				.elementsByTagName("d-list-category-renderer")
 					.then(function (result) {
-						assert.equal(result.length, numberOfCategoriesExpected,
+						assert.strictEqual(result.length, numberOfCategoriesExpected,
 								listId + " number of category headers is not the expected one");
 					})
 					// TODO: scroll ?
@@ -94,12 +94,12 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, null);
+						assert.strictEqual(value, null);
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, null);
+						assert.strictEqual(value, null);
 					})
 					.end();
 			});
@@ -120,39 +120,39 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end();
 			});
@@ -173,39 +173,39 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.end();
 			});
@@ -226,34 +226,34 @@ define(["intern!object",
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.click()
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "true");
+						assert.strictEqual(value, "true");
 					})
 					.end()
 				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
-						assert.equal(value, "false");
+						assert.strictEqual(value, "false");
 					})
 					.end();
 			});
@@ -279,42 +279,42 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 0\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE014") // Press RIGHT ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 2\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
@@ -323,14 +323,14 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
 				.keys("\uE032") // Press F2
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Programmatic item of order 1\nlist-prog-1");
+					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end();
 			});
@@ -356,42 +356,42 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Amazon\nhttp://www.amazon.com", "keystroke 1");
+					assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 1");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 2");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 2");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Amazon\nhttp://www.amazon.com", "keystroke 3");
+					assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 3");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 4");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 4");
 				})
 				.end()
 				.keys("\uE014") // Press RIGHT ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 5");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 5");
 				})
 				.end()
 				.keys("\uE006") // Press ENTER
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 6");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 6");
 				})
 				.end()
 				.keys("\uE008\uE004") // Press Shift + TAB
@@ -399,28 +399,28 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "http://www.amazon.com", "keystroke 7");
+					assert.strictEqual(value, "http://www.amazon.com", "keystroke 7");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 8");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 8");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "ISBN: 0596516487", "keystroke 9");
+					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 9");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
+					assert.strictEqual(value, "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
 							"keystroke 10");
 				})
 				.end()
@@ -429,7 +429,7 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "ISBN: 0596516487", "keystroke 11");
+					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 11");
 				})
 				.end()
 				.keys("\uE008\uE004") // Press Shift + TAB
@@ -437,28 +437,28 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 12");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 13");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 13");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 14");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 14");
 				})
 				.end()
 				.keys("\uE00C") // Press ESC
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
 				})
 				.end()
 				.keys("\uE008\uE004") // Press Shift + TAB
@@ -467,14 +467,14 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 16");
+					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 16");
 				})
 				.end()
 				.keys("\uE032") // Press F2
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Dojo: The Definitive Guide", "keystroke 17");
+					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 17");
 				})
 				.end();
 			});
@@ -500,29 +500,29 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true");
+					assert.strictEqual(value, "true");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false");
+					assert.strictEqual(value, "false");
 				})
 				.end();
 			});
@@ -548,18 +548,18 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 1");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 2");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true", "keystroke 2");
+					assert.strictEqual(value, "true", "keystroke 2");
 				})
 				.end()
 				.wait(10)
@@ -567,69 +567,69 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 3");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 3");
+					assert.strictEqual(value, "false", "keystroke 3");
 				})
 				.end()
 				.keys("\uE010") // Press END
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 4");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 4");
+					assert.strictEqual(value, "false", "keystroke 4");
 				})
 				.end()
 				.keys("\uE00F") // Press PAGE DOWN
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 5");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 5");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 5");
+					assert.strictEqual(value, "false", "keystroke 5");
 				})
 				.end()
 				.keys("\uE011") // Press HOME
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 6");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 6");
+					assert.strictEqual(value, "false", "keystroke 6");
 				})
 				.end()
 				.keys("\uE00E") // Press PAGE UP
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 7");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 7");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 7");
+					assert.strictEqual(value, "false", "keystroke 7");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 8");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 9");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
 				})
 				.end();
 			});
@@ -655,18 +655,18 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 1");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
 				})
 				.end()
 				.keys("\uE00D") // Press SPACE
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 2");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true", "keystroke 2");
+					assert.strictEqual(value, "true", "keystroke 2");
 				})
 				.end()
 				.wait(10)
@@ -674,69 +674,69 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 3");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true", "keystroke 3");
+					assert.strictEqual(value, "true", "keystroke 3");
 				})
 				.end()
 				.keys("\uE010") // Press END
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 4");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true", "keystroke 4");
+					assert.strictEqual(value, "true", "keystroke 4");
 				})
 				.end()
 				.keys("\uE00F") // Press PAGE DOWN
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 5");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 5");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 5");
+					assert.strictEqual(value, "false", "keystroke 5");
 				})
 				.end()
 				.keys("\uE011") // Press HOME
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 6");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "false", "keystroke 6");
+					assert.strictEqual(value, "false", "keystroke 6");
 				})
 				.end()
 				.keys("\uE00E") // Press PAGE UP
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 7");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 7");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
-					assert.equal(value, "true", "keystroke 7");
+					assert.strictEqual(value, "true", "keystroke 7");
 				})
 				.end()
 				.keys("\uE013") // Press UP ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 9\nright text 10", "keystroke 8");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
 				})
 				.end()
 				.keys("\uE015") // Press DOWN ARROW
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text 1", "keystroke 9");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
 				})
 				.end();
 			});
@@ -762,14 +762,14 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
 				.keys("R")
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
 				.wait(10)
@@ -777,7 +777,7 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 0\nright text A");
+					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
 				.wait(10)
@@ -785,7 +785,7 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 1\nright text B");
+					assert.strictEqual(value, "list item 1\nright text B");
 				})
 				.end()
 				.wait(10)
@@ -793,7 +793,7 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "list item 2\nright text C");
+					assert.strictEqual(value, "list item 2\nright text C");
 				})
 				.end();
 			});
@@ -820,42 +820,42 @@ define(["intern!object",
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "6 navindex -2");
+					assert.strictEqual(value, "6 navindex -2");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "1 navindex -1");
+					assert.strictEqual(value, "1 navindex -1");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "4 navindex 0");
+					assert.strictEqual(value, "4 navindex 0");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "2 navindex 1");
+					assert.strictEqual(value, "2 navindex 1");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "5 navindex 1");
+					assert.strictEqual(value, "5 navindex 1");
 				})
 				.end()
 				.keys("\uE004") // Press TAB
 				.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "6 navindex -2");
+					assert.strictEqual(value, "6 navindex -2");
 				})
 				.end();
 			});
