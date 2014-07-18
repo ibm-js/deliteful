@@ -311,7 +311,7 @@ define([
 							domClass.add(this, this._cssClasses.selectable);
 						} else {
 							domClass.add(this, this._cssClasses.multiselectable);
-							this.setAttribute("aria-multiselectable", true);
+							this.setAttribute("aria-multiselectable", "true");
 						}
 						// update aria-selected attribute on unselected items
 						for (i = 0; i < this.containerNode.children.length; i++) {
@@ -461,7 +461,7 @@ define([
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
 						var itemSelected = !!this.isSelected(currentItem);
-						renderer.renderNode.setAttribute("aria-selected", itemSelected);
+						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 						domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 					}
 				}
@@ -793,7 +793,7 @@ define([
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
-				renderer.renderNode.setAttribute("aria-selected", itemSelected);
+				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 				domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
