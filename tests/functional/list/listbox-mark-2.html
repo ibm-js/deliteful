@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+		    "delite/register",
+			"deliteful/list/List",
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+    <h2>Non scrollable with 10 items declared as markup, default store, and isAriaListbox set to "true" (id: list-mark-2)</h2>
+	<d-list id="list-mark-2" scrollDirection="none" isAriaListbox="true">
+		<d-list-store>
+			{"label": "list item 0", "righttext": "right text 1"},
+			{"label": "list item 1", "righttext": "right text 2"},
+			{"label": "list item 2", "righttext": "right text 3"},
+			{"label": "list item 3", "righttext": "right text 4"},
+			{"label": "list item 4", "righttext": "right text 5"},
+			{"label": "list item 5", "righttext": "right text 6"},
+			{"label": "list item 6", "righttext": "right text 7"},
+			{"label": "list item 7", "righttext": "right text 8"},
+			{"label": "list item 8", "righttext": "right text 9"},
+			{"label": "list item 9", "righttext": "right text 10"}
+		</d-list-store>
+	</d-list>
+</body>
+</html>

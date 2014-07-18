@@ -34,7 +34,7 @@ d-list-store {
 	white-space: nowrap;
 	overflow: hidden;
 	.d-list-category-styles;
-	[role="gridcell"] {
+	.d-list-cell {
 		height: @category-height;
 	}
 }
@@ -45,12 +45,12 @@ d-list-store {
 	.flex-display();
 	.flex-align(center);
 	.d-list-item-styles;
-	[role="gridcell"] {
+	.d-list-cell {
 		height: @cell-height;
 	}
 }
 
-.d-list [role="gridcell"], .d-round-rect-list [role="gridcell"] {
+.d-list .d-list-cell, .d-round-rect-list .d-list-cell {
 	.flex-display();
 	.flex-grow(1);
 	.flex-align(center);
@@ -83,7 +83,7 @@ d-list-store {
 }
 
 .d-list-loader {
-	[role="gridcell"] {
+	.d-list-cell {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -146,24 +146,10 @@ d-list-store {
 	}
 }
 
-[aria-selectable="true"],[aria-multiselectable="true"] {
-	.d-list-item::before {
-		font-size: large;
-		padding-left: 5px;
-		display: block;
-		content: "\2610";
-	}	
-	.d-list-item[aria-selected="true"]::before {
-		content: "\2611";
-	}
-	.d-list-item::after {
-		font-size: large;
-		padding-right: 5px;
-		display: none;
-		content: "\2610";
-	}	
-	.d-list-item[aria-selected="true"]::after {
-		content: "\2611";
+.d-selectable, .d-multiselectable {
+	cursor: pointer;
+	.d-list-item.d-selected {
+		.d-list-item-selected-style;
 	}
 }
 

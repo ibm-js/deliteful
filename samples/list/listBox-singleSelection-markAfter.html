@@ -26,8 +26,8 @@
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
+			list.isAriaListbox = true;
 			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
-			list.selectionMode = "single";
 			list.store.add({label: "first item"});
 			list.store.add({label: "second item"});
 			list.store.add({label: "third item"});
@@ -45,16 +45,15 @@
 		});
 	</script>
 	<style type="text/css">
-		/* CSS to place the selection mark after the list item instead of before the list item */
-		[aria-selectable="true"] .d-list-item::before {
-			display: none;
-		}
-		[aria-selectable="true"] .d-list-item::after {
-			display: block;
+		/* CSS to add a selection mark on the default item renderer */
+		.d-selectable .d-selected .d-list-item-right-icon::after {
+			content: "\2713";
+			padding-right: 5px;
 		}
 	</style>
 </head>
 <body role="application">
-	This sample demonstrate a list with single selection mode enabled, and the selection mark placed after the list item.
+	This sample demonstrate a list with listbox aria role, single selection mode enabled and custom CSS to display a selection mark after the currently selected item(s).
+	<input autofocus></input><br>
 </body>
 </html>
