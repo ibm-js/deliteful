@@ -5,11 +5,10 @@ define([
 	"ecma402/IntlShim",
 	"delite/register",
 	"delite/Widget",
-	"delite/Invalidating",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl_css"
-], function (dcl, domClass, Intl, register, Widget, Invalidating, renderer) {
+], function (dcl, domClass, Intl, register, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
@@ -28,10 +27,9 @@ define([
 	 * When the progress bar is indeterminate, use the message property to display a message.
 	 *
 	 * @class module:deliteful/ProgressBar
-	 * @augments {module:delite/Widget}
-	 * @augments {module:delite/Invalidating}
+	 * @augments module:delite/Widget
 	 */
-	return register("d-progress-bar", [HTMLElement, Widget, Invalidating], /** @lends module:deliteful/ProgressBar# */{
+	return register("d-progress-bar", [HTMLElement, Widget], /** @lends module:deliteful/ProgressBar# */{
 
 		/**
 		 * A number indicating the amount of completion of a task.
@@ -97,24 +95,14 @@ define([
 		 */
 		baseClass: "d-progress-bar",
 
-		preCreate: function () {
-			// watched properties to trigger invalidation
-			this.addInvalidatingProperties(
-				{value: "invalidateProperty"},
-				{max: "invalidateProperty"},
-				"message",
-				"displayExtMsg",
-				"fractionDigits"
-			);
-		},
+		template: template,
 
-		buildRendering: function () {
-			renderer.call(this);
+		buildRendering: dcl.after(function () {
 			this.setAttribute("aria-valuemin", 0);
-		},
+		}),
 
-		refreshProperties: function (props) {
-			if (props.max) {
+		computeProperties: function (props) {
+			if ("max" in props) {
 				var newMax = this._convert2Float(this.max, 1.0);
 				if (newMax <= 0) {
 					newMax = 1.0;
@@ -123,7 +111,7 @@ define([
 					this.max = newMax;
 				}
 			}
-			if (props.value && !isNaN(this.value)) {
+			if ("value" in props && !isNaN(this.value)) {
 				var newValue = this._convert2Float(this.value, 0);
 				newValue = Math.max(0, Math.min(this.max, newValue));
 				if (newValue !== this.value) {
@@ -135,10 +123,10 @@ define([
 
 		refreshRendering: function (props) {
 			//update widget to reflect value/max changes
-			if (props.max) {
+			if ("max" in props) {
 				this.setAttribute("aria-valuemax", this.max);
 			}
-			if (props.value || props.max) {
+			if ("value" in props || "max" in props) {
 				if (this.position === -1) { //indeterminate state
 					this.indicatorNode.style.removeProperty("width");
 					this.removeAttribute("aria-valuenow");
@@ -168,14 +156,14 @@ define([
 				this.removeAttribute("aria-valuetext");
 			}
 			domClass.toggle(this, this.baseClass + "-indeterminate", (this.position === -1));
-			if (props.value || props.max) {
+			if ("value" in props || "max" in props) {
 				this.emit("change", {percent: this.position * 100, value: this.value, max: this.max});
 			}
 		},
 
 		postCreate: function () {
-			this.invalidateProperty("value");
-			this.invalidateProperty("max");
+			this.notifyCurrentValue("value");
+			this.notifyCurrentValue("max");
 		},
 
 		/**

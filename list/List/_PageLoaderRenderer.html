@@ -1,10 +1,10 @@
 <!-- Template: deliteful/list/_PageLoaderRenderer.html -->
-<template>
-	<div data-attach-point="renderNode">
-		<div role="button" navindex="0" data-attach-point="_button">
+<template requires="deliteful/ProgressIndicator">
+	<div attach-point="renderNode">
+		<div role="button" navindex="0" attach-point="_button">
 			<div class="d-spacer"></div>
-			<d-progress-indicator class="d-hidden" data-attach-point="_progressIndicator"></d-progress-indicator>
-			<div data-attach-point="_label"></div>
+			<d-progress-indicator class="d-hidden" attach-point="_progressIndicator"></d-progress-indicator>
+			<div attach-point="_label"></div>
 			<div class="d-spacer"></div>
 		</div>
 	</div>

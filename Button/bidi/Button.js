@@ -12,11 +12,11 @@ define(["dcl/dcl"], function (dcl) {
 		//		This class should not be used directly.
 		//		Button widget loads this module when user sets "has: {'bidi': true }" in data-dojo-config.
 
-		refreshRendering: dcl.after(function () {
+		refreshRendering: function () {
 			this.containerNode.textContent = this.wrapWithUcc(this.containerNode.textContent);
 			if (this.title) {
 				this.title = this.wrapWithUcc(this.title);
 			}
-		})
+		}
 	});
 });

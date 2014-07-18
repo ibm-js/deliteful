@@ -25,7 +25,7 @@ define([
 			}));
 		},
 		"hide" : function () {
-			var d = this.async(1000);
+			var d = this.async(3000);
 			sp.hide().then(function () {
 				assert.strictEqual(sp.children[0].id, "content", "Plain hide() removed the children");
 				sp.show().then(function () {
@@ -34,6 +34,24 @@ define([
 						assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
 					}));
 				});
+			});
+		},
+		"toggle after hide" : function () {
+			var d = this.async(5000);
+			sp.hide().then(function () {
+				sp.toggle().then(d.callback(function () {
+					assert.isTrue(domClass.contains(sp, "-d-side-pane-visible"));
+					assert.isFalse(domClass.contains(sp, "-d-side-pane-hidden"));
+				}));
+			});
+		},
+		"toggle after show" : function () {
+			var d = this.async(5000);
+			sp.show().then(function () {
+				sp.toggle().then(d.callback(function () {
+					assert.isTrue(domClass.contains(sp, "-d-side-pane-hidden"));
+					assert.isFalse(domClass.contains(sp, "-d-side-pane-visible"));
+				}));
 			});
 		},
 		teardown: function () {

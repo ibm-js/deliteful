@@ -2,17 +2,18 @@
 	"name": "deliteful",
 	"version": "0.1.3-dev",
 	"dependencies": {
-		"dojo": ">=1.9.1",
-		"requirejs": "2.1.x",
 		"dcl": "1.1.x",
+		"decor": "#master",
+		"delite": "#master",
+		"dojo": ">=1.9.1",
 		"dpointer": ">=0.1.0-dev",
-		"delite": ">=0.1.7-dev",
-		"requirejs-dplugins": ">=0.2.2-dev",
+		"ecma402": ">=0.2.0-dev",
+		"requirejs": "2.1.x",
 		"requirejs-domready": ">=2.0.1",
-		"ecma402": ">=0.0.1-dev"
+		"requirejs-dplugins": ">=0.2.2-dev"
 	},
 	"devDependencies": {
-		"dstore": ">=0.1.0-dev"
+		"dstore": "0.1.0"
 	},
 	"ignore": [
 		".jshintrc",

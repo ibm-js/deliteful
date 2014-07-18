@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"delite/handlebars!./List/CategoryRenderer.html",
 	"./Renderer"
-], function (dcl, register, templateFunc, Renderer) {
+], function (dcl, register, template, Renderer) {
 
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -22,10 +22,7 @@ define([
 		 */
 		baseClass: "d-list-category",
 
-		//////////// PROTECTED METHODS ///////////////////////////////////////
-
-		buildRendering: templateFunc
-
+		template: template
 	});
 
 	return register("d-list-category-renderer", [HTMLElement, CategoryRenderer]);

@@ -13,7 +13,7 @@ define([
 			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
 			progressBar.startup();
-			progressBar.validate(); //todo: remove when the initialization of properties will be synchronous.
+			progressBar.deliver(); //todo: remove when the initialization of properties will be synchronous.
 		},
 		"Default values and state": function () {
 			//public attribute:value
@@ -41,7 +41,7 @@ define([
 		"Set value in range": function () {
 			var testVal = 0.5;
 			progressBar.value = testVal;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkFractionDigits(progressBar.fractionDigits);
 			checkPercentage(testVal);
@@ -50,7 +50,8 @@ define([
 		"Set value out of range (value < 0)": function () {
 			var testVal = -0.1;
 			progressBar.value = testVal;
-			progressBar.validate();
+			progressBar.deliverComputing();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(testVal, true);
 			checkAria();
@@ -58,7 +59,8 @@ define([
 		"Set value out of range (value > max)": function () {
 			var testVal = 100.1;
 			progressBar.value = testVal;
-			progressBar.validate();
+			progressBar.deliverComputing();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(testVal, true);
 			checkAria();
@@ -66,34 +68,34 @@ define([
 		"Set max in range (max > value)": function () {
 			progressBar.value = 10;
 			progressBar.max = 90;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(progressBar.value);
 			checkAria();
 		},
 		"Set max out of range (max < 0)": function () {
 			progressBar.max = -10;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(progressBar.value);
 			checkAria();
 		},
 		"Set max to NaN": function () {
 			progressBar.max = NaN;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(progressBar.value);
 			checkAria();
 		},
 		"Set indeterminate state (value = NaN)": function () {
 			progressBar.value = NaN;
-			progressBar.validate();
+			progressBar.deliver();
 			checkIndeterminate();
 			checkAria(true);
 		},
 		"Set custom message (indeterminate)": function () {
 			progressBar.message = TEST_MSG;
-			progressBar.validate();
+			progressBar.deliver();
 			checkIndeterminate();
 			checkMessage(TEST_MSG, true);
 			checkAria(true);
@@ -101,7 +103,7 @@ define([
 		"Set value (custom message)": function () {
 			var testVal = 0.5;
 			progressBar.value = testVal;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkMessage(TEST_MSG, false);
 			checkPercentage(testVal);
@@ -110,7 +112,7 @@ define([
 		"Restore default message (determinate)": function () {
 			var msg = "";
 			progressBar.message = msg;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkMessage(msg, false);
 			checkPercentage(progressBar.value);
@@ -119,7 +121,7 @@ define([
 		"Set fraction digits": function () {
 			var fractionDigits = 2;
 			progressBar.fractionDigits = fractionDigits;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkFractionDigits(fractionDigits);
 			checkPercentage(progressBar.value);
@@ -132,7 +134,7 @@ define([
 				return message;
 			};
 			progressBar.value = testVal;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkMessage(message, false);
 			checkPercentage(testVal);
@@ -144,7 +146,7 @@ define([
 			progressBar.max = 100;
 			progressBar.value = testVal;
 			progressBar.displayExtMsg = true;
-			progressBar.validate();
+			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(testVal);
 			checkExtMsg();
@@ -154,7 +156,7 @@ define([
 			var pb = new ProgressBar({value: 10, max: 100});
 			document.body.appendChild(pb);
 			pb.startup();
-			pb.validate();//todo: remove when the initialization of properties will be synchronous.
+			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			assert.strictEqual(10, pb.value);
 			assert.strictEqual(100, pb.max);
 			pb.destroy();
@@ -163,7 +165,7 @@ define([
 			var pb = new ProgressBar({value: -10, max: -9});
 			document.body.appendChild(pb);
 			pb.startup();
-			pb.validate();//todo: remove when the initialization of properties will be synchronous.
+			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			var value = pb.value, max = pb.max;
 			assert.strictEqual(0, value);
 			assert.strictEqual(1.0, max);

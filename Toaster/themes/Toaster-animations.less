@@ -1,0 +1,57 @@
+.d-toaster-initial {
+	opacity: 0;
+	transition-property: opacity;
+	transition-timing-function: linear;
+}
+
+.d-toaster-fadein {
+	opacity: 1;
+	transition-duration: 700ms
+}
+
+.d-toaster-fadeout {
+	opacity: 0;
+	transition-duration: 1000ms
+}
+
+@-webkit-keyframes d-toaster-swipeout {
+	0% {
+		-webkit-transform: translateX(0%);
+		transform: translateX(0%);
+	}
+
+	100% {
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%);
+		opacity: 0;
+	}
+}
+
+@keyframes d-toaster-swipeout {
+	0% {
+		-webkit-transform: translateX(0%);
+		-ms-transform: translateX(0%);
+		transform: translateX(0%);
+	}
+
+	100% {
+		-webkit-transform: translateX(100%);
+		-ms-transform: translateX(100%);
+		transform: translateX(100%);
+		opacity: 0;
+	}
+}
+
+.d-toaster-swipeout {
+	-webkit-animation-name: d-toaster-swipeout;
+	animation-name: d-toaster-swipeout;
+
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+
+	-webkit-animation-duration: 700ms;
+	animation-duration: 700ms;
+
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}

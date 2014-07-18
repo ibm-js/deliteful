@@ -62,7 +62,7 @@
 	<tr>
 		<td>% of progression</td>
 		<td>
-			<d-progress-bar value=50></d-progress-bar>
+			<d-progress-bar value=50 max=100></d-progress-bar>
 		</td>
 	</tr>
 	<tr>
@@ -74,10 +74,10 @@
 	<tr>
 		<td>Messages</td>
 		<td>
-			<d-progress-bar value=50 message="Uploading..."></d-progress-bar>
+			<d-progress-bar value=50 max=100 message="Uploading..."></d-progress-bar>
 			<d-progress-bar message="Waiting for response..."></d-progress-bar>
-			<d-progress-bar message="Task complete." value="100"></d-progress-bar>
-			<d-progress-bar value="32"
+			<d-progress-bar message="Task complete." value="100" max="100"></d-progress-bar>
+			<d-progress-bar value="32" max="100"
 							message="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
 									semper sagittis velit. Cras in mi. Duis porta mauris ut ligula. Proin
 									porta rutrum lacus. Etiam consequat scelerisque quam. Nulla facilisi.
@@ -89,9 +89,9 @@
 	<tr>
 		<td>Font scale</td>
 		<td>
-			<d-progress-bar style="font-size: 0.5em" message="0.5em" value="60"></d-progress-bar>
-			<d-progress-bar style="font-size: 1.0em" message="1.0em" value="70"></d-progress-bar>
-			<d-progress-bar style="font-size: 1.5em" message="1.5em" value="80"></d-progress-bar>
+			<d-progress-bar style="font-size: 0.5em" message="0.5em" value="60" max="100"></d-progress-bar>
+			<d-progress-bar style="font-size: 1.0em" message="1.0em" value="70" max="100"></d-progress-bar>
+			<d-progress-bar style="font-size: 1.5em" message="1.5em" value="80" max="100"></d-progress-bar>
 		</td>
 	</tr>
 </table>
@@ -106,28 +106,28 @@
 		<td>"success"</td>
 		<td>
 			<d-progress-bar class="d-progress-bar-success" message="d-progress-bar-success"></d-progress-bar>
-			<d-progress-bar class="d-progress-bar-success" value=30></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-success" value=30 max=100></d-progress-bar>
 		</td>
 	</tr>
 	<tr>
 		<td>"info"</td>
 		<td>
 			<d-progress-bar class="d-progress-bar-info" message="d-progress-bar-info"></d-progress-bar>
-			<d-progress-bar class="d-progress-bar-info" value=40></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-info" value=40 max=100></d-progress-bar>
 		</td>
 	</tr>
 	<tr>
 		<td>"warning"</td>
 		<td>
 			<d-progress-bar class="d-progress-bar-warning" message="d-progress-bar-warning"></d-progress-bar>
-			<d-progress-bar class="d-progress-bar-warning" value=50></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-warning" value=50 max=100></d-progress-bar>
 		</td>
 	</tr>
 	<tr>
 		<td>"danger"</td>
 		<td>
 			<d-progress-bar class="d-progress-bar-danger" message="d-progress-bar-danger"></d-progress-bar>
-			<d-progress-bar class="d-progress-bar-danger" value=60></d-progress-bar>
+			<d-progress-bar class="d-progress-bar-danger" value=60 max=100></d-progress-bar>
 		</td>
 	</tr>
 </table>

@@ -20,10 +20,11 @@
 		require([
 			"delite/register",
 			"deliteful/list/ItemRenderer",
-			"deliteful/list/List"
-		], function (register, ItemRenderer) {
+			"deliteful/list/List",
+			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html"
+		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
-				template: "<template><div data-attach-point='renderNode'></div></template>",
+				template: template,
 				_setItemAttr: function (item) {
 					this._set("item", item);
 					this.renderNode.innerHTML = "";
@@ -49,7 +50,7 @@
 					return elementNode;
 				}
 			});
-			var list = register.createElement("d-list");
+			var list = new List();
 			list.setAttribute("aria-label", "Sample list of input elements");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;

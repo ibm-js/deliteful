@@ -11,7 +11,6 @@ define([
 	"delite/Selection",
 	"delite/KeyNav",
 	"delite/StoreMap",
-	"delite/Invalidating",
 	"delite/Scrollable",
 	"./ItemRenderer",
 	"./CategoryRenderer",
@@ -20,7 +19,7 @@ define([
 	"delite/theme!./List/themes/{{theme}}/List_css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
 ], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
-		Invalidating, Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
+		Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 
 	// Register custom elements we use to support markup for adding items to the list store.
 	register("d-list-store", [HTMLElement, CustomElement]);
@@ -35,13 +34,12 @@ define([
 	 * for more details.
 	 *
 	 * @class module:deliteful/list/List
-	 * @augments module:delite/Invalidating
 	 * @augments module:delite/Selection
 	 * @augments module:delite/KeyNav
 	 * @augments module:delite/StoreMap
 	 * @augments module:delite/Scrollable
 	 */
-	var List = dcl([Invalidating, Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
+	var List = dcl([Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
 
 		/**
 		 * Dojo object store that contains the items to render in the list.
@@ -202,20 +200,6 @@ define([
 		 * @private
 		 */
 		
-		//////////// Widget life cycle ///////////////////////////////////////
-
-		preCreate: function () {
-			// Set invalidating properties.
-			this.addInvalidatingProperties({
-				"categoryAttr": "invalidateProperty",
-				"categoryFunc": "invalidateProperty",
-				"itemRenderer": "invalidateProperty",
-				"categoryRenderer": "invalidateProperty",
-				"selectionMode": "invalidateProperty",
-				"selectionMarkBefore": "invalidateProperty"
-			});
-		},
-
 		buildRendering: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
@@ -271,79 +255,72 @@ define([
 			};
 		}),
 
-		refreshRendering: dcl.superCall(function (sup) {
+		refreshRendering: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
-			return function (props) {
-				if (sup) {
-					sup.call(this, props);
-				}
-				if (props.selectionMode) {
-					// Update aria attributes
-					this.removeAttribute("aria-selectable");
-					this.removeAttribute("aria-multiselectable");
-					if (this.selectionMode === "single") {
-						this.setAttribute("aria-selectable", true);
-						// update aria-selected attribute on unselected items
-						for (var i = 0; i < this.containerNode.children.length; i++) {
-							var child = this.containerNode.children[i];
-							if (child.getAttribute("aria-selected") === "false") {
-								child.removeAttribute("aria-selected");
-							}
+			if ("selectionMode" in props) {
+				// Update aria attributes
+				this.removeAttribute("aria-selectable");
+				this.removeAttribute("aria-multiselectable");
+				if (this.selectionMode === "single") {
+					this.setAttribute("aria-selectable", true);
+					// update aria-selected attribute on unselected items
+					for (var i = 0; i < this.containerNode.children.length; i++) {
+						var child = this.containerNode.children[i];
+						if (child.getAttribute("aria-selected") === "false") {
+							child.removeAttribute("aria-selected");
 						}
-					} else if (this.selectionMode === "multiple") {
-						this.setAttribute("aria-multiselectable", true);
-						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
-							if (domClass.contains(child, this._cssClasses.item)
-									&& !child.hasAttribute("aria-selected")) {
-								child.setAttribute("aria-selected", "false");
-							}
+					}
+				} else if (this.selectionMode === "multiple") {
+					this.setAttribute("aria-multiselectable", true);
+					// update aria-selected attribute on unselected items
+					for (i = 0; i < this.containerNode.children.length; i++) {
+						child = this.containerNode.children[i];
+						if (domClass.contains(child, this._cssClasses.item)
+								&& !child.hasAttribute("aria-selected")) {
+							child.setAttribute("aria-selected", "false");
 						}
-					} else {
-						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
-							if (child.hasAttribute("aria-selected")) {
-								child.removeAttribute("aria-selected", "false");
-							}
+					}
+				} else {
+					// update aria-selected attribute on unselected items
+					for (i = 0; i < this.containerNode.children.length; i++) {
+						child = this.containerNode.children[i];
+						if (child.hasAttribute("aria-selected")) {
+							child.removeAttribute("aria-selected", "false");
 						}
 					}
 				}
-			};
-		}),
+			}
+		},
 		/*jshint maxcomplexity:10*/
 
-		refreshProperties: dcl.superCall(function (sup) {
+		computeProperties: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
-			return function (props) {
-				if (props.selectionMode) {
-					if (this.selectionMode === "none") {
-						if (this._selectionClickHandle) {
-							this._selectionClickHandle.remove();
-							this._selectionClickHandle = null;
-						}
-					} else {
-						if (!this._selectionClickHandle) {
-							this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
-						}
+			if ("selectionMode" in props) {
+				if (this.selectionMode === "none") {
+					if (this._selectionClickHandle) {
+						this._selectionClickHandle.remove();
+						this._selectionClickHandle = null;
+					}
+				} else {
+					if (!this._selectionClickHandle) {
+						this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
 					}
 				}
-				if (props.itemRenderer
-					|| (this._isCategorized()
-							&& (props.categoryAttr || props.categoryFunc || props.categoryRenderer))) {
-					if (this._dataLoaded) {
-						this._setBusy(true, true);
-						props.store = true; // to trigger a reload of the list.
-					}
+			}
+			if ("itemRenderer" in props
+				|| (this._isCategorized()
+						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
+				if (this._dataLoaded) {
+					this._setBusy(true, true);
+
+					// trigger a reload of the list
+					this.notifyCurrentValue("store");
+					this.deliverComputing();
 				}
-				if (sup) {
-					sup.call(this, props);
-				}
-			};
-		}),
+			}
+		},
 
 		destroy: function () {
 			// Remove reference to the list in the default store
@@ -524,7 +501,7 @@ define([
 		},
 
 		/**
-		 * Returns wheher the list is categorized or not.
+		 * Returns whether the list is categorized or not.
 		 * @private
 		 */
 		_isCategorized: function () {

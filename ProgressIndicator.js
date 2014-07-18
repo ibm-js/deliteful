@@ -3,10 +3,9 @@ define([
 	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
-	"delite/Invalidating",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator_css"
-], function (dcl, register, Widget, Invalidating, renderer) {
+], function (dcl, register, Widget, template) {
 	/**
 	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
 	 *
@@ -20,10 +19,9 @@ define([
 	 * <d-progress-indicator active="true" style="width: 100%; height: 100%"></d-progress-indicator>
 	 *
 	 * @class module:deliteful/ProgressIndicator
-	 * @augments {module:delite/Widget}
-	 * @augments {module:delite/Invalidating}
+	 * @augments module:delite/Widget
 	 */
-	return register("d-progress-indicator", [HTMLElement, Widget, Invalidating],
+	return register("d-progress-indicator", [HTMLElement, Widget],
 		/** @lends module:deliteful/ProgressIndicator# */ {
 
 		/**
@@ -135,20 +133,11 @@ define([
 			this._requestId = this._requestRendering(frameAnimation);
 		},
 
-		/* widget lifecycle methods */
-		preCreate: function () {
-			//watched properties to trigger invalidation
-			this.addInvalidatingProperties(
-				"active",
-				{value: "invalidateProperty"},
-				{speed: "invalidateProperty"}
-			);
-		},
+		template: template,
 
-		buildRendering: function () {
-			renderer.call(this);
+		buildRendering: dcl.after(function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
-		},
+		}),
 
 		attachedCallback: dcl.after(function () {
 			//set unique SVG symbol id
@@ -178,9 +167,9 @@ define([
 			this._reset();
 		}),
 
-		refreshProperties: function (props) {
+		computeProperties: function (props) {
 			var correctedValue = null;
-			if (props.speed) {
+			if ("speed" in props) {
 				//fast: 500ms
 				//slow: 2000ms
 				//normal: 1000ms (also default and fallback value)
@@ -189,20 +178,20 @@ define([
 					this._lapsTime = correctedValue;
 				}
 			}
-			if (props.value && !isNaN(this.value)) {
+			if ("value" in props && !isNaN(this.value)) {
 				correctedValue = Math.max(Math.min(this.value, 100), 0);
 				if (this.value !== correctedValue) {
 					this.value = correctedValue;
 				}
 			}
 			if (correctedValue) {
-				this.validate();
+				this.deliver();
 			}
 		},
 
 		refreshRendering: function (props) {
 			//refresh value
-			if (props.value) {
+			if ("value" in props) {
 				if (isNaN(this.value)) {
 					//NaN: start the animation
 					if (this.active) {
@@ -227,7 +216,7 @@ define([
 
 			}
 			//refresh speed
-			if (props.speed) {
+			if ("speed" in props) {
 				//if animation is ongoing, restart the animation to take the new speed into account
 				if (this._requestId) {
 					this._stopAnimation();
@@ -235,7 +224,7 @@ define([
 				}
 			}
 			//refresh active
-			if (props.active) {
+			if ("active" in props) {
 				if (this.active) {
 					if (isNaN(this.value)) {
 						//NaN: start the animation

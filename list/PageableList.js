@@ -10,12 +10,10 @@ define([
 	"dojo/sniff",
 	"./List",
 	"./Renderer",
-	"../ProgressIndicator",
-	"delite/handlebars",
-	"requirejs-text/text!./List/_PageLoaderRenderer.html",
+	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
 ], function (dcl, register, on, string, when, Deferred, domClass, has,
-		List, Renderer, ProgressIndicator, handlebars, template, messages) {
+		List, Renderer, template, messages) {
 
 	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
@@ -101,10 +99,7 @@ define([
 			this.on("click", this._load.bind(this));
 		},
 
-		buildRendering: function () {
-			var renderFunc = handlebars.compile(template);
-			renderFunc.call(this);
-		},
+		template: template,
 
 		//////////// Public methods ///////////////////////////////////////
 
@@ -300,55 +295,39 @@ define([
 		 */
 		_lastLoaded: -1,
 
-		//////////// Widget life cycle ///////////////////////////////////////
-
-		preCreate: function () {
-			//	Set invalidating properties.
-			this.addInvalidatingProperties({
-				"pageLength": "invalidateProperty",
-				"loadPreviousMessage": "invalidateProperty",
-				"loadNextMessage": "invalidateProperty",
-				"loadingMessage": "invalidateProperty"
-			});
-		},
-
 		//////////// delite/Store methods ///////////////////////////////////////
 
-		refreshProperties: dcl.superCall(function (sup) {
-			return function (props) {
-				var doQuery = props.store || props.query;
-				sup.call(this, props);
-				if (doQuery)  {
-					// Initial loading of the list
-					if (this._dataLoaded) {
-						this._setBusy(true, true);
-						this._empty();
-						props.pageLength = true;
-					}
-					this._idPages = [];
-					this._loadNextPage().then(function () {
-						this._setBusy(false);
-						this._dataLoaded = true;
-					}.bind(this), function (error) {
-						this._setBusy(false);
-						this._queryError(error);
-					}.bind(this));
+		computeProperties: function (props) {
+			if ("store" in props || "query" in props)  {
+				// Initial loading of the list
+				if (this._dataLoaded) {
+					this._setBusy(true, true);
+					this._empty();
+					props.pageLength = true;
 				}
-				// Update page loader messages as they may depend on any property of the List
-				if (this._previousPageLoader) {
-					this._previousPageLoader.item = {
-							loadMessage: string.substitute(this.loadPreviousMessage, this),
-							loadingMessage: this.loadingMessage
-						};
-				}
-				if (this._nextPageLoader) {
-					this._nextPageLoader.item = {
-							loadMessage: string.substitute(this.loadNextMessage, this),
-							loadingMessage: this.loadingMessage
-						};
-				}
-			};
-		}),
+				this._idPages = [];
+				this._loadNextPage().then(function () {
+					this._setBusy(false);
+					this._dataLoaded = true;
+				}.bind(this), function (error) {
+					this._setBusy(false);
+					this._queryError(error);
+				}.bind(this));
+			}
+			// Update page loader messages as they may depend on any property of the List
+			if (this._previousPageLoader) {
+				this._previousPageLoader.item = {
+						loadMessage: string.substitute(this.loadPreviousMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+			}
+			if (this._nextPageLoader) {
+				this._nextPageLoader.item = {
+						loadMessage: string.substitute(this.loadNextMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+			}
+		},
 
 		fetch: function (collection) {
 			// Store the result of the store query

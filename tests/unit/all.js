@@ -8,10 +8,12 @@ define([
 	"./SidePane",
 	"./SidePane-showhide",
 	"./ViewStack",
-	"./ViewStack-prog",
 	"./ScrollableContainer",
 	"./StarRating",
 	"./list/all",
 	"./ProgressBar",
-	"./ProgressIndicator"
+	"./ProgressIndicator",
+	"./Toaster",
+	"./ToasterMessage",
+	"./ToasterMessage-insert-show-hide-remove"
 ]);

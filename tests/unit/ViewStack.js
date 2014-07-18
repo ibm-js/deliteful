@@ -4,10 +4,17 @@ define([
 	"dojo/dom-geometry",
 	"dojo/dom-class",
 	"delite/register",
-	"deliteful/ViewStack"
+	"deliteful/ViewStack",
+	"delite/css!deliteful/ViewStack/transitions/cover_css",
+	"delite/css!deliteful/ViewStack/transitions/coverv_css",
+	"delite/css!deliteful/ViewStack/transitions/fade_css",
+	"delite/css!deliteful/ViewStack/transitions/flip_css",
+	"delite/css!deliteful/ViewStack/transitions/slidev_css",
+	"delite/css!deliteful/ViewStack/transitions/revealv_css"
 ], function (registerSuite, assert, domGeom, domClass, register) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
+	var asyncHandler;
 	var htmlContent = "<d-view-stack id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
 		"<div id='ddd'>DDD</div></d-view-stack>";
 
@@ -42,14 +49,14 @@ define([
 		},
 		"Show (by widget)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
 			node.show(bbb);
 		},
 		"Show (by id)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
 			node.show("aaa");
@@ -57,77 +64,138 @@ define([
 		"Show (no transition)" : function () {
 			// Shorter timing if no transition
 			var d = this.async(100);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ccc);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, bbb);
 			}));
-			node.show(ccc, {transition: "none"});
+			node.show(bbb, {transition: "none"});
 		},
 		"Show (reverse)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ddd);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
 			}));
-			node.show(ddd, {reverse: true});
+			node.show(ccc, {reverse: true});
 		},
 		"Show (reverse, no transition)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, aaa);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ddd);
 			}));
-			node.show(aaa, {transition: "none", reverse: true});
+			node.show(ddd, {transition: "none", reverse: true});
 		},
 		"Show (reveal)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, bbb);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, aaa);
 			}));
-			node.show(bbb, {transition: "reveal", reverse: false});
+			node.show(aaa, {transition: "reveal", reverse: false});
 		},
 		"Show (reverse, reveal)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ccc);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, bbb);
 			}));
-			node.show(ccc, {transition: "reveal", reverse: true});
+			node.show(bbb, {transition: "reveal", reverse: true});
 		},
 		"Show (flip)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ddd);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
 			}));
-			node.show(ddd, {transition: "flip", reverse: false});
+			node.show(ccc, {transition: "flip", reverse: false});
 		},
 		"Show (reverse, flip)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ddd);
+			}));
+			node.show(ddd, {transition: "flip", reverse: true});
+		},
+		"Show (slidev)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
-			node.show(aaa, {transition: "flip", reverse: true});
+			node.show(aaa, {transition: "slidev", reverse: false});
+		},
+		"Show (reverse, slidev)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, bbb);
+			}));
+			node.show(bbb, {transition: "slidev", reverse: true});
+		},
+		"Show (cover)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
+			}));
+			node.show(ccc, {transition: "cover", reverse: false});
+		},
+		"Show (reverse, cover)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ddd);
+			}));
+			node.show(ddd, {transition: "cover", reverse: true});
+		},
+		"Show (coverv)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, aaa);
+			}));
+			node.show(aaa, {transition: "coverv", reverse: false});
+		},
+		"Show (reverse, coverv)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, bbb);
+			}));
+			node.show(bbb, {transition: "coverv", reverse: true});
+		},
+		"Show (revealv)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
+			}));
+			node.show(ccc, {transition: "revealv", reverse: false});
+		},
+		"Show (reverse, revealv)" : function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ddd);
+			}));
+			node.show(ddd, {transition: "revealv", reverse: true});
 		},
 		"Show (fade)" : function () {
 			// TODO: Investigate why this test fail on IE11 despite fade transitions work on this browser.
 			//var d = this.async(1000);
-			//node.on("delite-after-show", d.callback(function () {
+			//asyncHandler = node.on("delite-after-show", d.callback(function () {
 			//	checkNodeVisibility(node, bbb);
 			//}));
 			//node.show(bbb, {transition: "fade", reverse: false});
 		},
 		"Show (reverse, slide)" : function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ccc);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, bbb);
 			}));
-			node.show(ccc, {transition: "slide", reverse: true});
+			node.show(bbb, {transition: "slide", reverse: true});
 		},
 		"SelectedChildId Setter": function () {
 			var d = this.async(1000);
-			node.on("delite-after-show", d.callback(function () {
-				checkNodeVisibility(node, ddd);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
 			}));
-			node.selectedChildId = "ddd";
+			node.selectedChildId = "ccc";
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
+		},
+		afterEach: function () {
+			if (asyncHandler) {
+				asyncHandler.remove();
+			}
 		}
 	});
 });

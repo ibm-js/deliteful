@@ -1,6 +1,6 @@
 /** @module deliteful/ViewStack */
 define(["dcl/dcl",
-	"dojo/sniff",
+	"decor/sniff",
 	"dojo/on",
 	"dojo/Deferred",
 	"dojo/dom-geometry",
@@ -10,9 +10,7 @@ define(["dcl/dcl",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack_css",
 	"delite/css!./ViewStack/transitions/slide_css",
-	"delite/css!./ViewStack/transitions/reveal_css",
-	"delite/css!./ViewStack/transitions/flip_css",
-	"delite/css!./ViewStack/transitions/fade_css"],
+	"delite/css!./ViewStack/transitions/reveal_css"],
 	function (dcl, has, on, Deferred, domGeometry, domClass, register, Widget, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
@@ -60,7 +58,7 @@ define(["dcl/dcl",
 		 * </d-view-stack>
 		 * <button onclick="vs.show(childB, {transition: 'reveal', reverse: true})">...</button>
 		 * @class module:deliteful/ViewStack
-		 * @augments {module:delite/DisplayContainer}
+		 * @augments module:delite/DisplayContainer
 		 */
 		return register("d-view-stack", [HTMLElement, DisplayContainer],
 			/** @lends module:deliteful/ViewStack# */{

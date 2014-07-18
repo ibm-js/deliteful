@@ -4,7 +4,6 @@ define([
 	"dpointer/events",
 	"dojo/keys",
 	"dojo/dom-class",
-	"dojo/dom-geometry",
 	"delite/register",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
@@ -12,7 +11,7 @@ define([
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
 	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
-], function (has, pointer, keys, domClass, domGeometry,
+], function (has, pointer, keys, domClass,
 			register, FormValueWidget, BidiStarRating, messages) {
 
 	/**
@@ -72,14 +71,6 @@ define([
 		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
 		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
-		preCreate: function () {
-			this.addInvalidatingProperties("max",
-					"name",
-					"value",
-					"editHalfValues",
-					"allowZero");
-		},
-
 		buildRendering: function () {
 			this.focusNode = this.ownerDocument.createElement("div");
 			this.appendChild(this.focusNode);
@@ -106,44 +97,33 @@ define([
 		}),
 
 		/* jshint maxcomplexity: 13 */
-		refreshRendering: register.dcl.superCall(function (sup) {
-			return function (props) {
-				sup.call(this, props);
-				if (props.disabled !== undefined) {
-					this._refreshDisabledClass();
-				}
-				if (props.max !== undefined) {
-					this.focusNode.setAttribute("aria-valuemax", this.max);
-				}
-				if (props.max !== undefined || props.value !== undefined) {
-					this._refreshStarsRendering();
-				}
-				if (props.value !== undefined) {
-					this.focusNode.setAttribute("aria-valuenow", this.value);
-					this.focusNode.setAttribute("aria-valuetext",
-							messages["aria-valuetext"].replace("${value}", this.value));
-					this.valueNode.value = this.value;
-				}
-				if (props.name !== undefined && this.name) {
-					this.valueNode.name = this.name;
-				}
-				if (props.readOnly !== undefined || props.disabled !== undefined) {
-					this._refreshEditionEventHandlers();
-				}
-				if (props.readOnly !== undefined || props.disabled !== undefined || props.allowZero !== undefined) {
-					this._updateZeroArea();
-				}
-			};
-		}),
-		/* jshint maxcomplexity: 10 */
-
-		_refreshDisabledClass: function () {
-			if (this.disabled) {
-				domClass.add(this, this.baseClass + "-disabled");
-			} else {
-				domClass.remove(this, this.baseClass + "-disabled");
+		refreshRendering: function (props) {
+			if ("disabled" in props) {
+				domClass.toggle(this, this.baseClass + "-disabled", this.disabled);
+			}
+			if ("max" in props) {
+				this.focusNode.setAttribute("aria-valuemax", this.max);
+			}
+			if ("max" in props || "value" in props) {
+				this._refreshStarsRendering();
+			}
+			if ("value" in props) {
+				this.focusNode.setAttribute("aria-valuenow", this.value);
+				this.focusNode.setAttribute("aria-valuetext",
+						messages["aria-valuetext"].replace("${value}", this.value));
+				this.valueNode.value = this.value;
+			}
+			if ("name" in props && this.name) {
+				this.valueNode.name = this.name;
+			}
+			if ("readOnly" in props || "disabled" in props) {
+				this._refreshEditionEventHandlers();
+			}
+			if ("readOnly" in props || "disabled" in props || "allowZero" in props) {
+				this._updateZeroArea();
 			}
 		},
+		/* jshint maxcomplexity: 10 */
 
 		_refreshStarsRendering: function () {
 			var createChildren = this.focusNode.children.length - 1 !== 2 * this.max;

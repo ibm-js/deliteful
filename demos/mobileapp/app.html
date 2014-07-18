@@ -9,9 +9,12 @@
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<link rel="stylesheet" href="app.css">
-
-	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
-	<script type="text/javascript" src="../../tests/boilerplate.js"></script>
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
 
 	<script type="text/javascript">
 		require([
@@ -19,19 +22,23 @@
 			"deliteful/ViewStack",
 			"deliteful/SidePane",
 			"deliteful/LinearLayout",
-			"deliteful/Button",
 			"deliteful/list/List",
+			"delite/css!deliteful/ViewStack/transitions/fade_css",
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
 			for (var i = 1; i < 100; i++){
 				list.store.add({label: "Item #" + i});
 			}
-			menulist.store.add({label: "List A", target:"aaa"});
-			menulist.store.add({label: "List B", target:"bbb"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
 			var actionHandler = function(event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
-				vs.show(renderer.item.target, {transition: "fade"});
+				if (renderer) {
+					vs.show(renderer.item.target, {transition: "fade"});
+				}
 			};
 
 			menulist.on("click", function (event) {
@@ -45,18 +52,19 @@
 <d-side-pane mode="push" position="start" id="leftPane">
 	<d-linear-layout class="height100">
 		<d-linear-layout vertical="false" class="pageHeader">
-			<div><button is="d-button" onclick="leftPane.hide()"></button></div>
 			<div class="fill titleStyle">Menu</div>
-			<div><button is="d-button" onclick="leftStack.show(settings)"></button></div>
 		</d-linear-layout>
-
 		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
-			<div style="height: 100%" id="menu">
-				<d-list style="height: 100%" id="menulist" targetAttr="target"></d-list>
-			</div>
-			<div id="settings" style="text-align: center">
-				<button is="d-button" onclick="leftStack.show(menu, {reverse:true})"></button>
-			</div>
+			<d-linear-layout id="menu">
+				<div class="fill">
+					<d-list style="height: 100%" id="menulist" targetAttr="target"></d-list>
+				</div>
+				<button class="appButton2" onclick="leftStack.show('settings')">&gt;</button>
+			</d-linear-layout>
+			<d-linear-layout id="settings" style="background-color: #bce8f1">
+				<div class="fill"><div class="titleStyle">Page 2</div></div>
+				<button class="appButton2" onclick="leftStack.show('menu', {reverse:true})">&lt;</button>
+			</d-linear-layout>
 		</d-view-stack>
 	</d-linear-layout>
 </d-side-pane>
@@ -65,9 +73,8 @@
 <d-linear-layout class="page width100 height100">
 	<!-- Header -->
 	<d-linear-layout vertical="false" class="pageHeader">
-		<div><button is="d-button" onclick="leftPane.show()"></button></div>
+		<button class="appButton" onclick="leftPane.toggle()">Menu</button>
 		<div class="fill titleStyle">Deliteful Mobile App</div>
-		<div><button is="d-button"></button></div>
 	</d-linear-layout>
 	<!-- Main content (ViewStack) -->
 	<d-view-stack id="vs" class="fill">
@@ -86,10 +93,10 @@
 	</d-view-stack>
 	<!-- Footer -->
 	<d-linear-layout vertical="false" class="pageFooter">
-		<div class="fill"><button is="d-button" onclick="vs.show(aaa)"></button></div>
-		<div class="fill"><button is="d-button" onclick="vs.show(bbb)"></button></div>
-		<div class="fill"><button is="d-button" onclick="vs.show(ccc)"></button></div>
-		<div class="fill"><button is="d-button" onclick="vs.show(ddd)"></button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(aaa)">A</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(bbb)">B</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(ccc)">C</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(ddd)">D</button></div>
 	</d-linear-layout>
 </d-linear-layout>
 </body>

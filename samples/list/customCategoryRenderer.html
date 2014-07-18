@@ -22,9 +22,9 @@
 			"deliteful/list/CategoryRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html"
-		], function (register, CategoryRenderer, List, templateFunc) {
+		], function (register, CategoryRenderer, List, template) {
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
-				buildRendering: templateFunc
+				template: template
 			});
 			var list = new List();
 			list.setAttribute("aria-label", "Sample list with custom category renderer");

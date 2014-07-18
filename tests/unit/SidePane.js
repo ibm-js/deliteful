@@ -37,35 +37,35 @@ define([
 		"CSS Classes: Push End" : function () {
 			node.mode = "push";
 			node.position = "end";
-			node.validateRendering();
+			node.deliver();
 			assert.isTrue(domClass.contains(node, "-d-side-pane-push"));
 			assert.isTrue(domClass.contains(node, "-d-side-pane-end"));
 		},
 		"CSS Classes: Overlay Start" : function () {
 			node.mode = "overlay";
 			node.position = "start";
-			node.validateRendering();
+			node.deliver();
 			assert.isTrue(domClass.contains(node, "-d-side-pane-overlay"));
 			assert.isTrue(domClass.contains(node, "-d-side-pane-start"));
 		},
 		"CSS Classes: Overlay End" : function () {
 			node.mode = "overlay";
 			node.position = "end";
-			node.validateRendering();
+			node.deliver();
 			assert.isTrue(domClass.contains(node, "-d-side-pane-overlay"));
 			assert.isTrue(domClass.contains(node, "-d-side-pane-end"));
 		},
 		"CSS Classes: Reveal Start" : function () {
 			node.mode = "reveal";
 			node.position = "start";
-			node.validateRendering();
+			node.deliver();
 			assert.isTrue(domClass.contains(node, "-d-side-pane-reveal"));
 			assert.isTrue(domClass.contains(node, "-d-side-pane-start"));
 		},
 		"CSS Classes: Reveal End" : function () {
 			node.mode = "reveal";
 			node.position = "end";
-			node.validateRendering();
+			node.deliver();
 			assert.isTrue(domClass.contains(node, "-d-side-pane-reveal"));
 			assert.isTrue(domClass.contains(node, "-d-side-pane-end"));
 		},

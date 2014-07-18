@@ -56,7 +56,7 @@ define([
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "vertical";
 				assert.equal(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"scroll direction none": function () {
@@ -65,7 +65,7 @@ define([
 			setTimeout(dfd.callback(function () {
 				list.scrollDirection = "none";
 				assert.equal(list.className, "d-list");
-			}), 0);
+			}), 10);
 			return dfd;
 		},
 		"getRendererByItemId": function () {
@@ -107,12 +107,11 @@ define([
 			var children = list.getChildren();
 			assert.equal(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
-			setTimeout(function () {
+			setTimeout(dfd.callback(function () {
 				children = list.getChildren();
 				assert.equal(children[0].className, "d-list-category", "first is category");
 				assert.equal(list._getFirst(), children[0].renderNode, "first renderer is category");
-				dfd.resolve();
-			}, 0);
+			}, 10));
 			return dfd;
 		},
 		"_getLast": function () {
@@ -120,35 +119,47 @@ define([
 			assert.equal(list._getLast(), children[2].renderNode);
 		},
 		"update item label": function () {
+			var dfd = this.async(1000);
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
-			var renderer = list.getChildren()[0];
-			assert.equal(renderer.item.label, "item a");
-			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+			setTimeout(dfd.callback(function () {
+				var renderer = list.getChildren()[0];
+				assert.equal(renderer.item.label, "item a");
+				assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+			}), 10);
+			return dfd;
 		},
 		"update item: add, update and remove icon" : function () {
+			var dfd = this.async(1000);
 			// add
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
-			var renderer = list.getChildren()[0];
-			assert.equal(renderer.item.label, "item a");
-			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-			assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
-			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
-			// update
-			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
-			renderer = list.getChildren()[0];
-			assert.equal(renderer.item.label, "item a");
-			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-			assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
-			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
-			// remove
-			list.store.put({label: "item a"}, {id: list.store.data[0].id});
-			renderer = list.getChildren()[0];
-			assert.equal(renderer.item.label, "item a");
-			assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
-			assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
-			assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+			setTimeout(dfd.rejectOnError(function () {
+				var renderer = list.getChildren()[0];
+				assert.equal(renderer.item.label, "item a");
+				assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
+				assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
+				assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+				assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+				// update
+				list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
+				setTimeout(dfd.rejectOnError(function () {
+					var renderer = list.getChildren()[0];
+					assert.equal(renderer.item.label, "item a");
+					assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
+					assert.equal(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
+					assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+					assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+					// remove
+					list.store.put({label: "item a"}, {id: list.store.data[0].id});
+					setTimeout(dfd.callback(function () {
+						var renderer = list.getChildren()[0];
+						assert.equal(renderer.item.label, "item a");
+						assert.equal(renderer.firstChild.getAttribute("role"), "gridcell");
+						assert.equal(renderer.firstChild.children[1].className, "d-list-item-label");
+						assert.equal(renderer.firstChild.children[1].innerHTML, "item a");
+					}), 10);
+				}), 10);
+			}), 10);
+			return dfd;
 		},
 		"item category attribute is not undefined by StoreMap": function () {
 			list.destroy();
@@ -179,7 +190,7 @@ define([
 					assert.isNotNull(queryErrorEvt);
 					assert.equal("Query Error X", queryErrorEvt.error, "error message");
 					assert(!list.hasAttribute("aria-busy"));
-				}), 0);
+				}), 10);
 			} catch (e) {
 				def.reject(e);
 			}
@@ -214,12 +225,12 @@ define([
 								} catch (error) {
 									def.reject(error);
 								}
-							}), 0);
+							}), 10);
 						}), 500);
 					} catch (error) {
 						def.reject(error);
 					}
-				}), 0);
+				}), 10);
 			} catch (error) {
 				def.reject(error);
 			}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>Slider</title>
+
+	<link type="text/css" rel="stylesheet" href="./slider-tests.css">
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/Slider",
+			"dojo/domReady!"
+		], function (register, Slider) {
+			register.parse();
+			// programmatic creation and initialization
+			var singleSliderPrg = [
+				["singleSlider01"],
+				["singleSlider02", 25],
+				["singleSlider03", 100],
+				["rangeSlider01", ","],
+				["rangeSlider02", "10,90"],
+				["rangeSlider03", "80,100"]
+			];
+			for (var i = 0, slider; i < singleSliderPrg.length; ++i) {
+				slider = register.createElement("d-slider");
+				slider.id = singleSliderPrg[i][0];
+				if (singleSliderPrg[i].length > 1) {
+					slider.value = singleSliderPrg[i][1];
+				}
+				document.getElementById(slider.id + "_ph").appendChild(slider);
+				slider.startup();
+			}
+			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
+			var nodeList = document.querySelectorAll("d-slider");
+			for (i = 0; i < nodeList.length; ++i) {
+				nodeList[i].deliverComputing();
+				document.getElementById(nodeList[i].id + "_value").value = nodeList[i].value;
+			}
+			// set onchange listener
+			document.addEventListener("change", function (event) {
+				if (event.target.id && event.target.id.indexOf("onchange_") === 0){
+					return; // ignore change event caused by webdriver clear() on input text
+				}
+				document.getElementById("onchange_target").value = event.target.id;
+				document.getElementById("onchange_value").value = event.target.value;
+				// assign value only if input.value == widget.value
+				var inputValue = event.target.querySelector("input").value;
+				document.getElementById("onchange_input").value = (inputValue == event.target.value) ? inputValue : "";
+			});
+			// allow functional tests to start
+			ready = true;
+		});
+	</script>
+</head>
+<body>
+<table>
+	<caption>Single (prog)</caption>
+	<tbody>
+	<tr>
+		<th scope="row">Default</th>
+		<td id="singleSlider01_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="singleSlider01_value"> 
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">In bound</th>
+		<td id="singleSlider02_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="singleSlider02_value"> 
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Out of bound</th>
+		<td id="singleSlider03_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="singleSlider03_value">
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+<table>
+	<caption>Range (prog)</caption>
+	<tbody>
+	<tr>
+		<th scope="row">Default</th>
+		<td id="rangeSlider01_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value"> 
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">In bound</th>
+		<td id="rangeSlider02_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider02_value"> 
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Out of bound</th>
+		<td id="rangeSlider03_ph">
+			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider03_value"> 
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+<table>
+	<caption>onChange</caption>
+	<tbody>
+	<tr>
+		<th scope="row">target</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_target">
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">widget.value</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_value">
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">input.value</th>
+		<td>
+			<input autocomplete=off  type="text"  id="onchange_input">
+		</td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
