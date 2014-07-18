@@ -6,8 +6,8 @@
 
 ## List
 
-* [List](List.md)
-* [PageableList](PageableList.md)
+* [List](list/List.md)
+* [PageableList](list/PageableList.md)
 
 ## Containers & Layouts
 
