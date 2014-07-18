@@ -410,7 +410,7 @@ define(["dcl/dcl",
 				this.own(this._timer.promise()); // NOTE: this cancels the promise in case the widget is destroyed
 				this._timer.start().then(function () {
 					this._hasExpired = true;
-					toaster.refreshRendering({messages: true});
+					toaster.notifyCurrentValue("messages");
 				}.bind(this));
 			}
 
@@ -453,12 +453,12 @@ define(["dcl/dcl",
 					domClass.add(this, animation);
 					listenAnimationEvents(this, function (element) {
 						element._toBeRemoved = true;
-						toaster.refreshRendering({messages: true});
+						toaster.notifyCurrentValue("messages");
 					});
 				} else {
 					domClass.add(this, D_INVISIBLE);
 					this._toBeRemoved = true;
-					toaster.refreshRendering({messages: true}); // TODO: could be better handled with an event
+					toaster.notifyCurrentValue("messages"); // TODO: could be better handled with an event
 				}
 			}
 		},
