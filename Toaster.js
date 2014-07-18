@@ -135,8 +135,7 @@ define(["dcl/dcl",
 
 			template: template,
 
-			refreshRendering: dcl.after(function (args) {
-				var props = args[0];
+			refreshRendering: function (props) {
 				if ("messages" in props) {
 					this.messages.forEach(function (m) {
 						if (!m._isInserted) {
@@ -157,7 +156,7 @@ define(["dcl/dcl",
 						}, this);
 					}
 				}
-			}),
+			},
 
 			preCreate: function () {
 				this.messages = [];

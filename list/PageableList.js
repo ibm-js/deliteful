@@ -297,41 +297,37 @@ define([
 
 		//////////// delite/Store methods ///////////////////////////////////////
 
-		computeProperties: dcl.superCall(function (sup) {
-			return function (props) {
-				var doQuery = "store" in props || "query" in props;
-				sup.call(this, props);
-				if (doQuery)  {
-					// Initial loading of the list
-					if (this._dataLoaded) {
-						this._setBusy(true, true);
-						this._empty();
-						props.pageLength = true;
-					}
-					this._idPages = [];
-					this._loadNextPage().then(function () {
-						this._setBusy(false);
-						this._dataLoaded = true;
-					}.bind(this), function (error) {
-						this._setBusy(false);
-						this._queryError(error);
-					}.bind(this));
+		computeProperties: function (props) {
+			if ("store" in props || "query" in props)  {
+				// Initial loading of the list
+				if (this._dataLoaded) {
+					this._setBusy(true, true);
+					this._empty();
+					props.pageLength = true;
 				}
-				// Update page loader messages as they may depend on any property of the List
-				if (this._previousPageLoader) {
-					this._previousPageLoader.item = {
-							loadMessage: string.substitute(this.loadPreviousMessage, this),
-							loadingMessage: this.loadingMessage
-						};
-				}
-				if (this._nextPageLoader) {
-					this._nextPageLoader.item = {
-							loadMessage: string.substitute(this.loadNextMessage, this),
-							loadingMessage: this.loadingMessage
-						};
-				}
-			};
-		}),
+				this._idPages = [];
+				this._loadNextPage().then(function () {
+					this._setBusy(false);
+					this._dataLoaded = true;
+				}.bind(this), function (error) {
+					this._setBusy(false);
+					this._queryError(error);
+				}.bind(this));
+			}
+			// Update page loader messages as they may depend on any property of the List
+			if (this._previousPageLoader) {
+				this._previousPageLoader.item = {
+						loadMessage: string.substitute(this.loadPreviousMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+			}
+			if (this._nextPageLoader) {
+				this._nextPageLoader.item = {
+						loadMessage: string.substitute(this.loadNextMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+			}
+		},
 
 		fetch: function (collection) {
 			// Store the result of the store query

@@ -255,82 +255,72 @@ define([
 			};
 		}),
 
-		refreshRendering: dcl.superCall(function (sup) {
+		refreshRendering: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
-			return function (props) {
-				if (sup) {
-					sup.call(this, props);
-				}
-				if ("selectionMode" in props) {
-					// Update aria attributes
-					this.removeAttribute("aria-selectable");
-					this.removeAttribute("aria-multiselectable");
-					if (this.selectionMode === "single") {
-						this.setAttribute("aria-selectable", true);
-						// update aria-selected attribute on unselected items
-						for (var i = 0; i < this.containerNode.children.length; i++) {
-							var child = this.containerNode.children[i];
-							if (child.getAttribute("aria-selected") === "false") {
-								child.removeAttribute("aria-selected");
-							}
+			if ("selectionMode" in props) {
+				// Update aria attributes
+				this.removeAttribute("aria-selectable");
+				this.removeAttribute("aria-multiselectable");
+				if (this.selectionMode === "single") {
+					this.setAttribute("aria-selectable", true);
+					// update aria-selected attribute on unselected items
+					for (var i = 0; i < this.containerNode.children.length; i++) {
+						var child = this.containerNode.children[i];
+						if (child.getAttribute("aria-selected") === "false") {
+							child.removeAttribute("aria-selected");
 						}
-					} else if (this.selectionMode === "multiple") {
-						this.setAttribute("aria-multiselectable", true);
-						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
-							if (domClass.contains(child, this._cssClasses.item)
-									&& !child.hasAttribute("aria-selected")) {
-								child.setAttribute("aria-selected", "false");
-							}
+					}
+				} else if (this.selectionMode === "multiple") {
+					this.setAttribute("aria-multiselectable", true);
+					// update aria-selected attribute on unselected items
+					for (i = 0; i < this.containerNode.children.length; i++) {
+						child = this.containerNode.children[i];
+						if (domClass.contains(child, this._cssClasses.item)
+								&& !child.hasAttribute("aria-selected")) {
+							child.setAttribute("aria-selected", "false");
 						}
-					} else {
-						// update aria-selected attribute on unselected items
-						for (i = 0; i < this.containerNode.children.length; i++) {
-							child = this.containerNode.children[i];
-							if (child.hasAttribute("aria-selected")) {
-								child.removeAttribute("aria-selected", "false");
-							}
+					}
+				} else {
+					// update aria-selected attribute on unselected items
+					for (i = 0; i < this.containerNode.children.length; i++) {
+						child = this.containerNode.children[i];
+						if (child.hasAttribute("aria-selected")) {
+							child.removeAttribute("aria-selected", "false");
 						}
 					}
 				}
-			};
-		}),
+			}
+		},
 		/*jshint maxcomplexity:10*/
 
-		computeProperties: dcl.superCall(function (sup) {
+		computeProperties: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:11*/
-			return function (props) {
-				if ("selectionMode" in props) {
-					if (this.selectionMode === "none") {
-						if (this._selectionClickHandle) {
-							this._selectionClickHandle.remove();
-							this._selectionClickHandle = null;
-						}
-					} else {
-						if (!this._selectionClickHandle) {
-							this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
-						}
+			if ("selectionMode" in props) {
+				if (this.selectionMode === "none") {
+					if (this._selectionClickHandle) {
+						this._selectionClickHandle.remove();
+						this._selectionClickHandle = null;
+					}
+				} else {
+					if (!this._selectionClickHandle) {
+						this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
 					}
 				}
-				if ("itemRenderer" in props
-					|| (this._isCategorized()
-							&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
-					if (this._dataLoaded) {
-						this._setBusy(true, true);
+			}
+			if ("itemRenderer" in props
+				|| (this._isCategorized()
+						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
+				if (this._dataLoaded) {
+					this._setBusy(true, true);
 
-						// trigger a reload of the list
-						this.notifyCurrentValue("store");
-						this.deliverComputing();
-					}
+					// trigger a reload of the list
+					this.notifyCurrentValue("store");
+					this.deliverComputing();
 				}
-				if (sup) {
-					sup.call(this, props);
-				}
-			};
-		}),
+			}
+		},
 
 		destroy: function () {
 			// Remove reference to the list in the default store

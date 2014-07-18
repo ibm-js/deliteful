@@ -97,35 +97,32 @@ define([
 		}),
 
 		/* jshint maxcomplexity: 13 */
-		refreshRendering: register.dcl.superCall(function (sup) {
-			return function (props) {
-				sup.call(this, props);
-				if ("disabled" in props) {
-					domClass.toggle(this, this.baseClass + "-disabled", this.disabled);
-				}
-				if ("max" in props) {
-					this.focusNode.setAttribute("aria-valuemax", this.max);
-				}
-				if ("max" in props || "value" in props) {
-					this._refreshStarsRendering();
-				}
-				if ("value" in props) {
-					this.focusNode.setAttribute("aria-valuenow", this.value);
-					this.focusNode.setAttribute("aria-valuetext",
-							messages["aria-valuetext"].replace("${value}", this.value));
-					this.valueNode.value = this.value;
-				}
-				if ("name" in props && this.name) {
-					this.valueNode.name = this.name;
-				}
-				if ("readOnly" in props || "disabled" in props) {
-					this._refreshEditionEventHandlers();
-				}
-				if ("readOnly" in props || "disabled" in props || "allowZero" in props) {
-					this._updateZeroArea();
-				}
-			};
-		}),
+		refreshRendering: function (props) {
+			if ("disabled" in props) {
+				domClass.toggle(this, this.baseClass + "-disabled", this.disabled);
+			}
+			if ("max" in props) {
+				this.focusNode.setAttribute("aria-valuemax", this.max);
+			}
+			if ("max" in props || "value" in props) {
+				this._refreshStarsRendering();
+			}
+			if ("value" in props) {
+				this.focusNode.setAttribute("aria-valuenow", this.value);
+				this.focusNode.setAttribute("aria-valuetext",
+						messages["aria-valuetext"].replace("${value}", this.value));
+				this.valueNode.value = this.value;
+			}
+			if ("name" in props && this.name) {
+				this.valueNode.name = this.name;
+			}
+			if ("readOnly" in props || "disabled" in props) {
+				this._refreshEditionEventHandlers();
+			}
+			if ("readOnly" in props || "disabled" in props || "allowZero" in props) {
+				this._updateZeroArea();
+			}
+		},
 		/* jshint maxcomplexity: 10 */
 
 		_refreshStarsRendering: function () {
