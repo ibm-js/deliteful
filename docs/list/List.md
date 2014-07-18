@@ -29,7 +29,7 @@ Any [custom item renderer](#customRenderers) can be specified  using the `itemRe
 The widget also provides the following capabilities:
 * List items can be grouped into categories (see [Categorized items](#categories));
 * List items can be selectable (see [Selection support](#selection));
-* For maximum flexibility, both `grid` and `listbox` WIA-ARIA roles are supported (see [Accessibility](#accessibility)).
+* For maximum flexibility, both `grid` and `listbox` WAI-ARIA roles are supported (see [Accessibility](#accessibility)).
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -430,7 +430,7 @@ contains the previous selection, and its `newValue` property contains the new se
 <a name="accessibility"></a>
 ### Accessibility
 
-The widget supports two different WIA-ARIA roles:
+The widget supports two different WAI-ARIA roles:
 
 1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
 1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be set by assigning the value `true` to the `isAriaListbox` property.

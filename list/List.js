@@ -140,9 +140,9 @@ define([
 		multiCharSearchDuration: 0,
 
 		/**
-		 * Indicates whether the list has a WIA-ARIA role of `listbox` or its default WIA-ARIA role of `grid`.
+		 * Indicates whether the list has a WAI-ARIA role of `listbox` or its default WAI-ARIA role of `grid`.
 		 * If this indicator is set to `true`:
-		 * * The WIA-ARIA role of the list is set to `listbox`;
+		 * * The WAI-ARIA role of the list is set to `listbox`;
 		 * * The `sectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
 		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
 		 * @member {boolean}
@@ -168,7 +168,7 @@ define([
 		},
 
 		/**
-		 * Defines the selection mode: `"none"` (not allowed if `isAriaLisbox` is true), `"radio"`, `"single"`
+		 * Defines the selection mode: `"none"` (not allowed if `isAriaListbox` is true), `"radio"`, `"single"`
 		 *  or `"multiple"`.
 		 * @member {string} module:deliteful/list/List#selectionMode
 		 * @default "none", or "single" if isAriaListbox is true.
@@ -971,7 +971,7 @@ define([
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
-		// Keyboard navigation is based on WIA ARIA Pattern for Grid:
+		// Keyboard navigation is based on WAI ARIA Pattern for Grid:
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		/**
@@ -983,7 +983,7 @@ define([
 					return false;
 				}
 			}
-			return (domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex"));
+			return domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
 
 		/**
