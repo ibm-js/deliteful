@@ -349,7 +349,6 @@ define([
 
 					// trigger a reload of the list
 					this.notifyCurrentValue("store");
-					this.deliverComputing();
 				}
 			}
 		},
@@ -490,7 +489,6 @@ define([
 			if (this.isAriaListbox) {
 				if (this.selectionMode === "none") {
 					this.selectionMode = "single";
-					this.deliver(); // TODO: see https://github.com/ibm-js/delite/issues/230
 				}
 				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
 				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
