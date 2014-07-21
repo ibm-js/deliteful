@@ -18,7 +18,7 @@ The `StarRating` widget is a form field, which means that when included in an HT
 [User Interactions](#interactions)  
 [Mixins](#mixins)  
 [Element Events](#events)  
-[Enteprise Use](#enterprise)
+[Enterprise Use](#enterprise)
 
 ## Element Instantiation
 
