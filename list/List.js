@@ -941,7 +941,8 @@ define([
 		 * @protected
 		 */
 		getTopDistance: function (node) {
-			return node.offsetTop - this.getCurrentScroll().y;
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop - this.getCurrentScroll().y);
 		},
 
 		/**
@@ -952,10 +953,11 @@ define([
 		 */
 		getBottomDistance: function (node) {
 			var clientRect = this.scrollableNode.getBoundingClientRect();
-			return node.offsetTop +
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop +
 				node.offsetHeight -
 				this.getCurrentScroll().y -
-				(clientRect.bottom - clientRect.top);
+				(clientRect.bottom - clientRect.top));
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////

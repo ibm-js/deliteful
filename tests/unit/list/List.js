@@ -2,8 +2,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/Deferred",
-	"deliteful/list/List"
-], function (registerSuite, assert, Deferred, List) {
+	"deliteful/list/List",
+	"./resources/Utils"
+], function (registerSuite, assert, Deferred, List, Utils) {
 
 	var list = null;
 
@@ -19,6 +20,7 @@ define([
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
+			Utils.deliverAllChanges(list);
 		},
 		"baseClass update" : function () {
 			assert.strictEqual(list.className, "d-list");
@@ -53,21 +55,15 @@ define([
 			}
 		},
 		"default scroll direction is vertical": function () {
-			var dfd = this.async(1000);
-			setTimeout(dfd.callback(function () {
-				list.scrollDirection = "vertical";
-				assert.strictEqual(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
-			}), 10);
-			return dfd;
+			list.scrollDirection = "vertical";
+			Utils.deliverAllChanges(list);
+			assert.strictEqual(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
 		},
 		"scroll direction none": function () {
-			var dfd = this.async(1000);
 			list.scrollDirection = "none";
-			setTimeout(dfd.callback(function () {
-				list.scrollDirection = "none";
-				assert.strictEqual(list.className, "d-list");
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			list.scrollDirection = "none";
+			assert.strictEqual(list.className, "d-list");
 		},
 		"getRendererByItemId": function () {
 			var children = list.getChildren();
@@ -104,63 +100,52 @@ define([
 			assert.strictEqual(children[8].item.label, "item f", "last added 3");
 		},
 		"_getFirst": function () {
-			var dfd = this.async(1000);
 			var children = list.getChildren();
 			assert.strictEqual(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
-			setTimeout(dfd.callback(function () {
-				children = list.getChildren();
-				assert.strictEqual(children[0].className, "d-list-category", "first is category");
-				assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
-			}, 10));
-			return dfd;
+			Utils.deliverAllChanges(list);
+			children = list.getChildren();
+			assert.strictEqual(children[0].className, "d-list-category", "first is category");
+			assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
 		},
 		"_getLast": function () {
 			var children = list.getChildren();
 			assert.strictEqual(list._getLast(), children[2].renderNode);
 		},
 		"update item label": function () {
-			var dfd = this.async(1000);
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
-			setTimeout(dfd.callback(function () {
-				var renderer = list.getChildren()[0];
-				assert.strictEqual(renderer.item.label, "item a");
-				assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			var renderer = list.getChildren()[0];
+			assert.strictEqual(renderer.item.label, "item a");
+			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 		},
 		"update item: add, update and remove icon" : function () {
-			var dfd = this.async(1000);
 			// add
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
-			setTimeout(dfd.rejectOnError(function () {
-				var renderer = list.getChildren()[0];
-				assert.strictEqual(renderer.item.label, "item a");
-				assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-				assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
-				assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-				assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
-				// update
-				list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
-				setTimeout(dfd.rejectOnError(function () {
-					var renderer = list.getChildren()[0];
-					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
-					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
-					// remove
-					list.store.put({label: "item a"}, {id: list.store.data[0].id});
-					setTimeout(dfd.callback(function () {
-						var renderer = list.getChildren()[0];
-						assert.strictEqual(renderer.item.label, "item a");
-						assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
-						assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
-						assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
-					}), 10);
-				}), 10);
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			var renderer = list.getChildren()[0];
+			assert.strictEqual(renderer.item.label, "item a");
+			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+			assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
+			assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
+			// update
+			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
+			Utils.deliverAllChanges(list);
+			renderer = list.getChildren()[0];
+			assert.strictEqual(renderer.item.label, "item a");
+			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+			assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
+			assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
+			// remove
+			list.store.put({label: "item a"}, {id: list.store.data[0].id});
+			Utils.deliverAllChanges(list);
+			renderer = list.getChildren()[0];
+			assert.strictEqual(renderer.item.label, "item a");
+			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+			assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
+			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 		},
 		"item category attribute is not undefined by StoreMap": function () {
 			list.destroy();
