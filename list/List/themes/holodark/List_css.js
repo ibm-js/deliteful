@@ -210,11 +210,13 @@ d-list-store {\
   border-top-right-radius: 8px;\
 }\
 .d-round-rect-list > .d-list-container > *:last-child {\
+  border-bottom-left-radius: 8px;\
+  border-bottom-right-radius: 8px;\
+}\
+.d-round-rect-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-  border-bottom-left-radius: 8px;\
-  border-bottom-right-radius: 8px;\
 }\
 .d-list {\
   /* edit display at your own risk */\
@@ -226,7 +228,7 @@ d-list-store {\
   margin: 0;\
   overflow-x: hidden;\
 }\
-.d-list > .d-list-container > *:last-child {\
+.d-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\

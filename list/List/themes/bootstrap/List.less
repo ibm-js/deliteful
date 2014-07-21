@@ -16,20 +16,28 @@
 }
 
 .d-list-category-styles() {
-	background-color: @panel-default-heading-bg;
-	color: @panel-default-text;
-	border-bottom: 1px solid @list-group-border;
 	.d-list-cell {
+		background-color: @panel-default-heading-bg;
+		color: @panel-default-text;
+		border-bottom: 1px solid @list-group-border;
 		padding: 0 10px;
 	}
 }
 
 .d-list-item-styles() {
-	border-bottom: 1px solid @list-group-border;
 	.d-list-cell {
+		border-bottom: 1px solid @list-group-border;
 		padding: 0px 8px;
 	}
 }
+
+.d-last-renderer-style() {
+	 .d-list-cell {
+		border-bottom-width: 0;
+		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+		padding-bottom: 1px;
+	 }
+ }
 
 .d-selectable, .d-multiselectable {
 	.d-list-item:hover {
@@ -38,10 +46,12 @@
 }
 
 .d-list-item-selected-style() {
-	border-bottom: 1px solid @list-group-active-border;
-	background-color: @list-group-active-bg;
-	color: @list-group-active-color;
-	font-weight: bold;
+	.d-list-cell {
+		border-bottom: 1px solid @list-group-active-border;
+		background-color: @list-group-active-bg;
+		color: @list-group-active-color;
+		font-weight: bold;
+	}
 }
 
 .d-list-item-label-style() {

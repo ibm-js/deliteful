@@ -184,9 +184,7 @@ d-list-store {
 }
 
 .d-round-rect-list > .d-list-container > *:last-child {
-	border-bottom-width: 0;
-	/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
-	padding-bottom: 1px;
+	.d-last-renderer-style;
 	border-bottom-left-radius: @round-radius;
 	border-bottom-right-radius: @round-radius;
 }
@@ -203,7 +201,5 @@ d-list-store {
 }
 
 .d-list > .d-list-container > *:last-child {
-	border-bottom-width: 0;
-	/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
-	padding-bottom: 1px;
+	.d-last-renderer-style;
 }
