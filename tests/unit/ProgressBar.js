@@ -183,13 +183,13 @@ define([
 
 	function checkFractionDigits(value) {
 		//check property
-		assert.equal(progressBar.fractionDigits, value);
+		assert.strictEqual(progressBar.fractionDigits, value);
 		//check that displayed value actually enforces the fractionDigits property
 		if (!isNaN(progressBar.value) && progressBar.message.length === 0) {
 			//removes spaces to avoid false negative: IE11 formats with a space before the % sign
 			var displayedValue = removeWhiteSpaces(progressBar.msgNode.innerHTML);
 			var digits = displayedValue.split(".");
-			assert.equal((digits.length > 1) ? (digits[1].length - 1) : 0, progressBar.fractionDigits,
+			assert.strictEqual((digits.length > 1) ? (digits[1].length - 1) : 0, progressBar.fractionDigits,
 				"Displayed value [" + displayedValue + "] should enforce " +
 					"fractionDigits [" + progressBar.fractionDigits + "]");
 		}
@@ -204,10 +204,10 @@ define([
 	function checkAria(indeterminate) {
 		//min: always present
 		assert.ok(progressBar.hasAttribute("aria-valuemin"));
-		assert.equal(progressBar.getAttribute("aria-valuemin"), 0);
+		assert.strictEqual(progressBar.getAttribute("aria-valuemin"), "0");
 		//max: always present
 		assert.ok(progressBar.hasAttribute("aria-valuemax"));
-		assert.equal(progressBar.getAttribute("aria-valuemax"), progressBar.max);
+		assert.strictEqual(progressBar.getAttribute("aria-valuemax"), progressBar.max.toString());
 		//value and message
 		if (indeterminate) {
 			//indeterminate: no aria-valuenow. aria-valuetext only if custom messsage set.
@@ -224,7 +224,7 @@ define([
 		} else {
 			//value: aria-valuenow, no aria-valuetext.
 			assert.ok(progressBar.hasAttribute("aria-valuenow"));
-			assert.equal(progressBar.getAttribute("aria-valuenow"), progressBar.value);
+			assert.strictEqual(progressBar.getAttribute("aria-valuenow"), progressBar.value.toString());
 			assert.notOk(progressBar.hasAttribute("aria-valuetext"),
 				"aria-valuetext not allowed when aria-valuenow is set");
 		}

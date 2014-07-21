@@ -27,7 +27,7 @@ define([
 
 			w = document.getElementById("sc2"); // with scrollDirection == "none"
 			w.deliver();
-			assert.equal(w.scrollDirection, "none", "wrong scroll direction for id=sc2!");
+			assert.strictEqual(w.scrollDirection, "none", "wrong scroll direction for id=sc2!");
 			assert.isTrue(domClass.contains(w, shared.containerCSSClassName),
 				"Expecting " + shared.containerCSSClassName + " CSS class! (id='sc2')");
 			// when scrollDirection is "none", this CSS class should NOT be present:
@@ -98,8 +98,8 @@ define([
 			var w = document.getElementById("sc1");
 			w.scrollDirection = "both";
 			w.deliver();
-			assert.equal(w.scrollableNode.scrollTop, 0, "scrollTop");
-			assert.equal(w.scrollableNode.scrollLeft, 0, "scrollLeft");
+			assert.strictEqual(w.scrollableNode.scrollTop, 0, "scrollTop");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 0, "scrollLeft");
 		},
 
 		"scrollBy" : function () {
@@ -108,25 +108,25 @@ define([
 			w.scrollDirection = "both";
 			w.deliver();
 			w.scrollBy({x: 10});
-			assert.equal(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
-			assert.equal(w.scrollableNode.scrollTop, 0, "scrollTop #1");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
+			assert.strictEqual(w.scrollableNode.scrollTop, 0, "scrollTop #1");
 			w.scrollBy({y: 10});
-			assert.equal(w.scrollableNode.scrollLeft, 10, "scrollLeft #2");
-			assert.equal(w.scrollableNode.scrollTop, 10, "scrollTop #2");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 10, "scrollLeft #2");
+			assert.strictEqual(w.scrollableNode.scrollTop, 10, "scrollTop #2");
 			w.scrollBy({x: 10, y: 10});
-			assert.equal(w.scrollableNode.scrollLeft, 20, "scrollLeft #3");
-			assert.equal(w.scrollableNode.scrollTop, 20, "scrollTop #3");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 20, "scrollLeft #3");
+			assert.strictEqual(w.scrollableNode.scrollTop, 20, "scrollTop #3");
 			
 			// Now with animation:
 			w.scrollBy({x: 10, y: 10}, 100/*duration*/);
 			setTimeout(d.callback(function () {
-				assert.equal(w.scrollableNode.scrollLeft, 30, "scrollLeft #4");
-				assert.equal(w.scrollableNode.scrollTop, 30, "scrollTop #4");
+				assert.strictEqual(w.scrollableNode.scrollLeft, 30, "scrollLeft #4");
+				assert.strictEqual(w.scrollableNode.scrollTop, 30, "scrollTop #4");
 				
 				w.scrollBy({x: 10, y: 10}, 0/*duration*/);
 				// when the duration is 0, no animation, thus no need to test asynchronously
-				assert.equal(w.scrollableNode.scrollLeft, 40, "scrollLeft #5");
-				assert.equal(w.scrollableNode.scrollTop, 40, "scrollTop #5");
+				assert.strictEqual(w.scrollableNode.scrollLeft, 40, "scrollLeft #5");
+				assert.strictEqual(w.scrollableNode.scrollTop, 40, "scrollTop #5");
 			}), 1000);
 			
 			return d;
@@ -138,23 +138,23 @@ define([
 			w.scrollDirection = "both";
 			w.deliver();
 			w.scrollTo({x: 10});
-			assert.equal(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 10, "scrollLeft #1");
 			w.scrollTo({y: 10});
-			assert.equal(w.scrollableNode.scrollTop, 10, "scrollTop #1");
+			assert.strictEqual(w.scrollableNode.scrollTop, 10, "scrollTop #1");
 			w.scrollTo({x: 20, y: 20});
-			assert.equal(w.scrollableNode.scrollLeft, 20, "scrollLeft #2");
-			assert.equal(w.scrollableNode.scrollTop, 20, "scrollTop #2");
+			assert.strictEqual(w.scrollableNode.scrollLeft, 20, "scrollLeft #2");
+			assert.strictEqual(w.scrollableNode.scrollTop, 20, "scrollTop #2");
 			
 			// Now with animation:
 			w.scrollTo({x: 30, y: 30}, 100/*duration*/);
 			setTimeout(d.callback(function () {
-				assert.equal(w.scrollableNode.scrollLeft, 30, "scrollLeft #3");
-				assert.equal(w.scrollableNode.scrollTop, 30, "scrollTop #3");
+				assert.strictEqual(w.scrollableNode.scrollLeft, 30, "scrollLeft #3");
+				assert.strictEqual(w.scrollableNode.scrollTop, 30, "scrollTop #3");
 				
 				w.scrollTo({x: 40, y: 40}, 0/*duration*/);
 				// when the duration is 0, no animation, thus no need to test asynchronously
-				assert.equal(w.scrollableNode.scrollLeft, 40, "scrollLeft #4");
-				assert.equal(w.scrollableNode.scrollTop, 40, "scrollTop #4");
+				assert.strictEqual(w.scrollableNode.scrollLeft, 40, "scrollLeft #4");
+				assert.strictEqual(w.scrollableNode.scrollTop, 40, "scrollTop #4");
 			}), 1000);
 			
 			return d;
@@ -246,7 +246,7 @@ define([
 			}
 			// Check that no error has been thrown asynchronously due to the animation
 			setTimeout(d.callback(function () {
-				assert.equal(errorCounter, 0, errorMsg);
+				assert.strictEqual(errorCounter, 0, errorMsg);
 			}), 500); // smaller than the total timeout of the test case
 		}
 	};
