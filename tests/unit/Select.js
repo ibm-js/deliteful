@@ -36,6 +36,16 @@ define([
 			});
 			dataItems.push(item);
 		}
+		
+		var observe = select.observe(function (oldValues) {
+			if ("value" in oldValues) {
+				// Store for testing purposes
+				select._notifiedSelectValue = select.value;
+			}
+		});
+		select._notifiedSelectValue = null; // init
+		select._observe = observe; // to be able to deliver
+		
 		return dataItems;
 	};
 	
@@ -68,14 +78,14 @@ define([
 		assert.strictEqual(select.valueNode.length, nOptions,
 			"Number of options after adding 10 options on select.id: " + select.id);
 		
-		// value
-		assert.strictEqual(select.value, select.valueNode.value,
-			"select.value after adding 10 options on select.id: " + select.id);
-			
 		// selection API (delite/Select: selectedItem, selectedItems)
 		// Initially:
-		assert.strictEqual(select.value, select.valueNode.value,
+		// value
+		assert.strictEqual(select.value, "0",
 			"select.value after adding 10 options on select.id: " + select.id);
+		assert.strictEqual(select.value, select.valueNode.value,
+			"select.value equal to select.valueNode.value after adding 10 options on select.id: " +
+			select.id);
 		// By default, the first option is selected for a
 		// single-select (none for a multi-select)
 		assert.isNotNull(select.selectedItem,
@@ -93,11 +103,12 @@ define([
 		
 		select.deliver();
 		
+		assert.strictEqual(select.value, "0",
+			"select.value after selecting dataItems[0] on select.id: " +
+			select.id);
 		assert.strictEqual(select.value, select.valueNode.value,
 			"select.value equal to select.valueNode.value after selecting dataItems[0] on select.id: " +
 			select.id);
-		assert.strictEqual(select.value, "0",
-			"select.value after selecting dataItems[0] on select.id: " + select.id);
 		assert.strictEqual(select.selectedItem.value, 0,
 			"select.selectedItem.value after selecting dataItems[0] on select.id: " + select.id);
 		assert.strictEqual(select.selectedItem.text, select.valueNode.options[0].text,
@@ -113,9 +124,19 @@ define([
 		// Select another element via delite/Selection's API
 		select.setSelected(dataItems[1], true);
 		select.deliver();
+		if (select._observe) {
+			select._observe.deliver();
+		}
 		
+		assert.strictEqual(select.value, "1",
+			"select.value after selecting dataItems[1] on select.id: " +
+			select.id);
 		assert.strictEqual(select.value, select.valueNode.value,
-			"select.value after selecting dataItems[1] on select.id: " + select.id);
+			"select.value equal to select.valueNode.value after selecting dataItems[1] on select.id: " +
+			select.id);
+		assert.strictEqual(select._notifiedSelectValue, "1",
+			"select.value notified value after selecting dataItems[1] on select.id: " +
+			select.id);
 		assert.strictEqual(select.selectedItem.value, 1,
 			"select.selectedItem.value after selecting dataItems[1] on select.id: " +
 			select.id);
@@ -135,9 +156,18 @@ define([
 		select.setSelected(dataItems[0], true);
 		select.setSelected(dataItems[1], true);
 		select.deliver();
+		if (select._observe) {
+			select._observe.deliver();
+		}
 		
 		assert.strictEqual(select.value, select.valueNode.value,
+			"select.value equal to select.valueNode.value after selecting " +
+			"dataItems[0] and [1] on select.id: " + select.id);
+		assert.strictEqual(select.value, "0", // the value of the first selected option
 			"select.value after selecting dataItems[0] and [1] on select.id: " + select.id);
+		assert.strictEqual(select._notifiedSelectValue, "0",
+			"select.value notified value after selecting dataItems[0] and [1] on select.id: " +
+			select.id);
 		assert.strictEqual(select.selectedItem.value, 0, // the value of the first selected option
 			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);

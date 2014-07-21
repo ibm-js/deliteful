@@ -83,15 +83,23 @@
 				addOptions(select, min, max);
 				
 				select.on("selection-change", function (event) {
+					// Store for testing purposes
 					if (!select._selection_change_counter) {
 						select._selection_change_counter = 1;
 					} else {
 						select._selection_change_counter++;
 					}
-					
+				});
+				
+				select.observe(function (oldValues) {
+					if ("value" in oldValues) {
+						// Store for testing purposes
+						select._notifiedSelectValue = select.value;
+					}
 				});
 				
 				select._selection_change_counter = 0; // used in tests/functional/Select.js
+				select._notifiedSelectValue = null;
 			};
 			
 			var createSelect = function (selectDiv, min, max, defaultStore) {
@@ -99,7 +107,7 @@
 				select.startup();
 				initSelect(select, min, max, defaultStore);
 			};
-	
+				
 			/* attempt to workaround IE's behavior which is to close 
 	 		the dropdown as soon as an option is added/removed - but this doesn't do the trick */
 			/* var openDropdown = function (node) {

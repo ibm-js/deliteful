@@ -1,7 +1,6 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"dojo/on", // TODO: replace (when replacement confirmed)
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
 	"dstore/Observable",
@@ -11,7 +10,7 @@ define([
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select_css"
-], function (dcl, on, domClass, Memory, Observable, register,
+], function (dcl, domClass, Memory, Observable, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -34,8 +33,9 @@ define([
 	 * 
 	 * @example <caption>Using the default store</caption>
 	 * JS:
-	 * require("deliteful/Select", "dom/domReady!"],
-	 *   function () {
+	 * require("delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
+	 *   function (register) {
+	 *     register.parse();
 	 *     select1.store.add({text: "Option 1", value: "1"});
 	 *     ...
 	 *   });
@@ -43,9 +43,10 @@ define([
 	 * <d-select id="select1"></d-select>
 	 * @example <caption>Using user's store</caption>
 	 * JS:
-	 * require("dstore/Memory", "dstore/Observable",
-	 *         "deliteful/Select", "dom/domReady!"],
-	 *   function (Memory, Observable) {
+	 * require("delite/register", "dstore/Memory", "dstore/Observable",
+	 *         "deliteful/Select", "requirejs-domready/domReady!"],
+	 *   function (register, Memory, Observable) {
+	 *     register.parse();
 	 *     var store = new (Memory.createSubclass(Observable))({});
 	 *     select1.store = store;
 	 *     store.add({text: "Option 1", value: "1"});
@@ -103,16 +104,6 @@ define([
 		baseClass: "d-select",
 		
 		/**
-		 * Indicates whether multiple options can be selected. If `false`, only one option
-		 * can be selected at a time. This private property is used in the widget template
-		 * for binding the `multiple` attribute of the underlying native select.
-		 * @member {boolean}
-		 * @default false
-		 * @private
-		 */
-		multipleSelect: false, // unfortunately an underscore prefix would break the binding in the template
-		
-		/**
 		 * The chosen selection mode.
 		 *
 		 * Valid values are:
@@ -136,7 +127,7 @@ define([
 		  
 		template: template,
 		
-		postCreate: function () {
+		startup: function () {
 			if (!this.store) { // If not specified by the user
 				this.store = new (Memory.createSubclass(Observable))({});
 			}
@@ -147,32 +138,29 @@ define([
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
-			this.own(on(this.valueNode, "focus, blur", function (evt) {
+			this.on("focus", function (evt) {
 				domClass.toggle(this, "d-select-focus", evt.type === "focus");
-			}.bind(this)));
+			}.bind(this), this.valueNode);
+			this.on("blur", function (evt) {
+				domClass.toggle(this, "d-select-focus", evt.type === "focus");
+			}.bind(this), this.valueNode);
 			
 			// Keep delite/Selection's selectedItem/selectedItems in sync after
 			// interactive selection of options.
-			this.own(on(this.valueNode, "change", function (event) {
+			this.on("change", function (event) {
 				var selectedItems = this.selectedItems,
 					selectedOptions = this.valueNode.selectedOptions;
 				// HTMLSelectElement.selectedOptions is not present in all browsers...
 				// At least IE10/Win misses it. Hence:
 				if (selectedOptions === undefined) {
 					// Convert to array
-					var options = [].map.call(this.valueNode.options,
-						function (option) {
-							return option;
-						});
+					var options = Array.prototype.slice.call(this.valueNode.options);
 					selectedOptions = options.filter(function (option) {
 						return option.selected;
 					});
 				} else {
 					// convert HTMLCollection into array (to be able to use array.indexOf)
-					selectedOptions = [].map.call(selectedOptions,
-						function (option) {
-							return option;
-						});
+					selectedOptions = Array.prototype.slice.call(selectedOptions);
 				}
 				var nSelectedItems = selectedItems ? selectedItems.length : 0,
 					nSelectedOptions = selectedOptions ? selectedOptions.length : 0;
@@ -195,7 +183,10 @@ define([
 						this.selectFromEvent(event, selectedOption.renderItem, selectedOption, true);
 					}
 				}
-			}.bind(this)));
+				
+				// Update widget's value after interactive selection
+				this._set("value", this.valueNode.value);
+			}.bind(this), this.valueNode);
 			
 			// Thanks to the custom getter defined in deliteful/Select for widget's
 			// `value` property, there is no need to add code for keeping the
@@ -261,6 +252,9 @@ define([
 							this.valueNode.options[this.valueNode.selectedIndex].renderItem;
 					} // else for the native multi-select: it does not have any
 					// option selected by default.
+					
+					// Initialize widget's value
+					this._set("value", this.valueNode.value);
 				}
 			}
 		},
@@ -272,35 +266,26 @@ define([
 		
 		updateRenderers: function () {
 			// Override of delite/Selection's method
-			// Trigger recreation from scratch:
-			// this.invalidateRendering("renderItems");
-			this.deliver();
+			// Trigger rerendering from scratch:
+			this.notifyCurrentValue("renderItems");
 		},
 		
 		_setValueAttr: function (value) {
 			if (this.valueNode) {
 				this.valueNode.value = value;
 			}
-		},
-		
-		_getValueAttr: function () {
-			return this.valueNode ? this.valueNode.value : "";
+			this._set("value", value);
 		},
 		
 		_setSelectionModeAttr: dcl.superCall(function (sup) {
-			// Override of the setter from delite/Selection for 2 purposes:
-			// Forbid the value "none" and convert the value of selectionMode
-			// into the appropriate value of the non-documented property multiple
-			// which is used as target for the binding of the multiple attribute
-			// of the native select in the widget template.
+			// Override of the setter from delite/Selection to forbid the value "none"
 			return function (value) {
 				if (value !== "single" && value !== "multiple") {
 					throw new TypeError("'" + value +
 						"' not supported for selectionMode; keeping the previous value of '" +
 						this.selectionMode + "'");
 				} else {
-					// Update the internal widget property used for the binding in the template
-					this.multipleSelect = (value === "multiple");
+					this._set("selectionMode", value);
 				}
 				sup.call(this, value);
 			};
