@@ -15,5 +15,6 @@ define([
 	"./ProgressIndicator",
 	"./Toaster",
 	"./ToasterMessage",
-	"./ToasterMessage-insert-show-hide-remove"
+	"./ToasterMessage-insert-show-hide-remove",
+	"./Select"
 ]);
