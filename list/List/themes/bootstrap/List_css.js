@@ -34,11 +34,11 @@ d-list-store {\
   text-overflow: ellipsis;\
   white-space: nowrap;\
   overflow: hidden;\
+}\
+.d-list-category .d-list-cell {\
   background-color: #f5f5f5;\
   color: #333333;\
   border-bottom: 1px solid #dddddd;\
-}\
-.d-list-category .d-list-cell {\
   padding: 0 10px;\
 }\
 .d-list-category .d-list-cell {\
@@ -56,9 +56,9 @@ d-list-store {\
   -ms-flex-align: center;\
   align-items: center;\
   -webkit-align-items: center;\
-  border-bottom: 1px solid #dddddd;\
 }\
 .d-list-item .d-list-cell {\
+  border-bottom: 1px solid #dddddd;\
   padding: 0px 8px;\
 }\
 .d-list-item .d-list-cell {\
@@ -183,8 +183,8 @@ d-list-store {\
 .d-multiselectable {\
   cursor: pointer;\
 }\
-.d-selectable .d-list-item.d-selected,\
-.d-multiselectable .d-list-item.d-selected {\
+.d-selectable .d-list-item.d-selected .d-list-cell,\
+.d-multiselectable .d-list-item.d-selected .d-list-cell {\
   border-bottom: 1px solid #428bca;\
   background-color: #428bca;\
   color: #ffffff;\
@@ -217,11 +217,13 @@ d-list-store {\
   border-top-right-radius: 4px;\
 }\
 .d-round-rect-list > .d-list-container > *:last-child {\
+  border-bottom-left-radius: 4px;\
+  border-bottom-right-radius: 4px;\
+}\
+.d-round-rect-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-  border-bottom-left-radius: 4px;\
-  border-bottom-right-radius: 4px;\
 }\
 .d-list {\
   /* edit display at your own risk */\
@@ -233,7 +235,7 @@ d-list-store {\
   margin: 0;\
   overflow-x: hidden;\
 }\
-.d-list > .d-list-container > *:last-child {\
+.d-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
