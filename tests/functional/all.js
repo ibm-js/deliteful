@@ -3,5 +3,6 @@ define([
 	"./StarRating",
 	"./ScrollableContainer",
 	"./list/all",
-	"./Toaster"
+	"./Toaster",
+	"./Select"
 ]);

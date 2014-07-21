@@ -4,15 +4,13 @@
 	"dependencies": {
 		"dcl": "1.1.x",
 		"decor": "0.1.0-dev",
-		"delite": "0.1.8-dev",
+		"delite": "#master",
 		"dojo": ">=1.9.1",
 		"dpointer": ">=0.1.0-dev",
 		"ecma402": ">=0.2.0-dev",
 		"requirejs": "2.1.x",
 		"requirejs-domready": ">=2.0.1",
-		"requirejs-dplugins": ">=0.2.2-dev"
-	},
-	"devDependencies": {
+		"requirejs-dplugins": ">=0.2.2-dev",
 		"dstore": "0.1.0"
 	},
 	"ignore": [

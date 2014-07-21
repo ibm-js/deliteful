@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Select</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+
+		var addOptions, removeOptions, updateOptions, show, getSelectedOptionsArray;
+		
+		require([
+			"delite/register",
+			"dstore/Memory",
+			"dstore/Observable",
+			"deliteful/Select",
+			"requirejs-domready/domReady!"
+		], function (register, Memory, Observable, Select) {
+			register.parse();
+			
+			var nOptions = 40;
+	
+			// Add options using the store API
+			addOptions = function (select, min, max) {
+				var updateCounter = select._updateCounter ? select._updateCounter : 0;
+				if (!min && !max) {
+					min = select.valueNode.length + 1;
+					max = min;
+				}
+				for (var i = min; i <= max; i++) {
+					select.store.add({
+						text: "Option " + i +
+							(updateCounter > 0 ? (" update #" + updateCounter) : ""),
+						value: i, // optional
+						disabled: i === 5 // optional
+					});
+				}
+			};
+			
+			removeOptions = function (select) {
+				var option = select.store.data[0]; // holds for the dstore/Memory used in this test
+				select.store.remove(select.store.getIdentity(option));
+			};
+			
+			var removeAllOptions = function (select) {
+				select.store.setData([]); // This bypasses the notification of observable stores, hence:
+				select.renderItems = []; // needed because of delite issue #187. TODO: remove when this is fixed.
+			};
+			
+			show = function (select) {
+				var collectSelectedItems = function() {
+					var selectedOptions = getSelectedOptionsArray(select);
+					var str = "";
+					for (var i = 0; i < selectedOptions.length; i++) {
+						str += "\n  " + selectedOptions[i].text;
+					}
+					return str;
+				};
+				alert("select.id: " + select.id + "\n" +
+					"select.value: " + select.value + "\n" +
+					"select.selectedItem" +
+					(select.selectedItem ? 
+						".text: " + select.selectedItem.text : ": null") + "\n" +
+					"select.selectedItems: " +
+					(select.selectedItems.length > 0 ?
+						collectSelectedItems() : "[]") + "\n" +
+					"select._selection_change_counter: " + select._selection_change_counter
+					);
+			};
+			
+			var initSelect = function (select, min, max, defaultStore) {
+				if (!defaultStore) {
+					select.store = new (Memory.createSubclass(Observable))({});
+				}
+				addOptions(select, min, max);
+				
+				select.on("selection-change", function (event) {
+					// Store for testing purposes
+					if (!select._selection_change_counter) {
+						select._selection_change_counter = 1;
+					} else {
+						select._selection_change_counter++;
+					}
+				});
+				
+				select.observe(function (oldValues) {
+					if ("value" in oldValues) {
+						// Store for testing purposes
+						select._notifiedSelectValue = select.value;
+					}
+				});
+				
+				select._selection_change_counter = 0; // used in tests/functional/Select.js
+				select._notifiedSelectValue = null;
+			};
+			
+			var createSelect = function (selectDiv, min, max, defaultStore) {
+				var select = new Select({id: selectDiv.id}).placeAt(selectDiv, "replace");
+				select.startup();
+				initSelect(select, min, max, defaultStore);
+			};
+				
+			/* attempt to workaround IE's behavior which is to close 
+	 		the dropdown as soon as an option is added/removed - but this doesn't do the trick */
+			/* var openDropdown = function (node) {
+				// var event = document.createEvent('MouseEvents');
+				// event.initMouseEvent('mousedown', true, true, window);
+				event.initMouseEvent('mouseup', true, true, window);
+				// event.initMouseEvent('click', true, true, window);
+				node.dispatchEvent(event);
+				// node.focus();
+				// node.click();
+			}; */
+			
+			var updateOptionsImpl = function (select, async, min, max) {
+				if (!min) {
+					min = 1;
+				}
+				if (!max) {
+					max = select.valueNode ? 
+						select.valueNode.length :
+						select.children.length;
+				}
+				if (!select._updateCounter) {
+					select._updateCounter = 1;
+				} else {
+					select._updateCounter++;
+				}
+				
+				var updateSelectContent = function(select, min, max) {
+					removeAllOptions(select); // removing then adding works around misbehavior of
+					// the scrollbar of the dropdown in Chrome 34/Win7.
+					addOptions(select, min, max);
+					// select.size = select.options.length;
+					// openDropdown(select);
+				};
+				if (async) {
+					// Done asynchronously to give you time to open the dropdown
+					// such that we can check what happens when adding options with the
+					// dropdown open (simulating what happens during autoComplete).
+					setTimeout(function () {
+						updateSelectContent(select, min, max);
+					}, 3000);
+				} else {
+					updateSelectContent(select, min, max);
+				}
+			};
+			
+			updateOptions = function (select, min, max) {
+				// Async is available for checking what happens if the set of options is
+				// modified while the dropwdown is open.
+				var async = document.getElementById("async").checked;
+				updateOptionsImpl(select, async, min, max);
+			};
+			
+			// Utility function called by the functional test (tests/functional/Select.js)
+			getSelectedOptionsArray = function (select) {
+				var selectedOptions = select.valueNode.selectedOptions;
+				// HTMLSelectElement.selectedOptions is not present in all browsers...
+				// At least IE10/Win misses it. Hence:
+				if (selectedOptions === undefined) {
+					var options = [].map.call(select.valueNode.options, 
+						function (option) {
+							return option;
+						});
+					selectedOptions = options.filter(function (option) {
+						return option.selected;
+					});
+				} else {
+					// convert HTMLCollection into array (to be able to use array.indexOf)
+					selectedOptions = [].map.call(selectedOptions, 
+						function (option) {
+							return option;
+						});
+				}
+				return selectedOptions;
+			};
+			
+			// Fill with options the Select already created declaratively:
+			initSelect(select1, 1, nOptions);
+			initSelect(select3, 1, nOptions, true/*defaultStore*/);
+			initSelect(d_select_form1, 1, nOptions);
+			initSelect(d_select_form2, 1, nOptions);
+			initSelect(d_select_form3, 1, nOptions);
+			initSelect(d_select_form4, 1, nOptions);
+			initSelect(d_select_form5, 1, nOptions);
+			initSelect(d_select_form6, 1, nOptions);
+			initSelect(d_select_form7, 1, nOptions);
+			initSelect(select8, 1, nOptions);
+			
+			// Create the Select programmatically:
+			createSelect(select2, 1, nOptions, true/*defaultStore*/);
+			createSelect(select4, 1, nOptions);
+
+			ready = true;
+		});
+	</script>
+	
+	<style>
+		/* For comparison */
+		.bootstrap-form-control {
+			display: inline-block; /* in bootstrap: float: left; but this goes with width: 100% */
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			color: #555;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		}
+		#select8 {
+			border-radius: 15px;
+			height: 50px;
+			font-size: 24px;
+			font-family: Courier;
+			color: yellow;
+		}
+		#select8 .d-select-inner {
+			background-color: red; /* cannot set on parent because issue in FF and IE10 */
+			height: 50px; /* argh, needed by Chrome/Android4.4.2! */
+		}
+		
+		.native-select-with-style {
+			border-radius: 15px;
+			height: 50px;
+			font-size: 24px;
+			font-family: Courier;
+			color: yellow;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+
+<br/>
+
+<label><input id="async" type="checkbox">Async add/remove/update (3s delay)</label>
+<br/><br/>
+
+1. deliteful/Select created declaratively (with default store):
+<br/>
+
+<d-select id="select1"></d-select>
+
+<button id="add1" onclick="addOptions(select1)">Add</button>
+<button id="remove1" onclick="removeOptions(select1)">Remove</button>
+<button id="update1" onclick="updateOptions(select1)">Update</button>
+<button id="show1" onclick="show(select1)">Show</button>
+<br/><br/>
+
+2. deliteful/Select created programmatically (with default store):
+<br/>
+<div id="select2"></div>
+
+<button id="add2" onclick="addOptions(select2)">Add</button>
+<button id="remove2" onclick="removeOptions(select2)">Remove</button>
+<button id="update2" onclick="updateOptions(select2)">Update</button>
+<button id="show2" onclick="show(select2)">Show</button>
+<br/><br/>
+
+3. deliteful/Select created declaratively (with user's store):
+<br/>
+
+<d-select id="select3"></d-select>
+
+<button id="add3" onclick="addOptions(select3)">Add</button>
+<button id="remove3" onclick="removeOptions(select3)">Remove</button>
+<button id="update3" onclick="updateOptions(select3)">Update</button>
+<button id="show3" onclick="show(select3)">Show</button>
+<br/><br/>
+
+4. deliteful/Select created programmatically (with user's store):
+<br/>
+<d-select id="select4">
+</d-select>
+
+<button id="add4" onclick="addOptions(select4)">Add</button>
+<button id="remove4" onclick="removeOptions(select4)">Remove</button>
+<button id="update4" onclick="updateOptions(select4)">Update</button>
+<button id="show4" onclick="show(select4)">Show</button>
+<br/><br/>
+
+5. deliteful/Select created declaratively with no options (empty):
+<br/>
+<d-select id="select5"></d-select>
+
+<br/><br/>
+
+6. deliteful/Select created programmatically with no options (empty):
+<br/>
+<d-select id="select6"></d-select>
+
+<br/><br/>
+
+7. deliteful/Select in form (not ready):
+<br/>
+
+<form action="processForm.html">
+	<fieldset>
+		d-select:
+		<d-select name="d_select_form1" id="d_select_form1"></d-select>
+		disabled:
+		<d-select disabled name="d_select_form2" id="d_select_form2"></d-select>
+		<br/>
+		multiple (default size):
+		<d-select selectionMode="multiple" name="d_select_form3" id="d_select_form3"></d-select>
+		<br/>
+		multiple size 1:
+		<d-select selectionMode="multiple" size="1" name="d_select_form4" id="d_select_form4"></d-select>
+		multiple size 2:
+		<d-select selectionMode="multiple" size="2" name="d_select_form5" id="d_select_form5"></d-select>
+		<br/>
+		multiple size 6:
+		<d-select selectionMode="multiple" size="6" name="d_select_form6" id="d_select_form6"></d-select>
+		multiple disabled:
+		<d-select selectionMode="multiple" disabled name="d_select_form7" id="d_select_form7"></d-select>
+		<br/>
+		Native:
+		<select name="native_select_form1" id="native_select_form1">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+		</select>
+		disabled:
+		<select disabled name="native_select_form2" id="native_select_form2">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+		</select>
+		<br/>
+		multiple (default size):
+		<select multiple name="native_select_form3" id="native_select_form3">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+			<option value="5">Option 5</option>
+			<option value="6">Option 6</option>
+		</select>
+		multiple size 1:
+		<select multiple size="1" name="native_select_form4" id="native_select_form4">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+			<option value="5">Option 5</option>
+			<option value="6">Option 6</option>
+		</select>
+		multiple size 2:
+		<select multiple size="2" name="native_select_form5" id="native_select_form5">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+			<option value="5">Option 5</option>
+			<option value="6">Option 6</option>
+		</select>
+		multiple size 6:
+		<select multiple size="6" name="native_select_form6" id="native_select_form6">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+			<option value="5">Option 5</option>
+			<option value="6">Option 6</option>
+		</select>
+		multiple disabled:
+		<select multiple disabled size="2" name="native_select_form7" id="native_select_form7">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+			<option value="4">Option 4</option>
+			<option value="5">Option 5</option>
+			<option value="6">Option 6</option>
+		</select>
+		<br/>
+		<input id="reset" type="reset">
+		<input id="submit" type="submit">
+	</fieldset>
+</form>
+
+<br/><br/>
+
+8. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
+border-radius, color and background-color (with default store):
+<br/>
+<d-select id="select8">
+</d-select>
+
+<button id="add8" onclick="addOptions(select8)">Add</button>
+<button id="remove8" onclick="removeOptions(select8)">Remove</button>
+<button id="update8" onclick="updateOptions(select8)">Update</button>
+<button id="show8" onclick="show(select8)">Show</button>
+<br/><br/>
+
+9. Pure native select (for comparison; with text attribute):
+<br/>
+<span>
+<select	id="select9">
+	<option>Option 1</option>
+	<option>Option 2</option>
+	<option selected>Option 3</option>
+	<option>Option 4</option>
+	<option disabled>Option 5</option>
+</select>
+</span>
+
+<br/><br/>
+
+9bis. Pure native select (for comparison; with label attribute):
+<br/>
+<select	id="select9bis">
+	<option label="Option 1"></option>
+	<option label="Option 2"></option>
+	<option label="Option 3" selected></option>
+	<option label="Option 4"></option>
+	<option label="Option 5" disabled></option>
+</select>
+
+<br/><br/>
+
+9ter. Pure native select (for comparison; with text attribute and style:
+bootstrap + larger font-size, font-family:Courier, brder-radius, color
+and background-color):
+<br/>
+<select	id="select9ter" class="bootstrap-form-control native-select-with-style">
+	<option>Option 1</option>
+	<option>Option 2</option>
+	<option selected>Option 3</option>
+	<option>Option 4</option>
+	<option disabled>Option 5</option>
+</select>
+
+<br/><br/>
+
+10. Pure native select with no options (for comparison):
+<br/>
+<select	id="select10">
+</select>
+
+<br/><br/>
+
+11. Pure native select with bootstrap's form-control CSS class (for comparison):
+<br/>
+<select id="select11" class="bootstrap-form-control">
+	<option>Option 1</option>
+	<option>Option 2</option>
+	<option selected>Option 3</option>
+	<option>Option 4</option>
+	<option disabled>Option 5</option>
+</select>
+
+<br/><br/>
+
+<br/><br/><br/><br/>
+End.
+</html>
