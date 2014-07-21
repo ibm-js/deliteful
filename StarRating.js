@@ -93,7 +93,9 @@ define([
 				this.valueNode.style.display = "none";
 				this.appendChild(this.valueNode);
 			}
-			this.refreshRendering(this);
+			["disabled", "max", "value", "name", "readOnly", "allowZero"].forEach(function (prop) {
+				this.notifyCurrentValue(prop);
+			}, this);
 		}),
 
 		/* jshint maxcomplexity: 13 */
