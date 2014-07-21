@@ -33,16 +33,16 @@ define([
 	var checkIndex = function (list) {
 		var count = 0;
 		for (var id in list.store._index) {
-			assert.equal(id, list.store.getIdentity(list.store.data[list.store._index[id]]));
+			assert.strictEqual(id, list.store.getIdentity(list.store.data[list.store._index[id]]).toString());
 			count++;
 		}
-		assert.equal(count, list.store.data.length, "number of items in index");
+		assert.strictEqual(count, list.store.data.length, "number of items in index");
 	};
 
 	var list = null;
 
 	var checkArray = function (checked, count, indexes, expectedValues, hint) {
-		assert.equal(checked.length, count, hint + ": nb of items");
+		assert.strictEqual(checked.length, count, hint + ": nb of items");
 		var i, currentObserved, currentExpected, attr = null;
 		if (indexes) {
 			for (i = 0; i < indexes.length; i++) {
@@ -88,7 +88,7 @@ define([
 		"addItem with identity" : function () {
 			var item = {id: "item0", label: "firstItem"};
 			var id = list.store.add(item);
-			assert.equal(id, "item0");
+			assert.strictEqual(id, "item0");
 			checkArray(list.added,
 						1,
 						[0],
@@ -108,7 +108,7 @@ define([
 		"addItem with identity in options" : function () {
 			var item = {label: "firstItem"};
 			var id = list.store.add(item, {id: "item0"});
-			assert.equal(id, "item0");
+			assert.strictEqual(id, "item0");
 			checkArray(list.added,
 						1,
 						[0],
@@ -205,20 +205,20 @@ define([
 				list.store.add({id: 1, label: "bar"});
 				assert.fail("exception was expected");
 			} catch (e) {
-				assert.equal(e.message, "Item already exists");
+				assert.strictEqual(e.message, "Item already exists");
 			}
 		},
 		"get" : function () {
 			var id1 = list.store.add({id: "first", label: "first"});
 			var id2 = list.store.add({label: "second"});
 			var id3 = list.store.add({label: "third"}, {id: "third"});
-			assert.equal(id1, "first", "first id");
+			assert.strictEqual(id1, "first", "first id");
 			assert.isDefined(id2, "second id");
 			assert.isNotNull(id2, "second id");
-			assert.equal(id3, "third", "third id");
-			assert.equal(list.store.get(id1).label, "first", "first item label");
-			assert.equal(list.store.get(id2).label, "second", "second item label");
-			assert.equal(list.store.get(id3).label, "third", "third item label");
+			assert.strictEqual(id3, "third", "third id");
+			assert.strictEqual(list.store.get(id1).label, "first", "first item label");
+			assert.strictEqual(list.store.get(id2).label, "second", "second item label");
+			assert.strictEqual(list.store.get(id3).label, "third", "third item label");
 			assert.isUndefined(list.store.get("unexisting id"), "unexisting id");
 		},
 		"getIdentity" : function () {
@@ -228,22 +228,22 @@ define([
 			var id2 = list.store.add(item2);
 			var item3 = {label: "third"};
 			var id3 = list.store.add(item3, {id: "third"});
-			assert.equal(list.store.getIdentity(item1), id1, "id first item");
-			assert.equal(list.store.getIdentity(item2), id2, "id second item");
-			assert.equal(list.store.getIdentity(item3), id3, "id third item");
+			assert.strictEqual(list.store.getIdentity(item1), id1, "id first item");
+			assert.strictEqual(list.store.getIdentity(item2), id2, "id second item");
+			assert.strictEqual(list.store.getIdentity(item3), id3, "id third item");
 		},
 		"custom idProperty" : function () {
 			list.store.idProperty = "foo";
 			var item1 = {foo: "first", label: "first"};
 			var id1 = list.store.add(item1);
-			assert.equal(id1, "first", "id first item");
+			assert.strictEqual(id1, "first", "id first item");
 			var item2 = {label: "second"};
 			var id2 = list.store.add(item2);
 			assert.isDefined(list.store.get(id2).foo, "foo attribute second item");
 			assert.isNotNull(list.store.get(id2).foo, "foo attribute second item");
 			var item3 = {label: "third"};
 			var id3 = list.store.add(item3, {id: "third"});
-			assert.equal(list.store.get(id3).foo, "third", "foo attribute third item");
+			assert.strictEqual(list.store.get(id3).foo, "third", "foo attribute third item");
 		},
 		"remove" : function () {
 			var item1 = {label: "first"};
@@ -287,7 +287,7 @@ define([
 			checkArray(result, 1, [0], [item1], "query result");
 			list.cleanupMock();
 			list.store.put(item2, {id: id1});
-			assert.equal(list.store.get(id1), item2, "item after update");
+			assert.strictEqual(list.store.get(id1), item2, "item after update");
 			checkArray(list.put,
 					1,
 					[0],
@@ -431,24 +431,24 @@ define([
 				list.store.add({label: "item " + i});
 			}
 			var result = list.store.filter().range(50);
-			assert.equal(100, result.total, "total of first query result");
-			assert.equal(50, result.length, "length of first query result");
-			assert.equal("item 50", result[0].label, "length of first query result");
+			assert.strictEqual(100, result.total, "total of first query result");
+			assert.strictEqual(50, result.length, "length of first query result");
+			assert.strictEqual("item 50", result[0].label, "length of first query result");
 			result = list.store.filter().range(48, 58);
-			assert.equal(100, result.total, "total of second query result");
-			assert.equal(10, result.length, "length of second query result");
-			assert.equal("item 48", result[0].label, "length of second query result");
+			assert.strictEqual(100, result.total, "total of second query result");
+			assert.strictEqual(10, result.length, "length of second query result");
+			assert.strictEqual("item 48", result[0].label, "length of second query result");
 			result = list.store.filter().range(0, 8);
-			assert.equal(100, result.total, "total of third query result");
-			assert.equal(8, result.length, "length of third query result");
-			assert.equal("item 0", result[0].label, "length of third query result");
+			assert.strictEqual(100, result.total, "total of third query result");
+			assert.strictEqual(8, result.length, "length of third query result");
+			assert.strictEqual("item 0", result[0].label, "length of third query result");
 			result = list.store.filter().range(0, 110);
-			assert.equal(100, result.total, "total of fourth query result");
-			assert.equal(100, result.length, "length of fourth query result");
-			assert.equal("item 0", result[0].label, "length of fourth query result");
+			assert.strictEqual(100, result.total, "total of fourth query result");
+			assert.strictEqual(100, result.length, "length of fourth query result");
+			assert.strictEqual("item 0", result[0].label, "length of fourth query result");
 			result = list.store.filter().range(110);
-			assert.equal(100, result.total, "total of fifth query result");
-			assert.equal(0, result.length, "length of fifth query result");
+			assert.strictEqual(100, result.total, "total of fifth query result");
+			assert.strictEqual(0, result.length, "length of fifth query result");
 		},
 		"put items on a non queried store": function () {
 			var mock = {
@@ -468,27 +468,27 @@ define([
 			var store = new DefaultStore(mock);
 			// put item
 			store.put({label: "item 0"});
-			assert.equal(0, mock.put.length, "put length after first put");
-			assert.equal(0, mock.added.length, "added length after first put");
-			assert.equal(0, mock.removed.length, "removed");
-			assert.equal(1, store.data.length, "number of items in store after first put");
+			assert.strictEqual(0, mock.put.length, "put length after first put");
+			assert.strictEqual(0, mock.added.length, "added length after first put");
+			assert.strictEqual(0, mock.removed.length, "removed");
+			assert.strictEqual(1, store.data.length, "number of items in store after first put");
 			// move item
 			var id = store.put({label: "item 1"});
-			assert.equal(0, mock.put.length, "put length after second put");
-			assert.equal(0, mock.added.length, "added length after second put");
-			assert.equal(0, mock.removed.length, "removed length after second put");
-			assert.equal(2, store.data.length, "number of items in store after second put");
+			assert.strictEqual(0, mock.put.length, "put length after second put");
+			assert.strictEqual(0, mock.added.length, "added length after second put");
+			assert.strictEqual(0, mock.removed.length, "removed length after second put");
+			assert.strictEqual(2, store.data.length, "number of items in store after second put");
 			store.put({label: "item 1"}, {id: id, before: store.data[0]});
-			assert.equal(0, mock.put.length, "put length after put 3");
-			assert.equal(0, mock.added.length, "added length after put 3");
-			assert.equal(0, mock.removed.length, "removed length after put 3");
-			assert.equal(2, store.data.length, "number of items in store after put 3");
+			assert.strictEqual(0, mock.put.length, "put length after put 3");
+			assert.strictEqual(0, mock.added.length, "added length after put 3");
+			assert.strictEqual(0, mock.removed.length, "removed length after put 3");
+			assert.strictEqual(2, store.data.length, "number of items in store after put 3");
 			// update item
 			store.put({label: "item -1"}, {id: id});
-			assert.equal(0, mock.put.length, "put length after put 4");
-			assert.equal(0, mock.added.length, "added length after put 4");
-			assert.equal(0, mock.removed.length, "removed length after put 4");
-			assert.equal(2, store.data.length, "number of items in store after put 4");
+			assert.strictEqual(0, mock.put.length, "put length after put 4");
+			assert.strictEqual(0, mock.added.length, "added length after put 4");
+			assert.strictEqual(0, mock.removed.length, "removed length after put 4");
+			assert.strictEqual(2, store.data.length, "number of items in store after put 4");
 		},
 		"remove items on a non queried store": function () {
 			var mock = {
@@ -510,10 +510,10 @@ define([
 			var id = store.put({label: "item 0"});
 			// remove item
 			store.remove(id);
-			assert.equal(0, mock.put.length, "put length");
-			assert.equal(0, mock.added.length, "added length");
-			assert.equal(0, mock.removed.length, "removed length");
-			assert.equal(0, store.data.length, "number of items in store");
+			assert.strictEqual(0, mock.put.length, "put length");
+			assert.strictEqual(0, mock.added.length, "added length");
+			assert.strictEqual(0, mock.removed.length, "removed length");
+			assert.strictEqual(0, store.data.length, "number of items in store");
 		},
 		"item indexes" : function () {
 			var zero = {id: 0, label: "zero"};

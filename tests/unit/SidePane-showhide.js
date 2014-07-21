@@ -26,15 +26,15 @@ define([
 		},
 		"hide" : function () {
 			var d = this.async(3000);
-			sp.hide().then(function () {
+			sp.hide().then(d.rejectOnError(function () {
 				assert.strictEqual(sp.children[0].id, "content", "Plain hide() removed the children");
-				sp.show().then(function () {
+				sp.show().then(d.callback(function () {
 					sp.hide("content").then(d.callback(function (value) {
 						assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
 						assert.strictEqual(sp.children.length, 0, "SidePane content is incorrect");
 					}));
-				});
-			});
+				}));
+			}));
 		},
 		"toggle after hide" : function () {
 			var d = this.async(5000);

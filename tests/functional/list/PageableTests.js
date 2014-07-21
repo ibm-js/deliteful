@@ -16,7 +16,7 @@ define(["intern!object",
 			.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Click to load " + pageSize + " more items");
+					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
 			.end()
 			.keys("\uE00D") // Press SPACE
@@ -34,7 +34,7 @@ define(["intern!object",
 			.active()
 				.text()
 				.then(function (value) {
-					assert.equal(value, "Click to load " + pageSize + " more items");
+					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
 			.end()
 			.keys("\uE00D") // Press SPACE

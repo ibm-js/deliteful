@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Select</title>
+
+	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+
+		var showResults;
+		
+		require([
+			"delite/register",
+			"dstore/Memory",
+			"deliteful/Select",
+			"deliteful/Button",
+			"requirejs-domready/domReady!"
+		], function (register, Memory) {
+			register.parse();
+			
+			var storeTeams = new Memory({}),
+				storePlayers = new Memory({});
+			var teams = ["Brazil", "France", "USA", "Togo"],
+				players = ["Zidane", "Platini", "Maradona", "Hagi", "Buffon"];
+			
+			storeTeams.add({text: "Select a team", value: ""});
+			teams.forEach(function (team) {
+				storeTeams.add({text: team});
+			});
+			players.forEach(function (player) {
+				storePlayers.add({text: player});
+			});
+			selectTeam.store = storeTeams;
+			selectPlayer.store = storePlayers;
+			
+			showResults = function () {
+				var getSelectedItemsTxt = function (select) {
+					var res = "", noOptionSelected = "no option selected";
+					if (select.selectionMode === "single") {
+						res = (select.selectedItem && select.value) ?
+							select.selectedItem.text : noOptionSelected;
+					} else { // selectionMode === "multiple"
+						var res = "";
+						var n = select.selectedItems.length;
+						for (var i = 0; i < n; i++) {
+							res += "\n  " + select.selectedItems[i].text;
+						}
+						if (n == 0) {
+							res = noOptionSelected;
+						}
+					}
+					return res;
+				};
+				alert("Thanks for filling the form!\n" + 
+					"Your favorite team: " + getSelectedItemsTxt(selectTeam) +
+					"\nYour favorite players: " + getSelectedItemsTxt(selectPlayer));
+			};
+		});
+	</script>
+	
+	<style>
+	</style>
+</head>
+<body>
+
+<br/>
+
+World Cup
+<br/><br/>
+Your favorite team (single choice):
+<br/>
+<d-select id="selectTeam"></d-select>
+<br/><br/>
+Your favorite players (multiple choice):
+<br/>
+<d-select selectionMode="multiple" id="selectPlayer"></d-select>
+<br/><br/>
+
+<button is="d-button" onclick="showResults()">Done</button>
+
+</html>

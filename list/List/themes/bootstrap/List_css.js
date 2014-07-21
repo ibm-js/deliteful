@@ -14,6 +14,10 @@ define(function () {
   border: 1px solid #dddddd;\
   background-color: #ffffff;\
 }\
+.d-selectable .d-list-item:hover,\
+.d-multiselectable .d-list-item:hover {\
+  background-color: #f5f5f5;\
+}\
 .d-round-rect-list {\
   border: 1px solid #dddddd;\
   border-radius: 4px;\
@@ -30,14 +34,14 @@ d-list-store {\
   text-overflow: ellipsis;\
   white-space: nowrap;\
   overflow: hidden;\
+}\
+.d-list-category .d-list-cell {\
   background-color: #f5f5f5;\
   color: #333333;\
   border-bottom: 1px solid #dddddd;\
-}\
-.d-list-category [role=\"gridcell\"] {\
   padding: 0 10px;\
 }\
-.d-list-category [role=\"gridcell\"] {\
+.d-list-category .d-list-cell {\
   height: 35px;\
 }\
 .d-list-item {\
@@ -52,16 +56,16 @@ d-list-store {\
   -ms-flex-align: center;\
   align-items: center;\
   -webkit-align-items: center;\
-  border-bottom: 1px solid #dddddd;\
 }\
-.d-list-item [role=\"gridcell\"] {\
+.d-list-item .d-list-cell {\
+  border-bottom: 1px solid #dddddd;\
   padding: 0px 8px;\
 }\
-.d-list-item [role=\"gridcell\"] {\
+.d-list-item .d-list-cell {\
   height: 40px;\
 }\
-.d-list [role=\"gridcell\"],\
-.d-round-rect-list [role=\"gridcell\"] {\
+.d-list .d-list-cell,\
+.d-round-rect-list .d-list-cell {\
   display: -webkit-box;\
   display: -moz-box;\
   display: -ms-flexbox;\
@@ -78,8 +82,8 @@ d-list-store {\
   -webkit-align-items: center;\
   outline-offset: -2px;\
 }\
-.d-list [role=\"gridcell\"] .d-spacer,\
-.d-round-rect-list [role=\"gridcell\"] .d-spacer {\
+.d-list .d-list-cell .d-spacer,\
+.d-round-rect-list .d-list-cell .d-spacer {\
   -webkit-box-flex: 1;\
   -moz-box-flex: 1;\
   -webkit-flex: 1;\
@@ -100,7 +104,7 @@ d-list-store {\
   white-space: nowrap;\
   text-overflow: ellipsis;\
 }\
-.d-list-loader [role=\"gridcell\"] {\
+.d-list-loader .d-list-cell {\
   white-space: nowrap;\
   text-overflow: ellipsis;\
   overflow: hidden;\
@@ -109,7 +113,7 @@ d-list-store {\
   height: 38px;\
   border-bottom: 1px solid #dddddd;\
 }\
-.d-list-loader [role=\"gridcell\"]:hover {\
+.d-list-loader .d-list-cell:hover {\
   background-color: #ebebeb;\
 }\
 .d-list-loader [role=\"button\"] {\
@@ -175,27 +179,16 @@ d-list-store {\
 .d-list-loading-panel-info svg {\
   vertical-align: middle;\
 }\
-[aria-selectable=\"true\"] .d-list-item::before,\
-[aria-multiselectable=\"true\"] .d-list-item::before {\
-  font-size: large;\
-  padding-left: 5px;\
-  display: block;\
-  content: \"\\2610\";\
+.d-selectable,\
+.d-multiselectable {\
+  cursor: pointer;\
 }\
-[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before,\
-[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::before {\
-  content: \"\\2611\";\
-}\
-[aria-selectable=\"true\"] .d-list-item::after,\
-[aria-multiselectable=\"true\"] .d-list-item::after {\
-  font-size: large;\
-  padding-right: 5px;\
-  display: none;\
-  content: \"\\2610\";\
-}\
-[aria-selectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after,\
-[aria-multiselectable=\"true\"] .d-list-item[aria-selected=\"true\"]::after {\
-  content: \"\\2611\";\
+.d-selectable .d-list-item.d-selected .d-list-cell,\
+.d-multiselectable .d-list-item.d-selected .d-list-cell {\
+  border-bottom: 1px solid #428bca;\
+  background-color: #428bca;\
+  color: #ffffff;\
+  font-weight: bold;\
 }\
 .d-list-container {\
   position: relative;\
@@ -224,11 +217,13 @@ d-list-store {\
   border-top-right-radius: 4px;\
 }\
 .d-round-rect-list > .d-list-container > *:last-child {\
+  border-bottom-left-radius: 4px;\
+  border-bottom-right-radius: 4px;\
+}\
+.d-round-rect-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\
-  border-bottom-left-radius: 4px;\
-  border-bottom-right-radius: 4px;\
 }\
 .d-list {\
   /* edit display at your own risk */\
@@ -240,7 +235,7 @@ d-list-store {\
   margin: 0;\
   overflow-x: hidden;\
 }\
-.d-list > .d-list-container > *:last-child {\
+.d-list > .d-list-container > *:last-child .d-list-cell {\
   border-bottom-width: 0;\
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */\
   padding-bottom: 1px;\

@@ -13,8 +13,8 @@ define(["intern!object",
 		remote.execute("return document.getElementById('" +
 			scrollContainerId + "').getCurrentScroll();")
 			.then(function (scroll) {
-				assert.equal(scroll.x, expectedScroll.x, "unexpected scrollLeft!");
-				assert.equal(scroll.y, expectedScroll.y, "unexpected scrollTop!");
+				assert.strictEqual(scroll.x, expectedScroll.x, "unexpected scrollLeft!");
+				assert.strictEqual(scroll.y, expectedScroll.y, "unexpected scrollTop!");
 			});
 	};
 
@@ -67,7 +67,7 @@ define(["intern!object",
 				.wait(200)
 				.execute("return document.getElementById('scrollContainer').scrollableNode.scrollTop;")
 				.then(function (value) {
-					assert.equal(value, "100", "scrollTop should have stayed at 100!");
+					assert.strictEqual(value, 100, "scrollTop should have stayed at 100!");
 				});
 		},
 

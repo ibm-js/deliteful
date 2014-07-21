@@ -22,7 +22,7 @@ progression.
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
-[Enteprise Use](#enterprise)  
+[Enterprise Use](#enterprise)  
 [See also](#seealso)
 
 <a name="instantiation"></a>

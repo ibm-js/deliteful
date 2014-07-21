@@ -50,7 +50,7 @@ it avoids having awkward permanent holes in between persistent messages as it en
 [Element Configuration](#configuration)
 [User Interactions](#interactions)
 [Element Events](#events)
-[Enteprise Use](#enterprise)
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -334,7 +334,7 @@ m.dismiss("slide-out");
 |messageRemoved|When a message is removed|Yes|Yes|<ul><li>message: the instance of ToasterMessage that was removed</li></ul>|
 
 <a name="entreprise"></a>
-## Entreprise Use
+## Enterprise Use
 ### Accessibility
 |type|status|comment|
 |----|------|-------|

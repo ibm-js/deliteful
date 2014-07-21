@@ -251,27 +251,27 @@ define(["intern!object",
 				.getAttribute("role")
 				.then(function (value) {
 					debugMsg("checkAria: role");
-					assert.equal(value, "slider", "role");
+					assert.strictEqual(value, "slider", "role");
 				})
 				.getAttribute("aria-orientation")
 				.then(function (value) {
 					debugMsg("checkAria: aria-orientation");
-					assert.equal(value, ariaOrientation, "aria-orientation");
+					assert.strictEqual(value, ariaOrientation, "aria-orientation");
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
 					debugMsg("checkAria: aria-valuemin");
-					assert.equal(value, ariaValueMin, "aria-valuemin");
+					assert.strictEqual(value, ariaValueMin, "aria-valuemin");
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
 					debugMsg("checkAria: aria-valuemax");
-					assert.equal(value, ariaValueMax, "aria-valuemax");
+					assert.strictEqual(value, ariaValueMax, "aria-valuemax");
 				})
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
 					debugMsg("checkAria: aria-valuenow");
-					assert.equal(value, ariaValueNow, "aria-valuenow");
+					assert.strictEqual(value, ariaValueNow, "aria-valuenow");
 				})
 				.end();
 		};

@@ -32,13 +32,13 @@ define(["intern!object",
 							remote.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
 								.text()
 								.then(function (value) {
-									assert.equal(value, expectedKeys[i]);
+									assert.strictEqual(value, expectedKeys[i]);
 								})
 								.end()
 							.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
 								.text()
 								.then(function (value) {
-									assert.equal(value, expectedValues[i]);
+									assert.strictEqual(value, expectedValues[i]);
 								})
 								.end();
 						})(i);
@@ -51,38 +51,38 @@ define(["intern!object",
 			.elementByXPath("//*[@id='" + widgetId + "']/div")
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
-					assert.equal(value, expectedValue, "aria-valuenow");
+					assert.strictEqual(value, expectedValue.toString(), "aria-valuenow");
 				})
 				.getAttribute("aria-disabled")
 				.then(function (value) {
-					assert.equal(value, expectedDisabled ? "true" : "false", "aria-disabled");
+					assert.strictEqual(value, expectedDisabled ? "true" : "false", "aria-disabled");
 				})
 				.getAttribute("tabindex")
 				.then(function (value) {
-					assert.equal(value, expectedDisabled ? null : "0", "tabIndex");
+					assert.strictEqual(value, expectedDisabled ? null : "0", "tabIndex");
 				})
 				.getAttribute("role")
 				.then(function (value) {
-					assert.equal(value, "slider", "role");
+					assert.strictEqual(value, "slider", "role");
 				})
 				.getAttribute("aria-valuemin")
 				.then(function (value) {
-					assert.equal(value, "0", "aria-valuemin");
+					assert.strictEqual(value, "0", "aria-valuemin");
 				})
 				.getAttribute("aria-valuemax")
 				.then(function (value) {
-					assert.equal(value, expectedMax, "aria-valuemax");
+					assert.strictEqual(value, expectedMax.toString(), "aria-valuemax");
 				})
 				.getAttribute("aria-valuetext")
 				.then(function (value) {
-					assert.equal(value, expectedValue + " stars", "aria-valuetest");
+					assert.strictEqual(value, expectedValue + " stars", "aria-valuetest");
 				})
 				.end()
 			/* jshint evil:true */
 			.eval("Array.prototype.map.call(" + widgetId + ".getElementsByClassName('d-star-rating-star-icon'), " +
 					"function(elem){ return elem.className; })")
 				.then(function (classNames) {
-					assert.equal(classNames.length, 2 * expectedMax, "# of stars");
+					assert.strictEqual(classNames.length, 2 * expectedMax, "# of stars");
 					for (var i = 0; i < 2 * expectedMax; i++) {
 						var expectedClass = "d-star-rating-star-icon";
 						expectedClass += i % 2 ? " d-star-rating-end" : " d-star-rating-start";
@@ -91,7 +91,7 @@ define(["intern!object",
 						} else {
 							expectedClass += " d-star-rating-empty";
 						}
-						assert.equal(classNames[i], expectedClass, "expected class star " + i);
+						assert.strictEqual(classNames[i], expectedClass, "expected class star " + i);
 					}
 				});
 	};
@@ -202,7 +202,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
+						assert.strictEqual(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
 					})
 					.end()
 				// check rating change after clicking on a star
@@ -216,7 +216,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
+						assert.strictEqual(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
 					})
 					.end()
 				// set zero rating
@@ -230,7 +230,7 @@ define(["intern!object",
 				.elementById(id + "value")
 					.text()
 					.then(function (text) {
-						assert.equal(text, "Rating is 0 stars", "message is not the one expected for " + id);
+						assert.strictEqual(text, "Rating is 0 stars", "message is not the one expected for " + id);
 					})
 					.end();
 		},
@@ -262,57 +262,57 @@ define(["intern!object",
 			// Check active element
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal(value, "afinput");
+				assert.strictEqual(value, "afinput");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "firsttabindexstar");
+				assert.strictEqual(value, "firsttabindexstar");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "secondtabindexstar");
+				assert.strictEqual(value, "secondtabindexstar");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "star");
+				assert.strictEqual(value, "star");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal(value, "starminus");
+				assert.strictEqual(value, "starminus");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.id")
 			.then(function (value) {
-				assert.equal(value, "starplus");
+				assert.strictEqual(value, "starplus");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "editablestar1");
+				assert.strictEqual(value, "editablestar1");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "editablestar2");
+				assert.strictEqual(value, "editablestar2");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "editablestar5");
+				assert.strictEqual(value, "editablestar5");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "editablestar6");
+				assert.strictEqual(value, "editablestar6");
 			})
 			.keys("\uE004") // Press TAB
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
-				assert.equal(value, "defaultstar");
+				assert.strictEqual(value, "defaultstar");
 			});
 		},
 		"disabled": function () {

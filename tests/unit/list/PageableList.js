@@ -6,8 +6,9 @@ define([
 	"delite/register",
 	"dstore/Memory",
 	"dstore/Observable",
-	"deliteful/list/PageableList"
-], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList) {
+	"deliteful/list/PageableList",
+	"./resources/Utils"
+], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList, Utils) {
 
 	/////////////////////////////////
 	// HELPERS AND FIXTURES
@@ -44,10 +45,11 @@ define([
 			previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";
 		var numberOfItems = lastItemNumber - firstItemNumber + 1 - missingItemNumbers.length;
-		assert.equal(list.getChildren().length, numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
+		assert.strictEqual(list.getChildren().length,
+				numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
 				hint + " number of children");
 		if (previousPageLoader) {
-			assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 					"Click to load " + list.pageLength + " more items", hint + " previous page loader");
 		}
 		for (var i = previousPageLoader ? 1 : 0, index = i + firstItemNumber - (previousPageLoader ? 1 : 0);
@@ -58,10 +60,10 @@ define([
 					index++;
 				}
 			}
-			assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + index, hint);
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + index, hint);
 		}
 		if (nextPageLoader) {
-			assert.equal(removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
 					"Click to load " + list.pageLength + " more items",
 					hint + " previous page loader");
 		}
@@ -71,10 +73,10 @@ define([
 		var numberOfCategories = Math.floor((firstItemNumber + numberOfItems - 1) / 10)
 								- Math.floor(firstItemNumber / 10) + 1;
 		var lastCategory = null;
-		assert.equal(numberOfCategories + numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
+		assert.strictEqual(numberOfCategories + numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
 				list.getChildren().length, "number of children");
 		if (previousPageLoader) {
-			assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 					"Click to load " + list.pageLength + " more items", "previous page loader");
 		}
 		for (var childIndex = previousPageLoader ? 1 : 0, itemIndex = firstItemNumber;
@@ -83,13 +85,14 @@ define([
 			var category = Math.floor(itemIndex / 10);
 			if (category !== lastCategory) {
 				lastCategory = category;
-				assert.equal(removeTabsAndReturns(list.getChildren()[childIndex].textContent), "Category " + category);
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[childIndex].textContent),
+						"Category " + category);
 				childIndex++;
 			}
-			assert.equal(removeTabsAndReturns(list.getChildren()[childIndex].textContent), "item " + itemIndex);
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[childIndex].textContent), "item " + itemIndex);
 		}
 		if (nextPageLoader) {
-			assert.equal(removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
 					"Click to load " + list.pageLength + " more items",
 					"previous page loader");
 		}
@@ -118,81 +121,76 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.rejectOnError(function () {
-				// initial load (page 1 loaded)
-				assertList(list, 0, 22, [], false, true, "initial load");
-				// check internal pages references
-				assert.equal(list._idPages.length, 1, "A: expect one page loaded");
-				assert.equal(list._idPages[0].length, 23, "A: page size");
-				for (i = 0; i < 23; i++) {
-					assert(list._idPages[0][i] === i);
-				}
-				// remove two items in the first page (page 1 size will be 21)
-				list.store.remove(0); // remove item 0
-				list.store.remove(2); // remove item 2
-				assertList(list, 0, 22, [0, 2], false, true, "page 1 loaded");
-				// check internal pages references
-				assert.equal(list._idPages.length, 1, "B: expect one page loaded");
-				assert.equal(list._idPages[0].length, 21, "B: page size");
-				assert(list._idPages[0][0] === 1);
-				assert(list._idPages[0][1] === 3);
-				for (i = 2; i < 21; i++) {
-					assert(list._idPages[0][i] === i + 2);
-				}
-				// load next page (pages 1 and 2 loaded)
+			Utils.deliverAllChanges(list);
+			// initial load (page 1 loaded)
+			assertList(list, 0, 22, [], false, true, "initial load");
+			// check internal pages references
+			assert.strictEqual(list._idPages.length, 1, "A: expect one page loaded");
+			assert.strictEqual(list._idPages[0].length, 23, "A: page size");
+			for (i = 0; i < 23; i++) {
+				assert(list._idPages[0][i] === i);
+			}
+			// remove two items in the first page (page 1 size will be 21)
+			list.store.remove(0); // remove item 0
+			list.store.remove(2); // remove item 2
+			Utils.deliverAllChanges(list);
+			assertList(list, 0, 22, [0, 2], false, true, "page 1 loaded");
+			// check internal pages references
+			assert.strictEqual(list._idPages.length, 1, "B: expect one page loaded");
+			assert.strictEqual(list._idPages[0].length, 21, "B: page size");
+			assert(list._idPages[0][0] === 1);
+			assert(list._idPages[0][1] === 3);
+			for (i = 2; i < 21; i++) {
+				assert(list._idPages[0][i] === i + 2);
+			}
+			// load next page (pages 1 and 2 loaded)
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				assertList(list, 1, 45, [2], false, true, "page 1 and 2 loaded");
+				// remove to items in the second page (page 2 size will be 21)
+				list.store.remove(45); // remove item 45
+				list.store.remove(43); // remove item 43
+				Utils.deliverAllChanges(list);
+				assertList(list, 1, 44, [2, 43], false, true, "after removal");
+				// load next page (pages 2 and 3 loaded)
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						assertList(list, 1, 45, [2], false, true, "page 1 and 2 loaded");
-						// remove to items in the second page (page 2 size will be 21)
-						list.store.remove(45); // remove item 45
-						list.store.remove(43); // remove item 43
-						assertList(list, 1, 44, [2, 43], false, true, "after removal");
+					Utils.deliverAllChanges(list);
+					assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded");
+					// load previous page (page 1 and 2 loaded)
+					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						assertList(list, 1, 44, [2, 43], false, true, "page 1 and 2 loaded (second time)");
 						// load next page (pages 2 and 3 loaded)
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded");
-								// load previous page (page 1 and 2 loaded)
-								clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.rejectOnError(function () {
-										assertList(list, 1, 44, [2, 43], false, true, "page 1 and 2 loaded (second time)");
-										// load next page (pages 2 and 3 loaded)
-										clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-											setTimeout(dfd.rejectOnError(function () {
-												assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded (second time)");
-												// load next page (pages 3 and 4 loaded)
-												clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-													setTimeout(dfd.rejectOnError(function () {
-														assertList(list, 46, 91, [], true, true, "page 3 and 4 loaded");
-														// click once more (pages 3 and 4 loaded still loaded, next loader disappears)
-														clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-															assertList(list, 46, 91, [], true, false,
-																	"page 3 and 4 loaded and next loader disappears");
-															// load previous page (pages 2 and 3 loaded)
-															clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-																setTimeout(dfd.rejectOnError(function () {
-																	assertList(list, 21, 68, [43, 45], true, true,
-																			"page 2 and 3 loaded (third time)");
-																	// load previous page (pages 1 and 2 loaded)
-																	clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-																		setTimeout(dfd.callback(function () {
-																			assertList(list, 1, 44, [2, 43], false, true,
-																					"page 1 and 2 loaded (third time)");
-																		}), 10);
-																	}));
-																}), 10);
-															}));
-														}));
-													}), 10);
-												}));
-											}), 10);
+							Utils.deliverAllChanges(list);
+							assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded (second time)");
+							// load next page (pages 3 and 4 loaded)
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+								Utils.deliverAllChanges(list);
+								assertList(list, 46, 91, [], true, true, "page 3 and 4 loaded");
+								// click once more (pages 3 and 4 loaded still loaded, next loader disappears)
+								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+									Utils.deliverAllChanges(list);
+									assertList(list, 46, 91, [], true, false,
+											"page 3 and 4 loaded and next loader disappears");
+									// load previous page (pages 2 and 3 loaded)
+									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+										Utils.deliverAllChanges(list);
+										assertList(list, 21, 68, [43, 45], true, true,
+												"page 2 and 3 loaded (third time)");
+										// load previous page (pages 1 and 2 loaded)
+										clickPreviousPageLoader(list).then(dfd.callback(function () {
+											Utils.deliverAllChanges(list);
+											assertList(list, 1, 44, [2, 43], false, true,
+													"page 1 and 2 loaded (third time)");
 										}));
-									}), 10);
+									}));
 								}));
-							}), 10);
+							}));
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
+			}));
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
@@ -210,17 +208,15 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load (page 1 loaded)
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 22, [], false, true, "assert 1");
-				// Remove items in the next page
-				list.store.remove(23); // remove item 23
-				list.store.remove(25); // remove item 25
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						assertList(list, 0, 47, [23, 25], false, true, "assert 2");
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			assertList(list, 0, 22, [], false, true, "assert 1");
+			// Remove items in the next page
+			list.store.remove(23); // remove item 23
+			list.store.remove(25); // remove item 25
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				assertList(list, 0, 47, [23, 25], false, true, "assert 2");
+			}));
 			return dfd;
 		},
 		"Helper: Removing items in previous non displayed page":
@@ -239,19 +235,17 @@ define([
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						// initial load (page 1 loaded)
-						assertList(list, 23, 68, [], true, true, "assert 1");
-						// Remove items in the previous page
-						list.store.remove(0); // remove item 0
-						list.store.remove(12); // remove item 12
-						list.store.remove(22); // remove item 22
-						clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.callback(function () {
-								assertList(list, 1, 45, [12, 22], false, true, "assert 2");
-							}), 10);
-						}));
-					}), 10);
+					Utils.deliverAllChanges(list);
+					// initial load (page 1 loaded)
+					assertList(list, 23, 68, [], true, true, "assert 1");
+					// Remove items in the previous page
+					list.store.remove(0); // remove item 0
+					list.store.remove(12); // remove item 12
+					list.store.remove(22); // remove item 22
+					clickPreviousPageLoader(list).then(dfd.callback(function () {
+						Utils.deliverAllChanges(list);
+						assertList(list, 1, 45, [12, 22], false, true, "assert 2");
+					}));
 				}));
 			}));
 			return dfd;
@@ -281,11 +275,10 @@ define([
 						clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 								// Click load next page
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.callback(function () {
-										// Check the content of the list
-										assertList(list, 22, 68, [45], true, true);
-									}), 10);
+								clickNextPageLoader(list).then(dfd.callback(function () {
+									Utils.deliverAllChanges(list);
+									// Check the content of the list
+									assertList(list, 22, 68, [45], true, true);
 								}));
 							}));
 						}));
@@ -311,15 +304,14 @@ define([
 			list.startup();
 			// Click next page loader two times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				clickNextPageLoader(list).then(dfd.callback(function () {
 					// remove all items in the first page
 					for (var i = 0; i < 23; i++) {
 						list.store.remove(i);
 					}
-					setTimeout(dfd.callback(function () {
-						// check that the previous page loader has been removed
-						assertList(list, 23, 68, [], false, true);
-					}), 10);
+					Utils.deliverAllChanges(list);
+					// check that the previous page loader has been removed
+					assertList(list, 23, 68, [], false, true);
 				}));
 			}));
 			return dfd;
@@ -353,96 +345,95 @@ define([
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(1)});
 				list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
 			}
+			Utils.deliverAllChanges(list);
 			// Check internal page representation
-			assert.equal(list._idPages.length, 1, "A: number of pages");
+			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
 					[0, "A", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, "B", 22]);
-			assert.equal(list._idPages[0].length, 25, "A: number of items in page");
-			assert.equal(list.getChildren().length, 26, "A: number of list children");
-			setTimeout(dfd.rejectOnError(function () {
-				assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "A");
-				assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "A");
+			assert.strictEqual(list._idPages[0].length, 25, "A: number of items in page");
+			assert.strictEqual(list.getChildren().length, 26, "A: number of list children");
+			Utils.deliverAllChanges(list);
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "A");
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "A");
+			for (i = 2; i <= 22; i++) {
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "A");
+			}
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "A");
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "A");
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[25].textContent), "Click to load 23 more items", "A");
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				assert.strictEqual(list.getChildren().length, 49, "B: number of list children");
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "B");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "B");
 				for (i = 2; i <= 22; i++) {
-					assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "A");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "B");
 				}
-				assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "A");
-				assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "A");
-				assert.equal(removeTabsAndReturns(list.getChildren()[25].textContent), "Click to load 23 more items", "A");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "B");
+				for (i = 24; i <= 47; i++) {
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 2), "B");
+				}
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[48].textContent),
+						"Click to load 23 more items", "B");
+				// Add an item
+				if (useObservableStore) {
+					list.store.add({id: "C", label: "item C", order: 46});
+				} else {
+					list.store.add({id: "C", label: "item C"}, {before: list.store.get(23)});
+				}
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(list.getChildren().length, 50, "C: number of list children");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "C");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "C");
+				for (i = 2; i <= 22; i++) {
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "C");
+				}
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "C");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "C");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[25].textContent), "item C", "C");
+				for (i = 26; i <= 48; i++) {
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 3), "C");
+				}
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[49].textContent),
+						"Click to load 23 more items", "C");
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					assert.equal(list.getChildren().length, 49, "B: number of list children");
-					setTimeout(dfd.rejectOnError(function () {
-						assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "B");
-						assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "B");
-						for (i = 2; i <= 22; i++) {
-							assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "B");
-						}
-						assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "B");
-						for (i = 24; i <= 47; i++) {
-							assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 2), "B");
-						}
-						assert.equal(removeTabsAndReturns(list.getChildren()[48].textContent),
-								"Click to load 23 more items", "B");
-						// Add an item
-						if (useObservableStore) {
-							list.store.add({id: "C", label: "item C", order: 46});
-						} else {
-							list.store.add({id: "C", label: "item C"}, {before: list.store.get(23)});
-						}
-						assert.equal(list.getChildren().length, 50, "C: number of list children");
-						setTimeout(dfd.rejectOnError(function () {
-							assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "C");
-							assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "C");
-							for (i = 2; i <= 22; i++) {
-								assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "C");
-							}
-							assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "item B", "C");
-							assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "C");
-							assert.equal(removeTabsAndReturns(list.getChildren()[25].textContent), "item C", "C");
-							for (i = 26; i <= 48; i++) {
-								assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 3), "C");
-							}
-							assert.equal(removeTabsAndReturns(list.getChildren()[49].textContent),
-									"Click to load 23 more items", "C");
-							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								setTimeout(dfd.rejectOnError(function () {
-									assert.equal(list.getChildren().length, 49, "D: number of list children");
-									assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "Click to load 23 more items",
-											"C: previous page loader");
-									assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item C", "C");
-									assert.equal(removeTabsAndReturns(list.getChildren()[47].textContent), "item 68", "C");
-									assert.equal(removeTabsAndReturns(list.getChildren()[48].textContent),
-											"Click to load 23 more items",
-											"C: next page loader");
-									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-										setTimeout(dfd.rejectOnError(function () {
-											assert.equal(list.getChildren().length, 49, "D: number of list children");
-											assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent),
-													"Click to load 23 more items",
-													"D: previous page loader");
-											assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item 1", "D");
-											assert.equal(removeTabsAndReturns(list.getChildren()[47].textContent), "item 45", "D");
-											assert.equal(removeTabsAndReturns(list.getChildren()[48].textContent),
-													"Click to load 23 more items",
-													"D: next page loader");
-											clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-												setTimeout(dfd.callback(function () {
-													assert.equal(list.getChildren().length, 26, "E: number of list children");
-													assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "E");
-													assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "E");
-													assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent), "item 22", "E");
-													assert.equal(removeTabsAndReturns(list.getChildren()[25].textContent),
-															"Click to load 23 more items",
-															"E: next page loader");
-												}), 10);
-											}));
-										}), 10);
-									}));
-								}), 10);
-							}));
-						}), 10);
-					}), 10);
+					Utils.deliverAllChanges(list);
+					assert.strictEqual(list.getChildren().length, 49, "D: number of list children");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+							"Click to load 23 more items",
+							"C: previous page loader");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item C", "C");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[47].textContent), "item 68", "C");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[48].textContent),
+							"Click to load 23 more items",
+							"C: next page loader");
+					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						assert.strictEqual(list.getChildren().length, 49, "D: number of list children");
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+								"Click to load 23 more items",
+								"D: previous page loader");
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item 1", "D");
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[47].textContent), "item 45", "D");
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[48].textContent),
+								"Click to load 23 more items",
+								"D: next page loader");
+						clickPreviousPageLoader(list).then(dfd.callback(function () {
+							Utils.deliverAllChanges(list);
+							assert.strictEqual(list.getChildren().length, 26, "E: number of list children");
+							assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+									"item 0", "E");
+							assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent),
+									"item A", "E");
+							assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+									"item 22", "E");
+							assert.strictEqual(removeTabsAndReturns(list.getChildren()[25].textContent),
+									"Click to load 23 more items",
+									"E: next page loader");
+						}));
+					}));
 				}));
-			}), 10);
+			}));
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
@@ -472,33 +463,32 @@ define([
 			} else {
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(0)});
 			}
+			Utils.deliverAllChanges(list);
 			// Check internal page representation
-			assert.equal(list._idPages.length, 1, "A: number of pages");
+			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
 					[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
-			assert.equal(list._idPages[0].length, 23, "A: number of items in page");
-			assert.equal(list.getChildren().length, 25, "A: number of list children");
-			assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "Click to load 23 more items",
+			assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
+			assert.strictEqual(list.getChildren().length, 25, "A: number of list children");
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "Click to load 23 more items",
 					"A (previous page loader)");
-			setTimeout(dfd.rejectOnError(function () {
+			for (i = 1; i <= 23; i++) {
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "A");
+			}
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+					"Click to load 23 more items",
+					"A (next page loader)");
+			clickPreviousPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(list.getChildren().length, 25, "B: number of list children");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item A", "B");
 				for (i = 1; i <= 23; i++) {
-					assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + (i - 1), "A");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
+							"item " + (i - 1), "B");
 				}
-				assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent), "Click to load 23 more items",
-						"A (next page loader)");
-				clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-					assert.equal(list.getChildren().length, 25, "B: number of list children");
-					setTimeout(dfd.callback(function () {
-						assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "item A", "B");
-						for (i = 1; i <= 23; i++) {
-							assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent),
-									"item " + (i - 1), "B");
-						}
-						assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent),
-								"Click to load 23 more items", "B");
-					}), 10);
-				}));
-			}), 10);
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+						"Click to load 23 more items", "B");
+			}));
 			return dfd;
 		},
 		"Helper: add item after last page creates loader": function (/*Deferred*/dfd, /*boolean*/useObservableStore) {
@@ -514,31 +504,33 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			assert.equal(list.getChildren().length, 24, "0: number of list children");
-			assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "Click to load 23 more items",
+			Utils.deliverAllChanges(list);
+			assert.strictEqual(list.getChildren().length, 24, "0: number of list children");
+			assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "Click to load 23 more items",
 					"0: last children is next page loader");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				// Add an item at the end
 				list.store.add({id: "A", label: "item A"});
 				// Check internal page representation
-				assert.equal(list._idPages.length, 1, "A: number of pages");
+				assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 				assert.deepEqual(list._idPages[0],
 						[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
-				assert.equal(list._idPages[0].length, 23, "A: number of items in page");
-				assert.equal(list.getChildren().length, 24, "A: number of list children");
+				assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
+				assert.strictEqual(list.getChildren().length, 24, "A: number of list children");
 				for (i = 0; i <= 22; i++) {
-					assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + i, "A");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + i, "A");
 				}
-				assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "Click to load 23 more items",
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent),
+						"Click to load 23 more items",
 						"A (next page loader)");
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					assert.equal(list.getChildren().length, 24, "B: number of list children");
-					setTimeout(dfd.callback(function () {
-						for (i = 0; i <= 22; i++) {
-							assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent), "item " + i, "B");
-						}
-						assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "item A", "B");
-					}), 10);
+				clickNextPageLoader(list).then(dfd.callback(function () {
+					Utils.deliverAllChanges(list);
+					assert.strictEqual(list.getChildren().length, 24, "B: number of list children");
+					for (i = 0; i <= 22; i++) {
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
+								"item " + i, "B");
+					}
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "item A", "B");
 				}));
 			}));
 			return dfd;
@@ -569,47 +561,46 @@ define([
 			} else {
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(23)});
 			}
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 22, [], false, true, "A");
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						assert.equal(list.getChildren().length, 25, "B: list number of children");
-						assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent),
-								"Click to load 23 more items",
-								"B: previous page loader");
-						assert.equal(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "B");
-						for (i = 2; i < 24; i++) {
-							assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent),
-									"item " + (i + 21), "B");
-						}
-						assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent),
-								"Click to load 23 more items",
-								"B: next page loader");
-						if (useObservableStore) {
-							list.store.add({id: "B", label: "item B", order: 44});
-						} else {
-							list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
-						}
-						clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.callback(function () {
-								assert.equal(list.getChildren().length, 25, "C: list number of children");
-								assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent),
-										"Click to load 23 more items",
-										"C: previous page loader");
-								for (i = 1; i < 22; i++) {
-									assert.equal(removeTabsAndReturns(list.getChildren()[i].textContent),
-											"item " + i, "C");
-								}
-								assert.equal(removeTabsAndReturns(list.getChildren()[22].textContent), "item B", "C");
-								assert.equal(removeTabsAndReturns(list.getChildren()[23].textContent), "item 22", "C");
-								assert.equal(removeTabsAndReturns(list.getChildren()[24].textContent),
-										"Click to load 23 more items",
-										"C: next page loader");
-							}), 10);
-						}));
-					}), 10);
+			Utils.deliverAllChanges(list);
+			assertList(list, 0, 22, [], false, true, "A");
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(list.getChildren().length, 25, "B: list number of children");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+						"Click to load 23 more items",
+						"B: previous page loader");
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "B");
+				for (i = 2; i < 24; i++) {
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
+							"item " + (i + 21), "B");
+				}
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+						"Click to load 23 more items",
+						"B: next page loader");
+				if (useObservableStore) {
+					list.store.add({id: "B", label: "item B", order: 44});
+				} else {
+					list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
+				}
+				clickPreviousPageLoader(list).then(dfd.callback(function () {
+					Utils.deliverAllChanges(list);
+					assert.strictEqual(list.getChildren().length, 25, "C: list number of children");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
+							"Click to load 23 more items",
+							"C: previous page loader");
+					for (i = 1; i < 22; i++) {
+						assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
+								"item " + i, "C");
+					}
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[22].textContent),
+							"item B", "C");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent),
+							"item 22", "C");
+					assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
+							"Click to load 23 more items",
+							"C: next page loader");
 				}));
-			}), 10);
+			}));
 			return dfd;
 		}
 	};
@@ -635,43 +626,43 @@ define([
 			resetList();
 			list.itemAdded(0, {id: "A"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 2, "A");
-			assert.equal(list._lastLoaded, 7, "A");
+			assert.strictEqual(list._firstLoaded, 2, "A");
+			assert.strictEqual(list._lastLoaded, 7, "A");
 			resetList();
 			list.itemAdded(1, {id: "B"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 2, "B");
-			assert.equal(list._lastLoaded, 7, "B");
+			assert.strictEqual(list._firstLoaded, 2, "B");
+			assert.strictEqual(list._lastLoaded, 7, "B");
 			resetList();
 			list.itemAdded(2, {id: "C"});
 			assert.deepEqual(list._idPages, [[1, "C", 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "C");
-			assert.equal(list._lastLoaded, 7, "C");
+			assert.strictEqual(list._firstLoaded, 1, "C");
+			assert.strictEqual(list._lastLoaded, 7, "C");
 			resetList();
 			list.itemAdded(3, {id: "D"});
 			assert.deepEqual(list._idPages, [[1, 2, "D", 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "D");
-			assert.equal(list._lastLoaded, 7, "D");
+			assert.strictEqual(list._firstLoaded, 1, "D");
+			assert.strictEqual(list._lastLoaded, 7, "D");
 			resetList();
 			list.itemAdded(4, {id: "E"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], ["E", 4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "E");
-			assert.equal(list._lastLoaded, 7, "E");
+			assert.strictEqual(list._firstLoaded, 1, "E");
+			assert.strictEqual(list._lastLoaded, 7, "E");
 			resetList();
 			list.itemAdded(5, {id: "F"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, "F", 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "F");
-			assert.equal(list._lastLoaded, 7, "F");
+			assert.strictEqual(list._firstLoaded, 1, "F");
+			assert.strictEqual(list._lastLoaded, 7, "F");
 			resetList();
 			list.itemAdded(6, {id: "G"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, "G", 6]]);
-			assert.equal(list._firstLoaded, 1, "G");
-			assert.equal(list._lastLoaded, 7, "G");
+			assert.strictEqual(list._firstLoaded, 1, "G");
+			assert.strictEqual(list._lastLoaded, 7, "G");
 			resetList();
 			list.itemAdded(7, {id: "H"});
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "H");
-			assert.equal(list._lastLoaded, 6, "H");
+			assert.strictEqual(list._firstLoaded, 1, "H");
+			assert.strictEqual(list._lastLoaded, 6, "H");
 		},
 		"itemRemoved": function () {
 			list = new PageableList();
@@ -683,43 +674,43 @@ define([
 			resetList();
 			list.itemRemoved(0);
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 0, "0");
-			assert.equal(list._lastLoaded, 5, "0");
+			assert.strictEqual(list._firstLoaded, 0, "0");
+			assert.strictEqual(list._lastLoaded, 5, "0");
 			resetList();
 			list.itemRemoved(1);
 			assert.deepEqual(list._idPages, [[2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "1");
-			assert.equal(list._lastLoaded, 5, "1");
+			assert.strictEqual(list._firstLoaded, 1, "1");
+			assert.strictEqual(list._lastLoaded, 5, "1");
 			resetList();
 			list.itemRemoved(2);
 			assert.deepEqual(list._idPages, [[1, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "2");
-			assert.equal(list._lastLoaded, 5, "2");
+			assert.strictEqual(list._firstLoaded, 1, "2");
+			assert.strictEqual(list._lastLoaded, 5, "2");
 			resetList();
 			list.itemRemoved(3);
 			assert.deepEqual(list._idPages, [[1, 2], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "3");
-			assert.equal(list._lastLoaded, 5, "3");
+			assert.strictEqual(list._firstLoaded, 1, "3");
+			assert.strictEqual(list._lastLoaded, 5, "3");
 			resetList();
 			list.itemRemoved(4);
 			assert.deepEqual(list._idPages, [[1, 2, 3], [5, 6]]);
-			assert.equal(list._firstLoaded, 1, "4");
-			assert.equal(list._lastLoaded, 5, "4");
+			assert.strictEqual(list._firstLoaded, 1, "4");
+			assert.strictEqual(list._lastLoaded, 5, "4");
 			resetList();
 			list.itemRemoved(5);
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 6]]);
-			assert.equal(list._firstLoaded, 1, "5");
-			assert.equal(list._lastLoaded, 5, "5");
+			assert.strictEqual(list._firstLoaded, 1, "5");
+			assert.strictEqual(list._lastLoaded, 5, "5");
 			resetList();
 			list.itemRemoved(6);
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5]]);
-			assert.equal(list._firstLoaded, 1, "6");
-			assert.equal(list._lastLoaded, 5, "6");
+			assert.strictEqual(list._firstLoaded, 1, "6");
+			assert.strictEqual(list._lastLoaded, 5, "6");
 			resetList();
 			list.itemRemoved(7);
 			assert.deepEqual(list._idPages, [[1, 2, 3], [4, 5, 6]]);
-			assert.equal(list._firstLoaded, 1, "7");
-			assert.equal(list._lastLoaded, 6, "7");
+			assert.strictEqual(list._firstLoaded, 1, "7");
+			assert.strictEqual(list._lastLoaded, 6, "7");
 		},
 		"Loading all next pages (pageLength 20, maxPages 0)" : function () {
 			var dfd = this.async(3000);
@@ -731,40 +722,34 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
+			Utils.deliverAllChanges(list);
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 19, [], false, true);
+			assertList(list, 0, 19, [], false, true);
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				// after second page is loaded
+				assertList(list, 0, 39, [], false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						// after second page is loaded
-						assertList(list, 0, 39, [], false, true);
+					Utils.deliverAllChanges(list);
+					// after third page is loaded
+					assertList(list, 0, 59, [], false, true);
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						// after fourth page is loaded
+						assertList(list, 0, 79, [], false, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								// after third page is loaded
-								assertList(list, 0, 59, [], false, true);
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.rejectOnError(function () {
-										// after fourth page is loaded
-										assertList(list, 0, 79, [], false, true);
-										clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-											setTimeout(dfd.rejectOnError(function () {
-												// after fifth page is loaded
-												assertList(list, 0, 99, [], false, true);
-												clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-													setTimeout(dfd.callback(function () {
-														// after last click
-														assertList(list, 0, 99, [], false, false);
-													}), 10);
-												}));
-											}), 10);
-										}));
-									}), 10);
-								}));
-							}), 10);
+							Utils.deliverAllChanges(list);
+							// after fifth page is loaded
+							assertList(list, 0, 99, [], false, true);
+							clickNextPageLoader(list).then(dfd.callback(function () {
+								Utils.deliverAllChanges(list);
+								// after last click
+								assertList(list, 0, 99, [], false, false);
+							}));
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
+			}));
 			return dfd;
 		},
 		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)" : function () {
@@ -778,34 +763,29 @@ define([
 			list.categoryAttr = "category";
 			document.body.appendChild(list);
 			list.startup();
+			Utils.deliverAllChanges(list);
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 25, 0, false, true);
+			assertCategorizedList(list, 25, 0, false, true);
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				// after second page is loaded
+				assertCategorizedList(list, 50, 0, false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						// after second page is loaded
-						assertCategorizedList(list, 50, 0, false, true);
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								// after third page is loaded
-								assertCategorizedList(list, 75, 0, false, true);
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.rejectOnError(function () {
-										// after fourth page is loaded
-										assertCategorizedList(list, 100, 0, false, true);
-										clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-											setTimeout(dfd.callback(function () {
-												// after last click
-												assertCategorizedList(list, 100, 0, false, false);
-											}), 10);
-										}));
-									}), 10);
-								}));
-							}), 10);
+					Utils.deliverAllChanges(list);
+					// after third page is loaded
+					assertCategorizedList(list, 75, 0, false, true);
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						// after fourth page is loaded
+						assertCategorizedList(list, 100, 0, false, true);
+						clickNextPageLoader(list).then(dfd.callback(function () {
+							Utils.deliverAllChanges(list);
+							// after last click
+							assertCategorizedList(list, 100, 0, false, false);
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
+			}));
 			return dfd;
 		},
 		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" : function () {
@@ -819,64 +799,54 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			Utils.deliverAllChanges(list);
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 19, [], false, true);
+			assertList(list, 0, 19, [], false, true);
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				// after second page is loaded
+				assertList(list, 0, 39, [], false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						// after second page is loaded
-						assertList(list, 0, 39, [], false, true);
+					Utils.deliverAllChanges(list);
+					// after third page is loaded and first page is unloaded
+					assertList(list, 20, 59, [], true, true);
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						// after fourth page is loaded and second page is unloaded
+						assertList(list, 40, 79, [], true, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								// after third page is loaded and first page is unloaded
-								assertList(list, 20, 59, [], true, true);
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.rejectOnError(function () {
-										// after fourth page is loaded and second page is unloaded
-										assertList(list, 40, 79, [], true, true);
-										clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-											setTimeout(dfd.rejectOnError(function () {
-												// after fifth page is loaded and third page is unloaded
-												assertList(list, 60, 99, [], true, true);
-												clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-													setTimeout(dfd.rejectOnError(function () {
-														// after last click
-														assertList(list, 60, 99, [], true, false);
-														clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-															setTimeout(dfd.rejectOnError(function () {
-																// after fifth page is unloaded and third page is loaded
-																assertList(list, 40, 79, [], true, true);
-																clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-																	setTimeout(dfd.rejectOnError(function () {
-																		// after fourth page is unloaded and second page is loaded
-																		assertList(list, 20, 59, [], true, true);
-																		clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-																			setTimeout(dfd.callback(function () {
-																				// after third page is unloaded and first page is loaded
-																				assertList(list, 0, 39, [], false, true);
-																			}), 10);
-																		}));
-																	}), 10);
-																}));
-															}), 10);
-														}));
-													}), 10);
-												}));
-											}), 10);
+							Utils.deliverAllChanges(list);
+							// after fifth page is loaded and third page is unloaded
+							assertList(list, 60, 99, [], true, true);
+							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+								Utils.deliverAllChanges(list);
+								// after last click
+								assertList(list, 60, 99, [], true, false);
+								clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+									Utils.deliverAllChanges(list);
+									// after fifth page is unloaded and third page is loaded
+									assertList(list, 40, 79, [], true, true);
+									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+										Utils.deliverAllChanges(list);
+										// after fourth page is unloaded and second page is loaded
+										assertList(list, 20, 59, [], true, true);
+										clickPreviousPageLoader(list).then(dfd.callback(function () {
+											Utils.deliverAllChanges(list);
+											// after third page is unloaded and first page is loaded
+											assertList(list, 0, 39, [], false, true);
 										}));
-									}), 10);
+									}));
 								}));
-							}), 10);
+							}));
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
+			}));
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
 		"Categorized List: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" :
 			function () {
-			/*jshint maxlen: 123*/
 			var dfd = this.async(3000);
 			list = new PageableList();
 			for (var i = 0; i < 100; i++) {
@@ -887,47 +857,39 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.rejectOnError(function () {
-				// initial load
-				assertCategorizedList(list, 25, 0, false, true);
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertCategorizedList(list, 25, 0, false, true);
+			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+				Utils.deliverAllChanges(list);
+				// after second page is loaded
+				assertCategorizedList(list, 50, 0, false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						// after second page is loaded
-						assertCategorizedList(list, 50, 0, false, true);
+					Utils.deliverAllChanges(list);
+					// after third page is loaded and first page is unloaded
+					assertCategorizedList(list, 50, 25, true, true);
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						// after fourth page is loaded and second page is unloaded
+						assertCategorizedList(list, 50, 50, true, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								// after third page is loaded and first page is unloaded
+							Utils.deliverAllChanges(list);
+							// after last click
+							assertCategorizedList(list, 50, 50, true, false);
+							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
+								Utils.deliverAllChanges(list);
+								// after fourth page is unloaded and second page is loaded
 								assertCategorizedList(list, 50, 25, true, true);
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.rejectOnError(function () {
-										// after fourth page is loaded and second page is unloaded
-										assertCategorizedList(list, 50, 50, true, true);
-										clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-											setTimeout(dfd.rejectOnError(function () {
-												// after last click
-												assertCategorizedList(list, 50, 50, true, false);
-												clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-													setTimeout(dfd.rejectOnError(function () {
-														// after fourth page is unloaded and second page is loaded
-														assertCategorizedList(list, 50, 25, true, true);
-														clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-															setTimeout(dfd.callback(function () {
-																// after third page is unloaded and first page is loaded
-																assertCategorizedList(list, 50, 0, false, true);
-															}), 10);
-														}));
-													}), 10);
-												}));
-											}), 10);
-										}));
-									}), 10);
+								clickPreviousPageLoader(list).then(dfd.callback(function () {
+									Utils.deliverAllChanges(list);
+									// after third page is unloaded and first page is loaded
+									assertCategorizedList(list, 50, 0, false, true);
 								}));
-							}), 10);
+							}));
 						}));
-					}), 10);
+					}));
 				}));
-			}), 10);
-			/*jshint maxlen: 120*/
+			}));
 			return dfd;
 		},
 		"pageLength equal to the total number of item (maxPages 0)" : function () {
@@ -940,16 +902,14 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
+			Utils.deliverAllChanges(list);
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 99, [], false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						// after a click on the next page loader
-						assertList(list, 0, 99, [], false, false);
-					}), 10);
-				}));
-			}), 10);
+			assertList(list, 0, 99, [], false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				// after a click on the next page loader
+				assertList(list, 0, 99, [], false, false);
+			}));
 			return dfd;
 		},
 		"Categorized List: pageLength equal to the total number of item (maxPages 0)" : function () {
@@ -964,15 +924,13 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 100, 0, false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						// after a click on the next page loader
-						assertCategorizedList(list, 100, 0, false, false);
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			assertCategorizedList(list, 100, 0, false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				// after a click on the next page loader
+				assertCategorizedList(list, 100, 0, false, false);
+			}));
 			return dfd;
 		},
 		"pageLength equal to the total number of item (maxPages 2)" : function () {
@@ -986,15 +944,13 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertList(list, 0, 99, [], false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						// after a click on the next page loader
-						assertList(list, 0, 99, [], false, false);
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			assertList(list, 0, 99, [], false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				// after a click on the next page loader
+				assertList(list, 0, 99, [], false, false);
+			}));
 			return dfd;
 		},
 		"Categorized List: pageLength equal to the total number of item (maxPages 2)" : function () {
@@ -1008,20 +964,17 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.rejectOnError(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						// after a click on the next page loader
-						assertCategorizedList(list, 100, 0, false, false);
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertCategorizedList(list, 100, 0, false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				// after a click on the next page loader
+				assertCategorizedList(list, 100, 0, false, false);
+			}));
 			return dfd;
 		},
 		"pageLength greater than the total number of item (maxPages 0)" : function () {
-			var dfd = this.async(1000);
 			list = new PageableList();
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
@@ -1031,13 +984,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			setTimeout(dfd.callback(function () {
-				assertList(list, 0, 99, [], false, false);
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			assertList(list, 0, 99, [], false, false);
 		},
 		"Categorized List: pageLength greater than the total number of item (maxPages 0)" : function () {
-			var dfd = this.async(1000);
 			list = new PageableList();
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
@@ -1047,14 +997,11 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.callback(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, false);
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertCategorizedList(list, 100, 0, false, false);
 		},
 		"pageLength greater than the total number of item (maxPages 2)" : function () {
-			var dfd = this.async(1000);
 			list = new PageableList();
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
@@ -1063,14 +1010,11 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.callback(function () {
-				// initial load
-				assertList(list, 0, 99, [], false, false);
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertList(list, 0, 99, [], false, false);
 		},
 		"Categorized List: pageLength greater than the total number of item (maxPages 2)" : function () {
-			var dfd = this.async(1000);
 			list = new PageableList();
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
@@ -1080,11 +1024,9 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.callback(function () {
-				// initial load
-				assertCategorizedList(list, 100, 0, false, false);
-			}), 10);
-			return dfd;
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertCategorizedList(list, 100, 0, false, false);
 		},
 		///////////////////////////////////////////
 		// TEST REMOVING ITEMS
@@ -1162,23 +1104,20 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			setTimeout(dfd.rejectOnError(function () {
-				assertCategorizedList(list, 25, 0, false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						assertCategorizedList(list, 50, 0, false, true);
-						// Create a new store and assign it to the list
-						var store = new MemoryStore({data: []});
-						for (var i = 1000; i < 1100; i++) {
-							store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
-						}
-						list.store = store;
-						setTimeout(dfd.callback(function () {
-							assertCategorizedList(list, 25, 1000, false, true);
-						}), 100);
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			assertCategorizedList(list, 25, 0, false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				assertCategorizedList(list, 50, 0, false, true);
+				// Create a new store and assign it to the list
+				var store = new MemoryStore({data: []});
+				for (var i = 1000; i < 1100; i++) {
+					store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+				}
+				list.store = store;
+				Utils.deliverAllChanges(list);
+				assertCategorizedList(list, 25, 1000, false, true);
+			}));
 			return dfd;
 		},
 		"Update pageLength": function () {
@@ -1192,25 +1131,21 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				setTimeout(dfd.rejectOnError(function () {
-					assertList(list, 0, 19, [], false, true, "A");
-					list.pageLength = 20;
+				Utils.deliverAllChanges(list);
+				assertList(list, 0, 19, [], false, true, "A");
+				list.pageLength = 20;
+				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+					Utils.deliverAllChanges(list);
+					assertList(list, 10, 39, [], true, true, "B");
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						setTimeout(dfd.rejectOnError(function () {
-							assertList(list, 10, 39, [], true, true, "B");
-							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								setTimeout(dfd.rejectOnError(function () {
-									assertList(list, 20, 59, [], true, true, "C");
-									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-										setTimeout(dfd.callback(function () {
-											assertList(list, 0, 39, [], false, true, "D");
-										}), 10);
-									}));
-								}), 10);
-							}));
-						}), 10);
+						Utils.deliverAllChanges(list);
+						assertList(list, 20, 59, [], true, true, "C");
+						clickPreviousPageLoader(list).then(dfd.callback(function () {
+							Utils.deliverAllChanges(list);
+							assertList(list, 0, 39, [], false, true, "D");
+						}));
 					}));
-				}), 10);
+				}));
 			}));
 			return dfd;
 		},
@@ -1226,20 +1161,17 @@ define([
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.rejectOnError(function () {
-						assertList(list, 10, 29, [], true, true, "A");
-						list.maxPages = 3;
-						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							setTimeout(dfd.rejectOnError(function () {
-								assertList(list, 10, 39, [], true, true, "B");
-								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									setTimeout(dfd.callback(function () {
-										assertList(list, 20, 49, [], true, true, "C");
-									}), 10);
-								}));
-							}), 10);
+					Utils.deliverAllChanges(list);
+					assertList(list, 10, 29, [], true, true, "A");
+					list.maxPages = 3;
+					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
+						Utils.deliverAllChanges(list);
+						assertList(list, 10, 39, [], true, true, "B");
+						clickNextPageLoader(list).then(dfd.callback(function () {
+							Utils.deliverAllChanges(list);
+							assertList(list, 20, 49, [], true, true, "C");
 						}));
-					}), 10);
+					}));
 				}));
 			}));
 			return dfd;
@@ -1255,14 +1187,12 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				setTimeout(dfd.rejectOnError(function () {
-					assertList(list, 10, 19, [], true, true, "A");
-					list.loadPreviousMessage = "foo";
-					setTimeout(dfd.callback(function () {
-						assert.equal(removeTabsAndReturns(list.getChildren()[0].textContent), "foo",
-								"loader label not updated");
-					}), 10);
-				}), 10);
+				Utils.deliverAllChanges(list);
+				assertList(list, 10, 19, [], true, true, "A");
+				list.loadPreviousMessage = "foo";
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "foo",
+						"loader label not updated");
 			}));
 			return dfd;
 		},
@@ -1276,16 +1206,14 @@ define([
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
-			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				setTimeout(dfd.rejectOnError(function () {
-					assertList(list, 10, 19, [], true, true, "A");
-					list.loadNextMessage = "foo";
-					setTimeout(dfd.callback(function () {
-						assert.equal(
-								removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
-								"foo", "loader label not updated");
-					}), 10);
-				}), 10);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				assertList(list, 10, 19, [], true, true, "A");
+				list.loadNextMessage = "foo";
+				Utils.deliverAllChanges(list);
+				assert.strictEqual(
+						removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
+						"foo", "loader label not updated");
 			}));
 			return dfd;
 		},
@@ -1300,19 +1228,17 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			setTimeout(dfd.rejectOnError(function () {
-				// initial load
-				assertList(list, 0, 19, [], false, true);
-				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					setTimeout(dfd.callback(function () {
-						// after second page is loaded
-						assertList(list, 0, 38, [], false, false);
-						// verify that loading panel is not displayed
-						assert.isNull(document.body.querySelector(".d-list-loading-panel"),
-								"loading panel should not be visible");
-					}), 10);
-				}));
-			}), 10);
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertList(list, 0, 19, [], false, true);
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				Utils.deliverAllChanges(list);
+				// after second page is loaded
+				assertList(list, 0, 38, [], false, false);
+				// verify that loading panel is not displayed
+				assert.isNull(document.body.querySelector(".d-list-loading-panel"),
+						"loading panel should not be visible");
+			}));
 			return dfd;
 		},
 		"autoPaging: categorized list with category headers destroyed when loading pages": function () {
@@ -1334,56 +1260,57 @@ define([
 			}
 			document.body.appendChild(list);
 			list.startup();
+			Utils.deliverAllChanges(list);
+			// initial load
+			assertCategorizedList(list, 25, 0, false, true);
 			setTimeout(def.rejectOnError(function () {
-				// initial load
-				assertCategorizedList(list, 25, 0, false, true);
-				setTimeout(def.rejectOnError(function () {
-					// scroll to the bottom
-					list.scrollableNode.scrollTop =
-						(list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight);
-					waitForCondition(function () {
-						return list.textContent.indexOf("item 49") >= 0;
-					}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-						assertCategorizedList(list, 50, 0, false, true);
-						assert.equal("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-								"last visible renderer after first page load");
+				// scroll to the bottom
+				list.scrollableNode.scrollTop =
+					(list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight);
+				waitForCondition(function () {
+					return list.textContent.indexOf("item 49") >= 0;
+				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+					Utils.deliverAllChanges(list);
+					assertCategorizedList(list, 50, 0, false, true);
+					assert.strictEqual("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+							"last visible renderer after first page load");
+					setTimeout(def.rejectOnError(function () {
+						// scroll a little to remove the "_atExtremity" marker
+						list.scrollableNode.scrollTop =
+							((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight) / 2);
 						setTimeout(def.rejectOnError(function () {
-							// scroll a little to remove the "_atExtremity" marker
+							// scroll to the bottom
 							list.scrollableNode.scrollTop =
-								((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight) / 2);
-							setTimeout(def.rejectOnError(function () {
-								// scroll to the bottom
-								list.scrollableNode.scrollTop =
-									((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight));
-								waitForCondition(function () {
-									return list.textContent.indexOf("item 74") >= 0;
-								}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-									assertCategorizedList(list, 50, 25, true, true);
-									assert.equal("Category 5",
-											removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
-											"last visible renderer after second page load");
+								((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight));
+							waitForCondition(function () {
+								return list.textContent.indexOf("item 74") >= 0;
+							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
+								Utils.deliverAllChanges(list);
+								assertCategorizedList(list, 50, 25, true, true);
+								assert.strictEqual("Category 5",
+										removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
+										"last visible renderer after second page load");
+								setTimeout(def.rejectOnError(function () {
+									// scroll a little to remove the "_atExtremity" marker
+									list.scrollableNode.scrollTop = 100;
 									setTimeout(def.rejectOnError(function () {
-										// scroll a little to remove the "_atExtremity" marker
-										list.scrollableNode.scrollTop = 100;
-										setTimeout(def.rejectOnError(function () {
-											// scroll to the top
-											list.scrollableNode.scrollTop = 0;
-											waitForCondition(function () {
-												return list.textContent.indexOf("item 24") >= 0;
-											}, TIMEOUT, INTERVAL).then(def.callback(function () {
-												assertCategorizedList(list, 50, 0, false, true);
-												assert.equal("item 24",
-														removeTabsAndReturns(
-																list._getFirstVisibleRenderer().textContent),
-															"first visible renderer");
-											}));
-										}), 10);
+										// scroll to the top
+										list.scrollableNode.scrollTop = 0;
+										waitForCondition(function () {
+											return list.textContent.indexOf("item 24") >= 0;
+										}, TIMEOUT, INTERVAL).then(def.callback(function () {
+											assertCategorizedList(list, 50, 0, false, true);
+											assert.strictEqual("item 24",
+													removeTabsAndReturns(
+															list._getFirstVisibleRenderer().textContent),
+														"first visible renderer");
+										}));
 									}), 10);
-								}));
-							}), 10);
+								}), 10);
+							}));
 						}), 10);
-					}));
-				}), 10);
+					}), 10);
+				}));
 			}), 10);
 			return def;
 		},

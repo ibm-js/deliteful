@@ -221,8 +221,8 @@ define([
 		// public attribute:vertical
 		assert.strictEqual(slider.vertical, vertical, assertMessage("vertical"));
 		// value
-		assert.equal(slider.value, value, assertMessage("value"));
+		assert.strictEqual(slider.value, value, assertMessage("value"));
 		// input value
-		assert.equal(slider.value, slider.querySelector("input").value, assertMessage("input value"));
+		assert.strictEqual(slider.value, slider.querySelector("input").value, assertMessage("input value"));
 	}
 });

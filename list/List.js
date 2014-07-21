@@ -140,6 +140,17 @@ define([
 		multiCharSearchDuration: 0,
 
 		/**
+		 * Indicates whether the list has a WAI-ARIA role of `listbox` or its default WAI-ARIA role of `grid`.
+		 * If this indicator is set to `true`:
+		 * * The WAI-ARIA role of the list is set to `listbox`;
+		 * * The `sectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
+		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
+		 * @member {boolean}
+		 * @default false
+		 */
+		isAriaListbox: false,
+
+		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
 		 * @member {string} module:deliteful/list/List#scrollDirection
 		 * @default "vertical"
@@ -153,6 +164,21 @@ define([
 						+ "'");
 			} else {
 				this._set("scrollDirection", value);
+			}
+		},
+
+		/**
+		 * Defines the selection mode: `"none"` (not allowed if `isAriaListbox` is true), `"radio"`, `"single"`
+		 *  or `"multiple"`.
+		 * @member {string} module:deliteful/list/List#selectionMode
+		 * @default "none", or "single" if isAriaListbox is true.
+		 */
+		_setSelectionModeAttr: function (value) {
+			if (this.isAriaListbox && value === "none") {
+				throw new TypeError("selectionMode 'none' is invalid for an aria lisbox, "
+						+ "keeping the previous value of '" + this.selectionMode + "'");
+			} else {
+				this._set("selectionMode", value);
 			}
 		},
 
@@ -173,7 +199,11 @@ define([
 
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {item: "d-list-item",
-					  category: "d-list-category"},
+					  category: "d-list-category",
+					  cell: "d-list-cell",
+					  selected: "d-selected",
+					  selectable: "d-selectable",
+					  multiselectable: "d-multiselectable"},
 
 		/**
 		 * A panel that hides the content of the widget when shown, and displays a progress indicator
@@ -199,7 +229,7 @@ define([
 		 * @member {boolean} module:deliteful/list/List#_dataLoaded
 		 * @private
 		 */
-		
+
 		buildRendering: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
@@ -211,8 +241,8 @@ define([
 			this.containerNode.className = "d-list-container";
 			this.appendChild(this.containerNode);
 			// Aria attributes
-			this.setAttribute("role", "grid");
-			// Might be overriden at the gridcell (renderer) level when developing custom renderers
+			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
+			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
 			this.setAttribute("aria-readonly", "true");
 		},
 
@@ -260,33 +290,32 @@ define([
 			/*jshint maxcomplexity:11*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
-				this.removeAttribute("aria-selectable");
+				domClass.remove(this, this._cssClasses.selectable);
+				domClass.remove(this, this._cssClasses.multiselectable);
 				this.removeAttribute("aria-multiselectable");
-				if (this.selectionMode === "single") {
-					this.setAttribute("aria-selectable", true);
+				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
 					for (var i = 0; i < this.containerNode.children.length; i++) {
 						var child = this.containerNode.children[i];
-						if (child.getAttribute("aria-selected") === "false") {
-							child.removeAttribute("aria-selected");
+						if (child.renderNode.hasAttribute("aria-selected")) {
+							child.renderNode.removeAttribute("aria-selected");
+							domClass.remove(child, this._cssClasses.selected);
 						}
 					}
-				} else if (this.selectionMode === "multiple") {
-					this.setAttribute("aria-multiselectable", true);
+				} else {
+					if (this.selectionMode === "single" || this.selectionMode === "radio") {
+						domClass.add(this, this._cssClasses.selectable);
+					} else {
+						domClass.add(this, this._cssClasses.multiselectable);
+						this.setAttribute("aria-multiselectable", "true");
+					}
 					// update aria-selected attribute on unselected items
 					for (i = 0; i < this.containerNode.children.length; i++) {
 						child = this.containerNode.children[i];
 						if (domClass.contains(child, this._cssClasses.item)
-								&& !child.hasAttribute("aria-selected")) {
-							child.setAttribute("aria-selected", "false");
-						}
-					}
-				} else {
-					// update aria-selected attribute on unselected items
-					for (i = 0; i < this.containerNode.children.length; i++) {
-						child = this.containerNode.children[i];
-						if (child.hasAttribute("aria-selected")) {
-							child.removeAttribute("aria-selected", "false");
+								&& !child.renderNode.hasAttribute("aria-selected")) {
+							child.renderNode.setAttribute("aria-selected", "false");
+							domClass.remove(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
 						}
 					}
 				}
@@ -296,7 +325,10 @@ define([
 
 		computeProperties: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:11*/
+			/*jshint maxcomplexity:12*/
+			if ("isAriaListbox" in props) {
+				this._refreshAriaListboxProperty();
+			}
 			if ("selectionMode" in props) {
 				if (this.selectionMode === "none") {
 					if (this._selectionClickHandle) {
@@ -317,7 +349,6 @@ define([
 
 					// trigger a reload of the list
 					this.notifyCurrentValue("store");
-					this.deliverComputing();
 				}
 			}
 		},
@@ -419,15 +450,8 @@ define([
 					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
 					if (renderer) {
 						var itemSelected = !!this.isSelected(currentItem);
-						if (this.selectionMode === "single") {
-							if (itemSelected) {
-								renderer.setAttribute("aria-selected", true);
-							} else {
-								renderer.removeAttribute("aria-selected");
-							}
-						} else {
-							renderer.setAttribute("aria-selected", itemSelected);
-						}
+						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+						domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 					}
 				}
 			}
@@ -451,11 +475,55 @@ define([
 		_handleSelection: function (/*Event*/event) {
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
-				this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+				if (!this._isCategoryRenderer(eventRenderer)) {
+					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+				}
 			}
 		},
 
 		//////////// Private methods ///////////////////////////////////////
+
+		/*jshint maxcomplexity:12*/
+		_refreshAriaListboxProperty: function () {
+			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
+			if (this.isAriaListbox) {
+				if (this.selectionMode === "none") {
+					this.selectionMode = "single";
+				}
+				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
+				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
+				for (var i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "option");
+				}
+				nodes = this.querySelectorAll(".d-list-item[role='row']");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].removeAttribute("role");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category[role='row']");
+					for (i = 0; i < nodes.length; i++) {
+						nodes[i].removeAttribute("role");
+					}
+				}
+			} else {
+				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
+				nodes = this.querySelectorAll(".d-list-cell[role='option']");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "gridcell");
+				}
+				nodes = this.querySelectorAll(".d-list-item");
+				for (i = 0; i < nodes.length; i++) {
+					nodes[i].setAttribute("role", "row");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category");
+					for (i = 0; i < nodes.length; i++) {
+						nodes[i].setAttribute("role", "row");
+					}
+				}
+			}
+		},
+		/*jshint maxcomplexity:10*/
 
 		/**
 		 * Sets the "busy" status of the widget.
@@ -713,13 +781,8 @@ define([
 			renderer.item = item;
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
-				if (this.selectionMode === "single") {
-					if (itemSelected) {
-						renderer.setAttribute("aria-selected", true);
-					}
-				} else {
-					renderer.setAttribute("aria-selected", itemSelected);
-				}
+				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+				domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 			}
 			return renderer;
 		},
@@ -878,7 +941,8 @@ define([
 		 * @protected
 		 */
 		getTopDistance: function (node) {
-			return node.offsetTop - this.getCurrentScroll().y;
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop - this.getCurrentScroll().y);
 		},
 
 		/**
@@ -889,24 +953,29 @@ define([
 		 */
 		getBottomDistance: function (node) {
 			var clientRect = this.scrollableNode.getBoundingClientRect();
-			return node.offsetTop +
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop +
 				node.offsetHeight -
 				this.getCurrentScroll().y -
-				(clientRect.bottom - clientRect.top);
+				(clientRect.bottom - clientRect.top));
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
-		// Keyboard navigation is based on WIA ARIA Pattern for Grid:
+		// Keyboard navigation is based on WAI ARIA Pattern for Grid:
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		/**
 		 * @private
 		 */
 		childSelector: function (child) {
-			return (child.getAttribute("role") === "gridcell" || child.hasAttribute("navindex"));
+			if (this.isAriaListbox) {
+				if (this._isCategoryRenderer(this.getEnclosingRenderer(child))) {
+					return false;
+				}
+			}
+			return domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
 
-		/*jshint maxcomplexity:15*/
 		/**
 		 * @method
 		 * Handle keydown events
@@ -916,54 +985,13 @@ define([
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
-				} else if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
-					if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
-						// Enter Actionable Mode
-						// TODO: prevent default ONLY IF autoAction is false on the renderer ?
-						// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
-						evt.preventDefault();
-						this._enterActionableMode();
+				} else {
+					if (!this.isAriaListbox) {
+						this._gridKeydownHandler(evt);
 					}
-				} else if (evt.keyCode === keys.TAB) {
-					if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
-						// We are in Actionable mode
-						evt.preventDefault();
-						var renderer = this._getFocusedRenderer();
-						var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
-						while (!next) {
-							renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
-								|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
-							next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
-						}
-						this.focusChild(next);
-					}
-				} else if (evt.keyCode === keys.ESCAPE) {
-					// Leave Actionable mode
-					this._leaveActionableMode();
 				}
 			}
 		}),
-		/*jshint maxcomplexity:10*/
-
-		/**
-		 * @private
-		 */
-		_enterActionableMode: function () {
-			var focusedRenderer = this._getFocusedRenderer();
-			if (focusedRenderer) {
-				var next = focusedRenderer._getFirst();
-				if (next) {
-					this.focusChild(next);
-				}
-			}
-		},
-
-		/**
-		 * @private
-		 */
-		_leaveActionableMode: function () {
-			this.focusChild(this._getFocusedRenderer().renderNode);
-		},
 
 		focus: function () {
 			// Focus the previously focused child of the first visible grid cell
@@ -1003,7 +1031,11 @@ define([
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			return this.containerNode.querySelector("[role='gridcell']");
+			var first = this.containerNode.querySelector("." + this._cssClasses.cell);
+			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
+				first = this._getNext(first, 1);
+			}
+			return first;
 		},
 
 		/**
@@ -1013,8 +1045,12 @@ define([
 		 */
 		_getLast: function () {
 			// summary:
-			var cells = this.containerNode.querySelectorAll("[role='gridcell']");
-			return cells.length ? cells.item(cells.length - 1) : null;
+			var cells = this.containerNode.querySelectorAll("." + this._cssClasses.cell);
+			var last = cells.length ? cells.item(cells.length - 1) : null;
+			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
+				last = this._getNext(last, -1);
+			}
+			return last;
 		},
 
 		// Simple arrow key support.
@@ -1025,9 +1061,11 @@ define([
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.nextElementSibling ? renderer.nextElementSibling.renderNode :
-				this.containerNode.firstElementChild.renderNode);
+			var next = this._getFocusedRenderer().nextElementSibling;
+			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+				next = next.nextElementSibling;
+			}
+			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
 		/**
@@ -1037,9 +1075,11 @@ define([
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
-			var renderer = this._getFocusedRenderer();
-			this.focusChild(renderer.previousElementSibling ? renderer.previousElementSibling.renderNode :
-				this.containerNode.lastElementChild.renderNode);
+			var next = this._getFocusedRenderer().previousElementSibling;
+			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+				next = next.previousElementSibling;
+			}
+			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
 		/**
@@ -1070,6 +1110,61 @@ define([
 				evt.preventDefault();
 				this._handleSelection(evt);
 			}
+		},
+
+		/*jshint maxcomplexity:13*/
+		/**
+		 * Handles keydown events for the aria role grid
+		 * @param {Event} evt the keydown event
+		 * @private
+		 */
+		_gridKeydownHandler: function (evt) {
+			if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+				if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
+					// Enter Actionable Mode
+					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+					evt.preventDefault();
+					this._enterActionableMode();
+				}
+			} else if (evt.keyCode === keys.TAB) {
+				if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
+					// We are in Actionable mode
+					evt.preventDefault();
+					var renderer = this._getFocusedRenderer();
+					var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+					while (!next) {
+						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
+							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+						next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+					}
+					this.focusChild(next);
+				}
+			} else if (evt.keyCode === keys.ESCAPE) {
+				// Leave Actionable mode
+				this._leaveActionableMode();
+			}
+		},
+		/*jshint maxcomplexity:10*/
+
+		/**
+		 * @private
+		 */
+		_enterActionableMode: function () {
+			var focusedRenderer = this._getFocusedRenderer();
+			if (focusedRenderer) {
+				var next = focusedRenderer._getFirst();
+				if (next) {
+					this.focusChild(next);
+				}
+			}
+		},
+
+		/**
+		 * @private
+		 */
+		_leaveActionableMode: function () {
+			this.focusChild(this._getFocusedRenderer().renderNode);
 		},
 
 		/**

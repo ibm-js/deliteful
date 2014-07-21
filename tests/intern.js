@@ -30,13 +30,16 @@ define({
 
 		// Mobile
 		{ browserName: "iphone 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
-			app: "safari", device: "iPhone Simulator", name: "deliteful" },
+			app: "safari", device: "iPhone Simulator", name: "deliteful" }
+		
+		/* For now disabled to avoid webdriver/sauce issues
 		{ browserName: "ipad 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPad",
 			app: "safari", device: "iPad Simulator", name: "deliteful" },
 		{ browserName: "iphone 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
 			app: "safari", device: "iPhone Simulator", name: "deliteful" },
 		{ browserName: "ipad 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
 			app: "safari", device: "iPad Simulator", name: "deliteful" }
+		*/
 //		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPhone",
 //			app: "safari", device: "iPhone Simulator", name: "deliteful" },
 //		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPad",
@@ -81,5 +84,6 @@ define({
 	functionalSuites: [ "deliteful/tests/functional/all" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(requirejs.*|dcl|dojo|dstore|dpointer|decor|delite\/|deliteful\/tests|.*themes|.*transitions)/
+	excludeInstrumentation:
+		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|delite\/|deliteful\/tests|.*themes|.*transitions)/
 });

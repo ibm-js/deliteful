@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/register",
+			"deliteful/list/List",
+			"requirejs-domready/domReady!"
+		], function (register, List) {
+  			// Programmatic list: default store, items added before adding the list to the document and before startup
+			var list = register.createElement("d-list");
+			list.isAriaListbox = true;
+			list.id = "list-prog-1";
+			list.style.height = "200px";
+ 			for (i = 0; i < 100; i++) {
+				list.store.add({label: "Programmatic item of order " + i, righttext: list.id});
+			}
+			document.getElementById("listPlaceholder").appendChild(list);
+			list.startup();
+
+			ready = true;
+		});
+	</script>
+	<style>
+		html {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Default store, items added before adding the list to the document and before startup, isAriaListbox set to true (id: list-prog-1)</h2>
+ 	<div id="listPlaceholder"></div>
+ 	<input type="text">
+</body>
+</html>
