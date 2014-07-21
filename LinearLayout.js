@@ -39,13 +39,16 @@ define([
 		 */
 		vertical: true,
 
-		refreshRendering: function () {
-			domClass.toggle(this, "-d-linear-layout-v", this.vertical);
-			domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
+		refreshRendering: function (oldValues) {
+			if ("vertical" in oldValues) {
+				domClass.toggle(this, "-d-linear-layout-v", this.vertical);
+				domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
+			}
 		},
 
 		buildRendering: function () {
-			this.deliver();
+			domClass.toggle(this, "-d-linear-layout-v", this.vertical);
+			domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
 		}
 	});
 });
