@@ -21,7 +21,7 @@ define(["intern!object",
 		array1.forEach(function (e1) {
 			_assert.include(array2, e1, message);
 		});
-		assert.equal(array1.length, array2.length, message);
+		assert.strictEqual(array1.length, array2.length, message);
 	};
 
 	_assert.includeMembers = function (array, subarray, message) {
@@ -62,7 +62,7 @@ define(["intern!object",
 			.elementById(toasterId)
 			.elementsByClassName("d-toaster-message")
 			.then(function (value) {
-				assert.equal(value.length, expected, "number of messages is correct");
+				assert.strictEqual(value.length, expected, "number of messages is correct");
 			})
 			.end();
 	}

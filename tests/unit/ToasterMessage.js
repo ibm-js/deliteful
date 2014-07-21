@@ -26,8 +26,8 @@ define([
 
 			// default
 			assert.isNull(messageDefault.message);
-			assert.equal(messageDefault.type, "info");
-			assert.equal(messageDefault.duration, 2000, "duration is 2000 by default");
+			assert.strictEqual(messageDefault.type, "info");
+			assert.strictEqual(messageDefault.duration, 2000, "duration is 2000 by default");
 			assert.isFalse(messageDefault._isInserted);
 			assert.isFalse(messageDefault._isRemoved, false);
 			assert.isFalse(messageDefault._hasExpired, false);
@@ -41,10 +41,10 @@ define([
 			});
 			// forced
 			assert.isNotNull(messageDefault.message);
-			assert.equal(messageDefault.type, "error");
+			assert.strictEqual(messageDefault.type, "error");
 
 			// default
-			assert.equal(messageDefault.duration, 2000,
+			assert.strictEqual(messageDefault.duration, 2000,
 				"duration is 2000 by default");
 			assert.isFalse(messageDefault._isInserted);
 			assert.isFalse(messageDefault._isRemoved);
@@ -58,13 +58,13 @@ define([
 			});
 
 			// forced
-			assert.equal(messageDefault.duration, 6000);
+			assert.strictEqual(messageDefault.duration, 6000);
 			assert.isTrue(messageDefault.isExpirable());
 			assert.isFalse(messageDefault.isDismissible());
 
 			// default
 			assert.isNull(messageDefault.message);
-			assert.equal(messageDefault.type, "info");
+			assert.strictEqual(messageDefault.type, "info");
 			assert.isFalse(messageDefault._isInserted);
 			assert.isFalse(messageDefault._isRemoved, false);
 			assert.isFalse(messageDefault._hasExpired, false);
@@ -83,7 +83,7 @@ define([
 
 			// default
 			assert.isNull(messageDefault.message);
-			assert.equal(messageDefault.type, "info");
+			assert.strictEqual(messageDefault.type, "info");
 			assert.isFalse(messageDefault._isInserted);
 			assert.isFalse(messageDefault._isRemoved);
 			assert.isFalse(messageDefault._hasExpired);
@@ -96,14 +96,14 @@ define([
 			var types = ["info", "success", "error", "warning"];
 			types.forEach(function (t) {
 				m.type = t;
-				assert.equal(m.type, t,
+				assert.strictEqual(m.type, t,
 					"type is correct");
 			});
 
 			var invalidTypes = ["infO", "Success", "dummy"];
 			invalidTypes.forEach(function (t) {
 				m.type = t;
-				assert.equal(m.type, "info",
+				assert.strictEqual(m.type, "info",
 					"type was set to default");
 
 			});
@@ -116,7 +116,7 @@ define([
 			var invalidDurations = ["2000", null, {}];
 			invalidDurations.forEach(function (d) {
 				m.duration = d;
-				assert.equal(m.duration, 2000, "default duration was set");
+				assert.strictEqual(m.duration, 2000, "default duration was set");
 			});
 		},
 		"Testing valid durations": function () {
