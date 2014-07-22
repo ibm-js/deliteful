@@ -2,6 +2,7 @@
   /* Do not modify the display style */
   display: inline-block;
   font-size: 40px;
+  height: 1em;
 }
 .d-star-rating.d-star-rating-hovered {
   opacity: 0.5;
