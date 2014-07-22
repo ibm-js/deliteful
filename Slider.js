@@ -530,7 +530,7 @@ define([
 					// selected value:
 					// relativePos > 0 => handleMin
 					// relativePos < 0 => focusNode
-					// relativePos = 0 => must be decided 
+					// relativePos = 0 => must be decided
 					var relativePos = Math.abs(selectedVal - currentVal[1]) - Math.abs(selectedVal - currentVal[0]);
 					if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
 						this._pointerCtx.target = document.elementFromPoint(e.clientX, e.clientY);
@@ -548,7 +548,7 @@ define([
 					}
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
-					// track offset between current and selected value 
+					// track offset between current and selected value
 					this._pointerCtx.offsetVal = selectedVal -
 						currentVal[(this.handleMin._isActive && (this._pointerCtx.target === this.focusNode)) ? 1 : 0];
 				}
