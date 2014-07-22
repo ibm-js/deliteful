@@ -249,12 +249,7 @@ define([
 					minValue = this._adjustValue(minValue, this.min);
 					maxValue = this._adjustValue(maxValue, minValue);
 					// set corrected value as needed
-					value = isDual ? (minValue + "," + maxValue) : String(maxValue);
-					if (value !== this.value) {
-						this.value = value;
-						// do not wait for another cycle
-						this.notifyCurrentValue("value");
-					}
+					this.value = isDual ? (minValue + "," + maxValue) : String(maxValue);
 				}
 			},
 
@@ -376,7 +371,7 @@ define([
 					this.value = this.valueNode.value;
 				}
 				// force calculation of the default value in case it is not specified.
-				this.notifyCurrentValue("value");
+				["min", "max", "step"].forEach(this.notifyCurrentValue, this);
 			},
 
 			startup: function () {
