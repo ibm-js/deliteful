@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Deliteful Application With Native Themes</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../",
+			config: {
+				"delite/theme": {
+					themeMap: [
+								[/Holodark|Android/, "holodark"],
+								[/iPhone|iPad/, "ios"],
+								[/.*/, "bootstrap"] // chrome, firefox, IE
+					]
+				}
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ViewStack",
+			"deliteful/Slider",
+			"deliteful/Button",
+			"delite/theme!deliteful/demos/kittens/themes/{{theme}}/app.css",
+			"requirejs-domready/domReady!"
+		], function(register){
+			register.parse();
+		});
+	</script>
+</head>
+<body>
+<div class="header"><button id="backButton" is="d-button" onclick="vs.showPrevious();" style="display: none;">Back</button><div>Kittens</div></div>
+<d-view-stack id="vs" on-delite-before-show="if (arguments[0].dest == imageView) {backButton.style.display = 'initial';} else {backButton.style.display = 'none';};">
+	<div id="sizeView">
+		<p class="invite"><b>Set the height and width</b> of the kitten image to generate, and then <b>click the button</b>...</p>
+		<div class="sliderContainer">
+			<label for="heightSlider">Height:</label>
+			<d-slider id="heightSlider" min="100" max="300" value="150" oninput="heightValue.innerHTML = this.value +'px';"></d-slider>
+			<span id="heightValue">150px</span>
+		</div>
+		<div class="sliderContainer">
+			<label for="widthSlider">Width:</label>
+			<d-slider id="widthSlider" min="100" max="300" value="150" oninput="widthValue.innerHTML = this.value +'px';"></d-slider>
+			<span id="widthValue">150px</span>
+		</div>
+		<button is="d-button" id="createButton" label="Create image" onclick="document.getElementById('kittenImage').src = 'http://placekitten.com/' + widthSlider.value + '/' + heightSlider.value;  vs.showNext();"></button>
+	</div>
+	<div id="imageView">
+		<img id="kittenImage" src=""/>
+		<p class="copyright">Image courtesy of http://placekitten.com</p>
+	</div>
+</d-view-stack>
+</body>
+</html>
