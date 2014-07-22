@@ -12,6 +12,8 @@
 	color: white;
 	text-align: left;
 	padding-left: 12px;
+	font-size: 2em;
+	font-weight: bold;
 }
 
 .header button {
