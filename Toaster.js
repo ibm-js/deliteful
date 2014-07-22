@@ -178,7 +178,7 @@ define(["dcl/dcl",
 			 *
 			 * @param {string|module:deliteful/ToasterMessage} message Either the content of the
 			 * message as a string or an instance of `deliteful/ToasterMessage`.
-			 * @param {Object} [props] A hash used to initialize a message instance (only relevant 
+			 * @param {Object} [props] A hash used to initialize a message instance (only relevant
 			 * when `message` passed is a string).
 			 *
 			 * @returns {module:deliteful/ToasterMessage} The message instance passed as a parameter

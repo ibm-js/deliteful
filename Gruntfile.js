@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 				dest: "build/<%= pkg.name %>.min.js"
 			}
 		},
-		
+
 		intern: {
 			local: {
 				options: {
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		
+
 		"jsdoc-amddcl": {
 			docs: {
 				files: [
@@ -120,7 +120,7 @@ module.exports = function (grunt) {
 	// Aliases
 	grunt.registerTask("default", ["less"]);
 	grunt.registerTask("jsdoc", "jsdoc-amddcl");
-	
+
 	// Testing.
 	// always specify the target e.g. grunt test:remote, grunt test:remote
 	// then add on any other flags afterwards e.g. console, lcovhtml

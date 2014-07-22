@@ -18,10 +18,10 @@ Some of the transition types are described in the following picture:
 ![ViewStack Transitions](images/ViewStack.png)
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)  
-[Element Configuration](#configuration)  
-[Element Styling](#styling)  
-[Enterprise Use](#enterprise)  
+[Element Instantiation](#instantiation)
+[Element Configuration](#configuration)
+[Element Styling](#styling)
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation

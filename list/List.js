@@ -223,7 +223,7 @@ define([
 		 * @member {Element} module:deliteful/list/List#_previousFocusedChild
 		 * @private
 		 */
-		
+
 		/**
 		 * Flag set to a truthy value once the items have been loaded from the store
 		 * @member {boolean} module:deliteful/list/List#_dataLoaded
@@ -935,7 +935,7 @@ define([
 		//////////// delite/Scrollable extension ///////////////////////////////////////
 
 		/**
-		 * Returns the distance between the top of a node and 
+		 * Returns the distance between the top of a node and
 		 * the top of the scrolling container.
 		 * @param {Node} node the node
 		 * @protected
