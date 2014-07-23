@@ -510,6 +510,7 @@ define([
 				return String(this.value).split(/,/g);
 			},
 
+			// jshint maxcomplexity: 11
 			_onPointerDown: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
