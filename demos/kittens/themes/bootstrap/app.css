@@ -1,4 +1,4 @@
-@import url('themes/app.css');
+@import url('../app.css');
 
 .invite {
 	font-size: 105%;
@@ -19,4 +19,8 @@
 .header button {
 	margin-top: 14px;
 	margin-right: 12px;
+}
+
+a, a:visited {
+	color: red;
 }
