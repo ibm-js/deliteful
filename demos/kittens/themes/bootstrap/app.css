@@ -1,0 +1,27 @@
+/* CSS for the bootstrap theme */
+@import url('../app.css');
+
+.invite {
+	font-size: 105%;
+}
+
+.header {
+	height: 60px;
+	line-height: 60px;
+	margin: 0px;
+	background-color: red;
+	color: white;
+	text-align: left;
+	padding-left: 12px;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.header button {
+	margin-top: 14px;
+	margin-right: 12px;
+}
+
+a, a:visited {
+	color: red;
+}
