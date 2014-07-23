@@ -89,7 +89,7 @@
 </head>
 <body>
 <h1 class="header"><button id="backButton" is="d-button" onclick="vs.showPrevious();" style="display: none;">Back</button><div>Kittens</div></h1>
-<d-view-stack id="vs" on-delite-before-show="deliteBeforeShowHandler(arguments[0]);">
+<d-view-stack id="vs" on-delite-before-show="deliteBeforeShowHandler(event);">
 	<div id="sizeView">
 		<p class="invite"><b>Set the height and width</b> of the kitten image to generate, and then <b>click the button</b>...</p>
 		<div class="sliderContainer">
