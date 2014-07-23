@@ -184,9 +184,6 @@ define([
 					this.value = correctedValue;
 				}
 			}
-			if (correctedValue) {
-				this.deliver();
-			}
 		},
 
 		refreshRendering: function (props) {
