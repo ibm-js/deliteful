@@ -1,4 +1,13 @@
+/* CSS for the holodark theme */
 @import url('../app.css');
+
+.d-slider-h {
+	width: 185px;
+}
+
+.d-slider-h .d-slider-remaining-bar {
+	width: 100%;
+}
 
 .header {
 	position: relative;
