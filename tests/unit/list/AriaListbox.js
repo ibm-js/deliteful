@@ -57,7 +57,7 @@ define([
 				assert.fail("error", "", "error expected");
 			} catch (error) {
 				assert.strictEqual(error.message,
-						"selectionMode 'none' is invalid for an aria lisbox, keeping the previous value of 'single'",
+						"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'single'",
 						"error message");
 				assert.strictEqual(list.selectionMode, "single", "expected selection mode 1");
 			}
@@ -68,7 +68,7 @@ define([
 				assert.fail("error", "", "error expected");
 			} catch (error) {
 				assert.strictEqual(error.message,
-					"selectionMode 'none' is invalid for an aria lisbox, keeping the previous value of 'multiple'",
+					"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'multiple'",
 					"error message");
 				assert.strictEqual(list.selectionMode, "multiple", "expected selection mode 2");
 			}

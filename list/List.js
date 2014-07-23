@@ -175,7 +175,7 @@ define([
 		 */
 		_setSelectionModeAttr: function (value) {
 			if (this.isAriaListbox && value === "none") {
-				throw new TypeError("selectionMode 'none' is invalid for an aria lisbox, "
+				throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
 						+ "keeping the previous value of '" + this.selectionMode + "'");
 			} else {
 				this._set("selectionMode", value);
