@@ -18,7 +18,8 @@
 	<script type="text/javascript">
 		require([
 		    "delite/register",
-			"deliteful/list/PageableList"
+			"deliteful/list/PageableList",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, PageableList) {
 			list = new PageableList();
 			list.setAttribute("aria-label", "Sample pageable list with custom loader messages");

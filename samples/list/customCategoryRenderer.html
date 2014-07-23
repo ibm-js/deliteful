@@ -21,7 +21,8 @@
 			"delite/register",
 			"deliteful/list/CategoryRenderer",
 			"deliteful/list/List",
-			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html"
+			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, CategoryRenderer, List, template) {
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 				template: template

@@ -21,7 +21,8 @@
 		require([
 			"delite/register",
 			"deliteful/Slider",
-			"dojo/domReady!"
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
 			var slider = document.getElementById('singleSlider');
