@@ -13,7 +13,8 @@
 		require([
 		    "dojo/_base/declare",
 			"dstore/Memory",
-			"dstore/Observable"
+			"dstore/Observable",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (declare, MemoryStore, Observable) {
 			var M = declare([MemoryStore, Observable], {});
   			globalStore = new M({data: []});

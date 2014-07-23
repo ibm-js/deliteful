@@ -20,7 +20,8 @@
 		require([
 			"delite/register",
 			"deliteful/list/ItemRenderer",
-			"deliteful/list/List"
+			"deliteful/list/List",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, ItemRenderer, List) {
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
 				counter: 1,
