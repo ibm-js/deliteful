@@ -534,7 +534,6 @@ define([
 					var relativePos = Math.abs(selectedVal - currentVal[1]) - Math.abs(selectedVal - currentVal[0]);
 					if (relativePos === 0 && (e.target === this.focusNode || e.target === this.handleMin)) {
 						this._pointerCtx.target = document.elementFromPoint(e.clientX, e.clientY);
-						this._pointerCtx.target.focus();
 					} else {
 						if (relativePos === 0) {
 							// determine which handle can move to the position of the selected value.
@@ -543,9 +542,12 @@ define([
 						}
 						// get the handle which is closest from the selected value.
 						this._pointerCtx.target = (relativePos > 0) ? this.handleMin : this.focusNode;
-						this._pointerCtx.target.focus();
+					}
+					this._pointerCtx.target.focus();
+					if (e.target !== this.focusNode && e.target !== this.handleMin) {
 						this.handleOnInput(this._formatSelection(selectedVal, this._pointerCtx.target));
 					}
+
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
 					// track offset between current and selected value 
