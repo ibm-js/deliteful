@@ -6,9 +6,8 @@ define([
 	"delite/register",
 	"dstore/Memory",
 	"dstore/Observable",
-	"deliteful/list/PageableList",
-	"./resources/Utils"
-], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList, Utils) {
+	"deliteful/list/PageableList"
+], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList) {
 
 	/////////////////////////////////
 	// HELPERS AND FIXTURES
@@ -121,7 +120,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load (page 1 loaded)
 			assertList(list, 0, 22, [], false, true, "initial load");
 			// check internal pages references
@@ -133,7 +132,7 @@ define([
 			// remove two items in the first page (page 1 size will be 21)
 			list.store.remove(0); // remove item 0
 			list.store.remove(2); // remove item 2
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertList(list, 0, 22, [0, 2], false, true, "page 1 loaded");
 			// check internal pages references
 			assert.strictEqual(list._idPages.length, 1, "B: expect one page loaded");
@@ -145,42 +144,42 @@ define([
 			}
 			// load next page (pages 1 and 2 loaded)
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 1, 45, [2], false, true, "page 1 and 2 loaded");
 				// remove to items in the second page (page 2 size will be 21)
 				list.store.remove(45); // remove item 45
 				list.store.remove(43); // remove item 43
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 1, 44, [2, 43], false, true, "after removal");
 				// load next page (pages 2 and 3 loaded)
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded");
 					// load previous page (page 1 and 2 loaded)
 					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						assertList(list, 1, 44, [2, 43], false, true, "page 1 and 2 loaded (second time)");
 						// load next page (pages 2 and 3 loaded)
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							assertList(list, 23, 68, [43, 45], true, true, "page 2 and 3 loaded (second time)");
 							// load next page (pages 3 and 4 loaded)
 							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								Utils.deliverAllChanges(list);
+								list.deliver();
 								assertList(list, 46, 91, [], true, true, "page 3 and 4 loaded");
 								// click once more (pages 3 and 4 loaded still loaded, next loader disappears)
 								clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-									Utils.deliverAllChanges(list);
+									list.deliver();
 									assertList(list, 46, 91, [], true, false,
 											"page 3 and 4 loaded and next loader disappears");
 									// load previous page (pages 2 and 3 loaded)
 									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-										Utils.deliverAllChanges(list);
+										list.deliver();
 										assertList(list, 21, 68, [43, 45], true, true,
 												"page 2 and 3 loaded (third time)");
 										// load previous page (pages 1 and 2 loaded)
 										clickPreviousPageLoader(list).then(dfd.callback(function () {
-											Utils.deliverAllChanges(list);
+											list.deliver();
 											assertList(list, 1, 44, [2, 43], false, true,
 													"page 1 and 2 loaded (third time)");
 										}));
@@ -208,13 +207,13 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load (page 1 loaded)
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertList(list, 0, 22, [], false, true, "assert 1");
 			// Remove items in the next page
 			list.store.remove(23); // remove item 23
 			list.store.remove(25); // remove item 25
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 0, 47, [23, 25], false, true, "assert 2");
 			}));
 			return dfd;
@@ -235,7 +234,7 @@ define([
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// initial load (page 1 loaded)
 					assertList(list, 23, 68, [], true, true, "assert 1");
 					// Remove items in the previous page
@@ -243,7 +242,7 @@ define([
 					list.store.remove(12); // remove item 12
 					list.store.remove(22); // remove item 22
 					clickPreviousPageLoader(list).then(dfd.callback(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						assertList(list, 1, 45, [12, 22], false, true, "assert 2");
 					}));
 				}));
@@ -276,7 +275,7 @@ define([
 							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 								// Click load next page
 								clickNextPageLoader(list).then(dfd.callback(function () {
-									Utils.deliverAllChanges(list);
+									list.deliver();
 									// Check the content of the list
 									assertList(list, 22, 68, [45], true, true);
 								}));
@@ -309,7 +308,7 @@ define([
 					for (var i = 0; i < 23; i++) {
 						list.store.remove(i);
 					}
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// check that the previous page loader has been removed
 					assertList(list, 23, 68, [], false, true);
 				}));
@@ -345,14 +344,14 @@ define([
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(1)});
 				list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
 			}
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
 					[0, "A", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, "B", 22]);
 			assert.strictEqual(list._idPages[0].length, 25, "A: number of items in page");
 			assert.strictEqual(list.getChildren().length, 26, "A: number of list children");
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "A");
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "A");
 			for (i = 2; i <= 22; i++) {
@@ -363,7 +362,7 @@ define([
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[25].textContent), "Click to load 23 more items", "A");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				assert.strictEqual(list.getChildren().length, 49, "B: number of list children");
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "B");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "B");
 				for (i = 2; i <= 22; i++) {
@@ -381,7 +380,7 @@ define([
 				} else {
 					list.store.add({id: "C", label: "item C"}, {before: list.store.get(23)});
 				}
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(list.getChildren().length, 50, "C: number of list children");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "C");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[1].textContent), "item A", "C");
@@ -397,7 +396,7 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[49].textContent),
 						"Click to load 23 more items", "C");
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assert.strictEqual(list.getChildren().length, 49, "D: number of list children");
 					assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 							"Click to load 23 more items",
@@ -408,7 +407,7 @@ define([
 							"Click to load 23 more items",
 							"C: next page loader");
 					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						assert.strictEqual(list.getChildren().length, 49, "D: number of list children");
 						assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 								"Click to load 23 more items",
@@ -419,7 +418,7 @@ define([
 								"Click to load 23 more items",
 								"D: next page loader");
 						clickPreviousPageLoader(list).then(dfd.callback(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							assert.strictEqual(list.getChildren().length, 26, "E: number of list children");
 							assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 									"item 0", "E");
@@ -463,7 +462,7 @@ define([
 			} else {
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(0)});
 			}
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
 			assert.deepEqual(list._idPages[0],
@@ -479,7 +478,7 @@ define([
 					"Click to load 23 more items",
 					"A (next page loader)");
 			clickPreviousPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(list.getChildren().length, 25, "B: number of list children");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item A", "B");
 				for (i = 1; i <= 23; i++) {
@@ -504,7 +503,7 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.strictEqual(list.getChildren().length, 24, "0: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.getChildren()[23].textContent), "Click to load 23 more items",
 					"0: last children is next page loader");
@@ -524,7 +523,7 @@ define([
 						"Click to load 23 more items",
 						"A (next page loader)");
 				clickNextPageLoader(list).then(dfd.callback(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assert.strictEqual(list.getChildren().length, 24, "B: number of list children");
 					for (i = 0; i <= 22; i++) {
 						assert.strictEqual(removeTabsAndReturns(list.getChildren()[i].textContent),
@@ -561,10 +560,10 @@ define([
 			} else {
 				list.store.add({id: "A", label: "item A"}, {before: list.store.get(23)});
 			}
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertList(list, 0, 22, [], false, true, "A");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(list.getChildren().length, 25, "B: list number of children");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 						"Click to load 23 more items",
@@ -583,7 +582,7 @@ define([
 					list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
 				}
 				clickPreviousPageLoader(list).then(dfd.callback(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assert.strictEqual(list.getChildren().length, 25, "C: list number of children");
 					assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent),
 							"Click to load 23 more items",
@@ -722,27 +721,27 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after second page is loaded
 				assertList(list, 0, 39, [], false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// after third page is loaded
 					assertList(list, 0, 59, [], false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						// after fourth page is loaded
 						assertList(list, 0, 79, [], false, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							// after fifth page is loaded
 							assertList(list, 0, 99, [], false, true);
 							clickNextPageLoader(list).then(dfd.callback(function () {
-								Utils.deliverAllChanges(list);
+								list.deliver();
 								// after last click
 								assertList(list, 0, 99, [], false, false);
 							}));
@@ -763,23 +762,23 @@ define([
 			list.categoryAttr = "category";
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after second page is loaded
 				assertCategorizedList(list, 50, 0, false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// after third page is loaded
 					assertCategorizedList(list, 75, 0, false, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						// after fourth page is loaded
 						assertCategorizedList(list, 100, 0, false, true);
 						clickNextPageLoader(list).then(dfd.callback(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							// after last click
 							assertCategorizedList(list, 100, 0, false, false);
 						}));
@@ -799,39 +798,39 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after second page is loaded
 				assertList(list, 0, 39, [], false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// after third page is loaded and first page is unloaded
 					assertList(list, 20, 59, [], true, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						// after fourth page is loaded and second page is unloaded
 						assertList(list, 40, 79, [], true, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							// after fifth page is loaded and third page is unloaded
 							assertList(list, 60, 99, [], true, true);
 							clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-								Utils.deliverAllChanges(list);
+								list.deliver();
 								// after last click
 								assertList(list, 60, 99, [], true, false);
 								clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-									Utils.deliverAllChanges(list);
+									list.deliver();
 									// after fifth page is unloaded and third page is loaded
 									assertList(list, 40, 79, [], true, true);
 									clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-										Utils.deliverAllChanges(list);
+										list.deliver();
 										// after fourth page is unloaded and second page is loaded
 										assertList(list, 20, 59, [], true, true);
 										clickPreviousPageLoader(list).then(dfd.callback(function () {
-											Utils.deliverAllChanges(list);
+											list.deliver();
 											// after third page is unloaded and first page is loaded
 											assertList(list, 0, 39, [], false, true);
 										}));
@@ -857,31 +856,31 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after second page is loaded
 				assertCategorizedList(list, 50, 0, false, true);
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					// after third page is loaded and first page is unloaded
 					assertCategorizedList(list, 50, 25, true, true);
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						// after fourth page is loaded and second page is unloaded
 						assertCategorizedList(list, 50, 50, true, true);
 						clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							// after last click
 							assertCategorizedList(list, 50, 50, true, false);
 							clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
-								Utils.deliverAllChanges(list);
+								list.deliver();
 								// after fourth page is unloaded and second page is loaded
 								assertCategorizedList(list, 50, 25, true, true);
 								clickPreviousPageLoader(list).then(dfd.callback(function () {
-									Utils.deliverAllChanges(list);
+									list.deliver();
 									// after third page is unloaded and first page is loaded
 									assertCategorizedList(list, 50, 0, false, true);
 								}));
@@ -902,11 +901,11 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertList(list, 0, 99, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after a click on the next page loader
 				assertList(list, 0, 99, [], false, false);
 			}));
@@ -924,10 +923,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertCategorizedList(list, 100, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after a click on the next page loader
 				assertCategorizedList(list, 100, 0, false, false);
 			}));
@@ -944,10 +943,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertList(list, 0, 99, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after a click on the next page loader
 				assertList(list, 0, 99, [], false, false);
 			}));
@@ -964,11 +963,11 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after a click on the next page loader
 				assertCategorizedList(list, 100, 0, false, false);
 			}));
@@ -984,7 +983,7 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertList(list, 0, 99, [], false, false);
 		},
 		"Categorized List: pageLength greater than the total number of item (maxPages 0)" : function () {
@@ -997,7 +996,7 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
 		},
@@ -1010,7 +1009,7 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertList(list, 0, 99, [], false, false);
 		},
@@ -1024,7 +1023,7 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
 		},
@@ -1104,10 +1103,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			// initial load
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assertCategorizedList(list, 25, 0, false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertCategorizedList(list, 50, 0, false, true);
 				// Create a new store and assign it to the list
 				var store = new MemoryStore({data: []});
@@ -1115,7 +1114,7 @@ define([
 					store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 				}
 				list.store = store;
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertCategorizedList(list, 25, 1000, false, true);
 			}));
 			return dfd;
@@ -1131,17 +1130,17 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 0, 19, [], false, true, "A");
 				list.pageLength = 20;
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assertList(list, 10, 39, [], true, true, "B");
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						assertList(list, 20, 59, [], true, true, "C");
 						clickPreviousPageLoader(list).then(dfd.callback(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							assertList(list, 0, 39, [], false, true, "D");
 						}));
 					}));
@@ -1161,14 +1160,14 @@ define([
 			list.startup();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assertList(list, 10, 29, [], true, true, "A");
 					list.maxPages = 3;
 					clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-						Utils.deliverAllChanges(list);
+						list.deliver();
 						assertList(list, 10, 39, [], true, true, "B");
 						clickNextPageLoader(list).then(dfd.callback(function () {
-							Utils.deliverAllChanges(list);
+							list.deliver();
 							assertList(list, 20, 49, [], true, true, "C");
 						}));
 					}));
@@ -1187,10 +1186,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
 				list.loadPreviousMessage = "foo";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "foo",
 						"loader label not updated");
 			}));
@@ -1207,10 +1206,10 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
 				list.loadNextMessage = "foo";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.strictEqual(
 						removeTabsAndReturns(list.getChildren()[list.getChildren().length - 1].textContent),
 						"foo", "loader label not updated");
@@ -1228,11 +1227,11 @@ define([
 			list.maxPages = 0;
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
 			clickNextPageLoader(list).then(dfd.callback(function () {
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				// after second page is loaded
 				assertList(list, 0, 38, [], false, false);
 				// verify that loading panel is not displayed
@@ -1260,7 +1259,7 @@ define([
 			}
 			document.body.appendChild(list);
 			list.startup();
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
 			setTimeout(def.rejectOnError(function () {
@@ -1270,7 +1269,7 @@ define([
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 49") >= 0;
 				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-					Utils.deliverAllChanges(list);
+					list.deliver();
 					assertCategorizedList(list, 50, 0, false, true);
 					assert.strictEqual("item 25", removeTabsAndReturns(list._getLastVisibleRenderer().textContent),
 							"last visible renderer after first page load");
@@ -1285,7 +1284,7 @@ define([
 							waitForCondition(function () {
 								return list.textContent.indexOf("item 74") >= 0;
 							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
-								Utils.deliverAllChanges(list);
+								list.deliver();
 								assertCategorizedList(list, 50, 25, true, true);
 								assert.strictEqual("Category 5",
 										removeTabsAndReturns(list._getLastVisibleRenderer().textContent),

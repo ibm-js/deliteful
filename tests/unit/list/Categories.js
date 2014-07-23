@@ -1,9 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List",
-	"./resources/Utils"
-], function (registerSuite, assert, List, Utils) {
+	"deliteful/list/List"
+], function (registerSuite, assert, List) {
 
 	var list = null;
 
@@ -39,7 +38,7 @@ define([
 			list.store.add({category: "C", label: "item 7"});
 			list.store.add({category: "C", label: "item 8"});
 			list.store.add({category: "C", label: "item 9"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 		},
 		"categorized items" : function () {
 			var children = list.getChildren();
@@ -62,7 +61,7 @@ define([
 			list.store.remove(list.store.data[0].id);
 			list.store.remove(list.store.data[0].id);
 			list.store.remove(list.store.data[0].id);
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 8);
 			checkCategory(children[0], "B");
@@ -100,7 +99,7 @@ define([
 			list.store.remove(list.store.data[3].id);
 			list.store.remove(list.store.data[3].id);
 			list.store.remove(list.store.data[3].id);
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 8);
 			checkCategory(children[0], "A");
@@ -115,7 +114,7 @@ define([
 		"add item within existing category section": function () {
 			// add at the bottom of the list
 			list.store.add({category: "C", label: "item a"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 13);
 			checkCategory(children[0], "A");
@@ -133,7 +132,7 @@ define([
 			checkItem(children[12], "item a");
 			// add at the top of the last category
 			list.store.add({category: "C", label: "item b"}, {before: list.store.data[6]});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
@@ -152,7 +151,7 @@ define([
 			checkItem(children[13], "item a");
 			// add in the middle of the second category
 			list.store.add({category: "B", label: "item c"}, {before: list.store.data[4]});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 15);
 			checkCategory(children[0], "A");
@@ -172,7 +171,7 @@ define([
 			checkItem(children[14], "item a");
 			// add at the top of the list
 			list.store.add({category: "A", label: "item d"}, {before: list.store.data[0]});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "A");
@@ -195,7 +194,7 @@ define([
 		"add item with new category": function () {
 			// add at the bottom of the list
 			list.store.add({category: "D", label: "item a"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
@@ -214,7 +213,7 @@ define([
 			checkItem(children[13], "item a");
 			// add at the top of the list
 			list.store.add({category: "E", label: "item b"}, {before: list.store.data[0]});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "E");
@@ -235,7 +234,7 @@ define([
 			checkItem(children[15], "item a");
 			// add in the middle of the list
 			list.store.add({category: "F", label: "item c"}, {before: list.store.data[8]});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 19);
 			checkCategory(children[0], "E");
@@ -260,7 +259,7 @@ define([
 		},
 		"custom category attribute": function () {
 			list.categoryAttr = "label";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
@@ -286,7 +285,7 @@ define([
 			list.categoryFunc = function (item) {
 				return item.label;
 			};
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
@@ -319,7 +318,7 @@ define([
 			list.store.add({category: "A", label: "item 4"});
 			list.store.add({category: "A", label: "item 5"});
 			list.store.add({category: "A", label: "item 6"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var children = list.getChildren();
 			assert.strictEqual(children.length, 4);
 			checkCategory(children[0], "A");
@@ -329,7 +328,7 @@ define([
 			list._renderNewItems([{category: "A", label: "item 1"},
 			                     {category: "A", label: "item 2"},
 			                     {category: "A", label: "item 3"}], true);
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 7);
 			checkCategory(children[0], "A");
