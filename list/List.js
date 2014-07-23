@@ -198,12 +198,14 @@ define([
 		loadingMessage: "",
 
 		// CSS classes internally referenced by the List widget
-		_cssClasses: {item: "d-list-item",
-					  category: "d-list-category",
-					  cell: "d-list-cell",
-					  selected: "d-selected",
-					  selectable: "d-selectable",
-					  multiselectable: "d-multiselectable"},
+		_cssClasses: {
+			item: "d-list-item",
+			category: "d-list-category",
+			cell: "d-list-cell",
+			selected: "d-selected",
+			selectable: "d-selectable",
+			multiselectable: "d-multiselectable"
+		},
 
 		/**
 		 * A panel that hides the content of the widget when shown, and displays a progress indicator
@@ -360,6 +362,18 @@ define([
 			}
 			this._hideLoadingPanel();
 		},
+
+		deliver: dcl.superCall(function (sup) {
+			return function () {
+				// Deliver pending changes to the list and its renderers
+				sup.apply(this, arguments);
+				var renderers = this.containerNode.querySelectorAll("."
+						+ this._cssClasses.item + ", ." + this._cssClasses.category);
+				for (var i = 0; i < renderers.length; i++) {
+					renderers.item(i).deliver();
+				}
+			};
+		}),
 
 		//////////// Public methods ///////////////////////////////////////
 

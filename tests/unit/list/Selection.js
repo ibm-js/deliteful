@@ -1,9 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List",
-	"./resources/Utils"
-], function (registerSuite, assert, List, Utils) {
+	"deliteful/list/List"
+], function (registerSuite, assert, List) {
 
 	var list = null;
 
@@ -13,7 +12,7 @@ define([
 					list.isAriaListbox = true;
 				}
 				list.selectionMode = "multiple";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				var selectionChangeEvent = null;
 				var firstItem = list.getChildren()[0];
 				var secondItem = list.getChildren()[1];
@@ -62,7 +61,7 @@ define([
 					list.isAriaListbox = true;
 				}
 				list.selectionMode = "single";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				var selectionChangeEvent = null;
 				var firstItem = list.getChildren()[0];
 				var secondItem = list.getChildren()[1];
@@ -110,7 +109,7 @@ define([
 					list.isAriaListbox = true;
 				}
 				list.selectionMode = "radio";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				var selectionChangeEvent = null;
 				var firstItem = list.getChildren()[0];
 				var secondItem = list.getChildren()[1];
@@ -153,7 +152,7 @@ define([
 					list.isAriaListbox = true;
 				}
 				list.selectionMode = "single";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				var selectionChangeEvent = null;
 				var firstItem = list.getChildren()[0];
 				// select first item
@@ -173,7 +172,7 @@ define([
 					this.isAriaListbox = true;
 				}
 				list.selectionMode = "single";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				var firstItem = list.getChildren()[0];
 				var thirdItem = list.getChildren()[2];
 				// select first item
@@ -191,7 +190,7 @@ define([
 					list.isListbox = true;
 				}
 				list.selectionMode = "single";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.isTrue(list.className.indexOf("d-selectable") >= 0, "d-selectable class");
 				assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
 				assert.isFalse(list.hasAttribute("aria-multiselectable"),
@@ -212,7 +211,7 @@ define([
 					list.isListbox = true;
 				}
 				list.selectionMode = "radio";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.isTrue(list.className.indexOf("d-selectable") >= 0, "d-selectable class");
 				assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
 				assert.isFalse(list.hasAttribute("aria-multiselectable"),
@@ -234,7 +233,7 @@ define([
 					list.isAriaListbox = true;
 				}
 				list.selectionMode = "multiple";
-				Utils.deliverAllChanges(list);
+				list.deliver();
 				assert.isTrue(list.className.indexOf("d-selectable") === -1, "d-selectable class");
 				assert.isTrue(list.className.indexOf("d-multiselectable") >= 0, "d-multiselectable class");
 				assert.strictEqual(list.getAttribute("aria-multiselectable"), "true",
@@ -265,7 +264,7 @@ define([
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 		},
 		"aria listbox with selectionMode 'multiple'" : function () {
 			testHelper["Helper selectionMode 'multiple'"](true);
@@ -290,7 +289,7 @@ define([
 			var firstItem = list.getChildren()[0];
 			var event = null;
 			list.selectionMode = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			list.on("selection-change", function (event) {
 				selectionChangeEvent = event;
 			});
@@ -303,18 +302,18 @@ define([
 		},
 		"revert selection to 'none' remove event handler": function () {
 			list.selectionMode = "single";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.isNotNull(list._selectionClickHandle, "single");
 			assert.isDefined(list._selectionClickHandle, "single");
 			list.selectionMode = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.isNull(list._selectionClickHandle, "first none");
 			list.selectionMode = "multiple";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.isNotNull(list._selectionClickHandle, "multiple");
 			assert.isDefined(list._selectionClickHandle, "multiple");
 			list.selectionMode = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.isNull(list._selectionClickHandle, "second none");
 		},
 		"aria listbox delete selected item": function () {
@@ -349,7 +348,7 @@ define([
 		},
 		"aria properties and classes when selection mode is none": function () {
 			list.selectionMode = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.isTrue(list.className.indexOf("d-selectable") === -1, "d-selectable class");
 			assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
 			var firstItem = list.getChildren()[0];
@@ -357,7 +356,7 @@ define([
 		},
 		"aria properties and classes updated when selection mode is changed": function () {
 			list.selectionMode = "single";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var firstItem = list.getChildren()[0];
 			// select first item
 			var event = {target: firstItem, preventDefault: function () {}};
@@ -382,7 +381,7 @@ define([
 			assert.isTrue(list.getChildren()[2].className.indexOf("d-selected") === -1,
 					"A: no d-selected class on third item");
 			list.selectionMode = "multiple";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// list
 			assert.isTrue(list.hasAttribute("aria-multiselectable"),
 					"B: aria-multiselectable attribute expected");
@@ -404,7 +403,7 @@ define([
 			assert.isTrue(list.getChildren()[2].className.indexOf("d-selected") === -1,
 			"B: d-selected class on third item");
 			list.selectionMode = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			// list
 			assert.isFalse(list.hasAttribute("aria-multiselectable"),
 					"C: no aria-multiselectable attribute expected");
