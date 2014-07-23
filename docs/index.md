@@ -1,5 +1,6 @@
 ## Basic Widgets
  
+* [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
 * [StarRating](StarRating.md)
 * [Toaster](Toaster.md)
