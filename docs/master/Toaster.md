@@ -47,10 +47,11 @@ it avoids having awkward permanent holes in between persistent messages as it en
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
-[Element Configuration](#configuration)
-[User Interactions](#interactions)
-[Element Events](#events)
-[Enteprise Use](#enterprise)
+[Element Configuration](#configuration)  
+[Element Styling](#styling)  
+[User Interactions](#interactions)  
+[Element Events](#events)  
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -304,6 +305,17 @@ Currently, there is no way to set up your own template as the template file
 path is hard coded in the widget. If you want to set up your own template, one
 way to do it could be to create your own widget inheriting from `ToasterMessage`.
 
+<a name="styling"></a>
+## Element Styling
+
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+* ios
+* holodark
+
 
 <a name="interaction"></a>
 ## User interaction
@@ -334,7 +346,7 @@ m.dismiss("slide-out");
 |messageRemoved|When a message is removed|Yes|Yes|<ul><li>message: the instance of ToasterMessage that was removed</li></ul>|
 
 <a name="entreprise"></a>
-## Entreprise Use
+## Enterprise Use
 ### Accessibility
 |type|status|comment|
 |----|------|-------|

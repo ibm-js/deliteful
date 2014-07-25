@@ -9,11 +9,11 @@ title: deliteful/LinearLayout
 The children of a ``deliteful/LinearLayout`` container can be laid out horizontally or vertically, and can fill unused space.
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)
-[Element Configuration](#configuration)
-[Element Styling](#styling)
-[Enterprise Use](#enterprise)
-
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)   
+[Element Styling](#styling)  
+[Enterprise Use](#enterprise)  
+  
 <a name="instantiation"></a>
 ## Element Instantiation
 

@@ -18,7 +18,7 @@ The `StarRating` widget is a form field, which means that when included in an HT
 [User Interactions](#interactions)  
 [Mixins](#mixins)  
 [Element Events](#events)  
-[Enteprise Use](#enterprise)
+[Enterprise Use](#enterprise)
 
 ## Element Instantiation
 
@@ -76,6 +76,16 @@ The following properties can be set on a `StarRating` instance:
 
 <a name="styling"></a>
 ## Element Styling
+
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+* ios
+* holodark
+
+### CSS Classes
 
 The star characters displayed for an empty star and a full star are font characters.
 Half stars are created by displaying the first half of a full star character followed by the second half of an empty star character.
