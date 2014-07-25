@@ -32,11 +32,11 @@
 }
 .d-star-rating-empty:before {
   content: "\2605";
-  color: #cccccc;
+  color: #4f4f4f;
 }
 .d-star-rating-full:before {
   content: "\2605";
-  color: #ffff00;
+  color: #33b5e5;
 }
 .d-star-rating-disabled .d-star-rating-full:before {
   color: #808080;
