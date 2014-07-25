@@ -1,0 +1,64 @@
+/* CSS for the holodark theme */
+@import url('../app.css');
+
+.d-slider-h {
+	width: 185px;
+}
+
+.d-slider-h .d-slider-remaining-bar {
+	width: 100%;
+}
+
+.header {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	z-index: 1;
+	padding: 0;
+	height: 42px;
+	font-family: Helvetica;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 44px;
+	color: #ffffff;
+	background-color: #000000;
+	border-bottom-color: #33b5e5;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	font-size: 18px;
+	font-weight: normal;
+}
+
+.header button {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	border-radius: 0;
+	border: 1px solid #555555;
+	color: #ffffff;
+	background-color: #333333;
+	background-image: none;
+	cursor: pointer;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	margin: 6px;
+	padding: 0 10px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	font-family: Helvetica;
+	font-size: 13px;
+	font-weight: bold;
+	vertical-align: middle;
+	text-shadow: none;
+	z-index: 2;
+}
+
+.header div {
+	position: absolute;
+	left: 0;
+	width: 100%;
+}

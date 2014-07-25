@@ -30,17 +30,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// Convert CSS files to JS files
-		cssToJs : {
-			src: [
-				"*/themes/*/*.css", "list/*/themes/*/*.css",
-				"!{dijit,mobile}/themes/*/*.css", "ViewStack/transitions/*.css"
-			],
-			options: {
-				remove: true	// remove intermediate CSS files, generated from LESS files in less step
-			}
-		},
-
 		// Copied from grunt web site but not tested
 		uglify: {
 			options: {
@@ -127,10 +116,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("jsdoc-amddcl");
-	grunt.loadTasks("../delite/themes/tasks");// Custom cssToJs task to convert CSS to JS
 
 	// Aliases
-	grunt.registerTask("default", ["less", "cssToJs"]);
+	grunt.registerTask("default", ["less"]);
 	grunt.registerTask("jsdoc", "jsdoc-amddcl");
 	
 	// Testing.

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Deliteful Application With Native Themes</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../",
+			config: {
+				"delite/theme": {
+					themeMap: [
+								[/Holodark|Android/, "holodark"],
+								[/iPhone|iPad/, "ios"],
+								[/.*/, "bootstrap"] // chrome, firefox, IE
+					]
+				}
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ViewStack",
+			"deliteful/Slider",
+			"deliteful/Button",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function(register){
+			// load the application theme AFTER the widget themes have been loaded
+			require(["delite/theme!deliteful/demos/kittens/themes/{{theme}}/app.css"], function () {
+				// now, parse the content of the page
+				register.parse();
+			});
+		});
+	</script>
+	<script>
+			// Copyright information for images
+			copyrightInformation = [
+				{licence: "cc by-sa 2.0", author: "nicsuzor", authorLink: "https://www.flickr.com/photos/nicsuzor/"},
+				{licence: "cc by 2.0", author: "quatre mains", authorLink: "https://www.flickr.com/photos/titrans/"},
+				{licence: "pd"},
+				{licence: "cc by-sa 2.0", author: "Energetic Spirit", authorLink: "https://www.flickr.com/photos/nperlapro/"},
+				{licence: "cc by-sa 2.0", author: "latch.r", authorLink: "https://www.flickr.com/photos/lachlanrogers/"},
+				{licence: "cc by-sa 2.0", author: "latch.r", authorLink: "https://www.flickr.com/photos/lachlanrogers/"},
+				{licence: "cc by-sa 2.0", author: "olaeinang", authorLink: "https://www.flickr.com/photos/olaeinang/"},
+				{licence: "cc by 2.0", author: "quatre mains", authorLink: "https://www.flickr.com/photos/titrans/"},
+				{licence: "cc by 2.0", author: "quatre mains", authorLink: "https://www.flickr.com/photos/titrans/"},
+				{licence: "cc by 2.0", author: "quatre mains", authorLink: "https://www.flickr.com/photos/titrans/"},
+				{licence: "cc by-sa 2.0", author: "pontman", authorLink: "https://www.flickr.com/photos/paulesson/"},
+				{licence: "cc by 2.0", author: "BigTallGuy", authorLink: "https://www.flickr.com/photos/bigtallguy/"},
+				{licence: "cc by 2.0", author: "fazen", authorLink: "https://www.flickr.com/photos/fazen/"},
+				{licence: "cc by 2.0", author: "BigTallGuy", authorLink: "https://www.flickr.com/photos/bigtallguy/"},
+				{licence: "cc by 2.0", author: "caseydavid", authorLink: "https://www.flickr.com/photos/caseydavid/"},
+				{licence: "cc by 2.0", author: "quatre mains", authorLink: "https://www.flickr.com/photos/titrans/"},
+			];
+			// Generate copyright information for an image
+			setCopyright = function (imageIndex) {
+				var ci = copyrightInformation[imageIndex];
+				var copyright = "Backend service provided by <a href='http://placekitten.com'>http://placekitten.com</a>";
+				if (ci.licence !== "pd") {
+					var licenceLink = (ci.licence === "cc by 2.0" ? "http://creativecommons.org/licenses/by/2.0/" : "http://creativecommons.org/licenses/by-sa/2.0/") ;
+					copyright = "Image by <a href='" + ci.authorLink + "'>" + ci.author + "</a>, <a href='" + licenceLink + "'>Some rights reserved</a><br>" + copyright;
+				}
+				imageCopyright.innerHTML = copyright;
+			};
+			// Handler for the delite-before-show event of the app view stack
+			deliteBeforeShowHandler = function (event) {
+				// Hide ot display the header back button depending
+				// on the view.
+				if (event.dest == imageView) {
+					backButton.style.display = 'initial';
+				} else {
+					backButton.style.display = 'none';
+				};
+			};
+			// Handler for click events on the createButton button
+			createButtonClickHandler = function () {
+				var index = Math.floor(Math.random() * (copyrightInformation.length -1));
+				kittenImage.src = 'http://placekitten.com/' + widthSlider.value + '/' + heightSlider.value + "?image=" + (index + 1);
+				setCopyright(index);
+				vs.showNext();
+			};
+	</script>
+</head>
+<body>
+<h1 class="header"><button id="backButton" is="d-button" onclick="vs.showPrevious();" style="display: none;">Back</button><div>Kittens</div></h1>
+<d-view-stack id="vs" on-delite-before-show="deliteBeforeShowHandler(event);">
+	<div id="sizeView">
+		<p class="invite"><b>Set the height and width</b> of the kitten image to generate, and then <b>click the button</b>...</p>
+		<div class="sliderContainer">
+			<span id="heightLabel">Height</span>:
+			<d-slider id="heightSlider" min="100" max="300" value="200" oninput="heightValue.innerHTML = this.value +'px';" aria-labelledby="heightLabel"></d-slider>
+			<span id="heightValue">200px</span>
+		</div>
+		<div class="sliderContainer">
+			<span id="widthLabel">Width</span>:
+			<d-slider id="widthSlider" min="100" max="300" value="300" oninput="widthValue.innerHTML = this.value +'px';" aria-labelledby="widthLabel"></d-slider>
+			<span id="widthValue">300px</span>
+		</div>
+		<button is="d-button" id="createButton" label="Create image" onclick="createButtonClickHandler();"></button>
+	</div>
+	<div id="imageView">
+		<img id="kittenImage" src=""/>
+		<p id="imageCopyright" class="copyright"></p>
+	</div>
+</d-view-stack>
+</body>
+</html>

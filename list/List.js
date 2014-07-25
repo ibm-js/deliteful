@@ -16,8 +16,8 @@ define([
 	"./CategoryRenderer",
 	"./_DefaultStore",
 	"./_LoadingPanel",
-	"delite/theme!./List/themes/{{theme}}/List_css",
-	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl_css"
+	"delite/theme!./List/themes/{{theme}}/List.css",
+	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
 ], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
 		Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
 
@@ -175,7 +175,7 @@ define([
 		 */
 		_setSelectionModeAttr: function (value) {
 			if (this.isAriaListbox && value === "none") {
-				throw new TypeError("selectionMode 'none' is invalid for an aria lisbox, "
+				throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
 						+ "keeping the previous value of '" + this.selectionMode + "'");
 			} else {
 				this._set("selectionMode", value);
@@ -198,12 +198,14 @@ define([
 		loadingMessage: "",
 
 		// CSS classes internally referenced by the List widget
-		_cssClasses: {item: "d-list-item",
-					  category: "d-list-category",
-					  cell: "d-list-cell",
-					  selected: "d-selected",
-					  selectable: "d-selectable",
-					  multiselectable: "d-multiselectable"},
+		_cssClasses: {
+			item: "d-list-item",
+			category: "d-list-category",
+			cell: "d-list-cell",
+			selected: "d-selected",
+			selectable: "d-selectable",
+			multiselectable: "d-multiselectable"
+		},
 
 		/**
 		 * A panel that hides the content of the widget when shown, and displays a progress indicator
@@ -360,6 +362,18 @@ define([
 			}
 			this._hideLoadingPanel();
 		},
+
+		deliver: dcl.superCall(function (sup) {
+			return function () {
+				// Deliver pending changes to the list and its renderers
+				sup.apply(this, arguments);
+				var renderers = this.containerNode.querySelectorAll("."
+						+ this._cssClasses.item + ", ." + this._cssClasses.category);
+				for (var i = 0; i < renderers.length; i++) {
+					renderers.item(i).deliver();
+				}
+			};
+		}),
 
 		//////////// Public methods ///////////////////////////////////////
 

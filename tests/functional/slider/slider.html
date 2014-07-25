@@ -17,7 +17,8 @@
 		require([
 			"delite/register",
 			"deliteful/Slider",
-			"dojo/domReady!"
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, Slider) {
 			register.parse();
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.

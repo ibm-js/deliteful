@@ -2,9 +2,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/Deferred",
-	"deliteful/list/List",
-	"./resources/Utils"
-], function (registerSuite, assert, Deferred, List, Utils) {
+	"deliteful/list/List"
+], function (registerSuite, assert, Deferred, List) {
 
 	var list = null;
 
@@ -20,7 +19,7 @@ define([
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 		},
 		"baseClass update" : function () {
 			assert.strictEqual(list.className, "d-list");
@@ -56,12 +55,12 @@ define([
 		},
 		"default scroll direction is vertical": function () {
 			list.scrollDirection = "vertical";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.strictEqual(list.scrollableNode.className, "d-list-container d-scrollable d-scrollable-v");
 		},
 		"scroll direction none": function () {
 			list.scrollDirection = "none";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			list.scrollDirection = "none";
 			assert.strictEqual(list.className, "d-list");
 		},
@@ -103,7 +102,7 @@ define([
 			var children = list.getChildren();
 			assert.strictEqual(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children[0].className, "d-list-category", "first is category");
 			assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
@@ -114,7 +113,7 @@ define([
 		},
 		"update item label": function () {
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var renderer = list.getChildren()[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
@@ -122,7 +121,7 @@ define([
 		"update item: add, update and remove icon" : function () {
 			// add
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			var renderer = list.getChildren()[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
@@ -131,7 +130,7 @@ define([
 			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 			// update
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			renderer = list.getChildren()[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
@@ -140,7 +139,7 @@ define([
 			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			renderer = list.getChildren()[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");

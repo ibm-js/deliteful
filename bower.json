@@ -1,16 +1,16 @@
 {
 	"name": "deliteful",
-	"version": "0.1.4-dev",
+	"version": "0.1.5-dev",
 	"dependencies": {
 		"dcl": "1.1.x",
 		"decor": "0.1.0-dev",
-		"delite": "#master",
+		"delite": "0.1.10-dev",
 		"dojo": ">=1.9.1",
-		"dpointer": ">=0.1.0-dev",
-		"ecma402": ">=0.2.0-dev",
+		"dpointer": "0.1.x",
+		"ecma402": "0.2.x",
 		"requirejs": "2.1.x",
 		"requirejs-domready": ">=2.0.1",
-		"requirejs-dplugins": ">=0.2.2-dev",
+		"requirejs-dplugins": "0.2.x",
 		"dstore": "0.1.0"
 	},
 	"ignore": [

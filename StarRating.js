@@ -9,8 +9,8 @@ define([
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/uacss", // to use dedicated CSS styles in IE9
-	"delite/theme!./StarRating/themes/{{theme}}/StarRating_css",
-	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl_css"
+	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css",
+	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl.css"
 ], function (has, pointer, keys, domClass,
 			register, FormValueWidget, BidiStarRating, messages) {
 
@@ -169,31 +169,30 @@ define([
 		},
 
 		_pointerOverHandler: function (/*Event*/ event) {
-			// Called when StarRating first clicked and also as mouse is moved from star to star (or to 0 area)
 			this._wireHandlers();
-
 			if (!this._hovering && event.pointerType === "mouse") {
 				this._hovering = true;
 				domClass.add(this, this.baseClass + "-hovered");
 			}
-
 			var newValue = event.target.value;
-			if (this._hovering) {
-				if (newValue !== this._hoveredValue) {
-					domClass.add(this, this.baseClass + "-hovered");
-					this._updateStars(newValue, false);
-					this._hoveredValue = newValue;
+			if (newValue !== undefined) {
+				if (this._hovering) {
+					if (newValue !== this._hoveredValue) {
+						domClass.add(this, this.baseClass + "-hovered");
+						this._updateStars(newValue, false);
+						this._hoveredValue = newValue;
+					}
+				} else {
+					this.value = newValue;
 				}
-			} else {
-				this.value = newValue;
 			}
-
-			this._enterValue = this.value;
 		},
 
 		_pointerUpHandler: function (/*Event*/ event) {
-			this.value = event.target.value;
-			this._enterValue = this.value;
+			var value = event.target.value;
+			if (value !== undefined) {
+				this.value = value;
+			}
 			if (!this._hovering) {
 				this._removeEventsHandlers();
 			} else {
@@ -207,7 +206,7 @@ define([
 				this._hovering = false;
 				this._hoveredValue = null;
 				domClass.remove(this, this.baseClass + "-hovered");
-				this.value = this._enterValue;
+				this._updateStars(this.value, false);
 			}
 			this._removeEventsHandlers();
 		},

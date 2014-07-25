@@ -18,7 +18,9 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"deliteful/ProgressIndicator"
+			"deliteful/ProgressIndicator",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, ProgressIndicator) {
 			register.parse();
 			var label = document.getElementById("lb");

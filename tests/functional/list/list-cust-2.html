@@ -17,7 +17,8 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html",
-			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html"
+			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
 			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 				template: bookTemplate

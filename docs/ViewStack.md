@@ -67,12 +67,12 @@ require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function (ViewS
 The ViewStack container include by default 2 transition types: "slide" and "reveal". To use another transition type, you must require it:
 Example: Load all additional transition types
 ```
-require(["delite/css!deliteful/ViewStack/transitions/cover_css",
-"delite/css!deliteful/ViewStack/transitions/coverv_css",
-"delite/css!deliteful/ViewStack/transitions/fade_css",
-"delite/css!deliteful/ViewStack/transitions/flip_css",
-"delite/css!deliteful/ViewStack/transitions/slidev_css",
-"delite/css!deliteful/ViewStack/transitions/revealv_css"],...);
+require(["delite/css!deliteful/ViewStack/transitions/cover.css",
+"delite/css!deliteful/ViewStack/transitions/coverv.css",
+"delite/css!deliteful/ViewStack/transitions/fade.css",
+"delite/css!deliteful/ViewStack/transitions/flip.css",
+"delite/css!deliteful/ViewStack/transitions/slidev.css",
+"delite/css!deliteful/ViewStack/transitions/revealv.css"],...);
 
 ```
 

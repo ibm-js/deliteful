@@ -4,11 +4,11 @@ define([
 	"delite/register",
 	"delite/Widget",
 	"delite/DisplayContainer",
-	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout_css"
+	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout.css"
 ], function (domClass, register, Widget, DisplayContainer) {
 	/**
 	 * A layout container based on CSS3 Flexible Box.
-	 * 
+	 *
 	 * Child elements in a LinearLayout container can be laid out horizontally or vertically.
 	 * A child can have a flexible width or height depending on orientation.
 	 * To enable flexibility of a child, add the CSS class "fill" on it.
@@ -45,10 +45,8 @@ define([
 				domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
 			}
 		},
-
-		buildRendering: function () {
-			domClass.toggle(this, "-d-linear-layout-v", this.vertical);
-			domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
+		postCreate: function () {
+			this.notifyCurrentValue("vertical");
 		}
 	});
 });

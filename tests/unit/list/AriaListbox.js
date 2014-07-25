@@ -1,9 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List",
-	"./resources/Utils"
-], function (registerSuite, assert, List, Utils) {
+	"deliteful/list/List"
+], function (registerSuite, assert, List) {
 
 	var list = null;
 
@@ -21,7 +20,7 @@ define([
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});
 			list.store.add({label: "item 3"});
-			Utils.deliverAllChanges(list);
+			list.deliver();
 		},
 		"aria properties": function () {
 			assert.strictEqual(list.getAttribute("role"), "listbox", "role");
@@ -37,7 +36,7 @@ define([
 		},
 		"aria properties when moving from listbox to grid": function () {
 			list.isAriaListbox = false;
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			assert.strictEqual(list.getAttribute("role"), "grid", "role");
 			assert.strictEqual(list.firstChild.children[0].getAttribute("role"), "row", "first renderer role");
 			assert.strictEqual(list.firstChild.children[0].renderNode.getAttribute("role"), "gridcell",
@@ -58,18 +57,18 @@ define([
 				assert.fail("error", "", "error expected");
 			} catch (error) {
 				assert.strictEqual(error.message,
-						"selectionMode 'none' is invalid for an aria lisbox, keeping the previous value of 'single'",
+						"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'single'",
 						"error message");
 				assert.strictEqual(list.selectionMode, "single", "expected selection mode 1");
 			}
 			list.selectionMode = "multiple";
-			Utils.deliverAllChanges(list);
+			list.deliver();
 			try {
 				list.selectionMode = "none";
 				assert.fail("error", "", "error expected");
 			} catch (error) {
 				assert.strictEqual(error.message,
-					"selectionMode 'none' is invalid for an aria lisbox, keeping the previous value of 'multiple'",
+					"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'multiple'",
 					"error message");
 				assert.strictEqual(list.selectionMode, "multiple", "expected selection mode 2");
 			}

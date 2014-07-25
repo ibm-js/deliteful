@@ -13,6 +13,7 @@
 		require([
 			"delite/register",
 			"deliteful/list/List",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, List) {
   			// Programmatic list: default store, items added before adding the list to the document and before startup

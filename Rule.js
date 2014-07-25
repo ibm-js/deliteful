@@ -3,7 +3,7 @@ define([
 	"dojo/dom-class",
 	"delite/register",
 	"delite/Widget",
-	"delite/theme!./Rule/css/Rule_css"
+	"delite/theme!./Rule/css/Rule.css"
 ], function (has, domClass, register, Widget) {
 
 	function toCSS(baseClass, modifier) {

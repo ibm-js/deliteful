@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>Button</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/Button",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+		});
+	</script>
+	<style>
+		.group {
+			margin: 20px;
+			padding: 10px;
+			border: 1px solid gray;
+			border-radius: 6px;
+		}
+		.d-icon-phone:before {
+			content: "\260E";
+			padding-right: 4px;
+			font-size: 120%;
+		}
+
+		.d-button-green {
+			/* Default style */
+			background-color: #47D147;
+			color: white;
+			border-color: #6FBF6F;
+		}
+
+		.d-button-green:focus, .d-button-green:hover {
+			/* Style when the button is focused or hovered */
+			background-color: #51F051;
+			color: white;
+			border-color: #4FE34F;
+		}
+
+		.d-button-green:active {
+			/* Style when the button is pressed */
+			background-color: #55FF55;
+		}
+	</style>
+</head>
+<body style="background-color:white;">
+<div class="group">
+	<button is="d-button" label="Default button" onclick="alert(this.label + ' clicked.');"></button>
+	<button is="d-button" class="d-button-blue" label="Blue button" onclick="alert(this.label + ' clicked.');"></button>
+	<button is="d-button" class="d-button-red" label="Red button" onclick="alert(this.label + ' clicked.');"></button>
+	<button is="d-button" iconClass = 'd-icon-phone' label="Custom with icon" class="d-button-green" onclick="alert(this.label + ' clicked.');"></button>
+</div>
+</body>
+</html>

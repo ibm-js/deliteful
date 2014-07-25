@@ -16,6 +16,7 @@
 		require([
 			"deliteful/ToasterMessage",
 			"deliteful/Toaster",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (ToasterMessage, Toaster) {
 			window.toaster = new Toaster({placementClass: "d-toaster-placement-tr"});
