@@ -358,13 +358,13 @@ define([
 					containerBox: null // to avoid recalculations when moving the slider with a pointer
 				};
 				this.own(
-					on(this, "pointerdown", this._onPointerDown.bind(this)),
-					on(this, "pointermove", this._onPointerMove.bind(this)),
-					on(this, "lostpointercapture", this._onLostCapture.bind(this)),
-					on(this, "keydown", this._onKeyDown.bind(this)),
-					on(this, "keyup", this._onKeyUp.bind(this)), // fire onChange on desktop
-					on(this.focusNode, "focus", this._onFocus.bind(this)),
-					on(this.handleMin, "focus", this._onFocus.bind(this))
+					on(this, "pointerdown", this.pointerDownHandler.bind(this)),
+					on(this, "pointermove", this.pointerMoveHandler.bind(this)),
+					on(this, "lostpointercapture", this.lostCaptureHandler.bind(this)),
+					on(this, "keydown", this.keyDownHandler.bind(this)),
+					on(this, "keyup", this.keyUpHandler.bind(this)),
+					on(this.focusNode, "focus", this.focusHandler.bind(this)),
+					on(this.handleMin, "focus", this.focusHandler.bind(this))
 				);
 				// ensure CSS are applied
 				this.notifyCurrentValue("vertical");
@@ -511,7 +511,7 @@ define([
 			},
 
 			// jshint maxcomplexity: 11
-			_onPointerDown: function (e) {
+			pointerDownHandler: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
 				}
@@ -559,20 +559,20 @@ define([
 				dpointer.setPointerCapture(this._pointerCtx.target, e.pointerId);
 			},
 
-			_onPointerMove: function (e) {
+			pointerMoveHandler: function (e) {
 				if (e.target === this._pointerCtx.target) {
 					this.handleOnInput(this._formatSelection(this._selectedValue(e, this._pointerCtx.containerBox) -
 						this._pointerCtx.offsetVal, e.target));
 				}
 			},
 
-			_onLostCapture: function () {
+			lostCaptureHandler: function () {
 				this._pointerCtx.target = null;
 				this.handleOnChange(this.value);
 			},
 
 			// jshint maxcomplexity: 13
-			_onKeyDown: function (e) {
+			keyDownHandler: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
 				}
@@ -608,7 +608,7 @@ define([
 				e.preventDefault();
 			},
 
-			_onKeyUp: function (e) {
+			keyUpHandler: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
 				}
@@ -617,7 +617,7 @@ define([
 				}
 			},
 
-			_onFocus: function (e) {
+			focusHandler: function (e) {
 				if (this.handleMin._isActive) {
 					// in case there are 2 values, ensure the handle which has the focus is above the other.
 					if (e.target === this.focusNode) {
