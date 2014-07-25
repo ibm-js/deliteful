@@ -90,6 +90,14 @@ device/os/browser capabilities.
 
 <a name="styling"></a>
 ## Element Styling
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+* ios
+* holodark
+
 ### CSS Classes
 Style is defined by the CSS classes from the themes of the widget. CSS classes are bound to the
 structure of the widget declared in its template `deliteful/ProgressIndicator/ProgressIndicator.html`

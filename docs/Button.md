@@ -58,6 +58,16 @@ The `disabled` attribute is also supported, in order to disable the button. A di
 <a name="styling"></a>
 ## Element Styling
 
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+* ios
+* holodark
+
+### CSS Classes
+
 The base class for a button is `d-button`.
 
 The appearance of a button can be customized by adding extra classes to it:
