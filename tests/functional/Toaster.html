@@ -5,9 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>StarRating Tests</title>
-<link rel="stylesheet" type="text/css" href="../../Toaster/style.css" />
 
-	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+	<style>
+		d-toaster-initial {
+			opacity: 0;
+			transition-property: opacity;
+			transition-timing-function: linear;
+		}
+
+		.d-toaster-fadein {
+			opacity: 1;
+			transition-duration: 5000ms
+		}
+
+		.d-toaster-fadeout {
+			opacity: 0;
+			transition-duration: 5000ms
+		}
+	</style>
+	<script type="text/javascript" src="../boilerplate.js"></script>
 	<script language="JavaScript" type="text/javascript">
 		var actionsDuration, actionsTypes;
 		var ready = false; // set to true when the test page is ready
@@ -71,7 +87,9 @@
 							})(a, actions[a]);
 							b.onclick = (function(a, action){
 								return function(){
-									action.toaster.postMessage(a, action.props);
+									var message = action.toaster.postMessage(a, action.props);
+									message.deliver();
+									action.toaster.deliver();
 								}
 							})(a, actions[a]);
 							actionsContainer.appendChild(b);
@@ -82,7 +100,12 @@
 						"default": {
 							toaster : toast,
 							alwaysTrue: true,
-							props   : { type : "info", duration : 2000 }
+							props   : { type : "info", duration : 10000 }
+						},
+						"Duration default": {
+							toaster : toast,
+							alwaysTrue: true,
+							props   : { type : "info"}
 						},
 						"Duration 6000": {
 							toaster : toast,
@@ -157,7 +180,7 @@
 </head>
 <body>
 	<div id="container"></div>
-	<button id="trigger-button" class="trigger-button" onclick="toast.postMessage('my message', {duration: NaN})">
+	<button id="trigger-button" class="trigger-button" onclick="toast.postMessage('my message', {duration: -1}).deliver(); toast.deliver()">
 		post
 	</button>
 	<div id="actions"></div>
