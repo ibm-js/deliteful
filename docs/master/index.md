@@ -1,3 +1,7 @@
++---
++layout: doc
++---
+
 ## Basic Widgets
  
 * [Button](Button.html) 
