@@ -67,28 +67,8 @@ The appearance of a button can be customized by adding extra classes to it:
 
 Custom classes can also be added, as in the following example:
 
-```css
-.d-button-green {
-	/* Default style */
-	background-color: #47D147;
-	color: white;
-	border-color: #6FBF6F;
-}
-
-.d-button-green:focus, .d-button-green:hover {
-	/* Style when the button is focused or hovered */
-	background-color: #51F051;
-	color: white;
-	border-color: #4FE34F;
-}
-
-.d-button-green:active {
-	/* Style when the button is pressed */
-	background-color: #55FF55;
-}
-```
-
-TODO: ADD A JSFIDDLE SAMPLE WITH ALL TYPES OF CUSTOMIZATION
+<iframe width="100%" height="300" src="http://jsfiddle.net/sbrunot/Tcfbn/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<a href="http://jsfiddle.net/sbrunot/Tcfbn">checkout the sample on JSFiddle</a></iframe>
 
 <a name="interactions"></a>
 ## User Interactions
