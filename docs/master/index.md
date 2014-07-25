@@ -1,6 +1,6 @@
-+---
-+layout: doc
-+---
+---
+layout: doc
+---
 
 ## Basic Widgets
  
