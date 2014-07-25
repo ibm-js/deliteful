@@ -161,6 +161,14 @@ See the [User Interactions section](#interactions) for the other available prope
 <a name="styling"></a>
 ## Element Styling
 
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+
+### CSS Classes
+
 See also [deliteful/list/List styling](./List.md#styling) for the element styling inherited from the `deliteful/list/List` widget.
 
 The CSS class of a page loader is `d-list-loader`.

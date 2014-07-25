@@ -305,6 +305,14 @@ TODO: INSERT A JSFIDDLE SAMPLE HERE
 <a name="styling"></a>
 ## Element Styling
 
+### Supported themes
+
+This widget provides default styling for the following delite themes:
+
+* bootstrap
+
+### CSS Classes
+
 The List widget comes with two different styling that are applied by setting the `baseClass` property
 to one of the following values:
 
