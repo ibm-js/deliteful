@@ -209,13 +209,13 @@ Each type is associated with a CSS class named `d-toaster-message-{{type}}` whic
 ### Duration of a message
 
 By default a message lasts for 2000ms after it is "posted" in the toaster
-.htmlash;. The property `duration` can be set to any positive integer.
+&mdash;. The property `duration` can be set to any positive integer.
 
 However, if set to `-1` the message will remain visible until the user
 explicitly dismisses it (by clicking the dismiss button or swiping it out of the screen).
 
 NB: if `duration` is set to `-1` and `dismissible` to `false`, you'll obtain a persistent message
-which your user has no way to dismiss .htmlash; probably not ideal from
+which your user has no way to dismiss &mdash; probably not ideal from
 a user experience perspective.
 
 ```js
@@ -325,7 +325,7 @@ A user can dismiss a message either by clicking on the dismiss button, or swipin
 
 You can control this through the `dismissible` property.
 
-You can call `ToasterMessage.dismiss()` anytime to dismiss a message .htmlash; regardless of the fact that
+You can call `ToasterMessage.dismiss()` anytime to dismiss a message &mdash; regardless of the fact that
 the `dismissible` property was set to `"on"` or `"off"`. The message will enter the hidden state and disappear from the screen.
 This is the very same method called after a swipe is detected or the dismiss button is clicked.
 

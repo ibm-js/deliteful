@@ -5,7 +5,7 @@ title: deliteful/list/PageableList
 
 # deliteful/list/PageableList
 
-The PageableList widget extends the [deliteful/list/List](./List.html) widget and adds paging capabilities to it.
+The PageableList widget extends the [deliteful/list/List](./List.md) widget and adds paging capabilities to it.
 
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
 
@@ -25,7 +25,7 @@ Its custom element tag is `d-pageable-list`.
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -76,7 +76,7 @@ require(["dstore/Memory", "delite/list/PageableList", "dojo/domReady!"], functio
 <a name="configuration"></a>
 ## Element Configuration
 
-See also [deliteful/list/List configuration](./List.html#configuration) for the element configuration inherited from the `deliteful/list/List` widget.
+See also [deliteful/list/List configuration](./List.md#configuration) for the element configuration inherited from the `deliteful/list/List` widget.
 
 ##### Table of content
 
@@ -169,13 +169,13 @@ This widget provides default styling for the following delite themes:
 
 ### CSS Classes
 
-See also [deliteful/list/List styling](./List.html#styling) for the element styling inherited from the `deliteful/list/List` widget.
+See also [deliteful/list/List styling](./List.md#styling) for the element styling inherited from the `deliteful/list/List` widget.
 
 The CSS class of a page loader is `d-list-loader`.
 
 When a page is currently loading, the CSS class `d-loading` is added to the page loader.
 
-The progress indicator that is displayed when a page is loading can also be styled using CSS. See [Progress indicator styling](../ProgressIndicator.html#styling) for more details.
+The progress indicator that is displayed when a page is loading can also be styled using CSS. See [Progress indicator styling](../ProgressIndicator.md#styling) for more details.
 
 The following example demonstrate how to customize the progress indicator using CSS, so that both the progress indicator and the text are displayed in red:
 
@@ -194,7 +194,7 @@ The following example demonstrate how to customize the progress indicator using 
 <a name="interactions"></a>
 ## User Interactions
 
-See also [deliteful/list/List user interactions](./List.html#interactions) for the user interactions inherited from the `deliteful/list/List` widget.
+See also [deliteful/list/List user interactions](./List.md#interactions) for the user interactions inherited from the `deliteful/list/List` widget.
 
 The list provides up to two user controls to load and display more data:
 
@@ -240,21 +240,21 @@ To activate this behavior, the `autoPaging` property must be set to `true` on th
 <a name="mixins"></a>
 ## Mixins
 
-See also [deliteful/list/List mixins](./List.html#mixins) for the mixins provided for the inherited `deliteful/list/List` widget.
+See also [deliteful/list/List mixins](./List.md#mixins) for the mixins provided for the inherited `deliteful/list/List` widget.
 
 No specific Mixin is currently provided for this widget.
 
 <a name="events"></a>
 ## Element Events
 
-See also [deliteful/list/List element events](./List.html#events) for the element events inherited from the `deliteful/list/List` widget.
+See also [deliteful/list/List element events](./List.md#events) for the element events inherited from the `deliteful/list/List` widget.
 
 No specific event is emitted by this widget.
 
 <a name="enterprise"></a>
 ## Enterprise Use
 
-See also [deliteful/list/List enterprise use](./List.html#enterprise) for the enterprise use inherited from the `deliteful/list/List` widget.
+See also [deliteful/list/List enterprise use](./List.md#enterprise) for the enterprise use inherited from the `deliteful/list/List` widget.
 
 ### Globalization
 

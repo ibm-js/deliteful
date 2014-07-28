@@ -77,8 +77,8 @@ The appearance of a button can be customized by adding extra classes to it:
 
 Custom classes can also be added, as in the following example:
 
-<iframe width="100%" height="300" src="http://jsfiddle.net/sbrunot/Tcfbn/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-<a href="http://jsfiddle.net/sbrunot/Tcfbn">checkout the sample on JSFiddle</a></iframe>
+<iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/NHft7/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<a href="http://jsfiddle.net/ibmjs/NHft7">checkout the sample on JSFiddle</a></iframe>
 
 <a name="interactions"></a>
 ## User Interactions
