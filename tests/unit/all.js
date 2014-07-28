@@ -16,5 +16,6 @@ define([
 	"./Toaster",
 	"./ToasterMessage",
 	"./ToasterMessage-insert-show-hide-remove",
-	"./Select"
+	"./Select",
+	"./Slider"
 ]);

@@ -4,5 +4,6 @@ define([
 	"./ScrollableContainer",
 	"./list/all",
 	"./Toaster",
-	"./Select"
+	"./Select",
+	"./Slider"
 ]);
