@@ -149,24 +149,30 @@ define([
 
 			template: template,
 
-			buildRendering: register.after(function () {
-				var n = this.firstChild;
-				while (n) {
-					var next = n.nextSibling;
-					if (n !== this.valueNode && n !== this.containerNode) {
-						// move all extra markup nodes to the containerNode for relative sizing and placement
-						this.containerNode.insertBefore(n, this.progressBar);
+			buildRendering: register.dcl.superCall(function (sup) {
+				return function () {
+					this.valueNode = this.querySelector("input") || this.ownerDocument.createElement("input");
+					sup.call(this);
+					this.appendChild(this.valueNode);
+
+					var n = this.firstChild;
+					while (n) {
+						var next = n.nextSibling;
+						if (n !== this.valueNode && n !== this.containerNode) {
+							// move all extra markup nodes to the containerNode for relative sizing and placement
+							this.containerNode.insertBefore(n, this.progressBar);
+						}
+						n = next;
 					}
-					n = next;
-				}
-				this.handleMin.setAttribute("aria-valuemin", this.min);
-				this.focusNode.setAttribute("aria-valuemax", this.max);
-				this.tabStops = "handleMin,focusNode";
-				this.handleMin._isActive = true;
-				// prevent default browser behavior / accept pointer events
-				// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
-				// https://github.com/ibm-js/dpointer/issues/8
-				dpointer.setTouchAction(this, "none");
+					this.handleMin.setAttribute("aria-valuemin", this.min);
+					this.focusNode.setAttribute("aria-valuemax", this.max);
+					this.tabStops = "handleMin,focusNode";
+					this.handleMin._isActive = true;
+					// prevent default browser behavior / accept pointer events
+					// todo: use pan-x/pan-y according to this.vertical (once supported by dpointer)
+					// https://github.com/ibm-js/dpointer/issues/8
+					dpointer.setTouchAction(this, "none");
+				};
 			}),
 
 			/**
@@ -249,12 +255,7 @@ define([
 					minValue = this._adjustValue(minValue, this.min);
 					maxValue = this._adjustValue(maxValue, minValue);
 					// set corrected value as needed
-					value = isDual ? (minValue + "," + maxValue) : String(maxValue);
-					if (value !== this.value) {
-						this.value = value;
-						// do not wait for another cycle
-						this.notifyCurrentValue("value");
-					}
+					this.value = isDual ? (minValue + "," + maxValue) : String(maxValue);
 				}
 			},
 
@@ -366,30 +367,24 @@ define([
 					on(this.focusNode, "focus", this.focusHandler.bind(this)),
 					on(this.handleMin, "focus", this.focusHandler.bind(this))
 				);
-				// ensure CSS are applied
+
+				// ensure CSS is applied; this will also trigger a call to _updateChildren()
 				this.notifyCurrentValue("vertical");
-				// apply default tabIndex in case the default is used.
+
+				// apply default tabIndex in case the app doesn't specific tabindex explicitly
 				this.notifyCurrentValue("tabIndex");
+
 				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
+
 				// force calculation of the default value in case it is not specified.
-				this.notifyCurrentValue("value");
+				["min", "max", "step", "value"].forEach(this.notifyCurrentValue, this);
 			},
 
 			startup: function () {
-				// force immediate validation, otherwise in certain cases a call to slider.value returns the default
-				// value declared in the markup instead of the calculated default value.
-				this.notifyCurrentValue("value");
-				// ensure input is in sync after default value is calculated
-				this.valueNode.value = String(this.value);
-				if (this.valueNode.getAttribute("value") === null) {
-					this.valueNode.setAttribute("value", this.value);
-				}
-				// force children (Rule) to refresh their rendering
-				this._updateChildren();
 				// if the form is reset, then notify the widget to reposition the handles
 				if (this.valueNode.form) {
 					var self = this;
