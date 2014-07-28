@@ -100,7 +100,7 @@ require(["dstore/Memory", "delite/list/List", "dojo/domReady!"], function (Memor
 - [Selection support](#selection)
 - [Custom renderers](#customRenderers)
 
-<a name="scroll"/>
+<a name="scroll"></a>
 ### Scroll capabilities
 
 Note that the list is only scrollable if the size of its content (the rendered items) is longer
@@ -109,7 +109,7 @@ than the height of the list widget.
 If you do not want the list to be scrollable, you can set its `scrollDirection` property
 to `"none"` in order to remove the default scrolling capability.
 
-<a name="store"/>
+<a name="store"></a>
 ### Store capabilities
 
 If the store the items are retrieved from is [observable](), the widget will react to addition,
@@ -211,7 +211,7 @@ list.on("query-error", function (error) {
 });
 ```
 
-<a name="categories"/>
+<a name="categories"></a>
 ### Categorized items
 
 ![Categorized List Example](images/CategorizedList.png)
@@ -229,6 +229,10 @@ list.store.add({label: "second item", category: "Category A"});
 list.store.add({label: "third item", category: "Category B"});
 ```
 
+<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/7Yr6E/embedded/result,js">
+<a href="http://jsfiddle.net/ibmjs/7Yr6E/">checkout the sample on JSFiddle</a></iframe>
+
 An alternative is to set `categoryFunc` to a function that extract the category from the store item,
 as in the following example:
 
@@ -242,13 +246,11 @@ list.store.add({label: "second item", category: "Category A"});
 list.store.add({label: "third item", category: "Category B"});
 ```
 
-TODO: ADD A JSFIDDLE SAMPLE ?
-
 As with the rendering of items, the actual rendering of the categories in the list is delegated to a category renderer widget.
 The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
 using the `categoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
 
-<a name="selection"/>
+<a name="selection"></a>
 ### Selection support
 
 ![Multiple Selectable Items Example](images/Selectable.png)
@@ -270,10 +272,10 @@ When the selection mode is `multiple`, more than one item can be selected in the
 
 When the selection mode is `none`, the items are not selectable.
 
-<a name="customRenderers"/>
+<a name="customRenderers"></a>
 ### Custom renderers
 
-TODO: INSERT A SCREENSHOT HERE ?
+![Custom Renderer Example](images/CustomRenderer.png)
 
 #### Custom item renderer
 
@@ -288,7 +290,9 @@ If the rendered item have actionable / keyboard navigable nodes, those are set u
 
 Here are is an example of custom item renderer that illustrate these concepts:
 
-TODO: INSERT A JSFIDDLE SAMPLE HERE
+<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/36XDP">checkout the sample on JSFiddle</a></iframe>
 
 #### Custom category renderer
 
@@ -300,7 +304,9 @@ A custom category renderer is similar to a custom item renderer, except that it 
 
 Here are is an example of custom category renderer:
 
-TODO: INSERT A JSFIDDLE SAMPLE HERE
+<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/s5sMq">checkout the sample on JSFiddle</a></iframe>
 
 <a name="styling"></a>
 ## Element Styling
@@ -394,7 +400,9 @@ The style of a selected item can be customized using the following css:
 
 To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
 
-TODO: INSERT JSFIDDLE SAMPLE HERE ?
+<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
+<a href="http://jsfiddle.net/ibmjs/NB5u7">checkout the sample on JSFiddle</a></iframe>
 
 <a name="interactions"></a>
 ## User Interactions

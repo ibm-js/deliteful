@@ -22,9 +22,10 @@
 			"dojo/on",
 			"dojo/_base/array",
 			"deliteful/list/List",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, on, array) {
- 			var console = document.createElement("div");
+ 			var console = document.createElement("p");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
