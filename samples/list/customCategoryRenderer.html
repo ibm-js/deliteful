@@ -22,7 +22,8 @@
 			"deliteful/list/CategoryRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, CategoryRenderer, List, template) {
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 				template: template
@@ -47,7 +48,7 @@
 	</script>
 	
 	<style>
-		.d-list-category {
+		.d-list-category .d-list-cell {
 			background-image: none;
 			background-color: green;
 			color: white;

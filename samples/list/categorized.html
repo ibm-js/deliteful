@@ -20,7 +20,8 @@
 		require([
 		    "delite/register",
 			"deliteful/list/List",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, List) {
 			var list = register.createElement("d-list");
 			list.setAttribute("aria-label", "Sample categorized list");

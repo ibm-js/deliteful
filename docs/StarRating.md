@@ -110,7 +110,9 @@ The stars displayed can be fully customized by using the following CSS selectors
 
 It is also possible to use an image stripes to render the stars, using a few more CSS selectors, as demonstrated in the following sample:
 
-TODO: ADD JSFIDDLE SAMPLE
+<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/3eu6v/embedded/result,html,js,css">
+<a href="http://jsfiddle.net/ibmjs/3eu6v/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="interactions"></a>
 ## User Interactions

@@ -22,7 +22,8 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
 		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 				template: template
@@ -47,8 +48,7 @@
 			color: white;
 			font-family: monospace;
 			height: 45px;
-		}
-		
+		}		
 	</style>
 </head>
 <body role="application">
