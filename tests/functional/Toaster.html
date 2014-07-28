@@ -88,9 +88,7 @@
 							})(a, actions[a]);
 							b.onclick = (function(a, action){
 								return function(){
-									var message = action.toaster.postMessage(a, action.props);
-									message.deliver();
-									action.toaster.deliver();
+									action.toaster.postMessage(a, action.props);
 								}
 							})(a, actions[a]);
 							actionsContainer.appendChild(b);
@@ -181,7 +179,7 @@
 </head>
 <body>
 	<div id="container"></div>
-	<button id="trigger-button" class="trigger-button" onclick="toast.postMessage('my message', {duration: -1}).deliver(); toast.deliver()">
+	<button id="trigger-button" class="trigger-button" onclick="toast.postMessage('my message', {duration: -1})">
 		post
 	</button>
 	<div id="actions"></div>
