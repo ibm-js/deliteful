@@ -38,7 +38,6 @@
 
 			// slider change event
 			slider.addEventListener("change", function (e) {
-				tooltip.innerHTML = this.value;
 				onChangeValue.value = this.value;
 				onChangeValue.style.color = "red";
 				window.setTimeout( function () {
@@ -48,7 +47,6 @@
 
 			// slider input event
 			slider.addEventListener("input", function (e) {
-				tooltip.innerHTML = this.value;
 				onInputValue.value = this.value;
 			});
 
@@ -76,20 +74,24 @@
 			var enableFlip = document.getElementById('enableFlip');
 			var enableSlider = document.getElementById('enableSlider');
 
-			function refresh() {
+			enableSlideRange.checked = slider.slideRange;
+			enableSlider.checked = true;
+			onChangeValue.value = "";
+			onInputValue.value = "";
+			submittedValue.value = "";
+
+			// Update tooltip and <input>'s with current slider property valuess,
+			// and reflect any future updates too.
+			function bindProps () {
+				tooltip.innerHTML = slider.value;
 				inputValue.value = slider.value;
 				inputStep.value = slider.step;
 				inputMin.value = slider.min;
 				inputMax.value = slider.max;
-				enableSlideRange.checked = slider.slideRange;
-				enableSlider.checked = true;
-				onChangeValue.value = "";
-				onInputValue.value = "";
-				submittedValue.value = "";
-				tooltip.innerHTML = slider.value;
 			}
+			bindProps();	// set initial values
+			slider.observe(bindProps);
 
-			refresh();
 			document.getElementById('setSliderValue').addEventListener("click", function (e) {
 				slider.value = inputValue.value;
 			});
@@ -107,8 +109,6 @@
 				slider.min = inputMin.value;
 				slider.max = inputMax.value;
 				slider.step = inputStep.value;
-				slider.deliverComputing();
-				refresh(slider);
 			});
 			enableSlideRange.addEventListener("click", function (e) {
 				slider.slideRange = this.checked;
@@ -157,7 +157,9 @@
 <br>
 
 <form id="form">
-	<d-slider id="sliderWidget" value=","></d-slider>
+	<d-slider id="sliderWidget">
+		<input value="50,75">
+	</d-slider>
 	<hr>
 	<table border="0">
 		<tr>
@@ -199,21 +201,21 @@
 		<td>
 			<label for="inputValue">Value</label>
 			<input type="text" id="inputValue"/>
-			<button id="setSliderValue">Set</button>
+			<button id="setSliderValue" type="button">Set</button>
 			<br>
 			<label for="inputStep">Step</label>
 			<input type="text" id="inputStep"/>
-			<button id="setSliderStep">Set</button>
+			<button id="setSliderStep" type="button">Set</button>
 			<br>
 			<label for="inputValue">Min</label>
 			<input type="text" id="inputMin"/>
-			<button id="setSliderMin">Set</button>
+			<button id="setSliderMin" type="button">Set</button>
 			<br>
 			<label for="inputValue">Max</label>
 			<input type="text" id="inputMax"/>
-			<button id="setSliderMax">Set</button>
+			<button id="setSliderMax" type="button">Set</button>
 			<br>
-			<button id="setSliderAll">Set all</button>
+			<button id="setSliderAll" type="button">Set all</button>
 			<br>
 		</td>
 	</tr>
