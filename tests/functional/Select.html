@@ -15,7 +15,7 @@
 	<script type="text/javascript">
 		var ready = false; // set to true when the test page is ready
 
-		var addOptions, removeOptions, updateOptions, show, getSelectedOptionsArray;
+		var addOptions, removeFirstOption, updateOptions, show, getSelectedOptionsArray;
 		
 		require([
 			"delite/register",
@@ -46,14 +46,18 @@
 				}
 			};
 			
-			removeOptions = function (select) {
-				var option = select.store.data[0]; // holds for the dstore/Memory used in this test
-				select.store.remove(select.store.getIdentity(option));
+			removeFirstOption = function (select) {
+				if (select.store) {
+					var option = select.store.data[0]; // holds for the dstore/Memory used in this test
+					select.store.remove(select.store.getIdentity(option));
+				}
 			};
 			
 			var removeAllOptions = function (select) {
-				select.store.setData([]); // This bypasses the notification of observable stores, hence:
-				select.renderItems = []; // needed because of delite issue #187. TODO: remove when this is fixed.
+				if (select.store) {
+					select.store.setData([]); // This bypasses the notification of observable stores, hence:
+					select.renderItems = []; // needed because of delite issue #187. TODO: remove when this is fixed.
+				}
 			};
 			
 			show = function (select) {
@@ -256,7 +260,7 @@
 <d-select id="select1"></d-select>
 
 <button id="add1" onclick="addOptions(select1)">Add</button>
-<button id="remove1" onclick="removeOptions(select1)">Remove</button>
+<button id="remove1" onclick="removeFirstOption(select1)">Remove</button>
 <button id="update1" onclick="updateOptions(select1)">Update</button>
 <button id="show1" onclick="show(select1)">Show</button>
 <br/><br/>
@@ -266,7 +270,7 @@
 <div id="select2"></div>
 
 <button id="add2" onclick="addOptions(select2)">Add</button>
-<button id="remove2" onclick="removeOptions(select2)">Remove</button>
+<button id="remove2" onclick="removeFirstOption(select2)">Remove</button>
 <button id="update2" onclick="updateOptions(select2)">Update</button>
 <button id="show2" onclick="show(select2)">Show</button>
 <br/><br/>
@@ -277,7 +281,7 @@
 <d-select id="select3"></d-select>
 
 <button id="add3" onclick="addOptions(select3)">Add</button>
-<button id="remove3" onclick="removeOptions(select3)">Remove</button>
+<button id="remove3" onclick="removeFirstOption(select3)">Remove</button>
 <button id="update3" onclick="updateOptions(select3)">Update</button>
 <button id="show3" onclick="show(select3)">Show</button>
 <br/><br/>
@@ -288,7 +292,7 @@
 </d-select>
 
 <button id="add4" onclick="addOptions(select4)">Add</button>
-<button id="remove4" onclick="removeOptions(select4)">Remove</button>
+<button id="remove4" onclick="removeFirstOption(select4)">Remove</button>
 <button id="update4" onclick="updateOptions(select4)">Update</button>
 <button id="show4" onclick="show(select4)">Show</button>
 <br/><br/>
@@ -399,7 +403,7 @@ border-radius, color and background-color (with default store):
 </d-select>
 
 <button id="add8" onclick="addOptions(select8)">Add</button>
-<button id="remove8" onclick="removeOptions(select8)">Remove</button>
+<button id="remove8" onclick="removeFirstOption(select8)">Remove</button>
 <button id="update8" onclick="updateOptions(select8)">Update</button>
 <button id="show8" onclick="show(select8)">Show</button>
 <br/><br/>
@@ -465,4 +469,5 @@ and background-color):
 
 <br/><br/><br/><br/>
 End.
+</body>
 </html>
