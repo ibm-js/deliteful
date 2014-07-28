@@ -21,15 +21,16 @@ define(["intern!object",
 	var updateAndCheckNumberOfOptions = function (
 		remote, selectId, updateId, expectedNumberOfOptions) {
 		return remote
-				.elementById(updateId)
-				.click()
-				.end()
-				.elementById(selectId)
-				.elementsByTagName("OPTION")
-				.then(function (result) {
-					assert.strictEqual(result.length, expectedNumberOfOptions,
-						selectId + " number of options is not the expected one");
-				});
+			// Do not use remote.click() because of appium issues on iOS
+			// (the buttons being outside browser's visible area).
+			// Hence, instead, execute the action of the update button from Select.html.
+			.execute("updateOptions(" + selectId + "); ")
+			.elementById(selectId)
+			.elementsByTagName("OPTION")
+			.then(function (result) {
+				assert.strictEqual(result.length, expectedNumberOfOptions,
+					selectId + " number of options is not the expected one");
+			});
 	};
 	
 	// Check the state of the widget after selecting options using the keyboard.
