@@ -8,7 +8,7 @@ title: deliteful/Toaster
 `deliteful/Toaster` is a widget that allows an application to notify the user
 in a non obtrusive way (it will not steal the focus), through a quick little
 message.  A toaster is an unobtrusive mechanism for displaying messages. Like
-toast, the message "pops up" in the window corner, temporarily overlaying any
+toasts, messages "pop up" in the window corner, temporarily overlaying any
 content there. The message stays up for a certain duration, or until the user
 dismisses it explicitly (with a swipe gesture or by clicking on the dismiss
 button).
@@ -56,7 +56,7 @@ it avoids having awkward permanent holes in between persistent messages as it en
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle works.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle works.
 
 ### Declarative Instantiation
 
@@ -119,7 +119,9 @@ require([
 	});
 ```
 
-// TODO: add a jsfiddle example here
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/8mRrs/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/8mRrs/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="configuration"></a>
 ## Element Configuration
@@ -204,12 +206,11 @@ mytoaster.postMessage("content of my message", {type: "success"});
 
 ```
 
-Each type is associated with a CSS class named `d-toaster-message-{{type}}` which defines its styling.
+Each type is associated with a CSS class named `d-toaster-type-{{type}}` which defines its styling.
 
 ### Duration of a message
 
-By default a message lasts for 2000ms after it is "posted" in the toaster
-&mdash;. The property `duration` can be set to any positive integer.
+By default a message lasts for 2000ms after it is "posted" in the toaster. The property `duration` can be set to any positive integer.
 
 However, if set to `-1` the message will remain visible until the user
 explicitly dismisses it (by clicking the dismiss button or swiping it out of the screen).
@@ -240,8 +241,9 @@ message to disappear on its own.
 
 
 When `dismissible` is set to `"auto"`, the behavior depends on whether the message expires:
-- a message that expires (`duration >= 0`) will not be dismissible,
-- a message that does not expire (`duration === -1`) will be dismissible.
+
+* a message that expires (`duration >= 0`) will not be dismissible,
+* a message that does not expire (`duration === -1`) will be dismissible.
 
 ```js
 mytoaster.postMessage("content of my message", {dismissible: "off"});
@@ -257,9 +259,10 @@ If returns `true` (resp. `false`) when `dismissible` is set to `"on"` (resp. `"o
 
 If controls the visibility of the dismiss button and enables/disables the swipe-to-dismiss.
 
-When `dismissible` is set to `"auto"`, the output of the method also depends on the `duration` property.
-- a message that is expirable (`duration >= 0`) will have no dismiss button or swipe-to-dismiss (`isDismissible() === false`)
-- a message that does not expire (`duration === -1`) will have a dismiss button and swipe-to-dismiss (`isDismissible() === true`)
+When `dismissible` is set to `"auto"`, the output of the method also depends on the `duration` property:
+
+* a message that is expirable (`duration >= 0`) will have no dismiss button or swipe-to-dismiss (`isDismissible() === false`)
+* a message that does not expire (`duration === -1`) will have a dismiss button and swipe-to-dismiss (`isDismissible() === true`)
 
 | `dismissible` | `duration` | `isDismissible()` |
 |---------------|------------|-------------------|
@@ -269,8 +272,8 @@ When `dismissible` is set to `"auto"`, the output of the method also depends on 
 | `auto` | `-1`   | `true`  |
 
 
-
-### animations (#animations)
+<a name="animations"></a>
+### animations
 For each of the 4 states of a `ToasterMessage` instance, an animation class is added
 
 ```js
@@ -317,7 +320,7 @@ This widget provides default styling for the following delite themes:
 * holodark
 
 
-<a name="interaction"></a>
+<a name="interactions"></a>
 ## User interaction
 
 ### Dismissal of a message
@@ -345,7 +348,7 @@ m.dismiss("slide-out");
 |messageExpired|When a message expires|Yes|Yes|<ul><li>message: the instance of ToasterMessage that expired</li></ul>|
 |messageRemoved|When a message is removed|Yes|Yes|<ul><li>message: the instance of ToasterMessage that was removed</li></ul>|
 
-<a name="entreprise"></a>
+<a name="enterprise"></a>
 ## Enterprise Use
 ### Accessibility
 |type|status|comment|
@@ -359,7 +362,7 @@ Nothing in particular here.
 
 ## Security
 
-This widget as no specific security concern. Refers to delite/Widget and delite/StoreMap documentation for general
+This widget as no specific security concern. Refers to [`delite/Widget`](/delite/docs/master/Widget.md) for general
 security advices on this base class.
 
 ## Browser Support
