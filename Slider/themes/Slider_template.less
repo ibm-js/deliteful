@@ -16,12 +16,12 @@
 }
 .d-slider-h {
 	width: @d-slider-size;
-	.d-slider-remaining-bar {
+	.d-slider-container {
 		width: @d-slider-bar-size;
 		min-width: (@d-slider-knob-size*4);
 		height: @d-slider-bar-thickness;
 	}
-	.d-slider-remaining-bar > * {
+	.d-slider-container > * {
 	        left: 0; // children are positioned with either top or bottom
 	}
 	.d-slider-progress-bar {
@@ -37,12 +37,12 @@
 }
 .d-slider-v {
 	height: @d-slider-size;
-	.d-slider-remaining-bar {
+	.d-slider-container {
 		height: @d-slider-bar-size;
 		min-height: (@d-slider-knob-size*4);
 		width: @d-slider-bar-thickness;
 	}
-	.d-slider-remaining-bar > * {
+	.d-slider-container > * {
 	        top: 0; // children are positioned with either left or right
 	}
 	.d-slider-progress-bar {
@@ -97,16 +97,16 @@
 	background-clip: content-box;
 	.d-slider-bar-styles;
 }
-.d-slider-remaining-bar { // content area of domNode
+.d-slider-container { // content area of domNode
 	.box-sizing(border-box);
 	position: relative; // so children can use position:absolute
 	height: 100%;
 	width: 100%;
 	margin: auto;
 	vertical-align: middle;
-	.d-slider-remaining-bar-styles;
+	.d-slider-container-styles;
 }
-.d-slider-remaining-bar > * {
+.d-slider-container > * {
 	position: absolute !important; // children use the RemainingBar's size
 }
 .d-slider-progress-bar {
