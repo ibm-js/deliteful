@@ -43,6 +43,7 @@ define(["intern!object",
 
 	// const
 	var WAIT_TIMEOUT_MS = 180000;
+	var ANIMATION_DURATION = 5000;
 	var TEST_TIMEOUT_MS = 120000;
 	var POLL_FREQ_MS = 500;
 
@@ -126,15 +127,16 @@ define(["intern!object",
 	}
 
 	function checkExpirable(remote, action, duration) {
+		var timeoutOffset = 2000;
 		return remote
 			.elementById(action.buttonId)
 			.clickElement()
 			.end()
-			.waitForCondition(codeIns(action), TEST_TIMEOUT_MS, POLL_FREQ_MS)
+			.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
 			// wait for it to expire
 			.waitForCondition(codeExp(action),
-				duration + 10000 + TEST_TIMEOUT_MS, POLL_FREQ_MS)
-			.waitForCondition(codeRem(action), 10000, POLL_FREQ_MS)
+				duration + timeoutOffset, POLL_FREQ_MS)
+			.waitForCondition(codeRem(action), ANIMATION_DURATION + timeoutOffset, POLL_FREQ_MS)
 			.end();
 	}
 
@@ -142,16 +144,15 @@ define(["intern!object",
 		return remote
 			.elementById(action.buttonId)
 			.clickElement()
-			.waitForCondition(codeIns(action), TEST_TIMEOUT_MS, POLL_FREQ_MS)
+			.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
 			.end();
 	}
 
 	console.log("# Registering Toaster tests");
 	registerSuite({
 		name: "Toaster tests",
-		setup: function () {
-		},
-		beforeEach: function(){
+		setup: function () {},
+		beforeEach: function () {
 			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
 			return remote
@@ -161,12 +162,8 @@ define(["intern!object",
 		"Check Aria/initial nb of messages/posting": function () {
 			console.log("# running test 'default'");
 			var remote = this.remote;
-			return remote
+			return checkAriaAttr(remote, "default")
 				// Check initial rating
-				.sleep(2000)
-				.then(function () {
-					return checkAriaAttr(remote, "default");
-				})
 				.then(function () {
 					// check number of messages on startup
 					return checkNumberOfMessages(remote, "default", 0);
@@ -207,16 +204,17 @@ define(["intern!object",
 						.clickElement()
 						.end()
 						// make sure they are all inserted
-						.waitForCondition(codeIns(perm1), TEST_TIMEOUT_MS)
-						.waitForCondition(codeIns(exp2000), TEST_TIMEOUT_MS)
-						.waitForCondition(codeIns(perm2), TEST_TIMEOUT_MS)
-						.waitForCondition(codeIns(exp6000), TEST_TIMEOUT_MS)
+						.waitForCondition(codeIns(perm1), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.waitForCondition(codeIns(exp2000), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.waitForCondition(codeIns(perm2), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.waitForCondition(codeIns(exp6000), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
 						// wait for expirable2000 to expire
-						.waitForCondition(codeExp(exp2000), 2000 + TEST_TIMEOUT_MS)
+						.waitForCondition(codeExp(exp2000), 2000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS)
 						// wait for expirable6000 to expire
-						.waitForCondition(codeExp(exp6000), 6000 + TEST_TIMEOUT_MS, POLL_FREQ_MS)
+						.waitForCondition(codeExp(exp6000), 6000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS)
 						// wait for both messages to be removed
-						.waitForCondition(codeRem(exp2000) && codeRem(exp6000), TEST_TIMEOUT_MS + 100000)
+						.waitForCondition(codeRem(exp2000) && codeRem(exp6000),
+							WAIT_TIMEOUT_MS + ANIMATION_DURATION, POLL_FREQ_MS)
 						.then(function () {
 							var remotes = [];
 							// check expired are no longer in the DOM
@@ -232,7 +230,7 @@ define(["intern!object",
 				.end();
 
 		},
-		// TODO: thid part of the test don't pass due to a dpointer issue which has been reported here
+		// TODO: this test case doesn't pass due to a dpointer issue which has been reported here
 		// https://github.com/ibm-js/dpointer/issues/23
 //		"Check message dismissal": function () {
 //			console.log("# running test 'check message dismissal'");
@@ -252,14 +250,14 @@ define(["intern!object",
 //						.end()
 //
 //						// wait for the message to show up
-//						.waitForCondition(codeIns(action), TEST_TIMEOUT_MS)
+//						.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS)
 //
 //						// click on the dismiss button
 //						.elementById(action.props.id)
 //						.elementByClassName("d-toaster-dismiss")
 //						.click()
 //						// wait for the message to be removed and check it's not there
-//						.waitForCondition(codeRem(action), TEST_TIMEOUT_MS)
+//						.waitForCondition(codeRem(action), WAIT_TIMEOUT_MS)
 //						.then(function () {
 //							return checkHasNotElement(remote, action.props.id);
 //						})
