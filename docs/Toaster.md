@@ -126,6 +126,7 @@ src="http://jsfiddle.net/ibmjs/8mRrs/embedded/result,js,html">
 <a name="configuration"></a>
 ## Element Configuration
 
+<a name="placement"></a>
 ### Placement of the toaster
 
 The Toaster widget has a `placement` property which will determine where the
@@ -319,7 +320,72 @@ This widget provides default styling for the following delite themes:
 * ios
 * holodark
 
+### CSS classes
+- *Placement of the Toaster*: all placement classes `d-toaster-placement-*` are documented in this [section](#placement).
 
+```less
+.d-toaster-placement-default .d-toaster-inner {
+	left: 20%;
+	bottom: 10%;
+	width: 60%;
+}
+```
+
+- *Message types*: there is one class for each message type allowed.
+
+```less
+	.d-toaster-type-error {
+		background-color: #d9edf7;
+		border-color: #bce8f1;
+		color: #31708f;
+	}
+	.d-toaster-type-info    {...}
+	.d-toaster-type-warning {...}
+	.d-toaster-type-success {...}
+```
+
+- *The dismiss button*: this class allows to set its position and any property a button can take.
+	Use the `content` property to change the character used to represent the button.
+	
+```less
+	.d-toaster-dismiss {...}
+	
+	.d-toaster-dismiss:before {
+		content: "×";
+	}
+```
+
+- *Entering/Leaving animations*:
+	Regarding the animations used by default when a message enters/leavers the screen. Though you can easily override 
+	theses classes, it is probably better to define your own and set the Toaster to use them 
+	see [configuration section)(#animations).
+```less
+	.d-toaster-initial { // sets the initial state
+		opacity: 0;
+		transition-property: opacity;
+		transition-timing-function: linear;
+	}
+	
+	.d-toaster-fadein {
+		opacity: 1;
+		transition-duration: 700ms
+	}
+	
+	.d-toaster-fadeout {
+		opacity: 0;
+		transition-duration: 1000ms
+	}
+```
+Regarding the swipe-to-dismiss animation, it is controlled by:
+```less
+	.d-toaster-swipeout {
+		animation-name: d-toaster-swipeout; /* you can reference here your own @keyframes */
+		animation-timing-function: linear;
+		animation-duration: 700ms;
+		animation-fill-mode: both;
+		/* omitting their -webkit- prefixed equivalent */
+	}
+```
 <a name="interactions"></a>
 ## User interaction
 
