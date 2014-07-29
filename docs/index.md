@@ -7,6 +7,7 @@ layout: doc
 * [Button](Button.md) 
 * [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
+* [Slider](Slider.md)
 * [StarRating](StarRating.md)
 * [Toaster](Toaster.md)
 
