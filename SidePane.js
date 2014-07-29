@@ -245,12 +245,47 @@ define([
 				this._resetInteractions();
 			},
 
+
+			_refreshMode: function (nextElement) {
+				domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
+				domClass.add(this, prefix(this.mode));
+
+				if (nextElement && this._visible) {
+					domClass.toggle(nextElement, prefix("translated"), this.mode !== "overlay");
+				}
+
+				if (this.mode === "reveal" && !this._visible) {
+					// Needed by FF only for the first opening.
+					domClass.remove(this, prefix("ontop"));
+					domClass.add(this, prefix("under"));
+				}
+				else if (this.mode === "overlay") {
+					domClass.remove(this, prefix("under"));
+					domClass.add(this, prefix("ontop"));
+				} else {
+					domClass.remove(this, [prefix("under"), prefix("ontop")]);
+				}
+			},
+
+			_refreshPosition: function (nextElement) {
+				domClass.remove(this, [prefix("start"), prefix("end")]);
+				domClass.add(this, prefix(this.position));
+				if (nextElement && this._visible) {
+					domClass.remove(nextElement, [prefix("start"), prefix("end")]);
+					domClass.add(nextElement, prefix(this.position));
+				}
+			},
+
 			refreshRendering: function (props) {
+				if (!("mode" in props || "position" in props || "animate" in props)) {
+					return;
+				}
 				var nextElement = getNextSibling(this);
 
-				// Always remove animation during a refresh. Avoid to see moving the pane on mode changes.
+				// Always remove animation during a refresh. Avoid to see the pane moving on mode changes.
 				// Not very reliable on IE11.
 				domClass.remove(this, prefix("animate"));
+
 				if (nextElement) {
 					domClass.remove(nextElement, prefix("animate"));
 					if (!this.isLeftToRight()) {
@@ -262,34 +297,11 @@ define([
 				}
 
 				if ("mode" in props) {
-					domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
-					domClass.add(this, prefix(this.mode));
-
-					if (nextElement && this._visible) {
-						domClass.toggle(nextElement, prefix("translated"), this.mode !== "overlay");
-					}
-
-					if (this.mode === "reveal" && !this._visible) {
-						// Needed by FF only for the first opening.
-						domClass.remove(this, prefix("ontop"));
-						domClass.add(this, prefix("under"));
-					}
-					else if (this.mode === "overlay") {
-						domClass.remove(this, prefix("under"));
-						domClass.add(this, prefix("ontop"));
-					} else {
-						domClass.remove(this, [prefix("under"), prefix("ontop")]);
-					}
-
+					this._refreshMode(nextElement);
 				}
 
 				if ("position" in props) {
-					domClass.remove(this, [prefix("start"), prefix("end")]);
-					domClass.add(this, prefix(this.position));
-					if (nextElement && this._visible) {
-						domClass.remove(nextElement, [prefix("start"), prefix("end")]);
-						domClass.add(nextElement, prefix(this.position));
-					}
+					this._refreshPosition(nextElement);
 				}
 
 				domClass.toggle(this, prefix("hidden"), !this._visible);
