@@ -68,12 +68,12 @@
 .d-slider-h {
   width: 200px;
 }
-.d-slider-h .d-slider-remaining-bar {
+.d-slider-h .d-slider-container {
   width: 100%;
   min-width: 80px;
   height: 5px;
 }
-.d-slider-h .d-slider-remaining-bar > * {
+.d-slider-h .d-slider-container > * {
   left: 0;
 }
 .d-slider-h .d-slider-progress-bar {
@@ -89,12 +89,12 @@
 .d-slider-v {
   height: 200px;
 }
-.d-slider-v .d-slider-remaining-bar {
+.d-slider-v .d-slider-container {
   height: 100%;
   min-height: 80px;
   width: 5px;
 }
-.d-slider-v .d-slider-remaining-bar > * {
+.d-slider-v .d-slider-container > * {
   top: 0;
 }
 .d-slider-v .d-slider-progress-bar {
@@ -151,7 +151,7 @@
   background: none;
   background-clip: content-box;
 }
-.d-slider-remaining-bar {
+.d-slider-container {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -162,7 +162,7 @@
   vertical-align: middle;
   background-color: #292929;
 }
-.d-slider-remaining-bar > * {
+.d-slider-container > * {
   position: absolute !important;
 }
 .d-slider-progress-bar {

@@ -59,10 +59,10 @@
     background-color: @d-slider-bar-color;
   }
   //
-  // d-slider-remaining-bar
+  // d-slider-container
   // this is the bar below the slider handle(s)
   //
-  & .d-slider-remaining-bar {
+  & .d-slider-container {
     .box-sizing(border-box);
     position: relative;
     height: 100%;
@@ -88,7 +88,7 @@
     cursor: default;
     .box-shadow(none);
   }
-  &.d-disabled .d-slider-remaining-bar {
+  &.d-disabled .d-slider-container {
     .box-shadow(none);
     border-color: lighten(@d-slider-bar-color, 20%);
   }
@@ -105,7 +105,7 @@
 }
 
 //needed when Slider is used with deliteful/Rule
-.d-slider-remaining-bar > * {
+.d-slider-container > * {
   position: absolute;
 }
 
@@ -152,11 +152,11 @@
 //
 .d-slider-h {
   width: @d-slider-size;
-  .d-slider-remaining-bar {
+  .d-slider-container {
     min-width: (@d-slider-handle-size * 4);
     height: @d-slider-bar-thickness;
   }
-  .d-slider-remaining-bar > * {
+  .d-slider-container > * {
     left: 0; // children are positioned with either top or bottom
   }
   .d-slider-progress-bar {
@@ -176,11 +176,11 @@
 //
 .d-slider-v {
   height: @d-slider-size;
-  .d-slider-remaining-bar {
+  .d-slider-container {
     min-height: (@d-slider-handle-size * 4);
     width: @d-slider-bar-thickness;
   }
-  .d-slider-remaining-bar > * {
+  .d-slider-container > * {
     top: 0; // children are positioned with either left or right
   }
   .d-slider-progress-bar {

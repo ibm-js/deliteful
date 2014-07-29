@@ -218,7 +218,7 @@ define([
 						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
 						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
 						this.baseClass + "-v" + " " + this.baseClass + "-h");
-				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-remaining-bar");
+				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-container");
 				this.progressBar.setAttribute("style", "");// reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
 				this.focusNode.className = toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-max");
