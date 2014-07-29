@@ -15,6 +15,7 @@ title: deliteful/SidePane
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
+[Showing/Hiding the SidePane](#showing)
 [Element Styling](#styling)  
 [User Interactions](#interactions)  
 [Enterprise Use](#enterprise)  
@@ -42,7 +43,7 @@ require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"
   </div>
 </html>
 ```
-
+<a name="instantiation"></a>
 ### Programmatic Instantiation
 
 ```js
@@ -60,9 +61,18 @@ This widget must be a sibling of html's body element.
 
 The `position` attribute can be `start` or `end` which means left or right respectively in LTR mode. The resulting left or right position of the pane depends on the globalization configuration. See [Enteprise Use](#enterprise) for more informations.
 
-If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [LINK TO THEME GEN DOC].
+If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [Delite themes](http://ibm-js.github.io/delite/docs/master/themes.html).
 
 For disabling sliding animated transition, set `animate` attribute to `false`.
+
+<a name="showing"></a>
+## Showing/Hiding the SidePane
+
+The SidePane is not visible by default. Use the ``show`` method to open it and the ``hide`` method to close it.
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/z8Vj9/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="styling"></a>
 ## Element Styling
