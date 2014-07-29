@@ -22,7 +22,7 @@ The `StarRating` widget is a form field, which means that when included in an HT
 
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
