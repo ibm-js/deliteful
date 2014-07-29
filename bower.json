@@ -3,8 +3,8 @@
 	"version": "0.1.5-dev",
 	"dependencies": {
 		"dcl": "1.1.x",
-		"decor": "0.1.0-dev",
-		"delite": "0.1.10-dev",
+		"decor": "0.2.0-beta",
+		"delite": "0.2.0-beta",
 		"dojo": ">=1.9.1",
 		"dpointer": "0.1.x",
 		"ecma402": "0.2.x",
