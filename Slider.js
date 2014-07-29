@@ -374,7 +374,7 @@ define([
 				// apply default tabIndex in case the app doesn't specific tabindex explicitly
 				this.notifyCurrentValue("tabIndex");
 
-				if (!isNaN(parseFloat(this.valueNode.value))) { // INPUT value
+				if (this.valueNode.value) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
