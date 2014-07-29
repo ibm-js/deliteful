@@ -185,7 +185,7 @@ define([
 					if (this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							this._setAfterTransitionHandlers(nextElement, {node: nextElement});
+							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
 						}
 					} else {
 						this._setAfterTransitionHandlers(this, {node: this}, deferred);
