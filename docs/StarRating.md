@@ -168,4 +168,4 @@ This widget has no specific security concern. Refer to [`delite/FormValueWidget`
 
 ### Browser Support
 
-This widget supports all supported browsers without any degrated behavior.
+This widget supports all supported browsers without any degraded behavior.
