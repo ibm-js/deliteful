@@ -17,7 +17,7 @@ The children of a ``deliteful/LinearLayout`` container can be laid out horizonta
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -83,27 +83,34 @@ These constraints can be mixed together for children of the same container.
 
 ![LinearLayout example](images/LinearLayout.png)
 
-[JSFiddle Example](http://jsfiddle.net/ibmjs/CcbY6/)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/CcbY6/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/CcbY6/">checkout the sample on JSFiddle</a></iframe>
 
 ### Setting the *cross* size of children
 
 If nothing specified, a child fill its parent in the *cross* direction. If the *cross* size of the LinearLayout is set, you can specify a percentage size for the cross size of children.
 The *cross* size of a child can be also a fixed size.
 
-[JSFiddle Example](http://jsfiddle.net/ibmjs/Trz2m/)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/Trz2m/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/Trz2m/">checkout the sample on JSFiddle</a></iframe>
 
 ### Nesting LinearLayout containers
 
 Nesting LinearLayout instances can be used to build layouts in two dimensions.
 
-[JSFiddle Example](http://jsfiddle.net/ibmjs/PY6Lz/)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/PY6Lz/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/PY6Lz/">checkout the sample on JSFiddle</a></iframe>
 
 ### Getting the sub-child of a LinearLayout to fill 100%
 
 If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` on a LinearLayout sub-child, its size in the cross direction is not stretched to 100%. You must add ``position: absolute`` on the sub-child.
 
-[JSFiddle Example](http://jsfiddle.net/ibmjs/aYj4A/)
-
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/aYj4A/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="styling"></a>
 ## Element Styling

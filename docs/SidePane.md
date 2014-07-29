@@ -17,14 +17,12 @@ title: deliteful/SidePane
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
 [User Interactions](#interactions)  
-[Mixins](#mixins)  
-[Element Events](#events)  
 [Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -55,7 +53,7 @@ require(["deliteful/SidePane", "requirejs-domready/domReady!"], function (SidePa
 });
 ```
 
-
+<a name="configuration"></a>
 ## Element Configuration
 
 This widget must be a sibling of html's body element.
@@ -106,7 +104,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl`on
 
 ### Security
 
-This widget has no specific security concern. Refer to `delite/Widget` documentation for general security advice on this base class that `deliteful/SidePane` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class that `deliteful/SidePane` is using.
 
 ### Browser Support
 

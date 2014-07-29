@@ -15,6 +15,7 @@ By default, the widget creates its own local observable memory store, accessible
 Items rendererd by the list are standard javascript object. The list delegates the rendering of its items to an _item renderer_ widget.
 
 The default item renderer implementation renders objects that defines any of the following properties:
+
 * `label`: the label of the item, displayed on the left (or on the right if direction is right to left)
 * `righttext`: a text to display on the right (or on the left if direction is right to left)
 * `iconclass`: css class to apply to a div before the label in order to display an icon
@@ -27,6 +28,7 @@ Here is a screenshot of a list that displays items using the default renderer:
 Any [custom item renderer](#customRenderers) can be specified  using the `itemRenderer` property of the widget.
 
 The widget also provides the following capabilities:
+
 * List items can be grouped into categories (see [Categorized items](#categories));
 * List items can be selectable (see [Selection support](#selection));
 * For maximum flexibility, both `grid` and `listbox` WAI-ARIA roles are supported (see [Accessibility](#accessibility)).
@@ -112,7 +114,7 @@ to `"none"` in order to remove the default scrolling capability.
 <a name="store"></a>
 ### Store capabilities
 
-If the store the items are retrieved from is [observable](), the widget will react to addition,
+If the store the items are retrieved from is observable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
 deletion, move and update of the store content and refresh its rendering accordingly.
 
 If you do not specify which store to retrieve the items from, the widget creates a default
@@ -157,7 +159,7 @@ example:
 
 _Note that items are appended to the store in the order they are declared in the JSON markup._
 
-Because the List widget inherit from [delite/StoreMap](), you can redefine at will the mapping between
+Because the List widget inherit from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), you can redefine at will the mapping between
 your store items and the ones expected by the renderer using mapping attributes and functions, as in the following example:
 
 ```js
@@ -182,9 +184,9 @@ require([
 });
 ```
 
-See the [delite/StoreMap]() documentation for more information about all the available mapping options.
+See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more information about all the available mapping options.
 
-If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [delite/Store]()),
+If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [`delite/Store`](/delite/docs/master/Store.md)),
 be aware that your custom implementation of the method MUST return items that have the same identity than the corresponding store items, as the List
 is relying on it.
 
@@ -229,7 +231,7 @@ list.store.add({label: "second item", category: "Category A"});
 list.store.add({label: "third item", category: "Category B"});
 ```
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/7Yr6E/embedded/result,js">
 <a href="http://jsfiddle.net/ibmjs/7Yr6E/">checkout the sample on JSFiddle</a></iframe>
 
@@ -255,7 +257,7 @@ using the `categoryRenderer` property of the list (see the [custom renderers](#c
 
 ![Multiple Selectable Items Example](images/Selectable.png)
 
-The list uses the [delite/Selection]() mixin to provide support for selectable items. By default, items
+The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. By default, items
 in the list are not selectable, but you can change this behaviour using the `selectionMode` property
 of the widget:
 
@@ -290,7 +292,7 @@ If the rendered item have actionable / keyboard navigable nodes, those are set u
 
 Here are is an example of custom item renderer that illustrate these concepts:
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/36XDP">checkout the sample on JSFiddle</a></iframe>
 
@@ -304,7 +306,7 @@ A custom category renderer is similar to a custom item renderer, except that it 
 
 Here are is an example of custom category renderer:
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/s5sMq">checkout the sample on JSFiddle</a></iframe>
 
@@ -379,6 +381,7 @@ When a category has the focus, the style of the cell in which it is rendered can
 ### Selection Styling
 
 Depending on the `selectionMode` property value, the following CSS classes are added to the list:
+
 * `d-selectable` when `selectionMode` is `single`;
 * `d-multiselectable` when `selectionMode` is `multiple`.
 
@@ -400,7 +403,7 @@ The style of a selected item can be customized using the following css:
 
 To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/NB5u7">checkout the sample on JSFiddle</a></iframe>
 
@@ -491,7 +494,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to `delite/Widget` and `delite/StoreMap` documentation for general security advice on this base class and mixin that this widget is using.
+This widget has no specific security concern. Refer to  [`delite/Widget`](/delite/docs/master/Widget.md)  and  [`delite/StoreMap`](/delite/docs/master/StoreMap.md) for general security advice on this base class and mixin that this widget is using.
 
 ### Browser Support
 

@@ -22,15 +22,15 @@ customized. ProgressBar theme style typically defines a looping animation to hig
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
-[Element Styling](#styling)
-[Element Events](#events)
-[Enteprise Use](#enterprise)
+[Element Styling](#styling)  
+[Element Events](#events)  
+[Enteprise Use](#enterprise)  
 [See also](#seealso)
 
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -81,8 +81,8 @@ ongoing task.
 - Set `value = NaN` to make the progress bar indeterminate.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/58rt6/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/58rt6/">checkout the sample on JSFiddle</a></iframe>
+src="http://jsfiddle.net/ibmjs/B3bZY/embedded/result,html,js">
+<a href="http://jsfiddle.net/ibmjs/B3bZY/">checkout the sample on JSFiddle</a></iframe>
 
 ### Default message
 The default behavior of ProgressBar is to  displays the percentage of completion when the state is determinate, 
@@ -90,29 +90,30 @@ and to display no message when state is indeterminate.
 
 The property `fractionDigits` allows to specify the number of fraction digits to display.
 
-TODO: add JSFIDDLE (FractionDigit)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/5jwcv/embedded/result,html,js">
+<a href="http://jsfiddle.net/ibmjs/5jwcv/">checkout the sample on JSFiddle</a></iframe>
 
 ### Static custom message
 Set the `message` property with a non-empty string to use a custom message.
 
-TODO: add JSFIDDLE (set message)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/fgr8X/embedded/result,html,js">
+<a href="http://jsfiddle.net/ibmjs/fgr8X/">checkout the sample on JSFiddle</a></iframe>
 
 ### Dynamic custom message
 You can override the method `formatMessage()` to generate a dynamic custom message.
 
-TODO: add JSFIDDLE (override formatMessage)
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/3Mtdh/embedded/result,html,js">
+<a href="http://jsfiddle.net/ibmjs/3Mtdh/">checkout the sample on JSFiddle</a></iframe>
 
 ### Additional message
 Depending on the theme, an additional message may be displayed. For themes that display both messages, typically 
 message is on one side and the additional message is on the other side. 
 
-TODO: add image to illustrate additional message.
-
 You can override the method `formatExtMsg()` to customize this additional message. It will be visible only on
 supported themes.
-
-TODO: add JSFIDDLE (force theme to ios and note NOT to use FF)
-
 
 <a name="styling"></a>
 ## Element Styling
@@ -146,8 +147,8 @@ ProgressBar provides a set of CSS classes with predefined colors:
 ![ProgressBar Holodark](images/ProgressBar6.png)
 
 <iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/WALnB/embedded/result,html">
-<a href="http://jsfiddle.net/ibmjs/WALnB/">checkout the sample on JSFiddle</a></iframe>
+src="http://jsfiddle.net/ibmjs/44Zz3/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/44Zz3/">checkout the sample on JSFiddle</a></iframe>
 
 ### Customizing the size
 Default widget size is 100% of its container. You may use the `width` standard CSS properties to specify the width. 
@@ -161,18 +162,9 @@ Default widget size is 100% of its container. You may use the `width` standard C
 Due to the nature of ProgressBar, and to ensure it will adapt nicely whatever the theme, it is recommended to rely 
 on `font-size` CSS property to act on the progress bar height.
 
-TODO: add JSFIDDLE (font-size)
-
-*Example of ProgressIndicator which fills its container*
-
-```html
-<d-progress-indicator style="width: 100%; height: 100%"></d-progress-indicator>
-```
 <iframe width="100%" height="150" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/qhSdW/embedded/result,html">
-<a href="http://jsfiddle.net/ibmjs/qhSdW/WALnB/">checkout the sample on JSFiddle</a></iframe>
-
-Note the the text size automatically stretch/expand itself, so you do not have to set/change the font size.
+src="http://jsfiddle.net/ibmjs/8HzDE/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/8HzDE/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="events"></a>
 ## Element Events
