@@ -126,6 +126,7 @@ src="http://jsfiddle.net/ibmjs/8mRrs/embedded/result,js,html">
 <a name="configuration"></a>
 ## Element Configuration
 
+<a name="placement"></a>
 ### Placement of the toaster
 
 The Toaster widget has a `placement` property which will determine where the
@@ -216,7 +217,7 @@ However, if set to `-1` the message will remain visible until the user
 explicitly dismisses it (by clicking the dismiss button or swiping it out of the screen).
 
 NB: if `duration` is set to `-1` and `dismissible` to `false`, you'll obtain a persistent message
-which your user has no way to dismiss &mdash; probably not ideal from
+which your user has no way to dismiss - probably not ideal from
 a user experience perspective.
 
 ```js
@@ -319,7 +320,74 @@ This widget provides default styling for the following delite themes:
 * ios
 * holodark
 
+### CSS classes
 
+- *Placement of the Toaster*  
+all placement classes `d-toaster-placement-*` are documented in this [section](#placement).
+```less
+.d-toaster-placement-default .d-toaster-inner {
+	left: 20%;
+	bottom: 10%;
+	width: 60%;
+}
+```
+
+- *Message types*  
+there is one class for each message type allowed.
+```less
+.d-toaster-type-error {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #31708f;
+}
+.d-toaster-type-info    {...}
+.d-toaster-type-warning {...}
+.d-toaster-type-success {...}
+```
+
+- *The dismiss button*  
+this class allows to set its position and any property a button can take.
+Use the `content` property to change the character used to represent the button.
+	
+```less
+.d-toaster-dismiss {...}
+
+.d-toaster-dismiss:before {
+	content: "×";
+}
+```
+
+- *Entering/Leaving animations*  
+Regarding the animations used by default when a message enters/leavers the screen. Though you can easily override 
+theses classes, it is probably better to define your own and set your instance of Toaster to use them 
+see [configuration section)(#animations).
+```less
+.d-toaster-initial { // sets the initial state
+	opacity: 0;
+	transition-property: opacity;
+	transition-timing-function: linear;
+}
+
+.d-toaster-fadein {
+	opacity: 1;
+	transition-duration: 700ms
+}
+
+.d-toaster-fadeout {
+	opacity: 0;
+	transition-duration: 1000ms
+}
+```
+Regarding the swipe-to-dismiss animation, it is controlled by:
+```less
+.d-toaster-swipeout {
+	animation-name: d-toaster-swipeout; /* you can reference here your own @keyframes */
+	animation-timing-function: linear;
+	animation-duration: 700ms;
+	animation-fill-mode: both;
+	/* omitting their -webkit- prefixed equivalent */
+}
+```
 <a name="interactions"></a>
 ## User interaction
 
@@ -328,7 +396,7 @@ A user can dismiss a message either by clicking on the dismiss button, or swipin
 
 You can control this through the `dismissible` property.
 
-You can call `ToasterMessage.dismiss()` anytime to dismiss a message &mdash; regardless of the fact that
+You can call `ToasterMessage.dismiss()` anytime to dismiss a message - regardless of the fact that
 the `dismissible` property was set to `"on"` or `"off"`. The message will enter the hidden state and disappear from the screen.
 This is the very same method called after a swipe is detected or the dismiss button is clicked.
 
