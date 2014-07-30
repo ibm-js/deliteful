@@ -340,7 +340,9 @@ define(["intern!object",
 			.elementById("submitButton")
 			.click()
 			.end()
-			.waitForElementById("parameters", WAIT_TIMEOUT_MS)
+			.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
+			.elementById("parameters")
+			.setImplicitWaitTimeout(0)
 			.end()
 			.then(function () {
 				// Safari driver does not support the back method
@@ -358,7 +360,9 @@ define(["intern!object",
 						.elementById("submitButton")
 						.click()
 						.end()
-						.waitForElementById("parameters", WAIT_TIMEOUT_MS)
+						.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
+						.elementById("parameters", WAIT_TIMEOUT_MS)
+						.setImplicitWaitTimeout(0)
 						.end()
 						.then(function () {
 							return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
@@ -384,7 +388,9 @@ define(["intern!object",
 			.elementById("submitButton")
 			.click()
 			.end()
-			.waitForElementById("parameters", WAIT_TIMEOUT_MS)
+			.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
+			.elementById("parameters", WAIT_TIMEOUT_MS)
+			.setImplicitWaitTimeout(0)
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);
