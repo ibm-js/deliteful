@@ -52,7 +52,7 @@
   bottom: 0;
 }
 button.d-toaster-dismiss:before {
-  content: "×";
+  content: "\00D7";
 }
 button.d-toaster-dismiss {
   padding: 0;
