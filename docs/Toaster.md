@@ -430,8 +430,8 @@ Nothing in particular here.
 
 ## Security
 
-This widget as no specific security concern. Refers to [`delite/Widget`](/delite/docs/master/Widget.md) for general
-security advices on this base class.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general
+security advice on this base class.
 
 ## Browser Support
 
