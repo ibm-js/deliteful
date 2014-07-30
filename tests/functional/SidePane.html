@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Side Pane Push Mode</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/SidePane",
+			"deliteful/Button",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function(register){
+			register.parse();
+			ready = true;
+		});
+	</script>
+</head>
+<body id="page">
+<d-side-pane id="sp">
+	<div style="background-color: #088eef">SidePane</div>
+	<div style="background-color: #0869c6">Push</div>
+	<div style="background-color: #3578b1">Mode</div>
+</d-side-pane>
+<div style="width: 100%; height: 100%; background-color: #7a9de9">
+	<div style="width: 100%; text-align: center">
+		<button is="d-button" id="showButton" onclick="sp.show()">Open</button>
+		<button is="d-button" id="hideButton" onclick="sp.hide()">Close</button>
+	</div>
+</div>
+</body>
+</html>
