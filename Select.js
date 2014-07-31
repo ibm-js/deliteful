@@ -33,7 +33,7 @@ define([
 	 * 
 	 * @example <caption>Using the default store</caption>
 	 * JS:
-	 * require("delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
+	 * require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
 	 *   function (register) {
 	 *     register.parse();
 	 *     select1.store.add({text: "Option 1", value: "1"});
@@ -43,7 +43,7 @@ define([
 	 * <d-select id="select1"></d-select>
 	 * @example <caption>Using user's store</caption>
 	 * JS:
-	 * require("delite/register", "dstore/Memory", "dstore/Observable",
+	 * require(["delite/register", "dstore/Memory", "dstore/Observable",
 	 *         "deliteful/Select", "requirejs-domready/domReady!"],
 	 *   function (register, Memory, Observable) {
 	 *     register.parse();
