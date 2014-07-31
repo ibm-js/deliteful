@@ -10,6 +10,7 @@ title: deliteful/ViewStack
 This container supports 8 transition types: `slide`, `slidev`, `reveal`, `revealv`, `cover`, `coverv`, `fade`, `flip`.
 
 Some of the transition types are described in the following picture:
+
  1. Slide
  2. Reveal
  3. Flip
@@ -26,7 +27,7 @@ Some of the transition types are described in the following picture:
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -66,19 +67,20 @@ require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function (ViewS
 
 The ViewStack container include by default 2 transition types: "slide" and "reveal". To use another transition type, you must require it:
 Example: Load all additional transition types
-```
+
+```js
 require(["delite/css!deliteful/ViewStack/transitions/cover.css",
 "delite/css!deliteful/ViewStack/transitions/coverv.css",
 "delite/css!deliteful/ViewStack/transitions/fade.css",
 "delite/css!deliteful/ViewStack/transitions/flip.css",
 "delite/css!deliteful/ViewStack/transitions/slidev.css",
 "delite/css!deliteful/ViewStack/transitions/revealv.css"],...);
-
 ```
 
+<a name="configuration"></a>
 ## Element Configuration
 
-`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/DisplayContainer) documentation.
+`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/master/DisplayContainer.md) documentation.
 
 ### Displaying a child
 
@@ -101,6 +103,7 @@ Set `transition` to `"none"` for disabling animated transition.
 If `show` method is called without a second argument, the transition is controlled by the `transition` and `reverse` properties.
 Default values are `{transition: "slide", reverse: false}`.
 
+<a name="styling"></a>
 ## Element Styling
 
 `deliteful/ViewStack` has no visual appearance, it does not provide any CSS class for styling.
@@ -132,7 +135,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl` o
 
 ### Security
 
-This widget has no specific security concern. Refer to `delite/Widget` documentation for general security advice on this base class that `deliteful/ViewStack` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class that `deliteful/ViewStack` is using.
 
 ### Browser Support
 

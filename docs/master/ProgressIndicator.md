@@ -28,7 +28,7 @@ progression.
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -109,7 +109,7 @@ structure of the widget declared in its template `deliteful/ProgressIndicator/Pr
 |d-progress-indicator-lines|the child node which declare the 12 lines of the ProgressIndicator| 
 
 ### Customizing the colors
-Here is an example that shows how to set the lines in red and the text in blue:
+Here is an example that shows how to set the lines and the text in red:
 
 ```html
 <html>
@@ -118,11 +118,11 @@ Here is an example that shows how to set the lines in red and the text in blue:
 ```
 
 ```css
-#pi > .d-progress-indicator-lines {
+#pi .d-progress-indicator-lines {
   stroke: red;
 }
-#pi > .d-progress-indicator text {
-  fill: blue;
+#pi.d-progress-indicator text {
+  fill: red;
 }
 ```
 

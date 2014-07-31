@@ -15,16 +15,15 @@ title: deliteful/SidePane
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
+[Showing/Hiding the SidePane](#showing)
 [Element Styling](#styling)  
 [User Interactions](#interactions)  
-[Mixins](#mixins)  
-[Element Events](#events)  
 [Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/Widget) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -44,7 +43,7 @@ require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"
   </div>
 </html>
 ```
-
+<a name="instantiation"></a>
 ### Programmatic Instantiation
 
 ```js
@@ -55,16 +54,25 @@ require(["deliteful/SidePane", "requirejs-domready/domReady!"], function (SidePa
 });
 ```
 
-
+<a name="configuration"></a>
 ## Element Configuration
 
 This widget must be a sibling of html's body element.
 
 The `position` attribute can be `start` or `end` which means left or right respectively in LTR mode. The resulting left or right position of the pane depends on the globalization configuration. See [Enteprise Use](#enterprise) for more informations.
 
-If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [LINK TO THEME GEN DOC].
+If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [Delite themes](http://ibm-js.github.io/delite/docs/master/themes.html).
 
 For disabling sliding animated transition, set `animate` attribute to `false`.
+
+<a name="showing"></a>
+## Showing/Hiding the SidePane
+
+The SidePane is not visible by default. Use the ``show`` method to open it and the ``hide`` method to close it.
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/z8Vj9/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="styling"></a>
 ## Element Styling
@@ -106,7 +114,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl`on
 
 ### Security
 
-This widget has no specific security concern. Refer to `delite/Widget` documentation for general security advice on this base class that `deliteful/SidePane` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class that `deliteful/SidePane` is using.
 
 ### Browser Support
 

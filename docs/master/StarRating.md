@@ -20,9 +20,10 @@ The `StarRating` widget is a form field, which means that when included in an HT
 [Element Events](#events)  
 [Enterprise Use](#enterprise)
 
+<a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -55,7 +56,7 @@ Here is an example of a `StarRating` widget included in a form, under the name _
 
 ```html
 <form action="...">
-	<label for="input1">Rating:</label><d-star-rating id="input1" name="rating" value="4"></d-star-rating>
+	<span id="lb1">Rating:</span><d-star-rating id="input1" name="rating" value="4" aria-labelledby="lb1"></d-star-rating>
 	<input type="submit">
 </form>
 ```
@@ -110,7 +111,7 @@ The stars displayed can be fully customized by using the following CSS selectors
 
 It is also possible to use an image stripes to render the stars, using a few more CSS selectors, as demonstrated in the following sample:
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/3eu6v/embedded/result,html,js,css">
 <a href="http://jsfiddle.net/ibmjs/3eu6v/">checkout the sample on JSFiddle</a></iframe>
 
@@ -147,6 +148,7 @@ It is keyboard navigable: unless it is read only, its value can be edited using 
 #### Limitation when using Apple VoiceOver
 
 When a `deliteful/StarRating` widget is selected in Safari while VoiceOver is on:
+
 * The rating value is announced as a percentage instead as a number of stars ;
 *  VoiceOver announce that the widget value can be adjusted by swiping up or down, but this is not the case. To edit the widget value,
 you must double tap the widget and keep pressing. When VoiceOver announce that the widget is _editable_, you can adjust the value by
@@ -162,8 +164,8 @@ Right to left orientation is supported.
 
 ### Security
 
-This widget has no specific security concern. Refer to `delite/FormValueWidget` documentation for general security advice on this base class.
+This widget has no specific security concern. Refer to [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.md) documentation for general security advice on this base class.
 
 ### Browser Support
 
-This widget supports all supported browsers without any degrated behavior.
+This widget supports all supported browsers without any degraded behavior.
