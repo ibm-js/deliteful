@@ -56,7 +56,7 @@ it avoids having awkward permanent holes in between persistent messages as it en
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle works.
+See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle works.
 
 ### Declarative Instantiation
 
@@ -430,7 +430,7 @@ Nothing in particular here.
 
 ## Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general
 security advice on this base class.
 
 ## Browser Support
