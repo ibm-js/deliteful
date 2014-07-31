@@ -20,5 +20,6 @@ layout: doc
 
 * [LinearLayout](LinearLayout.md)
 * [ScrollableContainer](ScrollableContainer.md)
+* [Select](Select.md)
 * [SidePane](SidePane.md)
 * [ViewStack](ViewStack.md)
