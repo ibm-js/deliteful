@@ -23,7 +23,7 @@ title: deliteful/SidePane
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -101,7 +101,7 @@ Rely on browser.
 
 `deliteful/SidePane` does not provide any internationalizable bundle.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/SidePane` element.
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the `deliteful/SidePane` element.
 
 
 | Globalization Mode | `position` Value | Resulting position |
@@ -114,7 +114,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl`on
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/SidePane` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class that `deliteful/SidePane` is using.
 
 ### Browser Support
 

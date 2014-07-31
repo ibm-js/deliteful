@@ -17,7 +17,7 @@ The children of a ``deliteful/LinearLayout`` container can be laid out horizonta
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -142,7 +142,7 @@ Rely on browser.
 
 `deliteful/LinearLayout` does not provide any internationalizable bundle.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the LinearLayout element:
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the LinearLayout element:
 
 ```html
 <d-linear-layout dir="rtl"></d-linear-layout>

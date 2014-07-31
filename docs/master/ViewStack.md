@@ -27,7 +27,7 @@ Some of the transition types are described in the following picture:
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -80,7 +80,7 @@ require(["delite/css!deliteful/ViewStack/transitions/cover.css",
 <a name="configuration"></a>
 ## Element Configuration
 
-`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/master/DisplayContainer.html) documentation.
+`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/master/DisplayContainer.md) documentation.
 
 ### Displaying a child
 
@@ -135,7 +135,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl` o
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/ViewStack` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class that `deliteful/ViewStack` is using.
 
 ### Browser Support
 

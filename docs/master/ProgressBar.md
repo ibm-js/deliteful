@@ -30,7 +30,7 @@ customized. ProgressBar theme style typically defines a looping animation to hig
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -146,7 +146,7 @@ ProgressBar provides a set of CSS classes with predefined colors:
 ![ProgressBar iOS](images/ProgressBar5.png)
 ![ProgressBar Holodark](images/ProgressBar6.png)
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/44Zz3/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/44Zz3/">checkout the sample on JSFiddle</a></iframe>
 

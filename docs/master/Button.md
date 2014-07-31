@@ -21,7 +21,7 @@ The `deliteful/Button` widget is a push button that can display a label and / or
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -114,7 +114,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.html) documentation for general security advice on this base class.
+This widget has no specific security concern. Refer to [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.md) documentation for general security advice on this base class.
 
 ### Browser Support
 
