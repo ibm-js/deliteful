@@ -45,7 +45,7 @@ The widget also provides the following capabilities:
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -159,7 +159,7 @@ example:
 
 _Note that items are appended to the store in the order they are declared in the JSON markup._
 
-Because the List widget inherit from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), you can redefine at will the mapping between
+Because the List widget inherit from [`delite/StoreMap`](/delite/docs/master/StoreMap.html), you can redefine at will the mapping between
 your store items and the ones expected by the renderer using mapping attributes and functions, as in the following example:
 
 ```js
@@ -184,9 +184,9 @@ require([
 });
 ```
 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more information about all the available mapping options.
+See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for more information about all the available mapping options.
 
-If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [`delite/Store`](/delite/docs/master/Store.md)),
+If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [`delite/Store`](/delite/docs/master/Store.html)),
 be aware that your custom implementation of the method MUST return items that have the same identity than the corresponding store items, as the List
 is relying on it.
 
@@ -257,7 +257,7 @@ using the `categoryRenderer` property of the list (see the [custom renderers](#c
 
 ![Multiple Selectable Items Example](images/Selectable.png)
 
-The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. By default, items
+The list uses the [delite/Selection](/delite/docs/master/Selection.html) mixin to provide support for selectable items. By default, items
 in the list are not selectable, but you can change this behaviour using the `selectionMode` property
 of the widget:
 
@@ -494,7 +494,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to  [`delite/Widget`](/delite/docs/master/Widget.md)  and  [`delite/StoreMap`](/delite/docs/master/StoreMap.md) for general security advice on this base class and mixin that this widget is using.
+This widget has no specific security concern. Refer to  [`delite/Widget`](/delite/docs/master/Widget.html)  and  [`delite/StoreMap`](/delite/docs/master/StoreMap.html) for general security advice on this base class and mixin that this widget is using.
 
 ### Browser Support
 
