@@ -101,7 +101,7 @@ Rely on browser.
 
 `deliteful/SidePane` does not provide any internationalizable bundle.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the `deliteful/SidePane` element.
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the `deliteful/SidePane` element.
 
 
 | Globalization Mode | `position` Value | Resulting position |

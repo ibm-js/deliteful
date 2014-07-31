@@ -137,7 +137,7 @@ native [HTML5 select element](http://www.w3.org/TR/html5/forms.html#the-select-e
 `deliteful/Select` does not provide any internationalizable bundle. The only strings displayed 
 by the widget are coming from the user data through the store from which the options are retrieved.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
 widget.
 
 ### Security

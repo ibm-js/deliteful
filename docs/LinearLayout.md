@@ -142,7 +142,7 @@ Rely on browser.
 
 `deliteful/LinearLayout` does not provide any internationalizable bundle.
 
-Right to left orientation is supported by setting the `dir` attribute to `rtl`on the LinearLayout element:
+Right to left orientation is supported by setting the `dir` attribute to `rtl` on the LinearLayout element:
 
 ```html
 <d-linear-layout dir="rtl"></d-linear-layout>
