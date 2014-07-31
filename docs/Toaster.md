@@ -1,4 +1,4 @@
---- 
+---
 layout: default
 title: deliteful/Toaster
 ---
@@ -56,7 +56,7 @@ it avoids having awkward permanent holes in between persistent messages as it en
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle works.
+See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle works.
 
 ### Declarative Instantiation
 
@@ -122,6 +122,7 @@ require([
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/8mRrs/embedded/result,js,html">
 <a href="http://jsfiddle.net/ibmjs/8mRrs/">checkout the sample on JSFiddle</a></iframe>
+
 
 <a name="configuration"></a>
 ## Element Configuration
@@ -324,7 +325,7 @@ This widget provides default styling for the following delite themes:
 
 - *Placement of the Toaster*  
 all placement classes `d-toaster-placement-*` are documented in this [section](#placement).
-```less
+```css
 .d-toaster-placement-default .d-toaster-inner {
 	left: 20%;
 	bottom: 10%;
@@ -334,7 +335,8 @@ all placement classes `d-toaster-placement-*` are documented in this [section](#
 
 - *Message types*  
 there is one class for each message type allowed.
-```less
+
+```css
 .d-toaster-type-error {
 	background-color: #d9edf7;
 	border-color: #bce8f1;
@@ -349,7 +351,7 @@ there is one class for each message type allowed.
 this class allows to set its position and any property a button can take.
 Use the `content` property to change the character used to represent the button.
 	
-```less
+```css
 .d-toaster-dismiss {...}
 
 .d-toaster-dismiss:before {
@@ -357,11 +359,13 @@ Use the `content` property to change the character used to represent the button.
 }
 ```
 
+
 - *Entering/Leaving animations*  
 Regarding the animations used by default when a message enters/leavers the screen. Though you can easily override 
 theses classes, it is probably better to define your own and set your instance of Toaster to use them 
 see [configuration section)(#animations).
-```less
+
+```css
 .d-toaster-initial { // sets the initial state
 	opacity: 0;
 	transition-property: opacity;
@@ -378,8 +382,10 @@ see [configuration section)(#animations).
 	transition-duration: 1000ms
 }
 ```
+
 Regarding the swipe-to-dismiss animation, it is controlled by:
-```less
+
+```css
 .d-toaster-swipeout {
 	animation-name: d-toaster-swipeout; /* you can reference here your own @keyframes */
 	animation-timing-function: linear;
@@ -388,6 +394,7 @@ Regarding the swipe-to-dismiss animation, it is controlled by:
 	/* omitting their -webkit- prefixed equivalent */
 }
 ```
+
 <a name="interactions"></a>
 ## User interaction
 
@@ -407,7 +414,6 @@ var m = new ToasterMessage({message: "content of my message", dismissible: "off"
 ...
 m.dismiss("slide-out");
 ```
-
 <a name="events"></a>
 ## Element Events
 |event name|dispatched|cancelable|bubbles|properties|
@@ -428,9 +434,10 @@ m.dismiss("slide-out");
 ### Globalization
 Nothing in particular here.
 
+
 ## Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general
 security advice on this base class.
 
 ## Browser Support
