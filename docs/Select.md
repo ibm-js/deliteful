@@ -13,9 +13,6 @@ title: deliteful/Select
 [Element Instantiation ](#instantiation)  
 [Using Select](#using)  
 [Element Styling](#styling)  
-[User Interactions](#interactions)  
-[Events](#events)  
-[Extending Select](#extending)  
 [Enterprise Use](#enterprise)
 
 
