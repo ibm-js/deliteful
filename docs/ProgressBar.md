@@ -146,7 +146,7 @@ ProgressBar provides a set of CSS classes with predefined colors:
 ![ProgressBar iOS](images/ProgressBar5.png)
 ![ProgressBar Holodark](images/ProgressBar6.png)
 
-<iframe width="100%" height="100" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/44Zz3/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/44Zz3/">checkout the sample on JSFiddle</a></iframe>
 
