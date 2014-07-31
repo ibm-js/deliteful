@@ -8,11 +8,11 @@ define([
 	/**
 	 * A container widget with scrolling capabilities.
 	 * 
-	 * This widget which can scroll its contents horizontally and/or
-	 * vertically. Its scrolling capabilities and API are provided by its parent
-	 * class delite/Scrollable.
+	 * This widget can scroll its contents horizontally and/or vertically. 
+	 * Its scrolling capabilities and API are provided by its parent class
+	 * `delite/Scrollable`.
 	 * @example
-	 * <d-scrollable-container>
+	 * <d-scrollable-container scrollDirection="horizontal">
 	 *   <div>...</div>
 	 *   <div>...</div>
 	 * </d-scrollable-container>
