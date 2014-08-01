@@ -8,13 +8,12 @@ title: deliteful/ScrollableContainer
 `deliteful/ScrollableContainer` is a container widget with scrolling capabilities.
 This widget which can scroll its contents horizontally and/or vertically. 
 Its scrolling capabilities and API are provided by its parent class 
-[`delite/Scrollable`](/delite/docs/master/Scrollable.md). 
+[`delite/Scrollable`](/delite/docs/master/Scrollable.md).
 
-By default, the scrolling capabilities are added to the widget's root node
-(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
-can chose the node thanks to the property `scrollableNode`.
-This property must be set by the subclass at latest in its `buildRendering()`
-method.
+*Examples of deliteful/ScrollableContainer on mobile (left) and desktop (right):*
+
+![Example of ScrollableContainer on mobile](images/ScrollableContainer-mobile.png)
+![Example of ScrollableContainer on desktop](images/ScrollableContainer-desktop.png)
 
 ##### Table of Contents
 [Element Instantiation ](#instantiation)  
@@ -78,6 +77,12 @@ require([
 <a name="using"></a>
 ## Using ScrollableContainer
 
+By default, the scrolling capabilities are added to the widget's root node
+(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
+can chose the node thanks to the property `scrollableNode`.
+This property must be set by the subclass at latest in its `buildRendering()`
+method.
+
 ### Scroll Direction
 
 The widget provides several scrolling modes through the `scrollDirection` property.
@@ -115,7 +120,13 @@ responsive manner. For details, see [`Interactions in delite/Scrollable`](/delit
 <a name="extending"></a>
 ## Extending ScrollableContainer
 
-First use-case: creating a widget extending `deliteful/ScrollableContainer`
+By default, the scrolling capabilities are added to the widget's root node
+(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
+can chose the node thanks to the property `scrollableNode`.
+This property must be set by the subclass at latest in its `buildRendering()`
+method.
+
+*First use-case: creating a widget extending `deliteful/ScrollableContainer`*
 
 ```js
 define(["delite/register", "deliteful/ScrollableContainer", ...],
@@ -141,7 +152,7 @@ Characteristics:
 - Fits for widgets with one single scrollable element.
 - Exposes the API of the parent classes, including the scrolling API of `delite/Scrollable`.
 
-Second use-case: creating a widget embedding widgets extending `deliteful/ScrollableContainer`
+*Second use-case: creating a widget embedding widgets extending `deliteful/ScrollableContainer`*
 
 ```js
 define(["delite/register", "deliteful/ScrollableContainer", ...],
