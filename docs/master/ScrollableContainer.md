@@ -8,13 +8,15 @@ title: deliteful/ScrollableContainer
 `deliteful/ScrollableContainer` is a container widget with scrolling capabilities.
 This widget which can scroll its contents horizontally and/or vertically. 
 Its scrolling capabilities and API are provided by its parent class 
-[`delite/Scrollable`](/delite/docs/master/Scrollable.html). 
+[`delite/Scrollable`](/delite/docs/master/Scrollable.md).
 
-By default, the scrolling capabilities are added to the widget's root node
-(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
-can chose the node thanks to the property `scrollableNode`.
-This property must be set by the subclass at latest in its `buildRendering()`
-method.
+*Example of deliteful/ScrollableContainer on mobile:*
+
+![Example of ScrollableContainer on mobile](images/ScrollableContainer-mobile.png)
+
+*Example of deliteful/ScrollableContainer on desktop:*
+
+![Example of ScrollableContainer on desktop](images/ScrollableContainer-desktop.png)
 
 ##### Table of Contents
 [Element Instantiation ](#instantiation)  
@@ -29,7 +31,7 @@ method.
 <a name="instantiation"></a>
 ## Element Instantiation
 
-For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.html).
+For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.md).
 
 ### Declarative Instantiation
 
@@ -49,6 +51,10 @@ require(["delite/register", "deliteful/ScrollableContainer",
   </d-scrollable-container>
 </html>
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/k68f4/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/k68f4/">checkout the sample on JSFiddle</a></iframe>
 
 
 ### Programmatic Instantiation
@@ -75,25 +81,36 @@ require([
 });
 ```
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/RuqVK/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/RuqVK/">checkout the sample on JSFiddle</a></iframe>
+
+
 <a name="using"></a>
 ## Using ScrollableContainer
 
-### Scroll direction
+By default, the scrolling capabilities are added to the widget's root node
+(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
+can chose the node thanks to the property `scrollableNode`.
+This property must be set by the subclass at latest in its `buildRendering()`
+method.
+
+### Scroll Direction
 
 The widget provides several scrolling modes through the `scrollDirection` property.
-For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.html#using).
+For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
 
-### Programmatic scroll
+### Programmatic Scroll
 
 In additional to the interactive scroll, the API of `deliteful/ScrollableContainer` provides methods 
-for programmatic scroll. For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.html#using).
+for programmatic scroll. For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
 
 
 <a name="events"></a>
 ## Element Events
 
 During interactive or programmatic scrolling, native "scroll" events are emitted.
-For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.html#events).
+For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.md#events).
 
 
 <a name="styling"></a>
@@ -101,7 +118,7 @@ For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.
 
 Style is defined by the CSS classes from the themes of the widget.
 In addition to the CSS classes defined by the superclass `delite/Scrollable`
-(see [`Element Styling in delite/Scrollable`](/delite/docs/master/Scrollable.html#styling), 
+(see [`Element Styling in delite/Scrollable`](/delite/docs/master/Scrollable.md#styling), 
 `deliteful/ScrollableContainer` adds an empty marker class `d-scrollable-container`.
 
 
@@ -109,13 +126,19 @@ In addition to the CSS classes defined by the superclass `delite/Scrollable`
 ## User Interactions
 
 The scrolling interaction is handled natively by the browser in a multi-channel 
-responsive manner. For details, see [`Interactions in delite/Scrollable`](/delite/docs/master/Scrollable.html#interactions).
+responsive manner. For details, see [`Interactions in delite/Scrollable`](/delite/docs/master/Scrollable.md#interactions).
 
 
 <a name="extending"></a>
 ## Extending ScrollableContainer
 
-First use-case: creating a widget extending `deliteful/ScrollableContainer`
+By default, the scrolling capabilities are added to the widget's root node
+(that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
+can chose the node thanks to the property `scrollableNode`.
+This property must be set by the subclass at latest in its `buildRendering()`
+method.
+
+*First use-case: creating a widget extending `deliteful/ScrollableContainer`*
 
 ```js
 define(["delite/register", "deliteful/ScrollableContainer", ...],
@@ -141,7 +164,7 @@ Characteristics:
 - Fits for widgets with one single scrollable element.
 - Exposes the API of the parent classes, including the scrolling API of `delite/Scrollable`.
 
-Second use-case: creating a widget embedding widgets extending `deliteful/ScrollableContainer`
+*Second use-case: creating a widget embedding widgets extending `deliteful/ScrollableContainer`*
 
 ```js
 define(["delite/register", "deliteful/ScrollableContainer", ...],
@@ -155,6 +178,7 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
           var scrollableNode =
             // or your own scrollable widget
             new ScrollableContainer(...);
+          scrollableNode.startup();
           ...
           this.appendChild(scrollableNode);
           // If needed, add other scrollable widgets as child elements
@@ -176,4 +200,4 @@ Characteristics:
 `deliteful/ScrollableContainer`'s characteristics in terms of accessibility, 
 globalization, security, and browser support are similar to those of `delite/Scrollable`. 
 For details, see 
-[`Enterprise Use of delite/Scrollable`](/delite/docs/master/Scrollable.html#interactions).
+[`Enterprise Use of delite/Scrollable`](/delite/docs/master/Scrollable.md#interactions).

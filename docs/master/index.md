@@ -4,22 +4,22 @@ layout: doc
 
 ## Basic Widgets
 
-* [Button](Button.html)
-* [ProgressBar](ProgressBar.html)
-* [ProgressIndicator](ProgressIndicator.html)
-* [Slider](Slider.html)
-* [StarRating](StarRating.html)
-* [Toaster](Toaster.html)
+* [Button](Button.md)
+* [ProgressBar](ProgressBar.md)
+* [ProgressIndicator](ProgressIndicator.md)
+* [Slider](Slider.md)
+* [StarRating](StarRating.md)
+* [Toaster](Toaster.md)
 
 ## List
 
-* [List](list/List.html)
-* [PageableList](list/PageableList.html)
+* [List](list/List.md)
+* [PageableList](list/PageableList.md)
 
 ## Containers & Layouts
 
-* [LinearLayout](LinearLayout.html)
-* [ScrollableContainer](ScrollableContainer.html)
-* [Select](Select.html)
-* [SidePane](SidePane.html)
-* [ViewStack](ViewStack.html)
+* [LinearLayout](LinearLayout.md)
+* [ScrollableContainer](ScrollableContainer.md)
+* [Select](Select.md)
+* [SidePane](SidePane.md)
+* [ViewStack](ViewStack.md)
