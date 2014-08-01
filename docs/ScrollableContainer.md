@@ -52,6 +52,10 @@ require(["delite/register", "deliteful/ScrollableContainer",
 </html>
 ```
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/k68f4/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/k68f4/">checkout the sample on JSFiddle</a></iframe>
+
 
 ### Programmatic Instantiation
 
@@ -76,6 +80,11 @@ require([
     });
 });
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/RuqVK/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/RuqVK/">checkout the sample on JSFiddle</a></iframe>
+
 
 <a name="using"></a>
 ## Using ScrollableContainer
@@ -169,6 +178,7 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
           var scrollableNode =
             // or your own scrollable widget
             new ScrollableContainer(...);
+          scrollableNode.startup();
           ...
           this.appendChild(scrollableNode);
           // If needed, add other scrollable widgets as child elements
