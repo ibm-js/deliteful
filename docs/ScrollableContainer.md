@@ -10,9 +10,12 @@ This widget which can scroll its contents horizontally and/or vertically.
 Its scrolling capabilities and API are provided by its parent class 
 [`delite/Scrollable`](/delite/docs/master/Scrollable.md).
 
-*Examples of deliteful/ScrollableContainer on mobile (left) and desktop (right):*
+*Example of deliteful/ScrollableContainer on mobile:*
 
 ![Example of ScrollableContainer on mobile](images/ScrollableContainer-mobile.png)
+
+*Example of deliteful/ScrollableContainer on desktop:*
+
 ![Example of ScrollableContainer on desktop](images/ScrollableContainer-desktop.png)
 
 ##### Table of Contents
