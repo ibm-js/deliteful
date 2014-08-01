@@ -8,6 +8,14 @@ title: deliteful/Select
 `deliteful/Select` is a form-aware and store-aware widget leveraging the native 
 [HTML5 select element](http://www.w3.org/TR/html5/forms.html#the-select-element).
 
+*Example of deliteful/Select (single choice mode):*
+
+![Example of Select (single choice mode)](images/Select-single.png)
+
+*Example of deliteful/Select (multiple choice mode):*
+
+![Example of Select (multiple choice mode)](images/Select-multiple.png)
+
 
 ##### Table of Contents
 [Element Instantiation ](#instantiation)  
