@@ -8,7 +8,7 @@ title: deliteful/ScrollableContainer
 `deliteful/ScrollableContainer` is a container widget with scrolling capabilities.
 This widget which can scroll its contents horizontally and/or vertically. 
 Its scrolling capabilities and API are provided by its parent class 
-[`delite/Scrollable`](/delite/docs/master/Scrollable.md).
+[`delite/Scrollable`](/delite/docs/master/Scrollable.html).
 
 *Example of deliteful/ScrollableContainer on mobile:*
 
@@ -31,7 +31,7 @@ Its scrolling capabilities and API are provided by its parent class
 <a name="instantiation"></a>
 ## Element Instantiation
 
-For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.md).
+For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.html).
 
 ### Declarative Instantiation
 
@@ -98,19 +98,19 @@ method.
 ### Scroll Direction
 
 The widget provides several scrolling modes through the `scrollDirection` property.
-For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
+For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.html#using).
 
 ### Programmatic Scroll
 
 In additional to the interactive scroll, the API of `deliteful/ScrollableContainer` provides methods 
-for programmatic scroll. For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
+for programmatic scroll. For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.html#using).
 
 
 <a name="events"></a>
 ## Element Events
 
 During interactive or programmatic scrolling, native "scroll" events are emitted.
-For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.md#events).
+For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.html#events).
 
 
 <a name="styling"></a>
@@ -118,7 +118,7 @@ For details, see [`Events in delite/Scrollable`](/delite/docs/master/Scrollable.
 
 Style is defined by the CSS classes from the themes of the widget.
 In addition to the CSS classes defined by the superclass `delite/Scrollable`
-(see [`Element Styling in delite/Scrollable`](/delite/docs/master/Scrollable.md#styling), 
+(see [`Element Styling in delite/Scrollable`](/delite/docs/master/Scrollable.html#styling), 
 `deliteful/ScrollableContainer` adds an empty marker class `d-scrollable-container`.
 
 
@@ -126,7 +126,7 @@ In addition to the CSS classes defined by the superclass `delite/Scrollable`
 ## User Interactions
 
 The scrolling interaction is handled natively by the browser in a multi-channel 
-responsive manner. For details, see [`Interactions in delite/Scrollable`](/delite/docs/master/Scrollable.md#interactions).
+responsive manner. For details, see [`Interactions in delite/Scrollable`](/delite/docs/master/Scrollable.html#interactions).
 
 
 <a name="extending"></a>
@@ -200,4 +200,4 @@ Characteristics:
 `deliteful/ScrollableContainer`'s characteristics in terms of accessibility, 
 globalization, security, and browser support are similar to those of `delite/Scrollable`. 
 For details, see 
-[`Enterprise Use of delite/Scrollable`](/delite/docs/master/Scrollable.md#interactions).
+[`Enterprise Use of delite/Scrollable`](/delite/docs/master/Scrollable.html#interactions).

@@ -27,7 +27,7 @@ title: deliteful/Select
 <a name="instantiation"></a>
 ## Element Instantiation
 
-For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.md).
+For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.html).
 
 ### Declarative Instantiation
 
@@ -131,17 +131,17 @@ src="http://jsfiddle.net/ibmjs/59LP6/embedded/result,js,html">
 
 The widget provides several selection modes through the `selectionMode` property
 inherited from `delite/Selection`.
-For details, see [`Using delite/Selection`](/delite/docs/master/Selection.md#using).
+For details, see [`Using delite/Selection`](/delite/docs/master/Selection.html#using).
 
 Note that `deliteful/Select` only supports for this property the values `single` and
 `multiple`.
 
 ### Attribute Mapping
 
-Because `deliteful/Select` inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), 
+Because `deliteful/Select` inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.html), 
 the mapping between the attributes of the store items and the attributes used by `deliteful/Select`
 can be redefined. 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more information 
+See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for more information 
 about all the available mapping options.
 
 
