@@ -78,12 +78,12 @@ require([
 <a name="using"></a>
 ## Using ScrollableContainer
 
-### Scroll direction
+### Scroll Direction
 
 The widget provides several scrolling modes through the `scrollDirection` property.
 For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
 
-### Programmatic scroll
+### Programmatic Scroll
 
 In additional to the interactive scroll, the API of `deliteful/ScrollableContainer` provides methods 
 for programmatic scroll. For details, see [`Using delite/Scrollable`](/delite/docs/master/Scrollable.md#using).
