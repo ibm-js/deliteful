@@ -76,7 +76,7 @@ require([
 ```
 
 <a name="using"></a>
-## Using Scrollable
+## Using ScrollableContainer
 
 ### Scroll direction
 
@@ -137,8 +137,9 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
 ```
 
 Characteristics:
-* Fits for widgets with one single scrollable element.
-* Exposes the API of the parent classes, including the scrolling API of `delite/Scrollable`.
+
+- Fits for widgets with one single scrollable element.
+- Exposes the API of the parent classes, including the scrolling API of `delite/Scrollable`.
 
 Second use-case: creating a widget embedding widgets extending `deliteful/ScrollableContainer`
 
@@ -164,9 +165,9 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
 ```
 
 Characteristics:
-* Allows a widget to have more than one scrollable element.
-* Allows to hide the API of the parent classes, including the scrolling 
-API of `delite/Scrollable`.
+
+- Allows a widget to have more than one scrollable element.
+- Allows to hide the API of the parent classes, including the scrolling API of `delite/Scrollable`.
 
 
 <a name="enterprise"></a>
