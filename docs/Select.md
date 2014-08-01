@@ -99,7 +99,7 @@ require(["delite/register", "dstore/Memory", "dstore/Observable",
 <a name="using"></a>
 ## Using Select
 
-### Selection mode
+### Selection Mode
 
 The widget provides several selection modes through the `selectionMode` property
 inherited from `delite/Selection`.
@@ -108,7 +108,7 @@ For details, see [`Using delite/Selection`](/delite/docs/master/Selection.md#usi
 Note that `deliteful/Select` only supports for this property the values `single` and
 `multiple`.
 
-### Attribute mapping
+### Attribute Mapping
 
 Because `deliteful/Select` inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), 
 the mapping between the attributes of the store items and the attributes used by `deliteful/Select`
