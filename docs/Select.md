@@ -48,6 +48,11 @@ require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
 </html>
 ```
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/nB8BK/1/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/nB8BK/1/">checkout the sample on JSFiddle</a></iframe>
+
+
 Using user's own store:
 
 ```js
@@ -68,6 +73,10 @@ require(["delite/register", "dstore/Memory", "dstore/Observable",
 </html>
 ```
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/nqM5G/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/nqM5G/">checkout the sample on JSFiddle</a></iframe>
+
 
 ### Programmatic Instantiation
 
@@ -77,14 +86,20 @@ Using the default store:
 require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
-    var select = new Select({selectionMode: "multiple"});
+    var select = new Select({selectionMode: "multiple"}); 
+    select.placeAt(document.body);
+    select.startup(); // must be called before using select.store
+    
     // add options to the Select widget
     select.store.add({text: "Option 1", value: "1"});
-    
-    select.placeAt(document.body);
-    select.startup();
 });
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/8Ccfm/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/8Ccfm/">checkout the sample on JSFiddle</a></iframe>
+
+
 Using user's own store:
 
 ```js
@@ -103,6 +118,11 @@ require(["delite/register", "dstore/Memory", "dstore/Observable",
     select.startup();
 });
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/59LP6/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/59LP6/">checkout the sample on JSFiddle</a></iframe>
+
 
 <a name="using"></a>
 ## Using Select
