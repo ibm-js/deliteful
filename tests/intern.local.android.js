@@ -7,8 +7,8 @@ define([
 	var host = "192.168.0.21";
 
 	intern.tunnel = 'NullTunnel';
-	intern.webdriver = {
-		host: "localhost",
+	intern.tunnelOptions = {
+		hostname: "localhost",
 		port: 4444
 	};
 

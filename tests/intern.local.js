@@ -3,8 +3,8 @@ define([
 	"./intern"
 ], function (intern) {
 	intern.tunnel = 'NullTunnel';
-	intern.webdriver = {
-		host: "localhost",
+	intern.tunnelOptions = {
+		hostname: "localhost",
 		port: 4444
 	};
 
