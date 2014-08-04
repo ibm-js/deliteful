@@ -85,8 +85,9 @@ define([
 					assert.strictEqual(value, expectedValue + " stars", "aria-valuetest");
 				})
 				.end()
-			.execute("return Array.prototype.map.call(" + widgetId + ".getElementsByClassName('d-star-rating-star-icon'), " +
-					"function(elem){ return elem.className; });")
+			.execute("return Array.prototype.map.call(" + widgetId
+					+ ".getElementsByClassName('d-star-rating-star-icon'), "
+					+ "function(elem){ return elem.className; });")
 				.then(function (classNames) {
 					assert.strictEqual(classNames.length, 2 * expectedMax, "# of stars");
 					for (var i = 0; i < 2 * expectedMax; i++) {
