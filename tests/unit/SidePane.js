@@ -5,17 +5,15 @@ define([
 	"dojo/dom-class",
 	"delite/register",
 	"deliteful/SidePane"
-], function (registerSuite, assert, domGeom, domClass, register) {
+], function (registerSuite, assert, domGeom, domClass, register, SidePane) {
 	var container, node;
-	var htmlContent = "<d-side-pane id='sp'><div>SidePane</div></d-side-pane>";
+
 	registerSuite({
 		name: "SidePane Overlay",
 		setup: function () {
-			container = document.createElement("div");
-			document.body.appendChild(container);
-			container.innerHTML = htmlContent;
-			register.parse(container);
-			node = document.getElementById("sp");
+			node = new SidePane();
+			document.body.appendChild(node);
+			register.parse();
 			node.show();
 		},
 		"Default values" : function () {
@@ -70,7 +68,7 @@ define([
 			assert.isTrue(domClass.contains(node, "-d-side-pane-end"));
 		},
 		teardown: function () {
-			container.parentNode.removeChild(container);
+			node.parentNode.removeChild(node);
 		}
 	});
 });

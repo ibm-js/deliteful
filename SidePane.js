@@ -240,7 +240,6 @@ define([
 			},
 
 			buildRendering: function () {
-				this.parentNode.style.overflow = "hidden";
 				pointer.setTouchAction(this, "none");
 				this._resetInteractions();
 			},
@@ -277,6 +276,7 @@ define([
 			},
 
 			refreshRendering: function (props) {
+				this.parentNode.style.overflow = "hidden";
 				if (!("mode" in props || "position" in props || "animate" in props)) {
 					return;
 				}
