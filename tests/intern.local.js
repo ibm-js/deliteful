@@ -9,7 +9,10 @@ define([
 	};
 
 	intern.environments = [
-		{ browserName: "firefox" }
+		{ browserName: "firefox" },
+		{ browserName: "safari" },
+		{ browserName: "chrome" },
+		{ browserName: "internet explorer", requireWindowFocus: "true" }
 	];
 
 	intern.maxConcurrency = 1;
