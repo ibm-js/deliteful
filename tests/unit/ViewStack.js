@@ -168,12 +168,11 @@ define([
 			node.show(ddd, {transition: "revealv", reverse: true});
 		},
 		"Show (fade)" : function () {
-			// TODO: Investigate why this test fail on IE11 despite fade transitions work on this browser.
-			//var d = this.async(1000);
-			//asyncHandler = node.on("delite-after-show", d.callback(function () {
-			//	checkNodeVisibility(node, bbb);
-			//}));
-			//node.show(bbb, {transition: "fade", reverse: false});
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				checkNodeVisibility(node, ccc);
+			}));
+			node.show(ccc, {transition: "fade", reverse: false});
 		},
 		"Show (reverse, slide)" : function () {
 			var d = this.async(1000);
