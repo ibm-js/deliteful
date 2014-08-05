@@ -6,10 +6,10 @@ One goal of the project is to
 [converge the dijit and dojox/mobile widgets](https://docs.google.com/document/d/1_kgrX25ylxuhtZCRrqAoABMaSdgxjAQgpyd0Ap4xvZU/edit#)
 into a single set of components.
 
-Another is to
+Another goal is to
 [build on emerging web standards](https://docs.google.com/document/d/1kqe3Oq7W6lg-JY_iqMl5G7SxGTD0uQ6FFIoP4KPAkUw/edit#heading=h.ct7kwnepj0cc).
 
-The projects only supports modern browsers/platforms: FF24+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+ (BB10+?)
+The project only supports modern browsers/platforms: FF24+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+ (BB10+?)
 
 ## Status
 
