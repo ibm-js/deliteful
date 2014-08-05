@@ -17,7 +17,7 @@ define([
 		function setVisibility(node, val) {
 			if (val) {
 				node.style.visibility = "visible";
-				node.style.display = "";
+				node.style.display = "block";
 			} else {
 				node.style.visibility = "hidden";
 				node.style.display = "none";
@@ -192,7 +192,7 @@ define([
 					}
 
 					if (this.animate) {
-						// This defer should be useless but is needed for Firefox
+						// This defer should be useless but is needed for Firefox, see #25
 						this.defer(function () {this._hideImpl(); }, this._timing);
 					} else {
 						this._hideImpl();
