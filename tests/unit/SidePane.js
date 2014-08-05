@@ -9,7 +9,7 @@ define([
 	var node;
 
 	registerSuite({
-		name: "SidePane Overlay",
+		name: "SidePane",
 		setup: function () {
 			node = new SidePane();
 			document.body.appendChild(node);
