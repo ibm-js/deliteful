@@ -278,7 +278,7 @@ define(["intern!object",
 				.execute("return actionsDurations;") // NOTE: a global variable existing in PAGE
 				.then(function (actions) {
 					return remote
-						.sleep(1)
+						.getCurrentUrl()
 						.then(function () {
 							return checkExpirable(remote, actions["Duration 6000"], 6000);
 						})
@@ -311,7 +311,7 @@ define(["intern!object",
 				.execute("return actionsTypes;") // NOTE: a global variable existing in PAGE
 				.then(function (actions) {
 					remote
-						.sleep(1)
+						.getCurrentUrl()
 						.then(function () {
 							return checkType(remote, actions["Type info"]);
 						})

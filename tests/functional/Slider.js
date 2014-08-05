@@ -2,9 +2,10 @@
  * Slider functional tests
  */
 define(["intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require"
-], function (registerSuite, assert, require) {
+], function (registerSuite, pollUntil, assert, require) {
 	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
 
 	registerSuite({
@@ -19,7 +20,7 @@ define(["intern!object",
 		},
 		"init single slider (value in bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
@@ -27,7 +28,7 @@ define(["intern!object",
 		},
 		"init single slider (value out bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
@@ -35,7 +36,7 @@ define(["intern!object",
 		},
 		"single slider interaction": function () {
 			var remote = this.remote;
-			remote = remote.url();
+			remote = remote.getCurrentUrl();
 			if (hasMoveToIssue(remote)) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
@@ -57,7 +58,7 @@ define(["intern!object",
 		// range
 		"init range slider (default value)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
@@ -66,7 +67,7 @@ define(["intern!object",
 		},
 		"init range slider (value in bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
@@ -75,7 +76,7 @@ define(["intern!object",
 		},
 		"init range slider (value out bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
@@ -84,7 +85,7 @@ define(["intern!object",
 		},
 		"range slider interaction": function () {
 			var remote = this.remote;
-			remote = remote.url();
+			remote = remote.getCurrentUrl();
 			if (hasMoveToIssue(remote)) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
@@ -126,7 +127,7 @@ define(["intern!object",
 		},
 		"init single slider (value in bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
@@ -134,7 +135,7 @@ define(["intern!object",
 		},
 		"init single slider (value out bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
@@ -143,7 +144,7 @@ define(["intern!object",
 
 		"init range slider (default value)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
@@ -152,7 +153,7 @@ define(["intern!object",
 		},
 		"init range slider (value in bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
@@ -161,7 +162,7 @@ define(["intern!object",
 		},
 		"init range slider (value out bound)": function () {
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
@@ -278,14 +279,14 @@ define(["intern!object",
 	}
 
 	function getElementById(remote, elementId) {
-		return remote.elementById(elementId)
+		return remote.findById(elementId)
 			.then(null, function (error) {
 				handleElementNotFound(elementId, error);
 			});
 	}
 
 	function getElementByXPath(remote, xpath) {
-		return remote.elementByXPath(xpath)
+		return remote.findByXpath(xpath)
 			.then(null, function (error) {
 				handleElementNotFound(xpath, error);
 			});
@@ -311,7 +312,7 @@ define(["intern!object",
 	 */
 	function getSliderElementByCss(remote, sliderId, cssClass) {
 		return remote
-			.elementByXPath("//d-slider[@id='" + sliderId + "']" +
+			.findByXpath("//d-slider[@id='" + sliderId + "']" +
 				"//div[contains(concat(' ', normalize-space(@class), ' '), ' " + cssClass + " ')]")
 			.then(null, function (error) {
 				handleElementNotFound("not found: " + sliderId + " > ." + cssClass, error);
@@ -401,7 +402,7 @@ define(["intern!object",
 	function loadTestPage(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.waitForCondition("'ready' in window &&  ready", 10000, 1000)
+			.then(pollUntil("return ('ready' in window &&  ready) ? true : null;", [], 10000, 1000))
 			.then(function () {
 				debugMsg(url + " loaded.");
 				return remote.end();
