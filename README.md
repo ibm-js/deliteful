@@ -62,6 +62,6 @@ Then install dependencies with bower (or manually from github if you prefer to):
 
 ## Documentation
 
-See the [docs directory](./docs) or, preferrably, the
+See the [docs directory](./docs) or, preferably, the
 [documentation site](http://ibm-js.github.io/deliteful/docs/master/index.html).
 
