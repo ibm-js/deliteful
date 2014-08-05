@@ -21,7 +21,8 @@ define(["intern!object",
 			test = test.then(isVisible(element, false));
 
 			return test;
-		},
+		// Interactions tests are broken on Mac and iOS simulators. See #25
+		}/*,
 		"test opening": function () {
 			return this.remote.elementById("showButton").click().end()
 				.wait(800)
@@ -31,7 +32,7 @@ define(["intern!object",
 			return this.remote.elementById("hideButton").click().end()
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), false));
-		}/*,
+		},
 		"test swipe closing": function () {
 			return this.remote.elementById("showButton").click().end().wait(800)
 				.elementById("page").moveTo(30, 300).buttonDown().moveTo(10, 300)
