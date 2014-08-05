@@ -6,7 +6,7 @@ define([
 	"delite/register",
 	"deliteful/SidePane"
 ], function (registerSuite, assert, domGeom, domClass, register, SidePane) {
-	var container, node;
+	var node;
 
 	registerSuite({
 		name: "SidePane Overlay",
