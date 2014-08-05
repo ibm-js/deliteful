@@ -190,10 +190,13 @@ define([
 					} else {
 						this._setAfterTransitionHandlers(this, {node: this}, deferred);
 					}
-					this._hideImpl();
-					if (!this.animate) {
-						this.defer(function () {setVisibility(this, false); deferred.resolve(); }.bind(this),
-							this._timing);
+
+					if (this.animate) {
+						// This defer should be useless but is needed for Firefox
+						this.defer(function () {this._hideImpl(); }, this._timing);
+					} else {
+						this._hideImpl();
+						setVisibility(this, false);
 					}
 				} else {
 					deferred.resolve();
