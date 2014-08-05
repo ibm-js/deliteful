@@ -31,13 +31,13 @@ define(["intern!object",
 			return this.remote.elementById("hideButton").click().end()
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), false));
-		},
+		}/*,
 		"test swipe closing": function () {
 			return this.remote.elementById("showButton").click().end().wait(800)
 				.elementById("page").moveTo(30, 300).buttonDown().moveTo(10, 300)
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), false));
-		}
+		}*/
 	});
 
 	function checkCssClasses(classString, args) {
