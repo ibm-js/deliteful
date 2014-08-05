@@ -1,6 +1,6 @@
 # deliteful [![Build Status](https://travis-ci.org/ibm-js/deliteful.png?branch=master)](https://travis-ci.org/ibm-js/deliteful)
 
-This project provides a predefined set of components working both on desktop and mobile platforms.
+This project provides a predefined set of components working on both desktop and mobile platforms.
 
 One goal of the project is to
 [converge the dijit and dojox/mobile widgets](https://docs.google.com/document/d/1_kgrX25ylxuhtZCRrqAoABMaSdgxjAQgpyd0Ap4xvZU/edit#)
@@ -9,7 +9,7 @@ into a single set of components.
 Another is to
 [build on emerging web standards](https://docs.google.com/document/d/1kqe3Oq7W6lg-JY_iqMl5G7SxGTD0uQ6FFIoP4KPAkUw/edit#heading=h.ct7kwnepj0cc).
 
-The projects will only support modern browser/platforms: FF24+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+ (BB10+?)
+The projects only supports modern browsers/platforms: FF24+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+ (BB10+?)
 
 ## Status
 
@@ -17,9 +17,9 @@ No official release yet.
 
 ## Migration
 
-This is a merge of the former dijit & dojox/mobile project.
+This is a merge of the former dijit & dojox/mobile projects.
 
-Migration will require manual steps listed [here](docs/migration.md).
+Migration requires manual steps listed [here](docs/migration.md).
 
 ## Issues
 
@@ -35,13 +35,15 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 This project requires the following other projects to run:
  * dojo
+ * decor
  * delite
  * dpointer
  * ecma402
- * dcl    (git clone https://github.com/uhop/dcl.git)
+ * dcl (git clone https://github.com/uhop/dcl.git)
  * requirejs (git clone https://github.com/jrburke/requirejs.git)
  * requirejs-dplugins
  * requirejs-domready (git clone https://github.com/requirejs/domready)
+ * dstore (git clone https://github.com/SitePen/dstore.git)
 
 ## Installation
 
@@ -60,4 +62,6 @@ Then install dependencies with bower (or manually from github if you prefer to):
 
 ## Documentation
 
-See the [docs directory](./docs).
+See the [docs directory](./docs) or, preferrably, the
+[documentation site](http://ibm-js.github.io/deliteful/docs/master/index.html).
+
