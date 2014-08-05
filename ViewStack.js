@@ -41,7 +41,7 @@ define(["dcl/dcl",
 
 		/**
 		 * ViewStack container widget. Display one child at a time.
-		 * 
+		 *
 		 * The first child is displayed by default.
 		 * The methods 'show' is used to change the visible child.
 		 *
@@ -173,7 +173,7 @@ define(["dcl/dcl",
 			_doTransition: function (origin, target, event, transition, reverse, deferred) {
 				if (transition !== "none") {
 					if (origin) {
-						this._setAfterTransitionHandlers(origin, event);
+						this._setAfterTransitionHandlers(origin, event, deferred);
 						domClass.add(origin, transitionClass(transition));
 					}
 					if (target) {
@@ -219,7 +219,7 @@ define(["dcl/dcl",
 				var origin = this._visibleChild;
 
 				// Needed because the CSS state of a node can be incorrect
-				// if a previous transitionEnd has been dropped
+				// if a previous transitionend has been dropped
 				cleanCSS(origin);
 				cleanCSS(widget);
 
@@ -245,7 +245,6 @@ define(["dcl/dcl",
 			 */
 			show: dcl.superCall(function (sup) {
 				return function (dest, params) {
-
 					if (this._visibleChild && this._visibleChild.parentNode !== this) {
 						// The visible child has been removed.
 						this._visibleChild = null;
@@ -272,17 +271,29 @@ define(["dcl/dcl",
 			},
 
 			_afterTransitionHandle: function (item) {
-				// Defensive approach
-				// We should work only on item.node but transitionEnd events can be dropped on aggressive interactions
-				for (var i = 0; i < this.children.length; i++) {
-					setVisibility(this.children[i], this._visibleChild === this.children[i]);
-				}
-				cleanCSS(item.node);
-				item.node.removeEventListener("webkitTransitionEnd", item.handle);
-				item.node.removeEventListener("transitionend", item.handle);
-				if (item.deferred) {
-					domClass.remove(this, "-d-view-stack-transition");
+				// Workaround for FF transitionend randomly dropped.
+				// This method should be called once, when the target view transition is done.
+				// But when 2 transitions (ex: slide) start at the same time, the transitionend event of the
+				// target view can be dropped.
+				if (!item.deferred.isResolved()) {
+					// First call
+					var vb;
+					for (var i = 0; i < this.children.length; i++) {
+						vb = this._visibleChild === this.children[i];
+						setVisibility(this.children[i], vb);
+						if (!vb) {
+							cleanCSS(this.children[i]);
+						}
+					}
+
+					item.node.removeEventListener("webkitTransitionEnd", item.handle);
+					item.node.removeEventListener("transitionend", item.handle);
 					item.deferred.resolve();
+				} else {
+					// Second call (occurs randomly on FF). The following code is not critical but try
+					// to keep a clean DOM tree as much as possible.
+					cleanCSS(item.node);
+					domClass.remove(this, "-d-view-stack-transition");
 				}
 			}
 		});
