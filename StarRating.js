@@ -80,7 +80,7 @@ define([
 			this.focusNode.setAttribute("aria-valuemin", 0);
 		},
 
-		createdCallback: register.dcl.after(function () {
+		createdCallback: register.after(function () {
 			var inputs = this.getElementsByTagName("INPUT");
 			if (inputs.length) {
 				this.valueNode = inputs[0];

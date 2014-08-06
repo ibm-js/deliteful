@@ -149,7 +149,7 @@ define([
 
 			template: template,
 
-			buildRendering: register.dcl.superCall(function (sup) {
+			buildRendering: register.superCall(function (sup) {
 				return function () {
 					this.valueNode = this.querySelector("input") || this.ownerDocument.createElement("input");
 					sup.call(this);
