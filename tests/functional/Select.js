@@ -1,7 +1,9 @@
 define(["intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
+    "intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require"
-	], function (registerSuite, assert, require) {
+	], function (registerSuite, pollUntil, keys, assert, require) {
 	
 	// Huge values not needed when running locally, but needed for running remotely...
 	var WAIT_TIMEOUT_MS = 180000;
@@ -10,8 +12,8 @@ define(["intern!object",
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
-			.elementById(selectId)
-			.elementsByTagName("OPTION")
+			.findById(selectId)
+			.findAllByTagName("OPTION")
 			.then(function (result) {
 				assert.strictEqual(result.length, expectedNumberOfOptions,
 					selectId + " number of options is not the expected one");
@@ -25,8 +27,8 @@ define(["intern!object",
 			// (the buttons being outside browser's visible area).
 			// Hence, instead, execute the action of the update button from Select.html.
 			.execute("updateOptions(" + selectId + "); ")
-			.elementById(selectId)
-			.elementsByTagName("OPTION")
+			.findById(selectId)
+			.findAllByTagName("OPTION")
 			.then(function (result) {
 				assert.strictEqual(result.length, expectedNumberOfOptions,
 					selectId + " number of options is not the expected one");
@@ -80,7 +82,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected
@@ -97,7 +99,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the third option should be selected
@@ -114,7 +116,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE013") // arrow up
+			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected again
@@ -134,7 +136,7 @@ define(["intern!object",
 	};
 	
 	var checkKeyboardNavigationMultipleSelection = function (remote, selectId) {
-		if (!/Chrome/.test(remote.environmentType.browserName)) {
+		if (!/chrome/.test(remote.environmentType.browserName)) {
 			// Keyboard shortcuts for multi-selects are browser dependent.
 			// For now testing Chrome only.
 			console.log("Skipping checkKeyboardNavigationMultipleSelection on " +
@@ -174,7 +176,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the first option should be selected
@@ -194,7 +196,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down again
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected (instead of the first)
@@ -217,8 +219,8 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE008\uE015") // SHIFT-arrow down (extend the selection)
-			.keys("\uE008") // release shift
+			.pressKeys(keys.SHIFT + keys.ARROW_DOWN)
+			.pressKeys(keys.SHIFT) // release shift
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second and third options should be selected
@@ -240,8 +242,8 @@ define(["intern!object",
 			.end()
 			// For (native) multi-selects, the keyboard shortcuts are browser-dependent...
 			// Here the Chrome way is tested.
-			.keys("\uE009\uE013") // CTRL-arrow up (reduce the selection)
-			.keys("\uE009") // release ctrl
+			.pressKeys(keys.CONTROL + keys.ARROW_UP) // CTRL-arrow up (reduce the selection)
+			.pressKeys(keys.CONTROL) // release ctrl
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected again
@@ -270,7 +272,7 @@ define(["intern!object",
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
-				.waitForCondition("ready", WAIT_TIMEOUT_MS, POLL_FREQUENCY);
+				.then(pollUntil("return ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_FREQUENCY));
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively (with default store):

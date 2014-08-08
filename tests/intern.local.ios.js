@@ -6,9 +6,9 @@ define([
 	// TODO: update this variable to use the IP address of your host
 	var host = "192.168.0.21";
 
-	intern.useSauceConnect = false;
-	intern.webdriver = {
-		host: "localhost",
+	intern.tunnel = "NullTunnel";
+	intern.tunnelOptions = {
+		hostname: "localhost",
 		port: 4723
 	};
 

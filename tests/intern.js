@@ -55,16 +55,8 @@ define({
 	maxConcurrency: 3,
 
 	// Whether or not to start Sauce Connect before running tests
-	useSauceConnect: true,
+	tunnel: "SauceLabsTunnel",
 
-	// Connection information for the remote WebDriver service. If using Sauce Labs, keep your username and password
-	// in the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables unless you are sure you will NEVER be
-	// publishing this configuration file somewhere
-	webdriver: {
-		host: "localhost",
-		port: 4444
-	},
-	
 	loader: {
 		baseUrl: typeof window !== "undefined" ? "../../.." : "..",
 		config: {
