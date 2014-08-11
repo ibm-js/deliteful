@@ -22,23 +22,38 @@ define(["intern!object",
 
 			return test;
 		// Interactions tests are broken on Mac and iOS simulators. See #25
-		}/*,
+		},
 		"test opening": function () {
+			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+				|| this.remote.environmentType.safari) {
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
+				return;
+			}
 			return this.remote.elementById("showButton").click().end()
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), true));
 		},
 		"test closing": function () {
+			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+				|| this.remote.environmentType.safari) {
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
+				return;
+			}
 			return this.remote.elementById("hideButton").click().end()
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), false));
 		},
 		"test swipe closing": function () {
+			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+				|| this.remote.environmentType.safari) {
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
+				return;
+			}
 			return this.remote.elementById("showButton").click().end().wait(800)
 				.elementById("page").moveTo(30, 300).buttonDown().moveTo(10, 300)
 				.wait(800)
 				.then(isVisible(this.remote.elementById("sp"), false));
-		}*/
+		}
 	});
 
 	function checkCssClasses(classString, args) {
