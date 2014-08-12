@@ -94,12 +94,28 @@ define(["dcl/dcl",
 			 */
 			selectedChildId: "",
 
+			_pendingChild: null,
+
 			_setSelectedChildIdAttr: function (child) {
-				this.show(child, this._started ? null : {transition: "none"});
+				if (this._started) {
+					this.show(child);
+				} else {
+					this._pendingChild = child;
+				}
 			},
 
 			_getSelectedChildIdAttr: function () {
 				return this._visibleChild ? this._visibleChild.id : "";
+			},
+
+			startup: function () {
+				var noTransition = {transition: "none"};
+				if (this._pendingChild) {
+					this.show(this._pendingChild, noTransition);
+					this._pendingChild = null;
+				} else if (this.children.length > 0) {
+					this.show(this.children[0], noTransition);
+				}
 			},
 
 			_timing: 0,
