@@ -29,9 +29,15 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
-			vs.on("delite-display-complete", function(event){
-				console.log("Displayed node: " + event.child.id);
-			});
+			var handle = function(event){
+				console.log(event.type + ": " + event.dest);
+			};
+			// Listen for delite/DisplayContainer events
+			vs.on("delite-display-load", handle);
+			vs.on("delite-before-show", handle);
+			vs.on("delite-after-show", handle);
+			vs.on("delite-before-hide", handle);
+			vs.on("delite-after-hide", handle);
 
 			createChild = function (){
 				var newChild = document.createElement("div");
