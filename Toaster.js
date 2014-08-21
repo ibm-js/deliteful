@@ -17,11 +17,11 @@ define(["dcl/dcl",
 			/**
 			 * Toaster widget. Displays instances of `ToasterMessage`.
 			 *
-			 * Messages are posted through postMessage, which takes either
+			 * Messages are posted through `postMessage`, which takes either
 			 * a full `ToasterMessage` instance or a message as a string.
 			 *
 			 * `ToasterMessage` instances are displayed for a finite or infinite duration.
-			 * (cf. `duration` property of `ToasterMessage`).
+			 * (see the `duration` property of `ToasterMessage`).
 			 *
 			 * @class module:deliteful/Toaster
 			 * @augments delite/Widget
@@ -35,7 +35,8 @@ define(["dcl/dcl",
 			baseClass: "d-toaster",
 
 			/**
-			 * A CSS class that defines where the messages of the toaster will appear.
+			 * The name of the CSS class that specifies the placement of
+			 * toaster's messages.
 			 *
 			 * The toaster comes with 7 classes which can be used out-of-the-box.
 			 *  - `d-toaster-placement-default` for the default position
@@ -47,7 +48,7 @@ define(["dcl/dcl",
 			 *  - `d-toaster-placement-br` for bottom-right
 			 *
 			 * This property can be set to any string as long as it references
-			 * a the name of a CSS class properly defined.
+			 * the name of a CSS class properly defined.
 			 *
 			 * @member {string}
 			 * @default `d-toaster-placement-default`
@@ -55,14 +56,14 @@ define(["dcl/dcl",
 			placementClass: "d-toaster-placement-default",
 
 			/**
-			 * A list containing all ToasterMessage instances posted.
+			 * A list containing all `ToasterMessage` instances posted.
 			 * @member {module:deliteful/ToasterMessage[]}
 			 * @default null
 			 */
 			messages: null,
 
 			/**
-			 * If true, the messages are displayed bottom to top.
+			 * If `true`, the messages are displayed bottom to top.
 			 * @member {boolean}
 			 * @default false
 			 */
@@ -174,7 +175,8 @@ define(["dcl/dcl",
 			 *
 			 * The message can be either a full `ToasterMessage` instance or
 			 * a simple string, in which case the proprieties of the message
-			 * are specified through props which is passed to the `ToasterMessage` constructor.
+			 * are specified through the `props` argument which is passed to the
+			 * `ToasterMessage` constructor.
 			 *
 			 * @param {string|module:deliteful/ToasterMessage} message Either the content of the
 			 * message as a string or an instance of `deliteful/ToasterMessage`.
