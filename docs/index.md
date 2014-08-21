@@ -7,6 +7,7 @@ layout: doc
 * [Button](Button.md)
 * [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
+* [Select](Select.md)
 * [Slider](Slider.md)
 * [StarRating](StarRating.md)
 * [Toaster](Toaster.md)
@@ -20,6 +21,5 @@ layout: doc
 
 * [LinearLayout](LinearLayout.md)
 * [ScrollableContainer](ScrollableContainer.md)
-* [Select](Select.md)
 * [SidePane](SidePane.md)
 * [ViewStack](ViewStack.md)
