@@ -20,7 +20,7 @@
 			"requirejs-domready/domReady!"
 		], function (ToasterMessage, Toaster) {
 			window.toaster = new Toaster({placementClass: "d-toaster-placement-tr"});
-			toaster.placeAt("body")
+			toaster.placeAt("body");
 			toaster.startup();
 			var timeout = 0;
 			var messages = [
@@ -30,9 +30,9 @@
 				];
 			messages.forEach(function(m){
 					setTimeout(function(){
-						toaster.postMessage(m)
-					}, timeout)
-					timeout += (Math.floor(Math.random()*3) + 1)*1000
+						toaster.postMessage(m);
+					}, timeout);
+					timeout += (Math.floor(Math.random()*3) + 1)*1000;
 			});
 			window.input = document.getElementById("input");
 		});
