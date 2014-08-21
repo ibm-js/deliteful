@@ -304,7 +304,7 @@ define(["dcl/dcl",
 
 		/**
 		 * Type of the message.
-		 * type is one of `["info", "success", "warning", "error"]`.
+		 * `type` is one of `["info", "success", "warning", "error"]`.
 		 *
 		 * @member {string}
 		 * @default "info"
@@ -317,8 +317,8 @@ define(["dcl/dcl",
 		},
 
 		/**
-		 * Duration for which the message will be shown.
-		 * If set to < 0, the message will be shown persistently until it is
+		 * Duration which specifies how long the message is shown.
+		 * If set to a strictly negative value, the message is shown persistently until it is
 		 * dismissed.
 		 *
 		 * @member {number}
@@ -332,9 +332,9 @@ define(["dcl/dcl",
 
 		_dismissButton: null,
 		/**
-		 * Indicates whether the message can be dismissed. Is one of ["on", "off", "auto"]
-		 * if "auto", isDismissible will adopt a default behaviour that depends
-		 * of duration.
+		 * Indicates whether the message can be dismissed. Is one of ["on", "off", "auto"].
+		 * If "auto", `isDismissible` adopts a default behaviour that depends
+		 * on `duration`.
 		 *
 		 * @member {string}
 		 * @default null
@@ -342,14 +342,14 @@ define(["dcl/dcl",
 		dismissible: "auto",
 
 		/**
-		 * a string containing the class that matches the type of the message
+		 * A string containing the class that matches the type of the message.
 		 * @member {string}
 		 * @default null
 		 */
 		messageTypeClass: messageTypeClass(defaultType),
 
 		/**
-		 * dismisses the message, optionally with an animation
+		 * Dismisses the message, optionally with an animation.
 		 *
 		 * @param {string} [animation] an animation class that will be added to dismiss the message
 		 */
@@ -365,7 +365,8 @@ define(["dcl/dcl",
 		_isRemoved: false,
 
 		/**
-		 * Returns whether the message is going to expire.
+		 * Returns whether the message can expire. The default implementation
+		 * returns `true` if `duration` is larger or equal than `0`.
 		 * @returns {boolean}
 		 */
 		isExpirable: function () {
@@ -375,9 +376,9 @@ define(["dcl/dcl",
 		/**
 		 * Returns whether the message can be dismissed.
 		 *
-		 * if the dismissible property was set to `"on"` (resp. `"off"`),
-		 * this method will output `true` (resp. `false`).
-		 * if dismissible was set to `"auto"`, this method will output `false` if
+		 * If the `dismissible` property was set to `"on"` (respectively `"off"`),
+		 * this method returns `true` (respectively `false`).
+		 * If `dismissible` was set to `"auto"`, this method returns `false` if
 		 * the message is expirable, `true` otherwise.
 		 *
 		 * @returns {boolean}
