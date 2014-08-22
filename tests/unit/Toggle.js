@@ -75,10 +75,9 @@ define([
 			widget = new MyWidget({id: "cb1"});
 			container.appendChild(widget);
 			widget.startup();
-			widget = new MyWidget({id: "cb2", checked:true, value: "foo"});
+			widget = new MyWidget({id: "cb2", checked: true, value: "foo"});
 			container.appendChild(widget);
 			widget.startup();
-
 		}
 	};
 	dcl.mix(suite, commonSuite);
