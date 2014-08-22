@@ -5,8 +5,9 @@ define([
 	"requirejs-dplugins/has",
 	"./Button",
 	"./Toggle",
+	"delite/handlebars!./ToggleButton/ToggleButton.html",
 	"delite/theme!./ToggleButton/themes/{{theme}}/ToggleButton.css"
-], function (dcl, register, has, Button, Toggle) {
+], function (dcl, register, has, Button, Toggle, template) {
 
 	/**
 	 * A 2-states toggle button widget.
@@ -58,39 +59,8 @@ define([
 		 */
 		checkedIconClass: "",
 
-		preCreate: function () {
-			this.focusNode = this;
-		},
+		template: template
 
-		postCreate: function () {
-			this.on("click", function () {
-				this.toggle();
-			}.bind(this));
-		},
-
-		/*jshint maxcomplexity:12*/
-		refreshRendering: dcl.superCall(function (sup) {
-			return function (props) {
-				if ("checked" in props) {
-					this.setAttribute("aria-pressed", "" + this.checked);
-					if (this.checkedLabel) {
-						this.renderText(this.checked ? this.checkedLabel : this.label);
-					}
-					if (this.checkedIconClass) {
-						this.renderIcon(this.checked ? this.checkedIconClass : this.iconClass);
-					}
-				}
-				if ("label" in props || "checkedLabel" in props) {
-					this.renderText(this.checkedLabel && this.checked ? this.checkedLabel : this.label);
-					delete props.label; // prevent Button from processing label changes
-				}
-				if ("iconClass" in props || "checkedIconClass" in props) {
-					this.renderIcon(this.checkedIconClass && this.checked ? this.checkedIconClass : this.iconClass);
-					delete props.iconClass;
-				}
-				sup.apply(this, arguments);
-			};
-		})
 	});
 	return register("d-toggle-button", [HTMLButtonElement, ToggleButton]);
 });
