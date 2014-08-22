@@ -32,52 +32,47 @@
 	.container1 {
 		position: absolute;
 		top: 20px;
-		left: 20px;
-		width: 200px;
-		height: 300px;
+		left: 10px;
+		width: 145px;
+		height: 200px;
 	}
 	.container2 {
 		position: absolute;
 		top: 20px;
-		left: 240px;
-		width: 200px;
-		height: 300px;
+		left: 165px;
+		width: 145px;
+		height: 200px;
 	}
 	.scrollContainer {
 		white-space: nowrap;
 		width: 100%;
 		height: 100%;
+		padding: 0.5em 0.5em;
+		background-color: #428bca; /* bootstrap's brand-primary color */
+	}
+	.header {
+		background-color: #5bc0de; /* bootstrap's brand-info color */
 	}
 	ul {
 		padding: 0;
 		margin: 0;
 	}
 	li {
-		padding: 0 0.5em;
 		height: 2em;
 		list-style-type: none;
 		line-height: 2em;
-		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-		border-bottom: 1px solid #222222;
-		cursor: pointer;
-	}
-	li:hover {
-		background-color: #61C6EB;
-	}
-	li:active {
-		background-color: #007fea;
 	}
 	</style>
 </head>
 <body>
 	<div class="container1">
-		<div style="background-color: lightblue">Scrolling in both directions</div>
+		<div class="header">H+V scroll</div>
 		
-		<d-scrollable-container class="scrollContainer" id="scrollContainer1"
-			scrollDirection="both" style="background-color: lightgreen;">
-			
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-			Duis cursus odio eu nisl ultrices dictum.</p>
+		<!-- Scrolling in both directions (horizontal and vertical) -->
+		<d-scrollable-container class="scrollContainer"
+			id="scrollContainer1" scrollDirection="both">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+			Duis cursus odio eu nisl ultrices dictum.
 			<p>Sed tincidunt metus et magna placerat eget vehicula dolor faucibus. 
 			Nunc nec augue ac mi rutrum congue. Donec at augue felis.</p>
 			<p>Proin et lectus at mauris adipiscing pulvinar tempor vitae lacus. 
@@ -92,20 +87,18 @@
 			<p>Pellentesque nec arcu nulla, id laoreet orci. Vivamus sit amet quam eu ante
 			pulvinar rhoncus sit amet non ipsum.</p>
 			<p>Sed mattis felis sed risus tincidunt in sagittis justo rhoncus. Praesent ut
-			justo feugiat neque gravida convallis eget mattis felis. 
+			justo feugiat neque gravida convallis eget mattis felis.</p>
 			<p>Vestibulum vitae velit ante, sed convallis sem.
 			Curabitur gravida volutpat odio eget tincidunt. Mauris pellentesque placerat
 			massa ut venenatis. Mauris ultrices hendrerit dui vel fermentum.</p>
-			</ul>
 		</d-scrollable-container>
 	</div>
 	
 	<div class="container2">
-		<div style="background-color: lightblue">Vertical scrolling</div>
+		<div class="header">V scroll</div>
 		
 		<!-- Using default scrollDirection, which is "vertical" -->
-		<d-scrollable-container style="background-color: lightgreen" 
-			class="scrollContainer" id="scrollContainer2">
+		<d-scrollable-container class="scrollContainer" id="scrollContainer2">
 			<ul>
 				<li>Abigail</li>
 				<li>Abram</li>
