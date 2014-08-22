@@ -5,9 +5,10 @@ define([
 	"requirejs-dplugins/has",
 	"./Button",
 	"./Toggle",
+	"requirejs-dplugins/has!bidi?./Button/bidi/ToggleButton",
 	"delite/handlebars!./ToggleButton/ToggleButton.html",
 	"delite/theme!./ToggleButton/themes/{{theme}}/ToggleButton.css"
-], function (dcl, register, has, Button, Toggle, template) {
+], function (dcl, register, has, Button, Toggle, BidiToggleButton, template) {
 
 	/**
 	 * A 2-states toggle button widget.
@@ -62,5 +63,6 @@ define([
 		template: template
 
 	});
-	return register("d-toggle-button", [HTMLButtonElement, ToggleButton]);
+	return register("d-toggle-button",  has("bidi") ? [HTMLButtonElement, ToggleButton, BidiToggleButton] :
+		[HTMLButtonElement, ToggleButton]);
 });
