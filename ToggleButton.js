@@ -5,7 +5,7 @@ define([
 	"requirejs-dplugins/has",
 	"./Button",
 	"./Toggle",
-	"requirejs-dplugins/has!bidi?./Button/bidi/ToggleButton",
+	"requirejs-dplugins/has!bidi?./ToggleButton/bidi/ToggleButton",
 	"delite/handlebars!./ToggleButton/ToggleButton.html",
 	"delite/theme!./ToggleButton/themes/{{theme}}/ToggleButton.css"
 ], function (dcl, register, has, Button, Toggle, BidiToggleButton, template) {
