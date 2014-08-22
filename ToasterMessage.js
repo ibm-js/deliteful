@@ -480,7 +480,7 @@ define(["dcl/dcl",
 
 			// setting up click listener for dismiss button
 			if (this._dismissButton !== null) {
-				this.on("pointerdown", function (evt) {
+				this.on("pointerdown", function () {
 					this.dismiss();
 				}.bind(this), this._dismissButton);
 			}
