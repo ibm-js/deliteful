@@ -28,7 +28,7 @@ Most of the Slider behavior (default values, out of bound values reconciliations
 type=range element](http://www.w3.org/html/wg/drafts/html/master/forms.html#range-state-%28type=range%29), but it 
 doesn't strictly conform to the specification, in particular for:
 - the `multiple` attribute (single/range Slider is directly determined from the content of the value property)
-- the `datalist` attribute (currently implemented with `deliteful/Rule`)
+- the `datalist` attribute (see https://github.com/ibm-js/deliteful/issues/252)
 
 Like the native input type=range element, this widget can be used in a form.
 
