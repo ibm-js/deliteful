@@ -29,6 +29,7 @@ define([
 			var remote = this.remote;
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				console.log("Skipping test: Switch behavior as moveTo not supported on Safari");
 				return remote;
 			} else {
 				return remote

@@ -20,12 +20,17 @@ define([
 	registerSuite({
 		name: "CheckBox - functional",
 
+		setup: function () {
+			var remote = this.remote;
+			loadFile(remote, "./CheckBox.html");
+		},
+
 		"Checkbox behavior": function () {
 			var remote = this.remote;
-			return loadFile(remote, "./CheckBox.html")
+			return remote
 				// default click action
 				.execute("return document.getElementById('cb1').focusNode;")
-					.click()
+				.click()
 				.execute("return document.getElementById('cb1').checked;")
 				.then(function (v) {
 					assert.isTrue(v, "Unexpected value for 'checked' property.");
@@ -38,13 +43,24 @@ define([
 				})
 				.end()
 				.execute("return document.getElementById('cb2').focusNode;")
-					.click()
+				.click()
 				.execute("return document.getElementById('cb2').checked;")
 				.then(function (v) {
 					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
 				})
-				// keyb nav
-				// give the focus to the button to have a ref starting point in the chain
+				;
+		},
+
+		"CheckBox Key nav": function () {
+			// keyb nav
+			// give the focus to the button to have a ref starting point in the chain
+			var remote = this.remote;
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support sendKeys
+				console.log("Skipping test: key nav as sendKeys not supported on Safari");
+				return remote;
+			}
+			return remote
 				.execute("return document.getElementById('b1').focus();")
 				.active()
 				.end()
@@ -71,9 +87,15 @@ define([
 					assert.strictEqual(v, "End", "Unexpected focused element after 2nd TAB.");
 				})
 				.end()
+				;
+		},
+
+		"Form": function () {
 				//
 				// Form tests
 				//
+			var remote = this.remote;
+			return remote
 				.elementById("form1")
 				.submit()
 				.waitForElementById("parameters")
@@ -99,7 +121,6 @@ define([
 					assert.strictEqual(value, "4", "Unexpected value for checkbox cb6");
 				})
 				.end()
-
 				;
 		}
 	});
