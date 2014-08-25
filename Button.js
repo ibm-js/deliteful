@@ -58,7 +58,7 @@ define([
 			}
 		},
 
-		refreshRendering: function (props) {
+		computeProperties: function (props) {
 			if ("title" in props || "label" in props) {
 				this.title = this.title || this.label || "";
 			}
