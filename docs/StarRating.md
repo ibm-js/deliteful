@@ -134,7 +134,7 @@ No mixin currently available for this widget.
 <a name="events"></a>
 ## Element Events
 
-This widget does not emit any events.
+This widget emits a `change` event when its value is updated following a user action on the widget node. No `change` event is emitted if the value is updated programmatically. 
 
 <a name="enterprise"></a>
 ## Enterprise Use

@@ -183,7 +183,9 @@ define([
 						this._hoveredValue = newValue;
 					}
 				} else {
-					this.value = newValue;
+					// Set the previous value here, as this handler is called before _onFocus
+					this._previousOnChangeValue = this.value;
+					this.handleOnChange(newValue);
 				}
 			}
 		},
@@ -191,7 +193,7 @@ define([
 		_pointerUpHandler: function (/*Event*/ event) {
 			var value = event.target.value;
 			if (value !== undefined) {
-				this.value = value;
+				this.handleOnChange(value);
 			}
 			if (!this._hovering) {
 				this._removeEventsHandlers();
