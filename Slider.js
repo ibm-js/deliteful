@@ -39,7 +39,7 @@ define([
 	 * Most of the Slider behavior (default values, out of bound values reconciliations...) is similar to the
 	 * HTML5.1 input type=range element [1], but it doesn't strictly conform to the specification, in particular for:
 	 * - the "multiple" attribute (single/range Slider is directly determined from the content of the value property)
-	 * - the "datalist" attribute (currently implemented with deliteful/Rule)
+	 * - the "datalist" attribute (see https://github.com/ibm-js/deliteful/issues/252)
 	 *
 	 * Like the native input type=range element, this widget can be used in a form. It relies on a hidden input text
 	 * element to provide the value to the form.
@@ -227,17 +227,6 @@ define([
 				}
 			},
 
-			/**
-			 * pass widget attributes to children (needed when Slider is used in conjunction with deliteful/Rule)
-			 * @private
-			 */
-			_updateChildren: function () {
-				this.getChildren().forEach(function (obj) {
-					obj.vertical = this.vertical;
-					obj.reverse = this._reversed;
-				}, this);
-			},
-
 			computeProperties: function (props) {
 				if ("value" in props || "min" in props || "max" in props || "step" in props) {
 					var value = this._getValueAsArray(),
@@ -291,7 +280,6 @@ define([
 				}
 				if (resetCSS) {
 					this._refreshCSS();
-					this._updateChildren();
 				}
 				this._positionHandles();
 			},
@@ -368,7 +356,7 @@ define([
 					on(this.handleMin, "focus", this.focusHandler.bind(this))
 				);
 
-				// ensure CSS is applied; this will also trigger a call to _updateChildren()
+				// ensure CSS is applied
 				this.notifyCurrentValue("vertical");
 
 				// apply default tabIndex in case the app doesn't specific tabindex explicitly
