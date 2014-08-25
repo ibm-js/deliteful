@@ -41,11 +41,9 @@
 			value: 3.5
 		}).placeAt("editablestar6", "replace");
 		rating.focusNode.setAttribute("aria-labelledby", "editablestar6-label");
-		rating.observe(function(props){		// TODO: StarRating should support .on("change", ...)
-			if ("value" in props) {
-				document.getElementById("editablestar6value").innerHTML = "Rating is " + rating.value +
-						(rating.value === 1 ? " star" : " stars");
-			}
+		rating.on("change", function () {
+			document.getElementById("editablestar6value").innerHTML = "Rating is " + rating.value +
+			(rating.value === 1 ? " star" : " stars");
 		});
 		rating.startup();
 
