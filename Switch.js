@@ -8,9 +8,8 @@ define([
 	"deliteful/Toggle",
 	"delite/handlebars!./Switch/Switch.html",
 	"requirejs-dplugins/has!bidi?./Switch/bidi/Switch",
-	"requirejs-dplugins/has!bidi?delite/handlebars!./Switch/bidi/Switch_rtl.html",
 	"delite/theme!./Switch/themes/{{theme}}/Switch.css"
-], function (has, domClass, pointer, register, FormWidget, Toggle, template, BidiSwitch, rtlTemplate) {
+], function (has, domClass, pointer, register, FormWidget, Toggle, template, BidiSwitch) {
 
 	/**
 	 * A form-aware switch widget.
@@ -44,15 +43,7 @@ define([
 		 */
 		baseClass: "d-switch",
 
-		_pHandlers: null,
-
-		buildRendering: register.superCall(function () {
-			return function () {
-				this._templateHandle = this.isLeftToRight() ?
-					template.bind(this)(this.ownerDocument, register) :
-					rtlTemplate.bind(this)(this.ownerDocument, register);
-			};
-		}),
+		template: template,
 
 		postCreate: function () {
 			this.on("click", function () {
@@ -61,16 +52,12 @@ define([
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
 		},
 
-		attachedCallback: register.after(function () {
-			this.knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
-			this.switchWidth = parseInt(window.getComputedStyle(this).width, 10);
-		}),
-
 		destroy: function () {
 			this._cleanHandlers();
 		},
 
 		_pointerDownHandler: function (e) {
+			console.log("pointerDown");
 			this._startX = this._curX = e.clientX;
 			pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
 			if (!this._pHandlers) {
@@ -86,6 +73,7 @@ define([
 		},
 
 		_pointerMoveHandler: function (e) {
+			console.log("pointerMove");
 			var dx = e.clientX - this._curX,
 				cs = window.getComputedStyle(this._pushNode),
 				w = parseInt(cs.width, 10);
@@ -97,9 +85,12 @@ define([
 			}
 			this._curX = e.clientX;
 			if (this._drag) {
+				// knobWidth and switchWidth are sometimes wrong if computed in attachedCallback on Chrome so do it here
+				this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
+				this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
 				var nw = this.isLeftToRight() ? w + dx : w - dx,
-					max = this.checked ? this.switchWidth : this.switchWidth - this.knobWidth,
-					min = this.checked ? this.knobWidth : 0;
+					max = this.checked ? this._switchWidth : this._switchWidth - this._knobWidth,
+					min = this.checked ? this._knobWidth : 0;
 				nw = Math.max(min, Math.min(max, nw));
 				this._pushNode.style.width = nw + "px";
 			}
@@ -115,9 +106,9 @@ define([
 			var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
 			var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
 			if (this.checked) {
-				this.checked = cs + m + this.knobWidth / 2 >= this.switchWidth / 2;
+				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			} else {
-				this.checked = cs + m + this.knobWidth / 2 >= this.switchWidth / 2;
+				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			}
 			e.preventDefault();
 			e.stopPropagation();

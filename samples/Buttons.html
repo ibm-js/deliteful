@@ -21,10 +21,9 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"delite/Widget",
 			"deliteful/CheckBox",
-			"deliteful/ToggleButton",
 			"deliteful/Switch",
+			"deliteful/ToggleButton",
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
@@ -33,14 +32,16 @@
 	</script>
 <style>
 	.d-icon-cut {
-		background-image: url('../tests/images/cut.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
+		background-image: url('../tests/images/paste.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 		width: 16px;
 		height: 16px;
+		background-repeat: no-repeat;
 	}
 	.d-icon-copy {
 		background-image: url('../tests/images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 		width: 16px;
 		height: 16px;
+		background-repeat: no-repeat;
 	}
 
 </style>
@@ -61,10 +62,13 @@
 	<p><d-switch id="sw4" checked="true" checkedLabel="ON" uncheckedLabel="OFF"></d-switch><label for="sw4">This is a Switch with label</label></p>
 </fieldset>
 
-<button is="d-toggle-button" checkedLabel="On">Off</button>
-<button is="d-toggle-button" checked="true">Toggle</button>
-<button is="d-toggle-button" checkedLabel="On" checkedIconClass="d-icon-cut" iconClass="d-icon-copy">Off</button>
-<button is="d-toggle-button" checked="true" checkedIconClass="d-icon-cut" iconClass="d-icon-copy"></button>
+<fieldset>
+	<legend>Toggle Buttons</legend>
+	<button is="d-toggle-button" checkedLabel="On">Off</button>
+	<button is="d-toggle-button" checked="true">Toggle</button>
+	<button is="d-toggle-button" checkedLabel="On" checkedIconClass="d-icon-cut" iconClass="d-icon-copy">Off</button>
+	<button is="d-toggle-button" checked="true" checkedIconClass="d-icon-cut" iconClass="d-icon-copy"></button>
+</fieldset>
 
 </body>
 </html>

@@ -1,7 +1,6 @@
 define([
-	"dcl/dcl",
-	"dojo/dom-class"
-], function (dcl, domClass) {
+	"dcl/dcl"
+], function (dcl) {
 	// module:
 	//		deliteful/Switch/bidi/Switch
 
