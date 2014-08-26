@@ -173,6 +173,7 @@ define(["intern!object",
 					return clickButton(remote, "trigger-button");
 				})
 				.waitForElementByClassName("d-toaster-message")
+				.end()
 				.then(function () {
 					return checkNumberOfMessages(remote, "default", 1);
 				});
@@ -294,9 +295,9 @@ define(["intern!object",
 					.clickElement()
 					.end()
 					.then(function () {
-						checkInsertion(remote, action.props.id)
+						return checkInsertion(remote, action.props.id)
 							.then(function () {
-								checkHasClass(remote, action.props.id,
+								return checkHasClass(remote, action.props.id,
 									"d-toaster-type-" + action.props.type);
 							});
 					});
