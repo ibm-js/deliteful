@@ -1,4 +1,5 @@
-@import "../../../../delite/themes/bootstrap/common";
+@import "../../../../delite/themes/common/mixins";
+@import "../../../../delite/themes/bootstrap/variables";
 
 .d-checkbox-styles () {
 	margin-left: 4px;
@@ -18,24 +19,24 @@
 }
 
 .d-checkbox-before-styles () {
-	border-color: #b0b0b0;
+	border-color: @input-border;
 	border-style: solid;
 	border-width: 1px;
-	border-radius: 2px;
+	border-radius: @input-border-radius;
 	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
 	height: 1em;
 	width: 100%;
+	color: @input-color;
 }
 
-@d-checkbox-disabled-color: rgb(84, 84, 84);
+@d-checkbox-disabled-color: @input-bg-disabled;
 
 .d-checkbox-checked-before-styles () {
 }
 
 .d-checkbox-before-disabled-styles () {
-	border-color: #cfcfcf;
-	background-image: linear-gradient(to bottom, #f6f6f6 0%, #eeeeee 100%);
-	color: #9b9b9b;
+	color: @btn-link-disabled-color;
+	background-color: @input-bg-disabled;
 }
 
 .d-checkbox-input-styles () {

@@ -30,7 +30,7 @@ define([
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 				console.log("Skipping test: Switch behavior as moveTo not supported on Safari");
-				return remote;
+				return;
 			} else {
 				return remote
 					.elementById("sw1")
@@ -75,11 +75,11 @@ define([
 
 		"Switch key nav": function () {
 			var remote = this.remote;
-			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				// Same problem with selendroid and iOS, apparently
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote;
+				return;
 			}
 			return remote
 				// keyb nav

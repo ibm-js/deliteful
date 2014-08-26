@@ -57,7 +57,6 @@ define([
 		},
 
 		_pointerDownHandler: function (e) {
-			console.log("pointerDown");
 			this._startX = this._curX = e.clientX;
 			pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
 			if (!this._pHandlers) {
@@ -73,7 +72,6 @@ define([
 		},
 
 		_pointerMoveHandler: function (e) {
-			console.log("pointerMove");
 			var dx = e.clientX - this._curX,
 				cs = window.getComputedStyle(this._pushNode),
 				w = parseInt(cs.width, 10);

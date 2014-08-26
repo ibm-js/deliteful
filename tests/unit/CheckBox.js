@@ -9,7 +9,7 @@ define([
 
 	var container,
 		html = "<d-checkbox id='cb1'></d-checkbox><d-checkbox id='cb2' value='foo'>" +
-			"</d-checkbox><d-checkbox id='cb3' checked></d-checkbox>";
+			"</d-checkbox><d-checkbox id='cb3' checked></d-checkbox><label id='lbl4' for='cb3'>cb3</label>";
 
 	var commonSuite = {
 
@@ -52,6 +52,15 @@ define([
 			assert.strictEqual(cb.firstChild.getAttribute("value"), "foo", "Unexpected value for 'value' attribute.");
 		},
 
+		"labelFor": function () {
+			var cb3 = document.getElementById("cb3"),
+				lbl4 = document.getElementById("lbl4");
+			assert.strictEqual(cb3._lbl4, lbl4, "Unexpected labelFor elt associated with cb3.");
+			lbl4.click();
+			cb3.deliver();
+			assert.isFalse(cb3.checked, "Unexpected value for 'checked' property after labelFor click.");
+		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
@@ -81,6 +90,11 @@ define([
 			cb = new CheckBox({id: "cb2", value: "foo"});
 			container.appendChild(cb);
 			cb.startup();
+			var lbl4 = document.createElement("label");
+			lbl4.id = "lbl4";
+			lbl4.setAttribute("for", "cb3");
+			lbl4.textContent = "cb3";
+			container.appendChild(lbl4);
 			cb = new CheckBox({id: "cb3", checked: "checked"});
 			container.appendChild(cb);
 			cb.startup();
