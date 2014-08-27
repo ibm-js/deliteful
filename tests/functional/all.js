@@ -6,5 +6,7 @@ define([
 	"./Toaster",
 	"./Select",
 	"./Slider",
-	"./SidePane"
+	"./SidePane",
+	"./CheckBox",
+	"./Switch"
 ]);

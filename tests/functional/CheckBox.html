@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>CheckBox</title>
+
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../../../delite/tests/boilerplate.js"></script>
+
+</head>
+<body>
+	<h1>d-checkbox functional test</h1>
+	<button id="b1">Start</button>
+	<d-checkbox id="cb1" name="cb1"></d-checkbox><label for="cb1">Deliteful checkbox</label><br/>
+	<d-checkbox id="cb2" name="cb2" disabled></d-checkbox><label for="cb2">Deliteful checkbox (disabled)</label>
+	<button id="b2">End</button>
+
+	<form id="form1" action="processForm.html">
+		<fieldset>
+			<p>
+				Unchecked: <d-checkbox id="cb3" value="1" name="cb3"></d-checkbox>
+				Checked: <d-checkbox id="cb4" checked value="2" name="cb4"></d-checkbox>
+				Disabled: <d-checkbox id="cb5" checked disabled value="3" name="cb5"></d-checkbox>
+				readOnly: <d-checkbox id="cb6" checked readOnly value="4" name="cb6"></d-checkbox>
+			</p>
+			<input type="checkbox" id="ccb" name="ccb" value="99" >
+			<input type="reset" id="resetB" name="reset"/>
+			<input type="submit" id="submitB" />
+		</fieldset>
+
+	</form>
+</body>

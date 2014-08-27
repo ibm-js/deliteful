@@ -1,91 +1,72 @@
+/** @module deliteful/Button */
 define([
 	"dcl/dcl",
-	"dojo/hccss",
-	"dojo/dom-construct",
+	"requirejs-dplugins/has",
 	"delite/register",
 	"delite/Widget",
 	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
+	"delite/handlebars!./Button/Button.html",
 	"delite/theme!./Button/themes/{{theme}}/Button.css"
-], function (dcl, has, domConstruct, register, Widget, BidiButton) {
+], function (dcl, has, register, Widget, BidiButton, template) {
 
-	var Button = dcl(Widget, {
-		// summary:
-		//		Non-templated BUTTON widget.
-		//
-		//		Buttons can display a label, an icon, or both.
-		//		A name for the button should always be specified through innerHTML or the label attribute.
-		//		It can be hidden via showLabel=false, but will always appear in high contrast mode.
+	/**
+	 * A Non-templated form-aware button widget.
+	 * A Button can display a label, an icon, or both. Icon is specified via the iconClass property that
+	 * takes the name of the class to apply to the button node to display the icon.
+	 * @example
+	 * <style>
+	 *   .iconForButton {
+	 *     background-image: url('images/cut.png');
+	 *     width: 16px;
+	 *     height: 16px;
+	 *   }
+	 * </style>
+	 * <button is="d-button" iconClass="iconForButton">Click Me</button>
+	 * @class module:deliteful/Button
+	 * @augments module:delite/Widget
+	 */
+	var Button = dcl(Widget, /** @lends module:deliteful/Button# */ {
 
-		// label: String
-		//		Text to display in button.
+		/**
+		 * The text to display in the button.
+		 * @member {string}
+		 * @default ""
+		 */
 		label: "",
 
-		// showLabel: Boolean
-		//		Set this to true to hide the label text and display only the icon.
-		//		(If showLabel=false then iconClass must be specified.)
-		//		Especially useful for toolbars.
-		//		If showLabel=true, the label will become the title (a.k.a. tooltip/hint) of the icon.
-		//
-		//		The exception case is for computers in high-contrast mode, where the label
-		//		will still be displayed, since the icon doesn't appear.
-		showLabel: true,
-
-		// iconClass: String
-		//		Class to apply to DOMNode in button to make it display an icon
+		/**
+		 * The name of the CSS class to apply to DOMNode in button to make it display an icon.
+		 * @member {string}
+		 * @default ""
+		 */
 		iconClass: "",
 
-		// baseClass: String
-		//		The name of the CSS class of this widget.
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-button"
+		 */
 		baseClass: "d-button",
 
-		postCreate: function () {
+		template: template,
+
+		preCreate: function () {
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
 			if (!this.label) {
 				this.label = this.textContent.trim();
 				this.innerHTML = "";
 			}
-
-			this.focusNode = this;
 		},
 
-		/*jshint maxcomplexity: 15*/
-		refreshRendering: function (oldValues) {
-			// summary:
-			//		Render or re-render the widget, based on property settings.
-			//		Note that this will always create sub-nodes to contain the icon and the label,
-			//		even though that's only really necessary when both are present.
-
-			// Add or remove icon, or change its class
-			if ("iconClass" in oldValues) {
-				if (this.iconClass && !has("highcontrast")) {
-					this.iconNode = this.iconNode || domConstruct.create("span", null, this, "first");
-					this.iconNode.className = "d-reset d-inline d-icon " + this.iconClass;
-				} else if (this.iconNode) {
-					domConstruct.destroy(this.iconNode);
-					delete this.iconNode;
-				}
-			}
-			// Set or remove label
-			var showLabel = this.label && (this.showLabel || has("highcontrast"));
-			if ("label" in oldValues || "showLabel" in oldValues) {
-				if (showLabel) {
-					this.containerNode = this.containerNode ||
-						domConstruct.create("span", {className: "d-reset d-inline duiButtonText"}, this);
-					this.containerNode.textContent = this.label;
-				} else if (this.containerNode) {
-					domConstruct.destroy(this.containerNode);
-					delete this.containerNode;
-				}
-			}
-
-			// Set title.  If no label is shown and no title has been specified,
-			// label is also set as title attribute of icon.
-			if ("title" in oldValues || "label" in oldValues) {
-				this.title = this.title || (!showLabel && this.label) || "";
+		computeProperties: function (props) {
+			if ("title" in props || "label" in props) {
+				this.title = this.title || this.label || "";
 			}
 		}
 	});
 
-	return register("d-button", has("bidi") ? [HTMLButtonElement, Button, BidiButton] :
+	var ButtonElt = register("d-button", has("bidi") ? [HTMLButtonElement, Button, BidiButton] :
 		[HTMLButtonElement, Button]);
+	ButtonElt.Impl = Button;
+	return ButtonElt;
 });
