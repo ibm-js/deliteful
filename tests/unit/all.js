@@ -23,5 +23,6 @@ define([
 	"./Toggle",
 	"./Button",
 	"./ToggleButton",
-	"./RadioButton"
+	"./RadioButton",
+	"./ResponsiveColumns"
 ]);
