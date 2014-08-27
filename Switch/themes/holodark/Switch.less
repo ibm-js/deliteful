@@ -1,0 +1,27 @@
+@import "../../../../delite/themes/holodark/common";
+@import "../variables";
+
+.d-switch-on-styles() {
+	background-color: @holo-switch-on-color;
+	background-image: none;
+	color: @holo-color;
+}
+.d-switch-off-styles() {
+	background-color: @holo-switch-off-color;
+	background-image: none;
+	color: @holo-color;
+}
+.d-switch-knob-styles() {
+	box-shadow: 0 1px 6px black;
+	background-color: @holo-switch-knob-color;
+	background-image: none;
+}
+.d-switch-focused-styles () {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+@d-switch-rounded-radius: 0px;
+
+@import "../Switch_template.less";
