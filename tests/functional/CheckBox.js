@@ -7,7 +7,7 @@ define([
 
 	function loadFile(remote, url) {
 		return remote
-			.setAsyncScriptTimeout(30000)
+			.setAsyncScriptTimeout(50000)
 			.get(require.toUrl(url))
 			.executeAsync(function (done) {
 				require(["delite/register", "deliteful/CheckBox", "requirejs-domready/domReady!"], function (register) {
@@ -58,7 +58,7 @@ define([
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support sendKeys
 				console.log("Skipping test: key nav as sendKeys not supported on Safari");
-				return;
+				return remote.end();
 			}
 			return remote
 				.execute("return document.getElementById('b1').focus();")
@@ -95,10 +95,9 @@ define([
 				// Form tests
 				//
 			var remote = this.remote;
-			console.log("remote.environmentType.browserName:" + remote.environmentType.browserName);
 			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
 				console.log("Skipping test: 'CheckBox Form' on this platform.");
-				return;
+				return remote.end();
 			}
 			return remote
 				.elementById("form1")
@@ -125,7 +124,6 @@ define([
 				.then(function (value) {
 					assert.strictEqual(value, "4", "Unexpected value for checkbox cb6");
 				})
-				.end()
 				;
 		}
 	});

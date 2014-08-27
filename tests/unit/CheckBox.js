@@ -23,8 +23,8 @@ define([
 			assert.ok(elt, "Missing wrapped input element.");
 
 			// verify properties bounds in the template
-			assert.strictEqual(cb.name, elt.getAttribute("name"), "Unexpected 'name' attribute value for wrapped input.");
-			assert.strictEqual(cb.value, elt.getAttribute("value"), "Unexpected 'value' attribute value for wrapped input.");
+			assert.strictEqual(cb.name, elt.name, "Unexpected value for wrapped input 'name' property.");
+			assert.strictEqual(cb.value, elt.value, "Unexpected value for wrapped input 'value' property.");
 
 			var cb2 = document.getElementById("cb2");
 			assert.strictEqual(cb2.value, "foo",

@@ -29,10 +29,8 @@ define([
 			var elt = sw1.querySelector("input[type='checkbox']");
 			assert.ok(elt, "Missing wrapped input element.");
 			// verify properties bounds in the template
-			assert.strictEqual(sw1.name, elt.getAttribute("name"),
-				"Unexpected 'name' attribute value for wrapped input.");
-			assert.strictEqual(sw1.value, elt.getAttribute("value"),
-				"Unexpected 'value' attribute value for wrapped input.");
+			assert.strictEqual(sw1.name, elt.name, "Unexpected value for wrapped input 'name' property.");
+			assert.strictEqual(sw1.value, elt.value, "Unexpected 'value' attribute value for wrapped input.");
 			assert.notOk(elt.getAttribute("disabled"), sw1.disabled.toString(),
 				"Unexpected 'disabled' attribute value for wrapped input.");
 		},
