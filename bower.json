@@ -13,6 +13,11 @@
 		"requirejs-dplugins": "0.2.x",
 		"dstore": "0.1.0"
 	},
+	"keywords": [
+		"web-components",
+		"delite",
+		"custom-elements"
+	],
 	"ignore": [
 		".jshintrc",
 		".gitattributes",
