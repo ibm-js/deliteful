@@ -119,7 +119,8 @@ define([
 				.submit()
 				.waitForElementById("parameters")
 				.end()
-				.elementByIdOrNull("valueFor_sw3")
+				.execute("return document.getElementById('valueFor_sw3');")
+//				.elementByIdOrNull("valueFor_sw3")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for unchecked checkbox cb3.");
 				})
