@@ -56,8 +56,8 @@ define([
 	 * <d-select selectionMode="multiple" id="select1"></d-select>
 	 * 
 	 * @class module:deliteful/Select
-	 * @augments {module:delite/FormWidget}
-	 * @augments {module:delite/Store}
+	 * @augments module:delite/FormWidget
+	 * @augments module:delite/Store
 	 */
 	return register("d-select", [HTMLElement, FormWidget, StoreMap, Selection],
 		/** @lends module:deliteful/Select# */ {
