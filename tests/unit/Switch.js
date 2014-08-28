@@ -15,29 +15,30 @@ define([
 
 	var commonSuite = {
 
-		"Default State": function () {
-			var sw1 = document.getElementById("sw1");
-			sw1.deliver();
-			assert.isTrue(domClass.contains(sw1, "d-switch"), "Missing baseClass.");
-			assert.isTrue(domClass.contains(sw1, "d-switch-width"), "Missing d-switch-width class.");
-			assert.isTrue(domClass.contains(sw1, "d-switch-rounded"), "Missing d-switch-rounded class.");
-			assert.isFalse(sw1.checked, "Unexpected default value for 'checked' property.");
-			assert.isFalse(sw1.disabled, "Unexpected default value for 'disabled' property.");
-			assert.strictEqual(sw1.value, "on", "Unexpected default value for 'value' property.");
-			assert.strictEqual(sw1.checkedLabel, "", "Unexpected default value for 'checkedLabel' property.");
-			assert.strictEqual(sw1.uncheckedLabel, "", "Unexpected default value for 'uncheckedLabel' property.");
-			var elt = sw1.querySelector("input[type='checkbox']");
-			assert.ok(elt, "Missing wrapped input element.");
-			// verify properties bounds in the template
-			assert.strictEqual(sw1.name, elt.name, "Unexpected value for wrapped input 'name' property.");
-			assert.strictEqual(sw1.value, elt.value, "Unexpected 'value' attribute value for wrapped input.");
-			assert.notOk(elt.getAttribute("disabled"), sw1.disabled.toString(),
-				"Unexpected 'disabled' attribute value for wrapped input.");
-		},
+//		"Default State": function () {
+//			var sw1 = document.getElementById("sw1");
+//			sw1.deliver();
+//			assert.isTrue(domClass.contains(sw1, "d-switch"), "Missing baseClass.");
+//			assert.isTrue(domClass.contains(sw1, "d-switch-width"), "Missing d-switch-width class.");
+//			assert.isTrue(domClass.contains(sw1, "d-switch-rounded"), "Missing d-switch-rounded class.");
+//			assert.isFalse(sw1.checked, "Unexpected default value for 'checked' property.");
+//			assert.isFalse(sw1.disabled, "Unexpected default value for 'disabled' property.");
+//			assert.strictEqual(sw1.value, "on", "Unexpected default value for 'value' property.");
+//			assert.strictEqual(sw1.checkedLabel, "", "Unexpected default value for 'checkedLabel' property.");
+//			assert.strictEqual(sw1.uncheckedLabel, "", "Unexpected default value for 'uncheckedLabel' property.");
+//			var elt = sw1.querySelector("input[type='checkbox']");
+//			assert.ok(elt, "Missing wrapped input element.");
+//			// verify properties bounds in the template
+//			assert.strictEqual(sw1.name, elt.name, "Unexpected value for wrapped input 'name' property.");
+//			assert.strictEqual(sw1.value, elt.value, "Unexpected 'value' attribute value for wrapped input.");
+//			assert.notOk(elt.getAttribute("disabled"), sw1.disabled.toString(),
+//				"Unexpected 'disabled' attribute value for wrapped input.");
+//		},
 
 		"Attach Point": function () {
 			// verify attachPoint
 			var sw1 = document.getElementById("sw1");
+			sw1.deliver();
 			assert.strictEqual(sw1.focusNode, sw1.querySelector("input[type='checkbox']"),
 				"Unexpected value for 'focusNode' attach point.");
 			assert.strictEqual(sw1.valueNode, sw1.querySelector("input[type='checkbox']"),
