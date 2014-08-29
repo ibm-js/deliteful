@@ -9,7 +9,8 @@ define([
 	var commonSuite = {
 		defaultWidget: "",
 		baseClass: "",
-		labelForTarget: ""
+		labelForTarget: "",
+		inputType: ""
 	};
 
 	commonSuite.testCases = {
@@ -21,7 +22,7 @@ define([
 				assert.isFalse(cb.checked, "Unexpected default value for 'checked' property.");
 				assert.isFalse(cb.disabled, "Unexpected default value for 'disabled' property");
 				assert.strictEqual(cb.value, "on", "Unexpected default value for 'value' property");
-				var elt = cb.querySelector("input[type='checkbox']");
+				var elt = cb.querySelector("input[type='" + commonSuite.inputType + "']");
 				assert.ok(elt, "Missing wrapped input element.");
 
 				// verify properties bounds in the template
@@ -63,16 +64,22 @@ define([
 			return d;
 		},
 
-		"changeEvent": function () {
+		"changeEvent - input clicked": function () {
 			var cb3 = document.getElementById(commonSuite.labelForTarget),
-				lbl4 = document.getElementById("lbl4"),
 				fired = false;
 			cb3.on("change", function () {
 				fired = true;
 			});
 			cb3.focusNode.click();
 			assert.isTrue(fired, "Missing 'change' event when input node is clicked.");
-			fired = false;
+		},
+		"changeEvent - labelFor clicked": function () {
+			var cb3 = document.getElementById(commonSuite.labelForTarget),
+				lbl4 = document.getElementById("lbl4"),
+				fired = false;
+			cb3.on("change", function () {
+				fired = true;
+			});
 			lbl4.click();
 			assert.isTrue(fired, "Missing 'change' event when labelFor is clicked.");
 		}

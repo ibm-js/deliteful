@@ -12,13 +12,13 @@ define([
 		html = "<d-checkbox id='cb1'></d-checkbox><d-checkbox id='cb2' value='foo'>" +
 			"</d-checkbox><d-checkbox id='cb3' checked='true'></d-checkbox><label id='lbl4' for='cb3'>cb3</label>";
 
-
 	var suite = {
 		setup: function () {
 			dcl.mix(commonSuite, {
 				baseClass: "d-checkbox",
 				defaultWidget: "cb1",
-				labelForTarget: "cb3"
+				labelForTarget: "cb3",
+				inputType: "checkbox"
 			});
 		},
 		"initState": function () {
