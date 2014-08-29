@@ -42,7 +42,7 @@ define(["intern!object",
 			// Webdriver issues for now with FF 
 			console.log("Skipping checkKeyboardNavigationSingleSelection on " +
 				remote.environmentType.browserName);
-			return;
+			return remote.end();
 		}
 		var selItemNullStr = "widget.selectedItem is null";
 		// Expression executed in the browser for collecting data allowing to
@@ -139,7 +139,7 @@ define(["intern!object",
 			// For now testing Chrome only.
 			console.log("Skipping checkKeyboardNavigationMultipleSelection on " +
 				remote.environmentType.browserName);
-			return;
+			return remote.end();
 		}
 		var selItemNullStr = "widget.selectedItem is null";
 		// Expression executed in the browser for collecting data allowing to

@@ -56,7 +56,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			var listId = "pageable-prog-1";
 			return remote
@@ -113,7 +113,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			var listId = "pageable-prog-2";
 			return remote
@@ -153,6 +153,39 @@ define(["intern!object",
 							.waitForCondition("document.activeElement.textContent === 'Category 0'",
 							5000);
 				});
-		}
+		},
+		"page loaders cannot be selected": function () {
+			this.timeout = TEST_TIMEOUT_MS;
+			var remote = this.remote;
+			var listId = "pageable-prog-8";
+			if (/chrome/.test(remote.environmentType.browserName)) {
+				https://code.google.com/p/selenium/issues/detail?id=2766
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
+				return remote.end();
+			}
+			return remote
+				.get(require.toUrl("./pageable-prog-8.html"))
+				.waitForCondition("'ready' in window &&  ready "
+						+ "&& document.getElementById('" + listId + "') "
+						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+						WAIT_TIMEOUT_MS,
+						WAIT_POLLING_MS)
+				.execute("document.querySelector('.d-list-loader').scrollIntoView();")
+				.elementByClassName("d-list-loader")
+					.click()
+					.end()
+				.execute("return document.getElementById('" + listId + "').selectedItem;")
+				.then(function (value) {
+					assert.isNull(value, "no item currently selected");
+				})
+				.waitForCondition("document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1;")
+				.elementByClassName("d-list-loader")
+					.click()
+					.end()
+				.execute("return document.getElementById('" + listId + "').selectedItem;")
+				.then(function (value) {
+					assert.isNull(value, "no item currently selected");
+				})
+		},
 	});
 });
