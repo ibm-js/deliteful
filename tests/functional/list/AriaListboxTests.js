@@ -123,7 +123,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			return remote
 			.get(require.toUrl("./listbox-prog-1.html"))
@@ -200,7 +200,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-3.html"))
@@ -251,7 +251,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))
@@ -299,7 +299,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-2.html"))
@@ -406,7 +406,7 @@ define(["intern!object",
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))

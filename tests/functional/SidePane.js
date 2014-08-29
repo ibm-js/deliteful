@@ -27,7 +27,7 @@ define(["intern!object",
 			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return this.remote.end();
 			}
 			return this.remote.elementById("showButton").click().end()
 				.wait(800)
@@ -37,7 +37,7 @@ define(["intern!object",
 			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return this.remote.end();
 			}
 			return this.remote.elementById("hideButton").click().end()
 				.wait(800)
@@ -47,7 +47,7 @@ define(["intern!object",
 			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return this.remote.end();
 			}
 			return this.remote.elementById("showButton").click().end().wait(800)
 				.elementById("page").moveTo(30, 300).buttonDown().moveTo(10, 300)

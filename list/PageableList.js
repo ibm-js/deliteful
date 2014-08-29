@@ -749,6 +749,18 @@ define([
 					sup.apply(this, arguments);
 				}
 			};
+		}),
+		
+		_handleSelection: dcl.superCall(function (sup) {
+			// page loader should never be selected when clicked
+			return function (event) {
+				var renderer = this.getEnclosingRenderer(event.target);
+				if (renderer === this._nextPageLoader || renderer === this._previousPageLoader) {
+					return;
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
 		})
 
 	});

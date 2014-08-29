@@ -253,7 +253,7 @@ define(["intern!object",
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				// Same problem with selendroid and iOS, apparently
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return;
+				return remote.end();
 			}
 			console.log("# running test 'tab order'");
 			return remote
