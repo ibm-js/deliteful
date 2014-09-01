@@ -24,8 +24,10 @@ define([
 		"baseClass update" : function () {
 			assert.strictEqual(list.className, "d-list");
 			list.baseClass = "d-round-rect-list";
+			list.deliver();
 			assert.strictEqual(list.className, "d-round-rect-list");
 			list.baseClass = "d-list";
+			list.deliver();
 			assert.strictEqual(list.className, "d-list");
 		},
 		"scrollDirection horizontal not supported": function () {
