@@ -791,13 +791,13 @@ define([
 		 * @private
 		 */
 		_createItemRenderer: function (item) {
-			var renderer = new this.itemRenderer({tabindex: "-1"});
-			renderer.item = item;
+			var renderer = new this.itemRenderer({item: item, tabindex: "-1"});
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 				domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
 			}
+			renderer.deliver();
 			return renderer;
 		},
 
@@ -810,6 +810,7 @@ define([
 		 */
 		_createCategoryRenderer: function (item) {
 			var renderer = new this.categoryRenderer({item: item, tabindex: "-1"});
+			renderer.deliver();
 			return renderer;
 		},
 
