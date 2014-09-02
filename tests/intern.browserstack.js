@@ -33,6 +33,7 @@ define({
 		{ browserName: "firefox", version: "31", platform: ["Windows" ], name : "deliteful"}
 
 		// Chrome doesn't work either, see
+		/* jshint maxlen: 125*/
 		// http://stackoverflow.com/questions/25482084/intern-2-against-chrome-browserstac-hangs-fetching-page-once-a-minute
 		// { browserName: "chrome", version: "35", platform: [ "Windows" ],
 		//	name : "deliteful"},
@@ -46,7 +47,7 @@ define({
 //		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
 	],
 
-	tunnel: 'BrowserStackTunnel',
+	tunnel: "BrowserStackTunnel",
 	tunnelOptions: {
 		verbose: true,
 		port: "80"
@@ -71,6 +72,7 @@ define({
 	functionalSuites: [ "deliteful/tests/functional/all" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
+	/* jshint maxlen: 128*/
 	excludeInstrumentation:
 		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
 });
