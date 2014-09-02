@@ -436,11 +436,14 @@ No Mixin is currently provided for this widget.
 
 ### Store query
 
+When the widget has finished rendering the items queried from the store, it emits a `query-success` event. The `renderItems` property of the event
+is an array of the items displayed by the widget.
+
 If the widget fails to query its store to retrieve the items to render, it emits a `query-error` event (see [Store capabilities](#store) for more information).
 
 ### Selection
 
-When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` property
+When the current selection changes, a `selection-change` event is emitted. Its `oldValue` property
 contains the previous selection, and its `newValue` property contains the new selection.
 
 <a name="enterprise"></a>

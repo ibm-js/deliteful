@@ -884,6 +884,7 @@ define([
 			this._renderNewItems(items, false);
 			this._setBusy(false, true);
 			this._dataLoaded = true;
+			this.emit("query-success", { renderItems: items, cancelable: false, bubbles: true });
 		},
 
 		/**

@@ -155,6 +155,24 @@ define([
 			list.store.add({label: "item 1", category: "category 1"});
 			assert.strictEqual(list.getChildren()[0].item.category, "category 1");
 		},
+		"query-success event": function () {
+			var def = this.async(1000);
+			list.destroy();
+			list = new List();
+			list.on("query-success", function (evt) {
+				var renderItems = evt.renderItems;
+				assert.isNotNull(renderItems);
+				assert.strictEqual(renderItems.length, 2);
+				assert.strictEqual(renderItems[0].label, "item 1");
+				assert.strictEqual(renderItems[1].label, "item 2");
+				def.resolve();
+			});
+			list.labelAttr = "name";
+			list.store.add({name: "item 1"});
+			list.store.add({name: "item 2"});
+			list.startup();
+			return def;
+		},
 		"query-error event": function () {
 			var def = this.async(1000);
 			try {
