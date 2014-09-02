@@ -103,11 +103,7 @@ define([
 			this._drag = false;
 			var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
 			var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
-			if (this.checked) {
-				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
-			} else {
-				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
-			}
+			this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			e.preventDefault();
 			e.stopPropagation();
 		},
