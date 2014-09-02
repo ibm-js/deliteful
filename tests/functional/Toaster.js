@@ -46,7 +46,7 @@ define(["intern!object",
 	var WAIT_TIMEOUT_MS = 180000;
 	var ANIMATION_DURATION = 5000;
 	var TEST_TIMEOUT_MS = 120000;
-	var POLL_FREQ_MS = 500;
+	var POLL_INTERVAL = 500;
 
 	// check functions
 
@@ -80,7 +80,7 @@ define(["intern!object",
 
 	function checkInsertion(remote, elementId) {
 		return remote
-			.elementByIdOrNull(elementId)
+			.execute("return document.getElementById('" + elementId + "');")
 			.then(function (element) {
 				assert.isNotNull(element, "element " + elementId + " was correctly inserted in DOM");
 			})
@@ -102,7 +102,7 @@ define(["intern!object",
 			.findById(elementId)
 			.then(function () {
 				// noop
-			}, function () {
+		}, function () {
 				assert.fail(true, false, elementId + " was not found");
 			})
 			.end();
@@ -115,7 +115,7 @@ define(["intern!object",
 				assert.fail(true, false, elementId + " was found");
 			}, function () {
 				// noop
-			})
+		})
 			.end();
 	}
 
@@ -137,11 +137,11 @@ define(["intern!object",
 			.findById(action.buttonId)
 			.click()
 			.end()
-			.then(pollUntil(codeIns(action), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
+			.then(pollUntil(codeIns(action), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			// wait for it to expire
 			.then(pollUntil(codeExp(action), [],
-				duration + timeoutOffset, POLL_FREQ_MS))
-			.then(pollUntil(codeRem(action), [], ANIMATION_DURATION + timeoutOffset, POLL_FREQ_MS))
+				duration + timeoutOffset, POLL_INTERVAL))
+			.then(pollUntil(codeRem(action), [], ANIMATION_DURATION + timeoutOffset, POLL_INTERVAL))
 			.end();
 	}
 
@@ -149,7 +149,7 @@ define(["intern!object",
 		return remote
 			.findById(action.buttonId)
 			.click()
-			.then(pollUntil(codeIns(action), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
+			.then(pollUntil(codeIns(action), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			.end();
 	}
 
@@ -162,7 +162,8 @@ define(["intern!object",
 			var remote = this.remote;
 			return remote
 				.get(require.toUrl(PAGE))
-				.then(pollUntil("return ('ready' in window && ready) ? true : null;", [], WAIT_TIMEOUT_MS, POLL_FREQ_MS));
+				.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
+						WAIT_TIMEOUT_MS, POLL_INTERVAL));
 		},
 		"Check Aria/initial nb of messages/posting": function () {
 			console.log("# running test 'default'");
@@ -177,7 +178,7 @@ define(["intern!object",
 					// post a few messages, and check if they are there
 					return clickButton(remote, "trigger-button");
 				})
-				.then(pollUntil("return document.querySelectorAll('.d-toaster-message');", [], 5000))
+				.then(pollUntil("return document.querySelectorAll('.d-toaster-message');", [], 5000, POLL_INTERVAL))
 				.then(function () {
 					return checkNumberOfMessages(remote, "default", 1);
 				});
@@ -209,17 +210,17 @@ define(["intern!object",
 						.click()
 						.end()
 						// make sure they are all inserted
-						.then(pollUntil(codeIns(perm1), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
-						.then(pollUntil(codeIns(exp2000), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
-						.then(pollUntil(codeIns(perm2), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
-						.then(pollUntil(codeIns(exp6000), [], WAIT_TIMEOUT_MS, POLL_FREQ_MS))
+						.then(pollUntil(codeIns(perm1), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+						.then(pollUntil(codeIns(exp2000), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+						.then(pollUntil(codeIns(perm2), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+						.then(pollUntil(codeIns(exp6000), [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						// wait for expirable2000 to expire
-						.then(pollUntil(codeExp(exp2000), [], 2000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS))
+						.then(pollUntil(codeExp(exp2000), [], 2000 + WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						// wait for expirable6000 to expire
-						.then(pollUntil(codeExp(exp6000), [], 6000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS))
+						.then(pollUntil(codeExp(exp6000), [], 6000 + WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						// wait for both messages to be removed
 						.then(pollUntil(codeRem(exp2000) && codeRem(exp6000), [],
-							WAIT_TIMEOUT_MS + ANIMATION_DURATION, POLL_FREQ_MS))
+							WAIT_TIMEOUT_MS + ANIMATION_DURATION, POLL_INTERVAL))
 						.then(function () {
 							var remotes = [];
 							// check expired are no longer in the DOM

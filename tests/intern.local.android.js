@@ -13,8 +13,8 @@ define([
 	};
 
 	intern.environments = [
-		{ browserName: "android", androidTarget: "19" }, // Android 4.4
-		{ browserName: "android", androidTarget: "18" } // Android 4.3
+		{ browserName: "android", platformVersion: "19" }, // Android 4.4
+		{ browserName: "android", platformVersion: "18" } // Android 4.3
 	];
 
 	intern.proxyUrl = "http://" + host + ":9000/";

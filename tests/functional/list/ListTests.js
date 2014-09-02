@@ -7,7 +7,7 @@ define(["intern!object",
 
 	var WAIT_TIMEOUT_MS = 180000;
 	
-	var WAIT_POLLING_MS = 200;
+	var POLL_INTERVAL = 200;
 
 	var TEST_TIMEOUT_MS = 240000;
 
@@ -19,7 +19,7 @@ define(["intern!object",
 				+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 				[],
 				WAIT_TIMEOUT_MS,
-				WAIT_POLLING_MS))
+				POLL_INTERVAL))
 		.then(function () {
 			return remote
 			.findById(listId)
@@ -94,7 +94,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
@@ -121,7 +121,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -175,7 +175,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -229,7 +229,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -282,7 +282,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -360,7 +360,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-cust-2').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -505,7 +505,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -554,7 +554,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -662,7 +662,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-mark-5').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -770,7 +770,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -828,7 +828,7 @@ define(["intern!object",
 					+ "&& !document.getElementById('list-cust-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
 					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS))
+					POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB

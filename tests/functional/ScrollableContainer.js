@@ -7,7 +7,7 @@ define(["intern!object",
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
-			.then(pollUntil("return ready ? true : null;", [], 15000)); // large timeout because of sauce...
+			.then(pollUntil("return ready ? true : null;", [], 15000, 500)); // large timeout because of sauce...
 	};
 
 	var checkScrollAmount = function (remote, scrollContainerId, expectedScroll) {
@@ -63,7 +63,7 @@ define(["intern!object",
 				.end()
 				// Check that the scroll arrives at 100: (large timeout because of sauce...)
 				.then(pollUntil("return document.getElementById('scrollContainer').scrollableNode.scrollTop==100 ?"
-						+ "true: null;", [], 15000))
+						+ "true: null;", [], 15000, 500))
 				// Check that it stays at 100 even after waiting a while (that is,
 				// that it does not continue to scroll):
 				.sleep(200)

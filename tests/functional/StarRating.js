@@ -9,9 +9,11 @@ define([
 	var WAIT_TIMEOUT_MS = 180000;
 
 	var TEST_TIMEOUT_MS = 120000;
+	
+	var POLL_INTERVAL = 500;
 
-	var pollUntilStarRatingReady = function (widgetId, timeout) {
-		return pollUntil("return document.querySelector('#" + widgetId + " > div');", [], timeout);
+	var pollUntilStarRatingReady = function (widgetId, timeout, pollInterval) {
+		return pollUntil("return document.querySelector('#" + widgetId + " > div');", [], timeout, pollInterval);
 	};
 
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
@@ -31,26 +33,17 @@ define([
 	};
 
 	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
-		var i = 0;
-		return remote.sleep(1)
-				.then(function () {
-					for (; i < expectedKeys.length; i++) {
-						(function (i) {
-							remote.findByXpath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
-								.getVisibleText()
-								.then(function (value) {
-									assert.strictEqual(value, expectedKeys[i]);
-								})
-								.end()
-							.findByXpath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
-								.getVisibleText()
-								.then(function (value) {
-									assert.strictEqual(value, expectedValues[i]);
-								})
-								.end();
-						})(i);
-					}
-				});
+		var expected = [];
+		for (var i = 0; i < expectedKeys.length; i++) {
+			expected.push(expectedKeys[i]);
+			expected.push(expectedValues[i]);
+		}
+		return remote.findAllByTagName("td")
+			.getVisibleText()
+			.then(function (texts) {
+				assert.deepEqual(texts, expected);
+			})
+			.end();
 	};
 
 	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedDisabled) {
@@ -107,7 +100,7 @@ define([
 		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
 		.get(require.toUrl("./StarRating.html"))
-		.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS))
+		.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 		// Check initial rating
 		.then(function () {
 			return checkRating(remote, widgetId, 7, expectedInitialValue, false);
@@ -144,7 +137,7 @@ define([
 			console.log("# running test 'read only ltr'");
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS))
+				.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 				.then(function () {
 					// Check initial rating
 					return checkRating(remote, widgetId, 1, 0, false);
@@ -200,7 +193,7 @@ define([
 			var remote = this.remote, id = "editablestar6";
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS))
+				.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 				// Check initial rating
 				.then(function () {
 					return checkRating(remote, id, 7, 3.5, false);
@@ -247,7 +240,7 @@ define([
 			var remote = this.remote, id = "defaultstar";
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS))
+			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, id, 5, 0, false);
@@ -265,7 +258,7 @@ define([
 			console.log("# running test 'tab order'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS))
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			// Check active element
 			.execute("return document.activeElement.id;")
 			.then(function (value) {
@@ -328,7 +321,7 @@ define([
 			var remote = this.remote, id = "starrating3";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS))
+			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, id, 7, 3, true);
@@ -340,14 +333,14 @@ define([
 			console.log("# running test 'form back button'");
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS))
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, "starratingA", 7, false);
 			})
 			.findById("submitButton")
 				.click()
 				.end()
-			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS))
+			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			.then(function () {
 				// Safari driver does not support the back method
 				// see https://code.google.com/p/selenium/issues/detail?id=3771
@@ -357,19 +350,22 @@ define([
 				} else {
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
 						.goBack()
-						.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS))
+						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+								WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						})
 						.findById("submitButton")
 							.click()
 							.end()
-							.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS))
+							.then(pollUntil("return document.getElementById('parameters');", [],
+									WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						.then(function () {
 							return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 						})
 						.goBack()
-						.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS))
+						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+								WAIT_TIMEOUT_MS, POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						});
@@ -382,14 +378,14 @@ define([
 			console.log("# running test 'form values'");
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS))
+			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, id, 2, false);
 			})
 			.findById("submitButton")
 			.click()
 			.end()
-			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS))
+			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);

@@ -29,26 +29,10 @@ define({
 		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"},
 
 		// Mobile
-		{ browserName: "iphone 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
-			app: "safari", device: "iPhone Simulator", name: "deliteful" }
-		
-		/* For now disabled to avoid webdriver/sauce issues
-		{ browserName: "ipad 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPad",
-			app: "safari", device: "iPad Simulator", name: "deliteful" },
-		{ browserName: "iphone 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
-			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-		{ browserName: "ipad 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
-			app: "safari", device: "iPad Simulator", name: "deliteful" }
-		*/
-//		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPhone",
-//			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-//		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPad",
-//			app: "safari", device: "iPad Simulator", name: "deliteful" },
-//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.0", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", version: "4.0", name : "deliteful"},
+		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
+		// see https://github.com/theintern/intern/issues/216
+		//{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
+		//	"appium-version": "1.2.2", name: "deliteful" }
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service

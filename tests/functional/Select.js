@@ -8,7 +8,7 @@ define(["intern!object",
 	// Huge values not needed when running locally, but needed for running remotely...
 	var WAIT_TIMEOUT_MS = 180000;
 	var TEST_TIMEOUT_MS = 120000;
-	var POLL_FREQUENCY = 1000;
+	var POLL_INTERVAL = 1000;
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
@@ -272,7 +272,7 @@ define(["intern!object",
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
-				.then(pollUntil("return ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_FREQUENCY));
+				.then(pollUntil("return ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL));
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively (with default store):

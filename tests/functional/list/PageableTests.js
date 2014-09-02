@@ -7,7 +7,7 @@ define(["intern!object",
 
 	var WAIT_TIMEOUT_MS = 180000;
 	
-	var WAIT_POLLING_MS = 200;
+	var POLL_INTERVAL = 200;
 
 	var TEST_TIMEOUT_MS = 240000;
 
@@ -23,7 +23,7 @@ define(["intern!object",
 			.end()
 			.pressKeys(keys.SPACE)
 			.then(pollUntil("return " + expectedTextPath + " === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000))
+					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, POLL_INTERVAL))
 			.execute("return document.getElementById('" + listId + "').getBottomDistance(document.activeElement);")
 			.then(function (value) {
 				assert.closeTo(Math.round(value), -1, 1,
@@ -41,7 +41,7 @@ define(["intern!object",
 			.end()
 			.pressKeys(keys.SPACE)
 			.then(pollUntil("return document.activeElement.children[1].textContent === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000))
+					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, POLL_INTERVAL))
 			.execute("return document.getElementById('" + listId + "').getTopDistance(document.activeElement);")
 			.then(function (value) {
 				assert.closeTo(Math.round(value), 0, 1,
@@ -67,8 +67,9 @@ define(["intern!object",
 						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 						[],
 						WAIT_TIMEOUT_MS,
-						WAIT_POLLING_MS))
-				.getActiveElement() // For some reason, tab navigation doesn't succeed on IE if not typing a value before
+						POLL_INTERVAL))
+				.getActiveElement()
+				// For some reason, tab navigation doesn't succeed on IE if not typing a value before
 					.type("test")
 				.end()
 				.pressKeys(keys.TAB)
@@ -92,7 +93,7 @@ define(["intern!object",
 							.then(pollUntil(
 								"return document.activeElement.children[1].textContent === "
 									+ "'Programmatic item of order 99' ? true : null;",
-							[], 5000));
+							[], 5000, POLL_INTERVAL));
 				})
 				.then(function () {
 					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 59");
@@ -108,7 +109,7 @@ define(["intern!object",
 							.then(pollUntil(
 									"return document.activeElement.children[1].textContent === "
 									+ "'Programmatic item of order 0' ? true : null;",
-							[], 5000));
+							[], 5000, POLL_INTERVAL));
 				});
 		},
 		"Pageable categorized list keyboard navigation": function () {
@@ -127,7 +128,7 @@ define(["intern!object",
 						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 						[],
 						WAIT_TIMEOUT_MS,
-						WAIT_POLLING_MS))
+						POLL_INTERVAL))
 				.pressKeys(keys.TAB)
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 25");
@@ -171,23 +172,24 @@ define(["intern!object",
 			}
 			return remote
 				.get(require.toUrl("./pageable-prog-8.html"))
-				.waitForCondition("'ready' in window &&  ready "
+				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
+						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+						[],
 						WAIT_TIMEOUT_MS,
-						WAIT_POLLING_MS)
+						POLL_INTERVAL))
 				.execute("document.querySelector('.d-list-loader').scrollIntoView();")
-				.elementByClassName("d-list-loader")
+				.findByClassName("d-list-loader")
 					.click()
 					.end()
 				.execute("return document.getElementById('" + listId + "').selectedItem;")
 				.then(function (value) {
 					assert.isNull(value, "no item currently selected");
 				})
-				.waitForCondition(
-					"document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1;"
-				)
-				.elementByClassName("d-list-loader")
+				.then(pollUntil(/* jshint maxlen: 147 */
+						"return document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1 ? true : null;",
+						[], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+				.findByClassName("d-list-loader")
 					.click()
 					.end()
 				.execute("return document.getElementById('" + listId + "').selectedItem;")

@@ -291,20 +291,6 @@ define(["intern!object",
 		};
 	}
 
-	function getElementById(remote, elementId) {
-		return remote.findById(elementId)
-			.then(null, function (error) {
-				handleElementNotFound(elementId, error);
-			});
-	}
-
-	function getElementByXPath(remote, xpath) {
-		return remote.findByXpath(xpath)
-			.then(null, function (error) {
-				handleElementNotFound(xpath, error);
-			});
-	}
-
 	/**
 	 * display msg with information on the not found element and throw an assert to avoid unclear stack trace.
 	 * errors not related to not found element are re-throwned.
@@ -400,7 +386,7 @@ define(["intern!object",
 					return remote.moveMouseTo(element)
 						.pressMouseButton()
 						.moveMouseTo(element, moveToX, moveToY)
-						.releaseMouseButton()
+						.releaseMouseButton();
 				})
 				.end()
 				.then(function () {

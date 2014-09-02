@@ -1,29 +1,19 @@
 define([
 	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
-	"intern/dojo/node!wd/lib/special-keys",
+	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (registerSuite, assert, keys, require) {
+], function (registerSuite, pollUntil, assert, keys, require) {
 
 	function loadFile(remote, url) {
 		return remote
-			.setAsyncScriptTimeout(50000)
 			.get(require.toUrl(url))
-			.executeAsync(function (done) {
-				require(["delite/register", "deliteful/CheckBox", "requirejs-domready/domReady!"], function (register) {
-					register.parse();
-					done();
-				});
-			});
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], 50000, 500));
 	}
 
 	registerSuite({
 		name: "CheckBox - functional",
-
-		setup: function () {
-			var remote = this.remote;
-			loadFile(remote, "./CheckBox.html");
-		},
 
 		"Checkbox behavior": function () {
 			var remote = this.remote;
@@ -62,27 +52,27 @@ define([
 			}
 			return remote
 				.execute("return document.getElementById('b1').focus();")
-				.active()
+				.getActiveElement()
 				.end()
-				.wait(400)
-				.keys(keys.Tab) // Press TAB -> cb1
-				.wait(400)
-				.active()
+				.sleep(400)
+				.keys(keys.TAB) // Press TAB -> cb1
+				.sleep(400)
+				.getActiveElement()
 				.getAttribute("name")
 				.then(function (v) {
 					assert.strictEqual(v, "cb1", "Unexpected focused element after 1st TAB.");
 				})
 				.end()
-				.keys(keys.Space) // Press Space to check cb1
+				.keys(keys.SPACE) // Press Space to check cb1
 				.execute("return document.getElementById('cb1').checked;")
 				.then(function (v) {
 					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
 				})
 				.end()
-				.keys(keys.Tab) // Press TAB -> skip cb2 (disabled)
-				.wait(400)
-				.active()
-				.text()
+				.keys(keys.TAB) // Press TAB -> skip cb2 (disabled)
+				.sleep(400)
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (v) {
 					assert.strictEqual(v, "End", "Unexpected focused element after 2nd TAB.");
 				})
@@ -98,30 +88,31 @@ define([
 				console.log("Skipping test: 'CheckBox Form' on this platform.");
 				return remote.end();
 			}
-			return remote
-				.elementById("form1")
+			return loadFile(remote, "./CheckBox.html")
+				.findById("form1")
 				.submit()
-				.waitForElementById("parameters")
+				.end()
+				.setFindTimeout(180000)
+				.find("id", "parameters")
 				.end()
 				.execute("return document.getElementById('valueFor_cb3');")
-				// do not call elementByIdOrNulkl as it fails
-//				.elementByIdOrNull("valueFor_cb3")
 				.then(function (value) {
 						assert.isNull(value, "Unexpected value for unchecked checkbox cb3.");
 					})
 				.end()
-				.elementById("valueFor_cb4")
-				.text()
+				.findById("valueFor_cb4")
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "2", "Unexpected value for checkbox cb4");
 				})
 				.end()
-				.elementByIdOrNull("valueFor_cb5")
+				.execute("return document.getElementById('valueFor_cb5');")
+//				.elementByIdOrNull("valueFor_cb5")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled checkbox cb5.");
 				})
-				.elementById("valueFor_cb6")
-				.text()
+				.findById("valueFor_cb6")
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "4", "Unexpected value for checkbox cb6");
 				})
