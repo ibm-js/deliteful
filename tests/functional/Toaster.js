@@ -130,7 +130,7 @@ define(["intern",
 	}
 
 	function checkExpirable(remote, action, duration) {
-		var timeoutOffset = 2000;
+		var timeoutOffset = 5000;
 		return remote
 			.findById(action.buttonId)
 			.click()

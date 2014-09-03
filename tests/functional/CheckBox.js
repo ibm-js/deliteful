@@ -9,9 +9,14 @@ define([
 
 	function loadFile(remote, url) {
 		return remote
+			.setExecuteAsyncTimeout(intern.config.WAIT_TIMEOUT)
 			.get(require.toUrl(url))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
-					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
+			.executeAsync(function (done) {
+				require(["delite/register", "deliteful/CheckBox", "requirejs-domready/domReady!"], function (register) {
+					register.parse();
+					done();
+				});
+			});
 	}
 
 	registerSuite({
