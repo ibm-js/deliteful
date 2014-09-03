@@ -159,7 +159,7 @@ define(["intern!object",
 			var remote = this.remote;
 			var listId = "pageable-prog-8";
 			if (/chrome/.test(remote.environmentType.browserName)) {
-				https://code.google.com/p/selenium/issues/detail?id=2766
+				// https://code.google.com/p/selenium/issues/detail?id=2766
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return remote.end();
 			}
@@ -178,14 +178,16 @@ define(["intern!object",
 				.then(function (value) {
 					assert.isNull(value, "no item currently selected");
 				})
-				.waitForCondition("document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1;")
+				.waitForCondition(
+					"document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1;"
+				)
 				.elementByClassName("d-list-loader")
 					.click()
 					.end()
 				.execute("return document.getElementById('" + listId + "').selectedItem;")
 				.then(function (value) {
 					assert.isNull(value, "no item currently selected");
-				})
+				});
 		},
 	});
 });
