@@ -142,8 +142,8 @@ define([
 		attachedCallback: dcl.after(function () {
 			//set unique SVG symbol id
 			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
-			this.querySelector(".d-progress-indicator symbol").id = symbolId;
-			this.querySelector(".d-progress-indicator use")
+			this.querySelector("symbol").id = symbolId;
+			this.querySelector("use")
 				.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + symbolId);
 			//set non-overridable styles
 			this.svgNode.style.width = "100%";
@@ -236,6 +236,7 @@ define([
 					this.style.visibility = this.active ? "visible" : "hidden";
 				}.bind(this));
 			}
+			
 		},
 
 		destroy: function () {
