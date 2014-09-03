@@ -1,18 +1,21 @@
 /**
  * SidePane functional tests
  */
-define(["intern!object",
+define(["intern",
+    "intern!object",
     "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require"
-], function (registerSuite, pollUntil, assert, require) {
+], function (intern, registerSuite, pollUntil, assert, require) {
 	registerSuite({
 		name: "SidePane",
 		"init": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./SidePane.html").sleep(50);
 		},
 		"test initial state": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var element = remote.findById("sp");
 			var test = element.getAttribute("class").then(function (classString) {
@@ -25,6 +28,7 @@ define(["intern!object",
 		// Interactions tests are broken on Mac and iOS simulators. See #25
 		},
 		"test opening": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
@@ -35,6 +39,7 @@ define(["intern!object",
 				.then(isVisible(this.remote.findById("sp"), true));
 		},
 		"test closing": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
@@ -85,7 +90,8 @@ define(["intern!object",
 	function loadTestPage(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [], 10000, 1000))
+			.then(pollUntil("return ('ready' in window &&  ready) ? true : null", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return remote.end();
 			});

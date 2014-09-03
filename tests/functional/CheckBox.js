@@ -1,15 +1,17 @@
 define([
+    "intern",
 	"intern!object",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (registerSuite, pollUntil, assert, keys, require) {
+], function (intern, registerSuite, pollUntil, assert, keys, require) {
 
 	function loadFile(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], 50000, 500));
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
 	registerSuite({
@@ -83,6 +85,7 @@ define([
 				//
 				// Form tests
 				//
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
 				console.log("Skipping test: 'CheckBox Form' on this platform.");
@@ -92,7 +95,7 @@ define([
 				.findById("form1")
 				.submit()
 				.end()
-				.setFindTimeout(180000)
+				.setFindTimeout(intern.config.WAIT_TIMEOUT)
 				.find("id", "parameters")
 				.end()
 				.execute("return document.getElementById('valueFor_cb3');")
@@ -107,7 +110,6 @@ define([
 				})
 				.end()
 				.execute("return document.getElementById('valueFor_cb5');")
-//				.elementByIdOrNull("valueFor_cb5")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled checkbox cb5.");
 				})

@@ -1,15 +1,10 @@
-define(["intern!object",
+define(["intern",
+        "intern!object",
         "intern/dojo/node!leadfoot/helpers/pollUntil",
         "intern/dojo/node!leadfoot/keys",
         "intern/chai!assert",
         "require"
-        ], function (registerSuite, pollUntil, keys, assert, require) {
-
-	var WAIT_TIMEOUT_MS = 180000;
-	
-	var POLL_INTERVAL = 200;
-
-	var TEST_TIMEOUT_MS = 240000;
+        ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 
 	var basicTest = function (remote, testPage, listId, numberOfItemsExpected, numberOfCategoriesExpected, itemTag) {
 		return remote
@@ -18,8 +13,8 @@ define(["intern!object",
 				+ "&& document.getElementById('" + listId + "') "
 				+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 				[],
-				WAIT_TIMEOUT_MS,
-				POLL_INTERVAL))
+				intern.config.WAIT_TIMEOUT,
+				intern.config.POLL_INTERVAL))
 		.then(function () {
 			return remote
 			.findById(listId)
@@ -44,47 +39,47 @@ define(["intern!object",
 	registerSuite({
 		name: "List tests",
 		"list-prog-1.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-2.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-2.html", "list-prog-2", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-3.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-3.html", "list-prog-3", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-4.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-4.html", "list-prog-4", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-5.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
 		},
 		"list-mark-1.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
 		"list-mark-2.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
 		"list-mark-3.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
 		"list-mark-4.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
 		"list-cust-1.html": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
 		},
 		"selectionMode 'none'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-3";
 			return remote
@@ -93,8 +88,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
@@ -111,7 +106,7 @@ define(["intern!object",
 			});
 		},
 		"selectionMode 'multiple'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
@@ -120,8 +115,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -165,7 +160,7 @@ define(["intern!object",
 			});
 		},
 		"selectionMode 'single'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
@@ -174,8 +169,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -219,7 +214,7 @@ define(["intern!object",
 			});
 		},
 		"selectionMode 'radio'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-5";
 			return remote
@@ -228,8 +223,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -268,7 +263,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with default renderers": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -281,8 +276,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-prog-1') "
 					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -346,7 +341,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with custom renderers": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -359,8 +354,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-cust-2') "
 					+ "&& !document.getElementById('list-cust-2').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -491,7 +486,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard multiple selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -504,8 +499,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -540,7 +535,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard single selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -553,8 +548,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-2') "
 					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -648,7 +643,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard radio selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -661,8 +656,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-5') "
 					+ "&& !document.getElementById('list-mark-5').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -756,7 +751,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard search": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -769,8 +764,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB
@@ -814,7 +809,7 @@ define(["intern!object",
 			});
 		},
 		"custom keyboard navigation": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -827,8 +822,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-cust-1') "
 					+ "&& !document.getElementById('list-cust-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys(keys.TAB) // Press TAB

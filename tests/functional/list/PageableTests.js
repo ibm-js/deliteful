@@ -1,15 +1,10 @@
-define(["intern!object",
+define(["intern",
+        "intern!object",
         "intern/dojo/node!leadfoot/helpers/pollUntil",
         "intern/dojo/node!leadfoot/keys",
         "intern/chai!assert",
         "require"
-        ], function (registerSuite, pollUntil, keys, assert, require) {
-
-	var WAIT_TIMEOUT_MS = 180000;
-	
-	var POLL_INTERVAL = 200;
-
-	var TEST_TIMEOUT_MS = 240000;
+        ], function (intern, registerSuite, pollUntil, keys, assert, require) {
 
 	var loadNextPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad, isCategory) {
 		var expectedTextPath = isCategory ? "document.activeElement.textContent"
@@ -23,7 +18,7 @@ define(["intern!object",
 			.end()
 			.pressKeys(keys.SPACE)
 			.then(pollUntil("return " + expectedTextPath + " === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, POLL_INTERVAL))
+					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, intern.config.POLL_INTERVAL))
 			.execute("return document.getElementById('" + listId + "').getBottomDistance(document.activeElement);")
 			.then(function (value) {
 				assert.closeTo(Math.round(value), -1, 1,
@@ -41,7 +36,7 @@ define(["intern!object",
 			.end()
 			.pressKeys(keys.SPACE)
 			.then(pollUntil("return document.activeElement.children[1].textContent === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, POLL_INTERVAL))
+					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, intern.config.POLL_INTERVAL))
 			.execute("return document.getElementById('" + listId + "').getTopDistance(document.activeElement);")
 			.then(function (value) {
 				assert.closeTo(Math.round(value), 0, 1,
@@ -52,7 +47,7 @@ define(["intern!object",
 	registerSuite({
 		name: "Pageable tests",
 		"Pageable list keyboard navigation": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -66,8 +61,8 @@ define(["intern!object",
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 						[],
-						WAIT_TIMEOUT_MS,
-						POLL_INTERVAL))
+						intern.config.WAIT_TIMEOUT,
+						intern.config.POLL_INTERVAL))
 				.getActiveElement()
 				// For some reason, tab navigation doesn't succeed on IE if not typing a value before
 					.type("test")
@@ -93,7 +88,7 @@ define(["intern!object",
 							.then(pollUntil(
 								"return document.activeElement.children[1].textContent === "
 									+ "'Programmatic item of order 99' ? true : null;",
-							[], 5000, POLL_INTERVAL));
+							[], 5000, intern.config.POLL_INTERVAL));
 				})
 				.then(function () {
 					return loadPreviousPage(remote, listId, 20, "Programmatic item of order 59");
@@ -109,11 +104,11 @@ define(["intern!object",
 							.then(pollUntil(
 									"return document.activeElement.children[1].textContent === "
 									+ "'Programmatic item of order 0' ? true : null;",
-							[], 5000, POLL_INTERVAL));
+							[], 5000, intern.config.POLL_INTERVAL));
 				});
 		},
 		"Pageable categorized list keyboard navigation": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -127,8 +122,8 @@ define(["intern!object",
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 						[],
-						WAIT_TIMEOUT_MS,
-						POLL_INTERVAL))
+						intern.config.WAIT_TIMEOUT,
+						intern.config.POLL_INTERVAL))
 				.pressKeys(keys.TAB)
 				.then(function () {
 					return loadNextPage(remote, listId, 25, "Programmatic item of order 25");
@@ -162,7 +157,7 @@ define(["intern!object",
 				});
 		},
 		"page loaders cannot be selected": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "pageable-prog-8";
 			if (/chrome/.test(remote.environmentType.browserName)) {
@@ -176,8 +171,8 @@ define(["intern!object",
 						+ "&& document.getElementById('" + listId + "') "
 						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 						[],
-						WAIT_TIMEOUT_MS,
-						POLL_INTERVAL))
+						intern.config.WAIT_TIMEOUT,
+						intern.config.POLL_INTERVAL))
 				.execute("document.querySelector('.d-list-loader').scrollIntoView();")
 				.findByClassName("d-list-loader")
 					.click()
@@ -188,7 +183,7 @@ define(["intern!object",
 				})
 				.then(pollUntil(/* jshint maxlen: 147 */
 						"return document.querySelector('.d-list-loader').textContent.indexOf('Click to load 25 more items') != -1 ? true : null;",
-						[], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+						[], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.findByClassName("d-list-loader")
 					.click()
 					.end()

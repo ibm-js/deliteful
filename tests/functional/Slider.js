@@ -1,19 +1,19 @@
 /**
  * Slider functional tests
  */
-define(["intern!object",
+define(["intern",
+    "intern!object",
     "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require"
-], function (registerSuite, pollUntil, assert, require) {
+], function (intern, registerSuite, pollUntil, assert, require) {
 	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
-	var TEST_TIMEOUT = 240000; // 4 minutes
 
 	registerSuite({
 		name: "Slider (markup)",
 		// single
 		"init single slider (default value)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider.html")
 				.then(checkInitValue(remote, "singleSlider01", "50"))
@@ -21,7 +21,7 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -30,7 +30,7 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -39,7 +39,7 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 		"single slider interaction": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
@@ -62,7 +62,7 @@ define(["intern!object",
 		},
 		// range
 		"init range slider (default value)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -72,7 +72,7 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -82,7 +82,7 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -92,7 +92,7 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		},
 		"range slider interaction": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
@@ -127,7 +127,7 @@ define(["intern!object",
 	registerSuite({
 		name: "Slider (programmatic)",
 		"init single slider (default value)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-prg.html")
 				.then(logMessage(remote, this.id, "start..."))
@@ -136,7 +136,7 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -145,7 +145,7 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -155,7 +155,7 @@ define(["intern!object",
 		},
 
 		"init range slider (default value)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -165,7 +165,7 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -175,7 +175,7 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
-			this.timeout = TEST_TIMEOUT;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
@@ -408,7 +408,8 @@ define(["intern!object",
 	function loadTestPage(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.then(pollUntil("return ('ready' in window &&  ready) ? true : null;", [], 10000, 1000))
+			.then(pollUntil("return ('ready' in window &&  ready) ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				debugMsg(url + " loaded.");
 				return remote.end();

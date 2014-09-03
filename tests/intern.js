@@ -40,6 +40,15 @@ define({
 
 	// Whether or not to start Sauce Connect before running tests
 	tunnel: "SauceLabsTunnel",
+	
+	// Maximum duration of a test, in milliseconds
+	TEST_TIMEOUT: 300000, // 5 minutes
+	
+	// Maximum time to wait for someting (pollUntil, etc...)
+	WAIT_TIMEOUT: 180000, // 3 minutes
+	
+	// Interval between two polling request, in milliseconds (for pollUntil)
+	POLL_INTERVAL: 500, // 0.5 seconds
 
 	loader: {
 		baseUrl: typeof window !== "undefined" ? "../../.." : "..",

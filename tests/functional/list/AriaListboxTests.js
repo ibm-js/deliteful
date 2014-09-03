@@ -1,19 +1,14 @@
-define(["intern!object",
+define(["intern",
+        "intern!object",
         "intern/dojo/node!leadfoot/helpers/pollUntil",
         "intern/chai!assert",
         "require"
-        ], function (registerSuite, pollUntil, assert, require) {
-
-	var WAIT_TIMEOUT_MS = 180000;
-	
-	var POLL_INTERVAL = 500;
-
-	var TEST_TIMEOUT_MS = 240000;
+        ], function (intern, registerSuite, pollUntil, assert, require) {
 
 	registerSuite({
 		name: "AriaListbox tests",
 		"selectionMode 'multiple'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
@@ -22,8 +17,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -67,7 +62,7 @@ define(["intern!object",
 			});
 		},
 		"selectionMode 'single'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
@@ -76,8 +71,8 @@ define(["intern!object",
 					+ "&& document.getElementById('" + listId + "') "
 					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
@@ -121,7 +116,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with default renderers": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -134,8 +129,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-prog-1') "
 					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys("\uE004") // Press TAB
@@ -199,7 +194,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with categorized items": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -212,8 +207,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-3') "
 					+ "&& !document.getElementById('list-mark-3').hasAttribute('aria-busy')) ? true : null",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys("\uE004") // Press TAB
@@ -251,7 +246,7 @@ define(["intern!object",
 		},
 		// TODO: ADD A TEST: CLICKING ON A CATEGORY HEADER (see https://github.com/ibm-js/delite/issues/229)
 		"keyboard multiple selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -264,8 +259,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys("\uE004") // Press TAB
@@ -300,7 +295,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard single selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -313,8 +308,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-2') "
 					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys("\uE004") // Press TAB
@@ -408,7 +403,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard search": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -421,8 +416,8 @@ define(["intern!object",
 					+ "&& document.getElementById('list-mark-1') "
 					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
 					[],
-					WAIT_TIMEOUT_MS,
-					POLL_INTERVAL))
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
 				.pressKeys("\uE004") // Press TAB

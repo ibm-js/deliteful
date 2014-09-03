@@ -1,17 +1,12 @@
 define([
+    "intern",
 	"intern!object",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require"
-], function (registerSuite, pollUntil, keys, assert, require) {
+], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	
-	var WAIT_TIMEOUT_MS = 180000;
-
-	var TEST_TIMEOUT_MS = 120000;
-	
-	var POLL_INTERVAL = 500;
-
 	var pollUntilStarRatingReady = function (widgetId, timeout, pollInterval) {
 		return pollUntil("return document.querySelector('#" + widgetId + " > div');", [], timeout, pollInterval);
 	};
@@ -100,7 +95,7 @@ define([
 		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
 		.get(require.toUrl("./StarRating.html"))
-		.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+		.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 		// Check initial rating
 		.then(function () {
 			return checkRating(remote, widgetId, 7, expectedInitialValue, false);
@@ -132,12 +127,12 @@ define([
 	registerSuite({
 		name: "StarRating tests",
 		"read only ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, widgetId = "star";
 			console.log("# running test 'read only ltr'");
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(widgetId, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+				.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.then(function () {
 					// Check initial rating
 					return checkRating(remote, widgetId, 1, 0, false);
@@ -173,27 +168,27 @@ define([
 				});
 		},
 		"editable ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable half values ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable half values no zero setting ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+				.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// Check initial rating
 				.then(function () {
 					return checkRating(remote, id, 7, 3.5, false);
@@ -235,19 +230,19 @@ define([
 					.end();
 		},
 		"default": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'default'");
 			var remote = this.remote, id = "defaultstar";
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, id, 5, 0, false);
 			});
 		},
 		"tab order": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -258,7 +253,8 @@ define([
 			console.log("# running test 'tab order'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check active element
 			.execute("return document.activeElement.id;")
 			.then(function (value) {
@@ -316,31 +312,33 @@ define([
 			});
 		},
 		"disabled": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'disabled'");
 			var remote = this.remote, id = "starrating3";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
 				return checkRating(remote, id, 7, 3, true);
 			});
 		},
 		"form back button": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			console.log("# running test 'form back button'");
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
-			.then(pollUntil("return 'ready' in window && ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, "starratingA", 7, false);
 			})
 			.findById("submitButton")
 				.click()
 				.end()
-			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntil("return document.getElementById('parameters');", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				// Safari driver does not support the back method
 				// see https://code.google.com/p/selenium/issues/detail?id=3771
@@ -351,7 +349,7 @@ define([
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
 						.goBack()
 						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
-								WAIT_TIMEOUT_MS, POLL_INTERVAL))
+								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						})
@@ -359,13 +357,13 @@ define([
 							.click()
 							.end()
 							.then(pollUntil("return document.getElementById('parameters');", [],
-									WAIT_TIMEOUT_MS, POLL_INTERVAL))
+									intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 						})
 						.goBack()
 						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
-								WAIT_TIMEOUT_MS, POLL_INTERVAL))
+								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						});
@@ -373,19 +371,20 @@ define([
 			});
 		},
 		"form values": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, id = "starrating1";
 			console.log("# running test 'form values'");
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.then(pollUntilStarRatingReady(id, WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, id, 2, false);
 			})
 			.findById("submitButton")
 			.click()
 			.end()
-			.then(pollUntil("return document.getElementById('parameters');", [], WAIT_TIMEOUT_MS, POLL_INTERVAL))
+			.then(pollUntil("return document.getElementById('parameters');", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);

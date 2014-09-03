@@ -1,16 +1,15 @@
 define([
+    "intern",
 	"intern!object",
     "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (registerSuite, pollUntil, assert, keys, require) {
-
-	var POLL_INTERVAL = 500;
+], function (intern, registerSuite, pollUntil, assert, keys, require) {
 
 	function loadFile(remote, url) {
 		return remote
-			.setExecuteAsyncTimeout(50000)
+			.setExecuteAsyncTimeout(intern.config.WAIT_TIMEOUT)
 			.get(require.toUrl(url))
 			.executeAsync(function (done) {
 				require(["delite/register", "deliteful/Switch", "requirejs-domready/domReady!"], function (register) {
@@ -24,6 +23,7 @@ define([
 		name: "Switch - functional",
 
 		"Switch behavior": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -41,7 +41,7 @@ define([
 					.releaseMouseButton()
 					.then(function () {
 						pollUntil("return document.getElementById('sw1').checked ? true : null;", [],
-								2000, POLL_INTERVAL);
+								2000, intern.config.POLL_INTERVAL);
 					})
 					.sleep(500)
 					.findById("sw1")
@@ -54,12 +54,12 @@ define([
 					.releaseMouseButton()
 					.then(function () {
 						pollUntil("return document.getElementById('sw1').checked ? null : false;", [],
-								2000, POLL_INTERVAL);
+								2000, intern.config.POLL_INTERVAL);
 					})
 					// click on disabled checkbox
 					.then(function () {
 						pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-								2000, POLL_INTERVAL);
+								2000, intern.config.POLL_INTERVAL);
 					})
 					.findById("sw2")
 					.then(function (element) {
@@ -71,12 +71,13 @@ define([
 					.releaseMouseButton()
 					.then(function () {
 						pollUntil("return document.getElementById('sw2').checked ? null : false;", [],
-								2000, POLL_INTERVAL);
+								2000, intern.config.POLL_INTERVAL);
 					});
 			}
 		},
 
 		"Switch key nav": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -116,12 +117,13 @@ define([
 		},
 
 		"Switch Form tests": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadFile(remote, "./Switch.html")
 				.findById("form1")
 				.submit()
 				.end()
-				.setFindTimeout(180000)
+				.setFindTimeout(intern.config.WAIT_TIMEOUT)
 				.find("id", "parameters")
 				.end()
 				.execute("return document.getElementById('valueFor_sw3');")

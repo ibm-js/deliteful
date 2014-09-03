@@ -1,14 +1,10 @@
-define(["intern!object",
+define(["intern",
+    "intern!object",
     "intern/dojo/node!leadfoot/helpers/pollUntil",
     "intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require"
-	], function (registerSuite, pollUntil, keys, assert, require) {
-	
-	// Huge values not needed when running locally, but needed for running remotely...
-	var WAIT_TIMEOUT_MS = 180000;
-	var TEST_TIMEOUT_MS = 120000;
-	var POLL_INTERVAL = 1000;
+	], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
@@ -272,7 +268,8 @@ define(["intern!object",
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
-				.then(pollUntil("return ready ? true : null;", [], WAIT_TIMEOUT_MS, POLL_INTERVAL));
+				.then(pollUntil("return ready ? true : null;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively (with default store):
@@ -285,27 +282,27 @@ define(["intern!object",
 		border-radius, and background-color (with default store):
 		*/
 		"init (declaratively, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select1", nOptions);
 		},
 		"init (programmatically, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select2", nOptions);
 		},
 		"init (declaratively, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select3", nOptions);
 		},
 		"init (programmatically, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select4", nOptions);
 		},
 		"init (declaratively, empty)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select5", 0/*empty*/);
 		},
 		"init (programmatically, empty)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select6", 0/*empty*/);
 		},
 		
@@ -313,32 +310,32 @@ define(["intern!object",
 		// the expected number of options and the options now contain the 
 		// updated text content.
 		"update (declaratively, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select1", "update1", nOptions);
 		},
 		"update (programmatically, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select2", "update2", nOptions);
 		},
 		"update (declaratively, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select3", "update3", nOptions);
 		},
 		"update (programmatically, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select4", "update4", nOptions);
 		},
 		
 		"keyboard navigation selectionMode = single": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationSingleSelection(this.remote, "select1");
 		},
 		"keyboard navigation selectionMode = multiple": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationMultipleSelection(this.remote, "d_select_form3");
 		}
 	});
