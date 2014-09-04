@@ -316,6 +316,17 @@ define([
 			list.deliver();
 			assert.isNull(list._selectionClickHandle, "second none");
 		},
+		"revert selection to 'none' clears selection": function () {
+			list.selectionMode = "multiple";
+			list.deliver();
+			list.setSelected(list.getItemRendererByIndex(0).item, true);
+			list.setSelected(list.getItemRendererByIndex(1).item, true);
+			assert.deepEqual(list.selectedItems,
+					[list.getItemRendererByIndex(1).item, list.getItemRendererByIndex(0).item]);
+			list.selectionMode = "none";
+			list.deliver();
+			assert.deepEqual(list.selectedItems, []);
+		},
 		"aria listbox delete selected item": function () {
 			testHelper["Helper delete selected item"](true);
 		},

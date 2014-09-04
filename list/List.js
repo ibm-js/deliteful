@@ -173,14 +173,16 @@ define([
 		 * @member {string} module:deliteful/list/List#selectionMode
 		 * @default "none", or "single" if isAriaListbox is true.
 		 */
-		_setSelectionModeAttr: function (value) {
-			if (this.isAriaListbox && value === "none") {
-				throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
-						+ "keeping the previous value of '" + this.selectionMode + "'");
-			} else {
-				this._set("selectionMode", value);
-			}
-		},
+		_setSelectionModeAttr: dcl.superCall(function (sup) {
+			return function (value) {
+				if (this.isAriaListbox && value === "none") {
+					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
+							+ "keeping the previous value of '" + this.selectionMode + "'");
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
 
 		/**
 		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
