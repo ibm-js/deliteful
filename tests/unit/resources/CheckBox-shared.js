@@ -1,5 +1,5 @@
 define([
-	"../../../../dcl/dcl",
+	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
