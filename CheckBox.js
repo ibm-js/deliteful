@@ -9,8 +9,10 @@ define([
 	"delite/theme!./CheckBox/themes/{{theme}}/CheckBox.css"
 ], function (dcl, domClass, register, FormWidget, Toggle, template) {
 
+	var labelClickHandler;
+
 	/**
-	 * A checkbox widget.
+	 * A 2-state checkbox widget.
 	 * @example
 	 * <d-checkbox checked="true"></d-checkbox>
 	 * @class module:deliteful/CheckBox
@@ -29,8 +31,9 @@ define([
 		template: template,
 
 		postCreate: function () {
+			this._lbl4 = null;
 			this.on("click", function () {
-				this._set("checked", this.focusNode.checked);
+				this.checked = this.focusNode.checked;
 			}.bind(this), this.focusNode);
 		},
 
@@ -38,32 +41,20 @@ define([
 			// The fact that deliteful/Checkbox is not an HTMLInputElement seems not being compatible with the default
 			// "<label for" behavior of the browser. So it needs to explicitly listen to click on associated
 			// <label for=...> elements.
-			if (this.id) {
-				this._lbl4 = this.ownerDocument.querySelector("label[for='" + this.id + "']");
-				if (this._lbl4) {
-					this.on("click", this.toggle.bind(this), this._lbl4);
-				}
+			if (!labelClickHandler) {
+				// set a global listener that listens to click events on label elt
+				labelClickHandler = function (e) {
+					var forId;
+					if (/label/i.test(e.target.tagName) && (forId = e.target.getAttribute("for"))) {
+						var elt = document.getElementById(forId);
+						if (elt && elt.buildRendering && elt._lbl4 !== undefined) { //_lbl4: to check it's a checkbox
+							// call click() on the input instead of this.toggle() to get the 'change' event for free
+							elt.focusNode.click();
+						}
+					}
+				};
+				this.ownerDocument.addEventListener("click", labelClickHandler);
 			}
-		}),
-
-		_onFocus: dcl.superCall(function (sup) {
-			return function () {
-				// for highcontrast a11y
-				if (this._lbl4) {
-					domClass.add(this._lbl4, "d-focused-label");
-				}
-				sup.call(this);
-			};
-		}),
-
-		_onBlur: dcl.superCall(function (sup) {
-			return function () {
-				// for highcontrast a11y
-				if (this._lbl4) {
-					domClass.remove(this._lbl4, "d-focused-label");
-				}
-				sup.call(this);
-			};
 		})
 	});
 });

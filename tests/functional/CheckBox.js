@@ -25,69 +25,69 @@ define([
 			loadFile(remote, "./CheckBox.html");
 		},
 
-//		"Checkbox behavior": function () {
-//			var remote = this.remote;
-//			return remote
-//				// default click action
-//				.execute("return document.getElementById('cb1').focusNode;")
-//				.click()
-//				.execute("return document.getElementById('cb1').checked;")
-//				.then(function (v) {
-//					assert.isTrue(v, "Unexpected value for 'checked' property.");
-//				})
-//				.end()
-//				// click on disabled checkbox
-//				.execute("return document.getElementById('cb2').checked;")
-//				.then(function (v) {
-//					assert.isFalse(v, "Unexpected value for disabled 'checked' property.");
-//				})
-//				.end()
-//				.execute("return document.getElementById('cb2').focusNode;")
-//				.click()
-//				.execute("return document.getElementById('cb2').checked;")
-//				.then(function (v) {
-//					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
-//				})
-//				;
-//		},
-//
-//		"CheckBox Key nav": function () {
-//			// keyb nav
-//			// give the focus to the button to have a ref starting point in the chain
-//			var remote = this.remote;
-//			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
-//				// SafariDriver doesn't support sendKeys
-//				console.log("Skipping test: key nav as sendKeys not supported on Safari");
-//				return remote.end();
-//			}
-//			return remote
-//				.execute("return document.getElementById('b1').focus();")
-//				.active()
-//				.end()
-//				.wait(400)
-//				.keys(keys.Tab) // Press TAB -> cb1
-//				.wait(400)
-//				.active()
-//				.getAttribute("name")
-//				.then(function (v) {
-//					assert.strictEqual(v, "cb1", "Unexpected focused element after 1st TAB.");
-//				})
-//				.end()
-//				.keys(keys.Space) // Press Space to check cb1
-//				.execute("return document.getElementById('cb1').checked;")
-//				.then(function (v) {
-//					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
-//				})
-//				.end()
-//				.keys(keys.Tab) // Press TAB -> skip cb2 (disabled)
-//				.wait(400)
-//				.active()
-//				.text()
-//				.then(function (v) {
-//					assert.strictEqual(v, "End", "Unexpected focused element after 2nd TAB.");
-//				})
-//				;
-//		},
+		"Checkbox behavior": function () {
+			var remote = this.remote;
+			return remote
+				// default click action
+				.execute("return document.getElementById('cb1').focusNode;")
+				.click()
+				.execute("return document.getElementById('cb1').checked;")
+				.then(function (v) {
+					assert.isTrue(v, "Unexpected value for 'checked' property.");
+				})
+				.end()
+				// click on disabled checkbox
+				.execute("return document.getElementById('cb2').checked;")
+				.then(function (v) {
+					assert.isFalse(v, "Unexpected value for disabled 'checked' property.");
+				})
+				.end()
+				.execute("return document.getElementById('cb2').focusNode;")
+				.click()
+				.execute("return document.getElementById('cb2').checked;")
+				.then(function (v) {
+					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
+				})
+				;
+		},
+
+		"CheckBox Key nav": function () {
+			// keyb nav
+			// give the focus to the button to have a ref starting point in the chain
+			var remote = this.remote;
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support sendKeys
+				console.log("Skipping test: key nav as sendKeys not supported on Safari");
+				return remote.end();
+			}
+			return remote
+				.execute("return document.getElementById('b1').focus();")
+				.active()
+				.end()
+				.wait(400)
+				.keys(keys.Tab) // Press TAB -> cb1
+				.wait(400)
+				.active()
+				.getAttribute("name")
+				.then(function (v) {
+					assert.strictEqual(v, "cb1", "Unexpected focused element after 1st TAB.");
+				})
+				.end()
+				.keys(keys.Space) // Press Space to check cb1
+				.execute("return document.getElementById('cb1').checked;")
+				.then(function (v) {
+					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
+				})
+				.end()
+				.keys(keys.Tab) // Press TAB -> skip cb2 (disabled)
+				.wait(400)
+				.active()
+				.text()
+				.then(function (v) {
+					assert.strictEqual(v, "End", "Unexpected focused element after 2nd TAB.");
+				})
+				;
+		},
 
 		"CheckBox Form": function () {
 				//

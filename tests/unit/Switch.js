@@ -5,108 +5,107 @@ define([
 	"intern/chai!assert",
 	"delite/register",
 	"dojo/dom-class",
-	"deliteful/Switch"
-], function (dcl, advise, registerSuite, assert, register, domClass, Switch) {
+	"deliteful/Switch",
+	"./resources/CheckBox-shared"
+], function (dcl, advise, registerSuite, assert, register, domClass, Switch, commonSuite) {
 
 	var container,
 		html = "<d-switch id='sw1'></d-switch>" +
 			"<d-switch id='sw2' checked='true' value='foo' name='sw2' disabled='true'" +
-			"checkedLabel='ON' uncheckedLabel='OFF'></d-switch>";
+			"checkedLabel='ON' uncheckedLabel='OFF'></d-switch>" +
+			"<d-switch id='sw3'></d-switch><label id='lbl4' for='sw3'>Foo</label>";
 
-	var commonSuite = {
+	var suite = {
 
-//		"Default State": function () {
-//			var sw1 = document.getElementById("sw1");
-//			sw1.deliver();
-//			assert.isTrue(domClass.contains(sw1, "d-switch"), "Missing baseClass.");
-//			assert.isTrue(domClass.contains(sw1, "d-switch-width"), "Missing d-switch-width class.");
-//			assert.isTrue(domClass.contains(sw1, "d-switch-rounded"), "Missing d-switch-rounded class.");
-//			assert.isFalse(sw1.checked, "Unexpected default value for 'checked' property.");
-//			assert.isFalse(sw1.disabled, "Unexpected default value for 'disabled' property.");
-//			assert.strictEqual(sw1.value, "on", "Unexpected default value for 'value' property.");
-//			assert.strictEqual(sw1.checkedLabel, "", "Unexpected default value for 'checkedLabel' property.");
-//			assert.strictEqual(sw1.uncheckedLabel, "", "Unexpected default value for 'uncheckedLabel' property.");
-//			var elt = sw1.querySelector("input[type='checkbox']");
-//			assert.ok(elt, "Missing wrapped input element.");
-//			// verify properties bounds in the template
-//			assert.strictEqual(sw1.name, elt.name, "Unexpected value for wrapped input 'name' property.");
-//			assert.strictEqual(sw1.value, elt.value, "Unexpected 'value' attribute value for wrapped input.");
-//			assert.notOk(elt.getAttribute("disabled"), sw1.disabled.toString(),
-//				"Unexpected 'disabled' attribute value for wrapped input.");
-//		},
+		setup: function () {
+			dcl.mix(commonSuite, {
+				baseClass: "d-switch",
+				defaultWidget: "sw1",
+				labelForTarget: "sw3"
+			});
+		},
+
+		"Default State (Switch)": function () {
+			var d = this.async(1000);
+			setTimeout(d.callback(function () {
+				var sw1 = document.getElementById("sw1");
+				assert.isTrue(domClass.contains(sw1, "d-switch-width"), "Missing d-switch-width class.");
+				assert.isTrue(domClass.contains(sw1, "d-switch-rounded"), "Missing d-switch-rounded class.");
+				assert.strictEqual(sw1.checkedLabel, "", "Unexpected default value for 'checkedLabel' property.");
+				assert.strictEqual(sw1.uncheckedLabel, "", "Unexpected default value for 'uncheckedLabel' property.");
+				var elt = sw1.querySelector("input[type='checkbox']");
+				assert.ok(elt, "Missing wrapped input element.");
+				// verify properties bounds in the template
+				assert.notOk(elt.getAttribute("disabled"), sw1.disabled.toString(),
+					"Unexpected 'disabled' attribute value for wrapped input.");
+			}), 300);
+			return d;
+		},
 
 		"Attach Point": function () {
-			// verify attachPoint
-			var sw1 = document.getElementById("sw1");
-			sw1.deliver();
-			assert.strictEqual(sw1.focusNode, sw1.querySelector("input[type='checkbox']"),
-				"Unexpected value for 'focusNode' attach point.");
-			assert.strictEqual(sw1.valueNode, sw1.querySelector("input[type='checkbox']"),
-				"Unexpected value for 'valueNode' attach point.");
-			assert.strictEqual(sw1._pushNode, sw1.querySelector(".-d-switch-push"),
-				"Unexpected value for 'focusNode' attach point.");
-			assert.strictEqual(sw1._knobGlassNode, sw1.querySelector(".-d-switch-knobglass"),
-				"Unexpected value for '_knobGlassNode' attach point.");
-			assert.strictEqual(sw1._innerWrapperNode, sw1.querySelector(".-d-switch-inner-wrapper"),
-				"Unexpected value for '_innerWrapperNode' attach point.");
-			assert.strictEqual(sw1._innerNode, sw1.querySelector(".-d-switch-inner"),
-				"Unexpected value for '_innerNode' attach point.");
-			assert.strictEqual(sw1._knobNode, sw1.querySelector(".-d-switch-knob"),
-				"Unexpected value for '_knobNode' attach point.");
+			var d = this.async(1000);
+			setTimeout(d.callback(function () {
+
+				// verify attachPoint
+				var sw1 = document.getElementById("sw1");
+				sw1.deliver();
+				assert.strictEqual(sw1.focusNode, sw1.querySelector("input[type='checkbox']"),
+					"Unexpected value for 'focusNode' attach point.");
+				assert.strictEqual(sw1.valueNode, sw1.querySelector("input[type='checkbox']"),
+					"Unexpected value for 'valueNode' attach point.");
+				assert.strictEqual(sw1._pushNode, sw1.querySelector(".-d-switch-push"),
+					"Unexpected value for 'focusNode' attach point.");
+				assert.strictEqual(sw1._knobGlassNode, sw1.querySelector(".-d-switch-knobglass"),
+					"Unexpected value for '_knobGlassNode' attach point.");
+				assert.strictEqual(sw1._innerWrapperNode, sw1.querySelector(".-d-switch-inner-wrapper"),
+					"Unexpected value for '_innerWrapperNode' attach point.");
+				assert.strictEqual(sw1._innerNode, sw1.querySelector(".-d-switch-inner"),
+					"Unexpected value for '_innerNode' attach point.");
+				assert.strictEqual(sw1._knobNode, sw1.querySelector(".-d-switch-knob"),
+					"Unexpected value for '_knobNode' attach point.");
+			}), 300);
+			return d;
 		},
 
 		"Parameter init": function () {
-			var sw2 = document.getElementById("sw2");
-			sw2.deliver();
-			assert.isTrue(sw2.checked, "Unexpected value for 'checked' property.");
-			assert.isTrue(sw2.disabled, "Unexpected default value for 'disabled' property.");
-			assert.strictEqual(sw2.value, "foo",
-				"Unexpected default value for 'value' property if 'value' specified/unchecked");
-			assert.strictEqual(sw2.name, "sw2",
-				"Unexpected default value for 'value' property if 'value' specified/unchecked");
-			assert.strictEqual(sw2.checkedLabel, "ON", "Unexpected default value for 'checkedLabel' property.");
-			assert.strictEqual(sw2.uncheckedLabel, "OFF", "Unexpected default value for 'uncheckedLabel' property.");
+			var d = this.async(1000);
+			setTimeout(d.callback(function () {
+				var sw2 = document.getElementById("sw2");
+				sw2.deliver();
+				assert.isTrue(sw2.checked, "Unexpected value for 'checked' property.");
+				assert.isTrue(sw2.disabled, "Unexpected default value for 'disabled' property.");
+				assert.strictEqual(sw2.value, "foo",
+					"Unexpected default value for 'value' property if 'value' specified/unchecked");
+				assert.strictEqual(sw2.name, "sw2",
+					"Unexpected default value for 'value' property if 'value' specified/unchecked");
+				assert.strictEqual(sw2.checkedLabel, "ON", "Unexpected default value for 'checkedLabel' property.");
+				assert.strictEqual(sw2.uncheckedLabel, "OFF",
+					"Unexpected default value for 'uncheckedLabel' property.");
 
-			// verify properties bounds in the template
-			var elt = sw2.querySelector("input[type='checkbox']");
-			assert.strictEqual(sw2.name, elt.getAttribute("name"),
-				"Unexpected 'name' attribute value for wrapped input.");
-			assert.strictEqual(sw2.value, elt.getAttribute("value"),
-				"Unexpected 'value' attribute value for wrapped input.");
-			assert.ok(sw2.disabled.toString(), elt.getAttribute("disabled"),
-				"Unexpected 'disabled' attribute value for wrapped input.");
-			assert.strictEqual(sw2._innerNode.firstChild.firstChild.textContent.trim(), "ON",
-				"Unexpected text for 'checkedLabel' binding.");
-			assert.strictEqual(sw2._innerNode.children[2].firstChild.textContent.trim(), "OFF",
-				"Unexpected text for 'checkedLabel' binding.");
-		},
-
-		"checked": function () {
-			var sw1 = document.getElementById("sw1"),
-				inp = sw1.firstChild,
-				old = sw1.checked;
-			sw1.checked = !old;
-			assert.strictEqual(sw1.checked, !old, "Unexpected value for 'checked' property after set.");
-			// sync template
-			sw1.deliver();
-			assert.strictEqual(sw1.checked, inp.checked, "Unexpected value for 'checked' property of wrapped input.");
-		},
-
-		value: function () {
-			var sw1 = document.getElementById("sw1");
-			sw1.value = "foo";
-			// sync template
-			sw1.deliver();
-			assert.strictEqual(sw1.firstChild.getAttribute("value"), "foo", "Unexpected value for 'value' attribute.");
+				// verify properties bounds in the template
+				var elt = sw2.querySelector("input[type='checkbox']");
+				assert.strictEqual(sw2.name, elt.getAttribute("name"),
+					"Unexpected 'name' attribute value for wrapped input.");
+				assert.strictEqual(sw2.value, elt.getAttribute("value"),
+					"Unexpected 'value' attribute value for wrapped input.");
+				assert.ok(sw2.disabled.toString(), elt.getAttribute("disabled"),
+					"Unexpected 'disabled' attribute value for wrapped input.");
+				assert.strictEqual(sw2._innerNode.firstChild.firstChild.textContent.trim(), "ON",
+					"Unexpected text for 'checkedLabel' binding.");
+				assert.strictEqual(sw2._innerNode.children[2].firstChild.textContent.trim(), "OFF",
+					"Unexpected text for 'checkedLabel' binding.");
+			}), 300);
+			return d;
 		},
 
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
+	dcl.mix(suite, commonSuite.testCases);
 
 	// Markup
-	var suite = {
+	var markupSuite = {
 		name: "deliteful/Switch: markup",
 		beforeEach: function () {
 			container = document.createElement("div");
@@ -115,10 +114,10 @@ define([
 			register.parse();
 		}
 	};
-	dcl.mix(suite, commonSuite);
-	registerSuite(suite);
+	dcl.mix(markupSuite, suite);
+	registerSuite(markupSuite);
 
-	suite = {
+	var progSuite = {
 		name: "deliteful/Switch: programmatic",
 		beforeEach: function () {
 			container = document.createElement("div");
@@ -137,9 +136,16 @@ define([
 			});
 			container.appendChild(cb);
 			cb.startup();
+			cb = new Switch({id: "sw3"});
+			container.appendChild(cb);
+			cb.startup();
+			var lbl = document.createElement("label");
+			lbl.setAttribute("for", "sw3");
+			lbl.setAttribute("id", "lbl4");
+			container.appendChild(lbl);
 		}
 	};
-	dcl.mix(suite, commonSuite);
-	registerSuite(suite);
+	dcl.mix(progSuite, suite);
+	registerSuite(progSuite);
 
 });

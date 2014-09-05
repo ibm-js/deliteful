@@ -4,12 +4,11 @@ define([
 	"dojo/dom-class",
 	"dpointer/events",
 	"delite/register",
-	"delite/FormWidget",
-	"deliteful/Toggle",
+	"deliteful/CheckBox",
 	"delite/handlebars!./Switch/Switch.html",
 	"requirejs-dplugins/has!bidi?./Switch/bidi/Switch",
 	"delite/theme!./Switch/themes/{{theme}}/Switch.css"
-], function (has, domClass, pointer, register, FormWidget, Toggle, template, BidiSwitch) {
+], function (has, domClass, pointer, register, CheckBox, template, BidiSwitch) {
 
 	/**
 	 * A form-aware switch widget.
@@ -19,8 +18,8 @@ define([
 	 * @augments module:deliteful/Toggle
 	 * @augments module:delite/FormWidget
 	 */
-	return register("d-switch", has("bidi") ? [HTMLElement, FormWidget, Toggle, BidiSwitch] :
-		[HTMLElement, FormWidget, Toggle], /** @lends module:deliteful/Switch# */ {
+	return register("d-switch", has("bidi") ? [HTMLElement, CheckBox, BidiSwitch] :
+		[HTMLElement, CheckBox], /** @lends module:deliteful/Switch# */ {
 
 		/**
 		 * The label corresponding to the checked state.
@@ -46,9 +45,6 @@ define([
 		template: template,
 
 		postCreate: function () {
-			this.on("click", function () {
-				this._set("checked", this.focusNode.checked);
-			}.bind(this), this.focusNode);
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
 		},
 
