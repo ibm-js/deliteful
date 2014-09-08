@@ -23,32 +23,35 @@ define([
 		name: "CheckBox - functional",
 
 		"Checkbox behavior": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote
+			return loadFile(remote, "./CheckBox.html")
 				// default click action
 				.execute("return document.getElementById('cb1').focusNode;")
-				.click()
+				.then(function (element) {
+					element.click();
+				})
 				.execute("return document.getElementById('cb1').checked;")
 				.then(function (v) {
 					assert.isTrue(v, "Unexpected value for 'checked' property.");
 				})
-				.end()
 				// click on disabled checkbox
 				.execute("return document.getElementById('cb2').checked;")
 				.then(function (v) {
 					assert.isFalse(v, "Unexpected value for disabled 'checked' property.");
 				})
-				.end()
 				.execute("return document.getElementById('cb2').focusNode;")
-				.click()
+				.then(function (element) {
+					element.click();
+				})
 				.execute("return document.getElementById('cb2').checked;")
 				.then(function (v) {
 					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
-				})
-				;
+				});
 		},
 
 		"CheckBox Key nav": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
@@ -62,7 +65,7 @@ define([
 				.getActiveElement()
 				.end()
 				.sleep(400)
-				.keys(keys.TAB) // Press TAB -> cb1
+				.pressKeys(keys.TAB) // Press TAB -> cb1
 				.sleep(400)
 				.getActiveElement()
 				.getAttribute("name")
@@ -70,13 +73,13 @@ define([
 					assert.strictEqual(v, "cb1", "Unexpected focused element after 1st TAB.");
 				})
 				.end()
-				.keys(keys.SPACE) // Press Space to check cb1
+				.pressKeys(keys.SPACE) // Press Space to check cb1
 				.execute("return document.getElementById('cb1').checked;")
 				.then(function (v) {
 					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
 				})
 				.end()
-				.keys(keys.TAB) // Press TAB -> skip cb2 (disabled)
+				.pressKeys(keys.TAB) // Press TAB -> skip cb2 (disabled)
 				.sleep(400)
 				.getActiveElement()
 				.getVisibleText()

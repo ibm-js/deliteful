@@ -57,6 +57,8 @@ define([
 				var cb3 = document.getElementById(commonSuite.labelForTarget),
 					lbl4 = document.getElementById("lbl4"),
 					old = cb3.checked;
+				// The following styling is needed for click to work on ios
+				lbl4.style.cursor = "pointer";
 				lbl4.click();
 				cb3.deliver();
 				assert.strictEqual(!old, cb3.checked, "Unexpected value for 'checked' property after labelFor click.");
