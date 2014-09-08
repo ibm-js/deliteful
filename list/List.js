@@ -6,7 +6,9 @@ define([
 	"dojo/_base/lang",
 	"dojo/when",
 	"dojo/dom-class",
-	"dojo/keys",
+	"delite/keys",
+	"dstore/Memory",
+	"dstore/Trackable",
 	"delite/CustomElement",
 	"delite/Selection",
 	"delite/KeyNav",
@@ -14,12 +16,13 @@ define([
 	"delite/Scrollable",
 	"./ItemRenderer",
 	"./CategoryRenderer",
-	"./_DefaultStore",
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List.css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
-], function (dcl, register, on, lang, when, domClass, keys, CustomElement, Selection, KeyNav, StoreMap,
-		Scrollable, ItemRenderer, CategoryRenderer, DefaultStore, LoadingPanel) {
+], function (dcl, register, on, lang, when, domClass, keys, Memory, Trackable, CustomElement,
+		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
+
+	var DefaultStore = Memory.createSubclass([Trackable], {});
 
 	// Register custom elements we use to support markup for adding items to the list store.
 	register("d-list-store", [HTMLElement, CustomElement]);
@@ -252,7 +255,7 @@ define([
 
 		postCreate: function () {
 			//	Assign a default store to the list.
-			this.store = new DefaultStore(this);
+			this.store = new DefaultStore();
 			this._keyNavCodes[keys.PAGE_UP] = this._keyNavCodes[keys.HOME];
 			this._keyNavCodes[keys.PAGE_DOWN] = this._keyNavCodes[keys.END];
 			delete this._keyNavCodes[keys.HOME];
@@ -947,7 +950,7 @@ define([
 			// tags:
 			//		protected
 			this.itemRemoved(previousIndex, renderItems, true);
-			this.itemAdded(newIndex - (previousIndex < newIndex ? 1 : 0), renderItem, renderItems);
+			this.itemAdded(newIndex, renderItem, renderItems);
 		},
 
 		//////////// delite/Scrollable extension ///////////////////////////////////////
