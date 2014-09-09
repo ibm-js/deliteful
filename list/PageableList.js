@@ -329,7 +329,7 @@ define([
 			}
 		},
 
-		fetch: function (collection) {
+		processCollection: function (collection) {
 			// Store the result of the store query
 			this._collection = collection;
 		},
@@ -362,7 +362,7 @@ define([
 
 		_postProcessStore: function (collection) {
 			var data = this.postProcessStore ? this.postProcessStore(collection) : collection;
-			return data.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
+			return data.fetchRange({start: this._rangeSpec.start, end: this._rangeSpec.start + this._rangeSpec.count});
 		},
 
 		/**
@@ -382,10 +382,12 @@ define([
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
 			}
-			var results = this._collection.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			return when(results.map(function (item) {
-				return this.itemToRenderItem(item);
-			}, this)).then(function (page) {
+			var results = this._collection.fetchRange({start: this._rangeSpec.start,
+				end: this._rangeSpec.start + this._rangeSpec.count});
+			return when(results).then(function (items) {
+				var page = items.map(function (item) {
+					return this.itemToRenderItem(item);
+				}, this);
 				if (page.length) {
 					var idPage = page.map(function (item) {
 						return this.getIdentity(item);
@@ -410,10 +412,12 @@ define([
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
-			var results = this._collection.range(this._rangeSpec.start, this._rangeSpec.start + this._rangeSpec.count);
-			return when(results.map(function (item) {
-				return this.itemToRenderItem(item);
-			}, this)).then(function (page) {
+			var results = this._collection.fetchRange({start: this._rangeSpec.start,
+				end: this._rangeSpec.start + this._rangeSpec.count});
+			return when(results).then(function (items) {
+				var page = items.map(function (item) {
+					return this.itemToRenderItem(item);
+				}, this);
 				if (page.length) {
 					var i;
 					var idPage = page.map(function (item) {

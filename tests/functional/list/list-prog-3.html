@@ -11,19 +11,18 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
 			"delite/register",
 			"deliteful/list/List",
 			"dstore/Memory",
-			"dstore/Observable",
+			"dstore/Trackable",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (declare, register, List, MemoryStore, Observable) {
+		], function (register, List, MemoryStore, Trackable) {
   			// Programmatic list: memory store, items added before adding the list to the document and before startup
 			var list = register.createElement("d-list");
 			list.id = "list-prog-3";
 			list.style.height = "200px";
-			var M = declare([MemoryStore, Observable], {});
+			var M = MemoryStore.createSubclass([Trackable], {});
 			list.store = new M({data: [], idProperty: "label"});
  			for (i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i});

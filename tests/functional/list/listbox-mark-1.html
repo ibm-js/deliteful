@@ -11,12 +11,11 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
 			"dstore/Memory",
-			"dstore/Observable",
+			"dstore/Trackable",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (declare, MemoryStore, Observable) {
-			var M = declare([MemoryStore, Observable], {});
+		], function (MemoryStore, Trackable) {
+			var M = MemoryStore.createSubclass([Trackable], {});
   			globalStore = new M({data: []});
   			require([
   				    "delite/register",

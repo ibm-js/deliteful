@@ -11,19 +11,18 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
 			"delite/register",
 			"deliteful/list/List",
 			"dstore/Memory",
-			"dstore/Observable",
+			"dstore/Trackable",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (declare, register, List, MemoryStore, Observable) {
+		], function (register, List, MemoryStore, Trackable) {
   			// Programmatic list: observable memory store, items added after the list startup
 			var list = register.createElement("d-list");
 			list.id = "list-prog-4";
 			list.style.height = "200px";
-			var M = declare([MemoryStore, Observable], {});
+			var M = MemoryStore.createSubclass([Trackable], {});
 			list.store = new M({data: [], idProperty: "label"});
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
@@ -45,7 +44,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
- 	<h2>Observable Memory store, items added after the list startup (id: list-prog-4)</h2>
+ 	<h2>Trackable Memory store, items added after the list startup (id: list-prog-4)</h2>
  	<div id="listPlaceholder"></div>
 </body>
 </html>
