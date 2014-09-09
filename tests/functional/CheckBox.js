@@ -31,23 +31,17 @@ define([
 				.then(function (element) {
 					element.click();
 				})
-				.execute("return document.getElementById('cb1').checked;")
-				.then(function (v) {
-					assert.isTrue(v, "Unexpected value for 'checked' property.");
-				})
+				.then(pollUntil("return document.getElementById('cb1').checked ? true : null;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// click on disabled checkbox
-				.execute("return document.getElementById('cb2').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected value for disabled 'checked' property.");
-				})
+				.then(pollUntil("return document.getElementById('cb2').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.execute("return document.getElementById('cb2').focusNode;")
 				.then(function (element) {
 					element.click();
 				})
-				.execute("return document.getElementById('cb2').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
-				});
+				.then(pollUntil("return document.getElementById('cb2').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 
 		"CheckBox Key nav": function () {
@@ -74,10 +68,8 @@ define([
 				})
 				.end()
 				.pressKeys(keys.SPACE) // Press Space to check cb1
-				.execute("return document.getElementById('cb1').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
-				})
+				.then(pollUntil("return document.getElementById('cb1').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.end()
 				.pressKeys(keys.TAB) // Press TAB -> skip cb2 (disabled)
 				.sleep(400)
