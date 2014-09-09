@@ -85,27 +85,34 @@ define(["dcl/dcl",
 			 */
 			reverse: false,
 
-			/**
-			 * The selected child id, can be set explicitly or through the show() method.
-			 * The effect of setting this property (i.e. getting the value through the getter) might be
-			 * asynchronous when an animated transition occurs.
-			 * @member {string}
-			 * @default ""
-			 */
-			selectedChildId: "",
-
 			_pendingChild: null,
+			_timing: 0,
 
-			_setSelectedChildIdAttr: function (child) {
-				if (this._started) {
-					this.show(child);
-				} else {
-					this._pendingChild = child;
+			/**
+			 * Set the visible child using a CSS selector.
+			 * WARNING: Accessing this value does not necessarily reflects the current state of the widget since
+			 * changing the selected child can also be done through the show() method. To get the current visible child
+			 * you can use the getVisibleChild() method.
+			 * @default ""
+			 * @member {string}
+			 */
+			selectedChild: "",
+
+			/* Selected child getter and setter */
+			_setSelectedChildAttr: function (child) {
+				this._selectedChild = child;
+				var target = document.querySelector(child);
+				if (target) {
+					if (this._started) {
+						this.show(target);
+					} else {
+						this._pendingChild = target;
+					}
 				}
 			},
 
-			_getSelectedChildIdAttr: function () {
-				return this._visibleChild ? this._visibleChild.id : "";
+			_getSelectedChildAttr: function () {
+				return this._selectedChild || "";
 			},
 
 			startup: function () {
@@ -118,7 +125,13 @@ define(["dcl/dcl",
 				}
 			},
 
-			_timing: 0,
+			/**
+			 * Get the current visible child node.
+			 * @returns {DOMNode} The children currently shown by the ViewStack.
+			 */
+			getVisibleChild: function () {
+				return this._visibleChild;
+			},
 
 			_setChildrenVisibility: function () {
 				var cdn = this.children;
