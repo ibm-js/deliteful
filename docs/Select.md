@@ -37,7 +37,7 @@ Using the default store:
 require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
-    select1.store.add({text: "Option 1", value: "1"});
+    select1.store.addSync({text: "Option 1", value: "1"});
     ...
 });
 ```
@@ -56,13 +56,13 @@ src="http://jsfiddle.net/ibmjs/nB8BK/1/embedded/result,js,html">
 Using user's own store:
 
 ```js
-require(["delite/register", "dstore/Memory", "dstore/Observable",
+require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register, Memory, Observable) {
+  function (register, Memory, Trackable) {
     register.parse();
-    var store = new (Memory.createSubclass(Observable))({});
+    var store = new (Memory.createSubclass(Trackable))({});
     select1.store = store;
-    store.add({text: "Option 1", value: "1"});
+    store.addSync({text: "Option 1", value: "1"});
     ...
 });
 ```
@@ -91,7 +91,7 @@ require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
     select.startup(); // must be called before using select.store
     
     // add options to the Select widget
-    select.store.add({text: "Option 1", value: "1"});
+    select.store.addSync({text: "Option 1", value: "1"});
 });
 ```
 
@@ -103,16 +103,16 @@ src="http://jsfiddle.net/ibmjs/8Ccfm/embedded/result,js,html">
 Using user's own store:
 
 ```js
-require(["delite/register", "dstore/Memory", "dstore/Observable",
+require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register, Memory, Observable) {
+  function (register, Memory, Trackable) {
     register.parse();
     var select = new Select({selectionMode: "multiple"});
     // Create the store
-    var store = new (Memory.createSubclass(Observable))({});
+    var store = new (Memory.createSubclass(Trackable))({});
     select.store = store;
     // add options to the Select widget
-    store.add({text: "Option 1", value: "1"});
+    store.addSync({text: "Option 1", value: "1"});
     ...
     select.placeAt(document.body);
     select.startup();
