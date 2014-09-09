@@ -360,11 +360,6 @@ define([
 			}
 		},
 
-		_postProcessStore: function (collection) {
-			var data = this.postProcessStore ? this.postProcessStore(collection) : collection;
-			return data.fetchRange({start: this._rangeSpec.start, end: this._rangeSpec.start + this._rangeSpec.count});
-		},
-
 		/**
 		 * Loads the next page of items if available.
 		 * @private
