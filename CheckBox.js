@@ -1,13 +1,12 @@
 /** @module deliteful/CheckBox */
 define([
 	"dcl/dcl",
-	"dojo/dom-class",
 	"delite/register",
 	"delite/FormWidget",
 	"./Toggle",
 	"delite/handlebars!./CheckBox/CheckBox.html",
 	"delite/theme!./CheckBox/themes/{{theme}}/CheckBox.css"
-], function (dcl, domClass, register, FormWidget, Toggle, template) {
+], function (dcl, register, FormWidget, Toggle, template) {
 
 	var labelClickHandler;
 
@@ -32,9 +31,11 @@ define([
 
 		postCreate: function () {
 			this._lbl4 = null;
-			this.on("click", function () {
-				this.checked = this.focusNode.checked;
-			}.bind(this), this.focusNode);
+			this.on("click", this._inputClickHandler.bind(this), this.focusNode);
+		},
+
+		_inputClickHandler: function () {
+			this.checked = this.focusNode.checked;
 		},
 
 		attachedCallback: dcl.after(function () {

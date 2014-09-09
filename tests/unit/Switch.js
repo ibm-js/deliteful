@@ -21,7 +21,8 @@ define([
 			dcl.mix(commonSuite, {
 				baseClass: "d-switch",
 				defaultWidget: "sw1",
-				labelForTarget: "sw3"
+				labelForTarget: "sw3",
+				inputType: "checkbox"
 			});
 		},
 

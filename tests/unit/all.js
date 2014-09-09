@@ -21,5 +21,6 @@ define([
 	"./CheckBox",
 	"./Switch",
 	"./Toggle",
-	"./ToggleButton"
+	"./ToggleButton",
+	"./RadioButton"
 ]);
