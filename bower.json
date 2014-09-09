@@ -11,7 +11,7 @@
 		"requirejs": "2.1.x",
 		"requirejs-domready": "2.0.x",
 		"requirejs-dplugins": "0.2.x",
-		"dstore": "0.1.0"
+		"dstore": "0.2.0"
 	},
 	"keywords": [
 		"web-components",

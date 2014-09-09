@@ -20,11 +20,11 @@
 		require([
 			"delite/register",
 			"dstore/Memory",
-			"dstore/Observable",
+			"dstore/Trackable",
 			"deliteful/Select",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Observable, Select) {
+		], function (register, Memory, Trackable, Select) {
 			register.parse();
 			
 			var nOptions = 40;
@@ -37,7 +37,7 @@
 					max = min;
 				}
 				for (var i = min; i <= max; i++) {
-					select.store.add({
+					select.store.addSync({
 						text: "Option " + i +
 							(updateCounter > 0 ? (" update #" + updateCounter) : ""),
 						value: i, // optional
@@ -49,7 +49,7 @@
 			removeFirstOption = function (select) {
 				if (select.store) {
 					var option = select.store.data[0]; // holds for the dstore/Memory used in this test
-					select.store.remove(select.store.getIdentity(option));
+					select.store.removeSync(select.store.getIdentity(option));
 				}
 			};
 			
@@ -83,7 +83,7 @@
 			
 			var initSelect = function (select, min, max, defaultStore) {
 				if (!defaultStore) {
-					select.store = new (Memory.createSubclass(Observable))({});
+					select.store = new (Memory.createSubclass(Trackable))({});
 				}
 				addOptions(select, min, max);
 				

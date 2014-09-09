@@ -3,14 +3,14 @@ define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
-	"dstore/Observable",
+	"dstore/Trackable",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, domClass, Memory, Observable, register,
+], function (dcl, domClass, Memory, Trackable, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -43,11 +43,11 @@ define([
 	 * <d-select id="select1"></d-select>
 	 * @example <caption>Using user's store</caption>
 	 * JS:
-	 * require(["delite/register", "dstore/Memory", "dstore/Observable",
+	 * require(["delite/register", "dstore/Memory", "dstore/Trackable",
 	 *         "deliteful/Select", "requirejs-domready/domReady!"],
-	 *   function (register, Memory, Observable) {
+	 *   function (register, Memory, Trackable) {
 	 *     register.parse();
-	 *     var store = new (Memory.createSubclass(Observable))({});
+	 *     var store = new (Memory.createSubclass(Trackable))({});
 	 *     select1.store = store;
 	 *     store.add({text: "Option 1", value: "1"});
 	 *     ...
@@ -129,7 +129,7 @@ define([
 		
 		startup: function () {
 			if (!this.store) { // If not specified by the user
-				this.store = new (Memory.createSubclass(Observable))({});
+				this.store = new (Memory.createSubclass(Trackable))({});
 			}
 			
 			this.focusNode = this.valueNode; // for delite/FormWidget's sake

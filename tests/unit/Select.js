@@ -5,10 +5,10 @@ define([
 	"delite/register",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
-	"dstore/Observable",
+	"dstore/Trackable",
 	"deliteful/Select"
 ], function (dcl, registerSuite, assert, register, domClass,
-	Memory, Observable, Select) {
+	Memory, Trackable, Select) {
 	
 	var container, MySelect;
 	/*jshint multistr: true */
@@ -29,7 +29,7 @@ define([
 		var dataItems = [];
 		var item;
 		for (var i = min; i <= max; i++) {
-			item = select.store.add({
+			item = select.store.addSync({
 				text: "Option " + i,
 				value: i,
 				disabled: i === 5
@@ -50,13 +50,14 @@ define([
 	};
 	
 	var removeOption = function (select, id) {
-		select.store.remove(id);
+		select.store.removeSync(id);
 	};
 	
 	var updateOption = function (select, id) {
-		var dataItem = select.store.get(id);
+		var store = select.store;
+		var dataItem = store.getSync(id);
 		dataItem.text = "new text";
-		select.store.put(dataItem);
+		select.store.putSync(dataItem);
 	};
 	
 	var checkSelect = function (select, observableStore) {
@@ -99,7 +100,7 @@ define([
 		// Select an element via delite/Selection's API
 		select.setSelected(dataItems[0], true);
 		// Or, equivalently:
-		// select.setSelected(select.store.get(dataItems[0].id), true);
+		// select.setSelected(select.store.getSync(dataItems[0].id), true);
 		
 		select.deliver();
 		
@@ -192,10 +193,10 @@ define([
 		select.deliver();
 	};
 	
-	var checkObservableSelect = function (select) {
+	var checkTrackableSelect = function (select) {
 		checkSelect(select, true);
 		
-		// The following additional checks are specific to observable stores:
+		// The following additional checks are specific to trackable stores:
 		var dataItems = addOptions(select);
 		select.deliver();
 		assert.strictEqual(select.valueNode.length, nOptions + 1,
@@ -219,7 +220,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		var newDataItem1 = select.store.add({
+		var newDataItem1 = select.store.addSync({
 			text1: "", // check handling of empty string for text
 			value1: 7,
 			disabled1: false
@@ -235,7 +236,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Once again with disabled at true (boolean) and text and value at empty string
-		var newDataItem2 = select.store.add({
+		var newDataItem2 = select.store.addSync({
 			text1: "custom mapping",
 			value1: "",
 			disabled1: true
@@ -254,7 +255,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Now with disabled at "false" (string) and value at " "
-		var newDataItem3 = select.store.add({
+		var newDataItem3 = select.store.addSync({
 			text1: "custom mapping3",
 			value1: " ",
 			disabled1: "false"
@@ -270,7 +271,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 		
 		// Now with disabled at "true" (string)
-		var newDataItem4 = select.store.add({
+		var newDataItem4 = select.store.addSync({
 			text1: "custom mapping4",
 			value1: 10,
 			disabled1: "true"
@@ -290,7 +291,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		var newDataItem5 = select.store.add({
+		var newDataItem5 = select.store.addSync({
 			text1: "custom mapping",
 			value1: 7,
 			disabled1: false
@@ -306,11 +307,11 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Remove the newly added items
-		select.store.remove(newDataItem1.id);
-		select.store.remove(newDataItem2.id);
-		select.store.remove(newDataItem3.id);
-		select.store.remove(newDataItem4.id);
-		select.store.remove(newDataItem5.id);
+		select.store.removeSync(newDataItem1.id);
+		select.store.removeSync(newDataItem2.id);
+		select.store.removeSync(newDataItem3.id);
+		select.store.removeSync(newDataItem4.id);
+		select.store.removeSync(newDataItem5.id);
 		
 		// Restore the default mapping
 		select.textAttr = "text";
@@ -367,24 +368,24 @@ define([
 		"Store.add/remove/put (default store)" : function () {
 			var select = document.getElementById("select1");
 			select.deliver();
-			checkObservableSelect(select); // the default store is observable
+			checkTrackableSelect(select); // the default store is observable
 			
 			select = document.getElementById("myselect1");
 			select.deliver();
-			checkObservableSelect(select); // the default store is observable
+			checkTrackableSelect(select); // the default store is observable
 		},
 		
 		"Store.add/remove/put (user's observable Memory store)" : function () {
 			var select = document.getElementById("select1");
-			var ObservableMemoryStore = Memory.createSubclass(Observable);
-			select.store = new ObservableMemoryStore({});
+			var TrackableMemoryStore = Memory.createSubclass(Trackable);
+			select.store = new TrackableMemoryStore({});
 			select.deliver();
-			checkObservableSelect(select);
+			checkTrackableSelect(select);
 			
 			select = document.getElementById("myselect1");
-			select.store = new ObservableMemoryStore({});
+			select.store = new TrackableMemoryStore({});
 			select.deliver();
-			checkObservableSelect(select);
+			checkTrackableSelect(select);
 		},
 		
 		"Store.add (user's non-observable Memory store)" : function () {
