@@ -1,0 +1,49 @@
+.d-radio-button {
+	position: relative;
+	display: inline-block;
+	.d-radio-button-styles();
+	&.d-focused { // from tab-focus()
+		.d-radio-button-focused();
+	}
+	&::before {
+		overflow: hidden;
+		display: inline-block;
+		position: absolute;
+		content: "";
+		.d-radio-button-before-styles();
+	}
+	&.d-checked::before {
+		.d-radio-button-checked-before-styles();
+	}
+	&:active::before {
+		.d-radio-button-active-styles();
+	}
+	&.d-disabled {
+		.d-radio-button-disabled-styles();
+		&::before {
+			.d-radio-button-before-disabled-styles();
+		}
+		&.d-checked::before {
+			.d-radio-button-checked-before-disabled-styles();
+		}
+	}
+	&.d-disabled,
+	fieldset[disabled] & {
+		cursor: not-allowed;
+	}
+}
+
+.d-radio-button > input[type=radio] {
+	.d-radio-button-input-styles();
+	opacity: 0.01;
+	position: absolute;
+	overflow: hidden;
+	font: inherit;
+	cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&[disabled],
+	fieldset[disabled] & {
+		cursor: not-allowed;
+	}
+}
