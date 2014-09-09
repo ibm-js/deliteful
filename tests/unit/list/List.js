@@ -179,11 +179,15 @@ define([
 				var queryErrorEvt = null;
 				var store = {
 					filter: function () {
-						var result = new Deferred();
+						var result = {};
 						result.map = function () { return this; };
-						result.reject("Query Error X");
+						result.fetch = function () {
+							var def = new Deferred();
+							def.reject("Query Error X");
+							return def;
+						};
 						return result;
-					}
+					},
 				};
 				list.destroy();
 				list = new List({store: store});

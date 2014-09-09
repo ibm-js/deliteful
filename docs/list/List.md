@@ -10,7 +10,7 @@ The `deliteful/list/List` widget renders a scrollable list of items that are ret
 
 Its custom element tag is `d-list`.
 
-By default, the widget creates its own local observable memory store, accessible as the `store` property, but any valid `dstore/Store` implementation can be used instead. 
+By default, the widget creates a trackable memory store, accessible as the `store` property, but any valid `dstore/Store` implementation can be used instead. 
 
 Items rendererd by the list are standard javascript object. The list delegates the rendering of its items to an _item renderer_ widget.
 
@@ -114,11 +114,11 @@ to `"none"` in order to remove the default scrolling capability.
 <a name="store"></a>
 ### Store capabilities
 
-If the store the items are retrieved from is observable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
+If the store the items are retrieved from is trackable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
 deletion, move and update of the store content and refresh its rendering accordingly.
 
 If you do not specify which store to retrieve the items from, the widget creates a default
-observable in-memory store implementation that can be retrieved in the `store` property,
+trackable memory store that can be retrieved in the `store` property,
 as in the following example:
 
 ```js
@@ -127,7 +127,7 @@ var defaultStore = list.store;
 ```
 
 This default store can be populated programmatically using the `add` method
-defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `before` options to easily
+defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `beforeId` options to easily
 order elements in the list, as in the following example:
 
 ```js
@@ -136,11 +136,8 @@ var defaultStore = list.store;
 var item1 = {...};
 var item2 = {...};
 defaultStore.add(item1);
-defaultStore.add(item2, {before: item1});
+defaultStore.add(item2, {beforeId: item1.id});
 ```
-
-_Note that the default store does not support ordering and filtering, so you must use
-another store implementation to do this ([Memory store](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory), for example)._
 
 When creating a list widget declaratively, it is possible to use JSON markup to add items to
 the list store using the `d-list-store` tag, as in the following

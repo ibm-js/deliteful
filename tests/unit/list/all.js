@@ -2,7 +2,6 @@
 define([
 	"./List",
 	"./Renderer",
-	"./DefaultStore",
 	"./Selection",
 	"./AriaListbox",
 	"./Categories",

@@ -12,16 +12,15 @@
 		var ready = false;
 		require([
 		    "dcl/dcl",
-		    "dojo/_base/declare",
 			"delite/register",
 			"deliteful/list/List",
 			"dojo/Deferred",
 			"dojo/store/util/QueryResults",
 			"dstore/Memory",
-			"dstore/Observable",
+			"dstore/Trackable",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (dcl, declare, register, List, Deferred, QueryResults, MemoryStore, Observable) {
+		], function (dcl, register, List, Deferred, QueryResults, MemoryStore, Trackable) {
   			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
 			var CustomMemoryStore = dcl([MemoryStore], {
 				latency: 500,
@@ -36,7 +35,7 @@
 					};
 				})
 			});
-			var CM = declare([MemoryStore, Observable], {});
+			var CM = MemoryStore.createSubclass([Trackable], {});
 			var createStore = function (itemsCount, latency) {
 				var i = 0, data = [];
 				for (; i < itemsCount; i++) {
@@ -167,7 +166,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
- 	<h2>Observable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
+ 	<h2>Trackable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
  	<div id="listPlaceholder"></div>
 </body>
 </html>

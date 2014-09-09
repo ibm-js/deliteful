@@ -2,12 +2,10 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/Deferred",
-    "dojo/_base/declare",
+    "dstore/Memory",
 	"delite/register",
-	"dstore/Memory",
-	"dstore/Observable",
 	"deliteful/list/PageableList"
-], function (registerSuite, assert, Deferred, declare, register, MemoryStore, Observable, PageableList) {
+], function (registerSuite, assert, Deferred, MemoryStore, register, PageableList) {
 
 	/////////////////////////////////
 	// HELPERS AND FIXTURES
@@ -106,13 +104,9 @@ define([
 	};
 
 	var testHelpers = {
-		"Helper: Removing items in displayed pages": function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+		"Helper: Removing items in displayed pages": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 135*/
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -193,12 +187,8 @@ define([
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
-		"Helper: Removing items in next non displayed page": function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+		"Helper: Removing items in next non displayed page": function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -219,12 +209,8 @@ define([
 			return dfd;
 		},
 		"Helper: Removing items in previous non displayed page":
-			function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+			function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -250,12 +236,8 @@ define([
 			return dfd;
 		},
 		"Helper: Remove item and browse":
-			function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+			function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 91; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -287,12 +269,8 @@ define([
 			return dfd;
 		},
 		"Helper: Remove all items in non displayed first page removes previous page loader":
-			function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+			function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 91; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -315,35 +293,18 @@ define([
 			}));
 			return dfd;
 		},
-		"Helper: Add items in displayed page": function (/*Deferred*/dfd, /*Boolean*/useObservableStore) {
+		"Helper: Add items in displayed page": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 140*/
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-				list.processQueryResult = function (collection) {
-					return collection.sort("order");
-				};
-				for (var i = 0, j = 1; i < 92; i++, j += 2) {
-					list.store.add({id: i, label: "item " + i, order: j});
-				}
-				list.orderAttr = "order";
-			} else {
-				for (i = 0; i < 92; i++) {
-					list.store.add({id: i, label: "item " + i});
-				}
+			for (var i = 0; i < 92; i++) {
+				list.store.add({id: i, label: "item " + i});
 			}
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			if (useObservableStore) {
-				list.store.add({id: "A", label: "item A", order: 1});
-				list.store.add({id: "B", label: "item B", order: 44});
-			} else {
-				list.store.add({id: "A", label: "item A"}, {before: list.store.get(1)});
-				list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
-			}
+			list.store.add({id: "A", label: "item A"}, {beforeId: 1});
+			list.store.add({id: "B", label: "item B"}, {beforeId: 22});
 			list.deliver();
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
@@ -375,11 +336,7 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[48].textContent),
 						"Click to load 23 more items", "B");
 				// Add an item
-				if (useObservableStore) {
-					list.store.add({id: "C", label: "item C", order: 46});
-				} else {
-					list.store.add({id: "C", label: "item C"}, {before: list.store.get(23)});
-				}
+				list.store.add({id: "C", label: "item C"}, {beforeId: 23});
 				list.deliver();
 				assert.strictEqual(list.getChildren().length, 50, "C: number of list children");
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[0].textContent), "item 0", "C");
@@ -436,32 +393,16 @@ define([
 			/*jshint maxlen: 120*/
 			return dfd;
 		},
-		"Helper: add item before first page creates loader": function (/*Deferred*/dfd, /*boolean*/useObservableStore) {
+		"Helper: add item before first page creates loader": function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-				list.processQueryResult = function (collection) {
-					return collection.sort("order");
-				};
-				for (var i = 0, j = 1; i < 24; i++, j += 2) {
-					list.store.add({id: i, label: "item " + i, order: j});
-				}
-				list.orderAttr = "order";
-			} else {
-				for (i = 0; i < 24; i++) {
-					list.store.add({id: i, label: "item " + i});
-				}
+			for (var i = 0; i < 24; i++) {
+				list.store.add({id: i, label: "item " + i});
 			}
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
-			if (useObservableStore) {
-				list.store.add({id: "A", label: "item A", order: 0});
-			} else {
-				list.store.add({id: "A", label: "item A"}, {before: list.store.get(0)});
-			}
+			list.store.add({id: "A", label: "item A"}, {beforeId: 0});
 			list.deliver();
 			// Check internal page representation
 			assert.strictEqual(list._idPages.length, 1, "A: number of pages");
@@ -490,12 +431,8 @@ define([
 			}));
 			return dfd;
 		},
-		"Helper: add item after last page creates loader": function (/*Deferred*/dfd, /*boolean*/useObservableStore) {
+		"Helper: add item after last page creates loader": function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-			}
 			for (var i = 0; i < 23; i++) {
 				list.store.add({id: i, label: "item " + i});
 			}
@@ -534,32 +471,16 @@ define([
 			}));
 			return dfd;
 		},
-		"Helper: add item to undisplayed page": function (/*Deferred*/dfd, /*boolean*/useObservableStore) {
+		"Helper: add item to undisplayed page": function (/*Deferred*/dfd) {
 			list = new PageableList();
-			if (useObservableStore) {
-				var M = declare([MemoryStore, Observable], {});
-				list.store = new M({data: []});
-				list.processQueryResult = function (collection) {
-					return collection.sort("order");
-				};
-				for (var i = 0, j = 1; i < 100; i++, j += 2) {
-					list.store.add({id: i, label: "item " + i, order: j});
-				}
-				list.orderAttr = "order";
-			} else {
-				for (i = 0; i < 100; i++) {
-					list.store.add({id: i, label: "item " + i});
-				}
+			for (var i = 0; i < 100; i++) {
+				list.store.add({id: i, label: "item " + i});
 			}
 			list.pageLength = 23;
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
-			if (useObservableStore) {
-				list.store.add({id: "A", label: "item A", order: 46});
-			} else {
-				list.store.add({id: "A", label: "item A"}, {before: list.store.get(23)});
-			}
+			list.store.add({id: "A", label: "item A"}, {beforeId: 23});
 			list.deliver();
 			assertList(list, 0, 22, [], false, true, "A");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -576,11 +497,7 @@ define([
 				assert.strictEqual(removeTabsAndReturns(list.getChildren()[24].textContent),
 						"Click to load 23 more items",
 						"B: next page loader");
-				if (useObservableStore) {
-					list.store.add({id: "B", label: "item B", order: 44});
-				} else {
-					list.store.add({id: "B", label: "item B"}, {before: list.store.get(22)});
-				}
+				list.store.add({id: "B", label: "item B"}, {beforeId: 22});
 				clickPreviousPageLoader(list).then(dfd.callback(function () {
 					list.deliver();
 					assert.strictEqual(list.getChildren().length, 25, "C: list number of children");
@@ -1033,36 +950,19 @@ define([
 		"Removing items in displayed pages": function () {
 			return testHelpers["Helper: Removing items in displayed pages"](this.async(3000), false);
 		},
-		"Observable store: Removing items in displayed pages": function () {
-			return testHelpers["Helper: Removing items in displayed pages"](this.async(3000), true);
-		},
 		"Removing items in next non displayed page": function () {
 			return testHelpers["Helper: Removing items in next non displayed page"](this.async(3000), false);
 		},
-		"Observable store: Removing items in next non displayed page": function () {
-			return testHelpers["Helper: Removing items in next non displayed page"](this.async(3000), true);
-		},
 		"Removing items in previous non displayed page": function () {
 			return testHelpers["Helper: Removing items in previous non displayed page"](this.async(3000), false);
-		},
-		"Observable store: removing items in previous non displayed page": function () {
-			return testHelpers["Helper: Removing items in previous non displayed page"](this.async(3000), true);
 		},
 		"Remove all items in non displayed first page": function () {
 			return testHelpers[
 			                   "Helper: Remove all items in non displayed first page removes previous page loader"
 			                   ](this.async(3000), false);
 		},
-		"Observable store: remove all items in non displayed first page": function () {
-			return testHelpers[
-			                   "Helper: Remove all items in non displayed first page removes previous page loader"
-			                   ](this.async(3000), true);
-		},
 		"Remove item and browse": function () {
 			return testHelpers["Helper: Remove item and browse"](this.async(3000), false);
-		},
-		"Observable store: remove item and browse": function () {
-			return testHelpers["Helper: Remove item and browse"](this.async(3000), true);
 		},
 		///////////////////////////////////////////
 		// TEST ADDING ITEMS
@@ -1070,26 +970,14 @@ define([
 		"Add items in displayed pages": function () {
 			return testHelpers["Helper: Add items in displayed page"](this.async(3000), false);
 		},
-		"Observable store: add items in displayed pages (sorted list)": function () {
-			return testHelpers["Helper: Add items in displayed page"](this.async(3000), true);
-		},
 		"Add item before first page creates loader": function () {
 			return testHelpers["Helper: add item before first page creates loader"](this.async(3000), false);
-		},
-		"Observable store: add item before first page creates loader": function () {
-			return testHelpers["Helper: add item before first page creates loader"](this.async(3000), true);
 		},
 		"Add item after last page creates loader": function () {
 			return testHelpers["Helper: add item after last page creates loader"](this.async(3000), false);
 		},
-		"Observable store: add item after last page creates loader": function () {
-			return testHelpers["Helper: add item after last page creates loader"](this.async(3000), true);
-		},
 		"Add item to undisplayed page": function () {
 			return testHelpers["Helper: add item to undisplayed page"](this.async(3000), false);
-		},
-		"Observable store: Add item to undisplayed page": function () {
-			return testHelpers["Helper: add item to undisplayed page"](this.async(3000), true);
 		},
 		"Reload list content": function () {
 			var dfd = this.async(3000);

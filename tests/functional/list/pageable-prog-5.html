@@ -15,10 +15,9 @@
 			"delite/register",
 			"deliteful/list/PageableList",
 			"dstore/Memory",
-			"dstore/Observable",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Deferred, register, PageableList, MemoryStore, Observable) {
+		], function (Deferred, register, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-5";
 			list.pageLength = 23;

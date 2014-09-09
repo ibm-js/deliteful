@@ -131,7 +131,7 @@ define([
 			checkItem(children[11], "item 9");
 			checkItem(children[12], "item a");
 			// add at the top of the last category
-			list.store.add({category: "C", label: "item b"}, {before: list.store.data[6]});
+			list.store.add({category: "C", label: "item b"}, {beforeId: list.store.data[6].id});
 			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 14);
@@ -150,7 +150,7 @@ define([
 			checkItem(children[12], "item 9");
 			checkItem(children[13], "item a");
 			// add in the middle of the second category
-			list.store.add({category: "B", label: "item c"}, {before: list.store.data[4]});
+			list.store.add({category: "B", label: "item c"}, {beforeId: list.store.data[4].id});
 			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 15);
@@ -170,7 +170,7 @@ define([
 			checkItem(children[13], "item 9");
 			checkItem(children[14], "item a");
 			// add at the top of the list
-			list.store.add({category: "A", label: "item d"}, {before: list.store.data[0]});
+			list.store.add({category: "A", label: "item d"}, {beforeId: list.store.data[0].id});
 			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 16);
@@ -212,7 +212,7 @@ define([
 			checkCategory(children[12], "D");
 			checkItem(children[13], "item a");
 			// add at the top of the list
-			list.store.add({category: "E", label: "item b"}, {before: list.store.data[0]});
+			list.store.add({category: "E", label: "item b"}, {beforeId: list.store.data[0].id});
 			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 16);
@@ -233,7 +233,7 @@ define([
 			checkCategory(children[14], "D");
 			checkItem(children[15], "item a");
 			// add in the middle of the list
-			list.store.add({category: "F", label: "item c"}, {before: list.store.data[8]});
+			list.store.add({category: "F", label: "item c"}, {beforeId: list.store.data[8].id});
 			list.deliver();
 			children = list.getChildren();
 			assert.strictEqual(children.length, 19);
