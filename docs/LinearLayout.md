@@ -113,6 +113,12 @@ To avoid this behaviour, you must add ``position: absolute`` on the sub-child.
 src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/aYj4A/">checkout the sample on JSFiddle</a></iframe>
 
+### Examples
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/2gmxgm3w/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/2gmxgm3w/">Header / Stretched List / Footer</a></iframe>
+
 <a name="styling"></a>
 ## Element Styling
 
