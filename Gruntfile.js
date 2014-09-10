@@ -69,6 +69,13 @@ module.exports = function (grunt) {
 					config: "tests/intern",
 					reporters: ["runner"]
 				}
+			},
+			browserstack: {
+				options: {
+					runType: "runner",
+					config: "tests/intern.browserstack",
+					reporters: ["runner"]
+				}
 			}
 		},
 		

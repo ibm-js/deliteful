@@ -1,8 +1,10 @@
-define(["intern!object",
+define(["intern",
+    "intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require",
 	"dojo/promise/all"
-], function (registerSuite, assert, require, all) {
+], function (intern, registerSuite, pollUntil, assert, require, all) {
 	var PAGE = "./Toaster.html";
 
 	// helpers
@@ -42,16 +44,13 @@ define(["intern!object",
 	};
 
 	// const
-	var WAIT_TIMEOUT_MS = 180000;
 	var ANIMATION_DURATION = 5000;
-	var TEST_TIMEOUT_MS = 120000;
-	var POLL_FREQ_MS = 500;
 
 	// check functions
 
 	function checkAriaAttr(remote, widgetId) {
 		return remote
-			.elementById(widgetId)
+			.findById(widgetId)
 			.getAttribute("aria-relevant")
 			.then(function (value) {
 				_assert.attrEqual(value, "additions text");
@@ -61,8 +60,8 @@ define(["intern!object",
 
 	function checkNumberOfMessages(remote, toasterId, expected) {
 		return remote
-			.elementById(toasterId)
-			.elementsByCssSelector(".d-toaster-message")
+			.findById(toasterId)
+			.findAllByCssSelector(".d-toaster-message")
 			.then(function (value) {
 				//console.log("####", value)
 				assert.strictEqual(value.length, expected, "number of messages is correct");
@@ -72,14 +71,14 @@ define(["intern!object",
 
 	function clickButton(remote, buttonId) {
 		return remote
-			.elementById(buttonId)
+			.findById(buttonId)
 			.click()
 			.end();
 	}
 
 	function checkInsertion(remote, elementId) {
 		return remote
-			.elementByIdOrNull(elementId)
+			.execute("return document.getElementById('" + elementId + "');")
 			.then(function (element) {
 				assert.isNotNull(element, "element " + elementId + " was correctly inserted in DOM");
 			})
@@ -88,7 +87,7 @@ define(["intern!object",
 
 	function checkHasClass(remote, elementId, className) {
 		return remote
-			.elementById(elementId)
+			.findById(elementId)
 			.getAttribute("class")
 			.then(function (value) {
 				_assert.attrHas(value, className);
@@ -98,53 +97,57 @@ define(["intern!object",
 
 	function checkHasElement(remote, elementId) {
 		return remote
-			.hasElementById(elementId)
-			.then(function (has) {
-				assert.isTrue(has, elementId + " was found");
+			.findById(elementId)
+			.then(function () {
+				// noop
+		}, function () {
+				assert.fail(true, false, elementId + " was not found");
 			})
 			.end();
 	}
 
 	function checkHasNotElement(remote, elementId) {
 		return remote
-			.hasElementById(elementId)
-			.then(function (has) {
-				assert.isFalse(has, "No element " + elementId);
-			})
+			.findById(elementId)
+			.then(function () {
+				assert.fail(true, false, elementId + " was found");
+			}, function () {
+				// noop
+		})
 			.end();
 	}
 
 	function codeIns(action) {
-		return action.var + ".inserted";
+		return "return " + action["var"] + ".inserted ? true : null;";
 	}
 
 	function codeExp(action) {
-		return action.var + ".expired";
+		return "return " + action["var"] + ".expired ? true : null;";
 	}
 
 	function codeRem(action) {
-		return action.var + ".removed";
+		return "return " + action["var"] + ".removed ? true : null;";
 	}
 
 	function checkExpirable(remote, action, duration) {
-		var timeoutOffset = 2000;
+		var timeoutOffset = 5000;
 		return remote
-			.elementById(action.buttonId)
-			.clickElement()
+			.findById(action.buttonId)
+			.click()
 			.end()
-			.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+			.then(pollUntil(codeIns(action), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// wait for it to expire
-			.waitForCondition(codeExp(action),
-				duration + timeoutOffset, POLL_FREQ_MS)
-			.waitForCondition(codeRem(action), ANIMATION_DURATION + timeoutOffset, POLL_FREQ_MS)
+			.then(pollUntil(codeExp(action), [],
+				duration + timeoutOffset, intern.config.POLL_INTERVAL))
+			.then(pollUntil(codeRem(action), [], ANIMATION_DURATION + timeoutOffset, intern.config.POLL_INTERVAL))
 			.end();
 	}
 
 	function checkPersistent(remote, action) {
 		return remote
-			.elementById(action.buttonId)
-			.clickElement()
-			.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+			.findById(action.buttonId)
+			.click()
+			.then(pollUntil(codeIns(action), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.end();
 	}
 
@@ -153,14 +156,15 @@ define(["intern!object",
 		name: "Toaster tests",
 		setup: function () {},
 		beforeEach: function () {
-			this.timeout = TEST_TIMEOUT_MS;
 			var remote = this.remote;
 			return remote
 				.get(require.toUrl(PAGE))
-				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS, POLL_FREQ_MS);
+				.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		"Check Aria/initial nb of messages/posting": function () {
 			console.log("# running test 'default'");
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return checkAriaAttr(remote, "default")
 				// Check initial rating
@@ -172,18 +176,19 @@ define(["intern!object",
 					// post a few messages, and check if they are there
 					return clickButton(remote, "trigger-button");
 				})
-				.waitForElementByClassName("d-toaster-message")
-				.end()
+				.then(pollUntil("return document.querySelectorAll('.d-toaster-message');", [],
+						5000, intern.config.POLL_INTERVAL))
 				.then(function () {
 					return checkNumberOfMessages(remote, "default", 1);
 				});
 		},
 		"Check toaster stacking permanent messages": function () {
 			console.log("# running test 'check permanent message stacking'");
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
 				/*jshint -W061 */
-				.eval("actionsRemoval") // NOTE: a global variable existing in PAGE
+				.execute("return actionsRemoval;") // NOTE: a global variable existing in PAGE
 				.then(function (actions) {
 					// check number of messages on startup
 					var perm1 = actions.permanent1,
@@ -192,30 +197,32 @@ define(["intern!object",
 						exp6000 = actions.expirable6000;
 					return remote
 						// click on each button
-						.elementById(perm1.buttonId)
-						.clickElement()
+						.findById(perm1.buttonId)
+						.click()
 						.end()
-						.elementById(exp2000.buttonId)
-						.clickElement()
+						.findById(exp2000.buttonId)
+						.click()
 						.end()
-						.elementById(perm2.buttonId)
-						.clickElement()
+						.findById(perm2.buttonId)
+						.click()
 						.end()
-						.elementById(exp6000.buttonId)
-						.clickElement()
+						.findById(exp6000.buttonId)
+						.click()
 						.end()
 						// make sure they are all inserted
-						.waitForCondition(codeIns(perm1), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
-						.waitForCondition(codeIns(exp2000), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
-						.waitForCondition(codeIns(perm2), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
-						.waitForCondition(codeIns(exp6000), WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.then(pollUntil(codeIns(perm1), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(pollUntil(codeIns(exp2000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(pollUntil(codeIns(perm2), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+						.then(pollUntil(codeIns(exp6000), [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						// wait for expirable2000 to expire
-						.waitForCondition(codeExp(exp2000), 2000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.then(pollUntil(codeExp(exp2000), [],
+								2000 + intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						// wait for expirable6000 to expire
-						.waitForCondition(codeExp(exp6000), 6000 + WAIT_TIMEOUT_MS, POLL_FREQ_MS)
+						.then(pollUntil(codeExp(exp6000), [],
+								6000 + intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						// wait for both messages to be removed
-						.waitForCondition(codeRem(exp2000) && codeRem(exp6000),
-							WAIT_TIMEOUT_MS + ANIMATION_DURATION, POLL_FREQ_MS)
+						.then(pollUntil(codeRem(exp2000) && codeRem(exp6000), [],
+							intern.config.WAIT_TIMEOUT + ANIMATION_DURATION, intern.config.POLL_INTERVAL))
 						.then(function () {
 							var remotes = [];
 							// check expired are no longer in the DOM
@@ -238,7 +245,7 @@ define(["intern!object",
 //			var remote = this.remote;
 //			return remote
 //				.get(require.toUrl(PAGE))
-//				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+//				.waitForCondition("'ready' in window && ready", intern.config.WAIT_TIMEOUT)
 //				/*jshint -W061 */
 //				.eval("actionsDismiss")
 //				.then(function (actions) {
@@ -246,19 +253,19 @@ define(["intern!object",
 //					return remote
 //
 //						// click on show button
-//						.elementById(action.buttonId)
-//						.clickElement()
+//						.findById(action.buttonId)
+//						.click()
 //						.end()
 //
 //						// wait for the message to show up
-//						.waitForCondition(codeIns(action), WAIT_TIMEOUT_MS)
+//						.waitForCondition(codeIns(action), intern.config.WAIT_TIMEOUT)
 //
 //						// click on the dismiss button
-//						.elementById(action.props.id)
+//						.findById(action.props.id)
 //						.elementByClassName("d-toaster-dismiss")
 //						.click()
 //						// wait for the message to be removed and check it's not there
-//						.waitForCondition(codeRem(action), WAIT_TIMEOUT_MS)
+//						.waitForCondition(codeRem(action), intern.config.WAIT_TIMEOUT)
 //						.then(function () {
 //							return checkHasNotElement(remote, action.props.id);
 //						})
@@ -268,13 +275,14 @@ define(["intern!object",
 //		},
 		"Check message duration": function () {
 			console.log("# running test 'check message durations'");
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
 				/*jshint -W061 */
-				.eval("actionsDurations") // NOTE: a global variable existing in PAGE
+				.execute("return actionsDurations;") // NOTE: a global variable existing in PAGE
 				.then(function (actions) {
 					return remote
-						.waitForCondition("true", 1000)
+						.getCurrentUrl()
 						.then(function () {
 							return checkExpirable(remote, actions["Duration 6000"], 6000);
 						})
@@ -287,12 +295,13 @@ define(["intern!object",
 		},
 		"Check message types": function () {
 			console.log("# running test 'check message types'");
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 
 			function checkType(remote, action) {
 				return remote
-					.elementById(action.buttonId)
-					.clickElement()
+					.findById(action.buttonId)
+					.click()
 					.end()
 					.then(function () {
 						return checkInsertion(remote, action.props.id)
@@ -304,10 +313,10 @@ define(["intern!object",
 			}
 			return remote
 				/*jshint -W061 */
-				.eval("actionsTypes") // NOTE: a global variable existing in PAGE
+				.execute("return actionsTypes;") // NOTE: a global variable existing in PAGE
 				.then(function (actions) {
 					remote
-						.waitForCondition("true", 1000)
+						.getCurrentUrl()
 						.then(function () {
 							return checkType(remote, actions["Type info"]);
 						})

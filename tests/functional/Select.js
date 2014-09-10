@@ -1,17 +1,15 @@
-define(["intern!object",
+define(["intern",
+    "intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
+    "intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require"
-	], function (registerSuite, assert, require) {
-	
-	// Huge values not needed when running locally, but needed for running remotely...
-	var WAIT_TIMEOUT_MS = 180000;
-	var TEST_TIMEOUT_MS = 120000;
-	var POLL_FREQUENCY = 1000;
+	], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	
 	var checkNumberOfOptions = function (remote, selectId, expectedNumberOfOptions) {
 		return remote
-			.elementById(selectId)
-			.elementsByTagName("OPTION")
+			.findById(selectId)
+			.findAllByTagName("OPTION")
 			.then(function (result) {
 				assert.strictEqual(result.length, expectedNumberOfOptions,
 					selectId + " number of options is not the expected one");
@@ -25,8 +23,8 @@ define(["intern!object",
 			// (the buttons being outside browser's visible area).
 			// Hence, instead, execute the action of the update button from Select.html.
 			.execute("updateOptions(" + selectId + "); ")
-			.elementById(selectId)
-			.elementsByTagName("OPTION")
+			.findById(selectId)
+			.findAllByTagName("OPTION")
 			.then(function (result) {
 				assert.strictEqual(result.length, expectedNumberOfOptions,
 					selectId + " number of options is not the expected one");
@@ -80,7 +78,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected
@@ -97,7 +95,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the third option should be selected
@@ -114,7 +112,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE013") // arrow up
+			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected again
@@ -134,7 +132,7 @@ define(["intern!object",
 	};
 	
 	var checkKeyboardNavigationMultipleSelection = function (remote, selectId) {
-		if (!/Chrome/.test(remote.environmentType.browserName)) {
+		if (!/chrome/.test(remote.environmentType.browserName)) {
 			// Keyboard shortcuts for multi-selects are browser dependent.
 			// For now testing Chrome only.
 			console.log("Skipping checkKeyboardNavigationMultipleSelection on " +
@@ -174,7 +172,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the first option should be selected
@@ -194,7 +192,7 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE015") // arrow down again
+			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected (instead of the first)
@@ -217,8 +215,8 @@ define(["intern!object",
 					"._selection_change_counter (internal testing counter)");
 			})
 			.end()
-			.keys("\uE008\uE015") // SHIFT-arrow down (extend the selection)
-			.keys("\uE008") // release shift
+			.pressKeys(keys.SHIFT + keys.ARROW_DOWN)
+			.pressKeys(keys.SHIFT) // release shift
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second and third options should be selected
@@ -240,8 +238,8 @@ define(["intern!object",
 			.end()
 			// For (native) multi-selects, the keyboard shortcuts are browser-dependent...
 			// Here the Chrome way is tested.
-			.keys("\uE009\uE013") // CTRL-arrow up (reduce the selection)
-			.keys("\uE009") // release ctrl
+			.pressKeys(keys.CONTROL + keys.ARROW_UP) // CTRL-arrow up (reduce the selection)
+			.pressKeys(keys.CONTROL) // release ctrl
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the second option should be selected again
@@ -270,7 +268,8 @@ define(["intern!object",
 		"setup": function () {
 			return this.remote
 				.get(require.toUrl("./Select.html"))
-				.waitForCondition("ready", WAIT_TIMEOUT_MS, POLL_FREQUENCY);
+				.then(pollUntil("return ready ? true : null;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively (with default store):
@@ -283,27 +282,27 @@ define(["intern!object",
 		border-radius, and background-color (with default store):
 		*/
 		"init (declaratively, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select1", nOptions);
 		},
 		"init (programmatically, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select2", nOptions);
 		},
 		"init (declaratively, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select3", nOptions);
 		},
 		"init (programmatically, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select4", nOptions);
 		},
 		"init (declaratively, empty)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select5", 0/*empty*/);
 		},
 		"init (programmatically, empty)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select6", 0/*empty*/);
 		},
 		
@@ -311,32 +310,32 @@ define(["intern!object",
 		// the expected number of options and the options now contain the 
 		// updated text content.
 		"update (declaratively, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select1", "update1", nOptions);
 		},
 		"update (programmatically, default store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select2", "update2", nOptions);
 		},
 		"update (declaratively, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select3", "update3", nOptions);
 		},
 		"update (programmatically, user's store)": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select4", "update4", nOptions);
 		},
 		
 		"keyboard navigation selectionMode = single": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationSingleSelection(this.remote, "select1");
 		},
 		"keyboard navigation selectionMode = multiple": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationMultipleSelection(this.remote, "d_select_form3");
 		}
 	});

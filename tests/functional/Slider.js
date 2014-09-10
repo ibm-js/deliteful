@@ -1,16 +1,19 @@
 /**
  * Slider functional tests
  */
-define(["intern!object",
+define(["intern",
+    "intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require"
-], function (registerSuite, assert, require) {
+], function (intern, registerSuite, pollUntil, assert, require) {
 	var debug = false; // set to true for additional feedback on test execution (adds console messages + wait time).
 
 	registerSuite({
 		name: "Slider (markup)",
 		// single
 		"init single slider (default value)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider.html")
 				.then(checkInitValue(remote, "singleSlider01", "50"))
@@ -18,25 +21,28 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 		"single slider interaction": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			remote = remote.url();
-			if (hasMoveToIssue(remote)) {
+			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
 			} else {
@@ -56,8 +62,9 @@ define(["intern!object",
 		},
 		// range
 		"init range slider (default value)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
@@ -65,8 +72,9 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
@@ -74,8 +82,9 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
@@ -83,9 +92,10 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		},
 		"range slider interaction": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			remote = remote.url();
-			if (hasMoveToIssue(remote)) {
+			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				return remote
 					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
 			} else {
@@ -117,6 +127,7 @@ define(["intern!object",
 	registerSuite({
 		name: "Slider (programmatic)",
 		"init single slider (default value)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-prg.html")
 				.then(logMessage(remote, this.id, "start..."))
@@ -125,16 +136,18 @@ define(["intern!object",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
@@ -142,8 +155,9 @@ define(["intern!object",
 		},
 
 		"init range slider (default value)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
@@ -151,8 +165,9 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
@@ -160,8 +175,9 @@ define(["intern!object",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote.url()
+			return remote.getCurrentUrl()
 				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
@@ -171,21 +187,19 @@ define(["intern!object",
 	});
 
 	/**
-	 * check the value after the slider is started, also check the attribute value of the wrapped input element.
+	 * check the value after the slider is started, also check the value of the wrapped input element.
 	 */
 	function checkInitValue(remote, sliderId, expectedValue) {
 		return function () {
 			debugMsg("checkInitValue...");
-			return getElementById(remote, sliderId + "_value")
-				.getAttribute("value")
+			return remote.execute("return " + sliderId + "_value.value;")
 				.then(function (value) {
 					debugMsg("checkInitValue: " + value);
 					assert.strictEqual(value, expectedValue, sliderId + ".value");
 				})
 				.end()
 				.then(function () {
-					return getElementByXPath(remote, "//d-slider[@id='" + sliderId + "']//input")
-						.getAttribute("value")
+					return remote.execute("return document.querySelector('#" + sliderId + " > input').value;")
 						.then(function (value) {
 							debugMsg("checkInitValue: wrapped input value");
 							assert.strictEqual(value, expectedValue, sliderId + " wrapped input attribute");
@@ -201,8 +215,7 @@ define(["intern!object",
 	function checkOnChange(remote, sliderId, hasValue) {
 		return function () {
 			debugMsg("checkOnChange...");
-			return getElementById(remote, "onchange_target")
-				.getAttribute("value")
+			return remote.execute("return onchange_target.value;")
 				.then(function (target) {
 					debugMsg("checkOnChange: onchange event target id");
 					if (hasValue) {
@@ -211,26 +224,27 @@ define(["intern!object",
 						assert.strictEqual(target.length, 0, "unexpected change event received from [" + target + "]");
 					}
 				})
-				.clear()
+				.findById("onchange_target")
+				.clearValue()
 				.end()
 				.then(function () {
 					if (hasValue) {
-						return getElementById(remote, "onchange_value")
-							.getAttribute("value")
+						return remote.execute("return onchange_value.value")
 							.then(function (value) {
 								debugMsg("checkOnChange: onchange received?");
 								assert.ok(value, "onchange value is expected");
 							})
-							.clear()
+							.findById("onchange_value")
+							.clearValue()
 							.end()
 							.then(function () {
-								return getElementById(remote, "onchange_input")
-									.getAttribute("value")
+								return remote.execute("return onchange_input.value;")
 									.then(function (value) {
 										debugMsg("checkOnChange: input.value?");
 										assert.ok(value, "incorrect input value");
 									})
-									.clear()
+									.findById("onchange_input")
+									.clearValue()
 									.end();
 							});
 					} else {
@@ -277,20 +291,6 @@ define(["intern!object",
 		};
 	}
 
-	function getElementById(remote, elementId) {
-		return remote.elementById(elementId)
-			.then(null, function (error) {
-				handleElementNotFound(elementId, error);
-			});
-	}
-
-	function getElementByXPath(remote, xpath) {
-		return remote.elementByXPath(xpath)
-			.then(null, function (error) {
-				handleElementNotFound(xpath, error);
-			});
-	}
-
 	/**
 	 * display msg with information on the not found element and throw an assert to avoid unclear stack trace.
 	 * errors not related to not found element are re-throwned.
@@ -311,7 +311,7 @@ define(["intern!object",
 	 */
 	function getSliderElementByCss(remote, sliderId, cssClass) {
 		return remote
-			.elementByXPath("//d-slider[@id='" + sliderId + "']" +
+			.findByXpath("//d-slider[@id='" + sliderId + "']" +
 				"//div[contains(concat(' ', normalize-space(@class), ' '), ' " + cssClass + " ')]")
 			.then(null, function (error) {
 				handleElementNotFound("not found: " + sliderId + " > ." + cssClass, error);
@@ -324,16 +324,18 @@ define(["intern!object",
 	function clickOnProgressBar(remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("clickOnProgressBar...");
-			return getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
-				.moveTo(moveToX, moveToY)
-				.wait(50)
+			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
+				.then(function (element) {
+					return remote.moveMouseTo(element, moveToX, moveToY);
+				})
+				.sleep(50)
 				// 1. There is a pb with "change" event not fired after a click() on FF with selenium:
 				// https://code.google.com/p/selenium/issues/detail?id=157
 				// Slider does not listen on click events, so send mouseDown+Up to bypass FF problem.
 				// 2. click() seems to click on the center of the element whatever the previous moveTo(x,y) on Chrome
-				.buttonDown()
-				.wait(50)
-				.buttonUp()
+				.pressMouseButton(0)
+				.sleep(50)
+				.releaseMouseButton(0)
 				.end()
 				.then(function () {
 					return waitForDebug(remote);
@@ -344,13 +346,15 @@ define(["intern!object",
 	function clickOnHandler(remote, sliderId) {
 		return function () {
 			debugMsg("clickOnHandler...");
-			return getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
-				.moveTo()
+			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
+				.then(function (element) {
+					return remote.moveMouseTo(element);
+				})
 				// Simulate click with button down/up to bypass this issue:
 				// "change" event is not fired when click() on FF with selenium
 				// https://code.google.com/p/selenium/issues/detail?id=157
-				.buttonDown()
-				.buttonUp()
+				.pressMouseButton()
+				.releaseMouseButton()
 				.end()
 				.then(function () {
 					return waitForDebug(remote);
@@ -361,11 +365,12 @@ define(["intern!object",
 	function moveHandler(remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("moveHandler...");
-			return getSliderElementByCss(remote, sliderId, "d-slider-handle-max")
-				.moveTo()
-				.buttonDown()
-				.moveTo(moveToX, moveToY)
-				.buttonUp()
+			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
+				.then(function (element) {
+					return remote.pressMouseButton()
+						.moveMouseTo(element, moveToX, moveToY)
+						.releaseMouseButton();
+				})
 				.end()
 				.then(function () {
 					return waitForDebug(remote);
@@ -376,11 +381,13 @@ define(["intern!object",
 	function moveRange(remote, sliderId, moveToX, moveToY) {
 		return function () {
 			debugMsg("moveRange...");
-			return getSliderElementByCss(remote, sliderId, "d-slider-progress-bar")
-				.moveTo()
-				.buttonDown()
-				.moveTo(moveToX, moveToY)
-				.buttonUp()
+			return remote.findByCssSelector("#" + sliderId + " .d-slider-progress-bar")
+				.then(function (element) {
+					return remote.moveMouseTo(element)
+						.pressMouseButton()
+						.moveMouseTo(element, moveToX, moveToY)
+						.releaseMouseButton();
+				})
 				.end()
 				.then(function () {
 					return waitForDebug(remote);
@@ -401,7 +408,8 @@ define(["intern!object",
 	function loadTestPage(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.waitForCondition("'ready' in window &&  ready", 10000, 1000)
+			.then(pollUntil("return ('ready' in window &&  ready) ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				debugMsg(url + " loaded.");
 				return remote.end();
@@ -415,14 +423,8 @@ define(["intern!object",
 		};
 	}
 
-	function hasMoveToIssue(remote) {
-		// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-		return (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) ||
-			remote.environmentType.safari);
-	}
-	
 	function waitForDebug(remote) {
-		return (debug) ? remote.wait(500) : remote.end();
+		return (debug) ? remote.sleep(500) : remote.end();
 	}
 	
 	function debugMsg(msg) {

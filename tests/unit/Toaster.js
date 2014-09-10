@@ -45,6 +45,7 @@ define([
 			var toasterDefault = new Toaster();
 			toasterDefault.placeAt("container");
 			toasterDefault.startup();
+			toasterDefault.deliver();
 
 			assert(domClass.contains(toasterDefault, "d-toaster-placement-default"),
 				"toasterDefault has class d-toaster-placement-default");
