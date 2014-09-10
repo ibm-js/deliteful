@@ -1,13 +1,15 @@
 define([
+    "intern",
 	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
-	"intern/dojo/node!wd/lib/special-keys",
+	"intern/dojo/node!leadfoot/keys",
 	"require"
-], function (registerSuite, assert, keys, require) {
+], function (intern, registerSuite, pollUntil, assert, keys, require) {
 
 	function loadFile(remote, url) {
 		return remote
-			.setAsyncScriptTimeout(50000)
+			.setExecuteAsyncTimeout(intern.config.WAIT_TIMEOUT)
 			.get(require.toUrl(url))
 			.executeAsync(function (done) {
 				require(["delite/register", "deliteful/CheckBox", "requirejs-domready/domReady!"], function (register) {
@@ -20,38 +22,30 @@ define([
 	registerSuite({
 		name: "CheckBox - functional",
 
-		setup: function () {
-			var remote = this.remote;
-			loadFile(remote, "./CheckBox.html");
-		},
-
 		"Checkbox behavior": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return remote
+			return loadFile(remote, "./CheckBox.html")
 				// default click action
 				.execute("return document.getElementById('cb1').focusNode;")
-				.click()
-				.execute("return document.getElementById('cb1').checked;")
-				.then(function (v) {
-					assert.isTrue(v, "Unexpected value for 'checked' property.");
+				.then(function (element) {
+					element.click();
 				})
-				.end()
+				.then(pollUntil("return document.getElementById('cb1').checked ? true : null;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// click on disabled checkbox
-				.execute("return document.getElementById('cb2').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected value for disabled 'checked' property.");
-				})
-				.end()
+				.then(pollUntil("return document.getElementById('cb2').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.execute("return document.getElementById('cb2').focusNode;")
-				.click()
-				.execute("return document.getElementById('cb2').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected  change for disabled 'checked' property.");
+				.then(function (element) {
+					element.click();
 				})
-				;
+				.then(pollUntil("return document.getElementById('cb2').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 
 		"CheckBox Key nav": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
@@ -62,27 +56,25 @@ define([
 			}
 			return remote
 				.execute("return document.getElementById('b1').focus();")
-				.active()
+				.getActiveElement()
 				.end()
-				.wait(400)
-				.keys(keys.Tab) // Press TAB -> cb1
-				.wait(400)
-				.active()
+				.sleep(400)
+				.pressKeys(keys.TAB) // Press TAB -> cb1
+				.sleep(400)
+				.getActiveElement()
 				.getAttribute("name")
 				.then(function (v) {
 					assert.strictEqual(v, "cb1", "Unexpected focused element after 1st TAB.");
 				})
 				.end()
-				.keys(keys.Space) // Press Space to check cb1
-				.execute("return document.getElementById('cb1').checked;")
-				.then(function (v) {
-					assert.isFalse(v, "Unexpected value for 'checked' property after pressing SPACE.");
-				})
+				.pressKeys(keys.SPACE) // Press Space to check cb1
+				.then(pollUntil("return document.getElementById('cb1').checked ? null : true;", [],
+						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.end()
-				.keys(keys.Tab) // Press TAB -> skip cb2 (disabled)
-				.wait(400)
-				.active()
-				.text()
+				.pressKeys(keys.TAB) // Press TAB -> skip cb2 (disabled)
+				.sleep(400)
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (v) {
 					assert.strictEqual(v, "End", "Unexpected focused element after 2nd TAB.");
 				})
@@ -93,35 +85,36 @@ define([
 				//
 				// Form tests
 				//
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
 				console.log("Skipping test: 'CheckBox Form' on this platform.");
 				return remote.end();
 			}
-			return remote
-				.elementById("form1")
+			return loadFile(remote, "./CheckBox.html")
+				.findById("form1")
 				.submit()
-				.waitForElementById("parameters")
+				.end()
+				.setFindTimeout(intern.config.WAIT_TIMEOUT)
+				.find("id", "parameters")
 				.end()
 				.execute("return document.getElementById('valueFor_cb3');")
-				// do not call elementByIdOrNulkl as it fails
-//				.elementByIdOrNull("valueFor_cb3")
 				.then(function (value) {
 						assert.isNull(value, "Unexpected value for unchecked checkbox cb3.");
 					})
 				.end()
-				.elementById("valueFor_cb4")
-				.text()
+				.findById("valueFor_cb4")
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "2", "Unexpected value for checkbox cb4");
 				})
 				.end()
-				.elementByIdOrNull("valueFor_cb5")
+				.execute("return document.getElementById('valueFor_cb5');")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled checkbox cb5.");
 				})
-				.elementById("valueFor_cb6")
-				.text()
+				.findById("valueFor_cb6")
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "4", "Unexpected value for checkbox cb6");
 				})

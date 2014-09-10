@@ -1,12 +1,15 @@
-define(["intern!object",
+define(["intern",
+    "intern!object",
+    "intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require"
-	], function (registerSuite, assert, require) {
+	], function (intern, registerSuite, pollUntil, assert, require) {
 
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))
-			.waitForCondition("ready", 15000); // large timeout because of sauce...
+			.then(pollUntil("return ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	};
 
 	var checkScrollAmount = function (remote, scrollContainerId, expectedScroll) {
@@ -56,15 +59,17 @@ define(["intern!object",
 		name: "ScrollableContainer - functional",
 
 		"scroll with animation (via button, inside LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return loadFile(this.remote, "./ScrollableContainer.html")
-				.elementById("scrollButton")
+				.findById("scrollButton")
 				.click()
 				.end()
 				// Check that the scroll arrives at 100: (large timeout because of sauce...)
-				.waitForCondition("document.getElementById('scrollContainer').scrollableNode.scrollTop==100", 15000)
+				.then(pollUntil("return document.getElementById('scrollContainer').scrollableNode.scrollTop==100 ?"
+						+ "true: null;", [], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// Check that it stays at 100 even after waiting a while (that is,
 				// that it does not continue to scroll):
-				.wait(200)
+				.sleep(200)
 				.execute("return document.getElementById('scrollContainer').scrollableNode.scrollTop;")
 				.then(function (value) {
 					assert.strictEqual(value, 100, "scrollTop should have stayed at 100!");
@@ -72,6 +77,7 @@ define(["intern!object",
 		},
 
 		"scrollBy (without LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -81,6 +87,7 @@ define(["intern!object",
 		},
 		
 		"scrollTop/scrollLeft (without LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -90,6 +97,7 @@ define(["intern!object",
 		},
 
 		"scrollBy (non-fullscreen, without LinearLayout, scrollDirection=both)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
 				// On this container, scrollDirection is "both", so it should scroll
@@ -99,6 +107,7 @@ define(["intern!object",
 		},
 
 		"scrollTop/scrollLeft (non-fullscreen, without LinearLayout, scrollDirection=both)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
 				// On this container, scrollDirection is "both", so it should scroll
@@ -108,6 +117,7 @@ define(["intern!object",
 		},
 		
 		"scrollBy (non-fullscreen, without LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -117,6 +127,7 @@ define(["intern!object",
 		},
 
 		"scrollTop/scrollLeft (non-fullscreen, without LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-alone-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -126,6 +137,7 @@ define(["intern!object",
 		},
 
 		"scrollBy (fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-full-screen.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -135,6 +147,7 @@ define(["intern!object",
 		},
 		
 		"scrollTop/scrollLeft (fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-full-screen.html", "scrollContainer",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -144,6 +157,7 @@ define(["intern!object",
 		},
 
 		"scrollBy (non-fullscreen, with LinearLayout, scrollDirection=both)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
 				// On this container, scrollDirection is "both", so it should scroll
@@ -153,6 +167,7 @@ define(["intern!object",
 		},
 		
 		"scrollTop/scrollLeft (non-fullscreen, with LinearLayout, scrollDirection=both)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer1",
 				{x: 100, y: 100}, // scroll amount
 				// On this container, scrollDirection is "both", so it should scroll
@@ -163,6 +178,7 @@ define(["intern!object",
 		},
 
 		"scrollBy (non-fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of
@@ -172,6 +188,7 @@ define(["intern!object",
 		},
 		
 		"scrollTop/scrollLeft (non-fullscreen, with LinearLayout, scrollDirection=vertical)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkScroll(this.remote, "./ScrollableContainer-small.html", "scrollContainer2",
 				{x: 100, y: 100}, // scroll amount
 				// Since this container has scrollDirection="vertical", the horizontal part of

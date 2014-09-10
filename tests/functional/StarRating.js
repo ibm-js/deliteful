@@ -1,54 +1,49 @@
-define(["intern!object",
-        "intern/chai!assert",
-        "require"
-        ], function (registerSuite, assert, require) {
+define([
+    "intern",
+	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
+	"intern/dojo/node!leadfoot/keys",
+	"intern/chai!assert",
+	"require"
+], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	
-	var WAIT_TIMEOUT_MS = 180000;
-
-	var TEST_TIMEOUT_MS = 120000;
+	var pollUntilStarRatingReady = function (widgetId, timeout, pollInterval) {
+		return pollUntil("return document.querySelector('#" + widgetId + " > div');", [], timeout, pollInterval);
+	};
 
 	var clickOnStar = function (remote, widgetId, starIndex /*first index is 1*/,
 		firstHalf/*true to click on the first half, false to click the second half*/) {
 		var divIndex = starIndex * 2 + (firstHalf ? 0 : 1);
 		return remote
-			.elementByXPath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
+			.findByXpath("//*[@id='" + widgetId + "']/div/div[" + divIndex + "]")
 				.click()
 				.end();
 	};
 
 	var clickOnZeroSettingArea = function (remote, widgetId) {
 		return remote
-			.elementByXPath("//*[@id='" + widgetId + "']/div/div[1]")
+			.findByXpath("//*[@id='" + widgetId + "']/div/div[1]")
 				.click()
 				.end();
 	};
 
 	var checkSubmitedParameters = function (remote, /*Array*/expectedKeys, /*Array*/expectedValues) {
-		var i = 0;
-		return remote.wait(1)
-				.then(function () {
-					for (; i < expectedKeys.length; i++) {
-						(function (i) {
-							remote.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[1]")
-								.text()
-								.then(function (value) {
-									assert.strictEqual(value, expectedKeys[i]);
-								})
-								.end()
-							.elementByXPath("//*[@id='parameters']/tbody/tr[" + (i + 2) + "]/td[2]")
-								.text()
-								.then(function (value) {
-									assert.strictEqual(value, expectedValues[i]);
-								})
-								.end();
-						})(i);
-					}
-				});
+		var expected = [];
+		for (var i = 0; i < expectedKeys.length; i++) {
+			expected.push(expectedKeys[i]);
+			expected.push(expectedValues[i]);
+		}
+		return remote.findAllByTagName("td")
+			.getVisibleText()
+			.then(function (texts) {
+				assert.deepEqual(texts, expected);
+			})
+			.end();
 	};
 
 	var checkRating = function (remote, widgetId, expectedMax, expectedValue, expectedDisabled) {
 		return remote
-			.elementByXPath("//*[@id='" + widgetId + "']/div")
+			.findByXpath("//*[@id='" + widgetId + "']/div")
 				.getAttribute("aria-valuenow")
 				.then(function (value) {
 					assert.strictEqual(value, expectedValue.toString(), "aria-valuenow");
@@ -78,9 +73,9 @@ define(["intern!object",
 					assert.strictEqual(value, expectedValue + " stars", "aria-valuetest");
 				})
 				.end()
-			/* jshint evil:true */
-			.eval("Array.prototype.map.call(" + widgetId + ".getElementsByClassName('d-star-rating-star-icon'), " +
-					"function(elem){ return elem.className; })")
+			.execute("return Array.prototype.map.call(" + widgetId
+					+ ".getElementsByClassName('d-star-rating-star-icon'), "
+					+ "function(elem){ return elem.className; });")
 				.then(function (classNames) {
 					assert.strictEqual(classNames.length, 2 * expectedMax, "# of stars");
 					for (var i = 0; i < 2 * expectedMax; i++) {
@@ -100,7 +95,7 @@ define(["intern!object",
 		var expectedAfterClickOnThirdStar = halfStars ? 2.5 : 3;
 		return remote
 		.get(require.toUrl("./StarRating.html"))
-		.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+		.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 		// Check initial rating
 		.then(function () {
 			return checkRating(remote, widgetId, 7, expectedInitialValue, false);
@@ -132,18 +127,18 @@ define(["intern!object",
 	registerSuite({
 		name: "StarRating tests",
 		"read only ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, widgetId = "star";
 			console.log("# running test 'read only ltr'");
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+				.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				.then(function () {
 					// Check initial rating
 					return checkRating(remote, widgetId, 1, 0, false);
 				})
 				// click the + button and verify the value is updated
-				.elementById("starplus")
+				.findById("starplus")
 					.click()
 					.then(function () {
 						checkRating(remote, widgetId, 1, 0.5, false);
@@ -154,7 +149,7 @@ define(["intern!object",
 					})
 					.end()
 				// click the - button and verify the value is updated
-				.elementById("starminus")
+				.findById("starminus")
 					.click()
 					.then(function () {
 						checkRating(remote, widgetId, 1, 0.5, false);
@@ -173,34 +168,34 @@ define(["intern!object",
 				});
 		},
 		"editable ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable half values ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable half values no zero setting ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
 			return remote
 				.get(require.toUrl("./StarRating.html"))
-				.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+				.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 				// Check initial rating
 				.then(function () {
 					return checkRating(remote, id, 7, 3.5, false);
 				})
 				// Check message
-				.elementById(id + "value")
-					.text()
+				.findById(id + "value")
+					.getVisibleText()
 					.then(function (text) {
 						assert.strictEqual(text, "Rating is 3.5 stars", "message is not the one expected for " + id);
 					})
@@ -213,8 +208,8 @@ define(["intern!object",
 					return checkRating(remote, id, 7, 2.5, false);
 				})
 				// Check message
-				.elementById(id + "value")
-					.text()
+				.findById(id + "value")
+					.getVisibleText()
 					.then(function (text) {
 						assert.strictEqual(text, "Rating is 2.5 stars", "message is not the one expected for " + id);
 					})
@@ -227,27 +222,27 @@ define(["intern!object",
 					return checkRating(remote, id, 7, 0, false);
 				})
 				// Check message
-				.elementById(id + "value")
-					.text()
+				.findById(id + "value")
+					.getVisibleText()
 					.then(function (text) {
 						assert.strictEqual(text, "Rating is 0 stars", "message is not the one expected for " + id);
 					})
 					.end();
 		},
 		"default": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'default'");
-			var remote = this.remote;
+			var remote = this.remote, id = "defaultstar";
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
-				return checkRating(remote, "defaultstar", 5, 0, false);
+				return checkRating(remote, id, 5, 0, false);
 			});
 		},
 		"tab order": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -258,92 +253,92 @@ define(["intern!object",
 			console.log("# running test 'tab order'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
-			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check active element
-			.execute("return document.activeElement.id")
+			.execute("return document.activeElement.id;")
 			.then(function (value) {
 				assert.strictEqual(value, "afinput");
 			})
-			.keys("\uE004") // Press TAB
-			.execute("return document.activeElement.parentNode.id")
+			.pressKeys(keys.TAB)
+			.execute("return document.activeElement.parentNode.id;")
 			.then(function (value) {
 				assert.strictEqual(value, "firsttabindexstar");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "secondtabindexstar");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "star");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.id")
 			.then(function (value) {
 				assert.strictEqual(value, "starminus");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.id")
 			.then(function (value) {
 				assert.strictEqual(value, "starplus");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "editablestar1");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "editablestar2");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "editablestar5");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "editablestar6");
 			})
-			.keys("\uE004") // Press TAB
+			.pressKeys(keys.TAB)
 			.execute("return document.activeElement.parentNode.id")
 			.then(function (value) {
 				assert.strictEqual(value, "defaultstar");
 			});
 		},
 		"disabled": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			console.log("# running test 'disabled'");
-			var remote = this.remote;
+			var remote = this.remote, id = "starrating3";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			// Check initial rating
 			.then(function () {
-				return checkRating(remote, "starrating3", 7, 3, true);
+				return checkRating(remote, id, 7, 3, true);
 			});
 		},
 		"form back button": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			console.log("# running test 'form back button'");
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
-			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				return clickOnStar(remote, "starratingA", 7, false);
 			})
-			.elementById("submitButton")
-			.click()
-			.end()
-			.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
-			.elementById("parameters")
-			.setImplicitWaitTimeout(0)
-			.end()
+			.findById("submitButton")
+				.click()
+				.end()
+			.then(pollUntil("return document.getElementById('parameters');", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				// Safari driver does not support the back method
 				// see https://code.google.com/p/selenium/issues/detail?id=3771
@@ -352,23 +347,23 @@ define(["intern!object",
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 				} else {
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
-						.back()
-						.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+						.goBack()
+						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						})
-						.elementById("submitButton")
-						.click()
-						.end()
-						.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
-						.elementById("parameters", WAIT_TIMEOUT_MS)
-						.setImplicitWaitTimeout(0)
-						.end()
+						.findById("submitButton")
+							.click()
+							.end()
+							.then(pollUntil("return document.getElementById('parameters');", [],
+									intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 						})
-						.back()
-						.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+						.goBack()
+						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 						.then(function () {
 							return checkRating(remote, "starratingA", 7, 7, false);
 						});
@@ -376,21 +371,20 @@ define(["intern!object",
 			});
 		},
 		"form values": function () {
-			this.timeout = TEST_TIMEOUT_MS;
-			var remote = this.remote;
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote, id = "starrating1";
 			console.log("# running test 'form values'");
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
-			.waitForCondition("'ready' in window && ready", WAIT_TIMEOUT_MS)
+			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
-				return clickOnStar(remote, "starrating1", 2, false);
+				return clickOnStar(remote, id, 2, false);
 			})
-			.elementById("submitButton")
+			.findById("submitButton")
 			.click()
 			.end()
-			.setImplicitWaitTimeout(WAIT_TIMEOUT_MS)
-			.elementById("parameters", WAIT_TIMEOUT_MS)
-			.setImplicitWaitTimeout(0)
+			.then(pollUntil("return document.getElementById('parameters');", [],
+					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.end()
 			.then(function () {
 				return checkSubmitedParameters(remote, ["star1", "star2", "star4", "star5"], ["2", "2", "4", "5"]);

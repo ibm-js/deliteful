@@ -1,30 +1,27 @@
-define(["intern!object",
+define(["intern",
+        "intern!object",
+        "intern/dojo/node!leadfoot/helpers/pollUntil",
         "intern/chai!assert",
         "require"
-        ], function (registerSuite, assert, require) {
-
-	var WAIT_TIMEOUT_MS = 180000;
-	
-	var WAIT_POLLING_MS = 200;
-
-	var TEST_TIMEOUT_MS = 240000;
+        ], function (intern, registerSuite, pollUntil, assert, require) {
 
 	registerSuite({
 		name: "AriaListbox tests",
 		"selectionMode 'multiple'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
-					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false");
@@ -45,7 +42,7 @@ define(["intern!object",
 						assert.strictEqual(value, "true");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false");
@@ -56,7 +53,7 @@ define(["intern!object",
 						assert.strictEqual(value, "true");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "true");
@@ -65,19 +62,20 @@ define(["intern!object",
 			});
 		},
 		"selectionMode 'single'": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
 			.get(require.toUrl("./listbox-mark-2.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('" + listId + "') "
-					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 1");
@@ -98,7 +96,7 @@ define(["intern!object",
 						assert.strictEqual(value, "true", "test 4");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 5");
@@ -109,7 +107,7 @@ define(["intern!object",
 						assert.strictEqual(value, "true", "test 6");
 					})
 					.end()
-				.elementByXPath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
 						assert.strictEqual(value, "false", "test 7");
@@ -118,7 +116,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with default renderers": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -127,67 +125,68 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./listbox-prog-1.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-prog-1') "
-					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('list-prog-1').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.keys("\uE004") // Press TAB
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE015") // Press DOWN ARROW
-				.active()
-				.text()
+				.pressKeys("\uE015") // Press DOWN ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE015") // Press DOWN ARROW
-				.active()
-				.text()
+				.pressKeys("\uE015") // Press DOWN ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE014") // Press RIGHT ARROW
-				.active()
-				.text()
+				.pressKeys("\uE014") // Press RIGHT ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE006") // Press ENTER
-				.active()
-				.text()
+				.pressKeys("\uE006") // Press ENTER
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE013") // Press UP ARROW
-				.active()
-				.text()
+				.pressKeys("\uE013") // Press UP ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE004") // Press TAB
-				.keys("\uE008\uE004") // Press Shift + TAB
-				.keys("\uE008") // release shift
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.pressKeys("\uE008\uE004") // Press Shift + TAB
+				.pressKeys("\uE008") // release shift
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
 				.end()
-				.keys("\uE032") // Press F2
-				.active()
-				.text()
+				.pressKeys("\uE032") // Press F2
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
 				})
@@ -195,7 +194,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard navigation with categorized items": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -204,40 +203,41 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-3.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-3') "
-					+ "&& !document.getElementById('list-mark-3').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('list-mark-3').hasAttribute('aria-busy')) ? true : null",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.keys("\uE004") // Press TAB
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nA");
 				})
 				.end()
-				.keys("\uE013") // Press UP ARROW
-				.active()
-				.text()
+				.pressKeys("\uE013") // Press UP ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 9\nB");
 				})
 				.end()
-				.keys("\uE015") // Press DOWN ARROW
-				.active()
-				.text()
+				.pressKeys("\uE015") // Press DOWN ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nA");
 				})
-				.keys("\uE015") // Press DOWN ARROW 5 times
-				.keys("\uE015")
-				.keys("\uE015")
-				.keys("\uE015")
-				.keys("\uE015")
-				.active()
-				.text()
+				.pressKeys("\uE015") // Press DOWN ARROW 5 times
+				.pressKeys("\uE015")
+				.pressKeys("\uE015")
+				.pressKeys("\uE015")
+				.pressKeys("\uE015")
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 5\nB");
 				})
@@ -246,7 +246,7 @@ define(["intern!object",
 		},
 		// TODO: ADD A TEST: CLICKING ON A CATEGORY HEADER (see https://github.com/ibm-js/delite/issues/229)
 		"keyboard multiple selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -255,23 +255,24 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
-					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.keys("\uE004") // Press TAB
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
-				.keys("\uE00D") // Press SPACE
-				.active()
-				.text()
+				.pressKeys("\uE00D") // Press SPACE
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
@@ -280,9 +281,9 @@ define(["intern!object",
 					assert.strictEqual(value, "true");
 				})
 				.end()
-				.keys("\uE00D") // Press SPACE
-				.active()
-				.text()
+				.pressKeys("\uE00D") // Press SPACE
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
@@ -294,7 +295,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard single selection": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -303,23 +304,24 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-2.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-2') "
-					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('list-mark-2').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.keys("\uE004") // Press TAB
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
 				})
 				.end()
-				.keys("\uE00D") // Press SPACE
-				.active()
-				.text()
+				.pressKeys("\uE00D") // Press SPACE
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
 				})
@@ -328,10 +330,10 @@ define(["intern!object",
 					assert.strictEqual(value, "true", "keystroke 2");
 				})
 				.end()
-				.wait(10)
-				.keys("\uE00D") // Press SPACE
-				.active()
-				.text()
+				.sleep(10)
+				.pressKeys("\uE00D") // Press SPACE
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
 				})
@@ -340,9 +342,9 @@ define(["intern!object",
 					assert.strictEqual(value, "false", "keystroke 3");
 				})
 				.end()
-				.keys("\uE010") // Press END
-				.active()
-				.text()
+				.pressKeys("\uE010") // Press END
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
 				})
@@ -351,9 +353,9 @@ define(["intern!object",
 					assert.strictEqual(value, "false", "keystroke 4");
 				})
 				.end()
-				.keys("\uE00F") // Press PAGE DOWN
-				.active()
-				.text()
+				.pressKeys("\uE00F") // Press PAGE DOWN
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 5");
 				})
@@ -362,9 +364,9 @@ define(["intern!object",
 					assert.strictEqual(value, "false", "keystroke 5");
 				})
 				.end()
-				.keys("\uE011") // Press HOME
-				.active()
-				.text()
+				.pressKeys("\uE011") // Press HOME
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
 				})
@@ -373,9 +375,9 @@ define(["intern!object",
 					assert.strictEqual(value, "false", "keystroke 6");
 				})
 				.end()
-				.keys("\uE00E") // Press PAGE UP
-				.active()
-				.text()
+				.pressKeys("\uE00E") // Press PAGE UP
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 7");
 				})
@@ -384,16 +386,16 @@ define(["intern!object",
 					assert.strictEqual(value, "false", "keystroke 7");
 				})
 				.end()
-				.keys("\uE013") // Press UP ARROW
-				.active()
-				.text()
+				.pressKeys("\uE013") // Press UP ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
 				})
 				.end()
-				.keys("\uE015") // Press DOWN ARROW
-				.active()
-				.text()
+				.pressKeys("\uE015") // Press DOWN ARROW
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
 				})
@@ -401,7 +403,7 @@ define(["intern!object",
 			});
 		},
 		"keyboard search": function () {
-			this.timeout = TEST_TIMEOUT_MS;
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
@@ -410,47 +412,48 @@ define(["intern!object",
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))
-			.waitForCondition("'ready' in window &&  ready "
+			.then(pollUntil("return ('ready' in window &&  ready "
 					+ "&& document.getElementById('list-mark-1') "
-					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')",
-					WAIT_TIMEOUT_MS,
-					WAIT_POLLING_MS)
+					+ "&& !document.getElementById('list-mark-1').hasAttribute('aria-busy')) ? true : null;",
+					[],
+					intern.config.WAIT_TIMEOUT,
+					intern.config.POLL_INTERVAL))
 			.then(function () {
 				remote
-				.keys("\uE004") // Press TAB
-				.active()
-				.text()
+				.pressKeys("\uE004") // Press TAB
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
-				.keys("R")
-				.active()
-				.text()
+				.pressKeys("R")
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
-				.wait(10)
-				.keys("r")
-				.active()
-				.text()
+				.sleep(10)
+				.pressKeys("r")
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 0\nright text A");
 				})
 				.end()
-				.wait(10)
-				.keys("L")
-				.active()
-				.text()
+				.sleep(10)
+				.pressKeys("L")
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 1\nright text B");
 				})
 				.end()
-				.wait(10)
-				.keys("l")
-				.active()
-				.text()
+				.sleep(10)
+				.pressKeys("l")
+				.getActiveElement()
+				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "list item 2\nright text C");
 				})

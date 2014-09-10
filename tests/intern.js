@@ -22,49 +22,34 @@ define({
 		{ browserName: "internet explorer", version: "10", platform: "Windows 8", requireWindowFocus: "true",
 			name : "deliteful"},
 		// { browserName: "internet explorer", version: "9", platform: "Windows 7" },
-		{ browserName: "firefox", version: "25", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
+		{ browserName: "firefox", version: "31", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"},
 
 		// Mobile
-		{ browserName: "iphone 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPhone",
-			app: "safari", device: "iPhone Simulator", name: "deliteful" }
-		
-		/* For now disabled to avoid webdriver/sauce issues
-		{ browserName: "ipad 7.1 simulator", platform: "OS X 10.9", version: "7.1", deviceName: "iPad",
-			app: "safari", device: "iPad Simulator", name: "deliteful" },
-		{ browserName: "iphone 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPhone",
-			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-		{ browserName: "ipad 7.0 simulator", platform: "OS X 10.9", version: "7.0", deviceName: "iPad",
-			app: "safari", device: "iPad Simulator", name: "deliteful" }
-		*/
-//		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPhone",
-//			app: "safari", device: "iPhone Simulator", name: "deliteful" },
-//		{ browserName: "", platform: "OS X 10.8", version: "6", deviceName: "iPad",
-//			app: "safari", device: "iPad Simulator", name: "deliteful" },
-//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", version: "4.1", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", "device-type": "tablet", version: "4.0", name : "deliteful"},
-//		{ browserName: "android", platform: "Linux", version: "4.0", name : "deliteful"},
+		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
+		// see https://github.com/theintern/intern/issues/216
+		//{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
+		//	"appium-version": "1.2.2", name: "deliteful" }
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
 	maxConcurrency: 3,
 
 	// Whether or not to start Sauce Connect before running tests
-	useSauceConnect: true,
-
-	// Connection information for the remote WebDriver service. If using Sauce Labs, keep your username and password
-	// in the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables unless you are sure you will NEVER be
-	// publishing this configuration file somewhere
-	webdriver: {
-		host: "localhost",
-		port: 4444
-	},
+	tunnel: "SauceLabsTunnel",
 	
+	// Maximum duration of a test, in milliseconds
+	TEST_TIMEOUT: 300000, // 5 minutes
+	
+	// Maximum time to wait for someting (pollUntil, etc...)
+	WAIT_TIMEOUT: 180000, // 3 minutes
+	
+	// Interval between two polling request, in milliseconds (for pollUntil)
+	POLL_INTERVAL: 500, // 0.5 seconds
+
 	loader: {
 		baseUrl: typeof window !== "undefined" ? "../../.." : "..",
 		config: {
