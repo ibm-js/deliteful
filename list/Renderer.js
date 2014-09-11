@@ -43,20 +43,15 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: dcl.advise({
-			before: function () {
-				this.containerNode = this;
-			},
-			after: function () {
-				if (!this.renderNode) {
-					throw new Error("buildRendering must define a renderNode property on the Renderer."
-							+ " Example using attach-point in a template: "
-							+ "<template><div attach-point='renderNode'></div></template>");
-				}
-				this.renderNode.tabIndex = -1;
-				domClass.add(this.renderNode, "d-list-cell");
-				this.updateFocusableChildren();
+		buildRendering: dcl.after(function () {
+			if (!this.renderNode) {
+				throw new Error("buildRendering must define a renderNode property on the Renderer."
+						+ " Example using attach-point in a template: "
+						+ "<template><div attach-point='renderNode'></div></template>");
 			}
+			this.renderNode.tabIndex = -1;
+			domClass.add(this.renderNode, "d-list-cell");
+			this.updateFocusableChildren();
 		}),
 
 		// Interface from List to Renderer to navigate fields
