@@ -107,15 +107,10 @@ define([
 
 		"on-click": function () {
 			// test issue raised in https://bugs.dojotoolkit.org/ticket/17613
-			// FIXME: This tests fails on IE 10
-			if (has("ie") > 9 && has("ie") < 11) {
-				console.log("WARNING: SKIPPING RadioButton `labelFor` TEST ON IE10. THIS TEST NEEDS TO BE FIXED.");
-				return;
-			}
 			var d = this.async(1000),
 				rb3 = document.getElementById("rb3");
 			setTimeout(d.rejectOnError(function () {
-				rb3.on("click", d.callback(function () {
+				rb3.on("click", function () {
 					assert.isTrue(rb3.checked, "Unexpected checked state for rb3 after in rb3 on-click handler");
 					assert.isTrue(rb3.focusNode.checked,
 						"Unexpected checked state for rb3's wrapped input in rb3 on-click handler");
@@ -126,9 +121,11 @@ define([
 						assert.isFalse(rb.focusNode.checked,
 								"Unexpected checked state for " + rb.id + "'s wrapped input in rb3 on-click handler");
 					});
-				}));
-				rb3.focusNode.click();
-			}));
+				});
+				setTimeout(d.callback(function () {
+					rb3.focusNode.click();
+				}), 300);
+			}), 300);
 			return d;
 		},
 
