@@ -5,6 +5,7 @@ layout: doc
 ## Basic Widgets
 
 * [Button](Button.md)
+* [CheckBox](CheckBox.md)
 * [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
 * [Select](Select.md)
