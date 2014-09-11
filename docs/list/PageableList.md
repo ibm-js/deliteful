@@ -7,11 +7,14 @@ title: deliteful/list/PageableList
 
 The PageableList widget extends the [deliteful/list/List](./List.md) widget and adds paging capabilities to it.
 
+_Note that version 0.3.0 of this widget is not supported on IE10._
+
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
 
 Its custom element tag is `d-pageable-list`.
 
 ![Next Page Loader Example](images/PageLoader.png)
+
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
