@@ -41,7 +41,7 @@ define([
 			list.deliver();
 		},
 		"categorized items" : function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 12);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -62,7 +62,7 @@ define([
 			list.store.remove(list.store.data[0].id);
 			list.store.remove(list.store.data[0].id);
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 8);
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 4");
@@ -76,7 +76,7 @@ define([
 			list.store.remove(list.store.data[list.store.data.length - 1].id);
 			list.store.remove(list.store.data[list.store.data.length - 1].id);
 			list.store.remove(list.store.data[list.store.data.length - 1].id);
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 4);
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 4");
@@ -85,13 +85,13 @@ define([
 			// remove two items
 			list.store.remove(list.store.data[0].id);
 			list.store.remove(list.store.data[0].id);
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 2);
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 6");
 			// remove the last item
 			list.store.remove(list.store.data[0].id);
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 0);
 		},
 		"remove all items from category (middle of list)" : function () {
@@ -100,7 +100,7 @@ define([
 			list.store.remove(list.store.data[3].id);
 			list.store.remove(list.store.data[3].id);
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 8);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -115,7 +115,7 @@ define([
 			// add at the bottom of the list
 			list.store.add({category: "C", label: "item a"});
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 13);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -133,7 +133,7 @@ define([
 			// add at the top of the last category
 			list.store.add({category: "C", label: "item b"}, {beforeId: list.store.data[6].id});
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -152,7 +152,7 @@ define([
 			// add in the middle of the second category
 			list.store.add({category: "B", label: "item c"}, {beforeId: list.store.data[4].id});
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 15);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -172,7 +172,7 @@ define([
 			// add at the top of the list
 			list.store.add({category: "A", label: "item d"}, {beforeId: list.store.data[0].id});
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item d");
@@ -195,7 +195,7 @@ define([
 			// add at the bottom of the list
 			list.store.add({category: "D", label: "item a"});
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 14);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");
@@ -214,7 +214,7 @@ define([
 			// add at the top of the list
 			list.store.add({category: "E", label: "item b"}, {beforeId: list.store.data[0].id});
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 16);
 			checkCategory(children[0], "E");
 			checkItem(children[1], "item b");
@@ -235,7 +235,7 @@ define([
 			// add in the middle of the list
 			list.store.add({category: "F", label: "item c"}, {beforeId: list.store.data[8].id});
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 19);
 			checkCategory(children[0], "E");
 			checkItem(children[1], "item b");
@@ -260,7 +260,7 @@ define([
 		"custom category attribute": function () {
 			list.categoryAttr = "label";
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
 			checkItem(children[1], "item 1");
@@ -286,7 +286,7 @@ define([
 				return item.label;
 			};
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 18);
 			checkCategory(children[0], "item 1");
 			checkItem(children[1], "item 1");
@@ -319,7 +319,7 @@ define([
 			list.store.add({category: "A", label: "item 5"});
 			list.store.add({category: "A", label: "item 6"});
 			list.deliver();
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 4);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 4");
@@ -329,7 +329,7 @@ define([
 			                     {category: "A", label: "item 2"},
 			                     {category: "A", label: "item 3"}], true);
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 7);
 			checkCategory(children[0], "A");
 			checkItem(children[1], "item 1");

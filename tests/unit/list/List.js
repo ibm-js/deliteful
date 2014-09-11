@@ -67,56 +67,56 @@ define([
 			assert.strictEqual(list.className, "d-list");
 		},
 		"getRendererByItemId": function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(list.getRendererByItemId(list.store.data[0].id), children[0], "first renderer");
 			assert.strictEqual(list.getRendererByItemId(list.store.data[1].id), children[1], "second renderer");
 			assert.strictEqual(list.getRendererByItemId(list.store.data[2].id), children[2], "third renderer");
 			assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
 		},
 		"getItemRendererIndex": function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(0, list.getItemRendererIndex(children[0]), "first renderer");
 			assert.strictEqual(1, list.getItemRendererIndex(children[1]), "second renderer");
 			assert.strictEqual(2, list.getItemRendererIndex(children[2]), "second renderer");
 			assert.strictEqual(-1, list.getItemRendererIndex(list), "non list renderer");
 		},
 		"getEnclosingRenderer": function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(list.getEnclosingRenderer(children[0]), children[0], "first");
-			assert.strictEqual(list.getEnclosingRenderer(children[0].getChildren()[0]), children[0], "second");
+			assert.strictEqual(list.getEnclosingRenderer(children[0].children[0]), children[0], "second");
 			assert.isNull(list.getEnclosingRenderer(list), "third");
 		},
 		"_renderNewItems": function () {
 			list._renderNewItems([{label: "item a"}, {label: "item b"}, {label: "item c"}], true);
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 6, "nb of items");
 			assert.strictEqual(children[0].item.label, "item a", "first added 1");
 			assert.strictEqual(children[1].item.label, "item b", "first added 2");
 			assert.strictEqual(children[2].item.label, "item c", "firstd added 3");
 			list._renderNewItems([{label: "item d"}, {label: "item e"}, {label: "item f"}], false);
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children.length, 9, "nb of items 2");
 			assert.strictEqual(children[6].item.label, "item d", "last added 1");
 			assert.strictEqual(children[7].item.label, "item e", "last added 2");
 			assert.strictEqual(children[8].item.label, "item f", "last added 3");
 		},
 		"_getFirst": function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(list._getFirst(), children[0].renderNode);
 			list.categoryAttr = "label";
 			list.deliver();
-			children = list.getChildren();
+			children = list.scrollableNode.children;
 			assert.strictEqual(children[0].className, "d-list-category", "first is category");
 			assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
 		},
 		"_getLast": function () {
-			var children = list.getChildren();
+			var children = list.scrollableNode.children;
 			assert.strictEqual(list._getLast(), children[2].renderNode);
 		},
 		"update item label": function () {
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			list.deliver();
-			var renderer = list.getChildren()[0];
+			var renderer = list.scrollableNode.children[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 		},
@@ -124,7 +124,7 @@ define([
 			// add
 			list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
 			list.deliver();
-			var renderer = list.getChildren()[0];
+			var renderer = list.scrollableNode.children[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 			assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
@@ -133,7 +133,7 @@ define([
 			// update
 			list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
 			list.deliver();
-			renderer = list.getChildren()[0];
+			renderer = list.scrollableNode.children[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 			assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
@@ -142,7 +142,7 @@ define([
 			// remove
 			list.store.put({label: "item a"}, {id: list.store.data[0].id});
 			list.deliver();
-			renderer = list.getChildren()[0];
+			renderer = list.scrollableNode.children[0];
 			assert.strictEqual(renderer.item.label, "item a");
 			assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 			assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
@@ -153,7 +153,7 @@ define([
 			list = new List();
 			list.startup();
 			list.store.add({label: "item 1", category: "category 1"});
-			assert.strictEqual(list.getChildren()[0].item.category, "category 1");
+			assert.strictEqual(list.scrollableNode.children[0].item.category, "category 1");
 		},
 		"query-success event": function () {
 			var def = this.async(1000);

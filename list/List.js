@@ -239,14 +239,14 @@ define([
 
 		buildRendering: function () {
 			// Initialize the widget node and set the container and scrollable node.
-			this.containerNode = this.scrollableNode = this.ownerDocument.createElement("div");
+			this.scrollableNode = this.ownerDocument.createElement("div");
 			// Firefox focus the scrollable node when clicking it or tabing: in this case, the list
 			// widget needs to be focused instead.
 			this.own(on(this.scrollableNode, "focus", function () {
 				this.focus();
 			}.bind(this)));
-			this.containerNode.className = "d-list-container";
-			this.appendChild(this.containerNode);
+			this.scrollableNode.className = "d-list-container";
+			this.appendChild(this.scrollableNode);
 			// Aria attributes
 			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
 			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
@@ -280,7 +280,7 @@ define([
 								this.store.add(data[j]);
 							}
 						}
-						if (child !== this.containerNode && child !== this._loadingPanel) {
+						if (child !== this.scrollableNode && child !== this._loadingPanel) {
 							child.destroy();
 						}
 					}
@@ -302,8 +302,8 @@ define([
 				this.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
-					for (var i = 0; i < this.containerNode.children.length; i++) {
-						var child = this.containerNode.children[i];
+					for (var i = 0; i < this.scrollableNode.children.length; i++) {
+						var child = this.scrollableNode.children[i];
 						if (child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.removeAttribute("aria-selected");
 							domClass.remove(child, this._cssClasses.selected);
@@ -317,8 +317,8 @@ define([
 						this.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
-					for (i = 0; i < this.containerNode.children.length; i++) {
-						child = this.containerNode.children[i];
+					for (i = 0; i < this.scrollableNode.children.length; i++) {
+						child = this.scrollableNode.children[i];
 						if (domClass.contains(child, this._cssClasses.item)
 								&& !child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.setAttribute("aria-selected", "false");
@@ -372,7 +372,7 @@ define([
 			return function () {
 				// Deliver pending changes to the list and its renderers
 				sup.apply(this, arguments);
-				var renderers = this.containerNode.querySelectorAll("."
+				var renderers = this.scrollableNode.querySelectorAll("."
 						+ this._cssClasses.item + ", ." + this._cssClasses.category);
 				for (var i = 0; i < renderers.length; i++) {
 					renderers.item(i).deliver();
@@ -388,7 +388,7 @@ define([
 		 * @returns {module:deliteful/list/Renderer}
 		 */
 		getRendererByItemId: function (id) {
-			var renderers = this.containerNode.querySelectorAll("." + this._cssClasses.item);
+			var renderers = this.scrollableNode.querySelectorAll("." + this._cssClasses.item);
 			for (var i = 0; i < renderers.length; i++) {
 				var renderer = renderers.item(i);
 				if (this.getIdentity(renderer.item) === id) {
@@ -404,7 +404,7 @@ define([
 		 * @returns {module:deliteful/list/ItemRenderer}
 		 */
 		getItemRendererByIndex: function (index) {
-			return index >= 0 ? this.containerNode.querySelectorAll("." + this._cssClasses.item).item(index) : null;
+			return index >= 0 ? this.scrollableNode.querySelectorAll("." + this._cssClasses.item).item(index) : null;
 		},
 
 		/**
@@ -417,7 +417,7 @@ define([
 			var result = -1;
 			if (renderer.item) {
 				var id = this.getIdentity(renderer.item);
-				var nodeList = this.containerNode.querySelectorAll("." + this._cssClasses.item);
+				var nodeList = this.scrollableNode.querySelectorAll("." + this._cssClasses.item);
 				for (var i = 0; i < nodeList.length; i++) {
 					var currentRenderer = nodeList.item(i);
 					if (this.getIdentity(currentRenderer.item) === id) {
@@ -437,7 +437,7 @@ define([
 		getEnclosingRenderer: function (node) {
 			var currentNode = node;
 			while (currentNode) {
-				if (currentNode.parentNode && currentNode.parentNode === this.containerNode) {
+				if (currentNode.parentNode && currentNode.parentNode === this.scrollableNode) {
 					break;
 				}
 				currentNode = currentNode.parentNode;
@@ -571,7 +571,7 @@ define([
 		_showLoadingPanel: function () {
 			if (!this._loadingPanel) {
 				this._loadingPanel = new LoadingPanel({message: this.loadingMessage});
-				this.insertBefore(this._loadingPanel, this.containerNode);
+				this.insertBefore(this._loadingPanel, this.scrollableNode);
 				this._loadingPanel.startup();
 			}
 		},
@@ -600,12 +600,12 @@ define([
 		 * @private
 		 */
 		_empty: function () {
-			this.findCustomElements(this.containerNode).forEach(function (w) {
+			this.findCustomElements(this.scrollableNode).forEach(function (w) {
 				if (w.destroy) {
 					w.destroy();
 				}
 			});
-			this.containerNode.innerHTML = "";
+			this.scrollableNode.innerHTML = "";
 			this._previousFocusedChild = null;
 		},
 
@@ -619,8 +619,8 @@ define([
 		 * @private
 		 */
 		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
-			if (!this.containerNode.firstElementChild) {
-				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
+			if (!this.scrollableNode.firstElementChild) {
+				this.scrollableNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
 				if (atTheTop) {
 					if (this._isCategorized()) {
@@ -631,15 +631,15 @@ define([
 							this._removeRenderer(firstRenderer);
 						}
 					}
-					this.containerNode.insertBefore(this._createRenderers(items, 0, items.length, null),
-							this.containerNode.firstElementChild);
+					this.scrollableNode.insertBefore(this._createRenderers(items, 0, items.length, null),
+							this.scrollableNode.firstElementChild);
 				} else {
-					this.containerNode.appendChild(this._createRenderers(items, 0, items.length,
+					this.scrollableNode.appendChild(this._createRenderers(items, 0, items.length,
 							this._getLastRenderer().item));
 				}
 			}
 			// start renderers
-			this.findCustomElements(this.containerNode).forEach(function (w) {
+			this.findCustomElements(this.scrollableNode).forEach(function (w) {
 				if (w.startup) {
 					w.startup();
 				}
@@ -689,18 +689,18 @@ define([
 		_addItemRenderer: function (renderer, atIndex) {
 			var spec = this._getInsertSpec(renderer, atIndex);
 			if (spec.nodeRef) {
-				this.containerNode.insertBefore(renderer, spec.nodeRef);
+				this.scrollableNode.insertBefore(renderer, spec.nodeRef);
 				if (spec.addCategoryAfter) {
 					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
-					this.containerNode.insertBefore(categoryRenderer, spec.nodeRef);
+					this.scrollableNode.insertBefore(categoryRenderer, spec.nodeRef);
 					categoryRenderer.startup();
 				}
 			} else {
-				this.containerNode.appendChild(renderer);
+				this.scrollableNode.appendChild(renderer);
 			}
 			if (spec.addCategoryBefore) {
 				categoryRenderer = this._createCategoryRenderer(renderer.item);
-				this.containerNode.insertBefore(categoryRenderer, renderer);
+				this.scrollableNode.insertBefore(categoryRenderer, renderer);
 				categoryRenderer.startup();
 			}
 			renderer.startup();
@@ -784,7 +784,7 @@ define([
 			if (this._previousFocusedChild && this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {
 				this._previousFocusedChild = null;
 			}
-			this.containerNode.removeChild(renderer);
+			this.scrollableNode.removeChild(renderer);
 			renderer.destroy();
 		},
 		/*jshint maxcomplexity:10*/
@@ -861,7 +861,7 @@ define([
 		 * @private
 		 */
 		_getFirstRenderer: function () {
-			return this.containerNode.querySelector("." + this._cssClasses.item
+			return this.scrollableNode.querySelector("." + this._cssClasses.item
 					+ ", ." + this._cssClasses.category);
 		},
 
@@ -872,7 +872,7 @@ define([
 		 * @private
 		 */
 		_getLastRenderer: function () {
-			var renderers = this.containerNode
+			var renderers = this.scrollableNode
 								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
 			return renderers.length ? renderers.item(renderers.length - 1) : null;
 		},
@@ -1052,7 +1052,7 @@ define([
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			var first = this.containerNode.querySelector("." + this._cssClasses.cell);
+			var first = this.scrollableNode.querySelector("." + this._cssClasses.cell);
 			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
 				first = this._getNext(first, 1);
 			}
@@ -1066,7 +1066,7 @@ define([
 		 */
 		_getLast: function () {
 			// summary:
-			var cells = this.containerNode.querySelectorAll("." + this._cssClasses.cell);
+			var cells = this.scrollableNode.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
 			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
 				last = this._getNext(last, -1);
