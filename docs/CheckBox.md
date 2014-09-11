@@ -17,7 +17,7 @@ It provides all the standard facilities of a native input and supports deliteful
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
 [Element Events](#events)  
-[Enteprise Use](#enterprise)  
+[Enterprise Use](#enterprise)  
 [See also](#seealso)
 
 <a name="instantiation"></a>
