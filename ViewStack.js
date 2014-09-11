@@ -97,7 +97,7 @@ define(["dcl/dcl",
 			_pendingChild: null,
 
 			_setSelectedChildIdAttr: function (child) {
-				if (document.querySelector("#" + child)) {
+				if (this.ownerDocument.getElementById(child)) {
 					if (this._started) {
 						this.show(child);
 					} else {
