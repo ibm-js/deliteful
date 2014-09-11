@@ -59,7 +59,7 @@ require(["deliteful/SidePane", "requirejs-domready/domReady!"], function (SidePa
 
 This widget must be a sibling of html's body element.
 
-The `position` attribute can be `start` or `end` which means left or right respectively in LTR mode. The resulting left or right position of the pane depends on the globalization configuration. See [Enteprise Use](#enterprise) for more informations.
+The `position` attribute can be `start` or `end` which means left or right respectively in LTR mode. The resulting left or right position of the pane depends on the globalization configuration. See [Enterprise Use](#enterprise) for more informations.
 
 If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [Delite themes](http://ibm-js.github.io/delite/docs/master/themes.html).
 

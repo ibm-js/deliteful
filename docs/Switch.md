@@ -17,7 +17,7 @@ direct tap/click or by sliding the knob to toggle the switch.
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
 [Element Events](#events)  
-[Enteprise Use](#enterprise)  
+[Enterprise Use](#enterprise)  
 [See also](#seealso)
 
 <a name="instantiation"></a>
