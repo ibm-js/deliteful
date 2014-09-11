@@ -1,11 +1,19 @@
 define([
+    "dojo/sniff",
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/Deferred",
     "dstore/Memory",
 	"delite/register",
 	"deliteful/list/PageableList"
-], function (registerSuite, assert, Deferred, MemoryStore, register, PageableList) {
+], function (has, registerSuite, assert, Deferred, MemoryStore, register, PageableList) {
+
+	// PageableList is currently not supported on IE10
+	// see https://github.com/ibm-js/deliteful/issues/280
+	if (has("ie") > 9 && has("ie") < 11) {
+		console.log("Skipping PageableList tests on IE10 (see https://github.com/ibm-js/deliteful/issues/280)");
+		return;
+	}
 
 	/////////////////////////////////
 	// HELPERS AND FIXTURES

@@ -49,6 +49,13 @@ define(["intern",
 		"Pageable list keyboard navigation": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
+			// PageableList not currently supported on IE 10
+			// see https://github.com/ibm-js/deliteful/issues/280
+			if (remote.environmentType.browserName === "internet explorer" &&
+					remote.environmentType.version === "10") {
+				console.log("WARNING: PageableList not supported on IE10");
+				return remote.end();
+			}
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
@@ -110,6 +117,13 @@ define(["intern",
 		"Pageable categorized list keyboard navigation": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
+			// PageableList not currently supported on IE 10
+			// see https://github.com/ibm-js/deliteful/issues/280
+			if (remote.environmentType.browserName === "internet explorer" &&
+					remote.environmentType.version === "10") {
+				console.log("WARNING: PageableList not supported on IE10");
+				return remote.end();
+			}
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
@@ -160,6 +174,13 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "pageable-prog-8";
+			// PageableList not currently supported on IE 10
+			// see https://github.com/ibm-js/deliteful/issues/280
+			if (remote.environmentType.browserName === "internet explorer" &&
+					remote.environmentType.version === "10") {
+				console.log("WARNING: PageableList not supported on IE10");
+				return remote.end();
+			}
 			if (/chrome/.test(remote.environmentType.browserName)) {
 				// https://code.google.com/p/selenium/issues/detail?id=2766
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
