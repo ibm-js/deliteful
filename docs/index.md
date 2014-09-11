@@ -11,6 +11,7 @@ layout: doc
 * [Select](Select.md)
 * [Slider](Slider.md)
 * [StarRating](StarRating.md)
+* [Switch](Switch.md)
 * [Toaster](Toaster.md)
 
 ## List
