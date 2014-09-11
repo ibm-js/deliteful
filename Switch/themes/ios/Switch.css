@@ -17,7 +17,7 @@
   top: 0;
   border-width: 0px;
 }
-.-d-switch-leading {
+.d-switch-leading {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#2859b1), to(#75acfb), color-stop(0.5, #3f84eb), color-stop(0.5, #4c8eee));
   background-image: linear-gradient(to bottom, #2859b1 0%, #3f84eb 50%, #4c8eee 50%, #75acfb 100%);
   color: white;
@@ -25,14 +25,14 @@
   right: 50%;
   text-align: center;
 }
-.d-switch.d-rtl .-d-switch-leading,
-.d-switch[dir="rtl"] .-d-switch-leading {
+.d-switch.d-rtl .d-switch-leading,
+.d-switch[dir="rtl"] .d-switch-leading {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#cecece), to(#fdfdfd), color-stop(0.5, #eeeeee), color-stop(0.5, #f8f8f8));
   background-image: linear-gradient(to bottom, #cecece 0%, #eeeeee 50%, #f8f8f8 50%, #fdfdfd 100%);
   color: #7f7f7f;
   font-weight: bold;
 }
-.-d-switch-trailing {
+.d-switch-trailing {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#cecece), to(#fdfdfd), color-stop(0.5, #eeeeee), color-stop(0.5, #f8f8f8));
   background-image: linear-gradient(to bottom, #cecece 0%, #eeeeee 50%, #f8f8f8 50%, #fdfdfd 100%);
   color: #7f7f7f;
@@ -40,8 +40,8 @@
   left: 50%;
   text-align: center;
 }
-.d-switch.d-rtl .-d-switch-trailing,
-.d-switch[dir="rtl"] .-d-switch-trailing {
+.d-switch.d-rtl .d-switch-trailing,
+.d-switch[dir="rtl"] .d-switch-trailing {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#2859b1), to(#75acfb), color-stop(0.5, #3f84eb), color-stop(0.5, #4c8eee));
   background-image: linear-gradient(to bottom, #2859b1 0%, #3f84eb 50%, #4c8eee 50%, #75acfb 100%);
   color: white;
