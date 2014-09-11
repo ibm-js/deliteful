@@ -8,6 +8,7 @@ layout: doc
 * [CheckBox](CheckBox.md)
 * [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
+* [RadioButton](RadioButton.md)
 * [Select](Select.md)
 * [Slider](Slider.md)
 * [StarRating](StarRating.md)
