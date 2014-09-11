@@ -1,6 +1,6 @@
 ---
 layout: default
-title: deliteful/FormElements
+title: deliteful/CheckBox
 ---
 
 # deliteful/CheckBox
@@ -8,7 +8,8 @@ title: deliteful/FormElements
 The `deliteful/CheckBox` widget represents a form-aware 2-states widget similar to the HTML5 input type="checkbox" element.
 It provides all the standard facilities of a native input and supports deliteful theming capability.
 
-* Examples 
+*Example*
+
 ![CheckBox (Bootstrap)](images/CheckBox1.png)
 
 ##### Table of Contents
@@ -105,7 +106,7 @@ The widget `deliteful/CheckBox` provides a `change` event when its state is chan
 |----|------|-------|
 |Keyboard|N/A|No user interaction|
 |Visual Formatting|ok|Support high contrast on Firefox and Internet Explorer desktop browsers.|
-|Screen Reader|yes|Supports ARIA role progressbar. Tested with JAWS and VoiceOver|
+|Screen Reader|yes|Tested with JAWS and VoiceOver|
 
 ### Browser Support
 This widget supports all supported browsers without any degraded behavior.
