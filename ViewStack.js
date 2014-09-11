@@ -97,10 +97,12 @@ define(["dcl/dcl",
 			_pendingChild: null,
 
 			_setSelectedChildIdAttr: function (child) {
-				if (this._started) {
-					this.show(child);
-				} else {
-					this._pendingChild = child;
+				if (document.querySelector("#" + child)) {
+					if (this._started) {
+						this.show(child);
+					} else {
+						this._pendingChild = child;
+					}
 				}
 			},
 
