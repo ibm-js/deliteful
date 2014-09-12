@@ -3,7 +3,6 @@ define(["dcl/dcl",
 	"decor/sniff",
 	"dojo/on",
 	"dojo/Deferred",
-	"dojo/dom-geometry",
 	"dojo/dom-class",
 	"delite/register",
 	"delite/Widget",
@@ -11,7 +10,7 @@ define(["dcl/dcl",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"delite/css!./ViewStack/transitions/slide.css",
 	"delite/css!./ViewStack/transitions/reveal.css"],
-	function (dcl, has, on, Deferred, domGeometry, domClass, register, Widget, DisplayContainer) {
+	function (dcl, has, on, Deferred, domClass, register, Widget, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
 				if (val) {
