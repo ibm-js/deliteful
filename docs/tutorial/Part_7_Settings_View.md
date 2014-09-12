@@ -8,6 +8,13 @@ Our settings view is shown and hidden by clicking the Settings button in the hea
 
 ![Settings View Sketch](images/settingssketch.png)
 
+> If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
+switch to the `part7` tag now:
+
+````
+$ git checkout part7
+````
+
 ##Markup and CSS
 
 Our app already contains a `d-side-pane`, and it is a good fit to implement a settings view. Let's just modify its

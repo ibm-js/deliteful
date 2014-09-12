@@ -4,6 +4,13 @@ We will now begin to create our [Flickr photo feed viewer application](Part_3_Ph
 
 It is time to open your favorite editor or IDE and load the `index.html` file of the application in it.
 
+> If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
+switch to the `part4` tag now:
+
+````
+$ git checkout part4
+````
+
 ##HTML and CSS
 
 The layout of the default application that we generated using Yeoman is roughly similar to what we want: a header
