@@ -6,6 +6,13 @@ We will now add a second view that shows the details of a photo.
 
 ![Details View Sketch](images/detailsketch.png)
 
+> If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
+switch to the `part6` tag now:
+
+````
+$ git checkout part6
+````
+
 ##Markup and CSS
 
 As we have seen [previously](ListView.md) or main view is made of a toplevel `d-view-stack` component which, so far,
