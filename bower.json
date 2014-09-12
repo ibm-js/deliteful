@@ -6,7 +6,7 @@
 		"decor": "0.2.0-dev",
 		"delite": "0.3.0-alpha",
 		"dojo": ">=1.9.1",
-		"dpointer": "0.1.x",
+		"dpointer": "0.3.0-alpha",
 		"ecma402": "0.2.x",
 		"requirejs": "2.1.x",
 		"requirejs-domready": "2.0.x",
