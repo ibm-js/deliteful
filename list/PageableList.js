@@ -298,41 +298,49 @@ define([
 		//////////// delite/Store methods ///////////////////////////////////////
 
 		computeProperties: function (props) {
-			if ("store" in props || "query" in props)  {
-				// Initial loading of the list
-				if (this._dataLoaded) {
-					this._setBusy(true, true);
-					this._empty();
-					props.pageLength = true;
+			if (this.pageLength > 0) {
+				if ("store" in props || "query" in props)  {
+					// Initial loading of the list
+					if (this._dataLoaded) {
+						this._setBusy(true, true);
+						this._empty();
+						props.pageLength = true;
+					}
+					this._idPages = [];
+					this._loadNextPage().then(function () {
+						this._setBusy(false);
+						this._dataLoaded = true;
+					}.bind(this), function (error) {
+						this._setBusy(false);
+						this._queryError(error);
+					}.bind(this));
 				}
-				this._idPages = [];
-				this._loadNextPage().then(function () {
-					this._setBusy(false);
-					this._dataLoaded = true;
-				}.bind(this), function (error) {
-					this._setBusy(false);
-					this._queryError(error);
-				}.bind(this));
-			}
-			// Update page loader messages as they may depend on any property of the List
-			if (this._previousPageLoader) {
-				this._previousPageLoader.item = {
-						loadMessage: string.substitute(this.loadPreviousMessage, this),
-						loadingMessage: this.loadingMessage
-					};
-			}
-			if (this._nextPageLoader) {
-				this._nextPageLoader.item = {
-						loadMessage: string.substitute(this.loadNextMessage, this),
-						loadingMessage: this.loadingMessage
-					};
+				// Update page loader messages as they may depend on any property of the List
+				if (this._previousPageLoader) {
+					this._previousPageLoader.item = {
+							loadMessage: string.substitute(this.loadPreviousMessage, this),
+							loadingMessage: this.loadingMessage
+						};
+				}
+				if (this._nextPageLoader) {
+					this._nextPageLoader.item = {
+							loadMessage: string.substitute(this.loadNextMessage, this),
+							loadingMessage: this.loadingMessage
+						};
+				}
 			}
 		},
 
-		processCollection: function (collection) {
-			// Store the result of the store query
-			this._collection = collection;
-		},
+		processCollection: dcl.superCall(function (sup) {
+			return function (collection) {
+				if (this.pageLength > 0) {
+					// Store the result of the store query
+					this._collection = collection;
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
 
 		//////////// Private methods ///////////////////////////////////////
 
@@ -366,12 +374,11 @@ define([
 		 */
 		_loadNextPage: function () {
 			if (!this._rangeSpec) {
-				this._rangeSpec = {};
-				if (this.pageLength > 0) {
-					this._rangeSpec.start = 0;
-					this._rangeSpec.count = this.pageLength;
-					this._firstLoaded = this._rangeSpec.start;
-				}
+				this._rangeSpec = {
+					start: 0,
+					count: this.pageLength
+				};
+				this._firstLoaded = this._rangeSpec.start;
 			}
 			if (this._nextPageLoader) {
 				this._rangeSpec.start = this._lastLoaded + 1;
@@ -675,41 +682,49 @@ define([
 
 		itemRemoved: dcl.superCall(function (sup) {
 			return function (index) {
-				if (this._firstLoaded <= index && index <= this._lastLoaded) {
-					// Remove the item id in _idPages
-					this._updateIdPages(false, index);
-					sup.call(this, index - this._firstLoaded);
-				}
-				if (index < this._firstLoaded) {
-					this._firstLoaded--;
-				}
-				if (index <= this._lastLoaded) {
-					this._lastLoaded--;
-				}
-				if (this._firstLoaded === 0 && this._previousPageLoader) {
-					this._previousPageLoader.destroy();
-					this._previousPageLoader = null;
+				if (this.pageLength > 0) {
+					if (this._firstLoaded <= index && index <= this._lastLoaded) {
+						// Remove the item id in _idPages
+						this._updateIdPages(false, index);
+						sup.call(this, index - this._firstLoaded);
+					}
+					if (index < this._firstLoaded) {
+						this._firstLoaded--;
+					}
+					if (index <= this._lastLoaded) {
+						this._lastLoaded--;
+					}
+					if (this._firstLoaded === 0 && this._previousPageLoader) {
+						this._previousPageLoader.destroy();
+						this._previousPageLoader = null;
+					}
+				} else {
+					sup.apply(this, arguments);
 				}
 			};
 		}),
 
 		itemAdded: dcl.superCall(function (sup) {
 			return function (index, item) {
-				if (this._firstLoaded < index && index <= this._lastLoaded) {
-					// Add the item id in _idPages
-					this._updateIdPages(true, index, this.getIdentity(item));
-					this._lastLoaded++;
-					sup.call(this, index - this._firstLoaded, item);
-				} else if (index <= this._firstLoaded) {
-					this._firstLoaded++;
-					this._lastLoaded++;
-					if (!this._previousPageLoader) {
-						this._createPreviousPageLoader();
+				if (this.pageLength > 0) {
+					if (this._firstLoaded < index && index <= this._lastLoaded) {
+						// Add the item id in _idPages
+						this._updateIdPages(true, index, this.getIdentity(item));
+						this._lastLoaded++;
+						sup.call(this, index - this._firstLoaded, item);
+					} else if (index <= this._firstLoaded) {
+						this._firstLoaded++;
+						this._lastLoaded++;
+						if (!this._previousPageLoader) {
+							this._createPreviousPageLoader();
+						}
+					} else if (index > this._lastLoaded) {
+						if (!this._nextPageLoader) {
+							this._createNextPageLoader();
+						}
 					}
-				} else if (index > this._lastLoaded) {
-					if (!this._nextPageLoader) {
-						this._createNextPageLoader();
-					}
+				} else {
+					sup.apply(this, arguments);
 				}
 			};
 		}),
@@ -717,11 +732,13 @@ define([
 		_empty: dcl.superCall(function (sup) {
 			return function () {
 				sup.call(this, arguments);
-				this._nextPageLoader = null;
-				this._previousPageLoader = null;
-				this._rangeSpec = null;
-				this._untrack();
-				this._firstLoaded = this._lastLoaded = -1;
+				if (this.pageLength > 0) {
+					this._nextPageLoader = null;
+					this._previousPageLoader = null;
+					this._rangeSpec = null;
+					this._untrack();
+					this._firstLoaded = this._lastLoaded = -1;
+				}
 			};
 		}),
 

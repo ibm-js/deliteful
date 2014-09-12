@@ -5,8 +5,9 @@ define([
 	"dojo/Deferred",
     "dstore/Memory",
 	"delite/register",
-	"deliteful/list/PageableList"
-], function (has, registerSuite, assert, Deferred, MemoryStore, register, PageableList) {
+	"deliteful/list/PageableList",
+	"./resources/ListBaseTests"
+], function (has, registerSuite, assert, Deferred, MemoryStore, register, PageableList, ListBaseTests) {
 
 	// PageableList is currently not supported on IE10
 	// see https://github.com/ibm-js/deliteful/issues/280
@@ -16,7 +17,13 @@ define([
 	}
 
 	/////////////////////////////////
-	// HELPERS AND FIXTURES
+	// List base tests
+	/////////////////////////////////
+
+	registerSuite(ListBaseTests.buildSuite("list/PageableList-noPagination-baseListTests", PageableList));
+
+	/////////////////////////////////
+	// PageableList specific tests
 	/////////////////////////////////
 
 	var list = null;
@@ -540,10 +547,6 @@ define([
 		}
 	};
 
-	/////////////////////////////////
-	// TEST SUITE
-	/////////////////////////////////
-
 	registerSuite({
 		name: "list/PageableList",
 		beforeEach: function () {
@@ -553,6 +556,7 @@ define([
 		},
 		"itemAdded": function () {
 			list = new PageableList();
+			list.pageLength = 100;
 			var resetList = function () {
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
@@ -601,6 +605,7 @@ define([
 		},
 		"itemRemoved": function () {
 			list = new PageableList();
+			list.pageLength = 100;
 			var resetList = function () {
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
 				list._firstLoaded = 1;
