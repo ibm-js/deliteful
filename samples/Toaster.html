@@ -8,8 +8,14 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 
 	<title>Toaster samples</title>
-	<!-- For testing purposes.  Real applications should load the AMD loader directly -->
-	<script type="text/javascript" src="../../delite/tests/boilerplate.js"></script>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
 
 
 	<script type="text/javascript">
