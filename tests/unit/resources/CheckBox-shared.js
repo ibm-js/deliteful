@@ -67,14 +67,24 @@ define([
 		},
 
 		"changeEvent - input clicked": function () {
-			var cb3 = document.getElementById(commonSuite.labelForTarget),
-				fired = false;
-			cb3.on("change", function () {
-				fired = true;
-			});
-			cb3.focusNode.click();
-			assert.isTrue(fired, "Missing 'change' event when input node is clicked.");
+			var d = this.async(1000);
+			setTimeout(d.callback(function () {
+				var cb3 = document.getElementById(commonSuite.labelForTarget),
+					fired = false,
+					oldState = cb3.checked,
+					newState;
+				cb3.on("change", function () {
+					fired = true;
+					newState = cb3.checked;
+				});
+				cb3.focusNode.click();
+				assert.isTrue(fired, "Missing 'change' event when input node is clicked.");
+				assert.notStrictEqual(oldState, newState,
+					"Unexpected value for 'checked' property in 'change' handler.");
+			}), 300);
+			return d;
 		},
+
 		"changeEvent - labelFor clicked": function () {
 			var cb3 = document.getElementById(commonSuite.labelForTarget),
 				lbl4 = document.getElementById("lbl4"),
