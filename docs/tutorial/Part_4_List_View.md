@@ -251,6 +251,11 @@ And here is the result:
 
 ![List View 2](images/listview2.png)
 
+##Run the Demo
+
+Click here to see the live demo:
+[Delitefule Tutorial - Part 4](http://ibm-js.github.io/deliteful-tutorial/runnable/part4/index.html)
+
 ##Next Step
 
 We learned the basic techniques to connect a deliteful widget to data retrieved from a server. In the

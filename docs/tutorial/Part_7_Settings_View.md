@@ -165,6 +165,11 @@ example, and change the language to French:
 
 ![Settings View](images/settingsview.png)
 
+##Run the Demo
+
+Click here to see the live demo:
+[Delitefule Tutorial - Part 7](http://ibm-js.github.io/deliteful-tutorial/runnable/part7/index.html)
+
 ##Congratulations!
 
 You have now completed this deliteful tutorial. More documentation and examples are available on the
