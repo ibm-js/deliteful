@@ -164,7 +164,7 @@ define([
 	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/PageableList.md user documentation}
 	 * for more details.
 	 * 
-	 * @class module:deliteful/list/Pageable
+	 * @class module:deliteful/list/PageableList
 	 * @augments module:deliteful/list/List
 	 */
 	return register("d-pageable-list", [HTMLElement, List], /** @lends module:deliteful/list/PageableList# */ {
