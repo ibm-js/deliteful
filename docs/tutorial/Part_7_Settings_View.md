@@ -168,7 +168,7 @@ example, and change the language to French:
 ##Run the Demo
 
 Click here to see the live demo:
-[Delitefule Tutorial - Part 7](http://ibm-js.github.io/deliteful-tutorial/runnable/part7/index.html)
+[Deliteful Tutorial - Part 7](http://ibm-js.github.io/deliteful-tutorial/runnable/part7/index.html)
 
 ##Congratulations!
 

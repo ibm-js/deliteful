@@ -93,7 +93,7 @@ device, for this you just have to add some directives at the top of `index.html`
 ##Run the Demo
 
 Click here to see the live demo:
-[Delitefule Tutorial - Part 1](http://ibm-js.github.io/deliteful-tutorial/runnable/part1/index.html)
+[Deliteful Tutorial - Part 1](http://ibm-js.github.io/deliteful-tutorial/runnable/part1/index.html)
 
 ##Next Step
 

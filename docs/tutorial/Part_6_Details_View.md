@@ -92,7 +92,7 @@ You can try that new feature and click on an item to see the details view:
 ##Run the Demo
 
 Click here to see the live demo:
-[Delitefule Tutorial - Part 6](http://ibm-js.github.io/deliteful-tutorial/runnable/part6/index.html)
+[Deliteful Tutorial - Part 6](http://ibm-js.github.io/deliteful-tutorial/runnable/part6/index.html)
 
 ##Next Step
 
