@@ -7,7 +7,7 @@ define([
 ], function (register, CheckBox, template) {
 
 	/**
-	 * A radio button widget.
+	 * A radio button widget similar to an HTML5 input type="radio" element.
 	 * @example
 	 * <d-radio-button checked="true" name="categories" value="sport"></d-radio-button>
 	 * <d-radio-button name="categories" value="SUV"></d-radio-button>
