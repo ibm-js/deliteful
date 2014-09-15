@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 3
+---
 #Deliteful Tutorial (Part 3) - Introducing the Photo Feed Application
 
 In the [previous part](Part2QuickLook.md) of this tutorial we had a quick look at some deliteful components.

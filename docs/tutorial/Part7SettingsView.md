@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 7
+---
 #Deliteful Tutorial (Part 7) - The Settings View
 
 Our example app is almost complete now that we added the [details view](Part6DetailsView.md).

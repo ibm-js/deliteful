@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 2
+---
 #Deliteful Tutorial (Part 2) - A Quick Look at Deliteful Components
 
 In the [first step](Part1GettingStarted.md) of this tutorial we have setup the tools and created a first deliteful
