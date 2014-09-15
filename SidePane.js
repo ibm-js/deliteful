@@ -243,7 +243,7 @@ define([
 			},
 
 			buildRendering: function () {
-				pointer.setTouchAction(this, "none");
+				pointer.setTouchAction(this, "pan-y");
 				this._resetInteractions();
 			},
 

@@ -31,10 +31,36 @@
 			for (var i = 1; i < 100; i++){
 				list.store.add({label: "Item #" + i});
 			}
+			// Some data to enable scrolling
 			menulist.store.add({label: "View A", target:"aaa"});
 			menulist.store.add({label: "View B", target:"bbb"});
 			menulist.store.add({label: "View C", target:"ccc"});
 			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+
 			var actionHandler = function(event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
 				if (renderer) {
@@ -58,7 +84,7 @@
 		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
 			<d-linear-layout id="menu">
 				<div class="fill">
-					<d-list style="height: 100%" id="menulist" targetAttr="target"></d-list>
+					<d-list style="position: absolute; width: 100%; height: 100%" id="menulist" targetAttr="target"></d-list>
 				</div>
 				<button class="appButton2" onclick="leftStack.show('settings')">&gt;</button>
 			</d-linear-layout>
