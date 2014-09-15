@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 6
+---
 #Deliteful Tutorial (Part 6) - Adding a Details View
 
 In the [previous step](Part5CustomRenderer.html) of the deliteful tutorial we enhanced the display of our photo list

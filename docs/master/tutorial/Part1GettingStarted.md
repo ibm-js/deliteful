@@ -1,3 +1,8 @@
+---
+layout: default
+title: Deliteful Tutorial Part 1
+---
+
 #Deliteful Tutorial (Part 1) - Getting Started with Deliteful
 
 Welcome to [deliteful](http://ibm-js.github.io/deliteful/index.html), a set of multi channel,

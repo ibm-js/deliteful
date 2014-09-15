@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 4
+---
 #Deliteful Tutorial (Part 4) - The Photo List View
 
 We will now begin to create our [Flickr photo feed viewer application](Part3PhotoFeedApp.html).
