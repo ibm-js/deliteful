@@ -216,6 +216,11 @@ We now have a nice feedback to show that the request is being processed:
 
 Our list view is now completed!
 
+##Run the Demo
+
+Click here to see the live demo:
+[Delitefule Tutorial - Part 5](http://ibm-js.github.io/deliteful-tutorial/runnable/part5/index.html)
+
 ##Next Step
 
 We will now learn how to add a [details view](Part_6_Details_View.md) that will show more details when a user clicks a

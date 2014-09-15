@@ -90,6 +90,11 @@ device, for this you just have to add some directives at the top of `index.html`
 </head>
 ````
 
+##Run the Demo
+
+Click here to see the live demo:
+[Delitefule Tutorial - Part 1](http://ibm-js.github.io/deliteful-tutorial/runnable/part1/index.html)
+
 ##Next Step
 
 Before we start building our own app, let's now have a [quick look](Part_2_Quick_Look.md) at some deliteful components
