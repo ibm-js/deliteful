@@ -11,18 +11,22 @@ define([
 ], function (dcl, register, has, Button, Toggle, BidiToggleButton, template) {
 
 	/**
-	 * A 2-states toggle button widget.
-	 * @example
-	 * <d-button is="d-toggle-button" checked="true">Foo</button>
+	 * A 2-states toggle button widget that represents a form-aware 2-states (pressed or unpressed) button with optional
+	 * icons and labels for each state.
+	 *
 	 * A toggle button can display a different label depending on its state. By default, the label specified inline
 	 * in the markup or via the 'label' property is displayed whatever the state is. It is however possible to set a
 	 * label specific to the checked state via the 'checkedLabel' property.
-	 * @example
-	 * <d-button is="d-toggle-button" checked="true" checkedLabel="On">Off</button>
+	 *
 	 * Similarly, a toggle button can display a different icon depending on its state. By default, the css class
 	 * specified by the 'iconClass' property is applied whatever the state is. However, a css class specific to the
 	 * checked state can be specified via the 'checkedIconClass' property.
-	 * @example
+	 *
+	 * @example <caption>Creating a checked toggle button</caption>
+	 * <d-button is="d-toggle-button" checked="true">Foo</button>
+	 * @example <caption>Specify a label for the checked state</caption>
+	 * <d-button is="d-toggle-button" checked="true" checkedLabel="On">Off</button>
+	 * @example <caption>Specify an icon for the checked state</caption>
 	 * <style>
 	 *   .iconOn {
 	 *     background-image: url('images/on.png');

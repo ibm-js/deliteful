@@ -11,12 +11,11 @@ define([
 ], function (has, domClass, pointer, register, CheckBox, template, BidiSwitch) {
 
 	/**
-	 * A form-aware switch widget.
+	 * A form-aware switch widget that represents a toggle switch with a sliding knob.
 	 * @example
-	 * <d-switch checkedLabel="ON" uncheckedLabel="OFF" checked="true"></d-checkbox>
+	 * <d-switch checkedLabel="ON" uncheckedLabel="OFF" checked="true"></d-switch>
 	 * @class module:deliteful/Switch
-	 * @augments module:deliteful/Toggle
-	 * @augments module:delite/FormWidget
+	 * @augments module:deliteful/CheckBox
 	 */
 	return register("d-switch", has("bidi") ? [HTMLElement, CheckBox, BidiSwitch] :
 		[HTMLElement, CheckBox], /** @lends module:deliteful/Switch# */ {
