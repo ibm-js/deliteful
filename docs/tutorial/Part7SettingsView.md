@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 7) - The Settings View
 
-Our example app is almost complete now that we added the [details view](Part_6_Details_View.md).
+Our example app is almost complete now that we added the [details view](Part6DetailsView.md).
 We will now add the last piece: a settings view which will allow the user to choose the photo tags and other options.
 This will be the opportunity to see more deliteful widgets in action.
 
@@ -175,4 +175,4 @@ Click here to see the live demo:
 You have now completed this deliteful tutorial. More documentation and examples are available on the
 [deliteful web site](http://ibm-js.github.io/deliteful/index.htm).
 
-[Previous Step - Adding a Details View](Part_6_Details_View.md)
+[Previous Step - Adding a Details View](Part6DetailsView.md)

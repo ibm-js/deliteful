@@ -97,8 +97,8 @@ Click here to see the live demo:
 
 ##Next Step
 
-Before we start building our own app, let's now have a [quick look](Part_2_Quick_Look.md) at some deliteful components
+Before we start building our own app, let's now have a [quick look](Part2QuickLook.md) at some deliteful components
 that
 make up this basic application.
 
-[Next Step - A Quick Look at Deliteful Components](Part_2_Quick_Look.md)
+[Next Step - A Quick Look at Deliteful Components](Part2QuickLook.md)

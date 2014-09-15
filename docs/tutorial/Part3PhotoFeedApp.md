@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 3) - Introducing the Photo Feed Application
 
-In the [previous part](Part_2_Quick_Look.md) of this tutorial we had a quick look at some deliteful components.
+In the [previous part](Part2QuickLook.md) of this tutorial we had a quick look at some deliteful components.
 
 Let us now introduce the Flickr photo feed viewer application that we will create in the following steps of this
 tutorial.
@@ -22,8 +22,8 @@ The details view (right) appears when the user clicks a photo in the list. It sh
 
 ##Next Step
 
-In the next step we will create the first view of the application, that is, the [list view](Part_4_List_View.md).
+In the next step we will create the first view of the application, that is, the [list view](Part4ListView.md).
 
-[Previous Step - A Quick Look at Deliteful Components](Part_2_Quick_Look.md)
+[Previous Step - A Quick Look at Deliteful Components](Part2QuickLook.md)
 
-[Next Step - The Photo List View](Part_4_List_View.md)
+[Next Step - The Photo List View](Part4ListView.md)

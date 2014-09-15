@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 5) - Enhancing the List View
 
-In the [previous step](Part_4_List_View.md] of this tutorial we started to build our Flickr photo feed application.
+In the [previous step](Part4ListView.md] of this tutorial we started to build our Flickr photo feed application.
 We will now refine it to display more information for each photo. Remember, we wanted to obtain something like this:
 
 ![Photo List Item](images/itemsketch.png)
@@ -223,10 +223,10 @@ Click here to see the live demo:
 
 ##Next Step
 
-We will now learn how to add a [details view](Part_6_Details_View.md) that will show more details when a user clicks a
+We will now learn how to add a [details view](Part6DetailsView.md) that will show more details when a user clicks a
 photo
 in the list.
 
-[Previous Step - The Photo List View](Part_4_List_View.md)
+[Previous Step - The Photo List View](Part4ListView.md)
 
-[Next Step - Adding a Details View](Part_6_Details_View.md)
+[Next Step - Adding a Details View](Part6DetailsView.md)
