@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 2) - A Quick Look at Deliteful Components
 
-In the [first step](Part_1_Getting_Started.md) of this tutorial we have setup the tools and created a first deliteful
+In the [first step](Part1GettingStarted.md) of this tutorial we have setup the tools and created a first deliteful
 application. Let's now go through the application source to get familiar with some deliteful components.
 
 ## HTML Markup
@@ -145,8 +145,8 @@ make sure that the DOM will not be displayed before it is fully initialized by t
 ##Next Step
 
 Now that you have a basic understanding of how to create a simple deliteful application,
-let's move to the [next step](Part_3_Photo_Feed_App.md) where we will describe the application that we will create.
+let's move to the [next step](Part3PhotoFeedApp.md) where we will describe the application that we will create.
 
-[Previous Step - Getting Started with Deliteful](Part_1_Getting_Started.md)
+[Previous Step - Getting Started with Deliteful](Part1GettingStarted.md)
 
-[Next Step - Introducing the Photo Feed Application](Part_3_Photo_Feed_App.md)
+[Next Step - Introducing the Photo Feed Application](Part3PhotoFeedApp.md)

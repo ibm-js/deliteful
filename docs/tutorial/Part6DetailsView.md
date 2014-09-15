@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 6) - Adding a Details View
 
-In the [previous step](Part_5_Custom_Renderer.md) of the deliteful tutorial we enhanced the display of our photo list
+In the [previous step](Part5CustomRenderer.md) of the deliteful tutorial we enhanced the display of our photo list
 view.
 We will now add a second view that shows the details of a photo.
 
@@ -97,8 +97,8 @@ Click here to see the live demo:
 ##Next Step
 
 In the next step we will complete our small app by customizing the side pane to implement a
-[settings view](Part_7_Settings_View.md).
+[settings view](Part7SettingsView.md).
 
-[Previous Step - Enhancing the List View](Part_5_Custom_Renderer.md)
+[Previous Step - Enhancing the List View](Part5CustomRenderer.md)
 
-[Next Step - The Settings View](Part_7_Settings_View.md)
+[Next Step - The Settings View](Part7SettingsView.md)

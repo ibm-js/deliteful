@@ -1,6 +1,6 @@
 #Deliteful Tutorial (Part 4) - The Photo List View
 
-We will now begin to create our [Flickr photo feed viewer application](Part_3_Photo_Feed_App.md).
+We will now begin to create our [Flickr photo feed viewer application](Part3PhotoFeedApp.md).
 
 It is time to open your favorite editor or IDE and load the `index.html` file of the application in it.
 
@@ -259,8 +259,8 @@ Click here to see the live demo:
 ##Next Step
 
 We learned the basic techniques to connect a deliteful widget to data retrieved from a server. In the
-[next step](Part_5_Custom_Renderer.md), we will further customize our list view to enhance the display.
+[next step](Part5CustomRenderer.md), we will further customize our list view to enhance the display.
 
-[Previous Step - Introducing the Photo Feed Application](Part_3_Photo_Feed_App.md)
+[Previous Step - Introducing the Photo Feed Application](Part3PhotoFeedApp.md)
 
-[Next Step - Enhancing the List View](Part_5_Custom_Renderer.md)
+[Next Step - Enhancing the List View](Part5CustomRenderer.md)
