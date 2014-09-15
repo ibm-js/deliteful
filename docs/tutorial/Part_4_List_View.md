@@ -254,7 +254,7 @@ And here is the result:
 ##Run the Demo
 
 Click here to see the live demo:
-[Delitefule Tutorial - Part 4](http://ibm-js.github.io/deliteful-tutorial/runnable/part4/index.html)
+[Deliteful Tutorial - Part 4](http://ibm-js.github.io/deliteful-tutorial/runnable/part4/index.html)
 
 ##Next Step
 

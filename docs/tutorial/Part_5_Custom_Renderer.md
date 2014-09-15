@@ -219,7 +219,7 @@ Our list view is now completed!
 ##Run the Demo
 
 Click here to see the live demo:
-[Delitefule Tutorial - Part 5](http://ibm-js.github.io/deliteful-tutorial/runnable/part5/index.html)
+[Deliteful Tutorial - Part 5](http://ibm-js.github.io/deliteful-tutorial/runnable/part5/index.html)
 
 ##Next Step
 
