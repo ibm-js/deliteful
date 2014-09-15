@@ -39,12 +39,3 @@
   -webkit-transform: scale(1, 1) skew(0, 0) !important;
   transform: scale(1, 1) skew(0, 0) !important;
 }
-.dj_android.dj_tablet .-d-view-stack-flip.-d-view-stack-transition {
-  -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
-.dj_android.dj_tablet .-d-view-stack-flip.-d-view-stack-in.-d-view-stack-transition {
-  -webkit-transition-delay: 0.4s;
-  transition-delay: 0.4s;
-}
