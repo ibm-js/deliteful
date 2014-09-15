@@ -7,11 +7,14 @@ title: deliteful/list/PageableList
 
 The PageableList widget extends the [deliteful/list/List](./List.html) widget and adds paging capabilities to it.
 
+_Note that version 0.3.0 of this widget is not supported on IE10._
+
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
 
 Its custom element tag is `d-pageable-list`.
 
 ![Next Page Loader Example](images/PageLoader.png)
+
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -36,14 +39,14 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 <d-pageable-list height="100%" righttextAttr="sales" categoryAttr="region">
 	<d-list-store>
 		<!-- Add the following items to the list store -->
-		{ label: "France", sales: 500, profit: 50, region: "EU" },
-		{ label: "Germany", sales: 450, profit: 48, region: "EU" },
-		{ label: "UK", sales: 700, profit: 60, region: "EU" },
-		{ label: "USA", sales: 2000, profit: 250, region: "America" },
-		{ label: "Canada", sales: 600, profit: 30, region: "America" },
-		{ label: "Brazil", sales: 450, profit: 30, region: "America" },
-		{ label: "China", sales: 500, profit: 40, region: "Asia" },
-		{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
   	</d-list-store>
   </d-list>
 ```

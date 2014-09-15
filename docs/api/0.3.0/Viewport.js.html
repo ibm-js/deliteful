@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: D:/Users/cjolif/sdk/sdk-utils/delite/Viewport.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: D:/Users/cjolif/sdk/sdk-utils/delite/Viewport.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Utility singleton to watch for viewport resizes, avoiding duplicate notifications
+ * which can lead to infinite loops.
+ *
+ * Usage: `Viewport.on("resize", myCallback)`.
+ * 
+ * myCallback() is called without arguments in case it's Widget.resize(),
+ * which would interpret the argument as the size to make the widget.
+ *
+ * @module delite/Viewport
+ */
+define([
+	"decor/Evented",
+	"decor/sniff",	// has("ios")
+	"requirejs-domready/domReady!"
+], function (Evented, has) {
+	var Viewport = new Evented();
+
+	var html = document.documentElement,
+		oldWidth = html.clientWidth,
+		oldHeight = html.clientHeight;
+
+	window.addEventListener("resize", function () {
+		var width = html.clientWidth,
+			height = html.clientHeight;
+		if (height === oldHeight &amp;&amp; width === oldWidth) {
+			return;
+		}
+		oldWidth = width;
+		oldHeight = height;
+		Viewport.emit("resize");
+	});
+
+	/**
+	 * Get the size of the viewport, or on mobile devices, the part of the viewport not obscured by the
+	 * virtual keyboard.
+	 * @function module:delite/Viewport.getEffectiveBox
+	 * @param {Document} doc - The document, typically the global variable `document`.
+	 */
+	Viewport.getEffectiveBox = function (doc) {
+		var html = doc.documentElement,
+			box = {
+				w: html.clientWidth,
+				h: html.clientHeight,
+				t: doc.body.scrollTop,
+				l: doc.body.scrollLeft
+			};
+
+		// Account for iOS virtual keyboard, if it's being shown.  Unfortunately no direct way to check or measure.
+		var focusedNode = doc.activeElement,
+			tag = focusedNode &amp;&amp; focusedNode.tagName &amp;&amp; focusedNode.tagName.toLowerCase();
+		if (has("ios") &amp;&amp; focusedNode &amp;&amp; !focusedNode.readOnly &amp;&amp; (tag === "textarea" || (tag === "input" &amp;&amp;
+			/^(color|email|number|password|search|tel|text|url)$/.test(focusedNode.type)))) {
+
+			// Box represents the size of the viewport.  Some of the viewport is likely covered by the keyboard.
+			// Estimate height of visible viewport assuming viewport goes to bottom of screen,
+			// but is covered by keyboard.
+			box.h *= (window.orientation === 0 || window.orientation === 180 ? 0.66 : 0.40);
+
+			// Above measurement will be inaccurate if viewport was scrolled up so far that it ends before the bottom
+			// of the screen.   In this case, keyboard isn't covering as much of the viewport as we thought.
+			// We know the visible size is at least the distance from the top of the viewport to the focused node.
+			var rect = focusedNode.getBoundingClientRect();
+			box.h = Math.max(box.h, rect.top + rect.height);
+		}
+
+		return box;
+	};
+
+	return Viewport;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/CheckBox.html">deliteful/CheckBox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon Sep 15 2014 15:27:58 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

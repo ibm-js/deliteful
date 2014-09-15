@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: D:/Users/cjolif/sdk/sdk-utils/delite/FormWidget.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: D:/Users/cjolif/sdk/sdk-utils/delite/FormWidget.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module delite/FormWidget */
+define([
+	"dcl/dcl",
+	"./Widget"
+], function (dcl, Widget) {
+
+	/**
+	 * Base class for widgets that extend `HTMLElement`, but conceptually correspond
+	 * to native HTML elements such as `&lt;checkbox>` or `&lt;button>`,
+	 * which can be children of a `&lt;form>` node.
+	 *
+	 * Note that FormWidget requires that `this.focusNode` be a sub-node of the widget, rather than the
+	 * root node.  This is because of its processing of `tabIndex`.
+	 *
+	 * @mixin module:delite/FormWidget
+	 * @augments module:delite/Widget
+	 */
+	return dcl(Widget, /** @lends module:delite/FormWidget# */ {
+		/**
+		 * Name used when submitting form; same as "name" attribute or plain HTML elements.
+		 * @member {string} module:delite/FormWidget.name
+		 */
+		name: "",
+
+		/**
+		 * Corresponds to the native HTML `&lt;input>` element's attribute.
+		 * @member {string} module:delite/FormWidget.alt
+		 */
+		alt: "",
+
+		/**
+		 * Corresponds to the native HTML `&lt;input>` element's attribute.
+		 * @member {string} module:delite/FormWidget.value
+		 */
+		value: "",
+
+		/**
+		 * The order in which fields are traversed when user hits the tab key.
+		 * @member {number} module:delite/FormWidget.tabIndex
+		 * @default 0
+		 */
+		tabIndex: 0,
+
+		/**
+		 * Concatenated list of node names that can receive focus during tab operations.
+		 * @member {string} FormWidget#tabStops
+		 * @default "focusNode"
+		 */
+		tabStops: "focusNode", // should be "" if the widget's only tab stop is the outer root node
+
+		/**
+		 * If set to true, the widget will not respond to user input and will not be included in form submission.
+		 * @member {boolean} FormWidget#disabled
+		 * @default false
+		 */
+		disabled: false,
+
+		refreshRendering: function (oldValues) {
+			// Handle disabled and tabIndex, across the tabStops and root node.
+			// No special processing is needed for tabStops other than just to refresh disable and tabIndex.
+			var self = this;
+			var tabStops = this.tabStops.split(/[ ,]/);
+			if ("tabStops" in oldValues || "disabled" in oldValues) {
+				var isDisabled = this.disabled;
+				if (this.valueNode &amp;&amp; this.valueNode !== this) {
+					this.valueNode.disabled = isDisabled; // prevent submit
+				}
+				tabStops.forEach(
+					function (nodeName) {
+						var node = self[nodeName];
+						if (node !== self) {
+							node.disabled = isDisabled;
+						}
+						// let JAWS know
+						node.setAttribute("aria-disabled", "" + isDisabled);
+					},
+					this
+				);
+				if (!isDisabled) {
+					this.removeAttribute("disabled");
+				}
+			}
+			if ("tabStops" in oldValues || "tabIndex" in oldValues || "disabled" in oldValues) {
+				tabStops.forEach(
+					function (nodeName) {
+						var node = self[nodeName];
+						if (node !== self) {
+							if (self.disabled) {
+								node.removeAttribute("tabindex");
+							} else {
+								node.tabIndex = self._get("tabIndex");
+							}
+						}
+					},
+					this
+				);
+			}
+			return oldValues; // for after advice
+		},
+
+		/**
+		 * Put focus on this widget.
+		 */
+		focus: function () {
+			if (!this.disabled &amp;&amp; this.focusNode.focus) {
+				try {
+					this.focusNode.focus();
+				} catch (e) {
+					// squelch errors from hidden nodes
+				}
+			}
+		},
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		// Override setAttribute() etc. to put aria-label etc. onto the focus node rather than the root
+		// node, so that screen readers work properly.
+		setAttribute: dcl.superCall(function (sup) {
+			return function (name, value) {
+				if (/^aria-/.test(name)) {
+					this.focusNode.setAttribute(name, value);
+				} else {
+					sup.call(this, name, value);
+				}
+			};
+		}),
+
+		getAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					return this.focusNode.getAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		hasAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					return this.focusNode.hasAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		removeAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name)) {
+					this.focusNode.removeAttribute(name);
+				} else {
+					sup.call(this, name);
+				}
+			};
+		}),
+
+		createdCallback: dcl.advise({
+			after: function () {
+				// Move all initially specified aria- attributes to focus node.
+				var attr, idx = 0;
+				while ((attr = this.attributes[idx++])) {
+					if (/^aria-/.test(attr.name)) {
+						this.setAttribute(attr.name, attr.value);
+
+						// force remove from root node not this.focusNode
+						HTMLElement.prototype.removeAttribute.call(this, attr.name);
+					}
+				}
+			}
+		}),
+
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/CheckBox.html">deliteful/CheckBox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon Sep 15 2014 15:27:58 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

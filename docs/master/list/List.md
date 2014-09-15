@@ -10,7 +10,7 @@ The `deliteful/list/List` widget renders a scrollable list of items that are ret
 
 Its custom element tag is `d-list`.
 
-By default, the widget creates its own local observable memory store, accessible as the `store` property, but any valid `dstore/Store` implementation can be used instead. 
+By default, the widget creates a trackable memory store, accessible as the `store` property, but any valid `dstore/Store` implementation can be used instead. 
 
 Items rendererd by the list are standard javascript object. The list delegates the rendering of its items to an _item renderer_ widget.
 
@@ -56,14 +56,14 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 <d-list height="100%" righttextAttr="sales" categoryAttr="region">
 	<d-list-store>
 		<!-- Add the following items to the list store -->
-		{ label: "France", sales: 500, profit: 50, region: "EU" },
-		{ label: "Germany", sales: 450, profit: 48, region: "EU" },
-		{ label: "UK", sales: 700, profit: 60, region: "EU" },
-		{ label: "USA", sales: 2000, profit: 250, region: "America" },
-		{ label: "Canada", sales: 600, profit: 30, region: "America" },
-		{ label: "Brazil", sales: 450, profit: 30, region: "America" },
-		{ label: "China", sales: 500, profit: 40, region: "Asia" },
-		{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
   	</d-list-store>
   </d-list>
 ```
@@ -114,11 +114,11 @@ to `"none"` in order to remove the default scrolling capability.
 <a name="store"></a>
 ### Store capabilities
 
-If the store the items are retrieved from is observable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
+If the store the items are retrieved from is trackable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
 deletion, move and update of the store content and refresh its rendering accordingly.
 
 If you do not specify which store to retrieve the items from, the widget creates a default
-observable in-memory store implementation that can be retrieved in the `store` property,
+trackable memory store that can be retrieved in the `store` property,
 as in the following example:
 
 ```js
@@ -127,7 +127,7 @@ var defaultStore = list.store;
 ```
 
 This default store can be populated programmatically using the `add` method
-defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `before` options to easily
+defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `beforeId` options to easily
 order elements in the list, as in the following example:
 
 ```js
@@ -136,11 +136,8 @@ var defaultStore = list.store;
 var item1 = {...};
 var item2 = {...};
 defaultStore.add(item1);
-defaultStore.add(item2, {before: item1});
+defaultStore.add(item2, {beforeId: item1.id});
 ```
-
-_Note that the default store does not support ordering and filtering, so you must use
-another store implementation to do this ([Memory store](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory), for example)._
 
 When creating a list widget declaratively, it is possible to use JSON markup to add items to
 the list store using the `d-list-store` tag, as in the following
@@ -436,11 +433,14 @@ No Mixin is currently provided for this widget.
 
 ### Store query
 
+When the widget has finished rendering the items queried from the store, it emits a `query-success` event. The `renderItems` property of the event
+is an array of the items displayed by the widget.
+
 If the widget fails to query its store to retrieve the items to render, it emits a `query-error` event (see [Store capabilities](#store) for more information).
 
 ### Selection
 
-When the current selection changes, a `"selection-change"` event is emitted. Its `oldValue` property
+When the current selection changes, a `selection-change` event is emitted. Its `oldValue` property
 contains the previous selection, and its `newValue` property contains the new selection.
 
 <a name="enterprise"></a>

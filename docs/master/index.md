@@ -5,10 +5,14 @@ layout: doc
 ## Basic Widgets
 
 * [Button](Button.html)
+* [CheckBox](CheckBox.html)
 * [ProgressBar](ProgressBar.html)
 * [ProgressIndicator](ProgressIndicator.html)
+* [RadioButton](RadioButton.html)
+* [Select](Select.html)
 * [Slider](Slider.html)
 * [StarRating](StarRating.html)
+* [Switch](Switch.html)
 * [Toaster](Toaster.html)
 
 ## List
@@ -20,6 +24,5 @@ layout: doc
 
 * [LinearLayout](LinearLayout.html)
 * [ScrollableContainer](ScrollableContainer.html)
-* [Select](Select.html)
 * [SidePane](SidePane.html)
 * [ViewStack](ViewStack.html)

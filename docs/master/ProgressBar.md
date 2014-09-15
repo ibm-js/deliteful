@@ -24,7 +24,7 @@ customized. ProgressBar theme style typically defines a looping animation to hig
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
 [Element Events](#events)  
-[Enteprise Use](#enterprise)  
+[Enterprise Use](#enterprise)  
 [See also](#seealso)
 
 <a name="instantiation"></a>

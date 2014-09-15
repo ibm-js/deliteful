@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: D:/Users/cjolif/sdk/sdk-utils/delite/a11y.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: D:/Users/cjolif/sdk/sdk-utils/delite/a11y.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Accessibility utility functions (keyboard, tab stops, etc.).
+ * @module delite/a11y
+ * */
+define([], function () {
+
+	var a11y = /** @lends module:delite/a11y */ {
+		/**
+		 * Returns true if Element is visible.
+		 * @param {Element} elem - The Element.
+		 * @returns {boolean}
+		 * @private
+		 */
+		_isElementShown: function (elem) {
+			var s = getComputedStyle(elem);
+			return s.visibility !== "hidden"
+				&amp;&amp; s.visibility !== "collapsed"
+				&amp;&amp; s.display !== "none"
+				&amp;&amp; elem.type !== "hidden";
+		},
+
+		/**
+		 * Tests if element is tab-navigable even without an explicit tabIndex setting
+		 * @param {Element} elem - The Element.
+		 * @returns {boolean}
+		 */
+		hasDefaultTabStop: function (elem) {
+			/* jshint maxcomplexity:11 */
+
+			// No explicit tabIndex setting, need to investigate node type
+			switch (elem.nodeName.toLowerCase()) {
+			case "a":
+				// An &lt;a> w/out a tabindex is only navigable if it has an href
+				return elem.hasAttribute("href");
+			case "area":
+			case "button":
+			case "input":
+			case "object":
+			case "select":
+			case "textarea":
+				// These are navigable by default
+				return true;
+			case "iframe":
+				// If it's an editor &lt;iframe> then it's tab navigable.
+				var contentDocument = elem.contentDocument;
+				if ("designMode" in contentDocument &amp;&amp; contentDocument.designMode === "on") {
+					return true;
+				}
+				var body = contentDocument.body;
+				return body &amp;&amp; (body.contentEditable === "true" ||
+					(body.firstChild &amp;&amp; body.firstChild.contentEditable === "true"));
+			default:
+				return elem.contentEditable === "true";
+			}
+		},
+
+		/**
+		 * Returns effective tabIndex of an element, either a number, or undefined if element isn't focusable.
+		 * @param {Element} elem - The Element.
+		 * @returns {number|undefined}
+		 */
+		effectiveTabIndex: function (elem) {
+			if (elem.disabled) {
+				return undefined;
+			} else if (elem.hasAttribute("tabIndex")) {
+				// Explicit tab index setting
+				return +elem.getAttribute("tabIndex");// + to convert string --> number
+			} else {
+				// No explicit tabIndex setting, so depends on node type
+				return a11y.hasDefaultTabStop(elem) ? 0 : undefined;
+			}
+		},
+
+		/**
+		 * Tests if an element is tab-navigable.
+		 * @param {Element} elem - The Element.
+		 * @returns {boolean}
+		 */
+		isTabNavigable: function (elem) {
+			return a11y.effectiveTabIndex(elem) >= 0;
+		},
+
+		/**
+		 * Tests if an element is focusable by tabbing to it, or clicking it with the mouse.
+		 * @param {Element} elem - The Element.
+		 * @returns {boolean}
+		 */
+		isFocusable: function (elem) {
+			return a11y.effectiveTabIndex(elem) >= -1;
+		},
+
+		/**
+		 * Finds descendants of the specified root node.
+		 *
+		 * The following descendants of the specified root node are returned:
+		 *
+		 * - the first tab-navigable element in document order without a tabIndex or with tabIndex="0"
+		 * - the last tab-navigable element in document order without a tabIndex or with tabIndex="0"
+		 * - the first element in document order with the lowest positive tabIndex value
+		 * - the last element in document order with the highest positive tabIndex value
+		 *
+		 * @param Element root - The Element.
+		 * @returns {Object} Hash of the format `{first: Element, last: Element, lowest: Element, highest: Element}`.
+		 * @private
+		 */
+		_getTabNavigable: function (root) {
+			var first, last, lowest, lowestTabindex, highest, highestTabindex, radioSelected = {};
+
+			function radioName(node) {
+				// If this element is part of a radio button group, return the name for that group.
+				return node &amp;&amp; node.tagName.toLowerCase() === "input" &amp;&amp;
+					node.type &amp;&amp; node.type.toLowerCase() === "radio" &amp;&amp;
+					node.name &amp;&amp; node.name.toLowerCase();
+			}
+
+			var shown = a11y._isElementShown, effectiveTabIndex = a11y.effectiveTabIndex;
+
+			function walkTree(/*Element*/ parent) {
+				/* jshint maxcomplexity:14 */
+				for (var child = parent.firstChild; child; child = child.nextSibling) {
+					// Skip text elements, hidden elements
+					if (child.nodeType !== 1 || !shown(child)) {
+						continue;
+					}
+
+					var tabindex = effectiveTabIndex(child);
+					if (tabindex >= 0) {
+						if (tabindex === 0) {
+							if (!first) {
+								first = child;
+							}
+							last = child;
+						} else if (tabindex > 0) {
+							if (!lowest || tabindex &lt; lowestTabindex) {
+								lowestTabindex = tabindex;
+								lowest = child;
+							}
+							if (!highest || tabindex >= highestTabindex) {
+								highestTabindex = tabindex;
+								highest = child;
+							}
+						}
+						var rn = radioName(child);
+						if (child.checked &amp;&amp; rn) {
+							radioSelected[rn] = child;
+						}
+					}
+					if (child.nodeName.toUpperCase() !== "SELECT") {
+						walkTree(child);
+					}
+				}
+			}
+
+			if (shown(root)) {
+				walkTree(root);
+			}
+			function rs(node) {
+				// substitute checked radio button for unchecked one, if there is a checked one with the same name.
+				return radioSelected[radioName(node)] || node;
+			}
+
+			return { first: rs(first), last: rs(last), lowest: rs(lowest), highest: rs(highest) };
+		},
+
+		/**
+		 * Finds the descendant of the specified root node that is first in the tabbing order.
+		 * @param {string|Element} root
+		 * @param {Document} [doc]
+		 * @returns {Element}
+		 */
+		getFirstInTabbingOrder: function (root, doc) {
+			if (typeof root === "string") {
+				root = (doc || document).getElementById(root);
+			}
+			var elems = a11y._getTabNavigable(root);
+			return elems.lowest ? elems.lowest : elems.first;
+		},
+
+		/**
+		 * Finds the descendant of the specified root node that is last in the tabbing order.
+		 * @param {string|Element} root
+		 * @param {Document} [doc]
+		 * @returns {Element}
+		 */
+		getLastInTabbingOrder: function (root, doc) {
+			if (typeof root === "string") {
+				root = (doc || document).getElementById(root);
+			}
+			var elems = a11y._getTabNavigable(root);
+			return elems.last ? elems.last : elems.highest;
+		}
+	};
+
+	return a11y;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/CheckBox.html">deliteful/CheckBox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon Sep 15 2014 15:27:58 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

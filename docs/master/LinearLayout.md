@@ -104,13 +104,20 @@ Nesting LinearLayout instances can be used to build layouts in two dimensions.
 src="http://jsfiddle.net/ibmjs/PY6Lz/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/PY6Lz/">checkout the sample on JSFiddle</a></iframe>
 
-### Getting the sub-child of a LinearLayout to fill 100%
+### Getting the sub-child of a LinearLayout to fill 100% in height
 
-If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` on a LinearLayout sub-child, its size in the cross direction is not stretched to 100%. You must add ``position: absolute`` on the sub-child.
+If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` on a LinearLayout sub-child and if its computed height is greater than its parent height, it will be displayed out of bounds of the container.
+To avoid this behaviour, you must add ``position: absolute`` on the sub-child.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/aYj4A/">checkout the sample on JSFiddle</a></iframe>
+
+### Examples
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/2gmxgm3w/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/2gmxgm3w/">Header / Stretched List / Footer</a></iframe>
 
 <a name="styling"></a>
 ## Element Styling

@@ -108,8 +108,7 @@ Default values are `{transition: "slide", reverse: false}`.
 
 `deliteful/ViewStack` has no visual appearance, it does not provide any CSS class for styling.
 
-
-### Styling Limitations
+The default height of a `deliteful/ViewStack` is ``200px``. 
 
 The `position` CSS attribute of this element must be set to `absolute` or `relative` (default).
 
