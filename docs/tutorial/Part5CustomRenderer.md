@@ -1,3 +1,7 @@
+---
+layout: default
+title: Deliteful Tutorial Part 5
+---
 #Deliteful Tutorial (Part 5) - Enhancing the List View
 
 In the [previous step](Part4ListView.md] of this tutorial we started to build our Flickr photo feed application.
