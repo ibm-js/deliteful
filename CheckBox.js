@@ -11,7 +11,7 @@ define([
 	var labelClickHandler;
 
 	/**
-	 * A 2-state checkbox widget.
+	 * A 2-state checkbox widget similar to an HTML5 input type="checkbox" element.
 	 * @example
 	 * <d-checkbox checked="true"></d-checkbox>
 	 * @class module:deliteful/CheckBox
