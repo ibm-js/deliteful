@@ -12,9 +12,9 @@ We will now refine it to display more information for each photo. Remember, we w
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part5` tag now:
 
-````
+```
 $ git checkout part5
-````
+```
 
 ##Defining a Custom List Item Renderer
 
@@ -23,7 +23,7 @@ An item renderer is a subclass of `deliteful/list/ItemRenderer` that defines the
 
 Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 
-````
+```js
 	photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
 		template: handlebars.compile("<template>" + "<div attach-point='renderNode'>" +
 			"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{{item.media.m}}'>" + "</div>" +
@@ -31,7 +31,7 @@ Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 			"<div class='publishedTime'>{{item.published}}</div>" +
 			"<div class='author'>{{item.author}}</div>" + "</div>" + "</div>" + "</template>")
 	});
-````
+```
 
 This needs some explanations. The `itemRenderer` property of the deliteful List widget can be set to an instance of a
  subclass of `deliteful/list/ItemRenderer`. For each element of the data store, an instance of the renderer class
@@ -44,17 +44,17 @@ In the added code we use two new AMD modules: `"deliteful/list/ItemRenderer"` (t
 custom renderer) and `"delite/handlebars"` which contains the deliteful templating engine. Let's add them to our
 require list:
 
-````
+```js
 require([
 	"delite/register", "dstore/Memory", "deliteful/list/ItemRenderer", "delite/handlebars",
     ...
 ], function (register, Memory, ItemRenderer, handlebars) {
     ...
-````
+```
 
 Add the following rules in `css/app.css` to style the item elements correctly:
 
-````
+```css
 .d-list-item .d-list-cell {
     line-height: 20px;
     height: 100px;
@@ -99,16 +99,16 @@ Add the following rules in `css/app.css` to style the item elements correctly:
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-````
+```
 
 We also need to modify the markup. We can remove the `labelAttr` that we added previously on the `d-list` element,
 as the custom item renderer directly maps the data item properties to DOM properties in its template. In parallel,
 we must set `copyAllItemProps="true"`, which means that all the properties of the data items will be available to the
 custom item renderer.
 
-````
+```html
     <d-list class="width100 height100" id="photolist" copyAllItemProps="true">
-````
+```
 
 OK, let's try that, our list looks a lot better now:
 
@@ -120,7 +120,7 @@ Flickr returns dates in ISO format, which is not very user friendly. We want to 
 and this is the opportunity to show that templates can contain any JavaScript expression. Let us add a function to
 format a date:
 
-````
+```js
 	photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
         ... ,
 
@@ -136,11 +136,11 @@ format a date:
 			}).format(new Date(d));
 		}
 	});
-````
+```
 
 And we use yet another AMD module for this, the `"ecma402/Intl"` project for internationalization, let's add it:
 
-````
+```js
 require.config({
 	...,
 	config: {
@@ -151,7 +151,7 @@ require([
 	..., "ecma402/Intl", ...
 ], function (..., Intl) {
     ...
-````
+```
 
 (Note we also added a `config` object to the `require.config` call to say which locales we are using,
 `"en-us"` for now)
@@ -159,9 +159,9 @@ require([
 Now let's modify the template to use the `formatDate` function, for this we replace the `{{item.published}}` binding
 by an expression:
 
-````
+```js
 			"<div class='publishedTime'>{{this.formatDate(this.item.published)}}</div>" +
-````
+```
 
 (Note that, in binding expressions, `this` refers to the item renderer instance, and `this.item` is the data item
 that the renderer represents. If you use a simple binding like `{{item.published}}`, you may omit the `this.` prefix,
@@ -176,18 +176,18 @@ OK, now our dates are formatted more cleanly:
 One last little thing we will do on this list view is to add a progress indicator that will spin while the request is
 being processed. For this let's add this markup next to the `d-list` element:
 
-````
+```html
         <!-- scrollable list -->
         <div class="fill">
             <d-list ...>
             </d-list>
             <d-progress-indicator id="pi"></d-progress-indicator>
         </div>
-````
+```
 
 Add this rule to `css/app.css` to center the progress indicator in the view:
 
-````
+```css
 .d-progress-indicator {
     position: absolute;
     top: 0;
@@ -196,11 +196,11 @@ Add this rule to `css/app.css` to center the progress indicator in the view:
     left: 0;
     margin: auto;
 }
-````
+```
 
 Finally show the indicator in the `getPhotos` function, and hide it in `requestDone`:
 
-````
+```js
 	function getPhotos(tags) {
 		requestDone();
 
@@ -212,7 +212,7 @@ Finally show the indicator in the `getPhotos` function, and hide it in `requestD
 	    ....
 		pi.active = false;
 	}
-````
+```
 
 We now have a nice feedback to show that the request is being processed:
 
