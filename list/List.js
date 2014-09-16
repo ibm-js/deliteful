@@ -344,7 +344,7 @@ define([
 					}
 				} else {
 					if (!this._selectionClickHandle) {
-						this._selectionClickHandle = this.on("click", lang.hitch(this, "_handleSelection"));
+						this._selectionClickHandle = this.on("click", lang.hitch(this, "handleSelection"));
 					}
 				}
 			}
@@ -491,7 +491,7 @@ define([
 		 * @param {Event} event The event the handler was called for.
 		 * @protected
 		 */
-		_handleSelection: function (/*Event*/event) {
+		handleSelection: function (/*Event*/event) {
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
 				if (!this._isCategoryRenderer(eventRenderer)) {
@@ -1129,7 +1129,7 @@ define([
 		_spaceKeydownHandler: function (evt) {
 			if (this.selectionMode !== "none") {
 				evt.preventDefault();
-				this._handleSelection(evt);
+				this.handleSelection(evt);
 			}
 		},
 
