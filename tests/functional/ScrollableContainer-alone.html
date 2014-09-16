@@ -22,6 +22,11 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+			
+			scrollContainer.on("scroll", function() {
+				console.log("scroll");
+			}, scrollContainer.scrollableNode);
+			
 			ready = true;
 		});
 	</script>

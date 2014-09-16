@@ -23,6 +23,23 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+			
+			scrollContainer1.on("scroll", function() {
+				console.log("scroll1");
+			}, scrollContainer1.scrollableNode);
+			
+			scrollContainer2.on("scroll", function() {
+				console.log("scroll2");
+			}, scrollContainer2.scrollableNode);
+			
+			scrollContainer3.on("scroll", function() {
+				console.log("scroll3");
+			}, scrollContainer3.scrollableNode);
+			
+			scrollContainer4.on("scroll", function() {
+				console.log("scroll4");
+			}, scrollContainer4.scrollableNode);
+			
 			ready = true;
 		});
 	</script>
@@ -38,6 +55,21 @@
 	.container2 {
 		position: absolute;
 		top: 20px;
+		left: 240px;
+		width: 200px;
+		height: 300px;
+	}
+	
+	.container3 {
+		position: absolute;
+		top: 330px;
+		left: 20px;
+		width: 200px;
+		height: 300px;
+	}
+	.container4 {
+		position: absolute;
+		top: 330px;
 		left: 240px;
 		width: 200px;
 		height: 300px;
@@ -251,8 +283,206 @@
 				<li>Item 100</li>
 			</ul>
 		</d-scrollable-container>
-
+		
 		<div style="background-color: lightblue">Footer 2</div>
 	</d-linear-layout>
+	
+	<br/>
+	
+	<d-linear-layout class="container3">
+		<div style="background-color: lightblue">scrollDirection="vertical"</div>
+		
+		<!-- intermediate DIV as direct child of LinearLayout -->
+		<div class="fill">
+			<!-- Using default scrollDirection, which is "vertical" -->
+			<d-scrollable-container style="position: absolute; background-color: lightgreen"
+				id="scrollContainer3" class="scrollContainer">
+				<ul>
+				<li>Item 1</li>
+				<li>Item 2</li>
+				<li>Item 3</li>
+				<li>Item 4</li>
+				<li>Item 5</li>
+				<li>Item 6</li>
+				<li>Item 7</li>
+				<li>Item 8</li>
+				<li>Item 9</li>
+				<li>Item 10</li>
+				<li>Item 11</li>
+				<li>Item 12</li>
+				<li>Item 13</li>
+				<li>Item 14</li>
+				<li>Item 15</li>
+				<li>Item 16</li>
+				<li>Item 17</li>
+				<li>Item 18</li>
+				<li>Item 19</li>
+				<li>Item 20</li>
+				<li>Item 21</li>
+				<li>Item 22</li>
+				<li>Item 23</li>
+				<li>Item 24</li>
+				<li>Item 25</li>
+				<li>Item 26</li>
+				<li>Item 27</li>
+				<li>Item 28</li>
+				<li>Item 29</li>
+				<li>Item 30</li>
+				<li>Item 31</li>
+				<li>Item 32</li>
+				<li>Item 33</li>
+				<li>Item 34</li>
+				<li>Item 35</li>
+				<li>Item 36</li>
+				<li>Item 37</li>
+				<li>Item 38</li>
+				<li>Item 39</li>
+				<li>Item 40</li>
+				<li>Item 41</li>
+				<li>Item 42</li>
+				<li>Item 43</li>
+				<li>Item 44</li>
+				<li>Item 45</li>
+				<li>Item 46</li>
+				<li>Item 47</li>
+				<li>Item 48</li>
+				<li>Item 49</li>
+				<li>Item 50</li>
+				<li>Item 61</li>
+				<li>Item 62</li>
+				<li>Item 63</li>
+				<li>Item 64</li>
+				<li>Item 65</li>
+				<li>Item 66</li>
+				<li>Item 67</li>
+				<li>Item 68</li>
+				<li>Item 69</li>
+				<li>Item 70</li>
+				<li>Item 81</li>
+				<li>Item 82</li>
+				<li>Item 83</li>
+				<li>Item 84</li>
+				<li>Item 85</li>
+				<li>Item 86</li>
+				<li>Item 87</li>
+				<li>Item 88</li>
+				<li>Item 89</li>
+				<li>Item 90</li>
+				<li>Item 91</li>
+				<li>Item 92</li>
+				<li>Item 93</li>
+				<li>Item 94</li>
+				<li>Item 95</li>
+				<li>Item 96</li>
+				<li>Item 97</li>
+				<li>Item 98</li>
+				<li>Item 99</li>
+				<li>Item 100</li>
+			</ul>
+			</d-scrollable-container>
+		</div>
+		
+		<div style="background-color: lightblue">Footer 3</div>
+	</d-linear-layout>
+	
+	<d-linear-layout class="container4">
+		<div style="background-color: lightblue">scrollDirection="vertical"</div>
+		
+		<!-- intermediate DIV as direct child of LinearLayout -->
+		<div class="fill">
+			<!-- a second intermediate DIV -->
+			<div style="position: absolute; width: 100%; height: 100%">
+				<!-- Using default scrollDirection, which is "vertical" -->
+				<d-scrollable-container style="background-color: lightgreen" id="scrollContainer4"
+					class="scrollContainer">
+					<ul>
+						<li>Item 1</li>
+						<li>Item 2</li>
+						<li>Item 3</li>
+						<li>Item 4</li>
+						<li>Item 5</li>
+						<li>Item 6</li>
+						<li>Item 7</li>
+						<li>Item 8</li>
+						<li>Item 9</li>
+						<li>Item 10</li>
+						<li>Item 11</li>
+						<li>Item 12</li>
+						<li>Item 13</li>
+						<li>Item 14</li>
+						<li>Item 15</li>
+						<li>Item 16</li>
+						<li>Item 17</li>
+						<li>Item 18</li>
+						<li>Item 19</li>
+						<li>Item 20</li>
+						<li>Item 21</li>
+						<li>Item 22</li>
+						<li>Item 23</li>
+						<li>Item 24</li>
+						<li>Item 25</li>
+						<li>Item 26</li>
+						<li>Item 27</li>
+						<li>Item 28</li>
+						<li>Item 29</li>
+						<li>Item 30</li>
+						<li>Item 31</li>
+						<li>Item 32</li>
+						<li>Item 33</li>
+						<li>Item 34</li>
+						<li>Item 35</li>
+						<li>Item 36</li>
+						<li>Item 37</li>
+						<li>Item 38</li>
+						<li>Item 39</li>
+						<li>Item 40</li>
+						<li>Item 41</li>
+						<li>Item 42</li>
+						<li>Item 43</li>
+						<li>Item 44</li>
+						<li>Item 45</li>
+						<li>Item 46</li>
+						<li>Item 47</li>
+						<li>Item 48</li>
+						<li>Item 49</li>
+						<li>Item 50</li>
+						<li>Item 61</li>
+						<li>Item 62</li>
+						<li>Item 63</li>
+						<li>Item 64</li>
+						<li>Item 65</li>
+						<li>Item 66</li>
+						<li>Item 67</li>
+						<li>Item 68</li>
+						<li>Item 69</li>
+						<li>Item 70</li>
+						<li>Item 81</li>
+						<li>Item 82</li>
+						<li>Item 83</li>
+						<li>Item 84</li>
+						<li>Item 85</li>
+						<li>Item 86</li>
+						<li>Item 87</li>
+						<li>Item 88</li>
+						<li>Item 89</li>
+						<li>Item 90</li>
+						<li>Item 91</li>
+						<li>Item 92</li>
+						<li>Item 93</li>
+						<li>Item 94</li>
+						<li>Item 95</li>
+						<li>Item 96</li>
+						<li>Item 97</li>
+						<li>Item 98</li>
+						<li>Item 99</li>
+						<li>Item 100</li>
+				</ul>
+			</d-scrollable-container>
+			</div>
+		</div>
+		
+		<div style="background-color: lightblue">Footer 4</div>
+	</d-linear-layout>
+	
 </body>
 </html>
