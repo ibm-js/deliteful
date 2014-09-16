@@ -23,6 +23,15 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+			
+			scrollContainer1.on("scroll", function() {
+				console.log("scroll1");
+			}, scrollContainer1.scrollableNode);
+			
+			scrollContainer2.on("scroll", function() {
+				console.log("scroll2");
+			}, scrollContainer2.scrollableNode);
+			
 			ready = true;
 		});
 	</script>
@@ -165,7 +174,8 @@
 		<div style="background-color: lightblue">scrollDirection="vertical"</div>
 		
 		<!-- Using default scrollDirection, which is "vertical" -->
-		<d-scrollable-container style="background-color: lightgreen" class="scrollContainer" id="scrollContainer2">
+		<d-scrollable-container style="background-color: lightgreen"
+			class="scrollContainer" id="scrollContainer2">
 			<ul>
 				<li>Item 1</li>
 				<li>Item 2</li>
