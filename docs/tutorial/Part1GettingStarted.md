@@ -86,14 +86,14 @@ Congratulations! You just created and deployed your first deliteful application.
 Deliteful components are designed to run on mobile as well as desktop. You can run the application on a mobile
 device, for this you just have to add some directives at the top of `index.html`:
 
-````
+```html
 <head>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    ....
+    ...
 </head>
-````
+```
 
 ##Run the Demo
 
