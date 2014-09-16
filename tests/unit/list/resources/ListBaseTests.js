@@ -76,6 +76,14 @@ define([
 					list.scrollDirection = "none";
 					assert.strictEqual(list.className, "d-list");
 				},
+				"getItemRenderers": function () {
+					var list = this.parent.list;
+					var nodeList = list.getItemRenderers();
+					assert.strictEqual(nodeList.length, 3);
+					assert.strictEqual(nodeList.item(0), list.scrollableNode.children[0]);
+					assert.strictEqual(nodeList.item(1), list.scrollableNode.children[1]);
+					assert.strictEqual(nodeList.item(2), list.scrollableNode.children[2]);
+				},
 				"getRendererByItemId": function () {
 					var list = this.parent.list;
 					var children = list.scrollableNode.children;
