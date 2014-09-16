@@ -14,6 +14,7 @@ layout: doc
 * [StarRating](StarRating.md)
 * [Switch](Switch.md)
 * [Toaster](Toaster.md)
+* [ToggleButton](ToggleButton.md)
 
 ## List
 
