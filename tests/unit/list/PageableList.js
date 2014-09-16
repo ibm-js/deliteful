@@ -1226,6 +1226,23 @@ define([
 			}), 10);
 			return def;
 		},
+		"getItemRendererByIndex ignores page loaders": function () {
+			var dfd = this.async(3000);
+			list = new PageableList();
+			for (var i = 0; i < 100; i++) {
+				list.store.add({label: "item " + i});
+			}
+			list.pageLength = 10;
+			list.maxPages = 1;
+			document.body.appendChild(list);
+			list.startup();
+			clickNextPageLoader(list).then(dfd.callback(function () {
+				list.deliver();
+				assert.strictEqual("item 10",
+						removeTabsAndReturns(list.getItemRendererByIndex(0).textContent));
+			}));
+			return dfd;
+		},
 		///////////////////////////////////////////
 		// TODO: TEST MOVING ITEMS ?
 		///////////////////////////////////////////

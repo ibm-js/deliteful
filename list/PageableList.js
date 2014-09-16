@@ -769,7 +769,7 @@ define([
 			};
 		}),
 		
-		_handleSelection: dcl.superCall(function (sup) {
+		handleSelection: dcl.superCall(function (sup) {
 			// page loader should never be selected when clicked
 			return function (event) {
 				var renderer = this.getEnclosingRenderer(event.target);
