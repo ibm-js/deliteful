@@ -14,6 +14,7 @@ layout: doc
 * [StarRating](StarRating.html)
 * [Switch](Switch.html)
 * [Toaster](Toaster.html)
+* [ToggleButton](ToggleButton.html)
 
 ## List
 
