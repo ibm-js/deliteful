@@ -11,7 +11,7 @@ application. Let's now go through the application source to get familiar with so
 
 Let's first have a look at the HTML markup of our application.
 
-````
+```html
 	<!-- left menu side pane -->
 	<d-side-pane mode="push" position="start" id="leftPane">
 	...
@@ -20,7 +20,7 @@ Let's first have a look at the HTML markup of our application.
 	<d-linear-layout class="page width100 height100">
 	...
 	</d-linear-layout>
-````
+```
 
 The body contains two toplevel elements: `<d-side-pane>` and `<d-linear-layout>`. These are custom HTML elements
 defined by deliteful (all deliteful components have a `d-` prefix).
@@ -28,7 +28,7 @@ defined by deliteful (all deliteful components have a `d-` prefix).
 Let's start with the second element. The `<d-linear-layout>` component is a container that stacks other elements
  vertically or horizontally. It is used here to build the main page of the application.
 
-````
+```html
 	<!-- page content -->
 	<d-linear-layout class="page width100 height100">
 		<!-- page content header -->
@@ -53,7 +53,7 @@ Let's start with the second element. The `<d-linear-layout>` component is a cont
 			</div>
 		</d-view-stack>
 	</d-linear-layout>
-````
+```
 
 Note the `width100` and `height100` CSS classes on the toplevel `d-linear-layout`,
 they indicate that it should fill the whole width and height of the page.
@@ -79,7 +79,7 @@ The `d-side-pane` contains elements with a similar structure as the main view, w
 containing a header (a nested `d-linear-layout`), but below the header we now have a deliteful `d-list`  element. The
  `d-list` is an important deliteful component that displays a list of items.
 
-````
+```html
 	<d-side-pane mode="push" position="start" id="leftPane">
 		<d-linear-layout class="height100">
 			<!-- left menu header -->
@@ -97,7 +97,7 @@ containing a header (a nested `d-linear-layout`), but below the header we now ha
 			</d-list>
 		</d-linear-layout>
 	</d-side-pane>
-````
+```
 
 Note the `on-selection-change="vs.show(event.newValue.id)"` attribute on the `d-list`. It adds a event listener so
 that when an element is selected in the list, one of the children of the `d-view-stack` in the main view is shown:
@@ -111,30 +111,28 @@ As usual when creating web applications, the CSS part is also very important, so
 
 Note in particular that all deliteful components have a CSS class with the same name as their HTML tag, for example:
 
-````
+```css
 .d-side-pane {
 	border-right: 1px solid #357ebd;
 }
-````
+```
 
 ## JavaScript
 
 The default application contains some JavaScript code that you can often reuse to get started.
 
-````
-		<script>
-			require.config({
-				baseUrl: "bower_components"
-			});
-			require(["delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
-					"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
-					"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
-				register.parse();
-				document.body.style.display = "";
-				list.selectedItem = list.store.get("first");
-			});
-		</script>
-````
+```js
+		require.config({
+			baseUrl: "bower_components"
+		});
+		require(["delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
+				"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
+				"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
+			register.parse();
+			document.body.style.display = "";
+			list.selectedItem = list.store.get("first");
+		});
+```
 
 The `require.config` calls tells the browsers where to find the various delite, deliteful and other libraries.
 
