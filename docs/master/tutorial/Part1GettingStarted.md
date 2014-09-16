@@ -20,11 +20,11 @@ you can just get the tutorial application from the `ibm-js/deliteful-tutorial` g
 You can clone it to your machine and look at the code for each part of the tutorial. The different parts can be
 fetched using tags (`part1`, etc). To get the code for this first part, run this in a shell script:
 
-````
+```
 $ git clone https://github.com/ibm-js/deliteful-tutorial
 $ cd deliteful-tutorial
 $ git checkout part1
-````
+```
 
 ##Installing Tools
 
@@ -39,27 +39,27 @@ All tools are JavaScript-based and run on top of Node.js, that you can install f
 [Yeoman](http://yeoman.io) is the tool that we will use to generate a basic skeleton for our application.
 To install yeoman, run this in a shell window:
 
-````
+```
 $ npm install -g yo
 $ npm install -g generator-deliteful-app
-````
+```
 
 ##Creating the Application Skeleton
 
 Create a directory of your choice, then run yeoman in it:
 
-````
+```
 $ mkdir gettingstarted
 $ cd gettingstarted
 $ yo deliteful-app
-````
+```
 
 Yeoman will ask you the name of your application, type `deliteful-tutorial` since this is what we will use throughout
  this tutorial.
 
-````
+```
 [?] What is the name of your deliteful application package? deliteful-tutorial
-````
+```
 
 ##Deploying the Application on a Web Server
 
@@ -69,10 +69,10 @@ If you already have a web server setup and you are familiar with deploying appli
 
 Otherwise, a very easy way to deploy the application is to use the `local-web-server` npm package:
 
-````
+```
 $ npm install -g local-web-server
 $ ws
-````
+```
 
 Now point your web browser to `http://localhost:8000`. You should see the application skeleton created by the Yeoman
 generator:
@@ -86,14 +86,14 @@ Congratulations! You just created and deployed your first deliteful application.
 Deliteful components are designed to run on mobile as well as desktop. You can run the application on a mobile
 device, for this you just have to add some directives at the top of `index.html`:
 
-````
+```html
 <head>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    ....
+    ...
 </head>
-````
+```
 
 ##Run the Demo
 

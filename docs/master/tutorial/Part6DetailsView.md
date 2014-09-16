@@ -13,9 +13,9 @@ We will now add a second view that shows the details of a photo.
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part6` tag now:
 
-````
+```
 $ git checkout part6
-````
+```
 
 ##Markup and CSS
 
@@ -23,7 +23,7 @@ As we have seen [previously](ListView.html) or main view is made of a toplevel `
 contains only one view (the list view). The new details view will be added to this view stack,
 so it can replace completely the list view:
 
-````
+```html
 <!-- page content -->
 <d-view-stack class="width100 height100" id="vs">
 	<d-linear-layout id="listView">
@@ -42,25 +42,25 @@ so it can replace completely the list view:
         <div id="photoDetails" class="fill"></div>
     </d-linear-layout>
 </d-view-stack>
-````
+```
 
 The details view contains a header (implemented using a `d-linear-layout`, we are familiar with this already),
 and a simple `div` that will contain the photo details.
 
 Let's also add a little rule in `css/app.css` to set a margin on the details div and allow vertical scrolling on it:
 
-````
+```css
 #photoDetails {
     margin: 9px;
     overflow-y: auto;
 }
-````
+```
 
 ##JavaScript
 
 Add this code to `js/app.js`:
 
-````
+```js
 	photolist.on("click", function (event) {
 		var renderer = photolist.getEnclosingRenderer(event.target);
 		if (renderer && renderer.item) {
@@ -69,7 +69,7 @@ Add this code to `js/app.js`:
 			vs.show(detailsView);
 		}
 	});
-````
+```
 
 This code adds a `click` event handler to the list. The handler first finds which item was clicked (using the
 `getEnclosingRenderer` method of the list) and accesses its data `item` (that is, the JavaScript object returned by
@@ -85,9 +85,9 @@ slide transition, so that's OK for us.
 We also want to be able to go back from the details view to the list view, and we added a Back button in the header
 for this. let's just add an event handler in the markup to do this:
 
-````
+```html
     <button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
-````
+```
 
 You can try that new feature and click on an item to see the details view:
 

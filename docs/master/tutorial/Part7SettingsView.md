@@ -15,16 +15,16 @@ Our settings view is shown and hidden by clicking the Settings button in the hea
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part7` tag now:
 
-````
+```
 $ git checkout part7
-````
+```
 
 ##Markup and CSS
 
 Our app already contains a `d-side-pane`, and it is a good fit to implement a settings view. Let's just modify its
 contents:
 
-````
+```html
 <!-- left pane (Settings) -->
 <d-side-pane mode="push" position="start" id="leftPane">
     <d-linear-layout class="height100">
@@ -45,11 +45,11 @@ contents:
         </d-linear-layout>
     </d-linear-layout>
 </d-side-pane>
-````
+```
 
 Add this to `css/app.css` to style the side pane and its elements:
 
-````
+```css
 .d-side-pane {
     border-right: 1px solid #357ebd;
 }
@@ -70,25 +70,25 @@ Add this to `css/app.css` to style the side pane and its elements:
     align-self: flex-start;
     margin: 6px;
 }
-````
+```
 
 ##JavaScript Code
 
 We added new elements that we did not use before in our settings view so let's first add these new AMD modules to the
 require list:
 
-````
+```js
 require([
 	..., "deliteful/Select", "deliteful/Switch", ...
 ], ...
-````
+```
 
 (We don't need to add corresponding argument to the require callback since we don't explicitly use these modules in
 our code, we just need to have them loaded so that the delite parser can initialize them.)
 
 Here is now the code to add to initialize the settings view and handle changes in it:
 
-````
+```js
 	// Initial settings
 	var settings = {
 		tags: "famous,bridges",
@@ -135,7 +135,7 @@ Here is now the code to add to initialize the settings view and handle changes i
 		settings.language = languageSelect.value;
 		refreshPhotoList();
 	};
-````
+```
 
 We define a `settings` object that contains our options. We then initialize the widgets of the settings view with
 these settings. Finally, we create the callback functions that will be called when a widget value is changed by the
@@ -144,7 +144,7 @@ user. The callback functions update the settings in memory based on the new widg
 OK, we can now modifiy slightly our existing code to use the settings properties instead of the hardcoded values that
  we had so far:
 
-````
+```js
     ...
 	refreshPhotoList = function () {
 		...
@@ -162,7 +162,7 @@ OK, we can now modifiy slightly our existing code to use the settings properties
 				...
 		}
 	...
-````
+```
 
 Our settings view should work now! Try it out: click the Settings button, change the "bridges" tag to "landscapes" for
 example, and change the language to French:
