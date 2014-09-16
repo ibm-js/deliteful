@@ -138,28 +138,18 @@ define(["dcl/dcl",
 						this._timing = this._transitionTiming[o];
 					}
 				}
-				if (typeof MutationObserver !== "undefined") {
-					new MutationObserver(this._setChildrenVisibility.bind(this)).observe(this, {childList: true});
-				}
-				else {
-					this._setupContainerMethods();
-				}
 			},
 
-			_setupContainerMethods: function () {
-				var superAppendChild = this.appendChild;
-				this.appendChild = function (newChild) {
-					var res = superAppendChild.apply(this, [newChild]);
+			/*
+			 * @private
+			 */
+			onAddChild: dcl.superCall(function (sup) {
+				return function (node) {
+					var res = sup.call(this, node);
 					this._setChildrenVisibility();
 					return res;
 				};
-				var superInsertBefore = this.insertBefore;
-				this.insertBefore = function (newChild, refChild) {
-					var res = superInsertBefore.apply(this, [newChild, refChild]);
-					this._setChildrenVisibility();
-					return res;
-				};
-			},
+			}),
 
 			buildRendering: function () {
 				this._setChildrenVisibility();
