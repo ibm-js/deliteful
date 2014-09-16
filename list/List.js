@@ -391,7 +391,8 @@ define([
 		},
 
 		/**
-		 *	Returns the renderer currently displaying an item with a specific id.
+		 *	Returns the renderer currently displaying an item with a specific id, or
+		 * null if there is no renderer displaying an item with this id.
 		 * @param {Object} id The id of the item displayed by the renderer.
 		 * @returns {module:deliteful/list/Renderer}
 		 */
@@ -407,7 +408,8 @@ define([
 		},
 
 		/**
-		 * Returns the item renderer at a specific index in the List.
+		 * Returns the item renderer at a specific index in the List, or null if there is no
+		 * renderer at this index.
 		 * @param {number} index The item renderer at the index (first item renderer index is 0).
 		 * @returns {module:deliteful/list/ItemRenderer}
 		 */
@@ -438,7 +440,8 @@ define([
 		},
 
 		/**
-		 * Returns the renderer enclosing a dom node.
+		 * Returns the renderer enclosing a dom node, or null
+		 * if there is none.
 		 * @param {Element} node The dom node.
 		 * @returns {module:deliteful/list/Renderer}
 		 */
