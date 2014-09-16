@@ -383,12 +383,20 @@ define([
 		//////////// Public methods ///////////////////////////////////////
 
 		/**
+		 * Returns the item renderers displayed by the list.
+		 * @returns {NodeList}
+		 */
+		getItemRenderers: function () {
+			return this.scrollableNode.querySelectorAll("." + this._cssClasses.item);
+		},
+
+		/**
 		 *	Returns the renderer currently displaying an item with a specific id.
 		 * @param {Object} id The id of the item displayed by the renderer.
 		 * @returns {module:deliteful/list/Renderer}
 		 */
 		getRendererByItemId: function (id) {
-			var renderers = this.scrollableNode.querySelectorAll("." + this._cssClasses.item);
+			var renderers = this.getItemRenderers();
 			for (var i = 0; i < renderers.length; i++) {
 				var renderer = renderers.item(i);
 				if (this.getIdentity(renderer.item) === id) {
@@ -404,7 +412,7 @@ define([
 		 * @returns {module:deliteful/list/ItemRenderer}
 		 */
 		getItemRendererByIndex: function (index) {
-			return index >= 0 ? this.scrollableNode.querySelectorAll("." + this._cssClasses.item).item(index) : null;
+			return index >= 0 ? this.getItemRenderers().item(index) : null;
 		},
 
 		/**
@@ -417,7 +425,7 @@ define([
 			var result = -1;
 			if (renderer.item) {
 				var id = this.getIdentity(renderer.item);
-				var nodeList = this.scrollableNode.querySelectorAll("." + this._cssClasses.item);
+				var nodeList = this.getItemRenderers();
 				for (var i = 0; i < nodeList.length; i++) {
 					var currentRenderer = nodeList.item(i);
 					if (this.getIdentity(currentRenderer.item) === id) {
@@ -530,7 +538,7 @@ define([
 				for (i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "gridcell");
 				}
-				nodes = this.querySelectorAll(".d-list-item");
+				nodes = this.getItemRenderers();
 				for (i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "row");
 				}
