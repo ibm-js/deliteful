@@ -177,6 +177,6 @@ Click here to see the live demo:
 ##Congratulations!
 
 You have now completed this deliteful tutorial. More documentation and examples are available on the
-[deliteful web site](http://ibm-js.github.io/deliteful/index.htm).
+[deliteful web site](http://ibm-js.github.io/deliteful/index.html).
 
 [Previous Step - Adding a Details View](Part6DetailsView.md)
