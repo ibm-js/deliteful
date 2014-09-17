@@ -103,7 +103,7 @@
 </head>
 <body>
 	<d-linear-layout class="container1">
-		<div style="background-color: lightblue">scrollDirection="both"</div>
+		<div style="background-color: lightblue">direct child, dir: H+V</div>
 
 		<d-scrollable-container scrollDirection="both" id="scrollContainer1"
 			style="background-color: lightgreen" class="fill scrollContainer">
@@ -195,7 +195,7 @@
 	</d-linear-layout>
 	
 	<d-linear-layout class="container2">
-		<div style="background-color: lightblue">scrollDirection="vertical"</div>
+		<div style="background-color: lightblue">direct child, dir: V</div>
 		
 		<!-- Using default scrollDirection, which is "vertical" -->
 		<d-scrollable-container style="background-color: lightgreen" id="scrollContainer2"
@@ -290,7 +290,7 @@
 	<br/>
 	
 	<d-linear-layout class="container3">
-		<div style="background-color: lightblue">scrollDirection="vertical"</div>
+		<div style="background-color: lightblue">subchild, dir: V</div>
 		
 		<!-- intermediate DIV as direct child of LinearLayout -->
 		<div class="fill">
@@ -386,7 +386,7 @@
 	</d-linear-layout>
 	
 	<d-linear-layout class="container4">
-		<div style="background-color: lightblue">scrollDirection="vertical"</div>
+		<div style="background-color: lightblue">sub-subchild, dir: V</div>
 		
 		<!-- intermediate DIV as direct child of LinearLayout -->
 		<div class="fill">
