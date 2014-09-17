@@ -19,7 +19,7 @@ $ git checkout part6
 
 ##Markup and CSS
 
-As we have seen [previously](ListView.md) or main view is made of a toplevel `d-view-stack` component which, so far,
+As we have seen [previously](Part4ListView.md) or main view is made of a toplevel `d-view-stack` component which, so far,
 contains only one view (the list view). The new details view will be added to this view stack,
 so it can replace completely the list view:
 
