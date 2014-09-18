@@ -146,7 +146,7 @@ define([
 		 * Indicates whether the list has a WAI-ARIA role of `listbox` or its default WAI-ARIA role of `grid`.
 		 * If this indicator is set to `true`:
 		 * * The WAI-ARIA role of the list is set to `listbox`;
-		 * * The `sectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
+		 * * The `selectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
 		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
 		 * @member {boolean}
 		 * @default false
