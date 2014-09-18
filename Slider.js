@@ -21,11 +21,9 @@ define([
 	}
 
 	/**
-	 * @summary
 	 * The Slider widget allows selecting one value or a pair of values, from a range delimited by a minimum (min) and
 	 * a maximum (max).
 	 *
-	 * @description
 	 * The selected value depends on the position of the handle and the step, which specifies the value granularity.
 	 * Slider can be vertical or horizontal. The position of the minimum and maximum depends on the text direction,
 	 * and can be forced using the flip property. Handles can be move using pointers (mouse, touch) or keys
@@ -154,16 +152,6 @@ define([
 					this.valueNode = this.querySelector("input") || this.ownerDocument.createElement("input");
 					sup.call(this);
 					this.appendChild(this.valueNode);
-
-					var n = this.firstChild;
-					while (n) {
-						var next = n.nextSibling;
-						if (n !== this.valueNode && n !== this.containerNode) {
-							// move all extra markup nodes to the containerNode for relative sizing and placement
-							this.containerNode.insertBefore(n, this.progressBar);
-						}
-						n = next;
-					}
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = "handleMin,focusNode";
