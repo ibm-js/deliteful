@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport"
-		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Navigation between views using lists</title>
 
@@ -28,9 +28,10 @@
 			});
 			require([
 				"dojo/keys",
-			    "deliteful/list/List",
+				"deliteful/list/List",
 				"requirejs-domready/domReady!"], function (keys) {
 				register.parse();
+				
 				var actionHandler = function(event, list) {
 					var renderer = list.getEnclosingRenderer(event.target);
 					if (renderer && renderer.item.moveto) {
@@ -90,17 +91,18 @@
 	</style>
 </head>
 <body role="application">
-<d-view-stack id="viewStack">
+<d-view-stack id="viewStack" style="height: 100%">
 	<div id="view1">
 		<h1>List 1</h1>
- 		<d-list id="list1" arial-label="navigation list 1" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 		<d-list id="list1" arial-label="navigation list 1"
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
-				{"label": "To list 4", "righticonclass": "rightIcon"},
-				{"label": "To list 5", "righticonclass": "rightIcon"},
-				{"label": "To list 6", "righticonclass": "rightIcon"},
-				{"label": "To list 7", "righticonclass": "rightIcon"}
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
 	</div>
@@ -110,10 +112,10 @@
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
-				{"label": "To list 4", "righticonclass": "rightIcon"},
-				{"label": "To list 5", "righticonclass": "rightIcon"},
-				{"label": "To list 6", "righticonclass": "rightIcon"},
-				{"label": "To list 7", "righticonclass": "rightIcon"}
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
 	</div>
@@ -123,10 +125,66 @@
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
-				{"label": "To list 4", "righticonclass": "rightIcon"},
-				{"label": "To list 5", "righticonclass": "rightIcon"},
-				{"label": "To list 6", "righticonclass": "rightIcon"},
-				{"label": "To list 7", "righticonclass": "rightIcon"}
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view4">
+		<h1>List 4</h1>
+ 		<d-list id="list4" arial-label="navigation list 4"
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view5">
+		<h1>List 5</h1>
+ 		<d-list id="list5" arial-label="navigation list 5"
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view6">
+		<h1>List 6</h1>
+ 		<d-list id="list6" arial-label="navigation list 6"
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
+			</d-list-store>
+		</d-list>
+	</div>
+	<div id="view7">
+		<h1>List 7</h1>
+ 		<d-list id="list7" arial-label="navigation list 7"
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+			<d-list-store>
+				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
+				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
+				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
+				{"label": "To list 4", "righticonclass": "rightIcon", "moveTo": "view4"},
+				{"label": "To list 5", "righticonclass": "rightIcon", "moveTo": "view5"},
+				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"}
 			</d-list-store>
 		</d-list>
 	</div>
