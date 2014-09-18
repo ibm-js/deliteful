@@ -70,5 +70,6 @@ define({
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
 	excludeInstrumentation:
-		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions)/
+		/*jshint -W101*/
+		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
 });
