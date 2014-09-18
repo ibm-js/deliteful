@@ -124,7 +124,7 @@ paste it in the new `app.js` file, removing things that we don't need: the `"del
 			require.config({
 				baseUrl: "bower_components"
 			});
-			require(["delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
+			require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 					"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
 					"deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
 				register.parse();

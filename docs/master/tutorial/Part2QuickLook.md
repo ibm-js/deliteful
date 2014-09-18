@@ -125,7 +125,7 @@ The default application contains some JavaScript code that you can often reuse t
 		require.config({
 			baseUrl: "bower_components"
 		});
-		require(["delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
+		require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 				"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
 				"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
 			register.parse();

@@ -26,10 +26,10 @@ Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 ```js
 	photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
 		template: handlebars.compile("<template>" + "<div attach-point='renderNode'>" +
-			"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{{item.media.m}}'>" + "</div>" +
-			"<div class='photoSummary'>" + "<div class='photoTitle'>{{item.title}}</div>" +
-			"<div class='publishedTime'>{{item.published}}</div>" +
-			"<div class='author'>{{item.author}}</div>" + "</div>" + "</div>" + "</template>")
+			"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" + "</div>" +
+			"<div class='photoSummary'>" + "<div class='photoTitle'>{%raw%}{{item.title}}{%endraw%}</div>" +
+			"<div class='publishedTime'>{%raw%}{{item.published}}{%endraw%}</div>" +
+			"<div class='author'>{%raw%}{{item.author}}{%endraw%}</div>" + "</div>" + "</div>" + "</template>")
 	});
 ```
 
@@ -37,7 +37,7 @@ This needs some explanations. The `itemRenderer` property of the deliteful List 
  subclass of `deliteful/list/ItemRenderer`. For each element of the data store, an instance of the renderer class
  will be created. The DOM contents of each item is defined by the `template` property,
  which is parsed and processed by the [handlebars](http://ibm-js.github.io/delite/docs/master/handlebars.html)
- module. The template can contain bindings: for example, `{{item.title}}` will be replaced by the value of the `title`
+ module. The template can contain bindings: for example, `{%raw%}{{item.title}}{%endraw%}` will be replaced by the value of the `title`
  property of each data item of the store.
 
 In the added code we use two new AMD modules: `"deliteful/list/ItemRenderer"` (the base class of our
@@ -156,15 +156,15 @@ require([
 (Note we also added a `config` object to the `require.config` call to say which locales we are using,
 `"en-us"` for now)
 
-Now let's modify the template to use the `formatDate` function, for this we replace the `{{item.published}}` binding
+Now let's modify the template to use the `formatDate` function, for this we replace the `{%raw%}{{item.published}}{%endraw%}` binding
 by an expression:
 
 ```js
-			"<div class='publishedTime'>{{this.formatDate(this.item.published)}}</div>" +
+			"<div class='publishedTime'>{%raw%}{{this.formatDate(this.item.published)}}{%endraw%}</div>" +
 ```
 
 (Note that, in binding expressions, `this` refers to the item renderer instance, and `this.item` is the data item
-that the renderer represents. If you use a simple binding like `{{item.published}}`, you may omit the `this.` prefix,
+that the renderer represents. If you use a simple binding like `{%raw%}{{item.published}}{%endraw%}`, you may omit the `this.` prefix,
  it is implicit).
 
 OK, now our dates are formatted more cleanly:
