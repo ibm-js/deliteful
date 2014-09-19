@@ -9,7 +9,7 @@ We will now begin to create our [Flickr photo feed viewer application](Part3Phot
 It is time to open your favorite editor or IDE and load the `index.html` file of the application in it.
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
-switch to the `part4` tag now:
+switch to the `part4` branch now:
 
 ```
 $ git checkout part4
@@ -62,6 +62,12 @@ remove all the existing content and add these rules to define the look of our ne
 }
 .d-button {
     border-radius: 0;
+}
+.width100 {
+    width: 100%;
+}
+.height100 {
+    height: 100%;
 }
 ```
 

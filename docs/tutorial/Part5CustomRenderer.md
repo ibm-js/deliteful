@@ -10,7 +10,7 @@ We will now refine it to display more information for each photo. Remember, we w
 ![Photo List Item](images/itemsketch.png)
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
-switch to the `part5` tag now:
+switch to the `part5` branch now:
 
 ```
 $ git checkout part5
