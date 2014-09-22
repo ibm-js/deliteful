@@ -63,8 +63,6 @@ require(["deliteful/LinearLayout", "requirejs-domready/domReady!"], function (Li
 
 The layout direction is controlled by the `vertical` property which is `true` by default.
 
-In addition to the `fill` CSS class, this element provides two utility CSS classes: `width100` and `height100` that respectively set width and height to 100%.
-
 The *main* direction of a LinearLayout is controlled by the ``vertical`` property which is true by default.
 The direction perpendicular to the *main* axis is called the *cross* direction. For example, if the *main* direction is vertical, *the cross* direction is horizontal.
 

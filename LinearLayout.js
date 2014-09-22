@@ -12,8 +12,6 @@ define([
 	 * Child elements in a LinearLayout container can be laid out horizontally or vertically.
 	 * A child can have a flexible width or height depending on orientation.
 	 * To enable flexibility of a child, add the CSS class "fill" on it.
-	 * This widget also provides two utility CSS classes: width100 and height100.
-	 * These classes are useful for setting width or height to 100% easily.
 	 * @example
 	 * <d-linear-layout>
 	 *   <div>...</div>
