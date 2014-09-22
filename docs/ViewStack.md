@@ -109,7 +109,7 @@ Default values are `{transition: "slide", reverse: false}`.
 `deliteful/ViewStack` has no visual appearance, it does not provide any CSS class for styling.
 
 The default height of a `deliteful/ViewStack` is ``100%``. As a consequence, you must ensure that the height of every parent is defined (this includes \<body> and \<html>). You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
-You can set height of \<body> and \<html> to 100% by including `delite/themes/defaultapp.css`. 
+You can set height of \<body> and \<html> to 100% by including [`defaultapp.css`](/delite/docs/master/defaultapp.md) 
 
 The `position` CSS attribute of this element must be set to `absolute` or `relative` (default).
 
