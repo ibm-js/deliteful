@@ -151,7 +151,7 @@ define(["dcl/dcl",
 				};
 			}),
 
-			buildRendering: function () {
+			postCreate: function () {
 				this._setChildrenVisibility();
 			},
 
