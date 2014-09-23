@@ -188,6 +188,34 @@ define([
 			}));
 			node.selectedChildId = "ccc";
 		},
+		"Promise resolution: default": function () {
+			var d = this.async(1000);
+			node.show("aaa").then(d.callback(function () {
+				checkNodeVisibility(node, aaa);
+			}));
+		},
+		"Promise resolution: invisible ViewStack": function () {
+			var d = this.async(1000);
+			node.style.display = "none";
+			node.show("bbb").then(d.callback(function () {
+				checkNodeVisibility(node, bbb);
+			}));
+		},
+		"Promise resolution: no transition": function () {
+			var d = this.async(1000);
+			node.show("ccc", {transition: "none"}).then(d.callback(function () {
+				checkNodeVisibility(node, ccc);
+			}));
+		},
+		"Promise resolution: invisible ViewStack, no transition": function () {
+			var d = this.async(1000);
+			// Test also if invisible because of its parent
+			node.parentNode.style.display = "none";
+			node.show("ddd", {transition: "none"}).then(d.callback(function () {
+				checkNodeVisibility(node, ddd);
+			}));
+		},
+
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		},

@@ -246,12 +246,26 @@ define(["dcl/dcl",
 			 * @param {dest} Widget or HTMLElement or id that points to the child this container must display.
 			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
 			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
-			 * "reveal".
+			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
 			 * @returns {module:dojo/promise/Promise} A promise that will be resolved when the display and
 			 * transition effect will have been performed.
 			 */
 			show: dcl.superCall(function (sup) {
 				return function (dest, params) {
+					// Check visibility of the ViewStack, forces transition:"none" if not visible.
+					//  - Transitions events are broken if the ViewStack is not visible
+
+					var parent = this;
+					while (parent && parent.style.display  !== "none" && parent !== this.ownerDocument.body) {
+						parent = parent.parentNode;
+					}
+					if (parent !== this.ownerDocument.body) {
+						if (! params) {
+							params = {};
+						}
+						params.transition = "none";
+					}
+
 					if (this._visibleChild && this._visibleChild.parentNode !== this) {
 						// The visible child has been removed.
 						this._visibleChild = null;
