@@ -40,7 +40,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 Check the following jsfiddle example:
 <iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/p22Lj0fn/embedded/result,html,css,js" 
-allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/p22Lj0fn/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
