@@ -8,8 +8,8 @@ define(["dcl/dcl",
 	"delite/Widget",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
-	"delite/css!./ViewStack/transitions/slide.css",
-	"delite/css!./ViewStack/transitions/reveal.css"],
+	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
+	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"],
 	function (dcl, has, on, Deferred, domClass, register, Widget, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {

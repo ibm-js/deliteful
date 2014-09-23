@@ -69,12 +69,12 @@ The ViewStack container include by default 2 transition types: "slide" and "reve
 Example: Load all additional transition types
 
 ```js
-require(["delite/css!deliteful/ViewStack/transitions/cover.css",
-"delite/css!deliteful/ViewStack/transitions/coverv.css",
-"delite/css!deliteful/ViewStack/transitions/fade.css",
-"delite/css!deliteful/ViewStack/transitions/flip.css",
-"delite/css!deliteful/ViewStack/transitions/slidev.css",
-"delite/css!deliteful/ViewStack/transitions/revealv.css"],...);
+require(["requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"],...);
 ```
 
 <a name="configuration"></a>
