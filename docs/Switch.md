@@ -112,7 +112,7 @@ A Switch widget does not define any specific height by default but strech accord
 
 The following example shows how to override these classes to change the appearance of the switch:
 <iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/56evcgma/embedded/result,html,css,js" 
-allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/56evcgma/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="events"></a>
