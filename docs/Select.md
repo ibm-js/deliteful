@@ -37,7 +37,7 @@ Using the default store:
 require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
-    select1.store.addSync({text: "Option 1", value: "1"});
+    select1.store.add({text: "Option 1", value: "1"});
     ...
 });
 ```
@@ -62,7 +62,7 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     register.parse();
     var store = new (Memory.createSubclass(Trackable))({});
     select1.store = store;
-    store.addSync({text: "Option 1", value: "1"});
+    store.add({text: "Option 1", value: "1"});
     ...
 });
 ```
@@ -91,7 +91,7 @@ require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
     select.startup(); // must be called before using select.store
     
     // add options to the Select widget
-    select.store.addSync({text: "Option 1", value: "1"});
+    select.store.add({text: "Option 1", value: "1"});
 });
 ```
 
@@ -112,7 +112,7 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     var store = new (Memory.createSubclass(Trackable))({});
     select.store = store;
     // add options to the Select widget
-    store.addSync({text: "Option 1", value: "1"});
+    store.add({text: "Option 1", value: "1"});
     ...
     select.placeAt(document.body);
     select.startup();
@@ -143,6 +143,31 @@ the mapping between the attributes of the store items and the attributes used by
 can be redefined. 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more information 
 about all the available mapping options.
+
+<a name="styling"></a>
+## Element Styling
+
+### Supported themes
+
+This widget provides default styling for the following delite theme:
+
+* bootstrap
+
+### CSS Classes
+
+CSS classes are bound to the structure of the widget declared in its template `deliteful/Select/Select.html`.
+The following table lists the CSS classes that can be used to style the Select widget.
+
+|class name/selector|applies to|
+|----------|----------|
+|d-select|Select widget node
+|d-select-inner|The inner native HTML select node
+
+In addition, the following class is used in combination with the classes above:
+
+|class name/selector|applies to|
+|----------|----------|
+|d-select-focus|Select widget in focus state
 
 
 <a name="enterprise"></a>
