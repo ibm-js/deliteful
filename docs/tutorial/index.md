@@ -11,3 +11,4 @@ The deliteful tutorial guides you, step by step, to build a photo feed viewer ba
 * [Part 5 - Enhancing the List View](Part5CustomRenderer.md)
 * [Part 6 - Adding a Details View](Part6DetailsView.md)
 * [Part 7 - The Settings View](Part7SettingsView.md)
+* [Part 8 - Building the Application for Production](Part8Build.md)

@@ -122,14 +122,11 @@ for more details on why this is needed)
 It is now time to write some JavaScript code. The default app contains a `<script>` tag with inline code,
 but a better practice is to put code in a separate file.
 
-Create the `js` directory, create an `app.js` file. Copy the existing code from index.html,
-paste it in the new `app.js` file, removing things that we don't need: the `"deliteful/StarRating"` and
+Create the `js` directory, create an `app.js` file. Copy the existing code from index.html (except the `require
+.config` call), paste it in the new `app.js` file, removing things that we don't need: the `"deliteful/StarRating"` and
 `"deliteful/ProgressBar"` requires and the last instruction:
 
 ```js
-			require.config({
-				baseUrl: "bower_components"
-			});
 			require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 					"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
 					"deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
@@ -139,11 +136,17 @@ paste it in the new `app.js` file, removing things that we don't need: the `"del
 			});
 ```
 
-Then remove the existing code in `index.html` and load the new `.js` file instead:
+In `index.html`, remove the code that you just copied, just keep the `require.config` call,
+and add a new `<script>` tag to load `js/app.js`:
 
 ```html
 <head>
     ...
+    <script>
+        require.config({
+            baseUrl: "bower_components"
+        });
+    </script>
     <script src="js/app.js"></script>
 </head>
 ```

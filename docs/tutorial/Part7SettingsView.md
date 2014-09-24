@@ -164,6 +164,18 @@ OK, we can now modifiy slightly our existing code to use the settings properties
 	...
 ```
 
+One last change: now that we can format dates in several locales, we have to change our configuration
+ so that these locales are loaded. For this, we add the possible locales in the `require.config` call in `index.html`:
+
+```js
+require.config({
+	...,
+	config: {
+		"ecma402/locales": ["en-us", "fr-fr", "de-de", "it-it", "ko-kr", "pt-br", "es-us", "zh-hk"]
+	}
+});
+```
+
 Our settings view should work now! Try it out: click the Settings button, change the "bridges" tag to "landscapes" for
 example, and change the language to French:
 
@@ -176,7 +188,9 @@ Click here to see the live demo:
 
 ##Congratulations!
 
-You have now completed this deliteful tutorial. More documentation and examples are available on the
-[deliteful web site](http://ibm-js.github.io/deliteful/index.html).
+Our app is now fully functional. In the [next step](Part8Build.md) we will learn how to build it to reduce its
+load time.
 
 [Previous Step - Adding a Details View](Part6DetailsView.md)
+
+[Next Step - Building the Application for Production](Part8Build.md)
