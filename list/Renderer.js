@@ -61,7 +61,7 @@ define([
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getFirst: function () {
+		getFirst: function () {
 			if (this._focusableChildren && this._focusableChildren.length) {
 				return this._focusableChildren[0];
 			} else {
@@ -74,7 +74,7 @@ define([
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getLast: function () {
+		getLast: function () {
 			if (this._focusableChildren && this._focusableChildren.length) {
 				return this._focusableChildren[this._focusableChildren.length - 1];
 			} else {
@@ -88,8 +88,8 @@ define([
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getNext: function (child) {
-			return this._getNextFocusableChild(child, 1);
+		getNext: function (child) {
+			return this.getNextFocusableChild(child, 1);
 		},
 
 		/**
@@ -98,8 +98,8 @@ define([
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getPrev: function (child) {
-			return this._getNextFocusableChild(child, -1);
+		getPrev: function (child) {
+			return this.getNextFocusableChild(child, -1);
 		},
 
 		/**
@@ -147,7 +147,7 @@ define([
 		 * @returns {Element} The next focusable child if there is one.
 		 * @protected
 		 */
-		_getNextFocusableChild: function (fromChild, dir) {
+		getNextFocusableChild: function (fromChild, dir) {
 			if (this._focusableChildren && fromChild !== this) {
 				// retrieve the position of the from node
 				var fromChildIndex = fromChild ? this._focusableChildren.indexOf(fromChild) : -1;
