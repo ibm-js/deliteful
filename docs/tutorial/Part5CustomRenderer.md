@@ -138,7 +138,18 @@ format a date:
 	});
 ```
 
-And we use yet another AMD module for this, the `"ecma402/Intl"` project for internationalization, let's add it:
+And we use yet another AMD module for this, the `"ecma402/Intl"` project for internationalization,
+let's add it to our require list:
+
+```js
+require([
+	..., "ecma402/Intl", ...
+], function (..., Intl) {
+    ...
+```
+
+We also need to add a `config` object to the `require.config` call in `index.html` to say
+which locales we want to load (just `"en-us"` for now, we will add more later).
 
 ```js
 require.config({
@@ -147,14 +158,7 @@ require.config({
 		"ecma402/locales": ["en-us"]
 	}
 });
-require([
-	..., "ecma402/Intl", ...
-], function (..., Intl) {
-    ...
 ```
-
-(Note we also added a `config` object to the `require.config` call to say which locales we are using,
-`"en-us"` for now)
 
 Now let's modify the template to use the `formatDate` function, for this we replace the `{%raw%}{{item.published}}{%endraw%}` binding
 by an expression:
