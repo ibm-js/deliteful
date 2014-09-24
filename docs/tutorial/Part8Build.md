@@ -10,7 +10,8 @@ If you open the debugging tools in your browser (usually F12), and look at the n
  you will see a lot of HTTP requests to load each individual source file (`.js`, `.css`,  ...).
  This is OK while developing but when you deploy your application for production you will want to reduce the number
  and size of the HTTP requests so that your app loads as quickly as possible. We will now learn two alternative ways
- of doing this: using build versions of the dependency packages, and, even better, building the application itself.
+ of doing this: using build versions of the dependency packages, or, even better, building the application code and
+ its dependencies into a single layer file.
 
 ##Using Build Versions of Dependency Packages
 
@@ -32,11 +33,11 @@ We could have answered `y`, in that case the application would use the build ver
 application depends. Build versions are functionnally equivalent but are packed into single layer files,
 which reduces the number and size of HTTP requests.
 
-Let's change our app to use build versions. If you chose to use build versions from the beginning,
-you wouldn't need to do this of course.
+Let's change our app to use build versions, as if we had answered `y` to the question aboce. If you chose to use build
+versions from the beginning, you wouldn't need to do this of course.
 
-First, we need to tell bower (the dependency manager) that we want to use build versions,
-not source versions. For this, we simply change `deliteful` into `deliteful-build` in the `bower.json` file:
+First, we need to tell bower that we want to use build versions, not source versions. For this,
+we simply change `deliteful` into `deliteful-build` in the `bower.json` file:
 
 ```js
 {
@@ -66,7 +67,8 @@ require(["deliteful-build/boot"], function () {
 });
 ```
 
-Finally, modify `index.html` to change the path of a stylesheet that we load directly from the `delite` package:
+Finally, modify `index.html` to change the path of the `defaultapp.css` stylesheet that we load directly from the
+`delite` package:
 
 ```html
     <link rel="stylesheet" href="bower_components/delite-build/themes/defaultapp.css">
