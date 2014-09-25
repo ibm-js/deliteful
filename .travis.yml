@@ -10,7 +10,7 @@ install:
    - npm install -g grunt-cli
    - npm -g install bower
    - npm install
-   - bower install
+   - bower install -F
 
 notifications:
   email:
