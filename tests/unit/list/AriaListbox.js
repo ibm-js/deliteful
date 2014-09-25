@@ -1,10 +1,14 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List"
-], function (registerSuite, assert, List) {
+	"deliteful/list/List",
+	"dstore/Memory",
+	"dstore/Trackable"
+], function (registerSuite, assert, List, Memory, Trackable) {
 
 	var list = null;
+
+	var Store = Memory.createSubclass([Trackable], {});
 
 	registerSuite({
 		name: "list/AriaListbox",
@@ -12,7 +16,7 @@ define([
 			if (list) {
 				list.destroy();
 			}
-			list = new List();
+			list = new List({store: new Store()});
 			list.isAriaListbox = true;
 			document.body.appendChild(list);
 			list.startup();

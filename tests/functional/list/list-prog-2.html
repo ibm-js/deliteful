@@ -12,14 +12,17 @@
 		var ready = false;
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, List) {
+		], function (register, Memory, Trackable, List) {
   			// Programmatic list: default store, items added after the list startup
 			var list = register.createElement("d-list");
 			list.id = "list-prog-2";
 			list.style.height = "200px";
+			list.store = new (Memory.createSubclass([Trackable], {}))();
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
   			for (i = 0; i < 100; i++) {

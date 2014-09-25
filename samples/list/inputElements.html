@@ -19,11 +19,14 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, ItemRenderer, List, template) {
+		], function (register, Memory, Trackable, ItemRenderer, List, template) {
+			var Store = Memory.createSubclass([Trackable], {});
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
 				template: template,
 				_setItemAttr: function (item) {
@@ -52,6 +55,7 @@
 				}
 			});
 			var list = new List();
+			list.store = new Store();
 			list.setAttribute("aria-label", "Sample list of input elements");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;

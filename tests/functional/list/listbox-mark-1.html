@@ -11,12 +11,9 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-			"dstore/Memory",
-			"dstore/Trackable",
+			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (MemoryStore, Trackable) {
-			var M = MemoryStore.createSubclass([Trackable], {});
-  			globalStore = new M({data: []});
+		], function () {
   			require([
   				    "delite/register",
   					"deliteful/list/List",
@@ -39,20 +36,20 @@
 <body>
  	<input type="text" autofocus>
  	<br>
-    <h2>10 items declared as markup, memory store, isAriaListbox set to true and selectionMode set to "multiple" (id: list-mark-1)</h2>
-	<d-list id="list-mark-1" style="height: 200px" isAriaListbox="true" selectionMode="multiple" store="globalStore">
- 		<d-list-store>
- 			{"label": "list item 0", "righttext": "right text A"},
-			{"label": "list item 1", "righttext": "right text B"},
-			{"label": "list item 2", "righttext": "right text C"},
-			{"label": "list item 3", "righttext": "right text D"},
-			{"label": "list item 4", "righttext": "right text E"},
-			{"label": "list item 5", "righttext": "right text F"},
-			{"label": "list item 6", "righttext": "right text G"},
-			{"label": "list item 7", "righttext": "right text H"},
-			{"label": "list item 8", "righttext": "right text I"},
-			{"label": "list item 9", "righttext": "right text J"}
-		</d-list-store>
+    <h2>10 items declared as markup, isAriaListbox set to true and selectionMode set to "multiple" (id: list-mark-1)</h2>
+	<d-store id="store">
+		{"label": "list item 0", "righttext": "right text A"},
+		{"label": "list item 1", "righttext": "right text B"},
+		{"label": "list item 2", "righttext": "right text C"},
+		{"label": "list item 3", "righttext": "right text D"},
+		{"label": "list item 4", "righttext": "right text E"},
+		{"label": "list item 5", "righttext": "right text F"},
+		{"label": "list item 6", "righttext": "right text G"},
+		{"label": "list item 7", "righttext": "right text H"},
+		{"label": "list item 8", "righttext": "right text I"},
+		{"label": "list item 9", "righttext": "right text J"}
+	</d-store>
+	<d-list id="list-mark-1" style="height: 200px" isAriaListbox="true" selectionMode="multiple" store="store">
 	</d-list>
 </body>
 </html>

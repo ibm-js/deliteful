@@ -4,10 +4,13 @@ define([
 	"intern/chai!assert",
 	"dojo/Deferred",
     "dstore/Memory",
+	"dstore/Trackable",
 	"delite/register",
 	"deliteful/list/PageableList",
 	"./resources/ListBaseTests"
-], function (has, registerSuite, assert, Deferred, MemoryStore, register, PageableList, ListBaseTests) {
+], function (has, registerSuite, assert, Deferred, Memory, Trackable, register, PageableList, ListBaseTests) {
+
+	var Store = Memory.createSubclass([Trackable], {});
 
 	// PageableList is currently not supported on IE10
 	// see https://github.com/ibm-js/deliteful/issues/280
@@ -127,7 +130,7 @@ define([
 	var testHelpers = {
 		"Helper: Removing items in displayed pages": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 135*/
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -209,7 +212,7 @@ define([
 			return dfd;
 		},
 		"Helper: Removing items in next non displayed page": function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -231,7 +234,7 @@ define([
 		},
 		"Helper: Removing items in previous non displayed page":
 			function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 92; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -259,7 +262,7 @@ define([
 		},
 		"Helper: Remove item and browse":
 			function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 91; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -293,7 +296,7 @@ define([
 		},
 		"Helper: Remove all items in non displayed first page removes previous page loader":
 			function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 91; i++) {
 				list.store.add({label: "item " + i, id: i});
 			}
@@ -319,7 +322,7 @@ define([
 		},
 		"Helper: Add items in displayed page": function (/*Deferred*/dfd) {
 			/*jshint maxlen: 140*/
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 92; i++) {
 				list.store.add({id: i, label: "item " + i});
 			}
@@ -419,7 +422,7 @@ define([
 			return dfd;
 		},
 		"Helper: add item before first page creates loader": function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 24; i++) {
 				list.store.add({id: i, label: "item " + i});
 			}
@@ -460,7 +463,7 @@ define([
 			return dfd;
 		},
 		"Helper: add item after last page creates loader": function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 23; i++) {
 				list.store.add({id: i, label: "item " + i});
 			}
@@ -503,7 +506,7 @@ define([
 			return dfd;
 		},
 		"Helper: add item to undisplayed page": function (/*Deferred*/dfd) {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({id: i, label: "item " + i});
 			}
@@ -560,7 +563,7 @@ define([
 			}
 		},
 		"itemAdded": function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			list.pageLength = 100;
 			var resetList = function () {
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
@@ -609,7 +612,7 @@ define([
 			assert.strictEqual(list._lastLoaded, 6, "H");
 		},
 		"itemRemoved": function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			list.pageLength = 100;
 			var resetList = function () {
 				list._idPages = [[1, 2, 3], [4, 5, 6]];
@@ -659,7 +662,7 @@ define([
 		},
 		"Loading all next pages (pageLength 20, maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -699,7 +702,7 @@ define([
 		},
 		"Categorized list: Loading all next pages (pageLength 25, maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -736,7 +739,7 @@ define([
 		"Loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" : function () {
 			/*jshint maxlen: 138*/
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -793,7 +796,7 @@ define([
 		"Categorized List: loading all next pages, and then loading all previous pages (pageLength 20, maxPages 2)" :
 			function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -839,7 +842,7 @@ define([
 		},
 		"pageLength equal to the total number of item (maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -859,7 +862,7 @@ define([
 		},
 		"Categorized List: pageLength equal to the total number of item (maxPages 0)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -880,7 +883,7 @@ define([
 		},
 		"pageLength equal to the total number of item (maxPages 2)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -900,7 +903,7 @@ define([
 		},
 		"Categorized List: pageLength equal to the total number of item (maxPages 2)" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -920,7 +923,7 @@ define([
 			return dfd;
 		},
 		"pageLength greater than the total number of item (maxPages 0)" : function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -933,7 +936,7 @@ define([
 			assertList(list, 0, 99, [], false, false);
 		},
 		"Categorized List: pageLength greater than the total number of item (maxPages 0)" : function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -947,7 +950,7 @@ define([
 			assertCategorizedList(list, 100, 0, false, false);
 		},
 		"pageLength greater than the total number of item (maxPages 2)" : function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -960,7 +963,7 @@ define([
 			assertList(list, 0, 99, [], false, false);
 		},
 		"Categorized List: pageLength greater than the total number of item (maxPages 2)" : function () {
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -1010,7 +1013,7 @@ define([
 		},
 		"Reload list content": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
@@ -1026,7 +1029,7 @@ define([
 				list.deliver();
 				assertCategorizedList(list, 50, 0, false, true);
 				// Create a new store and assign it to the list
-				var store = new MemoryStore({data: []});
+				var store = new Memory({data: []});
 				for (var i = 1000; i < 1100; i++) {
 					store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 				}
@@ -1038,7 +1041,7 @@ define([
 		},
 		"Update pageLength": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -1068,7 +1071,7 @@ define([
 		},
 		"Update maxPages": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -1096,7 +1099,7 @@ define([
 		},
 		"Update loadPreviousMessage": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -1117,7 +1120,7 @@ define([
 		},
 		"Update loadNextMessage": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -1140,7 +1143,7 @@ define([
 		},
 		"hideOnPageLoad: hidding panel removed after loading the last page" : function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 39; i++) {
 				list.store.add({label: "item " + i});
 			}
@@ -1170,7 +1173,7 @@ define([
 				return;
 			}
 			var def = this.async(1000 + 3 * TIMEOUT);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 2;
@@ -1237,7 +1240,7 @@ define([
 		},
 		"getItemRendererByIndex ignores page loaders": function () {
 			var dfd = this.async(3000);
-			list = new PageableList();
+			list = new PageableList({store: new Store()});
 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "item " + i});
 			}

@@ -11,8 +11,9 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "delite/register",
+		  "delite/register",
 			"deliteful/list/List",
+			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -31,20 +32,20 @@
 <body>
  	<input type="text" autofocus>
  	<br>
-   	<h2>10 items declared as markup, default store, categorized, isAriaListbox set to true (id: list-mark-3)</h2>
-	<d-list id="list-mark-3" baseClass="d-round-rect-list" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext" isAriaListbox="true">
-		<d-list-store>
-			{"label": "list item 0", "righttext": "A"},
-			{"label": "list item 1", "righttext": "A"},
-			{"label": "list item 2", "righttext": "A"},
-			{"label": "list item 3", "righttext": "A"},
-			{"label": "list item 4", "righttext": "A"},
-			{"label": "list item 5", "righttext": "B"},
-			{"label": "list item 6", "righttext": "B"},
-			{"label": "list item 7", "righttext": "B"},
-			{"label": "list item 8", "righttext": "B"},
-			{"label": "list item 9", "righttext": "B"}
-		</d-list-store>
+  <h2>10 items declared as markup, default store, categorized, isAriaListbox set to true (id: list-mark-3)</h2>
+	<d-store id="store">
+		{"label": "list item 0", "righttext": "A"},
+		{"label": "list item 1", "righttext": "A"},
+		{"label": "list item 2", "righttext": "A"},
+		{"label": "list item 3", "righttext": "A"},
+		{"label": "list item 4", "righttext": "A"},
+		{"label": "list item 5", "righttext": "B"},
+		{"label": "list item 6", "righttext": "B"},
+		{"label": "list item 7", "righttext": "B"},
+		{"label": "list item 8", "righttext": "B"},
+		{"label": "list item 9", "righttext": "B"}
+	</d-store>
+	<d-list id="list-mark-3" baseClass="d-round-rect-list" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext" isAriaListbox="true" store="store">
 	</d-list>
 	<br>
 	<button onclick="var list = document.getElementById('list-mark-3'); list.categoryAttr = (list.categoryAttr === 'righttext' ? 'label' : 'righttext');">Toggle category attribute between righttext and label.</button>

@@ -1,7 +1,11 @@
 define([
 	"intern/chai!assert",
-	"dojo/Deferred"
-], function (assert, Deferred) {
+	"dojo/Deferred",
+	"dstore/Memory",
+	"dstore/Trackable"
+], function (assert, Deferred, Memory, Trackable) {
+
+	var Store = Memory.createSubclass([Trackable], {});
 
 	return {
 		/**
@@ -16,7 +20,7 @@ define([
 					if (this.list) {
 						this.list.destroy();
 					}
-					this.list = new ListConstructor();
+					this.list = new ListConstructor({store: new Store()});
 					document.body.appendChild(this.list);
 					this.list.startup();
 					this.list.store.add({label: "item 1"});
@@ -180,7 +184,7 @@ define([
 				"item category attribute is not undefined by StoreMap": function () {
 					var list = this.parent.list;
 					list.destroy();
-					list = new ListConstructor();
+					list = new ListConstructor({store: new Store()});
 					list.startup();
 					list.store.add({label: "item 1", category: "category 1"});
 					assert.strictEqual(list.scrollableNode.children[0].item.category, "category 1");
@@ -189,7 +193,7 @@ define([
 					var list = this.parent.list;
 					var def = this.async(1000);
 					list.destroy();
-					list = new ListConstructor();
+					list = new ListConstructor({store: new Store()});
 					list.on("query-success", function (evt) {
 						var renderItems = evt.renderItems;
 						assert.isNotNull(renderItems);
@@ -219,7 +223,7 @@ define([
 									return def;
 								};
 								return result;
-							},
+							}
 						};
 						list.destroy();
 						list = new ListConstructor({store: store});
