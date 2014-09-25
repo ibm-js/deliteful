@@ -20,14 +20,18 @@
 		require([
 		    "delite/register",
 		    "dojo/on",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, on, List) {
+		], function (register, on, Memory, Trackable, List) {
+			var Store = Memory.createSubclass([Trackable], {});
 			var console = document.createElement("div");
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
 			list.isAriaListbox = true;
+			list.store = new Store();
 			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
 			list.store.add({label: "first item"});
 			list.store.add({label: "second item"});

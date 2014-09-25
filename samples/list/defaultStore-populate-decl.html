@@ -20,7 +20,9 @@
 		require([
 		    "delite/register",
 			"deliteful/list/List",
-			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+			"deliteful/Store",
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
 			document.body.style.display = "";
@@ -30,14 +32,14 @@
 <body style="display: none" role="application">
 	This sample demonstrate how to populate the list default store using markup.
 	
-	<d-list arial-label="Sample list with default store populated using markup">
-		<d-list-store>
-			{"label": "first item"},
-			{"label": "second item"},
-			{"label": "third item"},
-			{"label": "fourth item"},
-			{"label": "fifth item"}
-		</d-list-store>
-	</d-list>
+
+	<d-list arial-label="Sample list with default store populated using markup" store="store"></d-list>
+	<d-store id="store">
+		{"label": "first item"},
+		{"label": "second item"},
+		{"label": "third item"},
+		{"label": "fourth item"},
+		{"label": "fifth item"}
+	</d-store>
 </body>
 </html>

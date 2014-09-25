@@ -1,10 +1,14 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"deliteful/list/List"
-], function (registerSuite, assert, List) {
+	"deliteful/list/List",
+	"dstore/Memory",
+	"dstore/Trackable"
+], function (registerSuite, assert, List, Memory, Trackable) {
 
 	var list = null;
+
+	var Store = Memory.createSubclass([Trackable], {});
 
 	var testHelper = {
 			"Helper selectionMode 'multiple'" : function (isListBox) {
@@ -257,7 +261,7 @@ define([
 			if (list) {
 				list.destroy();
 			}
-			list = new List();
+			list = new List({store: new Store()});
 			document.body.appendChild(list);
 			list.startup();
 			list.store.filter();

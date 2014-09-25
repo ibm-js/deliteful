@@ -13,6 +13,7 @@
 		require([
 		    "delite/register",
 			"deliteful/list/List",
+			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -31,20 +32,20 @@
 <body>
  	<input type="text" autofocus>
  	<br>
-    <h2>Non scrollable with 10 items declared as markup, default store, and isAriaListbox set to "true" (id: list-mark-2)</h2>
-	<d-list id="list-mark-2" scrollDirection="none" isAriaListbox="true">
-		<d-list-store>
-			{"label": "list item 0", "righttext": "right text 1"},
-			{"label": "list item 1", "righttext": "right text 2"},
-			{"label": "list item 2", "righttext": "right text 3"},
-			{"label": "list item 3", "righttext": "right text 4"},
-			{"label": "list item 4", "righttext": "right text 5"},
-			{"label": "list item 5", "righttext": "right text 6"},
-			{"label": "list item 6", "righttext": "right text 7"},
-			{"label": "list item 7", "righttext": "right text 8"},
-			{"label": "list item 8", "righttext": "right text 9"},
-			{"label": "list item 9", "righttext": "right text 10"}
-		</d-list-store>
+    <h2>Non scrollable with 10 items declared as markup, and isAriaListbox set to "true" (id: list-mark-2)</h2>
+	<d-store id="store">
+		{"label": "list item 0", "righttext": "right text 1"},
+		{"label": "list item 1", "righttext": "right text 2"},
+		{"label": "list item 2", "righttext": "right text 3"},
+		{"label": "list item 3", "righttext": "right text 4"},
+		{"label": "list item 4", "righttext": "right text 5"},
+		{"label": "list item 5", "righttext": "right text 6"},
+		{"label": "list item 6", "righttext": "right text 7"},
+		{"label": "list item 7", "righttext": "right text 8"},
+		{"label": "list item 8", "righttext": "right text 9"},
+		{"label": "list item 9", "righttext": "right text 10"}
+	</d-store>
+	<d-list id="list-mark-2" scrollDirection="none" isAriaListbox="true" store="store">
 	</d-list>
 </body>
 </html>

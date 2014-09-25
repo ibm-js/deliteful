@@ -6,9 +6,10 @@ define([
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"dstore/Memory",
 	"dstore/Trackable",
-	"deliteful/Select"
+	"deliteful/Select",
+	"deliteful/Store"
 ], function (dcl, registerSuite, assert, register, domClass,
-	Memory, Trackable, Select) {
+	Memory, Trackable, Select, Store) {
 	
 	var container, MySelect;
 	/*jshint multistr: true */
@@ -302,9 +303,7 @@ define([
 	};
 	
 	var checkDefaultValues = function (select) {
-		assert.isNotNull(select.store,
-			"After validation cycle, the default store should not be null on select.id: " +
-			select.id);
+		assert.isNull(select.store, "store default is null");
 		assert.strictEqual(select.selectionMode, "single", "Select.selectionMode");
 		assert.strictEqual(select.size, 0, "Select.size");
 		assert.strictEqual(select.textAttr, "text", "Select.textAttr");
@@ -341,17 +340,25 @@ define([
 				
 			select = document.getElementById("myselect1");
 			select.deliver();
-			assert.isNotNull(select.store,
-				"After validation cycle, the default store should not be null on select.id: " +
-				select.id);
+			assert.isNull(select.store, "store default is null");
 		},
 		
-		"Store.add/remove/put (default store)" : function () {
+		"Store.add/remove/put (custom element store)" : function () {
 			var select = document.getElementById("select1");
+			var store = new Store();
+			container.appendChild(store);
+			register.upgrade(store);
+			store.attachedCallback();
+			select.store = store;
 			select.deliver();
 			checkTrackableSelect(select); // the default store is observable
 			
 			select = document.getElementById("myselect1");
+			store = new Store();
+			container.appendChild(store);
+			register.upgrade(store);
+			store.attachedCallback();
+			select.store = store;
 			select.deliver();
 			checkTrackableSelect(select); // the default store is observable
 		},

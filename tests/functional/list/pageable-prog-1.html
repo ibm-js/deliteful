@@ -12,12 +12,15 @@
 		var ready = false;
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/PageableList",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, PageableList) {
+		], function (register, Memory, Trackable, PageableList) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-1";
+			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.pageLength = 20;
 			list.maxPages = 2;
 			list.style.height = "200px";

@@ -14,12 +14,14 @@
 		var ready = false;
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookRenderer.html",
 			"delite/handlebars!deliteful/tests/functional/list/templates/BookStoreRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
+		], function (register, Memory, Trackable, ItemRenderer, List, bookTemplate, bookStoreTemplate) {
 			var BookRenderer = register("d-book-item", [HTMLElement, ItemRenderer], {
 				template: bookTemplate
 			});
@@ -28,6 +30,7 @@
 			});
 			var list = new List();
 			list.id = "list-cust-2";
+			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.itemRenderer = BookRenderer;
 			list.categoryRenderer = BookStoreRenderer;
 			list.categoryAttr = "bookstore";

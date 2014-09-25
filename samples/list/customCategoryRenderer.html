@@ -19,16 +19,20 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/CategoryRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomCategoryRenderer.html",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, CategoryRenderer, List, template) {
+		], function (register, Memory, Trackable, CategoryRenderer, List, template) {
+			var Store = Memory.createSubclass([Trackable], {});
 			var MyCustomRenderer = register("d-cust-category", [HTMLElement, CategoryRenderer], {
 				template: template
 			});
 			var list = new List();
+			list.store = new Store();
 			list.setAttribute("aria-label", "Sample list with custom category renderer");
 			list.categoryAttr = "cat";
 			list.categoryRenderer = MyCustomRenderer;

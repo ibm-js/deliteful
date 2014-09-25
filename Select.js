@@ -2,15 +2,13 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
-	"dstore/Memory",
-	"dstore/Trackable",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, domClass, Memory, Trackable, register,
+], function (dcl, domClass, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -31,17 +29,19 @@ define([
 	 * * The handling of the selected options of the underlying native `<select>`
 	 * must be done using the API inherited by deliteful/Select from delite/Selection.
 	 * 
-	 * @example <caption>Using the default store</caption>
+	 * @example <caption>Using store custom element in markup</caption>
 	 * JS:
 	 * require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
 	 *   function (register) {
 	 *     register.parse();
-	 *     select1.store.add({text: "Option 1", value: "1"});
-	 *     ...
 	 *   });
 	 * HTML:
-	 * <d-select id="select1"></d-select>
-	 * @example <caption>Using user's store</caption>
+	 * <d-store id="myStore">
+	 *    {text: "Option 1", value: "1"}
+	 *    ...
+	 * </d-store>
+	 * <d-select id="select" store="myStore"></d-select>
+	 * @example <caption>Using programmatically created store</caption>
 	 * JS:
 	 * require(["delite/register", "dstore/Memory", "dstore/Trackable",
 	 *         "deliteful/Select", "requirejs-domready/domReady!"],
@@ -53,7 +53,7 @@ define([
 	 *     ...
 	 *   });
 	 * HTML:
-	 * <d-select selectionMode="multiple" id="select1"></d-select>
+	 * <d-select selectionMode="multiple" id="select"></d-select>
 	 * 
 	 * @class module:deliteful/Select
 	 * @augments module:delite/FormWidget
@@ -129,10 +129,6 @@ define([
 		template: template,
 		
 		attachedCallback: function () {
-			if (!this.store) { // If not specified by the user
-				this.store = new (Memory.createSubclass(Trackable))({});
-			}
-			
 			// To provide graphic feedback for focus, react to focus/blur events
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
