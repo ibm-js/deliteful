@@ -11,8 +11,9 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "delite/register",
+			"delite/register",
 			"deliteful/list/List",
+			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -122,19 +123,19 @@
  	<input type="text" autofocus>
  	<br>
    	<h2>10 items declared as markup, using all items attribute (id: list-mark-4)</h2>
-	<d-list id="list-mark-4" style="height: 200px">
-		<d-list-store>
-			{"iconclass": "left-icon-1", "label": "list item 0", "righttext": "A", "righticonclass": "right-icon-2-1"},
-			{"iconclass": "left-icon-2", "label": "list item 1", "righttext": "A", "righticonclass": "right-icon-2-2"},
-			{"iconclass": "left-icon-3", "label": "list item 2", "righttext": "A", "righticonclass": "right-icon-2-3"},
-			{"iconclass": "left-icon-4", "label": "list item 3", "righttext": "A", "righticonclass": "right-icon-2-4"},
-			{"iconclass": "left-icon-5", "label": "list item 4", "righttext": "A", "righticonclass": "right-icon-2-5"},
-			{"iconclass": "left-icon-6", "label": "list item 5", "righttext": "B", "righticonclass": "right-icon-2-6"},
-			{"iconclass": "left-icon-7", "label": "list item 6", "righttext": "B", "righticonclass": "right-icon-2-7"},
-			{"iconclass": "left-icon-8", "label": "list item 7", "righttext": "B", "righticonclass": "right-icon-2-8"},
-			{"iconclass": "left-icon-9", "label": "list item 8", "righttext": "B", "righticonclass": "right-icon-2-1"},
-			{"iconclass": "left-icon-10", "label": "list item 9", "righttext": "B", "righticonclass": "right-icon-2-2"}
-		</d-list-store>
+	<d-store id="store">
+		{"iconclass": "left-icon-1", "label": "list item 0", "righttext": "A", "righticonclass": "right-icon-2-1"},
+		{"iconclass": "left-icon-2", "label": "list item 1", "righttext": "A", "righticonclass": "right-icon-2-2"},
+		{"iconclass": "left-icon-3", "label": "list item 2", "righttext": "A", "righticonclass": "right-icon-2-3"},
+		{"iconclass": "left-icon-4", "label": "list item 3", "righttext": "A", "righticonclass": "right-icon-2-4"},
+		{"iconclass": "left-icon-5", "label": "list item 4", "righttext": "A", "righticonclass": "right-icon-2-5"},
+		{"iconclass": "left-icon-6", "label": "list item 5", "righttext": "B", "righticonclass": "right-icon-2-6"},
+		{"iconclass": "left-icon-7", "label": "list item 6", "righttext": "B", "righticonclass": "right-icon-2-7"},
+		{"iconclass": "left-icon-8", "label": "list item 7", "righttext": "B", "righticonclass": "right-icon-2-8"},
+		{"iconclass": "left-icon-9", "label": "list item 8", "righttext": "B", "righticonclass": "right-icon-2-1"},
+		{"iconclass": "left-icon-10", "label": "list item 9", "righttext": "B", "righticonclass": "right-icon-2-2"}
+	</d-store>
+	<d-list id="list-mark-4" style="height: 200px" store="store">
 	</d-list>
 </body>
 </html>

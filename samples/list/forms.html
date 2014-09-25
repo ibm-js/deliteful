@@ -19,10 +19,13 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, ItemRenderer, List) {
+		], function (register, Memory, Trackable, ItemRenderer, List) {
+			var Store = Memory.createSubclass([Trackable], {});
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
 				counter: 1,
 				render: function () {
@@ -59,6 +62,7 @@
 				}
 			});
 			var list = new List();
+			list.store = new Store();
 			list.setAttribute("aria-label", "Sample list which items are data forms");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;

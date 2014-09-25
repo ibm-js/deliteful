@@ -32,20 +32,19 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "dstore/Memory", "dstore/Trackable",
-         "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable) {
+require(["delite/register", "deliteful/Store", "deliteful/Select", "requirejs-domready/domReady!"],
+  function (register) {
     register.parse();
-    var store = new (Memory.createSubclass(Trackable))({});
-    select1.store = store;
-    store.add({text: "Option 1", value: "1"});
-    ...
 });
 ```
 
 ```html
 <html>
-  <d-select selectionMode="multiple" id="select1"></d-select>
+  <d-store id="myStore">
+    {text: "Option 1", value: "1"},
+    ...
+  </d-store>
+  <d-select selectionMode="multiple" id="select1" store="myStore"></d-select>
 </html>
 ```
 

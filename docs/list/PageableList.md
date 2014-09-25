@@ -33,22 +33,22 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Declarative Instantiation
 
 ```html
+<d-store id="myStore">
+    <!-- Add the following items to the store -->
+    { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+    { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+    { "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+    { "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+    { "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+    { "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+    { "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+    { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
+</d-store>
 <!-- A pageable list of categorized items that uses the default item renderer, -->
 <!-- mapping the sales property of items to righttext, and using the -->
 <!-- region property as the item category -->
-<d-pageable-list height="100%" righttextAttr="sales" categoryAttr="region">
-	<d-list-store>
-		<!-- Add the following items to the list store -->
-		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
-		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
-		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
-		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
-		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
-		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
-		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
-		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
-  	</d-list-store>
-  </d-list>
+<d-pageable-list height="100%" righttextAttr="sales" categoryAttr="region" id="myStore">
+</d-list>
 ```
 ### Programmatic Instantiation
 

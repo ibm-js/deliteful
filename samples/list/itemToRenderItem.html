@@ -19,10 +19,14 @@
 	<script type="text/javascript">
 		require([
 		    "delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, List) {
+		], function (register, Memory, Trackable, List) {
+			var Store = Memory.createSubclass([Trackable], {});
 			var list = register.createElement("d-list");
+			list.store = new Store();
 			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
 			list.itemToRenderItem = function (item) {
 				return {

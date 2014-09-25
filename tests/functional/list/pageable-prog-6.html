@@ -11,16 +11,19 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "dojo/_base/declare",
-		    "dojo/Deferred",
+		   "dojo/_base/declare",
+		   "dojo/Deferred",
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/list/PageableList",
 			"dstore/Memory",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (declare, Deferred, register, PageableList, MemoryStore) {
+		], function (declare, Deferred, register, Memory, Trackable, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-6";
+			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.hideOnPageLoad = true;
