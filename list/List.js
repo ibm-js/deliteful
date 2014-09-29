@@ -1016,7 +1016,7 @@ define([
 		 * Handle keydown events
 		 * @private
 		 */
-		_onContainerKeydown: dcl.before(function (evt) {
+		_keynavKeyDownHandler: dcl.before(function (evt) {
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
