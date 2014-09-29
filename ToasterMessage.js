@@ -469,7 +469,7 @@ define(["dcl/dcl",
 			this._isRemoved = true;
 		},
 		template: template,
-		postCreate: function () {
+		postRender: function () {
 			// TODO this should be done only if this.isDismissible()
 			// but at this stage this.isDismissible() ouput is wrong because members have not been initialized yet
 

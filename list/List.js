@@ -237,7 +237,7 @@ define([
 		 * @private
 		 */
 
-		buildRendering: function () {
+		render: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.scrollableNode = this.ownerDocument.createElement("div");
 			// Firefox focus the scrollable node when clicking it or tabing: in this case, the list
@@ -253,7 +253,7 @@ define([
 			this.setAttribute("aria-readonly", "true");
 		},
 
-		postCreate: function () {
+		postRender: function () {
 			//	Assign a default store to the list.
 			this.store = new DefaultStore();
 			this._keyNavCodes[keys.PAGE_UP] = this._keyNavCodes[keys.HOME];

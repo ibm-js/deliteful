@@ -93,7 +93,7 @@ define([
 
 		//////////// Widget life cycle ///////////////////////////////////////
 
-		postCreate: function () {
+		postRender: function () {
 			// summary:
 			//		set the click event handler
 			this.on("click", this._load.bind(this));

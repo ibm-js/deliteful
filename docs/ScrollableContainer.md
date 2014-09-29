@@ -92,7 +92,7 @@ src="http://jsfiddle.net/ibmjs/RuqVK/embedded/result,js,html">
 By default, the scrolling capabilities are added to the widget's root node
 (that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
 can chose the node thanks to the property `scrollableNode`.
-This property must be set by the subclass at latest in its `buildRendering()`
+This property must be set by the subclass at latest in its `render()`
 method.
 
 ### Scroll Direction
@@ -135,7 +135,7 @@ responsive manner. For details, see [`Interactions in delite/Scrollable`](/delit
 By default, the scrolling capabilities are added to the widget's root node
 (that is, the widget itself). A sublcass of `deliteful/ScrollableContainer`
 can chose the node thanks to the property `scrollableNode`.
-This property must be set by the subclass at latest in its `buildRendering()`
+This property must be set by the subclass at latest in its `render()`
 method.
 
 *First use-case: creating a widget extending `deliteful/ScrollableContainer`*
@@ -145,7 +145,7 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
   function (register, Scrollable, ...) {
     return register("mywidget", [HTMLElement, ScrollableContainer, ...], {
       ...
-      buildRendering: dcl.superCall(function (sup) {
+      render: dcl.superCall(function (sup) {
         return function () {
           // Create a child element:
           var myScrollableDiv = document.createElement("div");
@@ -173,7 +173,7 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
     // nor deliteful/ScrollableContainer
     return register("mywidget", [HTMLElement, ...], {
       ...
-      buildRendering: dcl.superCall(function (sup) {
+      render: dcl.superCall(function (sup) {
         return function () {
           var scrollableNode =
             // or your own scrollable widget

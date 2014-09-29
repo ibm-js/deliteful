@@ -43,7 +43,7 @@ define([
 
 		template: template,
 
-		postCreate: function () {
+		postRender: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
 		},
 

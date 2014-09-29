@@ -29,7 +29,7 @@ define([
 
 		template: template,
 
-		postCreate: function () {
+		postRender: function () {
 			this._lbl4 = null;
 			this.on("click", this._inputClickHandler.bind(this), this.focusNode);
 			this.on("change", this._inputClickHandler.bind(this), this.focusNode);
@@ -49,7 +49,7 @@ define([
 					var forId;
 					if (/label/i.test(e.target.tagName) && (forId = e.target.getAttribute("for"))) {
 						var elt = document.getElementById(forId);
-						if (elt && elt.buildRendering && elt._lbl4 !== undefined) { //_lbl4: to check it's a checkbox
+						if (elt && elt.render && elt._lbl4 !== undefined) { //_lbl4: to check it's a checkbox
 							// call click() on the input instead of this.toggle() to get the 'change' event for free
 							elt.focusNode.click();
 						}

@@ -97,7 +97,7 @@ define([
 
 		template: template,
 
-		buildRendering: dcl.after(function () {
+		render: dcl.after(function () {
 			this.setAttribute("aria-valuemin", 0);
 		}),
 
@@ -161,7 +161,7 @@ define([
 			}
 		},
 
-		postCreate: function () {
+		postRender: function () {
 			this.notifyCurrentValue("value");
 			this.notifyCurrentValue("max");
 		},

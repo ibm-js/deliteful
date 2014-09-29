@@ -131,7 +131,7 @@ define(["dcl/dcl",
 				}
 			},
 
-			preCreate: function () {
+			preRender: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
@@ -151,7 +151,7 @@ define(["dcl/dcl",
 				};
 			}),
 
-			postCreate: function () {
+			postRender: function () {
 				this._setChildrenVisibility();
 			},
 

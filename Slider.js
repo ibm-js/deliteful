@@ -147,7 +147,7 @@ define([
 
 			template: template,
 
-			buildRendering: register.superCall(function (sup) {
+			render: register.superCall(function (sup) {
 				return function () {
 					this.valueNode = this.querySelector("input") || this.ownerDocument.createElement("input");
 					sup.call(this);
@@ -328,7 +328,7 @@ define([
 				return resetClasses;
 			},
 
-			postCreate: function () {
+			postRender: function () {
 				this._pointerCtx = {
 					target: null, // the element that has focus when user manipulate a pointer
 					offsetVal: 0, // Offset value when use points and drag a handle

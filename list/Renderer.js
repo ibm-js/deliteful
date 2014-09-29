@@ -43,9 +43,9 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		buildRendering: dcl.after(function () {
+		render: dcl.after(function () {
 			if (!this.renderNode) {
-				throw new Error("buildRendering must define a renderNode property on the Renderer."
+				throw new Error("render must define a renderNode property on the Renderer."
 						+ " Example using attach-point in a template: "
 						+ "<template><div attach-point='renderNode'></div></template>");
 			}
@@ -106,9 +106,9 @@ define([
 		 * This method update the list of children of the renderer that can
 		 * be focused during keyboard navigation.
 		 * If the list of navigable children of the renderer is updated after the
-		 * buildRendering step has been executed, this method must be
+		 * render step has been executed, this method must be
 		 * called to take into account the new list.
-		 * If the list of navigable children is defined during the buildRendering
+		 * If the list of navigable children is defined during the render
 		 * step, there is no need to call this method.
 		 */
 		updateFocusableChildren: function () {
