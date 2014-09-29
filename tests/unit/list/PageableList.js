@@ -239,6 +239,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
@@ -267,6 +268,7 @@ define([
 			list.style.height = "200px";
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			// Click next page loader three times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -300,6 +302,7 @@ define([
 			list.style.height = "200px";
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			// Click next page loader two times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.callback(function () {
@@ -324,6 +327,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			list.store.add({id: "A", label: "item A"}, {beforeId: 1});
 			list.store.add({id: "B", label: "item B"}, {beforeId: 22});
 			list.deliver();
@@ -423,6 +427,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			list.store.add({id: "A", label: "item A"}, {beforeId: 0});
 			list.deliver();
 			// Check internal page representation
@@ -1041,6 +1046,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				list.deliver();
 				assertList(list, 0, 19, [], false, true, "A");
@@ -1070,6 +1076,7 @@ define([
 			list.maxPages = 2;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
@@ -1097,6 +1104,7 @@ define([
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
@@ -1117,6 +1125,7 @@ define([
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assertList(list, 10, 19, [], true, true, "A");
@@ -1236,6 +1245,7 @@ define([
 			list.maxPages = 1;
 			document.body.appendChild(list);
 			list.startup();
+			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
 				assert.strictEqual("item 10",

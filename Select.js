@@ -127,7 +127,7 @@ define([
 		  
 		template: template,
 		
-		startup: function () {
+		attachedCallback: function () {
 			if (!this.store) { // If not specified by the user
 				this.store = new (Memory.createSubclass(Trackable))({});
 			}

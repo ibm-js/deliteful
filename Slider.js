@@ -360,7 +360,7 @@ define([
 				["min", "max", "step", "value"].forEach(this.notifyCurrentValue, this);
 			},
 
-			startup: function () {
+			attachedCallback: function () {
 				// if the form is reset, then notify the widget to reposition the handles
 				if (this.valueNode.form) {
 					var self = this;

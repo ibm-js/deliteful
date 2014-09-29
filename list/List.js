@@ -262,34 +262,37 @@ define([
 			delete this._keyNavCodes[keys.END];
 		},
 
-		startup: dcl.superCall(function (sup) {
+		attachedCallback: dcl.before(function () {
+			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that _setBusy(true, ...)
+			// is called before initItems which calls _setBusy(false, ..._) and is called through attachedCallback.
+			this._setBusy(true, true);
+			this.on("query-error", function () {
+				this._setBusy(false, true);
+			}.bind(this));
+		}),
+
+		startup: dcl.before(function () {
 			// Starts the widget: parse the content of the widget node to clean it,
 			//	add items to the store if specified in markup.
-			//	Using superCall() rather than the default chaining so that the code runs
-			//	before StoreMap.startup()
-			return function () {
-				// search for custom elements to populate the store
-				this._setBusy(true, true);
-				var children = Array.prototype.slice.call(this.children);
-				if (children.length) {
-					for (var i = 0; i < children.length; i++) {
-						var child = children[i];
-						if (child.tagName === "D-LIST-STORE") {
-							var data = JSON.parse("[" + child.textContent + "]");
-							for (var j = 0; j < data.length; j++) {
-								this.store.add(data[j]);
-							}
-						}
-						if (child !== this.scrollableNode && child !== this._loadingPanel) {
-							child.destroy();
+			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that the code runs
+			//	before StoreMap.attachedCallback()
+			// search for custom elements to populate the store
+			// We have to keep the startup override for this, to have access to markup children.
+			var children = Array.prototype.slice.call(this.children);
+			if (children.length) {
+				for (var i = 0; i < children.length; i++) {
+					var child = children[i];
+					if (child.tagName === "D-LIST-STORE") {
+						var data = JSON.parse("[" + child.textContent + "]");
+						for (var j = 0; j < data.length; j++) {
+							this.store.add(data[j]);
 						}
 					}
+					if (child !== this.scrollableNode && child !== this._loadingPanel) {
+						child.destroy();
+					}
 				}
-				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
-				if (sup) {
-					sup.call(this, arguments);
-				}
-			};
+			}
 		}),
 
 		refreshRendering: function (props) {
