@@ -263,21 +263,12 @@ define([
 		},
 
 		attachedCallback: dcl.before(function () {
-			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that _setBusy(true, ...)
-			// is called before initItems which calls _setBusy(false, ..._) and is called through attachedCallback.
-			this._setBusy(true, true);
-			this.on("query-error", function () {
-				this._setBusy(false, true);
-			}.bind(this));
-		}),
-
-		startup: dcl.before(function () {
 			// Starts the widget: parse the content of the widget node to clean it,
 			//	add items to the store if specified in markup.
 			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that the code runs
 			//	before StoreMap.attachedCallback()
 			// search for custom elements to populate the store
-			// We have to keep the startup override for this, to have access to markup children.
+			this._setBusy(true, true);
 			var children = Array.prototype.slice.call(this.children);
 			if (children.length) {
 				for (var i = 0; i < children.length; i++) {
@@ -293,6 +284,9 @@ define([
 					}
 				}
 			}
+			this.on("query-error", function () {
+				this._setBusy(false, true);
+			}.bind(this));
 		}),
 
 		refreshRendering: function (props) {

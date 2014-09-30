@@ -97,7 +97,7 @@ define(["dcl/dcl",
 
 			_setSelectedChildIdAttr: function (child) {
 				if (this.ownerDocument.getElementById(child)) {
-					if (this.started) {
+					if (this.attached) {
 						this.show(child);
 					} else {
 						this._pendingChild = child;
@@ -109,7 +109,7 @@ define(["dcl/dcl",
 				return this._visibleChild ? this._visibleChild.id : "";
 			},
 
-			startup: dcl.after(function () {
+			attachedCallback: function () {
 				var noTransition = {transition: "none"};
 				if (this._pendingChild) {
 					this.show(this._pendingChild, noTransition);
@@ -117,7 +117,7 @@ define(["dcl/dcl",
 				} else if (this.children.length > 0) {
 					this.show(this.children[0], noTransition);
 				}
-			}),
+			},
 
 			_timing: 0,
 
