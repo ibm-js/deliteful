@@ -132,8 +132,6 @@ define([
 				this.store = new (Memory.createSubclass(Trackable))({});
 			}
 			
-			this.focusNode = this.valueNode; // for delite/FormWidget's sake
-			
 			// To provide graphic feedback for focus, react to focus/blur events
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
