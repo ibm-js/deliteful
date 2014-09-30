@@ -25,22 +25,22 @@
   height: 1em;
   width: 0.5em;
 }
-.d-star-rating-star-icon:before {
+.d-star-rating-star-icon::before {
   width: 1em;
   display: inline-block;
   text-align: center;
 }
-.d-star-rating-empty:before {
+.d-star-rating-empty::before {
   content: "\2605";
   color: #4f4f4f;
 }
-.d-star-rating-full:before {
+.d-star-rating-full::before {
   content: "\2605";
   color: #33b5e5;
 }
-.d-star-rating-disabled .d-star-rating-full:before {
+.d-star-rating-disabled .d-star-rating-full::before {
   color: #808080;
 }
-.d-star-rating-end.d-star-rating-star-icon:before {
+.d-star-rating-end.d-star-rating-star-icon::before {
   margin-left: -0.5em;
 }

@@ -354,7 +354,7 @@ Use the `content` property to change the character used to represent the button.
 ```css
 .d-toaster-dismiss {...}
 
-.d-toaster-dismiss:before {
+.d-toaster-dismiss::before {
 	content: "×";
 }
 ```

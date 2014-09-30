@@ -98,12 +98,12 @@ The stars displayed can be fully customized by using the following CSS selectors
 	font-size: 150%;
 }
 
-.d-star-rating-empty:before {
+.d-star-rating-empty::before {
 	content: "\2605"; /* The font character to use to display an empty star */
 	color: #CCC; /* The color of an empty star */
 }
 
-.d-star-rating-full:before {
+.d-star-rating-full::before {
 	content: "\2605"; /* The font character to use to display a full star */
 	color: yellow; /* The color of a full star */
 }
