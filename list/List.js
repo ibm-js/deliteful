@@ -1013,7 +1013,7 @@ define([
 		 * Handle keydown events
 		 * @private
 		 */
-		_onContainerKeydown: dcl.before(function (evt) {
+		_keynavKeyDownHandler: dcl.before(function (evt) {
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
@@ -1065,7 +1065,7 @@ define([
 		_getFirst: function () {
 			var first = this.scrollableNode.querySelector("." + this._cssClasses.cell);
 			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
-				first = this._getNext(first, 1);
+				first = this.getNext(first, 1);
 			}
 			return first;
 		},
@@ -1080,16 +1080,14 @@ define([
 			var cells = this.scrollableNode.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
 			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
-				last = this._getNext(last, -1);
+				last = this.getNext(last, -1);
 			}
 			return last;
 		},
 
 		// Simple arrow key support.
-		/**
-		 * @private
-		 */
-		_onDownArrow: function () {
+
+		onDownArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1100,10 +1098,7 @@ define([
 			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
-		/**
-		 * @private
-		 */
-		_onUpArrow: function () {
+		onUpArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1114,12 +1109,7 @@ define([
 			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
-		/**
-		 * @param {Element} child
-		 * @return {Element}
-		 * @private
-		 */
-		_getNext: function (child, dir) {
+		getNext: function (child, dir) {
 			if (child === this) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}
@@ -1164,11 +1154,11 @@ define([
 					// We are in Actionable mode
 					evt.preventDefault();
 					var renderer = this._getFocusedRenderer();
-					var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.focusedChild);
 					while (!next) {
 						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
 							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
-						next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
 					}
 					this.focusChild(next);
 				}
