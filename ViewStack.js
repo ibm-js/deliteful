@@ -97,7 +97,7 @@ define(["dcl/dcl",
 
 			_setSelectedChildIdAttr: function (child) {
 				if (this.ownerDocument.getElementById(child)) {
-					if (this._started) {
+					if (this.attached) {
 						this.show(child);
 					} else {
 						this._pendingChild = child;
@@ -109,7 +109,7 @@ define(["dcl/dcl",
 				return this._visibleChild ? this._visibleChild.id : "";
 			},
 
-			startup: function () {
+			attachedCallback: function () {
 				var noTransition = {transition: "none"};
 				if (this._pendingChild) {
 					this.show(this._pendingChild, noTransition);
@@ -131,7 +131,7 @@ define(["dcl/dcl",
 				}
 			},
 
-			preCreate: function () {
+			preRender: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
@@ -151,7 +151,7 @@ define(["dcl/dcl",
 				};
 			}),
 
-			postCreate: function () {
+			postRender: function () {
 				this._setChildrenVisibility();
 			},
 

@@ -237,7 +237,7 @@ define([
 		 * @private
 		 */
 
-		buildRendering: function () {
+		render: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.scrollableNode = this.ownerDocument.createElement("div");
 			// Firefox focus the scrollable node when clicking it or tabing: in this case, the list
@@ -253,7 +253,7 @@ define([
 			this.setAttribute("aria-readonly", "true");
 		},
 
-		postCreate: function () {
+		postRender: function () {
 			//	Assign a default store to the list.
 			this.store = new DefaultStore();
 			this._keyNavCodes[keys.PAGE_UP] = this._keyNavCodes[keys.HOME];
@@ -262,34 +262,35 @@ define([
 			delete this._keyNavCodes[keys.END];
 		},
 
-		startup: dcl.superCall(function (sup) {
+		attachedCallback: dcl.before(function () {
+			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that the code runs
+			//	before StoreMap.attachedCallback()
+			// search for custom elements to populate the store
+			this._setBusy(true, true);
+			this.on("query-error", function () {
+				this._setBusy(false, true);
+			}.bind(this));
+		}),
+
+		startup: dcl.before(function () {
 			// Starts the widget: parse the content of the widget node to clean it,
 			//	add items to the store if specified in markup.
-			//	Using superCall() rather than the default chaining so that the code runs
-			//	before StoreMap.startup()
-			return function () {
-				// search for custom elements to populate the store
-				this._setBusy(true, true);
-				var children = Array.prototype.slice.call(this.children);
-				if (children.length) {
-					for (var i = 0; i < children.length; i++) {
-						var child = children[i];
-						if (child.tagName === "D-LIST-STORE") {
-							var data = JSON.parse("[" + child.textContent + "]");
-							for (var j = 0; j < data.length; j++) {
-								this.store.add(data[j]);
-							}
-						}
-						if (child !== this.scrollableNode && child !== this._loadingPanel) {
-							child.destroy();
+			// Have to keep this in startup since we call destroy()...
+			var children = Array.prototype.slice.call(this.children);
+			if (children.length) {
+				for (var i = 0; i < children.length; i++) {
+					var child = children[i];
+					if (child.tagName === "D-LIST-STORE") {
+						var data = JSON.parse("[" + child.textContent + "]");
+						for (var j = 0; j < data.length; j++) {
+							this.store.add(data[j]);
 						}
 					}
+					if (child !== this.scrollableNode && child !== this._loadingPanel) {
+						child.destroy();
+					}
 				}
-				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
-				if (sup) {
-					sup.call(this, arguments);
-				}
-			};
+			}
 		}),
 
 		refreshRendering: function (props) {
@@ -1013,7 +1014,7 @@ define([
 		 * Handle keydown events
 		 * @private
 		 */
-		_onContainerKeydown: dcl.before(function (evt) {
+		_keynavKeyDownHandler: dcl.before(function (evt) {
 			if (!evt.defaultPrevented) {
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
@@ -1065,7 +1066,7 @@ define([
 		_getFirst: function () {
 			var first = this.scrollableNode.querySelector("." + this._cssClasses.cell);
 			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
-				first = this._getNext(first, 1);
+				first = this.getNext(first, 1);
 			}
 			return first;
 		},
@@ -1080,16 +1081,13 @@ define([
 			var cells = this.scrollableNode.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
 			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
-				last = this._getNext(last, -1);
+				last = this.getNext(last, -1);
 			}
 			return last;
 		},
 
 		// Simple arrow key support.
-		/**
-		 * @private
-		 */
-		_onDownArrow: function () {
+		onDownArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1100,10 +1098,7 @@ define([
 			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
-		/**
-		 * @private
-		 */
-		_onUpArrow: function () {
+		onUpArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1114,12 +1109,7 @@ define([
 			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
-		/**
-		 * @param {Element} child
-		 * @return {Element}
-		 * @private
-		 */
-		_getNext: function (child, dir) {
+		getNext: function (child, dir) {
 			if (child === this) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}

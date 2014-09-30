@@ -4,7 +4,7 @@
 	"dependencies": {
 		"dcl": "1.1.x",
 		"decor": "0.2.1",
-		"delite": "0.3.0",
+		"delite": "0.4.0-alpha",
 		"dojo": ">=1.9.1",
 		"dpointer": "0.3.x",
 		"ecma402": "0.2.x",

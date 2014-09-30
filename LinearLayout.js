@@ -43,7 +43,7 @@ define([
 				domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
 			}
 		},
-		postCreate: function () {
+		postRender: function () {
 			this.notifyCurrentValue("vertical");
 		}
 	});

@@ -14,7 +14,7 @@ define([
 	 */
 	return dcl(null, /** @lends module:deliteful/StarRating/bidi/StarRating */{
 
-		startup: function () {
+		attachedCallback: function () {
 			if (!this.isLeftToRight()) {
 				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
 				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];

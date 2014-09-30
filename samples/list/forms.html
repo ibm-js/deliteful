@@ -25,7 +25,7 @@
 		], function (register, ItemRenderer, List) {
 			var MyCustomRenderer = register("d-dataform-item", [HTMLElement, ItemRenderer], {
 				counter: 1,
-				buildRendering: function () {
+				render: function () {
 					this.renderNode = this.ownerDocument.createElement("div");
 					this.appendChild(this.renderNode);
 					this._firstNameNode = this.appendField("First name");
