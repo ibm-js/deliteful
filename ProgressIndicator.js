@@ -135,7 +135,7 @@ define([
 
 		template: template,
 
-		buildRendering: dcl.after(function () {
+		render: dcl.after(function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
 		}),
 

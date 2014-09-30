@@ -37,7 +37,7 @@ define([
 			}
 		}),
 
-		postCreate: function () {
+		postRender: function () {
 			// CssState handles focused property
 			this.on("focus", function () { this.focused = true; }.bind(this), this.focusNode);
 			this.on("blur", function () { this.focused = false; }.bind(this), this.focusNode);

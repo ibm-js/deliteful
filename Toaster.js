@@ -159,10 +159,10 @@ define(["dcl/dcl",
 				}
 			},
 
-			preCreate: function () {
+			preRender: function () {
 				this.messages = [];
 			},
-			postCreate: function () {
+			postRender: function () {
 				// NOTE: the following a11y attributes are needed for JAWS but
 				// break VoiceOver
 				if (!has("ios")) {

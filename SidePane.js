@@ -225,7 +225,7 @@ define([
 				item.deferred.resolve();
 			},
 
-			postCreate: function () {
+			postRender: function () {
 				setVisibility(this, false);
 
 				// trigger refreshRendering() to run and apply mode & position even if they are the default values
@@ -233,7 +233,7 @@ define([
 				this.notifyCurrentValue("position");
 			},
 
-			preCreate: function () {
+			preRender: function () {
 				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
@@ -242,7 +242,7 @@ define([
 				}
 			},
 
-			buildRendering: function () {
+			render: function () {
 				pointer.setTouchAction(this, "pan-y");
 				this._resetInteractions();
 			},

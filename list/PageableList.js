@@ -93,7 +93,7 @@ define([
 
 		//////////// Widget life cycle ///////////////////////////////////////
 
-		postCreate: function () {
+		postRender: function () {
 			// summary:
 			//		set the click event handler
 			this.on("click", this._load.bind(this));
@@ -241,6 +241,7 @@ define([
 		 * @member {boolean} module:deliteful/list/Pageable#_collection
 		 * @private
 		 */
+		_collection: null,
 
 		/**
 		 * Handle for the auto paging scroll handler (Object with a remove method)
@@ -299,7 +300,7 @@ define([
 
 		computeProperties: function (props) {
 			if (this.pageLength > 0) {
-				if ("store" in props || "query" in props)  {
+				if ("store" in props || "query" in props || "_collection" in props)  {
 					// Initial loading of the list
 					if (this._dataLoaded) {
 						this._setBusy(true, true);

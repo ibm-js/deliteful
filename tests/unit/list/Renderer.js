@@ -10,7 +10,7 @@ define([
 		name: "list/Renderer",
 		"Exception thrown if template does not define renderNode" : function () {
 			var FaultyRenderer = register("d-faulty-renderer", [HTMLElement, Renderer], {
-				buildRendering: function () {
+				render: function () {
 					this.appendChild(this.ownerDocument.createElement("div"));
 				}
 			});
@@ -28,11 +28,11 @@ define([
 			window.onerror = oldErrorHandler;
 			assert.isNotNull(errorMessage, "error expected");
 			assert.isTrue(errorMessage.indexOf(
-					"buildRendering must define a renderNode property on the Renderer") >= 0, "error message");
+					"render must define a renderNode property on the Renderer") >= 0, "error message");
 		},
-		"No exception thrown if buildRendering defines renderNode" : function () {
+		"No exception thrown if render defines renderNode" : function () {
 			var CorrectRenderer = register("d-correct-renderer", [HTMLElement, Renderer], {
-				buildRendering: function () {
+				render: function () {
 					this.renderNode = this.ownerDocument.createElement("div");
 					this.appendChild(this.renderNode);
 				}
