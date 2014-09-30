@@ -1062,7 +1062,7 @@ define([
 		_getFirst: function () {
 			var first = this.scrollableNode.querySelector("." + this._cssClasses.cell);
 			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
-				first = this._getNext(first, 1);
+				first = this.getNext(first, 1);
 			}
 			return first;
 		},
@@ -1077,7 +1077,7 @@ define([
 			var cells = this.scrollableNode.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
 			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
-				last = this._getNext(last, -1);
+				last = this.getNext(last, -1);
 			}
 			return last;
 		},
@@ -1086,7 +1086,7 @@ define([
 		/**
 		 * @private
 		 */
-		_onDownArrow: function () {
+		onDownArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1100,7 +1100,7 @@ define([
 		/**
 		 * @private
 		 */
-		_onUpArrow: function () {
+		onUpArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
 			}
@@ -1116,7 +1116,7 @@ define([
 		 * @return {Element}
 		 * @private
 		 */
-		_getNext: function (child, dir) {
+		getNext: function (child, dir) {
 			if (child === this) {
 				return dir > 0 ? this._getFirst() : this._getLast();
 			}
