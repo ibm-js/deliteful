@@ -130,7 +130,7 @@
   -moz-transition-duration: 400ms;
   transition-duration: 400ms;
 }
-.dj_a11y .d-slider-handle:after {
+.dj_a11y .d-slider-handle::after {
   content: "\025A3";
   display: block;
   font-family: monospace;

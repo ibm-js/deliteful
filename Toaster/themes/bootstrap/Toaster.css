@@ -51,7 +51,7 @@
   left: 0;
   bottom: 0;
 }
-button.d-toaster-dismiss:before {
+button.d-toaster-dismiss::before {
   content: "\00D7";
 }
 button.d-toaster-dismiss {
@@ -146,7 +146,7 @@ button.d-toaster-dismiss {
   -ms-user-select: none;
   user-select: none;
 }
-.dj_a11y .d-toaster-message .d-toaster-icon:before {
+.dj_a11y .d-toaster-message .d-toaster-icon::before {
   font-family: "webdings";
   font-size: 2em;
   margin-right: 1em;
@@ -157,7 +157,7 @@ button.d-toaster-dismiss {
   border-color: #bce8f1;
   color: #31708f;
 }
-.dj_a11y .d-toaster-type-info .d-toaster-icon:before {
+.dj_a11y .d-toaster-type-info .d-toaster-icon::before {
   content: "i";
 }
 .d-toaster-type-warning {
@@ -165,7 +165,7 @@ button.d-toaster-dismiss {
   border-color: #faebcc;
   color: #8a6d3b;
 }
-.dj_a11y .d-toaster-type-warning .d-toaster-icon:before {
+.dj_a11y .d-toaster-type-warning .d-toaster-icon::before {
   content: "U";
 }
 .d-toaster-type-success {
@@ -173,7 +173,7 @@ button.d-toaster-dismiss {
   border-color: #d6e9c6;
   color: #3c763d;
 }
-.dj_a11y .d-toaster-type-success .d-toaster-icon:before {
+.dj_a11y .d-toaster-type-success .d-toaster-icon::before {
   content: "a";
 }
 .d-toaster-type-error {
@@ -181,6 +181,6 @@ button.d-toaster-dismiss {
   border-color: #ebccd1;
   color: #a94442;
 }
-.dj_a11y .d-toaster-type-error .d-toaster-icon:before {
+.dj_a11y .d-toaster-type-error .d-toaster-icon::before {
   content: "x";
 }

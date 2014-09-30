@@ -94,7 +94,7 @@ The following table lists all the CSS classes that can be used to style the widg
 |class name/selector|applies to|
 |----------|----------|
 |d-radio-button|RadioButton widget node
-|d-radio-button:before|RadioButton "reticule"
+|d-radio-button::before|RadioButton "reticule"
 In addition, the following classes are used in combination with the classes above:
 
 |class name/selector|applies to|
