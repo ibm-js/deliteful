@@ -1083,9 +1083,6 @@ define([
 		},
 
 		// Simple arrow key support.
-		/**
-		 * @private
-		 */
 		onDownArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
@@ -1097,9 +1094,6 @@ define([
 			this.focusChild(next ? next.renderNode : this._getFirst());
 		},
 
-		/**
-		 * @private
-		 */
 		onUpArrow: function () {
 			if (this.focusedChild.hasAttribute("navindex")) {
 				return;
@@ -1111,11 +1105,6 @@ define([
 			this.focusChild(next ? next.renderNode : this._getLast());
 		},
 
-		/**
-		 * @param {Element} child
-		 * @return {Element}
-		 * @private
-		 */
 		getNext: function (child, dir) {
 			if (child === this) {
 				return dir > 0 ? this._getFirst() : this._getLast();
