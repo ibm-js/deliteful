@@ -57,7 +57,8 @@ define([
 	 * 
 	 * @class module:deliteful/Select
 	 * @augments module:delite/FormWidget
-	 * @augments module:delite/Store
+	 * @augments module:delite/StoreMap
+	 * @augments module:delite/Selection
 	 */
 	return register("d-select", [HTMLElement, FormWidget, StoreMap, Selection],
 		/** @lends module:deliteful/Select# */ {
