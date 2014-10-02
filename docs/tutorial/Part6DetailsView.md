@@ -5,8 +5,8 @@ title: Deliteful Tutorial Part 6
 #Deliteful Tutorial (Part 6) - Adding a Details View
 
 In the [previous step](Part5CustomRenderer.md) of the deliteful tutorial we enhanced the display of our photo list
-view.
-We will now add a second view that shows the details of a photo.
+view. We will now add a second view that shows the details of a photo. The details view will appear when we select
+one of the items in the photo list.
 
 ![Details View Sketch](images/detailsketch.png)
 
@@ -56,13 +56,20 @@ Let's also add a little rule in `css/app.css` to set a margin on the details div
 }
 ```
 
+As we will rely on the List's selection to show the details view, we must set  the List's `selectionMode` so that
+items can be selected:
+
+```html
+            <d-list ... selectionMode="single">
+```
+
 ##JavaScript
 
 Add this code to `js/app.js`:
 
 ```js
-	photolist.on("click", function (event) {
-		var renderer = photolist.getEnclosingRenderer(event.target);
+	photolist.on("selection-change", function (event) {
+		var renderer = event.renderer;
 		if (renderer && renderer.item) {
 			document.getElementById("photoDetails").innerHTML =
 				renderer.item.description.replace(/href=/ig, "target=\"_blank\" href=");
@@ -71,8 +78,9 @@ Add this code to `js/app.js`:
 	});
 ```
 
-This code adds a `click` event handler to the list. The handler first finds which item was clicked (using the
-`getEnclosingRenderer` method of the list) and accesses its data `item` (that is, the JavaScript object returned by
+This code adds a `selection-change` event handler to the list. The handler first finds which item was selected (using
+the
+`renderer` property of the event) and accesses its data `item` (that is, the JavaScript object returned by
 the Flickr query and that describes the photo). The item contains a `description` property that is an HTML fragment,
 so it is really easy to populate the details view by setting the `innerHTML` property of the `photoDetails` div to
 this description. We only change it slightly so that the anchors contained in the description open a separate window
@@ -89,7 +97,16 @@ for this. let's just add an event handler in the markup to do this:
     <button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
 ```
 
-You can try that new feature and click on an item to see the details view:
+A final adjustment in the code: for selection to work correctly, the items of the data store must have a unique
+identifier, so we must configure our Memory store for this:
+
+```js
+		photolist.store = new Memory({data: json.items, idProperty: "link"});
+```
+
+The `idProperty` tells the Memory store that each item is uniquely identified by its `link` property.
+
+We are done, you can try that new feature and click on an item to see the details view:
 
 ![Clicking the List View](images/detailsview1.png) ![Details View](images/detailsview2.png)
 
