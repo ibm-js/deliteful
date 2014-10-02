@@ -260,7 +260,7 @@ define([
 		
 		getIdentity: function (renderItem) {
 			// Override of delite/Selection's method
-			return renderItem.id;
+			return renderItem[this.store.idProperty];
 		},
 		
 		updateRenderers: function () {
