@@ -79,11 +79,6 @@ Finally, modify `index.html` to change the path of the `defaultapp.css` styleshe
 
 Good, our app now uses build packages. It works the same, except it makes much less HTTP requests and loads faster.
 
-###Run the Demo
-
-Click here to see the live demo of the optimized app using build versions:
-[Deliteful Tutorial - Part 8.1](http://ibm-js.github.io/deliteful-tutorial/runnable/part8-1/index.html)
-
 ##Building the Application Into a Single Layer
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
@@ -151,10 +146,10 @@ so we need to modify our `index.html` as follows:
 If you launch the application now and look at the browser's debugger, you should see a minimal set of HTTP requests.
 Our application is now fully optimized!
 
-###Run the Demo
+##Run the Demo
 
 Click here to see the live demo of the fully optimized app:
-[Deliteful Tutorial - Part 8.2](http://ibm-js.github.io/deliteful-tutorial/runnable/part8-2/index.html)
+[Deliteful Tutorial - Part 8.2](http://ibm-js.github.io/deliteful-tutorial/runnable/part8/index.html)
 
 ##Congratulations!
 
