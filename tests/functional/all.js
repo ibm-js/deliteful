@@ -8,5 +8,6 @@ define([
 	"./Slider",
 	"./SidePane",
 	"./CheckBox",
-	"./Switch"
+	"./Switch",
+	"./Button"
 ]);
