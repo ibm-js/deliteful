@@ -56,7 +56,8 @@ Let's start with the second element. The `<d-linear-layout>` component is a cont
 ```
 
 Note the `width100` and `height100` CSS classes on the toplevel `d-linear-layout`,
-they indicate that it should fill the whole width and height of the page.
+they indicate that it should fill the whole width and height of the page. These classes are defined in the
+[`defaultapp.css`](/delite/docs/master/defaultapp.md) style sheet that is included by the application generator.
 
 The toplevel `d-linear-layout` element contains two children: another nested `d-linear-layout` element,
 which will be the header of the page, and a `d-view-stack` element.
