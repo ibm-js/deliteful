@@ -63,12 +63,6 @@ remove all the existing content and add these rules to define the look of our ne
 .d-button {
     border-radius: 0;
 }
-.width100 {
-    width: 100%;
-}
-.height100 {
-    height: 100%;
-}
 ```
 
 (You can also remove the `css/delitefont.*` files as we won't use them in this tutorial).
