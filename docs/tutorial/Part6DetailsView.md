@@ -97,15 +97,6 @@ for this. let's just add an event handler in the markup to do this:
     <button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
 ```
 
-A final adjustment in the code: for selection to work correctly, the items of the data store must have a unique
-identifier, so we must configure our Memory store for this:
-
-```js
-		photolist.store = new Memory({data: json.items, idProperty: "link"});
-```
-
-The `idProperty` tells the Memory store that each item is uniquely identified by its `link` property.
-
 We are done, you can try that new feature and click on an item to see the details view:
 
 ![Clicking the List View](images/detailsview1.png) ![Details View](images/detailsview2.png)
