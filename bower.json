@@ -3,7 +3,7 @@
 	"version": "0.3.0",
 	"dependencies": {
 		"dcl": "1.1.x",
-		"decor": "0.2.1",
+		"decor": "0.3.0-alpha",
 		"delite": "0.4.0-alpha",
 		"dojo": ">=1.9.1",
 		"dpointer": "0.3.x",
