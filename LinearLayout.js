@@ -2,10 +2,9 @@
 define([
 	"dojo/dom-class",
 	"delite/register",
-	"delite/Widget",
 	"delite/DisplayContainer",
 	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout.css"
-], function (domClass, register, Widget, DisplayContainer) {
+], function (domClass, register, DisplayContainer) {
 	/**
 	 * A layout container based on CSS3 Flexible Box.
 	 *
@@ -19,9 +18,9 @@ define([
 	 *   <div>...</div>
 	 * </d-linear-layout>
 	 * @class module:deliteful/LinearLayout
-	 * @augments module:delite/Container
+	 * @augments module:delite/DisplayContainer
 	 */
-	return register("d-linear-layout", [HTMLElement, Widget, DisplayContainer],
+	return register("d-linear-layout", [HTMLElement, DisplayContainer],
 		/** @lends module:deliteful/LinearLayout# */{
 		/**
 		 * The name of the CSS class of this widget.
