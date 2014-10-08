@@ -141,7 +141,7 @@ To set the height of a LinearLayout using a percentage expression, the height of
 
 ### Accessibility
 
-Rely on browser.
+Relies on browser.
 
 ### Globalization
 

@@ -259,7 +259,7 @@ define(["dcl/dcl",
 					while (parent && parent.style.display  !== "none" && parent !== this.ownerDocument.body) {
 						parent = parent.parentNode;
 					}
-					if (parent !== this.ownerDocument.body) {
+					if ((has("ie") === 9) || parent !== this.ownerDocument.body) {
 						if (! params) {
 							params = {};
 						}
