@@ -95,7 +95,7 @@ The following CSS layout attributes must **NOT** be changed. They are explicitly
 
 ### Accessibility
 
-Rely on browser.
+Relies on browser.
 
 ### Globalization
 
