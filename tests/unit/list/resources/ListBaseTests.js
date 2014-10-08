@@ -26,13 +26,13 @@ define([
 				},
 				"baseClass update" : function () {
 					var list = this.parent.list;
-					assert.strictEqual(list.className, "d-list");
+					assert.strictEqual(list.className, "d-selectable d-list");
 					list.baseClass = "d-round-rect-list";
 					list.deliver();
-					assert.strictEqual(list.className, "d-round-rect-list");
+					assert.strictEqual(list.className, "d-selectable d-round-rect-list");
 					list.baseClass = "d-list";
 					list.deliver();
-					assert.strictEqual(list.className, "d-list");
+					assert.strictEqual(list.className, "d-selectable d-list");
 				},
 				"scrollDirection horizontal not supported": function () {
 					var list = this.parent.list;
@@ -74,7 +74,7 @@ define([
 					list.scrollDirection = "none";
 					list.deliver();
 					list.scrollDirection = "none";
-					assert.strictEqual(list.className, "d-list");
+					assert.strictEqual(list.className, "d-selectable d-list");
 				},
 				"getItemRenderers": function () {
 					var list = this.parent.list;
@@ -130,6 +130,7 @@ define([
 					var children = list.scrollableNode.children;
 					assert.strictEqual(list._getFirst(), children[0].renderNode);
 					list.categoryAttr = "label";
+					list.isAriaListbox = false;
 					list.deliver();
 					children = list.scrollableNode.children;
 					assert.strictEqual(children[0].className, "d-list-category", "first is category");
@@ -155,7 +156,7 @@ define([
 					list.deliver();
 					var renderer = list.scrollableNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.firstChild.getAttribute("role"), "option");
 					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
@@ -164,7 +165,7 @@ define([
 					list.deliver();
 					renderer = list.scrollableNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.firstChild.getAttribute("role"), "option");
 					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-other-icon");
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
@@ -173,7 +174,7 @@ define([
 					list.deliver();
 					renderer = list.scrollableNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
-					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
+					assert.strictEqual(renderer.firstChild.getAttribute("role"), "option");
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 				},

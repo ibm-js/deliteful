@@ -300,6 +300,7 @@ define([
 			assert.isNull(selectionChangeEvent);
 			assert.strictEqual(firstItem.className, "d-list-item");
 		},
+		/* List now always sets the click handler even is selectionMode = none
 		"revert selection to 'none' remove event handler": function () {
 			list.selectionMode = "single";
 			list.deliver();
@@ -316,6 +317,7 @@ define([
 			list.deliver();
 			assert.isNull(list._selectionClickHandle, "second none");
 		},
+		*/
 		"revert selection to 'none' clears selection": function () {
 			list.selectionMode = "multiple";
 			list.deliver();

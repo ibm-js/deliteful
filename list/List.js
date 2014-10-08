@@ -143,15 +143,19 @@ define([
 		multiCharSearchDuration: 0,
 
 		/**
-		 * Indicates whether the list has a WAI-ARIA role of `listbox` or its default WAI-ARIA role of `grid`.
-		 * If this indicator is set to `true`:
+		 * Indicates whether the list has a WAI-ARIA role of `listbox` (default) or `grid`.
+		 * If `isAriaListbox` is `true` (default):
 		 * * The WAI-ARIA role of the list is set to `listbox`;
-		 * * The `selectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
+		 * * The `selectionMode` property cannot be `none`;
 		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
+		 * If `isAriaListbox` is `false`:
+		 * * The WAI-ARIA role of the list is set to `grid`;
+		 * * The `selectionMode` property can be `none`;
+		 * * The `itemRenderer` and `categoryRenderer` widget are allowed to provide internal navigation.
 		 * @member {boolean}
-		 * @default false
+		 * @default true
 		 */
-		isAriaListbox: false,
+		isAriaListbox: true,
 
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
@@ -169,30 +173,6 @@ define([
 				this._set("scrollDirection", value);
 			}
 		},
-
-		/**
-		 * Defines the selection mode: `"none"` (not allowed if `isAriaListbox` is true), `"radio"`, `"single"`
-		 *  or `"multiple"`.
-		 * @member {string} module:deliteful/list/List#selectionMode
-		 * @default "none", or "single" if isAriaListbox is true.
-		 */
-		_setSelectionModeAttr: dcl.superCall(function (sup) {
-			return function (value) {
-				if (this.isAriaListbox && value === "none") {
-					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
-							+ "keeping the previous value of '" + this.selectionMode + "'");
-				} else {
-					sup.apply(this, arguments);
-				}
-			};
-		}),
-
-		/**
-		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
-		 * @member {string}
-		 * @default "none"
-		 */
-		selectionMode: "none",
 
 		/**
 		 * Optional message to display, with a progress indicator, when
@@ -251,6 +231,10 @@ define([
 			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
 			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
 			this.setAttribute("aria-readonly", "true");
+			// Handle selection on click events
+			this.on("click", lang.hitch(this, "handleSelection"));
+			// List is selectable by default (selectionMode="single")
+			domClass.add(this, this._cssClasses.selectable);
 		},
 
 		postRender: function () {
@@ -334,20 +318,13 @@ define([
 		computeProperties: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:12*/
+			// Forbid isAriaListbox = true and selectionMode = none
+			if (("isAriaListbox" in props || "selectionMode" in props) && this.isAriaListbox &&
+				this.selectionMode === "none") {
+				this.isAriaListbox = false;
+			}
 			if ("isAriaListbox" in props) {
 				this._refreshAriaListboxProperty();
-			}
-			if ("selectionMode" in props) {
-				if (this.selectionMode === "none") {
-					if (this._selectionClickHandle) {
-						this._selectionClickHandle.remove();
-						this._selectionClickHandle = null;
-					}
-				} else {
-					if (!this._selectionClickHandle) {
-						this._selectionClickHandle = this.on("click", lang.hitch(this, "handleSelection"));
-					}
-				}
 			}
 			if ("itemRenderer" in props
 				|| (this._isCategorized()
@@ -518,9 +495,6 @@ define([
 		_refreshAriaListboxProperty: function () {
 			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
 			if (this.isAriaListbox) {
-				if (this.selectionMode === "none") {
-					this.selectionMode = "single";
-				}
 				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
 				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
 				for (var i = 0; i < nodes.length; i++) {
@@ -1002,7 +976,8 @@ define([
 		 */
 		childSelector: function (child) {
 			if (this.isAriaListbox) {
-				if (this._isCategoryRenderer(this.getEnclosingRenderer(child))) {
+				var renderer = this.getEnclosingRenderer(child);
+				if (renderer && this._isCategoryRenderer(renderer)) {
 					return false;
 				}
 			}

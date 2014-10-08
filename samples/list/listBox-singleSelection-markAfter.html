@@ -27,7 +27,6 @@
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
-			list.isAriaListbox = true;
 			list.setAttribute("aria-label", "Sample list with single selection mode enabled and selection checkmarks displayed after the items");
 			list.store.add({label: "first item"});
 			list.store.add({label: "second item"});
