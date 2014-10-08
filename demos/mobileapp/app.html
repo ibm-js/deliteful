@@ -62,10 +62,10 @@
 			menulist.store.add({label: "View D", target:"ddd"});
 
 			menulist.on("selection-change", function (event) {
-                var renderer = event.renderer;
-                if (renderer) {
-                    vs.show(renderer.item.target, {transition: "fade"});
-                }
+				var renderer = event.renderer;
+				if (renderer) {
+					vs.show(renderer.item.target, {transition: "fade"});
+				}
 			});
 		});
 	</script>
