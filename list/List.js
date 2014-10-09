@@ -1154,11 +1154,11 @@ define([
 					// We are in Actionable mode
 					evt.preventDefault();
 					var renderer = this._getFocusedRenderer();
-					var next = renderer[evt.shiftKey ? "_getPrev" : "_getNext"](this.focusedChild);
+					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.focusedChild);
 					while (!next) {
 						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
 							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
-						next = renderer[evt.shiftKey ? "_getLast" : "_getFirst"]();
+						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
 					}
 					this.focusChild(next);
 				}
@@ -1175,7 +1175,7 @@ define([
 		_enterActionableMode: function () {
 			var focusedRenderer = this._getFocusedRenderer();
 			if (focusedRenderer) {
-				var next = focusedRenderer._getFirst();
+				var next = focusedRenderer.getFirst();
 				if (next) {
 					this.focusChild(next);
 				}
