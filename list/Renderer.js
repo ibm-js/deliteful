@@ -57,11 +57,11 @@ define([
 		// Interface from List to Renderer to navigate fields
 
 		/**
-		 * Retrieves the first focusable child
+		 * Retrieves the first focusable child.
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getFirst: function () {
+		getFirst: function () {
 			if (this._focusableChildren && this._focusableChildren.length) {
 				return this._focusableChildren[0];
 			} else {
@@ -70,11 +70,11 @@ define([
 		},
 
 		/**
-		 * Retrieves the last focusable child
+		 * Retrieves the last focusable child.
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getLast: function () {
+		getLast: function () {
 			if (this._focusableChildren && this._focusableChildren.length) {
 				return this._focusableChildren[this._focusableChildren.length - 1];
 			} else {
@@ -83,23 +83,23 @@ define([
 		},
 
 		/**
-		 * Retrieves the next focusable child after another child
+		 * Retrieves the next focusable child after another child.
 		 * @param {Element} child the child from which to retrieve the next focusable child
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getNext: function (child) {
-			return this._getNextFocusableChild(child, 1);
+		getNext: function (child) {
+			return this.getNextFocusableChild(child, 1);
 		},
 
 		/**
-		 * Retrieves the previous focusable child before another child
+		 * Retrieves the previous focusable child before another child.
 		 * @param {Element} child the child from which to retrieve the previous focusable child
 		 * @returns {Element}
 		 * @protected
 		 */
-		_getPrev: function (child) {
-			return this._getNextFocusableChild(child, -1);
+		getPrev: function (child) {
+			return this.getNextFocusableChild(child, -1);
 		},
 
 		/**
@@ -147,7 +147,7 @@ define([
 		 * @returns {Element} The next focusable child if there is one.
 		 * @protected
 		 */
-		_getNextFocusableChild: function (fromChild, dir) {
+		getNextFocusableChild: function (fromChild, dir) {
 			if (this._focusableChildren && fromChild !== this) {
 				// retrieve the position of the from node
 				var fromChildIndex = fromChild ? this._focusableChildren.indexOf(fromChild) : -1;
