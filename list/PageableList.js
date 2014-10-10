@@ -486,9 +486,9 @@ define([
 		_previousPageReadyHandler: function (items) {
 			var renderer = this._getFirstVisibleRenderer();
 			var nextRenderer = renderer.nextElementSibling;
-			if (this.focusedChild) {
+			if (this.navigatedDescendant) {
 				if (renderer && this._previousPageLoader && this._previousPageLoader.loading) {
-					this.focusChild(renderer.renderNode);
+					this.navigateTo(renderer.renderNode);
 				}
 			}
 			this._renderNewItems(items, true);
@@ -509,8 +509,8 @@ define([
 			if (renderer) {
 				var previous = renderer.previousElementSibling;
 				if (previous && previous.renderNode) {
-					var currentActiveElement = this.focusedChild ? null : this.ownerDocument.activeElement;
-					this.focusChild(previous.renderNode);
+					var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
+					this.navigateTo(previous.renderNode);
 					// scroll the focused node to the top of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.
@@ -530,9 +530,9 @@ define([
 		 */
 		_nextPageReadyHandler: function (items) {
 			var renderer = this._getLastVisibleRenderer();
-			if (this.focusedChild) {
+			if (this.navigatedDescendant) {
 				if (renderer) {
-					this.focusChild(renderer.renderNode);
+					this.navigateTo(renderer.renderNode);
 				}
 			}
 			this._renderNewItems(items, false);
@@ -555,8 +555,8 @@ define([
 			if (renderer) {
 				var next = renderer.nextElementSibling;
 				if (next && next.renderNode) {
-					var currentActiveElement = this.focusedChild ? null : this.ownerDocument.activeElement;
-					this.focusChild(next.renderNode);
+					var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
+					this.navigateTo(next.renderNode);
 					// scroll the focused node to the bottom of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.

@@ -256,10 +256,8 @@ define([
 		postRender: function () {
 			//	Assign a default store to the list.
 			this.store = new DefaultStore();
-			this._keyNavCodes[keys.PAGE_UP] = this._keyNavCodes[keys.HOME];
-			this._keyNavCodes[keys.PAGE_DOWN] = this._keyNavCodes[keys.END];
-			delete this._keyNavCodes[keys.HOME];
-			delete this._keyNavCodes[keys.END];
+			// Listen to deactive events.
+			this.on("delite-deactivated", this._listDeactivatedHandler.bind(this));
 		},
 
 		attachedCallback: dcl.before(function () {
@@ -785,7 +783,7 @@ define([
 			if (this._getFocusedRenderer() === renderer) {
 				var nextFocusRenderer = this._getNextRenderer(renderer, 1) || this._getNextRenderer(renderer, -1);
 				if (nextFocusRenderer) {
-					this.focusChild(nextFocusRenderer.renderNode);
+					this.navigateTo(nextFocusRenderer.renderNode);
 				}
 			}
 			if (!keepSelection && !this._isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
@@ -1000,7 +998,7 @@ define([
 		/**
 		 * @private
 		 */
-		childSelector: function (child) {
+		descendantSelector: function (child) {
 			if (this.isAriaListbox) {
 				if (this._isCategoryRenderer(this.getEnclosingRenderer(child))) {
 					return false;
@@ -1029,7 +1027,7 @@ define([
 		focus: function () {
 			// Focus the previously focused child of the first visible grid cell
 			if (this._previousFocusedChild) {
-				this.focusChild(this._previousFocusedChild);
+				this.navigateTo(this._previousFocusedChild);
 			} else {
 				var cell = this._getFirst();
 				if (cell) {
@@ -1040,22 +1038,19 @@ define([
 						var nextRenderer = cell.parentNode.nextElementSibling;
 						cell = nextRenderer ? nextRenderer.renderNode : null;
 					}
-					this.focusChild(cell);
+					this.navigateTo(cell);
 				}
 			}
 		},
 
 		/**
 		 * @method
-		 * Store a reference to the focused child
+		 * Called on "delite-deactivated" event, stores a reference to the focused child.
 		 * @private
 		 */
-		_onBlur: dcl.superCall(function (sup) {
-			return function () {
-				this._previousFocusedChild = this.focusedChild;
-				sup.apply(this, arguments);
-			};
-		}),
+		_listDeactivatedHandler: function () {
+			this._previousFocusedChild = this.navigatedDescendant;
+		},
 
 		// Page Up/Page down key support
 		/**
@@ -1087,26 +1082,36 @@ define([
 		},
 
 		// Simple arrow key support.
-		onDownArrow: function () {
-			if (this.focusedChild.hasAttribute("navindex")) {
+		downArrowKeyHandler: function () {
+			if (this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
 			var next = this._getFocusedRenderer().nextElementSibling;
 			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
 				next = next.nextElementSibling;
 			}
-			this.focusChild(next ? next.renderNode : this._getFirst());
+			this.navigateTo(next ? next.renderNode : this._getFirst());
 		},
 
-		onUpArrow: function () {
-			if (this.focusedChild.hasAttribute("navindex")) {
+		upArrowKeyHandler: function () {
+			if (this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
 			var next = this._getFocusedRenderer().previousElementSibling;
 			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
 				next = next.previousElementSibling;
 			}
-			this.focusChild(next ? next.renderNode : this._getLast());
+			this.navigateTo(next ? next.renderNode : this._getLast());
+		},
+
+		// Remap Page Up -> Home and Page Down -> End
+
+		pageUpKeyHandler: function () {
+			this.navigateToFirst();
+		},
+
+		pageDownKeyHandler: function () {
+			this.navigateToLast();
 		},
 
 		getNext: function (child, dir) {
@@ -1142,7 +1147,7 @@ define([
 		 */
 		_gridKeydownHandler: function (evt) {
 			if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
-				if (this.focusedChild && !this.focusedChild.hasAttribute("navindex")) {
+				if (this.navigatedDescendant && !this.navigatedDescendant.hasAttribute("navindex")) {
 					// Enter Actionable Mode
 					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
 					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
@@ -1150,17 +1155,17 @@ define([
 					this._enterActionableMode();
 				}
 			} else if (evt.keyCode === keys.TAB) {
-				if (this.focusedChild && this.focusedChild.hasAttribute("navindex")) {
+				if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 					// We are in Actionable mode
 					evt.preventDefault();
 					var renderer = this._getFocusedRenderer();
-					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.focusedChild);
+					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.navigatedDescendant);
 					while (!next) {
 						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
 							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
 						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
 					}
-					this.focusChild(next);
+					this.navigateTo(next);
 				}
 			} else if (evt.keyCode === keys.ESCAPE) {
 				// Leave Actionable mode
@@ -1177,7 +1182,7 @@ define([
 			if (focusedRenderer) {
 				var next = focusedRenderer.getFirst();
 				if (next) {
-					this.focusChild(next);
+					this.navigateTo(next);
 				}
 			}
 		},
@@ -1186,7 +1191,7 @@ define([
 		 * @private
 		 */
 		_leaveActionableMode: function () {
-			this.focusChild(this._getFocusedRenderer().renderNode);
+			this.navigateTo(this._getFocusedRenderer().renderNode);
 		},
 
 		/**
@@ -1196,7 +1201,7 @@ define([
 		 * @private
 		 */
 		_getFocusedRenderer: function () {
-			return this.focusedChild ? this.getEnclosingRenderer(this.focusedChild) : null;
+			return this.navigatedDescendant ? this.getEnclosingRenderer(this.navigatedDescendant) : null;
 		}
 
 	});
