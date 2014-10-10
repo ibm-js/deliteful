@@ -1,8 +1,9 @@
 /** @module deliteful/Toggle */
 define([
 	"dcl/dcl",
+	"dojo/dom-class",
 	"delite/CssState"
-], function (dcl, CssState) {
+], function (dcl, domClass, CssState) {
 
 	/**
 	 * A base class for 2-states form widgets.
@@ -38,9 +39,9 @@ define([
 		}),
 
 		postRender: function () {
-			// CssState handles focused property
-			this.on("focus", function () { this.focused = true; }.bind(this), this.focusNode);
-			this.on("blur", function () { this.focused = false; }.bind(this), this.focusNode);
+			// CssState does not handle focused property any more
+			this.on("focus", function () { domClass.add(this, "d-focused");	}.bind(this), this.focusNode);
+			this.on("blur", function () { domClass.remove(this, "d-focused"); }.bind(this), this.focusNode);
 		},
 
 		/**
