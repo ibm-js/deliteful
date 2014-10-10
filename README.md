@@ -1,15 +1,12 @@
 # deliteful [![Build Status](https://travis-ci.org/ibm-js/deliteful.png?branch=master)](https://travis-ci.org/ibm-js/deliteful)
 
-This project provides a predefined set of components working on both desktop and mobile platforms.
+This project provides a predefined set of custom UI elements working on both desktop and mobile platforms.
 
-One goal of the project is to
-[converge the dijit and dojox/mobile widgets](https://docs.google.com/document/d/1_kgrX25ylxuhtZCRrqAoABMaSdgxjAQgpyd0Ap4xvZU/edit#)
-into a single set of components.
+The deliteful custom elements are based on the [delite](http://ibm-js.github.io/delite/) project.
 
-Another goal is to
-[build on emerging web standards](https://docs.google.com/document/d/1kqe3Oq7W6lg-JY_iqMl5G7SxGTD0uQ6FFIoP4KPAkUw/edit#heading=h.ct7kwnepj0cc).
+The project supports the following browsers/platforms: FF31+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+. 
 
-The project only supports modern browsers/platforms: FF24+, Chrome latest, IE9/10+, Safari 7+,  Android 4.1+, iOS6+, WindowsPhone8+ (BB10+?)
+More details on the project [home page](http://ibm-js.github.io/deliteful/).
 
 ## Status
 
@@ -17,9 +14,8 @@ No official release yet.
 
 ## Migration
 
-This is a merge of the former dijit & dojox/mobile projects.
-
-Migration requires manual steps listed [here](docs/migration.md).
+For developers migrating from a dijit or dojox/mobile based application, migration requires manual steps 
+listed [here](docs/migration.md).
 
 ## Issues
 
@@ -62,6 +58,5 @@ Then install dependencies with bower (or manually from github if you prefer to):
 
 ## Documentation
 
-See the [docs directory](./docs) or, preferably, the
-[documentation site](http://ibm-js.github.io/deliteful/docs/master/index.html).
+Documentation is available [here](http://ibm-js.github.io/deliteful/docs/master/index.html).
 
