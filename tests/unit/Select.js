@@ -39,7 +39,7 @@ define([
 		
 		var observe = select.observe(function (oldValues) {
 			if ("value" in oldValues) {
-				// Store for testing purposes
+				// Store the value for testing purposes
 				select._notifiedSelectValue = select.value;
 			}
 		});
@@ -162,28 +162,28 @@ define([
 		}
 		
 		assert.strictEqual(select.value, select.valueNode.value,
-			"select.value equal to select.valueNode.value after selecting " +
+			"(multiple) select.value equal to select.valueNode.value after selecting " +
 			"dataItems[0] and [1] on select.id: " + select.id);
 		assert.strictEqual(select.value, "0", // the value of the first selected option
-			"select.value after selecting dataItems[0] and [1] on select.id: " + select.id);
+			"(multiple) select.value after selecting dataItems[0] and [1] on select.id: " + select.id);
 		assert.strictEqual(select._notifiedSelectValue, "0",
-			"select.value notified value after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.value notified value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectedItem.value, 0, // the value of the first selected option
-			"select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.selectedItem.value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectedItem.text,
 			select.valueNode.options[0].text, // the text of the first selected option
-			"select.selectedItem.text after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.selectedItem.text after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectedItems.length, 2,
-			"select.selectedItems.length after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.selectedItems.length after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectedItems[0].value, 0,
-			"select.selectedItems[0].value after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.selectedItems[0].value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		assert.strictEqual(select.selectedItems[1].value, 1,
-			"select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " +
+			"(multiple) select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
 		
 		// Restore the initial selection state
