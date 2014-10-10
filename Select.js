@@ -268,7 +268,7 @@ define([
 		
 		getIdentity: function (dataItem) {
 			// Override of delite/Selection's method
-			this.store.getIdentity(dataItem);
+			return this.store.getIdentity(dataItem);
 		},
 		
 		updateRenderers: function () {
