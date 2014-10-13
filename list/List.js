@@ -999,12 +999,11 @@ define([
 		 * @private
 		 */
 		descendantSelector: function (child) {
-			if (this.isAriaListbox) {
-				if (this._isCategoryRenderer(this.getEnclosingRenderer(child))) {
-					return false;
-				}
-			}
-			return domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
+			var enclosingRenderer = this.getEnclosingRenderer(child);
+			return !enclosingRenderer || 
+				(this.isAriaListbox && this._isCategoryRenderer(enclosingRenderer)) ?
+				false :
+				domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
 
 		/**
