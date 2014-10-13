@@ -60,7 +60,6 @@ define([
 		/* internal properties */
 
 		/*=====
-		_zeroAreaWidth: 1,
 		_enterValue: null,
 		_hoveredValue: null,
 		_startHandles: null,
@@ -265,10 +264,12 @@ define([
 		_updateZeroArea: function () {
 			if (this.readOnly || !this.allowZero) {
 				domClass.add(this._zeroSettingArea, "d-hidden");
-				this._zeroAreaWidth = 0;
+				delete this.focusNode.value;
 			} else {
 				domClass.remove(this._zeroSettingArea, "d-hidden");
-				delete this._zeroAreaWidth;
+				// _zeroSettingArea might not fill the whole widget height
+				// so pointer events can land in the underlying focus node
+				this.focusNode.value = 0;
 			}
 		}
 	});

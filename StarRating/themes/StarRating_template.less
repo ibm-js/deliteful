@@ -4,7 +4,7 @@
 	/* Do not modify the display style */
 	display: inline-block;
 	font-size: @star-icon-size;
-	height: 1em;
+	line-height: 1em;
 	&.d-star-rating-hovered{
 		opacity: 0.5;
 	}
@@ -14,7 +14,7 @@
 	/* Do not modify the display style */
 	display: inline-block;
 	overflow: hidden;
-	height: 1em;
+	height: 1px;
 	width: 0.5em;
 	&.d-hidden{
 		width: 0px;
@@ -25,8 +25,6 @@
 	/* Do not modify the display style */
 	display: inline-block;
 	overflow: hidden;
-	line-height: 1em;
-	height: 1em;
 	width: 0.5em;
 }
 
@@ -34,6 +32,7 @@
 	width: 1em;
 	display: inline-block;
 	text-align: center;
+	line-height: 1em;
 }
 
 .d-star-rating-empty::before{
