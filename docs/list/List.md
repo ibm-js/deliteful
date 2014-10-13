@@ -254,22 +254,17 @@ using the `categoryRenderer` property of the list (see the [custom renderers](#c
 
 ![Multiple Selectable Items Example](images/Selectable.png)
 
-The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. By default, items
-in the list are not selectable, but you can change this behaviour using the `selectionMode` property
-of the widget:
+The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items.
+The `selectionMode` property controls the selection behaviour of the widget:
 
-```js
-var list = new List();
-list.selectionMode = "multiple";
-```
-
-When the selection mode is `single`, one single item can be selected in the list at any time.
+When the selection mode is `single` (the default), one single item can be selected in the list at any time.
 
 When the selection mode is `radio`, one single item can be selected in the list at any time, but it cannot be unselected without selecting another one.
 
 When the selection mode is `multiple`, more than one item can be selected in the list at any time.
 
-When the selection mode is `none`, the items are not selectable.
+When the selection mode is `none`, the items are not selectable. Note that you cannot set `selectionMode` to `none`
+if the `isAriaListbox` property is `true` (which is the default).
 
 <a name="customRenderers"></a>
 ### Custom renderers
@@ -451,26 +446,22 @@ contains the previous selection, and its `newValue` property contains the new se
 
 The widget supports two different WAI-ARIA roles:
 
-1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
-1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be set by assigning the value `true` to the `isAriaListbox` property.
+1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which is the default role.
+1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which can be set by assigning the value `false`
+ to the `isAriaListbox` property.
 
-#### grid role
+#### listbox role
 
-When using the default `grid` role, the List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
-except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
+The default `listbox` role is suitable for simple lists where items can be selected.
 
-The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
-while the last item has focus will focus the first item. Pressing the UP arrow while the first item
+With the `listbox` role, the list items can be navigated using the UP and DOWN arrow keys. Pressing the
+DOWN arrow while the last item has focus will focus the first item. Pressing the UP arrow while the first item
 has the focus will focus the next item.
-
-When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
-Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
-
-Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
-as the default renderers do not render any actionable nodes.
 
 Pressing the PAGE UP key will focus the first item of the list, while pressing the PAGE DOWN key will focus
 the last one.
+
+When an item is focused, it can be selected using the SPACE key.
 
 You can also search for items by typing their first letter on the keyboard, and the next item element which text
 begins with the letters will get the focus.
@@ -478,13 +469,28 @@ begins with the letters will get the focus.
 When the `selectionMode` of a List is `"multiple"`, its `aria-multiselectable` attribute is set to `"true"`.
 When an item is selected in a list, its `aria-selected` attribute is set to the value `"true"`.
 
-#### listbox role
-
-When using the `listbox` role, the List widget behave as previously described for the `grid` role, with the following differences:
-
-* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `none` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
-* The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
+When using the `listbox` role, the following restrictions apply:
+* The list cannot have a `selectionMode` of `"none"`. When attempting to change `selectionMode` and/or `isAriaListbox`
+such that is `selectionMode` would be `"none"` and `isAriaListbox` would be `true`, `isAriaListbox` is automatically
+changed to `false`.
+* The item and category renderers should not be actionable.
 * If the list is categorized, the category headers are not focusable.
+
+#### grid role
+
+The `grid` role is suitable for lists whose items contain actionable nodes, for example if a list item contains
+a button or a text field.
+
+When using the `grid` role, the List widget implements a single column grid navigation pattern as defined in the [WAI-ARIA 1.0 Authoring Practices](http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid),
+except for the selection / deselection of item, that is performed using the Space key on a focused item (no support for Ctrl+Space,  Shift+Space, Control+A, Shift+Arrow and Shift+F8).
+
+When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
+Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
+
+Note that Enter and F2 only activate the Actionable Mode when using a custom renderer that render DOM nodes with a ```navindex``` attribute,
+as the default renderers do not render any actionable nodes.
+
+When using the `grid` role, the list's `selectionMode` can be `"none"`.
 
 ### Globalization
 

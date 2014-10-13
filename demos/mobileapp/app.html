@@ -61,15 +61,11 @@
 			menulist.store.add({label: "View C", target:"ccc"});
 			menulist.store.add({label: "View D", target:"ddd"});
 
-			var actionHandler = function(event, list) {
-				var renderer = list.getEnclosingRenderer(event.target);
+			menulist.on("selection-change", function (event) {
+				var renderer = event.renderer;
 				if (renderer) {
 					vs.show(renderer.item.target, {transition: "fade"});
 				}
-			};
-
-			menulist.on("click", function (event) {
-				actionHandler(event, menulist);
 			});
 		});
 	</script>

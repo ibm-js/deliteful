@@ -13,7 +13,6 @@ define([
 				list.destroy();
 			}
 			list = new List();
-			list.isAriaListbox = true;
 			document.body.appendChild(list);
 			list.startup();
 			list.store.filter();
@@ -51,27 +50,11 @@ define([
 		"default selectionMode": function () {
 			assert.strictEqual(list.selectionMode, "single");
 		},
-		"selectionMode 'none' is invalid and do not change the current selection mode": function () {
-			try {
-				list.selectionMode = "none";
-				assert.fail("error", "", "error expected");
-			} catch (error) {
-				assert.strictEqual(error.message,
-						"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'single'",
-						"error message");
-				assert.strictEqual(list.selectionMode, "single", "expected selection mode 1");
-			}
-			list.selectionMode = "multiple";
+		"selectionMode 'none' changes the aria mode": function () {
+			assert.strictEqual(list.isAriaListbox, true, "expected isAriaListbox false");
+			list.selectionMode = "none";
 			list.deliver();
-			try {
-				list.selectionMode = "none";
-				assert.fail("error", "", "error expected");
-			} catch (error) {
-				assert.strictEqual(error.message,
-					"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'multiple'",
-					"error message");
-				assert.strictEqual(list.selectionMode, "multiple", "expected selection mode 2");
-			}
+			assert.strictEqual(list.isAriaListbox, false, "expected isAriaListbox false");
 		},
 		teardown : function () {
 			list.destroy();

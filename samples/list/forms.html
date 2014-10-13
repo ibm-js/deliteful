@@ -60,6 +60,7 @@
 			});
 			var list = new List();
 			list.setAttribute("aria-label", "Sample list which items are data forms");
+			list.selectionMode = "none";
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({firstName: "John", lastName: "Doe", dateOfBirth: "12/01/1967"});

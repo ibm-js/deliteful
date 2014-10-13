@@ -32,8 +32,8 @@
 				"requirejs-domready/domReady!"], function (keys) {
 				register.parse();
 				
-				var actionHandler = function(event, list) {
-					var renderer = list.getEnclosingRenderer(event.target);
+				var actionHandler = function(event) {
+					var renderer = event.renderer;
 					if (renderer && renderer.item.moveto) {
 						document.getElementById("viewStack").show(renderer.item.moveto);
 					}
@@ -41,19 +41,7 @@
 				// TODO: ADD THE EVENT HANDLERS USING MARKUP ? 
 				var lists = document.getElementsByTagName("d-list");
 				for (var i = 0; i < lists.length; i++) {
-					(function (list) {
-						// TODO: TODO; USE AN "onAction" METHOD AT THE LIST LEVEL INSTEAD OF DEFINING TWO HANDLERS HERE ?
-						// IN TERMS OF PERFORMANCES, LIST IS ALREADY LISTENING TO keydown EVENTS, SO THERE IS LITTLE POINT
-						// ADDING A HANDLER HERE ?
-						list.on("click", function (event) {
-							actionHandler(event, list);
-						});
-						list.on("keydown", function (event) {
-							if (event.keyCode === keys.SPACE) {
-								actionHandler(event, list);
-							}
-						});
-					})(lists[i]);
+					lists[i].on("selection-change", actionHandler);
 				}
 			});
 		});

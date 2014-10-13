@@ -18,14 +18,16 @@
 
 	<script type="text/javascript">
 		require([
-		    "delite/register",
+			"dcl/dcl",
+			"delite/register",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, List) {
+		], function (dcl, register, List) {
 			var list = register.createElement("d-list");
 			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
 			list.itemToRenderItem = function (item) {
 				return {
+					id: item.id,
 					label: item.title,
 					righttext: item.title.split(" ")[0]
 				};

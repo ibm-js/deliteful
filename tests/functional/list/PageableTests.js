@@ -166,7 +166,7 @@ define(["intern",
 				})
 				.then(function () {
 					return remote.pressKeys(keys.PAGE_UP)
-							.then(pollUntil("return document.activeElement.textContent === 'Category 0' ? true : null;",
+							.then(pollUntil("return document.activeElement.children[1].textContent === 'Programmatic item of order 0' ? true : null;",
 							[], 5000));
 				});
 		},

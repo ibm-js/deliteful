@@ -53,6 +53,7 @@
 			});
 			var list = new List();
 			list.setAttribute("aria-label", "Sample list of input elements");
+			list.selectionMode = "none";
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});

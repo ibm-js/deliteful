@@ -30,6 +30,7 @@
 			});
 			var list = new List();
 			list.setAttribute("aria-label", "Sample list with custom item renderer");
+			list.selectionMode = "none";
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
 			list.store.add({title: "Dojo: The Definitive Guide", isbn: "0596516487"});
