@@ -186,7 +186,8 @@ d-list-store {
   font-weight: bold;
 }
 .d-list-container {
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: 100%;
 }
 /*******************************/
@@ -198,6 +199,8 @@ d-list-store {
 /* in the list !               */
 /*******************************/
 .d-round-rect-list {
+  width: 100%;
+  height: 100%;
   /* edit display at your own risk */
   display: block;
   /* position needed for moving list items in editable mode: do not edit */
@@ -221,6 +224,8 @@ d-list-store {
   padding-bottom: 1px;
 }
 .d-list {
+  width: 100%;
+  height: 100%;
   /* edit display at your own risk */
   display: block;
   /* position needed for moving list items in editable mode: do not edit */

@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -20,9 +20,11 @@
 		require([
 		    "delite/register",
 			"deliteful/list/List",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
-		], function (register, List) {
+		], function (register) {
 			var list = register.createElement("d-list");
+			list.className = "fill";
 			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
 			list.itemToRenderItem = function (item) {
 				return {
@@ -35,12 +37,14 @@
 			list.store.add({title: "third item"});
 			list.store.add({title: "fourth item"});
 			list.store.add({title: "fifth item"});
-			document.body.appendChild(list);
+			container.appendChild(list);
 			list.startup();
 		});
 	</script>
 </head>
 <body role="application">
-	This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the default item renderer.
+	<d-linear-layout id="container" style="width: 100%; height: 100%;">
+		<div>This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the default item renderer.</div>
+	</d-linear-layout>
 </body>
 </html>

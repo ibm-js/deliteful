@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -20,6 +20,7 @@
 		require([
 		    "delite/register",
 			"deliteful/list/List",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register) {
 			register.parse();
@@ -27,16 +28,17 @@
 	</script>
 </head>
 <body role="application">
-	This sample demonstrate how to populate the list default store using markup.
-	
-	<d-list arial-label="Sample list with default store populated using markup">
-		<d-list-store>
-			{"label": "first item"},
-			{"label": "second item"},
-			{"label": "third item"},
-			{"label": "fourth item"},
-			{"label": "fifth item"}
-		</d-list-store>
-	</d-list>
+	<d-linear-layout style="width: 100%; height: 100%">
+		<div>This sample demonstrate how to populate the list default store using markup.</div>
+		<d-list class="fill" arial-label="Sample list with default store populated using markup">
+			<d-list-store>
+				{"label": "first item"},
+				{"label": "second item"},
+				{"label": "third item"},
+				{"label": "fourth item"},
+				{"label": "fifth item"}
+			</d-list-store>
+		</d-list>
+	</d-linear-layout>
 </body>
 </html>

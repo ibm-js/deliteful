@@ -310,6 +310,9 @@ src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
 <a name="styling"></a>
 ## Element Styling
 
+The default height of a `deliteful/List` is ``100%``. As a consequence, you must ensure that the height of every parent is defined (this includes \<body> and \<html>). You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
+You can set height of \<body> and \<html> to 100% by including [`defaultapp.css`](/delite/docs/master/defaultapp.md) 
+
 ### Supported themes
 
 This widget provides default styling for the following delite themes:

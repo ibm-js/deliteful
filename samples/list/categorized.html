@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -19,11 +19,13 @@
 	<script type="text/javascript">
 		require([
 		    "delite/register",
+			"deliteful/LinearLayout",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, List) {
+		], function (register) {
 			var list = register.createElement("d-list");
+			list.className = "fill";
 			list.setAttribute("aria-label", "Sample categorized list");
 			list.categoryAttr = "category";
 			list.store.add({label: "first item", category: "Category A"});
@@ -31,12 +33,14 @@
 			list.store.add({label: "third item", category: "Category A"});
 			list.store.add({label: "fourth item", category: "Category B"});
 			list.store.add({label: "fifth item", category: "Category B"});
-			document.body.appendChild(list);
+			container.appendChild(list);
 			list.startup();
 		});
 	</script>
 </head>
 <body role="application">
-	This sample demonstrate a categorized list.
+	<d-linear-layout id="container" style="width: 100%; height: 100%;">
+		<div>This sample demonstrate a categorized list.</div>
+	</d-linear-layout>
 </body>
 </html>

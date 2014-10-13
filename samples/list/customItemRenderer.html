@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -22,6 +22,7 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/CustomItemRenderer.html",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, ItemRenderer, List, template) {
@@ -29,6 +30,7 @@
 				template: template
 			});
 			var list = new List();
+			list.className = "fill";
 			list.setAttribute("aria-label", "Sample list with custom item renderer");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
@@ -37,7 +39,7 @@
 			list.store.add({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664"});
 			list.store.add({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128"});
 			list.store.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115"});
-			document.body.appendChild(list);
+			container.appendChild(list);
 			list.startup();
 		});
 	</script>
@@ -52,6 +54,8 @@
 	</style>
 </head>
 <body role="application">
-	This sample demonstrate how to write a custom item renderer.
+	<d-linear-layout id="container" style="width: 100%; height: 100%;">
+		<div>This sample demonstrate how to write a custom item renderer.</div>
+	</d-linear-layout>
 </body>
 </html>

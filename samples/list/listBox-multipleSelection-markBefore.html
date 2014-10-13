@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -22,13 +22,15 @@
 			"dojo/on",
 			"dojo/_base/array",
 			"deliteful/list/List",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, on, array) {
  			var console = document.createElement("p");
 			console.innerHTML = "Click to select an item.";
-			document.body.appendChild(console);
+			container.appendChild(console);
 			var list = register.createElement("d-list");
+			list.className = "fill";
 			list.isAriaListbox = true;
 			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
 			list.selectionMode = "multiple";
@@ -44,7 +46,7 @@
 					console.innerHTML = "Click to select an item.";
 				}
 			}.bind(list));
-			document.body.appendChild(list);
+			container.appendChild(list);
 			list.startup();
 		});
 	</script>
@@ -57,7 +59,11 @@
 	</style>
 </head>
 <body role="application">
-	This sample demonstrate a list with listbox aria role, multiple selection mode enabled and custom CSS to display a selection mark before the currently selected item(s).
-	<input autofocus><br>
+	<d-linear-layout id="container" style="width: 100%; height: 100%;">
+		<div>
+			This sample demonstrate a list with listbox aria role, multiple selection mode enabled and custom CSS to display a selection mark before the currently selected item(s).
+			<input autofocus>
+		</div>
+	</d-linear-layout>
 </body>
 </html>

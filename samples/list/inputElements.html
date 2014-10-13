@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>deliteful/list/List samples.</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -22,6 +22,7 @@
 			"deliteful/list/ItemRenderer",
 			"deliteful/list/List",
 			"delite/handlebars!deliteful/samples/list/templates/BlankItemRenderer.html",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register, ItemRenderer, List, template) {
 			var MyCustomRenderer = register("d-configuration-item", [HTMLElement, ItemRenderer], {
@@ -52,6 +53,7 @@
 				}
 			});
 			var list = new List();
+			list.className = "fill";
 			list.setAttribute("aria-label", "Sample list of input elements");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
@@ -61,7 +63,7 @@
 			list.store.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
 			list.store.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
 			list.store.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
-			document.body.appendChild(list);
+			container.appendChild(list);
 			list.startup();
 			list.setAttribute("aria-readonly", "false");
 		});
@@ -83,7 +85,9 @@
 	</style>
 </head>
 <body role="application">
-	This sample demonstrate a custom item renderer that displays various input elements.
+	<d-linear-layout id="container" style="width: 100%; height: 100%;">
+		<div>This sample demonstrate a custom item renderer that displays various input elements.</div>
+	</d-linear-layout>
 	<p>
 </body>
 </html>

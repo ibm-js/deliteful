@@ -2,8 +2,9 @@
 <html>
 <head>
 	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	<title>Navigation between views using lists</title>
 
 	<script type="text/javascript" src="../../../requirejs/require.js"></script>
@@ -20,6 +21,7 @@
 			"deliteful/list/ItemRenderer",
 			"delite/handlebars!deliteful/samples/list/templates/NavigationItemRenderer.html",
 			"deliteful/ViewStack",
+			"deliteful/LinearLayout",
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function(register, ItemRenderer, template){
 			// Custom item renderer that renders a navigation button
@@ -31,7 +33,7 @@
 				"deliteful/list/List",
 				"requirejs-domready/domReady!"], function (keys) {
 				register.parse();
-				
+
 				var actionHandler = function(event, list) {
 					var renderer = list.getEnclosingRenderer(event.target);
 					if (renderer && renderer.item.moveto) {
@@ -59,18 +61,11 @@
 		});
 	</script>
 	<style>
-		html {
+		#viewstack {
 			height: 100%;
-		}
-
-		body {
-			height: 100%;
-		}
-		
-		d-view-stack {
 			width: 100%;
 		}
-		
+
 		d-navigation-item [role="button"] {
 			width: 100%;
 		}
@@ -91,10 +86,10 @@
 </head>
 <body role="application">
 <d-view-stack id="viewStack">
-	<div id="view1">
+	<d-linear-layout id="view1">
 		<h1>List 1</h1>
- 		<d-list id="list1" arial-label="navigation list 1"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list1" arial-label="navigation list 1"
+				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
 				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
@@ -104,10 +99,10 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view2">
+	</d-linear-layout>
+	<d-linear-layout id="view2">
 		<h1>List 2</h1>
- 		<d-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list2" arial-label="navigation list 2" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 3", "righticonclass": "rightIcon", "moveTo": "view3"},
@@ -117,10 +112,10 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view3">
+	</d-linear-layout>
+	<d-linear-layout class="fill" id="view3">
 		<h1>List 3</h1>
- 		<d-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list3" arial-label="navigation list 3" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
@@ -130,11 +125,11 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view4">
+	</d-linear-layout>
+	<d-linear-layout id="view4">
 		<h1>List 4</h1>
- 		<d-list id="list4" arial-label="navigation list 4"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list4" arial-label="navigation list 4"
+				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
@@ -144,11 +139,11 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view5">
+	</d-linear-layout>
+	<d-linear-layout id="view5">
 		<h1>List 5</h1>
- 		<d-list id="list5" arial-label="navigation list 5"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list5" arial-label="navigation list 5"
+				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
@@ -158,11 +153,11 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view6">
+	</d-linear-layout>
+	<d-linear-layout id="view6">
 		<h1>List 6</h1>
- 		<d-list id="list6" arial-label="navigation list 6"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list6" arial-label="navigation list 6"
+				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
@@ -172,11 +167,11 @@
 				{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 			</d-list-store>
 		</d-list>
-	</div>
-	<div id="view7">
+	</d-linear-layout>
+	<d-linear-layout id="view7">
 		<h1>List 7</h1>
- 		<d-list id="list7" arial-label="navigation list 7"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+		<d-list class="fill" id="list7" arial-label="navigation list 7"
+				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
 			<d-list-store>
 				{"label": "To list 1", "righticonclass": "rightIcon", "moveTo": "view1"},
 				{"label": "To list 2", "righticonclass": "rightIcon", "moveTo": "view2"},
@@ -186,7 +181,7 @@
 				{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"}
 			</d-list-store>
 		</d-list>
-	</div>
+	</d-linear-layout>
 </d-view-stack>
 </body>
 </html>
