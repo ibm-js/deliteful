@@ -29,18 +29,21 @@ define([
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
+		 * @default "d-star-rating"
 		 */
 		baseClass: "d-star-rating",
 
 		/**
 		 * The maximum rating, that is also the number of stars to show.
 		 * @member {number}
+		 * @default 5
 		 */
 		max: 5,
 
 		/**
 		 * The current value of the Rating.
 		 * @member {number}
+		 * @default 0
 		 */
 		value: 0,
 
@@ -48,12 +51,14 @@ define([
 		 * Indicates whether the user is allowed to edit half values (0.5, 1.5, ...) or not.
 		 * Ignored if readOnly is set to false.
 		 * @member {boolean}
+		 * @default false
 		 */
 		editHalfValues: false,
 
 		/**
 		 * Indicates whether the user is allowed to set the value to zero or not.
 		 * @member {boolean}
+		 * @default true
 		 */
 		allowZero: true,
 
