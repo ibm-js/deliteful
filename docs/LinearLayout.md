@@ -41,7 +41,8 @@ require(["delite/register", "deliteful/LinearLayout", "requirejs-domready/domRea
 
 ```js
 require(["deliteful/LinearLayout", "requirejs-domready/domReady!"], function (LinearLayout) {
-  var layout = new LinearLayout({vertical: false, width:"100%"});
+  var layout = new LinearLayout({vertical: false});
+  layout.style.width = "100%";
   var leftChild = document.createElement("div");
   var centerChild = document.createElement("div");
   var rightChild = document.createElement("div");
