@@ -1000,7 +1000,7 @@ define([
 		 */
 		descendantSelector: function (child) {
 			var enclosingRenderer = this.getEnclosingRenderer(child);
-			return !enclosingRenderer || 
+			return !enclosingRenderer ||
 				(this.isAriaListbox && this._isCategoryRenderer(enclosingRenderer)) ?
 				false :
 				domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
