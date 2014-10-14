@@ -310,8 +310,12 @@ src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
 <a name="styling"></a>
 ## Element Styling
 
-The default height of a `deliteful/List` is ``100%``. As a consequence, you must ensure that the height of every parent is defined (this includes \<body> and \<html>). You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
-You can set height of \<body> and \<html> to 100% by including [`defaultapp.css`](/delite/docs/master/defaultapp.md) 
+The default height of a `deliteful/List` is ``100%``. When the height of a List is expressed in percentage, you must ensure that the height of its parent is defined.
+If the height of the parent is also defined as a percentage, you must recursively apply the same rule, up to ``<body>`` and ``<html>`` elements if needed.
+An HTML full-screen application has its ``<body>`` and ``<html>`` elements height set to ``100%``.
+You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
+You can set height of ``<body>`` and ``<html>`` to ``100%`` by including [`defaultapp.css`](/delite/docs/master/defaultapp.md) 
+
 
 ### Supported themes
 
