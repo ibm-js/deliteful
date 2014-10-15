@@ -33,10 +33,12 @@
 			list.loadNextMessage = "Load next data (${pageLength} entries)";
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate a pageable list with custom loader messages.
 </body>
 </html>

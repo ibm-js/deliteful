@@ -25,10 +25,11 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body>
+<body style="display: none">
 <d-side-pane id="sp" mode="reveal">
 	<div style="background-color: #088eef">SidePane</div>
 	<div style="background-color: #0869c6">Reveal</div>

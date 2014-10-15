@@ -31,7 +31,7 @@
 				"deliteful/list/List",
 				"requirejs-domready/domReady!"], function (keys) {
 				register.parse();
-				
+
 				var actionHandler = function(event, list) {
 					var renderer = list.getEnclosingRenderer(event.target);
 					if (renderer && renderer.item.moveto) {
@@ -55,6 +55,8 @@
 						});
 					})(lists[i]);
 				}
+
+				document.body.style.display = "";
 			});
 		});
 	</script>
@@ -89,7 +91,7 @@
 		}
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 <d-view-stack id="viewStack">
 	<div id="view1">
 		<h1>List 1</h1>

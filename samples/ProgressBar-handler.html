@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+
 			var label = document.getElementById("lb");
 			var progressBar = document.getElementById("pb1");
 			var loadBtn = document.getElementById("loadBtn");
@@ -55,6 +56,8 @@
 						"Max: " + event.max;
 			};
 			progressBar.addEventListener("change", pbHandler);
+
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -63,7 +66,7 @@
 		}
 	</style>
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressIndicator sample - percentage</strong></p>
 
 <p>This sample shows how to use the progress bar.</p>

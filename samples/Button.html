@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -59,7 +60,7 @@
 		}
 	</style>
 </head>
-<body style="background-color:white;">
+<body style="display: none; background-color:white;">
 <div class="group">
 	<button is="d-button" label="Default button" onclick="alert(this.label + ' clicked.');"></button>
 	<button is="d-button" class="d-button-blue" label="Blue button" onclick="alert(this.label + ' clicked.');"></button>

@@ -46,6 +46,8 @@
 			}.bind(list));
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 	<style type="text/css">
@@ -56,7 +58,7 @@
 		}
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate a list with listbox aria role, multiple selection mode enabled and custom CSS to display a selection mark before the currently selected item(s).
 	<input autofocus><br>
 </body>

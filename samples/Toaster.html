@@ -41,10 +41,12 @@
 					timeout += (Math.floor(Math.random()*3) + 1)*1000;
 			});
 			window.input = document.getElementById("input");
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body id="body">
+<body style="display: none" id="body">
 	<input id="input" type="text" value="Something to post">
 	<button onclick="toaster.postMessage(input.value)">post</button>
 </body>

@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+
 			var label = document.getElementById("lb");
 			var progressBar = document.getElementById("pb1");
 			var loadBtn = document.getElementById("loadBtn");
@@ -89,6 +90,8 @@
 					loadBtn.disabled = false;
 				},UPDATE_FREQ);
 			});
+
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -99,7 +102,7 @@
 		}
 	</style>
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressIndicator sample - messages</strong></p>
 
 <p>This sample shows how to customize messages by overriding progress bar methods.</p>

@@ -44,6 +44,8 @@
 			list.store.add({label: "Lettuce", cat: "Vegetable"});
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 	
@@ -60,7 +62,7 @@
 		}
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate how to write a custom category renderer.
 </body>
 </html>

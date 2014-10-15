@@ -23,10 +23,11 @@
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate how to populate the list default store using markup.
 	
 	<d-list arial-label="Sample list with default store populated using markup">
