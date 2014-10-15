@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -100,7 +101,7 @@
 
 	</style>
 </head>
-<body style="background-color:white;">
+<body style="display: none; background-color:white;">
 <div class="group">
 	<d-star-rating value="3"></d-star-rating><br>
 	<d-star-rating class="yellowgray" value="3"></d-star-rating><br>

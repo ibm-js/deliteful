@@ -29,6 +29,7 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+
 			var handle = function(event){
 				console.log(event.type + ": " + event.dest);
 			};
@@ -47,6 +48,8 @@
 				vs.addChild(newChild);
 				vs.show(newChild);
 			};
+
+			document.body.style.display = "";
 		});
 
 	</script>
@@ -68,7 +71,7 @@
 		}
 	</style>
 </head>
-<body style="margin:2em;">
+<body style="display: none; margin:2em;">
 <button is="d-button" onclick="vs.addChild(fff); vs.show(fff)">Add FFF</button>
 <button is="d-button" onclick="createChild()">Create EEE</button>
 <button is="d-button" onclick="vs.removeChild(aaa); vs.show(bbb)">Remove AAA</button>

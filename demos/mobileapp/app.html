@@ -28,6 +28,7 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+
 			for (var i = 1; i < 100; i++){
 				list.store.add({label: "Item #" + i});
 			}
@@ -71,10 +72,12 @@
 			menulist.on("click", function (event) {
 				actionHandler(event, menulist);
 			});
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body>
+<body style="display: none">
 <!-- A SidePane for the left menu -->
 <d-side-pane mode="push" position="start" id="leftPane">
 	<d-linear-layout class="height100">

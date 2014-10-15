@@ -31,6 +31,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 
 	</script>
@@ -60,7 +61,7 @@
 
 </style>
 </head>
-<body dir="ltr">
+<body style="display: none" dir="ltr">
 <div style="display:flex">
 <fieldset class="buttonPanel">
 	<legend>Wrapped in label</legend>

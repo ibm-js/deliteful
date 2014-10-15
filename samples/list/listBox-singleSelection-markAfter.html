@@ -42,7 +42,9 @@
 				}
 			});
 			document.body.appendChild(list);
-			list.startup();			
+			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 	<style type="text/css">
@@ -53,7 +55,7 @@
 		}
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate a list with listbox aria role, single selection mode enabled and custom CSS to display a selection mark after the currently selected item(s).
 	<input autofocus><br>
 </body>

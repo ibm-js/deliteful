@@ -37,10 +37,12 @@
 			list.store.add({title: "fifth item"});
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate how to extend the itemToRenderItem method to map a custom item to the one expected by the default item renderer.
 </body>
 </html>

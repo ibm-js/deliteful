@@ -23,6 +23,7 @@
 			"requirejs-domready/domReady!"
 		], function (register, ProgressIndicator) {
 			register.parse();
+
 			var label = document.getElementById("lb");
 			var progressIndicator = document.getElementById("pi");
 			var loadBtn = document.getElementById("loadBtn");
@@ -47,10 +48,12 @@
 				}, 200);
 			};
 			loadBtn.addEventListener("click", fakeloadFunction);
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressIndicator sample - percentage</strong></p>
 
 <p>This sample shows how to display a percentage of progression with the progress indicator.</p>

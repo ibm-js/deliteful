@@ -23,10 +23,11 @@
 			"requirejs-domready/domReady!"
 		], function (register, ProgressIndicator) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressIndicator sample - basic</strong></p>
 
 <p>This sample shows how to simply declare and use a progress indicator.</p>

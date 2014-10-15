@@ -30,12 +30,15 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+
 			rc.deliver();
 			screenClassLabel.innerHTML = rc.screenClass;
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body>
+<body style="display: none">
 <d-linear-layout class="width100 height100">
 	<div>A responsive container with 3 screen classes, breakpoints at 500px and 900px.</div>
 	<d-responsive-columns id="rc" class="fill"

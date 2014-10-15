@@ -37,6 +37,7 @@
 			require(["delite/theme!deliteful/demos/kittens/themes/{{theme}}/app.css"], function () {
 				// now, parse the content of the page
 				register.parse();
+				document.body.style.display = "";
 			});
 		});
 	</script>
@@ -89,7 +90,7 @@
 		};
 	</script>
 </head>
-<body>
+<body style="display: none">
 <d-linear-layout style="width: 100%; height: 100%">
 	<h1 class="header"><button id="backButton" is="d-button" onclick="vs.showPrevious({reverse:true});" style="display: none;">Back</button><div>Kittens</div></h1>
 	<d-view-stack id="vs" on-delite-before-show="deliteBeforeShowHandler(event);" class="fill">

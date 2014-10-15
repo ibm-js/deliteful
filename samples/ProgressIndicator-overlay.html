@@ -46,6 +46,8 @@
 			};
 			showBtn.addEventListener("click", showOverlay);
 			hideBtn.addEventListener("click", hideOverlay);
+
+			document.body.style.display = "";
 		});
 	</script>
 
@@ -117,7 +119,7 @@
 	</style>
 
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressIndicator sample - overlay</strong></p>
 
 <p>This sample illustrates how the progress indicator can be used to simulate the native  activity indicator from iOS.</p>

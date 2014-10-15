@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 
@@ -49,7 +50,7 @@
 	</style>
 
 </head>
-<body>
+<body style="display: none">
 <p><strong>ProgressBar sample - basic</strong></p>
 
 <p>This sample shows how to declare and customize a progress bar.</p>

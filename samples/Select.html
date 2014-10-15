@@ -27,7 +27,7 @@
 			"requirejs-domready/domReady!"
 		], function (register, Memory) {
 			register.parse();
-			
+
 			var storeTeams = new Memory({}),
 				storePlayers = new Memory({});
 			var teams = ["Brazil", "France", "USA", "Togo"],
@@ -65,6 +65,8 @@
 					"Your favorite team: " + getSelectedItemsTxt(selectTeam) +
 					"\nYour favorite players: " + getSelectedItemsTxt(selectPlayer));
 			};
+
+			document.body.style.display = "";
 		});
 	</script>
 	
@@ -74,7 +76,7 @@
 	}
 	</style>
 </head>
-<body>
+<body style="display: none">
 
 <br/>
 

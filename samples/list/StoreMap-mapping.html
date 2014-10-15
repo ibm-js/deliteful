@@ -35,10 +35,12 @@
 			list.store.add({title: "fifth item"});
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample uses the delite/StoreMap mixin to define a mapping between items from the store and items expected by the default list item renderer.
 </body>
 </html>

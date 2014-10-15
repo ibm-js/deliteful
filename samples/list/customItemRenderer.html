@@ -39,6 +39,8 @@
 			list.store.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115"});
 			document.body.appendChild(list);
 			list.startup();
+
+			document.body.style.display = "";
 		});
 	</script>
 	
@@ -51,7 +53,7 @@
 		}		
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate how to write a custom item renderer.
 </body>
 </html>

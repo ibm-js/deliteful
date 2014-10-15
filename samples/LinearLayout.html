@@ -24,6 +24,7 @@
 			"requirejs-domready/domReady!"
 		], function(register){
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -54,7 +55,7 @@
 
 	</style>
 </head>
-<body>
+<body style="display: none">
 <!-- This sample demonstrates how to mix:
 		- fixed-sized elements,
 		- percentage-sized elements,

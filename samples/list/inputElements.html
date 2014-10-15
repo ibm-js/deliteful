@@ -64,6 +64,8 @@
 			document.body.appendChild(list);
 			list.startup();
 			list.setAttribute("aria-readonly", "false");
+
+			document.body.style.display = "";
 		});
 	</script>
 	<style type="text/css">
@@ -82,7 +84,7 @@
 		
 	</style>
 </head>
-<body role="application">
+<body style="display: none" role="application">
 	This sample demonstrate a custom item renderer that displays various input elements.
 	<p>
 </body>
