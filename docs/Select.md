@@ -49,8 +49,8 @@ require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
 ```
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/nB8BK/1/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/nB8BK/1/">checkout the sample on JSFiddle</a></iframe>
+src="http://jsfiddle.net/ibmjs/nB8BK/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/nB8BK/">checkout the sample on JSFiddle</a></iframe>
 
 
 Using user's own store:
