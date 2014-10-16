@@ -1,0 +1,34 @@
+@import "../../../../delite/themes/ios/includes";
+
+/* For now, reuse the bootstrap less variables and functions*/
+@import "../../../../delite/themes/bootstrap/includes";
+@import "../../../../delite/themes/bootstrap/variables.less";
+
+@import "../ComboBox_template";
+
+@d-combobox-border-size: 1px;
+
+.d-combobox-styles() {
+	color: @input-color;
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+}
+
+.d-combobox-arrow-styles() {
+	font-size: .7em;
+	right: 1.7em;
+}
+
+.d-combobox-input-styles() {
+	padding: @padding-base-vertical @padding-base-horizontal;
+	border: @d-combobox-border-size solid @input-border;
+	border-radius: @input-border-radius;
+}
+
+.d-combobox-focus {
+	.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+}
+
+.d-combobox-list .d-active-descendant {
+	.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+}

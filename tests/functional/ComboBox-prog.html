@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/ComboBox (programmatic)</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"dstore/Memory",
+			"delite/register",
+			"deliteful/ComboBox",
+			"deliteful/list/List",
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
+		], function (Memory, register, ComboBox, List) {
+			register.parse();
+			
+			var dataStore = new Memory(
+				{idProperty: "label", 
+				data: [
+					{ label: "France", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ label: "China", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+			]});
+			
+			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list1 = list; // REMOVEME, for debug
+			list.startup();
+			list.id = "list1"; // REMOVEME, for debug
+			var comboBox = new ComboBox({list: list}).placeAt("combo-single", "replace");
+			combo1 = comboBox; // REMOVEME, for debug
+			// default selectionMode: "single"
+			comboBox.startup();
+			
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list2 = list; // REMOVEME, for debug
+			list.startup();
+			list.id = "list1"; // REMOVEME, for debug
+			comboBox = new ComboBox({autoFilter: true, list: list}).
+				placeAt("combo-single-autoFilter", "replace");
+			combo2 = comboBox; // REMOVEME, for debug
+			// default selectionMode: "single"
+			comboBox.startup();
+
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list3 = list; // REMOVEME, for debug
+			list.startup();
+			list.id = "list2"; // REMOVEME, for debug
+			comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
+				placeAt("combo-multiple", "replace");
+			combo3 = comboBox; // REMOVEME, for debug
+			comboBox.startup();
+			
+			// Now the same but disabled
+			// 
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list.startup();
+			var comboBox = new ComboBox({list: list, disabled: true}).
+				placeAt("combo-single-disabled", "replace");
+			// default selectionMode: "single"
+			comboBox.startup();
+			
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list.startup();
+			comboBox = new ComboBox({autoFilter: true, list: list, disabled: true}).
+				placeAt("combo-single-autoFilter-disabled", "replace");
+			// default selectionMode: "single"
+			comboBox.startup();
+
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list.startup();
+			comboBox = new ComboBox({list: list, selectionMode: "multiple", disabled: true}).
+				placeAt("combo-multiple-disabled", "replace");
+			comboBox.startup();
+		});
+	</script>
+	<style>
+		/* Larger margins between the elements inside the list elements */
+		.d-list-item-label {
+			margin-right: 30px;
+		}
+		.d-list-item-right-text {
+			margin-left: 30px;
+		}
+		/* Temporary workaround for delite issue #317 */
+		.d-popup {
+			background-color: inherit;
+		}
+	</style>
+</head>
+<body>
+	<p>
+	ComboBox <b>programmatically</b>.
+	</p>
+	<p>
+	selectionMode: "single", autoFilter: false
+	</p>
+	<span id="combo-single"></span>
+	<p>
+	selectionMode: "single", autoFilter: true
+	</p>
+	<span id="combo-single-autoFilter"></span>
+	<p>
+	selectionMode: "multiple"
+	</p>
+	<span id="combo-multiple"></span>
+	
+	<p>
+	selectionMode: "single", autoFilter: false, disabled
+	</p>
+	<span id="combo-single-disabled"></span>
+	<p>
+	selectionMode: "single", autoFilter: true, disabled
+	</p>
+	<span id="combo-single-autoFilter-disabled"></span>
+	<p>
+	selectionMode: "multiple", disabled
+	</p>
+	<span id="combo-multiple-disabled"></span>
+</body>
+</html>
