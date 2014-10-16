@@ -285,7 +285,8 @@ define([
 		},
 		
 		_setSelectionModeAttr: dcl.superCall(function (sup) {
-			// Override of the setter from delite/Selection to forbid the value "none"
+			// Override of the setter from delite/Selection to forbid the values
+			// "none" and "radio"
 			return function (value) {
 				if (value !== "single" && value !== "multiple") {
 					throw new TypeError("'" + value +
