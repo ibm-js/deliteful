@@ -508,7 +508,7 @@ define([
 		handleSelection: function (/*Event*/event) {
 			var eventRenderer = this.getEnclosingRenderer(event.target);
 			if (eventRenderer) {
-				if (!this._isCategoryRenderer(eventRenderer)) {
+				if (!this.isCategoryRenderer(eventRenderer)) {
 					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
 				}
 			}
@@ -639,7 +639,7 @@ define([
 				if (atTheTop) {
 					if (this._isCategorized()) {
 						var firstRenderer = this._getFirstRenderer();
-						if (this._isCategoryRenderer(firstRenderer)
+						if (this.isCategoryRenderer(firstRenderer)
 								&& items[items.length - 1].category === firstRenderer.item.category) {
 							// Remove the category renderer on top before adding the new items
 							this._removeRenderer(firstRenderer);
@@ -743,7 +743,7 @@ define([
 					result.addCategoryBefore = true;
 				} else {
 					if (!this._sameCategory(renderer, previousRenderer)) {
-						if (this._isCategoryRenderer(previousRenderer)) {
+						if (this.isCategoryRenderer(previousRenderer)) {
 							result.nodeRef = previousRenderer;
 							previousRenderer = this._getNextRenderer(previousRenderer, -1);
 							if (!previousRenderer
@@ -756,7 +756,7 @@ define([
 					}
 				}
 				if (result.nodeRef
-					&& !this._isCategoryRenderer(result.nodeRef)
+					&& !this.isCategoryRenderer(result.nodeRef)
 					&& !this._sameCategory(result.nodeRef, renderer)) {
 					result.addCategoryAfter = true;
 				}
@@ -773,10 +773,10 @@ define([
 		 * @private
 		 */
 		_removeRenderer: function (renderer, keepSelection) {
-			if (this._isCategorized() && !this._isCategoryRenderer(renderer)) {
+			if (this._isCategorized() && !this.isCategoryRenderer(renderer)) {
 				// remove the previous category header if necessary
 				var previousRenderer = this._getNextRenderer(renderer, -1);
-				if (previousRenderer && this._isCategoryRenderer(previousRenderer)) {
+				if (previousRenderer && this.isCategoryRenderer(previousRenderer)) {
 					var nextRenderer = this._getNextRenderer(renderer, 1);
 					if (!nextRenderer || !this._sameCategory(renderer, nextRenderer)) {
 						this._removeRenderer(previousRenderer);
@@ -790,7 +790,7 @@ define([
 					this.navigateTo(nextFocusRenderer.renderNode);
 				}
 			}
-			if (!keepSelection && !this._isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
+			if (!keepSelection && !this.isCategoryRenderer(renderer) && this.isSelected(renderer.item)) {
 				// deselect the item before removing the renderer
 				this.selectFromEvent(null, renderer.item, renderer, true);
 			}
@@ -834,17 +834,16 @@ define([
 		},
 
 		/**
-		 * Returns whether a renderer is a category renderer or not
-		 * @param {module:deliteful/list/Renderer} renderer the renderer to test
+		 * Returns whether a renderer is a category renderer or not>.
+		 * @param {module:deliteful/list/Renderer} renderer The renderer to test.
 		 * @return {boolean}
-		 * @private
 		 */
-		_isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
+		isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
 			return domClass.contains(renderer, this._cssClasses.category);
 		},
 
 		/**
-		 * Returns whether two renderers have the same category or not
+		 * Returns whether two renderers have the same category or not.
 		 * @param {module:deliteful/list/Renderer} renderer1 The first renderer.
 		 * @param {module:deliteful/list/Renderer} renderer2 The second renderer.
 		 * @private
@@ -1005,7 +1004,7 @@ define([
 		descendantSelector: function (child) {
 			var enclosingRenderer = this.getEnclosingRenderer(child);
 			return !enclosingRenderer ||
-				(this.isAriaListbox && this._isCategoryRenderer(enclosingRenderer)) ?
+				(this.isAriaListbox && this.isCategoryRenderer(enclosingRenderer)) ?
 				false :
 				domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
@@ -1063,7 +1062,7 @@ define([
 		 */
 		_getFirst: function () {
 			var first = this.scrollableNode.querySelector("." + this._cssClasses.cell);
-			if (first && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(first))) {
+			if (first && this.isAriaListbox && this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
 				first = this.getNext(first, 1);
 			}
 			return first;
@@ -1078,7 +1077,7 @@ define([
 			// summary:
 			var cells = this.scrollableNode.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
-			if (last && this.isAriaListbox && this._isCategoryRenderer(this.getEnclosingRenderer(last))) {
+			if (last && this.isAriaListbox && this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
 				last = this.getNext(last, -1);
 			}
 			return last;
@@ -1090,7 +1089,7 @@ define([
 				return;
 			}
 			var next = this._getFocusedRenderer().nextElementSibling;
-			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+			if (next && this.isAriaListbox && this.isCategoryRenderer(next)) {
 				next = next.nextElementSibling;
 			}
 			this.navigateTo(next ? next.renderNode : this._getFirst());
@@ -1101,7 +1100,7 @@ define([
 				return;
 			}
 			var next = this._getFocusedRenderer().previousElementSibling;
-			if (next && this.isAriaListbox && this._isCategoryRenderer(next)) {
+			if (next && this.isAriaListbox && this.isCategoryRenderer(next)) {
 				next = next.previousElementSibling;
 			}
 			this.navigateTo(next ? next.renderNode : this._getLast());
