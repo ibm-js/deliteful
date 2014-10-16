@@ -26,18 +26,15 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		attachedCallback: dcl.superCall(function (sup) {
-			return function () {
-				sup.apply(this, arguments);
-				if (this.getParent().getAttribute("role") === "grid") {
-					this.setAttribute("role", "row");
-					this.renderNode.setAttribute("role", "columnheader");
-				} else {
-					this.renderNode.removeAttribute("tabindex");
-					this.renderNode.setAttribute("role", "heading");
-				}
-			};
-		})
+		attachedCallback: function () {
+			if (this.getParent().getAttribute("role") === "grid") {
+				this.setAttribute("role", "row");
+				this.renderNode.setAttribute("role", "columnheader");
+			} else {
+				this.renderNode.removeAttribute("tabindex");
+				this.renderNode.setAttribute("role", "heading");
+			}
+		}
 
 	});
 

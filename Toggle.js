@@ -27,7 +27,7 @@ define([
 		 */
 		value: "on",
 
-		attachedCallback: dcl.after(function () {
+		attachedCallback: function () {
 			var initState = this.checked;
 			if (this.valueNode && this.valueNode.form) {
 				this.on("reset", function () {
@@ -36,7 +36,7 @@ define([
 					});
 				}.bind(this), this.valueNode.form);
 			}
-		}),
+		},
 
 		postRender: function () {
 			// CssState does not handle focused property any more

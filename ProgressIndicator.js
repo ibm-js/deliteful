@@ -139,7 +139,7 @@ define([
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
 		}),
 
-		attachedCallback: dcl.after(function () {
+		attachedCallback: function () {
 			//set unique SVG symbol id
 			this.deliver();
 			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
@@ -166,7 +166,7 @@ define([
 			}
 			//set initial widget appearance
 			this._reset();
-		}),
+		},
 
 		computeProperties: function (props) {
 			var correctedValue = null;
