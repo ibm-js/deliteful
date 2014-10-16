@@ -260,14 +260,18 @@ define([
 			this.on("delite-deactivated", this._listDeactivatedHandler.bind(this));
 		},
 
-		attachedCallback: dcl.before(function () {
-			//	Using dcl.before() rather than the default dcl.chainAfter() chaining so that the code runs
-			//	before StoreMap.attachedCallback()
-			// search for custom elements to populate the store
-			this._setBusy(true, true);
-			this.on("query-error", function () {
-				this._setBusy(false, true);
-			}.bind(this));
+		attachedCallback: dcl.superCall(function (sup) {
+			return function () {
+				//	Using dcl.superCall() to break the default dcl.chainAfter() chaining
+				//  so that this code runs before StoreMap.attachedCallback()
+				// search for custom elements to populate the store
+				this._setBusy(true, true);
+				this.on("query-error", function () {
+					this._setBusy(false, true);
+				}.bind(this));
+
+				sup.call(this);
+			};
 		}),
 
 		startup: dcl.before(function () {

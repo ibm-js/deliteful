@@ -39,7 +39,7 @@ define([
 			this.checked = this.focusNode.checked;
 		},
 
-		attachedCallback: dcl.after(function () {
+		attachedCallback: function () {
 			// The fact that deliteful/Checkbox is not an HTMLInputElement seems not being compatible with the default
 			// "<label for" behavior of the browser. So it needs to explicitly listen to click on associated
 			// <label for=...> elements.
@@ -57,6 +57,6 @@ define([
 				};
 				this.ownerDocument.addEventListener("click", labelClickHandler);
 			}
-		})
+		}
 	});
 });
