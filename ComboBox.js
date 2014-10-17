@@ -2,7 +2,6 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
-	"dojo/has", // has("touch") TODO: replace (add the feature to requirejs-dplugins/has?)
 	"delite/register",
 	"delite/FormWidget",
 	"delite/HasDropDown",
@@ -13,7 +12,7 @@ define([
 	"delite/handlebars!./ComboBox/ComboBox.html",
 	"requirejs-dplugins/i18n!./ComboBox/nls/ComboBox",
 	"delite/theme!./ComboBox/themes/{{theme}}/ComboBox.css"
-], function (dcl, domClass, has, register, FormWidget, HasDropDown,
+], function (dcl, domClass, register, FormWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the deliteful/list/List widget
@@ -274,7 +273,14 @@ define([
 		 */
 		useCenteredDropDown: function () {
 			// TODO: take final decision about the choice criteria
-			return has("touch");
+			
+			// Does the device and browser have touch capability?
+			// TODO: move the test to a has-feature module.
+			if (!this._touchEnabled) {
+				this._touchEnabled = "ontouchstart" in document ||
+					("onpointerdown" in document && navigator.maxTouchPoints > 0);
+			}
+			return this._touchEnabled;
 		},
 		
 		_createDropDown: function (list) {
@@ -301,6 +307,7 @@ define([
 		_createNormalDropDown: function (list) {
 			// TODO: does it help to embed List in LinearLayout?
 			// Depends on outcome of https://github.com/ibm-js/deliteful/pull/341
+			// TODO: move to separate widget.
 			var topLayout = new LinearLayout();
 			domClass.add(list, "fill");
 			topLayout.addChild(list);
@@ -308,6 +315,7 @@ define([
 		},
 		
 		_createCenteredDropDown: function (list) {
+			// TODO: move to separate widget.
 			var topLayout = new LinearLayout();
 
 			if (this.autoFilter && this.selectionMode !== "multiple") {
@@ -357,6 +365,7 @@ define([
 		 * @private
 		 */
 		_createPopupInput: function () {
+			// TODO: use deliteful/SearchBox when will be available.
 			var popupInput = document.createElement("input");
 			domClass.add(popupInput, "d-combobox-popup-input");
 			popupInput.setAttribute("role", "combobox");
