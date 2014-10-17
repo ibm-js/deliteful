@@ -73,7 +73,7 @@ define([
 		
 		/**
 		 * If `true`, the list of options can be filtered thanks to an editable
-		 * input element.
+		 * input element. No-op if `selectionMode` is "multiple".
 		 * @member {boolean} module:deliteful/ComboBox#autoFilter
 		 * @default false
 		 */
