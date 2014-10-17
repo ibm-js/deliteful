@@ -179,6 +179,14 @@ define([
 				"radio" : "multiple";
 			
 			var dropDown = this._createDropDown(this.list);
+			
+			// Since the dropdown is not a child of the ComboBox, it will not inherit
+			// its dir attribute. Hence:
+			var dir = this.getAttribute("dir");
+			if (dir) {
+				dropDown.setAttribute("dir", this.getAttribute("dir"));
+			}
+			
 			this.dropDown = dropDown; // delite/HasDropDown's property
 			
 			/* TODO: keyboard navigation support will come later.
