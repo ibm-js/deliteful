@@ -39,52 +39,52 @@
 			
 			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			list1 = list; // REMOVEME, for debug
-			list.startup();
 			list.id = "list1"; // REMOVEME, for debug
 			var comboBox = new ComboBox({list: list}).placeAt("combo-single", "replace");
 			combo1 = comboBox; // REMOVEME, for debug
 			// default selectionMode: "single"
+			list.startup();
 			comboBox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			list2 = list; // REMOVEME, for debug
-			list.startup();
 			list.id = "list1"; // REMOVEME, for debug
 			comboBox = new ComboBox({autoFilter: true, list: list}).
 				placeAt("combo-single-autoFilter", "replace");
 			combo2 = comboBox; // REMOVEME, for debug
 			// default selectionMode: "single"
+			list.startup();
 			comboBox.startup();
 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			list3 = list; // REMOVEME, for debug
-			list.startup();
 			list.id = "list2"; // REMOVEME, for debug
 			comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
 				placeAt("combo-multiple", "replace");
 			combo3 = comboBox; // REMOVEME, for debug
+			list.startup();
 			comboBox.startup();
 			
 			// Now the same but disabled
 			// 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			list.startup();
 			var comboBox = new ComboBox({list: list, disabled: true}).
 				placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
+			list.startup();
 			comboBox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			list.startup();
 			comboBox = new ComboBox({autoFilter: true, list: list, disabled: true}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
-			comboBox.startup();
-
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			list.startup();
+			comboBox.startup();
+			
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			comboBox = new ComboBox({list: list, selectionMode: "multiple", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
+			list.startup();
 			comboBox.startup();
 		});
 	</script>

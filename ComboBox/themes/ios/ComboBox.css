@@ -34,6 +34,13 @@ fieldset[disabled] .d-combobox-input {
   font-size: inherit;
   line-height: inherit;
 }
+.d-combobox-input:focus,
+.d-combobox-popup-input:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  /* defined in delite/themes/bootstrap/mixins.less */
+}
 .d-combobox .d-combobox-list-hidden {
   display: none;
 }
@@ -41,12 +48,6 @@ fieldset[disabled] .d-combobox-input {
   position: relative;
   height: auto;
   width: auto;
-}
-.d-combobox-focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-  /* defined in delite/themes/bootstrap/mixins.less */
 }
 .d-combobox-list .d-active-descendant {
   outline: thin dotted;

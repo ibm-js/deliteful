@@ -55,9 +55,8 @@ define([
 	 *     register.parse();
 	 *     var dataStore = ...; // Create data store
 	 *     var list = new List({store: dataStore});
-	 *     list.startup();
 	 *     var comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
-				placeAt(...);
+	 *       placeAt(...);
 	 *   });
 	 * 
 	 * @class module:deliteful/ComboBox
@@ -91,8 +90,8 @@ define([
 		 *
 		 * The value of this property determines the value of the `selectionMode`
 		 * property of the List instance used by this widget for displaying the options:
-		 * * The value"single" is mapped into "radio".
-		 * * The value "multiple" is mapped into "multiple".
+		 * * The value "single" is mapped to "radio".
+		 * * The value "multiple" is mapped to "multiple".
 		 * 
 		 * Note that, regardless of the selection mode, it is always possible to set 
 		 * several selected items using the `selectedItem` or `selectedItems` properties
@@ -131,9 +130,9 @@ define([
 		
 		refreshRendering: function (oldValues) {
 			if ("list" in oldValues) {
-				// Programmatic case (List passed as ComboBox' ctor arg or set after the
-				// initialization phase)
-				this._initList(true/*addToDom*/);
+				// Programmatic case (List passed as argument of the ctor of ComboBox
+				// or set after the initialization phase)
+				this._initList();
 			} else if ("selectionMode" in oldValues) {
 				if (this.list) {
 					this.list.selectionMode = this.selectionMode === "single" ?
@@ -150,28 +149,17 @@ define([
 					if (!this.list.attached) {
 						this.list.addEventListener("customelement-attached",
 							this._attachedlistener = function () {
-								this._initList(false/*addToDom*/);
+								this._initList();
 								this.list.removeEventListener("customelement-attached", this._attachedlistener);
 							}.bind(this));
 					} else {
-						this._initList(false/*addToDom*/);
+						this._initList();
 					}
 				}
 			}
-			
-			// To provide graphic feedback for focus, react to focus/blur events
-			// on the underlying native select. The CSS class is used instead
-			// of the focus pseudo-class because the browsers give the focus
-			// to the underlying select, not to the widget.
-			this.on("focus", function (evt) {
-				domClass.toggle(this, "d-combobox-focus", evt.type === "focus");
-			}.bind(this), this);
-			this.on("blur", function (evt) {
-				domClass.toggle(this, "d-combobox-focus", evt.type === "focus");
-			}.bind(this), this);
 		},
 		
-		_initList: function (addToDom) {
+		_initList: function () {
 			// Class added on the list such that ComboBox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
@@ -179,11 +167,6 @@ define([
 			
 			// The drop-down is hidden initially
 			domClass.add(this.list, "d-combobox-list-hidden");
-			
-			if (addToDom) {
-				// TODO CHECKME change of list must remove from DOM => custom setter??
-				this.list.placeAt(this);
-			}
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
@@ -305,7 +288,6 @@ define([
 				this._createCenteredDropDown(list) :
 				this._createNormalDropDown(list);
 			
-			this.forceWidth = true; // has no effect in "center" mode
 			this.dropDownPosition = centeredDropDown ?
 				["center"] :
 				["below", "above"]; // this is the default
@@ -322,7 +304,6 @@ define([
 			var topLayout = new LinearLayout();
 			domClass.add(list, "fill");
 			topLayout.addChild(list);
-			topLayout.startup();
 			return topLayout;
 		},
 		
@@ -365,11 +346,8 @@ define([
 				domClass.add(centralSpan, "fill");
 				bottomLayout.addChild(centralSpan);
 				bottomLayout.addChild(okButton);
-				okButton.startup();
-				bottomLayout.startup();
 				topLayout.addChild(bottomLayout);
 			}
-			topLayout.startup();
 			return topLayout;
 		},
 		
@@ -421,7 +399,7 @@ define([
 				// wouldn't break the automatic chaining (hence the workaround wouldn't
 				// be necessary if List gets this change), but this requires further
 				// investigation. 
-				this.defer(function() {
+				this.defer(function () {
 					this.list._hideLoadingPanel();
 				}.bind(this), 300);
 				

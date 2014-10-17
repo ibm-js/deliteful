@@ -23,10 +23,9 @@
 	padding: @padding-base-vertical @padding-base-horizontal;
 	border: @d-combobox-border-size solid @input-border;
 	border-radius: @input-border-radius;
-}
-
-.d-combobox-focus {
-	.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+	&:focus {
+		.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+	}
 }
 
 .d-combobox-list .d-active-descendant {
