@@ -31,30 +31,6 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 
 ### Declarative Instantiation
 
-Using the default store:
-
-```js
-require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register) {
-    register.parse();
-    select1.store.add({text: "Option 1", value: "1"});
-    ...
-});
-```
-
-```html
-<html>
-  <d-select id="select1"></d-select>
-</html>
-```
-
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/nB8BK/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/nB8BK/">checkout the sample on JSFiddle</a></iframe>
-
-
-Using user's own store:
-
 ```js
 require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "deliteful/Select", "requirejs-domready/domReady!"],
@@ -79,28 +55,6 @@ src="http://jsfiddle.net/ibmjs/nqM5G/embedded/result,js,html">
 
 
 ### Programmatic Instantiation
-
-Using the default store:
-
-```js
-require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register) {
-    register.parse();
-    var select = new Select({selectionMode: "multiple"}); 
-    select.placeAt(document.body);
-    select.startup(); // must be called before using select.store
-    
-    // add options to the Select widget
-    select.store.add({text: "Option 1", value: "1"});
-});
-```
-
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/8Ccfm/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/8Ccfm/">checkout the sample on JSFiddle</a></iframe>
-
-
-Using user's own store:
 
 ```js
 require(["delite/register", "dstore/Memory", "dstore/Trackable",
@@ -161,7 +115,7 @@ The following table lists the CSS classes that can be used to style the Select w
 |class name/selector|applies to|
 |----------|----------|
 |d-select|Select widget node
-|d-select-inner|The inner native HTML select node
+|d-select-inner|The inner native HTML `<select>`
 
 In addition, the following class is used in combination with the classes above:
 
@@ -169,6 +123,8 @@ In addition, the following class is used in combination with the classes above:
 |----------|----------|
 |d-select-focus|Select widget in focus state
 
+Note that level of support for styling the inner native HTML `<select>` (and 
+particularly its `<option>` children) is browser-dependent.
 
 <a name="enterprise"></a>
 ## Enterprise Use
