@@ -50,7 +50,6 @@
 						res = (select.selectedItem && select.value) ?
 							select.selectedItem.text : noOptionSelected;
 					} else { // selectionMode === "multiple"
-						var res = "";
 						var n = select.selectedItems.length;
 						for (var i = 0; i < n; i++) {
 							res += "\n  " + select.selectedItems[i].text;
