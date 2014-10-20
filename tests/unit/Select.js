@@ -185,12 +185,6 @@ define([
 		assert.strictEqual(select.selectedItems[1].value, 1,
 			"(multiple) select.selectedItems[1].value after selecting dataItems[0] and [1] on select.id: " +
 			select.id);
-		
-		// Restore the initial selection state
-		select.selectionMode = "single";
-		select.setSelected(dataItems[0], false);
-		select.setSelected(dataItems[1], false);
-		select.deliver();
 	};
 	
 	var checkTrackableSelect = function (select) {
@@ -305,19 +299,6 @@ define([
 			"Custom mapping (value) (select.id: " + select.id + ")");
 		assert.isFalse(!!optionWithCustomMapping.getAttribute("disabled"),
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
-			
-		// Remove the newly added items
-		select.store.removeSync(newDataItem1.id);
-		select.store.removeSync(newDataItem2.id);
-		select.store.removeSync(newDataItem3.id);
-		select.store.removeSync(newDataItem4.id);
-		select.store.removeSync(newDataItem5.id);
-		
-		// Restore the default mapping
-		select.textAttr = "text";
-		select.valueAttr = "value";
-		select.disabledAttr = "disabled";
-		select.deliver();
 	};
 	
 	var checkDefaultValues = function (select) {
@@ -408,13 +389,15 @@ define([
 	var suite = {
 		name: "deliteful/Select: markup",
 		setup: function () {
+			register("my-select", [Select], {});
+		},
+		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register("my-select", [Select], {});
 			register.parse();
 		},
-		teardown: function () {
+		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
@@ -428,10 +411,11 @@ define([
 	suite = {
 		name: "deliteful/Select: programatic",
 		setup: function () {
+			MySelect = register("my-select-prog", [Select], {});
+		},
+		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-			
-			MySelect = register("my-select-prog", [Select], {});
 			
 			var w = new Select({ id: "select1" });
 			container.appendChild(w);
@@ -441,7 +425,7 @@ define([
 			container.appendChild(w);
 			w.startup();
 		},
-		teardown: function () {
+		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
