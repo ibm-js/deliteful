@@ -29,10 +29,16 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```html
 <html>
-  <button is="d-toggle-button" checked="true" checkedLabel="On" checkedIconClass="iconButtonPressed">Off</button>
-  <button is="d-toggle-button" checked="true">WiFi</button>
+  <button is="d-toggle-button">Wifi</button>
+  <button is="d-toggle-button" checked>Wifi</button>
+  <button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
+  <button is="d-toggle-button" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
 </html>
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
+src="http://jsfiddle.net/ibmjs/at8z7abL/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/at8z7abL/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
 
@@ -56,6 +62,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
      tb.startup();
 });
 ```
+
 
 <a name="configuration"></a>
 ## Element Configuration

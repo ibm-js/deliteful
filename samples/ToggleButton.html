@@ -1,0 +1,40 @@
+<!doctype html>
+<html id="html">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+	      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>ToggleButton sample</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/ToggleButton",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register, ToggleButton) {
+			register.parse();
+		});
+	</script>
+	<style>
+		.icon-star-empty:before { content: "☆"; }
+		.icon-star-full:before { content: "★"; }
+	</style>
+</head>
+<body>
+	<button is="d-toggle-button">Wifi</button>
+	<button is="d-toggle-button" checked>Wifi</button>
+	<button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
+	<button is="d-toggle-button" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
+</body>
+</html>
