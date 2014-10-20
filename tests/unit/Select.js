@@ -214,7 +214,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		var newDataItem1 = select.store.addSync({
+		select.store.addSync({
 			text1: "", // check handling of empty string for text
 			value1: 7,
 			disabled1: false
@@ -230,7 +230,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Once again with disabled at true (boolean) and text and value at empty string
-		var newDataItem2 = select.store.addSync({
+		select.store.addSync({
 			text1: "custom mapping",
 			value1: "",
 			disabled1: true
@@ -249,7 +249,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Now with disabled at "false" (string) and value at " "
-		var newDataItem3 = select.store.addSync({
+		select.store.addSync({
 			text1: "custom mapping3",
 			value1: " ",
 			disabled1: "false"
@@ -265,7 +265,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 		
 		// Now with disabled at "true" (string)
-		var newDataItem4 = select.store.addSync({
+		select.store.addSync({
 			text1: "custom mapping4",
 			value1: 10,
 			disabled1: "true"
@@ -285,7 +285,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		var newDataItem5 = select.store.addSync({
+		select.store.addSync({
 			text1: "custom mapping",
 			value1: 7,
 			disabled1: false
