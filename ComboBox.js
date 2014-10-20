@@ -292,7 +292,8 @@ define([
 			
 			// The ComboBox template binds the readonly attribute of the input
 			// element on this property 
-			this._inputReadOnly = centeredDropDown || this.selectionMode === "multiple";
+			this._inputReadOnly = !this.autoFilter || centeredDropDown ||
+				this.selectionMode === "multiple";
 			
 			var dropDown = centeredDropDown ?
 				this._createCenteredDropDown(list) :
