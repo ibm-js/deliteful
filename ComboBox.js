@@ -2,6 +2,7 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"decor/sniff",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/HasDropDown",
@@ -12,7 +13,7 @@ define([
 	"delite/handlebars!./ComboBox/ComboBox.html",
 	"requirejs-dplugins/i18n!./ComboBox/nls/ComboBox",
 	"delite/theme!./ComboBox/themes/{{theme}}/ComboBox.css"
-], function (dcl, domClass, register, FormWidget, HasDropDown,
+], function (dcl, domClass, has, register, FormWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the deliteful/list/List widget
@@ -184,7 +185,7 @@ define([
 			// its dir attribute. Hence:
 			var dir = this.getAttribute("dir");
 			if (dir) {
-				dropDown.setAttribute("dir", this.getAttribute("dir"));
+				dropDown.setAttribute("dir", dir);
 			}
 			
 			this.dropDown = dropDown; // delite/HasDropDown's property
@@ -276,19 +277,14 @@ define([
 		/**
 		 * Returns `true` if the dropdown should be centered, and returns
 		 * `false` if it should be displayed below/above the widget.
-		 * The default implementation returns `true` on touch-enabled devices.
+		 * The default implementation returns `true` when running on
+		 * iOS or Android, and returns `false` otherwise.
 		 * @protected
 		 */
 		useCenteredDropDown: function () {
-			// TODO: take final decision about the choice criteria
-			
-			// Does the device and browser have touch capability?
-			// TODO: move the test to a has-feature module.
-			if (!this._touchEnabled) {
-				this._touchEnabled = "ontouchstart" in document ||
-					("onpointerdown" in document && navigator.maxTouchPoints > 0);
-			}
-			return this._touchEnabled;
+			// TODO: the decision about the choice criteria may be
+			// revisited (phone vs tablets?).
+			return has("ios") || has("android");
 		},
 		
 		_createDropDown: function (list) {
