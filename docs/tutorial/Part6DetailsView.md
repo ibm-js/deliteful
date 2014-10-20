@@ -56,11 +56,11 @@ Let's also add a little rule in `css/app.css` to set a margin on the details div
 }
 ```
 
-As we will rely on the List's selection to show the details view, we must set  the List's `selectionMode` so that
+As we will rely on the List's selection to show the details view, we must set the List's `selectionMode` so that
 items can be selected:
 
 ```html
-            <d-list ... selectionMode="single">
+<d-list ... selectionMode="single">
 ```
 
 ##JavaScript
@@ -68,14 +68,14 @@ items can be selected:
 Add this code to `js/app.js`:
 
 ```js
-	photolist.on("selection-change", function (event) {
-		var renderer = event.renderer;
-		if (renderer && renderer.item) {
-			document.getElementById("photoDetails").innerHTML =
-				renderer.item.description.replace(/href=/ig, "target=\"_blank\" href=");
-			vs.show(detailsView);
-		}
-	});
+photolist.on("selection-change", function (event) {
+	var renderer = event.renderer;
+	if (renderer && renderer.item) {
+		document.getElementById("photoDetails").innerHTML =
+			renderer.item.description.replace(/href=/ig, "target=\"_blank\" href=");
+		vs.show(detailsView);
+	}
+});
 ```
 
 This code adds a `selection-change` event handler to the list. The handler first finds which item was selected (using
@@ -94,7 +94,7 @@ We also want to be able to go back from the details view to the list view, and w
 for this. let's just add an event handler in the markup to do this:
 
 ```html
-    <button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
+<button is="d-button" onclick="vs.show(listView, {reverse:true})">Back</button>
 ```
 
 We are done, you can try that new feature and click on an item to see the details view:

@@ -24,20 +24,20 @@ view, that is, a (vertical) `d-linear-layout` and another nested, horizontal `d-
 Edit the contents of the `d-linear-layout` below the `<!-- page content -->` as follows:
 
 ```html
-	<!-- page content -->
-	<d-linear-layout class="width100 height100" id="listView">
-        <!-- page content header -->
-        <d-linear-layout vertical="false" class="pageHeader">
-            <div>
-                <button is="d-button" onclick="leftPane.toggle()">Settings</button>
-            </div>
-            <div class="fill titleStyle">Flickr Photo Feed</div>
-            <div>
-                <button is="d-button">Refresh</button>
-            </div>
-        </d-linear-layout>
-        <!-- page content will go here -->
+<!-- page content -->
+<d-linear-layout class="width100 height100" id="listView">
+	<!-- page content header -->
+	<d-linear-layout vertical="false" class="pageHeader">
+		<div>
+			<button is="d-button" onclick="leftPane.toggle()">Settings</button>
+		</div>
+		<div class="fill titleStyle">Flickr Photo Feed</div>
+		<div>
+			<button is="d-button">Refresh</button>
+		</div>
 	</d-linear-layout>
+	<!-- page content will go here -->
+</d-linear-layout>
 ```
 
 We have changed some labels, set an `id` attribute on the view and added a second button after the title (the nested
@@ -89,14 +89,14 @@ To achieve that, we will wrap our toplevel `d-linear-layout` inside a `d-view-st
 (Note that we moved the `class="width100 height100"` to the toplevel `d-view-stack`)
 
 Finally, we want to display a list of photos, so let's add a `d-list` component as the contents of our view. For
-this, replace the `<!-- page content will go here -->` placeholder by a
+this, replace the `<!-- page content will go here -->` placeholder by a `d-list`.
 
 ```html
-        <!-- scrollable list -->
-        <div class="fill">
-            <d-list class="width100 height100" id="photolist">
-            </d-list>
-        </div>
+<!-- scrollable list -->
+<div class="fill">
+	<d-list class="width100 height100" id="photolist">
+	</d-list>
+</div>
 ```
 
 Note our List widget has a `photolist` id, this will allow us to reference the widget in our JavaScript code later.
@@ -121,13 +121,13 @@ Create the `js` directory, create an `app.js` file. Copy the existing code from 
 `"deliteful/ProgressBar"` requires and the last instruction:
 
 ```js
-			require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
-					"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
-					"deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
-				register.parse();
-				document.body.style.display = "";
-				<!-- app code will go here -->
-			});
+require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
+		"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
+		"deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
+	register.parse();
+	document.body.style.display = "";
+	/* app code will go here */
+});
 ```
 
 In `index.html`, remove the code that you just copied, just keep the `require.config` call,
@@ -135,13 +135,13 @@ and add a new `<script>` tag to load `js/app.js`:
 
 ```html
 <head>
-    ...
-    <script>
-        require.config({
-            baseUrl: "bower_components"
-        });
-    </script>
-    <script src="js/app.js"></script>
+	...
+	<script>
+		require.config({
+			baseUrl: "bower_components"
+		});
+	</script>
+	<script src="js/app.js"></script>
 </head>
 ```
 
@@ -152,55 +152,55 @@ technique. (JSONP is not very commonly used in real world applications, but it h
 setup any server-side code, and it is good enough to simulate a server request in our example app).
 
 Here is the code that does the JSONP request, paste it in your `app.js` file at the end of the `require` function
-(after the `<!-- app code will go here -->` comment):
+(after the `/* app code will go here */` comment):
 
 
 ```js
-	var script;
+var script;
 
-	// Makes a request to the Flickr API to get recent photos with the specified tag.
-	// When the request completes, the "photosReceived" function will be called with json objects
-	// describing each photo.
-	function getPhotos(tags) {
-		requestDone(); // abort current request if any
+// Makes a request to the Flickr API to get recent photos with the specified tag.
+// When the request completes, the "photosReceived" function will be called with json objects
+// describing each photo.
+function getPhotos(tags) {
+	requestDone(); // abort current request if any
 
-		var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=photosReceived&tags=" +
-			tags + "&tagmode=all";
-		script = document.createElement("script");
-		script.type = 'text/javascript';
-		script.src = url;
-		script.async = true;
-		script.charset = 'utf-8';
-		document.getElementsByTagName('head')[0].appendChild(script);
+	var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=photosReceived&tags=" +
+		tags + "&tagmode=all";
+	script = document.createElement("script");
+	script.type = 'text/javascript';
+	script.src = url;
+	script.async = true;
+	script.charset = 'utf-8';
+	document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+// Must be called to cleanup the current JSONP request (i.e. remove the "script" element).
+function requestDone() {
+	if (script && script.parentNode) {
+		script.parentNode.removeChild(script);
+		script = null;
 	}
-
-	// Must be called to cleanup the current JSONP request (i.e. remove the "script" element).
-	function requestDone() {
-		if (script && script.parentNode) {
-			script.parentNode.removeChild(script);
-			script = null;
-		}
-	}
+}
 ```
 
 We won't go into the details of the code, but in short the `getPhotos` function sends a request to the Flickr server.
 The URL contains the photo tags that we are interested in, and the name of a callback function to call when the
 request completes. The reply sent by Flickr will be a JSON string containing a call to that function
 (`photosReceived` in our case), with an array of JavaScript objects as parameter, each object describing a photo: the
- URL of a thumbnail image, the photo title, etc.
+URL of a thumbnail image, the photo title, etc.
 
 ##Displaying the Photo List
 
 OK, that was the hard part! We would like to see something on the screen now, the good news is that it's really easy.
-We have asked for a `photoReceived` function to be called, so let's create it:
+We have asked for a `photoReceived` global function to be called, so let's create it:
 
 ```js
-	photosReceived = function (json) {
-		// cleanup request
-		requestDone();
-		// show the photos in the list by simply setting the list's store
-		photolist.store = new Memory({data: json.items});
-	};
+photosReceived = function (json) {
+	// cleanup request
+	requestDone();
+	// show the photos in the list by simply setting the list's store
+	photolist.store = new Memory({data: json.items});
+};
 
 ```
 
@@ -219,26 +219,26 @@ require callback:
 require(["delite/register", "dstore/Memory", ...], function(register, Memory) {
 ```
 
-We must now initiate the request somehow. Let's create a function for this:
+We must now initiate the request somehow. Let's create a global function for this:
 
 ```js
-	refreshPhotoList = function () {
-		photolist.store = new Memory();
-		getPhotos("bridges,famous");
-	};
+refreshPhotoList = function () {
+	photolist.store = new Memory();
+	getPhotos("bridges,famous");
+};
 ```
 
 The `refreshPhotoList` function first clears the list then sends a new request (with hardcoded tags for now).
 Let us add a call to the function now, so the photos are retrieved and displayed at startup.
 
 ```js
-	refreshPhotoList();
+refreshPhotoList();
 ```
 
 Let us also set a `click` handler on the "Refresh" button if the user wants to reload the photos:
 
 ```html
-                <button is="d-button" onclick="refreshPhotoList()">Refresh</button>
+<button is="d-button" onclick="refreshPhotoList()">Refresh</button>
 ```
 
 We can already try that and open `index.html` in a browser:
@@ -251,7 +251,7 @@ photo descriptions have a `title` property that we would like to display in the 
 very easy, just add a `labelAttr` attribute to the `d-list` element:
 
 ```html
-    <d-list class="width100 height100" id="photolist" labelAttr="title">
+<d-list class="width100 height100" id="photolist" labelAttr="title">
 ```
 
 And here is the result:

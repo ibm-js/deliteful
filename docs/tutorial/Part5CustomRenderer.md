@@ -4,7 +4,7 @@ title: Deliteful Tutorial Part 5
 ---
 #Deliteful Tutorial (Part 5) - Enhancing the List View
 
-In the [previous step](Part4ListView.md] of this tutorial we started to build our Flickr photo feed application.
+In the [previous step](Part4ListView.md) of this tutorial we started to build our Flickr photo feed application.
 We will now refine it to display more information for each photo. Remember, we wanted to obtain something like this:
 
 ![Photo List Item](images/itemsketch.png)
@@ -24,21 +24,21 @@ An item renderer is a subclass of `deliteful/list/ItemRenderer` that defines the
 Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 
 ```js
-	photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
-		template: handlebars.compile("<template>" + "<div attach-point='renderNode'>" +
-			"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" + "</div>" +
-			"<div class='photoSummary'>" + "<div class='photoTitle'>{%raw%}{{item.title}}{%endraw%}</div>" +
-			"<div class='publishedTime'>{%raw%}{{item.published}}{%endraw%}</div>" +
-			"<div class='author'>{%raw%}{{item.author}}{%endraw%}</div>" + "</div>" + "</div>" + "</template>")
-	});
+photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
+	template: handlebars.compile("<template>" + "<div attach-point='renderNode'>" +
+		"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" + "</div>" +
+		"<div class='photoSummary'>" + "<div class='photoTitle'>{%raw%}{{item.title}}{%endraw%}</div>" +
+		"<div class='publishedTime'>{%raw%}{{item.published}}{%endraw%}</div>" +
+		"<div class='author'>{%raw%}{{item.author}}{%endraw%}</div>" + "</div>" + "</div>" + "</template>")
+});
 ```
 
 This needs some explanations. The `itemRenderer` property of the deliteful List widget can be set to an instance of a
- subclass of `deliteful/list/ItemRenderer`. For each element of the data store, an instance of the renderer class
- will be created. The DOM contents of each item is defined by the `template` property,
- which is parsed and processed by the [handlebars](http://ibm-js.github.io/delite/docs/master/handlebars.html)
- module. The template can contain bindings: for example, `{%raw%}{{item.title}}{%endraw%}` will be replaced by the value of the `title`
- property of each data item of the store.
+subclass of `deliteful/list/ItemRenderer`. For each element of the data store, an instance of the renderer class
+will be created. The DOM contents of each item is defined by the `template` property,
+which is parsed and processed by the [handlebars](http://ibm-js.github.io/delite/docs/master/handlebars.html)
+module. The template can contain bindings: for example, `{%raw%}{{item.title}}{%endraw%}` will be replaced by the value of the `title`
+property of each data item of the store.
 
 In the added code we use two new AMD modules: `"deliteful/list/ItemRenderer"` (the base class of our
 custom renderer) and `"delite/handlebars"` which contains the deliteful templating engine. Let's add them to our
@@ -107,7 +107,7 @@ we must set `copyAllItemProps="true"`, which means that all the properties of th
 custom item renderer.
 
 ```html
-    <d-list class="width100 height100" id="photolist" copyAllItemProps="true">
+<d-list class="width100 height100" id="photolist" copyAllItemProps="true">
 ```
 
 OK, let's try that, our list looks a lot better now:
@@ -121,21 +121,21 @@ and this is the opportunity to show that templates can contain any JavaScript ex
 format a date:
 
 ```js
-	photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
-        ... ,
+photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
+	... ,
 
-		// Formats a date in ISO 8601 format into a more readable format.
-		formatDate: function (d) {
-			return d && new Intl.DateTimeFormat("en-us", {
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-				hour: "numeric",
-				minute: "numeric",
-				second: "numeric"
-			}).format(new Date(d));
-		}
-	});
+	// Formats a date in ISO 8601 format into a more readable format.
+	formatDate: function (d) {
+		return d && new Intl.DateTimeFormat("en-us", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "numeric",
+			minute: "numeric",
+			second: "numeric"
+		}).format(new Date(d));
+	}
+});
 ```
 
 And we use yet another AMD module for this, the `"ecma402/Intl"` project for internationalization,
@@ -164,12 +164,12 @@ Now let's modify the template to use the `formatDate` function, for this we repl
 by an expression:
 
 ```js
-			"<div class='publishedTime'>{%raw%}{{this.formatDate(this.item.published)}}{%endraw%}</div>" +
+"<div class='publishedTime'>{%raw%}{{this.formatDate(this.item.published)}}{%endraw%}</div>" +
 ```
 
 (Note that, in binding expressions, `this` refers to the item renderer instance, and `this.item` is the data item
 that the renderer represents. If you use a simple binding like `{%raw%}{{item.published}}{%endraw%}`, you may omit the `this.` prefix,
- it is implicit).
+it is implicit).
 
 OK, now our dates are formatted more cleanly:
 
@@ -181,12 +181,12 @@ One last little thing we will do on this list view is to add a progress indicato
 being processed. For this let's add this markup next to the `d-list` element:
 
 ```html
-        <!-- scrollable list -->
-        <div class="fill">
-            <d-list ...>
-            </d-list>
-            <d-progress-indicator id="pi"></d-progress-indicator>
-        </div>
+<!-- scrollable list -->
+<div class="fill">
+	<d-list ...>
+	</d-list>
+	<d-progress-indicator id="pi"></d-progress-indicator>
+</div>
 ```
 
 Add this rule to `css/app.css` to center the progress indicator in the view:
@@ -205,17 +205,17 @@ Add this rule to `css/app.css` to center the progress indicator in the view:
 Finally show the indicator in the `getPhotos` function, and hide it in `requestDone`:
 
 ```js
-	function getPhotos(tags) {
-		requestDone();
+function getPhotos(tags) {
+	requestDone();
 
-	    pi.active = true;
-        ....
-    }
+	pi.active = true;
+	....
+}
 
-	function requestDone() {
-	    ....
-		pi.active = false;
-	}
+function requestDone() {
+	....
+	pi.active = false;
+}
 ```
 
 We now have a nice feedback to show that the request is being processed:

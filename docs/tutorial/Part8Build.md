@@ -7,11 +7,11 @@ title: Deliteful Tutorial Part 8
 We finished the development part of our example by adding a [settings view](Part7SettingsView.md).
 
 If you open the debugging tools in your browser (usually F12), and look at the network traffic when you load the app,
- you will see a lot of HTTP requests to load each individual source file (`.js`, `.css`,  ...).
- This is OK while developing but when you deploy your application for production you will want to reduce the number
- and size of the HTTP requests so that your app loads as quickly as possible. We will now learn two alternative ways
- of doing this: using build versions of the dependency packages, or, even better, building the application code and
- its dependencies into a single layer file.
+you will see a lot of HTTP requests to load each individual source file (`.js`, `.css`,  ...).
+This is OK while developing but when you deploy your application for production you will want to reduce the number
+and size of the HTTP requests so that your app loads as quickly as possible. We will now learn two alternative ways
+of doing this: using build versions of the dependency packages, or, even better, building the application code and
+its dependencies into a single layer file.
 
 ##Using Build Versions of Dependency Packages
 
@@ -30,10 +30,10 @@ packages, since this is usually easier for debugging and looking around in the c
 ```
 
 We could have answered `y`, in that case the application would use the build version of all packages on which our
-application depends. Build versions are functionnally equivalent but are packed into single layer files,
+application depends. Build versions are functionally equivalent but are packed into single layer files,
 which reduces the number and size of HTTP requests.
 
-Let's change our app to use build versions, as if we had answered `y` to the question aboce. If you chose to use build
+Let's change our app to use build versions, as if we had answered `y` to the question above. If you chose to use build
 versions from the beginning, you wouldn't need to do this of course.
 
 First, we need to tell bower that we want to use build versions, not source versions. For this,
@@ -43,7 +43,7 @@ we simply change `deliteful` into `deliteful-build` in the `bower.json` file:
 {
 	...
 	"dependencies": {
-		"deliteful-build": "0.3.x",
+		"deliteful-build": "0.4.x",
 		...
 }
 ```
@@ -58,7 +58,7 @@ Now we need to slightly modify our code to use the build packages. In `js/app.js
 wrap the existing `require` call inside another `require` call that loads the deliteful layer:
 
 ```js
-require(["deliteful-build/boot"], function () {
+require(["deliteful-build/layer"], function () {
 	require([
 		"delite/register", ...
 	], function (register, ...) {
@@ -71,7 +71,7 @@ Finally, modify `index.html` to change the path of the `defaultapp.css` styleshe
 `delite` package:
 
 ```html
-    <link rel="stylesheet" href="bower_components/delite-build/themes/defaultapp.css">
+<link rel="stylesheet" href="bower_components/delite-build/themes/defaultapp.css">
 ```
 
 (as the build version of the delite package is now contained in `bower_components/delite-build` instead of
@@ -82,7 +82,7 @@ Good, our app now uses build packages. It works the same, except it makes much l
 ##Building the Application Into a Single Layer
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
-switch to the `part8-1` branch now:
+switch to the `part8-2` branch now:
 
 ```
 $ git checkout part8-2
@@ -97,15 +97,15 @@ $ git checkout part7
 We reduced the load time of our app, that's good, and it may be enough for many apps. But we can do even better by
 generating a single `.js` file that will contain all the code of our app plus its dependencies. For this,
 we will use the `ibm-js/grunt-amd-build` project, which provides a [Grunt](gruntjs.com) plugin that can generate our
- layer. The `grunt-amd-build` plugin is really powerful and flexible and provides many options,
- so to make things really easy, we will use another Yeoman generator, `ibm-js/generator-amd-build`,
- that will do the hard work for us.
+layer. The `grunt-amd-build` plugin is really powerful and flexible and provides many options,
+so to make things really easy, we will use another Yeoman generator, `ibm-js/generator-amd-build`,
+that will do the hard work for us.
 
- So let's install `ibm-js/generator-amd-build` first:
+So let's install `ibm-js/generator-amd-build` first:
 
- ```
- $ npm install -g generator-amd-build
- ```
+```
+$ npm install -g generator-amd-build
+```
 
 and run it:
 
@@ -134,13 +134,13 @@ The output of the build is in the `build` directory, which now contains all the 
 so we need to modify our `index.html` as follows:
 
 ```js
-    <script>
-        require.config({
-            baseUrl: "build/bower_components",
-            ...
-        });
-    </script>
-    <script src="build/bower_components/app/layer.js"></script>
+<script>
+    require.config({
+        baseUrl: "build/bower_components",
+        ...
+    });
+</script>
+<script src="build/bower_components/app/layer.js"></script>
 ```
 
 If you launch the application now and look at the browser's debugger, you should see a minimal set of HTTP requests.
