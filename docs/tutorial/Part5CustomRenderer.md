@@ -11,7 +11,6 @@ We will now refine it to display more information for each photo. Remember, we w
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part5` branch now:
-
 ```
 $ git checkout part5
 ```

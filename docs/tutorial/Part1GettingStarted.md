@@ -19,7 +19,6 @@ However, if you don't want to follow all the steps explained in this tutorial,
 you can just get the tutorial application from the `ibm-js/deliteful-tutorial` github project.
 You can clone it to your machine and look at the code for each part of the tutorial. The different parts can be
 fetched using branches (`part1`, etc). To get the code for this first part, run this in a shell window:
-
 ```
 $ git clone https://github.com/ibm-js/deliteful-tutorial
 $ cd deliteful-tutorial

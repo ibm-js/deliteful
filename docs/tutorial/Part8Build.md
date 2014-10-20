@@ -13,11 +13,13 @@ and size of the HTTP requests so that your app loads as quickly as possible. We 
 of doing this: using build versions of the dependency packages, or, even better, building the application code and
 its dependencies into a single layer file.
 
+**Warning:** If you want to follow both ways, you should make a backup of the application now to easily revert
+the changes made for the build.
+
 ##Using Build Versions of Dependency Packages
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part8-1` branch now:
-
 ```
 $ git checkout part8-1
 ```
@@ -80,16 +82,14 @@ Good, our app now uses build packages. It works the same, except it makes much l
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part8-2` branch now:
-
 ```
 $ git checkout part8-2
 ```
 
-> Otherwise, to follow the steps explained in this section, you need to restore the previous state of the app:
+<!-- separate the two quotes -->  
 
-```
-$ git checkout part7
-```
+> If you followed the steps explained in previous section, you need to restore the application as it was at
+the end of step 7.
 
 We reduced the load time of our app, that's good, and it may be enough for many apps. But we can do even better by
 generating a single `.js` file that will contain all the code of our app plus its dependencies. For this,

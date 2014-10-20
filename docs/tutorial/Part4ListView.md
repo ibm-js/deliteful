@@ -10,7 +10,6 @@ It is time to open your favorite editor or IDE and load the `index.html` file of
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part4` branch now:
-
 ```
 $ git checkout part4
 ```
@@ -120,7 +119,7 @@ Open `js/app.js` and let's remove things that we don't need: the `"deliteful/Sta
 
 ```js
 define([
-	"delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
+	"delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
 	"deliteful/list/List", "requirejs-domready/domReady!"
 ], function (register) {

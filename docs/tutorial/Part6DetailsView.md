@@ -12,7 +12,6 @@ one of the items in the photo list.
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part6` branch now:
-
 ```
 $ git checkout part6
 ```

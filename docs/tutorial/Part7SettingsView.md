@@ -14,7 +14,6 @@ Our settings view is shown and hidden by clicking the Settings button in the hea
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
 switch to the `part7` branch now:
-
 ```
 $ git checkout part7
 ```
