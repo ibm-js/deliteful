@@ -39,6 +39,7 @@ vertically or horizontally. It is used here to build the main page of the applic
 	<!-- stacked content -->
 	<d-view-stack id="vs" class="fill">
 		<div id="first">
+			<!-- fill the first view with content -->
 			<p>1st view</p>
 			<d-star-rating value="0.5"></d-star-rating>
 		</div>
@@ -123,21 +124,39 @@ Note in particular that all deliteful components have a CSS class with the same 
 The default application contains some JavaScript code that you can often reuse to get started.
 
 ```js
+/* index.html */
 require.config({
-	baseUrl: "bower_components"
+	baseUrl: "bower_components",
+	paths: {
+		"js": "../js"
+	}
 });
-require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
-		"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
-		"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
+// Start the application.
+require(["js/app"]);
+```
+
+The `require.config` calls tells the browsers where to find the various delite, deliteful and other libraries,
+as well as the app in `js/app`.
+
+The `require(["js/app"])` call loads the AMD module `js/app` which will be the application entry-point.
+
+```js
+/* js/app.js */
+define([
+	"delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
+	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button", "deliteful/StarRating",
+	"deliteful/ProgressBar", "deliteful/list/List", "requirejs-domready/domReady!"
+], function (register) {
 	register.parse();
 	document.body.style.display = "";
 	list.selectedItem = list.store.get("first");
+
+	/* app code will go here */
+
 });
 ```
 
-The `require.config` calls tells the browsers where to find the various delite, deliteful and other libraries.
-
-The `require` call loads the AMD modules containing the components used in the application.
+The `define` call loads the AMD modules containing the components used in the application.
 
 The `register.parse()` call is necessary so that delite/deliteful widgets are correctly initialized on all browsers.
 

@@ -54,21 +54,18 @@ Run bower again to load the build packages:
 $ bower install
 ```
 
-Now we need to slightly modify our code to use the build packages. In `js/app.js`,
-wrap the existing `require` call inside another `require` call that loads the deliteful layer:
+Now we need to slightly modify our code to use the build packages. In `index.html`,
+wrap the existing `require(["js/app"])` call inside another `require` call that loads the deliteful layer:
 
 ```js
+// Load the minified layer.
 require(["deliteful-build/layer"], function () {
-	require([
-		"delite/register", ...
-	], function (register, ...) {
-        ...
-    });
+	// Start the application.
+	require(["js/app"]);
 });
 ```
 
-Finally, modify `index.html` to change the path of the `defaultapp.css` stylesheet that we load directly from the
-`delite` package:
+Finally, change the path of the `defaultapp.css` stylesheet that we load directly from the `delite` package:
 
 ```html
 <link rel="stylesheet" href="bower_components/delite-build/themes/defaultapp.css">
@@ -113,14 +110,7 @@ and run it:
 $ yo amd-build
 ```
 
-The generator asks some questions, you will mainly accept the defaults except for this one:
-
-```
-...
-[?] Enter the id of your application main(s) modules(s)
- (use comma-separated list to add several): ../js/app
-...
-```
+The generator asks some questions, accept all the defaults.
 
 Our generator has created a `Gruntfile.js` that contains the configuration information for our build.
 
@@ -133,14 +123,14 @@ $ grunt build
 The output of the build is in the `build` directory, which now contains all the code and dependencies that we need,
 so we need to modify our `index.html` as follows:
 
-```js
+```html
 <script>
-    require.config({
-        baseUrl: "build/bower_components",
-        ...
-    });
+	require.config({
+		baseUrl: "build/bower_components",
+		...
+	});
+	require(["js/app"]);
 </script>
-<script src="build/bower_components/app/layer.js"></script>
 ```
 
 If you launch the application now and look at the browser's debugger, you should see a minimal set of HTTP requests.

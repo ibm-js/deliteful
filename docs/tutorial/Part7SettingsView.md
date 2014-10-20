@@ -75,15 +75,15 @@ Add this to `css/app.css` to style the side pane and its elements:
 ##JavaScript Code
 
 We added new elements that we did not use before in our settings view so let's first add these new AMD modules to the
-require list:
+dependency list:
 
 ```js
-require([
+define([
 	..., "deliteful/Select", "deliteful/Switch", ...
 ], ...
 ```
 
-(We don't need to add corresponding argument to the require callback since we don't explicitly use these modules in
+(We don't need to add corresponding argument to the define callback since we don't explicitly use these modules in
 our code, we just need to have them loaded so that the delite parser can initialize them.)
 
 Here is now the code to add to initialize the settings view and handle changes in it:

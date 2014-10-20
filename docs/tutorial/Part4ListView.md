@@ -26,7 +26,7 @@ Edit the contents of the `d-linear-layout` below the `<!-- page content -->` as 
 ```html
 <!-- page content -->
 <d-linear-layout class="width100 height100" id="listView">
-	<!-- page content header -->
+	<!-- view content header -->
 	<d-linear-layout vertical="false" class="pageHeader">
 		<div>
 			<button is="d-button" onclick="leftPane.toggle()">Settings</button>
@@ -36,7 +36,7 @@ Edit the contents of the `d-linear-layout` below the `<!-- page content -->` as 
 			<button is="d-button">Refresh</button>
 		</div>
 	</d-linear-layout>
-	<!-- page content will go here -->
+	<!-- view content will go here -->
 </d-linear-layout>
 ```
 
@@ -88,8 +88,8 @@ To achieve that, we will wrap our toplevel `d-linear-layout` inside a `d-view-st
 
 (Note that we moved the `class="width100 height100"` to the toplevel `d-view-stack`)
 
-Finally, we want to display a list of photos, so let's add a `d-list` component as the contents of our view. For
-this, replace the `<!-- page content will go here -->` placeholder by a `d-list`.
+Finally, we want to display a list of photos, so let's add a `d-list` component as the contents of our view.
+For this, replace the `<!-- view content will go here -->` placeholder by a `d-list`.
 
 ```html
 <!-- scrollable list -->
@@ -113,36 +113,23 @@ for more details on why this is needed)
 
 ##Getting the Photo List from Flickr
 
-It is now time to write some JavaScript code. The default app contains a `<script>` tag with inline code,
-but a better practice is to put code in a separate file.
-
-Create the `js` directory, create an `app.js` file. Copy the existing code from index.html (except the `require
-.config` call), paste it in the new `app.js` file, removing things that we don't need: the `"deliteful/StarRating"` and
-`"deliteful/ProgressBar"` requires and the last instruction:
+It is now time to write some JavaScript code. 
+ 
+Open `js/app.js` and let's remove things that we don't need: the `"deliteful/StarRating"` and
+`"deliteful/ProgressBar"` modules and the last instruction:
 
 ```js
-require(["delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
-		"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
-		"deliteful/list/List", "requirejs-domready/domReady!"], function(register) {
+define([
+	"delite/register", "delite/theme!delite/themes/{{theme}}/global.css", "deliteful/ViewStack",
+	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
+	"deliteful/list/List", "requirejs-domready/domReady!"
+], function (register) {
 	register.parse();
 	document.body.style.display = "";
+
 	/* app code will go here */
+
 });
-```
-
-In `index.html`, remove the code that you just copied, just keep the `require.config` call,
-and add a new `<script>` tag to load `js/app.js`:
-
-```html
-<head>
-	...
-	<script>
-		require.config({
-			baseUrl: "bower_components"
-		});
-	</script>
-	<script src="js/app.js"></script>
-</head>
 ```
 
 To get the photos, we will use the
@@ -151,8 +138,8 @@ We will request the photos in `json` format and use the [JSONP](http://en.wikipe
 technique. (JSONP is not very commonly used in real world applications, but it has the advantage of not requiring to
 setup any server-side code, and it is good enough to simulate a server request in our example app).
 
-Here is the code that does the JSONP request, paste it in your `app.js` file at the end of the `require` function
-(after the `/* app code will go here */` comment):
+Here is the code that does the JSONP request, use it to replace the
+`/* app code will go here */` comment in `js/app.js`: 
 
 
 ```js
@@ -212,11 +199,14 @@ lets you connect data to many deliteful widgets. Deliteful has built-in connecti
 [Memory](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory) store that wraps JavaScript objects,
 since that is what our JSONP request returned to us.
 
-Note that you must also add `"dstore/Memory"` to the list of AMD requires and bind it to a `Memory` parameter in the
-require callback:
+Note that you must also add `"dstore/Memory"` to the list of AMD dependencies and bind it to a `Memory`
+parameter in the `define` callback:
 
 ```js
-require(["delite/register", "dstore/Memory", ...], function(register, Memory) {
+define([
+	"delite/register", "dstore/Memory", ...
+], function(register, Memory) {
+	...
 ```
 
 We must now initiate the request somehow. Let's create a global function for this:

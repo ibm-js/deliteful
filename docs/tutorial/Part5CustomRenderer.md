@@ -25,11 +25,18 @@ Add the following code in `js/app.js`, before the `refreshPhotoList()` call:
 
 ```js
 photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
-	template: handlebars.compile("<template>" + "<div attach-point='renderNode'>" +
-		"<div class='photoThumbnailBg'>" + "<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" + "</div>" +
-		"<div class='photoSummary'>" + "<div class='photoTitle'>{%raw%}{{item.title}}{%endraw%}</div>" +
-		"<div class='publishedTime'>{%raw%}{{item.published}}{%endraw%}</div>" +
-		"<div class='author'>{%raw%}{{item.author}}{%endraw%}</div>" + "</div>" + "</div>" + "</template>")
+	template: handlebars.compile("<template>" +
+		"<div attach-point='renderNode'>" +
+			"<div class='photoThumbnailBg'>" +
+				"<img class='photoThumbnail' src='{%raw%}{{item.media.m}}{%endraw%}'>" +
+			"</div>" +
+			"<div class='photoSummary'>" +
+				"<div class='photoTitle'>{%raw%}{{item.title}}{%endraw%}</div>" +
+				"<div class='publishedTime'>{%raw%}{{item.published}}{%endraw%}</div>" +
+				"<div class='author'>{%raw%}{{item.author}}{%endraw%}</div>" + 
+			"</div>" +
+		"</div>" +
+	"</template>")
 });
 ```
 
@@ -41,13 +48,12 @@ module. The template can contain bindings: for example, `{%raw%}{{item.title}}{%
 property of each data item of the store.
 
 In the added code we use two new AMD modules: `"deliteful/list/ItemRenderer"` (the base class of our
-custom renderer) and `"delite/handlebars"` which contains the deliteful templating engine. Let's add them to our
-require list:
+custom renderer) and `"delite/handlebars"` which contains the deliteful templating engine. Let's add them to
+our dependency list:
 
 ```js
-require([
-	"delite/register", "dstore/Memory", "deliteful/list/ItemRenderer", "delite/handlebars",
-    ...
+define([
+	"delite/register", "dstore/Memory", "deliteful/list/ItemRenderer", "delite/handlebars", ...
 ], function (register, Memory, ItemRenderer, handlebars) {
     ...
 ```
@@ -139,10 +145,10 @@ photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
 ```
 
 And we use yet another AMD module for this, the `"ecma402/Intl"` project for internationalization,
-let's add it to our require list:
+let's add it to our dependency list:
 
 ```js
-require([
+define([
 	..., "ecma402/Intl", ...
 ], function (..., Intl) {
     ...
@@ -188,6 +194,18 @@ being processed. For this let's add this markup next to the `d-list` element:
 	<d-progress-indicator id="pi"></d-progress-indicator>
 </div>
 ```
+
+Let's add it to our dependency list:
+
+```js
+define([
+	..., "deliteful/ProgressIndicator", ...
+], ...
+```
+
+(We don't need to add corresponding argument to the define callback since we don't explicitly use these
+modules in our code, we just need to have them loaded so that the delite parser can initialize them.)
+
 
 Add this rule to `css/app.css` to center the progress indicator in the view:
 
