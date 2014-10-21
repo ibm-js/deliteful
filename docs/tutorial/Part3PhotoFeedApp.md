@@ -19,10 +19,10 @@ The main view (center) shows a list of photos with a thumbnail and some summariz
 buttons, one to show a settings pane and another one to refresh the list.
 
 The details view (right) appears when the user clicks a photo in the list. It shows a larger version of the photo and
- the full description.
+the full description.
 
- The settings pane (left) lets the user enter his choices about the photo tags and the language used to display the
- date.
+The settings pane (left) lets the user enter his choices about the photo tags and the language used to display the
+date.
 
 ##Next Step
 
