@@ -375,7 +375,7 @@ define([
 			domClass.add(popupInput, "d-combobox-popup-input");
 			popupInput.setAttribute("role", "combobox");
 			popupInput.setAttribute("autocomplete", "off");
-			popupInput.setAttribute("autocapitalize", "off");
+			popupInput.setAttribute("autocapitalize", "none");
 			popupInput.setAttribute("autocorrect", "off");
 			popupInput.setAttribute("aria-autocomplete", "list");
 			popupInput.setAttribute("type", "search");
