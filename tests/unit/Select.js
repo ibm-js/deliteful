@@ -348,7 +348,6 @@ define([
 			var store = new Store();
 			container.appendChild(store);
 			register.upgrade(store);
-			store.attachedCallback();
 			select.store = store;
 			select.deliver();
 			checkTrackableSelect(select); // the default store is observable
@@ -357,7 +356,6 @@ define([
 			store = new Store();
 			container.appendChild(store);
 			register.upgrade(store);
-			store.attachedCallback();
 			select.store = store;
 			select.deliver();
 			checkTrackableSelect(select); // the default store is observable

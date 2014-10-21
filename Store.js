@@ -19,7 +19,7 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 	];
 
 	/**
-	 * Custom element to create an instance of a memory store object. 
+	 * Custom element to create an instance of a memory store object.
 	 * It is particularly useful in markup, when creating store programatically, it's easier to just create a store
 	 * instance directly rather than using the custom element.
 	 * Note that it is only parsed once at attachment time. Further modifications to the store must be made through
@@ -59,10 +59,7 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 			if (!this.constructor._meta) {
 				this.constructor._meta = store.constructor._meta;
 			}
-			// for bringing in dojo/_base/declare features
-			this.emit = emit;
-			this.on = on;
-			// for bringing in dojo/_base/declare features
+			// those were overriden by dcl.mix put them back
 			this.emit = emit;
 			this.on = on;
 			// override createSubCollection to avoid issue with IE
