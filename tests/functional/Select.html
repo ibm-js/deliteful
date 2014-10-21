@@ -195,7 +195,7 @@
 			initSelect(select1, 1, nOptions);
 			var store = new Store();
 			container.appendChild(store);
-			register.upgrade(store);
+			store.attachedCallback();
 			initSelect(select3, 1, nOptions, store);
 			initSelect(d_select_form1, 1, nOptions);
 			initSelect(d_select_form2, 1, nOptions);
@@ -209,7 +209,7 @@
 			// Create the Select programmatically:
 			store = new Store();
 			container.appendChild(store);
-			register.upgrade(store);
+			store.attachedCallback();
 			createSelect(select2, 1, nOptions, store);
 			createSelect(select4, 1, nOptions);
 
