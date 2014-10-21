@@ -13,7 +13,7 @@ define([
 	
 	var container, MySelect;
 	/*jshint multistr: true */
-	var html = "<d-select id='select1' \
+	var html = "<d-select id='select1'> \
 			</d-select>\
 			<my-select id='myselect1'> \
 			</my-select>";
