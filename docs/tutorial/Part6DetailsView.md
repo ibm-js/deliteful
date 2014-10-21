@@ -105,6 +105,11 @@ We are done, you can try that new feature and click on an item to see the detail
 Click here to see the live demo:
 [Deliteful Tutorial - Part 6](http://ibm-js.github.io/deliteful-tutorial/runnable/part6/index.html)
 
+##View all the changes made during this step
+
+Click here to see the diff of all the changes made during this step:
+[part5...part6](https://github.com/ibm-js/deliteful-tutorial/compare/part5...part6)
+
 ##Next Step
 
 In the next step we will complete our small app by customizing the side pane to implement a

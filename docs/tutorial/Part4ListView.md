@@ -252,6 +252,11 @@ And here is the result:
 Click here to see the live demo:
 [Deliteful Tutorial - Part 4](http://ibm-js.github.io/deliteful-tutorial/runnable/part4/index.html)
 
+##View all the changes made during this step
+
+Click here to see the diff of all the changes made during this step:
+[part1...part4](https://github.com/ibm-js/deliteful-tutorial/compare/part1...part4)
+
 ##Next Step
 
 We learned the basic techniques to connect a deliteful widget to data retrieved from a server. In the

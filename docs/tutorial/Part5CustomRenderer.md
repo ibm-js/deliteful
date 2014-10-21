@@ -246,6 +246,11 @@ Our list view is now completed!
 Click here to see the live demo:
 [Deliteful Tutorial - Part 5](http://ibm-js.github.io/deliteful-tutorial/runnable/part5/index.html)
 
+##View all the changes made during this step
+
+Click here to see the diff of all the changes made during this step:
+[part4...part5](https://github.com/ibm-js/deliteful-tutorial/compare/part4...part5)
+
 ##Next Step
 
 We will now learn how to add a [details view](Part6DetailsView.md) that will show more details when a user clicks a

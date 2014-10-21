@@ -185,6 +185,11 @@ example, and change the language to French:
 Click here to see the live demo:
 [Deliteful Tutorial - Part 7](http://ibm-js.github.io/deliteful-tutorial/runnable/part7/index.html)
 
+##View all the changes made during this step
+
+Click here to see the diff of all the changes made during this step:
+[part6...part7](https://github.com/ibm-js/deliteful-tutorial/compare/part6...part7)
+
 ##Congratulations!
 
 Our app is now fully functional. In the [next step](Part8Build.md) we will learn how to build it to reduce its
