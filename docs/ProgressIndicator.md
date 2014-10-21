@@ -132,7 +132,7 @@ src="http://jsfiddle.net/ibmjs/WALnB/embedded/result,html,css">
 
 ### Customizing the size
 Default widget size is 40x40px on all themes. You may use `width` and `height` standard CSS properties to specify the
-size. 
+size. We recommend that you keep `width` and `height` equal (or close) in order to get nicer results.
 
 *Example of ProgressIndicator which fills its container*
 
