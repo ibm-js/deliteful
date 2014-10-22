@@ -93,6 +93,10 @@ src="http://jsfiddle.net/ibmjs/s2fzabtb/embedded/result,js,html">
 <a href="http://jsfiddle.net/ibmjs/s2fzabtb/">checkout the sample on JSFiddle</a></iframe>
 
 
+Note that, if the `list` property is not set before the widget is attached
+to the DOM, this property is set by default to a newly created instance
+of `deliteful/list/List`.
+
 <a name="using"></a>
 ## Using ComboBox
 

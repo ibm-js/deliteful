@@ -66,6 +66,14 @@ define([
 	return register("d-combobox", [HTMLElement, HasDropDown, FormWidget],
 		/** @lends module:deliteful/ComboBox# */ {
 		
+		// TODO: handle the situation the list has a null/undefined store.
+		// Would be nice to have a global policy for all subclasses of
+		// delite/Store (in terms of error feedback).
+		// TODO: future mechanism at the level of delite/Store-delite/StoreMap
+		// to allow delegation from host widget to a different widget - to get
+		// a clean mechanism to support all possible use-cases. (Probably also
+		// requires changes in List).
+		
 		// Note: the property `disabled` is inherited from delite/FormWidget.
 		
 		baseClass: "d-combobox",
@@ -107,6 +115,8 @@ define([
 		/**
 		 * The `deliteful/list/List` element which provides and renders the options
 		 * shown by the popup of the ComboBox.
+		 * Note that this property is set by default to a newly created instance of
+		 * `deliteful/list/List`.
 		 * @member {module:deliteful/list/List} module:deliteful/ComboBox#list
 		 * @default null
 		 */
@@ -128,6 +138,11 @@ define([
 		// The default text displayed in the input for a multiple choice
 		_multipleChoiceMsg: messages["multiple-choice"],
 		
+		preRender: function () {
+			this.list = new List();
+			this._defaultList = this.list;
+		},
+		
 		refreshRendering: function (oldValues) {
 			if ("list" in oldValues) {
 				// Programmatic case (List passed as argument of the ctor of ComboBox
@@ -143,9 +158,11 @@ define([
 		
 		attachedCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative ComboBox)
-			if (!this.list) {
-				this.list = this.querySelector("d-list");
-				if (this.list) {
+			if (!this.list || this.list === this._defaultList) {
+				var list = this.querySelector("d-list");
+				if (list) {
+					this.list = list;
+					delete this._defaultList; // not needed anymore
 					if (!this.list.attached) {
 						this.list.addEventListener("customelement-attached",
 							this._attachedlistener = function () {
@@ -155,11 +172,24 @@ define([
 					} else {
 						this._initList();
 					}
+				} else if (this.list && this.list === this._defaultList) {
+					// Still with the default list. No other instance has been set
+					// either programmatically, or declaratively.
+					delete this._defaultList; // not needed anymore
+					this._initList();
 				}
 			}
 		},
 		
 		_initList: function () {
+			// TODO
+			// This is a workaround waiting for a proper mechanism (at the level
+			// of delite/Store - delite/StoreMap) to allow a store-based widget
+			// to delegate the store-related functions to a parent widget.
+			if (!this.list.attached) {
+				this.list.attachedCallback();
+			}
+			
 			// Class added on the list such that ComboBox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
@@ -201,11 +231,13 @@ define([
 				}
 			}.bind(this));
 			*/
-			
+
 			// List already filled
 			var firstItemRenderer = this.list.getItemRendererByIndex(0);
 			if (firstItemRenderer) {
 				this.input.value = firstItemRenderer.item[this.list.labelAttr];
+				// Initialize widget's value
+				this._set("value", this.input.value);
 			} else {
 				// For future updates:
 				var initDone = false;
@@ -215,6 +247,8 @@ define([
 						var input = this._popupInput || this.input;
 						if (firstItemRenderer && !initDone) {
 							input.value = firstItemRenderer.item[this.list.labelAttr];
+							// Initialize widget's value
+							this._set("value", input.value);
 						}
 						initDone = true;
 					}
@@ -261,6 +295,8 @@ define([
 					} else { // no option selected
 						input.value = "";
 					}
+					
+					this._set("value", input.value);
 				}.bind(this));
 			}
 			
@@ -433,6 +469,13 @@ define([
 				sup.apply(this, arguments);
 				document.body.style.overflow = "visible";
 			};
-		})
+		}),
+		
+		_setValueAttr: function (value) {
+			if (this.valueNode) {
+				this.valueNode.value = value;
+			}
+			this._set("value", value);
+		}
 	});
 });

@@ -17,6 +17,7 @@
 		require([
 			"delite/register",
 			"deliteful/Store",
+			"deliteful/list/List",
 			"deliteful/ComboBox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
@@ -38,12 +39,6 @@
 	<p>
 	ComboBox in <b>markup</b>.
 	</p>
-	<p>
-	selectionMode: "single", autoFilter: false
-	</p>
-	<d-combobox selectionMode="single" autoFilter="false" id="combo1">
-		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combobox>
 	<d-store id="store">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -54,12 +49,21 @@
 		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
 		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
 	</d-store>
+	
+	<p>
+	selectionMode: "single", autoFilter: false
+	</p>
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combobox>
+	
 	<p>
 	selectionMode: "single", autoFilter: true
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2">
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
+	
 	<p>
 	selectionMode: "multiple"
 	</p>

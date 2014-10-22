@@ -12,7 +12,7 @@
 	
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
-
+	
 	<script type="text/javascript">
 		require([
 			"dstore/Memory",
@@ -38,31 +38,24 @@
 			]});
 			
 			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			list1 = list; // REMOVEME, for debug
-			list.id = "list1"; // REMOVEME, for debug
 			var comboBox = new ComboBox({list: list}).placeAt("combo-single", "replace");
-			combo1 = comboBox; // REMOVEME, for debug
 			// default selectionMode: "single"
-			list.startup();
+			combo1 = comboBox; // for debug
 			comboBox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			list2 = list; // REMOVEME, for debug
-			list.id = "list1"; // REMOVEME, for debug
+			combo2 = comboBox; // for debug
 			comboBox = new ComboBox({autoFilter: true, list: list}).
 				placeAt("combo-single-autoFilter", "replace");
 			combo2 = comboBox; // REMOVEME, for debug
 			// default selectionMode: "single"
-			list.startup();
 			comboBox.startup();
 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			list3 = list; // REMOVEME, for debug
-			list.id = "list2"; // REMOVEME, for debug
+			combo3 = comboBox; // for debug
 			comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
 				placeAt("combo-multiple", "replace");
 			combo3 = comboBox; // REMOVEME, for debug
-			list.startup();
 			comboBox.startup();
 			
 			// Now the same but disabled
@@ -71,20 +64,28 @@
 			var comboBox = new ComboBox({list: list, disabled: true}).
 				placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
-			list.startup();
+			combo4 = comboBox; // for debug
 			comboBox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			comboBox = new ComboBox({autoFilter: true, list: list, disabled: true}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
-			list.startup();
+			// list.startup();
+			combo5 = comboBox; // for debug
 			comboBox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			comboBox = new ComboBox({list: list, selectionMode: "multiple", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
-			list.startup();
+			combo6 = comboBox; // for debug
+			comboBox.startup();
+			
+			// Using the default instance of List created by ComboBox
+			comboBox = new ComboBox();
+			combo7 = comboBox; // for debug
+			comboBox.list.store = dataStore;
+			comboBox.placeAt("combo-single-default-list", "replace");
 			comboBox.startup();
 		});
 	</script>
@@ -127,5 +128,10 @@
 	selectionMode: "multiple", disabled
 	</p>
 	<span id="combo-multiple-disabled"></span>
+	
+	<p>
+	selectionMode: "single", autoFilter: false, default List (created by ComboBox)
+	</p>
+	<span id="combo-single-default-list"></span>
 </body>
 </html>
