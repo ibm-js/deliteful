@@ -212,6 +212,6 @@ define(["intern",
 				.then(function (value) {
 					assert.isNull(value, "no item currently selected");
 				});
-		},
+		}
 	});
 });
