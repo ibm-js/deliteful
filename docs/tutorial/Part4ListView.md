@@ -150,7 +150,8 @@ var script;
 function getPhotos(tags) {
 	requestDone(); // abort current request if any
 
-	var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=photosReceived&tags=" +
+	var url = (window.location.protocol || "http:") +
+		"//api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=photosReceived&tags=" +
 		tags + "&tagmode=all";
 	script = document.createElement("script");
 	script.type = 'text/javascript';
