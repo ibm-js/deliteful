@@ -51,7 +51,7 @@ The following properties can be set on the widget to configure it:
 
 * `label`: the label to display in the button;
 * `iconClass`: DOM class to apply to a DOM node before the label in order to render an icon;
-* `showLabel`: set it to true so that the button only displays an icon (especially usefull for buttons in toolbars).
+* `showLabel`: set it to true so that the button only displays an icon (especially useful for buttons in toolbars).
 
 The `disabled` attribute is also supported, in order to disable the button. A disabled button appears as disabled and does not emit any event when clicked.
 
@@ -114,7 +114,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.md) documentation for general security advice on this base class.
+This widget has no specific security concern.
 
 ### Browser Support
 
