@@ -60,11 +60,11 @@ define([
 			previousPageLoader, nextPageLoader, hint) {
 		hint = hint || "";
 		var numberOfItems = lastItemNumber - firstItemNumber + 1 - missingItemNumbers.length;
-		assert.strictEqual(list.scrollableNode.children.length,
+		assert.strictEqual(list.children.length,
 				numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
 				hint + " number of children");
 		if (previousPageLoader) {
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 					"Click to load " + list.pageLength + " more items", hint + " previous page loader");
 		}
 		for (var i = previousPageLoader ? 1 : 0, index = i + firstItemNumber - (previousPageLoader ? 1 : 0);
@@ -76,12 +76,12 @@ define([
 				}
 			}
 			assert.strictEqual(
-					removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + index, hint);
+					removeTabsAndReturns(list.children[i].textContent), "item " + index, hint);
 		}
 		if (nextPageLoader) {
 			assert.strictEqual(
 					removeTabsAndReturns(
-							list.scrollableNode.children[list.scrollableNode.children.length - 1].textContent),
+							list.children[list.children.length - 1].textContent),
 					"Click to load " + list.pageLength + " more items",
 					hint + " previous page loader");
 		}
@@ -92,9 +92,9 @@ define([
 								- Math.floor(firstItemNumber / 10) + 1;
 		var lastCategory = null;
 		assert.strictEqual(numberOfCategories + numberOfItems + (previousPageLoader ? 1 : 0) + (nextPageLoader ? 1 : 0),
-				list.scrollableNode.children.length, "number of children");
+				list.children.length, "number of children");
 		if (previousPageLoader) {
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 					"Click to load " + list.pageLength + " more items", "previous page loader");
 		}
 		for (var childIndex = previousPageLoader ? 1 : 0, itemIndex = firstItemNumber;
@@ -103,28 +103,28 @@ define([
 			var category = Math.floor(itemIndex / 10);
 			if (category !== lastCategory) {
 				lastCategory = category;
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[childIndex].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[childIndex].textContent),
 						"Category " + category);
 				childIndex++;
 			}
 			assert.strictEqual(
-					removeTabsAndReturns(list.scrollableNode.children[childIndex].textContent), "item " + itemIndex);
+					removeTabsAndReturns(list.children[childIndex].textContent), "item " + itemIndex);
 		}
 		if (nextPageLoader) {
 			assert.strictEqual(
 					removeTabsAndReturns(
-							list.scrollableNode.children[list.scrollableNode.children.length - 1].textContent),
+							list.children[list.children.length - 1].textContent),
 					"Click to load " + list.pageLength + " more items",
 					"previous page loader");
 		}
 	};
 
 	var clickPreviousPageLoader = function (list) {
-		return list.scrollableNode.children[0]._load();
+		return list.children[0]._load();
 	};
 
 	var clickNextPageLoader = function (list) {
-		return list.scrollableNode.children[list.scrollableNode.children.length - 1]._load();
+		return list.children[list.children.length - 1]._load();
 	};
 
 	var testHelpers = {
@@ -339,79 +339,79 @@ define([
 			assert.deepEqual(list._idPages[0],
 					[0, "A", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, "B", 22]);
 			assert.strictEqual(list._idPages[0].length, 25, "A: number of items in page");
-			assert.strictEqual(list.scrollableNode.children.length, 26, "A: number of list children");
+			assert.strictEqual(list.children.length, 26, "A: number of list children");
 			list.deliver();
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent), "item 0", "A");
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item A", "A");
+			assert.strictEqual(removeTabsAndReturns(list.children[0].textContent), "item 0", "A");
+			assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item A", "A");
 			for (i = 2; i <= 22; i++) {
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 1), "A");
+				assert.strictEqual(removeTabsAndReturns(list.children[i].textContent), "item " + (i - 1), "A");
 			}
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent), "item B", "A");
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent), "item 22", "A");
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[25].textContent), "Click to load 23 more items", "A");
+			assert.strictEqual(removeTabsAndReturns(list.children[23].textContent), "item B", "A");
+			assert.strictEqual(removeTabsAndReturns(list.children[24].textContent), "item 22", "A");
+			assert.strictEqual(removeTabsAndReturns(list.children[25].textContent), "Click to load 23 more items", "A");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
-				assert.strictEqual(list.scrollableNode.children.length, 49, "B: number of list children");
+				assert.strictEqual(list.children.length, 49, "B: number of list children");
 				list.deliver();
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent), "item 0", "B");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item A", "B");
+				assert.strictEqual(removeTabsAndReturns(list.children[0].textContent), "item 0", "B");
+				assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item A", "B");
 				for (i = 2; i <= 22; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 1), "B");
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent), "item " + (i - 1), "B");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent), "item B", "B");
+				assert.strictEqual(removeTabsAndReturns(list.children[23].textContent), "item B", "B");
 				for (i = 24; i <= 47; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 2), "B");
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent), "item " + (i - 2), "B");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[48].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[48].textContent),
 						"Click to load 23 more items", "B");
 				// Add an item
 				list.store.add({id: "C", label: "item C"}, {beforeId: 23});
 				list.deliver();
-				assert.strictEqual(list.scrollableNode.children.length, 50, "C: number of list children");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent), "item 0", "C");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item A", "C");
+				assert.strictEqual(list.children.length, 50, "C: number of list children");
+				assert.strictEqual(removeTabsAndReturns(list.children[0].textContent), "item 0", "C");
+				assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item A", "C");
 				for (i = 2; i <= 22; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 1), "C");
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent), "item " + (i - 1), "C");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent), "item B", "C");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent), "item 22", "C");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[25].textContent), "item C", "C");
+				assert.strictEqual(removeTabsAndReturns(list.children[23].textContent), "item B", "C");
+				assert.strictEqual(removeTabsAndReturns(list.children[24].textContent), "item 22", "C");
+				assert.strictEqual(removeTabsAndReturns(list.children[25].textContent), "item C", "C");
 				for (i = 26; i <= 48; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 3), "C");
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent), "item " + (i - 3), "C");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[49].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[49].textContent),
 						"Click to load 23 more items", "C");
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 					list.deliver();
-					assert.strictEqual(list.scrollableNode.children.length, 49, "D: number of list children");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+					assert.strictEqual(list.children.length, 49, "D: number of list children");
+					assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 							"Click to load 23 more items",
 							"C: previous page loader");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item C", "C");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[47].textContent), "item 68", "C");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[48].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item C", "C");
+					assert.strictEqual(removeTabsAndReturns(list.children[47].textContent), "item 68", "C");
+					assert.strictEqual(removeTabsAndReturns(list.children[48].textContent),
 							"Click to load 23 more items",
 							"C: next page loader");
 					clickPreviousPageLoader(list).then(dfd.rejectOnError(function () {
 						list.deliver();
-						assert.strictEqual(list.scrollableNode.children.length, 49, "D: number of list children");
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+						assert.strictEqual(list.children.length, 49, "D: number of list children");
+						assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 								"Click to load 23 more items",
 								"D: previous page loader");
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item 1", "D");
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[47].textContent), "item 45", "D");
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[48].textContent),
+						assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item 1", "D");
+						assert.strictEqual(removeTabsAndReturns(list.children[47].textContent), "item 45", "D");
+						assert.strictEqual(removeTabsAndReturns(list.children[48].textContent),
 								"Click to load 23 more items",
 								"D: next page loader");
 						clickPreviousPageLoader(list).then(dfd.callback(function () {
 							list.deliver();
-							assert.strictEqual(list.scrollableNode.children.length, 26, "E: number of list children");
-							assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+							assert.strictEqual(list.children.length, 26, "E: number of list children");
+							assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 									"item 0", "E");
-							assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent),
+							assert.strictEqual(removeTabsAndReturns(list.children[1].textContent),
 									"item A", "E");
-							assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent),
+							assert.strictEqual(removeTabsAndReturns(list.children[24].textContent),
 									"item 22", "E");
-							assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[25].textContent),
+							assert.strictEqual(removeTabsAndReturns(list.children[25].textContent),
 									"Click to load 23 more items",
 									"E: next page loader");
 						}));
@@ -438,26 +438,26 @@ define([
 			assert.deepEqual(list._idPages[0],
 					[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
 			assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
-			assert.strictEqual(list.scrollableNode.children.length, 25, "A: number of list children");
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+			assert.strictEqual(list.children.length, 25, "A: number of list children");
+			assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 					"Click to load 23 more items",
 					"A (previous page loader)");
 			for (i = 1; i <= 23; i++) {
 				assert.strictEqual(
-						removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + (i - 1), "A");
+						removeTabsAndReturns(list.children[i].textContent), "item " + (i - 1), "A");
 			}
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent),
+			assert.strictEqual(removeTabsAndReturns(list.children[24].textContent),
 					"Click to load 23 more items",
 					"A (next page loader)");
 			clickPreviousPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
-				assert.strictEqual(list.scrollableNode.children.length, 25, "B: number of list children");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent), "item A", "B");
+				assert.strictEqual(list.children.length, 25, "B: number of list children");
+				assert.strictEqual(removeTabsAndReturns(list.children[0].textContent), "item A", "B");
 				for (i = 1; i <= 23; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent),
 							"item " + (i - 1), "B");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[24].textContent),
 						"Click to load 23 more items", "B");
 			}));
 			return dfd;
@@ -472,8 +472,8 @@ define([
 			document.body.appendChild(list);
 			list.startup();
 			list.deliver();
-			assert.strictEqual(list.scrollableNode.children.length, 24, "0: number of list children");
-			assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent),
+			assert.strictEqual(list.children.length, 24, "0: number of list children");
+			assert.strictEqual(removeTabsAndReturns(list.children[23].textContent),
 					"Click to load 23 more items",
 					"0: last children is next page loader");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -484,22 +484,22 @@ define([
 				assert.deepEqual(list._idPages[0],
 						[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
 				assert.strictEqual(list._idPages[0].length, 23, "A: number of items in page");
-				assert.strictEqual(list.scrollableNode.children.length, 24, "A: number of list children");
+				assert.strictEqual(list.children.length, 24, "A: number of list children");
 				for (i = 0; i <= 22; i++) {
 					assert.strictEqual(
-							removeTabsAndReturns(list.scrollableNode.children[i].textContent), "item " + i, "A");
+							removeTabsAndReturns(list.children[i].textContent), "item " + i, "A");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[23].textContent),
 						"Click to load 23 more items",
 						"A (next page loader)");
 				clickNextPageLoader(list).then(dfd.callback(function () {
 					list.deliver();
-					assert.strictEqual(list.scrollableNode.children.length, 24, "B: number of list children");
+					assert.strictEqual(list.children.length, 24, "B: number of list children");
 					for (i = 0; i <= 22; i++) {
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent),
+						assert.strictEqual(removeTabsAndReturns(list.children[i].textContent),
 								"item " + i, "B");
 					}
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[23].textContent),
 							"item A", "B");
 				}));
 			}));
@@ -519,34 +519,34 @@ define([
 			assertList(list, 0, 22, [], false, true, "A");
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				list.deliver();
-				assert.strictEqual(list.scrollableNode.children.length, 25, "B: list number of children");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+				assert.strictEqual(list.children.length, 25, "B: list number of children");
+				assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 						"Click to load 23 more items",
 						"B: previous page loader");
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[1].textContent), "item A", "B");
+				assert.strictEqual(removeTabsAndReturns(list.children[1].textContent), "item A", "B");
 				for (i = 2; i < 24; i++) {
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[i].textContent),
 							"item " + (i + 21), "B");
 				}
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent),
+				assert.strictEqual(removeTabsAndReturns(list.children[24].textContent),
 						"Click to load 23 more items",
 						"B: next page loader");
 				list.store.add({id: "B", label: "item B"}, {beforeId: 22});
 				clickPreviousPageLoader(list).then(dfd.callback(function () {
 					list.deliver();
-					assert.strictEqual(list.scrollableNode.children.length, 25, "C: list number of children");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent),
+					assert.strictEqual(list.children.length, 25, "C: list number of children");
+					assert.strictEqual(removeTabsAndReturns(list.children[0].textContent),
 							"Click to load 23 more items",
 							"C: previous page loader");
 					for (i = 1; i < 22; i++) {
-						assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[i].textContent),
+						assert.strictEqual(removeTabsAndReturns(list.children[i].textContent),
 								"item " + i, "C");
 					}
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[22].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[22].textContent),
 							"item B", "C");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[23].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[23].textContent),
 							"item 22", "C");
-					assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[24].textContent),
+					assert.strictEqual(removeTabsAndReturns(list.children[24].textContent),
 							"Click to load 23 more items",
 							"C: next page loader");
 				}));
@@ -1113,7 +1113,7 @@ define([
 				assertList(list, 10, 19, [], true, true, "A");
 				list.loadPreviousMessage = "foo";
 				list.deliver();
-				assert.strictEqual(removeTabsAndReturns(list.scrollableNode.children[0].textContent), "foo",
+				assert.strictEqual(removeTabsAndReturns(list.children[0].textContent), "foo",
 						"loader label not updated");
 			}));
 			return dfd;
@@ -1136,7 +1136,7 @@ define([
 				list.deliver();
 				assert.strictEqual(
 						removeTabsAndReturns(
-								list.scrollableNode.children[list.scrollableNode.children.length - 1].textContent),
+								list.children[list.children.length - 1].textContent),
 						"foo", "loader label not updated");
 			}));
 			return dfd;
@@ -1189,8 +1189,8 @@ define([
 			assertCategorizedList(list, 25, 0, false, true);
 			setTimeout(def.rejectOnError(function () {
 				// scroll to the bottom
-				list.scrollableNode.scrollTop =
-					(list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight);
+				list.scrollTop =
+					(list.scrollHeight - list.offsetHeight);
 				waitForCondition(function () {
 					return list.textContent.indexOf("item 49") >= 0;
 				}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
@@ -1200,12 +1200,12 @@ define([
 							"last visible renderer after first page load");
 					setTimeout(def.rejectOnError(function () {
 						// scroll a little to remove the "_atExtremity" marker
-						list.scrollableNode.scrollTop =
-							((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight) / 2);
+						list.scrollTop =
+							((list.scrollHeight - list.offsetHeight) / 2);
 						setTimeout(def.rejectOnError(function () {
 							// scroll to the bottom
-							list.scrollableNode.scrollTop =
-								((list.scrollableNode.scrollHeight - list.scrollableNode.offsetHeight));
+							list.scrollTop =
+								((list.scrollHeight - list.offsetHeight));
 							waitForCondition(function () {
 								return list.textContent.indexOf("item 74") >= 0;
 							}, TIMEOUT, INTERVAL).then(def.rejectOnError(function () {
@@ -1216,10 +1216,10 @@ define([
 										"last visible renderer after second page load");
 								setTimeout(def.rejectOnError(function () {
 									// scroll a little to remove the "_atExtremity" marker
-									list.scrollableNode.scrollTop = 100;
+									list.scrollTop = 100;
 									setTimeout(def.rejectOnError(function () {
 										// scroll to the top
-										list.scrollableNode.scrollTop = 0;
+										list.scrollTop = 0;
 										waitForCondition(function () {
 											return list.textContent.indexOf("item 24") >= 0;
 										}, TIMEOUT, INTERVAL).then(def.callback(function () {

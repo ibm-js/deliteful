@@ -220,7 +220,7 @@ define([
 				this._autoPagingHandle = null;
 			}
 			if (value) {
-				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this.scrollableNode);
+				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this);
 			}
 		},
 
@@ -497,7 +497,7 @@ define([
 				this._previousPageLoader.destroy();
 				this._previousPageLoader = null;
 			} else {
-				this._previousPageLoader.placeAt(this.scrollableNode, "first");
+				this._previousPageLoader.placeAt(this, "first");
 			}
 			// the renderer may have been destroyed and replaced by another one (categorized lists)
 			if (renderer._destroyed) {
@@ -542,7 +542,7 @@ define([
 					this._nextPageLoader.destroy();
 					this._nextPageLoader = null;
 				} else {
-					this._nextPageLoader.placeAt(this.scrollableNode);
+					this._nextPageLoader.placeAt(this);
 				}
 			} else {
 				if (items.length === this._rangeSpec.count) {
@@ -644,7 +644,7 @@ define([
 				_list: this
 			});
 			this._nextPageLoader.deliver();
-			this._nextPageLoader.placeAt(this.scrollableNode);
+			this._nextPageLoader.placeAt(this);
 			this._nextPageLoader.startup();
 		},
 
@@ -672,7 +672,7 @@ define([
 				_list: this
 			});
 			this._previousPageLoader.deliver();
-			this._previousPageLoader.placeAt(this.scrollableNode, "first");
+			this._previousPageLoader.placeAt(this, "first");
 			this._previousPageLoader.startup();
 		},
 

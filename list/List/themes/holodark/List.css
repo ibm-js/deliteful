@@ -12,7 +12,6 @@
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
   font-family: Helvetica;
   font-size: 16px;
   font-weight: bold;
@@ -80,14 +79,12 @@
   margin-right: 7px;
 }
 .d-list-item-label {
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: bold;
 }
 .d-list-item-right-text {
   padding-right: 4px;
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: bold;
@@ -96,7 +93,6 @@
 .d-list-loader .d-list-cell {
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
   cursor: pointer;
   font-weight: bold;
   color: #324f85;
@@ -175,10 +171,6 @@
   color: black;
   font-weight: bold;
 }
-.d-list-container {
-  position: relative;
-  height: 100%;
-}
 /*******************************/
 /* iOS theme for RoundRectList */
 /*                             */
@@ -190,22 +182,23 @@
 .d-round-rect-list {
   /* edit display at your own risk */
   display: block;
-  /* position needed for moving list items in editable mode: do not edit */
+  /* Position relative is needed by List.getBottomDistance(). */
+  /* The List must be positioned to be the offsetNode of renderers. */
+  /* Otherwise, the offsetTop value is computed against a wrong parent */
   position: relative;
   /* Do not change this margin setting when customizing list in the app css */
   margin: 0 9px;
   padding: 0;
-  overflow-x: hidden;
 }
-.d-round-rect-list > .d-list-container > *:first-child {
+.d-round-rect-list > *:first-child {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-.d-round-rect-list > .d-list-container > *:last-child {
+.d-round-rect-list > *:last-child {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.d-round-rect-list > .d-list-container > *:last-child .d-list-cell {
+.d-round-rect-list > *:last-child .d-list-cell {
   border-bottom-width: 0;
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
   padding-bottom: 1px;
@@ -213,14 +206,15 @@
 .d-list {
   /* edit display at your own risk */
   display: block;
-  /* position needed for moving list items in editable mode: do not edit */
+  /* Position relative is needed by List.getBottomDistance(). */
+  /* The List must be positioned to be the offsetNode of renderers. */
+  /* Otherwise, the offsetTop value is computed against a wrong parent */
   position: relative;
   padding: 0;
   /* Do not change this margin setting when customizing list in the app css*/
   margin: 0;
-  overflow-x: hidden;
 }
-.d-list > .d-list-container > *:last-child .d-list-cell {
+.d-list > *:last-child .d-list-cell {
   border-bottom-width: 0;
   /* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
   padding-bottom: 1px;
