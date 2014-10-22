@@ -272,10 +272,10 @@ define(["intern",
 						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		/* The content of Select.html:
-		1. deliteful/Select created declaratively (with default store):
-		2. deliteful/Select created programmatically (with default store):
-		3. deliteful/Select created declaratively (with user's store):
-		4. deliteful/Select created programmatically (with user's store):
+		1. deliteful/Select created declaratively:
+		2. deliteful/Select created programmatically (with custom element store):
+		3. deliteful/Select created declaratively (with custom element store):
+		4. deliteful/Select created programmatically:
 		5. deliteful/Select created declaratively with no options (empty):
 		6. deliteful/Select created programmatically with no options (empty):
 		7. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
