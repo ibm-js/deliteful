@@ -6,7 +6,7 @@ define([
 ], function (dcl, domClass, CssState) {
 
 	/**
-	 * A base class for 2-states form widgets.
+	 * A base class for 2-state form widgets.
 	 * @class module:deliteful/Toggle
 	 * @abstract
 	 * @augments module:delite/CssState

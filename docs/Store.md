@@ -5,8 +5,8 @@ title: deliteful/Store
 
 # deliteful/Store
 
-`deliteful/Store` is a custom element that allows to easily create a memory-based instance of a `dstore/Store` object
- to connect it to `delite/Store` implementations like `deliteful/list/List` or `deliteful/Select`.
+`deliteful/Store` is a custom element that allows one to easily create a memory-based instance of a `dstore/Store`
+object to connect it to `delite/Store` implementations like `deliteful/list/List` or `deliteful/Select`.
  
 This is a logical custom element and does not provide any rendering. The rendering is performed by the UI custom element
 it is connected to.

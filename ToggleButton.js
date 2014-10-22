@@ -11,7 +11,7 @@ define([
 ], function (dcl, register, has, Button, Toggle, BidiToggleButton, template) {
 
 	/**
-	 * A 2-states toggle button widget that represents a form-aware 2-states (pressed or unpressed) button with optional
+	 * A 2-state toggle button widget that represents a form-aware 2-states (pressed or unpressed) button with optional
 	 * icons and labels for each state.
 	 *
 	 * A toggle button can display a different label depending on its state. By default, the label specified inline
