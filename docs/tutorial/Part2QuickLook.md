@@ -88,14 +88,14 @@ containing a header (a nested `d-linear-layout`), but below the header we now ha
 		<d-linear-layout vertical="false" class="pageHeader">
 			<div class="fill titleStyle">Menu</div>
 		</d-linear-layout>
+		<d-store id="menu_data">
+			{"label": "First View", "id": "first" },
+			{"label": "Second View", "id": "second" },
+			{"label": "Third View", "id": "third" }
+			<!--{"label": "Fourth View", "id": "fourth" }-->
+		</d-store>
 		<!-- left menu content -->
-		<d-list id="list" on-selection-change="vs.show(event.newValue.id)" selectionMode="radio">
-			<d-list-store>
-				{"label": "First View", "id": "first" },
-				{"label": "Second View", "id": "second" },
-				{"label": "Third View", "id": "third" }
-				<!--{"label": "Fourth View", "id": "fourth" }-->
-			</d-list-store>
+		<d-list id="list" store="menu_data" on-selection-change="vs.show(event.newValue.id)" selectionMode="radio">
 		</d-list>
 	</d-linear-layout>
 </d-side-pane>
