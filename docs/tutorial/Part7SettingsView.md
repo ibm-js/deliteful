@@ -113,6 +113,7 @@ tagsInput.value = settings.tags;
 
 tagModeSwitch.checked = settings.tagMode === "all" ? true : false;
 
+languageSelect.store = new Memory();
 languages.forEach(function (l) {
 	languageSelect.store = new Memory();
 	languageSelect.store.add(l);
