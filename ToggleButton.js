@@ -23,9 +23,9 @@ define([
 	 * checked state can be specified via the 'checkedIconClass' property.
 	 *
 	 * @example <caption>Creating a checked toggle button</caption>
-	 * <d-button is="d-toggle-button" checked="true">Foo</button>
+	 * <button is="d-toggle-button" checked="true">Foo</button>
 	 * @example <caption>Specify a label for the checked state</caption>
-	 * <d-button is="d-toggle-button" checked="true" checkedLabel="On">Off</button>
+	 * <button is="d-toggle-button" checked="true" checkedLabel="On">Off</button>
 	 * @example <caption>Specify an icon for the checked state</caption>
 	 * <style>
 	 *   .iconOn {
@@ -34,7 +34,7 @@ define([
 	 *     height: 16px;
 	 *   }
 	 * </style>
-	 * <d-button is="d-toggle-button" checked="true" checkedIconClass="iconOn">Off</button>
+	 * <button is="d-toggle-button" checked="true" checkedIconClass="iconOn">Off</button>
 	 * @class module:deliteful/ToggleButton
 	 * @augments module:deliteful/Toggle
 	 * @augments module:deliteful/Button.Mixin
