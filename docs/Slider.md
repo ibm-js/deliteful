@@ -17,9 +17,9 @@ a maximum value. Slider can be oriented vertically or horizontally.
 The selected value depends on the position of the handle and the `step`, which specifies the value granularity. The 
 position of the minimum and maximum depends on the text direction, and can be forced using the `flip` property.
 
-Handles can be move using pointers (mouse, touch) or keys (up, down, home or end).
+Handles can be moved using pointers (mouse, touch) or keys (up, down, home or end).
 
-A `change` event is fired after the user select a new value, either by releasing a pointer, or by pressing a selection
+A `change` event is fired after the user selects a new value, either by releasing a pointer, or by pressing a selection
 key. Before a `change` event, `input` events are fired while the user moves the Slider handle.
 
 The Slider Widget supports ARIA attributes `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-orientation`.

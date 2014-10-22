@@ -5,7 +5,7 @@ title: deliteful/ToggleButton
 
 # deliteful/ToggleButton
 
-The `deliteful/ToggleButton` widget represents a form-aware 2-states (pressed or unpressed) button with optional icons
+The `deliteful/ToggleButton` widget represents a form-aware 2-state (pressed or unpressed) button with optional icons
 and labels for each state. It is a subclass of the `deliteful/Button` class.
 
 *Example*

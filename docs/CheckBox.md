@@ -5,7 +5,7 @@ title: deliteful/CheckBox
 
 # deliteful/CheckBox
 
-The `deliteful/CheckBox` widget represents a form-aware 2-states widget similar to the HTML5 input type="checkbox" element.
+The `deliteful/CheckBox` widget represents a form-aware 2-state widget similar to the HTML5 input type="checkbox" element.
 It provides all the standard facilities of a native input and supports deliteful theming capability.
 
 *Example*
