@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/List samples.</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/list/List",
+			"deliteful/LinearLayout",
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+		], function (register, Memory, Trackable, List) {
+			register.parse();
+			var Store = Memory.createSubclass([Trackable], {});
+			list.store = new Store();
+			for (var i = 0; i < 50; i++) {
+				list.store.add({label: "Item #" + i});
+			}
+			list.startup();
+
+			document.body.style.display = "";
+		});
+	</script>
+	<style>
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+		.header, .footer {
+			background-color: #CECECE;
+			padding-left: 0.1em;
+			font-size: 2em;
+		}
+	</style>
+</head>
+<body style="display: none" role="application">
+<d-linear-layout id="container">
+	<div class="header">Header</div>
+	<d-list id="list" class="fill"></d-list>
+	<div class="footer">Footer</div>
+</d-linear-layout>
+</body>
+</html>
