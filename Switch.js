@@ -93,6 +93,7 @@ define([
 
 		_pointerUpHandler: function (e) {
 			if (!this._drag) {
+				this.checked = !this.checked;
 				return;
 			}
 			this._drag = false;
