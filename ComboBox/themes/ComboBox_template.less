@@ -1,0 +1,42 @@
+.d-combo-box {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	.d-combo-box-styles;
+}
+
+.d-combo-box::after {
+	content: "\25BC";
+	padding:0;
+	position: relative;
+	pointer-events: none; /* allow clicks to pass through */
+	.d-combo-box-arrow-styles; 
+}
+
+.d-combo-box-input {
+	height: inherit;
+	
+	&[disabled],
+	fieldset[disabled] & {
+		opacity: 0.5;
+	}
+}
+
+.d-combo-box-input, .d-combo-box-popup-input {
+	.d-combo-box-input-styles;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.d-combo-box .d-combo-box-list-hidden {
+	display: none;
+}
+
+.d-combo-box-list > .d-list-container {
+	position: relative;
+	height: auto;
+	width: auto;
+}

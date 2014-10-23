@@ -26,5 +26,6 @@ define([
 	"./ToggleButton",
 	"./RadioButton",
 	"./ResponsiveColumns",
-	"./ViewStack"
+	"./ViewStack",
+	"./ComboBox"
 ]);

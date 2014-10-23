@@ -1,0 +1,46 @@
+@import "../../../../delite/themes/bootstrap/includes";
+
+@import "../../../../delite/themes/bootstrap/variables.less";
+
+@import "../ComboBox_template";
+
+@d-combo-box-border-size: 1px;
+
+.d-combo-box-styles() {
+	color: @input-color;
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+}
+
+.d-combo-box-arrow-styles() {
+	font-size: .7em;
+	right: 1.7em;
+}
+
+.d-combo-box-input-styles() {
+	padding: @padding-base-vertical @padding-base-horizontal;
+	border: @d-combo-box-border-size solid @input-border;
+	border-radius: @input-border-radius;
+	&:focus {
+		.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+	}
+}
+
+.d-combo-box-list .d-active-descendant {
+	.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
+}
+
+/* Temporary workaround till deliteful pull request #341 will be merged */
+.d-combo-box-list .d-round-rect-list {
+	width: auto;
+	height: auto;
+}
+.d-combo-box-list .d-list {
+	width: auto;
+	height: auto;
+}
+
+.d-combo-box-list  > .d-list-container {
+	height: auto;
+	width: auto;
+}
