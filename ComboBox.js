@@ -18,7 +18,7 @@ define([
 	/**
 	 * A form-aware and store-aware widget leveraging the deliteful/list/List widget
 	 * for rendering the options.
-	 * The corresponding custom tag is `<d-combobox>`.
+	 * The corresponding custom tag is `<d-combo-box>`.
 	 * 
 	 * TODO: improve doc.
 	 * 
@@ -33,9 +33,9 @@ define([
 	 *     register.parse();
 	 *   });
 	 * HTML:
-	 * <d-combobox id="combobox1">
+	 * <d-combo-box id="combobox1">
 	 *   <d-list store="store"></d-list>
-	 * </d-combobox>
+	 * </d-combo-box>
 	 * <d-store id="store">
 	 *   { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 	 *   { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -63,7 +63,7 @@ define([
 	 * @augments module:delite/HasDropDown
 	 * @augments module:delite/FormWidget
 	 */
-	return register("d-combobox", [HTMLElement, HasDropDown, FormWidget],
+	return register("d-combo-box", [HTMLElement, HasDropDown, FormWidget],
 		/** @lends module:deliteful/ComboBox# */ {
 		
 		// TODO: handle the situation the list has a null/undefined store.
@@ -76,7 +76,7 @@ define([
 		
 		// Note: the property `disabled` is inherited from delite/FormWidget.
 		
-		baseClass: "d-combobox",
+		baseClass: "d-combo-box",
 		
 		template: template,
 		
@@ -193,10 +193,10 @@ define([
 			// Class added on the list such that ComboBox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
-			domClass.add(this.list, "d-combobox-list");
+			domClass.add(this.list, "d-combo-box-list");
 			
 			// The drop-down is hidden initially
-			domClass.add(this.list, "d-combobox-list-hidden");
+			domClass.add(this.list, "d-combo-box-list-hidden");
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
@@ -408,7 +408,7 @@ define([
 		_createPopupInput: function () {
 			// TODO: use deliteful/SearchBox when will be available.
 			var popupInput = document.createElement("input");
-			domClass.add(popupInput, "d-combobox-popup-input");
+			domClass.add(popupInput, "d-combo-box-popup-input");
 			popupInput.setAttribute("role", "combobox");
 			popupInput.setAttribute("autocomplete", "off");
 			popupInput.setAttribute("autocapitalize", "none");

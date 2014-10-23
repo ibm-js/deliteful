@@ -6,29 +6,29 @@
 
 @import "../ComboBox_template";
 
-@d-combobox-border-size: 1px;
+@d-combo-box-border-size: 1px;
 
-.d-combobox-styles() {
+.d-combo-box-styles() {
 	color: @input-color;
 	font-size: @font-size-base;
 	line-height: @line-height-base;
 }
 
-.d-combobox-arrow-styles() {
+.d-combo-box-arrow-styles() {
 	font-size: .7em;
 	right: 1.7em;
 }
 
-.d-combobox-input-styles() {
+.d-combo-box-input-styles() {
 	padding: @padding-base-vertical @padding-base-horizontal;
-	border: @d-combobox-border-size solid @input-border;
+	border: @d-combo-box-border-size solid @input-border;
 	border-radius: @input-border-radius;
 	&:focus {
 		.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
 	}
 }
 
-.d-combobox-list .d-active-descendant {
+.d-combo-box-list .d-active-descendant {
 	.tab-focus(); /* defined in delite/themes/bootstrap/mixins.less */
 }
 

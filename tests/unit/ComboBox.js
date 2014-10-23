@@ -27,15 +27,15 @@ define([
 		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
 		</d-store> \
-		<d-combobox id=\"combo1\"> \
+		<d-combo-box id=\"combo1\"> \
 		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
-		</d-combobox> \
+		</d-combo-box> \
 		<my-combobox id=\"mycombo1\"> \
 		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
 		</my-combobox>";
 				
-	var outerCSS = "d-combobox";
-	var innerCSS = "d-combobox-input";
+	var outerCSS = "d-combo-box";
+	var innerCSS = "d-combo-box-input";
 	var nOptions = 10;
 	
 	var initComboBox = function (combo, trackable) {

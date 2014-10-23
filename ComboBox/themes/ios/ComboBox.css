@@ -1,5 +1,5 @@
 /* For now, reuse the bootstrap less variables and functions*/
-.d-combobox {
+.d-combo-box {
   display: inline-block;
   vertical-align: middle;
   margin: 0;
@@ -8,7 +8,7 @@
   font-size: 14px;
   line-height: 1.428571429;
 }
-.d-combobox::after {
+.d-combo-box::after {
   content: "\25BC";
   padding: 0;
   position: relative;
@@ -17,15 +17,15 @@
   font-size: .7em;
   right: 1.7em;
 }
-.d-combobox-input {
+.d-combo-box-input {
   height: inherit;
 }
-.d-combobox-input[disabled],
-fieldset[disabled] .d-combobox-input {
+.d-combo-box-input[disabled],
+fieldset[disabled] .d-combo-box-input {
   opacity: 0.5;
 }
-.d-combobox-input,
-.d-combobox-popup-input {
+.d-combo-box-input,
+.d-combo-box-popup-input {
   padding: 6px 12px;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -34,22 +34,22 @@ fieldset[disabled] .d-combobox-input {
   font-size: inherit;
   line-height: inherit;
 }
-.d-combobox-input:focus,
-.d-combobox-popup-input:focus {
+.d-combo-box-input:focus,
+.d-combo-box-popup-input:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
   /* defined in delite/themes/bootstrap/mixins.less */
 }
-.d-combobox .d-combobox-list-hidden {
+.d-combo-box .d-combo-box-list-hidden {
   display: none;
 }
-.d-combobox-list > .d-list-container {
+.d-combo-box-list > .d-list-container {
   position: relative;
   height: auto;
   width: auto;
 }
-.d-combobox-list .d-active-descendant {
+.d-combo-box-list .d-active-descendant {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;

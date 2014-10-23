@@ -49,9 +49,9 @@ require(["delite/register", "deliteful/Store",
 
 ```html
 <html>
-  <d-combobox>
+  <d-combo-box>
     <d-list store="store"></d-list>
-  </d-combobox>
+  </d-combo-box>
   <d-store id="store">
     { "label": "France", ... },
       ...
@@ -143,10 +143,10 @@ The following table lists the CSS classes that can be used to style the ComboBox
 
 |Class name/selector|Applies to|
 |----------|----------|
-|d-combobox|ComboBox widget node.
-|d-combobox-input|The inner native `<input>` node on desktop.
-|d-combobox-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
-|d-combobox-list|The List widget displayed inside the popup.
+|d-combo-box|ComboBox widget node.
+|d-combo-box-input|The inner native `<input>` node on desktop.
+|d-combo-box-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
+|d-combo-box-list|The List widget displayed inside the popup.
 
 
 <a name="enterprise"></a>
