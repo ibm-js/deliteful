@@ -1,0 +1,9 @@
+<template class="d-combo-box" role="presentation">
+	<input class="d-combo-box-input"
+		role="combobox"
+		attach-point="input,buttonNode,focusNode"
+		autocomplete="off" autocorrect="off" autocapitalize="none"
+		aria-autocomplete="list"
+		type="{{this.autoFilter ? 'search' : 'text'}}"
+		readonly="{{this._inputReadOnly ? 'readonly' : ''}}" name="{{name}}">
+</template>

@@ -6,6 +6,7 @@ layout: doc
 
 * [Button](Button.md)
 * [CheckBox](CheckBox.md)
+* [ComboBox](ComboBox.md)
 * [ProgressBar](ProgressBar.md)
 * [ProgressIndicator](ProgressIndicator.md)
 * [RadioButton](RadioButton.md)

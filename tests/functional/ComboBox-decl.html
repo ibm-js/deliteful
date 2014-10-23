@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/ComboBox (markup)</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"deliteful/Store",
+			"deliteful/list/List",
+			"deliteful/ComboBox",
+			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+		});
+	</script>
+	<style>
+		/* Larger margins between the elements inside the list elements */
+		.d-list-item-label {
+			margin-right: 30px;
+		}
+		.d-list-item-right-text {
+			margin-left: 30px;
+		}
+	</style>
+</head>
+<body>
+	<p>
+	ComboBox in <b>markup</b>.
+	</p>
+	<d-store id="store">
+		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
+	</d-store>
+	
+	<p>
+	selectionMode: "single", autoFilter: false
+	</p>
+	<d-combo-box selectionMode="single" autoFilter="false" id="combo1">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+	
+	<p>
+	selectionMode: "single", autoFilter: true
+	</p>
+	<d-combo-box selectionMode="single" autoFilter="true" id="combo2">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+	
+	<p>
+	selectionMode: "multiple"
+	</p>
+	<d-combo-box selectionMode="multiple" autoFilter="false" id="combo3">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+	
+	<p>
+	selectionMode: "single", autoFilter: false, disabled
+	</p>
+	<d-combo-box selectionMode="single" autoFilter="false" 
+		id="combo1-disabled" disabled>
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+	<p>
+	selectionMode: "single", autoFilter: true, disabled
+	</p>
+	<d-combo-box selectionMode="single" autoFilter="true" 
+		id="combo2-disabled" disabled>
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+	<p>
+	selectionMode: "multiple", disabled
+	</p>
+	<d-combo-box selectionMode="multiple" autoFilter="false" 
+		id="combo3-disabled" disabled>
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combo-box>
+</body>
+</html>
