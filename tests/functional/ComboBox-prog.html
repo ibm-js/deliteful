@@ -47,7 +47,7 @@
 			combo2 = comboBox; // for debug
 			comboBox = new ComboBox({autoFilter: true, list: list}).
 				placeAt("combo-single-autoFilter", "replace");
-			combo2 = comboBox; // REMOVEME, for debug
+			combo2 = comboBox; // for debug
 			// default selectionMode: "single"
 			comboBox.startup();
 
@@ -55,7 +55,7 @@
 			combo3 = comboBox; // for debug
 			comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
 				placeAt("combo-multiple", "replace");
-			combo3 = comboBox; // REMOVEME, for debug
+			combo3 = comboBox; // for debug
 			comboBox.startup();
 			
 			// Now the same but disabled
@@ -71,7 +71,6 @@
 			comboBox = new ComboBox({autoFilter: true, list: list, disabled: true}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
-			// list.startup();
 			combo5 = comboBox; // for debug
 			comboBox.startup();
 			
