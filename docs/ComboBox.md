@@ -73,7 +73,6 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "requirejs-domready/domReady!"],
   function (register, Memory, Trackable, ComboBox, List) {
     register.parse();
-    var select = new Select({selectionMode: "multiple"});
     // Create the store
     var dataStore = new (Memory.createSubclass(Trackable))({});
     // Add options
@@ -93,9 +92,15 @@ src="http://jsfiddle.net/ibmjs/s2fzabtb/embedded/result,js,html">
 <a href="http://jsfiddle.net/ibmjs/s2fzabtb/">checkout the sample on JSFiddle</a></iframe>
 
 
-Note that, if the `list` property is not set before the widget is attached
-to the DOM, this property is set by default to a newly created instance
-of `deliteful/list/List`.
+Note that the `list` property is set by default to a newly created instance of
+`deliteful/list/List`. Hence, applications can write:
+
+```js
+    var comboBox = new ComboBox();
+    // Create the store
+    comboBox.list.store = ...;
+    ...
+```
 
 <a name="using"></a>
 ## Using ComboBox

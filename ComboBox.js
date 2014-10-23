@@ -118,7 +118,7 @@ define([
 		 * Note that this property is set by default to a newly created instance of
 		 * `deliteful/list/List`.
 		 * @member {module:deliteful/list/List} module:deliteful/ComboBox#list
-		 * @default null
+		 * @default instance of deliteful/list/List
 		 */
 		list: null,
 		
