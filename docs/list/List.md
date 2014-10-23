@@ -6,7 +6,7 @@ title: deliteful/list/List
 # deliteful/list/List
 
 
-The `deliteful/list/List` custom element (`d-list`) renders a optionally scrollable list of items that are retrieved 
+The `deliteful/list/List` custom element (`d-list`) renders an optionally scrollable list of items that are retrieved
 from a [Store](https://github.com/SitePen/dstore).
 
 The list inherits from the `delite/Store` class and as such any valid `dstore/Store` implementation can be used to 
@@ -15,7 +15,7 @@ either programmatically or in markup.
 
 Items rendered by the list are standard javascript objects. The list delegates the rendering of its items to an _item renderer_ widget.
 
-The default item renderer implementation (`deliteful/list/ItemRenderer`) renders objects that defines any of the following properties:
+The default item renderer implementation (`deliteful/list/ItemRenderer`) renders objects that define any of the following properties:
 
 * `label`: the label of the item, displayed on the left (or on the right if direction is right to left)
 * `righttext`: a text to display on the right (or on the left if direction is right to left)
@@ -391,7 +391,7 @@ The style of a selected item can be customized using the following css:
 }
 ```
 
-To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
+To illustrate these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
@@ -454,7 +454,7 @@ except for the selection / deselection of item, that is performed using the Spac
 
 The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
 while the last item has focus will focus the first item. Pressing the UP arrow while the first item
-has the focus will focus the next item.
+has the focus will focus the last item.
 
 When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
 Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
