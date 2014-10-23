@@ -45,10 +45,16 @@ define([
 
 		postRender: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
+			this.on("click", this._clickPreventer.bind(this), this._knobGlassNode);
 		},
 
 		destroy: function () {
 			this._cleanHandlers();
+		},
+
+		_clickPreventer: function (e) {
+			e.preventDefault()
+			e.stopPropagation();
 		},
 
 		_pointerDownHandler: function (e) {
