@@ -1,4 +1,4 @@
-/** @module delite/Memory */
+/** @module deliteful/Store */
 define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "dstore/Trackable"],
 	function (dcl, register, CustomElement, Memory, Trackable) {
 
