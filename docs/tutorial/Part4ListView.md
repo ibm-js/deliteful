@@ -20,9 +20,13 @@ The layout of the default application that we generated using Yeoman is roughly 
 on top, and contents that fit the remaining page space below. So we will keep the existing structure to make our list 
 view, that is, a (vertical) `d-linear-layout` and another nested, horizontal `d-linear-layout` for the header.
 
-Edit the contents of the `d-linear-layout` below the `<!-- page content -->` as follows:
+Edit the contents of the `body` element as follows :
 
 ```html
+<!-- left menu side pane -->
+<d-side-pane mode="push" position="start" id="leftPane">
+</d-side-pane>
+
 <!-- page content -->
 <d-linear-layout class="width100 height100" id="listView">
 	<!-- view content header -->
@@ -39,7 +43,8 @@ Edit the contents of the `d-linear-layout` below the `<!-- page content -->` as 
 </d-linear-layout>
 ```
 
-We have changed some labels, set an `id` attribute on the view and added a second button after the title (the nested
+We have removed the contents of the left pane (we will fill it again later when we implement the Settings view),
+changed some labels, set an `id` attribute on the view and added a second button after the title (the nested
 `d-linear-layout` will automatically stack it on the right because the middle div has a `fill` class).
 
 We also need to change the CSS, so open `css/app.css` in your editor. To keep things simple,
