@@ -4,6 +4,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 0px 3px black;
+  margin: 3px;
   white-space: nowrap;
 }
 .d-switch.d-focused {
