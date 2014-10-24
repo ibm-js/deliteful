@@ -29,3 +29,7 @@ layout: doc
 * [SidePane](SidePane.md)
 * [ViewStack](ViewStack.md)
 * [ResponsiveColumns](ResponsiveColumns.md)
+
+## Non Visual Custom Elements
+
+* [Store](Store.md)
