@@ -41,7 +41,8 @@ require(["delite/register", "deliteful/LinearLayout", "requirejs-domready/domRea
 
 ```js
 require(["deliteful/LinearLayout", "requirejs-domready/domReady!"], function (LinearLayout) {
-  var layout = new LinearLayout({vertical: false, width:"100%"});
+  var layout = new LinearLayout({vertical: false});
+  layout.style.width = "100%";
   var leftChild = document.createElement("div");
   var centerChild = document.createElement("div");
   var rightChild = document.createElement("div");
@@ -62,8 +63,6 @@ require(["deliteful/LinearLayout", "requirejs-domready/domReady!"], function (Li
 ### Properties
 
 The layout direction is controlled by the `vertical` property which is `true` by default.
-
-In addition to the `fill` CSS class, this element provides two utility CSS classes: `width100` and `height100` that respectively set width and height to 100%.
 
 The *main* direction of a LinearLayout is controlled by the ``vertical`` property which is true by default.
 The direction perpendicular to the *main* axis is called the *cross* direction. For example, if the *main* direction is vertical, *the cross* direction is horizontal.
@@ -106,7 +105,7 @@ src="http://jsfiddle.net/ibmjs/PY6Lz/embedded/result,html,css,js">
 
 ### Getting the sub-child of a LinearLayout to fill 100% in height
 
-If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` on a LinearLayout sub-child and if its computed height is greater than its parent height, it will be displayed out of bounds of the container.
+If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` (defined in [`defaultapp.css`](/delite/docs/master/defaultapp.html)) on a LinearLayout sub-child and if its computed height is greater than its parent height, it will be displayed out of bounds of the container.
 To avoid this behaviour, you must add ``position: absolute`` on the sub-child.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
@@ -143,7 +142,7 @@ To set the height of a LinearLayout using a percentage expression, the height of
 
 ### Accessibility
 
-Rely on browser.
+Relies on browser.
 
 ### Globalization
 

@@ -51,7 +51,7 @@ The following properties can be set on the widget to configure it:
 
 * `label`: the label to display in the button;
 * `iconClass`: DOM class to apply to a DOM node before the label in order to render an icon;
-* `showLabel`: set it to true so that the button only displays an icon (especially usefull for buttons in toolbars).
+* `showLabel`: set it to true so that the button only displays an icon (especially useful for buttons in toolbars).
 
 The `disabled` attribute is also supported, in order to disable the button. A disabled button appears as disabled and does not emit any event when clicked.
 
@@ -77,7 +77,7 @@ The appearance of a button can be customized by adding extra classes to it:
 
 Custom classes can also be added, as in the following example:
 
-<iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/NHft7/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/NHft7/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/NHft7">checkout the sample on JSFiddle</a></iframe>
 
 <a name="interactions"></a>
@@ -114,7 +114,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.html) documentation for general security advice on this base class.
+This widget has no specific security concern.
 
 ### Browser Support
 

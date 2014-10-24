@@ -13,8 +13,7 @@ Our settings view is shown and hidden by clicking the Settings button in the hea
 ![Settings View Sketch](images/settingssketch.png)
 
 > If you have chosen to get the tutorial application from the `ibm-js/deliteful-tutorial` project,
-switch to the `part7` tag now:
-
+switch to the `part7` branch now:
 ```
 $ git checkout part7
 ```
@@ -75,66 +74,67 @@ Add this to `css/app.css` to style the side pane and its elements:
 ##JavaScript Code
 
 We added new elements that we did not use before in our settings view so let's first add these new AMD modules to the
-require list:
+dependency list:
 
 ```js
-require([
+define([
 	..., "deliteful/Select", "deliteful/Switch", ...
 ], ...
 ```
 
-(We don't need to add corresponding argument to the require callback since we don't explicitly use these modules in
+(We don't need to add corresponding argument to the define callback since we don't explicitly use these modules in
 our code, we just need to have them loaded so that the delite parser can initialize them.)
 
 Here is now the code to add to initialize the settings view and handle changes in it:
 
 ```js
-	// Initial settings
-	var settings = {
-		tags: "famous,bridges",
-		tagMode: "all",
-		language: "en-us"
-	}
+// Initial settings
+var settings = {
+	tags: "famous,bridges",
+	tagMode: "all",
+	language: "en-us"
+}
 
-	// Possible display languages
-	var languages = [
-		{text: "English", value: "en-us"},
-		{text: "French", value: "fr-fr"},
-		{text: "German", value: "de-de"},
-		{text: "Italian", value: "it-it"},
-		{text: "Korean", value: "ko-kr"},
-		{text: "Portuguese (Br)", value: "pt-br"},
-		{text: "Spanish", value: "es-us"},
-		{text: "Trad. Chinese (HK)", value: "zh-hk"}
-	];
+// Possible display languages
+var languages = [
+	{text: "English", value: "en-us"},
+	{text: "French", value: "fr-fr"},
+	{text: "German", value: "de-de"},
+	{text: "Italian", value: "it-it"},
+	{text: "Korean", value: "ko-kr"},
+	{text: "Portuguese (Br)", value: "pt-br"},
+	{text: "Spanish", value: "es-us"},
+	{text: "Trad. Chinese (HK)", value: "zh-hk"}
+];
 
-	// Initialize elements of the settings view based on initial settings:
+// Initialize elements of the settings view based on initial settings:
 
-	tagsInput.value = settings.tags;
+tagsInput.value = settings.tags;
 
-	tagModeSwitch.checked = settings.tagMode == "all" ? true : false;
+tagModeSwitch.checked = settings.tagMode === "all" ? true : false;
 
-	languages.forEach(function (l) {
-		languageSelect.store.add(l);
-		languageSelect.setSelected(l, l.value == settings.language);
-	});
+languageSelect.store = new Memory();
+languages.forEach(function (l) {
+	languageSelect.store.add(l);
+	languageSelect.setSelected(l, l.value === settings.language);
+});
 
-	// callbacks called when a settings input field is modified
+// callbacks called when a settings input field is modified
 
-	tagsChanged = function () {
-		settings.tags = tagsInput.value;
-		refreshPhotoList();
-	};
+tagsChanged = function () {
+	settings.tags = tagsInput.value;
+	refreshPhotoList();
+};
 
-	tagModeChanged = function () {
-		settings.tagMode = tagModeSwitch.checked ? "all" : "any";
-		refreshPhotoList();
-	};
+tagModeChanged = function () {
+	settings.tagMode = tagModeSwitch.checked ? "all" : "any";
+	refreshPhotoList();
+};
 
-	languageChanged = function () {
-		settings.language = languageSelect.value;
-		refreshPhotoList();
-	};
+languageChanged = function () {
+	settings.language = languageSelect.value;
+	refreshPhotoList();
+};
 ```
 
 We define a `settings` object that contains our options. We then initialize the widgets of the settings view with
@@ -142,26 +142,38 @@ these settings. Finally, we create the callback functions that will be called wh
 user. The callback functions update the settings in memory based on the new widget state.
 
 OK, we can now modifiy slightly our existing code to use the settings properties instead of the hardcoded values that
- we had so far:
+we had so far:
 
 ```js
-    ...
-	refreshPhotoList = function () {
-		...
-		getPhotos(settings.tags);
-	};
+...
+refreshPhotoList = function () {
 	...
-	function getPhotos(tags) {
-	    ...
-		var url = ... + "&tagmode=" + settings.tagMode;
-		...
+	getPhotos(settings.tags);
+};
+...
+function getPhotos(tags) {
+	...
+	var url = ... + "&tagmode=" + settings.tagMode;
+	...
+}
+...
+	formatDate: function (d) {
+		return d && new Intl.DateTimeFormat(settings.language, {
+			...
 	}
-	...
-		formatDate: function (d) {
-			return d && new Intl.DateTimeFormat(settings.language, {
-				...
-		}
-	...
+...
+```
+
+One last change: now that we can format dates in several locales, we have to change our configuration
+so that these locales are loaded. For this, we add the possible locales in the `require.config` call in `index.html`:
+
+```js
+require.config({
+	...,
+	config: {
+		"ecma402/locales": ["en-us", "fr-fr", "de-de", "it-it", "ko-kr", "pt-br", "es-us", "zh-hk"]
+	}
+});
 ```
 
 Our settings view should work now! Try it out: click the Settings button, change the "bridges" tag to "landscapes" for
@@ -176,7 +188,9 @@ Click here to see the live demo:
 
 ##Congratulations!
 
-You have now completed this deliteful tutorial. More documentation and examples are available on the
-[deliteful web site](http://ibm-js.github.io/deliteful/index.html).
+Our app is now fully functional. In the [next step](Part8Build.html) we will learn how to build it to reduce its
+load time.
 
 [Previous Step - Adding a Details View](Part6DetailsView.html)
+
+[Next Step - Building the Application for Production](Part8Build.html)

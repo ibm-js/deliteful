@@ -5,7 +5,7 @@ title: deliteful/ToggleButton
 
 # deliteful/ToggleButton
 
-The `deliteful/ToggleButton` widget represents a form-aware 2-states (pressed or unpressed) button with optional icons
+The `deliteful/ToggleButton` widget represents a form-aware 2-state (pressed or unpressed) button with optional icons
 and labels for each state. It is a subclass of the `deliteful/Button` class.
 
 *Example*
@@ -29,10 +29,16 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 
 ```html
 <html>
-  <button is="d-toggle-button" checked="true" checkedLabel="On" checkedIconClass="iconButtonPressed">Off</button>
-  <button is="d-toggle-button" checked="true">WiFi</button>
+  <button is="d-toggle-button">Wifi</button>
+  <button is="d-toggle-button" checked>Wifi</button>
+  <button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
+  <button is="d-toggle-button" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
 </html>
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
+src="http://jsfiddle.net/ibmjs/at8z7abL/embedded/result,js,html">
+<a href="http://jsfiddle.net/ibmjs/at8z7abL/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
 
@@ -56,6 +62,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
      tb.startup();
 });
 ```
+
 
 <a name="configuration"></a>
 ## Element Configuration

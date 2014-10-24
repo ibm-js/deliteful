@@ -18,8 +18,7 @@ want to follow that path, just skip this and go to the next section.
 However, if you don't want to follow all the steps explained in this tutorial,
 you can just get the tutorial application from the `ibm-js/deliteful-tutorial` github project.
 You can clone it to your machine and look at the code for each part of the tutorial. The different parts can be
-fetched using tags (`part1`, etc). To get the code for this first part, run this in a shell script:
-
+fetched using branches (`part1`, etc). To get the code for this first part, run this in a shell window:
 ```
 $ git clone https://github.com/ibm-js/deliteful-tutorial
 $ cd deliteful-tutorial
@@ -60,6 +59,15 @@ Yeoman will ask you the name of your application, type `deliteful-tutorial` sinc
 ```
 [?] What is the name of your deliteful application package? deliteful-tutorial
 ```
+
+Answer `n` to the next question:
+
+```
+[?] Do you want to use build version of deliteful package (instead of source version)? No
+```
+
+You could answer `y` and use the build version from the start, but for this tutorial we will use the source version
+for now, and change to the build version later (see [Part 8 - Building the Application](Part8Build.html)).
 
 ##Deploying the Application on a Web Server
 

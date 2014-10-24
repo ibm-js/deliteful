@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/theme.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/theme.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Plugin to load the specified CSS file, substituting {{theme}} with the theme for the current page.
+ * This plugin will also load the common css file for the theme, `delite/themes/{{theme}}/common.css`,
+ * even if no resource is provided (like in `delite/theme!`).
+ *
+ * For example, on an iPhone `theme!./css/{{theme}}/Button.css`
+ * will load `./css/ios/Button.css` and `delite/themes/ios/common.css`.
+ *
+ * You can also pass an additional URL parameter string
+ * `theme={theme widget}` to force a specific theme through the browser
+ * URL input. The available theme ids are bootstrap, holodark (theme introduced in Android 3.0)
+ * and ios. The theme names are case-sensitive. If the given
+ * theme does not match, the bootstrap theme is used.
+ *
+ * ```
+ * http://your.server.com/yourapp.html --> automatic detection
+ * http://your.server.com/yourapp.html?theme=holodark --> forces Holodark theme
+ * http://your.server.com/yourapp.html?theme=ios --> forces iPhone theme
+ * ```
+ *
+ * You can also specify a particular user agent through the `ua=...` URL parameter.
+ *  @module delite/theme
+ */
+define([
+	"require",
+	"requirejs-dplugins/has",
+	"module",
+	"requirejs-dplugins/css"
+], function (req, has, module, css) {
+
+	"use strict";
+
+	var config = module.config();
+
+	var load = /** @lends module:delite/theme */ {
+		/**
+		 * A map of user-agents to theme files.
+		 *
+		 * The first array element is a regexp pattern that matches the userAgent string.
+		 * The second array element is a theme folder widget.
+		 * The matching is performed in the array order, and stops after the first match.
+		 *
+		 * Can be overridden by a module-level configuration setting passed to AMD loader:
+		 *
+		 * ```js
+		 * require.config({
+		 *     config: {
+		 *         "delite/theme": {
+		 *             themeMap: ...
+		 *         }
+		 *     }
+		 * });
+		 * ```
+		 * @member {Array}
+		 * @default [[/Holodark|Android/, "holodark"], [/iPhone/iPad/, "ios"], [/.*\/, "bootstrap"]]
+		 */
+		themeMap: config.themeMap || [
+			// Temporarily comment out until more widgets support them
+			// [/Holodark|Android/, "holodark"],
+			// [/iPhone|iPad/, "ios"],
+			[/.*/, "bootstrap"]			// chrome, firefox, IE
+		],
+
+		/**
+		 * Compute the theme name, according to browser and this.themeMap.
+		 * @private
+		 */
+		getTheme: function () {
+			var theme = load.theme || config.theme;
+			if (!theme) {
+				var matches = location.search.match(/theme=(\w+)/);
+				theme = matches &amp;&amp; matches.length > 1 ? matches[1] : null;
+			}
+			if (!theme) {
+				var ua = config.userAgent || (location.search.match(/ua=(\w+)/) ? RegExp.$1 : navigator.userAgent),
+					themeMap = this.themeMap;
+				for (var i = 0; i &lt; themeMap.length; i++) {
+					if (themeMap[i][0].test(ua)) {
+						theme = themeMap[i][1];
+						break;
+					}
+				}
+			}
+			load.theme = theme;
+			return theme;
+		},
+
+		/**
+		 * Load and install the specified CSS file for the given path, then call onload().
+		 * @param {string} path - Simplified path. It will be expanded to convert {{theme}} to the current theme.
+		 * @param {Function} require - AMD's require() method.
+		 * @param {Function} onload - Callback function which will be called when the loading finishes
+		 * and the stylesheet has been inserted.
+		 * @private
+		 */
+		load: function (path, require, onload) {
+			// Update config to be sure to get latest value.
+			config = module.config();
+
+			// Add CSS file which contains definitions common to the theme.
+			// Use absolute MID (rather than relative MID) for benefit of builder, and since the MID specified
+			// in path has already been converted to an absolute MID.
+			var commonCss = module.id.replace(/\/.*/, "") + "/themes/{{theme}}/common.css";
+			var resources = path ? [commonCss, path] : [commonCss];
+
+			if (has("builder")) {
+				resources.forEach(function (path) {
+					css.buildFunctions.addOnce(loadList, path);
+				});
+				onload();
+				return;
+			}
+
+			// Replace single css bundles by corresponding layer.
+			if (config.layersMap) {
+				resources = resources.map(function (path) {
+					return config.layersMap[path] || path;
+				});
+			}
+
+			// Convert list of logical resources into list of dependencies.
+			// ex: Button/css/{{theme}}/Button.css --> requirejs-dplugins/css!Button/css/ios/Button.css
+			var deps = resources.map(function (path) {
+				return css.id + "!" + path.replace(/{{theme}}/, load.getTheme());
+			});
+
+			// Call css! plugin to insert the stylesheets.
+			req(deps, function () {
+				onload(arguments);
+			});
+		}
+	};
+
+	if (has("builder")) {
+		var loadList = [];
+		var writePluginFiles;
+
+		load.writeFile = function (pluginName, resource, require, write) {
+			writePluginFiles = write;
+		};
+
+		load.onLayerEnd = function (write, data) {
+			function getLayerPath(theme) {
+				var pathRE = /^(?:\.\/)?(([^\/]*\/)*)[^\/]*$/;
+				return data.path.replace(pathRE, "$1themes/layer_" + (theme || "{{theme}}") + ".css");
+			}
+
+			if (data.name &amp;&amp; data.path) {
+				load.themeMap.forEach(function (theme) {
+					var themeDir = theme[1];
+					var dest = getLayerPath(themeDir);
+					var themedLoadList = loadList.map(function (path) {
+						return path.replace(/{{theme}}/g, themeDir);
+					});
+					css.buildFunctions.writeLayer(writePluginFiles, dest, themedLoadList);
+				});
+
+				// Write generic css config with {{theme}} on the layer.
+				var destMid = data.name.replace(/^(([^\/]*\/)*)[^\/]*$/, "$1themes/layer_{{theme}}.css");
+				css.buildFunctions.writeConfig(write, module.id, destMid, loadList);
+
+				// Reset loadList
+				loadList = [];
+			}
+		};
+	}
+	return load;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/CheckBox.html">deliteful/CheckBox</a></li><li><a href="deliteful/ComboBox.html">deliteful/ComboBox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Oct 24 2014 11:00:16 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -6,15 +6,16 @@ title: deliteful/list/List
 # deliteful/list/List
 
 
-The `deliteful/list/List` widget renders a scrollable list of items that are retrieved from a [Store](https://github.com/SitePen/dstore).
+The `deliteful/list/List` custom element (`d-list`) renders an optionally scrollable list of items that are retrieved
+from a [Store](https://github.com/SitePen/dstore).
 
-Its custom element tag is `d-list`.
+The list inherits from the `delite/Store` class and as such any valid `dstore/Store` implementation can be used to 
+provide data to the list. No store is provided by default and the application developer has to provide one created
+either programmatically or in markup.
 
-By default, the widget creates a trackable memory store, accessible as the `store` property, but any valid `dstore/Store` implementation can be used instead. 
+Items rendered by the list are standard javascript objects. The list delegates the rendering of its items to an _item renderer_ widget.
 
-Items rendererd by the list are standard javascript object. The list delegates the rendering of its items to an _item renderer_ widget.
-
-The default item renderer implementation renders objects that defines any of the following properties:
+The default item renderer implementation (`deliteful/list/ItemRenderer`) renders objects that define any of the following properties:
 
 * `label`: the label of the item, displayed on the left (or on the right if direction is right to left)
 * `righttext`: a text to display on the right (or on the left if direction is right to left)
@@ -50,22 +51,23 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 ### Declarative Instantiation
 
 ```html
+<d-store id="myStore">
+    <!-- Add the following items to the store -->
+    { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+    { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+    { "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+    { "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+    { "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+    { "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+    { "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+    { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
+</d-store>
 <!-- A list of categorized items that uses the default item renderer, -->
 <!-- mapping the sales property of items to righttext, and using the -->
-<!-- region property as the item category -->
-<d-list height="100%" righttextAttr="sales" categoryAttr="region">
-	<d-list-store>
-		<!-- Add the following items to the list store -->
-		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
-		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
-		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
-		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
-		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
-		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
-		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
-		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
-  	</d-list-store>
-  </d-list>
+<!-- region property as the item category. The store is referenced through -->
+<!-- the store property -->
+<d-list height="100%" righttextAttr="sales" categoryAttr="region" store="myStore">
+</d-list>
 ```
 ### Programmatic Instantiation
 
@@ -114,47 +116,36 @@ to `"none"` in order to remove the default scrolling capability.
 <a name="store"></a>
 ### Store capabilities
 
-If the store the items are retrieved from is trackable (see [dstore documentation](https://github.com/sitepen/dstore)), the widget will react to addition,
-deletion, move and update of the store content and refresh its rendering accordingly.
-
-If you do not specify which store to retrieve the items from, the widget creates a default
-trackable memory store that can be retrieved in the `store` property,
-as in the following example:
+No store is created by default and one has to provided to the list for it to display its items. It can either be done
+programmatically:
 
 ```js
-var list = new List();
-var defaultStore = list.store;
+require(["dstore/Memory", "dstore/Trackable", "delite/list/List"], function (Memory, Trackable, List) {
+    var list = new List();
+    var store = new (Memory.createSubclass([Trackable], {}))();
+    var item1 = {...};
+    var item2 = {...};
+    store.add(item1);
+    store.add(item2, {beforeId: item1.id});
+    list.store = store;
+});
 ```
 
-This default store can be populated programmatically using the `add` method
-defined by the [dstore Store API](https://github.com/SitePen/dstore/blob/master/docs/Store.md), and it supports the `beforeId` options to easily
-order elements in the list, as in the following example:
-
-```js
-var list = new List();
-var defaultStore = list.store;
-var item1 = {...};
-var item2 = {...};
-defaultStore.add(item1);
-defaultStore.add(item2, {beforeId: item1.id});
-```
-
-When creating a list widget declaratively, it is possible to use JSON markup to add items to
-the list store using the `d-list-store` tag, as in the following
-example:
+Or declaratively using the `deliteful/Store` custom element:
 
 ```html
-<d-list>
-	<d-list-store>
-		{"label": "First item", "iconclass": "my-icon-class-a"},
-		{"label": "Second item", "iconclass": "my-icon-class-b"},
-		...,
-		{"label": "Last item", "iconclass": "my-icon-class-z"}
-	</d-list-store>
-</d-list>
+<d-list-store id="myStore">
+    {"label": "First item", "iconclass": "my-icon-class-a"},
+    {"label": "Second item", "iconclass": "my-icon-class-b"},
+    ...,
+    {"label": "Last item", "iconclass": "my-icon-class-z"}
+</d-list-store>
+<d-list store="myStore"></d-list>
 ```
 
-_Note that items are appended to the store in the order they are declared in the JSON markup._
+If the provided is trackable (see [dstore documentation](https://github.com/sitepen/dstore)), that is when it extends
+`dstore/Trackable`, the widget will react to addition, deletion, move and update of the store content and 
+refresh its rendering accordingly.
 
 Because the List widget inherit from [`delite/StoreMap`](/delite/docs/master/StoreMap.html), you can redefine at will the mapping between
 your store items and the ones expected by the renderer using mapping attributes and functions, as in the following example:
@@ -223,6 +214,7 @@ example:
 ```js
 var list = new List();
 list.categoryAttribute = "category";
+list.store = ...;
 list.store.add({label: "first item", category: "Category A"});
 list.store.add({label: "second item", category: "Category A"});
 list.store.add({label: "third item", category: "Category B"});
@@ -240,6 +232,7 @@ var list = new List();
 list.categoryFunc = function(item, store) {
 	return item.category;
 });
+list.store = ...;
 list.store.add({label: "first item", category: "Category A"});
 list.store.add({label: "second item", category: "Category A"});
 list.store.add({label: "third item", category: "Category B"});
@@ -398,7 +391,7 @@ The style of a selected item can be customized using the following css:
 }
 ```
 
-To illustrates these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
+To illustrate these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
@@ -461,7 +454,7 @@ except for the selection / deselection of item, that is performed using the Spac
 
 The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
 while the last item has focus will focus the first item. Pressing the UP arrow while the first item
-has the focus will focus the next item.
+has the focus will focus the last item.
 
 When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
 Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.

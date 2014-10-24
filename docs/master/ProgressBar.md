@@ -159,8 +159,8 @@ Default widget size is 100% of its container. You may use the `width` standard C
 }
 ```
 
-Due to the nature of ProgressBar, and to ensure it will adapt nicely whatever the theme, it is recommended to rely 
-on `font-size` CSS property to act on the progress bar height.
+Due to the nature of ProgressBar and to ensure consistent rendering under the provided themes,
+we recommend that you rely on `font-size` CSS property to change the progress bar height.
 
 <iframe width="100%" height="150" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/8HzDE/embedded/result,html,css,js">

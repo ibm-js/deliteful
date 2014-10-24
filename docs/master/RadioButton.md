@@ -6,8 +6,9 @@ title: deliteful/RadioButton
 # deliteful/RadioButton
 
 The `deliteful/RadioButton` widget represents a 2-state widget similar to the HMTL5 input type="radio" element.
-Contrary to other checkbox  like `deliteful/CheckBox` or `deliteful/Switch`, a RadioButton is usually used with other
-RadioButton widgets to form a group of exclusive options. Only one RadioButton can be checked at a time within a group.
+Contrary to other checkbox widgets like `deliteful/CheckBox` or `deliteful/Switch`, a RadioButton is usually used with
+other RadioButton widgets to form a group of exclusive options. Only one RadioButton can be checked at a time within a
+group.
 
 *Example of RadioButton widgets* 
 
@@ -40,7 +41,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 
 Check the following jsfiddle example:
 <iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/p22Lj0fn/embedded/result,html,css,js" 
-allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/p22Lj0fn/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
@@ -67,9 +68,9 @@ allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 <a name="configuration"></a>
 ## Element Configuration
 
-A RadioButton widget is used in relation with other RadioButton to form a group of exclusive choices. A radio button
-group is defined as a logical group of RadioButton that share the same `name` attribute value. When a form is submitted,
-only the value of the checked RadioButton is submitted.
+A RadioButton widget is used in relation with other RadioButton widgets to form a group of exclusive choices. A radio
+button group is defined as a logical group of RadioButton widgets that share the same `name` attribute value. When a
+form is submitted, only the value of the checked RadioButton is submitted.
 
 The state of a RadioButton widget (checked or unchecked) is defined by the `checked` property, inherited from the 
 `deliteful/Toggle` class. There can be only one RadioButton checked within a radio button group.
@@ -94,7 +95,7 @@ The following table lists all the CSS classes that can be used to style the widg
 |class name/selector|applies to|
 |----------|----------|
 |d-radio-button|RadioButton widget node
-|d-radio-button:before|RadioButton "reticule"
+|d-radio-button::before|RadioButton "reticule"
 In addition, the following classes are used in combination with the classes above:
 
 |class name/selector|applies to|

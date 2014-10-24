@@ -33,13 +33,13 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 <!-- * a maximum value of 7 -->
 <!-- * an initial value of 3.5 -->
 <!-- * values set by increments of .5 -->
-<d-star-rating name="rating" allowZero="true" max="7" value="3.5" editHalfValues="true"></d-star-rating>
+<d-star-rating name="rating" max="7" value="3.5" editHalfValues="true"></d-star-rating>
  ```
 ### Programmatic Instantiation
 
 ```js
 require(["deliteful/StarRating", "dojo/domReady!"], function (StarRating) {
-  var starRating = new StarRating({allowZero: true, max: 7, value: 3.5, editHalfValues: true});
+  var starRating = new StarRating({max: 7, value: 3.5, editHalfValues: true});
   starRating.placeAt(document.body);
   starRating.startup();
 });
@@ -70,10 +70,10 @@ The following properties can be set on a `StarRating` instance:
 - `max`: the maximum rating, that is also the number of stars to show.
 - `value`: the current value of the Rating.
 - `readOnly`: if false, the widget is editable and allows editing the value of the Rating by touching / clicking the stars
-- `name`: mandatory if using the star rating widget in a form, in order to have it value submited
+- `name`: mandatory if using the star rating widget in a form, in order to have its value submited
 - `disabled`: if true, the widget is disabled (its value will not be submited if it is included in a form)
 - `editHalfValues`: if the Rating is not read only, define if the user is allowed to set half values (0.5, 1.5, ...)
-- `allowZero`: true to allow setting a value of zero, false otherwise
+- `allowZero`: if false, the user is not allowed to set the value to 0 (default is true)
 
 <a name="styling"></a>
 ## Element Styling
@@ -98,12 +98,12 @@ The stars displayed can be fully customized by using the following CSS selectors
 	font-size: 150%;
 }
 
-.d-star-rating-empty:before {
+.d-star-rating-empty::before {
 	content: "\2605"; /* The font character to use to display an empty star */
 	color: #CCC; /* The color of an empty star */
 }
 
-.d-star-rating-full:before {
+.d-star-rating-full::before {
 	content: "\2605"; /* The font character to use to display a full star */
 	color: yellow; /* The color of a full star */
 }

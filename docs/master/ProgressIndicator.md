@@ -74,10 +74,19 @@ ProgressIndicator must be active to become visible and start its animation.
 
 <a name="configuration"></a>
 ## Element Configuration
+
+The following properties can be set on the widget to configure it:
+
+* `active`: Set to false to hide the widget and stop any ongoing animation. Set to true to show the widget: animation
+automatically starts unless you set a number to the "value".
+* `value`: A value from 0 to 100 that indicates a percentage of progression of an ongoing task. Defaults to NaN.
+* `speed`: The relative speed of the spinning animation. Accepted values are "slow", "normal" and "fast". Other values
+are converted to "normal".
+
 ### Determinate vs indeterminate
-By default, `deliteful/ProgressIndicator` is indeterminate in a sense it doesn't indicate the level of completion of the
-ongoing task: it just spin until it is deactivated. ProgressIndicator is indeterminate as long as 
-`ProgressIndicator.value = NaN`
+ProgressIndicator is indeterminate as long as `ProgressIndicator.value = NaN`, which is the default value.
+`deliteful/ProgressIndicator` is indeterminate in the sense that it doesn't indicate the level of completion
+of the ongoing task, it will spin until it is deactivated.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/58rt6/embedded/result,js,html">
@@ -132,7 +141,7 @@ src="http://jsfiddle.net/ibmjs/WALnB/embedded/result,html,css">
 
 ### Customizing the size
 Default widget size is 40x40px on all themes. You may use `width` and `height` standard CSS properties to specify the
-size. 
+size. We recommend that you keep `width` and `height` equal (or close) in order to get nicer results.
 
 *Example of ProgressIndicator which fills its container*
 

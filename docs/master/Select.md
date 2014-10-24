@@ -31,45 +31,20 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 
 ### Declarative Instantiation
 
-Using the default store:
-
 ```js
-require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
+require(["delite/register", "deliteful/Store", "deliteful/Select", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
-    select1.store.addSync({text: "Option 1", value: "1"});
-    ...
 });
 ```
 
 ```html
 <html>
-  <d-select id="select1"></d-select>
-</html>
-```
-
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/nB8BK/1/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/nB8BK/1/">checkout the sample on JSFiddle</a></iframe>
-
-
-Using user's own store:
-
-```js
-require(["delite/register", "dstore/Memory", "dstore/Trackable",
-         "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable) {
-    register.parse();
-    var store = new (Memory.createSubclass(Trackable))({});
-    select1.store = store;
-    store.addSync({text: "Option 1", value: "1"});
+  <d-store id="myStore">
+    {text: "Option 1", value: "1"},
     ...
-});
-```
-
-```html
-<html>
-  <d-select selectionMode="multiple" id="select1"></d-select>
+  </d-store>
+  <d-select selectionMode="multiple" id="select1" store="myStore"></d-select>
 </html>
 ```
 
@@ -79,28 +54,6 @@ src="http://jsfiddle.net/ibmjs/nqM5G/embedded/result,js,html">
 
 
 ### Programmatic Instantiation
-
-Using the default store:
-
-```js
-require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register) {
-    register.parse();
-    var select = new Select({selectionMode: "multiple"}); 
-    select.placeAt(document.body);
-    select.startup(); // must be called before using select.store
-    
-    // add options to the Select widget
-    select.store.addSync({text: "Option 1", value: "1"});
-});
-```
-
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/8Ccfm/embedded/result,js,html">
-<a href="http://jsfiddle.net/ibmjs/8Ccfm/">checkout the sample on JSFiddle</a></iframe>
-
-
-Using user's own store:
 
 ```js
 require(["delite/register", "dstore/Memory", "dstore/Trackable",
@@ -112,7 +65,7 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     var store = new (Memory.createSubclass(Trackable))({});
     select.store = store;
     // add options to the Select widget
-    store.addSync({text: "Option 1", value: "1"});
+    store.add({text: "Option 1", value: "1"});
     ...
     select.placeAt(document.body);
     select.startup();
@@ -144,6 +97,33 @@ can be redefined.
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for more information 
 about all the available mapping options.
 
+<a name="styling"></a>
+## Element Styling
+
+### Supported themes
+
+This widget provides default styling for the following delite theme:
+
+* bootstrap
+
+### CSS Classes
+
+CSS classes are bound to the structure of the widget declared in its template `deliteful/Select/Select.html`.
+The following table lists the CSS classes that can be used to style the Select widget.
+
+|class name/selector|applies to|
+|----------|----------|
+|d-select|Select widget node
+|d-select-inner|The inner native HTML `<select>`
+
+In addition, the following class is used in combination with the classes above:
+
+|class name/selector|applies to|
+|----------|----------|
+|d-select-focus|Select widget in focus state
+
+Note that level of support for styling the inner native HTML `<select>` (and 
+particularly its `<option>` children) is browser-dependent.
 
 <a name="enterprise"></a>
 ## Enterprise Use

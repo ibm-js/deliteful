@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/CssState.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/CssState.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module delite/CssState */
+define([
+	"dcl/dcl",
+	"dojo/dom-class", // domClass.toggle
+	"./Widget"
+], function (dcl, domClass, Widget) {
+
+	/**
+	 * Update the visual state of the widget by setting CSS classes on widget root node
+	 * based on widget properties:
+	 *
+	 * - `this.disabled` --> `d-disabled`
+	 * - `this.readOnly` --> `d-readonly`
+	 * - `this.selected` --> `d-selected` (ex: currently selected tab)
+	 * - `this.checked == true` --> `d-checked` (ex: a checkbox or a ToggleButton in a checked state)
+	 * - `this.checked == "mixed"` --> `d-mixed` (half-checked aka indeterminate checkbox)
+	 * - `this.state == "Error"` --> `d-error` (ValidationTextBox value is invalid)
+	 * - `this.state == "Incomplete"` --> `d-incomplete` (user hasn't finished typing value yet)
+	 *
+	 * @mixin module:delite/CssState
+	 * @augments module:delite/Widget
+	 */
+	return dcl(Widget, /** lends module:delite/CssState# */ {
+
+		/**
+		 * List of boolean properties to watch.
+		 * @member {string[]} module:delite/CssState#booleanCssProps
+		 * @default ["disabled", "readOnly", "selected", "focused", "opened"]
+		 */
+		booleanCssProps: ["disabled", "readOnly", "selected", "opened"],
+
+		postRender: function () {
+			["checked", "state"].concat(this.booleanCssProps).forEach(function (name) {
+				if (this[name]) {
+					this.notifyCurrentValue(name);
+				}
+			});
+		},
+
+		refreshRendering: function (oldVals) {
+			// Monitoring changes to disabled, readonly, etc. state, and update CSS class of root node
+			this.booleanCssProps.forEach(function (name) {
+				if (name in oldVals) {
+					domClass.toggle(this, "d-" + name.toLowerCase(), this[name]);
+				}
+			}, this);
+			if ("checked" in oldVals) {
+				domClass.remove(this, oldVals.checked === "mixed" ? "d-mixed" : "d-checked");
+				if (this.checked) {
+					domClass.add(this, this.checked === "mixed" ? "d-mixed" : "d-checked");
+				}
+			}
+			if ("state" in oldVals) {
+				domClass.remove(this, "d-" + oldVals.state.toLowerCase());
+				domClass.add(this, "d-" + this.state.toLowerCase());
+			}
+		}
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/CheckBox.html">deliteful/CheckBox</a></li><li><a href="deliteful/ComboBox.html">deliteful/ComboBox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Oct 24 2014 11:00:16 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -69,12 +69,12 @@ The ViewStack container include by default 2 transition types: "slide" and "reve
 Example: Load all additional transition types
 
 ```js
-require(["delite/css!deliteful/ViewStack/transitions/cover.css",
-"delite/css!deliteful/ViewStack/transitions/coverv.css",
-"delite/css!deliteful/ViewStack/transitions/fade.css",
-"delite/css!deliteful/ViewStack/transitions/flip.css",
-"delite/css!deliteful/ViewStack/transitions/slidev.css",
-"delite/css!deliteful/ViewStack/transitions/revealv.css"],...);
+require(["requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
+"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"],...);
 ```
 
 <a name="configuration"></a>
@@ -108,7 +108,11 @@ Default values are `{transition: "slide", reverse: false}`.
 
 `deliteful/ViewStack` has no visual appearance, it does not provide any CSS class for styling.
 
-The default height of a `deliteful/ViewStack` is ``200px``. 
+The default height of a `deliteful/ViewStack` is ``100%``. When the height of a ViewStack is expressed as a percentage, you must ensure that the height of its parent is defined.
+If the height of the parent is also defined as a percentage, you must recursively apply the same rule, up to ``<body>`` and ``<html>`` elements if needed.
+An HTML full-screen application has its ``<body>`` and ``<html>`` elements height set to ``100%``.
+You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
+You can set height of ``<body>`` and ``<html>`` to ``100%`` by including [`defaultapp.css`](/delite/docs/master/defaultapp.html) 
 
 The `position` CSS attribute of this element must be set to `absolute` or `relative` (default).
 
@@ -124,7 +128,7 @@ To fix this wrong behaviour, wrap the child into a block level element.
 
 ### Accessibility
 
-Rely on browser.
+Relies on browser.
 
 ### Globalization
 
@@ -138,4 +142,4 @@ This widget has no specific security concern. Refer to [`delite/Widget`](/delite
 
 ### Browser Support
 
-This widget supports all supported browsers.
+This widget supports all supported browsers. On Internet Explorer 9, transitions are not animated.
