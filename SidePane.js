@@ -145,8 +145,9 @@ define([
 			_open: function () {
 				var deferred = new Deferred();
 				var nextElement = getNextSibling(this);
+				var animate = this.animate && has("ie") !== 9;
 				if (!this._visible) {
-					if (this.animate) {
+					if (animate) {
 						domClass.add(this, prefix("animate"));
 						if (nextElement) {
 							domClass.add(nextElement, prefix("animate"));
@@ -163,7 +164,7 @@ define([
 
 					setVisibility(this, true);
 
-					if (this.animate) {
+					if (animate) {
 						this.defer(this._openImpl, this._timing);
 					} else {
 						this._openImpl();
@@ -191,7 +192,7 @@ define([
 						this._setAfterTransitionHandlers(this, {node: this}, deferred);
 					}
 
-					if (this.animate) {
+					if (this.animate && has("ie") !== 9) {
 						// This defer should be useless but is needed for Firefox, see #25
 						this.defer(function () {this._hideImpl(); }, this._timing);
 					} else {

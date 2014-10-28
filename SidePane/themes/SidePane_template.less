@@ -1,6 +1,7 @@
 @import "../../../delite/themes/common/mixins"; 
 
 .translate(@val){
+  -ms-transform: translate(@val, 0px); //IE9 support
   .transform (translate3d(@val, 0px, 0px));
 }
 
