@@ -118,6 +118,6 @@ This widget has no specific security concern. Refer to [`delite/Widget`](/delite
 
 ### Browser Support
 
-This widget supports all supported browsers.
+This widget supports all supported browsers. On Internet Explorer 9, transitions are not animated.
 
 
