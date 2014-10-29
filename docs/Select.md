@@ -91,11 +91,15 @@ Note that `deliteful/Select` only supports for this property the values `single`
 
 ### Attribute Mapping
 
-Because `deliteful/Select` inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), 
-the mapping between the attributes of the store items and the attributes used by `deliteful/Select`
-can be redefined. 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more information 
-about all the available mapping options.
+`deliteful/Select` uses two attributes of data store items: the `text` attribute for
+the label of the option elements, and `value` for their value attribute.
+Because the widget inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), 
+the mapping between the attributes of the data store items and the attributes used by 
+`deliteful/Select` can be redefined using the `labelAttr` and `valueAttr` properties,
+or using a `labelFunc` and `valueFunc`. See the 
+[`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more
+information about the available mapping options.
+
 
 <a name="styling"></a>
 ## Element Styling

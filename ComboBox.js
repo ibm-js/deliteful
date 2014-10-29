@@ -16,14 +16,27 @@ define([
 ], function (dcl, domClass, has, register, FormWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
-	 * A form-aware and store-aware widget leveraging the deliteful/list/List widget
-	 * for rendering the options.
+	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
+	 * widget for rendering the options.
+	 * 
 	 * The corresponding custom tag is `<d-combo-box>`.
 	 * 
-	 * TODO: improve doc.
+	 * The property `list` allows to specify the List instance used by the widget.
+	 * The customization of the mapping of data item attributes into render item
+	 * attributes can be done on the `List` instance using the mapping API of `List`
+	 * inherited from its superclass `delite/StoreMap`.
+	 * 
+	 * The property `selectionMode` allows to choose between single and multiple
+	 * choice modes.
+	 *  
+	 * In single selection mode, if the property `autoFilter` is set to `true`
+	 * (default is `false`) the widget allows to type one or more characters which
+	 * are used for filtering the shown list items. The filtering is
+	 * case-insensitive. An item is shown if the `label` property of the
+	 * corresponding data item contains the entered string.
 	 * 
 	 * Remark: the option items must be added, removed or updated exclusively using
-	 * the List API. Direct operations using the DOM API are not supported.
+	 * List's store API. Direct operations using the DOM API are not supported.
 	 * 
 	 * @example <caption>Markup</caption>
 	 * JS:
@@ -73,6 +86,7 @@ define([
 		// to allow delegation from host widget to a different widget - to get
 		// a clean mechanism to support all possible use-cases. (Probably also
 		// requires changes in List).
+		// TODO: improve API doc.
 		
 		// Note: the property `disabled` is inherited from delite/FormWidget.
 		
