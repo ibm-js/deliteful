@@ -26,7 +26,7 @@ define({
 			name : "deliteful"},
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
-		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"},
+		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"}
 
 		// Mobile
 		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
