@@ -148,6 +148,10 @@ src="http://jsfiddle.net/ibmjs/pX4Jb/embedded/result,css">
 ### Customizing the size
 TODO + jsfiddle
 
+The thick padding around the component helps the user interact with it on a touch screen.
+For desktop, you might want to have a slimmer padding. You can change it thanks to the LESS variable
+`@d-slider-halo-size` (or alternatively directly reduce the d-switch element padding).
+
 ## User Interactions
 The value of the Slider can be changed by:
 
