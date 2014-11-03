@@ -96,7 +96,8 @@ module.exports = function (grunt) {
 							"decor": "../../../../decor/docs/api/0.3.0/decor",
 							"delite": "../../../../delite/docs/api/0.4.0/delite"
 						},
-						packagePathFormat: "${name}/docs/api/${version}"
+						packagePathFormat: "${name}/docs/api/${version}",
+						includeEventsInTOC: "false"
 					}
 				]
 			},
