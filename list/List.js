@@ -863,6 +863,7 @@ define([
 		 * Populate the list using the items retrieved from the store.
 		 * @param {Object[]} items items retrieved from the store.
 		 * @protected
+		 * @fires module:delite/Store#query-success
 		 */
 		initItems: function (items) {
 			this._empty();
