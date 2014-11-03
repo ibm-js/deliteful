@@ -16,16 +16,17 @@ define([
 	 * element.
 	 * It has the following characteristics:
 	 * * The corresponding custom tag is `<d-select>`.
+	 * * Allows to select one or more items among a number of options (in single
+	 * or multiple selection mode; see `selectionMode`).
 	 * * Store support (limitation: to avoid graphic glitches, the updates to the
 	 * store should not be done while the native dropdown of the select is open).
 	 * The attributes of data items used for the label and value of option elements
 	 * can be customized using the `labelAttr` and `valueAttr` properties, or using
 	 * a `labelFunc` and `valueFunc` (for details, see the documentation of the
 	 * `delite/StoreMap` superclass).
+	 * * Form support (inherits from `delite/FormWidget`).
 	 * * The item rendering has the limitations of the `<option>` elements of the
 	 * native `<select>`, in particular it is text-only.
-	 * 
-	 * TODO: improve doc.
 	 * 
 	 * Remarks:
 	 * * The option items must be added, removed or updated exclusively using
@@ -66,6 +67,8 @@ define([
 	 */
 	return register("d-select", [HTMLElement, FormWidget, StoreMap, Selection],
 		/** @lends module:deliteful/Select# */ {
+		
+		// TODO: improve doc.
 		
 		// Note: the properties `store` and `query` are inherited from delite/Store, and
 		// the property `disabled` is inherited from delite/FormWidget.
