@@ -107,6 +107,7 @@ The rounded border used to display both the switch main shape and the knob shape
 class.
 
 The width of a switch is defined by the `d-switch-width` class and is equal to `70px` by default.
+Note that due to the way the switch was designed, you can't express its width in '%'. Any other unit will work.
 
 A Switch widget does not define any specific height by default but strech according to the current `line-height`. 
 

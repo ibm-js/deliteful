@@ -116,16 +116,18 @@ options can be selected).
 In single selection mode, if the property `autoFilter` is set to `true` (default is `false`)
 the widget allows to type one or more characters which are used for filtering 
 the list of shown list items. The filtering is case-insensitive. An item is shown
-if it contains the entered string. (More options will be added in a next release.)
+if the `label` property of the corresponding data item contains the entered string.
+(More options will be added in a next release.)
 
 ### Attribute Mapping
 
-The customization of the mapping of data item attributes into render items attributes
+The customization of the mapping of data store item attributes into render item attributes
 can be done on the List instance using the mapping API of 
-[`deliteful/list/List`](/deliteful/docs/master/list/List.html).
+[`deliteful/list/List`](/deliteful/docs/master/list/List.html) inherited from its superclass
+`delite/StoreMap`.
 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) (List's superclass) documentation 
-for more information about all the available mapping options.
+See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for
+more information about the available mapping options.
 
 <a name="styling"></a>
 ## Element Styling

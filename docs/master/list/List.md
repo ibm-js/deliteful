@@ -52,46 +52,45 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 
 ```html
 <d-store id="myStore">
-    <!-- Add the following items to the store -->
-    { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
-    { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
-    { "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
-    { "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
-    { "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
-    { "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
-    { "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
-    { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
+	<!-- Add the following items to the store -->
+	{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+	{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+	{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+	{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+	{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+	{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+	{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+	{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
 </d-store>
 <!-- A list of categorized items that uses the default item renderer, -->
 <!-- mapping the sales property of items to righttext, and using the -->
 <!-- region property as the item category. The store is referenced through -->
 <!-- the store property -->
-<d-list height="100%" righttextAttr="sales" categoryAttr="region" store="myStore">
+<d-list righttextAttr="sales" categoryAttr="region" store="myStore">
 </d-list>
 ```
 ### Programmatic Instantiation
 
 ```js
 require(["dstore/Memory", "delite/list/List", "dojo/domReady!"], function (Memory, List) {
-  // Create a memory store for the list and initialize it
-  var dataStore = new Memory({idProperty: "label", data:
-    [
-      { label: "France", sales: 500, profit: 50, region: "EU" },
-      { label: "Germany", sales: 450, profit: 48, region: "EU" },
-      { label: "UK", sales: 700, profit: 60, region: "EU" },
-      { label: "USA", sales: 2000, profit: 250, region: "America" },
-      { label: "Canada", sales: 600, profit: 30, region: "America" },
-      { label: "Brazil", sales: 450, profit: 30, region: "America" },
-      { label: "China", sales: 500, profit: 40, region: "Asia" },
-      { label: "Japan", sales: 900, profit: 100, region: "Asia" }
-  ]});
-  // A list of categorized items from dataStore, that uses the default item renderer,
-  // mapping the sales property of items to righttext and using the region property
-  // as the item category.
-  var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-  list.style.height = "100%";
-  list.placeAt(document.body);
-  list.startup();
+	// Create a memory store for the list and initialize it
+	var dataStore = new Memory({idProperty: "label", data:
+		[
+			{ label: "France", sales: 500, profit: 50, region: "EU" },
+			{ label: "Germany", sales: 450, profit: 48, region: "EU" },
+			{ label: "UK", sales: 700, profit: 60, region: "EU" },
+			{ label: "USA", sales: 2000, profit: 250, region: "America" },
+			{ label: "Canada", sales: 600, profit: 30, region: "America" },
+			{ label: "Brazil", sales: 450, profit: 30, region: "America" },
+			{ label: "China", sales: 500, profit: 40, region: "Asia" },
+			{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
+	]});
+	// A list of categorized items from dataStore, that uses the default item renderer,
+	// mapping the sales property of items to righttext and using the region property
+	// as the item category.
+	var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+	list.placeAt(document.body);
+	list.startup();
 });
 ```
 
@@ -314,8 +313,10 @@ This widget provides default styling for the following delite themes:
 The List widget comes with two different styling that are applied by setting the `baseClass` property
 to one of the following values:
 
-- `"d-list"`: the list is displayed with an edge to edge layout. This is the default `baseClass`;
-- `"d-rounded-list"`: the list has rounded corners and both a left and right margin.
+class name       | effect
+-----------------|-----------------------------------------------------------------------------------
+`d-list`         | the list is displayed with an edge to edge layout. This is the default `baseClass`.
+`d-rounded-list` | the list has rounded corners and both a left and right margin.
 
 ### Rendered Item Styling
 
@@ -339,12 +340,14 @@ To define variable height for the items, use the following CSS:
 
 When an item has the focus, the style of the cell in which it is rendered can be defined using the css selector `.d-list-item .d-list-cell:focus`.
 
-The default item renderer allow futher styling of its content using the following CSS classes:
+The default item renderer allows further styling of its content using the following CSS classes:
 
-- `d-list-item-icon`: applied to the div before the label 
-- `d-list-item-label`: applied to the label
-- `d-list-item-right-text`: applied to the right text
-- `d-list-item-right-icon`: applied to the div after the right text
+class name               | applies to
+-------------------------|-------------------------
+`d-list-item-icon`       | the div before the label
+`d-list-item-label`      | the label
+`d-list-item-right-text` | the right text
+`d-list-item-right-icon` | the div after the right text
 
 ### Rendered Category Styling
 
@@ -382,12 +385,12 @@ The style of a selected item can be customized using the following css:
 ```css
 /* CSS selector for a selected item in a list with selectionMode = "single" */
 .d-selectable .d-list-item.d-selected {
-    ...
+	...
 }
 
 /* CSS selector for a selected item in a list with selectionMode = "multiple" */
 .d-multiselectable .d-list-item.d-selected {
-    ...
+	...
 }
 ```
 
@@ -475,7 +478,7 @@ When an item is selected in a list, its `aria-selected` attribute is set to the 
 
 When using the `listbox` role, the List widget behave as previously described for the `grid` role, with the following differences:
 
-* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `none` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
+* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `"none"` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
 * The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
 * If the list is categorized, the category headers are not focusable.
 

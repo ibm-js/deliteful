@@ -87,12 +87,22 @@
 
     
     <div class="description">
-        <p>A form-aware and store-aware widget leveraging the deliteful/list/List widget
-for rendering the options.
-The corresponding custom tag is <code>&lt;d-combo-box&gt;</code>.</p>
-<p>TODO: improve doc.</p>
+        <p>A form-aware and store-aware widget leveraging the <code>deliteful/list/List</code>
+widget for rendering the options.</p>
+<p>The corresponding custom tag is <code>&lt;d-combo-box&gt;</code>.</p>
+<p>The property <code>list</code> allows to specify the List instance used by the widget.
+The customization of the mapping of data item attributes into render item
+attributes can be done on the <code>List</code> instance using the mapping API of <code>List</code>
+inherited from its superclass <code>delite/StoreMap</code>.</p>
+<p>The property <code>selectionMode</code> allows to choose between single and multiple
+choice modes.</p>
+<p>In single selection mode, if the property <code>autoFilter</code> is set to <code>true</code>
+(default is <code>false</code>) the widget allows to type one or more characters which
+are used for filtering the shown list items. The filtering is
+case-insensitive. An item is shown if the <code>label</code> property of the
+corresponding data item contains the entered string.</p>
 <p>Remark: the option items must be added, removed or updated exclusively using
-the List API. Direct operations using the DOM API are not supported.</p>
+List's store API. Direct operations using the DOM API are not supported.</p>
     </div>
     
 
@@ -235,9 +245,9 @@ require(["delite/register", "deliteful/List",
         <h3 class="subsection-title">Extends</h3>
 
         <ul>
-            <li><a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html">module:delite/HasDropDown</a></li>
+            <li><a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html">module:delite/HasDropDown</a></li>
         
-            <li><a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html">module:delite/FormWidget</a></li>
+            <li><a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html">module:delite/FormWidget</a></li>
         </ul>
     
 
@@ -292,7 +302,7 @@ require(["delite/register", "deliteful/List",
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#alt">module:delite/FormWidget#alt</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#alt">module:delite/FormWidget#alt</a>
     </li></dd>
     
 
@@ -366,7 +376,7 @@ If missing, then <code>this.domNode</code> will be used.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#aroundNode">module:delite/HasDropDown#aroundNode</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#aroundNode">module:delite/HasDropDown#aroundNode</a>
     </li></dd>
     
 
@@ -383,7 +393,7 @@ If missing, then <code>this.domNode</code> will be used.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line55">line 55</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -441,7 +451,7 @@ If missing, then <code>this.buttonNode</code> will be used.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#arrowWrapperNode">module:delite/HasDropDown#arrowWrapperNode</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#arrowWrapperNode">module:delite/HasDropDown#arrowWrapperNode</a>
     </li></dd>
     
 
@@ -458,7 +468,7 @@ If missing, then <code>this.buttonNode</code> will be used.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line37">line 37</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line78">line 78</a>
     </li></ul></dd>
     
 
@@ -513,7 +523,7 @@ If missing, then <code>this.buttonNode</code> will be used.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#attached">module:delite/CustomElement#attached</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#attached">module:delite/CustomElement#attached</a>
     </li></dd>
     
 
@@ -530,7 +540,7 @@ If missing, then <code>this.buttonNode</code> will be used.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line112">line 112</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line123">line 123</a>
     </li></ul></dd>
     
 
@@ -603,7 +613,7 @@ input element. No-op if <code>selectionMode</code> is &quot;multiple&quot;.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line83">line 83</a>
+        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -660,7 +670,7 @@ Has no effect when <code>dropDownPosition = [&quot;center&quot;]</code>.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#autoWidth">module:delite/HasDropDown#autoWidth</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#autoWidth">module:delite/HasDropDown#autoWidth</a>
     </li></dd>
     
 
@@ -682,7 +692,7 @@ Has no effect when <code>dropDownPosition = [&quot;center&quot;]</code>.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line75">line 75</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -737,7 +747,7 @@ Has no effect when <code>dropDownPosition = [&quot;center&quot;]</code>.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#baseClass">module:delite/Widget#baseClass</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#baseClass">module:delite/Widget#baseClass</a>
     </li></dd>
     
 
@@ -811,7 +821,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#buttonNode">module:delite/HasDropDown#buttonNode</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#buttonNode">module:delite/HasDropDown#buttonNode</a>
     </li></dd>
     
 
@@ -828,7 +838,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line27">line 27</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -883,7 +893,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#created">module:delite/CustomElement#created</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#created">module:delite/CustomElement#created</a>
     </li></dd>
     
 
@@ -900,7 +910,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line71">line 71</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -955,7 +965,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#disabled">module:delite/FormWidget#disabled</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#disabled">module:delite/FormWidget#disabled</a>
     </li></dd>
     
 
@@ -1038,7 +1048,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#dropDown">module:delite/HasDropDown#dropDown</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#dropDown">module:delite/HasDropDown#dropDown</a>
     </li></dd>
     
 
@@ -1055,7 +1065,7 @@ If missing, then either <code>this.focusNode</code> or <code>this.domNode</code>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line66">line 66</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line107">line 107</a>
     </li></ul></dd>
     
 
@@ -1123,7 +1133,7 @@ within the viewport.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#dropDownPosition">module:delite/HasDropDown#dropDownPosition</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#dropDownPosition">module:delite/HasDropDown#dropDownPosition</a>
     </li></dd>
     
 
@@ -1145,7 +1155,7 @@ within the viewport.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line113">line 113</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -1201,7 +1211,7 @@ it was recently clicked.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#focused">module:delite/Widget#focused</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#focused">module:delite/Widget#focused</a>
     </li></dd>
     
 
@@ -1279,7 +1289,7 @@ Has no effect when <code>dropDownPosition = [&quot;center&quot;]</code>.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#forceWidth">module:delite/HasDropDown#forceWidth</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#forceWidth">module:delite/HasDropDown#forceWidth</a>
     </li></dd>
     
 
@@ -1301,7 +1311,7 @@ Has no effect when <code>dropDownPosition = [&quot;center&quot;]</code>.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line83">line 83</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -1376,7 +1386,7 @@ Note that this property is set by default to a newly created instance of
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line115">line 115</a>
+        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line129">line 129</a>
     </li></ul></dd>
     
 
@@ -1433,7 +1443,7 @@ Set to 0 for no max height, or -1 to limit height to available space in viewport
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#maxHeight">module:delite/HasDropDown#maxHeight</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#maxHeight">module:delite/HasDropDown#maxHeight</a>
     </li></dd>
     
 
@@ -1455,7 +1465,7 @@ Set to 0 for no max height, or -1 to limit height to available space in viewport
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line92">line 92</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -1510,7 +1520,7 @@ Set to 0 for no max height, or -1 to limit height to available space in viewport
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#name">module:delite/FormWidget#name</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#name">module:delite/FormWidget#name</a>
     </li></dd>
     
 
@@ -1582,7 +1592,7 @@ Set to 0 for no max height, or -1 to limit height to available space in viewport
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#opened">module:delite/HasDropDown#opened</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#opened">module:delite/HasDropDown#opened</a>
     </li></dd>
     
 
@@ -1599,7 +1609,7 @@ Set to 0 for no max height, or -1 to limit height to available space in viewport
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line120">line 120</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -1656,7 +1666,7 @@ If missing, then <code>this.focusNode</code> or <code>this.buttonNode</code> (if
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#popupStateNode">module:delite/HasDropDown#popupStateNode</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#popupStateNode">module:delite/HasDropDown#popupStateNode</a>
     </li></dd>
     
 
@@ -1673,7 +1683,7 @@ If missing, then <code>this.focusNode</code> or <code>this.buttonNode</code> (if
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line46">line 46</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line87">line 87</a>
     </li></ul></dd>
     
 
@@ -1747,7 +1757,7 @@ for filtering the list of options. The default value is provided by the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line135">line 135</a>
+        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -1835,7 +1845,7 @@ The mode will be enforced only when using <code>setSelected()</code> and/or
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line113">line 113</a>
+        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line127">line 127</a>
     </li></ul></dd>
     
 
@@ -1890,7 +1900,7 @@ The mode will be enforced only when using <code>setSelected()</code> and/or
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#started">module:delite/Widget#started</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#started">module:delite/Widget#started</a>
     </li></dd>
     
 
@@ -1962,7 +1972,7 @@ The mode will be enforced only when using <code>setSelected()</code> and/or
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#tabIndex">module:delite/FormWidget#tabIndex</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#tabIndex">module:delite/FormWidget#tabIndex</a>
     </li></dd>
     
 
@@ -2040,7 +2050,7 @@ the widget DOM nodes that receive focus during tab operations.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#tabStops">module:delite/FormWidget#tabStops</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#tabStops">module:delite/FormWidget#tabStops</a>
     </li></dd>
     
 
@@ -2119,7 +2129,7 @@ widget properties change.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#template">module:delite/Widget#template</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#template">module:delite/Widget#template</a>
     </li></dd>
     
 
@@ -2191,7 +2201,7 @@ widget properties change.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#value">module:delite/FormWidget#value</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#value">module:delite/FormWidget#value</a>
     </li></dd>
     
 
@@ -2264,7 +2274,7 @@ Useful when widget creates subnodes that need unique id's.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#widgetId">module:delite/Widget#widgetId</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#widgetId">module:delite/Widget#widgetId</a>
     </li></dd>
     
 
@@ -2648,7 +2658,7 @@ this method.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#attachedCallback">module:delite/CustomElement#attachedCallback</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#attachedCallback">module:delite/CustomElement#attachedCallback</a>
     </li></dd>
     
 
@@ -2665,7 +2675,7 @@ this method.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line123">line 123</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -2679,6 +2689,11 @@ this method.</p>
 
     
 
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#event:customelement-attached">module:delite/CustomElement#event:customelement-attached</a></li>
+    </ul>
     
 
     
@@ -2775,7 +2790,7 @@ this method.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#closeDropDown">module:delite/HasDropDown#closeDropDown</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#closeDropDown">module:delite/HasDropDown#closeDropDown</a>
     </li></dd>
     
 
@@ -2792,7 +2807,7 @@ this method.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line548">line 548</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -2806,6 +2821,13 @@ this method.</p>
 
     
 
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-before-hide">module:delite/HasDropDown#event:delite-before-hide</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-after-hide">module:delite/HasDropDown#event:delite-after-hide</a></li>
+    </ul>
     
 
     
@@ -3008,7 +3030,7 @@ only be done as a last resort.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#createdCallback">module:delite/Widget#createdCallback</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#createdCallback">module:delite/Widget#createdCallback</a>
     </li></dd>
     
 
@@ -3420,7 +3442,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#destroy">module:delite/Widget#destroy</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#destroy">module:delite/Widget#destroy</a>
     </li></dd>
     
 
@@ -3749,7 +3771,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#emit">module:delite/CustomElement#emit</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#emit">module:delite/CustomElement#emit</a>
     </li></dd>
     
 
@@ -3766,7 +3788,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line294">line 294</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line296">line 296</a>
     </li></ul></dd>
     
 
@@ -3915,7 +3937,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#findCustomElements">module:delite/CustomElement#findCustomElements</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#findCustomElements">module:delite/CustomElement#findCustomElements</a>
     </li></dd>
     
 
@@ -3932,7 +3954,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line360">line 360</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line359">line 359</a>
     </li></ul></dd>
     
 
@@ -3994,7 +4016,7 @@ so that <code>refreshingComputing()</code> is called if there are pending change
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/FormWidget.html#focus">module:delite/FormWidget#focus</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/FormWidget.html#focus">module:delite/FormWidget#focus</a>
     </li></dd>
     
 
@@ -4122,7 +4144,7 @@ the node is not contained within the DOM tree of any widget</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#getEnclosingWidget">module:delite/Widget#getEnclosingWidget</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#getEnclosingWidget">module:delite/Widget#getEnclosingWidget</a>
     </li></dd>
     
 
@@ -4201,7 +4223,7 @@ the node is not contained within the DOM tree of any widget</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#getParent">module:delite/Widget#getParent</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#getParent">module:delite/Widget#getParent</a>
     </li></dd>
     
 
@@ -4361,7 +4383,7 @@ but the method is exposed for custom elements since they do not call the <code>c
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#isLeftToRight">module:delite/Widget#isLeftToRight</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#isLeftToRight">module:delite/Widget#isLeftToRight</a>
     </li></dd>
     
 
@@ -4468,7 +4490,7 @@ Promise property with an Object like <code>{child: dropDown}</code></li>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#loadDropDown">module:delite/HasDropDown#loadDropDown</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#loadDropDown">module:delite/HasDropDown#loadDropDown</a>
     </li></dd>
     
 
@@ -4485,7 +4507,7 @@ Promise property with an Object like <code>{child: dropDown}</code></li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line396">line 396</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line438">line 438</a>
     </li></ul></dd>
     
 
@@ -4499,6 +4521,11 @@ Promise property with an Object like <code>{child: dropDown}</code></li>
 
     
 
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/DisplayContainer.html#event:delite-display-load">module:delite/DisplayContainer#event:delite-display-load</a></li>
+    </ul>
     
 
     
@@ -5134,7 +5161,7 @@ in the widget's scope you must do <code>myWidget.on(&quot;click&quot;, myWidget.
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#on">module:delite/CustomElement#on</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#on">module:delite/CustomElement#on</a>
     </li></dd>
     
 
@@ -5151,7 +5178,7 @@ in the widget's scope you must do <code>myWidget.on(&quot;click&quot;, myWidget.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line321">line 321</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -5238,7 +5265,7 @@ user presses the down arrow button to open the drop down.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#openDropDown">module:delite/HasDropDown#openDropDown</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#openDropDown">module:delite/HasDropDown#openDropDown</a>
     </li></dd>
     
 
@@ -5255,7 +5282,7 @@ user presses the down arrow button to open the drop down.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line447">line 447</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line478">line 478</a>
     </li></ul></dd>
     
 
@@ -5269,6 +5296,13 @@ user presses the down arrow button to open the drop down.</p>
 
     
 
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-before-show">module:delite/HasDropDown#event:delite-before-show</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-after-show">module:delite/HasDropDown#event:delite-after-show</a></li>
+    </ul>
     
 
     
@@ -5518,7 +5552,7 @@ already removed/destroyed manually.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#parseAttribute">module:delite/CustomElement#parseAttribute</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#parseAttribute">module:delite/CustomElement#parseAttribute</a>
     </li></dd>
     
 
@@ -5535,7 +5569,7 @@ already removed/destroyed manually.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line223">line 223</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line225">line 225</a>
     </li></ul></dd>
     
 
@@ -5670,7 +5704,7 @@ corresponding widget property.  Functions can be specified as global variables o
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#parseFunctionAttribute">module:delite/CustomElement#parseFunctionAttribute</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#parseFunctionAttribute">module:delite/CustomElement#parseFunctionAttribute</a>
     </li></dd>
     
 
@@ -5687,7 +5721,7 @@ corresponding widget property.  Functions can be specified as global variables o
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line199">line 199</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line201">line 201</a>
     </li></ul></dd>
     
 
@@ -5719,7 +5753,7 @@ corresponding widget property.  Functions can be specified as global variables o
             
 <dt inherited>
     
-    <h4 class="name" id="placeAt"><span class="type-signature">&lt;protected> </span>placeAt<span class="signature">(reference, <span class="optional">position</span>)</span><span class="type-signature"> &rarr; {<a href="../../../../delite/docs/api/0.3.0/delite/Widget.html">module:delite/Widget</a>}</span></h4>
+    <h4 class="name" id="placeAt"><span class="type-signature">&lt;protected> </span>placeAt<span class="signature">(reference, <span class="optional">position</span>)</span><span class="type-signature"> &rarr; {<a href="../../../../delite/docs/api/0.4.0/delite/Widget.html">module:delite/Widget</a>}</span></h4>
     
 
     
@@ -5859,7 +5893,7 @@ or id of Element to place this widget relative to.</p></td>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#placeAt">module:delite/Widget#placeAt</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#placeAt">module:delite/Widget#placeAt</a>
     </li></dd>
     
 
@@ -5914,7 +5948,7 @@ or id of Element to place this widget relative to.</p></td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="../../../../delite/docs/api/0.3.0/delite/Widget.html">module:delite/Widget</a></span>
+<span class="param-type"><a href="../../../../delite/docs/api/0.4.0/delite/Widget.html">module:delite/Widget</a></span>
 
 
     </dd>
@@ -5978,7 +6012,7 @@ node dimensions or placement.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#postRender">module:delite/Widget#postRender</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#postRender">module:delite/Widget#postRender</a>
     </li></dd>
     
 
@@ -6059,7 +6093,7 @@ node dimensions or placement.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#preRender">module:delite/Widget#preRender</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#preRender">module:delite/Widget#preRender</a>
     </li></dd>
     
 
@@ -6368,7 +6402,7 @@ Most widgets will leverage delite/handlebars! to set <code>template</code>, rath
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#render">module:delite/Widget#render</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#render">module:delite/Widget#render</a>
     </li></dd>
     
 
@@ -6571,7 +6605,7 @@ template.js to set classes without overwriting classes set by the user or other 
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#setClassComponent">module:delite/Widget#setClassComponent</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#setClassComponent">module:delite/Widget#setClassComponent</a>
     </li></dd>
     
 
@@ -6749,7 +6783,7 @@ template.js to set classes without overwriting classes set by the user or other 
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#setOrRemoveAttribute">module:delite/Widget#setOrRemoveAttribute</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#setOrRemoveAttribute">module:delite/Widget#setOrRemoveAttribute</a>
     </li></dd>
     
 
@@ -6837,7 +6871,7 @@ layout in startup().</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/Widget.html#startup">module:delite/Widget#startup</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/Widget.html#startup">module:delite/Widget#startup</a>
     </li></dd>
     
 
@@ -6918,7 +6952,7 @@ the down arrow key to open/close the drop down.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#toggleDropDown">module:delite/HasDropDown#toggleDropDown</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#toggleDropDown">module:delite/HasDropDown#toggleDropDown</a>
     </li></dd>
     
 
@@ -6935,7 +6969,7 @@ the down arrow key to open/close the drop down.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line428">line 428</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line457">line 457</a>
     </li></ul></dd>
     
 
@@ -7012,7 +7046,7 @@ iOS or Android, and returns <code>false</code> otherwise.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line320">line 320</a>
+        <a href="../ComboBox.js.html">deliteful/ComboBox.js</a>, <a href="../ComboBox.js.html#line334">line 334</a>
     </li></ul></dd>
     
 
@@ -7084,7 +7118,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/CustomElement.html#event:customelement-attached">module:delite/CustomElement#event:customelement-attached</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/CustomElement.html#event:customelement-attached">module:delite/CustomElement#event:customelement-attached</a>
     </li></dd>
     
 
@@ -7101,7 +7135,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line125">line 125</a>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -7221,7 +7255,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#event:delite-after-hide">module:delite/HasDropDown#event:delite-after-hide</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-after-hide">module:delite/HasDropDown#event:delite-after-hide</a>
     </li></dd>
     
 
@@ -7238,7 +7272,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line586">line 586</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -7358,7 +7392,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#event:delite-after-show">module:delite/HasDropDown#event:delite-after-show</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-after-show">module:delite/HasDropDown#event:delite-after-show</a>
     </li></dd>
     
 
@@ -7375,7 +7409,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line522">line 522</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -7495,7 +7529,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#event:delite-before-hide">module:delite/HasDropDown#event:delite-before-hide</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-before-hide">module:delite/HasDropDown#event:delite-before-hide</a>
     </li></dd>
     
 
@@ -7512,7 +7546,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line567">line 567</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -7632,7 +7666,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#event:delite-before-show">module:delite/HasDropDown#event:delite-before-show</a>
+        <a href="../../../../../delite/docs/api/0.4.0/delite/HasDropDown.html#event:delite-before-show">module:delite/HasDropDown#event:delite-before-show</a>
     </li></dd>
     
 
@@ -7649,7 +7683,7 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line454">line 454</a>
+        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -7683,147 +7717,6 @@ CustomElement and attached to the DOM, in particular on browsers supporting nati
     
 </dd>
 
-        
-            
-            
-<dt inherited>
-    
-    <h4 class="name" id="event:delite-display-load">delite-display-load</h4>
-    
-
-    
-</dt>
-<dd inherited>
-
-    
-    <div class="description">
-        <p>Dispatched if <code>HasDropDown#dropDown</code> is undefined, to let an application level listener create the
-dropdown node.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-        <h5 class="subsection-title">Properties:</h5>
-
-        <dl>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>loadDeferred</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>promise to resolve with the dropdown element</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></dl>
-
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="../../../../../delite/docs/api/0.3.0/delite/HasDropDown.html#event:delite-display-load">module:delite/HasDropDown#event:delite-display-load</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="../HasDropDown.js.html">delite/HasDropDown.js</a>, <a href="../HasDropDown.js.html#line401">line 401</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>document.addEventListener("delite-display-load", function (evt) {
-  if (evt.target.id === "dropdown_button_1") {
-     evt.loadDeferred.resolve({child: new MyDropDown1({...})});
-  }
-  ...
-}</code></pre>
-
-    
-</dd>
-
         </dl>
     
 </article>
@@ -7842,7 +7735,7 @@ dropdown node.</p>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Oct 24 2014 11:00:16 GMT+0200 (Romance Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon Nov 03 2014 16:08:53 GMT+0100 (Romance Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

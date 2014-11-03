@@ -77,6 +77,47 @@ define([
 	"./activationTracker",		// for delite-deactivated event
 	"dpointer/events"		// so can just monitor for "pointerdown"
 ], function (dcl, Deferred, domClass, when, keys, place, popup, Widget) {
+	
+	/**
+	 * Dispatched before popup widget is shown.
+	 * @example
+	 * document.addEventListener("delite-before-show", function (evt) {
+	 *      console.log("about to show popup", evt.child);
+	 * });
+	 * @event module:delite/HasDropDown#delite-before-show
+	 * @property {Element} child - reference to popup
+	 */
+	
+	/**
+	 * Dispatched after popup widget is shown.
+	 * @example
+	 * document.addEventListener("delite-after-show", function (evt) {
+	 *      console.log("just displayed popup", evt.child);
+	 * });
+	 * @event module:delite/HasDropDown#delite-after-show
+	 * @property {Element} child - reference to popup
+	 */
+	
+	/**
+	 * Dispatched before popup widget is hidden.
+	 * @example
+	 * document.addEventListener("delite-before-hide", function (evt) {
+	 *      console.log("about to hide popup", evt.child);
+	 * });
+	 * @event module:delite/HasDropDown#delite-before-hide
+	 * @property {Element} child - reference to popup
+	 */
+	
+	/**
+	 * Dispatched after popup widget is hidden.
+	 * @example
+	 * document.addEventListener("delite-after-hide", function (evt) {
+	 *      console.log("just hid popup", evt.child);
+	 * });
+	 * @event module:delite/HasDropDown#delite-after-hide
+	 * @property {Element} child - reference to popup
+	 */
+	
 	/**
 	 * Base class for widgets that need drop down ability.
 	 * @mixin module:delite/HasDropDown
@@ -458,25 +499,13 @@ define([
 		 *
 		 * @returns {Element|Promise} Element or Promise for the dropdown
 		 * @protected
+		 * @fires module:delite/DisplayContainer#delite-display-load
 		 */
 		loadDropDown: function () {
 			if (this.dropDown) {
 				return this.dropDown;
 			} else {
 				// tell app controller we are going to show the dropdown; it must return a pointer to the dropdown
-				/**
-				 * Dispatched if `HasDropDown#dropDown` is undefined, to let an application level listener create the
-				 * dropdown node.
-				 * @example
-				 * document.addEventListener("delite-display-load", function (evt) {
-				 *   if (evt.target.id === "dropdown_button_1") {
-				 *      evt.loadDeferred.resolve({child: new MyDropDown1({...})});
-				 *   }
-				 *   ...
-				 * }
-				 * @event module:delite/HasDropDown#delite-display-load
-				 * @property {Promise} loadDeferred - promise to resolve with the dropdown element
-				 */
 				var def = new Deferred();
 				this.emit("delite-display-load", {
 					loadDeferred: def
@@ -509,6 +538,8 @@ define([
 		 * user presses the down arrow button to open the drop down.
 		 * @returns {Promise} Promise for the drop down widget that fires when drop down is created and loaded.
 		 * @protected
+		 * @fires module:delite/HasDropDown#delite-before-show
+		 * @fires module:delite/HasDropDown#delite-after-show
 		 */
 		openDropDown: function () {
 			return this._openDropDownPromise ||
@@ -517,15 +548,6 @@ define([
 				var aroundNode = this.aroundNode || this,
 					self = this;
 
-				/**
-				 * Dispatched before popup widget is shown.
-				 * @example
-				 * document.addEventListener("delite-before-show", function (evt) {
-				 *      console.log("about to show popup", evt.child);
-				 * });
-				 * @event module:delite/HasDropDown#delite-before-show
-				 * @property {Element} child - reference to popup
-				 */
 				this.emit("delite-before-show", {
 					child: dropDown,
 					cancelable: false
@@ -585,15 +607,6 @@ define([
 					dropDown.setAttribute("aria-labelledby", this.id);
 				}
 
-				/**
-				 * Dispatched after popup widget is shown.
-				 * @example
-				 * document.addEventListener("delite-after-show", function (evt) {
-				 *      console.log("just displayed popup", evt.child);
-				 * });
-				 * @event module:delite/HasDropDown#delite-after-show
-				 * @property {Element} child - reference to popup
-				 */
 				this.emit("delite-after-show", {
 					child: dropDown,
 					cancelable: false
@@ -610,6 +623,8 @@ define([
 		 * Closes the drop down on this widget.
 		 * @param {boolean} focus - If true, refocus this widget.
 		 * @protected
+		 * @fires module:delite/HasDropDown#delite-before-hide
+		 * @fires module:delite/HasDropDown#delite-after-hide
 		 */
 		closeDropDown: function (focus) {
 			if (this._openDropDownPromise) {
@@ -630,15 +645,6 @@ define([
 					this.focus();
 				}
 
-				/**
-				 * Dispatched before popup widget is hidden.
-				 * @example
-				 * document.addEventListener("delite-before-hide", function (evt) {
-				 *      console.log("about to hide popup", evt.child);
-				 * });
-				 * @event module:delite/HasDropDown#delite-before-hide
-				 * @property {Element} child - reference to popup
-				 */
 				this.emit("delite-before-hide", {
 					child: this._currentDropDown,
 					cancelable: false
@@ -649,15 +655,6 @@ define([
 
 				this._currentDropDown.style.cssText = this._currentDropDown._originalStyle;
 
-				/**
-				 * Dispatched after popup widget is hidden.
-				 * @example
-				 * document.addEventListener("delite-after-hide", function (evt) {
-				 *      console.log("just hid popup", evt.child);
-				 * });
-				 * @event module:delite/HasDropDown#delite-after-hide
-				 * @property {Element} child - reference to popup
-				 */
 				this.emit("delite-after-hide", {
 					child: this._currentDropDown,
 					cancelable: false
@@ -684,7 +681,7 @@ define([
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Oct 24 2014 11:00:16 GMT+0200 (Romance Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon Nov 03 2014 16:08:52 GMT+0100 (Romance Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

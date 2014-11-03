@@ -29,10 +29,24 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 
 ```html
 <html>
-  <d-checkbox checked="true"></d-checkbox>
-  <d-checkbox disabled="true" name="option1"></d-checkbox>
+  <label>
+    <d-checkbox name="option1" checked="true"></d-checkbox>
+    Option 1
+  </label>
+  <label>
+    <d-checkbox name="option2"></d-checkbox>
+    Option 2
+  </label>
+  <label>
+    <d-checkbox disabled="true" name="option3"></d-checkbox>
+    Option 3
+  </label>
 </html>
 ```
+
+<iframe width="100%" height="150" allowfullscreen="allowfullscreen" frameborder="0"
+src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,css">
+<a href="http://jsfiddle.net/ibmjs/7sxarg93/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
 
@@ -51,6 +65,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
      cb.startup();
 });
 ```
+
 
 <a name="configuration"></a>
 ## Element Configuration
