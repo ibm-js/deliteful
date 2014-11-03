@@ -6,7 +6,8 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 
 	var excludePropertiesOnCopy = {
 		data: true,
-		total: true
+		total: true,
+		recordset: true
 	};
 		
 	var STORE_TYPES = [
