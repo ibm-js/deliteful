@@ -249,7 +249,7 @@ define([
 			// List already filled
 			var firstItemRenderer = this.list.getItemRendererByIndex(0);
 			if (firstItemRenderer) {
-				this.input.value = firstItemRenderer.item[this.list.labelAttr];
+				this.input.value = firstItemRenderer.item.label;
 				// Initialize widget's value
 				this._set("value", this.input.value);
 			} else {
@@ -260,7 +260,7 @@ define([
 						var firstItemRenderer = this.list.getItemRendererByIndex(0);
 						var input = this._popupInput || this.input;
 						if (firstItemRenderer && !initDone) {
-							input.value = firstItemRenderer.item[this.list.labelAttr];
+							input.value = firstItemRenderer.label;
 							// Initialize widget's value
 							this._set("value", input.value);
 						}
@@ -272,8 +272,7 @@ define([
 			var actionHandler = function (event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
 				if (renderer && !list.isCategoryRenderer(renderer)) {
-					// __item is set by StoreMap.itemToRenderItem()
-					var label = renderer.item.__item[list.labelAttr];
+					var label = renderer.item.label;
 					this.input.value = label;
 					// TODO: temporary till solving issues with introducing valueAttr
 					this.value = label;
@@ -305,7 +304,7 @@ define([
 						input.value = this._multipleChoiceMsg;
 					} else if (n === 1) {
 						selectedItem = this.list.selectedItem;
-						input.value = selectedItem ? selectedItem[this.list.labelAttr] : "";
+						input.value = selectedItem ? selectedItem.label : "";
 					} else { // no option selected
 						input.value = "";
 					}
@@ -318,7 +317,7 @@ define([
 				this.list.selectedItem = null;
 				var txt = this.input.value;
 				this.list.query = function (obj) {
-					return this._filterFunction(obj[this.list.labelAttr], txt);
+					return this._filterFunction(obj, txt);
 				}.bind(this);
 				this.openDropDown(); // reopen if closed
 			}.bind(this), this.input);
@@ -394,7 +393,7 @@ define([
 						this.input.value = this._multipleChoiceMsg;
 					} else if (n === 1) {
 						var selectedItem = this.list.selectedItem;
-						this.input.value = selectedItem ? selectedItem[this.list.labelAttr] : "";
+						this.input.value = selectedItem ? selectedItem.label : "";
 					} else { // no option selected
 						this.input.value = "";
 					}
@@ -438,7 +437,7 @@ define([
 				// TODO: might be nice that, if no item matches the query thus the list is empty,
 				// the popup shows some specific graphic feedback.
 				this.list.query = function (obj) {
-					return this._filterFunction(obj[this.list.labelAttr], txt);
+					return this._filterFunction(obj, txt);
 				}.bind(this);
 				this.openDropDown(); // reopen if closed
 			}.bind(this), popupInput);
@@ -446,7 +445,9 @@ define([
 			return popupInput;
 		},
 		
-		_filterFunction: function (itemLabel, queryTxt) {
+		_filterFunction: function (dataObj, queryTxt) {
+			var itemLabel = this.list.labelFunc ?
+				this.list.labelFunc(dataObj) : dataObj[this.list.labelAttr];
 			// TODO: options for case-sensitiveness, startsWith/contains
 			// TODO: check fancy locale support...
 			queryTxt = queryTxt.toLocaleUpperCase();
