@@ -318,7 +318,7 @@ define([
 			
 			var combo = new Combobox();
 			var dataStore = new Memory(
-				{idProperty: "name", 
+				{idProperty: "name",
 				data: [
 					{ name: "France", sales: 500, profit: 50, region: "EU" },
 					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
@@ -328,7 +328,7 @@ define([
 					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
 					{ name: "China", sales: 500, profit: 40, region: "Asia" },
 					{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
-			]});
+				]});
 			combo.list.labelAttr = "name";
 			combo.list.store = dataStore;
 			combo.startup();
