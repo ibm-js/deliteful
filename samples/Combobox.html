@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<title>ComboBox</title>
+	<title>Combobox</title>
 
 	<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
 
@@ -22,7 +22,7 @@
 			"delite/register",
 			"dstore/Memory",
 			"deliteful/list/List",
-			"deliteful/ComboBox",
+			"deliteful/Combobox",
 			"deliteful/Store",
 			"deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
@@ -93,10 +93,10 @@
 <p>
 Your favorite team (single choice):
 </p>
-<d-combo-box selectionMode="single" autoFilter="true" id="comboTeams">
+<d-combobox selectionMode="single" autoFilter="true" id="comboTeams">
 	<d-list righttextAttr="world-cup-victories" categoryAttr: "region"
 		store="storeTeams"></d-list>
-</d-combo-box>
+</d-combobox>
 <p>
 (The number of cups is indicated for each country.)
 </p>
@@ -104,9 +104,9 @@ Your favorite team (single choice):
 <p>
 Your favorite players (multiple choice):
 </p>
-<d-combo-box selectionMode="multiple" id="comboPlayers">
+<d-combobox selectionMode="multiple" id="comboPlayers">
 	<d-list store="storePlayers"></d-list>
-</d-combo-box>
+</d-combobox>
 
 <p>
 <button is="d-button" onclick="showResults()">Done</button>

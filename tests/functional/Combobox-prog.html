@@ -6,7 +6,7 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>deliteful/ComboBox (programmatic)</title>
+	<title>deliteful/Combobox (programmatic)</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	
@@ -17,11 +17,11 @@
 		require([
 			"dstore/Memory",
 			"delite/register",
-			"deliteful/ComboBox",
+			"deliteful/Combobox",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (Memory, register, ComboBox, List) {
+		], function (Memory, register, Combobox, List) {
 			register.parse();
 			
 			var dataStore = new Memory(
@@ -38,54 +38,54 @@
 			]});
 			
 			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			var comboBox = new ComboBox({list: list}).placeAt("combo-single", "replace");
+			var combobox = new Combobox({list: list}).placeAt("combo-single", "replace");
 			// default selectionMode: "single"
-			combo1 = comboBox; // for debug
-			comboBox.startup();
+			combo1 = combobox; // for debug
+			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combo2 = comboBox; // for debug
-			comboBox = new ComboBox({autoFilter: true, list: list}).
+			combo2 = combobox; // for debug
+			combobox = new Combobox({autoFilter: true, list: list}).
 				placeAt("combo-single-autoFilter", "replace");
-			combo2 = comboBox; // for debug
+			combo2 = combobox; // for debug
 			// default selectionMode: "single"
-			comboBox.startup();
+			combobox.startup();
 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combo3 = comboBox; // for debug
-			comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
+			combo3 = combobox; // for debug
+			combobox = new Combobox({list: list, selectionMode: "multiple"}).
 				placeAt("combo-multiple", "replace");
-			combo3 = comboBox; // for debug
-			comboBox.startup();
+			combo3 = combobox; // for debug
+			combobox.startup();
 			
 			// Now the same but disabled
 			// 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			var comboBox = new ComboBox({list: list, disabled: true}).
+			var combobox = new Combobox({list: list, disabled: true}).
 				placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
-			combo4 = comboBox; // for debug
-			comboBox.startup();
+			combo4 = combobox; // for debug
+			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			comboBox = new ComboBox({autoFilter: true, list: list, disabled: true}).
+			combobox = new Combobox({autoFilter: true, list: list, disabled: true}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
-			combo5 = comboBox; // for debug
-			comboBox.startup();
+			combo5 = combobox; // for debug
+			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			comboBox = new ComboBox({list: list, selectionMode: "multiple", disabled: true}).
+			combobox = new Combobox({list: list, selectionMode: "multiple", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
-			combo6 = comboBox; // for debug
-			comboBox.startup();
+			combo6 = combobox; // for debug
+			combobox.startup();
 			
-			// Using the default instance of List created by ComboBox
-			comboBox = new ComboBox();
-			combo7 = comboBox; // for debug
-			comboBox.list.store = dataStore;
-			comboBox.placeAt("combo-single-default-list", "replace");
-			comboBox.startup();
+			// Using the default instance of List created by Combobox
+			combobox = new Combobox();
+			combo7 = combobox; // for debug
+			combobox.list.store = dataStore;
+			combobox.placeAt("combo-single-default-list", "replace");
+			combobox.startup();
 		});
 	</script>
 	<style>
@@ -100,7 +100,7 @@
 </head>
 <body>
 	<p>
-	ComboBox <b>programmatically</b>.
+	Combobox <b>programmatically</b>.
 	</p>
 	<p>
 	selectionMode: "single", autoFilter: false
@@ -129,7 +129,7 @@
 	<span id="combo-multiple-disabled"></span>
 	
 	<p>
-	selectionMode: "single", autoFilter: false, default List (created by ComboBox)
+	selectionMode: "single", autoFilter: false, default List (created by Combobox)
 	</p>
 	<span id="combo-single-default-list"></span>
 </body>

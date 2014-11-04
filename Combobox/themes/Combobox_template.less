@@ -1,20 +1,20 @@
-.d-combo-box {
+.d-combobox {
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0;
 	padding: 0;
-	.d-combo-box-styles;
+	.d-combobox-styles;
 }
 
-.d-combo-box::after {
+.d-combobox::after {
 	content: "\25BC";
 	padding:0;
 	position: relative;
 	pointer-events: none; /* allow clicks to pass through */
-	.d-combo-box-arrow-styles; 
+	.d-combobox-arrow-styles; 
 }
 
-.d-combo-box-input {
+.d-combobox-input {
 	height: inherit;
 	
 	&[disabled],
@@ -23,19 +23,19 @@
 	}
 }
 
-.d-combo-box-input, .d-combo-box-popup-input {
-	.d-combo-box-input-styles;
+.d-combobox-input, .d-combobox-popup-input {
+	.d-combobox-input-styles;
 	color: inherit;
 	font-family: inherit;
 	font-size: inherit;
 	line-height: inherit;
 }
 
-.d-combo-box .d-combo-box-list-hidden {
+.d-combobox .d-combobox-list-hidden {
 	display: none;
 }
 
-.d-combo-box-list > .d-list-container {
+.d-combobox-list > .d-list-container {
 	position: relative;
 	height: auto;
 	width: auto;
