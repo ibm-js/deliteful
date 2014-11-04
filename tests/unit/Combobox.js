@@ -33,6 +33,28 @@ define([
 		<my-combobox id=\"mycombo1\"> \
 		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
 		</my-combobox>";
+	
+	// Second variant to test attribute mapping for label
+	
+	/*jshint multistr: true */
+	var htmlMappedAttr = "<d-store id=\"store\"> \
+		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 3\", \"sales\": 2000, \"profit\": 250, \"region\": \"America\" }, \
+		{ \"name\": \"Option 4\", \"sales\": 600, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"name\": \"Option 5\", \"sales\": 450, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"name\": \"Option 6\", \"sales\": 500, \"profit\": 40, \"region\": \"Asia\" }, \
+		{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
+		{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
+		</d-store> \
+		<d-combobox id=\"combo1\"> \
+		<d-list labelAttr=\"name\" righttextAttr=\"sales\" store=\"store\"></d-list> \
+		</d-combobox> \
+		<my-combobox id=\"mycombo1\"> \
+		<d-list labelAttr=\"name\" righttextAttr=\"sales\" store=\"store\"></d-list> \
+		</my-combobox>";
 				
 	var outerCSS = "d-combobox";
 	var innerCSS = "d-combobox-input";
@@ -137,13 +159,19 @@ define([
 		assert.strictEqual(combo.value, combo.valueNode.value,
 			"combo.value equal to combo.valueNode.value after selecting dataItems[0] on combo.id: " +
 			combo.id);
-		assert.strictEqual(combo.list.selectedItem.label, "Option 0",
-			"combo.list.selectedItem.label after selecting dataItems[0] on combo.id: " + combo.id);
+		var dataObj = combo.list.selectedItem;
+		var itemLabel = combo.list.labelFunc ?
+			combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+		assert.strictEqual(itemLabel, "Option 0",
+			"label of combo.list.selectedItem after selecting dataItems[0] on combo.id: " + combo.id);
 		assert.strictEqual(combo.list.selectedItems.length, 1,
 			"combo.list.selectedItems.length after selecting dataItems[0] on combo.id: " +
 			combo.id);
-		assert.strictEqual(combo.list.selectedItems[0].label, "Option 0",
-			"combo.list.selectedItems[0].label after selecting dataItems[0] on combo.id: " +
+		dataObj = combo.list.selectedItems[0];
+		itemLabel = combo.list.labelFunc ?
+			combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+		assert.strictEqual(itemLabel, "Option 0",
+			"label of combo.list.selectedItems[0] after selecting dataItems[0] on combo.id: " +
 			combo.id);
 	};
 
@@ -229,7 +257,22 @@ define([
 			combo = document.getElementById("mycombo1");
 			combo.deliver();
 			checkCombobox(combo);
-		}
+		},
+		"Attribute mapping for label" : function () {
+			// Check the attribute mapping for label
+			
+			container.innerHTML = htmlMappedAttr;
+			register.parse(container);
+			
+			var combo = document.getElementById("combo1");
+			combo.deliver();
+			checkCombobox(combo);
+			
+			combo = document.getElementById("mycombo1");
+			combo.deliver();
+			checkCombobox(combo);
+		},
+		
 	};
 
 	dcl.mix(suite, CommonTestCases);
@@ -268,6 +311,33 @@ define([
 			combo = createMyCombobox("mycombo1", false /* trackable */);
 			combo.deliver();
 			checkCombobox(combo);
+		},
+		
+		"Attribute mapping for label" : function () {
+			// Check the attribute mapping for label
+			
+			var combo = new Combobox();
+			var dataStore = new Memory(
+				{idProperty: "name", 
+				data: [
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ name: "UK", sales: 700, profit: 60, region: "EU" },
+					{ name: "USA", sales: 2000, profit: 250, region: "America" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" },
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
+			]});
+			combo.list.labelAttr = "name";
+			combo.list.store = dataStore;
+			combo.startup();
+			combo.deliver();
+			
+			assert.strictEqual(combo.list.getItemRenderers().length, 8,
+				"Number of options after adding 10 options on combo.id: " + combo.id);
+			assert.strictEqual(combo.value, "France",
+				"combo.value after adding 10 options on combo.id: " + combo.id);
 		},
 		
 		afterEach: function () {
