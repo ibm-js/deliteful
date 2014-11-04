@@ -19,6 +19,8 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
 			"deliteful/ViewStack",
 			"deliteful/SidePane",
 			"deliteful/LinearLayout",
@@ -26,12 +28,18 @@
 			"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function(register){
+		], function(register, Memory, Trackable){
 			register.parse();
 
+			var Store = Memory.createSubclass([Trackable], {});
+			list.store = new Store();
+			
 			for (var i = 1; i < 100; i++){
 				list.store.add({label: "Item #" + i});
 			}
+			
+			menulist.store = new Store();
+			
 			// Some data to enable scrolling
 			menulist.store.add({label: "View A", target:"aaa"});
 			menulist.store.add({label: "View B", target:"bbb"});
