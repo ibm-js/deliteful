@@ -7,12 +7,12 @@ define([
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/list/List",
-	"deliteful/ComboBox",
+	"deliteful/Combobox",
 	"deliteful/Store"
 ], function (dcl, registerSuite, assert, register, domClass,
-	Memory, Trackable, List, ComboBox) {
+	Memory, Trackable, List, Combobox) {
 	
-	var container, MyComboBox;
+	var container, MyCombobox;
 	
 	/*jshint multistr: true */
 	var html = "<d-store id=\"store\"> \
@@ -27,18 +27,18 @@ define([
 		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
 		</d-store> \
-		<d-combo-box id=\"combo1\"> \
+		<d-combobox id=\"combo1\"> \
 		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
-		</d-combo-box> \
+		</d-combobox> \
 		<my-combobox id=\"mycombo1\"> \
 		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
 		</my-combobox>";
 				
-	var outerCSS = "d-combo-box";
-	var innerCSS = "d-combo-box-input";
+	var outerCSS = "d-combobox";
+	var innerCSS = "d-combobox-input";
 	var nOptions = 10;
 	
-	var initComboBox = function (combo, trackable) {
+	var initCombobox = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
 		combo.list.store = trackable ?
 			new TrackableMemoryStore({}) : new Memory();
@@ -48,15 +48,15 @@ define([
 		return combo;
 	};
 	
-	var createComboBox = function (id, trackable) {
-		var combo = new ComboBox({ id: id });
-		initComboBox(combo, trackable);
+	var createCombobox = function (id, trackable) {
+		var combo = new Combobox({ id: id });
+		initCombobox(combo, trackable);
 		return combo;
 	};
 	
-	var createMyComboBox = function (id, trackable) {
-		var combo = new MyComboBox({ id: id });
-		initComboBox(combo, trackable);
+	var createMyCombobox = function (id, trackable) {
+		var combo = new MyCombobox({ id: id });
+		initCombobox(combo, trackable);
 		return combo;
 	};
 	
@@ -78,17 +78,17 @@ define([
 		var observe = combo.observe(function (oldValues) {
 			if ("value" in oldValues) {
 				// Store the value for testing purposes
-				combo._notifiedComboBoxValue = combo.value;
+				combo._notifiedComboboxValue = combo.value;
 			}
 		});
-		combo._notifiedComboBoxValue = null; // init
+		combo._notifiedComboboxValue = null; // init
 		combo._observe = observe; // to be able to deliver
 		
 		combo.list.store = combo.list.store;
 		return dataItems;
 	};
 	
-	var checkComboBox = function (combo, trackableStore) {
+	var checkCombobox = function (combo, trackableStore) {
 		// These checks are common to both cases: trackable and non-trackable stores
 		
 		if (!trackableStore) {
@@ -158,7 +158,7 @@ define([
 			var combo = document.getElementById("combo1");
 			
 			if (!combo) { // for the programmatic case 
-				combo = createComboBox("combo1");
+				combo = createCombobox("combo1");
 			} // else the declarative case
 			
 			combo.deliver();
@@ -172,7 +172,7 @@ define([
 			combo = document.getElementById("mycombo1");
 			
 			if (!combo) { // for the programmatic case 
-				combo = createMyComboBox("mycombo1");
+				combo = createMyCombobox("mycombo1");
 			} // else the declarative case
 			
 			combo.deliver();
@@ -188,7 +188,7 @@ define([
 			var combo = document.getElementById("combo1");
 			
 			if (!combo) { // for the programmatic case 
-				combo = createComboBox("combo1");
+				combo = createCombobox("combo1");
 			} // else the declarative case
 			
 			combo.deliver();
@@ -197,7 +197,7 @@ define([
 			combo = document.getElementById("mycombo1");
 			
 			if (!combo) { // for the programmatic case 
-				combo = createMyComboBox("mycombo1");
+				combo = createMyCombobox("mycombo1");
 			} // else the declarative case
 			
 			combo.deliver();
@@ -208,9 +208,9 @@ define([
 	// Markup use-case
 	
 	var suite = {
-		name: "deliteful/ComboBox: markup",
+		name: "deliteful/Combobox: markup",
 		setup: function () {
-			register("my-combobox", [ComboBox], {});
+			register("my-combobox", [Combobox], {});
 		},
 		beforeEach: function () {
 			container = document.createElement("div");
@@ -224,11 +224,11 @@ define([
 		"Store.add/remove/put (custom element store)" : function () {
 			var combo = document.getElementById("combo1");
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 			
 			combo = document.getElementById("mycombo1");
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 		}
 	};
 
@@ -239,9 +239,9 @@ define([
 	// Programatic creation 
 
 	suite = {
-		name: "deliteful/ComboBox: programatic",
+		name: "deliteful/Combobox: programatic",
 		setup: function () {
-			MyComboBox = register("my-combo-prog", [ComboBox], {});
+			MyCombobox = register("my-combo-prog", [Combobox], {});
 		},
 		beforeEach: function () {
 			container = document.createElement("div");
@@ -250,24 +250,24 @@ define([
 		
 		"Store.add/remove/put (user's trackable Memory store)" : function () {
 			// var combo = document.getElementById("combo1");
-			var combo = createComboBox("combo1", true /* trackable */);
+			var combo = createCombobox("combo1", true /* trackable */);
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 			
-			combo = createMyComboBox("mycombo1", true /* trackable */);
+			combo = createMyCombobox("mycombo1", true /* trackable */);
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 		},
 		
 		"Store.add (user's non-trackable Memory store)" : function () {
 			// var combo = document.getElementById("combo1");
-			var combo = createComboBox("combo1", false /* trackable */);
+			var combo = createCombobox("combo1", false /* trackable */);
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 			
-			combo = createMyComboBox("mycombo1", false /* trackable */);
+			combo = createMyCombobox("mycombo1", false /* trackable */);
 			combo.deliver();
-			checkComboBox(combo);
+			checkCombobox(combo);
 		},
 		
 		afterEach: function () {

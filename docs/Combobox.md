@@ -1,11 +1,11 @@
 ---
 layout: default
-title: deliteful/ComboBox
+title: deliteful/Combobox
 ---
 
-# deliteful/ComboBox
+# deliteful/Combobox
 
-`deliteful/ComboBox` is a form-aware and store-aware widget leveraging the 
+`deliteful/Combobox` is a form-aware and store-aware widget leveraging the 
 [`deliteful/list/List`](/deliteful/docs/master/list/List.md) widget for
 displaying the list of options. 
 
@@ -16,18 +16,18 @@ Characteristics:
 * The rendering of the popup is multi-channel responsive: the popup is displayed below/above
 the main button.
 
-*Example of deliteful/ComboBox (single choice mode, on desktop browser):*
+*Example of deliteful/Combobox (single choice mode, on desktop browser):*
 
-![Example of ComboBox (single choice mode)](images/ComboBox-single.png)
+![Example of Combobox (single choice mode)](images/Combobox-single.png)
 
-*Example of deliteful/ComboBox (multiple choice mode, on mobile browser):*
+*Example of deliteful/Combobox (multiple choice mode, on mobile browser):*
 
-![Example of ComboBox (multiple choice mode)](images/ComboBox-multiple.png)
+![Example of Combobox (multiple choice mode)](images/Combobox-multiple.png)
 
 
 ##### Table of Contents
 [Element Instantiation ](#instantiation)  
-[Using ComboBox](#using)  
+[Using Combobox](#using)  
 [Element Styling](#styling)  
 [Enterprise Use](#enterprise)
 
@@ -41,7 +41,7 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 
 ```js
 require(["delite/register", "deliteful/Store",
-  "deliteful/ComboBox", "requirejs-domready/domReady!"],
+  "deliteful/Combobox", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
   });
@@ -49,9 +49,9 @@ require(["delite/register", "deliteful/Store",
 
 ```html
 <html>
-  <d-combo-box>
+  <d-combobox>
     <d-list store="store"></d-list>
-  </d-combo-box>
+  </d-combobox>
   <d-store id="store">
     { "label": "France", ... },
       ...
@@ -71,7 +71,7 @@ src="http://jsfiddle.net/ibmjs/d1sj0fkp/embedded/result,js,html">
 require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "deliteful/Combobox", "deliteful/list/List",
          "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable, ComboBox, List) {
+  function (register, Memory, Trackable, Combobox, List) {
     register.parse();
     // Create the store
     var dataStore = new (Memory.createSubclass(Trackable))({});
@@ -80,10 +80,10 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     ...
     // Create the List
     var list = new List({store: dataStore, ...});
-    // Create the ComboBox
-    var combobox = new ComboBox({list: list, selectionMode: "multiple"});
-    combobox.placeAt(document.body);      
-    combobox.startup();
+    // Create the Combobox
+    var Combobox = new Combobox({list: list, selectionMode: "multiple"});
+    Combobox.placeAt(document.body);      
+    Combobox.startup();
 });
 ```
 
@@ -96,14 +96,14 @@ Note that the `list` property is set by default to a newly created instance of
 `deliteful/list/List`. Hence, applications can write:
 
 ```js
-    var comboBox = new ComboBox();
+    var combobox = new Combobox();
     // Create the store
-    comboBox.list.store = ...;
+    combobox.list.store = ...;
     ...
 ```
 
 <a name="using"></a>
-## Using ComboBox
+## Using Combobox
 
 ### Selection Mode
 
@@ -140,15 +140,15 @@ This widget provides default styling for the following delite theme:
 
 ### CSS Classes
 
-CSS classes are bound to the structure of the widget declared in its template `deliteful/ComboBox/ComboBox.html`.
-The following table lists the CSS classes that can be used to style the ComboBox widget.
+CSS classes are bound to the structure of the widget declared in its template `deliteful/Combobox/Combobox.html`.
+The following table lists the CSS classes that can be used to style the Combobox widget.
 
 |Class name/selector|Applies to|
 |----------|----------|
-|d-combo-box|ComboBox widget node.
-|d-combo-box-input|The inner native `<input>` node on desktop.
-|d-combo-box-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
-|d-combo-box-list|The List widget displayed inside the popup.
+|d-combobox|Combobox widget node.
+|d-combobox-input|The inner native `<input>` node on desktop.
+|d-combobox-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
+|d-combobox-list|The List widget displayed inside the popup.
 
 
 <a name="enterprise"></a>
@@ -160,7 +160,7 @@ Keyboard and screen reader accessibility will be supported in the next release.
 
 ### Globalization
 
-`deliteful/ComboBox` provides an internationalizable bundle that contains the following
+`deliteful/Combobox` provides an internationalizable bundle that contains the following
 messages:
 		
 |Key|Role|

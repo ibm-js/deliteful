@@ -1,4 +1,4 @@
-/** @module deliteful/ComboBox */
+/** @module deliteful/Combobox */
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
@@ -10,16 +10,16 @@ define([
 	"./list/List",
 	"./LinearLayout",
 	"./Button",
-	"delite/handlebars!./ComboBox/ComboBox.html",
-	"requirejs-dplugins/i18n!./ComboBox/nls/ComboBox",
-	"delite/theme!./ComboBox/themes/{{theme}}/ComboBox.css"
+	"delite/handlebars!./Combobox/Combobox.html",
+	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
+	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
 ], function (dcl, domClass, has, register, FormWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
 	 * 
-	 * The corresponding custom tag is `<d-combo-box>`.
+	 * The corresponding custom tag is `<d-combobox>`.
 	 * 
 	 * The property `list` allows to specify the List instance used by the widget.
 	 * The customization of the mapping of data item attributes into render item
@@ -41,14 +41,14 @@ define([
 	 * @example <caption>Markup</caption>
 	 * JS:
 	 * require(["delite/register", "deliteful/Store",
-	 *   "deliteful/ComboBox", "requirejs-domready/domReady!"],
+	 *   "deliteful/Combobox", "requirejs-domready/domReady!"],
 	 *   function (register) {
 	 *     register.parse();
 	 *   });
 	 * HTML:
-	 * <d-combo-box id="combobox1">
+	 * <d-combobox id="combobox1">
 	 *   <d-list store="store"></d-list>
-	 * </d-combo-box>
+	 * </d-combobox>
 	 * <d-store id="store">
 	 *   { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 	 *   { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
@@ -63,21 +63,21 @@ define([
 	 * @example <caption>Programmatic</caption>
 	 * JS:
 	 * require(["delite/register", "deliteful/List",
-	 *   "deliteful/ComboBox", ..., "requirejs-domready/domReady!"],
-	 *   function (register, List, ComboBox, ...) {
+	 *   "deliteful/Combobox", ..., "requirejs-domready/domReady!"],
+	 *   function (register, List, Combobox, ...) {
 	 *     register.parse();
 	 *     var dataStore = ...; // Create data store
 	 *     var list = new List({store: dataStore});
-	 *     var comboBox = new ComboBox({list: list, selectionMode: "multiple"}).
+	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).
 	 *       placeAt(...);
 	 *   });
 	 * 
-	 * @class module:deliteful/ComboBox
+	 * @class module:deliteful/Combobox
 	 * @augments module:delite/HasDropDown
 	 * @augments module:delite/FormWidget
 	 */
-	return register("d-combo-box", [HTMLElement, HasDropDown, FormWidget],
-		/** @lends module:deliteful/ComboBox# */ {
+	return register("d-combobox", [HTMLElement, HasDropDown, FormWidget],
+		/** @lends module:deliteful/Combobox# */ {
 		
 		// TODO: handle the situation the list has a null/undefined store.
 		// Would be nice to have a global policy for all subclasses of
@@ -90,14 +90,14 @@ define([
 		
 		// Note: the property `disabled` is inherited from delite/FormWidget.
 		
-		baseClass: "d-combo-box",
+		baseClass: "d-combobox",
 		
 		template: template,
 		
 		/**
 		 * If `true`, the list of options can be filtered thanks to an editable
 		 * input element. No-op if `selectionMode` is "multiple".
-		 * @member {boolean} module:deliteful/ComboBox#autoFilter
+		 * @member {boolean} module:deliteful/Combobox#autoFilter
 		 * @default false
 		 */
 		autoFilter: false,
@@ -128,10 +128,10 @@ define([
 		
 		/**
 		 * The `deliteful/list/List` element which provides and renders the options
-		 * shown by the popup of the ComboBox.
+		 * shown by the popup of the Combobox.
 		 * Note that this property is set by default to a newly created instance of
 		 * `deliteful/list/List`.
-		 * @member {module:deliteful/list/List} module:deliteful/ComboBox#list
+		 * @member {module:deliteful/list/List} module:deliteful/Combobox#list
 		 * @default instance of deliteful/list/List
 		 */
 		list: null,
@@ -159,7 +159,7 @@ define([
 		
 		refreshRendering: function (oldValues) {
 			if ("list" in oldValues) {
-				// Programmatic case (List passed as argument of the ctor of ComboBox
+				// Programmatic case (List passed as argument of the ctor of Combobox
 				// or set after the initialization phase)
 				this._initList();
 			} else if ("selectionMode" in oldValues) {
@@ -171,7 +171,7 @@ define([
 		},
 		
 		attachedCallback: function () {
-			// Declarative case (list specified declaratively inside the declarative ComboBox)
+			// Declarative case (list specified declaratively inside the declarative Combobox)
 			if (!this.list || this.list === this._defaultList) {
 				var list = this.querySelector("d-list");
 				if (list) {
@@ -204,13 +204,13 @@ define([
 				this.list.attachedCallback();
 			}
 			
-			// Class added on the list such that ComboBox' theme can have a specific
+			// Class added on the list such that Combobox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
-			domClass.add(this.list, "d-combo-box-list");
+			domClass.add(this.list, "d-combobox-list");
 			
 			// The drop-down is hidden initially
-			domClass.add(this.list, "d-combo-box-list-hidden");
+			domClass.add(this.list, "d-combobox-list-hidden");
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
@@ -225,7 +225,7 @@ define([
 			
 			var dropDown = this._createDropDown(this.list);
 			
-			// Since the dropdown is not a child of the ComboBox, it will not inherit
+			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
 			var dir = this.getAttribute("dir");
 			if (dir) {
@@ -340,7 +340,7 @@ define([
 		_createDropDown: function (list) {
 			var centeredDropDown = this.useCenteredDropDown();
 			
-			// The ComboBox template binds the readonly attribute of the input
+			// The Combobox template binds the readonly attribute of the input
 			// element on this property 
 			this._inputReadOnly = !this.autoFilter || centeredDropDown ||
 				this.selectionMode === "multiple";
@@ -422,7 +422,7 @@ define([
 		_createPopupInput: function () {
 			// TODO: use deliteful/SearchBox when will be available.
 			var popupInput = document.createElement("input");
-			domClass.add(popupInput, "d-combo-box-popup-input");
+			domClass.add(popupInput, "d-combobox-popup-input");
 			popupInput.setAttribute("role", "combobox");
 			popupInput.setAttribute("autocomplete", "off");
 			popupInput.setAttribute("autocapitalize", "none");

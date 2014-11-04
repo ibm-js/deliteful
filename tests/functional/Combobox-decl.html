@@ -6,7 +6,7 @@
 		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>deliteful/ComboBox (markup)</title>
+	<title>deliteful/Combobox (markup)</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
 	
@@ -18,7 +18,7 @@
 			"delite/register",
 			"deliteful/Store",
 			"deliteful/list/List",
-			"deliteful/ComboBox",
+			"deliteful/Combobox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -37,7 +37,7 @@
 </head>
 <body>
 	<p>
-	ComboBox in <b>markup</b>.
+	Combobox in <b>markup</b>.
 	</p>
 	<d-store id="store">
 		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -53,44 +53,44 @@
 	<p>
 	selectionMode: "single", autoFilter: false
 	</p>
-	<d-combo-box selectionMode="single" autoFilter="false" id="combo1">
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1">
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 	
 	<p>
 	selectionMode: "single", autoFilter: true
 	</p>
-	<d-combo-box selectionMode="single" autoFilter="true" id="combo2">
+	<d-combobox selectionMode="single" autoFilter="true" id="combo2">
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 	
 	<p>
 	selectionMode: "multiple"
 	</p>
-	<d-combo-box selectionMode="multiple" autoFilter="false" id="combo3">
+	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3">
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 	
 	<p>
 	selectionMode: "single", autoFilter: false, disabled
 	</p>
-	<d-combo-box selectionMode="single" autoFilter="false" 
+	<d-combobox selectionMode="single" autoFilter="false" 
 		id="combo1-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 	<p>
 	selectionMode: "single", autoFilter: true, disabled
 	</p>
-	<d-combo-box selectionMode="single" autoFilter="true" 
+	<d-combobox selectionMode="single" autoFilter="true" 
 		id="combo2-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 	<p>
 	selectionMode: "multiple", disabled
 	</p>
-	<d-combo-box selectionMode="multiple" autoFilter="false" 
+	<d-combobox selectionMode="multiple" autoFilter="false" 
 		id="combo3-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
-	</d-combo-box>
+	</d-combobox>
 </body>
 </html>
