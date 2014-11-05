@@ -12,7 +12,7 @@ define([
 			.setExecuteAsyncTimeout(intern.config.WAIT_TIMEOUT)
 			.get(require.toUrl(url))
 			.executeAsync(function (done) {
-				require(["delite/register", "deliteful/CheckBox", "requirejs-domready/domReady!"], function (register) {
+				require(["delite/register", "deliteful/Checkbox", "requirejs-domready/domReady!"], function (register) {
 					register.parse();
 					done();
 				});
@@ -20,12 +20,12 @@ define([
 	}
 
 	registerSuite({
-		name: "CheckBox - functional",
+		name: "Checkbox - functional",
 
 		"Checkbox behavior": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return loadFile(remote, "./CheckBox.html")
+			return loadFile(remote, "./Checkbox.html")
 				// default click action
 				.execute("return document.getElementById('cb1').focusNode;")
 				.then(function (element) {
@@ -44,7 +44,7 @@ define([
 						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 
-		"CheckBox Key nav": function () {
+		"Checkbox Key nav": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
@@ -81,17 +81,17 @@ define([
 				;
 		},
 
-		"CheckBox Form": function () {
+		"Checkbox Form": function () {
 				//
 				// Form tests
 				//
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
-				console.log("Skipping test: 'CheckBox Form' on this platform.");
+				console.log("Skipping test: 'Checkbox Form' on this platform.");
 				return remote.end();
 			}
-			return loadFile(remote, "./CheckBox.html")
+			return loadFile(remote, "./Checkbox.html")
 				.findById("form1")
 				.submit()
 				.end()

@@ -4,21 +4,21 @@ define([
 	"dojo/dom-class",
 	"dpointer/events",
 	"delite/register",
-	"deliteful/CheckBox",
+	"deliteful/Checkbox",
 	"delite/handlebars!./Switch/Switch.html",
 	"requirejs-dplugins/has!bidi?./Switch/bidi/Switch",
 	"delite/theme!./Switch/themes/{{theme}}/Switch.css"
-], function (has, domClass, pointer, register, CheckBox, template, BidiSwitch) {
+], function (has, domClass, pointer, register, Checkbox, template, BidiSwitch) {
 
 	/**
 	 * A form-aware switch widget that represents a toggle switch with a sliding knob.
 	 * @example
 	 * <d-switch checkedLabel="ON" uncheckedLabel="OFF" checked="true"></d-switch>
 	 * @class module:deliteful/Switch
-	 * @augments module:deliteful/CheckBox
+	 * @augments module:deliteful/Checkbox
 	 */
-	return register("d-switch", has("bidi") ? [HTMLElement, CheckBox, BidiSwitch] :
-		[HTMLElement, CheckBox], /** @lends module:deliteful/Switch# */ {
+	return register("d-switch", has("bidi") ? [HTMLElement, Checkbox, BidiSwitch] :
+		[HTMLElement, Checkbox], /** @lends module:deliteful/Switch# */ {
 
 		/**
 		 * The label corresponding to the checked state.
