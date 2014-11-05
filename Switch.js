@@ -45,10 +45,16 @@ define([
 
 		postRender: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this), this._knobGlassNode);
+			this.on("click", this._clickPreventer.bind(this), this._knobGlassNode);
 		},
 
 		destroy: function () {
 			this._cleanHandlers();
+		},
+
+		_clickPreventer: function (e) {
+			e.preventDefault()
+			e.stopPropagation();
 		},
 
 		_pointerDownHandler: function (e) {
@@ -92,13 +98,18 @@ define([
 		},
 
 		_pointerUpHandler: function (e) {
+			var oldCheckedValue = this.checked;
 			if (!this._drag) {
-				return;
+				this.checked = !this.checked;
+			} else {
+				this._drag = false;
+				var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
+				var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
+				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			}
-			this._drag = false;
-			var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
-			var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
-			this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
+			if (this.checked !== oldCheckedValue) {
+				this.dispatchEvent(new Event("change"));
+			}
 			e.preventDefault();
 			e.stopPropagation();
 		},
