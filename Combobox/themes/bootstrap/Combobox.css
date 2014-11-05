@@ -63,7 +63,3 @@ fieldset[disabled] .d-combobox-input {
   width: auto;
   height: auto;
 }
-.d-combobox-list > .d-list-container {
-  height: auto;
-  width: auto;
-}
