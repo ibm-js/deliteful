@@ -4,14 +4,13 @@ define([
 	"dojo/dom-construct",
 	"dojo/dom-style",
 	"dojo/keys",
-	"dojo/on",
 	"dpointer/events",
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
-], function (domClass, domConstruct, domStyle, keys, on, dpointer, register, FormValueWidget, CssState, template) {
+], function (domClass, domConstruct, domStyle, keys, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private
 	 */
@@ -334,15 +333,13 @@ define([
 					offsetVal: 0, // Offset value when use points and drag a handle
 					containerBox: null // to avoid recalculations when moving the slider with a pointer
 				};
-				this.own(
-					on(this, "pointerdown", this.pointerDownHandler.bind(this)),
-					on(this, "pointermove", this.pointerMoveHandler.bind(this)),
-					on(this, "lostpointercapture", this.lostCaptureHandler.bind(this)),
-					on(this, "keydown", this.keyDownHandler.bind(this)),
-					on(this, "keyup", this.keyUpHandler.bind(this)),
-					on(this.focusNode, "focus", this.focusHandler.bind(this)),
-					on(this.handleMin, "focus", this.focusHandler.bind(this))
-				);
+				this.on("pointerdown", this.pointerDownHandler.bind(this));
+				this.on("pointermove", this.pointerMoveHandler.bind(this));
+				this.on("lostpointercapture", this.lostCaptureHandler.bind(this));
+				this.on("keydown", this.keyDownHandler.bind(this));
+				this.on("keyup", this.keyUpHandler.bind(this));
+				this.on("focus", this.focusHandler.bind(this));
+				this.on("focus", this.focusHandler.bind(this));
 
 				// ensure CSS is applied
 				this.notifyCurrentValue("vertical");
@@ -364,13 +361,13 @@ define([
 				// if the form is reset, then notify the widget to reposition the handles
 				if (this.valueNode.form) {
 					var self = this;
-					this.own(on(this.valueNode.form, "reset", function () {
+					this.on("reset", function () {
 						self.defer(function () {
 							if (this.value !== this.valueNode.value) {
 								this.value = this.valueNode.value;
 							}
 						});
-					}));
+					}, this.valueNode.form);
 				}
 				// Chrome: avoids text selection of elements when mouse is dragged outside of the Slider.
 				this.onmousedown = function (e) {

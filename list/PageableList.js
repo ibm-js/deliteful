@@ -2,7 +2,6 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"dojo/on",
 	"dojo/string",
 	"dojo/when",
 	"dojo/Deferred",
@@ -12,7 +11,7 @@ define([
 	"./Renderer",
 	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, on, string, when, Deferred, domClass, has,
+], function (dcl, register, string, when, Deferred, domClass, has,
 		List, Renderer, template, messages) {
 
 	/*
@@ -221,7 +220,7 @@ define([
 				this._autoPagingHandle = null;
 			}
 			if (value) {
-				this._autoPagingHandle = this.own(on(this.scrollableNode, "scroll", this._scrollHandler.bind(this)))[0];
+				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this.scrollableNode);
 			}
 		},
 
