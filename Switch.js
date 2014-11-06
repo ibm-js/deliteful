@@ -108,9 +108,8 @@ define([
 				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			}
 			if (this.checked !== oldCheckedValue) {
-				/* jshint -W117 */
+				/* global Event */
 				this.dispatchEvent(new Event("change"));
-				/* jshint +W117 */
 			}
 			e.preventDefault();
 			e.stopPropagation();
