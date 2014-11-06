@@ -53,7 +53,7 @@ define([
 		},
 
 		_clickPreventer: function (e) {
-			e.preventDefault()
+			e.preventDefault();
 			e.stopPropagation();
 		},
 
@@ -108,7 +108,9 @@ define([
 				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
 			}
 			if (this.checked !== oldCheckedValue) {
+				/* jshint -W117 */
 				this.dispatchEvent(new Event("change"));
+				/* jshint +W117 */
 			}
 			e.preventDefault();
 			e.stopPropagation();
