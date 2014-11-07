@@ -1,6 +1,6 @@
 //Listing of all the deliteful unit tests
 define([
-	"./CheckBox",
+	"./Checkbox",
 	"./LinearLayout-direction",
 	"./LinearLayout-horizontal",
 	"./LinearLayout-horizontal-3width",
