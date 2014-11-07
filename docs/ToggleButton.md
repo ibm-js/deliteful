@@ -100,7 +100,7 @@ In addition, the following classes are used in combination with the classes abov
 
 |class name/selector|applies to|
 |----------|----------|
-|d-checked|CheckBox and checkmark nodes in checked state
+|d-checked|Checkbox and checkmark nodes in checked state
 
 <a name="events"></a>
 ## Element Events

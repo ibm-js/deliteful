@@ -5,7 +5,7 @@ define([
 	"dojo/sniff",
 	"delite/register",
 	"deliteful/RadioButton",
-	"./resources/CheckBox-shared"
+	"./resources/Checkbox-shared"
 ], function (dcl, registerSuite, assert, has, register, RadioButton, commonSuite) {
 
 	var container,

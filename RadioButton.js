@@ -1,10 +1,10 @@
 /** @module deliteful/RadioButton */
 define([
 	"delite/register",
-	"./CheckBox",
+	"./Checkbox",
 	"delite/handlebars!./RadioButton/RadioButton.html",
 	"delite/theme!./RadioButton/themes/{{theme}}/RadioButton.css"
-], function (register, CheckBox, template) {
+], function (register, Checkbox, template) {
 
 	/**
 	 * A radio button widget similar to an HTML5 input type="radio" element.
@@ -12,9 +12,9 @@ define([
 	 * <d-radio-button checked="true" name="categories" value="sport"></d-radio-button>
 	 * <d-radio-button name="categories" value="SUV"></d-radio-button>
 	 * @class module:deliteful/RadioButton
-	 * @augments module:deliteful/CheckBox
+	 * @augments module:deliteful/Checkbox
 	 */
-	return register("d-radio-button", [HTMLElement, CheckBox], /** @lends module:deliteful/RadioButton# */ {
+	return register("d-radio-button", [HTMLElement, Checkbox], /** @lends module:deliteful/RadioButton# */ {
 
 		/**
 		 * The component css base class.

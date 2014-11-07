@@ -6,7 +6,7 @@ define([
 	"delite/register",
 	"dojo/dom-class",
 	"deliteful/Switch",
-	"./resources/CheckBox-shared"
+	"./resources/Checkbox-shared"
 ], function (dcl, advise, registerSuite, assert, register, domClass, Switch, commonSuite) {
 
 	var container,
