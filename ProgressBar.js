@@ -157,7 +157,7 @@ define([
 			}
 			domClass.toggle(this, this.baseClass + "-indeterminate", (this.position === -1));
 			if ("value" in props || "max" in props) {
-				this.emit("change", {percent: this.position * 100, value: this.value, max: this.max});
+				this.emit("change", {percent: this.value/this.max * 100, value: this.value, max: this.max});
 			}
 		},
 
