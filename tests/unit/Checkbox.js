@@ -4,9 +4,9 @@ define([
 	"intern/chai!assert",
 	"delite/register",
 	"dojo/dom-class",
-	"deliteful/CheckBox",
-	"./resources/CheckBox-shared"
-], function (dcl, registerSuite, assert, register, domClass, CheckBox, commonSuite) {
+	"deliteful/Checkbox",
+	"./resources/Checkbox-shared"
+], function (dcl, registerSuite, assert, register, domClass, Checkbox, commonSuite) {
 
 	var container,
 		html = "<d-checkbox id='cb1'></d-checkbox><d-checkbox id='cb2' value='foo'>" +
@@ -36,7 +36,7 @@ define([
 
 	// Markup
 	var markupSuite = {
-		name: "deliteful/CheckBox: markup",
+		name: "deliteful/Checkbox: markup",
 		"beforeEach": function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -48,14 +48,14 @@ define([
 	registerSuite(markupSuite);
 
 	var progSuite = {
-		name: "deliteful/CheckBox: programmatic",
+		name: "deliteful/Checkbox: programmatic",
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-			var cb = new CheckBox({id: "cb1"});
+			var cb = new Checkbox({id: "cb1"});
 			container.appendChild(cb);
 			cb.startup();
-			cb = new CheckBox({id: "cb2", value: "foo"});
+			cb = new Checkbox({id: "cb2", value: "foo"});
 			container.appendChild(cb);
 			cb.startup();
 			var lbl4 = document.createElement("label");
@@ -63,7 +63,7 @@ define([
 			lbl4.setAttribute("for", "cb3");
 			lbl4.textContent = "cb3";
 			container.appendChild(lbl4);
-			cb = new CheckBox({id: "cb3", checked: true});
+			cb = new Checkbox({id: "cb3", checked: true});
 			container.appendChild(cb);
 			cb.startup();
 		}
