@@ -4,12 +4,11 @@ define(["dcl/dcl",
 	"dojo/Deferred",
 	"dojo/dom-class",
 	"delite/register",
-	"delite/Widget",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"],
-	function (dcl, has, Deferred, domClass, register, Widget, DisplayContainer) {
+	function (dcl, has, Deferred, domClass, register, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
 				if (val) {
