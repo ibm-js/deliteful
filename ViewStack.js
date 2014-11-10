@@ -1,7 +1,6 @@
 /** @module deliteful/ViewStack */
 define(["dcl/dcl",
 	"decor/sniff",
-	"dojo/on",
 	"dojo/Deferred",
 	"dojo/dom-class",
 	"delite/register",
@@ -10,7 +9,7 @@ define(["dcl/dcl",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"],
-	function (dcl, has, on, Deferred, domClass, register, Widget, DisplayContainer) {
+	function (dcl, has, Deferred, domClass, register, Widget, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
 				if (val) {

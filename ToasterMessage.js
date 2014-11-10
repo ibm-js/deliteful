@@ -4,10 +4,9 @@ define(["dcl/dcl",
 	"delite/register",
 	"dojo/Deferred",
 	"dojo/dom-class",
-	"dojo/on",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Deferred, domClass, on, pointer, template) {
+], function (dcl, Widget, register, Deferred, domClass, pointer, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -266,11 +265,14 @@ define(["dcl/dcl",
 		var events = [animationendEvent, transitionendEvent];
 		events.forEach(function (event) {
 			if (event) { // if event is supported
-				on.once(element, event, (function (el, ev) {
+				var tmp = {};
+				var listener = (function (el, ev, d) {
 					return function () {
 						callback(el, ev);
+						d.handler.remove();
 					};
-				})(element, event), false);
+				})(element, event, tmp);
+				tmp.handler = element.on(event, listener);
 			} else {
 				callback(element, event);
 			}

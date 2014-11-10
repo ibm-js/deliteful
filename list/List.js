@@ -2,7 +2,6 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"dojo/on",
 	"dojo/_base/lang",
 	"dojo/when",
 	"dojo/dom-class",
@@ -17,7 +16,7 @@ define([
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List.css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
-], function (dcl, register, on, lang, when, domClass, keys, CustomElement,
+], function (dcl, register, lang, when, domClass, keys, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
 
 	/**
@@ -233,11 +232,6 @@ define([
 		render: function () {
 			// Initialize the widget node and set the container and scrollable node.
 			this.scrollableNode = this.ownerDocument.createElement("div");
-			// Firefox focus the scrollable node when clicking it or tabing: in this case, the list
-			// widget needs to be focused instead.
-			this.own(on(this.scrollableNode, "focus", function () {
-				this.focus();
-			}.bind(this)));
 			this.scrollableNode.className = "d-list-container";
 			this.appendChild(this.scrollableNode);
 			// Aria attributes
