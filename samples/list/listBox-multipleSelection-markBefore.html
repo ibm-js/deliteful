@@ -19,13 +19,12 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"dojo/on",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/list/List",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, on, Memory, Trackable) {
+		], function (register, Memory, Trackable) {
 			var Store = Memory.createSubclass([Trackable], {});
 			var console = document.createElement("p");
 			console.innerHTML = "Click to select an item.";
