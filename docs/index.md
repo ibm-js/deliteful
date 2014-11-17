@@ -2,6 +2,10 @@
 layout: doc
 ---
 
+## Introduction
+
+* [How to load deliteful custom elements & modules](setup.md)
+
 ## Basic Widgets
 
 * [Button](Button.md)
