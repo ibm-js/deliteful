@@ -312,6 +312,9 @@ define(["dcl/dcl",
 					// Second call (occurs randomly on FF). The following code is not critical but try
 					// to keep a clean DOM tree as much as possible.
 					cleanCSS(item.node);
+					if (item.node !== this._visibleChild) {
+						cleanCSS(this._visibleChild);
+					}
 					domClass.remove(this, "-d-view-stack-transition");
 				}
 			}
