@@ -403,10 +403,9 @@ define([
 					this.list.selectedItems = this._selectedItems;
 					this.closeDropDown();
 				}.bind(this);
+				domClass.add(cancelButton, "fill");
+				domClass.add(okButton, "fill");
 				bottomLayout.addChild(cancelButton);
-				var centralSpan = document.createElement("div");
-				domClass.add(centralSpan, "fill");
-				bottomLayout.addChild(centralSpan);
 				bottomLayout.addChild(okButton);
 				topLayout.addChild(bottomLayout);
 			}
