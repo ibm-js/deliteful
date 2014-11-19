@@ -334,12 +334,10 @@ define([
 
 		processCollection: dcl.superCall(function (sup) {
 			return function (collection) {
-				if (this.pageLength > 0) {
-					// Store the result of the store query
-					this._collection = collection;
-				} else {
+				if (this.pageLength === 0) {
 					sup.apply(this, arguments);
 				}
+				this._collection = collection;
 			};
 		}),
 
