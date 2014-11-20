@@ -50,10 +50,15 @@
 
 			//progressbar handler
 			var pbHandler = function (event) {
-				label.innerHTML =
+				if (isNaN(event.value)) {
+					label.innerHTML =
+						"Value: indeterminate";
+				} else {
+					label.innerHTML =
 						"Value: " + event.value.toFixed(2) + "<br>" +
 						"Percent: " + event.percent.toFixed(2) + "% <br>" +
 						"Max: " + event.max;
+				}
 			};
 			progressBar.addEventListener("change", pbHandler);
 
