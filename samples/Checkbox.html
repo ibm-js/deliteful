@@ -23,7 +23,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Checkbox) {
+		], function (register, Checkbox) {
 			register.parse();
 		});
 	</script>
@@ -31,13 +31,11 @@
 <style>
 </style>
 <body>
-<label>
-	<d-checkbox name="option1" checked="true"></d-checkbox>
-	Option 1
-</label>
-<label>
-	<d-checkbox name="option2"></d-checkbox>
-	Option 2
-</label>
+	<label>
+		<d-checkbox name="options" checked="true"></d-checkbox>
+		Option 1
+	</label>
+	<d-checkbox name="options" id="option2"></d-checkbox>
+	<label for="option2"> Option 2 </label>
 </body>
 </html>
