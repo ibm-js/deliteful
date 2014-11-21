@@ -70,8 +70,9 @@ define([
 		return combo;
 	};
 	
-	var createCombobox = function (id, trackable) {
-		var combo = new Combobox({ id: id });
+	var createCombobox = function (id, trackable, multiple) {
+		var selectionMode = multiple ? "multiple" : "single";
+		var combo = new Combobox({ id: id, selectionMode: selectionMode });
 		initCombobox(combo, trackable);
 		return combo;
 	};
@@ -338,6 +339,122 @@ define([
 				"Number of options after adding 10 options on combo.id: " + combo.id);
 			assert.strictEqual(combo.value, "France",
 				"combo.value after adding 10 options on combo.id: " + combo.id);
+		},
+		
+		"widget.value, and change and input events (selectionMode=single)": function () {
+			var combo = createCombobox("combo1", false /* trackable */);
+			var changeCounter = 0, inputCounter = 0;
+			var changeValue = null, inputValue = null;
+			combo.on("change", function () {
+				changeCounter++;
+				changeValue = combo.value;
+			});
+			combo.on("input", function () {
+				inputCounter++;
+				inputValue = combo.value;
+			});
+			combo.deliver();
+			
+			assert.strictEqual(changeCounter, 0,
+				"There should be no change event after initialization, before interaction");
+			assert.strictEqual(inputCounter, 0,
+				"There should be no input event after initialization, before interaction");
+			
+			combo.openDropDown();
+			
+			assert.strictEqual(changeCounter, 0,
+				"Just opening the dropdown should not emit any change event");
+			assert.strictEqual(inputCounter, 0,
+				"Just opening the dropdown should not emit any input event");
+			
+			var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue,
+				itemName, expectedValue) {
+				assert.strictEqual(changeCounter, changeCounterExpectedValue,
+					"After clicking " + itemName);
+				assert.strictEqual(inputCounter, inputCounterExpectedValue,
+					"After clicking " + itemName);
+				changeCounter = 0; // reinit
+				inputCounter = 0; // reinit
+				assert.strictEqual(changeValue, expectedValue,
+					"Wrong value when receiving change event after clicking " + itemName);
+				assert.strictEqual(inputValue, expectedValue,
+					"Wrong value when receiving input event after clicking " + itemName);
+			};
+			var item2 = combo.list.getItemRenderers()[2];
+			item2.click();
+			
+			var d = this.async(1000);
+			setTimeout(d.rejectOnError(function () {
+				checkAfterClickItem(1, 1, "item 2", "Option 2");
+				combo.openDropDown(); // reopen
+				var item3 = combo.list.getItemRenderers()[3];
+				item3.click();
+				setTimeout(d.callback(function () {
+					checkAfterClickItem(1, 1, "item 3", "Option 3");
+				}));
+			}));
+			return d;
+		},
+		
+		"widget.value, and change and input events (selectionMode=multiple)": function () {
+			var combo = createCombobox("combo1", false /* trackable */, true /* selectionMode=multiple */);
+			var changeCounter = 0, inputCounter = 0;
+			var changeValue = null, inputValue = null;
+			combo.on("change", function () {
+				changeCounter++;
+				changeValue = combo.value;
+			});
+			combo.on("input", function () {
+				inputCounter++;
+				inputValue = combo.value;
+			});
+			combo.deliver();
+			
+			assert.strictEqual(changeCounter, 0,
+				"There should be no change event after initialization, before interaction");
+			assert.strictEqual(inputCounter, 0,
+				"There should be no input event after initialization, before interaction");
+			
+			combo.openDropDown();
+			
+			assert.strictEqual(changeCounter, 0,
+				"Just opening the dropdown should not emit any change event");
+			assert.strictEqual(inputCounter, 0,
+				"Just opening the dropdown should not emit any input event");
+			
+			var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue,
+				itemName, expectedChangeValue, expectedInputValue) {
+				assert.strictEqual(inputCounter, inputCounterExpectedValue,
+					"After clicking " + itemName);
+				assert.strictEqual(changeCounter, changeCounterExpectedValue,
+					"After clicking " + itemName);
+				assert.deepEqual(changeValue, expectedChangeValue,
+					"Wrong value when receiving change event after clicking " + itemName);
+				assert.deepEqual(inputValue, expectedInputValue,
+					"Wrong value when receiving input event after clicking " + itemName);
+			};
+			var item2 = combo.list.getItemRenderers()[2];
+			item2.click();
+			
+			var d = this.async(1000);
+			setTimeout(d.rejectOnError(function () {
+				checkAfterClickItem(0, 1, "item 2", null, ["Option 2"]);
+				combo.closeDropDown(); // this commits the change
+				combo.openDropDown(); // reopen
+				setTimeout(d.rejectOnError(function () {
+					checkAfterClickItem(1, 1, "item 2", ["Option 2"], ["Option 2"]);
+					var item3 = combo.list.getItemRenderers()[3];
+					item3.click();
+					setTimeout(d.rejectOnError(function () {
+						checkAfterClickItem(1, 2, "item 3", ["Option 2"], ["Option 3", "Option 2"]);
+						combo.closeDropDown(); // this commits the change
+						setTimeout(d.callback(function () {
+							checkAfterClickItem(2, 2, "item 3", ["Option 3", "Option 2"], ["Option 3", "Option 2"]);
+						}));
+					}));
+				}));
+			}));
+			return d;
 		},
 		
 		afterEach: function () {
