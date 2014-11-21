@@ -4,7 +4,7 @@ define([
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
 	"decor/sniff",
 	"delite/register",
-	"delite/FormWidget",
+	"delite/FormValueWidget",
 	"delite/HasDropDown",
 	"delite/keys",
 	"./list/List",
@@ -13,7 +13,7 @@ define([
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, domClass, has, register, FormWidget, HasDropDown,
+], function (dcl, domClass, has, register, FormValueWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
@@ -74,9 +74,9 @@ define([
 	 * 
 	 * @class module:deliteful/Combobox
 	 * @augments module:delite/HasDropDown
-	 * @augments module:delite/FormWidget
+	 * @augments module:delite/FormValueWidget
 	 */
-	return register("d-combobox", [HTMLElement, HasDropDown, FormWidget],
+	return register("d-combobox", [HTMLElement, HasDropDown, FormValueWidget],
 		/** @lends module:deliteful/Combobox# */ {
 		
 		// TODO: handle the situation the list has a null/undefined store.
@@ -87,6 +87,7 @@ define([
 		// a clean mechanism to support all possible use-cases. (Probably also
 		// requires changes in List).
 		// TODO: improve API doc.
+		// TODO: add (optional) placeholder?
 		
 		// Note: the property `disabled` is inherited from delite/FormWidget.
 		
@@ -147,7 +148,7 @@ define([
 		 * @default "Search"
 		 */
 		searchPlaceHolder: messages["search-placeholder"],
-
+		
 		// TODO: worth exposing a property of it too?
 		// The default text displayed in the input for a multiple choice
 		_multipleChoiceMsg: messages["multiple-choice"],
@@ -236,7 +237,7 @@ define([
 			
 			/* TODO: keyboard navigation support will come later.
 			this.list.on("keynav-child-navigated", function(evt) {
-				var input = this._popupInput || this.input;
+				var input = this._popupInput || this.inputNode;
 				if (evt.newValue) {
 					this.list.selectFromEvent(evt, evt.newValue, evt.newValue, true);
 					input.setAttribute("aria-activedescendant", evt.newValue.id);
@@ -249,16 +250,16 @@ define([
 			// List already filled
 			var firstItemRenderer = this.list.getItemRendererByIndex(0);
 			if (firstItemRenderer) {
-				this.input.value = firstItemRenderer.item.label;
+				this.inputNode.value = firstItemRenderer.item.label;
 				// Initialize widget's value
-				this._set("value", this.input.value);
+				this._set("value", this.inputNode.value);
 			} else {
 				// For future updates:
 				var initDone = false;
 				this.list.on("query-success", function () {
 					if (!initDone) {
 						var firstItemRenderer = this.list.getItemRendererByIndex(0);
-						var input = this._popupInput || this.input;
+						var input = this._popupInput || this.inputNode;
 						if (firstItemRenderer && !initDone) {
 							input.value = firstItemRenderer.label;
 							// Initialize widget's value
@@ -273,9 +274,10 @@ define([
 				var renderer = list.getEnclosingRenderer(event.target);
 				if (renderer && !list.isCategoryRenderer(renderer)) {
 					var label = renderer.item.label;
-					this.input.value = label;
+					this.inputNode.value = label;
 					// TODO: temporary till solving issues with introducing valueAttr
 					this.value = label;
+					this.handleOnInput(this.value); // emit "input" event
 					if (this.selectionMode !== "multiple") {
 						this.closeDropDown(true/*refocus*/);
 					}
@@ -296,31 +298,11 @@ define([
 			if (this.selectionMode === "multiple" &&
 				!this.useCenteredDropDown()) {
 				this.list.on("selection-change", function () {
-					var selectedItem;
-					var input = this._popupInput || this.input;
-					var selectedItems = this.list.selectedItems;
-					var n = selectedItems ? selectedItems.length : 0;
-					if (n > 1) {
-						input.value = this._multipleChoiceMsg;
-					} else if (n === 1) {
-						selectedItem = this.list.selectedItem;
-						input.value = selectedItem ? selectedItem.label : "";
-					} else { // no option selected
-						input.value = "";
-					}
-					
-					this._set("value", input.value);
+					this._validateMultiple(this._popupInput || this.inputNode);
 				}.bind(this));
 			}
 			
-			this.on("input", function () {
-				this.list.selectedItem = null;
-				var txt = this.input.value;
-				this.list.query = function (obj) {
-					return this._filterFunction(obj, txt);
-				}.bind(this);
-				this.openDropDown(); // reopen if closed
-			}.bind(this), this.input);
+			this._prepareInput(this.inputNode);
 		},
 		
 		/**
@@ -387,16 +369,7 @@ define([
 				var cancelButton = new Button({label: "Cancel"});
 				var okButton = new Button({label: "OK"});
 				okButton.onclick = function () {
-					var selectedItems = this.list.selectedItems;
-					var n = selectedItems ? selectedItems.length : 0;
-					if (n > 1) {
-						this.input.value = this._multipleChoiceMsg;
-					} else if (n === 1) {
-						var selectedItem = this.list.selectedItem;
-						this.input.value = selectedItem ? selectedItem.label : "";
-					} else { // no option selected
-						this.input.value = "";
-					}
+					this._validateMultiple(this.inputNode);
 					this.closeDropDown();
 				}.bind(this);
 				cancelButton.onclick = function () {
@@ -428,9 +401,14 @@ define([
 			popupInput.setAttribute("aria-autocomplete", "list");
 			popupInput.setAttribute("type", "search");
 			popupInput.setAttribute("placeholder", this.searchPlaceHolder);
-			this.on("input", function () {
+			this._prepareInput(popupInput);
+			return popupInput;
+		},
+		
+		_prepareInput: function (inputElement) {
+			this.on("input", function (evt) {
 				this.list.selectedItem = null;
-				var txt = this._popupInput.value;
+				var txt = inputElement.value;
 				// TODO: what about server-side filtering of the store? (needs at least a
 				// mechanism allowing the user to implement it).
 				// TODO: might be nice that, if no item matches the query thus the list is empty,
@@ -439,9 +417,39 @@ define([
 					return this._filterFunction(obj, txt);
 				}.bind(this);
 				this.openDropDown(); // reopen if closed
-			}.bind(this), popupInput);
-			
-			return popupInput;
+				// Stop the spurious "input" events emitted while the user types
+				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
+				// bubble to widget's root node.
+				evt.stopPropagation();
+				evt.preventDefault();
+			}.bind(this), inputElement);
+			this.on("change", function (evt) {
+				// Stop the spurious "change" events emitted while the user types
+				// such that only the "change" events emitted via FormValueWidget.handleOnChange()
+				// bubble to widget's root node.
+				evt.stopPropagation();
+				evt.preventDefault();
+			}.bind(this), inputElement);
+		},
+		
+		_validateMultiple: function (inputElement) {
+			var selectedItems = this.list.selectedItems;
+			var n = selectedItems ? selectedItems.length : 0;
+			var value = [];
+			if (n > 1) {
+				inputElement.value = this._multipleChoiceMsg;
+				for (var i = 0; i < n; i++) {
+					value.push(selectedItems[i] ? selectedItems[i].label : "");
+				}
+			} else if (n === 1) {
+				var selectedItem = this.list.selectedItem;
+				inputElement.value = selectedItem ? selectedItem.label : "";
+				value.push(inputElement.value);
+			} else { // no option selected
+				inputElement.value = "";
+			}
+			this._set("value", value);
+			this.handleOnInput(this.value); // emit "input" event
 		},
 		
 		_filterFunction: function (dataObj, queryTxt) {
@@ -464,7 +472,7 @@ define([
 				// busy on/off state. The issue appears to go away if List.attachedCallback
 				// wouldn't break the automatic chaining (hence the workaround wouldn't
 				// be necessary if List gets this change), but this requires further
-				// investigation. 
+				// investigation (TODO). 
 				this.defer(function () {
 					this.list._hideLoadingPanel();
 				}.bind(this), 300);
@@ -475,21 +483,16 @@ define([
 		
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
+				// Closing the dropdown represents a commit interaction
+				this.handleOnChange(this.value); // emit "change" event
+				
 				// Reinit the query. Necessary such that after closing the dropdown
 				// in autoFilter mode with a text in the input field not matching
 				// any item, when the dropdown will be reopen it shows all items
 				// instead of being empty 
 				this.list.query = {};
 				sup.apply(this, arguments);
-				document.body.style.overflow = "visible";
 			};
-		}),
-		
-		_setValueAttr: function (value) {
-			if (this.valueNode) {
-				this.valueNode.value = value;
-			}
-			this._set("value", value);
-		}
+		})
 	});
 });
