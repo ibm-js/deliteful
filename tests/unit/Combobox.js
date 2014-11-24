@@ -13,11 +13,6 @@ define([
 ], function (dcl, registerSuite, assert, has, register, domClass,
 	Memory, Trackable, List, Combobox) {
 	
-	if (has("ie")) {
-		console.log("Temporarily skipping Combobox tests on IE");
-		return;
-	}
-	
 	var container, MyCombobox;
 	
 	/*jshint multistr: true */
@@ -360,6 +355,7 @@ define([
 				inputValue = combo.value;
 			});
 			combo.deliver();
+			combo.list.deliver();
 			
 			assert.strictEqual(changeCounter, 0,
 				"There should be no change event after initialization, before interaction");
@@ -415,6 +411,7 @@ define([
 				inputValue = combo.value;
 			});
 			combo.deliver();
+			combo.list.deliver();
 			
 			assert.strictEqual(changeCounter, 0,
 				"There should be no change event after initialization, before interaction");
