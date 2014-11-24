@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Swap View</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../.."
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register", "deliteful/SwapView", "deliteful/Button",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function (register) {
+			register.parse();
+
+			var handle = function (event) {
+				console.log(event.type + ": " + event.dest);
+			};
+			// Listen for delite/DisplayContainer events
+			vs.on("delite-display-load", handle);
+			vs.on("delite-before-show", handle);
+			vs.on("delite-after-show", handle);
+			vs.on("delite-before-hide", handle);
+			vs.on("delite-after-hide", handle);
+
+			document.body.style.display = "";
+		});
+
+	</script>
+
+	<style>
+		button {
+			width: 10em;
+		}
+
+		#vs > div {
+			font-size: 20px;
+			font-family: Helvetica;
+			text-align: center;
+			font-weight: bold;
+		}
+
+		#vs {
+			width: 50%;
+			height: 300px;
+			border: 2px solid gold
+		}
+	</style>
+</head>
+<body style="display: none; margin:2em;">
+<button is="d-button" onclick="vs.showPrevious({reverse:true});">Previous</button>
+<button is="d-button" onclick="vs.showNext();">Next</button>
+<br>
+<d-swap-view id="vs" selectedChildId="bbb">
+	<div style="background-color: honeydew; " id="aaa">
+		<h1>AAAAAAAAAAAAAAA</h1>
+	</div>
+	<div style="background-color: whitesmoke;" id="bbb">
+		<h1>BBBBBBBBBBBBBBB</h1>
+	</div>
+	<div style="background-color: powderblue;" id=ccc>
+		<h1>CCCCCCCCCCCCCCC</h1>
+	</div>
+	<div style="background-color: oldlace;" id="ddd">
+		<h1>DDDDDDDDDDDDDDD</h1>
+	</div>
+</d-swap-view>
+<br>
+
+</body>
+</html>
