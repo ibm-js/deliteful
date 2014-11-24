@@ -1,8 +1,8 @@
-/** @module deliteful/wapView */
+/** @module deliteful/SwapView */
 define([
-	"dcl/dcl", "delite/register", "dojo/keys", "dojo/on", "dojo/dom-class", "dpointer/events", "./ViewStack",
+	"dcl/dcl", "delite/register", "dojo/dom-class", "dpointer/events", "./ViewStack",
 	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
-], function (dcl, register, keys, on, domClass, dpointer, ViewStack) {
+], function (dcl, register, domClass, dpointer, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user change views using a swipe gesture.
 	 *
@@ -42,9 +42,9 @@ define([
 		postRender: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
 			domClass.add(this, "d-view-stack");
-			this.own(on(this, "pointerdown", this.pointerDownHandler.bind(this)),
-				on(this, "pointermove", this.pointerMoveHandler.bind(this)),
-				on(this, "lostpointercapture", this.lostCaptureHandler.bind(this)));
+			this.on("pointerdown", this.pointerDownHandler.bind(this));
+			this.on("pointermove", this.pointerMoveHandler.bind(this));
+			this.on("lostpointercapture", this.lostCaptureHandler.bind(this));
 		},
 
 		pointerDownHandler: function (e) {
