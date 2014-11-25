@@ -16,7 +16,7 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register", "deliteful/SwapView", "deliteful/Button",
+			"delite/register", "deliteful/SwapView", "deliteful/ViewIndicator", "deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -38,6 +38,11 @@
 	</script>
 
 	<style>
+
+		body {
+			background-color: #eeeeee;
+		}
+
 		button {
 			width: 10em;
 		}
@@ -53,6 +58,10 @@
 			width: 50%;
 			height: 300px;
 			border: 2px solid gold
+		}
+
+		#vi {
+			width: 50%;
 		}
 	</style>
 </head>
@@ -74,6 +83,7 @@
 		<h1>DDDDDDDDDDDDDDD</h1>
 	</div>
 </d-swap-view>
+<d-view-indicator id="vi" viewstack="vs"></d-view-indicator>
 <br>
 
 </body>

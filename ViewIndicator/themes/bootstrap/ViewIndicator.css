@@ -1,0 +1,22 @@
+.d-view-indicator {
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+.d-view-indicator,
+.d-view-indicator * {
+  display: inline-block;
+}
+.d-view-indicator .-d-view-indicator-dot {
+  width: 6px;
+  height: 6px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #999999;
+  margin: 6px;
+}
+.d-view-indicator .-d-view-indicator-dot-selected {
+  background-color: #ffffff;
+}
