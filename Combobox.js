@@ -341,13 +341,11 @@ define([
 		},
 		
 		_createNormalDropDown: function (list) {
-			// TODO: does it help to embed List in LinearLayout?
-			// Depends on outcome of https://github.com/ibm-js/deliteful/pull/341
-			// TODO: move to separate widget.
-			var topLayout = new LinearLayout();
-			domClass.add(list, "fill");
-			topLayout.addChild(list);
-			return topLayout;
+			// Use the List itself as content of the popup. Embedding it in a
+			// LinearLayout has seemed useful for solving layout issues on iOS
+			// (deliteful issue #270), but appears to be harmful on IE11 (deliteful
+			// issue #382). Hence the List is not wrapped anymore inside a LinearLayout.
+			return list;
 		},
 		
 		_createCenteredDropDown: function (list) {
@@ -429,6 +427,14 @@ define([
 				// bubble to widget's root node.
 				evt.stopPropagation();
 				evt.preventDefault();
+			}.bind(this), inputElement);
+			this.on("keydown", function (evt) {
+				// deliteful issue #382: prevent the browser from navigating to
+				// the previous page when typing backspace in a readonly input
+				if (inputElement.readOnly && evt.keyCode === keys.BACKSPACE) {
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
 			}.bind(this), inputElement);
 		},
 		
