@@ -7,10 +7,12 @@
 }
 
 .d-combobox::after {
+	/* dropdown arrow */
 	content: "\25BC";
 	padding:0;
 	position: relative;
-	pointer-events: none; /* allow clicks to pass through */
+	/* allow clicks to pass through */
+	pointer-events: none;
 	.d-combobox-arrow-styles; 
 }
 
@@ -33,10 +35,4 @@
 
 .d-combobox .d-combobox-list-hidden {
 	display: none;
-}
-
-.d-combobox-list > .d-list-container {
-	position: relative;
-	height: auto;
-	width: auto;
 }

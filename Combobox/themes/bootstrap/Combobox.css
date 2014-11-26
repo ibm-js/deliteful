@@ -8,11 +8,12 @@
   line-height: 1.428571429;
 }
 .d-combobox::after {
+  /* dropdown arrow */
   content: "\25BC";
   padding: 0;
   position: relative;
-  pointer-events: none;
   /* allow clicks to pass through */
+  pointer-events: none;
   font-size: .7em;
   right: 1.7em;
 }
@@ -35,24 +36,19 @@ fieldset[disabled] .d-combobox-input {
 }
 .d-combobox-input:focus,
 .d-combobox-popup-input:focus {
+  /* defined in delite/themes/bootstrap/mixins.less */
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-  /* defined in delite/themes/bootstrap/mixins.less */
 }
 .d-combobox .d-combobox-list-hidden {
   display: none;
 }
-.d-combobox-list > .d-list-container {
-  position: relative;
-  height: auto;
-  width: auto;
-}
 .d-combobox-list .d-active-descendant {
+  /* defined in delite/themes/bootstrap/mixins.less */
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-  /* defined in delite/themes/bootstrap/mixins.less */
 }
 /* Temporary workaround till deliteful pull request #341 will be merged */
 .d-combobox-list .d-round-rect-list {
