@@ -32,9 +32,6 @@ define([
 
 		render: function () {
 			dpointer.setTouchAction(this, "none");
-			// init WAI-ARIA attributes
-			this.setAttribute("role", "slider");
-			this.setAttribute("aria-valuemin", 0);
 		},
 
 		postRender: function () {
@@ -79,7 +76,6 @@ define([
 				dot._vsChildIndex = i;
 				this.appendChild(dot);
 			}
-			this.setAttribute("aria-valuemax", Math.max(this.viewstack.children.length - 1, 0));
 		}
 	});
 });
