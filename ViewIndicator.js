@@ -30,49 +30,17 @@ define([
 		 */
 		viewstack: null,
 
-		attachedCallback: function () {
-			// If the user hasn't specified a tabindex declaratively, then set to default value.
-			if (!this.hasAttribute("tabindex")) {
-				this.focusNode.tabIndex = "0";
-			} else {
-				this.focusNode.tabIndex = this.tabIndex;
-				this.tabIndex = -1;
-			}
-		},
-
 		render: function () {
-			this.focusNode = this.ownerDocument.createElement("div");
-			this.appendChild(this.focusNode);
 			dpointer.setTouchAction(this, "none");
 			// init WAI-ARIA attributes
-			this.focusNode.setAttribute("role", "slider");
-			this.focusNode.setAttribute("aria-valuemin", 0);
+			this.setAttribute("role", "slider");
+			this.setAttribute("aria-valuemin", 0);
 		},
 
 		postRender: function () {
 			this.on("pointerdown", function (e) {
 				this.viewstack.show(this.viewstack.children[e.target._vsChildIndex]);
 			}.bind(this));
-			this.on("keydown", function (e) {
-				if (this.viewstack) {
-					switch (e.keyCode) {
-					case keys.LEFT_ARROW:
-						if (this.isLeftToRight()) {
-							this.viewstack.showPrevious();
-						} else {
-							this.viewstack.showNext();
-						}
-						break;
-					case keys.RIGHT_ARROW:
-						if (this.isLeftToRight()) {
-							this.viewstack.showNext();
-						} else {
-							this.viewstack.showPrevious();
-						}
-						break;
-					}
-				}
-			}.bind(this), this.focusNode);
 		},
 
 		refreshRendering: function (props) {
@@ -102,16 +70,16 @@ define([
 		 */
 		_refreshDots: function () {
 			// recreate all for now
-			this.focusNode.innerHTML = "";
+			this.innerHTML = "";
 			for (var i = 0; i < this.viewstack.children.length; i++) {
 				var child = this.viewstack.children[i];
 				var dot = this.ownerDocument.createElement("div");
 				dot.className = "-d-view-indicator-dot" +
 					(child.style.visibility === "visible" ? " -d-view-indicator-dot-selected" : "");
 				dot._vsChildIndex = i;
-				this.focusNode.appendChild(dot);
+				this.appendChild(dot);
 			}
-			this.focusNode.setAttribute("aria-valuemax", Math.max(this.viewstack.children.length - 1, 0));
+			this.setAttribute("aria-valuemax", Math.max(this.viewstack.children.length - 1, 0));
 		}
 	});
 });
