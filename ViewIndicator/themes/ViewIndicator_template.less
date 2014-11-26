@@ -3,6 +3,7 @@
 .d-view-indicator {
 	text-align: center;
 	.user-select(none);
+	cursor: default;
 }
 
 .d-view-indicator, .d-view-indicator * {
@@ -12,11 +13,22 @@
 .d-view-indicator .-d-view-indicator-dot {
 	width: @dot-size;
 	height: @dot-size;
-	.border-radius(@dot-size/2);
-	background-color: @dot-color;
+	.border-radius(@dot-size / 2);
+	line-height: @dot-size;
 	margin: @dot-margin;
+	background-color: @dot-color;
 }
 
 .d-view-indicator .-d-view-indicator-dot-selected {
 	background-color: @dot-selected-color;
+}
+
+.d-view-indicator .-d-view-indicator-dot::before {
+	font-size: @dot-glyph-font-size;
+	color: transparent;
+	content: "\25CB";
+}
+
+.d-view-indicator .-d-view-indicator-dot-selected::before {
+	content: "\25CF";
 }
