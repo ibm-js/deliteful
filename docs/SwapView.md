@@ -6,18 +6,18 @@ title: deliteful/SwapView
 # deliteful/SwapView
 
 `deliteful/SwapView` is a container that extends `deliteful/SwapView` and adds user interactions:
-- You can show the next or previous child using a "swipe" gesture (with the finger on touch devices, or the mouse on
+- You can show the next or previous child using a swipe gesture (with the finger on touch devices, or the mouse on
 desktop).
 - You can also use the Page Up/Down keyboard keys to go the next/previous child.
 
-During a swipe interaction, the next/previous child is partially shown next to the current child and slides following
-the finger/mouse position:
+During a swipe interaction, the next/previous child is partially shown next to the current child and both
+children slide following the finger/mouse position:
 
 ![SwapView Transitions](images/SwapView.png)
 
-If you drag/swipe by more than the value of the `swapThreshold` property, the next/previous child is shown with a
-"slide" transition. If you drag/swipe less than the `swapThreshold`, the current child "bounces" back with a slide
-transition.
+If you swipe by more than the value of the `swapThreshold` property, the next/previous child is shown with a
+slide transition. If you swipe less than the `swapThreshold`, the current child slides back to its initial
+position.
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -73,9 +73,9 @@ See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for con
 
 ### Properties
 
-The `swapThreshold` property defines the amount of dragging/swiping necessary to change the visible child. It is a
+The `swapThreshold` property defines the amount of swiping necessary to change the visible child. It is a
 value between 0 and 1 and corresponds to a fraction of the SwapView width. By default, `swapThreshold` is 0.5, which
-means that you must drag/swipe by more than half the size of the SwapView to change the visible child.
+means that you must swipe by more than half the size of the SwapView to change the visible child.
 
 <a name="styling"></a>
 ## Element Styling
