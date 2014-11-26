@@ -105,6 +105,29 @@ define([
 		autoFilter: false,
 		
 		/**
+		 * The chosen filter mode. Only used if `autoFilter` is `true` and
+		 * `selectionMode` is `"single"`.
+		 *
+		 * Valid values are:
+		 *
+		 * 1. "startsWith": the item matches if its label starts with the filter text.
+		 * 2. "contains": the item matches if its label contains the filter text.
+		 * 3. "is": the item matches if its label is the filter text.
+		 *
+		 * @member {string}
+		 * @default "startsWith"
+		 */
+		filterMode: "startsWith",
+		
+		/**
+		 * If `true`, the filtering of list items ignores case when matching possible items.
+		 * Only used if `autoFilter` is `true` and `selectionMode` is `"single"`.
+		 * @member {boolean} module:deliteful/Combobox#autoFilter
+		 * @default true
+		 */
+		ignoreCase: true,
+		
+		/**
 		 * The chosen selection mode.
 		 *
 		 * Valid values are:
@@ -403,10 +426,15 @@ define([
 			this._prepareInput(popupInput);
 			return popupInput;
 		},
-		
+
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
 				this.list.selectedItem = null;
+				// Would be nice to also have an "incrementalFilter" boolean property.
+				// On desktop, this would allow to redo the filtering only for "change"
+				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
+				// where pressing the search key of the virtual keyboard also triggers a
+				// change event. But there's no equivalent on Safari / iOS...
 				this.filter(inputElement.value);
 				this.openDropDown(); // reopen if closed
 				// Stop the spurious "input" events emitted while the user types
@@ -454,18 +482,22 @@ define([
 		
 		/**
 		 * Filters the List to only show the items matching `filterTxt`.
-		 * The default implementation uses `dstore/Filter.match()`. The matching is performed against
-		 * the `list.labelAttr` attribute of the data store items. The method can be overridden
-		 * for implementing other filtering strategies.
+		 * The default implementation uses `dstore/Filter.match()`.
+		 * The matching is performed against the `list.labelAttr` attribute of
+		 * the data store items.
+		 * The method can be overridden for implementing other filtering strategies.
 		 * @protected
 		 */
 		filter: function (filterTxt) {
-			filterTxt = "^" + filterTxt; // startsWith
+			if (this.filterMode === "startsWith") {
+				filterTxt = "^" + filterTxt;
+			} else if (this.filterMode === "is") {
+				filterTxt = "^" + filterTxt + "$";
+			} // nothing to add for "contains"
 			
 			// TODO: might be nice that, if no item matches the query thus the list is empty,
 			// the popup shows some specific graphic feedback.
-			// TODO: options for case-sensitiveness, startsWith/contains
-			var rexExp = new RegExp(filterTxt, "i");
+			var rexExp = new RegExp(filterTxt, this.ignoreCase ? "i" : "");
 			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
 		},
 		
