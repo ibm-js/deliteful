@@ -19,10 +19,25 @@
 			"deliteful/Store",
 			"deliteful/list/List",
 			"deliteful/Combobox",
+			"deliteful/RadioButton",
+			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
+			
+			startsWith.on("change", function () {
+				combo2.filterMode = "startsWith";
+			});
+			contains.on("change", function () {
+				combo2.filterMode = "contains";
+			});
+			is.on("change", function () {
+				combo2.filterMode = "is";
+			});
+			ignoreCase.on("change", function () {
+				combo2.ignoreCase = ignoreCase.checked;
+			});
 		});
 	</script>
 	<style>
@@ -63,6 +78,18 @@
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2">
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
+	
+	<fieldset>
+		<legend>Filtering options</legend>
+		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
+		<label for="startsWith">startsWith</label>
+		<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
+		<label for="contains">contains</label>
+		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
+		<label for="is">is</label>
+		<d-checkbox id="ignoreCase" checked></d-checkbox>
+		<label for="ignoreCase">Ignore Case</label></p>
+	</fieldset>
 	
 	<p>
 	selectionMode: "multiple"

@@ -25,11 +25,26 @@
 			"deliteful/Combobox",
 			"deliteful/Store",
 			"deliteful/Button",
+			"deliteful/RadioButton",
+			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, Memory, List) {
 			register.parse();
 
+			startsWith.on("change", function () {
+				comboTeams.filterMode = "startsWith";
+			});
+			contains.on("change", function () {
+				comboTeams.filterMode = "contains";
+			});
+			is.on("change", function () {
+				comboTeams.filterMode = "is";
+			});
+			ignoreCase.on("change", function () {
+				comboTeams.ignoreCase = ignoreCase.checked;
+			});
+		
 			showResults = function () {
 				var getSelectedItemsTxt = function (combobox) {
 					var res = "", noOptionSelected = "no option selected";
@@ -100,6 +115,18 @@ Your favorite team (single choice):
 <p>
 (The number of cups is indicated for each country.)
 </p>
+
+<fieldset>
+	<legend>Filtering options</legend>
+	<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
+	<label for="startsWith">startsWith</label>
+	<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
+	<label for="contains">contains</label>
+	<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
+	<label for="is">is</label>
+	<d-checkbox id="ignoreCase" checked></d-checkbox>
+	<label for="ignoreCase">Ignore Case</label></p>
+</fieldset>
 <br/>
 <p>
 Your favorite players (multiple choice):
@@ -112,4 +139,5 @@ Your favorite players (multiple choice):
 <button is="d-button" onclick="showResults()">Done</button>
 </p>
 
+</body>
 </html>
