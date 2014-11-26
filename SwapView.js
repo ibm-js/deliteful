@@ -1,10 +1,11 @@
 /** @module deliteful/SwapView */
 define([
-	"dcl/dcl", "delite/register", "dojo/dom-class", "dpointer/events", "./ViewStack",
+	"dcl/dcl", "delite/register", "delite/keys", "dojo/dom-class", "dpointer/events", "./ViewStack",
 	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
-], function (dcl, register, domClass, dpointer, ViewStack) {
+], function (dcl, register, keys, domClass, dpointer, ViewStack) {
 	/**
-	 * SwapView container widget. Extends ViewStack to let the user change views using a swipe gesture.
+	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
+	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
 	 *
 	 * @example:
 	 * <d-swap-view id="sv">
@@ -39,22 +40,39 @@ define([
 		 */
 		swapThreshold: 0.5,
 
+		attachedCallback: function () {
+			// If the user hasn't specified a tabindex declaratively, then set to default value.
+			if (!this.hasAttribute("tabindex")) {
+				this.tabIndex = "0";
+			}
+		},
+
 		postRender: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
 			domClass.add(this, "d-view-stack");
-			this.on("pointerdown", this.pointerDownHandler.bind(this));
-			this.on("pointermove", this.pointerMoveHandler.bind(this));
-			this.on("lostpointercapture", this.lostCaptureHandler.bind(this));
+
+			this.on("pointerdown", this._pointerDownHandler.bind(this));
+			this.on("pointermove", this._pointerMoveHandler.bind(this));
+			this.on("lostpointercapture", this._lostCaptureHandler.bind(this));
+			this.on("keydown", this._keyDownHandler.bind(this));
 		},
 
-		pointerDownHandler: function (e) {
+		/**
+		 * Starts drag/swipe interaction.
+		 * @private
+		 */
+		_pointerDownHandler: function (e) {
 			if (!this._drag) {
 				this._drag = { start: e.clientX };
 				dpointer.setPointerCapture(e.target, e.pointerId);
 			}
 		},
 
-		pointerMoveHandler: function (e) {
+		/**
+		 * Handle pointer move events during drag/swipe interaction.
+		 * @private
+		 */
+		_pointerMoveHandler: function (e) {
 			if (this._drag) {
 				var dx = e.clientX - this._drag.start;
 				if (!this._drag.started && Math.abs(dx) > this._dragThreshold) {
@@ -90,7 +108,11 @@ define([
 			}
 		},
 
-		lostCaptureHandler: function (e) {
+		/**
+		 * Handle end of drag/swipe interaction.
+		 * @private
+		 */
+		_lostCaptureHandler: function (e) {
 			if (this._drag) {
 				if (!this._drag.started) {
 					// abort before user really dragged
@@ -112,6 +134,21 @@ define([
 						domClass.add(this._drag.childIn, "-d-swap-view-slide-back");
 					}
 				}
+			}
+		},
+
+		/**
+		 * Handle Page Up/Down keys to show the previous/next child.
+		 * @private
+		 */
+		_keyDownHandler: function (e) {
+			switch (e.keyCode) {
+			case keys.PAGE_UP:
+				this.showNext();
+				break;
+			case keys.PAGE_DOWN:
+				this.showPrevious({reverse: true});
+				break;
 			}
 		},
 
