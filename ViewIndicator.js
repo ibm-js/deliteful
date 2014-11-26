@@ -50,6 +50,9 @@ define([
 		},
 
 		postRender: function () {
+			this.on("pointerdown", function (e) {
+				this.viewstack.show(this.viewstack.children[e.target._vsChildIndex]);
+			}.bind(this));
 			this.on("keydown", function (e) {
 				if (this.viewstack) {
 					switch (e.keyCode) {
@@ -105,10 +108,7 @@ define([
 				var dot = this.ownerDocument.createElement("div");
 				dot.className = "-d-view-indicator-dot" +
 					(child.style.visibility === "visible" ? " -d-view-indicator-dot-selected" : "");
-				dot._index = i;
-				this.on("pointerdown", function (e) {
-					this.viewstack.show(this.viewstack.children[e.target._index]);
-				}.bind(this), dot);
+				dot._vsChildIndex = i;
 				this.focusNode.appendChild(dot);
 			}
 			this.focusNode.setAttribute("aria-valuemax", Math.max(this.viewstack.children.length - 1, 0));
