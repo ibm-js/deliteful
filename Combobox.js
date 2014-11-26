@@ -2,6 +2,7 @@
 define([
 	"dcl/dcl",
 	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"dstore/Filter",
 	"decor/sniff",
 	"delite/register",
 	"delite/FormValueWidget",
@@ -13,7 +14,7 @@ define([
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, domClass, has, register, FormValueWidget, HasDropDown,
+], function (dcl, domClass, Filter, has, register, FormValueWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
@@ -97,7 +98,7 @@ define([
 		
 		/**
 		 * If `true`, the list of options can be filtered thanks to an editable
-		 * input element. No-op if `selectionMode` is "multiple".
+		 * input element. Only used if `selectionMode` is "single".
 		 * @member {boolean} module:deliteful/Combobox#autoFilter
 		 * @default false
 		 */
@@ -406,14 +407,7 @@ define([
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
 				this.list.selectedItem = null;
-				var txt = inputElement.value;
-				// TODO: what about server-side filtering of the store? (needs at least a
-				// mechanism allowing the user to implement it).
-				// TODO: might be nice that, if no item matches the query thus the list is empty,
-				// the popup shows some specific graphic feedback.
-				this.list.query = function (obj) {
-					return this._filterFunction(obj, txt);
-				}.bind(this);
+				this.filter(inputElement.value);
 				this.openDropDown(); // reopen if closed
 				// Stop the spurious "input" events emitted while the user types
 				// such that only the "input" events emitted via FormValueWidget.handleOnInput()
@@ -458,14 +452,21 @@ define([
 			this.handleOnInput(this.value); // emit "input" event
 		},
 		
-		_filterFunction: function (dataObj, queryTxt) {
-			var itemLabel = this.list.labelFunc ?
-				this.list.labelFunc(dataObj) : dataObj[this.list.labelAttr];
+		/**
+		 * Filters the List to only show the items matching `filterTxt`.
+		 * The default implementation uses `dstore/Filter.match()`. The matching is performed against
+		 * the `list.labelAttr` attribute of the data store items. The method can be overridden
+		 * for implementing other filtering strategies.
+		 * @protected
+		 */
+		filter: function (filterTxt) {
+			filterTxt = "^" + filterTxt; // startsWith
+			
+			// TODO: might be nice that, if no item matches the query thus the list is empty,
+			// the popup shows some specific graphic feedback.
 			// TODO: options for case-sensitiveness, startsWith/contains
-			// TODO: check fancy locale support...
-			queryTxt = queryTxt.toLocaleUpperCase();
-			itemLabel = itemLabel.toLocaleUpperCase();
-			return itemLabel.indexOf(queryTxt) === 0;
+			var rexExp = new RegExp(filterTxt, "i");
+			this.list.query = (new Filter()).match(this.list.labelAttr, rexExp);
 		},
 		
 		openDropDown: dcl.superCall(function (sup) {
