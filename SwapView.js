@@ -60,7 +60,8 @@ define([
 				if (!this._drag.started && Math.abs(dx) > this._dragThreshold) {
 					// user dragged (more than the threshold), start sliding children.
 					var childOut = this._visibleChild;
-					var childIn = dx < 0 ? childOut.nextElementSibling : childOut.previousElementSibling;
+					var childIn = (this.isLeftToRight() ? dx < 0 : dx > 0) ? childOut.nextElementSibling :
+						childOut.previousElementSibling;
 					if (childIn) {
 						this._drag.childOut = childOut;
 						this._drag.childIn = childIn;
@@ -102,7 +103,9 @@ define([
 					if ((this._drag.reverse && rx > this.swapThreshold) ||
 						(!this._drag.reverse && rx < -this.swapThreshold)) {
 						// user dragged more than the swap threshold: finish sliding to the next/prev child.
-						this.show(this._drag.childIn, { transition: "slide", reverse: this._drag.reverse });
+						this.show(this._drag.childIn,
+							{ transition: "slide", reverse: this.isLeftToRight() ? this._drag.reverse :
+								!this._drag.reverse });
 					} else {
 						// user dragged less then the swap threshold: slide back to the current child.
 						domClass.add(this._drag.childOut, "-d-swap-view-slide-back");
