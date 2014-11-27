@@ -15,7 +15,7 @@ children of the ViewStack. The dot representing the visible child is white while
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
-[User Interactions](#interactions)
+[User Interactions](#interactions)  
 [Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>

@@ -11,11 +11,11 @@ next/previous child.
 ![SwapView Transitions](images/SwapView.png)
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)
+[Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
-[Element Styling](#styling)
-[User Interactions](#interactions)
-[Enterprise Use](#enterprise)
+[Element Styling](#styling)  
+[User Interactions](#interactions)  
+[Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
