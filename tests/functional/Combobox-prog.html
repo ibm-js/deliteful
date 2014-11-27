@@ -40,17 +40,19 @@
 			]});
 			
 			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			var combobox = new Combobox({list: list}).placeAt("combo-single", "replace");
+			var combobox = new Combobox({list: list, id: "combo-single"}).placeAt("combo-single", "replace");
 			// default selectionMode: "single"
 			combo1 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combo2 = combobox; // for debug
-			combobox = new Combobox({autoFilter: true, list: list}).
+			combobox = new Combobox({autoFilter: true, list: list, id: "combo-single-autoFilter"}).
 				placeAt("combo-single-autoFilter", "replace");
 			combo2 = combobox; // for debug
 			// default selectionMode: "single"
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			startsWith.on("change", function () {
@@ -68,38 +70,45 @@
 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combo3 = combobox; // for debug
-			combobox = new Combobox({list: list, selectionMode: "multiple"}).
+			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple"}).
 				placeAt("combo-multiple", "replace");
 			combo3 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			// Now the same but disabled
 			// 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			var combobox = new Combobox({list: list, disabled: true}).
+			var combobox = new Combobox({list: list, disabled: true, id: "combo-single-disabled"}).
 				placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
 			combo4 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({autoFilter: true, list: list, disabled: true}).
+			combobox = new Combobox({autoFilter: true, list: list, 
+				disabled: true, id: "combo-single-autoFilter-disabled"}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
 			combo5 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, selectionMode: "multiple", disabled: true}).
+			combobox = new Combobox({list: list, selectionMode: "multiple", 
+				id: "combo-multiple-disabled", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
 			combo6 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
 			// Using the default instance of List created by Combobox
-			combobox = new Combobox();
+			combobox = new Combobox({id: "combo-single-default-list"});
 			combo7 = combobox; // for debug
 			combobox.list.store = dataStore;
 			combobox.placeAt("combo-single-default-list", "replace");
+			combobox.name = combobox.id; // for Form
 			combobox.startup();
 		});
 	</script>
@@ -114,15 +123,17 @@
 	</style>
 </head>
 <body>
+	<form action="processForm.html">
+	<fieldset>
 	<p>
 	Combobox <b>programmatically</b>.
 	</p>
 	<p>
-	selectionMode: "single", autoFilter: false
+	id: "combo-single", selectionMode: "single", autoFilter: false
 	</p>
 	<span id="combo-single"></span>
 	<p>
-	selectionMode: "single", autoFilter: true
+	id: "combo-single-autoFilter", selectionMode: "single", autoFilter: true
 	</p>
 	<span id="combo-single-autoFilter"></span>
 	
@@ -139,26 +150,32 @@
 	</fieldset>
 	
 	<p>
-	selectionMode: "multiple"
+	id: "combo-multiple", selectionMode: "multiple"
 	</p>
 	<span id="combo-multiple"></span>
 	
 	<p>
-	selectionMode: "single", autoFilter: false, disabled
+	id: "combo-single-disabled", selectionMode: "single", autoFilter: false, disabled
 	</p>
 	<span id="combo-single-disabled"></span>
 	<p>
-	selectionMode: "single", autoFilter: true, disabled
+	id: "combo-single-autoFilter-disabled", selectionMode: "single", autoFilter: true, disabled
 	</p>
 	<span id="combo-single-autoFilter-disabled"></span>
 	<p>
-	selectionMode: "multiple", disabled
+	id: "combo-multiple-disabled", selectionMode: "multiple", disabled
 	</p>
 	<span id="combo-multiple-disabled"></span>
 	
 	<p>
-	selectionMode: "single", autoFilter: false, default List (created by Combobox)
+	id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)
 	</p>
 	<span id="combo-single-default-list"></span>
+	
+	<br/><br/>
+	<input id="reset" type="reset">
+	<input id="submit" type="submit">
+</fieldset>
+</form>
 </body>
 </html>
