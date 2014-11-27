@@ -56,7 +56,21 @@ define([
 		<my-combobox id=\"mycombo1\"> \
 		<d-list labelAttr=\"name\" righttextAttr=\"sales\" store=\"store\"></d-list> \
 		</my-combobox>";
-				
+	
+	// For testing the ability to deal with item value different than item label
+	var dataStoreWithValue = new Memory({
+		idProperty: "label", 
+		data: [
+			{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
+			{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
+			{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
+			{ label: "USA", myValue: "US", sales: 2000, profit: 250, region: "America" },
+			{ label: "Canada", myValue: "CA", sales: 600, profit: 30, region: "America" },
+			{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
+			{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
+			{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
+	]});
+	
 	var outerCSS = "d-combobox";
 	var inputCSS = "d-combobox-input";
 	var hiddenInputCSS = "d-hidden";
@@ -469,6 +483,69 @@ define([
 			return d;
 		},
 		
+		"widget value with item value different than item label (selectionMode=single)": function () {
+			// Set List.valueAttr such that the render items contain the myValue field
+			// of the store data items.
+			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
+			var combo = new Combobox({list: list});
+			combo.startup();
+			
+			combo.deliver();
+			combo.list.deliver();
+			
+			combo.openDropDown();
+			
+			var item3 = combo.list.getItemRenderers()[3];
+			item3.click();
+			
+			var d = this.async(1000);
+			setTimeout(d.rejectOnError(function () {
+				assert.strictEqual(combo.value, "US",
+					"Value after clicking item with label USA should be US, " +
+					"not USA, as defined in the custom myValue field of the data item");
+				combo.openDropDown(); // reopen
+				var item4 = combo.list.getItemRenderers()[4];
+				item4.click();
+				setTimeout(d.callback(function () {
+					assert.strictEqual(combo.value, "CA",
+						"Value after clicking item with label Canada should be CA, " +
+						"not Canada, as defined in the custom myValue field of the data item");
+				}));
+			}));
+			return d;
+		},
+		
+		"widget value with item value different than item label (selectionMode=multiple)": function () {
+			// Set List.valueAttr such that the render items contain the myValue field
+			// of the store data items.
+			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
+			var combo = new Combobox({list: list, selectionMode: "multiple"});
+			combo.startup();
+			
+			combo.deliver();
+			combo.list.deliver();
+			
+			combo.openDropDown();
+			
+			var item3 = combo.list.getItemRenderers()[3];
+			item3.click();
+			
+			var d = this.async(1000);
+			setTimeout(d.rejectOnError(function () {
+				assert.deepEqual(combo.value, ["US"],
+					"Value after clicking item with label USA should be ['US'], " +
+					"not ['USA'], as defined in the custom myValue field of the data item");
+				var item4 = combo.list.getItemRenderers()[4];
+				item4.click();
+				setTimeout(d.callback(function () {
+					assert.deepEqual(combo.value, ["CA", "US"],
+						"Value after clicking item with label Canada should be ['CA', 'US'], " +
+						"not ['Canada', 'USA'], as defined in the custom myValue field " +
+						"of the data item");
+				}));
+			}));
+			return d;
+		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}

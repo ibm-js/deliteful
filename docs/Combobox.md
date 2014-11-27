@@ -84,7 +84,7 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     var list = new List({store: dataStore, ...});
     // Create the Combobox
     var Combobox = new Combobox({list: list, selectionMode: "multiple"});
-    Combobox.placeAt(document.body);      
+    Combobox.placeAt(document.body);
     Combobox.startup();
 });
 ```
@@ -148,14 +148,53 @@ can be done on the List instance using the mapping API of
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for
 more information about the available mapping options.
 
-### Form support
+### Value and form support
 
-The widget supports the following form-related properties: `name`, `value`, `disabled` and `alt`,
-inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md) . 
-The submitted value is the `value` property of the widget. 
-In single selection mode, the value is the label of the selected option. In multiple
-selection mode, the value is an array containing the values of the selection options.
- 
+The widget supports the following form-related properties: `value`, `name`, `disabled`
+and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md).
+When used in an HTML form, the submitted value is the one stored in the `value` 
+property of the widget.
+By default, the `label` field of the List's render items is used as value of the option.
+If the value needs to be different than the label, an attribute mapping needs to be
+set for the `value` property on the `List` instance, for example:
+
+```js
+  // Create the store
+  var dataStoreWithValue = new Memory({idProperty: "label",
+	data: [
+		{ label: "France", value: "FR" },
+		{ label: "Germany", value: "DE" },
+		...
+	]});
+    // Create the List and set valueAttr to specify the name of the field
+    // which stores the value of the item (valueFunc can also be used)
+    var list = new List({store: dataStore, valueAttr: "value", ...});
+    // Create the Combobox
+    var Combobox = new Combobox({list: list, ...});
+    Combobox.placeAt(document.body);
+    Combobox.startup();
+```
+
+or in markup:
+
+```html
+<html>
+  <d-combobox>
+    <d-list store="store" valueAttr="value"></d-list>
+  </d-combobox>
+  <d-store id="store">
+    { "label": "France", "value": "FR" },
+      ...
+  </d-store>
+</html>
+```
+
+If no mapping is specified for `value`, the label is used as value (itself subject to 
+attribute mapping using `List.labelAttr` or `List.labelFunc`).
+
+In single selection mode, the widget value is the value of the selected option.
+In multiple selection mode, the widget value is an array containing the values of the selected options.
+
 
 <a name="styling"></a>
 ## Element Styling
