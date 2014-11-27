@@ -358,7 +358,7 @@ define([
 		 */
 		_getItemValue: function (item) {
 			return "value" in item ? item.value : item.label;
-		}, 
+		},
 		
 		/**
 		 * Returns `true` if the dropdown should be centered, and returns
