@@ -103,7 +103,8 @@ define([
 				}
 				if (this._drag.started && !this._drag.ended) {
 					// This is what will really slide the children as the user swipes/drags.
-					this._setRules(Math.abs(dx / this.offsetWidth));
+					var rx = this._drag.rx = dx / this.offsetWidth;
+					this._setRules(Math.abs(rx));
 				}
 			}
 		},
@@ -120,10 +121,9 @@ define([
 				} else if (!this._drag.ended) {
 					// user released finger/mouse
 					this._drag.ended = true;
-					var rx = (e.clientX - this._drag.start) / this.offsetWidth;
 					this._addTransitionEndHandlers();
-					if ((this._drag.reverse && rx > this.swapThreshold) ||
-						(!this._drag.reverse && rx < -this.swapThreshold)) {
+					if ((this._drag.reverse && this._drag.rx > this.swapThreshold) ||
+						(!this._drag.reverse && this._drag.rx < -this.swapThreshold)) {
 						// user dragged more than the swap threshold: finish sliding to the next/prev child.
 						this.show(this._drag.childIn,
 							{ transition: "slide", reverse: this.isLeftToRight() ? this._drag.reverse :
