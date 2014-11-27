@@ -38,11 +38,31 @@
 					{ label: "China", sales: 500, profit: 40, region: "Asia" },
 					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
 			]});
+			var dataStoreWithValue = new Memory(
+				{idProperty: "label", 
+				data: [
+					{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
+					{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
+					{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
+					{ label: "USA", myValue: "US", sales: 2000, profit: 250, region: "America" },
+					{ label: "Canada", myValue: "CA", sales: 600, profit: 30, region: "America" },
+					{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
+					{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
+					{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
+			]});
 			
 			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			var combobox = new Combobox({list: list, id: "combo-single"}).placeAt("combo-single", "replace");
 			// default selectionMode: "single"
 			combo1 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			
+			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
+				righttextAttr: "sales", categoryAttr: "region"});
+			combobox = new Combobox({list: list, id: "combo-single-value"}).placeAt("combo-single-value", "replace");
+			// default selectionMode: "single"
+			combo1value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
@@ -73,6 +93,14 @@
 			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple"}).
 				placeAt("combo-multiple", "replace");
 			combo3 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			
+			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
+				righttextAttr: "sales", categoryAttr: "region"});
+			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple-value"}).
+				placeAt("combo-multiple-value", "replace");
+			combo3value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
@@ -166,6 +194,16 @@
 	id: "combo-multiple-disabled", selectionMode: "multiple", disabled
 	</p>
 	<span id="combo-multiple-disabled"></span>
+	
+	<p>
+	id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false
+	</p>
+	<span id="combo-single-value"></span>
+	
+	<p>
+	id: "combo-multiple-value", data items with value, selectionMode: "multiple"
+	</p>
+	<span id="combo-multiple-value"></span>
 	
 	<p>
 	id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)

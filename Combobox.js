@@ -37,6 +37,12 @@ define([
 	 * string. The default filtering policy can be customized thanks to the 
 	 * `filterMode` and `ignoreCase` properties.
 	 * 
+	 * If the widget is used in an HTML form, the submitted value is the one
+	 * of the `value` property. By default, the `label` field of list render items
+	 * is used as value. A different field can be specified by using attribute
+	 * mapping for `value` on the List instance. In multiple selection mode, the
+	 * value is an array containing the values of the selected options.
+	 * 
 	 * Remark: the option items must be added, removed or updated exclusively using
 	 * List's store API. Direct operations using the DOM API are not supported.
 	 * 
@@ -275,9 +281,9 @@ define([
 			// List already filled
 			var firstItemRenderer = this.list.getItemRendererByIndex(0);
 			if (firstItemRenderer) {
-				this.inputNode.value = firstItemRenderer.item.label;
+				this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
 				// Initialize widget's value
-				this._set("value", this.inputNode.value);
+				this._set("value", this._getItemRendererValue(firstItemRenderer));
 			} else {
 				// For future updates:
 				var initDone = false;
@@ -286,9 +292,9 @@ define([
 						var firstItemRenderer = this.list.getItemRendererByIndex(0);
 						var input = this._popupInput || this.inputNode;
 						if (firstItemRenderer && !initDone) {
-							input.value = firstItemRenderer.label;
+							input.value = this._getItemRendererLabel(firstItemRenderer);
 							// Initialize widget's value
-							this._set("value", input.value);
+							this._set("value", this._getItemRendererValue(firstItemRenderer));
 						}
 						initDone = true;
 					}
@@ -298,10 +304,8 @@ define([
 			var actionHandler = function (event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
 				if (renderer && !list.isCategoryRenderer(renderer)) {
-					var label = renderer.item.label;
-					this.inputNode.value = label;
-					// TODO: temporary till solving issues with introducing valueAttr
-					this.value = label;
+					this.inputNode.value = this._getItemRendererLabel(renderer);
+					this.value = this._getItemRendererValue(renderer);
 					this.handleOnInput(this.value); // emit "input" event
 					if (this.selectionMode !== "multiple") {
 						this.closeDropDown(true/*refocus*/);
@@ -329,6 +333,32 @@ define([
 			
 			this._prepareInput(this.inputNode);
 		},
+		
+		/**
+		 * Returns the label of a List item renderer.
+		 * @private 
+		 */
+		_getItemRendererLabel: function (itemRenderer) {
+			return itemRenderer.item.label;
+		},
+		
+		/**
+		 * Returns the value of a List item renderer. Defaults to its label
+		 * if the underlying data item has no value. 
+		 * @private 
+		 */
+		_getItemRendererValue: function (itemRenderer) {
+			return this._getItemValue(itemRenderer.item);
+		},
+		
+		/**
+		 * Returns the value of a List render item. Defaults to its label
+		 * if the underlying data item has no value. 
+		 * @private 
+		 */
+		_getItemValue: function (item) {
+			return "value" in item ? item.value : item.label;
+		}, 
 		
 		/**
 		 * Returns `true` if the dropdown should be centered, and returns
@@ -468,11 +498,11 @@ define([
 			if (n > 1) {
 				inputElement.value = this._multipleChoiceMsg;
 				for (var i = 0; i < n; i++) {
-					value.push(selectedItems[i] ? selectedItems[i].label : "");
+					value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
 				}
 			} else if (n === 1) {
 				var selectedItem = this.list.selectedItem;
-				inputElement.value = selectedItem ? selectedItem.label : "";
+				inputElement.value = selectedItem ? this._getItemValue(selectedItem) : "";
 				value.push(inputElement.value);
 			} else { // no option selected
 				inputElement.value = "";
