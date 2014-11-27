@@ -1,9 +1,12 @@
 <template class="d-combobox" role="presentation">
 	<input class="d-combobox-input"
 		role="combobox"
-		attach-point="inputNode,buttonNode,focusNode,valueNode"
+		attach-point="inputNode,buttonNode,focusNode"
 		autocomplete="off" autocorrect="off" autocapitalize="none"
 		aria-autocomplete="list"
 		type="{{this.autoFilter ? 'search' : 'text'}}"
-		readonly="{{this._inputReadOnly ? 'readonly' : ''}}" name="{{name}}">
+		readonly="{{this._inputReadOnly ? 'readonly' : ''}}">
+	<input class="d-hidden"
+		attach-point="valueNode"
+		readonly name="{{name}}" value="{{value}}">
 </template>
