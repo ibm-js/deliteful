@@ -51,6 +51,9 @@
 	</style>
 </head>
 <body>
+	<form action="processForm.html">
+	<fieldset>
+		
 	<p>
 	Combobox in <b>markup</b>.
 	</p>
@@ -66,16 +69,16 @@
 	</d-store>
 	
 	<p>
-	selectionMode: "single", autoFilter: false
+	id: "combo1" selectionMode: "single", autoFilter: false
 	</p>
-	<d-combobox selectionMode="single" autoFilter="false" id="combo1">
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1">
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	
 	<p>
-	selectionMode: "single", autoFilter: true
+	id: "combo2" selectionMode: "single", autoFilter: true
 	</p>
-	<d-combobox selectionMode="single" autoFilter="true" id="combo2">
+	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2">
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	
@@ -92,32 +95,39 @@
 	</fieldset>
 	
 	<p>
-	selectionMode: "multiple"
+	id: "combo3" selectionMode: "multiple"
 	</p>
-	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3">
+	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3" name="combo3">
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	
 	<p>
-	selectionMode: "single", autoFilter: false, disabled
+	id: "combo1-disabled" selectionMode: "single", autoFilter: false, disabled
 	</p>
 	<d-combobox selectionMode="single" autoFilter="false" 
-		id="combo1-disabled" disabled>
+		id="combo1-disabled" name="combo1-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	<p>
-	selectionMode: "single", autoFilter: true, disabled
+	id: "combo2-disabled" selectionMode: "single", autoFilter: true, disabled
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" 
-		id="combo2-disabled" disabled>
+		id="combo2-disabled" name="combo2-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	<p>
-	selectionMode: "multiple", disabled
+	id: "combo3-disabled" selectionMode: "multiple", disabled
 	</p>
 	<d-combobox selectionMode="multiple" autoFilter="false" 
-		id="combo3-disabled" disabled>
+		id="combo3-disabled" name="combo3-disabled" disabled>
 		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
+	
+	<br/><br/>
+	<input id="reset" type="reset">
+	<input id="submit" type="submit">
+</fieldset>
+</form>
+	
 </body>
 </html>
