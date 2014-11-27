@@ -35,6 +35,10 @@ layout: doc
 * [SwapView](SwapView.md)
 * [ResponsiveColumns](ResponsiveColumns.md)
 
+## Other Widgets
+
+* [ViewIndicator](ViewIndicator.md)
+
 ## Non Visual Custom Elements
 
 * [Store](Store.md)
