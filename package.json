@@ -11,11 +11,15 @@
 		"grunt-contrib-uglify": "~0.2.2",
 		"jsdoc-amddcl": "git://github.com/ibm-js/jsdoc-amddcl#master"
 	},
+	"jsdocDependencies": [
+		"delite"
+	],
 	"licenses": [
 		{
 			"type": "BSD",
 			"url": "https://github.com/ibm-js/deliteful/blob/master/LICENSE"
 		}
 	],
-	"bugs": "https://github.com/ibm-js/deliteful/issues"
+	"bugs": "https://github.com/ibm-js/deliteful/issues",
+	"private": true
 }
