@@ -59,7 +59,7 @@ define([
 	
 	// For testing the ability to deal with item value different than item label
 	var dataStoreWithValue = new Memory({
-		idProperty: "label", 
+		idProperty: "label",
 		data: [
 			{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
 			{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
@@ -69,7 +69,8 @@ define([
 			{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
 			{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
 			{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
-	]});
+		]
+	});
 	
 	var outerCSS = "d-combobox";
 	var inputCSS = "d-combobox-input";
