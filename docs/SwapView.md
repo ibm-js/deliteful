@@ -42,7 +42,7 @@ require(["delite/register", "deliteful/SwapView", "requirejs-domready/domReady!"
 
 ```html
 <html>
-  <d-swap-view style="width:100%, height:200px">
+  <d-swap-view style="width:100%; height:200px">
     <div style="background-color: darkblue">Child 1 (Default visible child)</div>
     <div style="background-color: white">Child 2</div>
     <div style="background-color: crimson">Child 3</div>
@@ -54,15 +54,15 @@ require(["delite/register", "deliteful/SwapView", "requirejs-domready/domReady!"
 
 ```js
 require(["deliteful/SwapView", "requirejs-domready/domReady!"], function (SwapView) {
-  var vs = new SwapView({width:"100%, height: 200px"});
+  var sv = new SwapView({style: "width:100%; height: 200px"});
   var child1 = document.createElement("div");
   var child2 = document.createElement("div");
   var child3 = document.createElement("div");
-  vs.addChild(child1);
-  vs.addChild(child2);
-  vs.addChild(child3);
-  vs.placeAt(document.body);
-  vs.startup();
+  sv.addChild(child1);
+  sv.addChild(child2);
+  sv.addChild(child3);
+  sv.placeAt(document.body);
+  sv.startup();
 });
 ```
 
