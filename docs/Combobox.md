@@ -12,9 +12,11 @@ displaying the list of options.
 Characteristics:
 * It allows to benefit from the customization mechanism of the list item rendering.
 * Provides single and multiple selection modes.
-* Provides optional interactive filtering of list of options (single selection mode only).  
-* The rendering of the popup is multi-channel responsive: the popup is displayed below/above
-the main button.
+* Provides optional interactive filtering of list of options (single selection mode only). 
+* The rendering of the popup is multi-channel responsive: by default, the popup is displayed
+on desktop below/above the main element, while on mobile it is displayed in a centered
+overlay.
+
 
 *Example of deliteful/Combobox (single choice mode, on desktop browser):*
 
@@ -115,10 +117,27 @@ options can be selected).
 
 In single selection mode, if the property `autoFilter` is set to `true` (default is `false`)
 the widget allows to type one or more characters which are used for filtering 
-the list of shown list items. The filtering is case-insensitive. An item is shown
-if the `label` property of the corresponding data item contains the entered string.
-(More options will be added in a next release.)
+the list of shown list items. By default, the filtering is case-insensitive, and an item
+is shown if its label contains the entered string.
 
+The default filtering policy can be customized using the `filterMode` and 
+`ignoreCase` properties.
+
+The valid values of `filterMode` are:
+		 
+* `"startsWith"`: the item matches if its label starts with the filter text.
+* `"contains"`: the item matches if its label contains the filter text.
+* `"is"`: the item matches if its label is the filter text.
+
+The matching is case insensitive by default. Setting `ignoreCase` to `false` turns
+it case sensitive.
+ 
+The filtering is performed by the `filter(fitlerTxt)` method, which is called automatically 
+while the user types into the editable input element, with `filterTxt` being the currently
+entered text. The default implementation of this method uses `dstore/Filter.match()`.
+The matching is performed against the `list.labelAttr` attribute of the data store items.
+The method can be overridden for implementing other filtering strategies.
+		 
 ### Attribute Mapping
 
 The customization of the mapping of data store item attributes into render item attributes
@@ -128,6 +147,15 @@ can be done on the List instance using the mapping API of
 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for
 more information about the available mapping options.
+
+### Form support
+
+The widget supports the following form-related properties: `name`, `value`, `disabled` and `alt`,
+inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md) . 
+The submitted value is the `value` property of the widget. 
+In single selection mode, the value is the label of the selected option. In multiple
+selection mode, the value is an array containing the values of the selection options.
+ 
 
 <a name="styling"></a>
 ## Element Styling

@@ -32,9 +32,10 @@ define([
 	 *  
 	 * In single selection mode, if the property `autoFilter` is set to `true`
 	 * (default is `false`) the widget allows to type one or more characters which
-	 * are used for filtering the shown list items. The filtering is
-	 * case-insensitive. An item is shown if the `label` property of the
-	 * corresponding data item contains the entered string.
+	 * are used for filtering the shown list items. By default, the filtering is
+	 * case-insensitive, and an item is shown if its label contains the entered
+	 * string. The default filtering policy can be customized thanks to the 
+	 * `filterMode` and `ignoreCase` properties.
 	 * 
 	 * Remark: the option items must be added, removed or updated exclusively using
 	 * List's store API. Direct operations using the DOM API are not supported.
@@ -481,7 +482,10 @@ define([
 		},
 		
 		/**
-		 * Filters the List to only show the items matching `filterTxt`.
+		 * Filters the embedded List to only show the items matching `filterTxt`.
+		 * If `autoFilter` is `true` and `selectionMode` is `"single"`, the method
+		 * is called automatically while the user types into the editable input
+		 * element, with `filterTxt` being the currently entered text.
 		 * The default implementation uses `dstore/Filter.match()`.
 		 * The matching is performed against the `list.labelAttr` attribute of
 		 * the data store items.
