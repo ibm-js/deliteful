@@ -58,7 +58,8 @@ define([
 		</my-combobox>";
 				
 	var outerCSS = "d-combobox";
-	var innerCSS = "d-combobox-input";
+	var inputCSS = "d-combobox-input";
+	var hiddenInputCSS = "d-hidden";
 	var nOptions = 10;
 	
 	var initCombobox = function (combo, trackable) {
@@ -181,6 +182,8 @@ define([
 		assert.strictEqual(combo.autoFilter, false, "combo.autoFilter");
 		assert.strictEqual(combo.selectionMode, "single", "combo.selectionMode");
 		assert.strictEqual(combo.baseClass, outerCSS, "combo.baseClass");
+		assert.strictEqual(combo.filterMode, "startsWith", "combo.filterMode");
+		assert.isTrue(combo.ignoreCase, "combo.ignoreCase");
 	};
 	
 	var CommonTestCases = {
@@ -195,9 +198,12 @@ define([
 			assert.isTrue(domClass.contains(combo, outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.valueNode, innerCSS),
-				"Expecting " + innerCSS +
-				" CSS class on inner element of combo.id: " + combo.id);
+			assert.isTrue(domClass.contains(combo.inputNode, inputCSS),
+				"Expecting " + inputCSS +
+				" CSS class on inner input element of combo.id: " + combo.id);
+			assert.isTrue(domClass.contains(combo.valueNode, hiddenInputCSS),
+				"Expecting " + hiddenInputCSS +
+				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 
 			combo = document.getElementById("mycombo1");
 			
@@ -209,9 +215,12 @@ define([
 			assert.isTrue(domClass.contains(combo, outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.valueNode, innerCSS),
-				"Expecting " + innerCSS +
-				" CSS class on inner element of combo.id: " + combo.id);
+			assert.isTrue(domClass.contains(combo.inputNode, inputCSS),
+				"Expecting " + inputCSS +
+				" CSS class on inner input element of combo.id: " + combo.id);
+			assert.isTrue(domClass.contains(combo.valueNode, hiddenInputCSS),
+				"Expecting " + hiddenInputCSS +
+				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},
 		
 		"Default values" : function () {
