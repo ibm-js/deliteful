@@ -5,25 +5,17 @@ title: deliteful/SwapView
 
 # deliteful/SwapView
 
-`deliteful/SwapView` is a container that extends `deliteful/SwapView` and adds user interactions:
-- You can show the next or previous child using a swipe gesture (with the finger on touch devices, or the mouse on
-desktop).
-- You can also use the Page Up/Down keyboard keys to go the next/previous child.
-
-During a swipe interaction, the next/previous child is partially shown next to the current child and both
-children slide following the finger/mouse position:
+`deliteful/SwapView` is a container that extends `deliteful/SwapView` and adds a swipe interaction to show the
+next/previous child.
 
 ![SwapView Transitions](images/SwapView.png)
 
-If you swipe by more than the value of the `swapThreshold` property, the next/previous child is shown with a
-slide transition. If you swipe less than the `swapThreshold`, the current child slides back to its initial
-position.
-
 ##### Table of Contents
-[Element Instantiation](#instantiation)  
+[Element Instantiation](#instantiation)
 [Element Configuration](#configuration)  
-[Element Styling](#styling)  
-[Enterprise Use](#enterprise)  
+[Element Styling](#styling)
+[User Interactions](#interactions)
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -83,6 +75,15 @@ means that you must swipe by more than half the size of the SwapView to change t
 `deliteful/SwapView` has no visual appearance, it does not provide any CSS class for styling.
 
 See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for styling of the ViewStack base class.
+
+<a name="interactions"></a>
+## User Interactions
+
+- During a swipe interaction, the next/previous child is partially shown next to the current child and both
+  children slide following the finger/mouse position. If you swipe by more than the value of the `swapThreshold`
+  property, the next/previous child is shown with a slide transition. If you swipe less than the `swapThreshold`,
+  the current child slides back to its initial position.
+- Page Up/Down keyboard keys to go the next/previous child.
 
 <a name="enterprise"></a>
 ## Enterprise Use

@@ -15,7 +15,8 @@ children of the ViewStack. The dot representing the visible child is white while
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
-[Enterprise Use](#enterprise)  
+[User Interactions](#interactions)
+[Enterprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -27,7 +28,8 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/SwapView", "deliteful/ViewIndicator", "requirejs-domready/domReady!"],
+require(["delite/register", "deliteful/SwapView", "deliteful/ViewIndicator",
+"requirejs-domready/domReady!"],
 function (register) {
   register.parse();
 });
@@ -69,8 +71,9 @@ function (SwapView, ViewIndicator) {
 
 ### Properties
 
-The `viewstack` property must be set to the id of a `deliteful/ViewStack` or `deliteful/SwapView` instance. The
-ViewIndicator will track visibility changes of the children of the specified ViewStack and update its display
+The `viewstack` property must be set to a `deliteful/ViewStack` or `deliteful/SwapView` id or instance.
+The ViewIndicator will track visibility changes of the children of the specified ViewStack and update
+its display
 accordingly.
 
 <a name="styling"></a>
@@ -88,8 +91,8 @@ This widget provides default styling for the following delite themes:
 
 The dots can be customized using the following CSS classes:
 
-* `.-d-view-indicator-dot` is added to all dots,
-* `.-d-view-indicator-dot-selected`  is added to the dot representing the visible child.
+* `-d-view-indicator-dot` is added to all dots,
+* `-d-view-indicator-dot-selected` is added to the dot representing the visible child.
 
 For example, the following rules would give a square shape to the dots and make the selected dot red:
 ```css
@@ -102,13 +105,18 @@ For example, the following rules would give a square shape to the dots and make 
 }
 ```
 
+<a name="interactions"></a>
+## User Interactions
+
+Clicking or touching a dot will show the corresponding child in the ViewStack.
+
 <a name="enterprise"></a>
 ## Enterprise Use
 
 ### Accessibility
 
-ViewStack provides keyboard accessibility support: pressing the Page Up key shows the next child,
-pressing Page Down shows the previous child.
+ViewIndicator does not provide accessibility support, as the ViewStack is already accessible through the Page Up /
+Down keys.
 
 ### Globalization
 
