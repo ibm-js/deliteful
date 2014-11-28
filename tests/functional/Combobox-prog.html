@@ -131,9 +131,17 @@
 			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			combobox = new Combobox({list: list, dir: "rtl", id: "combo-single"}).
+				placeAt("combo-single-rtl", "replace");
+			// default selectionMode: "single"
+			combo7 = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			
 			// Using the default instance of List created by Combobox
 			combobox = new Combobox({id: "combo-single-default-list"});
-			combo7 = combobox; // for debug
+			combo8 = combobox; // for debug
 			combobox.list.store = dataStore;
 			combobox.placeAt("combo-single-default-list", "replace");
 			combobox.name = combobox.id; // for Form
@@ -204,6 +212,11 @@
 	id: "combo-multiple-value", data items with value, selectionMode: "multiple"
 	</p>
 	<span id="combo-multiple-value"></span>
+	
+	<p>
+	id: "combo-single-rtl", dir="rtl" selectionMode: "single", autoFilter: false
+	</p>
+	<span id="combo-single-rtl"></span>
 	
 	<p>
 	id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)

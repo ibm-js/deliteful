@@ -12,7 +12,7 @@
 	
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
-
+	
 	<script type="text/javascript">
 		require([
 			"delite/register",
@@ -145,6 +145,14 @@
 	</p>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value">
 		<d-list valueAttr="myValue" righttextAttr="sales" store="storeWithValue"></d-list>
+	</d-combobox>
+	
+	<p>
+	id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
+	</p>
+	<d-combobox dir="rtl" selectionMode="single" autoFilter="false" 
+		id="combo1-single-rtl" name="combo1-single-rtl">
+		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	
 	<br/><br/>
