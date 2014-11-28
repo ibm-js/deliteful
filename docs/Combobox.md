@@ -239,8 +239,8 @@ messages:
 |"ok-button-label"|The label of the OK button used for multiple selection mode on mobile.
 |"cancel-button-label"|The label of the Cancel button used for multiple selection mode on mobile.
 
-To first 3 strings in the table above are used as default values for the widget properties 
-`multipleChoiceMsg`, `multipleChoiceNoSelectionMsg`, and `searchPlaceHolder`.
+The first 3 strings in the table above are used as default values for the widget properties 
+`multipleChoiceMsg`, `multipleChoiceNoSelectionMsg`, and respectively `searchPlaceHolder`.
 To customize these strings on a per-widget basis, set directly these properties.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
