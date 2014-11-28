@@ -52,6 +52,7 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 			// save store specific on/emit and later use them only for store specific events
 			store._emit = store.emit;
 			store._on = store.on;
+			var include = store._includePropertyInSubCollection;
 			// save custom element specific on/emit to restore them after mixin
 			var emit = this.emit;
 			var on = this.on;
@@ -65,16 +66,8 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 			this.on = on;
 			// override createSubCollection to avoid issue with IE
 			var self = this;
-			this._createSubCollection = function (kwArgs) {
-				var newCollection = Object.create(store.constructor.prototype);
-				for (var i in store) {
-					if ((!(i in newCollection) || newCollection[i] !== self[i])
-						&& !excludePropertiesOnCopy.hasOwnProperty(i)) {
-						newCollection[i] = self[i];
-					}
-				}
-				dcl.mix(newCollection, kwArgs);
-				return newCollection;
+			this._includePropertyInSubCollection = function (name) {
+				return name !== "recordset" && include.apply(this, arguments);
 			};
 		},
 		on: dcl.superCall(function (sup) {

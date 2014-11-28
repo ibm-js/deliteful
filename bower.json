@@ -3,15 +3,15 @@
 	"version": "0.4.0",
 	"dependencies": {
 		"dcl": "1.1.x",
-		"decor": "0.3.x",
-		"delite": "0.4.x",
+		"decor": "0.4.x",
+		"delite": "0.5.x",
 		"dojo": ">=1.9.1",
-		"dpointer": "0.3.x",
+		"dpointer": "0.4.x",
 		"ecma402": "0.2.x",
 		"requirejs": "2.1.x",
 		"requirejs-domready": "2.0.x",
-		"requirejs-dplugins": "0.3.x",
-		"dstore": "0.2.0"
+		"requirejs-dplugins": "0.4.x",
+		"dstore": "1.0.x"
 	},
 	"keywords": [
 		"web-components",
