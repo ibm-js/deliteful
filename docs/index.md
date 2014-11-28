@@ -32,7 +32,12 @@ layout: doc
 * [ScrollableContainer](ScrollableContainer.md)
 * [SidePane](SidePane.md)
 * [ViewStack](ViewStack.md)
+* [SwapView](SwapView.md)
 * [ResponsiveColumns](ResponsiveColumns.md)
+
+## Other Widgets
+
+* [ViewIndicator](ViewIndicator.md)
 
 ## Non Visual Custom Elements
 
