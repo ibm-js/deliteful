@@ -113,7 +113,7 @@ define([
 		 * Handle end of drag/swipe interaction.
 		 * @private
 		 */
-		_lostCaptureHandler: function (e) {
+		_lostCaptureHandler: function () {
 			if (this._drag) {
 				if (!this._drag.started) {
 					// abort before user really dragged
