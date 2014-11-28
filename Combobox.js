@@ -180,9 +180,29 @@ define([
 		 */
 		searchPlaceHolder: messages["search-placeholder"],
 		
-		// TODO: worth exposing a property of it too?
-		// The default text displayed in the input for a multiple choice
-		_multipleChoiceMsg: messages["multiple-choice"],
+		/**
+		 * The text displayed in the input element when more than one option is
+		 * selected. The default value is provided by the "search-placeholder" key of
+		 * the message bundle.
+		 * @member {string}
+		 * @default "Search"
+		 */
+		multipleChoiceMsg: messages["multiple-choice"],
+		
+		/**
+		 * The text displayed in the input element when no option is selected.
+		 * The default value is provided by the "multiple-choice-no-selection" key of
+		 * the message bundle.
+		 * @member {string}
+		 * @default "Select option(s)"
+		 */
+		multipleChoiceNoSelectionMsg: messages["multiple-choice-no-selection"],
+		
+		// TODO: worth exposing public properties?
+		// The default label of the OK button
+		_okButtonLabel: messages["ok-button-label"],
+		// The default label of the Cancel button
+		_cancelButtonLabel: messages["cancel-button-label"],
 		
 		preRender: function () {
 			this.list = new List();
@@ -278,57 +298,69 @@ define([
 			}.bind(this));
 			*/
 
-			// List already filled
-			var firstItemRenderer = this.list.getItemRendererByIndex(0);
-			if (firstItemRenderer) {
-				this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
-				// Initialize widget's value
-				this._set("value", this._getItemRendererValue(firstItemRenderer));
-			} else {
-				// For future updates:
-				var initDone = false;
-				this.list.on("query-success", function () {
-					if (!initDone) {
-						var firstItemRenderer = this.list.getItemRendererByIndex(0);
-						var input = this._popupInput || this.inputNode;
-						if (firstItemRenderer && !initDone) {
-							input.value = this._getItemRendererLabel(firstItemRenderer);
-							// Initialize widget's value
-							this._set("value", this._getItemRendererValue(firstItemRenderer));
+			if (this.selectionMode === "single") {
+				// List already filled
+				var firstItemRenderer = this.list.getItemRendererByIndex(0);
+				if (firstItemRenderer) {
+					this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
+					// Initialize widget's value
+					this._set("value", this._getItemRendererValue(firstItemRenderer));
+					this.list.selectedItem = firstItemRenderer.item;
+				} else {
+					// For future updates:
+					var initDone = false;
+					this.list.on("query-success", function () {
+						if (!initDone) {
+							var firstItemRenderer = this.list.getItemRendererByIndex(0);
+							var input = this._popupInput || this.inputNode;
+							if (firstItemRenderer && !initDone) {
+								input.value = this._getItemRendererLabel(firstItemRenderer);
+								// Initialize widget's value
+								this._set("value", this._getItemRendererValue(firstItemRenderer));
+								this.list.selectedItem = firstItemRenderer.item;
+							}
+							initDone = true;
 						}
-						initDone = true;
-					}
-				}.bind(this));
-			}
+					}.bind(this));
+				}
+			} // else, if selectionMode === "multiple", do not select the first
+			// option, because it would be confusing; the user may scroll and
+			// select some other option, without deselecting the first one. The
+			// native select in multiple mode doesn't select any option by default either.
 			
-			var actionHandler = function (event, list) {
+			var singleSelectionActionHandler = function (event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
 				if (renderer && !list.isCategoryRenderer(renderer)) {
 					this.inputNode.value = this._getItemRendererLabel(renderer);
+					this.list.selectedItem = renderer.item;
 					this.value = this._getItemRendererValue(renderer);
 					this.handleOnInput(this.value); // emit "input" event
-					if (this.selectionMode !== "multiple") {
+					this.defer(function () {
+						// deferred such that the user can see the selection feedback
+						// before the dropdown is closed.
 						this.closeDropDown(true/*refocus*/);
-					}
+					}.bind(this), 100); // worth exposing a property for the delay?
 				}
 			}.bind(this);
 			
-			if (this.selectionMode !== "multiple") {
+			if (this.selectionMode === "single") {
 				this.list.on("click", function (event) {
-					actionHandler(event, this.list);
+					singleSelectionActionHandler(event, this.list);
 				}.bind(this));
 				this.list.on("keydown", function (event) {
 					if (event.keyCode === keys.ENTER) {
-						actionHandler(event, this.list);
+						singleSelectionActionHandler(event, this.list);
 					}
 				}.bind(this));
-			}
-			
-			if (this.selectionMode === "multiple" &&
-				!this.useCenteredDropDown()) {
-				this.list.on("selection-change", function () {
-					this._validateMultiple(this._popupInput || this.inputNode);
-				}.bind(this));
+			} else { // selectionMode === "multiple"
+				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
+				// if useCenteredDropDown is true, let the dropdown's OK/Cancel
+				// buttons do the job
+				if (!this.useCenteredDropDown()) {
+					this.list.on("selection-change", function () {
+						this._validateMultiple(this._popupInput || this.inputNode);
+					}.bind(this));
+				}
 			}
 			
 			this._prepareInput(this.inputNode);
@@ -339,7 +371,7 @@ define([
 		 * @private 
 		 */
 		_getItemRendererLabel: function (itemRenderer) {
-			return itemRenderer.item.label;
+			return this._getItemLabel(itemRenderer.item);
 		},
 		
 		/**
@@ -349,6 +381,14 @@ define([
 		 */
 		_getItemRendererValue: function (itemRenderer) {
 			return this._getItemValue(itemRenderer.item);
+		},
+		
+		/**
+		 * Returns the label of a List render item.
+		 * @private 
+		 */
+		_getItemLabel: function (item) {
+			return item.label;
 		},
 		
 		/**
@@ -419,8 +459,8 @@ define([
 			// buttons in the multichoice case.
 			if (this.selectionMode === "multiple") {
 				var bottomLayout = new LinearLayout({vertical: false, width: "100%"});
-				var cancelButton = new Button({label: "Cancel"});
-				var okButton = new Button({label: "OK"});
+				var cancelButton = new Button({label: this._cancelButtonLabel});
+				var okButton = new Button({label: this._okButtonLabel});
 				okButton.onclick = function () {
 					this._validateMultiple(this.inputNode);
 					this.closeDropDown();
@@ -460,7 +500,6 @@ define([
 
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
-				this.list.selectedItem = null;
 				// Would be nice to also have an "incrementalFilter" boolean property.
 				// On desktop, this would allow to redo the filtering only for "change"
 				// events, triggered when pressing ENTER. This would also fit for Chrome/Android,
@@ -496,16 +535,16 @@ define([
 			var n = selectedItems ? selectedItems.length : 0;
 			var value = [];
 			if (n > 1) {
-				inputElement.value = this._multipleChoiceMsg;
+				inputElement.value = this.multipleChoiceMsg;
 				for (var i = 0; i < n; i++) {
 					value.push(selectedItems[i] ? this._getItemValue(selectedItems[i]) : "");
 				}
 			} else if (n === 1) {
 				var selectedItem = this.list.selectedItem;
-				inputElement.value = selectedItem ? this._getItemValue(selectedItem) : "";
-				value.push(inputElement.value);
+				inputElement.value = this._getItemLabel(selectedItem);
+				value.push(this._getItemValue(selectedItem));
 			} else { // no option selected
-				inputElement.value = "";
+				inputElement.value = this.multipleChoiceNoSelectionMsg;
 			}
 			this._set("value", value);
 			this.handleOnInput(this.value); // emit "input" event
@@ -537,9 +576,10 @@ define([
 		
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
+				var selectedItems = this.list.selectedItems;
 				// Store the value, to be able to restore on cancel. (Could spare
 				// it in situations when there is  no cancel button, though.)
-				this._selectedItems = this.list.selectedItems;
+				this._selectedItems = selectedItems;
 				
 				// Temporary workaround for issue with bad pairing in List of the 
 				// busy on/off state. The issue appears to go away if List.attachedCallback
@@ -551,6 +591,18 @@ define([
 				}.bind(this), 300);
 				
 				sup.apply(this, arguments);
+				
+				var firstSelectedItem = selectedItems && selectedItems.length > 0 ?
+					selectedItems[0] : null;
+				if (firstSelectedItem) {
+					// Make the first selected item (if any) visible.
+					// Must be done after sup.apply, because List.getBottomDistance
+					// relies on dimensions which are not available if the DOM nodes
+					// are not (yet) visible, hence the popup needs to be shown before.
+					var id = this.list.getIdentity(firstSelectedItem);
+					var renderer = this.list.getRendererByItemId(id);
+					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+				}
 			};
 		}),
 		
@@ -564,6 +616,14 @@ define([
 				// any item, when the dropdown will be reopen it shows all items
 				// instead of being empty 
 				this.list.query = {};
+				
+				if (this.selectionMode === "single" && this.autoFilter) {
+					// In autoFilter mode, reset the content of the inputNode when
+					// closing the dropdown, such that next time the dropdown is opened
+					// it doesn't show the text the user may have entered for filtering
+					this.inputNode.value = this._getItemLabel(this.list.selectedItem);
+				}
+				
 				sup.apply(this, arguments);
 			};
 		})

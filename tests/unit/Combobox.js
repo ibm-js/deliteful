@@ -128,7 +128,7 @@ define([
 		return dataItems;
 	};
 	
-	var checkCombobox = function (combo, trackableStore) {
+	var checkCombobox = function (combo, test, trackableStore) {
 		// These checks are common to both cases: trackable and non-trackable stores
 		
 		if (!trackableStore) {
@@ -150,47 +150,50 @@ define([
 		assert.strictEqual(combo.value, combo.valueNode.value,
 			"combo.value equal to combo.valueNode.value after adding 10 options on combo.id: " +
 			combo.id);
-		// By default, the first option is selected for a
-		// single-choice (none for a multi-choice)
-		assert.isNull(combo.list.selectedItem,
-			"combo.list.selectedItem should be null after adding 10 options on combo.id: " +
+		// By default, the first option is selected for a single-choice (none for a multi-choice)
+		assert.isNotNull(combo.list.selectedItem,
+			"combo.list.selectedItem should not be null after adding 10 options on combo.id: " +
 			combo.id);
-		assert.strictEqual(combo.list.selectedItems.length, 0,
+		assert.strictEqual(combo.list.selectedItem.label, "Option 0",
+			"combo.list.selectedItem.label after adding 10 options on combo.id: " +
+			combo.id);
+		assert.strictEqual(combo.list.selectedItems.length, 1,
 			"combo.list.selectedItems after adding 10 options on combo.id: " + combo.id);
 
-		var dataItems = combo._testDataItems; // Programmatic case
-		if (!dataItems) {
-			dataItems = combo.list.store.data; // Declarative case
-		}
-		
-		// Select an element via delite/Selection's API
-		combo.list.setSelected(dataItems[0], true);
-		// Or, equivalently:
-		// combo.list.setSelected(combo.list.store.getSync(dataItems[0].id), true);
-		
-		combo.deliver();
-		combo.list.deliver();
-		
-		assert.strictEqual(combo.value, "Option 0",
-			"combo.value after selecting dataItems[0] on combo.id: " +
-			combo.id);
-		assert.strictEqual(combo.value, combo.valueNode.value,
-			"combo.value equal to combo.valueNode.value after selecting dataItems[0] on combo.id: " +
-			combo.id);
-		var dataObj = combo.list.selectedItem;
-		var itemLabel = combo.list.labelFunc ?
-			combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
-		assert.strictEqual(itemLabel, "Option 0",
-			"label of combo.list.selectedItem after selecting dataItems[0] on combo.id: " + combo.id);
-		assert.strictEqual(combo.list.selectedItems.length, 1,
-			"combo.list.selectedItems.length after selecting dataItems[0] on combo.id: " +
-			combo.id);
-		dataObj = combo.list.selectedItems[0];
-		itemLabel = combo.list.labelFunc ?
-			combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
-		assert.strictEqual(itemLabel, "Option 0",
-			"label of combo.list.selectedItems[0] after selecting dataItems[0] on combo.id: " +
-			combo.id);
+		combo.openDropDown();
+			
+		var item2 = combo.list.getItemRenderers()[2];
+		item2.click();
+			
+		var d = test.async(1000);
+		setTimeout(d.callback(function () {
+			combo.deliver();
+			combo.list.deliver();
+			
+			assert.strictEqual(combo.value, "Option 2",
+				"combo.value after selecting dataItems[2] on combo.id: " +
+				combo.id);
+			assert.strictEqual(combo.value, combo.valueNode.value,
+				"combo.value equal to combo.valueNode.value after selecting dataItems[2] on combo.id: " +
+				combo.id);
+			var dataObj = combo.list.selectedItem.__item;
+			var itemLabel = combo.list.labelFunc ?
+				combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+			assert.strictEqual(itemLabel, "Option 2",
+				"label of combo.list.selectedItem after selecting dataItems[2] on combo.id: " + combo.id);
+			assert.strictEqual(combo.list.selectedItems.length, 1,
+				"combo.list.selectedItems.length after selecting dataItems[2] on combo.id: " +
+				combo.id);
+			dataObj = combo.list.selectedItems[0].__item;
+			itemLabel = combo.list.labelFunc ?
+				combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+			assert.strictEqual(itemLabel, "Option 2",
+				"label of combo.list.selectedItems[2] after selecting dataItems[2] on combo.id: " +
+				combo.id);
+			
+			combo.closeDropDown();
+		}));
+		return d;
 	};
 
 	var checkDefaultValues = function (combo) {
@@ -278,11 +281,11 @@ define([
 		"Store.add/remove/put (custom element store)" : function () {
 			var combo = document.getElementById("combo1");
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 			
 			combo = document.getElementById("mycombo1");
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 		},
 		"Attribute mapping for label" : function () {
 			// Check the attribute mapping for label
@@ -292,11 +295,11 @@ define([
 			
 			var combo = document.getElementById("combo1");
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 			
 			combo = document.getElementById("mycombo1");
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 		},
 		
 	};
@@ -321,22 +324,22 @@ define([
 			// var combo = document.getElementById("combo1");
 			var combo = createCombobox("combo1", true /* trackable */);
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 			
 			combo = createMyCombobox("mycombo1", true /* trackable */);
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 		},
 		
 		"Store.add (user's non-trackable Memory store)" : function () {
 			// var combo = document.getElementById("combo1");
 			var combo = createCombobox("combo1", false /* trackable */);
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 			
 			combo = createMyCombobox("mycombo1", false /* trackable */);
 			combo.deliver();
-			checkCombobox(combo);
+			checkCombobox(combo, this);
 		},
 		
 		"Attribute mapping for label" : function () {
@@ -408,6 +411,7 @@ define([
 			};
 			var item2 = combo.list.getItemRenderers()[2];
 			item2.click();
+			combo.closeDropDown();
 			
 			var d = this.async(1000);
 			setTimeout(d.rejectOnError(function () {
@@ -415,6 +419,7 @@ define([
 				combo.openDropDown(); // reopen
 				var item3 = combo.list.getItemRenderers()[3];
 				item3.click();
+				combo.closeDropDown();
 				setTimeout(d.callback(function () {
 					checkAfterClickItem(1, 1, "item 3", "Option 3");
 				}));

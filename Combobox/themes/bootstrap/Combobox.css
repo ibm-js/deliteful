@@ -7,8 +7,8 @@
   font-size: 14px;
   line-height: 1.428571429;
 }
+/* dropdown arrow */
 .d-combobox::after {
-  /* dropdown arrow */
   content: "\25BC";
   padding: 0;
   position: relative;
@@ -19,6 +19,9 @@
 }
 .d-combobox-input {
   height: inherit;
+  /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
+  /* due to the presence of the hidden input which stores the submitted value.*/
+  margin: 0;
 }
 .d-combobox-input[disabled],
 fieldset[disabled] .d-combobox-input {
