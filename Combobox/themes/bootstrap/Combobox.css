@@ -7,8 +7,8 @@
   font-size: 14px;
   line-height: 1.428571429;
 }
-/* dropdown arrow */
 .d-combobox::after {
+  /* dropdown arrow */
   content: "\25BC";
   padding: 0;
   position: relative;
@@ -16,6 +16,16 @@
   pointer-events: none;
   font-size: .7em;
   right: 1.7em;
+}
+.d-combobox.d-rtl::after {
+  left: 1.7em;
+  /* restore default */
+  right: auto;
+}
+.d-combobox[dir="rtl"]::after {
+  left: 1.7em;
+  /* restore default */
+  right: auto;
 }
 .d-combobox-input {
   height: inherit;

@@ -3,17 +3,23 @@
 	vertical-align: middle;
 	margin: 0;
 	padding: 0;
-	.d-combobox-styles;
-}
-
-/* dropdown arrow */
-.d-combobox::after {
-	content: "\25BC";
-	padding:0;
-	position: relative;
-	/* allow clicks to pass through */
-	pointer-events: none;
-	.d-combobox-arrow-styles; 
+	.d-combobox-styles();
+	
+	&::after {
+		/* dropdown arrow */
+		content: "\25BC";
+		padding:0;
+		position: relative;
+		/* allow clicks to pass through */
+		pointer-events: none;
+		.d-combobox-arrow-styles();
+	}
+	&.d-rtl::after {
+		.d-combobox-arrow-styles-rtl();
+	}
+	&[dir="rtl"]::after {
+		.d-combobox-arrow-styles-rtl();
+	}
 }
 
 .d-combobox-input {
