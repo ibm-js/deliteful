@@ -234,7 +234,14 @@ messages:
 |Key|Role|
 |----------|----------|
 |"multiple-choice"|Text written in the combo in multiple selection mode if more than one item is selected.
+|"multiple-choice-no-selection"|Text written in the combo in multiple selection mode if no item is selected.
 |"search-placeholder"|Set as placeholder attribute of the input element used for filtering the list of options.
+|"ok-button-label"|The label of the OK button used for multiple selection mode on mobile.
+|"cancel-button-label"|The label of the Cancel button used for multiple selection mode on mobile.
+
+To first 3 strings in the table above are used as default values for the widget properties 
+`multipleChoiceMsg`, `multipleChoiceNoSelectionMsg`, and `searchPlaceHolder`.
+To customize these strings on a per-widget basis, set directly these properties.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
 widget. An issue with the arrow decoration of the combo in RTL will be fixed in the next release. 
