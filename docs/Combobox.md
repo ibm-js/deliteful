@@ -156,7 +156,7 @@ When used in an HTML form, the submitted value is the one stored in the `value`
 property of the widget.
 By default, the `label` field of the List's render items is used as value of the option.
 If the value needs to be different than the label, an attribute mapping needs to be
-set for the `value` property on the `List` instance, for example:
+set for `value` on the `List` instance, for example:
 
 ```js
   // Create the store
@@ -167,8 +167,9 @@ set for the `value` property on the `List` instance, for example:
 		...
 	]});
     // Create the List and set valueAttr to specify the name of the field
-    // which stores the value of the item (valueFunc can also be used)
-    var list = new List({store: dataStore, valueAttr: "value", ...});
+    // which stores the value of the item (valueFunc can also be used
+    // for dynamically computed values)
+    var list = new List({store: dataStoreWithValue, valueAttr: "value", ...});
     // Create the Combobox
     var Combobox = new Combobox({list: list, ...});
     Combobox.placeAt(document.body);
@@ -180,9 +181,9 @@ or in markup:
 ```html
 <html>
   <d-combobox>
-    <d-list store="store" valueAttr="value"></d-list>
+    <d-list store="storeWithValue" valueAttr="value"></d-list>
   </d-combobox>
-  <d-store id="store">
+  <d-store id="storeWithValue">
     { "label": "France", "value": "FR" },
       ...
   </d-store>
