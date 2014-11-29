@@ -4,12 +4,6 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 
 	var Store = Memory.createSubclass([Trackable], {});
 
-	var excludePropertiesOnCopy = {
-		data: true,
-		total: true,
-		recordset: true
-	};
-		
 	var STORE_TYPES = [
 		"add",
 		"remove",
@@ -64,8 +58,7 @@ define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "
 			// those were overriden by dcl.mix put them back
 			this.emit = emit;
 			this.on = on;
-			// override createSubCollection to avoid issue with IE
-			var self = this;
+			// avoid issue with IE
 			this._includePropertyInSubCollection = function (name) {
 				return name !== "recordset" && include.apply(this, arguments);
 			};
