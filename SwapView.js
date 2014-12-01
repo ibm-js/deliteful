@@ -183,7 +183,7 @@ define([
 				domClass.remove(this, "-d-swap-view-drag");
 				if (this._drag.childOut) {
 					domClass.remove(this._drag.childOut, [
-						"-d-swap-view-out", "-d-swap-view-reverse", , "-d-swap-view-slide-back"
+						"-d-swap-view-out", "-d-swap-view-reverse", "-d-swap-view-slide-back"
 					]);
 				}
 				if (this._drag.childIn) {
@@ -193,7 +193,7 @@ define([
 						this._drag.childIn.style.display = "none";
 					}
 					domClass.remove(this._drag.childIn, [
-						"-d-swap-view-in", "-d-swap-view-reverse", , "-d-swap-view-slide-back"
+						"-d-swap-view-in", "-d-swap-view-reverse", "-d-swap-view-slide-back"
 					]);
 				}
 				this._clearRules();
