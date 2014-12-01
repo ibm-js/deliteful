@@ -63,3 +63,6 @@ fieldset[disabled] .d-checkbox {
 fieldset[disabled] .d-checkbox > input[type=checkbox] {
   cursor: not-allowed;
 }
+label[for] {
+  cursor: pointer;
+}
