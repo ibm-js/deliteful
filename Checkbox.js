@@ -5,7 +5,8 @@ define([
 	"delite/FormWidget",
 	"./Toggle",
 	"delite/handlebars!./Checkbox/Checkbox.html",
-	"delite/theme!./Checkbox/themes/{{theme}}/Checkbox.css"
+	"delite/theme!./Checkbox/themes/{{theme}}/Checkbox.css",
+	"decor/sniff!ios?delite/theme!./Checkbox/themes/Checkbox_ios.css"
 ], function (dcl, register, FormWidget, Toggle, template) {
 
 	var labelClickHandler;

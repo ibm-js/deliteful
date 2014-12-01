@@ -21,9 +21,11 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: ["*/themes/*/*.less", "list/*/themes/*/*.less", "!**/variables.less",
-						      "!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
-							 "ViewStack/transitions/*.less"],
+						src: ["*/themes/*/*.less", "*/themes/*.less",
+							"!*/themes/*_template{,_*}.less", "!**/variables.less",
+							"list/*/themes/*/*.less",
+							"!{dijit,mobile}/themes/*/*.less", "*/css/*.less",
+							"ViewStack/transitions/*.less"],
 						ext: ".css"
 					}
 				]
