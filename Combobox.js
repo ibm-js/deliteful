@@ -223,6 +223,22 @@ define([
 		},
 		
 		attachedCallback: function () {
+			// If the widget is in a form, reset the initial value of the widget
+			// when the form is reset
+			if (this.valueNode.form) {
+				this.on("reset", function () {
+					this.defer(function () {
+						if (this.value !== this.valueNode.value ||
+							// In multiple mode, with no option selected before reset,
+							// valueNode.value is the same but still needs the reinit to get
+							// the correct initial inputNode.value.
+							this.selectionMode === "multiple") {
+							this._initValue();
+						}
+					});
+				}.bind(this), this.valueNode.form);
+			}
+			
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			if (!this.list || this.list === this._defaultList) {
 				var list = this.querySelector("d-list");
@@ -297,20 +313,8 @@ define([
 				}
 			}.bind(this));
 			*/
-
-			if (this.selectionMode === "single") {
-				// List already filled
-				var firstItemRenderer = this.list.getItemRendererByIndex(0);
-				if (firstItemRenderer) {
-					this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
-					// Initialize widget's value
-					this._set("value", this._getItemRendererValue(firstItemRenderer));
-					this.list.selectedItem = firstItemRenderer.item;
-				}
-			} // else, if selectionMode === "multiple", do not select the first
-			// option, because it would be confusing; the user may scroll and
-			// select some other option, without deselecting the first one. The
-			// native select in multiple mode doesn't select any option by default either.
+			
+			this._initValue();
 			
 			var singleSelectionActionHandler = function (event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);
@@ -337,7 +341,6 @@ define([
 					}
 				}.bind(this));
 			} else { // selectionMode === "multiple"
-				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
 				// if useCenteredDropDown is true, let the dropdown's OK/Cancel
 				// buttons do the job
 				if (!this.useCenteredDropDown()) {
@@ -348,6 +351,36 @@ define([
 			}
 			
 			this._prepareInput(this.inputNode);
+		},
+		
+		/**
+		 * Sets the initial value of the widget. If the widget is inside a form,
+		 * also called when reseting the form. 
+		 * @private 
+		 */
+		_initValue: function () {
+			if (this.selectionMode === "single") {
+				var initValueSingleMode = function () {
+					this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
+					// Initialize widget's value
+					var value = this._getItemRendererValue(firstItemRenderer);
+					this._set("value", value);
+					this.valueNode.value = value;
+					this.list.selectedItem = firstItemRenderer.item;
+				}.bind(this);
+				var firstItemRenderer = this.list.getItemRendererByIndex(0);
+				if (firstItemRenderer) {
+					initValueSingleMode();
+				}
+			} else { // selectionMode === "multiple"
+				// Differently than in single selection mode, do not select the first option,
+				// because it would be confusing; the user may scroll and select some other option,
+				// without deselecting the first one. The native select in multiple mode doesn't
+				// select any option by default either.
+				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
+				this.value = "";
+				this.valueNode.value = "";
+			}
 		},
 		
 		/**
