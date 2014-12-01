@@ -53,7 +53,8 @@ define([
 
 			this.on("pointerdown", this._pointerDownHandler.bind(this));
 			this.on("pointermove", this._pointerMoveHandler.bind(this));
-			this.on("lostpointercapture", this._lostCaptureHandler.bind(this));
+			this.on("pointerup", this._pointerUpHandler.bind(this));
+			this.on("lostpointercapture", this._pointerUpHandler.bind(this));
 			this.on("keydown", this._keyDownHandler.bind(this));
 		},
 
@@ -104,7 +105,7 @@ define([
 				if (this._drag.started && !this._drag.ended) {
 					// This is what will really slide the children as the user swipes/drags.
 					var rx = this._drag.rx = dx / this.offsetWidth;
-					this._setRules(Math.abs(rx));
+					this._setRules(this._drag.reverse ? rx : -rx);
 				}
 			}
 		},
@@ -113,7 +114,7 @@ define([
 		 * Handle end of drag/swipe interaction.
 		 * @private
 		 */
-		_lostCaptureHandler: function () {
+		_pointerUpHandler: function () {
 			if (this._drag) {
 				if (!this._drag.started) {
 					// abort before user really dragged
