@@ -48,3 +48,9 @@
 		cursor: not-allowed;
 	}
 }
+
+label[for] {
+	// fixes a ios bug that makes it so that the handler set on document, 
+	// listening for clicks on label, is never called.
+	cursor: pointer;
+}
