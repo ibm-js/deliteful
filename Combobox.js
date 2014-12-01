@@ -306,22 +306,6 @@ define([
 					// Initialize widget's value
 					this._set("value", this._getItemRendererValue(firstItemRenderer));
 					this.list.selectedItem = firstItemRenderer.item;
-				} else {
-					// For future updates:
-					var initDone = false;
-					this.list.on("query-success", function () {
-						if (!initDone) {
-							var firstItemRenderer = this.list.getItemRendererByIndex(0);
-							var input = this._popupInput || this.inputNode;
-							if (firstItemRenderer && !initDone) {
-								input.value = this._getItemRendererLabel(firstItemRenderer);
-								// Initialize widget's value
-								this._set("value", this._getItemRendererValue(firstItemRenderer));
-								this.list.selectedItem = firstItemRenderer.item;
-							}
-							initDone = true;
-						}
-					}.bind(this));
 				}
 			} // else, if selectionMode === "multiple", do not select the first
 			// option, because it would be confusing; the user may scroll and
