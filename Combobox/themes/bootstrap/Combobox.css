@@ -63,12 +63,3 @@ fieldset[disabled] .d-combobox-input {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-/* Temporary workaround till deliteful pull request #341 will be merged */
-.d-combobox-list .d-round-rect-list {
-  width: auto;
-  height: auto;
-}
-.d-combobox-list .d-list {
-  width: auto;
-  height: auto;
-}
