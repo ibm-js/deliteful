@@ -21,7 +21,8 @@ define([
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
-				console.log("Skipping test: 'Combobox Form (markup)' on this platform.");
+				console.log("Skipping test: 'Combobox Form submit' on browser: " + 
+					remote.environmentType.browserName);
 				return remote.end();
 			}
 			return loadFile(this.remote, "./Combobox-decl.html")
@@ -30,11 +31,6 @@ define([
 				.end()
 				.setFindTimeout(intern.config.WAIT_TIMEOUT)
 				.find("id", "parameters")
-				.end()
-				.execute("return document.getElementById('valueFor_cb3');")
-				.then(function (value) {
-					assert.isNull(value, "Unexpected value for unchecked Combobox cb3.");
-				})
 				.end()
 				.findById("valueFor_combo1")
 				.getVisibleText()
@@ -45,7 +41,7 @@ define([
 				.findById("valueFor_combo2")
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "France", "Unexpected value for Combobox combo1");
+					assert.strictEqual(value, "France", "Unexpected value for Combobox combo2");
 				})
 				.end()
 				.findById("valueFor_combo3")

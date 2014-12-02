@@ -136,6 +136,21 @@ define([
 		template: template,
 		
 		attachedCallback: function () {
+			// If the widget is in a form, reset the initial value of the widget
+			// when the form is reset
+			if (this.valueNode.form) {
+				this.on("reset", function () {
+					this.defer(function () {
+						this.valueNode.selectedIndex =
+							this.selectionMode === "single" ?
+							// First option selected in "single" selection mode, and
+							// no option selected in "multiple" mode
+							0 : -1;
+						this.value = this.valueNode.value;
+					});
+				}.bind(this), this.valueNode.form);
+			}
+			
 			// To provide graphic feedback for focus, react to focus/blur events
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
