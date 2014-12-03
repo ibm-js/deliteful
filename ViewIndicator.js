@@ -36,7 +36,19 @@ define([
 
 		postRender: function () {
 			this.on("pointerdown", function (e) {
-				this.viewstack.show(this.viewstack.children[e.target._vsChildIndex]);
+				if (typeof e.target._vsChildIndex === "number") {
+					this.viewstack.show(this.viewstack.children[e.target._vsChildIndex]);
+				} else {
+					var next = (e.clientX - this.offsetLeft) > this.offsetWidth / 2;
+					if (!this.isLeftToRight()) {
+						next = !next;
+					}
+					if (next) {
+						this.viewstack.showNext();
+					} else {
+						this.viewstack.showPrevious({reverse: true});
+					}
+				}
 			}.bind(this));
 		},
 
