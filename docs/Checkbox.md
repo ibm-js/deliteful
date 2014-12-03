@@ -18,7 +18,7 @@ It provides all the standard facilities of a native input and supports deliteful
 [Element Styling](#styling)  
 [Element Events](#events)  
 [Enterprise Use](#enterprise)  
-[See also](#seealso)
+[See also](#seealso)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -45,7 +45,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ```
 
 <iframe width="100%" height="150" allowfullscreen="allowfullscreen" frameborder="0"
-src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,css">
+src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,js">
 <a href="http://jsfiddle.net/ibmjs/7sxarg93/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
@@ -90,7 +90,7 @@ This widget provides default styling for the following delite themes:
 ### CSS Classes
 
 CSS classes are bound to the structure of the widget declared in its template `deliteful/Checkbox/Checkbox.html`.
-The following table lists all the CSS classes that can be used to style the checkbox. 
+The following table lists all the CSS classes that can be used to style the checkbox.
 
 |class name/selector|applies to|
 |----------|----------|
