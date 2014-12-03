@@ -1,6 +1,6 @@
 {
 	"name": "deliteful",
-	"version": "0.5.0-alpha",
+	"version": "0.5.0",
 	"dependencies": {
 		"dcl": "1.1.x",
 		"decor": "0.4.x",
