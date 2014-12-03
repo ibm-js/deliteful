@@ -58,5 +58,5 @@ Note that loading the deliteful layer will automatically load the delite layer.
 When using the source form (or the built form if needed), you can build your resulting application using
 the [grunt-amd-build](https://github.com/ibm-js/grunt-amd-build) project.
 
-Alternatively you can use the [deliteful Yeoman generator](https://www.npmjs.org/package/generator-deliteful-element)
+Alternatively you can use the [deliteful Yeoman generator](https://www.npmjs.org/package/generator-deliteful-app)
 to setup the project structure.
