@@ -91,20 +91,21 @@ switch to the `part8-2` branch now:
 $ git checkout part8-2
 ```
 
-<!-- separate the two quotes -->  
+<!-- separate the two quotes -->
 
 > If you followed the steps explained in previous section, you need to restore the application as it was at
 the end of step 7.
 
 We reduced the load time of our app, that's good, and it may be enough for many apps. But we can do even better by
 generating a single `.js` file that will contain all the code of our app plus its dependencies. For this,
-we will use the `ibm-js/grunt-amd-build` project, which provides a [Grunt](gruntjs.com) plugin that can generate our
+we will use the `ibm-js/grunt-amd-build` project, which provides a [Grunt](http://gruntjs.com) plugin that can generate our
 layer. The `grunt-amd-build` plugin is really powerful and flexible and provides many options,
 so to make things really easy, we will use another Yeoman generator, `ibm-js/generator-amd-build`,
 that will do the hard work for us.
 
-> **Note**: Because of a known problem with `requirejs-dplugins/jquery`, you need to add the following `map` 
-property as a temporary workaround in the config section of `ìndex.html`:
+> **Note**: Because of a known problem with `requirejs-dplugins/jquery`, you need to add the following `map`
+property as a temporary workaround in the config section of `index.html`:
+
 ```html
 <script>
 	require.config({

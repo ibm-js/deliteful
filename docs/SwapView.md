@@ -5,7 +5,7 @@ title: deliteful/SwapView
 
 # deliteful/SwapView
 
-`deliteful/SwapView` is a container that extends `deliteful/SwapView` and adds a swipe interaction to show the
+`deliteful/SwapView` is a container that extends `deliteful/ViewStack` and adds a swipe interaction to show the
 next/previous child.
 
 ![SwapView Transitions](images/SwapView.png)
@@ -61,7 +61,7 @@ require(["deliteful/SwapView", "requirejs-domready/domReady!"], function (SwapVi
 <a name="configuration"></a>
 ## Element Configuration
 
-See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for configuration of the ViewStack base class.
+See [`deliteful/ViewStack`](./ViewStack.md) documentation for configuration of the ViewStack base class.
 
 ### Properties
 
@@ -74,7 +74,7 @@ means that you must swipe by more than half the size of the SwapView to change t
 
 `deliteful/SwapView` has no visual appearance, it does not provide any CSS class for styling.
 
-See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for styling of the ViewStack base class.
+See [`deliteful/ViewStack`](./ViewStack.md) documentation for styling of the ViewStack base class.
 
 <a name="interactions"></a>
 ## User Interactions
