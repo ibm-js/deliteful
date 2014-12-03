@@ -40,6 +40,10 @@ define([
 		 */
 		swapThreshold: 0.5,
 
+		render: function () {
+			dpointer.setTouchAction(this, "none");
+		},
+
 		attachedCallback: function () {
 			// If the user hasn't specified a tabindex declaratively, then set to default value.
 			if (!this.hasAttribute("tabindex")) {
