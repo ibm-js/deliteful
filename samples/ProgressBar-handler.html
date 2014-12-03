@@ -49,18 +49,20 @@
 			loadBtn.addEventListener("click", fakeLoadFunction);
 
 			//progressbar handler
-			var pbHandler = function (event) {
-				if (isNaN(event.value)) {
+			var updateLabel = function () {
+				if (isNaN(progressBar.value)) {
 					label.innerHTML =
 						"Value: indeterminate";
 				} else {
 					label.innerHTML =
-						"Value: " + event.value.toFixed(2) + "<br>" +
-						"Percent: " + event.percent.toFixed(2) + "% <br>" +
-						"Max: " + event.max;
+						"Value: " + progressBar.value.toFixed(2) + "<br>" +
+						"Percent: " + (progressBar.value/progressBar.max*100).toFixed(0) + "% <br>" +
+						"Max: " + progressBar.max;
 				}
 			};
-			progressBar.addEventListener("change", pbHandler);
+
+			label.innerHTML = "Value: indeterminate";
+			progressBar.observe(updateLabel); // update label everytime widget changes
 
 			document.body.style.display = "";
 		});
