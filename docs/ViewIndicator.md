@@ -108,7 +108,9 @@ For example, the following rules would give a square shape to the dots and make 
 <a name="interactions"></a>
 ## User Interactions
 
-Clicking or touching a dot will show the corresponding child in the ViewStack.
+Clicking or touching a dot shows the corresponding child in the ViewStack. If the ViewIndicator is large enough 
+(which depends on how it is laid out in the HTML page), clicking in the empty area on the right of the dots shows
+ the next child in the ViewStack, and clicking on the left of the dots shows the previous child.
 
 <a name="enterprise"></a>
 ## Enterprise Use
@@ -123,6 +125,8 @@ Down keys.
 `deliteful/ViewIndicator` does not provide any internationalizable bundle.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the `deliteful/ViewIndicator` element.
+This affects clicks outside of the dots: in right-to-left mode, clicking in the empty area on the right of the dots
+shows the previous child in the ViewStack, and clicking on the left of the dots shows the next child.
 
 ### Security
 
