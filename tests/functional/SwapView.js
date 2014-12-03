@@ -175,23 +175,29 @@ define([
 
 		"ViewIndicator update": function () {
 			var remote = this.remote;
-			return remote
-				.execute("return document.getElementById('vi').children[0].className;")
-				.then(function (v) {
-					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
-					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
-				})
-				.execute("return document.getElementById('vi').children[1].className;")
-				.then(function (v) {
-					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
-					assert.include(v, "-d-view-indicator-dot-selected", "Extra class for vi child 1");
-				})
-				.execute("return document.getElementById('vi').children[2].className;")
-				.then(function (v) {
-					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
-					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 2");
-				})
-				;
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				console.log("Skipping test: ViewIndicator update as moveTo not supported on Safari");
+				return remote.end();
+			} else {
+				return remote
+					.execute("return document.getElementById('vi').children[0].className;")
+					.then(function (v) {
+						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
+						assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
+					})
+					.execute("return document.getElementById('vi').children[1].className;")
+					.then(function (v) {
+						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
+						assert.include(v, "-d-view-indicator-dot-selected", "Extra class for vi child 1");
+					})
+					.execute("return document.getElementById('vi').children[2].className;")
+					.then(function (v) {
+						assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
+						assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 2");
+					})
+					;
+			}
 		},
 
 		"SwapView swipe gesture (left->right)": function () {
