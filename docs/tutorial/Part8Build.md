@@ -103,7 +103,7 @@ layer. The `grunt-amd-build` plugin is really powerful and flexible and provides
 so to make things really easy, we will use another Yeoman generator, `ibm-js/generator-amd-build`,
 that will do the hard work for us.
 
-> Note: Because of a known problem with `requirejs-dplugins/jquery`, you need to add the following `map` 
+> **Note**: Because of a known problem with `requirejs-dplugins/jquery`, you need to add the following `map` 
 property as a temporary workaround in the config section of `ìndex.html`:
 ```html
 <script>
