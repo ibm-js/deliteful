@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>SwapView</title>
+
+	<!-- For testing purposes. Real applications should load the AMD loader directly -->
+	<script type="text/javascript" src="../boilerplate.js"></script>
+
+</head>
+<body style="background: #eeeeee">
+<h1>d-SwapView functional test</h1>
+<button id="b1">Start</button>
+<d-swap-view id="sv" style="width:400px; height:200px">
+	<div style="background-color: darkblue">Child 1</div>
+	<div style="background-color: white">Child 2</div>
+	<div style="background-color: crimson">Child 3</div>
+</d-swap-view>
+<d-view-indicator id="vi" viewstack="sv" style="width: 400px"></d-view-indicator>
+<button id="b2">End</button>
+</body>
