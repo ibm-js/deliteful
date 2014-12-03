@@ -6,7 +6,7 @@ title: deliteful/RadioButton
 # deliteful/RadioButton
 
 The `deliteful/RadioButton` widget represents a 2-state widget similar to the HMTL5 input type="radio" element.
-Contrary to other checkbox widgets like `deliteful/CheckBox` or `deliteful/Switch`, a RadioButton is usually used with
+Contrary to other checkbox widgets like `deliteful/Checkbox` or `deliteful/Switch`, a RadioButton is usually used with
 other RadioButton widgets to form a group of exclusive options. Only one RadioButton can be checked at a time within a
 group.
 

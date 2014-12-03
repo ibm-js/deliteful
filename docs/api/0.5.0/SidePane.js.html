@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/SidePane.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/SidePane.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/SidePane */
+define([
+	"dcl/dcl",
+	"dpointer/events",
+	"dojo/dom-class",
+	"decor/sniff",
+	"delite/register",
+	"delite/DisplayContainer",
+	"dojo/Deferred",
+	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css",
+	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl.css"
+],
+	function (dcl, pointer, domClass, has, register, DisplayContainer, Deferred) {
+		function prefix(v) {
+			return "-d-side-pane-" + v;
+		}
+		function setVisibility(node, val) {
+			if (val) {
+				node.style.visibility = "visible";
+				node.style.display = "block";
+			} else {
+				node.style.visibility = "hidden";
+				node.style.display = "none";
+			}
+		}
+		function getNextSibling(node) {
+			do {
+				node = node.nextElementSibling;
+			} while (node &amp;&amp; node.nodeType !== 1);
+			return node;
+		}
+		/**
+		 * A widget displayed on the side of the screen.
+		 *
+		 * It can be displayed on top of the page
+		 * (mode=overlay) or can push the content of the page (mode=push or mode=reveal).
+		 * SidePane is a widget hidden by default.
+		 * This widget must be a sibling of html's body element.
+		 * If mode is set to "push" or "reveal", the width of the SidePane can't be changed in the markup
+		 * (15em by default).
+		 * However it can be changed in SidePane.less (@PANE_WIDTH variable).
+		 * In "push" and "reveal" mode, the pushed element is the first sibling of the SidePane which has
+		 * of type element (nodeType == 1) and not a SidePane.
+		 * @example
+		 * &lt;body>
+		 *   &lt;d-side-pane>
+		 *       SidePane content
+		 *   &lt;/d-side-pane>
+		 *   &lt;div>
+		 *       Main application
+		 *   &lt;/div>
+		 * &lt;/body>
+		 * @class module:deliteful/SidePane
+		 * @augments module:delite/DisplayContainer
+		 */
+		return register("d-side-pane", [HTMLElement, DisplayContainer],
+			/** @lends module:deliteful/SidePane#*/ {
+			/**
+			 * The name of the CSS class of this widget.
+			 * @member {string}
+			 * @default "d-side-pane"
+			 */
+			baseClass: "d-side-pane",
+
+			/**
+			 * Can be "overlay", "reveal" or "push".
+			 * In overlay mode, the pane is shown on top of the page.
+			 * In reveal and push modes, The page is moved to make the pane visible. The difference between
+			 * these two modes is the animated transition: in reveal mode, the pane does not move, it is
+			 * already under the page. In push mode, the pane slide with the page.
+			 * @member {string}
+			 * @default "push"
+			 */
+			mode: "push",
+
+			/**
+			 * Can be "start" or "end". If set to "start", the panel is displayed on the
+			 * left side in LTR mode.
+			 * @member {string}
+			 * @default "push"
+			 */
+			position: "start",
+
+			/**
+			 * Enable/Disable animations.
+			 * @member {boolean}
+			 * @default true
+			 */
+			animate: true,
+
+			/**
+			 * Enables the swipe closing of the pane.
+			 * @member {boolean}
+			 * @default true
+			 */
+			swipeClosing: true,
+
+			_transitionTiming: {default: 0, chrome: 50, ios: 20, android: 100, mozilla: 100},
+			_timing: 0,
+			_visible: false,
+			_opening: false,
+			_originX: NaN,
+			_originY: NaN,
+
+			show: dcl.superCall(function (sup) {
+				return function () {
+					if (arguments.length > 0) {
+						return sup.apply(this, arguments).then(function (value) {
+							return this._open().then(function () {
+								return value;
+							});
+						}.bind(this));
+					} else {
+						return this._open();
+					}
+				};
+			}),
+
+			hide: dcl.superCall(function (sup) {
+				return function () {
+					if (arguments.length > 0) {
+						return sup.apply(this, arguments).then(function (value) {
+							return this._close().then(function () {
+								return value;
+							});
+						}.bind(this));
+					} else {
+						return this._close();
+					}
+				};
+			}),
+			/**
+			 * This method is called to toggle the visibility of the SidePane.
+			 * @returns {Promise} A promise that will be resolved when the display &amp; transition effect will have been
+			 * performed.
+			 */
+			toggle: function () {
+				return this._visible ? this.hide() : this.show();
+			},
+
+			/**
+			 * Open the pane.
+			 * @private
+			 */
+			_open: function () {
+				var deferred = new Deferred();
+				var nextElement = getNextSibling(this);
+				var animate = this.animate &amp;&amp; has("ie") !== 9;
+				if (!this._visible) {
+					if (animate) {
+						domClass.add(this, prefix("animate"));
+						if (nextElement) {
+							domClass.add(nextElement, prefix("animate"));
+						}
+					}
+
+					if (this.mode === "reveal") {
+						if (nextElement) {
+							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
+						}
+					} else {
+						this._setAfterTransitionHandlers(this, {node: this}, deferred);
+					}
+
+					setVisibility(this, true);
+
+					if (animate) {
+						this.defer(this._openImpl, this._timing);
+					} else {
+						this._openImpl();
+						this.defer(function () {deferred.resolve(); }, this._timing);
+					}
+				} else {
+					deferred.resolve();
+				}
+				return deferred.promise;
+			},
+
+			/**
+			 * Close the pane.
+			 * @private
+			 */
+			_close: function () {
+				var deferred = new Deferred();
+				if (this._visible) {
+					if (this.mode === "reveal") {
+						var nextElement = getNextSibling(this);
+						if (nextElement) {
+							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
+						}
+					} else {
+						this._setAfterTransitionHandlers(this, {node: this}, deferred);
+					}
+
+					if (this.animate &amp;&amp; has("ie") !== 9) {
+						// This defer should be useless but is needed for Firefox, see #25
+						this.defer(function () {this._hideImpl(); }, this._timing);
+					} else {
+						this._hideImpl();
+						setVisibility(this, false);
+					}
+				} else {
+					deferred.resolve();
+				}
+				return deferred.promise;
+			},
+
+			_setAfterTransitionHandlers: function (node, event, deferred) {
+				var self = this, endProps = {
+					node: node,
+					handle: function () { self._afterTransitionHandle(endProps); },
+					props: event,
+					deferred: deferred
+				};
+				node.addEventListener("webkitTransitionEnd", endProps.handle);
+				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
+			},
+
+			_afterTransitionHandle: function (item) {
+				domClass.remove(this, prefix("under"));
+				if (!this._visible) {
+					setVisibility(this, false);
+				}
+				item.node.removeEventListener("webkitTransitionEnd", item.handle);
+				item.node.removeEventListener("transitionend", item.handle);
+				item.deferred.resolve();
+			},
+
+			postRender: function () {
+				setVisibility(this, false);
+
+				// trigger refreshRendering() to run and apply mode &amp; position even if they are the default values
+				this.notifyCurrentValue("mode");
+				this.notifyCurrentValue("position");
+			},
+
+			preRender: function () {
+				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
+				for (var o in this._transitionTiming) {
+					if (has(o) &amp;&amp; this._timing &lt; this._transitionTiming[o]) {
+						this._timing = this._transitionTiming[o];
+					}
+				}
+			},
+
+			render: function () {
+				pointer.setTouchAction(this, "pan-y");
+				this._resetInteractions();
+			},
+
+
+			_refreshMode: function (nextElement) {
+				domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
+				domClass.add(this, prefix(this.mode));
+
+				if (nextElement &amp;&amp; this._visible) {
+					domClass.toggle(nextElement, prefix("translated"), this.mode !== "overlay");
+				}
+
+				if (this.mode === "reveal" &amp;&amp; !this._visible) {
+					// Needed by FF only for the first opening.
+					domClass.remove(this, prefix("ontop"));
+					domClass.add(this, prefix("under"));
+				}
+				else if (this.mode === "overlay") {
+					domClass.remove(this, prefix("under"));
+					domClass.add(this, prefix("ontop"));
+				} else {
+					domClass.remove(this, [prefix("under"), prefix("ontop")]);
+				}
+			},
+
+			_refreshPosition: function (nextElement) {
+				domClass.remove(this, [prefix("start"), prefix("end")]);
+				domClass.add(this, prefix(this.position));
+				if (nextElement &amp;&amp; this._visible) {
+					domClass.remove(nextElement, [prefix("start"), prefix("end")]);
+					domClass.add(nextElement, prefix(this.position));
+				}
+			},
+
+			refreshRendering: function (props) {
+				this.parentNode.style.overflow = "hidden";
+				if (!("mode" in props || "position" in props || "animate" in props)) {
+					return;
+				}
+				var nextElement = getNextSibling(this);
+
+				// Always remove animation during a refresh. Avoid to see the pane moving on mode changes.
+				// Not very reliable on IE11.
+				domClass.remove(this, prefix("animate"));
+
+				if (nextElement) {
+					domClass.remove(nextElement, prefix("animate"));
+					if (!this.isLeftToRight()) {
+						domClass.add(nextElement, "d-rtl");
+					}
+					else {
+						domClass.remove(nextElement, "d-rtl");
+					}
+				}
+
+				if ("mode" in props) {
+					this._refreshMode(nextElement);
+				}
+
+				if ("position" in props) {
+					this._refreshPosition(nextElement);
+				}
+
+				domClass.toggle(this, prefix("hidden"), !this._visible);
+				domClass.toggle(this, prefix("visible"), this._visible);
+
+				// Re-enable animation
+				if (this.animate) {
+					this.defer(function () {
+						domClass.add(this, prefix("animate"));
+						if (nextElement) {
+							domClass.add(nextElement, prefix("animate"));
+						}
+					}, this._timing);
+				}
+			},
+
+			_openImpl: function () {
+				if (!this._visible) {
+					this._visible = true;
+					domClass.remove(this, prefix("hidden"));
+					domClass.add(this, prefix("visible"));
+
+					if (this.mode === "push" || this.mode === "reveal") {
+						var nextElement = getNextSibling(this);
+						if (nextElement) {
+							domClass.remove(nextElement, [prefix("nottranslated"), prefix("start"), prefix("end")]);
+							domClass.add(nextElement, [prefix(this.position), prefix("translated")]);
+						}
+					}
+				}
+			},
+
+			_hideImpl: function () {
+				if (this._visible) {
+					this._visible = false;
+					this._opening = false;
+					domClass.remove(this.ownerDocument.body, prefix("no-select"));
+					domClass.remove(this, prefix("visible"));
+					domClass.add(this, prefix("hidden"));
+					if (this.mode === "push" || this.mode === "reveal") {
+						var nextElement = getNextSibling(this);
+						if (nextElement) {
+							domClass.remove(nextElement, [prefix("translated"), prefix("start"), prefix("end")]);
+							domClass.add(nextElement, [prefix(this.position), prefix("nottranslated")]);
+						}
+					}
+				}
+			},
+
+			_isLeft: function () {
+				return (this.position === "start" &amp;&amp; this.isLeftToRight()) ||
+					(this.position === "end" &amp;&amp; !this.isLeftToRight());
+			},
+
+			_pointerDownHandler: function (event) {
+				this._originX = event.pageX;
+				this._originY = event.pageY;
+
+				if (this._visible || (this._isLeft() &amp;&amp; !this._visible &amp;&amp; this._originX &lt;= 10) ||
+					(!this._isLeft() &amp;&amp; !this._visible &amp;&amp; this._originX >= this.ownerDocument.width - 10)) {
+					this._opening = !this._visible;
+					this._pressHandle.remove();
+					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
+					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
+
+					domClass.add(this.ownerDocument.body, prefix("no-select"));
+				}
+			},
+
+			_pointerMoveHandler: function (event) {
+				if (!this._opening &amp;&amp; Math.abs(event.pageY - this._originY) > 10) {
+					this._resetInteractions();
+				} else {
+					var pos = event.pageX;
+
+					if (this._isLeft()) {
+						if (this._visible) {
+							if (this._originX &lt; pos) {
+								this._originX = pos;
+							}
+
+							if ((this.swipeClosing &amp;&amp; this._originX - pos) > 10) {
+								this._close();
+								this._originX = pos;
+							}
+						}
+					} else {
+						if (this._visible) {
+							if (this._originX > pos) {
+								this._originX = pos;
+							}
+							if ((this.swipeClosing &amp;&amp; pos - this._originX) > 10) {
+								this._close();
+								this._originX = pos;
+							}
+						}
+					}
+				}
+			},
+
+			_pointerUpHandler: function () {
+				this._opening = false;
+				domClass.remove(this.ownerDocument.body, prefix("no-select"));
+				this._resetInteractions();
+			},
+
+			_resetInteractions: function () {
+				if (this._releaseHandle) {
+					this._releaseHandle.remove();
+				}
+				if (this._moveHandle) {
+					this._moveHandle.remove();
+				}
+				if (this._pressHandle) {
+					this._pressHandle.remove();
+				}
+
+				if (this.swipeClosing) {
+					this._pressHandle = this.on("pointerdown", this._pointerDownHandler.bind(this));
+				}
+
+				this._originX = NaN;
+				this._originY = NaN;
+			}
+		});
+	});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Wed Dec 03 2014 16:30:35 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

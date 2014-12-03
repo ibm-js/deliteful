@@ -2,11 +2,15 @@
 layout: doc
 ---
 
+## Introduction
+
+* [How to load deliteful custom elements & modules](setup.html)
+
 ## Basic Widgets
 
 * [Button](Button.html)
-* [CheckBox](CheckBox.html)
-* [ComboBox](ComboBox.html)
+* [Checkbox](Checkbox.html)
+* [Combobox](Combobox.html)
 * [ProgressBar](ProgressBar.html)
 * [ProgressIndicator](ProgressIndicator.html)
 * [RadioButton](RadioButton.html)
@@ -28,7 +32,12 @@ layout: doc
 * [ScrollableContainer](ScrollableContainer.html)
 * [SidePane](SidePane.html)
 * [ViewStack](ViewStack.html)
+* [SwapView](SwapView.html)
 * [ResponsiveColumns](ResponsiveColumns.html)
+
+## Other Widgets
+
+* [ViewIndicator](ViewIndicator.html)
 
 ## Non Visual Custom Elements
 

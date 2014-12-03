@@ -1,16 +1,16 @@
 ---
 layout: default
-title: deliteful/CheckBox
+title: deliteful/Checkbox
 ---
 
-# deliteful/CheckBox
+# deliteful/Checkbox
 
-The `deliteful/CheckBox` widget represents a form-aware 2-state widget similar to the HTML5 input type="checkbox" element.
+The `deliteful/Checkbox` widget represents a form-aware 2-state widget similar to the HTML5 input type="checkbox" element.
 It provides all the standard facilities of a native input and supports deliteful theming capability.
 
 *Example*
 
-![CheckBox (Bootstrap)](images/CheckBox1.png)
+![Checkbox (Bootstrap)](images/Checkbox1.png)
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -53,14 +53,14 @@ src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,css">
 ```js
   require([
     "delite/register",
-    "deliteful/CheckBox"
-  ], function (register, CheckBox) {
+    "deliteful/Checkbox"
+  ], function (register, Checkbox) {
      register.parse();
 
-     var cb = new CheckBox({checked:true});
+     var cb = new Checkbox({checked:true});
      cb.placeAt(document.body);
      cb.startup();
-     cb = new CheckBox({disabled:true, name: "option1"});
+     cb = new Checkbox({disabled:true, name: "option1"});
      cb.placeAt(document.body);
      cb.startup();
 });
@@ -70,10 +70,10 @@ src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,css">
 <a name="configuration"></a>
 ## Element Configuration
 
-The state of a CheckBox widget (checked or unchecked) is defined by the `checked` property, inherited from the 
+The state of a Checkbox widget (checked or unchecked) is defined by the `checked` property, inherited from the
 `deliteful/Toggle` class.
 
-In addition, the CheckBox widget supports the following form-related properties of an HTML5 input element of 
+In addition, the Checkbox widget supports the following form-related properties of an HTML5 input element of
 type "checkbox": `name`, `value`, `disabled` and `alt`, inherited from `delite/FormWidget`.
 
 <a name="styling"></a>
@@ -89,26 +89,26 @@ This widget provides default styling for the following delite themes:
 
 ### CSS Classes
 
-CSS classes are bound to the structure of the widget declared in its template `deliteful/CheckBox/CheckBox.html`.
+CSS classes are bound to the structure of the widget declared in its template `deliteful/Checkbox/Checkbox.html`.
 The following table lists all the CSS classes that can be used to style the checkbox. 
 
 |class name/selector|applies to|
 |----------|----------|
-|d-checkbox|CheckBox widget node
+|d-checkbox|Checkbox widget node
 |d-checkbox::before|Checkmark node
 
 In addition, the following classes are used in combination with the classes above:
 
 |class name/selector|applies to|
 |----------|----------|
-|d-checked|CheckBox and checkmark nodes in checked state
-|d-focused|CheckBox widget node in focus state
-|d-disabled|CheckBox and checkmark nodes in disabled state
-|d-rtl|CheckBox and checkmark nodes in right-to-left configuration
+|d-checked|Checkbox and checkmark nodes in checked state
+|d-focused|Checkbox widget node in focus state
+|d-disabled|Checkbox and checkmark nodes in disabled state
+|d-rtl|Checkbox and checkmark nodes in right-to-left configuration
 
 <a name="events"></a>
 ## Element Events
-The widget `deliteful/CheckBox` provides a `change` event when its state is changed following a user interaction.
+The widget `deliteful/Checkbox` provides a `change` event when its state is changed following a user interaction.
 
 |event name|dispatched|cancelable|bubbles|properties|
 |----------|----------|----------|-------|----------|

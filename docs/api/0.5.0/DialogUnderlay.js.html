@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/DialogUnderlay.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/DialogUnderlay.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module delite/DialogUnderlay */
+define([
+	"./register",
+	"./Widget",
+	"./BackgroundIframe",
+	"./Viewport",
+	"./theme!./DialogUnderlay/themes/{{theme}}/DialogUnderlay.css"
+], function (register, Widget, BackgroundIframe, Viewport) {
+
+	// TODO: having show() methods on the instance and also on the module is confusing,
+	// at least when looking at the API doc page.  Should one be renamed?
+
+	/**
+	 * A component used to block input behind a Dialog widget.
+	 *
+	 * Normally this widget should not be instantiated directly, but rather shown and hidden via
+	 * `DialogUnderlay.show()` and `DialogUnderlay.hide()`.  And usually the module is not accessed directly
+	 * at all, since the underlay is shown and hidden by the Dialog.
+	 *
+	 * @class module:delite/DialogUnderlay
+	 */
+	var DialogUnderlay = register("d-dialog-underlay", [HTMLElement, Widget],
+			/** @lends module:delite/DialogUnderlay# */ {
+
+		render: function () {
+			this.className = "d-dialog-underlay";
+		},
+
+		postRender: function () {
+			// Append the underlay to the body
+			this.ownerDocument.body.appendChild(this);
+			this.own(Viewport.on("resize", function () {
+				if (this._open) {
+					this.layout();
+				}
+			}.bind(this)));
+		},
+
+		/**
+		 * Sets the background to the size of the viewport (rather than the size
+		 * of the document) since we need to cover the whole browser window, even
+		 * if the document is only a few lines long.
+		 * @private
+		 */
+		layout: function () {
+			var s = this.style;
+
+			// hide the background temporarily, so that the background itself isn't
+			// causing scrollbars to appear (might happen when user shrinks browser
+			// window and then we are called to resize)
+			s.display = "none";
+
+			// then resize and show
+			// could alternately use $(window).scrollTop() and $(window).height(), etc.
+			var html = this.ownerDocument.documentElement;
+			s.width = html.clientWidth + "px";
+			s.height = html.clientHeight + "px";
+
+			s.display = "";
+		},
+
+		/**
+		 * Show the dialog underlay (instance method).
+		 */
+		show: function () {
+			if (!this._open) {
+				this.style.display = "block";
+				this._open = true;
+				this.layout();
+				this.bgIframe = new BackgroundIframe(this);
+			}
+		},
+
+		/**
+		 * Hide the dialog underlay (instance method).
+		 */
+		hide: function () {
+			if (this._open) {
+				this.bgIframe.destroy();
+				delete this.bgIframe;
+				this.style.display = "none";
+				this._open = false;
+			}
+		}
+	});
+
+	/**
+	 * Static method to display the underlay with the given attributes set.  If the underlay is already displayed,
+	 * then adjust it's attributes as specified.
+	 * @memberof module:delite/DialogUnderlay
+	 * @param {Object} attrs - The parameters to create DialogUnderlay with.
+	 * @param {number} zIndex - z-index of the underlay.
+	 */
+	DialogUnderlay.show = function (attrs, zIndex) {
+		var underlay = DialogUnderlay._singleton;
+		if (!underlay || underlay._destroyed) {
+			underlay = DialogUnderlay._singleton = new DialogUnderlay(attrs);
+		} else {
+			if (attrs) {
+				underlay.mix(attrs);
+			}
+		}
+		underlay.style.zIndex = zIndex;
+		underlay.show();
+	};
+
+	/**
+	 * Static method to hide the underlay.
+	 * @memberof module:delite/DialogUnderlay
+	 */
+	DialogUnderlay.hide = function () {
+		// Guard code in case the underlay widget has already been destroyed
+		// because we are being called during page unload (when all widgets are destroyed)
+		var underlay = DialogUnderlay._singleton;
+		if (underlay &amp;&amp; !underlay._destroyed) {
+			underlay.hide();
+		}
+	};
+
+	return DialogUnderlay;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Wed Dec 03 2014 16:30:35 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

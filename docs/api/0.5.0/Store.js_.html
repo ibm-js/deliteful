@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/Store.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/Store.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/Store */
+define(["dcl/dcl", "delite/register", "delite/CustomElement", "dstore/Memory", "dstore/Trackable"],
+	function (dcl, register, CustomElement, Memory, Trackable) {
+
+	var Store = Memory.createSubclass([Trackable], {});
+
+	var STORE_TYPES = [
+		"add",
+		"remove",
+		"put",
+		"delete",
+		"refresh",
+		"update"
+	];
+
+	/**
+	 * Custom element to create an instance of a memory store object.
+	 * It is particularly useful in markup, when creating store programatically, it's easier to just create a store
+	 * instance directly rather than using the custom element.
+	 * Note that it is only parsed once at attachment time. Further modifications to the store must be made through
+	 * the store API instead of the DOM API.
+	 * @example
+	 * &lt;body>
+	 *   &lt;d-store>
+	 *    { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+	 *    { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+	 *    { "label": "UK", "sales": 700, "profit": 60, "region": "EU" }
+	 *   &lt;/d-dstore>
+	 * &lt;/body>
+	 * @class module:deliteful/Store
+	 * @augments module:delite/CustomElement
+	 */
+	return register("d-store", [HTMLElement, CustomElement], /** @lends module:deliteful/Store# */{
+		createdCallback: function () {
+			this.style.display = "none";
+		},
+		attachedCallback: function () {
+			var store = new Store();
+			var data = JSON.parse("[" + this.textContent + "]");
+			for (var j = 0; j &lt; data.length; j++) {
+				if (!data[j][store.idProperty]) {
+					data[j][store.idProperty] = Math.random();
+				}
+			}
+			store.setData(data);
+			// save store specific on/emit and later use them only for store specific events
+			store._emit = store.emit;
+			store._on = store.on;
+			var include = store._includePropertyInSubCollection;
+			// save custom element specific on/emit to restore them after mixin
+			var emit = this.emit;
+			var on = this.on;
+			dcl.mix(this, store);
+			// on iOS/Safari ctor is not copied but we need _meta for dstore/dojo declare to work
+			if (!this.constructor._meta) {
+				this.constructor._meta = store.constructor._meta;
+			}
+			// those were overriden by dcl.mix put them back
+			this.emit = emit;
+			this.on = on;
+			// avoid issue with IE
+			this._includePropertyInSubCollection = function (name) {
+				return name !== "recordset" &amp;&amp; include.apply(this, arguments);
+			};
+		},
+		on: dcl.superCall(function (sup) {
+			return function (type) {
+				if (STORE_TYPES.indexOf(type) !== -1) {
+					return this._on.apply(this, arguments);
+				} else {
+					return sup.apply(this, arguments);
+				}
+			};
+		}),
+		emit: dcl.superCall(function (sup) {
+			return function (type) {
+				if (STORE_TYPES.indexOf(type) !== -1) {
+					return this._emit.apply(this, arguments);
+				} else {
+					return sup.apply(this, arguments);
+				}
+			};
+		})
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Wed Dec 03 2014 16:30:35 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -76,7 +76,7 @@ In the *main* direction, children of a LinearLayout widget support the following
 | Natural Size (no size set explicitly) |                      |
 | Fixed Size                            | style="width: 150px" |
 | Percentage Size                       | style="width: 30%"   |
-| Fill Available Space                  | class="fill"         |
+| *Fill Available Space*                | class="fill"         |
 
 These constraints can be mixed together for children of the same container.
 
@@ -111,6 +111,14 @@ To avoid this behaviour, you must add ``position: absolute`` on the sub-child.
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
 src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/aYj4A/">checkout the sample on JSFiddle</a></iframe>
+
+### Getting equal-size children in the *main* direction
+
+You just have to set the ``fill`` class on all children.
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
+src="http://jsfiddle.net/ibmjs/t95cokr5/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/t95cokr5/">checkout the sample on JSFiddle</a></iframe>
 
 ### Examples
 

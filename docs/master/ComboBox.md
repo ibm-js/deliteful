@@ -1,33 +1,35 @@
 ---
 layout: default
-title: deliteful/ComboBox
+title: deliteful/Combobox
 ---
 
-# deliteful/ComboBox
+# deliteful/Combobox
 
-`deliteful/ComboBox` is a form-aware and store-aware widget leveraging the 
+`deliteful/Combobox` is a form-aware and store-aware widget leveraging the 
 [`deliteful/list/List`](/deliteful/docs/master/list/List.html) widget for
 displaying the list of options. 
 
 Characteristics:
 * It allows to benefit from the customization mechanism of the list item rendering.
 * Provides single and multiple selection modes.
-* Provides optional interactive filtering of list of options (single selection mode only).  
-* The rendering of the popup is multi-channel responsive: the popup is displayed below/above
-the main button.
+* Provides optional interactive filtering of list of options (single selection mode only). 
+* The rendering of the popup is multi-channel responsive: by default, the popup is displayed
+on desktop below/above the main element, while on mobile it is displayed in a centered
+overlay.
 
-*Example of deliteful/ComboBox (single choice mode, on desktop browser):*
 
-![Example of ComboBox (single choice mode)](images/ComboBox-single.png)
+*Example of deliteful/Combobox (single choice mode, on desktop browser):*
 
-*Example of deliteful/ComboBox (multiple choice mode, on mobile browser):*
+![Example of Combobox (single choice mode)](images/Combobox-single.png)
 
-![Example of ComboBox (multiple choice mode)](images/ComboBox-multiple.png)
+*Example of deliteful/Combobox (multiple choice mode, on mobile browser):*
+
+![Example of Combobox (multiple choice mode)](images/Combobox-multiple.png)
 
 
 ##### Table of Contents
 [Element Instantiation ](#instantiation)  
-[Using ComboBox](#using)  
+[Using Combobox](#using)  
 [Element Styling](#styling)  
 [Enterprise Use](#enterprise)
 
@@ -41,7 +43,7 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 
 ```js
 require(["delite/register", "deliteful/Store",
-  "deliteful/ComboBox", "requirejs-domready/domReady!"],
+  "deliteful/Combobox", "requirejs-domready/domReady!"],
   function (register) {
     register.parse();
   });
@@ -49,9 +51,9 @@ require(["delite/register", "deliteful/Store",
 
 ```html
 <html>
-  <d-combo-box>
+  <d-combobox>
     <d-list store="store"></d-list>
-  </d-combo-box>
+  </d-combobox>
   <d-store id="store">
     { "label": "France", ... },
       ...
@@ -71,7 +73,7 @@ src="http://jsfiddle.net/ibmjs/d1sj0fkp/embedded/result,js,html">
 require(["delite/register", "dstore/Memory", "dstore/Trackable",
          "deliteful/Combobox", "deliteful/list/List",
          "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable, ComboBox, List) {
+  function (register, Memory, Trackable, Combobox, List) {
     register.parse();
     // Create the store
     var dataStore = new (Memory.createSubclass(Trackable))({});
@@ -80,10 +82,10 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     ...
     // Create the List
     var list = new List({store: dataStore, ...});
-    // Create the ComboBox
-    var combobox = new ComboBox({list: list, selectionMode: "multiple"});
-    combobox.placeAt(document.body);      
-    combobox.startup();
+    // Create the Combobox
+    var Combobox = new Combobox({list: list, selectionMode: "multiple"});
+    Combobox.placeAt(document.body);
+    Combobox.startup();
 });
 ```
 
@@ -96,14 +98,14 @@ Note that the `list` property is set by default to a newly created instance of
 `deliteful/list/List`. Hence, applications can write:
 
 ```js
-    var comboBox = new ComboBox();
+    var combobox = new Combobox();
     // Create the store
-    comboBox.list.store = ...;
+    combobox.list.store = ...;
     ...
 ```
 
 <a name="using"></a>
-## Using ComboBox
+## Using Combobox
 
 ### Selection Mode
 
@@ -115,10 +117,27 @@ options can be selected).
 
 In single selection mode, if the property `autoFilter` is set to `true` (default is `false`)
 the widget allows to type one or more characters which are used for filtering 
-the list of shown list items. The filtering is case-insensitive. An item is shown
-if the `label` property of the corresponding data item contains the entered string.
-(More options will be added in a next release.)
+the list of shown list items. By default, the filtering is case-insensitive, and an item
+is shown if its label contains the entered string.
 
+The default filtering policy can be customized using the `filterMode` and 
+`ignoreCase` properties.
+
+The valid values of `filterMode` are:
+		 
+* `"startsWith"`: the item matches if its label starts with the filter text.
+* `"contains"`: the item matches if its label contains the filter text.
+* `"is"`: the item matches if its label is the filter text.
+
+The matching is case insensitive by default. Setting `ignoreCase` to `false` turns
+it case sensitive.
+ 
+The filtering is performed by the `filter(fitlerTxt)` method, which is called automatically 
+while the user types into the editable input element, with `filterTxt` being the currently
+entered text. The default implementation of this method uses `dstore/Filter.match()`.
+The matching is performed against the `list.labelAttr` attribute of the data store items.
+The method can be overridden for implementing other filtering strategies.
+		 
 ### Attribute Mapping
 
 The customization of the mapping of data store item attributes into render item attributes
@@ -128,6 +147,55 @@ can be done on the List instance using the mapping API of
 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for
 more information about the available mapping options.
+
+### Value and form support
+
+The widget supports the following form-related properties: `value`, `name`, `disabled`
+and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.html).
+When used in an HTML form, the submitted value is the one stored in the `value` 
+property of the widget.
+By default, the `label` field of the List's render items is used as value of the option.
+If the value needs to be different than the label, an attribute mapping needs to be
+set for `value` on the `List` instance, for example:
+
+```js
+  // Create the store
+  var dataStoreWithValue = new Memory({idProperty: "label",
+	data: [
+		{ label: "France", value: "FR" },
+		{ label: "Germany", value: "DE" },
+		...
+	]});
+    // Create the List and set valueAttr to specify the name of the field
+    // which stores the value of the item (valueFunc can also be used
+    // for dynamically computed values)
+    var list = new List({store: dataStoreWithValue, valueAttr: "value", ...});
+    // Create the Combobox
+    var combobox = new Combobox({list: list, ...});
+    combobox.placeAt(document.body);
+    combobox.startup();
+```
+
+or in markup:
+
+```html
+<html>
+  <d-combobox>
+    <d-list store="storeWithValue" valueAttr="value"></d-list>
+  </d-combobox>
+  <d-store id="storeWithValue">
+    { "label": "France", "value": "FR" },
+      ...
+  </d-store>
+</html>
+```
+
+If no mapping is specified for `value`, the label is used as value (itself subject to 
+attribute mapping using `List.labelAttr` or `List.labelFunc`).
+
+In single selection mode, the widget value is the value of the selected option.
+In multiple selection mode, the widget value is an array containing the values of the selected options.
+
 
 <a name="styling"></a>
 ## Element Styling
@@ -140,15 +208,15 @@ This widget provides default styling for the following delite theme:
 
 ### CSS Classes
 
-CSS classes are bound to the structure of the widget declared in its template `deliteful/ComboBox/ComboBox.html`.
-The following table lists the CSS classes that can be used to style the ComboBox widget.
+CSS classes are bound to the structure of the widget declared in its template `deliteful/Combobox/Combobox.html`.
+The following table lists the CSS classes that can be used to style the Combobox widget.
 
 |Class name/selector|Applies to|
 |----------|----------|
-|d-combo-box|ComboBox widget node.
-|d-combo-box-input|The inner native `<input>` node on desktop.
-|d-combo-box-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
-|d-combo-box-list|The List widget displayed inside the popup.
+|d-combobox|Combobox widget node.
+|d-combobox-input|The inner native `<input>` node on desktop.
+|d-combobox-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
+|d-combobox-list|The List widget displayed inside the popup.
 
 
 <a name="enterprise"></a>
@@ -160,16 +228,23 @@ Keyboard and screen reader accessibility will be supported in the next release.
 
 ### Globalization
 
-`deliteful/ComboBox` provides an internationalizable bundle that contains the following
+`deliteful/Combobox` provides an internationalizable bundle that contains the following
 messages:
 		
 |Key|Role|
 |----------|----------|
 |"multiple-choice"|Text written in the combo in multiple selection mode if more than one item is selected.
+|"multiple-choice-no-selection"|Text written in the combo in multiple selection mode if no item is selected.
 |"search-placeholder"|Set as placeholder attribute of the input element used for filtering the list of options.
+|"ok-button-label"|The label of the OK button used for multiple selection mode on mobile.
+|"cancel-button-label"|The label of the Cancel button used for multiple selection mode on mobile.
+
+The first 3 strings in the table above are used as default values for the widget properties 
+`multipleChoiceMsg`, `multipleChoiceNoSelectionMsg`, and respectively `searchPlaceHolder`.
+To customize these strings on a per-widget basis, set directly these properties.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
-widget. An issue with the arrow decoration of the combo in RTL will be fixed in the next release. 
+widget. 
 
 ### Security
 

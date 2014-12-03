@@ -457,7 +457,8 @@ except for the selection / deselection of item, that is performed using the Spac
 
 The list items can then be navigated using the UP and DOWN arrow keys. Pressing the DOWN arrow
 while the last item has focus will focus the first item. Pressing the UP arrow while the first item
-has the focus will focus the last item.
+has the focus will focus the last item. Note that in some browsers (such as Firefox) the List needs
+first to be given focus by pressing TAB after loading the page before using the UP and DOWN arrow keys.
 
 When a List item has the focus, you can press the ENTER or F2 keys to focus its first actionable node (if any), and then use the (Shift+)TAB key to move from one actionable node to the (previous)next.
 Pressing the ESC key will end actionable nodes navigation and resume to the previous mode.
