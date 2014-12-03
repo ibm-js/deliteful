@@ -45,7 +45,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how i
 ```
 
 <iframe width="100%" height="150" allowfullscreen="allowfullscreen" frameborder="0"
-src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,css">
+src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,js">
 <a href="http://jsfiddle.net/ibmjs/7sxarg93/">checkout the sample on JSFiddle</a></iframe>
 
 ### Programmatic Instantiation
