@@ -1,8 +1,8 @@
 /** @module deliteful/ViewIndicator */
 define([
-	"dcl/dcl", "delite/register", "dojo/dom-class", "dpointer/events", "delite/Widget",
+	"dcl/dcl", "delite/register", "dpointer/events", "delite/Widget",
 	"delite/theme!./ViewIndicator/themes/{{theme}}/ViewIndicator.css"
-], function (dcl, register, domClass, dpointer, Widget) {
+], function (dcl, register, dpointer, Widget) {
 
 	/**
 	 * ViewIndicator widget. Indicates which view is currently visible in a ViewStack.

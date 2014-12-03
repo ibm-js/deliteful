@@ -3,10 +3,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class",
 	"deliteful/Checkbox",
 	"./resources/Checkbox-shared"
-], function (dcl, registerSuite, assert, register, domClass, Checkbox, commonSuite) {
+], function (dcl, registerSuite, assert, register, Checkbox, commonSuite) {
 
 	var container,
 		html = "<d-checkbox id='cb1'></d-checkbox><d-checkbox id='cb2' value='foo'>" +

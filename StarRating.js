@@ -2,8 +2,8 @@
 define([
 	"requirejs-dplugins/has",
 	"dpointer/events",
-	"dojo/keys",
-	"dojo/dom-class",
+	"delite/keys",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
@@ -11,7 +11,7 @@ define([
 	"delite/uacss", // to use dedicated CSS styles in IE9
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css",
 	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl.css"
-], function (has, pointer, keys, domClass,
+], function (has, pointer, keys, $,
 			register, FormValueWidget, BidiStarRating, messages) {
 
 	/**
@@ -105,7 +105,7 @@ define([
 		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
 			if ("disabled" in props) {
-				domClass.toggle(this, this.baseClass + "-disabled", this.disabled);
+				$(this).toggleClass(this.baseClass + "-disabled", this.disabled);
 			}
 			if ("max" in props) {
 				this.focusNode.setAttribute("aria-valuemax", this.max);
@@ -176,13 +176,13 @@ define([
 			this._wireHandlers();
 			if (!this._hovering && event.pointerType === "mouse") {
 				this._hovering = true;
-				domClass.add(this, this.baseClass + "-hovered");
+				$(this).addClass(this.baseClass + "-hovered");
 			}
 			var newValue = event.target.value;
 			if (newValue !== undefined) {
 				if (this._hovering) {
 					if (newValue !== this._hoveredValue) {
-						domClass.add(this, this.baseClass + "-hovered");
+						$(this).addClass(this.baseClass + "-hovered");
 						this._updateStars(newValue, false);
 						this._hoveredValue = newValue;
 					}
@@ -202,7 +202,7 @@ define([
 			if (!this._hovering) {
 				this._removeEventsHandlers();
 			} else {
-				domClass.remove(this, this.baseClass + "-hovered");
+				$(this).removeClass(this.baseClass + "-hovered");
 			}
 		},
 
@@ -211,7 +211,7 @@ define([
 			if (this._hovering) {
 				this._hovering = false;
 				this._hoveredValue = null;
-				domClass.remove(this, this.baseClass + "-hovered");
+				$(this).removeClass(this.baseClass + "-hovered");
 				this._updateStars(this.value, false);
 			}
 			this._removeEventsHandlers();
@@ -268,10 +268,10 @@ define([
 
 		_updateZeroArea: function () {
 			if (this.readOnly || !this.allowZero) {
-				domClass.add(this._zeroSettingArea, "d-hidden");
+				$(this._zeroSettingArea).addClass("d-hidden");
 				delete this.focusNode.value;
 			} else {
-				domClass.remove(this._zeroSettingArea, "d-hidden");
+				$(this._zeroSettingArea).removeClass("d-hidden");
 				// _zeroSettingArea might not fill the whole widget height
 				// so pointer events can land in the underlying focus node
 				this.focusNode.value = 0;

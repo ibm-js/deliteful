@@ -1,7 +1,7 @@
 /** @module deliteful/StarRating/bidi/StarRating */
 define([
 	"dcl/dcl",
-	"dojo/keys"
+	"delite/keys"
 ], function (dcl, keys) {
 
 	/**

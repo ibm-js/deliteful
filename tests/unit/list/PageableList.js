@@ -1,5 +1,5 @@
 define([
-    "dojo/sniff",
+	"decor/sniff",
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/Deferred",

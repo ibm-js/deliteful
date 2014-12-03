@@ -1,11 +1,11 @@
 /** @module deliteful/list/ItemRenderer */
 define([
 	"dcl/dcl",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/handlebars!./List/ItemRenderer.html",
 	"./Renderer"
-], function (dcl, domClass, register, template, Renderer) {
+], function (dcl, $, register, template, Renderer) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.

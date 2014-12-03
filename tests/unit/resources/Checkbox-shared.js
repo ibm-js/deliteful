@@ -3,8 +3,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class"
-], function (dcl, registerSuite, assert, register, domClass) {
+	"requirejs-dplugins/jquery!attributes/classes"
+], function (dcl, registerSuite, assert, register, $) {
 
 	var commonSuite = {
 		defaultWidget: "",
@@ -18,7 +18,7 @@ define([
 			var d = this.async(1000);
 			setTimeout(d.callback(function () {
 				var cb = document.getElementById(commonSuite.defaultWidget);
-				assert.isTrue(domClass.contains(cb, commonSuite.baseClass), "Unexpected baseClass.");
+				assert.isTrue($(cb).hasClass(commonSuite.baseClass), "Unexpected baseClass.");
 				assert.isFalse(cb.checked, "Unexpected default value for 'checked' property.");
 				assert.isFalse(cb.disabled, "Unexpected default value for 'disabled' property");
 				assert.strictEqual(cb.value, "on", "Unexpected default value for 'value' property");

@@ -1,8 +1,10 @@
 /** @module deliteful/SwapView */
 define([
-	"dcl/dcl", "delite/register", "delite/keys", "dojo/dom-class", "dpointer/events", "./ViewStack",
+	"dcl/dcl", "delite/register", "delite/keys",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"dpointer/events", "./ViewStack",
 	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
-], function (dcl, register, keys, domClass, dpointer, ViewStack) {
+], function (dcl, register, keys, $, dpointer, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
 	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
@@ -54,7 +56,7 @@ define([
 
 		postRender: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
-			domClass.add(this, "d-view-stack");
+			$(this).addClass("d-view-stack");
 
 			this.on("pointerdown", this._pointerDownHandler.bind(this));
 			this.on("pointermove", this._pointerMoveHandler.bind(this));
@@ -96,7 +98,7 @@ define([
 
 						this._drag.reverse = dx > 0;
 
-						domClass.add(this, "-d-swap-view-drag");
+						$(this).addClass("-d-swap-view-drag");
 
 						childIn.style.visibility = "visible";
 						childIn.style.display = "";
@@ -191,7 +193,7 @@ define([
 		 */
 		_endTransition: function () {
 			if (this._drag) {
-				domClass.remove(this, "-d-swap-view-drag");
+				$(this).removeClass("-d-swap-view-drag");
 
 				if (this._drag.slideBack) {
 					// Hide the "in" view if the wap was cancelled (slide back).

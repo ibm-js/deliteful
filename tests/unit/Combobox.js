@@ -4,13 +4,13 @@ define([
 	"intern/chai!assert",
 	"decor/sniff",
 	"delite/register",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes",
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/list/List",
 	"deliteful/Combobox",
 	"deliteful/Store"
-], function (dcl, registerSuite, assert, has, register, domClass,
+], function (dcl, registerSuite, assert, has, register, $,
 	Memory, Trackable, List, Combobox) {
 	
 	var container, MyCombobox;
@@ -213,13 +213,13 @@ define([
 			} // else the declarative case
 			
 			combo.deliver();
-			assert.isTrue(domClass.contains(combo, outerCSS),
+			assert.isTrue($(combo).hasClass(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.inputNode, inputCSS),
+			assert.isTrue($(combo.inputNode).hasClass(inputCSS),
 				"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.valueNode, hiddenInputCSS),
+			assert.isTrue($(combo.valueNode).hasClass(hiddenInputCSS),
 				"Expecting " + hiddenInputCSS +
 				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 
@@ -230,13 +230,13 @@ define([
 			} // else the declarative case
 			
 			combo.deliver();
-			assert.isTrue(domClass.contains(combo, outerCSS),
+			assert.isTrue($(combo).hasClass(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.inputNode, inputCSS),
+			assert.isTrue($(combo.inputNode).hasClass(inputCSS),
 				"Expecting " + inputCSS +
 				" CSS class on inner input element of combo.id: " + combo.id);
-			assert.isTrue(domClass.contains(combo.valueNode, hiddenInputCSS),
+			assert.isTrue($(combo.valueNode).hasClass(hiddenInputCSS),
 				"Expecting " + hiddenInputCSS +
 				" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},

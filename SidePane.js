@@ -2,7 +2,7 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
@@ -10,7 +10,7 @@ define([
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css",
 	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl.css"
 ],
-	function (dcl, pointer, domClass, has, register, DisplayContainer, Deferred) {
+	function (dcl, pointer, $, has, register, DisplayContainer, Deferred) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -148,9 +148,9 @@ define([
 				var animate = this.animate && has("ie") !== 9;
 				if (!this._visible) {
 					if (animate) {
-						domClass.add(this, prefix("animate"));
+						$(this).addClass(prefix("animate"));
 						if (nextElement) {
-							domClass.add(nextElement, prefix("animate"));
+							$(nextElement).addClass(prefix("animate"));
 						}
 					}
 
@@ -217,7 +217,7 @@ define([
 			},
 
 			_afterTransitionHandle: function (item) {
-				domClass.remove(this, prefix("under"));
+				$(this).removeClass(prefix("under"));
 				if (!this._visible) {
 					setVisibility(this, false);
 				}
@@ -250,32 +250,32 @@ define([
 
 
 			_refreshMode: function (nextElement) {
-				domClass.remove(this, [prefix("push"), prefix("overlay"), prefix("reveal")]);
-				domClass.add(this, prefix(this.mode));
+				$(this).removeClass([prefix("push"), prefix("overlay"), prefix("reveal")].join(" "))
+					.addClass(prefix(this.mode));
 
 				if (nextElement && this._visible) {
-					domClass.toggle(nextElement, prefix("translated"), this.mode !== "overlay");
+					$(nextElement).toggleClass(prefix("translated"), this.mode !== "overlay");
 				}
 
 				if (this.mode === "reveal" && !this._visible) {
 					// Needed by FF only for the first opening.
-					domClass.remove(this, prefix("ontop"));
-					domClass.add(this, prefix("under"));
+					$(this).removeClass(prefix("ontop"))
+						.addClass(prefix("under"));
 				}
 				else if (this.mode === "overlay") {
-					domClass.remove(this, prefix("under"));
-					domClass.add(this, prefix("ontop"));
+					$(this).removeClass(prefix("under"))
+						.addClass(prefix("ontop"));
 				} else {
-					domClass.remove(this, [prefix("under"), prefix("ontop")]);
+					$(this).removeClass([prefix("under"), prefix("ontop")].join(" "));
 				}
 			},
 
 			_refreshPosition: function (nextElement) {
-				domClass.remove(this, [prefix("start"), prefix("end")]);
-				domClass.add(this, prefix(this.position));
+				$(this).removeClass([prefix("start"), prefix("end")].join(" "))
+					.addClass(prefix(this.position));
 				if (nextElement && this._visible) {
-					domClass.remove(nextElement, [prefix("start"), prefix("end")]);
-					domClass.add(nextElement, prefix(this.position));
+					$(nextElement).removeClass([prefix("start"), prefix("end")].join(" "))
+						.addClass(prefix(this.position));
 				}
 			},
 
@@ -288,15 +288,15 @@ define([
 
 				// Always remove animation during a refresh. Avoid to see the pane moving on mode changes.
 				// Not very reliable on IE11.
-				domClass.remove(this, prefix("animate"));
+				$(this).removeClass(prefix("animate"));
 
 				if (nextElement) {
-					domClass.remove(nextElement, prefix("animate"));
+					$(nextElement).removeClass(prefix("animate"));
 					if (!this.isLeftToRight()) {
-						domClass.add(nextElement, "d-rtl");
+						$(nextElement).addClass("d-rtl");
 					}
 					else {
-						domClass.remove(nextElement, "d-rtl");
+						$(nextElement).removeClass("d-rtl");
 					}
 				}
 
@@ -308,15 +308,15 @@ define([
 					this._refreshPosition(nextElement);
 				}
 
-				domClass.toggle(this, prefix("hidden"), !this._visible);
-				domClass.toggle(this, prefix("visible"), this._visible);
+				$(this).toggleClass(prefix("hidden"), !this._visible)
+					.toggleClass(prefix("visible"), this._visible);
 
 				// Re-enable animation
 				if (this.animate) {
 					this.defer(function () {
-						domClass.add(this, prefix("animate"));
+						$(this).addClass(prefix("animate"));
 						if (nextElement) {
-							domClass.add(nextElement, prefix("animate"));
+							$(nextElement).addClass(prefix("animate"));
 						}
 					}, this._timing);
 				}
@@ -325,14 +325,15 @@ define([
 			_openImpl: function () {
 				if (!this._visible) {
 					this._visible = true;
-					domClass.remove(this, prefix("hidden"));
-					domClass.add(this, prefix("visible"));
+					$(this).removeClass(prefix("hidden"))
+						.addClass(prefix("visible"));
 
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							domClass.remove(nextElement, [prefix("nottranslated"), prefix("start"), prefix("end")]);
-							domClass.add(nextElement, [prefix(this.position), prefix("translated")]);
+							$(nextElement)
+								.removeClass([prefix("nottranslated"), prefix("start"), prefix("end")].join(" "))
+								.addClass([prefix(this.position), prefix("translated")].join(" "));
 						}
 					}
 				}
@@ -342,14 +343,15 @@ define([
 				if (this._visible) {
 					this._visible = false;
 					this._opening = false;
-					domClass.remove(this.ownerDocument.body, prefix("no-select"));
-					domClass.remove(this, prefix("visible"));
-					domClass.add(this, prefix("hidden"));
+					$(this.ownerDocument.body).removeClass(prefix("no-select"));
+					$(this).removeClass(prefix("visible"))
+						.addClass(prefix("hidden"));
 					if (this.mode === "push" || this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							domClass.remove(nextElement, [prefix("translated"), prefix("start"), prefix("end")]);
-							domClass.add(nextElement, [prefix(this.position), prefix("nottranslated")]);
+							$(nextElement)
+								.removeClass([prefix("translated"), prefix("start"), prefix("end")].join(" "))
+								.addClass([prefix(this.position), prefix("nottranslated")].join(" "));
 						}
 					}
 				}
@@ -371,7 +373,7 @@ define([
 					this._moveHandle = this.on("pointermove", this._pointerMoveHandler.bind(this));
 					this._releaseHandle = this.on("pointerup", this._pointerUpHandler.bind(this));
 
-					domClass.add(this.ownerDocument.body, prefix("no-select"));
+					$(this.ownerDocument.body).addClass(prefix("no-select"));
 				}
 			},
 
@@ -408,7 +410,7 @@ define([
 
 			_pointerUpHandler: function () {
 				this._opening = false;
-				domClass.remove(this.ownerDocument.body, prefix("no-select"));
+				$(this.ownerDocument.body).removeClass(prefix("no-select"));
 				this._resetInteractions();
 			},
 

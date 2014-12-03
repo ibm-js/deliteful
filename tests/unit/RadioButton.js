@@ -2,7 +2,7 @@ define([
 	"dcl/dcl",
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/sniff",
+	"decor/sniff",
 	"delite/register",
 	"deliteful/RadioButton",
 	"./resources/Checkbox-shared"

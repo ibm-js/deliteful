@@ -2,13 +2,13 @@
 define(["dcl/dcl",
 	"decor/sniff",
 	"dojo/Deferred",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"],
-	function (dcl, has, Deferred, domClass, register, DisplayContainer) {
+	function (dcl, has, Deferred, $, register, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
 				if (val) {
@@ -22,7 +22,7 @@ define(["dcl/dcl",
 		}
 		function setReverse(node) {
 			if (node) {
-				domClass.add(node, "-d-view-stack-reverse");
+				$(node).addClass("-d-view-stack-reverse");
 			}
 		}
 		function cleanCSS(node) {
@@ -179,11 +179,11 @@ define(["dcl/dcl",
 				if (transition !== "none") {
 					if (origin) {
 						this._setAfterTransitionHandlers(origin, event, deferred);
-						domClass.add(origin, transitionClass(transition));
+						$(origin).addClass(transitionClass(transition));
 					}
 					if (target) {
 						this._setAfterTransitionHandlers(target, event, deferred);
-						domClass.add(target, [transitionClass(transition), "-d-view-stack-in"]);
+						$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
 					}
 					if (reverse) {
 						setReverse(origin);
@@ -191,17 +191,17 @@ define(["dcl/dcl",
 					}
 					this.defer(function () {
 						if (target) {
-							domClass.add(target, "-d-view-stack-transition");
+							$(target).addClass("-d-view-stack-transition");
 						}
 						if (origin) {
-							domClass.add(origin, ["-d-view-stack-transition", "-d-view-stack-out"]);
+							$(origin).addClass("-d-view-stack-transition -d-view-stack-out");
 						}
 						if (reverse) {
 							setReverse(origin);
 							setReverse(target);
 						}
 						if (target) {
-							domClass.add(target, "-d-view-stack-in");
+							$(target).addClass("-d-view-stack-in");
 						}
 					}, this._timing);
 				} else {
@@ -284,7 +284,7 @@ define(["dcl/dcl",
 					deferred: deferred
 				};
 
-				domClass.add(this, "-d-view-stack-transition");
+				$(this).addClass("-d-view-stack-transition");
 				node.addEventListener("webkitTransitionEnd", endProps.handle);
 				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
 			},
@@ -315,7 +315,7 @@ define(["dcl/dcl",
 					if (item.node !== this._visibleChild) {
 						cleanCSS(this._visibleChild);
 					}
-					domClass.remove(this, "-d-view-stack-transition");
+					$(this).removeClass("-d-view-stack-transition");
 				}
 			}
 		});
