@@ -300,7 +300,7 @@ define([
 			}
 		},
 
-		"ViewIndicator click": function () {
+		"ViewIndicator click dot": function () {
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -332,7 +332,124 @@ define([
 					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
 					assert.include(v, "-d-view-indicator-dot-selected", "Missing class for vi child 2");
 				})
-			;
+				;
+		},
+
+		"ViewIndicator click left": function () {
+			var remote = this.remote;
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				console.log("Skipping test: ViewIndicator click as moveTo not supported on Safari");
+				return remote.end();
+			}
+			return remote
+				.findById("vi")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 100, 5);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('vi').children[0].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
+				})
+				.execute("return document.getElementById('vi').children[1].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
+					assert.include(v, "-d-view-indicator-dot-selected", "Missing class for vi child 1");
+				})
+				.execute("return document.getElementById('vi').children[2].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 2");
+				})
+				;
+		},
+
+		"ViewIndicator click right": function () {
+			var remote = this.remote;
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				console.log("Skipping test: ViewIndicator click as moveTo not supported on Safari");
+				return remote.end();
+			}
+			return remote
+				.findById("vi")
+				.then(function (element) {
+					return remote.moveMouseTo(element, 300, 5);
+				})
+				.end()
+				.pressMouseButton()
+				.sleep(50)
+				.releaseMouseButton()
+				.sleep(500)
+				.execute("return document.getElementById('vi').children[0].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 0");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 0");
+				})
+				.execute("return document.getElementById('vi').children[1].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 1");
+					assert.notInclude(v, "-d-view-indicator-dot-selected", "Extra class for vi child 1");
+				})
+				.execute("return document.getElementById('vi').children[2].className;")
+				.then(function (v) {
+					assert.include(v, "-d-view-indicator-dot", "Missing class for vi child 2");
+					assert.include(v, "-d-view-indicator-dot-selected", "Missing class for vi child 2");
+				})
+				;
+		},
+
+		"SwapView keyboard accessibility": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote;
+			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
+				// Same problem with selendroid and iOS, apparently
+				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
+				return remote.end();
+			}
+			return remote
+				// keyb nav
+				// give the focus to the button to have a ref starting point in the chain
+				.execute("return document.getElementById('b1').focus();")
+				.getActiveElement()
+				.end()
+				.sleep(400)
+				.pressKeys(keys.TAB) // Press TAB -> cb1
+				.sleep(400)
+				.getActiveElement()
+				.getAttribute("class")
+				.then(function (v) {
+					assert.include(v, "d-swap-view", "SwapView should be focused after 1st TAB.");
+				})
+				.end()
+				.pressKeys(keys.PAGE_DOWN) // previous -> child 1
+				.sleep(500)
+				.execute("return document.getElementById('sv').children[1].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 1 should be visible after Page Down key");
+				})
+				.pressKeys(keys.PAGE_UP) // next -> child 2
+				.sleep(500)
+				.execute("return document.getElementById('sv').children[2].style.visibility;")
+				.then(function (v) {
+					assert.equal(v, "visible", "child 2 should be visible after Page Up key");
+				})
+				.pressKeys(keys.TAB) // Press TAB -> End button
+				.sleep(400)
+				.getActiveElement()
+				.getVisibleText()
+				.then(function (v) {
+					assert.equal(v, "End", "Unexpected focused element after 2nd TAB.");
+				})
+				.end()
+				;
 		}
 	});
 });
