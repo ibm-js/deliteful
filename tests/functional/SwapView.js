@@ -45,6 +45,7 @@ define([
 		},
 		
 		"ViewIndicator initialization": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
 				.execute("return document.getElementById('vi').className;")
@@ -74,6 +75,7 @@ define([
 		},
 
 		"SwapView swipe gesture (right->left)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -174,6 +176,7 @@ define([
 		},
 
 		"ViewIndicator update": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -201,6 +204,7 @@ define([
 		},
 
 		"SwapView swipe gesture (left->right)": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -301,6 +305,7 @@ define([
 		},
 
 		"ViewIndicator click dot": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -336,6 +341,7 @@ define([
 		},
 
 		"ViewIndicator click left": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -371,6 +377,7 @@ define([
 		},
 
 		"ViewIndicator click right": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
