@@ -4,10 +4,11 @@
 	font-size: 0.9em;
 	position:relative;
 	overflow:hidden;
-	box-shadow: 0 0px 3px black;
 	margin: 3px;
 	white-space:nowrap;
+	.d-switch-styles();
 	&.d-focused {
+		outline:0;
 		.d-switch-focused-styles();
 	}
 }
@@ -83,7 +84,6 @@
 	margin: 0px;
 	&:checked + .-d-switch-push {
 		margin-left: -@d-switch-knob-w;
-//		.d-switch-width();
 	}
 }
 
