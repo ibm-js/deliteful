@@ -478,7 +478,7 @@ define([
 				return String(this.value).split(/,/g);
 			},
 
-			// jshint maxcomplexity: 11
+			/* jshint maxcomplexity: 11 */
 			pointerDownHandler: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
@@ -539,7 +539,7 @@ define([
 				this.handleOnChange(this.value);
 			},
 
-			// jshint maxcomplexity: 13
+			/* jshint maxcomplexity: 13 */
 			keyDownHandler: function (e) {
 				if (this._ignoreUserInput(e)) {
 					return;
