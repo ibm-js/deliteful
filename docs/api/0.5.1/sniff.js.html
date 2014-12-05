@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: decor/sniff.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: decor/sniff.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This module sets has() flags based on the current browser:
+ *
+ * - `has("webkit")`, `has("chrome")`, `has("safari")`
+ * - `has("mozilla")`, `has("ff")`
+ * - `has("ie")`
+ * - `has("ios")`
+ * - `has("android")`
+ *
+ * It returns the `has()` function.
+ * @module decor/sniff
+ */
+define(["./features"], function (has) {
+	/* jshint maxcomplexity:20 */
+
+	if (has("host-browser")) {
+		var n = navigator,
+			dua = n.userAgent,
+			dav = n.appVersion,
+			tv = parseFloat(dav);
+
+		var isWebkit = parseFloat(dua.split("WebKit/")[1]) || undefined;
+		if (isWebkit) {
+			has.add("webkit", parseFloat(dua.split("WebKit/")[1]) || undefined);
+			has.add("chrome", parseFloat(dua.split("Chrome/")[1]) || undefined);
+			has.add("safari", dav.indexOf("Safari") >= 0 &amp;&amp; !has("chrome") ?
+				parseFloat(dav.split("Version/")[1]) : undefined);
+			if (dua.match(/(iPhone|iPod|iPad)/)) {
+				var p = RegExp.$1.replace(/P/, "p");
+				var v = dua.match(/OS ([\d_]+)/) ? RegExp.$1 : "1";
+				var os = parseFloat(v.replace(/_/, ".").replace(/_/g, ""));
+				has.add(p, os);		// "iphone", "ipad" or "ipod"
+				has.add("ios", os);
+			}
+			has.add("android", parseFloat(dua.split("Android ")[1]) || undefined);
+		} else {
+			var isIE = 0;
+			if (document.all) {
+				// IE &lt; 11
+				isIE = parseFloat(dav.split("MSIE ")[1]) || undefined;
+			} else if (dav.indexOf("Trident")) {
+				// IE >= 9
+				isIE = parseFloat(dav.split("rv:")[1]) || undefined;
+			}
+			if (isIE) {
+				// In cases where the page has an HTTP header or META tag with
+				// X-UA-Compatible, then it is in emulation mode.
+				// Make sure isIE reflects the desired version.
+				// Only switch the value if documentMode's major version
+				// is different from isIE's major version.
+				var mode = document.documentMode;
+				if (mode &amp;&amp; Math.floor(isIE) !== mode) {
+					isIE = mode;
+				}
+
+				has.add("ie", isIE);
+			} else if (dua.indexOf("Gecko") >= 0) {
+				// Mozilla and firefox
+				has.add("mozilla", tv);
+				// We really need to get away from this. Consider a sane isGecko approach for the future.
+				has.add("ff", parseFloat(dua.split("Firefox/")[1] || dua.split("Minefield/")[1]) || undefined);
+			}
+		}
+
+		has.add("mac", dav.indexOf("Macintosh") >= 0);
+
+		has.add("msapp", parseFloat(dua.split("MSAppHost/")[1]) || undefined);
+	}
+
+	return has;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Dec 05 2014 17:37:59 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

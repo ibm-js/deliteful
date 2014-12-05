@@ -66,8 +66,8 @@ See [`deliteful/ViewStack`](./ViewStack.html) documentation for configuration of
 ### Properties
 
 The `swapThreshold` property defines the amount of swiping necessary to change the visible child. It is a
-value between 0 and 1 and corresponds to a fraction of the SwapView width. By default, `swapThreshold` is 0.5, which
-means that you must swipe by more than half the size of the SwapView to change the visible child.
+value between 0 and 1 and corresponds to a fraction of the SwapView width. By default, `swapThreshold` is 0.25, which
+means that you must swipe by more than 1/4 of the size of the SwapView to change the visible child.
 
 <a name="styling"></a>
 ## Element Styling

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/ProgressBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/ProgressBar.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/ProgressBar */
+define([
+	"dcl/dcl",
+	"dojo/dom-class",
+	"ecma402/IntlShim",
+	"delite/register",
+	"delite/Widget",
+	"delite/handlebars!./ProgressBar/ProgressBar.html",
+	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar.css",
+	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl.css"
+], function (dcl, domClass, Intl, register, Widget, template) {
+	/**
+	 * A widget that displays the completion progress of a task.
+	 *
+	 * The progress is either indeterminate, indicating that progress is being made but that it is not clear how
+	 * much more work remains to be done before the task is complete, or the progress is a number in the range
+	 * zero to a maximum, giving the fraction of work that has so far been completed.
+	 *
+	 * There are two properties that determine the current task completion represented by the element. The value
+	 * property specifies how much of the task has been completed, and the max property specifies how much work
+	 * the task requires in total. The units are arbitrary and not specified.
+	 *
+	 * When the progress bar is determinate, a default message displays the percentage of progression.
+	 * The property fractionDigits allows to specify the number of fraction digits to display. You can set a custom
+	 * message using the message property, or override the method formatMessage to generate a dynamic custom message.
+	 *
+	 * When the progress bar is indeterminate, use the message property to display a message.
+	 *
+	 * @class module:deliteful/ProgressBar
+	 * @augments module:delite/Widget
+	 */
+	return register("d-progress-bar", [HTMLElement, Widget], /** @lends module:deliteful/ProgressBar# */{
+
+		/**
+		 * A number indicating the amount of completion of a task.
+		 * The value property must be a valid floating-point number or NaN. Set the value to NaN to make the
+		 * progress bar indeterminate. Set a value comprised between 0 and the max property to make
+		 * the progress bar determinate. A value greater than max is converted to the max value. An invalid or
+		 * negative value is converted to 0.
+		 * @member {number}
+		 * @default NaN
+		 */
+		value: NaN,
+
+		/**
+		 * A number which express the task as completed.
+		 * The max property must be a valid positive floating-point number, otherwise it is converted to 1.0.
+		 * @member {number}
+		 * @default 1.0
+		 */
+		max: 1.0,
+
+		/**
+		 * Indicates the relative position of the current value relative to the maximum value (max).
+		 * If the progress bar is an indeterminate progress bar, then the position is −1. Otherwise, it is the result
+		 * of dividing the current value by the maximum value.
+		 * @member {number}
+		 * @default -1
+		 * @readonly
+		 */
+		position: -1,
+
+		/**
+		 * Allow to specify/override the message on the progress bar whether it's determinate or indeterminate.
+		 * The default behavior of the ProgressBar is to  displays the percentage of completion when the state
+		 * is determinate, and to display no message when state is indeterminate. You can override this with the
+		 * message property. Set an empty string to restore the default behavior.
+		 * @member {string}
+		 * @default ""
+		 */
+		message: "",
+
+		/**
+		 * Allow to set an additional message.
+		 * Depending on the theme it may not be displayed. For themes that display
+		 * both messages, typically message is on one side and the additional message is on the other side. By default
+		 * the additional message is in the form value/max. Ex: [65%........379/583] or [Loading......379/583]. You may
+		 * customize it by overriding the method formatExtMsg.
+		 * @member {boolean}
+		 * @default false
+		 */
+		displayExtMsg: false,
+
+		/**
+		 * Number of places to show on the default message displayed when the progress bar is determinate.
+		 * @member {number}
+		 * @default 0
+		 */
+		fractionDigits: 0,
+
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-progress-bar"
+		 */
+		baseClass: "d-progress-bar",
+
+		template: template,
+
+		render: dcl.after(function () {
+			this.setAttribute("aria-valuemin", 0);
+		}),
+
+		computeProperties: function (props) {
+			if ("max" in props) {
+				var newMax = this._convert2Float(this.max, 1.0);
+				if (newMax &lt;= 0) {
+					newMax = 1.0;
+				}
+				if (newMax !== this.max) {
+					this.max = newMax;
+				}
+			}
+			if ("value" in props &amp;&amp; !isNaN(this.value)) {
+				var newValue = this._convert2Float(this.value, 0);
+				newValue = Math.max(0, Math.min(this.max, newValue));
+				if (newValue !== this.value) {
+					this.value = newValue;
+				}
+			}
+			this.position = isNaN(this.value) ? -1 : this.value / this.max;
+		},
+
+		refreshRendering: function (props) {
+			//update widget to reflect value/max changes
+			if ("max" in props) {
+				this.setAttribute("aria-valuemax", this.max);
+			}
+			if ("value" in props || "max" in props) {
+				if (this.position === -1) { //indeterminate state
+					this.indicatorNode.style.removeProperty("width");
+					this.removeAttribute("aria-valuenow");
+				} else {
+					this.indicatorNode.style.width = (this.position * 100) + "%";
+					this.msgInvertNode.style.width =
+						window.getComputedStyle(this.msgNode).getPropertyValue("width");
+					this.setAttribute("aria-valuenow", this.value);
+				}
+			}
+
+			//update widget message
+			this.msgNode.innerHTML = this.msgInvertNode.innerHTML =
+				this.formatMessage(this.position, this.value, this.max);
+			var hasExtMsg = this.displayExtMsg &amp;&amp; this.position !== -1;
+			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", hasExtMsg);
+			if (hasExtMsg) {
+				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
+				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(this.position, this.value, this.max));
+			} else {
+				this.msgNode.removeAttribute("msg-ext");
+			}
+			//aria text only on indeterminate state with custom message
+			if (this.message &amp;&amp; this.position === -1) {
+				this.setAttribute("aria-valuetext", this.message);
+			} else {
+				this.removeAttribute("aria-valuetext");
+			}
+			domClass.toggle(this, this.baseClass + "-indeterminate", (this.position === -1));
+			if ("value" in props || "max" in props) {
+				this.emit("change", {percent: this.value / this.max * 100, value: this.value, max: this.max});
+			}
+		},
+
+		postRender: function () {
+			this.notifyCurrentValue("value");
+			this.notifyCurrentValue("max");
+		},
+
+		/**
+		 * Formats and returns a message to display inside/beside the progress bar (depends on theme settings).
+		 * If a custom message is specified with the message property, it is returned as-is. Otherwise if the
+		 * progress bar is determined (value is not NaN), it returns the percentage of progression formatted in
+		 * respect with fractionDigits. This method is called when the value and/or the max property changes. May be
+		 * overridden to customize the message.
+		 *
+		 * @param {number} position -  Position of the current value relative to the maximum value (from 0.0 to 1.0).
+		 * @param {number} value - The amount of completion of the task.
+		 * @param {number} max - The value that express the task is completed (maximum value).
+		 * @returns {string} The message to display.
+		 */
+		formatMessage: function (position, value, /*jshint unused: vars */max) {
+			if (!this._numberFormat || this._prevLang !== this.lang ||
+				this._numberFormat.resolvedOptions().minimumFractionDigits !== this.fractionDigits) {
+				var options = {
+					style: "percent",
+					minimumFractionDigits: this.fractionDigits,
+					maximumFractionDigits: this.fractionDigits
+				};
+				this._numberFormat = new Intl.NumberFormat(this.lang || undefined, options);
+				this._prevLang = this.lang;
+			}
+			return this.message ? this.message : (isNaN(value) ? "" : this._numberFormat.format(position));
+		},
+
+		/**
+		 * Formats and returns the extra message to display when the property displayExtMsg is enabled.
+		 * Returns a string formatted with "value/max". May be overridden to customize the extra message.
+		 *
+		 * @param {number} position Position of the current value relative to the maximum value (from 0.0 to 1.0).
+		 * @param {number} value The amount of completion of the task.
+		 * @param {number} max The value that express the task is completed (maximum value).
+		 * @returns {string} The extra message to display.
+		 */
+		formatExtMsg: function (position, value, max) {
+			return (this.isLeftToRight()) ? value + "/" + max : max + "/" + value;
+		},
+
+		/*
+		 * Converts a value to a valid floating-point numbers.
+		 * The Infinity and Not-a-Number (NaN) values are not valid floating-point numbers.
+		 *
+		 * @param value - The value to convert
+		 * @param fallbackValue - The value to assign if the conversion fails.
+		 * @returns {Number}
+		 * @private
+		 */
+		_convert2Float: function (value, fallbackValue) {
+			var v = parseFloat(value);
+			if (isNaN(v) || v === Infinity) {
+				v = fallbackValue;
+			}
+			return v;
+		}
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Dec 05 2014 17:37:59 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

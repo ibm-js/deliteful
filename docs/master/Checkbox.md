@@ -18,7 +18,7 @@ It provides all the standard facilities of a native input and supports deliteful
 [Element Styling](#styling)  
 [Element Events](#events)  
 [Enterprise Use](#enterprise)  
-[See also](#seealso)
+[See also](#seealso)  
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -90,7 +90,7 @@ This widget provides default styling for the following delite themes:
 ### CSS Classes
 
 CSS classes are bound to the structure of the widget declared in its template `deliteful/Checkbox/Checkbox.html`.
-The following table lists all the CSS classes that can be used to style the checkbox. 
+The following table lists all the CSS classes that can be used to style the checkbox.
 
 |class name/selector|applies to|
 |----------|----------|
