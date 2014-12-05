@@ -80,6 +80,7 @@ define([
 		 * @private
 		 */
 		_pointerMoveHandler: function (e) {
+			// jshint maxcomplexity: 13
 			if (this._drag) {
 				var dx = e.clientX - this._drag.start;
 				if (!this._drag.started && Math.abs(dx) > this._dragThreshold) {
