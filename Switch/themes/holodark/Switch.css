@@ -3,14 +3,15 @@
   font-size: 0.9em;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0px 3px black;
   margin: 3px;
   white-space: nowrap;
 }
 .d-switch.d-focused {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline: 0;
+  -webkit-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  border-color: #66afe9;
 }
 .-d-switch-inner {
   position: absolute;
