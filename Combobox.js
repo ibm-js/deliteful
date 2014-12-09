@@ -1,7 +1,7 @@
 /** @module deliteful/Combobox */
 define([
 	"dcl/dcl",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes",
 	"dstore/Filter",
 	"decor/sniff",
 	"delite/register",
@@ -14,7 +14,7 @@ define([
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, domClass, Filter, has, register, FormValueWidget, HasDropDown,
+], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
@@ -275,10 +275,10 @@ define([
 			// Class added on the list such that Combobox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
-			domClass.add(this.list, "d-combobox-list");
+			$(this.list).addClass("d-combobox-list");
 			
 			// The drop-down is hidden initially
-			domClass.add(this.list, "d-combobox-list-hidden");
+			$(this.list).addClass("d-combobox-list-hidden");
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
@@ -469,9 +469,9 @@ define([
 				topLayout.addChild(this._popupInput);
 			}
 			
-			domClass.add(list, "fill");
+			$(list).addClass("fill");
 			topLayout.addChild(list);
-			
+
 			// Just as Android for the native select element, only use ok/cancel
 			// buttons in the multichoice case.
 			if (this.selectionMode === "multiple") {
@@ -486,8 +486,8 @@ define([
 					this.list.selectedItems = this._selectedItems;
 					this.closeDropDown();
 				}.bind(this);
-				domClass.add(cancelButton, "fill");
-				domClass.add(okButton, "fill");
+				$(cancelButton).addClass("fill");
+				$(okButton).addClass("fill");
 				bottomLayout.addChild(cancelButton);
 				bottomLayout.addChild(okButton);
 				topLayout.addChild(bottomLayout);
@@ -503,7 +503,7 @@ define([
 		_createPopupInput: function () {
 			// TODO: use deliteful/SearchBox when will be available.
 			var popupInput = document.createElement("input");
-			domClass.add(popupInput, "d-combobox-popup-input");
+			$(popupInput).addClass("d-combobox-popup-input");
 			popupInput.setAttribute("role", "combobox");
 			popupInput.setAttribute("autocomplete", "off");
 			popupInput.setAttribute("autocapitalize", "none");

@@ -3,12 +3,12 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes",
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/Select",
 	"deliteful/Store"
-], function (dcl, registerSuite, assert, register, domClass,
+], function (dcl, registerSuite, assert, register, $,
 	Memory, Trackable, Select, Store) {
 	
 	var container, MySelect;
@@ -316,19 +316,19 @@ define([
 		"Default CSS" : function () {
 			var select = document.getElementById("select1");
 			select.deliver();
-			assert.isTrue(domClass.contains(select, outerCSS),
+			assert.isTrue($(select).hasClass(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
-			assert.isTrue(domClass.contains(select.valueNode, innerCSS),
+			assert.isTrue($(select.valueNode).hasClass(innerCSS),
 				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 
 			select = document.getElementById("myselect1");
 			select.deliver();
-			assert.isTrue(domClass.contains(select, outerCSS),
+			assert.isTrue($(select).hasClass(outerCSS),
 				"Expecting " + outerCSS +
 				" CSS class on outer element of select.id: " + select.id);
-			assert.isTrue(domClass.contains(select.valueNode, innerCSS),
+			assert.isTrue($(select.valueNode).hasClass(innerCSS),
 				"Expecting " + innerCSS +
 				" CSS class on inner element of select.id: " + select.id);
 		},

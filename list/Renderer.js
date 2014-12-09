@@ -1,10 +1,10 @@
 /** @module deliteful/list/Renderer */
 define([
 	"dcl/dcl",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/Widget"
-], function (dcl, domClass, register, Widget) {
+], function (dcl, $, register, Widget) {
 
 	/**
 	 * The base class for a widget that render an item or its category inside a deliteful/list/List widget.
@@ -50,7 +50,7 @@ define([
 						+ "<template><div attach-point='renderNode'></div></template>");
 			}
 			this.renderNode.tabIndex = -1;
-			domClass.add(this.renderNode, "d-list-cell");
+			$(this.renderNode).addClass("d-list-cell");
 			this.updateFocusableChildren();
 		}),
 

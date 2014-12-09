@@ -1,14 +1,14 @@
 /** @module deliteful/ProgressBar */
 define([
 	"dcl/dcl",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"ecma402/IntlShim",
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars!./ProgressBar/ProgressBar.html",
 	"delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar.css",
 	"requirejs-dplugins/has!bidi?delite/theme!./ProgressBar/themes/{{theme}}/ProgressBar_rtl.css"
-], function (dcl, domClass, Intl, register, Widget, template) {
+], function (dcl, $, Intl, register, Widget, template) {
 	/**
 	 * A widget that displays the completion progress of a task.
 	 *
@@ -142,7 +142,7 @@ define([
 			this.msgNode.innerHTML = this.msgInvertNode.innerHTML =
 				this.formatMessage(this.position, this.value, this.max);
 			var hasExtMsg = this.displayExtMsg && this.position !== -1;
-			domClass.toggle(this.msgNode, this.baseClass + "-msg-ext", hasExtMsg);
+			$(this.msgNode).toggleClass(this.baseClass + "-msg-ext", hasExtMsg);
 			if (hasExtMsg) {
 				//set content value to be used by pseudo element d-progress-bar-msg-ext::after
 				this.msgNode.setAttribute("msg-ext", this.formatExtMsg(this.position, this.value, this.max));
@@ -155,7 +155,7 @@ define([
 			} else {
 				this.removeAttribute("aria-valuetext");
 			}
-			domClass.toggle(this, this.baseClass + "-indeterminate", (this.position === -1));
+			$(this).toggleClass(this.baseClass + "-indeterminate", (this.position === -1));
 			if ("value" in props || "max" in props) {
 				this.emit("change", {percent: this.value / this.max * 100, value: this.value, max: this.max});
 			}

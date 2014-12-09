@@ -4,10 +4,10 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"deliteful/Switch",
 	"./resources/Checkbox-shared"
-], function (dcl, advise, registerSuite, assert, register, domClass, Switch, commonSuite) {
+], function (dcl, advise, registerSuite, assert, register, $, Switch, commonSuite) {
 
 	var container,
 		html = "<d-switch id='sw1'></d-switch>" +
@@ -30,8 +30,8 @@ define([
 			var d = this.async(1000);
 			setTimeout(d.callback(function () {
 				var sw1 = document.getElementById("sw1");
-				assert.isTrue(domClass.contains(sw1, "d-switch-width"), "Missing d-switch-width class.");
-				assert.isTrue(domClass.contains(sw1, "d-switch-rounded"), "Missing d-switch-rounded class.");
+				assert.isTrue($(sw1).hasClass("d-switch-width"), "Missing d-switch-width class.");
+				assert.isTrue($(sw1).hasClass("d-switch-rounded"), "Missing d-switch-rounded class.");
 				assert.strictEqual(sw1.checkedLabel, "", "Unexpected default value for 'checkedLabel' property.");
 				assert.strictEqual(sw1.uncheckedLabel, "", "Unexpected default value for 'uncheckedLabel' property.");
 				var elt = sw1.querySelector("input[type='checkbox']");

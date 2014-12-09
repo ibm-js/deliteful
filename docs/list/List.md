@@ -72,7 +72,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Programmatic Instantiation
 
 ```js
-require(["dstore/Memory", "delite/list/List", "dojo/domReady!"], function (Memory, List) {
+require(["dstore/Memory", "delite/list/List", "requirejs-domready/domReady!"], function (Memory, List) {
 	// Create a memory store for the list and initialize it
 	var dataStore = new Memory({idProperty: "label", data:
 		[
@@ -152,7 +152,7 @@ your store items and the ones expected by the renderer using mapping attributes 
 ```js
 require([
 		"deliteful/list/List",
-		"dojo/domReady!"
+		"requirejs-domready/domReady!"
 	], function (List) {
 		var list = new List();
 		// Map the title property of a store item to

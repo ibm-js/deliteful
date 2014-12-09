@@ -3,9 +3,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"deliteful/ToggleButton"
-], function (dcl, registerSuite, assert, register, domClass, ToggleButton) {
+], function (dcl, registerSuite, assert, register, $, ToggleButton) {
 
 	var container,
 		html = "<button is='d-toggle-button' id='tb1'>tb1</button>" +
@@ -20,7 +20,7 @@ define([
 		"Default State": function () {
 			var tb = document.getElementById("tb1");
 			tb.deliver();
-			assert.isTrue(domClass.contains(tb, "d-toggle-button"), "Unexpected baseClass.");
+			assert.isTrue($(tb).hasClass("d-toggle-button"), "Unexpected baseClass.");
 			assert.isFalse(tb.checked, "Unexpected default value for 'checked' property.");
 			assert.isFalse(tb.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual("tb1", tb.label, "Unexpected default value for 'label' (inherited) property.");
