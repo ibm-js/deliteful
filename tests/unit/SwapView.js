@@ -1,11 +1,10 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/SwapView"
-], function (registerSuite, assert, domGeom, domClass, register) {
+], function (registerSuite, assert, $, register) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler;
@@ -35,8 +34,8 @@ define([
 			ddd = document.getElementById("ddd");
 		},
 		"Default CSS" : function () {
-			assert.isTrue(domClass.contains(node, "d-swap-view"));
-			assert.isTrue(domClass.contains(node, "d-view-stack"));
+			assert.isTrue($(node).hasClass("d-swap-view"));
+			assert.isTrue($(node).hasClass("d-view-stack"));
 		},
 		"Default values" : function () {
 			assert.deepEqual(node.transition, "slide");

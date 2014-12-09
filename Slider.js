@@ -1,16 +1,14 @@
 /** @module deliteful/Slider */
 define([
-	"dojo/dom-class",
-	"dojo/dom-construct",
-	"dojo/dom-style",
-	"dojo/keys",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"delite/keys",
 	"dpointer/events",
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
-], function (domClass, domConstruct, domStyle, keys, dpointer, register, FormValueWidget, CssState, template) {
+], function ($, keys, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private
 	 */
@@ -201,10 +199,10 @@ define([
 				var baseClass = this.baseClass + " " + rootBaseClass;
 				// root node: do not remove all classes; user may define custom classes; CssState adds classes that
 				// we do not want to lose.
-				domClass.replace(this, rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"),
-						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
-						toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
-						this.baseClass + "-v" + " " + this.baseClass + "-h");
+				$(this).removeClass(toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-htl") + " " +
+					toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
+					this.baseClass + "-v" + " " + this.baseClass + "-h");
+				$(this).addClass(rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"));
 				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-container");
 				this.progressBar.setAttribute("style", "");// reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
@@ -283,11 +281,10 @@ define([
 				var toPercent = (currentVal[1] - this.min) * 100 /
 						(this.max < this.min ? this.min : this.max - this.min),
 					toPercentMin = (currentVal[0] - this.min) * 100 /
-						(this.max < this.min ? this.min : this.max - this.min),
-					s = {};
-				s[this._propNames.progressBarSize] = (toPercent - toPercentMin) + "%";
-				s[this._propNames.progressBarStart] = (this._reversed ? (100 - toPercent) : toPercentMin) + "%";
-				domStyle.set(this.progressBar, s);
+						(this.max < this.min ? this.min : this.max - this.min);
+				this.progressBar.style[this._propNames.progressBarSize] = (toPercent - toPercentMin) + "%";
+				this.progressBar.style[this._propNames.progressBarStart] =
+					(this._reversed ? (100 - toPercent) : toPercentMin) + "%";
 			},
 
 			/**

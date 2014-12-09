@@ -3,8 +3,8 @@ define([
 	"dojo/Deferred",
 	"dstore/Memory",
 	"dstore/Trackable",
-	"dojo/dom-class"
-], function (assert, Deferred, Memory, Trackable, domClass) {
+	"requirejs-dplugins/jquery!attributes/classes"
+], function (assert, Deferred, Memory, Trackable, $) {
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -31,13 +31,13 @@ define([
 				},
 				"baseClass update" : function () {
 					var list = this.parent.list;
-					assert.isTrue(domClass.contains(list, "d-list"));
+					assert.isTrue($(list).hasClass("d-list"));
 					list.baseClass = "d-round-rect-list";
 					list.deliver();
-					assert.isTrue(domClass.contains(list, "d-round-rect-list"));
+					assert.isTrue($(list).hasClass("d-round-rect-list"));
 					list.baseClass = "d-list";
 					list.deliver();
-					assert.isTrue(domClass.contains(list, "d-list"));
+					assert.isTrue($(list).hasClass("d-list"));
 				},
 				"scrollDirection horizontal not supported": function () {
 					var list = this.parent.list;
@@ -72,15 +72,15 @@ define([
 					var list = this.parent.list;
 					list.scrollDirection = "vertical";
 					list.deliver();
-					assert.isTrue(domClass.contains(list, "d-scrollable"));
-					assert.isTrue(domClass.contains(list, "d-scrollable-v"));
+					assert.isTrue($(list).hasClass("d-scrollable"));
+					assert.isTrue($(list).hasClass("d-scrollable-v"));
 				},
 				"scroll direction none": function () {
 					var list = this.parent.list;
 					list.scrollDirection = "none";
 					list.deliver();
 					list.scrollDirection = "none";
-					assert.isTrue(domClass.contains(list, "d-list"));
+					assert.isTrue($(list).hasClass("d-list"));
 				},
 				"getItemRenderers": function () {
 					var list = this.parent.list;

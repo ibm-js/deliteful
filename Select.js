@@ -1,14 +1,14 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, domClass, register,
+], function (dcl, $, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -156,10 +156,10 @@ define([
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
 			this.on("focus", function (evt) {
-				domClass.toggle(this, "d-select-focus", evt.type === "focus");
+				$(this).toggleClass("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			this.on("blur", function (evt) {
-				domClass.toggle(this, "d-select-focus", evt.type === "focus");
+				$(this).toggleClass("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			
 			// Keep delite/Selection's selectedItem/selectedItems in sync after

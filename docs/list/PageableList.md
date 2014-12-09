@@ -53,7 +53,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Programmatic Instantiation
 
 ```js
-require(["dstore/Memory", "delite/list/PageableList", "dojo/domReady!"], function (Memory, PageableList) {
+require(["dstore/Memory", "delite/list/PageableList", "requirejs-domready/domReady!"], function (Memory, PageableList) {
   // Create a memory store for the list and initialize it
   var dataStore = new Memory({idProperty: "label", data:
     [

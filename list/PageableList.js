@@ -5,13 +5,13 @@ define([
 	"dojo/string",
 	"dojo/when",
 	"dojo/Deferred",
-	"dojo/dom-class",
-	"dojo/sniff",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"decor/sniff",
 	"./List",
 	"./Renderer",
 	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, string, when, Deferred, domClass, has,
+], function (dcl, register, string, when, Deferred, $, has,
 		List, Renderer, template, messages) {
 
 	/*
@@ -50,9 +50,9 @@ define([
 				this.beforeLoading();
 			}
 			if (!this._destroyed) {
-				domClass.toggle(this, "d-loading", loading);
+				$(this).toggleClass("d-loading", loading);
 				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-				domClass.toggle(this._progressIndicator, "d-hidden");
+				$(this._progressIndicator).toggleClass("d-hidden");
 				this._progressIndicator.active = loading;
 				if (loading) {
 					this._button.setAttribute("aria-disabled", "true");

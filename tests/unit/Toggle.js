@@ -3,9 +3,8 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"delite/register",
-	"dojo/dom-class",
 	"deliteful/Toggle"
-], function (dcl, registerSuite, assert, register, domClass, Toggle) {
+], function (dcl, registerSuite, assert, register, Toggle) {
 
 	var container,
 		widget,

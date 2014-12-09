@@ -10,12 +10,11 @@
 
 	<script type="text/javascript">
 		require([
-			"dojo/dom",
 			"delite/register",
 			"deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (dom, register, Button) {
+		], function (register, Button) {
 
 			// Just for testing subclassing of widgets
 			NewButton = register("new-button", Button, {
@@ -31,7 +30,7 @@
 			["btn1", "btn2", "btn3", "btn4", "btn5"].forEach(function (id) {
 				var btnWidget = document.getElementById(id);
 				btnWidget.on("click", function () {
-					var span = dom.byId("msgArea");
+					var span = document.getElementById("msgArea");
 					span.innerHTML = "&quot;" + btnWidget.label + "&quot; button was clicked.";
 					setTimeout(function () {
 						span.innerHTML = "";

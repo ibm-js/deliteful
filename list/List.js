@@ -2,9 +2,8 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"dojo/_base/lang",
 	"dojo/when",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/keys",
 	"delite/CustomElement",
 	"delite/Selection",
@@ -16,7 +15,7 @@ define([
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List.css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
-], function (dcl, register, lang, when, domClass, keys, CustomElement,
+], function (dcl, register, when, $, keys, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
 
 	/**
@@ -252,8 +251,8 @@ define([
 			/*jshint maxcomplexity:11*/
 			if ("selectionMode" in props) {
 				// Update aria attributes
-				domClass.remove(this, this._cssClasses.selectable);
-				domClass.remove(this, this._cssClasses.multiselectable);
+				$(this).removeClass(this._cssClasses.selectable);
+				$(this).removeClass(this._cssClasses.multiselectable);
 				this.removeAttribute("aria-multiselectable");
 				if (this.selectionMode === "none") {
 					// update aria-selected attribute on unselected items
@@ -261,23 +260,23 @@ define([
 						var child = this.children[i];
 						if (child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.removeAttribute("aria-selected");
-							domClass.remove(child, this._cssClasses.selected);
+							$(child).removeClass(this._cssClasses.selected);
 						}
 					}
 				} else {
 					if (this.selectionMode === "single" || this.selectionMode === "radio") {
-						domClass.add(this, this._cssClasses.selectable);
+						$(this).addClass(this._cssClasses.selectable);
 					} else {
-						domClass.add(this, this._cssClasses.multiselectable);
+						$(this).addClass(this._cssClasses.multiselectable);
 						this.setAttribute("aria-multiselectable", "true");
 					}
 					// update aria-selected attribute on unselected items
 					for (i = 0; i < this.children.length; i++) {
 						child = this.children[i];
-						if (domClass.contains(child, this._cssClasses.item)
+						if ($(child).hasClass(this._cssClasses.item)
 								&& !child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.setAttribute("aria-selected", "false");
-							domClass.remove(child, this._cssClasses.selected); // TODO: NOT NEEDED ?
+							$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
 						}
 					}
 				}
@@ -299,7 +298,7 @@ define([
 					}
 				} else {
 					if (!this._selectionClickHandle) {
-						this._selectionClickHandle = this.on("click", lang.hitch(this, "handleSelection"));
+						this._selectionClickHandle = this.on("click", this.handleSelection.bind(this));
 					}
 				}
 			}
@@ -436,7 +435,7 @@ define([
 					if (renderer) {
 						var itemSelected = !!this.isSelected(currentItem);
 						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
-						domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
+						$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
 					}
 				}
 			}
@@ -770,7 +769,7 @@ define([
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
-				domClass.toggle(renderer, this._cssClasses.selected, itemSelected);
+				$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
 			}
 			renderer.deliver();
 			return renderer;
@@ -795,7 +794,7 @@ define([
 		 * @return {boolean}
 		 */
 		isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
-			return domClass.contains(renderer, this._cssClasses.category);
+			return $(renderer).hasClass(this._cssClasses.category);
 		},
 
 		/**
@@ -963,7 +962,7 @@ define([
 			return !enclosingRenderer ||
 				(this.isAriaListbox && this.isCategoryRenderer(enclosingRenderer)) ?
 				false :
-				domClass.contains(child, this._cssClasses.cell) || child.hasAttribute("navindex");
+				$(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
 
 		/**

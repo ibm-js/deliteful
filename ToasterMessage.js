@@ -3,10 +3,10 @@ define(["dcl/dcl",
 	"delite/Widget",
 	"delite/register",
 	"dojo/Deferred",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Deferred, domClass, pointer, template) {
+], function (dcl, Widget, register, Deferred, $, pointer, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -396,7 +396,7 @@ define(["dcl/dcl",
 			var wrapper = toaster._wrapper;
 			this._isInserted = true;
 			if (animated) {
-				domClass.add(this, toaster.animationInitialClass);
+				$(this).addClass(toaster.animationInitialClass);
 			}
 			if (toaster.invertOrder && wrapper.hasChildNodes()) {
 				// NOTE: invertOrder has an effect only when wrapper has children
@@ -418,16 +418,17 @@ define(["dcl/dcl",
 			}
 
 			// toggling dismiss button visibility
-			domClass.toggle(this._dismissButton, D_HIDDEN, !this.isDismissible());
+			$(this._dismissButton).toggleClass(D_HIDDEN, !this.isDismissible());
 		},
 		_showInDom: function (toaster, animated) {
 			if (animated) {
 				this.defer(function () {
 					// NOTE: this timeout is here only to prevent the browser from optimizing
 					// (which makes the animation invisible)
-					domClass.replace(this, toaster.animationEnterClass, toaster.animationInitialClass);
+					$(this).removeClass(toaster.animationInitialClass);
+					$(this).addClass(toaster.animationEnterClass);
 					listenAnimationEvents(this, function (element) {
-						domClass.remove(element, toaster.animationEnterClass);
+						$(element).addClass(toaster.animationEnterClass);
 
 						// NOTE: the swipe dismissing is made possible only once the entering animation is done
 						// this is done to avoid the CSS of the animation to interfere with the swipe
@@ -453,20 +454,21 @@ define(["dcl/dcl",
 				this.swipeToDismiss.disable();
 
 				if (animated) {
-					domClass.add(this, animation);
+					$(this).addClass(animation);
 					listenAnimationEvents(this, function (element) {
 						element._toBeRemoved = true;
 						toaster.notifyCurrentValue("messages");
 					});
 				} else {
-					domClass.add(this, D_INVISIBLE);
+					$(this).addClass(D_INVISIBLE);
 					this._toBeRemoved = true;
 					toaster.notifyCurrentValue("messages"); // TODO: could be better handled with an event
 				}
 			}
 		},
 		_removeFromDom: function (toaster, animated) {
-			domClass.replace(this, animated ? toaster.animationEndClass : D_HIDDEN, toaster.animationQuitClass);
+			$(this).removeClass(toaster.animationQuitClass);
+			$(this).addClass(animated ? toaster.animationEndClass : D_HIDDEN);
 			toaster._wrapper.removeChild(this);
 			this._isRemoved = true;
 		},

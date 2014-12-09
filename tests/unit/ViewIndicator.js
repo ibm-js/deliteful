@@ -1,12 +1,11 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/SwapView",
 	"deliteful/ViewIndicator",
-], function (registerSuite, assert, domGeom, domClass, register) {
+], function (registerSuite, assert, $, register) {
 	var container, vs;
 	var aaa, bbb, ccc, ddd;
 	var vi;
@@ -26,9 +25,9 @@ define([
 	
 	function checkSelectedDot(vi, index) {
 		for (var i = 0; i < vi.children.length; i++) {
-			assert.isTrue(domClass.contains(vi.children[i], "-d-view-indicator-dot"), "d-view-indicator-dot class");
-			assert[i === index ? "isTrue" : "isFalse"](domClass.contains(vi.children[i],
-				"-d-view-indicator-dot-selected"), "-d-view-indicator-dot-selected class");
+			assert.isTrue($(vi.children[i]).hasClass("-d-view-indicator-dot"), "d-view-indicator-dot class");
+			assert[i === index ? "isTrue" : "isFalse"]($(vi.children[i]).hasClass("-d-view-indicator-dot-selected"),
+				"-d-view-indicator-dot-selected class");
 		}
 	}
 	
@@ -47,7 +46,7 @@ define([
 			vi = document.getElementById("vi");
 		},
 		"Default CSS" : function () {
-			assert.isTrue(domClass.contains(vi, "d-view-indicator"), "d-view-indicator class");
+			assert.isTrue($(vi).hasClass("d-view-indicator"), "d-view-indicator class");
 			assert.equal(vi.children.length, 4, "number of children in ViewIndicator");
 			checkSelectedDot(vi, 0);
 		},
