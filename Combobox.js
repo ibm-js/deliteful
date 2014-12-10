@@ -228,7 +228,7 @@ define([
 			}
 			if (updateReadOnly) {
 				this._updateInputReadOnly();
-				this._setSelectable(this.inputNode, this.selectionMode === "single" && this.autoFilter);
+				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
 			}
 		},
 		
@@ -654,7 +654,9 @@ define([
 					// are not (yet) visible, hence the popup needs to be shown before.
 					var id = this.list.getIdentity(firstSelectedItem);
 					var renderer = this.list.getRendererByItemId(id);
-					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+					if (renderer) {
+						this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+					} // null if the list is empty because no item matches the auto-filtering
 				}
 			};
 		}),
