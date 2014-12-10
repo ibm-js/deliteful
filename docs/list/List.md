@@ -6,12 +6,12 @@ title: deliteful/list/List
 # deliteful/list/List
 
 
-The `deliteful/list/List` custom element (`d-list`) renders an optionally scrollable list of items that are retrieved
-from a store object from the [dstore](http://dstorejs.io/) project
+The `deliteful/list/List` custom element (`d-list` custom tag) renders an optionally scrollable list of items that 
+are retrieved from a store object from the [dstore](http://dstorejs.io/) project.
 
-The list inherits from the `delite/Store` class and as such any valid `dstore/Store` implementation can be used to 
-provide data to the list. No store is provided by default and the application developer has to provide one created
-either programmatically or in markup.
+The list inherits from the [`delite/Store`](/delite/docs/master/Store.md) class and as such any valid `dstore/Store` 
+implementation can be used to provide data to the list. No store is provided by default and the application developer 
+has to provide one created either programmatically or in markup using [`deliteful/Store`](../Store.md) custom element.
 
 Items rendered by the list are standard javascript objects. The list delegates the rendering of its items to an _item renderer_ widget.
 
@@ -100,7 +100,6 @@ require(["dstore/Memory", "delite/list/List", "requirejs-domready/domReady!"], f
 - [Scroll capabilities](#scroll)
 - [Store capabilities](#store)
 - [Categorized items](#categories)
-- [Selection support](#selection)
 - [Custom renderers](#customRenderers)
 
 <a name="scroll"></a>
@@ -241,29 +240,6 @@ As with the rendering of items, the actual rendering of the categories in the li
 The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
 using the `categoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
 
-<a name="selection"></a>
-### Selection support
-
-![Multiple Selectable Items Example](images/Selectable.png)
-
-The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. By default, items
-in the list are not selectable, but you can change this behaviour using the `selectionMode` property
-of the widget:
-
-```js
-var list = new List();
-list.selectionMode = "multiple";
-```
-
-When the selection mode is `single`, one single item can be selected in the list at any time.
-
-When the selection mode is `radio`, one single item can be selected in the list at any time, but it cannot be unselected without selecting another one.
-
-When the selection mode is `multiple`, more than one item can be selected in the list at any time.
-
-When the selection mode is `none`, the items are not selectable.
-
-<a name="customRenderers"></a>
 ### Custom renderers
 
 ![Custom Renderer Example](images/CustomRenderer.png)
@@ -404,9 +380,46 @@ src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
 ## User Interactions
 
 ### Scroll
+
 The widget uses the browser native scroll to allow the user to scroll its content: all the standard scroll interaction of the platform are supported (including using a mousewheel).
 
+### Action
+
+In most cases, when the user clicks or taps a list item the application needs to perform an action. This can easily be 
+achieved by listening to regular click events. It is typically easier to wait for the events to bubble and listen
+to them at the list level as follows:
+
+```html
+<d-list store="store" onclick="actionHandler(event)"></d-list>
+```
+
+with
+
+```js
+function actionHandler(event) {
+	var renderer = event.currentTarget.getEnclosingRenderer(event.target);
+    if (renderer) {
+    	// use the info on renderer.item and perform an action
+    }
+}
+```
+
+<a name="selection"></a>
 ### Selection
+
+When the action on the list items has to be permanent you should consider using the list selection mechanism instead
+of listening to click events. In addition to managing the list of selected items this will provide with with a 
+default CSS rendering for the selected items.
+
+The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. 
+By default, items in the list are not selectable, but you can change this behavior using the `selectionMode` property
+of the widget:
+
+```html
+<d-list selectionMode="multiple"></d-list>
+```
+
+![Multiple Selectable Items Example](images/Selectable.png)
 
 When the selection mode is `"single"`, a click or tap on a item (or a press on the Space key
 when an item has the focus) select it and de-select any previously selected item.
@@ -418,6 +431,9 @@ Clicking on a selected item has no effect.
 
 When the selection mode is `"multiple"`, a click or tap on an item (or a press on the Space key when an item has
 the focus) toggle its selected state.
+
+See the <a href="#selection-event">Events/Selection</a> section for how to listen to selection events.
+
 
 <a name="mixins"></a>
 ## Mixins
@@ -434,10 +450,25 @@ is an array of the items displayed by the widget.
 
 If the widget fails to query its store to retrieve the items to render, it emits a `query-error` event (see [Store capabilities](#store) for more information).
 
+<a name="selection-event"></a>
 ### Selection
 
 When the current selection changes, a `selection-change` event is emitted. Its `oldValue` property
 contains the previous selection, and its `newValue` property contains the new selection.
+
+You can register the event programmatically using the `Widget.on` method or in markup as follows:
+
+```html
+<d-list store="store" on-selection-change="selectionHandler(event)"></d-list>
+```
+
+with
+
+```js
+function selectionHandler(event) {
+	console.log("newly selected item: "+event.newValue);
+}
+```
 
 <a name="enterprise"></a>
 ## Enterprise Use
@@ -495,4 +526,5 @@ This widget has no specific security concern. Refer to  [`delite/Widget`](/delit
 
 ### Browser Support
 
-This widget supports all supported browsers without any degraded behavior.
+This widget supports all supported browsers without any degraded behavior. Note however that the default item renderer
+is not supported on IE9.
