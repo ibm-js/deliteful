@@ -3,6 +3,10 @@
 	vertical-align: middle;
 	margin: 0;
 	padding: 0;
+	/* Setting pointer cursor on root node, input node, and arrow pseudo-element */
+	/* is needed such that the cursor works in all desktop browsers for both */
+	/* the input and the arrow.*/ 
+	cursor: pointer;
 	.d-combobox-styles();
 	
 	&::after {
@@ -10,9 +14,11 @@
 		content: "\25BC";
 		padding:0;
 		position: relative;
-		/* allow clicks to pass through */
-		pointer-events: none;
+		cursor: pointer;
 		.d-combobox-arrow-styles();
+	}
+	&::after[disabled] {
+		cursor: auto;
 	}
 	&.d-rtl::after {
 		.d-combobox-arrow-styles-rtl();
@@ -22,8 +28,14 @@
 	}
 }
 
+.d-combobox[disabled] {
+	cursor: auto;
+	opacity: 0.5;
+}
+
 .d-combobox-input {
 	height: inherit;
+	cursor: pointer;
 	
 	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
 	/* due to the presence of the hidden input which stores the submitted value.*/
@@ -32,6 +44,7 @@
 	&[disabled],
 	fieldset[disabled] & {
 		opacity: 0.5;
+		cursor: auto;
 	}
 }
 
