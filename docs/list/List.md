@@ -7,7 +7,7 @@ title: deliteful/list/List
 
 
 The `deliteful/list/List` custom element (`d-list`) renders an optionally scrollable list of items that are retrieved
-from a [Store](https://github.com/SitePen/dstore).
+from a store object from the [dstore](http://dstorejs.io/) project
 
 The list inherits from the `delite/Store` class and as such any valid `dstore/Store` implementation can be used to 
 provide data to the list. No store is provided by default and the application developer has to provide one created
