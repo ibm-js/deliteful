@@ -1,7 +1,7 @@
 /** @module deliteful/Combobox */
 define([
 	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
+	"requirejs-dplugins/jquery!attributes/classes,event",	// addClass(), css(), on(), off()
 	"dstore/Filter",
 	"decor/sniff",
 	"delite/register",
@@ -210,15 +210,53 @@ define([
 		},
 		
 		refreshRendering: function (oldValues) {
+			var updateReadOnly = false;
 			if ("list" in oldValues) {
 				// Programmatic case (List passed as argument of the ctor of Combobox
 				// or set after the initialization phase)
 				this._initList();
-			} else if ("selectionMode" in oldValues) {
+			}
+			if ("selectionMode" in oldValues) {
+				updateReadOnly = true;
 				if (this.list) {
 					this.list.selectionMode = this.selectionMode === "single" ?
 						"radio" : "multiple";
 				}
+			}
+			if ("autoFilter" in oldValues) {
+				updateReadOnly = true;
+			}
+			if (updateReadOnly) {
+				this._updateInputReadOnly();
+				this._setSelectable(this.inputNode, this.selectionMode === "single" && this.autoFilter);
+			}
+		},
+		
+		/**
+		 * Updates the value of the private property on which the Combobox template
+		 * binds the readonly attribute of the input element.
+		 * @private 
+		 */
+		_updateInputReadOnly: function () {
+			this._inputReadOnly = !this.autoFilter || this.useCenteredDropDown() ||
+				this.selectionMode === "multiple";
+		},
+		
+		/**
+		 * Configures inputNode such that the text is selectable or unselectable.
+		 * @private
+		 */
+		_setSelectable: function (inputNode, selectable) {
+			if (selectable) {
+				inputNode.removeAttribute("unselectable");
+				$(inputNode)
+					.css("user-select", "") // maps to WebkitUserSelect, etc.
+					.off("selectstart", false);
+			} else {
+				inputNode.setAttribute("unselectable", "on");
+				$(inputNode)
+					.css("user-select", "none") // maps to WebkitUserSelect, etc.
+					.on("selectstart", false);
 			}
 		},
 		
@@ -431,13 +469,11 @@ define([
 		},
 		
 		_createDropDown: function (list) {
+			// Update the readonly attribute in case useCenteredDropDown() changed
+			// its return value.
+			this._updateInputReadOnly();
+			
 			var centeredDropDown = this.useCenteredDropDown();
-			
-			// The Combobox template binds the readonly attribute of the input
-			// element on this property 
-			this._inputReadOnly = !this.autoFilter || centeredDropDown ||
-				this.selectionMode === "multiple";
-			
 			var dropDown = centeredDropDown ?
 				this._createCenteredDropDown(list) :
 				this._createNormalDropDown(list);
