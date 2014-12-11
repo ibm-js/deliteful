@@ -16,9 +16,9 @@ define(["dcl/dcl", "dpointer/events"], function (dcl, dpointer) {
 			if ("textDir" in oldVals || "label" in oldVals) {
 				this.labelNode.textContent = this.applyTextDirection(this.label);
 			}
-			if (this.title && ("textDir" in oldVals || "title" in oldVals)) {
+			if (this.title && "textDir" in oldVals) {
 				this.title = this.applyTextDirection(this.title);
-			}				
+			}
 		},
 		
 		postRender: function () {
