@@ -9,5 +9,7 @@ define([
 	"./SidePane",
 	"./Checkbox",
 	"./Switch",
-	"./Button"
+	"./Button",
+	"./Combobox",
+	"./SwapView"
 ]);

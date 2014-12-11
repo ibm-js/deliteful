@@ -32,31 +32,14 @@
 				"deliteful/list/List",
 				"requirejs-domready/domReady!"], function (keys) {
 				register.parse();
-
-				var actionHandler = function(event, list) {
-					var renderer = list.getEnclosingRenderer(event.target);
-					if (renderer && renderer.item.moveto) {
-						document.getElementById("viewStack").show(renderer.item.moveto);
+				actionHandler = function(event) {
+					if ((event.type === "keydown" && event.keyCode === keys.SPACE) || event.type === "click") {
+						var renderer = event.currentTarget.getEnclosingRenderer(event.target);
+						if (renderer && renderer.item.moveto) {
+							document.getElementById("viewStack").show(renderer.item.moveto);
+						}
 					}
 				};
-				// TODO: ADD THE EVENT HANDLERS USING MARKUP ? 
-				var lists = document.getElementsByTagName("d-list");
-				for (var i = 0; i < lists.length; i++) {
-					(function (list) {
-						// TODO: TODO; USE AN "onAction" METHOD AT THE LIST LEVEL INSTEAD OF DEFINING TWO HANDLERS HERE ?
-						// IN TERMS OF PERFORMANCES, LIST IS ALREADY LISTENING TO keydown EVENTS, SO THERE IS LITTLE POINT
-						// ADDING A HANDLER HERE ?
-						list.on("click", function (event) {
-							actionHandler(event, list);
-						});
-						list.on("keydown", function (event) {
-							if (event.keyCode === keys.SPACE) {
-								actionHandler(event, list);
-							}
-						});
-					})(lists[i]);
-				}
-
 				document.body.style.display = "";
 			});
 		});
@@ -73,7 +56,7 @@
 		d-view-stack {
 			width: 100%;
 		}
-		
+
 		d-navigation-item [role="button"] {
 			width: 100%;
 		}
@@ -105,7 +88,8 @@
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
  		<d-list id="list1" arial-label="navigation list 1" store="store1"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 				movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" onclick="actionHandler(event)"
+				onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view2">
@@ -118,7 +102,9 @@
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
- 		<d-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" store="store2">
+ 		<d-list id="list2" arial-label="navigation list 2" movetoAttr="moveTo"
+						itemRenderer="NavigationItemRenderer" store="store2" onclick="actionHandler(event)"
+						onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view3">
@@ -131,7 +117,9 @@
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"},
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
- 		<d-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" store="store3">
+ 		<d-list id="list3" arial-label="navigation list 3" movetoAttr="moveTo"
+						itemRenderer="NavigationItemRenderer" store="store3" onclick="actionHandler(event)"
+						onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view4">
@@ -145,7 +133,8 @@
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
  		<d-list id="list4" arial-label="navigation list 4" store="store4"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" onclick="actionHandler(event)"
+			onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view5">
@@ -159,7 +148,8 @@
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
  		<d-list id="list5" arial-label="navigation list 5" store="store5"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" onclick="actionHandler(event)"
+			onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view6">
@@ -173,7 +163,8 @@
 			{"label": "To list 7", "righticonclass": "rightIcon", "moveTo": "view7"}
 		</d-store>
  		<d-list id="list6" arial-label="navigation list 6" store="store6"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" onclick="actionHandler(event)"
+			onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 	<div id="view7">
@@ -187,7 +178,8 @@
 			{"label": "To list 6", "righticonclass": "rightIcon", "moveTo": "view6"}
 		</d-store>
  		<d-list id="list7" arial-label="navigation list 7" store="store7"
- 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer">
+ 			movetoAttr="moveTo" itemRenderer="NavigationItemRenderer" onclick="actionHandler(event)"
+			onkeydown="actionHandler(event)">
 		</d-list>
 	</div>
 </d-view-stack>

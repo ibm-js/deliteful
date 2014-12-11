@@ -1,11 +1,10 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/SidePane"
-], function (registerSuite, assert, domGeom, domClass, register) {
+], function (registerSuite, assert, $, register) {
 	var container, sp;
 	var htmlContent = "<d-side-pane id='sp'></d-side-pane><div id='content'></div>";
 	registerSuite({
@@ -40,8 +39,8 @@ define([
 			var d = this.async(5000);
 			sp.hide().then(function () {
 				sp.toggle().then(d.callback(function () {
-					assert.isTrue(domClass.contains(sp, "-d-side-pane-visible"));
-					assert.isFalse(domClass.contains(sp, "-d-side-pane-hidden"));
+					assert.isTrue($(sp).hasClass("-d-side-pane-visible"));
+					assert.isFalse($(sp).hasClass("-d-side-pane-hidden"));
 				}));
 			});
 		},
@@ -49,8 +48,8 @@ define([
 			var d = this.async(5000);
 			sp.show().then(function () {
 				sp.toggle().then(d.callback(function () {
-					assert.isTrue(domClass.contains(sp, "-d-side-pane-hidden"));
-					assert.isFalse(domClass.contains(sp, "-d-side-pane-visible"));
+					assert.isTrue($(sp).hasClass("-d-side-pane-hidden"));
+					assert.isFalse($(sp).hasClass("-d-side-pane-visible"));
 				}));
 			});
 		},

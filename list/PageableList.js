@@ -5,13 +5,13 @@ define([
 	"dojo/string",
 	"dojo/when",
 	"dojo/Deferred",
-	"dojo/dom-class",
-	"dojo/sniff",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"decor/sniff",
 	"./List",
 	"./Renderer",
 	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, string, when, Deferred, domClass, has,
+], function (dcl, register, string, when, Deferred, $, has,
 		List, Renderer, template, messages) {
 
 	/*
@@ -50,9 +50,9 @@ define([
 				this.beforeLoading();
 			}
 			if (!this._destroyed) {
-				domClass.toggle(this, "d-loading", loading);
+				$(this).toggleClass("d-loading", loading);
 				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-				domClass.toggle(this._progressIndicator, "d-hidden");
+				$(this._progressIndicator).toggleClass("d-hidden");
 				this._progressIndicator.active = loading;
 				if (loading) {
 					this._button.setAttribute("aria-disabled", "true");
@@ -220,7 +220,7 @@ define([
 				this._autoPagingHandle = null;
 			}
 			if (value) {
-				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this.scrollableNode);
+				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this);
 			}
 		},
 
@@ -298,7 +298,7 @@ define([
 		//////////// delite/Store methods ///////////////////////////////////////
 
 		computeProperties: function (props) {
-			if (this.pageLength > 0) {
+			if (this.pageLength > 0 && this.attached) {
 				if ("store" in props || "query" in props || "_collection" in props)  {
 					// Initial loading of the list
 					if (this._dataLoaded) {
@@ -497,7 +497,7 @@ define([
 				this._previousPageLoader.destroy();
 				this._previousPageLoader = null;
 			} else {
-				this._previousPageLoader.placeAt(this.scrollableNode, "first");
+				this._previousPageLoader.placeAt(this, "first");
 			}
 			// the renderer may have been destroyed and replaced by another one (categorized lists)
 			if (renderer._destroyed) {
@@ -542,7 +542,7 @@ define([
 					this._nextPageLoader.destroy();
 					this._nextPageLoader = null;
 				} else {
-					this._nextPageLoader.placeAt(this.scrollableNode);
+					this._nextPageLoader.placeAt(this);
 				}
 			} else {
 				if (items.length === this._rangeSpec.count) {
@@ -644,7 +644,7 @@ define([
 				_list: this
 			});
 			this._nextPageLoader.deliver();
-			this._nextPageLoader.placeAt(this.scrollableNode);
+			this._nextPageLoader.placeAt(this);
 			this._nextPageLoader.startup();
 		},
 
@@ -672,7 +672,7 @@ define([
 				_list: this
 			});
 			this._previousPageLoader.deliver();
-			this._previousPageLoader.placeAt(this.scrollableNode, "first");
+			this._previousPageLoader.placeAt(this, "first");
 			this._previousPageLoader.startup();
 		},
 

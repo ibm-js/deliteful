@@ -18,8 +18,8 @@ define([
 				list.selectionMode = "multiple";
 				list.deliver();
 				var selectionChangeEvent = null;
-				var firstItem = list.scrollableNode.children[0];
-				var secondItem = list.scrollableNode.children[1];
+				var firstItem = list.children[0];
+				var secondItem = list.children[1];
 				var event = null;
 				list.on("selection-change", function (event) {
 					selectionChangeEvent = event;
@@ -67,8 +67,8 @@ define([
 				list.selectionMode = "single";
 				list.deliver();
 				var selectionChangeEvent = null;
-				var firstItem = list.scrollableNode.children[0];
-				var secondItem = list.scrollableNode.children[1];
+				var firstItem = list.children[0];
+				var secondItem = list.children[1];
 				var event = null;
 				list.on("selection-change", function (event) {
 					selectionChangeEvent = event;
@@ -115,8 +115,8 @@ define([
 				list.selectionMode = "radio";
 				list.deliver();
 				var selectionChangeEvent = null;
-				var firstItem = list.scrollableNode.children[0];
-				var secondItem = list.scrollableNode.children[1];
+				var firstItem = list.children[0];
+				var secondItem = list.children[1];
 				var event = null;
 				list.on("selection-change", function (event) {
 					selectionChangeEvent = event;
@@ -158,7 +158,7 @@ define([
 				list.selectionMode = "single";
 				list.deliver();
 				var selectionChangeEvent = null;
-				var firstItem = list.scrollableNode.children[0];
+				var firstItem = list.children[0];
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
 				list._spaceKeydownHandler(event);
@@ -177,14 +177,14 @@ define([
 				}
 				list.selectionMode = "single";
 				list.deliver();
-				var firstItem = list.scrollableNode.children[0];
-				var thirdItem = list.scrollableNode.children[2];
+				var firstItem = list.children[0];
+				var thirdItem = list.children[2];
 				// select first item
 				var event = {target: firstItem, preventDefault: function () {}};
 				list._spaceKeydownHandler(event);
 				assert(list.isSelected(firstItem.item), "item selected before move");
 				list.store.put(firstItem.item, {beforeId: thirdItem.item.id});
-				var secondItem = list.scrollableNode.children[1];
+				var secondItem = list.children[1];
 				assert(list.isSelected(secondItem.item), "item selected after move");
 				assert(secondItem.renderNode.getAttribute("aria-selected"),
 						"item selected after move (aria-selected attribute)");
@@ -199,7 +199,7 @@ define([
 				assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
 				assert.isFalse(list.hasAttribute("aria-multiselectable"),
 						"no aria-multiselectable attribute expected");
-				var firstItem = list.scrollableNode.children[0];
+				var firstItem = list.children[0];
 				assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 						"no aria-selected attribute 'false' expected on first item");
@@ -220,7 +220,7 @@ define([
 				assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
 				assert.isFalse(list.hasAttribute("aria-multiselectable"),
 						"no aria-multiselectable attribute expected");
-				var firstItem = list.scrollableNode.children[0];
+				var firstItem = list.children[0];
 				assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 						"no aria-selected attribute 'false' expected on first item");
@@ -242,7 +242,7 @@ define([
 				assert.isTrue(list.className.indexOf("d-multiselectable") >= 0, "d-multiselectable class");
 				assert.strictEqual(list.getAttribute("aria-multiselectable"), "true",
 						"aria-multiselectable attribute expected");
-				var firstItem = list.scrollableNode.children[0];
+				var firstItem = list.children[0];
 				assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 				assert.strictEqual(firstItem.renderNode.getAttribute("aria-selected"), "false",
 						"aria-selected attribute expected on first item");
@@ -290,7 +290,7 @@ define([
 		},
 		"selectionMode 'none'" : function () {
 			var selectionChangeEvent = null;
-			var firstItem = list.scrollableNode.children[0];
+			var firstItem = list.children[0];
 			var event = null;
 			list.selectionMode = "none";
 			list.deliver();
@@ -366,13 +366,13 @@ define([
 			list.deliver();
 			assert.isTrue(list.className.indexOf("d-selectable") === -1, "d-selectable class");
 			assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "d-multiselectable class");
-			var firstItem = list.scrollableNode.children[0];
+			var firstItem = list.children[0];
 			assert.isTrue(firstItem.className.indexOf("d-selected") === -1, "no d-selected class expected");
 		},
 		"aria properties and classes updated when selection mode is changed": function () {
 			list.selectionMode = "single";
 			list.deliver();
-			var firstItem = list.scrollableNode.children[0];
+			var firstItem = list.children[0];
 			// select first item
 			var event = {target: firstItem, preventDefault: function () {}};
 			list._spaceKeydownHandler(event);
@@ -386,14 +386,14 @@ define([
 			"A: aria-selected attribute expected on first item");
 			assert.isTrue(firstItem.className.indexOf("d-selected") >= 0, "A: d-selected class on first item");
 			// second item
-			assert.strictEqual(list.scrollableNode.children[1].renderNode.getAttribute("aria-selected"), "false",
+			assert.strictEqual(list.children[1].renderNode.getAttribute("aria-selected"), "false",
 					"A: aria-selected 'false' expected on second item");
-			assert.isTrue(list.scrollableNode.children[1].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[1].className.indexOf("d-selected") === -1,
 					"A: no d-selected class on second item");
 			// third item
-			assert.strictEqual(list.scrollableNode.children[2].renderNode.getAttribute("aria-selected"), "false",
+			assert.strictEqual(list.children[2].renderNode.getAttribute("aria-selected"), "false",
 					"A: aria-selected 'false' expected on third item");
-			assert.isTrue(list.scrollableNode.children[2].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[2].className.indexOf("d-selected") === -1,
 					"A: no d-selected class on third item");
 			list.selectionMode = "multiple";
 			list.deliver();
@@ -403,19 +403,19 @@ define([
 			assert.isTrue(list.className.indexOf("d-multiselectable") >= 0, "B: d-multiselectable class");
 			assert.isTrue(list.className.indexOf("d-selectable") === -1, "B: d-selectable class");
 			// first item
-			assert.strictEqual(list.scrollableNode.children[0].renderNode.getAttribute("aria-selected"), "true",
+			assert.strictEqual(list.children[0].renderNode.getAttribute("aria-selected"), "true",
 				"B: aria-selected attribute expected on first item");
-			assert.isTrue(list.scrollableNode.children[0].className.indexOf("d-selected") >= 0,
+			assert.isTrue(list.children[0].className.indexOf("d-selected") >= 0,
 					"B: d-selected class on first item");
 			// second item
-			assert.strictEqual(list.scrollableNode.children[1].renderNode.getAttribute("aria-selected"), "false",
+			assert.strictEqual(list.children[1].renderNode.getAttribute("aria-selected"), "false",
 			"B: aria-selected attribute expected on second item");
-			assert.isTrue(list.scrollableNode.children[1].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[1].className.indexOf("d-selected") === -1,
 			"B: d-selected class on second item");
 			// third item
-			assert.strictEqual(list.scrollableNode.children[2].renderNode.getAttribute("aria-selected"), "false",
+			assert.strictEqual(list.children[2].renderNode.getAttribute("aria-selected"), "false",
 			"B: aria-selected attribute expected on third item");
-			assert.isTrue(list.scrollableNode.children[2].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[2].className.indexOf("d-selected") === -1,
 			"B: d-selected class on third item");
 			list.selectionMode = "none";
 			list.deliver();
@@ -425,19 +425,19 @@ define([
 			assert.isTrue(list.className.indexOf("d-multiselectable") === -1, "C: d-multiselectable class");
 			assert.isTrue(list.className.indexOf("d-selectable") === -1, "C: d-selectable class");
 			// first item
-			assert.isFalse(list.scrollableNode.children[0].renderNode.hasAttribute("aria-selected"),
+			assert.isFalse(list.children[0].renderNode.hasAttribute("aria-selected"),
 			"C: no aria-selected attribute expected on first item");
-			assert.isTrue(list.scrollableNode.children[0].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[0].className.indexOf("d-selected") === -1,
 			"C: d-selected class on first item");
 			// second item
-			assert.isFalse(list.scrollableNode.children[1].renderNode.hasAttribute("aria-selected"),
+			assert.isFalse(list.children[1].renderNode.hasAttribute("aria-selected"),
 			"C: no aria-selected attribute expected on second item");
-			assert.isTrue(list.scrollableNode.children[1].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[1].className.indexOf("d-selected") === -1,
 			"C: d-selected class on second item");
 			// third item
-			assert.isFalse(list.scrollableNode.children[2].renderNode.hasAttribute("aria-selected"),
+			assert.isFalse(list.children[2].renderNode.hasAttribute("aria-selected"),
 			"C: no aria-selected attribute expected on third item");
-			assert.isTrue(list.scrollableNode.children[2].className.indexOf("d-selected") === -1,
+			assert.isTrue(list.children[2].className.indexOf("d-selected") === -1,
 			"C: d-selected class on third item");
 		},
 		teardown : function () {

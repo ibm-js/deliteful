@@ -13,13 +13,15 @@
 	color: @gray;
 }
 .d-switch-knob-styles() {
-	box-shadow: 0 1px 6px black;
+	box-shadow: 0 1px 6px darken(@gray-lighter, 30%);
 	background: @gray-lighter;
 }
-.d-switch-focused-styles () {
-	outline: thin dotted;
-	outline: 5px auto -webkit-focus-ring-color;
-	outline-offset: -2px;
+.d-switch-styles() {
+	border: 1px solid darken(@gray-lighter, 15%);
+}
+.d-switch-focused-styles() {
+	.box-shadow(0 0 8px rgba(102,175,233,.6));
+	border-color: rgba(102,175,233,1);
 }
 
 @import "../Switch_template.less";

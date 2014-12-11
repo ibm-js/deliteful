@@ -2,10 +2,9 @@ define([
 	"intern!object",
 	"intern/chai!assert",
 	"dojo/dom-geometry",
-	"dojo/dom-class",
 	"delite/register",
 	"deliteful/LinearLayout"
-], function (registerSuite, assert, domGeom, domClass, register) {
+], function (registerSuite, assert, domGeom, register) {
 	var container, node;
 	var htmlContent =
 			"<d-linear-layout id='dlayout' vertical='false' style='width:999px'><div id='divA' class='fill'>A</div>" +

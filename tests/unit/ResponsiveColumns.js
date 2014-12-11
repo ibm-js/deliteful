@@ -1,9 +1,8 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-class",
 	"deliteful/ResponsiveColumns"
-], function (registerSuite, assert, domClass, ResponsiveColumns) {
+], function (registerSuite, assert, ResponsiveColumns) {
 	var container;
 
 	function testLayout(element, targetSize) {

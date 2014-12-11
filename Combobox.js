@@ -1,7 +1,7 @@
 /** @module deliteful/Combobox */
 define([
 	"dcl/dcl",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes,event",	// addClass(), css(), on(), off()
 	"dstore/Filter",
 	"decor/sniff",
 	"delite/register",
@@ -14,7 +14,7 @@ define([
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, domClass, Filter, has, register, FormValueWidget, HasDropDown,
+], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown,
 		keys, List, LinearLayout, Button, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
@@ -210,15 +210,53 @@ define([
 		},
 		
 		refreshRendering: function (oldValues) {
+			var updateReadOnly = false;
 			if ("list" in oldValues) {
 				// Programmatic case (List passed as argument of the ctor of Combobox
 				// or set after the initialization phase)
 				this._initList();
-			} else if ("selectionMode" in oldValues) {
+			}
+			if ("selectionMode" in oldValues) {
+				updateReadOnly = true;
 				if (this.list) {
 					this.list.selectionMode = this.selectionMode === "single" ?
 						"radio" : "multiple";
 				}
+			}
+			if ("autoFilter" in oldValues) {
+				updateReadOnly = true;
+			}
+			if (updateReadOnly) {
+				this._updateInputReadOnly();
+				this._setSelectable(this.inputNode, !this.inputNode.readOnly);
+			}
+		},
+		
+		/**
+		 * Updates the value of the private property on which the Combobox template
+		 * binds the readonly attribute of the input element.
+		 * @private 
+		 */
+		_updateInputReadOnly: function () {
+			this._inputReadOnly = !this.autoFilter || this.useCenteredDropDown() ||
+				this.selectionMode === "multiple";
+		},
+		
+		/**
+		 * Configures inputNode such that the text is selectable or unselectable.
+		 * @private
+		 */
+		_setSelectable: function (inputNode, selectable) {
+			if (selectable) {
+				inputNode.removeAttribute("unselectable");
+				$(inputNode)
+					.css("user-select", "") // maps to WebkitUserSelect, etc.
+					.off("selectstart", false);
+			} else {
+				inputNode.setAttribute("unselectable", "on");
+				$(inputNode)
+					.css("user-select", "none") // maps to WebkitUserSelect, etc.
+					.on("selectstart", false);
 			}
 		},
 		
@@ -275,10 +313,10 @@ define([
 			// Class added on the list such that Combobox' theme can have a specific
 			// CSS selector for elements inside the List when used as dropdown in
 			// the combo. 
-			domClass.add(this.list, "d-combobox-list");
+			$(this.list).addClass("d-combobox-list");
 			
 			// The drop-down is hidden initially
-			domClass.add(this.list, "d-combobox-list-hidden");
+			$(this.list).addClass("d-combobox-list-hidden");
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
@@ -431,13 +469,11 @@ define([
 		},
 		
 		_createDropDown: function (list) {
+			// Update the readonly attribute in case useCenteredDropDown() changed
+			// its return value.
+			this._updateInputReadOnly();
+			
 			var centeredDropDown = this.useCenteredDropDown();
-			
-			// The Combobox template binds the readonly attribute of the input
-			// element on this property 
-			this._inputReadOnly = !this.autoFilter || centeredDropDown ||
-				this.selectionMode === "multiple";
-			
 			var dropDown = centeredDropDown ?
 				this._createCenteredDropDown(list) :
 				this._createNormalDropDown(list);
@@ -469,9 +505,9 @@ define([
 				topLayout.addChild(this._popupInput);
 			}
 			
-			domClass.add(list, "fill");
+			$(list).addClass("fill");
 			topLayout.addChild(list);
-			
+
 			// Just as Android for the native select element, only use ok/cancel
 			// buttons in the multichoice case.
 			if (this.selectionMode === "multiple") {
@@ -486,8 +522,8 @@ define([
 					this.list.selectedItems = this._selectedItems;
 					this.closeDropDown();
 				}.bind(this);
-				domClass.add(cancelButton, "fill");
-				domClass.add(okButton, "fill");
+				$(cancelButton).addClass("fill");
+				$(okButton).addClass("fill");
 				bottomLayout.addChild(cancelButton);
 				bottomLayout.addChild(okButton);
 				topLayout.addChild(bottomLayout);
@@ -503,7 +539,7 @@ define([
 		_createPopupInput: function () {
 			// TODO: use deliteful/SearchBox when will be available.
 			var popupInput = document.createElement("input");
-			domClass.add(popupInput, "d-combobox-popup-input");
+			$(popupInput).addClass("d-combobox-popup-input");
 			popupInput.setAttribute("role", "combobox");
 			popupInput.setAttribute("autocomplete", "off");
 			popupInput.setAttribute("autocapitalize", "none");
@@ -618,7 +654,9 @@ define([
 					// are not (yet) visible, hence the popup needs to be shown before.
 					var id = this.list.getIdentity(firstSelectedItem);
 					var renderer = this.list.getRendererByItemId(id);
-					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+					if (renderer) {
+						this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+					} // null if the list is empty because no item matches the auto-filtering
 				}
 			};
 		}),

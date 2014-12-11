@@ -14,6 +14,8 @@
 	<script type="text/javascript" src="../boilerplate.js"></script>
 	
 	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		
 		require([
 			"delite/register",
 			"deliteful/Store",
@@ -25,7 +27,7 @@
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
-			
+
 			startsWith.on("change", function () {
 				combo2.filterMode = "startsWith";
 			});
@@ -38,6 +40,8 @@
 			ignoreCase.on("change", function () {
 				combo2.ignoreCase = ignoreCase.checked;
 			});
+			
+			ready = true;
 		});
 	</script>
 	<style>
@@ -51,9 +55,9 @@
 	</style>
 </head>
 <body>
-	<form action="processForm.html">
+	<form id="form1" action="processForm.html">
 	<fieldset>
-		
+	
 	<p>
 	Combobox in <b>markup</b>.
 	</p>
@@ -101,7 +105,7 @@
 		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
 		<label for="is">is</label>
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
-		<label for="ignoreCase">Ignore Case</label></p>
+		<label for="ignoreCase">Ignore Case</label>
 	</fieldset>
 	
 	<p>
@@ -156,8 +160,8 @@
 	</d-combobox>
 	
 	<br/><br/>
-	<input id="reset" type="reset">
-	<input id="submit" type="submit">
+	<input id="resetB" type="reset">
+	<input id="submitB" type="submit">
 </fieldset>
 </form>
 	

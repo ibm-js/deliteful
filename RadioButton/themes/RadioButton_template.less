@@ -1,6 +1,10 @@
 .d-radio-button {
 	position: relative;
 	display: inline-block;
+	/* #408 Enforce content-box to ensure correctly centered check mark */
+	/* even if border-box is used everywhere else for instance */
+	/* via delite/themes/defaultapp.css */
+	box-sizing: content-box;
 	.d-radio-button-styles();
 	&.d-focused { // from tab-focus()
 		.d-radio-button-focused();

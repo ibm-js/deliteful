@@ -32,13 +32,12 @@
 		var toast;
 		require([
 				"delite/register",
-				"dojo/dom",
 				"deliteful/ToasterMessage",
 				"deliteful/Toaster",
 				"dpointer/events",
 				"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 				"requirejs-domready/domReady!"
-				], function(register, dom, ToasterMessage, Toaster){
+				], function(register, ToasterMessage, Toaster){
 
 					register.parse();
 

@@ -171,9 +171,9 @@ set for `value` on the `List` instance, for example:
     // for dynamically computed values)
     var list = new List({store: dataStoreWithValue, valueAttr: "value", ...});
     // Create the Combobox
-    var Combobox = new Combobox({list: list, ...});
-    Combobox.placeAt(document.body);
-    Combobox.startup();
+    var combobox = new Combobox({list: list, ...});
+    combobox.placeAt(document.body);
+    combobox.startup();
 ```
 
 or in markup:
@@ -244,7 +244,7 @@ The first 3 strings in the table above are used as default values for the widget
 To customize these strings on a per-widget basis, set directly these properties.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
-widget. An issue with the arrow decoration of the combo in RTL will be fixed in the next release. 
+widget. 
 
 ### Security
 

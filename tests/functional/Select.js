@@ -337,6 +337,38 @@ define(["intern",
 		"keyboard navigation selectionMode = multiple": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationMultipleSelection(this.remote, "d_select_form3");
+		},
+		"Select Form submit": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote;
+			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
+				console.log("Skipping test: 'Select Form submit' on browser: " +
+					remote.environmentType.browserName);
+				return remote.end();
+			}
+			return remote
+				.findById("form1")
+				.submit()
+				.end()
+				.setFindTimeout(intern.config.WAIT_TIMEOUT)
+				.find("id", "parameters")
+				.end()
+				.findById("valueFor_d_select_form1")
+				.getVisibleText()
+				.then(function (value) {
+					assert.strictEqual(value, "1", "Unexpected value for d_select_form1");
+				})
+				.end()
+				.execute("return document.getElementById('valueFor_d_select_form2');") // disabled
+				.then(function (value) {
+					assert.isNull(value, "Unexpected value for disabled Combobox d_select_form2 (disabled)");
+				})
+				.end()
+				.execute("return document.getElementById('valueFor_d_select_form4');") // multiple
+				.then(function (value) {
+					assert.isNull(value, "Unexpected value for disabled Combobox d_select_form2 (multiple)");
+				})
+				.end();
 		}
 	});
 });

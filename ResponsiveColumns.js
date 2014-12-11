@@ -1,10 +1,10 @@
 /** @module deliteful/ResponsiveColumns */
 define([
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
 	"delite/theme!./ResponsiveColumns/themes/{{theme}}/ResponsiveColumns.css"
-], function (domClass, register, DisplayContainer) {
+], function ($, register, DisplayContainer) {
 	/**
 	 * A container that lays out its children according to the screen width. This widget relies on CSS media queries
 	 * (http://www.w3.org/TR/css3-mediaqueries). You can define any number of screen classes by setting the breakpoints
@@ -58,7 +58,7 @@ define([
 				// A set of MediaQueryList
 				this._mqls = [];
 				// Unique class for this widget
-				domClass.add(this, "-d-responsive-columns-" + this.widgetId);
+				$(this).addClass("-d-responsive-columns-" + this.widgetId);
 			},
 
 			postRender: function () {

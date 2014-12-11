@@ -1,6 +1,8 @@
 define([
-	"dcl/dcl", "intern!object", "intern/chai!assert", "delite/register", "dojo/dom-class", "deliteful/Button"
-], function (dcl, registerSuite, assert, register, domClass, Button) {
+	"dcl/dcl", "intern!object", "intern/chai!assert", "delite/register",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"deliteful/Button"
+], function (dcl, registerSuite, assert, register, $, Button) {
 
 	var container, html = "<button is='d-button' id='b1'>b1</button>" +
 		"<button is='d-button' id='b2' value='foo'>b2</button>" +
@@ -13,7 +15,7 @@ define([
 		"Default State": function () {
 			var b = document.getElementById("b1");
 			b.deliver();
-			assert.isTrue(domClass.contains(b, "d-button"), "Unexpected baseClass.");
+			assert.isTrue($(b).hasClass("d-button"), "Unexpected baseClass.");
 			assert.isFalse(b.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual("b1", b.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("b1", b.textContent, "Unexpected default value for textContent.");

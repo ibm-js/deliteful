@@ -1,7 +1,7 @@
-<template class="d-combobox" role="presentation">
+<template class="d-combobox" role="presentation" attach-point="buttonNode">
 	<input class="d-combobox-input"
 		role="combobox"
-		attach-point="inputNode,buttonNode,focusNode"
+		attach-point="inputNode,focusNode"
 		autocomplete="off" autocorrect="off" autocapitalize="none"
 		aria-autocomplete="list"
 		type="{{this.autoFilter ? 'search' : 'text'}}"

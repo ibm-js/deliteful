@@ -1,12 +1,11 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/Toaster",
 	"deliteful/ToasterMessage"
-], function (registerSuite, assert, domGeom, domClass, register, Toaster, ToasterMessage) {
+], function (registerSuite, assert, $, register, Toaster, ToasterMessage) {
 
 	var container, toaster, wrapper, mExpirable, mPersistent;
 
@@ -40,38 +39,38 @@ define([
 		"Testing insert in Dom": function () {
 			mExpirable._insertInDom(toaster, true);
 			assert.strictEqual(mExpirable.compareDocumentPosition(wrapper), 10);
-			assert.isTrue(domClass.contains(mExpirable, toaster.animationInitialClass));
+			assert.isTrue($(mExpirable).hasClass(toaster.animationInitialClass));
 			assert.isTrue(mExpirable._isInserted);
 
 			mPersistent._insertInDom(toaster, true);
 			assert.strictEqual(mPersistent.compareDocumentPosition(wrapper), 10);
-			assert.isTrue(domClass.contains(mPersistent, toaster.animationInitialClass));
+			assert.isTrue($(mPersistent).hasClass(toaster.animationInitialClass));
 			assert.isTrue(mPersistent._isInserted);
 		},
 		"Testing show in Dom": function () {
 			mPersistent._showInDom(toaster, true);
 			var d = this.async(5000);
 			setTimeout(function () {
-				assert.isTrue(domClass.contains(mPersistent, toaster.animationEnterClass));
+				assert.isTrue($(mPersistent).hasClass(toaster.animationEnterClass));
 				d.resolve();
 			}, 5); // NOTE: There is a timeout of 1ms (< 5) before toaster.animationEnterClass is set.
 			return d;
 		},
 		"Testing hide in Dom": function () {
 			mExpirable._hideInDom(toaster, true);
-			assert.isTrue(domClass.contains(mExpirable, toaster.animationQuitClass));
+			assert.isTrue($(mExpirable).hasClass(toaster.animationQuitClass));
 
 			mPersistent._hideInDom(toaster);
 			assert.isTrue(mPersistent._toBeRemoved);
 		},
 		"Testing remove in Dom": function () {
 			mExpirable._removeFromDom(toaster, true);
-			assert.isTrue(domClass.contains(mExpirable, toaster.animationEndClass));
+			assert.isTrue($(mExpirable).hasClass(toaster.animationEndClass));
 			assert.isTrue(mExpirable._isRemoved);
 			assert.isNull(document.getElementById(mExpirable.id));
 
 			mPersistent._removeFromDom(toaster, true);
-			assert.isTrue(domClass.contains(mExpirable, toaster.animationEndClass));
+			assert.isTrue($(mExpirable).hasClass(toaster.animationEndClass));
 			assert.isTrue(mPersistent._isRemoved);
 			assert.isNull(document.getElementById(mPersistent.id));
 		},

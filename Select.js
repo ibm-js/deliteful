@@ -1,14 +1,14 @@
 /** @module deliteful/Select */
 define([
 	"dcl/dcl",
-	"dojo/dom-class", // TODO: replace (when replacement confirmed)
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, domClass, register,
+], function (dcl, $, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -136,15 +136,30 @@ define([
 		template: template,
 		
 		attachedCallback: function () {
+			// If the widget is in a form, reset the initial value of the widget
+			// when the form is reset
+			if (this.valueNode.form) {
+				this.on("reset", function () {
+					this.defer(function () {
+						this.valueNode.selectedIndex =
+							this.selectionMode === "single" ?
+							// First option selected in "single" selection mode, and
+							// no option selected in "multiple" mode
+							0 : -1;
+						this.value = this.valueNode.value;
+					});
+				}.bind(this), this.valueNode.form);
+			}
+			
 			// To provide graphic feedback for focus, react to focus/blur events
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus
 			// to the underlying select, not to the widget.
 			this.on("focus", function (evt) {
-				domClass.toggle(this, "d-select-focus", evt.type === "focus");
+				$(this).toggleClass("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			this.on("blur", function (evt) {
-				domClass.toggle(this, "d-select-focus", evt.type === "focus");
+				$(this).toggleClass("d-select-focus", evt.type === "focus");
 			}.bind(this), this.valueNode);
 			
 			// Keep delite/Selection's selectedItem/selectedItems in sync after

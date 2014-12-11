@@ -27,5 +27,7 @@ define([
 	"./RadioButton",
 	"./ResponsiveColumns",
 	"./ViewStack",
+	"./SwapView",
+	"./ViewIndicator",
 	"./Combobox"
 ]);

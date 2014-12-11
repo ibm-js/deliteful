@@ -1,10 +1,10 @@
 /** @module deliteful/LinearLayout */
 define([
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
 	"delite/theme!./LinearLayout/themes/{{theme}}/LinearLayout.css"
-], function (domClass, register, DisplayContainer) {
+], function ($, register, DisplayContainer) {
 	/**
 	 * A layout container based on CSS3 Flexible Box.
 	 *
@@ -38,8 +38,8 @@ define([
 
 		refreshRendering: function (oldValues) {
 			if ("vertical" in oldValues) {
-				domClass.toggle(this, "-d-linear-layout-v", this.vertical);
-				domClass.toggle(this, "-d-linear-layout-h", !this.vertical);
+				$(this).toggleClass("-d-linear-layout-v", this.vertical);
+				$(this).toggleClass("-d-linear-layout-h", !this.vertical);
 			}
 		},
 		postRender: function () {

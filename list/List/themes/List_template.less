@@ -28,7 +28,6 @@
 	margin: 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	overflow: hidden;
 	.d-list-category-styles;
 	.d-list-cell {
 		height: @category-height;
@@ -61,7 +60,6 @@
 }
 
 .d-list-item-label {
-	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	.d-list-item-label-style;
@@ -69,7 +67,6 @@
 
 .d-list-item-right-text {
 	padding-right: 4px;
-	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	.d-list-item-right-text-style;
@@ -82,7 +79,6 @@
 	.d-list-cell {
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		overflow: hidden;
 		cursor: pointer;
 	  	.d-list-loader-style;
 	}
@@ -149,11 +145,6 @@
 	}
 }
 
-.d-list-container {
-	position: relative;
-	height: 100%;
-}
-
 /*******************************/
 /* iOS theme for RoundRectList */
 /*                             */
@@ -166,20 +157,23 @@
 .d-round-rect-list {
 	/* edit display at your own risk */
 	display: block;
-	/* position needed for moving list items in editable mode: do not edit */
+
+	/* Position relative is needed by List.getBottomDistance(). */
+	/* The List must be positioned to be the offsetNode of renderers. */
+	/* Otherwise, the offsetTop value is computed against a wrong parent */
 	position: relative;
+
 	/* Do not change this margin setting when customizing list in the app css */
 	margin: 0 9px;
 	padding: 0;
-	overflow-x: hidden;
 }
 
-.d-round-rect-list > .d-list-container > *:first-child {
+.d-round-rect-list > *:first-child {
 	border-top-left-radius: @round-radius;
 	border-top-right-radius: @round-radius;
 }
 
-.d-round-rect-list > .d-list-container > *:last-child {
+.d-round-rect-list > *:last-child {
 	.d-last-renderer-style;
 	border-bottom-left-radius: @round-radius;
 	border-bottom-right-radius: @round-radius;
@@ -188,14 +182,17 @@
 .d-list {
 	/* edit display at your own risk */
 	display: block;
-	/* position needed for moving list items in editable mode: do not edit */
+
+	/* Position relative is needed by List.getBottomDistance(). */
+	/* The List must be positioned to be the offsetNode of renderers. */
+	/* Otherwise, the offsetTop value is computed against a wrong parent */
 	position: relative;
-  	padding: 0;
+
+	padding: 0;
 	/* Do not change this margin setting when customizing list in the app css*/
-  	margin: 0;
-  	overflow-x: hidden;
+	margin: 0;
 }
 
-.d-list > .d-list-container > *:last-child {
+.d-list > *:last-child {
 	.d-last-renderer-style;
 }

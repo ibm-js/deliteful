@@ -1,12 +1,10 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
 	"delite/register",
 	"deliteful/Toaster",
 	"deliteful/ToasterMessage"
-], function (registerSuite, assert, domGeom, domClass, register, Toaster, ToasterMessage) {
+], function (registerSuite, assert, register, Toaster, ToasterMessage) {
 
 	var container, toaster;
 	registerSuite({

@@ -1,12 +1,11 @@
 define([
 	"intern!object",
 	"intern/chai!assert",
-	"dojo/dom-geometry",
-	"dojo/dom-class",
+	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/Toaster",
 	"deliteful/ToasterMessage"
-], function (registerSuite, assert, domGeom, domClass, register, Toaster, ToasterMessage) {
+], function (registerSuite, assert, $, register, Toaster, ToasterMessage) {
 
 	var _assert = {}; // this object will contain custom assertions methods
 
@@ -47,7 +46,7 @@ define([
 			toasterDefault.startup();
 			toasterDefault.deliver();
 
-			assert(domClass.contains(toasterDefault, "d-toaster-placement-default"),
+			assert($(toasterDefault).hasClass("d-toaster-placement-default"),
 				"toasterDefault has class d-toaster-placement-default");
 
 			assert.isFalse(toasterDefault.invertOrder,
@@ -76,7 +75,7 @@ define([
 				toasters[pos].placeAt("container");
 				toasters[pos].startup();
 				toasters[pos].deliver();
-				assert.isTrue(domClass.contains(toasters[pos], "d-toaster-placement-" + pos),
+				assert.isTrue($(toasters[pos]).hasClass("d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
 			});
 		},

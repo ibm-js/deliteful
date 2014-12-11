@@ -141,7 +141,6 @@ define([
 
 		attachedCallback: function () {
 			//set unique SVG symbol id
-			this.deliver();
 			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
 			this.querySelector("symbol").id = symbolId;
 			this.querySelector("use")

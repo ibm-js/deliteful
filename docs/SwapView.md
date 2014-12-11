@@ -5,7 +5,7 @@ title: deliteful/SwapView
 
 # deliteful/SwapView
 
-`deliteful/SwapView` is a container that extends `deliteful/SwapView` and adds a swipe interaction to show the
+`deliteful/SwapView` is a container that extends `deliteful/ViewStack` and adds a swipe interaction to show the
 next/previous child.
 
 ![SwapView Transitions](images/SwapView.png)
@@ -61,20 +61,20 @@ require(["deliteful/SwapView", "requirejs-domready/domReady!"], function (SwapVi
 <a name="configuration"></a>
 ## Element Configuration
 
-See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for configuration of the ViewStack base class.
+See [`deliteful/ViewStack`](./ViewStack.md) documentation for configuration of the ViewStack base class.
 
 ### Properties
 
 The `swapThreshold` property defines the amount of swiping necessary to change the visible child. It is a
-value between 0 and 1 and corresponds to a fraction of the SwapView width. By default, `swapThreshold` is 0.5, which
-means that you must swipe by more than half the size of the SwapView to change the visible child.
+value between 0 and 1 and corresponds to a fraction of the SwapView width. By default, `swapThreshold` is 0.25, which
+means that you must swipe by more than 1/4 of the size of the SwapView to change the visible child.
 
 <a name="styling"></a>
 ## Element Styling
 
 `deliteful/SwapView` has no visual appearance, it does not provide any CSS class for styling.
 
-See [`delite/ViewStack`](/delite/docs/master/ViewStack.md) documentation for styling of the ViewStack base class.
+See [`deliteful/ViewStack`](./ViewStack.md) documentation for styling of the ViewStack base class.
 
 <a name="interactions"></a>
 ## User Interactions
