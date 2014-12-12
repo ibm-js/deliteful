@@ -13,10 +13,6 @@
 	border-radius:3px;
 	margin:.5em;
 	border: 1px transparent solid;
-	.dj_a11y & {
-		border: .2em black solid;
-	}
-
 }
 .d-toaster-dismiss {
 	position: relative;
@@ -24,48 +20,26 @@
 	right: -21px;
 }
 .d-toaster-message {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-
-	.dj_a11y & .d-toaster-icon::before {
-		font-family:"webdings";
-		font-size:2em;
-		margin-right:1em;
-		line-height:.5em;
-	}
+	-webkit-touch-callout: none; 
+	.user-select(none);
 }
 .d-toaster-type-info {
 	background: @state-info-bg;
 	border-color: @state-info-border;
 	color: @state-info-text;
-	.dj_a11y  & .d-toaster-icon::before {
-		content:"i";
-	}
 }
 .d-toaster-type-warning {
 	background-color: @state-warning-bg;
 	border-color: @state-warning-border;
 	color: @state-warning-text;
-	.dj_a11y  & .d-toaster-icon::before {
-		content:"U";
-	}
 }
 .d-toaster-type-success {
 	background-color: @state-success-bg;
 	border-color: @state-success-border;
 	color: @state-success-text;
-	.dj_a11y  & .d-toaster-icon::before {
-		content:"a";
-	}
 }
 .d-toaster-type-error {
 	background-color: @state-danger-bg;
 	border-color: @state-danger-border;
 	color: @state-danger-text;
-	.dj_a11y  & .d-toaster-icon::before {
-		content:"x";
-	}
 }
