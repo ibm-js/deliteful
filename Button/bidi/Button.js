@@ -1,4 +1,4 @@
-define(["dcl/dcl", "dpointer/events"], function (dcl, dpointer) {
+define(["dcl/dcl", "dpointer/events"], function (dcl) {
 
 	// module:
 	//		deliteful/Button/bidi/Button
