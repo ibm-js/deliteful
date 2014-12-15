@@ -29,10 +29,9 @@ define(["intern",
 		},
 		"test opening": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return this.remote.end();
+				return this.skip();
 			}
 			return this.remote.findById("showButton").click().end()
 				.sleep(800)
@@ -40,20 +39,18 @@ define(["intern",
 		},
 		"test closing": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return this.remote.end();
+				return this.skip();
 			}
 			return this.remote.findById("hideButton").click().end()
 				.sleep(800)
 				.then(isVisible(this.remote.findById("sp"), false));
 		}/*,
 		"test swipe closing": function () {
-			if (/safari|iPhone|iPad/.test(this.remote.environmentType.browserName)
+			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return this.remote.end();
+				return this.skip();
 			}
 			return this.remote.findById("showButton").click().end().sleep(800)
 				.findById("page").moveMouseTo(30, 300).pressMouseButton().moveMouseTo(10, 300)

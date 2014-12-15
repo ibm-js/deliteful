@@ -265,10 +265,9 @@ define(["intern",
 		"keyboard navigation with default renderers": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-prog-1.html"))
@@ -343,10 +342,9 @@ define(["intern",
 		"keyboard navigation with custom renderers": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-cust-2.html"))
@@ -539,8 +537,7 @@ define(["intern",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-mark-2.html"))
@@ -647,8 +644,7 @@ define(["intern",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-mark-5.html"))
@@ -755,8 +751,7 @@ define(["intern",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-mark-1.html"))
@@ -813,8 +808,7 @@ define(["intern",
 			var remote = this.remote;
 			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 			.get(require.toUrl("./list-cust-1.html"))

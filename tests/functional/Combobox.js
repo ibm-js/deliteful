@@ -20,10 +20,8 @@ define([
 		"Combobox Form submit": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
-				console.log("Skipping test: 'Combobox Form submit' on browser: " +
-					remote.environmentType.browserName);
-				return remote.end();
+			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
+				return this.skip();
 			}
 			return loadFile(this.remote, "./Combobox-decl.html")
 				.findById("form1")

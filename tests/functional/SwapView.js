@@ -77,10 +77,9 @@ define([
 		"SwapView swipe gesture (right->left)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: SwapView swipe gesture (right->left) as moveTo not supported on Safari");
-				return remote.end();
+			    return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
 					.findById("sv")
@@ -178,10 +177,9 @@ define([
 		"ViewIndicator update": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: ViewIndicator update as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
 					.execute("return document.getElementById('vi').children[0].className;")
@@ -206,10 +204,9 @@ define([
 		"SwapView swipe gesture (left->right)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: SwapView swipe gesture (left->right) as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
 					.findById("sv")
@@ -307,10 +304,9 @@ define([
 		"ViewIndicator click dot": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: ViewIndicator click as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			}
 			return remote
 				.findById("vi")
@@ -343,10 +339,9 @@ define([
 		"ViewIndicator click left": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: ViewIndicator click as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			}
 			return remote
 				.findById("vi")
@@ -379,10 +374,9 @@ define([
 		"ViewIndicator click right": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: ViewIndicator click as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			}
 			return remote
 				.findById("vi")
@@ -415,11 +409,10 @@ define([
 		"SwapView keyboard accessibility": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				// Same problem with selendroid and iOS, apparently
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 				// keyb nav

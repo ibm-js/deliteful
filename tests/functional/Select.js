@@ -37,8 +37,8 @@ define(["intern",
 	// properties are correctly updated by the widget).
 	var checkKeyboardNavigationSingleSelection = function (remote, selectId) {
 		if (!/chrome|internet explorer/.test(remote.environmentType.browserName)) {
-			// Webdriver issues for now with FF 
-			console.log("Skipping checkKeyboardNavigationSingleSelection on " +
+			// Webdriver issues for now with FF (can not call skip inside function)
+			console.log("-SKIPPED checkKeyboardNavigationSingleSelection on " +
 				remote.environmentType.browserName);
 			return remote.end();
 		}
@@ -134,8 +134,8 @@ define(["intern",
 	var checkKeyboardNavigationMultipleSelection = function (remote, selectId) {
 		if (!/chrome/.test(remote.environmentType.browserName)) {
 			// Keyboard shortcuts for multi-selects are browser dependent.
-			// For now testing Chrome only.
-			console.log("Skipping checkKeyboardNavigationMultipleSelection on " +
+			// For now testing Chrome only. (can not call skip inside of function)
+			console.log("-SKIPPED checkKeyboardNavigationMultipleSelection on " +
 				remote.environmentType.browserName);
 			return remote.end();
 		}
@@ -341,10 +341,8 @@ define(["intern",
 		"Select Form submit": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
-				console.log("Skipping test: 'Select Form submit' on browser: " +
-					remote.environmentType.browserName);
-				return remote.end();
+			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
+				return this.skip();
 			}
 			return remote
 				.findById("form1")

@@ -49,10 +49,9 @@ define([
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support sendKeys
-				console.log("Skipping test: key nav as sendKeys not supported on Safari");
-				return remote.end();
+			    return this.skip("SafariDriver doesn't support sendKeys.");
 			}
 			return remote
 				.execute("return document.getElementById('b1').focus();")
@@ -87,9 +86,8 @@ define([
 				//
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/iphone|selendroid/.test(remote.environmentType.browserName)) {
-				console.log("Skipping test: 'Checkbox Form' on this platform.");
-				return remote.end();
+			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
+				return this.skip();
 			}
 			return loadFile(remote, "./Checkbox.html")
 				.findById("form1")

@@ -48,35 +48,35 @@ module.exports = function (grunt) {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local",
-					reporters: ["runner"]
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
 			"local.android": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.android",
-					reporters: ["runner"]
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
 			"local.ios": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.ios",
-					reporters: ["runner"]
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
 			remote: {
 				options: {
 					runType: "runner",
 					config: "tests/intern",
-					reporters: ["runner"]
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
 			browserstack: {
 				options: {
 					runType: "runner",
 					config: "tests/intern.browserstack",
-					reporters: ["runner"]
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			}
 		},
@@ -138,13 +138,15 @@ module.exports = function (grunt) {
 	
 	// Testing.
 	// always specify the target e.g. grunt test:remote, grunt test:remote
-	// then add on any other flags afterwards e.g. console, lcovhtml
+	// then add on any other flags afterwards e.g. runner, console, lcovhtml
 	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
 		"Always specify the test target e.g. \n" +
 		"grunt test:local\n" +
 		"grunt test:local.android\n" +
 		"grunt test:local.ios\n" +
 		"grunt test:remote\n\n" +
+		"To override the default reporter 'customRunner' with the 'runner' reporter pass the runner flag e.g. \n" +
+		"grunt test:local:runner\n" +
 		"Add any optional reporters via a flag e.g. \n" +
 		"grunt test:local:console\n" +
 		"grunt test:local:lcovhtml\n" +
@@ -163,9 +165,18 @@ module.exports = function (grunt) {
 			addReporter("lcovhtml");
 		}
 
+		if (this.flags.runner) {
+			addReporter("runner");
+		}
+
 		if (this.flags.console) {
 			addReporter("console");
 		}
+
+		if (!this.flags.runner || this.flags.customRunner) {
+			addReporter("deliteful/tests/customRunner");
+		}
+
 		grunt.task.run("intern:" + target);
 	});
 };
