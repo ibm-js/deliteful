@@ -41,10 +41,10 @@ require(["delite/register", "deliteful/Store", "deliteful/Select", "requirejs-do
 ```html
 <html>
   <d-store id="myStore">
-    {text: "Option 1", value: "1"},
+    {"text": "Option 1", "value": "1"},
     ...
   </d-store>
-  <d-select selectionMode="multiple" id="select1" store="myStore"></d-select>
+  <d-select selectionMode="multiple" store="myStore"></d-select>
 </html>
 ```
 
