@@ -31,7 +31,7 @@ define({
 		// Mobile
 		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
 		// see https://github.com/theintern/intern/issues/216
-		//{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
+		//,{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
 		//	"appium-version": "1.2.2", name: "deliteful" }
 	],
 

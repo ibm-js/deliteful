@@ -163,7 +163,6 @@ define(["intern",
 						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		"Check Aria/initial nb of messages/posting": function () {
-			console.log("# running test 'default'");
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return checkAriaAttr(remote, "default")
@@ -183,7 +182,6 @@ define(["intern",
 				});
 		},
 		"Check toaster stacking permanent messages": function () {
-			console.log("# running test 'check permanent message stacking'");
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
@@ -241,7 +239,6 @@ define(["intern",
 		// TODO: this test case doesn't pass due to a dpointer issue which has been reported here
 		// https://github.com/ibm-js/dpointer/issues/23
 //		"Check message dismissal": function () {
-//			console.log("# running test 'check message dismissal'");
 //			var remote = this.remote;
 //			return remote
 //				.get(require.toUrl(PAGE))
@@ -274,7 +271,6 @@ define(["intern",
 //				.end();
 //		},
 		"Check message duration": function () {
-			console.log("# running test 'check message durations'");
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
@@ -294,7 +290,6 @@ define(["intern",
 				.end();
 		},
 		"Check message types": function () {
-			console.log("# running test 'check message types'");
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 

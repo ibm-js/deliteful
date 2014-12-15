@@ -25,10 +25,9 @@ define([
 		"Switch behavior": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iphone|selendroid/.test(remote.environmentType.browserName)) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				console.log("Skipping test: Switch behavior as moveTo not supported on Safari");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return loadFile(remote, "./Switch.html")
 					.findById("sw1")
