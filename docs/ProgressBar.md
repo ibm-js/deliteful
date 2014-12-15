@@ -23,8 +23,8 @@ customized. ProgressBar theme style typically defines a looping animation to hig
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
 [Element Styling](#styling)  
-[Element Events](#events)  
-[Enterprise Use](#enterprise)  
+[Element Events](#events)
+[Enterprise Use](#enterprise)
 [See also](#seealso)
 
 <a name="instantiation"></a>
@@ -168,11 +168,7 @@ src="http://jsfiddle.net/ibmjs/8HzDE/embedded/result,html,css,js">
 
 <a name="events"></a>
 ## Element Events
-The widget `deliteful/ProgressBar` provides a `change` event when its value changes.
-
-|event name|dispatched|cancelable|bubbles|properties|
-|----------|----------|----------|-------|----------|
-|change|on value change|No |Yes|<ul><li>`percent`: the percentage of progression.</li><li>`value`: the actual value.</li><li>`max`: the number which express the task as completed</li></ul>|
+The widget `deliteful/ProgressBar` emits no events.
 
 <a name="enterprise"></a>
 ## Enterprise Use
