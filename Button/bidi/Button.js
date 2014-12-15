@@ -1,4 +1,4 @@
-define(["dcl/dcl"], function (dcl) {
+define(["dcl/dcl", "dpointer/events"], function (dcl) {
 
 	// module:
 	//		deliteful/Button/bidi/Button
@@ -12,10 +12,22 @@ define(["dcl/dcl"], function (dcl) {
 		//		This class should not be used directly.
 		//		Button widget loads this module when user sets "has: {'bidi': true }" in data-dojo-config.
 
-		refreshRendering: function () {
-			this.containerNode.textContent = this.wrapWithUcc(this.containerNode.textContent);
+		refreshRendering: function (oldVals) {
+			if ("textDir" in oldVals || "label" in oldVals) {
+				this.labelNode.textContent = this.applyTextDirection(this.label);
+			}
+			if (this.title && "textDir" in oldVals) {
+				this.title = this.applyTextDirection(this.title);
+			}
+		},
+		
+		postRender: function () {
+			this.on("pointerover", this._pointerOverHandler.bind(this));
+		},
+		
+		_pointerOverHandler: function (evt) {
 			if (this.title) {
-				this.title = this.wrapWithUcc(this.title);
+				this.title = this.applyTextDirection(this.title);
 			}
 		}
 	});
