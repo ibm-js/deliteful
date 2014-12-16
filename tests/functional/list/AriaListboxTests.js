@@ -20,7 +20,13 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
+				.findByXpath("//*[@id='" + listId + "']")
+					.getAttribute("role")
+					.then(function (value) {
+						assert.strictEqual(value, "listbox");
+					})
+					.end()
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
@@ -74,7 +80,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
 					.getAttribute("aria-selected")
 					.then(function (value) {
@@ -131,7 +137,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.pressKeys("\uE004") // Press TAB
 				.getActiveElement()
 				.getVisibleText()
@@ -208,7 +214,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.pressKeys("\uE004") // Press TAB
 				.getActiveElement()
 				.getVisibleText()
@@ -259,7 +265,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.pressKeys("\uE004") // Press TAB
 				.getActiveElement()
 				.getVisibleText()
@@ -307,7 +313,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.pressKeys("\uE004") // Press TAB
 				.getActiveElement()
 				.getVisibleText()
@@ -342,7 +348,7 @@ define(["intern",
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
+					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 4");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
@@ -364,7 +370,7 @@ define(["intern",
 				.getActiveElement()
 				.getVisibleText()
 				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
+					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 6");
 				})
 				.getAttribute("aria-selected")
 				.then(function (value) {
@@ -414,7 +420,7 @@ define(["intern",
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
 			.then(function () {
-				remote
+				return remote
 				.pressKeys("\uE004") // Press TAB
 				.getActiveElement()
 				.getVisibleText()

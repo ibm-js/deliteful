@@ -240,6 +240,7 @@ As with the rendering of items, the actual rendering of the categories in the li
 The default one is `deliteful/list/CategoryRenderer`, but a custom category renderer can be specified
 using the `categoryRenderer` property of the list (see the [custom renderers](#customRenderers) section for more details).
 
+<a name="customRenderers"></a>
 ### Custom renderers
 
 ![Custom Renderer Example](images/CustomRenderer.png)
@@ -479,7 +480,7 @@ function selectionHandler(event) {
 The widget supports two different WAI-ARIA roles:
 
 1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
-1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be set by assigning the value `true` to the `isAriaListbox` property.
+1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be simply using `setAttribute` method.
 
 #### grid role
 
@@ -508,9 +509,9 @@ When an item is selected in a list, its `aria-selected` attribute is set to the 
 
 #### listbox role
 
-When using the `listbox` role, the List widget behave as previously described for the `grid` role, with the following differences:
+When using the `listbox` role, the List widget behaves as previously described for the `grid` role, with the following differences:
 
-* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `"none"` when setting the `isAriaListbox` property to `true`, it is automatically set to `"single"`;
+* The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `"none"` when setting the role attribute to `listbox`, it is automatically set to `"single"`;
 * The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
 * If the list is categorized, the category headers are not focusable.
 

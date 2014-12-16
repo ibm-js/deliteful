@@ -13,7 +13,7 @@ define([
 	var testHelper = {
 			"Helper selectionMode 'multiple'" : function (isListBox) {
 				if (isListBox) {
-					list.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "multiple";
 				list.deliver();
@@ -62,7 +62,7 @@ define([
 			},
 			"Helper selectionMode 'single'" : function (isListbox) {
 				if (isListbox) {
-					list.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "single";
 				list.deliver();
@@ -110,7 +110,7 @@ define([
 			},
 			"Helper selectionMode 'radio'" : function (isListbox) {
 				if (isListbox) {
-					list.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "radio";
 				list.deliver();
@@ -153,7 +153,7 @@ define([
 			},
 			"Helper delete selected item": function (isListbox) {
 				if (isListbox) {
-					list.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "single";
 				list.deliver();
@@ -173,7 +173,7 @@ define([
 			},
 			"Helper move selected item": function (isListbox) {
 				if (isListbox) {
-					this.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "single";
 				list.deliver();
@@ -234,7 +234,7 @@ define([
 			"Helper aria properties and classes when selection mode is multiple":
 				function (isListbox) {
 				if (isListbox) {
-					list.isAriaListbox = true;
+					list.setAttribute("role", "listbox");
 				}
 				list.selectionMode = "multiple";
 				list.deliver();

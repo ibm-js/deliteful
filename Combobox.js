@@ -343,7 +343,7 @@ define([
 			
 			// The role=listbox is required for the list part of a combobox by the
 			// aria spec of role=combobox
-			this.list.isAriaListbox = true;
+			this.list.setAttribute("role", "listbox");
 			
 			// Avoid that List gives focus to list items when navigating, which would
 			// blur the input field used for entering the filtering criteria. 
