@@ -168,11 +168,8 @@ src="http://jsfiddle.net/ibmjs/8HzDE/embedded/result,html,css,js">
 
 <a name="events"></a>
 ## Element Events
-The widget `deliteful/ProgressBar` provides a `change` event when its value changes.
+This widget does not emit any custom event.
 
-|event name|dispatched|cancelable|bubbles|properties|
-|----------|----------|----------|-------|----------|
-|change|on value change|No |Yes|<ul><li>`percent`: the percentage of progression.</li><li>`value`: the actual value.</li><li>`max`: the number which express the task as completed</li></ul>|
 
 <a name="enterprise"></a>
 ## Enterprise Use

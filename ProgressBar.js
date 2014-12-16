@@ -156,9 +156,6 @@ define([
 				this.removeAttribute("aria-valuetext");
 			}
 			$(this).toggleClass(this.baseClass + "-indeterminate", (this.position === -1));
-			if ("value" in props || "max" in props) {
-				this.emit("change", {percent: this.value / this.max * 100, value: this.value, max: this.max});
-			}
 		},
 
 		postRender: function () {
