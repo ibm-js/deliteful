@@ -25,7 +25,7 @@ define(["dcl/dcl", "dpointer/events"], function (dcl) {
 			this.on("pointerover", this._pointerOverHandler.bind(this));
 		},
 		
-		_pointerOverHandler: function (evt) {
+		_pointerOverHandler: function () {
 			if (this.title) {
 				this.title = this.applyTextDirection(this.title);
 			}
