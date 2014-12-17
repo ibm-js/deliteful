@@ -1,49 +1,60 @@
 @import "../../../../delite/themes/common/mixins";
 @import "../../../../delite/themes/bootstrap/variables";
 
-.d-checkbox-styles () {
-	margin-left: 4px;
+
+.d-checkbox {
 	margin-right: 4px;
-	margin-top: 3px;
-	margin-bottom: 3px;
+}
+.d-checkbox-styles(@state) when (@state = normal) {
+	@size: round(.8*@font-size-base);
+	width: @size; height: @size;
+	&-inner {
+		fill: @input-color;
+	}
+	&-outer {
+		stroke: @input-border;
+		fill: white;
+	}
+}
+.d-checkbox-styles(@state) when (@state = focused) {
+	@color-rgba: rgba(red(@input-border-focus), green(@input-border-focus), blue(@input-border-focus), .6);
+	/* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L56 */
+	.box-shadow(0 0 8px @color-rgba); // TODO: factorize into one CSS class
+	&-outer {
+		stroke: @input-border-focus;
+	}
+
+	/* interoperability with bootstrap validation states */
+	/* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L26 */
+	.has-state(@validation-state, @color) {
+		.has-@{validation-state} & {
+			.box-shadow(0 0 6px lighten(@color, 20%));
+			&-outer {
+				stroke: @color;
+			}
+		}
+	}
+
+	.has-state(success, @state-success-text);
+	.has-state(info, @state-info-text);
+	.has-state(warning, @state-warning-text);
+	.has-state(error, @state-danger-text);
+}
+.d-checkbox-styles(@state) when (@state = disabled) {
+	&-outer {
+		fill: @input-bg-disabled;
+	}
+	&-inner {
+		fill: @btn-link-disabled-color;
+	}
 }
 
-.d-checkbox-active-styles () {
+/* interoperability with bootstrap form layouts */
+.checkbox, .checkbox-inline {
+	.d-checkbox {
+		margin-left: -20px; 
+		margin-right: 0;
+		position: absolute;
+	}
 }
-
-.d-checkbox-focused () {
-	outline: thin dotted;
-	//WebKit
-	outline: 5px auto -webkit-focus-ring-color;
-	outline-offset: -2px;
-}
-
-.d-checkbox-before-styles () {
-	border-color: @input-border;
-	border-style: solid;
-	border-width: 1px;
-	border-radius: @input-border-radius;
-	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-	height: 1em;
-	width: 100%;
-	color: @input-color;
-}
-
-@d-checkbox-disabled-color: @input-bg-disabled;
-
-.d-checkbox-checked-before-styles () {
-}
-
-.d-checkbox-before-disabled-styles () {
-	color: @btn-link-disabled-color;
-	background-color: @input-bg-disabled;
-}
-
-.d-checkbox-input-styles () {
-	width:1em;
-	height:1em;
-	margin: 0px;
-	margin-top: 1px \9; /* IE8-9 */
-}
-
 @import "../Checkbox_template";
