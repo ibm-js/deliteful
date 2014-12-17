@@ -2,7 +2,6 @@
 define([
 	"dcl/dcl",
 	"delite/register",
-	"dojo/when",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/keys",
 	"delite/CustomElement",
@@ -15,7 +14,7 @@ define([
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List.css",
 	"requirejs-dplugins/has!dojo-bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
-], function (dcl, register, when, $, keys, CustomElement,
+], function (dcl, register, $, keys, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
 
 	/**
