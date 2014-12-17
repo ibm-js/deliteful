@@ -41,6 +41,14 @@
 				combo2.ignoreCase = ignoreCase.checked;
 			});
 			
+			var combo = document.getElementById("combo2-custom-sel-single");
+			// Configure with its fourth option initially selected
+			combo.list.selectedItem = combo.list.store.data[3];
+			
+			combo = document.getElementById("combo2-custom-sel-multiple");
+			// Appears with its second and fourth options initially selected
+			combo.list.selectedItems = [combo.list.store.data[1], combo.list.store.data[3]];
+			
 			ready = true;
 		});
 	</script>
@@ -71,15 +79,15 @@
 		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
 		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
 	</d-store>
-	<d-store id="storeWithValue">
-		{ "label": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
-		{ "label": "Germany", "myValue": "DE", "sales": 450, "profit": 48, "region": "EU" },
-		{ "label": "UK", "myValue": "UK", "sales": 700, "profit": 60, "region": "EU" },
-		{ "label": "USA", "myValue": "US", "sales": 2000, "profit": 250, "region": "America" },
-		{ "label": "Canada", "myValue": "CA", "sales": 600, "profit": 30, "region": "America" },
-		{ "label": "Brazil", "myValue": "BA", "sales": 450, "profit": 30, "region": "America" },
-		{ "label": "China", "myValue": "CN", "sales": 500, "profit": 40, "region": "Asia" },
-		{ "label": "Japan", "myValue": "JP", "sales": 900, "profit": 100, "region": "Asia" }
+	<d-store id="storeWithValueAndLabelMapping">
+		{ "text": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
+		{ "text": "Germany", "myValue": "DE", "sales": 450, "profit": 48, "region": "EU" },
+		{ "text": "UK", "myValue": "UK", "sales": 700, "profit": 60, "region": "EU" },
+		{ "text": "USA", "myValue": "US", "sales": 2000, "profit": 250, "region": "America" },
+		{ "text": "Canada", "myValue": "CA", "sales": 600, "profit": 30, "region": "America" },
+		{ "text": "Brazil", "myValue": "BA", "sales": 450, "profit": 30, "region": "America" },
+		{ "text": "China", "myValue": "CN", "sales": 500, "profit": 40, "region": "Asia" },
+		{ "text": "Japan", "myValue": "JP", "sales": 900, "profit": 100, "region": "Asia" }
 	</d-store>
 	
 	<p>
@@ -138,17 +146,45 @@
 	</d-combobox>
 	
 	<p>
-	id: "combo1-value", data items with value, value selectionMode: "single", autoFilter: false
+	id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
 	</p>
-	<d-combobox selectionMode="single" autoFilter="false" id="combo1-value" name="combo1-value">
-		<d-list valueAttr="myValue" righttextAttr="sales" store="storeWithValue"></d-list>
+	<d-combobox selectionMode="single" autoFilter="true"
+		id="combo2-custom-sel-single" name="combo2-custom-sel-single">
+		<d-list righttextAttr="sales" store="store"></d-list>
 	</d-combobox>
 	
 	<p>
-	id: "combo3-value", data items with value, selectionMode: "multiple"
+	id: "combo2-custom-sel-multiple", selectionMode: "single", custom initial selection
+	</p>
+	<d-combobox selectionMode="multiple"
+		id="combo2-custom-sel-multiple" name="combo2-custom-sel-multiple">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combobox>
+	
+	<p>
+	id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
+	</p>
+	<d-combobox selectionMode="single" autoFilter="true" readOnly
+		id="combo2-readonly" name="combo2-readonly">
+		<d-list righttextAttr="sales" store="store"></d-list>
+	</d-combobox>
+	
+	<p>
+	id: "combo1-value", data items with value and label mapping, value selectionMode: "single", autoFilter: false
+	</p>
+	<d-combobox selectionMode="single" autoFilter="false" id="combo1-value" name="combo1-value">
+		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
+			store="storeWithValueAndLabelMapping">
+		</d-list>
+	</d-combobox>
+	
+	<p>
+	id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
 	</p>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value">
-		<d-list valueAttr="myValue" righttextAttr="sales" store="storeWithValue"></d-list>
+		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
+			store="storeWithValueAndLabelMapping">
+		</d-list>
 	</d-combobox>
 	
 	<p>
