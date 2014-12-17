@@ -437,7 +437,7 @@ define([
 				setTimeout(d.callback(function () {
 					checkAfterClickItem(1, 1, "item 3", "Option 3");
 				}), delay);
-			}), delay); 
+			}), delay);
 			return d;
 		},
 		
