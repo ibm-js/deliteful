@@ -107,11 +107,15 @@ Note that the `list` property is set by default to a newly created instance of
 <a name="using"></a>
 ## Using Combobox
 
-### Selection Mode
+### Selection
 
 The widget provides two selection modes through the `selectionMode` property: 
 "single" (only one option can be selected at a time) and "multiple" (one or more
 options can be selected).
+
+Options can be selected programmatically using the `selectedItem` property (or, for multiple
+selection mode, `selectedItems`) inherited from [`delite/Selection`](/delite/docs/master/Selection.md).
+
 
 ### Auto Filtering
 
@@ -142,16 +146,19 @@ The method can be overridden for implementing other filtering strategies.
 
 The customization of the mapping of data store item attributes into render item attributes
 can be done on the List instance using the mapping API of 
-[`deliteful/list/List`](/deliteful/docs/master/list/List.md) inherited from its superclass
+[`deliteful/list/List`](/deliteful/docs/master/list/List.md), as supported by its superclass
 `delite/StoreMap`.
 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for
-more information about the available mapping options.
+more information about the available mapping options, and the section
+[`Store capabilities`](/deliteful/docs/master/list/List.md#store-capabilities) of
+List's documentation.
 
 ### Value and form support
 
 The widget supports the following form-related properties: `value`, `name`, `disabled`
-and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md).
+and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md), and
+`readOnly` inherited from [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.md).
 When used in an HTML form, the submitted value is the one stored in the `value` 
 property of the widget.
 By default, the `label` field of the List's render items is used as value of the option.

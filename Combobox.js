@@ -223,7 +223,8 @@ define([
 						"radio" : "multiple";
 				}
 			}
-			if ("autoFilter" in oldValues) {
+			if ("autoFilter" in oldValues ||
+				"readOnly" in oldValues) {
 				updateReadOnly = true;
 			}
 			if (updateReadOnly) {
@@ -238,8 +239,8 @@ define([
 		 * @private 
 		 */
 		_updateInputReadOnly: function () {
-			this._inputReadOnly = !this.autoFilter || this.useCenteredDropDown() ||
-				this.selectionMode === "multiple";
+			this._inputReadOnly = this.readOnly || !this.autoFilter ||
+				this.useCenteredDropDown() || this.selectionMode === "multiple";
 		},
 		
 		/**
@@ -305,7 +306,7 @@ define([
 			// TODO
 			// This is a workaround waiting for a proper mechanism (at the level
 			// of delite/Store - delite/StoreMap) to allow a store-based widget
-			// to delegate the store-related functions to a parent widget.
+			// to delegate the store-related functions to a parent widget (delite#323).
 			if (!this.list.attached) {
 				this.list.attachedCallback();
 			}
@@ -354,61 +355,59 @@ define([
 			
 			this._initValue();
 			
-			var singleSelectionActionHandler = function (event, list) {
-				var renderer = list.getEnclosingRenderer(event.target);
-				if (renderer && !list.isCategoryRenderer(renderer)) {
-					this.inputNode.value = this._getItemRendererLabel(renderer);
-					this.list.selectedItem = renderer.item;
-					this.value = this._getItemRendererValue(renderer);
+			// React to programmatic changes of selected items
+			this.list.observe(function (oldValues) {
+				if (this.selectionMode === "single" && "selectedItem" in oldValues) {
+					var selectedItem = this.list.selectedItem;
+					// selectedItem non-null because List in radio selection mode, but
+					// the List can be empty, so:
+					this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+					this.value = selectedItem ? this._getItemValue(selectedItem) : "";
 					this.handleOnInput(this.value); // emit "input" event
 					this.defer(function () {
 						// deferred such that the user can see the selection feedback
-						// before the dropdown is closed.
+						// before the dropdown closes.
 						this.closeDropDown(true/*refocus*/);
 					}.bind(this), 100); // worth exposing a property for the delay?
-				}
-			}.bind(this);
-			
-			if (this.selectionMode === "single") {
-				this.list.on("click", function (event) {
-					singleSelectionActionHandler(event, this.list);
-				}.bind(this));
-				this.list.on("keydown", function (event) {
-					if (event.keyCode === keys.ENTER) {
-						singleSelectionActionHandler(event, this.list);
-					}
-				}.bind(this));
-			} else { // selectionMode === "multiple"
-				// if useCenteredDropDown is true, let the dropdown's OK/Cancel
-				// buttons do the job
-				if (!this.useCenteredDropDown()) {
-					this.list.on("selection-change", function () {
+				} else if (this.selectionMode === "multiple" && "selectedItems" in oldValues) {
+					// if useCenteredDropDown is true, let the dropdown's OK/Cancel
+					// buttons do the job
+					if (!this.useCenteredDropDown()) {
 						this._validateMultiple(this._popupInput || this.inputNode);
-					}.bind(this));
+					}
 				}
-			}
+			}.bind(this));
 			
 			this._prepareInput(this.inputNode);
 		},
 		
 		/**
 		 * Sets the initial value of the widget. If the widget is inside a form,
-		 * also called when reseting the form. 
+		 * also called when reseting the form.
 		 * @private 
 		 */
 		_initValue: function () {
 			if (this.selectionMode === "single") {
-				var initValueSingleMode = function () {
-					this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
+				var selectedItem = this.list.selectedItem;
+				if (selectedItem) {
+					this.inputNode.value = this._getItemLabel(selectedItem);
 					// Initialize widget's value
-					var value = this._getItemRendererValue(firstItemRenderer);
+					var value = this._getItemValue(selectedItem);
 					this._set("value", value);
 					this.valueNode.value = value;
-					this.list.selectedItem = firstItemRenderer.item;
-				}.bind(this);
-				var firstItemRenderer = this.list.getItemRendererByIndex(0);
-				if (firstItemRenderer) {
-					initValueSingleMode();
+				} else {
+					var initValueSingleMode = function (firstItemRenderer) {
+						this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
+						// Initialize widget's value
+						var value = this._getItemRendererValue(firstItemRenderer);
+						this._set("value", value);
+						this.valueNode.value = value;
+						this.list.selectedItem = firstItemRenderer.item;
+					}.bind(this);
+					var firstItemRenderer = this.list.getItemRendererByIndex(0);
+					if (firstItemRenderer) {
+						initValueSingleMode(firstItemRenderer);
+					}
 				}
 			} else { // selectionMode === "multiple"
 				// Differently than in single selection mode, do not select the first option,
@@ -600,6 +599,7 @@ define([
 				inputElement.value = this.multipleChoiceNoSelectionMsg;
 			}
 			this._set("value", value);
+			this.valueNode.value = value;
 			this.handleOnInput(this.value); // emit "input" event
 		},
 		
@@ -663,20 +663,30 @@ define([
 		
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// Closing the dropdown represents a commit interaction
-				this.handleOnChange(this.value); // emit "change" event
+				if (this.opened) {
+					// Using the flag `opened` (managed by delite/HasDropDown), avoid
+					// emitting a new change event if closeDropDown is closed more than once
+					// for a closed dropdown.
+					
+					// Closing the dropdown represents a commit interaction
+					this.handleOnChange(this.value); // emit "change" event
 				
-				// Reinit the query. Necessary such that after closing the dropdown
-				// in autoFilter mode with a text in the input field not matching
-				// any item, when the dropdown will be reopen it shows all items
-				// instead of being empty 
-				this.list.query = {};
+					// Reinit the query. Necessary such that after closing the dropdown
+					// in autoFilter mode with a text in the input field not matching
+					// any item, when the dropdown will be reopen it shows all items
+					// instead of being empty 
+					this.list.query = {};
 				
-				if (this.selectionMode === "single" && this.autoFilter) {
-					// In autoFilter mode, reset the content of the inputNode when
-					// closing the dropdown, such that next time the dropdown is opened
-					// it doesn't show the text the user may have entered for filtering
-					this.inputNode.value = this._getItemLabel(this.list.selectedItem);
+					if (this.selectionMode === "single" && this.autoFilter) {
+						// In autoFilter mode, reset the content of the inputNode when
+						// closing the dropdown, such that next time the dropdown is opened
+						// it doesn't show the text the user may have entered for filtering
+						var selItem = this.list.selectedItem;
+						if (selItem) {
+							(this._popupInput || this.inputNode).value =
+								this._getItemLabel(this.list.selectedItem);
+						}
+					}
 				}
 				
 				sup.apply(this, arguments);
