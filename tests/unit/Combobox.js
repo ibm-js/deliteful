@@ -306,7 +306,7 @@ define([
 			combo = document.getElementById("mycombo1");
 			combo.deliver();
 			checkCombobox(combo, this);
-		},
+		}
 		
 	};
 
