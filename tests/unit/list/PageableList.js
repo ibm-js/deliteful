@@ -12,6 +12,13 @@ define([
 
 	var Store = Memory.createSubclass([Trackable], {});
 
+	// PageableList is currently not supported on IE10
+	// see https://github.com/ibm-js/deliteful/issues/280
+	if (has("ie") > 9 && has("ie") < 11) {
+		console.log("Skipping PageableList tests on IE10 (see https://github.com/ibm-js/deliteful/issues/280)");
+		return;
+	}
+
 	/////////////////////////////////
 	// List base tests
 	/////////////////////////////////
