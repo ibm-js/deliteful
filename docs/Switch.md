@@ -130,7 +130,7 @@ The widget `deliteful/Switch` emits a `change` event when its checked state is c
 ### Accessibility
 |type|status|comment|
 |----|------|-------|
-|Keyboard|N/A|No user interaction|
+|Keyboard|yes| Value is toggled when the space bar is pressed.|
 |Visual Formatting|ok|Support high contrast on Firefox and Internet Explorer desktop browsers.|
 |Screen Reader|yes|Supports ARIA role checkbox. Tested with JAWS and VoiceOver|
 
