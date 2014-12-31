@@ -230,8 +230,7 @@ define([
 				setVisibility(this, false);
 
 				// trigger refreshRendering() to run and apply mode & position even if they are the default values
-				this.notifyCurrentValue("mode");
-				this.notifyCurrentValue("position");
+				this.notifyCurrentValue("mode", "position");
 			},
 
 			preRender: function () {

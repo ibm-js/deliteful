@@ -338,11 +338,8 @@ define([
 				this.on("focus", this.focusHandler.bind(this));
 				this.on("focus", this.focusHandler.bind(this));
 
-				// ensure CSS is applied
-				this.notifyCurrentValue("vertical");
-
-				// apply default tabIndex in case the app doesn't specific tabindex explicitly
-				this.notifyCurrentValue("tabIndex");
+				// ensure CSS is applied, and apply default tabIndex in case the app doesn't specify tabindex explicitly
+				this.notifyCurrentValue("vertical", "tabIndex");
 
 				if (this.valueNode.value) { // INPUT value
 					// browser back button or value coded on INPUT
@@ -351,7 +348,7 @@ define([
 				}
 
 				// force calculation of the default value in case it is not specified.
-				["min", "max", "step", "value"].forEach(this.notifyCurrentValue, this);
+				this.notifyCurrentValue("min", "max", "step", "value");
 			},
 
 			attachedCallback: function () {
