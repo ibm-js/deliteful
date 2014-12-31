@@ -159,8 +159,7 @@ define([
 		},
 
 		postRender: function () {
-			this.notifyCurrentValue("value");
-			this.notifyCurrentValue("max");
+			this.notifyCurrentValue("value", "max");
 		},
 
 		/**
