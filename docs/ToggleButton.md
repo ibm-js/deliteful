@@ -115,7 +115,7 @@ The widget `deliteful/ToggleButton` provides a `change` event when its state is 
 ### Accessibility
 |type|status|comment|
 |----|------|-------|
-|Keyboard|N/A|No user interaction|
+|Keyboard|yes|`checked` property is toggled when the space bar or the enter key are pressed.|
 |Visual Formatting|ok|Support high contrast on Firefox and Internet Explorer desktop browsers.|
 |Screen Reader|yes|Tested with JAWS and VoiceOver|
 
