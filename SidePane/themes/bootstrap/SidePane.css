@@ -61,6 +61,8 @@
   -ms-transform: translate(15em, 0px);
   -webkit-transform: translate3d(15em, 0px, 0px);
   transform: translate3d(15em, 0px, 0px);
+  overflow: hidden;
+  -webkit-overflow-scrolling: auto;
 }
 .-d-side-pane-start.-d-side-pane-nottranslated {
   -ms-transform: translate(0px, 0px);
