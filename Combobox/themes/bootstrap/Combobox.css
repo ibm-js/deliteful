@@ -38,7 +38,7 @@
   opacity: 0.5;
 }
 .d-combobox-input {
-  height: inherit;
+  height: 100%;
   cursor: pointer;
   /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
   /* due to the presence of the hidden input which stores the submitted value.*/
