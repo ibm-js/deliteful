@@ -24,7 +24,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
@@ -33,7 +32,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
@@ -42,9 +40,8 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				return remote
-					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
 					.then(logMessage(remote, this.id, "click on handler..."))
@@ -65,7 +62,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-min", "horizontal", "0", "75", "25"))
@@ -75,7 +71,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-min", "horizontal", "0", "90", "10"))
@@ -85,7 +80,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-min", "horizontal", "0", "100", "80"))
@@ -95,9 +89,8 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				return remote
-					.then(logMessage(remote, this.id, "no support for moveTo, skipping tests..."));
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
 					.then(logMessage(remote, this.id, "click on handler..."))
@@ -130,7 +123,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-prg.html")
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider01", "50"))
 				.then(checkOnChange(remote, "singleSlider01", false))
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
@@ -139,7 +131,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider02", "25"))
 				.then(checkOnChange(remote, "singleSlider02", false))
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
@@ -148,7 +139,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "singleSlider03", "100"))
 				.then(checkOnChange(remote, "singleSlider03", false))
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
@@ -158,7 +148,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
 				.then(checkOnChange(remote, "rangeSlider01", false))
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-min", "horizontal", "0", "75", "25"))
@@ -168,7 +157,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
 				.then(checkOnChange(remote, "rangeSlider02", false))
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-min", "horizontal", "0", "90", "10"))
@@ -178,7 +166,6 @@ define(["intern",
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
-				.then(logMessage(remote, this.id, "start..."))
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
 				.then(checkOnChange(remote, "rangeSlider03", false))
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-min", "horizontal", "0", "100", "80"))

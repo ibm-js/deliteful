@@ -31,7 +31,7 @@ define({
 		// Mobile
 		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
 		// see https://github.com/theintern/intern/issues/216
-		//{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
+		//,{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
 		//	"appium-version": "1.2.2", name: "deliteful" }
 	],
 
@@ -71,5 +71,5 @@ define({
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
 	excludeInstrumentation:
 		/*jshint -W101*/
-		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
+		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|lie|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
 });

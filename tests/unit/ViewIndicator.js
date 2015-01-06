@@ -4,7 +4,7 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"deliteful/SwapView",
-	"deliteful/ViewIndicator",
+	"deliteful/ViewIndicator"
 ], function (registerSuite, assert, $, register) {
 	var container, vs;
 	var aaa, bbb, ccc, ddd;

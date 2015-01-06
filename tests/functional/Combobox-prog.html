@@ -131,6 +131,45 @@
 			combobox.name = combobox.id; // for Form
 			combobox.startup();
 			
+			// Combobox in single mode with custom initial selection
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			combobox =
+				new Combobox({list: list, autoFilter: true,
+					id: "combo-custom-sel-single"}).
+					placeAt("combo-custom-sel-single", "replace");
+			// default selectionMode: "single"
+			combo5customSelSingle = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			combobox.deliver();
+			// Configure with its fourth option initially selected
+			combobox.list.selectedItem = combobox.list.store.data[3];
+			
+			// Combobox in multiple mode with custom initial selection
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			combobox =
+				new Combobox({list: list, selectionMode: "multiple",
+					id: "combo-custom-sel-multiple"}).
+					placeAt("combo-custom-sel-multiple", "replace");
+			combo5customSelMultiple = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			combobox.deliver();
+			// Configure with its second and fourth options initially selected
+			combobox.list.selectedItems = [combobox.list.store.data[1], combobox.list.store.data[3]];
+			
+			// Now the same but readOnly
+			// 
+			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			combobox =
+				new Combobox({list: list, readOnly: true, autoFilter: true, readOnly: true,
+					id: "combo-single-readonly"}).
+					placeAt("combo-single-autoFilter-readonly", "replace");
+			// default selectionMode: "single"
+			combo5readonly = combobox; // for debug
+			combobox.name = combobox.id; // for Form
+			combobox.startup();
+			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, dir: "rtl", id: "combo-single"}).
 				placeAt("combo-single-rtl", "replace");
@@ -202,6 +241,18 @@
 	id: "combo-multiple-disabled", selectionMode: "multiple", disabled
 	</p>
 	<span id="combo-multiple-disabled"></span>
+	<p>
+	id: "combo-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
+	</p>
+	<span id="combo-custom-sel-single"></span>
+	<p>
+	id: "combo-custom-sel-multiple", selectionMode: "multiple", custom initial selection
+	</p>
+	<span id="combo-custom-sel-multiple"></span>
+	<p>
+	id: "combo-single-autoFilter-readonly", selectionMode: "single", autoFilter: true, readonly
+	</p>
+	<span id="combo-single-autoFilter-readonly"></span>
 	
 	<p>
 	id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false

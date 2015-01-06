@@ -428,7 +428,7 @@ m.dismiss("slide-out");
 |type|status|comment|
 |----|------|-------|
 |Keyboard|none| The widget does not provide with any kind of interaction through the keyboard, besides |
-|Visual Formatting|ok| The message type, an information which conveyed only through color, is translated to an icon when switching to eye contrast mode|
+|Visual Formatting|partial| The message type information, which is conveyed only through color, disappears in high contrast mode. A few options are to be considered to solve this: the developer could use icons or explicitly indicate the type in the content of the message. |
 |Screen Reader|ok|Tested on JAWS 15 and iOS 6 VoiceOver.|
 
 ### Globalization

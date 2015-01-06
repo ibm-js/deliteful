@@ -129,7 +129,6 @@ define([
 		"read only ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, widgetId = "star";
-			console.log("# running test 'read only ltr'");
 			return remote
 				.get(require.toUrl("./StarRating.html"))
 				.then(pollUntilStarRatingReady(widgetId, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
@@ -169,23 +168,22 @@ define([
 		},
 		"editable ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'editable ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'editable half values ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'editable half values no zero setting ltr'");
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'editable programmatic onchange ltr'");
 			var remote = this.remote, id = "editablestar6";
+			if (/iOS/.test(remote.environmentType.browserName)) {
+				return this.skip();
+			}
 			return remote
 				.get(require.toUrl("./StarRating.html"))
 				.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
@@ -231,7 +229,6 @@ define([
 		},
 		"default": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'default'");
 			var remote = this.remote, id = "defaultstar";
 			return remote
 			.get(require.toUrl("./StarRating.html"))
@@ -244,13 +241,11 @@ define([
 		"tab order": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				// Same problem with selendroid and iOS, apparently
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
-			console.log("# running test 'tab order'");
 			return remote
 			.get(require.toUrl("./StarRating.html"))
 			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
@@ -313,7 +308,6 @@ define([
 		},
 		"disabled": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
-			console.log("# running test 'disabled'");
 			var remote = this.remote, id = "starrating3";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
@@ -326,7 +320,6 @@ define([
 		"form back button": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			console.log("# running test 'form back button'");
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
 			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
@@ -342,8 +335,8 @@ define([
 			.then(function () {
 				// Safari driver does not support the back method
 				// see https://code.google.com/p/selenium/issues/detail?id=3771
-				if (/safari|iPhone|selendroid/.test(remote.environmentType.browserName)) {
-					console.log("Skipping 'back' on safari driver (not supported)");
+				if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+					console.log("-SKIPPED 'back' on safari driver (not supported) on " + remote.environmentType);
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
 				} else {
 					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
@@ -373,7 +366,6 @@ define([
 		"form values": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, id = "starrating1";
-			console.log("# running test 'form values'");
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
 			.then(pollUntilStarRatingReady(id, intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))

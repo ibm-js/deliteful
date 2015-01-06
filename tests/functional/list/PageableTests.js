@@ -53,13 +53,11 @@ define(["intern",
 			// see https://github.com/ibm-js/deliteful/issues/280
 			if (remote.environmentType.browserName === "internet explorer" &&
 					remote.environmentType.version === "10") {
-				console.log("WARNING: PageableList not supported on IE10");
-				return remote.end();
+				return this.skip("WARNING: PageableList not supported on IE10");
 			}
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			var listId = "pageable-prog-1";
 			return remote
@@ -121,13 +119,11 @@ define(["intern",
 			// see https://github.com/ibm-js/deliteful/issues/280
 			if (remote.environmentType.browserName === "internet explorer" &&
 					remote.environmentType.version === "10") {
-				console.log("WARNING: PageableList not supported on IE10");
-				return remote.end();
+				return this.skip("WARNING: PageableList not supported on IE10");
 			}
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			var listId = "pageable-prog-2";
 			return remote
@@ -178,13 +174,11 @@ define(["intern",
 			// see https://github.com/ibm-js/deliteful/issues/280
 			if (remote.environmentType.browserName === "internet explorer" &&
 					remote.environmentType.version === "10") {
-				console.log("WARNING: PageableList not supported on IE10");
-				return remote.end();
+				return this.skip("WARNING: PageableList not supported on IE10");
 			}
 			if (/chrome/.test(remote.environmentType.browserName)) {
 				// https://code.google.com/p/selenium/issues/detail?id=2766
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+				return this.skip("SafariDriver doesn't support tabbing.");
 			}
 			return remote
 				.get(require.toUrl("./pageable-prog-8.html"))

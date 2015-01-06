@@ -27,20 +27,6 @@ Bugs and open issues are tracked in the
 This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](./LICENSE).
 All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/about/claForm).
 
-## Dependencies
-
-This project requires the following other projects to run:
- * dojo
- * decor
- * delite
- * dpointer
- * ecma402
- * dcl (git clone https://github.com/uhop/dcl.git)
- * requirejs (git clone https://github.com/jrburke/requirejs.git)
- * requirejs-dplugins
- * requirejs-domready (git clone https://github.com/requirejs/domready)
- * dstore (git clone https://github.com/SitePen/dstore.git)
-
 ## Installation
 
 _Bower_ release installation:
