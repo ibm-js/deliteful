@@ -6,11 +6,11 @@ define([
 	"decor/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
-	"dojo/Deferred",
+	"lie/dist/lie",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css",
 	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl.css"
 ],
-	function (dcl, pointer, $, has, register, DisplayContainer, Deferred) {
+	function (dcl, pointer, $, has, register, DisplayContainer, Promise) {
 		function prefix(v) {
 			return "-d-side-pane-" + v;
 		}
@@ -143,7 +143,7 @@ define([
 			 * @private
 			 */
 			_open: function () {
-				var deferred = new Deferred();
+				var promise;
 				var nextElement = getNextSibling(this);
 				var animate = this.animate && has("ie") !== 9;
 				if (!this._visible) {
@@ -156,10 +156,10 @@ define([
 
 					if (this.mode === "reveal") {
 						if (nextElement) {
-							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
+							promise = this._setAfterTransitionHandlers(nextElement);
 						}
 					} else {
-						this._setAfterTransitionHandlers(this, {node: this}, deferred);
+						promise = this._setAfterTransitionHandlers(this);
 					}
 
 					setVisibility(this, true);
@@ -168,12 +168,14 @@ define([
 						this.defer(this._openImpl, this._timing);
 					} else {
 						this._openImpl();
-						this.defer(function () {deferred.resolve(); }, this._timing);
+						promise = new Promise(function (resolve) {
+							this.defer(function () {
+								resolve();
+							}, this._timing);
+						}.bind(this));
 					}
-				} else {
-					deferred.resolve();
 				}
-				return deferred.promise;
+				return Promise.resolve(promise);
 			},
 
 			/**
@@ -181,15 +183,15 @@ define([
 			 * @private
 			 */
 			_close: function () {
-				var deferred = new Deferred();
+				var promise;
 				if (this._visible) {
 					if (this.mode === "reveal") {
 						var nextElement = getNextSibling(this);
 						if (nextElement) {
-							this._setAfterTransitionHandlers(nextElement, {node: nextElement}, deferred);
+							promise = this._setAfterTransitionHandlers(nextElement);
 						}
 					} else {
-						this._setAfterTransitionHandlers(this, {node: this}, deferred);
+						promise = this._setAfterTransitionHandlers(this);
 					}
 
 					if (this.animate && has("ie") !== 9) {
@@ -199,31 +201,28 @@ define([
 						this._hideImpl();
 						setVisibility(this, false);
 					}
-				} else {
-					deferred.resolve();
 				}
-				return deferred.promise;
+				return Promise.resolve(promise);
 			},
 
-			_setAfterTransitionHandlers: function (node, event, deferred) {
-				var self = this, endProps = {
-					node: node,
-					handle: function () { self._afterTransitionHandle(endProps); },
-					props: event,
-					deferred: deferred
-				};
-				node.addEventListener("webkitTransitionEnd", endProps.handle);
-				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
+			_setAfterTransitionHandlers: function (node) {
+				var self = this, holder = { node: node};
+				var promise = new Promise(function (resolve) {
+					holder.handle =  function () { self._afterTransitionHandle(holder, resolve); };
+				});
+				node.addEventListener("webkitTransitionEnd", holder.handle);
+				node.addEventListener("transitionend", holder.handle); // IE10 + FF
+				return promise;
 			},
 
-			_afterTransitionHandle: function (item) {
+			_afterTransitionHandle: function (holder, resolve) {
 				$(this).removeClass(prefix("under"));
 				if (!this._visible) {
 					setVisibility(this, false);
 				}
-				item.node.removeEventListener("webkitTransitionEnd", item.handle);
-				item.node.removeEventListener("transitionend", item.handle);
-				item.deferred.resolve();
+				holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
+				holder.node.removeEventListener("transitionend", holder.handle);
+				resolve();
 			},
 
 			postRender: function () {

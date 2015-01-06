@@ -1,14 +1,14 @@
 /** @module deliteful/ViewStack */
 define(["dcl/dcl",
 	"decor/sniff",
-	"dojo/Deferred",
+	"lie/dist/lie",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
 	"delite/theme!./ViewStack/themes/{{theme}}/ViewStack.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/slide.css",
 	"requirejs-dplugins/css!./ViewStack/transitions/reveal.css"],
-	function (dcl, has, Deferred, $, register, DisplayContainer) {
+	function (dcl, has, Promise, $, register, DisplayContainer) {
 		function setVisibility(node, val) {
 			if (node) {
 				if (val) {
@@ -175,14 +175,15 @@ define(["dcl/dcl",
 				}
 			},
 
-			_doTransition: function (origin, target, event, transition, reverse, deferred) {
+			_doTransition: function (origin, target, event, transition, reverse) {
+				var promise;
 				if (transition !== "none") {
 					if (origin) {
-						this._setAfterTransitionHandlers(origin, event, deferred);
+						promise = this._setAfterTransitionHandlers(origin);
 						$(origin).addClass(transitionClass(transition));
 					}
 					if (target) {
-						this._setAfterTransitionHandlers(target, event, deferred);
+						promise = this._setAfterTransitionHandlers(target);
 						$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
 					}
 					if (reverse) {
@@ -208,17 +209,14 @@ define(["dcl/dcl",
 					if (origin !== target) {
 						setVisibility(origin, false);
 					}
-					deferred.resolve();
 				}
+				return Promise.resolve(promise);
 			},
 
 			changeDisplay: function (widget, event) {
 				// Resolved when display is completed.
-				var deferred = new Deferred();
-
 				if (!widget || widget.parentNode !== this) {
-					deferred.resolve();
-					return deferred.promise;
+					return Promise.resolve();
 				}
 
 				var origin = this._visibleChild;
@@ -233,9 +231,9 @@ define(["dcl/dcl",
 
 				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
 				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
-				this._doTransition(origin, widget, event, transition, reverse, deferred);
+				var promise = this._doTransition(origin, widget, event, transition, reverse);
 
-				return deferred.promise;
+				return promise;
 			},
 			/**
 			 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
@@ -245,8 +243,8 @@ define(["dcl/dcl",
 			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
 			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
 			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
-			 * @returns {module:dojo/promise/Promise} A promise that will be resolved when the display and
-			 * transition effect will have been performed.
+			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have 
+			 * been performed.
 			 */
 			show: dcl.superCall(function (sup) {
 				return function (dest, params) {
@@ -276,26 +274,25 @@ define(["dcl/dcl",
 				};
 			}),
 
-			_setAfterTransitionHandlers: function (node, event, deferred) {
-				var self = this, endProps = {
-					node: node,
-					handle: function () { self._afterTransitionHandle(endProps); },
-					props: event,
-					deferred: deferred
-				};
-
+			_setAfterTransitionHandlers: function (node) {
+				var self = this, holder = { node: node};
+				holder.promise = new Promise(function (resolve) {
+					holder.handle =  function () { self._afterTransitionHandle(holder, resolve); };
+				});
 				$(this).addClass("-d-view-stack-transition");
-				node.addEventListener("webkitTransitionEnd", endProps.handle);
-				node.addEventListener("transitionend", endProps.handle); // IE10 + FF
+				node.addEventListener("webkitTransitionEnd", holder.handle);
+				node.addEventListener("transitionend", holder.handle); // IE10 + FF
+				return holder.promise;
 			},
 
-			_afterTransitionHandle: function (item) {
+			_afterTransitionHandle: function (holder, resolve) {
 				// Workaround for FF transitionend randomly dropped.
 				// This method should be called once, when the target view transition is done.
 				// But when 2 transitions (ex: slide) start at the same time, the transitionend event of the
 				// target view can be dropped.
-				if (!item.deferred.isResolved()) {
+				if (!holder.promise.resolved) {
 					// First call
+					holder.promise.resolved = true;
 					var vb;
 					for (var i = 0; i < this.children.length; i++) {
 						vb = this._visibleChild === this.children[i];
@@ -305,14 +302,14 @@ define(["dcl/dcl",
 						}
 					}
 
-					item.node.removeEventListener("webkitTransitionEnd", item.handle);
-					item.node.removeEventListener("transitionend", item.handle);
-					item.deferred.resolve();
+					holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
+					holder.node.removeEventListener("transitionend", holder.handle);
+					resolve();
 				} else {
 					// Second call (occurs randomly on FF). The following code is not critical but try
 					// to keep a clean DOM tree as much as possible.
-					cleanCSS(item.node);
-					if (item.node !== this._visibleChild) {
+					cleanCSS(holder.node);
+					if (holder.node !== this._visibleChild) {
 						cleanCSS(this._visibleChild);
 					}
 					$(this).removeClass("-d-view-stack-transition");
