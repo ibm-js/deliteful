@@ -2,12 +2,11 @@
 define(["dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"dojo/Deferred",
 	"decor/sniff",
 	"delite/handlebars!./Toaster/Toaster.html",
 	"./ToasterMessage",
 	"delite/theme!./Toaster/themes/{{theme}}/Toaster.css"
-	], function (dcl, Widget, register, Deferred, has, template, ToasterMessage) {
+	], function (dcl, Widget, register, has, template, ToasterMessage) {
 
 		/* helpers */
 		function isRemovable(m) {return m._toBeRemoved && (! m._isRemoved); }
