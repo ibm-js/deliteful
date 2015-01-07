@@ -643,21 +643,23 @@ define([
 					this.list._hideLoadingPanel();
 				}.bind(this), 300);
 				
-				sup.apply(this, arguments);
+				var promise = sup.apply(this, arguments);
 				
-				var firstSelectedItem = selectedItems && selectedItems.length > 0 ?
-					selectedItems[0] : null;
-				if (firstSelectedItem) {
-					// Make the first selected item (if any) visible.
-					// Must be done after sup.apply, because List.getBottomDistance
-					// relies on dimensions which are not available if the DOM nodes
-					// are not (yet) visible, hence the popup needs to be shown before.
-					var id = this.list.getIdentity(firstSelectedItem);
-					var renderer = this.list.getRendererByItemId(id);
-					if (renderer) {
-						this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
-					} // null if the list is empty because no item matches the auto-filtering
-				}
+				return promise.then(function () {
+					var firstSelectedItem = selectedItems && selectedItems.length > 0 ?
+						selectedItems[0] : null;
+					if (firstSelectedItem) {
+						// Make the first selected item (if any) visible.
+						// Must be done after sup.apply, because List.getBottomDistance
+						// relies on dimensions which are not available if the DOM nodes
+						// are not (yet) visible, hence the popup needs to be shown before.
+						var id = this.list.getIdentity(firstSelectedItem);
+						var renderer = this.list.getRendererByItemId(id);
+						if (renderer) {
+							this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+						} // null if the list is empty because no item matches the auto-filtering
+					}
+				}.bind(this));
 			};
 		}),
 		
