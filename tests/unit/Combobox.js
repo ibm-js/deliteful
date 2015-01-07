@@ -91,12 +91,14 @@ define([
 		var selectionMode = multiple ? "multiple" : "single";
 		var combo = new Combobox({ id: id, selectionMode: selectionMode });
 		initCombobox(combo, trackable);
+		container.appendChild(combo);
 		return combo;
 	};
 	
 	var createMyCombobox = function (id, trackable) {
 		var combo = new MyCombobox({ id: id });
 		initCombobox(combo, trackable);
+		container.appendChild(combo);
 		return combo;
 	};
 	
@@ -352,6 +354,7 @@ define([
 			// Check the attribute mapping for label
 			
 			var combo = new Combobox();
+			container.appendChild(combo);
 			var dataStore = new Memory(
 				{idProperty: "name",
 				data: [
@@ -516,6 +519,7 @@ define([
 			// of the store data items.
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list});
+			container.appendChild(combo);
 			combo.startup();
 			
 			combo.deliver();
@@ -550,6 +554,7 @@ define([
 			// of the store data items.
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
+			container.appendChild(combo);
 			combo.startup();
 			
 			combo.deliver();
