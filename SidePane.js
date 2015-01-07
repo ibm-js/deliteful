@@ -169,13 +169,11 @@ define([
 					} else {
 						this._openImpl();
 						promise = new Promise(function (resolve) {
-							this.defer(function () {
-								resolve();
-							}, this._timing);
+							this.defer(resolve, this._timing);
 						}.bind(this));
 					}
 				}
-				return Promise.resolve(promise);
+				return promise || Promise.resolve(true);
 			},
 
 			/**

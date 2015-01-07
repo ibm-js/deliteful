@@ -231,9 +231,7 @@ define(["dcl/dcl",
 
 				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
 				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
-				var promise = this._doTransition(origin, widget, event, transition, reverse);
-
-				return promise;
+				return this._doTransition(origin, widget, event, transition, reverse);
 			},
 			/**
 			 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,

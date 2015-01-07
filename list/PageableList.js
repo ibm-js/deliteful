@@ -139,7 +139,7 @@ define([
 			if (this._list.hasAttribute("aria-busy")) { return; }
 			this.loading = true;
 			var self = this;
-			var promise = new Promise(function (resolve, reject) {
+			return new Promise(function (resolve, reject) {
 				// defer execution so that the new style / class is correctly applied on iOS
 				self.defer(function () {
 					self.performLoading().then(function () {
@@ -152,7 +152,6 @@ define([
 					});
 				});
 			});
-			return promise;
 		}
 	});
 

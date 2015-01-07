@@ -181,9 +181,7 @@ define(["dcl/dcl",
 		function _start(duration) {
 			_startDate = Date.now();
 			return new Promise(function (resolve) {
-				_timer = setTimeout(function () {
-					resolve();
-				}, duration);
+				_timer = setTimeout(resolve, duration);
 			});
 		}
 
