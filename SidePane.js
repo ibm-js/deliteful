@@ -200,7 +200,7 @@ define([
 						setVisibility(this, false);
 					}
 				}
-				return Promise.resolve(promise);
+				return promise || Promise.resolve(true);
 			},
 
 			_setAfterTransitionHandlers: function (node) {
