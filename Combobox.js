@@ -9,13 +9,12 @@ define([
 	"delite/HasDropDown",
 	"delite/keys",
 	"./list/List",
-	"./LinearLayout",
-	"./Button",
+	"./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
 ], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown,
-		keys, List, LinearLayout, Button, template, messages) {
+		keys, List, ComboPopup, template, messages) {
 	/**
 	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
@@ -198,11 +197,23 @@ define([
 		 */
 		multipleChoiceNoSelectionMsg: messages["multiple-choice-no-selection"],
 		
-		// TODO: worth exposing public properties?
-		// The default label of the OK button
-		_okButtonLabel: messages["ok-button-label"],
-		// The default label of the Cancel button
-		_cancelButtonLabel: messages["cancel-button-label"],
+		/**
+		 * The text displayed in the OK button when the combobox popup contains such a button.
+		 * The default value is provided by the "ok-button-label" key of
+		 * the message bundle.
+		 * @member {string}
+		 * @default "OK"
+		 */
+		okMsg: messages["ok-button-label"],
+		
+		/**
+		 * The text displayed in the Cancel button when the combobox popup contains such a button.
+		 * The default value is provided by the "cancel-button-label" key of
+		 * the message bundle.
+		 * @member {string}
+		 * @default "Cancel"
+		 */
+		cancelMsg: messages["cancel-button-label"],
 		
 		preRender: function () {
 			this.list = new List();
@@ -330,7 +341,7 @@ define([
 			this.list.selectionMode = this.selectionMode === "single" ?
 				"radio" : "multiple";
 			
-			var dropDown = this._createDropDown(this.list);
+			var dropDown = this._createDropDown();
 			
 			// Since the dropdown is not a child of the Combobox, it will not inherit
 			// its dir attribute. Hence:
@@ -467,15 +478,15 @@ define([
 			return has("ios") || has("android");
 		},
 		
-		_createDropDown: function (list) {
+		_createDropDown: function () {
 			// Update the readonly attribute in case useCenteredDropDown() changed
 			// its return value.
 			this._updateInputReadOnly();
 			
 			var centeredDropDown = this.useCenteredDropDown();
 			var dropDown = centeredDropDown ?
-				this._createCenteredDropDown(list) :
-				this._createNormalDropDown(list);
+				this.createCenteredDropDown() :
+				this.createAboveBelowDropDown();
 			
 			this.dropDownPosition = centeredDropDown ?
 				["center"] :
@@ -487,69 +498,31 @@ define([
 			return dropDown;
 		},
 		
-		_createNormalDropDown: function (list) {
+		/**
+		 * Factory method which creates the widget used inside above/below drop-down.
+		 * The default implementation simply returns `this.list`.
+		 * @protected
+		 */
+		createAboveBelowDropDown: function () {
 			// Use the List itself as content of the popup. Embedding it in a
 			// LinearLayout has seemed useful for solving layout issues on iOS
 			// (deliteful issue #270), but appears to be harmful on IE11 (deliteful
 			// issue #382). Hence the List is not wrapped anymore inside a LinearLayout.
-			return list;
-		},
-		
-		_createCenteredDropDown: function (list) {
-			// TODO: move to separate widget.
-			var topLayout = new LinearLayout();
-
-			if (this.autoFilter && this.selectionMode !== "multiple") {
-				this._popupInput = this._createPopupInput();
-				topLayout.addChild(this._popupInput);
-			}
-			
-			$(list).addClass("fill");
-			topLayout.addChild(list);
-
-			// Just as Android for the native select element, only use ok/cancel
-			// buttons in the multichoice case.
-			if (this.selectionMode === "multiple") {
-				var bottomLayout = new LinearLayout({vertical: false, width: "100%"});
-				var cancelButton = new Button({label: this._cancelButtonLabel});
-				var okButton = new Button({label: this._okButtonLabel});
-				okButton.onclick = function () {
-					this._validateMultiple(this.inputNode);
-					this.closeDropDown();
-				}.bind(this);
-				cancelButton.onclick = function () {
-					this.list.selectedItems = this._selectedItems;
-					this.closeDropDown();
-				}.bind(this);
-				$(cancelButton).addClass("fill");
-				$(okButton).addClass("fill");
-				bottomLayout.addChild(cancelButton);
-				bottomLayout.addChild(okButton);
-				topLayout.addChild(bottomLayout);
-			}
-			return topLayout;
+			return this.list;
 		},
 		
 		/**
-		 * Creates the input element inside the popup.
-		 * Only used for single-choice mode.
-		 * @private
+		 * Factory method which creates the widget used inside centered drop-down.
+		 * The default implementation returns a new instance of deliteful/Combobox/ComboPopup
+		 * (the present widget is set for its `combobox` property).
+		 * The method can be overridden in order to create a subclass of ComboPopup (for
+		 * specifying a custom template, for instance).
+		 * @protected
 		 */
-		_createPopupInput: function () {
-			// TODO: use deliteful/SearchBox when will be available.
-			var popupInput = document.createElement("input");
-			$(popupInput).addClass("d-combobox-popup-input");
-			popupInput.setAttribute("role", "combobox");
-			popupInput.setAttribute("autocomplete", "off");
-			popupInput.setAttribute("autocapitalize", "none");
-			popupInput.setAttribute("autocorrect", "off");
-			popupInput.setAttribute("aria-autocomplete", "list");
-			popupInput.setAttribute("type", "search");
-			popupInput.setAttribute("placeholder", this.searchPlaceHolder);
-			this._prepareInput(popupInput);
-			return popupInput;
+		createCenteredDropDown: function () {
+			return new ComboPopup({combobox: this});
 		},
-
+		
 		_prepareInput: function (inputElement) {
 			this.on("input", function (evt) {
 				// Would be nice to also have an "incrementalFilter" boolean property.
