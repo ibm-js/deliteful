@@ -2,11 +2,11 @@
 define(["dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"dojo/Deferred",
+	"lie/dist/lie",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Deferred, $, pointer, template) {
+], function (dcl, Widget, register, Promise, $, pointer, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -175,19 +175,19 @@ define(["dcl/dcl",
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	var Timer = function (duration) {
-		var _timer = null, _remaining = null,
-			_startDate = null, _d = new Deferred();
-
-		function _start(duration) {
-			_startDate = Date.now();
-			_timer = setTimeout(function () {
-				_d.resolve();
-			}, duration);
-			return _d;
-		}
+		var _timer = null, _remaining = null, _startDate = null, 
+			_start = null, _reject = null,
+			_promise = new Promise(function (resolve, reject) {
+				_start = function (duration) {
+					_startDate = Date.now();
+					_timer = setTimeout(resolve, duration);
+				};
+				_reject = reject;
+			});
 
 		this.start = function () {
-			return _start(duration);
+			_start(duration);
+			return _promise;
 		};
 
 		this.pause = function () {
@@ -201,11 +201,14 @@ define(["dcl/dcl",
 		};
 
 		this.resume = function () {
-			return _start(_remaining);
+			_start(_remaining);
+			return _promise;
 		};
 
-		this.promise = function () {
-			return _d;
+		this.cancel = function () {
+			if (_promise.state[0] === "PENDING") {
+				_reject();
+			}
 		};
 	};
 
@@ -410,7 +413,6 @@ define(["dcl/dcl",
 			// starting timer
 			if (this.isExpirable()) {
 				this._timer = new Timer(this.duration);
-				this.own(this._timer.promise()); // NOTE: this cancels the promise in case the widget is destroyed
 				this._timer.start().then(function () {
 					this._hasExpired = true;
 					toaster.notifyCurrentValue("messages");
@@ -488,7 +490,13 @@ define(["dcl/dcl",
 					this.dismiss();
 				}.bind(this), this._dismissButton);
 			}
-		}
+		},
+		destroy: dcl.superCall(function (sup) {
+			return function () {
+				this._timer.cancel();
+				return sup.apply(self, arguments);
+			};
+		})
 	});
 	return register("d-toaster-message", [HTMLElement, ToasterMessage]);
 });
