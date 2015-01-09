@@ -176,7 +176,8 @@ define([
 				combo.list.deliver();
 
 				assert.strictEqual(combo.valueNode.value, "Option 2",
-						"item2.item.label: " + item2.item.label + " combo.valueNode.value after selecting item2 on combo.id: " +
+						"item2.item.label: " + item2.item.label +
+							" combo.valueNode.value after selecting item2 on combo.id: " +
 						combo.id + " selectionMode: " + combo.selectionMode);
 				assert.strictEqual(combo.value, "Option 2",
 						"item2.item.label: " + item2.item.label + " combo.value after selecting item2 on combo.id: " +
@@ -357,15 +358,15 @@ define([
 			var dataStore = new Memory(
 				{idProperty: "name",
 					data: [
-						{ name: "France", sales: 500, profit: 50, region: "EU" },
-						{ name: "Germany", sales: 450, profit: 48, region: "EU" },
-						{ name: "UK", sales: 700, profit: 60, region: "EU" },
-						{ name: "USA", sales: 2000, profit: 250, region: "America" },
-						{ name: "Canada", sales: 600, profit: 30, region: "America" },
-						{ name: "Brazil", sales: 450, profit: 30, region: "America" },
-						{ name: "China", sales: 500, profit: 40, region: "Asia" },
-						{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
-					]});
+					{ name: "France", sales: 500, profit: 50, region: "EU" },
+					{ name: "Germany", sales: 450, profit: 48, region: "EU" },
+					{ name: "UK", sales: 700, profit: 60, region: "EU" },
+					{ name: "USA", sales: 2000, profit: 250, region: "America" },
+					{ name: "Canada", sales: 600, profit: 30, region: "America" },
+					{ name: "Brazil", sales: 450, profit: 30, region: "America" },
+					{ name: "China", sales: 500, profit: 40, region: "Asia" },
+					{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
+				]});
 			combo.list.labelAttr = "name";
 			combo.list.store = dataStore;
 			combo.list.deliver();
@@ -422,7 +423,8 @@ define([
 				assert.strictEqual(inputCounter, 0,
 					"Just opening the dropdown should not emit any input event");
 
-				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName, expectedValue) {
+				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue,
+													itemName, expectedValue) {
 					if (has("ios")) {
 						// For some reason, the testing with click() doesn't pass on iOS for now,
 						// although it does seem to work when testing manually on the device.
@@ -507,7 +509,8 @@ define([
 				assert.strictEqual(inputCounter, 0,
 					"Just opening the dropdown should not emit any input event");
 
-				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName, expectedChangeValue, expectedInputValue) {
+				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName,
+													expectedChangeValue, expectedInputValue) {
 					if (has("ios")) {
 						// For some reason, the testing with click() doesn't pass on iOS for now,
 						// although it does seem to work when testing manually on the device.
@@ -540,7 +543,8 @@ define([
 								checkAfterClickItem(1, 2, "item 3", ["Option 2"], ["Option 3", "Option 2"]);
 								combo.closeDropDown(); // this commits the change
 								setTimeout(d.callback(function () {
-									checkAfterClickItem(2, 2, "item 3", ["Option 3", "Option 2"], ["Option 3", "Option 2"]);
+									checkAfterClickItem(2, 2, "item 3", ["Option 3", "Option 2"],
+										["Option 3", "Option 2"]);
 								}));
 							}), delay);
 						}), delay);
