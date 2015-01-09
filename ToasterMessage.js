@@ -175,18 +175,19 @@ define(["dcl/dcl",
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	var Timer = function (duration) {
-		var _timer = null, _remaining = null,
-			_startDate = null;
-
-		function _start(duration) {
-			_startDate = Date.now();
-			return new Promise(function (resolve) {
-				_timer = setTimeout(resolve, duration);
+		var _timer = null, _remaining = null, _startDate = null, 
+			_start = null, _reject = null,
+			_promise = new Promise(function (resolve, reject) {
+				_start = function (duration) {
+					_startDate = Date.now();
+					_timer = setTimeout(resolve, duration);
+				};
+				_reject = reject;
 			});
-		}
 
 		this.start = function () {
-			return _start(duration);
+			_start(duration);
+			return _promise;
 		};
 
 		this.pause = function () {
@@ -200,7 +201,14 @@ define(["dcl/dcl",
 		};
 
 		this.resume = function () {
-			return _start(_remaining);
+			_start(_remaining);
+			return _promise;
+		};
+
+		this.cancel = function () {
+			if (_promise.state[0] === "PENDING") {
+				_reject();
+			}
 		};
 	};
 
@@ -422,7 +430,7 @@ define(["dcl/dcl",
 					$(this).removeClass(toaster.animationInitialClass);
 					$(this).addClass(toaster.animationEnterClass);
 					listenAnimationEvents(this, function (element) {
-						$(element).addClass(toaster.animationEnterClass);
+						$(element).removeClass(toaster.animationEnterClass);
 
 						// NOTE: the swipe dismissing is made possible only once the entering animation is done
 						// this is done to avoid the CSS of the animation to interfere with the swipe
@@ -482,7 +490,13 @@ define(["dcl/dcl",
 					this.dismiss();
 				}.bind(this), this._dismissButton);
 			}
-		}
+		},
+		destroy: dcl.superCall(function (sup) {
+			return function () {
+				this._timer.cancel();
+				return sup.apply(self, arguments);
+			};
+		})
 	});
 	return register("d-toaster-message", [HTMLElement, ToasterMessage]);
 });
