@@ -33,7 +33,24 @@
 	opacity: 0.5;
 }
 
+.d-combo-popup {
+	/* Needed for the correct layout of its LinearLayout child */
+	display: block;
+}
+
+/* Applies to both the input inside the root node and the input */
+/* conditionally present inside the popup */
 .d-combobox-input {
+	.d-combobox-input-styles;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+/* Applies to the input inside the root node but does not apply */
+/* to the input conditionally present inside the popup */
+.d-combobox .d-combobox-input {
 	height: 100%;
 	cursor: pointer;
 	
@@ -46,14 +63,6 @@
 		opacity: 0.5;
 		cursor: auto;
 	}
-}
-
-.d-combobox-input, .d-combobox-popup-input {
-	.d-combobox-input-styles;
-	color: inherit;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
 }
 
 .d-combobox .d-combobox-list-hidden {

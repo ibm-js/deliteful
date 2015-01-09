@@ -1,0 +1,19 @@
+<template role="presentation"
+	requires="deliteful/LinearLayout, deliteful/Button">
+	<d-linear-layout style="height: 100%">
+		<input d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
+			attach-point="inputNode"
+			class="d-combobox-input"
+			role="combobox" autocomplete="off" autocapitalize="none" autocorrect="off"
+			aria-autocomplete="list" type="search"
+			placeholder="{{combobox.searchPlaceHolder}}">
+		<div attach-point="listNode"></div>
+		<d-linear-layout d-hidden="{{combobox.selectionMode !== 'multiple'}}"
+			vertical="false">
+			<button is="d-button" class="fill d-combo-cancel-button"
+				label="{{combobox.cancelMsg}}" on-click="{{cancelHandler}}"></button>
+			<button is="d-button" class="fill d-combo-ok-button"
+				label="{{combobox.okMsg}}" on-click="{{okHandler}}"></button>
+		</d-linear-layout>
+	</d-linear-layout>
+</template>

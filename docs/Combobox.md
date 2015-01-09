@@ -15,7 +15,7 @@ Characteristics:
 * Provides optional interactive filtering of list of options (single selection mode only). 
 * The rendering of the popup is multi-channel responsive: by default, the popup is displayed
 on desktop below/above the main element, while on mobile it is displayed in a centered
-overlay.
+overlay (an instance of deliteful/Combobox/ComboPopup is used in this case).
 
 
 *Example of deliteful/Combobox (single choice mode, on desktop browser):*
@@ -220,10 +220,11 @@ The following table lists the CSS classes that can be used to style the Combobox
 
 |Class name/selector|Applies to|
 |----------|----------|
-|d-combobox|Combobox widget node.
-|d-combobox-input|The inner native `<input>` node on desktop.
-|d-combobox-popup-input|The inner native `input` node inside the centered popup displayed on mobile.
+|d-combobox|Combobox widget root node.
+|d-combobox-input|The native `<input>` nodes used by the Combobox widget.
 |d-combobox-list|The List widget displayed inside the popup.
+|d-combo-ok-button|The OK button used in some cases inside the popup.
+|d-combo-cancel-button|The Cancel button used in some cases inside the popup.
 
 
 <a name="enterprise"></a>
