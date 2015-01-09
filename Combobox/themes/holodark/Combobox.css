@@ -38,20 +38,13 @@
   cursor: auto;
   opacity: 0.5;
 }
+.d-combo-popup {
+  /* Needed for the correct layout of its LinearLayout child */
+  display: block;
+}
+/* Applies to both the input inside the root node and the input */
+/* conditionally present inside the popup */
 .d-combobox-input {
-  height: 100%;
-  cursor: pointer;
-  /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
-  /* due to the presence of the hidden input which stores the submitted value.*/
-  margin: 0;
-}
-.d-combobox-input[disabled],
-fieldset[disabled] .d-combobox-input {
-  opacity: 0.5;
-  cursor: auto;
-}
-.d-combobox-input,
-.d-combobox-popup-input {
   padding: 6px 12px;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -60,12 +53,25 @@ fieldset[disabled] .d-combobox-input {
   font-size: inherit;
   line-height: inherit;
 }
-.d-combobox-input:focus,
-.d-combobox-popup-input:focus {
+.d-combobox-input:focus {
   /* defined in delite/themes/bootstrap/mixins.less */
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
+}
+/* Applies to the input inside the root node but does not apply */
+/* to the input conditionally present inside the popup */
+.d-combobox .d-combobox-input {
+  height: 100%;
+  cursor: pointer;
+  /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
+  /* due to the presence of the hidden input which stores the submitted value.*/
+  margin: 0;
+}
+.d-combobox .d-combobox-input[disabled],
+fieldset[disabled] .d-combobox .d-combobox-input {
+  opacity: 0.5;
+  cursor: auto;
 }
 .d-combobox .d-combobox-list-hidden {
   display: none;
