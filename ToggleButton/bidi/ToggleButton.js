@@ -1,5 +1,6 @@
 define([
-	"dcl/dcl", "dpointer/events"
+	"dcl/dcl",
+	"dpointer/events"
 ], function (dcl) {
 
 	return dcl(null, {
