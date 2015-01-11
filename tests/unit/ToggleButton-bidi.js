@@ -1,6 +1,6 @@
 define([
-        "intern!object",
-        "intern/chai!assert"
+	"intern!object",
+	"intern/chai!assert"
 ], function (registerSuite, assert) {
 	var container, html = "<button is='d-toggle-button' id='b1' textDir='ltr' checkedLabel='ABC \u05d0\u05d1\u05d2'>\u05d0\u05d1\u05d2 ABC</button>" +
 		"<button is='d-toggle-button' id='b2' textDir='rtl' checkedLabel = '\u05d0\u05d1\u05d2 ABC'>ABC \u05d0\u05d1\u05d2</button>" +
@@ -13,13 +13,13 @@ define([
 			moduleRequire = require.config({
 				context: "module",
 				baseUrl: "../../../",
-   				config: {
-        				"requirejs-dplugins/has": {
-            					"bidi": true
-        				}
-   				}
+				config: {
+					"requirejs-dplugins/has": {
+						"bidi": true
+					}
+				}
 			});
-        },
+		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -38,24 +38,24 @@ define([
 				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b1.labelNode.textContent, "ltr: wrong displayed value for 'checkedLabel'");
 			}));
 		},
-		
-		"rtl": function () {		
+
+		"rtl": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register) {
-				register.parse(document.body);			
+				register.parse(document.body);
 				var b2 = document.getElementById("b2");
 				b2.deliver();
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent, "rtl: wrong displayed value for 'label'");
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.title, "rtl: wrong default value for 'title'");
 				b2.checked = true;
 				b2.deliver();
-				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "rtl: wrong displayed value for 'checkedLabel'");				
-			}));			
+				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "rtl: wrong displayed value for 'checkedLabel'");
+			}));
 		},
-		"auto": function () {	
+		"auto": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register) {
-				register.parse(document.body);	
+				register.parse(document.body);
 				b3 = document.getElementById("b3");
 				b3.deliver();
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.labelNode.textContent, "auto: wrong displayed value for 'label'");
@@ -63,35 +63,35 @@ define([
 				b3.checked = true;
 				b3.deliver();
 				assert.strictEqual("\u202aABC \u05d2\u05d1\u05d0\u202c", b3.labelNode.textContent, "auto: wrong value for 'checkedLabel'");
-			}));			
+			}));
 		},
 		"auto2": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register) {
-				register.parse(document.body);				
+				register.parse(document.body);
 				b4 = document.getElementById("b4");
 				b4.deliver();
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b4.labelNode.textContent, "auto2: wrong displayed value for 'checkedlabel'");
-			}));			
-		},				
+			}));
+		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	});
-	
+
 	registerSuite ({
 		name: "deliteful/Button (bidi): dyn. changes",
 		setup: function () {
 			moduleRequire = require.config({
 				context: "module",
 				baseUrl: "../../../",
-   				config: {
-        				"requirejs-dplugins/has": {
-            					"bidi": true
-        				}
-   				}
+				config: {
+					"requirejs-dplugins/has": {
+						"bidi": true
+					}
+				}
 			});
-        },
+		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -126,7 +126,7 @@ define([
 			}));
 		},
 		
-		"label": function () {		
+		"label": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register, ToggleButton) {
 				var b2 = new ToggleButton({id: "b2"});
@@ -139,10 +139,10 @@ define([
 				b2.textDir = "ltr";
 				b2.label = "\u05d0\u05d1\u05d2 ABC";
 				b2.deliver();
-				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "label: wrong displayed ltr value");			
-			}));			
+				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "label: wrong displayed ltr value");
+			}));
 		},
-		"checkedLabel": function () {		
+		"checkedLabel": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register, ToggleButton) {
 				var b2 = new ToggleButton({id: "b2", checked: true});
@@ -155,10 +155,10 @@ define([
 				b2.textDir = "ltr";
 				b2.checkedLabel = "\u05d0\u05d1\u05d2 ABC";
 				b2.deliver();
-				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "checkedLabel: wrong displayed ltr value");			
-			}));			
-		},		
-		"title": function () {	
+				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "checkedLabel: wrong displayed ltr value");
+			}));
+		},
+		"title": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/ToggleButton"], dfd.callback(function (register, ToggleButton) {
 				var b3 = new ToggleButton({id: "b3"});
@@ -171,11 +171,11 @@ define([
 				b3.textDir = "ltr";
 				b3.title = "ABC \u05d0\u05d1\u05d2";
 				b3.deliver();
-				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "title: wrong value for 'auto' (2)");			
-			}));			
+				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "title: wrong value for 'auto' (2)");
+			}));
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
-	});	
+	});
 });

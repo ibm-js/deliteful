@@ -1,6 +1,6 @@
 define([
-        "intern!object",
-        "intern/chai!assert"
+	"intern!object",
+	"intern/chai!assert"
 ], function (registerSuite, assert) {
 	var container, html = "<button is='d-button' id='b1' textDir='ltr'>\u05d0\u05d1\u05d2 ABC</button>" +
 		"<button is='d-button' id='b2' textDir='rtl'>ABC \u05d0\u05d1\u05d2</button>" +
@@ -13,13 +13,13 @@ define([
 			moduleRequire = require.config({
 				context: "module",
 				baseUrl: "../../../",
-   				config: {
-        				"requirejs-dplugins/has": {
-            					"bidi": true
-        				}
-   				}
+				config: {
+					"requirejs-dplugins/has": {
+						"bidi": true
+					}
+				}
 			});
-        },
+		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -39,33 +39,33 @@ define([
 		"rtl": function () {		
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-				register.parse(document.body);			
+				register.parse();
 				var b2 = document.getElementById("b2");
 				b2.deliver();
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent, "rtl: wrong displayed value for 'label'");
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.title, "rtl: wrong default value for 'title'");
-			}));			
+			}));
 		},
-		"auto": function () {	
+		"auto": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-				register.parse(document.body);	
+				register.parse();	
 				b3 = document.getElementById("b3");
 				b3.deliver();
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.labelNode.textContent, "auto: wrong displayed value for 'label'");
 				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "auto: wrong value for 'title'");
-			}));			
+			}));
 		},
 		"auto2": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-				register.parse(document.body);				
+				register.parse();
 				b4 = document.getElementById("b4");
 				b4.deliver();
 				assert.strictEqual("\u202aABC \u05d2\u05d1\u05d0\u202c", b4.labelNode.textContent, "auto2: wrong displayed value for 'label'");
 				assert.strictEqual("\u202aABC \u05d2\u05d1\u05d0\u202c", b4.title, "auto2: wrong value for 'title'");
-			}));			
-		},				
+			}));
+		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
@@ -77,13 +77,13 @@ define([
 			moduleRequire = require.config({
 				context: "module",
 				baseUrl: "../../../",
-   				config: {
-        				"requirejs-dplugins/has": {
-            					"bidi": true
-        				}
-   				}
+				config: {
+					"requirejs-dplugins/has": {
+						"bidi": true
+					}
+				}
 			});
-        },
+		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
@@ -122,10 +122,10 @@ define([
 				b2.textDir = "ltr";
 				b2.label = "\u05d0\u05d1\u05d2 ABC";
 				b2.deliver();
-				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "label: wrong displayed ltr value");			
-			}));			
+				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b2.labelNode.textContent, "label: wrong displayed ltr value");	
+			}));
 		},
-		"title": function () {	
+		"title": function () {
 			var dfd = this.async();
 			moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register, Button) {
 				var b3 = new Button({id: "b3"});
@@ -138,11 +138,11 @@ define([
 				b3.textDir = "ltr";
 				b3.title = "ABC \u05d0\u05d1\u05d2";
 				b3.deliver();
-				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "title: wrong value for 'auto' (2)");			
-			}));			
+				assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "title: wrong value for 'auto' (2)");
+			}));
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
-	});	
+	});
 });
