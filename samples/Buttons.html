@@ -26,6 +26,7 @@
 			"delite/register",
 			"deliteful/Checkbox",
 			"deliteful/Switch",
+			"deliteful/Button",
 			"deliteful/ToggleButton",
 			"deliteful/RadioButton",
 			"requirejs-domready/domReady!"
@@ -86,6 +87,15 @@
 	<p><d-switch id="sw6" checked="true" disabled checkedLabel="ON" uncheckedLabel="OFF"></d-switch><label for="sw6">option 5</label></p>
 </fieldset>
 </div>
+<fieldset>
+	<legend>Buttons</legend>
+	<button is="d-button">Button</button>
+	<!-- Classes d-button-success, d-button-info, d-button-warning and d-button-danger are provided by the boostrap theme -->
+	<button is="d-button" class="d-button-success">Button</button>
+	<button is="d-button" class="d-button-info">Button</button>
+	<button is="d-button" class="d-button-warning">Button</button>
+	<button is="d-button" class="d-button-danger">Button</button>
+</fieldset>
 <fieldset>
 	<legend>Toggle Buttons</legend>
 	<button is="d-toggle-button" checkedLabel="On">Off</button>
