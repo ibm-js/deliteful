@@ -1,15 +1,5 @@
 @import "../../../../delite/themes/bootstrap/includes";
 
-// ==================== utils ======================
-// Button sizes
-// -------------------------
-.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
-  padding: @padding-vertical @padding-horizontal;
-  font-size: @font-size;
-  line-height: @line-height;
-  border-radius: @border-radius;
-}
-
 // Button variant
 // -------------------------
 .d-button-variant(@color; @background; @border) {
@@ -45,7 +35,9 @@
   border-style: solid;
   border-color: transparent;
   white-space: nowrap;
-  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+  padding: @padding-base-vertical @padding-base-horizontal;
+  border-radius: @border-radius-base;
+
   .user-select(none);
   &, &:active, &.active {
     &:focus {
@@ -75,7 +67,7 @@
   .d-button-base();
   .d-button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
 }
-.d-button-primary, .d-button-blue {
+.d-button-primary {
   .d-button-base();
   .d-button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
 }
@@ -99,32 +91,3 @@
   .d-button-base();
   .d-button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
 }
-
-.d-button-link {
-  color: @link-color;
-  font-weight: normal;
-  cursor: pointer;
-  border-radius: 0;
-
-  &, &:active, &[disabled] {
-    background-color: transparent;
-    .box-shadow(none);
-    border-width: 0;
-  }
-  &, &:hover, &:focus, &:active {
-    border-color: transparent;
-  }
-  &:hover, &:focus {
-    color: @link-hover-color;
-    text-decoration: underline;
-    background-color: transparent;
-  }
-  &[disabled] {
-    &:hover, &:focus {
-      color: @btn-link-disabled-color;
-      text-decoration: none;
-    }
-  }
-}
-
-//@import "../Button_template";

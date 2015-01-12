@@ -11,8 +11,6 @@
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -77,8 +75,7 @@ fieldset[disabled] .d-button {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-.d-button-primary,
-.d-button-blue {
+.d-button-primary {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -91,8 +88,6 @@ fieldset[disabled] .d-button {
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -103,26 +98,19 @@ fieldset[disabled] .d-button {
   border-color: #357ebd;
 }
 .d-button-primary:focus,
-.d-button-blue:focus,
 .d-button-primary:active:focus,
-.d-button-blue:active:focus,
-.d-button-primary.active:focus,
-.d-button-blue.active:focus {
+.d-button-primary.active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 .d-button-primary:hover,
-.d-button-blue:hover,
-.d-button-primary:focus,
-.d-button-blue:focus {
+.d-button-primary:focus {
   color: #333333;
   text-decoration: none;
 }
 .d-button-primary:active,
-.d-button-blue:active,
-.d-button-primary.active,
-.d-button-blue.active {
+.d-button-primary.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -130,11 +118,8 @@ fieldset[disabled] .d-button {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .d-button-primary.disabled,
-.d-button-blue.disabled,
 .d-button-primary[disabled],
-.d-button-blue[disabled],
-fieldset[disabled] .d-button-primary,
-fieldset[disabled] .d-button-blue {
+fieldset[disabled] .d-button-primary {
   cursor: not-allowed;
   opacity: .65;
   -webkit-box-shadow: none;
@@ -143,43 +128,27 @@ fieldset[disabled] .d-button-blue {
   pointer-events: none;
 }
 .d-button-primary:hover,
-.d-button-blue:hover,
 .d-button-primary:focus,
-.d-button-blue:focus,
 .d-button-primary:active,
-.d-button-blue:active,
-.d-button-primary.active,
-.d-button-blue.active {
+.d-button-primary.active {
   color: #ffffff;
   background-color: #3276b1;
   border-color: #285e8e;
 }
 .d-button-primary:active,
-.d-button-blue:active,
-.d-button-primary.active,
-.d-button-blue.active {
+.d-button-primary.active {
   background-image: none;
 }
 .d-button-primary.disabled,
-.d-button-blue.disabled,
 .d-button-primary[disabled],
-.d-button-blue[disabled],
 .d-button-primary.disabled:hover,
-.d-button-blue.disabled:hover,
 .d-button-primary[disabled]:hover,
-.d-button-blue[disabled]:hover,
 .d-button-primary.disabled:focus,
-.d-button-blue.disabled:focus,
 .d-button-primary[disabled]:focus,
-.d-button-blue[disabled]:focus,
 .d-button-primary.disabled:active,
-.d-button-blue.disabled:active,
 .d-button-primary[disabled]:active,
-.d-button-blue[disabled]:active,
 .d-button-primary.disabled.active,
-.d-button-blue.disabled.active,
-.d-button-primary[disabled].active,
-.d-button-blue[disabled].active {
+.d-button-primary[disabled].active {
   background-color: #428bca;
   border-color: #357ebd;
 }
@@ -196,8 +165,6 @@ fieldset[disabled] .d-button-blue {
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -275,8 +242,6 @@ fieldset[disabled] .d-button-success {
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -354,8 +319,6 @@ fieldset[disabled] .d-button-info {
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -434,8 +397,6 @@ fieldset[disabled] .d-button-warning {
   border-color: transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
   border-radius: 4px;
   user-select: none;
   -webkit-user-select: none;
@@ -525,36 +486,4 @@ fieldset[disabled] .d-button-red {
 .d-button-red[disabled].active {
   background-color: #d9534f;
   border-color: #d43f3a;
-}
-.d-button-link {
-  color: #428bca;
-  font-weight: normal;
-  cursor: pointer;
-  border-radius: 0;
-}
-.d-button-link,
-.d-button-link:active,
-.d-button-link[disabled] {
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-width: 0;
-}
-.d-button-link,
-.d-button-link:hover,
-.d-button-link:focus,
-.d-button-link:active {
-  border-color: transparent;
-}
-.d-button-link:hover,
-.d-button-link:focus {
-  color: #2a6496;
-  text-decoration: underline;
-  background-color: transparent;
-}
-.d-button-link[disabled]:hover,
-.d-button-link[disabled]:focus {
-  color: #999999;
-  text-decoration: none;
 }
