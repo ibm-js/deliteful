@@ -71,7 +71,7 @@ For disabling sliding animated transition, set `animate` attribute to `false`.
 The SidePane is not visible by default. Use the ``show`` method to open it and the ``hide`` method to close it.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
-src="http://jsfiddle.net/ibmjs/aYj4A/embedded/result,html,css,js">
+src="http://jsfiddle.net/ibmjs/z8Vj9/embedded/result,html,css,js">
 <a href="http://jsfiddle.net/ibmjs/z8Vj9/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="styling"></a>
