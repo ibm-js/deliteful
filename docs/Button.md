@@ -65,16 +65,26 @@ This widget provides default styling for the following delite themes:
 * ios
 * holodark
 
-### CSS Classes
+### Widget CSS Classes
 
-The base class for a button is `d-button`.
+The following CSS classes are automatically set by the widget and can be reused for overriding the default style.
 
-The appearance of a button can be customized by adding extra classes to it:
+CSS Class     | Description
+------------- | -------------
+`d-button`    | The base class for a button
 
-* `d-button-blue` can be added to render a blue button;
-* `d-button-red` can be added to render a red button.
+### Styling CSS classes
 
-Custom classes can also be added, as in the following example:
+The following CSS classes provided by the widget can be set explicitly on the element yourself.
+
+CSS Class          | Description
+-------------------| -------------
+`d-button-success` | Indicates a successful or positive action
+`d-button-info`    | Indicates a neutral informative change or action
+`d-button-warning` | Indicates a warning that might need attention
+`d-button-danger`  | Indicates a dangerous or potentially negative action
+
+Example of a custom button:
 
 <iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/NHft7/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/NHft7">checkout the sample on JSFiddle</a></iframe>

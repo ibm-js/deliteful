@@ -6,24 +6,17 @@
 .d-toggle-button-styles () {
 	.d-button ();
 }
-
-.d-toggle-button-a11y () {
-	margin: 3px;
-}
 .d-toggle-button-checked-styles () {
-	outline: 0;
 	.box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
-	background-image: none;
 	background-color: #ebebeb;
-	color: @btn-default-color;
-	&:focus {
-		.tab-focus ()
-	}
 }
 
+// High-contrast mode support: These borders are not visible by default but are visible in high-contrast mode.
+.d-toggle-button-a11y () {
+	border: dotted 2px transparent; // Normal state (dotted border on icon and label)
+}
 .d-toggle-button-checked-a11y () {
-	border: inset 3px transparent;
-	margin: 0px;
+	border-style: solid; // Toggled state (solid border on icon and label)
 }
 
 @import "../ToggleButton_template";
