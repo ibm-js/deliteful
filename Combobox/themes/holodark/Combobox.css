@@ -16,11 +16,11 @@
 .d-combobox::after {
   /* dropdown arrow */
   content: "\25BC";
+  display: inline-block;
+  position: absolute;
   padding: 0;
   cursor: pointer;
   line-height: normal;
-  display: inline-block;
-  position: absolute;
   font-size: .7em;
   right: 1em;
   top: 50%;
