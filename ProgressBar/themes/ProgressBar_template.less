@@ -1,6 +1,6 @@
 .d-progress-bar {
   display: inline-block;
-  position: relative;
+  position: relative; // Needed for absolutely positioned children
   padding: 0;
   width: 100%;
   .d-progress-bar-styles;
@@ -28,7 +28,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: hidden; // Needed for the alignment of the two parts of the text
   .d-progress-bar-msg-styles;
 }
 
@@ -42,7 +42,7 @@
 
 .d-progress-bar-msg-ext {
   .d-progress-bar-msg-ext-styles;
-  overflow: hidden;
+  overflow: hidden; // Needed for the alignment of the two parts of the text
 }
 
 .d-progress-bar-indeterminate .d-progress-bar-background {
