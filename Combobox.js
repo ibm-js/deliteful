@@ -246,12 +246,23 @@ define([
 		
 		/**
 		 * Updates the value of the private property on which the Combobox template
-		 * binds the readonly attribute of the input element.
+		 * binds the `readonly` attribute of the input element.
 		 * @private 
 		 */
 		_updateInputReadOnly: function () {
+			var oldValue = this._inputReadOnly;
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
 				this.useCenteredDropDown() || this.selectionMode === "multiple";
+			if (this._inputReadOnly === oldValue) {
+				// FormValueWidget.refreshRendering() mirrors the value of widget.readOnly
+				// to focusNode.readOnly, thus competing with the binding of the readOnly
+				// attribute of the input node (which is also the focusNode attach point)
+				// in the template of Combobox. To ensure the refresh of the binding is done
+				// including when the value of the flag _inputReadOnly doesn't change while
+				// FormValueWidget has reset the attribute to a different value, force
+				// the notification:
+				this.notifyCurrentValue("_inputReadOnly");
+			} // else no need to notify "by hand", rely on automatic notification
 		},
 		
 		/**
