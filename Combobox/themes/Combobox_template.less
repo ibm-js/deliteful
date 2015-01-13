@@ -1,5 +1,6 @@
 .d-combobox {
 	display: inline-block;
+	position: relative;
 	vertical-align: middle;
 	margin: 0;
 	padding: 0;
@@ -12,9 +13,13 @@
 	&::after {
 		/* dropdown arrow */
 		content: "\25BC";
-		padding:0;
-		position: relative;
+		display: inline-block;
+		position: absolute;
+		padding: 0;
 		cursor: pointer;
+		line-height: normal;
+		display: inline-block;
+		position: absolute;
 		.d-combobox-arrow-styles();
 	}
 	&::after[disabled] {
@@ -45,24 +50,25 @@
 	color: inherit;
 	font-family: inherit;
 	font-size: inherit;
-	line-height: inherit;
-}
-
-/* Applies to the input inside the root node but does not apply */
-/* to the input conditionally present inside the popup */
-.d-combobox .d-combobox-input {
-	height: 100%;
-	cursor: pointer;
-	
-	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
-	/* due to the presence of the hidden input which stores the submitted value.*/
-	margin: 0;
+	line-height: normal;
 	
 	&[disabled],
 	fieldset[disabled] & {
 		opacity: 0.5;
 		cursor: auto;
 	}
+}
+
+/* Applies to the input inside the root node but does not apply */
+/* to the input conditionally present inside the popup */
+.d-combobox .d-combobox-input {
+	height: 100%;
+	vertical-align: inherit;
+	cursor: pointer;
+	
+	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
+	/* due to the presence of the hidden input which stores the submitted value.*/
+	margin: 0;
 }
 
 .d-combobox .d-combobox-list-hidden {

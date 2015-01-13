@@ -14,17 +14,20 @@
 
 .d-combobox-arrow-styles() {
 	font-size: .7em;
-	right: 1.7em;
+	right: 1em;
+	top: 50%;
+	height: 1em;
+	margin-top: -0.6em;
 }
 
 .d-combobox-arrow-styles-rtl() {
-	left: 1.7em;
+	left: 1em;
 	/* restore default */
 	right: auto;
 }
 
 .d-combobox-input-styles() {
-	padding: @padding-base-vertical @padding-base-horizontal;
+	padding: @padding-base-vertical 1.7em @padding-base-vertical @padding-base-horizontal;
 	border: @d-combobox-border-size solid @input-border;
 	border-radius: @input-border-radius;
 	&:focus {
