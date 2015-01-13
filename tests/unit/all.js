@@ -23,13 +23,12 @@ define([
 	"./ToasterMessage-insert-show-hide-remove",
 	"./Toggle",
 	"./Button",
-	"./Button-bidi",
 	"./ToggleButton",
-	"./ToggleButton-bidi",
 	"./RadioButton",
 	"./ResponsiveColumns",
 	"./ViewStack",
 	"./SwapView",
 	"./ViewIndicator",
-	"./Combobox"
+	"./Combobox",
+	"./bidi/all"
 ]);
