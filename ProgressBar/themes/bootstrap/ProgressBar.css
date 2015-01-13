@@ -39,7 +39,6 @@
   margin: 0;
   padding: 0;
   position: absolute;
-  overflow: hidden;
   top: 0;
   height: 100%;
   background-color: #f5f5f5;
@@ -63,6 +62,7 @@
   padding: 0;
   overflow: hidden;
   position: absolute;
+  font-size: inherit;
   height: 100%;
   width: 100%;
   left: 0;
@@ -72,6 +72,7 @@
 }
 .d-progress-bar-msg-invert {
   position: absolute;
+  font-size: inherit;
   overflow: hidden;
   height: 100%;
   white-space: nowrap;
