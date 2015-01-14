@@ -39,7 +39,7 @@ require(["delite/register", "deliteful/ViewStack", "requirejs-domready/domReady!
 
 ```html
 <html>
-  <d-view-stack style="width:100%, height:200px">
+  <d-view-stack style="width:100%; height:200px">
     <div style="background-color: darkblue">Child 1 (Default visible child)</div>
     <div style="background-color: white">Child 2</div>
     <div style="background-color: crimson">Child 3</div>
