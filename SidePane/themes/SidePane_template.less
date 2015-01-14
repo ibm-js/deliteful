@@ -58,8 +58,8 @@
 
 .-d-side-pane-start.-d-side-pane-translated{
   .translate(@PANEL_WIDTH);
-  overflow: hidden;
-  -webkit-overflow-scrolling: auto;
+  overflow: hidden; // Disable the ability to scroll the pushed content (at least on Android 4.x)
+  -webkit-overflow-scrolling: auto; // Disable the ability to scroll the pushed content (at least on Android 4.x)
 }
 
 .-d-side-pane-start.-d-side-pane-nottranslated{
