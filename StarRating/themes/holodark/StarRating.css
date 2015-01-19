@@ -3,6 +3,7 @@
   display: inline-block;
   font-size: 40px;
   line-height: 1em;
+  vertical-align: middle;
 }
 .d-star-rating.d-star-rating-hovered {
   opacity: 0.5;
@@ -10,12 +11,8 @@
 .d-star-rating-zero {
   /* Do not modify the display style */
   display: inline-block;
-  overflow: hidden;
   height: 1px;
   width: 0.5em;
-}
-.d-star-rating-zero.d-hidden {
-  width: 0px;
 }
 .d-star-rating-star-icon {
   /* Do not modify the display style */
