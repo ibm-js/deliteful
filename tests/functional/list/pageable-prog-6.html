@@ -44,7 +44,7 @@
 					}
 			});
 			list.store = new CustomMemoryStore();
- 			for (i = 0; i < 100; i++) {
+ 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i, id: i});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);

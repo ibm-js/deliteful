@@ -24,7 +24,7 @@
 			list.id = "list-prog-1";
 			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
- 			for (i = 0; i < 100; i++) {
+ 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i, righttext: list.id});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);

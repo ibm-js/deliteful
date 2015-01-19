@@ -24,7 +24,7 @@
 			list.style.height = "200px";
 			var M = MemoryStore.createSubclass([Trackable], {});
 			list.store = new M({data: [], idProperty: "label"});
- 			for (i = 0; i < 100; i++) {
+ 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
