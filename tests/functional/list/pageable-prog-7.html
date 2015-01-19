@@ -39,7 +39,7 @@
 					}
 			});
 			list.store = new CustomMemoryStore();
- 			for (i = 0; i < 100; i++) {
+ 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);

@@ -25,7 +25,7 @@
 			list.pageLength = 25;
 			list.maxPages = 2;
 			list.style.height = "200px";
- 			for (i = 0; i < 100; i++) {
+ 			for (var i = 0; i < 100; i++) {
 				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
