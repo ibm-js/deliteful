@@ -6,7 +6,7 @@ title: deliteful/Combobox
 # deliteful/Combobox
 
 `deliteful/Combobox` is a form-aware and store-aware widget leveraging the 
-[`deliteful/list/List`](/deliteful/docs/master/list/List.md) widget for
+[`deliteful/list/List`](./list/List.md) widget for
 displaying the list of options. 
 
 Characteristics:
@@ -146,13 +146,12 @@ The method can be overridden for implementing other filtering strategies.
 
 The customization of the mapping of data store item attributes into render item attributes
 can be done on the List instance using the mapping API of 
-[`deliteful/list/List`](/deliteful/docs/master/list/List.md), as supported by its superclass
+[`deliteful/list/List`](./list/List.md), as supported by its superclass
 `delite/StoreMap`.
 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for
 more information about the available mapping options, and the section
-[`Store capabilities`](/deliteful/docs/master/list/List.md#store) of
-List's documentation.
+[`Store capabilities`](./list/List.md#store) of List's documentation.
 
 ### Value and form support
 
