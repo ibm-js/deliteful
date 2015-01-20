@@ -1,12 +1,14 @@
 @import "../../../../delite/themes/common/mixins";
 
 .d-view-indicator {
+	display: block;
 	text-align: center;
 	.user-select(none);
 	cursor: default;
+	line-height: @dot-size;
 }
 
-.d-view-indicator, .d-view-indicator * {
+.d-view-indicator * {
 	display: inline-block;
 }
 
@@ -14,7 +16,6 @@
 	width: @dot-size;
 	height: @dot-size;
 	.border-radius(@dot-size / 2);
-	line-height: @dot-size;
 	margin: @dot-margin;
 	background-color: @dot-color;
 }
@@ -23,12 +24,13 @@
 	background-color: @dot-selected-color;
 }
 
+// High-contrast mode is supported through actual characters
+// There characters are not visible in normal mode
 .d-view-indicator .-d-view-indicator-dot::before {
-	font-size: @dot-glyph-font-size;
 	color: transparent;
-	content: "\25CB";
+	content: "\25CB"; // White circle character
 }
 
 .d-view-indicator .-d-view-indicator-dot-selected::before {
-	content: "\25CF";
+	content: "\25CF"; // Black circle character
 }
