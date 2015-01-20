@@ -19,17 +19,17 @@ define([
 					}
 				}
 			});
+			container = document.createElement("div");
+			document.body.appendChild(container);
 		},
 		markup: {
 			beforeEach: function () {
-				container = document.createElement("div");
-				document.body.appendChild(container);
 				container.innerHTML = html;
 			},
 			"ltr": function () {
 				var dfd = this.async();
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-					register.parse();
+					register.parse(container);
 					var b1 = document.getElementById("b1");
 					b1.deliver();
 					assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b1.labelNode.textContent, "ltr: wrong displayed value for 'label'");
@@ -40,7 +40,7 @@ define([
 			"rtl": function () {		
 				var dfd = this.async();
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-					register.parse();
+					register.parse(container);
 					var b2 = document.getElementById("b2");
 					b2.deliver();
 					assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent, "rtl: wrong displayed value for 'label'");
@@ -50,7 +50,7 @@ define([
 			"auto": function () {
 				var dfd = this.async();
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-					register.parse();	
+					register.parse(container);	
 					b3 = document.getElementById("b3");
 					b3.deliver();
 					assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.labelNode.textContent, "auto: wrong displayed value for 'label'");
@@ -60,18 +60,20 @@ define([
 			"auto2": function () {
 				var dfd = this.async();
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register) {
-					register.parse();
+					register.parse(container);
 					b4 = document.getElementById("b4");
 					b4.deliver();
 					assert.strictEqual("\u202aABC \u05d2\u05d1\u05d0\u202c", b4.labelNode.textContent, "auto2: wrong displayed value for 'label'");
 					assert.strictEqual("\u202aABC \u05d2\u05d1\u05d0\u202c", b4.title, "auto2: wrong value for 'title'");
 				}));
-			}
+			},
+			afterEach: function () {
+				container.innerHTML = "";
+			}			
 		},
 		dynChanges: {
 			beforeEach: function () {
-				container = document.createElement("div");
-				document.body.appendChild(container);
+				container.innerHTML = html;
 			},
 			"textDir": function () {
 				var dfd = this.async();
@@ -124,9 +126,12 @@ define([
 					b3.deliver();
 					assert.strictEqual("\u202aABC \u05d0\u05d1\u05d2\u202c", b3.title, "title: wrong value for 'auto' (2)");
 				}));
+			},
+			afterEach: function () {
+				container.innerHTML = "";
 			}
 		},
-		afterEach: function () {
+		teardown: function () {
 			container.parentNode.removeChild(container);
 		}
 	});
