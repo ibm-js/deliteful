@@ -151,7 +151,7 @@ can be done on the List instance using the mapping API of
 
 See the [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for
 more information about the available mapping options, and the section
-[`Store capabilities`](/deliteful/docs/master/list/List.md#store-capabilities) of
+[`Store capabilities`](/deliteful/docs/master/list/List.md#store) of
 List's documentation.
 
 ### Value and form support
