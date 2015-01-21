@@ -32,7 +32,7 @@
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
   			for (var i = 0; i < 40; i++) {
-				list.store.add({});
+				list.store.addSync({});
 			}
 			ready = true;
 		});

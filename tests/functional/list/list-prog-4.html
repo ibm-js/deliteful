@@ -27,9 +27,8 @@
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
   			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i});
+				list.store.addSync({label: "Programmatic item of order " + i});
 			}
-
 			ready = true;
 		});
 	</script>

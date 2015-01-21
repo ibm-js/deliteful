@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-            "dcl/dcl",
+		    "dcl/dcl",
 			"delite/register",
 			"deliteful/list/List",
 			"dojo/Deferred",
@@ -21,10 +21,8 @@
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (dcl, register, List, Deferred, QueryResults, MemoryStore, Trackable) {
-			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
-			// TODO the test is not actually using the latency store, looks like something must be changed to actually
-			// test what it pretends to test
-			/*
+  			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
+			// TODO the test is not actually using the latency store, not sure what was the initial intend...
 			var CustomMemoryStore = dcl([MemoryStore], {
 				latency: 500,
 				query: dcl.superCall(function (sup) {
@@ -37,21 +35,19 @@
 						return new QueryResults(def);
 					};
 				})
-			});*/
+			});
 			var CM = MemoryStore.createSubclass([Trackable], {});
 			var createStore = function (itemsCount, latency) {
-				// TODO for now we add data later with addSync as this seems to remove weir test failures
-				// TODO we will have to come back on this later
-				/*
 				var i = 0, data = [];
 				for (; i < itemsCount; i++) {
 					data.push({id: 'ref' + i, text: 'this is list item ' + i});
-				}*/
-				return new CM({latency: latency, data: [], idProperty: "id"});
+				}
+				return new CM({latency: latency, data: data, idProperty: 'id'});
 			};
 			var list = register.createElement("d-list");
 			list.id = "list-prog-5";
 			list.style.height = "200px";
+			list.store = createStore(100, 500);
 			list.labelAttr = "text";
 			list.righttextFunc = function (item) {
 				return "id: " + item.id;
@@ -60,16 +56,13 @@
 				var i = parseInt(item.id.slice(3));
 				return "left-icon-" + (i % 10 + 1);
 			};
-			list.righticonclassFunc = function (item) {
+ 			list.righticonclassFunc = function (item) {
 				var i = parseInt(item.id.slice(3));
 				return "right-icon-2-" + (i % 8 + 1);
 			};
-			list.store = createStore(100, 500);
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
-			for (var i = 0; i < 100; i++) {
-				list.store.addSync({id: 'ref' + i, text: 'this is list item ' + i});
-			}
+
 			ready = true;
 		});
 	</script>
@@ -109,12 +102,12 @@
 			content: '\2605';
 			color: brown;
 		}
-
+		
 		.left-icon-7::before {
 			content: '\2605';
 			color: silver;
 		}
-
+		
 		.left-icon-8::before {
 			content: '\2605';
 			color: gold;
@@ -159,12 +152,12 @@
 			content: '\2764';
 			color: blueviolet;
 		}
-
+		
 		.right-icon-2-7::before {
 			content: '\2764';
 			color: fuchsia;
 		}
-
+		
 		.right-icon-2-8::before {
 			content: '\2764';
 			color: burlywood;
@@ -172,9 +165,9 @@
 	</style>
 </head>
 <body>
-<input type="text" autofocus>
-<br>
-<h2>Trackable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
-<div id="listPlaceholder"></div>
+ 	<input type="text" autofocus>
+ 	<br>
+ 	<h2>Trackable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
+ 	<div id="listPlaceholder"></div>
 </body>
 </html>
