@@ -29,5 +29,6 @@ define([
 	"./ViewStack",
 	"./SwapView",
 	"./ViewIndicator",
-	"./Combobox"
+	"./Combobox",
+	"./channelBreakpoints"
 ]);
