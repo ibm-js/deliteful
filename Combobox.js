@@ -9,14 +9,14 @@ define([
 	"delite/HasDropDown",
 	"delite/keys",
 	"./list/List",
-	"./Combobox/ComboPopup",
+	"./features!desktop-like-channel?:./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
 ], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown,
 		keys, List, ComboPopup, template, messages) {
 	/**
-	 * A form-aware and store-aware widget leveraging the `deliteful/list/List`
+	 * A form-aware and store-aware multichannel widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
 	 * 
 	 * The corresponding custom tag is `<d-combobox>`.
@@ -35,6 +35,18 @@ define([
 	 * case-insensitive, and an item is shown if its label contains the entered
 	 * string. The default filtering policy can be customized thanks to the 
 	 * `filterMode` and `ignoreCase` properties.
+	 * 
+	 * The widget provides multichannel rendering. Depending on the required channel, which
+	 * is determined by the value of the channel flags of `deliteful/features`, the
+	 * widget displays the popup containing the options in a different manner:
+	 * * if `has("desktop-like-channel")` is `true`: in a popup below or above the root node.
+	 * * otherwise (that is for `"phone-like-channel"` and `"tablet-like-channel"`): in an
+	 * overlay centered on the screen, filled with an instance of `deliteful/Combobox/ComboPopup`.
+	 * 
+	 * The channel flags are set by `deliteful/features` using CSS media queries depending on
+	 * the screen size. See the `deliteful/features` documentation for information about the
+	 * channel flags and about how to configure them statically and how to customize the values
+	 * of the screen size breakpoints used by the media queries.
 	 * 
 	 * If the widget is used in an HTML form, the submitted value is the one
 	 * of the `value` property. By default, the `label` field of list render items
@@ -252,7 +264,7 @@ define([
 		_updateInputReadOnly: function () {
 			var oldValue = this._inputReadOnly;
 			this._inputReadOnly = this.readOnly || !this.autoFilter ||
-				this.useCenteredDropDown() || this.selectionMode === "multiple";
+				this._useCenteredDropDown() || this.selectionMode === "multiple";
 			if (this._inputReadOnly === oldValue) {
 				// FormValueWidget.refreshRendering() mirrors the value of widget.readOnly
 				// to focusNode.readOnly, thus competing with the binding of the readOnly
@@ -392,9 +404,9 @@ define([
 						this.closeDropDown(true/*refocus*/);
 					}.bind(this), 100); // worth exposing a property for the delay?
 				} else if (this.selectionMode === "multiple" && "selectedItems" in oldValues) {
-					// if useCenteredDropDown is true, let the dropdown's OK/Cancel
+					// if _useCenteredDropDown() is true, let the dropdown's OK/Cancel
 					// buttons do the job
-					if (!this.useCenteredDropDown()) {
+					if (!this._useCenteredDropDown()) {
 						this._validateMultiple(this._popupInput || this.inputNode);
 					}
 				}
@@ -479,22 +491,19 @@ define([
 		/**
 		 * Returns `true` if the dropdown should be centered, and returns
 		 * `false` if it should be displayed below/above the widget.
-		 * The default implementation returns `true` when running on
-		 * iOS or Android, and returns `false` otherwise.
-		 * @protected
+		 * Returns `true` when the module `deliteful/Combobox/ComboPopup` has
+		 * been loaded. Note that the module is loaded conditionally, depending
+		 * on the channel has() features set by `deliteful/features`.
+		 * @private
 		 */
-		useCenteredDropDown: function () {
-			// TODO: the decision about the choice criteria may be
-			// revisited (phone vs tablets?).
-			return has("ios") || has("android");
+		_useCenteredDropDown: function () {
+			return !!ComboPopup;
 		},
 		
 		_createDropDown: function () {
-			// Update the readonly attribute in case useCenteredDropDown() changed
-			// its return value.
 			this._updateInputReadOnly();
 			
-			var centeredDropDown = this.useCenteredDropDown();
+			var centeredDropDown = this._useCenteredDropDown();
 			var dropDown = centeredDropDown ?
 				this.createCenteredDropDown() :
 				this.createAboveBelowDropDown();
@@ -502,9 +511,6 @@ define([
 			this.dropDownPosition = centeredDropDown ?
 				["center"] :
 				["below", "above"]; // this is the default
-			// TODO: since the user can override the protected "useCenteredDropDown()",
-			// we many want to cope with a dynamic change from centered to non-centered
-			// and vice-versa.
 			
 			return dropDown;
 		},
