@@ -58,60 +58,67 @@ define([
 		},
 
 		_pointerDownHandler: function (e) {
-			this._startX = this._curX = e.clientX;
-			pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
-			if (!this._pHandlers) {
-				this._pHandlers = [
-					{e: "pointermove", l: this._pointerMoveHandler.bind(this)},
-					{e: "pointerup", l: this._pointerUpHandler.bind(this)},
-					{e: "lostpointercapture", l: this._lostPointerCaptureHandler.bind(this)}
-				];
+			if (! this.disabled) {
+				this._startX = this._curX = e.clientX;
+				pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
+				if (!this._pHandlers) {
+					this._pHandlers = [
+						{e: "pointermove", l: this._pointerMoveHandler.bind(this)},
+						{e: "pointerup", l: this._pointerUpHandler.bind(this)},
+						{e: "lostpointercapture", l: this._lostPointerCaptureHandler.bind(this)}
+					];
+				}
+				this._pHandlers.forEach(function (h) { this._knobGlassNode.addEventListener(h.e, h.l); }.bind(this));
+				e.preventDefault();
+				e.stopPropagation();
 			}
-			this._pHandlers.forEach(function (h) { this._knobGlassNode.addEventListener(h.e, h.l); }.bind(this));
-			e.preventDefault();
-			e.stopPropagation();
 		},
 
 		_pointerMoveHandler: function (e) {
-			var dx = e.clientX - this._curX,
-				cs = window.getComputedStyle(this._pushNode),
-				w = parseInt(cs.width, 10);
-			if (!this._drag && Math.abs(e.clientX - this._startX) > 4) {
-				this._drag = true;
-				$(this._innerNode).removeClass("-d-switch-transition");
-				$(this._pushNode).removeClass("-d-switch-transition");
-				$(this._innerWrapperNode).removeClass("-d-switch-transition");
+			if (! this.disabled) {
+				var dx = e.clientX - this._curX,
+					cs = window.getComputedStyle(this._pushNode),
+					w = parseInt(cs.width, 10);
+				if (!this._drag && Math.abs(e.clientX - this._startX) > 4) {
+					this._drag = true;
+					$(this._innerNode).removeClass("-d-switch-transition");
+					$(this._pushNode).removeClass("-d-switch-transition");
+					$(this._innerWrapperNode).removeClass("-d-switch-transition");
+				}
+				this._curX = e.clientX;
+				if (this._drag) {
+					// knobWidth and switchWidth are sometimes wrong if computed in 
+					// attachedCallback on Chrome so do it here
+					this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
+					this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
+					var nw = this.isLeftToRight() ? w + dx : w - dx,
+						max = this.checked ? this._switchWidth : this._switchWidth - this._knobWidth,
+						min = this.checked ? this._knobWidth : 0;
+					nw = Math.max(min, Math.min(max, nw));
+					this._pushNode.style.width = nw + "px";
+				}
+				e.preventDefault();
+				e.stopPropagation();
 			}
-			this._curX = e.clientX;
-			if (this._drag) {
-				// knobWidth and switchWidth are sometimes wrong if computed in attachedCallback on Chrome so do it here
-				this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
-				this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
-				var nw = this.isLeftToRight() ? w + dx : w - dx,
-					max = this.checked ? this._switchWidth : this._switchWidth - this._knobWidth,
-					min = this.checked ? this._knobWidth : 0;
-				nw = Math.max(min, Math.min(max, nw));
-				this._pushNode.style.width = nw + "px";
-			}
-			e.preventDefault();
-			e.stopPropagation();
 		},
 
 		_pointerUpHandler: function (e) {
-			var oldCheckedValue = this.checked;
-			if (!this._drag) {
-				this.checked = !this.checked;
-			} else {
-				this._drag = false;
-				var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
-				var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
-				this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
+			if (! this.disabled) {
+				var oldCheckedValue = this.checked;
+				if (!this._drag) {
+					this.checked = !this.checked;
+				} else {
+					this._drag = false;
+					var cs = parseInt(window.getComputedStyle(this._pushNode).width, 10);
+					var m = parseInt(window.getComputedStyle(this._pushNode).marginLeft, 10);
+					this.checked = cs + m + this._knobWidth / 2 >= this._switchWidth / 2;
+				}
+				if (this.checked !== oldCheckedValue) {
+					this.emit("change");
+				}
+				e.preventDefault();
+				e.stopPropagation();
 			}
-			if (this.checked !== oldCheckedValue) {
-				this.emit("change");
-			}
-			e.preventDefault();
-			e.stopPropagation();
 		},
 
 		_lostPointerCaptureHandler: function () {
