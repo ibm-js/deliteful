@@ -24,11 +24,10 @@
 			list.style.height = "200px";
 			list.store = new (Memory.createSubclass([Trackable], {}))();
 			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, righttext: list.id});
+				list.store.addSync({label: "Programmatic item of order " + i, righttext: list.id});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.startup();
-
 			ready = true;
 		});
 	</script>
