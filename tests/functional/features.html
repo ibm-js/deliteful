@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/features test</title>
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+		td {
+			padding: 2px;
+			border:  1px solid black;
+		}
+	</style>
+	<script src="../../../requirejs/require.js"></script>
+	<script>
+		var ready = false; // set to true when the test page is ready
+		
+		var _has = null;
+		
+		require({
+			baseUrl: "../../.."
+			}, ["deliteful/features", "requirejs-domready/domReady!"],
+			function (has) {
+				_has = {}; // used in tests/functional/features.js
+				function update() {
+					["phone-like-channel", "tablet-like-channel", "desktop-like-channel"].forEach(
+						function (key) {
+							_has[key] = has(key);
+							var res = has(key);
+							tbody.innerHTML += "<tr><td>has(\"" + key + "\")</td><td>" +
+								(res === undefined ? "undefined" : res) + "</td></tr>";
+					});
+				};
+				
+				update();
+				
+				ready = true;
+			});
+	</script>
+</head>
+<body>
+	<h1>deliteful/features results</h1>
+	<table>
+		<tbody id="tbody">
+		</tbody>
+	</table>
+</body>
+</html>

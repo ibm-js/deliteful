@@ -3,8 +3,9 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
+	"./channelBreakpoints",
 	"delite/theme!./ResponsiveColumns/themes/{{theme}}/ResponsiveColumns.css"
-], function ($, register, DisplayContainer) {
+], function ($, register, DisplayContainer, channelBreakpoints) {
 	/**
 	 * A container that lays out its children according to the screen width. This widget relies on CSS media queries
 	 * (http://www.w3.org/TR/css3-mediaqueries). You can define any number of screen classes by setting the breakpoints
@@ -38,10 +39,17 @@ define([
 			 * To facilitate writing markup you can use single quotes when defining this property, single quotes
 			 * will be replaced by double quotes before interpreted by `JSON.parse`.
 			 *
+			 * The default value of `breakpoints` uses three breakpoints: `small`, `medium`, and `large`.
+			 * The value of `large` is an empty string. The default values of the breakpoints `small`
+			 * and `medium` are determined by the values of properties `smallScreen"` and `"mediumScreen"`
+			 * of `deliteful/channelBreakpoints`, and can be configured statically using `require.config()`.
+			 * For details, see the documentation of `deliteful/channelBreakpoints`.
 			 * @member {string}
-			 * @default "{'small': '480px', 'medium': '1024px', large: ''}"
+			 * @default "{'small': '480px', 'medium': '1024px', 'large': ''}"
 			 */
-			breakpoints: "{'small': '480px', 'medium': '1024px', 'large': ''}",
+			breakpoints: "{'small': '" + channelBreakpoints.smallScreen +
+				"', 'medium': '" + channelBreakpoints.mediumScreen +
+				"', 'large': ''}",
 
 			/**
 			 * The current screen class currently applied by the container.

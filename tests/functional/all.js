@@ -11,5 +11,6 @@ define([
 	"./Switch",
 	"./Button",
 	"./Combobox",
-	"./SwapView"
+	"./SwapView",
+	"./features"
 ]);
