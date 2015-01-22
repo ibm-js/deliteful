@@ -58,18 +58,20 @@ define([
 		},
 
 		_pointerDownHandler: function (e) {
-			this._startX = this._curX = e.clientX;
-			pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
-			if (!this._pHandlers) {
-				this._pHandlers = [
-					{e: "pointermove", l: this._pointerMoveHandler.bind(this)},
-					{e: "pointerup", l: this._pointerUpHandler.bind(this)},
-					{e: "lostpointercapture", l: this._lostPointerCaptureHandler.bind(this)}
-				];
+			if (!this.disabled) {
+				this._startX = this._curX = e.clientX;
+				pointer.setPointerCapture(this._knobGlassNode, e.pointerId);
+				if (!this._pHandlers) {
+					this._pHandlers = [
+						{e: "pointermove", l: this._pointerMoveHandler.bind(this)},
+						{e: "pointerup", l: this._pointerUpHandler.bind(this)},
+						{e: "lostpointercapture", l: this._lostPointerCaptureHandler.bind(this)}
+					];
+				}
+				this._pHandlers.forEach(function (h) { this._knobGlassNode.addEventListener(h.e, h.l); }.bind(this));
+				e.preventDefault();
+				e.stopPropagation();
 			}
-			this._pHandlers.forEach(function (h) { this._knobGlassNode.addEventListener(h.e, h.l); }.bind(this));
-			e.preventDefault();
-			e.stopPropagation();
 		},
 
 		_pointerMoveHandler: function (e) {
@@ -84,7 +86,8 @@ define([
 			}
 			this._curX = e.clientX;
 			if (this._drag) {
-				// knobWidth and switchWidth are sometimes wrong if computed in attachedCallback on Chrome so do it here
+				// knobWidth and switchWidth are sometimes wrong if computed in 
+				// attachedCallback on Chrome so do it here
 				this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
 				this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
 				var nw = this.isLeftToRight() ? w + dx : w - dx,
