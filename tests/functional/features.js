@@ -40,7 +40,7 @@ define([
 		"channel flags and breakpoint flags": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			return loadFile(this.remote, "./features.html")
+			return loadFile(remote, "./features.html")
 				.execute("return _has")
 				.then(function (has) {
 					/* jshint maxcomplexity: 17 */

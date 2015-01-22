@@ -43,26 +43,33 @@
 define(["requirejs-dplugins/has", "deliteful/channelBreakpoints"],
 	function (has, channelBreakpoints) {
 
-	// Use the device-width media feature rather than width, such that, on
+	// Notes:
+	// - Use the device-width media feature rather than width, such that, on
 	// desktop/laptop, the selected channel does not depend on the actual size of the
 	// viewport. Thus, the selected channel depends only on the static characteristics
 	// of the device (its screen width), which fits the use-case of multichannel
 	// widgets that need a statically determined channel. Otherwise it would be confusing
 	// to get a different channel depending on whether the app is initially loaded
 	// in a small or large viewport.
-	var mqSmall = window.matchMedia("(min-device-width: " +
+	// - We do not technically enforce the "small" breakpoint to be smaller than the
+	// medium one. Hence the apparently redundant checks of both media queries
+	// for the small and large channels.
+	
+	// matched by screens at least as large as the "small" breakpoint
+	var mqAboveSmall = window.matchMedia("(min-device-width: " +
 		channelBreakpoints.smallScreen + ")");
-	var mqMedium = window.matchMedia("(min-device-width: " +
+	// matched by screens at least as large as the "medium" breakpoint
+	var mqAboveMedium = window.matchMedia("(min-device-width: " +
 		channelBreakpoints.mediumScreen + ")");
 	
 	has.add("phone-like-channel", function () {
-		return !mqSmall.matches && !mqMedium.matches;
+		return !mqAboveSmall.matches && !mqAboveMedium.matches;
 	});
 	has.add("tablet-like-channel", function () {
-		return mqSmall.matches && !mqMedium.matches;
+		return mqAboveSmall.matches && !mqAboveMedium.matches;
 	});
 	has.add("desktop-like-channel", function () {
-		return mqSmall.matches && mqMedium.matches;
+		return mqAboveSmall.matches && mqAboveMedium.matches;
 	});
 	
 	return has;
