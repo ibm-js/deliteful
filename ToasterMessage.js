@@ -2,11 +2,11 @@
 define(["dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"dojo/Deferred",
+	"lie/dist/lie",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Deferred, $, pointer, template) {
+], function (dcl, Widget, register, Promise, $, pointer, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -175,38 +175,50 @@ define(["dcl/dcl",
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	var Timer = function (duration) {
-		var _timer = null, _remaining = null,
-			_startDate = null, _d = new Deferred();
+		var promise = new Promise(function (resolve, reject) {
+			var timer = null, _startDate = null, _remaining = null,
+			_fulfilled = false;		// NOTE: necessary because _remaining == 0 doesn't 
+									// necessarily mean the timeout callback was fired immediately
 
-		function _start(duration) {
-			_startDate = Date.now();
-			_timer = setTimeout(function () {
-				_d.resolve();
-			}, duration);
-			return _d;
-		}
-
-		this.start = function () {
-			return _start(duration);
-		};
-
-		this.pause = function () {
-			if (_timer !== null) {
-				clearTimeout(_timer);
-				var rt = duration - Date.now() + _startDate;
-				_remaining = rt > 0 ? rt : 0;
-			} else {
-				_remaining = 0;
+			function _start(duration) {
+				_startDate = Date.now();
+				timer = setTimeout(function () {
+					_fulfilled = true;
+					resolve();
+				}, duration);
 			}
-		};
 
-		this.resume = function () {
-			return _start(_remaining);
-		};
+			function computeRemaining() {
+				var rt = duration - Date.now() + _startDate;
+				return rt >= 0 ? rt : 0;
+			}
 
-		this.promise = function () {
-			return _d;
-		};
+			this.start = function () {
+				_start(duration);
+				return promise;
+			};
+
+			this.pause = function () {
+				if (timer !== null) {
+					clearTimeout(timer);
+					timer = null;
+					_remaining = computeRemaining();
+				} else {
+					_remaining = 0;
+				}
+			};
+
+			this.resume = function () {
+				_start(_remaining);
+				return promise;
+			};
+
+			this.destroy = function () {
+				if (! _fulfilled) {
+					reject();
+				}
+			};
+		}.bind(this));
 	};
 
 	var D_INVISIBLE = "d-invisible",
@@ -410,7 +422,7 @@ define(["dcl/dcl",
 			// starting timer
 			if (this.isExpirable()) {
 				this._timer = new Timer(this.duration);
-				this.own(this._timer.promise()); // NOTE: this cancels the promise in case the widget is destroyed
+				this.own(this._timer);
 				this._timer.start().then(function () {
 					this._hasExpired = true;
 					toaster.notifyCurrentValue("messages");
