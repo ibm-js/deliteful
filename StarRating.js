@@ -19,9 +19,6 @@ define([
 	 * by touching the stars.
 	 * Its custom element tag is `d-star-rating`.
 	 * 
-	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/StarRating.md user documentation}
-	 * for more details.
-	 * 
 	 * @class module:deliteful/StarRating
 	 * @augments delite/FormValueWidget
 	 */
@@ -65,7 +62,6 @@ define([
 		/* internal properties */
 
 		/*=====
-		_enterValue: null,
 		_hoveredValue: null,
 		_startHandles: null,
 		_keyDownHandle: null,
@@ -204,8 +200,7 @@ define([
 			}
 		},
 
-		/*jshint unused:vars */
-		_pointerLeaveHandler: function (/*Event*/ event) {
+		_pointerLeaveHandler: function () {
 			if (this._hovering) {
 				this._hovering = false;
 				this._hoveredValue = null;
@@ -215,7 +210,7 @@ define([
 			this._removeEventsHandlers();
 		},
 
-		_keyDownHandler: function (/*Event*/ event) {
+		_keyDownHandler: function () {
 			if (this._incrementKeyCodes.indexOf(event.keyCode) !== -1) {
 				event.preventDefault();
 				this._incrementValue();
