@@ -1045,7 +1045,7 @@ define([
 
 		// Simple arrow key support.
 		downArrowKeyHandler: function () {
-			if (this.navigatedDescendant.hasAttribute("navindex")) {
+			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
 			var next = this._getFocusedRenderer().nextElementSibling;
@@ -1056,7 +1056,7 @@ define([
 		},
 
 		upArrowKeyHandler: function () {
-			if (this.navigatedDescendant.hasAttribute("navindex")) {
+			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
 			var next = this._getFocusedRenderer().previousElementSibling;
