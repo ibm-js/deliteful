@@ -20,7 +20,7 @@
  * The channel can be configured statically using `require.config()`, for instance:
  * 
  * ```html
- * <script>
+ * &lt;script>
  *   // configuring RequireJS
  *   require.config({
  *     ...
@@ -32,7 +32,7 @@
  *       }
  *     }
  *   });
- * </script>
+ * &lt;/script>
  * ```
  * Note that only one channel flag should be set to `true`.
  * 

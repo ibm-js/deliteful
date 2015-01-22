@@ -21,7 +21,7 @@ define(["module"],
 	 * for instance:
 	 * 
 	 * ```html
-	 * <script>
+	 * &lt;script>
 	 *   // configuring RequireJS
 	 *   require.config({
 	 *     ...
@@ -32,7 +32,7 @@ define(["module"],
 	 *       }
 	 *     }
 	 *   });
-	 * </script>
+	 * &lt;/script>
 	 * ```
 	 * 
 	 * @module deliteful/channelBreakpoints
