@@ -31,5 +31,5 @@ define([
 	"./ViewIndicator",
 	"./Combobox",
 	"./channelBreakpoints",
-	"./bidi/all"
+	//"./bidi/all"
 ]);
