@@ -11,6 +11,9 @@
 		outline:0;
 		.d-switch-focused-styles();
 	}
+	&.d-disabled {
+		opacity: .6;
+	}
 }
 
 // internal classes
@@ -91,7 +94,6 @@
 	-webkit-transition: margin-left 100ms ease-in, width 100ms ease-in;
 	transition: margin-left 100ms ease-in, width 100ms ease-in;
 }
-
 
 .d-switch-width {
 	width: @d-switch-w;

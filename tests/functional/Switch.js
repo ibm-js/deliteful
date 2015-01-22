@@ -147,6 +147,68 @@ define([
 				})
 				.end()
 				;
+		},
+		"Switch with disabled attribute": function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote;
+			return loadFile(remote, "./Switch.html")
+				
+				// no disabled attribute
+				.execute("return document.getElementById('sw71').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch should be disabled");
+				})
+				.findByCssSelector("#sw71 .-d-switch-knobglass")
+				.click()
+				.sleep(500) // NOTE: waiting for the sliding to happen
+				.execute("return document.getElementById('sw71').checked;")
+				.then(function (value) {
+					assert.isTrue(value, "the switch shoud be enabled this time");
+				})
+				.end()
+
+				// disabled attribute
+				.execute("return document.getElementById('sw72').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch should be disabled");
+				})
+				.findByCssSelector("#sw72 .-d-switch-knobglass")
+				.click()
+				.sleep(500) // NOTE: waiting for the sliding to happen
+				.execute("return document.getElementById('sw72').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch shoud still be disabled");
+				})
+				.end()
+
+				// disabled=true attribute
+				.execute("return document.getElementById('sw73').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch should be disabled");
+				})
+				.findByCssSelector("#sw73 .-d-switch-knobglass")
+				.click()
+				.sleep(500) // NOTE: waiting for the sliding to happen
+				.execute("return document.getElementById('sw73').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch shoud still be disabled");
+				})
+				.end()
+
+				// disabled=false attribute
+				.execute("return document.getElementById('sw74').checked;")
+				.then(function (value) {
+					assert.isFalse(value, "the switch should be disabled");
+				})
+				.findByCssSelector("#sw74 .-d-switch-knobglass")
+				.click()
+				.sleep(500) // NOTE: waiting for the sliding to happen
+				.execute("return document.getElementById('sw74').checked;")
+				.then(function (value) {
+					assert.isTrue(value, "the switch shoud be enabled this time");
+				})
+				.end()
+				;
 		}
 	});
 });
