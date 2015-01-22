@@ -17,7 +17,7 @@ define([
 				list.destroy();
 			}
 			list = new List({store: new Store()});
-			list.isAriaListbox = true;
+			list.setAttribute("role", "listbox");
 			document.body.appendChild(list);
 			list.startup();
 			list.store.filter();
@@ -39,7 +39,7 @@ define([
 					"third renderNode role");
 		},
 		"aria properties when moving from listbox to grid": function () {
-			list.isAriaListbox = false;
+			list.setAttribute("role", "grid");
 			list.deliver();
 			assert.strictEqual(list.getAttribute("role"), "grid", "role");
 			assert.strictEqual(list.children[0].getAttribute("role"), "row", "first renderer role");
@@ -51,31 +51,6 @@ define([
 			assert.strictEqual(list.children[2].getAttribute("role"), "row", "third renderer role");
 			assert.strictEqual(list.children[2].renderNode.getAttribute("role"), "gridcell",
 					"third renderNode role");
-		},
-		"default selectionMode": function () {
-			assert.strictEqual(list.selectionMode, "single");
-		},
-		"selectionMode 'none' is invalid and do not change the current selection mode": function () {
-			try {
-				list.selectionMode = "none";
-				assert.fail("error", "", "error expected");
-			} catch (error) {
-				assert.strictEqual(error.message,
-						"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'single'",
-						"error message");
-				assert.strictEqual(list.selectionMode, "single", "expected selection mode 1");
-			}
-			list.selectionMode = "multiple";
-			list.deliver();
-			try {
-				list.selectionMode = "none";
-				assert.fail("error", "", "error expected");
-			} catch (error) {
-				assert.strictEqual(error.message,
-					"selectionMode 'none' is invalid for an aria listbox, keeping the previous value of 'multiple'",
-					"error message");
-				assert.strictEqual(list.selectionMode, "multiple", "expected selection mode 2");
-			}
 		},
 		teardown : function () {
 			list.destroy();

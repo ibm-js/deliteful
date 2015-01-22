@@ -32,7 +32,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
-    <h2>Non scrollable with 10 items declared as markup, and isAriaListbox set to "true" (id: list-mark-2)</h2>
+    <h2>Non scrollable with 10 items declared as markup, and role is set to listbox (id: list-mark-2)</h2>
 	<d-store id="store">
 		{"label": "list item 0", "righttext": "right text 1"},
 		{"label": "list item 1", "righttext": "right text 2"},
@@ -45,7 +45,7 @@
 		{"label": "list item 8", "righttext": "right text 9"},
 		{"label": "list item 9", "righttext": "right text 10"}
 	</d-store>
-	<d-list id="list-mark-2" scrollDirection="none" isAriaListbox="true" store="store">
+	<d-list id="list-mark-2" scrollDirection="none" role="listbox" selectionMode="single" store="store">
 	</d-list>
 </body>
 </html>

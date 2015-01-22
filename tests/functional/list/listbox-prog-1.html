@@ -20,7 +20,7 @@
 		], function (register, Memory, Trackable, List) {
   			// Programmatic list: default store, items added before adding the list to the document and before startup
 			var list = register.createElement("d-list");
-			list.isAriaListbox = true;
+			list.setAttribute("role", "listbox");
 			list.id = "list-prog-1";
 			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
@@ -44,7 +44,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
- 	<h2>Default store, items added before adding the list to the document and before startup, isAriaListbox set to true (id: list-prog-1)</h2>
+ 	<h2>Default store, items added before adding the list to the document and before startup, role is set to listbox (id: list-prog-1)</h2>
  	<div id="listPlaceholder"></div>
  	<input type="text">
 </body>

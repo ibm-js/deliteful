@@ -31,7 +31,7 @@
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
 			list.store = new Store();
-			list.isAriaListbox = true;
+			list.setAttribute("role", "listbox");
 			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
 			list.selectionMode = "multiple";
 			list.store.add({label: "first item"});

@@ -32,7 +32,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
-  <h2>10 items declared as markup, default store, categorized, isAriaListbox set to true (id: list-mark-3)</h2>
+  <h2>10 items declared as markup, default store, categorized, role is set to listbox (id: list-mark-3)</h2>
 	<d-store id="store">
 		{"label": "list item 0", "righttext": "A"},
 		{"label": "list item 1", "righttext": "A"},
@@ -45,7 +45,7 @@
 		{"label": "list item 8", "righttext": "B"},
 		{"label": "list item 9", "righttext": "B"}
 	</d-store>
-	<d-list id="list-mark-3" baseClass="d-round-rect-list" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext" isAriaListbox="true" store="store">
+	<d-list id="list-mark-3" baseClass="d-round-rect-list" style="height: 200px" categoryAttr="righttext" righttextAttr="righttext" role="listbox" store="store">
 	</d-list>
 	<br>
 	<button onclick="var list = document.getElementById('list-mark-3'); list.categoryAttr = (list.categoryAttr === 'righttext' ? 'label' : 'righttext');">Toggle category attribute between righttext and label.</button>

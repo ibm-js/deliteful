@@ -132,16 +132,14 @@ define([
 		// the SPACE key to (de)select an item.
 		multiCharSearchDuration: 0,
 
-		/**
-		 * Indicates whether the list has a WAI-ARIA role of `listbox` or its default WAI-ARIA role of `grid`.
-		 * If this indicator is set to `true`:
-		 * * The WAI-ARIA role of the list is set to `listbox`;
-		 * * The `selectionMode` property cannot take the value `none` anymore. Its default value becomes `single`;
-		 * * The `itemRenderer` and `categoryRenderer` widget are not allowed to provide internal navigation.
-		 * @member {boolean}
-		 * @default false
-		 */
-		isAriaListbox: false,
+		setAttribute: dcl.superCall(function (sup) {
+			return function (attr, value) {
+				sup.apply(this, arguments);
+				if (attr === "role") {
+					this._applyRole(value);
+				}
+			};
+		}),
 
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
@@ -161,14 +159,14 @@ define([
 		},
 
 		/**
-		 * Defines the selection mode: `"none"` (not allowed if `isAriaListbox` is true), `"radio"`, `"single"`
+		 * Defines the selection mode: `"none"` (not allowed if `role=listbox`), `"radio"`, `"single"`
 		 *  or `"multiple"`.
 		 * @member {string} module:deliteful/list/List#selectionMode
-		 * @default "none", or "single" if isAriaListbox is true.
+		 * @default "none", or "single" if `role=listbox`.
 		 */
 		_setSelectionModeAttr: dcl.superCall(function (sup) {
 			return function (value) {
-				if (this.isAriaListbox && value === "none") {
+				if (this.getAttribute("role") === "listbox" && value === "none") {
 					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
 							+ "keeping the previous value of '" + this.selectionMode + "'");
 				} else {
@@ -229,9 +227,18 @@ define([
 
 		render: function () {
 			// Aria attributes
-			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
+			var currentRole = this.getAttribute("role");
+			if (currentRole) {
+				this._applyRole(currentRole);
+			} else {
+				this.setAttribute("role", "grid");
+			}
 			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
 			this.setAttribute("aria-readonly", "true");
+		},
+
+		postRender: function () {
+			this.notifyCurrentValue("selectionMode");
 		},
 
 		attachedCallback: dcl.superCall(function (sup) {
@@ -286,9 +293,6 @@ define([
 		computeProperties: function (props) {
 			//	List attributes have been updated.
 			/*jshint maxcomplexity:12*/
-			if ("isAriaListbox" in props) {
-				this._refreshAriaListboxProperty();
-			}
 			if ("selectionMode" in props) {
 				if (this.selectionMode === "none") {
 					if (this._selectionClickHandle) {
@@ -467,13 +471,10 @@ define([
 		//////////// Private methods ///////////////////////////////////////
 
 		/*jshint maxcomplexity:12*/
-		_refreshAriaListboxProperty: function () {
-			this.setAttribute("role", this.isAriaListbox ? "listbox" : "grid");
-			if (this.isAriaListbox) {
-				if (this.selectionMode === "none") {
-					this.selectionMode = "single";
-				}
-				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
+		_applyRole: function (role) {
+			if (role === "listbox") {
+				// TODO: also this codes work specifically when switching between grid and listbox.
+				//       If we're going to support list, we'll need something a little different
 				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
 				for (var i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "option");
@@ -489,7 +490,6 @@ define([
 					}
 				}
 			} else {
-				// TODO: SHOULD WE REMOVE THE FOLLOWING CODE FOR OPTIMIZATION ?
 				nodes = this.querySelectorAll(".d-list-cell[role='option']");
 				for (i = 0; i < nodes.length; i++) {
 					nodes[i].setAttribute("role", "gridcell");
@@ -959,7 +959,7 @@ define([
 		descendantSelector: function (child) {
 			var enclosingRenderer = this.getEnclosingRenderer(child);
 			return !enclosingRenderer ||
-				(this.isAriaListbox && this.isCategoryRenderer(enclosingRenderer)) ?
+				(this.getAttribute("role") === "listbox" && this.isCategoryRenderer(enclosingRenderer)) ?
 				false :
 				$(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex");
 		},
@@ -974,7 +974,7 @@ define([
 				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
 				} else {
-					if (!this.isAriaListbox) {
+					if (this.getAttribute("role") !== "listbox") {
 						this._gridKeydownHandler(evt);
 					}
 				}
@@ -1020,7 +1020,8 @@ define([
 		 */
 		_getFirst: function () {
 			var first = this.querySelector("." + this._cssClasses.cell);
-			if (first && this.isAriaListbox && this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
+			if (first && this.getAttribute("role") === "listbox"
+					&& this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
 				first = this.getNext(first, 1);
 			}
 			return first;
@@ -1035,7 +1036,8 @@ define([
 			// summary:
 			var cells = this.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
-			if (last && this.isAriaListbox && this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
+			if (last && this.getAttribute("role") === "listbox"
+					&& this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
 				last = this.getNext(last, -1);
 			}
 			return last;
@@ -1047,7 +1049,7 @@ define([
 				return;
 			}
 			var next = this._getFocusedRenderer().nextElementSibling;
-			if (next && this.isAriaListbox && this.isCategoryRenderer(next)) {
+			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
 				next = next.nextElementSibling;
 			}
 			this.navigateTo(next ? next.renderNode : this._getFirst());
@@ -1058,7 +1060,7 @@ define([
 				return;
 			}
 			var next = this._getFocusedRenderer().previousElementSibling;
-			if (next && this.isAriaListbox && this.isCategoryRenderer(next)) {
+			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
 				next = next.previousElementSibling;
 			}
 			this.navigateTo(next ? next.renderNode : this._getLast());
