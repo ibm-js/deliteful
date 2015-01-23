@@ -37,8 +37,7 @@
 			list.store.add({title: "third item"});
 			list.store.add({title: "fourth item"});
 			list.store.add({title: "fifth item"});
-			document.body.appendChild(list);
-			list.startup();
+			list.placeAt(document.body);
 
 			document.body.style.display = "";
 		});

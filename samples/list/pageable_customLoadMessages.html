@@ -35,8 +35,7 @@
 			list.maxPages = 2;
 			list.loadPreviousMessage = "Load previous data (${pageLength} entries)";
 			list.loadNextMessage = "Load next data (${pageLength} entries)";
-			document.body.appendChild(list);
-			list.startup();
+			list.placeAt(document.body);
 
 			document.body.style.display = "";
 		});

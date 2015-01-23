@@ -26,7 +26,6 @@
 		], function (ToasterMessage, Toaster) {
 			window.toaster = new Toaster({placementClass: "d-toaster-placement-tr"});
 			toaster.placeAt("body");
-			toaster.startup();
 			var timeout = 0;
 			var messages = [
 				new ToasterMessage({ message: "This will fade on its own"}),
