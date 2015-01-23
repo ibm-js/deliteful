@@ -59,10 +59,8 @@ src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,js">
 
      var cb = new Checkbox({checked:true});
      cb.placeAt(document.body);
-     cb.startup();
      cb = new Checkbox({disabled:true, name: "option1"});
      cb.placeAt(document.body);
-     cb.startup();
 });
 ```
 

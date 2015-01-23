@@ -59,7 +59,6 @@ require(["deliteful/SwapView", "requirejs-domready/domReady!"], function (SwapVi
   sv.addChild(child2);
   sv.addChild(child3);
   sv.placeAt(document.body);
-  sv.startup();
 });
 ```
 

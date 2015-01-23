@@ -56,10 +56,9 @@ src="http://jsfiddle.net/ibmjs/at8z7abL/embedded/result,js,html">
          label: "Off"
      });
      tb.placeAt(document.body);
-     tb.startup();
+
      tb = new ToggleButton({checked: true, label: "WiFi"});
      tb.placeAt(document.body);
-     tb.startup();
 });
 ```
 

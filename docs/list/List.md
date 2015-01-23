@@ -90,7 +90,6 @@ require(["dstore/Memory", "delite/list/List", "requirejs-domready/domReady!"], f
 	// as the item category.
 	var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 	list.placeAt(document.body);
-	list.startup();
 });
 ```
 
@@ -166,7 +165,6 @@ require([
 		list.store.add({title: "first item"});
 		...
 		list.placeAt(document.body);
-		list.startup();
 });
 ```
 

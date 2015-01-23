@@ -54,7 +54,6 @@ require([
 	"requirejs-domready/domReady!"
 ], function(ResponsiveColumns){
 	rc = new ResponsiveColumns();
-	window.document.body.appendChild(rc, 1);
 	rc.breakpoints = "{'small': '500px', 'medium': '900px', 'large': ''}";
 	var child = document.createElement("div");
 	child.setAttribute("layout", "{'small': '100%', 'medium': '200px', 'large': '10%'}");
@@ -68,7 +67,7 @@ require([
 	child.innerHTML = "Child 3";
 	child.setAttribute("layout", "{'small': 'hidden', 'medium': 'hidden', 'large': '60%'}");
 	rc.addChild(child);
-	rc.startup();
+	rc.placeAt(document.body);
 });
 ```
 
