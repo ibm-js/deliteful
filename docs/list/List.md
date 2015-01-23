@@ -132,12 +132,12 @@ require(["dstore/Memory", "dstore/Trackable", "delite/list/List"], function (Mem
 Or declaratively using the `deliteful/Store` custom element:
 
 ```html
-<d-list-store id="myStore">
+<d-store id="myStore">
     {"label": "First item", "iconclass": "my-icon-class-a"},
     {"label": "Second item", "iconclass": "my-icon-class-b"},
     ...,
     {"label": "Last item", "iconclass": "my-icon-class-z"}
-</d-list-store>
+</d-store>
 <d-list store="myStore"></d-list>
 ```
 
