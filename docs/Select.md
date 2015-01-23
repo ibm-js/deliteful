@@ -68,7 +68,6 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     store.add({text: "Option 1", value: "1"});
     ...
     select.placeAt(document.body);
-    select.startup();
 });
 ```
 

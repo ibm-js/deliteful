@@ -68,8 +68,7 @@ require([
 
     var sc = new ScrollableContainer({scrollDirection: "both"});
     sc.placeAt(document.body);
-    sc.startup();
-    
+
     // add content to the scrollable container:
     var child = document.createElement("div");
     sc.addChild(child);
@@ -178,7 +177,6 @@ define(["delite/register", "deliteful/ScrollableContainer", ...],
           var scrollableNode =
             // or your own scrollable widget
             new ScrollableContainer(...);
-          scrollableNode.startup();
           ...
           this.appendChild(scrollableNode);
           // If needed, add other scrollable widgets as child elements

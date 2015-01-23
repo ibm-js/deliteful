@@ -62,7 +62,6 @@ ProgressIndicator must be active to become visible and start its animation.
 
      var pi = new ProgressIndicator({active: true});
      pi.placeAt(document.body);
-     pi.startup();
 
      register.parse();
      //do some other tasks (load data...)

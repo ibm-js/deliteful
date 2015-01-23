@@ -47,10 +47,9 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
      var sw = new Switch({checked:true});
      sw.placeAt(document.body);
-     sw.startup();
+
      sw = new Switch({checkedLabel: "ON", uncheckedLabel: "OFF", name: "bluetooth"});
      sw.placeAt(document.body);
-     sw.startup();
 });
 ```
 

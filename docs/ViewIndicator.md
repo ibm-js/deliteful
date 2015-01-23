@@ -63,10 +63,8 @@ function (SwapView, ViewIndicator) {
   sv.addChild(child2);
   sv.addChild(child3);
   sv.placeAt(document.body);
-  sv.startup();
   var vi = new ViewIndicator({viewStack: sv, style: "width:100%"});
   vi.placeAt(document.body);
-  vi.startup();
 });
 ```
 

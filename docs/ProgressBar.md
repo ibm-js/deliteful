@@ -57,7 +57,6 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
      var pb = new ProgressBar({max:100, value: 0});
      pb.placeAt(document.body);
-     pb.startup();
      pb.value = 20;
 });
 ```

@@ -41,7 +41,6 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 require(["deliteful/StarRating", "requirejs-domready/domReady!"], function (StarRating) {
   var starRating = new StarRating({max: 7, value: 3.5, editHalfValues: true});
   starRating.placeAt(document.body);
-  starRating.startup();
 });
 ```
 
