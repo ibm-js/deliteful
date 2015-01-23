@@ -63,7 +63,6 @@ require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function (ViewS
   vs.addChild(child2);
   vs.addChild(child3);
   vs.placeAt(document.body);
-  vs.startup();
 });
 ```
 

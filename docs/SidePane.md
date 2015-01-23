@@ -50,7 +50,6 @@ require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"
 require(["deliteful/SidePane", "requirejs-domready/domReady!"], function (SidePane) {
   var sp = new SidePane({mode: "overlay"});
   sp.placeAt(document.body);
-  sp.startup();
 });
 ```
 

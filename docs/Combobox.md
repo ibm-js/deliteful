@@ -82,7 +82,6 @@ require(["delite/register", "dstore/Memory", "dstore/Trackable",
     // Create the Combobox
     var Combobox = new Combobox({list: list, selectionMode: "multiple"});
     Combobox.placeAt(document.body);
-    Combobox.startup();
 });
 ```
 
@@ -191,7 +190,6 @@ set for `value` on the `List` instance, for example:
     // Create the Combobox
     var combobox = new Combobox({list: list, ...});
     combobox.placeAt(document.body);
-    combobox.startup();
 ```
 
 or in markup:

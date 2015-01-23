@@ -83,7 +83,6 @@ buttons.
   ], function (register, Slider) {
     var slider = new Slider({value:10, step:5, min:10, max:50});
     slider.placeAt(document.body);
-    slider.startup();  
 });
 ```
 
