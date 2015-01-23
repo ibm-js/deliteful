@@ -1,5 +1,5 @@
 ---
-layout: tutorial
+layout: tutorialMain
 ---
 
 The deliteful tutorial guides you, step by step, to build a photo feed viewer based on <a href="https://www.flickr.com/services/api/">Flickr</a> services.

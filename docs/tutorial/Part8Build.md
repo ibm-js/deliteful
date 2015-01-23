@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 8
 ---
 #Deliteful Tutorial (Part 8) - Building the Application for Production

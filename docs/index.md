@@ -1,5 +1,5 @@
 ---
-layout: doc
+layout: docMain
 ---
 
 ## Introduction

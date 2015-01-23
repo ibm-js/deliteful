@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 6
 ---
 #Deliteful Tutorial (Part 6) - Adding a Details View
