@@ -11,7 +11,7 @@ The following example defines two screen classes: "phone" and "other" with a bre
 <d-responsive-columns breakpoints="{phone: '500px', other: ''}">
     <div layout="{phone: '100%', other: '20%'}">...</div>
     <div layout="{phone: 'hidden', other: 'fill'}">...</div>
-</d-view-stack>
+</d-responsive-columns>
 ```
 When the screen width changes (browser window resize or actual device orientation change) and if a new screen class is applied by the container, a "change" event is emitted with 2 specific properties: `screenClass` (the new screen class) and `mediaQueryList` (the MediaQueryList instance at the origin of the change).
 
@@ -46,7 +46,7 @@ require(["delite/register", "deliteful/ResponsiveColumns", "requirejs-domready/d
 	<d-responsive-columns breakpoints="{phone: '500px', other: ''}">
 		<div layout="{phone: '100%', other: '20%'}">...</div>
 		<div layout="{phone: 'hidden', other: 'fill'}">...</div>
-	</d-view-stack>
+	</d-responsive-columns>
 </html>
 ```
 
