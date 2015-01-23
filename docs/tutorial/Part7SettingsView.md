@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 7
 ---
 #Deliteful Tutorial (Part 7) - The Settings View

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 2
 ---
 #Deliteful Tutorial (Part 2) - A Quick Look at Deliteful Components
