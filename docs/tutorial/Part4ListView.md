@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 4
 ---
 #Deliteful Tutorial (Part 4) - The Photo List View

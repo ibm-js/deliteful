@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 3
 ---
 #Deliteful Tutorial (Part 3) - Introducing the Photo Feed Application

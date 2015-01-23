@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Deliteful Tutorial Part 5
 ---
 #Deliteful Tutorial (Part 5) - Enhancing the List View
