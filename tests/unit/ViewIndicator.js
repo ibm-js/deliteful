@@ -51,7 +51,7 @@ define([
 			checkSelectedDot(vi, 0);
 		},
 		"Default values" : function () {
-			assert.deepEqual(vi.viewstack, vs);
+			assert.deepEqual(vi.viewStack, vs);
 		},
 		"Update indicator (show by widget)" : function () {
 			var d = this.async(1000);
