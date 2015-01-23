@@ -20,7 +20,8 @@ define([
 	 */
 	return register("d-swap-view", [HTMLElement, ViewStack], /** @lends module:deliteful/SwapView# */{
 		/**
-		 * The name of the CSS class of this widget.
+		 * The name of the CSS class of this widget. Note that this element also use the d-view-stack class to
+		 * leverage `deliteful/ViewStack` styles.
 		 * @member {string}
 		 * @default "d-swap-view"
 		 */
@@ -54,10 +55,12 @@ define([
 			}
 		},
 
-		postRender: function () {
+		preRender: function () {
 			// we want to inherit from ViewStack's CSS (including transitions).
 			$(this).addClass("d-view-stack");
+		},
 
+		postRender: function () {
 			this.on("pointerdown", this._pointerDownHandler.bind(this));
 			this.on("pointermove", this._pointerMoveHandler.bind(this));
 			this.on("pointerup", this._pointerUpHandler.bind(this));

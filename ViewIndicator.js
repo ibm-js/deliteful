@@ -28,7 +28,7 @@ define([
 		/**
 		 * The ViewStack widget associated with the indicator.
 		 */
-		viewstack: null,
+		viewStack: null,
 
 		render: function () {
 			dpointer.setTouchAction(this, "none");
@@ -37,23 +37,23 @@ define([
 		postRender: function () {
 			this.on("pointerdown", function (e) {
 				if (typeof e.target._vsChildIndex === "number") {
-					this.viewstack.show(this.viewstack.children[e.target._vsChildIndex]);
+					this.viewStack.show(this.viewStack.children[e.target._vsChildIndex]);
 				} else {
 					var next = (e.clientX - this.offsetLeft) > this.offsetWidth / 2;
 					if (!this.isLeftToRight()) {
 						next = !next;
 					}
 					if (next) {
-						this.viewstack.showNext();
+						this.viewStack.showNext();
 					} else {
-						this.viewstack.showPrevious({reverse: true});
+						this.viewStack.showPrevious({reverse: true});
 					}
 				}
 			}.bind(this));
 		},
 
 		refreshRendering: function (props) {
-			if ("viewstack" in props) {
+			if ("viewStack" in props) {
 				this._attachViewStack();
 				this._refreshDots();
 			}
@@ -68,8 +68,8 @@ define([
 				this._afterShowHandle.remove();
 				this._afterShowHandle = null;
 			}
-			if (this.viewstack) {
-				this._afterShowHandle = this.on("delite-after-show", this._refreshDots.bind(this), this.viewstack);
+			if (this.viewStack) {
+				this._afterShowHandle = this.on("delite-after-show", this._refreshDots.bind(this), this.viewStack);
 			}
 		},
 
@@ -80,8 +80,8 @@ define([
 		_refreshDots: function () {
 			// TODO: avoid recreating all the dots when only the visible child has changed
 			this.innerHTML = "";
-			for (var i = 0; i < this.viewstack.children.length; i++) {
-				var child = this.viewstack.children[i];
+			for (var i = 0; i < this.viewStack.children.length; i++) {
+				var child = this.viewStack.children[i];
 				var dot = this.ownerDocument.createElement("div");
 				dot.className = "-d-view-indicator-dot" +
 					(child.style.visibility === "visible" ? " -d-view-indicator-dot-selected" : "");
