@@ -41,8 +41,7 @@
 			list.store.add({title: "Practical Dojo Projects (Expert's Voice in Web Development)", isbn: "1430210664"});
 			list.store.add({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128"});
 			list.store.add({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115"});
-			document.body.appendChild(list);
-			list.startup();
+			list.placeAt(document.body);
 
 			document.body.style.display = "";
 		});
