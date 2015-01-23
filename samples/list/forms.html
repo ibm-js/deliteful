@@ -71,8 +71,7 @@
 			list.store.add({firstName: "Paul", lastName: "Smith", dateOfBirth: "11/10/1982"});
 			list.store.add({firstName: "Anthony", lastName: "Platters", dateOfBirth: "08/15/1964"});
 			list.store.add({firstName: "Lydia", lastName: "Melrose", dateOfBirth: "07/03/1982"});
-			document.body.appendChild(list);
-			list.startup();
+			list.placeAt(document.body);
 			list.setAttribute("aria-readonly", "false");
 
 			document.body.style.display = "";
