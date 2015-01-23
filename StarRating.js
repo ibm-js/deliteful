@@ -93,7 +93,7 @@ define([
 				this.valueNode.style.display = "none";
 				this.appendChild(this.valueNode);
 			}
-			this.notifyCurrentValue("disabled", "max", "value", "name", "readOnly", "allowZero");
+			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
 		}),
 
 		/* jshint maxcomplexity: 13 */
@@ -112,9 +112,6 @@ define([
 				this.focusNode.setAttribute("aria-valuetext",
 						messages["aria-valuetext"].replace("${value}", this.value));
 				this.valueNode.value = this.value;
-			}
-			if ("name" in props && this.name) {
-				this.valueNode.name = this.name;
 			}
 			if ("readOnly" in props || "disabled" in props) {
 				this._refreshEditionEventHandlers();

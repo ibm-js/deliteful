@@ -320,6 +320,11 @@ define([
 		"form back button": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
+			// Safari driver does not support the back method
+			// see https://code.google.com/p/selenium/issues/detail?id=3771
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+				return this.skip("SafariDriver doesn't support back.");
+			}
 			return remote
 			.get(require.toUrl("./StarRating-formback.html"))
 			.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
@@ -333,34 +338,27 @@ define([
 			.then(pollUntil("return document.getElementById('parameters');", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
-				// Safari driver does not support the back method
-				// see https://code.google.com/p/selenium/issues/detail?id=3771
-				if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
-					console.log("-SKIPPED 'back' on safari driver (not supported) on " + remote.environmentType);
-					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
-				} else {
-					return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
-						.goBack()
-						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+				return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"])
+					.goBack()
+					.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+							intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+					.then(function () {
+						return checkRating(remote, "starratingA", 7, 7, false);
+					})
+					.findById("submitButton")
+						.click()
+						.end()
+						.then(pollUntil("return document.getElementById('parameters');", [],
 								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {
-							return checkRating(remote, "starratingA", 7, 7, false);
-						})
-						.findById("submitButton")
-							.click()
-							.end()
-							.then(pollUntil("return document.getElementById('parameters');", [],
-									intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {
-							return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
-						})
-						.goBack()
-						.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
-								intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
-						.then(function () {
-							return checkRating(remote, "starratingA", 7, 7, false);
-						});
-				}
+					.then(function () {
+						return checkSubmitedParameters(remote, ["star1", "star2"], ["7", "2"]);
+					})
+					.goBack()
+					.then(pollUntil("return 'ready' in window && ready ? true : null;", [],
+							intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+					.then(function () {
+						return checkRating(remote, "starratingA", 7, 7, false);
+					});
 			});
 		},
 		"form values": function () {
