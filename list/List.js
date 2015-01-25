@@ -542,7 +542,7 @@ define([
 				} else {
 					this.appendChild(this._loadingPanel);
 				}
-				this._loadingPanel.startup();
+				this._loadingPanel.attachedCallback();
 			}
 		},
 
@@ -610,9 +610,7 @@ define([
 			}
 			// start renderers
 			this.findCustomElements(this).forEach(function (w) {
-				if (w.startup) {
-					w.startup();
-				}
+				w.attachedCallback();
 			});
 		},
 
@@ -663,7 +661,7 @@ define([
 				if (spec.addCategoryAfter) {
 					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
 					this.insertBefore(categoryRenderer, spec.nodeRef);
-					categoryRenderer.startup();
+					categoryRenderer.attachedCallback();
 				}
 			} else {
 				this.appendChild(renderer);
@@ -671,9 +669,9 @@ define([
 			if (spec.addCategoryBefore) {
 				categoryRenderer = this._createCategoryRenderer(renderer.item);
 				this.insertBefore(categoryRenderer, renderer);
-				categoryRenderer.startup();
+				categoryRenderer.attachedCallback();
 			}
-			renderer.startup();
+			renderer.attachedCallback();
 		},
 
 		/**

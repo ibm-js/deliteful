@@ -417,7 +417,7 @@ define(["dcl/dcl",
 			} else {
 				wrapper.appendChild(this);
 			}
-			this.startup();
+			this.attachedCallback();
 
 			// starting timer
 			if (this.isExpirable()) {
