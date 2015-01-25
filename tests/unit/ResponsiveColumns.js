@@ -62,7 +62,7 @@ define([
 			child.innerHTML = "Child 3";
 			child.setAttribute("layout", "{'small': 'hidden', 'medium': 'hidden', 'large': '60%'}");
 			container.addChild(child);
-			container.startup();
+			container.attachedCallback();
 		},
 
 		"Media Query Test": function () {

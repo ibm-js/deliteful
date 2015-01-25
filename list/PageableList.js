@@ -646,7 +646,6 @@ define([
 			});
 			this._nextPageLoader.deliver();
 			this._nextPageLoader.placeAt(this);
-			this._nextPageLoader.startup();
 		},
 
 		/**
@@ -674,7 +673,6 @@ define([
 			});
 			this._previousPageLoader.deliver();
 			this._previousPageLoader.placeAt(this, "first");
-			this._previousPageLoader.startup();
 		},
 
 		//////////// List methods overriding ///////////////////////////////////////
