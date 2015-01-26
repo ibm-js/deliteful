@@ -134,12 +134,17 @@ particularly its `<option>` children) is browser-dependent.
 
 ### Accessibility
 
-Keyboard accessibility is supported. All supported desktop browsers provide keyboard accessibility
-for elements using the native 
-[HTML5 select element](http://www.w3.org/TR/html5/forms.html#the-select-element).
-
-Screen reader accessibility relies on screen reader's ability to work with HTML elements using the 
+|type|status|comment|
+|----|------|-------|
+|Keyboard|ok|All supported desktop browsers provide keyboard accessibility
+for the native 
+[HTML5 select element](http://www.w3.org/TR/html5/forms.html#the-select-element).|
+|Visual Formatting|ok|Tested for high constrast and browser zoom (200%), in IE and Firefox.|
+|Screen Reader|ok|Relies on screen reader's ability to work with the 
 native [HTML5 select element](http://www.w3.org/TR/html5/forms.html#the-select-element).
+Tested on JAWS 15 and iOS 8 VoiceOver. With Chrome 35, it does not announce the selected 
+option (although it correctly announces the option initially selected). No issue with VoiceOver.|
+
 
 ### Globalization
 
