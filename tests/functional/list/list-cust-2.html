@@ -48,7 +48,7 @@
 			list.store.addSync({title: "The Dojo Toolkit: Visual QuickStart Guide", isbn: "0321605128", bookstore: "FNAC"});
 			list.store.addSync({title: "Mastering Dojo: JavaScript and Ajax Tools for Great Web Experiences", isbn: "1934356115", bookstore: "FNAC"});
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			ready = true;
 		});
 	</script>

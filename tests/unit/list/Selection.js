@@ -263,7 +263,7 @@ define([
 			}
 			list = new List({store: new Store()});
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.store.filter();
 			list.store.add({label: "item 1"});
 			list.store.add({label: "item 2"});

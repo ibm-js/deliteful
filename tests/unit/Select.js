@@ -424,11 +424,11 @@ define([
 			
 			var w = new Select({ id: "select1" });
 			container.appendChild(w);
-			w.startup();
+			w.attachedCallback();
 			
 			w = new MySelect({ id: "myselect1" });
 			container.appendChild(w);
-			w.startup();
+			w.attachedCallback();
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);

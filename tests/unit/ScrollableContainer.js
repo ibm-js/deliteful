@@ -58,23 +58,20 @@ define([
 			w.style.width = "200px";
 			w.style.height = "200px";
 			container.appendChild(w);
-			w.startup();
+			w.attachedCallback();
 
 			var innerContent = document.createElement("div");
 			innerContent.id = "sc1content";
 			innerContent.style.width = "2000px";
 			innerContent.style.height = "2000px";
 			w.appendChild(innerContent);
-			w.startup();
 
 			w = new MyScrollableContainer({ id: "mysc1" });
 			container.appendChild(w);
-			w.startup();
 
 			w = new ScrollableContainer({ id: "sc2" });
 			w.scrollDirection = "none";
 			container.appendChild(w);
-			w.startup();
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);

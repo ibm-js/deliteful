@@ -11,7 +11,7 @@ define([
 		beforeEach: function () {
 			sr = new StarRating();
 			document.body.appendChild(sr);
-			sr.startup();
+			sr.attachedCallback();
 		},
 		"Setting different values for max": function () {
 			var dfd = this.async(1000);

@@ -37,7 +37,7 @@
 					slider.value = singleSliderPrg[i][1];
 				}
 				document.getElementById(slider.id + "_ph").appendChild(slider);
-				slider.startup();
+				slider.attachedCallback();
 			}
 			// read value from d-slider elements and set to span.innerHTML for intern functional test suite.
 			var nodeList = document.querySelectorAll("d-slider");
