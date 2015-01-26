@@ -28,7 +28,7 @@
 				list.store.add({label: "Programmatic item of order " + i});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
-			list.startup();
+			list.attachedCallback();
 
 			ready = true;
 		});

@@ -112,7 +112,6 @@
 			
 			var createSelect = function (selectDiv, min, max, defaultStore) {
 				var select = new Select({id: selectDiv.id}).placeAt(selectDiv, "replace");
-				select.startup();
 				initSelect(select, min, max, defaultStore);
 			};
 				

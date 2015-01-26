@@ -53,10 +53,10 @@ define([
 			document.body.appendChild(container);
 			var cb = new Checkbox({id: "cb1"});
 			container.appendChild(cb);
-			cb.startup();
+			cb.attachedCallback();
 			cb = new Checkbox({id: "cb2", value: "foo"});
 			container.appendChild(cb);
-			cb.startup();
+			cb.attachedCallback();
 			var lbl4 = document.createElement("label");
 			lbl4.id = "lbl4";
 			lbl4.setAttribute("for", "cb3");
@@ -64,7 +64,7 @@ define([
 			container.appendChild(lbl4);
 			cb = new Checkbox({id: "cb3", checked: true});
 			container.appendChild(cb);
-			cb.startup();
+			cb.attachedCallback();
 		}
 	};
 	dcl.mix(progSuite, suite);

@@ -43,7 +43,6 @@ define([
 		"Default values": function () {
 			var toasterDefault = new Toaster();
 			toasterDefault.placeAt("container");
-			toasterDefault.startup();
 			toasterDefault.deliver();
 
 			assert($(toasterDefault).hasClass("d-toaster-placement-default"),
@@ -73,7 +72,6 @@ define([
 			Object.keys(toasters).forEach(function (pos) {
 				toasters[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toasters[pos].placeAt("container");
-				toasters[pos].startup();
 				toasters[pos].deliver();
 				assert.isTrue($(toasters[pos]).hasClass("d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
@@ -82,7 +80,6 @@ define([
 		"Checking raw message creation and posting": function () {
 			var toast = new Toaster();
 			toast.placeAt("container");
-			toast.startup();
 
 			// creating the messages
 			var makeMessage = function (i) {
@@ -103,7 +100,6 @@ define([
 		"Checking message widget creation and posting": function () {
 			var toast = new Toaster();
 			toast.placeAt("container");
-			toast.startup();
 
 			// creating the messages
 			var makeMessage = function (i) {
@@ -128,7 +124,6 @@ define([
 		"Testing behaviour of _allExpAreRemovable and _getRemovableMsg": function () {
 			var toast = new Toaster();
 			toast.placeAt("container");
-			toast.startup();
 
 			var resetToast = function () {
 				toast.messages = [];
@@ -193,8 +188,6 @@ define([
 		"Checking _nonRemovableAreOnlyPersistent behaviour": function () {
 			var i, N = 20, m, toast = new Toaster();
 			toast.placeAt("container");
-			toast.startup();
-
 
 			// some messages are removable and some are not
 			// some messages are persistent and some are not

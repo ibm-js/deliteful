@@ -29,7 +29,7 @@
 				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
-			list.startup();
+			list.attachedCallback();
 
 			ready = true;
 		});

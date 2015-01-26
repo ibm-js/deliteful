@@ -56,16 +56,14 @@
 			// default selectionMode: "single"
 			combo1 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
 				righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, id: "combo-single-value"}).placeAt("combo-single-value", "replace");
 			// default selectionMode: "single"
 			combo1value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combo2 = combobox; // for debug
 			combobox = new Combobox({autoFilter: true, list: list, id: "combo-single-autoFilter"}).
@@ -73,8 +71,7 @@
 			combo2 = combobox; // for debug
 			// default selectionMode: "single"
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			startsWith.on("change", function () {
 				combo2.filterMode = "startsWith";
 			});
@@ -94,16 +91,14 @@
 				placeAt("combo-multiple", "replace");
 			combo3 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
 				righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple-value"}).
 				placeAt("combo-multiple-value", "replace");
 			combo3value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			// Now the same but disabled
 			// 
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
@@ -112,8 +107,7 @@
 			// default selectionMode: "single"
 			combo4 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({autoFilter: true, list: list, 
 				disabled: true, id: "combo-single-autoFilter-disabled"}).
@@ -121,16 +115,14 @@
 			// default selectionMode: "single"
 			combo5 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, selectionMode: "multiple", 
 				id: "combo-multiple-disabled", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
 			combo6 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
-			
+
 			// Combobox in single mode with custom initial selection
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combobox =
@@ -140,7 +132,6 @@
 			// default selectionMode: "single"
 			combo5customSelSingle = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
 			combobox.deliver();
 			// Configure with its fourth option initially selected
 			combobox.list.selectedItem = combobox.list.store.data[3];
@@ -153,7 +144,6 @@
 					placeAt("combo-custom-sel-multiple", "replace");
 			combo5customSelMultiple = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
 			combobox.deliver();
 			// Configure with its second and fourth options initially selected
 			combobox.list.selectedItems = [combobox.list.store.data[1], combobox.list.store.data[3]];
@@ -168,7 +158,6 @@
 			// default selectionMode: "single"
 			combo5readonly = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
 			
 			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, dir: "rtl", id: "combo-single"}).
@@ -176,7 +165,6 @@
 			// default selectionMode: "single"
 			combo7 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
 			
 			// Using the default instance of List created by Combobox
 			combobox = new Combobox({id: "combo-single-default-list"});
@@ -184,7 +172,6 @@
 			combobox.list.store = dataStore;
 			combobox.placeAt("combo-single-default-list", "replace");
 			combobox.name = combobox.id; // for Form
-			combobox.startup();
 		});
 	</script>
 	<style>

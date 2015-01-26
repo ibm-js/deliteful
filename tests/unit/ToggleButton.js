@@ -139,17 +139,17 @@ define([
 			document.body.appendChild(container);
 			var tb = new ToggleButton({id: "tb1", label: "tb1"});
 			container.appendChild(tb);
-			tb.startup();
+			tb.attachedCallback();
 			tb = new ToggleButton({id: "tb2", value: "foo", label: "tb2"});
 			container.appendChild(tb);
-			tb.startup();
+			tb.attachedCallback();
 			tb = new ToggleButton({id: "tb3", checked: "checked", label: "tb3", iconClass: "ic1"});
 			container.appendChild(tb);
-			tb.startup();
+			tb.attachedCallback();
 			tb = new ToggleButton({id: "tb4", checked: "checked", label: "off", checkedLabel: "on",
 				iconClass: "ic1", checkedIconClass: "ic2"});
 			container.appendChild(tb);
-			tb.startup();
+			tb.attachedCallback();
 		}
 	};
 	dcl.mix(suite, commonSuite);

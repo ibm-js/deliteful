@@ -73,10 +73,10 @@ define([
 			document.body.appendChild(container);
 			widget = new MyWidget({id: "cb1"});
 			container.appendChild(widget);
-			widget.startup();
+			widget.attachedCallback();
 			widget = new MyWidget({id: "cb2", checked: true, value: "foo"});
 			container.appendChild(widget);
-			widget.startup();
+			widget.attachedCallback();
 		}
 	};
 	dcl.mix(suite, commonSuite);
