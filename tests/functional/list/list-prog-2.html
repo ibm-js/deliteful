@@ -24,7 +24,7 @@
 			list.style.height = "200px";
 			list.store = new (Memory.createSubclass([Trackable], {}))();
 			document.getElementById("listPlaceholder").appendChild(list);
-			list.startup();
+			list.attachedCallback();
   			for (var i = 0; i < 100; i++) {
 				list.store.addSync({label: "Programmatic item of order " + i, righttext: list.id});
 			}

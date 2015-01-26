@@ -137,7 +137,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load (page 1 loaded)
 			assertList(list, 0, 22, [], false, true, "initial load");
@@ -219,7 +219,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			// initial load (page 1 loaded)
 			list.deliver();
 			assertList(list, 0, 22, [], false, true, "assert 1");
@@ -241,7 +241,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -270,7 +270,7 @@ define([
 			list.maxPages = 2;
 			list.style.height = "200px";
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// Click next page loader three times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -304,7 +304,7 @@ define([
 			list.maxPages = 2;
 			list.style.height = "200px";
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// Click next page loader two times
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -329,7 +329,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			list.store.add({id: "A", label: "item A"}, {beforeId: 1});
 			list.store.add({id: "B", label: "item B"}, {beforeId: 22});
@@ -429,7 +429,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			list.store.add({id: "A", label: "item A"}, {beforeId: 0});
 			list.deliver();
@@ -470,7 +470,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			assert.strictEqual(list.children.length, 24, "0: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.children[23].textContent),
@@ -513,7 +513,7 @@ define([
 			list.pageLength = 23;
 			list.maxPages = 1;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.store.add({id: "A", label: "item A"}, {beforeId: 23});
 			list.deliver();
 			assertList(list, 0, 22, [], false, true, "A");
@@ -669,7 +669,7 @@ define([
 			list.pageLength = 20;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
@@ -710,7 +710,7 @@ define([
 			list.maxPages = 0;
 			list.categoryAttr = "category";
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
@@ -746,7 +746,7 @@ define([
 			list.pageLength = 20;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
@@ -804,7 +804,7 @@ define([
 			list.pageLength = 25;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
@@ -849,7 +849,7 @@ define([
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertList(list, 0, 99, [], false, true);
@@ -870,7 +870,7 @@ define([
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			// initial load
 			list.deliver();
 			assertCategorizedList(list, 100, 0, false, true);
@@ -890,7 +890,7 @@ define([
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			// initial load
 			list.deliver();
 			assertList(list, 0, 99, [], false, true);
@@ -911,7 +911,7 @@ define([
 			list.pageLength = 100;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, true);
@@ -930,7 +930,7 @@ define([
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			// initial load
 			list.deliver();
 			assertList(list, 0, 99, [], false, false);
@@ -944,7 +944,7 @@ define([
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
@@ -957,7 +957,7 @@ define([
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertList(list, 0, 99, [], false, false);
@@ -971,7 +971,7 @@ define([
 			list.pageLength = 101;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
@@ -1021,7 +1021,7 @@ define([
 			list.pageLength = 25;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			// initial load
 			list.deliver();
 			assertCategorizedList(list, 25, 0, false, true);
@@ -1048,7 +1048,7 @@ define([
 			list.pageLength = 10;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				list.deliver();
@@ -1078,7 +1078,7 @@ define([
 			list.pageLength = 10;
 			list.maxPages = 2;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.rejectOnError(function () {
 				clickNextPageLoader(list).then(dfd.rejectOnError(function () {
@@ -1106,7 +1106,7 @@ define([
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
@@ -1127,7 +1127,7 @@ define([
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();
@@ -1151,7 +1151,7 @@ define([
 			list.pageLength = 20;
 			list.maxPages = 0;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertList(list, 0, 19, [], false, true);
@@ -1183,7 +1183,7 @@ define([
 				list.store.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			// initial load
 			assertCategorizedList(list, 25, 0, false, true);
@@ -1247,7 +1247,7 @@ define([
 			list.pageLength = 10;
 			list.maxPages = 1;
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.deliver();
 			clickNextPageLoader(list).then(dfd.callback(function () {
 				list.deliver();

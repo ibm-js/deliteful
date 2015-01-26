@@ -17,7 +17,6 @@ define([
 
 			toaster = new Toaster();
 			toaster.placeAt("container");
-			toaster.startup();
 		},
 		"Default values": function () {
 			var messageDefault = new ToasterMessage();

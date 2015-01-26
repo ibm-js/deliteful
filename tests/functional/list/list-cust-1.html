@@ -30,7 +30,7 @@
 			list.store = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
 			document.getElementById("listPlaceholder").appendChild(list);
-			list.startup();
+			list.attachedCallback();
   			for (var i = 0; i < 40; i++) {
 				list.store.addSync({});
 			}

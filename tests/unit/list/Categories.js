@@ -30,7 +30,7 @@ define([
 			}
 			list = new List({store: new Store()});
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.store.filter();
 			list.categoryAttr = "category";
 			list.store.add({category: "A", label: "item 1"});
@@ -316,7 +316,7 @@ define([
 			list = null;
 			list = new List({store: new Store()});
 			document.body.appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			list.store.filter();
 			list.categoryAttr = "category";
 			list.store.add({category: "A", label: "item 4"});

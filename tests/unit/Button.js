@@ -83,16 +83,16 @@ define([
 			document.body.appendChild(container);
 			var b = new Button({id: "b1", label: "b1"});
 			container.appendChild(b);
-			b.startup();
+			b.attachedCallback();
 			b = new Button({id: "b2", value: "foo", label: "b2"});
 			container.appendChild(b);
-			b.startup();
+			b.attachedCallback();
 			b = new Button({id: "b3", label: "b3", iconClass: "ic1"});
 			container.appendChild(b);
-			b.startup();
+			b.attachedCallback();
 			b = new Button({id: "b4", label: "on", iconClass: "ic1"});
 			container.appendChild(b);
-			b.startup();
+			b.attachedCallback();
 		}
 	};
 	dcl.mix(suite, commonSuite);

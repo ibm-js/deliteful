@@ -12,7 +12,7 @@ define([
 			progressBar = new ProgressBar();
 			progressBar.lang = "en-US";
 			document.body.appendChild(progressBar);
-			progressBar.startup();
+			progressBar.attachedCallback();
 			progressBar.deliver(); //todo: remove when the initialization of properties will be synchronous.
 		},
 		"Default values and state": function () {
@@ -155,7 +155,7 @@ define([
 		"valid init value": function () {
 			var pb = new ProgressBar({value: 10, max: 100});
 			document.body.appendChild(pb);
-			pb.startup();
+			pb.attachedCallback();
 			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			assert.strictEqual(10, pb.value);
 			assert.strictEqual(100, pb.max);
@@ -164,7 +164,7 @@ define([
 		"Invalid init value": function () {
 			var pb = new ProgressBar({value: -10, max: -9});
 			document.body.appendChild(pb);
-			pb.startup();
+			pb.attachedCallback();
 			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			var value = pb.value, max = pb.max;
 			assert.strictEqual(0, value);

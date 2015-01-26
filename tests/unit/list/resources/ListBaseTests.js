@@ -10,7 +10,7 @@ define([
 
 	return {
 		/**
-		 *Build a test suite for a List class
+		 * Build a test suite for a List class
 		 * @param name {string} the name of the test suite
 		 * @param ListConstructor {function} the constructor for the tested List class
 		 */
@@ -23,7 +23,7 @@ define([
 					}
 					this.list = new ListConstructor({store: new Store()});
 					document.body.appendChild(this.list);
-					this.list.startup();
+					this.list.attachedCallback();
 					this.list.store.add({label: "item 1"});
 					this.list.store.add({label: "item 2"});
 					this.list.store.add({label: "item 3"});
@@ -187,7 +187,8 @@ define([
 					var list = this.parent.list;
 					list.destroy();
 					list = new ListConstructor({store: new Store()});
-					list.startup();
+					document.body.appendChild(list);
+					list.attachedCallback();
 					list.store.add({label: "item 1", category: "category 1"});
 					assert.strictEqual(list.children[0].item.category, "category 1");
 				},
@@ -207,7 +208,8 @@ define([
 					list.labelAttr = "name";
 					list.store.add({name: "item 1"});
 					list.store.add({name: "item 2"});
-					list.startup();
+					document.body.appendChild(list);
+					list.attachedCallback();
 					return def;
 				},
 				"query-error event": function () {
@@ -232,7 +234,8 @@ define([
 						list.on("query-error", function (evt) {
 							queryErrorEvt = evt;
 						});
-						list.startup();
+						document.body.appendChild(list);
+						list.attachedCallback();
 						setTimeout(def.callback(function () {
 							assert.isNotNull(queryErrorEvt);
 							assert.strictEqual("Query Error X", queryErrorEvt.error, "error message");

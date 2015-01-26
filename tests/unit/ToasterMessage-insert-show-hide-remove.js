@@ -19,7 +19,6 @@ define([
 			// setting up the toaster
 			toaster = new Toaster();
 			toaster.placeAt(container);
-			toaster.startup();
 
 			// setting the wrapper
 			wrapper = toaster._wrapper;

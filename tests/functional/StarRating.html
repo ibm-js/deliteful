@@ -45,21 +45,18 @@
 			document.getElementById("editablestar6value").innerHTML = "Rating is " + rating.value +
 			(rating.value === 1 ? " star" : " stars");
 		});
-		rating.startup();
 
 		var rating2 = new StarRating({
 			id: "secondtabindexstar",
 			tabIndex: 2
 		}).placeAt("secondtabindexstar", "replace");
 		rating2.setAttribute("aria-labelledby", "secondtabindexstar-label");
-		rating2.startup();
 
 		rating2 = new StarRating({
 			id: "secondnotabindexstar",
 			tabIndex: -1
 		}).placeAt("secondnotabindexstar", "replace");
 		rating2.setAttribute("aria-labelledby", "secondnotabindexstar-label");
-		rating2.startup();
 
 		// Set global variable to signal that the test page is ready
 		ready = true;
