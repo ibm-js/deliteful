@@ -15,6 +15,10 @@ define({
 		// It seems that specifying version="" or leaving version unspecified
 		// does not default to the latest version of the browser.
 
+		// Mobile
+		{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
+			"appium-version": "1.2.2", name: "deliteful" },
+
 		// Desktop.
 		// Not running on IE9 since Widget-attr test depends on domClass methods only available in IE10_
 		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
@@ -27,12 +31,6 @@ define({
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
 		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"}
-
-		// Mobile
-		// Need to wait for Intern 2.1 to be able to run the tests on iOS (SauceLabs)
-		// see https://github.com/theintern/intern/issues/216
-		//,{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
-		//	"appium-version": "1.2.2", name: "deliteful" }
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service

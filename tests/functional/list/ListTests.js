@@ -486,7 +486,7 @@ define(["intern",
 		"keyboard multiple selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
 				return remote.end();
@@ -535,7 +535,7 @@ define(["intern",
 		"keyboard single selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				return this.skip("SafariDriver doesn't support tabbing.");
 			}
@@ -642,7 +642,7 @@ define(["intern",
 		"keyboard radio selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				return this.skip("SafariDriver doesn't support tabbing.");
 			}
@@ -749,7 +749,7 @@ define(["intern",
 		"keyboard search": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				return this.skip("SafariDriver doesn't support tabbing.");
 			}
@@ -806,7 +806,7 @@ define(["intern",
 		"custom keyboard navigation": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iPhone/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
+			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
 				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
 				return this.skip("SafariDriver doesn't support tabbing.");
 			}
