@@ -3,6 +3,7 @@ define([
 	"intern/chai!assert",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
+	"decor/sniff",
 	"deliteful/ViewStack",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
@@ -10,7 +11,7 @@ define([
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"
-], function (registerSuite, assert, $, register) {
+], function (registerSuite, assert, $, register, has) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler;
@@ -167,6 +168,9 @@ define([
 			node.show(ddd, {transition: "revealv", reverse: true});
 		},
 		"Show (fade)" : function () {
+			if (has("ie")) {
+				this.skip("Disabled on Internet Explorer");
+			}
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
