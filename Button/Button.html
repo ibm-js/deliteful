@@ -1,4 +1,4 @@
 <template attach-point="focusNode">
-	<span attach-point="iconNode" class="d-reset d-inline d-icon {{this.iconClass ? this.iconClass : 'd-hidden'}}"></span
-	><span attach-point="labelNode" class="d-reset d-inline" d-hidden="{{!this.label}}">{{label}}</span>
+	<span attach-point="iconNode" class="d-icon {{this.iconClass ? this.iconClass : 'd-hidden'}}"></span
+	><span attach-point="labelNode" d-hidden="{{!this.label}}">{{label}}</span>
 </template>
