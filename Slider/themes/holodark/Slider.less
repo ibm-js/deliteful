@@ -1,34 +1,22 @@
-@import "../../../../delite/themes/holodark/includes";
+// Duplicated boostrap theme
+@import "../../../../delite/themes/bootstrap/includes";
 
 @d-slider-size: 200px;
-@d-slider-halo-size: 12pt;
-@d-slider-bar-border-width: 1px; // for a11y
-@d-slider-bar-border-style: solid;
-@d-slider-bar-border-color: transparent;
-@d-slider-bar-size: 100%;
-@d-slider-bar-thickness: 5px; // include border for a11y
-@d-slider-bar-border-radius: 0;
-@d-slider-knob-size: 20px; // include border for a11y
-@d-slider-knob-thickness: 20px; // include border for a11y
-@d-slider-knob-border-width: 1px; // for a11y
-@d-slider-knob-border-style: solid;
-@d-slider-knob-border-color: transparent;
-@d-slider-knob-border-radius: 10em;
+@d-slider-halo-size: 16px;
 
-.d-slider-styles () {
-}
-.d-slider-bar-styles () {
-}
-.d-slider-container-styles () {
-  background-color: @holo-slider-track-color;
-}
-.d-slider-progress-bar-styles () {
-  background-color: @holo-color1;
-}
-.d-slider-handle-styles () {
-  background-color: #33B5E5;
-  border-color: #000000;
-  outline: none;
-}
+@d-slider-bar-color: @progress-bg;
+@d-slider-bar-thickness: 8px;
+@d-slider-bar-border-width: 1px;
+@d-slider-bar-border-style: inset;
+@d-slider-bar-border-color: @btn-default-border;
+@d-slider-bar-border-radius: @border-radius-base;
+
+@d-slider-handle-size: 20px;
+@d-slider-handle-color: @progress-bg;
+@d-slider-handle-thickness: 20px;
+@d-slider-handle-border-width: 1px;
+@d-slider-handle-border-style: outset;
+@d-slider-handle-border-color: @gray-light;
+@d-slider-handle-border-radius: @border-radius-large;
 
 @import "../Slider_template";

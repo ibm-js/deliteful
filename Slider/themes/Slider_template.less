@@ -1,134 +1,182 @@
-// Template for Slider CSS, included from themes/*/Slider.less files
+@import "../../../../delite/themes/bootstrap/includes";
 
+
+//
+// d-slider
+//
 .d-slider {
-	display: inline-block; // to mimic an INPUT
-	vertical-align: middle;
-	border-collapse: separate;
-	cursor: pointer;
-	padding: @d-slider-halo-size; // halo to make touches easier
-	.user-select(none); // prevent selection
-	.box-sizing(border-box);
-	.tap-highlight-color(rgba(255,255,255,0));
-	input {
-		display: none;
-	}
-	.d-slider-styles;
-}
-.d-slider-h {
-	width: @d-slider-size;
-	.d-slider-container {
-		width: @d-slider-bar-size;
-		min-width: (@d-slider-knob-size*4);
-		height: @d-slider-bar-thickness;
-	}
-	.d-slider-container > * {
-	        left: 0; // children are positioned with either top or bottom
-	}
-	.d-slider-progress-bar {
-		height: 100%;
-		top: 0;
-		float: none;
-	}
-	.d-slider-handle {
-		top: -(@d-slider-bar-border-width+@d-slider-knob-size/2-@d-slider-bar-thickness/2);
-		width: @d-slider-knob-thickness;
-		height: @d-slider-knob-size;
-	}
-}
-.d-slider-v {
-	height: @d-slider-size;
-	.d-slider-container {
-		height: @d-slider-bar-size;
-		min-height: (@d-slider-knob-size*4);
-		width: @d-slider-bar-thickness;
-	}
-	.d-slider-container > * {
-	        top: 0; // children are positioned with either left or right
-	}
-	.d-slider-progress-bar {
-		width: 100%;
-		left: 0;
-		display: block;
-	}
-	.d-slider-handle {
-		left: -(@d-slider-bar-border-width+@d-slider-knob-size/2-@d-slider-bar-thickness/2);
-		width: @d-slider-knob-size;
-		height: @d-slider-knob-thickness;
-	}
-}
-.d-slider-handle {
-	position: absolute;
 	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	padding: @d-slider-halo-size;
+	.user-select(none);
 	.box-sizing(border-box);
-	border-width: @d-slider-knob-border-width;
-	border-style: @d-slider-knob-border-style;
-	border-color: @d-slider-knob-border-color;
-	border-radius: @d-slider-knob-border-radius;
-	padding: 0;
-	margin: 0;
-	background: gray;
-	background-clip: content-box;
-	.d-slider-handle-styles;
-}
-.d-slider-h-htl .d-slider-handle-max,
-.d-slider-h-lth .d-slider-handle-min {
-	left: -(@d-slider-knob-thickness/2);
-}
-.d-slider-h-htl .d-slider-handle-min,
-.d-slider-h-lth .d-slider-handle-max {
-	right: -(@d-slider-knob-thickness/2);
-}
-.d-slider-v-lth .d-slider-handle-max,
-.d-slider-v-htl .d-slider-handle-min {
-	bottom: -(@d-slider-knob-thickness/2);
-}
-.d-slider-v-lth .d-slider-handle-min,
-.d-slider-v-htl .d-slider-handle-max {
-	top: -(@d-slider-knob-thickness/2);
-}
-.d-slider-bar {
-	border-width: @d-slider-bar-border-width;
-	border-style: @d-slider-bar-border-style;
-	border-color: @d-slider-bar-border-color;
+	.tap-highlight-color(rgba(255, 255, 255, 0));
+
+	input {
+	display: none;
+	}
+
+	//
+	// d-slider-bar
+	//
+	& .d-slider-bar {
+	border: @d-slider-bar-border-width @d-slider-bar-border-style @d-slider-bar-border-color;
 	border-radius: @d-slider-bar-border-radius;
 	padding: 0;
 	margin: 0;
-	background: none;
 	background-clip: content-box;
-	.d-slider-bar-styles;
-}
-.d-slider-container { // content area of domNode
+	background-color: @d-slider-bar-color;
+	}
+	//
+	// d-slider-container
+	// this is the bar below the slider handle(s)
+	//
+	& .d-slider-container {
 	.box-sizing(border-box);
-	position: relative; // so children can use position:absolute
+	position: relative;
 	height: 100%;
 	width: 100%;
-	margin: auto;
-	vertical-align: middle;
-	.d-slider-container-styles;
-}
-.d-slider-container > * {
-	position: absolute !important; // children use the RemainingBar's size
-}
-.d-slider-progress-bar {
+	box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;
+	}
+
+	//
+	// d-slider-progress-bar
+	// this is the bar that start from min, up to the slider handle
+	// when the slider has 2 values, this is the bar between both values
+	//
+	& .d-slider-progress-bar {
 	.box-sizing(content-box);
-	border-width: 0; // this is a child of the RemainingBar
-	.d-slider-progress-bar-styles;
+	border-width: 0;
+	background-color: lighten(#000000, 60%);
+	}
+
+	&.d-disabled {
+	cursor: default;
+	.box-shadow(none);
+	}
+	&.d-disabled .d-slider-container {
+	.box-shadow(none);
+	border-color: lighten(@d-slider-bar-color, 20%);
+	}
+	&.d-disabled .d-slider-progress-bar {
+	background: none;
+	}
+	&.d-disabled .d-slider-handle {
+	&, &:hover, &:focus, &:active, &.active {
+		border-color: lighten(@d-slider-handle-border-color, 20%);
+		.box-shadow(none);
+		background-color: @d-slider-handle-color;
+	}
+	}
 }
-.d-slider-transition {
-	.transition-duration(400ms);
+
+.d-slider-container > * {
+	position: absolute;
 }
-.dj_a11y .d-slider-handle::after {
-	content: "\025A3"; // make sure there's a visible handle
+
+//
+// d-slider-handle
+//
+.d-slider-handle {
+	.user-select(none);
+	position: absolute;
+	.box-sizing(border-box);
+	border: @d-slider-handle-border-width @d-slider-handle-border-style @d-slider-handle-border-color;
+	border-radius: @d-slider-handle-border-radius;
+	padding: 0;
+	margin: 0;
+	background-clip: content-box;
+	background-color: @d-slider-handle-color;
+	z-index: 1;
+	&, &:active, &.active {
+	&:focus {
+		outline: thin dotted;
+		outline-offset: -3px;
+	}
+	}
+	&:hover, &:focus {
+	color: @btn-default-color;
+	text-decoration: none;
+	}
+	&:focus + .d-slider-handle {
+	z-index: 0; // Move down the second handle if the first is focused
+	}
+	&:active, &.active {
+	outline: 0;
+	background-image: none;
+	.box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
+	}
+}
+
+// =========================================
+// rules below only affect size/position
+// to handle horizontal/vertical/flip
+// =========================================
+
+//
+// horizontal slider
+//
+.d-slider-h {
+	width: @d-slider-size;
+	.d-slider-container {
+	min-width: (@d-slider-handle-size * 4);
+	height: @d-slider-bar-thickness;
+	}
+	.d-slider-container > * {
+	left: 0; // children are positioned with either top or bottom
+	}
+	.d-slider-progress-bar {
+	height: 100%;
+	top: 0;
+	}
+	.d-slider-handle {
+	top: -(@d-slider-bar-border-width + @d-slider-handle-size / 2 - @d-slider-bar-thickness / 2);
+	width: @d-slider-handle-thickness;
+	height: @d-slider-handle-size;
+	}
+}
+
+//
+// vertical slider
+//
+.d-slider-v {
+	height: @d-slider-size;
+	.d-slider-container {
+	min-height: (@d-slider-handle-size * 4);
+	width: @d-slider-bar-thickness;
+	}
+	.d-slider-container > * {
+	top: 0; // children are positioned with either left or right
+	}
+	.d-slider-progress-bar {
+	width: 100%;
+	left: 0;
 	display: block;
-	font-family: monospace;
-	font-size: @d-slider-knob-thickness;
+	}
+	.d-slider-handle {
+	left: -(@d-slider-bar-border-width + @d-slider-handle-size / 2 - @d-slider-bar-thickness / 2);
+	width: @d-slider-handle-size;
+	height: @d-slider-handle-thickness;
+	}
 }
-.dj_a11y .d-slider-h .d-slider-handle {
-	line-height: @d-slider-knob-size;
+
+.d-slider-h-htl .d-slider-handle-max,
+.d-slider-h-lth .d-slider-handle-min {
+	left: -(@d-slider-handle-thickness / 2);
 }
-.dj_a11y .d-slider-v .d-slider-handle {
-	line-height: @d-slider-knob-thickness;
+
+.d-slider-h-htl .d-slider-handle-min,
+.d-slider-h-lth .d-slider-handle-max {
+	right: -(@d-slider-handle-thickness / 2);
 }
-.dj_a11y .d-slider .d-slider-handle {
-	border-radius: 0;
+
+.d-slider-v-lth .d-slider-handle-max,
+.d-slider-v-htl .d-slider-handle-min {
+	bottom: -(@d-slider-handle-thickness / 2);
+}
+
+.d-slider-v-lth .d-slider-handle-min,
+.d-slider-v-htl .d-slider-handle-max {
+	top: -(@d-slider-handle-thickness / 2);
 }
