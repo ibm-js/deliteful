@@ -1044,7 +1044,7 @@ define([
 		},
 
 		// Simple arrow key support.
-		downArrowKeyHandler: function () {
+		downArrowKeyHandler: function (evt) {
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
@@ -1052,10 +1052,10 @@ define([
 			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
 				next = next.nextElementSibling;
 			}
-			this.navigateTo(next ? next.renderNode : this._getFirst());
+			this.navigateTo(next ? next.renderNode : this._getFirst(), false, evt);
 		},
 
-		upArrowKeyHandler: function () {
+		upArrowKeyHandler: function (evt) {
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
@@ -1063,17 +1063,17 @@ define([
 			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
 				next = next.previousElementSibling;
 			}
-			this.navigateTo(next ? next.renderNode : this._getLast());
+			this.navigateTo(next ? next.renderNode : this._getLast(), false, evt);
 		},
 
 		// Remap Page Up -> Home and Page Down -> End
 
-		pageUpKeyHandler: function () {
-			this.navigateToFirst();
+		pageUpKeyHandler: function (evt) {
+			this.navigateToFirst(evt);
 		},
 
-		pageDownKeyHandler: function () {
-			this.navigateToLast();
+		pageDownKeyHandler: function (evt) {
+			this.navigateToLast(evt);
 		},
 
 		getNext: function (child, dir) {
