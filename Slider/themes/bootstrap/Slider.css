@@ -1,9 +1,8 @@
 .d-slider {
   display: inline-block;
   vertical-align: middle;
-  border-collapse: separate;
   cursor: pointer;
-  padding: 12pt;
+  padding: 16px;
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -17,13 +16,10 @@
   display: none;
 }
 .d-slider .d-slider-bar {
-  border-width: 1px;
-  border-style: inset;
-  border-color: #cccccc;
+  border: 1px inset #cccccc;
   border-radius: 4px;
   padding: 0;
   margin: 0;
-  background: none;
   background-clip: content-box;
   background-color: #f5f5f5;
 }
@@ -34,9 +30,6 @@
   position: relative;
   height: 100%;
   width: 100%;
-  margin: auto;
-  vertical-align: middle;
-  background-image: none;
   box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;
 }
 .d-slider .d-slider-progress-bar {
@@ -81,24 +74,20 @@
   -ms-user-select: none;
   -moz-user-select: none;
   position: absolute;
-  display: inline-block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-width: 1px;
-  border-style: outset;
-  border-color: #999999;
+  border: 1px outset #999999;
   border-radius: 6px;
   padding: 0;
   margin: 0;
   background-clip: content-box;
   background-color: #f5f5f5;
+  z-index: 1;
 }
 .d-slider-handle:focus,
 .d-slider-handle:active:focus,
 .d-slider-handle.active:focus {
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
   outline: thin dotted;
   outline-offset: -3px;
 }
@@ -106,6 +95,9 @@
 .d-slider-handle:focus {
   color: #333333;
   text-decoration: none;
+}
+.d-slider-handle:focus + .d-slider-handle {
+  z-index: 0;
 }
 .d-slider-handle:active,
 .d-slider-handle.active {
@@ -128,7 +120,6 @@
 .d-slider-h .d-slider-progress-bar {
   height: 100%;
   top: 0;
-  float: none;
 }
 .d-slider-h .d-slider-handle {
   top: -7px;

@@ -8,11 +8,8 @@ title: deliteful/Slider
 The `deliteful/Slider` widget allows selecting one value or a pair of values, from a range delimited by a minimum and
 a maximum value. Slider can be oriented vertically or horizontally.
 
-*Slider overview by theme (bootstrap, iOS, Holodark)*
-
 ![Slider Bootstrap](images/Slider1.png)
-![Slider iOS](images/Slider2.png)
-![Slider Holodark](images/Slider3.png)
+
 
 The selected value depends on the position of the handle and the `step`, which specifies the value granularity. The 
 position of the minimum and maximum depends on the text direction, and can be forced using the `flip` property.
@@ -119,8 +116,6 @@ force the orientation using the `flip` property (default=false).
 This widget provides default styling for the following delite themes:
 
 * bootstrap
-* iOS
-* Holodark
 
 ### CSS Classes
 Style is defined by the CSS classes from the themes of the widget. CSS classes are bound to the
