@@ -1050,9 +1050,13 @@ define([
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
-			var next = this._getFocusedRenderer().nextElementSibling;
-			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
-				next = next.nextElementSibling;
+			var focusedRenderer = this._getFocusedRenderer();
+			var next = null;
+			if (focusedRenderer) {
+				next = focusedRenderer.nextElementSibling;
+				if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
+					next = next.nextElementSibling;
+				}
 			}
 			this.navigateTo(next ? next.renderNode : this._getFirst(), false, evt);
 		},
@@ -1061,9 +1065,13 @@ define([
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
-			var next = this._getFocusedRenderer().previousElementSibling;
-			if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
-				next = next.previousElementSibling;
+			var focusedRenderer = this._getFocusedRenderer();
+			var next = null;
+			if (focusedRenderer) {
+				next = focusedRenderer.previousElementSibling;
+				if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
+					next = next.previousElementSibling;
+				}
 			}
 			this.navigateTo(next ? next.renderNode : this._getLast(), false, evt);
 		},
