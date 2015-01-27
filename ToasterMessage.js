@@ -2,7 +2,7 @@
 define(["dcl/dcl",
 	"delite/Widget",
 	"delite/register",
-	"lie/dist/lie",
+	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
 	"delite/handlebars!./Toaster/ToasterMessage.html"

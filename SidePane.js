@@ -6,7 +6,7 @@ define([
 	"decor/sniff",
 	"delite/register",
 	"delite/DisplayContainer",
-	"lie/dist/lie",
+	"requirejs-dplugins/Promise!",
 	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css",
 	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl.css"
 ],

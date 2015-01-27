@@ -1,7 +1,7 @@
 /** @module deliteful/ViewStack */
 define(["dcl/dcl",
 	"decor/sniff",
-	"lie/dist/lie",
+	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/DisplayContainer",
