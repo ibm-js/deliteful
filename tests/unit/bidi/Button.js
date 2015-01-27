@@ -87,7 +87,7 @@ define([
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register, Button) {
 					var b1 = new Button({id: "b1", label: "\u05d0\u05d1\u05d2 ABC", title: "ABC \u05d0\u05d1\u05d2"});
 					container.appendChild(b1);
-					b1.startup();
+					b1.attachedCallback();
 					b1.textDir = "ltr";
 					b1.deliver();
 					assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b1.labelNode.textContent,
@@ -113,7 +113,7 @@ define([
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register, Button) {
 					var b2 = new Button({id: "b2"});
 					container.appendChild(b2);
-					b2.startup();
+					b2.attachedCallback();
 					b2.textDir = "rtl";
 					b2.label = "ABC \u05d0\u05d1\u05d2";
 					b2.deliver();
@@ -131,7 +131,7 @@ define([
 				moduleRequire(["delite/register", "deliteful/Button"], dfd.callback(function (register, Button) {
 					var b3 = new Button({id: "b3"});
 					container.appendChild(b3);
-					b3.startup();
+					b3.attachedCallback();
 					b3.textDir = "auto";
 					b3.title = "\u05d0\u05d1\u05d2 ABC";
 					b3.deliver();

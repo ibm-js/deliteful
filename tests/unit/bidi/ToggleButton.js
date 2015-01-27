@@ -103,7 +103,7 @@ define([
 					var b1 = new ToggleButton({id: "b1", label: "\u05d0\u05d1\u05d2 ABC",
 						title: "ABC \u05d0\u05d1\u05d2", checkedLabel: "ABC \u05d2\u05d1\u05d0"});
 					container.appendChild(b1);
-					b1.startup();
+					b1.attachedCallback();
 					b1.textDir = "ltr";
 					b1.deliver();
 					assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b1.labelNode.textContent,
@@ -143,7 +143,7 @@ define([
 					dfd.callback(function (register, ToggleButton) {
 					var b2 = new ToggleButton({id: "b2"});
 					container.appendChild(b2);
-					b2.startup();
+					b2.attachedCallback();
 					b2.textDir = "rtl";
 					b2.label = "ABC \u05d0\u05d1\u05d2";
 					b2.deliver();
@@ -162,7 +162,7 @@ define([
 					dfd.callback(function (register, ToggleButton) {
 					var b2 = new ToggleButton({id: "b2", checked: true});
 					container.appendChild(b2);
-					b2.startup();
+					b2.attachedCallback();
 					b2.textDir = "rtl";
 					b2.checkedLabel = "ABC \u05d0\u05d1\u05d2";
 					b2.deliver();
@@ -181,7 +181,7 @@ define([
 					dfd.callback(function (register, ToggleButton) {
 					var b3 = new ToggleButton({id: "b3"});
 					container.appendChild(b3);
-					b3.startup();
+					b3.attachedCallback();
 					b3.textDir = "auto";
 					b3.title = "\u05d0\u05d1\u05d2 ABC";
 					b3.deliver();

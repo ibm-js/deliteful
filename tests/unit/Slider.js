@@ -188,14 +188,14 @@ define([
 	function createSingleSlider() {
 		var slider = new Slider();
 		document.body.appendChild(slider);
-		slider.startup();
+		slider.attachedCallback();
 		slider.deliver();
 		return slider;
 	}
 	function createDualSlider() {
 		var slider = new Slider({value: ","});
 		document.body.appendChild(slider);
-		slider.startup();
+		slider.attachedCallback();
 		slider.deliver();
 		return slider;
 	}

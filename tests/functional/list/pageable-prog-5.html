@@ -46,7 +46,7 @@
 				list.store.add({label: "Programmatic item of order " + i, id: i});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
-			list.startup();
+			list.attachedCallback();
 			var latencyIF = document.getElementById("latency");
 			latencyIF.onchange = function () {
 				list.store.latency = latencyIF.valueAsNumber;

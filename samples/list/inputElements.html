@@ -65,9 +65,8 @@
 			list.store.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
 			list.store.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
 			list.store.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
-			document.body.appendChild(list);
-			list.startup();
 			list.setAttribute("aria-readonly", "false");
+			list.placeAt(document.body);
 
 			document.body.style.display = "";
 		});

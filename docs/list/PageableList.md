@@ -70,7 +70,6 @@ require(["dstore/Memory", "delite/list/PageableList", "requirejs-domready/domRea
   var list = new PageableList({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
   list.style.height = "100%";
   list.placeAt(document.body);
-  list.startup();
 });
 ```
 
@@ -105,8 +104,7 @@ Here is an example of setting a pageLength of 100 items:
 			var pageableList = new PageableList();
 			pageableList.pageLength = 100;
 			...
-			this.ownerDocument.body.appendChild(pageableList);
-			pageableList.startup();
+			pageableList.placeAt(document.body);
 		});
 ```
 
