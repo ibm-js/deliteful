@@ -3,8 +3,9 @@
 .d-star-rating{
 	/* Do not modify the display style */
 	display: inline-block;
-	font-size: @star-icon-size;
+	font-size: 285%;
 	line-height: 1em;
+	vertical-align: middle;
 	&.d-star-rating-hovered{
 		opacity: 0.5;
 	}
@@ -13,18 +14,14 @@
 .d-star-rating-zero{
 	/* Do not modify the display style */
 	display: inline-block;
-	overflow: hidden;
 	height: 1px;
 	width: 0.5em;
-	&.d-hidden{
-		width: 0px;
-	}
 }
 
 .d-star-rating-star-icon{
 	/* Do not modify the display style */
 	display: inline-block;
-	overflow: hidden;
+	overflow: hidden; // Clip the star character at 50% horizontally (height: 1em, width: 0.5em)
 	width: 0.5em;
 }
 

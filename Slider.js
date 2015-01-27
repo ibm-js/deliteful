@@ -335,8 +335,6 @@ define([
 				this.on("lostpointercapture", this.lostCaptureHandler.bind(this));
 				this.on("keydown", this.keyDownHandler.bind(this));
 				this.on("keyup", this.keyUpHandler.bind(this));
-				this.on("focus", this.focusHandler.bind(this));
-				this.on("focus", this.focusHandler.bind(this));
 
 				// ensure CSS is applied, and apply default tabIndex in case the app doesn't specify tabindex explicitly
 				this.notifyCurrentValue("vertical", "tabIndex");
@@ -576,20 +574,6 @@ define([
 				}
 				if (e.target === this.focusNode || e.target === this.handleMin) {
 					this.handleOnChange(this.value);
-				}
-			},
-
-			focusHandler: function (e) {
-				if (this.handleMin._isActive) {
-					// in case there are 2 values, ensure the handle which has the focus is above the other.
-					if (e.target === this.focusNode) {
-						this.focusNode.style.zIndex = 1;
-						this.handleMin.style.zIndex = "auto";
-					}
-					if (e.target === this.handleMin) {
-						this.focusNode.style.zIndex = "auto";
-						this.handleMin.style.zIndex = 1;
-					}
 				}
 			},
 

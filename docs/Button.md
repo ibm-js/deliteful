@@ -70,12 +70,13 @@ This widget provides default styling for the following delite themes:
 
 The base class for a button is `d-button`.
 
-The appearance of a button can be customized by adding extra classes to it:
+The `boostrap theme` (default) provide extra classes to customize the button:
+* `d-button-success`
+* `d-button-info`
+* `d-button-warning`
+* `d-button-danger`
 
-* `d-button-blue` can be added to render a blue button;
-* `d-button-red` can be added to render a red button.
-
-Custom classes can also be added, as in the following example:
+The button can also be customized by CSS:
 
 <iframe width="100%" height="300" src="http://jsfiddle.net/ibmjs/NHft7/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0">
 <a href="http://jsfiddle.net/ibmjs/NHft7">checkout the sample on JSFiddle</a></iframe>

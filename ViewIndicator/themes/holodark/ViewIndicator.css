@@ -1,4 +1,5 @@
 .d-view-indicator {
+  display: block;
   text-align: center;
   user-select: none;
   -webkit-user-select: none;
@@ -6,24 +7,21 @@
   -moz-user-select: none;
   cursor: default;
 }
-.d-view-indicator,
 .d-view-indicator * {
   display: inline-block;
 }
 .d-view-indicator .-d-view-indicator-dot {
-  width: 6px;
-  height: 6px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  line-height: 6px;
-  margin: 6px;
+  width: 0.75em;
+  height: 0.75em;
+  -moz-border-radius: 0.375em;
+  border-radius: 0.375em;
+  margin: 0.5em;
   background-color: #999999;
 }
 .d-view-indicator .-d-view-indicator-dot-selected {
   background-color: #ffffff;
 }
 .d-view-indicator .-d-view-indicator-dot::before {
-  font-size: 14px;
   color: transparent;
   content: "\25CB";
 }
