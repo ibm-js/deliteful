@@ -70,11 +70,11 @@ This widget provides default styling for the following delite themes:
 
 The base class for a button is `d-button`.
 
-The `boostrap theme` (default) provide extra classes to customize the button:
-* `d-button-success`
-* `d-button-info`
-* `d-button-warning`
-* `d-button-danger`
+The `boostrap theme` (default) provide extra classes to customize the color of the button:
+* `d-button-success`: Indicates a successful or positive action
+* `d-button-info`: Indicates a neutral informative change or action
+* `d-button-warning`: Indicates a warning that might need attention
+* `d-button-danger`: Indicates a dangerous or potentially negative action
 
 The button can also be customized by CSS:
 

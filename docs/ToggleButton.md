@@ -102,6 +102,12 @@ In addition, the following classes are used in combination with the classes abov
 |----------|----------|
 |d-checked|Checkbox and checkmark nodes in checked state
 
+The `boostrap theme` (default) provide extra classes to customize the color of the button:
+* `d-button-success`: Indicates a successful or positive action
+* `d-button-info`: Indicates a neutral informative change or action
+* `d-button-warning`: Indicates a warning that might need attention
+* `d-button-danger`: Indicates a dangerous or potentially negative action
+
 <a name="events"></a>
 ## Element Events
 The widget `deliteful/ToggleButton` provides a `change` event when its state is changed following a user interaction.
