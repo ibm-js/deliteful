@@ -83,7 +83,6 @@ define([
 			new TrackableMemoryStore({}) : new Memory();
 		var dataItems = addOptions(combo, 0, nOptions - 1);
 		combo._testDataItems = dataItems; // stored for debugging purposes.
-		combo.startup();
 		return combo;
 	};
 
@@ -92,6 +91,7 @@ define([
 		var combo = new Combobox({ id: id, selectionMode: selectionMode });
 		initCombobox(combo, trackable);
 		container.appendChild(combo);
+		combo.startup();
 		return combo;
 	};
 
@@ -99,6 +99,7 @@ define([
 		var combo = new MyCombobox({ id: id });
 		initCombobox(combo, trackable);
 		container.appendChild(combo);
+		combo.startup();
 		return combo;
 	};
 
