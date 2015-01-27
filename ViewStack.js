@@ -259,7 +259,7 @@ define(["dcl/dcl",
 			 * This method must be called to display a particular destination child on this container.
 			 * @param {Element|string} dest - Element or Element id that points to the child this container must
 			 * show or hide.
-			 * @param {params} [params] - A hash like {transition: "reveal", reverse: true}. The transition value
+			 * @param {Object} [params] - A hash like {transition: "reveal", reverse: true}. The transition value
 			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
 			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
 			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have 
