@@ -11,6 +11,10 @@ children of the ViewStack. The dot representing the visible child is white while
 
 ![ViewIndicator Transitions](images/ViewIndicator.png)
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/kd1qj9bw/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/kd1qj9bw/">checkout the sample on JSFiddle</a></iframe>
+
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
 [Element Configuration](#configuration)  
