@@ -4,7 +4,7 @@ define([
 	"delite/register",
 	"dojo/string",
 	"dojo/when",
-	"lie/dist/lie",
+	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
 	"./List",
