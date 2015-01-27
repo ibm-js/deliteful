@@ -156,7 +156,7 @@ define(["dcl/dcl",
 			/**
 			 * Shows the immediately following sibling of the ViewStack visible element.
 			 * The parameter 'params' is optional. If not specified, this.transition, and this.reverse are used.
-			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+			 * @param {Object} [params] - Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
 			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
 			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
 			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have
@@ -170,9 +170,9 @@ define(["dcl/dcl",
 			/**
 			 * Shows the immediately preceding sibling of the ViewStack visible element.
 			 * The parameter 'params' is optional. If not specified, this.transition, and this.reverse are used.
-			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
-			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
-			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
+			 * @param {Object} [params] - Optional params. A hash like {transition: "reveal", reverse: true}.
+			 * The transition value can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide"
+			 * and "reveal". Transition is internally set to "none" if the ViewStack is not visible.
 			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have
 			 * been performed.
 			 */
@@ -257,8 +257,9 @@ define(["dcl/dcl",
 			 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
 			 * this.transition, and this.reverse are used.
 			 * This method must be called to display a particular destination child on this container.
-			 * @param {dest} Widget or HTMLElement or id that points to the child this container must display.
-			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+			 * @param {Element|string} dest - Element or Element id that points to the child this container must
+			 * show or hide.
+			 * @param {params} [params] - A hash like {transition: "reveal", reverse: true}. The transition value
 			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
 			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
 			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have 
