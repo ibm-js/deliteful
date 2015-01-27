@@ -264,7 +264,8 @@ define([
 					// update aria-selected attribute on unselected items
 					for (var i = 0; i < this.children.length; i++) {
 						var child = this.children[i];
-						if (child.renderNode.hasAttribute("aria-selected")) {
+						if (child.renderNode // no renderNode for the loading panel child
+							&& child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.removeAttribute("aria-selected");
 							$(child).removeClass(this._cssClasses.selected);
 						}
@@ -280,6 +281,7 @@ define([
 					for (i = 0; i < this.children.length; i++) {
 						child = this.children[i];
 						if ($(child).hasClass(this._cssClasses.item)
+								&& child.renderNode // no renderNode for the loading panel child
 								&& !child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.setAttribute("aria-selected", "false");
 							$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
