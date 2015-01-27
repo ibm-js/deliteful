@@ -153,26 +153,46 @@ define(["dcl/dcl",
 				this._setChildrenVisibility();
 			},
 
-			showNext: function (props) {
+			/**
+			 * Shows the immediately following sibling of the ViewStack visible element.
+			 * The parameter 'params' is optional. If not specified, this.transition, and this.reverse are used.
+			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
+			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
+			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have
+			 * been performed.
+			 */
+			showNext: function (params) {
 				//		Shows the next child in the container.
-				this._showPreviousNext("nextElementSibling", props);
+				return this._showPreviousNext("nextElementSibling", params);
 			},
 
-			showPrevious: function (props) {
+			/**
+			 * Shows the immediately preceding sibling of the ViewStack visible element.
+			 * The parameter 'params' is optional. If not specified, this.transition, and this.reverse are used.
+			 * @param {params} Optional params. A hash like {transition: "reveal", reverse: true}. The transition value
+			 * can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide" and
+			 * "reveal". Transition is internally set to "none" if the ViewStack is not visible.
+			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have
+			 * been performed.
+			 */
+			showPrevious: function (params) {
 				//		Shows the previous child in the container.
-				this._showPreviousNext("previousElementSibling", props);
+				return this._showPreviousNext("previousElementSibling", params);
 			},
 
 			_showPreviousNext: function (direction, props) {
+				var ret = null;
 				if (!this._visibleChild && this.children.length > 0) {
 					this._visibleChild = this.children[0];
 				}
 				if (this._visibleChild) {
 					var target = this._visibleChild[direction];
 					if (target) {
-						this.show(target, props);
+						ret = this.show(target, props);
 					}
 				}
+				return ret;
 			},
 
 			_doTransition: function (origin, target, event, transition, reverse) {
