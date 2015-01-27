@@ -15,10 +15,14 @@ The following example defines two screen classes: "phone" and "other" with a bre
 ```
 When the screen width changes (browser window resize or actual device orientation change) and if a new screen class is applied by the container, a "change" event is emitted with 2 specific properties: `screenClass` (the new screen class) and `mediaQueryList` (the MediaQueryList instance at the origin of the change).
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/t3tbt7qt/embedded/result,html,css,js">
+<a href="http://jsfiddle.net/ibmjs/t3tbt7qt/">checkout the sample on JSFiddle</a></iframe>
+
 ##### Table of Contents
-[Element Instantiation](#instantiation)
-[Element Configuration](#configuration)
-[Events](#events)
+[Element Instantiation](#instantiation)  
+[Element Configuration](#configuration)  
+[Events](#events)  
 [Element Styling](#styling)  
 [Enterprise Use](#enterprise)  
 
