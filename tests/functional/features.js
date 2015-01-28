@@ -43,7 +43,7 @@ define([
 			return loadFile(remote, "./features.html")
 				.execute("return _has")
 				.then(function (has) {
-					/* jshint maxcomplexity: 18 */
+					/* jshint maxcomplexity: 19 */
 					var platform = remote.environmentType.platform ?
 							remote.environmentType.platform.toUpperCase() : null,
 						deviceName = remote.environmentType.deviceName ?
@@ -73,6 +73,7 @@ define([
 							checkChannelFlagsPhone(has, description);
 						} else if (deviceName.indexOf("IPAD") !== -1 ||
 							deviceName.indexOf("NEXUS 7") !== -1 ||
+							deviceName.indexOf("NEXUS 9") !== -1 ||
 							deviceName.indexOf("GALAXY TAB") !== -1) {
 							checkChannelFlagsTablet(has, description);
 						}
@@ -80,8 +81,11 @@ define([
 					// Did the test run on a platform such that the testing code above doesn't check
 					// the flags? This assertion allows to detect whether we need to update the
 					// testing code to add new platforms/devices.
-					assert.isTrue(testChannelFlagsDone, "not checked with platform: " +
-						platform + " deviceName: " + deviceName);
+					assert.isTrue(testChannelFlagsDone,
+						"not checked with platform: " + platform +
+						" deviceName: " + deviceName +
+						" browserName: " + browserName +
+						" (new platform/device to be added to the test?)");
 				})
 				.end();
 		}
