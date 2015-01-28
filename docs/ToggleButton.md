@@ -86,20 +86,27 @@ This widget provides default styling for the following delite themes:
 
 * bootstrap
 
-### CSS Classes
+### Widget CSS Classes
 
-CSS classes are bound to the structure of the widget declared in its template `deliteful/ToggleButton/ToggleButton.html`.
-The following table lists all the CSS classes that can be used to style the toggle button. 
+The following CSS classes are automatically set by the widget and can be reused for overriding the default style.
+They are bound to the structure of the widget declared in its template `deliteful/ToggleButton/ToggleButton.html`.
 
-|class name/selector|applies to|
-|----------|----------|
-|d-toggle-button|ToggleButton widget node
+CSS Class            | Description
+-------------------- | -------------
+`d-toggle-button`    | The base class for a toggle button
+`d-checked`          | Checkbox and checkmark nodes in checked state
 
-In addition, the following classes are used in combination with the classes above:
 
-|class name/selector|applies to|
-|----------|----------|
-|d-checked|Checkbox and checkmark nodes in checked state
+### Styling CSS classes
+
+The following CSS classes provided by the widget can be set explicitly on the element yourself.
+
+CSS Class          | Description
+-------------------| -------------
+`d-button-success` | Indicates a successful or positive action
+`d-button-info`    | Indicates a neutral informative change or action
+`d-button-warning` | Indicates a warning that might need attention
+`d-button-danger`  | Indicates a dangerous or potentially negative action
 
 <a name="events"></a>
 ## Element Events
