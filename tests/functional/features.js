@@ -58,7 +58,8 @@ define([
 						platform.indexOf("WINDOWS") !== -1 ||
 						platform.indexOf("XP") !== -1 ||
 						platform.indexOf("LINUX") !== -1 ||
-						platform.indexOf("OS X") !== -1) {
+						platform.indexOf("OS X") !== -1 ||
+						platform.indexOf("MAC") !== -1) {
 						checkChannelFlagsDesktop(has, description);
 					} else if (deviceName) {
 						// Values of deviceName may evolve depending on the configuration
