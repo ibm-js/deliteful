@@ -43,7 +43,7 @@ define([
 			return loadFile(remote, "./features.html")
 				.execute("return _has")
 				.then(function (has) {
-					/* jshint maxcomplexity: 19 */
+					/* jshint maxcomplexity: 21 */
 					var platform = remote.environmentType.platform ?
 							remote.environmentType.platform.toUpperCase() : null,
 						deviceName = remote.environmentType.deviceName ?
@@ -60,9 +60,10 @@ define([
 						platform.indexOf("LINUX") !== -1 ||
 						platform.indexOf("OS X") !== -1 ||
 						(platform.indexOf("MAC") !== -1 &&
-							deviceName.indexOf("IPHONE") === -1 &&
-							deviceName.indexOf("IPAD") === -1 &&
-							browserName.indexOf("IOS") === -1)) {
+							(!deviceName ||
+								(deviceName.indexOf("IPHONE") === -1 &&
+								deviceName.indexOf("IPAD") === -1)) &&
+							(!browserName || browserName.indexOf("IOS") === -1))) {
 						checkChannelFlagsDesktop(has, description);
 					} else if (deviceName) {
 						// Values of deviceName may evolve depending on the configuration
