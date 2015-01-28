@@ -25,12 +25,13 @@
 			"requirejs-domready/domReady!"
 		], function (register, Checkbox) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 </head>
 <style>
 </style>
-<body>
+<body style="display: none">
 	<label>
 		<d-checkbox name="options" checked="true"></d-checkbox>
 		Option 1

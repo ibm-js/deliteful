@@ -22,8 +22,9 @@
 			"deliteful/ToggleButton",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, ToggleButton) {
+		], function (register) {
 			register.parse();
+			document.body.style.display = "";
 		});
 	</script>
 	<style>
@@ -31,7 +32,7 @@
 		.icon-star-full:before { content: "★"; }
 	</style>
 </head>
-<body>
+<body style="display: none">
 	<button is="d-toggle-button">Wifi</button>
 	<button is="d-toggle-button" checked>Wifi</button>
 	<button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
