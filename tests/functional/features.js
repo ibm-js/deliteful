@@ -43,7 +43,7 @@ define([
 			return loadFile(remote, "./features.html")
 				.execute("return _has")
 				.then(function (has) {
-					/* jshint maxcomplexity: 17 */
+					/* jshint maxcomplexity: 18 */
 					var platform = remote.environmentType.platform ?
 							remote.environmentType.platform.toUpperCase() : null,
 						deviceName = remote.environmentType.deviceName ?
