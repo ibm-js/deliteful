@@ -378,6 +378,9 @@ define([
 			// Focus stays on the input element
 			this.dropDown.focusOnOpen = false;
 			
+			// (temporary?) Workaround for delite #373
+			this.dropDown.focus = null;
+			
 			this._initHandlers();
 			this._initValue();
 		},
