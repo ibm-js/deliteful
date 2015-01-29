@@ -3,7 +3,6 @@ define([
 	"dcl/dcl",
 	"delite/register",
 	"dojo/string",
-	"dojo/when",
 	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"decor/sniff",
@@ -11,8 +10,7 @@ define([
 	"./Renderer",
 	"delite/handlebars!./List/_PageLoaderRenderer.html",
 	"requirejs-dplugins/i18n!./List/nls/Pageable"
-], function (dcl, register, string, when, Promise, $, has,
-		List, Renderer, template, messages) {
+], function (dcl, register, string, Promise, $, has, List, Renderer, template, messages) {
 
 	/*
 	 * A clickable renderer that initiate the loading of a page in a pageable list.
@@ -385,7 +383,7 @@ define([
 			}
 			var results = this._collection.fetchRange({start: this._rangeSpec.start,
 				end: this._rangeSpec.start + this._rangeSpec.count});
-			return when(results).then(function (items) {
+			return results.then(function (items) {
 				var page = items.map(function (item) {
 					return this.itemToRenderItem(item);
 				}, this);
@@ -415,7 +413,7 @@ define([
 			}
 			var results = this._collection.fetchRange({start: this._rangeSpec.start,
 				end: this._rangeSpec.start + this._rangeSpec.count});
-			return when(results).then(function (items) {
+			return results.then(function (items) {
 				var page = items.map(function (item) {
 					return this.itemToRenderItem(item);
 				}, this);
