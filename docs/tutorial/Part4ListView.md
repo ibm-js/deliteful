@@ -69,7 +69,7 @@ remove all the existing content and add these rules to define the look of our ne
 }
 ```
 
-(You can also remove the `css/delitefont.*` files as we won't use them in this tutorial).
+You can also remove Font-Awesome dependency from the bower.json as we won't use it in this tutorial.
 
 If you open `index.html` in your browser now, you should get something like this:
 
