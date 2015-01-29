@@ -459,6 +459,8 @@ define([
 		/**
 		 * Event handler that performs items (de)selection.
 		 * @param {Event} event The event the handler was called for.
+		 * @returns {boolean} `true` if the event has been handled, that is if the
+		 *    event target has an enclosing item renderer. Returns `false` otherwise.
 		 * @protected
 		 */
 		handleSelection: function (/*Event*/event) {

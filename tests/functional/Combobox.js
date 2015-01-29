@@ -33,7 +33,6 @@ define([
 				assert.strictEqual(value.value, "France",
 					"(single) after focus, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
@@ -44,7 +43,6 @@ define([
 				assert.strictEqual(value.value, "France",
 					"(single) first ARROW_DOWN, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
@@ -54,7 +52,6 @@ define([
 				assert.strictEqual(value.value, "Germany",
 					"(single) after second ARROW_DOWN, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
 			.then(function (value) {
@@ -63,8 +60,7 @@ define([
 					"(single) after second ARROW_DOWN, " + comboId + ".inputNode.value");
 				assert.strictEqual(value.value, "France",
 					"(single) after second ARROW_DOWN, " + comboId + ".value");
-			})
-			.end();
+			});
 	};
 	
 	var checkKeyboardNavigationMultipleSelection = function (remote, comboId) {
@@ -86,7 +82,6 @@ define([
 				assert.strictEqual(value.value, "",
 					"(single) after focus, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
@@ -97,7 +92,6 @@ define([
 				assert.strictEqual(value.value, "",
 					"(single) after first ARROW_DOWN, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
 			.then(function (value) {
@@ -108,7 +102,6 @@ define([
 				assert.strictEqual(value.value, "",
 					"(single) after second ARROW_DOWN, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.SPACE) // toggles selection state of the navigated item
 			.execute(executeExpr)
 			.then(function (value) {
@@ -118,7 +111,6 @@ define([
 				assert.deepEqual(value.value, ["France"],
 					"(single) after first SPACE, " + comboId + ".value");
 			})
-			.end()
 			.pressKeys(keys.SPACE) // toggles the navigated item back to unselected state
 			.execute(executeExpr)
 			.then(function (value) {
@@ -127,8 +119,7 @@ define([
 					"(single) after second SPACE, " + comboId + ".inputNode.value");
 				assert.deepEqual(value.value, [],
 					"(single) after second SPACE, " + comboId + ".value");
-			})
-			.end();
+			});
 	};
 	
 	registerSuite({
@@ -169,17 +160,14 @@ define([
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled Combobox combo1-disabled");
 				})
-				.end()
 				.execute("return document.getElementById('valueFor_combo2-disabled');")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled Combobox combo2-disabled");
 				})
-				.end()
 				.execute("return document.getElementById('valueFor_combo3-disabled');")
 				.then(function (value) {
 					assert.isNull(value, "Unexpected value for disabled Combobox combo3-disabled");
 				})
-				.end()
 				.findById("valueFor_combo1-value")
 				.getVisibleText()
 				.then(function (value) {
