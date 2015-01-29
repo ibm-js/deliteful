@@ -385,47 +385,67 @@ define([
 			this._initValue();
 		},
 		
+		/**
+		 * Handles navigation for both keyboard and mouse interaction.
+		 * @param {Node} The DOM node targeted by the navigation.
+		 * @param {boolean} keyboard true if interaction triggered by key event, false otherwise.
+		 * @private
+		 */
+		_navigationHandler: function (target, keyboard) {
+			var input = this._popupInput || this.inputNode;
+			var rend = target ? this.list.getEnclosingRenderer(target) : null;
+			if (this.selectionMode === "single") {
+				if (rend) {
+					if (keyboard) { // "keynav-child-navigated" event triggerred by key event
+						if (!this.list.isSelected(rend.item)) {
+							this.list.setSelected(rend.item, true);
+							this._updateScroll(rend.item, true);
+						}
+					} else { // mouse interaction ("click" event)
+						this.defer(function () {
+							// deferred such that the user can see the selection feedback
+							// before the dropdown closes.
+							this.closeDropDown(true/*refocus*/);
+						}.bind(this), 100); // worth exposing a property for the delay?
+					}
+					input.setAttribute("aria-activedescendant", target.id);
+				} else {
+					input.removeAttribute("aria-activedescendant");
+				}
+			} else if (this.selectionMode === "multiple") {
+				if (rend) {
+					if (keyboard) {
+						this._updateScroll(rend.item);
+					}
+					input.setAttribute("aria-activedescendant", target.id);
+				} else {
+					input.removeAttribute("aria-activedescendant");
+				}
+			}
+		},
+		
+		/**
+		 * Initializes event handlers for item navigation.
+		 * @private
+		 */
 		_initHandlers: function () {
 			if (this._initHandlersDone) {
 				return; // set handlers only once
 			}
 			this._initHandlersDone = true;
 			
-			// Keyboard navigation support
+			// Keyboard navigation
 			this.list.on("keynav-child-navigated", function (evt) {
-				/* jshint maxcomplexity: 12 */
-				var input = this._popupInput || this.inputNode;
-				var rend = evt.newValue ? this.list.getEnclosingRenderer(evt.newValue) : null;
-				if (this.selectionMode === "single") {
-					if (rend) {
-						if (!this.list.isSelected(rend.item)) {
-							if (evt.triggerEvent &&
-								(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-								this.list.setSelected(rend.item, true);
-								this._updateScroll(rend.item, true);
-							} else {
-								this.defer(function () {
-									// deferred such that the user can see the selection feedback
-									// before the dropdown closes.
-									this.closeDropDown(true/*refocus*/);
-								}.bind(this), 100); // worth exposing a property for the delay?
-							}
-						}
-						input.setAttribute("aria-activedescendant", evt.newValue.id);
-					} else {
-						input.removeAttribute("aria-activedescendant");
-					}
-				} else if (this.selectionMode === "multiple") {
-					if (rend) {
-						if (rend.item && evt.triggerEvent &&
-							(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-							this._updateScroll(rend.item);
-						}
-						input.setAttribute("aria-activedescendant", evt.newValue.id);
-					} else {
-						input.removeAttribute("aria-activedescendant");
-					}
+				if (!(evt.triggerEvent &&
+					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress"))) {
+					return; // navigation not triggered by keyboard events
 				}
+				this._navigationHandler(evt.newValue, true);
+			}.bind(this));
+			
+			// Mouse navigation
+			this.list.on("click", function (evt) {
+				this._navigationHandler(evt.target, false);
 			}.bind(this));
 		
 			// React to programmatic changes of selected items
@@ -439,11 +459,7 @@ define([
 						this.value = selectedItem ? this._getItemValue(selectedItem) : "";
 						this.handleOnInput(this.value); // emit "input" event
 					} else if (this.selectionMode === "multiple") {
-						// if _useCenteredDropDown() is true, let the dropdown's OK/Cancel
-						// buttons do the job
-						if (!this._useCenteredDropDown()) {
-							this._validateMultiple(this._popupInput || this.inputNode);
-						}
+						this._validateMultiple(this._popupInput || this.inputNode);
 					}
 				}
 			}.bind(this));
@@ -612,6 +628,9 @@ define([
 						this.closeDropDown(true/*refocus*/);
 					}
 				} else if (evt.keyCode === keys.SPACE) {
+					// Simply forwarding the key event to List doesn't allow toggling
+					// the selection, because List's mechanism is based on the event target
+					// which here is the input element outside the List. TODO: see deliteful #500.
 					if (this.selectionMode === "multiple") {
 						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
 						var item = rend.item;
@@ -735,6 +754,10 @@ define([
 		 * @private 
 		 */
 		_updateScroll: function (item, navigate) {
+			// Since List is in focus-less mode, it does not give focus to
+			// navigated items, thus the browser does not autoscroll.
+			// TODO: see deliteful #498
+			
 			if (!item) {
 				var selectedItems = this.list.selectedItems;
 				item = selectedItems && selectedItems.length > 0 ?
