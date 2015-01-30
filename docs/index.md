@@ -5,6 +5,7 @@ layout: docMain
 ## Introduction
 
 * [How to load deliteful custom elements & modules](setup.md)
+* [Introduction to styling deliteful custom element widgets](styling.md)
 
 ## Basic Widgets
 
