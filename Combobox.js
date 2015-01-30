@@ -671,6 +671,12 @@ define([
 		
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
+				var selectedItems = this.list.selectedItems;
+				// Store the current selection, to be able to restore when pressing the
+				// cancel button. Used by ComboPopup. (Could spare it in situations when
+				// there is no cancel button, but not really worth.)
+				this._selectedItems = selectedItems;
+				
 				if (!this.opened) {
 					// Temporary workaround for issue with bad pairing in List of the
 					// busy on/off state. The issue appears to go away if List.attachedCallback
@@ -694,6 +700,8 @@ define([
 		
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
+				this._selectedItems = null; // cleanup
+				
 				if (this.opened) {
 					// Using the flag `opened` (managed by delite/HasDropDown), avoid
 					// emitting a new change event if closeDropDown is closed more than once
