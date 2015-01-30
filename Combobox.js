@@ -671,11 +671,10 @@ define([
 		
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				var selectedItems = this.list.selectedItems;
 				// Store the current selection, to be able to restore when pressing the
 				// cancel button. Used by ComboPopup. (Could spare it in situations when
 				// there is no cancel button, but not really worth.)
-				this._selectedItems = selectedItems;
+				this._selectedItems = this.list.selectedItems;
 				
 				if (!this.opened) {
 					// Temporary workaround for issue with bad pairing in List of the
