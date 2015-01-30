@@ -375,38 +375,90 @@ define([
 			
 			this.dropDown = dropDown; // delite/HasDropDown's property
 			
-			/* TODO: keyboard navigation support will come later.
-			this.list.on("keynav-child-navigated", function(evt) {
-				var input = this._popupInput || this.inputNode;
-				if (evt.newValue) {
-					this.list.selectFromEvent(evt, evt.newValue, evt.newValue, true);
-					input.setAttribute("aria-activedescendant", evt.newValue.id);
+			// Focus stays on the input element
+			this.dropDown.focusOnOpen = false;
+			
+			// (temporary?) Workaround for delite #373
+			this.dropDown.focus = null;
+			
+			this._initHandlers();
+			this._initValue();
+		},
+		
+		/**
+		 * Handles both keyboard navigation and mouse interaction.
+		 * @param {Node} The DOM node targeted by the navigation.
+		 * @param {boolean} keyboard true if interaction triggered by key event, false otherwise.
+		 * @private
+		 */
+		_clickOrKeyNavHandler: function (target, keyboard) {
+			var input = this._popupInput || this.inputNode;
+			var rend = target ? this.list.getEnclosingRenderer(target) : null;
+			if (this.selectionMode === "single") {
+				if (rend) {
+					if (keyboard) { // "keynav-child-navigated" event triggerred by key event
+						if (!this.list.isSelected(rend.item)) {
+							this.list.setSelected(rend.item, true);
+							this._updateScroll(rend.item, true);
+						}
+					} else { // mouse interaction ("click" event)
+						this.defer(function () {
+							// deferred such that the user can see the selection feedback
+							// before the dropdown closes.
+							this.closeDropDown(true/*refocus*/);
+						}.bind(this), 100); // worth exposing a property for the delay?
+					}
+					input.setAttribute("aria-activedescendant", target.id);
 				} else {
 					input.removeAttribute("aria-activedescendant");
 				}
+			} else if (this.selectionMode === "multiple") {
+				if (rend) {
+					if (keyboard) {
+						this._updateScroll(rend.item);
+					}
+					input.setAttribute("aria-activedescendant", target.id);
+				} else {
+					input.removeAttribute("aria-activedescendant");
+				}
+			}
+		},
+		
+		/**
+		 * Initializes event handlers for item navigation.
+		 * @private
+		 */
+		_initHandlers: function () {
+			if (this._initHandlersDone) {
+				return; // set handlers only once
+			}
+			this._initHandlersDone = true;
+			
+			// Keyboard navigation
+			this.list.on("keynav-child-navigated", function (evt) {
+				if (!(evt.triggerEvent &&
+					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress"))) {
+					return; // navigation not triggered by keyboard events
+				}
+				this._clickOrKeyNavHandler(evt.newValue, true);
 			}.bind(this));
-			*/
 			
-			this._initValue();
-			
+			// Mouse navigation
+			this.list.on("click", function (evt) {
+				this._clickOrKeyNavHandler(evt.target, false);
+			}.bind(this));
+		
 			// React to programmatic changes of selected items
 			this.list.observe(function (oldValues) {
-				if (this.selectionMode === "single" && "selectedItem" in oldValues) {
-					var selectedItem = this.list.selectedItem;
-					// selectedItem non-null because List in radio selection mode, but
-					// the List can be empty, so:
-					this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
-					this.value = selectedItem ? this._getItemValue(selectedItem) : "";
-					this.handleOnInput(this.value); // emit "input" event
-					this.defer(function () {
-						// deferred such that the user can see the selection feedback
-						// before the dropdown closes.
-						this.closeDropDown(true/*refocus*/);
-					}.bind(this), 100); // worth exposing a property for the delay?
-				} else if (this.selectionMode === "multiple" && "selectedItems" in oldValues) {
-					// if _useCenteredDropDown() is true, let the dropdown's OK/Cancel
-					// buttons do the job
-					if (!this._useCenteredDropDown()) {
+				if ("selectedItems" in oldValues) {
+					if (this.selectionMode === "single") {
+						var selectedItem = this.list.selectedItem;
+						// selectedItem non-null because List in radio selection mode, but
+						// the List can be empty, so:
+						this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+						this.value = selectedItem ? this._getItemValue(selectedItem) : "";
+						this.handleOnInput(this.value); // emit "input" event
+					} else if (this.selectionMode === "multiple") {
 						this._validateMultiple(this._popupInput || this.inputNode);
 					}
 				}
@@ -563,9 +615,37 @@ define([
 				evt.preventDefault();
 			}.bind(this), inputElement);
 			this.on("keydown", function (evt) {
+				/* jshint maxcomplexity: 15 */
 				// deliteful issue #382: prevent the browser from navigating to
 				// the previous page when typing backspace in a readonly input
 				if (inputElement.readOnly && evt.keyCode === keys.BACKSPACE) {
+					evt.stopPropagation();
+					evt.preventDefault();
+				} else if (evt.keyCode === keys.ENTER) {
+					evt.stopPropagation();
+					evt.preventDefault();
+					if (this.opened) {
+						this.closeDropDown(true/*refocus*/);
+					}
+				} else if (evt.keyCode === keys.SPACE) {
+					// Simply forwarding the key event to List doesn't allow toggling
+					// the selection, because List's mechanism is based on the event target
+					// which here is the input element outside the List. TODO: see deliteful #500.
+					if (this.selectionMode === "multiple") {
+						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
+						var item = rend.item;
+						this.list.setSelected(item, !this.list.isSelected(item));
+					}
+					if (this.selectionMode === "multiple" || !this.autoFilter) {
+						evt.stopPropagation();
+						evt.preventDefault();
+					}
+				} else if (evt.keyCode === keys.DOWN_ARROW || evt.keyCode === keys.UP_ARROW ||
+					evt.keyCode === keys.PAGE_DOWN || evt.keyCode === keys.PAGE_UP ||
+					evt.keyCode === keys.HOME || evt.keyCode === keys.END) {
+					if (this._useCenteredDropDown()) {
+						this.list.emit("keydown", evt);
+					}
 					evt.stopPropagation();
 					evt.preventDefault();
 				}
@@ -619,36 +699,23 @@ define([
 		
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				var selectedItems = this.list.selectedItems;
-				// Store the value, to be able to restore on cancel. (Could spare
-				// it in situations when there is  no cancel button, though.)
-				this._selectedItems = selectedItems;
-				
-				// Temporary workaround for issue with bad pairing in List of the 
-				// busy on/off state. The issue appears to go away if List.attachedCallback
-				// wouldn't break the automatic chaining (hence the workaround wouldn't
-				// be necessary if List gets this change), but this requires further
-				// investigation (TODO). 
-				this.defer(function () {
-					this.list._hideLoadingPanel();
-				}.bind(this), 300);
+				if (!this.opened) {
+					// Temporary workaround for issue with bad pairing in List of the
+					// busy on/off state. The issue appears to go away if List.attachedCallback
+					// wouldn't break the automatic chaining (hence the workaround wouldn't
+					// be necessary if List gets this change), but this requires further
+					// investigation (TODO). 
+					this.defer(function () {
+						this.list._hideLoadingPanel();
+						// Avoid loosing focus when clicking the arrow (instead of the input element):
+						this.focusNode.focus();
+					}.bind(this), 300);
+				}
 				
 				var promise = sup.apply(this, arguments);
 				
 				return promise.then(function () {
-					var firstSelectedItem = selectedItems && selectedItems.length > 0 ?
-						selectedItems[0] : null;
-					if (firstSelectedItem) {
-						// Make the first selected item (if any) visible.
-						// Must be done after sup.apply, because List.getBottomDistance
-						// relies on dimensions which are not available if the DOM nodes
-						// are not (yet) visible, hence the popup needs to be shown before.
-						var id = this.list.getIdentity(firstSelectedItem);
-						var renderer = this.list.getRendererByItemId(id);
-						if (renderer) {
-							this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
-						} // null if the list is empty because no item matches the auto-filtering
-					}
+					this._updateScroll(undefined, true);
 				}.bind(this));
 			};
 		}),
@@ -683,6 +750,37 @@ define([
 				
 				sup.apply(this, arguments);
 			};
-		})
+		}),
+		
+		/**
+		 * Scrolls the list inside the popup such that the specified item, or
+		 * the first selected item if no item is specified, is visible.
+		 * @private 
+		 */
+		_updateScroll: function (item, navigate) {
+			// Since List is in focus-less mode, it does not give focus to
+			// navigated items, thus the browser does not autoscroll.
+			// TODO: see deliteful #498
+			
+			if (!item) {
+				var selectedItems = this.list.selectedItems;
+				item = selectedItems && selectedItems.length > 0 ?
+					selectedItems[0] : null;
+			}
+			if (item) {
+				// Make the first selected item (if any) visible.
+				// Must be done after sup.apply, because List.getBottomDistance
+				// relies on dimensions which are not available if the DOM nodes
+				// are not (yet) visible, hence the popup needs to be shown before.
+				var id = this.list.getIdentity(item);
+				var renderer = this.list.getRendererByItemId(id);
+				if (renderer) {
+					this.list.scrollBy({y: this.list.getBottomDistance(renderer)});
+					if (navigate) {
+						this.list.navigatedDescendant = renderer.childNodes[0];
+					}
+				} // null if the list is empty because no item matches the auto-filtering
+			}
+		}
 	});
 });

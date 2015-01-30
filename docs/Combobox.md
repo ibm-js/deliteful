@@ -241,7 +241,21 @@ The following table lists the CSS classes that can be used to style the Combobox
 
 ### Accessibility
 
-Keyboard and screen reader accessibility will be supported in the next release.
+|type|status|comment|
+|----|------|-------|
+|Keyboard|ok|For details, see below this table.|
+|Visual Formatting|ok|Tested for high constrast and browser zoom (200%), in IE and Firefox.|
+|Screen Reader|ok|Tested on JAWS 15 and iOS VoiceOver.|
+
+Keyboard navigation details:
+* DOWN arrow opens the focused combobox.
+* In single selection mode:
+  * UP and DOWN arrows select the next, respectively the previous option.
+  * RETURN and ESCAPE validate the change.
+* In multiple selection mode:
+  * UP and DOWN arrows navigate to the next, respectively the previous option.
+  * SPACE toggles the selected state of the currently navigated option.
+  * RETURN and ESCAPE validate the change.
 
 ### Globalization
 
