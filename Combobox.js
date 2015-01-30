@@ -385,67 +385,36 @@ define([
 			this._initValue();
 		},
 		
-		/**
-		 * Handles both keyboard navigation and mouse interaction.
-		 * @param {Node} The DOM node targeted by the navigation.
-		 * @param {boolean} keyboard true if interaction triggered by key event, false otherwise.
-		 * @private
-		 */
-		_clickOrKeyNavHandler: function (target, keyboard) {
-			var input = this._popupInput || this.inputNode;
-			var rend = target ? this.list.getEnclosingRenderer(target) : null;
-			if (this.selectionMode === "single") {
-				if (rend) {
-					if (keyboard) { // "keynav-child-navigated" event triggerred by key event
-						if (!this.list.isSelected(rend.item)) {
-							this.list.setSelected(rend.item, true);
-							this._updateScroll(rend.item, true);
-						}
-					} else { // mouse interaction ("click" event)
-						this.defer(function () {
-							// deferred such that the user can see the selection feedback
-							// before the dropdown closes.
-							this.closeDropDown(true/*refocus*/);
-						}.bind(this), 100); // worth exposing a property for the delay?
-					}
-					input.setAttribute("aria-activedescendant", target.id);
-				} else {
-					input.removeAttribute("aria-activedescendant");
-				}
-			} else if (this.selectionMode === "multiple") {
-				if (rend) {
-					if (keyboard) {
-						this._updateScroll(rend.item);
-					}
-					input.setAttribute("aria-activedescendant", target.id);
-				} else {
-					input.removeAttribute("aria-activedescendant");
-				}
-			}
-		},
-		
-		/**
-		 * Initializes event handlers for item navigation.
-		 * @private
-		 */
 		_initHandlers: function () {
 			if (this._initHandlersDone) {
 				return; // set handlers only once
 			}
 			this._initHandlersDone = true;
 			
-			// Keyboard navigation
 			this.list.on("keynav-child-navigated", function (evt) {
-				if (!(evt.triggerEvent &&
-					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress"))) {
-					return; // navigation not triggered by keyboard events
+				var input = this._popupInput || this.inputNode;
+				var rend = evt.newValue ? this.list.getEnclosingRenderer(evt.newValue) : null;
+				if (rend) {
+					input.setAttribute("aria-activedescendant", evt.newValue.id);
+					if (this.selectionMode === "single" && !this.list.isSelected(rend.item)) {
+						this.list.setSelected(rend.item, true);
+					}
+					if (evt.triggerEvent &&
+						(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
+						this._updateScroll(rend.item, true);
+					}
+				} else {
+					input.removeAttribute("aria-activedescendant");
 				}
-				this._clickOrKeyNavHandler(evt.newValue, true);
 			}.bind(this));
-			
-			// Mouse navigation
-			this.list.on("click", function (evt) {
-				this._clickOrKeyNavHandler(evt.target, false);
+			this.list.on("click", function () {
+				if (this.selectionMode === "single") {	// todo: only close if you clicked an item, not category?
+					this.defer(function () {
+						// deferred such that the user can see the selection feedback
+						// before the dropdown closes.
+						this.closeDropDown(true/*refocus*/);
+					}.bind(this), 100); // worth exposing a property for the delay?
+				}
 			}.bind(this));
 		
 			// React to programmatic changes of selected items
@@ -704,14 +673,14 @@ define([
 					// busy on/off state. The issue appears to go away if List.attachedCallback
 					// wouldn't break the automatic chaining (hence the workaround wouldn't
 					// be necessary if List gets this change), but this requires further
-					// investigation (TODO). 
+					// investigation (TODO).
 					this.defer(function () {
 						this.list._hideLoadingPanel();
 						// Avoid loosing focus when clicking the arrow (instead of the input element):
 						this.focusNode.focus();
 					}.bind(this), 300);
 				}
-				
+
 				var promise = sup.apply(this, arguments);
 				
 				return promise.then(function () {
@@ -761,7 +730,7 @@ define([
 			// Since List is in focus-less mode, it does not give focus to
 			// navigated items, thus the browser does not autoscroll.
 			// TODO: see deliteful #498
-			
+
 			if (!item) {
 				var selectedItems = this.list.selectedItems;
 				item = selectedItems && selectedItems.length > 0 ?
