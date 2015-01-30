@@ -10,11 +10,7 @@ install:
    - npm install -g grunt-cli
    - npm -g install bower
    - npm install
-   - bower install -F
-
-notifications:
-  email:
-    on_failure : "change"
+   - bower install
 
 script:
    - grunt jshint test:remote
