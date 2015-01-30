@@ -407,13 +407,16 @@ define([
 					input.removeAttribute("aria-activedescendant");
 				}
 			}.bind(this));
-			this.list.on("click", function () {
-				if (this.selectionMode === "single") {	// todo: only close if you clicked an item, not category?
-					this.defer(function () {
-						// deferred such that the user can see the selection feedback
-						// before the dropdown closes.
-						this.closeDropDown(true/*refocus*/);
-					}.bind(this), 100); // worth exposing a property for the delay?
+			this.list.on("click", function (evt) {
+				if (this.selectionMode === "single") {
+					var rend = this.list.getEnclosingRenderer(evt.target);
+					if (rend && !this.list.isCategoryRenderer(rend)) {
+						this.defer(function () {
+							// deferred such that the user can see the selection feedback
+							// before the dropdown closes.
+							this.closeDropDown(true/*refocus*/);
+						}.bind(this), 100); // worth exposing a property for the delay?
+					}
 				}
 			}.bind(this));
 		
