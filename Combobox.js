@@ -386,12 +386,12 @@ define([
 		},
 		
 		/**
-		 * Handles navigation for both keyboard and mouse interaction.
+		 * Handles both keyboard navigation and mouse interaction.
 		 * @param {Node} The DOM node targeted by the navigation.
 		 * @param {boolean} keyboard true if interaction triggered by key event, false otherwise.
 		 * @private
 		 */
-		_navigationHandler: function (target, keyboard) {
+		_clickOrKeyNavHandler: function (target, keyboard) {
 			var input = this._popupInput || this.inputNode;
 			var rend = target ? this.list.getEnclosingRenderer(target) : null;
 			if (this.selectionMode === "single") {
@@ -440,12 +440,12 @@ define([
 					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress"))) {
 					return; // navigation not triggered by keyboard events
 				}
-				this._navigationHandler(evt.newValue, true);
+				this._clickOrKeyNavHandler(evt.newValue, true);
 			}.bind(this));
 			
 			// Mouse navigation
 			this.list.on("click", function (evt) {
-				this._navigationHandler(evt.target, false);
+				this._clickOrKeyNavHandler(evt.target, false);
 			}.bind(this));
 		
 			// React to programmatic changes of selected items
@@ -699,14 +699,18 @@ define([
 		
 		openDropDown: dcl.superCall(function (sup) {
 			return function () {
-				// Temporary workaround for issue with bad pairing in List of the 
-				// busy on/off state. The issue appears to go away if List.attachedCallback
-				// wouldn't break the automatic chaining (hence the workaround wouldn't
-				// be necessary if List gets this change), but this requires further
-				// investigation (TODO). 
-				this.defer(function () {
-					this.list._hideLoadingPanel();
-				}.bind(this), 300);
+				if (!this.opened) {
+					// Temporary workaround for issue with bad pairing in List of the
+					// busy on/off state. The issue appears to go away if List.attachedCallback
+					// wouldn't break the automatic chaining (hence the workaround wouldn't
+					// be necessary if List gets this change), but this requires further
+					// investigation (TODO). 
+					this.defer(function () {
+						this.list._hideLoadingPanel();
+						// Avoid loosing focus when clicking the arrow (instead of the input element):
+						this.focusNode.focus();
+					}.bind(this), 300);
+				}
 				
 				var promise = sup.apply(this, arguments);
 				
