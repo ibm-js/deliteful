@@ -459,6 +459,8 @@ define([
 		/**
 		 * Event handler that performs items (de)selection.
 		 * @param {Event} event The event the handler was called for.
+		 * @returns {boolean} `true` if the event has been handled, that is if the
+		 *    event target has an enclosing item renderer. Returns `false` otherwise.
 		 * @protected
 		 */
 		handleSelection: function (/*Event*/event) {
@@ -467,7 +469,9 @@ define([
 				if (!this.isCategoryRenderer(eventRenderer)) {
 					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
 				}
+				return true;
 			}
+			return false;
 		},
 
 		//////////// Private methods ///////////////////////////////////////
@@ -1104,8 +1108,14 @@ define([
 		 */
 		_spaceKeydownHandler: function (evt) {
 			if (this.selectionMode !== "none") {
-				evt.preventDefault();
-				this.handleSelection(evt);
+				if (this.handleSelection(evt)) {
+					evt.preventDefault();
+				} // else do not prevent-default, for the sake of use-cases
+				// such as Combobox where the target of the key event is an
+				// input element outside the List. In this use-case, delite/HasDropDown
+				// forwards "keydown" events to the List instance and prevent-defaults
+				// the event if any key handler prevent-defaults the event, which would
+				// forbid the user from entering space characters in the input element.
 			}
 		},
 

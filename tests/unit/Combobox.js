@@ -446,24 +446,26 @@ define([
 				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue,
 													itemName, expectedValue) {
 					assert.strictEqual(inputCounter, inputCounterExpectedValue,
-							"inputCounter after clicking " + itemName);
+							"inputCounter after clicking " + itemName + " (single)");
 					assert.strictEqual(changeCounter, changeCounterExpectedValue,
-							"changeCounter after clicking " + itemName);
+							"changeCounter after clicking " + itemName + " (single)");
 					changeCounter = 0; // reinit
 					inputCounter = 0; // reinit
 					assert.strictEqual(changeValue, expectedValue,
-							"Wrong value when receiving change event after clicking " + itemName);
+							"Wrong value when receiving change event after clicking " + itemName +
+							 " (single)");
 					assert.strictEqual(inputValue, expectedValue,
-							"Wrong value when receiving input event after clicking " + itemName);
+							"Wrong value when receiving input event after clicking " + itemName +
+							 " (single)");
 					changeValue = null; // reinit
 					inputValue = null; // reinit
 				};
 				var item2 = combo.list.getItemRenderers()[2];
 				item2.click(); // automatically closes the dropdown (asynchronously)
 
-				// ComboBox is using Stateful.observe to listen to selection change on the list
+				// Combobox is using Stateful.observe to listen to selection change on the list
 				// and update its value, this means the timer below must not only cover for the 100 ms delay on
-				// ComboBox but also the Sateful.observe asynchronism
+				// Combobox but also the Sateful.observe asynchronism
 				// Higher than the 100 delay of Combobox' defer when closing the dropdown
 				var delay = 400;
 				setTimeout(d.rejectOnError(function () {
@@ -533,13 +535,15 @@ define([
 				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName,
 													expectedChangeValue, expectedInputValue) {
 					assert.strictEqual(inputCounter, inputCounterExpectedValue,
-							"After clicking " + itemName);
+							"After clicking " + itemName + " (multiple)");
 					assert.strictEqual(changeCounter, changeCounterExpectedValue,
-							"After clicking " + itemName);
+							"After clicking " + itemName + " (multiple)");
 					assert.deepEqual(changeValue, expectedChangeValue,
-							"Wrong value when receiving change event after clicking " + itemName);
+							"Wrong value when receiving change event after clicking " + itemName +
+							" (multiple)");
 					assert.deepEqual(inputValue, expectedInputValue,
-							"Wrong value when receiving input event after clicking " + itemName);
+							"Wrong value when receiving input event after clicking " + itemName +
+							" (multiple)");
 				};
 				var item2 = combo.list.getItemRenderers()[2];
 				item2.click();
