@@ -51,14 +51,14 @@ module.exports = function (grunt) {
 					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
-			"local.android": {
+			"local-android": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.android",
 					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			},
-			"local.ios": {
+			"local-ios": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.ios",
@@ -76,6 +76,41 @@ module.exports = function (grunt) {
 				options: {
 					runType: "runner",
 					config: "tests/intern.browserstack",
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+				}
+			},
+			"local-bidi": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.local.bidi",
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+				}
+			},
+			"local-android-bidi": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.local.android.bidi",
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+				}
+			},
+			"local.ios.bidi": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.local.ios.bidi",
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+				}
+			},
+			"remote-bidi": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.bidi",
+					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+				}
+			},
+			"browserstack-bidi": {
+				options: {
+					runType: "runner",
+					config: "tests/intern.browserstack.bidi",
 					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
 				}
 			}
@@ -144,8 +179,8 @@ module.exports = function (grunt) {
 	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
 		"Always specify the test target e.g. \n" +
 		"grunt test:local\n" +
-		"grunt test:local.android\n" +
-		"grunt test:local.ios\n" +
+		"grunt test:local-android\n" +
+		"grunt test:local-ios\n" +
 		"grunt test:remote\n\n" +
 		"To override the default reporter 'customRunner' with the 'runner' reporter pass the runner flag e.g. \n" +
 		"grunt test:local:runner\n" +
