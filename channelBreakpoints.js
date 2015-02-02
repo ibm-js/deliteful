@@ -41,7 +41,7 @@ define(["module"],
 		/**
 		 * The maximum screen size value for small screens.
 		 * Used as breakpoint by a CSS media query of `deliteful/features` as screen size
-		 * threshold between the phone-like and the table-like channels.
+		 * threshold between the phone-like and the tablet-like channels.
 		 * @member {string}
 		 * @default "480px"
 		 */
