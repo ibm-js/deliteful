@@ -1,4 +1,4 @@
-/** @module deliteful/ComboPopup */
+/** @module deliteful/Combobox/ComboPopup */
 define([
 	"delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",	// addClass()
@@ -15,7 +15,7 @@ define([
 	 * @augments module:delite/Widget
 	 */
 	return register("d-combo-popup", [HTMLElement, Widget],
-		/** @lends module:deliteful/ComboPopup# */ {
+		/** @lends module:deliteful/Combobox/ComboPopup# */ {
 		
 		baseClass: "d-combo-popup",
 		
