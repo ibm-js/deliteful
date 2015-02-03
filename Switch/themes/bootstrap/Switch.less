@@ -15,6 +15,8 @@
 .d-switch-knob-styles() {
 	box-shadow: 0 1px 6px darken(@gray-lighter, 30%);
 	background: @gray-lighter;
+	border: 1px solid transparent; // NOTE: becomes visible in high contrast mode. 
+	top: -1px; // NOTE: compensates for the above border
 }
 .d-switch-styles() {
 	border: 1px solid darken(@gray-lighter, 15%);
