@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/ProgressIndicator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/ProgressIndicator.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/ProgressIndicator */
+define([
+	"dcl/dcl",
+	"delite/register",
+	"delite/Widget",
+	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
+	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator.css"
+], function (dcl, register, Widget, template) {
+	/**
+	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
+	 *
+	 * This widget starts hidden and the spinning animation starts when the widget becomes visible. Default widget
+	 * size is 40x40px.
+	 *
+	 * @example &lt;caption>Set the "active" property to true to make the widget visible when it starts.&lt;/caption>
+	 * &lt;d-progress-indicator active="true">&lt;/d-progress-indicator>
+	 *
+	 * @example &lt;caption>Use style properties "width" and "height" to customize the widget size&lt;/caption>
+	 * &lt;d-progress-indicator active="true" style="width: 100%; height: 100%">&lt;/d-progress-indicator>
+	 *
+	 * @class module:deliteful/ProgressIndicator
+	 * @augments module:delite/Widget
+	 */
+	return register("d-progress-indicator", [HTMLElement, Widget],
+		/** @lends module:deliteful/ProgressIndicator# */ {
+
+		/**
+		 * Set to false to hide the widget and stop any ongoing animation.
+		 * Set to true to show the widget: animation automatically starts unless you set a number to the "value"
+		 * property.
+		 * @member {boolean}
+		 * @default false
+		 */
+		active: false,
+
+		/**
+		 * A value from 0 to 100 that indicates a percentage of progression of an ongoing task.
+		 * Set the value to NaN to hide the number and start the spinning animation. Negative values are converted to 0
+		 * and values over 100 are converted to 100.
+		 * @member {number}
+		 * @default NaN
+		 */
+		value: NaN,
+
+		/**
+		 * The relative speed of the spinning animation.
+		 * Accepted values are "slow", "normal" and "fast". Other values are converted to "normal". Note that the
+		 * actual/real speed of the animation depends of the device/os/browser capabilities.
+		 * @member {string}
+		 * @default "normal"
+		 */
+		speed: "normal",
+
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-progress-indicator"
+		 */
+		baseClass: "d-progress-indicator",
+
+		/* internal properties */
+		_requestId: 0, //request animation id or clearTimeout param
+		_lapsTime: 1000, //duration of an animation revolution in milliseconds
+		_requestAnimationFunction: (
+			(window.requestAnimationFrame &amp;&amp; window.requestAnimationFrame.bind(window)) || // standard
+			(window.webkitRequestAnimationFrame &amp;&amp; window.webkitRequestAnimationFrame.bind(window)) || // webkit
+			function (callBack) {// others (ie9)
+				return this.defer(callBack, 1000 / 60);
+			}),
+		_cancelAnimationFunction: (
+			window.cancelAnimationFrame || //standard
+			window.webkitCancelRequestAnimationFrame || // webkit
+			function (handle) {// others (ie9)
+				handle.remove();
+			}).bind(window),
+
+		/* internal methods */
+		_requestRendering: function (animationFrame) {
+			//browser agnostic animation frame renderer
+			//return a request id
+			return this._requestAnimationFunction.call(this, animationFrame);//call on this to match this.defer
+		},
+
+		_cancelRequestRendering: function (requestId) {
+			//browser agnostic animation frame canceler
+			return this._cancelAnimationFunction(requestId);
+		},
+
+		_reset: function () {
+			//reset text and opacity.
+			//ensure that any pending frame animation request is done before doing the actual reset
+			this._requestRendering(
+				function () {
+					//remove any displayed value
+					this.msgNode.textContent = "";
+					//reset the opacity
+					for (var i = 0; i &lt; 12; i++) {
+						this.lineNodeList[i].style.opacity = (i + 1) * (1 / 12);
+					}
+				}.bind(this));
+		},
+
+		_stopAnimation: function () {
+			//stops the animation (if already started)
+			if (this._requestId) {
+				this._cancelRequestRendering(this._requestId);
+				this._requestId = 0;
+			}
+		},
+
+		_startAnimation: function () {
+			//starts the animation (if not already started)
+			if (this._requestId) {
+				//animation is already ongoing
+				return;
+			}
+			//restore initial opacity and remove text
+			this._reset();
+			//compute the amount of opacity to subtract at each frame, on each line.
+			//note: 16.7 is the average animation frame refresh interval in ms (~60FPS)
+			var delta = 16.7 / this._lapsTime;
+			//round spinning animation routine
+			var frameAnimation = function () {
+				//set lines opacity
+				for (var i = 0, opacity; i &lt; 12; i++) {
+					opacity = (parseFloat(this.lineNodeList[i].style.opacity) - delta) % 1;
+					this.lineNodeList[i].style.opacity = (opacity &lt; 0) ? 1 : opacity;
+				}
+				//render the next frame
+				this._requestId = this._requestRendering(frameAnimation);
+			}.bind(this);
+			//start the animation
+			this._requestId = this._requestRendering(frameAnimation);
+		},
+
+		template: template,
+
+		render: dcl.after(function () {
+			this.lineNodeList = this.linesNode.querySelectorAll("line");
+		}),
+
+		attachedCallback: function () {
+			//set unique SVG symbol id
+			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
+			this.querySelector("symbol").id = symbolId;
+			this.querySelector("use")
+				.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + symbolId);
+			//set non-overridable styles
+			this.svgNode.style.width = "100%";
+			this.svgNode.style.height = "100%";
+			this.svgNode.style.textAnchor = "middle";
+			//a11y high contrast:
+			//widget color is declared on svg line nodes (stroke) and text node (fill).
+			//Unlike the color style property, stroke and fill are not updated by the browser when windows high contrast
+			//mode is enabled. To ensure the widget is visible when high contrast mode is enabled,
+			//we set the color property on the root node and check if it is forced by the browser. In such case we
+			//force the stroke and fill values to reflect the high contrast color.
+			this.style.color = window.getComputedStyle(this.msgNode).getPropertyValue("fill");
+			var currentColor = window.getComputedStyle(this).getPropertyValue("color");
+			if (this.style.color !== currentColor) {
+				this.linesNode.style.stroke = currentColor; // text value color
+				this.msgNode.style.fill = currentColor; // lines color
+				//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
+				this.msgNode.textContent = this.msgNode.textContent;
+			}
+			//set initial widget appearance
+			this._reset();
+		},
+
+		computeProperties: function (props) {
+			var correctedValue = null;
+			if ("speed" in props) {
+				//fast: 500ms
+				//slow: 2000ms
+				//normal: 1000ms (also default and fallback value)
+				correctedValue = (this.speed === "fast") ? 500:(this.speed === "slow") ? 2000:1000;
+				if (this._lapsTime !== correctedValue) {
+					this._lapsTime = correctedValue;
+				}
+			}
+			if ("value" in props &amp;&amp; !isNaN(this.value)) {
+				correctedValue = Math.max(Math.min(this.value, 100), 0);
+				if (this.value !== correctedValue) {
+					this.value = correctedValue;
+				}
+			}
+		},
+
+		refreshRendering: function (props) {
+			//refresh value
+			if ("value" in props) {
+				if (isNaN(this.value)) {
+					//NaN: start the animation
+					if (this.active) {
+						this._startAnimation();
+					}
+				} else {
+					//ensure any ongoing animation stops
+					this._stopAnimation();
+					//ensure pending frame animation requests are done before any updates
+					this._requestRendering(function () {
+						//display the integer value
+						this.msgNode.textContent = Math.floor(this.value);
+						//minimum amount of opacity.
+						var minOpacity = 0.2;
+						//update lines opacity
+						for (var i = 0, opacity; i &lt; 12; i++) {
+							opacity = Math.min(Math.max((this.value * 0.12 - i), 0), 1) * (1 - minOpacity);
+							this.lineNodeList[i].style.opacity = minOpacity + opacity;
+						}
+					}.bind(this));
+				}
+
+			}
+			//refresh speed
+			if ("speed" in props) {
+				//if animation is ongoing, restart the animation to take the new speed into account
+				if (this._requestId) {
+					this._stopAnimation();
+					this._startAnimation();
+				}
+			}
+			//refresh active
+			if ("active" in props) {
+				if (this.active) {
+					if (isNaN(this.value)) {
+						//NaN: start the animation
+						this._startAnimation();
+					}
+				} else {
+					this._stopAnimation();
+				}
+				//set visibility in frame to be in sync with opacity/text changes.
+				//Avoids mis-display when setting visibility=visible just after value=0.
+				this._requestRendering(function () {
+					this.style.visibility = this.active ? "visible" : "hidden";
+				}.bind(this));
+			}
+			
+		},
+
+		destroy: function () {
+			this._stopAnimation();
+		}
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Tue Feb 03 2015 16:52:37 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

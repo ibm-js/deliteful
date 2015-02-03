@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/ViewIndicator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/ViewIndicator.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/ViewIndicator */
+define([
+	"dcl/dcl", "delite/register", "dpointer/events", "delite/Widget",
+	"delite/theme!./ViewIndicator/themes/{{theme}}/ViewIndicator.css"
+], function (dcl, register, dpointer, Widget) {
+
+	/**
+	 * ViewIndicator widget. Indicates which view is currently visible in a ViewStack.
+	 *
+	 * @example:
+	 * &lt;d-view-stack id="vs">
+	 *     &lt;div id="childA">...&lt;/div>
+	 *     &lt;div id="childB">...&lt;/div>
+	 *     &lt;div id="childC">...&lt;/div>
+	 * &lt;/d-view-stack>
+	 * &lt;d-view-indicator id="vi" viewstack="vs">&lt;/d-view-indicator>
+	 * @class module:deliteful/ViewIndicator
+	 * @augments module:delite/Widget
+	 */
+	return register("d-view-indicator", [HTMLElement, Widget], /** @lends module:deliteful/ViewIndicator# */{
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-view-indicator"
+		 */
+		baseClass: "d-view-indicator",
+
+		/**
+		 * The ViewStack widget associated with the indicator.
+		 */
+		viewStack: null,
+
+		render: function () {
+			dpointer.setTouchAction(this, "none");
+		},
+
+		postRender: function () {
+			this.on("pointerdown", function (e) {
+				if (typeof e.target._vsChildIndex === "number") {
+					this.viewStack.show(this.viewStack.children[e.target._vsChildIndex]);
+				} else {
+					var next = (e.clientX - this.offsetLeft) > this.offsetWidth / 2;
+					if (!this.isLeftToRight()) {
+						next = !next;
+					}
+					if (next) {
+						this.viewStack.showNext();
+					} else {
+						this.viewStack.showPrevious({reverse: true});
+					}
+				}
+			}.bind(this));
+		},
+
+		refreshRendering: function (props) {
+			if ("viewStack" in props) {
+				this._attachViewStack();
+				this._refreshDots();
+			}
+		},
+
+		/**
+		 * Sets event listeners to the ViewStack so as to update dots when children are shown/hidden
+		 * @private
+		 */
+		_attachViewStack: function () {
+			if (this._afterShowHandle) {
+				this._afterShowHandle.remove();
+				this._afterShowHandle = null;
+			}
+			if (this.viewStack) {
+				this._afterShowHandle = this.on("delite-after-show", this._refreshDots.bind(this), this.viewStack);
+			}
+		},
+
+		/**
+		 * Refreshes the dots from the SwapView's contents.
+		 * @private
+		 */
+		_refreshDots: function () {
+			// TODO: avoid recreating all the dots when only the visible child has changed
+			this.innerHTML = "";
+			for (var i = 0; i &lt; this.viewStack.children.length; i++) {
+				var child = this.viewStack.children[i];
+				var dot = this.ownerDocument.createElement("div");
+				dot.className = "-d-view-indicator-dot" +
+					(child.style.visibility === "visible" ? " -d-view-indicator-dot-selected" : "");
+				dot._vsChildIndex = i;
+				this.appendChild(dot);
+			}
+		}
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Tue Feb 03 2015 16:52:37 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
