@@ -73,6 +73,10 @@ require(["dstore/Memory", "delite/list/PageableList", "requirejs-domready/domRea
 });
 ```
 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/099c6dkk/embedded/result,js">
+<a href="http://jsfiddle.net/ibmjs/099c6dkk/">checkout the sample on JSFiddle</a></iframe>
+
 <a name="configuration"></a>
 ## Element Configuration
 
