@@ -55,22 +55,26 @@ define(["requirejs-dplugins/has", "deliteful/channelBreakpoints"],
 	// medium one. Hence the apparently redundant checks of both media queries
 	// for the small and large channels.
 	
-	// matched by screens at least as large as the "small" breakpoint
-	var mqAboveSmall = window.matchMedia("(min-device-width: " +
-		channelBreakpoints.smallScreen + ")");
-	// matched by screens at least as large as the "medium" breakpoint
-	var mqAboveMedium = window.matchMedia("(min-device-width: " +
-		channelBreakpoints.mediumScreen + ")");
+	// The build system evaluates the function of plugin modules while running
+	// in nodejs. Hence the need to test for presence of window. The value of
+	// the has-features does not matter at build time. (#512)
+	if (typeof window !== undefined) {
+		// matched by screens at least as large as the "small" breakpoint
+		var mqAboveSmall = window.matchMedia("(min-device-width: " +
+			channelBreakpoints.smallScreen + ")");
+		// matched by screens at least as large as the "medium" breakpoint
+		var mqAboveMedium = window.matchMedia("(min-device-width: " +
+			channelBreakpoints.mediumScreen + ")");
 	
-	has.add("phone-like-channel", function () {
-		return !mqAboveSmall.matches && !mqAboveMedium.matches;
-	});
-	has.add("tablet-like-channel", function () {
-		return mqAboveSmall.matches && !mqAboveMedium.matches;
-	});
-	has.add("desktop-like-channel", function () {
-		return mqAboveSmall.matches && mqAboveMedium.matches;
-	});
-	
+		has.add("phone-like-channel", function () {
+			return !mqAboveSmall.matches && !mqAboveMedium.matches;
+		});
+		has.add("tablet-like-channel", function () {
+			return mqAboveSmall.matches && !mqAboveMedium.matches;
+		});
+		has.add("desktop-like-channel", function () {
+			return mqAboveSmall.matches && mqAboveMedium.matches;
+		});
+	}
 	return has;
 });
