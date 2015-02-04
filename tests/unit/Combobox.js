@@ -384,7 +384,7 @@ define([
 			combo.list.store = dataStore;
 			combo.list.deliver();
 			container.appendChild(combo);
-			combo.startup();
+			combo.attachedCallback();
 			combo.deliver();
 
 			assert.strictEqual(combo.list.getItemRenderers().length, 8,
@@ -586,7 +586,7 @@ define([
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list});
 			container.appendChild(combo);
-			combo.startup();
+			combo.attachedCallback();
 
 			combo.deliver();
 			combo.list.deliver();
@@ -631,7 +631,7 @@ define([
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
-			combo.startup();
+			combo.attachedCallback();
 
 			combo.deliver();
 			combo.list.deliver();
@@ -664,6 +664,30 @@ define([
 
 			return d;
 		},
+		
+		// Test case for #509: initialization of Combobox after List rendering is ready.
+		"initialization with List rendering after Combobox initialization": function () {
+			var list = new List();
+			var combo = new Combobox({list: list}); // single selection mode
+			container.appendChild(combo);
+			combo.attachedCallback();
+			combo.deliver();
+			combo.list.deliver();
+			
+			// Add items to the data store after attachedCallback().
+			combo.list.store = new Memory(); // triggers async re-rendering of List
+			addOptions(combo, 0, nOptions - 1);
+			
+			combo.deliver();
+			combo.list.deliver();
+			
+			// Check the correct initialization of displayed label, widget value,
+			// and submitted value.
+			assert.strictEqual(combo.inputNode.value, "Option 0", "combo.inputNode.value");
+			assert.strictEqual(combo.value, "Option 0", "combo.value");
+			assert.strictEqual(combo.valueNode.value, "Option 0", "combo.valueNode.value");
+		},
+		
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
