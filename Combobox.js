@@ -462,7 +462,7 @@ define([
 							value = this._getItemRendererValue(firstItemRenderer);
 							// Like the native select, the first item is selected.
 							this.list.selectedItem = firstItemRenderer.item;
-							done= true;
+							done = true;
 						}
 					}
 					if (done) {
