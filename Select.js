@@ -166,6 +166,7 @@ define([
 			// Keep delite/Selection's selectedItem/selectedItems in sync after
 			// interactive selection of options.
 			this.on("change", function (event) {
+				this._duringInteractiveSelection = true;
 				var selectedItems = this.selectedItems,
 					selectedOptions = this.valueNode.selectedOptions;
 				// HTMLSelectElement.selectedOptions is not present in all browsers...
@@ -204,6 +205,8 @@ define([
 				
 				// Update widget's value after interactive selection
 				this._set("value", this.valueNode.value);
+				
+				this._duringInteractiveSelection = false;
 			}.bind(this), this.valueNode);
 			
 			// Thanks to the custom getter defined in deliteful/Select for widget's
@@ -291,9 +294,20 @@ define([
 		},
 		
 		updateRenderers: function () {
-			// Override of delite/Selection's method
-			// Trigger rerendering from scratch:
-			this.notifyCurrentValue("renderItems");
+			// Override of delite/Selection's method.
+			// Trigger rerendering from scratch, in order to keep the rendering
+			// in sync with the selection state of items. This method gets called
+			// by delite/Selection after changes of selection state. However, the
+			// re-rendering must not be triggered while the user clicks items,
+			// because it would disturb user's interaction with a Select in
+			// multiple mode (#510): with more options than the available height, after
+			// scrolling and clicking an item, the rerendered Select may not have
+			// the same scroll amount as before the click, which isn't ergonomical.
+			// (Differently, in single selection mode, the popup closes right after
+			// the interactive selection.)
+			if (!this._duringInteractiveSelection) {
+				this.notifyCurrentValue("renderItems");
+			}
 		},
 		
 		_setValueAttr: function (value) {
