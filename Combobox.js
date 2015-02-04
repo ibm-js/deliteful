@@ -446,32 +446,45 @@ define([
 		 */
 		_initValue: function () {
 			if (this.selectionMode === "single") {
-				var selectedItem = this.list.selectedItem;
-				if (selectedItem) {
-					this.inputNode.value = this._getItemLabel(selectedItem);
-					// Initialize widget's value
-					var value = this._getItemValue(selectedItem);
-					this._set("value", value);
-					this.valueNode.value = value;
-				} else {
-					var initValueSingleMode = function (firstItemRenderer) {
-						this.inputNode.value = this._getItemRendererLabel(firstItemRenderer);
+				// Returns true if List content already available, false otherwise.
+				var initValueSingleMode = function () {
+					var selectedItem = this.list.selectedItem;
+					var done = false;
+					var value, label;
+					if (selectedItem) {
+						label = this._getItemLabel(selectedItem);
+						value = this._getItemValue(selectedItem);
+						done = true;
+					} else {
+						var firstItemRenderer = this.list.getItemRendererByIndex(0);
+						if (firstItemRenderer) {
+							label = this._getItemRendererLabel(firstItemRenderer);
+							value = this._getItemRendererValue(firstItemRenderer);
+							// Like the native select, the first item is selected.
+							this.list.selectedItem = firstItemRenderer.item;
+							done= true;
+						}
+					}
+					if (done) {
+						this.inputNode.value = label;
 						// Initialize widget's value
-						var value = this._getItemRendererValue(firstItemRenderer);
 						this._set("value", value);
 						this.valueNode.value = value;
-						this.list.selectedItem = firstItemRenderer.item;
-					}.bind(this);
-					var firstItemRenderer = this.list.getItemRendererByIndex(0);
-					if (firstItemRenderer) {
-						initValueSingleMode(firstItemRenderer);
 					}
+					return done;
+				}.bind(this);
+				
+				if (!initValueSingleMode()) {
+					// List not ready, wait.
+					this.list.on("query-success", function () {
+						initValueSingleMode();
+					});
 				}
 			} else { // selectionMode === "multiple"
-				// Differently than in single selection mode, do not select the first option,
-				// because it would be confusing; the user may scroll and select some other option,
-				// without deselecting the first one. The native select in multiple mode doesn't
-				// select any option by default either.
+				// Differently than in single selection mode, no need to wait for the data,
+				// and do not select the first option, because it would be confusing; the user
+				// may scroll and select some other option, without deselecting the first one.
+				// The native select in multiple mode doesn't select any option by default either.
 				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
 				this.value = "";
 				this.valueNode.value = "";
