@@ -517,12 +517,14 @@ define([
 				}
 				// start capture on the target element
 				dpointer.setPointerCapture(this._pointerCtx.target, e.pointerId);
+				e.stopPropagation();
 			},
 
 			pointerMoveHandler: function (e) {
 				if (e.target === this._pointerCtx.target) {
 					this.handleOnInput(this._formatSelection(this._selectedValue(e, this._pointerCtx.containerBox) -
 						this._pointerCtx.offsetVal, e.target));
+					e.stopPropagation();
 				}
 			},
 
