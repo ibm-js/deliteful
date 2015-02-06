@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Deliteful Mobile Application</title>
+
+	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
+	<link rel="stylesheet" href="app.css">
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			"dstore/Memory",
+			"dstore/Trackable",
+			"deliteful/ViewStack",
+			"deliteful/SidePane",
+			"deliteful/LinearLayout",
+			"deliteful/list/List",
+			"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
+			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+			"requirejs-domready/domReady!"
+		], function(register, Memory, Trackable){
+			register.parse();
+
+			var Store = Memory.createSubclass([Trackable], {});
+			list.store = new Store();
+			
+			for (var i = 1; i < 100; i++){
+				list.store.add({label: "Item #" + i});
+			}
+			
+			menulist.store = new Store();
+			
+			// Some data to enable scrolling
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.store.add({label: "View A", target:"aaa"});
+			menulist.store.add({label: "View B", target:"bbb"});
+			menulist.store.add({label: "View C", target:"ccc"});
+			menulist.store.add({label: "View D", target:"ddd"});
+
+			var actionHandler = function(event, list) {
+				var renderer = list.getEnclosingRenderer(event.target);
+				if (renderer) {
+					vs.show(renderer.item.target, {transition: "fade"});
+				}
+			};
+
+			menulist.on("click", function (event) {
+				actionHandler(event, menulist);
+			});
+
+			document.body.style.display = "";
+		});
+	</script>
+</head>
+<body style="display: none">
+<!-- A SidePane for the left menu -->
+<d-side-pane mode="push" position="start" id="leftPane">
+	<d-linear-layout class="height100">
+		<d-linear-layout vertical="false" class="pageHeader">
+			<div class="fill titleStyle">Menu</div>
+		</d-linear-layout>
+		<d-view-stack id="leftStack" class="width100 fill" style="background-color: white">
+			<d-linear-layout id="menu">
+				<div class="fill">
+					<d-list style="position: absolute; width: 100%; height: 100%" id="menulist" targetAttr="target"></d-list>
+				</div>
+				<button class="appButton2" onclick="leftStack.show('settings')">&gt;</button>
+			</d-linear-layout>
+			<d-linear-layout id="settings" style="background-color: #bce8f1">
+				<div class="fill"><div class="titleStyle">Page 2</div></div>
+				<button class="appButton2" onclick="leftStack.show('menu', {reverse:true})">&lt;</button>
+			</d-linear-layout>
+		</d-view-stack>
+	</d-linear-layout>
+</d-side-pane>
+
+<!-- Main application -->
+<d-linear-layout class="page width100 height100">
+	<!-- Header -->
+	<d-linear-layout vertical="false" class="pageHeader">
+		<button class="appButton" onclick="leftPane.toggle()">Menu</button>
+		<div class="fill titleStyle">Deliteful Mobile App</div>
+	</d-linear-layout>
+	<!-- Main content (ViewStack) -->
+	<d-view-stack id="vs" class="fill">
+		<div style="background-color: white;" id="aaa">
+			<d-list id="list" class="height100"></d-list>
+		</div>
+		<div id="bbb">
+			BBB
+		</div>
+		<div style="background-color: powderblue;" id='ccc'>
+			CCC
+		</div>
+		<div style="background-color: oldlace;" id="ddd">
+			DDD
+		</div>
+	</d-view-stack>
+	<!-- Footer -->
+	<d-linear-layout vertical="false" class="pageFooter">
+		<div class="fill"><button class="appButton" onclick="vs.show(aaa)">A</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(bbb)">B</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(ccc)">C</button></div>
+		<div class="fill"><button class="appButton" onclick="vs.show(ddd)">D</button></div>
+	</d-linear-layout>
+</d-linear-layout>
+</body>
+</html>

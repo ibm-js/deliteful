@@ -1,0 +1,22 @@
+d-view-stack > div {
+	padding: 0px 10px;
+}
+
+#createButton {
+	margin-top: 15px;	
+}
+
+#backButton {
+	float: left;
+}
+
+.copyright {
+	text-align: center;
+	font-size: x-small;
+	font-style: italic;
+}
+
+#kittenImage {
+	display: block;
+	margin: 15px auto;
+}

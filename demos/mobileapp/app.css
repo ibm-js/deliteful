@@ -1,0 +1,61 @@
+/* App style */
+* {
+	font-family: sans-serif;
+}
+
+.d-list {
+	border: none;
+}
+
+.pageHeader, .pageFooter{
+	background-color: #1AA1E1;
+	color: white;
+}
+
+.pageHeader {
+	border-bottom: 2px solid black;
+	padding: 0.3em;
+	height: 60px;
+}
+
+.pageFooter {
+	border-top: 2px solid black;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
+
+.pageFooter > div {
+	text-align: center;
+}
+
+.appButton, .appButton2 {
+	border: none;
+	background-color: white;
+	font-weight: bold;
+	min-width: 50px;
+	cursor: pointer;
+	padding: 10px 10px 10px 10px;
+	font-size: 110%;
+}
+
+.appButton2 {
+	background-color: #1AA1E1;
+	color: white;
+	margin: 0 30% 0 30%;
+}
+
+.titleStyle {
+	text-align: center;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-weight: bold;
+	font-size: 150%;
+	/* One line title with ellipsis if needed */
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+}
+
+.d-side-pane {
+	border-right: 1px solid #000000;
+}
