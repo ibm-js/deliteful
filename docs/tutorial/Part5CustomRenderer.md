@@ -42,7 +42,7 @@ photolist.itemRenderer = register("d-photo-item", [HTMLElement, ItemRenderer], {
 This needs some explanations. The `itemRenderer` property of the deliteful List widget can be set to an instance of a
 subclass of `deliteful/list/ItemRenderer`. For each element of the data store, an instance of the renderer class
 will be created. The DOM contents of each item is defined by the `template` property,
-which is parsed and processed by the [handlebars](http://ibm-js.github.io/delite/docs/master/handlebars.html)
+which is parsed and processed by the [handlebars](/delite/docs/master/handlebars.md)
 module. The template can contain bindings: for example, `{%raw%}{{item.title}}{%endraw%}` will be replaced by the value of the `title`
 property of each data item of the store.
 

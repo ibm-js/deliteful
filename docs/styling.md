@@ -42,19 +42,21 @@ If you want to customize the look of Slider under the bootstrap theme, there are
    made your changes, type `grunt less` in your console to regenerate the matching Slider.css.
 
 You'll notice most classes inside Slider.css start with `d-slider`. That's a convention.
-Leveraging this you can also choose to simply override theses classes with your own styles either by
+Leveraging this you can also choose to simply override theses classes with your own styles either by:
 
-1. creating a stylesheet and link it in your page. 
-  ```html
+* creating a stylesheet and link it in your page. 
+
+```html
 <link rel="stylesheet" href="path/to/my-styles.css" type="text/css" />
-  ```
+```
 
-2. opening a `<style>` tag directly in your page.
-  ```html
+* opening a `<style>` tag directly in your page.
+
+```html
 <style>
 .d-slider { ... }
 </style>
-  ```
+```
 
 With both ways, your styles will be prioritized by the browser over the CSS files inside `Slider/`.
 Note that this *will* affect the look of Slider under all themes.

@@ -106,7 +106,7 @@ For this, replace the `<!-- view content will go here -->` placeholder by a `d-l
 Note our List widget has a `photolist` id, this will allow us to reference the widget in our JavaScript code later.
 
 And also add this in `css/app.css` to ensure the list is correctly sized
-(see [the LinearLayout doc](http://ibm-js.github.io/deliteful/docs/master/LinearLayout.html#configuration)
+(see [the LinearLayout doc](../LinearLayout.md#configuration)
 for more details on why this is needed)
 
 ```css

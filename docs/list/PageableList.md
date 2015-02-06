@@ -5,7 +5,7 @@ title: deliteful/list/PageableList
 
 # deliteful/list/PageableList
 
-The `deliteful/PageableList custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.md) element 
+The `deliteful/PageableList` custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.md) element 
 and adds paging capabilities to it.
 
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
