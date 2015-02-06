@@ -17,7 +17,7 @@ The children of a ``deliteful/LinearLayout`` container can be laid out horizonta
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -104,7 +104,7 @@ src="http://jsfiddle.net/ibmjs/PY6Lz/embedded/result,html,css,js">
 
 ### Getting the sub-child of a LinearLayout to fill 100% in height
 
-If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` (defined in [`defaultapp.css`](/delite/docs/master/defaultapp.html)) on a LinearLayout sub-child and if its computed height is greater than its parent height, it will be displayed out of bounds of the container.
+If you set ``style="width:100%; height:100%"`` or ``class="width100 height100"`` (defined in [`defaultapp.css`](/delite/docs/0.6.0/defaultapp.html)) on a LinearLayout sub-child and if its computed height is greater than its parent height, it will be displayed out of bounds of the container.
 To avoid this behaviour, you must add ``position: absolute`` on the sub-child.
 
 <iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 

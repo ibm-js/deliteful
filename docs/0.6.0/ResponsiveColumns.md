@@ -29,7 +29,7 @@ src="http://jsfiddle.net/ibmjs/t3tbt7qt/embedded/result,html,css,js">
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -79,7 +79,7 @@ require([
 ## Element Configuration
 
 `deliteful/ResponsiveColumns` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. 
-For more informations, see the [`delite/DisplayContainer`](/delite/docs/master/DisplayContainer.html) documentation.
+For more informations, see the [`delite/DisplayContainer`](/delite/docs/0.6.0/DisplayContainer.html) documentation.
 
 ### Defining screen classes and children layout
 
@@ -118,7 +118,7 @@ The `delite/ResponsiveColumns` class provides the following event:
 ## Element Styling
 
 The default height of a `deliteful/ResponsiveColumns` is ``100%``. As a consequence, you must ensure that the height of every parent is defined (this includes \<body> and \<html>). You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
-You can set height of `<body>` and `<html>` to 100% by including [`defaultapp.css`](/delite/docs/master/defaultapp.html) 
+You can set height of `<body>` and `<html>` to 100% by including [`defaultapp.css`](/delite/docs/0.6.0/defaultapp.html) 
 
 <a name="enterprise"></a>
 ## Enterprise Use
@@ -133,7 +133,7 @@ Relies on browser.
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/ResponsiveColumns` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for general security advice on this base class that `deliteful/ResponsiveColumns` is using.
 
 ### Browser Support
 

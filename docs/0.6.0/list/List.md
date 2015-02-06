@@ -9,7 +9,7 @@ title: deliteful/list/List
 The `deliteful/list/List` custom element (`d-list` custom tag) renders an optionally scrollable list of items that 
 are retrieved from a store object from the [dstore](http://dstorejs.io/) project.
 
-The list inherits from the [`delite/Store`](/delite/docs/master/Store.html) class and as such any valid `dstore/Store` 
+The list inherits from the [`delite/Store`](/delite/docs/0.6.0/Store.html) class and as such any valid `dstore/Store` 
 implementation can be used to provide data to the list. No store is provided by default and the application developer 
 has to provide one created either programmatically or in markup using [`deliteful/Store`](../Store.html) custom element.
 
@@ -46,7 +46,7 @@ The widget also provides the following capabilities:
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -144,7 +144,7 @@ If the provided is trackable (see [dstore documentation](https://github.com/site
 `dstore/Trackable`, the widget will react to addition, deletion, move and update of the store content and 
 refresh its rendering accordingly.
 
-Because the List widget inherit from [`delite/StoreMap`](/delite/docs/master/StoreMap.html), you can redefine at will the mapping between
+Because the List widget inherit from [`delite/StoreMap`](/delite/docs/0.6.0/StoreMap.html), you can redefine at will the mapping between
 your store items and the ones expected by the renderer using mapping attributes and functions, as in the following example:
 
 ```js
@@ -168,9 +168,9 @@ require([
 });
 ```
 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for more information about all the available mapping options.
+See the [`delite/StoreMap`](/delite/docs/0.6.0/StoreMap.html) documentation for more information about all the available mapping options.
 
-If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [`delite/Store`](/delite/docs/master/Store.html)),
+If you were not to use the `delite/StoreMap` capabilities but decided to redefine the `itemToRenderItem(item)` method (inherited from [`delite/Store`](/delite/docs/0.6.0/Store.html)),
 be aware that your custom implementation of the method MUST return items that have the same identity than the corresponding store items, as the List
 is relying on it.
 
@@ -410,7 +410,7 @@ When the action on the list items has to be permanent you should consider using 
 of listening to click events. In addition to managing the list of selected items this will provide with with a 
 default CSS rendering for the selected items.
 
-The list uses the [delite/Selection](/delite/docs/master/Selection.html) mixin to provide support for selectable items. 
+The list uses the [delite/Selection](/delite/docs/0.6.0/Selection.html) mixin to provide support for selectable items. 
 By default, items in the list are not selectable, but you can change this behavior using the `selectionMode` property
 of the widget:
 
@@ -521,7 +521,7 @@ This widget supports both left to right and right to left orientation.
 
 ### Security
 
-This widget has no specific security concern. Refer to  [`delite/Widget`](/delite/docs/master/Widget.html)  and  [`delite/StoreMap`](/delite/docs/master/StoreMap.html) for general security advice on this base class and mixin that this widget is using.
+This widget has no specific security concern. Refer to  [`delite/Widget`](/delite/docs/0.6.0/Widget.html)  and  [`delite/StoreMap`](/delite/docs/master/StoreMap.html) for general security advice on this base class and mixin that this widget is using.
 
 ### Browser Support
 

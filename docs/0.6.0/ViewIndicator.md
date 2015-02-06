@@ -27,7 +27,7 @@ src="http://jsfiddle.net/ibmjs/kd1qj9bw/embedded/result,html,css,js">
 
 When creating a ViewIndicator, you must specify which ViewStack it is associated with using the `viewStack` property.
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -132,7 +132,7 @@ shows the previous child in the ViewStack, and clicking on the left of the dots 
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/ViewIndicator` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for general security advice on this base class that `deliteful/ViewIndicator` is using.
 
 ### Browser Support
 

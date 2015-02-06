@@ -23,7 +23,7 @@ and labels for each state. It is a subclass of the `deliteful/Button` class.
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 

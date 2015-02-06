@@ -22,7 +22,7 @@ next/previous child.
 
 A SwapView is created like a ViewStack.
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -106,7 +106,7 @@ It affects the swipe interaction.
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/SwapView` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for general security advice on this base class that `deliteful/SwapView` is using.
 
 ### Browser Support
 

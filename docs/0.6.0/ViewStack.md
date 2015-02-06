@@ -31,7 +31,7 @@ src="http://jsfiddle.net/ibmjs/4fttnv3t/embedded/result,js,html">
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -83,7 +83,7 @@ require(["requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
 <a name="configuration"></a>
 ## Element Configuration
 
-`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/master/DisplayContainer.html) documentation.
+`deliteful/ViewStack` support `delite` display infrastructure by inheriting from `delite/DisplayContainer`. For more informations, see [`delite/DisplayContainer`](/delite/docs/0.6.0/DisplayContainer.html) documentation.
 
 ### Displaying a child
 
@@ -115,7 +115,7 @@ The default height of a `deliteful/ViewStack` is ``100%``. When the height of a 
 If the height of the parent is also defined as a percentage, you must recursively apply the same rule, up to ``<body>`` and ``<html>`` elements if needed.
 An HTML full-screen application has its ``<body>`` and ``<html>`` elements height set to ``100%``.
 You can read this [external article](http://webdesign.about.com/od/csstutorials/f/set-css-height-100-percent.htm) for more information. 
-You can set height of ``<body>`` and ``<html>`` to ``100%`` by including [`defaultapp.css`](/delite/docs/master/defaultapp.html) 
+You can set height of ``<body>`` and ``<html>`` to ``100%`` by including [`defaultapp.css`](/delite/docs/0.6.0/defaultapp.html) 
 
 The `position` CSS attribute of this element must be set to `absolute` or `relative` (default).
 
@@ -141,7 +141,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl` o
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/ViewStack` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for general security advice on this base class that `deliteful/ViewStack` is using.
 
 ### Browser Support
 

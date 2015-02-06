@@ -27,7 +27,7 @@ title: deliteful/Select
 <a name="instantiation"></a>
 ## Element Instantiation
 
-For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.html).
+For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/0.6.0/Widget.html).
 
 ### Declarative Instantiation
 
@@ -83,7 +83,7 @@ src="http://jsfiddle.net/ibmjs/59LP6/embedded/result,js,html">
 
 The widget provides several selection modes through the `selectionMode` property
 inherited from `delite/Selection`.
-For details, see [`Using delite/Selection`](/delite/docs/master/Selection.html#using).
+For details, see [`Using delite/Selection`](/delite/docs/0.6.0/Selection.html#using).
 
 Note that `deliteful/Select` only supports for this property the values `single` and
 `multiple`.
@@ -96,11 +96,11 @@ Note that `deliteful/Select` only supports for this property the values `single`
 * The `disabled` attribute for the disabled state of the option (an option is enabled
 if the attribute is absent, or its value is falsy, or it is the string "false").
 
-Because the widget inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.html), 
+Because the widget inherits from [`delite/StoreMap`](/delite/docs/0.6.0/StoreMap.html), 
 the mapping between the attributes of the data store items and the attributes used by 
 `deliteful/Select` can be redefined using the `labelAttr`, `valueAttr`, and `disabledAttr`
 properties, or using `labelFunc`, `valueFunc`, and `disabledFunc` properties. See the 
-[`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for more
+[`delite/StoreMap`](/delite/docs/0.6.0/StoreMap.html) documentation for more
 information about the available mapping options.
 
 

@@ -5,7 +5,7 @@ title: deliteful/list/PageableList
 
 # deliteful/list/PageableList
 
-The `deliteful/PageableList custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.html) element 
+The `deliteful/PageableList` custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.html) element 
 and adds paging capabilities to it.
 
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
@@ -25,7 +25,7 @@ A pageable list does not load and display all its content all at once, but only 
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -72,6 +72,10 @@ require(["dstore/Memory", "delite/list/PageableList", "requirejs-domready/domRea
   list.placeAt(document.body);
 });
 ```
+
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+src="http://jsfiddle.net/ibmjs/099c6dkk/embedded/result,js">
+<a href="http://jsfiddle.net/ibmjs/099c6dkk/">checkout the sample on JSFiddle</a></iframe>
 
 <a name="configuration"></a>
 ## Element Configuration

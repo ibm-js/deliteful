@@ -23,7 +23,7 @@ title: deliteful/SidePane
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.html) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -60,7 +60,7 @@ This widget must be a sibling of html's body element.
 
 The `position` attribute can be `start` or `end` which means left or right respectively in LTR mode. The resulting left or right position of the pane depends on the globalization configuration. See [Enterprise Use](#enterprise) for more informations.
 
-If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [Delite themes](http://ibm-js.github.io/delite/docs/master/themes.html).
+If `mode` is set to `"push"` or `"reveal"`, the width of the SidePane can't be changed in the markup (15em by default). However it can be changed in `SidePane_template.less` file. See [Delite themes](/delite/docs/0.6.0/themes.html).
 
 For disabling sliding animated transition, set `animate` attribute to `false`.
 
@@ -113,7 +113,7 @@ Right to left orientation is supported by setting the `dir` attribute to `rtl` o
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.html) for general security advice on this base class that `deliteful/SidePane` is using.
+This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/0.6.0/Widget.html) for general security advice on this base class that `deliteful/SidePane` is using.
 
 ### Browser Support
 

@@ -34,7 +34,7 @@ Main features:
 <a name="instantiation"></a>
 ## Element Instantiation
 
-For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/master/Widget.html).
+For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/0.6.0/Widget.html).
 
 ### Declarative Instantiation
 
@@ -110,7 +110,7 @@ The widget provides two selection modes through the `selectionMode` property:
 options can be selected).
 
 Options can be selected programmatically using the `selectedItem` property (or, for multiple
-selection mode, `selectedItems`) inherited from [`delite/Selection`](/delite/docs/master/Selection.html).
+selection mode, `selectedItems`) inherited from [`delite/Selection`](/delite/docs/0.6.0/Selection.html).
 
 
 ### Auto Filtering
@@ -145,7 +145,7 @@ can be done on the List instance using the mapping API of
 [`deliteful/list/List`](./list/List.html), as supported by its superclass
 `delite/StoreMap`.
 
-See the [`delite/StoreMap`](/delite/docs/master/StoreMap.html) documentation for
+See the [`delite/StoreMap`](/delite/docs/0.6.0/StoreMap.html) documentation for
 more information about the available mapping options, and the section
 [`Store capabilities`](./list/List.html#store) of List's documentation.
 
@@ -167,8 +167,8 @@ about how to customize the values of the screen size breakpoints used by the med
 ### Value and form support
 
 The widget supports the following form-related properties: `value`, `name`, `disabled`
-and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.html), and
-`readOnly` inherited from [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.html).
+and `alt`, inherited from [`delite/FormWidget`](/delite/docs/0.6.0/FormWidget.html), and
+`readOnly` inherited from [`delite/FormValueWidget`](/delite/docs/0.6.0/FormValueWidget.html).
 When used in an HTML form, the submitted value is the one stored in the `value` 
 property of the widget.
 By default, the `label` field of the List's render items is used as value of the option.
