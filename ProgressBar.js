@@ -198,7 +198,7 @@ define([
 		 * @returns {string} The extra message to display.
 		 */
 		formatExtMsg: function (position, value, max) {
-			return (this.isLeftToRight()) ? value + "/" + max : max + "/" + value;
+			return value + "/" + max;
 		},
 
 		/*
