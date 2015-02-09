@@ -22,8 +22,8 @@ define([
 		// check the state of the widget.
 		var executeExpr = "return {" +
 			"displayedLabel: " + comboId + ".inputNode.value, " +
-			"value: " + comboId + ".value" +
-			"valueNodeValue: " + comboId + ".valueNode.value, " +
+			"value: " + comboId + ".value, " +
+			"valueNodeValue: " + comboId + ".valueNode.value " +
 			"};";
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute(comboId + ".focus(); " + executeExpr)
