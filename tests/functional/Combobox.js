@@ -23,6 +23,7 @@ define([
 		var executeExpr = "return {" +
 			"displayedLabel: " + comboId + ".inputNode.value, " +
 			"value: " + comboId + ".value" +
+			"valueNodeValue: " + comboId + ".valueNode.value, " +
 			"};";
 		return loadFile(remote, "./Combobox-decl.html")
 			.execute(comboId + ".focus(); " + executeExpr)
@@ -32,6 +33,8 @@ define([
 					"(single) after focus, " + comboId + ".inputNode.value");
 				assert.strictEqual(value.value, "France",
 					"(single) after focus, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "France",
+					"(single) after focus, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -42,6 +45,8 @@ define([
 					"(single) first ARROW_DOWN, " + comboId + ".inputNode.value");
 				assert.strictEqual(value.value, "France",
 					"(single) first ARROW_DOWN, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "France",
+					"(single) first ARROW_DOWN, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -51,6 +56,8 @@ define([
 					"(single) after second ARROW_DOWN, " + comboId + ".inputNode.value");
 				assert.strictEqual(value.value, "Germany",
 					"(single) after second ARROW_DOWN, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "Germany",
+					"(single) after second ARROW_DOWN, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
@@ -60,6 +67,8 @@ define([
 					"(single) after second ARROW_DOWN, " + comboId + ".inputNode.value");
 				assert.strictEqual(value.value, "France",
 					"(single) after second ARROW_DOWN, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "France",
+					"(single) after second ARROW_DOWN, " + comboId + ".valueNode.value");
 			});
 	};
 	
@@ -69,6 +78,7 @@ define([
 		var executeExpr = "return {" +
 			"displayedLabel: " + comboId + ".inputNode.value, " +
 			"value: " + comboId + ".value, " +
+			"valueNodeValue: " + comboId + ".valueNode.value, " +
 			"multipleChoiceNoSelectionMsg: " + comboId + ".multipleChoiceNoSelectionMsg" +
 			"};";
 		return loadFile(remote, "./Combobox-decl.html")
@@ -78,9 +88,11 @@ define([
 				// (holds for the widget's delite/Selection API just as for the
 				// native select).
 				assert.strictEqual(value.displayedLabel, value.multipleChoiceNoSelectionMsg,
-					"(single) after focus, " + comboId + ".inputNode.value");
-				assert.strictEqual(value.value, "",
-					"(single) after focus, " + comboId + ".value");
+					"(multiple) after focus, " + comboId + ".inputNode.value");
+				assert.deepEqual(value.value, [],
+					"(multiple) after focus, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "",
+					"(multiple) after focus, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -88,9 +100,11 @@ define([
 				// For now there should still be no option selected, the first
 				// ARROW_DOWN only opens the dropdown
 				assert.strictEqual(value.displayedLabel, value.multipleChoiceNoSelectionMsg,
-					"(single) after first ARROW_DOWN, " + comboId + ".inputNode.value");
-				assert.strictEqual(value.value, "",
-					"(single) after first ARROW_DOWN, " + comboId + ".value");
+					"(multiple) after first ARROW_DOWN, " + comboId + ".inputNode.value");
+				assert.deepEqual(value.value, [],
+					"(multiple) after first ARROW_DOWN, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "",
+					"(multiple) after first ARROW_DOWN, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -98,27 +112,33 @@ define([
 				// Still no selection after the second ARROW_DOWN; in multiple
 				// mode it only changes the navigated/highlighted item of the List.
 				assert.strictEqual(value.displayedLabel, value.multipleChoiceNoSelectionMsg,
-					"(single) after second ARROW_DOWN, " + comboId + ".inputNode.value");
-				assert.strictEqual(value.value, "",
-					"(single) after second ARROW_DOWN, " + comboId + ".value");
+					"(multiple) after second ARROW_DOWN, " + comboId + ".inputNode.value");
+				assert.deepEqual(value.value, [],
+					"(multiple) after second ARROW_DOWN, " + comboId + ".value");
+				assert.strictEqual(value.valueNodeValue, "",
+					"(multiple) after first ARROW_DOWN, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.SPACE) // toggles selection state of the navigated item
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now the first item should be selected
 				assert.strictEqual(value.displayedLabel, "France",
-					"(single) after first SPACE, " + comboId + ".inputNode.value");
+					"(multiple) after first SPACE, " + comboId + ".inputNode.value");
 				assert.deepEqual(value.value, ["France"],
-					"(single) after first SPACE, " + comboId + ".value");
+					"(multiple) after first SPACE, " + comboId + ".value");
+				assert.deepEqual(value.valueNodeValue, "France",
+					"(multiple) after first SPACE, " + comboId + ".valueNode.value");
 			})
 			.pressKeys(keys.SPACE) // toggles the navigated item back to unselected state
 			.execute(executeExpr)
 			.then(function (value) {
 				// Now there should be no selection again
 				assert.strictEqual(value.displayedLabel, value.multipleChoiceNoSelectionMsg,
-					"(single) after second SPACE, " + comboId + ".inputNode.value");
+					"(multiple) after second SPACE, " + comboId + ".inputNode.value");
 				assert.deepEqual(value.value, [],
-					"(single) after second SPACE, " + comboId + ".value");
+					"(multiple) after second SPACE, " + comboId + ".value");
+				assert.deepEqual(value.valueNodeValue, "",
+					"(multiple) after second SPACE, " + comboId + ".valueNode.value");
 			});
 	};
 	

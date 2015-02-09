@@ -169,9 +169,19 @@ about how to customize the values of the screen size breakpoints used by the med
 The widget supports the following form-related properties: `value`, `name`, `disabled`
 and `alt`, inherited from [`delite/FormWidget`](/delite/docs/master/FormWidget.md), and
 `readOnly` inherited from [`delite/FormValueWidget`](/delite/docs/master/FormValueWidget.md).
-When used in an HTML form, the submitted value is the one stored in the `value` 
-property of the widget.
-By default, the `label` field of the List's render items is used as value of the option.
+
+The `value` property of the widget contains:
+* Single selection mode: the value of the selected list items. By default, the
+value of the first item is selected.
+* Multiple selection mode: an array containing the values of the selected items.
+Defaults to `[]`.
+
+If the widget is used in an HTML form, the submitted value contains:
+* Single selection mode: the same as widget's `value` property.
+* Multiple selection mode: a string containing a comma-separated list of the values
+of the selected items. Defaults to `""`.
+
+By default, the `label` field of the List's render items is used as value of the item.
 If the value needs to be different than the label, an attribute mapping needs to be
 set for `value` on the `List` instance, for example:
 
@@ -206,11 +216,8 @@ or in markup:
 </html>
 ```
 
-If no mapping is specified for `value`, the label is used as value (itself subject to 
+If no mapping is specified for `value`, the item label is used as value (itself subject to 
 attribute mapping using `List.labelAttr` or `List.labelFunc`).
-
-In single selection mode, the widget value is the value of the selected option.
-In multiple selection mode, the widget value is an array containing the values of the selected options.
 
 
 <a name="styling"></a>

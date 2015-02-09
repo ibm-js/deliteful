@@ -48,11 +48,20 @@ define([
 	 * channel flags and about how to configure them statically and how to customize the values
 	 * of the screen size breakpoints used by the media queries.
 	 * 
-	 * If the widget is used in an HTML form, the submitted value is the one
-	 * of the `value` property. By default, the `label` field of list render items
-	 * is used as value. A different field can be specified by using attribute
-	 * mapping for `value` on the List instance. In multiple selection mode, the
-	 * value is an array containing the values of the selected options.
+	 * The `value` property of the widget contains:
+	 * - Single selection mode: the value of the selected list items. By default, the
+	 * value of the first item is selected.
+	 * - Multiple selection mode: an array containing the values of the selected items.
+	 * Defaults to `[]`.
+	 * 
+	 * If the widget is used in an HTML form, the submitted value contains:
+	 *  * - Single selection mode: the same as widget's `value` property.
+	 * - Multiple selection mode: a string containing a comma-separated list of the values
+	 * of the selected items. Defaults to `""`.
+	 * 
+	 * By default, the `label` field of the list render item is used as item value.
+	 * A different field can be specified by using attribute mapping for `value` on the
+	 * List instance.
 	 * 
 	 * Remark: the option items must be added, removed or updated exclusively using
 	 * List's store API. Direct operations using the DOM API are not supported.
@@ -486,7 +495,10 @@ define([
 				// may scroll and select some other option, without deselecting the first one.
 				// The native select in multiple mode doesn't select any option by default either.
 				this.inputNode.value = this.multipleChoiceNoSelectionMsg;
-				this.value = "";
+				// widget value: // array, more convenient for client-side usage
+				this.value = [];
+				// submitted form value: string (comma-separated values), more convenient for
+				// server-side usage.
 				this.valueNode.value = "";
 			}
 		},
