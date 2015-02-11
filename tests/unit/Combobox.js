@@ -452,11 +452,11 @@ define([
 					changeCounter = 0; // reinit
 					inputCounter = 0; // reinit
 					assert.strictEqual(changeValue, expectedValue,
-							"Wrong value when receiving change event after clicking " + itemName +
-							 " (single)");
+							"changeValue: wrong value when receiving change event after clicking " +
+							itemName + " (single)");
 					assert.strictEqual(inputValue, expectedValue,
-							"Wrong value when receiving input event after clicking " + itemName +
-							 " (single)");
+							"inputValue: wrong value when receiving input event after clicking " +
+							itemName + " (single)");
 					changeValue = null; // reinit
 					inputValue = null; // reinit
 				};
@@ -535,15 +535,15 @@ define([
 				var checkAfterClickItem = function (changeCounterExpectedValue, inputCounterExpectedValue, itemName,
 													expectedChangeValue, expectedInputValue) {
 					assert.strictEqual(inputCounter, inputCounterExpectedValue,
-							"After clicking " + itemName + " (multiple)");
+							"inputCounter after clicking " + itemName + " (multiple)");
 					assert.strictEqual(changeCounter, changeCounterExpectedValue,
-							"After clicking " + itemName + " (multiple)");
+							"changeCounter after clicking " + itemName + " (multiple)");
 					assert.deepEqual(changeValue, expectedChangeValue,
-							"Wrong value when receiving change event after clicking " + itemName +
-							" (multiple)");
+							"changeValue: wrong value when receiving change event after clicking " +
+							itemName + " (multiple)");
 					assert.deepEqual(inputValue, expectedInputValue,
-							"Wrong value when receiving input event after clicking " + itemName +
-							" (multiple)");
+							"inputValue: wrong value when receiving input event after clicking " +
+							itemName + " (multiple)");
 				};
 				var item2 = combo.list.getItemRenderers()[2];
 				item2.click();
