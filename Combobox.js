@@ -403,17 +403,13 @@ define([
 			this.list.on("keynav-child-navigated", function (evt) {
 				var input = this._popupInput || this.inputNode;
 				var rend = evt.newValue ? this.list.getEnclosingRenderer(evt.newValue) : null;
-				if (rend) {
-					input.setAttribute("aria-activedescendant", evt.newValue.id);
-					if (this.selectionMode === "single" && !this.list.isSelected(rend.item)) {
-						this.list.setSelected(rend.item, true);
-					}
-					if (evt.triggerEvent &&
-						(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-						this._updateScroll(rend.item, true);
-					}
-				} else {
-					input.removeAttribute("aria-activedescendant");
+				input.setAttribute("aria-activedescendant", evt.newValue.id);
+				if (this.selectionMode === "single" && !this.list.isSelected(rend.item)) {
+					this.list.setSelected(rend.item, true);
+				}
+				if (evt.triggerEvent &&
+					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
+					this._updateScroll(rend.item, true);
 				}
 			}.bind(this));
 			this.list.on("click", function (evt) {
