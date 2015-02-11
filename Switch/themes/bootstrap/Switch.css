@@ -30,8 +30,7 @@
   right: 50%;
   text-align: center;
 }
-.d-switch.d-rtl .d-switch-leading,
-.d-switch[dir="rtl"] .d-switch-leading {
+.d-switch.d-rtl .d-switch-leading {
   background: #eeeeee;
   font-weight: bold;
   color: #555555;
@@ -43,8 +42,7 @@
   left: 50%;
   text-align: center;
 }
-.d-switch.d-rtl .d-switch-trailing,
-.d-switch[dir="rtl"] .d-switch-trailing {
+.d-switch.d-rtl .d-switch-trailing {
   background: #5cb85c;
   font-weight: bold;
   color: #ffffff;

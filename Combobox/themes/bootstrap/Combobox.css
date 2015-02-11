@@ -34,11 +34,6 @@
   /* restore default */
   right: auto;
 }
-.d-combobox[dir="rtl"]::after {
-  left: 1em;
-  /* restore default */
-  right: auto;
-}
 .d-combobox[disabled] {
   cursor: auto;
   opacity: 0.5;
