@@ -402,16 +402,18 @@ define([
 			
 			this.list.on("keynav-child-navigated", function (evt) {
 				var input = this._popupInput || this.inputNode;
-				var rend = evt.newValue ? this.list.getEnclosingRenderer(evt.newValue) : null;
-				input.setAttribute("aria-activedescendant", evt.newValue.id);
-				if (this.selectionMode === "single" && !this.list.isSelected(rend.item)) {
-					this.list.setSelected(rend.item, true);
+				var navigatedChild = evt.newValue; // never null
+				var item = this.list.getEnclosingRenderer(navigatedChild).item;
+				input.setAttribute("aria-activedescendant", navigatedChild.id);
+				if (this.selectionMode === "single" && !this.list.isSelected(item)) {
+					this.list.setSelected(item, true);
 				}
-				if (evt.triggerEvent &&
+				if (evt.triggerEvent && // only for keyboard navigation
 					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
-					this._updateScroll(rend.item, true);
+					this._updateScroll(item, true);
 				}
 			}.bind(this));
+			
 			this.list.on("click", function (evt) {
 				if (this.selectionMode === "single") {
 					var rend = this.list.getEnclosingRenderer(evt.target);
