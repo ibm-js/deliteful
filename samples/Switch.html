@@ -6,7 +6,7 @@
 	      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 
-	<title>Checkbox samples</title>
+	<title>Switch samples</title>
 
 	<script type="text/javascript" src="../../requirejs/require.js"></script>
 
@@ -20,23 +20,17 @@
 	<script type="text/javascript">
 		require([
 			"delite/register",
-			"deliteful/Checkbox",
+			"deliteful/Switch",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Checkbox) {
+		], function (register, Switch) {
 			register.parse();
 			document.body.style.display = "";
 		});
 	</script>
 </head>
-<style>
-</style>
 <body style="display: none">
-	<label>
-		<d-checkbox name="options" checked="true"></d-checkbox>
-		Option 1
-	</label>
-	<d-checkbox name="options" id="option2"></d-checkbox>
-	<label for="option2"> Option 2 </label>
+<d-switch checkedLabel="ON" uncheckedLabel="OFF" name="bluetooth" ></d-switch>
+<d-switch checkedLabel="ON" uncheckedLabel="OFF" name="bluetooth" disabled></d-switch>
 </body>
 </html>

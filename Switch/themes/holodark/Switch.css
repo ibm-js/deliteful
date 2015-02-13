@@ -16,6 +16,12 @@
 .d-switch.d-disabled {
   opacity: .6;
 }
+.-d-switch-block {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  border-width: 0px;
+}
 .-d-switch-inner {
   position: absolute;
   width: 30px;
@@ -61,12 +67,6 @@
   width: 30px;
   height: 100%;
   z-index: 10;
-}
-.-d-switch-block {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  border-width: 0px;
 }
 .-d-switch-inner-wrapper {
   position: relative;
