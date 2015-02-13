@@ -28,8 +28,8 @@ define({
 		// { browserName: "internet explorer", version: "9", platform: "Windows 7" },
 		{ browserName: "firefox", version: "31", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			// default selenium-version is currently 2.40.0; some Combobox functional tests fail with
-			// 2.40.0, while they pass with 2.42.0.
-			"selenium-version": "2.42.0",
+			// 2.40.0, while they pass with 2.41.0.
+			"selenium-version": "2.41.0",
 			name : "deliteful"},
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
