@@ -13,7 +13,10 @@
 	<script type="text/javascript" src="../../boilerplate.js"></script>
 
 	<script type="text/javascript">
-		var ready = false;
+		var ready = false,
+			rangeSlider01 = null,
+			rangeSlider01parent = null;
+
 		require([
 			"delite/register",
 			"deliteful/Slider",
@@ -38,6 +41,23 @@
 				var inputValue = event.target.querySelector("input").value;
 				document.getElementById("onchange_input").value = (inputValue == event.target.value) ? inputValue : "";
 			});
+
+			// tracking events sent to parent of rangeSlider01 during capture
+			rangeSlider01parent = {pointerdowns: 0, pointermoves: 0};
+			rangeSlider01parent.element = document.getElementById("rangeSlider01parent");
+			rangeSlider01 = document.getElementById("rangeSlider01")
+
+			rangeSlider01.addEventListener("pointerdown", function () {
+				rangeSlider01parent.pointerdowns = 0;
+				rangeSlider01parent.pointermoves = 0;
+			});
+			rangeSlider01parent.element.addEventListener("pointerdown", function () {
+				rangeSlider01parent.pointerdowns++;
+			});
+			rangeSlider01parent.element.addEventListener("pointermove", function () {
+				rangeSlider01parent.pointermoves++;
+			});
+
 
 			// allow functional tests to start
 			ready = true;
@@ -77,7 +97,7 @@
 	<tbody>
 	<tr>
 		<th scope="row">Default</th>
-		<td>
+		<td id="rangeSlider01parent">
 			<input autocomplete=off value=""  type="text" size="5" id="rangeSlider01_value">
 			<d-slider id="rangeSlider01" value=","></d-slider>
 		</td>
