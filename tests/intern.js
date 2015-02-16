@@ -17,7 +17,7 @@ define({
 
 		// Mobile
 		{ platformName: "iOS", platformVersion: "7.1", browserName: "safari", deviceName: "iPhone Simulator",
-			"appium-version": "1.3.4", name: "deliteful" },
+			name: "deliteful" },
 
 		// Desktop.
 		// Not running on IE9 since Widget-attr test depends on domClass methods only available in IE10_
