@@ -31,26 +31,24 @@
 .d-switch-leading {
   background-color: #0c86af;
   background-image: none;
-  color: #ffffff;
+  color: white;
   right: 50%;
   text-align: center;
 }
 .d-switch.d-rtl .d-switch-leading {
-  background-color: #333333;
-  background-image: none;
-  color: #ffffff;
+  left: 50%;
+  right: auto;
 }
 .d-switch-trailing {
   background-color: #333333;
   background-image: none;
-  color: #ffffff;
+  color: white;
   left: 50%;
   text-align: center;
 }
 .d-switch.d-rtl .d-switch-trailing {
-  background-color: #0c86af;
-  background-image: none;
-  color: #ffffff;
+  right: 50%;
+  left: auto;
 }
 .-d-switch-knob {
   width: 30px;
