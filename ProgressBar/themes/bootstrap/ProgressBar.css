@@ -57,6 +57,12 @@
   transition: width 0.3s linear 0s;
   background-color: #428bca;
 }
+.d-progress-bar.d-rtl .d-progress-bar-indicator {
+  -webkit-transition: width 0.3s linear 0s;
+  transition: width 0.3s linear 0s;
+  float: right;
+  position: relative;
+}
 .d-progress-bar-msg {
   margin: 0;
   padding: 0;
@@ -118,6 +124,12 @@
   animation-iteration-count: infinite;
   -webkit-animation-direction: normal;
   animation-direction: normal;
+}
+.d-progress-bar-indeterminate.d-rtl .d-progress-bar-indicator {
+  -webkit-animation-direction: reverse;
+  animation-direction: reverse;
+  -webkit-transition: width 0s;
+  transition: width 0s;
 }
 @keyframes d-progress-bar-indeterminate-animation {
   0% {

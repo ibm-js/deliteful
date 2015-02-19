@@ -12,6 +12,10 @@
 	margin: 0;
 	padding: 0;
 	.d-progress-bar-background-styles;
+
+	.d-progress-bar.d-rtl & {
+		.d-progress-bar-background-rtl-styles;
+	}
 }
 
 .d-progress-bar-indicator {
@@ -22,6 +26,10 @@
 	padding: 0;
 
 	.d-progress-bar-indicator-styles;
+
+	.d-progress-bar.d-rtl & {
+		.d-progress-bar-indicator-rtl-styles;
+	}
 }
 
 .d-progress-bar-msg {
@@ -30,10 +38,18 @@
 	padding: 0;
 	overflow: hidden; // Needed for the alignment of the two parts of the text
 	.d-progress-bar-msg-styles;
+
+	.d-progress-bar.d-rtl & {
+		.d-progress-bar-msg-rtl-styles;
+	}
 }
 
 .d-progress-bar-msg-invert {
 	.d-progress-bar-msg-invert-styles;
+
+	.d-progress-bar.d-rtl & {
+		.d-progress-bar-msg-invert-rtl-styles;
+	}
 }
 
 .d-progress-bar-a11y {
@@ -43,6 +59,10 @@
 .d-progress-bar-msg-ext {
 	.d-progress-bar-msg-ext-styles;
 	overflow: hidden; // Needed for the alignment of the two parts of the text
+
+	.d-progress-bar.d-rtl & {
+		.d-progress-bar-msg-ext-rtl-styles;
+	}
 }
 
 .d-progress-bar-indeterminate .d-progress-bar-background {
@@ -55,6 +75,9 @@
 	margin: 0;
 	padding: 0;
 	.d-progress-bar-indeterminate-indicator-styles;
+}
+.d-progress-bar-indeterminate.d-rtl .d-progress-bar-indicator {
+	.d-progress-bar-indeterminate-indicator-rtl-styles;
 }
 
 @keyframes d-progress-bar-indeterminate-animation {

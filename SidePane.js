@@ -7,8 +7,7 @@ define([
 	"delite/register",
 	"delite/DisplayContainer",
 	"requirejs-dplugins/Promise!",
-	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css",
-	"requirejs-dplugins/has!bidi?delite/theme!./SidePane/themes/{{theme}}/SidePane_rtl.css"
+	"delite/theme!./SidePane/themes/{{theme}}/SidePane.css"
 ],
 	function (dcl, pointer, $, has, register, DisplayContainer, Promise) {
 		function prefix(v) {

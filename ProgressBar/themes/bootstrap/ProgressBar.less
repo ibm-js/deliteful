@@ -41,6 +41,9 @@
 	background-color: @progress-bg;
 	box-shadow: 0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.1) inset;
 }
+.d-progress-bar-background-rtl-styles() {
+}
+
 
 .d-progress-bar-indicator-styles() {
 	position: relative;
@@ -48,6 +51,11 @@
 	height: 100%;
 	.transition(width @transition-params);
 	background-color: @progress-bar-bg;
+}
+.d-progress-bar-indicator-rtl-styles() {
+	.transition(width @transition-params);
+	float: right;
+	position: relative;
 }
 
 .d-progress-bar-a11y-styles() {
@@ -68,6 +76,9 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.d-progress-bar-msg-rtl-styles() {
+}
+
 
 .d-progress-bar-msg::before {
 	content: "\00a0"; //nbsp
@@ -84,12 +95,17 @@
 	width: 100%;
 	color: @progress-bar-color;
 }
+.d-progress-bar-msg-invert-rtl-styles() {
+}
+
 
 .d-progress-bar-msg-invert::before {
 	content: "\00a0"; //nbsp
 }
 
 .d-progress-bar-msg-ext-styles() {
+}
+.d-progress-bar-msg-ext-rtl-styles() {
 }
 
 .d-progress-bar-indeterminate-background-styles() {
@@ -107,6 +123,10 @@
 	.animation-delay(0s);
 	.animation-iteration-count(infinite);
 	.animation-direction(normal);
+}
+.d-progress-bar-indeterminate-indicator-rtl-styles() {
+	.animation-direction(reverse); //fyi: reverse has same effect as normal on android (4.2.2 GS4)
+	.transition(width 0s);
 }
 
 .keyframes-d-progress-bar-indeterminate-animation() {
