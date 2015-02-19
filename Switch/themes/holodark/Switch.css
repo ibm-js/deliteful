@@ -31,7 +31,7 @@
 .d-switch-leading {
   background-color: #0c86af;
   background-image: none;
-  color: white;
+  color: #ffffff;
   right: 50%;
   text-align: center;
 }
@@ -42,7 +42,7 @@
 .d-switch-trailing {
   background-color: #333333;
   background-image: none;
-  color: white;
+  color: #ffffff;
   left: 50%;
   text-align: center;
 }

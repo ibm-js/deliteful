@@ -195,50 +195,33 @@ fieldset[disabled] .d-button {
   background-color: #f0ad4e;
   border-color: #eea236;
 }
-.d-button-danger,
-.d-button-red {
+.d-button-danger {
   color: #ffffff;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
 .d-button-danger:hover,
-.d-button-red:hover,
 .d-button-danger:focus,
-.d-button-red:focus,
 .d-button-danger:active,
-.d-button-red:active,
-.d-button-danger.active,
-.d-button-red.active {
+.d-button-danger.active {
   color: #ffffff;
   background-color: #d2322d;
   border-color: #ac2925;
 }
 .d-button-danger:active,
-.d-button-red:active,
-.d-button-danger.active,
-.d-button-red.active {
+.d-button-danger.active {
   background-image: none;
 }
 .d-button-danger.disabled,
-.d-button-red.disabled,
 .d-button-danger[disabled],
-.d-button-red[disabled],
 .d-button-danger.disabled:hover,
-.d-button-red.disabled:hover,
 .d-button-danger[disabled]:hover,
-.d-button-red[disabled]:hover,
 .d-button-danger.disabled:focus,
-.d-button-red.disabled:focus,
 .d-button-danger[disabled]:focus,
-.d-button-red[disabled]:focus,
 .d-button-danger.disabled:active,
-.d-button-red.disabled:active,
 .d-button-danger[disabled]:active,
-.d-button-red[disabled]:active,
 .d-button-danger.disabled.active,
-.d-button-red.disabled.active,
-.d-button-danger[disabled].active,
-.d-button-red[disabled].active {
+.d-button-danger[disabled].active {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
