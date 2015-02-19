@@ -12,8 +12,7 @@ define([
 	"./ItemRenderer",
 	"./CategoryRenderer",
 	"./_LoadingPanel",
-	"delite/theme!./List/themes/{{theme}}/List.css",
-	"requirejs-dplugins/has!bidi?delite/theme!./List/themes/{{theme}}/List_rtl.css"
+	"delite/theme!./List/themes/{{theme}}/List.css"
 ], function (dcl, register, $, keys, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
 

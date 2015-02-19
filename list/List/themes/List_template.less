@@ -57,6 +57,10 @@
 
 .d-list-item-icon {
 	margin-right: 7px;
+	.d-list.d-rtl & {
+		margin-right: 0px;
+		margin-left: 7px;
+	}
 }
 
 .d-list-item-label {
@@ -70,6 +74,10 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	.d-list-item-right-text-style;
+	.d-list.d-rtl & {
+		padding-right: 0px;
+		padding-left: 4px;
+	}
 }
 
 .d-list-item-right-icon {

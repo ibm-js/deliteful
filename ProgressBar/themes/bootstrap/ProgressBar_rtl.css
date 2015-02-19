@@ -5,7 +5,7 @@
  *  baseClass : d-progress-bar
  * -----------------------------------------------
  */
-.d-rtl .d-progress-bar-indicator {
+.d-progress-bar.d-rtl .d-progress-bar-indicator {
   -webkit-transition: width 0.3s linear 0s;
   transition: width 0.3s linear 0s;
   float: right;
