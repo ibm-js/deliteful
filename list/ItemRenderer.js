@@ -31,9 +31,7 @@ define([
 	var ItemRenderer = dcl(Renderer, /** @lends module:deliteful/list/ItemRenderer# */ {
 
 		/**
-		 * CSS class of an item renderer. This value is expected by the
-		 * {@link module:deliteful/list/List deliteful/list/List widget}
-		 * so it must not be changed.
+		 * CSS class of an item renderer.
 		 * @member {string}
 		 * @protected
 		 */
@@ -51,7 +49,6 @@ define([
 				this.renderNode.setAttribute("role", "option");
 			}
 		}
-
 	});
 
 	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);

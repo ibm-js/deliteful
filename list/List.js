@@ -192,8 +192,6 @@ define([
 
 		// CSS classes internally referenced by the List widget
 		_cssClasses: {
-			item: "d-list-item",
-			category: "d-list-category",
 			cell: "d-list-cell",
 			selected: "d-selected",
 			selectable: "d-selectable",
@@ -280,7 +278,7 @@ define([
 					// update aria-selected attribute on unselected items
 					for (i = 0; i < this.children.length; i++) {
 						child = this.children[i];
-						if ($(child).hasClass(this._cssClasses.item)
+						if (child.tagName.toLowerCase() === this.itemRenderer.tag
 								&& child.renderNode // no renderNode for the loading panel child
 								&& !child.renderNode.hasAttribute("aria-selected")) {
 							child.renderNode.setAttribute("aria-selected", "false");
@@ -331,8 +329,7 @@ define([
 			return function () {
 				// Deliver pending changes to the list and its renderers
 				sup.apply(this, arguments);
-				var renderers = this.querySelectorAll("."
-						+ this._cssClasses.item + ", ." + this._cssClasses.category);
+				var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
 				for (var i = 0; i < renderers.length; i++) {
 					renderers.item(i).deliver();
 				}
@@ -346,7 +343,7 @@ define([
 		 * @returns {NodeList}
 		 */
 		getItemRenderers: function () {
-			return this.querySelectorAll("." + this._cssClasses.item);
+			return this.querySelectorAll(this.itemRenderer.tag);
 		},
 
 		/**
@@ -797,7 +794,7 @@ define([
 		 * @return {boolean}
 		 */
 		isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
-			return $(renderer).hasClass(this._cssClasses.category);
+			return renderer.tagName.toLowerCase() === this.categoryRenderer.tag;
 		},
 
 		/**
@@ -832,8 +829,7 @@ define([
 		 * @private
 		 */
 		_getFirstRenderer: function () {
-			return this.querySelector("." + this._cssClasses.item
-					+ ", ." + this._cssClasses.category);
+			return this.querySelector(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
 		},
 
 
@@ -844,7 +840,7 @@ define([
 		 */
 		_getLastRenderer: function () {
 			var renderers = this
-								.querySelectorAll("." + this._cssClasses.item + ", ." + this._cssClasses.category);
+								.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
 			return renderers.length ? renderers.item(renderers.length - 1) : null;
 		},
 
