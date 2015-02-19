@@ -3,14 +3,11 @@ define([
 	"intern/dojo/node!leadfoot/keys", "require"
 ], function (intern, registerSuite, pollUntil, assert, keys, require) {
 
-	function loadFile(r, url) {
-		return r.setExecuteAsyncTimeout(intern.config.WAIT_TIMEOUT).get(require.toUrl(url)).executeAsync(function (d) {
-			require(["delite/register", "deliteful/SwapView", "deliteful/ViewIndicator",
-					 "requirejs-domready/domReady!"], function (register) {
-				register.parse();
-				d();
-			});
-		});
+	function loadFile(remote, url) {
+		return remote
+			.get(require.toUrl(url))
+			.then(pollUntil("return ready ? true : null;", [],
+				intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 	}
 
 	function getTransformX(v) {

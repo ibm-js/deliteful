@@ -9,29 +9,40 @@
 
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
-    <script>
-        clicked = function(b){
-            console.log(b + " clicked");
-            b = document.getElementById(b);
-            b._test_clicked = (b._test_clicked||0)+1;
-        }
-    </script>
+	
+	<script type="text/javascript">
+		var ready = false; // set to true when the test page is ready
+		require(["delite/register", "deliteful/Button", "requirejs-domready/domReady!"],
+			function (register) {
+				register.parse();
+				ready = true;
+			}
+		);
+		clicked = function (b) {
+			console.log(b + " clicked");
+			b = document.getElementById(b);
+			b._test_clicked = (b._test_clicked || 0) + 1;
+		};
+	</script>
 </head>
 <body>
 	<h1>d-button functional test</h1>
-    <button id="b0">Start</button>
-    <br/>
-	<button is="d-button" id="b1" name="b1" onclick="clicked('b1')">Deliteful button</button><br/>
-	<button is="d-button" id="b2" name="b2" disabled onclick="clicked('b2')">Deliteful button (disabled)</button>
-    <br/>
-    <button>End</button>
+	<button id="b0">Start</button>
+	<br/>
+	<button is="d-button" id="b1" name="b1" 
+		onclick="clicked('b1')">Deliteful button</button><br/>
+	<button is="d-button" id="b2" name="b2" disabled 
+		onclick="clicked('b2')">Deliteful button (disabled)</button>
+	<br/>
+	<button>End</button>
 
 	<form id="form1" action="processForm.html">
 		<fieldset>
 			<p>
-				Enabled: <button is="d-button" id="b3" value="1" name="b3" onclick="clicked('b3')">Button</button>
+				Enabled: <button is="d-button" id="b3" value="1" name="b3" 
+					onclick="clicked('b3')">Button</button>
 				Disabled: <button is="d-button" id="b5" disabled value="3" name="b5"
-                                  onclick="clicked('b5')">Disabled</button>
+					onclick="clicked('b5')">Disabled</button>
 			</p>
 			<input type="button" id="cb" name="cb" value="99" >
 			<input type="reset" id="resetB" name="reset"/>
