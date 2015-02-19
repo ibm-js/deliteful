@@ -1,19 +1,29 @@
 define([
-	"dcl/dcl"
+	"dcl/dcl",
+	"dpointer/events"
 ], function (dcl) {
-	// module:
-	//		deliteful/Switch/bidi/Switch
 
 	return dcl(null, {
-		_setCheckedLabelAttr: function (value) {
-			value = this.wrapWithUcc(value);
-			this._set("checkedLabel", value);
+		refreshRendering: function (oldVals) {
+			if ("dir" in oldVals || "textDir" in oldVals || "checkedLabel" in oldVals) {
+				this._innerNode.firstChild.textContent = this.applyTextDirection(this.checkedLabel);
+			}
+			if ("dir" in oldVals || "textDir" in oldVals || "uncheckedLabel" in oldVals) {
+				this._innerNode.lastChild.textContent = this.applyTextDirection(this.uncheckedLabel);
+			}
+			if (this.title && "textDir" in oldVals) {
+				this.title = this.applyTextDirection(this.title);
+			}
 		},
 
-		_setUncheckedLabelAttr: function (value) {
-			value = this.wrapWithUcc(value);
-			this._set("uncheckedLabel", value);
-		}
+		postRender: function () {
+			this.on("pointerover", this._pointerOverHandler.bind(this));
+		},
 
+		_pointerOverHandler: function () {
+			if (this.title) {
+				this.title = this.applyTextDirection(this.title);
+			}
+		}
 	});
 });
