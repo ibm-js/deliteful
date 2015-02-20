@@ -56,6 +56,9 @@
 	background-color: transparent;
 	top: 0;
 }
+.d-progress-bar-background-rtl-styles() {
+}
+
 
 .d-progress-bar-indicator-styles() {
 	.transition(width @transition-params);
@@ -63,6 +66,12 @@
 	background: @progress-bar-color;
 	position: absolute; //
 }
+.d-progress-bar-indicator-rtl-styles() {
+	.transition(width @transition-params);
+	float: right;
+	position: relative;
+}
+
 
 .d-progress-bar-msg-styles() {
 	text-align: center;
@@ -73,9 +82,13 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.d-progress-bar-msg-rtl-styles() {
+}
 
 .d-progress-bar-msg-invert-styles() {
 	display: none;
+}
+.d-progress-bar-msg-invert-rtl-styles() {
 }
 
 .d-progress-bar-a11y-styles() {
@@ -85,13 +98,21 @@
 .d-progress-bar-msg-ext-styles() {
 	text-align: left;
 }
+.d-progress-bar-msg-ext-rtl-styles() {
+	text-align: right;
+}
 
 //non templated
 .d-progress-bar-msg-ext::after {
 	content: attr(msg-ext);
 	float: right;
 	display: block;
+
+	.d-progress-bar.d-rtl & {
+		float: left;
+	}
 }
+
 
 .d-progress-bar-indeterminate-background-styles() {
 	background: @progress-bar-color;
@@ -122,6 +143,11 @@
 	.animation-timing-function(cubic-bezier(.1, .86, .76, .1));
 	.animation-iteration-count(infinite);
 }
+.d-progress-bar-indeterminate-indicator-rtl-styles() {
+	position: absolute;
+	.animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
+}
+
 
 .keyframes-d-progress-bar-indeterminate-animation() {
 	0% {

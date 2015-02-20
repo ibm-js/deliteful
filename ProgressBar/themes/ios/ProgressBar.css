@@ -33,6 +33,9 @@
   content: attr(msg-ext);
   float: right;
 }
+.d-progress-bar.d-rtl .d-progress-bar-msg-ext::after {
+  float: left;
+}
 .d-progress-bar {
   display: inline-block;
   position: relative;
@@ -72,6 +75,12 @@
   border-radius: 40px;
   background-color: #ffffff;
 }
+.d-progress-bar.d-rtl .d-progress-bar-indicator {
+  -webkit-transition: width 0.3s linear 0s;
+  transition: width 0.3s linear 0s;
+  float: right;
+  position: relative;
+}
 .d-progress-bar-msg {
   width: 100%;
   margin: 0;
@@ -93,6 +102,9 @@
 }
 .d-progress-bar-msg-ext {
   overflow: hidden;
+}
+.d-progress-bar.d-rtl .d-progress-bar-msg-ext {
+  text-align: right;
 }
 .d-progress-bar-indeterminate .d-progress-bar-background {
   margin: 0;
@@ -119,6 +131,12 @@
   animation-iteration-count: infinite;
   -webkit-animation-direction: normal;
   animation-direction: normal;
+}
+.d-progress-bar-indeterminate.d-rtl .d-progress-bar-indicator {
+  position: absolute;
+  -webkit-animation-direction: reverse;
+  animation-direction: reverse;
+  /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
 }
 @keyframes d-progress-bar-indeterminate-animation {
   0% {
