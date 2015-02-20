@@ -40,3 +40,7 @@
 .d-star-rating-end.d-star-rating-star-icon::before {
   margin-left: -0.5em;
 }
+.d-star-rating.d-rtl .d-star-rating-end.d-star-rating-star-icon::before {
+  margin-left: 0px;
+  margin-right: -0.5em;
+}

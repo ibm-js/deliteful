@@ -1,17 +1,14 @@
 /** @module deliteful/StarRating */
 define([
-	"requirejs-dplugins/has",
 	"dpointer/events",
 	"delite/keys",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/FormValueWidget",
-	"requirejs-dplugins/has!bidi?./StarRating/bidi/StarRating",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
-	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css",
-	"requirejs-dplugins/has!bidi?delite/theme!./StarRating/themes/{{theme}}/StarRating_rtl.css"
-], function (has, pointer, keys, $,
-			register, FormValueWidget, BidiStarRating, messages) {
+	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css"
+], function (pointer, keys, $,
+			register, FormValueWidget, messages) {
 
 	/**
 	 * A widget that displays a rating, usually with stars, and that allows setting a different rating value
@@ -21,7 +18,7 @@ define([
 	 * @class module:deliteful/StarRating
 	 * @augments delite/FormValueWidget
 	 */
-	var StarRating = register.dcl([FormValueWidget], /** @lends module:deliteful/StarRating# */ {
+	return register("d-star-rating", [HTMLElement, FormValueWidget], /** @lends module:deliteful/StarRating# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
@@ -94,6 +91,13 @@ define([
 			}
 			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
 		}),
+
+		attachedCallback: function () {
+			if (!this.isLeftToRight()) {
+				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
+				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];
+			}
+		},
 
 		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
@@ -267,7 +271,4 @@ define([
 			}
 		}
 	});
-
-	return register("d-star-rating",
-			has("bidi") ? [HTMLElement, StarRating, BidiStarRating] : [HTMLElement, StarRating]);
 });
