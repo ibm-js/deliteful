@@ -17,119 +17,119 @@
 @progress-bar-info-bg: #5bc0de;
 
 .d-progress-bar-styles() {
-  height: 1.8em;
-  font-size: 12px;
-  vertical-align: middle;
-  margin: 2px;
+	height: 1.8em;
+	font-size: 12px;
+	vertical-align: middle;
+	margin: 2px;
 }
 
 .d-progress-bar::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: @bar-height;
-  background-color: white;
-  opacity: 0.15;
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: @bar-height;
+	background-color: white;
+	opacity: 0.15;
 }
 
 .d-progress-bar-success .d-progress-bar-indicator {
-  background-color: @progress-bar-success-bg;
+	background-color: @progress-bar-success-bg;
 }
 
 .d-progress-bar-info .d-progress-bar-indicator {
-  background-color: @progress-bar-info-bg;
+	background-color: @progress-bar-info-bg;
 }
 
 .d-progress-bar-warning .d-progress-bar-indicator {
-  background-color: @progress-bar-warning-bg;
+	background-color: @progress-bar-warning-bg;
 }
 
 .d-progress-bar-danger .d-progress-bar-indicator {
-  background-color: @progress-bar-danger-bg;
+	background-color: @progress-bar-danger-bg;
 }
 
 .d-progress-bar-background-styles() {
-  position: absolute;
-  height: @bar-height;
-  background-color: transparent;
-  top: 0;
+	position: absolute;
+	height: @bar-height;
+	background-color: transparent;
+	top: 0;
 }
 
 .d-progress-bar-indicator-styles() {
-  .transition(width @transition-params);
-  height: 100%;
-  background: @progress-bar-color;
-  position: absolute; //
+	.transition(width @transition-params);
+	height: 100%;
+	background: @progress-bar-color;
+	position: absolute; //
 }
 
 .d-progress-bar-msg-styles() {
-  text-align: center;
-  position: absolute;
-  height: 1.4em;
-  line-height: 1.4em;
-  top: 0.4em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	text-align: center;
+	position: absolute;
+	height: 1.4em;
+	line-height: 1.4em;
+	top: 0.4em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .d-progress-bar-msg-invert-styles() {
-  display: none;
+	display: none;
 }
 
 .d-progress-bar-a11y-styles() {
-  display: none;
+	display: none;
 }
 
 .d-progress-bar-msg-ext-styles() {
-  text-align: left;
+	text-align: left;
 }
 
 //non templated
 .d-progress-bar-msg-ext::after {
-  content: attr(msg-ext);
-  float: right;
-  display: block;
+	content: attr(msg-ext);
+	float: right;
+	display: block;
 }
 
 .d-progress-bar-indeterminate-background-styles() {
-  background: @progress-bar-color;
+	background: @progress-bar-color;
 }
 
 .d-progress-bar-indeterminate.d-progress-bar-success .d-progress-bar-background {
-  background-color: @progress-bar-success-bg;
+	background-color: @progress-bar-success-bg;
 }
 
 .d-progress-bar-indeterminate.d-progress-bar-info .d-progress-bar-background {
-  background-color: @progress-bar-info-bg;
+	background-color: @progress-bar-info-bg;
 }
 
 .d-progress-bar-indeterminate.d-progress-bar-warning .d-progress-bar-background {
-  background-color: @progress-bar-warning-bg;
+	background-color: @progress-bar-warning-bg;
 }
 
 .d-progress-bar-indeterminate.d-progress-bar-danger .d-progress-bar-background {
-  background-color: @progress-bar-danger-bg;
+	background-color: @progress-bar-danger-bg;
 }
 
 .d-progress-bar-indeterminate-indicator-styles() {
-  background: @progress-bg;
-  width: 5%;
-  .transition(width 0s);
-  .animation-name(d-progress-bar-indeterminate-animation);
-  .animation-duration(1.5s);
-  .animation-timing-function(cubic-bezier(.1, .86, .76, .1));
-  .animation-iteration-count(infinite);
+	background: @progress-bg;
+	width: 5%;
+	.transition(width 0s);
+	.animation-name(d-progress-bar-indeterminate-animation);
+	.animation-duration(1.5s);
+	.animation-timing-function(cubic-bezier(.1, .86, .76, .1));
+	.animation-iteration-count(infinite);
 }
 
 .keyframes-d-progress-bar-indeterminate-animation() {
-  0% {
-    left: 2%;
-  }
-  100% {
-    left: 93%;
-  }
+	0% {
+		left: 2%;
+	}
+	100% {
+		left: 93%;
+	}
 }
 
 @import "../ProgressBar_template";

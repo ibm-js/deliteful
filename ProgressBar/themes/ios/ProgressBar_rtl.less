@@ -10,14 +10,14 @@
 
 
 .d-progress-bar-indicator-rtl-styles() {
-  .transition(width @transition-params);
-  float: right;
-  position: relative;
+	.transition(width @transition-params);
+	float: right;
+	position: relative;
 }
 
 .d-progress-bar-indeterminate-indicator-rtl-styles() {
-  position: absolute;
-  .animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
+	position: absolute;
+	.animation-direction(reverse); /* fyi: reverse has same effect as normal on android (4.2.2 GS4) */
 }
 
 .d-progress-bar-background-rtl-styles() {
@@ -31,13 +31,13 @@
 }
 
 .d-progress-bar-msg-ext-rtl-styles() {
-  text-align: right;
+	text-align: right;
 }
 
 .d-progress-bar-msg-ext::after {
-  content: attr(msg-ext);
-  float: left;
-  display: block;
+	content: attr(msg-ext);
+	float: left;
+	display: block;
 }
 
 @import "../ProgressBar_template_rtl";

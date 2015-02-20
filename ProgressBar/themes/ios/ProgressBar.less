@@ -17,73 +17,73 @@
 @progress-bar-info-bg: #5bc0de;
 
 .d-progress-bar-styles() {
-  height: 1.75em;
-  font-size: 12px;
-  vertical-align: middle;
-  margin: 2px;
+	height: 1.75em;
+	font-size: 12px;
+	vertical-align: middle;
+	margin: 2px;
 }
 
 .d-progress-bar::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: @bar-height;
-  background-color: white;
-  .border-radius(@bar-border-radius);
-  opacity: 0.4;
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: @bar-height;
+	background-color: white;
+	.border-radius(@bar-border-radius);
+	opacity: 0.4;
 }
 
 .d-progress-bar-success .d-progress-bar-indicator {
-  background-color: @progress-bar-success-bg;
+	background-color: @progress-bar-success-bg;
 }
 
 .d-progress-bar-info .d-progress-bar-indicator {
-  background-color: @progress-bar-info-bg;
+	background-color: @progress-bar-info-bg;
 }
 
 .d-progress-bar-warning .d-progress-bar-indicator {
-  background-color: @progress-bar-warning-bg;
+	background-color: @progress-bar-warning-bg;
 }
 
 .d-progress-bar-danger .d-progress-bar-indicator {
-  background-color: @progress-bar-danger-bg;
+	background-color: @progress-bar-danger-bg;
 }
 
 .d-progress-bar-background-styles() {
-  position: absolute;
-  height: @bar-height;
-  background-color: transparent;
-  .border-radius(@bar-border-radius);
-  bottom: 0;
+	position: absolute;
+	height: @bar-height;
+	background-color: transparent;
+	.border-radius(@bar-border-radius);
+	bottom: 0;
 }
 
 .d-progress-bar-indicator-styles() {
-  position: absolute;
-  .box-sizing(border-box);
-  height: 100%;
-  .transition(width @transition-params);
-  .border-radius(@bar-border-radius);
-  background-color: @progress-bar-color;
+	position: absolute;
+	.box-sizing(border-box);
+	height: 100%;
+	.transition(width @transition-params);
+	.border-radius(@bar-border-radius);
+	background-color: @progress-bar-color;
 }
 
 .d-progress-bar-msg-styles() {
-  text-align: left;
-  position: absolute;
-  height: 1.3em;
-  line-height: 1.3;
-  bottom: 0.45em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	text-align: left;
+	position: absolute;
+	height: 1.3em;
+	line-height: 1.3;
+	bottom: 0.45em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .d-progress-bar-msg-invert-styles() {
-  display: none;
+	display: none;
 }
 
 .d-progress-bar-a11y-styles() {
-  display: none;
+	display: none;
 }
 
 .d-progress-bar-msg-ext-styles() {
@@ -91,34 +91,34 @@
 }
 
 .d-progress-bar-msg-ext::after {
-  content: attr(msg-ext);
-  float: right;
+	content: attr(msg-ext);
+	float: right;
 }
 
 .d-progress-bar-indeterminate-background-styles() {
 }
 
 .d-progress-bar-indeterminate-indicator-styles() {
-  width: 100%;
-  background-image: linear-gradient(45deg, rgba(64, 64, 64, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(64, 64, 64, 0.15) 50%, rgba(64, 64, 64, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -webkit-linear-gradient(45deg, rgba(64, 64, 64, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(64, 64, 64, 0.15) 50%, rgba(64, 64, 64, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-size: 20px 20px;
-  .transition(width 0s);
-  .animation-name(d-progress-bar-indeterminate-animation);
-  .animation-duration(.5s);
-  .animation-timing-function(linear);
-  .animation-delay(0s);
-  .animation-iteration-count(infinite);
-  .animation-direction(normal);
+	width: 100%;
+	background-image: linear-gradient(45deg, rgba(64, 64, 64, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(64, 64, 64, 0.15) 50%, rgba(64, 64, 64, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+	background-image: -webkit-linear-gradient(45deg, rgba(64, 64, 64, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(64, 64, 64, 0.15) 50%, rgba(64, 64, 64, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+	background-size: 20px 20px;
+	.transition(width 0s);
+	.animation-name(d-progress-bar-indeterminate-animation);
+	.animation-duration(.5s);
+	.animation-timing-function(linear);
+	.animation-delay(0s);
+	.animation-iteration-count(infinite);
+	.animation-direction(normal);
 }
 
 .keyframes-d-progress-bar-indeterminate-animation() {
-  0% {
-    background-position: 20px 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
+	0% {
+		background-position: 20px 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
 }
 
 @import "../ProgressBar_template";
