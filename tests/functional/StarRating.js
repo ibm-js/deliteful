@@ -168,14 +168,23 @@ define([
 		},
 		"editable ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
+			if (/iOS/.test(this.remote.environmentType.browserName)) {
+				return this.skip("Value not being updated on click on iOS 8.1");
+			}
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
+			if (/iOS/.test(this.remote.environmentType.browserName)) {
+				return this.skip("Value not being updated on click on iOS 8.1");
+			}
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
+			if (/iOS/.test(this.remote.environmentType.browserName)) {
+				return this.skip("Value not being updated on click on iOS 8.1");
+			}
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
@@ -363,6 +372,9 @@ define([
 		},
 		"form values": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
+			if (/iOS/.test(this.remote.environmentType.browserName)) {
+				return this.skip("Value not being updated on click on iOS 8.1");
+			}
 			var remote = this.remote, id = "starrating1";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
