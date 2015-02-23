@@ -403,11 +403,12 @@ define([
 			this.list.on("keynav-child-navigated", function (evt) {
 				var input = this._popupInput || this.inputNode;
 				var navigatedChild = evt.newValue; // never null
-				var item = this.list.getEnclosingRenderer(navigatedChild).item;
+				var rend = this.list.getEnclosingRenderer(navigatedChild);
+				var item = rend.item;
 				input.setAttribute("aria-activedescendant", navigatedChild.id);
 				if (this.selectionMode === "single" && !this.list.isSelected(item)) {
-					this.list.setSelected(item, true);
-				}
+					this.list.selectFromEvent(evt, item, rend, true);
+				} // else do not change the selection state of an item already selected
 				if (evt.triggerEvent && // only for keyboard navigation
 					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
 					this._updateScroll(item, true);
@@ -426,17 +427,21 @@ define([
 					}
 				}
 			}.bind(this));
-		
+			
+			// React to interactive changes of selected items
+			this.list.on("selection-change", function () {
+				if (this.selectionMode === "single") {
+					this._validateSingle();
+				}
+				this.handleOnInput(this.value); // emit "input" event
+			}.bind(this));
+			
 			// React to programmatic changes of selected items
 			this.list.observe(function (oldValues) {
 				if ("selectedItems" in oldValues) {
 					if (this.selectionMode === "single") {
-						var selectedItem = this.list.selectedItem;
-						// selectedItem non-null because List in radio selection mode, but
-						// the List can be empty, so:
-						this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
-						this.value = selectedItem ? this._getItemValue(selectedItem) : "";
-						this.handleOnInput(this.value); // emit "input" event
+						this._validateSingle();
+						// do not emit "input" event for programmatic changes
 					} else if (this.selectionMode === "multiple") {
 						this._validateMultiple(this._popupInput || this.inputNode);
 					}
@@ -628,8 +633,7 @@ define([
 					// which here is the input element outside the List. TODO: see deliteful #500.
 					if (this.selectionMode === "multiple") {
 						var rend = this.list.getEnclosingRenderer(this.list.navigatedDescendant);
-						var item = rend.item;
-						this.list.setSelected(item, !this.list.isSelected(item));
+						this.list.selectFromEvent(evt, rend.item, rend, true);
 					}
 					if (this.selectionMode === "multiple" || !this.autoFilter) {
 						evt.stopPropagation();
@@ -645,6 +649,14 @@ define([
 					evt.preventDefault();
 				}
 			}.bind(this), inputElement);
+		},
+		
+		_validateSingle: function () {
+			var selectedItem = this.list.selectedItem;
+			// selectedItem non-null because List in radio selection mode, but
+			// the List can be empty, so:
+			this.inputNode.value = selectedItem ? this._getItemLabel(selectedItem) : "";
+			this.value = selectedItem ? this._getItemValue(selectedItem) : "";
 		},
 		
 		_validateMultiple: function (inputElement) {
@@ -664,6 +676,8 @@ define([
 				inputElement.value = this.multipleChoiceNoSelectionMsg;
 			}
 			this._set("value", value);
+			// FormWidget.refreshRendering() also updates valueNode.value, but we need to
+			// make sure this is already done when FormValueWidget.handleOnInput() runs.
 			this.valueNode.value = value;
 			this.handleOnInput(this.value); // emit "input" event
 		},

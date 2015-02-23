@@ -90,11 +90,11 @@ define([
 						opened: false,
 						selectedItemsCount: 1,
 						itemRenderersCount: 37, // full list
-						inputEventCounter: 1, // For now, #519
+						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never recieved
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after initial focus");
 			})
@@ -113,9 +113,9 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0, // no new event
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never recieved
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after first ARROW_DOWN");
 			})
@@ -580,11 +580,11 @@ define([
 						opened: false,
 						selectedItemsCount: 1,
 						itemRenderersCount: 37,
-						inputEventCounter: 1, // For now, #519.
+						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never recieved
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "right after load");
 			})
@@ -604,9 +604,9 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never recieved
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after click on root node");
 			})
@@ -633,9 +633,9 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: "France",
-						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never recieved
+						valueNodeValueAtLatestInputEvent: undefined,
+						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after clicking the first option (a category)");
 			})
