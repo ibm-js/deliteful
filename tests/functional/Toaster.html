@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>StarRating Tests</title>
+<title>Toaster Tests</title>
 
 	<style>
 		d-toaster-initial {
@@ -162,13 +162,20 @@
 							props   : { type : "info", duration : -1 }
 						}
 					};
-
+					actionsHover = {
+						"expirable3000": {
+							toaster : toast,
+							alwaysTrue : true,
+							props : { type : "info", duration : 3000}
+						}
+					};
 
 					var actionsContainer = document.getElementById("actions");
 					createButtonsForActions(actionsDurations);
 					createButtonsForActions(actionsTypes);
 					createButtonsForActions(actionsRemoval);
 					createButtonsForActions(actionsDismiss);
+					createButtonsForActions(actionsHover);
 
 					// Set global variable to signal that the test page is ready
 					ready = true;

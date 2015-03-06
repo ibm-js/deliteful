@@ -221,6 +221,43 @@ define(["dcl/dcl",
 		}.bind(this));
 	};
 
+	var PauseTimerOnHover = function (element) {
+
+		var hovering = false;
+		function _pointerOverHandler() {
+			if (!hovering) {
+				hovering = true;
+				element._timer.pause();
+			}
+		}
+
+		function _pointerLeaveHandler() {
+			if (hovering) {
+				hovering = false;
+				element._timer.resume();
+			}
+		}
+
+		this.isEnabled = false;
+		var eventHandlers;
+		this.enable = function () {
+			this.isEnabled = true;
+			eventHandlers = [element.on("pointerover", _pointerOverHandler.bind(element)),
+				element.on("pointerleave", _pointerLeaveHandler.bind(element)),
+				element.on("pointercancel", _pointerLeaveHandler.bind(element))];
+		};
+
+		this.disable = function () {
+			if (this.isEnabled) {
+				this.isEnabled = false;
+				eventHandlers.forEach(function (eventHandler) {
+					eventHandler.remove();
+				});
+				eventHandlers = null;
+			}
+		};
+	};
+
 	var D_INVISIBLE = "d-invisible",
 		D_HIDDEN = "d-hidden",
 		D_SWIPEOUT = "d-toaster-swipeout";
@@ -457,6 +494,10 @@ define(["dcl/dcl",
 					this.swipeToDismiss.enable();
 				}
 			}
+			// setting up pause-timer-on-hover
+			if (this.isExpirable()) {
+				this.pauseTimerOnHover.enable();
+			}
 		},
 		_hideInDom: function (toaster, animated, customAnimation) {
 			var animation = customAnimation || toaster.animationQuitClass;
@@ -476,6 +517,9 @@ define(["dcl/dcl",
 					this._toBeRemoved = true;
 					toaster.notifyCurrentValue("messages"); // TODO: could be better handled with an event
 				}
+			}
+			if (this.isExpirable()) {
+				this.pauseTimerOnHover.disable();
 			}
 		},
 		_removeFromDom: function (toaster, animated) {
@@ -500,6 +544,8 @@ define(["dcl/dcl",
 					this.dismiss();
 				}.bind(this), this._dismissButton);
 			}
+			// setting up pause timer on hover listener
+			this.pauseTimerOnHover = new PauseTimerOnHover(this);
 		}
 	});
 	return register("d-toaster-message", [HTMLElement, ToasterMessage]);

@@ -1,6 +1,6 @@
 define(["intern",
-    "intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
+	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require",
 	"dojo/promise/all"
@@ -324,6 +324,61 @@ define(["intern",
 						.end();
 				})
 				.end();
+		},
+		"Check visibility on hover" : function () {
+			this.timeout = intern.config.TEST_TIMEOUT;
+			var remote = this.remote;
+			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
+				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
+				return this.skip("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform." +
+				" moveTo not supported.");
+			} else {
+				return remote
+					/*jshint -W061 */
+					.execute("return actionsHover;") // NOTE: a global variable existing in PAGE
+					.then(function (actions) {
+						var action = actions.expirable3000;
+						return remote
+							// click on show button
+							.findById(action.buttonId)
+							.click()
+							.end()
+							// wait for the message to show up
+							.then(pollUntil(codeIns(action), [], intern.config.WAIT_TIMEOUT,
+								intern.config.POLL_INTERVAL))
+
+							// move pointer over message
+							.findById(action.props.id)
+							.then(function (element) {
+								return remote.moveMouseTo(element);
+							})
+							.end()
+							// wait some time to read message
+							.sleep(5000)
+							// Verify the message still exists
+							.then(function () {
+								return checkHasElement(remote, action.props.id);
+							})
+							// move pointer out of message
+							.findById(action.buttonId)
+							.then(function (element) {
+								return remote.moveMouseTo(element);
+							})
+							.end()
+
+							// wait for the message to expire
+							.then(pollUntil(codeExp(action), [],
+								3000 + intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+							// wait for the message to be removed
+							.then(pollUntil(codeRem(action), [],
+								intern.config.WAIT_TIMEOUT + ANIMATION_DURATION, intern.config.POLL_INTERVAL))
+							.then(function () {
+								return checkHasNotElement(remote, action.props.id);
+							})
+							.end();
+					})
+					.end();
+			}
 		}
 	});
 });
