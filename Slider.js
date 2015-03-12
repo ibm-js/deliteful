@@ -140,7 +140,7 @@ define([
 			 * Used for various calculations: Indicates if current direction must be/is reversed.
 			 * @private
 			 */
-			_reversed: null,
+			_reversed: false,
 
 			template: template,
 
@@ -175,26 +175,15 @@ define([
 			},
 
 			/**
-			 * Sets _reversed according to vertical, flip and the current text direction.
-			 * @private
-			 */
-			_refreshReversed: function () {
-				// Complicated since you can have flipped right-to-left and vertical is upside down by default.
-				var ltr = this.effectiveDir === "ltr";
-				this._reversed = !((!this.vertical && (ltr !== this.flip))
-					|| (this.vertical && this.flip));
-			},
-
-			/**
 			 * Refresh CSS classes.
 			 * @private
 			 */
 			_refreshCSS: function () {
-				var toCSS = function (baseClass, modifier) {
-					return baseClass.split(/ /g).map(function (c) {
+				function toCSS(baseClass, modifier) {
+					return baseClass.split(/ /).map(function (c) {
 						return c + modifier;
 					}).join(" ");
-				};
+				}
 				// add V or H suffix to baseClass for styling purposes
 				var rootBaseClass = toCSS(this.baseClass, this.vertical ? "-v" : "-h");
 				var baseClass = this.baseClass + " " + rootBaseClass;
@@ -232,21 +221,20 @@ define([
 					// set corrected value as needed
 					this.value = isDual ? (minValue + "," + maxValue) : String(maxValue);
 				}
+
+				// Complicated since you can have flipped right-to-left and vertical is upside down by default.
+				if ("vertical" in props || "flip" in props || "effectiveDir" in props) {
+					var ltr = this.effectiveDir === "ltr";
+					this._reversed = !((!this.vertical && (ltr !== this.flip)) || (this.vertical && this.flip));
+				}
 			},
 
 			refreshRendering: function (props) {
-				var resetCSS, resetReversed;
 				if ("value" in props) {
-					resetCSS = this._refreshValueRendering();
+					this._refreshValueRendering();
 				}
 				if ("vertical" in props) {
 					this._refreshOrientation();
-					resetReversed = true;
-					resetCSS = true;
-				}
-				if ("flip" in props) {
-					resetReversed = true;
-					resetCSS = true;
 				}
 				if ("name" in props) {
 					var name = this.name;
@@ -261,10 +249,7 @@ define([
 					(this.handleMin._isActive ? this.handleMin : this.focusNode)
 						.setAttribute("aria-valuemin", this.min);
 				}
-				if (resetReversed) {
-					this._refreshReversed();
-				}
-				if (resetCSS) {
+				if ("baseClass" in props || "vertical" in props || "_reversed" in props) {
 					this._refreshCSS();
 				}
 				this._positionHandles();
@@ -290,17 +275,14 @@ define([
 
 			/**
 			 * Add/remove and set handle as needed.
-			 * @returns {Boolean} `true` if CSS classes need  to be refreshed.
 			 * @private
 			 */
 			_refreshValueRendering: function () {
-				var resetClasses,
-					currentVal = this._getValueAsArray();
+				var currentVal = this._getValueAsArray();
 				if (!this.handleMin._isActive && currentVal.length === 2) {
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = "handleMin,focusNode";
-					resetClasses = true;
 					this.handleMin._isActive = true;
 				}
 				if (this.handleMin._isActive && currentVal.length === 1) {
@@ -308,7 +290,6 @@ define([
 					this.handleMin.removeAttribute("aria-valuemin");
 					this.focusNode.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
-					resetClasses = true;
 					this.handleMin._isActive = false;
 				}
 				// update aria attributes
@@ -322,7 +303,6 @@ define([
 				}
 				// set input field value.
 				this.valueNode.value = String(this.value);
-				return resetClasses;
 			},
 
 			postRender: function () {
