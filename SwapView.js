@@ -91,7 +91,7 @@ define([
 				if (!this._drag.started && Math.abs(dx) > this._dragThreshold) {
 					// user dragged (more than the threshold), start sliding children.
 					var childOut = this._visibleChild;
-					var childIn = (this.isLeftToRight() ? dx < 0 : dx > 0) ? childOut.nextElementSibling :
+					var childIn = (this.effectiveDir === "ltr" ? dx < 0 : dx > 0) ? childOut.nextElementSibling :
 						childOut.previousElementSibling;
 					if (childIn) {
 						this._drag.childOut = childOut;

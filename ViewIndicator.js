@@ -40,7 +40,7 @@ define([
 					this.viewStack.show(this.viewStack.children[e.target._vsChildIndex]);
 				} else {
 					var next = (e.clientX - this.offsetLeft) > this.offsetWidth / 2;
-					if (!this.isLeftToRight()) {
+					if (this.effectiveDir === "rtl") {
 						next = !next;
 					}
 					if (next) {

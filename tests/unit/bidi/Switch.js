@@ -27,7 +27,7 @@ define([
 				b1.deliver();
 				var div1 = b1.querySelector(".d-switch-leading");
 				var div2 = b1.querySelector(".d-switch-trailing");
-				assert.strictEqual(b1.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202a\u05d0\u05d1\u05d2\u202c", "ltr: wrong displayed value for 'checkedLabel'");
 			},
 			"rtl": function () {
@@ -36,7 +36,7 @@ define([
 				b2.deliver();
 				var div1 = b2.querySelector(".d-switch-leading");
 				var div2 = b2.querySelector(".d-switch-trailing");
-				assert.strictEqual(b2.isLeftToRight() ? div2.textContent : div1.textContent,
+				assert.strictEqual(b2.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202bABC\u202c", "rtl: wrong displayed value for 'uncheckedLabel'");
 			},
 			"auto": function () {
@@ -45,7 +45,7 @@ define([
 				b3.deliver();
 				var div1 = b3.querySelector(".d-switch-leading");
 				var div2 = b3.querySelector(".d-switch-trailing");
-				assert.strictEqual(b3.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b3.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202b\u05d0\u05d1\u05d2\u202c", "auto: wrong displayed value for 'uncheckedLabel'");
 				assert.strictEqual(b3.title, "\u202aABC \u05d0\u05d1\u05d2\u202c",
 					"auto: wrong value for 'title'");
@@ -67,27 +67,27 @@ define([
 				b1.deliver();
 				var div1 = b1.querySelector(".d-switch-leading");
 				var div2 = b1.querySelector(".d-switch-trailing");
-				assert.strictEqual(b1.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202a\u05d0\u05d1\u05d2\u202c", "ltr: wrong displayed value for 'checkedLabel'");
 				b1.checked = false;
 				b1.deliver();
-				assert.strictEqual(b1.isLeftToRight() ? div2.textContent : div1.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202aABC\u202c", "ltr: wrong displayed value for 'uncheckedLabel'");
 				b1.textDir = "rtl";
 				b1.deliver();
-				assert.strictEqual(b1.isLeftToRight() ? div2.textContent : div1.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202bABC\u202c", "rtl: wrong displayed value for 'uncheckedLabel'");
 				b1.checked = true;
 				b1.deliver();
-				assert.strictEqual(b1.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202b\u05d0\u05d1\u05d2\u202c", "rtl: wrong displayed value for 'checkedLabel'");
 				b1.textDir = "auto";
 				b1.deliver();
-				assert.strictEqual(b1.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202b\u05d0\u05d1\u05d2\u202c", "auto: wrong displayed value for 'checkedLabel'");
 				b1.checked = false;
 				b1.deliver();
-				assert.strictEqual(b1.isLeftToRight() ? div2.textContent : div1.textContent,
+				assert.strictEqual(b1.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202aABC\u202c", "auto: wrong displayed value for 'uncheckedLabel'");
 			},
 			"labels": function () {
@@ -99,13 +99,13 @@ define([
 				b2.deliver();
 				var div1 = b2.querySelector(".d-switch-leading");
 				var div2 = b2.querySelector(".d-switch-trailing");
-				assert.strictEqual(b2.isLeftToRight() ? div2.textContent : div1.textContent,
+				assert.strictEqual(b2.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
 					"\u202bABC\u202c", "unchekedLabel: wrong displayed rtl value");
 				b2.checkedLabel = "\u05d0\u05d1\u05d2";
 				b2.textDir = "ltr";
 				b2.checked = true;
 				b2.deliver();
-				assert.strictEqual(b2.isLeftToRight() ? div1.textContent : div2.textContent,
+				assert.strictEqual(b2.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
 					"\u202a\u05d0\u05d1\u05d2\u202c", "checkdLabel: wrong displayed ltr value");
 			},
 			"title": function () {

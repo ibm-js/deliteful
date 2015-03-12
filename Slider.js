@@ -180,7 +180,8 @@ define([
 			 */
 			_refreshReversed: function () {
 				// Complicated since you can have flipped right-to-left and vertical is upside down by default.
-				this._reversed = !((!this.vertical && (this.isLeftToRight() !== this.flip))
+				var ltr = this.effectiveDir === "ltr";
+				this._reversed = !((!this.vertical && (ltr !== this.flip))
 					|| (this.vertical && this.flip));
 			},
 

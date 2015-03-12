@@ -250,7 +250,7 @@ define(["dcl/dcl",
 				this._visibleChild = widget;
 
 				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
-				var reverse = this.isLeftToRight() ? event.reverse : !event.reverse;
+				var reverse = this.effectiveDir === "ltr" ? event.reverse : !event.reverse;
 				return this._doTransition(origin, widget, event, transition, reverse);
 			},
 			/**

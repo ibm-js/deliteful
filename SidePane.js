@@ -287,12 +287,7 @@ define([
 
 				if (nextElement) {
 					$(nextElement).removeClass(prefix("animate"));
-					if (!this.isLeftToRight()) {
-						$(nextElement).addClass("d-rtl");
-					}
-					else {
-						$(nextElement).removeClass("d-rtl");
-					}
+					$(nextElement).toggleClass("d-rtl", this.effectiveDir === "rtl");
 				}
 
 				if ("mode" in props) {
@@ -353,8 +348,8 @@ define([
 			},
 
 			_isLeft: function () {
-				return (this.position === "start" && this.isLeftToRight()) ||
-					(this.position === "end" && !this.isLeftToRight());
+				return (this.position === "start" && this.effectiveDir === "ltr") ||
+					(this.position === "end" && this.effectiveDir === "rtl");
 			},
 
 			_pointerDownHandler: function (event) {

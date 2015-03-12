@@ -64,8 +64,6 @@ define([
 		=====*/
 		_hovering: false,
 		_otherEventsHandles: [],
-		_incrementKeyCodes: [keys.RIGHT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS], // keys to press to increment value
-		_decrementKeyCodes: [keys.LEFT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS], // keys to press to decrement value
 
 		render: function () {
 			this.focusNode = this.ownerDocument.createElement("div");
@@ -91,13 +89,6 @@ define([
 			}
 			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
 		}),
-
-		attachedCallback: function () {
-			if (!this.isLeftToRight()) {
-				this._incrementKeyCodes = [keys.LEFT_ARROW, keys.UP_ARROW, keys.NUMPAD_PLUS];
-				this._decrementKeyCodes = [keys.RIGHT_ARROW, keys.DOWN_ARROW, keys.NUMPAD_MINUS];
-			}
-		},
 
 		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {
@@ -211,12 +202,22 @@ define([
 		},
 
 		_keyDownHandler: function () {
-			if (this._incrementKeyCodes.indexOf(event.keyCode) !== -1) {
+			var incrementArrow = this.effectiveDir === "ltr" ? keys.RIGHT_ARROW : keys.LEFT_ARROW,
+				decrementArrow = this.effectiveDir === "ltr" ? keys.LEFT_ARROW : keys.RIGHT_ARROW;
+
+			switch (event.keyCode) {
+			case incrementArrow:
+			case keys.UP_ARROW:
+			case keys.NUMPAD_PLUS:
 				event.preventDefault();
 				this._incrementValue();
-			} else if (this._decrementKeyCodes.indexOf(event.keyCode) !== -1) {
+				break;
+			case decrementArrow:
+			case keys.DOWN_ARROW:
+			case keys.NUMPAD_MINUS:
 				event.preventDefault();
 				this._decrementValue();
+				break;
 			}
 		},
 

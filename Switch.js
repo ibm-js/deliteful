@@ -90,7 +90,7 @@ define([
 				// attachedCallback on Chrome so do it here
 				this._knobWidth = parseInt(window.getComputedStyle(this._knobNode).width, 10);
 				this._switchWidth = parseInt(window.getComputedStyle(this).width, 10);
-				var nw = this.isLeftToRight() ? w + dx : w - dx,
+				var nw = this.effectiveDir === "ltr" ? w + dx : w - dx,
 					max = this.checked ? this._switchWidth : this._switchWidth - this._knobWidth,
 					min = this.checked ? this._knobWidth : 0;
 				nw = Math.max(min, Math.min(max, nw));
