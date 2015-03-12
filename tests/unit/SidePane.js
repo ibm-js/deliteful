@@ -7,10 +7,12 @@ define([
 	"deliteful/SidePane"
 ], function (registerSuite, assert, domGeom, $, register, SidePane) {
 	var node;
+	var origBodyStyle;
 
 	registerSuite({
 		name: "SidePane",
 		setup: function () {
+			origBodyStyle = document.body.style.cssText;
 			node = new SidePane();
 			document.body.appendChild(node);
 			register.parse();
@@ -69,6 +71,7 @@ define([
 		},
 		teardown: function () {
 			node.parentNode.removeChild(node);
+			document.body.style.cssText = origBodyStyle;	// so page can scroll again
 		}
 	});
 });
