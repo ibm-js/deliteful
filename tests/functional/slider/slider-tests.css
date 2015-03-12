@@ -12,7 +12,9 @@ input[type=text] {
     width: 4em;
     text-align: end;
 }
-
+input#onchange_target {
+	width: 8em;
+}
 input[type=text]:last-child {
     color: blue;
 }

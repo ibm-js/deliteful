@@ -44,16 +44,16 @@ define(["intern",
 				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
-					.then(logMessage(remote, this.id, "click on handler..."))
-					.then(clickOnHandler(remote, "singleSlider01"))
+					.then(logMessage(remote, this.id, "click on handle..."))
+					.then(clickOnHandle(remote, "singleSlider01"))
 					.then(checkOnChange(remote, "singleSlider01", false))
 
 					.then(logMessage(remote, this.id, "click on progress bar"))
 					.then(clickOnProgressBar(remote, "singleSlider01", 50, 10))
 					.then(checkOnChange(remote, "singleSlider01", true))
 
-					.then(logMessage(remote, this.id, "move handler"))
-					.then(moveHandler(remote, "singleSlider01", 26, 10))
+					.then(logMessage(remote, this.id, "move handle"))
+					.then(moveHandle(remote, "singleSlider01", 26, 10))
 					.then(checkOnChange(remote, "singleSlider01", true));
 			}
 		},
@@ -93,16 +93,16 @@ define(["intern",
 				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
-					.then(logMessage(remote, this.id, "click on handler..."))
-					.then(clickOnHandler(remote, "rangeSlider01"))
+					.then(logMessage(remote, this.id, "click on handle..."))
+					.then(clickOnHandle(remote, "rangeSlider01"))
 					.then(checkOnChange(remote, "rangeSlider01", false))
 
 					.then(logMessage(remote, this.id, "click on progress bar"))
 					.then(clickOnProgressBar(remote, "rangeSlider01", 50, 10))
 					.then(checkOnChange(remote, "rangeSlider01", false))// no action when slideRange=true
 
-					.then(logMessage(remote, this.id, "move handler"))
-					.then(moveHandler(remote, "rangeSlider01", 26, 10))
+					.then(logMessage(remote, this.id, "move handle"))
+					.then(moveHandle(remote, "rangeSlider01", 26, 10))
 					.then(checkOnChange(remote, "rangeSlider01", true))
 
 					.then(logMessage(remote, this.id, "move range (slideRange=true)"))
@@ -123,9 +123,9 @@ define(["intern",
 				return this.skip("SafariDriver doesn't support moveTo.");
 			} else {
 				return remote
-					.then(logMessage(remote, this.id, "move handler"))
-					.then(clickOnHandler(remote, "rangeSlider01"))
-					.then(moveHandler(remote, "rangeSlider01", 70, 30))
+					.then(logMessage(remote, this.id, "move handle"))
+					.then(clickOnHandle(remote, "rangeSlider01"))
+					.then(moveHandle(remote, "rangeSlider01", 70, 30))
 					.execute("return rangeSlider01parent")
 					.then(function (rangeSlider01parent) {
 						assert.equal(rangeSlider01parent.pointerdowns, 0, "parent did not detect pointerdown");
@@ -349,9 +349,9 @@ define(["intern",
 		};
 	}
 
-	function clickOnHandler(remote, sliderId) {
+	function clickOnHandle(remote, sliderId) {
 		return function () {
-			debugMsg("clickOnHandler...");
+			debugMsg("clickOnHandle...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
 				.then(function (element) {
 					return remote.moveMouseTo(element);
@@ -368,9 +368,9 @@ define(["intern",
 		};
 	}
 
-	function moveHandler(remote, sliderId, moveToX, moveToY) {
+	function moveHandle(remote, sliderId, moveToX, moveToY) {
 		return function () {
-			debugMsg("moveHandler...");
+			debugMsg("moveHandle...");
 			return remote.findByCssSelector("#" + sliderId + " .d-slider-handle-max")
 				.then(function (element) {
 					return remote.pressMouseButton()
@@ -414,23 +414,23 @@ define(["intern",
 	function loadTestPage(remote, url) {
 		return remote
 			.get(require.toUrl(url))
-			.then(pollUntil("return ('ready' in window &&  ready) ? true : null;", [],
+			.then(pollUntil("return ('ready' in window && ready) ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
 			.then(function () {
 				debugMsg(url + " loaded.");
-				return remote.end();
+				return remote;
 			});
 	}
 
 	function logMessage(remote, prefix, message) {
 		return function () {
 			console.log("[" + prefix + "] " + message);
-			return remote.end();
+			return remote;
 		};
 	}
 
 	function waitForDebug(remote) {
-		return (debug) ? remote.sleep(500) : remote.end();
+		return debug ? remote.sleep(500) : remote;
 	}
 	
 	function debugMsg(msg) {
