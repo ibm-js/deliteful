@@ -642,7 +642,6 @@ define([
 				}.bind(this),
 				_list: this
 			});
-			this._nextPageLoader.deliver();
 			this._nextPageLoader.placeAt(this);
 		},
 
@@ -669,7 +668,6 @@ define([
 				}.bind(this),
 				_list: this
 			});
-			this._previousPageLoader.deliver();
 			this._previousPageLoader.placeAt(this, "first");
 		},
 

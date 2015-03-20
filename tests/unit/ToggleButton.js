@@ -19,7 +19,6 @@ define([
 
 		"Default State": function () {
 			var tb = document.getElementById("tb1");
-			tb.deliver();
 			assert.isTrue($(tb).hasClass("d-toggle-button"), "Unexpected baseClass.");
 			assert.isFalse(tb.checked, "Unexpected default value for 'checked' property.");
 			assert.isFalse(tb.disabled, "Unexpected default value for 'disabled' property");
@@ -27,21 +26,18 @@ define([
 			assert.strictEqual("tb1", tb.textContent, "Unexpected default value for textContent.");
 
 			var tb2 = document.getElementById("tb2");
-			tb2.deliver();
 			assert.strictEqual(tb2.value, "foo",
 				"Unexpected default value for 'value' property if 'value' specified/unchecked");
 			tb = document.getElementById("tb3");
 			assert.ok(tb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
 
 			tb = document.getElementById("tb3");
-			tb.deliver();
 			assert.strictEqual("tb3", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb3", tb.textContent, "Unexpected default value for textContent [2].");
 			assert.strictEqual("ic1", tb.iconClass, "Unexpected default value for iconClass.");
 			assert.isTrue(/ic1/.test(tb.iconNode.className), "Missing icon css class on iconNode.");
 
 			tb = document.getElementById("tb4");
-			tb.deliver();
 			assert.strictEqual("on", tb.checkedLabel,
 				"Unexpected default value for 'checkedlabel' (inherited) property.");
 			assert.strictEqual("on", tb.textContent, "Unexpected default value for textContent [3].");

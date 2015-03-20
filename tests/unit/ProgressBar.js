@@ -9,11 +9,9 @@ define([
 	registerSuite({
 		name: "ProgressBar",
 		setup: function () {
-			progressBar = new ProgressBar();
-			progressBar.lang = "en-US";
+			progressBar = new ProgressBar({lang: "en-US"});
 			document.body.appendChild(progressBar);
 			progressBar.attachedCallback();
-			progressBar.deliver(); //todo: remove when the initialization of properties will be synchronous.
 		},
 		"Default values and state": function () {
 			//public attribute:value
@@ -50,7 +48,6 @@ define([
 		"Set value out of range (value < 0)": function () {
 			var testVal = -0.1;
 			progressBar.value = testVal;
-			progressBar.deliverComputing();
 			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(testVal, true);
@@ -59,7 +56,6 @@ define([
 		"Set value out of range (value > max)": function () {
 			var testVal = 100.1;
 			progressBar.value = testVal;
-			progressBar.deliverComputing();
 			progressBar.deliver();
 			checkDeterminate();
 			checkPercentage(testVal, true);
@@ -156,7 +152,6 @@ define([
 			var pb = new ProgressBar({value: 10, max: 100});
 			document.body.appendChild(pb);
 			pb.attachedCallback();
-			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			assert.strictEqual(10, pb.value);
 			assert.strictEqual(100, pb.max);
 			pb.destroy();
@@ -165,7 +160,6 @@ define([
 			var pb = new ProgressBar({value: -10, max: -9});
 			document.body.appendChild(pb);
 			pb.attachedCallback();
-			pb.deliver();//todo: remove when the initialization of properties will be synchronous.
 			var value = pb.value, max = pb.max;
 			assert.strictEqual(0, value);
 			assert.strictEqual(1.0, max);

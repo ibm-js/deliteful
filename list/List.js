@@ -770,7 +770,6 @@ define([
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
 				$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
 			}
-			renderer.deliver();
 			return renderer;
 		},
 
@@ -782,9 +781,7 @@ define([
 		 * @private
 		 */
 		_createCategoryRenderer: function (item) {
-			var renderer = new this.categoryRenderer({item: item, tabindex: "-1"});
-			renderer.deliver();
-			return renderer;
+			return new this.categoryRenderer({item: item, tabindex: "-1"});
 		},
 
 		/**

@@ -43,7 +43,6 @@ define([
 		"Default values": function () {
 			var toasterDefault = new Toaster();
 			toasterDefault.placeAt("container");
-			toasterDefault.deliver();
 
 			assert($(toasterDefault).hasClass("d-toaster-placement-default"),
 				"toasterDefault has class d-toaster-placement-default");
@@ -72,7 +71,6 @@ define([
 			Object.keys(toasters).forEach(function (pos) {
 				toasters[pos] = new Toaster({placementClass: "d-toaster-placement-" + pos});
 				toasters[pos].placeAt("container");
-				toasters[pos].deliver();
 				assert.isTrue($(toasters[pos]).hasClass("d-toaster-placement-" + pos),
 					"d-toaster-placement-" + pos + " CSS class has been correctly set");
 			});

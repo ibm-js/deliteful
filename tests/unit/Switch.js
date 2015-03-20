@@ -49,7 +49,6 @@ define([
 
 				// verify attachPoint
 				var sw1 = document.getElementById("sw1");
-				sw1.deliver();
 				assert.strictEqual(sw1.focusNode, sw1.querySelector("input[type='checkbox']"),
 					"Unexpected value for 'focusNode' attach point.");
 				assert.strictEqual(sw1.valueNode, sw1.querySelector("input[type='checkbox']"),
@@ -72,7 +71,6 @@ define([
 			var d = this.async(1000);
 			setTimeout(d.callback(function () {
 				var sw2 = document.getElementById("sw2");
-				sw2.deliver();
 				assert.isTrue(sw2.checked, "Unexpected value for 'checked' property.");
 				assert.isTrue(sw2.disabled, "Unexpected default value for 'disabled' property.");
 				assert.strictEqual(sw2.value, "foo",

@@ -127,6 +127,7 @@ define([
 		select.setSelected(dataItems[1], true);
 		select.deliver();
 		if (select._observe) {
+			// TODO: the select.deliver() call above should be sufficient
 			select._observe.deliver();
 		}
 		

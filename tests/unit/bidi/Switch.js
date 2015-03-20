@@ -24,7 +24,6 @@ define([
 			"ltr": function () {
 				register.parse();
 				var b1 = document.getElementById("b1");
-				b1.deliver();
 				var div1 = b1.querySelector(".d-switch-leading");
 				var div2 = b1.querySelector(".d-switch-trailing");
 				assert.strictEqual(b1.effectiveDir === "ltr" ? div1.textContent : div2.textContent,
@@ -33,7 +32,6 @@ define([
 			"rtl": function () {
 				register.parse();
 				var b2 = document.getElementById("b2");
-				b2.deliver();
 				var div1 = b2.querySelector(".d-switch-leading");
 				var div2 = b2.querySelector(".d-switch-trailing");
 				assert.strictEqual(b2.effectiveDir === "ltr" ? div2.textContent : div1.textContent,
@@ -42,7 +40,6 @@ define([
 			"auto": function () {
 				register.parse();
 				var b3 = document.getElementById("b3");
-				b3.deliver();
 				var div1 = b3.querySelector(".d-switch-leading");
 				var div2 = b3.querySelector(".d-switch-trailing");
 				assert.strictEqual(b3.effectiveDir === "ltr" ? div1.textContent : div2.textContent,

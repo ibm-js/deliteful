@@ -18,7 +18,6 @@ define([
 
 		"Default State": function () {
 			var cb = document.getElementById("cb1");
-			cb.deliver();
 			assert.isFalse(cb.checked, "Unexpected default value for 'checked' property.");
 			assert.strictEqual(cb.value, "on", "Unexpected default value for 'value' property");
 
@@ -30,7 +29,6 @@ define([
 
 		"checked": function () {
 			var cb1 = document.getElementById("cb1");
-			cb1.deliver();
 			var old = cb1.checked;
 			cb1.checked = !old;
 			assert.strictEqual(cb1.checked, !old, "Unexpected value for 'checked' property after set.");
