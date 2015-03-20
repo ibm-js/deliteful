@@ -202,6 +202,7 @@ define([
 				}
 			},
 
+			/* jshint maxcomplexity: 12 */
 			computeProperties: function (props) {
 				if ("value" in props || "min" in props || "max" in props || "step" in props) {
 					var value = this._getValueAsArray(),
@@ -228,6 +229,7 @@ define([
 					this._reversed = !((!this.vertical && (ltr !== this.flip)) || (this.vertical && this.flip));
 				}
 			},
+			/* jshint maxcomplexity: 10 */
 
 			refreshRendering: function (props) {
 				if ("value" in props) {
