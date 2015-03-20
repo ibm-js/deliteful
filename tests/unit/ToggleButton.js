@@ -16,7 +16,6 @@ define([
 
 
 	var commonSuite = {
-
 		"Default State": function () {
 			var tb = document.getElementById("tb1");
 			assert.isTrue($(tb).hasClass("d-toggle-button"), "Unexpected baseClass.");
@@ -25,13 +24,8 @@ define([
 			assert.strictEqual("tb1", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb1", tb.textContent, "Unexpected default value for textContent.");
 
-			var tb2 = document.getElementById("tb2");
-			assert.strictEqual(tb2.value, "foo",
-				"Unexpected default value for 'value' property if 'value' specified/unchecked");
 			tb = document.getElementById("tb3");
 			assert.ok(tb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
-
-			tb = document.getElementById("tb3");
 			assert.strictEqual("tb3", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb3", tb.textContent, "Unexpected default value for textContent [2].");
 			assert.strictEqual("ic1", tb.iconClass, "Unexpected default value for iconClass.");
@@ -43,6 +37,13 @@ define([
 			assert.strictEqual("on", tb.textContent, "Unexpected default value for textContent [3].");
 			assert.strictEqual("ic2", tb.checkedIconClass, "Unexpected default value for checkedIconClass.");
 			assert.isTrue(/ic2/.test(tb.iconNode.className), "Missing icon css class on iconNode (checkedIconClass).");
+
+			setTimeout(this.async().callback(function () {
+				// on chrome, programmatic update of native property like value is async
+				var tb2 = document.getElementById("tb2");
+				assert.strictEqual(tb2._get("value"), "foo",
+					"Unexpected default value for 'value' property if 'value' specified/unchecked");
+			}), 10);
 		},
 
 		"checked": function () {
@@ -107,7 +108,10 @@ define([
 		"value": function () {
 			var tb = document.getElementById("tb1");
 			tb.value = "foo";
-			assert.strictEqual(tb.value, "foo", "Unexpected value for 'value' attribute.");
+			setTimeout(this.async().callback(function () {
+				// on chrome, update of native property (like value) is async, even if you call deliver()
+				assert.strictEqual(tb._get("value"), "foo", "Unexpected value for 'value' attribute.");
+			}), 10);
 		},
 
 		afterEach: function () {
@@ -122,7 +126,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register.parse();
+			register.parse(container);
 		}
 	};
 	dcl.mix(suite, commonSuite);
