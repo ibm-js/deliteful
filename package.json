@@ -1,6 +1,6 @@
 {
 	"name": "deliteful",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"dependencies": {},
 	"devDependencies": {
 		"intern": "2.1.1",
