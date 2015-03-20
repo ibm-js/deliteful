@@ -38,9 +38,6 @@ define([
 					var list = this.combobox.list;
 					if (list) {
 						list.placeAt(this.listNode, "replace");
-						// startup() is not called by Widget.placeAt because the parent of
-						// dropDown is not yet started, but startup() will be called by delite/popup
-						// when opening the dropdown.
 						$(list).addClass("fill");
 					}
 					this.combobox._prepareInput(this.inputNode);

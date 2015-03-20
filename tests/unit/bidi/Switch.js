@@ -62,7 +62,7 @@ define([
 				var b1 = new Switch({id: "b1", checkedLabel: "\u05d0\u05d1\u05d2",
 					uncheckedLabel: "ABC", checked: true});
 				container.appendChild(b1);
-				b1.startup();
+				b1.attachedCallback();
 				b1.textDir = "ltr";
 				b1.deliver();
 				var div1 = b1.querySelector(".d-switch-leading");
@@ -93,7 +93,7 @@ define([
 			"labels": function () {
 				var b2 = new Switch({id: "b2"});
 				container.appendChild(b2);
-				b2.startup();
+				b2.attachedCallback();
 				b2.textDir = "rtl";
 				b2.uncheckedLabel = "ABC";
 				b2.deliver();
@@ -111,7 +111,7 @@ define([
 			"title": function () {
 				var b3 = new Switch({id: "b3"});
 				container.appendChild(b3);
-				b3.startup();
+				b3.attachedCallback();
 				b3.textDir = "auto";
 				b3.title = "\u05d0\u05d1\u05d2 ABC";
 				b3.deliver();
