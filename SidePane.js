@@ -101,6 +101,10 @@ define([
 			_originX: NaN,
 			_originY: NaN,
 
+			attachedCallback: function () {
+				this.parentNode.style.overflow = "hidden";
+			},
+
 			show: dcl.superCall(function (sup) {
 				return function () {
 					if (arguments.length > 0) {
@@ -275,7 +279,6 @@ define([
 			},
 
 			refreshRendering: function (props) {
-				this.parentNode.style.overflow = "hidden";
 				if (!("mode" in props || "position" in props || "animate" in props)) {
 					return;
 				}
