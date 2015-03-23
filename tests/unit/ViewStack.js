@@ -27,6 +27,15 @@ define([
 			);
 		}
 	}
+
+	function checkReverse(vs, target) {
+		assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-reverse"));
+	}
+
+	function checkNoReverse(vs, target) {
+		assert.isFalse($(vs.children[target]).hasClass("-d-view-stack-reverse"));
+	}
+
 	registerSuite({
 		name: "ViewStack Markup",
 		setup: function () {
@@ -217,6 +226,209 @@ define([
 			node.show("ddd", {transition: "none"}).then(d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
+		},
+
+		"Check reverse in showPrevious": {
+			setup: function () {
+				node.style.display = "";
+				node.parentNode.style.display = "";
+			},
+			"ShowPrevious(): default reverse": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious();
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(no transition): default reverse": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "none"});
+				}).then(function () {
+					checkNoReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(fade): default reverse": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "fade"});
+				}).then(function () {
+					checkReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(revealv): default reverse": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "revealv"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(reveal): default reverse": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "reveal"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(flip): default reverse": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "flip"});
+				}).then(function () {
+					checkReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(slidev): default reverse": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "slidev"});
+				}).then(function () {
+					checkReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(slide): default reverse": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "slide"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(coverv): default reverse": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "coverv"});
+				}).then(function () {
+					checkReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(cover): default reverse": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({transition: "cover"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(no reverse, no transition)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "none"});
+				}).then(function () {
+					checkNoReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(no reverse, fade)": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "fade"});
+				}).then(function () {
+					checkNoReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(no reverse, revealv)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "revealv"});
+				}).then(function () {
+					checkNoReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(no reverse, reveal)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "reveal"});
+				}).then(function () {
+					checkNoReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(no reverse, flip)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "flip"});
+				}).then(function () {
+					checkNoReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(no reverse, slidev)": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "slidev"});
+				}).then(function () {
+					checkNoReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(no reverse, slide)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "slide"});
+				}).then(function () {
+					checkNoReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(no reverse, coverv)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "coverv"});
+				}).then(function () {
+					checkNoReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(no reverse, cover)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: false, transition: "cover"});
+				}).then(function () {
+					checkNoReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(reverse, no transition)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "none"});
+				}).then(function () {
+					checkNoReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(reverse, fade)": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "fade"});
+				}).then(function () {
+					checkReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(reverse, revealv)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "revealv"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(reverse, reveal)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "reveal"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(reverse, flip)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "flip"});
+				}).then(function () {
+					checkReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(reverse, slidev)": function () {
+				return node.show(bbb, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "slidev"});
+				}).then(function () {
+					checkReverse(node, "aaa");
+				});
+			},
+			"ShowPrevious(reverse, slide)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "slide"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			},
+			"ShowPrevious(reverse, coverv)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "coverv"});
+				}).then(function () {
+					checkReverse(node, "ccc");
+				});
+			},
+			"ShowPrevious(reverse, cover)": function () {
+				return node.show(ccc, {transition: "none"}).then(function () {
+					return node.showPrevious({reverse: true, transition: "cover"});
+				}).then(function () {
+					checkReverse(node, "bbb");
+				});
+			}
 		},
 
 		teardown: function () {
