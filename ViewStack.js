@@ -169,16 +169,19 @@ define(["dcl/dcl",
 
 			/**
 			 * Shows the immediately preceding sibling of the ViewStack visible element.
-			 * The parameter 'params' is optional. If not specified, this.transition, and this.reverse are used.
+			 * The parameter 'params' is optional. If not specified, this.transition, and reverse = true are used.
 			 * @param {Object} [params] - Optional params. A hash like {transition: "reveal", reverse: true}.
 			 * The transition value can be "slide", "overlay", "fade" or "flip". Reverse transition applies to "slide"
 			 * and "reveal". Transition is internally set to "none" if the ViewStack is not visible.
+			 * Reverse is set to true if not specified.
 			 * @returns {Promise} A promise that will be resolved when the display and transition effect will have
 			 * been performed.
 			 */
 			showPrevious: function (params) {
 				//		Shows the previous child in the container.
-				return this._showPreviousNext("previousElementSibling", params);
+				var args = {reverse: true};
+				dcl.mix(args, params || {});
+				return this._showPreviousNext("previousElementSibling", args);
 			},
 
 			_showPreviousNext: function (direction, props) {
