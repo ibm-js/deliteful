@@ -24,6 +24,11 @@ define([
 			assert.strictEqual("tb1", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb1", tb.textContent, "Unexpected default value for textContent.");
 
+
+			var tb2 = document.getElementById("tb2");
+			assert.strictEqual(tb2._get("value"), "foo",
+				"Unexpected default value for 'value' property if 'value' specified/unchecked");
+
 			tb = document.getElementById("tb3");
 			assert.ok(tb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
 			assert.strictEqual("tb3", tb.label, "Unexpected default value for 'label' (inherited) property.");
@@ -37,13 +42,6 @@ define([
 			assert.strictEqual("on", tb.textContent, "Unexpected default value for textContent [3].");
 			assert.strictEqual("ic2", tb.checkedIconClass, "Unexpected default value for checkedIconClass.");
 			assert.isTrue(/ic2/.test(tb.iconNode.className), "Missing icon css class on iconNode (checkedIconClass).");
-
-			setTimeout(this.async().callback(function () {
-				// on chrome, programmatic update of native property like value is async
-				var tb2 = document.getElementById("tb2");
-				assert.strictEqual(tb2._get("value"), "foo",
-					"Unexpected default value for 'value' property if 'value' specified/unchecked");
-			}), 10);
 		},
 
 		"checked": function () {
