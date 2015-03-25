@@ -72,7 +72,5 @@ define({
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
 	excludeInstrumentation:
 		/*jshint -W101*/
-		// /^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|lie|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
-		// For now, to workaround test failures apparently related with instrumentation:
-		/./
+		/^(requirejs.*|dcl|dojo|dstore|dpointer|decor|jquery|lie|delite\/|deliteful\/tests|ecma402|.*themes|.*transitions|.*node_modules)/
 });
