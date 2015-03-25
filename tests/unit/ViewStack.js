@@ -36,6 +36,38 @@ define([
 		assert.isFalse($(vs.children[target]).hasClass("-d-view-stack-reverse"));
 	}
 
+	function checkTransition(vs, target, transition) {
+		switch (transition) {
+		case "slide" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-slide"));
+			break;
+		case "slidev" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-slidev"));
+			break;
+		case "reveal" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-reveal"));
+			break;
+		case "revealv" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-revealv"));
+			break;
+		case "flip" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-flip"));
+			break;
+		case "fade" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-fade"));
+			break;
+		case "cover" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-cover"));
+			break;
+		case "coverv" :
+			assert.isTrue($(vs.children[target]).hasClass("-d-view-stack-coverv"));
+			break;
+		case "none" :
+			checkNodeVisibility(vs, target);
+			break;
+		}
+	}
+
 	registerSuite({
 		name: "ViewStack Markup",
 		setup: function () {
@@ -227,7 +259,6 @@ define([
 				checkNodeVisibility(node, ddd);
 			}));
 		},
-
 		"Check reverse in showPrevious": {
 			setup: function () {
 				node.style.display = "";
@@ -430,7 +461,112 @@ define([
 				});
 			}
 		},
-
+		"Check transition" : {
+			"Show(): Default transition": function () {
+				return node.show(ccc).then(function () {
+					checkTransition(node, "ccc", "slide");
+				});
+			},
+			"Show(): slide transition": function () {
+				node.transition = "slide";
+				return node.show(ddd).then(function () {
+					checkTransition(node, "ddd", "slide");
+				});
+			},
+			"Show(): slidev transition": function () {
+				node.transition = "slidev";
+				return node.show(aaa).then(function () {
+					checkTransition(node, "aaa", "slidev");
+				});
+			},
+			"Show(): reveal transition": function () {
+				node.transition = "reveal";
+				return node.show(bbb).then(function () {
+					checkTransition(node, "bbb", "reveal");
+				});
+			},
+			"Show(): revealv transition": function () {
+				node.transition = "revealv";
+				return node.show(ddd).then(function () {
+					checkTransition(node, "ddd", "revealv");
+				});
+			},
+			"Show(): flip transition": function () {
+				node.transition = "flip";
+				return node.show(ccc).then(function () {
+					checkTransition(node, "ccc", "flip");
+				});
+			},
+			"Show(): fade transition": function () {
+				node.transition = "fade";
+				return node.show(ddd).then(function () {
+					checkTransition(node, "ddd", "fade");
+				});
+			},
+			"Show(): cover transition": function () {
+				node.transition = "cover";
+				return node.show(aaa).then(function () {
+					checkTransition(node, "aaa", "cover");
+				});
+			},
+			"Show(): coverv transition": function () {
+				node.transition = "coverv";
+				return node.show(bbb).then(function () {
+					checkTransition(node, "bbb", "coverv");
+				});
+			},
+			"Show(): no transition": function () {
+				node.transition = "none";
+				return node.show(ccc).then(function () {
+					checkTransition(node, ccc, "none");
+				});
+			},
+			"Show(slide)": function () {
+				return node.show(ddd, {transition: "slide"}).then(function () {
+					checkTransition(node, "ddd", "slide");
+				});
+			},
+			"Show(slidev)": function () {
+				return node.show(aaa, {transition: "slidev"}).then(function () {
+					checkTransition(node, "aaa", "slidev");
+				});
+			},
+			"Show(reveal)": function () {
+				return node.show(bbb, {transition: "reveal"}).then(function () {
+					checkTransition(node, "bbb", "reveal");
+				});
+			},
+			"Show(revealv)": function () {
+				return node.show(ddd, {transition: "revealv"}).then(function () {
+					checkTransition(node, "ddd", "revealv");
+				});
+			},
+			"Show(flip)": function () {
+				return node.show(ccc, {transition: "flip"}).then(function () {
+					checkTransition(node, "ccc", "flip");
+				});
+			},
+			"Show(fade)": function () {
+				return node.show(ddd, {transition: "fade"}).then(function () {
+					checkTransition(node, "ddd", "fade");
+				});
+			},
+			"Show(cover)": function () {
+				return node.show(aaa, {transition: "cover"}).then(function () {
+					checkTransition(node, "aaa", "cover");
+				});
+			},
+			"Show()": function () {
+				return node.show(bbb, {transition: "coverv"}).then(function () {
+					checkTransition(node, "bbb", "coverv");
+				});
+			},
+			"Show(no transition)": function () {
+				return node.show(ddd, {transition: "none"}).then(function () {
+					checkTransition(node, ddd, "none");
+				});
+			}
+		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		},

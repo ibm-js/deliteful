@@ -252,7 +252,7 @@ define(["dcl/dcl",
 				setVisibility(widget, true);
 				this._visibleChild = widget;
 
-				var transition  = (origin === widget) ? "none" : (event.transition || "slide");
+				var transition  = (origin === widget) ? "none" : (event.transition || this.transition);
 				var reverse = this.effectiveDir === "ltr" ? event.reverse : !event.reverse;
 				return this._doTransition(origin, widget, event, transition, reverse);
 			},
