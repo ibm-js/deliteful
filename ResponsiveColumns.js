@@ -183,7 +183,7 @@ define([
 					mql.addListener(listener);
 					this._mqls.push({mql: mql, listener: listener});
 					// Initialization of screenClass
-					if (!this.screenClass && mql.matches) {
+					if (mql.matches) {
 						this.screenClass = sizeClasses[i];
 					}
 				}
