@@ -1,5 +1,6 @@
 /** @module deliteful/StarRating */
 define([
+	"dcl/dcl",
 	"dpointer/events",
 	"delite/keys",
 	"requirejs-dplugins/jquery!attributes/classes",
@@ -7,7 +8,7 @@ define([
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css"
-], function (pointer, keys, $,
+], function (dcl, pointer, keys, $,
 			register, FormValueWidget, messages) {
 
 	/**
@@ -74,20 +75,30 @@ define([
 			this.focusNode.setAttribute("aria-valuemin", 0);
 		},
 
-		createdCallback: register.after(function () {
-			var inputs = this.getElementsByTagName("INPUT");
-			if (inputs.length) {
-				this.valueNode = inputs[0];
-				if (!isNaN(parseFloat(this.valueNode.value))) {
-					this.value = this.valueNode.value;
-				}
-				this.valueNode.style.display = "none";
-			} else {
-				this.valueNode = this.ownerDocument.createElement("input");
-				this.valueNode.style.display = "none";
-				this.appendChild(this.valueNode);
-			}
+		postRender: function () {
 			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
+		},
+
+
+		/**
+		 * Handle setting of the value from the input node, if set it should be used in place of the value attribute.
+		 */
+		_mapAttributes: dcl.superCall(function (sup) {
+			return function () {
+				var inputs = this.getElementsByTagName("INPUT");
+				if (inputs.length) {
+					this.valueNode = inputs[0];
+					this.valueNode.style.display = "none";
+					if (!isNaN(parseFloat(this.valueNode.value))) {
+						this.setAttribute("value", this.valueNode.value);
+					}
+				} else {
+					this.valueNode = this.ownerDocument.createElement("input");
+					this.valueNode.style.display = "none";
+					this.appendChild(this.valueNode);
+				}
+				return sup.call(this);
+			};
 		}),
 
 		/* jshint maxcomplexity: 13 */
