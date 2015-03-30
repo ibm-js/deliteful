@@ -31,7 +31,7 @@ define([
 			assert.notStrictEqual(elementStyle("display"), "none");
 		} else if (origTargetSize.indexOf("%") !== -1) {
 			var w = parseInt(elementStyle("width").replace("px", ""), 10);
-			targetSize = parseInt(origTargetSize.replace("%", ""), 10);
+			var targetSize = parseInt(origTargetSize.replace("%", ""), 10);
 			var testSize = Math.abs(w - (window.innerWidth * targetSize / 100));
 			console.log("TestSize=[" + testSize + "] origTargetSize=[" + origTargetSize +
 				"] targetSize=[" + targetSize + "] window.innerWidth=[" + window.innerWidth + "] w=" + w);
@@ -89,8 +89,8 @@ define([
 				w2 = "30%";
 				w3 = "60%";
 			}
-			console.log("targetClass ="+targetClass + " w1="+w1+ " w2="+w2+ " w3="+w3);
-			assert.strictEqual(container.screenClass, targetClass,"iw="+iw+" container.screenClass="+container.screenClass+ " targetClass="+targetClass);
+			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
+			assert.strictEqual(container.screenClass, targetClass);
 			var children = container.getChildren();
 			testLayout(children[0], w1);
 			testLayout(children[1], w2);
