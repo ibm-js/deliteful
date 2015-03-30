@@ -5,7 +5,7 @@ define([
 ], function (registerSuite, assert, ResponsiveColumns) {
 	var container;
 
-	function testLayout(element, targetSize) {
+	function testLayout(element, origTargetSize) {
 		var elementStyle = function (key) {
 			if (key === "flex") {
 				var flexAttrs = ["-webkit-box-flex", "-moz-box-flex", "-webkit-flex", "-ms-flex", "flex"];
@@ -20,22 +20,25 @@ define([
 
 			return window.getComputedStyle(this.node).getPropertyValue(key);
 		}.bind({node: element});
-		if (targetSize === "hidden") {
+		if (origTargetSize === "hidden") {
 			assert.strictEqual(elementStyle("display"), "none");
-		} else if (targetSize === "fill") {
+		} else if (origTargetSize === "fill") {
 			assert.strictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
-		} else if (targetSize.indexOf("px") !== -1) {
-			assert.strictEqual(elementStyle("width"), targetSize);
+		} else if (origTargetSize.indexOf("px") !== -1) {
+			assert.strictEqual(elementStyle("width"), origTargetSize);
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
-		} else if (targetSize.indexOf("%") !== -1) {
+		} else if (origTargetSize.indexOf("%") !== -1) {
 			var w = parseInt(elementStyle("width").replace("px", ""), 10);
-			targetSize = parseInt(targetSize.replace("%", ""), 10);
+			targetSize = parseInt(origTargetSize.replace("%", ""), 10);
 			var testSize = Math.abs(w - (window.innerWidth * targetSize / 100));
+			console.log("TestSize=[" + testSize + "] origTargetSize=[" + origTargetSize +
+				"] targetSize=[" + targetSize + "] window.innerWidth=[" + window.innerWidth + "] w=" + w);
+
 			assert.isTrue(testSize < 3, // 3px tolerance
-				"Wrong percent size testSize=" + testSize + " targetSize=" + targetSize +
-					" window.innerWidth=" + window.innerWidth + " w=" + w);
+				"Wrong percent size testSize=" + testSize + "origTargetSize=" + origTargetSize +
+					" targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" + w);
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
 		}
@@ -86,8 +89,8 @@ define([
 				w2 = "30%";
 				w3 = "60%";
 			}
-
-			assert.strictEqual(container.screenClass, targetClass);
+			console.log("targetClass ="+targetClass + " w1="+w1+ " w2="+w2+ " w3="+w3);
+			assert.strictEqual(container.screenClass, targetClass,"iw="+iw+" container.screenClass="+container.screenClass+ " targetClass="+targetClass);
 			var children = container.getChildren();
 			testLayout(children[0], w1);
 			testLayout(children[1], w2);
