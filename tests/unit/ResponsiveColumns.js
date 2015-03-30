@@ -32,8 +32,10 @@ define([
 		} else if (targetSize.indexOf("%") !== -1) {
 			var w = parseInt(elementStyle("width").replace("px", ""), 10);
 			targetSize = parseInt(targetSize.replace("%", ""), 10);
-			assert.isTrue(Math.abs(w - (window.innerWidth * targetSize / 100)) < 3,
-				"Wrong percent size"); // 3px tolerance
+			var testSize = Math.abs(w - (window.innerWidth * targetSize / 100));
+			assert.isTrue(testSize < 3, // 3px tolerance
+				"Wrong percent size testSize=" + testSize + " targetSize=" + targetSize +
+					" window.innerWidth=" + window.innerWidth + " w=" + w);
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
 		}
