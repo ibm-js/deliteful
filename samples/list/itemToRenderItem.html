@@ -26,7 +26,7 @@
 		], function (register, Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
 			var list = register.createElement("d-list");
-			list.store = new Store();
+			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with custom itemToRenderItem method");
 			list.itemToRenderItem = function (item) {
 				return {
@@ -34,11 +34,11 @@
 					righttext: item.title.split(" ")[0]
 				};
 			};
-			list.store.add({title: "first item"});
-			list.store.add({title: "second item"});
-			list.store.add({title: "third item"});
-			list.store.add({title: "fourth item"});
-			list.store.add({title: "fifth item"});
+			list.source.add({title: "first item"});
+			list.source.add({title: "second item"});
+			list.source.add({title: "third item"});
+			list.source.add({title: "fourth item"});
+			list.source.add({title: "fifth item"});
 			list.placeAt(document.body);
 
 			document.body.style.display = "";

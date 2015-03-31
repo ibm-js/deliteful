@@ -64,11 +64,11 @@
 				var i = parseInt(item.id.slice(3));
 				return "right-icon-2-" + (i % 8 + 1);
 			};
-			list.store = createStore(100, 500);
+			list.source = createStore(100, 500);
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
 			for (var i = 0; i < 100; i++) {
-				list.store.addSync({id: 'ref' + i, text: 'this is list item ' + i});
+				list.source.addSync({id: 'ref' + i, text: 'this is list item ' + i});
 			}
 			ready = true;
 		});

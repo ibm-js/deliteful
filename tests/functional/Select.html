@@ -22,12 +22,13 @@
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/Select",
-			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, Trackable, Select, Store) {
+		], function (register, Memory, Trackable, Select) {
 			register.deliver();
-			
+
+			var Store = Memory.createSubclass([Trackable], {});
+
 			var nOptions = 40;
 	
 			// Add options using the store API
@@ -38,7 +39,7 @@
 					max = min;
 				}
 				for (var i = min; i <= max; i++) {
-					select.store.addSync({
+					select.source.addSync({
 						text: "Option " + i +
 							(updateCounter > 0 ? (" update #" + updateCounter) : ""),
 						value: i, // optional
@@ -48,15 +49,15 @@
 			};
 			
 			removeFirstOption = function (select) {
-				if (select.store) {
-					var option = select.store.data[0]; // holds for the dstore/Memory used in this test
-					select.store.removeSync(select.store.getIdentity(option));
+				if (select.source) {
+					var option = select.source.data[0]; // holds for the dstore/Memory used in this test
+					select.source.removeSync(select.source.getIdentity(option));
 				}
 			};
 			
 			var removeAllOptions = function (select) {
-				if (select.store) {
-					select.store.setData([]); // This bypasses the notification of observable stores, hence:
+				if (select.source) {
+					select.source.setData([]); // This bypasses the notification of observable stores, hence:
 					select.renderItems = []; // needed because of delite issue #187. TODO: remove when this is fixed.
 				}
 			};
@@ -82,11 +83,11 @@
 					);
 			};
 			
-			var initSelect = function (select, min, max, store) {
-				if (!store) {
-					select.store = new (Memory.createSubclass(Trackable))({});
+			var initSelect = function (select, min, max, source) {
+				if (!source) {
+					select.source = new (Memory.createSubclass(Trackable))({});
 				} else {
-					select.store = store;
+					select.source = source;
 				}
 				addOptions(select, min, max);
 				
@@ -110,13 +111,13 @@
 				select._notifiedSelectValue = null;
 			};
 			
-			var createSelect = function (selectDiv, min, max, defaultStore) {
+			var createSelect = function (selectDiv, min, max, defaultSource) {
 				var select = new Select({id: selectDiv.id}).placeAt(selectDiv, "replace");
-				initSelect(select, min, max, defaultStore);
+				initSelect(select, min, max, defaultSource);
 			};
 				
 			/* attempt to workaround IE's behavior which is to close 
-	 		the dropdown as soon as an option is added/removed - but this doesn't do the trick */
+			the dropdown as soon as an option is added/removed - but this doesn't do the trick */
 			/* var openDropdown = function (node) {
 				// var event = document.createEvent('MouseEvents');
 				// event.initMouseEvent('mousedown', true, true, window);
@@ -193,10 +194,8 @@
 			
 			// Fill with options the Select already created declaratively:
 			initSelect(select1, 1, nOptions);
-			var store = new Store();
-			select3.parentNode.appendChild(store);
-			store.attachedCallback();
-			initSelect(select3, 1, nOptions, store);
+			var source = new Store();
+			initSelect(select3, 1, nOptions, source);
 			initSelect(d_select_form1, 1, nOptions);
 			initSelect(d_select_form2, 1, nOptions);
 			initSelect(d_select_form3, 1, nOptions);
@@ -207,10 +206,8 @@
 			initSelect(select8, 1, nOptions);
 			
 			// Create the Select programmatically:
-			store = new Store();
-			select2.parentNode.appendChild(store);
-			store.attachedCallback();
-			createSelect(select2, 1, nOptions, store);
+			source = new Store();
+			createSelect(select2, 1, nOptions, source);
 			createSelect(select4, 1, nOptions);
 
 			ready = true;
@@ -273,7 +270,7 @@
 <button id="show1" onclick="show(select1)">Show</button>
 <br/><br/>
 
-2. deliteful/Select created programmatically (with custom element store):
+2. deliteful/Select created programmatically (with custom element source):
 <br/>
 <div id="select2"></div>
 
@@ -283,7 +280,7 @@
 <button id="show2" onclick="show(select2)">Show</button>
 <br/><br/>
 
-3. deliteful/Select created declaratively (with custom element store):
+3. deliteful/Select created declaratively (with custom element source):
 <br/>
 
 <d-select id="select3"></d-select>
@@ -405,7 +402,7 @@
 <br/><br/>
 
 8. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
-border-radius, color and background-color (with default store):
+border-radius, color and background-color (with default source):
 <br/>
 <d-select id="select8">
 </d-select>

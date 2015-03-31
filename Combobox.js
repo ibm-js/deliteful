@@ -66,15 +66,12 @@ define([
 	 * 
 	 * @example <caption>Markup</caption>
 	 * JS:
-	 * require(["deliteful/Store",
-	 *   "deliteful/Combobox", "requirejs-domready/domReady!"],
+	 * require(["deliteful/Combobox", "requirejs-domready/domReady!"],
 	 *   function () {
 	 *   });
 	 * HTML:
 	 * <d-combobox id="combobox1">
-	 *   <d-list store="store"></d-list>
-	 * </d-combobox>
-	 * <d-store id="store">
+	 *   <d-list>
 	 *   { "label": "France", "sales": 500, "profit": 50, "region": "EU" },
 	 *   { "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
 	 *   { "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
@@ -83,7 +80,8 @@ define([
 	 *   { "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
 	 *   { "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
 	 *   { "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" }
-	 * </d-store>
+	 *   </d-list>
+	 * </d-combobox>
 	 * 
 	 * @example <caption>Programmatic</caption>
 	 * JS:
@@ -91,7 +89,7 @@ define([
 	 *   "deliteful/Combobox", ..., "requirejs-domready/domReady!"],
 	 *   function (List, Combobox, ...) {
 	 *     var dataStore = ...; // Create data store
-	 *     var list = new List({store: dataStore});
+	 *     var list = new List({source: dataStore});
 	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).
 	 *       placeAt(...);
 	 *   });
@@ -482,8 +480,9 @@ define([
 				
 				if (!initValueSingleMode()) {
 					// List not ready, wait.
-					this.list.on("query-success", function () {
+					var waitListener = this.list.on("query-success", function () {
 						initValueSingleMode();
+						waitListener.remove(waitListener);
 					});
 				}
 			} else { // selectionMode === "multiple"
@@ -757,7 +756,7 @@ define([
 						}
 					}
 				}
-				
+
 				sup.apply(this, arguments);
 			};
 		}),

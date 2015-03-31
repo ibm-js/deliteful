@@ -32,18 +32,17 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 ### Declarative Instantiation
 
 ```js
-require(["deliteful/Store", "deliteful/Select", "requirejs-domready/domReady!"],
+require(["deliteful/Select", "requirejs-domready/domReady!"],
   function () {
 });
 ```
 
 ```html
 <html>
-  <d-store id="myStore">
+  <d-select selectionMode="multiple">
     {"text": "Option 1", "value": "1"},
     ...
-  </d-store>
-  <d-select selectionMode="multiple" store="myStore"></d-select>
+  </d-select>
 </html>
 ```
 
@@ -60,10 +59,26 @@ require(["dstore/Memory", "dstore/Trackable",
   function (Memory, Trackable) {
     var select = new Select({selectionMode: "multiple"});
     // Create the store
-    var store = new (Memory.createSubclass(Trackable))({});
-    select.store = store;
+    var source = new (Memory.createSubclass(Trackable))({});
+    select.source = source;
     // add options to the Select widget
-    store.add({text: "Option 1", value: "1"});
+    source.add({text: "Option 1", value: "1"});
+    ...
+    select.placeAt(document.body);
+});
+```
+
+Or with an array in source property :
+
+```js
+require(["decor/ObservableArray", "decor/Observable",
+		 "deliteful/Select", "requirejs-domready/domReady!"],
+  function (ObservableArray, Observable) {
+    // Create the store
+    var source = new ObservableArray();
+    select.source = source;
+    // add options to the Select widget
+    source.push(new Observable({text: "Option 1", value: "1"}));
     ...
     select.placeAt(document.body);
 });
@@ -88,14 +103,14 @@ Note that `deliteful/Select` only supports for this property the values `single`
 
 ### Attribute Mapping
 
-`deliteful/Select` uses the following attributes of data store items:
+`deliteful/Select` uses the following attributes of source items:
 * The `text` attribute for the label of the option elements.
 * The `value` attribute for their value attribute.
 * The `disabled` attribute for the disabled state of the option (an option is enabled
 if the attribute is absent, or its value is falsy, or it is the string "false").
 
 Because the widget inherits from [`delite/StoreMap`](/delite/docs/master/StoreMap.md), 
-the mapping between the attributes of the data store items and the attributes used by 
+the mapping between the attributes of the source items and the attributes used by
 `deliteful/Select` can be redefined using the `labelAttr`, `valueAttr`, and `disabledAttr`
 properties, or using `labelFunc`, `valueFunc`, and `disabledFunc` properties. See the 
 [`delite/StoreMap`](/delite/docs/master/StoreMap.md) documentation for more
@@ -145,7 +160,7 @@ particularly its `<option>` children) is browser-dependent.
 ### Globalization
 
 `deliteful/Select` does not provide any internationalizable bundle. The only strings displayed 
-by the widget are coming from the user data through the store from which the options are retrieved.
+by the widget are coming from the user data through the source from which the options are retrieved.
 
 Right to left orientation is supported by setting the `dir` attribute to `rtl` on the
 widget.

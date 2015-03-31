@@ -23,7 +23,7 @@
 		], function (declare, Deferred, register, Memory, Trackable, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-6";
-			list.store = new (Memory.createSubclass([Trackable], {}))();
+			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.pageLength = 23;
 			list.maxPages = 2;
 			list.hideOnPageLoad = true;
@@ -43,15 +43,15 @@
 						return def;
 					}
 			});
-			list.store = new CustomMemoryStore();
+			list.source = new CustomMemoryStore();
  			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, id: i});
+				list.source.add({label: "Programmatic item of order " + i, id: i});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
 			var latencyIF = document.getElementById("latency");
 			latencyIF.onchange = function () {
-				list.store.latency = latencyIF.valueAsNumber;
+				list.source.latency = latencyIF.valueAsNumber;
 			}
 			ready = true;
 		});

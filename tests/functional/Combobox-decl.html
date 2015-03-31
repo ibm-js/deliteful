@@ -9,18 +9,17 @@
 	<title>deliteful/Combobox (markup)</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-	
+
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
-	
+
 	<script type="text/javascript">
 		// global variables used by the automatic functional tests test:
 		var ready = false; // set to true when the test page is ready
 		var getComboState;
-		
+
 		require([
 			"delite/register",
-			"deliteful/Store",
 			"deliteful/list/List",
 			"deliteful/Combobox",
 			"deliteful/RadioButton",
@@ -42,30 +41,32 @@
 			ignoreCase.on("change", function () {
 				combo2.ignoreCase = ignoreCase.checked;
 			});
-			
+
 			var combo = document.getElementById("combo2-custom-sel-single");
 			// Configure with its fourth option initially selected
-			combo.list.selectedItem = combo.list.store.data[3];
-			
+			combo.list.selectedItem = combo.list.source[3];
+
 			combo = document.getElementById("combo2-custom-sel-multiple");
 			// Appears with its second and fourth options initially selected
-			combo.list.selectedItems = [combo.list.store.data[1], combo.list.store.data[3]];
-			
+			combo.list.selectedItems = [combo.list.source[1], combo.list.source[3]];
+
 			// Store information for use in the automatic functional test
 			var storeTestingInfo = function (combo) {
-				combo._inputEventCounter = 0;
-				combo._changeEventCounter = 0;
-				combo.on("input", function () {
-					combo._inputEventCounter++;
-					combo._widgetValueAtLatestInputEvent = combo.value;
-					combo._valueNodeValueAtLatestInputEvent = combo.valueNode.value;
-				});
-				combo.on("change", function () {
-					combo._changeEventCounter++; 
-					combo._widgetValueAtLatestChangeEvent = combo.value;
-					combo._valueNodeValueAtLatestChangeEvent = combo.valueNode.value;
-				});
-				
+				if (!combo.init) {
+					combo._inputEventCounter = 0;
+					combo._changeEventCounter = 0;
+					combo.on("input", function () {
+						combo._inputEventCounter++;
+						combo._widgetValueAtLatestInputEvent = combo.value;
+						combo._valueNodeValueAtLatestInputEvent = combo.valueNode.value;
+					});
+					combo.on("change", function () {
+						combo._changeEventCounter++;
+						combo._widgetValueAtLatestChangeEvent = combo.value;
+						combo._valueNodeValueAtLatestChangeEvent = combo.valueNode.value;
+					});
+					combo.init = true;
+				}
 				// Store ids for item cells such that the automatic functional test
 				// can retrieve them.
 				var itemRenderers = combo.list.getItemRenderers();
@@ -78,13 +79,24 @@
 					categoryRenderers.item(i).renderNode.id = combo.id + "_category" + i;
 				}
 			};
-			// single selection mode, autoFilter=true
-			storeTestingInfo(document.getElementById("combo1"));
-			// single selection mode, autoFilter=true
-			storeTestingInfo(document.getElementById("combo2"));
-			// multiple selection mode
-			storeTestingInfo(document.getElementById("combo3"));
-			
+
+			combo = document.getElementById("combo1");
+			combo.list.on("query-success", function () {
+				// single selection mode, autoFilter=true
+				storeTestingInfo(document.getElementById("combo1"));
+			});
+			combo = document.getElementById("combo2");
+			combo.list.on("query-success", function () {
+				// single selection mode, autoFilter=true
+				storeTestingInfo(document.getElementById("combo2"));
+			});
+			combo = document.getElementById("combo3");
+			combo.list.on("query-success", function () {
+				// multiple selection mode
+				storeTestingInfo(document.getElementById("combo3"));
+				ready = true;
+			});
+
 			// Used by the automatic functional test, for comboboxes in both
 			// single and multiple selection modes.
 			getComboState = function (comboId) {
@@ -93,7 +105,7 @@
 				var changeEventCounter = combo._changeEventCounter;
 				// Reset the counters such that at next call only the new events
 				// are counted. This is convenient, because it allows to change parts of
-				// the automatic test without needing to update the expected values for 
+				// the automatic test without needing to update the expected values for
 				// counters in the remaining testing sequence.
 				combo._inputEventCounter = 0;
 				combo._changeEventCounter = 0;
@@ -116,8 +128,7 @@
 					multipleChoiceMsg: combo.multipleChoiceMsg
 				};
 			};
-			
-			ready = true;
+
 		});
 	</script>
 	<style>
@@ -133,74 +144,101 @@
 <body>
 	<form id="form1" action="processForm.html">
 	<fieldset>
-	
+
 	<p>
 	Combobox in <b>markup</b>.
 	</p>
-	<d-store id="store">
-		{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
-		{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
-		{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
-		{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
-		{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
-		{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
-		{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
-		{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
-		{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-store>
-	<d-store id="storeWithValueAndLabelMapping">
-		{ "text": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
-		{ "text": "Germany", "myValue": "DE", "sales": 450, "profit": 48, "region": "EU" },
-		{ "text": "UK", "myValue": "UK", "sales": 700, "profit": 60, "region": "EU" },
-		{ "text": "USA", "myValue": "US", "sales": 2000, "profit": 250, "region": "America" },
-		{ "text": "Canada", "myValue": "CA", "sales": 600, "profit": 30, "region": "America" },
-		{ "text": "Brazil", "myValue": "BA", "sales": 450, "profit": 30, "region": "America" },
-		{ "text": "China", "myValue": "CN", "sales": 500, "profit": 40, "region": "Asia" },
-		{ "text": "Japan", "myValue": "JP", "sales": 900, "profit": 100, "region": "Asia" }
-	</d-store>
-	
+
 	<p>
 	id: "combo1" selectionMode: "single", autoFilter: false
 	</p>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo2" selectionMode: "single", autoFilter: true
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<fieldset>
 		<legend>Filtering options</legend>
 		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
@@ -212,93 +250,411 @@
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
 		<label for="ignoreCase">Ignore Case</label>
 	</fieldset>
-	
+
 	<p>
 	id: "combo3", selectionMode: "multiple"
 	</p>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3" name="combo3">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled
 	</p>
-	<d-combobox selectionMode="single" autoFilter="false" 
+	<d-combobox selectionMode="single" autoFilter="false"
 		id="combo1-disabled" name="combo1-disabled" disabled>
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
 	<p>
 	id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled
 	</p>
-	<d-combobox selectionMode="single" autoFilter="true" 
+	<d-combobox selectionMode="single" autoFilter="true"
 		id="combo2-disabled" name="combo2-disabled" disabled>
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
 	<p>
 	id: "combo3-disabled", selectionMode: "multiple", disabled
 	</p>
-	<d-combobox selectionMode="multiple" autoFilter="false" 
+	<d-combobox selectionMode="multiple" autoFilter="false"
 		id="combo3-disabled" name="combo3-disabled" disabled>
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true"
 		id="combo2-custom-sel-single" name="combo2-custom-sel-single">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo2-custom-sel-multiple", selectionMode: "single", custom initial selection
 	</p>
 	<d-combobox selectionMode="multiple"
 		id="combo2-custom-sel-multiple" name="combo2-custom-sel-multiple">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
 	</p>
 	<d-combobox selectionMode="single" autoFilter="true" readOnly
 		id="combo2-readonly" name="combo2-readonly">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo1-value", data items with value and label mapping, value selectionMode: "single", autoFilter: false
 	</p>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1-value" name="combo1-value">
 		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
-			categoryAttr="region"
-			store="storeWithValueAndLabelMapping">
+			categoryAttr="region">
+			{ "text": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
+			{ "text": "Germany", "myValue": "DE", "sales": 450, "profit": 48, "region": "EU" },
+			{ "text": "UK", "myValue": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "text": "USA", "myValue": "US", "sales": 2000, "profit": 250, "region": "America" },
+			{ "text": "Canada", "myValue": "CA", "sales": 600, "profit": 30, "region": "America" },
+			{ "text": "Brazil", "myValue": "BA", "sales": 450, "profit": 30, "region": "America" },
+			{ "text": "China", "myValue": "CN", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "text": "Japan", "myValue": "JP", "sales": 900, "profit": 100, "region": "Asia" }
 		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
 	</p>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value">
 		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
-			categoryAttr="region"
-			store="storeWithValueAndLabelMapping">
+			categoryAttr="region">
+			{ "text": "France", "myValue": "FR", "sales": 500, "profit": 50, "region": "EU" },
+			{ "text": "Germany", "myValue": "DE", "sales": 450, "profit": 48, "region": "EU" },
+			{ "text": "UK", "myValue": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "text": "USA", "myValue": "US", "sales": 2000, "profit": 250, "region": "America" },
+			{ "text": "Canada", "myValue": "CA", "sales": 600, "profit": 30, "region": "America" },
+			{ "text": "Brazil", "myValue": "BA", "sales": 450, "profit": 30, "region": "America" },
+			{ "text": "China", "myValue": "CN", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "text": "Japan", "myValue": "JP", "sales": 900, "profit": 100, "region": "Asia" }
 		</d-list>
 	</d-combobox>
-	
+
 	<p>
 	id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
 	</p>
-	<d-combobox dir="rtl" selectionMode="single" autoFilter="false" 
+	<d-combobox dir="rtl" selectionMode="single" autoFilter="false"
 		id="combo1-single-rtl" name="combo1-single-rtl">
-		<d-list righttextAttr="sales" categoryAttr="region" store="store"></d-list>
+		<d-list righttextAttr="sales" categoryAttr="region">
+			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
+			{ "label": "Germany", "sales": 450, "profit": 48, "region": "EU" },
+			{ "label": "UK", "sales": 700, "profit": 60, "region": "EU" },
+			{ "label": "USA", "sales": 2000, "profit": 250, "region": "America" },
+			{ "label": "Canada", "sales": 600, "profit": 30, "region": "America" },
+			{ "label": "Brazil", "sales": 450, "profit": 30, "region": "America" },
+			{ "label": "China", "sales": 500, "profit": 40, "region": "Asia" },
+			{ "label": "Japan", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan2", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan3", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan4", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan5", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan6", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan7", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan8", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan9", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan10", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan11", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan12", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan13", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan14", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan15", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan16", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan17", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan18", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan19", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan20", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan21", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan22", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan23", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan24", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan25", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan26", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan27", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan28", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan29", "sales": 900, "profit": 100, "region": "Asia" },
+			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
+		</d-list>
 	</d-combobox>
-	
+
 	<br/><br/>
 	<input id="resetB" type="reset">
 	<input id="submitB" type="submit">
 </fieldset>
 </form>
-	
+
 </body>
 </html>

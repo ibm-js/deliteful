@@ -11,9 +11,8 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
-		    "delite/register",
+			"delite/register",
 			"deliteful/list/List",
-			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
@@ -30,9 +29,10 @@
 	</style>
 </head>
 <body>
- 	<input type="text" autofocus>
- 	<br>
-	<d-store id="store">
+	<input type="text" autofocus>
+	<br>
+	<h2>Non scrollable with 10 items declared as markup, and selectionMode set to "radio" (id: list-mark-5)</h2>
+	<d-list id="list-mark-5" scrollDirection="none" selectionMode="radio">
 		{"label": "list item 0", "righttext": "right text 1"},
 		{"label": "list item 1", "righttext": "right text 2"},
 		{"label": "list item 2", "righttext": "right text 3"},
@@ -43,9 +43,6 @@
 		{"label": "list item 7", "righttext": "right text 8"},
 		{"label": "list item 8", "righttext": "right text 9"},
 		{"label": "list item 9", "righttext": "right text 10"}
-	</d-store>
-    <h2>Non scrollable with 10 items declared as markup, and selectionMode set to "radio" (id: list-mark-5)</h2>
-	<d-list id="list-mark-5" scrollDirection="none" selectionMode="radio" store="store">
 	</d-list>
 </body>
 </html>

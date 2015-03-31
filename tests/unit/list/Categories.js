@@ -28,20 +28,20 @@ define([
 			if (list) {
 				list.destroy();
 			}
-			list = new List({store: new Store()});
+			list = new List({source: new Store()});
 			document.body.appendChild(list);
 			list.attachedCallback();
-			list.store.filter();
+			list.source.filter();
 			list.categoryAttr = "category";
-			list.store.add({category: "A", label: "item 1"});
-			list.store.add({category: "A", label: "item 2"});
-			list.store.add({category: "A", label: "item 3"});
-			list.store.add({category: "B", label: "item 4"});
-			list.store.add({category: "B", label: "item 5"});
-			list.store.add({category: "B", label: "item 6"});
-			list.store.add({category: "C", label: "item 7"});
-			list.store.add({category: "C", label: "item 8"});
-			list.store.add({category: "C", label: "item 9"});
+			list.source.add({category: "A", label: "item 1"});
+			list.source.add({category: "A", label: "item 2"});
+			list.source.add({category: "A", label: "item 3"});
+			list.source.add({category: "B", label: "item 4"});
+			list.source.add({category: "B", label: "item 5"});
+			list.source.add({category: "B", label: "item 6"});
+			list.source.add({category: "C", label: "item 7"});
+			list.source.add({category: "C", label: "item 8"});
+			list.source.add({category: "C", label: "item 9"});
 			list.deliver();
 		},
 		"categorized items" : function () {
@@ -62,9 +62,9 @@ define([
 		},
 		"remove all items from category (top and bottom of list)" : function () {
 			// remove the three first items
-			list.store.remove(list.store.data[0].id);
-			list.store.remove(list.store.data[0].id);
-			list.store.remove(list.store.data[0].id);
+			list.source.remove(list.source.data[0].id);
+			list.source.remove(list.source.data[0].id);
+			list.source.remove(list.source.data[0].id);
 			list.deliver();
 			var children = list.children;
 			assert.strictEqual(children.length, 8);
@@ -77,9 +77,9 @@ define([
 			checkItem(children[6], "item 8");
 			checkItem(children[7], "item 9");
 			// remove the three last items
-			list.store.remove(list.store.data[list.store.data.length - 1].id);
-			list.store.remove(list.store.data[list.store.data.length - 1].id);
-			list.store.remove(list.store.data[list.store.data.length - 1].id);
+			list.source.remove(list.source.data[list.source.data.length - 1].id);
+			list.source.remove(list.source.data[list.source.data.length - 1].id);
+			list.source.remove(list.source.data[list.source.data.length - 1].id);
 			children = list.children;
 			assert.strictEqual(children.length, 4);
 			checkCategory(children[0], "B");
@@ -87,22 +87,22 @@ define([
 			checkItem(children[2], "item 5");
 			checkItem(children[3], "item 6");
 			// remove two items
-			list.store.remove(list.store.data[0].id);
-			list.store.remove(list.store.data[0].id);
+			list.source.remove(list.source.data[0].id);
+			list.source.remove(list.source.data[0].id);
 			children = list.children;
 			assert.strictEqual(children.length, 2);
 			checkCategory(children[0], "B");
 			checkItem(children[1], "item 6");
 			// remove the last item
-			list.store.remove(list.store.data[0].id);
+			list.source.remove(list.source.data[0].id);
 			children = list.children;
 			assert.strictEqual(children.length, 0);
 		},
 		"remove all items from category (middle of list)" : function () {
 			// remove the three items in the middle
-			list.store.remove(list.store.data[3].id);
-			list.store.remove(list.store.data[3].id);
-			list.store.remove(list.store.data[3].id);
+			list.source.remove(list.source.data[3].id);
+			list.source.remove(list.source.data[3].id);
+			list.source.remove(list.source.data[3].id);
 			list.deliver();
 			var children = list.children;
 			assert.strictEqual(children.length, 8);
@@ -117,7 +117,7 @@ define([
 		},
 		"add item within existing category section": function () {
 			// add at the bottom of the list
-			list.store.add({category: "C", label: "item a"});
+			list.source.add({category: "C", label: "item a"});
 			list.deliver();
 			var children = list.children;
 			assert.strictEqual(children.length, 13);
@@ -135,7 +135,7 @@ define([
 			checkItem(children[11], "item 9");
 			checkItem(children[12], "item a");
 			// add at the top of the last category
-			list.store.add({category: "C", label: "item b"}, {beforeId: list.store.data[6].id});
+			list.source.add({category: "C", label: "item b"}, {beforeId: list.source.data[6].id});
 			list.deliver();
 			children = list.children;
 			assert.strictEqual(children.length, 14);
@@ -154,7 +154,7 @@ define([
 			checkItem(children[12], "item 9");
 			checkItem(children[13], "item a");
 			// add in the middle of the second category
-			list.store.add({category: "B", label: "item c"}, {beforeId: list.store.data[4].id});
+			list.source.add({category: "B", label: "item c"}, {beforeId: list.source.data[4].id});
 			list.deliver();
 			children = list.children;
 			assert.strictEqual(children.length, 15);
@@ -174,7 +174,7 @@ define([
 			checkItem(children[13], "item 9");
 			checkItem(children[14], "item a");
 			// add at the top of the list
-			list.store.add({category: "A", label: "item d"}, {beforeId: list.store.data[0].id});
+			list.source.add({category: "A", label: "item d"}, {beforeId: list.source.data[0].id});
 			list.deliver();
 			children = list.children;
 			assert.strictEqual(children.length, 16);
@@ -197,7 +197,7 @@ define([
 		},
 		"add item with new category": function () {
 			// add at the bottom of the list
-			list.store.add({category: "D", label: "item a"});
+			list.source.add({category: "D", label: "item a"});
 			list.deliver();
 			var children = list.children;
 			assert.strictEqual(children.length, 14);
@@ -216,7 +216,7 @@ define([
 			checkCategory(children[12], "D");
 			checkItem(children[13], "item a");
 			// add at the top of the list
-			list.store.add({category: "E", label: "item b"}, {beforeId: list.store.data[0].id});
+			list.source.add({category: "E", label: "item b"}, {beforeId: list.source.data[0].id});
 			list.deliver();
 			children = list.children;
 			assert.strictEqual(children.length, 16);
@@ -237,7 +237,7 @@ define([
 			checkCategory(children[14], "D");
 			checkItem(children[15], "item a");
 			// add in the middle of the list
-			list.store.add({category: "F", label: "item c"}, {beforeId: list.store.data[8].id});
+			list.source.add({category: "F", label: "item c"}, {beforeId: list.source.data[8].id});
 			list.deliver();
 			children = list.children;
 			assert.strictEqual(children.length, 19);
@@ -314,14 +314,14 @@ define([
 		"Add items on top of a list, all list items of the same category": function () {
 			list.destroy();
 			list = null;
-			list = new List({store: new Store()});
+			list = new List({source: new Store()});
 			document.body.appendChild(list);
 			list.attachedCallback();
-			list.store.filter();
+			list.source.filter();
 			list.categoryAttr = "category";
-			list.store.add({category: "A", label: "item 4"});
-			list.store.add({category: "A", label: "item 5"});
-			list.store.add({category: "A", label: "item 6"});
+			list.source.add({category: "A", label: "item 4"});
+			list.source.add({category: "A", label: "item 5"});
+			list.source.add({category: "A", label: "item 6"});
 			list.deliver();
 			var children = list.children;
 			assert.strictEqual(children.length, 4);

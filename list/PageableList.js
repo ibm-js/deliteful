@@ -336,6 +336,9 @@ define([
 					sup.apply(this, arguments);
 				}
 				this._collection = collection;
+				if (this.pageLength !== 0) {
+					this.emit("query-success", { renderItems: this.renderItems, cancelable: false, bubbles: true });
+				}
 			};
 		}),
 
@@ -375,7 +378,6 @@ define([
 					start: 0,
 					count: this.pageLength
 				};
-				this._firstLoaded = this._rangeSpec.start;
 			}
 			if (this._nextPageLoader) {
 				this._rangeSpec.start = this._lastLoaded + 1;
@@ -391,6 +393,9 @@ define([
 					var idPage = page.map(function (item) {
 						return this.getIdentity(item);
 					}, this);
+					if (this._firstLoaded < 0) {
+						this._firstLoaded = this._rangeSpec.start;
+					}
 					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
 					this._idPages.push(idPage);
 				}
@@ -447,9 +452,9 @@ define([
 			var idPage, i;
 			if (first) {
 				idPage = this._idPages.shift();
-				this._firstLoaded += idPage.length;
 				for (i = 0; i < idPage.length; i++) {
 					this._removeRenderer(this.getItemRendererByIndex(0), true);
+					this._firstLoaded++;
 				}
 				if (idPage.length && !this._previousPageLoader) {
 					this._createPreviousPageLoader();
@@ -460,9 +465,9 @@ define([
 				}
 			} else {
 				idPage = this._idPages.pop();
-				this._lastLoaded -= idPage.length;
 				for (i = 0; i < idPage.length; i++) {
 					this._removeRenderer(this.getRendererByItemId(idPage[i]), true);
+					this._lastLoaded--;
 				}
 				if (idPage.length && !this._nextPageLoader) {
 					this._createNextPageLoader();

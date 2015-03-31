@@ -23,11 +23,11 @@
 			list.id = "list-prog-4";
 			list.style.height = "200px";
 			var M = MemoryStore.createSubclass([Trackable], {});
-			list.store = new M({data: [], idProperty: "label"});
+			list.source = new M({data: [], idProperty: "label"});
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
   			for (var i = 0; i < 100; i++) {
-				list.store.addSync({label: "Programmatic item of order " + i});
+				list.source.addSync({label: "Programmatic item of order " + i});
 			}
 			ready = true;
 		});

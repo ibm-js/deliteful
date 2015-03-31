@@ -21,12 +21,12 @@ define([
 					if (this.list) {
 						this.list.destroy();
 					}
-					this.list = new ListConstructor({store: new Store()});
+					this.list = new ListConstructor({source: new Store()});
 					document.body.appendChild(this.list);
 					this.list.attachedCallback();
-					this.list.store.add({label: "item 1"});
-					this.list.store.add({label: "item 2"});
-					this.list.store.add({label: "item 3"});
+					this.list.source.add({label: "item 1"});
+					this.list.source.add({label: "item 2"});
+					this.list.source.add({label: "item 3"});
 					this.list.deliver();
 				},
 				"baseClass update" : function () {
@@ -93,11 +93,11 @@ define([
 				"getRendererByItemId": function () {
 					var list = this.parent.list;
 					var children = list.children;
-					assert.strictEqual(list.getRendererByItemId(list.store.data[0].id),
+					assert.strictEqual(list.getRendererByItemId(list.source.data[0].id),
 							children[0], "first renderer");
-					assert.strictEqual(list.getRendererByItemId(list.store.data[1].id),
+					assert.strictEqual(list.getRendererByItemId(list.source.data[1].id),
 							children[1], "second renderer");
-					assert.strictEqual(list.getRendererByItemId(list.store.data[2].id),
+					assert.strictEqual(list.getRendererByItemId(list.source.data[2].id),
 							children[2], "third renderer");
 					assert.isNull(list.getRendererByItemId("I'm not an existing id"), "non list item");
 				},
@@ -148,7 +148,7 @@ define([
 				},
 				"update item label": function () {
 					var list = this.parent.list;
-					list.store.put({label: "item a"}, {id: list.store.data[0].id});
+					list.source.put({label: "item a"}, {id: list.source.data[0].id});
 					list.deliver();
 					var renderer = list.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
@@ -157,7 +157,7 @@ define([
 				"update item: add, update and remove icon" : function () {
 					var list = this.parent.list;
 					// add
-					list.store.put({label: "item a", iconclass: "my-icon"}, {id: list.store.data[0].id});
+					list.source.put({label: "item a", iconclass: "my-icon"}, {id: list.source.data[0].id});
 					list.deliver();
 					var renderer = list.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
@@ -166,7 +166,8 @@ define([
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 					// update
-					list.store.put({label: "item a", iconclass: "my-other-icon"}, {id: list.store.data[0].id});
+					list.source.put({label: "item a", iconclass: "my-other-icon"},
+						{id: list.source.data[0].id});
 					list.deliver();
 					renderer = list.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
@@ -175,7 +176,7 @@ define([
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 					// remove
-					list.store.put({label: "item a"}, {id: list.store.data[0].id});
+					list.source.put({label: "item a"}, {id: list.source.data[0].id});
 					list.deliver();
 					renderer = list.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
@@ -186,17 +187,17 @@ define([
 				"item category attribute is not undefined by StoreMap": function () {
 					var list = this.parent.list;
 					list.destroy();
-					list = new ListConstructor({store: new Store()});
+					list = new ListConstructor({source: new Store()});
 					document.body.appendChild(list);
 					list.attachedCallback();
-					list.store.add({label: "item 1", category: "category 1"});
+					list.source.add({label: "item 1", category: "category 1"});
 					assert.strictEqual(list.children[0].item.category, "category 1");
 				},
 				"query-success event": function () {
 					var list = this.parent.list;
 					var def = this.async(1000);
 					list.destroy();
-					list = new ListConstructor({store: new Store()});
+					list = new ListConstructor({source: new Store()});
 					list.on("query-success", function (evt) {
 						var renderItems = evt.renderItems;
 						assert.isNotNull(renderItems);
@@ -206,8 +207,8 @@ define([
 						def.resolve();
 					});
 					list.labelAttr = "name";
-					list.store.add({name: "item 1"});
-					list.store.add({name: "item 2"});
+					list.source.add({name: "item 1"});
+					list.source.add({name: "item 2"});
 					document.body.appendChild(list);
 					list.attachedCallback();
 					return def;
@@ -217,7 +218,7 @@ define([
 					var def = this.async(1000);
 					try {
 						var queryErrorEvt = null;
-						var store = {
+						var source = {
 							filter: function () {
 								var result = {};
 								result.map = function () { return this; };
@@ -230,7 +231,7 @@ define([
 							}
 						};
 						list.destroy();
-						list = new ListConstructor({store: store});
+						list = new ListConstructor({source: source});
 						list.on("query-error", function (evt) {
 							queryErrorEvt = evt;
 						});
@@ -252,7 +253,7 @@ define([
 					try {
 						list.style.height = "200px";
 						for (var i = 0; i < 50; i++) {
-							list.store.add({label: "item " + (i + 4)});
+							list.source.add({label: "item " + (i + 4)});
 						}
 						list.focus();
 						setTimeout(def.rejectOnError(function () {

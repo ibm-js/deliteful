@@ -55,16 +55,16 @@
 				}
 			});
 			var list = new List();
-			list.store = new Store();
+			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list of input elements");
 			list.itemRenderer = MyCustomRenderer;
 			list.copyAllItemProps = true;
-			list.store.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
-			list.store.add({label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}});
-			list.store.add({label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}});
-			list.store.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
-			list.store.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
-			list.store.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
+			list.source.add({elementTag: "A", elementAttrs: {href: "http://en.wikipedia.org/wiki/Wikipedia:About", innerHTML: "About"}});
+			list.source.add({label: "Multitasking gestures", elementTag: "INPUT", elementAttrs: {type: "checkbox", value: "multitasking"}});
+			list.source.add({label: "Volume", elementTag: "INPUT", elementAttrs: {type: "range"}});
+			list.source.add({label: "Login", elementTag: "INPUT", elementAttrs: {type: "text"}});
+			list.source.add({label: "Apex ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "apex", checked: true}});
+			list.source.add({label: "Beacon ringtone", elementTag: "INPUT", elementAttrs: {type: "radio", name: "ringtone", value: "beacon"}});
 			list.setAttribute("aria-readonly", "false");
 			list.placeAt(document.body);
 

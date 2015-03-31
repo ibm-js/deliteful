@@ -18,14 +18,14 @@
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register, Memory, Trackable, List) {
-  			// Programmatic list: default store, items added before adding the list to the document and before startup
+  			// Programmatic list: default source, items added before adding the list to the document and before startup
 			var list = register.createElement("d-list");
 			list.setAttribute("role", "listbox");
 			list.id = "list-prog-1";
-			list.store = new (Memory.createSubclass([Trackable], {}))();
+			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";
  			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, righttext: list.id});
+				list.source.add({label: "Programmatic item of order " + i, righttext: list.id});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
@@ -44,7 +44,7 @@
 <body>
  	<input type="text" autofocus>
  	<br>
- 	<h2>Default store, items added before adding the list to the document and before startup, role is set to listbox (id: list-prog-1)</h2>
+ 	<h2>Default source, items added before adding the list to the document and before startup, role is set to listbox (id: list-prog-1)</h2>
  	<div id="listPlaceholder"></div>
  	<input type="text">
 </body>

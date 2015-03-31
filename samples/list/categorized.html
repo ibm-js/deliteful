@@ -27,14 +27,14 @@
 		], function (register, Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
 			var list = register.createElement("d-list");
-			list.store = new Store();
+			list.source = new Store();
 			list.setAttribute("aria-label", "Sample categorized list");
 			list.categoryAttr = "category";
-			list.store.add({label: "first item", category: "Category A"});
-			list.store.add({label: "second item", category: "Category A"});
-			list.store.add({label: "third item", category: "Category A"});
-			list.store.add({label: "fourth item", category: "Category B"});
-			list.store.add({label: "fifth item", category: "Category B"});
+			list.source.add({label: "first item", category: "Category A"});
+			list.source.add({label: "second item", category: "Category A"});
+			list.source.add({label: "third item", category: "Category A"});
+			list.source.add({label: "fourth item", category: "Category B"});
+			list.source.add({label: "fifth item", category: "Category B"});
 			list.placeAt(document.body);
 
 			document.body.style.display = "";

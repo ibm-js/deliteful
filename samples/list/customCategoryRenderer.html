@@ -32,20 +32,20 @@
 				template: template
 			});
 			var list = new List();
-			list.store = new Store();
+			list.source = new Store();
 			list.setAttribute("aria-label", "Sample list with custom category renderer");
 			list.categoryAttr = "cat";
 			list.categoryRenderer = MyCustomRenderer;
-			list.store.add({label: "Apple", cat: "Fruit"});
-			list.store.add({label: "Apricot", cat: "Fruit"});
-			list.store.add({label: "Banana", cat: "Fruit"});
-			list.store.add({label: "Orange", cat: "Fruit"});
-			list.store.add({label: "Pear", cat: "Fruit"});
-			list.store.add({label: "Strawberry", cat: "Fruit"});
-			list.store.add({label: "Brussel sprout", cat: "Vegetable"});
-			list.store.add({label: "Cabbage", cat: "Vegetable"});
-			list.store.add({label: "Kale", cat: "Vegetable"});
-			list.store.add({label: "Lettuce", cat: "Vegetable"});
+			list.source.add({label: "Apple", cat: "Fruit"});
+			list.source.add({label: "Apricot", cat: "Fruit"});
+			list.source.add({label: "Banana", cat: "Fruit"});
+			list.source.add({label: "Orange", cat: "Fruit"});
+			list.source.add({label: "Pear", cat: "Fruit"});
+			list.source.add({label: "Strawberry", cat: "Fruit"});
+			list.source.add({label: "Brussel sprout", cat: "Vegetable"});
+			list.source.add({label: "Cabbage", cat: "Vegetable"});
+			list.source.add({label: "Kale", cat: "Vegetable"});
+			list.source.add({label: "Lettuce", cat: "Vegetable"});
 			list.placeAt(document.body);
 
 			document.body.style.display = "";

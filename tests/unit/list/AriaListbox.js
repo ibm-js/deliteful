@@ -16,14 +16,14 @@ define([
 			if (list) {
 				list.destroy();
 			}
-			list = new List({store: new Store()});
+			list = new List({source: new Store()});
 			list.setAttribute("role", "listbox");
 			document.body.appendChild(list);
 			list.attachedCallback();
-			list.store.filter();
-			list.store.add({label: "item 1"});
-			list.store.add({label: "item 2"});
-			list.store.add({label: "item 3"});
+			list.source.filter();
+			list.source.add({label: "item 1"});
+			list.source.add({label: "item 2"});
+			list.source.add({label: "item 3"});
 			list.deliver();
 		},
 		"aria properties": function () {

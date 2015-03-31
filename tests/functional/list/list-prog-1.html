@@ -22,9 +22,9 @@
 			var list = register.createElement("d-list");
 			list.id = "list-prog-1";
 			list.style.height = "200px";
-			list.store = new (Memory.createSubclass([Trackable], {}))();
+			list.source = new (Memory.createSubclass([Trackable], {}))();
 			for (var i = 0; i < 100; i++) {
-				list.store.addSync({label: "Programmatic item of order " + i, righttext: list.id});
+				list.source.addSync({label: "Programmatic item of order " + i, righttext: list.id});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();
