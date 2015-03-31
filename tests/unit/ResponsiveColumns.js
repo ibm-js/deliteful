@@ -37,7 +37,7 @@ define([
 				"] targetSize=[" + targetSize + "] window.innerWidth=[" + window.innerWidth + "] w=" + w);
 
 			assert.isTrue(testSize < 3, // 3px tolerance
-				"Wrong percent size testSize=" + testSize + "origTargetSize=" + origTargetSize +
+				"Wrong percent size testSize=[" + testSize + "] origTargetSize=" + origTargetSize +
 					" targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" + w);
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
@@ -68,6 +68,7 @@ define([
 			child.setAttribute("layout", "{'small': 'hidden', 'medium': 'hidden', 'large': '60%'}");
 			container.addChild(child);
 			container.attachedCallback();
+			container.deliver();
 		},
 
 		"Media Query Test": function () {
