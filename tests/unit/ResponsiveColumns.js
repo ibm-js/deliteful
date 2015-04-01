@@ -5,7 +5,7 @@ define([
 ], function (registerSuite, assert, ResponsiveColumns) {
 	var container;
 
-	function testLayout(element, origTargetSize) {
+	function testLayout(element, origTargetSize, targetClass) {
 		var elementStyle = function (key) {
 			if (key === "flex") {
 				var flexAttrs = ["-webkit-box-flex", "-moz-box-flex", "-webkit-flex", "-ms-flex", "flex"];
@@ -33,14 +33,16 @@ define([
 			var w = parseInt(elementStyle("width").replace("px", ""), 10);
 			var targetSize = parseInt(origTargetSize.replace("%", ""), 10);
 			var testSize = Math.abs(w - (window.innerWidth * targetSize / 100));
-			console.log("TestSize=[" + testSize + "] origTargetSize=[" + origTargetSize +
-				"] targetSize=[" + targetSize + "] window.innerWidth=[" + window.innerWidth + "] w=" + w);
+			console.log("TestSize=[" + testSize + "] targetClass=[" + targetClass + "] origTargetSize=[" +
+				origTargetSize + "] targetSize=[" + targetSize + "] window.innerWidth=[" + window.innerWidth + "] w=" +
+				w);
 
-			assert.isTrue(testSize < 3, // 3px tolerance
-				"Wrong percent size testSize=[" + testSize + "] origTargetSize=" + origTargetSize +
-					" targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" + w);
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
+			assert.isTrue(testSize < 3, // 3px tolerance
+				"Wrong percent size testSize=[" + testSize + "] targetClass=[" + targetClass + "] origTargetSize=" +
+					origTargetSize + " targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" +
+					w);
 		}
 	}
 
