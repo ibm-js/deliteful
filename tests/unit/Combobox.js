@@ -92,6 +92,7 @@ define([
 		initCombobox(combo, trackable);
 		container.appendChild(combo);
 		combo.attachedCallback();
+		combo.deliver();
 		return combo;
 	};
 
@@ -567,6 +568,7 @@ define([
 			var combo = new Combobox({list: list});
 			container.appendChild(combo);
 			combo.attachedCallback();
+			combo.deliver();
 
 			var d = this.async(1000);
 
@@ -609,6 +611,7 @@ define([
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
 			combo.attachedCallback();
+			combo.deliver();
 
 			var d = this.async(1000);
 
