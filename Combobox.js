@@ -350,48 +350,50 @@ define([
 			// This is a workaround waiting for a proper mechanism (at the level
 			// of delite/Store - delite/StoreMap) to allow a store-based widget
 			// to delegate the store-related functions to a parent widget (delite#323).
-			if (!this.list.attached) {
+			if (this.list && !this.list.attached && this.list.attachedCallback) {
 				this.list.attachedCallback();
 			}
-			
-			// Class added on the list such that Combobox' theme can have a specific
-			// CSS selector for elements inside the List when used as dropdown in
-			// the combo. 
-			$(this.list).addClass("d-combobox-list");
-			
-			// The drop-down is hidden initially
-			$(this.list).addClass("d-combobox-list-hidden");
-			
-			// The role=listbox is required for the list part of a combobox by the
-			// aria spec of role=combobox
-			this.list.setAttribute("role", "listbox");
-			
-			// Avoid that List gives focus to list items when navigating, which would
-			// blur the input field used for entering the filtering criteria. 
-			this.list.focusDescendants = false;
-			
-			this.list.selectionMode = this.selectionMode === "single" ?
-				"radio" : "multiple";
-			
-			var dropDown = this._createDropDown();
-			
-			// Since the dropdown is not a child of the Combobox, it will not inherit
-			// its dir attribute. Hence:
-			var dir = this.getAttribute("dir");
-			if (dir) {
-				dropDown.setAttribute("dir", dir);
+
+			if(this.list.attached) {
+				// Class added on the list such that Combobox' theme can have a specific
+				// CSS selector for elements inside the List when used as dropdown in
+				// the combo.
+				$(this.list).addClass("d-combobox-list");
+
+				// The drop-down is hidden initially
+				$(this.list).addClass("d-combobox-list-hidden");
+
+				// The role=listbox is required for the list part of a combobox by the
+				// aria spec of role=combobox
+				this.list.setAttribute("role", "listbox");
+
+				// Avoid that List gives focus to list items when navigating, which would
+				// blur the input field used for entering the filtering criteria.
+				this.list.focusDescendants = false;
+
+				this.list.selectionMode = this.selectionMode === "single" ?
+					"radio" : "multiple";
+
+				var dropDown = this._createDropDown();
+
+				// Since the dropdown is not a child of the Combobox, it will not inherit
+				// its dir attribute. Hence:
+				var dir = this.getAttribute("dir");
+				if (dir) {
+					dropDown.setAttribute("dir", dir);
+				}
+
+				this.dropDown = dropDown; // delite/HasDropDown's property
+
+				// Focus stays on the input element
+				this.dropDown.focusOnOpen = false;
+
+				// (temporary?) Workaround for delite #373
+				this.dropDown.focus = null;
+
+				this._initHandlers();
+				this._initValue();
 			}
-			
-			this.dropDown = dropDown; // delite/HasDropDown's property
-			
-			// Focus stays on the input element
-			this.dropDown.focusOnOpen = false;
-			
-			// (temporary?) Workaround for delite #373
-			this.dropDown.focus = null;
-			
-			this._initHandlers();
-			this._initValue();
 		},
 		
 		_initHandlers: function () {
@@ -399,7 +401,7 @@ define([
 				return; // set handlers only once
 			}
 			this._initHandlersDone = true;
-			
+
 			this.list.on("keynav-child-navigated", function (evt) {
 				var input = this._popupInput || this.inputNode;
 				var navigatedChild = evt.newValue; // never null

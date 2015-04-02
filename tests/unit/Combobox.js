@@ -92,7 +92,6 @@ define([
 		initCombobox(combo, trackable);
 		container.appendChild(combo);
 		combo.attachedCallback();
-		combo.deliver();
 		return combo;
 	};
 
@@ -134,7 +133,6 @@ define([
 
 	var checkCombobox = function (combo, test, trackableStore) {
 		// These checks are common to both cases: trackable and non-trackable stores
-		combo.deliver();
 
 		if (!trackableStore) {
 			// With non-trackable stores, adding items to the store does not
@@ -568,7 +566,6 @@ define([
 			var combo = new Combobox({list: list});
 			container.appendChild(combo);
 			combo.attachedCallback();
-			combo.deliver();
 
 			var d = this.async(1000);
 
@@ -611,7 +608,6 @@ define([
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
 			combo.attachedCallback();
-			combo.deliver();
 
 			var d = this.async(1000);
 
