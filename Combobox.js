@@ -354,7 +354,7 @@ define([
 				this.list.attachedCallback();
 			}
 
-			if(this.list.attached) {
+			if (this.list.attached) {
 				// Class added on the list such that Combobox' theme can have a specific
 				// CSS selector for elements inside the List when used as dropdown in
 				// the combo.
