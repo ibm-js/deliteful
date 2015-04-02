@@ -39,7 +39,7 @@ define([
 
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
-			assert.isTrue(testSize < 8, // temp change test to 8px tolerance form 3px tolerance
+			assert.isTrue(testSize < (targetSize / 5), // temp change test tolerance form 3px tolerance
 				"Wrong percent size testSize=[" + testSize + "] targetClass=[" + targetClass + "] origTargetSize=" +
 					origTargetSize + " targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" +
 					w);
