@@ -240,7 +240,7 @@ define([
 			this.list = new List();
 			this._defaultList = this.list;
 		},
-		
+
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
 			if ("list" in oldValues) {
@@ -322,27 +322,25 @@ define([
 			}
 			
 			// Declarative case (list specified declaratively inside the declarative Combobox)
-			if (!this.list || this.list === this._defaultList) {
+			if (this.list === this._defaultList) {
 				var list = this.querySelector("d-list");
 				if (list) {
-					this.list = list;
-					delete this._defaultList; // not needed anymore
-					if (!this.list.attached) {
-						this.list.addEventListener("customelement-attached",
-							this._attachedlistener = function () {
-								this._initList();
-								this.list.removeEventListener("customelement-attached", this._attachedlistener);
-							}.bind(this));
+					if (!list.attached) {
+						list.addEventListener("customelement-attached", this._attachedlistener = function () {
+							list.removeEventListener("customelement-attached", this._attachedlistener);
+							this.list = list;
+							this.deliver();
+						}.bind(this));
 					} else {
-						this._initList();
+						this.list = list;
 					}
-				} else if (this.list && this.list === this._defaultList) {
+				} else {
 					// Still with the default list. No other instance has been set
 					// either programmatically, or declaratively.
-					delete this._defaultList; // not needed anymore
-					this._initList();
+					this.notifyCurrentValue("list");
 				}
 			}
+			delete this._defaultList; // not needed anymore
 		},
 		
 		_initList: function () {
@@ -350,50 +348,48 @@ define([
 			// This is a workaround waiting for a proper mechanism (at the level
 			// of delite/Store - delite/StoreMap) to allow a store-based widget
 			// to delegate the store-related functions to a parent widget (delite#323).
-			if (this.list && !this.list.attached && this.list.attachedCallback) {
+			if (!this.list.attached) {
 				this.list.attachedCallback();
 			}
 
-			if (this.list.attached) {
-				// Class added on the list such that Combobox' theme can have a specific
-				// CSS selector for elements inside the List when used as dropdown in
-				// the combo.
-				$(this.list).addClass("d-combobox-list");
+			// Class added on the list such that Combobox' theme can have a specific
+			// CSS selector for elements inside the List when used as dropdown in
+			// the combo.
+			$(this.list).addClass("d-combobox-list");
 
-				// The drop-down is hidden initially
-				$(this.list).addClass("d-combobox-list-hidden");
+			// The drop-down is hidden initially
+			$(this.list).addClass("d-combobox-list-hidden");
 
-				// The role=listbox is required for the list part of a combobox by the
-				// aria spec of role=combobox
-				this.list.setAttribute("role", "listbox");
+			// The role=listbox is required for the list part of a combobox by the
+			// aria spec of role=combobox
+			this.list.setAttribute("role", "listbox");
 
-				// Avoid that List gives focus to list items when navigating, which would
-				// blur the input field used for entering the filtering criteria.
-				this.list.focusDescendants = false;
+			// Avoid that List gives focus to list items when navigating, which would
+			// blur the input field used for entering the filtering criteria.
+			this.list.focusDescendants = false;
 
-				this.list.selectionMode = this.selectionMode === "single" ?
-					"radio" : "multiple";
+			this.list.selectionMode = this.selectionMode === "single" ?
+				"radio" : "multiple";
 
-				var dropDown = this._createDropDown();
+			var dropDown = this._createDropDown();
 
-				// Since the dropdown is not a child of the Combobox, it will not inherit
-				// its dir attribute. Hence:
-				var dir = this.getAttribute("dir");
-				if (dir) {
-					dropDown.setAttribute("dir", dir);
-				}
-
-				this.dropDown = dropDown; // delite/HasDropDown's property
-
-				// Focus stays on the input element
-				this.dropDown.focusOnOpen = false;
-
-				// (temporary?) Workaround for delite #373
-				this.dropDown.focus = null;
-
-				this._initHandlers();
-				this._initValue();
+			// Since the dropdown is not a child of the Combobox, it will not inherit
+			// its dir attribute. Hence:
+			var dir = this.getAttribute("dir");
+			if (dir) {
+				dropDown.setAttribute("dir", dir);
 			}
+
+			this.dropDown = dropDown; // delite/HasDropDown's property
+
+			// Focus stays on the input element
+			this.dropDown.focusOnOpen = false;
+
+			// (temporary?) Workaround for delite #373
+			this.dropDown.focus = null;
+
+			this._initHandlers();
+			this._initValue();
 		},
 		
 		_initHandlers: function () {
