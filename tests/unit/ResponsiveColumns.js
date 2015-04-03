@@ -5,7 +5,7 @@ define([
 ], function (registerSuite, assert, ResponsiveColumns) {
 	var container;
 
-	function testLayout(element, origTargetSize, targetClass) {
+	function testLayout(element, origTargetSize, tolerance, targetClass) {
 		var elementStyle = function (key) {
 			if (key === "flex") {
 				var flexAttrs = ["-webkit-box-flex", "-moz-box-flex", "-webkit-flex", "-ms-flex", "flex"];
@@ -39,7 +39,7 @@ define([
 
 			assert.notStrictEqual(elementStyle("flex"), "1");
 			assert.notStrictEqual(elementStyle("display"), "none");
-			assert.isTrue(testSize < 3, // temp change test tolerance form 3px tolerance
+			assert.isTrue(testSize < tolerance, // pass in the tolerance
 				"Wrong percent size testSize=[" + testSize + "] targetClass=[" + targetClass + "] origTargetSize=" +
 					origTargetSize + " targetSize=" + targetSize + " window.innerWidth=" + window.innerWidth + " w=" +
 					w);
@@ -65,7 +65,7 @@ define([
 			child = document.createElement("div");
 			child.setAttribute("layout", "{'small': 'hidden', 'medium': 'fill', 'large': '30%'}");
 			child.innerHTML = "Child 2";
-			child.style["background-color"] = "blue";
+			child.style["background-color"] = "green";
 			container.addChild(child);
 			child = document.createElement("div");
 			child.innerHTML = "Child 3";
@@ -100,7 +100,7 @@ define([
 			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
 			assert.strictEqual(container.screenClass, targetClass);
 			var children = container.getChildren();
-			testLayout(children[0], w1, targetClass);
+			testLayout(children[0], w1, 3, targetClass);
 		},
 		"Media Query Test 2": function () {
 			var iw = window.innerWidth;
@@ -124,7 +124,7 @@ define([
 			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
 			assert.strictEqual(container.screenClass, targetClass);
 			var children = container.getChildren();
-			testLayout(children[1], w2, targetClass);
+			testLayout(children[1], w2, 7, targetClass);
 		},
 		"Media Query Test 3": function () {
 			var iw = window.innerWidth;
@@ -148,7 +148,7 @@ define([
 			console.log("targetClass =" + targetClass + " w1=" + w1 + " w2=" + w2 + " w3=" + w3);
 			assert.strictEqual(container.screenClass, targetClass);
 			var children = container.getChildren();
-			testLayout(children[2], w3, targetClass);
+			testLayout(children[2], w3, 12, targetClass);
 		},
 
 		teardown: function () {
