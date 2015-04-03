@@ -86,7 +86,7 @@ define([
 					for (var i = 0; i < this._layouts.length; i++) {
 						if (!this._layouts[i][sc]) {
 							result = false;
-							throw new SyntaxError("Warning: ResponsiveColumns, the 'layout' attribute " +
+							console.error("SyntaxError - Warning: ResponsiveColumns, the 'layout' attribute " +
 								"of the child at index " + i + " must define a value for the key '" + sc + "'.");
 						}
 					}
@@ -106,14 +106,14 @@ define([
 					layout = children[i].getAttribute("layout");
 					if (!layout) {
 						result = false;
-						throw new SyntaxError("Warning: ResponsiveColumns child at index " + i +
+						console.error("SyntaxError - Warning: ResponsiveColumns child at index " + i +
 							", 'layout' is not defined.");
 					} else {
 						layout = JSON.parse(layout.replace(/\'/g, "\""));
 					}
 					if (!layout) {
 						result = false;
-						throw new SyntaxError("Warning: ResponsiveColumns child at index " + i +
+						console.error("SyntaxError - Warning: ResponsiveColumns child at index " + i +
 							", 'layout' parsing failed.");
 					} else {
 						this._layouts.push(layout);

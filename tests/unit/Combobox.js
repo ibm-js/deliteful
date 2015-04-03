@@ -90,15 +90,17 @@ define([
 		var selectionMode = multiple ? "multiple" : "single";
 		var combo = new Combobox({ id: id, selectionMode: selectionMode });
 		initCombobox(combo, trackable);
-		container.appendChild(combo);
-		combo.attachedCallback();
+		combo.placeAt(container);
+		//container.appendChild(combo);
+		//combo.attachedCallback();
 		return combo;
 	};
 
 	var createMyCombobox = function (id, trackable) {
 		var combo = new MyCombobox({ id: id });
 		initCombobox(combo, trackable);
-		container.appendChild(combo);
+		//container.appendChild(combo);
+		combo.placeAt(container);
 		combo.attachedCallback();
 		return combo;
 	};
@@ -319,13 +321,6 @@ define([
 			document.body.appendChild(container);
 		},
 		"Store.add/remove/put (user's trackable Memory store)" : function () {
-			// var combo = document.getElementById("combo1");
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
 			var combo = createCombobox("combo-a-1", true);
 			checkCombobox(combo, this);
 
@@ -334,13 +329,6 @@ define([
 		},
 
 		"Store.add (user's non-trackable Memory store)" : function () {
-			// var combo = document.getElementById("combo1");
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
 			var combo = createCombobox("combo-b-1", false);
 			checkCombobox(combo, this);
 
@@ -393,13 +381,6 @@ define([
 				"There should be no change event after initialization, before interaction");
 			assert.strictEqual(inputCounter, 0,
 				"There should be no input event after initialization, before interaction");
-
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
 
 			var d = this.async(2000);
 
@@ -482,13 +463,6 @@ define([
 			assert.strictEqual(inputCounter, 0,
 				"There should be no input event after initialization, before interaction");
 
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
-
 			var d = this.async(4000);
 
 			// this is required because FormValueWidget initializes initial change & input values
@@ -556,12 +530,6 @@ define([
 		"widget value with item value different than item label (selectionMode=single)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list});
 			container.appendChild(combo);
@@ -598,12 +566,6 @@ define([
 		"widget value with item value different than item label (selectionMode=multiple)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			if (has("ios")) {
-				// For some reason, the testing with click() doesn't pass on iOS for now,
-				// although it does seem to work when testing manually on the device.
-				// TODO: is it due to intern? other reason?
-				//this.skip("Skipping this test on iOS.");
-			}
 			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
