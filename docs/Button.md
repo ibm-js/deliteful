@@ -21,7 +21,7 @@ The `deliteful/Button` widget is a push button that can display a label and / or
 <a name="instantiation"></a>
 ## Element Instantiation
 
-See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how instantiation lifecycle is working.
+See [`delite/Widget`](/delite/docs/master/Widget.md) as well as [`delite/Container`](/delite/docs/master/Container.md) for full details on how instantiation lifecycle is working.
 
 ### Declarative Instantiation
 
@@ -52,6 +52,7 @@ The following properties can be set on the widget to configure it:
 * `iconClass`: DOM class to apply to a DOM node before the label in order to render an icon;
 * `showLabel`: set it to true so that the button only displays an icon (especially useful for buttons in toolbars).
 
+The icon and label get appended to whatever was declared inside `<d-button>`.
 The `disabled` attribute is also supported, in order to disable the button. A disabled button appears as disabled and does not emit any event when clicked.
 
 <a name="styling"></a>
@@ -117,7 +118,7 @@ The widget has the same accessibility than a standard HTML 5 `<button>` element.
 
 ### Globalization
 
-This widget does not provide any internationalizable bundle. The only string displayed by the button is the one defined by its `label` property.
+This widget does not provide any internationalizable bundle.
 
 This widget supports both left to right and right to left orientation.
 

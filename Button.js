@@ -3,11 +3,11 @@ define([
 	"dcl/dcl",
 	"requirejs-dplugins/has",
 	"delite/register",
-	"delite/Widget",
+	"delite/Container",
 	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
 	"delite/handlebars!./Button/Button.html",
 	"delite/theme!./Button/themes/{{theme}}/Button.css"
-], function (dcl, has, register, Widget, BidiButton, template) {
+], function (dcl, has, register, Container, BidiButton, template) {
 
 	/**
 	 * A Non-templated form-aware button widget.
@@ -23,9 +23,9 @@ define([
 	 * </style>
 	 * <button is="d-button" iconClass="iconForButton">Click Me</button>
 	 * @class module:deliteful/Button
-	 * @augments module:delite/Widget
+	 * @augments module:delite/Container
 	 */
-	var Button = dcl(Widget, /** @lends module:deliteful/Button# */ {
+	var Button = dcl(Container, /** @lends module:deliteful/Button# */ {
 
 		/**
 		 * The text to display in the button.
@@ -49,14 +49,6 @@ define([
 		baseClass: "d-button",
 
 		template: template,
-
-		preRender: function () {
-			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
-			if (!this.label) {
-				this.label = this.textContent.trim();
-				this.innerHTML = "";
-			}
-		},
 
 		computeProperties: function (props) {
 			if ("title" in props || "label" in props) {

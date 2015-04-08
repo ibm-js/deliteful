@@ -1,4 +1,5 @@
 <template aria-pressed="{{checked}}" attach-point="focusNode" on-click="{{toggle}}">
-	<span attach-point="iconNode" class="d-icon {{this.checked &amp;&amp; this.checkedIconClass ? this.checkedIconClass : (this.iconClass ? this.iconClass : 'd-hidden')}}"
+	<span attach-point="containerNode"></span
+    ><span attach-point="iconNode" class="d-icon {{this.checked &amp;&amp; this.checkedIconClass ? this.checkedIconClass : (this.iconClass ? this.iconClass : 'd-hidden')}}"
 	></span><span attach-point="labelNode" d-hidden="{{!this.checkedLabel &amp;&amp; !this.label}}">{{this.checked &amp;&amp; this.checkedLabel ? this.checkedLabel : this.label}}</span>
 </template>

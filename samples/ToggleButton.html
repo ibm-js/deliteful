@@ -20,22 +20,32 @@
 		require([
 			"delite/register",
 			"deliteful/ToggleButton",
+			"deliteful/ProgressIndicator",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
 			register.parse();
 			document.body.style.display = "";
+			window.refresh = function() {
+				progress.style.display = progress.style.display ? "": "none";
+			}
 		});
 	</script>
 	<style>
 		.icon-star-empty:before { content: "☆"; }
 		.icon-star-full:before { content: "★"; }
+		#progress {
+			width: 1em; height: 1em;
+		}
 	</style>
 </head>
 <body style="display: none">
 	<button is="d-toggle-button">Wifi</button>
 	<button is="d-toggle-button" checked>Wifi</button>
-	<button is="d-toggle-button" checkedLabel="Enabled">Enable</button>
-	<button is="d-toggle-button" checkedLabel="Bookmarked" iconClass="icon-star-empty" checkedIconClass="icon-star-full">Bookmark</button>
+	<button is="d-toggle-button" checkedLabel="Enabled" label="Enable"></button>
+	<button is="d-toggle-button" checkedLabel="Bookmarked" label="Bookmark" iconClass="icon-star-empty" checkedIconClass="icon-star-full"></button>
+	<button is="d-toggle-button" checkedLabel="refreshing..." label="refresh" onclick="refresh()">
+		<d-progress-indicator id="progress" active="true" style="display: none"></d-progress-indicator>
+	</button>
 </body>
 </html>
