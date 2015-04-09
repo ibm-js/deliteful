@@ -31,7 +31,6 @@
 				"deliteful/Store",
 				"deliteful/list/List",
 				"requirejs-domready/domReady!"], function (keys) {
-				register.parse();
 				actionHandler = function(event) {
 					if ((event.type === "keydown" && event.keyCode === keys.SPACE) || event.type === "click") {
 						var renderer = event.currentTarget.getEnclosingRenderer(event.target);

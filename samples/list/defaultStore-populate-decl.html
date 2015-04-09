@@ -18,13 +18,11 @@
 
 	<script type="text/javascript">
 		require([
-		    "delite/register",
 			"deliteful/list/List",
 			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 			document.body.style.display = "";
 		});
 	</script>
