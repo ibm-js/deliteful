@@ -18,12 +18,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 			document.body.style.display = "";
 		});
 	</script>
@@ -65,8 +63,8 @@
 <body style="display: none; background-color:white;">
 <div class="group">
 	<button is="d-button" label="Default button" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" class="d-button-blue" label="Blue button" onclick="alert(this.label + ' clicked.');"></button>
-	<button is="d-button" class="d-button-red" label="Red button" onclick="alert(this.label + ' clicked.');"></button>
+	<button is="d-button" class="d-button-primary" label="Blue button" onclick="alert(this.label + ' clicked.');"></button>
+	<button is="d-button" class="d-button-danger" label="Red button" onclick="alert(this.label + ' clicked.');"></button>
 	<button is="d-button" iconClass = 'd-icon-phone' label="Custom with icon" class="d-button-green" onclick="alert(this.label + ' clicked.');"></button>
 	<button is="d-button" iconClass = 'd-icon-phone d-big-icon' label="Custom with icon" class="d-button-green" onclick="alert(this.label + ' clicked.');"></button>
 </div>

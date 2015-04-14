@@ -23,31 +23,23 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/Checkbox",
 			"deliteful/Switch",
 			"deliteful/Button",
 			"deliteful/ToggleButton",
 			"deliteful/RadioButton",
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 			document.body.style.display = "";
 		});
 
 	</script>
 <style>
-	.d-icon-cut {
-		background-image: url('./images/paste.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
-		width: 16px;
-		height: 16px;
-		background-repeat: no-repeat;
+	.d-icon-cut:before {
+		content: url('./images/paste.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 	}
-	.d-icon-copy {
-		background-image: url('./images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
-		width: 16px;
-		height: 16px;
-		background-repeat: no-repeat;
+	.d-icon-copy:before {
+		content: url('./images/copy.gif'); /* Contains both object and action icons in a sprite image for the enabled state.  */
 	}
 	p {
 		line-height: 1.7em;

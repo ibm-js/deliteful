@@ -19,12 +19,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Checkbox) {
-			register.parse();
+		], function () {
 			document.body.style.display = "";
 		});
 	</script>

@@ -17,12 +17,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ProgressIndicator",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, ProgressIndicator) {
-			register.parse();
+		], function () {
 
 			var overlay = document.getElementById("overlay");
 			var progressIndicator = document.getElementById("pi");

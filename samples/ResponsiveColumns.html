@@ -23,14 +23,11 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/LinearLayout",
 			"deliteful/ResponsiveColumns",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function(register){
-			register.parse();
-
+		], function(){
 			screenClassLabel.innerHTML = rc.screenClass;
 
 			document.body.style.display = "";
