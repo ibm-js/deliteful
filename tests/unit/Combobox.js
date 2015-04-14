@@ -365,6 +365,9 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=single)": function () {
+			if (has("ie") == "10") {
+				this.skip("Problem on Internet Explorer 10");
+			}
 			var combo = createCombobox("combo-c-1", false /* trackable */);
 			var changeCounter = 0, inputCounter = 0;
 			var changeValue = null, inputValue = null;
@@ -446,6 +449,9 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=multiple)": function () {
+			if (has("ie") == "10") {
+				this.skip("Problem on Internet Explorer 10");
+			}
 			var combo = createCombobox("combo-d-1", false /* trackable */, true /* selectionMode=multiple */);
 			var changeCounter = 0, inputCounter = 0;
 			var changeValue = null, inputValue = null;
