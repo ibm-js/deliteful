@@ -16,11 +16,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register", "deliteful/SwapView", "deliteful/ViewIndicator", "deliteful/Button",
+			"deliteful/SwapView", "deliteful/ViewIndicator", "deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 
 			var handle = function (event) {
 				console.log(event.type + ": " + event.dest);

@@ -19,12 +19,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/Switch",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Switch) {
-			register.parse();
+		], function (Switch) {
 			document.body.style.display = "";
 		});
 	</script>

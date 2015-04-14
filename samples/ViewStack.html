@@ -16,7 +16,6 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ViewStack",
 			"deliteful/Button",
 			"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
@@ -27,8 +26,7 @@
 			"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function(register){
-			register.parse();
+		], function(){
 
 			var handle = function(event){
 				console.log(event.type + ": " + event.dest);

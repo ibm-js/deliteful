@@ -19,7 +19,6 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"dstore/Memory",
 			"deliteful/list/List",
 			"deliteful/Combobox",
@@ -29,8 +28,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Memory, List) {
-			register.parse();
+		], function (Memory, List) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";

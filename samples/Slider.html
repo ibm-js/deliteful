@@ -18,12 +18,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/Slider",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 
 			var slider = document.getElementById('sliderWidget');
 
