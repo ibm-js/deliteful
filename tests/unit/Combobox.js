@@ -365,6 +365,7 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=single)": function () {
+			/* jshint eqeqeq: false */
 			if (has("ie") == "10") {
 				this.skip("Problem on Internet Explorer 10");
 			}
@@ -449,6 +450,7 @@ define([
 		},
 
 		"widget.value, and change and input events (selectionMode=multiple)": function () {
+			/* jshint eqeqeq: false */
 			if (has("ie") == "10") {
 				this.skip("Problem on Internet Explorer 10");
 			}
