@@ -18,13 +18,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ProgressBar",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
-
+		], function () {
 			var label = document.getElementById("lb");
 			var progressBar = document.getElementById("pb1");
 			var loadBtn = document.getElementById("loadBtn");

@@ -39,7 +39,7 @@
 				"requirejs-domready/domReady!"
 				], function(register, ToasterMessage, Toaster){
 
-					register.parse();
+					register.deliver();
 
 					// Create Toaster widget pragmatically
 					toast = new Toaster({id: "default"});

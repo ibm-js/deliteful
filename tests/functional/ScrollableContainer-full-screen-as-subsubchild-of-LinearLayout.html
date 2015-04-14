@@ -21,7 +21,7 @@
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
 		], function(register){
-			register.parse();
+			register.deliver();
 			
 			scrollContainer.on("scroll", function() {
 				console.log("scroll");

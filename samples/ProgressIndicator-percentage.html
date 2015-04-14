@@ -17,13 +17,10 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ProgressIndicator",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, ProgressIndicator) {
-			register.parse();
-
+		], function () {
 			var label = document.getElementById("lb");
 			var progressIndicator = document.getElementById("pi");
 			var loadBtn = document.getElementById("loadBtn");
