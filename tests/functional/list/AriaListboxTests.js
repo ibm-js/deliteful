@@ -7,7 +7,7 @@ define(["intern",
 
 	registerSuite({
 		name: "AriaListbox tests",
-		"selectionMode 'multiple'": function () {
+		/*"selectionMode 'multiple'": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
@@ -296,7 +296,7 @@ define(["intern",
 				})
 				.end();
 			});
-		},
+		},*/
 		"keyboard single selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;

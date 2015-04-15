@@ -19,7 +19,6 @@
 		var getComboState;
 		
 		require([
-			"delite/register",
 			"deliteful/Store",
 			"deliteful/list/List",
 			"deliteful/Combobox",
@@ -27,8 +26,7 @@
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (register) {
-			register.parse();
+		], function () {
 
 			startsWith.on("change", function () {
 				combo2.filterMode = "startsWith";
