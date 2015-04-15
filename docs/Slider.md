@@ -75,9 +75,8 @@ buttons.
 
 ```js
   require([
-    "delite/register",
     "deliteful/Slider"
-  ], function (register, Slider) {
+  ], function (Slider) {
     var slider = new Slider({value:10, step:5, min:10, max:50});
     slider.placeAt(document.body);
 });

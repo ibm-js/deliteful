@@ -52,8 +52,8 @@ our dependency list:
 
 ```js
 define([
-	"delite/register", "dstore/Memory", "deliteful/list/ItemRenderer", "delite/handlebars", ...
-], function (register, Memory, ItemRenderer, handlebars) {
+	"dstore/Memory", "deliteful/list/ItemRenderer", "delite/handlebars", ...
+], function (Memory, ItemRenderer, handlebars) {
     ...
 ```
 

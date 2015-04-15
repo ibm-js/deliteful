@@ -35,9 +35,8 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```js
   require([
-    "delite/register",
     "deliteful/Button"
-  ], function (register, button) {
+  ], function (Button) {
      var b = new Button({label: "I am a Button"});
      b.placeAt(document.body);
 });

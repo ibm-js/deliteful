@@ -61,7 +61,7 @@ src="http://jsfiddle.net/ibmjs/k68f4/embedded/result,js,html">
 ```js
 require([
   "deliteful/ScrollableContainer"
-  ], function (register, ScrollableContainer) {
+  ], function (ScrollableContainer) {
     var sc = new ScrollableContainer({scrollDirection: "both"});
     sc.placeAt(document.body);
 

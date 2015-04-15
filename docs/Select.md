@@ -55,9 +55,9 @@ src="http://jsfiddle.net/ibmjs/nqM5G/embedded/result,js,html">
 ### Programmatic Instantiation
 
 ```js
-require(["delite/register", "dstore/Memory", "dstore/Trackable",
+require(["dstore/Memory", "dstore/Trackable",
          "deliteful/Select", "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable) {
+  function (Memory, Trackable) {
     var select = new Select({selectionMode: "multiple"});
     // Create the store
     var store = new (Memory.createSubclass(Trackable))({});

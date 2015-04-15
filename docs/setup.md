@@ -30,7 +30,7 @@ Using the source form is as simple as requiring the needed AMD modules using Req
 require.config({
   baseUrl: "bower_components"
 });
-require(["delite/register", "deliteful/Toaster", "requirejs-domready/domReady!"], function (register, Toaster) {
+require(["deliteful/Toaster", "requirejs-domready/domReady!"], function (Toaster) {
   var toaster = register.createElement("d-toaster");
   // or
   var toaster = new Toaster();
@@ -46,8 +46,8 @@ require.config({
   baseUrl: "bower_components"
 });
 require(["deliteful/layer"], function() {
-  require(["delite/register", "deliteful/Toaster", "requirejs-domready/domReady!"], 
-    function (register, Toaster) {
+  require(["deliteful/Toaster", "requirejs-domready/domReady!"], 
+    function (Toaster) {
       //...
     });
 });

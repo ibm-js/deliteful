@@ -208,8 +208,8 @@ parameter in the `define` callback:
 
 ```js
 define([
-	"delite/register", "dstore/Memory", ...
-], function(register, Memory) {
+	"dstore/Memory", ...
+], function(Memory) {
 	...
 ```
 
