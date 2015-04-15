@@ -52,11 +52,8 @@ src="http://jsfiddle.net/ibmjs/7sxarg93/embedded/result,html,js">
 
 ```js
   require([
-    "delite/register",
     "deliteful/Checkbox"
-  ], function (register, Checkbox) {
-     register.parse();
-
+  ], function (Checkbox) {
      var cb = new Checkbox({checked:true});
      cb.placeAt(document.body);
      cb = new Checkbox({disabled:true, name: "option1"});

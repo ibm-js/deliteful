@@ -36,8 +36,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/ViewStack", "requirejs-domready/domReady!"], function (register) {
-  register.parse();
+require(["deliteful/ViewStack", "requirejs-domready/domReady!"], function () {
 });
 ```
 

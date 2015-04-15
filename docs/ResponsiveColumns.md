@@ -34,9 +34,8 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/ResponsiveColumns", "requirejs-domready/domReady!"],
-	function (register) {
-  		register.parse();
+require(["deliteful/ResponsiveColumns", "requirejs-domready/domReady!"],
+	function () {
 	}
 );
 ```

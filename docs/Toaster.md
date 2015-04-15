@@ -63,11 +63,9 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ```js
 var mytoaster;
 require([
-	"delite/register",
 	"deliteful/Toaster",
 	"requirejs-domready/domReady!"
-	], function(register, Toaster){
-		register.parse()
+	], function(Toaster){
 		// posting a message
 		mytoaster.postMessage("Form submitted");
 	});

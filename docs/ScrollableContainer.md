@@ -36,10 +36,9 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/ScrollableContainer", 
+require(["deliteful/ScrollableContainer", 
          "requirejs-domready/domReady!"
-        ], function (register) {
-  register.parse();
+        ], function () {
 });
 ```
 
@@ -61,11 +60,8 @@ src="http://jsfiddle.net/ibmjs/k68f4/embedded/result,js,html">
 
 ```js
 require([
-  "delite/register",
   "deliteful/ScrollableContainer"
   ], function (register, ScrollableContainer) {
-    register.parse();
-
     var sc = new ScrollableContainer({scrollDirection: "both"});
     sc.placeAt(document.body);
 

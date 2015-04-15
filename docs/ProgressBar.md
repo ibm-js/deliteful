@@ -50,11 +50,8 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```js
   require([
-    "delite/register",
     "deliteful/ProgressBar"
-  ], function (register, ProgressBar) {
-     register.parse();
-
+  ], function (ProgressBar) {
      var pb = new ProgressBar({max:100, value: 0});
      pb.placeAt(document.body);
      pb.value = 20;

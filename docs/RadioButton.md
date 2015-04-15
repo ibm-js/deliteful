@@ -48,11 +48,8 @@ allowfullscreen="allowfullscreen" frameborder="0">
 
 ```js
   require([
-    "delite/register",
     "deliteful/RadioButton"
-  ], function (register, RadioButton) {
-     register.parse();
-
+  ], function (RadioButton) {
      var sw = new RadioButton({checked:true, name: "category", value: "SUV"});
      sw.placeAt(document.body);
      sw = new RadioButton({name: "category", value: "Sport"});

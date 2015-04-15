@@ -28,8 +28,7 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/SidePane", "requirejs-domready/domReady!"], function (register) {
-  register.parse();
+require(["deliteful/SidePane", "requirejs-domready/domReady!"], function () {
 });
 ```
 

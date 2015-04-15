@@ -39,10 +39,9 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 ### Declarative Instantiation
 
 ```js
-require(["delite/register", "deliteful/Store",
+require(["deliteful/Store",
   "deliteful/Combobox", "requirejs-domready/domReady!"],
-  function (register) {
-    register.parse();
+  function () {
   });
 ```
 
@@ -67,11 +66,10 @@ src="http://jsfiddle.net/ibmjs/d1sj0fkp/embedded/result,js,html">
 
 
 ```js
-require(["delite/register", "dstore/Memory", "dstore/Trackable",
+require(["dstore/Memory", "dstore/Trackable",
          "deliteful/Combobox", "deliteful/list/List",
          "requirejs-domready/domReady!"],
-  function (register, Memory, Trackable, Combobox, List) {
-    register.parse();
+  function (Memory, Trackable, Combobox, List) {
     // Create the store
     var dataStore = new (Memory.createSubclass(Trackable))({});
     // Add options

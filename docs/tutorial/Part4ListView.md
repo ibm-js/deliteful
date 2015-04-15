@@ -124,11 +124,10 @@ Open `js/app.js` and let's remove things that we don't need: the `"deliteful/Sta
 
 ```js
 define([
-	"delite/register", "delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
+	"delite/theme!delite/themes/{%raw%}{{theme}}{%endraw%}/global.css", "deliteful/ViewStack",
 	"deliteful/SidePane", "deliteful/LinearLayout", "deliteful/Button",
 	"deliteful/list/List", "requirejs-domready/domReady!"
-], function (register) {
-	register.parse();
+], function () {
 	document.body.style.display = "";
 
 	/* app code will go here */

@@ -119,11 +119,9 @@ Here is the same example using markup:
 	...
 	<script>
 		require([
-		    "delite/register",
 			"deliteful/list/PageableList",
 			"requirejs-domready/domReady!"
-		], function (register, PageableList) {
-			register.parse();
+		], function (PageableList) {
 		});
 	</script>
 </head>

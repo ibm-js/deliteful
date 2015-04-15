@@ -17,8 +17,7 @@ easier to just instanciate a regular `dstore/Store` object.
 You should use it as follows:
 
 ```js
-require(["delite/register", "deliteful/Store", "deliteful/list/List", "requirejs-domready/domReady!"], function (register) {
-  register.parse();
+require(["deliteful/Store", "deliteful/list/List", "requirejs-domready/domReady!"], function () {
 });
 ```
 

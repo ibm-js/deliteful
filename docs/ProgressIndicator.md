@@ -41,10 +41,8 @@ ProgressIndicator must be active to become visible and start its animation.
 
 ```js
   require([
-    "delite/register",
     "deliteful/ProgressIndicator"
-  ], function (register) {
-     register.parse();
+  ], function () {
      // perform some tasks...
      // then deactivate the progress indicator
      var pi = document.getElementById("pi");
@@ -56,14 +54,11 @@ ProgressIndicator must be active to become visible and start its animation.
 
 ```js
   require([
-    "delite/register",
     "deliteful/ProgressIndicator"
-  ], function (register, ProgressIndicator) {
-
+  ], function (ProgressIndicator) {
      var pi = new ProgressIndicator({active: true});
      pi.placeAt(document.body);
 
-     register.parse();
      //do some other tasks (load data...)
 
      pi.active = false;

@@ -40,11 +40,8 @@ See [`delite/Widget`](/delite/docs/master/Widget.md) for full details on how ins
 
 ```js
   require([
-    "delite/register",
     "deliteful/Switch"
-  ], function (register, Switch) {
-     register.parse();
-
+  ], function (Switch) {
      var sw = new Switch({checked:true});
      sw.placeAt(document.body);
 

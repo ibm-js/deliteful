@@ -44,11 +44,8 @@ src="http://jsfiddle.net/ibmjs/at8z7abL/embedded/result,js,html">
 
 ```js
   require([
-    "delite/register",
     "deliteful/ToggleButton"
-  ], function (register, ToggleButton) {
-     register.parse();
-
+  ], function (ToggleButton) {
      var tb = new ToggleButton({
          checked: true,
          checkedLabel: "On",
