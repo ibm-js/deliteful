@@ -18,13 +18,15 @@
 		var addOptions, removeFirstOption, updateOptions, show, getSelectedOptionsArray;
 		
 		require([
+			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/Select",
 			"deliteful/Store",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Memory, Trackable, Select, Store) {
+		], function (register, Memory, Trackable, Select, Store) {
+			register.deliver();
 			
 			var nOptions = 40;
 	

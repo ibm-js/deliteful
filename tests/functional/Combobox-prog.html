@@ -16,14 +16,16 @@
 	<script type="text/javascript">
 		require([
 			"dstore/Memory",
+			"delite/register",
 			"deliteful/Combobox",
 			"deliteful/list/List",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
-		], function (Memory, Combobox, List) {
-			
+		], function (Memory, register, Combobox, List) {
+			register.deliver();
+
 			var dataStore = new Memory(
 				{idProperty: "label", 
 				data: [
