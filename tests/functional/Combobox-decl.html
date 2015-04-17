@@ -28,7 +28,7 @@
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (register) {
-			register.parse();
+			register.deliver();
 
 			startsWith.on("change", function () {
 				combo2.filterMode = "startsWith";

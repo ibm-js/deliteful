@@ -24,8 +24,8 @@
 			"delite/theme!delite/themes/{{theme}}/global.css", // page level CSS
 			"requirejs-domready/domReady!"
 		], function (Memory, register, Combobox, List) {
-			register.parse();
-			
+			register.deliver();
+
 			var dataStore = new Memory(
 				{idProperty: "label", 
 				data: [
