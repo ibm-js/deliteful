@@ -25,7 +25,7 @@
 				}
 			});
 
-			register.parse();
+			register.deliver();
 
 			["btn1", "btn2", "btn3", "btn4", "btn5"].forEach(function (id) {
 				var btnWidget = document.getElementById(id);
@@ -74,12 +74,12 @@
 <button is="new-button" id="btn1">Default</button>
 <button onclick="btn1.label = 'Changed';">Change label to 'Changed'</button>
 <hr>
-<button is="d-button" id="btn2" class="d-button-blue">Blue</button>
+<button is="d-button" id="btn2" class="d-button-primary">Blue</button>
 class="d-button-blue"
 <button onclick="btn2.label = 'Very blue';">Change label to 'Very blue'</button>
 <button onclick="btn2.label = '';">Remove label</button>
 <hr>
-<button is="d-button" id="btn3" class="d-button-red">Red</button>
+<button is="d-button" id="btn3" class="d-button-danger">Red</button>
 class="d-button-red"
 <hr>
 <button is="d-button" id="btn4" disabled>Disabled</button>
