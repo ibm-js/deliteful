@@ -37,9 +37,8 @@ define([
 	 * 
 	 * @example <caption>Using store custom element in markup</caption>
 	 * JS:
-	 * require(["delite/register", "deliteful/Select", "requirejs-domready/domReady!"],
-	 *   function (register) {
-	 *     register.parse();
+	 * require(["deliteful/Select", "requirejs-domready/domReady!"],
+	 *   function () {
 	 *   });
 	 * HTML:
 	 * <d-store id="myStore">
@@ -49,10 +48,9 @@ define([
 	 * <d-select id="select" store="myStore"></d-select>
 	 * @example <caption>Using programmatically created store</caption>
 	 * JS:
-	 * require(["delite/register", "dstore/Memory", "dstore/Trackable",
+	 * require(["dstore/Memory", "dstore/Trackable",
 	 *         "deliteful/Select", "requirejs-domready/domReady!"],
-	 *   function (register, Memory, Trackable) {
-	 *     register.parse();
+	 *   function (Memory, Trackable) {
 	 *     var store = new (Memory.createSubclass(Trackable))({});
 	 *     select1.store = store;
 	 *     store.add({text: "Option 1", value: "1"});

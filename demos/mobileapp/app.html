@@ -18,7 +18,6 @@
 
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"dstore/Memory",
 			"dstore/Trackable",
 			"deliteful/ViewStack",
@@ -28,9 +27,7 @@
 			"requirejs-dplugins/css!deliteful/ViewStack/transitions/fade.css",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function(register, Memory, Trackable){
-			register.parse();
-
+		], function(Memory, Trackable){
 			var Store = Memory.createSubclass([Trackable], {});
 			list.store = new Store();
 			

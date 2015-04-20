@@ -68,10 +68,9 @@ define([
 	 * 
 	 * @example <caption>Markup</caption>
 	 * JS:
-	 * require(["delite/register", "deliteful/Store",
+	 * require(["deliteful/Store",
 	 *   "deliteful/Combobox", "requirejs-domready/domReady!"],
-	 *   function (register) {
-	 *     register.parse();
+	 *   function () {
 	 *   });
 	 * HTML:
 	 * <d-combobox id="combobox1">
@@ -90,10 +89,9 @@ define([
 	 * 
 	 * @example <caption>Programmatic</caption>
 	 * JS:
-	 * require(["delite/register", "deliteful/List",
+	 * require(["deliteful/List",
 	 *   "deliteful/Combobox", ..., "requirejs-domready/domReady!"],
-	 *   function (register, List, Combobox, ...) {
-	 *     register.parse();
+	 *   function (List, Combobox, ...) {
 	 *     var dataStore = ...; // Create data store
 	 *     var list = new List({store: dataStore});
 	 *     var combobox = new Combobox({list: list, selectionMode: "multiple"}).

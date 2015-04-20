@@ -25,18 +25,15 @@
 	</script>
 	<script type="text/javascript">
 		require([
-			"delite/register",
 			"deliteful/ViewStack",
 			"deliteful/Slider",
 			"deliteful/LinearLayout",
 			"deliteful/Button",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function(register){
+		], function(){
 			// load the application theme AFTER the widget themes have been loaded
 			require(["delite/theme!deliteful/demos/kittens/themes/{{theme}}/app.css"], function () {
-				// now, parse the content of the page
-				register.parse();
 				document.body.style.display = "";
 			});
 		});
