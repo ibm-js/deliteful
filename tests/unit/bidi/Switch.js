@@ -22,7 +22,7 @@ define([
 				container.innerHTML = html;
 			},
 			"ltr": function () {
-				register.parse();
+				register.deliver();
 				var b1 = document.getElementById("b1");
 				var div1 = b1.querySelector(".d-switch-leading");
 				var div2 = b1.querySelector(".d-switch-trailing");
@@ -30,7 +30,7 @@ define([
 					"\u202a\u05d0\u05d1\u05d2\u202c", "ltr: wrong displayed value for 'checkedLabel'");
 			},
 			"rtl": function () {
-				register.parse();
+				register.deliver();
 				var b2 = document.getElementById("b2");
 				var div1 = b2.querySelector(".d-switch-leading");
 				var div2 = b2.querySelector(".d-switch-trailing");
@@ -38,7 +38,7 @@ define([
 					"\u202bABC\u202c", "rtl: wrong displayed value for 'uncheckedLabel'");
 			},
 			"auto": function () {
-				register.parse();
+				register.deliver();
 				var b3 = document.getElementById("b3");
 				var div1 = b3.querySelector(".d-switch-leading");
 				var div2 = b3.querySelector(".d-switch-trailing");
