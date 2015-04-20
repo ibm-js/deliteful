@@ -278,7 +278,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register.parse(container);
+			register.deliver();
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
@@ -294,7 +294,7 @@ define([
 			// Check the attribute mapping for label
 
 			container.innerHTML = htmlMappedAttr;
-			register.parse(container);
+			register.deliver();
 
 			var combo = document.getElementById("combo1");
 			checkCombobox(combo, this);

@@ -16,7 +16,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = htmlContent;
-			register.parse(container);
+			register.deliver();
 			node = document.getElementById("dlayout");
 		},
 		"Vertical LinearLayout Fill Height" : function () {

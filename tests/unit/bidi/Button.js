@@ -21,7 +21,7 @@ define([
 		markup: {
 			beforeEach: function () {
 				container.innerHTML = html;
-				register.parse(container);
+				register.deliver();
 			},
 			"ltr": function () {
 				var b1 = document.getElementById("b1");
