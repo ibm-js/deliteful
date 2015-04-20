@@ -24,7 +24,7 @@ define([
 				container.innerHTML = html;
 			},
 			"ltr": function () {
-				register.parse(container);
+				register.deliver(container);
 				var b1 = document.getElementById("b1");
 				assert.strictEqual("\u202a\u05d0\u05d1\u05d2 ABC\u202c", b1.labelNode.textContent,
 					"ltr: wrong displayed value for 'label'");
@@ -36,7 +36,7 @@ define([
 					"ltr: wrong displayed value for 'checkedLabel'");
 			},
 			"rtl": function () {
-				register.parse(container);
+				register.deliver(container);
 				var b2 = document.getElementById("b2");
 				assert.strictEqual("\u202bABC \u05d0\u05d1\u05d2\u202c", b2.labelNode.textContent,
 					"rtl: wrong displayed value for 'label'");
@@ -48,7 +48,7 @@ define([
 					"rtl: wrong displayed value for 'checkedLabel'");
 			},
 			"auto": function () {
-				register.parse(container);
+				register.deliver(container);
 				var b3 = document.getElementById("b3");
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b3.labelNode.textContent,
 					"auto: wrong displayed value for 'label'");
@@ -59,7 +59,7 @@ define([
 					"auto: wrong value for 'checkedLabel'");
 			},
 			"auto2": function () {
-				register.parse(container);
+				register.deliver(container);
 				var b4 = document.getElementById("b4");
 				assert.strictEqual("\u202b\u05d0\u05d1\u05d2 ABC\u202c", b4.labelNode.textContent,
 					"auto2: wrong displayed value for 'checkedlabel'");
