@@ -401,7 +401,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register.parse();
+			register.deliver();
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);

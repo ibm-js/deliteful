@@ -97,7 +97,7 @@ define([
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register.parse(container);
+			register.deliver();
 		}
 	};
 	dcl.mix(markupSuite, suite);
