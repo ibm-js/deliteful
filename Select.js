@@ -9,7 +9,7 @@ define([
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, $, register, has,
+], function (dcl, $, has, register,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
