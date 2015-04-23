@@ -221,6 +221,7 @@ define([
 		},
 		
 		refreshRendering: function (props) {
+			/* jshint maxcomplexity: 13 */
 			if ("renderItems" in props) {
 				// Populate the select with the items retrieved from the store.
 				var renderItems = this.renderItems;
