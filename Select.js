@@ -2,13 +2,14 @@
 define([
 	"dcl/dcl",
 	"requirejs-dplugins/jquery!attributes/classes",
+	"decor/sniff",
 	"delite/register",
 	"delite/FormWidget",
 	"delite/StoreMap",
 	"delite/Selection",
 	"delite/handlebars!./Select/Select.html",
 	"delite/theme!./Select/themes/{{theme}}/Select.css"
-], function (dcl, $, register,
+], function (dcl, $, register, has,
 	FormWidget, StoreMap, Selection, template) {
 
 	/**
@@ -220,6 +221,7 @@ define([
 		},
 		
 		refreshRendering: function (props) {
+			/* jshint maxcomplexity: 13 */
 			if ("renderItems" in props) {
 				// Populate the select with the items retrieved from the store.
 				var renderItems = this.renderItems;
@@ -251,6 +253,8 @@ define([
 						}
 						if (renderItem.value !== undefined) { // optional
 							option.setAttribute("value", renderItem.value);
+						} else if (has("ie")) { // #546
+							option.setAttribute("value", renderItem.text);
 						}
 						// The selection API (delite/Selection) needs to be called consistently
 						// for data items, not for render items.
