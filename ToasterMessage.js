@@ -224,17 +224,23 @@ define(["dcl/dcl",
 	var PauseTimerOnHover = function (element) {
 
 		var hovering = false;
-		function _pointerOverHandler() {
+		function _pauseTimer() {
 			if (!hovering) {
 				hovering = true;
 				element._timer.pause();
 			}
 		}
 
-		function _pointerLeaveHandler() {
+		function _resumeTimer() {
 			if (hovering) {
 				hovering = false;
 				element._timer.resume();
+			}
+		}
+
+		function _pointerUpHandler(e) {
+			if (e.pointerType === "touch") {
+				_resumeTimer();
 			}
 		}
 
@@ -242,9 +248,10 @@ define(["dcl/dcl",
 		var eventHandlers;
 		this.enable = function () {
 			this.isEnabled = true;
-			eventHandlers = [element.on("pointerover", _pointerOverHandler.bind(element)),
-				element.on("pointerleave", _pointerLeaveHandler.bind(element)),
-				element.on("pointercancel", _pointerLeaveHandler.bind(element))];
+			eventHandlers = [element.on("pointerover", _pauseTimer),
+				element.on("pointerleave", _resumeTimer),
+				element.on("pointercancel", _resumeTimer),
+				element.on("pointerup", _pointerUpHandler)];
 		};
 
 		this.disable = function () {
