@@ -30,7 +30,7 @@ define([
 			document.body.appendChild(container);
 			container.innerHTML = html;
 			register("my-scrolable-container", [ScrollableContainer], {});
-			register.parse();
+			register.deliver();
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
