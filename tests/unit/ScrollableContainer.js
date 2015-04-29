@@ -26,13 +26,15 @@ define([
 	var suite = {
 		name: "deliteful/ScrollableContainer: markup",
 		setup: function () {
+			register("my-scrolable-container", [ScrollableContainer], {});
+		},
+		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 			container.innerHTML = html;
-			register("my-scrolable-container", [ScrollableContainer], {});
-			register.parse();
+			register.deliver();
 		},
-		teardown: function () {
+		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
 	};
@@ -72,9 +74,6 @@ define([
 			w = new ScrollableContainer({ id: "sc2" });
 			w.scrollDirection = "none";
 			container.appendChild(w);
-		},
-		beforeEach: function () {
-			register.deliver();
 		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
