@@ -73,6 +73,9 @@ define([
 			w.scrollDirection = "none";
 			container.appendChild(w);
 		},
+		beforeEach: function () {
+			register.deliver();
+		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		}
