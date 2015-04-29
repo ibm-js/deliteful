@@ -18,16 +18,18 @@
 
 	<script type="text/javascript">
 		require([
+			"delite/register",
 			"deliteful/Slider",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function () {
+		], function (register) {
 
 			var slider = document.getElementById('sliderWidget');
 
 			// very basic tooltip to track value changes
 			var tooltip = document.createElement('tooltip');
 			tooltip.id = "tooltip";
+			register.deliver();
 			slider.progressBar.appendChild(tooltip);
 
 			var onInputValue = document.getElementById('msgArea_0');
