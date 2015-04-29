@@ -57,6 +57,17 @@ define(["intern",
 
 	registerSuite({
 		name: "ScrollableContainer - functional",
+		setup: function () {
+			register("my-scrolable-container", [ScrollableContainer], {});
+		},
+		beforeEach: function () {
+			container = document.createElement("div");
+			document.body.appendChild(container);
+			container.innerHTML = html;
+		},
+		afterEach: function () {
+			container.parentNode.removeChild(container);
+		},
 
 		"scroll with animation (via button, inside LinearLayout, scrollDirection=vertical)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
