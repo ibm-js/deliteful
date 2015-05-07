@@ -90,20 +90,17 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, null);
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, null);
-					})
-					.end();
-			});
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, null);
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, null);
+				})
+				.end();
 		},
 		"selectionMode 'multiple'": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -117,47 +114,44 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end();
-			});
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end();
 		},
 		"selectionMode 'single'": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -171,47 +165,44 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.end();
-			});
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.end();
 		},
 		"selectionMode 'radio'": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -225,42 +216,39 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.click()
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "true");
-					})
-					.end()
-				.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
-					.getAttribute("aria-selected")
-					.then(function (value) {
-						assert.strictEqual(value, "false");
-					})
-					.end();
-			});
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[4]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.click()
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "true");
+				})
+				.end()
+			.findByXpath("//*[@id='" + listId + "']//d-list-item-renderer[3]/div")
+				.getAttribute("aria-selected")
+				.then(function (value) {
+					assert.strictEqual(value, "false");
+				})
+				.end();
 		},
 		"keyboard navigation with default renderers": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -277,67 +265,85 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.ARROW_RIGHT) // Press RIGHT ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.ENTER) // Press ENTER
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.ARROW_UP) // Press UP ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
-				})
-				.end()
-				.pressKeys(keys.F2) // Press F2
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.ARROW_RIGHT) // Press RIGHT ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.ENTER) // Press ENTER
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 2\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
+			.pressKeys(keys.SHIFT) // release shift
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.F2) // Press F2
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 1\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.PAGE_DOWN) // Press PAGE DOWN
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 99\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.HOME) // Press HOME
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 0\nlist-prog-1");
+			})
+			.end()
+			.pressKeys(keys.END) // Press END
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Programmatic item of order 99\nlist-prog-1");
+			})
+			.end();
 		},
 		"keyboard navigation with custom renderers": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -354,134 +360,131 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 1");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 2");
-				})
-				.end()
-				.pressKeys(keys.ARROW_UP) // Press UP ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 3");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 4");
-				})
-				.end()
-				.pressKeys(keys.ARROW_RIGHT) // Press RIGHT ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 5");
-				})
-				.end()
-				.pressKeys(keys.ENTER) // Press ENTER
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 6");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "http://www.amazon.com", "keystroke 7");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 8");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 9");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
-							"keystroke 10");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB)
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "ISBN: 0596516487", "keystroke 11");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB)
-				.pressKeys(keys.SHIFT) // release shift
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
-				})
-				.end()
-				.pressKeys(keys.ARROW_UP) // Press UP ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 13");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 14");
-				})
-				.end()
-				.pressKeys(keys.ESCAPE) // Press ESC
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
-				})
-				.end()
-				.pressKeys(keys.SHIFT + keys.TAB)
-				.pressKeys(keys.SHIFT) // release shift
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 16");
-				})
-				.end()
-				.pressKeys(keys.F2) // Press F2
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 17");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 1");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 2");
+			})
+			.end()
+			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Amazon\nhttp://www.amazon.com", "keystroke 3");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 4");
+			})
+			.end()
+			.pressKeys(keys.ARROW_RIGHT) // Press RIGHT ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 5");
+			})
+			.end()
+			.pressKeys(keys.ENTER) // Press ENTER
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 6");
+			})
+			.end()
+			.pressKeys(keys.SHIFT + keys.TAB) // Press Shift + TAB
+			.pressKeys(keys.SHIFT) // release shift
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "http://www.amazon.com", "keystroke 7");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 8");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "ISBN: 0596516487", "keystroke 9");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: Using the Dojo JavaScript Library to Build Ajax Applications",
+						"keystroke 10");
+			})
+			.end()
+			.pressKeys(keys.SHIFT + keys.TAB)
+			.pressKeys(keys.SHIFT) // release shift
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "ISBN: 0596516487", "keystroke 11");
+			})
+			.end()
+			.pressKeys(keys.SHIFT + keys.TAB)
+			.pressKeys(keys.SHIFT) // release shift
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 12");
+			})
+			.end()
+			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 13");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 14");
+			})
+			.end()
+			.pressKeys(keys.ESCAPE) // Press ESC
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 15");
+			})
+			.end()
+			.pressKeys(keys.SHIFT + keys.TAB)
+			.pressKeys(keys.SHIFT) // release shift
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide\nISBN: 0596516487", "keystroke 16");
+			})
+			.end()
+			.pressKeys(keys.F2) // Press F2
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "Dojo: The Definitive Guide", "keystroke 17");
+			})
+			.end();
 		},
 		"keyboard multiple selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -499,38 +502,75 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.end()
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true");
-				})
-				.end()
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "false");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 1\nright text B");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 1\nright text B");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end();
 		},
 		"keyboard single selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -547,97 +587,76 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
-				})
-				.end()
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "keystroke 2");
-				})
-				.end()
-				.sleep(10)
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 3");
-				})
-				.end()
-				.pressKeys(keys.END) // Press END
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 4");
-				})
-				.end()
-				.pressKeys(keys.PAGE_DOWN) // Press PAGE DOWN
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 5");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 5");
-				})
-				.end()
-				.pressKeys(keys.HOME) // Press HOME
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 6");
-				})
-				.end()
-				.pressKeys(keys.PAGE_UP) // Press PAGE UP
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 7");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 7");
-				})
-				.end()
-				.pressKeys(keys.ARROW_UP) // Press UP ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.sleep(10)
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "false");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 1\nright text 2");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 1\nright text 2");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true");
+			})
+			.end()
+			.pressKeys(keys.ARROW_UP) // Press UP ARROW
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "false");
+			})
+			.end();
 		},
 		"keyboard radio selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -654,97 +673,36 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
-				})
-				.end()
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "keystroke 2");
-				})
-				.end()
-				.sleep(10)
-				.pressKeys(keys.SPACE) // Press SPACE
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "keystroke 3");
-				})
-				.end()
-				.pressKeys(keys.END) // Press END
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 4");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "keystroke 4");
-				})
-				.end()
-				.pressKeys(keys.PAGE_DOWN) // Press PAGE DOWN
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 5");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 5");
-				})
-				.end()
-				.pressKeys(keys.HOME) // Press HOME
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 6");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "false", "keystroke 6");
-				})
-				.end()
-				.pressKeys(keys.PAGE_UP) // Press PAGE UP
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 7");
-				})
-				.getAttribute("aria-selected")
-				.then(function (value) {
-					assert.strictEqual(value, "true", "keystroke 7");
-				})
-				.end()
-				.pressKeys(keys.ARROW_UP) // Press UP ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 9\nright text 10", "keystroke 8");
-				})
-				.end()
-				.pressKeys(keys.ARROW_DOWN) // Press DOWN ARROW
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text 1", "keystroke 9");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1", "keystroke 1");
+			})
+			.end()
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1", "keystroke 2");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true", "keystroke 2");
+			})
+			.end()
+			.sleep(10)
+			.pressKeys(keys.SPACE) // Press SPACE
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text 1", "keystroke 3");
+			})
+			.getAttribute("aria-selected")
+			.then(function (value) {
+				assert.strictEqual(value, "true", "keystroke 3");
+			})
+			.end();
 		},
 		"keyboard search": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -761,47 +719,44 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.end()
-				.pressKeys("R")
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.end()
-				.sleep(10)
-				.pressKeys("r")
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 0\nright text A");
-				})
-				.end()
-				.sleep(10)
-				.pressKeys("L")
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 1\nright text B");
-				})
-				.end()
-				.sleep(10)
-				.pressKeys("l")
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "list item 2\nright text C");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.end()
+			.pressKeys("R")
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.end()
+			.sleep(10)
+			.pressKeys("r")
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 0\nright text A");
+			})
+			.end()
+			.sleep(10)
+			.pressKeys("L")
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 1\nright text B");
+			})
+			.end()
+			.sleep(10)
+			.pressKeys("l")
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "list item 2\nright text C");
+			})
+			.end();
 		},
 		"custom keyboard navigation": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
@@ -818,52 +773,49 @@ define(["intern",
 					[],
 					intern.config.WAIT_TIMEOUT,
 					intern.config.POLL_INTERVAL))
-			.then(function () {
-				remote
-				.pressKeys(keys.TAB) // Press TAB
-				.pressKeys(keys.ENTER) // Press ENTER
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "6 navindex -2");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "1 navindex -1");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "4 navindex 0");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "2 navindex 1");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "5 navindex 1");
-				})
-				.end()
-				.pressKeys(keys.TAB) // Press TAB
-				.getActiveElement()
-				.getVisibleText()
-				.then(function (value) {
-					assert.strictEqual(value, "6 navindex -2");
-				})
-				.end();
-			});
+			.pressKeys(keys.TAB) // Press TAB
+			.pressKeys(keys.ENTER) // Press ENTER
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "6 navindex -2");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "1 navindex -1");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "4 navindex 0");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "2 navindex 1");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "5 navindex 1");
+			})
+			.end()
+			.pressKeys(keys.TAB) // Press TAB
+			.getActiveElement()
+			.getVisibleText()
+			.then(function (value) {
+				assert.strictEqual(value, "6 navindex -2");
+			})
+			.end();
 		}
 	});
 });
