@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/features.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/features.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This module leverages `requirejs-dplugins/has` and sets `has()` flags that can be
+ * used by multichannel widgets to determine the required channel:
+ *
+ * - `has("phone-like-channel")`: `true` for small screens, `false` otherwise.
+ * - `has("tablet-like-channel")`: `true` for medium screens, `false` otherwise.
+ * - `has("desktop-like-channel")`: `true` for large screens, `false` otherwise.
+ * 
+ * These flags are set depending on the screen size, using CSS media queries that
+ * compare the actual screen width (the `device-width` media feature) with the corresponding
+ * breakpoint values provided by `deliteful/channelBreakpoints`. 
+ * 
+ * Note that the screen size is the only criteria used for determining
+ * the channel. When a channel flag is set to `true`, the other channel flags are set
+ * to `false`.
+ * 
+ * The default values of the breakpoints can be configured using `require.config()`.
+ * For details, see the documentation of `deliteful/channelBreakpoints`.
+ * 
+ * The channel can be configured statically using `require.config()`, for instance:
+ * 
+ * ```html
+ * &amp;lt;script>
+ *   // configuring RequireJS
+ *   require.config({
+ *     ...
+ *     config: {
+ *       "requirejs-dplugins/has": {
+ *         "phone-like-channel": false,
+ *         "tablet-like-channel": true,
+ *         "desktop-like-channel": false,
+ *       }
+ *     }
+ *   });
+ * &amp;lt;/script>
+ * ```
+ * Note that only one channel flag should be set to `true`.
+ * 
+ * The module returns the `has()` function returned by the module `requirejs-dplugins/has`.
+ * 
+ * @module deliteful/features
+ */
+define(["requirejs-dplugins/has", "deliteful/channelBreakpoints"],
+	function (has, channelBreakpoints) {
+
+	// Notes:
+	// - Use the device-width media feature rather than width, such that, on
+	// desktop/laptop, the selected channel does not depend on the actual size of the
+	// viewport. Thus, the selected channel depends only on the static characteristics
+	// of the device (its screen width), which fits the use-case of multichannel
+	// widgets that need a statically determined channel. Otherwise it would be confusing
+	// to get a different channel depending on whether the app is initially loaded
+	// in a small or large viewport.
+	// - We do not technically enforce the "small" breakpoint to be smaller than the
+	// medium one. Hence the apparently redundant checks of both media queries
+	// for the small and large channels.
+	
+	// The build system evaluates the function of plugin modules while running
+	// in nodejs. Hence the need to test for presence of window. The value of
+	// the has-features does not matter at build time. (#512)
+	if (typeof window !== undefined) {
+		// matched by screens at least as large as the "small" breakpoint
+		var mqAboveSmall = window.matchMedia("(min-device-width: " +
+			channelBreakpoints.smallScreen + ")");
+		// matched by screens at least as large as the "medium" breakpoint
+		var mqAboveMedium = window.matchMedia("(min-device-width: " +
+			channelBreakpoints.mediumScreen + ")");
+	
+		has.add("phone-like-channel", function () {
+			return !mqAboveSmall.matches &amp;&amp; !mqAboveMedium.matches;
+		});
+		has.add("tablet-like-channel", function () {
+			return mqAboveSmall.matches &amp;&amp; !mqAboveMedium.matches;
+		});
+		has.add("desktop-like-channel", function () {
+			return mqAboveSmall.matches &amp;&amp; mqAboveMedium.matches;
+		});
+	}
+	return has;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon May 11 2015 16:30:48 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

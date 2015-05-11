@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/Container.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/Container.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module delite/Container */
+define([
+	"dcl/dcl",
+	"./Widget"
+], function (dcl, Widget) {
+
+	/**
+	 * Dispatched after an Element has been added as child of this widget.
+	 * @example
+	 * element.addEventListener("delite-add-child", function (evt) {
+	 *      console.log("container: " + evt.target.id + " has new child " + evt.child.id);
+	 * });
+	 * @event module:delite/Container#delite-add-child
+	 */
+
+	/**
+	 * Dispatched after an child Element has been removed from this widget.
+	 * @example
+	 * element.addEventListener("delite-remove-child", function (evt) {
+	 *      console.log("container: " + evt.target.id + " removed child " + evt.child.id);
+	 * });
+	 * @event module:delite/Container#delite-remove-child
+	 */
+
+	/**
+	 * Base class for widgets that contain content.
+	 * Useful both for widgets that contain free-form markup (ex: ContentPane),
+	 * and widgets that contain an ordered list of children (ex: Toolbar).
+	 *
+	 * Note that Container is not meant to be used for widgets that just internally create child
+	 * widgets (ex: a StarRating widget creates stars), but rather for when the widget has children from
+	 * the application's perspective (i.e. from the perspective of the widget *user* rather
+	 * than the widget *author*).
+	 *
+	 * @mixin module:delite/Container
+	 * @augments module:delite/Widget
+	 */
+	return dcl(Widget, /** @lends module:delite/Container# */{
+		/**
+		 * Designates where children of the source DOM node will be placed,
+		 * and also the target for nodes inserted via `.appendChild()`, `.insertBefore()`, etc.
+		 * "Children" in this case refers to both DOM nodes and widgets.
+		 *
+		 * @member {Element}
+		 * @default Widget root node itself.
+		 * @protected
+		 */
+		containerNode: undefined,
+
+		render: dcl.advise({
+			before: function () {
+				// Save original markup to put into this.containerNode.
+				var srcDom = this._srcDom = this.ownerDocument.createDocumentFragment();
+				while (this.firstChild) {
+					srcDom.appendChild(this.firstChild);
+				}
+			},
+
+			after: function () {
+				if (!this.containerNode) {
+					// All widgets with descendants must set containerNode.
+					this.containerNode = this;
+				}
+
+				// Put original markup into this.containerNode.  Note that appendChild() on a DocumentFragment will
+				// loop through all the Elements in the document fragment, adding each one.
+				this.containerNode.appendChild(this._srcDom);
+			}
+		}),
+
+		appendChild: dcl.superCall(function (sup) {
+			return function (child) {
+				if (this.created) {
+					var res = sup.call(this.containerNode, child);
+					this.onAddChild(child);
+					return res;
+				} else {
+					return sup.call(this, child);
+				}
+			};
+		}),
+
+		insertBefore: dcl.superCall(function (sup) {
+			return function (newChild, refChild) {
+				if (this.created) {
+					var res = sup.call(this.containerNode, newChild, refChild);
+					this.onAddChild(newChild);
+					return res;
+				} else {
+					return sup.call(this, newChild, refChild);
+				}
+			};
+		}),
+
+		/**
+		 * Callback whenever a child element is added to this widget via `appendChild()`, `insertBefore()`,
+		 * or a method like `addChild()` that internally calls `appendChild()` and/or `insertBefore()`.
+		 * @param {Element} node
+		 */
+		onAddChild: function (node) {
+			// If I've been started but the child widget hasn't been started,
+			// start it now.  Make sure to do this after widget has been
+			// inserted into the DOM tree, so it can see that it's being controlled by me,
+			// so it doesn't try to size itself.
+			if (this.attached &amp;&amp; node.attachedCallback) {
+				node.attachedCallback();
+			}
+
+			this.emit("delite-add-child", {
+				bubbles: false,
+				cancelable: false,
+				child: node
+			});
+		},
+
+		/**
+		 * Inserts the specified Element at the specified index.
+		 * For example, `.addChild(node, 3)` sets this widget's fourth child to node.
+		 * @param {Element} node - Element to add as a child.
+		 * @param {number} [insertIndex] - Position the child as at the specified position relative to other children.
+		 */
+		addChild: function (node, insertIndex) {
+			// Note: insertBefore(node, null) equivalent to appendChild().  Null arg is needed (only) on IE.
+			var cn = this.containerNode, nextSibling = cn.children[insertIndex];
+			cn.insertBefore(node, nextSibling || null);
+		},
+
+		/**
+		 * Detaches the specified node instance from this widget but does
+		 * not destroy it.  You can also pass in an integer indicating
+		 * the index within the container to remove (ie, removeChild(5) removes the sixth node).
+		 * @param {Element|number} node
+		 */
+		removeChild: function (node) {
+			if (typeof node === "number") {
+				node = this.getChildren()[node];
+			}
+
+			if (node &amp;&amp; node.parentNode) {
+				HTMLElement.prototype.removeChild.call(node.parentNode, node); // detach but don't destroy
+			}
+
+			this.emit("delite-remove-child", {
+				bubbles: false,
+				cancelable: false,
+				child: node
+			});
+		},
+
+		/**
+		 * Returns all direct children of this widget, i.e. all widgets or DOM nodes underneath
+		 * `this.containerNode`.  Note that it does not return all
+		 * descendants, but rather just direct children.
+		 *
+		 * The result intentionally excludes element outside off `this.containerNode`.  So, it is different than
+		 * accessing the `children` or `childNode` properties.
+		 *
+		 * @returns {Element[]}
+		 */
+		getChildren: function () {
+			// use Array.prototype.slice to transform the live HTMLCollection into an Array
+			return Array.prototype.slice.call(this.containerNode.children);
+		},
+
+		/**
+		 * Returns true if widget has child nodes, i.e. if `this.containerNode` contains widgets.
+		 * @returns {boolean}
+		 */
+		hasChildren: function () {
+			return this.getChildren().length > 0;
+		},
+
+		/**
+		 * Returns the index of the child in this container or -1 if not found.
+		 * @param {Element} child
+		 * @returns {number}
+		 */
+		getIndexOfChild: function (child) {
+			return this.getChildren().indexOf(child);
+		}
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Mon May 11 2015 16:30:48 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
