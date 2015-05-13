@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/list/List.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/list/List.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/list/List */
+define([
+	"dcl/dcl",
+	"delite/register",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"delite/keys",
+	"delite/CustomElement",
+	"delite/Selection",
+	"delite/KeyNav",
+	"delite/StoreMap",
+	"delite/Scrollable",
+	"./ItemRenderer",
+	"./CategoryRenderer",
+	"./_LoadingPanel",
+	"delite/theme!./List/themes/{{theme}}/List.css"
+], function (dcl, register, $, keys, CustomElement,
+		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
+
+	/**
+	 * A widget that renders a scrollable list of items.
+	 *
+	 * The List widget renders a scrollable list of items that are retrieved from a Store.
+	 * Its custom element tag is `d-list`.
+	 *
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/List.md user documentation}
+	 * for more details.
+	 *
+	 * @class module:deliteful/list/List
+	 * @augments module:delite/Selection
+	 * @augments module:delite/KeyNav
+	 * @augments module:delite/StoreMap
+	 * @augments module:delite/Scrollable
+	 */
+	var List = dcl([Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
+
+		/**
+		 * Dojo object store that contains the items to render in the list.
+		 * If no value is provided for this attribute, the List will initialize
+		 * it with an internal store implementation. Note that this internal store
+		 * implementation ignores any query options and returns all the items from
+		 * the store, in the order they were added to the store.
+		 * @member {module:dstore/Store} module:deliteful/list/List#store
+		 * @default null
+		 */
+
+		/**
+		 * Query to pass to the store to retrieve the items to render in the list.
+		 * @member {Object} module:deliteful/list/List#query
+		 * @default {}
+		 */
+
+		/**
+		 * The widget class to use to render list items.
+		 *	It MUST extend {@link module:deliteful/list/ItemRenderer deliteful/list/ItemRenderer}.
+		 * @member {module:deliteful/list/ItemRenderer}
+		 * @default module:deliteful/list/ItemRenderer
+		 */
+		itemRenderer: ItemRenderer,
+
+		/**
+		 * The widget class to use to render category headers when the list items are categorized.
+		 * It MUST extend {@link module:deliteful/list/CategoryRenderer deliteful/list/CategoryRenderer}.
+		 * @member {module:deliteful/list/CategoryRenderer}
+		 * @default module:deliteful/list/CategoryRenderer
+		 */
+		categoryRenderer: CategoryRenderer,
+
+		/**
+		 * Default mapping between the attribute of the item retrieved from the store
+		 * and the label attribute expected by the default renderer
+		 * @member {string}
+		 * @default "label"
+		 */
+		labelAttr: "label",
+
+		/**
+		 * Default mapping between the attribute of the item retrieved from the store
+		 * and the icon attribute expected by the default renderer
+		 * @member {string}
+		 * @default "iconclass"
+		 */
+		iconclassAttr: "iconclass",
+
+		/**
+		 * Default mapping between the attribute of the item retrieved from the store
+		 * and the righttext attribute expected by the default renderer
+		 * @member {string}
+		 * @default "righttext"
+		 */
+		righttextAttr: "righttext",
+
+		/**
+		 * Default mapping between the attribute of the item retrieved from the store
+		 * and the righticon attribute expected by the default renderer
+		 * @member {string}
+		 * @default "righticonclass"
+		 */
+		righticonclassAttr: "righticonclass",
+
+		/**
+		 * Name of the list item attribute that define the category of a list item.
+		 * If falsy and categoryFunc is also falsy, the list is not categorized.
+		 * @member {string}
+		 * @default ""
+		 */
+		categoryAttr: "",
+
+		/**
+		 * A function (or the name of a function) that extracts the category of a list item
+		 * from the following input parameters:
+		 * - `item`: the list item from the store
+		 * - `store`: the store
+		 * If falsy and `categoryAttr` is also falsy, the list is not categorized.
+		 * see {@link module:delite/StoreMap delite/StoreMap}
+		 * @member
+		 * @default null
+		 */
+		categoryFunc: null,
+
+		/**
+		 *	The base class that defines the style of the list.
+		 * Available values are:
+		 * - `"d-list"` (default): render a list with no rounded corners and no left and right margins;
+		 * - `"d-round-rect-list"`: render a list with rounded corners and left and right margins.
+		 * @member {string}
+		 * @default "d-list"
+		 */
+		baseClass: "d-list",
+
+		// By default, letter search is one character only, so that it does not interfere with pressing
+		// the SPACE key to (de)select an item.
+		multiCharSearchDuration: 0,
+
+		setAttribute: dcl.superCall(function (sup) {
+			return function (attr, value) {
+				sup.apply(this, arguments);
+				if (attr === "role") {
+					this._applyRole(value);
+				}
+			};
+		}),
+
+		/**
+		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
+		 * @member {string} module:deliteful/list/List#scrollDirection
+		 * @default "vertical"
+		 */
+		_setScrollDirectionAttr: function (value) {
+			if (value !== "vertical" &amp;&amp; value !== "none") {
+				throw new TypeError("'"
+						+ value
+						+ "' not supported for scrollDirection, keeping the previous value of '"
+						+ this.scrollDirection
+						+ "'");
+			} else {
+				this._set("scrollDirection", value);
+			}
+		},
+
+		/**
+		 * Defines the selection mode: `"none"` (not allowed if `role=listbox`), `"radio"`, `"single"`
+		 *  or `"multiple"`.
+		 * @member {string} module:deliteful/list/List#selectionMode
+		 * @default "none", or "single" if `role=listbox`.
+		 */
+		_setSelectionModeAttr: dcl.superCall(function (sup) {
+			return function (value) {
+				if (this.getAttribute("role") === "listbox" &amp;&amp; value === "none") {
+					throw new TypeError("selectionMode 'none' is invalid for an aria listbox, "
+							+ "keeping the previous value of '" + this.selectionMode + "'");
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+
+		/**
+		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
+		 * @member {string}
+		 * @default "none"
+		 */
+		selectionMode: "none",
+
+		/**
+		 * Optional message to display, with a progress indicator, when
+		 * the list is loading its content.
+		 * @member {string}
+		 * @default ""
+		 */
+		loadingMessage: "",
+
+		// CSS classes internally referenced by the List widget
+		_cssClasses: {
+			cell: "d-list-cell",
+			selected: "d-selected",
+			selectable: "d-selectable",
+			multiselectable: "d-multiselectable"
+		},
+
+		/**
+		 * A panel that hides the content of the widget when shown, and displays a progress indicator
+		 * and an optional message.
+		 * @member {module:deliteful/list/_LoadingPanel} module:deliteful/list/List#_loadingPanel
+		 * @private
+		 */
+
+		/**
+		 * Handle for the selection click event handler
+		 * @member {Function} module:deliteful/list/List#_selectionClickHandle
+		 * @private
+		 */
+
+		/**
+		 * Previous focus child before the list loose focus
+		 * @member {Element} module:deliteful/list/List#_previousFocusedChild
+		 * @private
+		 */
+		
+		/**
+		 * Flag set to a truthy value once the items have been loaded from the store
+		 * @member {boolean} module:deliteful/list/List#_dataLoaded
+		 * @private
+		 */
+
+		render: function () {
+			// Aria attributes
+			var currentRole = this.getAttribute("role");
+			if (currentRole) {
+				this._applyRole(currentRole);
+			} else {
+				this.setAttribute("role", "grid");
+			}
+			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
+			this.setAttribute("aria-readonly", "true");
+		},
+
+		postRender: function () {
+			this.notifyCurrentValue("selectionMode");
+		},
+
+		attachedCallback: dcl.superCall(function (sup) {
+			return function () {
+				//	Using dcl.superCall() to break the default dcl.chainAfter() chaining
+				//  so that this code runs before StoreMap.attachedCallback()
+				// search for custom elements to populate the store
+				this._setBusy(true, true);
+				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
+				sup.call(this);
+			};
+		}),
+
+		refreshRendering: function (props) {
+			//	List attributes have been updated.
+			/*jshint maxcomplexity:11*/
+			if ("selectionMode" in props) {
+				// Update aria attributes
+				$(this).removeClass(this._cssClasses.selectable);
+				$(this).removeClass(this._cssClasses.multiselectable);
+				this.removeAttribute("aria-multiselectable");
+				if (this.selectionMode === "none") {
+					// update aria-selected attribute on unselected items
+					for (var i = 0; i &lt; this.children.length; i++) {
+						var child = this.children[i];
+						if (child.renderNode // no renderNode for the loading panel child
+							&amp;&amp; child.renderNode.hasAttribute("aria-selected")) {
+							child.renderNode.removeAttribute("aria-selected");
+							$(child).removeClass(this._cssClasses.selected);
+						}
+					}
+				} else {
+					if (this.selectionMode === "single" || this.selectionMode === "radio") {
+						$(this).addClass(this._cssClasses.selectable);
+					} else {
+						$(this).addClass(this._cssClasses.multiselectable);
+						this.setAttribute("aria-multiselectable", "true");
+					}
+					// update aria-selected attribute on unselected items
+					for (i = 0; i &lt; this.children.length; i++) {
+						child = this.children[i];
+						if (child.tagName.toLowerCase() === this.itemRenderer.tag
+								&amp;&amp; child.renderNode // no renderNode for the loading panel child
+								&amp;&amp; !child.renderNode.hasAttribute("aria-selected")) {
+							child.renderNode.setAttribute("aria-selected", "false");
+							$(child).removeClass(this._cssClasses.selected); // TODO: NOT NEEDED ?
+						}
+					}
+				}
+			}
+		},
+		/*jshint maxcomplexity:10*/
+
+		computeProperties: function (props) {
+			//	List attributes have been updated.
+			/*jshint maxcomplexity:12*/
+			if ("selectionMode" in props) {
+				if (this.selectionMode === "none") {
+					if (this._selectionClickHandle) {
+						this._selectionClickHandle.remove();
+						this._selectionClickHandle = null;
+					}
+				} else {
+					if (!this._selectionClickHandle) {
+						this._selectionClickHandle = this.on("click", this.handleSelection.bind(this));
+					}
+				}
+			}
+			if ("itemRenderer" in props
+				|| (this._isCategorized()
+						&amp;&amp; ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
+				if (this._dataLoaded) {
+					this._setBusy(true, true);
+
+					// trigger a reload of the list
+					this.notifyCurrentValue("store");
+				}
+			}
+		},
+
+		destroy: function () {
+			// Remove reference to the list in the default store
+			if (this.store &amp;&amp; this.store.list) {
+				this.store.list = null;
+			}
+			this._hideLoadingPanel();
+		},
+
+		deliver: dcl.superCall(function (sup) {
+			return function () {
+				// Deliver pending changes to the list and its renderers
+				sup.apply(this, arguments);
+				var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
+				for (var i = 0; i &lt; renderers.length; i++) {
+					renderers.item(i).deliver();
+				}
+			};
+		}),
+
+		//////////// Public methods ///////////////////////////////////////
+
+		/**
+		 * Returns the item renderers displayed by the list.
+		 * @returns {NodeList}
+		 */
+		getItemRenderers: function () {
+			return this.querySelectorAll(this.itemRenderer.tag);
+		},
+
+		/**
+		 *	Returns the renderer currently displaying an item with a specific id, or
+		 * null if there is no renderer displaying an item with this id.
+		 * @param {Object} id The id of the item displayed by the renderer.
+		 * @returns {module:deliteful/list/Renderer}
+		 */
+		getRendererByItemId: function (id) {
+			var renderers = this.getItemRenderers();
+			for (var i = 0; i &lt; renderers.length; i++) {
+				var renderer = renderers.item(i);
+				if (this.getIdentity(renderer.item) === id) {
+					return renderer;
+				}
+			}
+			return null;
+		},
+
+		/**
+		 * Returns the item renderer at a specific index in the List, or null if there is no
+		 * renderer at this index.
+		 * @param {number} index The item renderer at the index (first item renderer index is 0).
+		 * @returns {module:deliteful/list/ItemRenderer}
+		 */
+		getItemRendererByIndex: function (index) {
+			return index >= 0 ? this.getItemRenderers().item(index) : null;
+		},
+
+		/**
+		 * Returns the index of an item renderer in the List, or -1 if
+		 * the item renderer is not found in the list.
+		 * @param {Object} renderer The item renderer.
+		 * @returns {number}
+		 */
+		getItemRendererIndex: function (renderer) {
+			var result = -1;
+			if (renderer.item) {
+				var id = this.getIdentity(renderer.item);
+				var nodeList = this.getItemRenderers();
+				for (var i = 0; i &lt; nodeList.length; i++) {
+					var currentRenderer = nodeList.item(i);
+					if (this.getIdentity(currentRenderer.item) === id) {
+						result = i;
+						break;
+					}
+				}
+			}
+			return result;
+		},
+
+		/**
+		 * Returns the renderer enclosing a dom node, or null
+		 * if there is none.
+		 * @param {Element} node The dom node.
+		 * @returns {module:deliteful/list/Renderer}
+		 */
+		getEnclosingRenderer: function (node) {
+			var currentNode = node;
+			while (currentNode) {
+				if (currentNode.parentNode &amp;&amp; currentNode.parentNode === this) {
+					break;
+				}
+				currentNode = currentNode.parentNode;
+			}
+			return currentNode;
+		},
+
+		//////////// delite/Selection implementation ///////////////////////////////////////
+
+		/**
+		 * Returns the identity of an item.
+		 * @param {Object} item The item
+		 * @returns {Object}
+		 * @protected
+		 */
+		getIdentity: function (item) {
+			return this.store.getIdentity(item);
+		},
+
+		/**
+		 * Updates renderers when the selection has changed.
+		 * @param {Object[]} items The items which renderers must be updated.
+		 * @protected
+		 */
+		updateRenderers: function (items) {
+			if (this.selectionMode !== "none") {
+				for (var i = 0; i &lt; items.length; i++) {
+					var currentItem = items[i];
+					var renderer = this.getRendererByItemId(this.getIdentity(currentItem));
+					if (renderer) {
+						var itemSelected = !!this.isSelected(currentItem);
+						renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+						$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
+					}
+				}
+			}
+		},
+
+		/**
+		 * Always returns true so that no keyboard modifier is needed when selecting / deselecting items.
+		 * @param {Event} event
+		 * @return {boolean}
+		 * @protected
+		 */
+		hasSelectionModifier: function (/*jshint unused: vars*/event) {
+			return true;
+		},
+
+		/**
+		 * Event handler that performs items (de)selection.
+		 * @param {Event} event The event the handler was called for.
+		 * @returns {boolean} `true` if the event has been handled, that is if the
+		 *    event target has an enclosing item renderer. Returns `false` otherwise.
+		 * @protected
+		 */
+		handleSelection: function (/*Event*/event) {
+			var eventRenderer = this.getEnclosingRenderer(event.target);
+			if (eventRenderer) {
+				if (!this.isCategoryRenderer(eventRenderer)) {
+					this.selectFromEvent(event, eventRenderer.item, eventRenderer, true);
+				}
+				return true;
+			}
+			return false;
+		},
+
+		//////////// Private methods ///////////////////////////////////////
+
+		/*jshint maxcomplexity:12*/
+		_applyRole: function (role) {
+			if (role === "listbox") {
+				// TODO: also this codes work specifically when switching between grid and listbox.
+				//       If we're going to support list, we'll need something a little different
+				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
+				for (var i = 0; i &lt; nodes.length; i++) {
+					nodes[i].setAttribute("role", "option");
+				}
+				nodes = this.querySelectorAll(".d-list-item[role='row']");
+				for (i = 0; i &lt; nodes.length; i++) {
+					nodes[i].removeAttribute("role");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category[role='row']");
+					for (i = 0; i &lt; nodes.length; i++) {
+						nodes[i].removeAttribute("role");
+					}
+				}
+			} else {
+				nodes = this.querySelectorAll(".d-list-cell[role='option']");
+				for (i = 0; i &lt; nodes.length; i++) {
+					nodes[i].setAttribute("role", "gridcell");
+				}
+				nodes = this.getItemRenderers();
+				for (i = 0; i &lt; nodes.length; i++) {
+					nodes[i].setAttribute("role", "row");
+				}
+				if (this._isCategorized()) {
+					nodes = this.querySelectorAll(".d-list-category");
+					for (i = 0; i &lt; nodes.length; i++) {
+						nodes[i].setAttribute("role", "row");
+					}
+				}
+			}
+		},
+		/*jshint maxcomplexity:10*/
+
+		/**
+		 * Sets the "busy" status of the widget.
+		 * @param {boolean} status true if the list is busy loading and rendering its data.
+		 * false otherwise.
+		 * @param {boolean} hideContent true if the list should hide its content when it is busy,
+		 * false otherwise
+		 * @private
+		 */
+		_setBusy: function (status, hideContent) {
+			if (status) {
+				this.setAttribute("aria-busy", "true");
+				if (hideContent) {
+					this._showLoadingPanel();
+				}
+			} else {
+				this.removeAttribute("aria-busy");
+				this._hideLoadingPanel();
+			}
+		},
+
+		/**
+		 * Shows the loading panel
+		 * @private
+		 */
+		_showLoadingPanel: function () {
+			if (!this._loadingPanel) {
+				this._loadingPanel = new LoadingPanel({message: this.loadingMessage});
+				if (this.children[0] !== undefined) {
+					this.insertBefore(this._loadingPanel, this.children[0]);
+				} else {
+					this.appendChild(this._loadingPanel);
+				}
+				this._loadingPanel.attachedCallback();
+			}
+		},
+
+		/**
+		 * Hides the loading panel
+		 * @private
+		 */
+		_hideLoadingPanel: function () {
+			if (this._loadingPanel) {
+				this._loadingPanel.destroy();
+				this._loadingPanel = null;
+			}
+		},
+
+		/**
+		 * Returns whether the list is categorized or not.
+		 * @private
+		 */
+		_isCategorized: function () {
+			return this.categoryAttr || this.categoryFunc;
+		},
+
+		/**
+		 * Destroys all children of the list and empty it
+		 * @private
+		 */
+		_empty: function () {
+			this.findCustomElements(this).forEach(function (w) {
+				if (w.destroy) {
+					w.destroy();
+				}
+			});
+			this.innerHTML = "";
+			this._previousFocusedChild = null;
+		},
+
+		//////////// Renderers life cycle ///////////////////////////////////////
+
+		/**
+		 * Renders new items within the list widget.
+		 * @param {Object[]} items The new items to render.
+		 * @param {boolean} atTheTop If true, the new items are rendered at the top of the list.
+		 * If false, they are rendered at the bottom of the list.
+		 * @private
+		 */
+		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
+			if (!this.firstElementChild || this.firstElementChild === this._loadingPanel) {
+				this.appendChild(this._createRenderers(items, 0, items.length, null));
+			} else {
+				if (atTheTop) {
+					if (this._isCategorized()) {
+						var firstRenderer = this._getFirstRenderer();
+						if (this.isCategoryRenderer(firstRenderer)
+								&amp;&amp; items[items.length - 1].category === firstRenderer.item.category) {
+							// Remove the category renderer on top before adding the new items
+							this._removeRenderer(firstRenderer);
+						}
+					}
+					this.insertBefore(this._createRenderers(items, 0, items.length, null),
+							this.firstElementChild);
+				} else {
+					this.appendChild(this._createRenderers(items, 0, items.length,
+							this._getLastRenderer().item));
+				}
+			}
+			// start renderers
+			this.findCustomElements(this).forEach(function (w) {
+				w.attachedCallback();
+			});
+		},
+
+		/**
+		 * Creates renderers for a list of items (including the category renderers if the list
+		 * is categorized).
+		 * @param {Object[]} items Array An array that contains the items to create renderers for.
+		 * @param {number} fromIndex The index of the first item in the array of items
+		 * (no renderer will be created for the items before this index).
+		 * @param {number} count The number of items to use from the array of items, starting
+		 * from the fromIndex position
+		 * (no renderer will be created for the items that follows).
+		 * @param {Object} previousItem The item that precede the first one for which a renderer will be created.
+		 * This is only usefull for categorized lists.
+		 * @return {DocumentFragment}  A DocumentFragment that contains the renderers.
+		 * The startup method of the renderers has not been called at this point.
+		 * @private
+		 */
+		_createRenderers: function (items, fromIndex, count, previousItem) {
+			var currentIndex = fromIndex,
+				currentItem, toIndex = fromIndex + count - 1;
+			var documentFragment = this.ownerDocument.createDocumentFragment();
+			for (; currentIndex &lt;= toIndex; currentIndex++) {
+				currentItem = items[currentIndex];
+				if (this._isCategorized()
+					&amp;&amp; (!previousItem || currentItem.category !== previousItem.category)) {
+					documentFragment.appendChild(this._createCategoryRenderer(currentItem));
+				}
+				documentFragment.appendChild(this._createItemRenderer(currentItem));
+				previousItem = currentItem;
+			}
+			return documentFragment;
+		},
+
+		/**
+		 * Add an item renderer to the List, updating category renderers if needed.
+		 * This method calls the startup method on the renderer after it has been
+		 * added to the List.
+		 * @param {module:deliteful/list/ItemRenderer} The renderer to add to the list.
+		 * @param {number} atIndex The index (not counting category renderers) where to add
+		 * the item renderer in the list.
+		 * @private
+		 */
+		_addItemRenderer: function (renderer, atIndex) {
+			var spec = this._getInsertSpec(renderer, atIndex);
+			if (spec.nodeRef) {
+				this.insertBefore(renderer, spec.nodeRef);
+				if (spec.addCategoryAfter) {
+					var categoryRenderer = this._createCategoryRenderer(spec.nodeRef.item);
+					this.insertBefore(categoryRenderer, spec.nodeRef);
+					categoryRenderer.attachedCallback();
+				}
+			} else {
+				this.appendChild(renderer);
+			}
+			if (spec.addCategoryBefore) {
+				categoryRenderer = this._createCategoryRenderer(renderer.item);
+				this.insertBefore(categoryRenderer, renderer);
+				categoryRenderer.attachedCallback();
+			}
+			renderer.attachedCallback();
+		},
+
+		/**
+		 * Get a specification for the insertion of an item renderer in the list.
+		 * @param {module:deliteful/list/ItemRenderer} renderer The renderer to add to the list.
+		 * @param {number} atIndex The index (not counting category renderers) where to add
+		 * the item renderer in the list.
+		 * @return {Object} an object that contains the following attributes:
+		 * - nodeRef: the node before which to insert the item renderer
+		 * - addCategoryBefore: true if a category header should be inserted before the item renderer
+		 * - addCategoryAfter: true if a category header should be inserted after the item renderer
+		 * @private
+		 */
+		_getInsertSpec: function (renderer, atIndex) {
+			var result = {nodeRef: atIndex >= 0 ? this.getItemRendererByIndex(atIndex) : null,
+						  addCategoryBefore: false,
+						  addCategoryAfter: false};
+			if (this._isCategorized()) {
+				var previousRenderer = result.nodeRef
+										? this._getNextRenderer(result.nodeRef, -1)
+										: this._getLastRenderer();
+				if (!previousRenderer) {
+					result.addCategoryBefore = true;
+				} else {
+					if (!this._sameCategory(renderer, previousRenderer)) {
+						if (this.isCategoryRenderer(previousRenderer)) {
+							result.nodeRef = previousRenderer;
+							previousRenderer = this._getNextRenderer(previousRenderer, -1);
+							if (!previousRenderer
+								|| (previousRenderer &amp;&amp; !this._sameCategory(renderer, previousRenderer))) {
+								result.addCategoryBefore = true;
+							}
+						} else {
+							result.addCategoryBefore = true;
+						}
+					}
+				}
+				if (result.nodeRef
+					&amp;&amp; !this.isCategoryRenderer(result.nodeRef)
+					&amp;&amp; !this._sameCategory(result.nodeRef, renderer)) {
+					result.addCategoryAfter = true;
+				}
+			}
+			return result;
+		},
+
+		/*jshint maxcomplexity:12*/
+		/**
+		 * Removes a renderer from the List, updating category renderers if needed.
+		 * @param {module:deliteful/list/Renderer} renderer The renderer to remove from the list.
+		 * @param {boolean} keepSelection Set to true if the renderer item should not be removed
+		 * from the list of selected items.
+		 * @private
+		 */
+		_removeRenderer: function (renderer, keepSelection) {
+			if (this._isCategorized() &amp;&amp; !this.isCategoryRenderer(renderer)) {
+				// remove the previous category header if necessary
+				var previousRenderer = this._getNextRenderer(renderer, -1);
+				if (previousRenderer &amp;&amp; this.isCategoryRenderer(previousRenderer)) {
+					var nextRenderer = this._getNextRenderer(renderer, 1);
+					if (!nextRenderer || !this._sameCategory(renderer, nextRenderer)) {
+						this._removeRenderer(previousRenderer);
+					}
+				}
+			}
+			// Update focus if necessary
+			if (this._getFocusedRenderer() === renderer) {
+				var nextFocusRenderer = this._getNextRenderer(renderer, 1) || this._getNextRenderer(renderer, -1);
+				if (nextFocusRenderer) {
+					this.navigateTo(nextFocusRenderer.renderNode);
+				}
+			}
+			if (!keepSelection &amp;&amp; !this.isCategoryRenderer(renderer) &amp;&amp; this.isSelected(renderer.item)) {
+				// deselect the item before removing the renderer
+				this.selectFromEvent(null, renderer.item, renderer, true);
+			}
+			// remove and destroy the renderer
+			if (this._previousFocusedChild &amp;&amp; this.getEnclosingRenderer(this._previousFocusedChild) === renderer) {
+				this._previousFocusedChild = null;
+			}
+			this.removeChild(renderer);
+			renderer.destroy();
+		},
+		/*jshint maxcomplexity:10*/
+
+		/**
+		 * Creates a renderer instance for an item.
+		 * @param {Object} item The item to render.
+		 * @returns {module:deliteful/list/ItemRenderer} An instance of item renderer that renders the item.
+		 * @private
+		 */
+		_createItemRenderer: function (item) {
+			var renderer = new this.itemRenderer({item: item, tabindex: "-1"});
+			if (this.selectionMode !== "none") {
+				var itemSelected = !!this.isSelected(item);
+				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
+				$(renderer).toggleClass(this._cssClasses.selected, itemSelected);
+			}
+			return renderer;
+		},
+
+		/**
+		 * Creates a category renderer instance for an item.
+		 * @param {Object} item The item which category to render.
+		 * @returns {module:deliteful/list/CategoryRenderer} An instance of category renderer
+		 * that renders the category of the item.
+		 * @private
+		 */
+		_createCategoryRenderer: function (item) {
+			return new this.categoryRenderer({item: item, tabindex: "-1"});
+		},
+
+		/**
+		 * Returns whether a renderer is a category renderer or not>.
+		 * @param {module:deliteful/list/Renderer} renderer The renderer to test.
+		 * @return {boolean}
+		 */
+		isCategoryRenderer: function (/*deliteful/list/Renderer*/renderer) {
+			return renderer.tagName.toLowerCase() === this.categoryRenderer.tag;
+		},
+
+		/**
+		 * Returns whether two renderers have the same category or not.
+		 * @param {module:deliteful/list/Renderer} renderer1 The first renderer.
+		 * @param {module:deliteful/list/Renderer} renderer2 The second renderer.
+		 * @private
+		 */
+		_sameCategory: function (renderer1, renderer2) {
+			return renderer1.item.category === renderer2.item.category;
+		},
+
+		/**
+		 * Returns the renderer that comes immediately after of before another one.
+		 * @param {module:deliteful/list/Renderer} renderer The renderer immediately before or after the one to return.
+		 * @param {number} dir 1 to return the renderer that comes immediately after renderer, -1 to
+		 * return the one that comes immediately before.
+		 * @returns {module:deliteful/list/Renderer}
+		 * @private
+		 */
+		_getNextRenderer: function (renderer, dir) {
+			if (dir >= 0) {
+				return renderer.nextElementSibling;
+			} else {
+				return renderer.previousElementSibling;
+			}
+		},
+
+		/**
+		 * Returns the first renderer in the list.
+		 * @returns {module:deliteful/list/Renderer}
+		 * @private
+		 */
+		_getFirstRenderer: function () {
+			return this.querySelector(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
+		},
+
+
+		/**
+		 * Returns the last renderer in the list.
+		 * @returns {module:deliteful/list/Renderer}
+		 * @private
+		 */
+		_getLastRenderer: function () {
+			var renderers = this
+								.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
+			return renderers.length ? renderers.item(renderers.length - 1) : null;
+		},
+
+		////////////delite/Store implementation ///////////////////////////////////////
+
+		/**
+		 * Populate the list using the items retrieved from the store.
+		 * @param {Object[]} items items retrieved from the store.
+		 * @protected
+		 * @fires module:delite/Store#query-success
+		 */
+		initItems: function (items) {
+			this._empty();
+			this._renderNewItems(items, false);
+			this._setBusy(false, true);
+			this._dataLoaded = true;
+			this.emit("query-success", { renderItems: items, cancelable: false, bubbles: true });
+		},
+
+		/**
+		 * Function to call when an item is removed from the store, to update
+		 * the content of the list widget accordingly.
+		 * @param {number} index The index of the render item to remove.
+		 * @param {Object[]} renderItems Ignored by this implementation.
+		 * @param {boolean} keepSelection Set to true if the item should not be removed from the list of selected items.
+		 * @protected
+		 */
+		itemRemoved: function (index, renderItems, keepSelection) {
+			var renderer = this.getItemRendererByIndex(index);
+			if (renderer) {
+				this._removeRenderer(renderer, keepSelection);
+			}
+		},
+
+		/**
+		 * Function to call when an item is added to the store, to update
+		 * the content of the list widget accordingly.
+		 * @param {number} index The index where to add the render item.
+		 * @param {Object} renderItem The render item to be added.
+		 * @param {Object[]} renderItems Ignored by this implementation.
+		 * @private
+		 */
+		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
+			var newRenderer = this._createItemRenderer(renderItem);
+			this._addItemRenderer(newRenderer, index);
+		},
+
+		/**
+		 * Function to call when an item is updated in the store, to update
+		 * the content of the list widget accordingly.
+		 * @param {number}  index The index of the render item to update.
+		 * @param {Object} renderItem The render item data the render item must be updated with.
+		 * @param {Object[]} renderItems Ignored by this implementation.
+		 * @protected
+		 */
+		itemUpdated: function (index,  renderItem, /*jshint unused:vars*/renderItems) {
+			var renderer = this.getItemRendererByIndex(index);
+			if (renderer) {
+				renderer.item = renderItem;
+			}
+		},
+
+		itemMoved: function (previousIndex, newIndex, renderItem, renderItems) {
+			// summary:
+			//		Function to call when an item is moved in the store, to update
+			//		the content of the list widget accordingly.
+			// previousIndex: Number
+			//		The previous index of the render item.
+			// newIndex: Number
+			//		The new index of the render item.
+			// renderItem: Object
+			//		The render item to be moved.
+			// renderItems: Array
+			//		Ignored by this implementation.
+			// tags:
+			//		protected
+			this.itemRemoved(previousIndex, renderItems, true);
+			this.itemAdded(newIndex, renderItem, renderItems);
+		},
+
+		//////////// delite/Scrollable extension ///////////////////////////////////////
+
+		/**
+		 * Returns the distance between the top of a node and 
+		 * the top of the scrolling container.
+		 * @param {Node} node the node
+		 * @protected
+		 */
+		getTopDistance: function (node) {
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop - this.getCurrentScroll().y);
+		},
+
+		/**
+		 * Returns the distance between the bottom of a node and
+		 * the bottom of the scrolling container.
+		 * @param {Node} node the node
+		 * @protected
+		 */
+		getBottomDistance: function (node) {
+			var clientRect = this.getBoundingClientRect();
+			// Need to use Math.round for IE
+			return Math.round(node.offsetTop +
+				node.offsetHeight -
+				this.getCurrentScroll().y -
+				(clientRect.bottom - clientRect.top));
+		},
+
+		//////////// delite/KeyNav implementation ///////////////////////////////////////
+		// Keyboard navigation is based on WAI ARIA Pattern for Grid:
+		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+
+		/**
+		 * @private
+		 */
+		descendantSelector: function (child) {
+			var enclosingRenderer = this.getEnclosingRenderer(child);
+			return !enclosingRenderer ||
+				(this.getAttribute("role") === "listbox" &amp;&amp; this.isCategoryRenderer(enclosingRenderer)) ?
+				false :
+				$(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex");
+		},
+
+		/**
+		 * @method
+		 * Handle keydown events
+		 * @private
+		 */
+		_keynavKeyDownHandler: dcl.before(function (evt) {
+			if (!evt.defaultPrevented) {
+				if ((evt.keyCode === keys.SPACE &amp;&amp; !this._searchTimer)) {
+					this._spaceKeydownHandler(evt);
+				} else {
+					if (this.getAttribute("role") !== "listbox") {
+						this._gridKeydownHandler(evt);
+					}
+				}
+			}
+		}),
+
+		focus: function () {
+			// Focus the previously focused child of the first visible grid cell
+			if (this._previousFocusedChild) {
+				this.navigateTo(this._previousFocusedChild);
+			} else {
+				var cell = this._getFirst();
+				if (cell) {
+					while (cell) {
+						if (this.getTopDistance(cell) >= 0) {
+							break;
+						}
+						var nextRenderer = cell.parentNode.nextElementSibling;
+						cell = nextRenderer ? nextRenderer.renderNode : null;
+					}
+					this.navigateTo(cell);
+				}
+			}
+		},
+
+		/**
+		 * @method
+		 * Called on "delite-deactivated" event, stores a reference to the focused child.
+		 * @private
+		 */
+		_keynavDeactivatedHandler: dcl.superCall(function (sup) {
+			return function () {
+				this._previousFocusedChild = this.navigatedDescendant;
+				sup.call(this);
+			};
+		}),
+
+		// Page Up/Page down key support
+		/**
+		 * Returns the first cell in the list.
+		 * @private
+		 * @returns {Element}
+		 */
+		_getFirst: function () {
+			var first = this.querySelector("." + this._cssClasses.cell);
+			if (first &amp;&amp; this.getAttribute("role") === "listbox"
+					&amp;&amp; this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
+				first = this.getNext(first, 1);
+			}
+			return first;
+		},
+
+		/**
+		 * Returns the last cell in the list.
+		 * @private
+		 * @returns {Element}
+		 */
+		_getLast: function () {
+			// summary:
+			var cells = this.querySelectorAll("." + this._cssClasses.cell);
+			var last = cells.length ? cells.item(cells.length - 1) : null;
+			if (last &amp;&amp; this.getAttribute("role") === "listbox"
+					&amp;&amp; this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
+				last = this.getNext(last, -1);
+			}
+			return last;
+		},
+
+		// Simple arrow key support.
+		downArrowKeyHandler: function (evt) {
+			if (this.navigatedDescendant &amp;&amp; this.navigatedDescendant.hasAttribute("navindex")) {
+				return;
+			}
+			var focusedRenderer = this._getFocusedRenderer();
+			var next = null;
+			if (focusedRenderer) {
+				next = focusedRenderer.nextElementSibling;
+				if (next &amp;&amp; this.getAttribute("role") === "listbox" &amp;&amp; this.isCategoryRenderer(next)) {
+					next = next.nextElementSibling;
+				}
+			}
+			this.navigateTo(next ? next.renderNode : this._getFirst(), false, evt);
+		},
+
+		upArrowKeyHandler: function (evt) {
+			if (this.navigatedDescendant &amp;&amp; this.navigatedDescendant.hasAttribute("navindex")) {
+				return;
+			}
+			var focusedRenderer = this._getFocusedRenderer();
+			var next = null;
+			if (focusedRenderer) {
+				next = focusedRenderer.previousElementSibling;
+				if (next &amp;&amp; this.getAttribute("role") === "listbox" &amp;&amp; this.isCategoryRenderer(next)) {
+					next = next.previousElementSibling;
+				}
+			}
+			this.navigateTo(next ? next.renderNode : this._getLast(), false, evt);
+		},
+
+		// Remap Page Up -> Home and Page Down -> End
+
+		pageUpKeyHandler: function (evt) {
+			this.navigateToFirst(evt);
+		},
+
+		pageDownKeyHandler: function (evt) {
+			this.navigateToLast(evt);
+		},
+
+		getNext: function (child, dir) {
+			if (child === this) {
+				return dir > 0 ? this._getFirst() : this._getLast();
+			}
+
+			// Letter key navigation support.
+			var renderer = this.getEnclosingRenderer(child);
+			return dir > 0 ? renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst() :
+				renderer.previousElementSibling ? renderer.previousElementSibling.renderNode : this._getLast();
+		},
+
+		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
+
+		/**
+		 * Handles SPACE key keydown event
+		 * @param {Event} evt the keydown event
+		 * @private
+		 */
+		_spaceKeydownHandler: function (evt) {
+			if (this.selectionMode !== "none") {
+				if (this.handleSelection(evt)) {
+					evt.preventDefault();
+				} // else do not prevent-default, for the sake of use-cases
+				// such as Combobox where the target of the key event is an
+				// input element outside the List. In this use-case, delite/HasDropDown
+				// forwards "keydown" events to the List instance and prevent-defaults
+				// the event if any key handler prevent-defaults the event, which would
+				// forbid the user from entering space characters in the input element.
+			}
+		},
+
+		/*jshint maxcomplexity:13*/
+		/**
+		 * Handles keydown events for the aria role grid
+		 * @param {Event} evt the keydown event
+		 * @private
+		 */
+		_gridKeydownHandler: function (evt) {
+			if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+				if (this.navigatedDescendant &amp;&amp; !this.navigatedDescendant.hasAttribute("navindex")) {
+					// Enter Actionable Mode
+					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
+					// See http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
+					evt.preventDefault();
+					this._enterActionableMode();
+				}
+			} else if (evt.keyCode === keys.TAB) {
+				if (this.navigatedDescendant &amp;&amp; this.navigatedDescendant.hasAttribute("navindex")) {
+					// We are in Actionable mode
+					evt.preventDefault();
+					var renderer = this._getFocusedRenderer();
+					var next = renderer[evt.shiftKey ? "getPrev" : "getNext"](this.navigatedDescendant);
+					while (!next) {
+						renderer = renderer[evt.shiftKey ? "previousElementSibling" : "nextElementSibling"]
+							|| this[evt.shiftKey ? "_getLast" : "_getFirst"]().parentNode;
+						next = renderer[evt.shiftKey ? "getLast" : "getFirst"]();
+					}
+					this.navigateTo(next);
+				}
+			} else if (evt.keyCode === keys.ESCAPE) {
+				// Leave Actionable mode
+				this._leaveActionableMode();
+			}
+		},
+		/*jshint maxcomplexity:10*/
+
+		/**
+		 * @private
+		 */
+		_enterActionableMode: function () {
+			var focusedRenderer = this._getFocusedRenderer();
+			if (focusedRenderer) {
+				var next = focusedRenderer.getFirst();
+				if (next) {
+					this.navigateTo(next);
+				}
+			}
+		},
+
+		/**
+		 * @private
+		 */
+		_leaveActionableMode: function () {
+			this.navigateTo(this._getFocusedRenderer().renderNode);
+		},
+
+		/**
+		 * Returns the renderer that currently has the focused or is
+		 * an ancestor of the focused node.
+		 * @return {module:deliteful/list/Renderer}
+		 * @private
+		 */
+		_getFocusedRenderer: function () {
+			return this.navigatedDescendant ? this.getEnclosingRenderer(this.navigatedDescendant) : null;
+		}
+
+	});
+
+	return register("d-list", [HTMLElement, List]);
+
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/Store.html">deliteful/Store</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Wed May 13 2015 20:01:15 GMT+0200 (Romance Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
