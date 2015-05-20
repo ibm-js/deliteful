@@ -447,9 +447,9 @@ define([
 			var idPage, i;
 			if (first) {
 				idPage = this._idPages.shift();
-				this._firstLoaded += idPage.length;
 				for (i = 0; i < idPage.length; i++) {
-					this._removeRenderer(this.getItemRendererByIndex(0), true);
+					this._removeRenderer(this.getItemRendererByIndex(this._firstLoaded), true);
+					this._firstLoaded++;
 				}
 				if (idPage.length && !this._previousPageLoader) {
 					this._createPreviousPageLoader();
@@ -594,6 +594,23 @@ define([
 			}
 			return renderer;
 		},
+
+		/**
+		 * Returns the item renderer at a specific index in the List, or null if there is no
+		 * renderer at this index or if the item at this index is not displayed.
+		 * @param {number} index The item renderer at the index (first item renderer index is 0).
+		 * @returns {module:deliteful/list/ItemRenderer}
+		 */
+		getItemRendererByIndex: dcl.superCall(function (sup) {
+			return function (index) {
+				if (this._firstLoaded >= 0 && this._lastLoaded >= 0) {
+					return (index >= 0 && index >= this._firstLoaded && index <= this._lastLoaded) ?
+						this.getItemRenderers().item((index - this._firstLoaded)) : null;
+				} else {
+					return sup.call(this, index);
+				}
+			};
+		}),
 
 		//////////// Event handlers ///////////////////////////////////////
 
