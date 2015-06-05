@@ -2,13 +2,12 @@
 define([
 	"dcl/dcl",
 	"dpointer/events",
-	"delite/keys",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"delite/FormValueWidget",
 	"requirejs-dplugins/i18n!./StarRating/nls/StarRating",
 	"delite/theme!./StarRating/themes/{{theme}}/StarRating.css"
-], function (dcl, pointer, keys, $,
+], function (dcl, pointer, $,
 			register, FormValueWidget, messages) {
 
 	/**
@@ -213,19 +212,19 @@ define([
 		},
 
 		_keyDownHandler: function () {
-			var incrementArrow = this.effectiveDir === "ltr" ? keys.RIGHT_ARROW : keys.LEFT_ARROW,
-				decrementArrow = this.effectiveDir === "ltr" ? keys.LEFT_ARROW : keys.RIGHT_ARROW;
+			var incrementArrow = this.effectiveDir === "ltr" ? "Right" : "Left",
+				decrementArrow = this.effectiveDir === "ltr" ? "Left" : "Right";
 
-			switch (event.keyCode) {
+			switch (event.key) {
 			case incrementArrow:
-			case keys.UP_ARROW:
-			case keys.NUMPAD_PLUS:
+			case "Up":
+			case "Add":
 				event.preventDefault();
 				this._incrementValue();
 				break;
 			case decrementArrow:
-			case keys.DOWN_ARROW:
-			case keys.NUMPAD_MINUS:
+			case "Down":
+			case "Subtract":
 				event.preventDefault();
 				this._decrementValue();
 				break;

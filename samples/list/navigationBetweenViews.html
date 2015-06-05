@@ -27,12 +27,11 @@
 				template: template
 			});
 			require([
-				"delite/keys",
 				"deliteful/Store",
 				"deliteful/list/List",
-				"requirejs-domready/domReady!"], function (keys) {
+				"requirejs-domready/domReady!"], function () {
 				actionHandler = function(event) {
-					if ((event.type === "keydown" && event.keyCode === keys.SPACE) || event.type === "click") {
+					if ((event.type === "keydown" && event.key === "Spacebar") || event.type === "click") {
 						var renderer = event.currentTarget.getEnclosingRenderer(event.target);
 						if (renderer && renderer.item.moveto) {
 							document.getElementById("viewStack").show(renderer.item.moveto);

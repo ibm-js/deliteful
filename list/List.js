@@ -3,7 +3,6 @@ define([
 	"dcl/dcl",
 	"delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",
-	"delite/keys",
 	"delite/CustomElement",
 	"delite/Selection",
 	"delite/KeyNav",
@@ -13,7 +12,7 @@ define([
 	"./CategoryRenderer",
 	"./_LoadingPanel",
 	"delite/theme!./List/themes/{{theme}}/List.css"
-], function (dcl, register, $, keys, CustomElement,
+], function (dcl, register, $, CustomElement,
 		Selection, KeyNav, StoreMap, Scrollable, ItemRenderer, CategoryRenderer, LoadingPanel) {
 
 	/**
@@ -967,7 +966,7 @@ define([
 		 */
 		_keynavKeyDownHandler: dcl.before(function (evt) {
 			if (!evt.defaultPrevented) {
-				if ((evt.keyCode === keys.SPACE && !this._searchTimer)) {
+				if ((evt.key === "Spacebar" && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
 				} else {
 					if (this.getAttribute("role") !== "listbox") {
@@ -1040,7 +1039,7 @@ define([
 		},
 
 		// Simple arrow key support.
-		downArrowKeyHandler: function (evt) {
+		downKeyHandler: function (evt) {
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
@@ -1055,7 +1054,7 @@ define([
 			this.navigateTo(next ? next.renderNode : this._getFirst(), false, evt);
 		},
 
-		upArrowKeyHandler: function (evt) {
+		upKeyHandler: function (evt) {
 			if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 				return;
 			}
@@ -1118,7 +1117,7 @@ define([
 		 * @private
 		 */
 		_gridKeydownHandler: function (evt) {
-			if (evt.keyCode === keys.ENTER || evt.keyCode === keys.F2) {
+			if (evt.key === "Enter" || evt.key === "F2") {
 				if (this.navigatedDescendant && !this.navigatedDescendant.hasAttribute("navindex")) {
 					// Enter Actionable Mode
 					// TODO: prevent default ONLY IF autoAction is false on the renderer ?
@@ -1126,7 +1125,7 @@ define([
 					evt.preventDefault();
 					this._enterActionableMode();
 				}
-			} else if (evt.keyCode === keys.TAB) {
+			} else if (evt.key === "Tab") {
 				if (this.navigatedDescendant && this.navigatedDescendant.hasAttribute("navindex")) {
 					// We are in Actionable mode
 					evt.preventDefault();
@@ -1139,7 +1138,7 @@ define([
 					}
 					this.navigateTo(next);
 				}
-			} else if (evt.keyCode === keys.ESCAPE) {
+			} else if (evt.key === "Esc") {
 				// Leave Actionable mode
 				this._leaveActionableMode();
 			}
