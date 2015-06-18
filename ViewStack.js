@@ -130,7 +130,7 @@ define(["dcl/dcl",
 			},
 
 			preRender: function () {
-				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
+				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100, ie: 20};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
 						this._timing = this._transitionTiming[o];
@@ -199,14 +199,14 @@ define(["dcl/dcl",
 			},
 
 			_doTransition: function (origin, target, event, transition, reverse) {
-				var promise;
+				var promises = [];
 				if (transition !== "none") {
 					if (origin) {
-						promise = this._setAfterTransitionHandlers(origin);
+						promises.push(this._setAfterTransitionHandlers(origin));
 						$(origin).addClass(transitionClass(transition));
 					}
 					if (target) {
-						promise = this._setAfterTransitionHandlers(target);
+						promises.push(this._setAfterTransitionHandlers(target));
 						$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
 					}
 					if (reverse) {
@@ -233,7 +233,7 @@ define(["dcl/dcl",
 						setVisibility(origin, false);
 					}
 				}
-				return Promise.resolve(promise);
+				return Promise.all(promises);
 			},
 
 			changeDisplay: function (widget, event) {
@@ -308,34 +308,15 @@ define(["dcl/dcl",
 			},
 
 			_afterTransitionHandle: function (holder, resolve) {
-				// Workaround for FF transitionend randomly dropped.
-				// This method should be called once, when the target view transition is done.
-				// But when 2 transitions (ex: slide) start at the same time, the transitionend event of the
-				// target view can be dropped.
-				if (!holder.promise.resolved) {
-					// First call
-					holder.promise.resolved = true;
-					var vb;
-					for (var i = 0; i < this.children.length; i++) {
-						vb = this._visibleChild === this.children[i];
-						setVisibility(this.children[i], vb);
-						if (!vb) {
-							cleanCSS(this.children[i]);
-						}
-					}
-
-					holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
-					holder.node.removeEventListener("transitionend", holder.handle);
-					resolve();
-				} else {
-					// Second call (occurs randomly on FF). The following code is not critical but try
-					// to keep a clean DOM tree as much as possible.
-					cleanCSS(holder.node);
-					if (holder.node !== this._visibleChild) {
-						cleanCSS(this._visibleChild);
-					}
+				var isVisibleChild = this._visibleChild === holder.node;
+				setVisibility(holder.node, isVisibleChild);
+				cleanCSS(holder.node);
+				if (isVisibleChild) {
 					$(this).removeClass("-d-view-stack-transition");
 				}
+				holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
+				holder.node.removeEventListener("transitionend", holder.handle);
+				resolve();
 			}
 		});
 	});
