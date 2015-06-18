@@ -4,6 +4,7 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
 	"decor/sniff",
+	"dcl/advise",
 	"deliteful/ViewStack",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/coverv.css",
@@ -11,10 +12,10 @@ define([
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"
-], function (registerSuite, assert, $, register, has) {
+], function (registerSuite, assert, $, register, has, advise) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
-	var asyncHandler;
+	var asyncHandler, adviseHandler;
 	var htmlContent = "<d-view-stack id='vs'><div id='aaa'>AAA</div><div id='bbb'>BBB</div><div id='ccc'>CCC</div>" +
 		"<div id='ddd'>DDD</div></d-view-stack>";
 
@@ -265,305 +266,587 @@ define([
 				node.parentNode.style.display = "";
 			},
 			"ShowPrevious(): default reverse": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious();
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious().then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no transition): default reverse": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "none"});
-				}).then(function () {
-					checkNoReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({transition: "none"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(fade): default reverse": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "fade"});
-				}).then(function () {
-					checkReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({transition: "fade"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(revealv): default reverse": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "revealv"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({transition: "revealv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reveal): default reverse": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "reveal"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({transition: "reveal"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(flip): default reverse": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "flip"});
-				}).then(function () {
-					checkReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({transition: "flip"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(slidev): default reverse": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "slidev"});
-				}).then(function () {
-					checkReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({transition: "slidev"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(slide): default reverse": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "slide"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({transition: "slide"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(coverv): default reverse": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "coverv"});
-				}).then(function () {
-					checkReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({transition: "coverv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(cover): default reverse": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({transition: "cover"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({transition: "cover"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, no transition)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "none"});
-				}).then(function () {
-					checkNoReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "none"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, fade)": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "fade"});
-				}).then(function () {
-					checkNoReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "fade"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, revealv)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "revealv"});
-				}).then(function () {
-					checkNoReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "revealv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, reveal)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "reveal"});
-				}).then(function () {
-					checkNoReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "reveal"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, flip)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "flip"});
-				}).then(function () {
-					checkNoReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "flip"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, slidev)": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "slidev"});
-				}).then(function () {
-					checkNoReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "slidev"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, slide)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "slide"});
-				}).then(function () {
-					checkNoReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "slide"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, coverv)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "coverv"});
-				}).then(function () {
-					checkNoReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "coverv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(no reverse, cover)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: false, transition: "cover"});
-				}).then(function () {
-					checkNoReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: false, transition: "cover"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, no transition)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "none"});
-				}).then(function () {
-					checkNoReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkNoReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "none"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, fade)": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "fade"});
-				}).then(function () {
-					checkReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "fade"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, revealv)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "revealv"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "revealv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, reveal)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "reveal"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "reveal"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, flip)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "flip"});
-				}).then(function () {
-					checkReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "flip"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, slidev)": function () {
-				return node.show(bbb, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "slidev"});
-				}).then(function () {
-					checkReverse(node, "aaa");
+				var d = this.async(1000);
+				node.show(bbb, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "aaa");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "slidev"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, slide)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "slide"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "slide"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, coverv)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "coverv"});
-				}).then(function () {
-					checkReverse(node, "ccc");
+				var d = this.async(1000);
+				node.show(ddd, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "ccc");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "coverv"}).then(function () {
+						d.resolve()
+					});
 				});
 			},
 			"ShowPrevious(reverse, cover)": function () {
-				return node.show(ccc, {transition: "none"}).then(function () {
-					return node.showPrevious({reverse: true, transition: "cover"});
-				}).then(function () {
-					checkReverse(node, "bbb");
+				var d = this.async(1000);
+				node.show(ccc, {transition: "none"}).then(function () {
+					adviseHandler = advise(node, "_doTransition", {
+						after: d.rejectOnError(function () {
+							checkReverse(node, "bbb");
+						})
+					});
+					node.showPrevious({reverse: true, transition: "cover"}).then(function () {
+						d.resolve()
+					});
 				});
 			}
 		},
 		"Check transition" : {
 			"Show(): Default transition": function () {
-				return node.show(ccc).then(function () {
-					checkTransition(node, "ccc", "slide");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ccc", "slide");
+					})
+				});
+				node.show(ccc).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): slide transition": function () {
+				var d = this.async(1000);
 				node.transition = "slide";
-				return node.show(ddd).then(function () {
-					checkTransition(node, "ddd", "slide");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "slide");
+					})
+				});
+				node.show(ddd).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): slidev transition": function () {
+				var d = this.async(1000);
 				node.transition = "slidev";
-				return node.show(aaa).then(function () {
-					checkTransition(node, "aaa", "slidev");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "aaa", "slidev");
+					})
+				});
+				node.show(aaa).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): reveal transition": function () {
+				var d = this.async(1000);
 				node.transition = "reveal";
-				return node.show(bbb).then(function () {
-					checkTransition(node, "bbb", "reveal");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "bbb", "reveal");
+					})
+				});
+				node.show(bbb).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): revealv transition": function () {
+				var d = this.async(1000);
 				node.transition = "revealv";
-				return node.show(ddd).then(function () {
-					checkTransition(node, "ddd", "revealv");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "revealv");
+					})
+				});
+				node.show(ddd).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): flip transition": function () {
+				var d = this.async(1000);
 				node.transition = "flip";
-				return node.show(ccc).then(function () {
-					checkTransition(node, "ccc", "flip");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ccc", "flip");
+					})
+				});
+				node.show(ccc).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): fade transition": function () {
+				var d = this.async(1000);
 				node.transition = "fade";
-				return node.show(ddd).then(function () {
-					checkTransition(node, "ddd", "fade");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "fade");
+					})
+				});
+				node.show(ddd).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): cover transition": function () {
+				var d = this.async(1000);
 				node.transition = "cover";
-				return node.show(aaa).then(function () {
-					checkTransition(node, "aaa", "cover");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "aaa", "cover");
+					})
+				});
+				node.show(aaa).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): coverv transition": function () {
+				var d = this.async(1000);
 				node.transition = "coverv";
-				return node.show(bbb).then(function () {
-					checkTransition(node, "bbb", "coverv");
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "bbb", "coverv");
+					})
+				});
+				node.show(bbb).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(): no transition": function () {
 				node.transition = "none";
-				return node.show(ccc).then(function () {
-					checkTransition(node, ccc, "none");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, ccc, "none");
+					})
+				});
+				node.show(ccc).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(slide)": function () {
-				return node.show(ddd, {transition: "slide"}).then(function () {
-					checkTransition(node, "ddd", "slide");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "slide");
+					})
+				});
+				node.show(ddd, {transition: "slide"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(slidev)": function () {
-				return node.show(aaa, {transition: "slidev"}).then(function () {
-					checkTransition(node, "aaa", "slidev");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "aaa", "slidev");
+					})
+				});
+				node.show(aaa, {transition: "slidev"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(reveal)": function () {
-				return node.show(bbb, {transition: "reveal"}).then(function () {
-					checkTransition(node, "bbb", "reveal");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "bbb", "reveal");
+					})
+				});
+				node.show(bbb, {transition: "reveal"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(revealv)": function () {
-				return node.show(ddd, {transition: "revealv"}).then(function () {
-					checkTransition(node, "ddd", "revealv");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "revealv");
+					})
+				});
+				node.show(ddd, {transition: "revealv"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(flip)": function () {
-				return node.show(ccc, {transition: "flip"}).then(function () {
-					checkTransition(node, "ccc", "flip");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ccc", "flip");
+					})
+				});
+				node.show(ccc, {transition: "flip"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(fade)": function () {
-				return node.show(ddd, {transition: "fade"}).then(function () {
-					checkTransition(node, "ddd", "fade");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "ddd", "fade");
+					})
+				});
+				node.show(ddd, {transition: "fade"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(cover)": function () {
-				return node.show(aaa, {transition: "cover"}).then(function () {
-					checkTransition(node, "aaa", "cover");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "aaa", "cover");
+					})
+				});
+				node.show(aaa, {transition: "cover"}).then(function () {
+					d.resolve()
 				});
 			},
-			"Show()": function () {
-				return node.show(bbb, {transition: "coverv"}).then(function () {
-					checkTransition(node, "bbb", "coverv");
+			"Show(coverv)": function () {
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, "bbb", "coverv");
+					})
+				});
+				node.show(bbb, {transition: "coverv"}).then(function () {
+					d.resolve()
 				});
 			},
 			"Show(no transition)": function () {
-				return node.show(ddd, {transition: "none"}).then(function () {
-					checkTransition(node, ddd, "none");
+				var d = this.async(1000);
+				adviseHandler = advise(node, "_doTransition", {
+					after: d.rejectOnError(function () {
+						checkTransition(node, ddd, "none");
+					})
+				});
+				node.show(ddd, {transition: "none"}).then(function () {
+					d.resolve()
 				});
 			}
 		},
@@ -573,6 +856,9 @@ define([
 		afterEach: function () {
 			if (asyncHandler) {
 				asyncHandler.remove();
+			}
+			if (adviseHandler) {
+				adviseHandler.unadvise();
 			}
 		}
 	});
