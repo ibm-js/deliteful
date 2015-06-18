@@ -1,10 +1,10 @@
 /** @module deliteful/SwapView */
 define([
-	"dcl/dcl", "delite/register", "delite/keys",
+	"dcl/dcl", "delite/register",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events", "./ViewStack",
 	"delite/theme!./SwapView/themes/{{theme}}/SwapView.css"
-], function (dcl, register, keys, $, dpointer, ViewStack) {
+], function (dcl, register, $, dpointer, ViewStack) {
 	/**
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
 	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
@@ -163,11 +163,11 @@ define([
 		 * @private
 		 */
 		_keyDownHandler: function (e) {
-			switch (e.keyCode) {
-			case keys.PAGE_UP:
+			switch (e.key) {
+			case "PageUp":
 				this.showNext();
 				break;
-			case keys.PAGE_DOWN:
+			case "PageDown":
 				this.showPrevious({reverse: true});
 				break;
 			}

@@ -7,14 +7,12 @@ define([
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
-	"delite/keys",
 	"./list/List",
 	"./features!desktop-like-channel?:./Combobox/ComboPopup",
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown,
-		keys, List, ComboPopup, template, messages) {
+], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown, List, ComboPopup, template, messages) {
 	/**
 	 * A form-aware and store-aware multichannel widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
@@ -614,16 +612,16 @@ define([
 				/* jshint maxcomplexity: 15 */
 				// deliteful issue #382: prevent the browser from navigating to
 				// the previous page when typing backspace in a readonly input
-				if (inputElement.readOnly && evt.keyCode === keys.BACKSPACE) {
+				if (inputElement.readOnly && evt.key === "Backspace") {
 					evt.stopPropagation();
 					evt.preventDefault();
-				} else if (evt.keyCode === keys.ENTER) {
+				} else if (evt.key === "Enter") {
 					evt.stopPropagation();
 					evt.preventDefault();
 					if (this.opened) {
 						this.closeDropDown(true/*refocus*/);
 					}
-				} else if (evt.keyCode === keys.SPACE) {
+				} else if (evt.key === "Spacebar") {
 					// Simply forwarding the key event to List doesn't allow toggling
 					// the selection, because List's mechanism is based on the event target
 					// which here is the input element outside the List. TODO: see deliteful #500.
@@ -635,9 +633,9 @@ define([
 						evt.stopPropagation();
 						evt.preventDefault();
 					}
-				} else if (evt.keyCode === keys.DOWN_ARROW || evt.keyCode === keys.UP_ARROW ||
-					evt.keyCode === keys.PAGE_DOWN || evt.keyCode === keys.PAGE_UP ||
-					evt.keyCode === keys.HOME || evt.keyCode === keys.END) {
+				} else if (evt.key === "Down" || evt.key === "Up" ||
+					evt.key === "PageDown" || evt.key === "PageUp" ||
+					evt.key === "Home" || evt.key === "End") {
 					if (this._useCenteredDropDown()) {
 						this.list.emit("keydown", evt);
 					}

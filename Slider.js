@@ -1,14 +1,13 @@
 /** @module deliteful/Slider */
 define([
 	"requirejs-dplugins/jquery!attributes/classes",
-	"delite/keys",
 	"dpointer/events",
 	"delite/register",
 	"delite/FormValueWidget",
 	"delite/CssState",
 	"delite/handlebars!./Slider/Slider.html",
 	"delite/theme!./Slider/themes/{{theme}}/Slider.css"
-], function ($, keys, dpointer, register, FormValueWidget, CssState, template) {
+], function ($, dpointer, register, FormValueWidget, CssState, template) {
 	/**
 	 * @private
 	 */
@@ -525,24 +524,24 @@ define([
 					idx = (e.target === this.focusNode) ? currentVal.length - 1 : 0,
 					multiplier = 1,
 					newValue;
-				switch (e.keyCode) {
-				case keys.HOME:
+				switch (e.key) {
+				case "Home":
 					newValue = [this.min, currentVal[0]][idx];
 					break;
-				case keys.END:
+				case "End":
 					newValue = (e.target === this.handleMin) ? currentVal[1] : this.max;
 					break;
-				case keys.RIGHT_ARROW:
+				case "Right":
 					multiplier = -1;
 					/* falls through */
-				case keys.LEFT_ARROW:
+				case "Left":
 					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((this.flip && !this.vertical) ? this.step : -this.step);
 					break;
-				case keys.DOWN_ARROW:
+				case "Down":
 					multiplier = -1;
 					/* falls through */
-				case keys.UP_ARROW:
+				case "Up":
 					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((!this.flip || !this.vertical) ? this.step : -this.step);
 					break;
