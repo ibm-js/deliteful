@@ -301,19 +301,13 @@ define([
 		"ViewIndicator click dot": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
-				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
-				return this.skip("SafariDriver doesn't support moveTo.");
+			if (/iOS/.test(remote.environmentType.browserName)) {
+				// Test fails on iOS for unknown reasons
+				return this.skip("clicking dot on iOS works manually, but not via webdriver");
 			}
 			return remote
-				.findById("vi")
-				.then(function (element) {
-					return remote.moveMouseTo(element, 220, 5);
-				})
-				.end()
-				.pressMouseButton()
-				.sleep(50)
-				.releaseMouseButton()
+				.findByCssSelector("#vi > *:nth-child(3)")
+				.click()
 				.sleep(500)
 				.execute("return document.getElementById('vi').children[0].className;")
 				.then(function (v) {
@@ -343,7 +337,7 @@ define([
 			return remote
 				.findById("vi")
 				.then(function (element) {
-					return remote.moveMouseTo(element, 100, 5);
+					return remote.moveMouseTo(element, 100, 5);		// click to left of the dots
 				})
 				.end()
 				.pressMouseButton()
@@ -378,7 +372,7 @@ define([
 			return remote
 				.findById("vi")
 				.then(function (element) {
-					return remote.moveMouseTo(element, 300, 5);
+					return remote.moveMouseTo(element, 300, 5);		// click to right of the dots
 				})
 				.end()
 				.pressMouseButton()
