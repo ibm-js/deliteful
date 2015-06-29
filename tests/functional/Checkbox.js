@@ -44,9 +44,8 @@ define([
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
-				// SafariDriver doesn't support sendKeys
-			    return this.skip("SafariDriver doesn't support sendKeys.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 				.execute("return document.getElementById('b1').focus();")

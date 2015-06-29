@@ -40,7 +40,7 @@ define([
 				})
 			;
 		},
-		
+
 		"ViewIndicator initialization": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
@@ -400,19 +400,17 @@ define([
 		"SwapView keyboard accessibility": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				// Same problem with selendroid and iOS, apparently
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
-				// keyb nav
-				// give the focus to the button to have a ref starting point in the chain
-				.execute("return document.getElementById('b1').focus();")
-				.getActiveElement()
-				.end()
+				// keyboard navigation
+				.execute("var sv = document.getElementById('sv'); sv.show(sv.children[2]); return true;")
 				.sleep(400)
-				.pressKeys(keys.TAB) // Press TAB -> cb1
+				.findById("b1")	// focus the button to have a ref starting point in the chain
+				.click()
+				.end()
+				.pressKeys(keys.TAB) // Press TAB -> swapview
 				.sleep(400)
 				.getActiveElement()
 				.getAttribute("class")

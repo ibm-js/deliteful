@@ -124,9 +124,8 @@ define(["intern",
 		"keyboard navigation with default renderers": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 			.get(require.toUrl("./listbox-prog-1.html"))
@@ -201,9 +200,8 @@ define(["intern",
 		"keyboard navigation with categorized items": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-3.html"))
@@ -252,9 +250,8 @@ define(["intern",
 		"keyboard multiple selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))
@@ -300,9 +297,8 @@ define(["intern",
 		"keyboard single selection": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-2.html"))
@@ -407,9 +403,8 @@ define(["intern",
 		"keyboard search": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return remote
 			.get(require.toUrl("./listbox-mark-1.html"))

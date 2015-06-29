@@ -55,9 +55,8 @@ define(["intern",
 					remote.environmentType.version === "10") {
 				return this.skip("WARNING: PageableList not supported on IE10");
 			}
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			var listId = "pageable-prog-1";
 			return remote
@@ -121,9 +120,8 @@ define(["intern",
 					remote.environmentType.version === "10") {
 				return this.skip("WARNING: PageableList not supported on IE10");
 			}
-			if (/safari|iOS/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				return this.skip("SafariDriver doesn't support tabbing.");
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			var listId = "pageable-prog-2";
 			return remote
@@ -178,7 +176,7 @@ define(["intern",
 			}
 			if (/chrome/.test(remote.environmentType.browserName)) {
 				// https://code.google.com/p/selenium/issues/detail?id=2766
-				return this.skip("SafariDriver doesn't support tabbing.");
+				return this.skip("doesn't work on chrome, apparently");
 			}
 			return remote
 				.get(require.toUrl("./pageable-prog-8.html"))

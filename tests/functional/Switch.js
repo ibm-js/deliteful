@@ -73,11 +73,8 @@ define([
 		"Switch key nav": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
-			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
-				// SafariDriver doesn't support tabbing, see https://code.google.com/p/selenium/issues/detail?id=5403
-				// Same problem with selendroid and iOS, apparently
-				console.log("Skipping test '" + this.parent.name + ": " + this.name + "' on this platform");
-				return remote.end();
+			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+				return this.skip("no keyboard support");
 			}
 			return loadFile(remote, "./Switch.html")
 				// keyb nav
