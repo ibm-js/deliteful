@@ -3,7 +3,6 @@ define([
 	"intern/chai!assert",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
-	"decor/sniff",
 	"dcl/advise",
 	"deliteful/ViewStack",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/cover.css",
@@ -12,7 +11,7 @@ define([
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/flip.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/slidev.css",
 	"requirejs-dplugins/css!deliteful/ViewStack/transitions/revealv.css"
-], function (registerSuite, assert, $, register, has, advise) {
+], function (registerSuite, assert, $, register, advise) {
 	var container, node;
 	var aaa, bbb, ccc, ddd;
 	var asyncHandler, adviseHandler;
@@ -22,9 +21,10 @@ define([
 	function checkNodeVisibility(vs, target) {
 		for (var i = 0; i < vs.children.length; i++) {
 			assert.isTrue(
-				((vs.children[i] === target && vs.children[i].style.display !== "none" &&
+				(((vs.children[i] === target && vs.children[i].style.display !== "none" &&
 					vs.selectedChildId === target.id)) ||
-					(vs.children[i] !== target && vs.children[i].style.display === "none")
+					(vs.children[i] !== target && vs.children[i].style.display === "none")) &&
+				(vs.children[i].className === "")
 			);
 		}
 	}
@@ -210,9 +210,6 @@ define([
 			node.show(ddd, {transition: "revealv", reverse: true});
 		},
 		"Show (fade)" : function () {
-			if (has("ie")) {
-				this.skip("Disabled on Internet Explorer");
-			}
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ccc);
@@ -274,7 +271,7 @@ define([
 						})
 					});
 					node.showPrevious().then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -287,7 +284,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "none"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -300,7 +297,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "fade"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -313,7 +310,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "revealv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -326,7 +323,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "reveal"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -339,7 +336,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "flip"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -352,7 +349,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "slidev"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -365,7 +362,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "slide"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -378,7 +375,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "coverv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -391,7 +388,7 @@ define([
 						})
 					});
 					node.showPrevious({transition: "cover"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -404,7 +401,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "none"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -417,7 +414,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "fade"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -430,7 +427,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "revealv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -443,7 +440,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "reveal"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -456,7 +453,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "flip"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -469,7 +466,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "slidev"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -482,7 +479,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "slide"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -495,7 +492,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "coverv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -508,7 +505,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: false, transition: "cover"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -521,7 +518,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "none"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -534,7 +531,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "fade"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -547,7 +544,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "revealv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -560,7 +557,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "reveal"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -573,7 +570,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "flip"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -586,7 +583,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "slidev"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -599,7 +596,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "slide"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -612,7 +609,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "coverv"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			},
@@ -625,7 +622,7 @@ define([
 						})
 					});
 					node.showPrevious({reverse: true, transition: "cover"}).then(function () {
-						d.resolve()
+						d.resolve();
 					});
 				});
 			}
@@ -639,7 +636,7 @@ define([
 					})
 				});
 				node.show(ccc).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): slide transition": function () {
@@ -651,7 +648,7 @@ define([
 					})
 				});
 				node.show(ddd).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): slidev transition": function () {
@@ -663,7 +660,7 @@ define([
 					})
 				});
 				node.show(aaa).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): reveal transition": function () {
@@ -675,7 +672,7 @@ define([
 					})
 				});
 				node.show(bbb).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): revealv transition": function () {
@@ -687,7 +684,7 @@ define([
 					})
 				});
 				node.show(ddd).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): flip transition": function () {
@@ -699,7 +696,7 @@ define([
 					})
 				});
 				node.show(ccc).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): fade transition": function () {
@@ -711,7 +708,7 @@ define([
 					})
 				});
 				node.show(ddd).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): cover transition": function () {
@@ -723,7 +720,7 @@ define([
 					})
 				});
 				node.show(aaa).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): coverv transition": function () {
@@ -735,7 +732,7 @@ define([
 					})
 				});
 				node.show(bbb).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(): no transition": function () {
@@ -747,7 +744,7 @@ define([
 					})
 				});
 				node.show(ccc).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(slide)": function () {
@@ -758,7 +755,7 @@ define([
 					})
 				});
 				node.show(ddd, {transition: "slide"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(slidev)": function () {
@@ -769,7 +766,7 @@ define([
 					})
 				});
 				node.show(aaa, {transition: "slidev"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(reveal)": function () {
@@ -780,7 +777,7 @@ define([
 					})
 				});
 				node.show(bbb, {transition: "reveal"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(revealv)": function () {
@@ -791,7 +788,7 @@ define([
 					})
 				});
 				node.show(ddd, {transition: "revealv"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(flip)": function () {
@@ -802,7 +799,7 @@ define([
 					})
 				});
 				node.show(ccc, {transition: "flip"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(fade)": function () {
@@ -813,7 +810,7 @@ define([
 					})
 				});
 				node.show(ddd, {transition: "fade"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(cover)": function () {
@@ -824,7 +821,7 @@ define([
 					})
 				});
 				node.show(aaa, {transition: "cover"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(coverv)": function () {
@@ -835,7 +832,7 @@ define([
 					})
 				});
 				node.show(bbb, {transition: "coverv"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			},
 			"Show(no transition)": function () {
@@ -846,7 +843,7 @@ define([
 					})
 				});
 				node.show(ddd, {transition: "none"}).then(function () {
-					d.resolve()
+					d.resolve();
 				});
 			}
 		},

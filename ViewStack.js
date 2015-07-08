@@ -130,7 +130,7 @@ define(["dcl/dcl",
 			},
 
 			preRender: function () {
-				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
+				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100, ie: 20};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
 						this._timing = this._transitionTiming[o];
@@ -199,14 +199,14 @@ define(["dcl/dcl",
 			},
 
 			_doTransition: function (origin, target, event, transition, reverse) {
-				var promise;
+				var promises = [];
 				if (transition !== "none") {
 					if (origin) {
-						promise = this._setAfterTransitionHandlers(origin);
+						promises.push(this._setAfterTransitionHandlers(origin));
 						$(origin).addClass(transitionClass(transition));
 					}
 					if (target) {
-						promise = this._setAfterTransitionHandlers(target);
+						promises.push(this._setAfterTransitionHandlers(target));
 						$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
 					}
 					if (reverse) {
@@ -233,10 +233,7 @@ define(["dcl/dcl",
 						setVisibility(origin, false);
 					}
 				}
-				return Promise.resolve(promise).then(function () {
-					cleanCSS(this._visibleChild);
-					$(this).removeClass("-d-view-stack-transition");
-				}.bind(this));
+				return Promise.all(promises);
 			},
 
 			changeDisplay: function (widget, event) {
@@ -311,12 +308,15 @@ define(["dcl/dcl",
 			},
 
 			_afterTransitionHandle: function (holder, resolve) {
-				var vb;
-				for (var i = 0; i < this.children.length; i++) {
-					vb = this._visibleChild === this.children[i];
-					setVisibility(this.children[i], vb);
+				if (holder.node === this._visibleChild) {
+					setVisibility(holder.node, true);
+					cleanCSS(holder.node);
+					$(this).removeClass("-d-view-stack-transition");
+				} else {
+					var vb = this._visibleChild === holder.node;
+					setVisibility(holder.node, vb);
 					if (!vb) {
-						cleanCSS(this.children[i]);
+						cleanCSS(holder.node);
 					}
 				}
 				holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
