@@ -308,16 +308,11 @@ define(["dcl/dcl",
 			},
 
 			_afterTransitionHandle: function (holder, resolve) {
-				if (holder.node === this._visibleChild) {
-					setVisibility(holder.node, true);
-					cleanCSS(holder.node);
+				var isVisibleChild = this._visibleChild === holder.node;
+				setVisibility(holder.node, isVisibleChild);
+				cleanCSS(holder.node);
+				if (isVisibleChild) {
 					$(this).removeClass("-d-view-stack-transition");
-				} else {
-					var vb = this._visibleChild === holder.node;
-					setVisibility(holder.node, vb);
-					if (!vb) {
-						cleanCSS(holder.node);
-					}
 				}
 				holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
 				holder.node.removeEventListener("transitionend", holder.handle);
