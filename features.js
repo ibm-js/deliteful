@@ -76,5 +76,23 @@ define(["requirejs-dplugins/has", "deliteful/channelBreakpoints"],
 			return mqAboveSmall.matches && mqAboveMedium.matches;
 		});
 	}
+
+	// Does browser have support for CSS animations ?
+	has.add("animationEndEvent", function () {
+		var animationEndEvents = {
+			"animation": "animationend", // > IE10, FF
+			"-webkit-animation": "webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
+			"-ms-animation": "MSAnimationEnd" // IE 10
+		};
+		// NOTE: returns null if event is not supported
+		var fakeElement = document.createElement("fakeElement");
+		for (var event in animationEndEvents) {
+			if (fakeElement.style[event] !== undefined) {
+				return animationEndEvents[event];
+			}
+		}
+		return null;
+	});
+
 	return has;
 });

@@ -1,0 +1,129 @@
+<!doctype html>
+<html id="html">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta name="viewport"
+			  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+		<title>Accordion - Controller</title>
+
+		<link rel="stylesheet" href="../../delite/themes/defaultapp.css">
+
+		<script src="../../requirejs/require.js"></script>
+		<script type="text/javascript">
+			require.config({
+				baseUrl: "../.."
+			});
+		</script>
+
+		<script type="text/javascript">
+			require([
+				"requirejs-dplugins/Promise!",
+				"deliteful/StarRating",
+				"deliteful/Panel",
+				"deliteful/Accordion",
+				"deliteful/Button",
+				"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+				"requirejs-domready/domReady!"
+			], function(Promise, StarRating, Panel) {
+
+				var count = 0;
+
+				function initView(view, id) {
+					view.innerHTML = "<h3>New Content : " + (count++) + "</h3>";
+					view.setAttribute("id", id);
+				}
+
+				function createWidget(view, id) {
+					view.setAttribute("id", id);
+					var starRating = new StarRating({max: 7, value: 3.5, editHalfValues: true});
+					starRating.placeAt(view);
+				}
+
+				document.addEventListener("delite-display-load", function (event) {
+					var content, panel = typeof event.dest === "string" ? document.getElementById(event.dest) : event.dest;
+					if (panel) {
+						if (panel && event.contentId) {
+							content = document.createElement("div");
+							if (event.contentId.search("StarRating") !== -1) {
+								createWidget(content, event.contentId);
+							} else {
+								initView(content, event.contentId);
+							}
+						} else if (panel && panel.containerNode.innerHTML.trim() === "") {
+							content = document.createElement("div");
+							initView(content);
+						} else {
+							content = panel.containerNode;
+						}
+					} else {
+						panel = new Panel({label: event.dest});
+						if (event.contentId) {
+							content = document.createElement("div");
+							if (event.contentId.search("StarRating") !== -1) {
+								createWidget(content, event.contentId);
+							} else {
+								initView(content, event.contentId);
+							}
+						} else {
+							content = document.createElement("div");
+							initView(content);
+						}
+						panel.deliver();
+					}
+
+					event.setContent(panel, content);
+					event.setChild(new Promise(function (resolve) {
+						resolve({child: panel});
+					}));
+				});
+
+				loadP2Content = function() {
+					accordion.hide(p2).then(function(){
+						accordion.show(p2, {contentId: 'StarRating 2'})
+					});
+				};
+
+				createP3Content = function() {
+					accordion.hide(p3).then(function(){
+						accordion.show(p3, {contentId: 'NewContent'})
+					})
+				};
+				document.body.style.display = "";
+			});
+		</script>
+		<style>
+			.icon-plus:before {
+				content: "\25b6";
+			}
+			.icon-minus:before {
+				content: "\25bc";
+			}
+			.icon-right:before {
+				content: "\21D2";
+			}
+			.icon-down:before {
+				content: "\21D3";
+			}
+		</style>
+	</head>
+	<body style="display:none">
+		On this sample the content of the panels is loaded when a panel is opened
+		<d-accordion id="accordion" mode="multipleOpen" openIconClass="icon-right" closedIconClass="icon-down"
+				selectedChildId="p2" style="height: 800px">
+			<d-panel id="p1" label="Panel1">
+			</d-panel>
+			<d-panel id="p2" label="Panel2">
+			</d-panel>
+			<d-panel id="p3" label="Panel3">
+			</d-panel>
+		</d-accordion>
+		<button is="d-button" onclick="loadP2Content()">Load widget on Panel2</button>
+		<button is="d-button" onclick="createP3Content()">Load new content for Panel3</button>
+		<button is="d-button" onclick="accordion.show('new Panel')">Load new Panel</button>
+		<button is="d-button" onclick="accordion.show('Another Panel', {contentId: 'StarRating3'})">
+			Load new Panel with widget
+		</button>
+	</body>
+</html>

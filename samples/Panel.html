@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta name="viewport"
+			  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+		<title>Panel</title>
+
+		<script src="../../requirejs/require.js"></script>
+		<script type="text/javascript">
+			require.config({
+				baseUrl: "../.."
+			});
+		</script>
+		<script>
+			require([
+				"deliteful/Store",
+				"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+				"deliteful/Panel",
+				"deliteful/list/List",
+				"requirejs-domready/domReady!"
+			], function () {
+				document.body.style.display = "";
+			});
+		</script>
+		<style>
+			.icon-plus:before {
+				content: "\25b6";
+			}
+		</style>
+	</head>
+	<body style="display:none">
+		<d-store id="store">
+			{"label": "list item 0", "righttext": "right text A"},
+			{"label": "list item 1", "righttext": "right text B"},
+			{"label": "list item 2", "righttext": "right text C"},
+			{"label": "list item 3", "righttext": "right text D"},
+			{"label": "list item 4", "righttext": "right text E"},
+			{"label": "list item 5", "righttext": "right text F"},
+			{"label": "list item 6", "righttext": "right text G"},
+			{"label": "list item 7", "righttext": "right text H"},
+			{"label": "list item 8", "righttext": "right text I"},
+			{"label": "list item 9", "righttext": "right text J"}
+		</d-store>
+		<d-panel label="Default Panel" style="height: 300px" id="panel" iconClass="icon-plus">
+			<div style="padding:15px; text-align: justify">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</div>
+			<d-list id="list" selectionMode="multiple" store="store">
+			</d-list>
+		</d-panel>
+		<d-panel label="Primary Panel" class="d-panel-primary" style="margin-top: 20px">
+			<p style="padding:15px">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</p>
+		</d-panel>
+		<d-panel label="Succes Panel" class="d-panel-success" style="margin-top: 20px">
+			<p style="padding:15px">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</p>
+		</d-panel>
+		<d-panel label="Info Panel" class="d-panel-info" style="margin-top: 20px">
+			<p style="padding:15px">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</p>
+		</d-panel>
+		<d-panel label="Warning Panel" class="d-panel-warning" style="margin-top: 20px">
+			<p style="padding:15px">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</p>
+		</d-panel>
+		<d-panel label="Danger Panel" class="d-panel-danger" style="margin-top: 20px">
+			<p style="padding:15px">
+				Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit
+				an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans
+				eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert
+				percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli
+				viris intellegam, ut fugit veritus placerat per.
+			</p>
+		</d-panel>
+	</body>
+</html>
