@@ -1,5 +1,6 @@
 //Listing of all the deliteful unit tests
 define([
+	"./Accordion",
 	"./Checkbox",
 	"./LinearLayout-direction",
 	"./LinearLayout-horizontal",
@@ -7,6 +8,7 @@ define([
 	"./LinearLayout-horizontal-mixedwidth",
 	"./LinearLayout-vertical",
 	"./list/all",
+	"./Panel",
 	"./ProgressBar",
 	"./ProgressIndicator",
 	"./RadioButton",
