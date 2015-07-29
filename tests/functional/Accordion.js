@@ -13,10 +13,7 @@ define(["intern",
 		return classes.indexOf(className) === -1;
 	}
 
-	function checkPanelIsOpen(remote, panel, animation) {
-		if (/internet explorer/.test(remote.environmentType.browserName)) {
-			animation = false;
-		}
+	function checkPanelIsOpen(remote, panel) {
 		return remote
 			.findById(panel)
 			.getProperty("open")
@@ -47,10 +44,7 @@ define(["intern",
 			.end();
 	}
 
-	function checkPanelIsClosed(remote, panel, animation) {
-		if (/internet explorer/.test(remote.environmentType.browserName)) {
-			animation = false;
-		}
+	function checkPanelIsClosed(remote, panel) {
 		return remote
 			.findById(panel)
 			.getProperty("open")
@@ -100,9 +94,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1", true));
-						remotes.push(checkPanelIsOpen(remote, "panel2", true));
-						remotes.push(checkPanelIsClosed(remote, "panel3", false));
+						remotes.push(checkPanelIsClosed(remote, "panel1"));
+						remotes.push(checkPanelIsOpen(remote, "panel2"));
+						remotes.push(checkPanelIsClosed(remote, "panel3"));
 						return all(remotes);
 					});
 			},
@@ -120,9 +114,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1", false));
-						remotes.push(checkPanelIsClosed(remote, "panel2", true));
-						remotes.push(checkPanelIsOpen(remote, "panel3", true));
+						remotes.push(checkPanelIsClosed(remote, "panel1"));
+						remotes.push(checkPanelIsClosed(remote, "panel2"));
+						remotes.push(checkPanelIsOpen(remote, "panel3"));
 						return all(remotes);
 					});
 			},
@@ -138,9 +132,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1", false));
-						remotes.push(checkPanelIsOpen(remote, "panel2", true));
-						remotes.push(checkPanelIsClosed(remote, "panel3", true));
+						remotes.push(checkPanelIsClosed(remote, "panel1"));
+						remotes.push(checkPanelIsOpen(remote, "panel2"));
+						remotes.push(checkPanelIsClosed(remote, "panel3"));
 						return all(remotes);
 					});
 			},
@@ -154,9 +148,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1", false));
-						remotes.push(checkPanelIsOpen(remote, "panel2", false));
-						remotes.push(checkPanelIsClosed(remote, "panel3", false));
+						remotes.push(checkPanelIsClosed(remote, "panel1"));
+						remotes.push(checkPanelIsOpen(remote, "panel2"));
+						remotes.push(checkPanelIsClosed(remote, "panel3"));
 						return all(remotes);
 					});
 			}
@@ -172,18 +166,18 @@ define(["intern",
 					.pressKeys(keys.ENTER)
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel1", true));
-						remotes.push(checkPanelIsClosed(remote, "panel2", true));
-						remotes.push(checkPanelIsClosed(remote, "panel3", false));
+						remotes.push(checkPanelIsOpen(remote, "panel1"));
+						remotes.push(checkPanelIsClosed(remote, "panel2"));
+						remotes.push(checkPanelIsClosed(remote, "panel3"));
 						return all(remotes);
 					})
 					.execute("document.getElementById('panel2_button').focus();")
 					.pressKeys(keys.SPACE)
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1", true));
-						remotes.push(checkPanelIsOpen(remote, "panel2", true));
-						remotes.push(checkPanelIsClosed(remote, "panel3", false));
+						remotes.push(checkPanelIsClosed(remote, "panel1"));
+						remotes.push(checkPanelIsOpen(remote, "panel2"));
+						remotes.push(checkPanelIsClosed(remote, "panel3"));
 						return all(remotes);
 					});
 			},
@@ -280,9 +274,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21", false));
-						remotes.push(checkPanelIsOpen(remote, "panel22", true));
-						remotes.push(checkPanelIsOpen(remote, "panel23", true));
+						remotes.push(checkPanelIsOpen(remote, "panel21"));
+						remotes.push(checkPanelIsOpen(remote, "panel22"));
+						remotes.push(checkPanelIsOpen(remote, "panel23"));
 						return all(remotes);
 					});
 			},
@@ -296,9 +290,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21", false));
-						remotes.push(checkPanelIsClosed(remote, "panel22", true));
-						remotes.push(checkPanelIsOpen(remote, "panel23", false));
+						remotes.push(checkPanelIsOpen(remote, "panel21"));
+						remotes.push(checkPanelIsClosed(remote, "panel22"));
+						remotes.push(checkPanelIsOpen(remote, "panel23"));
 						return all(remotes);
 					});
 			},
@@ -316,9 +310,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21", false));
-						remotes.push(checkPanelIsClosed(remote, "panel22", true));
-						remotes.push(checkPanelIsClosed(remote, "panel23", true));
+						remotes.push(checkPanelIsOpen(remote, "panel21"));
+						remotes.push(checkPanelIsClosed(remote, "panel22"));
+						remotes.push(checkPanelIsClosed(remote, "panel23"));
 						return all(remotes);
 					});
 			},
@@ -332,9 +326,9 @@ define(["intern",
 					.end()
 					.then(function () {
 						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21", false));
-						remotes.push(checkPanelIsClosed(remote, "panel22", false));
-						remotes.push(checkPanelIsClosed(remote, "panel23", false));
+						remotes.push(checkPanelIsOpen(remote, "panel21"));
+						remotes.push(checkPanelIsClosed(remote, "panel22"));
+						remotes.push(checkPanelIsClosed(remote, "panel23"));
 						return all(remotes);
 					});
 			}

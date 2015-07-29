@@ -6,7 +6,7 @@ title: deliteful/Accordion
 # deliteful/Accordion
 
 ``deliteful/Accordion`` is a layout container that display a vertically stacked list of Panels whose titles are all
-visible, but only one or at least one panel's content is visible at a time (depending on the singleOpen property value).  
+visible, but only one or at least one panel's content is visible at a time (depending on the `mode` property value).
 Once the panels are in an accordion, they become collapsible Panels by replacing their headers by ToggleButtons.  
 When a panel is open, it fills all the available space with its content.
 
@@ -58,7 +58,7 @@ require([
 	var panel1 = new Panel({label: "panel1"});
 	var panel2 = new Panel({label: "panel2"});
 	var panel3 = new Panel({label: "panel3"});
-	var accordion = new Accordion ({singleOpen: false});
+	var accordion = new Accordion ({mode: "multipleOpen"});
 	accordion.addChild(panel1);
     accordion.addChild(panel2);
     accordion.addChild(panel3);
@@ -76,8 +76,9 @@ For more informations, see [`delite/DisplayContainer`](/delite/docs/master/Displ
 
 The following properties can be set on a `deliteful/Accordion` instance:
 
-* `singleOpen`: If true, only one panel is open at a time. The current open panel is closed when another panel is open.
-If false, several panels can be open at a time. Panels can be closed but there's always at least one open.
+* `mode`: The mode of the Accordion. Its value is either `singleOpen` or `multipleOpen`.
+On `singleOpen` mode, only one panel is open at a time. The current open panel is closed when another panel is open.
+on `multipleOpen` mode, several panels can be open at a time. Panels can be closed but there's always at least one open.
 
 * `selectedChildId`: The id of the panel to be open at initialization. If not specified, the default open panel is the first one.
 On `singleOpen` mode, this property contains the id of the current open panel.

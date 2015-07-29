@@ -54,7 +54,7 @@ define([
 			assert.strictEqual(p4.iconClass, "ic2", "Unexpected value for iconClass");
 			assert.isTrue($(p4.iconNode).hasClass("ic2"));
 		}
-	}
+	};
 
 	//Markup
 	var suite = {
@@ -68,7 +68,7 @@ define([
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		}
-	}
+	};
 
 	dcl.mix(suite, commonSuite);
 	registerSuite(suite);
@@ -91,7 +91,7 @@ define([
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		}
-	}
+	};
 
 	dcl.mix(suite, commonSuite);
 	registerSuite(suite);

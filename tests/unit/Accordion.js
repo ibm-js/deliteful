@@ -16,7 +16,7 @@ define([
 					"<d-panel id='panel2' label='panel2'><div>Content2</div></d-panel>" +
 					"<d-panel id='panel3' label='panel3'><div>Content3</div></d-panel>" +
 				"</d-accordion>" +
-				"<d-accordion id='accordion2' singleOpen='false' style='height:400px'>" +
+				"<d-accordion id='accordion2' mode='multipleOpen' style='height:400px'>" +
 					"<d-panel id='panel21' label='panel21'><div>Content21</div></d-panel>" +
 					"<d-panel id='panel22' label='panel22'><div>Content22</div></d-panel>" +
 					"<d-panel id='panel23' label='panel23'><div>Content23</div></d-panel>" +
@@ -111,7 +111,7 @@ define([
 		},
 		"Default values": function () {
 			accordion = document.getElementById("accordion");
-			assert.isTrue(accordion.singleOpen, "singleOpen should be set to true by default");
+			assert.isTrue(accordion.mode === "singleOpen", "mode should be set to true by default");
 			assert.isTrue(accordion.animate, "animate should be set to true by default");
 			assert.strictEqual(accordion.selectedChildId, "panel1", "by default the selectedChild is the first one");
 			assert.strictEqual(accordion.openIconClass, "", "openIconClass doesn't have a default value");
@@ -418,7 +418,7 @@ define([
 			p2.addChild(c2);
 			p3.addChild(c3);
 			ac.placeAt(container);
-			var ac2 = new Accordion({id: "accordion2", singleOpen: false});
+			var ac2 = new Accordion({id: "accordion2", mode: "multipleOpen"});
 			ac2.style.height = "400px";
 			var p21 = new Panel({id: "panel21", label: "panel21"});
 			var p22 = new Panel({id: "panel22", label: "panel22"});
@@ -433,7 +433,7 @@ define([
 			p22.addChild(c22);
 			p23.addChild(c23);
 			ac2.placeAt(container, "last");
-			var ac3 = new Accordion({id: "accordion3", singleOpen: false,
+			var ac3 = new Accordion({id: "accordion3", mode: "multipleOpen",
 				openIconClass: "ic1", closedIconClass: "ic2"});
 			ac3.style.height = "400px";
 			var p31 = new Panel({id: "panel31", label: "panel31"});

@@ -41,9 +41,17 @@ define(["dcl/dcl",
 		}
 	}
 
+	/* Accordion modes */
+	var accordionModes = {
+		singleOpen: "singleOpen", // default
+		multipleOpen: "multipleOpen"
+	};
+
+	var defaultMode = accordionModes.singleOpen;
+
 	/**
 	 * A layout container that display a vertically stacked list of Panels whose titles are all visible, but only one
-	 * or at least one panel's content is visible at a time (depending on the singleOpen property value).
+	 * or at least one panel's content is visible at a time (depending on the `mode` property value).
 	 *
 	 * Once the panels are in an accordion, they become collapsible Panels by replacing their headers by ToggleButtons.
 	 *
@@ -76,12 +84,12 @@ define(["dcl/dcl",
 		selectedChildId: "",
 
 		/**
-		 * If true, only one panel is open at a time.
-		 * If false, several panels can be open at a time, but there's always at least one open.
-		 * @member {boolean}
-		 * @default true
+		 * The mode of the Accordion
+		 * `mode` is one of `["mode", "multipleOpen"]`.
+		 * @member {string}
+		 * @default "mode"
 		 */
-		singleOpen: true,
+		mode: defaultMode,
 
 		/**
 		 * If true, animation is used when a panel is opened or closed.
@@ -106,29 +114,34 @@ define(["dcl/dcl",
 		 */
 		closedIconClass: "",
 
-		_panelList: [],
+		_panelList: null,
 
 		_numOpenPanels: 0,
 
 		_changeHandler: function (event) {
 			var panel = event.target.parentNode;
-			//Case when the event is fired by the label or the icon
+			// Case when the event is fired by the label or the icon
 			if (panel.nodeName.toLowerCase() !== "d-panel") {
 				panel = panel.parentNode;
 			}
-			if (this.singleOpen) {
+			switch (this.mode) {
+			case accordionModes.singleOpen :
 				this.show(panel);
-			} else {
+				break;
+			case accordionModes.multipleOpen :
 				if (panel.open) {
 					this.hide(panel);
 				} else {
 					this.show(panel);
 				}
+				break;
+			default :
+				break;
 			}
 		},
 
 		_setupUpgradedChild: function (panel) {
-			//TODO: To change when https://github.com/ibm-js/delite/issues/414 be solved
+			// TODO: To change when https://github.com/ibm-js/delite/issues/414 be solved
 			var toggle = new ToggleButton({
 				label: panel.label,
 				iconClass: panel.closedIconClass || this.closedIconClass,
@@ -152,7 +165,7 @@ define(["dcl/dcl",
 			panel.headerNode = toggle;
 			setVisibility(panel.containerNode, false);
 			panel.open = false;
-			//Setting initial WAI-ARIA properties
+			// Setting initial WAI-ARIA properties
 			panel.headerNode.setAttribute("tabindex", "-1");
 			panel.headerNode.setAttribute("role", "tab");
 			panel.headerNode.setAttribute("aria-expanded", "false");
@@ -201,14 +214,14 @@ define(["dcl/dcl",
 			}
 		},
 
-		/* jshint maxcomplexity: 13 */
+		/* jshint maxcomplexity: 14 */
 		refreshRendering: function (props) {
 			if ("selectedChildId" in props) {
 				var childNode = this.ownerDocument.getElementById(this.selectedChildId);
 				if (childNode) {
 					if (childNode.attached) {
-						if (childNode !== this._selectedChild) { //To avoid calling show() method twice
-							if (!this._selectedChild) { //If selectedChild is not initialized, then initialize it
+						if (childNode !== this._selectedChild) { // To avoid calling show() method twice
+							if (!this._selectedChild) { // If selectedChild is not initialized, then initialize it
 								this._selectedChild = childNode;
 							}
 							this.show(childNode);
@@ -237,9 +250,9 @@ define(["dcl/dcl",
 					}
 				}.bind(this));
 			}
-			if ("singleOpen" in props) {
-				this.setAttribute("aria-multiselectable", !this.singleOpen);
-				if (this.singleOpen) {
+			if ("mode" in props) {
+				this.setAttribute("aria-multiselectable", this.mode === accordionModes.multipleOpen);
+				if (this.mode === accordionModes.singleOpen) {
 					this._showOpenPanel();
 					this._panelList.forEach(function (panel) {
 						if (panel.open && panel !== this._selectedChild) {
@@ -247,28 +260,33 @@ define(["dcl/dcl",
 						}
 					}.bind(this));
 				}
+				if (!(this.mode in accordionModes)) {
+					this.mode = props.mode;
+				}
 			}
 		},
 		/* jshint maxcomplexity: 10 */
 
-		_supportAnimation: function () {
-			//Transition events are broken if the widget is not visible
-			var parent = this;
-			while (parent && parent.style.display !== "none" && parent !== this.ownerDocument.documentElement) {
-				parent = parent.parentNode;
-			}
-			var visible =  parent === this.ownerDocument.documentElement;
+		_useAnimation: function () {
+			return (this.animate && (function () {
+				// Animation events are broken if the widget is not visible
+				var parent = this;
+				while (parent && parent.style.display !== "none" && parent !== this.ownerDocument.documentElement) {
+					parent = parent.parentNode;
+				}
+				var visible =  parent === this.ownerDocument.documentElement;
 
-			//Flexbox animation is not supported on IE
-			//TODO: Create a feature test for flexbox animation
-			return (!!animationEndEvent && visible && (!has("ie")));
+				// Flexbox animation is not supported on IE
+				// TODO: Create a feature test for flexbox animation
+				return (!!animationEndEvent && visible && (!has("ie")));
+			}.bind(this))());
 		},
 
 		_doTransition: function (panel, params) {
 			var promise;
 			if (params.hide) {
-				if (this.animate && this._supportAnimation()) {
-					//To avoid hiding the panel title bar on animation
+				if (this._useAnimation()) {
+					// To avoid hiding the panel title bar on animation
 					panel.style.minHeight = window.getComputedStyle(panel.headerNode).getPropertyValue("height");
 					$(panel).addClass("d-accordion-closeAnimation").removeClass("d-accordion-open-panel");
 					$(panel.containerNode).removeClass("d-panel-content-open");
@@ -285,8 +303,8 @@ define(["dcl/dcl",
 					setVisibility(panel.containerNode, false);
 				}
 			} else {
-				if (this.animate && this._supportAnimation()) {
-					//To avoid hiding the panel title bar on animation
+				if (this._useAnimation()) {
+					// To avoid hiding the panel title bar on animation
 					panel.style.minHeight = window.getComputedStyle(panel.headerNode).getPropertyValue("height");
 					$(panel).addClass("d-accordion-openAnimation");
 					$(panel.containerNode).addClass("d-panel-content-open");
@@ -327,7 +345,7 @@ define(["dcl/dcl",
 			} else {
 				if (!widget.open) {
 					this._numOpenPanels++;
-					if (this.singleOpen) {
+					if (this.mode === accordionModes.singleOpen) {
 						var origin = this._selectedChild;
 						this._selectedChild = widget;
 						this.selectedChildId = widget.id;
@@ -415,13 +433,17 @@ define(["dcl/dcl",
 		onAddChild: dcl.superCall(function (sup) {
 			return function (node) {
 				var res = sup.call(this, node);
-				this._panelList.push(this._setupUpgradedChild(node));
+				if (this._panelList) {
+					this._panelList.push(this._setupUpgradedChild(node));
+				}
 				return res;
 			};
 		}),
 
 		_onRemoveChild: function (event) {
-			this._panelList.splice(this._panelList.indexOf(event.child), 1);
+			if (this._panelList) {
+				this._panelList.splice(this._panelList.indexOf(event.child), 1);
+			}
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
