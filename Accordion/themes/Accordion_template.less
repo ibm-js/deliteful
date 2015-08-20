@@ -1,106 +1,106 @@
 @import "../../../../delite/themes/bootstrap/includes";
 
 .d-accordion {
-  height: 100%;
-  .box-sizing(border-box);
-  position: relative;
-  overflow: auto;
-  .display-flex();
-  align-items: stretch;
-  .flex-direction-column();
+	height: 100%;
+	.box-sizing(border-box);
+	position: relative;
+	overflow: auto;
+	.display-flex();
+	align-items: stretch;
+	.flex-direction-column();
 }
 .d-accordion > .d-panel {
-  .border-radius(0);
-  border-bottom: none;
-  position: relative;
-  overflow: hidden; //To avoid scroll bar on animation
+	.border-radius(0);
+	border-bottom: none;
+	position: relative;
+	overflow: hidden; //To avoid scroll bar on animation
 }
 
 .d-accordion > .d-panel:first-child {
-  border-top-left-radius: @panel-border-radius;
-  border-top-right-radius: @panel-border-radius;
+	border-top-left-radius: @panel-border-radius;
+	border-top-right-radius: @panel-border-radius;
 }
 
 .d-accordion > .d-panel:last-child {
-  border-bottom-left-radius: @panel-border-radius;
-  border-bottom-right-radius: @panel-border-radius;
+	border-bottom-left-radius: @panel-border-radius;
+	border-bottom-right-radius: @panel-border-radius;
 }
 
 .d-accordion > .d-panel > .d-toggle-button {
-  width: 100%;
-  text-align: left;
-  font-weight: bold;
-  .border-radius(0);
-  border-color: @panel-inner-border;
-  color: @panel-default-text;
-  background-color: @panel-default-heading-bg;
-  .flex(0 0 auto);
+	width: 100%;
+	text-align: left;
+	font-weight: bold;
+	.border-radius(0);
+	border-color: @panel-inner-border;
+	color: @panel-default-text;
+	background-color: @panel-default-heading-bg;
+	.flex(0 0 auto);
 }
 
 .d-accordion > .d-panel > .d-toggle-button:focus,
 .d-accordion > .d-panel > .d-toggle-button:hover {
-  background-color: darken(@panel-default-heading-bg, 8%);
-  border-color: darken(@panel-inner-border, 12%);
+	background-color: darken(@panel-default-heading-bg, 8%);
+	border-color: darken(@panel-inner-border, 12%);
 }
 
 .d-accordion > .d-panel > .d-toggle-button.d-checked {
-  background-color: @component-active-bg;
-  border-color: @component-active-bg;
-  color: @component-active-color;
+	background-color: @component-active-bg;
+	border-color: @component-active-bg;
+	color: @component-active-color;
 }
 
 .d-accordion > .d-panel > .d-toggle-button.d-checked:focus,
 .d-accordion > .d-panel > .d-toggle-button.d-checked:hover {
-  background-color: lighten(@component-active-bg, 12%);
-  border-color: darken(@component-active-bg, 10%);
+	background-color: lighten(@component-active-bg, 12%);
+	border-color: darken(@component-active-bg, 10%);
 }
 
 .d-accordion > .d-panel > .d-panel-content {
-  border: solid 2px @panel-inner-border;
-  border-top: none;
+	border: solid 2px @panel-inner-border;
+	border-top: none;
 }
 
 .d-panel-content-open {
-  border-color: @component-active-bg !important;
+	border-color: @component-active-bg !important;
 }
 
 .d-accordion-open-panel {
-  .flex(1);
+	.flex(1);
 }
 
 @keyframes d-accordion-openAnimation {
-  from {.flex(0.0001);}
-  to {.flex(1);}
+	from {.flex(0.0001);}
+	to {.flex(1);}
 }
 @-webkit-keyframes d-accordion-openAnimation {
-  from {.flex(0.0001);}
-  to {.flex(1);}
+	from {.flex(0.0001);}
+	to {.flex(1);}
 }
 .d-accordion-openAnimation {
-  animation-name: d-accordion-openAnimation;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-  -webkit-animation-name: d-accordion-openAnimation;
-  -webkit-animation-duration: .3s;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-timing-function: linear;
+	animation-name: d-accordion-openAnimation;
+	animation-duration: .3s;
+	animation-fill-mode: forwards;
+	animation-timing-function: linear;
+	-webkit-animation-name: d-accordion-openAnimation;
+	-webkit-animation-duration: .3s;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: linear;
 }
 @keyframes d-accordion-closeAnimation {
-  from {.flex(1);}
-  to {.flex(0.0001);}
+	from {.flex(1);}
+	to {.flex(0.0001);}
 }
 @-webkit-keyframes d-accordion-closeAnimation {
-  from {.flex(1);}
-  to {.flex(0.0001);}
+	from {.flex(1);}
+	to {.flex(0.0001);}
 }
 .d-accordion-closeAnimation {
-  animation-name: d-accordion-closeAnimation;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-  -webkit-animation-name: d-accordion-closeAnimation;
-  -webkit-animation-duration: .3s;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-timing-function: linear;
+	animation-name: d-accordion-closeAnimation;
+	animation-duration: .3s;
+	animation-fill-mode: forwards;
+	animation-timing-function: linear;
+	-webkit-animation-name: d-accordion-closeAnimation;
+	-webkit-animation-duration: .3s;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: linear;
 }

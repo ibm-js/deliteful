@@ -99,7 +99,7 @@ CSS Class          | Description
 |type|status|comment|
 |----|------|-------|
 |Keyboard|N/A|No user interaction|
-|Visual Formatting|ok|Support high contrast on Firefox and Internet Explorer desktop browsers.|
+|Visual Formatting|ok|Supports high contrast on Firefox and Internet Explorer desktop browsers.|
 |Screen Reader|ok|Title bar has an ARIA role of `heading` and content has an ARIA role of `region`. Tested with JAWS and VoiceOver|
 
 ### Globalization

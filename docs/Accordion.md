@@ -5,7 +5,7 @@ title: deliteful/Accordion
 
 # deliteful/Accordion
 
-``deliteful/Accordion`` is a layout container that display a vertically stacked list of Panels whose titles are all
+``deliteful/Accordion`` is a layout container that displays a vertically stacked list of Panels whose titles are all
 visible, but only one or at least one panel's content is visible at a time (depending on the `mode` property value).
 Once the panels are in an accordion, they become collapsible Panels by replacing their headers by ToggleButtons.  
 When a panel is open, it fills all the available space with its content.
@@ -198,7 +198,7 @@ The example could be changed to load new content even if the panel already exist
 
 
 Another interesting behaviour that can be achieved by using a controller is creating empty panels and loading their content
-only when the panel be opened. In the following example there's a way to achieve that:
+only when the panel is opened. In the following example there's a way to achieve that:
 
 HTML:
 
@@ -238,8 +238,8 @@ JS:
 |type|status|comment|
 |----|------|-------|
 |Keyboard|ok|It is keyboard navigable (see [User Interactions](#interactions))|
-|Visual Formatting|ok|Support high contrast on Firefox and Internet Explorer desktop browsers.|
-|Screen Reader|ok|based on WAI-ARIA Pattern for Accordion: http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#accordion. Tested with JAWS and VoiceOver|
+|Visual Formatting|ok|Supports high contrast on Firefox and Internet Explorer desktop browsers.|
+|Screen Reader|ok|Based on WAI-ARIA Pattern for Accordion: http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#accordion. Tested with JAWS and VoiceOver|
 
 ### Globalization
 

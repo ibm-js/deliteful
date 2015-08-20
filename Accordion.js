@@ -50,7 +50,7 @@ define(["dcl/dcl",
 	var defaultMode = accordionModes.singleOpen;
 
 	/**
-	 * A layout container that display a vertically stacked list of Panels whose titles are all visible, but only one
+	 * A layout container that displays a vertically stacked list of Panels whose titles are all visible, but only one
 	 * or at least one panel's content is visible at a time (depending on the `mode` property value).
 	 *
 	 * Once the panels are in an accordion, they become collapsible Panels by replacing their headers by ToggleButtons.
@@ -85,9 +85,9 @@ define(["dcl/dcl",
 
 		/**
 		 * The mode of the Accordion
-		 * `mode` is one of `["mode", "multipleOpen"]`.
+		 * `mode` is one of `["singleOpen", "multipleOpen"]`.
 		 * @member {string}
-		 * @default "mode"
+		 * @default "singleOpen"
 		 */
 		mode: defaultMode,
 
@@ -214,6 +214,14 @@ define(["dcl/dcl",
 			}
 		},
 
+		computeProperties: function (props) {
+			if ("mode" in props) {
+				if (!(this.mode in accordionModes)) {
+					this.mode = props.mode;
+				}
+			}
+		},
+
 		/* jshint maxcomplexity: 14 */
 		refreshRendering: function (props) {
 			if ("selectedChildId" in props) {
@@ -259,9 +267,6 @@ define(["dcl/dcl",
 							this.hide(panel);
 						}
 					}.bind(this));
-				}
-				if (!(this.mode in accordionModes)) {
-					this.mode = props.mode;
 				}
 			}
 		},
