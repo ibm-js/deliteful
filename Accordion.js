@@ -7,6 +7,7 @@ define(["dcl/dcl",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/DisplayContainer",
 	"./ToggleButton",
+	"./features",
 	"delite/theme!./Accordion/themes/{{theme}}/Accordion.css"
 ], function (dcl, has, Promise, register, KeyNav, $, DisplayContainer, ToggleButton) {
 
@@ -14,31 +15,13 @@ define(["dcl/dcl",
 		node.style.display = val ? "" : "none";
 	}
 
-	var animationEndEvent = (function () {
-		var animationEndEvents = {
-			"animation": "animationend", // > IE10, FF
-			"-webkit-animation": "webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
-			"-ms-animation": "MSAnimationEnd" // IE 10
-		};
-		// NOTE: returns null if event is not supported
-		var fakeElement = document.createElement("fakeElement");
-		for (var event in animationEndEvents) {
-			if (fakeElement.style[event] !== undefined) {
-				return animationEndEvents[event];
-			}
-		}
-		return null;
-	})();
-
 	function listenAnimationEndEvent(element) {
-		if (animationEndEvent) {
-			return new Promise(function (resolve) {
-				var handler = element.on(animationEndEvent, function () {
-					handler.remove();
-					resolve();
-				});
+		return new Promise(function (resolve) {
+			var handler = element.on(has("animationEndEvent"), function () {
+				handler.remove();
+				resolve();
 			});
-		}
+		});
 	}
 
 	/* Accordion modes */
@@ -283,7 +266,7 @@ define(["dcl/dcl",
 
 				// Flexbox animation is not supported on IE
 				// TODO: Create a feature test for flexbox animation
-				return (!!animationEndEvent && visible && (!has("ie")));
+				return (!!has("animationEndEvent") && visible && (!has("ie")));
 			}.bind(this))());
 		},
 

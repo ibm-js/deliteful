@@ -5,8 +5,9 @@ define(["dcl/dcl",
 	"requirejs-dplugins/Promise!",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dpointer/events",
+	"./features",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Promise, $, pointer, template) {
+], function (dcl, Widget, register, Promise, $, pointer, has, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -293,11 +294,6 @@ define(["dcl/dcl",
 		return typeof duration === "number" && !isNaN(duration) ? duration : defaultDuration;
 	}
 
-	var animationendEvents = {
-		"animation": "animationend", // > IE10, FF
-		"-webkit-animation": "webkitAnimationEnd",   // > chrome 1.0 , > Android 2.1 , > Safari 3.2
-		"-ms-animation": "MSAnimationEnd" // IE 10
-	};
 	var transitionendEvents = {
 		"transition": "transitionend", // >= IE10, FF
 		"-webkit-transition": "webkitTransitionEnd"  // > chrome 1.0 , > Android 2.1 , > Safari 3.2
@@ -314,7 +310,7 @@ define(["dcl/dcl",
 		return null;
 	}
 
-	var animationendEvent = whichEvent(animationendEvents),
+	var animationendEvent = has("animationEndEvent"),
 		transitionendEvent = whichEvent(transitionendEvents);
 
 	function listenAnimationEvents(element, callback) {
