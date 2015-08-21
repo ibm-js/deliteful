@@ -8,15 +8,15 @@ define([
 	"dstore/Memory",
 	"dstore/Trackable",
 	"deliteful/list/List",
-	"deliteful/Combobox",
-	"deliteful/Store"
+	"deliteful/Combobox"
 ], function (dcl, registerSuite, assert, has, register, $,
 			 Memory, Trackable, List, Combobox) {
 
 	var container, MyCombobox;
 
 	/*jshint multistr: true */
-	var html = "<d-store id=\"store\"> \
+	var html = " <d-combobox id=\"combo1\"> \
+		<d-list righttextAttr=\"sales\"> \
 		{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -27,18 +27,28 @@ define([
 		{ \"label\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-		</d-store> \
-		<d-combobox id=\"combo1\"> \
-		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
+		</d-list> \
 		</d-combobox> \
 		<my-combobox id=\"mycombo1\"> \
-		<d-list righttextAttr=\"sales\" store=\"store\"></d-list> \
+		<d-list righttextAttr=\"sales\"> \
+		{ \"label\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
+		{ \"label\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
+		{ \"label\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
+		{ \"label\": \"Option 3\", \"sales\": 2000, \"profit\": 250, \"region\": \"America\" }, \
+		{ \"label\": \"Option 4\", \"sales\": 600, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"label\": \"Option 5\", \"sales\": 450, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"label\": \"Option 6\", \"sales\": 500, \"profit\": 40, \"region\": \"Asia\" }, \
+		{ \"label\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
+		{ \"label\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
+		{ \"label\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" }\
+		</d-list> \
 		</my-combobox>";
 
 	// Second variant to test attribute mapping for label
 
 	/*jshint multistr: true */
-	var htmlMappedAttr = "<d-store id=\"store\"> \
+	var htmlMappedAttr = " <d-combobox id=\"combo1\"> \
+		<d-list labelAttr=\"name\" righttextAttr=\"sales\"> \
 		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
@@ -49,18 +59,25 @@ define([
 		{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
 		{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
 		{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
-		</d-store> \
-		<d-combobox id=\"combo1\"> \
-		<d-list labelAttr=\"name\" righttextAttr=\"sales\" store=\"store\"></d-list> \
+		</d-list> \
 		</d-combobox> \
 		<my-combobox id=\"mycombo1\"> \
-		<d-list labelAttr=\"name\" righttextAttr=\"sales\" store=\"store\"></d-list> \
+		<d-list labelAttr=\"name\" righttextAttr=\"sales\"> \
+		{ \"name\": \"Option 0\", \"sales\": 500, \"profit\": 50, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 1\", \"sales\": 450, \"profit\": 48, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 2\", \"sales\": 700, \"profit\": 60, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 3\", \"sales\": 2000, \"profit\": 250, \"region\": \"America\" }, \
+		{ \"name\": \"Option 4\", \"sales\": 600, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"name\": \"Option 5\", \"sales\": 450, \"profit\": 30, \"region\": \"America\" }, \
+		{ \"name\": \"Option 6\", \"sales\": 500, \"profit\": 40, \"region\": \"Asia\" }, \
+		{ \"name\": \"Option 7\", \"sales\": 900, \"profit\": 100, \"region\": \"Asia\" }, \
+		{ \"name\": \"Option 8\", \"sales\": 500, \"profit\": 40, \"region\": \"EU\" }, \
+		{ \"name\": \"Option 9\", \"sales\": 900, \"profit\": 100, \"region\": \"EU\" } \
+		</d-list> \
 		</my-combobox>";
 
 	// For testing the ability to deal with item value different than item label
-	var dataStoreWithValue = new Memory({
-		idProperty: "label",
-		data: [
+	var dataSourceWithValue =  [
 			{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
 			{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
 			{ label: "UK", myValue: "UK", sales: 700, profit: 60, region: "EU" },
@@ -69,8 +86,7 @@ define([
 			{ label: "Brazil", myValue: "BA", sales: 450, profit: 30, region: "America" },
 			{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
 			{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
-		]
-	});
+		];
 
 	var outerCSS = "d-combobox";
 	var inputCSS = "d-combobox-input";
@@ -79,7 +95,7 @@ define([
 
 	var initCombobox = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
-		combo.list.store = trackable ?
+		combo.list.source = trackable ?
 			new TrackableMemoryStore({}) : new Memory();
 		var dataItems = addOptions(combo, 0, nOptions - 1);
 		combo._testDataItems = dataItems; // stored for debugging purposes.
@@ -112,9 +128,9 @@ define([
 		}
 		var dataItems = [];
 		var item;
-		var store = combo.list.store;
+		var source = combo.list.source;
 		for (var i = min; i <= max; i++) {
-			item = store.addSync({
+			item = source.addSync({
 				label: "Option " + i
 			});
 			dataItems.push(item);
@@ -129,7 +145,7 @@ define([
 		combo._notifiedComboboxValue = null; // init
 		combo._observe = observe; // to be able to deliver
 
-		combo.list.store = combo.list.store;
+		combo.list.source = combo.list.source;
 		return dataItems;
 	};
 
@@ -139,7 +155,7 @@ define([
 		if (!trackableStore) {
 			// With non-trackable stores, adding items to the store does not
 			// trigger an invalidation, hence:
-			combo.notifyCurrentValue("store");
+			combo.notifyCurrentValue("source");
 		}
 
 		// Number of options
@@ -283,24 +299,36 @@ define([
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		},
-		"Store.add/remove/put (custom element store)" : function () {
+		"Store.add/remove/put (custom element source)" : function () {
+			var d = this.async(1500);
 			var combo = document.getElementById("combo1");
-			checkCombobox(combo, this);
+			combo.list.on("query-success", d.rejectOnError(function () {
+				checkCombobox(combo, this);
+			}.bind(this)));
 
-			combo = document.getElementById("mycombo1");
-			checkCombobox(combo, this);
+			var combo1 = document.getElementById("mycombo1");
+			combo1.list.on("query-success", d.callback(function () {
+				checkCombobox(combo1, this);
+			}.bind(this)));
+			return d;
 		},
 		"Attribute mapping for label" : function () {
+			var d = this.async(1500);
 			// Check the attribute mapping for label
 
 			container.innerHTML = htmlMappedAttr;
 			register.deliver();
 
 			var combo = document.getElementById("combo1");
-			checkCombobox(combo, this);
+			combo.list.on("query-success",  d.rejectOnError(function () {
+				checkCombobox(combo, this);
+			}.bind(this)));
 
-			combo = document.getElementById("mycombo1");
-			checkCombobox(combo, this);
+			var combo1 = document.getElementById("mycombo1");
+			combo1.list.on("query-success", d.callback(function () {
+				return checkCombobox(combo1, this);
+			}.bind(this)));
+			return d;
 		}
 
 	};
@@ -339,7 +367,7 @@ define([
 		"Attribute mapping for label" : function () {
 			// Check the attribute mapping for label
 			var combo = new Combobox();
-			var dataStore = new Memory(
+			var dataSource = new Memory(
 				{idProperty: "name",
 					data: [
 					{ name: "France", sales: 500, profit: 50, region: "EU" },
@@ -352,7 +380,7 @@ define([
 					{ name: "Japan", sales: 900, profit: 100, region: "Asia" }
 				]});
 			combo.list.labelAttr = "name";
-			combo.list.store = dataStore;
+			combo.list.source = dataSource;
 			combo.list.deliver();
 			container.appendChild(combo);
 			combo.attachedCallback();
@@ -538,7 +566,7 @@ define([
 		"widget value with item value different than item label (selectionMode=single)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
+			var list = new List({source: dataSourceWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list});
 			container.appendChild(combo);
 			combo.attachedCallback();
@@ -574,7 +602,7 @@ define([
 		"widget value with item value different than item label (selectionMode=multiple)": function () {
 			// Set List.valueAttr such that the render items contain the myValue field
 			// of the store data items.
-			var list = new List({store: dataStoreWithValue, valueAttr: "myValue"});
+			var list = new List({source: dataSourceWithValue, valueAttr: "myValue"});
 			var combo = new Combobox({list: list, selectionMode: "multiple"});
 			container.appendChild(combo);
 			combo.attachedCallback();
@@ -616,7 +644,7 @@ define([
 			combo.attachedCallback();
 
 			// Add items to the data store after attachedCallback().
-			combo.list.store = new Memory(); // triggers async re-rendering of List
+			combo.list.source = new Memory(); // triggers async re-rendering of List
 			addOptions(combo, 0, nOptions - 1);
 			
 			combo.deliver();

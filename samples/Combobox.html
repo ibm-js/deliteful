@@ -19,16 +19,14 @@
 
 	<script type="text/javascript">
 		require([
-			"dstore/Memory",
 			"deliteful/list/List",
 			"deliteful/Combobox",
-			"deliteful/Store",
 			"deliteful/Button",
 			"deliteful/RadioButton",
 			"deliteful/Checkbox",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (Memory, List) {
+		], function (List) {
 
 			startsWith.on("change", function () {
 				comboTeams.filterMode = "startsWith";
@@ -77,29 +75,6 @@
 </head>
 <body style="display: none">
 
-<d-store id="storeTeams">
-	{ "label": "France", "world-cup-victories": 1, "region": "EU" },
-	{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
-	{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
-	{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
-	{ "label": "England", "world-cup-victories": 1, "region": "EU" },
-	{ "label": "USA", "world-cup-victories": 0, "region": "America" },
-	{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
-	{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
-	{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
-	{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
-	{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
-	{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
-</d-store>
-
-<d-store id="storePlayers">
-	{ "label": "Zidane" },
-	{ "label": "Platini" },
-	{ "label": "Maradona" },
-	{ "label": "Hagi" },
-	{ "label": "Buffon" }
-</d-store>
-
 <br/>
 <b>World Cup Survey</b>
 <br/><br/>
@@ -107,8 +82,20 @@
 Your favorite team (single choice):
 </p>
 <d-combobox selectionMode="single" autoFilter="true" id="comboTeams">
-	<d-list righttextAttr="world-cup-victories" categoryAttr="region"
-		store="storeTeams"></d-list>
+	<d-list righttextAttr="world-cup-victories" categoryAttr="region">
+		{ "label": "France", "world-cup-victories": 1, "region": "EU" },
+		{ "label": "Germany", "world-cup-victories": 4, "region": "EU" },
+		{ "label": "Spain", "world-cup-victories": 1, "region": "EU" },
+		{ "label": "Italy", "world-cup-victories": 4, "region": "EU" },
+		{ "label": "England", "world-cup-victories": 1, "region": "EU" },
+		{ "label": "USA", "world-cup-victories": 0, "region": "America" },
+		{ "label": "Canada", "world-cup-victories": 0, "region": "America" },
+		{ "label": "Brazil", "world-cup-victories": 5, "region": "America" },
+		{ "label": "Argentina", "world-cup-victories": 2, "region": "America" },
+		{ "label": "Uruguay", "world-cup-victories": 2, "region": "America" },
+		{ "label": "China", "world-cup-victories": 0, "region": "Asia" },
+		{ "label": "Japan", "world-cup-victories": 0, "region": "Asia" }
+	</d-list>
 </d-combobox>
 <p>
 (The number of cups is indicated for each country.)
@@ -130,7 +117,13 @@ Your favorite team (single choice):
 Your favorite players (multiple choice):
 </p>
 <d-combobox selectionMode="multiple" id="comboPlayers">
-	<d-list store="storePlayers"></d-list>
+	<d-list>
+		{ "label": "Zidane" },
+		{ "label": "Platini" },
+		{ "label": "Maradona" },
+		{ "label": "Hagi" },
+		{ "label": "Buffon" }
+	</d-list>
 </d-combobox>
 
 <p>

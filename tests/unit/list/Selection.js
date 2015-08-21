@@ -166,7 +166,7 @@ define([
 				list.on("selection-change", function (event) {
 					selectionChangeEvent = event;
 				});
-				list.store.remove(firstItem.item.id);
+				list.source.remove(firstItem.item.id);
 				assert.isNotNull(selectionChangeEvent);
 				assert.strictEqual("item 1", selectionChangeEvent.oldValue.label);
 				assert.isNull(selectionChangeEvent.newValue);
@@ -183,7 +183,7 @@ define([
 				var event = {target: firstItem, preventDefault: function () {}};
 				list._spaceKeydownHandler(event);
 				assert(list.isSelected(firstItem.item), "item selected before move");
-				list.store.put(firstItem.item, {beforeId: thirdItem.item.id});
+				list.source.put(firstItem.item, {beforeId: thirdItem.item.id});
 				var secondItem = list.children[1];
 				assert(list.isSelected(secondItem.item), "item selected after move");
 				assert(secondItem.renderNode.getAttribute("aria-selected"),
@@ -261,13 +261,13 @@ define([
 			if (list) {
 				list.destroy();
 			}
-			list = new List({store: new Store()});
+			list = new List({source: new Store()});
 			document.body.appendChild(list);
 			list.attachedCallback();
-			list.store.filter();
-			list.store.add({label: "item 1"});
-			list.store.add({label: "item 2"});
-			list.store.add({label: "item 3"});
+			list.source.filter();
+			list.source.add({label: "item 1"});
+			list.source.add({label: "item 2"});
+			list.source.add({label: "item 3"});
 			list.deliver();
 		},
 		"aria listbox with selectionMode 'multiple'" : function () {

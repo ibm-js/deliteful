@@ -1,7 +1,7 @@
 define(["intern",
-    "intern!object",
-    "intern/dojo/node!leadfoot/helpers/pollUntil",
-    "intern/dojo/node!leadfoot/keys",
+	"intern!object",
+	"intern/dojo/node!leadfoot/helpers/pollUntil",
+	"intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require"
 	], function (intern, registerSuite, pollUntil, keys, assert, require) {
@@ -273,27 +273,27 @@ define(["intern",
 		},
 		/* The content of Select.html:
 		1. deliteful/Select created declaratively:
-		2. deliteful/Select created programmatically (with custom element store):
-		3. deliteful/Select created declaratively (with custom element store):
+		2. deliteful/Select created programmatically (with custom element source):
+		3. deliteful/Select created declaratively (with custom element source):
 		4. deliteful/Select created programmatically:
 		5. deliteful/Select created declaratively with no options (empty):
 		6. deliteful/Select created programmatically with no options (empty):
 		7. deliteful/Select created declaratively with larger font-size, font-family:Courier, 
-		border-radius, and background-color (with default store):
+		border-radius, and background-color (with default source):
 		*/
-		"init (declaratively, default store)": function () {
+		"init (declaratively, default source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select1", nOptions);
 		},
-		"init (programmatically, default store)": function () {
+		"init (programmatically, default source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select2", nOptions);
 		},
-		"init (declaratively, user's store)": function () {
+		"init (declaratively, user's source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select3", nOptions);
 		},
-		"init (programmatically, user's store)": function () {
+		"init (programmatically, user's source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkNumberOfOptions(this.remote, "select4", nOptions);
 		},
@@ -309,22 +309,22 @@ define(["intern",
 		// Check that after pressing the update button the Select widget still has
 		// the expected number of options and the options now contain the 
 		// updated text content.
-		"update (declaratively, default store)": function () {
+		"update (declaratively, default source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select1", "update1", nOptions);
 		},
-		"update (programmatically, default store)": function () {
+		"update (programmatically, default source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select2", "update2", nOptions);
 		},
-		"update (declaratively, user's store)": function () {
+		"update (declaratively, user's source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select3", "update3", nOptions);
 		},
-		"update (programmatically, user's store)": function () {
+		"update (programmatically, user's source)": function () {
 			this.timeout = intern.config.TEST_TIMEOUT;
 			return updateAndCheckNumberOfOptions(
 				this.remote, "select4", "update4", nOptions);

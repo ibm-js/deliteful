@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport"
+		  content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<title>deliteful/list/Pageablelist samples.</title>
+
+	<script type="text/javascript" src="../../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "../../../"
+		});
+	</script>
+
+	<script type="text/javascript">
+		require([
+			"delite/register",
+			'requirejs-dplugins/Promise!',
+			"deliteful/list/PageableList", // page level CSS
+			"decor/ObservableArray",
+			"decor/Observable"
+		], function (register, Promise, PageableList, ObservableArray, Observable) {
+			var list  = register.createElement("d-pageable-list");
+			list.id = "L";
+
+			list.source = new ObservableArray();
+
+			//array representing a database
+			var arr = [];
+
+			for (var i = 0; i < 100; i++) {
+				arr.push(new Observable({title:"Programmatic item of order " + i}));
+			}
+
+			//called when the all the items have been displayed to get more
+			list.on("new-query-asked", function(evt) {
+				evt.setPromise(new Promise (function (resolve) {
+					window.setTimeout(function () {
+						var size = list.source.length;
+						if (size + 2 * (evt.end - evt.start) < arr.length) {
+							for (i = list.source.length; i < size + 2 * (evt.end - evt.start); i++) {
+								list.source.set(i, arr[i]);
+							}
+						}
+						resolve(list.source.slice(evt.start, evt.end));
+					}, 1000);
+				}))
+			});
+
+			for (i =0; i < 20; i++){
+				list.source.set(i, arr[i]);
+			}
+
+			list.pageLength = 5;
+			list.maxPages = 2;
+
+			list.setAttribute("aria-label", "Sample list that uses attributes for store item to renderer item mapping");
+			list.labelAttr = "title";
+
+			list.righttextFunc = function (item) {
+				return item.title.split("order ")[1];
+			};
+
+			list.placeAt(document.body);
+			document.body.style.display = "";
+		});
+	</script>
+</head>
+<body style="display: none" role="application">
+<d-linear-layout style="width: 100%; height: 100%">
+	<h1 class="header"><div>Example to use PageableList with ObservableArray</div></h1>
+</d-linear-layout>
+</body>
+</html>

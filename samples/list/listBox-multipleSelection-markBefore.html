@@ -30,15 +30,15 @@
 			console.innerHTML = "Click to select an item.";
 			document.body.appendChild(console);
 			var list = register.createElement("d-list");
-			list.store = new Store();
+			list.source = new Store();
 			list.setAttribute("role", "listbox");
 			list.setAttribute("aria-label", "Sample list with multiple selection mode enabled");
 			list.selectionMode = "multiple";
-			list.store.add({label: "first item"});
-			list.store.add({label: "second item"});
-			list.store.add({label: "third item"});
-			list.store.add({label: "fourth item"});
-			list.store.add({label: "fifth item"});
+			list.source.add({label: "first item"});
+			list.source.add({label: "second item"});
+			list.source.add({label: "third item"});
+			list.source.add({label: "fourth item"});
+			list.source.add({label: "fifth item"});
 			list.on("selection-change", function (event) {
 				if (event.newValue) {
 					console.innerHTML = "Current selection: " + this.selectedItems.map(function (item) {return item.label;}).join(", ");

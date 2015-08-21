@@ -20,13 +20,13 @@
 		], function (register, Memory, Trackable, PageableList) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-2";
-			list.store = new (Memory.createSubclass([Trackable], {}))();
+			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.categoryAttr = "category";
 			list.pageLength = 25;
 			list.maxPages = 2;
 			list.style.height = "200px";
  			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
+				list.source.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();

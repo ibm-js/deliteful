@@ -29,43 +29,43 @@
 			"requirejs-domready/domReady!"
 		], function(Memory, Trackable){
 			var Store = Memory.createSubclass([Trackable], {});
-			list.store = new Store();
+			list.source = new Store();
 			
 			for (var i = 1; i < 100; i++){
-				list.store.add({label: "Item #" + i});
+				list.source.add({label: "Item #" + i});
 			}
 			
-			menulist.store = new Store();
+			menulist.source = new Store();
 			
 			// Some data to enable scrolling
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
-			menulist.store.add({label: "View A", target:"aaa"});
-			menulist.store.add({label: "View B", target:"bbb"});
-			menulist.store.add({label: "View C", target:"ccc"});
-			menulist.store.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
+			menulist.source.add({label: "View A", target:"aaa"});
+			menulist.source.add({label: "View B", target:"bbb"});
+			menulist.source.add({label: "View C", target:"ccc"});
+			menulist.source.add({label: "View D", target:"ddd"});
 
 			var actionHandler = function(event, list) {
 				var renderer = list.getEnclosingRenderer(event.target);

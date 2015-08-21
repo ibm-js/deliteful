@@ -38,8 +38,8 @@
 			players.forEach(function (player) {
 				storePlayers.add({text: player});
 			});
-			selectTeam.store = storeTeams;
-			selectPlayer.store = storePlayers;
+			selectTeam.source = storeTeams;
+			selectPlayer.source = storePlayers;
 			
 			showResults = function () {
 				var getSelectedItemsTxt = function (select) {

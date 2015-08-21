@@ -39,8 +39,7 @@ For details on the instantiation lifecycle, see [`delite/Widget`](/delite/docs/m
 ### Declarative Instantiation
 
 ```js
-require(["deliteful/Store",
-  "deliteful/Combobox", "requirejs-domready/domReady!"],
+require(["deliteful/Combobox", "requirejs-domready/domReady!"],
   function () {
   });
 ```
@@ -48,12 +47,11 @@ require(["deliteful/Store",
 ```html
 <html>
   <d-combobox>
-    <d-list store="store"></d-list>
-  </d-combobox>
-  <d-store id="store">
+    <d-list>
     { "label": "France", ... },
       ...
-  </d-store>
+    </d-list>
+  </d-combobox>
 </html>
 ```
 
@@ -71,12 +69,32 @@ require(["dstore/Memory", "dstore/Trackable",
          "requirejs-domready/domReady!"],
   function (Memory, Trackable, Combobox, List) {
     // Create the store
-    var dataStore = new (Memory.createSubclass(Trackable))({});
+    var dataSource = new (Memory.createSubclass(Trackable))({});
     // Add options
-    dataStore.add(...);
+    dataSource.add(...);
     ...
     // Create the List
-    var list = new List({store: dataStore, ...});
+    var list = new List({source: dataSource, ...});
+    // Create the Combobox
+    var Combobox = new Combobox({list: list, selectionMode: "multiple"});
+    Combobox.placeAt(document.body);
+});
+```
+
+Or with an array in source property of the list :
+
+```js
+require(["decor/ObservableArray", "decor/Observable",
+		 "deliteful/Combobox", "deliteful/list/List",
+		 "requirejs-domready/domReady!"],
+  function (ObservableArray, Observable, Combobox, List) {
+    // Create the store
+    var dataSource = new ObservableArray();
+    // Add options
+    dataSource.push(new Observable(...));
+    ...
+    // Create the List
+    var list = new List({source: dataSource, ...});
     // Create the Combobox
     var Combobox = new Combobox({list: list, selectionMode: "multiple"});
     Combobox.placeAt(document.body);
@@ -94,7 +112,7 @@ Note that the `list` property is set by default to a newly created instance of
 ```js
     var combobox = new Combobox();
     // Create the store
-    combobox.list.store = ...;
+    combobox.list.source = ...;
     ...
 ```
 
@@ -133,12 +151,12 @@ it case sensitive.
 The filtering is performed by the `filter(fitlerTxt)` method, which is called automatically 
 while the user types into the editable input element, with `filterTxt` being the currently
 entered text. The default implementation of this method uses `dstore/Filter.match()`.
-The matching is performed against the `list.labelAttr` attribute of the data store items.
+The matching is performed against the `list.labelAttr` attribute of the source items.
 The method can be overridden for implementing other filtering strategies.
 		 
 ### Attribute Mapping
 
-The customization of the mapping of data store item attributes into render item attributes
+The customization of the mapping of source item attributes into render item attributes
 can be done on the List instance using the mapping API of 
 [`deliteful/list/List`](./list/List.md), as supported by its superclass
 `delite/StoreMap`.
@@ -185,7 +203,7 @@ set for `value` on the `List` instance, for example:
 
 ```js
   // Create the store
-  var dataStoreWithValue = new Memory({idProperty: "label",
+  var dataSourceWithValue = new Memory({idProperty: "label",
 	data: [
 		{ label: "France", value: "FR" },
 		{ label: "Germany", value: "DE" },
@@ -194,7 +212,7 @@ set for `value` on the `List` instance, for example:
     // Create the List and set valueAttr to specify the name of the field
     // which stores the value of the item (valueFunc can also be used
     // for dynamically computed values)
-    var list = new List({store: dataStoreWithValue, valueAttr: "value", ...});
+    var list = new List({source: dataSourceWithValue, valueAttr: "value", ...});
     // Create the Combobox
     var combobox = new Combobox({list: list, ...});
     combobox.placeAt(document.body);
@@ -205,12 +223,11 @@ or in markup:
 ```html
 <html>
   <d-combobox>
-    <d-list store="storeWithValue" valueAttr="value"></d-list>
-  </d-combobox>
-  <d-store id="storeWithValue">
+    <d-list valueAttr="value">
     { "label": "France", "value": "FR" },
       ...
-  </d-store>
+    </d-list>
+  </d-combobox>
 </html>
 ```
 

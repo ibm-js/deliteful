@@ -9,10 +9,10 @@
 	<title>deliteful/Combobox (programmatic)</title>
 
 	<link rel="stylesheet" href="../../../delite/themes/defaultapp.css">
-	
+
 	<!-- For testing purposes. Real applications should load the AMD loader directly -->
 	<script type="text/javascript" src="../boilerplate.js"></script>
-	
+
 	<script type="text/javascript">
 		require([
 			"dstore/Memory",
@@ -26,8 +26,8 @@
 		], function (Memory, register, Combobox, List) {
 			register.deliver();
 
-			var dataStore = new Memory(
-				{idProperty: "label", 
+			var dataSource = new Memory(
+				{idProperty: "label",
 				data: [
 					{ label: "France", sales: 500, profit: 50, region: "EU" },
 					{ label: "Germany", sales: 450, profit: 48, region: "EU" },
@@ -38,8 +38,8 @@
 					{ label: "China", sales: 500, profit: 40, region: "Asia" },
 					{ label: "Japan", sales: 900, profit: 100, region: "Asia" }
 			]});
-			var dataStoreWithValue = new Memory(
-				{idProperty: "label", 
+			var dataSourceWithValue = new Memory(
+				{idProperty: "label",
 				data: [
 					{ label: "France", myValue: "FR", sales: 500, profit: 50, region: "EU" },
 					{ label: "Germany", myValue: "DE", sales: 450, profit: 48, region: "EU" },
@@ -50,21 +50,21 @@
 					{ label: "China", myValue: "CN", sales: 500, profit: 40, region: "Asia" },
 					{ label: "Japan", myValue: "JP", sales: 900, profit: 100, region: "Asia" }
 			]});
-			
-			var list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+
+			var list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			var combobox = new Combobox({list: list, id: "combo-single"}).placeAt("combo-single", "replace");
 			// default selectionMode: "single"
 			combo1 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
+			list = new List({source: dataSourceWithValue, valueAttr: "myValue",
 				righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, id: "combo-single-value"}).placeAt("combo-single-value", "replace");
 			// default selectionMode: "single"
 			combo1value = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combo2 = combobox; // for debug
 			combobox = new Combobox({autoFilter: true, list: list, id: "combo-single-autoFilter"}).
 				placeAt("combo-single-autoFilter", "replace");
@@ -85,14 +85,14 @@
 				combo2.ignoreCase = ignoreCase.checked;
 			});
 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combo3 = combobox; // for debug
 			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple"}).
 				placeAt("combo-multiple", "replace");
 			combo3 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({store: dataStoreWithValue, valueAttr: "myValue", 
+			list = new List({source: dataSourceWithValue, valueAttr: "myValue",
 				righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, selectionMode: "multiple", id: "combo-multiple-value"}).
 				placeAt("combo-multiple-value", "replace");
@@ -100,31 +100,31 @@
 			combobox.name = combobox.id; // for Form
 
 			// Now the same but disabled
-			// 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			//
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			var combobox = new Combobox({list: list, disabled: true, id: "combo-single-disabled"}).
 				placeAt("combo-single-disabled", "replace");
 			// default selectionMode: "single"
 			combo4 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({autoFilter: true, list: list, 
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
+			combobox = new Combobox({autoFilter: true, list: list,
 				disabled: true, id: "combo-single-autoFilter-disabled"}).
 				placeAt("combo-single-autoFilter-disabled", "replace");
 			// default selectionMode: "single"
 			combo5 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
-			combobox = new Combobox({list: list, selectionMode: "multiple", 
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
+			combobox = new Combobox({list: list, selectionMode: "multiple",
 				id: "combo-multiple-disabled", disabled: true}).
 				placeAt("combo-multiple-disabled", "replace");
 			combo6 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
 
 			// Combobox in single mode with custom initial selection
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combobox =
 				new Combobox({list: list, autoFilter: true,
 					id: "combo-custom-sel-single"}).
@@ -134,10 +134,10 @@
 			combobox.name = combobox.id; // for Form
 			combobox.deliver();
 			// Configure with its fourth option initially selected
-			combobox.list.selectedItem = combobox.list.store.data[3];
-			
+			combobox.list.selectedItem = combobox.list.source.data[3];
+
 			// Combobox in multiple mode with custom initial selection
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combobox =
 				new Combobox({list: list, selectionMode: "multiple",
 					id: "combo-custom-sel-multiple"}).
@@ -146,11 +146,11 @@
 			combobox.name = combobox.id; // for Form
 			combobox.deliver();
 			// Configure with its second and fourth options initially selected
-			combobox.list.selectedItems = [combobox.list.store.data[1], combobox.list.store.data[3]];
-			
+			combobox.list.selectedItems = [combobox.list.source.data[1], combobox.list.source.data[3]];
+
 			// Now the same but readOnly
-			// 
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+			//
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combobox =
 				new Combobox({list: list, readOnly: true, autoFilter: true, readOnly: true,
 					id: "combo-single-readonly"}).
@@ -158,18 +158,18 @@
 			// default selectionMode: "single"
 			combo5readonly = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			
-			list = new List({store: dataStore, righttextAttr: "sales", categoryAttr: "region"});
+
+			list = new List({source: dataSource, righttextAttr: "sales", categoryAttr: "region"});
 			combobox = new Combobox({list: list, dir: "rtl", id: "combo-single"}).
 				placeAt("combo-single-rtl", "replace");
 			// default selectionMode: "single"
 			combo7 = combobox; // for debug
 			combobox.name = combobox.id; // for Form
-			
+
 			// Using the default instance of List created by Combobox
 			combobox = new Combobox({id: "combo-single-default-list"});
 			combo8 = combobox; // for debug
-			combobox.list.store = dataStore;
+			combobox.list.source = dataSource;
 			combobox.placeAt("combo-single-default-list", "replace");
 			combobox.name = combobox.id; // for Form
 		});
@@ -198,7 +198,7 @@
 	id: "combo-single-autoFilter", selectionMode: "single", autoFilter: true
 	</p>
 	<span id="combo-single-autoFilter"></span>
-	
+
 	<fieldset>
 		<legend>Filtering options</legend>
 		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
@@ -210,12 +210,12 @@
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
 		<label for="ignoreCase">Ignore Case</label>
 	</fieldset>
-	
+
 	<p>
 	id: "combo-multiple", selectionMode: "multiple"
 	</p>
 	<span id="combo-multiple"></span>
-	
+
 	<p>
 	id: "combo-single-disabled", selectionMode: "single", autoFilter: false, disabled
 	</p>
@@ -240,27 +240,27 @@
 	id: "combo-single-autoFilter-readonly", selectionMode: "single", autoFilter: true, readonly
 	</p>
 	<span id="combo-single-autoFilter-readonly"></span>
-	
+
 	<p>
 	id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false
 	</p>
 	<span id="combo-single-value"></span>
-	
+
 	<p>
 	id: "combo-multiple-value", data items with value, selectionMode: "multiple"
 	</p>
 	<span id="combo-multiple-value"></span>
-	
+
 	<p>
 	id: "combo-single-rtl", dir="rtl" selectionMode: "single", autoFilter: false
 	</p>
 	<span id="combo-single-rtl"></span>
-	
+
 	<p>
 	id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)
 	</p>
 	<span id="combo-single-default-list"></span>
-	
+
 	<br/><br/>
 	<input id="reset" type="reset">
 	<input id="submit" type="submit">

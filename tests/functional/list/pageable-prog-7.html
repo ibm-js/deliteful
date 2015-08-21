@@ -38,9 +38,9 @@
 						return def;
 					}
 			});
-			list.store = new CustomMemoryStore();
+			list.source = new CustomMemoryStore();
  			for (var i = 0; i < 100; i++) {
-				list.store.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
+				list.source.add({label: "Programmatic item of order " + i, category: "Category " + Math.floor(i / 10)});
 			}
 			document.getElementById("listPlaceholder").appendChild(list);
 			list.attachedCallback();

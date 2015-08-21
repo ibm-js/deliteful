@@ -189,15 +189,15 @@ We have asked for a `photoReceived` global function to be called, so let's creat
 photosReceived = function (json) {
 	// cleanup request
 	requestDone();
-	// show the photos in the list by simply setting the list's store
-	photolist.store = new Memory({data: json.items});
+	// show the photos in the list by simply setting the list's source
+	photolist.source = new Memory({data: json.items});
 };
 
 ```
 
 We must first call `requestDone()` (that's part of our quick JSONP implementation).
 
-Then, we just set the `store` property of our `photolist` widget. The `store` property is a common property that
+Then, we just set the `source` property of our `photolist` widget. The `source` property is a common property that
 lets you connect data to many deliteful widgets. Deliteful has built-in connections to data stores defined by the
 [dstore](https://github.com/SitePen/dstore) project. In our case, we will use a
 [Memory](https://github.com/SitePen/dstore/blob/master/docs/Stores.md#memory) store that wraps JavaScript objects,
@@ -217,7 +217,7 @@ We must now initiate the request somehow. Let's create a global function for thi
 
 ```js
 refreshPhotoList = function () {
-	photolist.store = new Memory();
+	photolist.source = new Memory();
 	getPhotos("bridges,famous");
 };
 ```

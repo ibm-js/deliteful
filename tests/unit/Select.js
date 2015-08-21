@@ -6,11 +6,12 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes",
 	"dstore/Memory",
 	"dstore/Trackable",
-	"deliteful/Select",
-	"deliteful/Store"
+	"deliteful/Select"
 ], function (dcl, registerSuite, assert, register, $,
-	Memory, Trackable, Select, Store) {
-	
+	Memory, Trackable, Select) {
+
+	var Store = Memory.createSubclass([Trackable], {});
+
 	var container, MySelect;
 	/*jshint multistr: true */
 	var html = "<d-select id='select1'> \
@@ -30,7 +31,7 @@ define([
 		var dataItems = [];
 		var item;
 		for (var i = min; i <= max; i++) {
-			item = select.store.addSync({
+			item = select.source.addSync({
 				text: "Option " + i,
 				value: i,
 				disabled: i === 5
@@ -51,28 +52,28 @@ define([
 	};
 	
 	var removeOption = function (select, id) {
-		select.store.removeSync(id);
+		select.source.removeSync(id);
 	};
 	
 	var updateOption = function (select, id) {
-		var store = select.store;
-		var dataItem = store.getSync(id);
+		var source = select.source;
+		var dataItem = source.getSync(id);
 		dataItem.text = "new text";
-		select.store.putSync(dataItem);
+		select.source.putSync(dataItem);
 	};
 	
-	var checkSelect = function (select, observableStore) {
-		// These checks are common to both cases: observable and non-observable stores
+	var checkSelect = function (select, observableSource) {
+		// These checks are common to both cases: observable and non-observable sources
 		
 		assert.strictEqual(select.valueNode.length, 0,
 			"Initially the select should be empty! (select.id: " + select.id + ")");
 		
 		var dataItems = addOptions(select, 0, nOptions - 1);
 		
-		if (!observableStore) {
-			// With non-observable stores, adding items to the store does not
+		if (!observableSource) {
+			// With non-observable sources, adding items to the source does not
 			// trigger an invalidation, hence:
-			select.notifyCurrentValue("store");
+			select.notifyCurrentValue("source");
 		}
 		select.deliver();
 		
@@ -101,7 +102,7 @@ define([
 		// Select an element via delite/Selection's API
 		select.setSelected(dataItems[0], true);
 		// Or, equivalently:
-		// select.setSelected(select.store.getSync(dataItems[0].id), true);
+		// select.setSelected(select.source.getSync(dataItems[0].id), true);
 		
 		select.deliver();
 		
@@ -216,7 +217,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		select.store.addSync({
+		select.source.addSync({
 			text1: "", // check handling of empty string for text
 			value1: 7,
 			disabled1: false
@@ -232,7 +233,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Once again with disabled at true (boolean) and text and value at empty string
-		select.store.addSync({
+		select.source.addSync({
 			text1: "custom mapping",
 			value1: "",
 			disabled1: true
@@ -251,7 +252,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 			
 		// Now with disabled at "false" (string) and value at " "
-		select.store.addSync({
+		select.source.addSync({
 			text1: "custom mapping3",
 			value1: " ",
 			disabled1: "false"
@@ -267,7 +268,7 @@ define([
 			"Custom mapping (disabled) (select.id: " + select.id + ")");
 		
 		// Now with disabled at "true" (string)
-		select.store.addSync({
+		select.source.addSync({
 			text1: "custom mapping4",
 			value1: 10,
 			disabled1: "true"
@@ -287,7 +288,7 @@ define([
 		select.valueAttr = "value1";
 		select.disabledAttr = "disabled1";
 		select.deliver();
-		select.store.addSync({
+		select.source.addSync({
 			text1: "custom mapping",
 			value1: 7,
 			disabled1: false
@@ -304,7 +305,7 @@ define([
 	};
 	
 	var checkDefaultValues = function (select) {
-		assert.isNull(select.store, "store default is null");
+		assert.isNull(select.source, "source default is null");
 		assert.strictEqual(select.selectionMode, "single", "Select.selectionMode");
 		assert.strictEqual(select.size, 0, "Select.size");
 		assert.strictEqual(select.textAttr, "text", "Select.textAttr");
@@ -341,50 +342,33 @@ define([
 				
 			select = document.getElementById("myselect1");
 			select.deliver();
-			assert.isNull(select.store, "store default is null");
-		},
-		
-		"Store.add/remove/put (custom element store)" : function () {
-			var select = document.getElementById("select1");
-			var store = new Store();
-			container.appendChild(store);
-			store.attachedCallback();
-			select.store = store;
-			select.deliver();
-			checkTrackableSelect(select); // the default store is observable
-			
-			select = document.getElementById("myselect1");
-			store = new Store();
-			container.appendChild(store);
-			store.attachedCallback();
-			select.store = store;
-			select.deliver();
-			checkTrackableSelect(select); // the default store is observable
+			assert.isNull(select.source, "source default is null");
 		},
 		
 		"Store.add/remove/put (user's observable Memory store)" : function () {
 			var select = document.getElementById("select1");
-			var TrackableMemoryStore = Memory.createSubclass(Trackable);
-			select.store = new TrackableMemoryStore({});
+			var source = new Store();
+			select.source = source;
 			select.deliver();
-			checkTrackableSelect(select);
+			checkTrackableSelect(select); // the default source is observable
 			
 			select = document.getElementById("myselect1");
-			select.store = new TrackableMemoryStore({});
+			source = new Store();
+			select.source = source;
 			select.deliver();
-			checkTrackableSelect(select);
+			checkTrackableSelect(select); // the default source is observable
 		},
 		
 		"Store.add (user's non-observable Memory store)" : function () {
 			var select = document.getElementById("select1");
-			var store = new Memory({});
-			select.store = store;
+			var source = new Memory({});
+			select.source = source;
 			select.deliver();
 			checkSelect(select);
 			
 			select = document.getElementById("myselect1");
-			store = new Memory({});
-			select.store = store;
+			source = new Memory({});
+			select.source = source;
 			select.deliver();
 			checkSelect(select);
 		}

@@ -25,9 +25,9 @@
 			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
 		], function (Memory, Trackable, List) {
 			var Store = Memory.createSubclass([Trackable], {});
-			list.store = new Store();
+			list.source = new Store();
 			for (var i = 0; i < 50; i++) {
-				list.store.add({label: "Item #" + i});
+				list.source.add({label: "Item #" + i});
 			}
 			document.body.style.display = "";
 		});

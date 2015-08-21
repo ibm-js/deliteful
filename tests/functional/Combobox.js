@@ -1,12 +1,12 @@
 define([
-    "intern",
+	"intern",
 	"intern!object",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"intern/dojo/node!leadfoot/keys",
 	"require"
 ], function (intern, registerSuite, pollUntil, assert, keys, require) {
-	
+
 	var loadFile = function (remote, fileName) {
 		return remote
 			.get(require.toUrl(fileName))

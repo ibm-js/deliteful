@@ -16,7 +16,6 @@ define([
 	"./SidePane-showhide",
 	"./Slider",
 	"./StarRating",
-	"./Store",
 	"./Switch",
 	"./Toaster",
 	"./ToasterMessage",
