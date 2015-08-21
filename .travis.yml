@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
+sudo: false
 env:
   global:
     - secure: "Ty9a+MKs2JxvGFsV+5Sq9zMLeqYX8OH8FIAzJ00Bw9YdLFcejlFeOqEtSQLPtelDt3kFtddkRssJl2ycLKa6IXPBx09aEQXuzW8o0XgSw+WfR8AqMiKU+N0GrAcyx1ejKnxXxuVHStf703HuCu44CexgCUCnXybKz6V60O+odwk="
