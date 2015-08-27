@@ -30,17 +30,19 @@ define(["intern",
 				assert.isTrue(displayed, "This button should be visible");
 			})
 			.end()
-			.findById(panel)
 			.findByCssSelector(".d-panel-content")
 			.isDisplayed()
 			.then(function (displayed) {
 				assert.isTrue(displayed, "The content of this panel should be visible");
 			})
-			.then(pollUntil(function (value) {
-				var classes = document.getElementById(value).getAttribute("class");
-				classes = classes.trim().split(/\s+/g);
-				return classes.indexOf("d-accordion-open-panel") !== -1 ? true : null;
-			}, [panel], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+			.execute("return document.getElementById(" + panel + ")")
+			.then(function (elem) {
+				pollUntil(function (value) {
+					var classes = value.getAttribute("class");
+					classes = classes.trim().split(/\s+/g);
+					return classes.indexOf("d-accordion-open-panel") !== -1 ? true : null;
+				}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
+			})
 			.end();
 	}
 
@@ -61,16 +63,18 @@ define(["intern",
 				assert.isTrue(displayed, "This button should be visible");
 			})
 			.end()
-			.findById(panel)
 			.findByCssSelector(".d-panel-content")
 			.getAttribute("class")
 			.then(function (classes) {
 				assert.isTrue(checkHasNotClass(classes, "d-accordion-open-panel"),
 					"The content of this panel should not be visible");
 			})
-			.then(pollUntil(function (value) {
-				return document.getElementById(value).style.display === "none";
-			}, [panel], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL))
+			.execute("return document.getElementById(" + panel + ")")
+			.then(function (elem) {
+				pollUntil(function (value) {
+					return value.style.display === "none" ? false : null;
+				}, [elem], intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL);
+			})
 			.end();
 	}
 
