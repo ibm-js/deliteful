@@ -1,10 +1,10 @@
 {
 	"name": "deliteful",
-	"version": "0.7.1",
+	"version": "0.8.0-alpha",
 	"dependencies": {
 		"dcl": "1.1.2",
 		"decor": "0.6.x",
-		"delite": "master",
+		"delite": "0.8.0-alpha",
 		"jquery": ">=2.1",
 		"dojo": ">=1.9.1",
 		"dpointer": "0.5.x",
