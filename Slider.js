@@ -332,17 +332,6 @@ define([
 			},
 
 			attachedCallback: function () {
-				// if the form is reset, then notify the widget to reposition the handles
-				if (this.valueNode.form) {
-					var self = this;
-					this.on("reset", function () {
-						self.defer(function () {
-							if (this.value !== this.valueNode.value) {
-								this.value = this.valueNode.value;
-							}
-						});
-					}, this.valueNode.form);
-				}
 				// Chrome: avoids text selection of elements when mouse is dragged outside of the Slider.
 				this.onmousedown = function (e) {
 					e.preventDefault();

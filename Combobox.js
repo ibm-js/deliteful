@@ -297,24 +297,18 @@ define([
 					.on("selectstart", false);
 			}
 		},
-		
-		attachedCallback: function () {
-			// If the widget is in a form, reset the initial value of the widget
-			// when the form is reset
-			if (this.valueNode.form) {
-				this.on("reset", function () {
-					this.defer(function () {
-						if (this.value !== this.valueNode.value ||
-							// In multiple mode, with no option selected before reset,
-							// valueNode.value is the same but still needs the reinit to get
-							// the correct initial inputNode.value.
-							this.selectionMode === "multiple") {
-							this._initValue();
-						}
-					});
-				}.bind(this), this.valueNode.form);
+
+		afterFormResetCallback: function () {
+			if (this.value !== this.valueNode.value ||
+					// In multiple mode, with no option selected before reset,
+					// valueNode.value is the same but still needs the reinit to get
+					// the correct initial inputNode.value.
+					this.selectionMode === "multiple") {
+				this._initValue();
 			}
-			
+		},
+
+		attachedCallback: function () {
 			// Declarative case (list specified declaratively inside the declarative Combobox)
 			if (this.list === this._defaultList) {
 				var list = this.querySelector("d-list");

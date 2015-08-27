@@ -28,14 +28,11 @@ define([
 		value: "on",
 
 		attachedCallback: function () {
-			var initState = this.checked;
-			if (this.valueNode && this.valueNode.form) {
-				this.on("reset", function () {
-					this.defer(function () {
-						this.checked = initState;
-					});
-				}.bind(this), this.valueNode.form);
-			}
+			this._initState = this.checked;
+		},
+
+		afterFormResetCallback: function () {
+			this.checked = this._initState;
 		},
 
 		postRender: function () {
