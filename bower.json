@@ -4,7 +4,7 @@
 	"dependencies": {
 		"dcl": "1.1.2",
 		"decor": "0.6.x",
-		"delite": "0.8.0-alpha",
+		"delite": "0.8.x",
 		"jquery": ">=2.1",
 		"dojo": ">=1.9.1",
 		"dpointer": "0.5.x",
