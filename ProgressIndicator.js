@@ -1,11 +1,12 @@
 /** @module deliteful/ProgressIndicator */
 define([
 	"dcl/dcl",
+	"delite/hc",
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars!./ProgressIndicator/ProgressIndicator.html",
 	"delite/theme!./ProgressIndicator/themes/{{theme}}/ProgressIndicator.css"
-], function (dcl, register, Widget, template) {
+], function (dcl, has, register, Widget, template) {
 	/**
 	 * A widget that displays a round spinning graphical representation that indicates that a task is ongoing.
 	 *
@@ -135,34 +136,31 @@ define([
 
 		template: template,
 
-		render: dcl.after(function () {
+		postRender: function () {
 			this.lineNodeList = this.linesNode.querySelectorAll("line");
-		}),
-
-		attachedCallback: function () {
-			//set unique SVG symbol id
 			var symbolId = this.baseClass + "-" + this.widgetId + "-symbol";
-			this.querySelector("symbol").id = symbolId;
-			this.querySelector("use")
-				.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + symbolId);
+			this.symbolNode.id = symbolId;
+			//set unique SVG symbol id
+			this.useNode.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + symbolId);
 			//set non-overridable styles
 			this.svgNode.style.width = "100%";
 			this.svgNode.style.height = "100%";
 			this.svgNode.style.textAnchor = "middle";
+
 			//a11y high contrast:
 			//widget color is declared on svg line nodes (stroke) and text node (fill).
 			//Unlike the color style property, stroke and fill are not updated by the browser when windows high contrast
 			//mode is enabled. To ensure the widget is visible when high contrast mode is enabled,
 			//we set the color property on the root node and check if it is forced by the browser. In such case we
 			//force the stroke and fill values to reflect the high contrast color.
-			this.style.color = window.getComputedStyle(this.msgNode).getPropertyValue("fill");
-			var currentColor = window.getComputedStyle(this).getPropertyValue("color");
-			if (this.style.color !== currentColor) {
-				this.linesNode.style.stroke = currentColor; // text value color
-				this.msgNode.style.fill = currentColor; // lines color
+			var hcColor = has("highcontrast");
+			if (hcColor) {
+				this.linesNode.style.stroke = hcColor; // text value color
+				this.msgNode.style.fill = hcColor; // lines color
 				//android chrome 31.0.1650.59 hack: force to refresh text color otherwise color doesn't change.
 				this.msgNode.textContent = this.msgNode.textContent;
 			}
+
 			//set initial widget appearance
 			this._reset();
 		},
