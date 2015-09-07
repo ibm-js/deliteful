@@ -11,33 +11,32 @@ define([
 
 
 	var commonSuite = {
-
 		"Default State": function () {
 			var b = document.getElementById("b1");
 			assert.isTrue($(b).hasClass("d-button"), "Unexpected baseClass.");
 			assert.isFalse(b.disabled, "Unexpected default value for 'disabled' property");
-			assert.strictEqual("b1", b.label, "Unexpected default value for 'label' (inherited) property.");
-			assert.strictEqual("b1", b.textContent, "Unexpected default value for textContent.");
+			assert.strictEqual(b.label, "b1", "Unexpected default value for 'label' (inherited) property.");
+			assert.strictEqual(b.textContent, "b1", "Unexpected default value for textContent.");
 
 			var b2 = document.getElementById("b2");
 			assert.strictEqual(b2.value, "foo",
 				"Unexpected default value for 'value' property if 'value' specified/unchecked");
 
 			b = document.getElementById("b3");
-			assert.strictEqual("b3", b.label, "Unexpected default value for 'label' (inherited) property.");
-			assert.strictEqual("b3", b.textContent, "Unexpected default value for textContent [2].");
-			assert.strictEqual("ic1", b.iconClass, "Unexpected default value for iconClass.");
+			assert.strictEqual(b.label, "b3", "Unexpected default value for 'label' (inherited) property.");
+			assert.strictEqual(b.textContent, "b3", "Unexpected default value for textContent [2].");
+			assert.strictEqual(b.iconClass, "ic1", "Unexpected default value for iconClass.");
 			assert.isTrue(/ic1/.test(b.iconNode.className), "Missing icon css class on iconNode.");
 		},
 
 		"label": function () {
 			var b4 = document.getElementById("b4");
-			assert.strictEqual("on", b4.label, "Unexpected value for textContent after label set.");
-			assert.strictEqual("on", b4.textContent, "Unexpected value for textContent after label set.");
+			assert.strictEqual(b4.label, "on", "b4.label");
+			assert.strictEqual(b4.textContent, "on", "b4.textContent");
 			b4.label = "b4";
 			b4.deliver();
-			assert.strictEqual("b4", b4.label, "Unexpected value for textContent after label set.");
-			assert.strictEqual("b4", b4.textContent, "Unexpected value for textContent after label set.");
+			assert.strictEqual(b4.label, "b4", "b4.label after label set.");
+			assert.strictEqual(b4.textContent, "b4", "b4.textContent after label set.");
 		},
 
 		"iconClass": function () {

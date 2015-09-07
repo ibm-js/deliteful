@@ -3,11 +3,10 @@
  * @private
  */
 define([
-	"dcl/dcl",
 	"delite/register",
 	"delite/Widget",
 	"delite/handlebars!./List/_LoadingPanel.html"
-], function (dcl, register, Widget, template) {
+], function (register, Widget, template) {
 
 	/**
 	 * A widget that renders a panel masking a list and displaying a progress indicator and a message.
@@ -15,8 +14,7 @@ define([
 	 * @augments module:delite/Widget
 	 * @private
 	 */
-	var _LoadingPanel = dcl([Widget], {
-
+	return register("d-list-loading-panel", [HTMLElement, Widget], /** @lends module:deliteful/list/_LoadingPanel# */{
 		/**
 		 * The message to display
 		 * @member {string}
@@ -26,7 +24,4 @@ define([
 
 		template: template
 	});
-
-	return register("d-list-loading-panel", [HTMLElement, _LoadingPanel]);
-
 });

@@ -144,7 +144,7 @@ define([
 			this.value = this.valueNode.value;
 		},
 
-		attachedCallback: function () {
+		postRender: function () {
 			// To provide graphic feedback for focus, react to focus/blur events
 			// on the underlying native select. The CSS class is used instead
 			// of the focus pseudo-class because the browsers give the focus

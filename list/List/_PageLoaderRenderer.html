@@ -1,10 +1,11 @@
 <!-- Template: deliteful/list/_PageLoaderRenderer.html -->
-<template requires="deliteful/ProgressIndicator">
+<template requires="deliteful/ProgressIndicator" class="{{this.loading ? 'd-loading' : ''}}">
 	<div attach-point="renderNode">
-		<div role="button" navindex="0" attach-point="_button">
+		<div role="button" navindex="0" attach-point="_button" aria-disabled="{{loading}}">
 			<div class="d-spacer"></div>
-			<d-progress-indicator class="d-hidden" attach-point="_progressIndicator"></d-progress-indicator>
-			<div attach-point="_label"></div>
+			<d-progress-indicator active={{loading}} d-hidden="{{!this.loading}}"
+				attach-point="_progressIndicator"></d-progress-indicator>
+			<div attach-point="_label">{{this.loading ? this.item.loadingMessage : this.item.loadMessage}}</div>
 			<div class="d-spacer"></div>
 		</div>
 	</div>

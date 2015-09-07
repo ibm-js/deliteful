@@ -95,9 +95,11 @@ define([
 
 	var initCombobox = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
-		combo.list.source = trackable ?
-			new TrackableMemoryStore({}) : new Memory();
-		var dataItems = addOptions(combo, 0, nOptions - 1);
+		var list = new List();
+		list.source = trackable ? new TrackableMemoryStore({}) : new Memory();
+		var dataItems = addOptions(combo, list, 0, nOptions - 1);
+		combo.list = list;
+		combo.deliver();
 		combo._testDataItems = dataItems; // stored for debugging purposes.
 		return combo;
 	};
@@ -121,14 +123,14 @@ define([
 		return combo;
 	};
 
-	var addOptions = function (combo, min, max) {
+	var addOptions = function (combo, list, min, max) {
 		if (!min && !max) {
-			min = combo.list.getItemRenderers().length + 1;
+			min = list.getItemRenderers().length + 1;
 			max = min;
 		}
 		var dataItems = [];
 		var item;
-		var source = combo.list.source;
+		var source = list.source;
 		for (var i = min; i <= max; i++) {
 			item = source.addSync({
 				label: "Option " + i
@@ -136,16 +138,17 @@ define([
 			dataItems.push(item);
 		}
 
-		var observe = combo.observe(function (oldValues) {
-			if ("value" in oldValues) {
-				// Store the value for testing purposes
-				combo._notifiedComboboxValue = combo.value;
-			}
-		});
-		combo._notifiedComboboxValue = null; // init
-		combo._observe = observe; // to be able to deliver
+		if (combo) {
+			var observe = combo.observe(function (oldValues) {
+				if ("value" in oldValues) {
+					// Store the value for testing purposes
+					combo._notifiedComboboxValue = combo.value;
+				}
+			});
+			combo._notifiedComboboxValue = null; // init
+			combo._observe = observe; // to be able to deliver
+		}
 
-		combo.list.source = combo.list.source;
 		return dataItems;
 	};
 
@@ -638,18 +641,16 @@ define([
 		
 		// Test case for #509: initialization of Combobox after List rendering is ready.
 		"initialization with List rendering after Combobox initialization": function () {
-			var list = new List();
-			var combo = new Combobox({list: list}); // single selection mode
+			var combo = new Combobox(); // single selection mode
 			container.appendChild(combo);
 			combo.attachedCallback();
 
 			// Add items to the data store after attachedCallback().
-			combo.list.source = new Memory(); // triggers async re-rendering of List
-			addOptions(combo, 0, nOptions - 1);
-			
+			var list = new List({source: new Memory()});
+			addOptions(null, list, 0, nOptions - 1);
+			combo.list = list;
 			combo.deliver();
-			combo.list.deliver();
-			
+
 			// Check the correct initialization of displayed label, widget value,
 			// and submitted value.
 			assert.strictEqual(combo.inputNode.value, "Option 0", "combo.inputNode.value");

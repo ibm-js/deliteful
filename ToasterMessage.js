@@ -1,5 +1,5 @@
 /** @module deliteful/ToasterMessage */
-define(["dcl/dcl",
+define([
 	"delite/Widget",
 	"delite/register",
 	"requirejs-dplugins/Promise!",
@@ -7,7 +7,7 @@ define(["dcl/dcl",
 	"dpointer/events",
 	"./features",
 	"delite/handlebars!./Toaster/ToasterMessage.html"
-], function (dcl, Widget, register, Promise, $, pointer, has, template) {
+], function (Widget, register, Promise, $, pointer, has, template) {
 
 	// TODO: this could be abstracted in a separate class, so that it can be used by other widgets
 	// such as the toggle/switch.
@@ -331,21 +331,20 @@ define(["dcl/dcl",
 		});
 	}
 
-	var ToasterMessage = dcl(Widget, /** @lends module:deliteful/ToasterMessage */ {
-
-		/**
-		 * ToasterMessage widget.
-		 *
-		 * This class is not meant to be used alone. It needs to be combined
-		 * with deliteful/Toaster.
-		 *
-		 * @class module:deliteful/ToasterMessage
-		 * @augments delite/Widget
-		 * @example
-		 *   var toaster = new Toaster();
-		 *   var message = new ToasterMessage({message: "hello, world!"});
-		 *   toaster.postMessage(message);
-		 */
+	/**
+	 * ToasterMessage widget.
+	 *
+	 * This class is not meant to be used alone. It needs to be combined
+	 * with deliteful/Toaster.
+	 *
+	 * @class module:deliteful/ToasterMessage
+	 * @augments delite/Widget
+	 * @example
+	 *   var toaster = new Toaster();
+	 *   var message = new ToasterMessage({message: "hello, world!"});
+	 *   toaster.postMessage(message);
+	 */
+	return register("d-toaster-message", [HTMLElement, Widget], /** @lends module:deliteful/ToasterMessage */ {
 		baseClass: "d-toaster-message",
 
 		/**
@@ -551,5 +550,4 @@ define(["dcl/dcl",
 			this.pauseTimerOnHover = new PauseTimerOnHover(this);
 		}
 	});
-	return register("d-toaster-message", [HTMLElement, ToasterMessage]);
 });

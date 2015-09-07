@@ -41,9 +41,6 @@ define([
 				$(this).toggleClass("-d-linear-layout-v", this.vertical);
 				$(this).toggleClass("-d-linear-layout-h", !this.vertical);
 			}
-		},
-		postRender: function () {
-			this.notifyCurrentValue("vertical");
 		}
 	});
 });

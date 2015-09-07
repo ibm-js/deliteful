@@ -96,9 +96,10 @@ define([
 
 		template: template,
 
-		render: dcl.after(function () {
+		postRender: function () {
+			// TODO: move this code to the template
 			this.setAttribute("aria-valuemin", 0);
-		}),
+		},
 
 		computeProperties: function (props) {
 			if ("max" in props) {
@@ -123,6 +124,7 @@ define([
 		refreshRendering: function (props) {
 			//update widget to reflect value/max changes
 			if ("max" in props) {
+				// TODO: move to template
 				this.setAttribute("aria-valuemax", this.max);
 			}
 			if ("value" in props || "max" in props) {
@@ -155,10 +157,6 @@ define([
 				this.removeAttribute("aria-valuetext");
 			}
 			$(this).toggleClass(this.baseClass + "-indeterminate", (this.position === -1));
-		},
-
-		postRender: function () {
-			this.notifyCurrentValue("value", "max");
 		},
 
 		/**

@@ -44,7 +44,19 @@ define([
 		 */
 		swapThreshold: 0.25,
 
+		createdCallback: function () {
+			this.on("pointerdown", this._pointerDownHandler.bind(this));
+			this.on("pointermove", this._pointerMoveHandler.bind(this));
+			this.on("pointerup", this._pointerUpHandler.bind(this));
+			this.on("lostpointercapture", this._pointerUpHandler.bind(this));
+			this.on("pointercancel", this._pointerUpHandler.bind(this));
+			this.on("keydown", this._keyDownHandler.bind(this));
+		},
+
 		render: function () {
+			// we want to inherit from ViewStack's CSS (including transitions).
+			$(this).addClass("d-view-stack");
+
 			dpointer.setTouchAction(this, "pan-y");
 		},
 
@@ -53,20 +65,6 @@ define([
 			if (!this.hasAttribute("tabindex")) {
 				this.tabIndex = "0";
 			}
-		},
-
-		preRender: function () {
-			// we want to inherit from ViewStack's CSS (including transitions).
-			$(this).addClass("d-view-stack");
-		},
-
-		postRender: function () {
-			this.on("pointerdown", this._pointerDownHandler.bind(this));
-			this.on("pointermove", this._pointerMoveHandler.bind(this));
-			this.on("pointerup", this._pointerUpHandler.bind(this));
-			this.on("lostpointercapture", this._pointerUpHandler.bind(this));
-			this.on("pointercancel", this._pointerUpHandler.bind(this));
-			this.on("keydown", this._keyDownHandler.bind(this));
 		},
 
 		/**

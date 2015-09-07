@@ -125,6 +125,7 @@ define([
 					progressBarSize: "height"
 				}
 			},
+
 			/**
 			 * Names of event and CSS properties to use with the current orientation of the Slider.
 			 * _orientation.start = "x|y"
@@ -307,29 +308,26 @@ define([
 				this.valueNode.value = String(this.value);
 			},
 
-			postRender: function () {
+			createdCallback: function () {
 				this._pointerCtx = {
 					target: null, // the element that has focus when user manipulate a pointer
 					offsetVal: 0, // Offset value when use points and drag a handle
 					containerBox: null // to avoid recalculations when moving the slider with a pointer
 				};
+
 				this.on("pointerdown", this.pointerDownHandler.bind(this));
 				this.on("pointermove", this.pointerMoveHandler.bind(this));
 				this.on("lostpointercapture", this.lostCaptureHandler.bind(this));
 				this.on("keydown", this.keyDownHandler.bind(this));
 				this.on("keyup", this.keyUpHandler.bind(this));
+			},
 
-				// ensure CSS is applied, and apply default tabIndex in case the app doesn't specify tabindex explicitly
-				this.notifyCurrentValue("vertical", "tabIndex");
-
+			postRender: function () {
 				if (this.valueNode.value) { // INPUT value
 					// browser back button or value coded on INPUT
 					// the valueNode value has precedence over the widget markup value
 					this.value = this.valueNode.value;
 				}
-
-				// force calculation of the default value in case it is not specified.
-				this.notifyCurrentValue("min", "max", "step", "value");
 			},
 
 			attachedCallback: function () {

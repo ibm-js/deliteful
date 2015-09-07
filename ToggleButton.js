@@ -39,8 +39,7 @@ define([
 	 * @augments module:deliteful/Toggle
 	 * @augments module:deliteful/Button.Mixin
 	 */
-	var ToggleButton =  dcl([Button.Impl, Toggle], /** @lends module:deliteful/ToggleButton# */ {
-
+	var ToggleButton = dcl([Button.Impl, Toggle], /** @lends module:deliteful/ToggleButton# */ {
 		/**
 		 * The component css base class.
 		 * @member {string}
@@ -65,8 +64,8 @@ define([
 		checkedIconClass: "",
 
 		template: template
-
 	});
+
 	return register("d-toggle-button",  has("bidi") ? [HTMLButtonElement, ToggleButton, BidiToggleButton] :
 		[HTMLButtonElement, ToggleButton]);
 });

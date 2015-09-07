@@ -1,5 +1,6 @@
 /** @module deliteful/Accordion */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 	"decor/sniff",
 	"requirejs-dplugins/Promise!",
 	"delite/register",
@@ -49,8 +50,7 @@ define(["dcl/dcl",
 	 * @class module:deliteful/Accordion
 	 * @augments module:delite/DisplayContainer
 	 */
-	var Accordion = dcl([DisplayContainer, KeyNav], /** @lends module:deliteful/Accordion# */ {
-
+	return register("d-accordion", [HTMLElement, DisplayContainer, KeyNav], /** @lends module:deliteful/Accordion# */ {
 		/**
 		 * The name of the CSS class of this widget.
 		 * @member {string}
@@ -97,6 +97,11 @@ define(["dcl/dcl",
 		 */
 		closedIconClass: "",
 
+		/**
+		 * List of upgraded panels (i.e. `<d-panel>` widgets that have already run createdCallback() and
+		 * attachedCallback()).
+		 * @member {module:delite/Panel[]}
+		 */
 		_panelList: null,
 
 		_numOpenPanels: 0,
@@ -159,40 +164,35 @@ define(["dcl/dcl",
 			return panel;
 		},
 
-		_numNonUpgradedChildren: 0,
-
 		_setupNonUpgradedChild: function (panel) {
 			panel.accordion = this;
-			this._numNonUpgradedChildren++;
 			panel.addEventListener("customelement-attached", this._attachedlistener = function () {
-				this.removeEventListener("customelement-attached", this._attachedlistener);
+				this.removeEventListener("customelement-attached", this.accordion._attachedlistener);
 				this.accordion._panelList.push(this.accordion._setupUpgradedChild(this));
-				this.accordion._numNonUpgradedChildren--;
 			}.bind(panel));
 		},
 
-		attachedCallback: function () {
+		createdCallback: function () {
 			this._panelList = [];
-			// Declarative case (panels specified declaratively inside the declarative Accordion)
+
+			// Declarative case (panels specified declaratively inside the declarative Accordion).
 			var panels = this.querySelectorAll("d-panel");
-			if (panels) {
-				for (var i = 0, l = panels.length; i < l; i++) {
-					if (!panels[i].attached) {
-						this._setupNonUpgradedChild(panels[i]);
-					} else {
-						this._panelList.push(this._setupUpgradedChild(panels[i]));
-					}
+			for (var i = 0, l = panels.length; i < l; i++) {
+				if (!panels[i].attached) {
+					this._setupNonUpgradedChild(panels[i]);
+				} else {
+					this._panelList.push(this._setupUpgradedChild(panels[i]));
 				}
 			}
 		},
 
+		/**
+		 * If no panel is shown then show the first one.
+		 * @private
+		 */
 		_showOpenPanel: function () {
-			//The default open panel is the first one
 			if (!this._selectedChild && this._panelList.length > 0) {
 				this._selectedChild = this._panelList[0];
-			}
-			//Show selectedChild if exists
-			if (this._selectedChild && this._selectedChild.attached) {
 				this.show(this._selectedChild);
 			}
 		},
@@ -218,15 +218,18 @@ define(["dcl/dcl",
 							this.show(childNode);
 						}
 					} else {
+						// TODO: don't we need to set up a listener for when the child finishes initializing,
+						// to call show() then?
 						this._selectedChild = childNode;
 					}
 				}
 			}
-			if ("attached" in props || "_numNonUpgradedChildren" in  props) {
-				if (this._numNonUpgradedChildren === 0) {
-					this._showOpenPanel();
-				}
+
+			// If no panel was selected, then show the first one.
+			if (("attached" in props || "_panelList" in  props) && this._panelList.length > 0) {
+				this._showOpenPanel();
 			}
+
 			if ("openIconClass" in props) {
 				this.getChildren().forEach(function (panel) {
 					if (panel.attached && !panel.iconClass) {
@@ -421,17 +424,15 @@ define(["dcl/dcl",
 		onAddChild: dcl.superCall(function (sup) {
 			return function (node) {
 				var res = sup.call(this, node);
-				if (this._panelList) {
-					this._panelList.push(this._setupUpgradedChild(node));
-				}
+				this._panelList.push(this._setupUpgradedChild(node));
+				this.notifyCurrentValue("_panelList");
 				return res;
 			};
 		}),
 
 		_onRemoveChild: function (event) {
-			if (this._panelList) {
-				this._panelList.splice(this._panelList.indexOf(event.child), 1);
-			}
+			this._panelList.splice(this._panelList.indexOf(event.child), 1);
+			this.notifyCurrentValue("_panelList");
 		},
 
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
@@ -479,6 +480,4 @@ define(["dcl/dcl",
 		}
 
 	});
-
-	return register("d-accordion", [HTMLElement, Accordion]);
 });

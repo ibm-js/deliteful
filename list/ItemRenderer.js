@@ -28,7 +28,9 @@ define([
 	 * @class module:deliteful/list/ItemRenderer
 	 * @augments module:deliteful/list/Renderer
 	 */
-	var ItemRenderer = dcl(Renderer, /** @lends module:deliteful/list/ItemRenderer# */ {
+
+	return register("d-list-item-renderer", [HTMLElement, Renderer],
+			/** @lends module:deliteful/list/ItemRenderer# */ {
 
 		/**
 		 * CSS class of an item renderer.
@@ -50,6 +52,4 @@ define([
 			}
 		}
 	});
-
-	return register("d-list-item-renderer", [HTMLElement, ItemRenderer]);
 });

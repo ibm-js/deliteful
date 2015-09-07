@@ -30,7 +30,9 @@ define([
 	 * @augments module:delite/StoreMap
 	 * @augments module:delite/Scrollable
 	 */
-	var List = dcl([Selection, KeyNav, StoreMap, Scrollable], /** @lends module:deliteful/list/List# */ {
+
+	return register("d-list", [HTMLElement, Selection, KeyNav, StoreMap, Scrollable],
+			/** @lends module:deliteful/list/List# */ {
 
 		/**
 		 * Dojo object store that contains the items to render in the list.
@@ -231,10 +233,6 @@ define([
 			}
 			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
 			this.setAttribute("aria-readonly", "true");
-		},
-
-		postRender: function () {
-			this.notifyCurrentValue("selectionMode");
 		},
 
 		attachedCallback: dcl.superCall(function (sup) {
@@ -1166,7 +1164,4 @@ define([
 		}
 
 	});
-
-	return register("d-list", [HTMLElement, List]);
-
 });

@@ -19,7 +19,6 @@ define([
 	 * - loadingMessage: the label to display when a page is loading
 	 */
 	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], {
-
 		/*
 		 * The CSS class of the widget
 		 * @member {string}
@@ -27,42 +26,11 @@ define([
 		 */
 		baseClass: "d-list-loader",
 
-		_setItemAttr: function (item) {
-			this._set("item", item);
-			if (this.item && !this.loading) {
-				this._label.innerHTML = this.item.loadMessage;
-			}
-		},
-
 		/*
 		 * Indicates whether or not a page is currently loading.
 		 * @member {boolean}
 		 */
 		loading: false,
-		_setLoadingAttr: function (/*boolean*/loading) {
-			// summary:
-			//		Set the loading status of the widget
-			this._set("loading", loading);
-			// always execute beforeLoading, event if the page loader widget was destroyed
-			if (loading) {
-				this.beforeLoading();
-			}
-			if (!this._destroyed) {
-				$(this).toggleClass("d-loading", loading);
-				this._label.innerHTML = loading ? this.item.loadingMessage : this.item.loadMessage;
-				$(this._progressIndicator).toggleClass("d-hidden");
-				this._progressIndicator.active = loading;
-				if (loading) {
-					this._button.setAttribute("aria-disabled", "true");
-				} else {
-					this._button.removeAttribute("aria-disabled");
-				}
-			}
-			// always execute afterLoading, event if the page loader widget was destroyed
-			if (!loading) {
-				this.afterLoading();
-			}
-		},
 
 		/*
 		 * HTML element that wraps a progress indicator and an optional label in the render node
@@ -135,6 +103,7 @@ define([
 		 */
 		_load: function () {
 			if (this._list.hasAttribute("aria-busy")) { return; }
+			this.beforeLoading();
 			this.loading = true;
 			var self = this;
 			return new Promise(function (resolve, reject) {
@@ -142,9 +111,11 @@ define([
 				self.defer(function () {
 					self.performLoading().then(function () {
 						self.loading = false;
+						this.afterLoading();
 						resolve();
 					}.bind(this), function (error) {
 						self.loading = false;
+						this.afterLoading();
 						reject(error);
 						self._queryError(error);
 					});
@@ -298,7 +269,7 @@ define([
 
 		refreshRendering: function (props) {
 			if (this.pageLength > 0) {
-				if ("_collection" in props) {
+				if ("_collection" in props && this._collection) {
 					// Initial loading of the list
 					if (this._dataLoaded) {
 						this._setBusy(true, true);
@@ -317,15 +288,17 @@ define([
 				// Update page loader messages as they may depend on any property of the List
 				if (this._previousPageLoader) {
 					this._previousPageLoader.item = {
-							loadMessage: string.substitute(this.loadPreviousMessage, this),
-							loadingMessage: this.loadingMessage
-						};
+						loadMessage: string.substitute(this.loadPreviousMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+					this._previousPageLoader.deliver();
 				}
 				if (this._nextPageLoader) {
 					this._nextPageLoader.item = {
-							loadMessage: string.substitute(this.loadNextMessage, this),
-							loadingMessage: this.loadingMessage
-						};
+						loadMessage: string.substitute(this.loadNextMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+					this._nextPageLoader.deliver();
 				}
 			}
 		},
@@ -778,7 +751,5 @@ define([
 				}
 			};
 		})
-
 	});
-
 });

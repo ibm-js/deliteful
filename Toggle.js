@@ -11,8 +11,7 @@ define([
 	 * @abstract
 	 * @augments module:delite/CssState
 	 */
-	return dcl([CssState], /** @lends module:deliteful/Toggle# */ {
-
+	return dcl(CssState, /** @lends module:deliteful/Toggle# */ {
 		/**
 		 * Indicates whether this widget is checked.
 		 * @member {boolean}
@@ -50,6 +49,5 @@ define([
 				this.checked = !this.checked;
 			}
 		}
-
 	});
 });

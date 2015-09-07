@@ -1,33 +1,33 @@
 /** @module deliteful/Toaster */
-define(["dcl/dcl",
+define([
+	"dcl/dcl",
 	"delite/Widget",
 	"delite/register",
 	"decor/sniff",
 	"delite/handlebars!./Toaster/Toaster.html",
 	"./ToasterMessage",
 	"delite/theme!./Toaster/themes/{{theme}}/Toaster.css"
-	], function (dcl, Widget, register, has, template, ToasterMessage) {
+], function (dcl, Widget, register, has, template, ToasterMessage) {
 
 		/* helpers */
 		function isRemovable(m) {return m._toBeRemoved && (! m._isRemoved); }
 
-		var Toaster = dcl(Widget, /** @lends module:deliteful/Toaster */ {
-
-			/**
-			 * Toaster widget. Displays instances of `ToasterMessage`.
-			 *
-			 * Messages are posted through `postMessage`, which takes either
-			 * a full `ToasterMessage` instance or a message as a string.
-			 *
-			 * `ToasterMessage` instances are displayed for a finite or infinite duration.
-			 * (see the `duration` property of `ToasterMessage`).
-			 *
-			 * @class module:deliteful/Toaster
-			 * @augments delite/Widget
-			 * @example
-			 *   <d-toaster id="t"></d-toaster>
-			 *   <d-button onclick="t.postMessage('button clicked', {duration: 1000})">...</d-button>
-			 */
+		/**
+		 * Toaster widget.  Displays instances of `ToasterMessage`.
+		 *
+		 * Messages are posted through `postMessage()`, which takes either
+		 * a full `ToasterMessage` instance or a message as a string.
+		 *
+		 * `ToasterMessage` instances are displayed for a finite or infinite duration.
+		 * (see the `duration` property of `ToasterMessage`).
+		 *
+		 * @class module:deliteful/Toaster
+		 * @augments delite/Widget
+		 * @example
+		 *   <d-toaster id="t"></d-toaster>
+		 *   <d-button onclick="t.postMessage('button clicked', {duration: 1000})">...</d-button>
+		 */
+		return register("d-toaster", [HTMLElement, Widget], /** @lends module:deliteful/Toaster */ {
 
 			_wrapper: null,
 
@@ -135,6 +135,17 @@ define(["dcl/dcl",
 
 			template: template,
 
+			createdCallback: function () {
+				this.messages = [];
+
+				// NOTE: the following a11y attributes are needed for JAWS but
+				// break VoiceOver
+				if (!has("ios")) {
+					this.setAttribute("aria-atomic", "true");
+					this.setAttribute("role", "alert");
+				}
+			},
+
 			refreshRendering: function (props) {
 				if ("messages" in props) {
 					this.messages.forEach(function (m) {
@@ -158,17 +169,6 @@ define(["dcl/dcl",
 				}
 			},
 
-			preRender: function () {
-				this.messages = [];
-			},
-			postRender: function () {
-				// NOTE: the following a11y attributes are needed for JAWS but
-				// break VoiceOver
-				if (!has("ios")) {
-					this.setAttribute("aria-atomic", "true");
-					this.setAttribute("role", "alert");
-				}
-			},
 			/**
 			 * Posts a message in the toaster.
 			 *
@@ -202,5 +202,4 @@ define(["dcl/dcl",
 				return m;
 			}
 		});
-		return register("d-toaster", [HTMLElement, Toaster]);
 	});

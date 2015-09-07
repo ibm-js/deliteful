@@ -230,16 +230,29 @@ define([
 		 */
 		cancelMsg: messages["cancel-button-label"],
 		
-		preRender: function () {
-			this.list = new List();
-			this._defaultList = this.list;
+		createdCallback: function () {
+			// Declarative case (list specified declaratively inside the declarative Combobox)
+			var list = this.querySelector("d-list");
+			if (list) {
+				if (!list.attached) {
+					list.addEventListener("customelement-attached", this._attachedlistener = function () {
+						list.removeEventListener("customelement-attached", this._attachedlistener);
+						this.list = list;
+						this.deliver();
+					}.bind(this));
+				} else {
+					this.list = list;
+				}
+			}
+			if (!this.list) {
+				// default list, may be overridden later by user-defined value or when above event listener fires
+				this.list = new List();
+			}
 		},
 
 		refreshRendering: function (oldValues) {
 			var updateReadOnly = false;
 			if ("list" in oldValues) {
-				// Programmatic case (List passed as argument of the ctor of Combobox
-				// or set after the initialization phase)
 				this._initList();
 			}
 			if ("selectionMode" in oldValues) {
@@ -308,29 +321,6 @@ define([
 			}
 		},
 
-		attachedCallback: function () {
-			// Declarative case (list specified declaratively inside the declarative Combobox)
-			if (this.list === this._defaultList) {
-				var list = this.querySelector("d-list");
-				if (list) {
-					if (!list.attached) {
-						list.addEventListener("customelement-attached", this._attachedlistener = function () {
-							list.removeEventListener("customelement-attached", this._attachedlistener);
-							this.list = list;
-							this.deliver();
-						}.bind(this));
-					} else {
-						this.list = list;
-					}
-				} else {
-					// Still with the default list. No other instance has been set
-					// either programmatically, or declaratively.
-					this.notifyCurrentValue("list");
-				}
-			}
-			delete this._defaultList; // not needed anymore
-		},
-		
 		_initList: function () {
 			// TODO
 			// This is a workaround waiting for a proper mechanism (at the level
@@ -381,11 +371,6 @@ define([
 		},
 		
 		_initHandlers: function () {
-			if (this._initHandlersDone) {
-				return; // set handlers only once
-			}
-			this._initHandlersDone = true;
-
 			this.list.on("keynav-child-navigated", function (evt) {
 				var input = this._popupInput || this.inputNode;
 				var navigatedChild = evt.newValue; // never null
@@ -474,6 +459,8 @@ define([
 				
 				if (!initValueSingleMode()) {
 					// List not ready, wait.
+					// TODO: handle case when List is initialized but has no items yet, from "new List()".
+					// Also, handle when the Combobox's selected item is deleted from the list.
 					var waitListener = this.list.on("query-success", function () {
 						initValueSingleMode();
 						waitListener.remove(waitListener);

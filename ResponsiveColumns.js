@@ -69,10 +69,6 @@ define([
 				$(this).addClass("-d-responsive-columns-" + this.widgetId);
 			},
 
-			postRender: function () {
-				this.notifyCurrentValue("breakpoints");
-			},
-			
 			_removeListeners: function () {
 				for (var i = 0; i < this._mqls.length; i++) {
 					this._mqls[i].mql.removeListener(this._mqls[i].listener);

@@ -30,11 +30,9 @@ define([
 		 */
 		viewStack: null,
 
-		render: function () {
+		createdCallback: function () {
 			dpointer.setTouchAction(this, "none");
-		},
 
-		postRender: function () {
 			this.on("pointerdown", function (e) {
 				if (typeof e.target._vsChildIndex === "number") {
 					this.viewStack.show(this.viewStack.children[e.target._vsChildIndex]);

@@ -72,10 +72,6 @@ define([
 			// init WAI-ARIA attributes
 			this.focusNode.setAttribute("role", "slider");
 			this.focusNode.setAttribute("aria-valuemin", 0);
-		},
-
-		postRender: function () {
-			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
 			this.valueNode.style.display = "none";
 			if (!this.valueNode.parentNode) {
 				this.appendChild(this.valueNode);

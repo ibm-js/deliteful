@@ -1,17 +1,17 @@
 /** @module deliteful/list/CategoryRenderer */
 define([
-	"dcl/dcl",
 	"delite/register",
 	"delite/handlebars!./List/CategoryRenderer.html",
 	"./Renderer"
-], function (dcl, register, template, Renderer) {
+], function (register, template, Renderer) {
 
 	/**
 	 * Default category renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
 	 * 
 	 * @class module:deliteful/list/CategoryRenderer
 	 */
-	var CategoryRenderer = dcl(Renderer, /** @lends module:deliteful/list/CategoryRenderer# */ {
+	return register("d-list-category-renderer", [HTMLElement, Renderer],
+		 /** @lends module:deliteful/list/CategoryRenderer# */ {
 
 		/**
 		 * CSS class of a category renderer.
@@ -34,6 +34,4 @@ define([
 			}
 		}
 	});
-
-	return register("d-list-category-renderer", [HTMLElement, CategoryRenderer]);
 });

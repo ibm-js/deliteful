@@ -50,7 +50,7 @@ define([
 
 		template: template,
 
-		preRender: function () {
+		createdCallback: function () {
 			// Get label from innerHTML, and then clear it since we are to put the label in a <span>
 			if (!this.label) {
 				this.label = this.textContent.trim();
