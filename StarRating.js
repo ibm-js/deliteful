@@ -76,29 +76,11 @@ define([
 
 		postRender: function () {
 			this.notifyCurrentValue("disabled", "max", "value", "readOnly", "allowZero");
+			this.valueNode.style.display = "none";
+			if (!this.valueNode.parentNode) {
+				this.appendChild(this.valueNode);
+			}
 		},
-
-
-		/**
-		 * Handle setting of the value from the input node, if set it should be used in place of the value attribute.
-		 */
-		_mapAttributes: dcl.superCall(function (sup) {
-			return function () {
-				var inputs = this.getElementsByTagName("INPUT");
-				if (inputs.length) {
-					this.valueNode = inputs[0];
-					this.valueNode.style.display = "none";
-					if (!isNaN(parseFloat(this.valueNode.value))) {
-						this.setAttribute("value", this.valueNode.value);
-					}
-				} else {
-					this.valueNode = this.ownerDocument.createElement("input");
-					this.valueNode.style.display = "none";
-					this.appendChild(this.valueNode);
-				}
-				return sup.call(this);
-			};
-		}),
 
 		/* jshint maxcomplexity: 13 */
 		refreshRendering: function (props) {

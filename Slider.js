@@ -145,9 +145,10 @@ define([
 
 			render: register.superCall(function (sup) {
 				return function () {
-					this.valueNode = this.querySelector("input") || this.ownerDocument.createElement("input");
 					sup.call(this);
-					this.appendChild(this.valueNode);
+					if (!this.valueNode.parentNode) {
+						this.appendChild(this.valueNode);
+					}
 					this.handleMin.setAttribute("aria-valuemin", this.min);
 					this.focusNode.setAttribute("aria-valuemax", this.max);
 					this.tabStops = "handleMin,focusNode";
