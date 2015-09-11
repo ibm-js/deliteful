@@ -194,7 +194,7 @@ define([
 					toCSS(this.baseClass + "-v" + " " + this.baseClass + "-h", "-lth") + " " +
 					this.baseClass + "-v" + " " + this.baseClass + "-h");
 				$(this).addClass(rootBaseClass + " " + toCSS(baseClass, this._reversed ? "-htl" : "-lth"));
-				this.containerNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-container");
+				this.wrapperNode.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-container");
 				this.progressBar.setAttribute("style", "");// reset left/width/height/top
 				this.progressBar.className = toCSS(baseClass, "-bar") + " " + toCSS(baseClass, "-progress-bar");
 				this.focusNode.className = toCSS(baseClass, "-handle") + " " + toCSS(baseClass, "-handle-max");
@@ -448,7 +448,7 @@ define([
 
 				this._pointerCtx.target = null;
 				this._pointerCtx.offsetVal = 0;
-				this._pointerCtx.containerBox = boxFromElement(this.containerNode);
+				this._pointerCtx.containerBox = boxFromElement(this.wrapperNode);
 				var currentVal = this._getValueAsArray();
 				var selectedVal = this._selectedValue(e, this._pointerCtx.containerBox);
 
