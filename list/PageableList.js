@@ -700,6 +700,18 @@ define([
 			};
 		}),
 
+		itemUpdated: dcl.superCall(function (sup) {
+			return function (index, item) {
+				if (this.pageLength > 0) {
+					if (this._firstLoaded < index && index <= this._lastLoaded) {
+						sup.call(this, index - this._firstLoaded, item);
+					}
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+
 		_empty: dcl.superCall(function (sup) {
 			return function () {
 				sup.call(this, arguments);
