@@ -4,8 +4,8 @@ define(["intern",
 	"intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
 	"require",
-	"dojo/promise/all"
-], function (intern, registerSuite, pollUntil, keys, assert, require, all) {
+	"requirejs-dplugins/Promise!"
+], function (intern, registerSuite, pollUntil, keys, assert, require, Promise) {
 	var PAGE = "./Accordion.html";
 
 	function checkHasNotClass(classes, className) {
@@ -101,7 +101,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel1"));
 						remotes.push(checkPanelIsOpen(remote, "panel2"));
 						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Opening panel by clicking on the label": function () {
@@ -121,7 +121,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel1"));
 						remotes.push(checkPanelIsClosed(remote, "panel2"));
 						remotes.push(checkPanelIsOpen(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Opening panel by clicking on the icon": function () {
@@ -139,7 +139,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel1"));
 						remotes.push(checkPanelIsOpen(remote, "panel2"));
 						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Trying to close the open panel": function () {
@@ -155,7 +155,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel1"));
 						remotes.push(checkPanelIsOpen(remote, "panel2"));
 						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			}
 		},
@@ -173,7 +173,7 @@ define(["intern",
 						remotes.push(checkPanelIsOpen(remote, "panel1"));
 						remotes.push(checkPanelIsClosed(remote, "panel2"));
 						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					})
 					.execute("document.getElementById('panel2_button').focus();")
 					.pressKeys(keys.SPACE)
@@ -182,7 +182,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel1"));
 						remotes.push(checkPanelIsOpen(remote, "panel2"));
 						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"HOME and END keys": function () {
@@ -263,7 +263,7 @@ define(["intern",
 					.execute("document.getElementById('accordion').style.display = 'none'")
 					.execute("document.getElementById('accordion2').style.display = ''");
 			},
-			"Check opening all panels": function () {
+			"Check opening Promise.all panels": function () {
 				var remote = this.remote;
 				return remote
 					.findById("panel22")
@@ -281,7 +281,7 @@ define(["intern",
 						remotes.push(checkPanelIsOpen(remote, "panel21"));
 						remotes.push(checkPanelIsOpen(remote, "panel22"));
 						remotes.push(checkPanelIsOpen(remote, "panel23"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Check closing panel": function () {
@@ -297,7 +297,7 @@ define(["intern",
 						remotes.push(checkPanelIsOpen(remote, "panel21"));
 						remotes.push(checkPanelIsClosed(remote, "panel22"));
 						remotes.push(checkPanelIsOpen(remote, "panel23"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Closing panel by clicking on the label": function () {
@@ -317,7 +317,7 @@ define(["intern",
 						remotes.push(checkPanelIsOpen(remote, "panel21"));
 						remotes.push(checkPanelIsClosed(remote, "panel22"));
 						remotes.push(checkPanelIsClosed(remote, "panel23"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			},
 			"Trying to close last open panel": function () {
@@ -333,7 +333,7 @@ define(["intern",
 						remotes.push(checkPanelIsOpen(remote, "panel21"));
 						remotes.push(checkPanelIsClosed(remote, "panel22"));
 						remotes.push(checkPanelIsClosed(remote, "panel23"));
-						return all(remotes);
+						return Promise.all(remotes);
 					});
 			}
 		}

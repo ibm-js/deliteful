@@ -3,8 +3,8 @@ define(["intern",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/chai!assert",
 	"require",
-	"dojo/promise/all"
-], function (intern, registerSuite, pollUntil, assert, require, all) {
+	"requirejs-dplugins/Promise!"
+], function (intern, registerSuite, pollUntil, assert, require, Promise) {
 	var PAGE = "./Toaster.html";
 
 	// helpers
@@ -229,7 +229,7 @@ define(["intern",
 							// check permanent are still in the DOM
 							remotes.push(checkHasElement(remote, perm1.props.id));
 							remotes.push(checkHasElement(remote, perm2.props.id));
-							return all(remotes);
+							return Promise.all(remotes);
 						})
 						.end();
 				})
