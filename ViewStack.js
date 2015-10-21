@@ -108,7 +108,7 @@ define([
 		},
 
 		createdCallback: function () {
-			this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100, ie: 20};
+			this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, ff: 100, ie: 20};
 			for (var o in this._transitionTiming) {
 				if (has(o) && this._timing < this._transitionTiming[o]) {
 					this._timing = this._transitionTiming[o];

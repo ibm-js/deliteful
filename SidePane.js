@@ -94,7 +94,7 @@ define([
 			 */
 			swipeClosing: true,
 
-			_transitionTiming: {default: 0, chrome: 50, ios: 20, android: 100, mozilla: 100},
+			_transitionTiming: {default: 0, chrome: 50, ios: 20, android: 100, ff: 100},
 			_timing: 0,
 			_visible: false,
 			_opening: false,
@@ -231,7 +231,7 @@ define([
 			},
 
 			preRender: function () {
-				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, mozilla: 100};
+				this._transitionTiming = {default: 0, chrome: 20, ios: 20, android: 100, ff: 100};
 				for (var o in this._transitionTiming) {
 					if (has(o) && this._timing < this._transitionTiming[o]) {
 						this._timing = this._transitionTiming[o];
