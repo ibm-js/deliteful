@@ -58,7 +58,7 @@ define(["requirejs-dplugins/has", "deliteful/channelBreakpoints"],
 	// The build system evaluates the function of plugin modules while running
 	// in nodejs. Hence the need to test for presence of window. The value of
 	// the has-features does not matter at build time. (#512)
-	if (typeof window !== undefined) {
+	if (typeof window !== "undefined") {
 		// matched by screens at least as large as the "small" breakpoint
 		var mqAboveSmall = window.matchMedia("(min-device-width: " +
 			channelBreakpoints.smallScreen + ")");
