@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: decor/Destroyable.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: decor/Destroyable.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module decor/Destroyable */
+define([
+	"dcl/advise",
+	"dcl/dcl"
+], function (advise, dcl) {
+	/**
+	 * Mixin to track handles and release them when instance is destroyed.
+	 *
+	 * Call `this.own(...)` on list of handles (returned from dcl/advise, dojo/on,
+	 * decor/Stateful#observe, or any class (including widgets) with a destroy() or remove() method.
+	 * Then call `destroy()` later to destroy this instance and release the resources.
+	 * @mixin module:decor/Destroyable
+	 */
+	var Destroyable = dcl(null, /** @lends module:decor/Destroyable# */ {
+		/**
+		 * Destroy this class, releasing any resources registered via `own()`.
+		 * @method
+		 */
+		destroy: dcl.advise({
+			before: function () {
+				this._beingDestroyed = true;
+				this._releaseHandles();
+			},
+			after: function () {
+				this._destroyed = true;
+			}
+		}),
+
+		_releaseHandles: function () {
+		},
+
+		/**
+		 * Track specified handles and remove/destroy them when this instance is destroyed, unless they were
+		 * already removed/destroyed manually.
+		 * @returns {Object[]} The array of specified handles, so you can do for example:
+		 * `var handle = this.own(on(...))[0];`
+		 * @protected
+		 */
+		own: function () {
+			var cleanupMethods = [
+				"destroy",
+				"remove",
+				"cancel"
+			];
+
+			// transform arguments into an Array
+			var ary = Array.prototype.slice.call(arguments);
+			ary.forEach(function (handle) {
+				// When this.destroy() is called, destroy handle.  Since I'm using advise.before(),
+				// the handle will be destroyed before a subclass's destroy() method starts running, before it calls
+				// this.inherited() or even if it doesn't call this.inherited() at all.  If that's an issue, make an
+				// onDestroy() method and connect to that instead.
+				var destroyMethodName;
+				var odh = advise.after(this, "_releaseHandles", function () {
+					handle[destroyMethodName]();
+				});
+
+				// Callback for when handle is manually destroyed.
+				var hdhs = [];
+
+				function onManualDestroy() {
+					odh.destroy();
+					hdhs.forEach(function (hdh) {
+						hdh.destroy();
+					});
+				}
+
+				// Setup listeners for manual destroy of handle.
+				// Also compute destroyMethodName, used in listener above.
+				if (handle.then) {
+					// Special path for Promises.  Detect when Promise is settled.
+					handle.then(onManualDestroy, onManualDestroy);
+				}
+				cleanupMethods.forEach(function (cleanupMethod) {
+					if (typeof handle[cleanupMethod] === "function") {
+						if (!destroyMethodName) {
+							// Use first matching method name in above listener.
+							destroyMethodName = cleanupMethod;
+						}
+						if (!handle.then) {
+							// Path for non-promises.  Use AOP to detect when handle is manually destroyed.
+							hdhs.push(advise.after(handle, cleanupMethod, onManualDestroy));
+						}
+					}
+				});
+			}, this);
+
+			return ary;
+		},
+
+		/**
+		 * Wrapper to setTimeout to avoid deferred functions executing
+		 * after the originating widget has been destroyed.
+		 * @param {Function} fcn - Function to be executed after specified delay (or 0ms if no delay specified).
+		 * @param {number} delay - Delay in ms, defaults to 0.
+		 * @returns {Object} Handle with a remove method that deschedules the callback from being called.
+		 * @protected
+		 */
+		defer: function (fcn, delay) {
+			// TODO: if delay unspecified, use schedule?
+			var timer = setTimeout(
+				function () {
+					if (!timer) {
+						return;
+					}
+					timer = null;
+					if (!this._destroyed) {
+						fcn.call(this);
+					}
+				}.bind(this),
+					delay || 0
+			);
+			return {
+				remove: function () {
+					if (timer) {
+						clearTimeout(timer);
+						timer = null;
+					}
+					return null; // so this works well: handle = handle.remove();
+				}
+			};
+		}
+	});
+
+	dcl.chainBefore(Destroyable, "destroy");
+
+	return Destroyable;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:50:51 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

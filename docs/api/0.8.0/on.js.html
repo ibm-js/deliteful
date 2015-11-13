@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/on.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/on.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module delite/on */
+define(function () {
+	/**
+	 * Call specified function when event occurs.
+	 * @param {Element} [node] - Element to attach handler to.
+	 * @param {string} type - Name of event (ex: "click").
+	 * @param {Function} callback - Callback function.
+	 * @returns {Object} Handle with `remove()` method to cancel the listener.
+	 */
+	return function (node, type, callback) {
+		var capture = false;
+
+		// Shim support for focusin/focusout.
+		var captures = { focusin: "focus", focusout: "blur" };
+		if (type in captures) {
+			type = captures[type];
+			capture = true;
+		}
+
+		// Shim support for event.key, and fix some wrong event.key values on FF and Android 4.2.
+		if (/^key(down|press|up)$/.test(type)) {
+			var origFunc = callback;
+			callback = function (event) {
+				var key = event.key || event.keyIdentifier || String.fromCharCode(event.charCode);
+
+				var fixedKey = {
+					// mappings for event.keyIdentifier differences from event.key for special keys
+					"U+0020": "Spacebar",
+					"U+0008": "Backspace",
+					"U+0009": "Tab",
+					"U+001B": "Esc",
+
+					// fix for FF 34
+					" ": "Spacebar",
+
+					// fix for Android 4.2
+					"U+00007F": "Backspace"
+				}[key] || key.replace(/^U\+0*(.*)$/, function (all, hexString) {
+					// fix event.keyIdentifier for normal printable characters, ex: "U+0041" --> "A" or "a"
+					var code = parseInt(hexString, 16);
+					if (code >= 65 &amp;&amp; code &lt;= 90 &amp;&amp; !event.shiftKey) {
+						code += 32;	// uppercase --> lowercase
+					}
+					return String.fromCharCode(code);
+				});
+
+				if (event.key !== fixedKey) {
+					// A simple "event.key = fixedKey" doesn't work on FF31 (for " " --> "Spacebar" conversion).
+					Object.defineProperty(event, "key", {value: fixedKey, enumerable: true});
+				}
+
+				origFunc(event);
+			};
+		}
+
+		node.addEventListener(type, callback, capture);
+
+		return {
+			remove: function () {
+				node.removeEventListener(type, callback, capture);
+			}
+		};
+	};
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:50:51 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

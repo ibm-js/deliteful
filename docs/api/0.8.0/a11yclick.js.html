@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/a11yclick.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/a11yclick.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+  * @module delite/a11yclick
+ */
+define([
+	"./on"
+], function (on) {
+
+	// TODO: add functional tests
+
+	function clickKey(/*Event*/ e) {
+		// Test if this keyboard event should be tracked as the start (if keydown) or end (if keyup) of a click event.
+		// Only track for nodes marked to be tracked, and not for buttons or inputs,
+		// since buttons handle keyboard click natively, and text inputs should not
+		// prevent typing spaces or newlines.
+		if ((e.key === "Enter" || e.key === "Spacebar") &amp;&amp;
+				!/^(input|button|textarea)$/i.test(e.target.nodeName)) {
+
+			// Test if a node or its ancestor has been marked with the d-keyboard-click property
+			// to indicate special processing
+			for (var node = e.target; node; node = node.parentNode) {
+				if (node.hasAttribute &amp;&amp; node.hasAttribute("d-keyboard-click")) {
+					return true;
+				}
+			}
+		}
+	}
+
+	var lastKeyDownNode;
+
+	on(document, "keydown", function (e) {
+		//console.log("a11yclick: onkeydown, e.target = ", e.target, ", lastKeyDownNode was ",
+		// lastKeyDownNode, ", equality is ", (e.target === lastKeyDownNode));
+		if (!e.defaultPrevented &amp;&amp; clickKey(e)) {
+			// needed on IE for when focus changes between keydown and keyup - otherwise dropdown menus do not work
+			lastKeyDownNode = e.target;
+
+			// prevent scroll
+			e.preventDefault();
+		} else {
+			lastKeyDownNode = null;
+		}
+	});
+
+	on(document, "keyup", function (e) {
+		//console.log("a11yclick: onkeyup, e.target = ", e.target, ", lastKeyDownNode was ",
+		// lastKeyDownNode, ", equality is ", (e.target === lastKeyDownNode));
+		if (clickKey(e) &amp;&amp; e.target === lastKeyDownNode) {
+			// need reset here or have problems in FF when focus returns to trigger element after closing popup/alert
+			lastKeyDownNode = null;
+
+			// prevent scroll
+			e.preventDefault();
+
+			var doc = e.target.ownerDocument,
+				clickEvent = doc.createEvent("MouseEvents");
+
+			clickEvent.initMouseEvent(
+				"click",
+				true,
+				true,
+				doc.defaultView,
+				0,
+				0,
+				0,
+				0,
+				0,
+				e.ctrlKey,
+				e.altKey,
+				e.shiftKey,
+				e.metaKey,
+				0,
+				doc.body	// relatedTarget, for mouseout events
+			);
+			e.target.dispatchEvent(clickEvent);
+		}
+	});
+
+	/**
+	 * When this module is loaded, pressing SPACE or ENTER while focused on an Element with a `d-keyboard-click`
+	 * attribute will fire a synthetic click event on that Element. Also works if the event target's ancestor
+	 * has that attribute set.
+	 *
+	 * Usually this functionality is not necessary.  Rather, you should just make the focused Element a `&lt;button>`,
+	 * and then the browser does the same thing natively.
+	 * This module is usually only needed when a custom element itself (ex: `&lt;d-my-checkbox>`)
+	 * gets the focus rather than an Element inside of a custom element.
+	 *
+	 * Returns a convenience function to set `d-keyboard-click` on an Element.
+	 * @param {Element} node - Element that can be "clicked" via SPACE/ENTER key (when focused).
+	 * @function module:delite/a11yclick
+	 */
+	return function (node) {
+		node.setAttribute("d-keyboard-click", "true");
+	};
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:50:51 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

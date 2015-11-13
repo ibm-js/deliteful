@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: liaison/ObservableArray</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: liaison/ObservableArray</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+    liaison/ObservableArray
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<dt>
+    
+    <h4 class="name" id="module:liaison/ObservableArray">require(["liaison/ObservableArray"], function (ObservableArray) { <br/>&nbsp;&nbsp;<span class="type-signature"></span>new ObservableArray<span class="signature">(<span class="optional">args</span>)</span><span class="type-signature"></span>;<br/> });</h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>An observable array, working as a shim
+of <a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">ECMAScript Harmony Array.observe()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:decor/ObservableArray~CtorArguments</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The length of the new array or the initial list of array elements.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+
+    
+        
+
+        
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li><a href="../../../../../decor/docs/api/0.7.0/decor/Observable.html">module:decor/Observable</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <a id="toggleinherited" href="#" onclick="toggleInherited(event)">Show inherited</a>
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+            
+<dt>
+    
+    <h4 class="name" id="canObserve"><span class="type-signature">&lt;static> </span>canObserve<span class="signature">(a)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The array to test.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>true if o can be observed with <a href="../liaison/ObservableArray.html#observe">ObservableArray.observe()</a>.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    
+    <h4 class="name" id="observe"><span class="type-signature">&lt;static> </span>observe<span class="signature">(observable, callback)</span><span class="type-signature"> &rarr; {Handle}</span></h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>If the 1st argument is non-object or null.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>observable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The <a href="../liaison/ObservableArray.html">ObservableArray</a> to observe.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="../../../../decor/docs/api/0.7.0/decor/Observable.html#ChangeCallback">module:decor/Observable~ChangeCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The change callback.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line276">line 276</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    
+            
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If the 1st argument is non-object or null.
+        </div>
+    </dt>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+</dl>
+
+
+        
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>The handle to stop observing.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Handle</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    
+    <h4 class="name" id="test"><span class="type-signature">&lt;static> </span>test<span class="signature">(a)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The array to test.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>true if o is an instance of <a href="../liaison/ObservableArray.html">ObservableArray</a>.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(name, value)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Sets a value.
+Automatically emits change record(s)
+compatible with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">Object.observe()</a>
+if no ECMAScript setter is defined for the given property.
+If ECMAScript setter is defined for the given property, use
+<a href="../../../../../decor/docs/api/0.7.0/decor/Observable~Notifier.html#notify">Observable.getNotifier(observable).notify(changeRecord)</a>
+to manually emit a change record.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The property name.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The property value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Observable.html#set">module:decor/Observable#set</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Observable.js.html">decor/Observable.js</a>, <a href="../Observable.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>The value set.</p>
+</div>
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    
+    <h4 class="name" id="splice"><span class="type-signature"></span>splice<span class="signature">(index, removeCount, <span class="optional">var_args</span>)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Adds and/or removes elements from an array
+and automatically emits a change record compatible
+with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">ECMAScript Harmony Array.observe()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Index at which to start changing the array.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>[An integer indicating the number of old array elements to remove.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>var_args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Anything</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The elements to add to the array.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>An array containing the removed elements.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        <dl>
+                
+<dt>
+    <h4 class="name" id="CtorArguments">CtorArguments</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The same argument list of Array, taking the length of the new array or the initial list of array elements.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">Anything</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../ObservableArray.js.html">decor/ObservableArray.js</a>, <a href="../ObservableArray.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+            </dl>
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="../deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="../deliteful/Button.html">deliteful/Button</a></li><li><a href="../deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="../deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="../deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="../deliteful/features.html">deliteful/features</a></li><li><a href="../deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="../deliteful/Panel.html">deliteful/Panel</a></li><li><a href="../deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="../deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="../deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="../deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="../deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="../deliteful/Select.html">deliteful/Select</a></li><li><a href="../deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="../deliteful/Slider.html">deliteful/Slider</a></li><li><a href="../deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="../deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="../deliteful/Switch.html">deliteful/Switch</a></li><li><a href="../deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="../deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="../deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="../deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="../deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="../deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:50:54 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

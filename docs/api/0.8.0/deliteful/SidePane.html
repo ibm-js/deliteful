@@ -1,0 +1,8674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: deliteful/SidePane</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: deliteful/SidePane</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+    deliteful/SidePane
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<dt>
+    
+    <h4 class="name" id="module:deliteful/SidePane">require(["deliteful/SidePane"], function (SidePane) { <br/>&nbsp;&nbsp;<span class="type-signature"></span>new SidePane<span class="signature">()</span><span class="type-signature"></span>;<br/> });</h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>A widget displayed on the side of the screen.</p>
+<p>It can be displayed on top of the page
+(mode=overlay) or can push the content of the page (mode=push or mode=reveal).
+SidePane is a widget hidden by default.
+This widget must be a sibling of html's body element.
+If mode is set to &quot;push&quot; or &quot;reveal&quot;, the width of the SidePane can't be changed in the markup
+(15em by default).
+However it can be changed in SidePane.less (@PANE_WIDTH variable).
+In &quot;push&quot; and &quot;reveal&quot; mode, the pushed element is the first sibling of the SidePane which has
+of type element (nodeType == 1) and not a SidePane.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>&lt;body>
+  &lt;d-side-pane>
+      SidePane content
+  &lt;/d-side-pane>
+  &lt;div>
+      Main application
+  &lt;/div>
+&lt;/body></code></pre>
+
+    
+</dd>
+
+    
+
+    
+        
+
+        
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html">module:delite/DisplayContainer</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <a id="toggleinherited" href="#" onclick="toggleInherited(event)">Show inherited</a>
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+            
+<dt>
+    <h4 class="name" id="animate"><span class="type-signature"></span>animate<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Enable/Disable animations.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="attached"><span class="type-signature">&lt;protected> </span>attached<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Set to true when <code>attachedCallback()</code> has completed, and false when <code>detachedCallback()</code> called.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#attached">module:delite/CustomElement#attached</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    <h4 class="name" id="baseClass"><span class="type-signature"></span>baseClass<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The name of the CSS class of this widget.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"d-side-pane"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="containerNode"><span class="type-signature">&lt;protected> </span>containerNode<span class="type-signature"> :Element</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Designates where children of the source DOM node will be placed,
+and also the target for nodes inserted via <code>.appendChild()</code>, <code>.insertBefore()</code>, etc.
+&quot;Children&quot; in this case refers to both DOM nodes and widgets.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Element</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#containerNode">module:delite/Container#containerNode</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>Widget root node itself.</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="created"><span class="type-signature">&lt;protected> </span>created<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Set to true when <code>createdCallback()</code> has completed.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#created">module:delite/CustomElement#created</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="dir"><span class="type-signature"></span>dir<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Controls the layout direction of the widget, for example whether the arrow of
+a Combobox appears to the right or the left of the input field.</p>
+<p>Values are &quot;ltr&quot; and &quot;rtl&quot;, or &quot;&quot; which means that the value is inherited from the
+setting on the document root (either <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>).</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#dir">module:delite/Widget#dir</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="effectiveDir"><span class="type-signature">&lt;readonly> </span>effectiveDir<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Actual direction of the widget, which can be set explicitly via <code>dir</code> property or inherited from the
+setting on the document root (either <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>).
+Value is either &quot;ltr&quot; or &quot;rtl&quot;.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#effectiveDir">module:delite/Widget#effectiveDir</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="focused"><span class="type-signature">&lt;protected> </span>focused<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>This widget or a widget it contains has focus, or is &quot;active&quot; because
+it was recently clicked.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#focused">module:delite/Widget#focused</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    <h4 class="name" id="mode"><span class="type-signature"></span>mode<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Can be &quot;overlay&quot;, &quot;reveal&quot; or &quot;push&quot;.
+In overlay mode, the pane is shown on top of the page.
+In reveal and push modes, The page is moved to make the pane visible. The difference between
+these two modes is the animated transition: in reveal mode, the pane does not move, it is
+already under the page. In push mode, the pane slide with the page.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"push"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    <h4 class="name" id="position"><span class="type-signature"></span>position<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Can be &quot;start&quot; or &quot;end&quot;. If set to &quot;start&quot;, the panel is displayed on the
+left side in LTR mode.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"push"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    <h4 class="name" id="swipeClosing"><span class="type-signature"></span>swipeClosing<span class="type-signature"> :boolean</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Enables the swipe closing of the pane.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">boolean</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="template"><span class="type-signature">&lt;protected> </span>template<span class="type-signature"> :function</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Value returned by delite/handlebars! or compatible template engine.
+Specifies how to build the widget DOM initially and also how to update the DOM when
+widget properties change.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">function</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#template">module:delite/Widget#template</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    <h4 class="name" id="widgetId"><span class="type-signature">&lt;protected, constant> </span>widgetId<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd inherited>
+    
+    <div class="description">
+        <p>Unique id for this widget, separate from id attribute (which may or may not be set).
+Useful when widget creates subnodes that need unique id's.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#widgetId">module:delite/Widget#widgetId</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="_get"><span class="type-signature">&lt;protected> </span>_get<span class="signature">(name)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Internal helper for directly accessing an attribute value.</p>
+<p>Directly gets the value of an attribute on an object, bypassing any accessor getter.
+It is designed to be used by descendant class if they want
+to access the value in their custom getter before returning it.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of property.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#_get">module:decor/Stateful#_get</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line203">line 203</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Value of property.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="_set"><span class="type-signature">&lt;protected> </span>_set<span class="signature">(name, value)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Internal helper for directly setting a property value without calling the custom setter.</p>
+<p>Directly changes the value of an attribute on an object, bypassing any
+accessor setter.  Also notifies callbacks registered via observe().
+Custom setters should call <code>_set</code> to actually record the new value.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The property to set.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Value to set the property to.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#_set">module:decor/Stateful#_set</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line184">line 184</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="addChild"><span class="type-signature"></span>addChild<span class="signature">(node, <span class="optional">insertIndex</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Inserts the specified Element at the specified index.
+For example, <code>.addChild(node, 3)</code> sets this widget's fourth child to node.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element to add as a child.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>insertIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Position the child as at the specified position relative to other children.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#addChild">module:delite/Container#addChild</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="attachedCallback"><span class="type-signature"></span>attachedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Called automatically when the element is added to the document, after <code>createdCallback()</code> completes.
+This method is automatically chained, so subclasses generally do not need to use <code>dcl.superCall()</code>,
+<code>dcl.advise()</code>, etc.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#attachedCallback">module:delite/CustomElement#attachedCallback</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line231">line 231</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#event:customelement-attached">module:delite/CustomElement#event:customelement-attached</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="changeDisplay"><span class="type-signature"></span>changeDisplay<span class="signature">(widget, <span class="optional">params</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>This method must perform the display and possible transition effect.  It is meant to be specialized by
+subclasses.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>widget</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element or Element id that points to the child this container must
+show or hide.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional params that might be taken into account when displaying the child.  This
+can be the type of visual transitions involved.  This might vary from one DisplayContainer to another.
+By default on the &quot;hide&quot; param is supporting meaning that the transition should hide the widget
+not display it.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#changeDisplay">module:delite/DisplayContainer#changeDisplay</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line161">line 161</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Optionally a promise that will be resolved when the display &amp; transition effect will have
+been performed.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="computeProperties"><span class="type-signature"></span>computeProperties<span class="signature">(oldValues, isAfterCreation)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Callback function to calculate computed properties upon property changes.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>oldValues</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The hash table of old property values, keyed by property names.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isAfterCreation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>True if this call is right after instantiation.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#computeProperties">module:decor/Invalidating#computeProperties</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="createdCallback"><span class="type-signature">&lt;protected> </span>createdCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Called when the custom element is created, or when <code>register.parse()</code> parses a custom tag.</p>
+<p>This method is automatically chained, so subclasses generally do not need to use <code>dcl.superCall()</code>,
+<code>dcl.advise()</code>, etc.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#createdCallback">module:delite/CustomElement#createdCallback</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line161">line 161</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="defer"><span class="type-signature">&lt;protected> </span>defer<span class="signature">(fcn, delay)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Wrapper to setTimeout to avoid deferred functions executing
+after the originating widget has been destroyed.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fcn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Function to be executed after specified delay (or 0ms if no delay specified).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Delay in ms, defaults to 0.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Destroyable.html#defer">module:decor/Destroyable#defer</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Destroyable.js.html">decor/Destroyable.js</a>, <a href="../Destroyable.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Handle with a remove method that deschedules the callback from being called.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="deliver"><span class="type-signature"></span>deliver<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Synchronously deliver change records to all listeners registered via <code>observe()</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#deliver">module:decor/Stateful#deliver</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line277">line 277</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="deliverComputing"><span class="type-signature"></span>deliverComputing<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Synchronously deliver change records for computed properties
+so that <code>computeProperties()</code> is called if there are pending change records.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#deliverComputing">module:decor/Invalidating#deliverComputing</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Release resources used by this custom element and its descendants.
+After calling this method, the element can no longer be used,
+and should be removed from the document.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#destroy">module:delite/CustomElement#destroy</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line388">line 388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="detachedCallback"><span class="type-signature"></span>detachedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Called when the element is removed the document.
+This method is automatically chained, so subclasses generally do not need to use <code>dcl.superCall()</code>,
+<code>dcl.advise()</code>, etc.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#detachedCallback">module:delite/CustomElement#detachedCallback</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line254">line 254</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="discardChanges"><span class="type-signature"></span>discardChanges<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Discard change records for all listeners registered via <code>observe()</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#discardChanges">module:decor/Stateful#discardChanges</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line283">line 283</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="discardComputing"><span class="type-signature"></span>discardComputing<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Discard change records for computed properties.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#discardComputing">module:decor/Invalidating#discardComputing</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="emit"><span class="type-signature">&lt;protected> </span>emit<span class="signature">(type, <span class="optional">eventObj</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Emits a synthetic event of specified type, based on eventObj.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name of event.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Properties to mix in to emitted event.  Can also contain
+<code>bubbles</code> and <code>cancelable</code> properties to control how the event is emitted.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#emit">module:delite/CustomElement#emit</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line412">line 412</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>True if the event was <em>not</em> canceled, false if it was canceled.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>myWidget.emit("query-success", {});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="findCustomElements"><span class="type-signature"></span>findCustomElements<span class="signature">(<span class="optional">root</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Search subtree under root returning custom elements found.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>root</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Node to search under.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#findCustomElements">module:delite/CustomElement#findCustomElements</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getChildren"><span class="type-signature"></span>getChildren<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Element>}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns all direct children of this widget, i.e. all widgets or DOM nodes underneath
+<code>this.containerNode</code>.  Note that it does not return all
+descendants, but rather just direct children.</p>
+<p>The result intentionally excludes element outside off <code>this.containerNode</code>.  So, it is different than
+accessing the <code>children</code> or <code>childNode</code> properties.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#getChildren">module:delite/Container#getChildren</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line161">line 161</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Element></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getEnclosingWidget"><span class="type-signature"></span>getEnclosingWidget<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns the widget whose DOM tree contains the specified DOMNode, or null if
+the node is not contained within the DOM tree of any widget</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#getEnclosingWidget">module:delite/Widget#getEnclosingWidget</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line333">line 333</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getIndexOfChild"><span class="type-signature"></span>getIndexOfChild<span class="signature">(child)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns the index of the child in this container or -1 if not found.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#getIndexOfChild">module:delite/Container#getIndexOfChild</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line179">line 179</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getInheritedDir"><span class="type-signature">&lt;protected> </span>getInheritedDir<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Get the direction setting for the page itself.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#getInheritedDir">module:delite/Widget#getInheritedDir</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>&quot;ltr&quot; or &quot;rtl&quot;</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getParent"><span class="type-signature"></span>getParent<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns the parent widget of this widget, or null if there is no parent widget.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#getParent">module:delite/Widget#getParent</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line251">line 251</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getProps"><span class="type-signature">&lt;protected> </span>getProps<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns a hash of properties that should be observed.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#getProps">module:decor/Stateful#getProps</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Hash of properties.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="getPropsToObserve"><span class="type-signature">&lt;protected> </span>getPropsToObserve<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Get list of properties that Stateful#observe() should observe.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#getPropsToObserve">module:decor/Stateful#getPropsToObserve</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>list of properties</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="hasChildren"><span class="type-signature"></span>hasChildren<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Returns true if widget has child nodes, i.e. if <code>this.containerNode</code> contains widgets.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#hasChildren">module:delite/Container#hasChildren</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="hide"><span class="type-signature"></span>hide<span class="signature">(dest, <span class="optional">params</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>This method must be called to hide a particular destination child on this container.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element or Element id that points to the child this container must
+hide.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional params that might be taken into account when hiding the child.
+This can be the type of visual transitions involved.  This might vary from one DisplayContainer to another.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#hide">module:delite/DisplayContainer#hide</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-display-load">module:delite/DisplayContainer#event:delite-display-load</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-before-hide">module:delite/DisplayContainer#event:delite-before-hide</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-after-hide">module:delite/DisplayContainer#event:delite-after-hide</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A promise that will be resolved when the display &amp; transition effect will have been
+performed.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="initializeInvalidating"><span class="type-signature">&lt;protected> </span>initializeInvalidating<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Make initial calls to <code>computeProperties()</code>, <code>initializeRendering()</code>, and <code>refreshRendering()</code>,
+and setup observers so those methods are called whenever properties are modified in the future.
+Normally this method is called automatically by the constructor, and should not be called manually,
+but the method is exposed for custom elements since they do not call the <code>constructor()</code> method.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#initializeInvalidating">module:decor/Invalidating#initializeInvalidating</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="initializeRendering"><span class="type-signature"></span>initializeRendering<span class="signature">(oldValues)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Callback function to initialize rendering.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>oldValues</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The hash table of old property values, keyed by property names.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#initializeRendering">module:decor/Invalidating#initializeRendering</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="introspect"><span class="type-signature">&lt;protected> </span>introspect<span class="signature">(props)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Sets up ES5 getters/setters for each class property.
+Inside introspect(), &quot;this&quot; is a reference to the prototype rather than any individual instance.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Hash of properties.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#introspect">module:decor/Stateful#introspect</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="loadChild"><span class="type-signature"></span>loadChild<span class="signature">(dest, <span class="optional">params</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>This method must be called to load a particular child on this container.
+A <code>delite-display-load</code> event is fired giving the chance to a controller to load/create the child.
+This method can be redefined to actually load a child of the container. If a controller is not present,
+it just looks up elements by id.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element or Element id that points to the child this container must
+load.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional params that might be taken into account when removing the child.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#loadChild">module:delite/DisplayContainer#loadChild</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line184">line 184</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-display-load">module:delite/DisplayContainer#event:delite-display-load</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A promise that will be resolved when the child will have been
+loaded with an object of the following form: <code>{ child: childElement }</code> or with an optional index
+<code>{ child: childElement, index: index }</code>. Other properties might be added to    the object if needed.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="mix"><span class="type-signature"></span>mix<span class="signature">(hash)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Set a hash of properties on a Stateful instance.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Hash of properties.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#mix">module:decor/Stateful#mix</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>myObj.mix({
+    foo: "Howdy",
+    bar: 3
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="notifyCurrentValue"><span class="type-signature"></span>notifyCurrentValue<span class="signature">(name)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Notifies current values to observers for specified property name(s).
+Handy to manually schedule invocation of observer callbacks when there is no change in value.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The property name.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#notifyCurrentValue">module:decor/Stateful#notifyCurrentValue</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line207">line 207</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="observe"><span class="type-signature"></span>observe<span class="signature">(callback)</span><span class="type-signature"> &rarr; {<a href="../../../../decor/docs/api/0.7.0/decor/Stateful.PropertyListObserver.html">module:decor/Stateful.PropertyListObserver</a>}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Observes for change in properties.
+Callback is called at the end of micro-task of changes with a hash table of
+old values keyed by changed property.
+Multiple changes to a property in a micro-task are squashed.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The callback.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#observe">module:decor/Stateful#observe</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line228">line 228</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>The observer that can be used to stop observation
+    or synchronously deliver/discard pending change records.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="../../../../decor/docs/api/0.7.0/decor/Stateful.PropertyListObserver.html">module:decor/Stateful.PropertyListObserver</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var stateful = new (dcl(Stateful, {
+        foo: undefined,
+        bar: undefined,
+        baz: undefined
+    }))({
+        foo: 3,
+        bar: 5,
+        baz: 7
+    });
+stateful.observe(function (oldValues) {
+    // oldValues is {foo: 3, bar: 5, baz: 7}
+});
+stateful.foo = 4;
+stateful.bar = 6;
+stateful.baz = 8;
+stateful.foo = 6;
+stateful.bar = 8;
+stateful.baz = 10;</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(type, func, <span class="optional">node</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Call specified function when event occurs.</p>
+<p>Note that the function is not run in any particular scope, so if (for example) you want it to run
+in the element's scope you must do <code>myCustomElement.on(&quot;click&quot;, myCustomElement.func.bind(myCustomElement))</code>.</p>
+<p>Note that <code>delite/Widget</code> overrides <code>on()</code> so that <code>on(&quot;focus&quot;, ...)</code> and `on(&quot;blur&quot;, ...) will trigger the
+listener when focus moves into or out of the widget, rather than just when the widget's root node is
+focused/blurred.  In other words, the listener is called when the widget is conceptually focused or blurred.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name of event (ex: &quot;click&quot;).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Callback function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element to attach handler to, defaults to <code>this</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#on">module:delite/CustomElement#on</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line444">line 444</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Handle with <code>remove()</code> method to cancel the event.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="onAddChild"><span class="type-signature"></span>onAddChild<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Callback whenever a child element is added to this widget via <code>appendChild()</code>, <code>insertBefore()</code>,
+or a method like <code>addChild()</code> that internally calls <code>appendChild()</code> and/or <code>insertBefore()</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#onAddChild">module:delite/Container#onAddChild</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="own"><span class="type-signature">&lt;protected> </span>own<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Track specified handles and remove/destroy them when this instance is destroyed, unless they were
+already removed/destroyed manually.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Destroyable.html#own">module:decor/Destroyable#own</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Destroyable.js.html">decor/Destroyable.js</a>, <a href="../Destroyable.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>The array of specified handles, so you can do for example:
+<code>var handle = this.own(on(...))[0];</code></p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="parseAttribute"><span class="type-signature">&lt;protected> </span>parseAttribute<span class="signature">(name, value)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Helper for parsing declarative widgets.  Interpret a given attribute specified in markup, returning either:</p>
+<ul>
+<li><code>undefined</code>: ignore</li>
+<li><code>{prop: prop, value: value}</code>: set <code>this[prop] = value</code></li>
+<li><code>{event: event, callback: callback}</code>: call <code>this.on(event, callback)</code></li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Attribute name.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Attribute value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#parseAttribute">module:delite/CustomElement#parseAttribute</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line340">line 340</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="parseFunctionAttribute"><span class="type-signature">&lt;protected> </span>parseFunctionAttribute<span class="signature">(value, params)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Helper to parse function attribute in markup.  Unlike <code>_parsePrototypeAttr()</code>, does not require a
+corresponding widget property.  Functions can be specified as global variables or as inline javascript:</p>
+<pre class="prettyprint source"><code><my-widget funcAttr="globalFunction" on-click="console.log(event.pageX);"></code></pre>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Value of the attribute.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>When generating a function from inline javascript, give it these parameter names.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#parseFunctionAttribute">module:delite/CustomElement#parseFunctionAttribute</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line316">line 316</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="placeAt"><span class="type-signature">&lt;protected> </span>placeAt<span class="signature">(reference, <span class="optional">position</span>)</span><span class="type-signature"> &rarr; {<a href="../../../../delite/docs/api/0.8.0/delite/Widget.html">module:delite/Widget</a>}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Place this widget somewhere in the dom, and allow chaining.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">DocumentFragment</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element, DocumentFragment,
+or id of Element to place this widget relative to.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>position</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Numeric index or a string with the values:</p>
+<ul>
+<li>number - place this widget as n'th child of <code>reference</code> node</li>
+<li>&quot;first&quot; - place this widget as first child of <code>reference</code> node</li>
+<li>&quot;last&quot; - place this widget as last child of <code>reference</code> node</li>
+<li>&quot;before&quot; - place this widget as previous sibling of <code>reference</code> node</li>
+<li>&quot;after&quot; - place this widget as next sibling of <code>reference</code> node</li>
+<li>&quot;replace&quot; - replace specified reference node with this widget</li>
+<li>&quot;only&quot; - replace all children of <code>reference</code> node with this widget</li>
+</ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#placeAt">module:delite/Widget#placeAt</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>This widget, for chaining.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="../../../../delite/docs/api/0.8.0/delite/Widget.html">module:delite/Widget</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>// create a Button with no srcNodeRef, and place it in the body:
+var button = new Button({ label:"click" }).placeAt(document.body);</code></pre>
+
+    <pre class="prettyprint"><code>// place a new button as the first element of some div
+var button = new Button({ label:"click" }).placeAt("wrapper","first");</code></pre>
+
+    <pre class="prettyprint"><code>// create a contentpane and add it to a TabContainer
+var tc = document.getElementById("myTabs");
+new ContentPane({ href:"foo.html", title:"Wow!" }).placeAt(tc)</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="postRender"><span class="type-signature">&lt;protected> </span>postRender<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Processing after the DOM fragment is created.</p>
+<p>Called after the DOM fragment has been created, but not necessarily
+added to the document.  Do not include any operations which rely on
+node dimensions or placement.</p>
+<p>This method is automatically chained, so subclasses generally do not need to use <code>dcl.superCall()</code>,
+<code>dcl.advise()</code>, etc.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#postRender">module:delite/Widget#postRender</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line232">line 232</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="preRender"><span class="type-signature">&lt;protected> </span>preRender<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Processing before <code>render()</code>.</p>
+<p>This method is automatically chained, so subclasses generally do not need to use <code>dcl.superCall()</code>,
+<code>dcl.advise()</code>, etc.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#preRender">module:delite/Widget#preRender</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="processConstructorParameters"><span class="type-signature">&lt;protected> </span>processConstructorParameters<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Called after Object is created to process parameters passed to constructor.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Stateful.html#processConstructorParameters">module:decor/Stateful#processConstructorParameters</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Stateful.js.html">decor/Stateful.js</a>, <a href="../Stateful.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="refreshRendering"><span class="type-signature"></span>refreshRendering<span class="signature">(oldValues, isAfterInitialRendering)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Callback function to render UI upon property changes.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>oldValues</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The hash table of old property values, keyed by property names.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isAfterInitialRendering</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>True if this call is right after <code>initializeRendering()</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#refreshRendering">module:decor/Invalidating#refreshRendering</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="removeChild"><span class="type-signature"></span>removeChild<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Detaches the specified node instance from this widget but does
+not destroy it.  You can also pass in an integer indicating
+the index within the container to remove (ie, removeChild(5) removes the sixth node).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#removeChild">module:delite/Container#removeChild</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="render"><span class="type-signature">&lt;protected> </span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Construct the UI for this widget, filling in subnodes and/or text inside of this.
+Most widgets will leverage delite/handlebars! to set <code>template</code>, rather than defining this method.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#render">module:delite/Widget#render</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line169">line 169</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="setClassComponent"><span class="type-signature">&lt;protected> </span>setClassComponent<span class="signature">(component, value, <span class="optional">node</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Helper method to set a class (or classes) on a given node, removing the class (or classes) set
+by the previous call to <code>setClassComponent()</code> <em>for the specified component and node</em>.  Used mainly by
+template.js to set classes without overwriting classes set by the user or other code (ex: CssState).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>component</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Specifies the category.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Class (or classes) to set.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The node to set the property on; defaults to widget root node.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#setClassComponent">module:delite/Widget#setClassComponent</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line194">line 194</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="setOrRemoveAttribute"><span class="type-signature">&lt;protected> </span>setOrRemoveAttribute<span class="signature">(node, name, value)</span><span class="type-signature"></span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Helper method to set/remove an attribute based on the given value:</p>
+<ul>
+<li>If value is undefined, the attribute is removed.  Useful for attributes like aria-valuenow.</li>
+<li>If value is boolean, the attribute is set to &quot;true&quot; or &quot;false&quot;.  Useful for attributes like aria-selected.</li>
+<li>If value is a number, it's converted to a string.</li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The node to set the property on.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of the property.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Value of the property.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Widget.html#setOrRemoveAttribute">module:delite/Widget#setOrRemoveAttribute</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Widget.js.html">delite/Widget.js</a>, <a href="../Widget.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="shouldInitializeRendering"><span class="type-signature"></span>shouldInitializeRendering<span class="signature">(oldValues, isAfterCreation)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Function to return if rendering should be initialized.
+(Instead of making partial changes for post-initialization)</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>oldValues</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The hash table of old property values, keyed by property names.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isAfterCreation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>True if this call is right after instantiation.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../decor/docs/api/0.7.0/decor/Invalidating.html#shouldInitializeRendering">module:decor/Invalidating#shouldInitializeRendering</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Invalidating.js.html">decor/Invalidating.js</a>, <a href="../Invalidating.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>True if rendering should be initialized.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="show"><span class="type-signature"></span>show<span class="signature">(dest, <span class="optional">params</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>This method must be called to display a particular destination child on this container.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Element or Element id that points to the child this container must
+display.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional params that might be taken into account when displaying the child.
+This can be the type of visual transitions involved. This might vary from one DisplayContainer to another.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#show">module:delite/DisplayContainer#show</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-before-show">module:delite/DisplayContainer#event:delite-before-show</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-after-show">module:delite/DisplayContainer#event:delite-after-show</a></li>
+    
+        <li><a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-display-load">module:delite/DisplayContainer#event:delite-display-load</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A promise that will be resolved when the display &amp; transition effect will have been
+performed.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+            
+<dt>
+    
+    <h4 class="name" id="toggle"><span class="type-signature"></span>toggle<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>This method is called to toggle the visibility of the SidePane.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../SidePane.js.html">deliteful/SidePane.js</a>, <a href="../SidePane.js.html#line140">line 140</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A promise that will be resolved when the display &amp; transition effect will have been
+performed.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:customelement-attached">customelement-attached</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched after the CustomElement has been attached.
+This is useful to be notified when an HTMLElement has been upgraded to a
+CustomElement and attached to the DOM, in particular on browsers supporting native Custom Element.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/CustomElement.html#event:customelement-attached">module:delite/CustomElement#event:customelement-attached</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../CustomElement.js.html">delite/CustomElement.js</a>, <a href="../CustomElement.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>element.addEventListener("customelement-attached", function (evt) {
+     console.log("custom element: "+evt.target.id+" has been attached");
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-add-child">delite-add-child</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched after an Element has been added as child of this widget.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#event:delite-add-child">module:delite/Container#event:delite-add-child</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>element.addEventListener("delite-add-child", function (evt) {
+     console.log("container: " + evt.target.id + " has new child " + evt.child.id);
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-after-hide">delite-after-hide</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched after child is hidden.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>reference to child element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-after-hide">module:delite/DisplayContainer#event:delite-after-hide</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener("delite-after-hide", function (evt) {
+     console.log("just hid child", evt.child);
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-after-show">delite-after-show</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched after child is shown.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>reference to child element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-after-show">module:delite/DisplayContainer#event:delite-after-show</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener("delite-after-show", function (evt) {
+     console.log("just displayed child", evt.child);
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-before-hide">delite-before-hide</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched before child is hidden.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>reference to child element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-before-hide">module:delite/DisplayContainer#event:delite-before-hide</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener("delite-before-hide", function (evt) {
+     console.log("about to hide child", evt.child);
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-before-show">delite-before-show</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched before child is shown.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>reference to child element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-before-show">module:delite/DisplayContainer#event:delite-before-show</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener("delite-before-show", function (evt) {
+     console.log("about to show child", evt.child);
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-display-load">delite-display-load</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched to let an application level listener create/load the child node.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>setChild</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>method to set child element, or Promise for child element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/DisplayContainer.html#event:delite-display-load">module:delite/DisplayContainer#event:delite-display-load</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../DisplayContainer.js.html">delite/DisplayContainer.js</a>, <a href="../DisplayContainer.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener("delite-display-load", function (evt) {
+    evt.setChild(new Promise(function (resolve, reject) {
+        // fetch the data for the specified id, then create a node with that data
+        fetchData(evt.dest).then(function(data) {
+            var child = document.createElement("div");
+            child.innerHTML = data;
+            resolve({child: child});
+        });
+    );
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+            
+<dt inherited>
+    
+    <h4 class="name" id="event:delite-remove-child">delite-remove-child</h4>
+    
+
+    
+</dt>
+<dd inherited>
+
+    
+    <div class="description">
+        <p>Dispatched after an child Element has been removed from this widget.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="../../../../../delite/docs/api/0.8.0/delite/Container.html#event:delite-remove-child">module:delite/Container#event:delite-remove-child</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="../Container.js.html">delite/Container.js</a>, <a href="../Container.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>element.addEventListener("delite-remove-child", function (evt) {
+     console.log("container: " + evt.target.id + " removed child " + evt.child.id);
+});</code></pre>
+
+    
+</dd>
+
+        </dl>
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="../deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="../deliteful/Button.html">deliteful/Button</a></li><li><a href="../deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="../deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="../deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="../deliteful/features.html">deliteful/features</a></li><li><a href="../deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="../deliteful/Panel.html">deliteful/Panel</a></li><li><a href="../deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="../deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="../deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="../deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="../deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="../deliteful/Select.html">deliteful/Select</a></li><li><a href="../deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="../deliteful/Slider.html">deliteful/Slider</a></li><li><a href="../deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="../deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="../deliteful/Switch.html">deliteful/Switch</a></li><li><a href="../deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="../deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="../deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="../deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="../deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="../deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:50:53 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>
