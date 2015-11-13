@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Button.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Button.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/Button */
+define([
+	"dcl/dcl",
+	"requirejs-dplugins/has",
+	"delite/register",
+	"delite/Widget",
+	"requirejs-dplugins/has!bidi?./Button/bidi/Button",
+	"delite/handlebars!./Button/Button.html",
+	"delite/theme!./Button/themes/{{theme}}/Button.css"
+], function (dcl, has, register, Widget, BidiButton, template) {
+
+	/**
+	 * A Non-templated form-aware button widget.
+	 * A Button can display a label, an icon, or both. Icon is specified via the iconClass property that
+	 * takes the name of the class to apply to the button node to display the icon.
+	 * @example
+	 * &lt;style>
+	 *   .iconForButton {
+	 *     background-image: url('images/cut.png');
+	 *     width: 16px;
+	 *     height: 16px;
+	 *   }
+	 * &lt;/style>
+	 * &lt;button is="d-button" iconClass="iconForButton">Click Me&lt;/button>
+	 * @class module:deliteful/Button
+	 * @augments module:delite/Widget
+	 */
+	var Button = dcl(Widget, /** @lends module:deliteful/Button# */ {
+
+		/**
+		 * The text to display in the button.
+		 * @member {string}
+		 * @default ""
+		 */
+		label: "",
+
+		/**
+		 * The name of the CSS class to apply to DOMNode in button to make it display an icon.
+		 * @member {string}
+		 * @default ""
+		 */
+		iconClass: "",
+
+		/**
+		 * The name of the CSS class of this widget.
+		 * @member {string}
+		 * @default "d-button"
+		 */
+		baseClass: "d-button",
+
+		template: template,
+
+		createdCallback: function () {
+			// Get label from innerHTML, and then clear it since we are to put the label in a &lt;span>
+			if (!this.label) {
+				this.label = this.textContent.trim();
+				this.innerHTML = "";
+			}
+		},
+
+		computeProperties: function (props) {
+			if ("title" in props || "label" in props) {
+				this.title = this.title || this.label || "";
+			}
+		}
+	});
+
+	var ButtonElt = register("d-button", has("bidi") ? [HTMLButtonElement, Button, BidiButton] :
+		[HTMLButtonElement, Button]);
+	ButtonElt.Impl = Button;
+	return ButtonElt;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 13 2015 16:11:42 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
