@@ -41,8 +41,8 @@ define([
 	 * [1] http://www.w3.org/TR/html5/forms.html#range-state-%28type=range%29
 	 *
 	 * @class module:deliteful/Slider
-	 * @augments delite/FormValueWidget
-	 * @augments delite/CssState
+	 * @augments module:delite/FormValueWidget
+	 * @augments module:delite/CssState
 	 */
 	return register("d-slider", [HTMLElement, FormValueWidget, CssState],
 		// todo: HTML5 introduce the attribute "multiple" to handle multiple values

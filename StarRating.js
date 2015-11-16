@@ -16,7 +16,7 @@ define([
 	 * Its custom element tag is `d-star-rating`.
 	 * 
 	 * @class module:deliteful/StarRating
-	 * @augments delite/FormValueWidget
+	 * @augments module:delite/FormValueWidget
 	 */
 	return register("d-star-rating", [HTMLElement, FormValueWidget], /** @lends module:deliteful/StarRating# */ {
 		/**

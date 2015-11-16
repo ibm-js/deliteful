@@ -22,7 +22,7 @@ define([
 		 * (see the `duration` property of `ToasterMessage`).
 		 *
 		 * @class module:deliteful/Toaster
-		 * @augments delite/Widget
+		 * @augments module:delite/Widget
 		 * @example
 		 *   <d-toaster id="t"></d-toaster>
 		 *   <d-button onclick="t.postMessage('button clicked', {duration: 1000})">...</d-button>

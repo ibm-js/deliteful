@@ -48,7 +48,7 @@ define([
 	 *  ViewStack node:  position, box-sizing, overflow-x
 	 *  ViewStack children:  position, box-sizing, width, height
 	 *
-	 * @example:
+	 * @example
 	 * <d-view-stack id="vs">
 	 *     <div id="childA">...</div>
 	 *     <div id="childB">...</div>

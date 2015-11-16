@@ -7,7 +7,7 @@ define([
 	/**
 	 * ViewIndicator widget. Indicates which view is currently visible in a ViewStack.
 	 *
-	 * @example:
+	 * @example
 	 * <d-view-stack id="vs">
 	 *     <div id="childA">...</div>
 	 *     <div id="childB">...</div>

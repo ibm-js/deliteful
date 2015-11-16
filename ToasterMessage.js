@@ -338,7 +338,7 @@ define([
 	 * with deliteful/Toaster.
 	 *
 	 * @class module:deliteful/ToasterMessage
-	 * @augments delite/Widget
+	 * @augments module:delite/Widget
 	 * @example
 	 *   var toaster = new Toaster();
 	 *   var message = new ToasterMessage({message: "hello, world!"});

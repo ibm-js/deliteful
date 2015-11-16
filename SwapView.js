@@ -9,7 +9,7 @@ define([
 	 * SwapView container widget. Extends ViewStack to let the user swap the visible child using a swipe gesture.
 	 * You can also use the Page Up / Down keyboard keys to go to the next/previous child.
 	 *
-	 * @example:
+	 * @example
 	 * <d-swap-view id="sv">
 	 *     <div id="childA">...</div>
 	 *     <div id="childB">...</div>

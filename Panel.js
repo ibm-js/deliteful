@@ -12,7 +12,7 @@ define(["dcl/dcl",
 	 *
 	 * @class module:deliteful/Panel
 	 * @augments module:delite/Container
-	 * @example:
+	 * @example
 	 * <d-panel id="panel" label="Title">
 	 *   <div>...</div>
 	 *   <div>...</div>

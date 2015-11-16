@@ -13,7 +13,7 @@ define([
 	 * The following example defines two screen classes: "phone" and "other" with a breakpoint at 500px. If the "phone"
 	 * class is active, the first child width is 100% and the second child is hidden. If the screen is larger than 500px
 	 * then the first child width is 20% and the second one fill the remaining space.
-	 * @example:
+	 * @example
 	 * <d-responsive-columns breakpoints="{phone: '500px', other: ''}">
 	 *     <div layout="{phone: '100%', other: '20%'}">...</div>
 	 *     <div layout="{phone: 'hidden', other: 'fill'}">...</div>

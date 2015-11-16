@@ -41,7 +41,7 @@ define([
 	 *
 	 * When a panel is open, it fills all the available space with its content.
 	 *
-	 * @example:
+	 * @example
 	 * <d-accordion id="accordion" selectedChildId="panel1">
 	 *     <d-panel id="panel1">...</d-panel>
 	 *     <d-panel id="panel2">...</d-panel>
