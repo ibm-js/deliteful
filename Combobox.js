@@ -613,7 +613,7 @@ define([
 						evt.stopPropagation();
 						evt.preventDefault();
 					}
-				} else if (evt.key === "Down" || evt.key === "Up" ||
+				} else if (evt.key === "ArrowDown" || evt.key === "ArrowUp" ||
 					evt.key === "PageDown" || evt.key === "PageUp" ||
 					evt.key === "Home" || evt.key === "End") {
 					if (this._useCenteredDropDown()) {

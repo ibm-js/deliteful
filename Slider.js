@@ -519,17 +519,17 @@ define([
 				case "End":
 					newValue = (e.target === this.handleMin) ? currentVal[1] : this.max;
 					break;
-				case "Right":
+				case "ArrowRight":
 					multiplier = -1;
 					/* falls through */
-				case "Left":
+				case "ArrowLeft":
 					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((this.flip && !this.vertical) ? this.step : -this.step);
 					break;
-				case "Down":
+				case "ArrowDown":
 					multiplier = -1;
 					/* falls through */
-				case "Up":
+				case "ArrowUp":
 					newValue = parseFloat(currentVal[idx]) +
 						multiplier * ((!this.flip || !this.vertical) ? this.step : -this.step);
 					break;

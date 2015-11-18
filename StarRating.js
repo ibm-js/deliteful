@@ -190,18 +190,18 @@ define([
 		},
 
 		_keyDownHandler: function (/*Event*/ event) {
-			var incrementArrow = this.effectiveDir === "ltr" ? "Right" : "Left",
-				decrementArrow = this.effectiveDir === "ltr" ? "Left" : "Right";
+			var incrementArrow = this.effectiveDir === "ltr" ? "ArrowRight" : "ArrowLeft",
+				decrementArrow = this.effectiveDir === "ltr" ? "ArrowLeft" : "ArrowRight";
 
 			switch (event.key) {
 			case incrementArrow:
-			case "Up":
+			case "ArrowUp":
 			case "Add":
 				event.preventDefault();
 				this._incrementValue();
 				break;
 			case decrementArrow:
-			case "Down":
+			case "ArrowDown":
 			case "Subtract":
 				event.preventDefault();
 				this._decrementValue();
