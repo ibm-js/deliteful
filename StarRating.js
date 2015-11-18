@@ -189,7 +189,7 @@ define([
 			this._removeEventsHandlers();
 		},
 
-		_keyDownHandler: function () {
+		_keyDownHandler: function (/*Event*/ event) {
 			var incrementArrow = this.effectiveDir === "ltr" ? "Right" : "Left",
 				decrementArrow = this.effectiveDir === "ltr" ? "Left" : "Right";
 
