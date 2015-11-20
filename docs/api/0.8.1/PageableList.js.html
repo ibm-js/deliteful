@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: deliteful/list/PageableList.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: deliteful/list/PageableList.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module deliteful/list/PageableList */
+define([
+	"dcl/dcl",
+	"delite/register",
+	"dojo/string",
+	"requirejs-dplugins/Promise!",
+	"requirejs-dplugins/jquery!attributes/classes",
+	"decor/sniff",
+	"./List",
+	"./Renderer",
+	"delite/handlebars!./List/_PageLoaderRenderer.html",
+	"requirejs-dplugins/i18n!./List/nls/Pageable"
+], function (dcl, register, string, Promise, $, has, List, Renderer, template, messages) {
+
+	/*
+	 * A clickable renderer that initiate the loading of a page in a pageable list.
+	 * It renders an item that has the following properties:
+	 * - loadMessage: the label to display when a page is not currently loading
+	 * - loadingMessage: the label to display when a page is loading
+	 */
+	var _PageLoaderRenderer = register("d-list-loader", [HTMLElement, Renderer], {
+		/*
+		 * The CSS class of the widget
+		 * @member {string}
+		 * @default "d-list-loader"
+		 */
+		baseClass: "d-list-loader",
+
+		/*
+		 * Indicates whether or not a page is currently loading.
+		 * @member {boolean}
+		 */
+		loading: false,
+
+		/*
+		 * HTML element that wraps a progress indicator and an optional label in the render node
+		 * @member {HTMLElement} _PageLoaderRenderer#_button
+		 * @private
+		 */
+
+		/*
+		 * A progress indicator to report that the loader is currently loading a page
+		 * @member {module:deliteful/ProgressIndicator} _PageLoaderRenderer#_progressIndicator
+		 * @private
+		 */
+
+		/*
+		 * An HTML element that displays a label for the loader
+		 * @member {HTMLElement} _PageLoaderRenderer#_label
+		 * @private
+		 */
+
+		/*
+		 * The list that the PageLoader loads data for
+		 * @member {module:deliteful/list/List} _PageLoaderRenderer#_list
+		 * @private
+		 */
+
+		//////////// Widget life cycle ///////////////////////////////////////
+
+		postRender: function () {
+			// summary:
+			//		set the click event handler
+			this.on("click", this._load.bind(this));
+		},
+
+		template: template,
+
+		//////////// Public methods ///////////////////////////////////////
+
+		/*
+		 * Executed before loading a page.
+		 * Callback to be implemented by user of the widget
+		 * @method _PageLoaderRenderer#beforeLoading
+		 * @abstract
+		 */
+
+		/*
+		 * Performs the actual loading of a page.
+		 * Callback to be implemented by user of the widget.
+		 * It MUST return a promise that is fulfilled when the load operation is finished.
+		 * @method _PageLoaderRenderer#performLoading
+		 * @abstract
+		 */
+
+		/*
+		 * Executed after loading a page.
+		 * Callback to be implemented by user of the widget
+		 * @method _PageLoaderRenderer#afterLoading
+		 * @abstract
+		 */
+
+		//////////// Private methods ///////////////////////////////////////
+
+		/*
+		 * Handle click events on the widget.
+		 * If a loading is already in progress, this method
+		 * return undefined. In the other case, it starts a loading
+		 * and returns a Promise that resolves when the loading
+		 * has completed.
+		 * @returns {Promise} or null
+		 * @private
+		 */
+		_load: function () {
+			if (this._list.hasAttribute("aria-busy")) { return; }
+			this.beforeLoading();
+			this.loading = true;
+			var self = this;
+			return new Promise(function (resolve, reject) {
+				// defer execution so that the new style / class is correctly applied on iOS
+				self.defer(function () {
+					self.performLoading().then(function () {
+						self.loading = false;
+						this.afterLoading();
+						resolve();
+					}.bind(this), function (error) {
+						self.loading = false;
+						this.afterLoading();
+						reject(error);
+						self._queryError(error);
+					});
+				});
+			});
+		}
+	});
+
+	/**
+	 * A widget that renders a scrollable list of items and provides paging.
+	 * 
+	 * This widget allows displaying the content of a list in pages of items instead of rendering
+	 * all items at once.
+	 * 
+	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/PageableList.md user documentation}
+	 * for more details.
+	 * 
+	 * @class module:deliteful/list/PageableList
+	 * @augments module:deliteful/list/List
+	 */
+	return register("d-pageable-list", [HTMLElement, List], /** @lends module:deliteful/list/PageableList# */ {
+
+		/**
+		 * if > 0, enable paging while defining the number of items to display per page.
+		 * @member {number}
+		 * @default 0
+		 */
+		pageLength: 0,
+
+		/**
+		 * The maximum number of pages to display at the same time. If a new page is loaded while
+		 * the maximum number of pages is already displayed, another page will be unloaded from the list
+		 * to make room for the new page.
+		 * @member {number}
+		 * @default 0
+		 */
+		maxPages: 0,
+
+		/**
+		 * The message displayed on the previous page loader when it can be clicked
+		 * to load the previous page. This message can contains placeholder for the
+		 * List attributes to be replaced by their runtime value. For example, the
+		 * message can include the value of the pageLength attribute by using the
+		 * placeholder `${pageLength}`.
+		 * @member {string}
+		 * @default localized version of "Click to load ${pageLength} more items"
+		 */
+		loadPreviousMessage: messages["default-load-message"],
+
+		/**
+		 * The message displayed on the next page loader when it can be clicked
+		 * to load the next page. This message can contains placeholder for the
+		 * List attributes to be replaced by their runtime value. For example, the
+		 * message can include the value of the pageLength attribute by using the
+		 * placeholder `${pageLength}`.
+		 * @member {string}
+		 * @default localized version of "Click to load ${pageLength} more items"
+		 */
+		loadNextMessage: messages["default-load-message"],
+
+		/**
+		 * Indicates whether or not to use auto paging. If true, automatically loads the next or previous page when
+		 * the scrolling reaches the bottom or the top of the list content.
+		 * @member {boolean}
+		 * @default false
+		 */
+		autoPaging: false,
+		_setAutoPagingAttr: function (value) {
+			this._set("autoPaging", value);
+			if (this._autoPagingHandle) {
+				this._autoPagingHandle.remove();
+				this._autoPagingHandle = null;
+			}
+			if (value) {
+				this._autoPagingHandle = this.on("scroll", this._scrollHandler.bind(this), this);
+			}
+		},
+
+		/**
+		 * Indicates whether or not to hide the content of the list when loading a new page.
+		 * If true, the content of the list is hidden by a loading panel (displaying a progress
+		 * indicator and an optional label defined with the property loadingMessage)
+		 * while its content is updated with a new page of data.
+		 * This attribute is ignored if autoPaging is true.
+		 * @member {boolean}
+		 * @default false
+		 */
+		hideOnPageLoad: false,
+
+		/**
+		 * The collection of items from which pages are extracted
+		 * @member {boolean} module:deliteful/list/Pageable#_collection
+		 * @private
+		 */
+		_collection: null,
+
+		/**
+		 * Handle for the auto paging scroll handler (Object with a remove method)
+		 * @member {module:deliteful/list/Pageable} module:deliteful/list/Pageable#_autoPagingHandle
+		 * @private
+		 */
+
+		/**
+		 * Spec of the range to use to load a page.
+		 * @member {Object} module:deliteful/list/Pageable#_rangeSpec
+		 * @private
+		 */
+
+		/**
+		 * The next page loader.
+		 * @member {_PageLoaderRenderer} module:deliteful/list/Pageable#_nextPageLoader
+		 * @private
+		 */
+
+		/**
+		 * The previous page loader.
+		 * @member {_PageLoaderRenderer} module:deliteful/list/Pageable#_previousPageLoader
+		 * @private
+		 */
+
+		/**
+		 * Wheter or not the list is currently scrolled at the top or the bottom
+		 * @member {boolean} module:deliteful/list/Pageable#_atExtremity
+		 * @private
+		 */
+
+		/**
+		 * One entry per page currently loaded. Each entry contains an array
+		 * of the ids of the items displayed in the page.
+		 * @member {Array[]} module:deliteful/list/Pageable#_idPages
+		 * @private
+		 */
+
+		/**
+		 * Index of the first item currently loaded.
+		 * @member {number}
+		 * @default -1
+		 * @private
+		 */
+		_firstLoaded: -1,
+
+		/**
+		 * Index of the last item currently loaded.
+		 * @member {number}
+		 * @default -1
+		 * @private
+		 */
+		_lastLoaded: -1,
+
+		//////////// delite/Store methods ///////////////////////////////////////
+
+		refreshRendering: function (props) {
+			if (this.pageLength > 0) {
+				if ("_collection" in props &amp;&amp; this._collection) {
+					// Initial loading of the list
+					if (this._dataLoaded) {
+						this._setBusy(true, true);
+						this._empty();
+						props.pageLength = true;
+					}
+					this._idPages = [];
+					this._loadNextPage().then(function () {
+						this._setBusy(false);
+						this._dataLoaded = true;
+					}.bind(this), function (error) {
+						this._setBusy(false);
+						this._queryError(error);
+					}.bind(this));
+				}
+				// Update page loader messages as they may depend on any property of the List
+				if (this._previousPageLoader) {
+					this._previousPageLoader.item = {
+						loadMessage: string.substitute(this.loadPreviousMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+					this._previousPageLoader.deliver();
+				}
+				if (this._nextPageLoader) {
+					this._nextPageLoader.item = {
+						loadMessage: string.substitute(this.loadNextMessage, this),
+						loadingMessage: this.loadingMessage
+					};
+					this._nextPageLoader.deliver();
+				}
+			}
+		},
+
+		processCollection: dcl.superCall(function (sup) {
+			return function (collection) {
+				if (this.pageLength === 0) {
+					sup.apply(this, arguments);
+				}
+				this._collection = collection;
+				if (this.pageLength !== 0) {
+					this.emit("query-success", { renderItems: this.renderItems, cancelable: false, bubbles: true });
+				}
+			};
+		}),
+
+		//////////// Private methods ///////////////////////////////////////
+
+		/**
+		 * Adds or removes the identity of an item in idPages
+		 * @param {boolean} add true to add, false to remove
+		 * @param {number} index Index of the item in the tracked collection
+		 * @param {Object} identity Identity to add (only if add is true)
+		 * @private
+		 */
+		_updateIdPages: function (add, index, identity) {
+			var pageFirstIndex = this._firstLoaded;
+			for (var pageIndex = 0; pageIndex &lt; this._idPages.length; pageIndex++) {
+				var pageLastIndex = pageFirstIndex + this._idPages[pageIndex].length - 1;
+				if (index >= pageFirstIndex &amp;&amp; index &lt;= pageLastIndex) {
+					if (add) {
+						this._idPages[pageIndex].splice(index - pageFirstIndex, 0, identity);
+					} else {
+						this._idPages[pageIndex].splice(index - pageFirstIndex, 1);
+					}
+					break;
+				} else {
+					pageFirstIndex += this._idPages[pageIndex].length;
+				}
+			}
+		},
+
+		/**
+		 * Loads the next page of items if available.
+		 * @private
+		 */
+		_loadNextPage: function () {
+			if (!this._rangeSpec) {
+				this._rangeSpec = {
+					start: 0,
+					count: this.pageLength
+				};
+			}
+			if (this._nextPageLoader) {
+				this._rangeSpec.start = this._lastLoaded + 1;
+				this._rangeSpec.count = this.pageLength;
+			}
+			var results = this._collection.fetchRange({start: this._rangeSpec.start,
+				end: this._rangeSpec.start + this._rangeSpec.count});
+			return results.then(function (items) {
+				var page = items.map(function (item) {
+					return this.itemToRenderItem(item);
+				}, this);
+				if (page.length) {
+					var idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					if (this._firstLoaded &lt; 0) {
+						this._firstLoaded = this._rangeSpec.start;
+					}
+					this._lastLoaded = this._rangeSpec.start + idPage.length - 1;
+					this._idPages.push(idPage);
+				}
+				this._nextPageReadyHandler(page);
+				// TODO: May need to force repaint here,
+				// at least on iOS (iPad 4, iOS 7.0.6). TEST ON OTHER DEVICES ???!!!
+			}.bind(this));
+		},
+
+		/**
+		 * Loads the previous page of items if available.
+		 * @private
+		 */
+		_loadPreviousPage: function () {
+			this._rangeSpec.count = this.pageLength;
+			this._rangeSpec.start = this._firstLoaded - this.pageLength;
+			if (this._rangeSpec.start &lt; 0) {
+				this._rangeSpec.count += this._rangeSpec.start;
+				this._rangeSpec.start = 0;
+			}
+			var results = this._collection.fetchRange({start: this._rangeSpec.start,
+				end: this._rangeSpec.start + this._rangeSpec.count});
+			return results.then(function (items) {
+				var page = items.map(function (item) {
+					return this.itemToRenderItem(item);
+				}, this);
+				if (page.length) {
+					var i;
+					var idPage = page.map(function (item) {
+						return this.getIdentity(item);
+					}, this);
+					var previousPageIds = this._idPages[0];
+					for (i = 0; i &lt; idPage.length; i++) {
+						if (previousPageIds.indexOf(idPage[i]) >= 0) {
+							// remove the duplicate (happens if an element was deleted before the first one displayed)
+							page.splice(i, 1);
+							idPage.splice(i, 1);
+							i--;
+						}
+					}
+					this._firstLoaded = this._rangeSpec.start;
+					this._idPages.unshift(idPage);
+				}
+				this._previousPageReadyHandler(page);
+			}.bind(this));
+		},
+
+		/**
+		 * Unloads a page.
+		 * @param {boolean} first true to unload the first page, false to unload the last one.
+		 * @private
+		 */
+		_unloadPage: function (first) {
+			var idPage, i;
+			if (first) {
+				idPage = this._idPages.shift();
+				for (i = 0; i &lt; idPage.length; i++) {
+					this._removeRenderer(this.getItemRendererByIndex(0), true);
+					this._firstLoaded++;
+				}
+				if (idPage.length &amp;&amp; !this._previousPageLoader) {
+					this._createPreviousPageLoader();
+				}
+				// if the next page is also empty, unload it too
+				if (this._idPages.length &amp;&amp; !this._idPages[0].length) {
+					this._unloadPage(first);
+				}
+			} else {
+				idPage = this._idPages.pop();
+				for (i = 0; i &lt; idPage.length; i++) {
+					this._removeRenderer(this.getRendererByItemId(idPage[i]), true);
+					this._lastLoaded--;
+				}
+				if (idPage.length &amp;&amp; !this._nextPageLoader) {
+					this._createNextPageLoader();
+				}
+				// if the previous page is also empty, unload it too
+				if (this._idPages.length &amp;&amp; !this._idPages[this._idPages.length - 1].length) {
+					this._unloadPage(first);
+				}
+			}
+		},
+
+		/**
+		 * Function to call when the previous page has been loaded.
+		 * @param {Object[]} items the items in the previous page.
+		 * @private
+		 */
+		_previousPageReadyHandler: function (items) {
+			var renderer = this._getFirstVisibleRenderer();
+			var nextRenderer = renderer.nextElementSibling;
+			if (this.navigatedDescendant) {
+				if (renderer &amp;&amp; this._previousPageLoader &amp;&amp; this._previousPageLoader.loading) {
+					this.navigateTo(renderer.renderNode);
+				}
+			}
+			this._renderNewItems(items, true);
+			if (this.maxPages &amp;&amp; this._idPages.length > this.maxPages) {
+				this._unloadPage(false);
+			}
+			if (this._firstLoaded === 0) {
+				// no more previous page
+				this._previousPageLoader.destroy();
+				this._previousPageLoader = null;
+			} else {
+				this._previousPageLoader.placeAt(this, "first");
+			}
+			// the renderer may have been destroyed and replaced by another one (categorized lists)
+			if (renderer._destroyed) {
+				renderer = nextRenderer;
+			}
+			if (renderer) {
+				var previous = renderer.previousElementSibling;
+				if (previous &amp;&amp; previous.renderNode) {
+					var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
+					this.navigateTo(previous.renderNode);
+					// scroll the focused node to the top of the screen.
+					// To avoid flickering, we do not wait for a focus event
+					// to confirm that the child has indeed been focused.
+					this.scrollBy({y: this.getTopDistance(previous)});
+					if (currentActiveElement) {
+						currentActiveElement.focus();
+					}
+				}
+			}
+		},
+
+		/*jshint maxcomplexity: 11*/
+		/**
+		 * Function to call when the next page has been loaded.
+		 * @param {Object[]} items the items in the next page.
+		 * @private
+		 */
+		_nextPageReadyHandler: function (items) {
+			var renderer = this._getLastVisibleRenderer();
+			if (this.navigatedDescendant) {
+				if (renderer) {
+					this.navigateTo(renderer.renderNode);
+				}
+			}
+			this._renderNewItems(items, false);
+			if (this.maxPages &amp;&amp; this._idPages.length > this.maxPages) {
+				this._unloadPage(true);
+			}
+			if (this._nextPageLoader) {
+				if (items.length !== this._rangeSpec.count) {
+					// no more next page
+					this._nextPageLoader.destroy();
+					this._nextPageLoader = null;
+				} else {
+					this._nextPageLoader.placeAt(this);
+				}
+			} else {
+				if (items.length === this._rangeSpec.count) {
+					this._createNextPageLoader();
+				}
+			}
+			if (renderer) {
+				var next = renderer.nextElementSibling;
+				if (next &amp;&amp; next.renderNode) {
+					var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
+					this.navigateTo(next.renderNode);
+					// scroll the focused node to the bottom of the screen.
+					// To avoid flickering, we do not wait for a focus event
+					// to confirm that the child has indeed been focused.
+					this.scrollBy({y: this.getBottomDistance(next)});
+					if (currentActiveElement) {
+						currentActiveElement.focus();
+					}
+				}
+			}
+		},
+		/*jshint maxcomplexity: 10*/
+
+		/**
+		 * Returns the last renderer that is visible in the scroll viewport.
+		 * @private
+		 */
+		_getLastVisibleRenderer: function () {
+			var renderer = this._getLastRenderer();
+			while (renderer) {
+				if (this.getBottomDistance(renderer) &lt;= 0) {
+					break;
+				}
+				renderer = renderer.previousElementSibling;
+			}
+			return renderer;
+		},
+
+		/**
+		 * Returns the first renderer that is visible in the scroll viewport.
+		 * @private
+		 */
+		_getFirstVisibleRenderer: function () {
+			var renderer = this._getFirstRenderer();
+			while (renderer) {
+				if (this.getTopDistance(renderer) >= 0) {
+					break;
+				}
+				renderer = renderer.nextElementSibling;
+			}
+			return renderer;
+		},
+
+		//////////// Event handlers ///////////////////////////////////////
+
+		/**
+		 * Handler for scroll events (auto paging).
+		 * @private
+		 */
+		_scrollHandler: function () {
+			if (this.isTopScroll()) {
+				if (!this._atExtremity &amp;&amp; this._previousPageLoader) {
+					this._previousPageLoader._load();
+				}
+				this._atExtremity = true;
+			} else if (this.isBottomScroll()) {
+				if (!this._atExtremity &amp;&amp; this._nextPageLoader) {
+					this._nextPageLoader._load();
+				}
+				this._atExtremity = true;
+			} else {
+				this._atExtremity = false;
+			}
+		},
+
+		//////////// Page loaders creation ///////////////////////////////////////
+
+		/**
+		 * Creates the next page loader widget
+		 * @private
+		 */
+		_createNextPageLoader: function () {
+			/* jshint newcap: false*/
+			this._nextPageLoader = new _PageLoaderRenderer({
+				item: {
+					loadMessage: string.substitute(this.loadNextMessage, this),
+					loadingMessage: this.loadingMessage
+				},
+				beforeLoading: function () {
+					var showLoadingPanel = this.hideOnPageLoad &amp;&amp; !this.autoPaging;
+					this._setBusy(true, showLoadingPanel);
+				}.bind(this),
+				afterLoading: function () {
+					this._setBusy(false);
+				}.bind(this),
+				performLoading: function () {
+					return this._loadNextPage();
+				}.bind(this),
+				_list: this
+			});
+			this._nextPageLoader.placeAt(this);
+		},
+
+		/**
+		 * Creates the previous page loader widget
+		 * @private
+		 */
+		_createPreviousPageLoader: function () {
+			/* jshint newcap: false*/
+			this._previousPageLoader = new _PageLoaderRenderer({
+				item: {
+					loadMessage: string.substitute(this.loadPreviousMessage, this),
+					loadingMessage: this.loadingMessage
+				},
+				beforeLoading: function () {
+					var showLoadingPanel = this.hideOnPageLoad &amp;&amp; !this.autoPaging;
+					this._setBusy(true, showLoadingPanel);
+				}.bind(this),
+				afterLoading: function () {
+					this._setBusy(false);
+				}.bind(this),
+				performLoading: function () {
+					return this._loadPreviousPage();
+				}.bind(this),
+				_list: this
+			});
+			this._previousPageLoader.placeAt(this, "first");
+		},
+
+		//////////// List methods overriding ///////////////////////////////////////
+
+		itemRemoved: dcl.superCall(function (sup) {
+			return function (index) {
+				if (this.pageLength > 0) {
+					if (this._firstLoaded &lt;= index &amp;&amp; index &lt;= this._lastLoaded) {
+						// Remove the item id in _idPages
+						this._updateIdPages(false, index);
+						sup.call(this, index - this._firstLoaded);
+					}
+					if (index &lt; this._firstLoaded) {
+						this._firstLoaded--;
+					}
+					if (index &lt;= this._lastLoaded) {
+						this._lastLoaded--;
+					}
+					if (this._firstLoaded === 0 &amp;&amp; this._previousPageLoader) {
+						this._previousPageLoader.destroy();
+						this._previousPageLoader = null;
+					}
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+
+		itemAdded: dcl.superCall(function (sup) {
+			return function (index, item) {
+				if (this.pageLength > 0) {
+					if (this._firstLoaded &lt; index &amp;&amp; index &lt;= this._lastLoaded) {
+						// Add the item id in _idPages
+						this._updateIdPages(true, index, this.getIdentity(item));
+						this._lastLoaded++;
+						sup.call(this, index - this._firstLoaded, item);
+					} else if (index &lt;= this._firstLoaded) {
+						this._firstLoaded++;
+						this._lastLoaded++;
+						if (!this._previousPageLoader) {
+							this._createPreviousPageLoader();
+						}
+					} else if (index > this._lastLoaded) {
+						if (!this._nextPageLoader) {
+							this._createNextPageLoader();
+						}
+					}
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+
+		itemUpdated: dcl.superCall(function (sup) {
+			return function (index, item) {
+				if (this.pageLength > 0) {
+					if (this._firstLoaded &lt; index &amp;&amp; index &lt;= this._lastLoaded) {
+						sup.call(this, index - this._firstLoaded, item);
+					}
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+
+		_empty: dcl.superCall(function (sup) {
+			return function () {
+				sup.call(this, arguments);
+				if (this.pageLength > 0) {
+					this._nextPageLoader = null;
+					this._previousPageLoader = null;
+					this._rangeSpec = null;
+					this._untrack();
+					this._firstLoaded = this._lastLoaded = -1;
+				}
+			};
+		}),
+
+		_getNextRenderer: dcl.superCall(function (sup) {
+			//	make sure that no page loader is returned
+			return function (renderer, /*jshint unused:vars*/dir) {
+				var value = sup.apply(this, arguments);
+				if ((this._nextPageLoader &amp;&amp; value === this._nextPageLoader)
+					|| (this._previousPageLoader &amp;&amp; value === this._previousPageLoader)) {
+					value = null;
+				}
+				return value;
+			};
+		}),
+
+		_spaceKeydownHandler: dcl.superCall(function (sup) {
+			//	Handle action key on page loaders
+			return function (event) {
+				if (this._nextPageLoader &amp;&amp; this._nextPageLoader.contains(event.target)) {
+					event.preventDefault();
+					this._nextPageLoader._load();
+				} else if (this._previousPageLoader &amp;&amp; this._previousPageLoader.contains(event.target)) {
+					event.preventDefault();
+					this._previousPageLoader._load();
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		}),
+		
+		handleSelection: dcl.superCall(function (sup) {
+			// page loader should never be selected when clicked
+			return function (event) {
+				var renderer = this.getEnclosingRenderer(event.target);
+				if (renderer === this._nextPageLoader || renderer === this._previousPageLoader) {
+					return;
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		})
+	});
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 20 2015 11:50:30 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

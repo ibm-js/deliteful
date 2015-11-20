@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: delite/Viewport.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <style>
+        [inherited] {
+            display: none;
+        }
+
+        [inherited-show] {
+            display: block;
+        }
+    </style>
+    <script>
+        function toggleInherited(event) {
+            var shouldShow = event.type !== "DOMContentLoaded" && !document.querySelector("[inherited][inherited-show]");
+            Array.prototype.forEach.call(document.querySelectorAll("dl"), function (elem) {
+                var inherited = elem.querySelectorAll("[inherited]");
+                Array.prototype.forEach.call(inherited, function (elem) {
+                    if (shouldShow) {
+                        elem.setAttribute("inherited-show", "");
+                    } else {
+                        elem.removeAttribute("inherited-show");
+                    }
+                });
+                if (inherited.length > 0) {
+                    var header = elem.previousElementSibling;
+                    if (header.tagName === "H3") {
+                        header.style.display = parseInt(document.defaultView.getComputedStyle(elem).height) > 0 ? "" : "none";
+                    }
+                }
+            });
+            if (event.type !== "DOMContentLoaded") {
+                event.target.innerHTML = (shouldShow ? "Hide" : "Show") + " inherited";
+            } else if (!document.querySelector("[inherited]")) {
+                var toggleLink = document.getElementById("toggleinherited");
+                if (toggleLink) {
+                    toggleLink.style.display = "none";
+                }
+            }
+        }
+        window.addEventListener("DOMContentLoaded", toggleInherited);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: delite/Viewport.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Utility singleton to watch for viewport resizes, avoiding duplicate notifications
+ * which can lead to infinite loops.
+ *
+ * Usage:
+ * ```
+ * Viewport.on("resize", myCallback)
+ * Viewport.on("scroll", myOtherCallback)
+ * ```
+ * 
+ * myCallback() is called without arguments in case it's Widget.resize(),
+ * which would interpret the argument as the size to make the widget.
+ *
+ * @module delite/Viewport
+ */
+define([
+	"decor/Evented",
+	"decor/sniff",	// has("ios")
+	"requirejs-domready/domReady!"
+], function (Evented, has) {
+	var Viewport = new Evented();
+
+	// Get the size of the viewport without size adjustment needed for iOS soft keyboard.
+	// On android though, this returns the size of the visible area not including the keyboard.
+	function getBox() {
+		if (has("ios") &lt; 8) {
+			// Workaround iOS &lt; 8 problem where window.innerHeight is too low when the document is scrolled so
+			// much that the document ends before the bottom of the keyboard.  Workaround not needed and doesn't work,
+			// on iOS 8.
+			var bcr = document.body.getBoundingClientRect();
+			return {
+				w: Math.max(bcr.width, window.innerWidth),
+				h: Math.max(bcr.height, window.innerHeight),
+				t: window.pageYOffset,
+				l: window.pageXOffset
+			};
+		} else {
+			return {
+				w: window.innerWidth,
+				h: window.innerHeight,
+				t: window.pageYOffset,
+				l: window.pageXOffset
+			};
+		}
+	}
+
+	/**
+	 * Get the size of the viewport, or on mobile devices, the part of the viewport not obscured by the
+	 * virtual keyboard.
+	 * @function module:delite/Viewport.getEffectiveBox
+	 */
+	Viewport.getEffectiveBox = function () {
+		/* jshint maxcomplexity:12 */
+
+		var box = getBox();
+
+		// Account for iOS virtual keyboard, if it's being shown.  Unfortunately no direct way to check or measure.
+		var focusedNode = document.activeElement,
+			tag = focusedNode &amp;&amp; focusedNode.tagName &amp;&amp; focusedNode.tagName.toLowerCase();
+		if (has("ios") &amp;&amp; focusedNode &amp;&amp; !focusedNode.readOnly &amp;&amp; (tag === "textarea" || (tag === "input" &amp;&amp;
+			/^(color|email|number|password|search|tel|text|url)$/.test(focusedNode.type)))) {
+
+			// Box represents the size of the viewport.  Some of the viewport is likely covered by the keyboard.
+			// Estimate height of visible viewport assuming viewport goes to bottom of screen,
+			// but is covered by keyboard.
+			
+			// By my measurements the effective viewport is the following size (compared to full viewport:
+			// Portrait / landscape / window.screen.height:
+			// iPhone 6 / iOS 8: 54% / 26% / 667
+			// iPhone 5s / iOS 8: 53% / 27% / 568
+			// iPhone 5s / iOS 7: 53% / 19% / 568
+			// iPhone 5 / iOS 8: 52% / 27% / 568
+			// iPhone 4s / iOS 7: 41% / 19% / 480
+			// iPad 2 / iOS 7.1: 66% / 41%
+			// iPhone 3s / iOS6: 43% / 29% (but w/hidden address bar because it hides all the time)
+
+			if (has("ipad")) {
+				// Numbers for iPad 2, hopefully it works for other iPads (including iPad mini) too.
+				box.h *= (window.orientation === 0 || window.orientation === 180 ? 0.65 : 0.38);
+			} else {
+				// iPhone varies a lot by model, this should estimate the available space conservatively
+				if (window.orientation === 0 || window.orientation === 180) {
+					// portrait
+					box.h *= (window.screen.height > 500 ? 0.54 : 0.42);
+				} else {
+					// landscape
+					box.h *= (window.screen.height > 500 &amp;&amp; has("ios") >= 8 ? 0.26 : 0.19);
+				}
+			}
+
+			// Account for space taken by auto-completion suggestions.
+			if (has("ios") >= 8 &amp;&amp;
+				(!focusedNode.hasAttribute("autocorrect") || focusedNode.getAttribute("autocorrect") === "on") &amp;&amp;
+				/^(color|number|search|tel|text)$/.test(focusedNode.type)) {
+				box.h -= 40;
+			}
+		}
+
+		return box;
+	};
+
+	var oldEffectiveSize = Viewport.getEffectiveBox(),
+		oldEffectiveScroll = oldEffectiveSize;
+
+	function checkForResize() {
+		var newBox = Viewport.getEffectiveBox();
+		if (newBox.h !== oldEffectiveSize.h || newBox.w !== oldEffectiveSize.w) {
+			oldEffectiveSize = newBox;
+			Viewport.emit("resize", newBox);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	function checkForScroll() {
+		var newBox = Viewport.getEffectiveBox();
+		if (newBox.t !== oldEffectiveScroll.t || newBox.l !== oldEffectiveScroll.l) {
+			oldEffectiveScroll = newBox;
+			Viewport.emit("scroll", newBox);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// Poll for viewport resizes due to rotation, browser window size change, or the virtual keyboard
+	// popping up/down.
+	function poll() {
+		var resized = checkForResize(),
+			scrolled = checkForScroll();
+		setTimeout(poll, resized || scrolled ? 10 : 50);
+	}
+	poll();
+
+	return Viewport;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="deliteful/Accordion.html">deliteful/Accordion</a></li><li><a href="deliteful/Button.html">deliteful/Button</a></li><li><a href="deliteful/channelBreakpoints.html">deliteful/channelBreakpoints</a></li><li><a href="deliteful/Checkbox.html">deliteful/Checkbox</a></li><li><a href="deliteful/Combobox.html">deliteful/Combobox</a></li><li><a href="deliteful/Combobox/ComboPopup.html">deliteful/Combobox/ComboPopup</a></li><li><a href="deliteful/features.html">deliteful/features</a></li><li><a href="deliteful/LinearLayout.html">deliteful/LinearLayout</a></li><li><a href="deliteful/list/CategoryRenderer.html">deliteful/list/CategoryRenderer</a></li><li><a href="deliteful/list/ItemRenderer.html">deliteful/list/ItemRenderer</a></li><li><a href="deliteful/list/List.html">deliteful/list/List</a></li><li><a href="deliteful/list/PageableList.html">deliteful/list/PageableList</a></li><li><a href="deliteful/list/Renderer.html">deliteful/list/Renderer</a></li><li><a href="deliteful/Panel.html">deliteful/Panel</a></li><li><a href="deliteful/ProgressBar.html">deliteful/ProgressBar</a></li><li><a href="deliteful/ProgressIndicator.html">deliteful/ProgressIndicator</a></li><li><a href="deliteful/RadioButton.html">deliteful/RadioButton</a></li><li><a href="deliteful/ResponsiveColumns.html">deliteful/ResponsiveColumns</a></li><li><a href="deliteful/ScrollableContainer.html">deliteful/ScrollableContainer</a></li><li><a href="deliteful/Select.html">deliteful/Select</a></li><li><a href="deliteful/SidePane.html">deliteful/SidePane</a></li><li><a href="deliteful/Slider.html">deliteful/Slider</a></li><li><a href="deliteful/StarRating.html">deliteful/StarRating</a></li><li><a href="deliteful/SwapView.html">deliteful/SwapView</a></li><li><a href="deliteful/Switch.html">deliteful/Switch</a></li><li><a href="deliteful/Toaster.html">deliteful/Toaster</a></li><li><a href="deliteful/ToasterMessage.html">deliteful/ToasterMessage</a></li><li><a href="deliteful/Toggle.html">deliteful/Toggle</a></li><li><a href="deliteful/ToggleButton.html">deliteful/ToggleButton</a></li><li><a href="deliteful/ViewIndicator.html">deliteful/ViewIndicator</a></li><li><a href="deliteful/ViewStack.html">deliteful/ViewStack</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha7</a> on Fri Nov 20 2015 11:50:30 GMT+0100 (Romance Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
