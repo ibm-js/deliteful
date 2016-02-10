@@ -223,6 +223,10 @@ define([
 		 * @private
 		 */
 
+		createdCallback: function () {
+			this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
+		},
+
 		render: function () {
 			// Aria attributes
 			var currentRole = this.getAttribute("role");
@@ -235,14 +239,11 @@ define([
 			this.setAttribute("aria-readonly", "true");
 		},
 
-		attachedCallback: dcl.superCall(function (sup) {
+		queryStoreAndInitItems: dcl.superCall(function (sup) {
 			return function () {
-				//	Using dcl.superCall() to break the default dcl.chainAfter() chaining
-				//  so that this code runs before StoreMap.attachedCallback()
-				// search for custom elements to populate the store
+				// Display loading icon.  It's removed in initItems(), after the query completes.
 				this._setBusy(true, true);
-				this.on("query-error", function () { this._setBusy(false, true); }.bind(this));
-				sup.call(this);
+				sup.apply(this, arguments);
 			};
 		}),
 

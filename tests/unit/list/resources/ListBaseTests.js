@@ -273,6 +273,26 @@ define([
 					}
 					return def;
 				},
+				"detach and reattach": function () {
+					var list = this.parent.list;
+
+					// Test that detaching and reattaching doesn't leave the list in a strange state.
+					// Note that we aren't testing what happens if items are added/removed from the store
+					// while the list is detached.  That likely doesn't work.
+					list.parentNode.removeChild(list);
+					document.body.appendChild(list);
+					assert.isFalse(list.hasAttribute("aria-busy"), "no aria-busy attr #1");
+
+					// Same test but with delays
+					var def = this.async(1000);
+					list.parentNode.removeChild(list);
+					setTimeout(def.rejectOnError(function () {
+						document.body.appendChild(list);
+						setTimeout(def.callback(function () {
+							assert.isFalse(list.hasAttribute("aria-busy"), "no aria-busy attr #2");
+						}), 10);
+					}), 10);
+				},
 				teardown : function () {
 					this.list.destroy();
 					this.list = null;
