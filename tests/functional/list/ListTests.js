@@ -39,47 +39,36 @@ define(["intern",
 	registerSuite({
 		name: "List tests",
 		"list-prog-1.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-1.html", "list-prog-1", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-2.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-2.html", "list-prog-2", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-3.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-3.html", "list-prog-3", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-4.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-4.html", "list-prog-4", 100, 0, "d-list-item-renderer");
 		},
 		"list-prog-5.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-prog-5.html", "list-prog-5", 100, 0, "d-list-item-renderer");
 		},
 		"list-mark-1.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-1.html", "list-mark-1", 10, 0, "d-list-item-renderer");
 		},
 		"list-mark-2.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-2.html", "list-mark-2", 10, 0, "d-list-item-renderer");
 		},
 		"list-mark-3.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-3.html", "list-mark-3", 10, 2, "d-list-item-renderer");
 		},
 		"list-mark-4.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-mark-4.html", "list-mark-4", 10, 0, "d-list-item-renderer");
 		},
 		"list-cust-1.html": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return basicTest(this.remote, "./list-cust-1.html", "list-cust-1", 40, 0, "d-customnav-item");
 		},
 		"selectionMode 'none'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-3";
 			return remote
@@ -103,7 +92,6 @@ define(["intern",
 				.end();
 		},
 		"selectionMode 'multiple'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
@@ -154,7 +142,6 @@ define(["intern",
 				.end();
 		},
 		"selectionMode 'single'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
@@ -205,7 +192,6 @@ define(["intern",
 				.end();
 		},
 		"selectionMode 'radio'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-5";
 			return remote
@@ -251,7 +237,6 @@ define(["intern",
 				.end();
 		},
 		"keyboard navigation with default renderers": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -345,7 +330,6 @@ define(["intern",
 			.end();
 		},
 		"keyboard navigation with custom renderers": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -485,7 +469,6 @@ define(["intern",
 			.end();
 		},
 		"keyboard multiple selection": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -569,7 +552,6 @@ define(["intern",
 			.end();
 		},
 		"keyboard single selection": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -654,7 +636,6 @@ define(["intern",
 			.end();
 		},
 		"keyboard radio selection": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -699,7 +680,6 @@ define(["intern",
 			.end();
 		},
 		"keyboard search": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -752,7 +732,6 @@ define(["intern",
 			.end();
 		},
 		"custom keyboard navigation": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");

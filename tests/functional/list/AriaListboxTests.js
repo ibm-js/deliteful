@@ -8,7 +8,6 @@ define(["intern",
 	registerSuite({
 		name: "AriaListbox tests",
 		"selectionMode 'multiple'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-1";
 			return remote
@@ -68,7 +67,6 @@ define(["intern",
 			});
 		},
 		"selectionMode 'single'": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "list-mark-2";
 			return remote
@@ -122,7 +120,6 @@ define(["intern",
 			});
 		},
 		"keyboard navigation with default renderers": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -198,7 +195,6 @@ define(["intern",
 			});
 		},
 		"keyboard navigation with categorized items": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -248,7 +244,6 @@ define(["intern",
 		},
 		// TODO: ADD A TEST: CLICKING ON A CATEGORY HEADER (see https://github.com/ibm-js/delite/issues/229)
 		"keyboard multiple selection": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -295,7 +290,6 @@ define(["intern",
 			});
 		},
 		"keyboard single selection": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -401,7 +395,6 @@ define(["intern",
 			});
 		},
 		"keyboard search": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");

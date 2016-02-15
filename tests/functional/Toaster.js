@@ -163,7 +163,6 @@ define(["intern",
 						intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
 		"Check Aria/initial nb of messages/posting": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return checkAriaAttr(remote, "default")
 				// Check initial rating
@@ -182,7 +181,6 @@ define(["intern",
 				});
 		},
 		"Check toaster stacking permanent messages": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
 				/*jshint -W061 */
@@ -271,7 +269,6 @@ define(["intern",
 //				.end();
 //		},
 		"Check message duration": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote
 				/*jshint -W061 */
@@ -290,7 +287,6 @@ define(["intern",
 				.end();
 		},
 		"Check message types": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 
 			function checkType(remote, action) {
@@ -326,7 +322,6 @@ define(["intern",
 				.end();
 		},
 		"Check visibility on hover" : function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136

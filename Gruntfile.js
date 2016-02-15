@@ -15,9 +15,9 @@ module.exports = function (grunt) {
 		},
 
 		// Task for compiling less files into CSS files
-		less : {
+		less: {
 			// Compile less code for each widget
-			widgets : {
+			widgets: {
 				files: [
 					{
 						expand: true,
@@ -48,70 +48,70 @@ module.exports = function (grunt) {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"local-android": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.android",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"local-ios": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.ios",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			remote: {
 				options: {
 					runType: "runner",
 					config: "tests/intern",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			browserstack: {
 				options: {
 					runType: "runner",
 					config: "tests/intern.browserstack",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"local-bidi": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.bidi",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"local-android-bidi": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.android.bidi",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"local.ios.bidi": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.local.ios.bidi",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"remote-bidi": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.bidi",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			},
 			"browserstack-bidi": {
 				options: {
 					runType: "runner",
 					config: "tests/intern.browserstack.bidi",
-					reporters: [] // pass :runner to avoid logging STARTED & SKIPPED
+					reporters: ["Runner"]
 				}
 			}
 		},
@@ -182,8 +182,6 @@ module.exports = function (grunt) {
 		"grunt test:local-android\n" +
 		"grunt test:local-ios\n" +
 		"grunt test:remote\n\n" +
-		"To override the default reporter 'customRunner' with the 'runner' reporter pass the runner flag e.g. \n" +
-		"grunt test:local:runner\n" +
 		"Add any optional reporters via a flag e.g. \n" +
 		"grunt test:local:console\n" +
 		"grunt test:local:lcovhtml\n" +
@@ -202,16 +200,8 @@ module.exports = function (grunt) {
 			addReporter("lcovhtml");
 		}
 
-		if (this.flags.runner) {
-			addReporter("runner");
-		}
-
 		if (this.flags.console) {
 			addReporter("console");
-		}
-
-		if (!this.flags.runner || this.flags.customRunner) {
-			addReporter("deliteful/tests/customRunner");
 		}
 
 		grunt.task.run("intern:" + target);

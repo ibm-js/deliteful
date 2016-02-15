@@ -127,7 +127,6 @@ define([
 	registerSuite({
 		name: "StarRating tests",
 		"read only ltr": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, widgetId = "star";
 			return remote
 				.get(require.toUrl("./StarRating.html"))
@@ -167,28 +166,24 @@ define([
 				});
 		},
 		"editable ltr": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/iOS/.test(this.remote.environmentType.browserName)) {
 				return this.skip("Value not being updated on click on iOS 8.1");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar1", false, true, 0);
 		},
 		"editable half values ltr": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/iOS/.test(this.remote.environmentType.browserName)) {
 				return this.skip("Value not being updated on click on iOS 8.1");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar2", true, true, 0);
 		},
 		"editable half values no zero setting ltr": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/iOS/.test(this.remote.environmentType.browserName)) {
 				return this.skip("Value not being updated on click on iOS 8.1");
 			}
 			return defaultEditableRatingTest(this.remote, "editablestar5", true, false, 0.5);
 		},
 		"editable programmatic onchange ltr": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, id = "editablestar6";
 			if (/iOS/.test(remote.environmentType.browserName)) {
 				return this.skip();
@@ -237,7 +232,6 @@ define([
 					.end();
 		},
 		"default": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, id = "defaultstar";
 			return remote
 			.get(require.toUrl("./StarRating.html"))
@@ -248,7 +242,6 @@ define([
 			});
 		},
 		"tab order": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -314,7 +307,6 @@ define([
 			});
 		},
 		"disabled": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote, id = "starrating3";
 			return remote
 			.get(require.toUrl("./StarRating-form.html"))
@@ -325,7 +317,6 @@ define([
 			});
 		},
 		"form back button": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// Safari driver does not support the back method
 			// see https://code.google.com/p/selenium/issues/detail?id=3771
@@ -369,7 +360,6 @@ define([
 			});
 		},
 		"form values": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/iOS/.test(this.remote.environmentType.browserName)) {
 				return this.skip("Value not being updated on click on iOS 8.1");
 			}

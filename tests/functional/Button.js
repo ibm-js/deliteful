@@ -18,7 +18,6 @@ define([
 		name: "Button - functional",
 
 		"Button behavior": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadFile(remote, "./Button.html")
 				// default click action
@@ -40,7 +39,6 @@ define([
 		},
 
 		"Button Key nav": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
@@ -74,10 +72,9 @@ define([
 		},
 
 		"Button Form": function () {
-				//
-				// Form tests
-				//
-			this.timeout = intern.config.TEST_TIMEOUT;
+			//
+			// Form tests
+			//
 			var remote = this.remote;
 			if (/selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip();

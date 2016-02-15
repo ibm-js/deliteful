@@ -10,12 +10,10 @@ define(["intern",
 	registerSuite({
 		name: "SidePane",
 		"init": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./SidePane.html").sleep(50);
 		},
 		"test initial state": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var element = remote.findById("sp");
 			var test = element.getAttribute("class").then(function (classString) {
@@ -25,23 +23,20 @@ define(["intern",
 			test = test.then(isVisible(element, false));
 
 			return test;
-		// Interactions tests are broken on Mac and iOS simulators. See #25
 		},
 		"test opening": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				return this.skip();
+				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}
 			return this.remote.findById("showButton").click().end()
 				.sleep(800)
 				.then(isVisible(this.remote.findById("sp"), true));
 		},
 		"test closing": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				return this.skip();
+				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}
 			return this.remote.findById("hideButton").click().end()
 				.sleep(800)
@@ -50,7 +45,7 @@ define(["intern",
 		"test swipe closing": function () {
 			if (/safari|iOS/.test(this.remote.environmentType.browserName)
 				|| this.remote.environmentType.safari) {
-				return this.skip();
+				return this.skip("Interactions tests are broken on Mac and iOS simulators. See #25");
 			}
 			return this.remote.findById("showButton").click().end().sleep(800)
 				.findById("page").moveMouseTo(30, 300).pressMouseButton().moveMouseTo(10, 300)

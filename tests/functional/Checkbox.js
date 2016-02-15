@@ -18,7 +18,6 @@ define([
 		name: "Checkbox - functional",
 
 		"Checkbox behavior": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadFile(remote, "./Checkbox.html")
 				// default click action
@@ -40,7 +39,6 @@ define([
 		},
 
 		"Checkbox Key nav": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			// keyb nav
 			// give the focus to the button to have a ref starting point in the chain
 			var remote = this.remote;
@@ -75,10 +73,9 @@ define([
 		},
 
 		"Checkbox Form": function () {
-				//
-				// Form tests
-				//
-			this.timeout = intern.config.TEST_TIMEOUT;
+			//
+			// Form tests
+			//
 			var remote = this.remote;
 			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip();

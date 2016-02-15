@@ -6,8 +6,6 @@ define({
 	// The port on which the instrumenting proxy will listen
 	proxyPort: 9000,
 
-	proxyUrl: "http://127.0.0.1:9000/",
-
 	// Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 	// capabilities options specified for an environment will be copied as-is
@@ -39,7 +37,7 @@ define({
 	tunnel: "SauceLabsTunnel",
 	
 	// Maximum duration of a test, in milliseconds
-	TEST_TIMEOUT: 300000, // 5 minutes
+	defaultTimeout: 300000, // 5 minutes
 	
 	// Maximum time to wait for someting (pollUntil, etc...)
 	WAIT_TIMEOUT: 180000, // 3 minutes
@@ -47,18 +45,13 @@ define({
 	// Interval between two polling request, in milliseconds (for pollUntil)
 	POLL_INTERVAL: 500, // 0.5 seconds
 
-	loader: {
-		baseUrl: typeof window !== "undefined" ? "../../.." : "..",
-		config: {
-			"ecma402/locales": "en-US"
-		}
-	},
-	
-	useLoader: {
+	basePath: "..",
+
+	loaders: {
 		"host-node": "requirejs",
-		"host-browser": "../../../requirejs/require.js"
+		"host-browser": "../../requirejs/require.js"
 	},
-	
+
 	// Non-functional test suite(s) to run in each browser
 	suites: [ "deliteful/tests/unit/all" ],
 

@@ -13,7 +13,6 @@ define(["intern",
 		name: "Slider (markup)",
 		// single
 		"init single slider (default value)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider.html")
 				.then(checkInitValue(remote, "singleSlider01", "50"))
@@ -21,7 +20,6 @@ define(["intern",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "singleSlider02", "25"))
@@ -29,7 +27,6 @@ define(["intern",
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "singleSlider03", "100"))
@@ -37,7 +34,6 @@ define(["intern",
 				.then(checkAria(remote, "singleSlider03", "d-slider-handle-max", "horizontal", "0", "100", "100"));
 		},
 		"single slider interaction": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
@@ -59,7 +55,6 @@ define(["intern",
 		},
 		// range
 		"init range slider (default value)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
@@ -68,7 +63,6 @@ define(["intern",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
@@ -77,7 +71,6 @@ define(["intern",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))
@@ -86,7 +79,6 @@ define(["intern",
 				.then(checkAria(remote, "rangeSlider03", "d-slider-handle-max", "horizontal", "80", "100", "100"));
 		},
 		"range slider interaction": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
@@ -116,7 +108,6 @@ define(["intern",
 			}
 		},
 		"range slider interaction inside a listening parent": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName) || remote.environmentType.safari) {
@@ -139,7 +130,6 @@ define(["intern",
 	registerSuite({
 		name: "Slider (programmatic)",
 		"init single slider (default value)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadTestPage(remote, "./slider/slider-prg.html")
 				.then(checkInitValue(remote, "singleSlider01", "50"))
@@ -147,7 +137,6 @@ define(["intern",
 				.then(checkAria(remote, "singleSlider01", "d-slider-handle-max", "horizontal", "0", "100", "50"));
 		},
 		"init single slider (value in bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "singleSlider02", "25"))
@@ -155,7 +144,6 @@ define(["intern",
 				.then(checkAria(remote, "singleSlider02", "d-slider-handle-max", "horizontal", "0", "100", "25"));
 		},
 		"init single slider (value out bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "singleSlider03", "100"))
@@ -164,7 +152,6 @@ define(["intern",
 		},
 
 		"init range slider (default value)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider01", "25,75"))
@@ -173,7 +160,6 @@ define(["intern",
 				.then(checkAria(remote, "rangeSlider01", "d-slider-handle-max", "horizontal", "25", "100", "75"));
 		},
 		"init range slider (value in bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider02", "10,90"))
@@ -182,7 +168,6 @@ define(["intern",
 				.then(checkAria(remote, "rangeSlider02", "d-slider-handle-max", "horizontal", "10", "100", "90"));
 		},
 		"init range slider (value out bound)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return remote.getCurrentUrl()
 				.then(checkInitValue(remote, "rangeSlider03", "80,100"))

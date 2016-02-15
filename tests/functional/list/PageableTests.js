@@ -47,7 +47,6 @@ define(["intern",
 	registerSuite({
 		name: "Pageable tests",
 		"Pageable list keyboard navigation": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// PageableList not currently supported on IE 10
 			// see https://github.com/ibm-js/deliteful/issues/280
@@ -112,7 +111,6 @@ define(["intern",
 				});
 		},
 		"Pageable categorized list keyboard navigation": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			// PageableList not currently supported on IE 10
 			// see https://github.com/ibm-js/deliteful/issues/280
@@ -165,7 +163,6 @@ define(["intern",
 				});
 		},
 		"page loaders cannot be selected": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			var listId = "pageable-prog-8";
 			// PageableList not currently supported on IE 10

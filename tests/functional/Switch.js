@@ -18,7 +18,6 @@ define([
 		name: "Switch - functional",
 
 		"Switch behavior": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/safari|iOS|selendroid/.test(remote.environmentType.browserName)) {
 				// SafariDriver doesn't support moveTo, see https://code.google.com/p/selenium/issues/detail?id=4136
@@ -71,7 +70,6 @@ define([
 		},
 
 		"Switch key nav": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -108,7 +106,6 @@ define([
 		},
 
 		"Switch Form tests": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			return loadFile(remote, "./Switch.html")
 				.findById("form1")
@@ -141,7 +138,6 @@ define([
 				;
 		},
 		"Switch with disabled attribute": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iOS/.test(remote.environmentType.browserName)) {
 				return this.skip("Test Fails on iOS 8.1, click is not working");

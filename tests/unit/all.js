@@ -31,6 +31,6 @@ define([
 	"./SwapView",
 	"./ViewIndicator",
 	"./Combobox",
-	"./channelBreakpoints",
+	"./channelBreakpoints"
 	//"./bidi/all"
 ]);

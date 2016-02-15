@@ -839,7 +839,6 @@ define([
 		name: "Combobox - functional",
 
 		"Combobox Form submit": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iOS|selendroid/.test(remote.environmentType.browserName)) {
 				return this.skip();
@@ -902,7 +901,6 @@ define([
 		},
 		
 		"keyboard navigation selectionMode=single, autoFilter=false": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -911,7 +909,6 @@ define([
 		},
 		
 		"keyboard navigation selectionMode=single, autoFilter=true": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -920,17 +917,14 @@ define([
 		},
 		
 		"keyboard navigation selectionMode = multiple": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
 			}
-			this.timeout = intern.config.TEST_TIMEOUT;
 			return checkKeyboardNavigationMultipleSelection(remote, "combo3");
 		},
 		
 		"keyboard navigation - autoscroll (single)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -939,7 +933,6 @@ define([
 		},
 		
 		"keyboard navigation - autoscroll (multiple)": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
 				return this.skip("no keyboard support");
@@ -948,7 +941,6 @@ define([
 		},
 		
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
 				// The feature does work when testing in Safari/Mac, but it fails on sauce:
@@ -960,7 +952,6 @@ define([
 		},
 		
 		"mouse navigation selectionMode=multiple": function () {
-			this.timeout = intern.config.TEST_TIMEOUT;
 			var remote = this.remote;
 			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
 				// The feature does work when testing in Safari/Mac, but it fails on sauce:
