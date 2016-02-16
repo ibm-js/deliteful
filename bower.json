@@ -14,7 +14,7 @@
 		"requirejs-dplugins": "0.6.x"
 	},
 	"devDependencies": {
-		"dstore": "1.0.x"
+		"dstore": "1.1.x"
 	},
 	"keywords": [
 		"web-components",
