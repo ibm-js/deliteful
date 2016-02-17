@@ -200,19 +200,22 @@ define([
 
 		_doTransition: function (origin, target, event, transition, reverse) {
 			var promises = [];
+			$(this).addClass("-d-view-stack-transition");
 			if (transition !== "none") {
 				if (origin) {
-					promises.push(this._setAfterTransitionHandlers(origin));
+					promises.push(this._startNodeTransition(origin));
 					$(origin).addClass(transitionClass(transition));
 				}
 				if (target) {
-					promises.push(this._setAfterTransitionHandlers(target));
+					promises.push(this._startNodeTransition(target));
 					$(target).addClass(transitionClass(transition) + " -d-view-stack-in");
 				}
 				if (reverse) {
 					setReverse(origin);
 					setReverse(target);
 				}
+
+				// TODO: figure out why the delay is needed
 				this.defer(function () {
 					if (target) {
 						$(target).addClass("-d-view-stack-transition");
@@ -233,7 +236,9 @@ define([
 					setVisibility(origin, false);
 				}
 			}
-			return Promise.all(promises);
+			return Promise.all(promises).then(function () {
+				$(this).removeClass("-d-view-stack-transition");
+			}.bind(this));
 		},
 
 		changeDisplay: function (widget, event) {
@@ -296,27 +301,19 @@ define([
 			};
 		}),
 
-		_setAfterTransitionHandlers: function (node) {
-			var self = this, holder = { node: node};
-			holder.promise = new Promise(function (resolve) {
-				holder.handle =  function () { self._afterTransitionHandle(holder, resolve); };
-			});
-			$(this).addClass("-d-view-stack-transition");
-			node.addEventListener("webkitTransitionEnd", holder.handle);
-			node.addEventListener("transitionend", holder.handle); // IE10 + FF
-			return holder.promise;
+		_startNodeTransition: function (node) {
+			return new Promise(function (resolve) {
+				node.addEventListener("transitionend", function after() {
+					node.removeEventListener("transitionend", after);
+					resolve();
+				});
+			}).then(this._afterNodeTransitionHandler.bind(this, node));
 		},
 
-		_afterTransitionHandle: function (holder, resolve) {
-			var isVisibleChild = this._visibleChild === holder.node;
-			setVisibility(holder.node, isVisibleChild);
-			cleanCSS(holder.node);
-			if (isVisibleChild) {
-				$(this).removeClass("-d-view-stack-transition");
-			}
-			holder.node.removeEventListener("webkitTransitionEnd", holder.handle);
-			holder.node.removeEventListener("transitionend", holder.handle);
-			resolve();
+		_afterNodeTransitionHandler: function (node) {
+			var isVisibleChild = this._visibleChild === node;
+			setVisibility(node, isVisibleChild);
+			cleanCSS(node);
 		}
 	});
 });
