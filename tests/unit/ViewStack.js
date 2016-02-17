@@ -152,21 +152,27 @@ define([
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, ddd);
 			}));
-			node.show(ddd, {transition: "flip", reverse: true});
+			setTimeout(function () {
+				node.show(ddd, {transition: "flip", reverse: true});
+			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
 		"Show (slidev)" : function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, aaa);
 			}));
-			node.show(aaa, {transition: "slidev", reverse: false});
+			setTimeout(function () {
+				node.show(aaa, {transition: "slidev", reverse: false});
+			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
 		"Show (reverse, slidev)" : function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {
 				checkNodeVisibility(node, bbb);
 			}));
-			node.show(bbb, {transition: "slidev", reverse: true});
+			setTimeout(function () {
+				node.show(bbb, {transition: "slidev", reverse: true});
+			}, 0);	// avoid chrome problem when setting a new transition class immediately after removing the old one
 		},
 		"Show (cover)" : function () {
 			var d = this.async(1000);
