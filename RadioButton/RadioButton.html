@@ -1,4 +1,8 @@
 <template role="presentation">
-	<input type="radio" attach-point="focusNode,valueNode"
+	<input class="d-reset" type="radio" attach-point="focusNode,valueNode"
 		checked="{{checked}}" value="{{value}}" name="{{name}}"/>
+	<svg class="d-radio-button-visual" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+		<circle class="d-radio-button-visual-outer" cx="10" cy="10" r="10" stroke-width="2"/>
+		<circle class="d-radio-button-visual-inner" cx="10" cy="10" r="5"/>
+	</svg>
 </template>

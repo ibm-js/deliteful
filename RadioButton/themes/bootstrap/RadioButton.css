@@ -1,69 +1,107 @@
 .d-radio-button {
+  margin-right: 4px;
+}
+/* interoperability with bootstrap form layouts */
+.radio .d-radio-button,
+.radio-inline .d-radio-button {
+  margin-left: -20px;
+  margin-right: 0;
+  position: absolute;
+}
+.d-radio-button {
   position: relative;
   display: inline-block;
   /* #408 Enforce content-box to ensure correctly centered check mark */
   /* even if border-box is used everywhere else for instance */
   /* via delite/themes/defaultapp.css */
   box-sizing: content-box;
-  width: 0.8em;
-  height: 0.8em;
-  margin: 4px;
-  border-color: #cccccc;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 0.5em;
-  color: #555555;
-  background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-  padding: 1px;
 }
-.d-radio-button.d-focused {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-.d-radio-button::before {
-  overflow: hidden;
-  display: inline-block;
-  position: absolute;
-  content: "";
-  height: 0.5em;
-  width: 0.5em;
-  margin: 1px;
-  border-color: #cccccc;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 0.4em;
-}
-.d-radio-button.d-checked::before {
-  background-color: #555555;
-}
-.d-radio-button.d-disabled {
-  background-color: #eeeeee;
-}
-.d-radio-button.d-disabled::before {
-  background-color: #eeeeee;
-}
-.d-radio-button.d-disabled.d-checked::before {
-  background-color: #999999;
-}
-.d-radio-button.d-disabled,
-fieldset[disabled] .d-radio-button {
+.d-radio-button.d-disabled *,
+fieldset[disabled] .d-radio-button * {
   cursor: not-allowed;
+}
+.d-radio-button-visual {
+  overflow: visible;
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+}
+.d-radio-button-visual-inner {
+  visibility: hidden;
+}
+.d-checked .d-radio-button-visual-inner {
+  visibility: visible;
+}
+.d-radio-button-visual {
+  width: 11px;
+  height: 11px;
+}
+.d-radio-button-visual-inner {
+  fill: #555555;
+}
+.d-radio-button-visual-outer {
+  stroke: #cccccc;
+  fill: white;
+}
+.d-disabled .d-radio-button-visual-outer {
+  fill: #eeeeee;
+}
+.d-disabled .d-radio-button-visual-inner {
+  fill: #999999;
+}
+.d-focused .d-radio-button-visual {
+  /* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L56 */
+  -webkit-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  /* interoperability with bootstrap validation states */
+  /* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L26 */
+}
+.d-focused .d-radio-button-visual-outer {
+  stroke: #66afe9;
+}
+.has-success .d-focused .d-radio-button-visual {
+  -webkit-box-shadow: 0 0 6px #67b168;
+  -moz-box-shadow: 0 0 6px #67b168;
+  box-shadow: 0 0 6px #67b168;
+}
+.has-success .d-focused .d-radio-button-visual-outer {
+  stroke: #3c763d;
+}
+.has-info .d-focused .d-radio-button-visual {
+  -webkit-box-shadow: 0 0 6px #5ea5c8;
+  -moz-box-shadow: 0 0 6px #5ea5c8;
+  box-shadow: 0 0 6px #5ea5c8;
+}
+.has-info .d-focused .d-radio-button-visual-outer {
+  stroke: #31708f;
+}
+.has-warning .d-focused .d-radio-button-visual {
+  -webkit-box-shadow: 0 0 6px #c0a16b;
+  -moz-box-shadow: 0 0 6px #c0a16b;
+  box-shadow: 0 0 6px #c0a16b;
+}
+.has-warning .d-focused .d-radio-button-visual-outer {
+  stroke: #8a6d3b;
+}
+.has-error .d-focused .d-radio-button-visual {
+  -webkit-box-shadow: 0 0 6px #ce8483;
+  -moz-box-shadow: 0 0 6px #ce8483;
+  box-shadow: 0 0 6px #ce8483;
+}
+.has-error .d-focused .d-radio-button-visual-outer {
+  stroke: #a94442;
 }
 .d-radio-button > input[type=radio] {
-  width: 0.5em;
-  height: 0.5em;
-  margin: 1px;
-  padding: 0px;
-  opacity: 0.01;
+  /* The input is not stretched so that is spans
+	 * all over the space available inside d-checkbox */
+  width: 100%;
+  height: 100%;
+  /* NOTE: overriding bootstrap margins
+	 * http://github.com/twbs/bootstrap/blob/85a65/less/forms.less#L229 */
+  margin: 0 !important;
+  /* NOTE: we could have used opacity: 0 here but it breaks the focus */
+  opacity: .01;
   position: absolute;
-  overflow: hidden;
-  font: inherit;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-.d-radio-button > input[type=radio][disabled],
-fieldset[disabled] .d-radio-button > input[type=radio] {
-  cursor: not-allowed;
+  z-index: 1;
 }

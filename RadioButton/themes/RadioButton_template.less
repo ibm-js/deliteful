@@ -5,49 +5,47 @@
 	/* even if border-box is used everywhere else for instance */
 	/* via delite/themes/defaultapp.css */
 	box-sizing: content-box;
-	.d-radio-button-styles();
-	&.d-focused { // from tab-focus()
-		.d-radio-button-focused();
+	
+	&.d-disabled *, fieldset[disabled] & * {
+		cursor: not-allowed; // TODO: use @cursor-disabled
 	}
-	&::before {
-		overflow: hidden;
+
+	&-visual {
+		overflow: visible; // NOTE: by default <svg> are overflow: hidden
 		display: inline-block;
-		position: absolute;
-		content: "";
-		.d-radio-button-before-styles();
-	}
-	&.d-checked::before {
-		.d-radio-button-checked-before-styles();
-	}
-	&:active::before {
-		.d-radio-button-active-styles();
-	}
-	&.d-disabled {
-		.d-radio-button-disabled-styles();
-		&::before {
-			.d-radio-button-before-disabled-styles();
+		position: relative;
+		border-radius: 50%;
+		&-inner {
+			visibility: hidden;
 		}
-		&.d-checked::before {
-			.d-radio-button-checked-before-disabled-styles();
+		.d-checked &-inner {
+			visibility: visible;
 		}
 	}
-	&.d-disabled,
-	fieldset[disabled] & {
-		cursor: not-allowed;
+
+	&-visual {
+		.d-radio-button-styles(normal);
+	}
+
+	.d-disabled &-visual {
+		.d-radio-button-styles(disabled);
+	}
+
+	.d-focused &-visual {
+		.d-radio-button-styles(focused);
 	}
 }
 
 .d-radio-button > input[type=radio] {
-	.d-radio-button-input-styles();
-	opacity: 0.01;
+	/* The input is not stretched so that is spans
+	 * all over the space available inside d-checkbox */
+	width: 100%; height: 100%;
+	/* NOTE: overriding bootstrap margins
+	 * http://github.com/twbs/bootstrap/blob/85a65/less/forms.less#L229 */
+	margin: 0 !important;
+	/* NOTE: we could have used opacity: 0 here but it breaks the focus */
+	opacity: .01;
 	position: absolute;
-	overflow: hidden;
-	font: inherit;
-	cursor: pointer;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	&[disabled],
-	fieldset[disabled] & {
-		cursor: not-allowed;
-	}
+	z-index: 1;
 }
+

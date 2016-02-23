@@ -1,65 +1,107 @@
 .d-checkbox {
-  position: relative;
-  margin-left: 4px;
   margin-right: 4px;
-  margin-top: 3px;
-  margin-bottom: 3px;
 }
-.d-checkbox.d-focused {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-.d-checkbox::before {
-  overflow: hidden;
-  display: inline-block;
+/* interoperability with bootstrap form layouts */
+.checkbox .d-checkbox,
+.checkbox-inline .d-checkbox {
+  margin-left: -20px;
+  margin-right: 0;
   position: absolute;
-  top: 0px;
-  content: "";
-  border-color: #cccccc;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-  height: 1em;
-  width: 100%;
-  color: #555555;
-}
-.d-checkbox.d-rtl::before {
-  right: 0px;
-}
-.d-checkbox.d-checked::before {
-  content: "\2714";
-}
-.d-checkbox.d-disabled {
-  color: #eeeeee;
-}
-.d-checkbox.d-disabled::before {
-  color: #999999;
-  background-color: #eeeeee;
-}
-.d-checkbox.d-disabled,
-fieldset[disabled] .d-checkbox {
-  cursor: not-allowed;
-}
-.d-checkbox > input[type=checkbox] {
-  width: 1em;
-  height: 1em;
-  margin: 0px;
-  margin-top: 1px \9;
-  /* IE8-9 */
-  opacity: 0.01;
-  position: relative;
-  overflow: hidden;
-  font: inherit;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-.d-checkbox > input[type=checkbox][disabled],
-fieldset[disabled] .d-checkbox > input[type=checkbox] {
-  cursor: not-allowed;
 }
 label[for] {
   cursor: pointer;
+}
+.d-checkbox {
+  position: relative;
+  display: inline-block;
+  /* #408 Enforce content-box to ensure correctly centered check mark */
+  /* even if border-box is used everywhere else for instance */
+  /* via delite/themes/defaultapp.css */
+  box-sizing: content-box;
+}
+.d-checkbox.d-disabled *,
+fieldset[disabled] .d-checkbox * {
+  cursor: not-allowed;
+}
+.d-checkbox-visual {
+  overflow: visible;
+  display: inline-block;
+  position: relative;
+}
+.d-checkbox-visual-inner {
+  position: absolute;
+  visibility: hidden;
+}
+.d-checked .d-checkbox-visual-inner {
+  visibility: visible;
+}
+.d-checkbox-visual {
+  width: 11px;
+  height: 11px;
+}
+.d-checkbox-visual-inner {
+  fill: #555555;
+}
+.d-checkbox-visual-outer {
+  stroke: #cccccc;
+  fill: white;
+}
+.d-disabled .d-checkbox-visual-outer {
+  fill: #eeeeee;
+}
+.d-disabled .d-checkbox-visual-inner {
+  fill: #999999;
+}
+.d-focused .d-checkbox-visual {
+  /* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L56 */
+  -webkit-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  /* interoperability with bootstrap validation states */
+  /* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L26 */
+}
+.d-focused .d-checkbox-visual-outer {
+  stroke: #66afe9;
+}
+.has-success .d-focused .d-checkbox-visual {
+  -webkit-box-shadow: 0 0 6px #67b168;
+  -moz-box-shadow: 0 0 6px #67b168;
+  box-shadow: 0 0 6px #67b168;
+}
+.has-success .d-focused .d-checkbox-visual-outer {
+  stroke: #3c763d;
+}
+.has-info .d-focused .d-checkbox-visual {
+  -webkit-box-shadow: 0 0 6px #5ea5c8;
+  -moz-box-shadow: 0 0 6px #5ea5c8;
+  box-shadow: 0 0 6px #5ea5c8;
+}
+.has-info .d-focused .d-checkbox-visual-outer {
+  stroke: #31708f;
+}
+.has-warning .d-focused .d-checkbox-visual {
+  -webkit-box-shadow: 0 0 6px #c0a16b;
+  -moz-box-shadow: 0 0 6px #c0a16b;
+  box-shadow: 0 0 6px #c0a16b;
+}
+.has-warning .d-focused .d-checkbox-visual-outer {
+  stroke: #8a6d3b;
+}
+.has-error .d-focused .d-checkbox-visual {
+  -webkit-box-shadow: 0 0 6px #ce8483;
+  -moz-box-shadow: 0 0 6px #ce8483;
+  box-shadow: 0 0 6px #ce8483;
+}
+.has-error .d-focused .d-checkbox-visual-outer {
+  stroke: #a94442;
+}
+.d-checkbox > input[type=checkbox] {
+  /* The input is not stretched so that is spans
+	 * all over the space available inside d-checkbox */
+  width: 100%;
+  height: 100%;
+  /* NOTE: we could have used opacity: 0 here but it breaks the focus */
+  opacity: .01;
+  position: absolute;
+  z-index: 1;
 }

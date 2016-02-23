@@ -1,59 +1,62 @@
 @import "../../../../delite/themes/common/mixins";
 @import "../../../../delite/themes/bootstrap/variables";
 
-.d-radio-button-styles () {
-	width: 0.8em;
-	height: 0.8em;
-	margin: 4px;
-	border-color: @input-border;
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 0.5em;
-	color: @input-color;
-	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-	padding: 1px;
+
+.d-radio-button {
+	margin-right: 4px;
+}
+.d-radio-button-styles(@state) when (@state = normal) {
+	@size: round(.8*@font-size-base);
+	width: @size; height: @size;
+	&-inner {
+		fill: @input-color;
+	}
+	&-outer {
+		stroke: @input-border;
+		fill: white;
+	}
+}
+.d-radio-button-styles(@state) when (@state = focused) {
+	@color-rgba: rgba(red(@input-border-focus), green(@input-border-focus), blue(@input-border-focus), .6);
+	/* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L56 */
+	.box-shadow(0 0 8px @color-rgba);
+	&-outer {
+		stroke: @input-border-focus; 
+	}
+
+
+	/* interoperability with bootstrap validation states */
+	/* NOTE: from http://github.com/twbs/bootstrap/blob/49519e9/less/mixins/forms.less#L26 */
+	.has-state(@validation-state, @color) {
+		.has-@{validation-state} & {
+			.box-shadow(0 0 6px lighten(@color, 20%));
+			&-outer {
+				stroke: @color;
+			}
+		}
+	}
+
+	.has-state(success, @state-success-text);
+	.has-state(info, @state-info-text);
+	.has-state(warning, @state-warning-text);
+	.has-state(error, @state-danger-text);
+
+}
+.d-radio-button-styles(@state) when (@state = disabled) {
+	&-outer {
+		fill: @input-bg-disabled;
+	}
+	&-inner {
+		fill: @btn-link-disabled-color;
+	}
 }
 
-.d-radio-button-active-styles () {
+/* interoperability with bootstrap form layouts */
+.radio, .radio-inline {
+	.d-radio-button {
+		margin-left: -20px; 
+		margin-right: 0;
+		position: absolute;
+	}
 }
-
-.d-radio-button-disabled-styles() {
-	background-color:  @input-bg-disabled;
-}
-
-.d-radio-button-focused () {
-	outline: thin dotted;
-	//WebKit
-	outline: 5px auto -webkit-focus-ring-color;
-	outline-offset: -2px;
-}
-
-.d-radio-button-before-styles () {
-	height: 0.5em;
-	width: 0.5em;
-	margin: 1px;
-	border-color: @input-border;
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 0.4em;
-}
-
-.d-radio-button-checked-before-styles () {
-	background-color: @input-color;
-}
-
-.d-radio-button-before-disabled-styles () {
-	background-color: @input-bg-disabled;
-}
-.d-radio-button-checked-before-disabled-styles () {
-	background-color: @btn-link-disabled-color;
-}
-
-.d-radio-button-input-styles () {
-	width:0.5em;
-	height:0.5em;
-	margin: 1px;
-	padding: 0px;
-}
-
 @import "../RadioButton_template";
