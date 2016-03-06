@@ -854,6 +854,15 @@ define([
 				});
 			}
 		},
+		"remove visible node": function () {
+			var d = this.async(1000);
+			asyncHandler = node.on("delite-after-show", d.callback(function () {
+				assert.strictEqual(node._visibleChild, aaa);
+				node.removeChild(aaa);
+				assert.strictEqual(node._visibleChild, null);
+			}));
+			node.show(aaa);
+		},
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		},

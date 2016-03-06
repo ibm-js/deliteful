@@ -149,6 +149,15 @@ define([
 			};
 		}),
 
+		removeChild: dcl.superCall(function (sup) {
+			return function (node) {
+				sup.call(this, node);
+				if (this._visibleChild === node) {
+					this._visibleChild = null;
+				}
+			};
+		}),
+
 		postRender: function () {
 			this._setChildrenVisibility();
 		},
@@ -261,6 +270,7 @@ define([
 			var reverse = this.effectiveDir === "ltr" ? event.reverse : !event.reverse;
 			return this._doTransition(origin, widget, event, transition, reverse);
 		},
+
 		/**
 		 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
 		 * this.transition, and this.reverse are used.
