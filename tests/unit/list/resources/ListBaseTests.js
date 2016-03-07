@@ -1,10 +1,10 @@
 define([
 	"intern/chai!assert",
-	"dojo/Deferred",
+	"requirejs-dplugins/Promise!",
 	"dstore/Memory",
 	"dstore/Trackable",
 	"requirejs-dplugins/jquery!attributes/classes"
-], function (assert, Deferred, Memory, Trackable, $) {
+], function (assert, Promise, Memory, Trackable, $) {
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -51,8 +51,8 @@ define([
 								"'horizontal' not supported for scrollDirection, keeping the previous value of 'vertical'",
 								error.message,
 								"error message");
-						assert.strictEqual(list.scrollDirection, "vertical");
 					}
+					assert.strictEqual(list.scrollDirection, "vertical");
 				},
 				"scrollDirection foo not supported": function () {
 					var list = this.parent.list;
@@ -65,8 +65,8 @@ define([
 								"'foo' not supported for scrollDirection, keeping the previous value of 'vertical'",
 								error.message,
 								"error message");
-						assert.strictEqual(list.scrollDirection, "vertical");
 					}
+					assert.strictEqual(list.scrollDirection, "vertical");
 				},
 				"default scroll direction is vertical": function () {
 					var list = this.parent.list;
@@ -195,83 +195,68 @@ define([
 				},
 				"query-success event": function () {
 					var list = this.parent.list;
-					var def = this.async(1000);
 					list.destroy();
 					list = new ListConstructor({source: new Store()});
-					list.on("query-success", function (evt) {
+
+					var def = this.async(1000);
+					list.on("query-success", def.callback(function (evt) {
 						var renderItems = evt.renderItems;
 						assert.isNotNull(renderItems);
 						assert.strictEqual(renderItems.length, 2);
 						assert.strictEqual(renderItems[0].label, "item 1");
 						assert.strictEqual(renderItems[1].label, "item 2");
-						def.resolve();
-					});
+					}));
+
 					list.labelAttr = "name";
 					list.source.add({name: "item 1"});
 					list.source.add({name: "item 2"});
 					document.body.appendChild(list);
 					list.attachedCallback();
-					return def;
 				},
 				"query-error event": function () {
 					var list = this.parent.list;
+					var queryErrorEvt = null;
+					var source = {
+						filter: function () {
+							var result = {};
+							result.map = function () { return this; };
+							result.fetch = function () {
+								return Promise.reject("Query Error X");
+							};
+							return result;
+						}
+					};
+					list.destroy();
+					list = new ListConstructor({source: source});
+					list.on("query-error", function (evt) {
+						queryErrorEvt = evt;
+					});
+					document.body.appendChild(list);
+					list.attachedCallback();
+
 					var def = this.async(1000);
-					try {
-						var queryErrorEvt = null;
-						var source = {
-							filter: function () {
-								var result = {};
-								result.map = function () { return this; };
-								result.fetch = function () {
-									var def = new Deferred();
-									def.reject("Query Error X");
-									return def;
-								};
-								return result;
-							}
-						};
-						list.destroy();
-						list = new ListConstructor({source: source});
-						list.on("query-error", function (evt) {
-							queryErrorEvt = evt;
-						});
-						document.body.appendChild(list);
-						list.attachedCallback();
-						setTimeout(def.callback(function () {
-							assert.isNotNull(queryErrorEvt);
-							assert.strictEqual("Query Error X", queryErrorEvt.error, "error message");
-							assert(!list.hasAttribute("aria-busy"));
-						}), 10);
-					} catch (e) {
-						def.reject(e);
-					}
-					return def;
+					setTimeout(def.callback(function () {
+						assert.isNotNull(queryErrorEvt);
+						assert.strictEqual("Query Error X", queryErrorEvt.error, "error message");
+						assert(!list.hasAttribute("aria-busy"));
+					}), 10);
 				},
 				"first focus apply to the first visible child": function () {
 					var list = this.parent.list;
-					var def = this.async(1000);
-					try {
-						list.style.height = "200px";
-						for (var i = 0; i < 50; i++) {
-							list.source.add({label: "item " + (i + 4)});
-						}
-						list.focus();
-						setTimeout(def.rejectOnError(function () {
-							try {
-								var focusedElement = document.activeElement;
-								assert.isNotNull(focusedElement, "active element");
-								assert.isDefined(focusedElement, "active element");
-								assert.strictEqual("item 1", focusedElement.parentNode.item.label,
-										"focused element label");
-								def.resolve();
-							} catch (error) {
-								def.reject(error);
-							}
-						}), 10);
-					} catch (error) {
-						def.reject(error);
+					list.style.height = "200px";
+					for (var i = 0; i < 50; i++) {
+						list.source.add({label: "item " + (i + 4)});
 					}
-					return def;
+					list.focus();
+
+					var def = this.async(1000);
+					setTimeout(def.callback(function () {
+						var focusedElement = document.activeElement;
+						assert.isNotNull(focusedElement, "active element not null");
+						assert.isDefined(focusedElement, "active element defined");
+						assert.strictEqual("item 1", focusedElement.parentNode.item.label,
+								"focused element label");
+					}), 10);
 				},
 				"detach and reattach": function () {
 					var list = this.parent.list;
