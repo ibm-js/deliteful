@@ -1,32 +1,24 @@
 .d-radio-button {
 	position: relative;
-	display: inline-block;
-	/* #408 Enforce content-box to ensure correctly centered check mark */
-	/* even if border-box is used everywhere else for instance */
-	/* via delite/themes/defaultapp.css */
-	box-sizing: content-box;
 	.d-radio-button-styles();
 	&.d-focused { // from tab-focus()
 		.d-radio-button-focused();
 	}
-	&::before {
-		overflow: hidden;
+	&::before {		// like a <span> containing the black dot
 		display: inline-block;
-		position: absolute;
-		content: "";
+		text-align: center;
+		content: " ";
 		.d-radio-button-before-styles();
 	}
 	&.d-checked::before {
+		content: "\25CF";		// "black circle"
 		.d-radio-button-checked-before-styles();
 	}
 	&:active::before {
 		.d-radio-button-active-styles();
 	}
-	&.d-disabled {
-		.d-radio-button-disabled-styles();
-		&::before {
-			.d-radio-button-before-disabled-styles();
-		}
+	&.d-disabled::before {
+		.d-radio-button-before-disabled-styles();
 		&.d-checked::before {
 			.d-radio-button-checked-before-disabled-styles();
 		}
@@ -38,9 +30,12 @@
 }
 
 .d-radio-button > input[type=radio] {
-	.d-radio-button-input-styles();
 	opacity: 0.01;
 	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0.8em;
+	height: 0.8em;
 	overflow: hidden;
 	font: inherit;
 	cursor: pointer;

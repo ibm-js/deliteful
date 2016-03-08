@@ -1,20 +1,6 @@
 .d-radio-button {
   position: relative;
-  display: inline-block;
-  /* #408 Enforce content-box to ensure correctly centered check mark */
-  /* even if border-box is used everywhere else for instance */
-  /* via delite/themes/defaultapp.css */
-  box-sizing: content-box;
-  width: 0.8em;
-  height: 0.8em;
   margin: 4px;
-  border-color: #cccccc;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 0.5em;
-  color: #555555;
-  background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-  padding: 1px;
 }
 .d-radio-button.d-focused {
   outline: thin dotted;
@@ -22,41 +8,40 @@
   outline-offset: -2px;
 }
 .d-radio-button::before {
-  overflow: hidden;
   display: inline-block;
-  position: absolute;
-  content: "";
-  height: 0.5em;
-  width: 0.5em;
-  margin: 1px;
+  text-align: center;
+  content: " ";
   border-color: #cccccc;
   border-style: solid;
   border-width: 1px;
-  border-radius: 0.4em;
+  border-radius: 0.5em;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+  color: #555555;
 }
 .d-radio-button.d-checked::before {
-  background-color: #555555;
-}
-.d-radio-button.d-disabled {
-  background-color: #eeeeee;
+  content: "\25CF";
+  color: #555555;
 }
 .d-radio-button.d-disabled::before {
-  background-color: #eeeeee;
+  color: #eeeeee;
 }
-.d-radio-button.d-disabled.d-checked::before {
-  background-color: #999999;
+.d-radio-button.d-disabled::before.d-checked::before {
+  color: #999999;
 }
 .d-radio-button.d-disabled,
 fieldset[disabled] .d-radio-button {
   cursor: not-allowed;
 }
 .d-radio-button > input[type=radio] {
-  width: 0.5em;
-  height: 0.5em;
-  margin: 1px;
-  padding: 0px;
   opacity: 0.01;
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.8em;
+  height: 0.8em;
   overflow: hidden;
   font: inherit;
   cursor: pointer;

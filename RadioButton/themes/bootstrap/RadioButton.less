@@ -2,16 +2,7 @@
 @import "../../../../delite/themes/bootstrap/variables";
 
 .d-radio-button-styles () {
-	width: 0.8em;
-	height: 0.8em;
 	margin: 4px;
-	border-color: @input-border;
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 0.5em;
-	color: @input-color;
-	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-	padding: 1px;
 }
 
 .d-radio-button-active-styles () {
@@ -29,31 +20,28 @@
 }
 
 .d-radio-button-before-styles () {
-	height: 0.5em;
-	width: 0.5em;
-	margin: 1px;
 	border-color: @input-border;
 	border-style: solid;
 	border-width: 1px;
-	border-radius: 0.4em;
+	border-radius: 0.5em;
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+	color: @input-color;
 }
 
+@d-radio-button-disabled-color: @input-bg-disabled;
+
 .d-radio-button-checked-before-styles () {
-	background-color: @input-color;
+	color: @input-color;
 }
 
 .d-radio-button-before-disabled-styles () {
-	background-color: @input-bg-disabled;
+	color: @input-bg-disabled;
 }
 .d-radio-button-checked-before-disabled-styles () {
-	background-color: @btn-link-disabled-color;
-}
-
-.d-radio-button-input-styles () {
-	width:0.5em;
-	height:0.5em;
-	margin: 1px;
-	padding: 0px;
+	color: @btn-link-disabled-color;
 }
 
 @import "../RadioButton_template";
