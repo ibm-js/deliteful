@@ -5,10 +5,11 @@ define([
 	"dojo/Deferred",
     "dstore/Memory",
 	"dstore/Trackable",
+	"delite/popup",
 	"delite/register",
 	"deliteful/list/PageableList",
 	"./resources/ListBaseTests"
-], function (has, registerSuite, assert, Deferred, Memory, Trackable, register, PageableList, ListBaseTests) {
+], function (has, registerSuite, assert, Deferred, Memory, Trackable, popup, register, PageableList, ListBaseTests) {
 
 	var Store = Memory.createSubclass([Trackable], {});
 
@@ -979,7 +980,58 @@ define([
 			// initial load
 			assertCategorizedList(list, 100, 0, false, false);
 		},
-		///////////////////////////////////////////
+		"list in a popup" : function () {
+			list = new PageableList({source: new Store()});
+			for (var i = 0; i < 100; i++) {
+				list.source.add({label: "item " + i});
+			}
+			list.pageLength = 25;
+			list.maxPages = 0;
+
+			popup.open({
+				popup: list,
+				x: 50,
+				y: 50
+			});
+
+			try {
+				list.deliver();
+				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
+				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
+				assert(list.querySelector("d-list-loader").offsetWidth > 0, "d-list-loader");
+			} finally {
+				popup.close(list);
+
+			}
+		},
+		"list with categories in a popup" : function () {
+			list = new PageableList({source: new Store()});
+			for (var i = 0; i < 100; i++) {
+				list.source.add({label: "item " + i, category: "Category " + Math.floor(i / 10)});
+			}
+			list.pageLength = 25;
+			list.maxPages = 0;
+			list.categoryAttr = "category";
+
+			popup.open({
+				popup: list,
+				x: 50,
+				y: 50
+			});
+
+			try {
+				list.deliver();
+				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
+				assert(list.querySelector("d-list-category-renderer").offsetWidth > 0, "d-list-category-renderer");
+				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
+				assert(list.querySelector("d-list-loader").offsetWidth > 0, "d-list-loader");
+			} finally {
+				popup.close(list);
+
+			}
+		},
+
+			///////////////////////////////////////////
 		// TEST REMOVING ITEMS
 		///////////////////////////////////////////
 		"Removing items in displayed pages": function () {

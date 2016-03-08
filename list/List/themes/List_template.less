@@ -37,8 +37,7 @@
 .d-list-item {
 	/* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
 	list-style-type: none;
-	.flex-display();
-	.flex-align(center);
+	display: block;
 	.d-list-item-styles;
 	.d-list-cell {
 		height: @cell-height;
@@ -84,6 +83,7 @@
 }
 
 .d-list-loader {
+	display: block;
 	.d-list-cell {
 		white-space: nowrap;
 		text-overflow: ellipsis;

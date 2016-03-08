@@ -31,15 +31,7 @@
 .d-list-item {
   /* No position should be defined, as the List is using offsetTop to measure distance of elements within the list */
   list-style-type: none;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-items: center;
+  display: block;
   border-bottom: 1px solid #adaaad;
   background-color: #ffffff;
 }
@@ -97,6 +89,9 @@
 .d-list.d-rtl .d-list-item-right-text {
   padding-right: 0px;
   padding-left: 4px;
+}
+.d-list-loader {
+  display: block;
 }
 .d-list-loader .d-list-cell {
   white-space: nowrap;
