@@ -14,8 +14,7 @@ define({
 		// does not default to the latest version of the browser.
 
 		// Mobile
-		{ platformName: "iOS", platformVersion: "8.1", browserName: "safari", deviceName: "iPhone Simulator",
-			"device-orientation": "portrait", "appium-version": "1.3.4", name: "deliteful" },
+		{ browserName: "iphone", platform: "OS X 10.10", version: "9.0", deviceName: "iPad Retina", name: "deliteful" },
 
 		// Desktop.
 		{ browserName: "internet explorer", version: "11", platform: "Windows 8.1", requireWindowFocus: "true",
