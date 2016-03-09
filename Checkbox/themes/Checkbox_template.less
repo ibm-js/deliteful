@@ -5,11 +5,9 @@
 		.d-checkbox-focused();
 	}
 	&::before {
-		overflow: hidden;
 		display: inline-block;
-		position:absolute;
-		top:0px;
-		content:"";
+		text-align: center;
+		content: " ";
 		.d-checkbox-before-styles();
 	}
 	&.d-rtl::before {
@@ -37,7 +35,9 @@
 .d-checkbox > input[type=checkbox] {
 	.d-checkbox-input-styles();
 	opacity: 0.01;
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
 	overflow: hidden;
 	font: inherit;
 	cursor: pointer;

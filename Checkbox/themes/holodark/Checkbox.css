@@ -8,11 +8,9 @@
   outline-offset: -2px;
 }
 .d-checkbox::before {
-  overflow: hidden;
   display: inline-block;
-  position: absolute;
-  top: 0px;
-  content: "";
+  text-align: center;
+  content: " ";
   border-color: #5c5c5c;
   border-style: solid;
   border-width: 1px;
@@ -52,7 +50,9 @@ fieldset[disabled] .d-checkbox {
   height: 1em;
   margin: 0px;
   opacity: 0.01;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   overflow: hidden;
   font: inherit;
   cursor: pointer;

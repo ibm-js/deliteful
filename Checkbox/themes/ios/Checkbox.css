@@ -11,11 +11,9 @@
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 .d-checkbox::before {
-  overflow: hidden;
   display: inline-block;
-  position: absolute;
-  top: 0px;
-  content: "";
+  text-align: center;
+  content: " ";
   border-color: #b0b0b0;
   border-style: solid;
   border-width: 1px;
@@ -58,7 +56,9 @@ fieldset[disabled] .d-checkbox {
   margin-top: 1px \9;
   /* IE8-9 */
   opacity: 0.01;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   overflow: hidden;
   font: inherit;
   cursor: pointer;
