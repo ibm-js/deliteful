@@ -28,6 +28,16 @@ define([
 			} while (node && node.nodeType !== 1);
 			return node;
 		}
+
+		/**
+		 * Dispatched after SidePane is shown.
+		 * @example
+		 * mySidePane.on("sidepane-after-show", function (evt) {
+		 *      firstField.focus();
+		 * });
+		 * @event module:deliteful/SidePane#sidepane-after-show
+		 */
+
 		/**
 		 * A widget displayed on the side of the screen.
 		 *
@@ -176,7 +186,9 @@ define([
 						}.bind(this));
 					}
 				}
-				return promise || Promise.resolve(true);
+				return (promise || Promise.resolve(true)).then(function () {
+					this.emit("sidepane-after-show");
+				}.bind(this));
 			},
 
 			/**

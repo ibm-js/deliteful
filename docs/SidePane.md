@@ -17,7 +17,8 @@ title: deliteful/SidePane
 [Element Configuration](#configuration)  
 [Showing/Hiding the SidePane](#showing)
 [Element Styling](#styling)  
-[User Interactions](#interactions)  
+[User Interactions](#interactions)
+[Element Events](#events)
 [Enterprise Use](#enterprise)  
 
 <a name="instantiation"></a>
@@ -87,6 +88,11 @@ The following CSS layout attributes must **NOT** be changed. They are explicitly
 ## User Interactions
 
 `deliteful/SidePane` can be closed using a swipe gesture. Set `swipeClosing` to `true`.
+
+<a name="events"></a>
+## Element Events
+
+* Emits a `sidepane-after-show` event after the SidePane has been displayed.
 
 <a name="enterprise"></a>
 ## Enterprise Use

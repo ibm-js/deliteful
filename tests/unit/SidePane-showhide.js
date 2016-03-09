@@ -19,9 +19,14 @@ define([
 		},
 		"show" : function () {
 			var d = this.async(1000);
+			var shownEvent;
+			sp.on("sidepane-after-show", function () {
+				shownEvent = true;
+			});
 			sp.show("content").then(d.callback(function (value) {
 				assert.strictEqual(value.child.id, "content", "show() promise resolved value is incorrect");
 				assert.strictEqual(sp.children[0].id, "content", "SidePane content is incorrect");
+				assert(shownEvent, "fired sidepane-after-show");
 			}));
 		},
 		"hide" : function () {
