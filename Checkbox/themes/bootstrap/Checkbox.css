@@ -1,5 +1,6 @@
 .d-checkbox {
   position: relative;
+  display: inline-block;
   margin-left: 4px;
   margin-right: 4px;
   margin-top: 3px;
@@ -13,7 +14,8 @@
 .d-checkbox::before {
   display: inline-block;
   text-align: center;
-  content: " ";
+  content: "\2714";
+  color: rgba(0, 0, 0, 0);
   border-color: #cccccc;
   border-style: solid;
   border-width: 1px;
@@ -22,14 +24,13 @@
   height: 1em;
   width: 1em;
   line-height: 1em;
-  color: #555555;
   font-size: 1em;
 }
 .d-checkbox.d-rtl::before {
   right: 0px;
 }
 .d-checkbox.d-checked::before {
-  content: "\2714";
+  color: #555555;
 }
 .d-checkbox.d-disabled {
   color: #eeeeee;

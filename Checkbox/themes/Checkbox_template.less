@@ -1,5 +1,6 @@
 .d-checkbox {
 	position: relative;
+	display: inline-block;
 	.d-checkbox-styles();
 	&.d-focused { // from tab-focus()
 		.d-checkbox-focused();
@@ -7,14 +8,14 @@
 	&::before {
 		display: inline-block;
 		text-align: center;
-		content: " ";
+		content: "\2714";   		// add the checkmark character
+		color: rgba(0, 0, 0, 0);	// but make it invisible until d-checked state set
 		.d-checkbox-before-styles();
 	}
 	&.d-rtl::before {
 		right: 0px;
 	}
 	&.d-checked::before {
-		content: "\2714";   // checkmark
 		.d-checkbox-checked-before-styles();
 	}
 	&:active::before {

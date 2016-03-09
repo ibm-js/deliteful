@@ -28,13 +28,12 @@
 	height: 1em;
 	line-height: 1em;
 	background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
-	color: @input-color;
 }
 
 @d-radio-button-disabled-color: @input-bg-disabled;
 
 .d-radio-button-checked-before-styles () {
-	color: @input-color;
+	color: @input-color;	// change from the transparent color to a visible color
 }
 
 .d-radio-button-before-disabled-styles () {

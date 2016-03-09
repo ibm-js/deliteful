@@ -1,5 +1,6 @@
 .d-checkbox {
   position: relative;
+  display: inline-block;
   margin: -0.5em 3px 0.3em 4px;
 }
 .d-checkbox.d-focused {
@@ -10,7 +11,8 @@
 .d-checkbox::before {
   display: inline-block;
   text-align: center;
-  content: " ";
+  content: "\2714";
+  color: rgba(0, 0, 0, 0);
   border-color: #5c5c5c;
   border-style: solid;
   border-width: 1px;
@@ -24,7 +26,6 @@
   right: 0px;
 }
 .d-checkbox.d-checked::before {
-  content: "\2714";
   color: #61c6eb;
   background-color: transparent;
   background-image: none;
