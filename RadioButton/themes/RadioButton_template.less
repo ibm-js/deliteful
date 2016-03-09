@@ -8,11 +8,11 @@
 	&::before {		// like a <span> containing the black dot
 		display: inline-block;
 		text-align: center;
-		content: "\25CF";			// add the "black circle" character
-		color: rgba(0, 0, 0, 0);	// but make it invisible until d-checked is set
+		content: "\00A0";			// non-breaking space
 		.d-radio-button-before-styles();
 	}
 	&.d-checked::before {
+		content: "\25CF";			// "black circle" character
 		.d-radio-button-checked-before-styles();
 	}
 	&:active::before {

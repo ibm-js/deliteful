@@ -8,14 +8,14 @@
 	&::before {
 		display: inline-block;
 		text-align: center;
-		content: "\2714";   		// add the checkmark character
-		color: rgba(0, 0, 0, 0);	// but make it invisible until d-checked state set
+		content: "\00A0";			// non-breaking space
 		.d-checkbox-before-styles();
 	}
 	&.d-rtl::before {
 		right: 0px;
 	}
 	&.d-checked::before {
+		content: "\2714";   		// check mark
 		.d-checkbox-checked-before-styles();
 	}
 	&:active::before {

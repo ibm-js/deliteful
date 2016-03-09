@@ -11,8 +11,7 @@
 .d-radio-button::before {
   display: inline-block;
   text-align: center;
-  content: "\25CF";
-  color: rgba(0, 0, 0, 0);
+  content: "\00A0";
   border-color: #cccccc;
   border-style: solid;
   border-width: 1px;
@@ -23,6 +22,7 @@
   background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
 }
 .d-radio-button.d-checked::before {
+  content: "\25CF";
   color: #555555;
 }
 .d-radio-button.d-disabled::before {
