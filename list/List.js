@@ -1127,7 +1127,7 @@ define([
 					}
 					this.navigateTo(next);
 				}
-			} else if (evt.key === "Esc") {
+			} else if (evt.key === "Escape") {
 				// Leave Actionable mode
 				this._leaveActionableMode();
 			}
