@@ -272,8 +272,8 @@ define([
 		},
 
 		/**
-		 * Shows a children of the ViewStack. The parameter 'params' is optional. If not specified,
-		 * this.transition, and this.reverse are used.
+		 * Shows a child of the ViewStack.  The parameter 'params' is optional.  If not specified,
+		 * `this.transition`, and `this.reverse` are used.
 		 * This method must be called to display a particular destination child on this container.
 		 * @param {Element|string} dest - Element or Element id that points to the child this container must
 		 * show or hide.
@@ -292,8 +292,8 @@ define([
 				while (parent && parent.style.display  !== "none" && parent !== this.ownerDocument.body) {
 					parent = parent.parentNode;
 				}
-				if ((has("ie") === 9) || parent !== this.ownerDocument.body) {
-					if (! params) {
+				if (has("ie") === 9 || parent !== this.ownerDocument.body) {
+					if (!params) {
 						params = {};
 					}
 					params.transition = "none";
