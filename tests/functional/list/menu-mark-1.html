@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Lists</title>
+
+	<script type="text/javascript" src="../../boilerplate.js"></script>
+
+	<script type="text/javascript">
+		var ready = false;
+		require([
+			"delite/theme!delite/themes/{{theme}}/global.css"	// page level CSS
+		], function () {
+			require([
+					"delite/register",
+					"deliteful/list/List",
+					"requirejs-domready/domReady!"
+				], function (register) {
+					register.deliver();
+					ready = true;
+				});
+		});
+	</script>
+</head>
+<body>
+	<input type="text" autofocus>
+	<br>
+	<h2>10 items declared as markup, role is set to menu (id: list-mark-1)</h2>
+	<d-list id="list-mark-1" role="menu">
+		{"label": "menu item 0", "righttext": "right text A"},
+		{"label": "menu item 1", "righttext": "right text B"},
+		{"label": "menu item 2", "righttext": "right text C"},
+		{"label": "menu item 3", "righttext": "right text D"},
+		{"label": "menu item 4", "righttext": "right text E"},
+		{"label": "menu item 5", "righttext": "right text F"},
+		{"label": "menu item 6", "righttext": "right text G"},
+		{"label": "menu item 7", "righttext": "right text H"},
+		{"label": "menu item 8", "righttext": "right text I"},
+		{"label": "menu item 9", "righttext": "right text J"}
+	</d-list>
+</body>
+</html>

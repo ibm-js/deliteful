@@ -1,11 +1,9 @@
 /** @module deliteful/list/ItemRenderer */
 define([
-	"dcl/dcl",
-	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/register",
-	"delite/handlebars!./List/ItemRenderer.html",
-	"./Renderer"
-], function (dcl, $, register, template, Renderer) {
+	"./Renderer",
+	"delite/handlebars!./List/ItemRenderer.html"
+], function (register, Renderer, template) {
 
 	/**
 	 * Default item renderer for the {@link module:deliteful/list/List deliteful/list/List widget}.
@@ -29,9 +27,7 @@ define([
 	 * @augments module:deliteful/list/Renderer
 	 */
 
-	return register("d-list-item-renderer", [HTMLElement, Renderer],
-			/** @lends module:deliteful/list/ItemRenderer# */ {
-
+	return register("d-list-item-renderer", [HTMLElement, Renderer], /** @lends module:deliteful/list/ItemRenderer# */ {
 		/**
 		 * CSS class of an item renderer.
 		 * @member {string}
@@ -43,12 +39,18 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		attachedCallback: function () {
-			if (this.getParent().getAttribute("role") === "grid") {
-				this.setAttribute("role", "row");
-				this.renderNode.setAttribute("role", "gridcell");
-			} else {
-				this.renderNode.setAttribute("role", "option");
+		refreshRendering: function (oldVals) {
+			if ("parentRole" in oldVals) {
+				if (this.parentRole === "grid") {
+					this.setAttribute("role", "row");
+					this.renderNode.setAttribute("role", "gridcell");
+				} else {
+					this.removeAttribute("role");		// alternately, set role=presentation
+					this.renderNode.setAttribute("role", {
+						listbox: "option",
+						menu: "menuitem"	// there's also menuitemcheckbox and menuitemradio
+					}[this.parentRole]);
+				}
 			}
 		}
 	});

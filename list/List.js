@@ -136,7 +136,11 @@ define([
 			return function (attr, value) {
 				sup.apply(this, arguments);
 				if (attr === "role") {
-					this._applyRole(value);
+					// Update roles of existing renderers.
+					var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
+					Array.prototype.forEach.call(renderers, function (renderer) {
+						renderer.parentRole = value;
+					});
 				}
 			};
 		}),
@@ -230,9 +234,7 @@ define([
 		render: function () {
 			// Aria attributes
 			var currentRole = this.getAttribute("role");
-			if (currentRole) {
-				this._applyRole(currentRole);
-			} else {
+			if (!currentRole) {
 				this.setAttribute("role", "grid");
 			}
 			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
@@ -459,44 +461,6 @@ define([
 		},
 
 		//////////// Private methods ///////////////////////////////////////
-
-		/*jshint maxcomplexity:12*/
-		_applyRole: function (role) {
-			if (role === "listbox") {
-				// TODO: also this codes work specifically when switching between grid and listbox.
-				//       If we're going to support list, we'll need something a little different
-				var nodes = this.querySelectorAll(".d-list-cell[role='gridcell']");
-				for (var i = 0; i < nodes.length; i++) {
-					nodes[i].setAttribute("role", "option");
-				}
-				nodes = this.querySelectorAll(".d-list-item[role='row']");
-				for (i = 0; i < nodes.length; i++) {
-					nodes[i].removeAttribute("role");
-				}
-				if (this._isCategorized()) {
-					nodes = this.querySelectorAll(".d-list-category[role='row']");
-					for (i = 0; i < nodes.length; i++) {
-						nodes[i].removeAttribute("role");
-					}
-				}
-			} else {
-				nodes = this.querySelectorAll(".d-list-cell[role='option']");
-				for (i = 0; i < nodes.length; i++) {
-					nodes[i].setAttribute("role", "gridcell");
-				}
-				nodes = this.getItemRenderers();
-				for (i = 0; i < nodes.length; i++) {
-					nodes[i].setAttribute("role", "row");
-				}
-				if (this._isCategorized()) {
-					nodes = this.querySelectorAll(".d-list-category");
-					for (i = 0; i < nodes.length; i++) {
-						nodes[i].setAttribute("role", "row");
-					}
-				}
-			}
-		},
-		/*jshint maxcomplexity:10*/
 
 		/**
 		 * Sets the "busy" status of the widget.
@@ -752,7 +716,11 @@ define([
 		 * @private
 		 */
 		_createItemRenderer: function (item) {
-			var renderer = new this.itemRenderer({item: item, tabindex: "-1"});
+			var renderer = new this.itemRenderer({
+				item: item,
+				parentRole: this.getAttribute("role"),
+				tabindex: "-1"
+			});
 			if (this.selectionMode !== "none") {
 				var itemSelected = !!this.isSelected(item);
 				renderer.renderNode.setAttribute("aria-selected", itemSelected ? "true" : "false");
@@ -769,7 +737,12 @@ define([
 		 * @private
 		 */
 		_createCategoryRenderer: function (item) {
-			return new this.categoryRenderer({item: item, tabindex: "-1"});
+			var renderer = new this.categoryRenderer({
+				item: item,
+				parentRole: this.getAttribute("role"),
+				tabindex: "-1"
+			});
+			return renderer;
 		},
 
 		/**

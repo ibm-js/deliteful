@@ -24,13 +24,16 @@ define([
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
-		attachedCallback: function () {
-			if (this.getParent().getAttribute("role") === "grid") {
-				this.setAttribute("role", "row");
-				this.renderNode.setAttribute("role", "columnheader");
-			} else {
-				this.renderNode.removeAttribute("tabindex");
-				this.renderNode.setAttribute("role", "heading");
+		refreshRendering: function (oldVals) {
+			if ("parentRole" in oldVals) {
+				if (this.parentRole === "grid") {
+					this.setAttribute("role", "row");
+					this.renderNode.setAttribute("role", "columnheader");
+				} else {
+					this.removeAttribute("role");		// alternately, set role=presentation
+					this.renderNode.removeAttribute("tabindex");	// todo: do opposite for when parentRole === grid
+					this.renderNode.setAttribute("role", "heading");
+				}
 			}
 		}
 	});

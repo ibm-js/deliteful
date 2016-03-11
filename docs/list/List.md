@@ -32,7 +32,8 @@ The widget also provides the following capabilities:
 
 * List items can be grouped into categories (see [Categorized items](#categories));
 * List items can be selectable (see [Selection support](#selection));
-* For maximum flexibility, both `grid` and `listbox` WAI-ARIA roles are supported (see [Accessibility](#accessibility)).
+* For maximum flexibility, both `grid`, `listbox`, and `menu` WAI-ARIA roles are supported
+  (see [Accessibility](#accessibility)).
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -523,10 +524,11 @@ function selectionHandler(event) {
 <a name="accessibility"></a>
 ### Accessibility
 
-The widget supports two different WAI-ARIA roles:
+The widget supports three different WAI-ARIA roles:
 
-1. [grid](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#grid), which is the default role
-1. [listbox](http://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#listbox), which can be simply using `setAttribute` method.
+1. [grid](https://www.w3.org/TR/wai-aria/roles#grid), which is the default role
+2. [listbox](https://www.w3.org/TR/wai-aria/roles#listbox), which can be simply using `setAttribute` method.
+2. [menu](https://www.w3.org/TR/wai-aria/roles#menu), which can be simply using `setAttribute` method.
 
 #### grid role
 
@@ -560,6 +562,11 @@ When using the `listbox` role, the List widget behaves as previously described f
 * The list cannot have a `selectionMode` of `"none"`. If the selectionMode is `"none"` when setting the role attribute to `listbox`, it is automatically set to `"single"`;
 * The item and category renderers should not be actionable, and there is no way to enter actionable mode by pressing the ENTER or F2 keys;
 * If the list is categorized, the category headers are not focusable.
+
+#### menu role
+
+When using the `menu` role, the List widget behaves as previously described for the `listbox` role,
+except that there is no concept of selection.
 
 ### Globalization
 

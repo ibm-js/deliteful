@@ -24,7 +24,6 @@ define([
 	 * @augments module:delite/Widget
 	 */
 	return dcl([Widget], /** @lends module:deliteful/list/Renderer# */ {
-
 		/**
 		 * The list item to render.
 		 * @member {Object}
@@ -40,6 +39,11 @@ define([
 		 * @private
 		 */
 		_focusableChildren: null,
+
+		/**
+		 * The ARIA role of the parent.  Renderer role will be adjusted based on its parent's role.
+		 */
+		parentRole: "",
 
 		//////////// PROTECTED METHODS ///////////////////////////////////////
 
