@@ -136,6 +136,13 @@ define([
 			return function (attr, value) {
 				sup.apply(this, arguments);
 				if (attr === "role") {
+					// Only role=grid should have aria-readonly.  It's meaningless for role=listbox or role=menu.
+					if (value === "grid") {
+						this.setAttribute("aria-readonly", "true");
+					} else {
+						this.removeAttribute("aria-readonly");
+					}
+
 					// Update roles of existing renderers.
 					var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
 					Array.prototype.forEach.call(renderers, function (renderer) {
@@ -236,9 +243,13 @@ define([
 			var currentRole = this.getAttribute("role");
 			if (!currentRole) {
 				this.setAttribute("role", "grid");
+				currentRole = "grid";
 			}
-			// Might be overriden at the cell (renderer renderNode) level when developing custom renderers
-			this.setAttribute("aria-readonly", "true");
+
+			// role=grid should have aria-disabled, but it's meaningless for role=listbox or role=menu.
+			if (currentRole === "grid") {
+				this.setAttribute("aria-readonly", "true");
+			}
 		},
 
 		queryStoreAndInitItems: dcl.superCall(function (sup) {
