@@ -9,6 +9,7 @@
 		display: inline-block;
 		text-align: center;
 		content: "\00A0";			// non-breaking space
+		font-family: Times;			// avoid alignment problems of center dot when app is using a custom font
 		.d-radio-button-before-styles();
 	}
 	&.d-checked::before {
