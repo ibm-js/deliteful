@@ -12,7 +12,7 @@ define([
 ], function (dcl, registerSuite, assert, has, register, $,
 			 Memory, Trackable, List, Combobox) {
 
-	var container, MyCombobox;
+	var container;
 
 	/*jshint multistr: true */
 	var html = " <d-combobox id=\"combo1\"> \
@@ -96,7 +96,7 @@ define([
 	var initCombobox = function (combo, trackable) {
 		var TrackableMemoryStore = Memory.createSubclass(Trackable);
 		var list = new List();
-		list.source = trackable ? new TrackableMemoryStore({}) : new Memory();
+		list.source = trackable ? new TrackableMemoryStore({}): new Memory();
 		var dataItems = addOptions(combo, list, 0, nOptions - 1);
 		combo.list = list;
 		combo.deliver();
@@ -105,12 +105,10 @@ define([
 	};
 
 	var createCombobox = function (id, trackable, multiple) {
-		var selectionMode = multiple ? "multiple" : "single";
+		var selectionMode = multiple ? "multiple": "single";
 		var combo = new Combobox({ id: id, selectionMode: selectionMode });
 		initCombobox(combo, trackable);
 		combo.placeAt(container);
-		//container.appendChild(combo);
-		//combo.attachedCallback();
 		return combo;
 	};
 
@@ -119,7 +117,6 @@ define([
 		initCombobox(combo, trackable);
 		//container.appendChild(combo);
 		combo.placeAt(container);
-		combo.attachedCallback();
 		return combo;
 	};
 
@@ -204,7 +201,7 @@ define([
 						combo.id);
 				var dataObj = combo.list.selectedItem.__item;
 				var itemLabel = combo.list.labelFunc ?
-					combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+					combo.list.labelFunc(dataObj): dataObj[combo.list.labelAttr];
 				assert.strictEqual(itemLabel, "Option 2",
 						"label of combo.list.selectedItem after selecting item2 on combo.id: " + combo.id);
 				assert.strictEqual(combo.list.selectedItems.length, 1,
@@ -212,7 +209,7 @@ define([
 						combo.id);
 				dataObj = combo.list.selectedItems[0].__item;
 				itemLabel = combo.list.labelFunc ?
-					combo.list.labelFunc(dataObj) : dataObj[combo.list.labelAttr];
+					combo.list.labelFunc(dataObj): dataObj[combo.list.labelAttr];
 				assert.strictEqual(itemLabel, "Option 2",
 						"label of combo.list.selectedItems[2] after selecting item2 on combo.id: " +
 						combo.id);
@@ -233,13 +230,8 @@ define([
 	};
 
 	var CommonTestCases = {
-		"Default CSS" : function () {
+		"Default CSS": function () {
 			var combo = document.getElementById("combo1");
-
-			if (!combo) { // for the programmatic case 
-				combo = createCombobox("combo1");
-			} // else the declarative case
-
 			assert.isTrue($(combo).hasClass(outerCSS),
 					"Expecting " + outerCSS +
 					" CSS class on outer element of combo.id: " + combo.id);
@@ -267,43 +259,34 @@ define([
 					" CSS class on inner valueNode (hidden input) of combo.id: " + combo.id);
 		},
 
-		"Default values" : function () {
+		"Default values": function () {
 			var combo = document.getElementById("combo1");
-
-			if (!combo) { // for the programmatic case 
-				combo = createCombobox("combo1");
-			} // else the declarative case
-
 			checkDefaultValues(combo);
 
-			combo = document.getElementById("mycombo1");
-
-			if (!combo) { // for the programmatic case 
-				combo = createMyCombobox("mycombo1");
-			} // else the declarative case
-
-			checkDefaultValues(combo);
+			var mycombo = document.getElementById("mycombo1");
+			checkDefaultValues(mycombo);
 		}
 	};
 
 	// Markup use-case
 
-	var suite = {
+	register("my-combobox", [Combobox], {});
+
+	registerSuite({
 		name: "deliteful/Combobox: markup",
-		setup: function () {
-			register("my-combobox", [Combobox], {});
-		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
-			container.innerHTML = html;
-			register.deliver();
 		},
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		},
-		"Store.add/remove/put (custom element source)" : function () {
+		"Initialization": function () {
 			var d = this.async(1500);
+
+			container.innerHTML = html;
+			register.deliver();
+
 			var combo = document.getElementById("combo1");
 			combo.list.on("query-success", d.rejectOnError(function () {
 				checkCombobox(combo, this);
@@ -315,7 +298,7 @@ define([
 			}.bind(this)));
 			return d;
 		},
-		"Attribute mapping for label" : function () {
+		"Attribute mapping for label": function () {
 			var d = this.async(1500);
 			// Check the attribute mapping for label
 
@@ -333,25 +316,34 @@ define([
 			}.bind(this)));
 			return d;
 		}
+	});
 
+	var declCommonSuite = {
+		name: "deliteful/Combobox: markup (common tests)",
+		beforeEach: function () {
+			container = document.createElement("div");
+			document.body.appendChild(container);
+			container.innerHTML = html;
+			register.deliver();
+		},
+		afterEach: function () {
+			container.parentNode.removeChild(container);
+		}
 	};
-
-	dcl.mix(suite, CommonTestCases);
-
-	registerSuite(suite);
+	dcl.mix(declCommonSuite, CommonTestCases);
+	registerSuite(declCommonSuite);
 
 	// Programatic creation 
 
-	suite = {
+	var MyCombobox = register("my-combo-prog", [Combobox], {});
+
+	registerSuite({
 		name: "deliteful/Combobox: programatic",
-		setup: function () {
-			MyCombobox = register("my-combo-prog", [Combobox], {});
-		},
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 		},
-		"Store.add/remove/put (user's trackable Memory store)" : function () {
+		"Store.add/remove/put (user's trackable Memory store)": function () {
 			var combo = createCombobox("combo-a-1", true);
 			checkCombobox(combo, this);
 
@@ -359,7 +351,7 @@ define([
 			checkCombobox(combo, this);
 		},
 
-		"Store.add (user's non-trackable Memory store)" : function () {
+		"Store.add (user's non-trackable Memory store)": function () {
 			var combo = createCombobox("combo-b-1", false);
 			checkCombobox(combo, this);
 
@@ -367,7 +359,7 @@ define([
 			checkCombobox(combo, this);
 		},
 
-		"Attribute mapping for label" : function () {
+		"Attribute mapping for label": function () {
 			// Check the attribute mapping for label
 			var combo = new Combobox();
 			var dataSource = new Memory(
@@ -661,9 +653,20 @@ define([
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		}
+	});
+
+	var progCommonSuite = {
+		name: "deliteful/Combobox: programmatic (common tests)",
+		beforeEach: function () {
+			container = document.createElement("div");
+			document.body.appendChild(container);
+			createCombobox("combo1");
+			createMyCombobox("mycombo1");
+		},
+		afterEach: function () {
+			container.parentNode.removeChild(container);
+		}
 	};
-
-	dcl.mix(suite, CommonTestCases);
-
-	registerSuite(suite);
+	dcl.mix(progCommonSuite, CommonTestCases);
+	registerSuite(progCommonSuite);
 });
