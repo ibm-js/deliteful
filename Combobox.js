@@ -13,6 +13,11 @@ define([
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
 ], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown, List, ComboPopup, template, messages) {
+
+	// Counter used to generate unique ids for the dropdown items, so that aria-activedescendant is set to
+	// a reasonable value.
+	var idCounter = 1;
+
 	/**
 	 * A form-aware and store-aware multichannel widget leveraging the `deliteful/list/List`
 	 * widget for rendering the options.
@@ -372,11 +377,9 @@ define([
 		
 		_initHandlers: function () {
 			this.list.on("keynav-child-navigated", function (evt) {
-				var input = this._popupInput || this.inputNode;
 				var navigatedChild = evt.newValue; // never null
 				var rend = this.list.getEnclosingRenderer(navigatedChild);
 				var item = rend.item;
-				input.setAttribute("aria-activedescendant", navigatedChild.id);
 				if (this.selectionMode === "single" && !this.list.isSelected(item)) {
 					this.list.selectFromEvent(evt, item, rend, true);
 				} // else do not change the selection state of an item already selected
@@ -384,6 +387,7 @@ define([
 					(evt.triggerEvent.type === "keydown" || evt.triggerEvent.type === "keypress")) {
 					this._updateScroll(item, true);
 				}
+				this._setActiveDescendant();
 			}.bind(this));
 			
 			this.list.on("click", function (evt) {
@@ -703,14 +707,19 @@ define([
 				var promise = sup.apply(this, arguments);
 				
 				return promise.then(function () {
-					this._updateScroll(undefined, true);
+					this._updateScroll(undefined, true);	// sets this.list.navigatedDescendant
+					this._setActiveDescendant();
 				}.bind(this));
 			};
 		}),
 		
 		closeDropDown: dcl.superCall(function (sup) {
 			return function () {
-				this._selectedItems = null; // cleanup
+				// cleanup
+				this._selectedItems = null;
+
+				var input = this._popupInput || this.inputNode;
+				input.removeAttribute("aria-activedescendant");
 				
 				if (this.opened) {
 					// Using the flag `opened` (managed by delite/HasDropDown), avoid
@@ -770,6 +779,18 @@ define([
 						this.list.navigatedDescendant = renderer.childNodes[0];
 					}
 				} // null if the list is empty because no item matches the auto-filtering
+			}
+		},
+
+		_setActiveDescendant: function () {
+			var nd = this.list.navigatedDescendant;
+			if (nd) {
+				if (!nd.id) {
+					nd.id = "d-combobox-item-" + idCounter++;
+				}
+
+				var input = this._popupInput || this.inputNode;
+				input.setAttribute("aria-activedescendant", nd.id);
 			}
 		}
 	});

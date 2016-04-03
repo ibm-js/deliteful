@@ -118,6 +118,8 @@ define([
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after first ARROW_DOWN");
+				assert(/^France/.test(comboState.activeDescendant),
+					"activeDescendant after first ARROW_DOWN: " + comboState.activeDescendant);
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -138,6 +140,8 @@ define([
 						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after second ARROW_DOWN");
+				assert(/^Germany/.test(comboState.activeDescendant),
+					"activeDescendant after second ARROW_DOWN: " + comboState.activeDescendant);
 			})
 			.pressKeys(keys.ARROW_UP)
 			.execute(executeExpr)
@@ -158,6 +162,8 @@ define([
 						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after first ARROW_UP");
+				assert(/^France/.test(comboState.activeDescendant),
+					"activeDescendant after first ARROW_UP: " + comboState.activeDescendant);
 			})
 			.pressKeys(keys.ARROW_DOWN)
 			.execute(executeExpr)
@@ -178,6 +184,8 @@ define([
 						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after third ARROW_DOWN");
+				assert(/^Germany/.test(comboState.activeDescendant),
+					"activeDescendant after third ARROW_DOWN: " + comboState.activeDescendant);
 			})
 			// Similar to native select, ESCAPE also closes and validates the popup
 			.pressKeys(keys.ESCAPE)
@@ -223,6 +231,8 @@ define([
 							widgetValueAtLatestChangeEvent: "Germany",
 							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after ARROW_DOWN following ESCAPE");
+					assert(/^Germany/.test(comboState.activeDescendant),
+						"activeDescendant after after ARROW_DOWN following ESCAPE: " + comboState.activeDescendant);
 				})
 				.pressKeys(keys.BACKSPACE) // Delete the 7 chars of "Germany"
 				.pressKeys(keys.BACKSPACE)
@@ -295,6 +305,8 @@ define([
 							widgetValueAtLatestChangeEvent: "Germany",
 							valueNodeValueAtLatestChangeEvent: "Germany"
 						}, "after ARROW_DOWN with filtered list");
+					assert(/^UK/.test(comboState.activeDescendant),
+						"activeDescendant after ARROW_DOWN with filtered list: " + comboState.activeDescendant);
 				})
 				.pressKeys(keys.ENTER) // closes the popup and validates the changes
 				.sleep(1000) // wait for async closing
@@ -391,6 +403,8 @@ define([
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after second ARROW_DOWN");
+				assert(/^France/.test(comboState.activeDescendant),
+					"activeDescendant after second ARROW_DOWN: " + comboState.activeDescendant);
 			})
 			.pressKeys(keys.SPACE) // toggles selection state of the navigated item
 			.execute(executeExpr)
@@ -513,6 +527,8 @@ define([
 						widgetValueAtLatestChangeEvent: ["France"],
 						valueNodeValueAtLatestChangeEvent: "France"
 					}, "after second ARROW_DOWN after reopening");
+				assert(/^Germany/.test(comboState.activeDescendant),
+					"activeDescendant after second ARROW_DOWN after reopening: " + comboState.activeDescendant);
 			})
 			.pressKeys(keys.SPACE) // toggles the navigated item (Germany) to selected state
 			.execute(executeExpr)

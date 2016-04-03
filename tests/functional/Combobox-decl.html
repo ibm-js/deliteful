@@ -109,6 +109,9 @@
 				// counters in the remaining testing sequence.
 				combo._inputEventCounter = 0;
 				combo._changeEventCounter = 0;
+
+				var activeDescendantNode = document.getElementById(
+						combo.inputNode.getAttribute("aria-activedescendant"));
 				return {
 					inputNodeValue: combo.inputNode.value,
 					widgetValue: combo.value,
@@ -125,7 +128,8 @@
 					selectionMode: combo.selectionMode,
 					autoFilter: combo.autoFilter,
 					multipleChoiceNoSelectionMsg: combo.multipleChoiceNoSelectionMsg,
-					multipleChoiceMsg: combo.multipleChoiceMsg
+					multipleChoiceMsg: combo.multipleChoiceMsg,
+					activeDescendant: activeDescendantNode && activeDescendantNode.textContent.trim()
 				};
 			};
 
