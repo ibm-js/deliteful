@@ -92,7 +92,7 @@ define([
 						itemRenderersCount: 37, // full list
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never received
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
@@ -113,7 +113,7 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0, // no new event
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never received
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
@@ -135,7 +135,7 @@ define([
 						changeEventCounter: 0, // still 0 till validation by close popup
 						widgetValueAtLatestInputEvent: "Germany",
 						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after second ARROW_DOWN");
 			})
@@ -155,7 +155,7 @@ define([
 						changeEventCounter: 0, // still 0 till validation by close popup
 						widgetValueAtLatestInputEvent: "France",
 						valueNodeValueAtLatestInputEvent: "France",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after first ARROW_UP");
 			})
@@ -175,7 +175,7 @@ define([
 						changeEventCounter: 0, // still 0 till validation by close popup
 						widgetValueAtLatestInputEvent: "Germany",
 						valueNodeValueAtLatestInputEvent: "Germany",
-						widgetValueAtLatestChangeEvent: undefined, // never recieved
+						widgetValueAtLatestChangeEvent: undefined, // never received
 						valueNodeValueAtLatestChangeEvent: undefined
 					}, "after third ARROW_DOWN");
 			})
@@ -582,7 +582,7 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0, // no event so far
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never received
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
@@ -604,7 +604,7 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never received
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
@@ -634,7 +634,7 @@ define([
 						itemRenderersCount: 37,
 						inputEventCounter: 0,
 						changeEventCounter: 0,
-						widgetValueAtLatestInputEvent: undefined, // never recieved
+						widgetValueAtLatestInputEvent: undefined, // never received
 						valueNodeValueAtLatestInputEvent: undefined,
 						widgetValueAtLatestChangeEvent: undefined,
 						valueNodeValueAtLatestChangeEvent: undefined
@@ -643,7 +643,7 @@ define([
 			.end()
 		*/	.findById(comboId + "_item1") // third option, which is "Germany"
 			.click()
-			.sleep(500) // wait for popup closing
+			.sleep(500) // wait for popup to close
 			.execute(executeExpr)
 			.then(function (comboState) {
 				// The click on the first option does not change the state because it is a category
