@@ -922,14 +922,14 @@ define([
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#grid
 
 		/**
+		 * Test if the child is navigable.  Skips category renderers when role=listbox or role=menu.
 		 * @private
 		 */
 		descendantSelector: function (child) {
 			var enclosingRenderer = this.getEnclosingRenderer(child);
-			return !enclosingRenderer ||
-				(this.getAttribute("role") === "listbox" && this.isCategoryRenderer(enclosingRenderer)) ?
-				false :
-				$(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex");
+			return enclosingRenderer &&
+				(this.getAttribute("role") === "grid" || !this.isCategoryRenderer(enclosingRenderer)) &&
+				($(child).hasClass(this._cssClasses.cell) || child.hasAttribute("navindex"));
 		},
 
 		/**
@@ -942,7 +942,7 @@ define([
 				if ((evt.key === "Spacebar" && !this._searchTimer)) {
 					this._spaceKeydownHandler(evt);
 				} else {
-					if (this.getAttribute("role") !== "listbox") {
+					if (this.getAttribute("role") === "grid") {
 						this._gridKeydownHandler(evt);
 					}
 				}
@@ -988,7 +988,7 @@ define([
 		 */
 		_getFirst: function () {
 			var first = this.querySelector("." + this._cssClasses.cell);
-			if (first && this.getAttribute("role") === "listbox"
+			if (first && this.getAttribute("role") !== "grid"
 					&& this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
 				first = this.getNext(first, 1);
 			}
@@ -1004,7 +1004,7 @@ define([
 			// summary:
 			var cells = this.querySelectorAll("." + this._cssClasses.cell);
 			var last = cells.length ? cells.item(cells.length - 1) : null;
-			if (last && this.getAttribute("role") === "listbox"
+			if (last && this.getAttribute("role") !== "grid"
 					&& this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
 				last = this.getNext(last, -1);
 			}
@@ -1020,7 +1020,7 @@ define([
 			var next = null;
 			if (focusedRenderer) {
 				next = focusedRenderer.nextElementSibling;
-				if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
+				if (next && this.getAttribute("role") !== "grid" && this.isCategoryRenderer(next)) {
 					next = next.nextElementSibling;
 				}
 			}
@@ -1035,7 +1035,7 @@ define([
 			var next = null;
 			if (focusedRenderer) {
 				next = focusedRenderer.previousElementSibling;
-				if (next && this.getAttribute("role") === "listbox" && this.isCategoryRenderer(next)) {
+				if (next && this.getAttribute("role") !== "grid" && this.isCategoryRenderer(next)) {
 					next = next.previousElementSibling;
 				}
 			}
