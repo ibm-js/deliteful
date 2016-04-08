@@ -111,10 +111,7 @@ define([
 						list.source.push({label: "item 3"});
 						list.deliver();
 						var nodeList = list.getItemRenderers();
-						assert.strictEqual(nodeList.length, 3);
-						assert.strictEqual(nodeList.item(0), list.children[0]);
-						assert.strictEqual(nodeList.item(1), list.children[1]);
-						assert.strictEqual(nodeList.item(2), list.children[2]);
+						assert.deepEqual(nodeList, [].slice.call(list.children));
 					}));
 					return d;
 				},

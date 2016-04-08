@@ -144,8 +144,7 @@ define([
 					}
 
 					// Update roles of existing renderers.
-					var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
-					Array.prototype.forEach.call(renderers, function (renderer) {
+					this.getRenderers().forEach(function (renderer) {
 						renderer.parentRole = value;
 					});
 				}
@@ -334,30 +333,54 @@ define([
 			}
 			this._hideLoadingPanel();
 		},
-
+ 
 		deliver: dcl.superCall(function (sup) {
 			return function () {
 				// Deliver pending changes to the list and its renderers
 				sup.apply(this, arguments);
-				var renderers = this.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
-				for (var i = 0; i < renderers.length; i++) {
-					renderers.item(i).deliver();
-				}
+				this.getRenderers().forEach(function (renderer) {
+					if (renderer.deliver) {
+						renderer.deliver();
+					}
+				});
 			};
 		}),
 
 		//////////// Public methods ///////////////////////////////////////
 
 		/**
-		 * Returns the item renderers displayed by the list.
-		 * @returns {NodeList}
+		 * Returns the renderers displayed by the list.
+		 * @returns {module:deliteful/list/Renderer[]}
+		 * @private
 		 */
-		getItemRenderers: function () {
-			return this.querySelectorAll(this.itemRenderer.tag);
+		getRenderers: function () {
+			return [].slice.call(this.childNodes);
 		},
 
 		/**
-		 *	Returns the renderer currently displaying an item with a specific id, or
+		 * Returns the item and category renderers displayed by the list.
+		 * @returns {module:deliteful/list/Renderer[]}
+		 * @private
+		 */
+		getItemAndCategoryRenderers: function () {
+			return Array.prototype.filter.call(this.childNodes, function (node) {
+				return node.tagName.toLowerCase() === this.itemRenderer.tag
+					|| node.tagName.toLowerCase() === this.categoryRenderer.tag;
+			}, this);
+		},
+
+		/**
+		 * Returns the item renderers displayed by the list.
+		 * @returns {module:deliteful/list/ItemRenderer[]}
+		 */
+		getItemRenderers: function () {
+			return Array.prototype.filter.call(this.childNodes, function (node) {
+				return node.tagName.toLowerCase() === this.itemRenderer.tag;
+			}, this);
+		},
+
+		/**
+		 * Returns the renderer currently displaying an item with a specific id, or
 		 * null if there is no renderer displaying an item with this id.
 		 * @param {Object} id The id of the item displayed by the renderer.
 		 * @returns {module:deliteful/list/Renderer}
@@ -365,7 +388,7 @@ define([
 		getRendererByItemId: function (id) {
 			var renderers = this.getItemRenderers();
 			for (var i = 0; i < renderers.length; i++) {
-				var renderer = renderers.item(i);
+				var renderer = renderers[i];
 				if (this.getIdentity(renderer.item) === id) {
 					return renderer;
 				}
@@ -380,7 +403,7 @@ define([
 		 * @returns {module:deliteful/list/ItemRenderer}
 		 */
 		getItemRendererByIndex: function (index) {
-			return index >= 0 ? this.getItemRenderers().item(index) : null;
+			return this.getItemRenderers()[index] || null;
 		},
 
 		/**
@@ -395,7 +418,7 @@ define([
 				var id = this.getIdentity(renderer.item);
 				var nodeList = this.getItemRenderers();
 				for (var i = 0; i < nodeList.length; i++) {
-					var currentRenderer = nodeList.item(i);
+					var currentRenderer = nodeList[i];
 					if (this.getIdentity(currentRenderer.item) === id) {
 						result = i;
 						break;
@@ -792,24 +815,22 @@ define([
 		},
 
 		/**
-		 * Returns the first renderer in the list.
+		 * Returns the first item or category renderer in the list.
 		 * @returns {module:deliteful/list/Renderer}
 		 * @private
 		 */
 		_getFirstRenderer: function () {
-			return this.querySelector(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
+			return this.getItemAndCategoryRenderers()[0] || null;
 		},
 
-
 		/**
-		 * Returns the last renderer in the list.
+		 * Returns the last item or category renderer in the list.
 		 * @returns {module:deliteful/list/Renderer}
 		 * @private
 		 */
 		_getLastRenderer: function () {
-			var renderers = this
-								.querySelectorAll(this.itemRenderer.tag + ", " + this.categoryRenderer.tag);
-			return renderers.length ? renderers.item(renderers.length - 1) : null;
+			var renderers = this.getItemAndCategoryRenderers();
+			return renderers[renderers.length - 1] || null;
 		},
 
 		////////////delite/Store implementation ///////////////////////////////////////
@@ -980,35 +1001,52 @@ define([
 			};
 		}),
 
-		// Page Up/Page down key support
 		/**
 		 * Returns the first cell in the list.
+		 * For role=listbox and role=menu, skips category renderers.
+		 * However, it doesn't skip navigation renderers ("click to load previous rows ...").
 		 * @private
 		 * @returns {Element}
 		 */
 		_getFirst: function () {
-			var first = this.querySelector("." + this._cssClasses.cell);
-			if (first && this.getAttribute("role") !== "grid"
-					&& this.isCategoryRenderer(this.getEnclosingRenderer(first))) {
-				first = this.getNext(first, 1);
+			var firstRenderer = this.childNodes[0],
+				firstCell = firstRenderer && firstRenderer.renderNode;
+			if (this.getAttribute("role") !== "grid" && firstRenderer && this.isCategoryRenderer(firstRenderer)) {
+				firstCell = this.getNext(firstCell, 1);
 			}
-			return first;
+			return firstCell;
 		},
 
 		/**
 		 * Returns the last cell in the list.
+		 * For role=listbox and role=menu, skips category renderers.
+		 * However, it doesn't skip navigation renderers ("click to load more rows ...").
 		 * @private
 		 * @returns {Element}
 		 */
 		_getLast: function () {
-			// summary:
-			var cells = this.querySelectorAll("." + this._cssClasses.cell);
-			var last = cells.length ? cells.item(cells.length - 1) : null;
-			if (last && this.getAttribute("role") !== "grid"
-					&& this.isCategoryRenderer(this.getEnclosingRenderer(last))) {
-				last = this.getNext(last, -1);
+			var lastRenderer = this.childNodes[this.childNodes.length - 1],
+				lastCell = lastRenderer && lastRenderer.renderNode;
+			if (this.getAttribute("role") !== "grid" && lastRenderer && this.isCategoryRenderer(lastRenderer)) {
+				lastCell = this.getNext(lastCell, -1);
 			}
-			return last;
+			return lastCell || null;
+		},
+
+		/**
+		 * Get the next or previous cell, compared to the specified one.
+		 * @param child
+		 * @param dir
+		 * @returns {Element}
+		 */
+		getNext: function (child, dir) {
+			if (child === this) {
+				return dir > 0 ? this._getFirst() : this._getLast();
+			}
+
+			var renderer = this.getEnclosingRenderer(child);
+			return dir > 0 ? renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst() :
+				renderer.previousElementSibling ? renderer.previousElementSibling.renderNode : this._getLast();
 		},
 
 		// Simple arrow key support.
@@ -1050,17 +1088,6 @@ define([
 
 		pageDownKeyHandler: function (evt) {
 			this.navigateToLast(evt);
-		},
-
-		getNext: function (child, dir) {
-			if (child === this) {
-				return dir > 0 ? this._getFirst() : this._getLast();
-			}
-
-			// Letter key navigation support.
-			var renderer = this.getEnclosingRenderer(child);
-			return dir > 0 ? renderer.nextElementSibling ? renderer.nextElementSibling.renderNode : this._getFirst() :
-				renderer.previousElementSibling ? renderer.previousElementSibling.renderNode : this._getLast();
 		},
 
 		//////////// Extra methods for Keyboard navigation ///////////////////////////////////////
