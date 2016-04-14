@@ -5,23 +5,23 @@
 	&.d-focused { // from tab-focus()
 		.d-radio-button-focused();
 	}
-	&::before {		// like a <span> containing the black dot
+	.d-radio-button-icon::before {		// <span> containing the black dot
 		display: inline-block;
 		text-align: center;
 		content: "\00A0";			// non-breaking space
 		font-family: Times;			// avoid alignment problems of center dot when app is using a custom font
 		.d-radio-button-before-styles();
 	}
-	&.d-checked::before {
+	&.d-checked .d-radio-button-icon::before {
 		content: "\25CF";			// "black circle" character
 		.d-radio-button-checked-before-styles();
 	}
-	&:active::before {
+	&:active .d-radio-button-icon::before {
 		.d-radio-button-active-styles();
 	}
-	&.d-disabled::before {
+	&.d-disabled .d-radio-button-icon::before {
 		.d-radio-button-before-disabled-styles();
-		&.d-checked::before {
+		&.d-checked .d-radio-button-icon::before {
 			.d-radio-button-checked-before-disabled-styles();
 		}
 	}

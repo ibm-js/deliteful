@@ -8,7 +8,7 @@
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.d-radio-button::before {
+.d-radio-button .d-radio-button-icon::before {
   display: inline-block;
   text-align: center;
   content: "\00A0";
@@ -22,14 +22,14 @@
   line-height: 1em;
   background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
 }
-.d-radio-button.d-checked::before {
+.d-radio-button.d-checked .d-radio-button-icon::before {
   content: "\25CF";
   color: #555555;
 }
-.d-radio-button.d-disabled::before {
+.d-radio-button.d-disabled .d-radio-button-icon::before {
   color: #eeeeee;
 }
-.d-radio-button.d-disabled::before.d-checked::before {
+.d-radio-button.d-disabled .d-radio-button-icon::before.d-checked .d-radio-button-icon::before {
   color: #999999;
 }
 .d-radio-button.d-disabled,

@@ -8,7 +8,7 @@
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.d-checkbox::before {
+.d-checkbox .d-checkbox-icon::before {
   display: inline-block;
   text-align: center;
   content: "\00A0";
@@ -22,16 +22,16 @@
   height: 1em;
   width: 1em;
 }
-.d-checkbox.d-rtl::before {
+.d-checkbox.d-rtl .d-checkbox-icon::before {
   right: 0px;
 }
-.d-checkbox.d-checked::before {
+.d-checkbox.d-checked .d-checkbox-icon::before {
   content: "\2714";
   color: #61c6eb;
   background-color: transparent;
   background-image: none;
 }
-.d-checkbox:active::before {
+.d-checkbox:active .d-checkbox-icon::before {
   border-color: #99bbca;
   box-shadow: 0px 0px 1px 4px #1f5366;
   background-color: #1f5366;

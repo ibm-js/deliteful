@@ -11,7 +11,7 @@
   background-image: linear-gradient(to bottom, #fdfdfd 0%, #f8f8f8 50%, #eeeeee 50%, #cecece 100%);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.d-checkbox::before {
+.d-checkbox .d-checkbox-icon::before {
   display: inline-block;
   text-align: center;
   content: "\00A0";
@@ -25,16 +25,16 @@
   height: 10px;
   width: 10px;
 }
-.d-checkbox.d-rtl::before {
+.d-checkbox.d-rtl .d-checkbox-icon::before {
   right: 0px;
 }
-.d-checkbox.d-checked::before {
+.d-checkbox.d-checked .d-checkbox-icon::before {
   content: "\2714";
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7a9de9), to(#2362dd), color-stop(0.5, #366edf), color-stop(0.5, #215fdc));
   background-image: linear-gradient(to bottom, #7a9de9 0%, #366edf 50%, #215fdc 50%, #2362dd 100%);
   color: white;
 }
-.d-checkbox:active::before {
+.d-checkbox:active .d-checkbox-icon::before {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8ea4c1), to(#4a6c9b), color-stop(0.5, #5877a2), color-stop(0.5, #476999));
   background-image: linear-gradient(to bottom, #8ea4c1 0%, #5877a2 50%, #476999 50%, #4a6c9b 100%);
 }

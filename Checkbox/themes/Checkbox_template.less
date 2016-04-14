@@ -5,21 +5,21 @@
 	&.d-focused { // from tab-focus()
 		.d-checkbox-focused();
 	}
-	&::before {
+	.d-checkbox-icon::before {
 		display: inline-block;
 		text-align: center;
 		content: "\00A0";			// non-breaking space
 		font-family: Times;			// just in case app is using a custom font
 		.d-checkbox-before-styles();
 	}
-	&.d-rtl::before {
+	&.d-rtl .d-checkbox-icon::before {
 		right: 0px;
 	}
-	&.d-checked::before {
+	&.d-checked .d-checkbox-icon::before {
 		content: "\2714";   		// check mark
 		.d-checkbox-checked-before-styles();
 	}
-	&:active::before {
+	&:active .d-checkbox-icon::before {
 		.d-checkbox-active-styles();
 	}
 	&.d-disabled {

@@ -11,7 +11,7 @@
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.d-checkbox::before {
+.d-checkbox .d-checkbox-icon::before {
   display: inline-block;
   text-align: center;
   content: "\00A0";
@@ -26,10 +26,10 @@
   line-height: 1em;
   font-size: 1em;
 }
-.d-checkbox.d-rtl::before {
+.d-checkbox.d-rtl .d-checkbox-icon::before {
   right: 0px;
 }
-.d-checkbox.d-checked::before {
+.d-checkbox.d-checked .d-checkbox-icon::before {
   content: "\2714";
   color: #555555;
 }

@@ -31,20 +31,20 @@ define([
 			setTimeout(d.callback(function () {
 				var rb = document.getElementById("rb4");
 				var elt = rb.querySelector("input[type='radio']");
-				assert.ok(elt, "Missing wrapped input element.");
-				assert.strictEqual(rb.valueNode, rb.firstChild, "Unexpected value for 'valueNode' property.");
-				assert.strictEqual(rb.valueNode, rb.focusNode, "Unexpected value for 'focusNode' property.");
+				assert.ok(elt, "Missing wrapped input element");
+				assert.strictEqual(rb.valueNode, rb.querySelector("input"), "'valueNode' property");
+				assert.strictEqual(rb.valueNode, rb.focusNode, "'focusNode' property");
 				rb = document.getElementById("rb3");
 				assert.strictEqual(rb.value, "rb3",
 					"Unexpected default value for 'value' property if 'value' specified/unchecked");
 				assert.strictEqual(rb.value, rb.valueNode.value,
-					"Unexpected value for 'rb3' wrapped input 'value' property.");
+					"'rb3' wrapped input 'value' property");
 				assert.strictEqual(rb.name, "choice",
 					"Unexpected default value for 'value' property if 'value' specified/unchecked");
 				assert.strictEqual(rb.name, rb.valueNode.name,
-					"Unexpected value for 'rb3' wrapped input 'name' property.");
+					"'rb3' wrapped input 'name' property");
 				rb = document.getElementById("rb2");
-				assert.ok(rb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
+				assert.ok(rb.checked, "Unexpected default value for 'checked' property if 'checked' specified");
 			}), 300);
 			return d;
 		},
@@ -57,16 +57,16 @@ define([
 				rb.checked = true;
 				rb.deliver();
 				rb = document.getElementById("rb1");
-				assert.isTrue(rb.checked, "Unexpected value for 'checked' property after set.");
+				assert.isTrue(rb.checked, "'checked' property after set");
 				assert.strictEqual(rb.checked, inp.checked,
-					"Unexpected value for 'checked' property of wrapped input.");
+					"'checked' property of wrapped input");
 				// check it's the only checked button in the form
 				var rb2 = document.getElementById("rb2");
-				assert.isFalse(rb2.checked, "Unexpected value for rb2 'checked' property after set.");
-				assert.isFalse(rb2.valueNode.checked, "Unexpected value for rb2 'checked' property of wrapped input.");
+				assert.isFalse(rb2.checked, "rb2 'checked' property after set");
+				assert.isFalse(rb2.valueNode.checked, "rb2 'checked' property of wrapped input");
 				var rb3 = document.getElementById("rb3");
-				assert.isFalse(rb3.checked, "Unexpected value for rb3 'checked' property after set.");
-				assert.isFalse(rb3.valueNode.checked, "Unexpected value for rb3 'checked' property of wrapped input.");
+				assert.isFalse(rb3.checked, "rb3 'checked' property after set");
+				assert.isFalse(rb3.valueNode.checked, "rb3 'checked' property of wrapped input");
 			}), 100);
 			return d;
 		},
@@ -76,11 +76,11 @@ define([
 			var rb = document.getElementById("rb2");
 			rb.toggle();
 			rb.deliver();
-			assert.isTrue(rb.checked, "Unexpected value for 'checked' property after toggle() on rb2");
+			assert.isTrue(rb.checked, "'checked' property after toggle() on rb2");
 			rb = document.getElementById("rb1");
 			rb.toggle();
 			rb.deliver();
-			assert.isTrue(rb.checked, "Unexpected value for 'checked' property after toggle() on rb1");
+			assert.isTrue(rb.checked, "'checked' property after toggle() on rb1");
 		},
 
 		// overrides shared impl.
@@ -94,13 +94,13 @@ define([
 					fired = true;
 				});
 				rb3.focusNode.click();
-				assert.isTrue(fired, "Missing 'change' event when input node is clicked.");
+				assert.isTrue(fired, "Missing 'change' event when input node is clicked");
 				fired = false;
 				var rb1 = document.getElementById("rb1");
 				rb1.checked = true;
 				rb1.deliver();
 				lbl4.click();
-				assert.isTrue(fired, "Missing 'change' event when labelFor is clicked.");
+				assert.isTrue(fired, "Missing 'change' event when labelFor is clicked");
 			}));
 			return d;
 		},
