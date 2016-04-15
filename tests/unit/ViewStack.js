@@ -264,6 +264,7 @@ define([
 				checkNodeVisibility(node, ddd);
 			}));
 		},
+
 		"Check reverse in showPrevious": {
 			setup: function () {
 				node.style.display = "";
@@ -854,6 +855,25 @@ define([
 				});
 			}
 		},
+		"detach and reattach": function () {
+			var d = this.async(1000);
+
+			node.show(bbb, {transition: "none"});	// select node that *isn't* the first node
+
+			node.parentNode.removeChild(node);
+
+			setTimeout(d.rejectOnError(function () {
+				container.appendChild(node);
+
+				setTimeout(d.callback(function () {
+					assert.strictEqual(node._visibleChild, bbb, "node._visibleChild");
+					assert.strictEqual(aaa.style.display, "none", "aaa hidden");
+					assert.notStrictEqual(bbb.style.display, "none", "bbb visible");
+				}), 10);
+			}), 10);
+		},
+
+		// Note: this should be the last test
 		"remove visible node": function () {
 			var d = this.async(1000);
 			asyncHandler = node.on("delite-after-show", d.callback(function () {

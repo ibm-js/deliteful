@@ -121,7 +121,7 @@ define([
 			if (this._pendingChild) {
 				this.show(this._pendingChild, noTransition);
 				this._pendingChild = null;
-			} else if (this.children.length > 0) {
+			} else if (!this._visibleChild && this.children.length > 0) {
 				this.show(this.children[0], noTransition);
 			}
 		},
