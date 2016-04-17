@@ -839,10 +839,10 @@ define([
 			.pressKeys(keys.END)
 			.sleep(500)
 			// combo1.list.getBottomDistance(combo1.list.getItemRenderers()
-			// .item(combo1.list.getItemRenderers().length - 1));
+			// [combo1.list.getItemRenderers().length - 1]);
 			.execute("return " + comboId + ".list.getBottomDistance(" + comboId +
-				".list.getItemRenderers().item(" + comboId +
-				".list.getItemRenderers().length - 1));")
+				".list.getItemRenderers()[" + comboId +
+				".list.getItemRenderers().length - 1]);")
 			.then(function (value) {
 				assert.strictEqual(value, 0,
 					"After navigating to last list item, list should be at max. " +

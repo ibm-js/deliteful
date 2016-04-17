@@ -72,7 +72,7 @@
 				var itemRenderers = combo.list.getItemRenderers();
 				var i;
 				for (i = 0; i < itemRenderers.length; i++) {
-					itemRenderers.item(i).renderNode.id = combo.id + "_item" + i;
+					itemRenderers[i].renderNode.id = combo.id + "_item" + i;
 				}
 				var categoryRenderers = combo.list.querySelectorAll("." + combo.list._cssClasses.category);
 				for (i = 0; i < categoryRenderers.length; i++) {
