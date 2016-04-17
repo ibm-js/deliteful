@@ -5,6 +5,7 @@ define([
 	"dstore/Filter",
 	"decor/sniff",
 	"delite/register",
+	"delite/CssState",
 	"delite/FormValueWidget",
 	"delite/HasDropDown",
 	"./list/List",
@@ -12,7 +13,20 @@ define([
 	"delite/handlebars!./Combobox/Combobox.html",
 	"requirejs-dplugins/i18n!./Combobox/nls/Combobox",
 	"delite/theme!./Combobox/themes/{{theme}}/Combobox.css"
-], function (dcl, $, Filter, has, register, FormValueWidget, HasDropDown, List, ComboPopup, template, messages) {
+], function (
+	dcl,
+	$,
+	Filter,
+	has,
+	register,
+	CssState,
+	FormValueWidget,
+	HasDropDown,
+	List,
+	ComboPopup,
+	template,
+	messages
+) {
 
 	// Counter used to generate unique ids for the dropdown items, so that aria-activedescendant is set to
 	// a reasonable value.
@@ -103,7 +117,7 @@ define([
 	 * @augments module:delite/HasDropDown
 	 * @augments module:delite/FormValueWidget
 	 */
-	return register("d-combobox", [HTMLElement, HasDropDown, FormValueWidget],
+	return register("d-combobox", [HTMLElement, HasDropDown, FormValueWidget, CssState],
 		/** @lends module:deliteful/Combobox# */ {
 		
 		// TODO: handle the situation the list has a null/undefined store.

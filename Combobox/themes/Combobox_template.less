@@ -4,33 +4,31 @@
 	vertical-align: middle;
 	margin: 0;
 	padding: 0;
-	/* Setting pointer cursor on root node, input node, and arrow pseudo-element */
-	/* is needed such that the cursor works in all desktop browsers for both */
-	/* the input and the arrow.*/ 
-	cursor: pointer;
-	.d-combobox-styles();
-	
-	&::after {
-		/* dropdown arrow */
-		content: "\25BC";
-		display: inline-block;
-		position: absolute;
-		padding: 0;
-		cursor: pointer;
-		line-height: normal;
-		.d-combobox-arrow-styles();
-	}
-	&::after[disabled] {
-		cursor: auto;
-	}
-	&.d-rtl::after {
-		.d-combobox-arrow-styles-rtl();
-	}
-}
 
-.d-combobox[disabled] {
-	cursor: auto;
-	opacity: 0.5;
+	.d-combobox-styles();
+
+	.d-combobox-arrow {
+		// set cursor on the <span> rather than ::after since the ::after doesn't work on IE.
+		cursor: pointer;
+
+		&::after {
+			content: "\25BC";
+			display: inline-block;
+			position: absolute;
+			padding: 0;
+			line-height: normal;
+			.d-combobox-arrow-styles();
+
+			.d-rtl& {
+				.d-combobox-arrow-styles-rtl();
+			}
+
+			.d-disabled& {
+				opacity: 0.5;
+				cursor: auto;
+			}
+		}
+	}
 }
 
 .d-combo-popup {
@@ -46,6 +44,7 @@
 	font-family: inherit;
 	font-size: inherit;
 	line-height: normal;
+	cursor: text;
 	
 	&[disabled],
 	fieldset[disabled] & {
@@ -59,8 +58,7 @@
 .d-combobox .d-combobox-input {
 	height: 100%;
 	vertical-align: inherit;
-	cursor: pointer;
-	
+
 	/* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
 	/* due to the presence of the hidden input which stores the submitted value.*/
 	margin: 0;

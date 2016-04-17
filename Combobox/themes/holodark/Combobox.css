@@ -5,21 +5,18 @@
   vertical-align: middle;
   margin: 0;
   padding: 0;
-  /* Setting pointer cursor on root node, input node, and arrow pseudo-element */
-  /* is needed such that the cursor works in all desktop browsers for both */
-  /* the input and the arrow.*/
-  cursor: pointer;
   color: #555555;
   font-size: 14px;
   line-height: 1.428571429;
 }
-.d-combobox::after {
-  /* dropdown arrow */
+.d-combobox .d-combobox-arrow {
+  cursor: pointer;
+}
+.d-combobox .d-combobox-arrow::after {
   content: "\25BC";
   display: inline-block;
   position: absolute;
   padding: 0;
-  cursor: pointer;
   line-height: normal;
   font-size: .7em;
   right: 1em;
@@ -27,17 +24,14 @@
   height: 1em;
   margin-top: -0.6em;
 }
-.d-combobox::after[disabled] {
-  cursor: auto;
-}
-.d-combobox.d-rtl::after {
+.d-rtl.d-combobox .d-combobox-arrow::after {
   left: 1em;
   /* restore default */
   right: auto;
 }
-.d-combobox[disabled] {
-  cursor: auto;
+.d-disabled.d-combobox .d-combobox-arrow::after {
   opacity: 0.5;
+  cursor: auto;
 }
 .d-combo-popup {
   /* Needed for the correct layout of its LinearLayout child */
@@ -53,6 +47,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: normal;
+  cursor: text;
 }
 .d-combobox-input:focus {
   /* defined in delite/themes/bootstrap/mixins.less */
@@ -70,7 +65,6 @@ fieldset[disabled] .d-combobox-input {
 .d-combobox .d-combobox-input {
   height: 100%;
   vertical-align: inherit;
-  cursor: pointer;
   /* Necessary for Safari on iOS to avoid misplacement of the dropdown arrow */
   /* due to the presence of the hidden input which stores the submitted value.*/
   margin: 0;
