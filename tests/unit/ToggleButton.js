@@ -20,6 +20,8 @@ define([
 			var tb = document.getElementById("tb1");
 			assert.isTrue($(tb).hasClass("d-toggle-button"), "Unexpected baseClass.");
 			assert.isFalse(tb.checked, "Unexpected default value for 'checked' property.");
+			assert.strictEqual(tb.getAttribute("aria-pressed"), "false", "tb1 aria-pressed");
+			assert.strictEqual(tb.getAttribute("role"), "button", "when aria-pressed set, role must be too");
 			assert.isFalse(tb.disabled, "Unexpected default value for 'disabled' property");
 			assert.strictEqual("tb1", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb1", tb.textContent, "Unexpected default value for textContent.");
@@ -31,6 +33,8 @@ define([
 
 			tb = document.getElementById("tb3");
 			assert.ok(tb.checked, "Unexpected default value for 'checked' property if 'checked' specified.");
+			assert.strictEqual(tb.getAttribute("aria-pressed"), "true", "tb3 aria-pressed");
+			assert.strictEqual(tb.getAttribute("role"), "button", "when aria-pressed set, role must be too");
 			assert.strictEqual("tb3", tb.label, "Unexpected default value for 'label' (inherited) property.");
 			assert.strictEqual("tb3", tb.textContent, "Unexpected default value for textContent [2].");
 			assert.strictEqual("ic1", tb.iconClass, "Unexpected default value for iconClass.");
