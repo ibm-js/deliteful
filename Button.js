@@ -48,6 +48,13 @@ define([
 		 */
 		baseClass: "d-button",
 
+		/**
+		 * If `true`, the button's label will be shown.
+		 * @member {boolean}
+		 * @default true
+		 */
+		showLabel: true,
+
 		template: template,
 
 		createdCallback: function () {
@@ -58,9 +65,10 @@ define([
 			}
 		},
 
-		computeProperties: function (props) {
-			if ("title" in props || "label" in props) {
-				this.title = this.title || this.label || "";
+		refreshRendering: function (props) {
+			if (("label" in props || "showLabel" in props) &&
+				(!this.title || this.title === ("label" in props ? props.label : this.label))) {
+				this.title = this.showLabel ? "" : this.label;
 			}
 		}
 	});

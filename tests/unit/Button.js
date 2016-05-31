@@ -7,8 +7,11 @@ define([
 	var container, html = "<button is='d-button' id='b1'>b1</button>" +
 		"<button is='d-button' id='b2' value='foo'>b2</button>" +
 		"<button is='d-button' id='b3' iconClass='ic1'>b3</button>" +
-		"<button is='d-button' id='b4' iconClass='ic1' label='on'>off</button>";
-
+		"<button is='d-button' id='b4' iconClass='ic1' label='on'>off</button>" +
+		"<button is='d-button' id='b5' label='on' ></button>" +
+		"<button is='d-button' id='b6' label='on' showLabel='false'></button>" +
+		"<button is='d-button' id='b7' label='on' showLabel='false' title='alternative title'></button>" +
+		"<button is='d-button' id='b8' label='on' title='alternative title'></button>";
 
 	var commonSuite = {
 		"Default State": function () {
@@ -27,6 +30,7 @@ define([
 			assert.strictEqual(b.textContent, "b3", "Unexpected default value for textContent [2].");
 			assert.strictEqual(b.iconClass, "ic1", "Unexpected default value for iconClass.");
 			assert.isTrue(/ic1/.test(b.iconNode.className), "Missing icon css class on iconNode.");
+			assert.isTrue(b.showLabel, "Unexpected default value for showLabel");
 		},
 
 		"label": function () {
@@ -37,6 +41,86 @@ define([
 			b4.deliver();
 			assert.strictEqual(b4.label, "b4", "b4.label after label set.");
 			assert.strictEqual(b4.textContent, "b4", "b4.textContent after label set.");
+		},
+
+		"title": function () {
+			var b5 = document.getElementById("b5");
+			assert.strictEqual(b5.title, "", "b5.title");
+			b5.title = "on";
+			b5.deliver();
+			assert.strictEqual(b5.title, "on", "b5.title after title set.");
+		},
+
+		"showLabel": function () {
+			var b5 = document.getElementById("b5");
+			assert.isTrue(b5.showLabel, "b5.showLabel");
+			b5.showLabel = false;
+			b5.deliver();
+			assert.isFalse(b5.showLabel, "b5.showLabel after showLabel set to false.");
+		},
+
+		"label/title on showLabel (T/F)": function () {
+			var b5 = document.getElementById("b5");
+			assert.strictEqual(b5.label, "on", "b5.label");
+			assert.strictEqual(b5.title, "", "b5.title");
+			b5.label = "off";
+			b5.showLabel = false;
+			b5.deliver();
+			assert.strictEqual(b5.label, "off", "b5.label after label and showLabel set.");
+			assert.strictEqual(b5.title, "off", "b5.title after label and showLabel set.");
+		},
+
+		"label/title on showLabel (F/T)": function () {
+			var b6 = document.getElementById("b6");
+			assert.strictEqual(b6.label, "on", "b6.label");
+			assert.strictEqual(b6.title, "on", "b6.title");
+			b6.label = "off";
+			b6.showLabel = true;
+			b6.deliver();
+			assert.strictEqual(b6.label, "off", "b6.label after label and showLabel set.");
+			assert.strictEqual(b6.title, "", "b6.title after label and showLabel set.");
+		},
+
+		"title on showLabel (T/F)": function () {
+			var b5 = document.getElementById("b5");
+			assert.strictEqual(b5.title, "", "b5.title");
+			b5.showLabel = false;
+			b5.deliver();
+			assert.strictEqual(b5.title, "on", "b5.title after showLabel set (false).");
+		},
+
+		"title on showLabel (F/T)": function () {
+			var b6 = document.getElementById("b6");
+			assert.strictEqual(b6.title, "on", "b6.title");
+			b6.showLabel = true;
+			b6.deliver();
+			assert.strictEqual(b6.title, "", "b6.title after showLabel set (true).");
+		},
+
+		"pre-set title on showLabel (F/T)" : function () {
+			var b7 = document.getElementById("b7");
+			assert.strictEqual(b7.title, "alternative title", "b7.title");
+			b7.showLabel = true;
+			b7.deliver();
+			assert.strictEqual(b7.title, "alternative title", "b7.title after showLabel set.");
+		},
+
+		"pre-set title on showLabel (T/F)" : function () {
+			var b8 = document.getElementById("b8");
+			assert.strictEqual(b8.title, "alternative title", "b8.title");
+			b8.showLabel = false;
+			b8.deliver();
+			assert.strictEqual(b8.title, "alternative title", "b8.title after showLabel set.");
+		},
+
+		"pre-set title on label" : function () {
+			var b7 = document.getElementById("b7");
+			assert.strictEqual(b7.label, "on", "b7.title");
+			assert.strictEqual(b7.title, "alternative title", "b7.title");
+			b7.label = "off";
+			b7.deliver();
+			assert.strictEqual(b7.label, "off", "b7.title after label set.");
+			assert.strictEqual(b7.title, "alternative title", "b7.title after label set.");
 		},
 
 		"iconClass": function () {
@@ -86,6 +170,18 @@ define([
 			container.appendChild(b);
 			b.attachedCallback();
 			b = new Button({id: "b4", label: "on", iconClass: "ic1"});
+			container.appendChild(b);
+			b.attachedCallback();
+			b = new Button({id: "b5", label: "on"});
+			container.appendChild(b);
+			b.attachedCallback();
+			b = new Button({id: "b6", label: "on", showLabel: false});
+			container.appendChild(b);
+			b.attachedCallback();
+			b = new Button({id: "b7", label: "on", showLabel: false, title: "alternative title"});
+			container.appendChild(b);
+			b.attachedCallback();
+			b = new Button({id: "b8", label: "on", title: "alternative title"});
 			container.appendChild(b);
 			b.attachedCallback();
 		}
