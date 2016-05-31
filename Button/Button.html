@@ -1,5 +1,5 @@
-<template attach-point="focusNode">
+<template attach-point="focusNode" aria-labelledby="{{this._tag}}-{{this.widgetId}}">
 	<span attach-point="iconNode" class="d-icon {{this.iconClass ? this.iconClass : 'd-hidden'}}"
 		aria-hidden="true"></span
-	><span attach-point="labelNode" d-hidden="{{!this.label}}">{{label}}</span>
+	><span attach-point="labelNode" id="{{this._tag}}-{{this.widgetId}}" d-shown="{{this.showLabel}}">{{this.label}}</span>
 </template>
