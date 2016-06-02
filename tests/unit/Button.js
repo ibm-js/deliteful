@@ -7,10 +7,10 @@ define([
 	var container, html = "<button is='d-button' id='b1'>b1</button>" +
 		"<button is='d-button' id='b2' value='foo'>b2</button>" +
 		"<button is='d-button' id='b3' iconClass='ic1'>b3</button>" +
-		"<button is='d-button' id='b4' iconClass='ic1' label='on'>off</button>" + 
-		"<button is='d-button' id='b5' label='on' ></button>" + 
-		"<button is='d-button' id='b6' label='on' showLabel='false'></button>" + 
-		"<button is='d-button' id='b7' label='on' showLabel='false' title='alternative title'></button>" + 
+		"<button is='d-button' id='b4' iconClass='ic1' label='on'>off</button>" +
+		"<button is='d-button' id='b5' label='on' ></button>" +
+		"<button is='d-button' id='b6' label='on' showLabel='false'></button>" +
+		"<button is='d-button' id='b7' label='on' showLabel='false' title='alternative title'></button>" +
 		"<button is='d-button' id='b8' label='on' title='alternative title'></button>";
 
 	var commonSuite = {
@@ -58,7 +58,7 @@ define([
 			b5.deliver();
 			assert.isFalse(b5.showLabel, "b5.showLabel after showLabel set to false.");
 		},
-		
+
 		"label/title on showLabel (T/F)": function () {
 			var b5 = document.getElementById("b5");
 			assert.strictEqual(b5.label, "on", "b5.label");
