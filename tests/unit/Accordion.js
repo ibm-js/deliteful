@@ -21,10 +21,10 @@ define([
 					"<d-panel id='panel22' label='panel22'><div>Content22</div></d-panel>" +
 					"<d-panel id='panel23' label='panel23'><div>Content23</div></d-panel>" +
 				"</d-accordion>" +
-				"<d-accordion id='accordion3' style='height:400px' openIconClass='ic1' closedIconClass='ic2'>" +
+				"<d-accordion id='accordion3' style='height:400px' openIconClass='oic' closedIconClass='cic'>" +
 					"<d-panel id='panel31' label='panel31'><div>Content31</div></d-panel>" +
-					"<d-panel id='panel32' label='panel32' iconClass='ic3'><div>Content32</div></d-panel>" +
-					"<d-panel id='panel33' label='panel33' iconClass='ic4' closedIconClass='ic5'>" +
+					"<d-panel id='panel32' label='panel32' openIconClass='poic'><div>Content32</div></d-panel>" +
+					"<d-panel id='panel33' label='panel33' openIconClass='poic' closedIconClass='pcic'>" +
 						"<div>Content33</div>" +
 					"</d-panel>" +
 				"</d-accordion>" +
@@ -39,11 +39,11 @@ define([
 		ac.getChildren().forEach(function (child) {
 			assert.isTrue(
 				(child.headerNode.style.display !== "none" &&
-					((child === target && child.containerNode.style.display !== "none" &&
-						ac.selectedChildId === target.id && child.open && child.headerNode.checked &&
+					((child === target && child.style.display !== "none" &&
+						ac.selectedChildId === target.id && child.open && child.headerNode.open &&
 						$(child).hasClass("d-accordion-open-panel")) ||
-					(child !== target && child.containerNode.style.display === "none" && !child.open &&
-						!child.headerNode.checked && !($(child).hasClass("d-accordion-open-panel"))))),
+					(child !== target && child.style.display === "none" && !child.open &&
+						!child.headerNode.open && !($(child).hasClass("d-accordion-open-panel"))))),
 			message + " checking " + child.id);
 		});
 	}
@@ -51,47 +51,47 @@ define([
 	function checkPanelsStatus(openPanels, closedPanels, message) {
 		openPanels.forEach(function (panel) {
 			assert.isTrue(
-				(panel.headerNode.style.display !== "none" && panel.containerNode.style.display !== "none" &&
-					panel.open && panel.headerNode.checked && $(panel).hasClass("d-accordion-open-panel")),
+				(panel.headerNode.style.display !== "none" && panel.style.display !== "none" &&
+					panel.open && panel.headerNode.open && $(panel).hasClass("d-accordion-open-panel")),
 			message);
 		});
 		closedPanels.forEach(function (panel) {
 			assert.isTrue(
-				(panel.headerNode.style.display !== "none" && panel.containerNode.style.display === "none" &&
-					!panel.open && !panel.headerNode.checked && !$(panel).hasClass("d-accordion-open-panel")),
+				(panel.headerNode.style.display !== "none" && panel.style.display === "none" &&
+					!panel.open && !panel.headerNode.open && !$(panel).hasClass("d-accordion-open-panel")),
 			message);
 		});
 		checkAriaProperties(openPanels, closedPanels);
 	}
 
-	function checkPanelIconProperties(panel, pIc, pCIc, bCIc, bIc, open) {
-		assert.isTrue(panel.iconClass === pIc, "Invalid panel iconClass");
-		assert.isTrue(panel.closedIconClass === pCIc, "Invalid panel closedIconClass");
-		assert.isTrue(panel.headerNode.checkedIconClass === bCIc, "Invalid button checkedIconClass");
-		assert.isTrue(panel.headerNode.iconClass === bIc, "Invalid button iconClass");
-		assert.isTrue($(panel.headerNode.iconNode).hasClass(open ? bCIc : bIc), "Invalid iconNode class");
+	function checkPanelIconProperties(panel, poic, pcic, hoic, hcic, open) {
+		assert.strictEqual(panel.openIconClass, poic, "panel openIconClass");
+		assert.strictEqual(panel.closedIconClass, pcic, "panel closedIconClass");
+		assert.strictEqual(panel.headerNode.openIconClass, hoic, "header openIconClass");
+		assert.strictEqual(panel.headerNode.closedIconClass, hcic, "header closedIconClass");
+		assert.isTrue($(panel.headerNode.iconNode).hasClass(open ? hoic : hcic), "header.iconNode class");
 	}
 
 	function checkAriaProperties(openPanels, closedPanels) {
 		openPanels.forEach(function (panel) {
-			assert.strictEqual(panel.getAttribute("role"), "presentation");
 			assert.strictEqual(panel.headerNode.getAttribute("role"), "tab");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-expanded"), "true");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-selected"), "true");
+			assert.strictEqual(panel.headerNode.getAttribute("aria-controls"), panel.id);
 			assert.strictEqual(panel.headerNode.getAttribute("tabindex"), "-1");
-			assert.strictEqual(panel.containerNode.getAttribute("role"), "tabpanel");
-			assert.strictEqual(panel.containerNode.getAttribute("aria-hidden"), "false");
-			assert.strictEqual(panel.containerNode.getAttribute("aria-labelledby"), panel.headerNode.id);
+			assert.strictEqual(panel.getAttribute("role"), "tabpanel");
+			assert.strictEqual(panel.getAttribute("aria-hidden"), "false");
+			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id);
 		});
 		closedPanels.forEach(function (panel) {
-			assert.strictEqual(panel.getAttribute("role"), "presentation");
 			assert.strictEqual(panel.headerNode.getAttribute("role"), "tab");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-expanded"), "false");
 			assert.strictEqual(panel.headerNode.getAttribute("aria-selected"), "false");
+			assert.strictEqual(panel.headerNode.getAttribute("aria-controls"), panel.id);
 			assert.strictEqual(panel.headerNode.getAttribute("tabindex"), "-1");
-			assert.strictEqual(panel.containerNode.getAttribute("role"), "tabpanel");
-			assert.strictEqual(panel.containerNode.getAttribute("aria-hidden"), "true");
-			assert.strictEqual(panel.containerNode.getAttribute("aria-labelledby"), panel.headerNode.id);
+			assert.strictEqual(panel.getAttribute("role"), "tabpanel");
+			assert.strictEqual(panel.getAttribute("aria-hidden"), "true");
+			assert.strictEqual(panel.getAttribute("aria-labelledby"), panel.headerNode.labelNode.id);
 		});
 	}
 
@@ -292,19 +292,19 @@ define([
 				panel33 = document.getElementById("panel33");
 			},
 			"Initial Setting": function () {
-				assert.isTrue(accordion3.openIconClass === "ic1");
-				assert.isTrue(accordion3.closedIconClass === "ic2");
-				checkPanelIconProperties(panel31, "", "", "ic1", "ic2", true);
-				checkPanelIconProperties(panel32, "ic3", "", "ic3", "ic2", false);
-				checkPanelIconProperties(panel33, "ic4", "ic5", "ic4", "ic5", false);
+				assert.strictEqual(accordion3.openIconClass, "oic");
+				assert.strictEqual(accordion3.closedIconClass, "cic");
+				checkPanelIconProperties(panel31, "", "", "oic", "cic", true);
+				checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
+				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
 			},
 			"Changing accordion openIconClass": function () {
 				accordion3.openIconClass = "ic6";
 				accordion3.deliver();
 				panel31.headerNode.deliver();
-				checkPanelIconProperties(panel31, "", "", "ic6", "ic2", true);
-				checkPanelIconProperties(panel32, "ic3", "", "ic3", "ic2", false);
-				checkPanelIconProperties(panel33, "ic4", "ic5", "ic4", "ic5", false);
+				checkPanelIconProperties(panel31, "", "", "ic6", "cic", true);
+				checkPanelIconProperties(panel32, "poic", "", "poic", "cic", false);
+				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
 			},
 			"Changing accordion closedIconClass": function () {
 				accordion3.closedIconClass = "ic7";
@@ -312,24 +312,24 @@ define([
 				panel31.headerNode.deliver();
 				panel32.headerNode.deliver();
 				checkPanelIconProperties(panel31, "", "", "ic6", "ic7", true);
-				checkPanelIconProperties(panel32, "ic3", "", "ic3", "ic7", false);
-				checkPanelIconProperties(panel33, "ic4", "ic5", "ic4", "ic5", false);
+				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
 			},
-			"Changing panel iconClass": function () {
-				panel31.iconClass = "ic8";
+			"Changing panel openIconClass": function () {
+				panel31.openIconClass = "ic8";
 				panel31.deliver();
 				panel31.headerNode.deliver();
 				checkPanelIconProperties(panel31, "ic8", "", "ic8", "ic7", true);
-				checkPanelIconProperties(panel32, "ic3", "", "ic3", "ic7", false);
-				checkPanelIconProperties(panel33, "ic4", "ic5", "ic4", "ic5", false);
+				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
 			},
 			"Changing panel closedIconClass": function () {
 				panel31.closedIconClass = "ic9";
 				panel31.deliver();
 				panel31.headerNode.deliver();
 				checkPanelIconProperties(panel31, "ic8", "ic9", "ic8", "ic9", true);
-				checkPanelIconProperties(panel32, "ic3", "", "ic3", "ic7", false);
-				checkPanelIconProperties(panel33, "ic4", "ic5", "ic4", "ic5", false);
+				checkPanelIconProperties(panel32, "poic", "", "poic", "ic7", false);
+				checkPanelIconProperties(panel33, "poic", "pcic", "poic", "pcic", false);
 			}
 		}
 	};
@@ -362,24 +362,17 @@ define([
 					}
 				});
 
-				function testContent(content, panel) {
-					assert.strictEqual(content.style.display, "");
-					assert.strictEqual(content.parentNode, panel);
-				}
-
 				var panel41 = document.getElementById("panel41");
 				var panel42 = document.getElementById("panel42");
 
 				return accordion4.show(panel42, {contentId: "newContent1"}).then(function () {
-					var content = document.getElementById("newContent1");
+					assert(panel42.children.length > 0, "has content");
 					checkUniqueOpenPanel(accordion4, panel42, "Only panel42 should be open");
-					testContent(content, panel42);
 				}).then(function () {
 					return accordion4.show(panel41, {contentId: "newContent2"});
 				}).then(function () {
-					var content = document.getElementById("newContent2");
+					assert(panel41.children.length > 0, "has content");
 					checkUniqueOpenPanel(accordion4, panel41, "Only panel41 should be open");
-					testContent(content, panel41);
 					accordion4.removeEventListener("delite-display-load", handler);
 				});
 			}
@@ -411,12 +404,12 @@ define([
 			var c1 = document.createElement("div");
 			var c2 = document.createElement("div");
 			var c3 = document.createElement("div");
-			ac.addChild(p1);
-			ac.addChild(p2);
-			ac.addChild(p3);
-			p1.addChild(c1);
-			p2.addChild(c2);
-			p3.addChild(c3);
+			ac.appendChild(p1);
+			ac.appendChild(p2);
+			ac.appendChild(p3);
+			p1.appendChild(c1);
+			p2.appendChild(c2);
+			p3.appendChild(c3);
 			ac.placeAt(container);
 			var ac2 = new Accordion({id: "accordion2", mode: "multipleOpen"});
 			ac2.style.height = "400px";
@@ -426,35 +419,35 @@ define([
 			var c21 = document.createElement("div");
 			var c22 = document.createElement("div");
 			var c23 = document.createElement("div");
-			ac2.addChild(p21);
-			ac2.addChild(p22);
-			ac2.addChild(p23);
-			p21.addChild(c21);
-			p22.addChild(c22);
-			p23.addChild(c23);
+			ac2.appendChild(p21);
+			ac2.appendChild(p22);
+			ac2.appendChild(p23);
+			p21.appendChild(c21);
+			p22.appendChild(c22);
+			p23.appendChild(c23);
 			ac2.placeAt(container, "last");
 			var ac3 = new Accordion({id: "accordion3", mode: "multipleOpen",
-				openIconClass: "ic1", closedIconClass: "ic2"});
+				openIconClass: "oic", closedIconClass: "cic"});
 			ac3.style.height = "400px";
 			var p31 = new Panel({id: "panel31", label: "panel31"});
-			var p32 = new Panel({id: "panel32", label: "panel32", iconClass: "ic3"});
-			var p33 = new Panel({id: "panel33", label: "panel33", iconClass: "ic4", closedIconClass: "ic5"});
+			var p32 = new Panel({id: "panel32", label: "panel32", openIconClass: "poic"});
+			var p33 = new Panel({id: "panel33", label: "panel33", openIconClass: "poic", closedIconClass: "pcic"});
 			var c31 = document.createElement("div");
 			var c32 = document.createElement("div");
 			var c33 = document.createElement("div");
-			ac3.addChild(p31);
-			ac3.addChild(p32);
-			ac3.addChild(p33);
-			p31.addChild(c31);
-			p32.addChild(c32);
-			p33.addChild(c33);
+			ac3.appendChild(p31);
+			ac3.appendChild(p32);
+			ac3.appendChild(p33);
+			p31.appendChild(c31);
+			p32.appendChild(c32);
+			p33.appendChild(c33);
 			ac3.placeAt(container, "last");
 		},
 		"Controller": {
 			setup: function () {
 				accordion4 = new Accordion();
 				var p40 = new Panel();
-				accordion4.addChild(p40);
+				accordion4.appendChild(p40);
 				accordion4.style.height = "400px";
 				accordion4.placeAt(container);
 			},
@@ -475,24 +468,16 @@ define([
 					}
 				});
 
-				function testContent(content, panel) {
-					assert.strictEqual(content.style.display, "");
-					assert.strictEqual(content.parentNode, panel);
-					assert.strictEqual(panel.parentNode, accordion4);
-				}
-
 				return accordion4.show("panel41", {contentId: "newContent1"}).then(function () {
 					var panel = document.getElementById("panel41");
-					var content = document.getElementById("newContent1");
+					assert(panel.children.length > 0, "has content");
 					checkUniqueOpenPanel(accordion4, panel, "Only panel41 should be open");
-					testContent(content, panel);
 				}).then(function () {
 					return accordion4.show("panel42", {contentId: "newContent2"});
 				}).then(function () {
 					var panel = document.getElementById("panel42");
-					var content = document.getElementById("newContent2");
+					assert(panel.children.length > 0, "has content");
 					checkUniqueOpenPanel(accordion4, panel, "Only panel42 should be open");
-					testContent(content, panel);
 					accordion4.removeEventListener("delite-display-load", handler);
 				});
 
@@ -502,6 +487,7 @@ define([
 		teardown: function () {
 			container.parentNode.removeChild(container);
 		},
+
 		afterEach: function () {
 			if (asyncHandler) {
 				asyncHandler.remove();

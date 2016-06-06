@@ -133,12 +133,12 @@ You can set height of ``<body>`` and ``<html>`` to ``100%`` by including [`defau
 <a name="interactions"></a>
 ## User Interactions
 
-The user interactions are given by the toggle button used in the panels header. User can activate/deactivate in order to
-show/hide (respectively) the content of the panel by:
+The user interactions occur in the panel headers.
+Users can show/hide the content of the panel by:
 
-* Clicking it using a mouse,
-* Tapping it on a touch screen device,
-* Pressing the SPACE/Enter key when the button has keyboard focus.
+* Clicking the header using a mouse,
+* Tapping the header on a touch screen device,
+* Pressing the SPACE/Enter key when the header has keyboard focus.
 
 When focus is on a panel's header, user can navigate between the different panels by using the following key commands:
 
@@ -149,8 +149,10 @@ When focus is on a panel's header, user can navigate between the different panel
 * `Enter/Space`: if panel is closed, shows the content of the panel. (see [Showing a panel's content](#showingPanel)).
    If panel is open, hides the content of the panel. (see [Hiding a panel's content](#hidingPanel))
 
-Note: On `singleOpen` mode, clicking, tapping or pressing the SPACE/Enter key on the button of the open panel, doesn't has any effect.
-Same thing on `multipleOpen` mode when there's only one open panel. In both case, in order to keep always at least one panel open.
+Note: On `singleOpen` mode, clicking, tapping or pressing the SPACE/Enter key on the header of the open panel
+doesn't has any effect.
+Same thing on `multipleOpen` mode when there's only one open panel.
+In both cases, in order to keep always at least one panel open.
 
 <a name="events"></a>
 ## Element Events

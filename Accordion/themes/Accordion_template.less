@@ -8,99 +8,98 @@
 	.display-flex();
 	align-items: stretch;
 	.flex-direction-column();
-}
-.d-accordion > .d-panel {
-	.border-radius(0);
-	border-bottom: none;
-	position: relative;
-	overflow: hidden; //To avoid scroll bar on animation
+	// Note that borders are on accordion child elements rather than on the accordion itself.
 }
 
-.d-accordion > .d-panel:first-child {
-	border-top-left-radius: @panel-border-radius;
-	border-top-right-radius: @panel-border-radius;
-}
+// Note: there used to be some code here for rounded borders on the first and last elements,
+// but it's tricky to get right because you want the rounded border on the last *visible* element,
+// which may be a panel (if the last accordion panel is open), or it may be a header
+// (if the last panel is closed).
 
-.d-accordion > .d-panel:last-child {
-	border-bottom-left-radius: @panel-border-radius;
-	border-bottom-right-radius: @panel-border-radius;
-}
 
-.d-accordion > .d-panel > .d-toggle-button {
-	width: 100%;
-	text-align: left;
+// Styling for panel headers.
+.d-accordion > [role=tab] {
+	padding: 10px 15px;
+	font-weight: bold;
+	border: 2px solid;
+
 	font-weight: bold;
 	.border-radius(0);
 	border-color: @panel-inner-border;
 	color: @panel-default-text;
 	background-color: @panel-default-heading-bg;
-	.flex(0 0 auto);
+	.flex(0 0 auto);	// This also seems unnecessary.
 }
 
-.d-accordion > .d-panel > .d-toggle-button:focus,
-.d-accordion > .d-panel > .d-toggle-button:hover {
+.d-accordion > [role=tab]:focus,
+.d-accordion > [role=tab]:hover {
 	background-color: darken(@panel-default-heading-bg, 8%);
 	border-color: darken(@panel-inner-border, 12%);
 }
 
-.d-accordion > .d-panel > .d-toggle-button.d-checked {
+.d-accordion > [role=tab][aria-selected=true] {
 	background-color: @component-active-bg;
 	border-color: @component-active-bg;
+	border-bottom-width: 1px;
 	color: @component-active-color;
 }
 
-.d-accordion > .d-panel > .d-toggle-button.d-checked:focus,
-.d-accordion > .d-panel > .d-toggle-button.d-checked:hover {
+.d-accordion > [role=tab][aria-selected=true]:focus,
+.d-accordion > [role=tab][aria-selected=true]:hover {
 	background-color: lighten(@component-active-bg, 12%);
 	border-color: darken(@component-active-bg, 10%);
 }
 
-.d-accordion > .d-panel > .d-panel-content {
+// Styling for accordion panels (i.e. the content).
+.d-accordion > [role=tabpanel] {
 	border: solid 2px @panel-inner-border;
 	border-top: none;
+	.border-radius(0);	// override styling for <d-panel>
 }
 
-.d-panel-content-open {
-	border-color: @component-active-bg !important;
-}
-
-.d-accordion-open-panel {
+[role=tabpanel].d-accordion-open-panel {
+	border-color: @component-active-bg;
 	.flex(1);
 }
 
-@keyframes d-accordion-openAnimation {
+// CSS animation to slide open an accordion panel.
+@keyframes d-accordion-open-animation {
 	from {.flex(0.0001);}
 	to {.flex(1);}
 }
-@-webkit-keyframes d-accordion-openAnimation {
+@-webkit-keyframes d-accordion-open-animation {
 	from {.flex(0.0001);}
 	to {.flex(1);}
 }
-.d-accordion-openAnimation {
-	animation-name: d-accordion-openAnimation;
+[role=tabpanel].d-accordion-open-animation {
+	animation-name: d-accordion-open-animation;
 	animation-duration: .3s;
 	animation-fill-mode: forwards;
 	animation-timing-function: linear;
-	-webkit-animation-name: d-accordion-openAnimation;
+	-webkit-animation-name: d-accordion-open-animation;
 	-webkit-animation-duration: .3s;
 	-webkit-animation-fill-mode: forwards;
 	-webkit-animation-timing-function: linear;
+	overflow: hidden; // to avoid scroll bar on animation
 }
-@keyframes d-accordion-closeAnimation {
+
+// CSS animation to slide closed an accordion panel.
+@keyframes d-accordion-close-animation {
 	from {.flex(1);}
 	to {.flex(0.0001);}
 }
-@-webkit-keyframes d-accordion-closeAnimation {
+@-webkit-keyframes d-accordion-close-animation {
 	from {.flex(1);}
 	to {.flex(0.0001);}
 }
-.d-accordion-closeAnimation {
-	animation-name: d-accordion-closeAnimation;
+[role=tabpanel].d-accordion-close-animation {
+	animation-name: d-accordion-close-animation;
 	animation-duration: .3s;
 	animation-fill-mode: forwards;
 	animation-timing-function: linear;
-	-webkit-animation-name: d-accordion-closeAnimation;
+	-webkit-animation-name: d-accordion-close-animation;
 	-webkit-animation-duration: .3s;
 	-webkit-animation-fill-mode: forwards;
 	-webkit-animation-timing-function: linear;
+	overflow: hidden; // to avoid scroll bar on animation
 }

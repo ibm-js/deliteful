@@ -7,10 +7,10 @@ define([
 	"delite/KeyNav",
 	"requirejs-dplugins/jquery!attributes/classes",
 	"delite/DisplayContainer",
-	"./ToggleButton",
+	"./Accordion/AccordionHeader",
 	"./features",
 	"delite/theme!./Accordion/themes/{{theme}}/Accordion.css"
-], function (dcl, has, Promise, register, KeyNav, $, DisplayContainer, ToggleButton) {
+], function (dcl, has, Promise, register, KeyNav, $, DisplayContainer, AccordionHeader) {
 
 	function setVisibility(node, val) {
 		node.style.display = val ? "" : "none";
@@ -37,7 +37,7 @@ define([
 	 * A layout container that displays a vertically stacked list of Panels whose titles are all visible, but only one
 	 * or at least one panel's content is visible at a time (depending on the `mode` property value).
 	 *
-	 * Once the panels are in an accordion, they become collapsible Panels by replacing their headers by ToggleButtons.
+	 * Once the panels are in an Accordion, they become collapsible.
 	 *
 	 * When a panel is open, it fills all the available space with its content.
 	 *
@@ -82,16 +82,16 @@ define([
 		animate: true,
 
 		/**
-		 * The default CSS class to apply to DOMNode in children headers to make them display an icon when they are
-		 * open. If a child panel has its own iconClass specified, that value is used on that panel.
+		 * The default CSS class to apply to DOMNode in panel headers to make them display an icon when they are
+		 * open.  If a child panel has its own openIconClass specified, that value is used on that panel.
 		 * @member {string}
 		 * @default ""
 		 */
 		openIconClass: "",
 
 		/**
-		 * The default CSS class to apply to DOMNode in children headers to make them display an icon when they are
-		 * closed. If a child panel has its own closedIconClass specified, that value is used on that panel.
+		 * The default CSS class to apply to DOMNode in panel headers to make them display an icon when they are
+		 * closed.  If a child panel has its own closedIconClass specified, that value is used on that panel.
 		 * @member {string}
 		 * @default ""
 		 */
@@ -106,61 +106,101 @@ define([
 
 		_numOpenPanels: 0,
 
-		_changeHandler: function (event) {
-			var panel = event.target.parentNode;
-			// Case when the event is fired by the label or the icon
-			if (panel.nodeName.toLowerCase() !== "d-panel") {
-				panel = panel.parentNode;
+		createdCallback: function () {
+			this._panelList = [];
+
+			// Declarative case (panels specified declaratively inside the declarative Accordion).
+			var panels = Array.prototype.slice.call(this.children);	// copy array since we'll be adding more children
+			for (var i = 0, l = panels.length; i < l; i++) {
+				if (!panels[i].attached) {
+					this._setupNonUpgradedChild(panels[i]);
+				} else {
+					this._panelList.push(this._setupUpgradedChild(panels[i]));
+				}
 			}
+		},
+
+		postRender: function () {
+			this.setAttribute("role", "tablist");
+			this.setAttribute("aria-multiselectable", "false");
+			this.on("delite-remove-child", this._onRemoveChild.bind(this));
+		},
+
+		/**
+		 * Handle a mouse click or touch on a panel header.
+		 * @param event
+		 * @private
+		 */
+		_headerClickHandler: function (event) {
+			this.activatePanel(event.currentTarget.panel);
+		},
+
+		/**
+		 * Open a panel due to a click or spacebar on the panel header.
+		 * @param panel
+		 */
+		activatePanel: function (panel) {
 			switch (this.mode) {
-			case accordionModes.singleOpen :
+			case accordionModes.singleOpen:
 				this.show(panel);
 				break;
-			case accordionModes.multipleOpen :
+			case accordionModes.multipleOpen:
 				if (panel.open) {
 					this.hide(panel);
 				} else {
 					this.show(panel);
 				}
 				break;
-			default :
-				break;
 			}
 		},
 
+		/**
+		 * Overridable method to create the header corresponding to a panel.
+		 * The header displays the panel's title, and the user clicks it to open the panel.
+		 * @param panel
+		 */
+		createHeader: function (panel, params) {
+			return new AccordionHeader(params);
+		},
+
 		_setupUpgradedChild: function (panel) {
-			// TODO: To change when https://github.com/ibm-js/delite/issues/414 be solved
-			var toggle = new ToggleButton({
+			// Create the header (that displays the panel's title).
+			var header = this.createHeader(panel, {
+				id: panel.id + "_panelHeader",
 				label: panel.label,
-				iconClass: panel.closedIconClass || this.closedIconClass,
-				checkedIconClass: panel.iconClass || this.openIconClass,
-				id: panel.id + "_button"
+				openIconClass: panel.openIconClass || this.openIconClass,
+				closedIconClass: panel.closedIconClass || this.closedIconClass,
+				panel: panel
 			});
-			toggle.placeAt(panel.headerNode, "replace");
-			// React to programmatic changes on the panel to update the button
+			header.setAttribute("tabindex", "-1");
+			header.setAttribute("role", "tab");
+			header.setAttribute("aria-expanded", "false");
+			header.setAttribute("aria-selected", "false");
+			header.setAttribute("aria-controls", panel.id);
+			header.on("click", this._headerClickHandler.bind(this));
+			header.placeAt(panel, "before");
+
+			// React to programmatic changes on the panel to update the header.
 			panel.observe(function (oldValues) {
 				if ("label" in oldValues) {
-					this.headerNode.label = this.label;
+					header.label = panel.label;
 				}
-				if ("iconClass" in oldValues) {
-					this.headerNode.checkedIconClass = this.iconClass;
+				if ("openIconClass" in oldValues) {
+					header.openIconClass = panel.openIconClass;
 				}
 				if ("closedIconClass" in oldValues) {
-					this.headerNode.iconClass = this.closedIconClass;
+					header.closedIconClass = panel.closedIconClass;
 				}
-			}.bind(panel));
-			toggle.on("click", this._changeHandler.bind(this));
-			panel.headerNode = toggle;
-			setVisibility(panel.containerNode, false);
+			});
+
+			// And set up the panel itself.
+			setVisibility(panel, false);
 			panel.open = false;
-			// Setting initial WAI-ARIA properties
-			panel.headerNode.setAttribute("tabindex", "-1");
-			panel.headerNode.setAttribute("role", "tab");
-			panel.headerNode.setAttribute("aria-expanded", "false");
-			panel.headerNode.setAttribute("aria-selected", "false");
-			panel.containerNode.setAttribute("role", "tabpanel");
-			panel.containerNode.setAttribute("aria-labelledby", panel.headerNode.id);
-			panel.containerNode.setAttribute("aria-hidden", "true");
+			panel.setAttribute("role", "tabpanel");
+			panel.setAttribute("aria-labelledby", header.labelNode.id);
+			panel.setAttribute("aria-hidden", "true");
+			panel.headerNode = header;
+
 			return panel;
 		},
 
@@ -170,20 +210,6 @@ define([
 				this.removeEventListener("customelement-attached", this.accordion._attachedlistener);
 				this.accordion._panelList.push(this.accordion._setupUpgradedChild(this));
 			}.bind(panel));
-		},
-
-		createdCallback: function () {
-			this._panelList = [];
-
-			// Declarative case (panels specified declaratively inside the declarative Accordion).
-			var panels = this.querySelectorAll("d-panel");
-			for (var i = 0, l = panels.length; i < l; i++) {
-				if (!panels[i].attached) {
-					this._setupNonUpgradedChild(panels[i]);
-				} else {
-					this._panelList.push(this._setupUpgradedChild(panels[i]));
-				}
-			}
 		},
 
 		/**
@@ -197,12 +223,17 @@ define([
 			}
 		},
 
-		computeProperties: function (props) {
-			if ("mode" in props) {
-				if (!(this.mode in accordionModes)) {
-					this.mode = props.mode;
-				}
-			}
+		getChildren: function () {
+			// Override getChildren() to only return the panels, not the headers
+			return Array.prototype.filter.call(this.children, function (element) {
+				return element.getAttribute("role") === "tabpanel";
+			});
+		},
+
+		getHeaders: function () {
+			return Array.prototype.filter.call(this.children, function (element) {
+				return element.getAttribute("role") === "tab";
+			});
 		},
 
 		/* jshint maxcomplexity: 14 */
@@ -232,15 +263,15 @@ define([
 
 			if ("openIconClass" in props) {
 				this.getChildren().forEach(function (panel) {
-					if (panel.attached && !panel.iconClass) {
-						panel.headerNode.checkedIconClass = this.openIconClass;
+					if (panel.attached && !panel.openIconClass) {
+						panel.headerNode.openIconClass = this.openIconClass;
 					}
 				}.bind(this));
 			}
 			if ("closedIconClass" in props) {
 				this.getChildren().forEach(function (panel) {
 					if (panel.attached && !panel.closedIconClass) {
-						panel.headerNode.iconClass = this.closedIconClass;
+						panel.headerNode.closedIconClass = this.closedIconClass;
 					}
 				}.bind(this));
 			}
@@ -278,40 +309,32 @@ define([
 			if (params.hide) {
 				if (this._useAnimation()) {
 					// To avoid hiding the panel title bar on animation
-					panel.style.minHeight = window.getComputedStyle(panel.headerNode).getPropertyValue("height");
-					$(panel).addClass("d-accordion-closeAnimation").removeClass("d-accordion-open-panel");
-					$(panel.containerNode).removeClass("d-panel-content-open");
-					panel.containerNode.style.overflow = "hidden"; //To avoid scrollBar on animation
+					$(panel).addClass("d-accordion-close-animation").removeClass("d-accordion-open-panel");
+					panel.style.overflow = "hidden"; //To avoid scrollBar on animation
 					promise = listenAnimationEndEvent(panel).then(function () {
-						setVisibility(panel.containerNode, panel.open);
-						$(panel).removeClass("d-accordion-closeAnimation");
-						panel.containerNode.style.overflow = "";
-						panel.style.minHeight = "";
+						setVisibility(panel, panel.open);
+						$(panel).removeClass("d-accordion-close-animation");
+						panel.style.overflow = "";
 					});
 				} else {
 					$(panel).removeClass("d-accordion-open-panel");
-					$(panel.containerNode).removeClass("d-panel-content-open");
-					setVisibility(panel.containerNode, false);
+					setVisibility(panel, false);
 				}
 			} else {
 				if (this._useAnimation()) {
-					// To avoid hiding the panel title bar on animation
-					panel.style.minHeight = window.getComputedStyle(panel.headerNode).getPropertyValue("height");
-					$(panel).addClass("d-accordion-openAnimation");
-					$(panel.containerNode).addClass("d-panel-content-open");
-					setVisibility(panel.containerNode, true);
-					panel.containerNode.style.overflow = "hidden"; //To avoid scrollBar on animation
+					$(panel).addClass("d-accordion-open-animation");
+					setVisibility(panel, true);
+					panel.style.overflow = "hidden"; //To avoid scrollBar on animation
 					promise = listenAnimationEndEvent(panel).then(function () {
 						$(panel).addClass(function () {
 							return panel.open ? "d-accordion-open-panel" : "";
-						}).removeClass("d-accordion-openAnimation");
-						panel.containerNode.style.overflow = "";
+						}).removeClass("d-accordion-open-animation");
+						panel.style.overflow = "";
 						panel.style.minHeight = "";
 					});
 				} else {
 					$(panel).addClass("d-accordion-open-panel");
-					$(panel.containerNode).addClass("d-panel-content-open");
-					setVisibility(panel.containerNode, true);
+					setVisibility(panel, true);
 				}
 			}
 			return Promise.resolve(promise);
@@ -324,13 +347,13 @@ define([
 					if (this._numOpenPanels > 1) {
 						this._numOpenPanels--;
 						widget.open = false;
-						widget.headerNode.checked = false;
+						widget.headerNode.open = false;
 					} else {
-						widget.headerNode.checked = true;
+						widget.headerNode.open = true;
 						valid = false;
 					}
 				} else {
-					widget.headerNode.checked = false;
+					widget.headerNode.open = false;
 					valid = false;
 				}
 			} else {
@@ -345,18 +368,18 @@ define([
 						}
 					}
 					widget.open = true;
-					widget.headerNode.checked = true;
+					widget.headerNode.open = true;
 				} else {
-					widget.headerNode.checked = true;
+					widget.headerNode.open = true;
 					valid = false;
 				}
 			}
 			if (valid) {
 				promises.push(this._doTransition(widget, params));
-				//Updating WAI-ARIA properties
-				widget.headerNode.setAttribute("aria-selected", widget.open);
-				widget.headerNode.setAttribute("aria-expanded", widget.open);
-				widget.containerNode.setAttribute("aria-hidden", !widget.open);
+				// Update WAI-ARIA attributes.
+				widget.headerNode.setAttribute("aria-selected", "" + widget.open);
+				widget.headerNode.setAttribute("aria-expanded", "" + widget.open);
+				widget.setAttribute("aria-hidden", "" + !widget.open);
 			}
 			return Promise.all(promises);
 		},
@@ -411,9 +434,10 @@ define([
 			return function (dest, params) {
 				var event = {
 					setContent: function (panel, content) {
-						panel.replaceChild(content, panel.containerNode);
-						panel.containerNode = content;
-						$(panel.containerNode).addClass("d-panel-content");
+						panel.innerHTML = "";
+						while (content.firstChild) {
+							panel.appendChild(content.firstChild);
+						}
 					}
 				};
 				dcl.mix(event, params);
@@ -424,8 +448,11 @@ define([
 		onAddChild: dcl.superCall(function (sup) {
 			return function (node) {
 				var res = sup.call(this, node);
-				this._panelList.push(this._setupUpgradedChild(node));
-				this.notifyCurrentValue("_panelList");
+				if (node.getAttribute("role") !== "tab") {
+					// Process new panels (but not the headers created to go along with the panels).
+					this._panelList.push(this._setupUpgradedChild(node));
+					this.notifyCurrentValue("_panelList");
+				}
 				return res;
 			};
 		}),
@@ -438,26 +465,62 @@ define([
 		//////////// delite/KeyNav implementation ///////////////////////////////////////
 		// Keyboard navigation is based on WAI-ARIA Pattern for Accordion:
 		// http://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#accordion
-		descendantSelector: "d-panel>.d-toggle-button",
+
+		// Arrow keys should go to first focusable field in each header.
+		// To get to the other focusable fields, user should use the tab key.
+		// By default, only the header itself is focusable.  If a subclass makes
+		// elements inside the header focusable, then it should change descendantSelector.
+		descendantSelector: "[role=tab]",
+
+		_getCurrentHeader: function () {
+			var node = this.navigatedDescendant;
+			while (node && node !== this) {
+				if (node.getAttribute("role") === "tab") {
+					return node;
+				}
+				node = node.parentElement;
+			}
+		},
+
+		/**
+		 * Navigate to the next (offset=1) or previous header (offset=-1).
+		 * @param offset
+		 * @private
+		 */
+		_switchHeader: function (offset) {
+			var focusedHeader = this._getCurrentHeader();
+			if (focusedHeader) {
+				var headers = this.getHeaders();
+				var idx = headers.indexOf(focusedHeader),
+					newIdx = (idx + headers.length + offset) % headers.length;
+				this.navigateTo(headers[newIdx]);
+			}
+		},
 
 		previousKeyHandler: function () {
-			var focusedPanel = this.navigatedDescendant.parentNode;
-			this.navigateTo(focusedPanel.previousElementSibling ? focusedPanel.previousElementSibling.headerNode
-				: this.lastElementChild.headerNode);
+			this._switchHeader(-1);
 		},
 
 		nextKeyHandler: function () {
-			var focusedPanel = this.navigatedDescendant.parentNode;
-			this.navigateTo(focusedPanel.nextElementSibling ? focusedPanel.nextElementSibling.headerNode
-				: this.firstElementChild.headerNode);
+			this._switchHeader(1);
 		},
 
 		upKeyHandler: function () {
-			this.previousKeyHandler();
+			this._switchHeader(-1);
 		},
 
 		downKeyHandler: function () {
-			this.nextKeyHandler();
+			this._switchHeader(1);
+		},
+
+		spacebarKeyHandler: function () {
+			var focusedHeader = this._getCurrentHeader();
+			this.activatePanel(focusedHeader.panel);
+		},
+
+		enterKeyHandler: function () {
+			var focusedHeader = this._getCurrentHeader();
+			this.activatePanel(focusedHeader.panel);
 		},
 
 		_lastFocusedDescendant: null,
@@ -466,18 +529,15 @@ define([
 			this._lastFocusedDescendant ? this.navigateTo(this._lastFocusedDescendant) : this.navigateToFirst();
 		},
 
+		// TODO: To support tab stops within headers, all fields needs to be tabindex=-1,
+		// except when the header is in focus, and then everything should be tabindex=0.
+		// Need to add tests too.
+
 		_keynavDeactivatedHandler: dcl.superCall(function (sup) {
 			return function () {
 				this._lastFocusedDescendant = this.navigatedDescendant;
 				sup.call(this);
 			};
-		}),
-
-		postRender: function () {
-			this.setAttribute("role", "tablist");
-			this.setAttribute("aria-multiselectable", "false");
-			this.on("delite-remove-child", this._onRemoveChild.bind(this));
-		}
-
+		})
 	});
 });
