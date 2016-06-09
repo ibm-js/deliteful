@@ -274,47 +274,38 @@ define([
 
 	registerSuite({
 		name: "deliteful/Combobox: markup",
+
 		beforeEach: function () {
 			container = document.createElement("div");
 			document.body.appendChild(container);
 		},
+
 		afterEach: function () {
 			container.parentNode.removeChild(container);
 		},
-		"Initialization": function () {
-			var d = this.async(1500);
 
+		"Initialization": function () {
 			container.innerHTML = html;
 			register.deliver();
 
 			var combo = document.getElementById("combo1");
-			combo.list.on("query-success", d.rejectOnError(function () {
-				checkCombobox(combo, this);
-			}.bind(this)));
+			checkCombobox(combo, this);
 
 			var combo1 = document.getElementById("mycombo1");
-			combo1.list.on("query-success", d.callback(function () {
-				checkCombobox(combo1, this);
-			}.bind(this)));
-			return d;
+			checkCombobox(combo1, this);
 		},
+
 		"Attribute mapping for label": function () {
-			var d = this.async(1500);
 			// Check the attribute mapping for label
 
 			container.innerHTML = htmlMappedAttr;
 			register.deliver();
 
 			var combo = document.getElementById("combo1");
-			combo.list.on("query-success",  d.rejectOnError(function () {
-				checkCombobox(combo, this);
-			}.bind(this)));
+			checkCombobox(combo, this);
 
 			var combo1 = document.getElementById("mycombo1");
-			combo1.list.on("query-success", d.callback(function () {
-				return checkCombobox(combo1, this);
-			}.bind(this)));
-			return d;
+			checkCombobox(combo1, this);
 		}
 	});
 

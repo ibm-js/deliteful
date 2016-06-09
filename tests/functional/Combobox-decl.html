@@ -80,22 +80,17 @@
 				}
 			};
 
+			// single selection mode, autoFilter=true
 			combo = document.getElementById("combo1");
-			combo.list.on("query-success", function () {
-				// single selection mode, autoFilter=true
-				storeTestingInfo(document.getElementById("combo1"));
-			});
+			storeTestingInfo(document.getElementById("combo1"));
+
+			// single selection mode, autoFilter=true
 			combo = document.getElementById("combo2");
-			combo.list.on("query-success", function () {
-				// single selection mode, autoFilter=true
-				storeTestingInfo(document.getElementById("combo2"));
-			});
+			storeTestingInfo(document.getElementById("combo2"));
+
+			// multiple selection mode
 			combo = document.getElementById("combo3");
-			combo.list.on("query-success", function () {
-				// multiple selection mode
-				storeTestingInfo(document.getElementById("combo3"));
-				ready = true;
-			});
+			storeTestingInfo(document.getElementById("combo3"));
 
 			// Used by the automatic functional test, for comboboxes in both
 			// single and multiple selection modes.
@@ -133,6 +128,7 @@
 				};
 			};
 
+			ready = true;
 		});
 	</script>
 	<style>
