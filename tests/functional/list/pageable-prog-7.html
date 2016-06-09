@@ -11,13 +11,13 @@
 	<script type="text/javascript">
 		var ready = false;
 		require([
+			"requirejs-dplugins/Promise!",
 			"delite/register",
-		   "dojo/Deferred",
 			"deliteful/list/PageableList",
 			"dstore/Memory",
 			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
 			"requirejs-domready/domReady!"
-		], function (register, Deferred, PageableList, MemoryStore) {
+		], function (Promise, register, PageableList, MemoryStore) {
 			var list = register.createElement("d-pageable-list");
 			list.id = "pageable-prog-7";
 			list.categoryAttr = "category";
@@ -28,15 +28,22 @@
 			// Custom memory store with a customizable latency
 			var CustomMemoryStore = MemoryStore.createSubclass([], {
 				latency: 1500,
-				map: function (item) {
-						var def = new Deferred();
-						var that = this;
-						var args = arguments;
+				fetch: function () {
+					var args = arguments;
+					return new Promise(function (resolve) {
 						setTimeout(function () {
-							def.resolve(that.inherited(args));
-						}, this.latency);
-						return def;
-					}
+							resolve(this.inherited(args));
+						}.bind(this), this.latency);
+					}.bind(this));
+				},
+				fetchRange: function () {
+					var args = arguments;
+					return new Promise(function (resolve) {
+						setTimeout(function () {
+							resolve(this.inherited(args));
+						}.bind(this), this.latency);
+					}.bind(this));
+				}
 			});
 			list.source = new CustomMemoryStore();
  			for (var i = 0; i < 100; i++) {
