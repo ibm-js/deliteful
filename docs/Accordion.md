@@ -35,7 +35,7 @@ require(["deliteful/Accordion", "deliteful/Panel", "requirejs-domready/domReady!
 
 ```html
 <html>
-	<d-accordion id="accordion" selectedChildId="panel1">
+	<d-accordion id="accordion" selectedChildId="panel1" style="height: 100%">
 		<d-panel id="panel1" label="panel1">
 			<div>Content - Panel1 (Default open panel)</div>
 		</d-panel>
@@ -59,6 +59,7 @@ require([
 	var panel2 = new Panel({label: "panel2"});
 	var panel3 = new Panel({label: "panel3"});
 	var accordion = new Accordion ({mode: "multipleOpen"});
+	accordion.style.height = "100%";
 	accordion.addChild(panel1);
     accordion.addChild(panel2);
     accordion.addChild(panel3);

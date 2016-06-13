@@ -22,6 +22,9 @@
 			});
 		</script>
 		<style>
+			d-accordion {
+				height: 75%;
+			}
 			.icon-plus:before {
 				content: "\25b6";
 			}
@@ -37,6 +40,7 @@
 		</style>
 	</head>
 	<body>
+		<h2>Accordion mode=singleOpen</h2>
 		<d-accordion id="accordion" openIconClass="icon-minus" closedIconClass="icon-plus">
 			<d-panel id="panel1" label="Panel1">
 				<div>Content1</div>
@@ -48,8 +52,9 @@
 				<div>Content3</div>
 			</d-panel>
 		</d-accordion>
-		<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus"
-					 closedIconClass="icon-plus" style="display:none">
+
+		<h2>Accordion mode=multipleOpen</h2>
+		<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus" closedIconClass="icon-plus">
 			<d-panel id="panel21" label="Panel21">
 				<div>Content1</div>
 			</d-panel>
