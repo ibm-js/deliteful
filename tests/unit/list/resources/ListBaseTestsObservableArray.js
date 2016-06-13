@@ -6,26 +6,6 @@ define([
 	"requirejs-dplugins/jquery!attributes/classes"
 ], function (assert, Deferred, ObservableArray, Observable, $) {
 
-	var waitForCondition = function (func, timeout, interval) {
-		var wait = function (def, start) {
-			setTimeout(function () {
-				if (func()) {
-					def.resolve();
-				} else {
-					if (new Date() - start > timeout) {
-						def.reject(new Error("timeout"));
-					} else {
-						wait(def, start);
-					}
-				}
-			}, interval);
-		};
-		var def = new Deferred();
-		var start = new Date();
-		wait(def, start);
-		return def;
-	};
-
 	return {
 		/**
 		 * Build a test suite for a List class
