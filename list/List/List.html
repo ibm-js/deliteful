@@ -1,0 +1,15 @@
+<!-- Template: deliteful/list/List (d-list)-->
+<template requires="deliteful/ProgressIndicator" >
+	<div class="d-list-container" attach-point="containerNode" aria-busy="{{busy}}" role="{{type}}"
+		 aria-readonly="{{this.type === 'grid' ? true : false}}" d-shown="{{this._listVisible &amp;&amp; !this.busy}}"></div>
+	<div class="d-list-no-items" d-shown="{{this.showNoItems &amp;&amp; !this._listVisible}}" attach-point="noItemsNode">
+		<div class="d-list-no-item-info">{{noItemsInfo}}</div>
+	</div>
+	<div class="d-list-loading-panel" attach-point="loadingIndicatorNode" d-shown="{{this.busy}}"
+        aria-hidden="{{!this.busy}}" aria-labelledby="loadingIndicatorLabel-{{this.widgetId}}">
+        <div class="d-list-loading-panel-info">
+        	<d-progress-indicator active="{{busy}}"></d-progress-indicator>
+        	<div class="d-list-loading-panel-info-label" id="loadingIndicatorLabel-{{this.widgetId}}" attach-point="loadingIndicatorLabel">{{loadingMessage}}</div>
+        </div>
+    </div>
+</template>
