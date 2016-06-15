@@ -171,27 +171,20 @@ define([
 		_lastLoaded: -1,
 
 		/**
-		 * If `true`, a loading panel will be show when the list is loading
-		 * and both previuos and next page loader are hidden.
-		 * @type {[type]}
-		 */
-		_showLoadingPanel: this.hideOnPageLoad && !this.autoPaging,
-
-		/**
-		 * Visibility of previousPageLoader button.
+		 * Visibility of previousPageLoader widget.
 		 * @member {boolean}
 		 * @default false
 		 * @private
 		 */
-		_previousPageLoaderVisible: false,
+		_showPreviousPageLoader: false,
 
 		 /**
-		 * Visibility of _nextPageLoader button.
+		 * Visibility of nextPageLoader widget.
 		 * @member {boolean}
 		 * @default false
 		 * @private
 		 */
-		_nextPageLoaderVisible: false,
+		_showNextPageLoader: false,
 
 		//////////// delite/Store methods ///////////////////////////////////////
 
@@ -200,26 +193,18 @@ define([
 				if ("_collection" in props && this._collection) {
 					// Initial loading of the list
 					if (this._dataLoaded) {
-						this.busy = true;
+						this._busy = true;
 						this._empty();
 						props.pageLength = true;
 					}
 					this._idPages = [];
 					this._load("next").then(function () {
-						this.busy = false;
+						this._busy = false;
 						this._dataLoaded = true;
 					}.bind(this), function (error) {
-						this.busy = false;
+						this._busy = false;
 						this._queryError(error);
 					}.bind(this));
-				}
-				if ("loadPreviousMessage" in props || "_previousPageLoaderVisible" in props) {
-					this.previousLabel.textContent = this.busy ? this.loadingMessage :
-							string.substitute(this.loadPreviousMessage, this);
-				}
-				if ("loadNextMessage" in props || "_nextPageLoaderVisible" in props) {
-					this.nextLabel.textContent = this.busy ? this.loadingMessage :
-						string.substitute(this.loadNextMessage, this);
 				}
 			}
 		},
@@ -238,13 +223,43 @@ define([
 
 		computeProperties: function (props) {
 			if (this.pageLength > 0) {
-				if ("hideOnPageLoad" in props) {
-					this._showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
+				if ("_busy" in props || "hideOnPageLoad" in props || "autoPaging" in props || "showNoItems" in props) {
+					this._updateListView();
+				}
+
+				if("loadPreviousMessage" in props || "loadingMessage" in props || "_showPreviousPageLoader" in props) {
+					if (this.previousPageLoader && this.previousPageLoader.deliver) {
+						this.previousPageLoader.labels = {
+							loadMessage: string.substitute(this.loadPreviousMessage, this),
+							loadingMessage: this.loadingMessage
+						};
+						this.previousPageLoader.deliver();
+					}
+				}
+
+				if("loadNextMessage" in props || "loadingMessage" in props || "_showNextPageLoader" in props) {
+					if (this.nextPageLoader && this.nextPageLoader.deliver) {
+						this.nextPageLoader.labels = {
+							loadMessage: string.substitute(this.loadNextMessage, this),
+							loadingMessage: this.loadingMessage
+						};
+						this.nextPageLoader.deliver();
+					}
 				}
 			}
 		},
 
 		//////////// Private methods ///////////////////////////////////////
+
+		/*
+		 * Ovveride deliteful/List#_updateListview to update the widget view.
+		 * @private
+		 */
+		_updateListView: function () {
+			this._displayedPanel = (this._busy && this.hideOnPageLoad && !this.autoPaging) ? "loading-panel" :
+				(this.containerNode && this.containerNode.children.length > 0) ?
+					"list" : ((this.showNoItems) ? "no-items" : "none");
+		},
 
 		/*
 		 * Handle click events on the widget.
@@ -256,7 +271,7 @@ define([
 		 * @private
 		 */
 		_load: function (toLoad) {
-			if (this._dataLoaded && this.busy) { return; }
+			if (this._dataLoaded && this._busy) { return; }
 			var loader = null;
 			// check if it's a synthetic event or not.
 			if (toLoad.target) {
@@ -264,49 +279,23 @@ define([
 			} else {
 				loader = toLoad;
 			}
-			this.busy = true;
+			this._busy = true;
+
+			// TODO: this is done within _loadPreviousPage and _loadNextPage
 			// Update page loader messages
-			if (this._previousPageLoaderVisible) {
-				this.previousLabel.textContent = this.loadingMessage;
-			}
-			if (this._nextPageLoaderVisible) {
-				this.nextLabel.textContent = this.loadingMessage;
-			}
-			this._showLoadingPanel = this.hideOnPageLoad && !this.autoPaging;
+			// if ("prev" === loader && this._showPreviousPageLoader) {
+			// 	this.previousPageLoader.labels.loadingMessage = this.loadingMessage;
+			// }
+			// if ("next" === loader && this._showNextPageLoader) {
+			// 	this.nextPageLoader.labels.loadingMessage = this.loadingMessage;
+			// }
+
 			var self = this;
 			var f = (loader === "prev") ?  this._loadPreviousPage.bind(this) : this._loadNextPage.bind(this);
 			return f().then(function () {
-				self.busy = false;
-				if (self._previousPageLoaderVisible) {
-					self.previousLabel.textContent = string.substitute(self.loadPreviousMessage, self);
-				}
-
-				if (self._nextPageLoaderVisible) {
-					self.nextLabel.textContent = string.substitute(self.loadNextMessage, self);
-				}
+				self._busy = false;
 
 			});
-			/*return new Promise(function (resolve, reject) {
-				// defer execution so that the new style / class is correctly applied on iOS
-				self.defer(function () {
-					var f = (loader === "prev") ?  this._loadPreviousPage.bind(this) : this._loadNextPage.bind(this);
-					return f().then(function () {
-						this.busy = false;
-						if (this._previousPageLoaderVisible) {
-							this.previousLabel.textContent = string.substitute(this.loadPreviousMessage, this);
-						}
-
-						if(this._nextPageLoaderVisible) {
-							this.nextLabel.textContent = string.substitute(this.loadNextMessage, this);
-						}
-						resolve();
-					}.bind(this), function (error) {
-						self.busy = false;
-						reject(error);
-						self._queryError(error);
-					});
-				});
-			});*/
 		},
 
 		/**
@@ -357,7 +346,9 @@ define([
 					count: this.pageLength
 				};
 			}
-			if (this._nextPageLoaderVisible) { // TODO check it again.
+			this.nextPageLoader.loading = true;
+			//this.nextPageLoader.labels.loadingMessage = this.loadingMessage;
+			if (this._showNextPageLoader) {
 				this._rangeSpec.start = this._lastLoaded + 1;
 				this._rangeSpec.count = this.pageLength;
 			}
@@ -394,6 +385,8 @@ define([
 				this._rangeSpec.count += this._rangeSpec.start;
 				this._rangeSpec.start = 0;
 			}
+			this.previousPageLoader.loading = true;
+			//this.previousPageLoader.labels.loadingMessage = this.loadingMessage;
 			var results = this._collection.fetchRange({start: this._rangeSpec.start,
 				end: this._rangeSpec.start + this._rangeSpec.count});
 			return results.then(function (items) {
@@ -435,7 +428,7 @@ define([
 					this._firstLoaded++;
 				}
 				if (idPage.length) {
-					this._previousPageLoaderVisible = true;
+					this._showPreviousPageLoader = true;
 				}
 				// if the next page is also empty, unload it too
 				if (this._idPages.length && !this._idPages[0].length) {
@@ -448,7 +441,7 @@ define([
 					this._lastLoaded--;
 				}
 				if (idPage.length) {
-					this._nextPageLoaderVisible = true;
+					this._showNextPageLoader = true;
 				}
 				// if the previous page is also empty, unload it too
 				if (this._idPages.length && !this._idPages[this._idPages.length - 1].length) {
@@ -466,7 +459,7 @@ define([
 			var renderer = this._getFirstVisibleRenderer();
 			var nextRenderer = renderer.nextElementSibling;
 			if (this.navigatedDescendant) {
-				if (renderer && this.busy) {
+				if (renderer && this._busy) {
 					this.navigateTo(renderer.renderNode);
 				}
 			}
@@ -476,9 +469,9 @@ define([
 			}
 			if (this._firstLoaded === 0) {
 				// no more previous page
-				this._previousPageLoaderVisible = false;
+				this._showPreviousPageLoader = false;
 			} else {
-				this._previousPageLoaderVisible = true;
+				this._showPreviousPageLoader = true;
 			}
 			// the renderer may have been destroyed and replaced by another one (categorized lists)
 			if (renderer._destroyed) {
@@ -498,7 +491,9 @@ define([
 					}
 				}
 			}
-			this._listVisible = this.containerNode.children.length > 0;
+			this.previousPageLoader.loading = false;
+			//this.previousPageLoader.labels.loadMessage = string.substitute(this.loadPreviousMessage, this);
+			this._updateListView();
 		},
 
 		/*jshint maxcomplexity: 11*/
@@ -518,16 +513,16 @@ define([
 			if (this.maxPages && this._idPages.length > this.maxPages) {
 				this._unloadPage(true);
 			}
-			if (this._nextPageLoaderVisible) {
+			if (this._showNextPageLoader) {
 				if (items.length !== this._rangeSpec.count) {
 					// no more next page
-					this._nextPageLoaderVisible = false;
+					this._showNextPageLoader = false;
 				} else {
-					this._nextPageLoaderVisible = true;
+					this._showNextPageLoader = true;
 				}
 			} else {
 				if (items.length === this._rangeSpec.count) {
-					this._nextPageLoaderVisible = true;
+					this._showNextPageLoader = true;
 				}
 			}
 			if (renderer) {
@@ -544,7 +539,9 @@ define([
 					}
 				}
 			}
-			this._listVisible = this.containerNode.children.length > 0;
+			this.nextPageLoader.loading = false;
+			//this.nextPageLoader.labels.loadMessage = string.substitute(this.loadNextMessage, this);
+			this._updateListView();
 		},
 		/*jshint maxcomplexity: 10*/
 
@@ -586,12 +583,12 @@ define([
 		 */
 		_scrollHandler: function () {
 			if (this.isTopScroll()) {
-				if (!this._atExtremity && this._previousPageLoaderVisible) {
+				if (!this._atExtremity && this._showPreviousPageLoader) {
 					this._load("prev");
 				}
 				this._atExtremity = true;
 			} else if (this.isBottomScroll()) {
-				if (!this._atExtremity && this._nextPageLoaderVisible) {
+				if (!this._atExtremity && this._showNextPageLoader) {
 					this._load("next");
 				}
 				this._atExtremity = true;
@@ -616,10 +613,10 @@ define([
 					if (index <= this._lastLoaded) {
 						this._lastLoaded--;
 					}
-					if (this._firstLoaded === 0 && this._previousPageLoaderVisible) {
-						this._previousPageLoaderVisible = false;
+					if (this._firstLoaded === 0 && this._showPreviousPageLoader) {
+						this._showPreviousPageLoader = false;
 					}
-					this._listVisible = this.containerNode.children.length > 0;
+					this._updateListView();
 				} else {
 					sup.apply(this, arguments);
 				}
@@ -637,11 +634,11 @@ define([
 					} else if (index <= this._firstLoaded) {
 						this._firstLoaded++;
 						this._lastLoaded++;
-						this._previousPageLoaderVisible = true;
+						this._showPreviousPageLoader = true;
 					} else if (index > this._lastLoaded) {
-						this._nextPageLoaderVisible = true;
+						this._showNextPageLoader = true;
 					}
-					this._listVisible = this.containerNode.children.length > 0;
+					this._updateListView();
 				} else {
 					sup.apply(this, arguments);
 				}
@@ -664,8 +661,8 @@ define([
 			return function () {
 				sup.call(this, arguments);
 				if (this.pageLength > 0) {
-					this._nextPageLoaderVisible = false;
-					this._previousPageLoaderVisible = false;
+					this._showNextPageLoader = false;
+					this._showPreviousPageLoader = false;
 					this._rangeSpec = null;
 					this._untrack();
 					this._firstLoaded = this._lastLoaded = -1;
@@ -677,10 +674,10 @@ define([
 		_spaceKeydownHandler: dcl.superCall(function (sup) {
 			//	Handle action key on page loaders
 			return function (event) {
-				if (this._nextPageLoaderVisible && this.nextPageLoader.contains(event.target)) {
+				if (this._showNextPageLoader && this.nextPageLoader.contains(event.target)) {
 					event.preventDefault();
 					this._load(event);
-				} else if (this._previousPageLoaderVisible && this.previousPageLoader.contains(event.target)) {
+				} else if (this._showPreviousPageLoader && this.previousPageLoader.contains(event.target)) {
 					event.preventDefault();
 					this._load(event);
 				} else {
@@ -692,8 +689,8 @@ define([
 		handleSelection: dcl.superCall(function (sup) {
 			// page loader should never be selected when clicked
 			return function (event) {
-				if (this._previousPageLoaderVisible && this.previousPageLoader.contains(event.target) ||
-					this._nextPageLoaderVisible && this.nextPageLoader.contains(event.target)) {
+				if (this._showPreviousPageLoader && this.previousPageLoader.contains(event.target) ||
+					this._showNextPageLoader && this.nextPageLoader.contains(event.target)) {
 					return;
 				} else {
 					sup.apply(this, arguments);
