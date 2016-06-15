@@ -285,7 +285,6 @@ define([
 						list.source.remove(list.source.data[0].id);
 					}
 					list.deliver();
-					assert.isFalse(list._listVisible, "container node must be hidden");
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
 						".d-list-no-items must be visible");
 
@@ -293,7 +292,6 @@ define([
 					list.source.add({label: "item 1"});
 					list.source.add({label: "item 2"});
 					list.deliver();
-					assert.isTrue(list._listVisible, "container node must be visible");
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
 						".d-list-no-items must be hidden");
 				},
@@ -303,7 +301,7 @@ define([
 						// not applicable test for pageable list.
 						return;
 					}
-					list.busy = true;
+					list._busy = true;
 					list.deliver();
 					assert.isNotNull(list.querySelector(".d-list-container[d-shown='false']"),
 						".d-list-container must be hidden");
@@ -311,7 +309,7 @@ define([
 						".d-list-no-items must be hidden");
 					assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='true']"),
 						".d-list-loading-panel must be visible");
-					list.busy = false;
+					list._busy = false;
 					list.deliver();
 					assert.isNotNull(list.querySelector(".d-list-container[d-shown='true']"),
 						".d-list-container must be visible");

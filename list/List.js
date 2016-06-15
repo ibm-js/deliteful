@@ -152,8 +152,9 @@ define([
 		 * It is set to false when the initialization ends.
 		 * Furthermore if `true`, a loading panel will be shown.
 		 * @member {boolean}
+		 * @private
 		 */
-		busy: false,
+		_busy: false,
 
 		/**
 		 * Specifies the role of list. It can be one of `grid`, `menu`, `listbox`.
@@ -162,17 +163,15 @@ define([
 		 */
 		type: "grid",
 
-
 		/**
-		 * Flag responsible for showing/hiding containerNode element, depending of the
+		 * Propertie responsible for showing/hiding the containerNode element, depending of the
 		 * content of the source. It also drives the visibility of d-list-no-items node,
 		 * accordingly to the showNoItems's value.
-		 * is empty or not.
-		 * @type {boolean}
-		 * @default "false"
+		 * @type {String}
+		 * @default ""
 		 * @private
 		 */
-		_listVisible: false,
+		_displayedPanel: "",
 
 		template: template,
 
@@ -209,6 +208,31 @@ define([
 				}
 			};
 		}),
+
+		/**
+		 * Defines which panel (list | no-items node | none) has to be shown
+		 * depending of the content of the list and id showNoItems is equal to `true` or not.
+		 * @private
+		 */
+		_updateListView: function () {
+			this._displayedPanel = (this._busy) ? "loading-panel" :
+				(this.containerNode && this.containerNode.children.length > 0) ?
+					"list" : ((this.showNoItems) ? "no-items" : "none");
+		},
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		// Override setAttribute() etc. to put aria-label etc. onto the focus node rather than the root
+		// node, so that screen readers work properly.
+
+		// setAttribute: dcl.superCall(function (sup) {
+		// 	return function (name, value) {
+		// 		if ("aria-label" === name) {
+		// 				this.containerNode.setAttribute(name, value);
+		// 		} else {
+		// 			sup.call(this, name, value);
+		// 		}
+		// 	};
+		// }),
 
 		/**
 		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
@@ -260,7 +284,7 @@ define([
 
 		createdCallback: function () {
 			this.on("query-error", function () {
-				this.busy = false;
+				this._busy = false;
 			}.bind(this));
 		},
 
@@ -268,7 +292,7 @@ define([
 			return function () {
 				// Setting busy to true and showing the progress indicator.
 				// It's removed in initItems(), after the query completes and busy is set to false.
-				this.busy = true;
+				this._busy = true;
 				sup.apply(this, arguments);
 			};
 		}),
@@ -313,11 +337,11 @@ define([
 
 			if ("type" in props) {
 				this.getRenderers().forEach(function (renderer) {
-						renderer.parentRole = this.type;
-						if (renderer.deliver) {
-							renderer.deliver();
-						}
-					}.bind(this));
+					renderer.parentRole = this.type;
+					if (renderer.deliver) {
+						renderer.deliver();
+					}
+				}.bind(this));
 			}
 		},
 		/*jshint maxcomplexity:10*/
@@ -341,14 +365,14 @@ define([
 				|| (this._isCategorized()
 						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
 				if (this._dataLoaded) {
-					this.busy = true;
+					this._busy = true;
 
 					// trigger a reload of the list
 					this.notifyCurrentValue("source");
 				}
 			}
-			if ("renderItems" in props && this.renderItems) {
-				this._listVisible = this.containerNode.children.length > 0;
+			if (("renderItems" in props && this.renderItems) || "_busy" in props || "showNoItems" in props) {
+				this._updateListView();
 			}
 		},
 
@@ -553,7 +577,7 @@ define([
 		 * @private
 		 */
 		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
-			if (!this.containerNode.firstElementChild || this.containerNode.firstElementChild === this._loadingPanel) {
+			if (!this.containerNode.firstElementChild /*|| this.containerNode.firstElementChild === this._loadingPanel*/) { // TODO CHECK AGAIN
 				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
 				if (atTheTop) {
@@ -823,7 +847,7 @@ define([
 			return function (items) {
 				this._empty();
 				this._renderNewItems(items, false);
-				this.busy = false;
+				this._busy = false;
 				this._dataLoaded = true;
 				return sup.call(this, items);
 			};
@@ -842,7 +866,7 @@ define([
 			if (renderer) {
 				this._removeRenderer(renderer, keepSelection);
 			}
-			this._listVisible = this.containerNode.children.length > 0;
+			this._updateListView();
 		},
 
 		/**
@@ -856,7 +880,7 @@ define([
 		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
 			var newRenderer = this._createItemRenderer(renderItem);
 			this._addItemRenderer(newRenderer, index);
-			this._listVisible = this.containerNode.children.length > 0;
+			this._updateListView();
 		},
 
 		/**
