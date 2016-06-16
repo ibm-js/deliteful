@@ -171,7 +171,7 @@ define([
 		_lastLoaded: -1,
 
 		/**
-		 * Visibility of previousPageLoader widget.
+		 * Visibility flag for previousPageLoader widget.
 		 * @member {boolean}
 		 * @default false
 		 * @private
@@ -179,7 +179,7 @@ define([
 		_showPreviousPageLoader: false,
 
 		 /**
-		 * Visibility of nextPageLoader widget.
+		 * Visibility flag for nextPageLoader widget.
 		 * @member {boolean}
 		 * @default false
 		 * @private
@@ -280,16 +280,6 @@ define([
 				loader = toLoad;
 			}
 			this._busy = true;
-
-			// TODO: this is done within _loadPreviousPage and _loadNextPage
-			// Update page loader messages
-			// if ("prev" === loader && this._showPreviousPageLoader) {
-			// 	this.previousPageLoader.labels.loadingMessage = this.loadingMessage;
-			// }
-			// if ("next" === loader && this._showNextPageLoader) {
-			// 	this.nextPageLoader.labels.loadingMessage = this.loadingMessage;
-			// }
-
 			var self = this;
 			var f = (loader === "prev") ?  this._loadPreviousPage.bind(this) : this._loadNextPage.bind(this);
 			return f().then(function () {
@@ -305,7 +295,7 @@ define([
 		 * @private
 		 */
 		_getLoader: function (node) {
-			while (!$(node).hasClass("d-list-loader")) {
+			while ("d-list-loader" !== node.tagName.toLowerCase()) {
 				node = node.parentElement;
 			}
 			return node;
@@ -492,7 +482,6 @@ define([
 				}
 			}
 			this.previousPageLoader.loading = false;
-			//this.previousPageLoader.labels.loadMessage = string.substitute(this.loadPreviousMessage, this);
 			this._updateListView();
 		},
 
@@ -540,7 +529,6 @@ define([
 				}
 			}
 			this.nextPageLoader.loading = false;
-			//this.nextPageLoader.labels.loadMessage = string.substitute(this.loadNextMessage, this);
 			this._updateListView();
 		},
 		/*jshint maxcomplexity: 10*/
