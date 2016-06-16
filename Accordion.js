@@ -529,10 +529,6 @@ define([
 			this._lastFocusedDescendant ? this.navigateTo(this._lastFocusedDescendant) : this.navigateToFirst();
 		},
 
-		// TODO: To support tab stops within headers, all fields needs to be tabindex=-1,
-		// except when the header is in focus, and then everything should be tabindex=0.
-		// Need to add tests too.
-
 		_keynavDeactivatedHandler: dcl.superCall(function (sup) {
 			return function () {
 				this._lastFocusedDescendant = this.navigatedDescendant;

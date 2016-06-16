@@ -48,6 +48,34 @@ define([
 		 */
 		closedIconClass: "",
 
-		template: template
+		template: template,
+
+		createdCallback: function () {
+			this.on("focusin", function () {
+				this.focusinHandler();
+			}.bind(this));
+			this.on("focusout", function () {
+				this.focusoutHandler();
+			}.bind(this));
+		},
+
+		// Handling for when there are fields inside the header that can be focused.
+		// The template must set tabindex=-1 on all
+		// fields inside the header, in addition to the header itself.
+		focusinHandler: function () {
+			console.log(this.id, ", focusin");
+			// Set all the tabindexes to 0 so that user can tab around fields in the header.
+			Array.prototype.forEach.call(this.querySelectorAll("[tabindex]"), function (node) {
+				node.tabIndex = 0;
+			});
+		},
+
+		focusoutHandler: function () {
+			console.log(this.id, ", focusout");
+			// Set all the tabindexes to -1 so that tabbing doesn't hit unselected headers.
+			Array.prototype.forEach.call(this.querySelectorAll("[tabindex]"), function (node) {
+				node.tabIndex = -1;
+			});
+		}
 	});
 });

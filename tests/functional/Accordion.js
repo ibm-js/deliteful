@@ -73,6 +73,7 @@ define(["intern",
 				.then(pollUntil("return ready ? true : null;", [],
 					intern.config.WAIT_TIMEOUT, intern.config.POLL_INTERVAL));
 		},
+
 		"SingleOpen Mode": {
 			"Check opening panel": function () {
 				var remote = this.remote;
@@ -131,6 +132,7 @@ define(["intern",
 					});
 			}
 		},
+
 		"Keyboard Support": {
 			"Open panel by using ENTER or SPACE key" : function () {
 				var remote = this.remote;
@@ -231,6 +233,7 @@ define(["intern",
 					});
 			}
 		},
+
 		"MultipleOpen Mode": {
 			setup: function () {
 				var remote = this.remote;
@@ -295,6 +298,72 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel22"));
 						remotes.push(checkPanelIsClosed(remote, "panel23"));
 						return Promise.all(remotes);
+					});
+			}
+		},
+
+		"Custom headers": {
+			setup: function () {
+				var remote = this.remote;
+				return remote
+					.execute("document.getElementById('accordion2').style.display = 'none'")
+					.execute("document.getElementById('accordion3').style.display = ''");
+			},
+			"basic": function () {
+				var remote = this.remote;
+				return remote
+					.findById("inputBeforeAccordion3")
+						.click()
+						.end()
+					.pressKeys(keys.TAB)
+					.pressKeys(keys.ENTER)	// should open the first pane
+					.then(function () {
+						var remotes = [];
+						remotes.push(checkPanelIsOpen(remote, "panel31"));
+						remotes.push(checkPanelIsClosed(remote, "panel32"));
+						remotes.push(checkPanelIsClosed(remote, "panel33"));
+						return Promise.all(remotes);
+					})
+					.pressKeys(keys.TAB)	// should go to the <button>
+					.pressKeys(keys.ENTER)	// should "click" the button not close the pane
+					.execute("return panel31_panelHeader.querySelector('button').innerHTML;")
+					.then(function (value) {
+						assert.strictEqual(value, "1 click");
+						var remotes = [];
+						remotes.push(checkPanelIsOpen(remote, "panel31"));
+						remotes.push(checkPanelIsClosed(remote, "panel32"));
+						remotes.push(checkPanelIsClosed(remote, "panel33"));
+						return Promise.all(remotes);
+					})
+					.pressKeys(keys.TAB)	// should go into the open pane
+					.execute("return document.activeElement.id;")
+					.then(function (value) {
+						assert.strictEqual(value, "panel31_input");
+					})
+					.pressKeys(keys.TAB)	// should leave the accordion altogether
+					.execute("return document.activeElement.id;")
+					.then(function (value) {
+						assert.strictEqual(value, "inputAfterAccordion3");
+					});
+			},
+
+			"tab skips previous open pane": function () {
+				var remote = this.remote;
+				return remote
+					.findById("inputBeforeAccordion3")
+						.click()
+						.end()
+					.pressKeys(keys.TAB)		// enter accordion
+					.pressKeys(keys.ARROW_DOWN)	// go to second header
+					.pressKeys(keys.TAB)		// go to the second header's <button>
+					.execute("return document.activeElement.tagName;")
+					.then(function (value) {
+						assert.strictEqual(value.toLowerCase(), "button");
+					})
+					.pressKeys(keys.TAB)	// should leave accordion altogether
+					.execute("return document.activeElement.id;")
+					.then(function (value) {
+						assert.strictEqual(value, "inputAfterAccordion3");
 					});
 			}
 		}
