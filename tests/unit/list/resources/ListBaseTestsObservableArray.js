@@ -36,19 +36,24 @@ define([
 					)});
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
-					assert.strictEqual(list.children.length, 3, "initial nodelist length");
-					assert.strictEqual(list.children[0].textContent.trim(), "item 1", "initial first item");
-					assert.strictEqual(list.children[1].textContent.trim(), "item 2", "initial second item");
-					assert.strictEqual(list.children[2].textContent.trim(), "item 3", "initial third item");
+					assert.strictEqual(list.containerNode.children.length, 3, "initial nodelist length");
+					assert.strictEqual(list.containerNode.children[0].textContent.trim(),
+						"item 1", "initial first item");
+					assert.strictEqual(list.containerNode.children[1].textContent.trim(),
+						"item 2", "initial second item");
+					assert.strictEqual(list.containerNode.children[2].textContent.trim(),
+						"item 3", "initial third item");
 
 					list.source = [
 						{label: "item 4"},
 						{label: "item 5"}
 					];
 					list.deliver();
-					assert.strictEqual(list.children.length, 2, "updated nodelist length");
-					assert.strictEqual(list.children[0].textContent.trim(), "item 4", "updated first item");
-					assert.strictEqual(list.children[1].textContent.trim(), "item 5", "updated second item");
+					assert.strictEqual(list.containerNode.children.length, 2, "updated nodelist length");
+					assert.strictEqual(list.containerNode.children[0].textContent.trim(),
+						"item 4", "updated first item");
+					assert.strictEqual(list.containerNode.children[1].textContent.trim(),
+						"item 5", "updated second item");
 				},
 
 				"baseClass update" : function () {
@@ -119,7 +124,7 @@ define([
 					list.attachedCallback();
 					var nodeList = list.getItemRenderers();
 					assert.strictEqual(nodeList.length, 3, "initial nodelist length");
-					assert.deepEqual(nodeList, [].slice.call(list.children), "initial nodelist");
+					assert.deepEqual(nodeList, [].slice.call(list.containerNode.children), "initial nodelist");
 				},
 
 				"getRendererByItemId": function () {
@@ -131,7 +136,7 @@ define([
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
 
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(list.getRendererByItemId(list.source[0].id),
 						children[0], "first renderer");
 					assert.strictEqual(list.getRendererByItemId(list.source[1].id),
@@ -149,7 +154,7 @@ define([
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
 
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(list.getItemRendererIndex(children[0]), 0, "first renderer");
 					assert.strictEqual(list.getItemRendererIndex(children[1]), 1, "second renderer");
 					assert.strictEqual(list.getItemRendererIndex(children[2]), 2, "second renderer");
@@ -164,7 +169,7 @@ define([
 					)});
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(list.getEnclosingRenderer(children[0]), children[0], "first");
 					assert.strictEqual(list.getEnclosingRenderer(children[0].children[0]), children[0], "second");
 					assert.isNull(list.getEnclosingRenderer(list), "third");
@@ -180,13 +185,13 @@ define([
 					list.attachedCallback();
 
 					list._renderNewItems([{label: "item a"}, {label: "item b"}, {label: "item c"}], true);
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(children.length, 6, "nb of items");
 					assert.strictEqual(children[0].item.label, "item a", "first added 1");
 					assert.strictEqual(children[1].item.label, "item b", "first added 2");
 					assert.strictEqual(children[2].item.label, "item c", "firstd added 3");
 					list._renderNewItems([{label: "item d"}, {label: "item e"}, {label: "item f"}], false);
-					children = list.children;
+					children = list.containerNode.children;
 					assert.strictEqual(children.length, 9, "nb of items 2");
 					assert.strictEqual(children[6].item.label, "item d", "last added 1");
 					assert.strictEqual(children[7].item.label, "item e", "last added 2");
@@ -202,12 +207,12 @@ define([
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
 
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(list._getFirst(), children[0].renderNode);
 
 					list.categoryAttr = "label";
 					list.deliver();
-					children = list.children;
+					children = list.containerNode.children;
 					assert.strictEqual(children[0].className, "d-list-category", "first is category");
 					assert.strictEqual(list._getFirst(), children[0].renderNode, "first renderer is category");
 				},
@@ -221,7 +226,7 @@ define([
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
 
-					var children = list.children;
+					var children = list.containerNode.children;
 					assert.strictEqual(list._getLast(), children[2].renderNode);
 				},
 
@@ -237,7 +242,7 @@ define([
 					list.deliver();
 					list.source[0].set("label", "item a");
 					list.deliver();
-					var renderer = list.children[0];
+					var renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
 					assert.strictEqual(renderer.firstChild.children[1].innerHTML, "item a");
 				},
@@ -257,7 +262,7 @@ define([
 					list.source[0].set("iconclass", "my-icon");
 					list.source[0].set("label", "item a");
 					list.deliver();
-					var renderer = list.children[0];
+					var renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
 					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 					assert.strictEqual(renderer.firstChild.firstChild.className, "d-list-item-icon my-icon");
@@ -267,7 +272,7 @@ define([
 					// update
 					list.source[0].set("iconclass", "my-other-icon");
 					list.deliver();
-					renderer = list.children[0];
+					renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item a");
 					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 					assert.strictEqual(renderer.firstChild.firstChild.className,
@@ -278,7 +283,7 @@ define([
 					// remove
 					list.source.set(0, {id: 0, label: "item b"});
 					list.deliver();
-					renderer = list.children[0];
+					renderer = list.containerNode.children[0];
 					assert.strictEqual(renderer.item.label, "item b");
 					assert.strictEqual(renderer.firstChild.getAttribute("role"), "gridcell");
 					assert.strictEqual(renderer.firstChild.children[1].className, "d-list-item-label");
@@ -293,7 +298,7 @@ define([
 					list.attachedCallback();
 					list.source.push({label: "item 1", category: "category 1"});
 					list.deliver();
-					assert.strictEqual(list.children[0].item.category, "category 1");
+					assert.strictEqual(list.containerNode.children[0].item.category, "category 1");
 				},
 
 				"query-success event": function () {
@@ -327,12 +332,37 @@ define([
 					list.style.height = "200px";
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
-
+					list.deliver();
 					list.focus();
 					var focusedElement = document.activeElement;
 					assert.isNotNull(focusedElement, "active element");
 					assert.isDefined(focusedElement, "active element");
 					assert.strictEqual("item 1", focusedElement.parentNode.item.label, "focused element label");
+				},
+
+				"show/hide no items node depending of list's containerNode children": function () {
+					var list = new ListConstructor({source: new ObservableArray()});
+					document.body.appendChild(list);
+					list.attachedCallback();
+					list.showNoItems = true;
+					list.source.push({id: "0", label: "item 0"});
+					list.source.push({id: "1", label: "item 1"});
+					list.deliver();
+					list.attachedCallback();
+					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
+						".d-list-no-items must be hidden");
+					while (list.source.length > 0) {
+						list.source.pop();
+					}
+					list.deliver();
+					list.attachedCallback();
+					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
+					".d-list-no-items must be visible");
+					list.source.push({id: "0", label: "item 0"});
+					list.source.push({id: "1", label: "item 1"});
+					list.deliver();
+					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
+						".d-list-no-items must be hidden");
 				}
 			};
 		}
