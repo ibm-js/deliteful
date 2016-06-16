@@ -173,6 +173,13 @@ define([
 		 */
 		_displayedPanel: "",
 
+		/**
+		 * Array containing attributes that need to be applied once the widget is built.
+		 * @type {Array}
+		 * @private
+		 */
+		_pendingAttrChanges: [],
+
 		template: template,
 
 		/**
@@ -221,18 +228,23 @@ define([
 		},
 
 		////////////////////////////////////////////////////////////////////////////////////////////
-		// Override setAttribute() etc. to put aria-label etc. onto the focus node rather than the root
+		// Override setAttribute() etc. to put aria-label etc. onto the containerNode rather than the root
 		// node, so that screen readers work properly.
 
-		// setAttribute: dcl.superCall(function (sup) {
-		// 	return function (name, value) {
-		// 		if ("aria-label" === name) {
-		// 				this.containerNode.setAttribute(name, value);
-		// 		} else {
-		// 			sup.call(this, name, value);
-		// 		}
-		// 	};
-		// }),
+		setAttribute: dcl.superCall(function (sup) {
+			return function (name, value) {
+				if (/^aria-/.test(name)) {
+					if (this.containerNode) {
+						this.containerNode.setAttribute(name, value);
+					} else {
+						this._pendingAttrChanges.push({name: name, val: value});
+					}
+
+				} else {
+					sup.call(this, name, value);
+				}
+			};
+		}),
 
 		/**
 		 * The selection mode for list items (see {@link module:delite/Selection delite/Selection}).
@@ -373,6 +385,13 @@ define([
 			}
 			if (("renderItems" in props && this.renderItems) || "_busy" in props || "showNoItems" in props) {
 				this._updateListView();
+			}
+		},
+
+		postRender: function () {
+			while (this._pendingAttrChanges.length) {
+				var attr = this._pendingAttrChanges.pop();
+				this.containerNode.setAttribute(attr.name, attr.val);
 			}
 		},
 

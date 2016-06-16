@@ -177,9 +177,10 @@ Here is an example that illustrates the unloading mechanism, using a pageable li
 If the `maxPages` property is set to 0 or less, there is no maximum number of pages (pages are never unloaded).
 
 <a name="hiding"></a>
-### Hiding the list while it is busy loading and displaying a page of items
+### Hiding the list while it is busy loading and no items node.
 
 The pageable list provides the options to hide its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`. In this scenario, when the list is loading, only a loading panel will be shown. On the other hand, if the `hideOnPageLoad` property is set to `false`, then the list and both loaders will be always shown.
+
 As per [`deliteful/list/List` No items node`](./List.md#noitems), the pageable list can be configured in order to show a `no-items` node when the list is empty. By default this feature is disabled, but it can be enabled by setting `showNoItems` property to `true`.
 
 <a name="otherProperties"></a>
