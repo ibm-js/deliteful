@@ -5,10 +5,8 @@ title: deliteful/Panel
 
 # deliteful/Panel
 
-`deliteful/Panel` is a container widget with a Title Bar on top, that uses CSS3 Flexible box to always show the title and fill the available
-space with its children.
+`deliteful/Panel` is a container widget used inside of an [`deliteful/Accordion`](/deliteful/docs/master/Accordion.md).
 
-![Panel Example](images/Panel.png)
 
 ##### Table of Contents
 [Element Instantiation](#instantiation)  
@@ -53,15 +51,13 @@ require([
 
 <a name="configuration"></a>
 ## Element Configuration
-The following properties can be set on the widget to configure it:
+The following properties can be set on the widget to configure it, assuming that it's used inside of
+a [`deliteful/Accordion`](/deliteful/docs/master/Accordion.md):
 
-* `label`: the label to display in the panel header;
-* `iconClass`: CSS class to apply to a DOM node before the label in order to render an icon;
-* `closedIconClass`: this CSS class is only used when the panel is inside a [`deliteful/Accordion`](/deliteful/docs/master/Accordion.md)
-and it is used to display an icon when the panel is closed.
+* `label`: the label to display in the panel header
+* `openIconClass`: CSS class for the icon to display in the panel header when the panel is open
+* `closedIconClass`: CSS class for the icon to display in the panel header when the panel is closed
 
-`deliteful/Panel` support `delite` container infrastructure by inheriting from `delite/Container`.
-For more informations, see [`delite/Container`](/delite/docs/master/Container.md) documentation.
 
 <a name="styling"></a>
 ## Element Styling
@@ -73,8 +69,6 @@ The following CSS classes are automatically set by the widget and can be reused 
 CSS Class          | Description
 -----------------  | -------------
 `d-panel`          | The panel container
-`d-panel-header`   | The title bar
-`d-panel-content`  | The content of the panel
 
 ### Styling CSS classes
 
@@ -96,11 +90,7 @@ CSS Class          | Description
 
 ### Accessibility
 
-|type|status|comment|
-|----|------|-------|
-|Keyboard|N/A|No user interaction|
-|Visual Formatting|ok|Supports high contrast on Firefox and Internet Explorer desktop browsers.|
-|Screen Reader|ok|Title bar has an ARIA role of `heading` and content has an ARIA role of `region`. Tested with JAWS and VoiceOver|
+N/A
 
 ### Globalization
 
@@ -108,7 +98,8 @@ CSS Class          | Description
 
 ### Security
 
-This widget has no specific security concern. Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class.
+This widget has no specific security concern.
+Refer to [`delite/Widget`](/delite/docs/master/Widget.md) for general security advice on this base class.
 
 ### Browser Support
 
