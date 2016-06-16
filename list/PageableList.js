@@ -221,13 +221,14 @@ define([
 			};
 		}),
 
+		/*jshint maxcomplexity:14*/
 		computeProperties: function (props) {
 			if (this.pageLength > 0) {
 				if ("_busy" in props || "hideOnPageLoad" in props || "autoPaging" in props || "showNoItems" in props) {
 					this._updateListView();
 				}
 
-				if("loadPreviousMessage" in props || "loadingMessage" in props || "_showPreviousPageLoader" in props) {
+				if ("loadPreviousMessage" in props || "loadingMessage" in props || "_showPreviousPageLoader" in props) {
 					if (this.previousPageLoader && this.previousPageLoader.deliver) {
 						this.previousPageLoader.labels = {
 							loadMessage: string.substitute(this.loadPreviousMessage, this),
@@ -237,7 +238,7 @@ define([
 					}
 				}
 
-				if("loadNextMessage" in props || "loadingMessage" in props || "_showNextPageLoader" in props) {
+				if ("loadNextMessage" in props || "loadingMessage" in props || "_showNextPageLoader" in props) {
 					if (this.nextPageLoader && this.nextPageLoader.deliver) {
 						this.nextPageLoader.labels = {
 							loadMessage: string.substitute(this.loadNextMessage, this),
