@@ -11,7 +11,7 @@
 @round-radius: @list-group-border-radius;
 
 .d-list {
-	border: 1px solid @list-group-border;	
+	border: 1px solid @list-group-border;
 	background-color: @list-group-bg;
 }
 
@@ -31,17 +31,9 @@
 	}
 }
 
-.d-last-renderer-style() {
-	 .d-list-cell {
-		border-bottom-width: 0;
-		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
-		padding-bottom: 1px;
-	 }
- }
-
 .d-selectable, .d-multiselectable {
 	.d-list-item:hover {
-		background-color: @list-group-hover-bg;	
+		background-color: @list-group-hover-bg;
 	}
 }
 
@@ -67,9 +59,21 @@
 .d-list-loader-style() {
 	font-weight: 500;
 	height: @cell-height - 2;
-	border-bottom: 1px solid @list-group-border;
 	&:hover {
 		background-color: #ebebeb;
+	}
+
+	&.d-list-previous-loader {
+		border-top-width: 0;
+		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+		padding-bottom: 1px;
+		border-bottom: 1px solid @list-group-border;
+ 	}
+
+	&.d-list-next-loader {
+		border-bottom-width: 0;
+		/* padding-bottom to compensate the fact that the bottom width is 0 instead of 1 */
+		padding-bottom: 1px;
 	}
 }
 
@@ -89,7 +93,7 @@
 }
 
 .d-round-rect-list {
-	border: 1px solid @list-group-border;	
+	border: 1px solid @list-group-border;
 	border-radius: @round-radius;
 	background-color: @list-group-bg;
 }
