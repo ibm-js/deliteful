@@ -13,15 +13,34 @@
 			require([
 				"delite/register",
 				"deliteful/Accordion",
-				"deliteful/Panel",
+				"deliteful/Accordion/AccordionHeader",
+				"delite/handlebars!deliteful/tests/functional/MyAccordionHeader.html",
 				"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+				"deliteful/Panel",
 				"requirejs-domready/domReady!"
-			], function(register) {
+			], function(register, Accordion, AccordionHeader, headerTemplate) {
+				var MyAccordionHeader = register("my-accordion-header", [HTMLElement, AccordionHeader], {
+					template: headerTemplate,
+					clicks: 0,
+					_buttonClickHandler: function (evt) {
+						console.log("button clicked")
+						evt.stopPropagation();
+						this.clicks++;
+					}
+				});
+				register("my-accordion", [Accordion], {
+					createHeader: function (panel, args) {
+						return new MyAccordionHeader(args);
+					}
+				});
 				register.deliver();
 				ready = true;
 			});
 		</script>
 		<style>
+			d-accordion, my-accordion {
+				height: 75%;
+			}
 			.icon-plus:before {
 				content: "\25b6";
 			}
@@ -34,9 +53,17 @@
 			.icon-down:before {
 				content: "\21D3";
 			}
+			my-accordion-header > button {
+				float: right;
+			}
+			input {
+				width: 200px;
+			}
 		</style>
 	</head>
 	<body>
+		<h2>Accordion mode=singleOpen</h2>
+		<label for="inputBeforeAccordion1">Focus point before accordion 1:</label> <input id="inputBeforeAccordion1">
 		<d-accordion id="accordion" openIconClass="icon-minus" closedIconClass="icon-plus">
 			<d-panel id="panel1" label="Panel1">
 				<div>Content1</div>
@@ -48,8 +75,11 @@
 				<div>Content3</div>
 			</d-panel>
 		</d-accordion>
-		<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus"
-					 closedIconClass="icon-plus" style="display:none">
+		<label for="inputAfterAccordion1">Focus point after accordion 1:</label> <input id="inputAfterAccordion1">
+
+		<h2>Accordion mode=multipleOpen</h2>
+		<label for="inputBeforeAccordion2">Focus point before accordion 2:</label> <input id="inputBeforeAccordion2">
+		<d-accordion id="accordion2" mode="multipleOpen" openIconClass="icon-minus" closedIconClass="icon-plus">
 			<d-panel id="panel21" label="Panel21">
 				<div>Content1</div>
 			</d-panel>
@@ -60,5 +90,22 @@
 				<div>Content3</div>
 			</d-panel>
 		</d-accordion>
+		<label for="inputAfterAccordion2">Focus point after accordion 2:</label> <input id="inputAfterAccordion2">
+
+		<h2>Accordion with custom headers</h2>
+		<label for="inputBeforeAccordion3">Focus point before accordion 3:</label> <input id="inputBeforeAccordion3">
+		<my-accordion id="accordion3" openIconClass="icon-minus" closedIconClass="icon-plus">
+			<d-panel id="panel31" label="Panel31">
+				<label for="panel31_input">Input in panel31:</label> <input id="panel31_input">
+			</d-panel>
+			<d-panel id="panel32" label="Panel32">
+				<label for="panel32_input">Input in panel32:</label> <input id="panel32_input">
+			</d-panel>
+			<d-panel id="panel33" label="Panel33">
+				<label for="panel33_input">Input in panel33:</label> <input id="panel33_input">
+			</d-panel>
+		</my-accordion>
+		<label for="inputAfterAccordion3">Focus point after accordion 3:</label> <input id="inputAfterAccordion3">
+		<button onclick="console.log('clicked');">test button</button>
 	</body>
 </html>

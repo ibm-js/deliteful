@@ -5,7 +5,7 @@ title: deliteful/list/PageableList
 
 # deliteful/list/PageableList
 
-The `deliteful/PageableList` custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.md) element 
+The `deliteful/PageableList` custom element (`d-pageable-list` custom tag) extends the [deliteful/list/List](./List.md) element
 and adds paging capabilities to it.
 
 A pageable list does not load and display all its content all at once, but only loads and displays a subset of the content while providing user controls to load and display more data.
@@ -14,13 +14,13 @@ A pageable list does not load and display all its content all at once, but only 
 
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)  
-[Element Configuration](#configuration)  
-[Element Styling](#styling)  
-[User Interactions](#interactions)  
-[Mixins](#mixins)  
-[Element Events](#events)  
-[Enteprise Use](#enterprise)  
+[Element Instantiation](#instantiation)
+[Element Configuration](#configuration)
+[Element Styling](#styling)
+[User Interactions](#interactions)
+[Mixins](#mixins)
+[Element Events](#events)
+[Enteprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -71,7 +71,7 @@ require(["dstore/Memory", "deliteful/list/PageableList", "requirejs-domready/dom
 });
 ```
 
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/099c6dkk/embedded/result,js">
 <a href="http://jsfiddle.net/ibmjs/099c6dkk/">checkout the sample on JSFiddle</a></iframe>
 
@@ -177,9 +177,11 @@ Here is an example that illustrates the unloading mechanism, using a pageable li
 If the `maxPages` property is set to 0 or less, there is no maximum number of pages (pages are never unloaded).
 
 <a name="hiding"></a>
-### Hiding the list while it is busy loading and displaying a page of items
+### Hiding the list while it is busy loading and no items node.
 
-The pageable list provides the options to hides its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`.
+The pageable list provides the options to hide its content when loading a page of data. This is activated by setting the `hideOnPageLoad` property to `true`. In this scenario, when the list is loading, only a loading panel will be shown. On the other hand, if the `hideOnPageLoad` property is set to `false`, then the list and both loaders will be always shown.
+
+As per [`deliteful/list/List` No items node`](./List.md#noitems), the pageable list can be configured in order to show a `no-items` node when the list is empty. By default this feature is disabled, but it can be enabled by setting `showNoItems` property to `true`.
 
 <a name="otherProperties"></a>
 ### Other properties
@@ -311,8 +313,8 @@ See also [`deliteful/list/List` enterprise use](./List.md#enterprise) for the en
 
 ### Globalization
 
-`deliteful/list/PageableList` provides an internationalizable bundle that contains only one message, with the 
+`deliteful/list/PageableList` provides an internationalizable bundle that contains only one message, with the
 key `default-load-message`. This is the message displayed by page loaders.
-This message supports the keyword `${pageLength}`, that is replaced by the current value of the `pageLength` property 
+This message supports the keyword `${pageLength}`, that is replaced by the current value of the `pageLength` property
 of the widget.
 

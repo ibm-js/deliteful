@@ -1,5 +1,4 @@
 .d-accordion {
-  height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -18,24 +17,9 @@
   -ms-box-orient: vertical;
   flex-direction: column;
 }
-.d-accordion > .d-panel {
-  -moz-border-radius: 0;
-  border-radius: 0;
-  border-bottom: none;
-  position: relative;
-  overflow: hidden;
-}
-.d-accordion > .d-panel:first-child {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.d-accordion > .d-panel:last-child {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-.d-accordion > .d-panel > .d-toggle-button {
-  width: 100%;
-  text-align: left;
+.d-accordion > [role=tab] {
+  padding: 10px 15px;
+  border: 2px solid;
   font-weight: bold;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -48,36 +32,37 @@
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
 }
-.d-accordion > .d-panel > .d-toggle-button:focus,
-.d-accordion > .d-panel > .d-toggle-button:hover {
+.d-accordion > [role=tab]:focus,
+.d-accordion > [role=tab]:hover {
   background-color: #e1e1e1;
   border-color: #bebebe;
 }
-.d-accordion > .d-panel > .d-toggle-button.d-checked {
+.d-accordion > [role=tab][aria-selected=true] {
   background-color: #428bca;
   border-color: #428bca;
+  border-bottom-width: 1px;
   color: #ffffff;
 }
-.d-accordion > .d-panel > .d-toggle-button.d-checked:focus,
-.d-accordion > .d-panel > .d-toggle-button.d-checked:hover {
+.d-accordion > [role=tab][aria-selected=true]:focus,
+.d-accordion > [role=tab][aria-selected=true]:hover {
   background-color: #72a8d7;
   border-color: #3071a9;
 }
-.d-accordion > .d-panel > .d-panel-content {
+.d-accordion > [role=tabpanel] {
   border: solid 2px #dddddd;
   border-top: none;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
-.d-panel-content-open {
-  border-color: #428bca !important;
-}
-.d-accordion-open-panel {
+[role=tabpanel].d-accordion-open-panel {
+  border-color: #428bca;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
-@keyframes d-accordion-openAnimation {
+@keyframes d-accordion-open-animation {
   from {
     -webkit-box-flex: 0.0001;
     -moz-box-flex: 0.0001;
@@ -93,7 +78,7 @@
     flex: 1;
   }
 }
-@-webkit-keyframes d-accordion-openAnimation {
+@-webkit-keyframes d-accordion-open-animation {
   from {
     -webkit-box-flex: 0.0001;
     -moz-box-flex: 0.0001;
@@ -109,17 +94,18 @@
     flex: 1;
   }
 }
-.d-accordion-openAnimation {
-  animation-name: d-accordion-openAnimation;
+[role=tabpanel].d-accordion-open-animation {
+  animation-name: d-accordion-open-animation;
   animation-duration: .3s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
-  -webkit-animation-name: d-accordion-openAnimation;
+  -webkit-animation-name: d-accordion-open-animation;
   -webkit-animation-duration: .3s;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-timing-function: linear;
+  overflow: hidden;
 }
-@keyframes d-accordion-closeAnimation {
+@keyframes d-accordion-close-animation {
   from {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -135,7 +121,7 @@
     flex: 0.0001;
   }
 }
-@-webkit-keyframes d-accordion-closeAnimation {
+@-webkit-keyframes d-accordion-close-animation {
   from {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -151,13 +137,14 @@
     flex: 0.0001;
   }
 }
-.d-accordion-closeAnimation {
-  animation-name: d-accordion-closeAnimation;
+[role=tabpanel].d-accordion-close-animation {
+  animation-name: d-accordion-close-animation;
   animation-duration: .3s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
-  -webkit-animation-name: d-accordion-closeAnimation;
+  -webkit-animation-name: d-accordion-close-animation;
   -webkit-animation-duration: .3s;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-timing-function: linear;
+  overflow: hidden;
 }

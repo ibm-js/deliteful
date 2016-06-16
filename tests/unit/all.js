@@ -8,7 +8,6 @@ define([
 	"./LinearLayout-horizontal-mixedwidth",
 	"./LinearLayout-vertical",
 	"./list/all",
-	"./Panel",
 	"./ProgressBar",
 	"./ProgressIndicator",
 	"./RadioButton",
