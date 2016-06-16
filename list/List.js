@@ -226,10 +226,8 @@ define([
 
 		setAttribute: dcl.superCall(function (sup) {
 			return function (name, value) {
-				if (/^aria-/.test(name)) {
-					if (this.containerNode) {
-						this.containerNode.setAttribute(name, value);
-					}
+				if (/^aria-/.test(name) && this.containerNode) {
+					this.containerNode.setAttribute(name, value);
 				} else {
 					sup.call(this, name, value);
 				}
