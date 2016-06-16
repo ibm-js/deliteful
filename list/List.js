@@ -173,13 +173,6 @@ define([
 		 */
 		_displayedPanel: "",
 
-		/**
-		 * Array containing attributes that need to be applied once the widget is built.
-		 * @type {Array}
-		 * @private
-		 */
-		_pendingAttrChanges: [],
-
 		template: template,
 
 		/**
@@ -236,10 +229,7 @@ define([
 				if (/^aria-/.test(name)) {
 					if (this.containerNode) {
 						this.containerNode.setAttribute(name, value);
-					} else {
-						this._pendingAttrChanges.push({name: name, val: value});
 					}
-
 				} else {
 					sup.call(this, name, value);
 				}
@@ -356,11 +346,10 @@ define([
 				}.bind(this));
 			}
 		},
-		/*jshint maxcomplexity:10*/
 
+		/*jshint maxcomplexity:13*/
 		computeProperties: function (props) {
 			//	List attributes have been updated.
-			/*jshint maxcomplexity:12*/
 			if ("selectionMode" in props) {
 				if (this.selectionMode === "none") {
 					if (this._selectionClickHandle) {
@@ -389,9 +378,12 @@ define([
 		},
 
 		postRender: function () {
-			while (this._pendingAttrChanges.length) {
-				var attr = this._pendingAttrChanges.pop();
-				this.containerNode.setAttribute(attr.name, attr.val);
+			// moving down to the containerNode any aria attribute that has been set to the root node.
+			for (var i = 0; i < this.attributes.length; i++) {
+				if (/^aria-/.test(this.attributes[i].name)) {
+					this.containerNode.setAttribute(this.attributes[i].name, this.attributes[i].value);
+					this.removeAttribute(this.attributes[i].name);
+				}
 			}
 		},
 
@@ -596,7 +588,7 @@ define([
 		 * @private
 		 */
 		_renderNewItems: function (/*Array*/ items, /*boolean*/atTheTop) {
-			if (!this.containerNode.firstElementChild /*|| this.containerNode.firstElementChild === this._loadingPanel*/) { // TODO CHECK AGAIN
+			if (!this.containerNode.firstElementChild) {
 				this.containerNode.appendChild(this._createRenderers(items, 0, items.length, null));
 			} else {
 				if (atTheTop) {

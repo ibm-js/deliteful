@@ -1255,7 +1255,8 @@ define([
 						"next loader should not be visible");
 			list.hideOnPageLoad = false;
 			list.deliver();
-			// verify that loading panel and prev loader are not shown, list and next loader are visible when busy equals to true.
+			// verify that loading panel and prev loader are not shown,
+			// list and next loader are visible when busy equals to true.
 			assert.isNotNull(list.querySelector(".d-list-loading-panel[d-shown='false']"),
 						"loading panel should not be visible");
 			assert.isNotNull(list.querySelector(".d-list-container[d-shown='true']"),
