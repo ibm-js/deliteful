@@ -309,23 +309,32 @@ define(["intern",
 					.execute("document.getElementById('accordion2').style.display = 'none'")
 					.execute("document.getElementById('accordion3').style.display = ''");
 			},
-			"basic": function () {
+
+			// Test navigation to buttons inside of headers, and also using the keyboard to click those buttons.
+			keyboard: function () {
 				var remote = this.remote;
+				if (remote.environmentType.brokenSendKeys || !remote.environmentType.nativeEvents) {
+					return this.skip("no keyboard support");
+				}
+				if (remote.environmentType.safari) {
+					return this.skip("on safari w/default, tab key doesn't navigate to <button>");
+				}
 				return remote
 					.findById("inputBeforeAccordion3")
 						.click()
 						.end()
 					.pressKeys(keys.TAB)
-					.pressKeys(keys.ENTER)	// should open the first pane
-					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel31"));
-						remotes.push(checkPanelIsClosed(remote, "panel32"));
-						remotes.push(checkPanelIsClosed(remote, "panel33"));
-						return Promise.all(remotes);
+					.execute("return document.activeElement.id;")
+					.then(function (value) {
+						// Note this is checking that the mouse test above didn't change the navigatedDescendant.
+						assert.strictEqual(value, "panel31_panelHeader");
 					})
 					.pressKeys(keys.TAB)	// should go to the <button>
-					.pressKeys(keys.ENTER)	// should "click" the button not close the pane
+					.execute("return document.activeElement.tagName;")
+					.then(function (value) {
+						assert.strictEqual(value.toLowerCase(), "button");
+					})
+					.pressKeys(keys.SPACE)	// should "click" the button not close the panel
 					.execute("return panel31_panelHeader.querySelector('button').innerHTML;")
 					.then(function (value) {
 						assert.strictEqual(value, "1 click");
@@ -335,7 +344,7 @@ define(["intern",
 						remotes.push(checkPanelIsClosed(remote, "panel33"));
 						return Promise.all(remotes);
 					})
-					.pressKeys(keys.TAB)	// should go into the open pane
+					.pressKeys(keys.TAB)	// should go into the open panel
 					.execute("return document.activeElement.id;")
 					.then(function (value) {
 						assert.strictEqual(value, "panel31_input");
@@ -344,12 +353,8 @@ define(["intern",
 					.execute("return document.activeElement.id;")
 					.then(function (value) {
 						assert.strictEqual(value, "inputAfterAccordion3");
-					});
-			},
+					})
 
-			"tab skips previous open pane": function () {
-				var remote = this.remote;
-				return remote
 					.findById("inputBeforeAccordion3")
 						.click()
 						.end()
@@ -360,10 +365,32 @@ define(["intern",
 					.then(function (value) {
 						assert.strictEqual(value.toLowerCase(), "button");
 					})
-					.pressKeys(keys.TAB)	// should leave accordion altogether
+					.pressKeys(keys.TAB)// should leave accordion altogether, since open panel is above current header
 					.execute("return document.activeElement.id;")
 					.then(function (value) {
 						assert.strictEqual(value, "inputAfterAccordion3");
+					});
+			},
+
+			// Test clicking the button inside a header.
+			// Note that focusing anything in a header sets that header as the navigatedDescendant,
+			// so the mouse test is intentionally after the keyboard test, to not interfere with it.
+			mouse: function () {
+				var remote = this.remote;
+				return remote
+					.findByCssSelector("#panel32_panelHeader button")
+					.click()
+					.end()
+					.execute("return panel32_panelHeader.querySelector('button').innerHTML;")
+					.then(function (value) {
+						assert.strictEqual(value, "1 click");
+
+						// Check that the panel 2 wasn't opened.
+						var remotes = [];
+						remotes.push(checkPanelIsOpen(remote, "panel31"));
+						remotes.push(checkPanelIsClosed(remote, "panel32"));
+						remotes.push(checkPanelIsClosed(remote, "panel33"));
+						return Promise.all(remotes);
 					});
 			}
 		}
