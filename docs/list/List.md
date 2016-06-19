@@ -6,11 +6,11 @@ title: deliteful/list/List
 # deliteful/list/List
 
 
-The `deliteful/list/List` custom element (`d-list` custom tag) renders an optionally scrollable list of items that 
+The `deliteful/list/List` custom element (`d-list` custom tag) renders an optionally scrollable list of items that
 are retrieved from an array or a store object from the [dstore](http://dstorejs.io/) project.
 
-The list inherits from the [`delite/Store`](/delite/docs/master/Store.md) class and as such any valid `dstore/Store` 
-implementation can be used to provide data to the list. No store is provided by default and the application developer 
+The list inherits from the [`delite/Store`](/delite/docs/master/Store.md) class and as such any valid `dstore/Store`
+implementation can be used to provide data to the list. No store is provided by default and the application developer
 has to provide one created either programmatically or in markup.
 
 Items rendered by the list are standard javascript objects. The list delegates the rendering of its items to an _item renderer_ widget.
@@ -36,13 +36,13 @@ The widget also provides the following capabilities:
   (see [Accessibility](#accessibility)).
 
 ##### Table of Contents
-[Element Instantiation](#instantiation)  
-[Element Configuration](#configuration)  
-[Element Styling](#styling)  
-[User Interactions](#interactions)  
-[Mixins](#mixins)  
-[Element Events](#events)  
-[Enteprise Use](#enterprise)  
+[Element Instantiation](#instantiation)
+[Element Configuration](#configuration)
+[Element Styling](#styling)
+[User Interactions](#interactions)
+[Mixins](#mixins)
+[Element Events](#events)
+[Enteprise Use](#enterprise)
 
 <a name="instantiation"></a>
 ## Element Instantiation
@@ -125,6 +125,8 @@ require(["deliteful/list/List", "requirejs-domready/domReady!"], function (List)
 - [Store capabilities](#store)
 - [Categorized items](#categories)
 - [Custom renderers](#customRenderers)
+- [No items node](#noitems)
+- [Loading Panel](#loadingPanel)
 
 <a name="scroll"></a>
 ### Scroll capabilities
@@ -265,7 +267,7 @@ list.source.add({label: "second item", category: "Category A"});
 list.source.add({label: "third item", category: "Category B"});
 ```
 
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/7Yr6E/embedded/result,js">
 <a href="http://jsfiddle.net/ibmjs/7Yr6E/">checkout the sample on JSFiddle</a></iframe>
 
@@ -305,7 +307,7 @@ If the rendered item have actionable / keyboard navigable nodes, those are set u
 
 Here are is an example of custom item renderer that illustrate these concepts:
 
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/36XDP/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/36XDP">checkout the sample on JSFiddle</a></iframe>
 
@@ -319,9 +321,17 @@ A custom category renderer is similar to a custom item renderer, except that it 
 
 Here are is an example of custom category renderer:
 
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/s5sMq/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/s5sMq">checkout the sample on JSFiddle</a></iframe>
+
+<a name="noitems"></a>
+### No Items node
+The list is able to show a `no-items` node when the list's source is empty. You can enable this feature setting the `showNoItems` property to `true`. The `no-items` node contains a message that can be customized accessing to the `noItemsInfo` property. Furthermore, whatever the list source is empty the list's `containerNode` will be hidden for accessibility reasons.
+
+<a name="loadingPanel"></a>
+### Loading Panel
+The list always shows a loading panel when the list itself is getting loaded or initialized. This feature cannot be disabled.
 
 <a name="styling"></a>
 ## Element Styling
@@ -420,7 +430,7 @@ The style of a selected item can be customized using the following css:
 
 To illustrate these concepts, here is a sample that demonstrates how to use CSS to display a checkmark on selected items using the default item renderer:
 
-<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0" 
+<iframe width="100%" height="300" allowfullscreen="allowfullscreen" frameborder="0"
 src="http://jsfiddle.net/ibmjs/NB5u7/embedded/result,js,css">
 <a href="http://jsfiddle.net/ibmjs/NB5u7">checkout the sample on JSFiddle</a></iframe>
 
@@ -433,7 +443,7 @@ The widget uses the browser native scroll to allow the user to scroll its conten
 
 ### Action
 
-In most cases, when the user clicks or taps a list item the application needs to perform an action. This can easily be 
+In most cases, when the user clicks or taps a list item the application needs to perform an action. This can easily be
 achieved by listening to regular click events. It is typically easier to wait for the events to bubble and listen
 to them at the list level as follows:
 
@@ -456,10 +466,10 @@ function actionHandler(event) {
 ### Selection
 
 When the action on the list items has to be permanent you should consider using the list selection mechanism instead
-of listening to click events. In addition to managing the list of selected items this will provide with with a 
+of listening to click events. In addition to managing the list of selected items this will provide with with a
 default CSS rendering for the selected items.
 
-The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items. 
+The list uses the [delite/Selection](/delite/docs/master/Selection.md) mixin to provide support for selectable items.
 By default, items in the list are not selectable, but you can change this behavior using the `selectionMode` property
 of the widget:
 
@@ -527,8 +537,10 @@ function selectionHandler(event) {
 The widget supports three different WAI-ARIA roles:
 
 1. [grid](https://www.w3.org/TR/wai-aria/roles#grid), which is the default role
-2. [listbox](https://www.w3.org/TR/wai-aria/roles#listbox), which can be simply using `setAttribute` method.
-2. [menu](https://www.w3.org/TR/wai-aria/roles#menu), which can be simply using `setAttribute` method.
+2. [listbox](https://www.w3.org/TR/wai-aria/roles#listbox).
+2. [menu](https://www.w3.org/TR/wai-aria/roles#menu).
+
+In order to set a role different from the default one, a public `type` property is available. It can be one of `grid`, `listbox`, `menu`.
 
 #### grid role
 

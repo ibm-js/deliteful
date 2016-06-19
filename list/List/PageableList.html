@@ -1,0 +1,25 @@
+<!-- Template: deliteful/list/PageableList (d-pageable-list) -->
+<template requires="deliteful/ProgressIndicator, deliteful/list/Loader" >
+    <!-- Load previous page button -->
+    <d-list-loader class="d-list-previous-loader d-list-cell" on-click={{_load}}
+        attach-point="previousPageLoader" d-shown="{{this._showPreviousPageLoader &amp;&amp; this._displayedPanel === 'list'}}"></d-list-loader>
+
+    <div class="d-list-container" attach-point="containerNode" aria-busy="{{_busy}}" role="{{type}}" aria-readonly="{{type === 'grid'}}"
+        d-shown="{{this._displayedPanel === 'list'}}"></div>
+
+    <div class="d-list-no-items" d-shown="{{this._displayedPanel === 'no-items'}}" attach-point="noItemsNode">
+        <div class="d-list-no-item-info">{{noItemsInfo}}</div>
+    </div>
+
+    <div class="d-list-loading-panel" attach-point="loadingIndicatorNode" d-shown="{{this._displayedPanel === 'loading-panel'}}"
+        aria-hidden="{{!this._busy}}" aria-labelledby="loadingIndicatorLabel-{{widgetId}}">
+        <div class="d-list-loading-panel-info">
+            <d-progress-indicator active="{{_busy}}"></d-progress-indicator>
+            <div class="d-list-loading-panel-info-label" id="loadingIndicatorLabel-{{widgetId}}" attach-point="loadingIndicatorLabel">{{loadingPanelMessage}}</div>
+        </div>
+    </div>
+
+    <!-- Load next page button -->
+    <d-list-loader class="d-list-next-loader d-list-cell" on-click={{_load}}
+        attach-point="nextPageLoader" d-shown="{{this._showNextPageLoader &amp;&amp; this._displayedPanel === 'list'}}"></d-list-loader>
+</template>
