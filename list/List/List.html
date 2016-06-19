@@ -1,7 +1,7 @@
 <!-- Template: deliteful/list/List (d-list)-->
 <template requires="deliteful/ProgressIndicator" >
 	<div class="d-list-container" attach-point="containerNode" aria-busy="{{_busy}}" role="{{type}}"
-		 aria-readonly="{{this.type === 'grid'}}" d-shown="{{this._displayedPanel === 'list'}}"></div>
+		 aria-readonly="{{this.type === 'grid'}}" d-shown="{{this._displayedPanel === 'list'}}" on-click={{handleSelection}}></div>
 	<div class="d-list-no-items" d-shown="{{this._displayedPanel === 'no-items'}}" attach-point="noItemsNode">
 		<div class="d-list-no-item-info">{{noItemsInfo}}</div>
 	</div>

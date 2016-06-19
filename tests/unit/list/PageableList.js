@@ -111,11 +111,11 @@ define([
 	};
 
 	var clickPreviousPageLoader = function (list) {
-		return list._load("prev");
+		return list._loadPreviousPage();
 	};
 
 	var clickNextPageLoader = function (list) {
-		return list._load("next");
+		return list._loadNextPage();
 	};
 
 	var testHelpers = {
@@ -989,7 +989,7 @@ define([
 				list.deliver();
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
-				assert(list.querySelector(".d-list-loader[d-shown='true']").offsetWidth > 0, "d-list-loader");
+				assert(list.querySelector("d-list-loader[d-shown='true']").offsetWidth > 0, "d-list-loader");
 			} finally {
 				popup.close(list);
 
@@ -1015,7 +1015,7 @@ define([
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-category-renderer").offsetWidth > 0, "d-list-category-renderer");
 				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
-				assert(list.querySelector(".d-list-loader[d-shown='true']").offsetWidth > 0, "d-list-loader");
+				assert(list.querySelector("d-list-loader[d-shown='true']").offsetWidth > 0, "d-list-loader");
 			} finally {
 				popup.close(list);
 

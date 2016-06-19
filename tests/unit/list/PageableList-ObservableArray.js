@@ -111,11 +111,11 @@ define([
 	};
 
 	var clickPreviousPageLoader = function (list) {
-		return list._load("prev");
+		return list._loadPreviousPage();
 	};
 
 	var clickNextPageLoader = function (list) {
-		return list._load("next");
+		return list._loadNextPage();
 	};
 
 	var testHelpers = {

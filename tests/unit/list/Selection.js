@@ -307,22 +307,6 @@ define([
 			assert.isNull(selectionChangeEvent);
 			assert.strictEqual(firstItem.className, "d-list-item");
 		},
-		"revert selection to 'none' remove event handler": function () {
-			list.selectionMode = "single";
-			list.deliver();
-			assert.isNotNull(list._selectionClickHandle, "single");
-			assert.isDefined(list._selectionClickHandle, "single");
-			list.selectionMode = "none";
-			list.deliver();
-			assert.isNull(list._selectionClickHandle, "first none");
-			list.selectionMode = "multiple";
-			list.deliver();
-			assert.isNotNull(list._selectionClickHandle, "multiple");
-			assert.isDefined(list._selectionClickHandle, "multiple");
-			list.selectionMode = "none";
-			list.deliver();
-			assert.isNull(list._selectionClickHandle, "second none");
-		},
 		"revert selection to 'none' clears selection": function () {
 			list.selectionMode = "multiple";
 			list.deliver();

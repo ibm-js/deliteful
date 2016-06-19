@@ -8,10 +8,10 @@ define([
 	"use strict";
 
 	/**
-	 * A widget that renders a loader widget.
+	 * An helper widget that renders a progress indicator and a label.
 	 *
-	 * Depending of the value of its `loading` propertiy, it will show a `loadingMessage` or a `loadMessage`.
-	 * Furthermore, if `loading` is equal to `true`, an active progress indicator will be shown too.
+	 * Depending of the value of its `loading` property, it shows a `loadingMessage` or a `loadMessage`.
+	 * Furthermore, if `loading` is equal to `true`, an active progress indicator is displayed too.
 	 *
 	 * See the {@link https://github.com/ibm-js/deliteful/tree/master/docs/list/PageableList.md user documentation}
 	 * for more details.
@@ -26,18 +26,16 @@ define([
 		template: template,
 
 		/**
-		 * Set of messages to show for each value of `loading` property.
-		 * @type {Object}
+		 * Loader's message.
+		 * @type {string}
+		 * @default ""
 		 */
-		labels: {
-			loadMessage: "",
-			loadingMessage: ""
-		},
+		label: "",
 
 		/**
 		 * It determines if the loader is active or not.
-		 * If `true`, the `labels.loadingMessage` is shown, `labels.loadMessage` otherwise.
 		 * @type {Boolean}
+		 * @default false
 		 */
 		loading: false,
 	});

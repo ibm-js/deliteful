@@ -134,9 +134,9 @@ define([
 		multiCharSearchDuration: 0,
 
 		/**
-		 *	If `true` and the list's store is empty, the NoItemContainer element will be shown.
+		 * If `true` and the list's store is empty, the NoItemContainer element will be shown.
 		 * @member {boolean}
-		 * @default "false"
+		 * @default false
 		 */
 		showNoItems: false,
 
@@ -158,15 +158,22 @@ define([
 
 		/**
 		 * Specifies the role of list. It can be one of `grid`, `menu`, `listbox`.
-		 * @type {String}
+		 * @type {string}
 		 * @default "grid"
 		 */
 		type: "grid",
 
 		/**
-		 * Propertie responsible for showing/hiding the containerNode element, depending of the
-		 * content of the source. It also drives the visibility of d-list-no-items node,
-		 * accordingly to the showNoItems's value.
+		 * Property responsible for managing the right view of the list. It can be one of
+		 * `loading-panel`, `list`, `no-items`, `none`.
+		 * When it is equal to `loading-panel` (as `busy` is equal to `true`), a `d-list-loading-panel`
+		 * loading panel is shown.
+		 * When it is equal to `list` (as `busy` is equal to `false` and the `containerNode` children length
+		 * is greater than zero), the actual list is shown.
+		 * When it is equal to `no-items` (only if `showNoItems` is set to `true`and the `containerNode`
+		 * children length is equal to zero), a `d-list-no-items` is displayed.
+		 * When it is `none` (as `showNoItems is set to `false` and `busy` not `true` and `containerNode`
+		 * children length is equal to zero, nothing is shown.
 		 * @type {String}
 		 * @default ""
 		 * @private
@@ -209,20 +216,9 @@ define([
 			};
 		}),
 
-		/**
-		 * Defines which panel (list | no-items node | none) has to be shown
-		 * depending of the content of the list and id showNoItems is equal to `true` or not.
-		 * @private
-		 */
-		_updateListView: function () {
-			this._displayedPanel = (this._busy) ? "loading-panel" :
-				(this.containerNode && this.containerNode.children.length > 0) ?
-					"list" : ((this.showNoItems) ? "no-items" : "none");
-		},
-
 		////////////////////////////////////////////////////////////////////////////////////////////
-		// Override setAttribute() etc. to put aria-label etc. onto the containerNode rather than the root
-		// node, so that screen readers work properly.
+		// Override setAttribute(), getAttribute(), hasAttribute() and removeAttribute to move down to
+		// the containerNode any aria attribute set to the root.
 
 		setAttribute: dcl.superCall(function (sup) {
 			return function (name, value) {
@@ -230,6 +226,36 @@ define([
 					this.containerNode.setAttribute(name, value);
 				} else {
 					sup.call(this, name, value);
+				}
+			};
+		}),
+
+		getAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					return this.containerNode.getAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		hasAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					return this.containerNode.hasAttribute(name);
+				} else {
+					return sup.call(this, name);
+				}
+			};
+		}),
+
+		removeAttribute: dcl.superCall(function (sup) {
+			return function (name) {
+				if (/^aria-/.test(name) && this.containerNode) {
+					this.containerNode.removeAttribute(name);
+				} else {
+					sup.call(this, name);
 				}
 			};
 		}),
@@ -256,19 +282,6 @@ define([
 			selectable: "d-selectable",
 			multiselectable: "d-multiselectable"
 		},
-
-		/**
-		 * A panel that hides the content of the widget when shown, and displays a progress indicator
-		 * and an optional message.
-		 * @member {module:deliteful/list/_LoadingPanel} module:deliteful/list/List#_loadingPanel
-		 * @private
-		 */
-
-		/**
-		 * Handle for the selection click event handler
-		 * @member {Function} module:deliteful/list/List#_selectionClickHandle
-		 * @private
-		 */
 
 		/**
 		 * Previous focus child before the list loose focus
@@ -348,18 +361,6 @@ define([
 		/*jshint maxcomplexity:13*/
 		computeProperties: function (props) {
 			//	List attributes have been updated.
-			if ("selectionMode" in props) {
-				if (this.selectionMode === "none") {
-					if (this._selectionClickHandle) {
-						this._selectionClickHandle.remove();
-						this._selectionClickHandle = null;
-					}
-				} else {
-					if (!this._selectionClickHandle) {
-						this._selectionClickHandle = this.on("click", this.handleSelection.bind(this));
-					}
-				}
-			}
 			if ("itemRenderer" in props
 				|| (this._isCategorized()
 						&& ("categoryAttr" in props || "categoryFunc" in props || "categoryRenderer" in props))) {
@@ -371,7 +372,9 @@ define([
 				}
 			}
 			if (("renderItems" in props && this.renderItems) || "_busy" in props || "showNoItems" in props) {
-				this._updateListView();
+				this._displayedPanel = (this._busy) ? "loading-panel" :
+					(this.containerNode && this.containerNode.children.length > 0) ?
+						"list" : ((this.showNoItems) ? "no-items" : "none");
 			}
 		},
 
@@ -380,7 +383,7 @@ define([
 			for (var i = 0; i < this.attributes.length; i++) {
 				if (/^aria-/.test(this.attributes[i].name)) {
 					this.containerNode.setAttribute(this.attributes[i].name, this.attributes[i].value);
-					this.removeAttribute(this.attributes[i].name);
+					HTMLElement.prototype.removeAttribute.call(this, this.attributes[i].name);
 				}
 			}
 		},
@@ -875,7 +878,7 @@ define([
 			if (renderer) {
 				this._removeRenderer(renderer, keepSelection);
 			}
-			this._updateListView();
+			this.notifyCurrentValue("renderItems");
 		},
 
 		/**
@@ -889,7 +892,7 @@ define([
 		itemAdded: function (index, renderItem, /*jshint unused:vars*/renderItems) {
 			var newRenderer = this._createItemRenderer(renderItem);
 			this._addItemRenderer(newRenderer, index);
-			this._updateListView();
+			this.notifyCurrentValue("renderItems");
 		},
 
 		/**
