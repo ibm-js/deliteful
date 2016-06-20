@@ -175,6 +175,15 @@
 		});
 	</script>
 	<style>
+		/* Put combobox labels on their own lines, but inline checkbox/radiobutton labels */
+		label {
+			display: block;
+			margin: 15px 0 10px 2px;
+		}
+		fieldset label {
+			display: inline;
+		}
+
 		/* Larger margins between the elements inside the list elements */
 		.d-list-item-label {
 			margin-right: 30px;
@@ -185,86 +194,90 @@
 	</style>
 </head>
 <body>
-	<form action="processForm.html">
-	<fieldset>
-	<p>
-	Combobox <b>programmatically</b>.
-	</p>
-	<p>
-	id: "combo-single", selectionMode: "single", autoFilter: false
-	</p>
+<h1>
+	Programmatic Combobox
+</h1>
+<form action="processForm.html">
+	<label for="combo-single-input">
+		id: "combo-single", selectionMode: "single", autoFilter: false
+	</label>
 	<span id="combo-single"></span>
-	<p>
-	id: "combo-single-autoFilter", selectionMode: "single", autoFilter: true
-	</p>
+
+	<label for="combo-single-autoFilter-input">
+		id: "combo-single-autoFilter", selectionMode: "single", autoFilter: true
+	</label>
 	<span id="combo-single-autoFilter"></span>
 
 	<fieldset>
 		<legend>Filtering options</legend>
 		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
-		<label for="startsWith">startsWith</label>
+		<label for="startsWith-input">startsWith</label>
 		<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
-		<label for="contains">contains</label>
+		<label for="contains-input">contains</label>
 		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
-		<label for="is">is</label>
+		<label for="is-input">is</label>
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
-		<label for="ignoreCase">Ignore Case</label>
+		<label for="ignoreCase-input">Ignore Case</label>
 	</fieldset>
 
-	<p>
-	id: "combo-multiple", selectionMode: "multiple"
-	</p>
+	<label for="combo-multiple-input">
+		id: "combo-multiple", selectionMode: "multiple"
+	</label>
 	<span id="combo-multiple"></span>
 
-	<p>
-	id: "combo-single-disabled", selectionMode: "single", autoFilter: false, disabled
-	</p>
+	<label for="combo-single-disabled-input">
+		id: "combo-single-disabled", selectionMode: "single", autoFilter: false, disabled
+	</label>
 	<span id="combo-single-disabled"></span>
-	<p>
-	id: "combo-single-autoFilter-disabled", selectionMode: "single", autoFilter: true, disabled
-	</p>
+
+	<label for="combo-single-autoFilter-disabled-input">
+		id: "combo-single-autoFilter-disabled", selectionMode: "single", autoFilter: true, disabled
+	</label>
 	<span id="combo-single-autoFilter-disabled"></span>
-	<p>
-	id: "combo-multiple-disabled", selectionMode: "multiple", disabled
-	</p>
+
+	<label for="combo-multiple-disabled-input">
+		id: "combo-multiple-disabled", selectionMode: "multiple", disabled
+	</label>
 	<span id="combo-multiple-disabled"></span>
-	<p>
-	id: "combo-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
-	</p>
+
+	<label for="combo-custom-sel-single-input">
+		id: "combo-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
+	</label>
 	<span id="combo-custom-sel-single"></span>
-	<p>
-	id: "combo-custom-sel-multiple", selectionMode: "multiple", custom initial selection
-	</p>
+
+	<label for="combo-custom-sel-multiple-input">
+		id: "combo-custom-sel-multiple", selectionMode: "multiple", custom initial selection
+	</label>
 	<span id="combo-custom-sel-multiple"></span>
-	<p>
-	id: "combo-single-autoFilter-readonly", selectionMode: "single", autoFilter: true, readonly
-	</p>
+
+	<label for="combo-single-autoFilter-readonly-input">
+		id: "combo-single-autoFilter-readonly", selectionMode: "single", autoFilter: true, readonly
+	</label>
 	<span id="combo-single-autoFilter-readonly"></span>
 
-	<p>
-	id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false
-	</p>
+	<label for="combo-single-value-input">
+		id: "combo-single-value", data items with value, , selectionMode: "single", autoFilter: false
+	</label>
 	<span id="combo-single-value"></span>
 
-	<p>
-	id: "combo-multiple-value", data items with value, selectionMode: "multiple"
-	</p>
+	<label for="combo-multiple-value-input">
+		id: "combo-multiple-value", data items with value, selectionMode: "multiple"
+	</label>
 	<span id="combo-multiple-value"></span>
 
-	<p>
-	id: "combo-single-rtl", dir="rtl" selectionMode: "single", autoFilter: false
-	</p>
+	<label for="combo-single-rtl-input">
+		id: "combo-single-rtl", dir="rtl" selectionMode: "single", autoFilter: false
+	</label>
 	<span id="combo-single-rtl"></span>
 
-	<p>
-	id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)
-	</p>
+	<label for="combo-single-default-list-input">
+		id: "combo-single-default-list", selectionMode: "single", autoFilter: false, default List (created by Combobox)
+	</label>
 	<span id="combo-single-default-list"></span>
 
 	<br/><br/>
 	<input id="reset" type="reset">
 	<input id="submit" type="submit">
-</fieldset>
 </form>
 </body>
 </html>

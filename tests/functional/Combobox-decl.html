@@ -132,6 +132,15 @@
 		});
 	</script>
 	<style>
+		/* Put combobox labels on their own lines, but inline checkbox/radiobutton labels */
+		label {
+			display: block;
+			margin: 15px 0 10px 2px;
+		}
+		fieldset label {
+			display: inline;
+		}
+
 		/* Larger margins between the elements inside the list elements */
 		.d-list-item-label {
 			margin-right: 30px;
@@ -142,16 +151,15 @@
 	</style>
 </head>
 <body>
-	<form id="form1" action="processForm.html">
-	<fieldset>
-
-	<p>
+<h1>
 	Combobox in <b>markup</b>.
-	</p>
+</h1>
 
-	<p>
-	id: "combo1" selectionMode: "single", autoFilter: false
-	</p>
+<form id="form1" action="processForm.html">
+
+	<label for="combo1-input">
+		id: "combo1" selectionMode: "single", autoFilter: false
+	</label>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1" name="combo1">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -194,9 +202,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo2" selectionMode: "single", autoFilter: true
-	</p>
+	<label for="combo2-input">
+		id: "combo2" selectionMode: "single", autoFilter: true
+	</label>
 	<d-combobox selectionMode="single" autoFilter="true" id="combo2" name="combo2">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -242,18 +250,18 @@
 	<fieldset>
 		<legend>Filtering options</legend>
 		<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
-		<label for="startsWith">startsWith</label>
+		<label for="startsWith-input">startsWith</label>
 		<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
-		<label for="contains">contains</label>
+		<label for="contains-input">contains</label>
 		<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
-		<label for="is">is</label>
+		<label for="is-input">is</label>
 		<d-checkbox id="ignoreCase" checked></d-checkbox>
-		<label for="ignoreCase">Ignore Case</label>
+		<label for="ignoreCase-input">Ignore Case</label>
 	</fieldset>
 
-	<p>
-	id: "combo3", selectionMode: "multiple"
-	</p>
+	<label for="combo3-input">
+		id: "combo3", selectionMode: "multiple"
+	</label>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3" name="combo3">
 		<d-list righttextAttr="sales" categoryAttr="region">
 			{ "label": "France", "sales": 500, "profit": 50, "region": "EU" },
@@ -296,9 +304,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled
-	</p>
+	<label for="combo1-disabled-input">
+		id: "combo1-disabled", selectionMode: "single", autoFilter: false, disabled
+	</label>
 	<d-combobox selectionMode="single" autoFilter="false"
 		id="combo1-disabled" name="combo1-disabled" disabled>
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -341,9 +349,10 @@
 			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
 		</d-list>
 	</d-combobox>
-	<p>
-	id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled
-	</p>
+
+	<label for="combo2-disabled-input">
+		id: "combo2-disabled", selectionMode: "single", autoFilter: true, disabled
+	</label>
 	<d-combobox selectionMode="single" autoFilter="true"
 		id="combo2-disabled" name="combo2-disabled" disabled>
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -386,9 +395,10 @@
 			{ "label": "Japan30", "sales": 900, "profit": 100, "region": "Asia" }
 		</d-list>
 	</d-combobox>
-	<p>
-	id: "combo3-disabled", selectionMode: "multiple", disabled
-	</p>
+
+	<label for="combo3-disabled-input">
+		id: "combo3-disabled", selectionMode: "multiple", disabled
+	</label>
 	<d-combobox selectionMode="multiple" autoFilter="false"
 		id="combo3-disabled" name="combo3-disabled" disabled>
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -432,9 +442,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
-	</p>
+	<label for="combo2-custom-sel-single-input">
+		id: "combo2-custom-sel-single", selectionMode: "single", autoFilter: true, custom initial selection
+	</label>
 	<d-combobox selectionMode="single" autoFilter="true"
 		id="combo2-custom-sel-single" name="combo2-custom-sel-single">
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -478,9 +488,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo2-custom-sel-multiple", selectionMode: "single", custom initial selection
-	</p>
+	<label for="combo2-custom-sel-multiple-input">
+		id: "combo2-custom-sel-multiple", selectionMode: "single", custom initial selection
+	</label>
 	<d-combobox selectionMode="multiple"
 		id="combo2-custom-sel-multiple" name="combo2-custom-sel-multiple">
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -524,9 +534,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
-	</p>
+	<label for="combo2-readonly-input">
+		id: "combo2-readonly", selectionMode: "single", autoFilter: true, readOnly
+	</label>
 	<d-combobox selectionMode="single" autoFilter="true" readOnly
 		id="combo2-readonly" name="combo2-readonly">
 		<d-list righttextAttr="sales" categoryAttr="region">
@@ -570,9 +580,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo1-value", data items with value and label mapping, value selectionMode: "single", autoFilter: false
-	</p>
+	<label for="combo1-value-input">
+		id: "combo1-value", data items with value and label mapping, value selectionMode: "single", autoFilter: false
+	</label>
 	<d-combobox selectionMode="single" autoFilter="false" id="combo1-value" name="combo1-value">
 		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
 			categoryAttr="region">
@@ -587,9 +597,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
-	</p>
+	<label for="combo3-value-input">
+		id: "combo3-value", data items with value and label mapping, selectionMode: "multiple"
+	</label>
 	<d-combobox selectionMode="multiple" autoFilter="false" id="combo3-value" name="combo3-value">
 		<d-list valueAttr="myValue" labelAttr="text" righttextAttr="sales"
 			categoryAttr="region">
@@ -604,9 +614,9 @@
 		</d-list>
 	</d-combobox>
 
-	<p>
-	id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
-	</p>
+	<label for="combo1-single-rtl-input">
+		id: "combo1-single-rtl", dir="rtl", selectionMode: "single", autoFilter: false
+	</label>
 	<d-combobox dir="rtl" selectionMode="single" autoFilter="false"
 		id="combo1-single-rtl" name="combo1-single-rtl">
 		<d-list righttextAttr="sales" categoryAttr="region">

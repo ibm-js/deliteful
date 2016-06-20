@@ -79,7 +79,7 @@
 <b>World Cup Survey</b>
 <br/><br/>
 <p>
-Your favorite team (single choice):
+<label for="comboTeams-input">Your favorite team (single choice):</label>
 </p>
 <d-combobox selectionMode="single" autoFilter="true" id="comboTeams">
 	<d-list righttextAttr="world-cup-victories" categoryAttr="region">
@@ -104,17 +104,17 @@ Your favorite team (single choice):
 <fieldset>
 	<legend>Filtering options</legend>
 	<d-radio-button name="radio" id="startsWith" checked="true"></d-radio-button>
-	<label for="startsWith">startsWith</label>
+	<label for="startsWith-input">startsWith</label>
 	<d-radio-button name="radio" id="contains" checked="false"></d-radio-button>
-	<label for="contains">contains</label>
+	<label for="contains-input">contains</label>
 	<d-radio-button name="radio" id="is" checked="false"></d-radio-button>
-	<label for="is">is</label>
+	<label for="is-input">is</label>
 	<d-checkbox id="ignoreCase" checked></d-checkbox>
-	<label for="ignoreCase">Ignore Case</label>
+	<label for="ignoreCase-input">Ignore Case</label>
 </fieldset>
 <br/>
 <p>
-Your favorite players (multiple choice):
+<label for="comboPlayers-input">Your favorite players (multiple choice):</label>
 </p>
 <d-combobox selectionMode="multiple" id="comboPlayers">
 	<d-list>
