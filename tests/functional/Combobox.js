@@ -980,6 +980,38 @@ define([
 				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkMouseNavigationMultipleSelection(remote, "combo3");
+		},
+
+		mobile: function () {
+			var remote = this.remote;
+
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
+			}
+
+			// TODO: Test that popup works in general:
+			//	1. Popup shows up with list.
+			//	2. Filtering works
+			//	3. Selecting values works (for all 3 cases in test file)
+
+
+			// Test that popup title shows up correctly.
+			return loadFile(remote, "./ComboPopup.html")
+				.findById("combo1")
+					.click()
+					.end()
+				.setFindTimeout(intern.config.WAIT_TIMEOUT)
+				.findByCssSelector(".d-combo-popup-header")
+					.getVisibleText()
+					.then(function (value) {
+						assert.strictEqual(value, "Simple Combobox popup");
+					})
+					.end();
 		}
 	});
 });

@@ -1,6 +1,7 @@
 <template role="presentation"
 	requires="deliteful/LinearLayout, deliteful/Button">
 	<d-linear-layout style="height: 100%">
+        <div class="d-combo-popup-header">{{header}}</div>
 		<input d-hidden="{{!(this.combobox.autoFilter && this.combobox.selectionMode !== 'multiple')}}"
 			attach-point="inputNode"
 			class="d-combobox-input"

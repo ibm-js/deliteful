@@ -56,8 +56,9 @@ define([
 	 * The widget provides multichannel rendering. Depending on the required channel, which
 	 * is determined by the value of the channel flags of `deliteful/features`, the
 	 * widget displays the popup containing the options in a different manner:
-	 * * if `has("desktop-like-channel")` is `true`: in a popup below or above the root node.
-	 * * otherwise (that is for `"phone-like-channel"` and `"tablet-like-channel"`): in an
+	 *
+	 * - if `has("desktop-like-channel")` is `true`: in a popup below or above the root node.
+	 * - otherwise (that is for `"phone-like-channel"` and `"tablet-like-channel"`): in an
 	 * overlay centered on the screen, filled with an instance of `deliteful/Combobox/ComboPopup`.
 	 * 
 	 * The channel flags are set by `deliteful/features` using CSS media queries depending on
@@ -66,13 +67,15 @@ define([
 	 * of the screen size breakpoints used by the media queries.
 	 * 
 	 * The `value` property of the widget contains:
+	 *
 	 * - Single selection mode: the value of the selected list items. By default, the
 	 * value of the first item is selected.
 	 * - Multiple selection mode: an array containing the values of the selected items.
 	 * Defaults to `[]`.
 	 * 
 	 * If the widget is used in an HTML form, the submitted value contains:
-	 *  * - Single selection mode: the same as widget's `value` property.
+	 *
+	 * - Single selection mode: the same as widget's `value` property.
 	 * - Multiple selection mode: a string containing a comma-separated list of the values
 	 * of the selected items. Defaults to `""`.
 	 * 

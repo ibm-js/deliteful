@@ -37,6 +37,12 @@
   /* Needed for the correct layout of its LinearLayout child */
   display: block;
 }
+.d-combo-popup-header {
+  padding: 2px 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
 /* Applies to both the input inside the root node and the input */
 /* conditionally present inside the popup */
 .d-combobox-input {

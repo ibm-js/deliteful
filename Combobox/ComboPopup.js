@@ -8,14 +8,13 @@ define([
 	/**
 	 * Auxiliary widget used in some cases by deliteful/Combobox for displaying
 	 * a popup containing conditionally a search field and OK/Cancel buttons.
-	 * This widget is intended for being instanciated only by deliteful/Combobox;
-	 * it should not be instanciated directly. If needed, its template
+	 * This widget is intended for being instantiated only by deliteful/Combobox;
+	 * it should not be instantiated directly.  If needed, its template
 	 * (deliteful/Combobox/ComboPopup.html) can be customized.
 	 * @class module:deliteful/Combobox/ComboPopup
 	 * @augments module:delite/Widget
 	 */
-	return register("d-combo-popup", [HTMLElement, Widget],
-		/** @lends module:deliteful/Combobox/ComboPopup# */ {
+	return register("d-combo-popup", [HTMLElement, Widget], /** @lends module:deliteful/Combobox/ComboPopup# */ {
 		
 		baseClass: "d-combo-popup",
 		
@@ -31,7 +30,24 @@ define([
 		 * @protected
 		 */
 		combobox: null,
-		
+
+		/**
+		 * Popup's header, to remind user what the popup is for (since it likely covers up the original label).
+		 */
+		header: "",
+
+		computeProperties: function (oldValues) {
+			if ("combobox" in oldValues) {
+				// Find Combobox's label and use it as my header.
+				var combobox = this.combobox;
+				var headerNode = (combobox.focusNode.id &&
+					this.ownerDocument.querySelector("label[for=" + combobox.focusNode.id + "]")) ||
+					(combobox.hasAttribute("aria-labelledby") &&
+					this.ownerDocument.getElementById(combobox.getAttribute("aria-labelledby")));
+				this.header = headerNode ? headerNode.textContent.trim() : (combobox.getAttribute("aria-label") || "");
+			}
+		},
+
 		refreshRendering: function (oldValues) {
 			if ("combobox" in oldValues) {
 				if (this.combobox) {
