@@ -958,6 +958,10 @@ define([
 		
 		"mouse navigation selectionMode=single, autoFilter=false": function () {
 			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
 			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
 				// The feature does work when testing in Safari/Mac, but it fails on sauce:
 				// an unexpected question mark character gets appended into widget.inputNode.value,
@@ -969,6 +973,10 @@ define([
 		
 		"mouse navigation selectionMode=multiple": function () {
 			var remote = this.remote;
+			if (remote.environmentType.browserName === "internet explorer") {
+				// https://github.com/theintern/leadfoot/issues/17
+				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
+			}
 			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
 				// The feature does work when testing in Safari/Mac, but it fails on sauce:
 				// an unexpected question mark character gets appended into widget.inputNode.value,
