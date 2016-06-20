@@ -20,7 +20,7 @@
 		], function (register, Memory, Trackable, List) {
   			// Programmatic list: default source, items added before adding the list to the document and before startup
 			var list = register.createElement("d-list");
-			list.setAttribute("role", "listbox");
+			list.type = "listbox";
 			list.id = "list-prog-1";
 			list.source = new (Memory.createSubclass([Trackable], {}))();
 			list.style.height = "200px";

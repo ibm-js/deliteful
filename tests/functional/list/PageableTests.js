@@ -10,38 +10,30 @@ define(["intern",
 		var expectedTextPath = isCategory ? "document.activeElement.textContent"
 				: "document.activeElement.children[1].textContent";
 		return remote.pressKeys(keys.PAGE_DOWN)
-			.getActiveElement()
+			.findByClassName("d-list-next-loader")
 				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
+			.click()
 			.end()
-			.pressKeys(keys.SPACE)
+			.sleep(100)
 			.then(pollUntil("return " + expectedTextPath + " === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, intern.config.POLL_INTERVAL))
-			.execute("return document.getElementById('" + listId + "').getBottomDistance(document.activeElement);")
-			.then(function (value) {
-				assert.closeTo(Math.round(value), -1, 1,
-						"active element expected at the bottom of the scrollable viewport");
-			});
+					+ expectedActiveTextAfterLoad + "' ? true : null", [], 5000, intern.config.POLL_INTERVAL));
 	};
 
 	var loadPreviousPage = function (remote, listId, pageSize, expectedActiveTextAfterLoad) {
 		return remote.pressKeys(keys.PAGE_UP)
-			.getActiveElement()
+			.findByClassName("d-list-previous-loader")
 				.getVisibleText()
 				.then(function (value) {
 					assert.strictEqual(value, "Click to load " + pageSize + " more items");
 				})
+			.click()
 			.end()
-			.pressKeys(keys.SPACE)
+			.sleep(100)
 			.then(pollUntil("return document.activeElement.children[1].textContent === '"
-					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, intern.config.POLL_INTERVAL))
-			.execute("return document.getElementById('" + listId + "').getTopDistance(document.activeElement);")
-			.then(function (value) {
-				assert.closeTo(Math.round(value), 0, 1,
-						"active element expected at the top of the scrollable viewport");
-			});
+					+ expectedActiveTextAfterLoad + "' ? true : null;", [], 5000, intern.config.POLL_INTERVAL));
 	};
 
 	registerSuite({
@@ -62,7 +54,7 @@ define(["intern",
 				.get(require.toUrl("./pageable-prog-1.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
 						[],
 						intern.config.WAIT_TIMEOUT,
 						intern.config.POLL_INTERVAL))
@@ -126,7 +118,7 @@ define(["intern",
 				.get(require.toUrl("./pageable-prog-2.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
 						[],
 						intern.config.WAIT_TIMEOUT,
 						intern.config.POLL_INTERVAL))
@@ -179,7 +171,7 @@ define(["intern",
 				.get(require.toUrl("./pageable-prog-8.html"))
 				.then(pollUntil("return ('ready' in window &&  ready "
 						+ "&& document.getElementById('" + listId + "') "
-						+ "&& !document.getElementById('" + listId + "').hasAttribute('aria-busy')) ? true : null;",
+						+ "&& !document.querySelector('#" + listId + " .d-list-container').getAttribute('aria-busy') === false) ? true : null;",
 						[],
 						intern.config.WAIT_TIMEOUT,
 						intern.config.POLL_INTERVAL))
