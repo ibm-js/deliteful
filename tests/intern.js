@@ -26,7 +26,7 @@ define({
 			name : "deliteful"},
 		{ browserName: "chrome", version: "32", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ],
 			name : "deliteful"},
-		{ browserName: "safari", version: "7", platform: [ "OS X 10.9" ], name : "deliteful"}
+		{ browserName: "safari", version: "9", name : "deliteful"}
 	],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
