@@ -962,11 +962,9 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
-				// The feature does work when testing in Safari/Mac, but it fails on sauce:
-				// an unexpected question mark character gets appended into widget.inputNode.value,
-				// thus for instance the test finds the label "France?" to be different than "France".
-				return this.skip("skip mouse navigation testing on Safari/Mac and mobile for now");
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkMouseNavigationSingleSelection(remote, "combo1");
 		},
@@ -977,11 +975,9 @@ define([
 				// https://github.com/theintern/leadfoot/issues/17
 				return this.skip("click() doesn't generate mousedown/mouseup, so popup won't open");
 			}
-			if (/iOS|selendroid/.test(this.remote.environmentType.browserName)) {
-				// The feature does work when testing in Safari/Mac, but it fails on sauce:
-				// an unexpected question mark character gets appended into widget.inputNode.value,
-				// thus for instance the test finds the label "France?" to be different than "France".
-				return this.skip("skip mouse navigation testing on Safari/Mac and mobile for now");
+			if (remote.environmentType.platformName === "iOS") {
+				// https://github.com/theintern/leadfoot/issues/61
+				return this.skip("click() doesn't generate touchstart/touchend, so popup won't open");
 			}
 			return checkMouseNavigationMultipleSelection(remote, "combo3");
 		}
