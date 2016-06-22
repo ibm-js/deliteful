@@ -3,9 +3,8 @@ define(["intern",
 	"intern/dojo/node!leadfoot/helpers/pollUntil",
 	"intern/dojo/node!leadfoot/keys",
 	"intern/chai!assert",
-	"require",
-	"requirejs-dplugins/Promise!"
-], function (intern, registerSuite, pollUntil, keys, assert, require, Promise) {
+	"require"
+], function (intern, registerSuite, pollUntil, keys, assert, require) {
 	var PAGE = "./Accordion.html";
 
 	function checkPanelIsOpen(remote, panel) {
@@ -13,17 +12,17 @@ define(["intern",
 			.findById(panel)
 				.getProperty("open")
 				.then(function (open) {
-					assert.isTrue(open, "panel.open");
+					assert.isTrue(open, panel + ".open");
 				})
 				.isDisplayed()
 				.then(function (displayed) {
-					assert.isTrue(displayed, "panel visible");
+					assert.isTrue(displayed, panel + " visible");
 				})
 				.end()
 			.findByCssSelector("[aria-controls=" + panel + "]")
 				.getProperty("open")
 				.then(function (checked) {
-					assert.isTrue(checked, "header.open");
+					assert.isTrue(checked, panel + ".header.open");
 				})
 				.end()
 			.execute("return document.getElementById(" + panel + ")")
@@ -42,17 +41,17 @@ define(["intern",
 			.findById(panel)
 				.getProperty("open")
 				.then(function (open) {
-					assert.isFalse(open, "panel.open");
+					assert.isFalse(open, panel + ".open");
 				})
 				.isDisplayed()
 				.then(function (displayed) {
-					assert.isFalse(displayed, "panel visible");
+					assert.isFalse(displayed, panel + " hidden");
 				})
 				.end()
 			.findByCssSelector("[aria-controls=" + panel + "]")
 				.getProperty("open")
 				.then(function (checked) {
-					assert.isFalse(checked, "header.open");
+					assert.isFalse(checked, panel + ".header.open");
 				})
 				.end()
 			.execute("return document.getElementById(" + panel + ")")
@@ -75,60 +74,85 @@ define(["intern",
 		},
 
 		"SingleOpen Mode": {
-			"Check opening panel": function () {
+			"Initial state": function () {
+				var remote = this.remote;
+				return remote
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
+					});
+			},
+			"Open panel": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel2]")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1"));
-						remotes.push(checkPanelIsOpen(remote, "panel2"));
-						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
 					});
 			},
-			"Opening panel by clicking on the label": function () {
+			"Open panel by clicking on the label": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel3] > span:last-child")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1"));
-						remotes.push(checkPanelIsClosed(remote, "panel2"));
-						remotes.push(checkPanelIsOpen(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel3");
 					});
 			},
-			"Opening panel by clicking on the icon": function () {
+			"Open panel by clicking on the icon": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel2] > span:last-child")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1"));
-						remotes.push(checkPanelIsOpen(remote, "panel2"));
-						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
 					});
 			},
-			"Trying to close the open panel": function () {
+			"Try to close the open panel": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel2]")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1"));
-						remotes.push(checkPanelIsOpen(remote, "panel2"));
-						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
 					});
 			}
 		},
@@ -145,21 +169,25 @@ define(["intern",
 					.pressKeys(keys.ENTER)
 					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel1"));
-						remotes.push(checkPanelIsClosed(remote, "panel2"));
-						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsOpen(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
 					})
 					.pressKeys(keys.ARROW_DOWN)
 					.pressKeys(keys.SPACE)
 					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsClosed(remote, "panel1"));
-						remotes.push(checkPanelIsOpen(remote, "panel2"));
-						remotes.push(checkPanelIsClosed(remote, "panel3"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel1");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel2");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel3");
 					});
 			},
 			"HOME and END keys": function () {
@@ -241,63 +269,76 @@ define(["intern",
 					.execute("document.getElementById('accordion').style.display = 'none'")
 					.execute("document.getElementById('accordion2').style.display = ''");
 			},
-			"Check opening Promise.all panels": function () {
+			"Open all panels": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel22]")
 						.click()
 						.end()
+					.sleep(500)
 					.findByCssSelector("[aria-controls=panel23]")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21"));
-						remotes.push(checkPanelIsOpen(remote, "panel22"));
-						remotes.push(checkPanelIsOpen(remote, "panel23"));
-						return Promise.all(remotes);
+						return checkPanelIsOpen(remote, "panel21");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel22");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel23");
 					});
 			},
-			"Check closing panel": function () {
+			"Close panel": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel22]")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21"));
-						remotes.push(checkPanelIsClosed(remote, "panel22"));
-						remotes.push(checkPanelIsOpen(remote, "panel23"));
-						return Promise.all(remotes);
+						return checkPanelIsOpen(remote, "panel21");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel22");
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel23");
 					});
 			},
-			"Closing panel by clicking on the label": function () {
+			"Close panel by clicking on the label": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel23] span:last-child")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21"));
-						remotes.push(checkPanelIsClosed(remote, "panel22"));
-						remotes.push(checkPanelIsClosed(remote, "panel23"));
-						return Promise.all(remotes);
+						return checkPanelIsOpen(remote, "panel21");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel22");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel23");
 					});
 			},
-			"Trying to close last open panel": function () {
+			"Try to close last open panel": function () {
 				var remote = this.remote;
 				return remote
 					.findByCssSelector("[aria-controls=panel21]")
 						.click()
 						.end()
+					.sleep(500)
 					.then(function () {
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel21"));
-						remotes.push(checkPanelIsClosed(remote, "panel22"));
-						remotes.push(checkPanelIsClosed(remote, "panel23"));
-						return Promise.all(remotes);
+						return checkPanelIsOpen(remote, "panel21");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel22");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel23");
 					});
 			}
 		},
@@ -338,11 +379,15 @@ define(["intern",
 					.execute("return panel31_panelHeader.querySelector('button').innerHTML;")
 					.then(function (value) {
 						assert.strictEqual(value, "1 click");
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel31"));
-						remotes.push(checkPanelIsClosed(remote, "panel32"));
-						remotes.push(checkPanelIsClosed(remote, "panel33"));
-						return Promise.all(remotes);
+					})
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel31");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel32");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel33");
 					})
 					.pressKeys(keys.TAB)	// should go into the open panel
 					.execute("return document.activeElement.id;")
@@ -384,13 +429,17 @@ define(["intern",
 					.execute("return panel32_panelHeader.querySelector('button').innerHTML;")
 					.then(function (value) {
 						assert.strictEqual(value, "1 click");
-
+					})
+					.sleep(500)
+					.then(function () {
+						return checkPanelIsOpen(remote, "panel31");
+					})
+					.then(function () {
 						// Check that the panel 2 wasn't opened.
-						var remotes = [];
-						remotes.push(checkPanelIsOpen(remote, "panel31"));
-						remotes.push(checkPanelIsClosed(remote, "panel32"));
-						remotes.push(checkPanelIsClosed(remote, "panel33"));
-						return Promise.all(remotes);
+						return checkPanelIsClosed(remote, "panel32");
+					})
+					.then(function () {
+						return checkPanelIsClosed(remote, "panel33");
 					});
 			}
 		}
