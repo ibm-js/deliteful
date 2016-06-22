@@ -8,71 +8,6 @@
 
 	<script type="text/javascript" src="../../boilerplate.js"></script>
 
-	<script type="text/javascript">
-		var ready = false;
-		require([
-            "dcl/dcl",
-			"delite/register",
-			"deliteful/list/List",
-			"dojo/Deferred",
-			"dojo/store/util/QueryResults",
-			"dstore/Memory",
-			"dstore/Trackable",
-			"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
-			"requirejs-domready/domReady!"
-		], function (dcl, register, List, Deferred, QueryResults, MemoryStore, Trackable) {
-			// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
-			// TODO the test is not actually using the latency store, looks like something must be changed to actually
-			// test what it pretends to test
-			/*
-			var CustomMemoryStore = dcl([MemoryStore], {
-				latency: 500,
-				query: dcl.superCall(function (sup) {
-					return function (query, options) {
-						var def = new Deferred;
-						var that = this;
-						setTimeout(function () {
-							def.resolve(sup.call(that, query, options));
-						}, this.latency);
-						return new QueryResults(def);
-					};
-				})
-			});*/
-			var CM = MemoryStore.createSubclass([Trackable], {});
-			var createStore = function (itemsCount, latency) {
-				// TODO for now we add data later with addSync as this seems to remove weir test failures
-				// TODO we will have to come back on this later
-				/*
-				var i = 0, data = [];
-				for (; i < itemsCount; i++) {
-					data.push({id: 'ref' + i, text: 'this is list item ' + i});
-				}*/
-				return new CM({latency: latency, data: [], idProperty: "id"});
-			};
-			var list = register.createElement("d-list");
-			list.id = "list-prog-5";
-			list.style.height = "200px";
-			list.labelAttr = "text";
-			list.righttextFunc = function (item) {
-				return "id: " + item.id;
-			};
-			list.iconclassFunc = function (item) {
-				var i = parseInt(item.id.slice(3));
-				return "left-icon-" + (i % 10 + 1);
-			};
-			list.righticonclassFunc = function (item) {
-				var i = parseInt(item.id.slice(3));
-				return "right-icon-2-" + (i % 8 + 1);
-			};
-			list.source = createStore(100, 500);
-			document.getElementById("listPlaceholder").appendChild(list);
-			list.attachedCallback();
-			for (var i = 0; i < 100; i++) {
-				list.source.addSync({id: 'ref' + i, text: 'this is list item ' + i});
-			}
-			ready = true;
-		});
-	</script>
 	<style>
 		html {
 			width: 100%;
@@ -172,9 +107,73 @@
 	</style>
 </head>
 <body>
-<input type="text" autofocus>
-<br>
-<h2>Trackable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
-<div id="listPlaceholder"></div>
+	<input type="text" autofocus>
+	<br>
+	<h2>Trackable custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping (id: list-prog-5)</h2>
+	<div id="listPlaceholder"></div>
 </body>
+<script type="text/javascript">
+	var ready = false;
+	require([
+		"dcl/dcl",
+		"delite/register",
+		"deliteful/list/List",
+		"dstore/Memory",
+		"dstore/Trackable",
+		"delite/theme!delite/themes/{{theme}}/global.css",	// page level CSS
+		"requirejs-domready/domReady!"
+	], function (dcl, register, List, MemoryStore, Trackable) {
+		// Programmatic list: custom store with 500ms latency, using all items attribute and using delite/StoreMap mapping
+		// TODO the test is not actually using the latency store, looks like something must be changed to actually
+		// test what it pretends to test
+		/*
+		 var CustomMemoryStore = dcl([MemoryStore], {
+			 latency: 500,
+			 query: dcl.superCall(function (sup) {
+				 return function (query, options) {
+					 var def = new Deferred;
+					 var that = this;
+					 setTimeout(function () {
+						 def.resolve(sup.call(that, query, options));
+					 }, this.latency);
+					 return new QueryResults(def);
+				 };
+			 })
+		 });
+		 */
+		var CM = MemoryStore.createSubclass([Trackable], {});
+		var createStore = function (itemsCount, latency) {
+			// TODO for now we add data later with addSync as this seems to remove weir test failures
+			// TODO we will have to come back on this later
+			/*
+			 var i = 0, data = [];
+			 for (; i < itemsCount; i++) {
+				 data.push({id: 'ref' + i, text: 'this is list item ' + i});
+			 }*/
+			return new CM({latency: latency, data: [], idProperty: "id"});
+		};
+		var list = register.createElement("d-list");
+		list.id = "list-prog-5";
+		list.style.height = "200px";
+		list.labelAttr = "text";
+		list.righttextFunc = function (item) {
+			return "id: " + item.id;
+		};
+		list.iconclassFunc = function (item) {
+			var i = parseInt(item.id.slice(3));
+			return "left-icon-" + (i % 10 + 1);
+		};
+		list.righticonclassFunc = function (item) {
+			var i = parseInt(item.id.slice(3));
+			return "right-icon-2-" + (i % 8 + 1);
+		};
+		list.source = createStore(100, 500);
+		document.getElementById("listPlaceholder").appendChild(list);
+		list.attachedCallback();
+		for (var i = 0; i < 100; i++) {
+			list.source.addSync({id: 'ref' + i, text: 'this is list item ' + i});
+		}
+		ready = true;
+	});
+</script>
 </html>
