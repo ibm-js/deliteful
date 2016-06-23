@@ -463,6 +463,7 @@ define([
 			document.body.appendChild(list);
 			list.attachedCallback();
 			list.deliver();
+			list.attachedCallback();
 			assert.strictEqual(list.containerNode.children.length, 23, "0: number of list children");
 			assert.strictEqual(removeTabsAndReturns(list.nextPageLoader.labelNode.textContent),
 					"Click to load 23 more items",
@@ -986,6 +987,7 @@ define([
 			});
 
 			try {
+				list.attachedCallback();
 				list.deliver();
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-item-renderer").offsetWidth > 0, "d-list-item-renderer");
@@ -1011,6 +1013,7 @@ define([
 			});
 
 			try {
+				list.attachedCallback();
 				list.deliver();
 				assert(list.offsetWidth > 50, "list.offsetWidth === " + list.offsetWidth);
 				assert(list.querySelector("d-list-category-renderer").offsetWidth > 0, "d-list-category-renderer");

@@ -332,7 +332,7 @@ define([
 					list.style.height = "200px";
 					document.body.appendChild(list);	// StoreMap defers query until node attached to document
 					list.attachedCallback();
-
+					list.deliver();
 					list.focus();
 					var focusedElement = document.activeElement;
 					assert.isNotNull(focusedElement, "active element");
@@ -343,16 +343,19 @@ define([
 				"show/hide no items node depending of list's containerNode children": function () {
 					var list = new ListConstructor({source: new ObservableArray()});
 					document.body.appendChild(list);
+					list.attachedCallback();
 					list.showNoItems = true;
 					list.source.push({id: "0", label: "item 0"});
 					list.source.push({id: "1", label: "item 1"});
 					list.deliver();
+					list.attachedCallback();
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='false']"),
 						".d-list-no-items must be hidden");
 					while (list.source.length > 0) {
 						list.source.pop();
 					}
 					list.deliver();
+					list.attachedCallback();
 					assert.isNotNull(list.querySelector(".d-list-no-items[d-shown='true']"),
 					".d-list-no-items must be visible");
 					list.source.push({id: "0", label: "item 0"});
