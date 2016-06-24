@@ -218,7 +218,7 @@ define([
 		 */
 		_nextPageButtonLabel: "",
 
-		tabindex: 0,
+		_tabIndexAttr: 0,
 
 		/*jshint maxcomplexity: 15*/
 		computeProperties: function (props) {

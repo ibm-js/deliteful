@@ -182,7 +182,7 @@ define([
 
 		template: template,
 
-		tabindex: 0,
+		_tabIndexAttr: 0,
 
 		/**
 		 * Defines the scroll direction: `"vertical"` for a scrollable List, `"none"` for a non scrollable List.
