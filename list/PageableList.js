@@ -456,16 +456,11 @@ define([
 			if (renderer) {
 				var previous = renderer.previousElementSibling;
 				if (previous && previous.renderNode) {
-					//var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
 					this.navigateTo(previous.renderNode);
 					// scroll the focused node to the top of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.
-					console.log("prev: " + this.getTopDistance(previous));
 					this.scrollBy({y: this.getTopDistance(previous)});
-					// if (currentActiveElement) {
-					// 	currentActiveElement.focus();
-					// }
 				}
 			}
 			this.previousPageLoader.loading = this.loadingPreviousPage = this._busy = false;
@@ -504,15 +499,11 @@ define([
 			if (renderer) {
 				var next = renderer.nextElementSibling;
 				if (next && next.renderNode) {
-					//var currentActiveElement = this.navigatedDescendant ? null : this.ownerDocument.activeElement;
 					this.navigateTo(next.renderNode);
 					// scroll the focused node to the bottom of the screen.
 					// To avoid flickering, we do not wait for a focus event
 					// to confirm that the child has indeed been focused.
 					this.scrollBy({y: this.getBottomDistance(next)});
-					// if (currentActiveElement) {
-					// 	currentActiveElement.focus();
-					// }
 				}
 			}
 			this.nextPageLoader.loading = this.loadingNextPage = this._busy = false;
@@ -657,20 +648,5 @@ define([
 				this._loadPreviousPage();
 			}
 		}
-
-		// _spaceKeydownHandler: dcl.superCall(function (sup) {
-		// 	//	Handle action key on page loaders
-		// 	return function (event) {
-		// 		if (this.nextPageLoader.contains(event.target)) {
-		// 			event.preventDefault();
-		// 			this._loadNextPage();
-		// 		} else if (this.previousPageLoader.contains(event.target)) {
-		// 			event.preventDefault();
-		// 			this._loadPreviousPage();
-		// 		} else {
-		// 			sup.apply(this, arguments);
-		// 		}
-		// 	};
-		// })
 	});
 });
